@@ -25,57 +25,7 @@
 
 ## Код
 
-```cpp
-// which_ctor.cpp — хто саме викликається за кожної форми запису
-// g++ -std=c++17 -Wall -Wextra which_ctor.cpp -o which_ctor
-#include <cstdio>
-#include <initializer_list>
-
-struct Probe {
-    Probe() {
-        std::puts("Probe()                       типовий");
-    }
-    Probe(int n, bool flag) {
-        std::printf("Probe(int, bool)              n=%d flag=%s\n",
-                    n, flag ? "true" : "false");
-    }
-    Probe(std::initializer_list<int> xs) {
-        std::printf("Probe(initializer_list<int>)  список (%u):", (unsigned)xs.size());
-        for (int v : xs) std::printf(" %d", v);
-        std::putchar('\n');
-    }
-    explicit Probe(double v) {
-        std::printf("explicit Probe(double)        v=%g\n", v);
-    }
-    Probe(const Probe&) {
-        std::puts("Probe(const Probe&)           копія");
-    }
-};
-
-// друкує текст рядка й лишає курсор на місці — далі допише сам конструктор
-static void form(const char* code) { std::printf("%-24s│ ", code); }
-
-int main() {
-    form("Probe a;");              Probe a;
-    form("Probe b{};");            Probe b{};
-    form("Probe c = {};");         Probe c = {};
-    form("Probe d({});");          Probe d({});
-    form("Probe e{{}};");          Probe e{{}};
-    form("Probe f(1);");           Probe f(1);
-    form("Probe g{1};");           Probe g{1};
-    form("Probe h(10, true);");    Probe h(10, true);
-    form("Probe i{10, true};");    Probe i{10, true};
-    form("Probe j = {10, true};"); Probe j = {10, true};
-    form("Probe k(2.5);");         Probe k(2.5);
-    form("Probe l{1, 2, 3};");     Probe l{1, 2, 3};
-    form("Probe m(a);");           Probe m(a);
-    form("Probe n = a;");          Probe n = a;
-    form("Probe o{a};");           Probe o{a};
-
-    form("Probe w();");            Probe w();
-    std::puts("(нічого — це оголошення функції)");
-}
-```
+:::code proj-which-ctor/cpp/which_ctor.cpp
 
 Останній рядок навмисно лишений без пояснень у коді: він **нічого не друкує**, бо `Probe w();` не створює об'єкта. Компілятори це вже ловлять і без нас — Clang давно, GCC від одинадцятої версії: обидва скажуть, що порожні дужки розв'язано на користь оголошення функції.
 
@@ -118,35 +68,7 @@ Probe w();              │ (нічого — це оголошення функ
 
 Той самий дослід на готовому типі зі стандартної бібліотеки — щоб переконатися, що `vector` не має жодної магії, а лише два конкурентні конструктори ([вибір контейнера](root:sys-plang-cpp/stl-containers-choice)).
 
-```cpp
-// vectors.cpp
-#include <cstdio>
-#include <string>
-#include <vector>
-
-static void show(const char* code, const std::vector<int>& v) {
-    std::printf("%-28s│ розмір %u:", code, (unsigned)v.size());
-    for (int x : v) std::printf(" %d", x);
-    std::putchar('\n');
-}
-static void show(const char* code, const std::vector<std::string>& v) {
-    std::printf("%-28s│ розмір %u", code, (unsigned)v.size());
-    if (!v.empty()) std::printf(", [0] = \"%s\"", v[0].c_str());
-    std::putchar('\n');
-}
-
-int main() {
-    show("vector<int> v(3, 0)",      std::vector<int>(3, 0));
-    show("vector<int> v{3, 0}",      std::vector<int>{3, 0});
-    show("vector<int> v(3)",         std::vector<int>(3));
-    show("vector<int> v{3}",         std::vector<int>{3});
-    show("vector<int> v{}",          std::vector<int>{});
-    show("vector<int> v({})",        std::vector<int>({}));
-    show("vector<int> v{{}}",        std::vector<int>{{}});
-    show("vector<string> v(10, \"hi\")", std::vector<std::string>(10, "hi"));
-    show("vector<string> v{10, \"hi\"}", std::vector<std::string>{10, "hi"});
-}
-```
+:::code proj-which-ctor/cpp/vectors.cpp
 
 ```
 vector<int> v(3, 0)         │ розмір 3: 0 0 0
@@ -166,39 +88,7 @@ vector<string> v{10, "hi"}  │ розмір 10, [0] = "hi"
 
 Половина правил ініціалізації проявляється тільки через помилки, тому їх варто зібрати окремо й дивитися по одній. Кожен випадок вмикається своїм `-DERR=n`.
 
-```cpp
-// errors.cpp — по одному спірному рядку на прогін (останній випадок правильний)
-// g++ -std=c++17 -DERR=1 -c errors.cpp
-#include <initializer_list>
-#include <string>
-#include <vector>
-
-struct Probe {
-    Probe();
-    Probe(int, bool);
-    Probe(std::initializer_list<int>);
-    explicit Probe(double);
-    Probe(const Probe&);
-};
-
-#if   ERR == 1
-Probe p{2.5};                            // списочний обрано → звуження double → int
-#elif ERR == 2
-Probe p = 2.5;                           // explicit не потрапив у кандидати
-#elif ERR == 3
-double d = 2.5;
-Probe p{d};                              // те саме звуження, але джерело — НЕ константа
-#elif ERR == 4
-int n = 10;
-std::vector<std::string> v{n, "hi"};     // int → size_type, джерело — не константа
-#elif ERR == 5
-const int n = 10;
-std::vector<std::string> v{n, "hi"};     // те саме, але константа — і все чисто
-#elif ERR == 6
-struct Rect { int w; int h; };
-Rect r(3, 4);                            // круглі дужки для агрегату
-#endif
-```
+:::code proj-which-ctor/cpp/shcho-ne-kompiliuietsia.hpp
 
 Перші два випадки — те, заради чого стенд узагалі має `explicit`-конструктор. Повідомлення GCC (тут і далі — g++ 13, скорочено; формулювання різняться від версії до версії):
 
@@ -226,43 +116,7 @@ GCC свідомо пом'якшив діагностику заради ста�
 
 Останній перемикач у стенді — версія стандарту. Ця частина, на відміну від решти, свідомо друкує різне під різними прапорцями.
 
-```cpp
-// agg.cpp — g++ -std=c++17 agg.cpp && g++ -std=c++20 agg.cpp
-#include <cstdio>
-#include <type_traits>
-
-struct Rect { int w; int h = 10; };        // агрегат
-struct Tag  { Tag() = default; int v; };   // агрегат у C++17, НЕ агрегат у C++20
-
-int main() {
-    std::printf("__cplusplus = %ld\n", (long)__cplusplus);
-
-#ifdef __cpp_aggregate_paren_init
-    std::printf("__cpp_aggregate_paren_init = %ld\n", (long)__cpp_aggregate_paren_init);
-    Rect a(3, 4);
-    Rect b(3);
-    Rect c(3.9, 4);                        // звуження круглими ДОЗВОЛЕНЕ
-    std::printf("Rect a(3, 4)   → %d × %d\n", a.w, a.h);
-    std::printf("Rect b(3)      → %d × %d\n", b.w, b.h);
-    std::printf("Rect c(3.9, 4) → %d × %d\n", c.w, c.h);
-#else
-    std::puts("круглі дужки для агрегату недоступні");
-#endif
-
-    Rect d{3, 4};
-    std::printf("Rect d{3, 4}   → %d × %d\n", d.w, d.h);
-
-#if __cplusplus < 202002L
-    Tag t{7};
-    std::printf("Tag t{7}       → v = %d  (Tag ще агрегат)\n", t.v);
-#else
-    std::puts("Tag t{7}       → не компілюється: Tag більше не агрегат");
-#endif
-
-    std::printf("is_constructible<Rect, int, int> = %d\n",
-                (int)std::is_constructible<Rect, int, int>::value);
-}
-```
+:::code proj-which-ctor/cpp/agg.cpp
 
 ```
 ── -std=c++17
@@ -297,32 +151,7 @@ is_constructible<Rect, int, int> = 1
 
 Тепер найдорожчий дослід стенду. Він показує не те, як мова обирає конструктор, а те, що станеться з чужим кодом, коли ви як автор класу зробите нібито безневинне доповнення.
 
-```cpp
-// hijack.cpp
-// g++ -std=c++17 hijack.cpp -o h1
-// g++ -std=c++17 -DWITH_LIST_CTOR hijack.cpp -o h2
-#include <cstdio>
-#include <initializer_list>
-
-struct Grid {
-    Grid(int r, int c) {
-        std::printf("  Grid(int, int)               сітка %d × %d = %d клітинок\n",
-                    r, c, r * c);
-    }
-#ifdef WITH_LIST_CTOR
-    Grid(std::initializer_list<int> cells) {
-        std::printf("  Grid(initializer_list<int>)  список (%u):", (unsigned)cells.size());
-        for (int v : cells) std::printf(" %d", v);
-        std::putchar('\n');
-    }
-#endif
-};
-
-int main() {
-    std::puts("Grid a{3, 4};");  Grid a{3, 4};
-    std::puts("Grid b(3, 4);");  Grid b(3, 4);
-}
-```
+:::code proj-which-ctor/cpp/hijack.cpp
 
 ```
 ── ./h1

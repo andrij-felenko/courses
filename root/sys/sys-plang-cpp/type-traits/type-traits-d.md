@@ -34,19 +34,7 @@ void copy_buffer(const T* src, T* dst, std::size_t count) {
 
 У стандартній бібліотеці C++ кожна метафункція опитування реалізується як шаблон структури, успадкований від уніфікованого базового шаблону `std::integral_constant`:
 
-```cpp
-template<class T, T v>
-struct integral_constant {
-    static constexpr T value = v;
-    using value_type = T;
-    using type = integral_constant;
-    constexpr operator value_type() const noexcept { return value; }
-    constexpr value_type operator()() const noexcept { return value; }
-};
-
-using true_type  = integral_constant<bool, true>;
-using false_type = integral_constant<bool, false>;
-```
+:::code type-traits-d/cpp/anatomiia-metafunktsii-iak.cpp
 
 Шаблон `std::integral_constant` обгортає будь-яке константне значення `v` типу `T` унікальним типом C++. Зверніть увагу на два важливих оператори всередині: `operator value_type()` дозволяє використовувати об'єкт метафункції у булевих виразах, а `operator()()` дозволяє викликати його як функтор під час обчислення `constexpr`.
 
@@ -179,28 +167,7 @@ struct is_signed_integral
 
 У C++11 для вибору гілки використовували передачу екземплярів `std::true_type` чи `std::false_type` у приватні перевантажені функції:
 
-```cpp
-namespace detail {
-    // Гілка 1: Швидкий memcpy для тривіально копійованих типів
-    template<typename T>
-    void copy_impl(const T* src, T* dst, std::size_t count, std::true_type) {
-        std::memcpy(dst, src, count * sizeof(T));
-    }
-
-    // Гілка 2: Поелементний цикл для складних типів
-    template<typename T>
-    void copy_impl(const T* src, T* dst, std::size_t count, std::false_type) {
-        for (std::size_t i = 0; i < count; ++i) {
-            dst[i] = src[i];
-        }
-    }
-}
-
-template<typename T>
-void copy_buffer(const T* src, T* dst, std::size_t count) {
-    detail::copy_impl(src, dst, count, std::is_trivially_copyable<T>());
-}
-```
+:::code type-traits-d/cpp/etap-1-tag-dispatching-c.cpp
 
 Недолік: вимагає винесення логіки у допоміжні перевантажені функції у внутрішніх просторах імен `detail`.
 
@@ -208,21 +175,7 @@ void copy_buffer(const T* src, T* dst, std::size_t count) {
 
 Метафункція `std::enable_if_t` дозволяє вилучати функції з набору кандидатів перевантаження, якщо умова є хибною:
 
-```cpp
-// Гілка 1: Активується тільки якщо тип тривіально копійований
-template<typename T, std::enable_if_t<std::is_trivially_copyable_v<T>>* = nullptr>
-void copy_buffer(const T* src, T* dst, std::size_t count) {
-    std::memcpy(dst, src, count * sizeof(T));
-}
-
-// Гілка 2: Активується тільки якщо тип НЕ є тривіально копійованим
-template<typename T, std::enable_if_t<!std::is_trivially_copyable_v<T>>* = nullptr>
-void copy_buffer(const T* src, T* dst, std::size_t count) {
-    for (std::size_t i = 0; i < count; ++i) {
-        dst[i] = src[i];
-    }
-}
-```
+:::code type-traits-d/cpp/etap-2-sfinae-ta-std.cpp
 
 Недолік: перевантажує сигнатуру функції технічними параметрами, ускладнює читання оголошень та генерує важкі текстові повідомлення про помилки збірки.
 
@@ -230,20 +183,7 @@ void copy_buffer(const T* src, T* dst, std::size_t count) {
 
 Конструкція `if constexpr` дозволяє виконувати розгалуження прямо всередині тіла однієї функції. Невибрана гілка взагалі не компілюється для даного типу `T`:
 
-```cpp
-template<typename T>
-void copy_buffer(const T* src, T* dst, std::size_t count) {
-    if constexpr (std::is_trivially_copyable_v<T>) {
-        // Миттєве копіювання блоку пам'яті
-        std::memcpy(dst, src, count * sizeof(T));
-    } else {
-        // Поелементний виклик операторів присвоєння
-        for (std::size_t i = 0; i < count; ++i) {
-            dst[i] = src[i];
-        }
-    }
-}
-```
+:::code type-traits-d/cpp/etap-3-if-constexpr-c-17.cpp
 
 Це найзручніший підхід для внутрішньої оптимізації алгоритмів: код залишається локалізованим в одному місці й не вимагає додаткових функцій-обгорток.
 
@@ -279,19 +219,7 @@ void fast_byte_copy(const T* src, T* dst, std::size_t count) {
 
 Проілюструємо поведінку `std::decay_t` на конкретних прикладах:
 
-```cpp
-// 1. Посилання на const-число:
-using T1 = std::decay_t<const int&>;       // Перетворюється на int
-
-// 2. Статичний масив символів:
-using T2 = std::decay_t<const char[12]>;   // Перетворюється на const char*
-
-// 3. Сигнатура функції:
-using T3 = std::decay_t<void(int)>;        // Перетворюється на void(*)(int)
-
-// 4. Вказівник на const-дані (const під вказівником не є топовим, тому залишається):
-using T4 = std::decay_t<const int* const>; // Перетворюється на const int*
-```
+:::code type-traits-d/cpp/skladni-transformatsii.cpp
 
 Метафункція `std::decay_t` є незамінною у фабричних шаблонах на кшталт `std::make_tuple` або `std::make_pair`, де вхідні масиви чи посилання повинні зберігатися як стабільні значення.
 

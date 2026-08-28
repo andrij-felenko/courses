@@ -18,30 +18,7 @@
 
 Коли ми перевіряємо, чи має об'єкт метод `obj.serialize(buf)`, об'єкт повинен бути доступний за константним посиланням `const T&`, оскільки серіалізація не повинна змінювати стан об'єкта. Буфер навпаки передається за неконстантним посиланням `Buffer&`:
 
-```cpp
-#include <type_traits>
-#include <utility>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <cstring>
-#include <cstdint>
-
-using Buffer = std::vector<uint8_t>;
-
-// 1. Первинний шаблон: за замовчуванням метод відсутній
-template<typename T, typename = void>
-struct has_member_serialize : std::false_type {};
-
-// 2. Часткова спеціалізація для валідного виразу
-template<typename T>
-struct has_member_serialize<T, std::void_t<
-    decltype(std::declval<const T&>().serialize(std::declval<Buffer&>()))
->> : std::true_type {};
-
-template<typename T>
-inline constexpr bool has_member_serialize_v = has_member_serialize<T>::value;
-```
+:::code proj-detection-idiom/cpp/1-detektor-chlenskoho.cpp
 
 Якщо тип `T` має відкритий метод `serialize(Buffer&)`, вираз всередині `decltype` успішно формується, `std::void_t` перетворює його на тип `void`, і компілятор обирає часткову спеціалізацію з `std::true_type`. Якщо методу немає або він приватний, підстановка у спеціалізацію зазнає помилки SFINAE, і компілятор тихо обирає первинний шаблон з `std::false_type`.
 
@@ -49,43 +26,13 @@ inline constexpr bool has_member_serialize_v = has_member_serialize<T>::value;
 
 Часто сторонні бібліотечні типи не мають методів-членів, але надають зовнішню функцію `serialize(buf, obj)` у своєму просторі імен. Для її виявлення ми оголошуємо детектор, який активує пошук Кеніга:
 
-```cpp
-// Допоміжний простір імен для ізоляції перевірки ADL
-namespace adl_detection {
-    // Фіктивні оголошення, щоб компілятор знав ім'я serialize під час первинного розбору
-    void serialize();
-
-    template<typename T, typename = void>
-    struct has_adl_serialize : std::false_type {};
-
-    template<typename T>
-    struct has_adl_serialize<T, std::void_t<
-        decltype(serialize(std::declval<Buffer&>(), std::declval<const T&>()))
-    >> : std::true_type {};
-}
-
-template<typename T>
-inline constexpr bool has_adl_serialize_v = adl_detection::has_adl_serialize<T>::value;
-```
+:::code proj-detection-idiom/cpp/2-detektor-vilnoi-funktsii.cpp
 
 ### 3. Детектор стандартних контейнерів та послідовностей
 
 Щоб визначити, чи є тип ітерованою послідовністю (як `std::vector`, `std::list` або `std::string`), ми перевіряємо наявність методів `begin()`, `end()` та наявність вкладеного типу `value_type`:
 
-```cpp
-template<typename T, typename = void>
-struct is_iterable_container : std::false_type {};
-
-template<typename T>
-struct is_iterable_container<T, std::void_t<
-    decltype(std::declval<const T&>().begin()),
-    decltype(std::declval<const T&>().end()),
-    typename T::value_type
->> : std::true_type {};
-
-template<typename T>
-inline constexpr bool is_iterable_container_v = is_iterable_container<T>::value;
-```
+:::code proj-detection-idiom/cpp/3-detektor-standartnykh.cpp
 
 ## Каскадна диспетчеризація за пріоритетами (Priority Tag Dispatching)
 
@@ -108,176 +55,15 @@ struct priority_tag<0> {};
 Нижче наведено повне порівняння реалізації у C++17 та C++20:
 
 :::tabs
-```cpp
-// Реалізація серіалізатора для C++17 (SFINAE + Priority Tag Dispatching)
-
-// 1. Найвищий пріоритет (Tag 3): Власний метод serialize
-template<typename T, std::enable_if_t<has_member_serialize_v<T>, int> = 0>
-void write_impl(Buffer& buf, const T& obj, priority_tag<3>) {
-    std::cout << "[SFINAE: Priority 3] Виклик obj.serialize(buf)\n";
-    obj.serialize(buf);
-}
-
-// 2. Другий пріоритет (Tag 2): Вільна функція через ADL
-template<typename T, std::enable_if_t<has_adl_serialize_v<T>, int> = 0>
-void write_impl(Buffer& buf, const T& obj, priority_tag<2>) {
-    std::cout << "[SFINAE: Priority 2] Виклик serialize(buf, obj) через ADL\n";
-    serialize(buf, obj);
-}
-
-// 3. Третій пріоритет (Tag 1): Контейнери та послідовності
-template<typename T, std::enable_if_t<is_iterable_container_v<T>, int> = 0>
-void write_impl(Buffer& buf, const T& container, priority_tag<1>) {
-    std::cout << "[SFINAE: Priority 1] Послідовна серіалізація контейнера\n";
-    uint32_t sz = static_cast<uint32_t>(container.size());
-    // Рекурсивно записуємо розмір
-    const uint8_t* sz_ptr = reinterpret_cast<const uint8_t*>(&sz);
-    buf.insert(buf.end(), sz_ptr, sz_ptr + sizeof(sz));
-    for (const auto& item : container) {
-        write_impl(buf, item, priority_tag<3>{});
-    }
-}
-
-// 4. Четвертий пріоритет (Tag 0): Сирі тривіально копійовані байти
-template<typename T, std::enable_if_t<std::is_trivially_copyable_v<T>, int> = 0>
-void write_impl(Buffer& buf, const T& val, priority_tag<0>) {
-    std::cout << "[SFINAE: Priority 0] Прямий запис сирих байтів пам'яті\n";
-    const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&val);
-    buf.insert(buf.end(), ptr, ptr + sizeof(T));
-}
-
-// Публічний фасад
-template<typename T>
-void write_data(Buffer& buf, const T& val) {
-    write_impl(buf, val, priority_tag<3>{});
-}
-```
-```cpp
-// Сучасна реалізація для C++20 (Concepts & Requires & Subsumption)
-
-// Визначення концептів інтерфейсів
-template<typename T>
-concept HasMemberSerialize = requires(const T& obj, Buffer& buf) {
-    { obj.serialize(buf) } -> std::same_as<void>;
-};
-
-template<typename T>
-concept HasAdlSerialize = requires(const T& obj, Buffer& buf) {
-    { serialize(buf, obj) } -> std::same_as<void>;
-};
-
-template<typename T>
-concept IterableContainer = requires(const T& c) {
-    c.begin();
-    c.end();
-    typename T::value_type;
-};
-
-template<typename T>
-concept TriviallyRaw = std::is_trivially_copyable_v<T>;
-
-// 1. Гілка з власним методом
-void write_data(Buffer& buf, const HasMemberSerialize auto& obj) {
-    std::cout << "[Concept: Member] Виклик obj.serialize(buf)\n";
-    obj.serialize(buf);
-}
-
-// 2. Гілка з ADL
-void write_data(Buffer& buf, const HasAdlSerialize auto& obj) 
-    requires (!HasMemberSerialize<decltype(obj)>) 
-{
-    std::cout << "[Concept: ADL] Виклик serialize(buf, obj)\n";
-    serialize(buf, obj);
-}
-
-// 3. Гілка контейнерів
-void write_data(Buffer& buf, const IterableContainer auto& container)
-    requires (!HasMemberSerialize<decltype(container)> && !HasAdlSerialize<decltype(container)>)
-{
-    std::cout << "[Concept: Container] Серіалізація елементів\n";
-    uint32_t sz = static_cast<uint32_t>(container.size());
-    const uint8_t* sz_ptr = reinterpret_cast<const uint8_t*>(&sz);
-    buf.insert(buf.end(), sz_ptr, sz_ptr + sizeof(sz));
-    for (const auto& item : container) {
-        write_data(buf, item);
-    }
-}
-
-// 4. Гілка сирих байтів
-void write_data(Buffer& buf, const TriviallyRaw auto& val)
-    requires (!HasMemberSerialize<decltype(val)> && 
-              !HasAdlSerialize<decltype(val)> && 
-              !IterableContainer<decltype(val)>)
-{
-    std::cout << "[Concept: Raw] Прямий запис байтів\n";
-    const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&val);
-    buf.insert(buf.end(), ptr, ptr + sizeof(val));
-}
-```
+:::code proj-detection-idiom/cpp/kaskadna.cpp
+:::code proj-detection-idiom/cpp/kaskadna-2.cpp
 :::
 
 ## Тестування та перевірка відбору перевантажень
 
 Перевіримо роботу диспетчера на різних категоріях типів даних:
 
-```cpp
-// 1. Скалярна структура без спеціальних методів
-struct SensorHeader {
-    uint32_t device_id;
-    uint16_t packet_seq;
-};
-
-// 2. Клас користувача з власним методом
-struct UserProfile {
-    uint64_t uid;
-    std::string name;
-
-    void serialize(Buffer& buf) const {
-        const uint8_t* id_p = reinterpret_cast<const uint8_t*>(&uid);
-        buf.insert(buf.end(), id_p, id_p + sizeof(uid));
-        uint32_t len = static_cast<uint32_t>(name.size());
-        const uint8_t* len_p = reinterpret_cast<const uint8_t*>(&len);
-        buf.insert(buf.end(), len_p, len_p + sizeof(len));
-        buf.insert(buf.end(), name.begin(), name.end());
-    }
-};
-
-// 3. Сторонній тип із вільною функцією у власному просторі імен
-namespace external_geo {
-    struct Coordinates {
-        double latitude;
-        double longitude;
-    };
-
-    void serialize(Buffer& buf, const Coordinates& c) {
-        const uint8_t* p = reinterpret_cast<const uint8_t*>(&c);
-        buf.insert(buf.end(), p, p + sizeof(c));
-    }
-}
-
-int main() {
-    Buffer stream;
-
-    // Тест 1: Сирі байти
-    SensorHeader hdr{101, 42};
-    write_data(stream, hdr);
-
-    // Тест 2: Метод-член
-    UserProfile profile{99999, "system_admin"};
-    write_data(stream, profile);
-
-    // Тест 3: Вільна функція через ADL
-    external_geo::Coordinates geo{50.4501, 30.5234};
-    write_data(stream, geo);
-
-    // Тест 4: Контейнер
-    std::vector<int> numbers = {100, 200, 300};
-    write_data(stream, numbers);
-
-    std::cout << "Успішно записано " << stream.size() << " байтів.\n";
-    return 0;
-}
-```
+:::code proj-detection-idiom/cpp/testuvannia-ta-perevirka.cpp
 
 ## Аналіз вартості виконання та оптимізації компілятора
 

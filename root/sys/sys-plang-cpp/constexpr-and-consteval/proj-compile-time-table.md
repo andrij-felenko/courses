@@ -10,33 +10,7 @@
 
 Четвертий спосіб — написати генератор звичайним C++ і зажадати, щоб він відпрацював під час компіляції.
 
-```cpp
-#include <array>
-#include <cstdint>
-#include <string_view>
-
-consteval std::array<std::uint32_t, 256> make_crc32_table() {
-    std::array<std::uint32_t, 256> t{};
-    for (std::uint32_t i = 0; i < 256; ++i) {
-        std::uint32_t c = i;
-        for (int bit = 0; bit < 8; ++bit)
-            c = (c & 1u) ? (0xEDB88320u ^ (c >> 1)) : (c >> 1);
-        t[i] = c;
-    }
-    return t;
-}
-
-inline constexpr std::array<std::uint32_t, 256> crc32_table = make_crc32_table();
-
-constexpr std::uint32_t crc32(std::string_view data) {
-    std::uint32_t crc = 0xFFFFFFFFu;
-    for (unsigned char b : data)
-        crc = crc32_table[(crc ^ b) & 0xFFu] ^ (crc >> 8);
-    return crc ^ 0xFFFFFFFFu;
-}
-
-static_assert(crc32("123456789") == 0xCBF43926u);
-```
+:::code proj-compile-time-table/cpp/tablytsia-iakoi-nikhto-ne.cpp
 
 Кожне слово тут вибране навмисно. `consteval` на генераторі: якби таблиця з якоїсь причини не порахувалася, потрібна помилка збірки, а не тихе перенесення роботи на старт програми — мовчазний відкат і є та вада, від якої ми тікаємо. `constexpr` на змінній вимагає, щоб значення існувало до запуску. `crc32` натомість лише `constexpr`, і це не недогляд: та сама функція рахує контрольну суму мережевого пакета в час виконання й контрольну суму літерала під час компіляції.
 
@@ -106,42 +80,7 @@ std::uint32_t checksum(std::string_view s) {
 
 Прямий підхід не працює, і причина повчальна. Усередині `log` її параметр — звичайна змінна, а не стала: обчислювач сталих не може її прочитати, хоч би яким літералом її наповнили на місці виклику. Отже перевіряти треба раніше — у мить, коли літерал іще літерал, тобто **під час перетворення аргументу на тип параметра**.
 
-```cpp
-#include <format>
-#include <iostream>
-#include <string_view>
-#include <type_traits>
-
-consteval std::size_t count_slots(std::string_view s) {
-    std::size_t n = 0;
-    for (std::size_t i = 0; i < s.size(); ++i) {
-        if (s[i] != '{') continue;
-        if (i + 1 < s.size() && s[i + 1] == '{') { ++i; continue; }   // «{{» — екранована дужка
-        if (i + 1 >= s.size() || s[i + 1] != '}')
-            throw "у рядку формату є '{' без пари";
-        ++n; ++i;
-    }
-    return n;
-}
-
-template <class... Args>
-struct fmt_string {
-    std::string_view text;
-    consteval fmt_string(const char* s) : text(s) {
-        if (count_slots(text) != sizeof...(Args))
-            throw "кількість {} не збігається з кількістю аргументів";
-    }
-};
-
-template <class... Args>
-void log(fmt_string<std::type_identity_t<Args>...> f, Args&&... args) {
-    std::cout << std::vformat(f.text, std::make_format_args(args...)) << '\n';
-}
-
-log("порт {} зайнято процесом {}", 8080, "nginx");   // добре
-log("порт {} зайнято процесом {}", 8080);            // помилка компіляції
-log("порт {", 8080);                                 // помилка компіляції
-```
+:::code proj-compile-time-table/cpp/perevirka-iaka-musyt.cpp
 
 Робочим це роблять три деталі.
 

@@ -113,20 +113,7 @@ take(std::move(p));                          // ✓ передача напис�
 
 **Клас зберігає рядок; аргумент приходить то іменованою змінною, то тимчасовим значенням.**
 
-```cpp
-// A. Пара перевантажень
-struct Label {
-    void set(const std::string& s) { text_ = s; }             // копіювальне присвоєння
-    void set(std::string&& s)      { text_ = std::move(s); }  // переміщувальне
-    std::string text_;
-};
-
-// B. Приймач за значенням + переміщення
-struct Label2 {
-    void set(std::string s) { text_ = std::move(s); }
-    std::string text_;
-};
-```
+:::code ownership-semantics-d/cpp/main.cpp
 
 ```
 аргумент — іменована змінна, у text_ уже є достатня ємність:

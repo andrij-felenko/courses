@@ -23,64 +23,7 @@
 
 ## Код
 
-```cpp
-#include <cstddef>      // std::byte, std::size_t
-#include <memory>       // std::destroy_at
-#include <new>          // розміщувальний new, std::launder
-#include <stdexcept>
-#include <utility>
-
-template <class T, std::size_t N>
-class StaticVector {
-public:
-    StaticVector() noexcept = default;
-    ~StaticVector() { clear(); }
-
-    StaticVector(const StaticVector&)            = delete;   // чому — нижче
-    StaticVector& operator=(const StaticVector&) = delete;
-
-    std::size_t size() const noexcept { return size_; }
-    static constexpr std::size_t capacity() noexcept { return N; }
-
-    template <class... Args>
-    T& emplace_back(Args&&... args) {
-        if (size_ == N)
-            throw std::length_error("StaticVector: місткість вичерпано");
-
-        T* p = ::new (raw(size_)) T(std::forward<Args>(args)...);  // 1. час життя почався
-        ++size_;                                                   // 2. і лише тепер він наш
-        return *p;
-    }
-
-    void pop_back() noexcept {
-        --size_;                       // спершу знімаємо з обліку
-        std::destroy_at(at(size_));    // потім закінчуємо час життя; байти лишаються
-    }
-
-    void clear() noexcept {
-        while (size_ != 0) pop_back();  // зворотний порядок — як у блоці
-    }
-
-    template <class It>
-    void append(It first, It last);
-
-    T&       operator[](std::size_t i)       noexcept { return *at(i); }
-    const T& operator[](std::size_t i) const noexcept { return *at(i); }
-
-private:
-    void* raw(std::size_t i) noexcept { return buf_ + i * sizeof(T); }
-
-    T* at(std::size_t i) noexcept {
-        return std::launder(reinterpret_cast<T*>(buf_ + i * sizeof(T)));
-    }
-    const T* at(std::size_t i) const noexcept {
-        return std::launder(reinterpret_cast<const T*>(buf_ + i * sizeof(T)));
-    }
-
-    alignas(T) std::byte buf_[N * sizeof(T)];
-    std::size_t size_ = 0;
-};
-```
+:::code proj-manual-lifetime/cpp/kod.cpp
 
 Два місця варті окремого слова. `::new (адреса) T(...)` — це не виділення пам'яті, а лише команда «почни тут час життя»; глобальна `::` потрібна, щоб перевантажений `operator new` самого класу `T` не перехопив виклик. А [`std::launder`](root:sys-plang-cpp/std-launder) розв'язує тонкість, яку легко пропустити: вираз `reinterpret_cast<T*>(buf_ + i * sizeof(T))` за буквою стандарту дає вказівник на елемент **масиву байтів**, а не на створений у ньому об'єкт, і компілятор має право спиратися на цю різницю під час оптимізації. `std::launder` каже «перевидай мені вказівник на те, що тут живе зараз».
 
@@ -90,20 +33,7 @@ private:
 
 Тепер найцікавіше: додати відразу кілька елементів так, щоб виняток посеред дороги не лишив по собі напівзаповнений контейнер.
 
-```cpp
-template <class T, std::size_t N>
-template <class It>
-void StaticVector<T, N>::append(It first, It last) {
-    const std::size_t mark = size_;         // позначка: стан «до»
-    try {
-        for (; first != last; ++first)
-            emplace_back(*first);           // може кинути на будь-якій ітерації
-    } catch (...) {
-        while (size_ != mark) pop_back();   // відкат рівно до позначки
-        throw;                              // помилку віддаємо далі незміненою
-    }
-}
-```
+:::code proj-manual-lifetime/cpp/zapovnennia-z-vidkotom.cpp
 
 Ця коротка обгортка дає [сильну гарантію](root:sys-plang-cpp/exception-safety-guarantees): або додано всі елементи, або контейнер точнісінько такий, як був. І тримається вона не на `try`, а на тому, що `size_` увесь час каже правду. Коли конструктор кинув, лічильник ще не встиг зрости, тож невдалий слот сам собою опинився за межею — його не треба ні пам'ятати, ні окремо обробляти. Цикл відкоту просто зменшує розмір до позначки, руйнуючи по дорозі ті об'єкти, які встигли ожити, у порядку, зворотному до створення.
 
@@ -111,33 +41,7 @@ void StaticVector<T, N>::append(It first, It last) {
 
 Найкоротший спосіб переконатися, що межа справді тримається, — узяти тип, який голосно повідомляє про кожну свою подію, і зламати його четвертий конструктор.
 
-```cpp
-#include <cstdio>
-#include <iterator>
-
-struct Noisy {
-    int id;
-    explicit Noisy(int i) : id(i) {
-        if (i == 4) throw std::runtime_error("конструктор 4 не вдався");
-        std::printf("  + збудовано %d\n", id);
-    }
-    ~Noisy() { std::printf("  - зруйновано %d\n", id); }
-    Noisy(const Noisy&) = delete;
-};
-
-int main() {
-    StaticVector<Noisy, 8> v;
-    v.emplace_back(0);
-    v.emplace_back(1);
-
-    const int rest[] = {2, 3, 4, 5};
-    try {
-        v.append(std::begin(rest), std::end(rest));
-    } catch (const std::exception& e) {
-        std::printf("спіймано: %s; size = %zu\n", e.what(), v.size());
-    }
-}                                   // ← тут спрацює деструктор контейнера
-```
+:::code proj-manual-lifetime/cpp/iak-tse-vydno-na-ochi.cpp
 
 ```
   + збудовано 0

@@ -10,21 +10,7 @@
 
 Клас `std::exception` виступає поліморфним корнем усієї ієрархії винятків стандартної бібліотеки C++. Він визначений у заголовочному файлі `<exception>`.
 
-```cpp
-namespace std {
-    class exception {
-    public:
-        // Конструктори та деструктор
-        exception() noexcept;
-        exception(const exception& other) noexcept;
-        exception& operator=(const exception& other) noexcept;
-        virtual ~exception() noexcept;
-
-        // Поліморфний доступ до текстового повідомлення про помилку
-        virtual const char* what() const noexcept;
-    };
-}
-```
+:::code api-exception-classes/cpp/1-bazovyi-klas-std.cpp
 
 ### Члени класу та вимоги контракту:
 - `exception()`: Створює базовий об'єкт винятку. Гарантує `noexcept` — не здійснює виділень пам'яті в купі.
@@ -40,18 +26,7 @@ namespace std {
 ### 2.1. std::logic_error
 Базовий клас для всіх логічних помилок. Зберігає текстовий буфер повідомлення, переданий під час конструювання.
 
-```cpp
-namespace std {
-    class logic_error : public exception {
-    public:
-        explicit logic_error(const string& what_arg);
-        explicit logic_error(const char* what_arg);
-        logic_error(const logic_error& other) noexcept;
-        logic_error& operator=(const logic_error& other) noexcept;
-        virtual ~logic_error() noexcept;
-    };
-}
-```
+:::code api-exception-classes/cpp/2-1-std-logic-error.hpp
 
 ### 2.2. Похідні класи std::logic_error
 
@@ -70,18 +45,7 @@ namespace std {
 ### 3.1. std::runtime_error
 Базовий клас для всіх помилок середовища виконання.
 
-```cpp
-namespace std {
-    class runtime_error : public exception {
-    public:
-        explicit runtime_error(const string& what_arg);
-        explicit runtime_error(const char* what_arg);
-        runtime_error(const runtime_error& other) noexcept;
-        runtime_error& operator=(const runtime_error& other) noexcept;
-        virtual ~runtime_error() noexcept;
-    };
-}
-```
+:::code api-exception-classes/cpp/3-1-std-runtime-error.hpp
 
 ### 3.2. Похідні класи std::runtime_error
 
@@ -90,39 +54,11 @@ namespace std {
 3. **`std::underflow_error`**: Сигналізує про математичне втрачання значущості під нижню межу типів із плаваючою крапкою (arithmetic underflow).
 4. **`std::system_error` (<system_error>, C++11)**: Інтегрує винятки C++ із числовими кодами системних помилок операційної системи (`errno` в POSIX або `GetLastError()` у Win32 API).
 
-```cpp
-namespace std {
-    class system_error : public runtime_error {
-    public:
-        system_error(error_code ec, const string& what_arg);
-        system_error(error_code ec, const char* what_arg);
-        system_error(error_code ec);
-        system_error(int ev, const error_category& ecat, const string& what_arg);
-        system_error(int ev, const error_category& ecat, const char* what_arg);
-        system_error(int ev, const error_category& ecat);
-
-        const error_code& code() const noexcept;
-        virtual const char* what() const noexcept override;
-    };
-}
-```
+:::code api-exception-classes/cpp/3-2-pokhidni-klasy-std.hpp
 
 5. **`std::filesystem_error` (<filesystem>, C++17)**: Похідний від `std::system_error`. Інформує про помилки файлової системи та надає шляхи до проблемних файлів.
 
-```cpp
-namespace std::filesystem {
-    class filesystem_error : public std::system_error {
-    public:
-        filesystem_error(const string& what_arg, error_code ec);
-        filesystem_error(const string& what_arg, const path& p1, error_code ec);
-        filesystem_error(const string& what_arg, const path& p1, const path& p2, error_code ec);
-
-        const path& path1() const noexcept;
-        const path& path2() const noexcept;
-        virtual const char* what() const noexcept override;
-    };
-}
-```
+:::code api-exception-classes/cpp/3-2-pokhidni-klasy-std-2.hpp
 
 6. **`std::format_error` (<format>, C++20)**: Виникає при помилках форматування рядків через `std::format` або `std::print` (некоректний специфікатор формату).
 
@@ -134,62 +70,11 @@ namespace std::filesystem {
 
 ### 4.1. Специфікація класу std::error_category
 
-```cpp
-namespace std {
-    class error_category {
-    public:
-        constexpr error_category() noexcept;
-        virtual ~error_category() noexcept;
-
-        error_category(const error_category&) = delete;
-        error_category& operator=(const error_category&) = delete;
-
-        // Назва категорії помилок
-        virtual const char* name() const noexcept = 0;
-
-        // Повертає текстовий опис коду помилки
-        virtual string message(int ev) const = 0;
-
-        // Зіставляє системний код із загальним кодом
-        virtual error_condition default_error_condition(int ev) const noexcept;
-
-        // Порівняння категорій
-        bool operator==(const error_category& rhs) const noexcept;
-        bool operator!=(const error_category& rhs) const noexcept;
-    };
-
-    // Глобальні функції-фабрики стандартних категорій
-    const error_category& system_category() noexcept;
-    const error_category& generic_category() noexcept;
-    const error_category& iostream_category() noexcept;
-    const error_category& future_category() noexcept;
-}
-```
+:::code api-exception-classes/cpp/4-1-spetsyfikatsiia-klasu.cpp
 
 ### 4.2. Специфікація класу std::error_code
 
-```cpp
-namespace std {
-    class error_code {
-    public:
-        error_code() noexcept;
-        error_code(int val, const error_category& cat) noexcept;
-
-        template<class ErrorCodeEnum>
-        error_code(ErrorCodeEnum e) noexcept;
-
-        void assign(int val, const error_category& cat) noexcept;
-        void clear() noexcept;
-
-        int value() const noexcept;
-        const error_category& category() const noexcept;
-        error_condition default_error_condition() const noexcept;
-        string message() const;
-
-        explicit operator bool() const noexcept;
-    };
-}
-```
+:::code api-exception-classes/cpp/4-2-spetsyfikatsiia-klasu.cpp
 
 ---
 
@@ -202,23 +87,7 @@ namespace std {
 - **`std::bad_alloc`**: Кидається оператором `operator new`, коли система не здатна виділити необхідний обсяг динамічної пам'яті в купі.
 - **`std::bad_array_new_length` (C++11)**: Похідний від `std::bad_alloc`. Виникає при спробі виділення пам'яті під масив `new T[N]`, коли розмір `N` є від'ємним чи перевищує максимально допустимий ліміт реалізації.
 
-```cpp
-namespace std {
-    class bad_alloc : public exception {
-    public:
-        bad_alloc() noexcept;
-        bad_alloc(const bad_alloc&) noexcept;
-        bad_alloc& operator=(const bad_alloc&) noexcept;
-        virtual const char* what() const noexcept override;
-    };
-
-    class bad_array_new_length : public bad_alloc {
-    public:
-        bad_array_new_length() noexcept;
-        virtual const char* what() const noexcept override;
-    };
-}
-```
+:::code api-exception-classes/cpp/5-1-vyniatky-dynamichnoi.cpp
 
 ### 5.2. Винятки системи типів RTTI (<typeinfo>)
 
@@ -245,31 +114,7 @@ namespace std {
 
 ### 7.1. Клас std::nested_exception та супутні функції
 
-```cpp
-namespace std {
-    class nested_exception {
-    public:
-        nested_exception() noexcept;
-        nested_exception(const nested_exception&) noexcept = default;
-        nested_exception& operator=(const nested_exception&) noexcept = default;
-        virtual ~nested_exception() = default;
-
-        // Повертає збережений вкладений виняток
-        exception_ptr nested_ptr() const noexcept;
-
-        // Повторно кидає вкладений виняток
-        [[noreturn]] void rethrow_nested() const;
-    };
-
-    // Створює вкладений виняток із поточного активного винятку
-    template<class T>
-    [[noreturn]] void throw_with_nested(T&& t);
-
-    // Повторно кидає вкладений виняток, якщо об'єкт успадковує від std::nested_exception
-    template<class E>
-    void rethrow_if_nested(const E& e);
-}
-```
+:::code api-exception-classes/cpp/7-1-klas-std-nested.hpp
 
 ### 7.2. Робота з std::exception_ptr
 

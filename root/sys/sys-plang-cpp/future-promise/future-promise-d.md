@@ -20,61 +20,13 @@
 
 Спроба зробити це через сирий `std::thread` демонструє асиметрію:
 
-```cpp
-#include <thread>
-#include <iostream>
-
-int compute_payload() {
-    // Важке обчислення
-    return 42;
-}
-
-int main() {
-    // Ззвичайний запуск: повернене значення compute_payload() ігнорується!
-    std::thread t(compute_payload);
-    t.join();
-    // Як прочитати 42 у головному потоці?
-}
-```
+:::code future-promise-d/cpp/problema-peredachi.cpp
 
 Конструктор `std::thread` обгортає викликану функцію в системний потік, але не надає жодних засобів для перехоплення її повернюваного значення.
 
 Традиційне розв'язання цієї проблеми без використання `<future>` вимагає побудови ручного синхронізованого буфера:
 
-```cpp
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-#include <exception>
-#include <iostream>
-
-struct ManualChannel {
-    std::mutex mtx;
-    std::condition_variable cv;
-    bool ready = false;
-    int result = 0;
-    std::exception_ptr ex = nullptr;
-};
-
-void worker(ManualChannel& ch) {
-    try {
-        int res = compute_payload();
-        {
-            std::lock_guard<std::mutex> lock(ch.mtx);
-            ch.result = res;
-            ch.ready = true;
-        }
-        ch.cv.notify_one();
-    } catch (...) {
-        {
-            std::lock_guard<std::mutex> lock(ch.mtx);
-            ch.ex = std::current_exception();
-            ch.ready = true;
-        }
-        ch.cv.notify_one();
-    }
-}
-```
+:::code future-promise-d/cpp/problema-peredachi-2.cpp
 
 У цій ручній схемі криється одразу п'ять небезпек:
 1. **Час життя пам'яті:** Об'єкт `ManualChannel` має жити доти, доки обидва потоки не завершать роботу з ним. Якщо головний потік вийде з області видимості раніше за фоновий, фоновий потік звернеться до знищеного стекового об'єкта.
@@ -121,31 +73,7 @@ Shared State не належить фізично ані класу `promise`, �
 
 Об'єкт `std::promise<T>` конструюється у порожньому стані. Для зв'язування з об'єктом читання використовується метод `get_future()`.
 
-```cpp
-#include <future>
-#include <thread>
-#include <iostream>
-
-void async_worker(std::promise<int> p) {
-    try {
-        // Фонове обчислення
-        int result = 100 + 200;
-        p.set_value(result); // Запис значення
-    } catch (...) {
-        p.set_exception(std::current_exception()); // Запис винятку
-    }
-}
-
-int main() {
-    std::promise<int> p;
-    std::future<int> f = p.get_future(); // Отримання зчитувального кінця
-
-    std::thread t(async_worker, std::move(p)); // promise є move-only!
-    
-    std::cout << "Результат з фонового потоку: " << f.get() << std::endl;
-    t.join();
-}
-```
+:::code future-promise-d/cpp/mekhanika-ta-zhyttievyi.cpp
 
 ### Правило єдиного виклику get_future()
 
@@ -168,31 +96,7 @@ try {
 
 Шаблон `std::promise<T>` розрахований на роботу з будь-якими типами, включно з типу `move-only` (наприклад, `std::unique_ptr`, `std::vector`, `std::thread`):
 
-```cpp
-#include <future>
-#include <memory>
-
-struct MoveOnlyData {
-    std::unique_ptr<int> ptr;
-    MoveOnlyData(int val) : ptr(std::make_unique<int>(val)) {}
-};
-
-void process_move_only(std::promise<MoveOnlyData> p) {
-    MoveOnlyData data(42);
-    p.set_value(std::move(data)); // Обов'язкове переміщення!
-}
-
-int main() {
-    std::promise<MoveOnlyData> p;
-    std::future<MoveOnlyData> f = p.get_future();
-
-    std::thread t(process_move_only, std::move(p));
-
-    MoveOnlyData result = f.get(); // Значення переміщується з Shared State
-    std::cout << "Отримано значення: " << *result.ptr << std::endl;
-    t.join();
-}
-```
+:::code future-promise-d/cpp/peredacha-move-only-typiv.cpp
 
 Для move-only типів метод `set_value()` приймає значення за rvalue-посиланням `T&&`, гарантуючи нуль зайвих копіювань ресурсів у купі.
 
@@ -212,19 +116,7 @@ int main() {
 
 Якщо під час фонового обчислення виникає виняток, його не можна кидати прямо з функції потоку, адже це призведе до виклику `std::terminate()`. Замість цього виняток перехоплюється й записується у `promise`:
 
-```cpp
-void calculate_square_root(double val, std::promise<double> p) {
-    try {
-        if (val < 0.0) {
-            throw std::invalid_argument("Число не може бути від'ємним!");
-        }
-        p.set_value(std::sqrt(val));
-    } catch (...) {
-        // Гарантована передача поточного винятку разом зі стеком
-        p.set_exception(std::current_exception());
-    }
-}
-```
+:::code future-promise-d/cpp/peredavannia-vyniatkiv.cpp
 
 Виклик `std::current_exception()` захоплює поточний виняток під час розмотування стеку (stack unwinding), зберігаючи інформацію про його тип (RTTI) та VTable. 
 
@@ -240,21 +132,7 @@ void calculate_square_root(double val, std::promise<double> p) {
 
 Це гарантує, що потік-споживач не застрягне у блокуючому виклику `f.get()` нанескінченно. Замість цього `f.get()` негайно кине виняток `std::future_error`:
 
-```cpp
-std::future<int> f;
-{
-    std::promise<int> p;
-    f = p.get_future();
-} // Об'єкт p знищується тут без set_value!
-
-try {
-    int val = f.get(); // Кине std::future_error
-} catch (const std::future_error& e) {
-    if (e.code() == std::future_errc::broken_promise) {
-        std::cout << "Обіцянка порушена: виробник загинув без результату!" << std::endl;
-    }
-}
-```
+:::code future-promise-d/cpp/ruinuvannia-promise-bez.cpp
 
 ---
 
@@ -264,25 +142,7 @@ try {
 
 Для боротьби з цією проблемою стандарт C++11 надає специфічний конструктор `std::promise`, що приймає кастомний алокатор через тег `std::allocator_arg`:
 
-```cpp
-#include <future>
-#include <memory_resource>
-#include <iostream>
-
-void pmr_allocator_example() {
-    // Буфер на стеку для уникнення викликів new у купі
-    std::array<std::byte, 1024> buffer;
-    std::pmr::monotonic_buffer_resource pool(buffer.data(), buffer.size());
-    std::pmr::polymorphic_allocator<int> alloc(&pool);
-
-    // Конструюємо promise з використанням PMR-алокатора
-    std::promise<int> p(std::allocator_arg, alloc);
-    std::future<int> f = p.get_future();
-
-    p.set_value(42);
-    std::cout << "Значення з PMR promise: " << f.get() << std::endl;
-}
-```
+:::code future-promise-d/cpp/keruvannia-pamiattiu-za.cpp
 
 Застосування `std::allocator_arg` гарантує, що вся пам'ять під Shared State виділяється у швидкому стековому або пул-алокаторі з часовою складністю `O(1)`.
 
@@ -292,28 +152,7 @@ void pmr_allocator_example() {
 
 Клас `std::future<T>` є `move-only` об'єктом, який утримує ексклюзивне право на споживання результату.
 
-```cpp
-namespace std {
-
-template <typename R>
-class future {
-public:
-    constexpr future() noexcept;
-    future(future&&) noexcept;
-    future(const future&) = delete; // Копіювання заборонено!
-
-    R get(); // Отримання результату (одноразово!)
-    bool valid() const noexcept; // Перевірка валідності стану
-
-    void wait() const; // Блокуюче очікування
-    template <class Rep, class Period>
-    future_status wait_for(const chrono::duration<Rep, Period>& timeout) const;
-    template <class Clock, class Duration>
-    future_status wait_until(const chrono::time_point<Clock, Duration>& timeout) const;
-};
-
-}
-```
+:::code future-promise-d/cpp/spozhyvannia-rezultatu.cpp
 
 ### Одноразовий характер виклику get()
 
@@ -338,26 +177,7 @@ bool is_valid = f.valid(); // Повертає false!
 
 У багатьох сценаріях потік-споживач не бажає занурюватися у блокуючий сон нанескінченно. Для контрольованого очікування використовуються методи `wait_for()` та `wait_until()`, які повертають значення перелічуваного типу `std::future_status`:
 
-```cpp
-using namespace std::chrono_literals;
-
-std::future<int> f = launch_async_computation();
-
-// Очікуємо максимум 200 мілісекунд
-std::future_status status = f.wait_for(200ms);
-
-switch (status) {
-    case std::future_status::ready:
-        std::cout << "Результат готовий: " << f.get() << std::endl;
-        break;
-    case std::future_status::timeout:
-        std::cout << "Час вичерпано, фоновий потік ще працює..." << std::endl;
-        break;
-    case std::future_status::deferred:
-        std::cout << "Задача відкладена (lazy evaluation)" << std::endl;
-        break;
-}
-```
+:::code future-promise-d/cpp/ochikuvannia-z-perevirkoiu.cpp
 
 Семантика трьох станів `std::future_status`:
 - **`ready`:** Значення чи виняток вже записані у Shared State. Наступний виклик `get()` поверне результат миттєво без блокування.
@@ -368,18 +188,7 @@ switch (status) {
 
 Стан `std::future_status::deferred` заслуговує на окрему увагу розробника. Коли `std::async` викликається з прапорцем `std::launch::deferred`, створення фонового потоку OS узагалі скасовується:
 
-```cpp
-auto f = std::async(std::launch::deferred, []() {
-    std::cout << "Обчислення виконується синхронно!" << std::endl;
-    return 42;
-});
-
-// Виклик wait_for поверне deferred, НЕ запускаючи обчислення!
-auto status = f.wait_for(0ms); // status == std::future_status::deferred
-
-// Лише явний виклик get() або wait() спровокує виконання у поточному потоці
-int res = f.get(); // Виконується лямбда у поточному потоці
-```
+:::code future-promise-d/cpp/hlybokyi-rozbir-linyvykh.cpp
 
 Це надає механізм лінивих асинхронних обчислень (Lazy Evaluation), коли обчислення виконується за вимогою лише тоді, коли споживач фізично запитує результат через `f.get()`.
 
@@ -400,37 +209,7 @@ int res = f.get(); // Виконується лямбда у поточному 
 
 Для цього стандарт надає шаблон класу **`std::shared_future<T>`**.
 
-```cpp
-#include <future>
-#include <vector>
-#include <thread>
-#include <iostream>
-
-void worker_task(int id, std::shared_future<std::string> config_future) {
-    // Усі потоки чекають на один і той самий future!
-    std::string config = config_future.get(); // Повертає const std::string&
-    std::cout << "Потік " << id << " отримав конфіг: " << config << std::endl;
-}
-
-int main() {
-    std::promise<std::string> p;
-    // Трансформуємо std::future у std::shared_future через f.share()
-    std::shared_future<std::string> sf = p.get_future().share();
-
-    std::vector<std::thread> workers;
-    for (int i = 0; i < 4; ++i) {
-        // Копіюємо shared_future у кожен потік!
-        workers.emplace_back(worker_task, i, sf);
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    p.set_value("DB_HOST=localhost;PORT=5432;"); // Сповіщаємо всі потоки одразу
-
-    for (auto& w : workers) {
-        w.join();
-    }
-}
-```
+:::code future-promise-d/cpp/rozhaluzhennia-rezultatu.cpp
 
 ### Ключові відмінності std::shared_future від std::future:
 
@@ -450,19 +229,7 @@ int main() {
 
 Використовується тоді, коли фоновий потік не повертає значення, а виконує роль сигнального бар'єра — повідомляє, що певну дію виконано або виник виняток.
 
-```cpp
-std::promise<void> ready_promise;
-std::future<void> ready_future = ready_promise.get_future();
-
-std::thread t([p = std::move(ready_promise)]() mutable {
-    // Виконання довгої ініціалізації
-    p.set_value(); // Запис без аргументів
-});
-
-ready_future.wait(); // Блокуюче очікування сигналу готовності
-std::cout << "Ініціалізацію завершено!" << std::endl;
-t.join();
-```
+:::code future-promise-d/cpp/1-spetsializatsiia-dlia.hpp
 
 Для `void`:
 - `promise::set_value()` не приймає аргументів.
@@ -472,21 +239,7 @@ t.join();
 
 Дозволяє передавати посилання на вже існуючий об'єкт у пам'яті без створення копій або переміщення даних:
 
-```cpp
-struct HeavyStruct { /* ... */ };
-
-HeavyStruct global_data;
-
-std::promise<HeavyStruct&> p;
-std::future<HeavyStruct&> f = p.get_future();
-
-std::thread t([&p]() {
-    p.set_value(global_data); // Передаємо посилання
-});
-
-HeavyStruct& ref = f.get(); // Отримуємо посилання на global_data
-t.join();
-```
+:::code future-promise-d/cpp/2-spetsializatsiia-dlia.cpp
 
 ---
 
@@ -494,31 +247,7 @@ t.join();
 
 Примітиви `std::future` дозволяють об'єднувати послідовні асинхронні задачі у конвеєри, де вихідний `future` першого етапу служить вхідним аргументом для наступного.
 
-```cpp
-#include <future>
-#include <iostream>
-#include <string>
-
-std::future<int> stage1_parse(const std::string& input) {
-    return std::async(std::launch::async, [input]() {
-        return std::stoi(input);
-    });
-}
-
-std::future<double> stage2_compute(std::future<int> prev_future) {
-    return std::async(std::launch::async, [f = std::move(prev_future)]() mutable {
-        int val = f.get(); // Блокується до завершення stage 1
-        return val * 3.14159;
-    });
-}
-
-int main() {
-    auto f1 = stage1_parse("100");
-    auto f2 = stage2_compute(std::move(f1));
-
-    std::cout << "Конвеєрний результат: " << f2.get() << std::endl;
-}
-```
+:::code future-promise-d/cpp/pobudova-konveieriv.cpp
 
 Конвеєризація дозволяє розділити складний процес обробки даних на чіткі модульні етапи, що виконуються у різних потоках або на різних ядрах CPU.
 
@@ -528,28 +257,7 @@ int main() {
 
 У високопродуктивних мережевих серверах чекання результату вводу-виводу через нові системні виклики (наприклад, `io_uring` у Linux) поєднується з `std::promise` для передачі статусу завершення операції:
 
-```cpp
-class AsyncFileReader {
-public:
-    std::future<ssize_t> read_async(int fd, void* buf, size_t count) {
-        auto p = std::make_shared<std::promise<ssize_t>>();
-        std::future<ssize_t> f = p->get_future();
-
-        // Подаємо замовлення в ring io_uring
-        submit_io_uring_read(fd, buf, count, [p](ssize_t bytes_read) {
-            if (bytes_read < 0) {
-                p->set_exception(std::make_exception_ptr(
-                    std::system_error(-bytes_read, std::generic_category())
-                ));
-            } else {
-                p->set_value(bytes_read);
-            }
-        });
-
-        return f;
-    }
-};
-```
+:::code future-promise-d/cpp/intehratsiia-z.cpp
 
 Такий підхід дозволяє об'єднати асинхронний векторний системний ввод-вивід без блокування з вишуканою типізованою моделлю `std::future` в C++.
 
@@ -561,35 +269,7 @@ public:
 
 Стандартний `std::future` з C++11 не містить вбудованих методів `await_ready`, `await_suspend` та `await_resume`. Для використання `std::future` у корутинах розробник створює кастомний awaiter:
 
-```cpp
-#include <future>
-#include <coroutine>
-
-template <typename T>
-struct future_awaiter {
-    std::future<T> fut;
-
-    bool await_ready() const noexcept {
-        return fut.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
-    }
-
-    void await_suspend(std::coroutine_handle<> h) {
-        std::thread([this, h]() mutable {
-            fut.wait();
-            h.resume(); // Відновлюємо корутину у фоновому потоці
-        }).detach();
-    }
-
-    T await_resume() {
-        return fut.get();
-    }
-};
-
-template <typename T>
-auto operator co_await(std::future<T> fut) {
-    return future_awaiter<T>{std::move(fut)};
-}
-```
+:::code future-promise-d/cpp/adaptatsiia-std-future-do.cpp
 
 Цей адаптер демонструє мост між асинхронною моделлю C++11 (`std::future`) та реактивною моделлю корутин C++20 (`co_await`).
 
@@ -599,25 +279,7 @@ auto operator co_await(std::future<T> fut) {
 
 З появою у C++20 класу `std::jthread`, що володіє автоматичним приєднанням у деструкторі та вбудованим `std::stop_token`, взаємодія з `std::promise` стала ще більш лаконічною:
 
-```cpp
-#include <future>
-#include <thread>
-#include <iostream>
-
-int main() {
-    std::promise<int> p;
-    std::future<int> f = p.get_future();
-
-    // jthread автоматично зробить join() при виході з блоку!
-    std::jthread worker([](std::stop_token st, std::promise<int> p) {
-        if (!st.stop_requested()) {
-            p.set_value(777);
-        }
-    }, std::move(p));
-
-    std::cout << "Отримано значення від jthread: " << f.get() << std::endl;
-} // worker.join() викликається тут автоматично без падінь!
-```
+:::code future-promise-d/cpp/vzaiemodiia-z.cpp
 
 Використання `std::jthread` разом із `std::promise` виключає потребу у виклику `t.join()` у нештатних ситуаціях при виході з блоку через винятки.
 
@@ -631,29 +293,7 @@ int main() {
 
 `std::packaged_task<R(Args...)>` обгортає довільний викликний об'єкт (функцію, лямбду, функтор) та автоматично створює зв'язаний `std::promise`.
 
-```cpp
-#include <future>
-#include <thread>
-#include <iostream>
-
-int calculate_sum(int a, int b) {
-    return a + b;
-}
-
-int main() {
-    // Обгортаємо функцію calculate_sum
-    std::packaged_task<int(int, int)> task(calculate_sum);
-    
-    // Отримуємо future до виконання задач!
-    std::future<int> res = task.get_future();
-
-    // Запускаємо задачу в окремому потоці
-    std::thread t(std::move(task), 10, 20);
-
-    std::cout << "Результат packaged_task: " << res.get() << std::endl;
-    t.join();
-}
-```
+:::code future-promise-d/cpp/1-std-packaged-task.cpp
 
 Використання `std::packaged_task` є ідеальним для побудови пулів потоків (thread pools) та черг задач, де потік-виконавець просто дістає `task` із черги й викликає `task()`, не знаючи деталей обчислюваної функції.
 
@@ -661,19 +301,7 @@ int main() {
 
 `std::async` є найвищим рівнем абстракції. Вона автоматично створює `std::promise`, запускає виконання задачі в окремому потоці (або відкладає виконання) і негайно повертає об'єкт `std::future`.
 
-```cpp
-#include <future>
-#include <iostream>
-
-int main() {
-    // Негайно запускає фонову задачу
-    std::future<int> f = std::async(std::launch::async, []() {
-        return 7 * 6;
-    });
-
-    std::cout << "Результат std::async: " << f.get() << std::endl;
-}
-```
+:::code future-promise-d/cpp/2-std-async.cpp
 
 #### Підступна небезпека деструктора std::future від std::async
 
@@ -727,23 +355,7 @@ try {
 
 Тестовий стенд може передати `std::future` у тестувальний модуль, а сам тест контролює момент надходження даних або виклику винятку через `p.set_value()` чи `p.set_exception()` у визначений момент часу:
 
-```cpp
-void test_async_service_failure() {
-    std::promise<std::string> mock_promise;
-    std::future<std::string> mock_future = mock_promise.get_future();
-
-    // Передаємо mock_future у тестувальну систему
-    ServiceConsumer service(std::move(mock_future));
-
-    // Штучно симулюємо відмову мережі
-    mock_promise.set_exception(std::make_exception_ptr(
-        std::runtime_error("Timeout connection failure")
-    ));
-
-    // Перевіряємо реакцію сервісу на виняток
-    assert(service.has_error_state());
-}
-```
+:::code future-promise-d/cpp/zastosuvannia-v-modulnomu.cpp
 
 Це робить модульні тести детермінованими, усуваючи затримки сну та гонки часу при тестуванні багатопотокового коду.
 
@@ -765,32 +377,7 @@ void test_async_service_failure() {
 
 У Concurrency TS було запропоновано асинхронні комбінатори `when_all()` та `when_any()`. Нижче показано, як реалізувати `when_all()` на базі стандартного `std::promise`:
 
-```cpp
-#include <future>
-#include <vector>
-#include <memory>
-
-template <typename T>
-std::future<std::vector<T>> when_all(std::vector<std::future<T>>& futures) {
-    auto p = std::make_shared<std::promise<std::vector<T>>>();
-    auto shared_futures = std::make_shared<std::vector<std::future<T>>>(std::move(futures));
-
-    std::thread([p, shared_futures]() {
-        std::vector<T> results;
-        results.reserve(shared_futures->size());
-        try {
-            for (auto& f : *shared_futures) {
-                results.push_back(f.get());
-            }
-            p->set_value(std::move(results));
-        } catch (...) {
-            p->set_exception(std::current_exception());
-        }
-    }).detach();
-
-    return p->get_future();
-}
-```
+:::code future-promise-d/cpp/realizatsiia-asynkhronnykh.cpp
 
 Цей приклад ілюструє, як комбінатор очікує завершення всіх векторних `future` у фоновому потоці та згодом повертає єдиний `std::future<std::vector<T>>` споживачеві.
 
@@ -832,23 +419,7 @@ std::future<std::vector<T>> when_all(std::vector<std::future<T>>& futures) {
 1. **Гарантія відносин Happens-Before:** Успішний виклик `set_value()` або `set_exception()` у потоці-виробнику **happens-before** розблокуванню потоку-споживача в `wait()` або `get()`.
 2. **Видимість пам'яті:** Будь-які модифікації даних у несинхронізованих звичайних змінних, виконані потоком-виробником **до** виклику `set_value()`, стають повністю видимими для потоку-споживача після повернення з викликів `wait()` або `get()`.
 
-```cpp
-int shared_payload = 0; // Неатомарна змінна без м'ютекса!
-
-std::promise<void> p;
-std::future<void> f = p.get_future();
-
-std::thread producer([&]() {
-    shared_payload = 42; // Модифікація звичайного поля
-    p.set_value();       // Релізний бар'єр пам'яті
-});
-
-std::thread consumer([&]() {
-    f.wait();            // Аквізиційний бар'єр пам'яті
-    // Гарантовано прочитає 42 без data race!
-    std::cout << shared_payload << std::endl; 
-});
-```
+:::code future-promise-d/cpp/harantii-vporiadkuvannia.cpp
 
 Це дозволяє передавати складні структури даних через `promise` без додаткового огортання їх у мутекси в потоці-споживачі.
 
@@ -893,47 +464,13 @@ std::thread consumer([&]() {
 
 Служить для підключення асинхронних подій системного рівня (наприклад, обробників мережевих сокетів `epoll`, сигналів POSIX або зворотних викликів системних драйверів) до синхронного коду бізнес-логіки.
 
-```cpp
-class NetworkGateway {
-public:
-    std::future<std::string> request_async(const std::string& query) {
-        auto p = std::make_shared<std::promise<std::string>>();
-        std::future<std::string> f = p->get_future();
-
-        // Реєструємо асинхронний зворотний виклик у мережевому рушії
-        async_network_send(query, [p](std::string response, bool error) {
-            if (error) {
-                p->set_exception(std::make_exception_ptr(
-                    std::runtime_error("Помилка мережі!")
-                ));
-            } else {
-                p->set_value(response);
-            }
-        });
-
-        return f;
-    }
-};
-```
+:::code future-promise-d/cpp/1-asynkhronnyi-most-async.cpp
 
 ### 2. Прапорець скасування та скасування задач (Cancellation Tokens)
 
 Хоча `std::future` у C++11 не надає відкритого методу для примусового скасування виконання фонового потоку, інтеграція з `std::stop_token` у C++20 надає можливість вишуканого скасування:
 
-```cpp
-void cancellable_worker(std::stop_token stop_tok, std::promise<int> p) {
-    for (int i = 0; i < 100; ++i) {
-        if (stop_tok.stop_requested()) {
-            p.set_exception(std::make_exception_ptr(
-                std::runtime_error("Операцію скасовано користувачем!")
-            ));
-            return;
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-    p.set_value(42);
-}
-```
+:::code future-promise-d/cpp/2-praporets-skasuvannia-ta.cpp
 
 ---
 

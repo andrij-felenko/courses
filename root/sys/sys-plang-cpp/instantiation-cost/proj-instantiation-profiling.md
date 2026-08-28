@@ -60,64 +60,7 @@ clang-build-analyzer --stop build_dir analysis_report.txt
 
 Розглянемо вихідний заголовочний файл `NaiveBuffer.hpp`. Він реалізує шаблонний динамічний буфер із вбудованою вибіркою, сортуванням, автоматичним зміщенням меж та друком діагностичних даних.
 
-```cpp
-#ifndef NAIVE_BUFFER_HPP
-#define NAIVE_BUFFER_HPP
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <stdexcept>
-#include <string>
-
-template <typename T>
-class NaiveBuffer {
-private:
-    T* data_;
-    std::size_t capacity_;
-    std::size_t size_;
-
-    void reallocate(std::size_t new_cap) {
-        T* new_data = new T[new_cap];
-        for (std::size_t i = 0; i < size_; ++i) {
-            new_data[i] = std::move(data_[i]);
-        }
-        delete[] data_;
-        data_ = new_data;
-        capacity_ = new_cap;
-    }
-
-public:
-    NaiveBuffer() : data_(nullptr), capacity_(0), size_(0) {}
-
-    ~NaiveBuffer() {
-        delete[] data_;
-    }
-
-    void push(const T& item) {
-        if (size_ >= capacity_) {
-            std::size_t next_cap = capacity_ == 0 ? 8 : capacity_ * 2;
-            reallocate(next_cap);
-        }
-        data_[size_++] = item;
-    }
-
-    void sort_elements() {
-        if (size_ <= 1) return;
-        std::sort(data_, data_ + size_);
-    }
-
-    void print_diagnostics(const std::string& prefix) const {
-        std::cout << "[" << prefix << "] Buffer at " << static_cast<const void*>(data_)
-                  << ", Size: " << size_ << ", Capacity: " << capacity_ << "\n";
-    }
-
-    std::size_t size() const { return size_; }
-    std::size_t capacity() const { return capacity_; }
-};
-
-#endif // NAIVE_BUFFER_HPP
-```
+:::code proj-instantiation-profiling/cpp/2-analiz-naivnoho.hpp
 
 Принципові архітектурні дефекти даної реалізації з точки зору вартості інстанціації:
 
@@ -145,142 +88,11 @@ public:
 
 ### Файл `OptimizedBuffer.hpp` (Оптимізований заголовок)
 
-```cpp
-#ifndef OPTIMIZED_BUFFER_HPP
-#define OPTIMIZED_BUFFER_HPP
-
-#include <cstddef>
-#include <utility>
-#include <algorithm>
-
-// 1. Нешаблонний базовий клас (винесений у .cpp)
-class BufferBase {
-protected:
-    void* data_;
-    std::size_t capacity_;
-    std::size_t size_;
-
-    BufferBase();
-    ~BufferBase();
-
-    void raw_reallocate(std::size_t new_cap, std::size_t element_size);
-    void raw_push(const void* item_ptr, std::size_t element_size);
-    void raw_print_diagnostics(const char* prefix) const;
-
-public:
-    std::size_t size() const { return size_; }
-    std::size_t capacity() const { return capacity_; }
-};
-
-// 2. Шаблонний клас для типів значень (Value Types)
-template <typename T>
-class OptimizedBuffer : public BufferBase {
-public:
-    OptimizedBuffer() = default;
-
-    ~OptimizedBuffer() {
-        T* items = static_cast<T*>(data_);
-        for (std::size_t i = 0; i < size_; ++i) {
-            items[i].~T();
-        }
-    }
-
-    void push(const T& item) {
-        if (size_ >= capacity_) {
-            std::size_t next_cap = capacity_ == 0 ? 8 : capacity_ * 2;
-            raw_reallocate(next_cap, sizeof(T));
-        }
-        new (static_cast<T*>(data_) + size_) T(item);
-        ++size_;
-    }
-
-    void sort_elements() {
-        if (size_ <= 1) return;
-        T* items = static_cast<T*>(data_);
-        std::sort(items, items + size_);
-    }
-
-    void print_diagnostics(const char* prefix) const {
-        raw_print_diagnostics(prefix);
-    }
-};
-
-// 3. Часткова спеціалізація для згортання всіх типів вказівників (Pointer Folding)
-template <typename T>
-class OptimizedBuffer<T*> : private BufferBase {
-public:
-    OptimizedBuffer() = default;
-
-    void push(T* item) {
-        raw_push(&item, sizeof(void*));
-    }
-
-    void sort_elements() {
-        if (size_ <= 1) return;
-        void** items = static_cast<void**>(data_);
-        std::sort(items, items + size_, [](const void* a, const void* b) {
-            return static_cast<const T*>(a) < static_cast<const T*>(b);
-        });
-    }
-
-    void print_diagnostics(const char* prefix) const {
-        raw_print_diagnostics(prefix);
-    }
-
-    using BufferBase::size;
-    using BufferBase::capacity;
-};
-
-// 4. Заборона неявної інстанціації у файлах споживачів (extern template)
-extern template class OptimizedBuffer<int>;
-extern template class OptimizedBuffer<double>;
-
-#endif // OPTIMIZED_BUFFER_HPP
-```
+:::code proj-instantiation-profiling/cpp/fail-optimizedbuffer-hpp.hpp
 
 ### Файл `BufferBase.cpp` (Реалізація базової логіки та явна інстанціація)
 
-```cpp
-#include "OptimizedBuffer.hpp"
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <stdexcept>
-
-BufferBase::BufferBase() : data_(nullptr), capacity_(0), size_(0) {}
-
-BufferBase::~BufferBase() {
-    std::free(data_);
-}
-
-void BufferBase::raw_reallocate(std::size_t new_cap, std::size_t element_size) {
-    void* new_data = std::realloc(data_, new_cap * element_size);
-    if (!new_data && new_cap > 0) {
-        throw std::bad_alloc();
-    }
-    data_ = new_data;
-    capacity_ = new_cap;
-}
-
-void BufferBase::raw_push(const void* item_ptr, std::size_t element_size) {
-    if (size_ >= capacity_) {
-        std::size_t next_cap = capacity_ == 0 ? 8 : capacity_ * 2;
-        raw_reallocate(next_cap, element_size);
-    }
-    char* target = static_cast<char*>(data_) + (size_ * element_size);
-    std::memcpy(target, item_ptr, element_size);
-    ++size_;
-}
-
-void BufferBase::raw_print_diagnostics(const char* prefix) const {
-    std::cout << "[" << prefix << "] Base Buffer at " << data_
-              << ", Size: " << size_ << ", Capacity: " << capacity_ << "\n";
-}
-
-// Повна явна інстанціація найпопулярніших типів (генерація символів у цьому .o)
-template class OptimizedBuffer<int>;
-template class OptimizedBuffer<double>;
-```
+:::code proj-instantiation-profiling/cpp/fail-bufferbase-cpp.cpp
 
 ## 4. Глибинний аналіз машинного коду та вимірювання результатів
 
@@ -331,35 +143,7 @@ ret
 
 Нижче наведено фрагмент `CMakeLists.txt`, який автоматично вмикає прапорці `-ftime-trace` для Clang та налаштовує цільові інструменти аналізу:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(InstantiationProfilingDemo CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Прапорець для вмикання профілювання часу компіляції
-option(ENABLE_TIME_TRACE "Enable compiler execution time tracing (-ftime-trace)" OFF)
-
-if(ENABLE_TIME_TRACE)
-    if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_compile_options(-ftime-trace)
-        message(STATUS "Clang -ftime-trace enabled for compile time profiling.")
-    elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "14.0")
-        add_compile_options(-ftime-trace)
-        message(STATUS "GCC -ftime-trace enabled for compile time profiling.")
-    else()
-        message(WARNING "Time tracing option is not supported by current compiler.")
-    endif()
-endif()
-
-# Додавання бібліотеки нешаблонної основи
-add_library(buffer_base BufferBase.cpp)
-
-# Додавання виконуваного модуля
-add_executable(app_demo main.cpp)
-target_link_libraries(app_demo PRIVATE buffer_base)
-```
+:::code proj-instantiation-profiling/cmake/CMakeLists.txt
 
 Запуск аналізу часу збірки через CMake та Ninja виконується двома командами у консолі розробника:
 

@@ -27,93 +27,13 @@ Payload(Payload&& o) noexcept(NX) : data_(std::move(o.data_)) { ++g.move; }
 
 Спершу лічильники й сам тип.
 
-```cpp
-// growth.cpp
-//   g++  -std=c++17 -O2 growth.cpp -o growth
-//   cl   /std:c++17 /O2 /EHsc growth.cpp
-#include <chrono>
-#include <cstddef>
-#include <iomanip>
-#include <iostream>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-// ── Лічильники: кожна операція типу лишає слід ─────────────────────────────
-struct Counters {
-    long ctor = 0;   // побудова з параметра
-    long copy = 0;   // конструктор копіювання
-    long move = 0;   // конструктор переміщення
-    long dtor = 0;
-    void reset() { ctor = copy = move = dtor = 0; }
-};
-
-inline Counters g;   // C++17: inline-змінна, одна на всю програму
-
-// ── Тип під вимір. NX — єдина відмінність між двома варіантами ─────────────
-template <bool NX>
-class Payload {
-public:
-    explicit Payload(std::size_t n) : data_(n, 1.0) { ++g.ctor; }
-
-    Payload(const Payload& o) : data_(o.data_)                { ++g.copy; }
-    Payload(Payload&& o) noexcept(NX) : data_(std::move(o.data_)) { ++g.move; }
-
-    Payload& operator=(const Payload& o) {
-        if (this != &o) { data_ = o.data_; ++g.copy; }
-        return *this;
-    }
-    Payload& operator=(Payload&& o) noexcept(NX) {
-        if (this != &o) { data_ = std::move(o.data_); ++g.move; }
-        return *this;
-    }
-    ~Payload() { ++g.dtor; }
-
-    double head() const { return data_.empty() ? 0.0 : data_[0]; }
-
-private:
-    std::vector<double> data_;
-};
-
-static_assert( std::is_nothrow_move_constructible_v<Payload<true>>);
-static_assert(!std::is_nothrow_move_constructible_v<Payload<false>>);
-```
+:::code proj-noexcept-vector-growth/cpp/growth.cpp
 
 Два `static_assert` наприкінці — не оздоба, а перша перевірка: вони доводять, що обидві інстанціації справді вийшли різними. Риса `is_nothrow_move_constructible_v` — з тієї самої родини запитів до типу, що й решта відповідей «так/ні» про операції ([риси типів](root:sys-plang-cpp/type-traits): шаблони, які на етапі компіляції дають `bool` або тип, замість перевірок у час виконання).
 
 Тепер сам вимір. Годинник беремо `steady_clock` — єдиний із трьох стандартних, який гарантовано не йде назад ([chrono](root:sys-plang-cpp/chrono): `system_clock` показує календарний час і може стрибнути від переведення годинника чи синхронізації з NTP, `high_resolution_clock` у багатьох реалізаціях — просто його псевдонім).
 
-```cpp
-struct Run { Counters c; double seconds = 0; double checksum = 0; };
-
-template <bool NX>
-Run measure(std::size_t n, std::size_t payload, bool with_reserve) {
-    g.reset();
-    std::vector<Payload<NX>> v;
-    if (with_reserve) v.reserve(n);
-
-    const auto t0 = std::chrono::steady_clock::now();
-    for (std::size_t i = 0; i < n; ++i)
-        v.emplace_back(payload);
-    const auto t1 = std::chrono::steady_clock::now();
-
-    Run r;
-    r.c       = g;
-    r.seconds = std::chrono::duration<double>(t1 - t0).count();
-    for (const Payload<NX>& e : v) r.checksum += e.head();   // щоб результат був потрібен
-    return r;
-}
-
-template <bool NX>
-Run best_of(int reps, std::size_t n, std::size_t payload, bool with_reserve) {
-    Run best = measure<NX>(n, payload, with_reserve);
-    for (int i = 1; i < reps; ++i) {
-        const Run cur = measure<NX>(n, payload, with_reserve);
-        if (cur.seconds < best.seconds) best = cur;   // мінімум, а не середнє
-    }
-    return best;
-}
-```
+:::code proj-noexcept-vector-growth/cpp/kod.cpp
 
 Чому `emplace_back(payload)`, а не `push_back(Payload<NX>(payload))`? Бо `emplace_back` будує елемент **просто в слоті** контейнера, і тоді кожне переміщення в лічильнику — це переїзд при перерозподілі, і нічого більше. `push_back` із тимчасовим об'єктом додав би рівно `n` зайвих переміщень (по одному на кожен виклик), які довелося б віднімати руками.
 
@@ -121,53 +41,7 @@ Run best_of(int reps, std::size_t n, std::size_t payload, bool with_reserve) {
 
 Окремо — слід зростання. Він потрібен, щоб не гадати про коефіцієнт вашої реалізації, а прочитати його:
 
-```cpp
-// Яку послідовність місткостей дає ваша стандартна бібліотека.
-std::vector<std::size_t> capacity_trace(std::size_t n) {
-    std::vector<std::size_t> caps;
-    std::vector<char> v;          // стратегія зростання рахується в елементах,
-    for (std::size_t i = 0; i < n; ++i) {   // тому тип елемента тут не важить
-        v.push_back(0);
-        if (caps.empty() || v.capacity() != caps.back())
-            caps.push_back(v.capacity());
-    }
-    return caps;
-}
-
-void report(const char* label, const Run& r) {
-    std::cout << std::left << std::setw(24) << label << std::right
-              << " побудов "     << std::setw(6) << r.c.ctor
-              << "   копій "     << std::setw(6) << r.c.copy
-              << "   переміщень "<< std::setw(6) << r.c.move
-              << "   знищень "   << std::setw(6) << r.c.dtor
-              << "   час "       << std::setw(8) << std::fixed
-              << std::setprecision(2) << r.seconds * 1e3 << " мс\n";
-}
-
-int main() {
-    const std::size_t N = 8000;   // скільки елементів додаємо
-    const std::size_t P = 64;     // скільки double у кожному елементі
-    const int         R = 7;      // повторів на варіант
-
-    std::cout << "місткості: ";
-    for (std::size_t c : capacity_trace(N)) std::cout << c << ' ';
-    std::cout << "\n\n";
-
-    const Run slow   = best_of<false>(R, N, P, false);
-    const Run fast   = best_of<true >(R, N, P, false);
-    const Run slow_r = best_of<false>(R, N, P, true);
-    const Run fast_r = best_of<true >(R, N, P, true);
-
-    report("без noexcept",           slow);
-    report("з noexcept",             fast);
-    report("без noexcept + reserve", slow_r);
-    report("з noexcept + reserve",   fast_r);
-
-    std::cout << "\nповільніше в " << slow.seconds / fast.seconds << " раза\n"
-              << "checksum " << slow.checksum + fast.checksum
-                              + slow_r.checksum + fast_r.checksum << '\n';
-}
-```
+:::code proj-noexcept-vector-growth/cpp/kod-2.cpp
 
 ## Що надрукується — і чому саме стільки
 
@@ -233,43 +107,11 @@ r = 1.5   →  ≈ 3 рази
 
 Найцікавіший випадок — коли вибору в бібліотеки немає. Візьмімо тип із забороненим копіюванням і **без** обіцянки на переміщенні:
 
-```cpp
-class MoveOnly {
-public:
-    explicit MoveOnly(std::size_t n) : data_(n, 1.0) { ++g.ctor; }
-
-    MoveOnly(const MoveOnly&)            = delete;
-    MoveOnly& operator=(const MoveOnly&) = delete;
-
-    MoveOnly(MoveOnly&& o) : data_(std::move(o.data_)) { ++g.move; }   // без noexcept
-    MoveOnly& operator=(MoveOnly&& o) {
-        data_ = std::move(o.data_); ++g.move; return *this;
-    }
-    ~MoveOnly() { ++g.dtor; }
-
-private:
-    std::vector<double> data_;
-};
-
-static_assert(!std::is_copy_constructible_v<MoveOnly>);
-static_assert(!std::is_nothrow_move_constructible_v<MoveOnly>);
-```
+:::code proj-noexcept-vector-growth/cpp/typ-iakyi-ne-vmiie.cpp
 
 Що зробить `vector`? Відповідь видно ще до запуску — прямо в типі, який поверне `std::move_if_noexcept`:
 
-```cpp
-static_assert(std::is_same_v<
-    decltype(std::move_if_noexcept(std::declval<Payload<true>&>())),
-    Payload<true>&&>);                       // обіцянка є → переміщуємо
-
-static_assert(std::is_same_v<
-    decltype(std::move_if_noexcept(std::declval<Payload<false>&>())),
-    const Payload<false>&>);                 // обіцянки немає, копія є → копіюємо
-
-static_assert(std::is_same_v<
-    decltype(std::move_if_noexcept(std::declval<MoveOnly&>())),
-    MoveOnly&&>);                            // копії немає → переміщуємо попри все
-```
+:::code proj-noexcept-vector-growth/cpp/typ-iakyi-ne-vmiie-2.cpp
 
 Три рядки, жодного виконання — і механізм доведений. Прогнавши `MoveOnly` через той самий цикл, побачите лічильники, як у варіанта з `noexcept`: 8000 побудов, 0 копій, 8191 переміщення. Тобто **за швидкістю** тип без копіювання поводиться так само добре, як тип з обіцянкою.
 

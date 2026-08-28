@@ -8,88 +8,19 @@
 
 Другий лічильник потрібен тому, що копія копії не рівня. Копіювання об'єкта, який тримає дані в купі, означає ще й виділення пам'яті — а це на два порядки дорожче за перенесення кількох байтів. Виділення ловимо заміною глобального `operator new`: стандарт дозволяє програмі підмінити його своїм, і тоді через нашу функцію проходить кожен `new` у програмі, включно з тими, що робить усередині себе `std::string`.
 
-```cpp
-#include <cstddef>
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include <new>
-#include <string>
-#include <vector>
-
-struct Counters {
-    std::size_t ctor = 0, copy = 0, move = 0, dtor = 0;
-    void reset() { ctor = copy = move = dtor = 0; }
-};
-inline Counters g_probe;
-
-// Лічильник справжніх виділень: заміна глобального operator new.
-inline std::size_t g_allocs = 0;
-
-void* operator new(std::size_t n) {
-    ++g_allocs;
-    if (void* p = std::malloc(n)) return p;
-    throw std::bad_alloc{};
-}
-void operator delete(void* p) noexcept              { std::free(p); }
-void operator delete(void* p, std::size_t) noexcept { std::free(p); }
-
-struct Probe {
-    std::string id;                       // навмисно довгий рядок — див. «Пастки»
-
-    explicit Probe(std::string s) : id(std::move(s))   { ++g_probe.ctor; }
-    Probe(const Probe& o)         : id(o.id)           { ++g_probe.copy; }
-    Probe(Probe&& o) noexcept     : id(std::move(o.id)) { ++g_probe.move; }
-
-    Probe& operator=(const Probe& o) { id = o.id;            ++g_probe.copy; return *this; }
-    Probe& operator=(Probe&& o) noexcept { id = std::move(o.id); ++g_probe.move; return *this; }
-
-    ~Probe() { ++g_probe.dtor; }
-};
-```
+:::code proj-deduction-lab/cpp/prylad-pershyi-typ-iakyi.cpp
 
 Написавши п'ять функцій вручну, ми свідомо вимкнули [правило нуля](root:sys-plang-cpp/rule-of-five-zero) — домовленість, за якою клас без власних ресурсів не оголошує жодної з цих операцій і дістає їх від компілятора. Тут ресурсів теж немає, але нам потрібні саме побічні дії, тож пишемо всі п'ять. Переміщувальні операції позначені `noexcept` не для краси: [семантика переміщення](root:sys-plang-cpp/move-semantics) — це передавання нутрощів об'єкта замість їх дублювання, і `std::vector` при перерозподілі погоджується переміщувати елементи лише тоді, коли переміщення обіцяє не кидати винятків, інакше він мовчки копіює.
 
 Далі — вимірювальний джгут. Він скидає лічильники, запам'ятовує кількість виділень, виконує передане тіло й друкує різницю.
 
-```cpp
-inline std::size_t g_sink = 0;   // щоб цикл не викинули як марний
-
-template <class Body>
-void measure(const char* label, Body&& body) {
-    g_probe.reset();
-    const std::size_t before = g_allocs;
-    body();
-    const std::size_t allocs = g_allocs - before;
-    std::cout << label
-              << "  копій: "      << g_probe.copy
-              << "\tпереміщень: " << g_probe.move
-              << "\tвиділень: "   << allocs << '\n';
-}
-```
+:::code proj-deduction-lab/cpp/prylad-pershyi-typ-iakyi-2.cpp
 
 ## Що показує цикл
 
 Тепер власне дослід: тисяча об'єктів у векторі й три форми циклу за діапазоном.
 
-```cpp
-int main() {
-    std::vector<Probe> v;
-    v.reserve(1000);
-    for (int i = 0; i < 1000; ++i)
-        v.emplace_back("елемент-номер-" + std::to_string(i) + "-із-довгим-хвостом");
-
-    measure("for (auto x : v)       ", [&] {
-        for (auto x : v)        g_sink += x.id.size();
-    });
-    measure("for (const auto& x : v)", [&] {
-        for (const auto& x : v) g_sink += x.id.size();
-    });
-    measure("for (auto&& x : v)     ", [&] {
-        for (auto&& x : v)      g_sink += x.id.size();
-    });
-}
-```
+:::code proj-deduction-lab/cpp/shcho-pokazuie-tsykl.cpp
 
 Вивід (g++ 13, `-std=c++17`, однаковий і на `-O0`, і на `-O2`):
 
@@ -107,18 +38,7 @@ for (auto&& x : v)       копій: 0       переміщень: 0    виді
 
 Другий дослід — той самий словник, що й у класичній помилці з парою. Елемент `std::map<int, Probe>` має тип `std::pair<const int, Probe>`, а не `std::pair<int, Probe>`, тож посилання на «майже той самий» тип змушує створювати тимчасову пару на кожній ітерації:
 
-```cpp
-    std::map<int, Probe> m;
-    for (int i = 0; i < 1000; ++i)
-        m.emplace(i, Probe("ключ-" + std::to_string(i) + "-із-довгим-хвостом"));
-
-    measure("const std::pair<int, Probe>& e", [&] {
-        for (const std::pair<int, Probe>& e : m) g_sink += e.second.id.size();
-    });
-    measure("const auto& e                 ", [&] {
-        for (const auto& e : m)                  g_sink += e.second.id.size();
-    });
-```
+:::code proj-deduction-lab/cpp/shcho-pokazuie-tsykl.hpp
 
 ```text
 const std::pair<int, Probe>& e   копій: 1000    переміщень: 0    виділень: 1000
@@ -156,34 +76,7 @@ MSVC   error C2079: 'show' uses undefined class 'TD<const int&>'
 
 Вирізати можна й «за прапорцем компілятора», рахуючи довжину префікса вручну, але надійніше зробити це самим рядком. Проганяємо шаблон крізь **мітку** — тип, назва якого в сигнатурі трапляється рівно один раз, — і дивимося, скільки символів опинилося ліворуч і праворуч від неї. Ці два числа й будуть межами вирізання для будь-якого іншого типу:
 
-```cpp
-#include <string_view>
-
-template <class T>
-constexpr const char* raw_name() {
-#if defined(__clang__) || defined(__GNUC__)
-    return __PRETTY_FUNCTION__;
-#elif defined(_MSC_VER)
-    return __FUNCSIG__;
-#else
-    return "?";
-#endif
-}
-
-// g++ дає:   constexpr const char* raw_name() [with T = double]
-// clang дає: const char *raw_name() [T = double]
-// MSVC дає:  const char *__cdecl raw_name<double>(void)
-inline constexpr std::string_view kMark   = "double";
-inline constexpr std::string_view kSample = raw_name<double>();
-inline constexpr std::size_t      kHead   = kSample.find(kMark);
-inline constexpr std::size_t      kTail   = kSample.size() - kHead - kMark.size();
-
-template <class T>
-constexpr std::string_view type_name() {
-    const std::string_view s = raw_name<T>();
-    return s.substr(kHead, s.size() - kHead - kTail);
-}
-```
+:::code proj-deduction-lab/cpp/prylad-druhyi-zmusyty.cpp
 
 Функція повертає саме `const char*`, а не `std::string_view`, і це не дрібниця: GCC розкриває в сигнатурі кожен ужитий псевдонім, тож із типом повернення `std::string_view` до квадратних дужок додалося б іще `; std::string_view = std::basic_string_view<char>`. Рядок став би довшим, а головне — залежним від того, які саме псевдоніми в ньому трапилися. З голим `const char*` сигнатура коротка й однакової будови для будь-якого `T`. Тип `double` узятий за мітку теж не випадково: жодне зі слів `constexpr`, `const char*`, `raw_name`, `__cdecl`, `void` його в собі не містить, тож `find` натрапить саме на аргумент шаблону.
 
@@ -224,34 +117,7 @@ std::cout << (typeid(cr) == typeid(int) ? "однакові" : "різні") << 
 
 Тепер зберемо все й проженемо п'ять форм оголошення крізь три різні ініціалізатори. Це і є основна дослідна установка: одна й та сама п'ятірка, три різні джерела.
 
-```cpp
-void battery() {
-    // ── 1. Константний об'єкт ────────────────────────────────
-    const int ci = 42;
-    auto        a1 = ci;   SHOW(a1);
-    const auto  a2 = ci;   SHOW(a2);
-    auto&       a3 = ci;   SHOW(a3);
-    const auto& a4 = ci;   SHOW(a4);
-    auto&&      a5 = ci;   SHOW(a5);
-
-    // ── 2. Масив ─────────────────────────────────────────────
-    int arr[5] = {};
-    auto        b1 = arr;  SHOW(b1);
-    const auto  b2 = arr;  SHOW(b2);
-    auto&       b3 = arr;  SHOW(b3);
-    const auto& b4 = arr;  SHOW(b4);
-    auto&&      b5 = arr;  SHOW(b5);
-
-    // ── 3. Посередник із vector<bool> ────────────────────────
-    std::vector<bool> vb{true, false, true};
-    auto        c1 = vb[0];  SHOW(c1);
-    const auto  c2 = vb[0];  SHOW(c2);
- // auto&       c3 = vb[0];              // не компілюється, див. нижче
-    const auto& c4 = vb[0];  SHOW(c4);
-    auto&&      c5 = vb[0];  SHOW(c5);
-    auto        c6 = static_cast<bool>(vb[0]);  SHOW(c6);
-}
-```
+:::code proj-deduction-lab/cpp/batareia-oholoshen.cpp
 
 Вивід (g++ 13 з libstdc++; Clang друкує те саме з пробілом перед `&`):
 

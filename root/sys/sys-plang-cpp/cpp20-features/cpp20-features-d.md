@@ -35,18 +35,7 @@ T compute_hash(T value) {
 
 C++20 зробив обмеження шаблонів першокласним елементом мови, ввівши ключові слова `concept` та `requires`. **Концепт** (лат. *conceptus* — уявлення, поняття) — це іменований предикат часу компіляції, що перевіряє властивості типів, наявність вкладених типів, викликів методів та типів їхніх результатів:
 
-```cpp
-#include <concepts>
-
-template<typename T>
-concept HashableScalar = std::integral<T> && !std::same_as<T, bool>;
-
-// Застосування концепту в заголовку шаблону
-template<HashableScalar T>
-T compute_hash(T value) {
-    return value ^ 0x9e3779b9;
-}
-```
+:::code cpp20-features-d/cpp/1-kontsepty-ta-obmezhennia.cpp
 
 Вираз `requires` дозволяє безпосередньо перевіряти синтаксичну коректність складних виразів, наявність вкладених типів і відповідність типів результатів іншим концептам. Вираз `requires` може містити чотири типи вимог:
 1. **Прості вимоги (Simple Requirements):** довільний вираз, який повинен бути синтаксично валідним для заданого типу (наприклад, `container.clear();`).
@@ -54,24 +43,7 @@ T compute_hash(T value) {
 3. **Складені вимоги (Compound Requirements):** вираз у фігурних дужках із можливістю перевірки специфікатора `noexcept` та суворого обмеження типу результату за допомогою концепту-стрілки `-> Concept` (наприклад, `{ container.size() } noexcept -> std::convertible_to<std::size_t>;`).
 4. **Вкладені вимоги (Nested Requirements):** додаткові предикати часу компіляції, введені через `requires Predicate<T>;`.
 
-```cpp
-template<typename T>
-concept PrintableContainer = requires(T container) {
-    // 1. Проста вимога
-    container.clear();
-
-    // 2. Типова вимога
-    typename T::value_type;
-
-    // 3. Складена вимога
-    { container.size() } noexcept -> std::convertible_to<std::size_t>;
-    { container.begin() } -> std::input_or_output_iterator;
-    { container.end() }   -> std::sentinel_for<decltype(container.begin())>;
-
-    // 4. Вкладена вимога
-    requires sizeof(typename T::value_type) <= 64;
-};
-```
+:::code cpp20-features-d/cpp/1-kontsepty-ta-obmezhennia-2.cpp
 
 ### Правила поглинання та впорядкування перевантажень
 
@@ -79,19 +51,7 @@ concept PrintableContainer = requires(T container) {
 
 Якщо концепт `B` логічно вимагає виконання всіх атомарних обмежень концепту `A` плюс додаткові умови (`concept B = A<T> && requires(...)`), функція, обмежена концептом `B`, автоматично вважається більш обмеженою (more constrained):
 
-```cpp
-template<std::input_iterator I>
-void advance_cursor(I& it, std::size_t n) {
-    // Лінійне переміщення O(N) для звичайного ітератора
-    while (n--) ++it;
-}
-
-template<std::random_access_iterator I>
-void advance_cursor(I& it, std::size_t n) {
-    // Миттєвий перехід O(1) для ітератора довільного доступу
-    it += n;
-}
-```
+:::code cpp20-features-d/cpp/pravyla-pohlynannia-ta.cpp
 
 При виклику `advance_cursor` для `std::vector<int>::iterator` компілятор автоматично обирає другу версію без жодних конфліктів неоднозначності, оскільки концепт `std::random_access_iterator` поглинає `std::input_iterator`.
 
@@ -116,33 +76,7 @@ void log_metric(std::floating_point auto val) {
 
 C++20 ввів **модулі** — герметичні бінарні одиниці інтерфейсу (Binary Module Interface, BMI):
 
-```cpp
-// Файл: math_matrix.ixx (або .cppm)
-export module math.matrix;
-
-import <vector>;
-import <stdexcept>;
-
-export namespace math {
-    template<typename T>
-    class Matrix {
-    public:
-        Matrix(std::size_t r, std::size_t c) : rows_(r), cols_(c), data_(r * c) {}
-
-        T& at(std::size_t r, std::size_t c) {
-            if (r >= rows_ || c >= cols_) throw std::out_of_range("Matrix bounds");
-            return data_[r * cols_ + c];
-        }
-
-    private:
-        std::size_t rows_, cols_;
-        std::vector<T> data_;
-    };
-
-    export template<typename T>
-    Matrix<T> identity(std::size_t n);
-}
-```
+:::code cpp20-features-d/cpp/2-moduli-import-i-export.cpp
 
 Використання модуля в іншому файлі здійснюється через директиву `import`:
 
@@ -207,31 +141,7 @@ C++20 надав мові підтримку **безстекових корут
 2. **Дескриптор корутини (`std::coroutine_handle<P>`):** Неволодіючий покажчик на виділений фрейм корутини (Coroutine Frame), що дозволяє відновлювати (`handle.resume()`) або знищувати (`handle.destroy()`) її ззовні.
 3. **Протокол Awaiter:** Інтерфейс об'єкта, що передається в `co_await`, який визначає готовність результату (`await_ready`), дію при призупиненні (`await_suspend`) та значення після відновлення (`await_resume`):
 
-```cpp
-#include <coroutine>
-#include <iostream>
-
-struct SimpleTask {
-    struct promise_type {
-        SimpleTask get_return_object() {
-            return SimpleTask{std::coroutine_handle<promise_type>::from_promise(*this)};
-        }
-        std::suspend_never initial_suspend() noexcept { return {}; }
-        std::suspend_always final_suspend() noexcept { return {}; }
-        void return_void() noexcept {}
-        void unhandled_exception() { std::terminate(); }
-    };
-
-    std::coroutine_handle<promise_type> handle;
-    ~SimpleTask() { if (handle) handle.destroy(); }
-};
-
-SimpleTask async_counter() {
-    std::cout << "Крок 1: початок обчислення\n";
-    co_await std::suspend_always{}; // Точка призупинення
-    std::cout << "Крок 2: продовження після відновлення\n";
-}
-```
+:::code cpp20-features-d/cpp/triada-mekhaniky-korutyny.cpp
 
 ### Симетрична передача керування (Symmetric Transfer)
 
@@ -259,26 +169,7 @@ SimpleTask async_counter() {
 ![Конвеєр обробки діапазонів у C++20](img/cpp20-ranges-pipeline.svg)
 *Поетапне проходження елементів через лінивий конвеєр views без проміжних виділень динамічної пам'яті*
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <ranges>
-
-int main() {
-    std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-    // Конвеєр: відібрати парні, піднести до квадрата, взяти перші три
-    auto pipeline = numbers
-                  | std::views::filter([](int n) { return n % 2 == 0; })
-                  | std::views::transform([](int n) { return n * n; })
-                  | std::views::take(3);
-
-    for (int value : pipeline) {
-        std::cout << value << " "; // Виведе: 4 16 36
-    }
-    return 0;
-}
-```
+:::code cpp20-features-d/cpp/4-diapazony-ta-konveiery.cpp
 
 ### Проекції в алгоритмах ranges
 
@@ -321,19 +212,7 @@ C++20 запровадив оператор **тристороннього по�
 ![Тричленне порівняння та синтез кандидатів](img/cpp20-spaceship-operator.svg)
 *Синтез повного набору з шести операторів порівняння на основі єдиного оголошення operator<=> = default*
 
-```cpp
-#include <compare>
-#include <string>
-
-struct Employee {
-    int id;
-    std::string surname;
-    double salary;
-
-    // Компілятор почленно порівнює поля у порядку їхнього оголошення
-    auto operator<=>(const Employee&) const = default;
-};
-```
+:::code cpp20-features-d/cpp/5-operator-trystoronnoho.cpp
 
 Оголошення `= default` автоматично генерує не лише `operator<=>`, але й високошвидкісний `operator==`. Якщо у коді викликається вираз `emp1 < emp2`, компілятор переписує його у `(emp1 <=> emp2) < 0`. Для виразів `emp1 != emp2` використовується переписаний вираз `!(emp1 == emp2)`.
 
@@ -356,19 +235,7 @@ struct Employee {
 
 Специфікатор `constexpr` гарантує лише *можливість* виконання функції під час компіляції, але за наявності неконстантних аргументів компілятор мовчки генерує виклик у рантаймі. Ключове слово `consteval` оголошує **негайну функцію** (Immediate Function), яка **зобов'язана** обчислюватися виключно під час компіляції. Будь-яка спроба виконати її в рантаймі викликає жорстку помилку збірки:
 
-```cpp
-consteval int compile_time_hash(std::string_view str) {
-    int hash = 5381;
-    for (char c : str) {
-        hash = ((hash << 5) + hash) + static_cast<int>(c);
-    }
-    return hash;
-}
-
-constexpr int h1 = compile_time_hash("api_v1"); // Успішно обчислено компілятором
-int x = 42;
-// int h2 = compile_time_hash(std::to_string(x)); // Помилка компіляції!
-```
+:::code cpp20-features-d/cpp/nehaini-funktsii-consteval.cpp
 
 ### Захист від порядку статичної ініціалізації: constinit
 
@@ -397,28 +264,7 @@ C++20 зняв фундаментальні обмеження на обчисл
 
 До C++20 як NTTP (Non-Type Template Parameters) дозволялися лише цілі числа, переліки та покажчики. C++20 дозволив параметризувати шаблони числами з плаваючою комою та користувацькими класами-літералами зі структурним типом (усі поля та базові класи є публічними та не мутабельними):
 
-```cpp
-template<double Scale>
-double apply_gain(double val) {
-    return val * Scale;
-}
-
-template<std::size_t N>
-struct FixedString {
-    char buf[N];
-    constexpr FixedString(const char (&str)[N]) {
-        std::copy_n(str, N, buf);
-    }
-};
-
-template<FixedString Tag>
-void log_tagged(std::string_view msg) {
-    std::cout << "[" << Tag.buf << "] " << msg << "\n";
-}
-
-// Виклик шаблону з рядковим літералом як NTTP
-log_tagged<"NETWORK">("Packet received");
-```
+:::code cpp20-features-d/cpp/shablonni-parametry-ne.cpp
 
 ### Лямбда-вирази нового покоління
 
@@ -447,20 +293,7 @@ log_tagged<"NETWORK">("Packet received");
 
 C++20 запозичив із стандарту C99 іменовані ініціалізатори для агрегатних типів, що підвищує самодокументованість коду. На відміну від C, стандарт C++ вимагає суворого дотримання порядку оголошення полів, унеможливлюючи приховані помилки невідповідності зміщень:
 
-```cpp
-struct ServerConfig {
-    std::string host = "localhost";
-    int port = 8080;
-    int max_clients = 1000;
-    bool enable_tls = false;
-};
-
-ServerConfig cfg{
-    .port = 443,
-    .max_clients = 5000,
-    .enable_tls = true
-}; // Поля мають слідувати у порядку їхнього оголошення в структурі
-```
+:::code cpp20-features-d/cpp/imenovani-initsializatory.cpp
 
 ---
 
@@ -484,25 +317,7 @@ std::string report = std::format("Користувач ID: {:08d} | Рейтин
 
 Клас `std::span<T>` із заголовка `<span>` є невласницьким видом на неперервну послідовність об'єктів у пам'яті (`покажчик + довжина`). Він дозволяє уніфікувати інтерфейси функцій, які приймають сирі масиви C, `std::vector` або `std::array`, без копіювання даних:
 
-```cpp
-#include <span>
-#include <vector>
-#include <array>
-
-void process_buffer(std::span<const uint8_t> buffer) {
-    for (uint8_t byte : buffer) {
-        // Обробка байтів
-    }
-}
-
-uint8_t raw[128];
-std::vector<uint8_t> vec(64);
-std::array<uint8_t, 32> arr;
-
-process_buffer(raw); // Працює з C-масивом
-process_buffer(vec); // Працює з std::vector
-process_buffer(arr); // Працює з std::array
-```
+:::code cpp20-features-d/cpp/sutsilni-predstavlennia.cpp
 
 ### Багатопотоковість і синхронізація
 
@@ -515,64 +330,19 @@ C++20 кардинально покращив багатопотоковий а�
    - `std::barrier` — багаторазовий фазовий бар'єр із можливістю запуску функції завершення кроку;
    - `std::counting_semaphore` та `std::binary_semaphore` — легковажні семафори, побудовані безпосередньо над системними футексами (Futex).
 
-```cpp
-#include <thread>
-#include <chrono>
-#include <iostream>
-
-void worker_routine(std::stop_token stoken, int id) {
-    while (!stoken.stop_requested()) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
-    std::cout << "Потік " << id << " коректно зупинився.\n";
-}
-
-int main() {
-    std::jthread worker(worker_routine, 1);
-    std::this_thread::sleep_for(std::chrono::milliseconds(120));
-    // Деструктор worker автоматично викличе request_stop() та join()
-    return 0;
-}
-```
+:::code cpp20-features-d/cpp/bahatopotokovist-i.cpp
 
 ### Низькорівневі маніпуляції бітами: `<bit>`
 
 Заголовок `<bit>` надав переносні інтринсіки для роботи з двійковими розрядами, які транслюються в одиночні інструкції процесора:
 
-```cpp
-#include <bit>
-#include <cstdint>
-
-uint32_t val = 0b0000'1111'0000'0000;
-int ones = std::popcount(val);           // Апаратний POPCNT -> 4
-int leading_zeros = std::countl_zero(val);// Апаратний LZCNT -> 4
-bool is_pow2 = std::has_single_bit(16u);  // true
-
-// Безпечне приведення типів без порушення Strict Aliasing
-float f = 1.0f;
-uint32_t raw_bits = std::bit_cast<uint32_t>(f); // mov замість memcpy
-```
+:::code cpp20-features-d/cpp/nyzkorivnevi-manipuliatsii.cpp
 
 ### Календар і часові зони: розширення `<chrono>`
 
 Бібліотека часу отримала класи представлення цивільного календаря (рік, місяць, день, день тижня) та підтримку міжнародної бази часових поясів IANA (Time Zone Database):
 
-```cpp
-#include <chrono>
-#include <iostream>
-
-using namespace std::chrono;
-
-// Зручні літерали дат
-auto date = 2026y / August / 19d;
-bool valid = date.ok();
-
-// Арифметика дат
-auto next_month = date + months(1);
-
-// Робота з часовими поясами
-zoned_time kyiv_time{"Europe/Kyiv", system_clock::now()};
-```
+:::code cpp20-features-d/cpp/kalendar-i-chasovi-zony.hpp
 
 Повний структурований довідник макросів SD-6, заголовків та інтерфейсів доступний у вставці [довідкова матриця нововведень C++20](root:sys-plang-cpp/cpp20-features/api-cpp20-features-matrix.md).
 

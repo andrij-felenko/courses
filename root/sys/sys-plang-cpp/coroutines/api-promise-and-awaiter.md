@@ -91,44 +91,13 @@ struct std::coroutine_traits<my_lib::future<int>, Args...> {
 
 Два готові очікувачі стандарт дає прямо, і обидва — порожні структури:
 
-```cpp
-struct suspend_always {
-    constexpr bool await_ready() const noexcept { return false; }
-    constexpr void await_suspend(coroutine_handle<>) const noexcept {}
-    constexpr void await_resume() const noexcept {}
-};
-struct suspend_never {                      // те саме, але await_ready() → true
-    constexpr bool await_ready() const noexcept { return true; }
-    constexpr void await_suspend(coroutine_handle<>) const noexcept {}
-    constexpr void await_resume() const noexcept {}
-};
-```
+:::code api-promise-and-awaiter/cpp/zvidky-beretsia-ochikuvach.cpp
 
 ## `std::coroutine_handle`
 
 Заголовок `<coroutine>`. Усередині — один нетипізований вказівник: тип тривіально копійовний, передається за значенням, деструктора не має й кадром **не володіє**.
 
-```cpp
-template<class Promise> struct coroutine_handle {
-    constexpr coroutine_handle() noexcept;
-    constexpr coroutine_handle(nullptr_t) noexcept;
-    coroutine_handle& operator=(nullptr_t) noexcept;
-
-    static coroutine_handle from_promise(Promise&);
-    constexpr void* address() const noexcept;
-    static constexpr coroutine_handle from_address(void* addr);
-    constexpr operator coroutine_handle<>() const noexcept;
-
-    constexpr explicit operator bool() const noexcept;
-    bool done() const;
-
-    void resume() const;
-    void operator()() const;                 // те саме, що resume()
-    void destroy() const;
-
-    Promise& promise() const;
-};
-```
+:::code api-promise-and-awaiter/cpp/std-coroutine-handle.hpp
 
 Спеціалізація `coroutine_handle<void>` (вона ж `coroutine_handle<>`) має рівно те саме **без** `from_promise`, `promise()` і перетворення. Це стирання типу в один бік: назад до `coroutine_handle<P>` вертаються лише через `address()` → `from_address()`.
 
@@ -151,26 +120,6 @@ template<class Promise> struct coroutine_handle {
 
 Шість обов'язкових членів і нічого зайвого — «гаряча» задача без результату, яка сама прибирає за собою:
 
-```cpp
-#include <coroutine>
-#include <exception>
-#include <print>
-
-struct fire_and_forget {
-    struct promise_type {
-        fire_and_forget get_return_object() noexcept { return {}; }
-        std::suspend_never initial_suspend() noexcept { return {}; }
-        std::suspend_never final_suspend() noexcept { return {}; }   // кадр гине сам
-        void return_void() noexcept {}
-        void unhandled_exception() { std::terminate(); }
-    };
-};
-
-fire_and_forget log_later(int n) {
-    co_await std::suspend_never{};   // await_ready() == true → призупинення не буде
-    std::print("{}\n", n);           // n — копія, що лежить у кадрі
-    co_return;                       // → return_void(), далі final_suspend і смерть кадру
-}
-```
+:::code api-promise-and-awaiter/cpp/minimalnyi-typ-shcho.cpp
 
 Замініть `final_suspend` на `std::suspend_always` — і тип зобов'язаний обзавестися handle й деструктором із `h.destroy()`, бо кадр більше не прибирає себе сам.

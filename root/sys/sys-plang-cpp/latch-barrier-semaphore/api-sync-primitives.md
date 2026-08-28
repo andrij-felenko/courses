@@ -10,28 +10,7 @@
 
 ### Оголошення класу
 
-```cpp
-namespace std {
-    class latch {
-    public:
-        static constexpr ptrdiff_t max() noexcept;
-
-        constexpr explicit latch(ptrdiff_t expected);
-        ~latch();
-
-        latch(const latch&) = delete;
-        latch& operator=(const latch&) = delete;
-
-        void count_down(ptrdiff_t update = 1);
-        bool try_wait() const noexcept;
-        void wait() const;
-        void arrive_and_wait(ptrdiff_t update = 1);
-
-    private:
-        /* implementation-defined стан */
-    };
-}
-```
+:::code api-sync-primitives/cpp/oholoshennia-klasu.hpp
 
 ### Статичні члени
 
@@ -112,32 +91,7 @@ namespace std {
 
 ### Оголошення класу-шаблону
 
-```cpp
-namespace std {
-    template<class CompletionFunction = /* implementation-defined */>
-    class barrier {
-    public:
-        using arrival_token = /* implementation-defined */;
-
-        static constexpr ptrdiff_t max() noexcept;
-
-        constexpr explicit barrier(ptrdiff_t expected,
-                                   CompletionFunction f = CompletionFunction());
-        ~barrier();
-
-        barrier(const barrier&) = delete;
-        barrier& operator=(const barrier&) = delete;
-
-        [[nodiscard]] arrival_token arrive(ptrdiff_t update = 1);
-        void wait(arrival_token&& arrival) const;
-        void arrive_and_wait();
-        void arrive_and_drop();
-
-    private:
-        /* implementation-defined стан (лічильники поточної та наступної фаз) */
-    };
-}
-```
+:::code api-sync-primitives/cpp/oholoshennia-klasu-2.hpp
 
 ### Тип `arrival_token`
 
@@ -204,33 +158,7 @@ namespace std {
 
 ### Оголошення класу-шаблону
 
-```cpp
-namespace std {
-    template<ptrdiff_t LeastMaxValue = /* implementation-defined */>
-    class counting_semaphore {
-    public:
-        static constexpr ptrdiff_t max() noexcept;
-
-        constexpr explicit counting_semaphore(ptrdiff_t desired);
-        ~counting_semaphore();
-
-        counting_semaphore(const counting_semaphore&) = delete;
-        counting_semaphore& operator=(const counting_semaphore&) = delete;
-
-        void release(ptrdiff_t update = 1);
-        void acquire();
-        bool try_acquire() noexcept;
-
-        template<class Rep, class Period>
-        bool try_acquire_for(const std::chrono::duration<Rep, Period>& rel_time);
-
-        template<class Clock, class Duration>
-        bool try_acquire_until(const std::chrono::time_point<Clock, Duration>& abs_time);
-    };
-
-    using binary_semaphore = counting_semaphore<1>;
-}
-```
+:::code api-sync-primitives/cpp/oholoshennia-klasu-3.hpp
 
 ### Параметр шаблону `LeastMaxValue`
 

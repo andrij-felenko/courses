@@ -13,18 +13,7 @@
 
 ## `std::swap`: два шаблони з `<utility>`
 
-```cpp
-template<class T>
-constexpr void swap(T& a, T& b)
-    noexcept(is_nothrow_move_constructible_v<T> && is_nothrow_move_assignable_v<T>);
-// Обмеження: is_move_constructible_v<T> && is_move_assignable_v<T>
-// Дія: обмінює значення; складність — стала (три переміщення)
-
-template<class T, size_t N>
-constexpr void swap(T (&a)[N], T (&b)[N]) noexcept(is_nothrow_swappable_v<T>);
-// Обмеження: is_swappable_v<T>
-// Дія: як swap_ranges(a, a + N, b); складність — рівно N обмінів
-```
+:::code api-swap-facilities/cpp/std-swap-dva-shablony-z.hpp
 
 Слово «обмеження» тут має точний зміст: коли умова хибна, шаблон **тихо випадає з набору кандидатів** замість давати помилку в глибині бібліотеки. Саме тому в узагальненому коді на `std::swap` можна спиратися як на запасний варіант: для типу, який не переміщується, він просто не заважає.
 
@@ -71,19 +60,7 @@ template<class T> void swap(T&, T&) = delete;
 
 Застереження одне: риса дивиться лише на безпосередній контекст виразу. Якщо помилка чигає глибше — у тілі інстанціювання, — риса поверне `true`, а компіляція все одно впаде.
 
-```cpp
-#include <concepts>
-#include <type_traits>
-
-namespace geo {
-struct Path;
-void swap(Path&, Path&) noexcept;
-}
-
-static_assert(std::is_swappable_v<geo::Path>);          // обмін узагалі можливий
-static_assert(std::is_nothrow_swappable_v<geo::Path>);  // і він не кидає
-static_assert(std::swappable<geo::Path>);               // те саме через ranges::swap
-```
+:::code api-swap-facilities/cpp/rysy-i-kontsepty-iak.cpp
 
 ## Обмін через ітератори
 
@@ -116,19 +93,7 @@ C++14; `constexpr` з C++20; умовний `noexcept` — з C++23 (папір 
 
 Умова `noexcept` у члена `swap` має три форми (у теперішньому вигляді — з C++17); вільна функція `swap(a, b)` для кожного контейнера означена як `a.swap(b)`, тож усе сказане стосується й її.
 
-```cpp
-// A — послідовні контейнери й рядок
-noexcept(allocator_traits<Allocator>::propagate_on_container_swap::value ||
-         allocator_traits<Allocator>::is_always_equal::value)
-
-// B — впорядковані асоціативні
-noexcept(allocator_traits<Allocator>::is_always_equal::value &&
-         is_nothrow_swappable_v<Compare>)
-
-// C — невпорядковані
-noexcept(allocator_traits<Allocator>::is_always_equal::value &&
-         is_nothrow_swappable_v<Hash> && is_nothrow_swappable_v<Pred>)
-```
+:::code api-swap-facilities/cpp/konteinery-skladnist.cpp
 
 | Контейнер | Форма умови | Складність |
 |---|---|---|

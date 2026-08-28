@@ -112,28 +112,7 @@
 
 Завдяки посередництву `std::allocator_traits` мінімальний коректний алокатор у сучасному C++ скоротився до простої структури:
 
-```cpp
-template <typename T>
-struct SimpleHeapAllocator {
-    using value_type = T;
-
-    SimpleHeapAllocator() noexcept = default;
-    template <typename U>
-    SimpleHeapAllocator(const SimpleHeapAllocator<U>&) noexcept {}
-
-    [[nodiscard]] T* allocate(std::size_t n) {
-        if (n > std::numeric_limits<std::size_t>::max() / sizeof(T)) {
-            throw std::bad_alloc();
-        }
-        void* ptr = ::operator new(n * sizeof(T));
-        return static_cast<T*>(ptr);
-    }
-
-    void deallocate(T* p, std::size_t /*n*/) noexcept {
-        ::operator delete(p);
-    }
-};
-```
+:::code custom-allocators-d/cpp/shar-abstraktsii-std.cpp
 
 Всі інші типи та операції `std::allocator_traits` автоматично генерує за допомогою підстановки значень за замовчуванням:
 * якщо в класі `Alloc` не оголошено тип `pointer`, traits приймає значення `value_type*`;
@@ -159,27 +138,7 @@ struct __list_node {
 
 Шаблон `std::allocator_traits` надає зручний псевдонім типу `rebind_alloc<U>`, який автоматично знаходить або шаблонну спеціалізацію `Alloc<U>`, або вкладену структуру `Alloc::rebind<U>::other`:
 
-```cpp
-template <typename T, typename Alloc>
-class MyList {
-    using Node = __list_node<T>;
-    using NodeAlloc = typename std::allocator_traits<Alloc>::template rebind_alloc<Node>;
-    using NodeTraits = std::allocator_traits<NodeAlloc>;
-
-    NodeAlloc node_allocator_;
-
-    Node* create_node(const T& value) {
-        Node* p = NodeTraits::allocate(node_allocator_, 1);
-        try {
-            std::allocator_traits<Alloc>::construct(node_allocator_, std::addressof(p->value), value);
-        } catch (...) {
-            NodeTraits::deallocate(node_allocator_, p, 1);
-            throw;
-        }
-        return p;
-    }
-};
-```
+:::code custom-allocators-d/cpp/mekhanizm-perepryviazky.cpp
 
 Повний довідковий перелік усіх типів, констант та методів наведено у документі [Довідка std::allocator_traits та memory_resource](root:sys-plang-cpp/custom-allocators/api-allocator-traits.md).
 
@@ -193,37 +152,7 @@ class MyList {
 
 Якщо два екземпляри алокатора не є рівними, передача пам'яті між ними призводить до катастрофічних наслідків: спроба звільнити пам'ять через чужий алокатор викличе аварійне завершення програми або пошкодження структури кучі.
 
-```cpp
-template <typename T>
-class StatefulArenaAllocator {
-public:
-    using value_type = T;
-
-    explicit StatefulArenaAllocator(Arena& arena) noexcept : arena_(&arena) {}
-
-    template <typename U>
-    StatefulArenaAllocator(const StatefulArenaAllocator<U>& other) noexcept : arena_(other.arena_) {}
-
-    T* allocate(std::size_t n) {
-        return static_cast<T*>(arena_->allocate(n * sizeof(T), alignof(T)));
-    }
-
-    void deallocate(T* p, std::size_t n) noexcept {
-        arena_->deallocate(p, n * sizeof(T));
-    }
-
-    bool operator==(const StatefulArenaAllocator& other) const noexcept {
-        return arena_ == other.arena_;
-    }
-    bool operator!=(const StatefulArenaAllocator& other) const noexcept {
-        return arena_ != other.arena_;
-    }
-
-private:
-    Arena* arena_;
-    template <typename U> friend class StatefulArenaAllocator;
-};
-```
+:::code custom-allocators-d/cpp/alokatory-zi-stanom-ta.cpp
 
 Щоб стандартні контейнери знали, як поводитися з внутрішнім алокатором під час виконання операцій копіювання, переміщення та обміну, `std::allocator_traits` визначає чотири спеціальні ознаки поширення (propagation traits):
 
@@ -269,25 +198,7 @@ using MyVector = std::vector<MyString, ArenaAllocator<MyString>>;
 
 Щоб розв'язати цю проблему і гарантувати, що зовнішній алокатор автоматично прокидається до всіх внутрішніх елементів, стандарт C++11 надав адаптер `std::scoped_allocator_adaptor`:
 
-```cpp
-#include <scoped_allocator>
-
-template <typename T>
-using ScopedArenaAlloc = std::scoped_allocator_adaptor<ArenaAllocator<T>>;
-
-using ScopedString = std::basic_string<char, std::char_traits<char>, ArenaAllocator<char>>;
-using ScopedVector = std::vector<ScopedString, ScopedArenaAlloc<ScopedString>>;
-
-void test_scoped() {
-    Arena arena(64 * 1024);
-    ArenaAllocator<std::byte> byte_alloc(arena);
-    ScopedArenaAlloc<ScopedString> alloc(byte_alloc);
-
-    ScopedVector vec(alloc);
-    // Тепер і буфер вектора, і буфери всіх рядків виділяються виключно в arena!
-    vec.emplace_back("A very long text string that definitely exceeds Small String Optimization limit");
-}
-```
+:::code custom-allocators-d/cpp/vkladeni-konteinery-ta.cpp
 
 ---
 
@@ -366,31 +277,7 @@ stack_alloc.free_to_marker(m); // Миттєво відкочуємо стек �
 
 Завдяки цьому всі контейнери `std::pmr::vector<int>` мають однаковий статичний тип, незалежно від того, яка стратегія пам'яті використовується під капотом!
 
-```cpp
-#include <vector>
-#include <memory_resource>
-#include <array>
-#include <iostream>
-
-void populate_data(std::pmr::vector<int>& vec) {
-    for (int i = 0; i < 100; ++i) {
-        vec.push_back(i * 2);
-    }
-}
-
-void run_example() {
-    // 1. Вектор на швидкому локальному буфері в стеку
-    std::array<std::byte, 1024> stack_buffer;
-    std::pmr::monotonic_buffer_resource stack_arena(stack_buffer.data(), stack_buffer.size());
-    std::pmr::vector<int> stack_vec(&stack_arena);
-
-    // 2. Вектор на системній купі
-    std::pmr::vector<int> heap_vec(std::pmr::new_delete_resource());
-
-    populate_data(stack_vec); // Працює без системних викликів malloc
-    populate_data(heap_vec);  // Працює з купою — обидва вектори повністю сумісні!
-}
-```
+:::code custom-allocators-d/cpp/pryntsyp-styrannia-typiv.cpp
 
 ### Стандартні ресурси пам'яті та ланцюжки (Chaining)
 

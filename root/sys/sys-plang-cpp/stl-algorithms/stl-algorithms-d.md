@@ -183,20 +183,7 @@ void sort(RandomIt first, RandomIt last, Compare comp);
 У мові C++ алгоритм `std::sort` є шаблоном. Коли у якість `Compare` передається лямбда-вираз або функтор (структурний об'єкт із `operator()`), тип компаратора стає унікальним типом компіляції. Компілятор оптимізує виклик `comp(a, b)` повністю вбудовуючи його інструкції безпосередньо у внутрішній цикл сортування. Непрямий виклик функції повністю зникає.
 
 :::tabs
-```c
-#include <stdlib.h>
-
-int cmp_int(const void* a, const void* b) {
-    int arg1 = *(const int*)a;
-    int arg2 = *(const int*)b;
-    return (arg1 > arg2) - (arg1 < arg2);
-}
-
-void sort_c(int* arr, size_t n) {
-    // Кожне порівняння викликає cmp_int через вказівник на функцію
-    qsort(arr, n, sizeof(int), cmp_int);
-}
-```
+:::code stl-algorithms-d/c/main.c
 ```cpp
 #include <vector>
 #include <algorithm>
@@ -248,21 +235,7 @@ std::transform(src.begin(), src.end(), dst.begin(), [scale](float x) {
 
 Це дозволяє будувати відсортовані довідники, шукати елементи та генерувати таблиці безпосередньо під час компіляції:
 
-```cpp
-#include <array>
-#include <algorithm>
-
-constexpr auto generate_sorted_table() {
-    std::array<int, 6> arr = {5, 2, 8, 1, 9, 3};
-    std::sort(arr.begin(), arr.end());
-    return arr;
-}
-
-// Таблиця обчислюється і сортується повністю на етапі компіляції!
-constexpr auto sorted_data = generate_sorted_table();
-static_assert(sorted_data[0] == 1);
-static_assert(sorted_data[5] == 9);
-```
+:::code stl-algorithms-d/cpp/compile-time-alhorytmy-u-c.cpp
 
 Можливість виконання `std::sort`, `std::find`, `std::transform` у контексті `constexpr` суттєво спрощує створення статичних хеш-таблиць та відсортованих індексів, що зменшує час старту системних програм до нуля.
 
@@ -302,29 +275,7 @@ std::ranges::sort(people, std::less{}, &Person::age);
 
 Головною перевагою Ranges є можливість будувати ліниві (lazy) конвеєри обробки даних за допомогою оператора пайплайну `|` без виділення тимчасової пам'яті:
 
-```cpp
-#include <ranges>
-#include <iostream>
-#include <vector>
-
-struct User {
-    std::string name;
-    int         score;
-    bool        active;
-};
-
-void process_users(const std::vector<User>& users) {
-    // Будуємо лінивий конвеєр: фільтрація активних -> проєкція score -> вибірка перших 3
-    auto view = users 
-              | std::views::filter(&User::active)
-              | std::views::transform(&User::score)
-              | std::views::take(3);
-
-    for (int score : view) {
-        std::cout << "Top score: " << score << "\n";
-    }
-}
-```
+:::code stl-algorithms-d/cpp/konveiery-obrobky-range.cpp
 
 ![Схема обробки даних через C++20 Ranges та проєкції](img/ranges-projections-pipe.svg)
 
@@ -336,21 +287,7 @@ void process_users(const std::vector<User>& users) {
 
 Для задач обробки великих масивів даних (Big Data) заголовок `<execution>` дає змогу розпаралелити виконання стандартних алгоритмів між ядрами процесора без виклику низькорівневих `std::thread` чи OpenMP:
 
-```cpp
-#include <algorithm>
-#include <execution>
-
-std::vector<double> data(10'000'000);
-
-// Послідовне сортування
-std::sort(std::execution::seq, data.begin(), data.end());
-
-// Паралельне багатопоточне сортування
-std::sort(std::execution::par, data.begin(), data.end());
-
-// Паралельне та векторизоване (SIMD) сортування
-std::sort(std::execution::par_unseq, data.begin(), data.end());
-```
+:::code stl-algorithms-d/cpp/paralelne-vykonannia-c-17.hpp
 
 ---
 

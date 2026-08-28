@@ -22,33 +22,7 @@
 
 Спробуємо побудувати чекання на наївній комбінації м'ютекса та атомарного прапорця без умовної змінної:
 
-```cpp
-// ✗ ПОМИЛКОВА СХЕМА: Спроба симуляції очікування без condition_variable
-std::mutex mtx;
-bool ready = false;
-
-// Потік A (Споживач)
-void worker() {
-    std::unique_lock<std::mutex> lock(mtx);
-    if (!ready) {
-        lock.unlock(); // (1) Відпустили м'ютекс
-        
-        // ─── КРИТИЧНЕ ВІКНО ГОНКИ ───
-        // Потік B може вклинитися СЮДИ!
-        
-        sleep_until_signaled(); // (2) Заснули
-    }
-}
-
-// Потік B (Виробник)
-void publisher() {
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        ready = true; // (3) Змінили стан
-    }
-    send_signal(); // (4) Надіслали сигнал
-}
-```
+:::code condition-variable-d/cpp/honka-vtrachenoho-syhnalu.cpp
 
 Якщо Потік A перевірив `!ready` і відпустив м'ютекс у точці (1), але ще не встиг виконати виклик засинання в точці (2), операційна система може призупинити Потік A (наприклад, через закінчення його кванту часу). У цей момент Потік B захоплює м'ютекс, ставить `ready = true` і надсилає сигнал пробудження у точці (4).
 
@@ -64,19 +38,7 @@ void publisher() {
 
 Головна властивість `std::condition_variable::wait()` полягає у **безпечному атомарному переході**: вона відпускає м'ютекс і ставить потік у чергу сну операційної системи як **єдину індивідуальну операцію** на рівні ядра.
 
-```cpp
-std::mutex mtx;
-std::condition_variable cv;
-bool ready = false;
-
-// Потік A (Споживач)
-void worker() {
-    std::unique_lock<std::mutex> lock(mtx);
-    // wait() атомарно відпускає mtx і блокує потік
-    cv.wait(lock, []{ return ready; });
-    // Після повернення з wait() м'ютекс mtx ЗНОВУ ЗАХОПЛЕНИЙ потоком A!
-}
-```
+:::code condition-variable-d/cpp/atomarnyi-perekhid-osnova.cpp
 
 Коли Потік A викликає `cv.wait(lock)`, відбуваються такі кроки:
 
@@ -150,18 +112,7 @@ cv.wait(lock, []{ return ready; });
 
 У реальних високопродуктивних системах часто виникає потреба обмежити час очікування події. Умовна змінна постачає два сімейства методів очікування з часовими обмеженнями: `wait_for()` (з відносним інтервалом) та `wait_until()` (з абсолютною часовою точкою).
 
-```cpp
-using namespace std::chrono_literals;
-
-std::unique_lock<std::mutex> lock(mtx);
-
-// Очікування з відносним таймаутом (100 мілісекунд)
-if (cv.wait_for(lock, 100ms, []{ return ready; })) {
-    std::cout << "Подія настала вчасно!\n";
-} else {
-    std::cout << "Таймаут вичерпано, подія не настала.\n";
-}
-```
+:::code condition-variable-d/cpp/detalnyi-analiz-taimautiv.cpp
 
 ### Проблема дрейфу часу при використанні wait_for() у циклах
 
@@ -171,20 +122,7 @@ if (cv.wait_for(lock, 100ms, []{ return ready; })) {
 
 Дієве вирішення цієї проблеми — перехід на абсолютний час через `wait_until()`:
 
-```cpp
-auto deadline = std::chrono::steady_clock::now() + 100ms;
-
-std::unique_lock<std::mutex> lock(mtx);
-// wait_until використовує фіксовану абсолютну часову точку
-while (!ready) {
-    if (cv.wait_until(lock, deadline) == std::cv_status::timeout) {
-        if (!ready) {
-            std::cout << "Точний таймаут досягнуто!\n";
-            break;
-        }
-    }
-}
-```
+:::code condition-variable-d/cpp/problema-dreifu-chasu-pry.cpp
 
 Важливо вибирати правильний годинник: `std::chrono::steady_clock` є монотонним і захищеним від ручного корегування системного часу користувачем чи NTP-сервером, на відміну від `std::chrono::system_clock`.
 
@@ -259,42 +197,7 @@ cv.notify_all(); // Пробудити всі потоки з черги
 
 У C++20 з'явилися класи `std::jthread` та `std::stop_token`, які інтегровані безпосередньо в `std::condition_variable_any`:
 
-```cpp
-#include <iostream>
-#include <thread>
-#include <condition_variable>
-#include <mutex>
-#include <chrono>
-
-std::condition_variable_any cv;
-std::mutex mtx;
-bool data_ready = false;
-
-void worker_thread(std::stop_token stoken) {
-    std::unique_lock<std::mutex> lock(mtx);
-    
-    // C++20: wait приймає stop_token.
-    // Якщо надходить сигнал скасування, wait() негайно розблоковується!
-    bool success = cv.wait(lock, stoken, []{ return data_ready; });
-    
-    if (stoken.stop_requested()) {
-        std::cout << "Потік отримав сигнал скасування! Вихід.\n";
-        return;
-    }
-    
-    std::cout << "Дані успішно оброблені!\n";
-}
-
-int main() {
-    std::jthread worker(worker_thread);
-    
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    
-    // Автоматично надсилаємо сигнал скасування та будимо умовну змінну
-    worker.request_stop(); 
-    // При виході з main jthread автоматично зробить join()
-}
-```
+:::code condition-variable-d/cpp/suchasna-paralelnist-c-20.cpp
 
 Під капотом `cv.wait(lock, stoken, pred)` реєструє зворотний виклик (англ. *stop callback*) на об'єкті `stop_token`. Коли головний потік викликає `worker.request_stop()`, цей callback автоматично будить умовну змінну, запобігаючи вічним зависанням під час зупинки додатку.
 

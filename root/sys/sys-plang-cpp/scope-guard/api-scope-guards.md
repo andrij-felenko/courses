@@ -16,106 +16,7 @@
 
 Нижче наведено повні декларації інтерфейсів трьох класів стандарту:
 
-```cpp
-namespace std {
-
-// ── 1. std::scope_exit ───────────────────────────────────────────────────────
-template <class EF>
-class scope_exit {
-public:
-    // Тип збереженого функціонального об'єкта
-    using exit_function = EF;
-
-    // Конструктори
-    template <class E>
-    explicit scope_exit(E&& fn) noexcept(
-        std::is_nothrow_constructible_v<EF, E> ||
-        std::is_nothrow_constructible_v<EF, E&>
-    );
-
-    scope_exit(scope_exit&& rhs) noexcept(
-        std::is_nothrow_move_constructible_v<EF> ||
-        std::is_nothrow_copy_constructible_v<EF>
-    );
-
-    // Заборона копіювання
-    scope_exit(const scope_exit&) = delete;
-    scope_exit& operator=(const scope_exit&) = delete;
-    scope_exit& operator=(scope_exit&&) = delete;
-
-    // Деструктор
-    ~scope_exit() noexcept;
-
-    // Скасування виконання
-    void release() noexcept;
-};
-
-// Deduction Guide (автоматичне виведення типів аргументів шаблону C++17)
-template <class EF>
-scope_exit(EF) -> scope_exit<EF>;
-
-
-// ── 2. std::scope_fail ───────────────────────────────────────────────────────
-template <class EF>
-class scope_fail {
-public:
-    using exit_function = EF;
-
-    template <class E>
-    explicit scope_fail(E&& fn) noexcept(
-        std::is_nothrow_constructible_v<EF, E> ||
-        std::is_nothrow_constructible_v<EF, E&>
-    );
-
-    scope_fail(scope_fail&& rhs) noexcept(
-        std::is_nothrow_move_constructible_v<EF> ||
-        std::is_nothrow_copy_constructible_v<EF>
-    );
-
-    scope_fail(const scope_fail&) = delete;
-    scope_fail& operator=(const scope_fail&) = delete;
-    scope_fail& operator=(scope_fail&&) = delete;
-
-    ~scope_fail() noexcept;
-
-    void release() noexcept;
-};
-
-template <class EF>
-scope_fail(EF) -> scope_fail<EF>;
-
-
-// ── 3. std::scope_success ────────────────────────────────────────────────────
-template <class EF>
-class scope_success {
-public:
-    using exit_function = EF;
-
-    template <class E>
-    explicit scope_success(E&& fn) noexcept(
-        std::is_nothrow_constructible_v<EF, E> ||
-        std::is_nothrow_constructible_v<EF, E&>
-    );
-
-    scope_success(scope_success&& rhs) noexcept(
-        std::is_nothrow_move_constructible_v<EF> ||
-        std::is_nothrow_copy_constructible_v<EF>
-    );
-
-    scope_success(const scope_success&) = delete;
-    scope_success& operator=(const scope_success&) = delete;
-    scope_success& operator=(scope_success&&) = delete;
-
-    ~scope_success() noexcept(noexcept(std::declval<EF&>()()));
-
-    void release() noexcept;
-};
-
-template <class EF>
-scope_success(EF) -> scope_success<EF>;
-
-} // namespace std
-```
+:::code api-scope-guards/cpp/synopsys-shabloniv-klasiv.hpp
 
 ## Вимоги до типу параметра `EF` (Exit Function)
 
@@ -279,24 +180,7 @@ std::scope_exit guard_ref(std::ref(external_action));
 
 Іноді виникає потреба створити охоронець не на початку функції, а лише після виконання певних попередніх умов, зберігаючи при цьому дію до кінця зовнішнього блоку. Оскільки `std::scope_exit` не має конструктора за замовчуванням і оператора присвоєння, таку відкладену ініціалізацію реалізують через `std::optional`:
 
-```cpp
-#include <optional>
-#include <scope>
-
-void conditional_guarded_operation(bool need_lock, Mutex& mtx) {
-    // Відкладений охоронець: на початку порожній
-    auto lock_guard = [&]() -> auto {
-        if (need_lock) {
-            mtx.lock();
-            return std::optional(std::scope_exit([&mtx] noexcept { mtx.unlock(); }));
-        }
-        return std::optional<std::scope_exit<void(*)()>>{std::nullopt};
-    }();
-
-    // Виконання роботи...
-    // Наприкінці блоку деструктор std::optional автоматично знищить scope_exit, якщо він був створений
-}
-```
+:::code api-scope-guards/cpp/zberihannia-v.cpp
 
 ## Обчислення під час компіляції (constexpr contexts)
 
@@ -304,18 +188,7 @@ void conditional_guarded_operation(bool need_lock, Mutex& mtx) {
 
 Якщо функціональний об'єкт `EF` є придатним для виклику у час компіляції, охоронець `std::scope_exit` може використовуватися всередині `constexpr` та `consteval` функцій:
 
-```cpp
-constexpr int compute_compile_time_val() {
-    int state = 10;
-    {
-        std::scope_exit guard = [&state] { state *= 2; };
-        state += 5;
-    } // guard виконується тут під час компіляції, state стає 30
-    return state;
-}
-
-static_assert(compute_compile_time_val() == 30);
-```
+:::code api-scope-guards/cpp/obchyslennia-pid-chas.cpp
 
 Ця можливість дозволяє будувати надійні алгоритми генерації метаданих та таблиць пошуку під час компіляції з гарантією коректного очищення проміжних станів.
 

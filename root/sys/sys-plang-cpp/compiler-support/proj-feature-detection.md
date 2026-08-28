@@ -8,18 +8,7 @@
 
 Традиційний підхід до умовної компіляції у старих C++ проєктах спирався на ручну перевірку ідентифікаторів компіляторів та макроса версії стандарту `__cplusplus`:
 
-```cpp
-// Антипатерн: крихка перевірка за версіями трансляторів
-#if defined(__clang__) && (__clang_major__ >= 13)
-    #define USE_CONCEPTS 1
-#elif defined(__GNUC__) && (__GNUC__ >= 10)
-    #define USE_CONCEPTS 1
-#elif defined(_MSC_VER) && (_MSC_VER >= 1928)
-    #define USE_CONCEPTS 1
-#else
-    #define USE_CONCEPTS 0
-#endif
-```
+:::code proj-feature-detection/cpp/1-chomu-perevirka-za.cpp
 
 Цей підхід виглядає простим лише на перший погляд, але містить чотири критичні архітектурні вади, які призводять до неочікуваних падінь збірки на реальних машинах:
 
@@ -71,62 +60,7 @@
 
 Створимо утиліту для бінарної серіалізації `compat::serialize`. Для типів, які тривіально копіюються (`std::is_trivially_copyable`), ми виконуємо пряме швидке копіювання байтів пам'яті через покажчик, а для складних об'єктів викликаємо метод користувача `write_custom`:
 
-```cpp
-// compat/serialize_feature.hpp
-#pragma once
-
-#include <type_traits>
-#include <cstring>
-#include <vector>
-#include <cstdint>
-
-#include "version_check.hpp"
-
-namespace compat {
-
-#if defined(__cpp_concepts) && (__cpp_concepts >= 201907L)
-
-    // Сучасна гілка C++20: декларативні концепти та клаузула requires
-    template <typename T>
-    concept TriviallyCopyable = std::is_trivially_copyable_v<T>;
-
-    template <typename T>
-    concept CustomSerializable = requires(const T& obj, std::vector<uint8_t>& buf) {
-        obj.write_custom(buf);
-    };
-
-    // Перевантаження для тривіальних типів (висока продуктивність)
-    template <TriviallyCopyable T>
-    void serialize(const T& value, std::vector<uint8_t>& buffer) {
-        const auto* byte_ptr = reinterpret_cast<const uint8_t*>(&value);
-        buffer.insert(buffer.end(), byte_ptr, byte_ptr + sizeof(T));
-    }
-
-    // Перевантаження для користувацьких типів з методом write_custom
-    template <CustomSerializable T>
-        requires (!TriviallyCopyable<T>)
-    void serialize(const T& value, std::vector<uint8_t>& buffer) {
-        value.write_custom(buffer);
-    }
-
-#else
-
-    // Запасна гілка C++14/C++17: метапрограмування SFINAE через std::enable_if_t
-    template <typename T, std::enable_if_t<std::is_trivially_copyable<T>::value, int> = 0>
-    void serialize(const T& value, std::vector<uint8_t>& buffer) {
-        const auto* byte_ptr = reinterpret_cast<const uint8_t*>(&value);
-        buffer.insert(buffer.end(), byte_ptr, byte_ptr + sizeof(T));
-    }
-
-    template <typename T, std::enable_if_t<!std::is_trivially_copyable<T>::value, int> = 0>
-    void serialize(const T& value, std::vector<uint8_t>& buffer) {
-        value.write_custom(buffer);
-    }
-
-#endif
-
-} // namespace compat
-```
+:::code proj-feature-detection/cpp/serialize_feature.hpp
 
 Зверніть увагу: публічний інтерфейс `compat::serialize` залишається абсолютно ідентичним для користувача. Проте на компіляторі C++20 розробник отримує зрозумілі діагностичні повідомлення про порушення вимог концепту замість багатосторінкових розгорток помилок заміщення шаблонів SFINAE. Компілятор оцінює дерево концептів на ранньому етапі семантичного аналізу, уникаючи надмірного генерування тимчасових інстанціацій типів у таблиці символів, що значно прискорює час компіляції великих проєктів.
 
@@ -136,62 +70,7 @@ namespace compat {
 
 Розробимо клас двовимірної матриці `compat::Matrix2D`, який автоматично підтримує новий елегантний синтаксис індексації при збірці під C++23, зберігаючи сумісність з оператором `operator()(row, col)` для старіших версій:
 
-```cpp
-// compat/matrix.hpp
-#pragma once
-
-#include <vector>
-#include <cstddef>
-#include <stdexcept>
-
-#include "version_check.hpp"
-
-namespace compat {
-
-template <typename T>
-class Matrix2D {
-public:
-    Matrix2D(size_t rows, size_t cols)
-        : rows_(rows), cols_(cols), data_(rows * cols) {}
-
-    // Традиційний синтаксис виклику (доступний у всіх стандартах)
-    T& operator()(size_t r, size_t c) {
-        return data_[index(r, c)];
-    }
-
-    const T& operator()(size_t r, size_t c) const {
-        return data_[index(r, c)];
-    }
-
-#if defined(__cpp_multidimensional_subscript) && (__cpp_multidimensional_subscript >= 202110L)
-    // Сучасний синтаксис C++23: matrix[row, col]
-    T& operator[](size_t r, size_t c) {
-        return data_[index(r, c)];
-    }
-
-    const T& operator[](size_t r, size_t c) const {
-        return data_[index(r, c)];
-    }
-#endif
-
-    size_t rows() const noexcept { return rows_; }
-    size_t cols() const noexcept { return cols_; }
-
-private:
-    size_t index(size_t r, size_t c) const {
-        if (r >= rows_ || c >= cols_) {
-            throw std::out_of_range("Matrix index out of bounds");
-        }
-        return r * cols_ + c;
-    }
-
-    size_t rows_;
-    size_t cols_;
-    std::vector<T> data_;
-};
-
-} // namespace compat
-```
+:::code proj-feature-detection/cpp/matrix.hpp
 
 ## 5. Поліфіл стандартної бібліотеки: `std::span` (C++20)
 
@@ -199,91 +78,7 @@ private:
 
 Якщо проєкт збирається у режимі C++14/C++17, ми надаємо власний легкий поліфіл `compat::span`:
 
-```cpp
-// compat/span.hpp
-#pragma once
-
-#include "version_check.hpp"
-
-#if defined(__cpp_lib_span) && (__cpp_lib_span >= 202002L)
-
-    #include <span>
-
-    namespace compat {
-        template <typename T, std::size_t Extent = std::dynamic_extent>
-        using span = std::span<T, Extent>;
-        inline constexpr std::size_t dynamic_extent = std::dynamic_extent;
-    }
-
-#else
-
-    #include <cstddef>
-    #include <stdexcept>
-    #include <vector>
-    #include <array>
-    #include <type_traits>
-
-    namespace compat {
-
-        inline constexpr std::size_t dynamic_extent = static_cast<std::size_t>(-1);
-
-        template <typename T, std::size_t Extent = dynamic_extent>
-        class span {
-        public:
-            using element_type = T;
-            using value_type = std::remove_cv_t<T>;
-            using size_type = std::size_t;
-            using pointer = T*;
-            using const_pointer = const T*;
-            using reference = T&;
-            using const_reference = const T&;
-            using iterator = T*;
-            using const_iterator = const T*;
-
-            constexpr span() noexcept : data_(nullptr), size_(0) {}
-            constexpr span(pointer ptr, size_type count) noexcept : data_(ptr), size_(count) {}
-            constexpr span(pointer first, pointer last) noexcept : data_(first), size_(last - first) {}
-
-            template <std::size_t N>
-            constexpr span(element_type (&arr)[N]) noexcept : data_(arr), size_(N) {}
-
-            template <typename Alloc>
-            span(std::vector<value_type, Alloc>& vec) noexcept : data_(vec.data()), size_(vec.size()) {}
-
-            template <typename Alloc>
-            span(const std::vector<value_type, Alloc>& vec) noexcept : data_(vec.data()), size_(vec.size()) {}
-
-            constexpr pointer data() const noexcept { return data_; }
-            constexpr size_type size() const noexcept { return size_; }
-            constexpr size_type size_bytes() const noexcept { return size_ * sizeof(T); }
-            constexpr bool empty() const noexcept { return size_ == 0; }
-
-            constexpr reference operator[](size_type idx) const {
-                return data_[idx];
-            }
-
-            constexpr iterator begin() const noexcept { return data_; }
-            constexpr iterator end() const noexcept { return data_ + size_; }
-            constexpr const_iterator cbegin() const noexcept { return data_; }
-            constexpr const_iterator cend() const noexcept { return data_ + size_; }
-
-            constexpr span<T, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const {
-                if (offset > size_) {
-                    throw std::out_of_range("subspan offset out of range");
-                }
-                size_type actual_count = (count == dynamic_extent || offset + count > size_) ? (size_ - offset) : count;
-                return span<T, dynamic_extent>(data_ + offset, actual_count);
-            }
-
-        private:
-            pointer data_;
-            size_type size_;
-        };
-
-    } // namespace compat
-
-#endif
-```
+:::code proj-feature-detection/cpp/span.hpp
 
 ## 6. Поліфіл стандартної бібліотеки: `std::expected` (C++23)
 
@@ -291,82 +86,7 @@ private:
 
 Якщо проєкт збирається у режимі C++17 або C++20, ми надаємо власний повноцінний поліфіл, побудований на базі `std::variant`:
 
-```cpp
-// compat/expected.hpp
-#pragma once
-
-#include "version_check.hpp"
-
-#if defined(__cpp_lib_expected) && (__cpp_lib_expected >= 202202L)
-
-    #include <expected>
-
-    namespace compat {
-        template <typename T, typename E>
-        using expected = std::expected<T, E>;
-
-        template <typename E>
-        using unexpected = std::unexpected<E>;
-    }
-
-#else
-
-    #include <variant>
-    #include <utility>
-    #include <stdexcept>
-
-    namespace compat {
-
-        template <typename E>
-        class unexpected {
-        public:
-            constexpr explicit unexpected(const E& e) : error_(e) {}
-            constexpr explicit unexpected(E&& e) : error_(std::move(e)) {}
-            constexpr const E& error() const noexcept { return error_; }
-            constexpr E& error() noexcept { return error_; }
-        private:
-            E error_;
-        };
-
-        template <typename T, typename E>
-        class expected {
-        public:
-            constexpr expected(const T& val) : storage_(val) {}
-            constexpr expected(T&& val) : storage_(std::move(val)) {}
-            constexpr expected(const unexpected<E>& unexp) : storage_(unexp) {}
-            constexpr expected(unexpected<E>&& unexp) : storage_(std::move(unexp)) {}
-
-            constexpr bool has_value() const noexcept {
-                return std::holds_alternative<T>(storage_);
-            }
-
-            constexpr explicit operator bool() const noexcept {
-                return has_value();
-            }
-
-            constexpr const T& value() const {
-                if (!has_value()) {
-                    throw std::runtime_error("Attempt to access value of unexpected result");
-                }
-                return std::get<T>(storage_);
-            }
-
-            constexpr const E& error() const {
-                return std::get<unexpected<E>>(storage_).error();
-            }
-
-            constexpr const T& value_or(const T& default_val) const noexcept {
-                return has_value() ? std::get<T>(storage_) : default_val;
-            }
-
-        private:
-            std::variant<T, unexpected<E>> storage_;
-        };
-
-    } // namespace compat
-
-#endif
-```
+:::code proj-feature-detection/cpp/expected.hpp
 
 ## 7. Поліфіл та міст форматування: `std::format` (C++20) проти fallback
 
@@ -374,58 +94,7 @@ private:
 
 Якщо `std::format` недоступний у стандартній бібліотеці платформи, ми будуємо міст: якщо в проєкті доступна бібліотека `{fmt}`, використовуємо її; якщо ні — відкочуємося до легкого форматувача на базі `std::ostringstream`:
 
-```cpp
-// compat/format.hpp
-#pragma once
-
-#include "version_check.hpp"
-
-#if defined(__cpp_lib_format) && (__cpp_lib_format >= 201907L)
-
-    #include <format>
-
-    namespace compat {
-        template <typename... Args>
-        std::string format(std::format_string<Args...> fmt_str, Args&&... args) {
-            return std::format(fmt_str, std::forward<Args>(args)...);
-        }
-    }
-
-#else
-
-    #include <string>
-    #include <sstream>
-    #include <utility>
-
-    namespace compat {
-
-        inline void format_helper(std::ostringstream& ss, std::string_view fmt_str) {
-            ss << fmt_str;
-        }
-
-        template <typename T, typename... Args>
-        void format_helper(std::ostringstream& ss, std::string_view fmt_str, T&& val, Args&&... rest) {
-            size_t pos = fmt_str.find("{}");
-            if (pos != std::string_view::npos) {
-                ss << fmt_str.substr(0, pos);
-                ss << val;
-                format_helper(ss, fmt_str.substr(pos + 2), std::forward<Args>(rest)...);
-            } else {
-                ss << fmt_str;
-            }
-        }
-
-        template <typename... Args>
-        std::string format(std::string_view fmt_str, Args&&... args) {
-            std::ostringstream ss;
-            format_helper(ss, fmt_str, std::forward<Args>(args)...);
-            return ss.str();
-        }
-
-    } // namespace compat
-
-#endif
-```
+:::code proj-feature-detection/cpp/format.hpp
 
 ## 8. Поліфіл потоків з підтримкою скасування: `std::jthread` (C++20)
 
@@ -433,103 +102,7 @@ private:
 
 Для компіляторів C++14/C++17 створимо клас `compat::jthread` на базі `std::thread`:
 
-```cpp
-// compat/jthread.hpp
-#pragma once
-
-#include "version_check.hpp"
-
-#if defined(__cpp_lib_jthread) && (__cpp_lib_jthread >= 201911L)
-
-    #include <thread>
-
-    namespace compat {
-        using jthread = std::jthread;
-        using stop_token = std::stop_token;
-        using stop_source = std::stop_source;
-    }
-
-#else
-
-    #include <thread>
-    #include <atomic>
-    #include <memory>
-    #include <utility>
-
-    namespace compat {
-
-        class stop_source;
-
-        class stop_token {
-        public:
-            stop_token() noexcept : flag_(nullptr) {}
-            explicit stop_token(const std::atomic<bool>* flag) noexcept : flag_(flag) {}
-
-            bool stop_requested() const noexcept {
-                return flag_ && flag_->load(std::memory_order_relaxed);
-            }
-
-        private:
-            const std::atomic<bool>* flag_;
-        };
-
-        class stop_source {
-        public:
-            stop_source() : flag_(false) {}
-
-            stop_token get_token() const noexcept {
-                return stop_token(&flag_);
-            }
-
-            bool request_stop() noexcept {
-                return !flag_.exchange(true, std::memory_order_relaxed);
-            }
-
-        private:
-            std::atomic<bool> flag_;
-        };
-
-        class jthread {
-        public:
-            jthread() noexcept = default;
-
-            template <typename Function, typename... Args>
-            explicit jthread(Function&& f, Args&&... args) {
-                stop_source_ = std::make_unique<stop_source>();
-                thread_ = std::thread(std::forward<Function>(f), stop_source_->get_token(), std::forward<Args>(args)...);
-            }
-
-            ~jthread() {
-                if (joinable()) {
-                    request_stop();
-                    join();
-                }
-            }
-
-            jthread(jthread&&) noexcept = default;
-            jthread& operator=(jthread&&) noexcept = default;
-
-            bool joinable() const noexcept { return thread_.joinable(); }
-            void join() { thread_.join(); }
-            void detach() { thread_.detach(); }
-
-            bool request_stop() noexcept {
-                return stop_source_ ? stop_source_->request_stop() : false;
-            }
-
-            stop_token get_stop_token() const noexcept {
-                return stop_source_ ? stop_source_->get_token() : stop_token();
-            }
-
-        private:
-            std::unique_ptr<stop_source> stop_source_;
-            std::thread thread_;
-        };
-
-    } // namespace compat
-
-#endif
-```
+:::code proj-feature-detection/cpp/jthread.hpp
 
 ## 9. Утиліти `std::to_underlying` (C++23) та `std::bit_cast` (C++20)
 
@@ -539,43 +112,7 @@ private:
 
 Реалізуємо їхній поліфіл:
 
-```cpp
-// compat/utilities.hpp
-#pragma once
-
-#include <type_traits>
-#include <cstring>
-
-#include "version_check.hpp"
-
-namespace compat {
-
-#if defined(__cpp_lib_to_underlying) && (__cpp_lib_to_underlying >= 202102L)
-    using std::to_underlying;
-#else
-    template <typename Enum>
-    constexpr std::underlying_type_t<Enum> to_underlying(Enum e) noexcept {
-        return static_cast<std::underlying_type_t<Enum>>(e);
-    }
-#endif
-
-#if defined(__cpp_lib_bit_cast) && (__cpp_lib_bit_cast >= 201806L)
-    using std::bit_cast;
-#else
-    template <typename To, typename From>
-    To bit_cast(const From& src) noexcept {
-        static_assert(sizeof(To) == sizeof(From), "bit_cast types must have identical size");
-        static_assert(std::is_trivially_copyable<To>::value, "To type must be trivially copyable");
-        static_assert(std::is_trivially_copyable<From>::value, "From type must be trivially copyable");
-
-        To dst;
-        std::memcpy(&dst, &src, sizeof(To));
-        return dst;
-    }
-#endif
-
-} // namespace compat
-```
+:::code proj-feature-detection/cpp/utilities.hpp
 
 ## 10. Адаптивні конвеєри діапазонів (Ranges)
 
@@ -583,57 +120,7 @@ namespace compat {
 
 Якщо макрос `__cpp_lib_ranges >= 201911L` не визначений, створюємо утиліти сумісності, які виконують аналогічні операції у жадібному (*eager*) режимі через стандартні ітератори та алгоритми:
 
-```cpp
-// compat/ranges.hpp
-#pragma once
-
-#include <vector>
-#include <algorithm>
-
-#include "version_check.hpp"
-
-namespace compat {
-
-#if defined(__cpp_lib_ranges) && (__cpp_lib_ranges >= 201911L)
-
-    #include <ranges>
-
-    namespace views {
-        using namespace std::views;
-    }
-
-#else
-
-    namespace views {
-
-        template <typename Container, typename Predicate>
-        auto filter(const Container& c, Predicate pred) {
-            std::vector<typename Container::value_type> result;
-            for (const auto& item : c) {
-                if (pred(item)) {
-                    result.push_back(item);
-                }
-            }
-            return result;
-        }
-
-        template <typename Container, typename TransformFn>
-        auto transform(const Container& c, TransformFn fn) {
-            using OutType = decltype(fn(*std::begin(c)));
-            std::vector<OutType> result;
-            result.reserve(c.size());
-            for (const auto& item : c) {
-                result.push_back(fn(item));
-            }
-            return result;
-        }
-
-    } // namespace views
-
-#endif
-
-} // namespace compat
-```
+:::code proj-feature-detection/cpp/ranges.hpp
 
 ## 11. Портативні атрибути та особливості MSVC (`[[no_unique_address]]`)
 
@@ -645,64 +132,11 @@ namespace compat {
 
 Створимо портативний набір атрибутів:
 
-```cpp
-// compat/attributes.hpp
-#pragma once
-
-// Портативний атрибут оптимізації порожніх членів
-#if defined(_MSC_VER) && !defined(__clang__)
-    // Для компілятора MSVC використовуємо вендорний атрибут
-    #define COMPAT_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
-#elif defined(__has_cpp_attribute)
-    #if __has_cpp_attribute(no_unique_address) >= 201803L
-        #define COMPAT_NO_UNIQUE_ADDRESS [[no_unique_address]]
-    #else
-        #define COMPAT_NO_UNIQUE_ADDRESS
-    #endif
-#else
-    #define COMPAT_NO_UNIQUE_ADDRESS
-#endif
-
-// Портативний атрибут [[nodiscard]] з підтримкою текстового пояснення (C++20)
-#if defined(__has_cpp_attribute)
-    #if __has_cpp_attribute(nodiscard) >= 201907L
-        #define COMPAT_NODISCARD_MSG(msg) [[nodiscard(msg)]]
-        #define COMPAT_NODISCARD [[nodiscard]]
-    #elif __has_cpp_attribute(nodiscard) >= 201603L
-        #define COMPAT_NODISCARD_MSG(msg) [[nodiscard]]
-        #define COMPAT_NODISCARD [[nodiscard]]
-    #else
-        #define COMPAT_NODISCARD_MSG(msg)
-        #define COMPAT_NODISCARD
-    #endif
-#else
-    #define COMPAT_NODISCARD_MSG(msg)
-    #define COMPAT_NODISCARD
-#endif
-```
+:::code proj-feature-detection/cpp/attributes.hpp
 
 ### Застосування у структурі оптимізації пам'яті
 
-```cpp
-// Приклад використання портативного атрибута
-struct EmptyStatelessAllocator {};
-
-template <typename T, typename Allocator = EmptyStatelessAllocator>
-class CustomBuffer {
-public:
-    COMPAT_NODISCARD_MSG("Ignoring empty check result is likely a bug")
-    bool empty() const noexcept {
-        return size_ == 0;
-    }
-
-private:
-    T* data_{nullptr};
-    size_t size_{0};
-
-    // Завдяки макросу розмір об'єкта не збільшується на 8 байтів вирівнювання у GCC, Clang та MSVC
-    COMPAT_NO_UNIQUE_ADDRESS Allocator alloc_;
-};
-```
+:::code proj-feature-detection/cpp/zastosuvannia-u-strukturi.cpp
 
 ## 12. Інтеграція перевірки можливостей у CMake
 
@@ -710,171 +144,12 @@ private:
 
 Це незамінно у випадках, коли заголовки бібліотеки формально присутні, але лінкер не знаходить двійкової реалізації (типова ситуація з `std::format` або `std::filesystem` на старіших версіях Clang та GNU `libstdc++`):
 
-```cmake
-# CMakeLists.txt
-cmake_minimum_required(VERSION 3.20)
-project(FeatureDetectionProject CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-include(CheckCXXSourceCompiles)
-
-# Перевірка реальної наявності працездатного std::format у середовищі
-check_cxx_source_compiles("
-    #include <format>
-    #include <string>
-    int main() {
-        std::string s = std::format(\"Test: {}\", 42);
-        return s.empty() ? 1 : 0;
-    }
-" HAVE_STD_FORMAT)
-
-add_executable(app main.cpp)
-
-if(HAVE_STD_FORMAT)
-    target_compile_definitions(app PRIVATE HAS_STD_FORMAT=1)
-    message(STATUS "Native std::format is available and functional")
-else()
-    target_compile_definitions(app PRIVATE HAS_STD_FORMAT=0)
-    message(STATUS "Native std::format is missing; linking external fmt library fallback")
-    # find_package(fmt REQUIRED)
-    # target_link_libraries(app PRIVATE fmt::fmt)
-endif()
-
-# Налаштування суворої діагностики
-if(MSVC)
-    target_compile_options(app PRIVATE /W4 /WX /permissive- /Zc:__cplusplus /Zc:preprocessor)
-else()
-    target_compile_options(app PRIVATE -Wall -Wextra -Wpedantic -Werror)
-endif()
-```
+:::code proj-feature-detection/cmake/CMakeLists.txt
 
 ## 13. Демонстраційний модуль перевірки працездатності
 
 Об'єднаємо всі створені компоненти у фінальному файлі `main.cpp`, який демонструє автоматичну адаптацію коду до будь-якого компілятора:
 
-```cpp
-// main.cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <chrono>
-
-#include "compat/version_check.hpp"
-#include "compat/serialize_feature.hpp"
-#include "compat/matrix.hpp"
-#include "compat/span.hpp"
-#include "compat/expected.hpp"
-#include "compat/format.hpp"
-#include "compat/jthread.hpp"
-#include "compat/utilities.hpp"
-#include "compat/ranges.hpp"
-#include "compat/attributes.hpp"
-
-enum class Status : uint16_t {
-    Ready = 1,
-    Processing = 2,
-    Failed = 3
-};
-
-struct UserData {
-    uint32_t id;
-    uint32_t flags;
-};
-
-compat::expected<UserData, std::string> parse_user(uint32_t raw_id) {
-    if (raw_id == 0) {
-        return compat::unexpected<std::string>("ID cannot be zero");
-    }
-    return UserData{raw_id, 0x01};
-}
-
-void print_buffer_span(compat::span<const uint8_t> buffer_view) {
-    std::cout << "Span view of buffer (size=" << buffer_view.size() << "): ";
-    for (auto byte : buffer_view) {
-        std::cout << static_cast<int>(byte) << " ";
-    }
-    std::cout << "\n";
-}
-
-int main() {
-    std::cout << "Compiler standard check: __cplusplus = " << __cplusplus << "\n";
-
-#if defined(__cpp_concepts)
-    std::cout << "Feature: __cpp_concepts = " << __cpp_concepts << " (Active)\n";
-#else
-    std::cout << "Feature: __cpp_concepts is not active (Using SFINAE fallback)\n";
-#endif
-
-#if defined(__cpp_lib_span)
-    std::cout << "Library: __cpp_lib_span = " << __cpp_lib_span << " (Standard std::span)\n";
-#else
-    std::cout << "Library: Using compat::span polyfill\n";
-#endif
-
-#if defined(__cpp_lib_expected)
-    std::cout << "Library: __cpp_lib_expected = " << __cpp_lib_expected << " (Standard std::expected)\n";
-#else
-    std::cout << "Library: Using compat::expected polyfill\n";
-#endif
-
-#if defined(__cpp_lib_jthread)
-    std::cout << "Library: __cpp_lib_jthread = " << __cpp_lib_jthread << " (Standard std::jthread)\n";
-#else
-    std::cout << "Library: Using compat::jthread polyfill\n";
-#endif
-
-    // Тест форматування через міст compat::format
-    std::string formatted_msg = compat::format("Formatted user info: id={}, active={}", 101, true);
-    std::cout << formatted_msg << "\n";
-
-    // Тест утиліти to_underlying
-    auto status_val = compat::to_underlying(Status::Ready);
-    std::cout << "Underlying status value: " << status_val << "\n";
-
-    // Тест утиліти bit_cast
-    float f_val = 1.0f;
-    auto u_val = compat::bit_cast<uint32_t>(f_val);
-    std::cout << "Bit cast of 1.0f to uint32: 0x" << std::hex << u_val << std::dec << "\n";
-
-    // Тест серіалізації
-    UserData user{101, 0xFF};
-    std::vector<uint8_t> buffer;
-    compat::serialize(user, buffer);
-    std::cout << "Serialized buffer size: " << buffer.size() << " bytes\n";
-
-    // Тест перегляду через span
-    print_buffer_span(buffer);
-
-    // Тест матриці та індексації
-    compat::Matrix2D<int> mat(3, 3);
-    mat(0, 0) = 42;
-#if defined(__cpp_multidimensional_subscript)
-    mat[1, 1] = 84;
-    std::cout << "Matrix[1, 1] via C++23 subscript: " << mat[1, 1] << "\n";
-#else
-    std::cout << "Matrix(0, 0) via fallback call: " << mat(0, 0) << "\n";
-#endif
-
-    // Тест обробки помилок через expected
-    auto result = parse_user(0);
-    if (!result) {
-        std::cout << "Handled expected error: " << result.error() << "\n";
-    }
-
-    // Тест кооперативного потоку jthread
-    compat::jthread worker([](compat::stop_token st) {
-        while (!st.stop_requested()) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            break;
-        }
-    });
-    worker.request_stop();
-
-    return 0;
-}
-```
+:::code proj-feature-detection/cpp/main.cpp
 
 Така багатошарова архітектура гарантує, що кодова база проєкту завжди використовує найефективніші конструкції нових стандартів там, де вони готові, і коректно компілюється на старіших або консервативних платформах без ручного переписування бізнес-логіки.

@@ -38,27 +38,7 @@ constinit const char* const firmware_version_tag = "v2.4.1";
 - **Псевдоніми типів (`typedef` та `using`):** Специфікатор `constinit` не є модифікатором типу і не входить до сигнатури типу (на відміну від `const` або `volatile`). Спроба включити його у визначення псевдоніма типу є синтаксично некоректною.
 - **Структуровані зв'язування (`structured bindings`):** Стандарт C++20 явно забороняє застосування `constinit` до синтаксису `auto [x, y]`, оскільки структуроване зв'язування розкладає тимчасовий об'єкт або посилання, що має власні специфічні правила ініціалізації полів.
 
-```cpp
-// ПОМИЛКА 1: Автоматична змінна в тілі функції
-void calculate_hash() {
-    constinit int seed_value = 0x9e3779b9; // Помилка: автоматична тривалість зберігання
-}
-
-// ПОМИЛКА 2: Параметр функції
-void set_timeout(constinit int milliseconds); // Помилка: параметри не мають статичної тривалості
-
-// ПОМИЛКА 3: Нестатичне поле структури
-struct PacketHeader {
-    constinit uint16_t magic_number = 0x55AA; // Помилка: нестатичне поле екземпляра
-};
-
-// ПОМИЛКА 4: Оголошення функції
-constinit int compute_initial_capacity(); // Помилка: constinit не застосовується до функцій
-
-// ПОМИЛКА 5: Структуроване зв'язування
-struct Coordinates { int latitude; int longitude; };
-constinit auto [lat, lon] = Coordinates{50, 30}; // Помилка: заборонено стандартом
-```
+:::code api-constinit-rules/cpp/zaboroneni-konteksty-ta.cpp
 
 ## Матриця взаємодії з іншими специфікаторами мови
 
@@ -248,18 +228,7 @@ constinit int bad_lookup = get_lookup_entry(5);
 
 При переході на модульну систему C++20 (`import` / `export`) специфікатор `constinit` поводиться безшовно:
 
-```cpp
-// telemetry_module.ixx
-export module telemetry;
-
-export struct SessionMetrics {
-    unsigned long requests_count;
-    unsigned long errors_count;
-    constexpr SessionMetrics() : requests_count(0), errors_count(0) {}
-};
-
-export constinit SessionMetrics g_session_metrics{};
-```
+:::code api-constinit-rules/cpp/vzaiemodiia-z-moduliamy-c.cpp
 
 Експортована змінна `g_session_metrics` стає видимою для всіх модулів, що імпортують `telemetry`. Компілятор та компонувальник гарантують, що змінна буде розміщена в секції ініціалізованих даних і підготовлена до використання до запуску будь-якого коду клієнтських модулів.
 

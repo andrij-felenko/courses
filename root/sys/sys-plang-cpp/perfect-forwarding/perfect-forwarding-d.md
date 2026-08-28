@@ -164,19 +164,7 @@ void wrapper(T&& x) { target(std::forward<T>(x)); }
 
 Реалізація в стандартній бібліотеці виглядає так (файл `<utility>`):
 
-```cpp
-template <class T>
-constexpr T&& forward(std::remove_reference_t<T>& t) noexcept {
-    return static_cast<T&&>(t);
-}
-
-template <class T>
-constexpr T&& forward(std::remove_reference_t<T>&& t) noexcept {
-    static_assert(!std::is_lvalue_reference_v<T>,
-                  "не можна передати rvalue як lvalue");
-    return static_cast<T&&>(t);
-}
-```
+:::code perfect-forwarding-d/cpp/std-forward-umovnyi-kast.hpp
 
 Дві деталі цієї сигнатури варті окремої уваги, бо в них — уся дисципліна прийому.
 
@@ -210,19 +198,7 @@ decltype(auto) call_logged(F&& f, Args&&... args) {
 
 Синтаксис `&&` не означає передавального посилання сам собою. Умов рівно дві, і обидві мусять справдитися: тип параметра записаний **точно** як `T&&` (без `const`, без `volatile`, не всередині складнішого типу), і `T` — параметр **цього самого шаблону**, який **виводиться з цього виклику**.
 
-```cpp
-template <class T> void a(T&& x);                // так
-template <class T> void b(const T&& x);          // ні: const псує форму — лише rvalue
-template <class T> void c(std::vector<T>&& v);   // ні: T усередині типу — лише rvalue
-template <class... A> void d(A&&... args);       // так, для кожного елемента пакета
-auto&& r = make_thing();                         // так: auto виводиться
-
-template <class T>
-struct Box {
-    void push(T&& v);                            // НІ: T зафіксований класом
-    template <class U> void emplace(U&& v);      // так: U виводиться з виклику
-};
-```
+:::code perfect-forwarding-d/cpp/koly-t-ne-peredavalne.cpp
 
 Найважливіший тут передостанній рядок, і на ньому спотикаються постійно. У `std::vector<T>` метод `push_back(T&& v)` — **звичайне rvalue-посилання**: `T` уже відомий із типу контейнера, виводити нічого. Тому `push_back` приймає rvalue й нічого не передає далі, а `emplace_back` оголошено окремим шаблоном `template <class... Args>` — і тільки він уміє ідеально передавати.
 
@@ -232,22 +208,7 @@ struct Box {
 
 Передавальне посилання прив'язується до **всього**. Це його сила — і причина найпідступнішої помилки, яку воно породжує.
 
-```cpp
-class Person {
-public:
-    template <class S>
-    explicit Person(S&& name) : name_(std::forward<S>(name)) {}
-
-    Person(const Person&) = default;
-    Person(Person&&)      = default;
-private:
-    std::string name_;
-};
-
-Person p{"Леся"};
-const Person c = p;
-Person q{p};        // ← помилка компіляції в тілі шаблонного конструктора
-```
+:::code perfect-forwarding-d/cpp/pastka-nenazherlyvoho.cpp
 
 Останній рядок виглядає як звичайне копіювання, а насправді викликає **шаблонний** конструктор, який намагається збудувати `std::string` із `Person`. Чому так — видно, якщо розписати відбір перевантажень для аргументу `p` (неконстантне lvalue типу `Person`):
 

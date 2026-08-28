@@ -21,120 +21,8 @@
 Нижче наведено типовий застарілий варіант функції розбору такого кадру, написаний у змішаному стилі «C з класами»:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-typedef struct {
-    uint16_t sensor_id;
-    uint32_t timestamp;
-    double*  readings;
-    int      reading_count;
-} TelemetryRecord;
-
-/* Застаріла C-функція парсингу бінарного кадру */
-int parse_telemetry_packet_c(const uint8_t* raw_buffer, int buffer_size,
-                            TelemetryRecord** out_record, void* logger_ctx) {
-    if (!raw_buffer || buffer_size < 12) {
-        return -1; // Недостатній розмір заголовка
-    }
-
-    // 1. Перевірка магічного числа 0x54454C4D ("TELM")
-    uint32_t magic = *(uint32_t*)raw_buffer;
-    if (magic != 0x54454C4D) {
-        return -2;
-    }
-
-    // 2. Небезпечні звужуючі касти та адресна арифметика
-    uint16_t sensor_id = *(uint16_t*)(raw_buffer + 4);
-    uint16_t payload_len = *(uint16_t*)(raw_buffer + 6);
-    uint32_t timestamp = *(uint32_t*)(raw_buffer + 8);
-
-    if (buffer_size < 12 + payload_len + 4) {
-        return -3; // Пошкоджений пакет: payload виходить за межі буфера
-    }
-
-    // 3. Ручне виділення пам'яті через malloc
-    TelemetryRecord* rec = (TelemetryRecord*)malloc(sizeof(TelemetryRecord));
-    if (!rec) return -4;
-
-    rec->sensor_id = sensor_id;
-    rec->timestamp = timestamp;
-    rec->reading_count = payload_len / sizeof(double);
-    rec->readings = NULL;
-
-    if (rec->reading_count > 0) {
-        rec->readings = (double*)malloc(rec->reading_count * sizeof(double));
-        if (!rec->readings) {
-            free(rec); // Ручне вивільнення при збої
-            return -4;
-        }
-
-        // Копіювання з сирого зсуву покажчика
-        memcpy(rec->readings, raw_buffer + 12, rec->reading_count * sizeof(double));
-    }
-
-    *out_record = rec;
-    return 0; // Успіх
-}
-```
-```cpp
-#include <cstdint>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <vector>
-
-struct TelemetryRecord {
-    uint16_t sensor_id;
-    uint32_t timestamp;
-    double*  readings;
-    int      reading_count;
-};
-
-// Застаріла C++ функція у стилі "C з класами"
-int parse_telemetry_packet_legacy(const uint8_t* raw_buffer, int buffer_size,
-                                 TelemetryRecord** out_record, void* logger_ctx) {
-    if (!raw_buffer || buffer_size < 12) {
-        return -1;
-    }
-
-    uint32_t magic = *reinterpret_cast<const uint32_t*>(raw_buffer);
-    if (magic != 0x54454C4D) {
-        return -2;
-    }
-
-    uint16_t sensor_id = *reinterpret_cast<const uint16_t*>(raw_buffer + 4);
-    uint16_t payload_len = *reinterpret_cast<const uint16_t*>(raw_buffer + 6);
-    uint32_t timestamp = *reinterpret_cast<const uint32_t*>(raw_buffer + 8);
-
-    if (buffer_size < 12 + payload_len + 4) {
-        return -3;
-    }
-
-    TelemetryRecord* rec = new (std::nothrow) TelemetryRecord();
-    if (!rec) return -4;
-
-    rec->sensor_id = sensor_id;
-    rec->timestamp = timestamp;
-    rec->reading_count = payload_len / sizeof(double);
-    rec->readings = nullptr;
-
-    if (rec->reading_count > 0) {
-        rec->readings = new (std::nothrow) double[rec->reading_count];
-        if (!rec->readings) {
-            delete rec;
-            return -4;
-        }
-        std::memcpy(rec->readings, raw_buffer + 12, rec->reading_count * sizeof(double));
-    }
-
-    *out_record = rec;
-    return 0;
-}
-```
+:::code proj-gsl-refactoring/c/main.c
+:::code proj-gsl-refactoring/cpp/1-model-zahroz-ta.cpp
 :::
 
 ---
@@ -166,31 +54,7 @@ int parse_telemetry_packet_legacy(const uint8_t* raw_buffer, int buffer_size,
 
 У таких сценаріях бібліотека GSL надає елегантний місток переходу — тип `gsl::owner<T*>`. Він дозволяє зберегти оригінальну бінарну структуру даних, але водночас активувати суворий статичний контроль власності під час збірки:
 
-```cpp
-// Проміжний етап рефакторингу: C ABI залишається сумісним, але лінтер контролює витоки
-struct MigratedTelemetryRecord {
-    uint16_t               sensor_id;
-    uint32_t               timestamp;
-    gsl::owner<double*>    readings;      // Лінтер вимагає явного delete[]
-    int                    reading_count;
-};
-
-// Функція повертає власницький покажчик, закриваючи попередження C26400
-gsl::owner<MigratedTelemetryRecord*> allocate_record(int count) {
-    auto* rec = new MigratedTelemetryRecord();
-    rec->reading_count = count;
-    rec->readings = (count > 0) ? new double[count] : nullptr;
-    return rec;
-}
-
-// Вивільнення з перевіркою правила C26401
-void free_record(gsl::owner<MigratedTelemetryRecord*> rec) {
-    if (rec) {
-        delete[] rec->readings;
-        delete rec;
-    }
-}
-```
+:::code proj-gsl-refactoring/cpp/3-promizhnyi-etap.cpp
 
 Використання `gsl::owner<T*>` інформує статичний аналізатор MSVC Core Check або Clang-Tidy про необхідність відстежувати передачу та вивільнення покажчика, що унеможливлює випадкові витоки пам'яті ще до того, як структуру буде повністю переведено на `std::unique_ptr`. Це дає змогу проводити масштабну модернізацію великого промислового репозиторію безперервно, модуль за модулем, не ламаючи бінарну сумісність із зовнішніми залежностями.
 
@@ -202,29 +66,7 @@ void free_record(gsl::owner<MigratedTelemetryRecord*> rec) {
 
 Правильний та безпечний підхід полягає у використанні `std::memcpy` у поєднанні зі стандартними функціями конвертації порядку байтів або сучасним `std::byteswap` (C++23):
 
-```cpp
-// Шаблонна утиліта безпечного читання багатобайтних чисел з gsl::span
-template <class T, std::ptrdiff_t Offset>
-[[nodiscard]] constexpr T read_big_endian(gsl::span<const gsl::byte> data) noexcept {
-    static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");
-    T value{};
-    auto slice = data.template subspan<Offset, sizeof(T)>();
-    std::memcpy(&value, slice.data(), sizeof(T));
-
-    // У реальному C++23 застосовуємо std::byteswap, для C++17/20 — бітові зсуви або ntoh
-    if constexpr (sizeof(T) == 2) {
-        auto raw = static_cast<uint16_t>(value);
-        return static_cast<T>((raw >> 8) | (raw << 8));
-    } else if constexpr (sizeof(T) == 4) {
-        auto raw = static_cast<uint32_t>(value);
-        return static_cast<T>(((raw >> 24) & 0xFF) |
-                              ((raw >> 8)  & 0xFF00) |
-                              ((raw << 8)  & 0xFF0000) |
-                              ((raw << 24) & 0xFF000000));
-    }
-    return value;
-}
-```
+:::code proj-gsl-refactoring/cpp/4-obrobka-poriadku-baitiv.cpp
 
 Такий підхід повністю захищений від збоїв непарного вирівнювання (Unaligned Access), гарантує сувору типобезпеку і водночас оптимізується компіляторами GCC та Clang в одну апаратну інструкцію `bswap` або `movbe` процесора.
 
@@ -261,27 +103,7 @@ template <class T, std::ptrdiff_t Offset>
 
 Правильний патерн адаптації полягає у створенні безпечного `gsl::span` безпосередньо на межі введення (I/O Boundary):
 
-```cpp
-// Адаптер системного сокета POSIX до типобезпечного GSL-пайплайну
-void on_socket_data_received(int socket_fd, gsl::not_null<ILogger*> logger) {
-    std::array<gsl::byte, 4096> socket_buffer{};
-    
-    // Системний виклик на межі введення
-    ssize_t bytes_read = ::recv(socket_fd, socket_buffer.data(), socket_buffer.size(), 0);
-    if (bytes_read <= 0) {
-        return; // З'єднання закрито або помилка
-    }
-
-    // Миттєве створення безпечного зрізу з точним розміром фактично отриманих даних
-    auto received_span = gsl::make_span(socket_buffer.data(), gsl::narrow<std::ptrdiff_t>(bytes_read));
-
-    // Передача у верифікований конвеєр обробки
-    auto record = SafeTelemetryDecoder::decode_packet(received_span, logger);
-    if (record) {
-        process_telemetry(*record);
-    }
-}
-```
+:::code proj-gsl-refactoring/cpp/7-vzaiemodiia-z-systemnymy.cpp
 
 Створення `gsl::span` безпосередньо після системного виклику гарантує, що весь внутрішній код програми повністю ізольований від небезпечних операцій із сирими покажчиками та надійно захищений від виходу за межі пам'яті.
 
@@ -291,109 +113,7 @@ void on_socket_data_received(int socket_fd, gsl::not_null<ILogger*> logger) {
 
 Нижче наведено повний, функціональний та верифікований вихідний код модуля на C++20 із застосуванням бібліотеки GSL:
 
-```cpp
-#include <gsl/gsl>
-#include <cstdint>
-#include <vector>
-#include <string_view>
-#include <iostream>
-#include <iomanip>
-#include <stdexcept>
-#include <optional>
-#include <cstring>
-#include <cassert>
-
-// Абстрактний інтерфейс системи протоколювання подій
-class ILogger {
-public:
-    virtual ~ILogger() = default;
-    virtual void log_info(std::string_view message) = 0;
-    virtual void log_error(std::string_view message) = 0;
-};
-
-// Типобезпечна модель результату декодування телеметрії
-struct SafeTelemetryRecord {
-    uint16_t            sensor_id{};
-    uint32_t            timestamp{};
-    std::vector<double> readings{};
-};
-
-// Клас високопродуктивного та безпечного декодера телеметричних пакетів
-class SafeTelemetryDecoder {
-public:
-    // Константи протоколу
-    static constexpr uint32_t MAGIC_MARKER = 0x54454C4D; // ASCII "TELM"
-    static constexpr std::ptrdiff_t HEADER_BYTE_SIZE = 12;
-    static constexpr std::ptrdiff_t CHECKSUM_BYTE_SIZE = 4;
-
-    // Головний метод розбору пакета
-    [[nodiscard]] static std::optional<SafeTelemetryRecord> decode_packet(
-        gsl::span<const gsl::byte> buffer,
-        gsl::not_null<ILogger*> logger) noexcept
-    {
-        // 1. Охоронець області видимості: фіксація завершення аналізу кадру
-        auto session_guard = gsl::finally([logger] {
-            logger->log_info("Діагностика: завершено цикл оброблення мережевого кадру.");
-        });
-
-        // 2. Перевірка мінімально необхідного розміру заголовка та контрольної суми
-        const std::ptrdiff_t min_packet_size = HEADER_BYTE_SIZE + CHECKSUM_BYTE_SIZE;
-        if (buffer.size() < min_packet_size) {
-            logger->log_error("Помилка: буфер менший за мінімальний розмір заголовка протоколу.");
-            return std::nullopt;
-        }
-
-        // 3. Безпечне зчитування магічного маркера без порушення Strict Aliasing
-        uint32_t magic_val = 0;
-        auto magic_slice = buffer.first<4>();
-        std::memcpy(&magic_val, magic_slice.data(), sizeof(magic_val));
-
-        if (magic_val != MAGIC_MARKER) {
-            logger->log_error("Помилка: невалідний магічний маркер початку кадру (Invalid Magic).");
-            return std::nullopt;
-        }
-
-        // 4. Вилучення полів заголовка за допомогою типізованих зрізів subspan
-        uint16_t raw_sensor_id = 0;
-        std::memcpy(&raw_sensor_id, buffer.subspan<4, 2>().data(), sizeof(raw_sensor_id));
-
-        uint16_t raw_payload_len = 0;
-        std::memcpy(&raw_payload_len, buffer.subspan<6, 2>().data(), sizeof(raw_payload_len));
-
-        uint32_t raw_timestamp = 0;
-        std::memcpy(&raw_timestamp, buffer.subspan<8, 4>().data(), sizeof(raw_timestamp));
-
-        // 5. Контроль звуження числових типів та верифікація меж корисного навантаження
-        const std::ptrdiff_t payload_length = gsl::narrow_cast<std::ptrdiff_t>(raw_payload_len);
-        const std::ptrdiff_t full_expected_packet_size = HEADER_BYTE_SIZE + payload_length + CHECKSUM_BYTE_SIZE;
-
-        if (buffer.size() < full_expected_packet_size) {
-            logger->log_error("Помилка: заявлена довжина навантаження перевищує фізичний розмір пакета.");
-            return std::nullopt;
-        }
-
-        // 6. Формування вихідного запису та копіювання даних вимірювань
-        SafeTelemetryRecord record;
-        record.sensor_id = raw_sensor_id;
-        record.timestamp = raw_timestamp;
-
-        // Зріз виключно корисного навантаження
-        auto payload_slice = buffer.subspan(HEADER_BYTE_SIZE, payload_length);
-        const std::ptrdiff_t element_size = gsl::narrow<std::ptrdiff_t>(sizeof(double));
-        const std::ptrdiff_t element_count = payload_slice.size() / element_size;
-
-        if (element_count > 0) {
-            record.readings.resize(gsl::narrow<std::size_t>(element_count));
-            std::memcpy(record.readings.data(), 
-                        payload_slice.data(), 
-                        gsl::narrow<std::size_t>(element_count * element_size));
-        }
-
-        logger->log_info("Успіх: телеметричний кадр валідовано та успішно декодовано.");
-        return record;
-    }
-};
-```
+:::code proj-gsl-refactoring/cpp/8-povna-realizatsiia.cpp
 
 ---
 
@@ -401,80 +121,7 @@ public:
 
 Створимо комплексний тестовий стенд, який демонструє роботу декодера як у штатних умовах, так і при навмисних атаках на структуру пакета:
 
-```cpp
-// Консольна реалізація інтерфейсу протоколювання
-class StdoutLogger final : public ILogger {
-public:
-    void log_info(std::string_view message) override {
-        std::cout << "[INFO] " << message << "\n";
-    }
-    void log_error(std::string_view message) override {
-        std::cerr << "[ERROR] " << message << "\n";
-    }
-};
-
-int main() {
-    StdoutLogger logger_instance;
-    gsl::not_null<ILogger*> logger = &logger_instance;
-
-    std::cout << "--- Сценарій 1: Обробка коректного повного кадру ---\n";
-    // Пакет: "TELM" (4B) + SensorID(1) (2B) + PayloadLen(16B) (2B) + Time(0x1000) (4B) + 2x double + CRC(4B)
-    std::vector<uint8_t> packet_buffer = {
-        'T', 'E', 'L', 'M',
-        0x01, 0x00,
-        0x10, 0x00,
-        0x00, 0x10, 0x00, 0x00
-    };
-
-    double temperature = 36.6;
-    double pressure = 101.3;
-    const uint8_t* p_temp = reinterpret_cast<const uint8_t*>(&temperature);
-    const uint8_t* p_press = reinterpret_cast<const uint8_t*>(&pressure);
-
-    packet_buffer.insert(packet_buffer.end(), p_temp, p_temp + sizeof(double));
-    packet_buffer.insert(packet_buffer.end(), p_press, p_press + sizeof(double));
-
-    // Додаємо 4 байти контрольної суми CRC32
-    uint32_t dummy_crc = 0xDEADBEEF;
-    const uint8_t* p_crc = reinterpret_cast<const uint8_t*>(&dummy_crc);
-    packet_buffer.insert(packet_buffer.end(), p_crc, p_crc + sizeof(uint32_t));
-
-    // Створюємо безпечний gsl::span
-    auto valid_span = gsl::as_bytes(gsl::make_span(packet_buffer));
-    auto decode_result = SafeTelemetryDecoder::decode_packet(valid_span, logger);
-
-    assert(decode_result.has_value());
-    assert(decode_result->sensor_id == 1);
-    assert(decode_result->readings.size() == 2);
-    std::cout << "Отримані вимірювання: Temp = " << decode_result->readings[0] 
-              << ", Pressure = " << decode_result->readings[1] << "\n\n";
-
-    std::cout << "--- Сценарій 2: Атака переповнення (Malicious Length Overflow) ---\n";
-    // Зловмисник підробляє розмір payload: 0xFFFF (65535 байтів) при реальному буфері 36 байтів
-    std::vector<uint8_t> overflow_packet = packet_buffer;
-    overflow_packet[6] = 0xFF;
-    overflow_packet[7] = 0xFF;
-
-    auto overflow_span = gsl::as_bytes(gsl::make_span(overflow_packet));
-    auto overflow_result = SafeTelemetryDecoder::decode_packet(overflow_span, logger);
-    assert(!overflow_result.has_value());
-    std::cout << "Атаку успішно відхилено без читання за межами пам'яті.\n\n";
-
-    std::cout << "--- Сценарій 3: Атака усіченого пакета (Truncated Header) ---\n";
-    // Передаємо лише перші 6 байтів кадру
-    auto truncated_span = valid_span.first(6);
-    auto truncated_result = SafeTelemetryDecoder::decode_packet(truncated_span, logger);
-    assert(!truncated_result.has_value());
-    std::cout << "Усічений пакет коректно відхилено перевіркою мінімального розміру.\n\n";
-
-    std::cout << "--- Сценарій 4: Статичний захист від передачі nullptr ---\n";
-    // Наступний виклик буде заблоковано компілятором:
-    // SafeTelemetryDecoder::decode_packet(valid_span, nullptr); // ПОМИЛКА КОМПІЛЯЦІЇ: call to deleted constructor
-
-    std::cout << "Усі тести валідації безпеки GSL виконано успішно.\n";
-    return 0;
-}
-```
+:::code proj-gsl-refactoring/cpp/9-testuvannia-validatsiia.cpp
 
 ---
 
@@ -482,27 +129,7 @@ int main() {
 
 Для математичного доведення стійкості нового компонента до довільних мутацій бінарних даних інтегруємо декодер у фазинг-рушій `libFuzzer`:
 
-```cpp
-// Цільова функція фазингу libFuzzer
-extern "C" int LLVMFuzzerTestOneInput(const uint8_t* Data, size_t Size) {
-    class NullLogger final : public ILogger {
-    public:
-        void log_info(std::string_view) override {}
-        void log_error(std::string_view) override {}
-    };
-
-    NullLogger null_logger;
-    gsl::not_null<ILogger*> logger_ptr = &null_logger;
-
-    // Створюємо gsl::span над випадковим байтовим потоком від фазера
-    auto fuzzer_span = gsl::as_bytes(gsl::span<const uint8_t>(Data, Size));
-
-    // Виклик декодера: не повинен падати з SIGSEGV за жодних умов
-    (void)SafeTelemetryDecoder::decode_packet(fuzzer_span, logger_ptr);
-
-    return 0;
-}
-```
+:::code proj-gsl-refactoring/cpp/10-fazynh-testuvannia-za.cpp
 
 Мільйони згенерованих мутацій під керуванням AddressSanitizer (ASan) та UndefinedBehaviorSanitizer (UBSan) підтверджують, що рефакторений декодер на базі GSL повністю невразливий до читань за межами пам'яті, не спричиняє витоків ресурсів і повертає `std::nullopt` на будь-яких спотворених вхідних послідовностях.
 
@@ -514,21 +141,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* Data, size_t Size) {
 
 У таких середовищах бібліотека GSL налаштовується за допомогою макроса `GSL_TERMINATE_ON_CONTRACT_VIOLATION` або користувацького обробника контрактів:
 
-```cpp
-// Перевизначення обробника порушення контрактів для мікроконтролера
-namespace gsl {
-    [[noreturn]] void fail_fast() noexcept {
-        // 1. Апаратне вимкнення небезпечних виконавчих механізмів (двигунів, реле)
-        disable_actuators_hardware();
-
-        // 2. Запис діагностичного коду у Flash/NVRAM
-        save_crash_dump();
-
-        // 3. Перезавантаження мікроконтролера через Watchdog
-        NVIC_SystemReset();
-    }
-}
-```
+:::code proj-gsl-refactoring/cpp/11-povedinka-kontraktiv-u.hpp
 
 Така архітектура реалізує концепцію Fail-Fast (швидкої безпечної відмови): за будь-якої спроби звернутися за межі пам'яті або розіменувати нульовий вказівник система не продовжує роботу у скомпрометованому стані, а миттєво переходить у безпечний режим перезапуску.
 
@@ -594,19 +207,6 @@ CheckOptions:
 
 У файлі `CMakeLists.txt` підключається виклик перевірок під час кожної збірки:
 
-```cmake
-# CMakeLists.txt: автоматична перевірка Core Guidelines у CI
-find_program(CLANG_TIDY_EXE NAMES clang-tidy)
-if(CLANG_TIDY_EXE)
-    set(CMAKE_CXX_CLANG_TIDY 
-        "${CLANG_TIDY_EXE};--config-file=${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy"
-    )
-endif()
-
-# Прапорці MSVC C++ Core Check для Windows CI
-if(MSVC)
-    target_compile_options(telemetry_parser PRIVATE /analyze /analyze:ruleset "${CMAKE_CURRENT_SOURCE_DIR}/CppCoreCheckRules.ruleset")
-endif()
-```
+:::code proj-gsl-refactoring/cmake/CMakeLists.txt
 
 Завдяки такій інтеграції будь-яка спроба повернутися до сирої адресної арифметики або неперевірених покажчиків буде заблокована на етапі перевірки коду в системі неперервної інтеграції (CI), гарантуючи бездоганну надійність програмного продукту в промисловій експлуатації.

@@ -18,23 +18,7 @@
 
 Замість цього розробники використовують ідіому `Overloaded`. Вона базується на множинному успадкуванні від списку безіменних лямбда-виразів, які передаються безпосередньо за місцем виклику:
 
-```cpp
-#include <iostream>
-#include <variant>
-#include <string>
-#include <concepts>
-#include <type_traits>
-
-// Базовий шаблон зі змінною кількістю аргументів (Variadic Template)
-template<typename... Ts>
-struct Overloaded : Ts... {
-    using Ts::operator()...; // Розпакування using-оголошень для всіх базових класів (C++17)
-};
-
-// Користувацьке правило виведення (Deduction Guide)
-template<typename... Ts>
-Overloaded(Ts...) -> Overloaded<Ts...>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-1-dyspetcher.cpp
 
 ### Покроковий механізм виведення типів для Overloaded
 
@@ -62,32 +46,7 @@ Overloaded(Ts...) -> Overloaded<Ts...>;
 
 Приклад повноцінного використання з `std::variant`:
 
-```cpp
-void run_variant_dispatcher() {
-    using Message = std::variant<int, double, std::string>;
-
-    Message msg1 = 42;
-    Message msg2 = 3.14159;
-    Message msg3 = std::string("Системна подія #104");
-
-    auto handler = Overloaded{
-        [](int val) {
-            std::cout << "[Обробник Int]: значення = " << val << '\n';
-        },
-        [](double val) {
-            std::cout << "[Обробник Double]: значення = " << val << '\n';
-        },
-        [](const std::string& val) {
-            std::cout << "[Обробник String]: довжина = " << val.length() 
-                      << ", вміст = " << val << '\n';
-        }
-    };
-
-    std::visit(handler, msg1);
-    std::visit(handler, msg2);
-    std::visit(handler, msg3);
-}
-```
+:::code proj-custom-deduction-guide/cpp/pokrokovyi-mekhanizm.cpp
 
 Без явно вказаного deduction guide механізм CTAD у стандарті C++17 завершився б помилкою збірки, оскільки компілятор не зміг би зв'язати аргументи ініціалізації з типами базових класів агрегату.
 
@@ -99,105 +58,7 @@ void run_variant_dispatcher() {
 
 Нижче наведено реалізацію `StaticRingBuffer`, що самостійно дедукує тип `T` та місткість `Capacity`:
 
-```cpp
-#include <cstddef>
-#include <array>
-#include <iterator>
-#include <type_traits>
-#include <stdexcept>
-#include <iostream>
-#include <concepts>
-
-template<typename T, std::size_t Capacity>
-class StaticRingBuffer {
-public:
-    static_assert(Capacity > 0, "Місткість буфера повинна бути більшою за нуль!");
-
-    using value_type = T;
-    using size_type = std::size_t;
-
-    constexpr StaticRingBuffer() noexcept = default;
-
-    // Конструктор 1: із фіксованого масиву
-    constexpr explicit StaticRingBuffer(const T (&arr)[Capacity]) {
-        for (std::size_t i = 0; i < Capacity; ++i) {
-            push_back(arr[i]);
-        }
-    }
-
-    // Конструктор 2: із пари ітераторів
-    template<std::input_iterator Iter>
-    constexpr StaticRingBuffer(Iter first, Iter last) {
-        while (first != last && m_size < Capacity) {
-            push_back(*first);
-            ++first;
-        }
-    }
-
-    // Конструктор 3: зі списку ініціалізації
-    constexpr explicit StaticRingBuffer(std::initializer_list<T> list) {
-        if (list.size() > Capacity) {
-            throw std::out_of_range("Розмір списку ініціалізації перевищує місткість буфера");
-        }
-        for (const auto& item : list) {
-            push_back(item);
-        }
-    }
-
-    constexpr bool push_back(const T& val) {
-        if (m_size >= Capacity) {
-            return false; // Буфер заповнений
-        }
-        m_data[(m_head + m_size) % Capacity] = val;
-        ++m_size;
-        return true;
-    }
-
-    constexpr bool pop_front(T& out_val) {
-        if (m_size == 0) {
-            return false; // Буфер порожній
-        }
-        out_val = m_data[m_head];
-        m_head = (m_head + 1) % Capacity;
-        --m_size;
-        return true;
-    }
-
-    [[nodiscard]] constexpr size_type size() const noexcept { return m_size; }
-    [[nodiscard]] constexpr size_type capacity() const noexcept { return Capacity; }
-    [[nodiscard]] constexpr bool empty() const noexcept { return m_size == 0; }
-    [[nodiscard]] constexpr bool full() const noexcept { return m_size == Capacity; }
-
-    [[nodiscard]] constexpr const T& operator[](size_type idx) const {
-        if (idx >= m_size) {
-            throw std::out_of_range("Індекс виходить за межі заповненого буфера");
-        }
-        return m_data[(m_head + idx) % Capacity];
-    }
-
-private:
-    std::array<T, Capacity> m_data{};
-    std::size_t m_head = 0;
-    std::size_t m_size = 0;
-};
-
-// -----------------------------------------------------------------------------
-// Керівні правила виведення (Deduction Guides)
-// -----------------------------------------------------------------------------
-
-// Правило 1: Виведення типу T та точного розміру N із C-масиву за посиланням
-template<typename T, std::size_t N>
-StaticRingBuffer(const T (&)[N]) -> StaticRingBuffer<std::decay_t<T>, N>;
-
-// Правило 2: Виведення типу елемента з ітераторів (місткість за замовчуванням = 64)
-template<std::input_iterator Iter>
-StaticRingBuffer(Iter, Iter) 
-    -> StaticRingBuffer<typename std::iterator_traits<Iter>::value_type, 64>;
-
-// Правило 3: Виведення зі списку ініціалізації (місткість за замовчуванням = 32)
-template<typename T>
-StaticRingBuffer(std::initializer_list<T>) -> StaticRingBuffer<T, 32>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-2-statychnyi.cpp
 
 ### Механіка зв'язування за посиланням на масив
 
@@ -210,25 +71,7 @@ StaticRingBuffer(std::initializer_list<T>) -> StaticRingBuffer<T, 32>;
 
 У результаті клас інстанціюється як `StaticRingBuffer<double, 4>`, виділяючи рівно 32 байти пам'яті без жодного байта у динамічній купі.
 
-```cpp
-void test_static_ring_buffer() {
-    // 1. Ініціалізація з масиву: T = double, Capacity = 4
-    double raw_sensor_data[] = {23.4, 24.1, 23.9, 25.0};
-    StaticRingBuffer buffer(raw_sensor_data);
-
-    static_assert(buffer.capacity() == 4, "Місткість повинна бути обчислена точно як 4");
-    std::cout << "Створено буфер місткістю " << buffer.capacity() 
-              << ", перший елемент: " << buffer[0] << '\n';
-
-    // 2. Ініціалізація списком: T = int, Capacity = 32
-    StaticRingBuffer init_buffer = {100, 200, 300};
-    static_assert(init_buffer.capacity() == 32, "Дефолтна місткість списку = 32");
-
-    // 3. Ініціалізація ітераторами: T = double, Capacity = 64
-    StaticRingBuffer iter_buffer(std::begin(raw_sensor_data), std::end(raw_sensor_data));
-    static_assert(iter_buffer.capacity() == 64, "Дефолтна місткість ітераторів = 64");
-}
-```
+:::code proj-custom-deduction-guide/cpp/mekhanika-zviazuvannia-za.cpp
 
 ## Шаблон 3: Багатовимірна матриця FixedMatrix із виведенням розмірностей
 
@@ -236,51 +79,7 @@ void test_static_ring_buffer() {
 
 Якщо ініціалізувати матрицю вкладеними двовимірними C-масивами, виведення обох констант `Rows` та `Cols` разом із типом скаляра `T` вимагає дворівневого зіставлення посилань на масиви:
 
-```cpp
-#include <cstddef>
-#include <array>
-#include <iostream>
-#include <type_traits>
-
-template<typename T, std::size_t Rows, std::size_t Cols>
-class FixedMatrix {
-public:
-    static_assert(Rows > 0 && Cols > 0, "Розміри матриці повинні бути більшими за 0!");
-
-    // Конструктор із 2D-масиву посилань
-    constexpr explicit FixedMatrix(const T (&arr)[Rows][Cols]) {
-        for (std::size_t r = 0; r < Rows; ++r) {
-            for (std::size_t c = 0; c < Cols; ++c) {
-                m_data[r * Cols + c] = arr[r][c];
-            }
-        }
-    }
-
-    [[nodiscard]] constexpr std::size_t rows() const noexcept { return Rows; }
-    [[nodiscard]] constexpr std::size_t cols() const noexcept { return Cols; }
-
-    [[nodiscard]] constexpr const T& at(std::size_t r, std::size_t c) const {
-        return m_data[r * Cols + c];
-    }
-
-    void print() const {
-        for (std::size_t r = 0; r < Rows; ++r) {
-            std::cout << "[ ";
-            for (std::size_t c = 0; c < Cols; ++c) {
-                std::cout << at(r, c) << ' ';
-            }
-            std::cout << "]\n";
-        }
-    }
-
-private:
-    std::array<T, Rows * Cols> m_data{};
-};
-
-// Керівне правило виведення для 2D-масивів
-template<typename T, std::size_t Rows, std::size_t Cols>
-FixedMatrix(const T (&)[Rows][Cols]) -> FixedMatrix<std::decay_t<T>, Rows, Cols>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-3-bahatovymirna.cpp
 
 ### Як компілятор аналізує вкладені масиви
 
@@ -310,60 +109,12 @@ FixedMatrix mat(transform_matrix);
 
 Завдяки спеціалізованому правилу виведення для покажчиків на методи класів, компілятор самостійно розбирає сигнатуру методу на складові типи:
 
-```cpp
-#include <iostream>
-#include <functional>
-#include <type_traits>
-
-template<typename Receiver, typename ReturnType, typename... Args>
-class EventObserver {
-public:
-    using MethodPtr = ReturnType (Receiver::*)(Args...);
-
-    EventObserver(MethodPtr method, Receiver* instance)
-        : m_method(method), m_instance(instance) {}
-
-    ReturnType trigger(Args... args) const {
-        if (m_instance && m_method) {
-            return (m_instance->*m_method)(std::forward<Args>(args)...);
-        }
-        if constexpr (!std::is_void_v<ReturnType>) {
-            return ReturnType{};
-        }
-    }
-
-private:
-    MethodPtr m_method = nullptr;
-    Receiver* m_instance = nullptr;
-};
-
-// -----------------------------------------------------------------------------
-// Керівне правило виведення для покажчиків на методи
-// -----------------------------------------------------------------------------
-
-template<typename Receiver, typename ReturnType, typename... Args>
-EventObserver(ReturnType (Receiver::*)(Args...), Receiver*)
-    -> EventObserver<Receiver, ReturnType, Args...>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-4-dyspetcher.cpp
 
 ### Як компілятор розбирає сигнатуру покажчика на метод
 
 Коли розробник викликає конструктор:
-```cpp
-struct TelemetryLogger {
-    void log_status(int code, double latency) {
-        std::cout << "[Telemetry] Код: " << code << ", Затримка: " << latency << " мс\n";
-    }
-};
-
-void test_event_observer() {
-    TelemetryLogger logger;
-    // CTAD автоматично виводить: Receiver = TelemetryLogger, ReturnType = void, Args = {int, double}
-    EventObserver observer(&TelemetryLogger::log_status, &logger);
-
-    observer.trigger(200, 1.45);
-}
-```
+:::code proj-custom-deduction-guide/cpp/iak-kompiliator-rozbyraie.cpp
 
 Компілятор зіставляє тип аргументу `&TelemetryLogger::log_status` (який є `void (TelemetryLogger::*)(int, double)`) із формою `ReturnType (Receiver::*)(Args...)`. Механізм зіставлення виділяє тип класу `Receiver = TelemetryLogger`, повертаний тип `ReturnType = void` та розгортає пакет параметрів `Args = {int, double}`. У клієнтському коді повністю зникають громіздкі кутові дужки.
 
@@ -373,35 +124,7 @@ void test_event_observer() {
 
 Створення обгортки завдання без явних параметрів шаблону вимагає координації між типом функтора та типами переданих аргументів:
 
-```cpp
-#include <iostream>
-#include <functional>
-#include <future>
-#include <type_traits>
-#include <tuple>
-
-template<typename Callable, typename... Args>
-class ThreadPoolTask {
-public:
-    using return_type = std::invoke_result_t<Callable, Args...>;
-
-    explicit ThreadPoolTask(Callable fn, Args... args)
-        : m_func(std::move(fn)), m_args(std::move(args)...) {}
-
-    return_type execute() {
-        return std::apply(m_func, m_args);
-    }
-
-private:
-    Callable m_func;
-    std::tuple<Args...> m_args;
-};
-
-// Керівне правило виведення для обгортки завдання
-template<typename Callable, typename... Args>
-ThreadPoolTask(Callable, Args...) 
-    -> ThreadPoolTask<std::decay_t<Callable>, std::decay_t<Args>...>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-5-asynkhronna.cpp
 
 Утиліта `std::decay_t` для кожного аргументу в пакеті `Args...` гарантує, що передані константні посилання або масиви перетворюються на типи, безпечні для асинхронного збереження всередині `std::tuple`.
 
@@ -413,65 +136,7 @@ ThreadPoolTask(Callable, Args...)
 
 Для вирішення цієї проблеми застосовують комбінацію `std::decay_t`, `std::type_identity_t` та явних специфікаторів `explicit`:
 
-```cpp
-#include <memory>
-#include <string>
-#include <string_view>
-#include <mutex>
-#include <type_traits>
-#include <iostream>
-
-template<
-    typename Key, 
-    typename Value, 
-    typename Alloc = std::allocator<std::pair<const Key, Value>>
->
-class ThreadSafeCache {
-public:
-    using key_type = Key;
-    using mapped_type = Value;
-    using allocator_type = Alloc;
-
-    // Конструктор за замовчуванням
-    explicit ThreadSafeCache(const Alloc& alloc = Alloc{})
-        : m_alloc(alloc) {}
-
-    // Конструктор з ініціалізацією першого запису
-    ThreadSafeCache(Key key, Value val, const Alloc& alloc = Alloc{})
-        : m_last_key(std::move(key)), m_last_value(std::move(val)), m_alloc(alloc) {}
-
-    // Метод оновлення: type_identity_t блокує виведення Value з другого аргументу,
-    // дозволяючи неявне приведення типів аргументу до вже відомого типу Value
-    void update_value(const Key& key, std::type_identity_t<Value> val) {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        m_last_key = key;
-        m_last_value = std::move(val);
-    }
-
-    void dump_state() const {
-        std::lock_guard<std::mutex> lock(m_mutex);
-        std::cout << "[Cache State] Ключ: " << m_last_key 
-                  << ", Значення: " << m_last_value << '\n';
-    }
-
-private:
-    Key m_last_key{};
-    Value m_last_value{};
-    Alloc m_alloc{};
-    mutable std::mutex m_mutex{};
-};
-
-// -----------------------------------------------------------------------------
-// Керівне правило виведення (Deduction Guide)
-// -----------------------------------------------------------------------------
-
-template<
-    typename Key, 
-    typename Value, 
-    typename Alloc = std::allocator<std::pair<const std::decay_t<Key>, std::decay_t<Value>>>>
-ThreadSafeCache(Key&&, Value&&, Alloc = Alloc{}) 
-    -> ThreadSafeCache<std::decay_t<Key>, std::decay_t<Value>, Alloc>;
-```
+:::code proj-custom-deduction-guide/cpp/shablon-6-alokator.cpp
 
 ### Чому необхідний std::decay_t у Deduction Guide
 

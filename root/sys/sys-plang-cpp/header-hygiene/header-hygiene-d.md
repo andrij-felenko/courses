@@ -28,27 +28,7 @@
 
 Розглянемо, як текстове включення масштабується на практиці у типовому класі бізнес-логіки:
 
-```cpp
-// UserSession.h
-#pragma once
-#include <string>
-#include <vector>
-#include <memory>
-#include <map>
-#include "Database.h"
-
-class UserSession {
-public:
-    UserSession(const std::string& name);
-    bool authenticate();
-
-private:
-    std::string m_username;
-    std::vector<uint64_t> m_permissions;
-    std::unique_ptr<Database> m_db;
-    std::map<std::string, std::string> m_attributes;
-};
-```
+:::code header-hygiene-d/cpp/konveier-preprotsesynhu-ta.hpp
 
 Кожен стандартний заголовок тягне за собою розгалужене дерево власних внутрішніх включень: `<string>` підключає `<string_view>`, `<charconv>`, внутрішні алокатори та утиліти ітераторів; `<vector>` тягне алгоритми оптимізації пам'яті, конструктори діапазонів та винятки; `<map>` розгортає все дерево реалізації червоно-чорного дерева (`_Rb_tree`).
 
@@ -260,29 +240,7 @@ using string = std::basic_string<char, std::char_traits<char>, std::allocator<ch
 
 Для автоматичної та безперервної верифікації самодостатності у спільноті C++ прийнято суворий **канонічний порядок директив `#include`** у файлах реалізації (`.cpp`):
 
-```cpp
-// UserSession.cpp
-
-// 1. Парний заголовок поточної реалізації (НАЙПЕРШИЙ РЯДОК!)
-#include "UserSession.h"
-
-// 2. Заголовки поточного проєкту / компонента / бібліотеки
-#include "Database.h"
-#include "NetworkDispatcher.h"
-
-// 3. Заголовки сторонніх фреймворків (Boost, Abseil, Qt, OpenSSL)
-#include <boost/asio.hpp>
-#include <fmt/format.h>
-
-// 4. Заголовки стандартної бібліотеки C++
-#include <vector>
-#include <memory>
-#include <algorithm>
-
-// 5. Заголовки системного C API та POSIX
-#include <unistd.h>
-#include <sys/socket.h>
-```
+:::code header-hygiene-d/cpp/UserSession.cpp
 
 Розміщення парного заголовка `UserSession.h` на найпершій позиції гарантує, що він компілюється в повністю ізольованому середовищі. Якщо розробник забув підключити в `UserSession.h` заголовок `<vector>` або попереднє оголошення `class Database;`, файл `UserSession.cpp` негайно видасть помилку компіляції під час першої ж спроби збірки.
 
@@ -292,26 +250,7 @@ using string = std::basic_string<char, std::char_traits<char>, std::allocator<ch
 
 Сучасні системи збірки дозволяють автоматизувати цю перевірку для всіх заголовків бібліотеки. Починаючи з версії CMake 3.23, введено властивість цілей `VERIFY_INTERFACE_HEADER_SETS`:
 
-```cmake
-add_library(EngineCore STATIC
-    src/UserSession.cpp
-    src/Database.cpp
-)
-
-target_sources(EngineCore
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS include
-        FILES
-            include/Engine/UserSession.h
-            include/Engine/Database.h
-)
-
-# Автоматична генерація тестового .cpp файлу для кожного заголовка у наборі
-set_target_properties(EngineCore PROPERTIES
-    VERIFY_INTERFACE_HEADER_SETS ON
-)
-```
+:::code header-hygiene-d/cmake/CMakeLists.txt
 
 Під час збірки CMake автоматично згенерує окремий тимчасовий трансляційний файл для кожного публічного заголовка, що гарантує 100% самодостатність інтерфейсів бібліотеки на рівні конвеєра CI/CD.
 
@@ -407,39 +346,9 @@ void send_packet(const string& data);
 
 Класична реалізація Pimpl через `std::unique_ptr<Impl>` має прихований дефект семантики константності. Оскільки покажчик у C++ володіє так званою «неглибокою константністю» (Shallow Constness), метод з кваліфікатором `const` не може змінити сам покажчик `m_impl`, але має повне право мутувати дані за адресою `m_impl->field`.
 
-```cpp
-// UserSession.h
-#pragma once
-#include <memory>
+:::code header-hygiene-d/cpp/problema-vtraty-const.hpp
 
-class UserSession {
-public:
-    UserSession();
-    ~UserSession();
-
-    void inspect() const; // Має бути чистою операцією читання!
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> m_impl;
-};
-```
-
-```cpp
-// UserSession.cpp
-#include "UserSession.h"
-#include "Database.h"
-
-struct UserSession::Impl {
-    uint64_t access_count = 0;
-    Database db;
-};
-
-void UserSession::inspect() const {
-    // КОМПІЛЮЄТЬСЯ БЕЗ ПОМИЛОК, але порушує логічну константність!
-    m_impl->access_count++; 
-}
-```
+:::code header-hygiene-d/cpp/UserSession-2.cpp
 
 Для відновлення «глибокої константності» (Deep Constness) у сучасному C++ використовують спеціальну обгортку `std::experimental::propagate_const` (або власну легку реалізацію шаблону). Вона автоматично транслює кваліфікатор `const` константного методу на покажчик `operator->()`, повертаючи `const Impl*` і блокуючи будь-які випадкові модифікації внутрішнього стану.
 

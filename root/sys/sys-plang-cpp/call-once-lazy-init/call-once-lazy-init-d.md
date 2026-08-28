@@ -22,72 +22,8 @@
 Найпростіший і очевидний спосіб полягає у використанні звичайного м'ютекса, який блокує критичну секцію при кожному доступі до ресурсу:
 
 :::tabs
-```cpp
-#include <mutex>
-#include <memory>
-#include <string>
-
-struct ConfigurationTable {
-    std::string database_url;
-    int max_pool_size = 100;
-};
-
-class ServiceGateway {
-private:
-    std::unique_ptr<ConfigurationTable> config_;
-    mutable std::mutex config_mutex_;
-
-    void load_configuration_from_network() {
-        auto cfg = std::make_unique<ConfigurationTable>();
-        cfg->database_url = "postgres://cluster.prod:5432/primary";
-        cfg->max_pool_size = 256;
-        config_ = std::move(cfg);
-    }
-
-public:
-    const ConfigurationTable& get_configuration() const {
-        std::lock_guard<std::mutex> lock(config_mutex_);
-        if (!config_) {
-            const_cast<ServiceGateway*>(this)->load_configuration_from_network();
-        }
-        return *config_;
-    }
-};
-```
-```c
-#include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    char database_url[128];
-    int max_pool_size;
-} ConfigurationTable;
-
-typedef struct {
-    ConfigurationTable* config;
-    pthread_mutex_t mutex;
-} ServiceGatewayC;
-
-void init_gateway(ServiceGatewayC* gw) {
-    gw->config = NULL;
-    pthread_mutex_init(&gw->mutex, NULL);
-}
-
-const ConfigurationTable* get_configuration_c(ServiceGatewayC* gw) {
-    pthread_mutex_lock(&gw->mutex);
-    if (gw->config == NULL) {
-        ConfigurationTable* cfg = (ConfigurationTable*)malloc(sizeof(ConfigurationTable));
-        if (cfg) {
-            strncpy(cfg->database_url, "postgres://cluster.prod:5432/primary", 127);
-            cfg->max_pool_size = 256;
-            gw->config = cfg;
-        }
-    }
-    pthread_mutex_unlock(&gw->mutex);
-    return gw->config;
-}
-```
+:::code call-once-lazy-init-d/cpp/1-problema-linyvoi.cpp
+:::code call-once-lazy-init-d/c/main.c
 :::
 
 Такий підхід є бездоганно коректним з точки зору синхронізації, але неприйнятним для високонавантажених систем. Коли сотні потоків щомиті викликають метод `get_configuration()`, вони конкурують за один і той самий м'ютекс. Навіть коли черги немає (Uncontended Lock), операція атомарного захоплення змінює стан кеш-лінії процесора з Shared (спільний) на Modified (модифікований) у когерентному протоколі MESI. Це змушує всі інші ядра скидати свої локальні L1/L2-кеші та перезавантажувати дані з повільної системної шини.
@@ -96,20 +32,7 @@ const ConfigurationTable* get_configuration_c(ServiceGatewayC* gw) {
 
 Проте в архітектурах із позачерговим виконанням команд (Out-of-Order Execution) звичайний запис покажчика на щойно створений об'єкт не гарантує, що поля цього об'єкта вже були збережені у фізичній пам'яті:
 
-```cpp
-// ❌ Класичний небезпечний антипатерн DCLP на звичайних покажчиках
-if (config_ == nullptr) { // 1. Читання без замка (Гонитва за даними!)
-    std::lock_guard<std::mutex> lock(config_mutex_);
-    if (config_ == nullptr) { // 2. Перевірка під замком
-        // Рядок нижче розпадається на 3 апаратні операції:
-        // А) Виділити сиру пам'ять operator new
-        // Б) Викликати конструктор ConfigurationTable
-        // В) Присвоїти адресу змінній config_
-        // Компілятор або процесор мають право виконати (В) раніше, ніж (Б)!
-        config_ = new ConfigurationTable();
-    }
-}
-```
+:::code call-once-lazy-init-d/cpp/1-problema-linyvoi-2.cpp
 
 Інший потік міг побачити валідну ненульову адресу `config_`, оминути критичну секцію і почати читати поля, конструктор яких ще навіть не завершився. Детальний аналіз математичних причин цієї апаратної пастки та історичного шляху її вирішення викладено в [історії краху DCLP та виникнення call_once](root:sys-plang-cpp/call-once-lazy-init/hist-once-flag.md).
 
@@ -141,41 +64,7 @@ void call_once(std::once_flag& flag, Callable&& f, Args&&... args);
 
 Погляньмо на лаконічне й безпечне використання `std::call_once` для лінивого завантаження конфігурації:
 
-```cpp
-#include <mutex>
-#include <memory>
-#include <string>
-#include <iostream>
-
-struct DatabaseConfig {
-    std::string connection_string;
-    int timeout_ms = 3000;
-};
-
-class DatabaseService {
-private:
-    std::unique_ptr<DatabaseConfig> config_;
-    mutable std::once_flag init_flag_;
-
-    void initialize_config(const std::string& host, int port) {
-        std::cout << "Завантаження конфігурації для " << host << ":" << port << "...\n";
-        auto cfg = std::make_unique<DatabaseConfig>();
-        cfg->connection_string = "host=" + host + ";port=" + std::to_string(port);
-        cfg->timeout_ms = 5000;
-        config_ = std::move(cfg);
-    }
-
-public:
-    DatabaseService() = default;
-
-    const DatabaseConfig& get_config() const {
-        // Передаємо метод класу, вказівник this та аргументи конфігурації
-        std::call_once(init_flag_, &DatabaseService::initialize_config, 
-                       const_cast<DatabaseService*>(this), "db-primary.internal", 5432);
-        return *config_;
-    }
-};
-```
+:::code call-once-lazy-init-d/cpp/semantyka-funktsii-std.cpp
 
 У наведеному прикладі `std::once_flag` є звичайним нестатичним полем класу. Це означає, що кожен створений екземпляр `DatabaseService` матиме власну незалежну ліниву ініціалізацію: перший виклик `get_config()` на конкретному об'єкті налаштує його конфігурацію, а всі наступні звернення на цьому ж об'єкті виконуватимуться без блокувань.
 
@@ -253,64 +142,7 @@ if (__atomic_load_n(&flag.__state, __ATOMIC_ACQUIRE) == STATE_DONE) {
 
 Розглянемо практичний приклад, що демонструє стійкість до тимчасових мережевих збоїв:
 
-```cpp
-#include <mutex>
-#include <string>
-#include <iostream>
-#include <stdexcept>
-#include <thread>
-#include <chrono>
-
-class ResilientNetworkClient {
-private:
-    std::string session_token_;
-    std::once_flag auth_flag_;
-    int attempt_count_ = 0;
-
-    void authenticate_rpc() {
-        ++attempt_count_;
-        std::cout << "[Спроба " << attempt_count_ << "] Спроба авторизації на сервері...\n";
-        
-        if (attempt_count_ == 1) {
-            // Імітація первинного збою мережі
-            std::cout << "[Збій] Сервер недоступний (таймаут). Кидаємо виняток.\n";
-            throw std::runtime_error("Network timeout on auth endpoint");
-        }
-
-        session_token_ = "TOKEN_SECURE_ABC_123_XYZ";
-        std::cout << "[Успіх] Авторизацію пройдено, токен отримано!\n";
-    }
-
-public:
-    void send_request(const std::string& payload) {
-        // Якщо ініціалізатор кидає виняток, стан auth_flag_ скидається назад!
-        std::call_once(auth_flag_, &ResilientNetworkClient::authenticate_rpc, this);
-        
-        std::cout << "Відправка даних '" << payload << "' з токеном " << session_token_ << "\n";
-    }
-};
-
-int main() {
-    ResilientNetworkClient client;
-
-    // Перший запит зазнає невдачі через збій мережі
-    try {
-        client.send_request("Payload #1");
-    } catch (const std::exception& e) {
-        std::cout << "Клієнт перехопив помилку: " << e.what() << "\n";
-    }
-
-    // Другий запит успішно повторює ініціалізацію завдяки транзакційному скиданню прапорця!
-    try {
-        std::cout << "\nПовторна спроба відправки...\n";
-        client.send_request("Payload #2");
-    } catch (const std::exception& e) {
-        std::cout << "Несподівана помилка: " << e.what() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code call-once-lazy-init-d/cpp/povedinka-std-call-once-u.cpp
 
 Якби ми використовували власноруч написаний булевий прапорець `bool is_inited = true` без транзакційного відкату при розгортанні стеку, помилка під час першої спроби назавжди заблокувала б систему у «напівмертвому» стані: прапорець стояв би в `true`, а об'єкт залишався б порожнім або пошкодженим. `std::call_once` гарантує транзакційну атомарність: стан фіксується виключно після успішного повернення з функції без винятків.
 
@@ -385,41 +217,14 @@ void process_packet(const char* data) {
 ### Пастка 2: Рекурсивний виклик (Deadlock / std::system_error)
 Якщо функція ініціалізації прямо чи опосередковано знову викликає `std::call_once` з **тим самим** об'єктом `once_flag`, виникає циклічна залежність:
 
-```cpp
-// ❌ ПОМИЛКА: взаємне блокування (Deadlock)
-std::once_flag g_flag;
-
-void init_part_two() {
-    std::call_once(g_flag, []() {
-        std::cout << "Крок 2\n";
-    });
-}
-
-void init_part_one() {
-    std::call_once(g_flag, []() {
-        std::cout << "Крок 1\n";
-        init_part_two(); // Рекурсивне звернення до того самого g_flag!
-    });
-}
-```
+:::code call-once-lazy-init-d/cpp/pastka-2-rekursyvnyi.cpp
 
 Згідно зі стандартом C++, рекурсивний виклик `std::call_once` для активного прапорця призводить до невизначеної поведінки або викидання винятку `std::system_error` з кодом `std::errc::resource_deadlock_would_occur`. Для незалежних етапів ініціалізації завжди слід використовувати окремі прапорці `std::once_flag`.
 
 ### Пастка 3: Передача аргументів за посиланням без `std::ref`
 Оскільки `std::call_once` копіює передані аргументи за значенням (Decay-Copy) перед перенаправленням у цільову функцію, передача неконстантного посилання на змінну призведе або до помилки компіляції, або до того, що функція модифікуватиме локальну тимчасову копію замість оригінальної змінної.
 
-```cpp
-// ❌ ПОМИЛКА компіляції або зміна тимчасової копії
-void populate_data(std::vector<int>& out_vec) {
-    out_vec.push_back(42);
-}
-
-void run(std::once_flag& flag, std::vector<int>& vec) {
-    // ❌ Помилка: std::call_once(flag, populate_data, vec);
-    // ✅ Правильно: використовуємо std::ref для збереження семантики посилання
-    std::call_once(flag, populate_data, std::ref(vec));
-}
-```
+:::code call-once-lazy-init-d/cpp/pastka-3-peredacha.cpp
 
 ### Пастка 4: Руйнування об'єкта під час виконання call_once
 Якщо клас містить `std::once_flag`, а інший потік викликає деструктор цього класу, поки один із потоків ще перебуває всередині `std::call_once`, виникає невизначена поведінка (Use-After-Free стану прапорця або деструкція об'єкта під час конструювання). Життєвий цикл власника прапорця повинен гарантовано охоплювати тривалість усіх багатопотокових звернень.

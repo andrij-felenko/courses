@@ -4,60 +4,13 @@
 
 ## Заголовок, який міняється від прапорця
 
-```cpp
-// packet.hpp
-#pragma once
-#include <cstddef>
-
-struct Packet {
-    int id;
-    int len;
-#ifdef WITH_TIMESTAMP
-    long long ts;                 // ← поле є лише в частині збірки
-#endif
-    static std::size_t stride() { return sizeof(Packet); }   // inline
-};
-
-Packet* make_batch(int n);        // визначено в config.cpp
-void    free_batch(Packet* p);
-```
+:::code proj-odr-break/cpp/packet.hpp
 
 Поле `ts` є або немає — залежно від того, чи стояв `-DWITH_TIMESTAMP` у момент компіляції саме цього файла. Розмір структури від цього стрибає з 8 байтів на 16: два `int` дають рівно 8, а `long long` вимагає адреси, кратної восьми, тож компілятор кладе його на зсув 8 і доводить розмір до 16. Звідки беруться такі зсуви й додаткові порожні байти, розбирає [Вирівнювання в пам'яті](root:sf-apps/memory-alignment).
 
-```cpp
-// config.cpp — збирається З -DWITH_TIMESTAMP
-#include "packet.hpp"
+:::code proj-odr-break/cpp/config.cpp
 
-Packet* make_batch(int n) {
-    Packet* p = new Packet[n];
-    for (int i = 0; i < n; ++i) {
-        p[i].id  = i;
-        p[i].len = 100 + i;
-#ifdef WITH_TIMESTAMP
-        p[i].ts  = 1700000000000LL + i;
-#endif
-    }
-    return p;
-}
-
-void free_batch(Packet* p) { delete[] p; }
-```
-
-```cpp
-// render.cpp — збирається БЕЗ прапорця
-#include "packet.hpp"
-#include <cstdio>
-
-int main() {
-    std::printf("render: sizeof=%zu stride()=%zu\n",
-                sizeof(Packet), Packet::stride());
-
-    Packet* p = make_batch(4);
-    for (int i = 0; i < 4; ++i)
-        std::printf("  [%d] id=%d len=%d\n", i, p[i].id, p[i].len);
-    free_batch(p);
-}
-```
+:::code proj-odr-break/cpp/render.cpp
 
 Масив заповнює `config.cpp`, обходить його `render.cpp`, а спільного тексту між ними — один-єдиний заголовок. Прапорець розходиться в одному місці: у командному рядку.
 

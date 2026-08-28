@@ -15,47 +15,7 @@
 ### gsl::not_null<T>
 Шаблонна обгортка для вказівникоподібних типів (сирих покажчиків `U*`, розумних вказівників `std::unique_ptr<U>`, `std::shared_ptr<U>`), яка встановлює та підтримує строгий інваріант: внутрішній покажчик гарантовано не дорівнює `nullptr` протягом усього часу існування об'єкта.
 
-```cpp
-namespace gsl {
-    template <class T>
-    class not_null {
-    public:
-        static_assert(detail::is_pointer_like<T>::value, "T must be a pointer-like type");
-
-        using element_type = typename std::pointer_traits<T>::element_type;
-
-        // Конструктори від валідного покажчика
-        constexpr not_null(T u);
-        template <class U, class = std::enable_if_t<std::is_convertible<U, T>::value>>
-        constexpr not_null(const not_null<U>& other);
-
-        // Заборонені конструктори та оператори присвоєння від nullptr
-        constexpr not_null(std::nullptr_t) = delete;
-        constexpr not_null& operator=(std::nullptr_t) = delete;
-
-        // Доступ до даних та розіменування
-        constexpr element_type& operator*() const noexcept(noexcept(*std::declval<T>()));
-        constexpr T operator->() const noexcept;
-        constexpr T get() const noexcept;
-
-        // Неявне приведення до базового типу вказівника
-        constexpr operator T() const noexcept;
-
-        // Заборона адресної арифметики для запобігання виходу за межі пам'яті (Rule Bounds.1)
-        not_null& operator++() = delete;
-        not_null& operator--() = delete;
-        not_null operator++(int) = delete;
-        not_null operator--(int) = delete;
-        not_null& operator+=(std::ptrdiff_t) = delete;
-        not_null& operator-=(std::ptrdiff_t) = delete;
-        void operator[](std::ptrdiff_t) const = delete;
-    };
-
-    // Фабрична функція дедукції типу
-    template <class T>
-    constexpr not_null<T> make_not_null(T&& t);
-}
-```
+:::code api-gsl-reference/cpp/gsl-not-null-t.hpp
 
 #### Детальний аналіз семантики, ABI та оптимізацій:
 - **Статичний контроль при конструюванні**: Будь-яка спроба ініціалізувати об'єкт через літерал `nullptr`, макрос `NULL` або цілочисельний нуль `0` призводить до помилки компіляції, оскільки відповідні перевантаження конструкторів позначені специфікатором `= delete`.
@@ -98,81 +58,7 @@ namespace gsl {
 
 Шаблон `gsl::span<T, Extent>` є невласницьким переглядом (view) суцільної послідовності об'єктів у пам'яті. Він інкапсулює вказівник на перший елемент і кількість елементів, повністю усуваючи вразливості, пов'язані з передачею окремо покажчика та окремо цілочисельного розміру.
 
-```cpp
-namespace gsl {
-    inline constexpr std::ptrdiff_t dynamic_extent = -1;
-
-    template <class ElementType, std::ptrdiff_t Extent = dynamic_extent>
-    class span {
-    public:
-        using element_type     = ElementType;
-        using value_type       = std::remove_cv_t<ElementType>;
-        using size_type        = std::ptrdiff_t; // Знаковий тип індексу
-        using pointer          = element_type*;
-        using const_pointer    = const element_type*;
-        using reference        = element_type&;
-        using const_reference  = const element_type&;
-        using iterator         = /* implementation-defined continuous iterator */;
-        using reverse_iterator = std::reverse_iterator<iterator>;
-
-        static constexpr std::ptrdiff_t extent = Extent;
-
-        // Конструктори за замовчуванням та від покажчика з розміром
-        constexpr span() noexcept;
-        constexpr span(pointer ptr, size_type count);
-        constexpr span(pointer firstElem, pointer lastElem);
-
-        // Конструктори від фіксованих масивів мови C
-        template <std::size_t N>
-        constexpr span(element_type (&arr)[N]) noexcept;
-
-        // Конструктори від стандартних контейнерів (std::vector, std::array)
-        template <class Container>
-        constexpr span(Container& cont);
-        template <class Container>
-        constexpr span(const Container& cont);
-
-        // Ітератори суцільного доступу
-        constexpr iterator begin() const noexcept;
-        constexpr iterator end() const noexcept;
-        constexpr reverse_iterator rbegin() const noexcept;
-        constexpr reverse_iterator rend() const noexcept;
-
-        // Елементний доступ із обов'язковим контролем меж
-        constexpr reference operator[](size_type idx) const;
-        constexpr reference front() const;
-        constexpr reference back() const;
-        constexpr pointer data() const noexcept;
-
-        // Інформація про розмір
-        constexpr size_type size() const noexcept;
-        constexpr size_type size_bytes() const noexcept;
-        [[nodiscard]] constexpr bool empty() const noexcept;
-
-        // Генерація піддіапазонів (Subspans)
-        template <std::ptrdiff_t Count>
-        constexpr span<element_type, Count> first() const;
-        constexpr span<element_type, dynamic_extent> first(size_type count) const;
-
-        template <std::ptrdiff_t Count>
-        constexpr span<element_type, Count> last() const;
-        constexpr span<element_type, dynamic_extent> last(size_type count) const;
-
-        template <std::ptrdiff_t Offset, std::ptrdiff_t Count = dynamic_extent>
-        constexpr auto subspan() const;
-        constexpr span<element_type, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const;
-    };
-
-    // Допоміжні функції для роботи з сирими байтами
-    template <class ElementType, std::ptrdiff_t Extent>
-    span<const byte, Extent == dynamic_extent ? dynamic_extent : Extent * sizeof(ElementType)>
-    as_bytes(span<ElementType, Extent> s) noexcept;
-
-    template <class ElementType, std::ptrdiff_t Extent>
-    span<byte, Extent == dynamic_extent ? dynamic_extent : Extent * sizeof(ElementType)>
-    as_writeable_bytes(span<ElementType, Extent> s) noexcept;
-}
-```
+:::code api-gsl-reference/cpp/2-bezpechni-neperervni.hpp
 
 #### Ключові відмінності gsl::span від стандарту C++20 std::span:
 1. **Знаковий тип розміру (`std::ptrdiff_t`)**: У GSL розмір та індекс мають знаковий тип `std::ptrdiff_t`. Це запобігає класичним помилкам переповнення беззнакових чисел при декременті у циклах `for (auto i = s.size() - 1; i >= 0; --i)`, де беззнаковий `size_t` спричиняє небезпечне переповнення до `SIZE_MAX`.
@@ -189,24 +75,7 @@ namespace gsl {
 ### gsl::byte
 Типобезпечна обгортка для представлення сирих байтів неструктурованої пам'яті.
 
-```cpp
-namespace gsl {
-    enum class byte : unsigned char {};
-
-    constexpr byte operator&(byte l, byte r) noexcept;
-    constexpr byte operator|(byte l, byte r) noexcept;
-    constexpr byte operator^(byte l, byte r) noexcept;
-    constexpr byte operator~(byte b) noexcept;
-
-    template <class IntegerType>
-    constexpr byte operator<<(byte b, IntegerType shift) noexcept;
-    template <class IntegerType>
-    constexpr byte operator>>(byte b, IntegerType shift) noexcept;
-
-    template <class IntegerType>
-    constexpr IntegerType to_integer(byte b) noexcept;
-}
-```
+:::code api-gsl-reference/cpp/gsl-byte.cpp
 
 #### Призначення та правила використання:
 - На відміну від типу `char` або `unsigned char`, `gsl::byte` не є символом і не є цілочисельним арифметичним значенням.
@@ -237,21 +106,7 @@ namespace gsl {
 
 Мова C++ дозволяє неявне або явне за допомогою `static_cast` звуження типів даних (наприклад, з `int64_t` у `int32_t`, з `int` у `uint8_t`, або з `double` у `int`). Це спричиняє непомітне обтинання старших розрядів та спотворення знаку, що є джерелом критичних вразливостей переповнення буфера.
 
-```cpp
-namespace gsl {
-    struct narrowing_error : public std::exception {
-        const char* what() const noexcept override {
-            return "gsl::narrowing_error: target type cannot hold source value";
-        }
-    };
-
-    template <class Target, class Source>
-    constexpr Target narrow(Source u);
-
-    template <class Target, class Source>
-    constexpr Target narrow_cast(Source&& u) noexcept;
-}
-```
+:::code api-gsl-reference/cpp/4-bezpechni-zvuzhuiuchi.cpp
 
 ### Порівняльний аналіз функцій перетворення:
 
@@ -274,37 +129,7 @@ namespace gsl {
 
 Реалізує ідіому Scope Guard (охоронець області видимості), забезпечуючи виконання завершального блоку коду при виході з поточної функції або блоку за будь-яких умов: нормального завершення, дострокового `return`, `break`, `goto` або аварійного розгортання стеку через виняток `throw`.
 
-```cpp
-namespace gsl {
-    template <class F>
-    class final_action {
-    public:
-        static_assert(!std::is_reference<F>::value && !std::is_const<F>::value,
-                      "F should be a non-const, non-reference callable object");
-
-        explicit final_action(F f) noexcept : clean_action_(std::move(f)), active_(true) {}
-        ~final_action() noexcept {
-            if (active_) clean_action_();
-        }
-
-        // Переміщення дозволено, копіювання суворо заборонено
-        final_action(final_action&& other) noexcept;
-        final_action(const final_action&) = delete;
-        final_action& operator=(const final_action&) = delete;
-        final_action& operator=(final_action&&) = delete;
-
-        // Деактивація дії (наприклад, при успішному завершенні транзакції)
-        void dismiss() noexcept { active_ = false; }
-
-    private:
-        F clean_action_;
-        bool active_;
-    };
-
-    template <class F>
-    [[nodiscard]] final_action<std::decay_t<F>> finally(F&& f) noexcept;
-}
-```
+:::code api-gsl-reference/cpp/5-zakhyst-oblastei.cpp
 
 #### Механізм функціонування, винятки та оптимізація:
 - Функція `gsl::finally` повертає об'єкт `final_action`, позначений атрибутом `[[nodiscard]]`. Якщо розробник забуде зберегти результат у змінну (наприклад, напише `gsl::finally([...]);`), компілятор згенерує попередження, оскільки безіменний тимчасовий об'єкт буде знищено на тому ж рядку коду.
@@ -375,20 +200,7 @@ Ensures(result >= 0);
 
 У складних legacy-інтерфейсах або при роботі з низькорівневими драйверами ядра розробнику іноді необхідно локально відключити попередження аналізатора. Бібліотека GSL підтримує стандартизований синтаксис придушення діагностик:
 
-```cpp
-// Придушення для MSVC C++ Core Check
-[[gsl::suppress(bounds.1)]]
-void legacy_hardware_access(int* raw_io_port) {
-    // Дозволено тимчасове використання адресної арифметики для регістрів MMIO
-    *(raw_io_port + 0x10) = 0xFF;
-}
-
-// Придушення для Clang-Tidy
-void parse_legacy_buffer(char* buf) // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-{
-    buf[4] = '\0';
-}
-```
+:::code api-gsl-reference/cpp/8-keruvannia.cpp
 
 Такий підхід забезпечує абсолютну прозорість коду: кожне відхилення від правил C++ Core Guidelines документується безпосередньо в місці виникнення, що спрощує подальший аудит безпеки.
 
@@ -409,21 +221,7 @@ void parse_legacy_buffer(char* buf) // NOLINT(cppcoreguidelines-pro-bounds-point
 ### Підключення через CMake (Target-based Integration):
 При використанні CMake версії 3.14+ рекомендується підключати GSL як інтерфейсну ціль через `FetchContent` або системний пакет:
 
-```cmake
-# Варіант 1: Пошук встановленого пакета через vcpkg або системний менеджер
-find_package(Microsoft.GSL CONFIG REQUIRED)
-target_link_libraries(my_project PRIVATE Microsoft.GSL::GSL)
-
-# Варіант 2: Автоматичне завантаження через FetchContent
-include(FetchContent)
-FetchContent_Declare(
-    GSL
-    GIT_REPOSITORY https://github.com/microsoft/GSL.git
-    GIT_TAG        v4.0.0
-)
-FetchContent_MakeAvailable(GSL)
-target_link_libraries(my_project PRIVATE Microsoft.GSL::GSL)
-```
+:::code api-gsl-reference/cmake/CMakeLists.txt
 
 ### Підключення через менеджери пакетів Conan та Vcpkg:
 - **vcpkg**: `vcpkg install ms-gsl` (підтримує як повний репозиторій Microsoft GSL, так і портативний `gsl-lite`).

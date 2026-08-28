@@ -23,18 +23,7 @@
 
 Шаблон функції визначає алгоритм, який компілятор може адаптувати під довільні типи. Головною особливістю шаблонів функцій є підтримка автоматичного виведення аргументів шаблону (англ. *Template Argument Deduction*): компілятор зіставляє типи фактичних аргументів виклику з параметрами функції та автоматично визначає типи `T`.
 
-```cpp
-template <typename T>
-T clamp(T val, T min_val, T max_val) {
-    if (val < min_val) return min_val;
-    if (max_val < val) return max_val;
-    return val;
-}
-
-// Виклики функції:
-auto a = clamp(15, 0, 10);          // Неявне виведення: T = int
-auto b = clamp<double>(15.5, 0, 10); // Явна типізація: T = double, аргументи 0 і 10 приводяться до double
-```
+:::code api-templates-syntax/cpp/1-shablony-funktsii-ta.cpp
 
 Якщо типи аргументів конфліктують (наприклад, `clamp(15, 0.0, 10)`), компілятор не виконує неявних приведень типів для параметрів `T` і зупиняє трансляцію з помилкою неоднозначності виведення, вимагаючи або явної передачі типу `<double>`, або перевантаження функції.
 
@@ -44,63 +33,13 @@ auto b = clamp<double>(15.5, 0, 10); // Явна типізація: T = double,
 
 Якщо метод класу визначається за межами його тіла, розробник зобов'язаний повністю повторити заголовок `template <...>` перед кожним зовнішнім методом, а кваліфікатор імені класу повинен містити повний список формальних параметрів.
 
-```cpp
-template <typename T, typename Allocator = std::allocator<T>>
-class DynamicArray {
-public:
-    DynamicArray();
-    void push_back(const T& item);
-    void push_back(T&& item);
-    
-    // Вкладений шаблон методу (Member Function Template)
-    template <typename InputIterator>
-    void assign(InputIterator first, InputIterator last);
-
-private:
-    T* buffer_{nullptr};
-    std::size_t size_{0};
-    std::size_t capacity_{0};
-};
-
-// Зовнішнє визначення звичайного конструктора:
-template <typename T, typename Allocator>
-DynamicArray<T, Allocator>::DynamicArray()
-    : buffer_(nullptr), size_(0), capacity_(0) {}
-
-// Зовнішнє визначення методу push_back:
-template <typename T, typename Allocator>
-void DynamicArray<T, Allocator>::push_back(const T& item) {
-    // Тіло методу
-}
-
-// Зовнішнє визначення вкладеного методу-шаблону:
-template <typename T, typename Allocator>
-template <typename InputIterator>
-void DynamicArray<T, Allocator>::assign(InputIterator first, InputIterator last) {
-    // Вкладений метод має два рівні параметризації
-}
-```
+:::code api-templates-syntax/cpp/2-shablony-klasiv-ta.cpp
 
 ### 3. Шаблони змінних (Variable Templates, C++14)
 
 До стандарту C++14 для створення типізованих числових констант розробникам доводилося оголошувати фіктивні статичні структури-обгортки зі статичними константами всередині. Шаблони змінних дозволили оголошувати глобальні та просторові константи безпосередньо:
 
-```cpp
-// Параметризована константа
-template <typename T>
-constexpr T golden_ratio = T(1.61803398874989484820458683436563811772L);
-
-// Використання:
-float  phi_f = golden_ratio<float>;   // Точність single-precision
-double phi_d = golden_ratio<double>;  // Точність double-precision
-
-// Скорочення для стандартних рис типів (Type Traits)
-template <typename T>
-inline constexpr bool is_integral_v = std::is_integral<T>::value;
-
-template <typename From, typename To>
-inline constexpr bool is_convertible_v = std::is_convertible<From, To>::value;
-```
+:::code api-templates-syntax/cpp/3-shablony-zminnykh.cpp
 
 Шаблони змінних можуть спеціалізуватися для конкретних типів, що дозволяє перевизначати значення констант для користувацьких структур або особливих типів матриць і векторів.
 
@@ -108,21 +47,7 @@ inline constexpr bool is_convertible_v = std::is_convertible<From, To>::value;
 
 Шаблони псевдонімів створюються за допомогою директиви `using` і є повноцінною заміною застарілого `typedef`. Головна перевага полягає в тому, що `using` дозволяє залишати частину параметрів незаповненими, проектуючи нове узагальнене сімейство типів.
 
-```cpp
-// 1. Проекція з фіксацією частини параметрів
-template <typename Value>
-using StringMap = std::unordered_map<std::string, Value>;
-
-// 2. Спрощення доступу до асоційованих типів трансформацій
-template <typename T>
-using decay_t = typename std::decay<T>::type;
-
-template <bool B, typename T = void>
-using enable_if_t = typename std::enable_if<B, T>::type;
-
-// Використання у коді:
-StringMap<int> registry; // Еквівалентно std::unordered_map<std::string, int>
-```
+:::code api-templates-syntax/cpp/4-shablony-psevdonimiv.cpp
 
 ---
 
@@ -191,33 +116,7 @@ ValueBox<false>   bool_box;   // Value = false, value_type = bool
 
 Це нововведення уможливило передачу текстових рядків безпосередньо в параметри шаблонів:
 
-```cpp
-template <std::size_t N>
-struct FixedString {
-    char data[N]{};
-
-    // Конструктор виконується під час компіляції
-    constexpr FixedString(const char (&str)[N]) {
-        for (std::size_t i = 0; i < N; ++i) {
-            data[i] = str[i];
-        }
-    }
-
-    constexpr bool operator==(const FixedString&) const = default;
-};
-
-// Шаблон, параметризований рядком
-template <FixedString Identifier>
-class LoggerChannel {
-public:
-    void log(const char* msg) {
-        std::cout << "[" << Identifier.data << "] " << msg << "\n";
-    }
-};
-
-// Використання:
-LoggerChannel<"NETWORK_CORE"> net_log; // Кожен рядок породжує унікальний тип!
-```
+:::code api-templates-syntax/cpp/strukturni-typy-klasiv-iak.cpp
 
 ---
 
@@ -225,28 +124,7 @@ LoggerChannel<"NETWORK_CORE"> net_log; // Кожен рядок породжує
 
 Параметр-шаблон дозволяє передавати в якості аргументу не повністю інстанційований тип даних (`std::vector<int>`), а саме відкрите сімейство типів — неінстанційований шаблон (`std::vector`). Це необхідно для побудови контейнерів-адаптерів та компонентів вищого порядку.
 
-```cpp
-// Оголошення параметра-шаблона Container, який сам приймає один параметр типу
-template <typename T, template <typename> class Container>
-class StackAdapter {
-public:
-    void push(const T& val) { storage_.push_back(val); }
-    void pop() { storage_.pop_back(); }
-private:
-    Container<T> storage_;
-};
-
-// До C++17 у списку параметрів-шаблонів вимагалося винятково слово class.
-// Починаючи з C++17, дозволено використовувати typename:
-template <typename T, template <typename...> typename Container>
-class ModernStackAdapter {
-    Container<T> storage_;
-};
-
-// Використання:
-StackAdapter<int, std::vector> int_stack;   // storage_ матиме тип std::vector<int>
-StackAdapter<double, std::list> real_stack; // storage_ матиме тип std::list<double>
-```
+:::code api-templates-syntax/cpp/3-parametry-shablony.cpp
 
 #### Історична проблема зіставлення параметрів-шаблонів:
 У C++98/03 шаблон `std::vector` оголошено як `template <typename T, typename Alloc = std::allocator<T>> class vector;`. Він має два параметри. Якщо передати `std::vector` у шаблон `template <template <typename> class C>`, компілятори C++98 видавали жорстку помилку невідповідності кількості параметрів шаблону, ігноруючи аргумент за замовчуванням `Alloc`.
@@ -311,24 +189,7 @@ void extract_and_run(Storage& s) {
 
 Префікс `template` явно наказує компілятору відкрити список аргументів шаблону:
 
-```cpp
-template <typename Storage>
-void extract_and_run(Storage& s) {
-    // Явне позначення виклику методу-шаблону:
-    auto val1 = s.template get<int>(0);
-    
-    // Виклик через покажчик:
-    Storage* s_ptr = &s;
-    auto val2 = s_ptr->template get<double>(1);
-}
-
-// Використання template для вкладених шаблонів типів (Rebind):
-template <typename Allocator>
-struct AllocatorWrapper {
-    // Вкладений шаблон Rebind всередині залежного алокатора:
-    using OtherAlloc = typename Allocator::template rebind<double>::other;
-};
-```
+:::code api-templates-syntax/cpp/2-kliuchove-slovo-template.cpp
 
 ---
 
@@ -339,25 +200,7 @@ struct AllocatorWrapper {
 1. **Нешаблонна дружня функція, створена всередині шаблону (Hidden Friends):** Функція оголошується та визначається безпосередньо в тілі шаблону класу без власного заголовка `template <...>`. Вона генерується як звичайна глобальна функція для кожного інстанційованого типу і стає доступною винятково через пошук, залежний від аргументів (ADL). Це рекомендований ідіоматичний патерн для перевантаження операторів (`operator<<`, `operator+`).
 2. **Дружній шаблон функції:** Якщо дружня функція оголошується з власним заголовком `template <typename U>`, вона надає доступ до приватних полів усім екземплярам зовнішнього шаблону.
 
-```cpp
-template <typename T>
-class Matrix {
-public:
-    // Hidden Friend: створює дружній оператор для конкретного Matrix<T>
-    friend std::ostream& operator<<(std::ostream& os, const Matrix<T>& m) {
-        os << "[" << m.rows_ << "x" << m.cols_ << "]";
-        return os;
-    }
-
-    // Дружній шаблон для міжтипових перетворень
-    template <typename U>
-    friend class Matrix;
-
-private:
-    std::size_t rows_{0};
-    std::size_t cols_{0};
-};
-```
+:::code api-templates-syntax/cpp/druzhni-oholoshennia.cpp
 
 ---
 
@@ -369,32 +212,7 @@ private:
 
 Усі інші методи класу (наприклад, `push_back`, `resize`, `operator==`, `sort`) **не інстанціюються і не транслюються в машинний код взагалі**, доки у тексті програми не з'явиться прямий виклик конкретного методу для цього екземпляра.
 
-```cpp
-template <typename T>
-class SmartContainer {
-public:
-    void basic_action() {
-        // Працює для будь-якого типу
-    }
-
-    void print_payload() {
-        // Вимагає наявності operator<< для типу T!
-        std::cout << payload_ << "\n";
-    }
-
-private:
-    T payload_{};
-};
-
-struct OpaqueType {}; // Не має operator<<
-
-void test_lazy() {
-    SmartContainer<OpaqueType> c;
-    c.basic_action(); // Працює бездоганно!
-    
-    // c.print_payload(); // Якщо розкоментувати — виникне помилка компіляції на Фазі 2!
-}
-```
+:::code api-templates-syntax/cpp/vnutrishnia-mekhanika.cpp
 
 Завдяки лінивому інстанціюванню стандартні контейнери на кшталт `std::vector` можуть зберігати типи, які не мають конструктора за замовчуванням, оператора копіювання або оператора порівняння, за умови, що користувач не викликає методи, які безпосередньо спираються на ці операції.
 
@@ -443,19 +261,7 @@ template void quick_sort<int>(int* data, std::size_t size);
 
 Директива `extern template` повідомляє компілятору, що даний екземпляр шаблону гарантовано згенеровано в іншому об'єктному файлі. Компілятор припиняє локальну генерацію коду, залишаючи зовнішні посилання для лінкера:
 
-```cpp
-// Файл: Matrix.hpp
-template <typename T>
-class Matrix {
-public:
-    void invert();
-    void multiply(const Matrix<T>& other);
-};
-
-// Заборона генерації коду Matrix<float> у всіх файлах, які включають цей заголовок:
-extern template class Matrix<float>;
-extern template class Matrix<double>;
-```
+:::code api-templates-syntax/cpp/Matrix.hpp
 
 #### Архітектурні наслідки extern template:
 - **Скорочення часу компіляції:** Заощаджуються ресурси синтаксичного аналізатора та генератора коду в сотнях `.cpp` файлів.

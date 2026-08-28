@@ -24,81 +24,11 @@
 
 ## Каркас
 
-```cpp
-// adl-lab.cpp — лабораторія пошуку імен. C++20, жодних залежностей.
-#include <concepts>
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-void head(std::string_view t) { std::cout << "\n──  " << t << "  ──\n"; }
-void ask (std::string_view t) { std::cout << "    " << t << "  →  "; }
-void say (std::string_view t) { std::cout << t << '\n'; }
-
-namespace lib {                       // чужа бібліотека, яку ми не редагуємо
-
-struct Widget { int id = 0; };
-struct Point  { int x = 0, y = 0; };
-
-struct Pixel {
-    int x = 0, y = 0;
-    friend std::ostream& operator<<(std::ostream& os, const Pixel& p) {   // прихований друг
-        return os << '[' << p.x << ", " << p.y << ']';
-    }
-};
-
-// «зручність», покладена у ЗОВНІШНІЙ простір бібліотеки
-template <class T>
-void trace(T&& v) {
-    (void)v;
-    std::cout << "lib::trace<T&&> (загальний шаблон), T&& звівся до "
-              << (std::is_const_v<std::remove_reference_t<T>> ? "const&" : "&") << '\n';
-}
-
-void onlyAdl(const Widget&) { say("lib::onlyAdl — інакше її не дістати"); }
-
-}  // namespace lib
-
-namespace app {                       // наш код
-
-std::ostream& operator<<(std::ostream& os, const lib::Point& p) {   // ← оператор не в тому просторі
-    return os << '(' << p.x << ", " << p.y << ')';
-}
-
-void trace(const lib::Widget&) { say("app::trace(const Widget&) — наш, спеціальний"); }
-
-}  // namespace app
-
-namespace util {                      // третій простір: узагальнений друкар
-template <class T>
-void dump(std::string_view label, const T& v) {
-    std::cout << "    " << label << "  →  " << v << '\n';
-}
-}
-```
+:::code proj-adl-lab/cpp/adl-lab.cpp
 
 ## Дослід 1: оператор, покладений не в той простір
 
-```cpp
-void part_operator() {
-    head("1. Оператор, покладений не в той простір");
-
-    lib::Point p{1, 2};
-    lib::Pixel q{3, 4};
-
-    {
-        using namespace app;                        // діє лише в цих дужках
-        ask("std::cout << p");  std::cout << p << '\n';
-    }
-    ask("std::cout << q");  std::cout << q << '\n';
-
-    util::dump("util::dump(q) — крізь шаблон", q);
-    // util::dump("util::dump(p)", p);              // НЕ збирається, див. -DSHOW_ERRORS
-}
-```
+:::code proj-adl-lab/cpp/doslid-1-operator.cpp
 
 ```
 ──  1. Оператор, покладений не в той простір  ──
@@ -115,21 +45,7 @@ void part_operator() {
 
 ## Дослід 2: ADL-кандидат перемагає локально видимого
 
-```cpp
-namespace app {
-void part_overload() {
-    head("2. ADL-кандидат перемагає локально видимого");
-
-    lib::Widget       w{7};
-    const lib::Widget frozen{8};
-
-    ask("trace(w)       ");  trace(w);
-    ask("trace(frozen)  ");  trace(frozen);
-    ask("(trace)(w)     ");  (trace)(w);
-    ask("app::trace(w)  ");  app::trace(w);
-}
-}
-```
+:::code proj-adl-lab/cpp/doslid-2-adl-kandydat.cpp
 
 ```
 ──  2. ADL-кандидат перемагає локально видимого  ──
@@ -149,77 +65,7 @@ void part_overload() {
 
 ## Дослід 3: двокрок проти кваліфікованого виклику
 
-```cpp
-namespace img {
-
-inline int moveCount = 0;
-inline int swapCount = 0;
-
-class Buffer {
-public:
-    Buffer(std::string tag, std::size_t n)
-        : tag_(std::move(tag)), data_(new int[n]), size_(n) {}
-    ~Buffer() { delete[] data_; }
-
-    Buffer(const Buffer&)            = delete;
-    Buffer& operator=(const Buffer&) = delete;
-
-    Buffer(Buffer&& o) noexcept
-        : tag_(std::move(o.tag_)), data_(o.data_), size_(o.size_) {
-        o.data_ = nullptr; o.size_ = 0; ++moveCount;
-    }
-    Buffer& operator=(Buffer&& o) noexcept {
-        if (this == &o) return *this;
-        delete[] data_;
-        tag_ = std::move(o.tag_); data_ = o.data_; size_ = o.size_;
-        o.data_ = nullptr; o.size_ = 0; ++moveCount;
-        return *this;
-    }
-
-    friend void swap(Buffer& a, Buffer& b) noexcept {      // прихований друг
-        std::swap(a.tag_,  b.tag_);
-        std::swap(a.data_, b.data_);
-        std::swap(a.size_, b.size_);
-        ++swapCount;
-    }
-
-    const std::string& tag() const { return tag_; }
-
-private:
-    std::string tag_;
-    int*        data_ = nullptr;
-    std::size_t size_ = 0;
-};
-
-}  // namespace img
-
-template <class T> void twoStep  (T& a, T& b) { using std::swap; swap(a, b); }
-template <class T> void qualified(T& a, T& b) { std::swap(a, b); }
-template <class T> void viaCpo   (T& a, T& b) { std::ranges::swap(a, b); }
-
-void report(std::string_view what, int m0, int s0) {
-    std::cout << "    " << what << "  →  переміщень Buffer: " << img::moveCount - m0
-              << ",  власний swap: " << img::swapCount - s0 << '\n';
-}
-
-void part_swap() {
-    head("3. Двокрок проти кваліфікованого виклику");
-
-    img::Buffer a("кадр-A", 1024), b("кадр-B", 1024);
-    int m, s;
-
-    m = img::moveCount; s = img::swapCount;
-    twoStep(a, b);    report("using std::swap; swap(a, b)", m, s);
-
-    m = img::moveCount; s = img::swapCount;
-    qualified(a, b);  report("std::swap(a, b)            ", m, s);
-
-    m = img::moveCount; s = img::swapCount;
-    viaCpo(a, b);     report("std::ranges::swap(a, b)    ", m, s);
-
-    std::cout << "    у a лежить «" << a.tag() << "», у b — «" << b.tag() << "»\n";
-}
-```
+:::code proj-adl-lab/cpp/doslid-3-dvokrok-proty.cpp
 
 ```
 ──  3. Двокрок проти кваліфікованого виклику  ──
@@ -235,20 +81,7 @@ void part_swap() {
 
 ## Дослід 4: прихованого друга не видно нікому, крім ADL
 
-```cpp
-void part_hidden() {
-    head("4. Прихований друг і множина кандидатів");
-
-    img::Buffer a("а", 8), b("б", 8);
-    const int s = img::swapCount;
-    swap(a, b);                       // жодного `swap` у видимості — і все одно працює
-    std::cout << "    голий swap(a, b) у глобальній області  →  власний swap: "
-              << img::swapCount - s << '\n';
-
-    std::vector<lib::Widget> box(2);
-    ask("trace(box) // box — std::vector<lib::Widget>");  trace(box);
-}
-```
+:::code proj-adl-lab/cpp/doslid-4-prykhovanoho.cpp
 
 ```
 ──  4. Прихований друг і множина кандидатів  ──
@@ -264,28 +97,7 @@ void part_hidden() {
 
 ## Дослід 5: три вимикачі
 
-```cpp
-namespace guard {
-inline constexpr struct TraceFn {
-    void operator()(const lib::Widget&) const {
-        std::cout << "guard::trace — це ОБ'ЄКТ, тому ADL не вмикається\n";
-    }
-} trace{};
-}
-
-void part_switches() {
-    head("5. Три вимикачі ADL");
-
-    lib::Widget w{7};
-
-    ask("lib::onlyAdl(w) // кваліфіковано ");  lib::onlyAdl(w);
-    ask("onlyAdl(w)      // голе ім'я     ");  onlyAdl(w);
-    {
-        using guard::trace;                    // ім'я в цій області — не функція
-        ask("trace(w)        // trace — об'єкт");  trace(w);
-    }
-}
-```
+:::code proj-adl-lab/cpp/doslid-5-try-vymykachi.cpp
 
 ```
 ──  5. Три вимикачі ADL  ──
@@ -298,31 +110,7 @@ void part_switches() {
 
 ## Що не збирається
 
-```cpp
-#ifdef SHOW_ERRORS
-// Збірка з -DSHOW_ERRORS має провалитися. Цікаво саме те, ЯК вона провалюється.
-inline void broken() {
-    lib::Point p{1, 2};
-    std::cout << p;                     // (1)
-    util::dump("p", p);                 // (2)
-
-    img::Buffer a("а", 8), b("б", 8);
-    img::swap(a, b);                    // (3)
-
-    lib::Widget w{7};
-    (onlyAdl)(w);                       // (4)
-}
-using img::swap;                        // (5)
-#endif
-
-int main() {
-    part_operator();
-    app::part_overload();
-    part_swap();
-    part_hidden();
-    part_switches();
-}
-```
+:::code proj-adl-lab/cpp/shcho-ne-zbyraietsia.cpp
 
 Формулювання GCC (Clang каже те саме іншими словами):
 

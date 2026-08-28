@@ -35,30 +35,7 @@
 
 Оператор `^^` (англ. *reflection operator*) приймає як операнд довільну іменовану сутність мови: тип даних, простір імен, функцію, нестатичне поле структури, перелік `enum` або шаблон класу. Результатом застосування оператора є константне значення непрозорого скалярного типу `std::meta::info`.
 
-```cpp
-#include <meta>
-#include <string_view>
-#include <iostream>
-
-struct NetworkEndpoint {
-    std::string_view hostname;
-    uint16_t port;
-    bool use_tls;
-};
-
-void inspect_endpoint() {
-    // 1. Отримуємо метадескриптор структури NetworkEndpoint під час компіляції
-    constexpr std::meta::info meta_type = ^^NetworkEndpoint;
-
-    // 2. Отримуємо ім'я типу як рядковий літерал часу компіляції
-    constexpr std::string_view name = std::meta::name_of(meta_type);
-    std::cout << "Назва типу: " << name << std::endl; // Виведе: NetworkEndpoint
-
-    // 3. Досліджуємо кількість та імена полів структури
-    constexpr auto fields = std::meta::nonstatic_data_members_of(meta_type);
-    std::cout << "Кількість нестатичних полів: " << fields.size() << std::endl; // Виведе: 3
-}
-```
+:::code cpp26-features-d/cpp/operator-inspektsii-ta.cpp
 
 Фундаментальна перевага `std::meta::info` над шаблонним метапрограмуванням C++11/C++20 полягає у формі представлення метаданих. Раніше кожна нова маніпуляція вимагала інстанціювання окремого типу у внутрішній таблиці компілятора (наприклад, `std::tuple_element<I, T>::type`), що експоненційно забивало пам'ять транслятора при глибокій рекурсії. Значення `std::meta::info` є звичайним легковажним скаляром фіксованого розміру (компіляторним покажчиком на вузол AST). Їх можна вільно зберігати у константних масивах `std::array`, фільтрувати стандартними діапазонами `std::ranges`, сортувати або трансформувати у простих `constexpr`-циклах без створення нових типів.
 
@@ -72,22 +49,7 @@ void inspect_endpoint() {
 
 Залежно від синтаксичного контексту використання у виразі, сплайсер матеріалізує дескриптор `std::meta::info` у відповідну граматичну категорію C++:
 
-```cpp
-// Приклад 1: Матеріалізація типу для оголошення змінної
-constexpr std::meta::info target_type = ^^double;
-typename [: target_type :] precise_measurement = 3.1415926535;
-
-// Приклад 2: Звернення до поля об'єкта за його метадескриптором
-NetworkEndpoint server{.hostname = "127.0.0.1", .port = 8080, .use_tls = true};
-constexpr auto members = std::meta::nonstatic_data_members_of(^^NetworkEndpoint);
-
-// Отримуємо прямий доступ до другого поля (port) без знання його імені у вихідному коді
-server.[: members[1] :] = 9090;
-
-// Приклад 3: Інстанціювання шаблону за рефлексивним дескриптором
-constexpr std::meta::info vector_template = ^^std::vector;
-template [: vector_template :]<int> dynamic_buffer;
-```
+:::code cpp26-features-d/cpp/zvorotna-materializatsiia.cpp
 
 Компілятор гарантує, що операція сплайсингу `server.[: members[1] :]` розгортається у пряме звернення до пам'яті за зміщенням відповідного поля. Згенерований машинний код не містить жодних непрямих переходів чи пошуків у таблицях, забезпечуючи нульову вартість абстракції (zero-cost abstraction). Якщо дескриптор вказує на приватне поле класу, компілятор перевіряє права доступу так само суворо, як і при прямому зверненні за іменем.
 
@@ -117,29 +79,7 @@ template [: vector_template :]<int> dynamic_buffer;
 
 Синтаксис пакетного розгортання `[: expand(collection) :]` дозволяє транслювати константну послідовність метадескрипторів у послідовність викликів виразів без використання рекурсивних шаблонів та складної генерації цілочисельних послідовностей `std::index_sequence`:
 
-```cpp
-#include <meta>
-#include <iostream>
-#include <string_view>
-#include <format>
-
-// Універсальний інспектор полів будь-якої структури
-template <typename T>
-void print_struct_fields(const T& obj) {
-    constexpr auto type_meta = ^^T;
-    constexpr auto fields = std::meta::nonstatic_data_members_of(type_meta);
-
-    std::cout << "Структура " << std::meta::name_of(type_meta) << " містить:\n";
-
-    // Компілятор розгортає лямбду для кожного поля структури під час трансляції
-    [: expand(fields) :] >> [&]<auto field_meta>() {
-        constexpr std::string_view field_name = std::meta::name_of(field_meta);
-        const auto& field_value = obj.[: field_meta :];
-
-        std::cout << std::format("  Поле: {:12} | Значення: {}\n", field_name, field_value);
-    };
-}
-```
+:::code cpp26-features-d/cpp/kompiliatorne-rozhortannia.cpp
 
 Під час компіляції функції `print_struct_fields<NetworkEndpoint>` транслятор формує лінійне тіло без розгалужень, що послідовно виводить поля `hostname`, `port` та `use_tls`. Якщо розробник додасть до структури четверте поле, функція автоматично підхопить його без редагування жодного рядка допоміжного коду.
 
@@ -169,24 +109,7 @@ void print_struct_fields(const T& obj) {
 - `post [результат] (умова)`: постумова, що перевіряє стан результату та інваріантів перед поверненням керування викликачеві;
 - `contract_assert (умова)`: внутрішній інваріант обчислювального алгоритму всередині блоку коду.
 
-```cpp
-#include <contracts>
-#include <cmath>
-#include <span>
-
-// Функція обчислення середнього значення вибірки з повним контрактним захистом
-double compute_sample_mean(std::span<const double> data)
-    pre (!data.empty())                             // Преумова: вибірка не може бути порожньою
-    post [mean] (!std::isnan(mean) && mean >= 0.0) // Постумова: середнє повинно бути валідним числом
-{
-    double sum = 0.0;
-    for (double val : data) {
-        contract_assert(val >= 0.0); // Внутрішній інваріант: відсутність від'ємних значень у сенсорі
-        sum += val;
-    }
-    return sum / static_cast<double>(data.size());
-}
-```
+:::code cpp26-features-d/cpp/syntaksys-kontraktnykh.cpp
 
 Контракти підпорядковуються принципу підстановки Лісков (LSP) при успадкуванні: похідний клас у віртуальних методах не має права робити преумови суворішими, ніж у базовому класі, проте може гарантувати суворіші постумови результату. Це гарантує математичну узгодженість контрактних інтерфейсів у складних ієрархіях об'єктів.
 
@@ -234,35 +157,7 @@ double compute_sample_mean(std::span<const double> data)
 
 Завдяки перевантаженню пайплайн-оператора `|` асинхронні конвеєри описуються декларативно:
 
-```cpp
-#include <execution>
-#include <iostream>
-#include <string>
-
-void execute_async_task() {
-    namespace ex = std::execution;
-
-    // Створюємо пул потоків для важких фонових обчислень
-    ex::run_loop background_loop;
-    auto scheduler = background_loop.get_scheduler();
-
-    // Описуємо конвеєр обробки даних
-    auto work_pipeline = 
-        ex::schedule(scheduler)
-        | ex::then([]() {
-            // Виконується на фоновому планувальнику
-            return 42 * 100;
-        })
-        | ex::then([](int calculated_value) {
-            // Перетворення результату
-            return std::string("Результат обчислення: ") + std::to_string(calculated_value);
-        });
-
-    // Синхронно очікуємо результат виконання
-    auto [final_string] = std::this_thread::sync_wait(std::move(work_pipeline)).value();
-    std::cout << final_string << std::endl;
-}
-```
+:::code cpp26-features-d/cpp/kompozytsiia-konveieriv.cpp
 
 Адаптер `starts_on` визначає контекст запуску операції, `continues_on` переносить виконання продовження на інший планувальник (наприклад, графічний GUI-потік), а адаптер `when_all` реалізує структурований паралелізм виду Fork-Join. Якщо одна з гілок `when_all` завершується з помилкою через канал `set_error`, система автоматично поширює токен зупинки на всі інші паралельні гілки, детерміновано вивільняючи ресурси через зареєстровані `std::stop_callback`.
 
@@ -289,29 +184,7 @@ void execute_async_task() {
 - **Level 2:** множення матриці на вектор `matrix_vector_product`, розв'язання трикутних систем `triangular_matrix_vector_solve`;
 - **Level 3:** загальне матричне множення `matrix_product` (GEMM) та розклад Холецького.
 
-```cpp
-#include <linalg>
-#include <vector>
-#include <mdspan>
-#include <iostream>
-
-void matrix_multiplication_demo() {
-    std::vector<double> A_data = {1, 2, 3, 4};
-    std::vector<double> B_data = {5, 6, 7, 8};
-    std::vector<double> C_data(4, 0.0);
-
-    // Створюємо двовимірні неволодіючі представлення матриць 2x2
-    std::mdspan A(A_data.data(), 2, 2);
-    std::mdspan B(B_data.data(), 2, 2);
-    std::mdspan C(C_data.data(), 2, 2);
-
-    // Стандартне матричне множення GEMM: C = A * B
-    std::linalg::matrix_product(A, B, C);
-
-    std::cout << "C[0, 0] = " << C[0, 0] << " (очікувано 19)\n";
-    std::cout << "C[0, 1] = " << C[0, 1] << " (очікувано 22)\n";
-}
-```
+:::code cpp26-features-d/cpp/biblioteka-liniinoi.cpp
 
 Макети розміщення пам'яті `std::layout_right` (по рядках, як у мові C), `std::layout_left` (по стовпцях, як у Fortran) та `std::layout_stride` (довільний крок між елементами) дозволяють виконувати матричні обчислення над підматрицями та зрізами без копіювання даних у тимчасові буфери. Завдяки відсутності динамічного аліасингу пам'яті (no-aliasing invariants) виклики функцій `<linalg>` компілятор транслює в апаратні інструкції FMA або делегує вендорним бібліотекам Intel MKL, AMD BLIS та Apple Accelerate.
 

@@ -12,101 +12,7 @@ C++20 дав механіку корутин, але жодного готово
 
 ## Код
 
-```cpp
-#include <coroutine>
-#include <exception>
-#include <iterator>
-#include <memory>
-#include <utility>
-
-template <class T>
-class generator {
-public:
-    struct promise_type {
-        const T*           value = nullptr;   // дивиться всередину виразу co_yield
-        std::exception_ptr error;
-
-        generator get_return_object() noexcept {
-            return generator{
-                std::coroutine_handle<promise_type>::from_promise(*this) };
-        }
-
-        std::suspend_always initial_suspend() const noexcept { return {}; }  // лінивий старт
-        std::suspend_always final_suspend()   const noexcept { return {}; }  // кадр не гине сам
-
-        std::suspend_always yield_value(const T& v) noexcept {
-            value = std::addressof(v);
-            return {};
-        }
-
-        void return_void() const noexcept {}
-        void unhandled_exception() noexcept { error = std::current_exception(); }
-
-        void await_transform() = delete;      // co_await у цьому типі заборонено
-
-        void rethrow_if_error() const {
-            if (error) std::rethrow_exception(error);
-        }
-    };
-
-    generator(generator&& other) noexcept : h_{ std::exchange(other.h_, {}) } {}
-
-    generator& operator=(generator&& other) noexcept {
-        if (this != &other) {
-            if (h_) h_.destroy();
-            h_ = std::exchange(other.h_, {});
-        }
-        return *this;
-    }
-
-    generator(const generator&)            = delete;
-    generator& operator=(const generator&) = delete;
-
-    ~generator() { if (h_) h_.destroy(); }
-
-    struct sentinel {};
-
-    class iterator {
-    public:
-        using iterator_concept = std::input_iterator_tag;
-        using value_type       = T;
-        using difference_type  = std::ptrdiff_t;
-
-        iterator() = default;
-        explicit iterator(std::coroutine_handle<promise_type> h) noexcept : h_{ h } {}
-
-        const T& operator*()  const noexcept { return *h_.promise().value; }
-        const T* operator->() const noexcept { return  h_.promise().value; }
-
-        iterator& operator++() {
-            h_.resume();
-            h_.promise().rethrow_if_error();
-            return *this;
-        }
-        void operator++(int) { ++*this; }
-
-        bool operator==(sentinel) const noexcept { return !h_ || h_.done(); }
-
-    private:
-        std::coroutine_handle<promise_type> h_{};
-    };
-
-    iterator begin() {
-        if (h_ && !h_.done()) {
-            h_.resume();                      // доводимо тіло до першого co_yield
-            h_.promise().rethrow_if_error();
-        }
-        return iterator{ h_ };
-    }
-
-    sentinel end() const noexcept { return {}; }
-
-private:
-    explicit generator(std::coroutine_handle<promise_type> h) noexcept : h_{ h } {}
-
-    std::coroutine_handle<promise_type> h_{};
-};
-```
+:::code proj-generator/cpp/kod.cpp
 
 Компілюється як є: `g++ -std=c++20` чи `cl /std:c++20`, без жодних бібліотек понад стандартні заголовки.
 
@@ -120,29 +26,7 @@ private:
 
 ## Нескінченна послідовність
 
-```cpp
-#include <cstdint>
-#include <iostream>
-
-generator<std::uint64_t> fibonacci() {
-    std::uint64_t a = 0, b = 1;
-    for (;;) {                       // кінця немає — і це нормально
-        co_yield a;
-        const std::uint64_t next = a + b;
-        a = b;
-        b = next;
-    }
-}
-
-int main() {
-    int taken = 0;
-    for (std::uint64_t n : fibonacci()) {
-        std::cout << n << ' ';
-        if (++taken == 10) break;    // циклом володіє читач
-    }
-    std::cout << '\n';               // 0 1 1 2 3 5 8 13 21 34
-}
-```
+:::code proj-generator/cpp/neskinchenna-poslidovnist.cpp
 
 Функція без жодного `return` і з нескінченним циклом усередині — і при цьому вона завершується. Ключове тут `break`: він виводить із циклу, тимчасовий `generator` гине в кінці оператора `for`, деструктор кличе `h_.destroy()`, а `destroy()` на призупиненій корутині нищить її локальні змінні й звільняє кадр. Кинути обхід посеред нескінченної послідовності — законна дія, а не витік.
 
@@ -150,27 +34,7 @@ int main() {
 
 Тіло корутини виконується у своєму кадрі, тож кинути «нагору» винятку нема куди — його ловить `unhandled_exception()` і кладе в обіцянку як `std::exception_ptr`. Після цього тіло вважається завершеним, корутина стає на `final_suspend`, і найближчий `resume()` із боку читача побачить `done()`. Наші `begin()` і `operator++` одразу після `resume()` питають `rethrow_if_error()` — і виняток вилітає в тому місці, де читач попросив наступний елемент:
 
-```cpp
-#include <stdexcept>
-#include <string>
-#include <vector>
-
-generator<int> parsed(const std::vector<std::string>& rows) {
-    for (const std::string& r : rows) {
-        if (r.empty()) throw std::runtime_error{ "порожній рядок" };
-        co_yield std::stoi(r);
-    }
-}
-
-int main() {
-    const std::vector<std::string> rows{ "10", "20", "", "40" };
-    try {
-        for (int v : parsed(rows)) std::cout << v << ' ';   // 10 20
-    } catch (const std::exception& e) {
-        std::cout << "\nобірвалося: " << e.what() << '\n';
-    }
-}
-```
+:::code proj-generator/cpp/vyniatok-iz-tila.cpp
 
 Виняток долає межу кадру рівно так само, як він долає межу потоку у [future й promise](root:sys-plang-cpp/future-promise): переносить не механізм мови, а збережений `exception_ptr`.
 

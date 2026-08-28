@@ -49,55 +49,7 @@ C++11 запровадив новий примітив системи типів
 
 *Фізична відмінність у пам'яті: копіювання lvalue змушене виділяти новий блок у купі та дублювати байти, тоді як переміщення rvalue перехоплює покажчик за три регістрові операції O(1).*
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <utility>
-
-class HeavyBuffer {
-private:
-    size_t m_size;
-    int*   m_data;
-
-public:
-    // Звичайний конструктор виділення
-    explicit HeavyBuffer(size_t size) 
-        : m_size(size), m_data(new int[size]) {}
-
-    // Деструктор RAII
-    ~HeavyBuffer() {
-        delete[] m_data;
-    }
-
-    // 1. Конструктор копіювання: глибоке виділення O(N)
-    HeavyBuffer(const HeavyBuffer& other) 
-        : m_size(other.m_size), m_data(new int[other.m_size]) {
-        for (size_t i = 0; i < m_size; ++i) {
-            m_data[i] = other.m_data[i];
-        }
-    }
-
-    // 2. Конструктор переміщення: відчуження ресурсу O(1)
-    HeavyBuffer(HeavyBuffer&& other) noexcept 
-        : m_size(other.m_size), m_data(other.m_data) {
-        // Обнулення вихідного об'єкта: перехід у стан moved-from
-        other.m_size = 0;
-        other.m_data = nullptr;
-    }
-
-    // 3. Оператор присвоєння переміщенням
-    HeavyBuffer& operator=(HeavyBuffer&& other) noexcept {
-        if (this != &other) {
-            delete[] m_data; // Звільнення власного старого ресурсу
-            m_size = other.m_size;
-            m_data = other.m_data;
-            other.m_size = 0;
-            other.m_data = nullptr;
-        }
-        return *this;
-    }
-};
-```
+:::code cpp11-cpp14-d/cpp/mekhanika-konstruktora-i.cpp
 
 > 🔧 **Навіщо це.** Специфікатор `noexcept` у конструкторах переміщення є критично важливим: стандартні контейнери на кшталт `std::vector` під час перевиділення внутрішнього буфера переміщують елементи лише за умови, що їхній конструктор переміщення гарантує відсутність винятків (`std::is_nothrow_move_constructible`). Якщо `noexcept` пропущено, `std::vector` заради збереження суворої гарантії безпеки винятків (Strong Exception Safety) повернеться до повільного копіювання за допомогою утиліти `std::move_if_noexcept`.
 
@@ -142,33 +94,7 @@ C++11 остаточно засудив `std::auto_ptr` і ввів строгу
 
 У C++14 з'явилася фабрична функція `std::make_unique<T>(args...)`, яка усунула останню синтаксичну небезпеку виклику оператора `new` та захистила код від витоків пам'яті під час виникнення винятків у аргументах складних функцій.
 
-```cpp
-#include <memory>
-#include <iostream>
-
-struct Connection {
-    int socket_fd;
-    Connection(int fd) : socket_fd(fd) { std::cout << "Підключено fd=" << fd << "\n"; }
-    ~Connection() { std::cout << "Закрито fd=" << socket_fd << "\n"; }
-};
-
-void process_request(std::unique_ptr<Connection> conn) {
-    // Володіння передано всередину функції; при виході з'єднання закриється автоматично
-}
-
-void demo_unique() {
-    // Безпечне створення без явного new (C++14)
-    auto conn = std::make_unique<Connection>(42);
-
-    // Помилка компіляції: копіювання заборонено!
-    // auto copy_conn = conn; 
-
-    // Явна передача прав володіння через переміщення
-    process_request(std::move(conn));
-
-    // Тут conn == nullptr, ресурси вже звільнено
-}
-```
+:::code cpp11-cpp14-d/cpp/monopolne-volodinnia-std.cpp
 
 ### Розділене володіння: `std::shared_ptr` та `std::weak_ptr`
 
@@ -256,20 +182,7 @@ decltype(auto) get_first_element(Container& c) {
 
 1. **Узагальнені (поліморфні) лямбди (Generic Lambdas):** параметри лямбди можуть бути оголошені як `auto`. Компілятор генерує структуру з шаблонним `operator()`:
 
-```cpp
-// C++14 узагальнена лямбда
-auto print_pair = [](const auto& first, const auto& second) {
-    std::cout << first << " : " << second << "\n";
-};
-
-// Еквівалентний клас, згенерований компілятором:
-struct __CompilerGeneratedLambda {
-    template<typename T1, typename T2>
-    auto operator()(const T1& first, const T2& second) const {
-        std::cout << first << " : " << second << "\n";
-    }
-};
-```
+:::code cpp11-cpp14-d/cpp/c-14-uzahalneni-liambdy-ta.cpp
 
 2. **Захоплення з ініціалізацією (Generalized Lambda Capture / Init-Capture):** дозволяє створювати нові змінні у замиканні та ініціалізувати їх за допомогою виразів переміщення. Це уможливило передачу move-only об'єктів (наприклад, `std::unique_ptr` або сокетів) усередину лямбд:
 
@@ -302,24 +215,7 @@ auto task = [ptr = std::make_unique<int>(100)]() {
 
 *Еволюція обчислень часу компіляції: від рекурсивного розгортання типів у C++98 до природного імперативного синтаксису циклів та локальних змінних у C++14.*
 
-```cpp
-// C++11 стиль: жорстке обмеження одним return та рекурсією
-constexpr int fact_c11(int n) {
-    return (n <= 1) ? 1 : n * fact_c11(n - 1);
-}
-
-// C++14 стиль: нормальний цикл та локальна змінна
-constexpr int fact_c14(int n) {
-    int result = 1;
-    for (int i = 2; i <= n; ++i) {
-        result *= i;
-    }
-    return result;
-}
-
-// Перевірка значення на етапі компіляції (zero runtime cost)
-static_assert(fact_c14(5) == 120, "Fact(5) must be 120");
-```
+:::code cpp11-cpp14-d/cpp/evoliutsiia-constexpr-vid.cpp
 
 ### Шаблони змінної кількості аргументів (Variadic Templates)
 
@@ -332,21 +228,7 @@ C++11 запровадив **пакети параметрів шаблону** 
 
 Розгортання пакетів у C++11 виконувалося через патерн рекурсивного розбиття на «голову» (head) та «хвіст» (tail):
 
-```cpp
-#include <iostream>
-
-// Базовий випадок зупинки рекурсії розгортання
-void log_all() {
-    std::cout << "\n";
-}
-
-// Рекурсивний крок: перший аргумент відокремлюється, решта розгортається
-template<typename First, typename... Rest>
-void log_all(const First& first, const Rest&... rest) {
-    std::cout << first << " ";
-    log_all(rest...); // Рекурсивний виклик для залишку пакета
-}
-```
+:::code cpp11-cpp14-d/cpp/shablony-zminnoi-kilkosti.cpp
 
 Пакети параметрів можуть розгортатися не лише у викликах функцій, але й у списках ініціалізації масивів, списках базових класів (що дає змогу створювати патерн мульти-успадкування для об'єднання функторів) та у списках аргументів шаблонів.
 
@@ -403,18 +285,7 @@ handle(nullptr); // У C++11 строго викликає handle(void*). Тип
 
 Специфікатор `override` гарантує: якщо в базовому класі немає ідентичної віртуальної функції, компілятор видасть фатальну помилку. Специфікатор `final` забороняє подальше перевизначення методу або успадкування від класу.
 
-```cpp
-class Base {
-public:
-    virtual void render(int width, int height) const;
-};
-
-class Derived : public Base {
-public:
-    // Помилка компіляції, якщо випадково пропущено const або змінено тип
-    void render(int width, int height) const override;
-};
-```
+:::code cpp11-cpp14-d/cpp/kontekstni-kliuchovi-slova.cpp
 
 ### Керування генерацією функцій-членів: `= default` та `= delete`
 

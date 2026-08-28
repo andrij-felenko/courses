@@ -26,59 +26,7 @@
 
 **`noexcept` у C++-погляді на заголовок.** З C++17 `noexcept` — частина типу функції, тож оголошення й означення мусять збігатися; для компілятора C слово просто зникає.
 
-```c
-#ifndef PARSER_H
-#define PARSER_H
-
-/* Експорт. Решта бібліотеки збирається з -fvisibility=hidden. */
-#if defined(_WIN32)
-#  ifdef PARSER_BUILDING
-#    define PARSER_API __declspec(dllexport)
-#  else
-#    define PARSER_API __declspec(dllimport)
-#  endif
-#else
-#  define PARSER_API __attribute__((visibility("default")))
-#endif
-
-#ifdef __cplusplus
-#  define PARSER_NOEXCEPT noexcept   /* з C++17 — частина типу функції */
-#else
-#  define PARSER_NOEXCEPT
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum parser_status {
-    PARSER_OK          = 0,
-    PARSER_E_ARG       = 1,   /* викличник передав дурницю */
-    PARSER_E_SYNTAX    = 2,   /* зіпсовані вхідні дані */
-    PARSER_E_IO        = 3,   /* не дочиталися */
-    PARSER_E_NO_MEMORY = 4,   /* пам'ять скінчилася */
-    PARSER_E_INTERNAL  = 5    /* усе інше — це наша провина */
-} parser_status;
-
-/* Неповний тип: назовні є вказівник, розміру й розкладки немає. */
-typedef struct parser_ctx parser_ctx;
-
-PARSER_API parser_status parser_create (parser_ctx** out)                 PARSER_NOEXCEPT;
-PARSER_API parser_status parser_close  (parser_ctx* ctx)                  PARSER_NOEXCEPT;
-PARSER_API void          parser_destroy(parser_ctx* ctx)                  PARSER_NOEXCEPT;
-
-PARSER_API parser_status parser_load   (parser_ctx* ctx, const char* path) PARSER_NOEXCEPT;
-PARSER_API parser_status parser_get_int(parser_ctx* ctx, const char* key,
-                                        long* out)                        PARSER_NOEXCEPT;
-
-/* Опис останнього збою. Ніколи не NULL; чинний до наступного виклику з цим ctx. */
-PARSER_API const char*   parser_last_error(const parser_ctx* ctx)          PARSER_NOEXCEPT;
-
-#ifdef __cplusplus
-}
-#endif
-#endif /* PARSER_H */
-```
+:::code proj-exception-boundary/c/main.h
 
 > 🔧 **Навіщо це.** Найпоширеніша помилка проєктування такого заголовка — дзеркалити в переліку всю ієрархію винятків бібліотеки: сорок кодів на сорок типів. Але код повернення потрібен не для опису світу, а для **розгалуження**: викличник має вирішити, чи повторювати спробу, чи питати користувача, чи здаватися. Розгалужень у нього три-чотири, тож і кодів має бути стільки ж, а весь багатий опис іде окремим каналом — рядком у журнал і збереженим об'єктом для точного запиту. Перелік проєктують від того, **що викличник може зробити**, а не від того, що бібліотека вміє кинути.
 
@@ -88,104 +36,11 @@ PARSER_API const char*   parser_last_error(const parser_ctx* ctx)          PARSE
 
 Шаблон інстанціюється **один раз на кожну експортовану функцію**. Ланцюг із шести гілок `catch` — це шість записів у таблиці типів, шість посилань на `typeinfo` і код гілок; помножте на сорок експортів — і ви заплатили розміром бінарника за те саме сорок разів. Тому тіло шаблона тримаємо крихітним, а всю класифікацію виносимо в **звичайну функцію**, яка існує в одному примірнику. Про те, чому кожне інстанціювання коштує окремо і як цю ціну міряти, — [ціна інстанціювання](root:sys-plang-cpp/instantiation-cost).
 
-```cpp
-#define PARSER_BUILDING
-#include "parser.h"
-
-#include <cstdio>
-#include <exception>
-#include <new>
-#include <stdexcept>
-#include <system_error>
-#include <utility>
-
-#include "cfg/parser.hpp"   // справжня реалізація: кидає так, як їй зручно
-
-// Неповний тип із заголовка стає повним рівно тут — і далі нікуди не витікає.
-struct parser_ctx {
-    cfg::Parser        impl;
-    std::exception_ptr failure;              // сам об'єкт відмови, а не переказ
-    char               message[256] = "ok";  // масив, а не std::string: повідомити
-};                                           // про вичерпану пам'ять теж треба
-
-namespace {
-
-// snprintf нічого не виділяє й нічого не кидає — саме тому не рядок.
-void set_message(parser_ctx* ctx, const char* text) noexcept {
-    std::snprintf(ctx->message, sizeof ctx->message, "%s", text ? text : "");
-}
-
-// НЕ шаблон: ланцюг catch потрапляє в бінарник рівно один раз.
-// Порядок гілок — від похідних до базових: перемагає перша підхожа.
-parser_status record(parser_ctx* ctx, std::exception_ptr e) noexcept {
-    ctx->failure = e;                       // присвоєння exception_ptr — noexcept
-    try {
-        std::rethrow_exception(e);
-    }
-    catch (const cfg::SyntaxError& ex)      { set_message(ctx, ex.what());
-                                              return PARSER_E_SYNTAX; }
-    catch (const std::bad_alloc&)           { set_message(ctx, "out of memory");
-                                              return PARSER_E_NO_MEMORY; }
-    catch (const std::system_error& ex)     { set_message(ctx, ex.what());
-                                              return PARSER_E_IO; }
-    catch (const std::invalid_argument& ex) { set_message(ctx, ex.what());
-                                              return PARSER_E_ARG; }
-    catch (const std::exception& ex)        { set_message(ctx, ex.what());
-                                              return PARSER_E_INTERNAL; }
-    catch (...)                             { set_message(ctx, "unknown exception");
-                                              return PARSER_E_INTERNAL; }
-}
-
-// Обгортка межі. Тіло навмисно крихітне — усе, що можна винести з шаблона,
-// винесено в record().
-template <class Fn>
-parser_status boundary(parser_ctx* ctx, Fn&& fn) noexcept {
-    if (!ctx) return PARSER_E_ARG;
-    try {
-        set_message(ctx, "ok");
-        ctx->failure = nullptr;
-        std::forward<Fn>(fn)();
-        return PARSER_OK;
-    } catch (...) {
-        return record(ctx, std::current_exception());
-    }
-}
-
-} // namespace
-```
+:::code proj-exception-boundary/cpp/odna-obhortka-na-vsi.cpp
 
 Далі експортовані функції стають однорядковими, і в кожній видно рівно її змістовну частину:
 
-```cpp
-parser_status parser_create(parser_ctx** out) noexcept {
-    if (!out) return PARSER_E_ARG;
-    *out = nullptr;
-    try {
-        *out = new parser_ctx{};    // кине конструктор cfg::Parser — рантайм
-        return PARSER_OK;           // сам поверне щойно виділену пам'ять
-    }
-    catch (const std::bad_alloc&) { return PARSER_E_NO_MEMORY; }
-    catch (...)                   { return PARSER_E_INTERNAL; }
-}
-
-parser_status parser_load(parser_ctx* ctx, const char* path) noexcept {
-    return boundary(ctx, [&] {
-        if (!path) throw std::invalid_argument("path == nullptr");
-        ctx->impl.load(path);
-    });
-}
-
-parser_status parser_get_int(parser_ctx* ctx, const char* key, long* out) noexcept {
-    return boundary(ctx, [&] {
-        if (!key || !out) throw std::invalid_argument("null argument");
-        *out = ctx->impl.get_int(key);
-    });
-}
-
-const char* parser_last_error(const parser_ctx* ctx) noexcept {
-    return ctx ? ctx->message : "null context";
-}
-```
+:::code proj-exception-boundary/cpp/odna-obhortka-na-vsi-2.cpp
 
 Зверніть увагу на `parser_create`: це єдина функція, у якій деталі відмови справді втрачаються — контексту, куди їх покласти, ще не існує. Тому перелік кодів мусить бути самодостатнім бодай для цього одного випадку.
 
@@ -226,26 +81,7 @@ parser_status parser_error_line(const parser_ctx* ctx, int* out) noexcept {
 
 Наївне рішення — прапорець `committed`, який треба не забути виставити наприкінці вдалого шляху. Забудете — відкотиться вдала робота. Надійніше спитати не себе, а рантайм: `std::uncaught_exceptions()` повертає **кількість** винятків, що зараз летять. Запам'ятали це число в конструкторі, порівняли в деструкторі — і різниця точно каже, чи додався виняток саме за час життя вартового.
 
-```cpp
-// Вартовий блока: виконує дію лише тоді, коли з блока виходять розкруткою.
-template <class F>
-class on_unwind {
-public:
-    explicit on_unwind(F f) : undo_(std::move(f)), depth_(std::uncaught_exceptions()) {}
-    on_unwind(const on_unwind&)            = delete;
-    on_unwind& operator=(const on_unwind&) = delete;
-
-    ~on_unwind() {
-        if (std::uncaught_exceptions() > depth_) {
-            try { undo_(); } catch (...) {}   // з деструктора не кидають
-        }
-    }
-private:
-    F   undo_;
-    int depth_;
-};
-template <class F> on_unwind(F) -> on_unwind<F>;   // виведення типу з C++17
-```
+:::code proj-exception-boundary/cpp/vartovyi-bloka-vidriznyty.cpp
 
 Уживається він так — і `parser_load` нарешті обіцяє викличникові щось певне:
 
@@ -294,19 +130,7 @@ parser_status parser_load(parser_ctx* ctx, const char* path) noexcept {
 
 **Потік усередині бібліотеки — це друга межа.** Виняток, що покидає стартову функцію потоку, викликає `std::terminate` без жодного шансу на перехоплення: у викличника `std::thread` немає стека, куди цей виняток міг би прилетіти ([`thread` і `jthread`](root:sys-plang-cpp/std-thread-jthread) — про це та про те, чому `jthread` приєднується сам). Тож тіло кожного робітника загортається так само:
 
-```cpp
-void worker_main(parser_ctx* ctx, job_queue& q, std::stop_token stop) noexcept {
-    while (auto job = q.pop(stop)) {
-        try {
-            (*job)();
-        } catch (...) {
-            std::lock_guard lk{ctx->async_mtx};      // слот спільний між потоками
-            ctx->failure = std::current_exception();
-            set_message(ctx, "async failure");
-        }
-    }
-}
-```
+:::code proj-exception-boundary/cpp/pastky.cpp
 
 Копіювати сам `std::exception_ptr` між потоками безпечно — на те він і розділюваний власник, — а от **слот**, у який ми пишемо, спільний, і його треба захищати. Якщо ж робота ставиться поштучно й на кожну є хто чекає, усю цю ручну роботу робить за вас `std::packaged_task`: він ловить виняток сам і кладе його у `future` через `set_exception`, і це той самий `exception_ptr` під капотом ([`future` й `promise`](root:sys-plang-cpp/future-promise)).
 

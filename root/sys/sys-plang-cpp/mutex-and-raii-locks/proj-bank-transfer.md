@@ -31,71 +31,8 @@
 Найдавнішим способом уникнення дедлоку при роботі з кількома м meтексами є **глобальне впорядкування замків** (англ. *lock ordering*). Якщо всі нитки у програмі завжди захоплюють м'ютекси у строго однаковому порядку (наприклад, за зростанням їхніх числових адрес у пам'яті), циклічне очікування стає математично неможливим.
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdint.h>
-
-typedef struct {
-    int id;
-    double balance;
-    pthread_mutex_t mtx;
-} Account;
-
-int transfer_c(Account* from, Account* to, double amount) {
-    if (from == to) return 0; // Самоприсвоєння
-
-    // Впорядкування за адресою пам'яті
-    Account* first = (uintptr_t)from < (uintptr_t)to ? from : to;
-    Account* second = (uintptr_t)from < (uintptr_t)to ? to : from;
-
-    pthread_mutex_lock(&first->mtx);
-    pthread_mutex_lock(&second->mtx);
-
-    if (from->balance < amount) {
-        pthread_mutex_unlock(&second->mtx);
-        pthread_mutex_unlock(&first->mtx);
-        return -1; // Недостатньо коштів
-    }
-
-    from->balance -= amount;
-    to->balance += amount;
-
-    pthread_mutex_unlock(&second->mtx);
-    pthread_mutex_unlock(&first->mtx);
-    return 1;
-}
-```
-```cpp
-#include <mutex>
-#include <cstdint>
-#include <stdexcept>
-
-struct Account {
-    int id;
-    double balance;
-    mutable std::mutex mtx;
-};
-
-bool transfer_cpp_manual(Account& from, Account& to, double amount) {
-    if (&from == &to) return false;
-
-    // Впорядкування адресами для запобігання дедлоку
-    Account* first = &from < &to ? &from : &to;
-    Account* second = &from < &to ? &to : &from;
-
-    std::lock_guard<std::mutex> lock1(first->mtx);
-    std::lock_guard<std::mutex> lock2(second->mtx);
-
-    if (from.balance < amount) {
-        return false;
-    }
-
-    from.balance -= amount;
-    to.balance += amount;
-    return true;
-}
-```
+:::code proj-bank-transfer/c/main.c
+:::code proj-bank-transfer/cpp/2-versiia-1-ruchne.cpp
 :::
 
 ### Недоліки ручного впорядкування:
@@ -120,35 +57,7 @@ bool transfer_cpp_manual(Account& from, Account& to, double amount) {
 
 Для передачі вже захоплених м'ютексів під опіку RAII-обгортки використовується маркерний прапорець `std::adopt_lock`:
 
-```cpp
-#include <mutex>
-#include <utility>
-
-struct Account {
-    int id;
-    double balance;
-    mutable std::mutex mtx;
-};
-
-bool transfer_cpp11(Account& from, Account& to, double amount) {
-    if (&from == &to) return false;
-
-    // 1. Атомарне захоплення обох м'ютексів без дедлоку
-    std::lock(from.mtx, to.mtx);
-
-    // 2. Передача керування RAII-обгорткам із тегом adopt_lock
-    std::lock_guard<std::mutex> lock_from(from.mtx, std::adopt_lock);
-    std::lock_guard<std::mutex> lock_to(to.mtx, std::adopt_lock);
-
-    if (from.balance < amount) {
-        return false;
-    }
-
-    from.balance -= amount;
-    to.balance += amount;
-    return true;
-}
-```
+:::code proj-bank-transfer/cpp/iak-pratsiuie-alhorytm-std.cpp
 
 ### Тонкощі C++11 підходу:
 Якщо між викликом `std::lock(...)` та створенням об'єктів `lock_guard` згенериться виняток (наприклад, при виділенні пам'яті для проміжного об'єкта), м'ютекси лишаться захопленими! Тому створення `lock_guard` мало йти негайно після `std::lock`.
@@ -160,62 +69,7 @@ bool transfer_cpp11(Account& from, Account& to, double amount) {
 У C++17 з'явився `std::scoped_lock`, який повністю об'єднав можливості `std::lock(...)` та RAII. Завдяки механізму виведення аргументів шаблону класу (CTAD — Class Template Argument Deduction), розробникові більше не потрібно вказувати типи м'ютексів вручну.
 
 :::tabs
-```cpp
-#include <mutex>
-#include <iostream>
-#include <vector>
-#include <thread>
-#include <chrono>
-
-struct Account {
-    int id;
-    double balance;
-    mutable std::mutex mtx;
-
-    Account(int id_, double bal) : id(id_), balance(bal) {}
-};
-
-bool transfer_idiomatic(Account& from, Account& to, double amount) {
-    // 1. Захист від самоприсвоєння: захоплення одного м'ютекса двічі є UB для std::mutex
-    if (&from == &to) return false;
-
-    // 2. Одночасне RAII-захоплення двох м'ютексів з автоматичним уникненням дедлоку
-    std::scoped_lock lock(from.mtx, to.mtx);
-
-    if (from.balance < amount) {
-        return false;
-    }
-
-    from.balance -= amount;
-    to.balance += amount;
-    return true;
-}
-
-int main() {
-    Account acc1(1, 1000.0);
-    Account acc2(2, 500.0);
-
-    std::vector<std::thread> threads;
-
-    // Потік A: перераховує з acc1 в acc2
-    for (int i = 0; i < 100; ++i) {
-        threads.emplace_back(transfer_idiomatic, std::ref(acc1), std::ref(acc2), 10.0);
-    }
-
-    // Потік B: перераховує з acc2 в acc1 паралельно
-    for (int i = 0; i < 100; ++i) {
-        threads.emplace_back(transfer_idiomatic, std::ref(acc2), std::ref(acc1), 5.0);
-    }
-
-    for (auto& t : threads) {
-        t.join();
-    }
-
-    std::cout << "Баланс рахунку 1: " << acc1.balance << " грн\n";
-    std::cout << "Баланс рахунку 2: " << acc2.balance << " грн\n";
-    return 0;
-}
-```
+:::code proj-bank-transfer/cpp/4-versiia-3-idiomatychnyi.cpp
 :::
 
 ---

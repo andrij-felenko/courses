@@ -22,99 +22,7 @@
 
 Нижче наведено повний вихідний код класичної реалізації:
 
-```cpp
-#include <pthread.h>
-#include <queue>
-#include <vector>
-#include <string>
-#include <iostream>
-
-// 1. Абстрактний інтерфейс завдання в об'єктно-орієнтованому стилі C++98
-class ITask {
-public:
-    virtual ~ITask() {}
-    virtual void execute() = 0;
-};
-
-// 2. Конкретна реалізація обробника мережевого пакета
-class PacketProcessTask : public ITask {
-private:
-    std::string       m_tag;
-    std::vector<char> m_payload; // Глибока копія даних у купі!
-
-public:
-    PacketProcessTask(const std::string& tag, const std::vector<char>& payload)
-        : m_tag(tag), m_payload(payload) {} // Виклик копіювальних конструкторів
-
-    virtual void execute() {
-        std::cout << "Обробка пакета [" << m_tag << "], розмір: " 
-                  << m_payload.size() << " байтів\n";
-    }
-};
-
-// 3. Потокобезпечна черга завдань на базі примітивів pthread
-class Cxx98TaskQueue {
-private:
-    std::queue<ITask*> m_queue; // Небезпека: сирі покажчики на динамічну пам'ять
-    pthread_mutex_t    m_mutex;
-    pthread_cond_t     m_cond;
-    bool               m_shutdown;
-
-    // Заборона копіювання за стандартом C++98: приватні оголошення без тіла
-    Cxx98TaskQueue(const Cxx98TaskQueue&);
-    Cxx98TaskQueue& operator=(const Cxx98TaskQueue&);
-
-public:
-    Cxx98TaskQueue() : m_shutdown(false) {
-        pthread_mutex_init(&m_mutex, NULL);
-        pthread_cond_init(&m_cond, NULL);
-    }
-
-    ~Cxx98TaskQueue() {
-        stop();
-        // Ручне звільнення залишків черги для уникнення витоку пам'яті
-        pthread_mutex_lock(&m_mutex);
-        while (!m_queue.empty()) {
-            ITask* task = m_queue.front();
-            m_queue.pop();
-            delete task;
-        }
-        pthread_mutex_unlock(&m_mutex);
-        pthread_mutex_destroy(&m_mutex);
-        pthread_cond_destroy(&m_cond);
-    }
-
-    void push(ITask* task) {
-        pthread_mutex_lock(&m_mutex);
-        m_queue.push(task);
-        pthread_cond_signal(&m_cond);
-        pthread_mutex_unlock(&m_mutex);
-    }
-
-    ITask* pop() {
-        pthread_mutex_lock(&m_mutex);
-        // Цикл захисту від хибного пробудження (Spurious Wakeup)
-        while (m_queue.empty() && !m_shutdown) {
-            pthread_cond_wait(&m_cond, &m_mutex);
-        }
-        if (m_shutdown && m_queue.empty()) {
-            pthread_mutex_unlock(&m_mutex);
-            return NULL;
-        }
-        ITask* task = m_queue.front();
-        m_queue.pop();
-        pthread_mutex_unlock(&m_mutex);
-        return task; // Відповідальність за delete перекладається на клієнта!
-    }
-
-    void stop() {
-        pthread_mutex_lock(&m_mutex);
-        m_shutdown = true;
-        pthread_cond_broadcast(&m_cond);
-        pthread_mutex_unlock(&m_mutex);
-    }
-};
-```
+:::code proj-modernizing-cpp98-codebase/cpp/1-realizatsiia-za.cpp
 
 ### Покроковий технічний розбір дефектів архітектури C++98
 
@@ -139,112 +47,7 @@ public:
 
 Нижче наведено повну модернізовану реалізацію підсистеми:
 
-```cpp
-#include <iostream>
-#include <queue>
-#include <vector>
-#include <string>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-#include <functional>
-#include <utility>
-
-// Універсальний функціональний тип завдання: поліморфне замикання без спадкування
-using Task = std::function<void()>;
-
-class ModernTaskQueue {
-private:
-    std::queue<Task>        m_queue;
-    mutable std::mutex      m_mutex;
-    std::condition_variable m_cond;
-    bool                    m_shutdown{false}; // Ініціалізація полів класу у C++11
-
-public:
-    ModernTaskQueue() = default;
-
-    // Явне блокування копіювання за стандартом C++11
-    ModernTaskQueue(const ModernTaskQueue&) = delete;
-    ModernTaskQueue& operator=(const ModernTaskQueue&) = delete;
-
-    ~ModernTaskQueue() {
-        stop();
-    }
-
-    // Прийом довільного виклику за допомогою Perfect Forwarding
-    template<typename F>
-    void push(F&& f) {
-        {
-            std::lock_guard<std::mutex> lock(m_mutex); // RAII захоплення м'ютекса
-            m_queue.emplace(std::forward<F>(f));       // Створення замикання на місці
-        }
-        m_cond.notify_one(); // Пробудження одного очікуючого потоку
-    }
-
-    // Отримання завдання без сирих покажчиків та без ризику витоку
-    bool pop(Task& out_task) {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        
-        // Передача лямбда-предиката для надійного захисту від хибних пробуджень
-        m_cond.wait(lock, [this]() {
-            return !m_queue.empty() || m_shutdown;
-        });
-
-        if (m_shutdown && m_queue.empty()) {
-            return false;
-        }
-
-        // Переміщення завдання з черги у вихідну змінну за O(1)
-        out_task = std::move(m_queue.front());
-        m_queue.pop();
-        return true;
-    }
-
-    void stop() noexcept {
-        {
-            std::lock_guard<std::mutex> lock(m_mutex);
-            m_shutdown = true;
-        }
-        m_cond.notify_all(); // Широкомовне сповіщення всіх потоків
-    }
-};
-
-// Практична демонстрація роботи та перевірка відсутності копіювання
-int main() {
-    ModernTaskQueue queue;
-
-    // Створення пулу фонових потоків через std::thread та лямбда-вираз
-    std::thread worker([&queue]() {
-        Task current_task;
-        while (queue.pop(current_task)) {
-            current_task(); // Безпечний виклик замикання
-        }
-    });
-
-    // 1. Створення масивного корисного навантаження (100 мегабайтів)
-    std::vector<char> large_payload(100 * 1024 * 1024, 'A');
-    std::cout << "Розмір вихідного вектора до відправлення: " 
-              << large_payload.size() / (1024 * 1024) << " МБ\n";
-
-    // 2. Відправлення в чергу через C++14 Init-Capture (переміщення вектора)
-    queue.push([tag = std::string("NETWORK_FRAME_8042"), 
-                buffer = std::move(large_payload)]() {
-        std::cout << "Фоновий потік обробляє [" << tag 
-                  << "], обсяг буфера: " << buffer.size() / (1024 * 1024) << " МБ\n";
-    });
-
-    // 3. Перевірка стану moved-from у поточному потоці
-    std::cout << "Розмір вектора після std::move: " 
-              << large_payload.size() << " байтів (пам'ять миттєво передано!)\n";
-
-    // Зупинка черги та коректне очікування завершення потоку
-    queue.stop();
-    worker.join();
-
-    return 0;
-}
-```
+:::code proj-modernizing-cpp98-codebase/cpp/2-modernizovana.cpp
 
 ## 3. Глибинний аналіз компіляторних оптимізацій та асемблерного коду
 
@@ -259,23 +62,7 @@ int main() {
 
 Компілятор оптимізує операцію переміщення у три звичайні інструкції копіювання 64-бітних регістрів загального призначення та одне обнулення:
 
-```nasm
-; Асемблерний лістинг переміщення std::vector на x86-64 (System V ABI)
-; rsi вказує на вихідний об'єкт large_payload
-; rdi вказує на внутрішнє поле buffer у згенерованій структурі лямбди
-
-mov   rax, qword ptr [rsi]        ; rax = large_payload.data_ptr
-mov   rcx, qword ptr [rsi + 8]    ; rcx = large_payload.size_ptr
-mov   rdx, qword ptr [rsi + 16]   ; rdx = large_payload.capacity_ptr
-
-mov   qword ptr [rdi], rax        ; buffer.data_ptr = rax
-mov   qword ptr [rdi + 8], rcx    ; buffer.size_ptr = rcx
-mov   qword ptr [rdi + 16], rdx   ; buffer.capacity_ptr = rdx
-
-mov   qword ptr [rsi], 0          ; large_payload.data_ptr = nullptr
-mov   qword ptr [rsi + 8], 0      ; large_payload.size_ptr = nullptr
-mov   qword ptr [rsi + 16], 0     ; large_payload.capacity_ptr = nullptr
-```
+:::code proj-modernizing-cpp98-codebase/asm/main.s
 
 У результаті переміщення масиву розміром 100 мегабайтів виконується за 4 процесорні такти (менше 1.5 наносекунди на процесорі з частотою 3.0 ГГц). Для порівняння: копіювання 100 МБ у C++98 вимагає системного виклику виділення пам'яті `mmap` та виконання близько 25 мільйонів інструкцій читання-запису пам'яті, що займає понад 15–25 мілісекунд і спричиняє масові промахи кешу процесора (Cache Misses).
 
@@ -297,35 +84,7 @@ mov   qword ptr [rsi + 16], 0     ; large_payload.capacity_ptr = nullptr
 
 Стандарт C++11 запровадив універсальний механізм захоплення та ретрансляції винятків за допомогою `std::exception_ptr`:
 
-```cpp
-#include <exception>
-#include <stdexcept>
-#include <iostream>
-
-std::exception_ptr global_error = nullptr;
-
-void background_worker() {
-    try {
-        // Симуляція критичної помилки обробки
-        throw std::runtime_error("Помилка під час десеріалізації пакета");
-    } catch (...) {
-        // Захоплення поточного активного винятку без втрати типу
-        global_error = std::current_exception();
-    }
-}
-
-void check_worker_status() {
-    if (global_error) {
-        try {
-            // Повторне збудження збереженого винятку в контексті головного потоку
-            std::rethrow_exception(global_error);
-        } catch (const std::exception& e) {
-            std::cerr << "Перехоплено виняток з фонового потоку: " 
-                      << e.what() << "\n";
-        }
-    }
-}
-```
+:::code proj-modernizing-cpp98-codebase/cpp/4-peredacha-vyniatkiv-mizh.cpp
 
 Цей механізм ліг в основу роботи компонентів `<future>`: коли завдання у `std::promise` або `std::async` викидає виняток, він зберігається у внутрішньому Shared State у вигляді `std::exception_ptr` і автоматично повторно збуджується при виклику методу `future.get()` у потоці-споживачі.
 

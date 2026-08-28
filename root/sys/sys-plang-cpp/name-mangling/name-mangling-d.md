@@ -100,18 +100,7 @@ void update(const int*& ptr, double&& factor);
 - Послідовність компонентів із префіксами довжини;
 - `E` — термінатор складеного ідентифікатора (End).
 
-```cpp
-namespace geometry {
-    class Vector3D {
-    public:
-        void scale(double factor);
-        double length() const;
-        void normalize() &;
-        Vector3D normalized() &&;
-        explicit operator bool() const;
-    };
-}
-```
+:::code name-mangling-d/cpp/prefiksy-dovzhyny-ta.cpp
 
 Метод `geometry::Vector3D::scale(double)` кодується так:
 - `_Z` — префікс C++;
@@ -411,37 +400,8 @@ extern "C" {
 2. Усередині тіла функції діють **усі можливості C++**: можна створювати класи, використовувати шаблони, виділяти пам'ять через `new` та ловити винятки.
 
 :::tabs
-```c
-/* Заголовок my_math.h, придатний для використання і в C, і в C++ */
-#ifndef MY_MATH_H
-#define MY_MATH_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int fast_multiply(int a, int b);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
-```
-```cpp
-/* Реалізація my_math.cpp на повноцінному C++ */
-#include "my_math.h"
-#include <vector>
-#include <numeric>
-
-extern "C" int fast_multiply(int a, int b) {
-    // Усередині дозволені будь-які конструкції C++
-    std::vector<int> factors = {a, b};
-    return std::accumulate(factors.begin(), factors.end(), 1, [](int x, int y) {
-        return x * y;
-    });
-}
-```
+:::code name-mangling-d/c/my_math.h
+:::code name-mangling-d/cpp/my_math.cpp
 :::
 
 ### Чому extern "C" забороняє перевантаження?

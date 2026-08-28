@@ -13,35 +13,7 @@
 
 Стандартна бібліотека C++ не надає готового `operator<<` для виводу `std::tuple` у потік `std::ostream`. Нижче наведено реалізацію генератора текстового представлення кортежу довільної довжини, який автоматично форматує елементи та вставляє розділювачі:
 
-```cpp
-#include <iostream>
-#include <tuple>
-#include <string>
-#include <utility>
-
-// Допоміжна функція розпакування за допомогою index_sequence
-template <typename Tuple, std::size_t... Is>
-void print_tuple_impl(std::ostream& os, const Tuple& t, std::index_sequence<Is...>) {
-    os << "(";
-    // Згортання виразу через оператор кому для друку розділювача ", "
-    std::size_t n = 0;
-    ((os << (n++ > 0 ? ", " : "") << std::get<Is>(t)), ...);
-    os << ")";
-}
-
-// Загальний оператор виводу для будь-якого std::tuple
-template <typename... Args>
-std::ostream& operator<<(std::ostream& os, const std::tuple<Args...>& t) {
-    print_tuple_impl(os, t, std::make_index_sequence<sizeof...(Args)>{});
-    return os;
-}
-
-// Загальний оператор виводу для std::pair
-template <typename T1, typename T2>
-std::ostream& operator<<(std::ostream& os, const std::pair<T1, T2>& p) {
-    return os << "{" << p.first << ", " << p.second << "}";
-}
-```
+:::code proj-tuple-utilities/cpp/2-modul-1-universalnyi.cpp
 
 ### Механіка роботи та розбір виконання розгортання
 
@@ -60,48 +32,11 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T1, T2>& p) {
 
 Аналогом `std::transform` для контейнерів у світі кортежів є функція, яка застосовує універсальну лямбду до кожного елемента кортежу та повертає **новий `std::tuple`** з обчисленими результатами:
 
-```cpp
-#include <tuple>
-#include <utility>
-#include <string>
-#include <type_traits>
-
-namespace detail {
-    template <typename Tuple, typename Func, std::size_t... Is>
-    constexpr auto tuple_transform_impl(Tuple&& t, Func&& f, std::index_sequence<Is...>) {
-        // Конструювання нового tuple із викликами f(std::get<Is>(t))
-        return std::make_tuple(f(std::get<Is>(std::forward<Tuple>(t)))...);
-    }
-}
-
-// Публічна функція tuple_transform
-template <typename Tuple, typename Func>
-constexpr auto tuple_transform(Tuple&& t, Func&& f) {
-    constexpr std::size_t Size = std::tuple_size_v<std::decay_t<Tuple>>;
-    return detail::tuple_transform_impl(
-        std::forward<Tuple>(t),
-        std::forward<Func>(f),
-        std::make_index_sequence<Size>{}
-    );
-}
-```
+:::code proj-tuple-utilities/cpp/3-modul-2-alhorytm.cpp
 
 ### Демонстрація використання tuple_transform
 
-```cpp
-int main() {
-    auto data = std::make_tuple(10, 3.14, std::string("core"));
-
-    // Застосування мульти-типового трансформера (поліморфна лямбда)
-    auto doubled = tuple_transform(data, [](const auto& val) {
-        return val + val; // Множить числа та дублює рядок
-    });
-
-    // doubled має тип std::tuple<int, double, std::string> зі значеннями (20, 6.28, "corecore")
-    std::cout << doubled << std::endl;
-    return 0;
-}
-```
+:::code proj-tuple-utilities/cpp/demonstratsiia.cpp
 
 ### Аналіз збереження типів та категорій значень
 
@@ -114,79 +49,11 @@ int main() {
 
 Розглянемо випадок, коли у нас є існуючий клас з приватною інкапсуляцією полів, який ми хочемо навчити розкладуватися через синтаксис `auto [x, y, z]`:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <tuple>
-#include <utility>
-
-// Користувацький клас з приватними полями
-class GeoPoint {
-private:
-    double m_lat;
-    double m_lon;
-    std::string m_label;
-
-public:
-    GeoPoint(double lat, double lon, std::string label)
-        : m_lat(lat), m_lon(lon), m_label(std::move(label)) {}
-
-    // Геттери доступу
-    double latitude() const { return m_lat; }
-    double longitude() const { return m_lon; }
-    const std::string& label() const { return m_label; }
-
-    // Шаблонний виклик get<i>() усередині класу або як friend
-    template <std::size_t I>
-    decltype(auto) get() const {
-        if constexpr (I == 0) return m_lat;
-        else if constexpr (I == 1) return m_lon;
-        else if constexpr (I == 2) return m_label;
-    }
-
-    // Мутабельний get<i>() для підтримки розкладання за мінливим посиланням (auto&)
-    template <std::size_t I>
-    decltype(auto) get() {
-        if constexpr (I == 0) return (m_lat);
-        else if constexpr (I == 1) return (m_lon);
-        else if constexpr (I == 2) return (m_label);
-    }
-};
-
-// 1. Спеціалізація std::tuple_size
-namespace std {
-    template <>
-    struct tuple_size<GeoPoint> : std::integral_constant<std::size_t, 3> {};
-
-    // 2. Спеціалізація std::tuple_element для кожного індексу
-    template <std::size_t I>
-    struct tuple_element<I, GeoPoint> {
-        using type = std::conditional_t<I == 2, std::string, double>;
-    };
-}
-```
+:::code proj-tuple-utilities/cpp/4-modul-3-intehratsiia.cpp
 
 ### Перевірка інтеграції у головній програмі
 
-```cpp
-int main() {
-    GeoPoint point(50.4501, 30.5234, "Kyiv Central");
-
-    // Розкладання об'єкта GeoPoint через структуровані зв'язування C++17
-    auto [lat, lon, name] = point;
-
-    std::cout << "Широта: " << lat << "\n"
-              << "Довгота: " << lon << "\n"
-              << "Місто: " << name << std::endl;
-
-    // Розкладання за мінливим посиланням
-    auto& [mut_lat, mut_lon, mut_name] = point;
-    mut_name = "Kyiv Main Station"; // Змінює поле усередині об'єкта point!
-
-    std::cout << "Оновлена назва: " << point.label() << std::endl;
-    return 0;
-}
-```
+:::code proj-tuple-utilities/cpp/perevirka-intehratsii-u.cpp
 
 ### Покроковий розбір виконання компілятором під час декомпозиції
 

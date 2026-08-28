@@ -30,71 +30,7 @@ struct ManualVisitor {
 
 Завдяки варіативному успадкуванню та пакетним using-оголошенням C++17 це завдання вирішується двома рядками коду:
 
-```cpp
-#include <iostream>
-#include <variant>
-#include <string>
-#include <string_view>
-#include <vector>
-#include <cstdint>
-#include <type_traits>
-
-// 1. Структура Overload успадковує всі передані функціональні об'єкти (лямбди)
-template <typename... Ts>
-struct Overload : Ts... {
-    // Втягуємо всі operator() з кожного базового типу в область видимості Overload:
-    using Ts::operator()...;
-};
-
-// 2. Deduction Guide для автоматичного виведення типів аргументів шаблону (CTAD):
-template <typename... Ts>
-Overload(Ts...) -> Overload<Ts...>;
-
-// Допоміжний трейт для статичної перевірки вичерпності (Exhaustiveness Check)
-template <typename T>
-struct always_false : std::false_type {};
-
-// Приклад предметної області: події мережевого стека
-struct ConnectionEvent {
-    std::string peer_ip;
-    uint16_t port;
-};
-
-struct DataPacketEvent {
-    std::vector<uint8_t> payload;
-    bool is_encrypted;
-};
-
-struct HeartbeatEvent {
-    uint64_t sequence_number;
-};
-
-struct DisconnectEvent {
-    std::string reason;
-};
-
-// Тип суми для всіх можливих мережевих повідомлень:
-using NetworkMessage = std::variant<ConnectionEvent, DataPacketEvent, HeartbeatEvent, DisconnectEvent>;
-
-// Функція диспетчеризації повідомлень
-void handle_network_message(const NetworkMessage& message) {
-    std::visit(Overload{
-        [](const ConnectionEvent& ev) {
-            std::cout << "[З'єднання] Вузол " << ev.peer_ip << ":" << ev.port << " підключено.\n";
-        },
-        [](const DataPacketEvent& ev) {
-            std::cout << "[Дані] Отримано пакет на " << ev.payload.size() 
-                      << " байтів (шифрування: " << (ev.is_encrypted ? "так" : "ні") << ").\n";
-        },
-        [](const HeartbeatEvent& ev) {
-            std::cout << "[Heartbeat] Пульс #" << ev.sequence_number << " підтверджено.\n";
-        },
-        [](const DisconnectEvent& ev) {
-            std::cout << "[Відключення] Причина: " << ev.reason << '\n';
-        }
-    }, message);
-}
-```
+:::code proj-overload-set-builder/cpp/realizatsiia-paternu.cpp
 
 ### Покроковий розбір механізму компіляції
 
@@ -129,68 +65,7 @@ void handle_network_message(const NetworkMessage& message) {
 
 ### Архітектура таблиці переходів
 
-```cpp
-#include <iostream>
-#include <variant>
-#include <string>
-
-// Стани з'єднання:
-struct DisconnectedState {};
-struct ConnectingState { int retry_count{0}; };
-struct ConnectedState { std::string session_id; };
-
-using State = std::variant<DisconnectedState, ConnectingState, ConnectedState>;
-
-// Вхідні події автомата:
-struct ConnectCommand { std::string target_host; };
-struct HandshakeOk { std::string session_id; };
-struct NetworkError { std::string message; };
-struct DisconnectCommand {};
-
-using Event = std::variant<ConnectCommand, HandshakeOk, NetworkError, DisconnectCommand>;
-
-// Функція переходу між станами:
-State on_event(State current_state, Event event) {
-    return std::visit(Overload{
-        // 1. З Disconnected реагуємо на команду підключення:
-        [](DisconnectedState, ConnectCommand cmd) -> State {
-            std::cout << "Перехід: Disconnected -> Connecting до " << cmd.target_host << '\n';
-            return ConnectingState{1};
-        },
-        // 2. З Connecting при успішному рукостисканні переходимо в Connected:
-        [](ConnectingState, HandshakeOk ok) -> State {
-            std::cout << "Перехід: Connecting -> Connected (ID: " << ok.session_id << ")\n";
-            return ConnectedState{ok.session_id};
-        },
-        // 3. З Connecting при помилці повертаємося в Disconnected:
-        [](ConnectingState st, NetworkError err) -> State {
-            std::cout << "Помилка зв'язку (" << err.message << "), спроба #" << st.retry_count << '\n';
-            return DisconnectedState{};
-        },
-        // 4. З Connected на команду відключення переходимо в Disconnected:
-        [](ConnectedState, DisconnectCommand) -> State {
-            std::cout << "Перехід: Connected -> Disconnected\n";
-            return DisconnectedState{};
-        },
-        // 5. Усі інші комбінації стану та події ігноруються (стан не змінюється):
-        [](auto state, auto) -> State {
-            std::cout << "Ігнорування недоречної події для поточного стану.\n";
-            return state;
-        }
-    }, current_state, event);
-}
-
-int main() {
-    State current = DisconnectedState{};
-
-    current = on_event(current, ConnectCommand{"api.service.internal"});
-    current = on_event(current, HandshakeOk{"sess-9988"});
-    current = on_event(current, ConnectCommand{"інший_сервер"}); // ігнорується
-    current = on_event(current, DisconnectCommand{});
-
-    return 0;
-}
-```
+:::code proj-overload-set-builder/cpp/arkhitektura-tablytsi.cpp
 
 Коли у `std::visit` передається два об'єкти варіантів (`current_state` та `event`), компілятор обчислює декартовий добуток усіх можливих пар типів (3 стани × 4 події = 12 комбінацій) і диспетчеризує виклик через відповідну лямбду в `Overload`. Завдяки `using Ts::operator()...;` усі 5 перевантажень зливаються в один відвідувач, що робить код таблиці переходів компактним і структурованим.
 
@@ -204,96 +79,7 @@ int main() {
 
 Коли різні міксини надають методи з однаковою назвою, але для різних цільових типів (наприклад, метод `export_to` для текстового потоку, бінарного буфера та рядка), пряме успадкування стикається з проблемою затуляння або неоднозначності:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <span>
-#include <cstdint>
-
-// Міксин 1: експорт у потік std::ostream через CRTP
-template <typename Derived>
-struct StreamExportable {
-    void export_to(std::ostream& os) const {
-        static_cast<const Derived*>(this)->format_stream(os);
-    }
-};
-
-// Міксин 2: експорт у бінарний вектор байтів
-template <typename Derived>
-struct BinaryExportable {
-    void export_to(std::vector<uint8_t>& buffer) const {
-        static_cast<const Derived*>(this)->format_binary(buffer);
-    }
-};
-
-// Міксин 3: експорт у рядок для швидкого логування
-template <typename Derived>
-struct TextExportable {
-    void export_to(std::string& output) const {
-        std::ostringstream ss;
-        static_cast<const Derived*>(this)->format_stream(ss);
-        output = ss.str();
-    }
-};
-
-// Цільовий клас доменної сутності
-class TelemetryFrame : public StreamExportable<TelemetryFrame>,
-                       public BinaryExportable<TelemetryFrame>,
-                       public TextExportable<TelemetryFrame> {
-private:
-    uint64_t timestamp_ns_;
-    double temperature_;
-    double pressure_;
-
-public:
-    TelemetryFrame(uint64_t ts, double temp, double press)
-        : timestamp_ns_(ts), temperature_(temp), pressure_(press) {}
-
-    // ОБ'ЄДНАННЯ ПЕРЕВАНТАЖЕНЬ: втягуємо всі export_to з усіх трьох міксинів:
-    using StreamExportable<TelemetryFrame>::export_to;
-    using BinaryExportable<TelemetryFrame>::export_to;
-    using TextExportable<TelemetryFrame>::export_to;
-
-    // Внутрішні методи реалізації, які викликаються міксинами через CRTP:
-    void format_stream(std::ostream& os) const {
-        os << "[Telemetry] ts=" << timestamp_ns_ 
-           << " temp=" << temperature_ << "C press=" << pressure_ << "hPa";
-    }
-
-    void format_binary(std::vector<uint8_t>& buffer) const {
-        auto append_pod = [&buffer](const auto& val) {
-            const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&val);
-            buffer.insert(buffer.end(), ptr, ptr + sizeof(val));
-        };
-        append_pod(timestamp_ns_);
-        append_pod(temperature_);
-        append_pod(pressure_);
-    }
-};
-
-int main() {
-    TelemetryFrame frame{1718000000000ULL, 23.5, 1013.25};
-
-    // 1. Експорт у консоль через StreamExportable
-    std::cout << "1. Потік: ";
-    frame.export_to(std::cout);
-    std::cout << '\n';
-
-    // 2. Експорт у бінарний вектор через BinaryExportable
-    std::vector<uint8_t> bin_data;
-    frame.export_to(bin_data);
-    std::cout << "2. Бінарний буфер: " << bin_data.size() << " байтів.\n";
-
-    // 3. Експорт у рядок через TextExportable
-    std::string text_str;
-    frame.export_to(text_str);
-    std::cout << "3. Рядок: " << text_str << '\n';
-
-    return 0;
-}
-```
+:::code proj-overload-set-builder/cpp/problema-zatuliannia-pry.cpp
 
 ### Чому без using код не компілюється
 
@@ -311,50 +97,7 @@ int main() {
 
 ### Архітектура конвеєра з об'єднанням через using
 
-```cpp
-#include <iostream>
-#include <string>
-#include <span>
-#include <vector>
-
-struct JsonPayload { std::string json_text; };
-struct BinaryPayload { std::vector<uint8_t> raw_bytes; };
-struct TextPayload { std::string plain_text; };
-
-struct JsonHandler {
-    void handle_message(const JsonPayload& p) {
-        std::cout << "Обробка JSON: " << p.json_text << '\n';
-    }
-};
-
-struct BinaryHandler {
-    void handle_message(const BinaryPayload& p) {
-        std::cout << "Обробка Binary: " << p.raw_bytes.size() << " байтів\n";
-    }
-};
-
-struct TextHandler {
-    void handle_message(const TextPayload& p) {
-        std::cout << "Обробка PlainText: " << p.plain_text << '\n';
-    }
-};
-
-// Конвеєр об'єднує всі обробники в єдиний ієрархічний диспетчер:
-template <typename... Handlers>
-struct MessagePipeline : Handlers... {
-    using Handlers::handle_message...; // C++17 варіативне using-оголошення!
-};
-
-int main() {
-    MessagePipeline<JsonHandler, BinaryHandler, TextHandler> pipeline;
-
-    pipeline.handle_message(JsonPayload{"{\"user_id\": 42}"});
-    pipeline.handle_message(BinaryPayload{{0x01, 0x02, 0x03}});
-    pipeline.handle_message(TextPayload{"Звичайне повідомлення журналу"});
-
-    return 0;
-}
-```
+:::code proj-overload-set-builder/cpp/arkhitektura-konveiera-z.cpp
 
 Усі методи `handle_message` із трьох незалежних класів обробників зливаються в один клас `MessagePipeline` без написання жодної проміжної функції. Компілятор на етапі компіляції визначає точний маршрут виклику для кожного типу повідомлення.
 
@@ -388,103 +131,7 @@ public:
 
 За допомогою using-оголошень у публічній секції похідного класу відкриття потрібних методів здійснюється декларативно в один рядок:
 
-```cpp
-#include <iostream>
-#include <span>
-#include <vector>
-#include <cstdint>
-#include <stdexcept>
-
-// Низькорівневий драйвер апаратного каналу зв'язку
-class HardwareChannelBase {
-public:
-    void open_channel(uint32_t channel_id, uint32_t baud_rate) {
-        std::cout << "Hardware: відкрито канал #" << channel_id << " на швидкості " << baud_rate << " бод.\n";
-        is_active_ = true;
-    }
-
-    void close_channel() noexcept {
-        std::cout << "Hardware: канал закрито.\n";
-        is_active_ = false;
-    }
-
-    bool is_active() const noexcept {
-        return is_active_;
-    }
-
-    // Небезпечний низькорівневий метод прямого запису в регістри:
-    void direct_register_write(uint32_t reg_offset, uint32_t raw_value) {
-        std::cout << "Hardware: прямий запис у регістр 0x" << std::hex << reg_offset 
-                  << " значення 0x" << raw_value << std::dec << '\n';
-    }
-
-    // Низькорівневе читання статусу з шини:
-    uint32_t read_hardware_flags() const noexcept {
-        return 0x00000001; // статус готовності
-    }
-
-protected:
-    void raw_transmit_bytes(std::span<const uint8_t> data) {
-        std::cout << "Hardware: передано " << data.size() << " байтів у фізичний канал.\n";
-    }
-
-private:
-    bool is_active_{false};
-};
-
-// Високорівневий клієнтський драйвер для безпечної передачі пакетів
-class SafePacketTransceiver : private HardwareChannelBase {
-public:
-    SafePacketTransceiver(uint32_t channel_id, uint32_t baud_rate) {
-        open_channel(channel_id, baud_rate);
-    }
-
-    ~SafePacketTransceiver() {
-        if (is_active()) {
-            close_channel();
-        }
-    }
-
-    // 1. Відкриваємо публічно безпечні методи перевірки та закриття:
-    using HardwareChannelBase::is_active;
-    using HardwareChannelBase::close_channel;
-
-    // 2. Реалізуємо високорівневий безпечний метод відправлення з валідацією:
-    void send_packet(std::span<const uint8_t> packet) {
-        if (!is_active()) {
-            throw std::runtime_error("Канал не активний для відправлення!");
-        }
-        if (packet.empty() || packet.size() > 1024) {
-            throw std::invalid_argument("Некоректний розмір пакета (1..1024 байтів)!");
-        }
-        // Викликаємо protected-метод базового класу:
-        raw_transmit_bytes(packet);
-    }
-
-    // Небезпечні методи direct_register_write та read_hardware_flags 
-    // залишаються приватними й повністю недоступними для клієнтів SafePacketTransceiver!
-};
-
-int main() {
-    SafePacketTransceiver transceiver(1, 115200);
-
-    if (transceiver.is_active()) {
-        std::cout << "Трансивер готовий до роботи.\n";
-    }
-
-    std::vector<uint8_t> payload = {0x01, 0x02, 0x03, 0x04};
-    transceiver.send_packet(payload);
-
-    // Спроба виклику низькорівневих операцій заблокована компілятором:
-    // transceiver.direct_register_write(0x10, 0xFF); 
-    // ^ Помилка: 'direct_register_write' is private within this context
-
-    // transceiver.open_channel(2, 9600);
-    // ^ Помилка: 'open_channel' is private within this context
-
-    return 0;
-}
-```
+:::code proj-overload-set-builder/cpp/vykorystannia-using-dlia.cpp
 
 ### Порівняльний аналіз переваг підходу
 
@@ -518,42 +165,7 @@ int main() {
 
 У C++20 патерн `Overload` отримує додаткову гнучкість завдяки поєднанню з концептами. Якщо ми хочемо додати у відвідувач обробку цілих категорій типів (наприклад, усіх числових типів, усіх контейнерів або всіх типів, що підтримують логування), ми можемо обмежити лямбди за допомогою `requires`:
 
-```cpp
-#include <concepts>
-#include <iostream>
-#include <variant>
-#include <vector>
-#include <string>
-
-template <typename... Ts>
-struct Overload : Ts... {
-    using Ts::operator()...;
-};
-template <typename... Ts>
-Overload(Ts...) -> Overload<Ts...>;
-
-using DynamicValue = std::variant<int, double, std::string, std::vector<int>>;
-
-void inspect_value(const DynamicValue& val) {
-    std::visit(Overload{
-        // Спеціалізована обробка для рядків:
-        [](const std::string& s) {
-            std::cout << "Рядок: \"" << s << "\", довжина: " << s.size() << '\n';
-        },
-        // Концепт для всіх числових типів (int, double тощо):
-        []<std::floating_point T>(T num) {
-            std::cout << "Дробове число: " << num << '\n';
-        },
-        []<std::integral T>(T num) {
-            std::cout << "Ціле число: " << num << '\n';
-        },
-        // Концепт для контейнерів, що підтримують ітерацію:
-        []<typename T>(const std::vector<T>& vec) {
-            std::cout << "Вектор розміром: " << vec.size() << '\n';
-        }
-    }, val);
-}
-```
+:::code proj-overload-set-builder/cpp/7-vzaiemodiia-z.cpp
 
 Завдяки правилам розв'язання перевантажень C++20 більш обмежені перевантаження (більш специфічні концепти) мають пріоритет над менш обмеженими, що дозволяє будувати ієрархічні статичні обробники без конфліктів затуляння.
 
@@ -565,31 +177,7 @@ void inspect_value(const DynamicValue& val) {
 
 У C++23 міксин можна написати значно простіше:
 
-```cpp
-struct ModernStreamExportable {
-    // Явний об'єктний параметр замінює CRTP і static_cast:
-    void export_to(this const auto& self, std::ostream& os) {
-        self.format_stream(os);
-    }
-};
-
-struct ModernBinaryExportable {
-    void export_to(this const auto& self, std::vector<uint8_t>& buf) {
-        self.format_binary(buf);
-    }
-};
-
-// Цільовий клас у C++23:
-struct ModernTelemetryFrame : public ModernStreamExportable,
-                              public ModernBinaryExportable {
-    // Using-оголошення залишаються НЕОБХІДНИМИ для об'єднання перевантажень!
-    using ModernStreamExportable::export_to;
-    using ModernBinaryExportable::export_to;
-
-    void format_stream(std::ostream& os) const { os << "C++23 Telemetry"; }
-    void format_binary(std::vector<uint8_t>& b) const { b.push_back(0xFF); }
-};
-```
+:::code proj-overload-set-builder/cpp/8-c-23-deducing-this-proty.cpp
 
 Цей приклад наочно демонструє, що навіть із появою найновіших можливостей C++23 фундаментальні правила пошуку імен залишаються незмінними: без рядків `using ...::export_to;` виклик методу з кількох базових класів призведе до колізії пошуку імені. Ключове слово `using` залишається головним сполучним елементом компонентної архітектури мови.
 

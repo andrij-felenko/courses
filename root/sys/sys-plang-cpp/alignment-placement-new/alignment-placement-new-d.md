@@ -79,18 +79,7 @@ static_assert(sizeof(Packet) == 12); // 1 + (3 padding) + 4 + 2 + (2 tail paddin
 
 Специфікатор `alignas` дозволяє явно підвищити вимогу вирівнювання для змінної, поля структури або визначення цілого типу:
 
-```cpp
-// 1. Змінна на стеку буде вирівняна по межі 64 байтів (початок кеш-лінії)
-alignas(64) int aligned_counter = 0;
-
-// 2. Буфер, вирівняний під суворі вимоги типу double
-alignas(double) std::byte storage[sizeof(double)];
-
-// 3. Структура, вирівняна для швидких векторних інструкцій AVX-512
-struct alignas(64) AVXBlock {
-    float values[16];
-};
-```
+:::code alignment-placement-new-d/cpp/spetsyfikator-alignas.cpp
 
 Специфікатор `alignas` підпорядковується суворим мовним правилам:
 
@@ -136,29 +125,7 @@ Widget* w = new Widget(10, 20);
 
 Для використання розміщувального new обов'язково підключається заголовок `<new>`. Синтаксис виклику передає цільову адресу в круглих дужках безпосередньо після ключового слова `new`:
 
-```cpp
-#include <new>
-#include <cstddef>
-#include <string>
-#include <iostream>
-
-int main() {
-    // 1. Виділяємо сирий буфер пам'яті з ПРАВИЛЬНИМ вирівнюванням
-    alignas(std::string) std::byte storage[sizeof(std::string)];
-
-    // На цьому етапі в storage лежать неініціалізовані байти.
-    // Об'єкта std::string ще НЕ існує. Викликати його методи — це грубе UB.
-
-    // 2. Конструюємо об'єкт у підготовленому буфері через розміщувальний new
-    std::string* str_ptr = ::new (storage) std::string("Привіт, розміщувальний new!");
-
-    // Тепер час життя об'єкта почався. Використання методів законне.
-    std::cout << *str_ptr << " (довжина: " << str_ptr->length() << ")\n";
-
-    // 3. Завершення часу життя об'єкта
-    str_ptr->~basic_string();
-}
-```
+:::code alignment-placement-new-d/cpp/syntaksys-ta-mekhanizm-dii.cpp
 
 ![Етапи розміщувального new: сирий буфер -> вирівнювання -> конструктор -> ручний деструктор](img/placement-new-storage.svg)
 *Чотири послідовні фази: отримання сирих байтів потрібного розміру й вирівнювання, перевірка адреси, виклик конструктора на місці та ручний виклик деструктора зі збереженням пам'яті буфера.*
@@ -213,19 +180,7 @@ str_ptr->~basic_string();
 
 Проте фізичний буфер пам'яті `storage` **залишається виділеним і неушкодженим**. Це дозволяє багаторазово використовувати ту саму ділянку пам'яті для створення нових об'єктів:
 
-```cpp
-alignas(Widget) std::byte buffer[sizeof(Widget)];
-
-// Створюємо перший екземпляр
-Widget* w1 = ::new (buffer) Widget("Перший об'єкт");
-w1->process();
-w1->~Widget(); // завершуємо час життя першого об'єкта
-
-// У тому самому буфері конструюємо другий екземпляр
-Widget* w2 = ::new (buffer) Widget("Другий об'єкт");
-w2->process();
-w2->~Widget(); // завершуємо час життя другого об'єкта
-```
+:::code alignment-placement-new-d/cpp/pravylo-iavnoho-vyklyku.hpp
 
 ### Обробка винятків під час розміщувального new
 
@@ -293,41 +248,7 @@ void* std::align(
 
 ### Приклад послідовного розміщення у сирому буфері
 
-```cpp
-#include <memory>
-#include <cstddef>
-#include <iostream>
-
-int main() {
-    alignas(std::max_align_t) std::byte arena[1024];
-    
-    void* current_ptr = arena;
-    std::size_t space_left = sizeof(arena);
-
-    // 1. Виділяємо місце під int16_t (alignof = 2, sizeof = 2)
-    void* p1 = std::align(alignof(int16_t), sizeof(int16_t), current_ptr, space_left);
-    int16_t* val1 = ::new (p1) int16_t(100);
-    // Зсуваємо вказівник за зайнятий об'єкт
-    current_ptr = static_cast<std::byte*>(p1) + sizeof(int16_t);
-    space_left -= sizeof(int16_t);
-
-    // 2. Виділяємо місце під double (alignof = 8, sizeof = 8)
-    void* p2 = std::align(alignof(double), sizeof(double), current_ptr, space_left);
-    double* val2 = ::new (p2) double(3.14159);
-    current_ptr = static_cast<std::byte*>(p2) + sizeof(double);
-    space_left -= sizeof(double);
-
-    std::cout << "int16_t розміщено за адресою: " << val1 << "\n";
-    std::cout << "double  розміщено за адресою: " << val2 << "\n";
-    std::cout << "Відступ між об'єктами: " 
-              << (reinterpret_cast<std::byte*>(val2) - reinterpret_cast<std::byte*>(val1)) 
-              << " байтів\n";
-
-    // Ручне звільнення
-    val2->~double();
-    val1->~int16_t();
-}
-```
+:::code alignment-placement-new-d/cpp/pryklad-poslidovnoho.cpp
 
 Використання `std::align` виключає типові помилки переповнення цілих чисел при самостійній реалізації арифметики покажчиків і гарантує повну переносимість між компіляторами та архітектурами.
 

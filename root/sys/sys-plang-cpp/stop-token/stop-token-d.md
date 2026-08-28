@@ -66,32 +66,7 @@ void worker(std::atomic<bool>& stop_flag) {
 
 Усі три об'єкти взаємодіють через спільний стан `stop_state`, виділений у динамічній пам'яті (купі). Цей блок створюється автоматично при виклику конструктора `std::stop_source()` за замовчуванням:
 
-```cpp
-#include <iostream>
-#include <stop_token>
-#include <thread>
-
-void worker(std::stop_token stoken) {
-    while (!stoken.stop_requested()) {
-        std::cout << "Потік працює...\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
-    std::cout << "Отримано сигнал скасування. Чистий вихід із потоку.\n";
-}
-
-int main() {
-    std::stop_source ssource;
-    std::stop_token stoken = ssource.get_token();
-
-    std::jthread th(worker, stoken);
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(150));
-    ssource.request_stop(); // Ініціація скасування
-
-    th.join();
-    return 0;
-}
-```
+:::code stop-token-d/cpp/zviazok-cherez-spilnyi.cpp
 
 У цьому прикладі `std::stop_source` породжує `std::stop_token`, який передається у функцію `worker`. Головний потік володіє правом надіслати запит `request_stop()`, тоді як функція `worker` має доступ лише для читання через інтерфейс `stoken`.
 
@@ -257,26 +232,7 @@ std::stop_token empty_token = inactive_source.get_token();
 
 Клас `std::jthread` (від англ. *Joining Thread* — приєднуваний потік) у C++20 виправляє цю проблему за допомогою автоматичної інтеграції з `std::stop_source`:
 
-```cpp
-class jthread {
-public:
-    // Конструктор створює внутрішній stop_source
-    template<class Function, class... Args>
-    explicit jthread(Function&& f, Args&&... args);
-
-    // Деструктор: автоматичне скасування та приєднання
-    ~jthread() {
-        if (joinable()) {
-            request_stop(); // 1. Надсилає сигнал скасування
-            join();         // 2. Очікує завершення потоку
-        }
-    }
-
-    [[nodiscard]] stop_source get_stop_source() noexcept;
-    [[nodiscard]] stop_token get_stop_token() const noexcept;
-    bool request_stop() noexcept;
-};
-```
+:::code stop-token-d/cpp/6-intehratsiia-z-std.cpp
 
 ### Порівняння моделей життєвого циклу потоків
 
@@ -291,30 +247,7 @@ public:
 
 Якщо перший параметр функції або лямбди, що передається в конструктор `std::jthread`, має тип `std::stop_token`, бібліотека автоматично витягує токен із внутрішнього джерела `jthread` і передає його в потік:
 
-```cpp
-#include <iostream>
-#include <stop_token>
-#include <thread>
-
-void background_worker(std::stop_token stoken, int multiplier) {
-    int counter = 0;
-    while (!stoken.stop_requested()) {
-        std::cout << "Обчислення: " << (counter++ * multiplier) << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(40));
-    }
-    std::cout << "Фоновий потік завершився за сигналом stop_token.\n";
-}
-
-void run_task() {
-    // jthread автоматично передає stop_token у background_worker
-    std::jthread worker_thread(background_worker, 10);
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    // При виході з run_task() деструктор worker_thread:
-    // 1. Автоматично викликає request_stop()
-    // 2. Автоматично викликає join()
-} // Жодних падінь через std::terminate(), ресурси звільняються чисто!
-```
+:::code stop-token-d/cpp/avtomatychne-peredavannia.cpp
 
 ---
 
@@ -331,25 +264,7 @@ void run_task() {
 
 Метод `wait` виконує такі скоординовані кроки:
 
-```cpp
-template <class Lock, class Predicate>
-bool wait(Lock& lock, std::stop_token stoken, Predicate pred) {
-    while (!pred()) {
-        if (stoken.stop_requested()) {
-            return pred(); // Якщо скасовано — негайно повертаємо стан предиката
-        }
-
-        // Реєструємо тимчасовий колбек на час сну
-        std::stop_callback cb(stoken, [this] {
-            notify_all(); // Сповіщаємо умовну змінну при надходженні сигналу
-        });
-
-        // Відпускаємо замок та переходимо в стан сну в ядрі ОС
-        wait_internal(lock);
-    }
-    return true;
-}
-```
+:::code stop-token-d/cpp/mekhanika-metodu-wait-lock.cpp
 
 Якщо інший потік викликає `request_stop()`, зареєстрований `stop_callback` негайно виконує `notify_all()`. Сплячий потік прокидається, знову захоплює `lock`, перевіряє `stoken.stop_requested() == true` і виходить з очікування, повертаючи `false` (якщо черга або предикат не були задоволені).
 
@@ -359,33 +274,7 @@ bool wait(Lock& lock, std::stop_token stoken, Predicate pred) {
 
 За допомогою `std::condition_variable_any` та `std::stop_token` цей патерн перетворюється на миттєво перериваний сон:
 
-```cpp
-#include <chrono>
-#include <condition_variable>
-#include <mutex>
-#include <stop_token>
-
-class PeriodicWorker {
-public:
-    void run(std::stop_token stoken) {
-        std::unique_lock lock(mutex_);
-        while (!stoken.stop_requested()) {
-            perform_heartbeat_sync();
-
-            // Спимо 10 секунд АБО прокидаємося негайно, якщо викликано request_stop()
-            cv_.wait_for(lock, stoken, std::chrono::seconds(10), [&stoken] {
-                return stoken.stop_requested();
-            });
-        }
-    }
-
-private:
-    void perform_heartbeat_sync() { /* відправка телеметрії */ }
-
-    std::mutex mutex_;
-    std::condition_variable_any cv_;
-};
-```
+:::code stop-token-d/cpp/patern-pereryvanoho-snu.cpp
 
 Цей підхід дозволяє застосунку вимикатися за мілісекунди замість очікування завершення довгих таймаутів у фонових потоках.
 
@@ -393,35 +282,7 @@ private:
 
 Аналогічний підхід застосовується для переривання блокуючих системних викликів введення-виведення (I/O). Оскільки дескриптори сокетів блокуються всередині ядра операційної системи, об'єкт `std::stop_callback` може виконати системне закриття каналу передачі або надіслати команду скасування в асинхронне кільце введення-виведення:
 
-```cpp
-#include <stop_token>
-#include <iostream>
-
-#if defined(_WIN32)
-#include <winsock2.h>
-#else
-#include <sys/socket.h>
-#endif
-
-void read_from_network(int socket_fd, std::stop_token stoken) {
-    // Реєструємо зворотний виклик для розриву блокуючого системного виклику
-    std::stop_callback socket_canceller(stoken, [socket_fd] {
-        std::cout << "Примусове розблокування сокета...\n";
-#if defined(_WIN32)
-        ::shutdown(static_cast<SOCKET>(socket_fd), SD_BOTH);
-#else
-        ::shutdown(socket_fd, SHUT_RDWR);
-#endif
-    });
-
-    char buffer[1024];
-    // Якщо приходить request_stop(), shutdown() змушує recv() негайно повернути помилку
-    auto bytes = ::recv(socket_fd, buffer, sizeof(buffer), 0);
-    if (bytes <= 0 && stoken.stop_requested()) {
-        std::cout << "Читання з сокета успішно перервано сигналом скасування.\n";
-    }
-}
-```
+:::code stop-token-d/cpp/pereryvannia-systemnykh.cpp
 
 У сучасних асинхронних архітектурах на базі Linux `io_uring` або Windows `IOCP` (I/O Completion Ports) об'єкт `std::stop_callback` у момент спрацьовування готує спеціальний запит скасування операції — `io_uring_prep_cancel` або `CancelIoEx`. Ядро операційної системи перериває асинхронну операцію DMA та повертає статус `ECANCELED` безпосередньо у кільце завершень.
 
@@ -439,35 +300,7 @@ void read_from_network(int socket_fd, std::stop_token stoken) {
 
 Для реалізації цієї моделі використовується патерн **транслятора джерел**:
 
-```cpp
-#include <functional>
-#include <stop_token>
-
-class HierarchicalTask {
-public:
-    explicit HierarchicalTask(std::stop_token parent_token)
-        : parent_token_(parent_token),
-          // Зв'язуємо батьківський токен із локальним джерелом:
-          // якщо батьківський токен скасовується, ми автоматично скасовуємо локальне джерело
-          parent_subscription_(parent_token_, [this] {
-              local_source_.request_stop();
-          }) {}
-
-    // Локальне скасування лише цієї гілки
-    void cancel_locally() {
-        local_source_.request_stop();
-    }
-
-    [[nodiscard]] std::stop_token token() const noexcept {
-        return local_source_.get_token();
-    }
-
-private:
-    std::stop_token parent_token_;
-    std::stop_source local_source_;
-    std::stop_callback<std::function<void()>> parent_subscription_;
-};
-```
+:::code stop-token-d/cpp/8-kaskadne-ta.cpp
 
 Ця архітектура утворює орієнтований ациклічний граф скасування: зміна стану батьківського джерела миттєво каскадує вниз по дереву завдяки синхронним викликам зареєстрованих `std::stop_callback`, не створюючи додаткових фонових потоків спостереження.
 
@@ -482,44 +315,7 @@ private:
 
 У стандарті C++20 немає вбудованого класу для об'єднання токенів, проте його легко реалізувати за допомогою `std::stop_callback`:
 
-```cpp
-#include <functional>
-#include <stop_token>
-#include <vector>
-
-class StopTokenCombiner {
-public:
-    StopTokenCombiner() = default;
-
-    // Додавання зовнішнього токена до композиції
-    void add_token(std::stop_token stoken) {
-        if (!stoken.stop_possible()) {
-            return;
-        }
-
-        // Якщо токен уже скасовано — негайно активуємо наше джерело
-        if (stoken.stop_requested()) {
-            combined_source_.request_stop();
-            return;
-        }
-
-        // Реєструємо підписку: скасування будь-якого вхідного токена
-        // автоматично активує спільне вихідне джерело
-        callbacks_.emplace_back(std::make_unique<std::stop_callback<std::function<void()>>>(
-            stoken, 
-            [this] { combined_source_.request_stop(); }
-        ));
-    }
-
-    [[nodiscard]] std::stop_token get_token() const noexcept {
-        return combined_source_.get_token();
-    }
-
-private:
-    std::stop_source combined_source_;
-    std::vector<std::unique_ptr<std::stop_callback<std::function<void()>>>> callbacks_;
-};
-```
+:::code stop-token-d/cpp/9-kompozytsiia-kilkokh.cpp
 
 Цей патерн є абсолютно потокобезпечним: незалежно від того, з якого потоку надійде перший сигнал скасування, спільне джерело `combined_source_` перейде у стан `stop_requested == true` рівно один раз, активуючи всіх підписників результуючого комбінованого токена.
 
@@ -586,20 +382,7 @@ $2 = {<std::__atomic_base<bool>> = {static _S_alignment = 1, _M_i = true}, <No d
 #### Пастка 1: Дедлок усередині std::stop_callback через захоплення м'ютекса
 Оскільки зворотні виклики виконуються *синхронно* в контексті того потоку, який викликав `request_stop()`, спроба захопити в колбеку м'ютекс, який викликач уже утримує, призводить до взаємного блокування (self-deadlock):
 
-```cpp
-// ❌ ПОМИЛКА: Самодедлок
-std::mutex state_mutex;
-
-void bad_worker(std::stop_token st) {
-    std::stop_callback cb(st, [&] {
-        std::lock_guard lock(state_mutex); // ДЕДЛОК, якщо викликач request_stop() уже захопив state_mutex!
-        cleanup();
-    });
-
-    std::lock_guard lock(state_mutex);
-    // Робота з даними...
-}
-```
+:::code stop-token-d/cpp/pastka-1-dedlok-useredyni.cpp
 
 *Правило*: колбеки повинні виконувати лише мінімальні, неблокуючі атомарні дії (встановлення прапорців, системний виклик `shutdown` або `notify_all`).
 

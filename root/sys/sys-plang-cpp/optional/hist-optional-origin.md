@@ -99,18 +99,7 @@ opt_a = opt_b; // Що має відбутися?
 
 Після виходу C++17 з'ясувалося, що хоча `std::optional` чудово вирішив проблему збереження пам'яті, код для його обробки часто перетворювався на громіздкі деревоподібні структури з вкладених перевірок `if (opt.has_value())`:
 
-```cpp
-std::optional<User> user = find_user(id);
-if (user) {
-    std::optional<Config> config = load_config(*user);
-    if (config) {
-        std::optional<Server> server = connect_server(*config);
-        if (server) {
-            server->process();
-        }
-    }
-}
-```
+:::code hist-optional-origin/cpp/main.cpp
 
 У мовах функціонального програмування (Haskell, Scala) та сучасних системних мовах (Rust з його типом `Option`) подібні ланцюжки оброблялися через монадні оператори `map`, `flatMap` та `orElse`.
 

@@ -34,90 +34,11 @@
 
 Тег і межі піддерев тримають в одному місці — там, де їх видно разом:
 
-```cpp
-class Shape {
-public:
-    enum Kind : unsigned char {
-        SK_Rect,          // 0
-        SK_RoundedRect,   // 1
-        SK_Triangle,      // 2
-        SK_Ellipse,       // 3
-        SK_Circle,        // 4
-        SK_TextLabel,     // 5
-
-        // межі піддерев — псевдоніми, власних значень не займають
-        SK_FirstPolygon = SK_Rect,    SK_LastPolygon = SK_Triangle,
-        SK_FirstRect    = SK_Rect,    SK_LastRect    = SK_RoundedRect,
-        SK_FirstEllipse = SK_Ellipse, SK_LastEllipse = SK_Circle,
-    };
-
-    Kind kind() const { return kind_; }
-    virtual ~Shape() = default;
-
-protected:
-    explicit Shape(Kind k) : kind_(k) {}
-
-private:
-    const Kind kind_;
-};
-```
+:::code proj-llvm-style-rtti/cpp/kod.cpp
 
 Кожен клас оголошує статичну функцію `classof`, яка відповідає рівно на одне питання: «чи динамічний тип цього об'єкта є різновидом мене». Її аргумент — вказівник на **спільну базу**, ніколи не на себе й не на нащадка: викликають її з тим, що є на руках, а не з тим, на що сподіваються.
 
-```cpp
-class Polygon : public Shape {
-public:
-    static bool classof(const Shape* s) {
-        return s->kind() >= SK_FirstPolygon && s->kind() <= SK_LastPolygon;
-    }
-    // операція, якої в Shape немає і не буде
-    void smooth_corners(double r) { corner_radius_ = r; }
-
-protected:
-    using Shape::Shape;
-
-private:
-    double corner_radius_ = 0;
-};
-
-class Rect : public Polygon {          // конкретний, але сам має нащадка
-public:
-    Rect() : Rect(SK_Rect) {}
-    static bool classof(const Shape* s) {
-        return s->kind() >= SK_FirstRect && s->kind() <= SK_LastRect;
-    }
-protected:
-    explicit Rect(Kind k) : Polygon(k) { assert(Rect::classof(this)); }
-};
-
-class RoundedRect final : public Rect {
-public:
-    RoundedRect() : Rect(SK_RoundedRect) {}
-    static bool classof(const Shape* s) { return s->kind() == SK_RoundedRect; }
-};
-
-class Triangle final : public Polygon {
-public:
-    Triangle() : Polygon(SK_Triangle) {}
-    static bool classof(const Shape* s) { return s->kind() == SK_Triangle; }
-};
-
-class Ellipse : public Shape {
-public:
-    Ellipse() : Ellipse(SK_Ellipse) {}
-    static bool classof(const Shape* s) {
-        return s->kind() >= SK_FirstEllipse && s->kind() <= SK_LastEllipse;
-    }
-protected:
-    explicit Ellipse(Kind k) : Shape(k) {}
-};
-
-class Circle final : public Ellipse {
-public:
-    Circle() : Ellipse(SK_Circle) {}
-    static bool classof(const Shape* s) { return s->kind() == SK_Circle; }
-};
-```
+:::code proj-llvm-style-rtti/cpp/kod-2.cpp
 
 Зверніть увагу на `Rect`: він конкретний і водночас має нащадка, тож його відрізок **включає його самого**. Помилка «написав рівність, бо клас конкретний» — найчастіша в цьому прийомі й найтихіша.
 
@@ -125,19 +46,7 @@ public:
 
 Обгортки над `classof` займають три рядки й нічого не знають про конкретні класи:
 
-```cpp
-template <class To, class From>
-bool isa(const From* p) { return To::classof(p); }
-
-template <class To, class From>
-To* dyn_cast(From* p) { return isa<To>(p) ? static_cast<To*>(p) : nullptr; }
-
-template <class To, class From>
-To* cast(From* p) {
-    assert(isa<To>(p) && "cast<> argument of incompatible type");
-    return static_cast<To*>(p);
-}
-```
+:::code proj-llvm-style-rtti/cpp/kod-3.cpp
 
 Уживається це так само, як звичний `dynamic_cast`, лише коротше:
 
@@ -184,28 +93,7 @@ void smooth_all(const std::vector<std::unique_ptr<Shape>>& shapes, double r) {
 
 Перший пункт із цього списку — єдиний, що не лікується уважністю, і він же єдиний, який можна прибрати механічно. Опишіть дерево в окремому файлі, а перелік розгорніть із нього:
 
-```cpp
-// shapes.def — єдине місце, де записано форму ієрархії
-#ifndef SHAPE
-#  define SHAPE(Name, Parent)
-#endif
-#ifndef SHAPE_RANGE
-#  define SHAPE_RANGE(Base, First, Last)
-#endif
-
-SHAPE(Rect,        Polygon)
-SHAPE(RoundedRect, Rect)
-SHAPE_RANGE(Rect,    Rect,    RoundedRect)
-SHAPE(Triangle,    Polygon)
-SHAPE_RANGE(Polygon, Rect,    Triangle)
-SHAPE(Ellipse,     Shape)
-SHAPE(Circle,      Ellipse)
-SHAPE_RANGE(Ellipse, Ellipse, Circle)
-SHAPE(TextLabel,   Shape)
-
-#undef SHAPE
-#undef SHAPE_RANGE
-```
+:::code proj-llvm-style-rtti/cpp/derevo-opysuiut-odyn-raz.cpp
 
 ```cpp
 enum Kind : unsigned char {

@@ -10,19 +10,7 @@
 
 У мовах системного програмування операції перевірки рівності та відношення порядку є фундаментальними будівельними блоками. До стандарту C++20 клас, що інкапсулював складений стан і потребував повного набору операцій порівняння, вимагав від програміста написання громіздкого, монотонного та вразливого до друкарських помилок коду:
 
-```cpp
-struct Point {
-    int x;
-    int y;
-
-    bool operator==(const Point& o) const { return x == o.x && y == o.y; }
-    bool operator!=(const Point& o) const { return !(*this == o); }
-    bool operator< (const Point& o) const { return x < o.x || (x == o.x && y < o.y); }
-    bool operator<=(const Point& o) const { return !(o < *this); }
-    bool operator> (const Point& o) const { return o < *this; }
-    bool operator>=(const Point& o) const { return !(*this < o); }
-};
-```
+:::code three-way-comparison-d/cpp/part.cpp
 
 Два цілочисельні поля породили шість окремих методів. При додаванні третього поля (наприклад, просторової координати `z`) ланцюжок умов у середині `operator<` перетворювався на складну конструкцію:
 
@@ -329,27 +317,7 @@ std::string cookie = "session_token_xyz_123456789_abcdef";
 
 У C++20 у поєднанні з прозорими компараторами (`std::less<>`, де кутові дужки порожні) тричленне порівняння повністю вирішує цю проблему:
 
-```cpp
-struct UserAccount {
-    std::string username;
-    uint32_t    user_id{0};
-
-    // Однорідне порівняння
-    friend auto operator<=>(const UserAccount& a, const UserAccount& b) = default;
-
-    // Гетерогенне порівняння зі string_view
-    friend auto operator<=>(const UserAccount& a, std::string_view sv) noexcept {
-        return a.username <=> sv;
-    }
-};
-
-void lookup_example(const std::set<UserAccount, std::less<>>& db) {
-    using namespace std::string_view_literals;
-
-    // Пошук за string_view: жодного виділення пам'яті в купі!
-    auto it = db.find("admin_root"sv);
-}
-```
+:::code three-way-comparison-d/cpp/7-prozoryi-heterohennyi.cpp
 
 Наявність маркерного псевдоніма `using is_transparent = void;` у компараторах `std::less<>` та `std::compare_three_way` дозволяє контейнерам викликати гетерогенні оператори `<=>` напряму, мінімізуючи витрати пам'яті та прискорюючи маршрутизацію у високонавантажених сервісах. Завдяки комутативному синтезу операндів компілятор однаково ефективно підтримує як вирази `account <=> sv`, так і вирази `sv <=> account`.
 
@@ -379,29 +347,7 @@ public:
 
 Для коректної ізоляції бізнес-стану від технічного кешу застосовують розділення структури або явну реалізацію операторів:
 
-```cpp
-class HeavyDocument {
-    std::string title;
-    std::vector<std::string> pages;
-
-    // Технічний кеш не повинен брати участь у порівнянні
-    mutable uint64_t render_cache_id{0};
-
-public:
-    HeavyDocument(std::string t, std::vector<std::string> p)
-        : title(std::move(t)), pages(std::move(p)) {}
-
-    // Явне порівняння лише бізнес-полів
-    friend auto operator<=>(const HeavyDocument& a, const HeavyDocument& b) noexcept {
-        if (auto cmp = a.title <=> b.title; cmp != 0) return cmp;
-        return a.pages <=> b.pages;
-    }
-
-    friend bool operator==(const HeavyDocument& a, const HeavyDocument& b) noexcept {
-        return a.title == b.title && a.pages == b.pages;
-    }
-};
-```
+:::code three-way-comparison-d/cpp/pravylnyi-shablon.cpp
 
 ---
 
@@ -420,28 +366,7 @@ public:
 
 Найбільш надійною та ефективною формою визначення користувацьких порівнянь у сучасному C++ є оголошення їх як дружніх функцій всередині класу:
 
-```cpp
-class Fraction {
-    int num{0};
-    int den{1};
-
-public:
-    constexpr Fraction(int n, int d) noexcept : num(n), den(d) {}
-
-    // Hidden Friend: функція не засмічує простір імен
-    friend constexpr auto operator<=>(const Fraction& a, const Fraction& b) noexcept {
-        // Перехресне множення для уникнення ділення з плаваючою комою
-        int64_t left  = static_cast<int64_t>(a.num) * b.den;
-        int64_t right = static_cast<int64_t>(b.num) * a.den;
-        return left <=> right;
-    }
-
-    friend constexpr bool operator==(const Fraction& a, const Fraction& b) noexcept {
-        return (static_cast<int64_t>(a.num) * b.den) ==
-               (static_cast<int64_t>(b.num) * a.den);
-    }
-};
-```
+:::code three-way-comparison-d/cpp/10-idioma-hidden-friend.cpp
 
 ### Переваги прихованого друга
 
@@ -459,42 +384,13 @@ public:
 
 Це дозволяє використовувати оператор `<=>` у метапрограмуванні та статичних твердженнях часу компіляції:
 
-```cpp
-struct Version {
-    int major;
-    int minor;
-    int patch;
-
-    friend constexpr auto operator<=>(Version, Version) = default;
-};
-
-// Перевірка інваріантів під час компіляції
-static_assert(Version{2, 0, 0} > Version{1, 9, 99});
-static_assert(Version{2, 1, 0} <=> Version{2, 1, 0} == 0);
-```
+:::code three-way-comparison-d/cpp/obchyslennia-chasu.hpp
 
 ### Інтеграція з концептами C++20
 
 Заголовок `<compare>` вводить ключові мовні концепти, що формують фундамент узагальненого коду C++20:
 
-```cpp
-template <class T, class Cat = std::partial_ordering>
-concept three_way_comparable =
-    requires(const std::remove_reference_t<T>& a,
-             const std::remove_reference_t<T>& b) {
-        { a <=> b } -> /*compares-as*/<Cat>;
-    };
-
-template <class T, class U, class Cat = std::partial_ordering>
-concept three_way_comparable_with =
-    std::three_way_comparable<T, Cat> &&
-    std::three_way_comparable<U, Cat> &&
-    requires(const std::remove_reference_t<T>& t,
-             const std::remove_reference_t<U>& u) {
-        { t <=> u } -> /*compares-as*/<Cat>;
-        { u <=> t } -> /*compares-as*/<Cat>;
-    };
-```
+:::code three-way-comparison-d/cpp/intehratsiia-z-kontseptamy.cpp
 
 Ці концепти інтегровані в усі алгоритми бібліотеки діапазонів `std::ranges`. Функціональний об'єкт `std::compare_three_way` використовується як універсальний компаратор за замовчуванням:
 
@@ -550,22 +446,7 @@ struct ComparableCRTP {
 
 Розглянемо старий клас із неявним конструктором рядка:
 
-```cpp
-struct Path {
-    std::string str;
-    Path(const char* s) : str(s) {} // Неявний конструктор!
-
-    bool operator==(const char* s) const { return str == s; }
-};
-
-void run(Path p) {
-    // У C++17 працювало:
-    bool ok1 = (p == "test");
-
-    // У C++20 вираз нижче призведе до помилки компіляції:
-    // bool ok2 = ("test" == p);
-}
-```
+:::code three-way-comparison-d/cpp/1-neodnoznachnist-cherez.cpp
 
 У C++17 вираз `"test" == p` завершувався спробою знайти глобальний `operator==(const char*, Path)` і, не знайшовши його, виконував неявне перетворення `"test"` у `Path` з наступним викликом `Path::operator==(const char*)`.
 
@@ -581,25 +462,7 @@ void run(Path p) {
 
 Якщо базовий поліморфний клас містить відкритий `operator<=>(const Base&) const = default;`, спроба порівняння двох об'єктів похідного типу `Derived` через посилання на базовий інтерфейс `const Base&` призведе до зрізання:
 
-```cpp
-struct Shape {
-    int layer{0};
-    auto operator<=>(const Shape&) const = default;
-};
-
-struct Circle : Shape {
-    double radius{1.0};
-    auto operator<=>(const Circle&) const = default;
-};
-
-void compare_shapes(const Shape& s1, const Shape& s2) {
-    // Небезпечно! Порівнюються ЛИШЕ поля Shape::layer.
-    // Поля radius класу Circle повністю ігноруються!
-    if ((s1 <=> s2) == 0) {
-        // Хибний висновок про еквівалентність різних фігур!
-    }
-}
-```
+:::code three-way-comparison-d/cpp/2-problema-polimorfnoho.cpp
 
 **Вирішення:** Уникати відкритих операторів порівняння у поліморфних базових класах із віртуальними функціями. Якщо порівняння необхідне, реалізовувати віртуальний захищений метод `virtual std::strong_ordering compare_to(const Shape&) const` з обов'язковою перевіркою динамічного типу через `typeid`.
 

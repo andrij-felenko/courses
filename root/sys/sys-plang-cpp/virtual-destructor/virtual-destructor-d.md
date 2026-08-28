@@ -16,30 +16,7 @@
 
 Розглянемо типову архітектурну структуру: базовий абстрактний інтерфейс обробника мережевих з'єднань і його конкретну реалізацію на основі зашифрованого TLS-каналу.
 
-```cpp
-#include <vector>
-#include <cstdint>
-#include <iostream>
-
-struct PacketHandler {
-    void process() { /* обробка базового кадру */ }
-    ~PacketHandler() = default; // Невіртуальний деструктор!
-};
-
-struct TlsSecureHandler : PacketHandler {
-    int socket_fd{-1};
-    std::vector<uint8_t> session_keys;
-    uint8_t* ring_buffer{nullptr};
-
-    TlsSecureHandler(int fd, std::size_t buf_size)
-        : socket_fd(fd), session_keys(256, 0xAA), ring_buffer(new uint8_t[buf_size]) {}
-
-    ~TlsSecureHandler() {
-        delete[] ring_buffer;
-        // закриття дескриптора сокета
-    }
-};
-```
+:::code virtual-destructor-d/cpp/anatomiia-avarii-shcho.cpp
 
 Клієнтський код створює об'єкт динамічно й зберігає адресу у вказівнику на базовий тип:
 
@@ -96,18 +73,7 @@ struct PacketHandler {
 
 Коли транслятор зустрічає вираз `delete handler;` для базового класу з віртуальним деструктором, він генерує таку низькорівневу послідовність операцій:
 
-```cpp
-// Псевдокод еквіваленту машинних інструкцій
-if (handler != nullptr) {
-    // 1. Отримати адресу vtable за зміщенням vptr усередині об'єкта
-    void** vtable = *reinterpret_cast<void***>(handler);
-    // 2. Отримати адресу слота Deleting Destructor (D0)
-    using DeletingDtorFn = void(*)(void*);
-    DeletingDtorFn dtor = reinterpret_cast<DeletingDtorFn>(vtable[SLOT_D0_DELETING_DTOR]);
-    // 3. Непрямий виклик через покажчик на функцію
-    dtor(handler);
-}
-```
+:::code virtual-destructor-d/cpp/mekhanizm-virtualnoho.cpp
 
 Всередині слота `D0` міститься функція `TlsSecureHandler::~TlsSecureHandler() [deleting]`, яка:
 - точно знає справжній динамічний розмір об'єкта `sizeof(TlsSecureHandler)`;
@@ -184,38 +150,13 @@ public:
 
 Тому канонічний інтерфейс C++ повинен явно забороняти копіювання та переміщення:
 
-```cpp
-class IService {
-public:
-    virtual ~IService() = default;
-
-    // Заборона зрізання об'єктів
-    IService(const IService&) = delete;
-    IService& operator=(const IService&) = delete;
-    IService(IService&&) = delete;
-    IService& operator=(IService&&) = delete;
-
-    virtual void execute() = 0;
-};
-```
+:::code virtual-destructor-d/cpp/patern-1-interfeisnyi.cpp
 
 ### Патерн 2: Базовий клас із підтримкою переміщення та копіювання
 
 Якщо базовий клас має нетривіальний стан і вимагає підтримки семантики переміщення у похідних класах, усі 5 спеціальних методів оголошуються явно:
 
-```cpp
-class PolymorphicEntity {
-public:
-    virtual ~PolymorphicEntity() = default;
-
-    PolymorphicEntity(const PolymorphicEntity&) = default;
-    PolymorphicEntity& operator=(const PolymorphicEntity&) = default;
-    PolymorphicEntity(PolymorphicEntity&&) noexcept = default;
-    PolymorphicEntity& operator=(PolymorphicEntity&&) noexcept = default;
-
-    virtual void update() = 0;
-};
-```
+:::code virtual-destructor-d/cpp/patern-2-bazovyi-klas-iz.cpp
 
 Якщо поліморфний клас повинен надавати можливість глибокого копіювання, замість конструктора копіювання застосовують віртуальний метод клонування (*virtual clone pattern*):
 
@@ -277,20 +218,7 @@ undefined reference to `AbstractTransaction::~AbstractTransaction()'
 
 У цьому сценарії канонічним рішенням C++ є **захищений невіртуальний деструктор** (*protected non-virtual destructor*):
 
-```cpp
-class NonDeletableMixin {
-protected:
-    ~NonDeletableMixin() = default; // Не віртуальний, але захищений!
-
-public:
-    void utility_helper() { /* спільний функціонал */ }
-};
-
-class ConcreteWorker : public NonDeletableMixin {
-public:
-    ~ConcreteWorker() = default; // Публічний деструктор нащадка
-};
-```
+:::code virtual-destructor-d/cpp/alternatyva-zakhyshchenyi.cpp
 
 ![Патерн захищеного невіртуального деструктора](img/protected-dtor-pattern.svg)
 *Захищений деструктор робить небезпечне видалення помилкою компіляції, не додаючи жодного байта vptr до об'єкта.*
@@ -342,20 +270,7 @@ std::unique_ptr<PacketHandler, decltype(custom_deleter)> safe_ptr(
 
 `std::shared_ptr<Base>` має унікальну внутрішню архітектуру. Під час створення екземпляра через `std::make_shared<Derived>()` або конструктор `std::shared_ptr<Base>(new Derived())`, розумний вказівник створює контрольний блок (*control block*), у якому фіксує точний динамічний тип об'єкта через механізм **стирання типу** (*type erasure*).
 
-```cpp
-struct BaseWithoutVirtual {
-    ~BaseWithoutVirtual() = default; // Не віртуальний!
-};
-
-struct DerivedWithResource : BaseWithoutVirtual {
-    int* data{new int[100]};
-    ~DerivedWithResource() { delete[] data; }
-};
-
-// Створення shared_ptr:
-std::shared_ptr<BaseWithoutVirtual> ptr = std::make_shared<DerivedWithResource>();
-// При руйнуванні ptr деструктор ~DerivedWithResource() БУДЕ викликано!
-```
+:::code virtual-destructor-d/cpp/styrannia-typu-v-std.cpp
 
 Контрольний блок `shared_ptr` зберігає покажчик на функцію вивільнення конкретного типу `DerivedWithResource`. Коли лічильник сильних посилань падає до нуля, контрольний блок викликає збережений видаляч для `DerivedWithResource`, навіть якщо базовий клас взагалі не мав віртуального деструктора.
 

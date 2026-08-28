@@ -16,22 +16,7 @@
 
 Кожен кадр телеметрії має компактний розмір (24 байти), що дозволяє розмістити майже 3 повні кадри в одній кеш-лінії. Відсутність динамічних вказівників усередині структури гарантує суцільне розміщення масиву у пам'яті:
 
-```cpp
-#include <cstdint>
-
-enum StatusFlags : uint8_t {
-    FLAG_INVALID = 0,
-    FLAG_VALID   = 1 << 0,
-    FLAG_CALIB   = 1 << 1
-};
-
-struct TelemetryRecord {
-    uint32_t sensor_id;     // Ідентифікатор датчика (4 байти)
-    uint64_t timestamp_ns;  // Мітка часу в наносекундах (8 байтів)
-    float    raw_value;     // Фізичне виміряне значення (4 байти)
-    uint8_t  flags;         // Прапорці стану (1 байт)
-};
-```
+:::code proj-custom-iterator-algo/cpp/1-struktura-danykh.cpp
 
 При послідовному проході по векторам типів `TelemetryRecord` апаратний префетчер процесора (Hardware Prefetcher) заздалегідь завантажує наступні кеш-лінії з L2/L3-кешу, мінімізуючи затримки доступу до DRAM. Якщо замість вектора використати зв'язаний список `std::list<TelemetryRecord>`, кожен вузол буде виділятися в купі окремо, спричиняючи хаотичні стрибки по адресах та постійні промахи кешу (Cache Misses), що знизить швидкодію обробки у 10-15 разів.
 
@@ -42,82 +27,8 @@ struct TelemetryRecord {
 У низькорівневому C-стилі фільтрація виконується шляхом ручного перезапису елементів усередині масиву за допомогою двох індексів (читання та запису). Оскільки в C відсутні шаблони функцій, сортування реалізується через системну функцію `qsort`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint32_t sensor_id;
-    uint64_t timestamp_ns;
-    float    raw_value;
-    uint8_t  flags;
-} CTelemetryRecord;
-
-// Компаратор для qsort: порівняння спочатку за sensor_id, потім за timestamp_ns
-int compare_telemetry(const void* a, const void* b) {
-    const CTelemetryRecord* rec_a = (const CTelemetryRecord*)a;
-    const CTelemetryRecord* rec_b = (const CTelemetryRecord*)b;
-
-    if (rec_a->sensor_id != rec_b->sensor_id) {
-        return (rec_a->sensor_id < rec_b->sensor_id) ? -1 : 1;
-    }
-    if (rec_a->timestamp_ns != rec_b->timestamp_ns) {
-        return (rec_a->timestamp_ns < rec_b->timestamp_ns) ? -1 : 1;
-    }
-    return 0;
-}
-
-size_t process_telemetry_c(CTelemetryRecord* records, size_t count, float scale) {
-    // 1. Ручна фільтрація та калібрування в один прохід
-    size_t valid_count = 0;
-    for (size_t i = 0; i < count; ++i) {
-        if ((records[i].flags & 1) != 0) { // Перевірка прапорця FLAG_VALID
-            records[valid_count] = records[i];
-            records[valid_count].raw_value *= scale;
-            valid_count++;
-        }
-    }
-
-    // 2. Сортування через qsort (непрямі виклики компаратора через вказівник)
-    qsort(records, valid_count, sizeof(CTelemetryRecord), compare_telemetry);
-
-    return valid_count;
-}
-```
-```cpp
-#include <vector>
-#include <cstdint>
-#include <algorithm>
-
-struct CppTelemetryRecord {
-    std::uint32_t sensor_id;
-    std::uint64_t timestamp_ns;
-    float         raw_value;
-    std::uint8_t  flags;
-};
-
-std::size_t process_telemetry_cpp_raii(std::vector<CppTelemetryRecord>& records, float scale) {
-    // Еквівалентний RAII-безпечний варіант C++ без сирих вказівників
-    auto write_it = records.begin();
-    for (const auto& rec : records) {
-        if (rec.flags & 1) {
-            *write_it = rec;
-            write_it->raw_value *= scale;
-            ++write_it;
-        }
-    }
-    records.erase(write_it, records.end());
-
-    std::sort(records.begin(), records.end(), [](const CppTelemetryRecord& a, const CppTelemetryRecord& b) {
-        if (a.sensor_id != b.sensor_id) return a.sensor_id < b.sensor_id;
-        return a.timestamp_ns < b.timestamp_ns;
-    });
-
-    return records.size();
-}
-```
+:::code proj-custom-iterator-algo/c/main.c
+:::code proj-custom-iterator-algo/cpp/2-realizatsiia-1-syryi-c.cpp
 :::
 
 ### Почаковий розбір ассемблерного коду та недоліків C-підходу
@@ -131,35 +42,7 @@ std::size_t process_telemetry_cpp_raii(std::vector<CppTelemetryRecord>& records,
 
 У підході C++ STL ми позбуваємося ручних циклів. Фільтрація виконується за допомогою ідіоми Remove-Erase (`std::remove_if` + `erase`), калібрування — через `std::transform`, а сортування — викликом `std::sort` з політикам паралелізму `std::execution::par`.
 
-```cpp
-#include <vector>
-#include <algorithm>
-#include <execution>
-#include <tuple>
-
-void process_telemetry_stl(std::vector<TelemetryRecord>& records, float scale) {
-    // 1. Фізичне видалення невалідних елементів через Remove-Erase ідіому
-    auto new_end = std::remove_if(records.begin(), records.end(),
-        [](const TelemetryRecord& rec) {
-            return (rec.flags & FLAG_VALID) == 0;
-        });
-    records.erase(new_end, records.end());
-
-    // 2. Калібрування значень у векторному форматі
-    std::transform(records.begin(), records.end(), records.begin(),
-        [scale](TelemetryRecord rec) {
-            rec.raw_value *= scale;
-            rec.flags |= FLAG_CALIB;
-            return rec;
-        });
-
-    // 3. Паралельне сортування (sensor_id, timestamp_ns)
-    std::sort(std::execution::par, records.begin(), records.end(),
-        [](const TelemetryRecord& a, const TelemetryRecord& b) {
-            return std::tie(a.sensor_id, a.timestamp_ns) < std::tie(b.sensor_id, b.timestamp_ns);
-        });
-}
-```
+:::code proj-custom-iterator-algo/cpp/3-realizatsiia-2-klasychni.cpp
 
 ### Механізми оптимізації шаблонів STL
 1. **Повний інлайнінг компаратора**: Передана лямбда утворює унікальний тип класу-функтора. Компілятор повністю розгортає її тіло у внутрішній цикл Introsort. У машиному коді виклик функції зникає, залишаючи лише прямолінійні інструкції порівняння `cmp` та умовного переходу `jge`.
@@ -172,44 +55,7 @@ void process_telemetry_stl(std::vector<TelemetryRecord>& records, float scale) {
 
 У C++20 ми використовуємо уніфікований `std::erase_if` та проєкції атрибутів. Для витягування ТОП-K пікових вимірювань ми замінюємо повне сортування `O(N log N)` на алгоритм `std::ranges::nth_element`, який працює за час `O(N)`.
 
-```cpp
-#include <vector>
-#include <algorithm>
-#include <ranges>
-#include <tuple>
-
-void process_telemetry_ranges(std::vector<TelemetryRecord>& records, float scale) {
-    // 1. Пряме видалення невалідних записів у C++20
-    std::erase_if(records, [](const TelemetryRecord& rec) {
-        return (rec.flags & FLAG_VALID) == 0;
-    });
-
-    // 2. Калібрування значень на місці
-    for (auto& rec : records) {
-        rec.raw_value *= scale;
-        rec.flags |= FLAG_CALIB;
-    }
-
-    // 3. Сортування за кортежною проєкцією без написання компараторів
-    std::ranges::sort(records, std::less{}, [](const TelemetryRecord& rec) {
-        return std::make_tuple(rec.sensor_id, rec.timestamp_ns);
-    });
-}
-
-// Витягування ТОП-5 найбільших вимірювань за асимптотичний час O(N)
-std::vector<TelemetryRecord> get_top_5_values(std::vector<TelemetryRecord> records) {
-    std::size_t k = std::min<std::size_t>(5, records.size());
-    
-    // std::ranges::nth_element частково впорядковує масив за час O(N)
-    std::ranges::nth_element(records, records.begin() + k, std::greater{}, &TelemetryRecord::raw_value);
-    
-    // Впорядковуємо лише перші 5 елементів за час O(K log K)
-    std::ranges::sort(records.begin(), records.begin() + k, std::greater{}, &TelemetryRecord::raw_value);
-
-    records.resize(k);
-    return records;
-}
-```
+:::code proj-custom-iterator-algo/cpp/4-realizatsiia-3-suchasnyi.cpp
 
 ---
 

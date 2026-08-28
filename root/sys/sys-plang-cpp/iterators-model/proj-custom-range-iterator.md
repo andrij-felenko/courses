@@ -15,186 +15,8 @@
 Перш ніж переходити до реалізації мовою C++, розглянемо, як ця задача вирішується мовою C. У C відсутні шаблони та перевантаження операторів, тому обхід реалізується через структуру-курсор `struct stride_cursor`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-// Структура крокового курсора мовою C
-typedef struct {
-    const int* ptr;       // Поточна адреса елемента
-    const int* end;       // Адреса за останнім елементом масиву
-    size_t stride;        // Крок зсуву (наприклад, 2 або 3)
-} stride_cursor_t;
-
-// Ініціалізація курсора
-stride_cursor_t stride_cursor_init(const int* array, size_t size, size_t stride) {
-    stride_cursor_t cursor;
-    cursor.ptr = array;
-    cursor.end = array + size;
-    cursor.stride = stride;
-    return cursor;
-}
-
-// Перевірка, чи не досягнуто кінця
-bool stride_cursor_has_next(const stride_cursor_t* cursor) {
-    return cursor->ptr < cursor->end;
-}
-
-// Перехід до наступного елемента з кроком
-void stride_cursor_next(stride_cursor_t* cursor) {
-    if (cursor->ptr < cursor->end) {
-        cursor->ptr += cursor->stride;
-    }
-}
-
-// Отримання поточного значення
-int stride_cursor_get(const stride_cursor_t* cursor) {
-    return *(cursor->ptr);
-}
-
-int main(void) {
-    int data[] = {10, 20, 30, 40, 50, 60, 70, 80, 90};
-    size_t count = sizeof(data) / sizeof(data[0]);
-
-    // Обхід кожного 2-го елемента мовою C
-    stride_cursor_t cursor = stride_cursor_init(data, count, 2);
-    printf("C-style stride traversal: ");
-    while (stride_cursor_has_next(&cursor)) {
-        printf("%d ", stride_cursor_get(&cursor));
-        stride_cursor_next(&cursor);
-    }
-    printf("\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <iterator>
-#include <concepts>
-#include <ranges>
-#include <cassert>
-
-// Узагальнений кроковий ітератор C++20
-template<std::random_access_iterator UnderlyingIt>
-class StrideIterator {
-public:
-    using iterator_concept  = std::random_access_iterator_tag;
-    using iterator_category = std::random_access_iterator_tag;
-    using value_type        = std::iter_value_t<UnderlyingIt>;
-    using difference_type   = std::iter_difference_t<UnderlyingIt>;
-    using pointer           = UnderlyingIt;
-    using reference         = std::iter_reference_t<UnderlyingIt>;
-
-    // Конструктор за замовчуванням (вимога концепту std::regular)
-    StrideIterator() default = default;
-
-    constexpr StrideIterator(UnderlyingIt current, difference_type stride)
-        : current_(current), stride_(stride) {
-        assert(stride > 0 && "Крок ітератора має бути строго додатним");
-    }
-
-    // Операції розіменування
-    [[nodiscard]] constexpr reference operator*() const {
-        return *current_;
-    }
-
-    [[nodiscard]] constexpr pointer operator->() const {
-        return current_;
-    }
-
-    // Навігація вперед / назад
-    constexpr StrideIterator& operator++() {
-        current_ += stride_;
-        return *this;
-    }
-
-    constexpr StrideIterator operator++(int) {
-        StrideIterator temp = *this;
-        ++(*this);
-        return temp;
-    }
-
-    constexpr StrideIterator& operator--() {
-        current_ -= stride_;
-        return *this;
-    }
-
-    constexpr StrideIterator operator--(int) {
-        StrideIterator temp = *this;
-        --(*this);
-        return temp;
-    }
-
-    // Арифметика довільного доступу
-    constexpr StrideIterator& operator+=(difference_type n) {
-        current_ += n * stride_;
-        return *this;
-    }
-
-    constexpr StrideIterator& operator-=(difference_type n) {
-        current_ -= n * stride_;
-        return *this;
-    }
-
-    [[nodiscard]] friend constexpr StrideIterator operator+(StrideIterator it, difference_type n) {
-        it += n;
-        return it;
-    }
-
-    [[nodiscard]] friend constexpr StrideIterator operator+(difference_type n, StrideIterator it) {
-        it += n;
-        return it;
-    }
-
-    [[nodiscard]] friend constexpr StrideIterator operator-(StrideIterator it, difference_type n) {
-        it -= n;
-        return it;
-    }
-
-    [[nodiscard]] friend constexpr difference_type operator-(const StrideIterator& lhs, const StrideIterator& rhs) {
-        assert(lhs.stride_ == rhs.stride_ && "Порівняння ітераторів з різним кроком неможливе");
-        return (lhs.current_ - rhs.current_) / lhs.stride_;
-    }
-
-    // Доступ за індексом
-    [[nodiscard]] constexpr reference operator[](difference_type n) const {
-        return *(*this + n);
-    }
-
-    // Порівняння рівності та порядку
-    [[nodiscard]] friend constexpr bool operator==(const StrideIterator& lhs, const StrideIterator& rhs) {
-        return lhs.current_ == rhs.current_;
-    }
-
-    [[nodiscard]] friend constexpr auto operator<=>(const StrideIterator& lhs, const StrideIterator& rhs) {
-        return lhs.current_ <=> rhs.current_;
-    }
-
-private:
-    UnderlyingIt current_{};
-    difference_type stride_{1};
-};
-
-int main() {
-    std::vector<int> data = {10, 20, 30, 40, 50, 60, 70, 80, 90};
-
-    // Створення крокових ітераторів для зчитування кожного 2-го елемента
-    StrideIterator begin(data.begin(), 2);
-    StrideIterator end(data.begin() + 8, 2); // Вказує на 90
-
-    std::cout << "C++20 StrideIterator traversal: ";
-    for (auto it = begin; it != end; ++it) {
-        std::cout << *it << " ";
-    }
-    std::cout << "\n";
-
-    // Перевірка відповідності концептам C++20 під час компіляції
-    static_assert(std::random_access_iterator<StrideIterator<std::vector<int>::iterator>>);
-    return 0;
-}
-```
+:::code proj-custom-range-iterator/c/proektuvannia-c-kursora.c
+:::code proj-custom-range-iterator/cpp/proektuvannia-c-kursora.cpp
 :::
 
 ## Покроковий розбір реалізації C++20 StrideIterator
@@ -253,62 +75,8 @@ int main() {
 Розглянемо другий приклад: створення **вартового кінця рядка** `NullTerminatedSentinel`, який дозволяє ітеруватися по звичайному C-рядку `const char*` без попереднього обчислення його довжини через `strlen()`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdbool.h>
-
-// Прохід по C-рядку до null-термінатора мовою C
-void print_c_string(const char* str) {
-    printf("C-string traversal: ");
-    while (*str != '\0') {
-        printf("%c", *str);
-        str++;
-    }
-    printf("\n");
-}
-
-int main(void) {
-    const char* text = "Hello, C++20 Sentinels!";
-    print_c_string(text);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <concepts>
-#include <iterator>
-#include <algorithm>
-
-// Об'єкт-вартовий C++20 для нуль-термінованих рядків
-struct NullTerminatedSentinel {
-    // Порівняння вартового з будь-яким ітератором, що читає char
-    template<std::indirectly_readable It>
-    requires std::same_as<std::iter_value_t<It>, char>
-    friend constexpr bool operator==(It it, NullTerminatedSentinel) {
-        return *it == '\0'; // Умова зупинки — досягнення нуля
-    }
-};
-
-int main() {
-    const char* text = "Hello, C++20 Sentinels!";
-
-    // Обхід діапазону [text, NullTerminatedSentinel{})
-    std::cout << "C++20 Sentinel traversal: ";
-    for (auto it = text; it != NullTerminatedSentinel{}; ++it) {
-        std::cout << *it;
-    }
-    std::cout << "\n";
-
-    // Перевірка відповідності концепту std::sentinel_for під час компіляції
-    static_assert(std::sentinel_for<NullTerminatedSentinel, const char*>);
-
-    // Використання зі стандартними алгоритмами C++20 ranges
-    auto count = std::ranges::distance(text, NullTerminatedSentinel{});
-    std::cout << "Computed string length via sentinel without strlen(): " << count << "\n";
-
-    return 0;
-}
-```
+:::code proj-custom-range-iterator/c/realizatsiia.c
+:::code proj-custom-range-iterator/cpp/realizatsiia.cpp
 :::
 
 ## Детальний розбір роботи вартового (Sentinel Mechanics)
@@ -331,33 +99,7 @@ std::for_each(text, end, print_char);       // Прохід №2 по всьом
 
 Щоб зробити `StrideIterator` ще більш зручним у повсякденному розробленні, у C++20 ми можемо обгорнути його у зручний **вид діапазону** (англ. *range view*), який дозволить використовувати синтаксис пайплайнів `|`:
 
-```cpp
-template<std::ranges::viewable_range Range>
-class StrideView : public std::ranges::view_interface<StrideView<Range>> {
-public:
-    StrideView() = default;
-    
-    constexpr StrideView(Range&& range, std::ranges::range_difference_t<Range> stride)
-        : range_(std::forward<Range>(range)), stride_(stride) {}
-
-    constexpr auto begin() {
-        return StrideIterator(std::ranges::begin(range_), stride_);
-    }
-
-    constexpr auto end() {
-        auto end_it = std::ranges::end(range_);
-        // Обчислення точної межі кінця з урахуванням кроку
-        auto dist = std::ranges::distance(range_);
-        auto remainder = dist % stride_;
-        auto offset = dist - remainder;
-        return StrideIterator(std::ranges::begin(range_) + offset, stride_);
-    }
-
-private:
-    Range range_{};
-    std::ranges::range_difference_t<Range> stride_{1};
-};
-```
+:::code proj-custom-range-iterator/cpp/obertannia-iteratora-v.cpp
 
 Завдяки цьому виробу розробник отримує чистий декларативний синтаксис обходу:
 
@@ -393,30 +135,7 @@ for (int val : StrideView(numbers, 3)) {
 
 Якщо обхід елементів одного рядка є послідовним і швидко завантажується у кеш L1, то обхід стовпчика матриці вимагає зсуву на `C` елементів на кожному кроці. Для наочної реалізації обходу стовпчика двовимірної матриці ми можемо повторно використати наш `StrideIterator`, передавши `stride = C`:
 
-```cpp
-template<typename T>
-class Matrix2D {
-public:
-    Matrix2D(size_t rows, size_t cols)
-        : rows_(rows), cols_(cols), data_(rows * cols) {}
-
-    T& at(size_t r, size_t c) { return data_[r * cols_ + c]; }
-
-    // Ітератор для обходу c-го стовпчика матриці
-    auto column_begin(size_t col_index) {
-        return StrideIterator(data_.begin() + col_index, cols_);
-    }
-
-    auto column_end(size_t col_index) {
-        return StrideIterator(data_.begin() + col_index + rows_ * cols_, cols_);
-    }
-
-private:
-    size_t rows_;
-    size_t cols_;
-    std::vector<T> data_;
-};
-```
+:::code proj-custom-range-iterator/cpp/obkhid-dvovymirnykh.cpp
 
 Цей приклад демонструє силу алгебраїчної абстракції ітератора: один і той самий клас `StrideIterator` однаково успішно працює як для дешифрації аудіосигналів, так і для лінійної алгебри та комп'ютерного зору.
 
@@ -426,36 +145,7 @@ private:
 
 Такий ітератор дозволяє паралельно обходити два масиви (наприклад, координати X та Y) в одному циклі:
 
-```cpp
-template<typename It1, typename It2>
-class ZipIterator {
-public:
-    using value_type = std::tuple<std::iter_value_t<It1>, std::iter_value_t<It2>>;
-    using reference  = std::tuple<std::iter_reference_t<It1>, std::iter_reference_t<It2>>;
-    using difference_type = std::common_type_t<std::iter_difference_t<It1>, std::iter_difference_t<It2>>;
-    using iterator_category = std::forward_iterator_tag;
-
-    ZipIterator(It1 it1, It2 it2) : it1_(it1), it2_(it2) {}
-
-    reference operator*() const {
-        return reference(*it1_, *it2_);
-    }
-
-    ZipIterator& operator++() {
-        ++it1_;
-        ++it2_;
-        return *this;
-    }
-
-    friend bool operator==(const ZipIterator& lhs, const ZipIterator& rhs) {
-        return lhs.it1_ == rhs.it1_ || lhs.it2_ == rhs.it2_;
-    }
-
-private:
-    It1 it1_;
-    It2 it2_;
-};
-```
+:::code proj-custom-range-iterator/cpp/skladnishyi-pryklad.cpp
 
 Зверніть увагу: `ZipIterator` є прикладом **проксі-ітератора**, оскільки `operator*` повертає тимчасовий об'єкт `std::tuple` посилань. У C++20 концепт `std::indirectly_readable` гарантує, що такий ітератор може безпечно використовуватися зі стандартними алгоритмами сортування та трансформації через CPO `std::ranges::iter_move`.
 
@@ -465,61 +155,7 @@ private:
 
 Розглянемо дизайн `RingBufferIterator`, який перетворює циліндричну пам'ять у лінійну послідовність для стандартних алгоритмів C++:
 
-```cpp
-template<typename T, size_t Capacity>
-class RingBufferIterator {
-public:
-    using iterator_concept  = std::random_access_iterator_tag;
-    using iterator_category = std::random_access_iterator_tag;
-    using value_type        = T;
-    using difference_type   = std::ptrdiff_t;
-    using pointer           = T*;
-    using reference         = T&;
-
-    RingBufferIterator(T* buffer_base, size_t head_index, difference_type pos)
-        : base_(buffer_base), pos_(pos) {}
-
-    reference operator*() const {
-        return base_[(pos_) % Capacity];
-    }
-
-    pointer operator->() const {
-        return &base_[(pos_) % Capacity];
-    }
-
-    RingBufferIterator& operator++() {
-        ++pos_;
-        return *this;
-    }
-
-    RingBufferIterator operator++(int) {
-        RingBufferIterator tmp = *this;
-        ++(*this);
-        return tmp;
-    }
-
-    RingBufferIterator& operator+=(difference_type n) {
-        pos_ += n;
-        return *this;
-    }
-
-    friend difference_type operator-(const RingBufferIterator& a, const RingBufferIterator& b) {
-        return a.pos_ - b.pos_;
-    }
-
-    friend bool operator==(const RingBufferIterator& a, const RingBufferIterator& b) {
-        return a.pos_ == b.pos_;
-    }
-
-    friend auto operator<=>(const RingBufferIterator& a, const RingBufferIterator& b) {
-        return a.pos_ <=> b.pos_;
-    }
-
-private:
-    T* base_{nullptr};
-    difference_type pos_{0};
-};
-```
+:::code proj-custom-range-iterator/cpp/realizatsiia-2.cpp
 
 Головна алгебраїчна ідея `RingBufferIterator` полягає у відокремленні логічної позиції `pos_` (яка зростає монотонно від 0 до `size`) від фізичного індексу `pos_ % Capacity` в масиву. Завдяки цьому операції віднімання ітераторів `b - a` та порівняння `a < b` залишаються монотонними та передбачуваними для `std::sort` або `std::lower_bound`, навіть коли за ними стоїть закольцована пам'ять.
 
@@ -547,44 +183,7 @@ private:
 
 Нижче наведено приклад ітератора нескінченної послідовності чисел Фібоначчі:
 
-```cpp
-class FibonacciIterator {
-public:
-    using iterator_concept  = std::input_iterator_tag;
-    using iterator_category = std::input_iterator_tag;
-    using value_type        = uint64_t;
-    using difference_type   = std::ptrdiff_t;
-    using pointer           = const uint64_t*;
-    using reference         = uint64_t;
-
-    FibonacciIterator() = default;
-
-    constexpr uint64_t operator*() const {
-        return a_;
-    }
-
-    constexpr FibonacciIterator& operator++() {
-        uint64_t next = a_ + b_;
-        a_ = b_;
-        b_ = next;
-        return *this;
-    }
-
-    constexpr FibonacciIterator operator++(int) {
-        FibonacciIterator tmp = *this;
-        ++(*this);
-        return tmp;
-    }
-
-    friend bool operator==(const FibonacciIterator& lhs, const FibonacciIterator& rhs) {
-        return lhs.a_ == rhs.a_ && lhs.b_ == rhs.b_;
-    }
-
-private:
-    uint64_t a_{0};
-    uint64_t b_{1};
-};
-```
+:::code proj-custom-range-iterator/cpp/heneratornyi-iterator.cpp
 
 Такий ітератор задовольняє концепт `std::input_iterator` і може використовуватися разом із `std::take_view` у C++20 для обчислення перших `N` чисел Фібоначчі без створення вектора.
 

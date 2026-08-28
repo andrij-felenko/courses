@@ -29,59 +29,8 @@
 Тип-сума `std::variant`, запроваджений у стандарті C++17, усуває цей компроміс. Він поєднує щільне розташування даних у пам'яті на стеку (характерне для `union`) із суворим статичним контролем типів та автоматичним керуванням деструкторами (характерним для поліморфізму).
 
 :::tabs
-```c
-/* Мова C: розмічене об'єднання з небезпечним доступом до бітів */
-#include <stdio.h>
-#include <stdlib.h>
-
-enum ValueType { TYPE_INT, TYPE_DOUBLE, TYPE_STRING };
-
-struct CTaggedUnion {
-    enum ValueType type;
-    union {
-        int i_val;
-        double d_val;
-        char* s_val;
-    } data;
-};
-
-void print_c_value(const struct CTaggedUnion* val) {
-    /* Небезпека: компілятор не перевіряє відповідність type і поля data */
-    if (val->type == TYPE_INT) {
-        printf("Int: %d\n", val->data.i_val);
-    } else if (val->type == TYPE_DOUBLE) {
-        printf("Double: %f\n", val->data.d_val);
-    } else if (val->type == TYPE_STRING) {
-        printf("String: %s\n", val->data.s_val);
-    }
-}
-```
-```cpp
-// Мова C++: аналог C-структури з тегом, але без автоматичних деструкторів
-#include <iostream>
-#include <string>
-
-enum class ValueType { Int, Double, String };
-
-struct CppTaggedUnion {
-    ValueType type;
-    union {
-        int i_val;
-        double d_val;
-        const char* s_val;
-    } data;
-};
-
-void print_cpp_value(const CppTaggedUnion& val) {
-    if (val.type == ValueType::Int) {
-        std::cout << "Int: " << val.data.i_val << "\n";
-    } else if (val.type == ValueType::Double) {
-        std::cout << "Double: " << val.data.d_val << "\n";
-    } else if (val.type == ValueType::String) {
-        std::cout << "String: " << val.data.s_val << "\n";
-    }
-}
-```
+:::code variant-and-visit-d/c/main.c
+:::code variant-and-visit-d/cpp/problema-predstavlennia.cpp
 :::
 
 > 🔧 **Навіщо це.**
@@ -124,31 +73,7 @@ void print_cpp_value(const CppTaggedUnion& val) {
 
 Для вирішення цієї проблеми стандарт надає структуру `std::monostate` — порожній тип-маркер, який використовується як перша альтернатива у списку.
 
-```cpp
-#include <variant>
-#include <string>
-#include <iostream>
-
-struct ConnectionConfig {
-    std::string address;
-    uint16_t port;
-    
-    // Відсутній конструктор за замовчуванням!
-    ConnectionConfig(std::string addr, uint16_t p)
-        : address(std::move(addr)), port(p) {}
-};
-
-int main() {
-    // std::variant<ConnectionConfig, int> v1; // ПОМИЛКА КОМПІЛЯЦІЇ: ConnectionConfig не можна створити без аргументів!
-
-    // Коректне рішення: std::monostate як перша альтернатива
-    std::variant<std::monostate, ConnectionConfig, int> v2;
-    
-    if (std::holds_alternative<std::monostate>(v2)) {
-        std::cout << "Варіант ініціалізовано порожнім станом monostate (index = 0)\n";
-    }
-}
-```
+:::code variant-and-visit-d/cpp/pravylo-konstruktora-za.cpp
 
 Використання `std::monostate` робить порожній стан явним та контрольованим, не порушуючи загальної типізації програми.
 
@@ -186,42 +111,7 @@ int main() {
 - Метод `v.index()` повертає константу `std::variant_npos`.
 - Будь-які спроби виклику `std::get<T>(v)` або `std::visit(vis, v)` викидають виняток `std::bad_variant_access`.
 
-```cpp
-#include <variant>
-#include <iostream>
-#include <string>
-
-struct ThrowingCopy {
-    int id;
-    ThrowingCopy(int i) : id(i) {}
-    
-    ThrowingCopy(const ThrowingCopy&) {
-        throw std::runtime_error("Помилка під час копіювання!");
-    }
-    
-    ThrowingCopy& operator=(const ThrowingCopy&) = default;
-};
-
-int main() {
-    std::variant<int, ThrowingCopy> v = 42;
-    
-    ThrowingCopy bad_obj(100);
-    try {
-        // Присвоєння викликає знищення int, а потім копіювання ThrowingCopy, яке кидає виняток
-        v = bad_obj;
-    } catch (const std::exception& e) {
-        std::cout << "Впіймали виняток: " << e.what() << "\n";
-    }
-    
-    if (v.valueless_by_exception()) {
-        std::cout << "Варіант перейшов у стан valueless_by_exception (index = variant_npos)\n";
-    }
-    
-    // Відновлення валідності варіанта через emplace
-    v.emplace<int>(100);
-    std::cout << "Після emplace v.index() = " << v.index() << "\n";
-}
-```
+:::code variant-and-visit-d/cpp/harantii-vyniatkobezpeky.cpp
 
 Для запобігання переходу у стан `valueless_by_exception` розробники повинні забезпечувати `noexcept` для конструкторів переміщення усіх альтернативних типів. Якщо конструктори переміщення не кидають винятків, компілятор виконує операцію присвоєння через тимчасове переміщення без ризику руйнування внутрішнього об'єкта.
 
@@ -241,31 +131,7 @@ int main() {
 
 Механіка ідіоми `overloaded` спирається на варіативне успадкування від усіх переданих лямбда-виразів та пакетний вираз `using Ts::operator()...;`. Це об'єднує сигнатури операторів виклику усіх лямбд у єдину таблицю перевантажень класу.
 
-```cpp
-#include <variant>
-#include <iostream>
-#include <string>
-
-// Ідіома Overloaded: об'єднання декількох лямбда-функцій у єдиний структурований відвідувач
-template <typename... Ts>
-struct overloaded : Ts... {
-    using Ts::operator()...;
-};
-
-// Deduction guide для C++17
-template <typename... Ts>
-overloaded(Ts...) -> overloaded<Ts...>;
-
-using DataPayload = std::variant<int, double, std::string>;
-
-void process_payload(const DataPayload& payload) {
-    std::visit(overloaded{
-        [](int i) { std::cout << "Обробка цілого числа: " << i * 2 << "\n"; },
-        [](double d) { std::cout << "Обробка Дійсного числа: " << d / 2.0 << "\n"; },
-        [](const std::string& s) { std::cout << "Обробка рядка довжиною: " << s.length() << "\n"; }
-    }, payload);
-}
-```
+:::code variant-and-visit-d/cpp/idioma-overloaded-dlia.cpp
 
 Якщо при використанні `overloaded` розробник забуде вказати лямбду для одного з типів, що входять до `std::variant`, компілятор згенерує помилку відсутності відповідного оператора `operator()`. Це забезпечує статичну гарантію покриття всіх станів.
 
@@ -293,27 +159,7 @@ void process_payload(const DataPayload& payload) {
 
 Стандарт C++23 вирішив цю проблему за допомогою розширеної сигнатури `std::visit<R>(vis, var)`:
 
-```cpp
-#include <variant>
-#include <string>
-#include <string_view>
-#include <iostream>
-
-using Value = std::variant<int, std::string>;
-
-int main() {
-    Value v1 = 42;
-    Value v2 = std::string("Hello World");
-
-    // C++23: Явне вказання типу повернення std::string_view
-    auto res1 = std::visit<std::string_view>(overloaded{
-        [](int i) -> std::string { return std::to_string(i); },
-        [](const std::string& s) -> std::string_view { return s; }
-    }, v1);
-
-    std::cout << "Результат 1: " << res1 << "\n";
-}
-```
+:::code variant-and-visit-d/cpp/innovatsii-c-23-iavni-typy.cpp
 
 Крім того, запровадження фічі Deducing `this` у C++23 дозволило конструювати рекурсивні відвідувачі без створення складних зовнішніх класів або повторного передавання вказівника на лямбда-вираз.
 
@@ -330,35 +176,7 @@ int main() {
 1. **Вказівникова індирекція через std::unique_ptr або std::shared_ptr:** Замість прямого зберігання об'єкта у варіанті зберігається вказівник `std::unique_ptr<Node>`. Вказівник має фіксований розмір (8 байт), що дозволяє компілятору обчислити геометрію варіанта.
 2. **Спеціальні обгортки на зразок boost::recursive_wrapper:** Створюють неявну динамічну обгортку навколо типу, приховуючи виділення пам'яті всередині контейнера.
 
-```cpp
-#include <variant>
-#include <vector>
-#include <string>
-#include <memory>
-#include <iostream>
-
-struct File {
-    std::string name;
-    size_t size_bytes;
-};
-
-struct Directory;
-
-// Рекурсивний тип через unique_ptr
-using FSEntry = std::variant<File, std::unique_ptr<Directory>>;
-
-struct Directory {
-    std::string name;
-    std::vector<FSEntry> entries;
-};
-
-int main() {
-    Directory root{"root", {}};
-    root.entries.push_back(File{"config.txt", 1024});
-    
-    std::cout << "Створено рекурсивну файлову систему з розміром коріння: " << root.entries.size() << "\n";
-}
-```
+:::code variant-and-visit-d/cpp/rekursyvni-varianty-ta.cpp
 
 ---
 
@@ -370,29 +188,7 @@ int main() {
 
 Якщо ж варіант містить альтернативу, чий конструктор переміщення потенційно може кинути виняток, компілятор відмовляється від оптимізованого переміщення і виконує копіювання об'єкта для дотримання сильної гарантії виняткобезпеки (Strong Exception Guarantee). З цієї причини розробники повинні обов'язково позначати конструктори та оператори переміщення користувацьких типів специфікатором `noexcept`.
 
-```cpp
-#include <variant>
-#include <vector>
-#include <iostream>
-
-struct FastMove {
-    std::vector<int> data;
-    FastMove(size_t sz) : data(sz, 42) {}
-    
-    // Явно вказаний noexcept переміщувальний конструктор
-    FastMove(FastMove&&) noexcept = default;
-    FastMove& operator=(FastMove&&) noexcept = default;
-};
-
-int main() {
-    std::variant<int, FastMove> v1 = FastMove(1000000);
-    
-    // O(1) переміщення: буфер вектора передається за 1 крок без виділення пам'яті
-    std::variant<int, FastMove> v2 = std::move(v1);
-    
-    std::cout << "Переміщення завершено успішно без виділення пам'яті у купі.\n";
-}
-```
+:::code variant-and-visit-d/cpp/semantyka-peremishchennia.cpp
 
 ---
 
@@ -402,41 +198,7 @@ int main() {
 
 Оскільки всі альтернативні типи `PingPacket`, `DataPacket`, `AuthPacket` мають фіксований розмір у пам'яті, розробник може використовувати `std::visit` для прямої конвертації активного пакета у системний масив байтів без створення тимчасових об'єктів у купі.
 
-```cpp
-#include <variant>
-#include <cstdint>
-#include <cstring>
-#include <iostream>
-
-struct Header {
-    uint8_t packet_type;
-    uint16_t payload_len;
-};
-
-struct PingPacket {
-    Header head;
-    uint64_t timestamp;
-};
-
-struct DataPacket {
-    Header head;
-    uint32_t sequence_id;
-    char payload[64];
-};
-
-using NetworkPacket = std::variant<PingPacket, DataPacket>;
-
-void send_packet_over_network(const NetworkPacket& pkt) {
-    std::visit([](const auto& concrete_pkt) {
-        // Отримання сирого вказівника на пам'ять об'єкта для виклику POSIX send()
-        const void* raw_bytes = static_cast<const void*>(&concrete_pkt);
-        size_t bytes_len = sizeof(concrete_pkt);
-        
-        // Симуляція виклику POSIX send(socket_fd, raw_bytes, bytes_len, 0)
-        std::cout << "[Network] Відправка пакета розміром: " << bytes_len << " байт\n";
-    }, pkt);
-}
-```
+:::code variant-and-visit-d/cpp/vzaiemodiia-z-systemnymy.cpp
 
 Цей підхід гарантує сумісність із C-style системними викликами `send`, `write`, `ioctl` та забезпечує нульові накладні витрати на виділення динамічної пам'яті.
 
@@ -452,29 +214,7 @@ void send_packet_over_network(const NetworkPacket& pkt) {
 
 Для захисту спільних варіантів у багатонитвовому середовищі використовується `std::shared_mutex` (Read-Write Lock) або `std::mutex`:
 
-```cpp
-#include <variant>
-#include <mutex>
-#include <shared_mutex>
-#include <string>
-
-class ThreadSafeState {
-    using State = std::variant<int, std::string>;
-    State state_;
-    mutable std::shared_mutex rw_mutex_;
-
-public:
-    State get_state() const {
-        std::shared_lock lock(rw_mutex_);
-        return state_;
-    }
-
-    void set_state(State new_state) {
-        std::unique_lock lock(rw_mutex_);
-        state_ = std::move(new_state);
-    }
-};
-```
+:::code variant-and-visit-d/cpp/bahatonytvova.cpp
 
 ---
 
@@ -512,32 +252,7 @@ public:
 
 З цієї причини у системних розробках без винятків звернення до варіанта здійснюється виключно через безвинятковий інструмент `std::get_if`:
 
-```cpp
-#include <variant>
-#include <cstdint>
-
-struct SensorData {
-    uint32_t timestamp;
-    float temperature;
-};
-
-struct SensorError {
-    uint8_t error_code;
-};
-
-using SensorResult = std::variant<SensorData, SensorError>;
-
-void handle_sensor(const SensorResult& res) {
-    // Безвинятковий підхід у Embedded C++
-    if (const auto* data = std::get_if<SensorData>(&res)) {
-        // Успішна обробка даних датчика
-        (void)data->temperature;
-    } else if (const auto* err = std::get_if<SensorError>(&res)) {
-        // Обробка коду помилки
-        (void)err->error_code;
-    }
-}
-```
+:::code variant-and-visit-d/cpp/zastosuvannia-std-variant.cpp
 
 Цей підхід повністю виключає використання динамічної купи та гарантує виконання коду без винятків з нульовим ризиком переходу у стан `valueless_by_exception`.
 

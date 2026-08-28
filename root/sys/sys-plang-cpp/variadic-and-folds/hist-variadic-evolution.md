@@ -28,18 +28,7 @@ using MyTypes = TypeList<int, TypeList<double, TypeList<std::string, NullType>>>
 
 На базі списків типів Александреску розробив метаструктури генерації ієрархій класів — `GenScatterHierarchy` та `GenLinearHierarchy`. `GenScatterHierarchy` рекурсивно розгортала список типів у дерево множинного успадкування, де кожен базовий клас зберігав значення відповідного типу з контейнера:
 
-```cpp
-template <class TList, template <class> class Unit>
-class GenScatterHierarchy;
-
-template <class T1, class T2, template <class> class Unit>
-class GenScatterHierarchy<TypeList<T1, T2>, Unit>
-    : public GenScatterHierarchy<T1, Unit>,
-      public GenScatterHierarchy<T2, Unit> {};
-
-template <class AtomicType, template <class> class Unit>
-class GenScatterHierarchy : public Unit<AtomicType> {};
-```
+:::code hist-variadic-evolution/cpp/main.cpp
 
 Цей підхід вперше надав C++ розробникам можливість конструювати гетерогенні структури довільного складу без порушення типобезпеки. Проте плата за таку гнучкість була надзвичайно високою: кожна операція над списком типів (визначення довжини, індексація, пошук позиції типу) вимагала створення лінійного ланцюжка рекурсивних інстанціацій шаблонів. Отримані структури перевантажували внутрішні таблиці символів компіляторів і призводили до колосальних витрат пам'яті середовища розробки.
 

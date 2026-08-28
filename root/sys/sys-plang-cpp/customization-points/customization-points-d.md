@@ -35,45 +35,7 @@ void my_sort_step(T& a, T& b) {
 
 Приклад реалізації користувацького типу з власною точкою налаштування через дружню функцію:
 
-```cpp
-namespace storage {
-    class BigBuffer {
-    private:
-        uint8_t* ptr_ = nullptr;
-        size_t size_ = 0;
-
-    public:
-        BigBuffer(size_t sz) : ptr_(new uint8_t[sz]), size_(sz) {}
-        ~BigBuffer() { delete[] ptr_; }
-
-        BigBuffer(const BigBuffer&) = delete;
-        BigBuffer& operator=(const BigBuffer&) = delete;
-
-        BigBuffer(BigBuffer&& o) noexcept : ptr_(o.ptr_), size_(o.size_) {
-            o.ptr_ = nullptr;
-            o.size_ = 0;
-        }
-
-        BigBuffer& operator=(BigBuffer&& o) noexcept {
-            if (this != &o) {
-                delete[] ptr_;
-                ptr_ = o.ptr_;
-                size_ = o.size_;
-                o.ptr_ = nullptr;
-                o.size_ = 0;
-            }
-            return *this;
-        }
-
-        // Дружня точка налаштування для ADL swap
-        friend void swap(BigBuffer& a, BigBuffer& b) noexcept {
-            using std::swap;
-            swap(a.ptr_, b.ptr_);
-            swap(a.size_, b.size_);
-        }
-    };
-}
-```
+:::code customization-points-d/cpp/klasychnyi-adl-dvokrokova.cpp
 
 Незважаючи на елегантність ідеї, класичний ADL містить три системні вади, які роблять його небезпечним у великих проектних базах:
 
@@ -92,24 +54,7 @@ namespace storage {
 
 Найвідомішим прикладом цієї моделі є `std::hash` та `std::numeric_limits`:
 
-```cpp
-namespace user_data {
-    struct Account {
-        int id;
-        std::string email;
-    };
-}
-
-// Спеціалізація шаблону у просторі std
-namespace std {
-    template<>
-    struct hash<user_data::Account> {
-        std::size_t operator()(const user_data::Account& acc) const noexcept {
-            return std::hash<int>{}(acc.id);
-        }
-    };
-}
-```
+:::code customization-points-d/cpp/spetsializatsiia-shabloniv.cpp
 
 У цій системі розробник відкриває простір імен `std` і додає явну спеціалізацію структури `std::hash` для власного типу. Виклик точки налаштування є прямо кваліфікованим: `std::hash<T>{}(obj)`. Оскільки виклик є кваліфікованим, він взагалі не використовує ADL, що повністю виключає викрадення пошуку.
 
@@ -127,21 +72,7 @@ namespace std {
 
 Це правило лягло в основу концепції **NIEBLO** (Naming Is Essential Beside Logical Overloads). Замість того щоб оголошувати точку налаштування як шаблонну функцію `std::size(x)`, її оголошують як глобальну константу-функтор у кваліфікованому просторі імен:
 
-```cpp
-namespace my_std {
-    namespace __detail {
-        struct __size_fn {
-            template<typename T>
-            constexpr auto operator()(T&& t) const {
-                return t.size();
-            }
-        };
-    }
-
-    // Точка налаштування — це ОБ'ЄКТ, а не функція
-    inline constexpr __detail::__size_fn size{};
-}
-```
+:::code customization-points-d/cpp/fenomen-nieblo-ta-perekhid.cpp
 
 Виклик цього об'єкта описується прямо й кваліфіковано:
 
@@ -176,36 +107,7 @@ CPO — це функціональний об'єкт (функтор), який
 
 Розглянемо практичний виклик CPO `std::ranges::swap`:
 
-```cpp
-#include <concepts>
-#include <utility>
-#include <vector>
-#include <iostream>
-
-namespace custom {
-    struct Matrix {
-        int rows, cols;
-        std::vector<double> data;
-
-        // Користувацька точка налаштування swap
-        friend void swap(Matrix& a, Matrix& b) noexcept {
-            std::swap(a.rows, b.rows);
-            std::swap(a.cols, b.cols);
-            a.data.swap(b.data);
-        }
-    };
-}
-
-int main() {
-    custom::Matrix m1{2, 2, {1.0, 2.0, 3.0, 4.0}};
-    custom::Matrix m2{2, 2, {5.0, 6.0, 7.0, 8.0}};
-
-    // Прямий, безпечний виклик CPO без using std::swap
-    std::ranges::swap(m1, m2);
-
-    std::cout << "m1 first element: " << m1.data[0] << "\n"; // Повертає 5.0
-}
-```
+:::code customization-points-d/cpp/customization-point.cpp
 
 Повний аналіз сигнатур, шаблонного коду та готових виробничих моделей CPO наведено в 📋 [Довідник сигнатур та реалізації CPO і tag_invoke](root:sys-plang-cpp/customization-points/api-cpo-implementations.md).
 
@@ -232,34 +134,11 @@ int main() {
 
 У C++14 для відсікання некоректного виклику використовувався шаблонний логічний вираз у `decltype`:
 
-```cpp
-// C++14 SFINAE підхід (громіздкий і важкий для компілятора)
-template<typename T>
-auto draw_helper(T&& t, int)
-    -> decltype(std::forward<T>(t).draw(), void()) {
-    std::forward<T>(t).draw();
-}
-
-template<typename T>
-void draw_helper(T&& t, long) {
-    // Фолбек
-}
-```
+:::code customization-points-d/cpp/hlyboke-porivniannia.cpp
 
 У C++20 концепт `requires` перевіряє синтаксичну валідність виразу ще до початку виведення параметрів шаблону:
 
-```cpp
-// C++20 Концепти: чіткі, виразні та швидкі при компіляції
-template<typename T>
-concept has_draw = requires(T&& t) {
-    std::forward<T>(t).draw();
-};
-
-template<has_draw T>
-void draw_cpo_impl(T&& t) {
-    std::forward<T>(t).draw();
-}
-```
+:::code customization-points-d/cpp/hlyboke-porivniannia-2.cpp
 
 Правила підпорядкування концептів (Subsumption Rules) у C++20 гарантують, що компілятор вважатиме шаблон з обмеженням `has_draw T` більш специфічним (more specialized), ніж неограничений шаблон `typename T`. Завдяки цьому компілятор без виникнення неоднозначностей обирає точнішу гілку, а виклик CPO залишається чистим і передбачуваним.
 
@@ -269,26 +148,7 @@ void draw_cpo_impl(T&& t) {
 
 У C++20 CPO `std::ranges::begin` та `std::ranges::end` мають спеціальний захист від прийняття тимчасових об'єктів (rvalues), якщо тип не оголошено як `std::ranges::borrowed_range`:
 
-```cpp
-#include <vector>
-#include <ranges>
-
-std::vector<int> get_vector() {
-    return {1, 2, 3, 4, 5};
-}
-
-void process_dangling_example() {
-    // ❌ ПОМИЛКА КОМПІЛЯЦІЇ у C++20:
-    // std::ranges::begin(get_vector()) заборонено, оскільки get_vector() повертає rvalue,
-    // і повернений ітератор став би висячим одразу після завершення виразу!
-    
-    // auto it = std::ranges::begin(get_vector()); // Не скомпільовано завдяки концепту borrowed_range
-
-    // ✅ ПРАВИЛЬНО: зберегти об'єкт у lvalue змінну
-    auto vec = get_vector();
-    auto it = std::ranges::begin(vec);
-}
-```
+:::code customization-points-d/cpp/katehorii-znachenyi.cpp
 
 Цей захист реалізується за допомогою концепту `std::ranges::borrowed_range`. Тільки ті контейнери чи діапазони, ітератори яких не залежать від часу життя самого контейнера (наприклад, `std::string_view` або `std::span`), позначаються як `borrowed_range` і дозволяють передачу rvalue тимчасових об'єктів у CPO.
 
@@ -383,88 +243,7 @@ test_cpo_opt(int&, int&):
 
 Система вимагає точки налаштування `to_json`, яка має працювати для стандартних типів (масиви, `int`, `std::string`), а також підтримувати розширення для користувацьких структур:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <concepts>
-#include <utility>
-
-namespace json_lib {
-    namespace __to_json_detail {
-        // Отруєний контекст
-        void to_json() = delete;
-
-        template<typename T>
-        concept has_member_to_json = requires(const T& t) {
-            t.to_json();
-        };
-
-        template<typename T>
-        concept has_adl_to_json = !has_member_to_json<T> && requires(const T& t) {
-            to_json(t);
-        };
-
-        struct __to_json_fn {
-            // Гілка 1: Метод-член
-            template<has_member_to_json T>
-            constexpr std::string operator()(const T& t) const {
-                return t.to_json();
-            }
-
-            // Гілка 2: ADL у отруєному контексті
-            template<has_adl_to_json T>
-            constexpr std::string operator()(const T& t) const {
-                return to_json(t);
-            }
-
-            // Гілка 3: Фолбек для числово-текстових типів
-            template<typename T>
-                requires (!has_member_to_json<T> && !has_adl_to_json<T> && std::integral<T>)
-            constexpr std::string operator()(const T& t) const {
-                return std::to_string(t);
-            }
-
-            template<typename T>
-                requires (!has_member_to_json<T> && !has_adl_to_json<T> && std::same_as<T, std::string>)
-            constexpr std::string operator()(const T& t) const {
-                return "\"" + t + "\"";
-            }
-        };
-    }
-
-    // Публічний CPO
-    inline constexpr __to_json_detail::__to_json_fn to_json{};
-
-    // Концепт перевірки підключення типу
-    template<typename T>
-    concept json_serializable = std::invocable<decltype(to_json), T>;
-}
-
-// Користувацький тип
-namespace app {
-    struct UserProfile {
-        int id;
-        std::string username;
-
-        // Розширення через дружню функцію ADL
-        friend std::string to_json(const UserProfile& u) {
-            return "{\"id\":" + json_lib::to_json(u.id) + 
-                   ",\"username\":" + json_lib::to_json(u.username) + "}";
-        }
-    };
-}
-
-int main() {
-    app::UserProfile user{101, "alex_dev"};
-
-    // Прямий виклик CPO
-    if constexpr (json_lib::json_serializable<app::UserProfile>) {
-        std::cout << json_lib::to_json(user) << "\n";
-        // Виводить: {"id":101,"username":"alex_dev"}
-    }
-}
-```
+:::code customization-points-d/cpp/praktychna-rozrobka.cpp
 
 Цей приклад показує всі ключові переваги CPO: виклик `json_lib::to_json(user)` є кваліфікованим, захищеним від викрадення ADL, перевіряється концептом `json_serializable` і дозволяє підключати користувацькі типи без зміни бібліотеки.
 

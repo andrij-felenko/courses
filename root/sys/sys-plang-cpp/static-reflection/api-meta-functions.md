@@ -36,22 +36,7 @@ namespace std::meta {
 
 Оператор `^^` є унарним префіксним оператором. Його операндом може бути практично будь-яка іменована або типізована конструкція мови C++.
 
-```cpp
-// Підйом типів даних
-constexpr std::meta::info int_ref   = ^^int;
-constexpr std::meta::info str_ref   = ^^std::string;
-
-// Підйом членів класу
-struct Account {
-    std::string login;
-    int balance;
-};
-constexpr std::meta::info field_ref = ^^Account::login;
-
-// Підйом просторів назв, шаблонів та констант
-constexpr std::meta::info ns_ref    = ^^std;
-constexpr std::meta::info tmpl_ref  = ^^std::vector;
-```
+:::code api-meta-functions/cpp/2-1-operator-pidiomu.cpp
 
 Особливості роботи оператора `^^`:
 - Підйом типу повертає унікальний дескриптор, канонічний для даної комбінації типу та його cv-кваліфікаторів (наприклад, `^^const int` та `^^int` дають різні дескриптори, але `type_of` дозволяє простежити їхній зв'язок).
@@ -110,30 +95,7 @@ constexpr std::meta::info tmpl_ref  = ^^std::vector;
 
 Для детального аналізу внутрішньої будови класів, переліків і просторів назв бібліотека `std::meta` надає набір функцій-селекторів. Усі вони оголошені зі специфікатором `consteval` і повертають послідовності дескрипторів у вигляді стандартного контейнера `std::vector<std::meta::info>`.
 
-```cpp
-namespace std::meta {
-    // Повний список усіх членів класу або простору назв
-    consteval auto members_of(info type_or_ns) -> std::vector<info>;
-
-    // Нестатичні поля даних екземпляра класу
-    consteval auto nonstatic_data_members_of(info class_type) -> std::vector<info>;
-
-    // Статичні змінні-члени класу
-    consteval auto static_data_members_of(info class_type) -> std::vector<info>;
-
-    // Усі функції-члени класу (методи, конструктори, деструктори, оператори)
-    consteval auto member_functions_of(info class_type) -> std::vector<info>;
-
-    // Вкладені типи (структури, класи, об'єднання, переліки, псевдоніми using)
-    consteval auto member_types_of(info class_type) -> std::vector<info>;
-
-    // Специфікатори безпосередніх базових класів
-    consteval auto bases_of(info class_type) -> std::vector<info>;
-
-    // Усі константи переліку (для enum та enum class)
-    consteval auto enumerators_of(info enum_type) -> std::vector<info>;
-}
-```
+:::code api-meta-functions/cpp/3-selektory-struktury.cpp
 
 ### Правила виконання та гарантії селекторів:
 
@@ -147,30 +109,7 @@ namespace std::meta {
 
 Для кожної відрефлексованої сутності можна отримати її символьні назви, асоційовані типи даних, область видимості та файлові координати оголошення.
 
-```cpp
-namespace std::meta {
-    // Базове некваліфіковане ім'я сутності (наприклад, "login" або "vector")
-    consteval auto name_of(info entity) -> std::string_view;
-
-    // Символьний ідентифікатор мови (повертає порожній рядок для безіменних сутностей)
-    consteval auto identifier_of(info entity) -> std::string_view;
-
-    // Повне форматоване найменування з просторами назв та шаблонними параметрами
-    consteval auto display_name_of(info entity) -> std::string_view;
-
-    // Тип сутності (для змінних, полів даних, параметрів, функцій)
-    consteval auto type_of(info entity) -> info;
-
-    // Батьківська область видимості (клас або простір назв, у якому оголошено сутність)
-    consteval auto parent_of(info entity) -> info;
-
-    // Базовий цілочисельний тип переліку (підлеглий тип для enum)
-    consteval auto underlying_type_of(info enum_type) -> info;
-
-    // Точні координати оголошення сутності у файлі коду
-    consteval auto source_location_of(info entity) -> std::source_location;
-}
-```
+:::code api-meta-functions/cpp/4-zapyty-vlastyvostei-imen.cpp
 
 ### Відмінності між функціями найменування:
 
@@ -186,21 +125,7 @@ namespace std::meta {
 
 ### 5.1. Предикати категорії сутності
 
-```cpp
-namespace std::meta {
-    consteval auto is_type(info entity) -> bool;
-    consteval auto is_variable(info entity) -> bool;
-    consteval auto is_function(info entity) -> bool;
-    consteval auto is_namespace(info entity) -> bool;
-    consteval auto is_template(info entity) -> bool;
-    consteval auto is_concept(info entity) -> bool;
-    consteval auto is_enumerator(info entity) -> bool;
-    consteval auto is_nonstatic_data_member(info entity) -> bool;
-    consteval auto is_static_data_member(info entity) -> bool;
-    consteval auto is_base(info entity) -> bool;
-    consteval auto is_bit_field(info entity) -> bool;
-}
-```
+:::code api-meta-functions/cpp/5-1-predykaty-katehorii.cpp
 
 ### 5.2. Предикати специфікаторів доступу
 
@@ -217,41 +142,11 @@ namespace std::meta {
 
 ### 5.3. Предикати характеристик функцій та методів
 
-```cpp
-namespace std::meta {
-    consteval auto is_static(info entity) -> bool;
-    consteval auto is_virtual(info entity) -> bool;
-    consteval auto is_pure_virtual(info entity) -> bool;
-    consteval auto is_override(info entity) -> bool;
-    consteval auto is_final(info entity) -> bool;
-    consteval auto is_constexpr(info entity) -> bool;
-    consteval auto is_consteval(info entity) -> bool;
-    consteval auto is_noexcept(info entity) -> bool;
-    consteval auto is_deleted(info entity) -> bool;
-    consteval auto is_defaulted(info entity) -> bool;
-    consteval auto is_explicit(info entity) -> bool;
-    consteval auto is_inline(info entity) -> bool;
-}
-```
+:::code api-meta-functions/cpp/5-3-predykaty.cpp
 
 ### 5.4. Предикати властивостей типів та перевірка повноти
 
-```cpp
-namespace std::meta {
-    consteval auto is_class(info type) -> bool;
-    consteval auto is_struct(info type) -> bool;
-    consteval auto is_union(info type) -> bool;
-    consteval auto is_enum(info type) -> bool;
-    consteval auto is_scoped_enum(info type) -> bool;
-    consteval auto is_complete_type(info type) -> bool;
-    consteval auto is_abstract(info type) -> bool;
-    consteval auto is_polymorphic(info type) -> bool;
-    consteval auto is_aggregate(info type) -> bool;
-    consteval auto is_trivial(info type) -> bool;
-    consteval auto is_standard_layout(info type) -> bool;
-    consteval auto is_empty_class(info type) -> bool;
-}
-```
+:::code api-meta-functions/cpp/5-4-predykaty-vlastyvostei.cpp
 
 Предикат `is_complete_type` розв'язує давню проблему мови C++: він дозволяє безпечно перевірити, чи завершено визначення класу, без виклику аварійної зупинки компіляції на випереджальних оголошеннях. У класичному C++ спроба перевірити повноту типу через вираз `sizeof(T)` призводила до жорсткої помилки замість м'якого відхилення гілки SFINAE. У C++26 рефлексивний запит `std::meta::is_complete_type(^^T)` повертає чисте логічне значення `false` для неповного типу, що дозволяє організовувати умовну компіляцію для взаємозалежних рекурсивних структур даних.
 
@@ -261,26 +156,7 @@ namespace std::meta {
 
 Під час обробки сигнатур методів та типів полів критично важливо правильно розрізняти модифікатори константності, волатильності та категорії посилань. Бібліотека `std::meta` надає набір функцій для перевірки та модифікації кваліфікаторів безпосередньо над дескрипторами `info`:
 
-```cpp
-namespace std::meta {
-    // Предикати перевірки кваліфікаторів
-    consteval auto is_const(info type) -> bool;
-    consteval auto is_volatile(info type) -> bool;
-    consteval auto is_lvalue_reference(info type) -> bool;
-    consteval auto is_rvalue_reference(info type) -> bool;
-    consteval auto is_pointer(info type) -> bool;
-    consteval auto is_array(info type) -> bool;
-
-    // Трансформації кваліфікаторів типу
-    consteval auto remove_cv(info type) -> info;
-    consteval auto remove_reference(info type) -> info;
-    consteval auto remove_cvref(info type) -> info;
-    consteval auto add_lvalue_reference(info type) -> info;
-    consteval auto add_rvalue_reference(info type) -> info;
-    consteval auto add_pointer(info type) -> info;
-    consteval auto remove_pointer(info type) -> info;
-}
-```
+:::code api-meta-functions/cpp/6-kvalifikatory-cv.cpp
 
 ### Порівняння з бібліотекою type_traits:
 
@@ -292,20 +168,7 @@ namespace std::meta {
 
 Для повноцінної генерації фабричних методів, серіалізаторів та проксі-обгорток рефлексія C++26 надає можливість досліджувати спеціальні функції-члени та сигнатури виклику:
 
-```cpp
-namespace std::meta {
-    // Спеціальні функції-члени
-    consteval auto is_constructor(info entity) -> bool;
-    consteval auto is_destructor(info entity) -> bool;
-    consteval auto is_copy_constructor(info entity) -> bool;
-    consteval auto is_move_constructor(info entity) -> bool;
-    consteval auto is_assignment_operator(info entity) -> bool;
-
-    // Інспекція параметрів функцій
-    consteval auto parameters_of(info function_entity) -> std::vector<info>;
-    consteval auto return_type_of(info function_entity) -> info;
-}
-```
+:::code api-meta-functions/cpp/7-inspektsiia.cpp
 
 Дескриптори параметрів, отримані через `parameters_of`, підтримують стандартні запити `type_of` та `name_of`, що дозволяє автоматично зіставляти аргументи конструктора з іменами ключів у форматах серіалізації (наприклад, для десеріалізації незмінних структур без конструктора за замовчуванням).
 
@@ -315,38 +178,7 @@ namespace std::meta {
 
 Ця група функцій дозволяє створювати нові дескриптори типів, інстанціювати шаблони, розгортати псевдоніми та вимірювати фізичні параметри розміщення об'єктів у пам'яті.
 
-```cpp
-namespace std::meta {
-    // Інстанціювання первинного шаблону переданим списком дескрипторів аргументів
-    consteval auto substitute(info template_entity, std::span<const info> args) -> info;
-
-    // Отримання дескриптора первинного шаблону для інстанційованого типу
-    consteval auto template_of(info instantiated_type) -> info;
-
-    // Отримання списку аргументів шаблону для інстанційованого типу
-    consteval auto template_arguments_of(info instantiated_type) -> std::vector<info>;
-
-    // Зняття шарів псевдонімів using та typedef до вихідного типу
-    consteval auto dealias(info entity) -> info;
-
-    // Перетворення значення часу компіляції у дескриптор info
-    template <typename T>
-    consteval auto reflect_value(const T& value) -> info;
-
-    // Вилучення типізованого значення з дескриптора константи
-    template <typename T>
-    consteval auto extract(info value_entity) -> T;
-
-    // Перевірка, чи несе дескриптор дійсне константне значення
-    consteval auto has_value(info entity) -> bool;
-
-    // Геометричні параметри пам'яті (розмір, вирівнювання, зміщення в байтах)
-    consteval auto size_of(info type_entity) -> size_t;
-    consteval auto alignment_of(info type_entity) -> size_t;
-    consteval auto offset_of(info member_entity) -> size_t;
-    consteval auto bit_size_of(info bitfield_entity) -> size_t;
-}
-```
+:::code api-meta-functions/cpp/8-metafunktsii.cpp
 
 ### Механізм роботи функції substitute:
 
@@ -388,27 +220,7 @@ static_assert(extracted_retries == 5);
 
 Для низькорівневих протоколів передачі даних, драйверів апаратних пристроїв та мережевих стеків критичним є знання точного розміщення бітів у структурах. Бібліотека рефлексії дозволяє аналізувати зміщення, вирівнювання та довжину бітових полів без ручного підрахунку байтів:
 
-```cpp
-struct NetworkHeader {
-    uint8_t  version : 4;
-    uint8_t  ihl     : 4;
-    uint8_t  tos;
-    uint16_t total_length;
-};
-
-consteval auto inspect_layout(std::meta::info type_info) {
-    for (auto field : std::meta::nonstatic_data_members_of(type_info)) {
-        if (std::meta::is_bit_field(field)) {
-            // Отримання розрядності бітового поля
-            size_t bits = std::meta::bit_size_of(field);
-        } else {
-            // Отримання байтового зміщення та розміру
-            size_t byte_offset = std::meta::offset_of(field);
-            size_t byte_size   = std::meta::size_of(std::meta::type_of(field));
-        }
-    }
-}
-```
+:::code api-meta-functions/cpp/10-inspektsiia-bitovykh.cpp
 
 ---
 
@@ -466,38 +278,11 @@ consteval auto rebind_container_element(std::meta::info container_type, std::met
 
 Стандарт C++26 розширює систему атрибутів можливістю прикріплювати до полів, класів та функцій структуровані константні значення — анотації (англ. *annotations*), які зчитуються через рефлексію:
 
-```cpp
-namespace std::meta {
-    // Отримання списку дескрипторів усіх анотацій, прикріплених до сутності
-    consteval auto annotations_of(info entity) -> std::vector<info>;
-
-    // Перевірка наявності анотації заданого типу
-    template <typename AnnotationType>
-    consteval auto has_annotation(info entity) -> bool;
-
-    // Вилучення екземпляра анотації заданого типу
-    template <typename AnnotationType>
-    consteval auto get_annotation(info entity) -> std::optional<AnnotationType>;
-}
-```
+:::code api-meta-functions/cpp/13-pryznacheni-dlia.cpp
 
 ### Застосування анотацій у моделях даних:
 
-```cpp
-struct JsonKey {
-    std::string_view name;
-};
-
-struct IgnoreInSerialization {};
-
-struct UserProfile {
-    [[=JsonKey{"user_identifier"}]]
-    int id;
-
-    [[=IgnoreInSerialization{}]]
-    std::string internal_token;
-};
-```
+:::code api-meta-functions/cpp/zastosuvannia-anotatsii-u.cpp
 
 Під час ітерації полях серіалізатор перевіряє `has_annotation<IgnoreInSerialization>(field)` і пропускає позначені поля, або викликає `get_annotation<JsonKey>(field)` для підстановки кастомного імені в JSON-об'єкт.
 
@@ -509,45 +294,11 @@ struct UserProfile {
 
 Синтез структури здійснюється шляхом опису її полів через структуру `std::meta::data_member_spec` із подальшим викликом функції генерації `std::meta::define_class`:
 
-```cpp
-namespace std::meta {
-    // Параметри опису нового поля структури
-    struct data_member_spec {
-        info type;                          // дескриптор типу поля
-        std::string_view name;              // ім'я поля
-        size_t alignment = 0;               // вирівнювання (0 — стандартне)
-        bool is_bitfield = false;           // чи є поле бітовим
-        size_t bit_width = 0;               // ширина бітового поля
-    };
-
-    // Синтез нового типу класу на основі списку специфікаторів полів
-    consteval auto define_class(std::span<const data_member_spec> members) -> info;
-}
-```
+:::code api-meta-functions/cpp/14-heneratsiia-novykh.cpp
 
 ### Приклад створення структури на льоту:
 
-```cpp
-// Функція створює тип структури, що містить дзеркальні поля двох інших типів
-consteval auto create_combined_struct(std::meta::info type_a, std::meta::info type_b) -> std::meta::info {
-    std::vector<std::meta::data_member_spec> specs;
-
-    for (auto f : std::meta::nonstatic_data_members_of(type_a)) {
-        specs.push_back({
-            .type = std::meta::type_of(f),
-            .name = std::meta::name_of(f)
-        });
-    }
-    for (auto f : std::meta::nonstatic_data_members_of(type_b)) {
-        specs.push_back({
-            .type = std::meta::type_of(f),
-            .name = std::meta::name_of(f)
-        });
-    }
-
-    return std::meta::define_class(specs);
-}
-```
+:::code api-meta-functions/cpp/pryklad-stvorennia.cpp
 
 Цей механізм дозволяє реалізовувати такі патерни, як автоматична трансформація масиву структур у структуру масивів (AoS в SoA для оптимізації SIMD), генерація об'єктів перенесення даних (DTO) та автоматичне створення мок-класів для тестування без використання препроцесора.
 
@@ -569,21 +320,7 @@ namespace std::meta {
 
 ### Приклад верифікації структури під час збірки:
 
-```cpp
-template <typename T>
-consteval void verify_serializable() {
-    constexpr auto type_info = ^^T;
-    if (!std::meta::is_class(type_info)) {
-        std::meta::report_error("Серіалізація підтримується лише для класів та структур");
-    }
-
-    for (auto field : std::meta::nonstatic_data_members_of(type_info)) {
-        if (std::meta::is_private(field)) {
-            std::meta::report_error("Клас містить приватні поля, що унеможливлює пряму серіалізацію");
-        }
-    }
-}
-```
+:::code api-meta-functions/cpp/pryklad-veryfikatsii.cpp
 
 ---
 

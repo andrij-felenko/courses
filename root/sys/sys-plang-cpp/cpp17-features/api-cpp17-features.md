@@ -28,27 +28,7 @@ auto&& [r1, r2] = expression;
 3. **Агрегатні структури з відкритими членами:**
    Застосовується, якщо перші два протоколи не спрацювали, і всі нестатичні поля даних є відкритими (`public`) безпосередньо у структурі `E`. Імена прив'язуються до полів у порядку їхнього фізичного оголошення в коді.
 
-```cpp
-// Повна реалізація користувацького Tuple-подібного протоколу:
-struct Coordinate2D {
-    double latitude;
-    double longitude;
-};
-
-template <>
-struct std::tuple_size<Coordinate2D> : std::integral_constant<std::size_t, 2> {};
-
-template <std::size_t I>
-struct std::tuple_element<I, Coordinate2D> {
-    using type = double;
-};
-
-template <std::size_t I>
-decltype(auto) get(const Coordinate2D& c) noexcept {
-    if constexpr (I == 0) return c.latitude;
-    else if constexpr (I == 1) return c.longitude;
-}
-```
+:::code api-cpp17-features/cpp/try-protokoly-rozviazannia.cpp
 
 #### Правила застосування кваліфікаторів та крайові обмеження
 
@@ -84,21 +64,7 @@ auto extract_value(T&& container) {
 * **Залежні вирази:** виклики методів і операторів, які залежать від параметра шаблону `T`, не інстанціюються. Якщо тип `T = int*` не має методу `.value()`, компілятор не генерує помилку, оскільки ця гілка відкинута.
 * **Відкладені твердження static_assert:** прямий виклик `static_assert(false)` у неактивній гілці викликає безумовну помилку компіляції. Для генерації помилки лише при інстанціюванні непідтримуваного типу використовується залежний трейт:
 
-```cpp
-template <typename>
-inline constexpr bool dependent_false_v = false;
-
-template <typename T>
-void dispatch_operation(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        process_integer(val);
-    } else if constexpr (std::is_floating_point_v<T>) {
-        process_floating(val);
-    } else {
-        static_assert(dependent_false_v<T>, "Тип не підтримується для dispatch_operation!");
-    }
-}
-```
+:::code api-cpp17-features/cpp/invarianty-ta-vidkladeni.cpp
 
 ---
 
@@ -116,18 +82,7 @@ std::vector vec = {1, 2, 3, 4};      // std::vector<int>
 
 Спеціальний синтаксис для інструктування компілятора щодо правил виведення типу з аргументів конструктора:
 
-```cpp
-template <typename T>
-class CircularBuffer {
-public:
-    template <typename Iter>
-    CircularBuffer(Iter first, Iter last);
-};
-
-// Явне правило виведення для ітераторів:
-template <typename Iter>
-CircularBuffer(Iter, Iter) -> CircularBuffer<typename std::iterator_traits<Iter>::value_type>;
-```
+:::code api-cpp17-features/cpp/korystuvatski-pravyla.cpp
 
 ---
 
@@ -144,25 +99,7 @@ CircularBuffer(Iter, Iter) -> CircularBuffer<typename std::iterator_traits<Iter>
 
 #### Практичні патерни застосування
 
-```cpp
-// 1. Логічна перевірка валідності всіх аргументів
-template <typename... Args>
-bool all_positive(Args... args) {
-    return (... && (args > 0)); // Унарна ліва згортка через оператор &&
-}
-
-// 2. Потоковий друк елементів
-template <typename... Args>
-void print_lines(const Args&... args) {
-    ((std::cout << args << '\n'), ...); // Унарна права згортка через кому
-}
-
-// 3. Додавання елементів у вектор
-template <typename T, typename... Args>
-void push_many(std::vector<T>& vec, Args&&... args) {
-    (vec.push_back(std::forward<Args>(args)), ...);
-}
-```
+:::code api-cpp17-features/cpp/praktychni-paterny.cpp
 
 ---
 
@@ -173,19 +110,7 @@ void push_many(std::vector<T>& vec, Args&&... args) {
 * **Матеріалізація тимчасового об'єкта (Temporary Materialization):** створення фізичного об'єкта в пам'яті відбувається лише тоді, коли prvalue перетворюється на glvalue (прив'язується до посилання або викликається член структури).
 * **Повернення за значенням:** вираз `T create() { return T(1, 2); }` виконує конструювання об'єкта безпосередньо у пам'яті, виділеній викликачем. Навіть якщо тип `T` має видалені або недоступні конструктори копіювання та переміщення (`T(T&&) = delete;`), повернення за значенням є повністю легальним.
 
-```cpp
-struct ImmovableDeviceHandle {
-    explicit ImmovableDeviceHandle(int id);
-    ImmovableDeviceHandle(const ImmovableDeviceHandle&) = delete;
-    ImmovableDeviceHandle(ImmovableDeviceHandle&&) = delete;
-};
-
-ImmovableDeviceHandle open_device(int id) {
-    return ImmovableDeviceHandle(id); // Гарантовано без копій у C++17
-}
-
-ImmovableDeviceHandle dev = open_device(101); // Пряме створення за місцем
-```
+:::code api-cpp17-features/cpp/1-5-harantovane.cpp
 
 ---
 
@@ -271,32 +196,7 @@ StatusByte s{1}; // Легально в C++17 (пряма ініціалізац
 
 #### Сигнатури та основні методи
 
-```cpp
-template <class T>
-class optional {
-public:
-    constexpr optional() noexcept;
-    constexpr optional(nullopt_t) noexcept;
-    constexpr optional(const T& value);
-    constexpr optional(T&& value);
-
-    constexpr bool has_value() const noexcept;
-    constexpr explicit operator bool() const noexcept;
-
-    constexpr T& value() &; // Кидає std::bad_optional_access у разі порожнечі
-    constexpr const T& value() const &;
-
-    constexpr T& operator*() & noexcept; // Доступ без перевірки (UB, якщо порожній)
-    constexpr const T* operator->() const noexcept;
-
-    template <class U>
-    constexpr T value_or(U&& default_value) const&;
-
-    void reset() noexcept;
-    template <class... Args>
-    T& emplace(Args&&... args);
-};
-```
+:::code api-cpp17-features/cpp/syhnatury-ta-osnovni.hpp
 
 * **Інваріанти пам'яті:** розмір дорівнює `sizeof(T) + sizeof(bool)` з урахуванням вирівнювання типів (наприклад, для 8-байтового `double` або вказівника загальний розмір становить 16 байтів). Пам'ять резервується на стеку.
 * **Порівняння:** об'єкти `std::optional` підтримують повний набір операторів порівняння (`==`, `!=`, `<`, `<=`, `>`, `>=`). Порожній стан `std::nullopt` вважається строго меншим за будь-яке наявне значення.
@@ -309,36 +209,7 @@ public:
 
 #### Операції та доступ
 
-```cpp
-#include <variant>
-
-std::variant<int, double, std::string> v = "system"s;
-
-// 1. Перевірка активного типу
-bool is_str = std::holds_alternative<std::string>(v);
-std::size_t active_idx = v.index(); // Повертає 2
-
-// 2. Отримання значення за типом або індексом
-std::string& s = std::get<std::string>(v); // Кидає std::bad_variant_access при невідповідності
-std::string& s2 = std::get<2>(v);
-
-// 3. Безпечне отримання через вказівник
-if (double* p = std::get_if<double>(&v)) {
-    // Вказівник не nullptr, якщо активним є double
-}
-
-// 4. Патерн відвідувача через ідіому Overloaded
-template <class... Ts>
-struct overloaded : Ts... { using Ts::operator()...; };
-template <class... Ts>
-overloaded(Ts...) -> overloaded<Ts...>;
-
-std::visit(overloaded {
-    [](int arg) { std::cout << "int: " << arg << "\n"; },
-    [](double arg) { std::cout << "double: " << arg << "\n"; },
-    [](const std::string& arg) { std::cout << "string: " << arg << "\n"; }
-}, v);
-```
+:::code api-cpp17-features/cpp/operatsii-ta-dostup.cpp
 
 * **Стан valueless_by_exception:** якщо під час зміни типу конструктор нового значення кидає виняток, варіант переходить у стан `v.valueless_by_exception() == true`. Спроба викликати `std::get` на такому об'єкті кидає `std::bad_variant_access`.
 * **Допоміжний тип `std::monostate`:** використовується як перший тип у списку варіантів, якщо типи-члени не мають конструктора за замовчуванням: `std::variant<std::monostate, NonDefaultConstructible>`.
@@ -349,24 +220,7 @@ std::visit(overloaded {
 
 Універсальний типобезпечний контейнер для зберігання одного значення довільного копійованого типу з динамічним стиранням типу.
 
-```cpp
-#include <any>
-
-std::any a = 42;
-a = std::string("dynamically typed payload");
-
-if (a.has_value()) {
-    const std::type_info& ti = a.type(); // Інформація RTTI
-    if (ti == typeid(std::string)) {
-        std::string val = std::any_cast<std::string>(a);
-    }
-}
-
-// Отримання через покажчик без винятків:
-if (std::string* ptr = std::any_cast<std::string>(&a)) {
-    std::cout << *ptr << "\n";
-}
-```
+:::code api-cpp17-features/cpp/3-3-std-any-any.cpp
 
 * **Small Object Optimization (SOO):** для невеликих об'єктів (розміром до 16–24 байтів) виділення пам'яті в купі не відбувається; дані зберігаються у внутрішньому буфері `std::any`.
 * **Винятки:** виклик `std::any_cast<T>(a)` за значенням або посиланням генерує `std::bad_any_cast`, якщо збережений тип не збігається з `T`.
@@ -438,25 +292,7 @@ fs::path ext = p.extension();      // ".log"
 
 Бібліотека надає подвійний набір функцій для кожної файлової операції: версію, яка генерує виняток `std::filesystem_error`, та версію, яка приймає вихідний параметр `std::error_code`:
 
-```cpp
-std::error_code ec;
-
-// 1. Створення каталогів
-fs::create_directories("/tmp/cache/levels/a/b", ec);
-if (ec) {
-    // Обробка помилки ОС без винятків
-}
-
-// 2. Перевірка статусу та розміру
-if (fs::exists("/tmp/cache", ec) && fs::is_directory("/tmp/cache", ec)) {
-    fs::space_info space = fs::space("/tmp/cache", ec);
-    // space.capacity, space.free, space.available
-}
-
-// 3. Копіювання та видалення
-fs::copy_file("/tmp/source.bin", "/tmp/dest.bin", fs::copy_options::overwrite_existing, ec);
-fs::remove_all("/tmp/cache", ec);
-```
+:::code api-cpp17-features/cpp/4-2-operatsii-nad-failamy.cpp
 
 ---
 
@@ -474,34 +310,7 @@ fs::remove_all("/tmp/cache", ec);
 
 ### Нові числові паралельні алгоритми (`<numeric>`)
 
-```cpp
-#include <numeric>
-#include <execution>
-#include <vector>
-
-std::vector<double> values(10'000'000, 1.5);
-
-// std::reduce: паралельне підсумовування (вимагає асоціативності та комутативності)
-double sum = std::reduce(std::execution::par, values.begin(), values.end(), 0.0);
-
-// std::transform_reduce: паралельний MapReduce
-std::vector<double> weights(10'000'000, 2.0);
-double dot_product = std::transform_reduce(
-    std::execution::par_unseq,
-    values.begin(), values.end(),
-    weights.begin(),
-    0.0,
-    std::plus<>(),        // Reducer
-    std::multiplies<>()   // Transformer
-);
-
-// Префіксні суми
-std::vector<double> inclusive_out(values.size());
-std::inclusive_scan(std::execution::par, values.begin(), values.end(), inclusive_out.begin());
-
-std::vector<double> exclusive_out(values.size());
-std::exclusive_scan(std::execution::par, values.begin(), values.end(), exclusive_out.begin(), 0.0);
-```
+:::code api-cpp17-features/cpp/novi-chyslovi-paralelni.hpp
 
 ---
 
@@ -516,19 +325,7 @@ std::exclusive_scan(std::execution::par, values.begin(), values.end(), exclusive
 3. **`std::pmr::monotonic_buffer_resource`:** швидкий монотонний алокатор (арена), який виділяє пам'ять послідовно зі статичного або стекового буфера без поштучного звільнення. Уся пам'ять звільняється одночасно при знищенні об'єкта ресурсу.
 4. **`std::pmr::synchronized_pool_resource` та `std::pmr::unsynchronized_pool_resource`:** пулові алокатори, оптимізовані для частого виділення та звільнення об'єктів невеликого фіксованого розміру з мінімізацією фрагментації пам'яті.
 
-```cpp
-#include <memory_resource>
-#include <vector>
-#include <array>
-
-// Використання монотонної арени на стеку для вкладених контейнерів
-std::array<std::byte, 4096> stack_arena;
-std::pmr::monotonic_buffer_resource pool(stack_arena.data(), stack_arena.size());
-
-std::pmr::vector<std::pmr::string> words(&pool);
-words.emplace_back("high-performance");
-words.emplace_back("stack-allocated"); // Пам'ять для рядка та вектора береться зі stack_arena
-```
+:::code api-cpp17-features/cpp/standartni-resursy-pamiati.hpp
 
 ---
 
@@ -554,20 +351,7 @@ sessions.insert_or_assign("session_key", HeavySession(2048, "new_token"));
 
 Метод `.extract()` дозволяє вилучити вузол дерева або геш-таблиці з контейнера без копіювання чи виділення пам'яті, змінити його ключ і перемістити в інший контейнер за константний час `O(1)`:
 
-```cpp
-std::map<int, std::string> active_tasks;
-std::map<int, std::string> completed_tasks;
-
-// Вилучаємо вузол без деалокації пам'яті:
-auto node = active_tasks.extract(101);
-if (!node.empty()) {
-    node.key() = 202; // Зміна ключа без перестворення елемента
-    completed_tasks.insert(std::move(node)); // Вставка без виділення вузла!
-}
-
-// Пряме злиття двох асоціативних контейнерів:
-completed_tasks.merge(active_tasks);
-```
+:::code api-cpp17-features/cpp/7-2-vyluchennia-ta-zlyttia.cpp
 
 ---
 
@@ -575,24 +359,7 @@ completed_tasks.merge(active_tasks);
 
 Функції `std::to_chars` та `std::from_chars` забезпечують найшвидшу в C++ конвертацію чисел без виділення пам'яті, без віртуальних викликів та без прив'язки до глобальної локалі `setlocale()`:
 
-```cpp
-#include <charconv>
-#include <array>
-
-std::array<char, 32> buffer;
-int value = 4294967;
-
-// Конвертація числа в рядок
-auto [ptr, ec] = std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
-if (ec == std::errc()) {
-    std::string_view res(buffer.data(), ptr - buffer.data());
-}
-
-// Парсинг рядка в число
-const char* str = "1048576";
-int parsed_val = 0;
-auto [parse_ptr, parse_ec] = std::from_chars(str, str + 7, parsed_val);
-```
+:::code api-cpp17-features/cpp/8-vysokoproduktyvna.cpp
 
 Формати для дійсних чисел керуються переліченням `std::chars_format`:
 * `std::chars_format::scientific` — експоненційний вигляд (`1.23e+04`).
@@ -667,25 +434,7 @@ inline constexpr bool all_integral_v = std::conjunction_v<std::is_integral<Args>
 
 ## 12. Макроси перевірки можливостей (Feature Test Macros)
 
-```cpp
-#include <version> // C++20, або відповідний заголовок у C++17
-
-#if defined(__cpp_structured_bindings) && __cpp_structured_bindings >= 201606L
-    auto [first, second] = get_pair();
-#endif
-
-#if defined(__cpp_if_constexpr) && __cpp_if_constexpr >= 201606L
-    if constexpr (std::is_integral_v<T>) { ... }
-#endif
-
-#if __has_include(<filesystem>)
-    #include <filesystem>
-    namespace fs = std::filesystem;
-#elif __has_include(<experimental/filesystem>)
-    #include <experimental/filesystem>
-    namespace fs = std::experimental::filesystem;
-#endif
-```
+:::code api-cpp17-features/cpp/12-makrosy-perevirky.cpp
 
 | Макрос мови | Значення | Опис можливості |
 | :--- | :--- | :--- |

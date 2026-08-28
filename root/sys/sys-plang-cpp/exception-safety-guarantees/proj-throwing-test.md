@@ -23,26 +23,7 @@
 
 ## Деталь перша: розтяжка
 
-```cpp
-#include <cstddef>
-#include <new>
-
-// Розтяжка: рівно один виняток на прогін, рівно на N-й події.
-class Tripwire {
-    long long left_  = 0;
-    bool      armed_ = false;
-public:
-    void arm(long long n) { left_ = n; armed_ = true; }
-    void disarm()         { armed_ = false; }
-
-    void tick() {
-        if (!armed_) return;
-        if (--left_ == 0) { armed_ = false; throw std::bad_alloc{}; }
-    }
-};
-
-inline Tripwire& wire() { static Tripwire w; return w; }
-```
+:::code proj-throwing-test/cpp/detal-persha-roztiazhka.cpp
 
 Назва — від англ. *tripwire*, натягнутого дроту, що спускає пастку: дріт можна нап'ясти й зняти, і поки він знятий, ходити повз безпечно.
 
@@ -50,46 +31,7 @@ inline Tripwire& wire() { static Tripwire w; return w; }
 
 ## Деталь друга: облік і зонд
 
-```cpp
-// Чотири числа, а не одне — про це нижче.
-struct Ledger {
-    long long built = 0, killed = 0;   // конструкції й деструкції елементів
-    long long taken = 0, given = 0;    // виділені й звільнені блоки пам'яті
-    long long live()   const { return built - killed; }
-    long long blocks() const { return taken - given; }
-};
-
-inline Ledger& tally() { static Ledger l; return l; }
-
-// Елемент-зонд: кожна дія, здатна кинути в справжньому типі,
-// проходить через розтяжку. Деструктор — ніколи.
-template <bool NothrowMove>
-class Probe {
-    int v_;
-public:
-    explicit Probe(int v = 0) : v_(v)    { wire().tick(); ++tally().built; }
-    Probe(const Probe& o)     : v_(o.v_) { wire().tick(); ++tally().built; }
-
-    Probe(Probe&& o) noexcept(NothrowMove) : v_(o.v_) {
-        if constexpr (!NothrowMove) wire().tick();
-        ++tally().built;
-    }
-
-    Probe& operator=(const Probe& o) { wire().tick(); v_ = o.v_; return *this; }
-
-    Probe& operator=(Probe&& o) noexcept(NothrowMove) {
-        if constexpr (!NothrowMove) wire().tick();
-        v_ = o.v_;
-        return *this;
-    }
-
-    ~Probe() { ++tally().killed; }
-
-    // Порівняння без побічних дій і без тику — ним звірятимуть знімок.
-    friend bool operator==(const Probe& a, const Probe& b) { return a.v_ == b.v_; }
-    friend bool operator!=(const Probe& a, const Probe& b) { return !(a == b); }
-};
-```
+:::code proj-throwing-test/cpp/detal-druha-oblik-i-zond.cpp
 
 Порядок усередині конструкторів не декоративний: `tick()` стоїть **до** `++tally().built`. Якщо розтяжка спрацювала, об'єкт так і не народився, і облік не має його зараховувати. Переставте два рядки місцями — і тест почне бачити витік там, де його немає.
 
@@ -99,30 +41,7 @@ public:
 
 ## Деталь третя: алокатор
 
-```cpp
-template <class T>
-struct Probing {
-    using value_type = T;
-    Probing() = default;
-    template <class U> Probing(const Probing<U>&) noexcept {}
-
-    T* allocate(std::size_t n) {
-        wire().tick();                      // ось тут «пам'ять закінчилася»
-        void* p = ::operator new(n * sizeof(T));
-        ++tally().taken;
-        return static_cast<T*>(p);
-    }
-    void deallocate(T* p, std::size_t) noexcept {
-        ++tally().given;
-        ::operator delete(p);
-    }
-};
-
-template <class A, class B>
-bool operator==(const Probing<A>&, const Probing<B>&) noexcept { return true; }
-template <class A, class B>
-bool operator!=(const Probing<A>&, const Probing<B>&) noexcept { return false; }
-```
+:::code proj-throwing-test/cpp/detal-tretia-alokator.cpp
 
 Алокатор навмисно **порожній і без стану**. Порожність тут не економія, а вимога: `is_always_equal` для такого типу виводиться істинним, а від цього залежить, чи буде `swap` двох векторів позначений `noexcept`. Далі саме на цьому `swap` стоятиме фіксація сильної гарантії — тож алокатор зі станом мовчки вибив би з-під неї опору. Решта вимог до типу алокатора й те, як `allocator_traits` добудовує все, чого ви не написали, — у темі про [власні алокатори](root:sys-plang-cpp/custom-allocators).
 
@@ -130,54 +49,7 @@ bool operator!=(const Probing<A>&, const Probing<B>&) noexcept { return false; }
 
 ## Прочісування
 
-```cpp
-#include <cstdio>
-#include <cstdlib>
-
-// Перевірка, що не зникає під NDEBUG: assert тут був би пасткою.
-inline void require(bool ok, const char* what, long long n) {
-    if (ok) return;
-    std::fprintf(stderr, "ПРОВАЛ на N = %lld: %s\n", n, what);
-    std::exit(1);
-}
-
-// make   — будує свіжий піддослідний об'єкт
-// op     — операція, гарантію якої перевіряють
-// holds  — предикат інваріанта класу
-// strong — чи вимагаємо ще й рівності зі знімком
-template <class Make, class Op, class Holds>
-long long sweep(Make make, Op op, Holds holds, bool strong) {
-    constexpr long long kCap = 1000000;        // запобіжник від вічного циклу
-
-    for (long long n = 1; n <= kCap; ++n) {
-        const long long live0   = tally().live();
-        const long long blocks0 = tally().blocks();
-        bool threw = false;
-        {
-            wire().disarm();                   // збирання й знімок — поза грою
-            auto subject = make();
-            auto before  = subject;            // копія теж уміє кинути: не тут
-
-            wire().arm(n);
-            try { op(subject); }
-            catch (const std::bad_alloc&) { threw = true; }
-            wire().disarm();                   // перевіряти — уже без пастки
-
-            if (threw) {
-                require(holds(subject), "інваріант зламано", n);
-                if (strong)
-                    require(subject == before, "стан змінився попри сильну гарантію", n);
-            }
-        }                                      // ← тут гинуть subject і before
-        require(tally().live()   == live0,   "лишилися живі елементи", n);
-        require(tally().blocks() == blocks0, "лишився невивільнений блок", n);
-
-        if (!threw) return n - 1;              // точки скінчилися: стільки їх було
-    }
-    require(false, "операція так і не пройшла цілою — чи не ковтає вона виняток?", kCap);
-    return -1;
-}
-```
+:::code proj-throwing-test/cpp/prochisuvannia.cpp
 
 Три рішення в цьому коді варті окремого погляду.
 
@@ -191,45 +63,11 @@ long long sweep(Make make, Op op, Holds holds, bool strong) {
 
 Ось клас, у якому нема ані витоку, ані подвійного звільнення, ані жодної помилки на щасливому шляху:
 
-```cpp
-#include <vector>
-
-using Item = Probe</*NothrowMove=*/true>;
-template <class T> using Vec = std::vector<T, Probing<T>>;
-
-class Roster {
-    Vec<Item> people_;
-    Vec<Item> badges_;
-public:
-    // Інваріант класу: у кожної людини рівно один жетон.
-    bool invariant() const { return people_.size() == badges_.size(); }
-
-    void enroll(const Item& person, const Item& badge) {
-        people_.push_back(person);
-        badges_.push_back(badge);   // ← кине тут — і людина лишиться без жетона
-    }
-
-    friend bool operator==(const Roster& a, const Roster& b) {
-        return a.people_ == b.people_ && a.badges_ == b.badges_;
-    }
-};
-```
+:::code proj-throwing-test/cpp/shcho-vono-lovyt-zlamanyi.cpp
 
 Обидва виклики `push_back` бездоганні: кожен окремо дає сильну гарантію, кожен сам прибирає за собою, `std::vector` не втрачає ані байта. Витоку тут не буде за жодного N. А інваріант ламається.
 
-```cpp
-int main() {
-    const Item alice{7}, badge{8};
-
-    auto make  = []  { Roster r; r.enroll(Item{1}, Item{2});
-                                 r.enroll(Item{3}, Item{4}); return r; };
-    auto op    = [&](Roster& r) { r.enroll(alice, badge); };
-    auto holds = [] (const Roster& r) { return r.invariant(); };
-
-    long long k = sweep(make, op, holds, /*strong=*/false);
-    std::printf("точок кидання в enroll: %lld\n", k);
-}
-```
+:::code proj-throwing-test/cpp/shcho-vono-lovyt-zlamanyi-2.cpp
 
 Прогін уривається повідомленням `ПРОВАЛ на N = …: інваріант зламано` — на тому N, що припадає на друге `push_back`. Обидва лічильники при цьому чисті до останньої одиниці: збудовано рівно стільки, скільки знищено, виділено рівно стільки, скільки звільнено. Санітайзери пам'яті, які стережуть саме блоки, тут не скажуть нічого — і будуть праві, бо з пам'яттю все гаразд.
 
@@ -295,21 +133,7 @@ int main() {
 
 **Точки, яких інструмент не бачить, лишаються невидимими назавжди.** Зонд ловить події свого типу, алокатор — виділення того контейнера, у який його підставили. Але `std::string` усередині вашого класу виділяє пам'ять через `std::allocator`, повз ваш алокатор, і кинути звідти може будь-коли. Радикальний вихід — підмінити глобальне [виділення пам'яті](root:sys-plang-cpp/new-delete-allocation):
 
-```cpp
-void* operator new(std::size_t n) {
-    wire().tick();
-    void* p = std::malloc(n ? n : 1);
-    if (!p) throw std::bad_alloc{};
-    ++tally().taken;
-    return p;
-}
-void operator delete(void* p) noexcept {
-    if (!p) return;
-    ++tally().given;
-    std::free(p);
-}
-void operator delete(void* p, std::size_t) noexcept { ::operator delete(p); }
-```
+:::code proj-throwing-test/cpp/pastky.cpp
 
 Саме так побудований лічильник у тестовій обв'язці libc++: він перехоплює всі виділення й кидає, коли поле `throw_after` дорахує до нуля. Ціна — розтяжка тепер стереже й ваші власні риштовання: будь-який рядок тесту, що виділяє пам'ять із нап'ятим дротом, зіпсує вимір. Тому весь допоміжний код — друк, збирання знімка, реєстри — мусить жити при знятому дроті.
 

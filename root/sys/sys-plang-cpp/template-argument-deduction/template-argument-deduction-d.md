@@ -85,19 +85,7 @@ process(&x); // Вибирається Кандидат 2, оскільки cons
 3. **Деградація масивів (Array-to-pointer decay):** Масив `int arr[10]` втрачає свій статичний розмір і перетворюється на вказівник на перший елемент `int*`. Для рядкових літералів `"hello"` типу `const char[6]` тип `T` дедукується як `const char*`.
 4. **Деградація функцій (Function-to-pointer decay):** Передана функція `void handler(int)` перетворюється на покажчик на функцію `void(*)(int)`.
 
-```cpp
-template<typename T>
-void by_value(T x);
-
-const int a = 5;
-const int& ref = a;
-int buffer[16];
-
-by_value(a);      // T = int, параметр x: int
-by_value(ref);    // T = int, параметр x: int
-by_value(buffer); // T = int*, параметр x: int*
-by_value("text"); // T = const char*, параметр x: const char*
-```
+:::code template-argument-deduction-d/cpp/kontekst-1-peredacha-za.cpp
 
 Відкидання top-level const є абсолютно логічним: функція отримує власну незалежну ділянку пам'яті на стеку або у регістрах процесора. Те, що оригінальна змінна в області видимості того, хто викликає, була константною, ніяк не обмежує право новоствореної копії змінювати власний стан, якщо тільки параметр у сигнатурі не було явно позначено як `const T`.
 
@@ -117,20 +105,7 @@ by_value("text"); // T = const char*, параметр x: const char*
 2. **Параметр const T&:** Якщо константність уже є частиною форми параметра `const T&`, для аргументу `const int` тип `T` виводиться як чистий `int` (щоб уникнути подвійного позначення `const const int`), а параметр функції стає `const int&`.
 3. **Блокування розпаду масивів:** Оскільки посилання у C++ можуть зв'язуватися з масивами фіксованого розміру `int(&)[N]`, масиви не розпадаються у вказівники. Тип `T` виводиться як точний тип масиву зі збереженням його розміру.
 
-```cpp
-template<typename T>
-void by_ref(T& x);
-
-template<typename T>
-void by_const_ref(const T& x);
-
-const int val = 100;
-int raw_array[8];
-
-by_ref(val);          // T = const int, параметр x: const int&
-by_const_ref(val);    // T = int, параметр x: const int&
-by_ref(raw_array);    // T = int[8], параметр x: int(&)[8]
-```
+:::code template-argument-deduction-d/cpp/kontekst-2-peredacha-za.hpp
 
 Здатність `T&` захоплювати тип масиву цілком дозволяє писати шаблонні функції, що перевіряють межі масивів або обчислюють їхню довжину ще під час компіляції:
 
@@ -434,19 +409,7 @@ CustomVector(Iterator, Iterator)
 
 Якщо конструктор класу оголошено як `explicit`, або якщо виведення типу не повинно відбуватися під час неявного копіювального присвоєння, правило виведення також позначають специфікатором `explicit`:
 
-```cpp
-template<typename T>
-struct UniqueHandle {
-    explicit UniqueHandle(T* ptr);
-};
-
-// Керівне правило з explicit
-template<typename T>
-explicit UniqueHandle(T*) -> UniqueHandle<T>;
-
-UniqueHandle h1(new int(5));   // УСПІХ: пряма ініціалізація
-// UniqueHandle h2 = new int(5); // ПОМИЛКА: explicit блокує копіювальну ініціалізацію через '='
-```
+:::code template-argument-deduction-d/cpp/spetsyfikator-explicit-u.cpp
 
 Правила виведення мають важливу властивість: вони не є функціями чи методами. Вони не мають виконуваного тіла, не займають місця у пам'яті програми та не потрапляють до таблиці символів об'єктного файлу. Їхня єдина мета — надати компілятору додаткові сигнатури для таблиці перевантаження під час виконання CTAD.
 
@@ -458,21 +421,7 @@ UniqueHandle h1(new int(5));   // УСПІХ: пряма ініціалізац�
 
 Якщо тип `T` виведено успішно, але він не задовольняє концептуальне обмеження (наприклад, `std::integral<T>`), функція відхиляється на етапі перевірки обмежень (Constraint Satisfaction Check) без створення фатальної помилки компіляції (SFINAE):
 
-```cpp
-template<typename T>
-requires std::integral<T>
-T fast_gcd(T a, T b) {
-    while (b != 0) {
-        T t = b;
-        b = a % b;
-        a = t;
-    }
-    return a;
-}
-
-// fast_gcd(12, 18); // T = int, обмеження std::integral<int> виконується ⇒ УСПІХ
-// fast_gcd(12.0, 18.0); // T = double, std::integral<double> хибний ⇒ відхилення кандидата
-```
+:::code template-argument-deduction-d/cpp/vzaiemodiia-vyvedennia.cpp
 
 Крім того, концептуальні обмеження беруть участь у частковому впорядкуванні функцій (Subsumption Rules). Якщо дві шаблонні функції мають однакові сигнатури, але одна обмежена більш специфічним концептом (наприклад, `std::random_access_iterator` проти `std::input_iterator`), компілятор автоматично обере функцію з більш суворим концептом без виникнення неоднозначностей.
 
@@ -480,19 +429,7 @@ T fast_gcd(T a, T b) {
 
 У стандарті C++14 з'явилися узагальнені лямбда-вирази, де параметри оголошуються як `auto`. Компілятор транслює таку лямбду в анонімний клас-функтор із шаблонним оператором виклику:
 
-```cpp
-auto multiplier = [](auto a, auto b) {
-    return a * b;
-};
-
-// Еквівалентний клас, згенерований компілятором:
-struct __LambdaMultiplier {
-    template<typename T1, typename T2>
-    auto operator()(T1 a, T2 b) const {
-        return a * b;
-    }
-};
-```
+:::code template-argument-deduction-d/cpp/vyvedennia-typiv-dlia.cpp
 
 Кожен виклик `multiplier(10, 2.5)` запускає стандартний алгоритм TAD для згенерованого методу `operator()`, виводячи незалежні типи `T1 = int` та `T2 = double`.
 
@@ -533,18 +470,7 @@ decltype(auto) access_element(Container& c, Index i) {
 
 Стандарт C++20 дозволив використовувати `auto` безпосередньо у параметрах функцій:
 
-```cpp
-// Скорочений синтаксис C++20:
-void process_item(auto&& item, std::integral auto count) {
-    // ...
-}
-
-// Повний синтаксичний еквівалент:
-template<typename T1, std::integral T2>
-void process_item(T1&& item, T2 count) {
-    // ...
-}
-```
+:::code template-argument-deduction-d/cpp/skorocheni-shablony.cpp
 
 Кожен параметр з типом `auto` стає окремим незалежним параметром-типом шаблону, для якого компілятор застосовує повний набір правил виведення типів аргументів.
 

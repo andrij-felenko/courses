@@ -210,21 +210,7 @@ C++20 ввів типи для прямої маніпуляції календ�
 
 Математична основа арифметики дат у C++20 спирається на O(1) календарний алгоритм Гіннанта. Алгоритм перетворює календарну дату `year_month_day` у безперервний порядковий номер дня `sys_days` (кількість днів від 1970-01-01) за допомогою цілочисельної арифметики без використання циклів чи таблиць пошуку в пам'яті:
 
-```cpp
-using namespace std::chrono;
-
-// Створення дати: 14 серпня 2026 року
-year_month_day date1 = 2026y / August / 14d;
-year_month_day date2 = 14d / August / 2026y;
-
-// Перевірка коректності дати (наприклад, 29 лютого)
-if (date1.ok()) {
-    // Дата є дійсною
-}
-
-// Перетворення дати у точку часу системного годинника за O(1)
-sys_days tp = sys_days(date1); // time_point<system_clock, days>
-```
+:::code chrono-d/cpp/kalendarni-typy-ta-daty.cpp
 
 ### Декомпозиція тривалостей через hh_mm_ss (C++20)
 
@@ -270,18 +256,7 @@ C++20 додає повну підтримку бази даних часови�
 
 Операційна система або стандартна бібліотека завантажує таблиці переходів часу IANA з системного шляху (наприклад, `/usr/share/zoneinfo/` на Linux). За допомогою функції `std::chrono::locate_zone` розробник отримує вказівник на об'єкт `std::chrono::time_zone`:
 
-```cpp
-using namespace std::chrono;
-
-// Отримання вказівника на часовий пояс Києва
-const time_zone* zone = locate_zone("Europe/Kyiv");
-
-// Створення об'єкта zoned_time для зв'язування точки часу UTC із часовим поясом
-zoned_time kyiv_time{zone, system_clock::now()};
-
-// Вивід форматованого часу з урахуванням зсуву EEST (+03:00)
-std::cout << std::format("Поточний місцевий час: {:%F %T %Z}\n", kyiv_time);
-```
+:::code chrono-d/cpp/parsynh-ta-robota-z-time.hpp
 
 ### Крайові випадки перехода годинників (DST Transition Collisions)
 
@@ -402,39 +377,7 @@ last_seen.store(std::chrono::steady_clock::now(), std::memory_order_release);
 
 Для забезпечення тестувальності системний годинник обгортають у шаблонний параметр або інтерфейс генератора точок часу (Clock Dependency Injection):
 
-```cpp
-// Шаблонний клас бізнес-логіки з можливістю підміни годинника в тестах
-template <typename Clock = std::chrono::steady_clock>
-class SessionTracker {
-public:
-    void touch() {
-        last_activity_ = Clock::now();
-    }
-
-    bool is_expired(typename Clock::duration timeout) const {
-        return (Clock::now() - last_activity_) > timeout;
-    }
-private:
-    typename Clock::time_point last_activity_{Clock::now()};
-};
-
-// Мок-годинник для миттєвого підроблення часу в юніт-тестах без реальних затримок
-struct MockClock {
-    using rep = int64_t;
-    using period = std::milli;
-    using duration = std::chrono::duration<rep, period>;
-    using time_point = std::chrono::time_point<MockClock, duration>;
-    static inline time_point current_time{duration(0)};
-
-    static time_point now() noexcept {
-        return current_time;
-    }
-
-    static void advance(duration d) {
-        current_time += d;
-    }
-};
-```
+:::code chrono-d/cpp/12-arkhitekturni-shablony.cpp
 
 Використання `MockClock` дозволяє симулювати проходження годин і днів у юніт-тестах за частки мілісекунди без реального виклику `sleep_for`.
 

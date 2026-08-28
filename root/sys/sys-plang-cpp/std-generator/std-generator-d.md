@@ -22,25 +22,7 @@
 
 При жадібній генерації функція повністю створює весь набір даних у пам'яті до моменту повернення результату.
 
-```cpp
-#include <vector>
-#include <cstdint>
-
-// Жадібний генератор: формує весь масив у купі
-std::vector<std::uint64_t> generate_fibonacci_eager(std::size_t n) {
-    std::vector<std::uint64_t> result;
-    result.reserve(n);
-    
-    std::uint64_t a = 0, b = 1;
-    for (std::size_t i = 0; i < n; ++i) {
-        result.push_back(a);
-        auto next = a + b;
-        a = b;
-        b = next;
-    }
-    return result; // Копіювання або переміщення цілого вектора
-}
-```
+:::code std-generator-d/cpp/zhadibna-heneratsiia-eager.cpp
 
 Цей підхід має дві фундаментальні вади. По-перше, **просторова складність пам'яті дорівнює `O(N)`**. Якщо викликачу потрібні лише перші 3 елементи з мільйона, ресурси пам'яті на решту 999 997 елементів виділяються й марнуються даремно. По-друге, **часова затримка першого елемента (Latency) дорівнює `O(N)`**. Програма змушена чекати закінчення розрахунку всього масиву, перш ніж обробити хоча б один результат.
 
@@ -48,40 +30,7 @@ std::vector<std::uint64_t> generate_fibonacci_eager(std::size_t n) {
 
 Для усунення витрат пам'яті розробники змушені створювати класи-ітератори, які імітують лінивість.
 
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <iterator>
-
-class FibonacciIterator {
-public:
-    using value_type = std::uint64_t;
-    using difference_type = std::ptrdiff_t;
-    using iterator_concept = std::input_iterator_tag;
-
-    FibonacciIterator() : count_(0), a_(0), b_(1) {}
-    FibonacciIterator(std::size_t limit) : count_(limit), a_(0), b_(1) {}
-
-    std::uint64_t operator*() const { return a_; }
-
-    FibonacciIterator& operator++() {
-        auto next = a_ + b_;
-        a_ = b_;
-        b_ = next;
-        if (count_ > 0) --count_;
-        return *this;
-    }
-
-    bool operator==(const FibonacciIterator& other) const {
-        return count_ == other.count_;
-    }
-
-private:
-    std::size_t count_{0};
-    std::uint64_t a_{0};
-    std::uint64_t b_{1};
-};
-```
+:::code std-generator-d/cpp/ruchnyi-iterator-avtomat.cpp
 
 Цей код забезпечує **`O(1)` пам'яті**, але ціна написання надзвичайно висока. Обчислювальний алгоритм (додавання двох чисел) розірвано на окремі фрагменти в `operator*` та `operator++`. Якщо алгоритм стає рекурсивним (наприклад, обхід графа або парсинг дерев'яного виразу), ручний автомат вимагає явного ведення власного стеку `std::vector<Node*>` у полях класу, що миттєво перетворює код на складний інженерний хаос.
 
@@ -89,21 +38,7 @@ private:
 
 З появою `std::generator` той самий алгоритм записується як прямий, природний, послідовний цикл:
 
-```cpp
-#include <generator>
-#include <cstdint>
-
-// Лінивий корутинний генератор C++23
-std::generator<std::uint64_t> generate_fibonacci_lazy() {
-    std::uint64_t a = 0, b = 1;
-    while (true) {
-        co_yield a; // Зупинка корутини та повернення значення 'a'
-        auto next = a + b;
-        a = b;
-        b = next;
-    }
-}
-```
+:::code std-generator-d/cpp/linyva-korutynna.cpp
 
 Код читається як простий нескінченний цикл. Оверхед пам'яті становить `O(1)` і зводиться до розміру одного кадру корутини (`coroutine frame`) у купі, а обчислення відбуваються строго за запитом споживача.
 
@@ -133,22 +68,7 @@ template<
 
 Розглянемо випадок, коли генератор повертає великі важкі об'єкти (наприклад, структури `std::string` або `std::vector<double>`), які вже існують у внутрішньому стані корутини:
 
-```cpp
-#include <generator>
-#include <string>
-#include <vector>
-
-class DatabaseReader {
-    std::vector<std::string> cache_;
-public:
-    // Повертаємо константне посилання на елемент у кеші
-    std::generator<const std::string&> stream_records() {
-        for (const auto& record : cache_) {
-            co_yield record; // Ніякого копіювання std::string!
-        }
-    }
-};
-```
+:::code std-generator-d/cpp/navishcho-rozdiliaty-ref.cpp
 
 Завдяки специфікації `Ref = const std::string&`, оператор `co_yield record` зберігає у кадрі корутини лише вказівник на рядок всередині `cache_`. Під час розіменовування ітератора викликач отримує `const std::string&` без жодного тимчасового копіювання чи виділення пам'яті у купі.
 
@@ -189,20 +109,7 @@ std::generator<int> gen2 = std::move(gen1); // ОК: володіння кадр
 
 Розглянемо виконання наступного коду крок за кроком:
 
-```cpp
-std::generator<int> count_to_three() {
-    co_yield 1;
-    co_yield 2;
-    co_yield 3;
-}
-
-int main() {
-    auto gen = count_to_three(); // Крок 1: Створення корутини
-    for (int val : gen) {        // Крок 2, 3, 4: Ітерація
-        std::cout << val << "\n";
-    }
-}
-```
+:::code std-generator-d/cpp/pokrokova-rozkadrovka.cpp
 
 #### Крок 1: Виклик генераторної функції `count_to_three()`
 При виклику корутинної функції компілятор здійснює наступні дії:
@@ -241,34 +148,7 @@ int main() {
 
 Припустимо, ми реалізуємо обхід бінарного дерева. У традиційному підході для обходу лівого та правого піддерев програміст змушений писати цикл `for`:
 
-```cpp
-struct TreeNode {
-    int value;
-    TreeNode* left{nullptr};
-    TreeNode* right{nullptr};
-};
-
-// Традиційний рекурсивний корутинний обхід (ПРОБЛЕМА ПРОДУКТИВНОСТІ!)
-std::generator<int> traverse_eager_yield(const TreeNode* node) {
-    if (!node) co_return;
-
-    // Рекурсивний обхід лівого піддерева
-    if (node->left) {
-        for (int val : traverse_eager_yield(node->left)) {
-            co_yield val; // КВАДРАТИЧНИЙ ОВЕРХЕД!
-        }
-    }
-
-    co_yield node->value;
-
-    // Рекурсивний обхід правого піддерева
-    if (node->right) {
-        for (int val : traverse_eager_yield(node->right)) {
-            co_yield val;
-        }
-    }
-}
-```
+:::code std-generator-d/cpp/problema-tradytsiinoho.cpp
 
 Чому цей код катастрофічно повільний? Для дерева глибиною `K` кожен виклик `co_yield val` на найнижчому рівні змушений призупиняти корутину `K` разів послідовно через увесь стек батьківських корутин! Відновлення `resume()` також пробігає `K` кадрів назад. Складність передачі кожного елемента стає `O(K)`, а загальний час обходу дерева з `N` елементів перетворюється з `O(N)` на `O(N · K)` або **`O(N²)` у найгіршому випадку**.
 
@@ -281,28 +161,7 @@ std::generator<int> traverse_eager_yield(const TreeNode* node) {
 
 Замість написання циклу `for`, розробник передає цілий генератор або діапазон через `co_yield std::ranges::elements_of(...)`:
 
-```cpp
-#include <generator>
-#include <ranges>
-
-// Оптимізований рекурсивний обхід дерев C++23 (O(1) оверхед на елемент)
-std::generator<int> traverse_tree_optimal(const TreeNode* node) {
-    if (!node) co_return;
-
-    // 1. Рекурсивне делегування лівого піддерева напряму
-    if (node->left) {
-        co_yield std::ranges::elements_of(traverse_tree_optimal(node->left));
-    }
-
-    // 2. Віддача власних даних
-    co_yield node->value;
-
-    // 3. Рекурсивне делегування правого піддерева
-    if (node->right) {
-        co_yield std::ranges::elements_of(traverse_tree_optimal(node->right));
-    }
-}
-```
+:::code std-generator-d/cpp/spetsializatsiia-c-23-std.cpp
 
 ### Як це працює всередині?
 
@@ -318,34 +177,7 @@ std::generator<int> traverse_tree_optimal(const TreeNode* node) {
 
 Оскільки `std::generator` повноцінно відповідає вимогам концепту `std::ranges::input_range`, його можна безпосередньо передавати у конвеєри адаптерів стандартної бібліотеки `<ranges>`.
 
-```cpp
-#include <generator>
-#include <ranges>
-#include <iostream>
-
-// Генератор нескінченної послідовності чисел
-std::generator<int> infinite_sequence(int start = 0) {
-    while (true) {
-        co_yield start++;
-    }
-}
-
-int main() {
-    // Побудова суцільного лінивого конвеєра обробки:
-    // 1. Генеруємо нескінченні числа починаючи з 1
-    // 2. Фільтруємо лише парні числа (views::filter)
-    // 3. Підносимо до квадрата (views::transform)
-    // 4. Обмежуємо першими 5 елементами (views::take)
-    auto pipeline = infinite_sequence(1)
-        | std::views::filter([](int n) { return n % 2 == 0; })
-        | std::views::transform([](int n) { return n * n; })
-        | std::views::take(5);
-
-    for (int val : pipeline) {
-        std::cout << val << " "; // Виводить: 4 16 36 64 100
-    }
-}
-```
+:::code std-generator-d/cpp/5-intehratsiia-z-c-20.cpp
 
 ### Можливості адаптерів у конвеєрі
 
@@ -378,33 +210,7 @@ int main() {
 
 #### Пастка 1: Тимчасовий об'єкт та висяче посилання (Dangling Reference)
 
-```cpp
-#include <generator>
-#include <string>
-#include <iostream>
-
-// НЕБЕЗПЕЧНО: передача const std::string&
-std::generator<char> print_letters(const std::string& text) {
-    for (char c : text) {
-        co_yield c;
-    }
-}
-
-std::generator<char> make_dangling_generator() {
-    // ПОМИЛКА: Створення тимчасового рядка!
-    // Тимчасовий рядок знищується наприкінці цього рядка.
-    // Кадр корутини зберігає посилання на вже знищену пам'ять!
-    return print_letters(std::string("Hello World")); 
-}
-
-int main() {
-    auto gen = make_dangling_generator();
-    // Виклик begin() звертається до мертва пам'яті -> UNDEFINED BEHAVIOR!
-    for (char c : gen) {
-        std::cout << c;
-    }
-}
-```
+:::code std-generator-d/cpp/pastka-1-tymchasovyi.cpp
 
 #### Як це виправити?
 

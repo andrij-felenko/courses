@@ -15,35 +15,8 @@
 Офіційним розділювачем каталогів у системі Windows слугував зворотний слеш, хоча низькорівневі підсистеми Win32 API частково сприймали і прямий слеш. Більше того, синтаксис шляху в Windows включав літери дискових накопичувачів, префікси мережевих ресурсів універсального іменування, а також спеціальні пристроєві префікси для обходу історичного системного обмеження максимальної довжини шляху в 260 символів.
 
 :::tabs
-```c
-// POSIX C: Отримання розміру файлу та часу модифікації
-#include <sys/stat.h>
-#include <stdio.h>
-
-long long get_posix_file_size(const char* path) {
-    struct stat st;
-    if (stat(path, &st) == 0) {
-        return (long long)st.st_size;
-    }
-    return -1;
-}
-```
-```cpp
-// Win32 C++: Отримання розміру файлу та часу модифікації
-#include <windows.h>
-#include <iostream>
-
-long long get_win32_file_size(const wchar_t* path) {
-    WIN32_FILE_ATTRIBUTE_DATA data;
-    if (GetFileAttributesExW(path, GetFileExInfoStandard, &data)) {
-        LARGE_INTEGER size;
-        size.HighPart = data.nFileSizeHigh;
-        size.LowPart = data.nFileSizeLow;
-        return size.QuadPart;
-    }
-    return -1;
-}
-```
+:::code hist-boost-filesystem/c/main.c
+:::code hist-boost-filesystem/cpp/main.cpp
 :::
 
 Така глибока архітектурна розбіжність призводила до того, що будь-який приклад коду для створення каталогу або перевірки існування файлу обростав нескінченними блоками умовної компіляції. Програми регулярно страждали від помилок при виклику відкриття файлу із шляхами, що містили юнікодні символи або некоректні розділювачі каталогів. Якщо програміст передавав у Windows-функцію рядок у кодуванні UTF-8, система інтерпретувала його у застарілому локальному системному кодуванні, що призводило до незворотного пошкодження імен файлів із кирилицею чи ієрогліфами.

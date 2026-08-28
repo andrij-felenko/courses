@@ -12,25 +12,7 @@
 
 У бібліотеці Loki Александреску продемонстрував, як за допомогою комбінації часткової спеціалізації шаблонів та рекурсивного розбору типів можна опитувати базові кваліфікатори мови. Клас-метафункція `Loki::TypeTraits<T>` містив набір констант переліків:
 
-```cpp
-// Концептуальна схема з бібліотеки Loki (2001 рік)
-template <typename T>
-struct TypeTraits {
-    enum { isPointer = false };
-    enum { isReference = false };
-    enum { isConst = false };
-    typedef T ParameterType;
-};
-
-// Часткова спеціалізація для вказівників
-template <typename T>
-struct TypeTraits<T*> {
-    enum { isPointer = true };
-    enum { isReference = false };
-    enum { isConst = false };
-    typedef T* ParameterType;
-};
-```
+:::code hist-type-traits-evolution/cpp/era-loki-ta-revoliutsiia.cpp
 
 Александреску також запропонував дві фундаментальні ідіоми:
 1. **IntToType** (шаблон, що перетворює цілочислове значення або булевий прапор унікальним типом під час компіляції) — прообраз сучасного `std::integral_constant`.
@@ -60,19 +42,7 @@ struct TypeTraits<T*> {
 
 У стандарту C++11 заголовочний файл `<type_traits>` став офіційною частиною ядра стандартної бібліотеки. Для уніфікації повернення значень комітет затвердив базовий шаблон `std::integral_constant<T, v>`:
 
-```cpp
-template<class T, T v>
-struct integral_constant {
-    static constexpr T value = v;
-    using value_type = T;
-    using type = integral_constant;
-    constexpr operator value_type() const noexcept { return value; }
-    constexpr value_type operator()() const noexcept { return value; }
-};
-
-using true_type  = integral_constant<bool, true>;
-using false_type = integral_constant<bool, false>;
-```
+:::code hist-type-traits-evolution/cpp/ofitsiinyi-standart-c-11.cpp
 
 Уніфікація через `true_type` та `false_type` дозволила легко поєднувати метафункції з механізмами SFINAE (Substitution Failure Is Not An Error) та метафункцією `std::enable_if`. З появою ключового слова `constexpr` усі обчислення типів нарешті отримали строгу типізацію та гарантію виконання під час збірки проєкту.
 

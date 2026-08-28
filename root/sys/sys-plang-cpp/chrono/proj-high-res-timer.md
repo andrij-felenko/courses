@@ -87,26 +87,7 @@ S[k] = S[k-1] + (x[k] - M[k-1]) · (x[k] - M[k]) [накопичення від�
 
 При кожній ітерації циклу очікування подій системний виклик `epoll_wait` вимагає вказувати таймаут блокування потоку у мілісекундах (`int timeout_ms`):
 
-```cpp
-using namespace std::chrono;
-
-// Отримання найближчої точки часу закінчення таймауту з мінімальної купи
-steady_clock::time_point next_expiry = timer_heap.top().expiry_time;
-steady_clock::time_point now = steady_clock::now();
-
-// Розрахунок інтервалу очікування
-int timeout_ms = 0;
-if (next_expiry > now) {
-    // Безпечне перетворення тривалості у мілісекунди для epoll_wait
-    auto dur = duration_cast<milliseconds>(next_expiry - now);
-    timeout_ms = static_cast<int>(dur.count());
-} else {
-    // Таймаут вже минув: epoll_wait повинен повернути керування негайно (0 ms)
-    timeout_ms = 0;
-}
-
-int nfds = epoll_wait(epoll_fd, events, MAX_EVENTS, timeout_ms);
-```
+:::code proj-high-res-timer/cpp/merezhevi-event-loops-ta.cpp
 
 Використання `duration_cast` надійно захищає від переповнення та помилок від'ємних таймаутів, якщо точка часу `next_expiry` вже залишилася у минулому.
 
@@ -116,21 +97,7 @@ int nfds = epoll_wait(epoll_fd, events, MAX_EVENTS, timeout_ms);
 
 При реалізації кастомного `steady_clock` для вбудованої платформи вказується точна частота системного кварцового генератора через `std::ratio`:
 
-```cpp
-// Кастомний годинник для ARM Cortex-M з частотою ядра 72 МГц (STM32F103)
-struct Stm32CoreClock {
-    using rep = uint64_t;
-    using period = std::ratio<1, 72000000>; // Один тик = 1/72000000 секунди (~13.88 нс)
-    using duration = std::chrono::duration<rep, period>;
-    using time_point = std::chrono::time_point<Stm32CoreClock>;
-    static constexpr bool is_steady = true;
-
-    static time_point now() noexcept {
-        // Зчитування апаратного лічильника інструкцій DWT->CYCCNT
-        return time_point(duration(DWT->CYCCNT));
-    }
-};
-```
+:::code proj-high-res-timer/cpp/osoblyvosti-taimeriv-u.cpp
 
 Це дозволяє програмісту писати абстрактний від заліза C++ код затримок `std::this_thread::sleep_for(100ms)` чи `steady_clock::now()`, який компілятор повністю перетворює у лічильники апаратних тактів без додавання функціонального оверхеду.
 
@@ -179,186 +146,8 @@ perf stat -e syscalls:sys_enter_clock_gettime ./benchmark_app
 Нижче наведено порівняльну реалізацію високоточного хронометра з накопиченням статистики та RAII-обгортками двома мовами — C (POSIX POSIX.1b) та C++ (C++20 `<chrono>`).
 
 :::tabs
-```c
-#define _POSIX_C_SOURCE 200809L
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <stdint.h>
-#include <math.h>
-
-// Структура накопичення статистичних замірів у наносекундах
-typedef struct {
-    uint64_t* samples;
-    size_t capacity;
-    size_t count;
-} benchmark_stats_t;
-
-// Ініціалізація буфера замірів з попереднім виділенням пам'яті
-int benchmark_stats_init(benchmark_stats_t* stats, size_t capacity) {
-    stats->samples = (uint64_t*)malloc(capacity * sizeof(uint64_t));
-    if (!stats->samples) return -1;
-    stats->capacity = capacity;
-    stats->count = 0;
-    return 0;
-}
-
-// Звільнення ресурсів
-void benchmark_stats_free(benchmark_stats_t* stats) {
-    if (stats->samples) {
-        free(stats->samples);
-        stats->samples = NULL;
-    }
-    stats->capacity = 0;
-    stats->count = 0;
-}
-
-// Запис нового заміру у наносекундах
-void benchmark_stats_add(benchmark_stats_t* stats, uint64_t elapsed_ns) {
-    if (stats->count < stats->capacity) {
-        stats->samples[stats->count++] = elapsed_ns;
-    }
-}
-
-// Отримання поточного часу в наносекундах через POSIX CLOCK_MONOTONIC
-static inline uint64_t get_monotonic_ns(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-}
-
-// Компаратор для швидкого сортування qsort
-static int compare_uint64(const void* a, const void* b) {
-    uint64_t arg1 = *(const uint64_t*)a;
-    uint64_t arg2 = *(const uint64_t*)b;
-    if (arg1 < arg2) return -1;
-    if (arg1 > arg2) return 1;
-    return 0;
-}
-
-// Розрахунок та вивід підсумкового звіту
-void benchmark_stats_print_report(benchmark_stats_t* stats, const char* label) {
-    if (stats->count == 0) {
-        printf("[%s] Немає замірів для аналізу.\n", label);
-        return;
-    }
-
-    // Сортування замірів для розрахунку перцентилів
-    qsort(stats->samples, stats->count, sizeof(uint64_t), compare_uint64);
-
-    uint64_t min_ns = stats->samples[0];
-    uint64_t max_ns = stats->samples[stats->count - 1];
-    
-    double sum = 0.0;
-    for (size_t i = 0; i < stats->count; ++i) {
-        sum += (double)stats->samples[i];
-    }
-    double mean_ns = sum / (double)stats->count;
-
-    // Розрахунок стандартного відхилення
-    double variance_sum = 0.0;
-    for (size_t i = 0; i < stats->count; ++i) {
-        double diff = (double)stats->samples[i] - mean_ns;
-        variance_sum += diff * diff;
-    }
-    double stddev_ns = sqrt(variance_sum / (double)stats->count);
-
-    uint64_t p50 = stats->samples[(size_t)(stats->count * 0.50)];
-    uint64_t p90 = stats->samples[(size_t)(stats->count * 0.90)];
-    uint64_t p99 = stats->samples[(size_t)(stats->count * 0.99)];
-
-    printf("=== Звіт бенчмарка: %s (вибірка: %zu вимірів) ===\n", label, stats->count);
-    printf("  Мін:        %8.3f мкс\n", min_ns / 1000.0);
-    printf("  Макс:       %8.3f мкс\n", max_ns / 1000.0);
-    printf("  Середнє:    %8.3f мкс\n", mean_ns / 1000.0);
-    printf("  StdDev:     %8.3f мкс\n", stddev_ns / 1000.0);
-    printf("  P50 (Med):  %8.3f мкс\n", p50 / 1000.0);
-    printf("  P90:        %8.3f мкс\n", p90 / 1000.0);
-    printf("  P99:        %8.3f мкс\n", p99 / 1000.0);
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <numeric>
-#include <algorithm>
-#include <cmath>
-#include <chrono>
-#include <format>
-#include <string_view>
-
-class BenchmarkRunner {
-public:
-    explicit BenchmarkRunner(size_t reserve_capacity) {
-        samples_.reserve(reserve_capacity);
-    }
-
-    // RAII Таймер автоматичного вимірювання скоупу
-    class ScopedTimer {
-    public:
-        ScopedTimer(BenchmarkRunner& runner)
-            : runner_(runner), start_(std::chrono::steady_clock::now()) {}
-
-        ~ScopedTimer() {
-            auto end = std::chrono::steady_clock::now();
-            runner_.add_sample(end - start_);
-        }
-    private:
-        BenchmarkRunner& runner_;
-        std::chrono::steady_clock::time_point start_;
-    };
-
-    void add_sample(std::chrono::nanoseconds elapsed) {
-        samples_.push_back(elapsed);
-    }
-
-    [[nodiscard]] ScopedTimer measure_scope() {
-        return ScopedTimer(*this);
-    }
-
-    void print_report(std::string_view label) {
-        if (samples_.empty()) {
-            std::cout << std::format("[{}] Немає замірів для аналізу.\n", label);
-            return;
-        }
-
-        // Сортуємо заміри для точного обчислення медианы та перцентилів
-        std::sort(samples_.begin(), samples_.end());
-
-        auto min_duration = samples_.front();
-        auto max_duration = samples_.back();
-
-        double sum_ns = 0.0;
-        for (const auto& s : samples_) {
-            sum_ns += static_cast<double>(s.count());
-        }
-        double mean_ns = sum_ns / static_cast<double>(samples_.size());
-
-        double variance_sum = 0.0;
-        for (const auto& s : samples_) {
-            double diff = static_cast<double>(s.count()) - mean_ns;
-            variance_sum += diff * diff;
-        }
-        double stddev_ns = std::sqrt(variance_sum / static_cast<double>(samples_.size()));
-
-        auto p50 = samples_[static_cast<size_t>(samples_.size() * 0.50)];
-        auto p90 = samples_[static_cast<size_t>(samples_.size() * 0.90)];
-        auto p99 = samples_[static_cast<size_t>(samples_.size() * 0.99)];
-
-        std::cout << std::format("=== Звіт бенчмарка: {} (вибірка: {} вимірів) ===\n", label, samples_.size())
-                  << std::format("  Мін:        {:8.3f} мкс\n", std::chrono::duration<double, std::micro>(min_duration).count())
-                  << std::format("  Макс:       {:8.3f} мкс\n", std::chrono::duration<double, std::micro>(max_duration).count())
-                  << std::format("  Середнє:    {:8.3f} мкс\n", mean_ns / 1000.0)
-                  << std::format("  StdDev:     {:8.3f} мкс\n", stddev_ns / 1000.0)
-                  << std::format("  P50 (Med):  {:8.3f} мкс\n", std::chrono::duration<double, std::micro>(p50).count())
-                  << std::format("  P90:        {:8.3f} мкс\n", std::chrono::duration<double, std::micro>(p90).count())
-                  << std::format("  P99:        {:8.3f} мкс\n", std::chrono::duration<double, std::micro>(p99).count());
-    }
-
-private:
-    std::vector<std::chrono::nanoseconds> samples_;
-};
-```
+:::code proj-high-res-timer/c/2-kross-platformenna.c
+:::code proj-high-res-timer/cpp/2-kross-platformenna.cpp
 :::
 
 ## 3. Практичний приклад застосування та боротьба з оптимізаціями
@@ -366,85 +155,8 @@ private:
 Для демонстрації роботи хронометра реалізуємо вимірювання швидкодії математичного обчислення (сортування векторів). Для того, щоб компілятор не оптимізував та не видалив тестове обчислення, використаємо спеціальний оптимізаційний бар'єр.
 
 :::tabs
-```c
-// Використання хронометра у C
-int main(void) {
-    const size_t iterations = 1000;
-    const size_t array_size = 500;
-
-    benchmark_stats_t stats;
-    if (benchmark_stats_init(&stats, iterations) != 0) {
-        fprintf(stderr, "Помилка виділення пам'яті під заміри.\n");
-        return 1;
-    }
-
-    int* data = (int*)malloc(array_size * sizeof(int));
-
-    for (size_t iter = 0; iter < iterations; ++iter) {
-        // Ініціалізація тестового масиву
-        for (size_t i = 0; i < array_size; ++i) {
-            data[i] = (int)(array_size - i);
-        }
-
-        uint64_t start_ns = get_monotonic_ns();
-
-        // Тестове обчислення: бульбашкове сортування
-        for (size_t i = 0; i < array_size - 1; ++i) {
-            for (size_t j = 0; j < array_size - i - 1; ++j) {
-                if (data[j] > data[j + 1]) {
-                    int tmp = data[j];
-                    data[j] = data[j + 1];
-                    data[j + 1] = tmp;
-                }
-            }
-        }
-
-        // Бар'єр пам'яті для компілятора: гарантує завершення дій до зчитування часу
-        __asm__ __volatile__("" : : "g"(data) : "memory");
-
-        uint64_t end_ns = get_monotonic_ns();
-        benchmark_stats_add(&stats, end_ns - start_ns);
-    }
-
-    benchmark_stats_print_report(&stats, "C BubbleSort");
-    
-    free(data);
-    benchmark_stats_free(&stats);
-    return 0;
-}
-```
-```cpp
-// Функція запобігання оптимізаційному видаленню коду у C++
-template <typename T>
-void do_not_optimize(T&& value) {
-    asm volatile("" : : "g"(value) : "memory");
-}
-
-int main() {
-    constexpr size_t iterations = 1000;
-    constexpr size_t vector_size = 500;
-
-    BenchmarkRunner runner(iterations);
-
-    std::vector<int> data(vector_size);
-
-    for (size_t iter = 0; iter < iterations; ++iter) {
-        // Заповнюємо вектор зворотно відпорядкованими даними
-        std::iota(data.rbegin(), data.rend(), 1);
-
-        {
-            // Автоматичний RAII замір часу виконання блоку
-            auto timer = runner.measure_scope();
-
-            std::sort(data.begin(), data.end());
-            do_not_optimize(data.data());
-        }
-    }
-
-    runner.print_report("C++ std::sort");
-    return 0;
-}
-```
+:::code proj-high-res-timer/c/3-praktychnyi-pryklad.c
+:::code proj-high-res-timer/cpp/3-praktychnyi-pryklad.cpp
 :::
 
 ## 4. Експорт метрик бенчмаркінгу в JSON для систем автоматизованого тестування (CI/CD)

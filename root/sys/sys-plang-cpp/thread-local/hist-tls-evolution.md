@@ -34,60 +34,8 @@ thread_local std::error_code last_thread_error{};
 3. **Ручне управління пам'яттю**: Розробник мав власноруч писати функцію-деструктор для очищення пам'яті під час завершення потоку, що часто призводило до витоків пам'яті (memory leaks) або помилок використання після звільнення (use-after-free).
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-static pthread_key_t thread_log_key;
-static pthread_once_t key_once = PTHREAD_ONCE_INIT;
-
-static void destroy_log_buffer(void* buf) {
-    free(buf);
-}
-
-static void init_log_key(void) {
-    pthread_key_create(&thread_log_key, destroy_log_buffer);
-}
-
-void append_log(const char* msg) {
-    pthread_once(&key_once, init_log_key);
-    char* buf = (char*)pthread_getspecific(thread_log_key);
-    if (!buf) {
-        buf = (char*)malloc(1024);
-        pthread_setspecific(thread_log_key, buf);
-    }
-    snprintf(buf, 1024, "Log: %s\n", msg);
-}
-```
-```cpp
-#include <pthread.h>
-#include <memory>
-#include <string>
-#include <mutex>
-
-namespace legacy_tls {
-    static pthread_key_t thread_log_key;
-    static std::once_flag key_init_flag;
-
-    static void destroy_cpp_buffer(void* ptr) {
-        delete static_cast<std::string*>(ptr);
-    }
-
-    void append_log(const std::string& msg) {
-        std::call_once(key_init_flag, []() {
-            pthread_key_create(&thread_log_key, destroy_cpp_buffer);
-        });
-
-        auto* buf = static_cast<std::string*>(pthread_getspecific(thread_log_key));
-        if (!buf) {
-            buf = new std::string();
-            pthread_setspecific(thread_log_key, buf);
-        }
-        *buf = "Log: " + msg + "\n";
-    }
-}
-```
+:::code hist-tls-evolution/c/main.c
+:::code hist-tls-evolution/cpp/main.cpp
 :::
 
 У високочастотних операціях — таких як генерація випадкових чисел у гарячому циклі, виділення дрібних об'єктів у локальній арені чи оновлення системної змінної `errno` — постійні виклики `pthread_getspecific()` сповільнювали код у 20–40 разів порівняно зі звичайним доступом до пам'яті.

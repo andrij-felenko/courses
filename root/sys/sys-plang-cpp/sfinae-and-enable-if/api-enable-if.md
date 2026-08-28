@@ -8,23 +8,7 @@
 
 ### Формальна специфікація та визначення
 
-```cpp
-namespace std {
-    // 1. Первинний шаблон для хибної умови (C++11)
-    template<bool B, class T = void>
-    struct enable_if {};
-
-    // 2. Часткова спеціалізація для істинної умови (C++11)
-    template<class T>
-    struct enable_if<true, T> {
-        using type = T;
-    };
-
-    // 3. Шаблонний псевдонім (починаючи з C++14)
-    template<bool B, class T = void>
-    using enable_if_t = typename enable_if<B, T>::type;
-}
-```
+:::code api-enable-if/cpp/formalna-spetsyfikatsiia.cpp
 
 ### Параметри шаблону
 
@@ -182,21 +166,7 @@ auto call_if_possible(F&& f, Args&&... args)
 
 Для стандартизації ідіоми виявлення в інженерних бібліотеках було розроблено набір `std::experimental::is_detected` (Library Fundamentals TS v2):
 
-```cpp
-#include <experimental/type_traits>
-
-// 1. Оголошення мета-виразу
-template<typename T>
-using serialize_op = decltype(std::declval<T>().serialize());
-
-// 2. Предикат існування
-template<typename T>
-using has_serialize = std::experimental::is_detected<serialize_op, T>;
-
-// 3. Отримання результуючого типу або заглушки
-template<typename T>
-using serialize_result_t = std::experimental::detected_or_t<void, serialize_op, T>;
-```
+:::code api-enable-if/cpp/7-dopomizhnyi-nabir.cpp
 
 ### Зведена таблиця API родини is_detected
 

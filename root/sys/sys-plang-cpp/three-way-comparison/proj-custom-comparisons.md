@@ -22,71 +22,7 @@
 
 ### Реалізація з розділенням операцій
 
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <compare>
-#include <cstdint>
-
-struct BaseEntity {
-    uint64_t entity_id{0};
-
-    // Базовий оператор для ізольованого порівняння ідентифікаторів
-    friend constexpr auto operator<=>(const BaseEntity&, const BaseEntity&) = default;
-};
-
-class Employee : public BaseEntity {
-public:
-    // Розташування полів оптимізовано для щільності пакування в пам'яті
-    std::string last_name;
-    std::string first_name;
-    uint32_t    department_id{0};
-    uint16_t    seniority_years{0};
-    uint8_t     access_level{0};
-
-    Employee(uint64_t id, std::string last, std::string first,
-             uint32_t dept, uint16_t seniority, uint8_t access)
-        : BaseEntity{id},
-          last_name(std::move(last)),
-          first_name(std::move(first)),
-          department_id(dept),
-          seniority_years(seniority),
-          access_level(access) {}
-
-    // 1. Оптимізована швидка рівність: унікальний первинний ключ гарантує тотожність
-    bool operator==(const Employee& other) const noexcept {
-        return entity_id == other.entity_id;
-    }
-
-    // 2. Власне тричленне впорядкування за бізнес-пріоритетами
-    std::strong_ordering operator<=>(const Employee& other) const noexcept {
-        // Крок 1: Групування за відділом (за зростанням номера)
-        if (auto cmp = department_id <=> other.department_id; cmp != 0) {
-            return cmp;
-        }
-
-        // Крок 2: Сортування за стажем (за спаданням: більший стаж іде раніше)
-        if (auto cmp = other.seniority_years <=> seniority_years; cmp != 0) {
-            return cmp;
-        }
-
-        // Крок 3: Алфавітне впорядкування за прізвищем
-        if (auto cmp = last_name <=> other.last_name; cmp != 0) {
-            return cmp;
-        }
-
-        // Крок 4: Алфавітне впорядкування за ім'ям
-        if (auto cmp = first_name <=> other.first_name; cmp != 0) {
-            return cmp;
-        }
-
-        // Крок 5: Остаточний тайбрейкер за унікальним ID
-        return entity_id <=> other.entity_id;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-z.cpp
 
 ### Покроковий розбір виконання
 
@@ -110,63 +46,7 @@ public:
 
 ### Реалізація класу CiString
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <cctype>
-#include <cstring>
-#include <compare>
-#include <algorithm>
-
-class CiString {
-    std::string str;
-
-    // Швидке посимвольне порівняння без урахування регістру ASCII
-    static int char_case_cmp(char a, char b) noexcept {
-        auto ua = static_cast<unsigned char>(a);
-        auto ub = static_cast<unsigned char>(b);
-        int ca = std::tolower(ua);
-        int cb = std::tolower(ub);
-        return (ca > cb) - (ca < cb);
-    }
-
-public:
-    CiString() = default;
-    CiString(std::string s) : str(std::move(s)) {}
-    CiString(const char* s) : str(s) {}
-
-    const std::string& get() const noexcept { return str; }
-    std::string_view view() const noexcept { return str; }
-    size_t size() const noexcept { return str.size(); }
-
-    // 1. Оптимізована перевірка рівності: O(1) за розміром, далі O(N)
-    bool operator==(const CiString& other) const noexcept {
-        if (str.size() != other.str.size()) {
-            return false;
-        }
-        for (size_t i = 0; i < str.size(); ++i) {
-            if (std::tolower(static_cast<unsigned char>(str[i])) !=
-                std::tolower(static_cast<unsigned char>(other.str[i]))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // 2. Тричленне порівняння слабкого порядку
-    std::weak_ordering operator<=>(const CiString& other) const noexcept {
-        size_t min_len = std::min(str.size(), other.str.size());
-        for (size_t i = 0; i < min_len; ++i) {
-            int diff = char_case_cmp(str[i], other.str[i]);
-            if (diff < 0) return std::weak_ordering::less;
-            if (diff > 0) return std::weak_ordering::greater;
-        }
-        // Якщо спільний префікс збігся, коротший рядок іде раніше
-        return str.size() <=> other.str.size();
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-klasu.cpp
 
 ### Поглиблений аналіз різниці між == та <=>
 
@@ -202,77 +82,11 @@ CiString b = "Host";            // довжина 4
 
 ### Реалізація структури Point3D та безпечного адаптера
 
-```cpp
-#include <iostream>
-#include <cmath>
-#include <compare>
-#include <set>
-#include <limits>
-
-// Базова геометрична точка: природний частковий порядок
-struct Point3D {
-    double x{0.0};
-    double y{0.0};
-    double z{0.0};
-
-    // Автоматично виводить std::partial_ordering через double
-    constexpr auto operator<=>(const Point3D&) const = default;
-};
-
-// Адаптер тотального порядку для безпечного використання в контейнерах і сортуванні
-struct TotalOrderPoint3D {
-    Point3D pt;
-
-    // Явне використання стандартного CPO std::strong_order
-    std::strong_ordering operator<=>(const TotalOrderPoint3D& other) const noexcept {
-        if (auto cmp = std::strong_order(pt.x, other.pt.x); cmp != 0) {
-            return cmp;
-        }
-        if (auto cmp = std::strong_order(pt.y, other.pt.y); cmp != 0) {
-            return cmp;
-        }
-        return std::strong_order(pt.z, other.pt.z);
-    }
-
-    bool operator==(const TotalOrderPoint3D& other) const noexcept {
-        return (*this <=> other) == 0;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-struktury.cpp
 
 ### Порівняльний експеримент і верифікація
 
-```cpp
-void run_floating_point_experiment() {
-    double nan1 = std::numeric_limits<double>::quiet_NaN();
-    double nan2 = std::numeric_limits<double>::quiet_NaN();
-
-    Point3D raw_p1{nan1, 0.0, 0.0};
-    Point3D raw_p2{nan2, 0.0, 0.0};
-
-    // 1. Поведінка звичайного часткового порядку
-    auto partial_cmp = (raw_p1 <=> raw_p2);
-    std::cout << "Raw points equal: " << (raw_p1 == raw_p2) << "\n"; // false (NaN != NaN)
-    std::cout << "Is unordered: "
-              << (partial_cmp == std::partial_ordering::unordered) << "\n"; // true
-
-    // 2. Поведінка адаптера тотального порядку
-    TotalOrderPoint3D safe_p1{raw_p1};
-    TotalOrderPoint3D safe_p2{raw_p2};
-
-    auto total_cmp = (safe_p1 <=> safe_p2);
-    std::cout << "Safe points equal: " << (safe_p1 == safe_p2) << "\n"; // true!
-    std::cout << "Is strong equal: "
-              << (total_cmp == std::strong_ordering::equal) << "\n"; // true
-
-    // 3. Безпечна робота з std::set: дедуплікація та відсутність невизначеної поведінки
-    std::set<TotalOrderPoint3D, std::less<>> safe_set;
-    safe_set.insert(safe_p1);
-    safe_set.insert(safe_p2);
-
-    std::cout << "Set size with NaN duplicates: " << safe_set.size() << "\n"; // Рівно 1!
-}
-```
+:::code proj-custom-comparisons/cpp/porivnialnyi-eksperyment-i.cpp
 
 Об'єкт `std::strong_order` розглядає бітове представлення чисел із плаваючою комою за стандартом IEEE 754-2008, чітко позиціонуючи всі можливі види `NaN` на єдиній числовій прямій. Це дозволяє гарантувати детерміновану роботу асоціативних контейнерів у будь-яких крайових умовах.
 
@@ -290,82 +104,13 @@ void run_floating_point_experiment() {
 
 ### Реалізація класу UserRecord з гетерогенними операторами
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <set>
-#include <compare>
-
-class UserRecord {
-    uint64_t    id{0};
-    std::string username;
-    std::string department;
-
-public:
-    UserRecord(uint64_t uid, std::string name, std::string dept)
-        : id(uid), username(std::move(name)), department(std::move(dept)) {}
-
-    uint64_t get_id() const noexcept { return id; }
-    std::string_view get_username() const noexcept { return username; }
-
-    // 1. Однорідне порівняння двох повноцінних об'єктів UserRecord
-    friend auto operator<=>(const UserRecord& a, const UserRecord& b) noexcept {
-        return a.username <=> b.username;
-    }
-    friend bool operator==(const UserRecord& a, const UserRecord& b) noexcept {
-        return a.username == b.username;
-    }
-
-    // 2. Гетерогенне порівняння з невласницьким видом std::string_view
-    friend auto operator<=>(const UserRecord& a, std::string_view sv) noexcept {
-        return a.username <=> sv;
-    }
-    friend bool operator==(const UserRecord& a, std::string_view sv) noexcept {
-        return a.username == sv;
-    }
-
-    // 3. Гетерогенне порівняння з числовим первинним ключем ID
-    friend auto operator<=>(const UserRecord& a, uint64_t target_id) noexcept {
-        return a.id <=> target_id;
-    }
-    friend bool operator==(const UserRecord& a, uint64_t target_id) noexcept {
-        return a.id == target_id;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-klasu-2.cpp
 
 ### Застосування у прозорих контейнерах
 
 Для того щоб увімкнути підтримку гетерогенного пошуку, другим шаблонним параметром контейнера `std::set` вказується прозорий компаратор `std::less<>` (із порожніми кутовими дужками). Цей компаратор містить внутрішній маркерний псевдонім типу `using is_transparent = void;`.
 
-```cpp
-using namespace std::string_view_literals;
-
-void demonstrate_zero_allocation_lookup() {
-    std::set<UserRecord, std::less<>> user_directory;
-
-    user_directory.emplace(1001, "artem_s", "Core-Engineering");
-    user_directory.emplace(1002, "diana_v", "Security-Ops");
-    user_directory.emplace(1003, "ivan_k", "Infrastructure");
-
-    // Пошук за string_view: жодного виділення пам'яті в купі!
-    std::string_view target_user = "diana_v"sv;
-    auto it = user_directory.find(target_user);
-
-    if (it != user_directory.end()) {
-        std::cout << "Знайдено користувача ID: " << it->get_id() << "\n";
-    }
-
-    // Демонстрація симетрії C++20:
-    // Вираз target_user == *it автоматично перетворюється компілятором
-    // у виклик дружньої функції *it == target_user без необхідності
-    // писати дзеркальне перевантаження operator==(std::string_view, const UserRecord&)!
-    if (target_user == *it) {
-        std::cout << "Симетрична перевірка рівності успішна.\n";
-    }
-}
-```
+:::code proj-custom-comparisons/cpp/zastosuvannia-u-prozorykh.cpp
 
 ---
 
@@ -381,73 +126,7 @@ void demonstrate_zero_allocation_lookup() {
 
 ### Реалізація компактного ітератора
 
-```cpp
-#include <iterator>
-#include <compare>
-#include <cstddef>
-#include <type_traits>
-
-template <class T>
-class CompactSpanIterator {
-    T* ptr{nullptr};
-
-public:
-    using iterator_concept  = std::contiguous_iterator_tag;
-    using iterator_category = std::random_access_iterator_tag;
-    using value_type        = std::remove_cv_t<T>;
-    using difference_type   = std::ptrdiff_t;
-    using pointer           = T*;
-    using reference         = T&;
-
-    constexpr CompactSpanIterator() noexcept = default;
-    constexpr explicit CompactSpanIterator(T* p) noexcept : ptr(p) {}
-
-    // Конвертація з non-const у const ітератор
-    template <class U>
-        requires std::is_convertible_v<U*, T*>
-    constexpr CompactSpanIterator(const CompactSpanIterator<U>& other) noexcept
-        : ptr(other.base()) {}
-
-    constexpr T* base() const noexcept { return ptr; }
-    constexpr reference operator*() const noexcept { return *ptr; }
-    constexpr pointer operator->() const noexcept { return ptr; }
-
-    constexpr CompactSpanIterator& operator++() noexcept { ++ptr; return *this; }
-    constexpr CompactSpanIterator operator++(int) noexcept { auto tmp = *this; ++ptr; return tmp; }
-    constexpr CompactSpanIterator& operator--() noexcept { --ptr; return *this; }
-    constexpr CompactSpanIterator operator--(int) noexcept { auto tmp = *this; --ptr; return tmp; }
-
-    constexpr CompactSpanIterator& operator+=(difference_type n) noexcept { ptr += n; return *this; }
-    constexpr CompactSpanIterator& operator-=(difference_type n) noexcept { ptr -= n; return *this; }
-    constexpr reference operator[](difference_type n) const noexcept { return ptr[n]; }
-
-    friend constexpr difference_type operator-(const CompactSpanIterator& a, const CompactSpanIterator& b) noexcept {
-        return a.ptr - b.ptr;
-    }
-    friend constexpr CompactSpanIterator operator+(CompactSpanIterator it, difference_type n) noexcept {
-        return it += n;
-    }
-    friend constexpr CompactSpanIterator operator+(difference_type n, CompactSpanIterator it) noexcept {
-        return it += n;
-    }
-    friend constexpr CompactSpanIterator operator-(CompactSpanIterator it, difference_type n) noexcept {
-        return it -= n;
-    }
-
-    // Усі 6 операторів порівняння синтезуються з цих двох рядків!
-    friend constexpr std::strong_ordering operator<=>(
-        const CompactSpanIterator& a, const CompactSpanIterator& b) noexcept
-    {
-        return a.ptr <=> b.ptr;
-    }
-
-    friend constexpr bool operator==(
-        const CompactSpanIterator& a, const CompactSpanIterator& b) noexcept
-    {
-        return a.ptr == b.ptr;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-kompaktnoho.cpp
 
 Цей ітератор автоматично задовольняє всім концептам `std::contiguous_iterator`, `std::random_access_iterator` та `std::three_way_comparable`, коректно підтримуючи змішані порівняння між `CompactSpanIterator<int>` та `CompactSpanIterator<const int>`.
 
@@ -467,59 +146,7 @@ public:
 
 ### Реалізація класу ImmutableDocument
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <compare>
-#include <algorithm>
-#include <cstdint>
-
-class ImmutableDocument {
-    uint64_t                 content_hash{0};
-    std::vector<std::string> lines;
-
-    static uint64_t compute_hash(const std::vector<std::string>& lns) noexcept {
-        uint64_t h = 14695981039346656037ULL; // FNV-1a offset basis
-        for (const auto& line : lns) {
-            for (char c : line) {
-                h ^= static_cast<unsigned char>(c);
-                h *= 1099511628211ULL; // FNV-1a prime
-            }
-        }
-        return h;
-    }
-
-public:
-    ImmutableDocument(std::vector<std::string> lns)
-        : content_hash(compute_hash(lns)), lines(std::move(lns)) {}
-
-    // 1. Оптимізована рівність: адреса -> хеш -> повний вміст
-    bool operator==(const ImmutableDocument& other) const noexcept {
-        // Рівень 1: Тотожність адреси в пам'яті (O(1))
-        if (this == &other) {
-            return true;
-        }
-        // Рівень 2: Збіг предобчисленого 64-бітного хешу (O(1))
-        if (content_hash != other.content_hash) {
-            return false;
-        }
-        // Рівень 3: Повний захист від колізій хешу (O(N))
-        return lines == other.lines;
-    }
-
-    // 2. Лексикографічний порядок: винятково через вміст
-    std::strong_ordering operator<=>(const ImmutableDocument& other) const noexcept {
-        if (this == &other) {
-            return std::strong_ordering::equal;
-        }
-        return std::lexicographical_compare_three_way(
-            lines.begin(), lines.end(),
-            other.lines.begin(), other.lines.end()
-        );
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-klasu-3.cpp
 
 Цей шаблон демонструє найвищу культуру проектування продуктивного C++20 коду: рівність отримує швидкість `O(1)` завдяки хешуванню, а порядок залишається бездоганно точним та строго детермінованим.
 
@@ -539,62 +166,7 @@ public:
 
 ### Реалізація глибокого порівняння AST-вузлів
 
-```cpp
-#include <iostream>
-#include <string>
-#include <variant>
-#include <memory>
-#include <compare>
-
-struct BinaryOp;
-
-using ExprPayload = std::variant<
-    int64_t,
-    std::string,
-    std::unique_ptr<BinaryOp>
->;
-
-struct ExprNode {
-    ExprPayload payload;
-
-    // Глибоке тричленне порівняння вузлів дерева
-    friend std::strong_ordering operator<=>(const ExprNode& a, const ExprNode& b);
-    friend bool operator==(const ExprNode& a, const ExprNode& b);
-};
-
-struct BinaryOp {
-    char     op{'+'};
-    ExprNode left;
-    ExprNode right;
-
-    auto operator<=>(const BinaryOp& other) const = default;
-};
-
-std::strong_ordering operator<=>(const ExprNode& a, const ExprNode& b) {
-    if (a.payload.index() != b.payload.index()) {
-        return a.payload.index() <=> b.payload.index();
-    }
-
-    return std::visit([&](const auto& valA) -> std::strong_ordering {
-        using T = std::decay_t<decltype(valA)>;
-        const auto& valB = std::get<T>(b.payload);
-
-        if constexpr (std::is_same_v<T, std::unique_ptr<BinaryOp>>) {
-            if (!valA && !valB) return std::strong_ordering::equal;
-            if (!valA) return std::strong_ordering::less;
-            if (!valB) return std::strong_ordering::greater;
-            // Рекурсивне глибоке розіменування
-            return *valA <=> *valB;
-        } else {
-            return valA <=> valB;
-        }
-    }, a.payload);
-}
-
-bool operator==(const ExprNode& a, const ExprNode& b) {
-    return (a <=> b) == 0;
-}
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-hlybokoho.cpp
 
 Завдяки патерну `std::visit` та перевірці `if constexpr` рекурсивне синтаксичне дерево отримує повну підтримку тричленного порівняння без витоків пам'яті та з коректною обробкою нульових покажчиків.
 
@@ -614,46 +186,7 @@ bool operator==(const ExprNode& a, const ExprNode& b) {
 
 ### Реалізація пошуку з проекцією
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <ranges>
-
-struct CompactProduct {
-    uint32_t    sku_code{0};
-    double      price{0.0};
-    std::string title;
-
-    // Стандартне впорядкування за SKU
-    auto operator<=>(const CompactProduct& other) const = default;
-};
-
-void run_projected_binary_search() {
-    std::vector<CompactProduct> catalog = {
-        {1010, 19.99, "USB Cable"},
-        {1020, 49.50, "Power Adapter"},
-        {1030, 99.00, "Wireless Mouse"},
-        {1040, 150.0, "Mechanical Keyboard"}
-    };
-
-    // 1. Пошук за цілочисельним SKU без створення об'єкта CompactProduct!
-    // Покажчик &CompactProduct::sku_code слугує проекцією, а компаратор за замовчуванням
-    // використовує тричленне порівняння для uint32_t.
-    uint32_t target_sku = 1030;
-    auto it = std::ranges::lower_bound(catalog, target_sku, {}, &CompactProduct::sku_code);
-
-    if (it != catalog.end() && it->sku_code == target_sku) {
-        std::cout << "Знайдено товар: " << it->title << ", ціна: " << it->price << "\n";
-    }
-
-    // 2. Двійковий пошук за діапазоном цін
-    double target_price = 49.50;
-    bool exists = std::ranges::binary_search(catalog, target_price, {}, &CompactProduct::price);
-    std::cout << "Товар із ціною 49.50 існує: " << std::boolalpha << exists << "\n";
-}
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-poshuku-z.cpp
 
 Використання проекцій разом із тричленним порівнянням усуває необхідність ручного написання десятків предикатних функцій і гарантує генерацію найбільш компактного машинного коду бінарного пошуку.
 
@@ -665,44 +198,7 @@ void run_projected_binary_search() {
 
 ### Реалізація обгортки DeepPtr
 
-```cpp
-#include <iostream>
-#include <memory>
-#include <compare>
-
-template <class T>
-class DeepPtr {
-    std::unique_ptr<T> ptr;
-
-public:
-    DeepPtr() = default;
-    explicit DeepPtr(T* p) : ptr(p) {}
-    explicit DeepPtr(std::unique_ptr<T> p) : ptr(std::move(p)) {}
-
-    T* get() const noexcept { return ptr.get(); }
-    T& operator*() const noexcept { return *ptr; }
-    T* operator->() const noexcept { return ptr.get(); }
-    explicit operator bool() const noexcept { return static_cast<bool>(ptr); }
-
-    // Глибоке тричленне порівняння з коректною обробкою nullptr
-    friend auto operator<=>(const DeepPtr& a, const DeepPtr& b) noexcept(
-        noexcept(std::declval<const T&>() <=> std::declval<const T&>()))
-    {
-        if (a.ptr == b.ptr) return std::strong_ordering::equal;
-        if (!a.ptr) return std::strong_ordering::less;
-        if (!b.ptr) return std::strong_ordering::greater;
-        return *a.ptr <=> *b.ptr;
-    }
-
-    friend bool operator==(const DeepPtr& a, const DeepPtr& b) noexcept(
-        noexcept(std::declval<const T&>() == std::declval<const T&>()))
-    {
-        if (a.ptr == b.ptr) return true;
-        if (!a.ptr || !b.ptr) return false;
-        return *a.ptr == *b.ptr;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/realizatsiia-obhortky.cpp
 
 Ця обгортка дозволяє використовувати поліморфні ресурси в структурах, які автоматично генерують `= default` оператори, гарантуючи правильну семантику глибокого копіювання та порівняння.
 
@@ -712,36 +208,7 @@ public:
 
 У телеметричних системах та високочастотній торгівлі мережеві пакети повинні впорядковуватися за абсолютною часовою міткою прийому (`std::chrono::system_clock::time_point`), потім за числовим рівнем пріоритету `priority` (вищий пріоритет іде раніше), а далі — за послідовним номером `sequence_id`.
 
-```cpp
-#include <iostream>
-#include <chrono>
-#include <compare>
-#include <cstdint>
-
-struct TelemetryPacket {
-    std::chrono::system_clock::time_point timestamp;
-    uint32_t sequence_id{0};
-    uint8_t  priority{0};
-
-    // 1. Рівність за унікальним послідовним номером
-    bool operator==(const TelemetryPacket& o) const noexcept {
-        return sequence_id == o.sequence_id && timestamp == o.timestamp;
-    }
-
-    // 2. Впорядкування за хронологією та пріоритетом
-    std::strong_ordering operator<=>(const TelemetryPacket& o) const noexcept {
-        // Хронологічний порядок часу (раніші пакети йдуть попереду)
-        if (auto cmp = timestamp <=> o.timestamp; cmp != 0) {
-            return cmp;
-        }
-        // Вищий пріоритет іде попереду (сортування за спаданням через перестановку операндів)
-        if (auto cmp = o.priority <=> priority; cmp != 0) {
-            return cmp;
-        }
-        return sequence_id <=> o.sequence_id;
-    }
-};
-```
+:::code proj-custom-comparisons/cpp/stsenarii-10-merezhevi.cpp
 
 ---
 
@@ -753,24 +220,7 @@ struct TelemetryPacket {
 
 #### Приклад проблеми
 
-```cpp
-struct LegacyBuffer {
-    const char* data;
-    LegacyBuffer(const char* s) : data(s) {}
-
-    // У C++17 цей метод працював лише для викликів buf == "test"
-    bool operator==(const char* s) const {
-        return std::strcmp(data, s) == 0;
-    }
-};
-
-void check_buffer(LegacyBuffer buf) {
-    // У C++20 цей вираз породжує фатальну неоднозначність (ambiguity):
-    // Кандидат 1: неявне приведення "test" до LegacyBuffer і виклик порівняння двох об'єктів.
-    // Кандидат 2: переписаний перевернутий виклик buf.operator==("test").
-    // if ("test" == buf) { ... } // Помилка компіляції: ambiguous overload!
-}
-```
+:::code proj-custom-comparisons/cpp/pryklad-problemy.cpp
 
 #### Спосіб вирішення
 

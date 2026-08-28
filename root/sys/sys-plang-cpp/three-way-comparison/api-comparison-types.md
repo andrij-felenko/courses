@@ -37,46 +37,7 @@
 
 #### Оголошення та інтерфейс
 
-```cpp
-class strong_ordering {
-    // Внутрішній стан (зазвичай int8_t: -1 для less, 0 для equal, 1 для greater)
-    signed char value;
-
-    // Закритий конструктор для ініціалізації констант
-    constexpr explicit strong_ordering(signed char v) noexcept : value(v) {}
-
-public:
-    // Статичні константи можливих результатів
-    static const strong_ordering less;
-    static const strong_ordering equal;
-    static const strong_ordering equivalent;
-    static const strong_ordering greater;
-
-    // Неявні оператори приведення до слабших категорій
-    constexpr operator weak_ordering() const noexcept;
-    constexpr operator partial_ordering() const noexcept;
-
-    // Оператори порівняння з числовим нулем
-    friend constexpr bool operator==(strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator!=(strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator< (strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator<=(strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator> (strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator>=(strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-
-    // Перевернуті оператори (0 == v, 0 < v тощо)
-    friend constexpr bool operator==(/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-    friend constexpr bool operator!=(/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-    friend constexpr bool operator< (/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-    friend constexpr bool operator<=(/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-    friend constexpr bool operator> (/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-    friend constexpr bool operator>=(/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-
-    // Тричленне порівняння категорій між собою
-    friend constexpr strong_ordering operator<=>(strong_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr strong_ordering operator<=>(/*unspecified-literal-zero*/, strong_ordering v) noexcept;
-};
-```
+:::code api-comparison-types/cpp/oholoshennia-ta-interfeis.cpp
 
 | Значення-константа | Семантичний зміст | Порівняння з нулем |
 | :--- | :--- | :--- |
@@ -103,38 +64,7 @@ public:
 
 #### Оголошення та інтерфейс
 
-```cpp
-class weak_ordering {
-    signed char value;
-    constexpr explicit weak_ordering(signed char v) noexcept : value(v) {}
-
-public:
-    static const weak_ordering less;
-    static const weak_ordering equivalent;
-    static const weak_ordering greater;
-
-    // Неявне приведення до часткового порядку
-    constexpr operator partial_ordering() const noexcept;
-
-    // Порівняння з числовим нулем
-    friend constexpr bool operator==(weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator!=(weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator< (weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator<=(weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator> (weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator>=(weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-
-    friend constexpr bool operator==(/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-    friend constexpr bool operator!=(/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-    friend constexpr bool operator< (/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-    friend constexpr bool operator<=(/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-    friend constexpr bool operator> (/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-    friend constexpr bool operator>=(/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-
-    friend constexpr weak_ordering operator<=>(weak_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr weak_ordering operator<=>(/*unspecified-literal-zero*/, weak_ordering v) noexcept;
-};
-```
+:::code api-comparison-types/cpp/oholoshennia-ta-interfeis-2.cpp
 
 | Значення-константа | Семантичний зміст | Порівняння з нулем |
 | :--- | :--- | :--- |
@@ -158,37 +88,7 @@ public:
 
 #### Оголошення та інтерфейс
 
-```cpp
-class partial_ordering {
-    // Внутрішній стан (зазвичай: -1 для less, 0 для equivalent, 1 для greater, 2 для unordered)
-    signed char value;
-    constexpr explicit partial_ordering(signed char v) noexcept : value(v) {}
-
-public:
-    static const partial_ordering less;
-    static const partial_ordering equivalent;
-    static const partial_ordering greater;
-    static const partial_ordering unordered;
-
-    // Порівняння з числовим нулем
-    friend constexpr bool operator==(partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator!=(partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator< (partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator<=(partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator> (partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr bool operator>=(partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-
-    friend constexpr bool operator==(/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-    friend constexpr bool operator!=(/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-    friend constexpr bool operator< (/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-    friend constexpr bool operator<=(/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-    friend constexpr bool operator> (/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-    friend constexpr bool operator>=(/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-
-    friend constexpr partial_ordering operator<=>(partial_ordering v, /*unspecified-literal-zero*/) noexcept;
-    friend constexpr partial_ordering operator<=>(/*unspecified-literal-zero*/, partial_ordering v) noexcept;
-};
-```
+:::code api-comparison-types/cpp/oholoshennia-ta-interfeis-3.cpp
 
 #### Таблиця істинності операцій для partial_ordering
 
@@ -285,22 +185,7 @@ using compare_three_way_result_t = typename compare_three_way_result<T, U>::type
 
 Універсальний функціональний об'єкт із заголовка `<compare>`, призначений для використання як компаратор за замовчуванням у діапазонах та стандартних алгоритмах:
 
-```cpp
-struct compare_three_way {
-    template <class T, class U>
-        requires requires(T&& t, U&& u) {
-            static_cast<T&&>(t) <=> static_cast<U&&>(u);
-        }
-    constexpr auto operator()(T&& t, U&& u) const
-        noexcept(noexcept(static_cast<T&&>(t) <=> static_cast<U&&>(u)))
-        -> decltype(static_cast<T&&>(t) <=> static_cast<U&&>(u))
-    {
-        return static_cast<T&&>(t) <=> static_cast<U&&>(u);
-    }
-
-    using is_transparent = /*unspecified*/;
-};
-```
+:::code api-comparison-types/cpp/1-std-compare-three-way.cpp
 
 Наявність псевдоніма `is_transparent` дозволяє використовувати `std::compare_three_way` у прозорих асоціативних контейнерах (`std::set`, `std::map`) для гетерогенного пошуку без створення проміжних тимчасових об'єктів.
 
@@ -446,23 +331,6 @@ public:
 
 Заголовок `<compare>` містить концепти для формальної специфікації вимог до параметрів шаблонів:
 
-```cpp
-template <class T, class Cat = std::partial_ordering>
-concept three_way_comparable =
-    requires(const std::remove_reference_t<T>& a,
-             const std::remove_reference_t<T>& b) {
-        { a <=> b } -> /*compares-as*/<Cat>;
-    };
-
-template <class T, class U, class Cat = std::partial_ordering>
-concept three_way_comparable_with =
-    std::three_way_comparable<T, Cat> &&
-    std::three_way_comparable<U, Cat> &&
-    requires(const std::remove_reference_t<T>& t,
-             const std::remove_reference_t<U>& u) {
-        { t <=> u } -> /*compares-as*/<Cat>;
-        { u <=> t } -> /*compares-as*/<Cat>;
-    };
-```
+:::code api-comparison-types/cpp/standartni-kontsepty.cpp
 
 Допоміжний експозиційний концепт `/*compares-as*/<Cat>` перевіряє, що тип результату оператора `<=>` може бути неявно перетворений на очікувану категорію `Cat`, забороняючи повернення невідповідних типів (наприклад, повернення `partial_ordering` там, де концепт вимагає `strong_ordering`).

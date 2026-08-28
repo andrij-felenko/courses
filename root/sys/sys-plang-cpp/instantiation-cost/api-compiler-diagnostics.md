@@ -71,36 +71,13 @@
 
 ### Clang та GCC Pragmas
 
-```cpp
-// Тимчасове збільшення або зменшення межі глибини шаблонів (Clang)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundefined-func-template"
-
-// Приглушення попереджень про відсутність явної інстанціації
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wtemplate-id-cdtor"
-
-// Повернення попередніх налаштувань
-#pragma clang diagnostic pop
-#pragma GCC diagnostic pop
-```
+:::code api-compiler-diagnostics/cpp/clang-ta-gcc-pragmas.cpp
 
 Директиви `#pragma clang diagnostic` та `#pragma GCC diagnostic` дозволяють локально локалізувати попередження компілятора, викликані шаблонами. Це особливо важливо при розробці бібліотек, які включають треті заголовочні файли з глибокими інстанціаціями, де неможливо змінити вихідний код.
 
 ### MSVC Pragmas
 
-```cpp
-// Приглушення попереджень MSVC щодо експорту шаблонних класів у DLL (C4251)
-#pragma warning(push)
-#pragma warning(disable: 4251) // class 'A<T>' needs to have dll-interface
-
-template <typename T>
-class __declspec(dllexport) DllExportedBuffer {
-    // ...
-};
-
-#pragma warning(pop)
-```
+:::code api-compiler-diagnostics/cpp/msvc-pragmas.cpp
 
 Директива `#pragma warning(disable: 4251)` у компіляторі MSVC приглушує відоме попередження про експорт екземплярів шаблонних класів через межі динамічних бібліотек (`DLL`). Оскільки кожна DLL у Windows має власну CRT-зону пам'яті, неявна інстанціація шаблонів між DLL вимагає обережного використання `extern template` та прагм експорту.
 
@@ -110,22 +87,7 @@ class __declspec(dllexport) DllExportedBuffer {
 
 Стандартні макроси перевірки можливостей дозволяють писати кросплатформений код з урахуванням підтримки концептів, `extern template` та модулів C++20:
 
-```cpp
-// Перевірка підтримки явного контролю інстанціації (C++11 extern template)
-#if __cplusplus >= 201103L
-    #define HAS_EXTERN_TEMPLATE 1
-#endif
-
-// Перевірка підтримки C++20 Concepts для скорочення вартості SFINAE
-#if defined(__cpp_concepts) && __cpp_concepts >= 201907L
-    #define HAS_CPP20_CONCEPTS 1
-#endif
-
-// Перевірка підтримки модулів C++20
-#if defined(__cpp_modules) && __cpp_modules >= 201907L
-    #define HAS_CPP20_MODULES 1
-#endif
-```
+:::code api-compiler-diagnostics/cpp/4-systemni-makrosy.cpp
 
 Використання цих макросів дозволяє розробникам будувати умовні конфігурації компіляції. Якщо компілятор підтримує C++20 Concepts (`__cpp_concepts`), бібліотека обирає перевірку обмежень через `requires`-clauses, яка виконується миттєво. Якщо ж код збирається застарілим компілятором C++14, виконується резервний перехід на `std::enable_if_t`, що гарантує сумісність ціною тривалішої збірки.
 
@@ -174,26 +136,7 @@ class __declspec(dllexport) DllExportedBuffer {
 
 Для побудови системи моніторингу часу компіляції на серверах CI/CD рекомендується використовувати наступний сценарій опитування прапорців компіляції:
 
-```bash
-#!/usr/bin/env bash
-# Скрипт автоматичної перевірки відхилень часу компіляції
-set -euo pipefail
-
-BUILD_DIR="build_ci"
-REPORT_FILE="time_report.txt"
-
-# 1. Збірка з трасуванням
-cmake -B "${BUILD_DIR}" -G Ninja -DCMAKE_CXX_FLAGS="-ftime-trace"
-clang-build-analyzer --start "${BUILD_DIR}"
-ninja -C "${BUILD_DIR}"
-clang-build-analyzer --stop "${BUILD_DIR}" "${REPORT_FILE}"
-
-# 2. Перевірка наявності важких інстанціацій
-if grep -q "Expensive Templates" "${REPORT_FILE}"; then
-    echo "[CI WARNING] Found heavy template instantiations in build report!"
-    head -n 30 "${REPORT_FILE}"
-fi
-```
+:::code api-compiler-diagnostics/sh/main.sh
 
 Даний протокол дозволяє команді розробників отримувати сповіщення в автоматичному режимі, запобігаючи неконтрольованому зростанню часу збірки проекту.
 

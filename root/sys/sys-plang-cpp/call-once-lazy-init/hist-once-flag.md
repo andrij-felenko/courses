@@ -13,36 +13,8 @@
 Серед базових примітивів взаємного виключення розробники стандарту передбачили спеціальний механізм для одноразового виконання функцій:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-
-static pthread_once_t init_flag = PTHREAD_ONCE_INIT;
-
-void init_hardware_driver(void) {
-    printf("Ініціалізація апаратного драйвера (POSIX C)...\n");
-}
-
-void process_request(void) {
-    pthread_once(&init_flag, init_hardware_driver);
-    /* Безпечна робота з ініціалізованим обладнанням */
-}
-```
-```cpp
-#include <mutex>
-#include <iostream>
-
-static std::once_flag init_flag;
-
-void init_hardware_driver() {
-    std::cout << "Ініціалізація апаратного драйвера (C++11)...\n";
-}
-
-void process_request() {
-    std::call_once(init_flag, init_hardware_driver);
-    // Безпечна робота з ініціалізованим обладнанням
-}
-```
+:::code hist-once-flag/c/1-epokha-posix-poiava.c
+:::code hist-once-flag/cpp/1-epokha-posix-poiava.cpp
 :::
 
 Для мови C цей примітив став стандартом де-факто, проте при переході до об'єктно-орієнтованого коду на C++ виявилися його принципові структурні обмеження:
@@ -59,62 +31,8 @@ void process_request() {
 Ідея DCLP виглядала елегантною і переконливою: спершу перевірити покажчик без блокування, і лише якщо він порожній — захопити замок і перевірити ще раз.
 
 :::tabs
-```c
-/* Наївний патерн DCLP мовою C (історичний небезпечний антипатерн) */
-#include <pthread.h>
-#include <stdlib.h>
-
-typedef struct {
-    int coefficients[256];
-} MatrixFilter;
-
-MatrixFilter* g_filter = NULL;
-pthread_mutex_t g_filter_mtx = PTHREAD_MUTEX_INITIALIZER;
-
-MatrixFilter* get_matrix_filter_broken(void) {
-    if (g_filter == NULL) { /* Перша перевірка (без блокування) */
-        pthread_mutex_lock(&g_filter_mtx);
-        if (g_filter == NULL) { /* Друга перевірка (під замком) */
-            MatrixFilter* tmp = (MatrixFilter*)malloc(sizeof(MatrixFilter));
-            if (tmp) {
-                tmp->coefficients[0] = 100;
-                /* Небезпечний запис: процесор може зробити g_filter видимим */
-                /* раніше, ніж заповняться дані в структурі tmp! */
-                g_filter = tmp;
-            }
-        }
-        pthread_mutex_unlock(&g_filter_mtx);
-    }
-    return g_filter;
-}
-```
-```cpp
-// Наївний патерн DCLP на C++98/03 (історичний небезпечний антипатерн)
-#include <mutex>
-#include <memory>
-
-struct MatrixFilter {
-    int coefficients[256];
-    MatrixFilter() { coefficients[0] = 100; }
-};
-
-MatrixFilter* g_filter = nullptr;
-std::mutex g_filter_mtx;
-
-MatrixFilter* get_matrix_filter_broken() {
-    if (g_filter == nullptr) { // Перша перевірка без блокування
-        std::lock_guard<std::mutex> lock(g_filter_mtx);
-        if (g_filter == nullptr) { // Друга перевірка під замком
-            // Рядок нижче розпадається компілятором на 3 кроки:
-            // Крок 1: operator new(sizeof(MatrixFilter)) — виділення пам'яті
-            // Крок 2: MatrixFilter::MatrixFilter() — виконання конструктора
-            // Крок 3: присвоєння адреси змінній g_filter
-            g_filter = new MatrixFilter();
-        }
-    }
-    return g_filter;
-}
-```
+:::code hist-once-flag/c/2-iliuziia-podviinoi.c
+:::code hist-once-flag/cpp/2-iliuziia-podviinoi.cpp
 :::
 
 У 2004 році визнані світові експерти зі стандартизації C++ Скотт Мейєрс (англ. *Scott Meyers*) та Андрей Александреску (англ. *Andrei Alexandrescu*) опублікували фундаментальне дослідження *"C++ and the Perils of Double-Checked Locking"*.

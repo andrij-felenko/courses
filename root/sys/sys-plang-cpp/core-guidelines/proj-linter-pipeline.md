@@ -92,85 +92,8 @@ FormatStyle: file
 Розглянемо практичний приклад модуля обробки телеметрії. Продемонструємо відмінність між старим процедурним підходом мови C та його проблемною напівмодернізацією на C++:
 
 :::tabs
-```c
-/* Процедурний C: ручна алокація, сирі вказівники, сигналізація через коди */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    double timestamp;
-    float value;
-    int status_flags;
-} TelemetryPacket;
-
-int filter_active_packets(const TelemetryPacket* input, int count, 
-                          TelemetryPacket** output, int* out_count) {
-    if (!input || count <= 0 || !output || !out_count) {
-        return -1;
-    }
-
-    TelemetryPacket* buffer = (TelemetryPacket*)malloc(sizeof(TelemetryPacket) * count);
-    if (!buffer) {
-        return -2;
-    }
-
-    int active = 0;
-    for (int i = 0; i < count; ++i) {
-        if ((input[i].status_flags & 0x01) != 0) {
-            buffer[active++] = input[i];
-        }
-    }
-
-    *output = buffer;
-    *out_count = active;
-    printf("Extracted %d active packets\n", active);
-    return 0;
-}
-```
-```cpp
-// Легасі-код на C++ із накопиченими порушеннями Core Guidelines
-#include <cstdio>
-#include <cstdlib>
-
-struct TelemetryPacket {
-    double timestamp;
-    float value;
-    int status_flags;
-};
-
-int filter_active_packets(const TelemetryPacket* input, int count, 
-                          TelemetryPacket*& output, int& out_count) {
-    // Дефект 1: ES.20 (неініціалізовані змінні)
-    int active;
-    int error_code;
-
-    // Дефект 2: I.11 та Bounds.1 (сирий вказівник + int замість std::span)
-    if (input == nullptr || count <= 0) {
-        return -1;
-    }
-
-    // Дефект 3: R.10 та R.3 (сире виділення пам'яті в купі з неявним володінням)
-    output = new TelemetryPacket[count];
-
-    active = 0;
-    for (int i = 0; i < count; ++i) {
-        // Дефект 4: ES.46 (звужувальне перетворення при бітовій масці)
-        short flag_masked = input[i].status_flags & 0x01;
-        if (flag_masked != 0) {
-            output[active] = input[i];
-            active++;
-        }
-    }
-
-    out_count = active;
-    
-    // Дефект 5: Type.1 (C-варіативна функція printf)
-    std::printf("Extracted %d active packets\n", active);
-
-    return 0;
-}
-```
+:::code proj-linter-pipeline/c/main.c
+:::code proj-linter-pipeline/cpp/3-praktychnyi-stsenarii.cpp
 :::
 
 ### Діагностичний звіт Clang-Tidy
@@ -222,44 +145,7 @@ telemetry_filter.cpp:35:5: error: do not call c-style vararg functions like 'pri
 
 Оновлена безпечна реалізація:
 
-```cpp
-#include <span>
-#include <vector>
-#include <expected>
-#include <print>
-#include <cstdint>
-
-struct TelemetryPacket {
-    double timestamp{0.0};
-    float value{0.0f};
-    std::uint32_t status_flags{0};
-};
-
-enum class FilterError : std::uint8_t {
-    EmptyInput,
-    BufferCorrupted
-};
-
-[[nodiscard]] std::expected<std::vector<TelemetryPacket>, FilterError> 
-filter_active_packets(std::span<const TelemetryPacket> input) noexcept 
-{
-    if (input.empty()) {
-        return std::unexpected(FilterError::EmptyInput);
-    }
-
-    std::vector<TelemetryPacket> active_packets;
-    active_packets.reserve(input.size());
-
-    for (const auto& packet : input) {
-        if ((packet.status_flags & 0x01U) != 0U) {
-            active_packets.push_back(packet);
-        }
-    }
-
-    std::println("Extracted {} active packets safely", active_packets.size());
-    return active_packets;
-}
-```
+:::code proj-linter-pipeline/cpp/4-hlybokyi-refaktorynh.cpp
 
 Код пройшов повну статичну перевірку: нуль попереджень лінтера, повна відсутність витоків пам'яті, гарантована типобезпека та чистий самодокументований інтерфейс.
 
@@ -307,45 +193,7 @@ filter_active_packets(std::span<const TelemetryPacket> input) noexcept
 
 Приклад написання власного чекера, який перевіряє, що всі фабричні методи повертають об'єкти винятково через `std::unique_ptr`, а не через сирий вказівник:
 
-```cpp
-#include "clang/ASTMatchers/ASTMatchFinder.h"
-#include "clang/ASTMatchers/ASTMatchers.h"
-#include "clang/StaticAnalyzer/Checkers/BuiltinCheckerRegistration.h"
-#include "clang/Tidy/ClangTidyCheck.h"
-
-using namespace clang::ast_matchers;
-
-namespace custom_guidelines {
-
-class FactoryReturnCheck : public clang::tidy::ClangTidyCheck {
-public:
-    FactoryReturnCheck(llvm::StringRef Name, clang::tidy::ClangTidyContext *Context)
-        : ClangTidyCheck(Name, Context) {}
-
-    void registerMatchers(MatchFinder *Finder) override {
-        // Шукаємо оголошення функцій, назва яких починається з "create" або "make",
-        // які повертають сирий вказівник замість розумного
-        Finder->addMatcher(
-            functionDecl(
-                hasName("create"),
-                returns(pointerType(pointee(hasDeclaration(recordDecl()))))
-            ).bind("faulty_factory"),
-            this
-        );
-    }
-
-    void check(const MatchFinder::MatchResult &Result) override {
-        const auto *MatchedDecl = Result.Nodes.getNodeAs<clang::FunctionDecl>("faulty_factory");
-        if (!MatchedDecl) return;
-
-        diag(MatchedDecl->getLocation(),
-             "Фабрична функція %0 повертає сирий вказівник; за правилом R.3 слід повертати std::unique_ptr")
-            << MatchedDecl;
-    }
-};
-
-} // namespace custom_guidelines
-```
+:::code proj-linter-pipeline/cpp/7-rozrobka-vlasnykh-pravyl.cpp
 
 Такий підхід дозволяє перетворювати будь-яку архітектурну угоду команди на непідкупний компіляторний контроль.
 
@@ -364,21 +212,7 @@ public:
 ### Спосіб 1: Атрибут `[[gsl::suppress(...)]]`
 Офіційний механізм, розроблений для підтримки інструментами аналізу:
 
-```cpp
-#include <cstddef>
-#include <new>
-
-class HardwareDMAController {
-public:
-    [[nodiscard]] void* allocate_coherent_buffer(std::size_t size) {
-        // Локально документуємо виняток для виділення сирої DMA пам'яті
-        [[gsl::suppress("cppcoreguidelines-owning-memory", 
-          justification = "DMA-буфер вирівнюється за сторінкою пам'яті; звільняється в ~HardwareDMAController")]]
-        void* dma_buffer = ::operator new(size, std::align_val_t{4096});
-        return dma_buffer;
-    }
-};
-```
+:::code proj-linter-pipeline/cpp/sposib-1-atrybut-gsl.cpp
 
 ### Спосіб 2: Директива лінтера `// NOLINTNEXTLINE(...)`
 Універсальний інструментальний синтаксис для `clang-tidy`. Обов'язково вимагає вказувати конкретне ім'я чекера та технічне обґрунтування:
@@ -475,31 +309,7 @@ auto* timer_reg = reinterpret_cast<volatile uint32_t*>(0x40000000UL);
 
 Для запуску перевірок безпосередньо під час кожної локальної компіляції додайте в `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.22)
-project(CoreGuidelinesProject CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Експорт бази компіляції (compile_commands.json) для лінтерів
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-find_program(CLANG_TIDY_EXE NAMES clang-tidy)
-
-if(CLANG_TIDY_EXE)
-    message(STATUS "Clang-Tidy активовано: ${CLANG_TIDY_EXE}")
-    set(CMAKE_CXX_CLANG_TIDY 
-        "${CLANG_TIDY_EXE};--config-file=${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy;--warnings-as-errors=*")
-else()
-    message(WARNING "Clang-Tidy не знайдено на машині розробника!")
-endif()
-
-add_library(telemetry_lib src/telemetry_filter.cpp)
-add_executable(telemetry_app src/main.cpp)
-target_link_libraries(telemetry_app PRIVATE telemetry_lib)
-```
+:::code proj-linter-pipeline/cmake/CMakeLists.txt
 
 ### Конфігурація неперервної інтеграції GitHub Actions
 

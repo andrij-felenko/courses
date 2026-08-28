@@ -26,19 +26,7 @@ namespace std {
 
 ### Внутрішні псевдоніми типів (Member Types)
 
-```cpp
-template<class Ref, class V, class Allocator>
-class generator {
-public:
-    using yielded = std::conditional_t<std::is_reference_v<Ref>, Ref, const Ref&>;
-    using value_type = std::conditional_t<std::is_void_v<V>, std::remove_cvref_t<Ref>, V>;
-    using difference_type = std::ptrdiff_t;
-    using allocator_type = Allocator;
-    
-    class promise_type;
-    class iterator;
-};
-```
+:::code api-generator-ref/cpp/vnutrishni-psevdonimy.cpp
 
 Псевдонім `yielded` визначає точний тип виразу, який приймається методом `promise_type::yield_value()`. Якщо `Ref` є посиланням, `yielded` збігається з `Ref`. Якщо `Ref` є значенням, `yielded` стає `const Ref&`.
 
@@ -48,36 +36,7 @@ public:
 
 Об'єкт `std::generator` є одноосібним власником ресурсу — дескриптора корутини `std::coroutine_handle<promise_type>`. Клас реалізує сувору семантику передачі володіння (Move-only Semantics) та повністю забороняє будь-які операції копіювання.
 
-```cpp
-// 1. Конструктор за замовчуванням створює порожній генератор
-constexpr generator() noexcept : coroutine_(nullptr) {}
-
-// 2. Конструктор копіювання вилучено (Copy Operations Deleted)
-generator(const generator&) = delete;
-generator& operator=(const generator&) = delete;
-
-// 3. Конструктор переміщення передає дескриптор без виділення пам'яті
-generator(generator&& rhs) noexcept
-    : coroutine_(std::exchange(rhs.coroutine_, nullptr)) {}
-
-// 4. Оператор присвоєння переміщенням знищує поточний кадр та забирає новий
-generator& operator=(generator&& rhs) noexcept {
-    if (this != std::addressof(rhs)) {
-        if (coroutine_) {
-            coroutine_.destroy();
-        }
-        coroutine_ = std::exchange(rhs.coroutine_, nullptr);
-    }
-    return *this;
-}
-
-// 5. Деструктор автоматично вивільняє кадр корутини у купі
-~generator() {
-    if (coroutine_) {
-        coroutine_.destroy();
-    }
-}
-```
+:::code api-generator-ref/cpp/2-kontrakt-volodinnia-ta.cpp
 
 ### Гарантії безпеки та тривалість життя
 - Виклик деструктора `~generator()` здійснює перевірку дійсності дескриптора `coroutine_`. Якщо дескриптор є дійсним, деструктор викликає `coroutine_.destroy()`. Це призводить до виконання деструкторів усіх живих локальних змінних усередині тіла корутини та вивільнення кадру з оперативноі пам'яті.
@@ -108,38 +67,7 @@ std::default_sentinel_t end() noexcept { return std::default_sentinel; }
 
 Внутрішній клас `iterator` забезпечує переміщення по корутині та реалізує вимоги концепту `std::input_iterator`.
 
-```cpp
-class generator::iterator {
-public:
-    using value_type = generator::value_type;
-    using difference_type = generator::difference_type;
-    using iterator_concept = std::input_iterator_tag;
-
-    iterator() noexcept : coroutine_(nullptr) {}
-
-    // Операція розіменовування повертає посилання на згенероване значення
-    yielded operator*() const noexcept(std::is_nothrow_copy_constructible_v<yielded>) {
-        return coroutine_.promise().value();
-    }
-
-    // Операція інкремента відновлює виконання корутини
-    iterator& operator++() {
-        coroutine_.promise().resume_next();
-        return *this;
-    }
-
-    void operator++(int) {
-        (void)operator++();
-    }
-
-    // Порівняння з сентинелом перевіряє завершення корутини
-    friend bool operator==(const iterator& it, std::default_sentinel_t) noexcept {
-        return it.coroutine_.done();
-    }
-private:
-    std::coroutine_handle<promise_type> coroutine_{nullptr};
-};
-```
+:::code api-generator-ref/cpp/4-klas-iteratora-std.cpp
 
 ### Важливі специфічні властивості ітератора
 
@@ -152,21 +80,7 @@ private:
 
 Для підтримки виразової рекурсивної генерації без сповільнення продуктивності стандарт C++23 визначає допоміжну структуру `std::ranges::elements_of`.
 
-```cpp
-namespace std::ranges {
-    template<range R, class Alloc = allocator<char>>
-    struct elements_of {
-        [[no_unique_address]] R range;
-        [[no_unique_address]] Alloc allocator = Alloc();
-    };
-
-    template<class R>
-    elements_of(R&&) -> elements_of<R>;
-
-    template<class R, class Alloc>
-    elements_of(R&&, Alloc) -> elements_of<R, Alloc>;
-}
-```
+:::code api-generator-ref/cpp/5-spetsyfikatsiia.cpp
 
 ### Механізм обробки `yield_value` для `elements_of`
 
@@ -190,55 +104,7 @@ auto yield_value(std::ranges::elements_of<R, Alloc> r) {
 
 Клас `promise_type` відповідає за керування станом корутини, збереження тимчасових значень, виділення пам'яті та обробку винятків.
 
-```cpp
-template<class Ref, class V, class Allocator>
-class generator<Ref, V, Allocator>::promise_type {
-public:
-    // Створення генератора з обіцянки
-    generator get_return_object() noexcept {
-        return generator{std::coroutine_handle<promise_type>::from_promise(*this)};
-    }
-
-    // Початкове призупинення (лінивий запуск)
-    std::suspend_always initial_suspend() noexcept { return {}; }
-
-    // Фінальне призупинення повертає керування у батьківську корутину
-    auto final_suspend() noexcept {
-        struct final_awaiter {
-            bool await_ready() noexcept { return false; }
-            std::coroutine_handle<> await_suspend(std::coroutine_handle<promise_type> h) noexcept {
-                if (h.promise().parent_) {
-                    return h.promise().parent_; // Симетричне повернення в батьківський генератор
-                }
-                return std::noop_coroutine();
-            }
-            void await_resume() noexcept {}
-        };
-        return final_awaiter{};
-    }
-
-    // Збереження згенерованого значення
-    std::suspend_always yield_value(yielded val) noexcept {
-        value_ptr_ = std::addressof(val);
-        return {};
-    }
-
-    void return_void() noexcept {}
-
-    void unhandled_exception() {
-        exception_ = std::current_exception();
-    }
-
-    // Підтримка користувацького розподілювача пам'яті
-    template<class... Args>
-    static void* operator new(std::size_t size, Args&&... args);
-    static void operator delete(void* ptr, std::size_t size) noexcept;
-private:
-    std::addressof_t<yielded> value_ptr_{nullptr};
-    std::exception_ptr exception_{nullptr};
-    std::coroutine_handle<> parent_{nullptr};
-};
-```
+:::code api-generator-ref/cpp/6-vnutrishnia.cpp
 
 ---
 
@@ -246,33 +112,7 @@ private:
 
 Шаблон `std::generator` підтримує передачу користувацьких розподілювачів пам'яті (наприклад, `std::pmr::polymorphic_allocator`) через аргумент `std::allocator_arg`.
 
-```cpp
-#include <generator>
-#include <memory_resource>
-#include <iostream>
-
-// Корутинна функція з користувацьким PMR розподілювачем
-std::generator<int, void, std::pmr::polymorphic_allocator<char>>
-custom_allocated_sequence(std::allocator_arg_t, std::pmr::polymorphic_allocator<char> alloc, int count) {
-    for (int i = 0; i < count; ++i) {
-        co_yield i;
-    }
-}
-
-int main() {
-    // Створюємо логічну арену пам'яті на стеку
-    char buffer[1024];
-    std::pmr::monotonic_buffer_resource pool(buffer, sizeof(buffer));
-    std::pmr::polymorphic_allocator<char> alloc(&pool);
-
-    // Передаємо розподілювач першим аргументом через std::allocator_arg
-    auto gen = custom_allocated_sequence(std::allocator_arg, alloc, 5);
-
-    for (int v : gen) {
-        std::cout << v << " "; // Виділення кадру відбувається в буфері 'buffer'
-    }
-}
-```
+:::code api-generator-ref/cpp/7-robota-z-korystuvatskymy.cpp
 
 ---
 

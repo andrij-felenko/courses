@@ -10,21 +10,7 @@
 
 Оператор `alignof` повертає вимогу вирівнювання заданого типу в байтах. Значення завжди є цілочисельною константою часу компіляції типу `std::size_t` і обов'язково дорівнює додатньому степеню двійки (`1`, `2`, `4`, `8`, `16`, `32`, `64` тощо).
 
-```cpp
-#include <cstddef>
-#include <iostream>
-
-struct PacketHeader {
-    char flag;       // 1 байт
-    int id;          // 4 байти
-    double weight;   // 8 байтів
-};
-
-static_assert(alignof(char) == 1);
-static_assert(alignof(int) == 4);
-static_assert(alignof(double) == 8);
-static_assert(alignof(PacketHeader) == 8); // визначається найбільшим членом
-```
+:::code api-alignment-utilities/cpp/operator-alignof.hpp
 
 #### Правила обчислення alignof
 
@@ -40,24 +26,7 @@ static_assert(alignof(PacketHeader) == 8); // визначається найб�
 
 Специфікатор `alignas` установлює вимогу вирівнювання для оголошення змінної, поля структури або визначення типу. Він приймає або константний вираз, що обчислюється у ступінь двійки, або тип, чиє вирівнювання слід запозичити.
 
-```cpp
-// 1. Примусове вирівнювання окремої змінної
-alignas(16) float vector4[4];
-
-// 2. Використання типу як аргументу
-alignas(double) char raw_buffer[sizeof(double)];
-
-// 3. Вирівнювання поля структури
-struct Node {
-    char tag;
-    alignas(64) int counter; // розміщує counter на початку 64-байтної кеш-лінії
-};
-
-// 4. Вирівнювання цілого типу
-struct alignas(32) AVXData {
-    float values[8];
-};
-```
+:::code api-alignment-utilities/cpp/spetsyfikator-alignas.cpp
 
 #### Обмеження та правила специфікатора alignas
 
@@ -140,42 +109,7 @@ offset = aligned_address - uintptr_t(ptr)
 
 ### Приклад застосування std::align
 
-```cpp
-#include <memory>
-#include <cstddef>
-#include <cstdint>
-#include <iostream>
-
-struct SensorData {
-    double timestamp;  // alignof = 8, sizeof = 8
-    float values[3];   // 12 байтів + 4 байти padding -> sizeof = 24
-};
-
-int main() {
-    alignas(std::max_align_t) std::byte storage[256];
-    
-    void* current_ptr = storage + 3; // навмисно беремо невирівняну адресу (+3 байти від початку)
-    std::size_t free_space = sizeof(storage) - 3;
-    
-    void* aligned_ptr = std::align(
-        alignof(SensorData),
-        sizeof(SensorData),
-        current_ptr,
-        free_space
-    );
-    
-    if (aligned_ptr != nullptr) {
-        // current_ptr тепер зсунутий на найближчу адресу, кратну 8 (додано 5 байтів padding)
-        // free_space зменшено на розмір доданого padding (на 5 байтів)
-        SensorData* sensor = ::new (aligned_ptr) SensorData{100.5, {1.0f, 2.0f, 3.0f}};
-        
-        std::cout << "Об'єкт успішно розміщено за адресою: " << sensor << "\n";
-        
-        // Звільнення об'єкта
-        sensor->~SensorData();
-    }
-}
-```
+:::code api-alignment-utilities/cpp/pryklad-zastosuvannia-std.cpp
 
 ---
 
@@ -208,20 +142,7 @@ void operator delete[](void* ptr, std::size_t sz, std::align_val_t al) noexcept;
 
 Компілятор C++17 і новіших стандартів автоматично генерує виклики цих операторів, коли створюється або видаляється об'єкт із типом `alignof(T) > alignof(std::max_align_t)`:
 
-```cpp
-struct alignas(64) CacheAlignedBlock {
-    int counter;
-    char payload[60];
-};
-
-// Компілятор C++17 транслює цей рядок у:
-// operator new(sizeof(CacheAlignedBlock), std::align_val_t(64))
-CacheAlignedBlock* p = new CacheAlignedBlock();
-
-// Транслюється у:
-// operator delete(p, sizeof(CacheAlignedBlock), std::align_val_t(64))
-delete p;
-```
+:::code api-alignment-utilities/cpp/perevantazhennia.cpp
 
 Під капотом реалізації стандартної бібліотеки транслюють ці виклики у системні функції ОС із підтримкою явного вирівнювання: `posix_memalign` або `aligned_alloc` на POSIX-сумісних системах (Linux, macOS) та `_aligned_malloc` / `_aligned_free` на Windows.
 
@@ -248,21 +169,7 @@ template<std::size_t N, typename T>
 2. **Прекондиція:** Вказівник `ptr` на момент виклику зобов'язаний реально вказувати на адресу, кратну `N`.
 3. **Порушення контракту:** Якщо функцію викликано над адресою, яка не є кратною `N`, це породжує **невизначену поведінку (Undefined Behavior)**. Компілятор оптимізує подальший код під припущення вирівняності, що призводить до апаратних падінь або генерації некоректного машинного коду.
 
-```cpp
-#include <memory>
-#include <numeric>
-#include <span>
-
-void process_floats_avx(float* raw_data, std::size_t count) {
-    // Повідомляємо компілятору, що raw_data гарантовано вирівняний по межі 64 байтів
-    float* aligned_data = std::assume_aligned<64>(raw_data);
-    
-    // Компілятор може безпечно розгорнути цикл у векторні інструкції vmovaps
-    for (std::size_t i = 0; i < count; ++i) {
-        aligned_data[i] *= 2.0f;
-    }
-}
-```
+:::code api-alignment-utilities/cpp/kontrakt-i-pravyla.cpp
 
 ---
 
@@ -310,19 +217,7 @@ struct ThreadMetrics {
 
 ### Сигнатури стандартних функцій
 
-```cpp
-#include <new>
-
-// 1. Для одиничного об'єкта
-void* operator new(std::size_t size, void* ptr) noexcept;
-
-// 2. Для масиву об'єктів
-void* operator new[](std::size_t size, void* ptr) noexcept;
-
-// 3. Відповідні розміщувальні оператори delete
-void operator delete(void* ptr, void* place) noexcept;
-void operator delete[](void* ptr, void* place) noexcept;
-```
+:::code api-alignment-utilities/cpp/syhnatury-standartnykh.cpp
 
 ### Реалізація та семантика
 
@@ -374,28 +269,7 @@ template<typename T>
 2. Клас має хоча б один нестатичний член, що є посиланням (`T&`).
 3. Новий об'єкт має інший динамічний тип або створений усередині поліморфної ієрархії без оновлення оригінального покажчика.
 
-```cpp
-#include <new>
-#include <cstdint>
-
-struct ImmutableConfig {
-    const int port;
-    const char protocol;
-};
-
-void update_storage(ImmutableConfig* cfg) {
-    // 1. Завершуємо час життя старого об'єкта
-    cfg->~ImmutableConfig();
-    
-    // 2. Створюємо новий об'єкт на тому самому місці з новими const-значеннями
-    ImmutableConfig* new_cfg = new (cfg) ImmutableConfig{8080, 'U'};
-    
-    // ПРЯМЕ використання старого cfg->port — це UB, бо компілятор пам'ятає старий const int
-    // Правильний доступ:
-    ImmutableConfig* valid_ptr = std::launder(cfg);
-    // Тепер valid_ptr->port гарантовано поверне 8080
-}
-```
+:::code api-alignment-utilities/cpp/pravyla-zastosuvannia-std.cpp
 
 ---
 

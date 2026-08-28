@@ -14,23 +14,7 @@
 
 Якщо операція складалася з кількох кроків — наприклад, резервування коштів на банківському рахунку, створення запису в журналі транзакцій та надсилання мережевого сповіщення, — збій на третьому кроці вимагав явного відкату перших двох. У чистому C++98 це призводило до громіздких конструкцій:
 
-```cpp
-void process_transaction(Account& acc, double amount, Logger& log, Network& net) {
-    acc.reserve(amount);
-    try {
-        log.record_intent(acc.id(), amount);
-        try {
-            net.notify_peer(acc.id(), amount);
-        } catch (...) {
-            log.cancel_intent(acc.id(), amount);
-            throw;
-        }
-    } catch (...) {
-        acc.cancel_reservation(amount);
-        throw;
-    }
-}
-```
+:::code hist-scope-guard/cpp/vyniatkovi-harantii-ta.cpp
 
 Кожен новий крок додавав новий рівень вкладеності блоків `try-catch`. Код ставав пірамідальним, логіка очищення розпорошувалася по різних гілках обробки, а випадковий пропуск одного з рівнів перехоплення призводив до тихого спотворення стану системи.
 
@@ -47,22 +31,7 @@ void process_transaction(Account& acc, double amount, Logger& log, Network& net)
 - шаблонні похідні класи `ScopeGuardImpl0`, `ScopeGuardImpl1<F, P1>`, `ScopeGuardImpl2<F, P1, P2>`, які зберігали вказівник на функцію чи метод та значення переданих аргументів;
 - перевантажені фабричні функції `MakeGuard` та `MakeObjGuard`, які виводили типи аргументів шаблону з параметрів виклику, позбавляючи розробника необхідності писати довгі параметризації вручну.
 
-```cpp
-// Концептуальний вигляд використання в бібліотеці Loki (2000–2001 рр.)
-void process_transaction(Account& acc, double amount, Logger& log, Network& net) {
-    acc.reserve(amount);
-    ScopeGuard guard_acc = MakeObjGuard(acc, &Account::cancel_reservation, amount);
-
-    log.record_intent(acc.id(), amount);
-    ScopeGuard guard_log = MakeObjGuard(log, &Logger::cancel_intent, acc.id(), amount);
-
-    net.notify_peer(acc.id(), amount);
-
-    // Якщо дійшли сюди — все успішно, скасовуємо відкат:
-    guard_log.dismiss();
-    guard_acc.dismiss();
-}
-```
+:::code hist-scope-guard/cpp/2000-rik-stattia.cpp
 
 Щоб дозволити прив'язувати тимчасовий об'єкт `ScopeGuardImpl` до константного посилання `const ScopeGuard&` (що за правилами C++ подовжує час життя тимчасового об'єкта до кінця поточної області), Александреску застосував трюк із мутабельним прапорцем `mutable bool dismissed_`.
 
@@ -102,22 +71,7 @@ void processTransaction(ref Account acc, double amount) {
 
 Оскільки мова все ще не підтримувала лямбди та автоматичне виведення типів `auto`, бібліотека використовувала складну препроцесорну метапрограму на базі `Boost.Preprocessor` та механізмів виведення типу виразу `typeof` (`Boost.Typeof`):
 
-```cpp
-// Використання Boost.ScopeExit у C++03
-void update_data(Database& db, Record& r) {
-    db.begin_transaction();
-    bool commit = false;
-
-    BOOST_SCOPE_EXIT((&db)(&commit)) {
-        if (!commit) {
-            db.rollback();
-        }
-    } BOOST_SCOPE_EXIT_END
-
-    db.modify(r);
-    commit = true; // фіксуємо зміни
-}
-```
+:::code hist-scope-guard/cpp/epokha-boost-makrosna.cpp
 
 Макрос `BOOST_SCOPE_EXIT` оголошував локальний клас усередині функції, копіював або захоплював за посиланням вказані змінні за допомогою послідовностей препроцесора та інстанціював анонімний стековий екземпляр. Попри важкий синтаксис і помітне навантаження на компілятор під час розбору шаблонів, `Boost.ScopeExit` стала фактичним стандартом у великих промислових проектах, де вимагалася сувора виняткова безпека.
 
@@ -127,19 +81,7 @@ void update_data(Database& db, Record& r) {
 
 Будь-який розробник міг створити компактний шаблонний клас:
 
-```cpp
-template <typename F>
-class CustomScopeGuard {
-    F fn_;
-    bool active_{true};
-public:
-    explicit CustomScopeGuard(F fn) : fn_(std::move(fn)) {}
-    ~CustomScopeGuard() { if (active_) fn_(); }
-    void dismiss() noexcept { active_ = false; }
-    CustomScopeGuard(CustomScopeGuard&& o) noexcept 
-        : fn_(std::move(o.fn_)), active_(std::exchange(o.active_, false)) {}
-};
-```
+:::code hist-scope-guard/cpp/revoliutsiia-c-11-liambdy.cpp
 
 У цей же період у провідних промислових бібліотеках виникли власні оптимізовані інструменти:
 - `folly::makeGuard`, макроси `SCOPE_EXIT`, `SCOPE_FAIL`, `SCOPE_SUCCESS` у бібліотеці Folly від Meta;

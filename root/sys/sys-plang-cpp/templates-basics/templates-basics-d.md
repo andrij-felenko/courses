@@ -62,20 +62,7 @@
 
 Шаблон функції описує сімейство алгоритмів. Головною перевагою шаблонів функцій є **автоматичне виведення аргументів** (англ. *Template Argument Deduction*): компілятор аналізує типи переданих у виклик параметрів і самостійно обчислює значення `T` без необхідності явно вказувати `<int>` або `<double>`.
 
-```cpp
-template <typename T>
-T find_max(T a, T b) {
-    return (a < b) ? b : a;
-}
-
-void demo_functions() {
-    auto x = find_max(10, 20);         // Неявне виведення: T = int
-    auto y = find_max(3.14, 2.71);     // Неявне виведення: T = double
-    
-    // auto z = find_max(10, 3.14);    // Помилка! Неоднозначність: T = int чи double?
-    auto z = find_max<double>(10, 3.14); // Явна передача: аргумент 10 неявно приводиться до double
-}
-```
+:::code templates-basics-d/cpp/1-shablony-funktsii.cpp
 
 Якщо типи аргументів конфліктують, автоматичне приведення типів блокується, захищаючи програміста від мовчазної втрати точності. Детальні правила того, як компілятор обирає найкраще перевантаження між звичайними функціями та шаблонами, описано в статті про [розв'язання перевантажень](root:sys-plang-cpp/overload-resolution).
 
@@ -120,21 +107,7 @@ SimpleBuffer(Iterator first, Iterator last)
 
 Шаблон класу описує тип даних, чиї поля, типи повернення методів та внутрішній розмір параметризовані:
 
-```cpp
-template <typename T>
-class SimpleStack {
-public:
-    void push(const T& item);
-    void push(T&& item);
-    T pop();
-    [[nodiscard]] bool empty() const noexcept;
-
-private:
-    T* data_{nullptr};
-    std::size_t size_{0};
-    std::size_t capacity_{0};
-};
-```
+:::code templates-basics-d/cpp/4-shablony-klasiv-ta.hpp
 
 Якщо метод шаблону класу визначається за межами його тіла, синтаксис вимагає повторення повного заголовка `template <typename T>` перед кожною функцією:
 
@@ -168,19 +141,7 @@ void demo_variable_templates() {
 
 До стандарту C++11 ключове слово `typedef` не могло безпосередньо приймати параметри шаблону. Щоб створити псевдонім параметризованого типу, доводилося оголошувати допоміжну структуру:
 
-```cpp
-// До C++11: громіздкий обхідний шлях
-template <typename T>
-struct StringMapLegacy {
-    typedef std::map<std::string, T> type;
-};
-// Використання: typename StringMapLegacy<int>::type my_map;
-
-// Починаючи з C++11: чистий шаблон псевдоніма
-template <typename T>
-using StringMap = std::map<std::string, T>;
-// Використання: StringMap<int> my_map;
-```
+:::code templates-basics-d/cpp/6-shablony-psevdonimiv.cpp
 
 Шаблони псевдонімів дозволяють фіксувати частину параметрів іншого шаблону (часткове зв'язування типів) та створювати скорочення для асоційованих типів стандартних метафункцій (суфікси `_t`, наприклад `std::decay_t<T>` замість `typename std::decay<T>::type`).
 
@@ -217,25 +178,7 @@ class List;
 
 Структурний тип у C++20 — це клас, усі публічні поля якого самі є структурними типами, не містять віртуальних функцій і підтримують `constexpr` порівняння на рівність (`operator==`). Це відкрило можливість передавати рядкові літерали безпосередньо в параметри шаблонів під час компіляції:
 
-```cpp
-template <std::size_t N>
-struct FixedString {
-    char buf[N]{};
-    constexpr FixedString(const char (&str)[N]) {
-        for (std::size_t i = 0; i < N; ++i) buf[i] = str[i];
-    }
-    constexpr bool operator==(const FixedString&) const = default;
-};
-
-// C++20: шаблон із рядковим літеральним параметром NTTP!
-template <FixedString ChannelName>
-void send_packet(const char* payload) {
-    std::cout << "[" << ChannelName.buf << "] " << payload << "\n";
-}
-
-// Виклик:
-send_packet<"TELEMETRY_MAIN">("GPS_LOCK_OK");
-```
+:::code templates-basics-d/cpp/2-netypizovani-parametry.cpp
 
 Завдяки цьому механізму бібліотеки на зразок `ctre` (Compile-Time Regular Expressions) та функції компільованого форматування рядків отримали можливість розбирати вирази та перевіряти синтаксис безпосередньо під час трансляції вихідного коду.
 
@@ -243,19 +186,7 @@ send_packet<"TELEMETRY_MAIN">("GPS_LOCK_OK");
 
 Параметр-шаблон приймає як аргумент не готовий тип (`std::vector<int>`), а саме сімейство типів — незавершений шаблон (`std::vector`). Це дозволяє створювати контейнери-адаптери, які можуть налаштовувати внутрішнє сховище під довільні колекції без жорсткої прив'язки до їхніх аргументів.
 
-```cpp
-template <typename T, template <typename...> class Container>
-class StackAdapter {
-public:
-    void push(const T& val) { storage_.push_back(val); }
-private:
-    Container<T> storage_; // Компілятор інстанціює Container під конкретний тип T!
-};
-
-// Використання:
-StackAdapter<int, std::vector> vec_stack;
-StackAdapter<int, std::list>   list_stack;
-```
+:::code templates-basics-d/cpp/3-parametry-shablony.cpp
 
 До стандарту C++17 у заголовку параметра-шаблона дозволялося використовувати винятково слово `class` (`template <typename> class C`). Починаючи з C++17, дозволено вживати `typename`: `template <typename> typename C`.
 
@@ -272,21 +203,7 @@ StackAdapter<int, std::list>   list_stack;
 
 Особливою категорією труднощів є спадкування від залежного базового класу:
 
-```cpp
-template <typename T>
-class Base {
-public:
-    void setup();
-};
-
-template <typename T>
-class Derived : public Base<T> {
-public:
-    void init() {
-        // setup(); // ПОМИЛКА: компілятор на Фазі 1 не бачить setup!
-    }
-};
-```
+:::code templates-basics-d/cpp/pastka-zalezhnykh-bazovykh.cpp
 
 Чому виникає помилка? На Фазі 1 компілятор шукає ім'я `setup` через звичайний некваліфікований пошук. Оскільки базовий клас `Base<T>` є залежним, компілятор не заглядає всередину нього: десь у програмі може існувати повна спеціалізація `template <> class Base<int>`, у якій метод `setup()` взагалі відсутній або перейменований. Компілятор вважає ім'я `setup` глобальною функцією і видає помилку `use of undeclared identifier`.
 
@@ -356,21 +273,7 @@ void extract(Storage& s) {
 
 Кожна унікальна інстанціація шаблону класу отримує **власний незалежний набір статичних полів**:
 
-```cpp
-template <typename T>
-struct InstanceCounter {
-    static inline int count = 0;
-    InstanceCounter() { ++count; }
-};
-
-void demo_static() {
-    InstanceCounter<int> a, b;
-    InstanceCounter<double> c;
-    
-    // InstanceCounter<int>::count == 2
-    // InstanceCounter<double>::count == 1
-}
-```
+:::code templates-basics-d/cpp/statychni-chleny-u.cpp
 
 Змінні `InstanceCounter<int>::count` та `InstanceCounter<double>::count` розміщуються за абсолютно різними адресами в сегменті даних (`.data` або `.bss`) і не взаємодіють між собою.
 
@@ -391,23 +294,7 @@ public:
 
 Для створення поліморфних ієрархій без таблиць `vtable` широко застосовується ідіома **CRTP** (Curiously Recurring Template Pattern), у якій похідний клас передає сам себе як параметр шаблону своєму базовому класу:
 
-```cpp
-template <typename Derived>
-class ShapeInterface {
-public:
-    void draw() const {
-        // Статичний поліморфізм: виклик методу конкретного спадкоємця без vtable!
-        static_cast<const Derived*>(this)->draw_impl();
-    }
-};
-
-class Circle : public ShapeInterface<Circle> {
-public:
-    void draw_impl() const {
-        std::cout << "Малювання кола\n";
-    }
-};
-```
+:::code templates-basics-d/cpp/idioma-crtp-statychnyi.cpp
 
 Оптимізатор компілятора повністю інлайнить виклик `draw()`, зводячи абстрактний інтерфейс до прямої інструкції малювання без жодного такту накладних витрат.
 

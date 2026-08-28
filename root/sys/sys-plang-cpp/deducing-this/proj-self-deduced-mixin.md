@@ -14,53 +14,13 @@
 
 Рік стандарту тут поганий орієнтир. Явний параметр об'єкта випустили з різних боків у різний час: MSVC — у Visual Studio 2022 17.2 (компілятор 19.32), ще до самого стандарту; GCC й Clang — у 14-му та 18-му випусках, обидва вже після. Тому питаємо не про `__cplusplus`, а про саму рису:
 
-```cpp
-// notes.cpp — усе, що нижче, лежить у цьому файлі в такому ж порядку
-#include <algorithm>
-#include <concepts>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-#if !defined(__cpp_explicit_this_parameter) || __cpp_explicit_this_parameter < 202110L
-#  error "нема явного параметра об'єкта: треба GCC 14+, Clang 18+ або MSVC 19.32+"
-#endif
-#if !defined(__cpp_lib_forward_like) || __cpp_lib_forward_like < 202207L
-#  error "нема std::forward_like: треба стандартна бібліотека C++23"
-#endif
-```
+:::code proj-self-deduced-mixin/cpp/notes.cpp
 
 Два макроси незалежні: перший — про мову (P0847R7), другий — про бібліотеку (P2445R1). Компілятор може вміти перше й не мати другого, якщо його поставили поруч зі старою стандартною бібліотекою.
 
 ## Домішки, які бачать нащадка
 
-```cpp
-struct Printable {
-    void print(this const auto& self) {          // self — тип НАЩАДКА
-        std::cout << self.label() << '\n';       // label() оголошує нащадок
-    }
-};
-
-struct Comparable {
-    template <class Self>
-    bool operator==(this const Self& self, const Self& other) {
-        return self.key() == other.key();
-    }
-};
-
-struct Taggable {
-    std::string tag;
-
-    template <class Self>
-    auto&& with_tag(this Self&& self, std::string t) {
-        self.tag = std::move(t);
-        return std::forward<Self>(self);         // віддає НАЩАДКА, не Taggable
-    }
-};
-```
+:::code proj-self-deduced-mixin/cpp/domishky-iaki-bachat.cpp
 
 Жодна з трьох — не шаблон від нащадка. Це звичайні класи, які можна успадкувати всі три одразу, і кожна всередині бачить справжній тип об'єкта, бо `Self` виводиться з виразу виклику.
 
@@ -72,27 +32,7 @@ struct Taggable {
 
 ## Клас із двома різними членами
 
-```cpp
-class Note : public Printable, public Comparable, public Taggable {
-    std::string title_;
-    std::unique_ptr<std::string> body_;
-
-public:
-    Note(std::string t, std::string b)
-        : title_(std::move(t)), body_(std::make_unique<std::string>(std::move(b))) {}
-
-    // прямий член: категорію несе сам вираз доступу
-    template <class Self>
-    auto&& title(this Self&& self) { return std::forward<Self>(self).title_; }
-
-    // член за вказівником: розіменування кваліфікаторів не пам'ятає
-    template <class Self>
-    auto&& body(this Self&& self) { return std::forward_like<Self>(*self.body_); }
-
-    std::string label() const { return title_ + " [" + tag + ']'; }
-    const std::string& key() const { return title_; }
-};
-```
+:::code proj-self-deduced-mixin/cpp/klas-iz-dvoma-riznymy.cpp
 
 Два аксесори виглядають майже однаково, але роблять різне, і саме тут найчастіше помиляються.
 
@@ -106,43 +46,13 @@ public:
 
 Що з цього вийшло — видно без запуску:
 
-```cpp
-struct Node { std::string name; std::vector<Node> kids; };
-
-int main() {
-    Note n{"Список", "молоко, хліб"};
-    n.with_tag("побут").print();          // Taggable віддав Note&, далі Printable
-                                          // друкує: Список [побут]
-    Note m{"Список", "інше"};
-    std::cout << std::boolalpha << (n == m) << '\n';   // true: ключі збігаються
-
-    // ОДНЕ тіло аксесора — чотири різні сигнатури
-    static_assert(std::is_same_v<decltype(n.title()),                std::string&>);
-    static_assert(std::is_same_v<decltype(std::as_const(n).title()), const std::string&>);
-    static_assert(std::is_same_v<decltype(std::move(n).title()),     std::string&&>);
-    static_assert(std::is_same_v<decltype(std::as_const(n).body()),  const std::string&>);
-    static_assert(std::is_same_v<decltype(std::move(n).body()),      std::string&&>);
-```
+:::code proj-self-deduced-mixin/cpp/klas-iz-dvoma-riznymy-2.cpp
 
 `static_assert` тут не прикраса: він і є доказом, що з одного рядка постали чотири підписи, які інакше довелося б виписувати руками.
 
 ## Лямбда, що кличе себе
 
-```cpp
-    // ── те саме main, продовження ──
-    Node root{"root", {{"a", {{"a1", {}}}}, {"b", {}}}};
-
-    auto depth = [](this auto&& self, const Node& x) -> int {
-        int deepest = 0;
-        for (const Node& k : x.kids) deepest = std::max(deepest, self(k));
-        return deepest + 1;
-    };
-    std::cout << depth(root) << '\n';                       // 3
-
-    std::string taken = Note{"чернетка", "текст"}.body();   // ✔ безпечно: переміщення
-    std::cout << taken << '\n';                             // ДО смерті тимчасового Note
-}
-```
+:::code proj-self-deduced-mixin/cpp/liambda-shcho-klyche-sebe.cpp
 
 `self` — саме це замикання, тож `self(k)` — прямий рекурсивний виклик: ні стирання типу, ні виділення пам'яті, ні змінної, яку можна забути ініціалізувати.
 

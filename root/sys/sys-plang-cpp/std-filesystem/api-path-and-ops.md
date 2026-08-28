@@ -6,82 +6,7 @@
 
 Клас шляху представляє шлях у файловій системі в нативному форматі операційної системи. Об'єкт шляху інкапсулює нативний рядок символів та виконує суто синтаксичний аналіз тексту у оперативній пам'яті без звернення до дискового накопичувача.
 
-```cpp
-namespace std::filesystem {
-    class path {
-    public:
-        using value_type = /* char для POSIX, wchar_t для Windows */;
-        using string_type = std::basic_string<value_type>;
-        static constexpr value_type preferred_separator = /* '/' для POSIX, '\\' для Windows */;
-
-        // Конструктори та присвоєння
-        path() noexcept;
-        path(const path& p);
-        path(path&& p) noexcept;
-        template <class Source> path(const Source& source);
-        template <class InputIt> path(InputIt first, InputIt last);
-
-        // Присвоєння та модифікатори
-        path& operator=(const path& p);
-        path& operator=(path&& p) noexcept;
-        path& assign(const string_type& source);
-        path& operator/=(const path& p);
-        path& append(const path& p);
-        path& operator+=(const path& p);
-        path& concat(const path& p);
-        void clear() noexcept;
-        path& make_preferred();
-        path& remove_filename();
-        path& replace_filename(const path& replacement);
-        path& replace_extension(const path& replacement = path());
-        void swap(path& rhs) noexcept;
-
-        // Конверсії та представлення в пам'яті
-        const string_type& native() const noexcept;
-        const value_type* c_str() const noexcept;
-        operator string_type() const;
-
-        std::string string() const;
-        std::wstring wstring() const;
-        std::u8string u8string() const;
-        std::u16string u16string() const;
-        std::u32string u32string() const;
-
-        // Компоненти синтаксичної декомпозиції
-        path root_name() const;
-        path root_directory() const;
-        path root_path() const;
-        path relative_path() const;
-        path parent_path() const;
-        path filename() const;
-        path stem() const;
-        path extension() const;
-
-        // Синтаксичні перевірки
-        bool empty() const noexcept;
-        bool has_root_name() const;
-        bool has_root_directory() const;
-        bool has_root_path() const;
-        bool has_relative_path() const;
-        bool has_parent_path() const;
-        bool has_filename() const;
-        bool has_stem() const;
-        bool has_extension() const;
-        bool is_absolute() const;
-        bool is_relative() const;
-
-        // Нормалізація та ітератори
-        path lexically_normal() const;
-        path lexically_relative(const path& base) const;
-        path lexically_proximate(const path& base) const;
-
-        class iterator;
-        using const_iterator = iterator;
-        iterator begin() const;
-        iterator end() const;
-    };
-}
-```
+:::code api-path-and-ops/cpp/1-klas-syntaksychnoho.hpp
 
 ### Призначення та семантика методів класу шляху
 
@@ -129,57 +54,7 @@ namespace std::filesystem {
 
 Клас кешованого елемента каталогу зберігає шлях до об'єкта та кешує його основні системні атрибути під час обходу каталогів. Це запобігає виконанню повторних системних викликів опитування стану для кожного файлу.
 
-```cpp
-namespace std::filesystem {
-    class directory_entry {
-    public:
-        directory_entry() noexcept = default;
-        explicit directory_entry(const std::filesystem::path& p);
-        directory_entry(const std::filesystem::path& p, std::error_code& ec);
-
-        void assign(const std::filesystem::path& p);
-        void assign(const std::filesystem::path& p, std::error_code& ec);
-        void replace_filename(const std::filesystem::path& p);
-        void replace_filename(const std::filesystem::path& p, std::error_code& ec);
-        void refresh();
-        void refresh(std::error_code& ec) noexcept;
-
-        const std::filesystem::path& path() const noexcept;
-        operator const std::filesystem::path&() const noexcept;
-
-        bool exists() const;
-        bool exists(std::error_code& ec) const noexcept;
-        bool is_block_file() const;
-        bool is_character_file() const;
-        bool is_directory() const;
-        bool is_fifo() const;
-        bool is_other() const;
-        bool is_regular_file() const;
-        bool is_socket() const;
-        bool is_symlink() const;
-
-        std::uintmax_t file_size() const;
-        std::uintmax_t file_size(std::error_code& ec) const noexcept;
-        std::uintmax_t hard_link_count() const;
-        std::uintmax_t hard_link_count(std::error_code& ec) const noexcept;
-        
-        file_time_type last_write_time() const;
-        file_time_type last_write_time(std::error_code& ec) const noexcept;
-
-        file_status status() const;
-        file_status status(std::error_code& ec) const noexcept;
-        file_status symlink_status() const;
-        file_status symlink_status(std::error_code& ec) const noexcept;
-
-        bool operator==(const directory_entry& rhs) const noexcept;
-        bool operator!=(const directory_entry& rhs) const noexcept;
-        bool operator<(const directory_entry& rhs) const noexcept;
-        bool operator<=(const directory_entry& rhs) const noexcept;
-        bool operator>(const directory_entry& rhs) const noexcept;
-        bool operator>=(const directory_entry& rhs) const noexcept;
-    };
-}
-```
+:::code api-path-and-ops/cpp/2-keshovanyi-element.hpp
 
 ### Механізм кешування метаданих та оновлення
 
@@ -202,20 +77,7 @@ namespace std::filesystem {
 
 Стандартна бібліотека надає два класи ітераторів для послідовного обходу вмісту каталогів.
 
-```cpp
-namespace std::filesystem {
-    enum class directory_options : std::uint16_t {
-        none                     = 0,
-        follow_directory_symlinks = 1,
-        skip_permission_denied   = 2
-    };
-
-    constexpr directory_options operator|(directory_options lhs, directory_options rhs);
-    constexpr directory_options operator&(directory_options lhs, directory_options rhs);
-    constexpr directory_options operator^(directory_options lhs, directory_options rhs);
-    constexpr directory_options operator~(directory_options val);
-}
-```
+:::code api-path-and-ops/cpp/3-iteratory-obkhodu-derev.hpp
 
 Налаштування обходу визначають поведінку ітераторів під час зустрічі з символьними посиланнями та захищеними каталогами:
 
@@ -227,65 +89,13 @@ namespace std::filesystem {
 
 Клас однорівневого ітератора призначений для сканування лише початкового каталогу без занурення у підкаталоги.
 
-```cpp
-namespace std::filesystem {
-    class directory_iterator {
-    public:
-        using iterator_category = std::input_iterator_tag;
-        using value_type        = directory_entry;
-        using difference_type   = std::ptrdiff_t;
-        using pointer           = const directory_entry*;
-        using reference         = const directory_entry&;
-
-        directory_iterator() noexcept;
-        explicit directory_iterator(const path& p);
-        directory_iterator(const path& p, directory_options options);
-        directory_iterator(const path& p, std::error_code& ec) noexcept;
-        directory_iterator(const path& p, directory_options options, std::error_code& ec) noexcept;
-
-        const directory_entry& operator*() const;
-        const directory_entry* operator->() const;
-        directory_iterator& operator++();
-        directory_iterator& increment(std::error_code& ec) noexcept;
-
-        bool operator==(const directory_iterator& rhs) const noexcept;
-        bool operator!=(const directory_iterator& rhs) const noexcept;
-    };
-}
-```
+:::code api-path-and-ops/cpp/iterator-odnorivnevoho.hpp
 
 ### Рекурсивний ітератор обходу вглиб
 
 Клас рекурсивного ітератора виконує обхід усіх підкаталогів углиб за принципом обходу дерева.
 
-```cpp
-namespace std::filesystem {
-    class recursive_directory_iterator {
-    public:
-        using iterator_category = std::input_iterator_tag;
-        using value_type        = directory_entry;
-
-        recursive_directory_iterator() noexcept;
-        explicit recursive_directory_iterator(const path& p);
-        recursive_directory_iterator(const path& p, directory_options options);
-        recursive_directory_iterator(const path& p, std::error_code& ec) noexcept;
-        recursive_directory_iterator(const path& p, directory_options options, std::error_code& ec) noexcept;
-
-        directory_options options() const;
-        int depth() const;
-        bool recursion_pending() const;
-
-        void pop();
-        void pop(std::error_code& ec);
-        void disable_recursion_pending();
-
-        const directory_entry& operator*() const;
-        const directory_entry* operator->() const;
-        recursive_directory_iterator& operator++();
-        recursive_directory_iterator& increment(std::error_code& ec) noexcept;
-    };
-}
-```
+:::code api-path-and-ops/cpp/rekursyvnyi-iterator.hpp
 
 Спеціалізовані методи рекурсивного ітератора надають повний контроль над обходом дерева:
 
@@ -297,65 +107,15 @@ namespace std::filesystem {
 
 Перелік типів файлів визначає категорії об'єктів файлової системи, які підтримуються стандартною бібліотекою.
 
-```cpp
-namespace std::filesystem {
-    enum class file_type {
-        none        = 0,
-        not_found   = -1,
-        regular     = 1,
-        directory   = 2,
-        symlink     = 3,
-        block       = 4,
-        character   = 5,
-        fifo        = 6,
-        socket      = 7,
-        unknown     = 8
-    };
-}
-```
+:::code api-path-and-ops/cpp/4-klasyfikatsiia-typiv.cpp
 
 Маска прав доступу базується на традиційній вісімковій системі прав доступу POSIX:
 
-```cpp
-namespace std::filesystem {
-    enum class perms : std::uint32_t {
-        none         = 0,
-        
-        owner_read   = 0400, owner_write  = 0200, owner_exec   = 0100, owner_all   = 0700,
-        group_read   = 0040, group_write  = 0020, group_exec   = 0010, group_all   = 0070,
-        others_read  = 0004, others_write = 0002, others_exec  = 0001, others_all  = 0007,
-        
-        all          = 0777,
-        
-        set_uid      = 04000,
-        set_gid      = 02000,
-        sticky_bit   = 01000,
-        mask         = 07777,
-        unknown      = 0xFFFF
-    };
-}
-```
+:::code api-path-and-ops/cpp/4-klasyfikatsiia-typiv-2.cpp
 
 Класи стану файлу та інформації про дисковий простір об'єднують тип файлу, права доступу та загальні метрики дискового накопичувача:
 
-```cpp
-namespace std::filesystem {
-    class file_status {
-    public:
-        explicit file_status(file_type ft = file_type::none, perms prms = perms::unknown) noexcept;
-        file_type type() const noexcept;
-        void type(file_type ft) noexcept;
-        perms permissions() const noexcept;
-        void permissions(perms prms) noexcept;
-    };
-
-    struct space_info {
-        std::uintmax_t capacity;
-        std::uintmax_t free;
-        std::uintmax_t available;
-    };
-}
-```
+:::code api-path-and-ops/cpp/4-klasyfikatsiia-typiv-3.cpp
 
 ## 5. Вільні операційні функції файлової системи
 
@@ -363,106 +123,20 @@ namespace std::filesystem {
 
 ### Операції опитування стану та метрик
 
-```cpp
-namespace std::filesystem {
-    bool exists(file_status s) noexcept;
-    bool exists(const path& p);
-    bool exists(const path& p, std::error_code& ec) noexcept;
-
-    bool is_regular_file(const path& p);
-    bool is_regular_file(const path& p, std::error_code& ec) noexcept;
-
-    bool is_directory(const path& p);
-    bool is_directory(const path& p, std::error_code& ec) noexcept;
-
-    bool is_symlink(const path& p);
-    bool is_symlink(const path& p, std::error_code& ec) noexcept;
-
-    bool is_empty(const path& p);
-    bool is_empty(const path& p, std::error_code& ec);
-
-    bool equivalent(const path& p1, const path& p2);
-    bool equivalent(const path& p1, const path& p2, std::error_code& ec) noexcept;
-
-    std::uintmax_t file_size(const path& p);
-    std::uintmax_t file_size(const path& p, std::error_code& ec) noexcept;
-
-    file_status status(const path& p);
-    file_status status(const path& p, std::error_code& ec) noexcept;
-
-    file_status symlink_status(const path& p);
-    file_status symlink_status(const path& p, std::error_code& ec) noexcept;
-
-    space_info space(const path& p);
-    space_info space(const path& p, std::error_code& ec) noexcept;
-}
-```
+:::code api-path-and-ops/cpp/operatsii-opytuvannia.hpp
 
 ### Операції модифікації та керування файлами
 
-```cpp
-namespace std::filesystem {
-    bool create_directory(const path& p);
-    bool create_directory(const path& p, std::error_code& ec) noexcept;
-
-    bool create_directories(const path& p);
-    bool create_directories(const path& p, std::error_code& ec);
-
-    bool remove(const path& p);
-    bool remove(const path& p, std::error_code& ec) noexcept;
-
-    std::uintmax_t remove_all(const path& p);
-    std::uintmax_t remove_all(const path& p, std::error_code& ec);
-
-    void rename(const path& old_p, const path& new_p);
-    void rename(const path& old_p, const path& new_p, std::error_code& ec) noexcept;
-
-    void copy(const path& from, const path& to, copy_options options = copy_options::none);
-    void copy(const path& from, const path& to, copy_options options, std::error_code& ec);
-
-    bool copy_file(const path& from, const path& to, copy_options options = copy_options::none);
-    bool copy_file(const path& from, const path& to, copy_options options, std::error_code& ec);
-}
-```
+:::code api-path-and-ops/cpp/operatsii-modyfikatsii-ta.hpp
 
 ### Операції з посиланнями та канонічними шляхами
 
-```cpp
-namespace std::filesystem {
-    path canonical(const path& p);
-    path canonical(const path& p, std::error_code& ec);
-
-    path weakly_canonical(const path& p);
-    path weakly_canonical(const path& p, std::error_code& ec);
-
-    path read_symlink(const path& p);
-    path read_symlink(const path& p, std::error_code& ec);
-
-    void create_symlink(const path& target, const path& link);
-    void create_symlink(const path& target, const path& link, std::error_code& ec) noexcept;
-
-    void create_hard_link(const path& target, const path& link);
-    void create_hard_link(const path& target, const path& link, std::error_code& ec) noexcept;
-}
-```
+:::code api-path-and-ops/cpp/operatsii-z-posylanniamy.hpp
 
 ## 6. Спеціалізований клас винятку файлової системи
 
 При виклику версій функцій без коду помилки у разі виникнення системного збою генерується об'єкт винятку.
 
-```cpp
-namespace std::filesystem {
-    class filesystem_error : public std::system_error {
-    public:
-        filesystem_error(const std::string& what_arg, std::error_code ec);
-        filesystem_error(const std::string& what_arg, const path& p1, std::error_code ec);
-        filesystem_error(const std::string& what_arg, const path& p1, const path& p2, std::error_code ec);
-
-        const path& path1() const noexcept;
-        const path& path2() const noexcept;
-        const char* what() const noexcept override;
-    };
-}
-```
+:::code api-path-and-ops/cpp/6-spetsializovanyi-klas.hpp
 
 Клас винятку зберігає не лише стандартний код помилки, але й два шляхи файлової системи, що приймали участь у операції. Це дозволяє сформувати вичерпне повідомлення про помилку у логах системних програм без додаткового опитування стану.

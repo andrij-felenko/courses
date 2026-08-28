@@ -35,178 +35,7 @@
 
 Скрипт автоматизує виконання конвеєра, контролює чергу перевірок від найпростіших синтаксичних до глибоких семантичних і забезпечує транзакційну безпеку кожної операції.
 
-```python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Скрипт транзакційної модернізації C++ кодової бази на основі Clang-Tidy."""
-
-import json
-import os
-import shutil
-import subprocess
-import sys
-from pathlib import Path
-
-
-class MigrationPipeline:
-    def __init__(self, build_dir: str, source_dir: str):
-        self.build_dir = Path(build_dir).resolve()
-        self.source_dir = Path(source_dir).resolve()
-        self.compilation_db = self.build_dir / "compile_commands.json"
-        self.fixes_dir = self.build_dir / "clang_tidy_fixes"
-
-        if not self.compilation_db.exists():
-            raise FileNotFoundError(
-                f"Не знайдено базу компіляції: {self.compilation_db}\n"
-                "Згенеруйте її командою: cmake -B <build_dir> -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-            )
-
-        # Черга правил: послідовність від безпечних до глибоких семантичних
-        self.rules_queue = [
-            ("modernize-use-nullptr", "Заміна літералів 0 та макросів NULL на nullptr"),
-            ("modernize-use-override", "Додавання специфікатора override до віртуальних методів"),
-            ("modernize-use-using", "Заміна конструкцій typedef на синтаксис using"),
-            ("modernize-redundant-void-arg", "Видалення надлишкових параметрів void у функціях"),
-            ("modernize-deprecated-headers", "Міграція застарілих C-заголовків на префіксні <c*>"),
-            ("modernize-replace-auto-ptr", "Заміна забороненого std::auto_ptr на std::unique_ptr"),
-            ("modernize-make-unique", "Заміна явних викликів new на std::make_unique"),
-            ("modernize-make-shared", "Заміна явних викликів new на std::make_shared"),
-            ("modernize-loop-convert", "Трансформація індексних та ітераторних циклів у range-based for"),
-            ("modernize-use-nodiscard", "Додавання атрибута [[nodiscard]] для функцій без побічних ефектів"),
-            ("modernize-use-starts-ends-with", "Заміна s.find()==0 на виклики s.starts_with (C++20)"),
-        ]
-
-    def _execute(self, cmd: list[str], cwd: Path = None) -> tuple[int, str, str]:
-        """Виконує команду оболонки та повертає статус, stdout і stderr."""
-        work_dir = cwd if cwd else self.source_dir
-        proc = subprocess.run(
-            cmd,
-            cwd=work_dir,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            encoding="utf-8",
-            errors="replace"
-        )
-        return proc.returncode, proc.stdout, proc.stderr
-
-    def get_project_sources(self) -> list[str]:
-        """Отримує перелік файлів власного коду проєкту з бази компіляції."""
-        with open(self.compilation_db, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        sources = []
-        for entry in data:
-            fpath = Path(entry["file"]).resolve()
-            # Обробляємо лише файли нашого репозиторію, виключаючи сторонні залежності
-            if fpath.is_relative_to(self.source_dir):
-                ignored_subdirs = ["third_party", "extern", "build", "vendor", "submodules"]
-                if not any(part in fpath.parts for part in ignored_subdirs):
-                    if fpath.suffix in [".cpp", ".cc", ".cxx"]:
-                        sources.append(str(fpath))
-
-        return sorted(list(set(sources)))
-
-    def apply_clang_tidy_rule(self, rule_name: str, sources: list[str]) -> bool:
-        """Виконує аналіз Clang-Tidy та експортує виправлення у тимчасовий каталог."""
-        if self.fixes_dir.exists():
-            shutil.rmtree(self.fixes_dir)
-        self.fixes_dir.mkdir(parents=True, exist_ok=True)
-
-        print(f"[*] Запуск AST-аналізу для правила: {rule_name} ({len(sources)} файлів)...")
-
-        # Використовуємо run-clang-tidy для безпечного збереження заміщень у YAML
-        cmd = [
-            "clang-tidy",
-            f"-checks=-*,{rule_name}",
-            f"--export-fixes={self.fixes_dir}/fixes.yaml",
-            f"-p={self.build_dir}",
-            f"-header-filter=^{self.source_dir}/.*",
-        ] + sources
-
-        # Clang-Tidy може повертати ненульовий статус, якщо знайдено зауваження
-        self._execute(cmd)
-
-        fixes_file = self.fixes_dir / "fixes.yaml"
-        if not fixes_file.exists() or fixes_file.stat().st_size == 0:
-            print(f"[-] Правило {rule_name} не знайшло шаблонів для заміни.")
-            return False
-
-        # Детерміноване застосування виправлень без ризику гонок запису у заголовки
-        print("[*] Застосування згенерованих виправлень до кодової бази...")
-        apply_cmd = ["clang-apply-replacements", str(self.fixes_dir)]
-        ret, out, err = self._execute(apply_cmd)
-        if ret != 0:
-            print(f"[!] Помилка застосування виправлень: {err}")
-            return False
-
-        return True
-
-    def validate_build_and_tests(self) -> bool:
-        """Перевіряє успішність компіляції та виконання тестів під санітайзерами."""
-        print("[*] Компіляція проєкту...")
-        build_cmd = ["cmake", "--build", str(self.build_dir), "--parallel"]
-        ret, stdout, stderr = self._execute(build_cmd)
-        if ret != 0:
-            print(f"[x] Помилка збірки після модернізації:\n{stderr}")
-            return False
-
-        print("[*] Виконання тестового набору через CTest...")
-        test_cmd = [
-            "ctest",
-            "--test-dir", str(self.build_dir),
-            "--output-on-failure",
-            "--parallel", str(os.cpu_count() or 4)
-        ]
-        ret, stdout, stderr = self._execute(test_cmd)
-        if ret != 0:
-            print(f"[x] Тести провалилися:\n{stdout}\n{stderr}")
-            return False
-
-        print("[✓] Компіляція та тести пройшли без зауважень.")
-        return True
-
-    def run_pipeline(self):
-        """Головний цикл виконання конвеєра модернізації."""
-        sources = self.get_project_sources()
-        print(f"Знайдено {len(sources)} файлів вихідного коду для перевірки.")
-
-        for rule, desc in self.rules_queue:
-            print(f"\n{'='*75}\n[ФАЗА МОДЕРНІЗАЦІЇ] Правило: {rule}\nОпис: {desc}\n{'='*75}")
-
-            has_changes = self.apply_clang_tidy_rule(rule, sources)
-            if not has_changes:
-                continue
-
-            # Перевіряємо статус робочої копії Git
-            ret, status_out, _ = self._execute(["git", "status", "--porcelain"])
-            if not status_out.strip():
-                print(f"[-] Змін у робочому дереві Git не виявлено.")
-                continue
-
-            # Верифікація поведінки кодової бази
-            if self.validate_build_and_tests():
-                self._execute(["git", "add", "."])
-                commit_msg = f"refactor(modernize): застосовано правило {rule}\n\n{desc}"
-                self._execute(["git", "commit", "-m", commit_msg])
-                print(f"[✓] Успішно зафіксовано транзакцію: {rule}")
-            else:
-                print(f"[!] Відкат робочого дерева через збій валідації правила: {rule}")
-                self._execute(["git", "reset", "--hard", "HEAD"])
-                self._execute(["git", "clean", "-fd"])
-                print(f"[!] Правило {rule} потребує ручного втручання.")
-
-        print("\n[✓] Конвеєр завершив роботу. Перегляньте історію комітів Git.")
-
-
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Використання: python migrate_runner.py <шлях_до_build> <шлях_до_source>")
-        sys.exit(1)
-
-    pipeline = MigrationPipeline(sys.argv[1], sys.argv[2])
-    pipeline.run_pipeline()
-```
+:::code proj-migration-pipeline/py/main.py
 
 ---
 
@@ -249,26 +78,7 @@ if __name__ == "__main__":
 
 Для роботи з конвеєром збірка має бути зібрана з інструментальними прапорцями санітайзерів. Нижче наведено фрагмент конфігурації CMake:
 
-```cmake
-# Опція увімкнення санітайзерів
-option(ENABLE_SANITIZERS "Увімкнути ASan, UBSan та LSan" OFF)
-
-if(ENABLE_SANITIZERS)
-    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        message(STATUS "Увімкнено санітайзери: AddressSanitizer, UndefinedBehaviorSanitizer")
-        
-        # Прапорці компіляції для точного відстеження стека
-        set(SANITIZER_FLAGS "-fsanitize=address,undefined -fno-omit-frame-pointer -g -O1")
-        
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZER_FLAGS}")
-        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${SANITIZER_FLAGS}")
-    else()
-        message(WARNING "Санітайзери підтримуються лише на компіляторах GCC та Clang")
-    endif()
-endif()
-```
+:::code proj-migration-pipeline/cmake/konfihuratsiia-cmake-dlia.cmake
 
 ---
 
@@ -284,158 +94,19 @@ endif()
 
 Цей файл включається у всі нові модулі проєкту. Він не містить жодного застарілого типу, не підключає чужих заголовків і оперує виключно безпечними типами `std::unique_ptr` та `std::string_view`:
 
-```cpp
-#pragma once
-
-#include <memory>
-#include <string>
-#include <string_view>
-
-namespace modern_system {
-
-// Непрозорий клас-адаптер для роботи із застарілим рушієм
-class LegacyEngineAdapter {
-public:
-    LegacyEngineAdapter();
-    ~LegacyEngineAdapter();
-
-    // Заборона копіювання через небезпеку дублювання вказівників (Rule of 5)
-    LegacyEngineAdapter(const LegacyEngineAdapter&) = delete;
-    LegacyEngineAdapter& operator=(const LegacyEngineAdapter&) = delete;
-
-    // Дозвіл безпечного переміщення ресурсу
-    LegacyEngineAdapter(LegacyEngineAdapter&&) noexcept;
-    LegacyEngineAdapter& operator=(LegacyEngineAdapter&&) noexcept;
-
-    // Публічний API для решти кодової бази
-    [[nodiscard]] bool configure(std::string_view config_path);
-    [[nodiscard]] std::string execute_query(std::string_view query);
-
-private:
-    // Структура реалізації ховається у файлі .cpp (PIMPL)
-    struct Impl;
-    std::unique_ptr<Impl> pimpl_;
-};
-
-} // namespace modern_system
-```
+:::code proj-migration-pipeline/cpp/1-chystyi-zaholovok.hpp
 
 ### 2. Реалізація адаптера в окремій одиниці трансляції (legacy_adapter.cpp)
 
 Цей файл компілюється в ізольованому режимі, де дозволено включення старих заголовків або де застарілі інтерфейси транслюються у сучасну семантику з обов'язковим очищенням ресурсів:
 
-```cpp
-#include "legacy_adapter.hpp"
-#include <cstdlib>
-#include <cstring>
-
-// Симуляція сторонньої бібліотеки епохи C++03
-namespace vendor_cxx03 {
-    struct VendorDatabaseEngine {
-        bool init(const char* path) {
-            return path != nullptr;
-        }
-
-        // Старий API повертає динамічно виділений C-рядок, який треба звільняти вручну
-        char* process(const char* sql, int len) {
-            if (!sql || len <= 0) return nullptr;
-            const char* response_prefix = "SUCCESS_RESULT: ";
-            std::size_t total_len = std::strlen(response_prefix) + static_cast<std::size_t>(len) + 1;
-            char* buffer = static_cast<char*>(std::malloc(total_len));
-            if (!buffer) return nullptr;
-            std::strcpy(buffer, response_prefix);
-            std::strncat(buffer, sql, static_cast<std::size_t>(len));
-            return buffer;
-        }
-
-        void free_result(char* ptr) {
-            std::free(ptr);
-        }
-    };
-}
-
-namespace modern_system {
-
-struct LegacyEngineAdapter::Impl {
-    vendor_cxx03::VendorDatabaseEngine engine;
-};
-
-LegacyEngineAdapter::LegacyEngineAdapter()
-    : pimpl_(std::make_unique<Impl>()) {}
-
-LegacyEngineAdapter::~LegacyEngineAdapter() = default;
-LegacyEngineAdapter::LegacyEngineAdapter(LegacyEngineAdapter&&) noexcept = default;
-LegacyEngineAdapter& LegacyEngineAdapter::operator=(LegacyEngineAdapter&&) noexcept = default;
-
-bool LegacyEngineAdapter::configure(std::string_view config_path) {
-    // Безпечне перетворення рядкового перегляду в сумісний null-terminated рядок
-    std::string safe_path(config_path);
-    return pimpl_->engine.init(safe_path.c_str());
-}
-
-std::string LegacyEngineAdapter::execute_query(std::string_view query) {
-    std::string safe_query(query);
-    char* raw_data = pimpl_->engine.process(
-        safe_query.c_str(),
-        static_cast<int>(safe_query.size())
-    );
-
-    if (!raw_data) {
-        return {};
-    }
-
-    // Захоплення сирого вказівника у стандартний рядок C++ та негайне звільнення буфера
-    std::string result(raw_data);
-    pimpl_->engine.free_result(raw_data);
-    return result;
-}
-
-} // namespace modern_system
-```
+:::code proj-migration-pipeline/cpp/2-realizatsiia-adaptera-v.cpp
 
 ### 3. Динамічна ізоляція застарілого бінарника через dlopen
 
 Якщо стороння бібліотека скомпільована із зовсім іншою стандартною бібліотекою (наприклад, застаріла версія `libstdc++.so.5` проти системної `libstdc++.so.6`), статичне лінкування неможливе. У такому разі створюється C-сумісний плагін, завантажуваний через системний виклик `dlopen`:
 
-```cpp
-#include <dlfcn.h>
-#include <stdexcept>
-#include <string>
-
-// Сигнатури чистих C-функцій без витоку STL-типів
-using InitFunc = int (*)(const char*);
-using ProcessFunc = int (*)(const char*, char*, int);
-
-class DynamicPluginLoader {
-    void* handle_{nullptr};
-    InitFunc init_fn_{nullptr};
-    ProcessFunc process_fn_{nullptr};
-
-public:
-    explicit DynamicPluginLoader(const char* lib_path) {
-        // Завантаження бібліотеки в ізольованому просторі імен
-        handle_ = dlopen(lib_path, RTLD_NOW | RTLD_LOCAL);
-        if (!handle_) {
-            throw std::runtime_error(std::string("Не вдалося завантажити бібліотеку: ") + dlerror());
-        }
-
-        // Отримання адрес чистих C-функцій
-        init_fn_ = reinterpret_cast<InitFunc>(dlsym(handle_, "plugin_init"));
-        process_fn_ = reinterpret_cast<ProcessFunc>(dlsym(handle_, "plugin_process"));
-
-        if (!init_fn_ || !process_fn_) {
-            dlclose(handle_);
-            throw std::runtime_error("Символи інтерфейсу не знайдено в завантаженій бібліотеці");
-        }
-    }
-
-    ~DynamicPluginLoader() {
-        if (handle_) {
-            dlclose(handle_);
-        }
-    }
-};
-```
+:::code proj-migration-pipeline/cpp/3-dynamichna-izoliatsiia.cpp
 
 Такий підхід повністю запобігає конфліктам таблиць символів лінкера та гарантує стабільну роботу навіть при взаємодії C++20 коду з модулями тридцятирічної давнини.
 
@@ -467,22 +138,7 @@ public:
 
 Для реалізації цієї схеми в CMake використовуються цільові властивості `target_compile_features` із модифікатором `PRIVATE` для внутрішнього коду та `INTERFACE` для експортованих заголовків:
 
-```cmake
-# Базова бібліотека зі стандартом C++11
-add_library(math_core src/math.cpp)
-target_compile_features(math_core PUBLIC cxx_std_11)
-
-# Проміжний модуль, що використовує C++17 для внутрішньої оптимізації
-add_library(network_engine src/net.cpp)
-target_compile_features(network_engine PRIVATE cxx_std_17)
-target_compile_features(network_engine INTERFACE cxx_std_11)
-target_link_libraries(network_engine PRIVATE math_core)
-
-# Головний бінарник на C++20
-add_executable(app main.cpp)
-target_compile_features(app PRIVATE cxx_std_20)
-target_link_libraries(app PRIVATE network_engine)
-```
+:::code proj-migration-pipeline/cmake/keruvannia-hrafom.cmake
 
 Такий підхід гарантує, що внутрішня модернізація окремого підмодуля до C++17 не змушує всі залежні проєкти негайно оновлювати свої прапорці компіляції.
 
@@ -492,22 +148,7 @@ target_link_libraries(app PRIVATE network_engine)
 
 Якщо після виконання серії модернізаційних комітів виникає рідкісна регресія продуктивності або приховане пошкодження пам'яті, локалізація дефектного правила вручну займає години. Для автоматизації цього процесу створюється скрипт-валідатор для команди `git bisect run`.
 
-```bash
-#!/usr/bin/env bash
-# bisect_validator.sh — скрипт автоматичної локалізації регресії
-
-set -e
-
-# 1. Швидка збірка проєкту
-cmake --build build --target test_suite --parallel $(nproc) > /dev/null 2>&1
-
-# 2. Запуск цільового тесту під AddressSanitizer
-export ASAN_OPTIONS="abort_on_error=1:detect_leaks=1"
-./build/bin/test_suite --gtest_filter=PerformanceRegressionTest.* > /dev/null 2>&1
-
-# Код виходу 0 — коміт хороший, код > 0 — коміт зламано
-exit $?
-```
+:::code proj-migration-pipeline/sh/bisect_validator.sh
 
 Інженер запускає команду `git bisect start HEAD v1.0.0` та передає валідатор `git bisect run ./bisect_validator.sh`. Git автоматично за логарифмічний час знаходить точний коміт модернізації, який вніс дефект, дозволяючи точково виправити правило трансформації.
 

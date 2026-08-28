@@ -34,148 +34,8 @@
 Публічний заголовок спроектовано так, щоб він міг безпосередньо включатися як у програми на чистому C, так і в сучасні проекти на C++20.
 
 :::tabs
-```c
-/* plugin_abi.h — C ABI інтерфейс (рівень двійкової сумісності) */
-#ifndef PLUGIN_ABI_H
-#define PLUGIN_ABI_H
-
-#include <stdint.h>
-#include <stddef.h>
-
-#if defined(_WIN32)
-  #ifdef PLUGIN_EXPORTS
-    #define PLUGIN_API __declspec(dllexport)
-  #else
-    #define PLUGIN_API __declspec(dllimport)
-  #endif
-#else
-  #define PLUGIN_API __attribute__((visibility("default")))
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Непрозорий дескриптор екземпляра плагіна */
-typedef struct plugin_handle_opaque* plugin_handle_t;
-
-/* Структура інформації про версію та сумісність */
-typedef struct {
-    uint32_t abi_version_major;
-    uint32_t abi_version_minor;
-    uint32_t patch_version;
-    const char* plugin_name;
-    const char* vendor_name;
-} plugin_metadata_t;
-
-/* Коди помилок операцій плагіна */
-typedef enum {
-    PLUGIN_SUCCESS = 0,
-    PLUGIN_ERR_INVALID_ARG = -1,
-    PLUGIN_ERR_EXECUTION_FAILED = -2,
-    PLUGIN_ERR_OUT_OF_MEMORY = -3
-} plugin_status_t;
-
-/* Сигнатури точок входу динамічної бібліотеки */
-PLUGIN_API plugin_status_t plugin_get_metadata(plugin_metadata_t* out_meta);
-PLUGIN_API plugin_status_t plugin_create_instance(plugin_handle_t* out_handle);
-PLUGIN_API plugin_status_t plugin_process_data(plugin_handle_t handle, const uint8_t* in_data, size_t size, double* out_metric);
-PLUGIN_API void            plugin_destroy_instance(plugin_handle_t handle);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* PLUGIN_ABI_H */
-```
-```cpp
-// plugin_abi.hpp — C++ ідіоматичний фасад поверх стабільного C ABI
-#pragma once
-#include <cstdint>
-#include <cstddef>
-#include <string_view>
-#include <memory>
-#include <stdexcept>
-#include <span>
-#include <system_error>
-
-#if defined(_WIN32)
-  #ifdef PLUGIN_EXPORTS
-    #define PLUGIN_API __declspec(dllexport)
-  #else
-    #define PLUGIN_API __declspec(dllimport)
-  #endif
-#else
-  #define PLUGIN_API __attribute__((visibility("default")))
-#endif
-
-extern "C" {
-    struct plugin_handle_opaque;
-    using plugin_handle_t = plugin_handle_opaque*;
-
-    struct plugin_metadata_t {
-        uint32_t abi_version_major;
-        uint32_t abi_version_minor;
-        uint32_t patch_version;
-        const char* plugin_name;
-        const char* vendor_name;
-    };
-
-    enum plugin_status_t : int32_t {
-        PLUGIN_SUCCESS = 0,
-        PLUGIN_ERR_INVALID_ARG = -1,
-        PLUGIN_ERR_EXECUTION_FAILED = -2,
-        PLUGIN_ERR_OUT_OF_MEMORY = -3
-    };
-
-    PLUGIN_API plugin_status_t plugin_get_metadata(plugin_metadata_t* out_meta);
-    PLUGIN_API plugin_status_t plugin_create_instance(plugin_handle_t* out_handle);
-    PLUGIN_API plugin_status_t plugin_process_data(plugin_handle_t handle, const uint8_t* in_data, size_t size, double* out_metric);
-    PLUGIN_API void            plugin_destroy_instance(plugin_handle_t handle);
-}
-
-namespace plugin_system {
-inline namespace v1 {
-
-// RAII кастомний деструктор для непрозорого C-дескриптора
-struct PluginDeleter {
-    void operator()(plugin_handle_t h) const noexcept {
-        if (h) {
-            plugin_destroy_instance(h);
-        }
-    }
-};
-
-using SafeHandle = std::unique_ptr<plugin_handle_opaque, PluginDeleter>;
-
-// Безпечний C++ клас-клієнт із нульовими накладними витратами
-class PluginClient {
-public:
-    PluginClient() {
-        plugin_handle_t raw_handle = nullptr;
-        plugin_status_t status = plugin_create_instance(&raw_handle);
-        if (status != PLUGIN_SUCCESS || !raw_handle) {
-            throw std::runtime_error("Не вдалося створити екземпляр плагіна");
-        }
-        handle_.reset(raw_handle);
-    }
-
-    double process(std::span<const uint8_t> buffer) {
-        double result = 0.0;
-        plugin_status_t status = plugin_process_data(handle_.get(), buffer.data(), buffer.size(), &result);
-        if (status != PLUGIN_SUCCESS) {
-            throw std::runtime_error("Збій обробки даних у плагіні");
-        }
-        return result;
-    }
-
-private:
-    SafeHandle handle_;
-};
-
-} // namespace v1
-} // namespace plugin_system
-```
+:::code proj-abi-break-detect/c/plugin_abi.h
+:::code proj-abi-break-detect/cpp/plugin_abi.hpp
 :::
 
 У цій архітектурі C++ клас `PluginClient` є виключно заголовковою обгорткою (`inline`). Він не генерує жодних експортованих символів у динамічній бібліотеці, а його методи транслюються компілятором у прямі виклики низькорівневих C-функцій. Завдяки кастомному деструктору `PluginDeleter` виклик методу видалення гарантовано перенаправляється у функцію `plugin_destroy_instance()`, яка виконується всередині тієї самої динамічної бібліотеки, повністю розв'язуючи проблему крос-модульної купи.
@@ -186,74 +46,7 @@ private:
 
 Всередині динамічного модуля розробники мають абсолютну свободу використовувати будь-які сучасні можливості C++20: стандартні контейнери `std::vector`, розумні покажчики, багатопоточність та алгоритми STL. Жодна з цих деталей реалізації не потрапляє у таблицю символів назовні.
 
-```cpp
-// audio_filter_plugin.cpp — реалізація плагіна обробки аудіо
-#define PLUGIN_EXPORTS
-#include "plugin_abi.hpp"
-#include <vector>
-#include <numeric>
-#include <cmath>
-#include <algorithm>
-
-// Внутрішній C++ клас плагіна (повністю прихований від клієнта)
-struct plugin_handle_opaque {
-    std::vector<double> coefficients;
-    double gain = 1.0;
-    uint64_t processed_frames = 0;
-
-    plugin_handle_opaque() {
-        coefficients.resize(64, 0.015625); // Фільтр ковзного середнього (FIR)
-    }
-
-    double compute_filtered_sample(const uint8_t* data, size_t len) {
-        double accumulated = 0.0;
-        for (size_t i = 0; i < len; ++i) {
-            double normalized = static_cast<double>(data[i]) / 255.0;
-            accumulated += normalized * coefficients[i % coefficients.size()];
-        }
-        processed_frames += len;
-        return accumulated * gain;
-    }
-};
-
-plugin_status_t plugin_get_metadata(plugin_metadata_t* out_meta) {
-    if (!out_meta) return PLUGIN_ERR_INVALID_ARG;
-    out_meta->abi_version_major = 1;
-    out_meta->abi_version_minor = 0;
-    out_meta->patch_version = 0;
-    out_meta->plugin_name = "AudioLowPassFilter";
-    out_meta->vendor_name = "AcousticLab";
-    return PLUGIN_SUCCESS;
-}
-
-plugin_status_t plugin_create_instance(plugin_handle_t* out_handle) {
-    if (!out_handle) return PLUGIN_ERR_INVALID_ARG;
-    try {
-        *out_handle = new plugin_handle_opaque();
-        return PLUGIN_SUCCESS;
-    } catch (...) {
-        return PLUGIN_ERR_OUT_OF_MEMORY;
-    }
-}
-
-plugin_status_t plugin_process_data(plugin_handle_t handle, const uint8_t* in_data, size_t size, double* out_metric) {
-    if (!handle || !in_data || size == 0 || !out_metric) {
-        return PLUGIN_ERR_INVALID_ARG;
-    }
-
-    try {
-        *out_metric = handle->compute_filtered_sample(in_data, size);
-        return PLUGIN_SUCCESS;
-    } catch (...) {
-        return PLUGIN_ERR_EXECUTION_FAILED;
-    }
-}
-
-void plugin_destroy_instance(plugin_handle_t handle) {
-    // Звільнення пам'яті відбувається в тому самому модулі, де був виклик new
-    delete handle;
-}
-```
+:::code proj-abi-break-detect/cpp/audio_filter_plugin.cpp
 
 Зверніть увагу на обробку винятків у кожній експортованій C-функції: будь-який потенційний виняток перехоплюється блоком `try-catch (...)` і перетворюється на числовий статус `PLUGIN_ERR_EXECUTION_FAILED` або `PLUGIN_ERR_OUT_OF_MEMORY`. Це гарантує, що виняток ніколи не перетне межу динамічної бібліотеки і не викличе крах хост-додатку.
 
@@ -263,62 +56,7 @@ void plugin_destroy_instance(plugin_handle_t handle) {
 
 Хост-програма використовує стандартні функції динамічного завантаження операційної системи (`dlopen`, `dlsym`, `dlclose` на POSIX або `LoadLibraryA`, `GetProcAddress`, `FreeLibrary` на Windows) для зв'язування з бібліотекою під час виконання:
 
-```cpp
-// host_loader.cpp — безпечне динамічне завантаження плагіна
-#include "plugin_abi.hpp"
-#include <iostream>
-#include <vector>
-
-#if defined(_WIN32)
-  #include <windows.h>
-  using ModuleHandle = HMODULE;
-  #define LOAD_LIB(path) LoadLibraryA(path)
-  #define GET_SYM(mod, name) GetProcAddress(mod, name)
-  #define CLOSE_LIB(mod) FreeLibrary(mod)
-#else
-  #include <dlfcn.h>
-  using ModuleHandle = void*;
-  #define LOAD_LIB(path) dlopen(path, RTLD_NOW | RTLD_LOCAL)
-  #define GET_SYM(mod, name) dlsym(mod, name)
-  #define CLOSE_LIB(mod) dlclose(mod)
-#endif
-
-class DynamicPluginHost {
-public:
-    explicit DynamicPluginHost(const char* library_path) {
-        module_ = LOAD_LIB(library_path);
-        if (!module_) {
-            throw std::runtime_error("Помилка завантаження бібліотеки плагіна");
-        }
-
-        // Перевірка наявності точки отримання метаданих
-        auto get_meta = reinterpret_cast<decltype(&plugin_get_metadata)>(GET_SYM(module_, "plugin_get_metadata"));
-        if (!get_meta) {
-            CLOSE_LIB(module_);
-            throw std::runtime_error("Бібліотека не містить точки входу plugin_get_metadata");
-        }
-
-        plugin_metadata_t meta{};
-        if (get_meta(&meta) == PLUGIN_SUCCESS) {
-            std::cout << "Завантажено плагін: " << meta.plugin_name 
-                      << " версія ABI: " << meta.abi_version_major << "." << meta.abi_version_minor << "\n";
-            if (meta.abi_version_major != 1) {
-                CLOSE_LIB(module_);
-                throw std::runtime_error("Несумісна major-версія ABI плагіна!");
-            }
-        }
-    }
-
-    ~DynamicPluginHost() {
-        if (module_) {
-            CLOSE_LIB(module_);
-        }
-    }
-
-private:
-    ModuleHandle module_ = nullptr;
-};
-```
+:::code proj-abi-break-detect/cpp/host_loader.cpp
 
 Цей шаблон завантажувача гарантує, що основна програма спочатку валідує номер версії ABI у заголовку плагіна, і лише після підтвердження сумісності починає викликати функціональні методи.
 
@@ -362,118 +100,13 @@ PLUGIN_API plugin_status_t plugin_set_progress_callback(
 
 Публічний заголовок містить лише оголошення публічних методів та один непрозорий покажчик `std::unique_ptr<EngineImpl>`. Розмір класу `Engine` на 64-бітній архітектурі завжди дорівнює рівно 8 байтам, незалежно від того, скільки полів або підсистем буде додано у внутрішній клас у наступних версіях.
 
-```cpp
-// engine.hpp — публічний заголовок бібліотеки з фіксованим ABI
-#pragma once
-#include <memory>
-#include <string_view>
-
-#if defined(_WIN32)
-  #ifdef ENGINE_EXPORTS
-    #define ENGINE_API __declspec(dllexport)
-  #else
-    #define ENGINE_API __declspec(dllimport)
-  #endif
-#else
-  #define ENGINE_API __attribute__((visibility("default")))
-#endif
-
-namespace engine {
-inline namespace v1 {
-
-class ENGINE_API Engine {
-public:
-    Engine();
-    ~Engine(); // Обов'язково неінлайновий деструктор!
-
-    // Конструктори та оператори переміщення
-    Engine(Engine&&) noexcept;
-    Engine& operator=(Engine&&) noexcept;
-
-    // Підтримка глибокого копіювання через фабричний метод клонування
-    Engine(const Engine& other);
-    Engine& operator=(const Engine& other);
-
-    void initialize(std::string_view config_path);
-    double execute_step(double delta_time);
-
-private:
-    struct EngineImpl;                 // Неповний тип (Forward declaration)
-    std::unique_ptr<EngineImpl> impl_; // Фіксований розмір: рівно 8 байтів
-};
-
-} // namespace v1
-} // namespace engine
-```
+:::code proj-abi-break-detect/cpp/engine.hpp
 
 ### 3.2. Закрита реалізація PImpl (`engine.cpp`)
 
 Усі важкі внутрішні змінні, буфери, сокети та системні дескриптори оголошуються виключно у вихідному файлі реалізації `engine.cpp`. Клієнтська програма не має до них доступу на рівні компіляції і не залежить від їхньої зміни.
 
-```cpp
-// engine.cpp — реалізація приватного стану
-#define ENGINE_EXPORTS
-#include "engine.hpp"
-#include <string>
-#include <vector>
-#include <chrono>
-#include <iostream>
-
-namespace engine {
-inline namespace v1 {
-
-struct Engine::EngineImpl {
-    std::string config_path_;
-    std::vector<double> performance_history_;
-    std::chrono::high_resolution_clock::time_point launch_timestamp_;
-    uint64_t step_counter_ = 0;
-
-    void configure(std::string_view path) {
-        config_path_ = std::string(path);
-        launch_timestamp_ = std::chrono::high_resolution_clock::now();
-    }
-
-    double run_simulation(double dt) {
-        step_counter_++;
-        performance_history_.push_back(dt);
-        return dt * 2.0;
-    }
-};
-
-Engine::Engine() : impl_(std::make_unique<EngineImpl>()) {}
-
-// Деструктор генерується саме тут, де повне визначення EngineImpl відоме компілятору
-Engine::~Engine() = default;
-
-Engine::Engine(Engine&&) noexcept = default;
-Engine& Engine::operator=(Engine&&) noexcept = default;
-
-// Реалізація глибокого копіювання: викликає конструктор копіювання EngineImpl
-Engine::Engine(const Engine& other)
-    : impl_(other.impl_ ? std::make_unique<EngineImpl>(*other.impl_) : nullptr) {}
-
-Engine& Engine::operator=(const Engine& other) {
-    if (this != &other) {
-        if (other.impl_) {
-            impl_ = std::make_unique<EngineImpl>(*other.impl_);
-        } else {
-            impl_.reset();
-        }
-    }
-    return *this;
-}
-
-void Engine::initialize(std::string_view config_path) {
-    impl_->configure(config_path);
-}
-
-double Engine::execute_step(double delta_time) {
-    return impl_->run_simulation(delta_time);
-}
-
-} // namespace v1
-} // namespace engine
-```
+:::code proj-abi-break-detect/cpp/engine.cpp
 
 **Критичний інженерний нюанс деструктора та копіювання PImpl:**
 Якщо не визначити деструктор `Engine::~Engine()` та конструктор копіювання у файлі `engine.cpp`, компілятор згенерує їх за замовчуванням у заголовку (`inline`). Коли клієнтська програма скомпілює виклик деструктора `Engine`, вона спробує згенерувати інструкцію видалення `delete impl_.get()`, що призведе до помилки компіляції про видалення неповного типу (`incomplete type EngineImpl`) або, що гірше, до виклику деструктора без очищення полів `std::string` та `std::vector`, спричиняючи витік пам'яті. Розміщення деструктора в `.cpp` файлі гарантує, що клієнт лише викликає скомпільовану функцію, не знаючи нічого про внутрішні типи.
@@ -491,41 +124,7 @@ double Engine::execute_step(double delta_time) {
 4. **Видалення або перестановка методів суворо заборонені**;
 5. **Запит нових інтерфейсів через метод розширення (QueryInterface)** — якщо плагін підтримує нові додаткові можливості, хост отримує покажчик на новий інтерфейс через числовий ідентифікатор без зміни початкового базового класу.
 
-```cpp
-// IPluginInterface.hpp — COM-подібний абстрактний інтерфейс розширення
-#pragma once
-#include <cstdint>
-#include <cstddef>
-
-// Унікальні ідентифікатори інтерфейсів (Interface IDs)
-constexpr uint32_t IID_PROCESSOR_V1 = 0x1001;
-constexpr uint32_t IID_PARAM_CONTROLLER_V1 = 0x1002;
-
-struct IPluginBase {
-    // Слот 0: Запит підтримуваних інтерфейсів без порушення vtable
-    virtual int32_t query_interface(uint32_t iid, void** out_interface) noexcept = 0;
-
-    // Слот 1: Метод вивільнення екземпляра
-    virtual void release() noexcept = 0;
-
-protected:
-    ~IPluginBase() = default;
-};
-
-struct IProcessorV1 : public IPluginBase {
-    // Слот 2: Ініціалізація
-    virtual int32_t initialize(const char* name) = 0;
-
-    // Слот 3: Основний цикл обробки
-    virtual int32_t process_frame(const float* in, float* out, size_t count) = 0;
-};
-
-struct IParameterController : public IPluginBase {
-    // Слот 2 для IParameterController: керування параметрами
-    virtual int32_t set_parameter(uint32_t param_id, double value) = 0;
-    virtual double  get_parameter(uint32_t param_id) = 0;
-};
-```
+:::code proj-abi-break-detect/cpp/IPluginInterface.hpp
 
 Завдяки цьому патерну, коли хост-програма хоче дізнатися, чи підтримує старий плагін керування параметрами, вона викликає `query_interface(IID_PARAM_CONTROLLER_V1, &ptr)`. Якщо плагін не знає цього ідентифікатора, він просто повертає статус `PLUGIN_ERR_INVALID_ARG`, і хост продовжує працювати в режимі базової функціональності без збоїв у пам'яті.
 
@@ -541,37 +140,7 @@ struct IParameterController : public IPluginBase {
 
 Сценарій автоматично збирає еталонний та поточний бінарники, генерує файли зліпків ABI (`.abi`) та виконує порівняльний аналіз через `abidiff`:
 
-```bash
-#!/usr/bin/env bash
-# check_abi.sh — верифікація стабільності двійкового інтерфейсу
-set -e
-
-echo "=== 1. Збірка еталонної версії бібліотеки v1.0 ==="
-g++ -std=c++20 -O2 -g -shared -fPIC -fvisibility=hidden \
-    -DENGINE_EXPORTS engine.cpp -o libengine_v1.so
-
-# Екстракція еталонного XML-зліпка ABI з DWARF інформації
-abidw --drop-private-types libengine_v1.so --out-file libengine_v1.abi
-echo "✓ Згенеровано зліпок ABI v1.0"
-
-echo "=== 2. Збірка поточної версії бібліотеки v1.1 ==="
-g++ -std=c++20 -O2 -g -shared -fPIC -fvisibility=hidden \
-    -DENGINE_EXPORTS engine.cpp -o libengine_v1_1.so
-
-echo "=== 3. Виконання диференційного аудиту через abidiff ==="
-if abidiff --leaf-changes-only --impacted-interfaces libengine_v1.abi libengine_v1_1.so; then
-    echo "=================================================="
-    echo "✅ ПЕРЕВІРКУ ПРОЙДЕНО: Двійковий інтерфейс повністю сумісний!"
-    echo "=================================================="
-    exit 0
-else
-    echo "=================================================="
-    echo "❌ ДЕФЕКТ: Виявлено розрив ABI між версіями!"
-    echo "Зміна двійкового контракту вимагає оновлення SONAME або major-версії."
-    echo "=================================================="
-    exit 1
-fi
-```
+:::code proj-abi-break-detect/sh/check_abi.sh
 
 ### 5.2. Симуляція трьох типових помилок розробника та звіти `abidiff`
 

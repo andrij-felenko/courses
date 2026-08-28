@@ -31,36 +31,7 @@
 
 Для того щоб унеможливити випадкове помилкове успадкування, коли один похідний клас випадково передає інший тип у базовий шаблон (наприклад, `class DerivedB : public StaticInterface<DerivedA>`), базовий конструктор роблять приватним і надають доступ похідному класу через `friend`:
 
-```cpp
-#include <concepts>
-#include <type_traits>
-
-template <typename Derived>
-class StaticInterface {
-private:
-    StaticInterface() = default;
-    friend Derived;
-
-public:
-    void execute() noexcept(noexcept(std::declval<Derived&>().execute_impl())) {
-        Derived& self = *static_cast<Derived*>(this);
-        
-        static_assert(requires(Derived d) { d.execute_impl(); },
-            "Похідний клас зобов'язаний реалізувати void execute_impl()");
-            
-        self.execute_impl();
-    }
-
-    void execute() const noexcept(noexcept(std::declval<const Derived&>().execute_impl())) {
-        const Derived& self = *static_cast<const Derived*>(this);
-        
-        static_assert(requires(const Derived d) { d.execute_impl(); },
-            "Похідний клас зобов'язаний реалізувати void execute_impl() const");
-            
-        self.execute_impl();
-    }
-};
-```
+:::code api-crtp-patterns/cpp/zakhysni-mekhanizmy-ta.cpp
 
 Використання статичних тверджень `static_assert` разом із концептами C++20 дозволяє отримати зрозуміле повідомлення про помилку під час збірки проєкту замість незрозумілих простирадл помилок компілятора.
 
@@ -78,37 +49,7 @@ public:
 
 #### Реалізація комплексу міксинів для логування та форматування:
 
-```cpp
-#include <iostream>
-#include <string>
-
-template <typename Derived>
-class Formattable {
-public:
-    void print() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        std::cout << self.to_string() << "\n";
-    }
-};
-
-template <typename Derived>
-class Sizable {
-public:
-    size_t byte_size() const noexcept {
-        return sizeof(Derived);
-    }
-};
-
-class UserPayload : public Formattable<UserPayload>, public Sizable<UserPayload> {
-public:
-    uint64_t user_id{0};
-    uint32_t flags{0};
-
-    std::string to_string() const {
-        return "UserPayload[id=" + std::to_string(user_id) + "]";
-    }
-};
-```
+:::code api-crtp-patterns/cpp/realizatsiia-kompleksu.hpp
 
 Завдяки такій структурі клас `UserPayload` отримує функціональність двох розширень без додавання `vptr` чи службових полів.
 
@@ -125,42 +66,7 @@ public:
 
 #### Реалізація конфігуратора мережевого з'єднання:
 
-```cpp
-template <typename Derived>
-class NetworkBuilder {
-public:
-    Derived& set_host(std::string host) & {
-        Derived& self = *static_cast<Derived*>(this);
-        self.host_ = std::move(host);
-        return self;
-    }
-
-    Derived&& set_host(std::string host) && {
-        Derived& self = *static_cast<Derived*>(this);
-        self.host_ = std::move(host);
-        return std::move(self);
-    }
-
-    Derived& set_port(uint16_t port) & {
-        Derived& self = *static_cast<Derived*>(this);
-        self.port_ = port;
-        return self;
-    }
-};
-
-class SecureNetworkBuilder : public NetworkBuilder<SecureNetworkBuilder> {
-    friend class NetworkBuilder<SecureNetworkBuilder>;
-    std::string host_;
-    uint16_t port_{80};
-    std::string tls_certificate_;
-
-public:
-    SecureNetworkBuilder& set_certificate(std::string cert) & {
-        tls_certificate_ = std::move(cert);
-        return *this;
-    }
-};
-```
+:::code api-crtp-patterns/cpp/realizatsiia-konfihuratora.hpp
 
 ---
 
@@ -173,39 +79,7 @@ public:
 2. Конструктори копіювання, переміщення та деструктор підтримують актуальний стан лічильника.
 3. Для підтримки багатопотокового середовища використовується атомарний тип `std::atomic<size_t>` із розслабленим порядком пам'яті `memory_order_relaxed`. Вплив на крізьпотокову синхронізацію відсутній, що забезпечує мінімальні затримки процесора.
 
-```cpp
-#include <atomic>
-
-template <typename Derived>
-class ThreadSafeCounter {
-public:
-    ThreadSafeCounter() noexcept {
-        counter_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    ThreadSafeCounter(const ThreadSafeCounter&) noexcept {
-        counter_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    ThreadSafeCounter(ThreadSafeCounter&&) noexcept {
-        counter_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    ~ThreadSafeCounter() noexcept {
-        counter_.fetch_sub(1, std::memory_order_relaxed);
-    }
-
-    static size_t active_instances() noexcept {
-        return counter_.load(std::memory_order_relaxed);
-    }
-
-private:
-    inline static std::atomic<size_t> counter_{0};
-};
-
-class ConnectionHandle : public ThreadSafeCounter<ConnectionHandle> {};
-class DatabaseSession : public ThreadSafeCounter<DatabaseSession> {};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty.hpp
 
 ---
 
@@ -218,30 +92,7 @@ class DatabaseSession : public ThreadSafeCounter<DatabaseSession> {};
 2. Жодного віртуального виклику не виконується; компілятор будує пряму таблицю переходів або підставляє тіла обробників безпосередньо за допомогою шаблонів.
 3. Додавання нових вузлів або методів обробки перевіряється під час збірки проєкту без створення невидимих помилок під час виконання.
 
-```cpp
-template <typename Derived>
-class StaticVisitor {
-public:
-    template <typename NodeTy>
-    void dispatch(NodeTy& node) {
-        Derived& self = *static_cast<Derived*>(this);
-        self.handle(node);
-    }
-};
-
-struct ASTNodeA {};
-struct ASTNodeB {};
-
-class ASTInspector : public StaticVisitor<ASTInspector> {
-public:
-    void handle(ASTNodeA& a) {
-        std::cout << "Inspecting ASTNodeA\n";
-    }
-    void handle(ASTNodeB& b) {
-        std::cout << "Inspecting ASTNodeB\n";
-    }
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty.cpp
 
 ---
 
@@ -254,33 +105,7 @@ public:
 2. Похідний клас має можливість не перевизначати опційні методи, що знижує обсяг обов'язкового коду для простих об'єктів.
 3. Оптимізатор компілятора повністю видаляє гілку `if constexpr`, якщо умова є хибною, усуваючи навіть порожню інструкцію виклику.
 
-```cpp
-template <typename Derived>
-class EventPipeline {
-public:
-    void process_event() {
-        Derived& self = *static_cast<Derived*>(this);
-        
-        // Перевірка наявності опційного метода під час компіляції
-        if constexpr (requires { self.before_process(); }) {
-            self.before_process();
-        }
-        
-        self.main_process();
-        
-        if constexpr (requires { self.after_process(); }) {
-            self.after_process();
-        }
-    }
-};
-
-class SimpleHandler : public EventPipeline<SimpleHandler> {
-public:
-    void main_process() {
-        std::cout << "Executing main event handler\n";
-    }
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty-2.cpp
 
 ---
 
@@ -293,26 +118,7 @@ public:
 2. Переходи між станами виконуються шляхом повернення нових об'єктів станів або через статичний диспетчер подій.
 3. Компілятор повністю інлайнить усі переходи між станами у єдину послідовність машинних інструкцій.
 
-```cpp
-template <typename DerivedState>
-class StateBase {
-public:
-    template <typename Event>
-    void handle_event(const Event& event) {
-        DerivedState& self = *static_cast<DerivedState*>(this);
-        self.on_event(event);
-    }
-};
-
-struct ConnectEvent {};
-
-class DisconnectedState : public StateBase<DisconnectedState> {
-public:
-    void on_event(const ConnectEvent&) {
-        std::cout << "Transitioning from Disconnected to Connecting\n";
-    }
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty-3.cpp
 
 ---
 
@@ -325,23 +131,7 @@ public:
 2. CRTP-шаблон успадковує `NonTemplateBase` і містить лише тонкі шаблони викликів через `static_cast<Derived*>(this)`.
 3. Завдяки цьому згенерований двійковий файл не роздувається від нескінченних дублів мономорфного машинного коду.
 
-```cpp
-class NonTemplateStorage {
-protected:
-    void raw_write(const void* data, size_t size) {
-        // Звичайний нешаблонний код, що існує в бінарнику в єдиному примірнику
-    }
-};
-
-template <typename Derived>
-class DataWriter : private NonTemplateStorage {
-public:
-    void write_object() {
-        Derived& self = *static_cast<Derived*>(this);
-        this->raw_write(&self, sizeof(Derived));
-    }
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty-4.cpp
 
 ---
 
@@ -354,24 +144,7 @@ public:
 2. Виклик `clone()` виконує пряму ініціалізацію нового об'єкта через конструктор копіювання `Derived`.
 3. Тип повернення точно відповідає похідному класу, усуваючи потребу у `dynamic_cast` або `static_cast` на стороні користувача.
 
-```cpp
-#include <memory>
-
-template <typename Derived>
-class Cloneable {
-public:
-    std::unique_ptr<Derived> clone() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        return std::make_unique<Derived>(self);
-    }
-};
-
-class GraphicPrimitive : public Cloneable<GraphicPrimitive> {
-public:
-    int x{0};
-    int y{0};
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty-2.hpp
 
 ---
 
@@ -383,22 +156,7 @@ public:
 1. Базовий клас `PropertyMap<Derived>` надає статичні методи доступу до ідентифікаторів та метаданих типу.
 2. Похідний клас оголошує статичні константи або `constexpr`-методи, які зчитуються базовим шаблоном без жодних інструкцій у коді виконання.
 
-```cpp
-template <typename Derived>
-struct PropertyMap {
-    static constexpr const char* name() noexcept {
-        return Derived::type_name;
-    }
-    static constexpr uint32_t type_id() noexcept {
-        return Derived::type_identifier;
-    }
-};
-
-struct PacketA : PropertyMap<PacketA> {
-    static constexpr const char* type_name = "PacketA";
-    static constexpr uint32_t type_identifier = 0x1001;
-};
-```
+:::code api-crtp-patterns/cpp/kontrakt-ta-invarianty-5.cpp
 
 ---
 
@@ -444,18 +202,7 @@ public:
 - **Багаторазове успадкування**: Якщо клас успадковується від двох різних CRTP-баз, кожна з яких базується на `enable_shared_from_this`, це створює невизначеність типів під час інстанціювання і вимагає створення проміжного нешаблонного інтерфейсу.
 - **Управління пам'яттю**: Внутрішній weak_ptr утримує розмір керованого блоку у пам'яті до моменту знищення останньої weak-посилання, навіть після виклику деструктора об'єкта `T`.
 
-```cpp
-#include <memory>
-#include <iostream>
-
-class WorkerNode : public std::enable_shared_from_this<WorkerNode> {
-public:
-    void register_in_cluster() {
-        std::shared_ptr<WorkerNode> self_ptr = shared_from_this();
-        std::cout << "Node registered with use_count: " << self_ptr.use_count() << "\n";
-    }
-};
-```
+:::code api-crtp-patterns/cpp/krytychni-kraiovi-vypadky.cpp
 
 ---
 
@@ -505,72 +252,15 @@ public:
 #### 1. Статичний міксин друку
 
 :::tabs
-```cpp
-// C++17 CRTP
-template <typename Derived>
-struct PrintableCRTP {
-    void print() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        std::cout << self.get_name() << "\n";
-    }
-};
-
-class Item : public PrintableCRTP<Item> {
-public:
-    std::string get_name() const { return "ItemA"; }
-};
-```
-```cpp
-// C++23 Deducing This
-struct Printable23 {
-    void print(this const auto& self) {
-        std::cout << self.get_name() << "\n";
-    }
-};
-
-class Item : public Printable23 {
-public:
-    std::string get_name() const { return "ItemA"; }
-};
-```
+:::code api-crtp-patterns/cpp/1-statychnyi-miksyn-druku.cpp
+:::code api-crtp-patterns/cpp/1-statychnyi-miksyn-druku-2.cpp
 :::
 
 #### 2. Плавний інтерфейс (Fluent Builder)
 
 :::tabs
-```cpp
-// C++17 CRTP Fluent Builder
-template <typename Derived>
-class ButtonBuilderCRTP {
-public:
-    Derived& set_label(std::string lbl) {
-        Derived& self = *static_cast<Derived*>(this);
-        self.label_ = std::move(lbl);
-        return self;
-    }
-};
-
-class IconButton : public ButtonBuilderCRTP<IconButton> {
-public:
-    std::string label_;
-};
-```
-```cpp
-// C++23 Deducing This Fluent Builder
-class ButtonBuilder23 {
-public:
-    template <typename Self>
-    auto&& set_label(this Self&& self, std::string lbl) {
-        self.label_ = std::move(lbl);
-        return std::forward<Self>(self);
-    }
-};
-
-class IconButton : public ButtonBuilder23 {
-public:
-    std::string label_;
-};
-```
+:::code api-crtp-patterns/cpp/2-plavnyi-interfeis-fluent.cpp
+:::code api-crtp-patterns/cpp/2-plavnyi-interfeis-fluent-2.cpp
 :::
 
 Завдяки C++23 явний параметр об'єкта витісняє CRTP у повсякденних завданнях створення міксинів, роблячи код простішим, виразнішим та безпечнішим, при цьому повністю зберігаючи нульову ціну виконання під час роботи програми.

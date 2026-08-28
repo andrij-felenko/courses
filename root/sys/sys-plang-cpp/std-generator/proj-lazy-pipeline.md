@@ -27,35 +27,7 @@
 
 Для обходу рекурсивних структур (дерев каталогів, графів) традиційний оператор `co_yield` у циклі створює оверхед через розгортання стеку призупинень. Завдяки механізму `std::ranges::elements_of` ми передаємо ціле вкладене дерево через симетричний перехід (Symmetric Transfer) без розгортання стеку.
 
-```cpp
-#include <generator>
-#include <filesystem>
-#include <iostream>
-#include <string_view>
-#include <ranges>
-
-namespace fs = std::filesystem;
-
-// Рекурсивний корутинний генератор файлів
-std::generator<fs::directory_entry> scan_tree(fs::path dir) {
-    std::error_code ec;
-    auto iter = fs::directory_iterator(dir, fs::directory_options::skip_permission_denied, ec);
-    
-    if (ec) {
-        co_return; // Помилка доступу — завершуємо корутину
-    }
-
-    for (const auto& entry : iter) {
-        if (entry.is_directory(ec)) {
-            // 1. Рекурсивна віддача вкладеного дерева за O(1) через elements_of
-            co_yield std::ranges::elements_of(scan_tree(entry.path()));
-        } else if (entry.is_regular_file(ec)) {
-            // 2. Віддача окремого файла
-            co_yield entry;
-        }
-    }
-}
-```
+:::code proj-lazy-pipeline/cpp/3-modul-1-rekursyvnyi.cpp
 
 ### Детальний розбір роботи `scan_tree`
 - Функція приймає шлях до каталогу `fs::path dir` **за значенням**. Це гарантує, що об'єкт пути переміщується безпосередньо у кадр корутини і житиме стільки ж, скільки живе корутина.
@@ -68,54 +40,7 @@ std::generator<fs::directory_entry> scan_tree(fs::path dir) {
 
 Другий модуль описує дволанкову корутинну систему. Перша корутина `read_lines` читає файл рядок за рядком, а друга корутина `parse_logs` трансформує рядки у структуровані записи `LogEntry`.
 
-```cpp
-#include <fstream>
-#include <string>
-
-struct LogEntry {
-    std::string timestamp;
-    std::string level;
-    std::string message;
-};
-
-// Лінивий генератор рядків із файлу
-std::generator<std::string> read_lines(std::string path) {
-    std::ifstream file(path);
-    if (!file.is_open()) {
-        co_return;
-    }
-    std::string line;
-    while (std::getline(file, line)) {
-        co_yield line; // Зупинка та передача рядка викликачу
-    }
-}
-
-// Перетворювач рядків у LogEntry
-std::generator<LogEntry> parse_logs(std::string path) {
-    for (std::string line : read_lines(std::move(path))) {
-        if (line.empty() || line.starts_with('#')) {
-            continue; // Пропускаємо коментарі та порожні рядки
-        }
-        
-        // Парсинг тексту формату: "TIMESTAMP [LEVEL] MESSAGE"
-        auto first_space = line.find(' ');
-        auto open_bracket = line.find('[');
-        auto close_bracket = line.find(']');
-
-        if (first_space != std::string::npos && 
-            open_bracket != std::string::npos && 
-            close_bracket != std::string::npos) {
-            
-            LogEntry entry{
-                .timestamp = line.substr(0, first_space),
-                .level = line.substr(open_bracket + 1, close_bracket - open_bracket - 1),
-                .message = line.substr(close_bracket + 2)
-            };
-            co_yield entry; // Передача структурованого запису
-        }
-    }
-}
-```
+:::code proj-lazy-pipeline/cpp/4-modul-2-potokovyi-parser.cpp
 
 ### Переваги лінивого читання файлів
 - Файл не зчитується в пам'ять повністю. Обсяг виділеного буфера обмежується довжиною одного рядка в змінній `line`.
@@ -127,41 +52,7 @@ std::generator<LogEntry> parse_logs(std::string path) {
 
 Оскільки `std::generator` є повноцінним `std::ranges::input_range`, його результати легко комбінуються з адаптерами з заголовка `<ranges>`.
 
-```cpp
-int main() {
-    const std::string log_file = "system.log";
-
-    // Побудова конвеєра:
-    // 1. Отримуємо генератор парсингу логів
-    // 2. Фільтруємо лише критичні помилки "ERROR" або "CRITICAL"
-    // 3. Беремо перші 5 записів
-    auto critical_errors = parse_logs(log_file)
-        | std::views::filter([](const LogEntry& e) {
-              return e.level == "ERROR" || e.level == "CRITICAL";
-          })
-        | std::views::take(5);
-
-    std::cout << "--- КРИТИЧНІ ПОМИЛКИ (перші 5) ---\n";
-    for (const LogEntry& err : critical_errors) {
-        std::cout << "[" << err.timestamp << "] (" << err.level << "): " 
-                  << err.message << "\n";
-    }
-
-    // Рекурсивне сканування диска з обмеженням кількості
-    std::cout << "\n--- СКАНУВАННЯ ДЕРЕВА КАТАЛОГІВ ---\n";
-    auto cpp_files = scan_tree(".")
-        | std::views::filter([](const fs::directory_entry& e) {
-              return e.path().extension() == ".cpp";
-          })
-        | std::views::take(10);
-
-    for (const auto& entry : cpp_files) {
-        std::cout << "Знайдено C++ файл: " << entry.path() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-lazy-pipeline/cpp/5-obiednannia-z-ranges.cpp
 
 ---
 

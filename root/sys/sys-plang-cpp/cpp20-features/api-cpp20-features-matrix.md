@@ -105,61 +105,7 @@
 - **Динамічний розмір (`Extent == std::dynamic_extent`):** розмір зберігається як поле класу (займає 16 байтів на 64-бітній архітектурі: 8 байтів покажчик + 8 байтів розмір).
 - **Статичний розмір (`Extent != std::dynamic_extent`):** розмір зафіксовано на етапі компіляції. Об'єкт `std::span` займає рівно 8 байтів (лише один сирий покажчик), а всі операції перевірки меж оптимізуються компілятором без збереження додаткового лічильника в пам'яті.
 
-```cpp
-namespace std {
-    inline constexpr size_t dynamic_extent = numeric_limits<size_t>::max();
-
-    template<typename ElementType, size_t Extent = dynamic_extent>
-    class span {
-    public:
-        using element_type     = ElementType;
-        using value_type       = remove_cv_t<ElementType>;
-        using size_type        = size_t;
-        using difference_type  = ptrdiff_t;
-        using pointer          = ElementType*;
-        using const_pointer    = const ElementType*;
-        using reference        = ElementType&;
-        using const_reference  = const ElementType&;
-        using iterator         = /* contiguous iterator */;
-
-        static constexpr size_t extent = Extent;
-
-        // Конструктори
-        constexpr span() noexcept;
-        constexpr span(pointer ptr, size_type count);
-        constexpr span(pointer first, pointer last);
-        template<size_t N>
-        constexpr span(element_type (&arr)[N]) noexcept;
-        template<typename Container>
-        constexpr span(Container& cont);
-
-        // Доступ до елементів
-        constexpr reference front() const;
-        constexpr reference back() const;
-        constexpr reference operator[](size_type idx) const;
-        constexpr pointer data() const noexcept;
-
-        // Розмір та стан
-        constexpr size_type size() const noexcept;
-        constexpr size_type size_bytes() const noexcept;
-        [[nodiscard]] constexpr bool empty() const noexcept;
-
-        // Піддіапазони
-        template<size_t Count>
-        constexpr span<element_type, Count> first() const;
-        constexpr span<element_type, dynamic_extent> first(size_type count) const;
-
-        template<size_t Count>
-        constexpr span<element_type, Count> last() const;
-        constexpr span<element_type, dynamic_extent> last(size_type count) const;
-
-        template<size_t Offset, size_t Count = dynamic_extent>
-        constexpr auto subspan() const;
-        constexpr span<element_type, dynamic_extent>
-        subspan(size_type offset, size_type count = dynamic_extent) const;
-    };
-}
-```
+:::code api-cpp20-features-matrix/cpp/3-spetsyfikatsiia.hpp
 
 ### Інваріанти та правила безпеки для `std::span`
 
@@ -240,18 +186,7 @@ namespace std {
 
 Бібліотека `<chrono>` C++20 запровадила повну систему типів для роботи з григоріанським календарем та часовими зонами міжнародної бази IANA. Система побудована на строгій типізації, яка чітко розмежовує поняття дня, місяця, року та комбінованих календарних структур:
 
-```cpp
-namespace std::chrono {
-    class day;
-    class month;
-    class year;
-    class weekday;
-    class year_month;
-    class year_month_day;
-    class sys_days;
-    class zoned_time;
-}
-```
+:::code api-cpp20-features-matrix/cpp/6-kalendarna-model.cpp
 
 Головні властивості календарної системи:
 1. **Інтуїтивний синтаксис конструкторів:** оператор ділення `/` перевантажено для створення об'єктів дат у довільному загальноприйнятому порядку: `рік / місяць / день`, `день / місяць / рік` або `місяць / день / рік`.

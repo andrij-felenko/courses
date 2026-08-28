@@ -76,37 +76,7 @@ public:
 #### 1. Паттерн Concept/Model (External Polymorphism)
 У цьому підході всередині обгортки створюється абстрактний базовий клас `Concept`, що оголошує чисто віртуальний метод `invoke()`. Шаблонний спадкоємець `Model<F>` успадковує `Concept` і зберігає екземпляр конкретного типу `F`:
 
-```cpp
-// Концептуальна реалізація паттерну Concept/Model
-template <typename R, typename... Args>
-class ConceptModelFunction {
-private:
-    struct Concept {
-        virtual ~Concept() = default;
-        virtual R invoke(Args... args) = 0;
-    };
-
-    template <typename F>
-    struct Model : Concept {
-        F functor_;
-        Model(F f) : functor_(std::move(f)) {}
-        R invoke(Args... args) override {
-            return functor_(args...);
-        }
-    };
-
-    std::unique_ptr<Concept> pimpl_;
-
-public:
-    template <typename F>
-    ConceptModelFunction(F f) 
-        : pimpl_(std::make_unique<Model<F>>(std::move(f))) {}
-
-    R operator()(Args... args) const {
-        return pimpl_->invoke(args...);
-    }
-};
-```
+:::code std-function-type-erasure-d/cpp/1-pattern-concept-model.cpp
 
 Хоча підхід Concept/Model є дуже наочним та елегантним, він має критичний недолік: **кожен створений об'єкт вимагає виділення пам'яті у купі** через `std::make_unique<Model<F>>()`, навіть якщо переданий функтор є порожньою лямбдою або звичайним вказівником на функцію.
 
@@ -130,21 +100,7 @@ public:
 1. **Вказівник на таблицю диспатчеризації** (Invoker / Vtable pointer): 8 байтів, що вказують на статичну функцію виклику або структуру віртуальних методів.
 2. **Внутрішній буфер сховища (Internal Storage Buffer)**: масив байтів (наприклад, `char storage[24]` або `storage[32]`), розрівняний за максимумом через `alignas(std::max_align_t)`.
 
-```cpp
-// Концептуальна структура std::function у 64-бітних реалізаціях
-template <typename R, typename... Args>
-class function<R(Args...)> {
-private:
-    using invoker_t = R(*)(const void*, Args&&...);
-    invoker_t invoker_{nullptr};
-
-    // Об'єднання для SBO та алокації у купі
-    union Storage {
-        alignas(std::max_align_t) char sbo_buffer[24]; // 24 байти для SBO
-        void* heap_ptr;                                // Вказівник на купу, якщо size > 24
-    } storage_;
-};
-```
+:::code std-function-type-erasure-d/cpp/vnutrishnia-struktura.cpp
 
 ### Механіка SBO (Small Buffer Optimization)
 
@@ -218,37 +174,7 @@ static R invoke_sbo(const void* storage, Args&&... args) {
 
 `manager_ptr` — це статична функція, яка приймає код операції (enum `Operation`: `Destroy`, `Clone`, `Move`, `GetTargetType`, `GetTarget`) та адреси буферів джерела і призначення:
 
-```cpp
-enum class ManagerOp {
-    Destroy,
-    Clone,
-    Move,
-    GetTargetType,
-    GetTarget
-};
-
-template <typename F>
-static void manager_func(void* dest, void* src, ManagerOp op) {
-    switch (op) {
-        case ManagerOp::Destroy:
-            reinterpret_cast<F*>(dest)->~F();
-            break;
-        case ManagerOp::Clone:
-            new (dest) F(*reinterpret_cast<const F*>(src));
-            break;
-        case ManagerOp::Move:
-            new (dest) F(std::move(*reinterpret_cast<F*>(src)));
-            reinterpret_cast<F*>(src)->~F();
-            break;
-        case ManagerOp::GetTargetType:
-            *reinterpret_cast<const std::type_info**>(dest) = &typeid(F);
-            break;
-        case ManagerOp::GetTarget:
-            *reinterpret_cast<void**>(dest) = dest;
-            break;
-    }
-}
-```
+:::code std-function-type-erasure-d/cpp/upravlinnia-chasom-zhyttia.cpp
 
 Коли об'єкт `std::function` виходить із області видимості, його деструктор викликає `manager_ptr(storage_, nullptr, ManagerOp::Destroy)`. Для SBO-об'єкта це викликає явний деструктор `~F()`, а для об'єкта в купі — оператор `delete`.
 
@@ -273,19 +199,7 @@ static void manager_func(void* dest, void* src, ManagerOp op) {
 - **Явні кваліфікатори сигнатур**: підтримує шаблонізацію вигляду `std::move_only_function<void() const noexcept>` або `std::move_only_function<void() &&>`.
 - **Оптимізована Vtable**: видалено RTTI та методи `target()`, що зменшило розмір таблиці виклику.
 
-```cpp
-#include <functional>
-#include <memory>
-#include <iostream>
-
-// C++23: Move-only лямбда із захопленням унікального покажчика
-std::move_only_function<void()> create_task() {
-    auto data = std::make_unique<int>(42);
-    return [d = std::move(data)]() {
-        std::cout << "Task executed with value: " << *d << '\n';
-    };
-}
-```
+:::code std-function-type-erasure-d/cpp/c-23-std-move-only.cpp
 
 ### C++26: `std::function_ref`
 

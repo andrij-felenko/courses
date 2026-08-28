@@ -22,31 +22,7 @@
 
 У класичному STL C++98/C++11 для цього доводилося писати наступний код:
 
-```cpp
-// Класичний жадібний підхід STL (C++11):
-std::vector<Record> raw_data = read_telemetry();
-
-// Етап 1: Витягування кодів (створюється перший тимчасовий вектор)
-std::vector<int> codes;
-codes.reserve(raw_data.size());
-std::transform(raw_data.begin(), raw_data.end(), std::back_inserter(codes),
-               [](const Record& r) { return r.code; });
-
-// Етап 2: Фільтрація (створюється другий тимчасовий вектор)
-std::vector<int> filtered_codes;
-std::copy_if(codes.begin(), codes.end(), std::back_inserter(filtered_codes),
-             [](int code) { return code > 400; });
-
-// Етап 3: Трансформація (створюється третій тимчасовий вектор)
-std::vector<double> scaled_values;
-scaled_values.reserve(filtered_codes.size());
-std::transform(filtered_codes.begin(), filtered_codes.end(), std::back_inserter(scaled_values),
-               [](int code) { return code * 1.5; });
-
-// Етап 4: Обрізання до K елементів (четвертий вектор)
-std::vector<double> final_result(scaled_values.begin(), 
-                                 scaled_values.begin() + std::min<size_t>(10, scaled_values.size()));
-```
+:::code ranges-pipelines-d/cpp/1-anatomiia-problem.cpp
 
 Якщо послідовна обробка складається з `M` етапів над послідовністю розміром `N` елементів, класичний підхід вимагає створення `M - 1` тимчасових контейнерів у динамічній пам'яті.
 
@@ -201,18 +177,7 @@ A(args...): Range -> View
 
 Цей механізм також дозволяє комбінувати самі адаптери між собою без вхідного контейнера, створюючи нові повторно використовувані адаптери:
 
-```cpp
-// Створення власного адаптера шляхом композиції двох стандартних:
-auto filter_even_and_square = std::views::filter([](int x) { return x % 2 == 0; })
-                            | std::views::transform([](int x) { return x * x; });
-
-// Застосування збереженого конвеєра до різних контейнерів:
-std::vector<int> numbers = {1, 2, 3, 4, 5};
-std::list<int> more_numbers = {10, 15, 20, 25};
-
-auto res1 = numbers | filter_even_and_square;      // Результат: 4, 16
-auto res2 = more_numbers | filter_even_and_square; // Результат: 100, 400
-```
+:::code ranges-pipelines-d/cpp/matematychna-sutnist.cpp
 
 ## 4. Ліниве обчислення (Lazy Evaluation) та внутрішня робота ітераторів вигляду
 
@@ -305,24 +270,7 @@ void process(const std::ranges::filter_view<...>& const_view) {
 
 Розглянемо практичний випадок використання `views::enumerate` та `views::zip` у C++23. Уявімо, що нам потрібно обродити масив імен користувачів та масив їхніх ідентифікаторів, вивівши пронумерований список:
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <ranges>
-
-int main() {
-    std::vector<std::string> names = {"Alice", "Bob", "Charlie"};
-    std::vector<int> ids = {101, 102, 103};
-
-    // Композиція zip та enumerate у C++23:
-    for (auto [index, tuple_data] : std::views::zip(names, ids) | std::views::enumerate) {
-        auto [name, id] = tuple_data;
-        std::cout << "#" << index + 1 << ": " << name << " (ID: " << id << ")\n";
-    }
-    return 0;
-}
-```
+:::code ranges-pipelines-d/cpp/osnovni-hrupy-adapteriv.cpp
 
 ### Деталізація алгоритмів групування `views::slide` та `views::chunk`
 Розглянемо відмінність між ковзним вікном `views::slide` та блоковим розбиттям `views::chunk`:
@@ -352,28 +300,7 @@ int main() {
 ### Компіляторний експеримент: Ассемблерний еквівалент
 Розглянемо обробку масиву через конвеєр та через ручний цикл C-style при оптимізації `-O3` у компіляторах GCC 12 та Clang 15:
 
-```cpp
-// Код 1: Конвеєр Ranges
-int sum_even_squares(const std::vector<int>& v) {
-    int sum = 0;
-    for (int x : v | std::views::filter([](int n){ return n % 2 == 0; })
-                  | std::views::transform([](int n){ return n * n; })) {
-        sum += x;
-    }
-    return sum;
-}
-
-// Код 2: Ручний цикл
-int sum_even_squares_manual(const std::vector<int>& v) {
-    int sum = 0;
-    for (size_t i = 0; i < v.size(); ++i) {
-        if (v[i] % 2 == 0) {
-            sum += v[i] * v[i];
-        }
-    }
-    return sum;
-}
-```
+:::code ranges-pipelines-d/cpp/kompiliatornyi-eksperyment.cpp
 
 Аналіз згенерованого машиннокоду в Compiler Explorer показав: компілятор GCC повністю розгортає обгортки `transform_view` та `filter_view`. Для обох варіантів генерується **абсолютно ідентичний ассемблерний цикл** з векторними інструкціями AVX2/SIMD! Конвеєри діапазонів демонструють чесну **нульову вартість абстракції (zero-cost abstraction)**.
 

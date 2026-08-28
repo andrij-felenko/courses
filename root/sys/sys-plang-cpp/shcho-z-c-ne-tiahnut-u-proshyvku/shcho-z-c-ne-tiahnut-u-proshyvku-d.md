@@ -97,57 +97,8 @@
 Крім прямої перевірки оператором `if`, `std::expected` підтримує функціональні монадичні операції (`.and_then()`, `.transform()`, `.or_else()`), що дозволяє організувати послідовну обробку апаратних пакетів у вигляді лінійного конвеєра без вкладених розгалужень та без винятків:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Коди помилок операції */
-typedef enum {
-    ADC_SUCCESS = 0,
-    ADC_ERR_TIMEOUT,
-    ADC_ERR_OVERVOLTAGE
-} AdcStatus;
-
-/* Повернення результату через покажчик та код статусу */
-AdcStatus adc_read_voltage(uint32_t channel, uint16_t* out_mv) {
-    if (channel > 15) {
-        return ADC_ERR_TIMEOUT;
-    }
-    /* Імітація зчитування апаратного регістра */
-    *out_mv = 3300;
-    return ADC_SUCCESS;
-}
-```
-```cpp
-#include <cstdint>
-#include <expected>
-
-/* Типобезпечні помилки АЦП */
-enum class AdcError : uint8_t {
-    InvalidChannel,
-    Timeout,
-    Overvoltage
-};
-
-/* Обробка помилки через значення без динамічної пам'яті та винятків */
-[[nodiscard]] constexpr std::expected<uint16_t, AdcError> 
-adc_read_voltage(uint32_t channel) noexcept {
-    if (channel > 15) {
-        return std::unexpected(AdcError::InvalidChannel);
-    }
-    /* Результат повертається безпосередньо через регістр процесора R0 */
-    return static_cast<uint16_t>(3300);
-}
-
-/* Монадичний ланцюжок обробки без винятків */
-[[nodiscard]] constexpr std::expected<float, AdcError>
-get_calibrated_voltage(uint32_t channel) noexcept {
-    return adc_read_voltage(channel)
-        .transform([](uint16_t raw_mv) noexcept {
-            return static_cast<float>(raw_mv) * 0.001f;
-        });
-}
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/c/inzhenerne-rishennia.c
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/inzhenerne-rishennia.cpp
 :::
 
 ---
@@ -232,89 +183,8 @@ get_calibrated_voltage(uint32_t channel) noexcept {
 Нижче наведено порівняння реалізації блокового пулу мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#define BLOCK_SIZE  64
-#define BLOCK_COUNT 16
-
-typedef struct BlockNode {
-    struct BlockNode* next;
-} BlockNode;
-
-typedef struct {
-    uint8_t storage[BLOCK_COUNT * BLOCK_SIZE];
-    BlockNode* free_head;
-} MemoryPoolC;
-
-void pool_init_c(MemoryPoolC* pool) {
-    pool->free_head = NULL;
-    for (size_t i = 0; i < BLOCK_COUNT; ++i) {
-        BlockNode* node = (BlockNode*)&pool->storage[i * BLOCK_SIZE];
-        node->next = pool->free_head;
-        pool->free_head = node;
-    }
-}
-
-void* pool_allocate_c(MemoryPoolC* pool) {
-    if (pool->free_head == NULL) return NULL;
-    BlockNode* node = pool->free_head;
-    pool->free_head = node->next;
-    return (void*)node;
-}
-
-void pool_deallocate_c(MemoryPoolC* pool, void* ptr) {
-    if (ptr == NULL) return;
-    BlockNode* node = (BlockNode*)ptr;
-    node->next = pool->free_head;
-    pool->free_head = node;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <new>
-
-template <typename T, size_t Capacity>
-class StaticObjectPool {
-public:
-    constexpr StaticObjectPool() noexcept {
-        for (size_t i = 0; i < Capacity; ++i) {
-            auto* node = reinterpret_cast<Node*>(&m_storage[i]);
-            node->next = m_free_head;
-            m_free_head = node;
-        }
-    }
-
-    template <typename... Args>
-    [[nodiscard]] T* create(Args&&... args) noexcept {
-        if (m_free_head == nullptr) return nullptr;
-        Node* node = m_free_head;
-        m_free_head = node->next;
-        return ::new (static_cast<void*>(node)) T(std::forward<Args>(args)...);
-    }
-
-    void destroy(T* obj) noexcept {
-        if (obj == nullptr) return;
-        obj->~T();
-        auto* node = reinterpret_cast<Node*>(obj);
-        node->next = m_free_head;
-        m_free_head = node;
-    }
-
-private:
-    union Node {
-        Node* next;
-        alignas(T) std::byte storage[sizeof(T)];
-    };
-
-    std::array<Node, Capacity> m_storage{};
-    Node* m_free_head{nullptr};
-};
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/c/2-fiksovanyi-blokovyi-pul.c
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/2-fiksovanyi-blokovyi-pul.cpp
 :::
 
 #### 3. Монотонна арена (Linear / Bump Allocator)
@@ -324,51 +194,8 @@ private:
 Дозволяє викликати конструктор C++ класу на заздалегідь виділеному статичному буфері пам'яті без звернення до алокатора:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-/* Фіксований буфер пам'яті під структуру */
-typedef struct {
-    uint32_t sensor_id;
-    float last_value;
-} SensorDataC;
-
-static uint8_t sensor_storage[sizeof(SensorDataC)];
-
-/* Ініціалізація структури у статичній пам'яті */
-SensorDataC* create_sensor_c(uint32_t id) {
-    SensorDataC* s = (SensorDataC*)sensor_storage;
-    s->sensor_id = id;
-    s->last_value = 0.0f;
-    return s;
-}
-```
-```cpp
-#include <cstdint>
-#include <new> // Необхідний для розміщувального new
-
-class SensorNode {
-public:
-    explicit constexpr SensorNode(uint32_t id) noexcept 
-        : m_id(id), m_value(0.0f) {}
-
-    [[nodiscard]] float read() const noexcept { return m_value; }
-
-private:
-    uint32_t m_id;
-    float m_value;
-};
-
-/* Буфер потрібного розміру та вирівнювання у секції .bss */
-alignas(SensorNode) static uint8_t node_buffer[sizeof(SensorNode)];
-
-/* Конструювання об'єкта через placement new без динамічної купи */
-SensorNode* init_sensor_node(uint32_t id) noexcept {
-    return ::new (static_cast<void*>(node_buffer)) SensorNode(id);
-}
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/c/4-rozmishchuvalnyi.c
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/4-rozmishchuvalnyi.cpp
 :::
 
 ---
@@ -411,59 +238,14 @@ SensorNode* init_sensor_node(uint32_t id) noexcept {
 
 Детальний приклад реалізації повноцінного апаратного драйвера периферії на базі CRTP наведено у практичній вставці [драйвер периферії без купи й vtable](root:sys-plang-cpp/shcho-z-c-ne-tiahnut-u-proshyvku/proj-crtp-baremetal-driver.md).
 
-```cpp
-/* Базовий інтерфейс без віртуальних методів */
-template <typename Derived>
-class GpioDriver {
-public:
-    void set_high() noexcept {
-        /* Приведення типів виконується на етапі компіляції */
-        static_cast<Derived*>(this)->set_high_impl();
-    }
-};
-
-/* Конкретна апаратна реалізація */
-class Stm32GpioPin : public GpioDriver<Stm32GpioPin> {
-public:
-    explicit constexpr Stm32GpioPin(volatile uint32_t* bsrr, uint32_t pin_mask) noexcept
-        : m_bsrr(bsrr), m_mask(pin_mask) {}
-
-    /* Метод повністю інлайниться в пряму інструкцію STR */
-    void set_high_impl() noexcept {
-        *m_bsrr = m_mask;
-    }
-
-private:
-    volatile uint32_t* m_bsrr;
-    uint32_t m_mask;
-};
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/statychnyi-polimorfizm.cpp
 
 При виклику `pin.set_high()` компілятор повністю ліквідує абстракцію та генерує одну пряму інструкцію запису в пам'ять `STR R1, [R0, #0]`. Розмір об'єкта в SRAM не містить жодного `vptr`, а час виконання скорочується до 1 такту.
 
 ### Динамічний поліморфізм без купи: `std::variant` та `std::visit`
 Якщо програма вимагає збереження колекції різнорідних об'єктів (наприклад, масиву датчиків різного типу), закритий набір типів можна об'єднати за допомогою `std::variant`. У цьому випадку компілятор створює фіксовану таблицю переходів або простий оператор `switch` за цілочисельним дискримінатором, уникаючи покажчиків `vptr` та динамічної пам'яті:
 
-```cpp
-#include <variant>
-#include <array>
-
-struct TemperatureSensor {
-    [[nodiscard]] float read() const noexcept { return 25.4f; }
-};
-
-struct PressureSensor {
-    [[nodiscard]] float read() const noexcept { return 1013.25f; }
-};
-
-using SensorVariant = std::variant<TemperatureSensor, PressureSensor>;
-
-float sample_sensor(const SensorVariant& s) noexcept {
-    return std::visit([](const auto& sensor) noexcept {
-        return sensor.read();
-    }, s);
-}
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/dynamichnyi-polimorfizm.hpp
 
 ---
 
@@ -505,18 +287,7 @@ GlobalTelemetryLogger g_logger; // Має нетривіальний дестр�
 6. Перехід до функції main()
 ```
 
-```cpp
-/* Фрагмент виклику глобальних конструкторів у стартап-коді */
-extern void (*__init_array_start[])(void) __attribute__((weak));
-extern void (*__init_array_end[])(void) __attribute__((weak));
-
-void SystemInit_Cpp() {
-    const size_t count = __init_array_end - __init_array_start;
-    for (size_t i = 0; i < count; ++i) {
-        __init_array_start[i](); // Виклик глобального конструктора
-    }
-}
-```
+:::code shcho-z-c-ne-tiahnut-u-proshyvku-d/cpp/poriadok-vyklyku.cpp
 
 Однак покладання на глобальні конструктори небезпечне через проблему **невизначеного порядку ініціалізації** (Static Initialization Order Fiasco): якщо об'єкт `UART` ініціалізується в одному файлі, а об'єкт `Logger`, який намагається відправити повідомлення в цей `UART`, — в іншому, порядок їх конструювання стандартом не гарантується. Тому у прошивках глобальні об'єкти зазвичай мають тривіальні конструктори або конструюються константно (`constexpr`), а запуск периферії здійснюється через явний метод `init()`.
 

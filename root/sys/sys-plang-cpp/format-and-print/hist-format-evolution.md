@@ -7,20 +7,7 @@
 Уперше концепція рядка формату з масками замінників була запропонована в лабораторіях Bell Labs під час створення операційної системи Unix на машинах PDP-11. У мові C головними інструментами побудови рядків та консольного виводу стали функції сімейства `printf`, `fprintf`, `sprintf` та `vsprintf`.
 
 :::tabs
-```c
-/* C: Традиційне використання sprintf та snprintf */
-#include <stdio.h>
-
-void log_connection(const char* host, int port) {
-    char buffer[128];
-
-    /* Потенційне переповнення буфера у sprintf при занадто довгому host */
-    sprintf(buffer, "Connecting to %s:%d", host, port);
-
-    /* Безпечніша альтернатива C99 snprintf з явним обмеженням розміру */
-    snprintf(buffer, sizeof(buffer), "Connecting to %s:%d", host, port);
-}
-```
+:::code hist-format-evolution/c/main.c
 ```cpp
 // C++: Ідіоматична обгортка з std::string_view та std::span
 #include <format>
@@ -50,19 +37,7 @@ void log_connection_cpp(std::span<char> buffer, std::string_view host, int port)
 
 Головною перевагою `iostream` стала повна **типобезпека**. Диспетчеризація виклику відбувалася на рівні перевантажень функцій під час компіляції. Передати некоректний тип було неможливо: для кожного стандартного чи призначеного для користувача типу викликався відповідний `operator<<`.
 
-```cpp
-// C++98/C++03: Потоковий вивід через std::ostringstream
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-
-std::string format_log_legacy(const std::string& host, int port) {
-    std::ostringstream ss;
-    ss << "Connecting to " << host << ":" << std::dec << port 
-       << " (HEX: 0x" << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << port << ")";
-    return ss.str();
-}
-```
+:::code hist-format-evolution/cpp/main.cpp
 
 Незважаючи на типобезпеку та підтримку власних типів, `iostream` викликав хвилю критики в інженерній спільноті через чотири фундаментальні вади:
 

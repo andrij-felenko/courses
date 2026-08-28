@@ -79,38 +79,9 @@ compute(float*, int*):
 
 :::tabs
 @tab C (Легально в C99/C11)
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// У C99 (Annex J / TC3) запис в одне поле union і читання з іншого є легальним
-typedef union {
-    float f;
-    uint32_t u;
-} FloatPunC;
-
-bool is_negative_union_c(float f) {
-    FloatPunC pun;
-    pun.f = f;
-    return (pun.u & 0x80000000u) != 0;
-}
-```
+:::code proj-type-punning/c/pidkhid-2-type-punning.c
 @tab C++ (Невизначена поведінка в C++)
-```cpp
-#include <cstdint>
-
-// У C++ [class.union] активним є лише ОДНЕ поле union.
-// Читання неактивного поля є невизначеною поведінкою (UB)!
-union FloatPun {
-    float f;
-    uint32_t u;
-};
-
-bool is_negative_union(float f) noexcept {
-    FloatPun pun{.f = f};
-    return (pun.u & 0x80000000u) != 0; // UB в чистому стандарті C++
-}
-```
+:::code proj-type-punning/cpp/pidkhid-2-type-punning.cpp
 :::
 
 ### Різниця між стандартами C та C++
@@ -139,27 +110,7 @@ bool is_negative_memcpy_c(float f) {
 }
 ```
 @tab C++ (std::memcpy)
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <type_traits>
-
-template <typename Target, typename Source>
-Target safe_bit_cast(const Source& src) noexcept {
-    static_assert(sizeof(Target) == sizeof(Source), "Розміри типів повинні збігатися");
-    static_assert(std::is_trivially_copyable_v<Source>, "Source має бути trivially copyable");
-    static_assert(std::is_trivially_copyable_v<Target>, "Target має бути trivially copyable");
-
-    Target dst;
-    std::memcpy(&dst, &src, sizeof(Target));
-    return dst;
-}
-
-bool is_negative_memcpy(float f) noexcept {
-    const auto u = safe_bit_cast<uint32_t>(f);
-    return (u & 0x80000000u) != 0;
-}
-```
+:::code proj-type-punning/cpp/pidkhid-3-kanonichnyi-std.hpp
 :::
 
 ### Міф про «оверхед виклику функції»: розбір асемблера
@@ -196,20 +147,7 @@ is_negative_memcpy(float):
 
 Стандарт C++20 запровадив заголовковий файл `<bit>` та шаблонну функцію `std::bit_cast` (пропозиція WG21 P0476R2). Вона інкапсулює семантику `memcpy`, додаючи повну перевірку типів під час компіляції та підтримку обчислень у `constexpr`.
 
-```cpp
-#include <bit>
-#include <cstdint>
-
-// Повністю безпечно, zero-cost, працює в constexpr під час компіляції!
-constexpr bool is_negative_bit_cast(float f) noexcept {
-    const auto u = std::bit_cast<uint32_t>(f);
-    return (u & 0x80000000u) != 0;
-}
-
-// Перевірка під час компіляції:
-static_assert(is_negative_bit_cast(-1.0f) == true);
-static_assert(is_negative_bit_cast(1.0f) == false);
-```
+:::code proj-type-punning/cpp/pidkhid-4-suchasnyi.hpp
 
 ### Вимоги `std::bit_cast`:
 1. Розміри типів повинні точно збігатися: `sizeof(To) == sizeof(From)`.
@@ -231,58 +169,9 @@ static_assert(is_negative_bit_cast(1.0f) == false);
 
 :::tabs
 @tab C (Безпечний парсинг)
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-typedef struct {
-    uint16_t magic;
-    uint16_t sensor_id;
-    float temperature;
-    float pressure;
-    uint32_t checksum;
-} TelemetryPacket;
-
-bool parse_telemetry_c(const uint8_t* buffer, size_t len, TelemetryPacket* out) {
-    if (len < sizeof(TelemetryPacket) || !out) {
-        return false;
-    }
-    // Копіювання захищає від порушення вирівнювання (unaligned memory access)
-    memcpy(out, buffer, sizeof(TelemetryPacket));
-    return out->magic == 0xAA55;
-}
-```
+:::code proj-type-punning/c/struktura-telemetrychnoho.c
 @tab C++ (Ідіоматичний парсинг)
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <span>
-#include <optional>
-
-struct TelemetryPacket {
-    uint16_t magic;
-    uint16_t sensor_id;
-    float temperature;
-    float pressure;
-    uint32_t checksum;
-};
-
-std::optional<TelemetryPacket> parse_telemetry(std::span<const std::byte> buffer) noexcept {
-    if (buffer.size() < sizeof(TelemetryPacket)) {
-        return std::nullopt;
-    }
-
-    TelemetryPacket packet{};
-    std::memcpy(&packet, buffer.data(), sizeof(TelemetryPacket));
-
-    if (packet.magic != 0xAA55) {
-        return std::nullopt;
-    }
-
-    return packet;
-}
-```
+:::code proj-type-punning/cpp/struktura-telemetrychnoho.cpp
 :::
 
 ### Чому пряме приведення `reinterpret_cast<const TelemetryPacket*>(buffer.data())` є небезпечним?
@@ -303,47 +192,9 @@ std::optional<TelemetryPacket> parse_telemetry(std::span<const std::byte> buffer
 
 :::tabs
 @tab C (Legacy Quake III)
-```c
-#include <stdint.h>
-
-// Оригінальний код Джона Кармака (UB через Strict Aliasing у C99/C11)
-float Q_rsqrt(float number) {
-    long i;
-    float x2, y;
-    const float threehalfs = 1.5F;
-
-    x2 = number * 0.5F;
-    y  = number;
-    i  = * ( long * ) &y;                       // Злий трюк приведення вказівників (UB!)
-    i  = 0x5f3759df - ( i >> 1 );               // Початкове наближення
-    y  = * ( float * ) &i;                      // Зворотне приведення (UB!)
-    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1-ша ітерація методу Ньютона-Рафсона
-
-    return y;
-}
-```
+:::code proj-type-punning/c/praktykum-istorychnyi.c
 @tab C++ (C++20 bit_cast)
-```cpp
-#include <bit>
-#include <cstdint>
-
-// Повністю стандарто-сумісна реалізація на C++20 (працює в constexpr!)
-constexpr float fast_inverse_sqrt(float number) noexcept {
-    const float x2 = number * 0.5f;
-    const float threehalfs = 1.5f;
-
-    // Безпечне побітове перенесення без порушення Strict Aliasing
-    uint32_t i = std::bit_cast<uint32_t>(number);
-    i = 0x5f3759dfu - (i >> 1);
-
-    float y = std::bit_cast<float>(i);
-    y = y * (threehalfs - (x2 * y * y)); // Метод Ньютона-Рафсона
-
-    return y;
-}
-
-static_assert(fast_inverse_sqrt(4.0f) > 0.49f && fast_inverse_sqrt(4.0f) < 0.51f);
-```
+:::code proj-type-punning/cpp/praktykum-istorychnyi.hpp
 :::
 
 ---
@@ -354,44 +205,7 @@ static_assert(fast_inverse_sqrt(4.0f) > 0.49f && fast_inverse_sqrt(4.0f) < 0.51f
 
 Стандарт C++20 запровадив `std::endian` у заголовку `<bit>`, дозволяючи перевіряти апаратний порядок байтів під час компіляції:
 
-```cpp
-#include <bit>
-#include <cstdint>
-#include <span>
-#include <optional>
-#include <cstring>
-
-struct PacketHeader {
-    uint32_t sequence_id;
-    uint16_t payload_length;
-    uint16_t flags;
-};
-
-// Функція обміну байтів для 32-бітного числа
-constexpr uint32_t byteswap32(uint32_t val) noexcept {
-    return ((val & 0x000000FFu) << 24) |
-           ((val & 0x0000FF00u) << 8)  |
-           ((val & 0x00FF0000u) >> 8)  |
-           ((val & 0xFF000000u) >> 24);
-}
-
-std::optional<PacketHeader> parse_network_header(std::span<const std::byte> raw_bytes) noexcept {
-    if (raw_bytes.size() < sizeof(PacketHeader)) {
-        return std::nullopt;
-    }
-
-    PacketHeader hdr{};
-    std::memcpy(&hdr, raw_bytes.data(), sizeof(PacketHeader));
-
-    // Якщо хост є Little-Endian, конвертуємо з Big-Endian мережі
-    if constexpr (std::endian::native == std::endian::little) {
-        hdr.sequence_id = byteswap32(hdr.sequence_id);
-        hdr.payload_length = static_cast<uint16_t>((hdr.payload_length >> 8) | (hdr.payload_length << 8));
-    }
-
-    return hdr;
-}
-```
+:::code proj-type-punning/cpp/robota-z-poriadkom-baitiv.cpp
 
 ---
 
@@ -401,24 +215,7 @@ std::optional<PacketHeader> parse_network_header(std::span<const std::byte> raw_
 
 Стандарт C++23 розв'язав цю проблему введенням функцій `std::start_lifetime_as` та `std::start_lifetime_as_array` (заголовок `<memory>`, пропозиція WG21 P2590):
 
-```cpp
-#include <memory>
-#include <cstddef>
-#include <span>
-
-struct DmaDescriptor {
-    uint64_t buffer_address;
-    uint32_t length;
-    uint32_t status_flags;
-};
-
-// C++23: Початок часу життя об'єкта в існуючому сирому буфері БЕЗ копіювання
-const DmaDescriptor* access_dma_buffer(const void* raw_dma_memory) noexcept {
-    // Явно інформує компілятор про створення об'єкта типу DmaDescriptor за цією адресою.
-    // Запобігає UB та дозволяє оптимізатору будувати коректні ланцюги аліасингу.
-    return std::start_lifetime_as<const DmaDescriptor>(raw_dma_memory);
-}
-```
+:::code proj-type-punning/cpp/c-23-std-start-lifetime-as.cpp
 
 ### Порівняння трьох поколінь роботи з пам'яттю:
 1. **C++98 / C++03 / C++11:** `reinterpret_cast<const DmaDescriptor*>(ptr)` — небезпечно, формальне порушення Strict Aliasing та Object Lifetime rules.
@@ -435,82 +232,9 @@ const DmaDescriptor* access_dma_buffer(const void* raw_dma_memory) noexcept {
 
 :::tabs
 @tab C (Legacy struct packing)
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#pragma pack(push, 1)
-typedef struct {
-    char     riff_id[4];     // "RIFF"
-    uint32_t riff_size;
-    char     wave_id[4];     // "WAVE"
-    char     fmt_id[4];      // "fmt "
-    uint32_t fmt_size;       // 16 для PCM
-    uint16_t audio_format;   // 1 для PCM
-    uint16_t num_channels;   // 1 (моно), 2 (стерео)
-    uint32_t sample_rate;    // 44100, 48000 тощо
-    uint32_t byte_rate;
-    uint16_t block_align;
-    uint16_t bits_per_sample;// 16, 24 тощо
-    char     data_id[4];     // "data"
-    uint32_t data_size;
-} WavHeaderC;
-#pragma pack(pop)
-
-bool parse_wav_header_c(const uint8_t* buffer, size_t len, WavHeaderC* out) {
-    if (len < sizeof(WavHeaderC) || !out) {
-        return false;
-    }
-    memcpy(out, buffer, sizeof(WavHeaderC));
-    return memcmp(out->riff_id, "RIFF", 4) == 0 && memcmp(out->wave_id, "WAVE", 4) == 0;
-}
-```
+:::code proj-type-punning/c/praktykum-parsynh.c
 @tab C++ (Modern safe parser)
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <span>
-#include <optional>
-#include <string_view>
-
-struct WavHeader {
-    uint32_t riff_size{};
-    uint32_t sample_rate{};
-    uint32_t byte_rate{};
-    uint32_t data_size{};
-    uint16_t audio_format{};
-    uint16_t num_channels{};
-    uint16_t block_align{};
-    uint16_t bits_per_sample{};
-};
-
-std::optional<WavHeader> parse_wav_stream(std::span<const std::byte> bytes) noexcept {
-    constexpr size_t kWavHeaderSize = 44;
-    if (bytes.size() < kWavHeaderSize) {
-        return std::nullopt;
-    }
-
-    // Перевірка сигнатур "RIFF" та "WAVE"
-    const auto* data = reinterpret_cast<const char*>(bytes.data());
-    if (std::string_view(data, 4) != "RIFF" || std::string_view(data + 8, 4) != "WAVE") {
-        return std::nullopt;
-    }
-
-    WavHeader hdr{};
-    // Побайтове копіювання окремих полів з точними зміщеннями специфікації RIFF
-    std::memcpy(&hdr.riff_size,       bytes.data() + 4,  sizeof(uint32_t));
-    std::memcpy(&hdr.audio_format,    bytes.data() + 20, sizeof(uint16_t));
-    std::memcpy(&hdr.num_channels,    bytes.data() + 22, sizeof(uint16_t));
-    std::memcpy(&hdr.sample_rate,     bytes.data() + 24, sizeof(uint32_t));
-    std::memcpy(&hdr.byte_rate,       bytes.data() + 28, sizeof(uint32_t));
-    std::memcpy(&hdr.block_align,     bytes.data() + 32, sizeof(uint16_t));
-    std::memcpy(&hdr.bits_per_sample, bytes.data() + 34, sizeof(uint16_t));
-    std::memcpy(&hdr.data_size,       bytes.data() + 40, sizeof(uint32_t));
-
-    return hdr;
-}
-```
+:::code proj-type-punning/cpp/praktykum-parsynh.cpp
 :::
 
 ### Чому поодинокі виклики `memcpy` не сповільнюють код?
@@ -525,37 +249,9 @@ std::optional<WavHeader> parse_wav_stream(std::span<const std::byte> bytes) noex
 
 :::tabs
 @tab C (Legacy SSE Intrinsics)
-```c
-#include <immintrin.h>
-#include <stdint.h>
-
-// Використання спеціальних апаратних інтринсиків без переміщення пам'яті
-__m128i mask_float_vector_c(__m128 vf) {
-    // _mm_castps_si128 - це нуль-інструкційний каст на рівні регістрів
-    __m128i vi = _mm_castps_si128(vf);
-    __m128i mask = _mm_set1_epi32(0x7FFFFFFF); // Маска скидання знаку (fabs)
-    return _mm_and_si128(vi, mask);
-}
-```
+:::code proj-type-punning/c/vektorni-simd-instruktsii.c
 @tab C++ (Modern SIMD bit_cast)
-```cpp
-#include <immintrin.h>
-#include <bit>
-#include <array>
-
-// Стандарто-сумісна обробка SIMD векторів у C++20
-std::array<float, 4> extract_floats_safe(__m128 vec) noexcept {
-    // std::bit_cast гарантовано і безпечно переносить біти у std::array
-    return std::bit_cast<std::array<float, 4>>(vec);
-}
-
-__m128i mask_float_vector(__m128 vf) noexcept {
-    // Для процесорних векторів _mm_castps_si128 залишається ідіоматичним нуль-вартісним кастом
-    const auto vi = _mm_castps_si128(vf);
-    const auto mask = _mm_set1_epi32(0x7FFFFFFF);
-    return _mm_and_si128(vi, mask);
-}
-```
+:::code proj-type-punning/cpp/vektorni-simd-instruktsii.hpp
 :::
 
 ### Чому не можна писати `*reinterpret_cast<__m128i*>(&vf)`?
@@ -583,116 +279,9 @@ __m128i mask_float_vector(__m128 vf) noexcept {
 
 :::tabs
 @tab C (Legacy BSD socket style)
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-typedef struct {
-    uint8_t  ver_ihl;       // Версія (4 біти) + IHL (4 біти)
-    uint8_t  tos;
-    uint16_t total_length;
-    uint16_t packet_id;
-    uint16_t flags_fragment;
-    uint8_t  ttl;
-    uint8_t  protocol;
-    uint16_t header_checksum;
-    uint32_t src_ip;
-    uint32_t dst_ip;
-} Ipv4HeaderC;
-
-// Обчислення 16-бітної суми за RFC 1071
-uint16_t calculate_checksum_c(const uint8_t* buffer, size_t len) {
-    uint32_t sum = 0;
-    for (size_t i = 0; i + 1 < len; i += 2) {
-        uint16_t word;
-        // Безпечне копіювання захищає від unaligned fault на ARM
-        memcpy(&word, buffer + i, 2);
-        sum += word;
-    }
-    while (sum >> 16) {
-        sum = (sum & 0xFFFF) + (sum >> 16);
-    }
-    return (uint16_t)(~sum);
-}
-```
+:::code proj-type-punning/c/praktykum-parsynh-2.c
 @tab C++ (Modern C++20 packet parser)
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <span>
-#include <optional>
-#include <bit>
-
-struct Ipv4Header {
-    uint8_t  version{};
-    uint8_t  ihl_bytes{};
-    uint8_t  tos{};
-    uint16_t total_length{};
-    uint16_t packet_id{};
-    uint8_t  ttl{};
-    uint8_t  protocol{};
-    uint16_t header_checksum{};
-    uint32_t src_ip{};
-    uint32_t dst_ip{};
-};
-
-uint16_t compute_rfc1071_checksum(std::span<const std::byte> data) noexcept {
-    uint32_t sum = 0;
-    const size_t word_count = data.size() / 2;
-
-    for (size_t i = 0; i < word_count; ++i) {
-        uint16_t word{};
-        std::memcpy(&word, data.data() + i * 2, sizeof(uint16_t));
-        sum += word;
-    }
-
-    if (data.size() % 2 != 0) {
-        uint8_t odd_byte = static_cast<uint8_t>(data.back());
-        sum += odd_byte;
-    }
-
-    while (sum >> 16) {
-        sum = (sum & 0xFFFFu) + (sum >> 16);
-    }
-
-    return static_cast<uint16_t>(~sum);
-}
-
-std::optional<Ipv4Header> parse_ipv4_header(std::span<const std::byte> packet) noexcept {
-    if (packet.size() < 20) {
-        return std::nullopt;
-    }
-
-    uint8_t ver_ihl = static_cast<uint8_t>(packet[0]);
-    uint8_t version = ver_ihl >> 4;
-    uint8_t ihl_words = ver_ihl & 0x0F;
-    size_t header_len = static_cast<size_t>(ihl_words) * 4;
-
-    if (version != 4 || header_len < 20 || packet.size() < header_len) {
-        return std::nullopt;
-    }
-
-    // Перевірка цілісності контрольної суми
-    if (compute_rfc1071_checksum(packet.subspan(0, header_len)) != 0) {
-        return std::nullopt; // Пакет пошкоджений
-    }
-
-    Ipv4Header hdr{};
-    hdr.version = version;
-    hdr.ihl_bytes = static_cast<uint8_t>(header_len);
-    hdr.tos = static_cast<uint8_t>(packet[1]);
-    std::memcpy(&hdr.total_length, packet.data() + 2, 2);
-    std::memcpy(&hdr.packet_id, packet.data() + 4, 2);
-    hdr.ttl = static_cast<uint8_t>(packet[8]);
-    hdr.protocol = static_cast<uint8_t>(packet[9]);
-    std::memcpy(&hdr.header_checksum, packet.data() + 10, 2);
-    std::memcpy(&hdr.src_ip, packet.data() + 12, 4);
-    std::memcpy(&hdr.dst_ip, packet.data() + 16, 4);
-
-    return hdr;
-}
-```
+:::code proj-type-punning/cpp/praktykum-parsynh-2.cpp
 :::
 
 ---
@@ -721,55 +310,9 @@ std::optional<Ipv4Header> parse_ipv4_header(std::span<const std::byte> packet) n
 
 :::tabs
 @tab C (Legacy MMIO pointer cast)
-```c
-#include <stdint.h>
-
-typedef struct {
-    volatile uint32_t CR1;      // Control Register 1
-    volatile uint32_t CR2;      // Control Register 2
-    volatile uint32_t SR;       // Status Register
-    volatile uint32_t DR;       // Data Register
-} UartRegistersC;
-
-// Небезпечно: C-style cast адреси пам'яті
-void uart_send_c(uintptr_t base_addr, uint8_t byte) {
-    UartRegistersC* uart = (UartRegistersC*)base_addr;
-    while (!(uart->SR & 0x80)) {
-        // Очікування готовності передавача
-    }
-    uart->DR = byte;
-}
-```
+:::code proj-type-punning/c/aparatni-rehistry-mmio-ta.c
 @tab C++ (Modern MMIO driver)
-```cpp
-#include <cstdint>
-#include <span>
-
-struct UartRegisters {
-    volatile uint32_t cr1;
-    volatile uint32_t cr2;
-    volatile uint32_t sr;
-    volatile uint32_t dr;
-};
-
-// Безпечне зв'язування апаратної адреси у C++
-class UartDriver {
-public:
-    explicit constexpr UartDriver(uintptr_t base_addr) noexcept
-        : regs_(reinterpret_cast<UartRegisters*>(base_addr)) {}
-
-    void send_byte(uint8_t byte) const noexcept {
-        // Очікування прапорця TXE (Transmit data register empty)
-        while ((regs_->sr & 0x00000080u) == 0) {
-            // Апаратне очікування
-        }
-        regs_->dr = byte;
-    }
-
-private:
-    UartRegisters* const regs_;
-};
-```
+:::code proj-type-punning/cpp/aparatni-rehistry-mmio-ta.cpp
 :::
 
 ### Ключовий нюанс: `reinterpret_cast` проти MMIO

@@ -9,25 +9,7 @@
 
 Розглянемо коротку функцію, у якій об'єкт із константним полем знищується й створюється заново в тій самій ділянці пам'яті:
 
-```cpp
-#include <new>
-#include <iostream>
-
-struct Config {
-    const int timeout_ms;
-};
-
-void run() {
-    auto* cfg = new Config{100};
-    std::cout << cfg->timeout_ms << '\n'; // друкує 100
-
-    cfg->~Config();                       // явне завершення часу життя
-    new (cfg) Config{500};                // створення нового об'єкта в тому самому сховищі
-
-    std::cout << cfg->timeout_ms << '\n'; // що надрукує оптимізована програма?
-    delete cfg;
-}
-```
+:::code std-launder-d/cpp/part.cpp
 
 У режимі без оптимізацій (`-O0`) компілятор чесно записує число `500` в пам'ять за адресою `cfg`, а потім зчитує його звідти й виводить `500`. Але варто ввімкнути оптимізатор GCC або Clang (`-O2` чи `-O3`), як другий вивід раптово друкує `100`.
 
@@ -106,27 +88,7 @@ Config* fresh_ptr = new (cfg) Config{500};
 
 Усередині такого контейнера пам'ять виділяється у вигляді сирого вирівняного масиву байтів:
 
-```cpp
-template <typename T>
-class OptionalStorage {
-    alignas(T) std::byte buffer_[sizeof(T)];
-    bool engaged_ = false;
-
-public:
-    template <typename... Args>
-    void emplace(Args&&... args) {
-        if (engaged_) {
-            get_ptr()->~T();
-        }
-        ::new (static_cast<void*>(buffer_)) T(std::forward<Args>(args)...);
-        engaged_ = true;
-    }
-
-    T* get_ptr() noexcept {
-        return reinterpret_cast<T*>(buffer_); // ← ПОМИЛКА: ланцюжок походження розірвано
-    }
-};
-```
+:::code std-launder-d/cpp/problema-vidmyvannia.cpp
 
 Погляньмо на метод `get_ptr()`. Вираз `reinterpret_cast<T*>(buffer_)` бере адресу масиву байтів `buffer_`. Оскільки масив `buffer_` існував від самого створення екземпляра `OptionalStorage`, з точки зору моделі пам'яті перетворення його адреси в `T*` створює вказівник, походження якого веде до байтового масиву, а не до щойно створеного всередині нього об'єкта типу `T`.
 
@@ -206,39 +168,7 @@ const T* get_ptr() const noexcept {
 
 Що станеться, якщо в сховищі `DerivedA` створити інший похідний клас `DerivedB`?
 
-```cpp
-#include <new>
-#include <iostream>
-
-struct Base {
-    virtual void speak() const { std::cout << "Base\n"; }
-    virtual ~Base() = default;
-};
-
-struct Dog : Base {
-    void speak() const override { std::cout << "Гав!\n"; }
-};
-
-struct Cat : Base {
-    void speak() const override { std::cout << "Няв!\n"; }
-};
-
-void test_animals() {
-    alignas(Dog) alignas(Cat) std::byte storage[sizeof(Dog)];
-    
-    // Створюємо перший об'єкт Dog
-    Base* animal = new (storage) Dog();
-    animal->speak(); // Оптимізатор девіртуалізує це у прямий виклик Dog::speak() -> "Гав!"
-
-    animal->~Base();
-
-    // Створюємо Cat у тому самому місці
-    new (storage) Cat();
-
-    // Звернення через старий вказівник animal:
-    animal->speak(); // ДЕВІРТУАЛІЗАЦІЯ: оптимізатор може знову викликати Dog::speak()!
-}
-```
+:::code std-launder-d/cpp/devirtualizatsiia-i.cpp
 
 У цьому прикладі тип нового об'єкта (`Cat`) не збігається з типом старого (`Dog`). Згідно з пунктом 2 правил `[basic.life]`, прозоре заміщення не відбувається.
 
@@ -260,22 +190,7 @@ new_animal->speak(); // Гарантовано прочитає новий vptr 
 
 Посилання в C++ є незмінними за своєю природою: зв'язавши посилання один раз під час ініціалізації об'єкта, його неможливо переприв'язати до іншої змінної. Тому компілятор оптимізує доступ через поля-посилання ще агресивніше, ніж через константні поля.
 
-```cpp
-struct Binding {
-    int& target;
-};
-
-int inspect(Binding* b, int* next_val) {
-    int first = b->target;
-    
-    b->~Binding();
-    new (b) Binding{*next_val}; // нове посилання на іншу змінну
-    
-    // Помилка: використання старого вказівника b без launder
-    int second = b->target;
-    return first + second;
-}
-```
+:::code std-launder-d/cpp/povedinka-na-rivni.cpp
 
 Погляньмо на згенерований асемблер для x86-64 (GCC 13, `-O3`):
 
@@ -292,18 +207,7 @@ inspect(Binding*, int*):
 
 Додамо `std::launder`:
 
-```cpp
-int inspect_correct(Binding* b, int* next_val) {
-    int first = b->target;
-    
-    b->~Binding();
-    new (b) Binding{*next_val};
-    
-    Binding* lb = std::launder(b); // очищення інваріантів
-    int second = lb->target;
-    return first + second;
-}
-```
+:::code std-launder-d/cpp/povedinka-na-rivni-2.cpp
 
 Асемблерний лістинг кардинально змінюється:
 
@@ -325,46 +229,13 @@ inspect_correct(Binding*, int*):
 
 У складних ієрархіях класів із множинним успадкуванням адреса повного об'єкта може не збігатися з адресою його базових підкласів. Розглянемо випадок, коли об'єкт створюється в буфері, а доступ до нього здійснюється через вказівник на другий базовий клас:
 
-```cpp
-struct Base1 {
-    int a;
-    virtual void f() {}
-};
-
-struct Base2 {
-    int b;
-    virtual void g() {}
-};
-
-struct Derived : Base1, Base2 {
-    int c;
-};
-```
+:::code std-launder-d/cpp/skladni-vypadky-mnozhynne.cpp
 
 У типовому ABI (наприклад, Itanium C++ ABI) розміщення структури `Derived` виглядає так: спочатку йде `Base1` (зі своїм `vptr`), а за ним зі зміщенням у `sizeof(Base1)` розташовується `Base2` (зі своїм окремим `vptr`).
 
 Якщо ми знищуємо екземпляр `Derived` і створюємо новий у тому самому буфері:
 
-```cpp
-void test_multiple_inheritance() {
-    alignas(Derived) std::byte storage[sizeof(Derived)];
-    
-    auto* d1 = new (storage) Derived();
-    Base2* b2 = d1; // b2 вказує на середину буфера storage (storage + offset)
-
-    d1->~Derived();
-    auto* d2 = new (storage) Derived();
-
-    // Чи дійсний b2?
-    // Ні! Тип Derived має нетривіальну структуру, а d2 замінив увесь об'єкт.
-    // Звернення b2->g() без оновлення адреси або без std::launder є UB.
-    
-    Base2* valid_b2 = std::launder(reinterpret_cast<Base2*>(
-        reinterpret_cast<std::byte*>(storage) + sizeof(Base1)
-    ));
-    valid_b2->g();
-}
-```
+:::code std-launder-d/cpp/skladni-vypadky-mnozhynne-2.cpp
 
 Без `std::launder` вказівник `b2` розглядається оптимізатором як старий підоб'єкт першого екземпляра `Derived`. Оскільки час життя першого екземпляра скінчився, `b2` втратив валідність. Відмивання покажчика на точну адресу зміщення відновлює легітимність доступу до підоб'єкта.
 

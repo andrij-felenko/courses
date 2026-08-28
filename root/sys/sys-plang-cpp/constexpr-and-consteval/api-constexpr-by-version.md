@@ -10,19 +10,7 @@
 
 **Заборони на обчислення** діють у точці виклику й лише для тих кроків, які обчислювач справді виконує. Функція компілюється, а несталим виявляється конкретний виклик із конкретними аргументами.
 
-```cpp
-constexpr int f(int x) {
-    try { return x; } catch (...) { return 0; }   // тіло: помилка до C++20
-}
-
-constexpr int g(int x) {
-    if (x < 0) throw "від'ємне";      // тіло: законне в усіх редакціях
-    return x;                          // обчислення: падає лише коли x < 0
-}
-
-constexpr int a = g(5);               // 5
-constexpr int b = g(-5);              // помилка: виклик не сталий
-```
+:::code api-constexpr-by-version/cpp/dvi-rizni-zaborony-iaki.cpp
 
 Обидві таблиці нижче читаються з цим поділом: перша каже, що можна **написати**, друга — що можна **виконати**.
 
@@ -118,23 +106,7 @@ P2242R3 варто читати уважно: він дозволив ці ко�
 
 Мінімальний робочий приклад — таблиця, яку в C++23 можна тримати локальною `static constexpr`, а раніше доводилося виносити з функції:
 
-```cpp
-#include <array>
-
-constexpr std::array<int, 4> make_lut() { return {1, 2, 4, 8}; }
-
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 202211L
-constexpr int weight(int i) {
-    static constexpr auto lut = make_lut();   // одна копія на програму
-    return lut[i];
-}
-#else
-constexpr auto g_lut = make_lut();            // до C++23 — лише за межами функції
-constexpr int weight(int i) { return g_lut[i]; }
-#endif
-
-static_assert(weight(3) == 8);
-```
+:::code api-constexpr-by-version/cpp/makrosy-perevirky.cpp
 
 ## Межі обчислювача та прапорці
 

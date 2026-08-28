@@ -55,49 +55,8 @@
 Низькорівневе створення потоків у C та його ідіоматичний еквівалент у C++ можна порівняти у наведеному прикладі:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void* worker_routine(void* arg) {
-    int id = *(int*)arg;
-    free(arg);
-    printf("C worker thread %d is running\n", id);
-    return NULL;
-}
-
-int launch_c_thread(int thread_id) {
-    pthread_t thread_handle;
-    int* arg = malloc(sizeof(int));
-    if (!arg) return -1;
-    *arg = thread_id;
-
-    if (pthread_create(&thread_handle, NULL, worker_routine, arg) != 0) {
-        free(arg);
-        return -1;
-    }
-
-    // Блокуюче чекання завершення в стилі C
-    pthread_join(thread_handle, NULL);
-    return 0;
-}
-```
-```cpp
-#include <thread>
-#include <iostream>
-#include <memory>
-
-void worker_routine(int id) {
-    std::cout << "C++ worker thread " << id << " is running\n";
-}
-
-void launch_cpp_thread(int thread_id) {
-    // Ідіоматичний C++11 запуск та приєднання
-    std::thread t(worker_routine, thread_id);
-    t.join(); // RAII та блокуюче приєднання
-}
-```
+:::code std-thread-jthread-d/c/main.c
+:::code std-thread-jthread-d/cpp/vzaiemodiia-mizh-obiektom.cpp
 :::
 
 ---
@@ -134,21 +93,7 @@ void launch_cpp_thread(int thread_id) {
 > ⚠️ **Критична загроза виклику detach():**
 Якщо фоновий від'єднаний потік звертається до об'єктів за посиланням або вказівником, які розміщені на стеку батьківського потоку (або локальних об'єктів функції `main`), виникає катастрофічна помилка використання пам'яті після звільнення (Use-After-Free). Коли батьківська функція завершується, стек руйнується, а від'єднаний потік продовжує читати й писати у сміттєву пам'яті.
 
-```cpp
-void start_background_logging() {
-    int local_buffer_size = 1024;
-    std::string log_file = "app.log";
-
-    std::thread t([&local_buffer_size, &log_file]() {
-        // Затримка виконання
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        // КАТАСТРОФА! local_buffer_size та log_file вже знищені на стеку!
-        std::cout << "Logging to " << log_file << " buffer: " << local_buffer_size << "\n";
-    });
-
-    t.detach(); // Потік від'єднано, функція повертає управління негайно
-} // Стек функції start_background_logging знищується! UB у фоновому потоці!
-```
+:::code std-thread-jthread-d/cpp/fizyka-operatsii-detach-ta.cpp
 
 ---
 
@@ -165,40 +110,13 @@ void start_background_logging() {
 
 Це означає, що за замовчуванням передача аргументу за посиланням у функцію потоку не працює без явного використання `std::ref()` або `std::cref()`:
 
-```cpp
-void update_data(int& value) {
-    value = 100;
-}
-
-void incorrect_thread_argument() {
-    int x = 10;
-    // ПОМИЛКА КОМПІЛЯЦІЇ! std::thread копіює x у rvalue, яке не може прив'язатися до int&
-    // std::thread t(update_data, x); 
-
-    // ПРАВИЛЬНО: Використання std::ref створює std::reference_wrapper<int>
-    std::thread t(update_data, std::ref(x));
-    t.join();
-    // x тепер дорівнює 100
-}
-```
+:::code std-thread-jthread-d/cpp/mekhanizm-decay-copying.cpp
 
 ### Передача move-only типів (std::unique_ptr)
 
 Оскільки аргументи переміщуються у внутрішній буфер потоку, `std::thread` ідеально підтримує передачу неподільних типів (move-only types), таких як `std::unique_ptr` або `std::packaged_task`:
 
-```cpp
-void process_resource(std::unique_ptr<int> data) {
-    std::cout << "Processing value: " << *data << "\n";
-}
-
-void move_resource_to_thread() {
-    auto ptr = std::make_unique<int>(42);
-    // Передаємо володіння об'єктом у новий потік через std::move
-    std::thread t(process_resource, std::move(ptr));
-    t.join();
-    // ptr тепер дорівнює nullptr
-}
-```
+:::code std-thread-jthread-d/cpp/peredacha-move-only-typiv.cpp
 
 ---
 
@@ -261,22 +179,7 @@ jthread::~jthread() noexcept {
 
 Завдяки цьому код з винятком, який на C++11 призводив до аварійного завершення всієї програми, на C++20 з використанням `std::jthread` виконується абсолютно безпечно:
 
-```cpp
-void safe_process_file_data(const std::string& path) {
-    // C++20: std::jthread гарантує авто-приєднання при вихід з функції
-    std::jthread worker([path](std::stop_token st) {
-        while (!st.stop_requested()) {
-            // Виконання порції читання файлу
-        }
-    });
-
-    std::vector<int> vec;
-    int data = vec.at(100); // Кидає std::out_of_range!
-    
-    // Стек розгортається -> деструктор ~jthread() робить worker.request_stop() -> worker.join()
-    // Потік зупиняється, програма НЕ падає, виняток безпечно перехоплюється вище!
-}
-```
+:::code std-thread-jthread-d/cpp/alhorytm-roboty.cpp
 
 ---
 
@@ -355,23 +258,7 @@ void increment_counter() {
 
 За допомогою `native_handle()` можна прив'язати потік до конкретного фізичного ядра процесора, усуваючи міграцію потоку між ядрами та зберігаючи гарячі дані у кеші L1/L2:
 
-```cpp
-#include <thread>
-#include <pthread.h>
-#include <sched.h>
-
-void bind_thread_to_core(std::jthread& th, int core_id) {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-
-    pthread_t handle = th.native_handle();
-    int rc = pthread_setaffinity_np(handle, sizeof(cpu_set_t), &cpuset);
-    if (rc != 0) {
-        std::cerr << "Помилка встановлення CPU affinity\n";
-    }
-}
-```
+:::code std-thread-jthread-d/cpp/nalashtuvannia-afinnosti.cpp
 
 ### Налаштування пріоритету реального часу
 
@@ -405,23 +292,7 @@ void set_realtime_priority(std::jthread& th, int priority) {
 
 Функція `std::async` призначена для **одноразових обчислювальних задач (short-lived async tasks)**, від яких потрібно просто отримати обчислений результат або виняток через `std::future`:
 
-```cpp
-#include <future>
-#include <iostream>
-
-int calculate_heavy_sum(int a, int b) {
-    return a + b;
-}
-
-void run_async_task() {
-    // Автоматичне асинхронне виконання у фоновому потоці
-    std::future<int> fut = std::async(std::launch::async, calculate_heavy_sum, 10, 20);
-    
-    // Блокуюче отримання результату
-    int result = fut.get();
-    std::cout << "Async result: " << result << "\n";
-}
-```
+:::code std-thread-jthread-d/cpp/koly-vykorystovuvaty-std.cpp
 
 > ⚠️ **Небезпечна пастка std::async:**
 Якщо результат виклику `std::async(std::launch::async, ...)` не зберігається у локальну змінну `std::future`, тимчасовий об'єкт `std::future` знищується наприкінці цього ж рядка. Деструктор `std::future` для асинхронних задач виконує **блокуючий join**! В результаті операція виконується послідовно замість паралельного виклику.
@@ -436,39 +307,7 @@ void run_async_task() {
 
 Приклад реалізації передачі винятку між потоками:
 
-```cpp
-#include <iostream>
-#include <thread>
-#include <exception>
-#include <stdexcept>
-
-void worker_function(std::exception_ptr& err_out) {
-    try {
-        // Імітація обчислювальної помилки
-        throw std::invalid_argument("Некоректний параметр у робочому потоці");
-    } catch (...) {
-        // Захоплюємо поточний виняток у потокобезпечний вказівник
-        err_out = std::current_exception();
-    }
-}
-
-void run_thread_with_exception_handling() {
-    std::exception_ptr thread_error = nullptr;
-
-    std::jthread t([&thread_error]() {
-        worker_function(thread_error);
-    });
-
-    t.join(); // Очікуємо завершення потоку
-
-    // Перевіряємо, чи був виняток у робочому потоці
-    if (thread_error) {
-        std::cout << "Перехоплено виняток з робочого потоку у головному потоці!\n";
-        // Повторно викидаємо збережений виняток у контексті головного потоку
-        std::rethrow_exception(thread_error);
-    }
-}
-```
+:::code std-thread-jthread-d/cpp/pattern-bezpechnoho.cpp
 
 Повний практичний приклад побудови багатопотокового конвеєра обробки даних із кооперативним скасуванням та передачею винятків можна вивчити у вставці ([практичний проєкт конвеєра](root:sys-plang-cpp/std-thread-jthread/proj-jthread-pipeline.md)).
 

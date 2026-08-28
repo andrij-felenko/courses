@@ -251,26 +251,7 @@ Widget::$vftable@:
 
 Найпростішим і найнадійнішим способом гарантувати незмінність розкладки полів у критичних структурах є вбудовування статичних перевірок `static_assert` безпосередньо у вихідний код публічних заголовків:
 
-```cpp
-#include <cstddef>
-#include <type_traits>
-
-struct PacketHeader {
-    uint32_t magic;
-    uint16_t version;
-    uint16_t payload_size;
-    uint64_t sequence_id;
-};
-
-// Статичні інваріанти ABI: гарантують падіння збірки при спробі змінити структуру
-static_assert(sizeof(PacketHeader) == 16, "Критична помилка: розмір PacketHeader змінився!");
-static_assert(alignof(PacketHeader) == 8, "Критична помилка: вирівнювання PacketHeader змінилося!");
-static_assert(offsetof(PacketHeader, magic) == 0, "Зсув поля magic порушено!");
-static_assert(offsetof(PacketHeader, version) == 4, "Зсув поля version порушено!");
-static_assert(offsetof(PacketHeader, payload_size) == 6, "Зсув поля payload_size порушено!");
-static_assert(offsetof(PacketHeader, sequence_id) == 8, "Зсув поля sequence_id порушено!");
-static_assert(std::is_standard_layout_v<PacketHeader>, "PacketHeader повинен мати стандартну розкладку!");
-```
+:::code api-abi-inspection/cpp/2-4-kompiliatorni.hpp
 
 ---
 
@@ -282,19 +263,7 @@ static_assert(std::is_standard_layout_v<PacketHeader>, "PacketHeader повин�
 
 ### 3.1. Склад пакету Libabigail
 
-```bash
-# 1. Екстракція та збереження двійкового зліпка ABI у форматі XML
-abidw [опції] <бібліотека.so> --out-file <зліпок.abi>
-
-# 2. Порівняння двох спільних бібліотек або збережених зліпків ABI
-abidiff [опції] <стара_версія.so> <нова_версія.so>
-
-# 3. Перевірка сумісності клієнтської програми зі спільною бібліотекою
-abicompat [опції] <програма_клієнт> <нова_бібліотека.so>
-
-# 4. Перевірка синтаксичної та семантичної коректності ABI XML файлу
-abilint [опції] <зліпок.abi>
-```
+:::code api-abi-inspection/sh/3-1-sklad-paketu.sh
 
 ### 3.2. Ключові прапорці утиліти `abidiff`
 
@@ -351,20 +320,7 @@ abidiff --suppressions abi-rules.suppr libengine-v1.so libengine-v2.so
 
 Типовий крок перевірки стабільності двійкового інтерфейсу в конвеєрах автоматичного тестування (GitHub Actions, GitLab CI) виглядає наступним чином:
 
-```bash
-# 1. Завантаження еталонного зліпка попереднього стабільного релізу
-curl -sO https://releases.example.com/abi/libengine-v1.0.abi
-
-# 2. Генерація поточного зліпка щойно скомпільованої бібліотеки
-abidw --drop-private-types build/libengine.so --out-file current.abi
-
-# 3. Виконання диференційного аналізу з перевіркою коду завершення
-abidiff --suppressions config/abi.suppr libengine-v1.0.abi current.abi
-if [ $? -ne 0 ]; then
-    echo "CRITICAL: Виявлено розрив ABI! Злиття заборонено."
-    exit 1
-fi
-```
+:::code api-abi-inspection/sh/3-4-avtomatyzatsiia-v.sh
 
 ### 3.5. Альтернативний генератор звітів: `abi-compliance-checker`
 
@@ -400,31 +356,7 @@ CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden
 
 Для вибіркового відкриття публічного API у вихідному коді використовують платформонезалежні макроси експорту:
 
-```cpp
-#if defined(_WIN32) || defined(__CYGWIN__)
-  #if defined(ENGINE_BUILDING_DLL)
-    #define ENGINE_API __declspec(dllexport)
-  #else
-    #define ENGINE_API __declspec(dllimport)
-  #endif
-#else
-  #if defined(__GNUC__) && __GNUC__ >= 4
-    #define ENGINE_API __attribute__((visibility("default")))
-    #define ENGINE_LOCAL __attribute__((visibility("hidden")))
-  #else
-    #define ENGINE_API
-    #define ENGINE_LOCAL
-  #endif
-#endif
-
-// Використання у публічних заголовках:
-class ENGINE_API PublicEngine {
-public:
-    void start();  // Символ експортується у .dynsym
-private:
-    void step();   // Символ залишається локальним і прихованим
-};
-```
+:::code api-abi-inspection/cpp/4-1-atrybuty-vydymosti-gcc.cpp
 
 ---
 
@@ -463,19 +395,7 @@ g++ -shared -fPIC -o libengine.so.1.0 engine.o \
 
 Якщо в новій версії бібліотеки необхідно одночасно підтримувати стару реалізацію функції для старих клієнтів і нову реалізацію для нових, у вихідному коді застосовують директиву `.symver`:
 
-```cpp
-// Стара версія функції для клієнтів, зібраних під ENGINE_1.0
-int engine_compute_v1(int x) {
-    return x * 2;
-}
-__asm__(".symver engine_compute_v1, engine_compute@ENGINE_1.0");
-
-// Нова версія функції для нових клієнтів (ENGINE_2.0 за замовчуванням)
-int engine_compute_v2(int x, int flags) {
-    return x * 3 + flags;
-}
-__asm__(".symver engine_compute_v2, engine_compute@@ENGINE_2.0");
-```
+:::code api-abi-inspection/cpp/4-2-skrypty-versionuvannia.cpp
 
 Завдяки цьому старі скомпільовані програми безшовно продовжують викликати `engine_compute_v1`, тоді як нові програми під час лінкування автоматично зв'язуються з `engine_compute_v2`.
 

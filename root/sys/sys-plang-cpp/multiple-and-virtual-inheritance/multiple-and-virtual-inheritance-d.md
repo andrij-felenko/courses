@@ -21,25 +21,7 @@
 
 У випадку множинного невіртуального спадкування клас оголошує кілька прямих предків:
 
-```cpp
-struct AudioInput {
-    virtual ~AudioInput() = default;
-    virtual void read_samples();
-    int32_t sample_rate{48000};
-};
-
-struct AudioOutput {
-    virtual ~AudioOutput() = default;
-    virtual void write_samples();
-    float volume{1.0f};
-};
-
-struct AudioDuplexDevice : public AudioInput, public AudioOutput {
-    void read_samples() override;
-    void write_samples() override;
-    int64_t device_id{42};
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/mnozhynne-nevirtualne.hpp
 
 Компілятор не може об'єднати поля `AudioInput` та `AudioOutput` в одну структуру без збереження їхньої внутрішньої цілісності. Кожен із цих типів повинен залишатися повноцінним, автономним об'єктом, здатним працювати через звичайний вказівник свого типу.
 
@@ -144,24 +126,7 @@ _ZThn16_N17AudioDuplexDevice13write_samplesEv:
 
 Розглянемо фабричний метод створення копії об'єкта (`clone`):
 
-```cpp
-struct ChannelSource {
-    virtual ChannelSource* clone() const = 0;
-    virtual ~ChannelSource() = default;
-};
-
-struct ChannelSink {
-    virtual ChannelSink* clone() const = 0;
-    virtual ~ChannelSink() = default;
-};
-
-struct DuplexChannel : public ChannelSource, public ChannelSink {
-    // Одне перевизначення повертає точний тип DuplexChannel*
-    DuplexChannel* clone() const override {
-        return new DuplexChannel(*this);
-    }
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/kovariantni-typy.cpp
 
 Коли клієнт викликає `sink->clone()` через інтерфейс `ChannelSink*`, виникає подвійний конфлікт зміщень:
 1. **Коригування вхідного `this`:** покажчик `sink` зміщений на `+16` байтів відносно початку `DuplexChannel`. Компілятор повинен відняти 16, щоб передати коректний `this` у `DuplexChannel::clone()`.
@@ -209,24 +174,7 @@ AudioOutput* out_ptr = dynamic_cast<AudioOutput*>(in_ptr);
 
 Розглянемо типову архітектурну структуру:
 
-```cpp
-struct DeviceNode {
-    virtual ~DeviceNode() = default;
-    int32_t node_id{1};
-};
-
-struct AudioInput : public DeviceNode {
-    int32_t sample_rate{48000};
-};
-
-struct AudioOutput : public DeviceNode {
-    float volume{1.0f};
-};
-
-struct AudioDuplexDevice : public AudioInput, public AudioOutput {
-    int64_t device_id{100};
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/rombopodibne-spadkuvannia.cpp
 
 У цій схемі клас `DeviceNode` успадковується невіртуально. Оскільки компілятор розміщує кожен базовий клас як незалежний підоб'єкт, `AudioDuplexDevice` отримує **два абсолютно окремі екземпляри `DeviceNode`**:
 - Перший екземпляр `DeviceNode` вкладений усередину підоб'єкта `AudioInput` (за зсувом `+0` байтів).
@@ -262,25 +210,7 @@ DeviceNode* node = &duplex; // ПОМИЛКА: 'DeviceNode' is an ambiguous base
 
 Щоб гарантувати, що базовий клас буде існувати в єдиному екземплярі незалежно від кількості проміжних класів у графі спадкування, використовується **віртуальне спадкування** (англ. *virtual base class*):
 
-```cpp
-struct DeviceNode {
-    virtual ~DeviceNode() = default;
-    int32_t node_id{1};
-};
-
-// Обидва проміжні класи вказують virtual public
-struct AudioInput : virtual public DeviceNode {
-    int32_t sample_rate{48000};
-};
-
-struct AudioOutput : virtual public DeviceNode {
-    float volume{1.0f};
-};
-
-struct AudioDuplexDevice : public AudioInput, public AudioOutput {
-    int64_t device_id{100};
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/virtualne-spadkuvannia.cpp
 
 Ключове слово `virtual` у списку спадкування змінює фундаментальний контракт: клас заявляє, що його предок `DeviceNode` є спільною сутністю, яка повинна бути розділена з усіма іншими класами ієрархії.
 
@@ -331,28 +261,7 @@ movl    8(%rdi,%rax), %eax  # 3. Читаємо поле node_id за адрес
 
 Розглянемо випадок, коли спільний віртуальний предок оголошує метод, а лише одна з проміжних гілок його перевизначає:
 
-```cpp
-struct DeviceNode {
-    virtual void reset() {
-        std::cout << "DeviceNode::reset\n";
-    }
-    virtual ~DeviceNode() = default;
-};
-
-struct AudioInput : virtual public DeviceNode {
-    void reset() override {
-        std::cout << "AudioInput::reset\n";
-    }
-};
-
-struct AudioOutput : virtual public DeviceNode {
-    // Метод reset() НЕ перевизначено в AudioOutput
-};
-
-struct AudioDuplexDevice : public AudioInput, public AudioOutput {
-    // reset() не перевизначено явно в AudioDuplexDevice
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/pravylo-dominuvannia-u.cpp
 
 Здавалося б, звернення `duplex.reset()` мало б викликати неоднозначність, оскільки метод доступний через дві різні гілки (`AudioInput` та `AudioOutput`).
 
@@ -415,42 +324,7 @@ struct AudioDuplexDevice : public AudioInput, public AudioOutput {
 
 Якщо клас із віртуальними базами не використовує згенеровані компілятором оператори копіювання, а визначає власний `operator=`, виникає небезпека багаторазового присвоєння спільного стану:
 
-```cpp
-struct DeviceNode {
-    int32_t node_id;
-    DeviceNode& operator=(const DeviceNode& other) {
-        std::cout << "Copying DeviceNode\n";
-        node_id = other.node_id;
-        return *this;
-    }
-};
-
-struct AudioInput : virtual public DeviceNode {
-    int32_t sample_rate;
-    AudioInput& operator=(const AudioInput& other) {
-        DeviceNode::operator=(other); // Присвоєння віртуальної бази
-        sample_rate = other.sample_rate;
-        return *this;
-    }
-};
-
-struct AudioOutput : virtual public DeviceNode {
-    float volume;
-    AudioOutput& operator=(const AudioOutput& other) {
-        DeviceNode::operator=(other); // Ще одне присвоєння тієї самої віртуальної бази!
-        volume = other.volume;
-        return *this;
-    }
-};
-
-struct AudioDuplexDevice : public AudioInput, public AudioOutput {
-    AudioDuplexDevice& operator=(const AudioDuplexDevice& other) {
-        AudioInput::operator=(other);  // Викличе DeviceNode::operator= перший раз
-        AudioOutput::operator=(other); // Викличе DeviceNode::operator= ДРУГИЙ раз!
-        return *this;
-    }
-};
-```
+:::code multiple-and-virtual-inheritance-d/cpp/pidvodni-kameni.cpp
 
 У цьому коді оператор присвоєння `DeviceNode::operator=` буде виконано двічі. Якщо базовий клас володіє динамічними ресурсами (наприклад, файловими дескрипторами чи виділеною пам'яттю), подвійне копіювання може призвести до витоків або пошкодження стану.
 

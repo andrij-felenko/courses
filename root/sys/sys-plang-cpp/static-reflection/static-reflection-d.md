@@ -107,22 +107,7 @@ constexpr auto name = std::reflect::get_name_v<first_field>;
 
 Оператор `^^` (англ. *lift operator* / оператор підйому) є унарним префіксним оператором мови C++. Його завдання — прийняти синтаксичну сутність програми й повернути відповідне значення типу `std::meta::info`.
 
-```cpp
-// Підйом типів
-constexpr std::meta::info int_info   = ^^int;
-constexpr std::meta::info acc_info   = ^^Account;
-
-// Підйом членів структури
-constexpr std::meta::info field_info = ^^Account::owner;
-
-// Підйом просторів назв та шаблонів
-constexpr std::meta::info ns_info    = ^^std;
-constexpr std::meta::info tmpl_info  = ^^std::vector;
-
-// Підйом елементів переліку
-enum class Status { Ok, Error };
-constexpr std::meta::info enum_info  = ^^Status::Ok;
-```
+:::code static-reflection-d/cpp/operator-refleksii-pidiom.cpp
 
 ### Що саме являє собою std::meta::info
 
@@ -157,21 +142,7 @@ constexpr auto rval_ref = ^^(x + 5);  // дескриптор виразу prval
 
 Якщо функція має кілька перевантажених сигнатур, підйом імені `^^print` повертає дескриптор множини перевантажень (англ. *overload set*). Бібліотека `std::meta` дозволяє перебрати всі доступні варіанти через `std::meta::overloads_of`:
 
-```cpp
-void print(int);
-void print(std::string_view);
-void print(double, int);
-
-consteval auto find_unary_int_overload(std::meta::info fn_name) -> std::meta::info {
-    for (auto candidate : std::meta::overloads_of(fn_name)) {
-        auto params = std::meta::parameters_of(candidate);
-        if (params.size() == 1 && std::meta::type_of(params[0]) == ^^int) {
-            return candidate;
-        }
-    }
-    return ^^void;
-}
-```
+:::code static-reflection-d/cpp/inspektsiia-mnozhyny.cpp
 
 Це уможливлює створення автоматичних обгорток (декораторів, проксі та логерів), які точно підбирають потрібну версію функції на основі типів переданих аргументів.
 
@@ -241,44 +212,11 @@ void instantiate_buffer() {
 
 ### Селектори структури класів та переліків
 
-```cpp
-namespace std::meta {
-    // Отримання всіх членів (поля, методи, типи, псевдоніми)
-    consteval auto members_of(info type_or_ns) -> std::vector<info>;
-
-    // Отримання лише нестатичних полів даних екземпляра
-    consteval auto nonstatic_data_members_of(info class_type) -> std::vector<info>;
-
-    // Отримання констант переліку
-    consteval auto enumerators_of(info enum_type) -> std::vector<info>;
-
-    // Отримання базових класів
-    consteval auto bases_of(info class_type) -> std::vector<info>;
-}
-```
+:::code static-reflection-d/cpp/selektory-struktury-klasiv.cpp
 
 ### Запити імен та властивостей
 
-```cpp
-namespace std::meta {
-    // Символьне ім'я сутності без простору назв
-    consteval auto name_of(info entity) -> std::string_view;
-
-    // Дескриптор типу змінної, поля або функції
-    consteval auto type_of(info entity) -> info;
-
-    // Предикати класифікації
-    consteval auto is_public(info member) -> bool;
-    consteval auto is_private(info member) -> bool;
-    consteval auto is_static(info entity) -> bool;
-    consteval auto is_enum(info type) -> bool;
-    consteval auto is_class(info type) -> bool;
-    consteval auto is_complete_type(info type) -> bool;
-
-    // Зняття шарів псевдонімів using та typedef до канонічного типу
-    consteval auto dealias(info entity) -> info;
-}
-```
+:::code static-reflection-d/cpp/zapyty-imen-ta.cpp
 
 ### Розкриття псевдонімів через dealias
 
@@ -308,24 +246,7 @@ consteval auto get_public_field_names(std::meta::info class_info) -> std::vector
 
 У складних об'єктно-орієнтованих архітектурах моделі даних часто будуються через успадкування. Функція `std::meta::bases_of` повертає список дескрипторів базових класів, дозволяючи рекурсивно обходити все дерево предків:
 
-```cpp
-consteval auto get_all_fields_recursive(std::meta::info class_info) -> std::vector<std::meta::info> {
-    std::vector<std::meta::info> all_fields;
-
-    // Рекурсивний збір полів батьківських класів
-    for (auto base_spec : std::meta::bases_of(class_info)) {
-        auto base_type = std::meta::type_of(base_spec);
-        auto base_fields = get_all_fields_recursive(base_type);
-        all_fields.insert(all_fields.end(), base_fields.begin(), base_fields.end());
-    }
-
-    // Додавання власних нестатичних полів
-    auto local_fields = std::meta::nonstatic_data_members_of(class_info);
-    all_fields.insert(all_fields.end(), local_fields.begin(), local_fields.end());
-
-    return all_fields;
-}
-```
+:::code static-reflection-d/cpp/inspektsiia-iierarkhii.cpp
 
 ### Дослідження методів та генерація RPC-диспетчерів
 
@@ -341,23 +262,7 @@ consteval auto get_all_fields_recursive(std::meta::info class_info) -> std::vect
 
 Це дозволяє автоматично виявляти наявність невикористаних проміжних байтів (*padding bytes*), які компілятор вставляє для вирівнювання:
 
-```cpp
-struct BadLayout {
-    char a;     // 1 байт + 7 байтів padding
-    double b;   // 8 байтів
-    char c;     // 1 байт + 7 байтів padding
-}; // Загальний розмір: 24 байти
-
-consteval auto calculate_wasted_padding(std::meta::info class_info) -> size_t {
-    size_t fields_total_size = 0;
-    for (auto field : std::meta::nonstatic_data_members_of(class_info)) {
-        fields_total_size += std::meta::size_of(std::meta::type_of(field));
-    }
-    return std::meta::size_of(class_info) - fields_total_size;
-}
-
-static_assert(calculate_wasted_padding(^^BadLayout) == 14);
-```
+:::code static-reflection-d/cpp/inspektsiia-rozmishchennia.cpp
 
 За допомогою таких метафункцій розробники можуть створювати `static_assert`-валідатори для критичних за пам'яттю систем (вбудовані системи, драйвери, високонавантажені ігрові рушії), які блокують збірку, якщо розмір структури перевищує очікуваний ліміт або містить зайвий padding.
 
@@ -369,26 +274,7 @@ static_assert(calculate_wasted_padding(^^BadLayout) == 14);
 
 Бібліотека рефлексії C++26 надає спеціалізовані метафункції `std::meta::is_bit_field` та `std::meta::bit_size_of`:
 
-```cpp
-struct Ipv4Header {
-    uint8_t version : 4;
-    uint8_t ihl     : 4;
-    uint8_t dscp    : 6;
-    uint8_t ecn     : 2;
-};
-
-consteval auto verify_bitfield_layout(std::meta::info header_type) -> bool {
-    size_t total_bits = 0;
-    for (auto member : std::meta::nonstatic_data_members_of(header_type)) {
-        if (std::meta::is_bit_field(member)) {
-            total_bits += std::meta::bit_size_of(member);
-        }
-    }
-    return total_bits == 16;
-}
-
-static_assert(verify_bitfield_layout(^^Ipv4Header));
-```
+:::code static-reflection-d/cpp/inspektsiia-bitovykh-poliv.cpp
 
 Важливо пам'ятати фундаментальне правило: до бітового поля неможливо застосувати оператор взяття адреси `&obj.[: member :]` або зв'язати його з неконстантним посиланням `T&`. При роботі з бітовими полями узагальнені алгоритми повинні передавати їх за значенням або використовувати оператор присвоєння.
 
@@ -400,20 +286,7 @@ static_assert(verify_bitfield_layout(^^Ipv4Header));
 
 Метафункція `std::meta::substitute` дозволяє процедурно сконструювати новий інстанційований тип шляхом заміни списку аргументів:
 
-```cpp
-// Функція замінює тип елемента в довільному контейнері STL
-consteval auto rebind_container_type(std::meta::info container_type, std::meta::info new_element_type) -> std::meta::info {
-    auto primary_tmpl = std::meta::template_of(container_type);
-    auto args = std::meta::template_arguments_of(container_type);
-    args[0] = new_element_type; // підставляємо новий тип першого параметра
-    return std::meta::substitute(primary_tmpl, args);
-}
-
-// Приклад використання
-using OriginalList = std::vector<int>;
-using ReboundList  = [: rebind_container_type(^^OriginalList, ^^double) :];
-static_assert(std::same_as<ReboundList, std::vector<double>>);
-```
+:::code static-reflection-d/cpp/inspektsiia-shabloniv-ta.hpp
 
 Ця можливість повністю замінює громіздкі шаблонні структури `rebind_alloc` та допоміжні метафункції, перетворюючи маніпуляцію типами на просту операцію над масивом дескрипторів.
 
@@ -499,41 +372,11 @@ void apply_to_struct(Func&& f, Struct&& s) {
 
 Стандарт C++26 інтегрує статичну рефлексію із системою атрибутів, дозволяючи прикріплювати структуровані літеральні об'єкти безпосередньо до оголошень типів, полів та методів за допомогою синтаксису `[[=value]]`:
 
-```cpp
-struct ValidationRule {
-    int min_value;
-    int max_value;
-};
-
-struct SerializedName {
-    std::string_view key;
-};
-
-struct RegistrationForm {
-    [[=SerializedName{"user_login"}]]
-    std::string login;
-
-    [[=ValidationRule{18, 120}]]
-    int age;
-};
-```
+:::code static-reflection-d/cpp/pryznacheni-dlia.cpp
 
 Під час аналізу полів структури метапрограма зчитує ці анотації за допомогою функцій `std::meta::annotations_of` та `std::meta::get_annotation<T>`:
 
-```cpp
-template <typename T>
-void validate_object(const T& obj) {
-    template for (constexpr auto field : std::meta::nonstatic_data_members_of(^^T)) {
-        if constexpr (std::meta::has_annotation<ValidationRule>(field)) {
-            constexpr auto rule = *std::meta::get_annotation<ValidationRule>(field);
-            auto val = obj.[: field :];
-            if (val < rule.min_value || val > rule.max_value) {
-                throw std::runtime_error("Валідація не пройдена");
-            }
-        }
-    }
-}
-```
+:::code static-reflection-d/cpp/pryznacheni-dlia-2.cpp
 
 Анотації повністю усувають необхідність у зовнішніх конфігураційних файлах, об'єднуючи правила бізнес-логіки та опис структури даних у єдиному місці вихідного коду.
 
@@ -548,26 +391,7 @@ void validate_object(const T& obj) {
 
 За допомогою рефлексії універсальний серіалізатор для будь-якої структури записується в кілька десятків рядків коду:
 
-```cpp
-template <typename T>
-    requires std::is_class_v<T>
-auto to_json(const T& obj) -> std::string {
-    constexpr auto type_info = ^^T;
-    constexpr auto members = std::meta::nonstatic_data_members_of(type_info);
-
-    std::string result = "{";
-    bool first = true;
-
-    template for (constexpr auto member : members) {
-        if (!first) result += ", ";
-        result += std::format("\"{}\": {}", std::meta::name_of(member), serialize_val(obj.[: member :]));
-        first = false;
-    }
-
-    result += "}";
-    return result;
-}
-```
+:::code static-reflection-d/cpp/1-avtomatychna.cpp
 
 Повну реалізацію двостороннього JSON-серіалізатора та парсера з підтримкою вкладених структур, контейнерів та анотацій розібрано в [практичному проекті серіалізації](root:sys-plang-cpp/static-reflection/proj-json-serializer.md).
 
@@ -575,18 +399,7 @@ auto to_json(const T& obj) -> std::string {
 
 Конвертація переліків у текстові константи більше не потребує зовнішніх бібліотек:
 
-```cpp
-template <typename E>
-    requires std::is_enum_v<E>
-constexpr auto enum_to_string(E val) -> std::string_view {
-    template for (constexpr auto e : std::meta::enumerators_of(^^E)) {
-        if (val == [: e :]) {
-            return std::meta::name_of(e);
-        }
-    }
-    return "Unknown";
-}
-```
+:::code static-reflection-d/cpp/2-universalnyi-enum-to.cpp
 
 Оптимізатор компілятора автоматично згортає цей цикл у пряму таблицю переходів (`jump table`), забезпечуючи швидкість `O(1)` при виконанні.
 
@@ -594,25 +407,7 @@ constexpr auto enum_to_string(E val) -> std::string_view {
 
 Один і той самий опис структури даних C++ дозволяє згенерувати SQL-інструкцію створення таблиці без необхідності синхронізувати схеми вручну:
 
-```cpp
-template <typename T>
-auto generate_ddl() -> std::string {
-    std::string sql = std::format("CREATE TABLE {} (\n", std::meta::name_of(^^T));
-    bool first = true;
-
-    template for (constexpr auto field : std::meta::nonstatic_data_members_of(^^T)) {
-        if (!first) sql += ",\n";
-        constexpr auto ft = std::meta::type_of(field);
-        std::string_view type_name = (ft == ^^int) ? "INTEGER" :
-                                     (ft == ^^double) ? "REAL" : "TEXT";
-        sql += std::format("    {} {}", std::meta::name_of(field), type_name);
-        first = false;
-    }
-
-    sql += "\n);";
-    return sql;
-}
-```
+:::code static-reflection-d/cpp/3-avtomatychne-orm-ta.cpp
 
 ### 4. Автоматична генерація тричленного порівняння та хешування
 
@@ -637,24 +432,7 @@ auto compute_hash(const T& obj) -> size_t {
 
 За допомогою структури `std::meta::data_member_spec` та функції `std::meta::define_class` метапрограма може створювати нові типи на льоту:
 
-```cpp
-// Динамічне створення структури, яка містить лише числові поля вихідного класу
-consteval auto make_numeric_subset(std::meta::info source_type) -> std::meta::info {
-    std::vector<std::meta::data_member_spec> specs;
-
-    for (auto f : std::meta::nonstatic_data_members_of(source_type)) {
-        auto field_type = std::meta::type_of(f);
-        if (field_type == ^^int || field_type == ^^double || field_type == ^^float) {
-            specs.push_back({
-                .type = field_type,
-                .name = std::meta::name_of(f)
-            });
-        }
-    }
-
-    return std::meta::define_class(specs);
-}
-```
+:::code static-reflection-d/cpp/heneratsiia-kodu-ta.cpp
 
 Використовуючи оператор сплайсингу `using NumericAccount = [: make_numeric_subset(^^Account) :];`, програміст отримує повноцінний новий тип C++, який містить лише поля `id` та `balance`, без необхідності писати його вручну.
 

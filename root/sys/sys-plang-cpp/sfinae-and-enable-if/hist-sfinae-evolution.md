@@ -33,20 +33,7 @@ void process(int x);
 
 До появи `enable_if` розробники використовували громіздку ідіому на базі оператора `sizeof`. Оскільки оператор `sizeof` у C++ ніколи не виконує обчислень у runtime, а лише оцінює тип виразу під час компіляції, перевірку наявності властивостей робили через розміри штучних масивів:
 
-```cpp
-// Трюк епохи C++03 для перевірки наявності внутрішнього типу iterator
-typedef char YesType[1];
-typedef char NoType[2];
-
-template<typename C>
-static YesType& check(typename C::iterator*);
-
-template<typename C>
-static NoType& check(...);
-
-// Якщо C має iterator, перевантаження 1 є валідним, і sizeof(YesType) == 1
-const bool has_iterator = (sizeof(check<MyType>(0)) == sizeof(YesType));
-```
+:::code hist-sfinae-evolution/cpp/main.hpp
 
 Яарві та його колеги зрозуміли, що цю логіку можна уніфікувати в одну просту структуру:
 

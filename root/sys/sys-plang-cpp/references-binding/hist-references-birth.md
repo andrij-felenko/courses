@@ -125,20 +125,7 @@ T&& forward(typename identity<T>::type&& t) { return t; }
 
 Виклик `forward<U>(x)` з lvalue `x` спирався рівно на ту здатність, яку N2844 скасував: параметр `U&&` мусив зв'язатися з lvalue. Тому [ідеальне передавання](root:sys-plang-cpp/perfect-forwarding) переписали навпаки — параметр оголосили **звичайним lvalue-посиланням**, а приведення винесли в тіло, де його видно:
 
-```cpp
-// після N2844
-template <class T>
-constexpr T&& forward(std::remove_reference_t<T>& t) noexcept
-{
-    return static_cast<T&&>(t);
-}
-
-template <class T>
-constexpr T&& forward(std::remove_reference_t<T>&& t) noexcept
-{
-    return static_cast<T&&>(t);
-}
-```
+:::code hist-references-birth/cpp/main.hpp
 
 Друге перевантаження потрібне для аргументів, які самі є rvalue: параметр-lvalue-посилання їх тепер не візьме. А відсіювання безглуздих інстанціювань (наприклад, спроби «передати вперед» lvalue як rvalue) уточнили ще одним папером — N2951 Говарда Гіннанта від 27 вересня 2009 року, який і закріпив обмеження та фінальну форму з `static_cast`.
 

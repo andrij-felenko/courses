@@ -320,21 +320,7 @@ using SecondType = std::tuple_element_t<1, MyTuple>;   // SecondType = std::stri
 
 Функція `std::apply(fn, tuple)` розпаковує елементи кортежу та передає їх як окремі аргументи у цільову функцію чи лямбду:
 
-```cpp
-#include <tuple>
-#include <iostream>
-
-void print_sum(int a, double b, int c) {
-    std::cout << a + b + c << std::endl;
-}
-
-int main() {
-    std::tuple<int, double, int> data(10, 2.5, 5);
-
-    // Розпаковує data у виклик print_sum(10, 2.5, 5)
-    std::apply(print_sum, data);
-}
-```
+:::code tuple-and-pair-d/cpp/main.cpp
 
 ![Розпакування std::tuple через std::apply](img/tuple-unpacking-flow.svg)
 *Механіка розпакування std::tuple у виклик функції за допомогою std::apply та компіляційної послідовності std::index_sequence.*

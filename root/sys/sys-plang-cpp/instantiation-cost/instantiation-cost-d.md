@@ -236,19 +236,7 @@ void process_data(T value) {
 
 1. У заголовочному файлі `Array.hpp` після оголошення класу додається заборона неявної інстанціації:
 
-```cpp
-// Array.hpp
-template <typename T>
-class Array {
-public:
-    void process();
-    // ...
-};
-
-// Заборона неявної інстанціації у файлах, що включають цей заголовок
-extern template class Array<int>;
-extern template class Array<double>;
-```
+:::code instantiation-cost-d/cpp/stratehiia-1-iavna.cpp
 
 2. В одном-єдиному файлі реалізації `Array.cpp` додається явна інстанціація:
 
@@ -271,39 +259,7 @@ template class Array<double>;
 
 Ідіома нешаблонної основи полягає у винесенні усієї незалежної від типу логіки в звичайний нешаблонний базовий клас:
 
-```cpp
-// Нешаблонний базовий клас (реалізація у .cpp файлі)
-class RawVectorBase {
-protected:
-    void* data_;
-    std::size_t capacity_;
-    std::size_t size_;
-
-    RawVectorBase();
-    ~RawVectorBase();
-
-    void raw_grow(std::size_t element_size);
-    void raw_throw_out_of_range() const;
-};
-
-// Шаблонна обгортка (тільки тонкі inline-методи контролю типів)
-template <typename T>
-class Vector : private RawVectorBase {
-public:
-    void push_back(const T& val) {
-        if (size_ >= capacity_) {
-            raw_grow(sizeof(T));
-        }
-        new (static_cast<T*>(data_) + size_) T(val);
-        ++size_;
-    }
-
-    T& at(std::size_t index) {
-        if (index >= size_) raw_throw_out_of_range();
-        return static_cast<T*>(data_)[index];
-    }
-};
-```
+:::code instantiation-cost-d/cpp/stratehiia-2-idioma.cpp
 
 Оскільки важкі методи `raw_grow` та `raw_throw_out_of_range` винесені у звичайний клас `RawVectorBase` і компілюються один раз у файлі `.cpp`, шаблон `Vector<T>` стає надзвичайно легким. Його методи повністю згортаються у крок `inline` під час оптимізації, не створюючи дубльованого машинного коду.
 
@@ -311,28 +267,7 @@ public:
 
 Для контейнерів та алгоритмів, що працюють з вказівниками, застосовується спеціалізація `Pointer Folding`. Усі типи вказівників `T*` делегують виконання єдиній реалізації над `void*`:
 
-```cpp
-// Базова реалізація для бестипових вказівників void*
-template <>
-class Vector<void*> : private RawVectorBase {
-public:
-    void push_back(void* val);
-    void* get(std::size_t idx) const;
-};
-
-// Часткова спеціалізація для всіх вказівників T*
-template <typename T>
-class Vector<T*> : private Vector<void*> {
-public:
-    void push_back(T* val) {
-        Vector<void*>::push_back(static_cast<void*>(val));
-    }
-
-    T* get(std::size_t idx) const {
-        return static_cast<T*>(Vector<void*>::get(idx));
-    }
-};
-```
+:::code instantiation-cost-d/cpp/stratehiia-3-zhortannia.cpp
 
 Цей підхід використовується у реалізації `std::vector<T*>` у бібліотеках libstdc++ (GCC) та libc++ (Clang). Незалежно від того, скільки тисяч різних типів вказівників використовується у програмі, генерується лише один випадок машинного коду для `Vector<void*>`.
 

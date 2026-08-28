@@ -48,64 +48,11 @@ milliseconds remainder = ms % s;
 
 Стандарт C++ надає набір готових псевдонімів типів у просторі імен `std::chrono`:
 
-```cpp
-using nanoseconds  = duration<std::int_least64_t, std::nano>;
-using microseconds = duration<std::int_least64_t, std::micro>;
-using milliseconds = duration<std::int_least64_t, std::milli>;
-using seconds      = duration<std::int_least64_t>;
-using minutes      = duration<std::int_least32_t, std::ratio<60>>;
-using hours        = duration<std::int_least32_t, std::ratio<3600>>;
-using days         = duration<std::int_least32_t, std::ratio<86400>>;
-using weeks        = duration<std::int_least32_t, std::ratio<604800>>;
-using months       = duration<std::int_least32_t, std::ratio<2629746>>;
-using years        = duration<std::int_least32_t, std::ratio<31556952>>;
-```
+:::code api-chrono-type-system/cpp/standartni-psevdonimy.cpp
 
 ### Публічний інтерфейс та методи класу duration
 
-```cpp
-template <class Rep, class Period>
-class duration {
-public:
-    using rep = Rep;
-    using period = typename Period::type;
-
-    // Конструктори
-    constexpr duration() = default;
-    template <class Rep2>
-    explicit constexpr duration(const Rep2& r);
-    template <class Rep2, class Period2>
-    constexpr duration(const duration<Rep2, Period2>& d);
-
-    // Селектори
-    constexpr rep count() const { return r_; }
-
-    // Статичні межові методи
-    static constexpr duration zero() noexcept { return duration(Rep(0)); }
-    static constexpr duration min() noexcept  { return duration(std::numeric_limits<Rep>::lowest()); }
-    static constexpr duration max() noexcept  { return duration(std::numeric_limits<Rep>::max()); }
-
-    // Унарні оператори
-    constexpr duration operator+() const { return *this; }
-    constexpr duration operator-() const { return duration(-r_); }
-
-    // Інкремент та декремент
-    constexpr duration& operator++() { ++r_; return *this; }
-    constexpr duration operator++(int) { return duration(r_++); }
-    constexpr duration& operator--() { --r_; return *this; }
-    constexpr duration operator--(int) { return duration(r_--); }
-
-    // Составні оператори присвоєння
-    constexpr duration& operator+=(const duration& d) { r_ += d.count(); return *this; }
-    constexpr duration& operator-=(const duration& d) { r_ -= d.count(); return *this; }
-    constexpr duration& operator*=(const rep& rhs)   { r_ *= rhs; return *this; }
-    constexpr duration& operator/=(const rep& rhs)   { r_ /= rhs; return *this; }
-    constexpr duration& operator%=(const rep& rhs)   { r_ %= rhs; return *this; }
-    constexpr duration& operator%=(const duration& d) { r_ %= d.count(); return *this; }
-private:
-    rep r_;
-};
-```
+:::code api-chrono-type-system/cpp/publichnyi-interfeis-ta.cpp
 
 ### Явні функції явного приведення тривалостей
 
@@ -117,22 +64,7 @@ private:
 4. `std::chrono::round<ToDuration>(d)` (C++17): здійснює округлення до найближчого значення. Якщо тривалість знаходиться точно посередині між двома значеннями, округлення виконується до найближчого парного числа.
 5. `std::chrono::abs(d)` (C++17): повертає абсолютне значення тривалості.
 
-```cpp
-using namespace std::chrono;
-milliseconds ms{1599};
-
-// duration_cast відтинає дробову частину: отримуємо 1 секунду
-seconds s1 = duration_cast<seconds>(ms); 
-
-// floor округлює донизу: отримуємо 1 секунду
-seconds s2 = floor<seconds>(ms); 
-
-// ceil округлює догори: отримуємо 2 секунди
-seconds s3 = ceil<seconds>(ms); 
-
-// round округлює до найближчого: отримуємо 2 секунди
-seconds s4 = round<seconds>(ms); 
-```
+:::code api-chrono-type-system/cpp/iavni-funktsii-iavnoho.hpp
 
 ## 2. Шаблон точки часу std::chrono::time_point та інтеграція з потоками
 
@@ -150,35 +82,7 @@ class time_point;
 - Додавання тривалості до точки часу `tp + d` або `d + tp` повертає нову точку часу `time_point`.
 - Віднімання тривалості від точки часу `tp - d` повертає нову точку часу `time_point`.
 
-```cpp
-template <class Clock, class Duration>
-class time_point {
-public:
-    using clock = Clock;
-    using duration = Duration;
-    using rep = typename duration::rep;
-    using period = typename duration::period;
-
-    // Конструктори
-    constexpr time_point(); // Ініціалізує точку часу значенням duration::zero() (Епоха)
-    explicit constexpr time_point(const duration& d); // Точка часу зі зсувом d від епохи
-    template <class Duration2>
-    constexpr time_point(const time_point<clock, Duration2>& t);
-
-    // Отримання тривалості від початку епохи
-    constexpr duration time_since_epoch() const { return d_; }
-
-    // Составні оператори
-    constexpr time_point& operator+=(const duration& d) { d_ += d; return *this; }
-    constexpr time_point& operator-=(const duration& d) { d_ -= d; return *this; }
-
-    // Статичні межі
-    static constexpr time_point min() noexcept { return time_point(duration::min()); }
-    static constexpr time_point max() noexcept { return time_point(duration::max()); }
-private:
-    duration d_;
-};
-```
+:::code api-chrono-type-system/cpp/kontrakty-ta-afinna.cpp
 
 Для перетворення `time_point` з однієї роздільностей тривалості в іншу використовується шаблон `std::chrono::time_point_cast<ToDuration>(tp)`. Він виконує `duration_cast` над внутрішнім значенням `time_since_epoch()` і повертає новий об'єкт `time_point`.
 
@@ -272,21 +176,7 @@ C++20 ввів повноцінний календарний API у прості
 
 Для зручної декомпозиції тривалостей на компоненти (години, хвилини, секунди та дробові частки) C++20 ввів тип `std::chrono::hh_mm_ss`:
 
-```cpp
-template <class Duration>
-class hh_mm_ss {
-public:
-    constexpr explicit hh_mm_ss(Duration d);
-
-    constexpr bool is_negative() const noexcept;
-    constexpr hours hours() const noexcept;
-    constexpr minutes minutes() const noexcept;
-    constexpr seconds seconds() const noexcept;
-    constexpr precision subseconds() const noexcept;
-    constexpr explicit operator precision() const noexcept;
-    constexpr precision to_duration() const noexcept;
-};
-```
+:::code api-chrono-type-system/cpp/rozbyttia-chasu-za.cpp
 
 Цей тип автоматично розраховує компоненти часу незалежно від роздільної здатності вхідної тривалості (мілісекунди, мікросекунди чи наносекунди).
 
@@ -302,20 +192,7 @@ public:
 
 Для зручного конструювання дат перевантажено оператор `/`:
 
-```cpp
-using namespace std::chrono;
-
-// Різні варіанти конструювання year_month_day через оператор /
-constexpr year_month_day ymd1 = 2026y / August / 14d;
-constexpr year_month_day ymd2 = 14d / August / 2026y;
-constexpr year_month_day ymd3 = August / 14d / 2026y;
-
-// Перевірка валідності дати
-static_assert(ymd1.ok());
-
-// Отримання останнього дня лютого 2024 року (високосний рік)
-constexpr year_month_day_last ymld = 2024y / February / last; // 29 лютого 2024
-```
+:::code api-chrono-type-system/cpp/kalendarni-literaly-ta.cpp
 
 ## 5. Робота з часовими поясами та zoned_time у C++20
 
@@ -323,18 +200,7 @@ constexpr year_month_day_last ymld = 2024y / February / last; // 29 лютого
 
 ### Отримання часових поясів
 
-```cpp
-namespace std::chrono {
-    // Повертає посилання на поточну базу даних TZDB
-    const tzdb& get_tzdb();
-
-    // Знаходить часовий пояс за його назвою в базі IANA (наприклад, "Europe/Kyiv")
-    const time_zone* locate_zone(std::string_view tz_name);
-
-    // Повертає поточний системний часовий пояс ОС
-    const time_zone* current_zone();
-}
-```
+:::code api-chrono-type-system/cpp/otrymannia-chasovykh.hpp
 
 ### Структури системної інформації sys_info та local_info
 
@@ -348,23 +214,7 @@ namespace std::chrono {
 
 Класовий шаблон `zoned_time` поєднує астрономічний `time_point` з конкретним часовим поясом `time_zone`, забезпечуючи автоматичний розрахунок літнього/зимового часу (DST — Daylight Saving Time).
 
-```cpp
-template <class Duration, class TimeZonePtr = const std::chrono::time_zone*>
-class zoned_time {
-public:
-    zoned_time();
-    zoned_time(TimeZonePtr z);
-    zoned_time(std::string_view name);
-    zoned_time(TimeZonePtr z, const sys_time<Duration>& st);
-    zoned_time(std::string_view name, const sys_time<Duration>& st);
-
-    // Методи доступу
-    sys_time<Duration> get_sys_time() const;
-    local_time<Duration> get_local_time() const;
-    TimeZonePtr get_time_zone() const;
-    sys_info get_info() const;
-};
-```
+:::code api-chrono-type-system/cpp/klasovyi-shablon-zoned.hpp
 
 При конвертації `local_time` у `sys_time` під час переходу годинників можливі ситуації невизначеності (коли година дублюється або випадає при переході на літній час). Для вирішення цих колізій бібліотека надає прапорці `choose::earliest` та `choose::latest` або генерує винятки:
 - `std::chrono::ambiguous_local_time`: генерується, коли місцевий час трапляється двічі внаслідок переведення годинника назад на 1 годину восени.

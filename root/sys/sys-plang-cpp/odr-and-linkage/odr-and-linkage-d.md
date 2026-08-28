@@ -47,22 +47,7 @@
 
 **Умова: стала-член класу, оголошена в заголовку, потрапляє у виклик `std::min`.**
 
-```cpp
-// limits.hpp
-struct Limits {
-    static constexpr int max_users = 128;   // оголошення і водночас ініціалізатор
-};
-
-// session.cpp
-#include <algorithm>
-#include "limits.hpp"
-
-int clamp_users(int n) {
-    if (n <= Limits::max_users)             // просто читаємо значення — не odr-use
-        return n;
-    return std::min(n, Limits::max_users);  // параметр std::min — const int&
-}
-```
+:::code odr-and-linkage-d/cpp/main.cpp
 
 `std::min` приймає аргументи через `const int&`. Прив'язати посилання можна лише до чогось, що має адресу, — отже, десь у програмі мусить лежати справжній об'єкт `Limits::max_users`. До C++17 запис у класі був **оголошенням**, а не визначенням: об'єкт треба було створити окремим рядком у якомусь `.cpp`:
 

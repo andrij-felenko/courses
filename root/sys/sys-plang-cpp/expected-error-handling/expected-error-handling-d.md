@@ -50,25 +50,7 @@ sizeof(std::expected<T, E>) = align_up(max(sizeof(T), sizeof(E)), alignof(bool))
 1. **Обгортка `std::unexpected<E>`**: виступає явним сигнатурним маркером для повернення помилки з функцій.
 2. **Тег `std::unexpect`**: використовується для конструювання помилки за місцем у внутрішньому буфері (in-place construction) без створення тимчасових об'єктів.
 
-```cpp
-#include <expected>
-#include <string>
-
-// Функція обчислення математичного квадратного кореня
-std::expected<double, std::string> safe_sqrt(double val) {
-    if (val < 0.0) {
-        // Явне конструювання помилки через std::unexpected
-        return std::unexpected("Спроба обчислити квадратний корінь з від'ємного числа");
-    }
-    return std::sqrt(val); // Автоматичне неявне конструювання T у буфері
-}
-
-// In-place конструювання складної помилки без копіювання
-std::expected<std::string, ComplexError> parse_data() {
-    // Тег std::unexpect передає аргументи безпосередньо в конструктор ComplexError
-    return std::expected<std::string, ComplexError>(std::unexpect, "Помилка парсингу", 500);
-}
-```
+:::code expected-error-handling-d/cpp/2-stvorennia-ta.cpp
 
 Якщо тип `T` підтримує default-конструктор, створення `std::expected<T, E> res;` ініціалізує об'єкт у стані успіху зі значенням `T()`. Повну специфікацію всіх перевантажень конструкторів та методів доступу можна переглянути у довіднику інтерфейсу ([довідник інтерфейсу](root:sys-plang-cpp/expected-error-handling/api-expected-monadic-ops.md)).
 
@@ -137,24 +119,7 @@ C++23 розв'язує цю проблему, додаючи чотири мо�
 4. **`transform_error(f)` (Monadic Error Mapping)**:
    Застосовується для адаптації або трансляції типів помилок при переході між шарами архітектури. Лямбда `f` приймає `E` і повертає `F`.
 
-```cpp
-// Декларативний конвеєр зчитування та парсингу налаштувань
-std::expected<Config, AppError> load_config(std::string_view path) {
-    return read_file_to_string(path)           // std::expected<std::string, AppError>
-        .and_then(parse_json_structure)       // std::expected<JsonDoc, AppError>
-        .and_then(validate_config_schema)     // std::expected<Config, AppError>
-        .transform([](Config cfg) {
-            cfg.is_loaded_from_cache = false;
-            return cfg;
-        })
-        .or_else([](AppError err) -> std::expected<Config, AppError> {
-            if (err == AppError::FileNotFound) {
-                return Config::get_default(); // Відновлення після відсутності файлу
-            }
-            return std::unexpected(err); // Прокидання інших помилок далі
-        });
-}
-```
+:::code expected-error-handling-d/cpp/semantyka-monadychnykh.cpp
 
 Практичний проект з описом побудови повного конвеєра обробки мережевих конфігурацій зі зіставленням C та C++23 кодів наведено у вставці ([практичний проект](root:sys-plang-cpp/expected-error-handling/proj-expected-pipeline.md)).
 
@@ -253,21 +218,7 @@ std::expected<void, SystemError> write_bytes(int fd, const void* data, size_t le
 
 Усі конструктори, деструктори, оператори доступу та монадичні трансформації шаблону `std::expected` у C++23 позначені специфікатором `constexpr`. Це дозволяє здійснювати повну перевірку оброблення помилок і побудову складних конвеєрів ще на етапі компіляції програми.
 
-```cpp
-constexpr std::expected<int, const char*> parse_digit(char c) {
-    if (c >= '0' && c <= '9') {
-        return c - '0';
-    }
-    return std::unexpected("Не є цифрою");
-}
-
-// Виконання парсингу та валідації під час збірки проєкту
-constexpr auto result = parse_digit('7')
-    .transform([](int val) { return val * 10; });
-
-static_assert(result.has_value());
-static_assert(*result == 70);
-```
+:::code expected-error-handling-d/cpp/9-sumisnist-iz-constexpr.cpp
 
 Можливість використання `std::expected` у `constexpr`-контексті відкриває нові горизонти для створення статично верифікованих парсерів протоколів, компіляції шаблонів та перевірки конфігурацій до запуску бінарника на виконання.
 
@@ -277,24 +228,7 @@ static_assert(*result == 70);
 
 Шаблон `std::expected` інтегрується із системою концептів C++20. Для перевірки того, чи є довільний тип об'єктом `std::expected`, розробники можуть використовувати власні концептуальні trait-адаптери:
 
-```cpp
-template <typename T>
-struct is_expected : std::false_type {};
-
-template <typename T, typename E>
-struct is_expected<std::expected<T, E>> : std::true_type {};
-
-template <typename T>
-concept ExpectedType = is_expected<std::remove_cvref_t<T>>::value;
-
-// Функція, що приймає лише результати типу std::expected
-template <ExpectedType E>
-void process_result(E&& res) {
-    if (res) {
-        // Обробка корисного навантаження
-    }
-}
-```
+:::code expected-error-handling-d/cpp/10-vzaiemodiia-z-c-20.cpp
 
 Це дозволяє будувати високорівневі метапрограми та шаблонні бібліотеки, які адаптують свою поведінку залежно від того, чи повернула функція звичайне значення, чи об'єкт `std::expected`.
 
@@ -320,25 +254,7 @@ void process_result(E&& res) {
 ### 1. Трансформація винятку у std::expected (Exception-to-Expected Boundary)
 При виклику зовнішнього коду, який потенційно кидає винятки, використовується шаблонна обгортка для перехоплення та конвертації у `std::unexpected`:
 
-```cpp
-template <typename F>
-auto make_expected_from_call(F&& func) noexcept 
-    -> std::expected<std::invoke_result_t<F>, std::string> 
-{
-    try {
-        if constexpr (std::is_void_v<std::invoke_result_t<F>>) {
-            func();
-            return {};
-        } else {
-            return func();
-        }
-    } catch (const std::exception& ex) {
-        return std::unexpected(ex.what());
-    } catch (...) {
-        return std::unexpected("Невідомий системний виняток");
-    }
-}
-```
+:::code expected-error-handling-d/cpp/1-transformatsiia-vyniatku.cpp
 
 ### 2. Трансформація std::expected у виняток (Expected-to-Exception Boundary)
 Якщо клієнтський код високого рівня очікує винятків (наприклад, контролер веб-фреймворку), перехід здійснюється через метод `.value()`:
@@ -360,27 +276,7 @@ Data data = res.value();
 2. **Конкурентна модифікація**:
    Одночасний запис (зміна значення через присвоєння чи `.emplace()`) або поєднання читання та запису над одним екземпляром з декількох потоків вимагає зовнішньої синхронізації через `std::mutex`, `std::shared_mutex` або асинхронні канали передачі даних.
 
-```cpp
-// Конкурентне оброблення результатів через потокобезпечну чергу
-class SafeResultQueue {
-private:
-    std::queue<std::expected<TaskResult, TaskError>> queue_;
-    mutable std::mutex mutex_;
-public:
-    void push(std::expected<TaskResult, TaskError> res) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        queue_.push(std::move(res));
-    }
-
-    std::optional<std::expected<TaskResult, TaskError>> pop() {
-        std::lock_guard<std::mutex> lock(mutex_);
-        if (queue_.empty()) return std::nullopt;
-        auto res = std::move(queue_.front());
-        queue_.pop();
-        return res;
-    }
-};
-```
+:::code expected-error-handling-d/cpp/13-bahatopotokovist.cpp
 
 ---
 
@@ -390,19 +286,7 @@ public:
 
 C++23 дозволяє побудувати виразну шаблонну функцію `expected_zip`:
 
-```cpp
-template <typename T1, typename T2, typename E>
-std::expected<std::tuple<T1, T2>, E> expected_zip(
-    std::expected<T1, E> e1, 
-    std::expected<T2, E> e2) 
-{
-    return e1.and_then([&](T1&& v1) {
-        return e2.transform([&](T2&& v2) {
-            return std::make_tuple(std::forward<T1>(v1), std::forward<T2>(v2));
-        });
-    });
-}
-```
+:::code expected-error-handling-d/cpp/14-kombinuvannia-dekilkokh.cpp
 
 Якщо `e1` або `e2` містять помилку, `expected_zip` повертає першу перехоплену помилку завдяки короткому замиканню `.and_then()`.
 
@@ -436,22 +320,7 @@ std::expected<std::tuple<T1, T2>, E> expected_zip(
 
 Розширенням комбінування двох об'єктів є узагальнена варіативна функція `expected_apply`, яка приймає лямбда-функцію довільної арності та кортеж `std::expected` об'єктів:
 
-```cpp
-template <typename F, typename... Args, typename E>
-auto expected_apply(F&& f, std::expected<Args, E>... args) 
-    -> std::expected<std::invoke_result_t<F, Args...>, E> 
-{
-    // Перевірка наявних значень в усіх аргументах
-    bool all_ok = (args.has_value() && ...);
-    if (!all_ok) {
-        // Повертаємо першу знайдену помилку
-        E err;
-        ((!args.has_value() ? (err = args.error(), true) : false) || ...);
-        return std::unexpected(err);
-    }
-    return std::invoke(std::forward<F>(f), std::move(*args)...);
-}
-```
+:::code expected-error-handling-d/cpp/17-variatyvne.cpp
 
 Цей метапрограмний адаптер дозволяє передавати результати декількох асинхронних чи паралельних обчислень безпосередньо в бізнес-функцію обробки даних без написання ручних перевірок.
 
@@ -462,32 +331,10 @@ auto expected_apply(F&& f, std::expected<Args, E>... args)
 При розробці системних обгортків для операційних систем `std::expected` стає типобезпечним містком між сирими C-викликами та C++23 архітектурою:
 
 ### 1. Обгортка для Windows API (HRESULT)
-```cpp
-#include <windows.h>
-
-std::expected<HANDLE, DWORD> win32_create_file(const wchar_t* filename) {
-    HANDLE h = CreateFileW(filename, GENERIC_READ, FILE_SHARE_READ, NULL, 
-                           OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (h == INVALID_HANDLE_VALUE) {
-        return std::unexpected(GetLastError());
-    }
-    return h;
-}
-```
+:::code expected-error-handling-d/cpp/1-obhortka-dlia-windows.cpp
 
 ### 2. Обгортка для POSIX API (errno)
-```cpp
-#include <fcntl.h>
-#include <cerrno>
-
-std::expected<int, std::error_code> posix_open(const char* path, int flags) {
-    int fd = ::open(path, flags);
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return fd;
-}
-```
+:::code expected-error-handling-d/cpp/2-obhortka-dlia-posix-api.cpp
 
 ---
 
@@ -552,23 +399,7 @@ std::expected<int, std::error_code> posix_open(const char* path, int flags) {
 
 Для високочастотних торгових платформ (HFT) та ігрових рушіїв, де важливо уникати блокувань глобального розподілювача пам'яті (`malloc`), `std::expected` чудово поєднується з поліморфними ресурсами пам'яті C++17 `std::pmr`:
 
-```cpp
-#include <memory_resource>
-#include <expected>
-
-// Тип контейнера, що використовує локальну арену пам'яті
-using PmrString = std::pmr::string;
-
-std::expected<PmrString, SystemError> fast_read_config(std::pmr::memory_resource* arena) {
-    PmrString buffer(arena);
-    buffer.reserve(512);
-    
-    if (!read_into_buffer(buffer)) {
-        return std::unexpected(SystemError::ReadFailed);
-    }
-    return buffer; // Повертає рядок, створений у виділеній арені пам'яті
-}
-```
+:::code expected-error-handling-d/cpp/23-keruvannia-polimorfnymy.cpp
 
 Такий підхід повністю захищає програму від фрагментації операційної пам'яті та затримок на виділення ресурсів при роботі в багатопотоковому середовищі.
 
@@ -628,19 +459,7 @@ std::expected<T, E> filter_or(std::expected<T, E> exp, Pred&& pred, E error_if_f
 
 У сучасних асинхронних архітектурах об'єкт `std::expected` є першокласним типом повернення для корутинних задач:
 
-```cpp
-// Інтеграція з асинхронною мережевою корутиною Boost.Asio / C++20
-awaitable<std::expected<std::string, SocketError>> async_read_packet(tcp::socket& socket) {
-    char buffer[1024];
-    sys::error_code ec;
-    size_t n = co_await socket.async_read_some(asio::buffer(buffer), redirect_error(use_awaitable, ec));
-    
-    if (ec) {
-        co_return std::unexpected(SocketError::ReadTimeout);
-    }
-    co_return std::string(buffer, n);
-}
-```
+:::code expected-error-handling-d/cpp/26-intehratsiia-z.cpp
 
 Використання `std::expected` у корутинах повністю усуває необхідність збереження `std::exception_ptr` у кадрах корутин, що суттєво зменшує розмір асинхронного фрейму на стеку.
 
@@ -662,22 +481,7 @@ awaitable<std::expected<std::string, SocketError>> async_read_packet(tcp::socket
 
 Тип `std::expected` дозволяє будувати прозорі C-FFI адаптери:
 
-```cpp
-// C-FFI сумісна структура для експорту в C# або Rust
-struct C_ResultHandle {
-    void* ptr;
-    int error_code;
-    bool is_success;
-};
-
-extern "C" C_ResultHandle c_api_fetch_user(uint64_t id) {
-    auto res = fetch_user(id);
-    if (res) {
-        return C_ResultHandle{.ptr = new UserData(std::move(*res)), .error_code = 0, .is_success = true};
-    }
-    return C_ResultHandle{.ptr = nullptr, .error_code = static_cast<int>(res.error()), .is_success = false};
-}
-```
+:::code expected-error-handling-d/cpp/28-mizhmovna-vzaiemodiia.cpp
 
 ---
 
@@ -686,21 +490,7 @@ extern "C" C_ResultHandle c_api_fetch_user(uint64_t id) {
 При написанні автоматичних модульних тестів для коду, що повертає `std::expected`, фреймворки тестування Google Test та Catch2 надають виразні матчери та макроси перевірок:
 
 ### 1. Тестування за допомогою Catch2
-```cpp
-TEST_CASE("Перевірка безпечного квадратного кореня", "[math]") {
-    SECTION("Успішне обчислення") {
-        auto res = safe_sqrt(16.0);
-        REQUIRE(res.has_value());
-        REQUIRE(*res == Catch::Approx(4.0));
-    }
-    
-    SECTION("Обробка від'ємного числа") {
-        auto res = safe_sqrt(-4.0);
-        REQUIRE_FALSE(res.has_value());
-        REQUIRE(res.error() == "Спроба обчислити квадратний корінь з від'ємного числа");
-    }
-}
-```
+:::code expected-error-handling-d/cpp/1-testuvannia-za.cpp
 
 ### 2. Спеціалізований матчер Google Mock
 ```cpp

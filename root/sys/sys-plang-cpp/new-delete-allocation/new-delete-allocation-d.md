@@ -34,21 +34,7 @@
 
 Якби компілятор просто передав виняток вище по стеку, блок сирої пам'яті, отриманий на першому кроці, назавжди завис би в купі без жодного покажчика на нього. Щоб запобігти цьому, компілятор загортає фазу конструювання у неявний блок перехоплення винятків.
 
-```cpp
-// Концептуальний псевдокод того, що генерує компілятор для: Widget* w = new Widget(42);
-Widget* w = nullptr;
-void* raw_memory = ::operator new(sizeof(Widget)); // Крок 1: виділення пам'яті
-
-try {
-    // Крок 2: виклик конструктора на отриманій сирій пам'яті
-    w = static_cast<Widget*>(raw_memory);
-    w->Widget::Widget(42); // виклик конструктора
-} catch (...) {
-    // Автоматичний відкат: звільнення сирої пам'яті, якщо конструктор дав збій
-    ::operator delete(raw_memory);
-    throw; // ретрансляція спійманого винятку
-}
-```
+:::code new-delete-allocation-d/cpp/dvofazna-pryroda-vyrazu.cpp
 
 Якщо конструктор завершується винятком, згенерований код негайно викликає парну функцію звільнення пам'яті `operator delete(raw_memory)`, повертає сирі байти алокатору і лише після цього ретранслює вихідний виняток у зовнішній контекст. Жодного витоку пам'яті під сам об'єкт не виникає.
 
@@ -74,41 +60,8 @@ try {
 3. **Фаза 2: Звільнення сирої пам'яті.** Після завершення деструктора викликається функція деалокації `operator delete(static_cast<void*>(w))`, яка повертає байти в розпорядження розподільника купи.
 
 :::tabs
-```c
-// Виділення та звільнення пам'яті у стилі C
-struct Device {
-    int id;
-    char* buffer;
-};
-
-struct Device* dev = (struct Device*)malloc(sizeof(struct Device));
-if (!dev) {
-    return;
-}
-dev->id = 1;
-dev->buffer = (char*)malloc(256); // Ручне конструювання полів
-
-// Ручне очищення перед звільненням структури
-free(dev->buffer);
-free(dev);
-```
-```cpp
-// Виділення та звільнення у C++ через вирази new / delete
-struct Device {
-    int id;
-    std::string buffer;
-
-    Device(int device_id, std::size_t buf_size)
-        : id(device_id), buffer(buf_size, '\0') {}
-    ~Device() = default; // std::string звільнить свою пам'ять автоматично
-};
-
-// Вираз new: operator new(sizeof(Device)) + конструктор Device
-Device* dev = new Device(1, 256);
-
-// Вираз delete: деструктор ~Device() + operator delete(dev)
-delete dev;
-```
+:::code new-delete-allocation-d/c/main.c
+:::code new-delete-allocation-d/cpp/anatomiia-ta-parnist.cpp
 :::
 
 Якщо тип `Widget` є поліморфним і містить віртуальні функції, знищення через покажчик на базовий клас `Base* b = new Derived(); delete b;` вимагає обов'язкової наявності [віртуального деструктора](root:sys-plang-cpp/virtual-destructor) у `Base`. 
@@ -123,24 +76,7 @@ delete dev;
 
 Placement new використовується тоді, коли байти пам'яті вже виділені заздалегідь — наприклад, на стеку, у статичному масиві або у складі кастомного пулу:
 
-```cpp
-#include <new>
-#include <string>
-#include <iostream>
-
-alignas(std::string) char storage[sizeof(std::string)]; // Сирий буфер
-
-// Фаза 1 відсутня: пам'ять уже є. Виконується лише Фаза 2 (конструктор)
-std::string* s = new (storage) std::string("Конфігурація");
-
-std::cout << *s << '\n';
-
-// КАТАСТРОФА: виклик delete s спробує звільнити стековий буфер у купі!
-// delete s; // Невизначена поведінка (крах процесу)
-
-// ПРАВИЛЬНО: явний виклик деструктора без деалокації пам'яті
-s->~basic_string();
-```
+:::code new-delete-allocation-d/cpp/vidminnist-mizh-zvychainym.hpp
 
 У разі placement new функції деалокації взагалі не існує. Вираз `new (ptr) T` викликає стандартну функцію `operator new(std::size_t, void* ptr) noexcept`, яка просто повертає переданий покажчик `ptr` без жодних дій. Знищення такого об'єкта вимагає прямого виклику деструктора `s->~T()`, оскільки спроба передати стековий покажчик у звичайний вираз `delete` призведе до негайного падіння програми.
 
@@ -180,19 +116,7 @@ s->~basic_string();
 
 Ще одна небезпечна пастка пов'язана зі спробою використовувати поліморфізм разом із динамічними масивами:
 
-```cpp
-struct Base {
-    int x;
-    virtual ~Base() = default;
-};
-
-struct Derived : Base {
-    int y;
-    int z;
-};
-
-Base* array = new Derived[10]; // Небезпечно!
-```
+:::code new-delete-allocation-d/cpp/pastka-polimorfnykh.cpp
 
 Хоча покажчик `Derived*` неявно перетворюється на `Base*`, покажчикова арифметика для масивів спирається на статичний тип покажчика. Коли програма звертається до елемента `array[i]`, компілятор обчислює адресу як `reinterpret_cast<char*>(array) + i * sizeof(Base)`.
 
@@ -212,35 +136,7 @@ C++ дозволяє розробникам повністю контролюв�
 * Якщо переданий розмір дорівнює нулю (`size == 0`), функція все одно зобов'язана виділити блок розміром щонайменше 1 байт, щоб повернути унікальну ненульову адресу.
 * Виділення має відбуватися в нескінченному циклі. Якщо виділити пам'ять не вдалося, функція перевіряє наявність встановленого `new_handler`. Якщо обробник є — викликає його; якщо немає — викидає `std::bad_alloc`.
 
-```cpp
-#include <cstddef>
-#include <cstdlib>
-#include <new>
-#include <iostream>
-
-// Глобальне перехоплення стандартного operator new
-void* operator new(std::size_t size) {
-    if (size == 0) {
-        size = 1; // Стандарт вимагає повернення унікальної адреси для 0 байтів
-    }
-    while (true) {
-        if (void* ptr = std::malloc(size)) {
-            return ptr;
-        }
-        // Якщо malloc повернув nullptr, перевіряємо наявність new-handler
-        std::new_handler handler = std::get_new_handler();
-        if (!handler) {
-            throw std::bad_alloc();
-        }
-        handler(); // Спроба звільнити пам'ять і повторити ітерацію виділення
-    }
-}
-
-// Глобальне перехоплення стандартного operator delete
-void operator delete(void* ptr) noexcept {
-    std::free(ptr);
-}
-```
+:::code new-delete-allocation-d/cpp/zaminni-hlobalni-funktsii.cpp
 
 Глобальне перевантаження використовується для підключення оптимізованих алокаторів загального призначення (таких як jemalloc або TCMalloc), профілювання профілю пам'яті всієї системи або діагностики витоків.
 
@@ -248,33 +144,7 @@ void operator delete(void* ptr) noexcept {
 
 Якщо певний клас створюється й знищується мільйони разів на секунду (наприклад, вузли AST-дерева, елементи зв'язного списку чи повідомлення мережевого брокера), виділення кожного екземпляра через загальну купу створює неприйнятні накладні витрати на блокування м'ютексів розподільника й спричиняє сильну фрагментацію пам'яті. Для таких типів функції виділення оголошують безпосередньо всередині класу:
 
-```cpp
-class PacketNode {
-public:
-    explicit PacketNode(int priority) : priority_level(priority) {}
-
-    // Статичні методи виділення пам'яті для конкретного класу
-    static void* operator new(std::size_t size) {
-        return PoolAllocator::allocate(size);
-    }
-
-    static void operator delete(void* ptr, std::size_t size) noexcept {
-        PoolAllocator::deallocate(ptr, size);
-    }
-
-    // Класові версії для масивів
-    static void* operator new[](std::size_t size) {
-        return ::operator new(size); // Масиви відправляємо у стандартну купу
-    }
-
-    static void operator delete[](void* ptr) noexcept {
-        ::operator delete(ptr);
-    }
-
-private:
-    int priority_level;
-};
-```
+:::code new-delete-allocation-d/cpp/perevantazhennia-na-rivni.cpp
 
 Хоча ключове слово `static` перед операторами `operator new` і `operator delete` у класі можна опустити, ці методи **завжди** є неявно статичними: вони викликаються до того, як об'єкт створено (немає покажчика `this`), і після того, як його знищено.
 
@@ -388,30 +258,7 @@ if (!w) {
 
 Коли `operator new` не може знайти вільний блок потрібного розміру, він не здається одразу. Перш ніж викинути `std::bad_alloc`, функція перевіряє, чи встановлено глобальний обробник відмови — функцію типу `std::new_handler`.
 
-```cpp
-#include <new>
-#include <iostream>
-#include <cstdlib>
-
-// Резервний буфер пам'яті для екстрених ситуацій
-char* emergency_reserve = new char[1024 * 1024 * 16]; // 16 МБ
-
-void out_of_memory_handler() {
-    if (emergency_reserve) {
-        delete[] emergency_reserve;
-        emergency_reserve = nullptr;
-        std::cerr << "[ПОПЕРЕДЖЕННЯ] Вичерпано пам'ять! Звільнено аварійний резерв.\n";
-        return; // Повернення: operator new спробує виділити пам'ять ще раз!
-    }
-    std::cerr << "[КРИТИЧНО] Аварійний резерв вичерпано. Зупинка процесу.\n";
-    std::set_new_handler(nullptr); // Видалення обробника -> наступний крок кидає bad_alloc
-}
-
-int main() {
-    std::set_new_handler(out_of_memory_handler);
-    // Робота програми...
-}
-```
+:::code new-delete-allocation-d/cpp/mekhanizm-std-set-new.cpp
 
 Коректно написаний `new_handler` має виконати одну з чотирьох дій:
 
@@ -436,20 +283,7 @@ int main() {
 
 У коді з ручним керуванням пам'яттю будь-яке непередбачене відхилення від прямого потоку виконання призводить до витоку:
 
-```cpp
-void process_transaction() {
-    Transaction* tx = new Transaction();
-    
-    if (!tx->validate()) {
-        // Забули написати delete tx! Витік пам'яті при ранньому return
-        return; 
-    }
-    
-    tx->execute(); // Якщо тут виникне виняток, рядок delete tx буде пропущено!
-    
-    delete tx;
-}
-```
+:::code new-delete-allocation-d/cpp/1-nebezpeka-vytokiv-pry.cpp
 
 ### 2. Пастка невизначеного порядку обчислення аргументів до C++17
 

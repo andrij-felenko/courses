@@ -191,19 +191,7 @@ void destroy(OptimizedHolder<T, Deleter>& h) {
 
 Механізм EBO поширюється не лише на одиночне спадкування, а й на множинні базові класи, якщо вони є різними типами:
 
-```cpp
-struct AllocatorTag {};
-struct ComparatorTag {};
-struct LoggerPolicy {};
-
-struct MultiOptimized : private AllocatorTag,
-                        private ComparatorTag,
-                        private LoggerPolicy {
-    int* data;
-};
-
-static_assert(sizeof(MultiOptimized) == sizeof(int*)); // Рівно 8 байтів!
-```
+:::code empty-base-optimization-d/cpp/ebo-pry-mnozhynnomu-ta.cpp
 
 Усі три порожні базові класи отримують зміщення 0 і ділять початкову адресу з полем `data`. Оскільки їхні типи різняться (`AllocatorTag`, `ComparatorTag`, `LoggerPolicy`), компілятор розрізняє їх за типом вказівника, тому колізії ідентичності не виникає.
 
@@ -289,23 +277,7 @@ static_assert(sizeof(ModernHolder<int, std::default_delete<int>>) == 8);
 
 У поєднанні з `[[no_unique_address]]` це відкрило неймовірні можливості для створення кастомних структур:
 
-```cpp
-// Оголошуємо унікальний тип лямбди без збереження екземпляра
-auto custom_deleter = [](int* p) noexcept {
-    std::cout << "Вилучення ресурсу\n";
-    delete p;
-};
-
-template <typename T, typename Callback>
-struct EventListener {
-    T* target;
-    [[no_unique_address]] Callback on_event;
-};
-
-// Екземпляр структури зі stateless-функтором:
-EventListener<int, decltype(custom_deleter)> listener{nullptr, {}};
-static_assert(sizeof(listener) == sizeof(int*)); // Рівно 8 байтів!
-```
+:::code empty-base-optimization-d/cpp/bezstanni-liambda-vyrazy-u.cpp
 
 До C++20 використання таких лямбд у шаблонних класах вимагало обов'язкової передачі екземпляра в конструктор або зберігання покажчика на функцію (`void(*)(int*)`), що неминуче додавало 8 байтів фізичного розміру. Тепер компілятор зберігає лише тип лямбди, а обсяг пам'яті залишається рівним нулю.
 
@@ -387,24 +359,7 @@ struct AlignedHolder {
 
 Розумний покажчик `std::unique_ptr<T, Deleter>` приймає два параметри шаблона: тип об'єкта `T` та тип функції очищення `Deleter`.
 
-```cpp
-// 1. Звичайне використання зі стандартним безстанним делітером:
-std::unique_ptr<int> p1 = std::make_unique<int>(42);
-static_assert(sizeof(p1) == sizeof(int*)); // Рівно 8 байтів!
-
-// 2. Використання зі stateless лямбда-функцією (C++20):
-auto stateless_del = [](int* p) noexcept { delete p; };
-std::unique_ptr<int, decltype(stateless_del)> p2(new int(10), stateless_del);
-static_assert(sizeof(p2) == 8); // Стискається в 1 машинне слово!
-
-// 3. Використання зі stateful делітером (наприклад, захоплює контекст арени):
-struct ArenaDeleter {
-    void* arena_context; // 8 байтів стану
-    void operator()(int* p) const noexcept { /* звільнення в арену */ }
-};
-std::unique_ptr<int, ArenaDeleter> p3(new int(20), ArenaDeleter{nullptr});
-static_assert(sizeof(p3) == 16); // Природно зростає до 16 байтів
-```
+:::code empty-base-optimization-d/cpp/1-stysnennia-v-std-unique.hpp
 
 Завдяки оптимізації порожньої бази (у C++11/17 через EBO-обгортки на кшталт `__compressed_pair`, а в C++20 через `[[no_unique_address]]`) покажчик `std::unique_ptr` із безстанним делітером має **абсолютно ідентичну розкладку в пам'яті та двійковий інтерфейс ABI**, що й сирий покажчик `int*`.
 
@@ -510,19 +465,7 @@ struct Derived : BaseEmpty {
 
 Щоб оптимізація спрацювала в MSVC, необхідно використовувати вендорний атрибут `[[msvc::no_unique_address]]`:
 
-```cpp
-// Кросплатформний шаблон макроса
-#if defined(_MSC_VER) && !defined(__clang__)
-    #define COURSES_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
-#else
-    #define COURSES_NO_UNIQUE_ADDRESS [[no_unique_address]]
-#endif
-
-struct PortableHolder {
-    int* ptr;
-    COURSES_NO_UNIQUE_ADDRESS Empty deleter;
-};
-```
+:::code empty-base-optimization-d/cpp/pastka-3-osoblyvist.cpp
 
 #### 4. Діагностика компіляторів та інтроспекція типів
 

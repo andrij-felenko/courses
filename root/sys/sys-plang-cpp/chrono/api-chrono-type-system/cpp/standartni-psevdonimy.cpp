@@ -1,0 +1,10 @@
+using nanoseconds  = duration<std::int_least64_t, std::nano>;
+using microseconds = duration<std::int_least64_t, std::micro>;
+using milliseconds = duration<std::int_least64_t, std::milli>;
+using seconds      = duration<std::int_least64_t>;
+using minutes      = duration<std::int_least32_t, std::ratio<60>>;
+using hours        = duration<std::int_least32_t, std::ratio<3600>>;
+using days         = duration<std::int_least32_t, std::ratio<86400>>;
+using weeks        = duration<std::int_least32_t, std::ratio<604800>>;
+using months       = duration<std::int_least32_t, std::ratio<2629746>>;
+using years        = duration<std::int_least32_t, std::ratio<31556952>>;

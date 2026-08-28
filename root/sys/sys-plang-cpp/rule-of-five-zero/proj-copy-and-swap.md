@@ -12,25 +12,7 @@
 
 Написати це вручну можна, і виходить правильно. Але подивіться, скільки разів у такому класі повторено те саме знання:
 
-```cpp
-Buffer& operator=(const Buffer& other) {
-    char* fresh = new char[other.size];        // ← «як добути блок» — уже було в конструкторі
-    std::memcpy(fresh, other.data, other.size); // ← «як копіювати блок» — теж
-    delete[] data;                              // ← «як віддати блок» — уже було в деструкторі
-    data = fresh;
-    size = other.size;
-    return *this;
-}
-
-Buffer& operator=(Buffer&& other) noexcept {
-    if (this != &other) {                       // ← сторожа, яку легко забути
-        delete[] data;                          // ← «як віддати блок» — утретє
-        data = std::exchange(other.data, nullptr);
-        size = std::exchange(other.size, 0);
-    }
-    return *this;
-}
-```
+:::code proj-copy-and-swap/cpp/part.cpp
 
 Клас відповідає на питання «як копіювати цей ресурс» двічі — у копіювальному конструкторі й тут; на питання «як його звільняти» — тричі. Додайте до класу член `std::string name` — і його треба згадати в чотирьох тілах із п'яти. Кожен пропуск дає клас, який копіюється **майже** правильно, а це найгірший різновид помилки: він не падає, він тихо втрачає поле.
 
@@ -94,46 +76,7 @@ swap(a, b);        // 2. некваліфікований виклик дода�
 
 **Клас з одноосібним володінням блоком, присвоєння через копіюй-і-обмінюй.**
 
-```cpp
-#include <cstddef>
-#include <cstring>
-#include <utility>
-
-class Buffer {
-    char*       data = nullptr;
-    std::size_t size = 0;
-public:
-    Buffer() = default;
-    explicit Buffer(std::size_t n) : data(new char[n]), size(n) {}
-
-    // єдине місце, де написано «як добути й скопіювати блок»
-    Buffer(const Buffer& other)
-        : data(other.size ? new char[other.size] : nullptr), size(other.size) {
-        if (size) std::memcpy(data, other.data, size);
-    }
-
-    // ОБОВ'ЯЗКОВИЙ — і не заради швидкості, див. пастку нижче
-    Buffer(Buffer&& other) noexcept
-        : data(std::exchange(other.data, nullptr)),
-          size(std::exchange(other.size, 0)) {}
-
-    // єдине місце, де написано «як віддати блок»
-    ~Buffer() { delete[] data; }
-
-    // прихований друг: невидимий звичайному пошуку, знаходиться через ADL
-    friend void swap(Buffer& a, Buffer& b) noexcept {
-        using std::swap;
-        swap(a.data, b.data);
-        swap(a.size, b.size);
-    }
-
-    // один оператор на копіювальне й переміщувальне присвоєння
-    Buffer& operator=(Buffer rhs) noexcept {
-        swap(*this, rhs);
-        return *this;
-    }
-};
-```
+:::code proj-copy-and-swap/cpp/robochyi-kod.cpp
 
 Чотири речі варті окремого погляду.
 

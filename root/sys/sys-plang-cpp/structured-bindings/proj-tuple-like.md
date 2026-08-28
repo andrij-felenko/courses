@@ -6,29 +6,7 @@
 
 Знімок з АЦП: усередині лежить шістнадцятибітний код перетворення і мітка каналу.
 
-```cpp
-#include <cstdint>
-#include <string>
-#include <tuple>
-#include <type_traits>
-#include <utility>
-
-namespace hw {
-
-class Sample {
-public:
-    Sample(std::uint16_t code, std::string tag)
-        : code_(code), tag_(std::move(tag)) {}
-
-    double voltage() const { return code_ * (3.3 / 65535.0); }
-
-private:
-    std::uint16_t code_;
-    std::string   tag_;
-};
-
-}  // namespace hw
-```
+:::code proj-tuple-like/cpp/zadacha.cpp
 
 Той, хто читає знімки, оперує вольтами, а не кодами: код перетворення й опорна напруга — внутрішня справа класу. Хочеться писати
 
@@ -68,30 +46,7 @@ struct std::tuple_element<I, hw::Sample> {
 
 `get` — уже не бібліотека, а ваш код, і в нього рівно одне зобов'язання: віддати те, що пообіцяв `tuple_element`. Для першої частини обіцяно `double` — отже, значення. Для другої обіцяно `std::string`, і віддати треба **посилання** на справжнє поле, інакше зв'язування дивитиметься в копію.
 
-```cpp
-// у публічній частині класу hw::Sample:
-
-template <std::size_t I>
-decltype(auto) get() & {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return voltage();   // double: обчислене значення
-    else if constexpr (I == 1) return (tag_);      // std::string&
-}
-
-template <std::size_t I>
-decltype(auto) get() const& {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return voltage();
-    else if constexpr (I == 1) return (tag_);      // const std::string&
-}
-
-template <std::size_t I>
-decltype(auto) get() && {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return voltage();
-    else if constexpr (I == 1) return std::move(tag_);   // std::string&&
-}
-```
+:::code proj-tuple-like/cpp/sposib-pershyi-shablonnyi.hpp
 
 [Гілки `if constexpr`](root:sys-plang-cpp/constexpr-if), які не спрацювали, не інстанціюються, тож `decltype(auto)` виводиться з єдиної живої гілки — і різні частини спокійно мають різні типи повернення в одному тілі. Альтернативи цьому немає: функцію-шаблон [не можна частково спеціалізувати](root:sys-plang-cpp/specialization-overload), тож «по функції на індекс» означало б 3×N функцій замість трьох. А так кожне тіло читається як таблиця «індекс → частина», і рядок навпроти `I == 0` стоїть на відстані ока від рядка `I == 0` у `tuple_element`.
 
@@ -115,33 +70,7 @@ Ref-кваліфікацій три, бо викликаються вони на
 
 Вільний `get` пишеться тим самим ланцюгом `if constexpr`, але мусить лежати **в просторі імен свого класу** — глобальний `get` чи `using`-оголошення не допоможуть, бо ніякого іншого пошуку тут не виконують.
 
-```cpp
-namespace hw {
-
-// у класі додано публічні методи доступу:
-//     std::string&       tag()       { return tag_; }
-//     const std::string& tag() const { return tag_; }
-
-template <std::size_t I> decltype(auto) get(Sample& s) {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return s.voltage();
-    else if constexpr (I == 1) return s.tag();     // std::string&
-}
-
-template <std::size_t I> decltype(auto) get(const Sample& s) {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return s.voltage();
-    else if constexpr (I == 1) return s.tag();     // const std::string&
-}
-
-template <std::size_t I> decltype(auto) get(Sample&& s) {
-    static_assert(I < 2, "у hw::Sample дві частини");
-    if constexpr      (I == 0) return s.voltage();
-    else if constexpr (I == 1) return std::move(s.tag());
-}
-
-}  // namespace hw
-```
+:::code proj-tuple-like/cpp/chlen-chy-vilna-funktsiia.cpp
 
 Тут дужки навколо `s.tag()` не потрібні: це виклик, а не ім'я, і `decltype` від нього одразу дає оголошений тип повернення. Зате видно ціну вільного шляху — він бачить лише публічний інтерфейс, тож або клас віддає частини методами, або всі три функції треба оголосити `friend`. Членний `get` цієї турботи не має, і для власного класу він майже завжди простіший. Вільний потрібен там, де клас чужий і чіпати його не можна, — з тим застереженням, що дописати функцію в чужий простір імен вийде тільки якщо цей простір не `std`.
 
@@ -175,20 +104,6 @@ using type = std::conditional_t<I == 0, const double, std::string>;
 
 Останній крок — переконатися не в тому, що код збирається, а в тому, що типи вийшли ті, які задумано.
 
-```cpp
-hw::Sample s{40000, "ch0"};
-static_assert(std::tuple_size_v<hw::Sample> == 2);
-
-auto& [u, tag] = s;                    // e — Sample&, працює get() &
-static_assert(std::is_same_v<decltype(u),   double>);
-static_assert(std::is_same_v<decltype(tag), std::string>);
-
-const auto& [cu, ctag] = s;            // e — const Sample&, працює get() const&
-static_assert(std::is_same_v<decltype(cu),   const double>);
-static_assert(std::is_same_v<decltype(ctag), const std::string>);
-
-tag = "ch0-rev2";                      // пише в поле s: tag — ім'я підоб'єкта
-u   = 0.0;                             // пише в тимчасовий double: s не змінився
-```
+:::code proj-tuple-like/cpp/perevirka.hpp
 
 Два зв'язування виглядають однаково, а поводяться по-різному — і це не дефект, а точний портрет того, що написано в `get`: мітка існує в об'єкті, напруга існує лише в момент запитання. Пара `const double`/`const std::string` у другому наборі перевірок з'явилася сама — її дала бібліотечна спеціалізація `tuple_element` для `const`-типів, якої ви не писали.

@@ -218,73 +218,7 @@ CheckOptions:
 
 Для бібліотек, які повинні одночасно збиратися у середовищах із різними стандартами (наприклад, відкрита бібліотека, що надає інтерфейси для клієнтів C++11, C++17 та C++20), створюється єдиний заголовок сумісності. Він інкапсулює перевірку макросів і надає уніфіковані типи у власному просторі назв `compat::`.
 
-```cpp
-#pragma once
-
-// 1. Безпечне підключення заголовка версій стандарту
-#if defined(__has_include)
-    #if __has_include(<version>)
-        #include <version>
-    #else
-        #include <cstddef>
-    #endif
-#endif
-
-// 2. Атрибути безпеки та діагностики
-#if defined(__has_cpp_attribute)
-    #if __has_cpp_attribute(nodiscard) >= 201603L
-        #define COMPAT_NODISCARD [[nodiscard]]
-    #else
-        #define COMPAT_NODISCARD
-    #endif
-
-    #if __has_cpp_attribute(maybe_unused) >= 201603L
-        #define COMPAT_UNUSED [[maybe_unused]]
-    #elif defined(__GNUC__) || defined(__clang__)
-        #define COMPAT_UNUSED __attribute__((unused))
-    #else
-        #define COMPAT_UNUSED
-    #endif
-
-    #if __has_cpp_attribute(fallthrough) >= 201603L
-        #define COMPAT_FALLTHROUGH [[fallthrough]]
-    #elif defined(__clang__)
-        #define COMPAT_FALLTHROUGH [[clang::fallthrough]]
-    #elif defined(__GNUC__) && (__GNUC__ >= 7)
-        #define COMPAT_FALLTHROUGH __attribute__((fallthrough))
-    #else
-        #define COMPAT_FALLTHROUGH ((void)0)
-    #endif
-#else
-    #define COMPAT_NODISCARD
-    #define COMPAT_UNUSED
-    #define COMPAT_FALLTHROUGH ((void)0)
-#endif
-
-// 3. Аліаси та резервні реалізації для std::string_view
-#if defined(__cpp_lib_string_view) && (__cpp_lib_string_view >= 201606L)
-    #include <string_view>
-    namespace compat {
-        using string_view = std::string_view;
-    }
-#else
-    #include <string>
-    namespace compat {
-        // Резервна спрощена реалізація неволодіючого рядка для C++11/14
-        class string_view {
-            const char* data_;
-            std::size_t size_;
-        public:
-            constexpr string_view() noexcept : data_(nullptr), size_(0) {}
-            constexpr string_view(const char* str, std::size_t len) noexcept : data_(str), size_(len) {}
-            string_view(const std::string& str) noexcept : data_(str.data()), size_(str.size()) {}
-            constexpr const char* data() const noexcept { return data_; }
-            constexpr std::size_t size() const noexcept { return size_; }
-            constexpr bool empty() const noexcept { return size_ == 0; }
-        };
-    }
-#endif
-```
+:::code api-migration-tooling/cpp/main.hpp
 
 ---
 
@@ -294,23 +228,7 @@ CheckOptions:
 
 ### Прив'язка стандарту до таргету
 
-```cmake
-# Оголошення таргету бібліотеки
-add_library(core_engine
-    src/engine.cpp
-    src/memory.cpp
-)
-
-# Вимога підтримки функціоналу C++17 для компіляції цієї бібліотеки
-target_compile_features(core_engine PUBLIC cxx_std_17)
-
-# Суворе закріплення стандарту та відключення нестандартних вендорних розширень
-set_target_properties(core_engine PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-)
-```
+:::code api-migration-tooling/cmake/pryviazka-standartu-do.cmake
 
 Властивість `CXX_STANDARD_REQUIRED ON` змушує CMake негайно завершити генерацію з помилкою, якщо поточний компілятор не підтримує вказаний стандарт, замість тихого відкату до старішої версії. Властивість `CXX_EXTENSIONS OFF` відключає прапорці розширень (`-std=gnu++17`) на користь чистого стандарту (`-std=c++17`).
 
@@ -318,44 +236,10 @@ set_target_properties(core_engine PROPERTIES
 
 CMake дозволяє запускати `clang-tidy` як внутрішній крок компіляції кожного вихідного файлу:
 
-```cmake
-# Пошук виконуваного файлу Clang-Tidy
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy" "clang-tidy-17" "clang-tidy-16")
-
-if(CLANG_TIDY_EXE)
-    set_target_properties(core_engine PROPERTIES
-        CXX_CLANG_TIDY "${CLANG_TIDY_EXE};--config-file=${CMAKE_CURRENT_SOURCE_DIR}/.clang-tidy;--warnings-as-errors=*"
-    )
-    message(STATUS "Clang-Tidy успішно підключено до таргету core_engine")
-else()
-    message(WARNING "clang-tidy не знайдено, перевірки modernize вимкнено")
-endif()
-```
+:::code api-migration-tooling/cmake/avtomatyzovanyi-lintynh.cmake
 
 ### Інтерфейсний таргет для уніфікованих прапорців діагностики
 
 Щоб не дублювати прапорці суворої діагностики у кожному `CMakeLists.txt`, створюють інтерфейсний таргет:
 
-```cmake
-add_library(strict_warnings INTERFACE)
-
-target_compile_options(strict_warnings INTERFACE
-    $<$<CXX_COMPILER_ID:MSVC>:
-        /W4
-        /permissive-
-        /Zc:__cplusplus
-        /we4996
-    >
-    $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wdeprecated
-        -Werror=deprecated-declarations
-        -Wsuggest-override
-    >
-)
-
-# Підключення до цільових бібліотек
-target_link_libraries(core_engine PRIVATE strict_warnings)
-```
+:::code api-migration-tooling/cmake/interfeisnyi-tarhet-dlia.cmake

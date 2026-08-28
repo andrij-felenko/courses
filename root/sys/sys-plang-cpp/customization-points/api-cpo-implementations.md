@@ -12,57 +12,13 @@
 
 У наведеному нижче шаблоні реалізовано двокрокову систему `serialize_impl`. Перша гілка відповідає за стандартний запасний варіант (fallback), яка активується тільки у тому випадку, коли користувацький тип не надає власного перевантаження. Друга гілка через SFINAE перевіряє наявність функції `serialize` у просторі імен аргументу:
 
-```cpp
-namespace my_lib {
-    namespace detail {
-        // Низькопріоритетний фолбек для будь-яких типів, що підтримують std::ostream
-        template<typename T>
-        auto serialize_impl(const T& obj, std::ostream& os, long)
-            -> decltype(os << obj, void())
-        {
-            os << obj;
-        }
-
-        // Високопріоритетне перевантаження, що активується за наявності користувацької serialize
-        template<typename T>
-        auto serialize_impl(const T& obj, std::ostream& os, int)
-            -> decltype(serialize(os, obj), void()) 
-        {
-            serialize(os, obj); // Виклик користувацької функції через ADL
-        }
-    }
-
-    // Публічний фасад бібліотеки
-    template<typename T>
-    void serialize(const T& obj, std::ostream& os) {
-        using my_lib::detail::serialize_impl;
-        serialize_impl(obj, os, 0); // int(0) віддає перевагу високопріоритетній гілці
-    }
-}
-```
+:::code api-cpo-implementations/cpp/mekhanizm.cpp
 
 ### Контракт реалізації в користувацькому коді
 
 Розробник користувацького типу має оголосити функцію `serialize` у тому ж просторі імен, де визначено сам тип. Найбільш надійним способом є використання дружньої вкладеної функції (`friend function`), яка оголошується всередині тіла структури чи класу. Це гарантує, що функція не засмічує зовнішній простір імен і доступна виключно через ADL при передачі об'єкта даного типу:
 
-```cpp
-namespace user_space {
-    class DataPacket {
-    private:
-        std::string header_;
-        std::vector<uint8_t> payload_;
-
-    public:
-        DataPacket(std::string h, std::vector<uint8_t> p)
-            : header_(std::move(h)), payload_(std::move(p)) {}
-
-        // Дружня точка налаштування, що знаходиться виключно через ADL
-        friend void serialize(std::ostream& os, const DataPacket& packet) {
-            os << "Packet[" << packet.header_ << "]: " << packet.payload_.size() << " bytes";
-        }
-    };
-}
-```
+:::code api-cpo-implementations/cpp/kontrakt-realizatsii-v.cpp
 
 Головним обмеженням даної моделі є відсутність суворого контролю на рівні сигнатури виклику: якщо розробник припустився помилки у типах аргументів дружньої функції, компілятор мовчки відкине її й застосує фолбек, що призводить до важковловимих помилок під час виконання програмою.
 
@@ -124,55 +80,7 @@ namespace std::ranges::__detail {
 
 Нижче наведено вичерпну виробничу реалізацію CPO `my_lib::draw`. Архітектура розбита на чотири ізольовані шари: отруєний контекст для запобігання рекурсії, предикати концептів, клас-функтор та глобальний екземпляр.
 
-```cpp
-namespace my_lib {
-    namespace __draw_detail {
-        // Крок 1: Оголошення видаленої функції в отруєному контексті.
-        // Це блокує нескінченну рекурсію, якщо ADL знову знайде назву draw
-        void draw() = delete;
-
-        // Крок 2: Опис концептів для послідовного вибору гілки диспетчеризації
-        template<typename T>
-        concept has_member_draw = requires(T&& t) {
-            std::forward<T>(t).draw();
-        };
-
-        template<typename T>
-        concept has_adl_draw = !has_member_draw<T> && requires(T&& t) {
-            draw(std::forward<T>(t)); // ADL шукає у внутрішньому просторі __draw_detail
-        };
-
-        // Крок 3: Головний тип функтора
-        struct __draw_fn {
-            // Гілка 1: Виклик методу-члена класу t.draw()
-            template<has_member_draw T>
-            constexpr auto operator()(T&& t) const
-                noexcept(noexcept(std::forward<T>(t).draw()))
-            {
-                return std::forward<T>(t).draw();
-            }
-
-            // Гілка 2: Виклик функції draw(t) через ADL у ізольованому контексті
-            template<has_adl_draw T>
-            constexpr auto operator()(T&& t) const
-                noexcept(noexcept(draw(std::forward<T>(t))))
-            {
-                return draw(std::forward<T>(t));
-            }
-
-            // Заборона шкідливих операцій над CPO об'єктом
-            __draw_fn() = default;
-            __draw_fn(const __draw_fn&) = delete;
-            __draw_fn(__draw_fn&&) = delete;
-            __draw_fn& operator=(const __draw_fn&) = delete;
-            __draw_fn& operator=(__draw_fn&&) = delete;
-        };
-    }
-
-    // Крок 4: Глобальна inline constexpr константа CPO
-    inline constexpr __draw_detail::__draw_fn draw{};
-}
-```
+:::code api-cpo-implementations/cpp/anatomiia-klasu-cpo-custom.cpp
 
 ### Використання концептів для перевірки спроможності виклику
 
@@ -215,80 +123,19 @@ void render_object(const T& obj) {
 
 Двигун складається з базового функтора `__tag_invoke_fn`, концепту перевірки `tag_invocable` та єдиного глобального CPO `my_framework::tag_invoke`:
 
-```cpp
-namespace my_framework {
-    namespace __tag_invoke_detail {
-        // Оголошення незавершеної функції в отруєному контексті
-        void tag_invoke();
-
-        // Концепт перевірки спроможності виклику tag_invoke для даного тегу та аргументів
-        template<typename Tag, typename... Args>
-        concept tag_invocable = requires(Tag&& tag, Args&&... args) {
-            tag_invoke(std::forward<Tag>(tag), std::forward<Args>(args)...);
-        };
-
-        // Функтор диспетчеризації
-        struct __tag_invoke_fn {
-            template<typename Tag, typename... Args>
-                requires tag_invocable<Tag, Args...>
-            constexpr decltype(auto) operator()(Tag&& tag, Args&&... args) const
-                noexcept(noexcept(tag_invoke(std::forward<Tag>(tag), std::forward<Args>(args)...)))
-            {
-                return tag_invoke(std::forward<Tag>(tag), std::forward<Args>(args)...);
-            }
-        };
-    }
-
-    // Єдиний глобальний об'єкт диспетчеризації
-    inline constexpr __tag_invoke_detail::__tag_invoke_fn tag_invoke{};
-
-    // Допоміжний концепт для публічного користування
-    template<typename Tag, typename... Args>
-    concept tag_invocable = __tag_invoke_detail::tag_invocable<Tag, Args...>;
-}
-```
+:::code api-cpo-implementations/cpp/povnyi-vyrobnychyi-shablon.cpp
 
 ### Створення конкретної точки налаштування (Тегу)
 
 Для створення нової точки налаштування у фреймворку не потрібно знову писати класи ізоляції ADL. Достатньо визначити порожній тип тегу з власним `operator()`:
 
-```cpp
-namespace my_framework {
-    // Структура тегу точки налаштування "connect"
-    struct connect_t {
-        template<typename Sender, typename Receiver>
-            requires tag_invocable<connect_t, Sender, Receiver>
-        constexpr decltype(auto) operator()(Sender&& s, Receiver&& r) const
-            noexcept(noexcept(tag_invoke(connect_t{}, std::forward<Sender>(s), std::forward<Receiver>(r))))
-        {
-            return tag_invoke(connect_t{}, std::forward<Sender>(s), std::forward<Receiver>(r));
-        }
-    };
-
-    // Глобальний об'єкт точки налаштування connect
-    inline constexpr connect_t connect{};
-}
-```
+:::code api-cpo-implementations/cpp/stvorennia-konkretnoi.cpp
 
 ### Інтеграція користувацького типу з двигуном `tag_invoke`
 
 Користувач описує будь-яку кількість точок налаштування фреймворку всередині свого класу через уніфікований інтерфейс `friend tag_invoke`:
 
-```cpp
-namespace user_space {
-    struct MyOperationState {
-        void start() noexcept {}
-    };
-
-    struct MySender {
-        // Реалізація точки налаштування connect для MySender
-        template<typename Receiver>
-        friend auto tag_invoke(my_framework::connect_t, MySender&& self, Receiver&& r) noexcept {
-            return MyOperationState{};
-        }
-    };
-}
-```
+:::code api-cpo-implementations/cpp/intehratsiia.cpp
 
 ### Основні точки налаштування у `std::execution` (C++26 P2300)
 
@@ -309,21 +156,7 @@ namespace user_space {
 
 ### Шаблон CPO стандарту C++23/C++26
 
-```cpp
-namespace my_lib_cpp23 {
-    struct __process_fn {
-        // Статичний оператор виклику усуває оверхед передачі прихованого аргументу this
-        template<typename T>
-        static constexpr auto operator()(T&& t) noexcept(noexcept(std::forward<T>(t).process()))
-            requires requires { std::forward<T>(t).process(); }
-        {
-            return std::forward<T>(t).process();
-        }
-    };
-
-    inline constexpr __process_fn process{};
-}
-```
+:::code api-cpo-implementations/cpp/shablon-cpo-standartu-c-23.cpp
 
 ---
 

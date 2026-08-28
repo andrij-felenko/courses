@@ -27,39 +27,8 @@
 Коли контракт ненульовості не виражений у типі параметра, розробники змушені або сліпо довіряти клієнтському коду, ризикуючи отримати аварійне завершення процесу сигналом `SIGSEGV` при спробі розіменування, або нагромаджувати перевірки в кожному виклику:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int id;
-    double scale;
-} TransformConfig;
-
-/* Захисне C-програмування: перевірка на null у кожній функції */
-void apply_transform_c(const TransformConfig* cfg, double* value) {
-    if (cfg == NULL || value == NULL) {
-        return; /* Прихований збій або дублювання перевірок */
-    }
-    *value = (*value) * cfg->scale;
-}
-```
-```cpp
-#include <iostream>
-#include <gsl/gsl>
-
-struct TransformConfig {
-    int id;
-    double scale;
-};
-
-// Контракт виражено в системі типів: p не може бути nullptr
-void apply_transform_cpp(gsl::not_null<const TransformConfig*> cfg, 
-                         gsl::not_null<double*> value) noexcept {
-    // Жодних перевірок у тілі: гарантовано валідні адреси на рівні компілятора
-    *value = (*value) * cfg->scale;
-}
-```
+:::code gsl-support-library-d/c/1-anatomiia-nenulovykh.c
+:::code gsl-support-library-d/cpp/1-anatomiia-nenulovykh.cpp
 :::
 
 Шаблонний клас `gsl::not_null<T>` інкапсулює довільний вказівникоподібний тип (сирий покажчик `U*`, розумний вказівник `std::unique_ptr<U>` або `std::shared_ptr<U>`) і підтримує незмінний інваріант: внутрішня адреса ніколи не дорівнює `nullptr`.
@@ -152,46 +121,8 @@ namespace gsl {
 4. **Заборона адресної арифметики над власниками (Rule C26408)**: Власницький покажчик представляє дискретний виділений блок пам'яті. Зміщення покажчика `owner` арифметикою вказівників (`ptr++`) призведе до втрати початкової адреси, виділеної аллокатором, через що подальший виклик `free(ptr)` або `delete ptr` спричинить фатальне пошкодження динамічної купи (Heap Corruption).
 
 :::tabs
-```c
-#include <stdlib.h>
-
-typedef struct {
-    int* data;
-    size_t count;
-} IntBuffer;
-
-/* Застарілий C-підхід: відповідальність за free не зафіксована */
-IntBuffer* create_buffer_c(size_t count) {
-    IntBuffer* buf = (IntBuffer*)malloc(sizeof(IntBuffer));
-    if (!buf) return NULL;
-    buf->data = (int*)malloc(count * sizeof(int));
-    buf->count = count;
-    return buf; /* Хто і як має звільняти buf->data та buf? */
-}
-```
-```cpp
-#include <gsl/gsl>
-
-struct IntBuffer {
-    gsl::owner<int*> data; // Лінтер вимагає явного delete[] для цього поля
-    size_t count;
-};
-
-// Функція явно декларує передачу власності через повернене значення
-gsl::owner<IntBuffer*> create_buffer_cpp(size_t count) {
-    auto buf = new IntBuffer();
-    buf->data = new int[count];
-    buf->count = count;
-    return buf; // Статичний аналізатор перевіряє передачу власності
-}
-
-void destroy_buffer_cpp(gsl::owner<IntBuffer*> buf) {
-    if (buf) {
-        delete[] buf->data; // Звільнення вкладеного ресурсу
-        delete buf;         // Звільнення структури
-    }
-}
-```
+:::code gsl-support-library-d/c/semantychna-rol-ta-pravyla.c
+:::code gsl-support-library-d/cpp/semantychna-rol-ta-pravyla.cpp
 :::
 
 ### Граф потоку керування та діагностика витоків
@@ -250,39 +181,8 @@ for (gsl::index i = s.size() - 1; i >= 0; --i) {
 Метод `.subspan(offset, count)` створює новий об'єкт `gsl::span`, що адресує частину початкового масиву без виділення пам'яті в купі та без копіювання елементів. Усі перевірки зсувів та розмірів підвибірки виконуються у точці виклику:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-/* Робота з сирим буфером у C: ризик помилки у зсувах покажчиків */
-void parse_payload_c(const uint8_t* packet, int total_len) {
-    if (total_len < 16) return;
-    
-    const uint8_t* payload = packet + 8;
-    int payload_len = total_len - 12; /* Помилка в арифметиці призводить до виходу за межі */
-    
-    uint8_t temp[32];
-    if (payload_len > 0 && payload_len <= 32) {
-        memcpy(temp, payload, payload_len);
-    }
-}
-```
-```cpp
-#include <gsl/gsl>
-#include <array>
-
-// Робота через типобезпечний зріз gsl::span
-void parse_payload_cpp(gsl::span<const gsl::byte> packet) {
-    if (packet.size() < 16) return;
-
-    // Створення піддіапазону: автоматична валідація зміщення та довжини
-    auto payload = packet.subspan(8, packet.size() - 12);
-    
-    // Статичний зріз фіксованого розміру
-    auto header = packet.first<8>(); 
-    (void)header;
-}
-```
+:::code gsl-support-library-d/c/stvorennia-pidvybirok.c
+:::code gsl-support-library-d/cpp/stvorennia-pidvybirok.cpp
 :::
 
 ### Захист від порушення строгого аліасингу (Strict Aliasing)
@@ -354,18 +254,7 @@ namespace gsl {
 
 Функція `gsl::narrow<Target>(source)` виконує звужуюче перетворення з обов'язковою верифікацією збереження значення під час виконання:
 
-```cpp
-template <class Target, class Source>
-constexpr Target narrow(Source u) {
-    Target t = static_cast<Target>(u);
-    // Перевірка 1: Чи повертає зворотне приведення вихідне значення?
-    // Перевірка 2: Чи збігаються знаки вихідного та цільового чисел?
-    if (static_cast<Source>(t) != u || ((t < Target{}) != (u < Source{}))) {
-        throw narrowing_error{};
-    }
-    return t;
-}
-```
+:::code gsl-support-library-d/cpp/mekhanizm-perevirky-gsl.cpp
 
 Розглянемо чотири критичні сценарії, які перехоплює алгоритм `gsl::narrow`:
 1. **Звуження розрядності цілих чисел (`int64_t` → `int32_t`)**: Якщо старші 32 біти містять непотрібні одиниці, зворотне приведення `static_cast<int64_t>(t)` дасть число, відмінне від оригіналу, викликавши `gsl::narrowing_error`.
@@ -390,56 +279,8 @@ constexpr Target narrow(Source u) {
 Функція `gsl::finally` реалізує ідіому Scope Guard (охоронець області видимості):
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Традиційне C-очищення ресурсів через мітки goto */
-int process_file_c(const char* filename) {
-    FILE* f = fopen(filename, "rb");
-    if (!f) return -1;
-
-    void* buffer = malloc(1024);
-    if (!buffer) {
-        fclose(f);
-        return -2;
-    }
-
-    /* Якщо тут виникне помилка, потрібно не забути всі free та fclose */
-    if (fread(buffer, 1, 1024, f) != 1024) {
-        free(buffer);
-        fclose(f);
-        return -3;
-    }
-
-    free(buffer);
-    fclose(f);
-    return 0;
-}
-```
-```cpp
-#include <gsl/gsl>
-#include <cstdio>
-#include <vector>
-
-// Сучасний C++ Scope Guard на базі gsl::finally
-int process_file_cpp(gsl::czstring filename) {
-    FILE* f = std::fopen(filename, "rb");
-    if (!f) return -1;
-
-    // Гарантоване закриття дескриптора при будь-якому виході з функції
-    auto file_guard = gsl::finally([f] {
-        std::fclose(f);
-    });
-
-    std::vector<gsl::byte> buffer(1024);
-    if (std::fread(buffer.data(), 1, buffer.size(), f) != buffer.size()) {
-        return -3; // file_guard автоматично викличе fclose(f)
-    }
-
-    return 0; // file_guard автоматично викличе fclose(f)
-}
-```
+:::code gsl-support-library-d/c/6-zakhyst-oblastei.c
+:::code gsl-support-library-d/cpp/6-zakhyst-oblastei.cpp
 :::
 
 ### Анатомія та інваріанти final_action
@@ -462,28 +303,7 @@ int process_file_cpp(gsl::czstring filename) {
 
 Бібліотека GSL надає макроси `Expects(condition)` та `Ensures(condition)` для декларативного вираження контрактів:
 
-```cpp
-double calculate_sensor_variance(gsl::span<const double> samples, gsl::not_null<double*> mean_out) {
-    // Преумови функції (Preconditions)
-    Expects(samples.size() >= 2);
-    Expects(!samples.empty());
-
-    double sum = 0.0;
-    for (double s : samples) sum += s;
-    *mean_out = sum / static_cast<double>(samples.size());
-
-    double variance = 0.0;
-    for (double s : samples) {
-        double diff = s - *mean_out;
-        variance += diff * diff;
-    }
-    variance /= static_cast<double>(samples.size() - 1);
-
-    // Постумова функції (Postconditions)
-    Ensures(variance >= 0.0);
-    return variance;
-}
-```
+:::code gsl-support-library-d/cpp/7-deklaratyvni-kontrakty.cpp
 
 ### Режими реакції на порушення контрактів
 
@@ -528,20 +348,7 @@ double calculate_sensor_variance(gsl::span<const double> samples, gsl::not_null<
 
 Якщо в низькорівневих модулях (наприклад, драйверах прямого доступу до регістрів апаратури MMIO) виникає потреба тимчасово відійти від правил, GSL надає стандартизовані засоби придушення:
 
-```cpp
-// Придушення для компілятора MSVC
-[[gsl::suppress(bounds.1)]]
-void write_hardware_register(uintptr_t base_addr, size_t offset, uint32_t val) {
-    volatile uint32_t* reg = reinterpret_cast<volatile uint32_t*>(base_addr + offset);
-    *reg = val;
-}
-
-// Придушення для аналізатора Clang-Tidy
-void process_legacy_raw_packet(char* buffer) // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-{
-    buffer[0] = '\0';
-}
-```
+:::code gsl-support-library-d/cpp/lokalne-prydushennia.cpp
 
 Такий підхід забезпечує абсолютну прозорість архітектури: кожне відхилення від безпечного стандарту документується прямо у вихідному коді, що багаторазово прискорює проведення регулярного аудиту безпеки.
 
@@ -559,20 +366,7 @@ void process_legacy_raw_packet(char* buffer) // NOLINT(cppcoreguidelines-pro-bou
 
 Завдяки заголовній структурі (англ. *header-only library*) бібліотека GSL не вимагає попередньої компіляції двійкових файлів і підключається як інтерфейсна ціль:
 
-```cmake
-# Підключення Microsoft GSL через CMake FetchContent
-include(FetchContent)
-FetchContent_Declare(
-    GSL
-    GIT_REPOSITORY https://github.com/microsoft/GSL.git
-    GIT_TAG        v4.0.0
-)
-FetchContent_MakeAvailable(GSL)
-
-add_executable(my_secure_service main.cpp)
-target_link_libraries(my_secure_service PRIVATE Microsoft.GSL::GSL)
-target_compile_features(my_secure_service PRIVATE cxx_std_20)
-```
+:::code gsl-support-library-d/cmake/CMakeLists.txt
 
 Бібліотека також доступна у всіх стандартних менеджерах пакетів C++: `vcpkg install ms-gsl` або через `Conan` за дескриптором `ms-gsl/4.0.0`. Для вбудованих платформ мікроконтролерів (ARM Cortex-M, ESP32) доступна надлегка реалізація `gsl-lite`, яка підтримує навіть консервативні стандарти C++11 та C++14.
 

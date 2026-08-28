@@ -126,21 +126,7 @@ constexpr int g_limit = 100;
 
 Специфікатор `constinit` усуває цю прогалину в дизайні мови. Він висуває до змінної рівно одну вимогу: **змінна зобов'язана пройти константну ініціалізацію під час компіляції**. При цьому він **не накладає константності** на саму змінну під час виконання:
 
-```cpp
-struct AtomicStats {
-    long long request_count{0};
-    long long error_count{0};
-    constexpr AtomicStats() noexcept = default;
-};
-
-// Гарантована ініціалізація до запуску + повна можливість модифікації в процесі роботи:
-constinit AtomicStats g_stats{};
-
-void handle_request(bool ok) {
-    g_stats.request_count++; // ПОВНІСТЮ ДОЗВОЛЕНО!
-    if (!ok) g_stats.error_count++;
-}
-```
+:::code constinit-d/cpp/pryznachennia-constinit-u.cpp
 
 ![Порівняння специфікаторів: час ініціалізації проти мутабельності](img/four-qualifiers-quadrant.svg)
 *constinit заповнює четвертий квадрант простору станів C++20: статична ініціалізація для змінних даних.*
@@ -173,21 +159,7 @@ void process() {
 
 Особливий інтерес становить застосування `constinit` до статичних змінних усередині функцій:
 
-```cpp
-struct LookupTable {
-    int values[256];
-    constexpr LookupTable() : values{} {
-        for (int i = 0; i < 256; ++i) values[i] = i * i;
-    }
-};
-
-LookupTable& get_table() {
-    // Без constinit: компілятор генерує приховану перевірку прапорця при кожному виклику
-    // З constinit: пам'ять сформована на етапі компіляції, жодних прапорців і блокувань!
-    constinit static LookupTable table{};
-    return table;
-}
-```
+:::code constinit-d/cpp/lokalni-statychni-zminni.cpp
 
 За замовчуванням стандарт C++11 вимагає, щоб локальні статичні змінні ініціалізувалися потокобезпечно при першому виклику функції. Для цього компілятори додають навколо змінної прихований атомарний прапорець (`guard variable`) та системні виклики блокування (`__cxa_guard_acquire` / `__cxa_guard_release`).
 
@@ -197,20 +169,7 @@ LookupTable& get_table() {
 
 У сучасних бібліотеках більшість коду поширюється у вигляді заголовкових файлів (.hpp). Для оголошення глобальних об'єктів у заголовках `constinit` об'єднують із ключовим словом `inline`:
 
-```cpp
-// telemetry.hpp
-#pragma once
-
-struct TelemetryConfig {
-    uint32_t sample_rate_ms;
-    bool enable_network_dump;
-    constexpr TelemetryConfig(uint32_t rate, bool dump) 
-        : sample_rate_ms(rate), enable_network_dump(dump) {}
-};
-
-// Єдиний екземпляр на всю програму з константною ініціалізацією:
-inline constinit TelemetryConfig g_telemetry_config{100, true};
-```
+:::code constinit-d/cpp/telemetry.hpp
 
 Специфікатор `inline` повідомляє компонувальнику, що визначення може дублюватися в декількох одиницях трансляції, і вимагає об'єднати всі копії в один екземпляр (дотримання правила ODR). Специфікатор `constinit` гарантує, що цей об'єднаний екземпляр не матиме коду динамічної ініціалізації.
 
@@ -265,21 +224,7 @@ constinit thread_local ThreadLocalContext t_context{};
 
 У C++20 з'явилася підтримка іменованих ініціалізаторів (англ. *designated initializers*). Поєднання `constinit` з агрегатною ініціалізацією дозволяє лаконічно конструювати складні таблиці налаштувань без створення конструкторів узагалі:
 
-```cpp
-struct ChannelOptions {
-    uint32_t buffer_size{4096};
-    uint32_t timeout_ms{500};
-    bool enable_compression{false};
-    bool enable_encryption{true};
-};
-
-// Зручна, самодокументована константна ініціалізація агрегату:
-inline constinit ChannelOptions g_primary_channel{
-    .buffer_size = 8192,
-    .timeout_ms = 1000,
-    .enable_compression = true
-};
-```
+:::code constinit-d/cpp/ahrehatna-initsializatsiia.cpp
 
 Оскільки `ChannelOptions` є агрегатним типом, компілятор безпосередньо заповнює поля структури під час збірки. Якщо будь-яке поле не вказане в ініціалізаторі (наприклад, `.enable_encryption`), воно автоматично отримує значення за замовчуванням із тіла структури, що гарантує 100% передбачуваність стану.
 
@@ -375,39 +320,13 @@ inline constinit std::atomic<uint64_t> g_global_transaction_id{1000};
 
 Згідно зі стандартом C++, змінна, оголошена як `constexpr` зі статичною тривалістю зберігання, зобов'язана мати **тривіальний деструктор** (англ. *trivial destructor*). Тобто її деструктор не повинен виконувати жодних дій при виході з програми:
 
-```cpp
-struct FileBuffer {
-    char data[1024];
-    constexpr FileBuffer() : data{} {}
-    ~FileBuffer() {
-        // Нетривіальний деструктор: наприклад, скидання даних у файл
-    }
-};
-
-// ПОМИЛКА КОМПІЛЯЦІЇ: constexpr об'єкт статичної тривалості не може мати нетривіальний деструктор!
-// constexpr FileBuffer g_bad_buf{};
-```
+:::code constinit-d/cpp/destruktory-krytychna.cpp
 
 Причина цієї вимоги для `constexpr` очевидна: якщо об'єкт є константою часу компіляції, сенс його існування полягає у використанні як константного виразу. Виконання нетривіального динамічного коду при завершенні програми суперечить цій ідеї.
 
 Натомість `constinit` контролює **виключно фазу ініціалізації**. Об'єкт із `constinit` може мати повноцінний користувацький нетривіальний деструктор:
 
-```cpp
-struct SafeRegistryGuard {
-    bool active;
-    constexpr SafeRegistryGuard() : active(true) {}
-    
-    ~SafeRegistryGuard() {
-        // Нетривіальний деструктор коректно виконається при завершенні процесу!
-        if (active) {
-            flush_system_logs();
-        }
-    }
-};
-
-// ПОВНІСТЮ КОРЕКТНО: константний старт + коректне динамічне завершення
-constinit SafeRegistryGuard g_guard{};
-```
+:::code constinit-d/cpp/destruktory-krytychna-2.cpp
 
 При старті програми пам'ять `g_guard` ініціалізується статично під час компіляції. Коли програма завершує свою роботу (після виходу з `main()` або при виклику `std::exit()`), середовище виконання C++ послідовно викликає деструктор `~SafeRegistryGuard()`, зареєстрований через системну таблицю `__cxa_atexit`.
 
@@ -488,23 +407,7 @@ constinit int g_ratio = compute_ratio(0);
 
 При використанні модульної системи C++20 (`import` / `export`) специфікатор `constinit` розв'язує проблему ініціалізації стану експортованих компонентів:
 
-```cpp
-// telemetry_system.ixx
-export module telemetry_system;
-
-import <string_view>;
-import <atomic>;
-
-export struct MetricCounter {
-    std::string_view name;
-    std::atomic<uint64_t> count{0};
-
-    constexpr MetricCounter(std::string_view n) noexcept : name(n), count(0) {}
-};
-
-// Експортований глобальний лічильник із константною ініціалізацією:
-export constinit MetricCounter g_active_connections{"network.active_connections"};
-```
+:::code constinit-d/cpp/vzaiemodiia-z-moduliamy-c.cpp
 
 Коли клієнтський модуль пише `import telemetry_system;`, компілятор не перераховує ініціалізацію наново. Значення `g_active_connections` розміщується безпосередньо в секції даних об'єктного файлу модуля, гарантуючи повну готовність лічильника до виконання коду в клієнтському модулі.
 
@@ -552,21 +455,7 @@ inline constinit Config g_config{/* константні параметри */};
 
 Якщо у вашому проекті використовувалися нестандартні атрибути для перевірки статичної ініціалізації:
 
-```cpp
-// Було: вендорні макроси
-#if defined(__clang__)
-#define REQUIRE_CONST_INIT [[clang::require_constant_initialization]]
-#elif defined(__GNUC__)
-#define REQUIRE_CONST_INIT __attribute__((require_constant_initialization))
-#else
-#define REQUIRE_CONST_INIT
-#endif
-
-REQUIRE_CONST_INIT static Mutex g_mutex;
-
-// Стало: чистий стандартизований C++20
-constinit static Mutex g_mutex;
-```
+:::code constinit-d/cpp/2-zamina-vendornykh.cpp
 
 Такий перехід повністю позбавляє код від захаращення препроцесорними макросами та гарантує однакову поведінку на всіх підтримуваних платформах та компіляторах (GCC, Clang, MSVC, Apple Clang).
 

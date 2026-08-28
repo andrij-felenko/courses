@@ -8,80 +8,7 @@
 
 Класовий шаблон `std::function` визначено в заголовочному файлі `<functional>`. Він обгортає будь-який викликальний об'єкт (функцію, лямбду, функтор, вказівник на метод чи поле), що приймає аргументи типів `Args...` і повертає значення, що конвертується до типу `R`.
 
-```cpp
-namespace std {
-    template <typename Res, typename... ArgTypes>
-    class function<Res(ArgTypes...)> {
-    public:
-        using result_type = Res;
-
-        // Вкладені typedefs для сумісності з C++11 (видалені у C++20)
-        // using argument_type = ArgType;              (лише при 1 аргументі)
-        // using first_argument_type = Arg1;           (лише при 2 аргументах)
-        // using second_argument_type = Arg2;          (лише при 2 аргументах)
-
-        // Конструктори та деструктор
-        constexpr function() noexcept;
-        constexpr function(nullptr_t) noexcept;
-        function(const function& other);
-        function(function&& other) noexcept;
-
-        template <typename F>
-        function(F&& f);
-
-        // Історичні конструктори з алокаторами (вилучені у C++17)
-        // template <typename Alloc> function(allocator_arg_t, const Alloc&) noexcept;
-        // template <typename Alloc, typename F> function(allocator_arg_t, const Alloc&, F&&);
-
-        ~function();
-
-        // Оператори присвоєння
-        function& operator=(const function& other);
-        function& operator=(function&& other) noexcept;
-        function& operator=(nullptr_t) noexcept;
-
-        template <typename F>
-        function& operator=(F&& f);
-
-        template <typename F>
-        function& operator=(reference_wrapper<F> f) noexcept;
-
-        // Модифікатори
-        void swap(function& other) noexcept;
-
-        // Обстерігачі стану (State Observers)
-        explicit operator bool() const noexcept;
-
-        // Оператор виклику
-        Res operator()(ArgTypes... args) const;
-
-        // Інтроспекція типів (RTTI Target Access)
-        const std::type_info& target_type() const noexcept;
-
-        template <typename T>
-        T* target() noexcept;
-
-        template <typename T>
-        const T* target() const noexcept;
-    };
-
-    // Нечленські функції порівняння та swap
-    template <typename Res, typename... Args>
-    bool operator==(const function<Res(Args...)>& f, nullptr_t) noexcept;
-
-    template <typename Res, typename... Args>
-    bool operator==(nullptr_t, const function<Res(Args...)>& f) noexcept;
-
-    template <typename Res, typename... Args>
-    bool operator!=(const function<Res(Args...)>& f, nullptr_t) noexcept;
-
-    template <typename Res, typename... Args>
-    bool operator!=(nullptr_t, const function<Res(Args...)>& f) noexcept;
-
-    template <typename Res, typename... Args>
-    void swap(function<Res(Args...)>& lhs, function<Res(Args...)>& rhs) noexcept;
-}
-```
+:::code api-std-function-toolbox/cpp/interfeis-std-function-r.hpp
 
 ### Деталізований специфікатор методів std::function
 
@@ -139,27 +66,7 @@ template <typename T> const T* target() const noexcept;
 - `target_type()` повертає `typeid(T)`, де `T` — це тип збереженого функтора (після `std::decay`). Якщо `std::function` порожній, повертається `typeid(void)`.
 - `target<T>()` перевіряє, чи збігається запрошений тип `T` із типом збереженого об'єкта `target_type() == typeid(T)`. У разі збігу повертає неконстантний або константний покажчик на цей об'єкт. У разі розбіжності типів або якщо `std::function` порожній, повертає `nullptr`.
 
-```cpp
-#include <functional>
-#include <iostream>
-#include <cassert>
-
-int multiply(int a, int b) { return a * b; }
-
-int main() {
-    std::function<int(int, int)> fn = multiply;
-
-    // Перевірка типу через target_type()
-    if (fn.target_type() == typeid(int(*)(int, int))) {
-        std::cout << "Target is a raw function pointer!\n";
-    }
-
-    // Отримання сирого покажчика через target<T>()
-    using RawFnPtr = int(*)(int, int);
-    RawFnPtr* raw_ptr = fn.target<RawFnPtr>();
-    assert(raw_ptr != nullptr && *raw_ptr == multiply);
-}
-```
+:::code api-std-function-toolbox/cpp/3-introspektsiia-ta-dostup.cpp
 
 ---
 
@@ -169,58 +76,7 @@ int main() {
 
 Головною синтаксичною відмінністю є підтримка кваліфікаторів у самому шаблоні типу: `std::move_only_function<Res(Args...) cv ref noexcept>`.
 
-```cpp
-namespace std {
-    template <typename Res, typename... ArgTypes>
-    class move_only_function<Res(ArgTypes...) /* cv ref noexcept */> {
-    public:
-        using result_type = Res;
-
-        // Конструктори
-        constexpr move_only_function() noexcept;
-        constexpr move_only_function(nullptr_t) noexcept;
-        move_only_function(move_only_function&& other) noexcept;
-
-        template <typename F>
-        move_only_function(F&& f);
-
-        template <typename VT, typename... Args>
-        explicit move_only_function(in_place_type_t<VT>, Args&&... args);
-
-        template <typename VT, typename U, typename... Args>
-        explicit move_only_function(in_place_type_t<VT>, initializer_list<U> il, Args&&... args);
-
-        // ДЕСТРУКТОР ТА ЗМАГАЛЬНІ ОПЕРАТОРИ КОПІЮВАННЯ ВІДСУТНІ (Deleted)
-        move_only_function(const move_only_function&) = delete;
-        move_only_function& operator=(const move_only_function&) = delete;
-
-        ~move_only_function();
-
-        // Оператори присвоєння
-        move_only_function& operator=(move_only_function&& other) noexcept;
-        move_only_function& operator=(nullptr_t) noexcept;
-
-        template <typename F>
-        move_only_function& operator=(F&& f);
-
-        // Модифікатори
-        void swap(move_only_function& other) noexcept;
-
-        // Обстерігачі
-        explicit operator bool() const noexcept;
-
-        // Оператор виклику успадковує cv/ref/noexcept кваліфікатори шаблону!
-        Res operator()(ArgTypes... args) /* cv ref noexcept */;
-    };
-
-    // Нечленські функції порівняння та swap
-    template <typename Res, typename... Args>
-    bool operator==(const move_only_function<Res(Args...)>& f, nullptr_t) noexcept;
-
-    template <typename Res, typename... Args>
-    void swap(move_only_function<Res(Args...)>& lhs, move_only_function<Res(Args...)>& rhs) noexcept;
-}
-```
+:::code api-std-function-toolbox/cpp/interfeis-std-move-only.hpp
 
 ### Специфікація кваліфікаторів сигнатури std::move_only_function
 
@@ -234,31 +90,7 @@ namespace std {
 6. `Res(Args...) const &&`: виклик на const rvalue.
 7. Версії 1–6 із специфікатором `noexcept`: оператор виклику оголошується як `noexcept`, а конструктор перевіряє за допомогою `std::is_nothrow_invocable_r`, що внутрішній об'єкт гарантує відсутність винятків.
 
-```cpp
-#include <functional>
-#include <memory>
-#include <iostream>
-
-int main() {
-    auto ptr = std::make_unique<int>(100);
-
-    // 1. Move-Only лямбда із кваліфікатором const
-    std::move_only_function<int() const> fn1 = [p = std::move(ptr)]() {
-        return *p;
-    };
-    std::cout << fn1() << '\n';
-
-    // 2. One-Shot лямбда (можна викликати лише один раз через rvalue)
-    auto resource = std::make_unique<std::string>("Data Buffer");
-    std::move_only_function<void() &&> fn_once = [r = std::move(resource)]() mutable {
-        std::cout << "Processing " << *r << '\n';
-        r.reset();
-    };
-
-    // fn_once(); // ПОМИЛКА КОМПІЛЯЦІЇ: fn_once має кваліфікатор &&
-    std::move(fn_once)(); // Успішно!
-}
-```
+:::code api-std-function-toolbox/cpp/spetsyfikatsiia.cpp
 
 ### Відсутність RTTI у std::move_only_function
 
@@ -270,38 +102,7 @@ int main() {
 
 Класовий шаблон `std::function_ref` входить до стандарту C++26 (заголовочний файл `<functional>`). Це легковаговий безволодісний об'єкт-погляд (view), що складається з покажчика на об'єкт `void*` та покажчика на статичну тланк-функцію.
 
-```cpp
-namespace std {
-    template <typename Res, typename... ArgTypes>
-    class function_ref<Res(ArgTypes...) /* cv noexcept */> {
-    public:
-        // Конструктори від будь-якого callable без алокацій
-        template <typename F>
-        constexpr function_ref(F* f) noexcept;
-
-        template <typename F>
-        constexpr function_ref(F&& f) noexcept;
-
-        // Конструктор від методів класів (Bound member pointers)
-        template <auto f, typename T>
-        constexpr function_ref(T&& obj) noexcept;
-
-        template <auto f>
-        constexpr function_ref() noexcept;
-
-        // Конструктори та оператори копіювання (trivially copyable)
-        constexpr function_ref(const function_ref&) noexcept = default;
-        constexpr function_ref& operator=(const function_ref&) noexcept = default;
-
-        // Оператор виклику
-        Res operator()(ArgTypes... args) const /* noexcept */;
-    };
-
-    // Автоматична вивід типів (Deduction Guides)
-    template <typename F>
-    function_ref(F*) -> function_ref<F>;
-}
-```
+:::code api-std-function-toolbox/cpp/interfeis-std-function-ref.cpp
 
 ### Фундаментальні відмінності std::function_ref від володіючих контейнерів
 
@@ -310,29 +111,7 @@ namespace std {
 3. **Відсутність `operator bool()`**: Оскільки порожній стан відсутній, перевірка на `bool` не потрібна та вилучена з інтерфейсу.
 4. **Тривіальна копійованість (Trivially Copyable)**: Розмір об'єкта становить `2 * sizeof(void*)` (16 байтів у 64-бітних системах). Він передається через процесорні регістри як звичайна структура з двох покажчиків.
 
-```cpp
-#include <functional>
-#include <iostream>
-#include <vector>
-
-// Приклад використання std::function_ref у C++26 для виклику зворотного зв'язку
-void filter_numbers(const std::vector<int>& numbers, std::function_ref<bool(int)> predicate) {
-    for (int n : numbers) {
-        if (predicate(n)) {
-            std::cout << n << ' ';
-        }
-    }
-    std::cout << '\n';
-}
-
-int main() {
-    std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-    int threshold = 5;
-    // Лямбда передається без жодної алокації та без копіювання буфера!
-    filter_numbers(data, [threshold](int val) { return val > threshold; });
-}
-```
+:::code api-std-function-toolbox/cpp/fundamentalni-vidminnosti.cpp
 
 ---
 

@@ -61,19 +61,7 @@ AddressSanitizer замінює системні функції `malloc`, `callo
 
 Компілятор розгортає в таку еквівалентну послідовність низькорівневих перевірок:
 
-```cpp
-char* shadow = reinterpret_cast<char*>((reinterpret_cast<uintptr_t>(ptr) >> 3) + 0x7fff8000);
-int8_t shadow_val = *shadow;
-
-if (shadow_val != 0) {
-    // Якщо байт не нульовий, перевіряємо, чи дозволений доступ до останнього байта
-    if (shadow_val < 0 || (static_cast<int8_t>(reinterpret_cast<uintptr_t>(ptr) & 7) + 3) >= shadow_val) {
-        __asan_report_store4(reinterpret_cast<uintptr_t>(ptr));
-    }
-}
-
-*ptr = 42;
-```
+:::code proj-asan-shadow-memory/cpp/instrumentatsiia-kodu.cpp
 
 На рівні асемблера x86-64 для прямого 8-байтного звернення перевірка зводиться лише до чотирьох машинних інструкцій:
 
@@ -93,91 +81,8 @@ movq    $42, (%rax)
 Розгляньмо практичну ситуацію: внутрішній буфер динамічного масиву релокується під час зростання, тоді як зовнішній код утримує пряме посилання або вказівник на один із його елементів.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    int id;
-    char name[32];
-} Session;
-
-typedef struct {
-    Session* data;
-    size_t size;
-    size_t capacity;
-} SessionVector;
-
-void vector_init(SessionVector* v, size_t cap) {
-    v->data = (Session*)malloc(cap * sizeof(Session));
-    v->size = 0;
-    v->capacity = cap;
-}
-
-void vector_push(SessionVector* v, int id, const char* name) {
-    if (v->size >= v->capacity) {
-        size_t new_cap = v->capacity * 2;
-        Session* new_data = (Session*)malloc(new_cap * sizeof(Session));
-        memcpy(new_data, v->data, v->size * sizeof(Session));
-        free(v->data); // Старий буфер звільнено!
-        v->data = new_data;
-        v->capacity = new_cap;
-    }
-    v->data[v->size].id = id;
-    strncpy(v->data[v->size].name, name, sizeof(v->data[v->size].name) - 1);
-    v->data[v->size].name[sizeof(v->data[v->size].name) - 1] = '\0';
-    v->size++;
-}
-
-int main(void) {
-    SessionVector vec;
-    vector_init(&vec, 2);
-    vector_push(&vec, 101, "AdminAuth");
-    vector_push(&vec, 102, "UserGuest");
-
-    // Зберігаємо прямий вказівник на перший елемент
-    Session* primary = &vec.data[0];
-
-    // Додавання третього елемента викликає релокацію та free(v->data)
-    vector_push(&vec, 103, "ServiceWorker");
-
-    // Помилка: primary вказує на звільнений буфер (Heap-Use-After-Free)
-    printf("Сесія ID: %d, Назва: %s\n", primary->id, primary->name);
-
-    free(vec.data);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <string>
-#include <vector>
-
-struct Session {
-    int id;
-    std::string name;
-};
-
-int main() {
-    std::vector<Session> sessions;
-    sessions.reserve(2);
-    sessions.push_back({101, "AdminAuth"});
-    sessions.push_back({102, "UserGuest"});
-
-    // Зберігаємо посилання на перший елемент
-    const Session& primary = sessions[0];
-
-    // Додавання третього елемента перевищує reserve(2) і спричиняє релокацію буфера
-    sessions.push_back({103, "ServiceWorker"});
-
-    // Помилка: primary дивиться на старий звільнений буфер (Heap-Use-After-Free)
-    std::cout << "Сесія ID: " << primary.id << ", Назва: " << primary.name << '\n';
-
-    return 0;
-}
-```
+:::code proj-asan-shadow-memory/c/vidtvorennia-heap-use.c
+:::code proj-asan-shadow-memory/cpp/vidtvorennia-heap-use.cpp
 :::
 
 Збережемо код у файл `uaf_demo.cpp` та скомпілюємо з підтримкою AddressSanitizer і налагоджувальними символами:
@@ -243,54 +148,8 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
 ### Приклад дефекту висячого стека
 
 :::tabs
-```c
-#include <stdio.h>
-
-const int* get_multiplier(void) {
-    int factor = 10;
-    return &factor; // Повертає адресу локальної змінної стека
-}
-
-void overwrite_stack(void) {
-    volatile double array[32];
-    for (int i = 0; i < 32; ++i) array[i] = 3.14159;
-}
-
-int main(void) {
-    const int* p = get_multiplier();
-    
-    overwrite_stack(); // Перезаписує звільнений кадр
-    
-    // Невизначена поведінка: читання з розкрученого стека
-    printf("Значення коефіцієнта: %d\n", *p);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <string>
-
-std::string_view format_greeting(const std::string& name) {
-    std::string message = "Привіт, " + name + "!";
-    return std::string_view(message); // Повертає view на тимчасовий локальний об'єкт
-}
-
-void overwrite_stack() {
-    volatile double array[32];
-    for (int i = 0; i < 32; ++i) array[i] = 3.14159;
-}
-
-int main() {
-    std::string_view greeting = format_greeting("Олексій");
-    
-    overwrite_stack(); // Перезаписує пам'ять старого кадру
-    
-    // Помилка: читання мертвого стека через string_view
-    std::cout << greeting << '\n';
-    return 0;
-}
-```
+:::code proj-asan-shadow-memory/c/pryklad-defektu-vysiachoho.c
+:::code proj-asan-shadow-memory/cpp/pryklad-defektu-vysiachoho.cpp
 :::
 
 ### Увімкнення та діагностика Fake Stack
@@ -341,105 +200,8 @@ Shadow byte legend:
 Ось приклад власного пулу пам'яті з підтримкою діагностики ASan:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <sanitizer/asan_interface.h>
-
-typedef struct {
-    char buffer[1024];
-    size_t offset;
-} SimpleArena;
-
-void arena_init(SimpleArena* a) {
-    a->offset = 0;
-    // Спочатку вся пам'ять арени отруєна
-    ASAN_POISON_MEMORY_REGION(a->buffer, sizeof(a->buffer));
-}
-
-void* arena_alloc(SimpleArena* a, size_t size) {
-    if (a->offset + size > sizeof(a->buffer)) return NULL;
-    void* ptr = &a->buffer[a->offset];
-    a->offset += size;
-    // Відкриваємо доступ лише до виділеного діапазону
-    ASAN_UNPOISON_MEMORY_REGION(ptr, size);
-    return ptr;
-}
-
-void arena_reset(SimpleArena* a) {
-    a->offset = 0;
-    // Знову отруюємо всю пам'ять арени при скиданні
-    ASAN_POISON_MEMORY_REGION(a->buffer, sizeof(a->buffer));
-}
-
-int main(void) {
-    SimpleArena arena;
-    arena_init(&arena);
-
-    int* val = (int*)arena_alloc(&arena, sizeof(int));
-    *val = 100;
-
-    arena_reset(&arena); // Логічне звільнення всієї арени
-
-    // Спроба звернення після reset викличе миттєву помилку ASan!
-    printf("Значення: %d\n", *val);
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstddef>
-#include <vector>
-#include <sanitizer/asan_interface.h>
-
-template <size_t TotalBytes = 1024>
-class CustomArena {
-    alignas(std::max_align_t) std::byte storage_[TotalBytes];
-    size_t offset_{0};
-
-public:
-    CustomArena() {
-        // Позначаємо всю пам'ять як заблоковану
-        ASAN_POISON_MEMORY_REGION(storage_, TotalBytes);
-    }
-
-    ~CustomArena() {
-        // Очищаємо перед знищенням
-        ASAN_UNPOISON_MEMORY_REGION(storage_, TotalBytes);
-    }
-
-    void* allocate(size_t bytes) {
-        size_t aligned = (bytes + alignof(std::max_align_t) - 1) & ~(alignof(std::max_align_t) - 1);
-        if (offset_ + aligned > TotalBytes) return nullptr;
-        void* ptr = &storage_[offset_];
-        offset_ += aligned;
-        // Відкриваємо доступ лише для алокованого блоку
-        ASAN_UNPOISON_MEMORY_REGION(ptr, bytes);
-        return ptr;
-    }
-
-    void reset() {
-        offset_ = 0;
-        // При скиданні знову блокуємо весь масив
-        ASAN_POISON_MEMORY_REGION(storage_, TotalBytes);
-    }
-};
-
-int main() {
-    CustomArena<512> arena;
-
-    int* num = static_cast<int*>(arena.allocate(sizeof(int)));
-    *num = 42;
-
-    arena.reset(); // Скидання арени
-
-    // Помилка: ASan перехопить Use-After-Free навіть у кастомній арені
-    std::cout << "Число: " << *num << '\n';
-
-    return 0;
-}
-```
+:::code proj-asan-shadow-memory/c/ruchne-otruiennia-pamiati.c
+:::code proj-asan-shadow-memory/cpp/ruchne-otruiennia-pamiati.cpp
 :::
 
 ## Налагодження звітів ASan у GDB та керування опціями

@@ -8,23 +8,7 @@
 
 Усі типи простору імен `std` для кооперативного скасування спираються на концепцію спільного стану скасування (Shared Stop State), виділеного у динамічній пам'яті:
 
-```cpp
-namespace std {
-    // Неволодіючий спостерігач стану скасування
-    class stop_token;
-
-    // Володіюче джерело ініціації сигналу скасування
-    class stop_source;
-
-    // RAII-підписка на подію скасування
-    template<class Callback>
-    class stop_callback;
-
-    // Теговий тип і константа для створення без спільного стану
-    struct nostopstate_t { explicit nostopstate_t() = default; };
-    inline constexpr nostopstate_t nostopstate{};
-}
-```
+:::code api-stop-token/cpp/1-zahalnyi-ohliad-typiv.cpp
 
 Спільний стан `stop_state` створюється автоматично при виклику конструктора `std::stop_source()` за замовчуванням і знищується тоді, коли лічильник спільних посилань від усіх пов'язаних `std::stop_source`, `std::stop_token` та активних `std::stop_callback` стає рівним нулю. Якщо всі об'єкти `std::stop_source` знищуються до надходження сигналу скасування, спільний стан переходить у режим, коли зупинка стає неможливою, про що спостерігачі сповіщаються через метод `stop_possible() == false`.
 
@@ -34,33 +18,7 @@ namespace std {
 
 Клас `std::stop_token` надає доступ лише для читання до спільного стану скасування. Він дозволяє перевіряти, чи був надісланий запит на зупинку, а також чи є зупинка в принципі можливою. Об'єкт є копійованим, переміщуваним і за розміром у пам'яті дорівнює одному вказівнику.
 
-```cpp
-class stop_token {
-public:
-    // Конструктори та деструктор
-    stop_token() noexcept;
-    stop_token(const stop_token& other) noexcept;
-    stop_token(stop_token&& other) noexcept;
-    ~stop_token();
-
-    // Оператори присвоєння
-    stop_token& operator=(const stop_token& other) noexcept;
-    stop_token& operator=(stop_token&& other) noexcept;
-
-    // Модифікатори
-    void swap(stop_token& other) noexcept;
-
-    // Спостереження стану
-    [[nodiscard]] bool stop_requested() const noexcept;
-    [[nodiscard]] bool stop_possible() const noexcept;
-
-    // Порівняння
-    [[nodiscard]] friend bool operator==(const stop_token& lhs, const stop_token& rhs) noexcept;
-};
-
-// Нечленні функції обміну
-void swap(stop_token& lhs, stop_token& rhs) noexcept;
-```
+:::code api-stop-token/cpp/2-klas-std-stop-token.cpp
 
 ### Детальний опис методів std::stop_token
 
@@ -98,36 +56,7 @@ void swap(stop_token& lhs, stop_token& rhs) noexcept;
 
 Клас `std::stop_source` є ініціатором сигналу скасування. Об'єкт контролює спільний стан і надає ексклюзивне право на виклик `request_stop()`.
 
-```cpp
-class stop_source {
-public:
-    // Конструктори та деструктор
-    stop_source();
-    explicit stop_source(std::nostopstate_t) noexcept;
-    stop_source(const stop_source& other) noexcept;
-    stop_source(stop_source&& other) noexcept;
-    ~stop_source();
-
-    // Оператори присвоєння
-    stop_source& operator=(const stop_source& other) noexcept;
-    stop_source& operator=(stop_source&& other) noexcept;
-
-    // Модифікатори
-    void swap(stop_source& other) noexcept;
-    bool request_stop() noexcept;
-
-    // Спостереження стану
-    [[nodiscard]] stop_token get_token() const noexcept;
-    [[nodiscard]] bool stop_requested() const noexcept;
-    [[nodiscard]] bool stop_possible() const noexcept;
-
-    // Порівняння
-    [[nodiscard]] friend bool operator==(const stop_source& lhs, const stop_source& rhs) noexcept;
-};
-
-// Нечленні функції обміну
-void swap(stop_source& lhs, stop_source& rhs) noexcept;
-```
+:::code api-stop-token/cpp/3-klas-std-stop-source.hpp
 
 ### Детальний опис методів std::stop_source
 
@@ -170,35 +99,7 @@ void swap(stop_source& lhs, stop_source& rhs) noexcept;
 
 Клас `std::stop_callback<Callback>` реалізує патерн підписки RAII (Resource Acquisition Is Initialization). Він реєструє функціональний об'єкт у списку зворотних викликів спільного стану при конструюванні та автоматично знімає реєстрацію при знищенні.
 
-```cpp
-template<class Callback>
-class stop_callback {
-public:
-    using callback_type = Callback;
-
-    // Конструктори з реєстрацією
-    template<class C>
-    explicit stop_callback(const stop_token& st, C&& cb)
-        noexcept(std::is_nothrow_constructible_v<Callback, C>);
-
-    template<class C>
-    explicit stop_callback(stop_token&& st, C&& cb)
-        noexcept(std::is_nothrow_constructible_v<Callback, C>);
-
-    // Деструктор зі зняттям підписки та блокуванням
-    ~stop_callback();
-
-    // Заборона копіювання та переміщення
-    stop_callback(const stop_callback&) = delete;
-    stop_callback(stop_callback&&) = delete;
-    stop_callback& operator=(const stop_callback&) = delete;
-    stop_callback& operator=(stop_callback&&) = delete;
-};
-
-// Настанова виведення типів аргументів шаблону (CTAD)
-template<class Callback>
-stop_callback(stop_token, Callback) -> stop_callback<Callback>;
-```
+:::code api-stop-token/cpp/4-shablonnyi-klas-std-stop.hpp
 
 ### Вимоги до типів та алгоритми життєвого циклу
 
@@ -219,28 +120,7 @@ stop_callback(stop_token, Callback) -> stop_callback<Callback>;
 
 Стандарт C++20 додав у клас `std::condition_variable_any` перевантаження, які приймають `std::stop_token`. Це дозволяє безпечно виводити потік зі стану сну при надходженні сигналу скасування без штучних періодичних таймаутів та циклічних опитувань.
 
-```cpp
-namespace std {
-    class condition_variable_any {
-    public:
-        // Базове переривне очікування
-        template<class Lock, class Predicate>
-        bool wait(Lock& lock, stop_token stoken, Predicate pred);
-
-        // Переривне очікування з відносним таймаутом
-        template<class Lock, class Rep, class Period, class Predicate>
-        bool wait_for(Lock& lock, stop_token stoken,
-                      const chrono::duration<Rep, Period>& rel_time,
-                      Predicate pred);
-
-        // Переривне очікування з абсолютним часом
-        template<class Lock, class Clock, class Duration, class Predicate>
-        bool wait_until(Lock& lock, stop_token stoken,
-                        const chrono::time_point<Clock, Duration>& abs_time,
-                        Predicate pred);
-    };
-}
-```
+:::code api-stop-token/cpp/5-rozshyrennia-std.hpp
 
 ### Чому std::condition_variable не отримала stop_token
 Клас `std::condition_variable` у мові C++11 спроектований як максимально тонка обгортка навколо нативних примітивів операційної системи (таких як `pthread_cond_wait` у POSIX або `SleepConditionVariableSRW` у Windows API). Ці системні функції вимагають нативного м'ютекса ОС (`pthread_mutex_t` або `SRWLOCK`) і не мають вбудованого механізму реєстрації зовнішніх користувацьких функцій розблокування.
@@ -264,23 +144,7 @@ namespace std {
 
 У стандартних бібліотеках C++ (GNU `libstdc++`, LLVM `libc++`, Microsoft MSVC STL) об'єкт `stop_state` реалізує компактне представлення лічильників та прапорців у єдиному атомарному слові:
 
-```cpp
-// Концептуальна структура stop_state у runtime
-struct stop_state {
-    // Пакування лічильників та прапорців в одне 64-бітне атомарне слово
-    // [1 біт: stop_requested] [1 біт: locked] [31 біт: source_count] [31 біт: token_count]
-    std::atomic<uint64_t> state_flags_{0};
-
-    // Ідентифікатор потоку, який наразі виконує request_stop()
-    std::atomic<std::thread::id> executing_thread_{};
-
-    // Вказівник на початок зв'язного списку зареєстрованих об'єктів stop_callback
-    stop_callback_base* head_callback_{nullptr};
-
-    // М'ютекс або атомарний спінлок для захисту операцій вставки/видалення зі списку
-    std::atomic_flag list_lock_ = ATOMIC_FLAG_INIT;
-};
-```
+:::code api-stop-token/cpp/6-vnutrishnia-budova-stop.cpp
 
 ### Порядок пам'яті (Memory Ordering) та синхронізація
 
@@ -344,92 +208,16 @@ std::stop_callback forwarder(parent_token, [&local_source] {
 
 Найпростіший патерн застосовується в циклах числової обробки, де потік періодично перевіряє стан токена без потреби в асинхронних перериваннях:
 
-```cpp
-#include <stop_token>
-#include <iostream>
-#include <vector>
-
-void process_matrix_blocks(std::stop_token stoken, const std::vector<double>& matrix) {
-    for (size_t block = 0; block < matrix.size(); ++block) {
-        // Періодична атомарна перевірка запиту на скасування
-        if (stoken.stop_requested()) {
-            std::cout << "Обчислення перервано на блоці " << block << "\n";
-            return;
-        }
-        // Виконання ресурсомісткого математичного кроку
-    }
-}
-```
+:::code api-stop-token/cpp/rehuliarne-opytuvannia.cpp
 
 ### Асинхронне переривання системного ресурсу через stop_callback
 
 Коли потік виконує блокуючий ввід-вивід на мережевому сокеті, звичайне опитування `stop_requested()` безсиле, оскільки потік спить усередині ядра ОС. У цьому випадку `stop_callback` реєструє функцію примусового закриття сокета:
 
-```cpp
-#include <stop_token>
-#include <iostream>
-
-struct SocketHandler {
-    int socket_fd = 42;
-
-    void shutdown_socket() {
-        std::cout << "Виклик shutdown() для сокета " << socket_fd << "\n";
-    }
-};
-
-void handle_network_stream(std::stop_token stoken) {
-    SocketHandler handler;
-
-    // Реєстрація зворотного виклику: якщо надійде сигнал зупинки,
-    // сокет буде переведено в стан shutdown, що миттєво розблокує системний виклик read()
-    std::stop_callback callback(stoken, [&handler] {
-        handler.shutdown_socket();
-    });
-
-    // Блокуюче читання з дескриптора
-}
-```
+:::code api-stop-token/cpp/asynkhronne-pereryvannia.cpp
 
 ### Переривна черга завдань на condition_variable_any
 
 Об'єднання `std::condition_variable_any` та `std::stop_token` формує надійний базис для пулів потоків, де робітники можуть миттєво прокидатися при завершенні роботи програми:
 
-```cpp
-#include <condition_variable>
-#include <mutex>
-#include <queue>
-#include <stop_token>
-#include <iostream>
-
-template<typename T>
-class InterruptibleQueue {
-    std::queue<T> queue_;
-    mutable std::mutex mutex_;
-    std::condition_variable_any cv_;
-
-public:
-    void push(T value) {
-        {
-            std::lock_guard lock(mutex_);
-            queue_.push(std::move(value));
-        }
-        cv_.notify_one();
-    }
-
-    bool pop(T& value, std::stop_token stoken) {
-        std::unique_lock lock(mutex_);
-        // Очікування завершується при надходженні елемента АБО сигналу скасування
-        bool success = cv_.wait(lock, stoken, [this] {
-            return !queue_.empty();
-        });
-
-        if (!success || queue_.empty()) {
-            return false; // Скасовано або черга порожня
-        }
-
-        value = std::move(queue_.front());
-        queue_.pop();
-        return true;
-    }
-};
-```
+:::code api-stop-token/cpp/pereryvna-cherha-zavdan-na.cpp

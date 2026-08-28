@@ -6,25 +6,7 @@
 
 Заголовочний файл `<expected>` оголошує три основні сутності для організації детермінованого оброблення помилок без використання механізму винятків:
 
-```cpp
-namespace std {
-    // 1. Основний шаблон для результату зі значенням T або помилкою E
-    template <typename T, typename E>
-    class expected;
-
-    // 2. Спеціалізація для процедур без повернення значення (void)
-    template <typename E>
-    class expected<void, E>;
-
-    // 3. Явна обгортка для маркування значення помилки
-    template <typename E>
-    class unexpected;
-
-    // 4. Тип винятку при небезпечному доступі через .value()
-    template <typename E>
-    class bad_expected_access;
-}
-```
+:::code api-expected-monadic-ops/cpp/1-shablony-klasiv-ta.cpp
 
 ### Вимоги до типів T та E
 Типи `T` та `E`, які передаються як параметри шаблону `std::expected<T, E>`, підпорядковуються чітко визначеним фундаментальним обмеженням стандарту C++23:
@@ -178,36 +160,7 @@ C++23 надає чотири монадичні методи, які дозво
 
 Якщо розробник здійснює виклик методу `.value()` на об'єкті `std::expected<T, E>`, який перебуває в стані помилки (`has_value() == false`), стандарт гарантує виклик винятку типу `std::bad_expected_access<E>`.
 
-```cpp
-namespace std {
-    template <typename E>
-    class bad_expected_access : public bad_expected_access<void> {
-    private:
-        E val_; // Зберігає копію або переміщений об'єкт помилки
-    public:
-        explicit bad_expected_access(E e) : val_(std::move(e)) {}
-
-        // Доступ до збереженого об'єкта помилки
-        const E& error() const & noexcept { return val_; }
-        E& error() & noexcept { return val_; }
-        const E&& error() const && noexcept { return std::move(val_); }
-        E&& error() && noexcept { return std::move(val_); }
-
-        const char* what() const noexcept override {
-            return "bad access to std::expected in error state";
-        }
-    };
-
-    // Спеціалізація для void
-    template <>
-    class bad_expected_access<void> : public std::exception {
-    public:
-        const char* what() const noexcept override {
-            return "bad access to std::expected<void>";
-        }
-    };
-}
-```
+:::code api-expected-monadic-ops/cpp/7-klas-vyniatku-std-bad.cpp
 
 Цей тип винятку успадковується від `std::exception` і зберігає всередині себе копію об'єкта помилки `E`. Це дозволяє обробнику винятків витягнути оригінальний код помилки через метод `.error()` навіть тоді, коли код перейшов від монадичної моделі до традиційного блоку `try-catch`. Наявність повноцінної ієрархії винятків забезпечує зворотну сумісність із застарілими фреймворками.
 
@@ -250,19 +203,7 @@ expected(const expected<U, G>& rhs);
 
 Починаючи з C++23, усі конструктори, деструктори, оператори доступів та монадичні трансформації у `std::expected` позначені модифікатором `constexpr`. Це дозволяє виконувати повноцінну перевірку оброблення помилок ще на етапі компіляції програми.
 
-```cpp
-constexpr std::expected<int, const char*> parse_digit(char c) {
-    if (c >= '0' && c <= '9') {
-        return c - '0';
-    }
-    return std::unexpected("Не є цифрою");
-}
-
-// Перевірка обчислення в consteval контексті
-static_assert(parse_digit('5').value() == 5);
-static_assert(!parse_digit('a').has_value());
-static_assert(parse_digit('a').error() == std::string_view("Не є цифрою"));
-```
+:::code api-expected-monadic-ops/cpp/10-sumisnist-iz-constexpr.cpp
 
 Можливість використання `std::expected` у `constexpr`-контекстах відкриває широкі можливості для побудови статично верифікованих парсерів конфігурацій, математичних обчислень та таблиць обробки даних без жодного виклику в runtime. Використання `consteval` функцій з `std::expected` гарантує, що некоректні дані перехоплюються ще під час збірки проекту компілятором.
 
@@ -272,18 +213,7 @@ static_assert(parse_digit('a').error() == std::string_view("Не є цифрою
 
 Об'єкт `std::expected<T, E>` реалізовано як вирівняне теговане об'єднання (tagged union) без застосування динамічного виділення пам'яті в купі.
 
-```cpp
-// Концептуальна внутрішня структура реалізації у бібліотеці STL
-template <typename T, typename E>
-class expected {
-private:
-    union {
-        T val_;
-        E unex_;
-    };
-    bool has_value_;
-};
-```
+:::code api-expected-monadic-ops/cpp/11-fizychnyi-maket-u.cpp
 
 ### Формула обчислення загального розміру `sizeof`
 Розмір об'єкта `std::expected<T, E>` розраховується за формулою з урахуванням вимог вирівнювання типів (`alignof`):

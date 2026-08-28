@@ -251,21 +251,7 @@ void process_bytes(std::span<const uint8_t> data) {
 
 У C++17 введено простір імен `std::pmr` (Polymorphic Memory Resources). Він дозволяє міняти стратегію виділення пам'яті для контейнера без зміни його типу:
 
-```cpp
-#include <memory_resource>
-#include <vector>
-#include <string>
-
-void pmr_example() {
-    // Виділяємо арену на 64 КіБ прямо на стеку
-    std::array<std::byte, 65536> stack_buffer;
-    std::pmr::monotonic_buffer_resource pool(stack_buffer.data(), stack_buffer.size());
-
-    // Вектор використовує арений алокатор: ЖОДНОГО виклику malloc!
-    std::pmr::vector<std::pmr::string> vec(&pool);
-    vec.push_back("Hello, PMR Arena Allocation!");
-}
-```
+:::code stl-containers-choice-d/cpp/main.cpp
 
 Основні ресурси пам'яті в `std::pmr`:
 1. `monotonic_buffer_resource`: Арений алокатор. Пам'ять виділяється зсувом покажчика вперід за наносекунду. Пам'ять не повертається системі до знищення всієї арени. Ідеально підходить для обробки короткоживучих пакетів або запитів у мережевих серверах.

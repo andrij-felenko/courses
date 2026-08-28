@@ -151,43 +151,13 @@ return _URC_INSTALL_CONTEXT;
 
 Об'єкт винятка в пам'яті — це не тільки те, що кинули. Перед ним лежать службові поля, і саме вони роблять можливими лічильник обробників, стек спійманих і `exception_ptr`:
 
-```c
-struct __cxa_exception {
-    std::type_info       *exceptionType;         // статичний тип кинутого
-    void                (*exceptionDestructor)(void *);
-    std::terminate_handler unexpectedHandler;    // знімки обробників на
-    std::terminate_handler terminateHandler;     // момент кидка
-    __cxa_exception       *nextException;        // стек спійманих потоку
-    int                    handlerCount;         // від'ємне = перекинутий
-    int                    handlerSwitchValue;   // ↓ кеш розбору LSDA
-    const unsigned char   *actionRecord;         //   з фази 1,
-    const unsigned char   *languageSpecificData; //   щоб не читати
-    _Unwind_Ptr            catchTemp;            //   таблиці двічі
-    void                  *adjustedPtr;
-    _Unwind_Exception      unwindHeader;         // ОБОВ'ЯЗКОВО останнє
-};
-```
+:::code api-unwind-abi/c/poverkh-2-cxa-movnyi-riven.c
 
 П'ять полів посередині — кеш. У фазі пошуку персональна функція вже розібрала таблиці й знайшла і гілку, і зсув; у фазі розкрутки вона дістає результат звідси, замість читати LSDA вдруге. Це половина всієї оптимізації двофазної схеми.
 
 У libstdc++ структура загорнута ще в одну — саме її адресу віддає алокатор, а `__cxa_allocate_exception` повертає покажчик уже за нею:
 
-```c
-struct __cxa_refcounted_exception {
-    _Atomic_word    referenceCount;   // ним живе exception_ptr
-    __cxa_exception exc;              // мусить бути останнім, без вирівнювального хвоста
-};
-
-struct __cxa_dependent_exception {    // те, що кидає rethrow_exception
-    void *primaryException;           // ← справжній об'єкт, спільний для всіх копій
-    /* далі — поле в поле як у __cxa_exception, включно з unwindHeader */
-};
-
-struct __cxa_eh_globals {             // по одній на потік
-    __cxa_exception *caughtExceptions;    // стек спійманих, найновіший перший
-    unsigned int     uncaughtExceptions;  // ← це і є std::uncaught_exceptions()
-};
-```
+:::code api-unwind-abi/c/poverkh-2-cxa-movnyi-riven-2.c
 
 Лічильник `referenceCount` атомарний, бо копію `exception_ptr` можна віддати в інший потік ([`std::atomic` і порядок пам'яті](root:sys-plang-cpp/std-atomic)); а `__cxa_eh_globals` — стан, приватний для потоку ([`thread_local`](root:sys-plang-cpp/thread-local)), інакше два потоки, що кидають одночасно, топтали б один стек спійманих.
 
@@ -328,38 +298,7 @@ _Unwind_Resume(exc);    /* назад у другу фазу, до наступ�
 
 Базовим розкручувачем можна користуватися прямо, не кидаючи нічого. Ось повний робочий обхід кадрів — він друкує для кожного адресу повернення, початок функції й адресу LSDA, тобто фактично показує, чи має цей кадр що робити при розкрутці:
 
-```cpp
-#include <unwind.h>
-#include <cxxabi.h>
-#include <cstdio>
-
-static _Unwind_Reason_Code on_frame(_Unwind_Context* ctx, void* arg) {
-    int* left = static_cast<int*>(arg);
-    int before = 0;
-    _Unwind_Ptr ip   = _Unwind_GetIPInfo(ctx, &before);
-    _Unwind_Ptr fn   = _Unwind_GetRegionStart(ctx);
-    void*       lsda = _Unwind_GetLanguageSpecificData(ctx);
-
-    std::printf("ip=%p  функція=%p  зсув=%#lx  LSDA=%s  %s\n",
-                (void*)ip, (void*)fn, (unsigned long)(ip - fn),
-                lsda ? "є" : "немає",
-                before ? "ip на самій команді" : "ip уже за call");
-
-    return (--*left == 0) ? _URC_END_OF_STACK : _URC_NO_REASON;
-}
-
-void dump_frames() {
-    int left = 16;
-    _Unwind_Backtrace(&on_frame, &left);
-}
-
-// у власному обробнику аварії стане в пригоді й тип того, що зараз летить:
-void my_terminate() {
-    if (const std::type_info* t = abi::__cxa_current_exception_type())
-        std::printf("невиловлений виняток типу %s\n", t->name());  // ім'я понівечене,
-    std::abort();                        // людське дає abi::__cxa_demangle з того ж заголовка
-}
-```
+:::code api-unwind-abi/cpp/main.cpp
 
 Збирається без жодних додаткових бібліотек — `libgcc_s` уже прилінковано: `g++ -g -O2 frames.cpp`. Функція обходу повертає `_URC_NO_REASON`, щоб продовжити, і `_URC_END_OF_STACK`, щоб зупинитися.
 

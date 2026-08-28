@@ -37,23 +37,7 @@
 
 Синтаксично CRTP виглядає як успадкування класу від шаблону, де сам похідний клас передається як параметр типу цього ж шаблону:
 
-```cpp
-template <typename Derived>
-class Base {
-public:
-    void interface() {
-        // Приведення вказівника this до типу Derived* і виклик реалізації
-        static_cast<Derived*>(this)->implementation();
-    }
-};
-
-class Derived : public Base<Derived> {
-public:
-    void implementation() {
-        // Конкретна реалізація у похідному класі
-    }
-};
-```
+:::code crtp-d/cpp/2-mekhanika-statychnoho.cpp
 
 На перший погляд такий запис виглядає парадоксально: клас `Derived` успадковується від `Base<Derived>` у той момент, коли сам `Derived` ще не є повністю оголошеним типом (англ. *incomplete type*). Проте згідно з правилами C++ це абсолютно законно завдяки двофазній механіці обробки шаблонів компілятором.
 
@@ -88,24 +72,7 @@ public:
 
 Для перенесення пошуку імені на другу фазу (фазу інстанціювання шаблону) розробник зобов'язаний явно зробити ім'я залежним від параметра шаблону. Це робиться за допомогою припрефіксу `this->` або явного зазначення кваліфікованого імені базового класу `BaseClass<Derived>::`:
 
-```cpp
-template <typename Derived>
-class BaseProcessor {
-public:
-    void reset_state() {
-        // Логіка скидання стану
-    }
-};
-
-template <typename Derived>
-class AdvancedProcessor : public BaseProcessor<Derived> {
-public:
-    void process() {
-        // reset_state(); // ПОМИЛКА: ім'я не знайдене під час фази 1!
-        this->reset_state(); // OK: тепер це залежне ім'я, пошук відкладено до фази 2
-    }
-};
-```
+:::code crtp-d/cpp/dvofaznyi-poshuk-imen-ta.cpp
 
 Використання синтаксису `this->reset_state()` вказує компілятору, що тип `this` залежить від параметра `Derived`. Це гарантує, що пошук методу відбудеться під час другої фази інстанціювання, коли повна структура базового класу `BaseProcessor<Derived>` буде гарантовано доступна компілятору.
 
@@ -115,24 +82,7 @@ public:
 
 Завдяки впровадженню концептів у C++20 розробники отримали можливість явного оголошення вимог до похідного класу безпосередньо у базовому шаблоні:
 
-```cpp
-#include <concepts>
-
-template <typename T>
-concept CanProcess = requires(T t) {
-    { t.process_impl() } -> std::same_as<void>;
-};
-
-template <typename Derived>
-class ValidatedCRTP {
-public:
-    void process() {
-        static_assert(CanProcess<Derived>,
-            "Похідний клас зобов'язаний надати метод 'void process_impl()'");
-        static_cast<Derived*>(this)->process_impl();
-    }
-};
-```
+:::code crtp-d/cpp/perevirka-kontraktiv.cpp
 
 Використання `static_assert` разом із концептами усуває незрозумілі списки помилок і дає розробникові точне й лаконічне повідомлення про порушення контракту під час компіляції.
 
@@ -146,52 +96,11 @@ public:
 
 Правильна реалізація передбачає дзеркальне розділення методів або використання шаблонного перевантаження:
 
-```cpp
-template <typename Derived>
-class Readable {
-public:
-    void read() const {
-        // Константне приведення для const-методів
-        static_cast<const Derived*>(this)->read_impl();
-    }
-
-    void write() {
-        // Неконстантне приведення для модифікуючих методів
-        static_cast<Derived*>(this)->write_impl();
-    }
-};
-
-class FileStream : public Readable<FileStream> {
-public:
-    void read_impl() const {
-        // Читання даних без зміни стану
-    }
-
-    void write_impl() {
-        // Модифікація стану файлу
-    }
-};
-```
+:::code crtp-d/cpp/3-zberezhennia.cpp
 
 Якщо метод має повертати посилання на самого себе (наприклад, для реалізації ланцюжка викликів), кваліфікатор `const` так само розповсюджується на тип повернення:
 
-```cpp
-template <typename Derived>
-class Builder {
-public:
-    Derived& reset() {
-        Derived& self = *static_cast<Derived*>(this);
-        self.clear_state();
-        return self;
-    }
-
-    const Derived& inspect() const {
-        const Derived& self = *static_cast<const Derived*>(this);
-        self.print_debug();
-        return self;
-    }
-};
-```
+:::code crtp-d/cpp/3-zberezhennia-2.cpp
 
 У сучасній практиці C++20 для забезпечення ідеального збереження категорій значень (lvalue/rvalue) та константності у CRTP-базах застосовують універсальні посилання та шаблонні методи-помічники, що усуває дублювання const і non-const кодів.
 
@@ -205,26 +114,7 @@ public:
 
 На відміну від класичного паттерну «Шаблонний метод» (англ. *Template Method*), де базовий клас визначає алгоритм із викликом віртуальних методів, CRTP реалізує той самий алгоритм повністю під час компіляції. Базовий клас конструює високорівневий сценарій обробки, викликаючи точкові кроки з похідного класу:
 
-```cpp
-template <typename Derived>
-class DataParser {
-public:
-    // Головний шаблонний алгоритм
-    void parse_pack() {
-        auto& self = *static_cast<Derived*>(this);
-        self.read_header();
-        self.read_body();
-        self.verify_checksum();
-    }
-};
-
-class JsonParser : public DataParser<JsonParser> {
-public:
-    void read_header() { /* Читання JSON заголовка */ }
-    void read_body() { /* Розбір JSON тіла */ }
-    void verify_checksum() { /* Перевірка суми */ }
-};
-```
+:::code crtp-d/cpp/a-statychnyi-interfeis.cpp
 
 У результаті виклик `json_parser.parse_pack()` інлайнить тіла усіх трьох методів безпосередньо в місце виклику. Процесор не здійснює жодного переходжу за адресою, виконуючи послідовні інструкції з максимальною швидкістю.
 
@@ -232,23 +122,7 @@ public:
 
 Міксини дозволяють повторно використовувати код, «підмішуючи» готову функціональність у різні класи. Наприклад, ми можемо створити міксин для підрахунку кількості створених об'єктів конкретного типу:
 
-```cpp
-template <typename Derived>
-class InstanceCounter {
-public:
-    InstanceCounter() { ++live_count_; }
-    InstanceCounter(const InstanceCounter&) { ++live_count_; }
-    ~InstanceCounter() { --live_count_; }
-
-    static size_t get_live_count() { return live_count_; }
-
-private:
-    inline static size_t live_count_{0};
-};
-
-class Texture : public InstanceCounter<Texture> {};
-class Sound : public InstanceCounter<Sound> {};
-```
+:::code crtp-d/cpp/b-dodavannia.cpp
 
 Завдяки тому, що `InstanceCounter<Texture>` та `InstanceCounter<Sound>` є **двома різними типами**, створеними компілятором із шаблону, кожен клас отримує свій власний незалежний статичний лічильник `live_count_`.
 
@@ -256,107 +130,23 @@ class Sound : public InstanceCounter<Sound> {};
 
 У класичному спадкуванні реалізація плавного інтерфейсу через повернення `Base&` ламає ланцюжок викликів, коли метод базового класу викликається на похідному об'єкті:
 
-```cpp
-// Проблема класичного спадкування:
-class Window {
-public:
-    Window& set_width(int w) { width = w; return *this; }
-    int width{0};
-};
-
-class FancyWindow : public Window {
-public:
-    FancyWindow& set_color(uint32_t c) { color = c; return *this; }
-    uint32_t color{0};
-};
-
-// FancyWindow win;
-// win.set_width(800).set_color(0xFF0000); // ПОМИЛКА: set_width повертає Window&!
-```
+:::code crtp-d/cpp/v-plavni-interfeisy-fluent.cpp
 
 Завдяки CRTP тип повернення завжди точний, бо базовий клас знає точний тип похідного:
 
-```cpp
-template <typename Derived>
-class WindowCRTP {
-public:
-    Derived& set_width(int w) {
-        Derived& self = *static_cast<Derived*>(this);
-        self.width = w;
-        return self;
-    }
-    int width{0};
-};
-
-class FancyWindow : public WindowCRTP<FancyWindow> {
-public:
-    FancyWindow& set_color(uint32_t c) {
-        color = c;
-        return *this;
-    }
-    uint32_t color{0};
-};
-```
+:::code crtp-d/cpp/v-plavni-interfeisy-fluent-2.cpp
 
 ### Г. Автоматична генерація операторів (Barton-Nackman / Boost.Operators)
 
 Якщо тип визначає оператор менше `<` та оператор рівності `==`, решту операторів порівняння (`!=`, `>`, `<=`, `>=`) можна згенерувати автоматично через CRTP-міксин. Дружні функції оголошуються безпосередньо всередині базового шаблону:
 
-```cpp
-template <typename Derived>
-struct Relational {
-    friend bool operator!=(const Derived& lhs, const Derived& rhs) {
-        return !(lhs == rhs);
-    }
-    friend bool operator>(const Derived& lhs, const Derived& rhs) {
-        return rhs < lhs;
-    }
-    friend bool operator<=(const Derived& lhs, const Derived& rhs) {
-        return !(rhs < lhs);
-    }
-    friend bool operator>=(const Derived& lhs, const Derived& rhs) {
-        return !(lhs < rhs);
-    }
-};
-
-class Distance : public Relational<Distance> {
-public:
-    explicit Distance(double meters) : meters_(meters) {}
-
-    friend bool operator==(const Distance& lhs, const Distance& rhs) {
-        return lhs.meters_ == rhs.meters_;
-    }
-    friend bool operator<(const Distance& lhs, const Distance& rhs) {
-        return lhs.meters_ < rhs.meters_;
-    }
-
-private:
-    double meters_{0.0};
-};
-```
+:::code crtp-d/cpp/h-avtomatychna-heneratsiia.cpp
 
 ### Д. Статичне клонування (Static Clone Factory)
 
 У графічних та ігрових рушіях часто виникає потреба копіювати об'єкти без використання віртуальних функцій. CRTP дозволяє реалізувати паттерн «Клонування» (Clone) зі збереженням точного типу повернення через розумні вказівники:
 
-```cpp
-#include <memory>
-
-template <typename Derived>
-class Cloneable {
-public:
-    std::unique_ptr<Derived> clone() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        return std::make_unique<Derived>(self);
-    }
-};
-
-class GameEntity : public Cloneable<GameEntity> {
-public:
-    int health{100};
-    int mana{50};
-};
-```
+:::code crtp-d/cpp/d-statychne-klonuvannia.hpp
 
 Виклик `entity.clone()` повертає `std::unique_ptr<GameEntity>`, усуваючи потребу у ручному зведенні типів `dynamic_cast` або `static_cast` з боку користувача.
 
@@ -426,39 +216,13 @@ class DerivedB : public Base<DerivedA> {};
 
 Захистити базовий шаблон від випадкового некоректного успадкування можна, зробивши конструктор базового класу приватним і оголосивши `Derived` як `friend`:
 
-```cpp
-template <typename Derived>
-class SafeBase {
-private:
-    SafeBase() = default;
-    friend Derived; // Лише справжній Derived може викликати конструктор!
-
-public:
-    void interface() {
-        static_cast<Derived*>(this)->impl();
-    }
-};
-
-class Correct : public SafeBase<Correct> {}; // OK
-```
+:::code crtp-d/cpp/a-drukarska-opyska-u-typi.cpp
 
 **Захист 2: Концепти C++20 (Concepts)**
 
 У C++20 перевірку можна зробити ще простішою й виразнішою за допомогою концепту `std::derived_from`:
 
-```cpp
-#include <concepts>
-
-template <typename Derived>
-class ConceptBase {
-public:
-    void interface() {
-        static_assert(std::derived_from<Derived, ConceptBase<Derived>>,
-                      "Template argument must be derived from ConceptBase<Derived>");
-        static_cast<Derived*>(this)->impl();
-    }
-};
-```
+:::code crtp-d/cpp/a-drukarska-opyska-u-typi-2.cpp
 
 ### Б. Безпека деструкторів і поліморфне видалення
 
@@ -489,25 +253,7 @@ protected:
 
 Якщо похідний клас ховає методи реалізації (`impl()`) у секцію `private` або `protected` задля інкапсуляції, базовий шаблон не матиме до них доступу під час виклику:
 
-```cpp
-template <typename Derived>
-class Base {
-public:
-    void run() {
-        static_cast<Derived*>(this)->secret_impl(); // Помилка доступу!
-    }
-};
-
-class Worker : public Base<Worker> {
-private:
-    // Потрібно надати доступ базовому шаблону:
-    friend class Base<Worker>;
-
-    void secret_impl() {
-        // Приватна реалізація
-    }
-};
-```
+:::code crtp-d/cpp/v-pryvatni-realizatsii-ta.cpp
 
 Оголошення `friend class Base<Worker>` відновлює доступ базового шаблону до приватної секції похідного класу, зберігаючи зачиненим публічний інтерфейс для зовнішніх споживачів.
 
@@ -540,24 +286,7 @@ public:
 
 Якщо базовий шаблон містить великі методи, що не залежать від `Derived`, їх слід виносити у нешаблонний базовий клас (англ. *Thin Template Pattern*):
 
-```cpp
-// Загальна частина, що не залежить від шаблону (один примірник у бінарнику)
-class NonTemplateBase {
-protected:
-    void log_internal(const char* msg);
-    void allocate_buffer(size_t sz);
-};
-
-// CRTP-шаблон містить лише тонкі виклики з static_cast
-template <typename Derived>
-class CRTPBase : private NonTemplateBase {
-public:
-    void process() {
-        log_internal("Starting process");
-        static_cast<Derived*>(this)->process_impl();
-    }
-};
-```
+:::code crtp-d/cpp/d-rozduttia-dviikovoho.cpp
 
 ### Е. Відсутність гетерогенних контейнерів
 
@@ -621,36 +350,8 @@ CRTP виклик (Static Dispatch):
 `deducing this` дозволяє функції-члену класу явно оголошувати параметр `this` у своєму списку аргументів. Це дає можливість базовому класу дізнатися точний тип похідного об'єкта **без успадкування від шаблону**:
 
 :::tabs
-```cpp
-// Класичний CRTP (C++98–C++20)
-template <typename Derived>
-struct LoggerCRTP {
-    void print_name() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        std::cout << self.get_name() << "\n";
-    }
-};
-
-class User : public LoggerCRTP<User> {
-public:
-    std::string get_name() const { return "UserObject"; }
-};
-```
-```cpp
-// Сучасний підхід C++23 (Deducing This)
-struct Logger23 {
-    // Перший параметр "this auto&& self" виводить точний тип викликача!
-    void print_name(this const auto& self) {
-        std::cout << self.get_name() << "\n";
-    }
-};
-
-// Звичайне, нешаблонне успадкування!
-class User : public Logger23 {
-public:
-    std::string get_name() const { return "UserObject"; }
-};
-```
+:::code crtp-d/cpp/7-evoliutsiia-v-c-23-vid.cpp
+:::code crtp-d/cpp/7-evoliutsiia-v-c-23-vid-2.cpp
 :::
 
 ### Порівняльний аналіз CRTP та Deducing This

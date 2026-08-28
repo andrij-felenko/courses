@@ -24,274 +24,8 @@
 Нижче наведено робочі реалізації каналу. Версія мовою C застосовує POSIX-потоки (`pthreads`), сирі вказувачі, ручне керування лічильником посилань та виділення пам'яті через `malloc`. Версія мовою C++ використовує ідіоми RAII, `std::shared_ptr`, `std::mutex`, `std::condition_variable` та `std::variant` для безпечного зберігання значення або винятку.
 
 :::tabs
-```c
-/* POSIX C Реалізація одноразового каналу (pthread_mutex + pthread_cond) */
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include <string.h>
-
-/* Спільний стан у купі */
-typedef struct {
-    pthread_mutex_t mutex;
-    pthread_cond_t  cond;
-    int             ref_count;
-    bool            ready;
-    bool            has_error;
-    int             value;
-    char            error_msg[128];
-} c_shared_state;
-
-/* Виробник (Promise) */
-typedef struct {
-    c_shared_state* state;
-} c_promise;
-
-/* Споживач (Future) */
-typedef struct {
-    c_shared_state* state;
-} c_future;
-
-/* Створення нового каналу обміну */
-static c_shared_state* create_shared_state(void) {
-    c_shared_state* st = (c_shared_state*)malloc(sizeof(c_shared_state));
-    if (!st) return NULL;
-    
-    pthread_mutex_init(&st->mutex, NULL);
-    pthread_cond_init(&st->cond, NULL);
-    st->ref_count = 2; /* 1 для promise, 1 для future */
-    st->ready = false;
-    st->has_error = false;
-    st->value = 0;
-    st->error_msg[0] = '\0';
-    return st;
-}
-
-static void release_shared_state(c_shared_state* st) {
-    if (!st) return;
-    
-    pthread_mutex_lock(&st->mutex);
-    st->ref_count--;
-    int current_refs = st->ref_count;
-    pthread_mutex_unlock(&st->mutex);
-    
-    if (current_refs == 0) {
-        pthread_cond_destroy(&st->cond);
-        pthread_mutex_destroy(&st->mutex);
-        free(st);
-    }
-}
-
-/* Ініціалізація каналу */
-void c_promise_init(c_promise* p, c_future* f) {
-    c_shared_state* st = create_shared_state();
-    p->state = st;
-    f->state = st;
-}
-
-/* Запис значення у канал */
-void c_promise_set_value(c_promise* p, int val) {
-    if (!p->state) return;
-    
-    pthread_mutex_lock(&p->state->mutex);
-    if (!p->state->ready) {
-        p->state->value = val;
-        p->state->ready = true;
-        pthread_cond_signal(&p->state->cond);
-    }
-    pthread_mutex_unlock(&p->state->mutex);
-}
-
-/* Запис помилки у канал */
-void c_promise_set_error(c_promise* p, const char* err) {
-    if (!p->state) return;
-    
-    pthread_mutex_lock(&p->state->mutex);
-    if (!p->state->ready) {
-        p->state->has_error = true;
-        strncpy(p->state->error_msg, err, sizeof(p->state->error_msg) - 1);
-        p->state->ready = true;
-        pthread_cond_signal(&p->state->cond);
-    }
-    pthread_mutex_unlock(&p->state->mutex);
-}
-
-/* Звільнення promise */
-void c_promise_destroy(c_promise* p) {
-    if (p->state) {
-        pthread_mutex_lock(&p->state->mutex);
-        if (!p->state->ready) {
-            p->state->has_error = true;
-            strncpy(p->state->error_msg, "broken_promise", sizeof(p->state->error_msg) - 1);
-            p->state->ready = true;
-            pthread_cond_signal(&p->state->cond);
-        }
-        pthread_mutex_unlock(&p->state->mutex);
-        
-        release_shared_state(p->state);
-        p->state = NULL;
-    }
-}
-
-/* Очікування та читання значення */
-int c_future_get(c_future* f, bool* ok_out, char* err_buf, size_t err_buf_sz) {
-    if (!f->state) {
-        if (ok_out) *ok_out = false;
-        return -1;
-    }
-    
-    pthread_mutex_lock(&f->state->mutex);
-    while (!f->state->ready) {
-        pthread_cond_wait(&f->state->cond, &f->state->mutex);
-    }
-    
-    int res = 0;
-    if (f->state->has_error) {
-        if (ok_out) *ok_out = false;
-        if (err_buf && err_buf_sz > 0) {
-            strncpy(err_buf, f->state->error_msg, err_buf_sz - 1);
-        }
-    } else {
-        if (ok_out) *ok_out = true;
-        res = f->state->value;
-    }
-    
-    pthread_mutex_unlock(&f->state->mutex);
-    return res;
-}
-
-void c_future_destroy(c_future* f) {
-    if (f->state) {
-        release_shared_state(f->state);
-        f->state = NULL;
-    }
-}
-```
-```cpp
-// Ідіоматична C++17/20 реалізація (RAII, variant, exception_ptr, std::shared_ptr)
-#include <iostream>
-#include <mutex>
-#include <condition_variable>
-#include <memory>
-#include <variant>
-#include <exception>
-#include <stdexcept>
-#include <thread>
-#include <string>
-
-namespace custom {
-
-template <typename T>
-class custom_future;
-
-template <typename T>
-struct shared_state {
-    std::mutex mtx;
-    std::condition_variable cv;
-    bool ready = false;
-    std::variant<std::monostate, T, std::exception_ptr> storage;
-};
-
-template <typename T>
-class custom_promise {
-public:
-    custom_promise() : state_(std::make_shared<shared_state<T>>()) {}
-
-    ~custom_promise() {
-        if (state_) {
-            std::lock_guard<std::mutex> lock(state_->mtx);
-            if (!state_->ready) {
-                state_->storage = std::make_exception_ptr(
-                    std::runtime_error("broken_promise: promise destroyed without value")
-                );
-                state_->ready = true;
-                state_->cv.notify_all();
-            }
-        }
-    }
-
-    custom_promise(const custom_promise&) = delete;
-    custom_promise& operator=(const custom_promise&) = delete;
-
-    custom_promise(custom_promise&&) noexcept = default;
-    custom_promise& operator=(custom_promise&&) noexcept = default;
-
-    custom_future<T> get_future() {
-        if (!state_) {
-            throw std::logic_error("no_state: promise moved or invalid");
-        }
-        return custom_future<T>(state_);
-    }
-
-    void set_value(T val) {
-        std::unique_lock<std::mutex> lock(state_->mtx);
-        if (state_->ready) {
-            throw std::logic_error("promise_already_satisfied");
-        }
-        state_->storage = std::move(val);
-        state_->ready = true;
-        lock.unlock(); // Звільняємо lock перед сповіщенням для зменшення контеншну
-        state_->cv.notify_all();
-    }
-
-    void set_exception(std::exception_ptr e) {
-        std::unique_lock<std::mutex> lock(state_->mtx);
-        if (state_->ready) {
-            throw std::logic_error("promise_already_satisfied");
-        }
-        state_->storage = e;
-        state_->ready = true;
-        lock.unlock();
-        state_->cv.notify_all();
-    }
-
-private:
-    std::shared_ptr<shared_state<T>> state_;
-};
-
-template <typename T>
-class custom_future {
-public:
-    custom_future() = default;
-
-    explicit custom_future(std::shared_ptr<shared_state<T>> st) 
-        : state_(std::move(st)) {}
-
-    bool valid() const noexcept {
-        return state_ != nullptr;
-    }
-
-    T get() {
-        if (!state_) {
-            throw std::logic_error("no_state: future is invalid");
-        }
-
-        std::unique_lock<std::mutex> lock(state_->mtx);
-        state_->cv.wait(lock, [this]() { return state_->ready; });
-
-        // Після отримання результату зробимо future невалідним (1:1)
-        auto st = std::move(state_);
-
-        if (std::holds_alternative<std::exception_ptr>(st->storage)) {
-            std::rethrow_exception(std::get<std::exception_ptr>(st->storage));
-        }
-
-        return std::get<T>(std::move(st->storage));
-    }
-
-    void wait() const {
-        if (!state_) throw std::logic_error("no_state");
-        std::unique_lock<std::mutex> lock(state_->mtx);
-        state_->cv.wait(lock, [this]() { return state_->ready; });
-    }
-
-private:
-    std::shared_ptr<shared_state<T>> state_;
-};
-
-} // namespace custom
-```
+:::code proj-custom-future/c/main.c
+:::code proj-custom-future/cpp/2-povna-realizatsiia.cpp
 :::
 
 ---
@@ -394,20 +128,7 @@ strace -f -e trace=futex ./app
 
 Щоб запобігти здешевленню пропускної здатності шини пам'яті через False Sharing, поле прапорця та буфер даних варто вирівнювати по межі кеш-лінії:
 
-```cpp
-#include <new>
-
-template <typename T>
-struct alignas(std::hardware_destructive_interference_size) shared_state_optimized {
-    std::mutex mtx;
-    std::condition_variable cv;
-    
-    // Вирівнюємо прапор на окрему кеш-лінію
-    alignas(std::hardware_destructive_interference_size) bool ready = false;
-    
-    std::variant<std::monostate, T, std::exception_ptr> storage;
-};
-```
+:::code proj-custom-future/cpp/7-profiliuvannia-ta.cpp
 
 Це гарантує, що операції запису виробника на одному ядрі не вибиватимуть кеш-лінію споживача на сусідньому ядрі процесора, підвищуючи продуктивність обміну у 2–4 рази при високій частоті повідомлень.
 
@@ -419,28 +140,7 @@ struct alignas(std::hardware_destructive_interference_size) shared_state_optimiz
 
 Нижче наведено концептуальний розбір спеціалізації для `void`:
 
-```cpp
-template <>
-struct shared_state<void> {
-    std::mutex mtx;
-    std::condition_variable cv;
-    bool ready = false;
-    std::exception_ptr exception; // Значення T відсутнє, зберігається лише виняток
-};
-
-template <>
-class custom_promise<void> {
-public:
-    void set_value() {
-        std::unique_lock<std::mutex> lock(state_->mtx);
-        if (state_->ready) throw std::logic_error("promise_already_satisfied");
-        state_->ready = true;
-        lock.unlock();
-        state_->cv.notify_all();
-    }
-    // інші методи аналогічні
-};
-```
+:::code proj-custom-future/cpp/8-spetsializatsiia-kanalu.cpp
 
 Спеціалізація для `void` оптимізує споживання пам'яті: Shared State не містить буфера для `T`, зберігаючи лише примітиви синхронізації та вказувач на виняток.
 
@@ -463,35 +163,7 @@ public:
 
 Ідея полягає в тому, що замість очікування у `get()` споживач реєструє функцію-продовження:
 
-```cpp
-template <typename F>
-auto then(F&& func) {
-    using R = std::invoke_result_t<F, T>;
-    custom_promise<R> next_promise;
-    auto next_future = next_promise.get_future();
-
-    std::unique_lock<std::mutex> lock(state_->mtx);
-    if (state_->ready) {
-        lock.unlock();
-        // Якщо результат уже готовий, виконуємо продовження негайно
-        try {
-            next_promise.set_value(func(std::get<T>(state_->storage)));
-        } catch (...) {
-            next_promise.set_exception(std::current_exception());
-        }
-    } else {
-        // Якщо результат ще не готовий, зберігаємо функцію в очікування
-        state_->continuation = [st = state_, p = std::move(next_promise), f = std::forward<F>(func)]() mutable {
-            try {
-                p.set_value(f(std::get<T>(st->storage)));
-            } catch (...) {
-                p.set_exception(std::current_exception());
-            }
-        };
-    }
-    return next_future;
-}
-```
+:::code proj-custom-future/cpp/10-dodavannia.cpp
 
 Такий підхід дозволяє створювати асинхронні ланцюжки обчислень без занурення потоків у сон і лежить в основі сучасних бібліотек асинхронності (зокрема Concurrency TS та проєктів з корутинами).
 
@@ -521,29 +193,7 @@ auto then(F&& func) {
 
 У стандартній бібліотеці C++ затримане сповіщення реалізовано за допомогою змінних із модифікатором тривалості життя `thread_local`. Коли потік викликає `set_value_at_thread_exit()`, результат записується в Shared State, але прапор `ready` та сповіщення `notify_all()` реєструються в спеціальному `thread_local` об'єкті-чистильнику:
 
-```cpp
-template <typename T>
-void set_value_at_thread_exit_impl(custom_promise<T>& p, T val) {
-    // Структура чистильника, деструктор якої викличеться при виході з потоку
-    struct thread_exit_notifier {
-        std::shared_ptr<shared_state<T>> state;
-        T value;
-
-        ~thread_exit_notifier() {
-            if (state) {
-                std::lock_guard<std::mutex> lock(state->mtx);
-                state->storage = std::move(value);
-                state->ready = true;
-                state->cv.notify_all();
-            }
-        }
-    };
-
-    static thread_local thread_exit_notifier notifier;
-    notifier.state = p.get_state_internal();
-    notifier.value = std::move(val);
-}
-```
+:::code proj-custom-future/cpp/13-realizatsiia.cpp
 
 Цей механізм гарантує, що споживач прокинеться в момент, коли фоновий потік повністю розібрав свій стек і знищив усі свої `thread_local` ресурси, запобігаючи доступу до вже знищених локальних об'єктів.
 
@@ -578,53 +228,6 @@ void swap(custom_promise<T>& a, custom_promise<T>& b) noexcept {
 
 Нижче наведено повністю працездатний демонстраційний приклад, який показує обмін даними та перехоплення винятків між двома потоками виконання з використанням `custom_promise` та `custom_future`:
 
-```cpp
-#include <iostream>
-#include <thread>
-#include <string>
-#include <chrono>
-
-int main() {
-    std::cout << "--- 1. Успішна передача значення ---" << std::endl;
-    {
-        custom::custom_promise<std::string> promise;
-        custom::custom_future<std::string> future = promise.get_future();
-
-        std::thread worker([p = std::move(promise)]() mutable {
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
-            p.set_value("Результат обчислень готовий!");
-        });
-
-        std::cout << "Головний потік чекає..." << std::endl;
-        std::string res = future.get();
-        std::cout << "Отримано: " << res << std::endl;
-        worker.join();
-    }
-
-    std::cout << "\n--- 2. Передача винятку через межу потоків ---" << std::endl;
-    {
-        custom::custom_promise<int> promise;
-        custom::custom_future<int> future = promise.get_future();
-
-        std::thread worker([p = std::move(promise)]() mutable {
-            try {
-                throw std::invalid_argument("Помилка вхідних даних у фоновому потоці!");
-            } catch (...) {
-                p.set_exception(std::current_exception());
-            }
-        });
-
-        try {
-            int val = future.get();
-            std::cout << "Значення: " << val << std::endl;
-        } catch (const std::exception& e) {
-            std::cout << "Перехоплено виняток у головному потоці: " << e.what() << std::endl;
-        }
-        worker.join();
-    }
-
-    return 0;
-}
-```
+:::code proj-custom-future/cpp/16-praktychnyi-stsenarii.cpp
 
 Цей приклад підтверджує, що створена C++ реалізація точково відтворює поведінку стандартних примітивів `std::promise` та `std::future`, демонструючи внутрішні механізми асинхронного транспортування даних та винятків між потоками у C++.

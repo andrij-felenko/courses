@@ -34,70 +34,7 @@
 
 ### Публічний інтерфейс класу:
 
-```cpp
-namespace std {
-
-template <typename R>
-class promise {
-public:
-    // 1. Конструктори та деструктор
-    promise();
-    template <typename Alloc>
-    promise(allocator_arg_t alloc, const Alloc& a);
-    
-    promise(const promise&) = delete;
-    promise(promise&& rhs) noexcept;
-    
-    ~promise();
-
-    // 2. Оператори присвоєння
-    promise& operator=(const promise&) = delete;
-    promise& operator=(promise&& rhs) noexcept;
-
-    void swap(promise& other) noexcept;
-
-    // 3. Отримання зв'язаного future
-    future<R> get_future();
-
-    // 4. Запис результату (для загальної форми R)
-    void set_value(const R& value);
-    void set_value(R&& value);
-    void set_exception(exception_ptr p);
-
-    // 5. Запис результату зі зсувом сповіщення до завершення потоку
-    void set_value_at_thread_exit(const R& value);
-    void set_value_at_thread_exit(R&& value);
-    void set_exception_at_thread_exit(exception_ptr p);
-};
-
-// Спеціалізація для посилань
-template <typename R>
-class promise<R&> {
-public:
-    promise();
-    ~promise();
-    future<R&> get_future();
-    void set_value(R& value);
-    void set_exception(exception_ptr p);
-    void set_value_at_thread_exit(R& value);
-    void set_exception_at_thread_exit(exception_ptr p);
-};
-
-// Спеціалізація для void
-template <>
-class promise<void> {
-public:
-    promise();
-    ~promise();
-    future<void> get_future();
-    void set_value();
-    void set_exception(exception_ptr p);
-    void set_value_at_thread_exit();
-    void set_exception_at_thread_exit(exception_ptr p);
-};
-
-} // namespace std
-```
+:::code api-future-promise/cpp/publichnyi-interfeis-klasu.hpp
 
 ### Вичерпний опис методів та їхніх семантичних гарантій:
 
@@ -144,45 +81,7 @@ public:
 
 ### Публічний інтерфейс класу:
 
-```cpp
-namespace std {
-
-template <typename R>
-class future {
-public:
-    // 1. Конструктори та деструктор
-    constexpr future() noexcept;
-    future(future&& rhs) noexcept;
-    future(const future&) = delete;
-    ~future();
-
-    // 2. Оператори присвоєння
-    future& operator=(const future&) = delete;
-    future& operator=(future&& rhs) noexcept;
-
-    // 3. Конвертація у shared_future
-    shared_future<R> share() noexcept;
-
-    // 4. Отримання результату
-    R get(); // Для первинного шаблону R
-             // Для R& повертає R&
-             // Для void повертає void
-
-    // 5. Перевірка валідності
-    bool valid() const noexcept;
-
-    // 6. Блокуюче очікування
-    void wait() const;
-    
-    template <typename Rep, typename Period>
-    future_status wait_for(const chrono::duration<Rep, Period>& timeout_duration) const;
-    
-    template <typename Clock, typename Duration>
-    future_status wait_until(const chrono::time_point<Clock, Duration>& timeout_time) const;
-};
-
-} // namespace std
-```
+:::code api-future-promise/cpp/publichnyi-interfeis-klasu.cpp
 
 ### Вичерпний опис методів та їхніх семантичних гарантій:
 
@@ -224,49 +123,7 @@ public:
 
 ### Публічний інтерфейс класу:
 
-```cpp
-namespace std {
-
-template <typename R>
-class shared_future {
-public:
-    constexpr shared_future() noexcept;
-    shared_future(const shared_future& rhs) noexcept;
-    shared_future(shared_future&& rhs) noexcept;
-    shared_future(future<R>&& rhs) noexcept;
-    ~shared_future();
-
-    shared_future& operator=(const shared_future& rhs) noexcept;
-    shared_future& operator=(shared_future&& rhs) noexcept;
-
-    bool valid() const noexcept;
-
-    // Зверніть увагу: get() повертає const R& для загального типу R
-    const R& get() const;
-
-    void wait() const;
-    template <class Rep, class Period>
-    future_status wait_for(const chrono::duration<Rep, Period>& timeout_duration) const;
-    template <class Clock, class Duration>
-    future_status wait_until(const chrono::time_point<Clock, Duration>& timeout_time) const;
-};
-
-// Спеціалізація для посилань
-template <typename R>
-class shared_future<R&> {
-public:
-    R& get() const;
-};
-
-// Спеціалізація для void
-template <>
-class shared_future<void> {
-public:
-    void get() const;
-};
-
-} // namespace std
-```
+:::code api-future-promise/cpp/publichnyi-interfeis-klasu-2.cpp
 
 ### Ключові відмінності інтерфейсу std::shared_future:
 1. **Підтримка копіювання:** На відміну від `std::future`, об'єкт `std::shared_future` має конструктор копіювання та оператор копіювального присвоєння. Кілька об'єктів `shared_future` можуть тримати посилання на один і той самий Shared State через внутрішній лічильник посилань.
@@ -281,50 +138,7 @@ public:
 
 ### Публічний інтерфейс класу:
 
-```cpp
-namespace std {
-
-template <typename Signature>
-class packaged_task; // Невизначений первинний шаблон
-
-template <typename R, typename... Args>
-class packaged_task<R(Args...)> {
-public:
-    // Конструктори
-    packaged_task() noexcept;
-    
-    template <typename F>
-    explicit packaged_task(F&& f);
-    
-    template <typename F, typename Alloc>
-    packaged_task(allocator_arg_t alloc, const Alloc& a, F&& f);
-
-    ~packaged_task();
-
-    // Заборона копіювання, дозвіл переміщення
-    packaged_task(const packaged_task&) = delete;
-    packaged_task(packaged_task&& rhs) noexcept;
-    
-    packaged_task& operator=(const packaged_task&) = delete;
-    packaged_task& operator=(packaged_task&& rhs) noexcept;
-
-    void swap(packaged_task& other) noexcept;
-
-    bool valid() const noexcept;
-
-    // Отримання зв'язаного future
-    future<R> get_future();
-
-    // Виконання задачі
-    void operator()(Args... args);
-    void make_ready_at_thread_exit(Args... args);
-
-    // Скидання стану для повторного використання
-    void reset();
-};
-
-} // namespace std
-```
+:::code api-future-promise/cpp/publichnyi-interfeis-klasu-2.hpp
 
 ### Механіка функціонування std::packaged_task:
 - **`operator()(Args... args)`:** Викликає внутрішню функцію із переданими аргументами. Якщо функція повертає значення `R`, воно зберігається у Shared State через `set_value()`. Якщо функція кидає виняток, виклик перехоплюється у блоці `catch (...)`, і виняток зберігається через `set_exception()`.
@@ -338,30 +152,7 @@ public:
 
 ### Специфікація типів помилок:
 
-```cpp
-namespace std {
-
-enum class future_errc {
-    broken_promise = 1,
-    future_already_retrieved = 2,
-    promise_already_satisfied = 3,
-    no_state = 4
-};
-
-const error_category& future_category() noexcept;
-
-make_error_code(future_errc e) noexcept;
-make_error_condition(future_errc e) noexcept;
-
-class future_error : public logic_error {
-public:
-    explicit future_error(error_code ec);
-    const error_code& code() const noexcept;
-    const char* what() const noexcept override;
-};
-
-} // namespace std
-```
+:::code api-future-promise/cpp/spetsyfikatsiia-typiv.cpp
 
 ### Деталізована семантика кодів помилок:
 

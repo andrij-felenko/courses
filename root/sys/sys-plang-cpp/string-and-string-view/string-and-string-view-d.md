@@ -39,23 +39,7 @@ parse_header("Content-Type: application/json"); // 1 алокація + 1 деа
 
 Усередині об'єкта `std::string` розташовується анонімне об'єднання (`union`), яке суміщає три слова стану для довгого рядка (покажчик `data`, розмір `size`, ємність `capacity`) з фіксованим масивом байтів для короткого рядка:
 
-```cpp
-// Концептуальна структура std::string у 64-бітній системі (sizeof = 32 байти)
-class string {
-    union {
-        struct {
-            char*       ptr;
-            std::size_t size;
-            std::size_t capacity;
-        } heap;
-
-        struct {
-            char        buf[23];
-            unsigned char sso_size; // Або прапорець у старшому байті
-        } sso;
-    };
-};
-```
+:::code string-and-string-view-d/cpp/optymizatsiia-malykh.cpp
 
 Межа довжини SSO залежить від реалізації стандартної бібліотеки:
 - **libstdc++ (GCC)**: 15 символів (при `sizeof(std::string) = 32` байти);
@@ -80,19 +64,7 @@ class string {
 
 Для глибшого розуміння системи типів C++ важливо бачити, що `std::string` не є самостійним класом. Це лише псевдонім типів (typedef/using) для шаблонного класу `std::basic_string`:
 
-```cpp
-namespace std {
-    template <typename CharT, 
-              typename Traits = std::char_traits<CharT>, 
-              typename Allocator = std::allocator<CharT>>
-    class basic_string;
-
-    using string = basic_string<char>;
-    using u16string = basic_string<char16_t>;
-    using u32string = basic_string<char32_t>;
-    using wstring = basic_string<wchar_t>;
-}
-```
+:::code string-and-string-view-d/cpp/alokatory-ta-shablonne.cpp
 
 Параметр `Traits` визначає низку низькорівневих операцій над символами: порівняння (`eq`, `lt`), копіювання (`copy`), переміщення (`move`) та пошук нульового термінатора (`length`). Це дозволяє створювати, наприклад, рядки, які ігнорують регістр символів при порівнянні (case-insensitive strings), просто замінивши `Traits`.
 
@@ -111,19 +83,7 @@ C++17 ввів фундаментальне розділення концепц�
 
 `std::string_view` не володіє пам'яттю і не намагається її звільняти. Структурно це легковажна пара з двох полів:
 
-```cpp
-// Концептуальний устрій std::string_view (sizeof = 16 байтів на 64-бітній системі)
-class string_view {
-    const char* ptr_ = nullptr;
-    std::size_t size_ = 0;
-public:
-    constexpr string_view(const char* data, std::size_t len) 
-        : ptr_(data), size_(len) {}
-    
-    constexpr const char* data() const noexcept { return ptr_; }
-    constexpr std::size_t size() const noexcept { return size_; }
-};
-```
+:::code string-and-string-view-d/cpp/bezvolodisnyi-pohliad.cpp
 
 Зверніть увагу на важливу деталізацію: `std::string_view` є шаблоном `std::basic_string_view<CharT, Traits>`, але він **не має параметра Allocator**!
 
@@ -206,18 +166,7 @@ public:
 
 Спроба зберегти `std::string_view`, що посилається на тимчасовий об'єкт, призводить до невизначеної поведінки (Undefined Behavior):
 
-```cpp
-std::string get_filename() {
-    return "data_2026.log";
-}
-
-// КАТАСТРОФА: get_filename() повертає тимчасовий std::string.
-// Після завершення ініціалізації sv тимчасовий рядок знищується!
-std::string_view sv = get_filename(); 
-
-// Помилка під час виконання: читання звільненої пам'яті (Use-After-Free)
-std::cout << sv; // UB!
-```
+:::code string-and-string-view-d/cpp/pastka-1-vysiachyi.cpp
 
 На відміну від `const std::string&`, константне посилання **подовжує час життя** тимчасового rvalue-об'єкта до кінця блоку. Об'єкт `std::string_view` **не є посиланням для мови C++** — це звичайна структура за значенням, тому подовження часу життя для неї не працює.
 
@@ -230,36 +179,8 @@ std::cout << sv; // UB!
 5. **Модифікація вихідного рядка**: Навіть без реалокації, виклик `str.clear()` або `str.erase()` змінює вміст буфера, через що погляд показуватиме на некоректний або застарілий текст.
 
 :::tabs
-```cpp
-// C++: Пастка часу життя та висячого погляду
-#include <iostream>
-#include <string>
-#include <string_view>
-
-std::string_view create_dangling_view() {
-    std::string local_str = "Тимчасові дані в локальній змінній";
-    return local_str; // Небезпека: local_str знищиться при виході з функції!
-}
-
-void dangling_demo() {
-    std::string_view bad_sv = create_dangling_view();
-    // bad_sv.data() тепер вказує на сміття у стековому кадрі
-}
-```
-```c
-// C: Аналогічна помилка при поверненні вказівника на локальний масив
-#include <stdio.h>
-
-const char* create_dangling_pointer(void) {
-    char local_buf[64] = "Тимчасові дані в локальній змінній";
-    return local_buf; // Небезпека: повернення вказівника на стековий буфер!
-}
-
-void dangling_demo_c(void) {
-    const char* bad_ptr = create_dangling_pointer();
-    // bad_ptr вказує на вивільнений стековий кадр
-}
-```
+:::code string-and-string-view-d/cpp/pastka-1-vysiachyi-2.cpp
+:::code string-and-string-view-d/c/main.c
 :::
 
 Сучасні статичні аналізатори (Clang-Tidy, MSVC Code Analysis) та прапорці компілятора (`-Wdangling-gsl` у Clang) вміють знаходити більшість цих помилок ще на етапі компіляції. Також у C++20 додано атрибути `[[clang::lifetimebound]]`, які дозволяють позначати параметри функцій для відстеження зв'язку часу життя між аргументом та поверненим поглядом.
@@ -280,18 +201,7 @@ printf("%s\n", sv.data()); // Надрукує "Hello World", бо шукає '\
 
 Якщо ж підрядок утворено з середини масиву, виклик C-функції з `sv.data()` прочитає дані за межами підрядка і може спричинити вихід за межі масиву (Buffer Overread).
 
-```cpp
-void open_file(std::string_view path) {
-    // ПОМИЛКА: path.data() не має '\0' на кінці, якщо це sv.substr(...)
-    FILE* f = fopen(path.data(), "r"); // Небезпека!
-}
-
-// Правильно: явне створення об'єкта std::string з нульовим термінатором
-void open_file_safe(std::string_view path) {
-    std::string null_terminated_path(path);
-    FILE* f = fopen(null_terminated_path.c_str(), "r"); // Безпечно
-}
-```
+:::code string-and-string-view-d/cpp/pastka-2-vidsutnist.cpp
 
 Для безпечної роботи з системними викликами POSIX та C-бібліотеками рекомендується застосовувати один із двох підходів:
 

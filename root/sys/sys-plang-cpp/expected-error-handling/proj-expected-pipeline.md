@@ -22,186 +22,8 @@
 У класичному системному програмуванні на мові C ця задача вирішується через використання кодових прапорців повернення, вихідних параметрів (out-parameters) та паттерну cleanup `goto` для звільнення ресурсів при виникненні аварійних ситуацій.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <stdbool.h>
-
-// Типи помилок підсистеми
-typedef enum {
-    CONFIG_SUCCESS = 0,
-    CONFIG_ERR_FILE_NOT_FOUND,
-    CONFIG_ERR_READ_FAILED,
-    CONFIG_ERR_PARSE_INVALID_PORT,
-    CONFIG_ERR_PARSE_INVALID_THREADS,
-    CONFIG_ERR_OUT_OF_MEMORY
-} ConfigStatus;
-
-// Структура налаштувань сервісу
-typedef struct {
-    char db_host[128];
-    int port;
-    int worker_threads;
-} ServiceConfig;
-
-// 1. Зчитування файлу конфігурації
-ConfigStatus read_config_file(const char* filepath, char** out_buffer) {
-    if (!filepath || !out_buffer) return CONFIG_ERR_READ_FAILED;
-
-    FILE* f = fopen(filepath, "r");
-    if (!f) {
-        if (errno == ENOENT) return CONFIG_ERR_FILE_NOT_FOUND;
-        return CONFIG_ERR_READ_FAILED;
-    }
-
-    fseek(f, 0, SEEK_END);
-    long size = ftell(f);
-    fseek(f, 0, SEEK_SET);
-
-    if (size <= 0) {
-        fclose(f);
-        return CONFIG_ERR_READ_FAILED;
-    }
-
-    char* buf = (char*)malloc((size_t)size + 1);
-    if (!buf) {
-        fclose(f);
-        return CONFIG_ERR_OUT_OF_MEMORY;
-    }
-
-    size_t read_bytes = fread(buf, 1, (size_t)size, f);
-    fclose(f);
-
-    if (read_bytes != (size_t)size) {
-        free(buf);
-        return CONFIG_ERR_READ_FAILED;
-    }
-
-    buf[size] = '\0';
-    *out_buffer = buf;
-    return CONFIG_SUCCESS;
-}
-
-// 2. Парсинг та валідація вмісту
-ConfigStatus parse_and_validate(const char* buffer, ServiceConfig* out_config) {
-    if (!buffer || !out_config) return CONFIG_ERR_READ_FAILED;
-
-    int port = 0;
-    int threads = 0;
-    char host[128] = {0};
-
-    // Приклад спрощеного парсингу рядка format: host;port;threads
-    int parsed = sscanf(buffer, "%127[^;];%d;%d", host, &port, &threads);
-    if (parsed != 3) {
-        return CONFIG_ERR_PARSE_INVALID_PORT;
-    }
-
-    // Валідація порту
-    if (port < 1 || port > 65535) {
-        return CONFIG_ERR_PARSE_INVALID_PORT;
-    }
-
-    // Валідація потоків
-    if (threads < 1 || threads > 128) {
-        return CONFIG_ERR_PARSE_INVALID_THREADS;
-    }
-
-    strncpy(out_config->db_host, host, sizeof(out_config->db_host) - 1);
-    out_config->port = port;
-    out_config->worker_threads = threads;
-
-    return CONFIG_SUCCESS;
-}
-
-// Повний конвеєр з обробленням помилок через goto
-ConfigStatus initialize_service_c(const char* config_path, ServiceConfig* out_cfg) {
-    char* raw_buffer = NULL;
-    ConfigStatus status = read_config_file(config_path, &raw_buffer);
-    if (status != CONFIG_SUCCESS) {
-        goto cleanup;
-    }
-
-    status = parse_and_validate(raw_buffer, out_cfg);
-    if (status != CONFIG_SUCCESS) {
-        goto cleanup;
-    }
-
-cleanup:
-    if (raw_buffer) {
-        free(raw_buffer);
-    }
-    return status;
-}
-```
-```cpp
-// Ідіоматичний C++23 еквівалент з std::expected та RAII замість goto cleanup
-#include <expected>
-#include <string>
-#include <string_view>
-#include <fstream>
-#include <sstream>
-
-enum class ConfigStatus {
-    Success = 0,
-    FileNotFound,
-    ReadFailed,
-    InvalidPort,
-    InvalidThreads,
-    OutOfMemory
-};
-
-struct ServiceConfig {
-    std::string db_host;
-    int port{0};
-    int worker_threads{0};
-};
-
-std::expected<std::string, ConfigStatus> read_config_file(std::string_view filepath) {
-    std::ifstream file(std::string(filepath), std::ios::in | std::ios::binary);
-    if (!file.is_open()) {
-        return std::unexpected(ConfigStatus::FileNotFound);
-    }
-
-    std::ostringstream ss;
-    ss << file.rdbuf();
-    if (file.bad()) {
-        return std::unexpected(ConfigStatus::ReadFailed);
-    }
-    return ss.str();
-}
-
-std::expected<ServiceConfig, ConfigStatus> parse_and_validate(std::string_view buffer) {
-    ServiceConfig cfg;
-    std::string_view sv = buffer;
-    
-    auto p1 = sv.find(';');
-    if (p1 == std::string_view::npos) return std::unexpected(ConfigStatus::InvalidPort);
-    cfg.db_host = sv.substr(0, p1);
-    
-    auto rest = sv.substr(p1 + 1);
-    auto p2 = rest.find(';');
-    if (p2 == std::string_view::npos) return std::unexpected(ConfigStatus::InvalidPort);
-    
-    try {
-        cfg.port = std::stoi(std::string(rest.substr(0, p2)));
-        cfg.worker_threads = std::stoi(std::string(rest.substr(p2 + 1)));
-    } catch (...) {
-        return std::unexpected(ConfigStatus::InvalidPort);
-    }
-
-    if (cfg.port < 1 || cfg.port > 65535) return std::unexpected(ConfigStatus::InvalidPort);
-    if (cfg.worker_threads < 1 || cfg.worker_threads > 128) return std::unexpected(ConfigStatus::InvalidThreads);
-
-    return cfg;
-}
-
-std::expected<ServiceConfig, ConfigStatus> initialize_service_cpp(std::string_view config_path) {
-    return read_config_file(config_path)
-        .and_then(parse_and_validate); // RAII автоматично звільняє файловий дескриптор та буфери!
-}
-```
+:::code proj-expected-pipeline/c/2-realizatsiia-na.c
+:::code proj-expected-pipeline/cpp/2-realizatsiia-na.cpp
 :::
 
 ### Детальний розбір недоліків C-реалізації:
@@ -217,163 +39,8 @@ std::expected<ServiceConfig, ConfigStatus> initialize_service_cpp(std::string_vi
 Паралельний приклад на мові C++23 повністю усуває ручні перевірки умовних операторів `if (status)` та витоки пам'яті завдяки виразній монадичній композиції `and_then`, `transform` та `or_else` у поєднанні з RAII-типами (`std::string`, `std::ifstream`).
 
 :::tabs
-```c
-// Повний C-конвеєр з ручним виділенням пам'яті та goto cleanup
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef enum {
-    STATUS_OK = 0,
-    STATUS_FILE_ERROR,
-    STATUS_PARSE_ERROR,
-    STATUS_VALIDATION_ERROR
-} AppStatus;
-
-typedef struct {
-    char host[64];
-    int port;
-} AppConfig;
-
-AppStatus load_config_c(const char* path, AppConfig* cfg) {
-    FILE* f = fopen(path, "r");
-    if (!f) return STATUS_FILE_ERROR;
-
-    char buf[128];
-    if (!fgets(buf, sizeof(buf), f)) {
-        fclose(f);
-        return STATUS_FILE_ERROR;
-    }
-    fclose(f);
-
-    if (sscanf(buf, "%63s %d", cfg->host, &cfg->port) != 2) {
-        return STATUS_PARSE_ERROR;
-    }
-
-    if (cfg->port < 1 || cfg->port > 65535) {
-        return STATUS_VALIDATION_ERROR;
-    }
-
-    return STATUS_OK;
-}
-```
-```cpp
-// Сучасний ідіоматичний C++23 конвеєр з std::expected та RAII
-#include <expected>
-#include <string>
-#include <string_view>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <format>
-
-// 1. Доменна ієрархія помилок
-enum class ConfigError {
-    FileNotFound,
-    ReadFailed,
-    InvalidFormat,
-    InvalidPortRange,
-    InvalidThreadCount
-};
-
-// Адаптер для форматованого виводу помилок
-std::string_view to_string(ConfigError err) noexcept {
-    switch (err) {
-        case ConfigError::FileNotFound:       return "Файл не знайдено на диску";
-        case ConfigError::ReadFailed:         return "Помилка читання даних з файлу";
-        case ConfigError::InvalidFormat:       return "Некоректний синтаксис конфігурації";
-        case ConfigError::InvalidPortRange:   return "Порт знаходиться поза діапазоном 1..65535";
-        case ConfigError::InvalidThreadCount: return "Кількість потоків поза діапазоном 1..128";
-    }
-    return "Невідома помилка";
-}
-
-// 2. Ідіоматичні дані конфігурації
-struct ServiceConfig {
-    std::string db_host;
-    int port;
-    int worker_threads;
-};
-
-// 3. Зчитування файлу через RAII
-std::expected<std::string, ConfigError> read_file_content(std::string_view path) {
-    std::ifstream file(path.data(), std::ios::in | std::ios::binary);
-    if (!file.is_open()) {
-        return std::unexpected(ConfigError::FileNotFound);
-    }
-
-    std::ostringstream ss;
-    ss << file.rdbuf();
-    if (file.bad()) {
-        return std::unexpected(ConfigError::ReadFailed);
-    }
-
-    return ss.str();
-}
-
-// 4. Парсинг конфігураційного рядка
-std::expected<ServiceConfig, ConfigError> parse_config_raw(const std::string& content) {
-    std::istringstream iss(content);
-    std::string host;
-    int port = 0;
-    int threads = 0;
-
-    if (!(iss >> host >> port >> threads)) {
-        return std::unexpected(ConfigError::InvalidFormat);
-    }
-
-    return ServiceConfig{
-        .db_host = std::move(host),
-        .port = port,
-        .worker_threads = threads
-    };
-}
-
-// 5. Валідація бізнес-правил
-std::expected<ServiceConfig, ConfigError> validate_config(ServiceConfig cfg) {
-    if (cfg.port < 1 || cfg.port > 65535) {
-        return std::unexpected(ConfigError::InvalidPortRange);
-    }
-    if (cfg.worker_threads < 1 || cfg.worker_threads > 128) {
-        return std::unexpected(ConfigError::InvalidThreadCount);
-    }
-    return cfg; // Повертаємо виправлену та перевірену конфігурацію
-}
-
-// 6. Побудова елегантного монадичного конвеєра
-std::expected<ServiceConfig, ConfigError> load_service_configuration(std::string_view path) {
-    return read_file_content(path)
-        .and_then(parse_config_raw)
-        .and_then(validate_config);
-}
-
-// 7. Головний точці входу з відвідною обробкою
-int main() {
-    auto config_result = load_service_configuration("server_config.txt")
-        .transform([](const ServiceConfig& cfg) {
-            std::cout << std::format("Конфігурацію завантажено успішно! Host: {}, Port: {}, Threads: {}\n",
-                                     cfg.db_host, cfg.port, cfg.worker_threads);
-            return cfg;
-        })
-        .or_else([](ConfigError err) -> std::expected<ServiceConfig, ConfigError> {
-            std::cerr << std::format("Критичний збій завантаження конфігурації: {}\n", to_string(err));
-            // Відновлення за замовчуванням при відсутності файлу
-            if (err == ConfigError::FileNotFound) {
-                std::cout << "Застосовується резервна конфігурація за замовчуванням...\n";
-                return ServiceConfig{"127.0.0.1", 8080, 4};
-            }
-            return std::unexpected(err);
-        });
-
-    if (config_result) {
-        std::cout << "Сервіс готовий до запуску.\n";
-    } else {
-        std::cout << "Запуск сервісу скасовано через помилку.\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-expected-pipeline/c/3-suchasna-realizatsiia-na.c
+:::code proj-expected-pipeline/cpp/3-suchasna-realizatsiia-na.cpp
 :::
 
 ---
@@ -429,22 +96,7 @@ std::expected<std::string, ConfigError> safe_network_fetch(std::string_view url)
 
 Важливою практичною перевагою `std::expected` є його природна сумісність із корутинами C++20 (`co_await`, `co_return`). У той час як винятки створюють великі накладні витрати при передачі через межі асинхронних кадрів корутин (створення `std::exception_ptr`), об'єкт `std::expected` легко передається як звичайне значення типу повернення корутини:
 
-```cpp
-// Приклад інтеграції std::expected з асинхронною корутиною C++20
-Task<std::expected<ServiceConfig, ConfigError>> async_load_config(std::string_view path) {
-    auto file_res = co_await async_read_file(path);
-    if (!file_res) {
-        co_return std::unexpected(file_res.error());
-    }
-
-    auto parsed = parse_config_raw(*file_res);
-    if (!parsed) {
-        co_return std::unexpected(parsed.error());
-    }
-
-    co_return validate_config(std::move(*parsed));
-}
-```
+:::code proj-expected-pipeline/cpp/6-intehratsiia-z.cpp
 
 Цей підхід дозволяє зберегти детерміноване оброблення помилок навіть у складних розподілених асинхронних сервісах, де виклики рознесені в часі та потоках виконання.
 
@@ -495,22 +147,7 @@ ret
 
 У практичних системних архітектурах оброблення помилок не обмежується лише зупинкою конвеєра — воно вимагає фіксації метаданих у системах спостережуваності (Telemetry / Logging). Шаблон `std::expected` дозволяє вбудовувати логувальні side-effects безпосередньо в монадичний ланцюжок через метод `.transform()` або `.or_else()`:
 
-```cpp
-// Побудова ланцюжка з вбудованим логуванням та метриками
-std::expected<ServiceConfig, ConfigError> load_with_telemetry(std::string_view path) {
-    return load_service_configuration(path)
-        .transform([](ServiceConfig cfg) {
-            Metrics::increment("config_load_success");
-            Logger::info("Конфігурацію прочитано для хоста {}", cfg.db_host);
-            return cfg;
-        })
-        .or_else([](ConfigError err) -> std::expected<ServiceConfig, ConfigError> {
-            Metrics::increment("config_load_failure");
-            Logger::error("Не вдалося завантажити конфігурацію: {}", to_string(err));
-            return std::unexpected(err); // Передаємо помилку далі після логування
-        });
-}
-```
+:::code proj-expected-pipeline/cpp/9-pobudova-vyraznykh.cpp
 
 Такий підхід відокремлює логіку підсистеми спостережуваності від основного алгоритму парсингу, зберігаючи модульність та високу читабельність вихідного коду.
 
@@ -544,19 +181,7 @@ std::expected<ServiceConfig, ConfigError> load_with_telemetry(std::string_view p
 
 Якщо тип `T` являє собою контейнер (наприклад, `std::vector<Item>`), використання `std::pmr::vector` (Polymorphic Memory Resource) дозволяє конструювати результат безпосередньо у заздалегідь виділеній арені пам'яті (Arena / Monotonic Allocator):
 
-```cpp
-#include <memory_resource>
-
-// Використання PMR арени з std::expected
-using PmrString = std::pmr::string;
-
-std::expected<PmrString, ConfigError> read_fast(std::pmr::memory_resource* arena) {
-    PmrString str(arena);
-    str.reserve(1024);
-    // Зчитування в локальну арену без викликів глобального new
-    return str;
-}
-```
+:::code proj-expected-pipeline/cpp/12-vykorystannia.cpp
 
 Такий підхід повністю захищає програму від фрагментації пам'яті та блокувань купи під час роботи у паралельних потоках.
 
@@ -568,19 +193,7 @@ std::expected<PmrString, ConfigError> read_fast(std::pmr::memory_resource* arena
 
 Зручною практикою є використання методів `.transform_error()` для ізоляції внутрішніх деталей реалізації:
 
-```cpp
-// Перетворення низькорівневих помилок бази даних у бізнес-помилки
-std::expected<UserData, DomainError> fetch_user(uint64_t user_id) {
-    return db_query_user(user_id) // Повертає std::expected<UserData, DbError>
-        .transform_error([](DbError db_err) -> DomainError {
-            switch (db_err) {
-                case DbError::RecordNotFound: return DomainError::UserNotFound;
-                case DbError::ConnectionLost: return DomainError::ServiceUnavailable;
-                default:                      return DomainError::InternalSystemError;
-            }
-        });
-}
-```
+:::code proj-expected-pipeline/cpp/13-transliatsiia-pomylok.cpp
 
 Така трансляція запобігає витоку низькорівневих деталей підсистеми зберігання у верхні шари додатка, роблячи архітектуру модульною та легкою для тестування.
 
@@ -590,26 +203,7 @@ std::expected<UserData, DomainError> fetch_user(uint64_t user_id) {
 
 Монадична модель на `std::expected` суттєво спрощує написання автоматизованих юніт-тестів у фреймворках Google Test або Catch2. Завдяки наявності оператора `operator bool()` та методу `.error()` перевірка як щасливого шляху, так і негативних сценаріїв стає декларативною:
 
-```cpp
-// Приклад тестування конвеєра в Google Test
-TEST(ConfigPipelineTest, HandlesFileNotFound) {
-    auto result = load_service_configuration("non_existing_file.txt");
-    
-    // Перевіряємо, що результат містить помилку
-    ASSERT_FALSE(result.has_value());
-    EXPECT_EQ(result.error(), ConfigError::FileNotFound);
-}
-
-TEST(ConfigPipelineTest, ParsesValidConfig) {
-    auto result = parse_config_raw("db.internal 5432 16");
-    
-    // Перевіряємо значення у разі успіху
-    ASSERT_TRUE(result.has_value());
-    EXPECT_EQ(result->db_host, "db.internal");
-    EXPECT_EQ(result->port, 5432);
-    EXPECT_EQ(result->worker_threads, 16);
-}
-```
+:::code proj-expected-pipeline/cpp/14-stratehiia-modulnoho.cpp
 
 Тестування функцій, які повертають `std::expected`, не вимагає перехоплення винятків через `EXPECT_THROW`, що робить тести більш виразними і прискорює їх виконання в тестових suite.
 

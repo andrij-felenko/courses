@@ -56,36 +56,7 @@ BMI зберігає повністю типізоване, семантично
 
 Джерельний файл модульного інтерфейсу має чітко структуровану анатомію. Розглянемо базовий синтаксис інтерфейсної одиниці:
 
-```cpp
-// 1. Глобальний фрагмент модуля (Global Module Fragment) — опціональний
-module;
-
-#include <cstdlib>
-#include <sys/types.h>
-
-// 2. Оголошення преамбули модуля (Module Preamble)
-export module math.geometry;
-
-// 3. Секція імпорту залежностей
-import <cmath>;
-import <vector>;
-
-// 4. Сфера дії модуля (Module Purview)
-export namespace math {
-
-struct Point {
-    double x{0.0};
-    double y{0.0};
-};
-
-[[nodiscard]] export double distance(Point a, Point b) noexcept {
-    const double dx = a.x - b.x;
-    const double dy = a.y - b.y;
-    return std::sqrt(dx * dx + dy * dy);
-}
-
-} // namespace math
-```
+:::code cpp-modules-d/cpp/anatomiia-modulnoho-failu.cpp
 
 Розберемо послідовно призначення кожного з чотирьох структурних блоків:
 
@@ -124,55 +95,12 @@ struct Point {
 ### 1. Головна інтерфейсна одиниця (Primary Interface Unit, `.cppm` / `.ixx`)
 Містить декларацію `export module <name>;`, оголошення структур, класів, концептів, констант і прототипів функцій:
 
-```cpp
-// Файл: network.cppm
-export module network;
-
-export namespace net {
-
-class TcpSocket {
-public:
-    TcpSocket();
-    ~TcpSocket();
-    void connect(const char* host, int port);
-    void send(const char* data, int len);
-private:
-    int m_native_handle{-1};
-};
-
-} // namespace net
-```
+:::code cpp-modules-d/cpp/1-holovna-interfeisna.hpp
 
 ### 2. Одиниця реалізації модуля (Module Implementation Unit, `.cpp`)
 Починається декларацією `module <name>;` без ключового слова `export`. Вона належить до сфери модуля `network`, автоматично бачить усі його типи та внутрішні змінні, але **не генерує нового бінарного інтерфейсу (BMI)**:
 
-```cpp
-// Файл: network.cpp
-module network;
-
-#include <sys/socket.h>
-#include <unistd.h>
-
-namespace net {
-
-TcpSocket::TcpSocket() = default;
-
-TcpSocket::~TcpSocket() {
-    if (m_native_handle >= 0) {
-        ::close(m_native_handle);
-    }
-}
-
-void TcpSocket::connect(const char* host, int port) {
-    // Низькорівневий виклик операційної системи
-}
-
-void TcpSocket::send(const char* data, int len) {
-    // Логіка відправлення мережевих пакетів
-}
-
-} // namespace net
-```
+:::code cpp-modules-d/cpp/network.cpp
 
 Коли розробник змінює алгоритм у `network.cpp`, система збірки перекомпілює виключно об'єктний файл `network.o` і запускає компонувальник. Усі клієнтські файли, які використовують `import network;`, залишаються недоторканими, оскільки файл `network.pcm` (BMI) не зазнав жодних змін.
 
@@ -223,20 +151,7 @@ bool is_nearly_zero(float val);
 }
 ```
 
-```cpp
-// Файл: math.cpp (Одиниця реалізації)
-module math;
-
-// Імпорт внутрішнього розділу для внутрішніх потреб
-import :internals;
-
-namespace math {
-Vector3 add(Vector3 a, Vector3 b) {
-    if (detail::is_nearly_zero(a.x)) { /* ... */ }
-    return {a.x + b.x, a.y + b.y, a.z + b.z};
-}
-}
-```
+:::code cpp-modules-d/cpp/math.cpp
 
 Клієнтський код не має права імпортувати розділи напряму (рядки на зразок `import math:geometry;` викликають помилку). Споживач завжди бачить єдиний стабільний інтерфейс `import math;`.
 
@@ -246,35 +161,7 @@ Vector3 add(Vector3 a, Vector3 b) {
 
 Він дозволяє розмістити оголошення інтерфейсу та його повну реалізацію в одному джерельному файлі, але на рівні компілятора гарантує, що тіла функцій не потраплять у відкритий BMI:
 
-```cpp
-export module crypto.aes;
-
-export class AesEncryptor {
-public:
-    AesEncryptor();
-    void set_key(const char* key, int len);
-    void encrypt_block(const void* in, void* out);
-private:
-    void expand_key_schedule();
-};
-
-// Межа приватного фрагмента: усе нижче цього рядка не потрапляє у відкритий BMI
-module :private;
-
-AesEncryptor::AesEncryptor() = default;
-
-void AesEncryptor::set_key(const char* key, int len) {
-    expand_key_schedule();
-}
-
-void AesEncryptor::expand_key_schedule() {
-    // Внутрішня важка криптографічна математика
-}
-
-void AesEncryptor::encrypt_block(const void* in, void* out) {
-    // Операції над байтами
-}
-```
+:::code cpp-modules-d/cpp/pryvatnyi-frahment-modulia.cpp
 
 ### Механічні інваріанти приватного фрагмента:
 1. **Ізоляція хешу BMI**: зміна коду нижче `module :private;` змінює лише фінальний машинний код об'єкта, але залишає незмінним синтаксичний хеш інтерфейсу BMI. Клієнти, які імпортують `crypto.aes`, не перекомпілюються.
@@ -331,45 +218,11 @@ void compact_database(int level);
 
 Простежимо це на живому прикладі:
 
-```cpp
-// --- Файл: session_manager.cppm ---
-export module session_manager;
-
-// Неекспортований тип: його назва UserSession відсутня в публічній таблиці імен
-struct UserSession {
-    uint64_t session_id{0};
-    void terminate() { session_id = 0; }
-    [[nodiscard]] bool is_valid() const { return session_id != 0; }
-};
-
-// Публічна експортована функція повертає неекспортований тип
-export UserSession create_session(uint64_t user_id) {
-    return UserSession{user_id};
-}
-```
+:::code cpp-modules-d/cpp/vydymist-proty.cpp
 
 Тепер подивимося на код клієнтського файлу:
 
-```cpp
-// --- Файл: main.cpp ---
-import session_manager;
-
-int main() {
-    // 1. Спроба прямого оголошення за назвою типу:
-    // UserSession s; // ❌ ПОМИЛКА: ідентифікатор 'UserSession' не знайдено (Not Visible)
-
-    // 2. Отримання через фабрику за допомогою auto:
-    auto session = create_session(42); // ✅ ПРАЦЮЄ: тип UserSession досяжний (Reachable)
-
-    // 3. Виклик методів об'єкта:
-    if (session.is_valid()) {          // ✅ ПРАЦЮЄ: зміщення методу відоме компілятору з BMI
-        session.terminate();
-    }
-
-    // 4. Обчислення розміру об'єкта:
-    constexpr size_t sz = sizeof(session); // ✅ ПРАЦЮЄ: точний розмір типу зафіксовано в BMI
-}
-```
+:::code cpp-modules-d/cpp/main.cpp
 
 ### Чому механізм досяжності критично важливий
 

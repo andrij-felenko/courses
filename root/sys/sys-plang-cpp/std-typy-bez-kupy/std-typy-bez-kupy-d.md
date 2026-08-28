@@ -30,37 +30,11 @@
 
 Структурно `std::array<T, N>` є агрегатним типом, єдиним полем якого є сирий масив елементів `T elements_[N]`. У ньому немає жодних прихованих службових полів: ні збереженого розміру, ні динамічних вказівників, ні віртуальних таблиць методів:
 
-```cpp
-template <typename T, std::size_t N>
-struct array {
-    T elements_[N];
-
-    constexpr std::size_t size() const noexcept { return N; }
-    constexpr T* data() noexcept { return elements_; }
-    constexpr const T* data() const noexcept { return elements_; }
-    constexpr T& operator[](std::size_t index) noexcept { return elements_[index]; }
-    constexpr const T& operator[](std::size_t index) const noexcept { return elements_[index]; }
-};
-```
+:::code std-typy-bez-kupy-d/cpp/vnutrishnie-roztashuvannia.cpp
 
 Це означає, що `sizeof(std::array<T, N>)` точно дорівнює `sizeof(T) * N`, а вирівнювання `alignof(std::array<T, N>)` ідентичне `alignof(T)`. Якщо `std::array` оголошено на стеку локальною змінною, він розташовується повністю всередині поточного стек-фрейму. Якщо він оголошений глобально або зі специфікатором `static`, він потрапляє у сегмент ініціалізованих даних `.data` або неініціалізованих даних `.bss`. Якщо ж масив оголошено як `constexpr`, компілятор розташовує його безпосередньо у захищеній від запису пам'яті програм Flash (`.rodata`), взагалі не витрачаючи дорогоцінну оперативну пам'ять (SRAM).
 
-```cpp
-#include <array>
-#include <cstdint>
-
-// 1. Повністю у Flash-пам'яті (.rodata), 0 байтів ОЗП
-constexpr std::array<uint8_t, 4> CRC_TABLE = {0x00, 0x5E, 0xBC, 0xE2};
-
-// 2. У секції .bss статичного ОЗП мікроконтролера
-static std::array<uint8_t, 256> dma_uart_rx_buffer;
-
-void process_data() {
-    // 3. На стеку функції (звільняється автоматично при виході)
-    std::array<uint16_t, 8> adc_samples{};
-    adc_samples.fill(0);
-}
-```
+:::code std-typy-bez-kupy-d/cpp/vnutrishnie-roztashuvannia-2.cpp
 
 Асемблерний код доступу до елемента `std::array<uint32_t, 16>` є повністю еквівалентним C-масиву: на архітектурі ARM Cortex-M вираз `arr[i]` транслюється в єдину інструкцію завантаження `LDR r0, [r1, r2, LSL #2]` без будь-яких накладних витрат на виклики підпрограм або непряму адресацію. Завдяки збереженню інформації про вирівнювання оптимізатор компілятора при увімкнених прапорцях `-O2`/`-O3` автоматично векторизує цикли обробки `std::array` за допомогою векторних SIMD-інструкцій (ARM NEON або RISC-V Vector).
 
@@ -68,25 +42,7 @@ void process_data() {
 
 Однією з найважливіших переваг `std::array` у мікроконтролерних системах є можливість генерувати складні таблиці пошуку безпосередньо під час компіляції. Замість того, щоб зберігати готові таблиці у вигляді громіздких масивів чисел у коді або обчислювати їх під час запуску пристрою, алгоритм записується у вигляді `constexpr`-функції:
 
-```cpp
-#include <array>
-#include <cstdint>
-
-constexpr std::array<uint16_t, 256> generate_crc16_table() {
-    std::array<uint16_t, 256> table{};
-    for (uint16_t i = 0; i < 256; ++i) {
-        uint16_t cur = i << 8;
-        for (int j = 0; j < 8; ++j) {
-            cur = (cur & 0x8000) ? ((cur << 1) ^ 0x1021) : (cur << 1);
-        }
-        table[i] = cur;
-    }
-    return table;
-}
-
-// Таблиця генерується компілятором і записується у Flash-пам'ять (.rodata)
-constexpr auto CRC16_TABLE = generate_crc16_table();
-```
+:::code std-typy-bez-kupy-d/cpp/obchyslennia-tablyts-na.cpp
 
 Компілятор повністю обчислює всі 256 значень під час компіляції. Пристрій стартує миттєво, не витрачаючи такти процесора на ініціалізацію таблиць, а самі дані не займають жодного байта в оперативній пам'яті.
 
@@ -126,32 +82,7 @@ void process_motion() {
 1. **Динамічний екстент (`std::dynamic_extent` за замовчуванням):** Розмір послідовності стає відомим під час виконання програми. Структурно такий `std::span` складається з двох слів: вказівника на початок даних `T* data_` та лічильника елементів `std::size_t size_`. На 32-бітних процесорах ARM Cortex-M він займає рівно 8 байтів, а на 64-бітних платформах — 16 байтів. Згідно зі стандартними угодами про виклики функцій (ABI), такий об'єкт передається безпосередньо через регістри процесора (`r0`-`r1` на ARM AAPCS), не торкаючись стеку.
 2. **Статичний екстент (`std::span<T, N>`):** Розмір масиву зафіксовано на етапі компіляції. Компілятор оптимізує внутрішню структуру, видаляючи поле `size_`. Такий спан містить **лише один вказівник** `T* data_` (4 або 8 байтів), а метод `.size()` повертає константу `N` безпосередньо з інформації про тип.
 
-```cpp
-#include <span>
-#include <cstdint>
-#include <array>
-
-// Функція приймає будь-яку неперервну пам'ять: C-масив, std::array, буфер DMA
-uint16_t calculate_crc16(std::span<const uint8_t> data) noexcept {
-    uint16_t crc = 0xFFFF;
-    for (uint8_t byte : data) {
-        crc ^= byte;
-        for (int i = 0; i < 8; ++i) {
-            crc = (crc & 1) ? ((crc >> 1) ^ 0xA001) : (crc >> 1);
-        }
-    }
-    return crc;
-}
-
-void demo_span() {
-    uint8_t c_buffer[16] = {0};
-    std::array<uint8_t, 32> cpp_array{};
-
-    // Обидва виклики безпечні та автоматично формують std::span
-    calculate_crc16(c_buffer);
-    calculate_crc16(cpp_array);
-}
-```
+:::code std-typy-bez-kupy-d/cpp/mekhanizm-dynamichnoho-ta.cpp
 
 ![Проєкції std::span та std::string_view над DMA-буфером](/root/sys/sys-plang-cpp/std-typy-bez-kupy/img/span-and-string-view-layout.svg)
 *Фізичний DMA-буфер у пам'яті та проєкції std::span і std::string_view, що забезпечують безпечний безкопійний доступ до заголовків та корисного навантаження без модифікації пам'яті.*
@@ -162,82 +93,15 @@ void demo_span() {
 
 Якщо мережевий пакет або кадр телеметрії містить 4-байтний заголовок, 24 байти корисного навантаження та 2 байти контрольної суми, їх можна розділити на окремі строго типізовані спани:
 
-```cpp
-void parse_network_frame(std::span<const uint8_t> frame) {
-    if (frame.size() < 30) return; // Захист від некоректного розміру пакета
-
-    // 1. Перші 4 байти — заголовок
-    std::span<const uint8_t> header = frame.first(4);
-
-    // 2. Наступні 24 байти — корисні дані (payload)
-    std::span<const uint8_t> payload = frame.subspan(4, 24);
-
-    // 3. Останні 2 байти — контрольна сума
-    std::span<const uint8_t> checksum = frame.last(2);
-}
-```
+:::code std-typy-bez-kupy-d/cpp/bezkopiinyi-podil-buferiv.cpp
 
 Для роботи з сирою пам'яттю `std::span` надає стандартні утиліти `std::as_bytes` та `std::as_writable_bytes`, які перетворюють довільний спан `std::span<T>` на типізоване представлення байтів `std::span<const std::byte>`, усуваючи необхідність у небезпечних приведеннях покажчиків типу `reinterpret_cast<const char*>`.
 
 Порівняємо реалізацію обробки DMA-буфера прийому повідомлень мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint8_t buffer[64];
-    size_t received_bytes;
-} DmaReceiver;
-
-bool process_packet_c(const uint8_t* data, size_t len) {
-    if (data == NULL || len < 4) {
-        return false;
-    }
-    uint8_t packet_id = data[0];
-    const uint8_t* payload = data + 1;
-    size_t payload_len = len - 3; // 1 байт ID + 2 байти CRC
-    uint16_t expected_crc = (uint16_t)(data[len - 2] | (data[len - 1] << 8));
-
-    // Обробка payload через вказівник і довжину...
-    (void)packet_id;
-    (void)payload;
-    (void)payload_len;
-    (void)expected_crc;
-    return true;
-}
-```
-```cpp
-#include <span>
-#include <cstdint>
-#include <array>
-
-struct DmaReceiver {
-    std::array<uint8_t, 64> buffer{};
-    std::size_t received_bytes{0};
-
-    [[nodiscard]] std::span<const uint8_t> received_span() const noexcept {
-        return std::span<const uint8_t>(buffer.data(), received_bytes);
-    }
-};
-
-bool process_packet_cpp(std::span<const uint8_t> packet) noexcept {
-    if (packet.size() < 4) {
-        return false;
-    }
-    uint8_t packet_id = packet.front();
-    std::span<const uint8_t> payload = packet.subspan(1, packet.size() - 3);
-    std::span<const uint8_t, 2> crc_bytes = packet.last<2>();
-    uint16_t expected_crc = static_cast<uint16_t>(crc_bytes[0] | (crc_bytes[1] << 8));
-
-    (void)packet_id;
-    (void)payload;
-    (void)expected_crc;
-    return true;
-}
-```
+:::code std-typy-bez-kupy-d/c/bezkopiinyi-podil-buferiv.c
+:::code std-typy-bez-kupy-d/cpp/bezkopiinyi-podil-buferiv-2.cpp
 :::
 
 ## std::string_view: робота з текстом без нульового байта та алокацій
@@ -257,27 +121,7 @@ bool process_packet_cpp(std::span<const uint8_t> packet) noexcept {
 
 Символи, на які посилається `std::string_view`, **не зобов'язані завершуватися нульовим байтом `\0`**. Це дозволяє створювати проєкції підрядків довільної глибини за час `O(1)` без виділення жодного байта пам'яті:
 
-```cpp
-#include <string_view>
-
-void parse_nmea_sentence(std::string_view nmea) {
-    // Вхід: "$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47"
-    if (!nmea.starts_with("$GPGGA")) {
-        return;
-    }
-
-    // Видаляємо префікс "$GPGGA," (7 символів) без копіювання за O(1)
-    nmea.remove_prefix(7);
-
-    // Знаходимо першу кому
-    std::size_t comma_pos = nmea.find(',');
-    if (comma_pos != std::string_view::npos) {
-        std::string_view time_field = nmea.substr(0, comma_pos); // "123519"
-        // time_field дивиться прямо у вхідний буфер!
-        (void)time_field;
-    }
-}
-```
+:::code std-typy-bez-kupy-d/cpp/struktura-ta-vlastyvosti.cpp
 
 ### Пастки часу життя та межі сумісності з C-API
 
@@ -295,74 +139,8 @@ void parse_nmea_sentence(std::string_view nmea) {
 Розглянемо безкопійний парсер відповідей модема (AT-команд) на базі `std::string_view` у порівнянні з C:
 
 :::tabs
-```c
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-typedef struct {
-    int signal_strength;
-    int bit_error_rate;
-} CsqResponse;
-
-bool parse_csq_c(char* response, CsqResponse* out) {
-    // Вхід: "+CSQ: 24,99\r\nOK"
-    // Небезпечно: strtok модифікує вхідний рядок, записуючи '\0'
-    char* prefix = strstr(response, "+CSQ: ");
-    if (!prefix) return false;
-
-    char* token = strtok(prefix + 6, ",\r\n");
-    if (!token) return false;
-    out->signal_strength = 0;
-    while (*token >= '0' && *token <= '9') {
-        out->signal_strength = out->signal_strength * 10 + (*token - '0');
-        token++;
-    }
-
-    token = strtok(NULL, ",\r\n");
-    if (!token) return false;
-    out->bit_error_rate = 0;
-    while (*token >= '0' && *token <= '9') {
-        out->bit_error_rate = out->bit_error_rate * 10 + (*token - '0');
-        token++;
-    }
-    return true;
-}
-```
-```cpp
-#include <string_view>
-#include <charconv>
-#include <optional>
-
-struct CsqResponse {
-    int signal_strength{0};
-    int bit_error_rate{0};
-};
-
-[[nodiscard]] std::optional<CsqResponse> parse_csq_cpp(std::string_view response) noexcept {
-    // Вхід: "+CSQ: 24,99\r\nOK" — рядок не змінюється, може бути у Flash (.rodata)
-    constexpr std::string_view PREFIX = "+CSQ: ";
-    auto prefix_pos = response.find(PREFIX);
-    if (prefix_pos == std::string_view::npos) {
-        return std::nullopt;
-    }
-
-    response.remove_prefix(prefix_pos + PREFIX.size());
-
-    CsqResponse result{};
-    auto res1 = std::from_chars(response.data(), response.data() + response.size(), result.signal_strength);
-    if (res1.ec != std::errc{}) return std::nullopt;
-
-    response.remove_prefix(res1.ptr - response.data());
-    if (response.empty() || response.front() != ',') return std::nullopt;
-    response.remove_prefix(1); // пропускаємо кому
-
-    auto res2 = std::from_chars(response.data(), response.data() + response.size(), result.bit_error_rate);
-    if (res2.ec != std::errc{}) return std::nullopt;
-
-    return result;
-}
-```
+:::code std-typy-bez-kupy-d/c/pastky-chasu-zhyttia-ta.c
+:::code std-typy-bez-kupy-d/cpp/pastky-chasu-zhyttia-ta.cpp
 :::
 
 ## std::optional: детерміноване значення або відсутність без винятків
@@ -404,55 +182,13 @@ sizeof(std::optional<T>)
 2. **Присвоєння значення (Emplace):** Конструктор об'єкта `T` викликається безпосередньо у внутрішньому буфері `storage_` за допомогою розміщувального new (`placement new`), після чого `has_value_` встановлюється в `true`.
 3. **Знищення або очищення (`reset()`):** Якщо `has_value_ == true`, явно викликається деструктор `reinterpret_cast<T*>(storage_)->~T()`, і прапорець скидається в `false`. Динамічна купа не використовується на жодному з цих кроків.
 
-```cpp
-#include <optional>
-#include <cstdint>
-
-struct UartHardware {
-    static bool has_data() noexcept;
-    static uint8_t read_rx_register() noexcept;
-};
-
-// Замість магічного int16_t з поверненням -1 при порожньому буфері
-[[nodiscard]] std::optional<uint8_t> uart_try_read_byte() noexcept {
-    if (!UartHardware::has_data()) {
-        return std::nullopt; // Порожній стан, 0 копіювань
-    }
-    return UartHardware::read_rx_register();
-}
-
-void handle_uart() {
-    auto byte_opt = uart_try_read_byte();
-    if (byte_opt.has_value()) {
-        uint8_t received = *byte_opt; // Безпечний доступ до значення
-        (void)received;
-    }
-
-    // Отримання значення за замовчуванням у разі відсутності
-    uint8_t data = byte_opt.value_or(0x00);
-    (void)data;
-}
-```
+:::code std-typy-bez-kupy-d/cpp/vnutrishnia-budova-ta.cpp
 
 ### Монадичні операції C++23 для конвеєрів обробки
 
 У стандарті C++23 для `std::optional` стандартизовано методи функціональної композиції: `and_then()`, `transform()`, `or_else()`. Вони дозволяють будувати лінійні конвеєри обробки помилок без вкладених умовних розгалужень `if-else` та без винятків:
 
-```cpp
-struct SensorData {
-    uint16_t raw_adc;
-};
-
-std::optional<SensorData> read_sensor() noexcept;
-std::optional<float> convert_to_voltage(SensorData s) noexcept;
-std::optional<float> calibrate(float v) noexcept;
-
-std::optional<float> get_calibrated_voltage() noexcept {
-    return read_sensor()
-        .and_then(convert_to_voltage)
-        .and_then(calibrate);
-}
-```
+:::code std-typy-bez-kupy-d/cpp/monadychni-operatsii-c-23.cpp
 
 Компілятор розгортає цей монадичний ланцюжок у пряму послідовність перевірок прапорця на рівні регістрів, повністю оптимізуючи проміжні структури.
 
@@ -475,85 +211,13 @@ sizeof(std::variant<T1, T2, T3>)
 
 Обробка подій здійснюється за допомогою функції `std::visit`, яка будує статичну таблицю переходів на етапі компіляції:
 
-```cpp
-#include <variant>
-#include <cstdint>
-
-struct PacketData { uint8_t payload[16]; };
-struct PacketError { uint32_t error_code; };
-struct PacketPing { uint32_t sequence_id; };
-
-using Event = std::variant<PacketData, PacketError, PacketPing>;
-
-// Патерн Overload для зіставлення типів
-template<class... Ts> struct Overload : Ts... { using Ts::operator()...; };
-template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
-
-void dispatch_event(const Event& ev) {
-    std::visit(Overload{
-        [](const PacketData& d) { /* Обробка даних */ (void)d; },
-        [](const PacketError& e) { /* Обробка помилки */ (void)e; },
-        [](const PacketPing& p) { /* Відповідь на Ping */ (void)p; }
-    }, ev);
-}
-```
+:::code std-typy-bez-kupy-d/cpp/vnutrishnia-struktura-ta.cpp
 
 Порівняємо реалізацію обробки подій мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef enum {
-    EVENT_DATA,
-    EVENT_ERROR,
-    EVENT_PING
-} EventType;
-
-typedef struct {
-    EventType type;
-    union {
-        struct { uint8_t payload[16]; } data;
-        struct { uint32_t error_code; } error;
-        struct { uint32_t sequence_id; } ping;
-    } as;
-} CEvent;
-
-void handle_event_c(const CEvent* ev) {
-    if (!ev) return;
-    switch (ev->type) {
-        case EVENT_DATA:
-            // Немає компіляторного захисту від звернення до ev->as.error!
-            break;
-        case EVENT_ERROR:
-            break;
-        case EVENT_PING:
-            break;
-    }
-}
-```
-```cpp
-#include <variant>
-#include <cstdint>
-
-struct DataMsg { uint8_t payload[16]; };
-struct ErrorMsg { uint32_t error_code; };
-struct PingMsg { uint32_t sequence_id; };
-
-using EventCpp = std::variant<DataMsg, ErrorMsg, PingMsg>;
-
-template<class... Ts> struct Overload : Ts... { using Ts::operator()...; };
-template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
-
-void handle_event_cpp(const EventCpp& ev) noexcept {
-    std::visit(Overload{
-        [](const DataMsg&) noexcept {},
-        [](const ErrorMsg&) noexcept {},
-        [](const PingMsg&) noexcept {}
-    }, ev);
-}
-```
+:::code std-typy-bez-kupy-d/c/vnutrishnia-struktura-ta.c
+:::code std-typy-bez-kupy-d/cpp/vnutrishnia-struktura-ta-2.cpp
 :::
 
 ## Стандарти Freestanding C++ та компіляторні конфігурації

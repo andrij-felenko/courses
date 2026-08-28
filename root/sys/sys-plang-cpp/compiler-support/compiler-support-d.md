@@ -137,18 +137,7 @@ g++ -std=c++20 -pedantic-errors main.cpp
 
 Щоб наочно зрозуміти, чому прапорець `/permissive-` у MSVC та прапорець `-pedantic-errors` у GCC є настільки важливими, простежимо поведінку компілятора на прикладі узагальненого шаблону класу:
 
-```cpp
-template <typename T>
-struct DataHandler {
-    void process() {
-        // Незалежний виклик: не залежить від параметра типу T
-        non_existent_function(42); 
-
-        // Залежне ім'я типу: залежить від внутрішньої структури T
-        typename T::iterator it; 
-    }
-};
-```
+:::code compiler-support-d/cpp/hlybokyi-rozbir-dvofaznoho.cpp
 
 У старій моделі MSVC (режим `/permissive` за замовчуванням у старих версіях) компілятор пропускав увесь вміст методу `process()` без жодного семантичного аналізу під час читання файлу. Якщо у файлі `main.cpp` клас `DataHandler` ніколи не інстанціювався (наприклад, не створювався об'єкт `DataHandler<int>`), програма успішно компілювалася і лінкувалася, попри те, що функція `non_existent_function` не існує в природі, а рядок містить грубу друкарську помилку!
 
@@ -275,24 +264,7 @@ cl.exe /std:c++20 /permissive- /W4 /WX /Zc:__cplusplus /Zc:preprocessor /utf-8 /
 
 Для макросів бібліотеки (`__cpp_lib_*`) стандарт C++20 запровадив легкий заголовок `<version>`. Він містить виключно макроси конфігурації без оголошення важких типів:
 
-```cpp
-#if defined(__has_include)
-    #if __has_include(<version>)
-        #include <version>
-    #endif
-#endif
-
-// Чиста перевірка наявності std::expected
-#if defined(__cpp_lib_expected) && (__cpp_lib_expected >= 202202L)
-    #include <expected>
-    template <typename T, typename E>
-    using Result = std::expected<T, E>;
-#else
-    #include "compat/expected_polyfill.hpp"
-    template <typename T, typename E>
-    using Result = compat::expected<T, E>;
-#endif
-```
+:::code compiler-support-d/cpp/rishennia-komitetu-wg21.cpp
 
 ### Перевірка атрибутів та включень
 
@@ -333,20 +305,7 @@ cl.exe /std:c++20 /permissive- /W4 /WX /Zc:__cplusplus /Zc:preprocessor /utf-8 /
 
 ### Керування стандартом через властивості цілей (Target Properties)
 
-```cmake
-# Створення бібліотечної цілі
-add_library(core_engine STATIC
-    src/engine.cpp
-    src/renderer.cpp
-)
-
-# Встановлення версії стандарту для конкретної цілі
-set_target_properties(core_engine PROPERTIES
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-)
-```
+:::code compiler-support-d/cmake/CMakeLists.txt
 
 Що означають ці три властивості:
 - `CXX_STANDARD 20`: вказує CMake, що ціль вимагає стандарту C++20. CMake автоматично підставить `-std=c++20` для GCC/Clang та `/std:c++20` для MSVC.

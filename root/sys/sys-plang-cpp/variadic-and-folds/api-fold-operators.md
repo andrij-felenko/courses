@@ -178,18 +178,7 @@ void execute_sequence(Functions&&... funcs) {
 
 Бінарна згортка є універсальним засобом забезпечення безпеки коду для будь-яких операторів. Якщо пакет містить нуль елементів, компілятор відкидає операцію згортки та повертає значення ініціалізатора `I`:
 
-```cpp
-template <typename... Args>
-auto safe_sum(Args... args) {
-    return (0 + ... + args); // Для порожнього пакета повертає точно 0
-}
-
-template <typename... Strings>
-std::string concatenate(Strings&&... strs) {
-    return (std::string{} + ... + std::forward<Strings>(strs));
-    // Для 0 аргументів повертає порожній об'єкт std::string{}
-}
-```
+:::code api-fold-operators/cpp/3-2-binarni-zhortky-nad.cpp
 
 ---
 
@@ -231,23 +220,7 @@ std::string concatenate(Strings&&... strs) {
 
 Коли вираз згортки застосовується до користувацьких класів (наприклад, структур матриць `Matrix`, поліномів або типів безпечних чисел), компілятор виконує пошук перевантажених операторів за стандартними правилами ADL (Argument Dependent Lookup, пошук за залежністю від аргументів):
 
-```cpp
-namespace math {
-    struct Vector3D {
-        double x, y, z;
-    };
-
-    Vector3D operator+(const Vector3D& a, const Vector3D& b) noexcept {
-        return { a.x + b.x, a.y + b.y, a.z + b.z };
-    }
-}
-
-template <typename... Vectors>
-auto sum_vectors(const Vectors&... vecs) {
-    // Вираз згортки автоматично знаходить math::operator+ через ADL
-    return (... + vecs);
-}
-```
+:::code api-fold-operators/cpp/5-vzaiemodiia-z.cpp
 
 Якщо користувацький тип перевантажує оператор коми `operator,` або логічні оператори `operator&&` / `operator||`, вираз згортки **втрачає властивість короткого замикання (short-circuiting)**. Оскільки перевантажений оператор стає звичайним викликом функції `operator&&(a, b)`, мова C++ зобов'язана обчислити обидва аргументи перед передачею у функцію. З цієї причини в сучасному C++ перевантаження оператора коми та логічних операторів вважається антипатерном.
 

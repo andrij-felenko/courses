@@ -11,18 +11,7 @@
 
 Наприкінці 1980-х років Страуструп розробив стандартну бібліотеку `generic.h`, яка намагалася регламентувати макросну генерацію класів для C with Classes. Щоб створити стек цілих чисел, розробник мусив викликати спеціальні макроси:
 
-```cpp
-#include <generic.h>
-
-#define Stack(type) name2(type,Stack)
-#define Stackdeclare(type) \
-struct Stack(type) {       \
-    type* data;            \
-    int top;               \
-    void push(type val);   \
-    type pop();            \
-};
-```
+:::code hist-templates-evolution/cpp/preprotsesorna-kryza-ta.cpp
 
 Цей механізм спричинив важку кризу підтримки коду у великих системах:
 
@@ -54,22 +43,7 @@ struct Stack(type) {       \
 
 Того ж 1994 року на засіданні комітету ANSI/ISO у Сан-Хосе (Каліфорнія) німецький інженер Ервін Унрух (нім. *Erwin Unruh*) продемонстрував колегам невелику програму. Файл взагалі не містив виконуваного коду всередині `main()`, але під час спроби компіляції змушував компілятор видавати каскад діагностичних помилок, у текстах яких містився повний список простих чисел до заданого ліміту.
 
-```cpp
-// Історична репродукція ідеї Ервіна Унруха (1994)
-template <int i> struct is_prime;
-template <int p, int d> struct is_prime_helper {
-    static constexpr bool value = (p % d != 0) && is_prime_helper<p, d - 1>::value;
-};
-template <int p> struct is_prime_helper<p, 2> {
-    static constexpr bool value = (p % 2 != 0);
-};
-template <int i> struct Prime_print {
-    Prime_print<i - 1> a;
-    enum { is_p = is_prime_helper<i, i - 1>::value };
-    // Якщо число просте, створюється помилка типу, яка виводить 'i' в терміналі!
-    void f() { struct Dummy { Dummy(int); } d = is_p ? i : 0; }
-};
-```
+:::code hist-templates-evolution/cpp/vidkryttia-1994-roku.cpp
 
 Це відкриття вразило спільноту: з'ясувалося, що механізм зіставлення шаблонів, рекурсивного інстанціювання та обчислення сталих виразів перетворює компілятор C++ на повноцінний інтерпретатор чистої функціональної мови програмування без побічних ефектів. Шаблони C++ виявилися **Тьюрінг-повною системою** (англ. *Turing-complete*), де значеннями виступають типи та числові константи, а функціями — спеціалізації шаблонів класів.
 

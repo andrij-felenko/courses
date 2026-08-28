@@ -9,19 +9,7 @@
 
 Уявімо узагальнену функцію збереження даних `serialize`, яка повинна записувати значення різних типів у мережевий або дисковий буфер. Для скалярних цілих чисел (як-от `int` чи `uint64_t`) найшвидший спосіб полягає у прямому копіюванні сирих байтів через системні інструкції. Для складних об'єктів (наприклад, структур користувача чи транзакцій) необхідно викликати їхній власний внутрішній метод `obj.serialize(buffer)`. Якщо написати дві наївні функції у вигляді звичайного перевантаження:
 
-```cpp
-// Перевантаження 1: для цілих чисел
-template<typename T>
-void serialize(Buffer& buf, T val) {
-    buf.write_bytes(&val, sizeof(val));
-}
-
-// Перевантаження 2: для класів із власним методом
-template<typename T>
-void serialize(Buffer& buf, const T& obj) {
-    obj.serialize(buf);
-}
-```
+:::code sfinae-and-enable-if-d/cpp/part.cpp
 
 Під час спроби скомпілювати виклик `serialize(buf, 42)` транслятор зупинить збірку з фатальною помилкою. Обидва шаблони однаково успішно приймають цілочисловий аргумент `int`. Компілятор бачить два рівноцінні кандидати й фіксує неоднозначність виклику (ambiguous call). Якщо ж прибрати перше перевантаження і залишити лише друге, компілятор спробує інстанціювати його тіло для `T = int`, де вираз `42.serialize(buf)` призведе до краху компіляції: примітивний тип `int` не є класом і не має жодних методів.
 
@@ -76,26 +64,7 @@ void serialize(Buffer& buf, const T& obj) {
 
 Якщо помилка виникає за межами цих елементів, компілятор генерує **жорстку помилку збірки** (Hard Error), яка негайно зупиняє побудову проєкту:
 
-```cpp
-template<typename T>
-struct Helper {
-    // Якщо T = int, вираз T::value_type — це жорстка помилка всередині класу!
-    using type = typename T::value_type;
-};
-
-// Небезпечний шаблон: помилка виникає під час інстанціації зовнішнього Helper<T>
-template<typename T>
-typename Helper<T>::type process_bad(T val);
-
-// Безпечний шаблон: помилка виникає безпосередньо у сигнатурі функції
-template<typename T>
-typename T::value_type process_good(T val);
-
-int main() {
-    // process_good(10); // SFINAE спрацює: кандидат тихо відкинеться
-    // process_bad(10);  // КРАХ ЗБІРКИ: Hard Error всередині Helper<int>!
-}
-```
+:::code sfinae-and-enable-if-d/cpp/mezha-dii-bezposerednii.cpp
 
 У виклику `process_bad(10)` звернення до `Helper<int>` вимагає повної інстанціації структури `Helper`. Оскільки помилка виникла всередині тіла іншого класу, а не безпосередньо у сигнатурі функції `process_bad`, захисний щит SFINAE не спрацьовує.
 
@@ -107,23 +76,7 @@ int main() {
 
 Внутрішня побудова `std::enable_if` вражає своєю лаконічністю. Вона складається з первинного шаблону та однієї часткової спеціалізації:
 
-```cpp
-namespace std {
-    // 1. Первинний шаблон для хибної умови (B == false)
-    template<bool B, typename T = void>
-    struct enable_if {};
-
-    // 2. Часткова спеціалізація для істинної умови (B == true)
-    template<typename T>
-    struct enable_if<true, T> {
-        using type = T;
-    };
-
-    // 3. Допоміжний псевдонім (починаючи з C++14)
-    template<bool B, typename T = void>
-    using enable_if_t = typename enable_if<B, T>::type;
-}
-```
+:::code sfinae-and-enable-if-d/cpp/anatomiia-std-enable-if-ta.cpp
 
 Механіка взаємодії `std::enable_if` із компілятором показана на діаграмі:
 
@@ -147,21 +100,7 @@ namespace std {
 
 Найбільш наочний спосіб полягає у заміні звичайного типу повернення на вираз `std::enable_if_t`:
 
-```cpp
-// Активується тільки для цілих типів (int, short, long тощо)
-template<typename T>
-std::enable_if_t<std::is_integral_v<T>, void>
-process(T val) {
-    std::cout << "Обробка цілого числа: " << val << "\n";
-}
-
-// Активується тільки для чисел із плаваючою крапкою (float, double)
-template<typename T>
-std::enable_if_t<std::is_floating_point_v<T>, void>
-process(T val) {
-    std::cout << "Обробка дійсного числа: " << val << "\n";
-}
-```
+:::code sfinae-and-enable-if-d/cpp/1-u-typi-povernennia.cpp
 
 У разі використання пізнього уточнення типу повернення (trailing return type) синтаксис стає ще чистішим:
 
@@ -224,20 +163,7 @@ void print_value(T val); // ПОМИЛКА КОМПІЛЯЦІЇ!
 
 Щоб обійти цю проблему, використовують **нетипові параметри шаблону** (Non-Type Template Parameters, NTTP). Ми задаємо унікальний тип самого параметра шаблону через `enable_if_t`:
 
-```cpp
-// ПРАВИЛЬНИЙ СИСТЕМНИЙ ПІДХІД
-template<typename T,
-         std::enable_if_t<std::is_integral_v<T>, int> = 0>
-void print_value(T val) {
-    std::cout << "Integral: " << val << "\n";
-}
-
-template<typename T,
-         std::enable_if_t<std::is_floating_point_v<T>, int> = 0>
-void print_value(T val) {
-    std::cout << "Floating: " << val << "\n";
-}
-```
+:::code sfinae-and-enable-if-d/cpp/3-u-parametri-samoho.cpp
 
 У цьому випадку перший шаблон має сигнатуру `template<typename T, int> void print_value(T)`, коли `T` цілочисловий. Для дійсного типу `T` тип нетипового параметра взагалі не утворюється. Оскільки типи параметрів шаблону різняться залежно від умов, компілятор розглядає їх як незалежні перевантаження, що усуває конфлікт сигнатур.
 
@@ -247,31 +173,7 @@ void print_value(T val) {
 
 Щоб інтегрувати SFINAE у спеціалізацію класів, у первинному шаблоні оголошують додатковий неіменований параметр-тип, значенням якого за замовчуванням є `void`:
 
-```cpp
-// 1. Первинний шаблон із фіктивним параметром Enable = void
-template<typename T, typename Enable = void>
-struct Formatter {
-    static void format(const T& val) {
-        std::cout << "Базове загальне форматування об'єкта\n";
-    }
-};
-
-// 2. Спеціалізація для цілих типів
-template<typename T>
-struct Formatter<T, std::enable_if_t<std::is_integral_v<T>>> {
-    static void format(const T& val) {
-        std::cout << "Швидке форматування цілого числа: " << val << "\n";
-    }
-};
-
-// 3. Спеціалізація для покажчиків
-template<typename T>
-struct Formatter<T, std::enable_if_t<std::is_pointer_v<T>>> {
-    static void format(const T& val) {
-        std::cout << "Шістнадцятковий вивід адреси: " << static_cast<const void*>(val) << "\n";
-    }
-};
-```
+:::code sfinae-and-enable-if-d/cpp/sfinae-u-chastkovii.cpp
 
 Коли користувач записує `Formatter<int>::format(42)`:
 1. Другим аргументом за замовчуванням стає `void`.
@@ -284,19 +186,7 @@ struct Formatter<T, std::enable_if_t<std::is_pointer_v<T>>> {
 
 Уявімо клас обгортки `NamedItem`:
 
-```cpp
-class NamedItem {
-public:
-    std::string name;
-
-    // Універсальний конструктор для ініціалізації рядком або типами, що перетворюються на string
-    template<typename T>
-    explicit NamedItem(T&& str) : name(std::forward<T>(str)) {}
-
-    NamedItem(const NamedItem& other) = default;
-    NamedItem(NamedItem&& other) noexcept = default;
-};
-```
+:::code sfinae-and-enable-if-d/cpp/klasychnyi-vypadok-zakhyst.cpp
 
 Коли програміст створює неконстантний екземпляр класу `NamedItem item1("test")` і намагається скопіювати його `NamedItem item2(item1)`, компілятор запускає розв'язання перевантажень між конструктором копіювання `NamedItem(const NamedItem&)` та шаблоном `NamedItem(T&&)`.
 
@@ -304,19 +194,7 @@ public:
 
 Використання `std::enable_if` відновлює коректний порядок:
 
-```cpp
-class NamedItem {
-public:
-    std::string name;
-
-    template<typename T,
-             std::enable_if_t<!std::is_same_v<std::decay_t<T>, NamedItem>, int> = 0>
-    explicit NamedItem(T&& str) : name(std::forward<T>(str)) {}
-
-    NamedItem(const NamedItem& other) = default;
-    NamedItem(NamedItem&& other) noexcept = default;
-};
-```
+:::code sfinae-and-enable-if-d/cpp/klasychnyi-vypadok-zakhyst-2.cpp
 
 Предикат `!std::is_same_v<std::decay_t<T>, NamedItem>` гарантує, що коли аргументом є сам об'єкт `NamedItem` (незалежно від посилань та `const`), шаблонний конструктор тихо відкидається за правилом SFINAE, дозволяючи штатному конструктору копіювання виконати свою роботу.
 
@@ -389,21 +267,7 @@ namespace std {
 
 На базі `std::void_t` будується канонічна **ідіома виявлення** (Detection Idiom):
 
-```cpp
-// Крок 1: Первинний шаблон (за замовчуванням властивість відсутня)
-template<typename T, typename = void>
-struct has_clone_method : std::false_type {};
-
-// Крок 2: Часткова спеціалізація для валідного виразу
-template<typename T>
-struct has_clone_method<T, std::void_t<
-    decltype(std::declval<const T&>().clone())
->> : std::true_type {};
-
-// Зручний константний доступ (C++17)
-template<typename T>
-inline constexpr bool has_clone_method_v = has_clone_method<T>::value;
-```
+:::code sfinae-and-enable-if-d/cpp/idioma-vyiavlennia-ta.cpp
 
 Коли ми запитуємо `has_clone_method_v<MyClass>`:
 - Якщо `MyClass` містить метод `.clone()`, вираз `std::declval<const MyClass&>().clone()` є валідним, `std::void_t<...>` перетворюється на `void`, і компілятор обирає часткову спеціалізацію, яка повертає `true_type`.
@@ -413,18 +277,7 @@ inline constexpr bool has_clone_method_v = has_clone_method<T>::value;
 
 Завдяки варіативній природі `std::void_t<...>` розробник може перевірити цілий комплекс вимог до інтерфейсу в одному блоці:
 
-```cpp
-template<typename T, typename = void>
-struct is_bidirectional_range : std::false_type {};
-
-template<typename T>
-struct is_bidirectional_range<T, std::void_t<
-    decltype(std::declval<T>().begin()),
-    decltype(std::declval<T>().end()),
-    decltype(--std::declval<decltype(std::declval<T>().begin())&>()),
-    typename T::value_type
->> : std::true_type {};
-```
+:::code sfinae-and-enable-if-d/cpp/perevirka-kilkokh.cpp
 
 Якщо хоча б одна з чотирьох умов порушена (наприклад, ітератор не підтримує префіксний декремент `--it` або в типі відсутній `value_type`), весь блок зазнає помилки SFINAE, і структура повертає `false`.
 
@@ -448,18 +301,7 @@ struct is_bidirectional_range<T, std::void_t<
 
 З появою інструкції `if constexpr` у C++17 багато розробників спробували повністю відмовитися від SFINAE на користь локального розгалуження всередині однієї функції:
 
-```cpp
-template<typename T>
-void process_value(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        std::cout << "Ціле число\n";
-    } else if constexpr (std::is_floating_point_v<T>) {
-        std::cout << "Дійсне число\n";
-    } else {
-        static_assert(sizeof(T) == 0, "Непідтримуваний тип даних!");
-    }
-}
-```
+:::code sfinae-and-enable-if-d/cpp/porivniannia-sfinae-ta-if.cpp
 
 Хоча `if constexpr` значно спрощує розгалуження логіки всередині тіла функції, він принципово **не замінює SFINAE у виборі інтерфейсу**:
 - `if constexpr` не може змінити набір відкритих перевантажень для стороннього коду, який перевіряє наявність функції через `std::is_invocable` або `decltype`.
@@ -479,19 +321,7 @@ T square(T val) {
     return val * val;
 }
 ```
-```cpp
-// Сучасний підхід C++20 (Concepts)
-template<typename T>
-requires std::integral<T> && (!std::same_as<T, bool>)
-T square(T val) {
-    return val * val;
-}
-
-// Або скорочений синтаксис (Terse Syntax):
-auto square(std::integral auto val) {
-    return val * val;
-}
-```
+:::code sfinae-and-enable-if-d/cpp/deklaratyvni-kontseptsii-c.cpp
 :::
 
 Концепції C++20 забезпечують:

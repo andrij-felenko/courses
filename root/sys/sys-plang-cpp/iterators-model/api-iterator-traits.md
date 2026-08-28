@@ -6,18 +6,7 @@
 
 Шаблон `std::iterator_traits<It>` у заголовковому файлі `<iterator>` слугує єдиною точкою запиту властивостей будь-якого типу `It`, що використовується як ітератор. Головна мета цього шаблону — забезпечити єдиний метапрограмувальний інтерфейс для отримання асоційованих типів як для користувацьких класів-ітераторів, так і для звичайних вказівників мови C.
 
-```cpp
-namespace std {
-    template<typename It>
-    struct iterator_traits {
-        using difference_type   = typename It::difference_type;
-        using value_type        = typename It::value_type;
-        using pointer           = typename It::pointer;
-        using reference         = typename It::reference;
-        using iterator_category = typename It::iterator_category;
-    };
-}
-```
+:::code api-iterator-traits/cpp/anatomiia-std-iterator.cpp
 
 ### Детальний розбір п'яти асоційованих типів
 
@@ -35,29 +24,7 @@ namespace std {
 
 Оскільки сирі вказівники `T*` та `const T*` є вбудованими типами мови C, вони не можуть мати внутрішніх вкладених синонімів типів (типу `T*::value_type`). Щоб сирі вказівники могли використовуватися у стандартних шаблонах STL нарівні з об'єктами класів, у стандартній бібліотеці передбачено часткові спеціалізації `std::iterator_traits`:
 
-```cpp
-namespace std {
-    // Спеціалізація для неконстантного вказівника
-    template<typename T>
-    struct iterator_traits<T*> {
-        using difference_type   = std::ptrdiff_t;
-        using value_type        = T;
-        using pointer           = T*;
-        using reference         = T&;
-        using iterator_category = std::random_access_iterator_tag; // у C++20: std::contiguous_iterator_tag
-    };
-
-    // Спеціалізація для константного вказівника
-    template<typename T>
-    struct iterator_traits<const T*> {
-        using difference_type   = std::ptrdiff_t;
-        using value_type        = T; // Зверніть увагу: value_type очищається від const
-        using pointer           = const T*;
-        using reference         = const T&;
-        using iterator_category = std::random_access_iterator_tag; // у C++20: std::contiguous_iterator_tag
-    };
-}
-```
+:::code api-iterator-traits/cpp/spetsializatsii-dlia.cpp
 
 Важлива деталь спеціалізації `iterator_traits<const T*>` полягає у тому, що тип `value_type` визначається як `T`, а не `const T`. Це зроблено свідомо: якби `value_type` залишався константним, алгоритми (такі як `std::sort` або `std::vector::iterator`) не змогли б створювати тимчасові змінній для обміну значень `T temp = *it`. Крім того, створення контейнерів типів `std::vector<const T>` є невалідним у C++.
 
@@ -65,18 +32,7 @@ namespace std {
 
 Теги категорій — це порожні структури, впорядковані у закриту ієрархію успадкування. Вони не містять жодних даних або методів під час виконання (англ. *runtime*), а використовуються виключно під час компіляції для техніки **Tag Dispatching**:
 
-```cpp
-namespace std {
-    struct input_iterator_tag {};
-    struct output_iterator_tag {};
-    struct forward_iterator_tag : public input_iterator_tag {};
-    struct bidirectional_iterator_tag : public forward_iterator_tag {};
-    struct random_access_iterator_tag : public bidirectional_iterator_tag {};
-    
-    // Додано у C++20 для формалізації суцільної пам'яті
-    struct contiguous_iterator_tag : public random_access_iterator_tag {};
-}
-```
+:::code api-iterator-traits/cpp/tehy-katehorii-iteratoriv.cpp
 
 Завдяки успадкуванню тегів перевантаження функцій працює за правилами оприявнення типів: якщо алгоритм розрахований на `input_iterator_tag`, йому можна безпечно передати `forward_iterator_tag` або `random_access_iterator_tag`, оскільки похідний тег неявно перетворюється на посилання на свій базовий клас.
 
@@ -84,48 +40,11 @@ namespace std {
 
 У класичному C++98 вибір реалізації алгоритму залежно від категорії ітератора відбувався через допоміжні перевантажені функції. Компілятор аналізував тип тегу і обирав потрібний варіант:
 
-```cpp
-// Класичний Tag Dispatching у C++98/C++11
-namespace detail {
-    template<typename InputIt, typename Distance>
-    void advance_impl(InputIt& it, Distance n, std::input_iterator_tag) {
-        while (n > 0) { ++it; --n; }
-    }
-
-    template<typename RandomIt, typename Distance>
-    void advance_impl(RandomIt& it, Distance n, std::random_access_iterator_tag) {
-        it += n;
-    }
-}
-
-template<typename It, typename Distance>
-void advance(It& it, Distance n) {
-    using category = typename std::iterator_traits<It>::iterator_category();
-    detail::advance_impl(it, n, category{});
-}
-```
+:::code api-iterator-traits/cpp/mekhanizm-tag-dispatching.cpp
 
 З появою C++17 та константних умовних виразів `if constexpr` цей код можна переписати в межах однієї функції без створення допоміжних приватних перевантажень у просторі імен `detail`:
 
-```cpp
-// Сучасна реалізація через if constexpr у C++17
-template<typename It, typename Distance>
-void advance(It& it, Distance n) {
-    using category = typename std::iterator_traits<It>::iterator_category;
-    
-    if constexpr (std::is_base_of_v<std::random_access_iterator_tag, category>) {
-        it += n;
-    } else if constexpr (std::is_base_of_v<std::bidirectional_iterator_tag, category>) {
-        if (n < 0) {
-            while (n < 0) { --it; ++n; }
-        } else {
-            while (n > 0) { ++it; --n; }
-        }
-    } else {
-        while (n > 0) { ++it; --n; }
-    }
-}
-```
+:::code api-iterator-traits/cpp/mekhanizm-tag-dispatching-2.cpp
 
 Версія з `if constexpr` забезпечує таку ж нульову ціну під час виконання, як і Tag Dispatching, оскільки гілки умов, які не відповідають типу ітератора, відтинаються компілятором ще на етапі синтаксичного аналізу шаблону.
 
@@ -154,72 +73,7 @@ void advance(It& it, Distance n) {
 
 Концепти C++20 визначають алгоритмічні вимоги до типів через семантичні вирази:
 
-```cpp
-namespace std {
-    // Ітератор вводу (читання однопрохідного потоку)
-    template<typename I>
-    concept input_iterator =
-        std::input_or_output_iterator<I> &&
-        std::indirectly_readable<I> &&
-        requires(I i) {
-            typename std::iter_concept_t<I>;
-        };
-
-    // Ітератор виводу (однопрохідний запис у потік або контейнер)
-    template<typename I, typename T>
-    concept output_iterator =
-        std::input_or_output_iterator<I> &&
-        std::indirectly_writable<I, T> &&
-        requires(I i, T&& val) {
-            *i++ = std::forward<T>(val);
-        };
-
-    // Однонапрямлений ітератор (багаторазовий прохід multi-pass)
-    template<typename I>
-    concept forward_iterator =
-        std::input_iterator<I> &&
-        std::derived_from<std::iter_concept_t<I>, std::forward_iterator_tag> &&
-        std::incrementable<I> &&
-        std::sentinel_for<I, I>;
-
-    // Двонапрямлений ітератор (підтримка оператора декременту)
-    template<typename I>
-    concept bidirectional_iterator =
-        std::forward_iterator<I> &&
-        std::derived_from<std::iter_concept_t<I>, std::bidirectional_iterator_tag> &&
-        requires(I i) {
-            { --i } -> std::same_as<I&>;
-            { i-- } -> std::same_as<I>;
-        };
-
-    // Ітератор довільного доступу (зсув та арифметичні оператори за O(1))
-    template<typename I>
-    concept random_access_iterator =
-        std::bidirectional_iterator<I> &&
-        std::derived_from<std::iter_concept_t<I>, std::random_access_iterator_tag> &&
-        std::totally_ordered<I> &&
-        std::sized_sentinel_for<I, I> &&
-        requires(I i, const I j, const std::iter_difference_t<I> n) {
-            { i += n } -> std::same_as<I&>;
-            { i -= n } -> std::same_as<I&>;
-            { j +  n } -> std::same_as<I>;
-            { n +  j } -> std::same_as<I>;
-            { j -  n } -> std::same_as<I>;
-            { j[n]   } -> std::same_as<std::iter_reference_t<I>>;
-        };
-
-    // Ітератор суцільної пам'яті (гарантія розташування елементів у RAM)
-    template<typename I>
-    concept contiguous_iterator =
-        std::random_access_iterator<I> &&
-        std::derived_from<std::iter_concept_t<I>, std::contiguous_iterator_tag> &&
-        std::is_lvalue_reference_v<std::iter_reference_t<I>> &&
-        std::same_as<std::iter_value_t<I>, std::remove_cvref_t<std::iter_reference_t<I>>> &&
-        requires(const I& i) {
-            { std::to_address(i) } -> std::same_as<std::add_pointer_t<std::iter_reference_t<I>>>;
-        };
-}
-```
+:::code api-iterator-traits/cpp/katehorialni-kontsepty-c.cpp
 
 Головна перевага концептів над класичними тегами полягає у тому, що концепт перевіряє не лише наявність синоніма `iterator_category`, а й фактичну спроможність типу виконувати потрібні операції (такі як наявність оператора `+=` або сумісність повертаного типу розіменування).
 

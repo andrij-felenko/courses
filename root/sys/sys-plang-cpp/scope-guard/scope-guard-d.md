@@ -12,20 +12,7 @@
 
 Уявімо типову системну операцію: оновлення облікового запису користувача у розподіленій системі. Процедура вимагає виконання чотирьох послідовних кроків: спершу зменшити баланс на першому рахунку й збільшити на другому, потім виділити буфер транзакції в динамічній пам'яті, записати зміну в журнал аудиту на диску і, нарешті, надіслати підтвердження через мережевий сокет:
 
-```cpp
-void apply_transfer(Account& from, Account& to, double amount, AuditLog& log, Network& net) {
-    from.balance -= amount;                  // крок 1: змінили стан у пам'яті
-    to.balance += amount;
-
-    auto* tx_buf = new TransactionRecord();  // крок 2: виділили пам'ять (може кинути std::bad_alloc)
-
-    log.append(from.id(), to.id(), amount);  // крок 3: запис на диск (може кинути FileError)
-
-    net.send_receipt(from.id(), amount);     // крок 4: мережа (може кинути SocketError)
-
-    delete tx_buf;
-}
-```
+:::code scope-guard-d/cpp/koly-operatsiia-lamaietsia.cpp
 
 Якщо на третьому або четвертому кроці стається збій — накопичувач переповнений, мережевий кабель від'єднано або віддалений вузол відхилив пакет, — функція негайно переривається винятком. Буфер `tx_buf` залишається висіти в купі як класичний витік пам'яті, але це лише найпростіша частина проблеми. Набагато небезпечніше те, що гроші з балансу `from` уже списані, баланс `to` поповнений, а транзакція не зафіксована й не завершена. Стан оперативної пам'яті процесу виявився неузгодженим, розірваним і спотвореним.
 
@@ -38,35 +25,7 @@ void apply_transfer(Account& from, Account& to, double amount, AuditLog& log, Ne
 
 Класична спроба розв'язати цю проблему в процедурному стилі через явне перехоплення помилок перетворює код на заплутаний каскад вкладених блоків:
 
-```cpp
-void apply_transfer_nested(Account& from, Account& to, double amount, AuditLog& log, Network& net) {
-    from.balance -= amount;
-    to.balance += amount;
-
-    TransactionRecord* tx_buf = nullptr;
-    try {
-        tx_buf = new TransactionRecord();
-        try {
-            log.append(from.id(), to.id(), amount);
-            try {
-                net.send_receipt(from.id(), amount);
-            } catch (...) {
-                log.rollback_last();
-                throw;
-            }
-        } catch (...) {
-            delete tx_buf;
-            throw;
-        }
-    } catch (...) {
-        from.balance += amount; // відкат балансу
-        to.balance -= amount;
-        throw;
-    }
-
-    delete tx_buf;
-}
-```
+:::code scope-guard-d/cpp/koly-operatsiia-lamaietsia-2.cpp
 
 У цій піраміді з трьох рівнів `try-catch` логіка прямої дії відірвана від логіки її відкату на десятки рядків. Додавання п'ятого кроку вимагає створення ще одного рівня вкладеності. Пропуск хоча б однієї гілки `catch` або помилка у виклику компенсувальної дії призводить до тихого спотворення даних, яке надзвичайно важко діагностувати під навантаженням.
 
@@ -95,41 +54,7 @@ void apply_transfer_nested(Account& from, Account& to, double amount, AuditLog& 
 
 Мінімальна канонічна реалізація охоронця області складається з функціонального об'єкта та булевого прапорця активності:
 
-```cpp
-template <typename Invocable>
-class ScopeGuard {
-    Invocable action_;
-    bool active_{true};
-
-public:
-    // Конструктор захоплює довільну дію за семантикою переміщення
-    explicit ScopeGuard(Invocable action) noexcept
-        : action_(std::move(action)) {}
-
-    // Деструктор викликає збережену дію, якщо охоронець не скасовано
-    ~ScopeGuard() noexcept {
-        if (active_) {
-            action_();
-        }
-    }
-
-    // Скасування виконання відкату після успіху
-    void dismiss() noexcept {
-        active_ = false;
-    }
-
-    // Заборона копіювання: відкат не можна дублювати
-    ScopeGuard(const ScopeGuard&) = delete;
-    ScopeGuard& operator=(const ScopeGuard&) = delete;
-
-    // Переміщення передає обов'язок відкату новому об'єкту, знеструмлюючи джерело
-    ScopeGuard(ScopeGuard&& other) noexcept
-        : action_(std::move(other.action_)),
-          active_(std::exchange(other.active_, false)) {}
-
-    ScopeGuard& operator=(ScopeGuard&& other) = delete;
-};
-```
+:::code scope-guard-d/cpp/anatomiia-universalnoho.cpp
 
 Розгляньмо ключові інженерні рішення цієї структури:
 
@@ -140,36 +65,7 @@ public:
 
 Тепер початковий приклад із банківським переказом записується чисто, лінійно та винятково безпечно:
 
-```cpp
-void apply_transfer_safe(Account& from, Account& to, double amount, AuditLog& log, Network& net) {
-    from.balance -= amount;
-    to.balance += amount;
-    // Реєструємо відкат балансу поруч зі зміною:
-    auto balance_guard = ScopeGuard([&] {
-        from.balance += amount;
-        to.balance += amount;
-    });
-
-    auto* tx_buf = new TransactionRecord();
-    // Реєструємо видалення пам'яті:
-    auto memory_guard = ScopeGuard([tx_buf] {
-        delete tx_buf;
-    });
-
-    log.append(from.id(), to.id(), amount);
-    auto log_guard = ScopeGuard([&] {
-        log.rollback_last();
-    });
-
-    net.send_receipt(from.id(), amount);
-
-    // УСІ кроки виконано успішно: скасовуємо відкати бізнес-стану
-    log_guard.dismiss();
-    balance_guard.dismiss();
-
-    // memory_guard НЕ скасовуємо — tx_buf треба видалити наприкінці в будь-якому разі
-}
-```
+:::code scope-guard-d/cpp/anatomiia-universalnoho-2.cpp
 
 Код набув строгої транзакційної структури: кожна дія супроводжується власним охоронцем відкату у наступному ж рядку. Якщо функція переривається на виклику `net.send_receipt`, об'єкти `log_guard`, `memory_guard` та `balance_guard` знищуються у порядку, строго протилежному до їх створення на стеку.
 
@@ -225,33 +121,11 @@ public:
 
 На перший погляд, цього здавалося достатньо:
 
-```cpp
-// Наївна і помилкова реалізація ScopeFail у C++98
-class NaiveScopeFail {
-    std::function<void()> fn_;
-public:
-    ~NaiveScopeFail() {
-        if (std::uncaught_exception()) { // Працює некоректно при вкладеності!
-            fn_();
-        }
-    }
-};
-```
+:::code scope-guard-d/cpp/pastka-c-98-bulevyi.cpp
 
 Цей підхід катастрофічно ламався у разі вкладеної обробки винятків. Розгляньмо ситуацію: деструктор якогось об'єкта `Widget` викликається під час розгортання стека першим винятком. Усередині цього деструктора `Widget` виконує внутрішню операцію, яка створює власний `try-catch` блок і викликає функцію, де розташований `NaiveScopeFail`:
 
-```cpp
-struct Widget {
-    ~Widget() {
-        try {
-            // Внутрішня безаварійна операція
-            do_internal_work(); 
-        } catch (...) {
-            // локально перехопили внутрішню помилку
-        }
-    }
-};
-```
+:::code scope-guard-d/cpp/pastka-c-98-bulevyi-2.cpp
 
 Коли функція `do_internal_work()` успішно завершується, `NaiveScopeFail` бачить, що `std::uncaught_exception()` досі повертає `true` (бо первинний виняток усе ще розгортає зовнішній стек!). Охоронець помилково вважає, що функція `do_internal_work()` впала з помилкою, і запускає небажаний відкат.
 
@@ -266,39 +140,7 @@ struct Widget {
 
 Коли створюється охоронець `scope_fail` або `scope_success`, він фіксує поточне значення лічильника активних винятків у момент свого конструювання:
 
-```cpp
-class ScopeFail {
-    std::function<void()> action_;
-    int uncaught_on_enter_{std::uncaught_exceptions()};
-
-public:
-    explicit ScopeFail(std::function<void()> action)
-        : action_(std::move(action)) {}
-
-    ~ScopeFail() noexcept {
-        // Якщо кількість активних винятків зросла — стався новий виняток!
-        if (std::uncaught_exceptions() > uncaught_on_enter_) {
-            action_();
-        }
-    }
-};
-
-class ScopeSuccess {
-    std::function<void()> action_;
-    int uncaught_on_enter_{std::uncaught_exceptions()};
-
-public:
-    explicit ScopeSuccess(std::function<void()> action)
-        : action_(std::move(action)) {}
-
-    ~ScopeSuccess() noexcept {
-        // Якщо кількість винятків не змінилася — вихід був нормальним
-        if (std::uncaught_exceptions() <= uncaught_on_enter_) {
-            action_();
-        }
-    }
-};
-```
+:::code scope-guard-d/cpp/rishennia-c-17.cpp
 
 Цей простий арифметичний тест `current_count > initial_count` надійно працює за будь-яких рівнів вкладеності винятків, у деструкторах, сокетах та вкладених транзакціях.
 
@@ -319,31 +161,7 @@ public:
 
 За правилами C++, якщо під час виконання конструктора виникає виняток, деструктор цього класу **ніколи не викликається** — оскільки мова вважає, що об'єкт так і не народився. Якщо конструктор встиг виділити сирі ресурси (відкрити сокет або виділити системний дескриптор) до точки збою, ці ресурси безповоротно витікають:
 
-```cpp
-class NetworkService {
-    int socket_fd_{-1};
-    void* buffer_{nullptr};
-
-public:
-    NetworkService(const char* host, int port) {
-        socket_fd_ = ::open_socket(host, port);
-        // Охоронець закриє сокет, якщо наступний крок викине виняток:
-        auto socket_rollback = ScopeGuard([this] noexcept {
-            if (socket_fd_ >= 0) ::close(socket_fd_);
-        });
-
-        buffer_ = ::allocate_huge_buffer(); // може викинути виняток!
-
-        // Все успішно: об'єкт повністю сконструйований, відкат скасовуємо
-        socket_rollback.dismiss();
-    }
-
-    ~NetworkService() {
-        if (buffer_) ::free_huge_buffer(buffer_);
-        if (socket_fd_ >= 0) ::close(socket_fd_);
-    }
-};
-```
+:::code scope-guard-d/cpp/tranzaktsiini-konstruktory.cpp
 
 Охоронець `socket_rollback` захищає проміжний стан конструктора. Якщо `allocate_huge_buffer()` зазнає невдачі, деструктор `~NetworkService()` не викликатиметься, але `socket_rollback` надійно закриє дескриптор сокета, перш ніж виняток полетить далі.
 
@@ -356,27 +174,7 @@ public:
 
 Замість написання громіздких класів `CurlHandleWrapper` або `RegexHolder`, Scope Guard дозволяє зробити виклик абсолютно безпечним у місці використання:
 
-```cpp
-void resolve_and_fetch(const char* hostname) {
-    addrinfo* res = nullptr;
-    if (::getaddrinfo(hostname, "80", nullptr, &res) != 0) {
-        throw std::runtime_error("DNS lookup failed");
-    }
-    // Гарантоване звільнення C-пам'яті на будь-якому шляху виходу:
-    auto res_guard = ScopeGuard([res] noexcept {
-        ::freeaddrinfo(res);
-    });
-
-    CURL* curl = ::curl_easy_init();
-    if (!curl) throw std::runtime_error("curl init failed");
-    auto curl_guard = ScopeGuard([curl] noexcept {
-        ::curl_easy_cleanup(curl);
-    });
-
-    // Виконання роботи...
-    // Навіть якщо обробка кине виняток, curl і res будуть звільнені деструкторами
-}
-```
+:::code scope-guard-d/cpp/poiednannia-z-legacy-c.cpp
 
 Код набуває суворої безпеки C++ при роботі з сирим C API без жодного рядка додаткового структурного коду.
 
@@ -384,24 +182,7 @@ void resolve_and_fetch(const char* hostname) {
 
 Ще одним важливим системним сценарієм є тимчасове маскування асинхронних сигналів операційної системи під час виконання критичної секції пам'яті. Якщо функція блокує доставку сигналів через системний виклик `sigprocmask` або `pthread_sigmask`, будь-який вихід із функції (зокрема через виняток або ранній `return`) зобов'язаний відновити початкову маску сигналів:
 
-```cpp
-#include <csignal>
-#include <scope>
-
-void execute_critical_section() {
-    sigset_t new_mask, old_mask;
-    sigfillset(&new_mask);
-    // Блокуємо всі сигнали для поточного потоку
-    pthread_sigmask(SIG_SETMASK, &new_mask, &old_mask);
-
-    // Охоронець гарантовано відновить початкову маску при будь-якому виході
-    std::scope_exit signal_restorer = [&old_mask] noexcept {
-        pthread_sigmask(SIG_SETMASK, &old_mask, nullptr);
-    };
-
-    // Виконання чутливої операції...
-}
-```
+:::code scope-guard-d/cpp/tymchasove-maskuvannia.cpp
 
 Без охоронця області розробник був би змушений дублювати виклик `pthread_sigmask` перед кожним оператором `return` або писати нестандартні обгортки.
 
@@ -424,36 +205,7 @@ void execute_critical_section() {
 
 У сценаріях, коли кількість дій заздалегідь невідома (наприклад, обробка масиву записів у циклі), статичного створення змінних охоронців недостатньо. У такому разі застосовують динамічний стек компенсації (англ. *dynamic compensation stack*):
 
-```cpp
-#include <vector>
-#include <functional>
-#include <scope>
-
-void process_batch_items(const std::vector<Item>& items, Storage& storage) {
-    std::vector<std::function<void()>> rollbacks;
-    rollbacks.reserve(items.size());
-
-    // Якщо будь-який елемент дасть збій — відкочуємо всі попередні у зворотному порядку
-    std::scope_fail batch_guard = [&rollbacks] noexcept {
-        for (auto it = rollbacks.rbegin(); it != rollbacks.rend(); ++it) {
-            try {
-                (*it)();
-            } catch (...) {
-                // ігноруємо вторинні помилки у деструкторі
-            }
-        }
-    };
-
-    for (const auto& item : items) {
-        storage.insert(item);
-        rollbacks.push_back([&storage, id = item.id()] {
-            storage.remove(id);
-        });
-    }
-
-    // Усі елементи вставлено успішно — деструктор batch_guard не спрацює
-}
-```
+:::code scope-guard-d/cpp/dynamichni-steky.cpp
 
 Цей патерн поєднує гнучкість динамічних контейнерів із детермінізмом автоматичного руйнування стекових охоронців.
 
@@ -507,34 +259,7 @@ std::unique_ptr<FILE, decltype(file_deleter)> file_guard(fopen("data.bin", "rb")
 
 У межах Technical Specification (P0052R10 / Library Fundamentals TS v3) комітет ISO C++ уніфікував патерн Scope Guard, додавши до стандартної бібліотеки заголовок `<scope>`:
 
-```cpp
-#include <scope>
-#include <fstream>
-#include <iostream>
-
-void process_transaction_modern(Database& db, const std::string& query) {
-    db.execute("BEGIN TRANSACTION");
-
-    // Відкат у разі винятку
-    std::scope_fail rollback_guard = [&] noexcept {
-        db.execute("ROLLBACK");
-    };
-
-    // Фіксація у разі успіху
-    std::scope_success commit_guard = [&] noexcept {
-        db.execute("COMMIT");
-    };
-
-    // Безумовне логування тривалості на виході
-    const auto start_time = std::chrono::steady_clock::now();
-    std::scope_exit log_guard = [&] noexcept {
-        auto elapsed = std::chrono::steady_clock::now() - start_time;
-        std::cout << "Query executed in " << elapsed.count() << " ms\n";
-    };
-
-    db.execute(query); // якщо виклик кине виняток — спрацює rollback_guard і log_guard
-}
-```
+:::code scope-guard-d/cpp/standartyzatsiia-c-std.cpp
 
 Завдяки механізму CTAD (виведення аргументів шаблону класу) тип лямбда-виразу виводиться автоматично. Повний опис інтерфейсів, методів та вимог специфікації P0052 наведено у довіднику: [інтерфейс std::scope_exit, std::scope_fail та std::scope_success](root:sys-plang-cpp/scope-guard/api-scope-guards.md).
 

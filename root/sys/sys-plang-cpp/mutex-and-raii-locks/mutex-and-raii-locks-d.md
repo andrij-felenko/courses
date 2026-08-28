@@ -23,51 +23,8 @@
 У мові C та традиційних системних API (POSIX Threads) операції з м'ютексами реалізовані через сирі функції `pthread_mutex_lock()` і `pthread_mutex_unlock()`. Погляньмо, як це виглядає на практиці:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int balance;
-    pthread_mutex_t lock;
-} BankAccount;
-
-void deposit(BankAccount* account, int amount) {
-    pthread_mutex_lock(&account->lock);
-    
-    if (amount <= 0) {
-        // Помилка! Раннє повернення без звільнення м'ютекса
-        return; 
-    }
-    
-    account->balance += amount;
-    
-    pthread_mutex_unlock(&account->lock);
-}
-```
-```cpp
-#include <mutex>
-#include <stdexcept>
-
-struct BankAccount {
-    int balance = 0;
-    std::mutex mtx;
-
-    void deposit_naive(int amount) {
-        mtx.lock();
-
-        if (amount <= 0) {
-            // Забутий unlock перед генерацією винятку або поверненням
-            throw std::invalid_argument("Сума повинна бути додатною");
-        }
-
-        balance += amount;
-
-        mtx.unlock(); // До цього рядка код може ніколи не дійти!
-    }
-};
-```
+:::code mutex-and-raii-locks-d/c/main.c
+:::code mutex-and-raii-locks-d/cpp/1-anatomiia-honytvy-danykh.cpp
 :::
 
 У наведеному привабливо простому коді заховано фундаментальну небезпеку: **витік замка** (англ. *lock leak*). Якщо функція завершує роботу достроково через оператор `return`, або якщо всередині критичної секції генерується виняток (у C++), виклик `unlock()` оминається.
@@ -112,18 +69,7 @@ struct BankAccount {
 ### 1. `std::lock_guard` (C++11) — Легкий та простий scope-замок
 `std::lock_guard` — найпростіша обгортка. Вона приймає м'ютекс у конструкторі, одразу його блокує й утримує до руйнування самого `lock_guard`.
 
-```cpp
-void safe_deposit(BankAccount& account, int amount) {
-    // Конструктор lock_guard викликає account.mtx.lock()
-    std::lock_guard<std::mutex> lock(account.mtx);
-
-    if (amount <= 0) {
-        throw std::invalid_argument("Сума повинна бути додатною");
-    } // При викиді винятку деструктор lock викликає account.mtx.unlock()
-
-    account.balance += amount;
-} // При виході з функції деструктор lock автоматично викликає account.mtx.unlock()
-```
+:::code mutex-and-raii-locks-d/cpp/1-std-lock-guard-c-11.cpp
 
 `std::lock_guard` є некопійованим і непереміщуваним об'єктом. У нього відсутні методи `unlock()` або `lock()` для ручного керування — він повністю підпорядкований точній області видимості (scope), у якій оголошений. Це дає нульові накладні витрати (Zero-overhead abstraction): скомпільований машиний код `lock_guard` ідентичний двом прямим викликам `lock()` та `unlock()`.
 
@@ -132,34 +78,7 @@ void safe_deposit(BankAccount& account, int amount) {
 
 Для таких задач створено `std::unique_lock`. Він підтримує повну семантику переміщення (Movable-only) та надає багатий інтерфейс керування:
 
-```cpp
-#include <mutex>
-#include <chrono>
-
-void complex_processing(std::mutex& mtx) {
-    // 1. Відкладене захоплення: м'ютекс запам'ятовано, але lock() ще НЕ викликано
-    std::unique_lock<std::mutex> lock(mtx, std::defer_lock);
-
-    // Виконання довгої підготовки БЕЗ захоплення замка
-    do_heavy_setup();
-
-    // 2. Явне захоплення замка у потрібний момент
-    lock.lock();
-
-    // Робота з критичною секцією
-    modify_shared_resource();
-
-    // 3. Дострокове тимчасове розблокування для звільнення ниток-конкурентів
-    lock.unlock();
-
-    do_unrelated_work();
-
-    // 4. Спроба повторного захоплення з таймаутом
-    if (lock.try_lock_for(std::chrono::milliseconds(100))) {
-        // Успішно захоплено знову
-    }
-} // Деструктор unique_lock перевіряє, чи захоплено м'ютекс, і якщо так — викликає unlock()
-```
+:::code mutex-and-raii-locks-d/cpp/2-std-unique-lock-c-11.cpp
 
 Накладні витрати `std::unique_lock` трохи вищі за `lock_guard`: він зберігає всередині булевий прапорець (`owns_lock`), щоб у деструкторі знати, чи потрібно насправді викликати `unlock()`.
 
@@ -172,18 +91,7 @@ void complex_processing(std::mutex& mtx) {
 
 Крім того, завдяки механізму виведення аргументів шаблонів класів (CTAD — Class Template Argument Deduction) у C++17 більше не потрібно явно вказувати типи м'ютексів у кутових дужках:
 
-```cpp
-std::mutex m1;
-std::mutex m2;
-
-void safe_swap_data() {
-    // C++17: Автоматичне виведення типів і бездедлокне захоплення двох м'ютексів!
-    std::scoped_lock lock(m1, m2);
-
-    // Обидва м'ютекси гарантовано захоплені без ризику взаємного блокування
-    swap_subsystems(m1, m2);
-} // Обидва м'ютекси гарантовано звільняються у зворотному порядку
-```
+:::code mutex-and-raii-locks-d/cpp/3-std-scoped-lock-c-17.cpp
 
 Повний список методів, прапорців конструкторів (`std::adopt_lock`, `std::defer_lock`, `std::try_to_lock`) та сигнатур для всіх обгорткових типів містить [довідник інтерфейсу м'ютексів та замків](root:sys-plang-cpp/mutex-and-raii-locks/api-locks-reference.md).
 
@@ -201,25 +109,7 @@ void safe_swap_data() {
 ### 2. `std::recursive_mutex` — Рекурсивний замок та його пастки
 `std::recursive_mutex` дозволяє одній і тій самій нитці викликати `lock()` багаторазово поспіль без виникнення дедлоку. М'ютекс веде внутрішній лічильник глибини захоплення. Замок буде остаточно звільнений для інших ниток лише тоді, коли нитка-власник виконає відповідну кількість викликів `unlock()`.
 
-```cpp
-#include <mutex>
-
-class DataStructure {
-    std::recursive_mutex r_mtx_;
-    int value_ = 0;
-
-public:
-    void set_value(int v) {
-        std::lock_guard<std::recursive_mutex> lock(r_mtx_);
-        value_ = v;
-    }
-
-    void update_and_log(int v) {
-        std::lock_guard<std::recursive_mutex> lock(r_mtx_);
-        set_value(v); // Повторне захоплення того самого рекурсивного м'ютекса в тій самій нитці!
-    }
-};
-```
+:::code mutex-and-raii-locks-d/cpp/2-std-recursive-mutex.cpp
 
 > 🔧 **Навіщо це і чому це вважається шкідливою звичкою.**
 > Потреба в `std::recursive_mutex` майже завжди сигналізує про проблеми в архітектурі класу. Якщо публічний метод змушений викликати інший публічний метод того самого класу під замком, правильною архітектурною декомпозицією є виділення приватних внутрішніх методів-помічників (наприклад, `set_value_unlocked()`), які припускають, що м'ютекс вже захоплено зовні.
@@ -233,30 +123,7 @@ public:
 - **Читачі (Shared access)**: Викликають `lock_shared()` або використовують `std::shared_lock<std::shared_mutex>`. Багато ниток можуть перебувати у критичній секції читання одночасно.
 - **Писці (Exclusive access)**: Викликають `lock()` або використовують `std::scoped_lock<std::shared_mutex>`. Тільки одна нитка запису може перебувати у критичній секції, блокуючи всіх читачів і писців.
 
-```cpp
-#include <shared_mutex>
-#include <string>
-#include <unordered_map>
-
-class PhoneBook {
-    mutable std::shared_mutex rw_mtx_;
-    std::unordered_map<std::string, std::string> contacts_;
-
-public:
-    // Багато ниток можуть читати телефонну книгу одночасно!
-    std::string find_number(const std::string& name) const {
-        std::shared_lock<std::shared_mutex> lock(rw_mtx_);
-        auto it = contacts_.find(name);
-        return (it != contacts_.end()) ? it->second : "";
-    }
-
-    // Тільки один писець має ексклюзивний доступ для додавання запису
-    void add_contact(const std::string& name, const std::string& number) {
-        std::scoped_lock lock(rw_mtx_); // Ексклюзивне захоплення
-        contacts_[name] = number;
-    }
-};
-```
+:::code mutex-and-raii-locks-d/cpp/3-std-shared-mutex-c-17.cpp
 
 > ⚠️ **Ціна `std::shared_mutex`.** 
 > Не варто ставити `std::shared_mutex` всюди за замовчуванням. Спільне захоплення на читання все одно вимагає атомарної зміни лічильника читачів усередині м'ютекса. На коротких критичних секціях (у кілька наносекунд) постійне скидання кеш-ліній процесора при оновленні лічильника читачів може зробити `std::shared_mutex` **повільнішим** за звичайний ексклюзивний `std::mutex`.
@@ -308,22 +175,7 @@ public:
 
 Щоб мати можливість захоплювати м'ютекс у `const`-методах для безпечного читання даних, поле м'ютекса завжди оголошують із ключовим словом `mutable` ([коректність за const](root:sys-plang-cpp/const-correctness)):
 
-```cpp
-#include <mutex>
-#include <string>
-
-class ThreadSafeLogger {
-    // mutable дозволяє змінювати стан mtx_ навіть усередині const-методів
-    mutable std::mutex mtx_;
-    std::string last_log_message_;
-
-public:
-    std::string get_last_message() const {
-        std::lock_guard<std::mutex> lock(mtx_); // Зміна mutable поля mtx_ у const-методі!
-        return last_log_message_;
-    }
-};
-```
+:::code mutex-and-raii-locks-d/cpp/mutable-std-mutex-u-const.cpp
 
 ### Вплив м'ютекса на спеціальні функції класу
 Тип `std::mutex` є некопійованим і непереміщуваним об'єктом. Як наслідок, якщо додати поле `std::mutex` до свого класу, компілятор мовчки **вилучить** неявний конструктор копіювання, оператор копіювального присвоєння та переміщувальні операції для всього класу.

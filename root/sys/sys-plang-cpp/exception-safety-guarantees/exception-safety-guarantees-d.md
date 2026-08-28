@@ -11,21 +11,7 @@
 
 Ось функція, у якій немає ні витоку пам'яті, ні висячого вказівника, ні жодної помилки на щасливому шляху. І вона все одно псує об'єкт.
 
-```cpp
-class Widget {
-    Impl*                    impl_  = nullptr;
-    std::vector<std::string> log_;
-    bool                     ready_ = false;
-public:
-    void reset(const std::string& name) {
-        delete impl_;
-        impl_ = nullptr;
-        impl_ = new Impl(name);
-        log_.push_back(name);
-        ready_ = true;
-    }
-};
-```
+:::code exception-safety-guarantees-d/cpp/part.cpp
 
 Клас тримає інваріант, простий і повністю розумний: якщо `ready_` істинне, то `impl_` вказує на дійсний об'єкт, а `log_` містить усі імена, які цей віджет коли-небудь мав. Кожен метод класу на цей інваріант спирається — і має право спиратися, бо інваріант — це і є те, що клас про себе обіцяє.
 
@@ -85,20 +71,7 @@ public:
 
 Вікно зникає від однієї зміни задуму: не чіпати справжнє поле, доки нове значення не готове, і довірити володіння свіжим об'єктом тому, чий деструктор виконається сам:
 
-```cpp
-class Widget {
-    std::unique_ptr<Impl>    impl_;
-    std::vector<std::string> log_;
-    bool                     ready_ = false;
-public:
-    void reset(const std::string& name) {
-        auto fresh = std::make_unique<Impl>(name);  // може кинути
-        log_.push_back(name);                       // може кинути
-        impl_ = std::move(fresh);                   // кинути нема чому
-        ready_ = true;                              // кинути нема чому
-    }
-};
-```
+:::code exception-safety-guarantees-d/cpp/bazova-harantiia-maizhe.cpp
 
 Якщо кине `make_unique`, не змінилося взагалі нічого. Якщо кине `push_back`, розкрутка стека знищить `fresh`, звільнивши свіжий `Impl`, — а `impl_`, `log_` і `ready_` лишаться такими, як були. Це саме [RAII](root:sf-lang/raii): ресурс прив'язано до часу життя локальної змінної, і мова сама гарантує, що на будь-якому виході з функції її деструктор виконають.
 
@@ -124,25 +97,7 @@ public:
 
 Найпоширеніша фіксація, що не кидає, — обмін вмістом двох об'єктів. Обмін працює з готовими полями: переставити два вказівники або два числа неможливо провалити, бо там нема чому провалитися. Саме на цьому стоїть ідіома **copy-and-swap**, класичний спосіб написати присвоєння із сильною гарантією:
 
-```cpp
-class Widget {
-    std::unique_ptr<Impl>    impl_;
-    std::vector<std::string> log_;
-public:
-    Widget(const Widget& other)
-        : impl_(std::make_unique<Impl>(*other.impl_)), log_(other.log_) {}
-
-    void swap(Widget& other) noexcept {
-        impl_.swap(other.impl_);
-        log_.swap(other.log_);
-    }
-
-    Widget& operator=(Widget other) {   // копію будують ДО входу сюди
-        swap(other);
-        return *this;
-    }
-};
-```
+:::code exception-safety-guarantees-d/cpp/obmin-iak-fiksatsiia-copy.cpp
 
 Читається це так. Параметр беруть **за значенням** — отже, копію будують ще до входу в тіло, у контексті того, хто викликає. Якщо копіювання кине, тіло `operator=` навіть не почнеться, і `*this` лишиться недоторканим: це ліва половина рецепту. Далі `swap` міняє нутрощі місцями й не має права кинути: це права половина. На виході параметр `other` гине разом зі старим вмістом — і старий вміст звільняється деструктором, а не вашим кодом.
 

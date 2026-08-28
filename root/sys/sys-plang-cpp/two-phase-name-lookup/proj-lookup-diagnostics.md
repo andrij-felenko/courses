@@ -10,34 +10,7 @@
 
 Розглянемо практичний приклад процесора даних, у якому базовий клас керує конфігурацією та статусом, а похідний клас реалізує безпосередню обробку:
 
-```cpp
-#include <iostream>
-
-template <typename T>
-class BaseProcessor {
-public:
-    void initialize_hardware() {
-        std::cout << "BaseProcessor: Hardware initialized\n";
-    }
-
-protected:
-    int status_code = 200;
-};
-
-template <typename T>
-class NetworkProcessor : public BaseProcessor<T> {
-public:
-    void process_packet(const T& packet) {
-        // ПОМИЛКА КОМПІЛЯЦІЇ під час Фази 1 на GCC / Clang / MSVC /permissive-:
-        // 'initialize_hardware' was not declared in this scope
-        initialize_hardware();
-
-        // ПОМИЛКА КОМПІЛЯЦІЇ під час Фази 1:
-        // 'status_code' was not declared in this scope
-        std::cout << "Packet status: " << status_code << "\n";
-    }
-};
-```
+:::code proj-lookup-diagnostics/cpp/reproduktsiia-problemnoho.cpp
 
 ### Покроковий розбір дій компілятора
 
@@ -56,40 +29,7 @@ public:
 
 Для виправлення коду необхідно зробити виклики залежними або явно ввести імена в область видимості похідного класу.
 
-```cpp
-template <typename T>
-class FixedNetworkProcessor : public BaseProcessor<T> {
-public:
-    // ── Рішення 1: Явне використання this-> (Рекомендовано для методів) ──────
-    void process_v1(const T& packet) {
-        // Вказівник this має залежний тип FixedNetworkProcessor<T>*,
-        // тому вираз this->initialize_hardware() стає залежним виразом.
-        // Його пошук відкладається до Фази 2 і успішно знаходить метод у BaseProcessor<T>.
-        this->initialize_hardware();
-        std::cout << "Status: " << this->status_code << "\n";
-    }
-
-    // ── Рішення 2: Кваліфікація іменем базового класу ────────────────────────
-    void process_v2(const T& packet) {
-        // Запис BaseProcessor<T>:: містить параметр T, тому ім'я кваліфіковане і залежне.
-        // УВАГА: Якщо initialize_hardware є VIRTUAL методом, такий запис ВИМИКАЄ
-        // механізм віртуального виклику і здійснює прямий виклик функції базового класу!
-        BaseProcessor<T>::initialize_hardware();
-        std::cout << "Status: " << BaseProcessor<T>::status_code << "\n";
-    }
-
-    // ── Рішення 3: Введення імен через using (Рекомендовано для полів) ────────
-    using BaseProcessor<T>::initialize_hardware;
-    using BaseProcessor<T>::status_code;
-
-    void process_v3(const T& packet) {
-        // Завдяки using-оголошенню імена стають відомими у контексті класу на Фазі 1.
-        // Виклики можна писати без префіксів у кожному методі класу.
-        initialize_hardware();
-        std::cout << "Status: " << status_code << "\n";
-    }
-};
-```
+:::code proj-lookup-diagnostics/cpp/try-inzhenerni-rishennia-z.cpp
 
 > 🔧 **Інженерне правило:** Для викликів віртуальних методів базового шаблону завжди використовуйте `this->method()`. Для доступу до захищених полів або частих викликів простих методів використовуйте `using BaseProcessor<T>::member;` на початку класу.
 
@@ -101,38 +41,7 @@ public:
 
 ### Репродукція проблемного коду
 
-```cpp
-#include <iostream>
-
-// 1. Оголошення шаблону обробки
-template <typename T>
-void execute_workflow(T data) {
-    // Виклик 1: 100 є значенням типу int — це НЕЗАЛЕЖНИЙ вирази!
-    log_step_code(100);
-
-    // Виклик 2: data має тип T — це ЗАЛЕЖНИЙ вираз!
-    process_custom_data(data);
-}
-
-// 2. Функція для незалежного виклику оголошена ПІСЛЯ шаблону
-void log_step_code(int code) {
-    std::cout << "Step code: " << code << "\n";
-}
-
-namespace app {
-    struct DataPayload {};
-
-    // 3. Функція для залежного виклику у просторі користувача
-    void process_custom_data(DataPayload) {
-        std::cout << "App data payload processed\n";
-    }
-}
-
-int main() {
-    app::DataPayload payload;
-    // execute_workflow(payload); // ПОМИЛКА під час компіляції!
-}
-```
+:::code proj-lookup-diagnostics/cpp/reproduktsiia-problemnoho-2.cpp
 
 ### Покроковий розбір причин збою
 
@@ -145,36 +54,7 @@ int main() {
 
 Щоб усунути помилку, усі незалежні функції повинні мати попереднє оголошення (forward declaration) до тексту шаблону.
 
-```cpp
-#include <iostream>
-
-// КРОК 1: Попереднє оголошення незалежної функції для Фази 1
-void log_step_code(int code);
-
-// КРОК 2: Визначення шаблону
-template <typename T>
-void execute_workflow(T data) {
-    log_step_code(100);        // Успішно зв'язується на Фазі 1
-    process_custom_data(data); // Зв'язується на Фазі 2 через ADL
-}
-
-// Реалізація незалежної функції
-void log_step_code(int code) {
-    std::cout << "Step code: " << code << "\n";
-}
-
-namespace app {
-    struct DataPayload {};
-    void process_custom_data(DataPayload) {
-        std::cout << "App data payload processed via ADL\n";
-    }
-}
-
-int main() {
-    app::DataPayload payload;
-    execute_workflow(payload); // Збірка й виконання пройдуть ідеально!
-}
-```
+:::code proj-lookup-diagnostics/cpp/refaktorynh-ta.cpp
 
 ---
 
@@ -184,41 +64,7 @@ int main() {
 
 ### Проблемний код
 
-```cpp
-#include <iostream>
-
-namespace math {
-    template <typename T>
-    class Matrix {
-        T value;
-    public:
-        Matrix(T v) : value(v) {}
-
-        // Прихована функція-друг: оголошена ВСЕРЕДИНІ класу!
-        // Вона НЕ бачиться через звичайний пошук у просторі math::
-        friend Matrix operator+(const Matrix& a, const Matrix& b) {
-            return Matrix(a.value + b.value);
-        }
-
-        friend void print_matrix(const Matrix& m) {
-            std::cout << "Matrix value: " << m.value << "\n";
-        }
-    };
-}
-
-template <typename T>
-void algorithm(T a, T b) {
-    // Незалежний або залежний виклик?
-    // math::Matrix<int> є залежним типом від T.
-    auto res = a + b;       // Працює через ADL на Фазі 2
-    print_matrix(res);     // Працює через ADL на Фазі 2
-}
-
-void global_helper() {
-    // ПОМИЛКА: Звичайний некваліфікований пошук НЕ знаходить print_matrix!
-    // print_matrix(math::Matrix<int>(5)); 
-}
-```
+:::code proj-lookup-diagnostics/cpp/problemnyi-kod.cpp
 
 ### Аналіз семантики Hidden Friend на двох фазах
 
@@ -237,37 +83,7 @@ void global_helper() {
 
 ### Проблемний код
 
-```cpp
-#include <iostream>
-
-// Допоміжна функція для одинарного значення
-template <typename T>
-void print_element(const T& val) {
-    std::cout << val << " ";
-}
-
-template <typename... Args>
-void print_all(const Args&... args) {
-    // У C++17 вираз згортки для некваліфікованого виклику print_element:
-    (print_element(args), ...); 
-}
-
-namespace custom {
-    struct MyData {
-        int id;
-    };
-
-    // Перевантаження для MyData оголошене ПІСЛЯ шаблону print_all!
-    void print_element(const MyData& d) {
-        std::cout << "[MyData:" << d.id << "] ";
-    }
-}
-
-int main() {
-    custom::MyData d1{10}, d2{20};
-    print_all(d1, d2); // Викличе custom::print_element через ADL на Фазі 2!
-}
-```
+:::code proj-lookup-diagnostics/cpp/problemnyi-kod-2.cpp
 
 ### Покрокова діагностика пакета аргументів
 
@@ -286,25 +102,7 @@ int main() {
 
 ### Типовий фрагмент нестандартного legacy-коду MSVC
 
-```cpp
-// Заголовок LegacyBuffer.h
-template <typename T>
-class LegacyBuffer {
-    T* storage;
-    size_t length;
-
-public:
-    void reset() {
-        // ПОМИЛКА 1 у C++20: ZeroMemory не знайдено на Фазі 1 (відсутній інклуд windows.h)
-        ZeroMemory(storage, length * sizeof(T));
-
-        // ПОМИЛКА 2 у C++20: typename обов'язковий перед залежним типом T::iterator
-        T::iterator it = storage->begin();
-    }
-};
-
-#include <windows.h> // Помилка архітектури: системний заголовок включено ПІСЛЯ шаблону!
-```
+:::code proj-lookup-diagnostics/cpp/typovyi-frahment.cpp
 
 ### Алгоритм безпечної міграції legacy-коду
 

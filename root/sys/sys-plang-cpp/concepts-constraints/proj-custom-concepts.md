@@ -36,90 +36,7 @@
 
 Створимо систему інтерфейсних предикатів на C++20, які формалізують вимоги до потоків виводу, вхідних джерел та категорій даних.
 
-```cpp
-#include <concepts>
-#include <ranges>
-#include <span>
-#include <cstddef>
-#include <cstring>
-#include <vector>
-#include <string>
-#include <string_view>
-#include <type_traits>
-#include <iostream>
-#include <memory>
-#include <cstdint>
-#include <bit>
-#include <stdexcept>
-#include <algorithm>
-
-// 1. Концепт вихідного бінарного потоку
-template<typename S>
-concept ByteStream = requires(S& stream, std::span<const std::byte> bytes) {
-    { stream.write(bytes) } -> std::same_as<std::size_t>;
-};
-
-// 2. Концепт вхідного бінарного джерела для десеріалізації
-template<typename S>
-concept ByteSource = requires(S& source, std::span<std::byte> dest) {
-    { source.read(dest) } -> std::same_as<std::size_t>;
-};
-
-// 3. Концепт тривіально копійовних типів (без вказівників та діапазонів)
-template<typename T>
-concept TriviallySerializable = 
-    std::is_trivially_copyable_v<T> &&
-    !std::is_pointer_v<T> &&
-    !std::is_null_pointer_v<T> &&
-    !std::ranges::range<T>;
-
-// 4. Концепт об'єктів із власним методом серіалізації
-template<typename T, typename Stream>
-concept CustomSerializable = requires(const T& obj, Stream& stream) {
-    requires ByteStream<Stream>;
-    { obj.serialize(stream) } -> std::same_as<void>;
-};
-
-// 5. Концепт об'єктів із власним методом десеріалізації
-template<typename T, typename Source>
-concept CustomDeserializable = requires(T& obj, Source& source) {
-    requires ByteSource<Source>;
-    { obj.deserialize(source) } -> std::same_as<void>;
-};
-
-// 6. Концепт рядкових типів (неперервний масив символів char / char8_t)
-template<typename T>
-concept StringLike = 
-    std::ranges::contiguous_range<T> &&
-    std::ranges::sized_range<T> &&
-    (std::same_as<std::ranges::range_value_t<T>, char> ||
-     std::same_as<std::ranges::range_value_t<T>, char8_t>);
-
-// 7. Концепт неперервного діапазону тривіальних типів для прямого блокового копіювання
-template<typename T>
-concept TriviallyContiguousRange = 
-    std::ranges::contiguous_range<T> &&
-    std::ranges::sized_range<T> &&
-    TriviallySerializable<std::ranges::range_value_t<T>> &&
-    !StringLike<T>;
-
-// 8. Концепт узагальненого діапазону (виключаючи рядки та тривіальні неперервні масиви)
-template<typename T>
-concept SerializableRange = 
-    std::ranges::input_range<T> &&
-    std::ranges::sized_range<T> &&
-    !StringLike<T> &&
-    !TriviallyContiguousRange<T>;
-
-// 9. Концепт змінюваного контейнера для десеріалізації
-template<typename T>
-concept DeserializableContainer = 
-    std::ranges::range<T> &&
-    requires(T& container) {
-        container.clear();
-        container.emplace_back(std::declval<std::ranges::range_value_t<T>>());
-    };
-```
+:::code proj-custom-concepts/cpp/2-proiektuvannia-systemy.cpp
 
 ### Детальний розбір структури та меж кожного концепту
 
@@ -163,196 +80,19 @@ requires ByteStream<Stream>;
 
 Створимо повну симетричну реалізацію буфера пам'яті, що підтримує як запис (`ByteStream`), так і читання (`ByteSource`), разом із класами `BinarySerializer` та `BinaryDeserializer`.
 
-```cpp
-// Реалізація бінарного потоку пам'яті з підтримкою читання та запису
-class MemoryBufferStream {
-public:
-    std::size_t write(std::span<const std::byte> bytes) {
-        if (bytes.empty()) {
-            return 0;
-        }
-        const auto prev_size = buffer_.size();
-        buffer_.resize(prev_size + bytes.size());
-        std::memcpy(buffer_.data() + prev_size, bytes.data(), bytes.size());
-        return bytes.size();
-    }
-
-    std::size_t read(std::span<std::byte> dest) {
-        if (dest.empty() || read_pos_ >= buffer_.size()) {
-            return 0;
-        }
-        const auto available = buffer_.size() - read_pos_;
-        const auto to_read = std::min(dest.size(), available);
-        std::memcpy(dest.data(), buffer_.data() + read_pos_, to_read);
-        read_pos_ += to_read;
-        return to_read;
-    }
-
-    [[nodiscard]] std::span<const std::byte> data() const noexcept {
-        return buffer_;
-    }
-
-    [[nodiscard]] std::size_t size() const noexcept {
-        return buffer_.size();
-    }
-
-    [[nodiscard]] std::size_t remaining() const noexcept {
-        return (read_pos_ < buffer_.size()) ? (buffer_.size() - read_pos_) : 0;
-    }
-
-    void reset_read() noexcept {
-        read_pos_ = 0;
-    }
-
-    void clear() noexcept {
-        buffer_.clear();
-        read_pos_ = 0;
-    }
-
-private:
-    std::vector<std::byte> buffer_;
-    std::size_t read_pos_ = 0;
-};
-
-// Статична перевірка відповідності контрактів потоку
-static_assert(ByteStream<MemoryBufferStream>);
-static_assert(ByteSource<MemoryBufferStream>);
-```
+:::code proj-custom-concepts/cpp/3-realizatsiia-binarnoho.cpp
 
 ### Диспетчер серіалізації
 
 Клас `BinarySerializer` містить перевантажені статичні функції `serialize`, кожна з яких захищена відповідним концептом C++20.
 
-```cpp
-class BinarySerializer {
-public:
-    // Стратегія 1: Прямий запис тривіальних типів у пам'ять (POD, числа, структури)
-    template<ByteStream S, TriviallySerializable T>
-    static void serialize(S& stream, const T& value) {
-        const auto* byte_ptr = reinterpret_cast<const std::byte*>(std::addressof(value));
-        stream.write(std::span<const std::byte>(byte_ptr, sizeof(T)));
-    }
-
-    // Стратегія 2: Об'єкти з власною бізнес-логікою серіалізації
-    template<ByteStream S, typename T>
-    requires CustomSerializable<T, S>
-    static void serialize(S& stream, const T& value) {
-        value.serialize(stream);
-    }
-
-    // Стратегія 3: Рядки та рядкові перегляди (довжина + байти)
-    template<ByteStream S, StringLike T>
-    static void serialize(S& stream, const T& value) {
-        const auto length = static_cast<std::uint32_t>(std::ranges::size(value));
-        serialize(stream, length);
-
-        if (length > 0) {
-            const auto* byte_ptr = reinterpret_cast<const std::byte*>(std::ranges::data(value));
-            stream.write(std::span<const std::byte>(byte_ptr, length));
-        }
-    }
-
-    // Стратегія 4: Неперервні діапазони тривіальних типів (вектори POD) — надшвидке блокове копіювання
-    template<ByteStream S, TriviallyContiguousRange T>
-    static void serialize(S& stream, const T& value) {
-        using ElementType = std::ranges::range_value_t<T>;
-        const auto count = static_cast<std::uint32_t>(std::ranges::size(value));
-        serialize(stream, count);
-
-        if (count > 0) {
-            const auto total_bytes = count * sizeof(ElementType);
-            const auto* byte_ptr = reinterpret_cast<const std::byte*>(std::ranges::data(value));
-            stream.write(std::span<const std::byte>(byte_ptr, total_bytes));
-        }
-    }
-
-    // Стратегія 5: Узагальнені нетривіальні контейнери (рекурсивний обхід)
-    template<ByteStream S, SerializableRange T>
-    static void serialize(S& stream, const T& value) {
-        const auto count = static_cast<std::uint32_t>(std::ranges::size(value));
-        serialize(stream, count);
-
-        for (const auto& item : value) {
-            serialize(stream, item);
-        }
-    }
-};
-```
+:::code proj-custom-concepts/cpp/dyspetcher-serializatsii.cpp
 
 ### Диспетчер десеріалізації
 
 Симетричний клас `BinaryDeserializer` виконує відновлення об'єктів із захистом від пошкоджених даних або переповнення буфера:
 
-```cpp
-class BinaryDeserializer {
-public:
-    // Стратегія 1: Читання тривіальних типів
-    template<ByteSource S, TriviallySerializable T>
-    static void deserialize(S& source, T& value) {
-        auto* byte_ptr = reinterpret_cast<std::byte*>(std::addressof(value));
-        const auto read_bytes = source.read(std::span<std::byte>(byte_ptr, sizeof(T)));
-        if (read_bytes != sizeof(T)) {
-            throw std::runtime_error("Недостатньо байтів у потоці для відновлення об'єкта");
-        }
-    }
-
-    // Стратегія 2: Об'єкти з власним методом десеріалізації
-    template<ByteSource S, typename T>
-    requires CustomDeserializable<T, S>
-    static void deserialize(S& source, T& value) {
-        value.deserialize(source);
-    }
-
-    // Стратегія 3: Відновлення рядків std::string
-    template<ByteSource S>
-    static void deserialize(S& source, std::string& str) {
-        std::uint32_t length = 0;
-        deserialize(source, length);
-
-        str.resize(length);
-        if (length > 0) {
-            auto* byte_ptr = reinterpret_cast<std::byte*>(str.data());
-            const auto read_bytes = source.read(std::span<std::byte>(byte_ptr, length));
-            if (read_bytes != length) {
-                throw std::runtime_error("Помилка читання рядка: неочікуваний кінець потоку");
-            }
-        }
-    }
-
-    // Стратегія 4: Відновлення неперервних тривіальних векторів через прямий memcpy
-    template<ByteSource S, typename T>
-    requires TriviallySerializable<T>
-    static void deserialize(S& source, std::vector<T>& vec) {
-        std::uint32_t count = 0;
-        deserialize(source, count);
-
-        vec.resize(count);
-        if (count > 0) {
-            const auto total_bytes = count * sizeof(T);
-            auto* byte_ptr = reinterpret_cast<std::byte*>(vec.data());
-            const auto read_bytes = source.read(std::span<std::byte>(byte_ptr, total_bytes));
-            if (read_bytes != total_bytes) {
-                throw std::runtime_error("Помилка блокового читання вектора");
-            }
-        }
-    }
-
-    // Стратегія 5: Відновлення динамічних контейнерів загального типу
-    template<ByteSource S, DeserializableContainer T>
-    static void deserialize(S& source, T& container) {
-        std::uint32_t count = 0;
-        deserialize(source, count);
-
-        container.clear();
-        for (std::uint32_t i = 0; i < count; ++i) {
-            using ElementType = std::ranges::range_value_t<T>;
-            ElementType element{};
-            deserialize(source, element);
-            container.emplace_back(std::move(element));
-        }
-    }
-};
-```
+:::code proj-custom-concepts/cpp/dyspetcher-deserializatsii.cpp
 
 ---
 
@@ -360,83 +100,7 @@ public:
 
 Розглянемо практичний сценарій збору телеметрії з датчиків вбудованої системи. Кожен пакет містить як апаратні структури фіксованого розміру, так і текстові мітки та динамічні списки вимірювань.
 
-```cpp
-// 1. Проста апаратна структура (тривіально копійовна)
-struct SensorReading {
-    std::uint32_t sensor_id;
-    double temperature;
-    double pressure;
-
-    bool operator==(const SensorReading&) const = default;
-};
-static_assert(TriviallySerializable<SensorReading>);
-
-// 2. Комплексний пакет телеметрії
-struct TelemetryPacket {
-    std::uint64_t timestamp_ns;
-    std::string device_name;
-    SensorReading primary_sensor;
-    std::vector<SensorReading> auxiliary_sensors;
-
-    // Власний метод серіалізації
-    template<ByteStream S>
-    void serialize(S& stream) const {
-        BinarySerializer::serialize(stream, timestamp_ns);
-        BinarySerializer::serialize(stream, device_name);
-        BinarySerializer::serialize(stream, primary_sensor);
-        BinarySerializer::serialize(stream, auxiliary_sensors);
-    }
-
-    // Власний метод десеріалізації
-    template<ByteSource S>
-    void deserialize(S& source) {
-        BinaryDeserializer::deserialize(source, timestamp_ns);
-        BinaryDeserializer::deserialize(source, device_name);
-        BinaryDeserializer::deserialize(source, primary_sensor);
-        BinaryDeserializer::deserialize(source, auxiliary_sensors);
-    }
-
-    bool operator==(const TelemetryPacket&) const = default;
-};
-static_assert(CustomSerializable<TelemetryPacket, MemoryBufferStream>);
-static_assert(CustomDeserializable<TelemetryPacket, MemoryBufferStream>);
-
-int main() {
-    MemoryBufferStream stream;
-
-    TelemetryPacket original_packet{
-        .timestamp_ns = 1718900000123456789ULL,
-        .device_name = "EdgeNode-Alpha-01",
-        .primary_sensor = SensorReading{
-            .sensor_id = 101,
-            .temperature = 23.85,
-            .pressure = 1013.25
-        },
-        .auxiliary_sensors = {
-            SensorReading{.sensor_id = 102, .temperature = 24.10, .pressure = 1013.10},
-            SensorReading{.sensor_id = 103, .temperature = 23.95, .pressure = 1013.20}
-        }
-    };
-
-    // 1. Серіалізація (вектор auxiliary_sensors записується одним викликом через TriviallyContiguousRange)
-    BinarySerializer::serialize(stream, original_packet);
-    std::cout << "Серіалізація успішна! Записано байтів: " << stream.size() << "\n";
-
-    // 2. Десеріалізація
-    TelemetryPacket restored_packet{};
-    BinaryDeserializer::deserialize(stream, restored_packet);
-
-    // 3. Перевірка тотожності
-    if (original_packet == restored_packet) {
-        std::cout << "Пакет успішно відновлено без втрати даних!\n";
-        std::cout << "Пристрій: " << restored_packet.device_name << "\n";
-        std::cout << "Кількість допоміжних сенсорів: " 
-                  << restored_packet.auxiliary_sensors.size() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-custom-concepts/cpp/4-kompleksnyi-praktychnyi.cpp
 
 ---
 
@@ -497,30 +161,7 @@ note: candidate template ignored: constraints not satisfied [with S = MemoryBuff
 
 ### Концепт для перевірки цілочислових полів фіксованого порядку байтів
 
-```cpp
-template<typename T>
-concept IntegralNumber = std::integral<T> && (sizeof(T) > 1);
-
-template<ByteStream S, IntegralNumber T>
-void write_network_order(S& stream, T value) {
-    if constexpr (std::endian::native == std::endian::little) {
-        // На little-endian платформах реверсуємо порядок байтів під час компіляції/виконання
-        // У C++23 доступна функція std::byteswap:
-        #if defined(__cpp_lib_byteswap)
-            const T swapped = std::byteswap(value);
-        #else
-            // Сумісна реалізація для C++20
-            T swapped = value;
-            auto* p = reinterpret_cast<std::byte*>(&swapped);
-            std::reverse(p, p + sizeof(T));
-        #endif
-        BinarySerializer::serialize(stream, swapped);
-    } else {
-        // На big-endian платформах записуємо без змін
-        BinarySerializer::serialize(stream, value);
-    }
-}
-```
+:::code proj-custom-concepts/cpp/kontsept-dlia-perevirky.cpp
 
 Завдяки конструкції `if constexpr` вибір між реверсом та прямим записом відбувається під час трансляції коду. Для Little-endian компілятор генерує єдину процесорну інструкцію `bswap` (x86) або `rev` (ARM), повністю уникаючи накладних витрат на перевірку прапорців під час виконання програми.
 

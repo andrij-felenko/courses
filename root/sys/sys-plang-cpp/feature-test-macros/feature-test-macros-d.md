@@ -164,18 +164,7 @@
 
 Якщо алгоритм вимагає виділення динамічної пам'яті під час компіляції, розробник перевіряє не просто наявність макросу, а його точне мінімальне значення:
 
-```cpp
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 201907L
-    // Алгоритм використовує динамічні контейнери на етапі компіляції (C++20)
-    constexpr auto table = generate_lookup_vector();
-#elif defined(__cpp_constexpr) && __cpp_constexpr >= 201304L
-    // Спрощений алгоритм на базі статичного масиву C++14 з циклами
-    constexpr auto table = generate_lookup_array();
-#else
-    // Звичайне runtime-обчислення для компіляторів C++11 та C++98
-    const auto table = generate_lookup_array();
-#endif
-```
+:::code feature-test-macros-d/cpp/evoliutsiia-makrosu-cpp.hpp
 
 ### Еволюція макросів підсистеми діапазонів `__cpp_lib_ranges`
 
@@ -187,18 +176,7 @@
 
 Код, який конструює ланцюжки обробки даних, може перевіряти наявність розширених адаптерів C++23 і за їхньої відсутності переходити на звичайні цикли `for`:
 
-```cpp
-#if defined(__cpp_lib_ranges) && __cpp_lib_ranges >= 202207L
-    // Лаконічний конвеєр C++23
-    auto zipped = std::views::zip(keys, values);
-#else
-    // Традиційна ітерація C++20 через індекси
-    std::vector<std::pair<Key, Value>> zipped;
-    for (std::size_t i = 0; i < std::min(keys.size(), values.size()); ++i) {
-        zipped.emplace_back(keys[i], values[i]);
-    }
-#endif
-```
+:::code feature-test-macros-d/cpp/evoliutsiia-makrosiv.cpp
 
 ---
 
@@ -215,31 +193,7 @@
 
 Розглянемо практичну реалізацію для `std::span`:
 
-```cpp
-#pragma once
-
-// Крок 1: Безпечно підключаємо <version>, якщо він підтримується препроцесором
-#if defined(__has_include)
-    #if __has_include(<version>)
-        #include <version>
-    #endif
-#endif
-
-// Крок 2: Перевіряємо наявність макросу std::span потрібної версії
-#if defined(__cpp_lib_span) && __cpp_lib_span >= 202002L
-    #include <span>
-    namespace mylib {
-        using std::span;
-        using std::dynamic_extent;
-    }
-#else
-    #include "mylib/fallback/span.hpp"
-    namespace mylib {
-        using fallback::span;
-        using fallback::dynamic_extent;
-    }
-#endif
-```
+:::code feature-test-macros-d/cpp/4-1-kaskadne-zonduvannia.hpp
 
 Завдяки цьому підходу клієнтський код у всьому проєкті звертається до типу `mylib::span`. Якщо проєкт збирається новим компілятором C++20, використовується високоефективний системний `std::span` з підтримкою оптимізацій конкретного вендора. Якщо проєкт потрапляє на застарілий компілятор C++17 чи C++14, код бездоганно працює через перевірений резервний клас.
 
@@ -247,41 +201,7 @@
 
 Макроси ядра дозволяють елегантно підвищувати якість вихідного коду без втрати зворотної сумісності. Класичний приклад — обмеження шаблонів функцій за допомогою концепцій:
 
-```cpp
-#pragma once
-
-#include <type_traits>
-
-#if defined(__cpp_concepts) && __cpp_concepts >= 201907L
-
-    // Гілка сучасного C++20: декларативні концепції та швидка діагностика
-    template <typename T>
-    concept Serializable = requires(T a) {
-        { a.serialize() } -> std::same_as<void>;
-    };
-
-    template <Serializable T>
-    void process_message(const T& msg) {
-        msg.serialize();
-    }
-
-#else
-
-    // Гілка зворотної сумісності C++14: SFINAE через std::enable_if_t
-    template <typename T, typename = void>
-    struct is_serializable : std::false_type {};
-
-    template <typename T>
-    struct is_serializable<T, std::void_t<decltype(std::declval<T>().serialize())>> 
-        : std::true_type {};
-
-    template <typename T, typename = std::enable_if_t<is_serializable<T>::value>>
-    void process_message(const T& msg) {
-        msg.serialize();
-    }
-
-#endif
-```
+:::code feature-test-macros-d/cpp/4-2-hibrydne-peremykannia.hpp
 
 У режимі C++20 компілятор витрачає значно менше часу на інстанціювання шаблону, а в разі передачі невідповідного типу формує коротке та зрозуміле повідомлення про помилку: «тип `Widget` не задовольняє концепцію `Serializable`». У режимі C++14 той самий код успішно проходить компіляцію за допомогою класичного SFINAE.
 
@@ -291,26 +211,7 @@
 
 За допомогою макросів тестування можна написати адаптивну структуру, яка автоматично стискає свій розмір у пам'яті:
 
-```cpp
-#pragma once
-
-#if defined(__has_cpp_attribute)
-    #if __has_cpp_attribute(no_unique_address) >= 201803L
-        #define COMPAT_NO_UNIQUE_ADDRESS [[no_unique_address]]
-    #else
-        #define COMPAT_NO_UNIQUE_ADDRESS
-    #endif
-#else
-    #define COMPAT_NO_UNIQUE_ADDRESS
-#endif
-
-template <typename Allocator, typename T>
-struct CompressedBucket {
-    COMPAT_NO_UNIQUE_ADDRESS Allocator alloc;
-    T* data;
-    std::size_t size;
-};
-```
+:::code feature-test-macros-d/cpp/4-3-adaptatsiia.hpp
 
 Якщо `Allocator` є порожнім класом (типовий випадок для `std::allocator`), у C++20 розмір структури `sizeof(CompressedBucket)` на 64-бітній системі складе рівно 16 байтів, оскільки поле `alloc` розділить адресу з полем `data`. На застарілому компіляторі розмір складе 24 байти через байти вирівнювання, проте функціональність коду збережеться на 100%.
 
@@ -332,23 +233,7 @@ struct CompressedBucket {
 
 Надійні бібліотеки використовують ці макроси для умовного перемикання стратегій обробки помилок:
 
-```cpp
-#pragma once
-#include <cstdlib>
-
-template <typename T>
-T* allocate_guarded(std::size_t count) {
-    T* ptr = static_cast<T*>(std::malloc(count * sizeof(T)));
-    if (!ptr) {
-#if defined(__cpp_exceptions)
-        throw std::bad_alloc();
-#else
-        std::abort();
-#endif
-    }
-    return ptr;
-}
-```
+:::code feature-test-macros-d/cpp/5-1-rezhymy-bez-vyniatkiv.hpp
 
 ### 5.2. Модулі C++20 та макроси можливостей
 
@@ -415,49 +300,8 @@ T* allocate_guarded(std::size_t count) {
 У класичній мові C єдиним стандартизованим засобом контролю версії залишається глобальний макрос `__STDC_VERSION__`. У мові C++ починаючи з SD-6 та C++20 панує гранулярна модель незалежних макросів можливостей.
 
 :::tabs
-```c
-#include <stdio.h>
-
-// У мові C перевірка можливостей спирається на монолітний макрос __STDC_VERSION__
-#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
-    // Підтримка стандарту C11: статичні перевірки та анонімні структури
-    _Static_assert(sizeof(int) >= 4, "Помилка: int занадто малий!");
-#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
-    // Підтримка стандарту C99: масиви змінної довжини та змішані оголошення
-    #warning "Використовується діалект C99 без підтримки _Static_assert"
-#else
-    // Застарілий стандарт C89 / C90
-    #warning "Застарілий стандарт C89"
-#endif
-
-int main(void) {
-    printf("Компіляція програми на чистому C\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-
-// У мові C++ зондування виконується гранулярно для кожної окремої можливості
-#if defined(__has_include)
-    #if __has_include(<version>)
-        #include <version>
-    #endif
-#endif
-
-#if defined(__cpp_static_assert) && __cpp_static_assert >= 201411L
-    // C++17 дозволяє static_assert без обов'язкового текстового повідомлення
-    static_assert(sizeof(int) >= 4);
-#elif defined(__cpp_static_assert) && __cpp_static_assert >= 200410L
-    // C++11 вимагає текстовий рядок другим аргументом
-    static_assert(sizeof(int) >= 4, "Помилка: int занадто малий!");
-#endif
-
-int main() {
-    std::cout << "Компіляція програми на сучасному C++\n";
-    return 0;
-}
-```
+:::code feature-test-macros-d/c/main.c
+:::code feature-test-macros-d/cpp/7-porivniannia-zonduvannia.cpp
 :::
 
 У наведеному прикладі видно ключову перевагу підходу C++: замість того, щоб блокувати використання `static_assert` на компіляторах із частковою підтримкою C++17, код за допомогою макросу `__cpp_static_assert` визначає точну форму інструкції (з текстовим повідомленням чи без нього), забезпечуючи максимальну виразність синтаксису без порушення компіляції.

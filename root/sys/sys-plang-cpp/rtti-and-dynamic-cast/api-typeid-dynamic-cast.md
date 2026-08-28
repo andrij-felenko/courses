@@ -64,20 +64,7 @@ static_assert(probe() == 7);                          // C++20
 
 ## `std::type_info`
 
-```cpp
-namespace std {
-  class type_info {
-  public:
-    virtual ~type_info();
-    constexpr bool operator==(const type_info& rhs) const noexcept;  // constexpr з C++23
-    bool           before(const type_info& rhs) const noexcept;
-    size_t         hash_code() const noexcept;                       // C++11
-    const char*    name() const noexcept;
-    type_info(const type_info&)            = delete;
-    type_info& operator=(const type_info&) = delete;
-  };
-}
-```
+:::code api-typeid-dynamic-cast/cpp/std-type-info.cpp
 
 | член | контракт |
 |---|---|
@@ -107,20 +94,7 @@ char* abi::__cxa_demangle(const char* mangled_name, char* output_buffer,
 
 Обгортка навколо посилання на `type_info`, яка додає копіювання й порядок — рівно те, чого бракує для ролі ключа контейнера.
 
-```cpp
-namespace std {
-  class type_index {
-  public:
-    type_index(const type_info& rhs) noexcept;          // неявний, навмисно
-    bool             operator==(const type_index&) const noexcept;
-    strong_ordering  operator<=>(const type_index&) const noexcept;  // C++20
-    bool             operator<(const type_index&) const noexcept;    // і >, <=, >=
-    size_t           hash_code() const noexcept;
-    const char*      name() const noexcept;
-  };
-  template<> struct hash<type_index>;   // повертає rhs.hash_code()
-}
-```
+:::code api-typeid-dynamic-cast/cpp/std-type-index.cpp
 
 Порядок `operator<` збудовано на `type_info::before`, тож `std::map<std::type_index, …>` працює, але порядок обходу між запусками може відрізнятися.
 
@@ -249,55 +223,7 @@ extern "C" void* __dynamic_cast(const void *sub,
 
 Обидва оператори поруч — і видно, чим саме вони відрізняються: реєстр знаходить **точний** тип, приведення питає про **спорідненість**.
 
-```cpp
-#include <typeinfo>
-#include <typeindex>
-#include <unordered_map>
-#include <functional>
-#include <memory>
-#include <string>
-#include <cstdio>
-#include <cstdlib>
-#include <cxxabi.h>
-
-struct Shape   { virtual ~Shape() = default; };
-struct Circle  : Shape { double r = 2.5; };
-struct Polygon : Shape { int n = 5; };
-struct Regular : Polygon {};
-
-std::string human(const std::type_info& t) {
-    int status = 0;
-    char* raw = abi::__cxa_demangle(t.name(), nullptr, nullptr, &status);
-    std::string out = (status == 0 && raw) ? raw : t.name();
-    std::free(raw);
-    return out;
-}
-
-int main() {
-    using Dump = std::function<void(const Shape&)>;
-    std::unordered_map<std::type_index, Dump> registry;
-
-    // ключ — точний тип, тому в обробнику static_cast уже безпечний
-    registry[typeid(Circle)]  = [](const Shape& s) {
-        std::printf("коло r=%g\n", static_cast<const Circle&>(s).r); };
-    registry[typeid(Polygon)] = [](const Shape& s) {
-        std::printf("многокутник n=%d\n", static_cast<const Polygon&>(s).n); };
-
-    std::unique_ptr<Shape> s = std::make_unique<Regular>();
-
-    std::printf("динамічний тип:  %s\n", human(typeid(*s)).c_str());   // Regular
-    std::printf("тип виразу `s`:  %s\n", human(typeid(s)).c_str());    // unique_ptr<Shape,…>
-
-    auto it = registry.find(typeid(*s));
-    std::printf("у реєстрі: %s\n", it == registry.end() ? "не знайдено" : "знайдено");
-
-    if (auto* p = dynamic_cast<Polygon*>(s.get()))   // спрацює: Regular — різновид Polygon
-        std::printf("сторін: %d\n", p->n);
-
-    try { (void)dynamic_cast<Circle&>(*s); }
-    catch (const std::bad_cast& e) { std::printf("bad_cast: %s\n", e.what()); }
-}
-```
+:::code api-typeid-dynamic-cast/cpp/minimalnyi-robochyi.cpp
 
 Збирається як `g++ -std=c++17 -Wall demo.cpp`. `std::type_index` тут будується неявно з `typeid(...)`, тож писати його ім'я не доводиться.
 

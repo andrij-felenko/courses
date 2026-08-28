@@ -31,22 +31,7 @@
 
 Міксин валідації відповідає за перевірку коректності значень полів об'єкта. Він звертається до методу `validate_impl()` похідного класу через елевацію типів `static_cast`:
 
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <chrono>
-#include <iostream>
-#include <vector>
-
-template <typename Derived>
-class Validatable {
-public:
-    bool validate() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        return self.validate_impl();
-    }
-};
-```
+:::code proj-crtp-mixin/cpp/krok-1-vyznachennia.hpp
 
 Цей метод не створює жодного віртуального виклику. Всі перевірки реалізуються у похідному класі, а базовий шаблон дає єдиний публічний контракт.
 
@@ -54,23 +39,7 @@ public:
 
 Міксин обчислює контрольну суму шляхом прямого обходу байтів об'єкта у пам'яті. Оскільки точний розмір `sizeof(Derived)` повністю відомий під час компіляції, компілятор розгортає цикл сумування й виконує SIMD-векторизацію:
 
-```cpp
-template <typename Derived>
-class Checksummable {
-public:
-    uint32_t compute_checksum() const {
-        const auto& self = *static_cast<const Derived*>(this);
-        const uint8_t* ptr = reinterpret_cast<const uint8_t*>(&self);
-        uint32_t sum = 0;
-        
-        // Оскільки розмір sizeof(Derived) сталий, компілятор виконує векторизацію
-        for (size_t i = 0; i < sizeof(Derived); ++i) {
-            sum = (sum << 5) + sum + ptr[i];
-        }
-        return sum;
-    }
-};
-```
+:::code proj-crtp-mixin/cpp/krok-2-vyznachennia.cpp
 
 ### Крок 3. Визначення міксину серіалізації (`Serializable`)
 
@@ -107,23 +76,7 @@ public:
 
 Клас `OrderSingle` поєднує всі чотири міксини. Завдяки оптимізації порожньої бази (Empty Base Optimization, EBO) чотири базові класи не додають жодного байта до розміру структури `OrderSingle`:
 
-```cpp
-class OrderSingle : public Validatable<OrderSingle>,
-                    public Checksummable<OrderSingle>,
-                    public Serializable<OrderSingle>,
-                    public Traceable<OrderSingle> {
-public:
-    uint64_t order_id{0};
-    uint64_t account_id{0};
-    double price{0.0};
-    uint32_t quantity{0};
-    uint8_t side{1}; // 1 = Buy, 2 = Sell
-
-    bool validate_impl() const {
-        return order_id > 0 && account_id > 0 && price > 0.0 && quantity > 0;
-    }
-};
-```
+:::code proj-crtp-mixin/cpp/krok-5-komponovka.cpp
 
 ---
 
@@ -131,47 +84,7 @@ public:
 
 Для проведення об'єктивного порівняльного бенчмарку створимо точний функціональний аналог тієї самої системи на основі класичного віртуального поліморфізму. У ньому кожен метод позначається ключовим словом `override`:
 
-```cpp
-class IVirtualProcessor {
-public:
-    virtual ~IVirtualProcessor() = default;
-    virtual bool validate() const = 0;
-    virtual uint32_t compute_checksum() const = 0;
-    virtual size_t serialize_to(uint8_t* destination) const = 0;
-    virtual void trace_status(const char* action) const = 0;
-};
-
-class VirtualOrderSingle : public IVirtualProcessor {
-public:
-    uint64_t order_id{0};
-    uint64_t account_id{0};
-    double price{0.0};
-    uint32_t quantity{0};
-    uint8_t side{1};
-
-    bool validate() const override {
-        return order_id > 0 && account_id > 0 && price > 0.0 && quantity > 0;
-    }
-
-    uint32_t compute_checksum() const override {
-        const uint8_t* ptr = reinterpret_cast<const uint8_t*>(this);
-        uint32_t sum = 0;
-        for (size_t i = 0; i < sizeof(VirtualOrderSingle); ++i) {
-            sum = (sum << 5) + sum + ptr[i];
-        }
-        return sum;
-    }
-
-    size_t serialize_to(uint8_t* destination) const override {
-        std::memcpy(destination, this, sizeof(VirtualOrderSingle));
-        return sizeof(VirtualOrderSingle);
-    }
-
-    void trace_status(const char* action) const override {
-        std::cout << "[TRACE] Virtual Action: " << action << "\n";
-    }
-};
-```
+:::code proj-crtp-mixin/cpp/2-dynamichnyi-analoh-dlia.cpp
 
 ---
 
@@ -179,60 +92,7 @@ public:
 
 Напишемо тестовий стенд, який виконує 10 000 000 ітерацій обробки пакетів для кожного із двох підходів. Для виключення оптимізацій викидання невикористовуваного коду (Dead Code Elimination) використаємо побічний ефект накопичення результату у змінну з кваліфікатором `volatile`:
 
-```cpp
-int main() {
-    constexpr size_t ITERATIONS = 10'000'000;
-    std::vector<uint8_t> buffer(1024);
-
-    // ----------------------------------------------------
-    // 1. БЕНЧМАРК CRTP STATIC DISPATCH
-    // ----------------------------------------------------
-    {
-        OrderSingle order{1001, 5005, 150.50, 100, 1};
-        volatile uint32_t dummy_sum = 0;
-
-        auto start = std::chrono::high_resolution_clock::now();
-        for (size_t i = 0; i < ITERATIONS; ++i) {
-            order.order_id = i + 1;
-            if (order.validate()) {
-                dummy_sum += order.compute_checksum();
-                order.serialize_to(buffer.data());
-            }
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double, std::milli> elapsed = end - start;
-        std::cout << "CRTP Static Dispatch Time: " << elapsed.count() << " ms\n";
-    }
-
-    // ----------------------------------------------------
-    // 2. БЕНЧМАРК VIRTUAL DISPATCH
-    // ----------------------------------------------------
-    {
-        VirtualOrderSingle v_order_obj;
-        IVirtualProcessor* v_order = &v_order_obj;
-        v_order_obj.order_id = 1001;
-        v_order_obj.account_id = 5005;
-        v_order_obj.price = 150.50;
-        v_order_obj.quantity = 100;
-        v_order_obj.side = 1;
-        volatile uint32_t dummy_sum = 0;
-
-        auto start = std::chrono::high_resolution_clock::now();
-        for (size_t i = 0; i < ITERATIONS; ++i) {
-            v_order_obj.order_id = i + 1;
-            if (v_order->validate()) {
-                dummy_sum += v_order->compute_checksum();
-                v_order->serialize_to(buffer.data());
-            }
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double, std::milli> elapsed = end - start;
-        std::cout << "Virtual Dynamic Dispatch Time: " << elapsed.count() << " ms\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-crtp-mixin/cpp/3-stend-vymiriuvannia.cpp
 
 ---
 
@@ -363,22 +223,7 @@ int main() {
 
 Проте для збереження нульової ціни на гарячому шляху обробки у сучасних Low-Latency системах застосовують поєднання CRTP із технікою стирання типів (Type Erasure) або `std::variant`:
 
-```cpp
-#include <variant>
-#include <vector>
-
-using PacketVariant = std::variant<OrderSingle>;
-
-void process_packets_statically(const std::vector<PacketVariant>& packets, uint8_t* out_buffer) {
-    for (const auto& packet : packets) {
-        std::visit([out_buffer](const auto& p) {
-            if (p.validate()) {
-                p.serialize_to(out_buffer);
-            }
-        }, packet);
-    }
-}
-```
+:::code proj-crtp-mixin/cpp/8-poiednannia-crtp-iz.cpp
 
 Така комбінація дозволяє утримувати об'єкти суцільним блоком у пам'яті, уникаючи динамічних виділень через `new/delete` та отримувати 100% підставлення тіла функцій за допомогою таблиць генерації `std::visit`.
 
@@ -392,24 +237,7 @@ void process_packets_statically(const std::vector<PacketVariant>& packets, uint8
 
 Для вирішення цієї проблеми застосовується паттерн Thin Template Base (тонкий базовий шаблон). Загальна обробка буферів, логування та системні виклики виносяться у нешаблонний базовий клас `NonTemplatePacketProcessor`, а CRTP-база успадковує його й містить лише найтонші inline-методи кастування типу:
 
-```cpp
-class NonTemplatePacketProcessor {
-protected:
-    size_t raw_serialize(void* dest, const void* src, size_t size) const {
-        std::memcpy(dest, src, size);
-        return size;
-    }
-};
-
-template <typename Derived>
-class FastSerializable : private NonTemplatePacketProcessor {
-public:
-    size_t serialize_to(uint8_t* destination) const {
-        const auto& self = *static_cast<const Derived*>(this);
-        return this->raw_serialize(destination, &self, sizeof(Derived));
-    }
-};
-```
+:::code proj-crtp-mixin/cpp/9-optymizatsiia-chasu.hpp
 
 Така декомпозиція залишає мономорфний машинний код у єдиному екземпляр у бінарнику, усуваючи дублювання інструкцій та прискорюючи компіляцію у кілька разів.
 

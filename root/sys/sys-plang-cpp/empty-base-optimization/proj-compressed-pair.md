@@ -8,29 +8,7 @@
 
 Щоб зрозуміти необхідність стиснення, простежимо поведінку наївного розумного покажчика. Розумний покажчик повинен зберігати дві речі: сиру адресу керованого динамічного ресурсу (`T*`) та екземпляр класу вилучення (`Deleter`), який відповідає за коректне повернення пам'яті в операційну систему або користувацький пул.
 
-```cpp
-#include <iostream>
-#include <memory>
-#include <cstddef>
-
-template <typename T, typename Deleter = std::default_delete<T>>
-class naive_unique_ptr {
-    T* ptr_{nullptr};
-    Deleter deleter_{};
-
-public:
-    explicit naive_unique_ptr(T* p = nullptr, Deleter d = Deleter{})
-        : ptr_{p}, deleter_{d} {}
-
-    ~naive_unique_ptr() {
-        if (ptr_) {
-            deleter_(ptr_);
-        }
-    }
-
-    T* get() const noexcept { return ptr_; }
-};
-```
+:::code proj-compressed-pair/cpp/analiz-fizychnoi-problemy.cpp
 
 Погляньмо на те, як компілятор розташовує поля цього класу в оперативній пам'яті на сучасній 64-бітній архітектурі (x86-64 або AArch64). Сирий покажчик `ptr_` має розмір 8 байтів і вимагає вирівнювання за адресою, кратною 8 байтам. 
 
@@ -85,98 +63,7 @@ static_assert(sizeof(naive_unique_ptr<int, CustomEmptyDeleter>) == 16);
 
 Щоб розв'язати ці проблеми, побудуємо дворівневу архітектуру з використанням метапрограмування на шаблонах:
 
-```cpp
-#include <type_traits>
-#include <utility>
-#include <tuple>
-#include <memory>
-#include <cstddef>
-
-namespace legacy {
-
-// Метафункція: перевіряє, чи можна застосувати EBO до конкретного типу
-template <typename T>
-constexpr bool can_apply_ebo_v = std::is_empty_v<T> && !std::is_final_v<T>;
-
-// Базовий шаблон елемента пари з дискримінатором індексу
-template <typename T, size_t Index, bool CanEbo = can_apply_ebo_v<T>>
-class compressed_pair_element;
-
-// Спеціалізація 1: Звичайне збереження в полі.
-// Застосовується, якщо тип містить дані, є скаляром або позначений як final.
-template <typename T, size_t Index>
-class compressed_pair_element<T, Index, false> {
-    T value_{};
-
-public:
-    compressed_pair_element() = default;
-
-    template <typename U>
-    explicit constexpr compressed_pair_element(U&& val)
-        : value_(std::forward<U>(val)) {}
-
-    template <typename... Args, size_t... Indices>
-    constexpr compressed_pair_element(std::piecewise_construct_t,
-                                      std::tuple<Args...> args,
-                                      std::index_sequence<Indices...>)
-        : value_(std::get<Indices>(std::move(args))...) {}
-
-    constexpr T& get() noexcept { return value_; }
-    constexpr const T& get() const noexcept { return value_; }
-};
-
-// Спеціалізація 2: Оптимізація порожньої бази через приватне спадкування.
-// Застосовується виключно для порожніх класів, які дозволяють спадкування.
-template <typename T, size_t Index>
-class compressed_pair_element<T, Index, true> : private T {
-public:
-    compressed_pair_element() = default;
-
-    template <typename U>
-    explicit constexpr compressed_pair_element(U&& val)
-        : T(std::forward<U>(val)) {}
-
-    template <typename... Args, size_t... Indices>
-    constexpr compressed_pair_element(std::piecewise_construct_t,
-                                      std::tuple<Args...> args,
-                                      std::index_sequence<Indices...>)
-        : T(std::get<Indices>(std::move(args))...) {}
-
-    constexpr T& get() noexcept { return *this; }
-    constexpr const T& get() const noexcept { return *this; }
-};
-
-// Головний контейнерний клас стисненої пари
-template <typename T1, typename T2>
-class compressed_pair : private compressed_pair_element<T1, 0>,
-                        private compressed_pair_element<T2, 1> {
-    using FirstBase = compressed_pair_element<T1, 0>;
-    using SecondBase = compressed_pair_element<T2, 1>;
-
-public:
-    compressed_pair() = default;
-
-    template <typename U1, typename U2>
-    constexpr compressed_pair(U1&& first_arg, U2&& second_arg)
-        : FirstBase(std::forward<U1>(first_arg)),
-          SecondBase(std::forward<U2>(second_arg)) {}
-
-    template <typename... Args1, typename... Args2>
-    constexpr compressed_pair(std::piecewise_construct_t pw,
-                              std::tuple<Args1...> first_args,
-                              std::tuple<Args2...> second_args)
-        : FirstBase(pw, std::move(first_args), std::index_sequence_for<Args1...>{}),
-          SecondBase(pw, std::move(second_args), std::index_sequence_for<Args2...>{}) {}
-
-    constexpr T1& first() noexcept { return FirstBase::get(); }
-    constexpr const T1& first() const noexcept { return FirstBase::get(); }
-
-    constexpr T2& second() noexcept { return SecondBase::get(); }
-    constexpr const T2& second() const noexcept { return SecondBase::get(); }
-};
-
-} // namespace legacy
-```
+:::code proj-compressed-pair/cpp/realizatsiia-1-klasychnyi.cpp
 
 Розберімо ключові інженерні деталі цієї реалізації:
 
@@ -193,48 +80,7 @@ public:
 
 Врахуємо двійкову специфіку середовища Microsoft Visual Studio (MSVC) через кросплатформний макрос:
 
-```cpp
-#if defined(_MSC_VER) && !defined(__clang__)
-    #define COURSES_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
-#else
-    #define COURSES_NO_UNIQUE_ADDRESS [[no_unique_address]]
-#endif
-
-namespace modern {
-
-template <typename T1, typename T2>
-class compressed_pair {
-    COURSES_NO_UNIQUE_ADDRESS T1 first_{};
-    COURSES_NO_UNIQUE_ADDRESS T2 second_{};
-
-public:
-    compressed_pair() = default;
-
-    template <typename U1, typename U2>
-    constexpr compressed_pair(U1&& arg1, U2&& arg2)
-        : first_{std::forward<U1>(arg1)},
-          second_{std::forward<U2>(arg2)} {}
-
-    template <typename... Args1, typename... Args2>
-    constexpr compressed_pair(std::piecewise_construct_t,
-                              std::tuple<Args1...> first_args,
-                              std::tuple<Args2...> second_args)
-        : first_{std::make_from_tuple<T1>(std::move(first_args))},
-          second_{std::make_from_tuple<T2>(std::move(second_args))} {}
-
-    constexpr T1& first() noexcept { return first_; }
-    constexpr const T1& first() const noexcept { return first_; }
-
-    constexpr T2& second() noexcept { return second_; }
-    constexpr const T2& second() const noexcept { return second_; }
-};
-
-// Інструкції автоматичного виведення типів аргументів шаблона (CTAD)
-template <typename T1, typename T2>
-compressed_pair(T1, T2) -> compressed_pair<T1, T2>;
-
-} // namespace modern
-```
+:::code proj-compressed-pair/cpp/realizatsiia-2-suchasnyi.cpp
 
 Порівняння з кодом EBO демонструє кардинальну різницю:
 - код скоротився на десятки рядків складної шаблонної інфраструктури;
@@ -250,48 +96,7 @@ compressed_pair(T1, T2) -> compressed_pair<T1, T2>;
 
 Щоб зробити `modern::compressed_pair` повноцінним громадянином екосистеми C++, додамо підтримку протоколу декомпозиції кортежів. Для цього необхідно спеціалізувати `std::tuple_size`, `std::tuple_element` та реалізувати вільну або член-функцію `get<I>()`:
 
-```cpp
-namespace modern {
-
-template <size_t Index, typename T1, typename T2>
-constexpr decltype(auto) get(compressed_pair<T1, T2>& p) noexcept {
-    if constexpr (Index == 0) return p.first();
-    else if constexpr (Index == 1) return p.second();
-}
-
-template <size_t Index, typename T1, typename T2>
-constexpr decltype(auto) get(const compressed_pair<T1, T2>& p) noexcept {
-    if constexpr (Index == 0) return p.first();
-    else if constexpr (Index == 1) return p.second();
-}
-
-template <size_t Index, typename T1, typename T2>
-constexpr decltype(auto) get(compressed_pair<T1, T2>&& p) noexcept {
-    if constexpr (Index == 0) return std::move(p.first());
-    else if constexpr (Index == 1) return std::move(p.second());
-}
-
-} // namespace modern
-
-// Спеціалізації в просторі імен std
-namespace std {
-
-template <typename T1, typename T2>
-struct tuple_size<modern::compressed_pair<T1, T2>>
-    : std::integral_constant<size_t, 2> {};
-
-template <typename T1, typename T2>
-struct tuple_element<0, modern::compressed_pair<T1, T2>> {
-    using type = T1;
-};
-
-template <typename T1, typename T2>
-struct tuple_element<1, modern::compressed_pair<T1, T2>> {
-    using type = T2;
-};
-
-} // namespace std
-```
+:::code proj-compressed-pair/cpp/pidtrymka-strukturovanoho.hpp
 
 Тепер розробники можуть розпаковувати стиснені пари елегантно та ефективно:
 
@@ -309,25 +114,7 @@ void demo_structured_binding() {
 
 Проведемо пряме експериментальне вимірювання числових адрес елементів у пам'яті за допомогою `std::addressof` та виведення через шістнадцятковий формат:
 
-```cpp
-#include <iostream>
-#include <iomanip>
-
-struct EmptyPolicyA {};
-struct EmptyPolicyB {};
-
-void inspect_memory_layout() {
-    modern::compressed_pair<int*, EmptyPolicyA> compressed_ptr(nullptr, {});
-
-    const void* base_addr = static_cast<const void*>(&compressed_ptr);
-    const void* first_addr = static_cast<const void*>(std::addressof(compressed_ptr.first()));
-    const void* second_addr = static_cast<const void*>(std::addressof(compressed_ptr.second()));
-
-    std::cout << "Базова адреса пари:   " << base_addr << '\n';
-    std::cout << "Адреса першого поля:  " << first_addr << '\n';
-    std::cout << "Адреса другого поля:  " << second_addr << '\n';
-}
-```
+:::code proj-compressed-pair/cpp/praktychne-doslidzhennia.cpp
 
 Під час запуску на x86-64 Linux під компілятором GCC або Clang усі три адреси є абсолютно ідентичними:
 
@@ -354,25 +141,7 @@ void inspect_memory_layout() {
 
 У бібліотеці **GNU libstdc++** реалізація вектора використовує проміжну базову структуру `_Vector_base`, внутрішній клас якої `_Vector_impl` приватно спадкує від алокатора:
 
-```cpp
-// Концептуальна схема організації вектора в GNU libstdc++
-template <typename Tp, typename Alloc>
-struct _Vector_base {
-    struct _Vector_impl_data {
-        Tp* _M_start{nullptr};
-        Tp* _M_finish{nullptr};
-        Tp* _M_end_of_storage{nullptr};
-    };
-
-    // Оптимізація: спадкування від алокатора Tp_alloc_type через EBO
-    struct _Vector_impl : public Alloc, public _Vector_impl_data {
-        _Vector_impl() = default;
-        explicit _Vector_impl(const Alloc& a) : Alloc(a) {}
-    };
-
-    _Vector_impl _M_impl;
-};
-```
+:::code proj-compressed-pair/cpp/iak-ebo-realizovano-u.cpp
 
 Завдяки EBO базовий клас `Alloc` ділить адресу з першим покажчиком `_M_start`. У результаті:
 - `sizeof(std::vector<int, std::allocator<int>>) == 24` байти (рівно 3 машинних слова по 8 байтів);
@@ -411,83 +180,7 @@ class vector {
 
 Об'єднаймо наш `modern::compressed_pair` у повноцінний, безпечний до винятків розумний покажчик, який повністю відповідає семантиці володіння та ідіомі RAII:
 
-```cpp
-template <typename T, typename Deleter = std::default_delete<T>>
-class optimal_unique_ptr {
-    modern::compressed_pair<T*, Deleter> storage_;
-
-public:
-    constexpr optimal_unique_ptr() noexcept
-        : storage_(nullptr, Deleter{}) {}
-
-    constexpr explicit optimal_unique_ptr(T* ptr) noexcept
-        : storage_(ptr, Deleter{}) {}
-
-    constexpr optimal_unique_ptr(T* ptr, Deleter d) noexcept
-        : storage_(ptr, std::move(d)) {}
-
-    ~optimal_unique_ptr() {
-        if (get()) {
-            get_deleter()(get());
-        }
-    }
-
-    // Заборона операцій копіювання для гарантії виключного володіння
-    optimal_unique_ptr(const optimal_unique_ptr&) = delete;
-    optimal_unique_ptr& operator=(const optimal_unique_ptr&) = delete;
-
-    // Переміщувальний конструктор
-    constexpr optimal_unique_ptr(optimal_unique_ptr&& other) noexcept
-        : storage_(other.release(), std::move(other.get_deleter())) {}
-
-    // Переміщувальний оператор присвоєння
-    constexpr optimal_unique_ptr& operator=(optimal_unique_ptr&& other) noexcept {
-        if (this != &other) {
-            reset(other.release());
-            get_deleter() = std::move(other.get_deleter());
-        }
-        return *this;
-    }
-
-    [[nodiscard]] constexpr T* get() const noexcept {
-        return storage_.first();
-    }
-
-    [[nodiscard]] constexpr Deleter& get_deleter() noexcept {
-        return storage_.second();
-    }
-
-    [[nodiscard]] constexpr const Deleter& get_deleter() const noexcept {
-        return storage_.second();
-    }
-
-    constexpr T* release() noexcept {
-        T* old_ptr = storage_.first();
-        storage_.first() = nullptr;
-        return old_ptr;
-    }
-
-    constexpr void reset(T* new_ptr = nullptr) noexcept {
-        T* old_ptr = storage_.first();
-        storage_.first() = new_ptr;
-        if (old_ptr) {
-            get_deleter()(old_ptr);
-        }
-    }
-
-    [[nodiscard]] constexpr T& operator*() const noexcept {
-        return *get();
-    }
-
-    [[nodiscard]] constexpr T* operator->() const noexcept {
-        return get();
-    }
-
-    [[nodiscard]] constexpr explicit operator bool() const noexcept {
-        return get() != nullptr;
-    }
-};
-```
+:::code proj-compressed-pair/cpp/intehratsiia-v-promyslovyi.cpp
 
 ---
 
@@ -527,55 +220,7 @@ create_resource():
 
 Напишемо набір статичних перевірок під час компіляції (`static_assert`) для верифікації розмірів на 64-бітній платформі:
 
-```cpp
-// 1. Порожній безстанний делітер
-struct StatelessDeleter {
-    void operator()(int* ptr) const noexcept {
-        delete ptr;
-    }
-};
-
-// 2. Безстанний делітер, захищений від спадкування (final)
-struct FinalStatelessDeleter final {
-    void operator()(int* ptr) const noexcept {
-        delete ptr;
-    }
-};
-
-// 3. Делітер зі станом (наприклад, посилання на арену або лічильник)
-struct StatefulDeleter {
-    size_t* call_counter{nullptr};
-
-    void operator()(int* ptr) const noexcept {
-        if (call_counter) {
-            ++(*call_counter);
-        }
-        delete ptr;
-    }
-};
-
-// --- Тестування реалізації EBO (legacy) ---
-// Звичайний порожній делітер стискається до 8 байтів:
-static_assert(sizeof(legacy::compressed_pair<int*, StatelessDeleter>) == 8);
-// Для final-делітера EBO вимикається -> розмір зростає до 16 байтів:
-static_assert(sizeof(legacy::compressed_pair<int*, FinalStatelessDeleter>) == 16);
-// Для stateful-делітера розмір становить 16 байтів (8 байтів покажчик + 8 байтів стан):
-static_assert(sizeof(legacy::compressed_pair<int*, StatefulDeleter>) == 16);
-
-// --- Тестування реалізації C++20 ([[no_unique_address]]) ---
-// Звичайний порожній делітер:
-static_assert(sizeof(modern::compressed_pair<int*, StatelessDeleter>) == 8);
-// КРИТИЧНА РІЗНИЦЯ: C++20 успішно стискає final-делітер до 8 байтів!
-static_assert(sizeof(modern::compressed_pair<int*, FinalStatelessDeleter>) == 8);
-// Stateful-делітер:
-static_assert(sizeof(modern::compressed_pair<int*, StatefulDeleter>) == 16);
-
-// --- Тестування кінцевого розумного покажчика optimal_unique_ptr ---
-static_assert(sizeof(optimal_unique_ptr<int, std::default_delete<int>>) == 8);
-static_assert(sizeof(optimal_unique_ptr<int, StatelessDeleter>) == 8);
-static_assert(sizeof(optimal_unique_ptr<int, FinalStatelessDeleter>) == 8);
-static_assert(sizeof(optimal_unique_ptr<int, StatefulDeleter>) == 16);
-```
+:::code proj-compressed-pair/cpp/kompleksne-testuvannia-ta.cpp
 
 ---
 
@@ -600,25 +245,7 @@ struct NaiveTuple {
 
 Щоб уникнути цього ефекту, бібліотеки libstdc++ та libc++ застосовують техніку типізованих листових вузлів (*tuple leaf*):
 
-```cpp
-template <size_t Index, typename T>
-struct tuple_leaf {
-    COURSES_NO_UNIQUE_ADDRESS T value;
-};
-
-template <typename IndexSeq, typename... Ts>
-class optimal_tuple_impl;
-
-template <size_t... Indices, typename... Ts>
-class optimal_tuple_impl<std::index_sequence<Indices...>, Ts...>
-    : private tuple_leaf<Indices, Ts>... {
-public:
-    // Конструктори та методи доступу get<I>()
-};
-
-template <typename... Ts>
-using optimal_tuple = optimal_tuple_impl<std::index_sequence_for<Ts...>, Ts...>;
-```
+:::code proj-compressed-pair/cpp/proektuvannia-uzahalnenoho.cpp
 
 Чому ця ідіома працює ідеально?
 Завдяки параметру шаблона `Index`, класи `tuple_leaf<0, EmptyTag>`, `tuple_leaf<1, EmptyTag>` та `tuple_leaf<2, EmptyTag>` є трьома **абсолютно різними типами** для системи типів C++. Оскільки їхні типи різняться, правило заборони однакових адрес для них не діє: компілятор має право призначити всім трьом базовим підоб'єктам зміщення 0. Якщо кортеж містить лише порожні типи, його розмір становитиме рівно 1 байт (як повного об'єкта), а за наявності корисного поля `int` — рівно 4 байти.
@@ -631,40 +258,7 @@ using optimal_tuple = optimal_tuple_impl<std::index_sequence_for<Ts...>, Ts...>;
 
 У сучасній версії C++20 це досягається виразами умовного `noexcept`:
 
-```cpp
-template <typename T1, typename T2>
-class noexcept_compressed_pair {
-    COURSES_NO_UNIQUE_ADDRESS T1 first_{};
-    COURSES_NO_UNIQUE_ADDRESS T2 second_{};
-
-public:
-    constexpr noexcept_compressed_pair() noexcept(
-        std::is_nothrow_default_constructible_v<T1> &&
-        std::is_nothrow_default_constructible_v<T2>) = default;
-
-    constexpr noexcept_compressed_pair(noexcept_compressed_pair&& other) noexcept(
-        std::is_nothrow_move_constructible_v<T1> &&
-        std::is_nothrow_move_constructible_v<T2>)
-        : first_{std::forward<T1>(other.first_)},
-          second_{std::forward<T2>(other.second_)} {}
-
-    constexpr noexcept_compressed_pair& operator=(noexcept_compressed_pair&& other) noexcept(
-        std::is_nothrow_move_assignable_v<T1> &&
-        std::is_nothrow_move_assignable_v<T2>) {
-        first_ = std::forward<T1>(other.first_);
-        second_ = std::forward<T2>(other.second_);
-        return *this;
-    }
-
-    constexpr void swap(noexcept_compressed_pair& other) noexcept(
-        std::is_nothrow_swappable_v<T1> &&
-        std::is_nothrow_swappable_v<T2>) {
-        using std::swap;
-        swap(first_, other.first_);
-        swap(second_, other.second_);
-    }
-};
-```
+:::code proj-compressed-pair/cpp/bezpeka-do-vyniatkiv-ta.cpp
 
 Чому це принципово для продуктивності?
 Стандартний вектор `std::vector` під час динамічного перерозподілу пам'яті (*reallocation*) перевіряє умову `std::is_nothrow_move_constructible_v<T>`. Якщо об'єкт у векторі містить `compressed_pair` без коректного `noexcept`, вектор відмовиться від швидкого переміщення елементів і виконуватиме повільне копіювання для збереження суворої гарантії безпеки винятків (*strong exception safety guarantee*).

@@ -280,53 +280,14 @@ lock_shared_arm64:
 
 Для керування життям читацького замка C++14 пропонує спеціалізовану RAII-обгортку `std::shared_lock<Mutex>`:
 
-```cpp
-#include <shared_mutex>
-#include <iostream>
-
-std::shared_mutex rw_mutex;
-int shared_data = 42;
-
-void reader_thread() {
-    // RAII-захоплення сумісного замка (читання)
-    std::shared_lock<std::shared_mutex> lock(rw_mutex);
-    
-    // Безпечна критична секція читання
-    std::cout << "Data value: " << shared_data << "\n";
-    
-    // Деструктор lock автоматично викликає rw_mutex.unlock_shared()
-}
-
-void writer_thread(int new_value) {
-    // RAII-захоплення монопольного замка (запис)
-    std::unique_lock<std::shared_mutex> lock(rw_mutex);
-    
-    // Монопольна критична секція запису
-    shared_data = new_value;
-    
-    // Деструктор lock автоматично викликає rw_mutex.unlock()
-}
-```
+:::code shared-mutex-d/cpp/raii-obhortky-std-shared.cpp
 
 Об'єкт `std::shared_lock` підтримує семантику переміщення (Move Semantics), що дозволяє передавати захоплене читацьке блокування між функціями чи повертати його з методів фабрик. Копіювання об'єктів `std::shared_lock` заборонено на рівні компілятора.
 
 ### Патерн mutable у const-методах класів
 У практичній розробці C++ об'єкт `std::shared_mutex` майже завжди оголошується з ключевим словом `mutable`:
 
-```cpp
-class DataRepository {
-public:
-    // const-метод логічно не змінює клас, але модифікує м'ютекс під час lock_shared()
-    std::string fetch_data() const {
-        std::shared_lock<std::shared_mutex> lock(mutex_); // Успішно компілюється завдяки mutable!
-        return cached_data_;
-    }
-
-private:
-    mutable std::shared_mutex mutex_; // mutable дозволяє lock_shared() у const-методах
-    std::string cached_data_;
-};
-```
+:::code shared-mutex-d/cpp/patern-mutable-u-const.cpp
 Слово `mutable` є обов'язковим, оскільки навіть сумісне блокування `lock_shared()` змінює фізичний стан лічильника усередині м'ютекса.
 
 Детальний опис усіх методів та таблицю порівняння RAII-класів містить [інтерфейс класу std::shared_mutex та обгортки std::shared_lock](root:sys-plang-cpp/shared-mutex/api-shared-mutex.md).
@@ -435,33 +396,7 @@ struct alignas(64) PaddedSharedMutex {
 Нижче наведено порівняльний приклад використання сумісного блокування у C++17 та C (POSIX).
 
 :::tabs
-```cpp
-#include <iostream>
-#include <shared_mutex>
-#include <thread>
-#include <vector>
-#include <unordered_map>
-
-class ConfigurationManager {
-public:
-    // Потокобезпечне читання (Shared / Reader)
-    std::string get_option(const std::string& key) const {
-        std::shared_lock<std::shared_mutex> lock(mutex_);
-        auto it = config_db_.find(key);
-        return (it != config_db_.end()) ? it->second : "";
-    }
-
-    // Потокобезпечний запис (Exclusive / Writer)
-    void set_option(const std::string& key, const std::string& value) {
-        std::unique_lock<std::shared_mutex> lock(mutex_);
-        config_db_[key] = value;
-    }
-
-private:
-    mutable std::shared_mutex mutex_;
-    std::unordered_map<std::string, std::string> config_db_;
-};
-```
+:::code shared-mutex-d/cpp/15-porivniannia.cpp
 ```c
 #include <pthread.h>
 #include <stdio.h>

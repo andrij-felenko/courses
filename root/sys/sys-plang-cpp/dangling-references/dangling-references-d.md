@@ -12,21 +12,7 @@
 
 Ось функція, яка повертає рядок привітання, і рядок коду, який намагається зберегти його для подальшого друку:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-
-std::string_view make_greeting(const std::string& name) {
-    std::string text = "Вітаємо, " + name + "!";
-    return text; // Компілятор попереджає, але код успішно транслюється
-}
-
-int main() {
-    std::string_view greeting = make_greeting("Марія");
-    std::cout << greeting << '\n'; // ← що саме з'явиться в терміналі?
-}
-```
+:::code dangling-references-d/cpp/part.cpp
 
 У більшості випадків на екрані з'явиться очікуваний текст `Вітаємо, Марія!`. Але варто вставити перед викликом `std::cout` звичайний виклик сторонньої функції або виділити тимчасовий масив, як замість привітання надрукується набір випадкових символів або програма завершиться аварійно через сигнал помилки сегментації.
 
@@ -63,19 +49,7 @@ int main() {
 
 Кожна функція під час виклику виділяє на апаратному [стеку](root:sf-lang/stack-lifo) власний кадр активації (англ. *stack frame*). Усі локальні змінні з автоматичною тривалістю зберігання розміщуються всередині цього кадру. На виході з функції виконуються деструктори в порядку, зворотному до оголошення, після чого інструкція процесора `ret` (на архітектурі x86) відновлює регістр покажчика інструкцій `RIP`, а регістр стека `RSP` повертається до стану зухвалого кадру.
 
-```cpp
-struct DataPacket {
-    int header;
-    double payload[8];
-};
-
-const DataPacket& parse_packet(const char* raw_bytes) {
-    DataPacket packet;
-    packet.header = static_cast<int>(raw_bytes[0]);
-    // Заповнення пакету...
-    return packet; // Помилка: повернення посилання на локальну змінну!
-}
-```
+:::code dangling-references-d/cpp/povernennia-posylan-i.cpp
 
 У момент повернення з `parse_packet` об'єкт `packet` знищується. Той, хто викликав функцію, отримує посилання на пам'ять нижче поточного вказівника стека `RSP`. 
 
@@ -208,18 +182,7 @@ Holder* h = new Holder{std::string("дані")};
 
 Клас `std::initializer_list<T>` спроектований як легковажний невласницький тип-обгортка, що містить пару вказівників на початок і кінець масиву. Коли програма створює список `{1, 2, 3}`, компілятор виділяє на стеку прихований масив `const T[N]`, на який і посилається `std::initializer_list`.
 
-```cpp
-std::initializer_list<int> get_numbers() {
-    return {10, 20, 30}; // Помилка: прихований масив знищується на виході з функції!
-}
-
-void use_list() {
-    auto list = get_numbers();
-    for (int x : list) { // Use-After-Free: читання мертвого стекового масиву
-        std::cout << x << ' ';
-    }
-}
-```
+:::code dangling-references-d/cpp/7-nebezpeka-spyskiv.cpp
 
 Повний звід контрактів і перевірок компілятора розібрано в окремому довіднику: [атрибути часу життя та прапорці діагностики компілятора](root:sys-plang-cpp/dangling-references/api-lifetime-attributes.md).
 
@@ -229,28 +192,7 @@ void use_list() {
 
 Розгляньмо механіку роботи послідовного контейнера `std::vector`. Вектор володіє неперервним буфером у купі, розмір якого визначається місткістю (англ. *capacity*).
 
-```cpp
-#include <vector>
-#include <iostream>
-
-int main() {
-    std::vector<int> numbers = {10, 20}; // size = 2, capacity = 2
-    
-    // Отримуємо пряме посилання на нульовий елемент
-    const int& first = numbers[0];
-
-    // Додаємо новий елемент: size (3) перевищує capacity (2)
-    numbers.push_back(30);
-
-    // Що відбувається всередині push_back:
-    // 1. Алокується новий буфер у купі місткістю 4 елементи.
-    // 2. Старі елементи [10, 20] копіюються/переміщуються в новий буфер.
-    // 3. Старий буфер знищується через operator delete[].
-    // 4. Посилання first продовжує вказувати на адресу старого звільненого буфера!
-
-    std::cout << first << '\n'; // Невизначена поведінка (Use-After-Free)
-}
-```
+:::code dangling-references-d/cpp/invalidatsiia-iteratoriv-i.cpp
 
 ![Інвалідація посилань при зростанні буфера std::vector](img/vector-reallocation-invalidation.svg)
 *При нестачі capacity метод push_back виділяє новий масив і знищує старий. Усі зовнішні посилання, вказівники та ітератори, що вказували на елементи старого буфера, стають висячими.*
@@ -322,26 +264,7 @@ int main() {
 
 Коли лямбда захоплює змінну за посиланням `[&x]`, компілятор генерує структуру, всередині якої оголошено нестатичне поле посилального типу `Type& x_ref;`. Якщо використовується неявне захоплення за замовчуванням `[&]`, усі використані всередині лямбди змінні захоплюються за посиланням на поточний кадр стека.
 
-```cpp
-#include <functional>
-#include <iostream>
-#include <string>
-
-std::function<void()> create_task() {
-    std::string secret = "X99-PRO-AUTH";
-    
-    // Небезпека: лямбда захоплює secret за посиланням на локальний стек
-    return [&secret]() {
-        std::cout << "Авторизація: " << secret << '\n';
-    };
-}
-
-int main() {
-    auto task = create_task();
-    // Локальна змінна secret знищена!
-    task(); // Use-After-Free: читання мертвого стека
-}
-```
+:::code dangling-references-d/cpp/liambda-zamykannia-za.cpp
 
 Ця проблема стає критичною в асинхронному програмуванні, обробці графічного інтерфейсу (GUI), роботі з пулами потоків (`std::thread`, `boost::asio`) та корутинах C++20:
 
@@ -354,27 +277,7 @@ int main() {
 
 Навіть використання `std::unique_ptr` та `std::shared_ptr` не гарантує абсолютного захисту від висячих посилань, якщо код утримує пряме розіменоване посилання:
 
-```cpp
-#include <memory>
-
-struct SensorNode {
-    int value{0};
-    void poll() { value++; }
-};
-
-void process_node() {
-    auto node = std::make_shared<SensorNode>();
-    
-    // Отримуємо сире посилання на керований об'єкт
-    SensorNode& ref = *node;
-
-    // Скидаємо розумний вказівник (або передаємо його в інший потік, де він знищується)
-    node.reset(); 
-
-    // Use-After-Free: об'єкт SensorNode знищено методом reset()!
-    ref.poll(); 
-}
-```
+:::code dangling-references-d/cpp/pastky-rozumnykh.cpp
 
 Інша підступна помилка пов'язана з методом `std::weak_ptr::lock()`. Метод повертає тимчасовий `std::shared_ptr`. Якщо зберегти сирий вказівник на результат без збереження самого `shared_ptr`, об'єкт знову стає висячим:
 
@@ -393,29 +296,7 @@ SensorNode* raw = weak_node.lock().get();
 3. **Захоплення копії об'єкта `[*this]` (C++17)**: Для гарантії існування стану копіюйте поточний об'єкт у лямбду замість збереження вказівника на нього.
 4. **Слабкі посилання `std::weak_ptr` для довгоживучих обробників**:
 
-```cpp
-#include <memory>
-#include <iostream>
-
-class NetworkManager : public std::enable_shared_from_this<NetworkManager> {
-public:
-    void send_request() {
-        // Захоплюємо std::weak_ptr, щоб уникнути висячого this
-        auto callback = [weak_self = weak_from_this()](std::string response) {
-            if (auto self = weak_self.lock()) {
-                self->handle_response(response);
-            } else {
-                std::cout << "Об'єкт NetworkManager уже знищено, ігноруємо відповідь\n";
-            }
-        };
-        // Реєстрація callback у мережевому циклі...
-    }
-
-    void handle_response(const std::string& r) {
-        std::cout << "Отримано: " << r << '\n';
-    }
-};
-```
+:::code dangling-references-d/cpp/bezpechni-paterny.cpp
 
 ## Діагностика: статичний аналіз і AddressSanitizer
 

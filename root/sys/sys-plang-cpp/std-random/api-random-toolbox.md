@@ -95,22 +95,7 @@ class subtract_with_carry_engine;
 ### 2.4. Недетерміноване апаратне джерело ентропії `std::random_device`
 Забезпечує доступ до справді випадкових чисел, отриманих від апаратних систем або ядра операційної системи.
 
-```cpp
-class random_device {
-public:
-    using result_type = unsigned int;
-
-    explicit random_device(const std::string& token = /* implementation-defined */);
-    static constexpr result_type min() { return 0; }
-    static constexpr result_type max() { return std::numeric_limits<result_type>::max(); }
-    double entropy() const noexcept;
-    result_type operator()();
-
-    // Заборона копіювання через системний ресурс
-    random_device(const random_device&) = delete;
-    random_device& operator=(const random_device&) = delete;
-};
-```
+:::code api-random-toolbox/cpp/2-4-nedeterminovane.cpp
 
 #### Особливості поведінки та системні інваріанти:
 - **Параметр `token`**: Дозволяє вибрати конкретне системне джерело (наприклад, `"/dev/urandom"`, `"/dev/random"` у Linux). За замовчуванням вибирається найкращий системний провайдер.
@@ -123,23 +108,7 @@ public:
 
 Клас `std::seed_seq` призначений для якісної ініціалізації генераторів із великим внутрішнім станом (таких як `std::mt19937`), коли початкова ентропія складається з кількох слів.
 
-```cpp
-class seed_seq {
-public:
-    using result_type = uint_least32_t;
-
-    seed_seq() noexcept;
-    template<typename InputIt> seed_seq(InputIt first, InputIt last);
-    seed_seq(std::initializer_list<result_type> il);
-
-    template<typename RandomIt> void generate(RandomIt begin, RandomIt end);
-    size_t size() const noexcept;
-    template<typename OutputIt> void param(OutputIt dest) const;
-
-    seed_seq(const seed_seq&) = delete;
-    seed_seq& operator=(const seed_seq&) = delete;
-};
-```
+:::code api-random-toolbox/cpp/3-klas-initsializatsii-ta.hpp
 
 ### Механіка двофазного алгоритму `generate(begin, end)`:
 Метод приймає діапазон ітераторів для заповнення буфера довжиною `N` слів. Обчислення виконуються у дві послідовні фази:
@@ -273,26 +242,7 @@ SampleIt sample(PopulationIt first, PopulationIt last, SampleIt out, Distance n,
 
 Кожен клас розподілу `D` містить вкладений тип `D::param_type`, який дозволяє зберігати, передавати та змінювати параметри розподілу без перестворення самого об'єкта.
 
-```cpp
-#include <iostream>
-#include <random>
-
-int main() {
-    std::mt19937 rng(42);
-    std::uniform_int_distribution<int> dist(1, 10);
-
-    // Отримання поточних параметрів
-    auto p1 = dist.param();
-    std::cout << "Початковий діапазон: [" << p1.a() << ", " << p1.b() << "]\n";
-
-    // Зміна параметрів через param_type без створення нового розподілу
-    using param_t = std::uniform_int_distribution<int>::param_type;
-    dist.param(param_t(50, 100));
-
-    std::cout << "Нове значення у діапазоні [50, 100]: " << dist(rng) << "\n";
-    return 0;
-}
-```
+:::code api-random-toolbox/cpp/7-parametry-rozpodiliv-ta.cpp
 
 Конструкція `dist(rng, param)` дозволяє одноразово перевизначити параметри вибірки для конкретного виклику без зміни внутрішнього стану об'єкта `dist`. Це корисно у ситуаціях, коли функція повинна генерувати випадкові величини з параметрами, що варіюються від виклику до виклику, уникнувши повторної алокації внутрішніх таблиць розподілу.
 
@@ -304,29 +254,7 @@ int main() {
 
 Усі генератори псевдовипадкових чисел та розподіли підтримують повне збереження та відновлення внутрішнього стану через текстові потоки `std::ostream` та `std::istream`:
 
-```cpp
-#include <iostream>
-#include <sstream>
-#include <random>
-#include <cassert>
-
-void test_stream_serialization() {
-    std::mt19937 rng1(12345);
-    for (int i = 0; i < 100; ++i) rng1(); // Зміщуємо стан
-
-    // Збереження стану генератора у текстовий потік
-    std::stringstream ss;
-    ss << rng1;
-
-    // Відновлення стану у новому об'єкті
-    std::mt19937 rng2;
-    ss >> rng2;
-
-    // Обидва генератори видають тотожні числа
-    assert(rng1() == rng2());
-    std::cout << "✔ Потокова серіалізація стану виконана успішно!\n";
-}
-```
+:::code api-random-toolbox/cpp/8-potokova-serializatsiia.cpp
 
 Текстовий формат потокового збереження стандартизовано для кожного типу генератора. Для `std::mt19937` стан серіалізується у вигляді 624 десяткових цілих чисел, відокремлених пробілами, плюс поточний індекс зміщення в масиві.
 
@@ -336,22 +264,7 @@ void test_stream_serialization() {
 
 Починаючи з C++20, операції генерування чисел для класів-шаблонів генераторів (зокрема `std::linear_congruential_engine` та `std::mersenne_twister_engine`) отримали специфікатор `constexpr`. Це дозволяє виконувати ініціалізацію таблиць та створення псевдовипадкових масивів безпосередньо під час компіляції програми:
 
-```cpp
-#include <random>
-#include <array>
-
-constexpr auto generate_compile_time_table() {
-    std::array<uint32_t, 10> table{};
-    std::minstd_rand rng(42);
-    for (auto& val : table) {
-        val = rng();
-    }
-    return table;
-}
-
-// Таблиця обчислюється під час компіляції і розміщується у секції констант .rodata
-constexpr auto random_table = generate_compile_time_table();
-```
+:::code api-random-toolbox/cpp/9-novovvedennia-c-20.cpp
 
 Компілятор гарантує, що `random_table` буде вичислено на етапі збірки, усуваючи накладні витрати на генерацію під час виконання програми.
 

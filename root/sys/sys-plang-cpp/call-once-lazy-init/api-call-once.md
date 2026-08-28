@@ -12,25 +12,7 @@
 
 ### Формальне оголошення типу:
 
-```cpp
-namespace std {
-    struct once_flag {
-        // Конструктор за замовчуванням (constexpr)
-        constexpr once_flag() noexcept;
-
-        // Копіювання суворо заборонено
-        once_flag(const once_flag&) = delete;
-        once_flag& operator=(const once_flag&) = delete;
-
-        // Переміщення суворо заборонено
-        once_flag(once_flag&&) = delete;
-        once_flag& operator=(once_flag&&) = delete;
-
-        // Тривіальний деструктор
-        ~once_flag() = default;
-    };
-}
-```
+:::code api-call-once/cpp/formalne-oholoshennia-typu.cpp
 
 ### Детальний опис спеціальних методів-членів:
 
@@ -109,45 +91,12 @@ INVOKE(decay_copy(std::forward<Callable>(f)), decay_copy(std::forward<Args>(args
 
 Щоб передати справжнє посилання на зовнішній об'єкт, необхідно явно використовувати обгортку `std::ref` або `std::cref`:
 
-```cpp
-#include <mutex>
-#include <functional>
-#include <string>
-#include <vector>
-
-void fill_hardware_ids(std::vector<int>& ids, std::string& status) {
-    ids.push_back(101);
-    ids.push_back(102);
-    status = "READY";
-}
-
-void configure(std::once_flag& flag, std::vector<int>& out_ids, std::string& out_status) {
-    // ❌ Помилка: std::call_once(flag, fill_hardware_ids, out_ids, out_status);
-    
-    // ✅ Правильно: загортаємо в std::ref
-    std::call_once(flag, fill_hardware_ids, std::ref(out_ids), std::ref(out_status));
-}
-```
+:::code api-call-once/cpp/2-peredacha-arhumentiv-za.cpp
 
 ### 3. Передача об'єктів лише для переміщення (Move-Only Types)
 Аргументи, які підтримують лише семантику переміщення (наприклад, `std::unique_ptr`), передаються за допомогою `std::move`:
 
-```cpp
-#include <mutex>
-#include <memory>
-
-struct SessionContext {
-    int auth_level;
-};
-
-void setup_session(std::unique_ptr<SessionContext> ctx) {
-    // Володіння контекстом переходить сюди
-}
-
-void initialize(std::once_flag& flag, std::unique_ptr<SessionContext> ctx) {
-    std::call_once(flag, setup_session, std::move(ctx));
-}
-```
+:::code api-call-once/cpp/3-peredacha-obiektiv-lyshe.cpp
 
 ### 4. Виклик методів класу
 Якщо першим аргументом передається покажчик на метод класу, другим аргументом обов'язково повинен бути вказівник або посилання на об'єкт, для якого цей метод викликається:
@@ -213,74 +162,6 @@ struct NetworkSocket {
 ## 7. Приклади використання для типових сценаріїв
 
 :::tabs
-```cpp
-#include <mutex>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <memory>
-
-class HardwareSensorCluster {
-private:
-    struct CalibrationProfile {
-        std::vector<double> gains;
-        std::string firmware_version;
-    };
-
-    std::unique_ptr<CalibrationProfile> profile_;
-    std::once_flag calibration_flag_;
-
-    void load_profile_from_eeprom(const std::string& chip_serial) {
-        std::cout << "Зчитування калібрувального профілю для чіпа " << chip_serial << "...\n";
-        auto p = std::make_unique<CalibrationProfile>();
-        p->gains = {1.024, 0.998, 1.005};
-        p->firmware_version = "v2.4.1";
-        profile_ = std::move(p);
-    }
-
-public:
-    HardwareSensorCluster() = default;
-
-    void read_sensor(int channel) {
-        // Лінива ініціалізація з передачею методу та аргументів
-        std::call_once(calibration_flag_, &HardwareSensorCluster::load_profile_from_eeprom, 
-                       this, "CHIP-XYZ-9876");
-
-        std::cout << "Канал " << channel << " з коефіцієнтом: " 
-                  << profile_->gains[channel % profile_->gains.size()] << "\n";
-    }
-};
-```
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    double gains[3];
-    char firmware_version[16];
-} CalibrationProfileC;
-
-static CalibrationProfileC* g_profile = NULL;
-static pthread_once_t g_calib_flag = PTHREAD_ONCE_INIT;
-
-static void load_profile_eeprom_c(void) {
-    printf("Зчитування калібрувального профілю (POSIX C)...\n");
-    g_profile = (CalibrationProfileC*)malloc(sizeof(CalibrationProfileC));
-    if (g_profile) {
-        g_profile->gains[0] = 1.024;
-        g_profile->gains[1] = 0.998;
-        g_profile->gains[2] = 1.005;
-        strncpy(g_profile->firmware_version, "v2.4.1", 15);
-    }
-}
-
-void read_sensor_c(int channel) {
-    pthread_once(&g_calib_flag, load_profile_eeprom_c);
-    if (g_profile) {
-        printf("Канал %d з коефіцієнтом: %f\n", channel, g_profile->gains[channel % 3]);
-    }
-}
-```
+:::code api-call-once/cpp/7-pryklady-vykorystannia.cpp
+:::code api-call-once/c/main.c
 :::

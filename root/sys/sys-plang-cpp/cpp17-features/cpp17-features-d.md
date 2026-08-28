@@ -45,25 +45,7 @@ Widget w = make_widget();
 
 Фізичний об'єкт виникає лише тоді, коли вираз вимагає розміщення в пам'яті — цей процес називається **матеріалізацією тимчасового об'єкта** (англ. *Temporary Materialization Conversion*). Коли prvalue передається як ініціалізатор для змінної `Widget w = make_widget();`, цільова адреса пам'яті під змінну `w` передається безпосередньо у конструктор `Widget(42, "payload")`. Проміжного об'єкта не існує в природі, тому компілятор не викликає і навіть не перевіряє наявність конструкторів копіювання чи переміщення.
 
-```cpp
-struct MutexLockGuard {
-    explicit MutexLockGuard(std::mutex& mtx) : m_mtx(mtx) { m_mtx.lock(); }
-    ~MutexLockGuard() { m_mtx.unlock(); }
-
-    MutexLockGuard(const MutexLockGuard&) = delete;
-    MutexLockGuard(MutexLockGuard&&) = delete;
-
-private:
-    std::mutex& m_mtx;
-};
-
-MutexLockGuard create_guard(std::mutex& mtx) {
-    return MutexLockGuard(mtx); // Повністю легально в C++17! У C++14 — помилка компіляції.
-}
-
-std::mutex g_mtx;
-MutexLockGuard lock = create_guard(g_mtx); // Пряме створення замка за місцем
-```
+:::code cpp17-features-d/cpp/harantovane-vyluchennia.cpp
 
 ### Взаємодія з бінарним інтерфейсом (ABI) та системні угоди про виклики
 
@@ -92,19 +74,7 @@ MutexLockGuard lock = create_guard(g_mtx); // Пряме створення за
 
 Синтаксис `auto [a, b, ...] = expr;` ввів нативне розпакування на рівні мови. Механізм працює не як набір незалежних змінних, а через прихований проміжний об'єкт. Компілятор створює анонімну змінну `e`, що зберігає результат ініціалізатора, а оголошені ідентифікатори стають псевдонімами (посиланнями) на її поля або елементи:
 
-```cpp
-std::unordered_map<std::string, int> word_counts;
-
-// Розпакування пари ітератора та булевого прапорця
-if (auto [it, inserted] = word_counts.try_emplace("packet", 1); inserted) {
-    std::cout << "Вставлено нове слово з лічильником: " << it->second << "\n";
-}
-
-// Ітерація по асоціативному контейнеру
-for (const auto& [word, count] : word_counts) {
-    std::cout << word << ": " << count << "\n";
-}
-```
+:::code cpp17-features-d/cpp/strukturovani-pryviazky.cpp
 
 Компілятор розпізнає три окремі протоколи декомпозиції:
 1. **Масиви у стилі C:** якщо об'єкт є фіксованим масивом, змінні зв'язуються з індексами `e[0], e[1], ...`.
@@ -135,19 +105,7 @@ if (it != cache.end()) {
 
 У C++17 інструкції `if` та `switch` отримали опціональну секцію ініціалізації: `if (init; condition)`. Змінна, оголошена в секції `init`, існує виключно всередині блоків `if` та `else`, а її деструктор викликається негайно після виходу з розгалуження:
 
-```cpp
-// Ініціалізація замка м'ютекса безпосередньо в умові:
-if (std::lock_guard lock(queue_mutex); !task_queue.empty()) {
-    auto task = task_queue.front();
-    task_queue.pop();
-    execute(task);
-} // lock гарантовано звільняє м'ютекс тут, ще до виконання наступних дій
-
-switch (std::error_code ec = process_device(); ec.value()) {
-    case 0:  log_ok(); break;
-    default: handle_error(ec); break;
-}
-```
+:::code cpp17-features-d/cpp/initsializatsiia-vseredyni.cpp
 
 > 🔧 **Навіщо це.** Локалізація області видимості RAII-замків та тимчасових змінних усуває типові помилки конкурентності, коли замок випадково утримувався довше, ніж потрібно, блокуючи паралельні потоки виконання.
 
@@ -163,19 +121,7 @@ switch (std::error_code ec = process_device(); ec.value()) {
 
 *Трансляція шаблону з `if constexpr`: компілятор оцінює константну умову та повністю вилучає неактивну гілку з інстанціювання, запобігаючи синтаксичним помилкам для несумісних типів.*
 
-```cpp
-template <typename T>
-void serialize(Serializer& s, const T& value) {
-    if constexpr (std::is_arithmetic_v<T>) {
-        s.write_raw_bytes(&value, sizeof(T));
-    } else if constexpr (std::is_same_v<T, std::string>) {
-        s.write_uint32(value.size());
-        s.write_raw_bytes(value.data(), value.size());
-    } else {
-        value.custom_serialize(s); // Інстанціюється лише для користувацьких класів!
-    }
-}
-```
+:::code cpp17-features-d/cpp/if-constexpr-usunennia.cpp
 
 Для типів `int` та `std::string` виклик `value.custom_serialize(s)` навіть не перевіряється на наявність у тілі класу, оскільки ця гілка фізично вилучається з абстрактного синтаксичного дерева (AST).
 
@@ -212,25 +158,7 @@ RingBuffer(Iter, Iter) -> RingBuffer<typename std::iterator_traits<Iter>::value_
 
 Вирази згортки дозволяють згорнути пакет параметрів `args...` за допомогою будь-якого з 32 бінарних операторів C++ в один рядок:
 
-```cpp
-// 1. Обчислення суми аргументів за допомогою унарної згортки:
-template <typename... Args>
-auto sum_all(Args... args) {
-    return (... + args); // Розгортається компілятором у: (arg1 + (arg2 + ... + argN))
-}
-
-// 2. Друк довільної кількості параметрів у потік:
-template <typename... Args>
-void print_all(const Args&... args) {
-    (std::cout << ... << args) << "\n";
-}
-
-// 3. Виклик функції валідації для кожного аргументу:
-template <typename... Args>
-bool validate_all(const Args&... args) {
-    return (args.is_valid() && ...); // Логічне І з коротким замиканням
-}
-```
+:::code cpp17-features-d/cpp/vyrazy-zhortky-fold.cpp
 
 Унарні згортки без початкового значення вимагають непорожнього пакету аргументів (за винятком операторів `&&`, `||` та `,`). Для операторів додавання чи множення за наявності порожніх пакетів використовують бінарну форму з явним початковим значенням: `(0 + ... + args)`.
 
@@ -268,20 +196,7 @@ struct Database {
 
 Тип `std::optional<T>` виражає стан, коли об'єкт або містить валідне значення типу `T`, або є порожнім (`std::nullopt`). На відміну від покажчиків, `std::optional` зберігає значення безпосередньо у власному блоці пам'яті на стеку (розмір складає `sizeof(T) + sizeof(bool)` плюс вирівнювання), не звертаючись до динамічної купи:
 
-```cpp
-#include <optional>
-
-std::optional<int> parse_port(std::string_view str) {
-    if (str.empty()) return std::nullopt;
-    int port = std::atoi(str.data());
-    if (port <= 0 || port > 65535) return std::nullopt;
-    return port;
-}
-
-auto port = parse_port("8080");
-// Безпечне отримання значення зі значенням за замовчуванням:
-int active_port = port.value_or(80);
-```
+:::code cpp17-features-d/cpp/std-optional-znachennia.cpp
 
 Слід враховувати вирівнювання: для типу `std::optional<double>` розмір об'єкта становить не 9 байтів (8 байтів `double` + 1 байт `bool`), а 16 байтів через вимогу вирівнювання числа з плаваючою крапкою по 8-байтовій межі. Для складних типів, що не мають конструкторів копіювання, передбачено конструювання за місцем через `std::in_place`: `std::optional<HeavyResource> opt(std::in_place, "config.json", 1024);`.
 
@@ -291,28 +206,7 @@ int active_port = port.value_or(80);
 
 Робота зі значенням варіанта виконується через типобезпечний патерн відвідувача `std::visit`:
 
-```cpp
-#include <variant>
-
-struct KeyPress { int key_code; };
-struct MouseClick { int x, y; };
-struct WindowResize { int width, height; };
-
-using Event = std::variant<KeyPress, MouseClick, WindowResize>;
-
-void dispatch_event(const Event& event) {
-    std::visit([](const auto& e) {
-        using T = std::decay_t<decltype(e)>;
-        if constexpr (std::is_same_v<T, KeyPress>) {
-            std::cout << "Натиснуто клавішу: " << e.key_code << "\n";
-        } else if constexpr (std::is_same_v<T, MouseClick>) {
-            std::cout << "Клік миші: " << e.x << ", " << e.y << "\n";
-        } else if constexpr (std::is_same_v<T, WindowResize>) {
-            std::cout << "Зміна розміру: " << e.width << "x" << e.height << "\n";
-        }
-    }, event);
-}
-```
+:::code cpp17-features-d/cpp/std-variant-typobezpechne.cpp
 
 Під капотом `std::visit` компілятор будує оптимізовану таблицю переходів (англ. *Jump Table / Function Pointer Table*). Для одного варіанта з `N` типами таблиця містить `N` адрес функцій-обробників, забезпечуючи виклик за константний час `O(1)` без використання віртуальних функцій та динамічного приведення типів `dynamic_cast`.
 
@@ -342,25 +236,7 @@ void dispatch_event(const Event& event) {
 
 Бібліотека `std::filesystem` (заголовок `<filesystem>`) уніфікувала маніпуляцію шляхами, обхід каталогів та управління метаданими файлів:
 
-```cpp
-#include <filesystem>
-namespace fs = std::filesystem;
-
-void clean_logs(const fs::path& log_dir) {
-    if (!fs::exists(log_dir) || !fs::is_directory(log_dir)) return;
-
-    // Кросплатформна рекурсивна ітерація по каталогу
-    for (const auto& entry : fs::recursive_directory_iterator(log_dir)) {
-        if (entry.is_regular_file() && entry.path().extension() == ".tmp") {
-            std::error_code ec;
-            fs::remove(entry.path(), ec); // Видалення без викидання винятків
-            if (ec) {
-                std::cerr << "Помилка видалення: " << ec.message() << "\n";
-            }
-        }
-    }
-}
-```
+:::code cpp17-features-d/cpp/failova-systema-std.cpp
 
 Клас `fs::path` самостійно транслює роздільники шляхів (`/` на Linux/macOS та `\` на Windows), виконує лексичну нормалізацію та підтримує оператор конкатенації шляхів `p /= "subfolder"`. Для кожної файлової операції бібліотека надає дві версії: з викиданням винятку `std::filesystem_error` та з поверненням коду помилки `std::error_code` для високонавантажених циклів.
 
@@ -375,26 +251,7 @@ void clean_logs(const fs::path& log_dir) {
 
 Заголовок `<charconv>` надав низькорівневі функції `std::to_chars` та `std::from_chars`. Вони не мають жодних залежностей від локалей, не виділяють пам'ять і працюють безпосередньо з вказівниками на пам'ять:
 
-```cpp
-#include <charconv>
-#include <array>
-
-std::array<char, 32> buffer;
-double measurement = 123.456789;
-
-// Швидке перетворення дійсного числа в рядок за алгоритмом Ryu:
-auto [ptr, ec] = std::to_chars(
-    buffer.data(),
-    buffer.data() + buffer.size(),
-    measurement,
-    std::chars_format::fixed,
-    3 // 3 знаки після коми
-);
-
-if (ec == std::errc()) {
-    std::string_view formatted(buffer.data(), ptr - buffer.data()); // "123.457"
-}
-```
+:::code cpp17-features-d/cpp/vysokoproduktyvna.cpp
 
 У синтетичних та промислових тестах `std::to_chars` демонструє прискорення у 5–10 разів порівняно з `snprintf` та у 20–30 разів порівняно з `std::stringstream`, ставши стандартом для серіалізаторів JSON та телеметричних баз даних.
 
@@ -404,22 +261,7 @@ if (ec == std::errc()) {
 
 Стандарт C++17 додав до заголовка `<execution>` концепцію **політик виконання** (англ. *Execution Policies*). Понад 60 класичних алгоритмів отримали перевантажені версії, де першим аргументом передається бажаний режим розпаралелювання:
 
-```cpp
-#include <algorithm>
-#include <execution>
-#include <vector>
-
-std::vector<int> large_dataset(10'000'000);
-
-// 1. Послідовне виконання (класичне):
-std::sort(std::execution::seq, large_dataset.begin(), large_dataset.end());
-
-// 2. Паралельне виконання на пулі потоків процесора:
-std::sort(std::execution::par, large_dataset.begin(), large_dataset.end());
-
-// 3. Паралельне та векторизоване виконання (SIMD):
-std::sort(std::execution::par_unseq, large_dataset.begin(), large_dataset.end());
-```
+:::code cpp17-features-d/cpp/paralelni-alhorytmy-stl.hpp
 
 Режим `std::execution::par_unseq` дозволяє компілятору не лише розділяти масив між потоками операційної системи, а й застосовувати векторизацію (векторні регістри SSE/AVX). Для запобігання дедлокам всередині одного потоку у функторах політики `par_unseq` суворо заборонено використовувати блокуючі примітиви синхронізації (м'ютекси або атомарне очікування).
 
@@ -438,18 +280,7 @@ std::sort(std::execution::par_unseq, large_dataset.begin(), large_dataset.end())
 
 У C++17 клас `std::scoped_lock` об'єднав довільну кількість м'ютексів у єдиний RAII-замок. Він автоматично застосовує алгоритм запобігання дедлокам і вивільняє всі ресурси у зворотному порядку в деструкторі:
 
-```cpp
-#include <mutex>
-
-std::mutex account_a_mtx;
-std::mutex account_b_mtx;
-
-void transfer_money() {
-    // Атомарне і безпечне захоплення обох м'ютексів без ризику дедлоку:
-    std::scoped_lock lock(account_a_mtx, account_b_mtx);
-    // Безпечна транзакція
-}
-```
+:::code cpp17-features-d/cpp/deadlock-free.cpp
 
 ### Тип std::byte для представлення сирої пам'яті
 
@@ -463,20 +294,7 @@ void transfer_money() {
 
 Підсистема PMR (`std::pmr`, заголовок `<memory_resource>`) ввела поліморфний алокатор `std::pmr::polymorphic_allocator<T>`, який делегує реальне виділення пам'яті віртуальному інтерфейсу `std::pmr::memory_resource`:
 
-```cpp
-#include <memory_resource>
-#include <vector>
-#include <array>
-
-// Використання статичного буфера на стеку без викликів глобального malloc:
-std::array<std::byte, 1024> stack_buffer;
-std::pmr::monotonic_buffer_resource arena(stack_buffer.data(), stack_buffer.size());
-
-// Тип std::pmr::vector<int> єдиний для будь-яких стратегій виділення пам'яті:
-std::pmr::vector<int> numbers(&arena);
-numbers.push_back(10);
-numbers.push_back(20);
-```
+:::code cpp17-features-d/cpp/polimorfni-resursy-pamiati.hpp
 
 В асоціативних контейнерах `std::map` та `std::unordered_map` з'явилися методи `.try_emplace()` (який не створює значення, якщо ключ уже присутній) та механізм вилучення вузлів `.extract()`, що дозволяє переміщувати елементи між словниками або змінювати ключ елемента без переалокації пам'яті в купі.
 

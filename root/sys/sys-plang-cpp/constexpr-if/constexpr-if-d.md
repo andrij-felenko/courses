@@ -34,27 +34,7 @@ if constexpr ( init-statement(opt) condition ) statement else statement
 2. **`condition` (вираз умови):** вираз, який зобов'язаний бути константним виразом часу компіляції (Constant Expression згідно з розділом [expr.const]) і контекстуально перетворюватися до булевого типу `bool`. Якщо вираз повертає ціле число або значення переліку, воно перетворюється на `true` для будь-якого ненульового значення і на `false` для нуля. Використання значень часу виконання (Runtime Values), аргументів функцій без специфікатора `constexpr` або динамічних змінних у цій позиції викликає негайну помилку компіляції.
 3. **`statement` (тіло гілки):** окрема інструкція або складений блок у фігурних дужках `{ ... }`, що визначає операції відповідної гілки.
 
-```cpp
-#include <type_traits>
-#include <string>
-#include <memory>
-
-template<typename T>
-auto serialize_value(const T& val) {
-    if constexpr (std::is_pointer_v<T>) {
-        if (val == nullptr) {
-            return std::string("null");
-        }
-        return std::to_string(*val);
-    } else if constexpr (std::is_same_v<T, std::string>) {
-        return '"' + val + '"';
-    } else if constexpr (std::is_arithmetic_v<T>) {
-        return std::to_string(val);
-    } else {
-        return val.to_string();
-    }
-}
-```
+:::code constexpr-if-d/cpp/1-anatomiia-ta-formalnyi.cpp
 
 У наведеному фрагменті під час виклику `serialize_value(42)` тип `T` виводиться як `int`. Компілятор обчислює умови під час генерації коду для цієї спеціалізації: умова `std::is_pointer_v<int>` дорівнює `false`, `std::is_same_v<int, std::string>` дорівнює `false`, а `std::is_arithmetic_v<int>` дорівнює `true`. Перша, друга та четверта гілки позначаються як відкинуті. Незважаючи на те, що тип `int` не має методу `.to_string()` і не підтримує розіменування `*val`, жодної помилки компіляції не виникає.
 
@@ -77,18 +57,7 @@ auto serialize_value(const T& val) {
 
 На рівні внутрішнього представлення транслятора (наприклад, у дереві SSA-форм Clang/LLVM) для відкинутої гілки взагалі не створюються базові блоки (`BasicBlock`) та вузли злиття значень `phi-nodes`. Це повністю позбавляє компілятор необхідності виконувати аналіз мертвого коду для невибраних гілок шаблону, що значно розвантажує бекенд.
 
-```cpp
-template<typename Container>
-void clear_resource(Container& c) {
-    if constexpr (requires { c.clear(); }) {
-        c.clear(); // Інстанціюється лише якщо метод дійсно існує
-    } else if constexpr (requires { c.reset(); }) {
-        c.reset(); // Інстанціюється лише для типів з методом reset()
-    } else {
-        c = Container{}; // Резервний шлях для простих структур
-    }
-}
-```
+:::code constexpr-if-d/cpp/kontekst-shabloniv.cpp
 
 ### Нешаблонний контекст: оптимізація без відсікання типів
 
@@ -143,18 +112,7 @@ void execute_maintenance() {
 2. **Незалежні імена (Non-dependent Names):** Будь-який ідентифікатор, тип або виклик функції, який синтаксично не залежить від шаблонного параметра `T` (наприклад, звернення до глобальної змінної, виклик нешаблонної службової функції або використання стандартного типу `std::vector`), перевіряється та шукається в точці визначення шаблону. Якщо незалежне ім'я не існує, збірка аварійно зупиняється на першій фазі.
 3. **Безумовно некоректні конструкції (Ill-formed, NDR):** Якщо фрагмент коду у відкинутій гілці не містить залежних від шаблону імен і є принципово хибним для будь-якої можливої спеціалізації, компілятор згідно зі стандартом має право відхилити програму негайно.
 
-```cpp
-template<typename T>
-void bad_template(T val) {
-    if constexpr (sizeof(T) == 0) { // Завідомо хибна умова
-        // ПОМИЛКА: Незбалансований синтаксис призведе до збою на Фазі 1
-        int x = ; 
-
-        // ПОМИЛКА: Незалежна функція non_existent_function() не оголошена
-        non_existent_function(); 
-    }
-}
-```
+:::code constexpr-if-d/cpp/faza-1-syntaksychnyi.cpp
 
 ### Фаза 2: Інстанціювання для конкретного типу
 
@@ -178,19 +136,7 @@ void bad_template(T val) {
 
 Розглянемо спробу реалізувати таку вичерпну перевірку типів:
 
-```cpp
-template<typename T>
-void process_data(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        // обробка цілих чисел
-    } else if constexpr (std::is_floating_point_v<T>) {
-        // обробка дійсних чисел
-    } else {
-        // ПОМИЛКА КОМПІЛЯЦІЇ У C++17/C++20!
-        static_assert(false, "Тип даних не підтримується процесором!");
-    }
-}
-```
+:::code constexpr-if-d/cpp/prychyna-zboiu-u.cpp
 
 Цей код призводить до фатальної помилки компіляції навіть у тому разі, якщо функція викликається виключно з валідним типом `int` або якщо вона взагалі ніде не викликається в проекті.
 
@@ -206,23 +152,7 @@ void process_data(T val) {
 
 Щоб відкласти перевірку твердження до Фази 2 (коли стане відомо, чи дійсно виконання потрапило у відкинуту гілку), умову роблять синтаксично залежною від типу `T`. Для цього оголошують допоміжний шаблон змінної, значення якого завжди дорівнює `false`:
 
-```cpp
-// Допоміжний шаблон залежної константи
-template<typename...>
-inline constexpr bool dependent_false = false;
-
-template<typename T>
-void process_data_safe(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        // обробка цілих чисел
-    } else if constexpr (std::is_floating_point_v<T>) {
-        // обробка дійсних чисел
-    } else {
-        // ВАЛІДНО: dependent_false<T> оцінюється лише під час інстанціювання гілки else
-        static_assert(dependent_false<T>, "Тип даних не підтримується процесором!");
-    }
-}
-```
+:::code constexpr-if-d/cpp/rozviazannia-cherez-idiomu.cpp
 
 Оскільки вираз `dependent_false<T>` залежить від параметра `T`, компілятор ігнорує його на Фазі 1. На Фазі 2, якщо для типу `int` умова `std::is_integral_v<int>` істинна, блок `else` стає відкинутою інструкцією і вираз `dependent_false<int>` взагалі не інстанціюється. Помилка виникає виключно тоді, коли функцію реально викликають із непідтримуваним типом, наприклад `process_data_safe("рядок")`.
 
@@ -254,21 +184,7 @@ void process_data_safe(T val) {
 ![Виведення типу повернення auto в if constexpr](img/return-type-deduction.svg)
 *Виведення типу auto: інструкції return у відкинутих гілках повністю ігноруються механізмом дедукції типів.*
 
-```cpp
-#include <type_traits>
-#include <string>
-
-template<typename T>
-auto get_representation(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        return static_cast<long long>(val); // Для цілих повертає long long
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return static_cast<double>(val);    // Для дійсних повертає double
-    } else {
-        return std::string(val);            // Для решти повертає рядок
-    }
-}
-```
+:::code constexpr-if-d/cpp/5-vyvedennia-typu.cpp
 
 У звичайній функції з кількома операторами `return` несумісність між `long long`, `double` та `std::string` призвела б до фатальної помилки компілятора `inconsistent deduction for 'auto'`. Завдяки `if constexpr` при виклику `get_representation(10)` компілятор бачить лише перший оператор `return`, а інші два відкидає, коректно фіксуючи тип повернення як `long long`.
 
@@ -293,18 +209,7 @@ auto compute_factorial() {
 
 Якщо функція повинна повертати посилання на внутрішні дані для одних типів і копію за значенням для інших, використовують специфікатор `decltype(auto)`:
 
-```cpp
-template<typename T>
-decltype(auto) access_element(T& container) {
-    if constexpr (std::is_pointer_v<T>) {
-        return *container; // Повертає lvalue-посилання на розіменований об'єкт
-    } else if constexpr (requires { container.front(); }) {
-        return container.front(); // Повертає посилання на перший елемент
-    } else {
-        return container; // Повертає посилання на сам контейнер
-    }
-}
-```
+:::code constexpr-if-d/cpp/vykorystannia-decltype.cpp
 
 Специфікатор `decltype(auto)` точно зберігає категорію значення (Value Category) та модифікатори посилань `&`/`&&` активної гілки, дозволяючи будувати універсальні обгортки доступу до ресурсів.
 
@@ -321,85 +226,19 @@ decltype(auto) access_element(T& container) {
 
 Логіка розбивалася на одну функцію-фасад та множину перевантажень із фіктивними типами-тегами:
 
-```cpp
-namespace legacy {
-
-template<typename RandomIt, typename Distance>
-void advance_impl(RandomIt& it, Distance n, std::random_access_iterator_tag) {
-    it += n; // Швидкий шлях прямого доступу O(1)
-}
-
-template<typename BiDirIt, typename Distance>
-void advance_impl(BiDirIt& it, Distance n, std::bidirectional_iterator_tag) {
-    if (n > 0) while (n--) ++it;
-    else while (n++) --it;
-}
-
-template<typename InputIt, typename Distance>
-void advance_impl(InputIt& it, Distance n, std::input_iterator_tag) {
-    while (n--) ++it;
-}
-
-template<typename Iterator, typename Distance>
-void advance(Iterator& it, Distance n) {
-    using Category = typename std::iterator_traits<Iterator>::iterator_category;
-    advance_impl(it, n, Category{}); // Створення об'єкта-тегу для вибору перевантаження
-}
-
-} // namespace legacy
-```
+:::code constexpr-if-d/cpp/tradytsiinyi-pidkhid-c-98.cpp
 
 ### Підхід C++11: умовне відсікання через SFINAE (std::enable_if)
 
 З появою стандарту C++11 та бібліотеки `<type_traits>` розробники отримали можливість вилучати функції з множини кандидатів перевантаження через невдалу підстановку типів (Substitution Failure Is Not An Error):
 
-```cpp
-namespace sfinae_style {
-
-template<typename Iterator, typename Distance>
-std::enable_if_t<std::is_base_of_v<std::random_access_iterator_tag, 
-                 typename std::iterator_traits<Iterator>::iterator_category>>
-advance(Iterator& it, Distance n) {
-    it += n;
-}
-
-template<typename Iterator, typename Distance>
-std::enable_if_t<std::is_base_of_v<std::bidirectional_iterator_tag, 
-                 typename std::iterator_traits<Iterator>::iterator_category> &&
-                !std::is_base_of_v<std::random_access_iterator_tag, 
-                 typename std::iterator_traits<Iterator>::iterator_category>>
-advance(Iterator& it, Distance n) {
-    if (n > 0) while (n--) ++it;
-    else while (n++) --it;
-}
-
-} // namespace sfinae_style
-```
+:::code constexpr-if-d/cpp/pidkhid-c-11-umovne.cpp
 
 Цей спосіб суттєво ускладнював читання сигнатур функцій, сповільнював компіляцію через перевірку складних умов для всіх кандидатів у наборі перевантажень та породжував гігантські каскади діагностичних повідомлень при виникненні найменших помилок підстановки.
 
 ### Сучасний підхід C++17: лінійний процедурний код із if constexpr
 
-```cpp
-template<typename Iterator, typename Distance>
-constexpr void advance(Iterator& it, Distance n) {
-    using Category = typename std::iterator_traits<Iterator>::iterator_category;
-
-    if constexpr (std::is_base_of_v<std::random_access_iterator_tag, Category>) {
-        it += n;
-    } else if constexpr (std::is_base_of_v<std::bidirectional_iterator_tag, Category>) {
-        if (n > 0) {
-            while (n--) ++it;
-        } else {
-            while (n++) --it;
-        }
-    } else {
-        while (n--) {
-            ++it;
-        }
-    }
-}
-```
+:::code constexpr-if-d/cpp/suchasnyi-pidkhid-c-17.cpp
 
 Алгоритм відновлює природну лінійну структуру: потік виконання концентрується в одній функції, службові перевантаження та теги вилучаються, а компілятор отримує простий код, який транслюється в оптимальні машинні інструкції без жодного зайвого байта в бінарному файлі.
 
@@ -422,36 +261,7 @@ constexpr void advance(Iterator& it, Distance n) {
 
 За допомогою `if constexpr` обхід кортежу реалізується в кілька рядків чистого рекурсивного коду без необхідності створення допоміжних шаблонних класів:
 
-```cpp
-#include <tuple>
-#include <iostream>
-#include <utility>
-
-namespace detail {
-
-template<std::size_t Index = 0, typename Func, typename... Types>
-constexpr void for_each_tuple_impl(const std::tuple<Types...>& t, Func&& f) {
-    constexpr std::size_t total = sizeof...(Types);
-
-    if constexpr (Index < total) {
-        // 1. Викликаємо функцію для поточного елемента
-        f(std::get<Index>(t), Index);
-
-        // 2. Рекурсивний перехід до наступного елемента
-        // Коли Index + 1 == total, ця гілка ВІДКИДАЄТЬСЯ компілятором!
-        if constexpr (Index + 1 < total) {
-            for_each_tuple_impl<Index + 1>(t, std::forward<Func>(f));
-        }
-    }
-}
-
-} // namespace detail
-
-template<typename Func, typename... Types>
-constexpr void for_each_tuple(const std::tuple<Types...>& t, Func&& f) {
-    detail::for_each_tuple_impl<0>(t, std::forward<Func>(f));
-}
-```
+:::code constexpr-if-d/cpp/patern-1-rekursyvnyi.cpp
 
 Коли індекс `Index + 1` досягає значення `sizeof...(Types)`, компілятор позначає рекурсивний виклик як відкинуту інструкцію. Завдяки цьому компілятор навіть не намагається інстанціювати функцію з індексом `Index = total`, що запобігає спробі виклику некоректного `std::get<total>(t)` і зупиняє розгортання рекурсії.
 
@@ -466,33 +276,7 @@ constexpr void for_each_tuple(const std::tuple<Types...>& t, Func&& f) {
 
 При обробці поліморфних сум типів (`std::variant`) за допомогою `std::visit` інструкція `if constexpr` дозволяє створити єдиний лямбда-диспетчер із суворою перевіркою повноти покриття всіх можливих станів:
 
-```cpp
-#include <variant>
-#include <string>
-#include <iostream>
-
-struct PacketHeader { uint32_t id; };
-struct PayloadData { std::string payload; };
-struct DisconnectSignal { int reason_code; };
-
-using NetworkMessage = std::variant<PacketHeader, PayloadData, DisconnectSignal>;
-
-void handle_network_message(const NetworkMessage& msg) {
-    std::visit([](const auto& item) {
-        using T = std::decay_t<decltype(item)>;
-
-        if constexpr (std::is_same_v<T, PacketHeader>) {
-            std::cout << "Отримано заголовок пакету ID: " << item.id << "\n";
-        } else if constexpr (std::is_same_v<T, PayloadData>) {
-            std::cout << "Отримано корисне навантаження: " << item.payload << "\n";
-        } else if constexpr (std::is_same_v<T, DisconnectSignal>) {
-            std::cout << "Сигнал роз'єднання, код: " << item.reason_code << "\n";
-        } else {
-            static_assert(dependent_false<T>, "Не всі варіанти NetworkMessage покрито обробником!");
-        }
-    }, msg);
-}
-```
+:::code constexpr-if-d/cpp/patern-2-unifikovanyi.cpp
 
 Якщо в майбутньому до визначення `NetworkMessage` буде додано четвертий тип (наприклад, `KeepAlivePing`), компілятор негайно зупинить збірку програми та вкаже на точний рядок, де бракує нової гілки обробки.
 
@@ -500,26 +284,7 @@ void handle_network_message(const NetworkMessage& msg) {
 
 У вбудованих системах (Embedded Systems) виділення динамічної пам'яті та віртуальні виклики через таблиці `vtable` часто суворо заборонені вимогами реального часу або стандартами надійності (MISRA C++). Інструкція `if constexpr` дозволяє створювати статичні фабрики апаратних модулів, де вибір регістрів, протоколів або розрядності шини здійснюється безпосередньо під час компіляції:
 
-```cpp
-enum class BusWidth { Bit8, Bit16, Bit32 };
-
-template<BusWidth Width>
-class HardwareBus {
-public:
-    template<typename T>
-    void write_data(uint32_t address, T value) {
-        volatile auto* reg = reinterpret_cast<volatile uint32_t*>(address);
-
-        if constexpr (Width == BusWidth::Bit8) {
-            *reinterpret_cast<volatile uint8_t*>(reg) = static_cast<uint8_t>(value);
-        } else if constexpr (Width == BusWidth::Bit16) {
-            *reinterpret_cast<volatile uint16_t*>(reg) = static_cast<uint16_t>(value);
-        } else {
-            *reg = static_cast<uint32_t>(value);
-        }
-    }
-};
-```
+:::code constexpr-if-d/cpp/patern-3-statychni-fabryky.cpp
 
 Кожен згенерований метод `HardwareBus<BusWidth::Bit8>::write_data` містить виключно одну апаратну інструкцію запису байта в пам'ять (наприклад, `strb` в архітектурі ARM) без жодних перевірок умов або динамічних розгалужень у циклі передачі.
 
@@ -572,20 +337,7 @@ void process_container_safe(T& c) {
 
 При використанні секції `init-statement` в `if constexpr` змінна, оголошена в ініціалізаторі, затіняє (shadows) однойменні змінні зовнішньої області видимості в обох гілках (`then` та `else`):
 
-```cpp
-int counter = 100;
-
-template<typename T>
-void execute_step() {
-    if constexpr (int counter = sizeof(T); counter > 4) {
-        // Тут counter дорівнює sizeof(T), а не 100
-        process_large_type(counter);
-    } else {
-        // У гілці else локальний counter ТАКОЖ доступний і дорівнює sizeof(T)
-        process_small_type(counter);
-    }
-}
-```
+:::code constexpr-if-d/cpp/zatinennia-zminnykh-u.cpp
 
 Розробникам слід пам'ятати, що область видимості ініціалізатора поширюється на обидві гілки, навіть якщо гілка `then` була відкинута компілятором.
 

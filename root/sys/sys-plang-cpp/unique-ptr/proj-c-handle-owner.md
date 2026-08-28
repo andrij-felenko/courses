@@ -42,21 +42,7 @@ if (!fd) return report_error();
 
 Спершу сам дескриптор — крихітний клас, чия єдина робота полягає в тому, щоб оголосити −1 своїм нулем:
 
-```cpp
-class FdHandle {
-    int fd_ = -1;                                    // порожнє значення — саме -1
-public:
-    FdHandle() = default;
-    FdHandle(std::nullptr_t) noexcept {}
-    explicit FdHandle(int fd) noexcept : fd_(fd) {}
-
-    int  fd() const noexcept { return fd_; }
-    explicit operator bool() const noexcept { return fd_ != -1; }
-
-    friend bool operator==(FdHandle a, FdHandle b) noexcept { return a.fd_ == b.fd_; }
-    friend bool operator==(FdHandle h, std::nullptr_t) noexcept { return h.fd_ == -1; }
-};
-```
+:::code proj-c-handle-owner/cpp/deskryptor-iakyi-umiie.cpp
 
 Двох операторів `==` вистачає завдяки переписаним кандидатам C++20: з них компілятор сам виводить і `!=`, і дзеркальний порядок операндів ([тричленне порівняння](root:sys-plang-cpp/three-way-comparison) додало до мови саме це правило переписування). До C++20 ті самі чотири оператори довелося б написати руками.
 
@@ -76,19 +62,7 @@ static_assert(sizeof(UniqueFd) == sizeof(int));
 
 Тепер відкриття:
 
-```cpp
-UniqueFd open_file(const char* path, int flags) {
-    UniqueFd fd(FdHandle{::open(path, flags)});
-    if (!fd) throw std::system_error(errno, std::system_category(), path);
-    return fd;
-}
-
-inline int native(const UniqueFd& f) noexcept { return f.get().fd(); }
-
-auto log = open_file("run.log", O_RDONLY);
-char buf[4096];
-ssize_t n = ::read(native(log), buf, sizeof buf);    // close — на будь-якому виході
-```
+:::code proj-c-handle-owner/cpp/deskryptor-iakyi-umiie-2.cpp
 
 Дрібниця в цій функції варта окремої уваги: між `::open` і перевіркою не стоїть жодного виклику. Конструктор `FdHandle` тільки копіює число, конструктор `unique_ptr` — теж, тож `errno` доходить до `std::system_error` неушкодженим. Досить вставити між ними будь-що змістовне — журналювання, звільнення тимчасового буфера — і в діагностиці опиниться помилка зовсім іншої операції.
 
@@ -100,42 +74,7 @@ ssize_t n = ::read(native(log), buf, sizeof buf);    // close — на будь-
 
 Дескриптор ядра звільняється сам по собі: `close` знає все потрібне з номера. Але багато ресурсів так не вміють — слот у пулі, кадр у кільцевому буфері, текстура в контексті рендерера. Щоб повернути такий ресурс, треба знати **куди** його повертати, і ця адреса не вміщається в дескриптор.
 
-```cpp
-class SlotPool {
-    std::array<Frame, 64> frames_{};
-    std::bitset<64>       busy_{};
-public:
-    int    acquire() noexcept;                       // -1, якщо вільних немає
-    void   give_back(int i) noexcept { busy_.reset(i); }
-    Frame& frame(int i) noexcept { return frames_[i]; }
-};
-
-class SlotHandle {                                   // те саме, що FdHandle, про індекс
-    int i_ = -1;
-public:
-    SlotHandle() = default;
-    SlotHandle(std::nullptr_t) noexcept {}
-    explicit SlotHandle(int i) noexcept : i_(i) {}
-    int index() const noexcept { return i_; }
-    friend bool operator==(SlotHandle a, SlotHandle b) noexcept { return a.i_ == b.i_; }
-    friend bool operator==(SlotHandle h, std::nullptr_t) noexcept { return h.i_ == -1; }
-};
-
-class SlotReturn {
-    SlotPool* pool_ = nullptr;                       // ← стан: куди повертати
-public:
-    using pointer = SlotHandle;
-    SlotReturn() = default;
-    explicit SlotReturn(SlotPool& p) noexcept : pool_(&p) {}
-    void operator()(SlotHandle h) const noexcept { pool_->give_back(h.index()); }
-};
-
-using UniqueSlot = std::unique_ptr<Frame, SlotReturn>;
-
-UniqueSlot take(SlotPool& pool) {
-    return UniqueSlot(SlotHandle{pool.acquire()}, SlotReturn{pool});
-}
-```
+:::code proj-c-handle-owner/cpp/koly-vydaliuvach-musyt.cpp
 
 Конструктор із двох аргументів кладе видалювач усередину власника, і далі той подорожує разом із дескриптором: повернули `UniqueSlot` із функції, переклали в структуру, віддали в чергу — знання про пул їде поруч і не губиться.
 

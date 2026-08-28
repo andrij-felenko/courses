@@ -145,30 +145,7 @@ process(std::make_unique<A>(), std::make_unique<B>());
 
 Значення макроса кодується у форматі цілого числа `YYYYMML`, яке позначає рік і місяць прийняття відповідного нормативного документа робочою групою WG21:
 
-```cpp
-#include <iostream>
-
-// Перевірка підтримки узагальнених лямбд стандарту C++14
-#if defined(__cpp_generic_lambdas) && __cpp_generic_lambdas >= 201304L
-    #define HAS_GENERIC_LAMBDAS 1
-#else
-    #define HAS_GENERIC_LAMBDAS 0
-#endif
-
-// Перевірка наявності розширеного constexpr C++14
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 201304L
-    #define HAS_RELAXED_CONSTEXPR 1
-#else
-    #define HAS_RELAXED_CONSTEXPR 0
-#endif
-
-// Перевірка двійкових літералів
-#if defined(__cpp_binary_literals) && __cpp_binary_literals >= 201304L
-    constexpr auto bitmask = 0b1010'1111;
-#else
-    constexpr auto bitmask = 0xAF;
-#endif
-```
+:::code api-cxx11-cxx14-reference/cpp/5-makrosy-perevirky.cpp
 
 Повний нормативний перелік макросів ядра наведено нижче:
 - `__cpp_rvalue_references` (`200610L`) — підтримка rvalue-посилань і семантики переміщення.
@@ -192,45 +169,13 @@ process(std::make_unique<A>(), std::make_unique<B>());
 
 Кожна метафункція інспекції у C++11 є структурою, яка успадковує `std::integral_constant<bool, Value>`. Отримання логічного результату здійснюється через звернення до статичного поля `::value`:
 
-```cpp
-#include <type_traits>
-
-template<typename T>
-void analyze_type() {
-    // Перевірка категорії типу
-    constexpr bool is_int = std::is_integral<T>::value;
-    constexpr bool is_float = std::is_floating_point<T>::value;
-    constexpr bool is_ptr = std::is_pointer<T>::value;
-
-    // Перевірка можливостей життєвого циклу
-    constexpr bool is_trivially_copyable = std::is_trivially_copyable<T>::value;
-    constexpr bool is_nothrow_move = std::is_nothrow_move_constructible<T>::value;
-}
-```
+:::code api-cxx11-cxx14-reference/cpp/inspektsiia-ta.cpp
 
 ### Трансформація типів та спрощення C++14
 
 У C++11 метафункції модифікації типів повертали результат через внутрішній тип `::type`. Це вимагало постійного використання ключового слова `typename` у шаблонному коді. Стандарт C++14 запровадив зручні шаблонні псевдоніми з суфіксом `_t`:
 
-```cpp
-// Порівняння синтаксису C++11 та C++14 під час обмеження SFINAE:
-
-// C++11: багатослівний синтаксис із typename та ::type
-template<typename T, 
-         typename = typename std::enable_if<std::is_integral<T>::value>::type>
-void process_number_c11(T val) {
-    typedef typename std::remove_reference<T>::type CleanType;
-    typedef typename std::decay<T>::type DecayedType;
-}
-
-// C++14: компактний синтаксис через псевдоніми _t
-template<typename T, 
-         typename = std::enable_if_t<std::is_integral<T>::value>>
-void process_number_c14(T val) {
-    using CleanType   = std::remove_reference_t<T>;
-    using DecayedType = std::decay_t<T>;
-}
-```
+:::code api-cxx11-cxx14-reference/cpp/transformatsiia-typiv-ta.cpp
 
 Важливою метафункцією трансформації є `std::decay<T>`. Вона емулює правила неявного приведення типів під час передачі аргументів у функції за значенням:
 1. Видаляє посилання `&` та специфікатори константності `const`/`volatile`.
@@ -259,42 +204,10 @@ void process_number_c14(T val) {
 
 ### Прапорці компіляторів GCC, Clang та MSVC
 
-```bash
-# Компіляція за стандартом C++11 із максимальним рівнем попереджень
-g++ -std=c++11 -Wall -Wextra -Wpedantic main.cpp -o app_c11
-clang++ -std=c++11 -Wall -Wextra -Wpedantic main.cpp -o app_c11
-
-# Компіляція за стандартом C++14
-g++ -std=c++14 -Wall -Wextra -Wpedantic main.cpp -o app_c14
-clang++ -std=c++14 -Wall -Wextra -Wpedantic main.cpp -o app_c14
-
-# Компілятор Microsoft Visual C++ (MSVC):
-# Починаючи з VS 2015 Update 3 стандарт C++14 увімкнено за замовчуванням
-cl.exe /std:c++14 /W4 /EHsc main.cpp /Fe:app_c14.exe
-```
+:::code api-cxx11-cxx14-reference/sh/main.sh
 
 ### Декларативна конфігурація у сучасній системі CMake
 
 У сучасній практиці збірки програм на C++ не рекомендується встановлювати прапорці компілятора вручну через змінну `CMAKE_CXX_FLAGS`. Замість цього використовується цільовий (Target-based) підхід, який ізолює вимоги до стандарту для кожної конкретної бібліотеки або виконуваного файлу:
 
-```cmake
-cmake_minimum_required(VERSION 3.1)
-project(ModernCppApp LANGUAGES CXX)
-
-add_executable(my_service
-    src/main.cpp
-    src/network.cpp
-    src/dispatcher.cpp
-)
-
-# Встановлення стандарту C++14 для цільового бінарника
-set_target_properties(my_service PROPERTIES
-    CXX_STANDARD 14
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-)
-
-# Додавання системних багатопотокових бібліотек
-find_package(Threads REQUIRED)
-target_link_libraries(my_service PRIVATE Threads::Threads)
-```
+:::code api-cxx11-cxx14-reference/cmake/CMakeLists.txt

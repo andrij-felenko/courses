@@ -25,83 +25,13 @@
 
 ## Гучний тип
 
-```cpp
-// binding-lab.cpp — лабораторія зв'язування. C++20, жодних залежностей.
-#include <functional>
-#include <iostream>
-#include <map>
-#include <string>
-#include <string_view>
-#include <thread>
-#include <utility>
-
-class Loud {
-public:
-    explicit Loud(std::string name) : name_(std::move(name)), id_(next_++) {
-        say("створено");
-    }
-    Loud(const Loud& other) : name_(other.name_), id_(next_++) {
-        ++copies_;
-        say("КОПІЮВАННЯ", other.id_);
-    }
-    Loud(Loud&& other) noexcept : name_(std::move(other.name_)), id_(next_++) {
-        other.name_ = "(вичерпаний)";
-        say("переміщення", other.id_);
-    }
-    Loud& operator=(const Loud&) = delete;
-    Loud& operator=(Loud&&)      = delete;
-    ~Loud() { say("знищено"); }
-
-    int                id()   const { return id_; }
-    const std::string& name() const { return name_; }
-
-    static int  copies()      { return copies_; }
-    static void mute(bool on) { mute_ = on; }
-
-private:
-    void say(std::string_view what, int from = 0) const {
-        if (mute_) return;
-        std::cout << "      #" << id_ << "  " << what;
-        if (from != 0) std::cout << " з #" << from;
-        std::cout << "  «" << name_ << "»\n";
-    }
-
-    std::string name_;
-    int         id_;
-
-    static inline int  next_   = 1;
-    static inline int  copies_ = 0;
-    static inline bool mute_   = false;
-};
-
-static void head(std::string_view title) {
-    std::cout << "\n──  " << title << "  ──\n";
-}
-```
+:::code proj-binding-lab/cpp/binding-lab.cpp
 
 Три дрібниці в цьому класі — не оздоба, а умови вимірювання. Переміщувальний конструктор **перейменовує** джерело на `(вичерпаний)`: інакше в протоколі не видно різниці між «об'єкт скопіювали» і «об'єкт обібрали», бо обидва рядки закінчуються тим самим іменем. Присвоєння видалене, щоб жодна подія не проскочила повз лічильник — усе, що станеться з об'єктом, станеться через конструктор. І `mute_` знадобиться там, де подій забагато, а важлива лише їхня кількість.
 
 ## Дослід 1: яке перевантаження виграє
 
-```cpp
-void take(const Loud& v) { std::cout << "    take(const Loud&)  ← #" << v.id() << '\n'; }
-void take(Loud&& v)      { std::cout << "    take(Loud&&)       ← #" << v.id() << '\n'; }
-
-static void part_overloads() {
-    head("1. Яке перевантаження виграє");
-
-    Loud       named("іменований");
-    const Loud frozen("сталий");
-
-    take(named);                   // змінне lvalue
-    take(frozen);                  // const lvalue
-    take(Loud("тимчасовий"));      // prvalue
-    take(std::move(named));        // xvalue
-
-    std::cout << "    після std::move #" << named.id()
-              << " цілий, ім'я «" << named.name() << "»\n";
-}
-```
+:::code proj-binding-lab/cpp/doslid-1-iake.cpp
 
 Вивід:
 
@@ -126,31 +56,7 @@ static void part_overloads() {
 
 ## Дослід 2: у який момент помирає тимчасовий
 
-```cpp
-static Loud make(std::string name) { return Loud(std::move(name)); }
-
-static void part_lifetime() {
-    head("2. Коли саме гине тимчасовий");
-
-    std::cout << "    (а) тимчасовий ні з чим не зв'язаний:\n";
-    {
-        make("миттєвий");
-        std::cout << "        наступний рядок блоку\n";
-    }
-
-    std::cout << "    (б) тимчасовий зв'язаний із const Loud&:\n";
-    {
-        const Loud& kept = make("подовжений");
-        std::cout << "        наступний рядок блоку; #" << kept.id() << " живий\n";
-    }
-
-    std::cout << "    (в) те саме через Loud&&:\n";
-    {
-        Loud&& kept = make("подовжений-rvalue");
-        std::cout << "        наступний рядок блоку; #" << kept.id() << " живий\n";
-    }
-}
-```
+:::code proj-binding-lab/cpp/doslid-2-u-iakyi-moment.cpp
 
 ```
 ──  2. Коли саме гине тимчасовий  ──
@@ -174,23 +80,7 @@ static void part_lifetime() {
 
 ## Дослід 3: копія, якої немає в тексті
 
-```cpp
-static void part_materialization() {
-    head("3. Копія, якої немає в тексті");
-
-    std::map<std::string, Loud> registry;
-    registry.emplace("альфа", Loud("датчик-альфа"));
-    registry.emplace("бета",  Loud("датчик-бета"));
-
-    std::cout << "    цикл із власноруч виписаним типом елемента:\n";
-    for (const std::pair<std::string, Loud>& kv : registry)
-        std::cout << "        " << kv.first << " → #" << kv.second.id() << '\n';
-
-    std::cout << "    цикл із const auto&:\n";
-    for (const auto& kv : registry)
-        std::cout << "        " << kv.first << " → #" << kv.second.id() << '\n';
-}
-```
+:::code proj-binding-lab/cpp/doslid-3-kopiia-iakoi.cpp
 
 ```
 ──  3. Копія, якої немає в тексті  ──
@@ -226,29 +116,7 @@ static void part_materialization() {
 
 ## Дослід 4: ref-кваліфікатор методу
 
-```cpp
-class Buffer {
-public:
-    explicit Buffer(std::string tag) : payload_(std::move(tag)) {}
-    const Loud& payload() const&  { return payload_; }             // об'єкт має ім'я
-    Loud        payload() &&      { return std::move(payload_); }  // об'єкт тимчасовий
-private:
-    Loud payload_;
-};
-
-static Buffer makeBuffer(std::string tag) { return Buffer(std::move(tag)); }
-
-static void part_ref_qualifier() {
-    head("4. Ref-кваліфікатор методу");
-
-    Buffer      named("буфер-із-іменем");
-    const Loud& live = named.payload();
-    std::cout << "    у живого буфера позичили #" << live.id() << '\n';
-
-    Loud taken = makeBuffer("буфер-тимчасовий").payload();
-    std::cout << "    у тимчасового ЗАБРАЛИ #" << taken.id() << '\n';
-}
-```
+:::code proj-binding-lab/cpp/doslid-4-ref-kvalifikator.cpp
 
 ```
 ──  4. Ref-кваліфікатор методу  ──
@@ -268,33 +136,7 @@ static void part_ref_qualifier() {
 
 ## Дослід 5: чому `std::thread` вимагає `std::ref`
 
-```cpp
-static const Loud* seen = nullptr;
-static void inspect(const Loud& v) { seen = &v; }
-
-static void part_thread() {
-    head("5. Чому std::thread вимагає std::ref");
-
-    Loud shared("спільний");
-    Loud::mute(true);                       // далі рахуємо копії, а не друкуємо події
-
-    const int before = Loud::copies();
-    std::thread a(inspect, shared);
-    a.join();
-    std::cout << "    thread(inspect, shared):         копій Loud — "
-              << Loud::copies() - before << ";  потік бачив "
-              << (seen == &shared ? "той самий" : "ІНШИЙ") << " об'єкт\n";
-
-    const int before2 = Loud::copies();
-    std::thread b(inspect, std::cref(shared));
-    b.join();
-    std::cout << "    thread(inspect, std::cref(...)): копій Loud — "
-              << Loud::copies() - before2 << ";  потік бачив "
-              << (seen == &shared ? "той самий" : "ІНШИЙ") << " об'єкт\n";
-
-    Loud::mute(false);
-}
-```
+:::code proj-binding-lab/cpp/doslid-5-chomu-std-thread.cpp
 
 ```
 ──  5. Чому std::thread вимагає std::ref  ──
@@ -316,105 +158,7 @@ static void part_thread() {
 
 Далі йде код, який навмисно порушує правила. Кожен дослід — окремий запуск: перший же звіт ASan завершує процес.
 
-```cpp
-// ── I. Повернення ─────────────────────────────────────────────────────────
-static const Loud& forward_ref(const Loud& v) { return v; }   // сама по собі чесна
-
-static void dangle_return() {
-    head("висяче: повернення");
-    const Loud& r = forward_ref(Loud("повернений"));
-    std::cout << "    читаємо через висяче посилання...\n";
-    std::cout << "    ім'я: " << r.name() << '\n';            // ← тут спиняє ASan
-}
-
-// ── II. Параметр ──────────────────────────────────────────────────────────
-static const Loud* remembered = nullptr;
-static void remember(const Loud& v) { remembered = &v; }
-
-static void dangle_param() {
-    head("висяче: параметр");
-    remember(Loud("запам'ятований"));
-    std::cout << "    тимчасовий уже знищено, а покажчик лишився\n";
-    std::cout << "    ім'я: " << remembered->name() << '\n';   // ← тут спиняє ASan
-}
-
-// ── III. Ініціалізатор у new ──────────────────────────────────────────────
-struct Watcher {                 // агрегат із полем-посиланням
-    const Loud& target;
-    int         weight;
-};
-
-static void dangle_new() {
-    head("висяче: ініціалізатор у new");
-    {   // на стеку ті самі фігурні дужки ПОДОВЖУЮТЬ життя тимчасового
-        Watcher onStack{ Loud("на-стеку"), 1 };
-        std::cout << "    на стеку: " << onStack.target.name()
-                  << " × " << onStack.weight << "  (усе гаразд)\n";
-    }
-    Watcher* onHeap = new Watcher{ Loud("під-new-у-купі"), 2 };
-    std::cout << "    у купі: тимчасовий уже знищено\n";
-    std::cout << "    ім'я: " << onHeap->target.name() << '\n'; // ← тут спиняє ASan
-    delete onHeap;
-}
-
-// ── IV. Список ініціалізації конструктора ─────────────────────────────────
-class Keeper {
-public:
-    explicit Keeper(const Loud& v) : target_(v) {}   // законно й нічого не подовжує
-    const Loud& target() const { return target_; }
-private:
-    const Loud& target_;
-};
-
-static void dangle_member() {
-    head("висяче: поле-посилання");
-    Keeper k(Loud("у-полі-об'єкта"));
-    std::cout << "    конструктор відпрацював, тимчасовий знищено\n";
-    std::cout << "    ім'я: " << k.target().name() << '\n';    // ← тут спиняє ASan
-}
-
-// ── V. Метод без ref-кваліфікатора ────────────────────────────────────────
-class BadBuffer {
-public:
-    explicit BadBuffer(std::string tag) : payload_(std::move(tag)) {}
-    const Loud& payload() const { return payload_; }   // приймає і тимчасовий об'єкт
-private:
-    Loud payload_;
-};
-
-static void dangle_method() {
-    head("висяче: метод без ref-кваліфікатора");
-    {   // з ref-кваліфікатором той самий за формою рядок безпечний
-        const Loud& good = makeBuffer("із-кваліфікатором").payload();
-        std::cout << "    із кваліфікатором: " << good.name() << "  (усе гаразд)\n";
-    }
-    const Loud& bad = BadBuffer("без-кваліфікатора").payload();
-    std::cout << "    без кваліфікатора: тимчасовий буфер уже знищено\n";
-    std::cout << "    ім'я: " << bad.name() << '\n';           // ← тут спиняє ASan
-}
-
-int main(int argc, char** argv) {
-    const std::string mode = (argc > 1) ? argv[1] : "safe";
-
-    if (mode == "safe") {
-        part_overloads();
-        part_lifetime();
-        part_materialization();
-        part_ref_qualifier();
-        part_thread();
-    }
-    else if (mode == "return") dangle_return();
-    else if (mode == "param")  dangle_param();
-    else if (mode == "new")    dangle_new();
-    else if (mode == "member") dangle_member();
-    else if (mode == "method") dangle_method();
-    else {
-        std::cerr << "дослід: safe | return | param | new | member | method\n";
-        return 2;
-    }
-    return 0;
-}
-```
+:::code proj-binding-lab/cpp/doslidy-iz-sanitaizerom.cpp
 
 Збирати треба двічі — звичайно й під інструмент:
 
@@ -482,34 +226,7 @@ UBSan у цих п'яти дослідах мовчить — час життя 
 
 Останній дослід нічого не запускає: його результатом є те, що компілятор відмовляється зібрати цей код, і те, якими словами він відмовляється.
 
-```cpp
-#ifdef SHOW_ERRORS
-// Збірка з -DSHOW_ERRORS має провалитися. Дивимося, ЯК саме.
-
-// (1) Змішування передачі за значенням і за посиланням.
-void take(Loud v) { std::cout << "    take(Loud)  ← #" << v.id() << '\n'; }
-
-inline void ambiguousCall() {
-    Loud named("іменований");
-    take(named);
-    // error: call of overloaded 'take(Loud&)' is ambiguous
-    //   note: candidate: 'void take(const Loud&)'
-    //   note: candidate: 'void take(Loud)'
-}
-
-// (2) Тимчасовий прямо в списку ініціалізації конструктора.
-class DirectKeeper {
-public:
-    DirectKeeper() : target_(Loud("прямо-в-списку")) {}
-private:
-    const Loud& target_;
-};
-
-// (3) Обгортання тимчасового в std::ref.
-inline auto wrapTemporary() { return std::ref(Loud("тимчасовий")); }
-// error: use of deleted function 'std::reference_wrapper<T> std::ref(const T&&)'
-#endif
-```
+:::code proj-binding-lab/cpp/try-konstruktsii-iaki-ne.cpp
 
 **Чому (1) неоднозначне.** Обидва кандидати мають однаковий ранг: ініціалізація параметра-значення копією з lvalue — точний збіг; зв'язування `const Loud&` з тим самим lvalue — теж точний збіг, бо зв'язування посилання за рангом дорівнює тотожному перетворенню. Правила, яке розсудило б цю нічию між «зробити копію» і «прив'язатися», у стандарті немає, тож виклик відхиляється. Причому додати замість `take(const Loud&)` перевантаження `take(Loud&&)` не рятує: воно теж стане неоднозначним, тепер уже для тимчасових. Практичне правило звідси одне: або **пара** `const T&` + `T&&`, або **один** параметр за значенням — і ніколи те й те разом. Ранги, за якими це рішення ухвалюється, — частина загального механізму [вибору перевантаження](root:sf-lang/function-overloading).
 

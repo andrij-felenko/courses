@@ -10,29 +10,7 @@
 
 ### 1.1. Конструктори, оператори присвоєння та деструктор
 
-```cpp
-// 1. Default-конструктор (створює неактивний потік)
-constexpr thread() noexcept;
-
-// 2. Шаблонний конструктор запуску потоку
-template <class Function, class... Args>
-explicit thread(Function&& f, Args&&... args);
-
-// 3. Конструктор переміщення
-thread(thread&& other) noexcept;
-
-// 4. Заборона копіювання
-thread(const thread&) = delete;
-
-// 5. Оператор переміщувального присвоєння
-thread& operator=(thread&& other) noexcept;
-
-// 6. Заборона присвоєння копіюванням
-thread& operator=(const thread&) = delete;
-
-// 7. Деструктор
-~thread();
-```
+:::code api-thread-jthread/cpp/1-1-konstruktory-operatory.hpp
 
 #### Детальні правила роботи конструкторів та деструктора:
 
@@ -49,25 +27,7 @@ thread& operator=(const thread&) = delete;
 
 ### 1.2. Методи управління станом та зв'язком з ОС
 
-```cpp
-// Перевірка активності потоку
-bool joinable() const noexcept;
-
-// Блокуюче очікування завершення потоку
-void join();
-
-// Асинхронне від'єднання потоку від C++ об'єкта
-void detach();
-
-// Отримання унікального ідентифікатора потоку
-std::thread::id get_id() const noexcept;
-
-// Отримання платформно-залежного системного дескриптора
-native_handle_type native_handle();
-
-// Оцінка кількості логічних ядер апаратного забезпечення
-static unsigned int hardware_concurrency() noexcept;
-```
+:::code api-thread-jthread/cpp/1-2-metody-upravlinnia.hpp
 
 #### Детальні специфікації та контракти методів:
 
@@ -97,23 +57,7 @@ static unsigned int hardware_concurrency() noexcept;
 
 ### 2.1. Конструктори та RAII-деструктор
 
-```cpp
-// 1. Default-конструктор
-jthread() noexcept;
-
-// 2. Шаблонний конструктор із підтримкою stop_token
-template <class Function, class... Args>
-explicit jthread(Function&& f, Args&&... args);
-
-// 3. Конструктор переміщення
-jthread(jthread&& other) noexcept;
-
-// 4. Оператор переміщувального присвоєння
-jthread& operator=(jthread&& other) noexcept;
-
-// 5. RAII-деструктор з авто-приєднанням
-~jthread();
-```
+:::code api-thread-jthread/cpp/2-1-konstruktory-ta-raii.hpp
 
 #### Особливості роботи C++20 конструкторів та деструктора:
 
@@ -159,33 +103,7 @@ std::stop_token get_stop_token() const noexcept;
 
 `std::stop_source` відповідає за створення та відправку сигналу зупинки.
 
-```cpp
-// Створити нове джерело із власним stop_state
-stop_source();
-
-// Створити неактивне джерело без stop_state
-explicit stop_source(std::nostopstate_t) noexcept;
-
-// Конструктор та оператор переміщення
-stop_source(stop_source&&) noexcept;
-stop_source& operator=(stop_source&&) noexcept;
-
-// Конструктор та оператор копіювання (збільшує ref-count)
-stop_source(const stop_source&) noexcept;
-stop_source& operator=(const stop_source&) noexcept;
-
-// Запитати зупинку
-bool request_stop() noexcept;
-
-// Перевірити, чи надіслано сигнал зупинки
-bool stop_requested() const noexcept;
-
-// Перевірити, чи можлива зупинка
-bool stop_possible() const noexcept;
-
-// Отримати токен спостереження
-std::stop_token get_token() const noexcept;
-```
+:::code api-thread-jthread/cpp/3-1-klas-std-stop-source.cpp
 
 #### Детальні інваріанти std::stop_source:
 - **`stop_requested()`**: Атомарно зчитує прапорець зупинки із `stop_state`. Метод повністю lock-free.
@@ -218,28 +136,7 @@ bool stop_possible() const noexcept;
 
 `std::stop_callback` впроваджує RAII-підписку на подію скасування. Переданий callable-об'єкт виконується у точці виклику `request_stop()`.
 
-```cpp
-template <class Callback>
-class stop_callback {
-public:
-    using callback_type = Callback;
-
-    // Реєстрація зворотного виклику
-    template <class C>
-    explicit stop_callback(const std::stop_token& st, C&& cb)
-        noexcept(std::is_nothrow_constructible_v<Callback, C>);
-
-    template <class C>
-    explicit stop_callback(std::stop_token&& st, C&& cb)
-        noexcept(std::is_nothrow_constructible_v<Callback, C>);
-
-    // Деструктор (скасовує реєстрацію callback)
-    ~stop_callback();
-
-    stop_callback(const stop_callback&) = delete;
-    stop_callback& operator=(const stop_callback&) = delete;
-};
-```
+:::code api-thread-jthread/cpp/3-3-shablonnyi-klas-std.hpp
 
 #### Поведінка конструктора та деструктора stop_callback:
 1. Якщо під час виконання конструктора `stop_callback` прапорець `stop_requested()` вже дорівнює `true`, конструктор **негайно виконує callback у поточному потоці** прямо перед поверненням управління.
@@ -252,23 +149,7 @@ public:
 
 Утиліти для поточного потоку виконання:
 
-```cpp
-namespace std::this_thread {
-    // Отримати ідентифікатор поточного потоку
-    std::thread::id get_id() noexcept;
-
-    // Добровільно віддати решту кванту часу CPU
-    void yield() noexcept;
-
-    // Заблокувати поточний потік на задану тривалість
-    template <class Rep, class Period>
-    void sleep_for(const std::chrono::duration<Rep, Period>& sleep_duration);
-
-    // Заблокувати поточний потік до конкретного моменту часу
-    template <class Clock, class Duration>
-    void sleep_until(const std::chrono::time_point<Clock, Duration>& sleep_time);
-}
-```
+:::code api-thread-jthread/cpp/4-prostir-imen-std-this.hpp
 
 #### Деталі роботи утиліт std::this_thread:
 - **`get_id()`**: Надає швидкий доступ до ідентифікатора поточного потоку без виклику важких системних функцій.

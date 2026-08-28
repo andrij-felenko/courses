@@ -46,26 +46,7 @@
 
 Конверсія між `std::string` та `std::string_view` є асиметричною за задумом мови C++.
 
-```cpp
-#include <string>
-#include <string_view>
-
-void conversion_rules() {
-    std::string str = "Hello C++ World";
-
-    // 1. Неявне перетворення з std::string у std::string_view (O(1))
-    std::string_view sv = str; // Неявно: sv.ptr_ = str.data(), sv.size_ = str.size()
-
-    // 2. Неявне перетворення з C-рядка у std::string_view (O(N) через strlen)
-    std::string_view sv_lit = "Literal Text";
-
-    // 3. Спроба неявного перетворення з std::string_view у std::string — ПОМИЛКА КОМПІЛЯЦІЇ!
-    // std::string str_err = sv; // Помилка: конструктор std::string(string_view) є EXPLICIT
-
-    // 4. Явне конструювання std::string з std::string_view (O(N) алокація у купі)
-    std::string str_copy{sv}; // Явно: виділяє новий буфер у купі
-}
-```
+:::code api-string-view-ops/cpp/konstruiuvannia-ta.cpp
 
 ### Чому конверсія `string_view` -> `string` є explicit
 
@@ -99,22 +80,7 @@ void conversion_rules() {
 
 Ці методи змінюють внутрішній вказівник та розмір об'єкта `std::string_view` за час `O(1)`:
 
-```cpp
-#include <iostream>
-#include <string_view>
-
-void trim_demo() {
-    std::string_view sv = "   [DATA_PAYLOAD]   ";
-
-    // Видалення пробілів зліва: пересуває ptr_ уперед на 3 байти
-    sv.remove_prefix(3); // sv тепер "[DATA_PAYLOAD]   "
-
-    // Видалення пробілів справа: зменшує size_ на 3 байти
-    sv.remove_suffix(3); // sv тепер "[DATA_PAYLOAD]"
-
-    std::cout << "Очищений рядок: " << sv << " (довжина: " << sv.size() << ")\n";
-}
-```
+:::code api-string-view-ops/cpp/operatsii-remove-prefix-ta.cpp
 
 Математичні інваріанти методів зсуву вікна:
 - `sv.remove_prefix(n)` виконує: `ptr_ += n; size_ -= n;`
@@ -130,28 +96,7 @@ void trim_demo() {
 
 C++14 та C++17 ввели користувацькі літерали для створення рядків без явного виклику конструкторів.
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-
-using namespace std::string_literals;      // Для суфікса "s"
-using namespace std::string_view_literals; // Для суфікса "sv"
-
-void literals_demo() {
-    // 1. Звичайний C-строковий літерал: тип const char[12]
-    auto c_str_lit = "Hello World"; 
-
-    // 2. Стандартний рядок std::string: суфікс "s"
-    auto str_obj = "Hello World"s; // Тип: std::string
-
-    // 3. Погляд std::string_view: суфікс "sv"
-    auto sv_obj = "Hello World"sv; // Тип: std::string_view
-
-    // Перевага "sv": розмір обчислюється під час компіляції (constexpr O(1)), без strlen!
-    static_assert(sv_obj.size() == 11);
-}
-```
+:::code api-string-view-ops/cpp/operatory-literaliv-s-ta.cpp
 
 Літерал `"text"sv` дозволяє підставляти погляди у `constexpr` вирази та функції розбору тексту на етапі компіляції.
 
@@ -193,25 +138,7 @@ void literals_demo() {
 3. **SSO Модифікація**: Якщо джерело є малим рядком (SSO) і над ним виконується переміщення `auto s2 = std::move(s1)`, малий буфер копіюється на новий стек. Будь-який `string_view`, що посилався на `s1`, стає висячим!
 4. **Знищення об'єкта-джерела**: Вихід `std::string` з області видимості.
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-
-void invalidation_example() {
-    std::string source = "Base Text";
-    std::string_view view = source;
-
-    // Всі читання через view безпечні
-    std::cout << view << "\n"; // Друк "Base Text"
-
-    // МОДИФІКАЦІЯ ДЖЕРЕЛА: Викликає реалокацію пам'яті в купі!
-    source.append(" with a very long appended string that forces reallocation");
-
-    // КАТАСТРОФА: view.data() вказує на стару звільнену адресу в купі!
-    // std::cout << view << "\n"; // UB: Use-After-Free!
-}
-```
+:::code api-string-view-ops/cpp/podii-shcho-invaliduiut.cpp
 
 Розглянемо детальніше інвалідацію ітераторів самого `std::string`. При додаванні символів, якщо новий розмір перевищує `capacity()`, відбувається перевиділення буфера у купі. Усі ітератори, вказівники та посилання на елементи рядка інвалідуються. Якщо ж `size() + count <= capacity()`, інвалідуються лише ітератори від точки вставки до кінця рядка. Для `std::string_view` ітератори не інвалідуються ніколи самі по собі, оскільки `string_view` є immutable (незмінним) об'єктом. Інвалідація погляду відбувається лише через зміну або знищення вихідного контейнера-джерела.
 
@@ -222,40 +149,8 @@ void invalidation_example() {
 При передачі даних у C-бібліотеки (наприклад, POSIX системні виклики `open`, `write`, `stat` або бібліотеки типу SQLite, zlib, OpenSSL) необхідно чітко розрізняти гарантії методів `c_str()` та `data()`.
 
 :::tabs
-```cpp
-// C++: Безпечна та небезпечна передача рядків у C-API
-#include <cstdio>
-#include <string>
-#include <string_view>
-
-void safe_c_api_usage(const std::string& path_str, std::string_view path_view) {
-    // 1. Безпечно: c_str() завжди гарантує null-термінатор '\0'
-    FILE* f1 = std::fopen(path_str.c_str(), "r");
-    if (f1) std::fclose(f1);
-
-    // 2. НЕБЕЗПЕЧНО: path_view.data() МЕНЕ МАТИ '\0' у кінці підрядка!
-    // FILE* f2 = std::fopen(path_view.data(), "r"); // Помилка: Buffer Overread!
-
-    // 3. Безпечна адаптація string_view для C-API:
-    std::string null_term_path{path_view}; // Явна алокація тимчасового рядка
-    FILE* f3 = std::fopen(null_term_path.c_str(), "r");
-    if (f3) std::fclose(f3);
-}
-```
-```c
-// C: Очікування нульового термінатора у стандартних функціях
-#include <stdio.h>
-#include <string.h>
-
-void process_c_filename(const char* filename) {
-    // Функція strlen та fopen йдуть по пам'яті до першого знайденого байта 0x00
-    size_t len = strlen(filename); 
-    FILE* f = fopen(filename, "rb");
-    if (f) {
-        fclose(f);
-    }
-}
-```
+:::code api-string-view-ops/cpp/vzaiemodiia-z-c-api-c-str.cpp
+:::code api-string-view-ops/c/main.c
 :::
 
 ### Зведені гарантії методів `data()` та `c_str()`

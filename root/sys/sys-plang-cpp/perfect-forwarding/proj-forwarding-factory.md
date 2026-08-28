@@ -12,71 +12,11 @@ g++ -std=c++20 -Wall forward-lab.cpp -o forward-lab
 
 Щоб міряти, потрібен тип, чиї конструктори видно. Заводимо `Probe`: він тримає рядок-мітку, рахує події в глобальному лічильнику й друкує кожну.
 
-```cpp
-#include <concepts>
-#include <cstddef>
-#include <cstdio>
-#include <memory>
-#include <new>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-#include <utility>
-
-struct Tally { int made = 0, copied = 0, moved = 0; };
-Tally tally;
-bool verbose = true;
-
-// printf міряє ширину в байтах, а не в літерах, тож вирівнюємо самі
-std::string pad(const char* s, std::size_t width) {
-    std::string out = s;
-    std::size_t letters = 0;
-    for (unsigned char ch : out)
-        if ((ch & 0xC0) != 0x80) ++letters;      // байти-продовження не рахуємо
-    while (letters < width) { out += ' '; ++letters; }
-    return out;
-}
-
-void reset() { tally = Tally{}; }
-
-void numbers() {
-    std::printf("      = конструктори %d, копії %d, переміщення %d\n",
-                tally.made, tally.copied, tally.moved);
-}
-```
+:::code proj-forwarding-factory/cpp/piddoslidnyi-iakyi-use.cpp
 
 Тепер сам піддослідний.
 
-```cpp
-class Probe {
-public:
-    explicit Probe(std::string name) : name_(std::move(name)) {
-        ++tally.made;
-        note("конструктор");
-    }
-    Probe(const Probe& other) : name_(other.name_), hollow_(other.hollow_) {
-        ++tally.copied;
-        note("КОПІЮВАННЯ");
-    }
-    Probe(Probe&& other) noexcept
-        : name_(std::move(other.name_)), hollow_(other.hollow_) {
-        other.hollow_ = true;                    // джерело віддало вміст
-        ++tally.moved;
-        note("переміщення");
-    }
-    Probe& operator=(const Probe&) = delete;
-    Probe& operator=(Probe&&) = delete;
-
-    const char* text() const { return hollow_ ? "<порожньо>" : name_.c_str(); }
-
-private:
-    void note(const char* what) const {
-        if (verbose) std::printf("      %s%s\n", pad(what, 14).c_str(), text());
-    }
-    std::string name_;
-    bool hollow_ = false;
-};
-```
+:::code proj-forwarding-factory/cpp/piddoslidnyi-iakyi-use-2.cpp
 
 Три рішення в цьому класі варті пояснення, бо без них вимірювання брехало б.
 
@@ -102,25 +42,7 @@ template <class T> void wrapByForward(T&& x)        { consume(std::forward<T>(x)
 
 Три обгортки роблять одне й те саме — беруть аргумент і віддають його `consume`. Різняться лише оголошенням параметра. Проганяємо кожну двічі: з іменованою змінною й з тимчасовим об'єктом.
 
-```cpp
-void demoWrappers() {
-    std::puts("\n=== 1. Три обгортки під навантаженням ===");
-
-    verbose = false;
-    Probe left("лівий");
-    verbose = true;
-
-    std::puts("\n-- аргумент lvalue: іменована змінна --");
-    std::puts("   за значенням:");     reset(); wrapByValue(left);      numbers();
-    std::puts("   за const&:");        reset(); wrapByConstRef(left);   numbers();
-    std::puts("   передавальне T&&:"); reset(); wrapByForward(left);    numbers();
-
-    std::puts("\n-- аргумент rvalue: тимчасовий об'єкт --");
-    std::puts("   за значенням:");     reset(); wrapByValue(Probe("правий"));    numbers();
-    std::puts("   за const&:");        reset(); wrapByConstRef(Probe("правий")); numbers();
-    std::puts("   передавальне T&&:"); reset(); wrapByForward(Probe("правий"));  numbers();
-}
-```
+:::code proj-forwarding-factory/cpp/try-obhortky-shist-vymiriv.cpp
 
 Ось що друкує ця частина:
 
@@ -185,32 +107,7 @@ std::unique_ptr<T> makeOne(Args&&... args) {
 
 Зверніть увагу на **круглі дужки** в `new T(...)`. Це не стилістичний вибір: із фігурними дужками `new T{...}` виклик `makeOne<std::vector<int>>(3, 7)` дав би вектор із двох елементів `{3, 7}`, а з круглими дає три сімки. Стандартний `make_unique` теж вживає круглі — і саме тому не вміє конструювати агрегати списком ініціалізації. Ще одне: `std::forward` пишеться **на кожен аргумент окремо**, а не на пакет цілком; `...` після виразу розкриває його по одному разу для кожного елемента.
 
-```cpp
-void demoFactory() {
-    std::puts("\n=== 2. Фабрика: їдуть аргументи, а не об'єкт ===");
-
-    verbose = false;
-    Probe source("джерело");
-    verbose = true;
-
-    std::puts("\n   makeOne<Probe>(\"з літерала\"):");
-    reset();
-    { auto p = makeOne<Probe>("з літерала"); std::printf("      у купі: %s\n", p->text()); }
-    numbers();
-
-    std::puts("\n   makeOne<Probe>(source):");
-    reset();
-    { auto p = makeOne<Probe>(source); std::printf("      у купі: %s\n", p->text()); }
-    numbers();
-
-    std::puts("\n   makeOne<Probe>(std::move(source)):");
-    reset();
-    { auto p = makeOne<Probe>(std::move(source)); std::printf("      у купі: %s\n", p->text()); }
-    numbers();
-
-    std::printf("\n   а source після цього: %s\n", source.text());
-}
-```
+:::code proj-forwarding-factory/cpp/fabryka-idut-arhumenty-a.cpp
 
 ```text
 === 2. Фабрика: їдуть аргументи, а не об'єкт ===
@@ -241,72 +138,11 @@ void demoFactory() {
 
 Той самий прийом усередині контейнера виглядає цікавіше, бо там нема куди «повертати» об'єкт — його треба збудувати за адресою, яку контейнер сам порахував. Пишемо мінімальне сховище: воно бере сирий шматок пам'яті й конструює в ньому елементи розміщувальним `new`. Механіка вирівнювання, `::operator new` з `align_val_t` і `std::launder` — окрема тема, [вирівнювання й розміщувальний new](root:sys-plang-cpp/alignment-placement-new); тут вона потрібна як тло.
 
-```cpp
-template <class T>
-class Bin {
-public:
-    explicit Bin(std::size_t capacity)
-        : raw_(static_cast<std::byte*>(
-              ::operator new(capacity * sizeof(T), std::align_val_t{alignof(T)}))),
-          cap_(capacity) {}
-
-    ~Bin() {
-        while (size_ > 0) { --size_; (*this)[size_].~T(); }
-        ::operator delete(raw_, std::align_val_t{alignof(T)});
-    }
-
-    Bin(const Bin&) = delete;
-    Bin& operator=(const Bin&) = delete;
-
-    template <class... Args>
-    T& emplace(Args&&... args) {
-        if (size_ == cap_) throw std::length_error("Bin: місця немає");
-        void* slot = raw_ + size_ * sizeof(T);
-        T* made = ::new (slot) T(std::forward<Args>(args)...);
-        ++size_;
-        return *made;
-    }
-
-    T& operator[](std::size_t i) {
-        return *std::launder(reinterpret_cast<T*>(raw_ + i * sizeof(T)));
-    }
-
-    std::size_t size() const { return size_; }
-
-private:
-    std::byte* raw_;
-    std::size_t cap_;
-    std::size_t size_ = 0;
-};
-```
+:::code proj-forwarding-factory/cpp/emplace-i-syri-baity.cpp
 
 Ключовий рядок один: `::new (slot) T(std::forward<Args>(args)...)`. У перших дужках — адреса, куди класти; у других — аргументи, що дожили сюди зі своїми категоріями. Між ними немає жодного проміжного `T`. Саме цим `emplace_back` відрізняється від `push_back`: перший приймає матеріал, другий — готовий об'єкт.
 
-```cpp
-void demoEmplace() {
-    std::puts("\n=== 3. Власний контейнер: emplace, а не push ===");
-
-    verbose = false;
-    Probe ready("готовий");
-    verbose = true;
-
-    Bin<Probe> bin(4);
-
-    std::puts("\n   bin.emplace(\"зроблений на місці\"):");
-    reset(); bin.emplace("зроблений на місці"); numbers();
-
-    std::puts("\n   bin.emplace(ready):");
-    reset(); bin.emplace(ready); numbers();
-
-    std::puts("\n   bin.emplace(std::move(ready)):");
-    reset(); bin.emplace(std::move(ready)); numbers();
-
-    std::printf("\n   вміст сховища (%zu):", bin.size());
-    for (std::size_t i = 0; i < bin.size(); ++i)
-        std::printf(" [%s]", bin[i].text());
-    std::putchar('\n');
-}
-```
+:::code proj-forwarding-factory/cpp/emplace-i-syri-baity-2.cpp
 
 ```text
 === 3. Власний контейнер: emplace, а не push ===
@@ -334,47 +170,7 @@ void demoEmplace() {
 
 Тепер найдорожча помилка. `std::forward` може обернутися переміщенням — отже, аргумент після нього спожито, і скористатися ним удруге не можна. У циклі це правило порушується непомітно.
 
-```cpp
-class Receiver {
-public:
-    explicit Receiver(const char* tag) : tag_(tag) {}
-    void add(Probe p) { std::printf("      %s отримав: %s\n", tag_, p.text()); }
-private:
-    const char* tag_;
-};
-
-template <class T>
-void broadcastBroken(Receiver* rs, std::size_t n, T&& value) {
-    for (std::size_t i = 0; i < n; ++i)
-        rs[i].add(std::forward<T>(value));          // ← forward на кожній ітерації
-}
-
-template <class T>
-void broadcastFixed(Receiver* rs, std::size_t n, T&& value) {
-    if (n == 0) return;
-    for (std::size_t i = 0; i + 1 < n; ++i)
-        rs[i].add(value);                           // усім, крім останнього, — копія
-    rs[n - 1].add(std::forward<T>(value));          // останньому можна віддати
-}
-
-void demoLoop() {
-    std::puts("\n=== 4. Пастка: forward у циклі ===");
-    Receiver rs[3] = { Receiver{"A"}, Receiver{"B"}, Receiver{"C"} };
-
-    verbose = false;
-    Probe named("вітання");
-    verbose = true;
-
-    std::puts("\n   зламана версія, аргумент lvalue — усе гаразд:");
-    reset(); broadcastBroken(rs, 3, named); numbers();
-
-    std::puts("\n   зламана версія, аргумент rvalue — вміст зникає:");
-    reset(); broadcastBroken(rs, 3, Probe("вітання")); numbers();
-
-    std::puts("\n   полагоджена версія, аргумент rvalue:");
-    reset(); broadcastFixed(rs, 3, Probe("вітання")); numbers();
-}
-```
+:::code proj-forwarding-factory/cpp/pastka-persha-forward-u.cpp
 
 ```text
 === 4. Пастка: forward у циклі ===
@@ -423,28 +219,7 @@ void demoLoop() {
 
 Передавальне посилання прив'язується до всього — зокрема й до типу, у чиєму класі його оголошено. Конструктор `template <class S> Guest(S&&)` стає конкурентом власного конструктора копіювання, і в одному конкретному випадку виграє. Побачити це на самих конструкторах не вийде: код, який демонструє помилку, не компілюється. Тож розіграємо той самий відбір на двох звичайних функціях із такими самими сигнатурами — і роздрукуємо переможця.
 
-```cpp
-struct Person { std::string name; };
-struct Student : Person {};
-
-const char* pick(const Person&)          { return "нешаблон  (const Person&)"; }
-template <class S> const char* pick(S&&) { return "ШАБЛОН    (S&&)"; }
-
-void demoGreedy() {
-    std::puts("\n=== 5. Ненажерливий шаблон: хто виграє відбір ===");
-
-    Person p{"Леся"};
-    const Person cp{"Леся"};
-    Student st{};
-    const Student cst{};
-
-    std::printf("   %s%s\n", pad("Person, неконстантний lvalue", 32).c_str(),  pick(p));
-    std::printf("   %s%s\n", pad("Person, константний lvalue", 32).c_str(),    pick(cp));
-    std::printf("   %s%s\n", pad("Person, тимчасовий об'єкт", 32).c_str(),     pick(Person{"Леся"}));
-    std::printf("   %s%s\n", pad("Student, неконстантний lvalue", 32).c_str(), pick(st));
-    std::printf("   %s%s\n", pad("Student, константний lvalue", 32).c_str(),   pick(cst));
-}
-```
+:::code proj-forwarding-factory/cpp/pastka-druha-shablon-iakyi.cpp
 
 ```text
 === 5. Ненажерливий шаблон: хто виграє відбір ===
@@ -461,85 +236,17 @@ void demoGreedy() {
 
 Лікування — не давати шаблонові претендувати на власний тип і його нащадків. У C++20 це пишеться прямо, через [концепти й обмеження](root:sys-plang-cpp/concepts-constraints):
 
-```cpp
-class Guest {
-public:
-    template <class S>
-        requires (!std::is_base_of_v<Guest, std::remove_cvref_t<S>>)
-              && std::constructible_from<std::string, S>
-    explicit Guest(S&& src) : name_(std::forward<S>(src)) { say("шаблонний конструктор"); }
-
-    Guest(const Guest& other) : name_(other.name_) { say("конструктор копіювання"); }
-    Guest(Guest&& other) noexcept : name_(std::move(other.name_)) { say("конструктор переміщення"); }
-
-    const std::string& name() const { return name_; }
-
-private:
-    static void say(const char* what) { std::printf("      %s\n", what); }
-    std::string name_;
-};
-
-struct Vip : Guest {
-    Vip() : Guest("вельможа") {}
-};
-```
+:::code proj-forwarding-factory/cpp/pastka-druha-shablon-iakyi-2.cpp
 
 Перша умова прибирає з розгляду сам `Guest` і все, що від нього походить: `std::is_base_of_v<Guest, Guest>` дорівнює `true`, бо клас вважається базою самого себе, — саме це нам і потрібно. `std::remove_cvref_t` знімає посилання й `const`, бо `S` цілком може бути `Guest&`, і без цього перевірка нічого не знайшла б. Друга умова, `constructible_from`, не менш важлива за першу: без неї шаблон лишався б у списку кандидатів для типів, із яких рядка не збудувати, і помилка вивалювалася б із нутрощів конструктора замість чесного «немає відповідного конструктора».
 
 До C++20 те саме роблять через [SFINAE й enable_if](root:sys-plang-cpp/sfinae-and-enable-if):
 
-```cpp
-class GuestCpp17 {
-public:
-    template <class S,
-              class = std::enable_if_t<
-                  !std::is_base_of_v<GuestCpp17, std::decay_t<S>> &&
-                   std::is_constructible_v<std::string, S>>>
-    explicit GuestCpp17(S&& src) : name_(std::forward<S>(src)) {}
-
-    GuestCpp17(const GuestCpp17&) = default;
-    GuestCpp17(GuestCpp17&&) noexcept = default;
-
-    const std::string& name() const { return name_; }
-private:
-    std::string name_;
-};
-```
+:::code proj-forwarding-factory/cpp/pastka-druha-shablon-iakyi-3.cpp
 
 Тут `std::decay_t` замість `std::remove_cvref_t`, бо друга риса з'явилася лише в C++20; для наших цілей вони рівноцінні — див. [риси типів](root:sys-plang-cpp/type-traits). Але цей запис має ваду, про яку варто знати: аргумент шаблону за замовчуванням **не входить у сигнатуру**, тож двох перевантажень, що різняться тільки цим `enable_if`, оголосити не можна — компілятор вважатиме їх повторним оголошенням однієї функції. Для одного конструктора це не заважає; щойно умов стане дві, доведеться переносити `enable_if` у тип повернення або в додатковий параметр-вказівник.
 
-```cpp
-void demoGuard() {
-    std::puts("\n   із запобіжником requires — шаблон більше не претендує на свій тип:");
-
-    std::puts("   Guest g1{\"Леся\"};");
-    Guest g1{"Леся"};
-    std::puts("   Guest g2{g1};");
-    Guest g2{g1};
-    std::puts("   Guest g3{std::move(g2)};");
-    Guest g3{std::move(g2)};
-    std::puts("   Vip vip;");
-    Vip vip;
-    std::puts("   Guest g4{vip};");
-    Guest g4{vip};
-
-    std::printf("      цілі: %s, %s, %s\n",
-                g1.name().c_str(), g3.name().c_str(), g4.name().c_str());
-
-    GuestCpp17 old{"той самий запобіжник через enable_if"};
-    GuestCpp17 copy{old};
-    std::printf("      C++17-версія: %s\n", copy.name().c_str());
-}
-
-int main() {
-    demoWrappers();
-    demoFactory();
-    demoEmplace();
-    demoLoop();
-    demoGreedy();
-    demoGuard();
-}
-```
+:::code proj-forwarding-factory/cpp/pastka-druha-shablon-iakyi-4.cpp
 
 ```text
    із запобіжником requires — шаблон більше не претендує на свій тип:

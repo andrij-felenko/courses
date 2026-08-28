@@ -67,19 +67,7 @@ auto n = std::count_if(v.begin(), v.end(), [limit](int x) { return x > limit; })
 
 **Одна змінна, два замикання, одна зміна між створенням і викликом:**
 
-```cpp
-#include <cstdio>
-
-int main() {
-    int n = 1;
-    auto byValue = [n]  { return n; };   // поле-копія: 1
-    auto byRef   = [&n] { return n; };   // поле-посилання на n
-
-    n = 42;
-
-    std::printf("%d %d\n", byValue(), byRef());   // 1 42
-}
-```
+:::code lambdas-and-captures-d/cpp/moment-zakhoplennia-tse.cpp
 
 `byValue` відповідає одиницею, бо його поле сконструювали до присвоєння, і воно вже не має жодного стосунку до змінної `n`. `byRef` відповідає сорок двома, бо в його полі лежить не число, а спосіб дістатися до `n`, і читання відбувається на момент виклику.
 
@@ -200,19 +188,7 @@ return [n = buf_.size()] { return n; };
 
 **Взяти слабке посилання, якщо об'єктом володіє `shared_ptr`.** Це стандартний спосіб для асинхронних обробників:
 
-```cpp
-class Session : public std::enable_shared_from_this<Session> {
-public:
-    void start(Timer& timer) {
-        std::weak_ptr<Session> weak = weak_from_this();
-        timer.every(std::chrono::seconds(1), [weak] {
-            if (auto self = weak.lock()) self->tick();   // об'єкт живий — працюємо
-        });                                              // помер — тихо нічого не робимо
-    }
-private:
-    void tick();
-};
-```
+:::code lambdas-and-captures-d/cpp/this-posylannia-iake-ne.cpp
 
 Тут замикання не володіє об'єктом (інакше таймер тримав би сесію живою вічно) і не тримає голої адреси. Воно тримає [слабке посилання](root:sys-plang-cpp/shared-weak-ptr) — квиток, за яким можна спробувати отримати володіння й дізнатися, чи є ще кого тримати. Захоплення `[self = shared_from_this()]` теж має сенс, але означає протилежне рішення: «поки задача не виконана, об'єкт не має права померти».
 

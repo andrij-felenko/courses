@@ -16,25 +16,7 @@
 
 Ідея Бартона й Некмана полягала у використанні шаблонного базового класу, який приймав похідний клас як параметр шаблону, і всередині себе оголошував нешаблонні дружні (`friend`) функції:
 
-```cpp
-template <typename Derived>
-class EqualComparable {
-public:
-    friend bool operator!=(const Derived& lhs, const Derived& rhs) {
-        return !(lhs == rhs);
-    }
-};
-
-class Complex : public EqualComparable<Complex> {
-public:
-    bool operator==(const Complex& rhs) const {
-        return re == rhs.re && im == rhs.im;
-    }
-private:
-    double re{0.0};
-    double im{0.0};
-};
-```
+:::code hist-crtp-origin/cpp/main.cpp
 
 У C++98 це вирішувало одразу дві серйозні проблеми мови того часу. По-перше, функція `operator!=` з'являлася в глобальному просторі імен тільки в момент інстанціювання `EqualComparable<Complex>`, не засмічуючи таблицю перевантажень для інших типів і не спотворюючи пошук імен. По-друге, пошук залежно від аргументів (Argument-Dependent Lookup, ADL, або пошук Кеніґа) миттєво знаходив цей оператор при порівнянні двох об'єктів `Complex`. При цьому жодного віртуального виклику не відбувалося: компілятор підставляв оператор `==` безпосередньо за місцем використання, повністю усуваючи будь-які накладні витрати пам'яті чи процесорних тактів.
 

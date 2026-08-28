@@ -21,35 +21,11 @@
 
 ### Сигнатури виділення пам'яті для одиночних об'єктів та масивів
 
-```cpp
-// Звичайне виділення одиночного об'єкта (викидає std::bad_alloc)
-void* operator new(std::size_t size);
-
-// Звичайне виділення масиву (викидає std::bad_alloc)
-void* operator new[](std::size_t size);
-
-// Non-throwing версія для одиночного об'єкта (повертає nullptr при помилці)
-void* operator new(std::size_t size, const std::nothrow_t&) noexcept;
-
-// Non-throwing версія для масиву (повертає nullptr при помилці)
-void* operator new[](std::size_t size, const std::nothrow_t&) noexcept;
-```
+:::code api-allocation-functions/cpp/syhnatury-vydilennia.hpp
 
 ### Сигнатури звільнення пам'яті
 
-```cpp
-// Звичайне звільнення одиночного об'єкта
-void operator delete(void* ptr) noexcept;
-
-// Звичайне звільнення масиву
-void operator delete[](void* ptr) noexcept;
-
-// Non-throwing парний деалокатор одиночного об'єкта
-void operator delete(void* ptr, const std::nothrow_t&) noexcept;
-
-// Non-throwing парний деалокатор масиву
-void operator delete[](void* ptr, const std::nothrow_t&) noexcept;
-```
+:::code api-allocation-functions/cpp/syhnatury-zvilnennia.cpp
 
 ### Контракт виконання та вимоги стандарту
 
@@ -84,43 +60,11 @@ void operator delete[](void* ptr, std::size_t size) noexcept;
 
 ### Сигнатури вирівняного виділення
 
-```cpp
-#include <new>
-
-// Вирівняне виділення одиночного об'єкта (викидає std::bad_alloc)
-void* operator new(std::size_t size, std::align_val_t alignment);
-
-// Вирівняне виділення масиву (викидає std::bad_alloc)
-void* operator new[](std::size_t size, std::align_val_t alignment);
-
-// Вирівняне non-throwing виділення одиночного об'єкта
-void* operator new(std::size_t size, std::align_val_t alignment, const std::nothrow_t&) noexcept;
-
-// Вирівняне non-throwing виділення масиву
-void* operator new[](std::size_t size, std::align_val_t alignment, const std::nothrow_t&) noexcept;
-```
+:::code api-allocation-functions/cpp/syhnatury-vyrivnianoho.hpp
 
 ### Сигнатури вирівняного звільнення пам'яті
 
-```cpp
-// Звичайне вирівняне звільнення одиночного об'єкта
-void operator delete(void* ptr, std::align_val_t alignment) noexcept;
-
-// Звичайне вирівняне звільнення масиву
-void operator delete[](void* ptr, std::align_val_t alignment) noexcept;
-
-// Non-throwing вирівняне звільнення одиночного об'єкта
-void operator delete(void* ptr, std::align_val_t alignment, const std::nothrow_t&) noexcept;
-
-// Non-throwing вирівняне звільнення масиву
-void operator delete[](void* ptr, std::align_val_t alignment, const std::nothrow_t&) noexcept;
-
-// Розмірне вирівняне звільнення одиночного об'єкта (C++17)
-void operator delete(void* ptr, std::size_t size, std::align_val_t alignment) noexcept;
-
-// Розмірне вирівняне звільнення масиву (C++17)
-void operator delete[](void* ptr, std::size_t size, std::align_val_t alignment) noexcept;
-```
+:::code api-allocation-functions/cpp/syhnatury-vyrivnianoho.cpp
 
 ### Правила активації Aligned Forms
 
@@ -146,27 +90,7 @@ delete data;
 
 Стандарт C++20 ввів механізм **destroying delete**, що дозволяє класу перехопити керування деструкцією:
 
-```cpp
-#include <new>
-#include <cstddef>
-#include <iostream>
-
-struct VariableSizedNode {
-    std::size_t payload_size;
-
-    // Класова функція деалокації зі спеціальним маркером destroying_delete_t
-    static void operator delete(VariableSizedNode* ptr, std::destroying_delete_t) noexcept {
-        std::cout << "Перехоплено знищення: розмір корисного навантаження = " << ptr->payload_size << '\n';
-        
-        // Розробник САМ зобов'язаний явно викликати деструктор!
-        std::size_t total_bytes = sizeof(VariableSizedNode) + ptr->payload_size;
-        ptr->~VariableSizedNode();
-
-        // Звільнення блоку пам'яті потрібного динамічного розміру
-        ::operator delete(static_cast<void*>(ptr), total_bytes);
-    }
-};
-```
+:::code api-allocation-functions/cpp/4-znyshchuvalne-zvilnennia.hpp
 
 Коли для класу з таким методом виконується вираз `delete ptr;`, компілятор **не викликає деструктор автоматично**, а одразу передає типізований покажчик `VariableSizedNode*` у функцію `operator delete`. Відповідальність за явний виклик `ptr->~T()` повністю покладається на розробника функції.
 
@@ -174,19 +98,7 @@ struct VariableSizedNode {
 
 Форми розміщення визначені в стандартному заголовку `<new>` як інлайн-функції. Їхнє перевантаження у глобальному просторі імен є помилкою компіляції або призводить до невизначеної поведінки.
 
-```cpp
-// Placement new для одиночного об'єкта
-void* operator new(std::size_t size, void* ptr) noexcept;
-
-// Placement new для масиву
-void* operator new[](std::size_t size, void* ptr) noexcept;
-
-// Placement delete для одиночного об'єкта (викликається лише при винятку в конструкторі)
-void operator delete(void* ptr, void* place) noexcept;
-
-// Placement delete для масиву (викликається лише при винятку в конструкторі)
-void operator delete[](void* ptr, void* place) noexcept;
-```
+:::code api-allocation-functions/cpp/5-vbudovani-funktsii.cpp
 
 Реалізація цих функцій тривіальна: вони просто повертають параметр `ptr`, не виконуючи жодних звернень до розподільника пам'яті. Відповідні функції `operator delete` мають порожнє тіло: вони існують виключно для того, щоб компілятор міг виконати парний відкат у разі виникнення винятку в конструкторі під час виконання виразу placement new.
 
@@ -196,29 +108,7 @@ void operator delete[](void* ptr, void* place) noexcept;
 
 ### Допустимі сигнатури всередині класу
 
-```cpp
-class CustomNode {
-public:
-    // Одиночні форми виділення
-    static void* operator new(std::size_t size);
-    static void* operator new(std::size_t size, const std::nothrow_t&) noexcept;
-    static void* operator new(std::size_t size, std::align_val_t align);
-
-    // Масивні форми виділення
-    static void* operator new[](std::size_t size);
-    static void* operator new[](std::size_t size, std::align_val_t align);
-
-    // Одиночні форми звільнення
-    static void operator delete(void* ptr) noexcept;
-    static void operator delete(void* ptr, std::size_t size) noexcept;
-    static void operator delete(void* ptr, std::align_val_t align) noexcept;
-    static void operator delete(void* ptr, std::size_t size, std::align_val_t align) noexcept;
-
-    // Масивні форми звільнення
-    static void operator delete[](void* ptr) noexcept;
-    static void operator delete[](void* ptr, std::size_t size) noexcept;
-};
-```
+:::code api-allocation-functions/cpp/dopustymi-syhnatury.hpp
 
 ### Правила успадкування та приховування імен (Name Hiding)
 
@@ -230,58 +120,13 @@ public:
 
 Стандартний заголовок `<new>` надає механізм реєстрації функцій зворотного виклику, що активуються в моменти критичного вичерпання пам'яті.
 
-```cpp
-namespace std {
-    // Тип функції обробника відмови виділення пам'яті
-    using new_handler = void (*)();
-
-    // Встановлює новий обробник і повертає попередній
-    new_handler set_new_handler(new_handler new_p) noexcept;
-
-    // Повертає поточний активний обробник (C++11)
-    new_handler get_new_handler() noexcept;
-
-    // Базовий виняток відмови виділення пам'яті
-    class bad_alloc : public exception {
-    public:
-        bad_alloc() noexcept;
-        bad_alloc(const bad_alloc&) noexcept;
-        bad_alloc& operator=(const bad_alloc&) noexcept;
-        virtual const char* what() const noexcept override;
-    };
-
-    // Виняток невідповідності розміру масиву (C++11)
-    class bad_array_new_length : public bad_alloc {
-    public:
-        bad_array_new_length() noexcept;
-        virtual const char* what() const noexcept override;
-    };
-
-    // Маркерний тип для non-throwing перевантажень
-    struct nothrow_t { explicit nothrow_t() = default; };
-    extern const nothrow_t nothrow;
-
-    // Тип-перелік для передачі вирівнювання (C++17)
-    enum class align_val_t : size_t {};
-}
-```
+:::code api-allocation-functions/cpp/7-interfeis-keruvannia.cpp
 
 ### Контракт поведінки std::new_handler
 
 Коли `operator new` не може задовольнити запит на пам'ять, він виконує цикл:
 
-```cpp
-while (true) {
-    void* p = try_allocate(size);
-    if (p) return p;
-
-    std::new_handler handler = std::get_new_handler();
-    if (!handler) {
-        throw std::bad_alloc();
-    }
-    handler(); // Виклик користувацького обробника
-}
-```
+:::code api-allocation-functions/cpp/kontrakt-povedinky-std-new.cpp
 
 Обробник `std::new_handler` зобов'язаний виконати одну з таких чотирьох дій:
 1. **Звільнити пам'ять:** звільнити раніше зарезервовані буфери або кеші й повернути керування, дозволивши циклу в `operator new` повторити спробу.
@@ -338,58 +183,7 @@ while (true) {
 
 Щоб коректно реалізувати власний трекер або підключити сторонній алокатор, програма повинна надати узгоджений набір усіх 12 замінних форм:
 
-```cpp
-#include <new>
-#include <cstdlib>
-
-// Базові форми
-void* operator new(std::size_t size) {
-    if (size == 0) size = 1;
-    while (void* p = std::malloc(size)) {
-        return p;
-    }
-    if (auto h = std::get_new_handler()) { h(); return operator new(size); }
-    throw std::bad_alloc();
-}
-
-void* operator new[](std::size_t size) { return ::operator new(size); }
-
-void operator delete(void* ptr) noexcept { std::free(ptr); }
-void operator delete[](void* ptr) noexcept { ::operator delete(ptr); }
-
-// Sized forms (C++14)
-void operator delete(void* ptr, std::size_t) noexcept { ::operator delete(ptr); }
-void operator delete[](void* ptr, std::size_t) noexcept { ::operator delete[](ptr); }
-
-// Aligned forms (C++17)
-void* operator new(std::size_t size, std::align_val_t al) {
-    if (size == 0) size = 1;
-    std::size_t align = static_cast<std::size_t>(al);
-    void* ptr = nullptr;
-#if defined(_MSC_VER)
-    ptr = _aligned_malloc(size, align);
-#else
-    if (posix_memalign(&ptr, align, size) != 0) ptr = nullptr;
-#endif
-    if (ptr) return ptr;
-    if (auto h = std::get_new_handler()) { h(); return operator new(size, al); }
-    throw std::bad_alloc();
-}
-
-void* operator new[](std::size_t size, std::align_val_t al) { return ::operator new(size, al); }
-
-void operator delete(void* ptr, std::align_val_t) noexcept {
-#if defined(_MSC_VER)
-    _aligned_free(ptr);
-#else
-    std::free(ptr);
-#endif
-}
-
-void operator delete[](void* ptr, std::align_val_t al) noexcept { ::operator delete(ptr, al); }
-void operator delete(void* ptr, std::size_t, std::align_val_t al) noexcept { ::operator delete(ptr, al); }
-void operator delete[](void* ptr, std::size_t, std::align_val_t al) noexcept { ::operator delete[](ptr, al); }
-```
+:::code api-allocation-functions/cpp/13-shablon-realizatsii.cpp
 
 ## Зведена таблиця пріоритетів вибору deallocation function
 

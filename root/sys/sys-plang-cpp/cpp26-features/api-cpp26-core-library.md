@@ -43,45 +43,7 @@ namespace std::meta {
 
 Усі функції простору імен `std::meta` оголошені як `consteval`, тобто виконуються суворо на етапі компіляції. Будь-яка спроба викликати їх у динамічному часі виконання (run-time) призводить до помилки компіляції.
 
-```cpp
-namespace std::meta {
-    // Отримання імен та ідентифікаторів
-    consteval string_view name_of(info r);
-    consteval string_view display_name_of(info r);
-    consteval string_view identifier_of(info r);
-
-    // Дослідження родоводу та типу сутності
-    consteval info type_of(info r);
-    consteval info parent_of(info r);
-
-    // Отримання колекцій дочірніх сутностей
-    consteval vector<info> members_of(info r);
-    consteval vector<info> nonstatic_data_members_of(info r);
-    consteval vector<info> static_data_members_of(info r);
-    consteval vector<info> enumerators_of(info r);
-    consteval vector<info> bases_of(info r);
-    consteval vector<info> template_arguments_of(info r);
-
-    // Предикати перевірки природи сутності
-    consteval bool is_type(info r) noexcept;
-    consteval bool is_variable(info r) noexcept;
-    consteval bool is_function(info r) noexcept;
-    consteval bool is_class(info r) noexcept;
-    consteval bool is_enum(info r) noexcept;
-    consteval bool is_public(info r) noexcept;
-    consteval bool is_protected(info r) noexcept;
-    consteval bool is_private(info r) noexcept;
-    consteval bool is_virtual(info r) noexcept;
-    consteval bool is_constexpr(info r) noexcept;
-    consteval bool is_noexcept(info r) noexcept;
-
-    // Синтез нових типів та маніпуляція шаблонами
-    consteval info substitute(info tmpl, span<const info> args);
-    consteval info reflect_value(auto value);
-    template <typename T>
-    consteval T extract(info r);
-}
-```
+:::code api-cpp26-core-library/cpp/funktsii-inspektsii.hpp
 
 Функція `name_of(r)` повертає базовий рядок ідентифікатора без префіксів просторів імен (наприклад, `"id"` для поля `User::id`). Функція `display_name_of(r)` формує повне людиночитне представлення сутності разом із типами та просторами імен (наприклад, `"int User::id"`). Функція `nonstatic_data_members_of(r)` повертає послідовність дескрипторів виключно для нестатичних полів класу в порядку їхнього фізичного розташування в пам'яті, що є фундаментом для створення універсальних серілізаторів. Функція `substitute(tmpl, args)` інстанціює шаблонний дескриптор новим набором аргументів безпосередньо у виразі `constexpr`.
 
@@ -98,18 +60,7 @@ namespace std::meta {
 2. **Постумова (`post`):** перевіряє стан поверненого значення та інваріанти об'єкта одразу після завершення тіла функції (перед знищенням локальних змінних стека). За допомогою синтаксису `post [r] (умова)` повернене значення стає доступним у виразі під локальним псевдонімом `r`.
 3. **Локальне твердження (`contract_assert`):** фіксує проміжний інваріант у довільному місці алгоритму всередині тіла функції.
 
-```cpp
-// Приклад функції з повною специфікацією контракту
-double calculate_log(double x, double base)
-    pre (x > 0.0)
-    pre (base > 0.0 && base != 1.0)
-    post [res] (res == res) // Перевірка відсутності нечислових значень NaN
-{
-    double val = std::log(x) / std::log(base);
-    contract_assert(!std::isnan(val));
-    return val;
-}
-```
+:::code api-cpp26-core-library/cpp/syntaksys-predykativ.hpp
 
 У разі віртуального успадкування контракти підпорядковуються принципу підстановки Лісков (LSP): похідний клас не може посилювати преумови базового класу, але може розширювати постумови гарантій поверненого результату.
 
@@ -129,24 +80,7 @@ double calculate_log(double x, double base)
 
 Якщо умова контракту виявляється хибною в режимах `observe` або `enforce`, система конструює діагностичний об'єкт класу `contract_violation` і передає його у зареєстрований обробник порушень:
 
-```cpp
-namespace std::contracts {
-    enum class detection_mode {
-        predicate_false,
-        evaluation_exception
-    };
-
-    class contract_violation {
-    public:
-        uint_least32_t line_number() const noexcept;
-        string_view file_name() const noexcept;
-        string_view function_name() const noexcept;
-        string_view comment() const noexcept;
-        string_view predicate() const noexcept;
-        detection_mode mode() const noexcept;
-    };
-}
-```
+:::code api-cpp26-core-library/cpp/obrobka-porushen-ta-klas.cpp
 
 Метод `detection_mode()` сигналізує, чи умова повернула логічне значення `false` (`predicate_false`), чи під час обчислення предикату було згенеровано виняток (`evaluation_exception`). Користувацький обробник порушень має сигнатуру `void handle_contract_violation(const std::contracts::contract_violation& violation)` і може записувати інформацію у системний лог або формувати дамп пам'яті. Реєстрація глобального обробника відбувається на етапі запуску програми без виклику динамічних алокацій пам'яті.
 
@@ -163,32 +97,7 @@ namespace std::contracts {
 - `set_error(rcvr, err)`: аварійне завершення з передачею об'єкта помилки або винятку `std::exception_ptr`.
 - `set_stopped(rcvr)`: дострокове скасування виконання за запитом токена зупинки `std::stop_token`.
 
-```cpp
-namespace std::execution {
-    struct set_value_t   { template <typename... Ts> void operator()(auto&& rcvr, Ts&&... args) const; };
-    struct set_error_t   { template <typename E>     void operator()(auto&& rcvr, E&& err) const; };
-    struct set_stopped_t { void operator()(auto&& rcvr) const; };
-
-    inline constexpr set_value_t set_value{};
-    inline constexpr set_error_t set_error{};
-    inline constexpr set_stopped_t set_stopped{};
-
-    template <typename S>
-    concept sender = requires {
-        typename completion_signatures_of_t<S>;
-    };
-
-    template <typename Sch>
-    concept scheduler = requires(Sch sch) {
-        { schedule(sch) } -> sender;
-    };
-
-    template <typename Op>
-    concept operation_state = requires(Op& op) {
-        { start(op) } noexcept;
-    };
-}
-```
+:::code api-cpp26-core-library/cpp/bazovi-kontsepty-ta-kanaly.cpp
 
 Модель гарантує структурований паралелізм: стан задачі `operation_state` створюється на стеку викликаючої функції під час виклику `connect(sender, receiver)`. Пам'ять під проміжні результати виділяється компілятором у складі єдиного монолітного об'єкта стану, що повністю виключає виклики `malloc` та `new`. Обробка винятків відбувається автоматично: якщо функція користувача у конвеєрі кидає виняток, середовище перехоплює його через `std::current_exception()` і спрямовує у канал `set_error`.
 
@@ -196,68 +105,13 @@ namespace std::execution {
 
 Фабрики створюють початкові легковажні сендери, які слугують вихідними вузлами в дереві обчислень:
 
-```cpp
-namespace std::execution {
-    // Створює сендер, що негайно надсилає значення
-    template <typename... Ts>
-    sender auto just(Ts&&... values);
-
-    // Створює сендер, що надсилає об'єкт помилки
-    template <typename E>
-    sender auto just_error(E&& error);
-
-    // Створює сендер, що сигналізує про зупинку конвеєра
-    sender auto just_stopped();
-
-    // Створює сендер перенесення виконання на планувальник
-    template <scheduler Sch>
-    sender auto schedule(Sch&& sch);
-
-    // Зчитує параметри оточення (токен зупинки, алокатор)
-    template <typename Query>
-    sender auto read_env(Query query);
-}
-```
+:::code api-cpp26-core-library/cpp/fabryky-dzherel-zadach.hpp
 
 ### Адаптери конвеєрів (Sender Adaptors)
 
 Адаптери приймають вхідний сендер і повертають новий сендер, що реалізує додаткову логіку перетворення результатів або маршрутизації потоків керування:
 
-```cpp
-namespace std::execution {
-    // Синхронне перетворення результату функцією
-    template <sender S, typename F>
-    sender auto then(S&& s, F&& f);
-
-    // Асинхронне продовження: функція повертає новий сендер
-    template <sender S, typename F>
-    sender auto let_value(S&& s, F&& f);
-
-    // Обробка каналу помилок із можливістю відновлення
-    template <sender S, typename F>
-    sender auto let_error(S&& s, F&& f);
-
-    // Обробка каналу скасування
-    template <sender S, typename F>
-    sender auto let_stopped(S&& s, F&& f);
-
-    // Запуск виконання на конкретному планувальнику
-    template <sender S, scheduler Sch>
-    sender auto starts_on(Sch&& sch, S&& s);
-
-    // Перенесення продовження на інший планувальник
-    template <sender S, scheduler Sch>
-    sender auto continues_on(S&& s, Sch&& sch);
-
-    // Паралельний запуск кількох сендерів (fork-join)
-    template <sender... Ss>
-    sender auto when_all(Ss&&... senders);
-
-    // Розгалуження сендера для кількох споживачів
-    template <sender S>
-    sender auto split(S&& s);
-}
-```
+:::code api-cpp26-core-library/cpp/adaptery-konveieriv-sender.hpp
 
 Конструкція `when_all` запускає всі передані сендери паралельно і очікує завершення кожного з них. Якщо хоча б один сендер завершується з помилкою через `set_error`, решта операцій у конвеєрі отримують сигнал скасування через механізм `std::stop_source`, а помилка прокидається далі по ланцюгу.
 
@@ -271,29 +125,7 @@ namespace std::execution {
 
 Функції першого рівня призначені для поелементних векторних обчислень, знаходження норм, обертань Гівенса та скалярних добутків:
 
-```cpp
-namespace std::linalg {
-    // Масштабування вектора коефіцієнтом: v = alpha * v
-    template <typename Alpha, typename InOutVec>
-    void scale(Alpha alpha, InOutVec v);
-
-    // Векторне додавання: y = x + y
-    template <typename InVec, typename InOutVec>
-    void add(InVec x, InOutVec y);
-
-    // Обчислення скалярного добутку: sum(x_i * y_i) + init
-    template <typename InVec1, typename InVec2, typename Scalar>
-    Scalar dot(InVec1 x, InVec2 y, Scalar init);
-
-    // Обчислення евклідової норми L2 вектора
-    template <typename InVec, typename Scalar>
-    Scalar vector_norm2(InVec x, Scalar init);
-
-    // Пошук індексу елемента з максимальним абсолютним значенням
-    template <typename InVec>
-    size_t idx_abs_max(InVec x);
-}
-```
+:::code api-cpp26-core-library/cpp/vektorni-operatsii.hpp
 
 Усі векторні функції приймають об'єкти одновимірного `std::mdspan` з довільним макетом розміщення в пам'яті (наприклад, `std::layout_stride` для векторів із довільним кроком у пам'яті або `std::layout_right` для послідовних масивів C).
 
@@ -301,21 +133,7 @@ namespace std::linalg {
 
 Функції другого рівня реалізують множення матриці на вектор та розв'язання трикутних систем рівнянь:
 
-```cpp
-namespace std::linalg {
-    // Загальний матрично-векторний добуток: y = A * x
-    template <typename InMat, typename InVec, typename OutVec>
-    void matrix_vector_product(InMat A, InVec x, OutVec y);
-
-    // Симетричний добуток з урахуванням трикутника
-    template <typename InMat, typename Triangle, typename InVec, typename OutVec>
-    void symmetric_matrix_vector_product(InMat A, Triangle t, InVec x, OutVec y);
-
-    // Розв'язання трикутної системи рівнянь: A * x = b
-    template <typename InMat, typename Triangle, typename Diagonal, typename InOutVec>
-    void triangular_matrix_vector_solve(InMat A, Triangle t, Diagonal d, InOutVec b);
-}
-```
+:::code api-cpp26-core-library/cpp/matrychno-vektorni.hpp
 
 Тег `Triangle` може набувати значень `std::linalg::upper_triangle` або `std::linalg::lower_triangle`, що дозволяє оптимізувати обчислення для симетричних чи ермітових матриць, зберігаючи в пам'яті лише половину коефіцієнтів. Тег `Diagonal` визначає, чи є діагональні елементи одиничними (`std::linalg::unit_diagonal`) або довільними (`std::linalg::explicit_diagonal`).
 
@@ -345,75 +163,13 @@ namespace std::linalg {
 
 ### Шаблон класу `std::simd`
 
-```cpp
-namespace std {
-    namespace simd_abi {
-        using scalar = /* скалярна емуляція */;
-        template <size_t N> using fixed_size = /* фіксована ширина смуги */;
-        template <typename T> using native = /* максимальний доступний апаратний регістр */;
-        template <typename T> using compatible = /* переносимий ABI-вектор */;
-    }
-
-    template <typename T, typename Abi = simd_abi::native<T>>
-    class simd {
-    public:
-        using value_type = T;
-        using abi_type = Abi;
-        using mask_type = simd_mask<T, Abi>;
-
-        static constexpr size_t size() noexcept;
-
-        simd() noexcept = default;
-        simd(T broadcast_value) noexcept;
-
-        // Завантаження та вивантаження у фізичну пам'ять
-        void copy_from(const T* mem, element_aligned_tag) noexcept;
-        void copy_to(T* mem, element_aligned_tag) const noexcept;
-
-        // Покомпонентний доступ до смуг регістра
-        T operator[](size_t index) const noexcept;
-
-        // Поелементна векторна арифметика
-        simd& operator+=(const simd&) noexcept;
-        simd& operator*=(const simd&) noexcept;
-        simd operator-() const noexcept;
-    };
-}
-```
+:::code api-cpp26-core-library/cpp/shablon-klasu-std-simd.cpp
 
 Арифметичні оператори над екземплярами `std::simd` транслюються в одну векторну процесорну інструкцію для всіх елементів вектору одночасно. Завантаження пам'яті через `element_aligned_tag` підтримує довільні адреси, тоді як тег `vector_aligned_tag` генерує швидкі інструкції вирівняного читання (aligned load) за умови кратності адреси розміру SIMD-регістра.
 
 ### Функції горизонтальної редукції та маски
 
-```cpp
-namespace std {
-    // Обчислення суми всіх елементів вектору
-    template <typename T, typename Abi>
-    T reduce(const simd<T, Abi>& v) noexcept;
-
-    // Горизонтальне додавання сусідніх пар елементів
-    template <typename T, typename Abi>
-    T hadd(const simd<T, Abi>& v) noexcept;
-
-    // Пошук мінімального елемента серед усіх смуг вектору
-    template <typename T, typename Abi>
-    T hmin(const simd<T, Abi>& v) noexcept;
-
-    // Пошук максимального елемента серед усіх смуг вектору
-    template <typename T, typename Abi>
-    T hmax(const simd<T, Abi>& v) noexcept;
-
-    // Перевірка предикатів масок
-    template <typename T, typename Abi>
-    bool all_of(const simd_mask<T, Abi>& k) noexcept;
-
-    template <typename T, typename Abi>
-    bool any_of(const simd_mask<T, Abi>& k) noexcept;
-
-    template <typename T, typename Abi>
-    bool none_of(const simd_mask<T, Abi>& k) noexcept;
-}
-```
+:::code api-cpp26-core-library/cpp/funktsii-horyzontalnoi.cpp
 
 Маски `std::simd_mask` є результатом операцій порівняння між векторами і дозволяють виконувати умовне обчислення без розгалужень процесорного конвеєра за допомогою інструкцій маскованого запису (blend/blendv).
 

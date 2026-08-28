@@ -59,86 +59,11 @@ void process() {
 
 Базова структура публічного класу з використанням сучасного розумного покажчика `std::unique_ptr` виглядає так:
 
-```cpp
-// Widget.h — відкритий заголовок, доступний клієнтам
-#ifndef WIDGET_H
-#define WIDGET_H
-
-#include <memory>
-#include <string_view>
-
-class Widget {
-public:
-    Widget();
-    ~Widget(); // Обов'язково оголошений у заголовку, але НЕ визначений!
-
-    Widget(Widget&&) noexcept;
-    Widget& operator=(Widget&&) noexcept;
-
-    // Забороняємо або окремо реалізуємо копіювання
-    Widget(const Widget&);
-    Widget& operator=(const Widget&);
-
-    void set_title(std::string_view title);
-    void draw() const;
-
-private:
-    struct Impl;                  // Неповний тип (Incomplete Type)
-    std::unique_ptr<Impl> pImpl_; // Єдине поле з даними: фіксовані 8 байтів
-};
-
-#endif // WIDGET_H
-```
+:::code pimpl-d/cpp/sut-idiomy-neprozoryi.hpp
 
 Повне визначення структури `Impl` та вся внутрішня логіка містяться виключно всередині вихідного файлу реалізації:
 
-```cpp
-// Widget.cpp — закрита одиниця трансляції бібліотеки
-#include "Widget.h"
-#include <string>
-#include <vector>
-#include <iostream>
-#include <openssl/ssl.h> // Важкі залежності підключаються ЛИШЕ тут!
-
-struct Widget::Impl {
-    std::string title_;
-    std::vector<int> render_buffer_;
-    SSL_CTX* ssl_context_{nullptr};
-
-    void internal_layout() {
-        // Внутрішня складна логіка
-    }
-};
-
-Widget::Widget() : pImpl_(std::make_unique<Impl>()) {}
-
-Widget::~Widget() = default; // Визначається тут, де тип Impl є повним!
-
-Widget::Widget(Widget&&) noexcept = default;
-Widget& Widget::operator=(Widget&&) noexcept = default;
-
-Widget::Widget(const Widget& other) 
-    : pImpl_(other.pImpl_ ? std::make_unique<Impl>(*other.pImpl_) : nullptr) {}
-
-Widget& Widget::operator=(const Widget& other) {
-    if (this != &other) {
-        if (other.pImpl_) {
-            pImpl_ = std::make_unique<Impl>(*other.pImpl_);
-        } else {
-            pImpl_.reset();
-        }
-    }
-    return *this;
-}
-
-void Widget::set_title(std::string_view title) {
-    pImpl_->title_ = title;
-}
-
-void Widget::draw() const {
-    std::cout << "Rendering: " << pImpl_->title_ << '\n';
-}
-```
+:::code pimpl-d/cpp/Widget.cpp
 
 Тепер `sizeof(Widget)` дорівнює рівно `sizeof(void*)`. Клієнтський код не бачить ані OpenSSL, ані `std::vector`, ані жодного приватного поля. Зміна будь-яких деталей всередині `struct Impl` вимагає перекомпіляції виключно файлу `Widget.cpp`.
 
@@ -234,18 +159,7 @@ Widget& Widget::operator=(Widget&&) noexcept = default;
 
 Розглянемо небезпечний приклад:
 
-```cpp
-class Widget {
-    struct Impl;
-    std::unique_ptr<Impl> pImpl_;
-public:
-    void render() const {
-        // Компілятор ДОЗВОЛЯЄ цей рядок, хоча метод const!
-        pImpl_->internal_counter_++; 
-        pImpl_->clear_cache();
-    }
-};
-```
+:::code pimpl-d/cpp/problema-konstantnosti.cpp
 
 З точки зору компілятора, покажчик `pImpl_` не змінює своєї адреси, тому побітова константність об'єкта `Widget` не порушена. Проте з точки зору архітектури порушується **логічна константність**: виклик константного методу призводить до модифікації внутрішнього стану об'єкта.
 
@@ -255,60 +169,17 @@ public:
 
 У приватному інтерфейсі класу створюються перевантажені константні та неконстантні допоміжні методи:
 
-```cpp
-class Widget {
-    struct Impl;
-    std::unique_ptr<Impl> pImpl_;
-
-    Impl* get_impl() noexcept { return pImpl_.get(); }
-    const Impl* get_impl() const noexcept { return pImpl_.get(); }
-
-public:
-    void render() const {
-        // get_impl()->internal_counter_++; // ПОМИЛКА КОМПІЛЯЦІЇ: об'єкт константний!
-    }
-};
-```
+:::code pimpl-d/cpp/1-dystsyplinovani-funktsii.cpp
 
 ### 2. Обгортка `std::experimental::propagate_const`
 
 Починаючи з технічної специфікації *Library Fundamentals TS*, стандартний комітет запропонував спеціальну обгортку `propagate_const`, яка поширює константність зовнішнього класу на об'єкт під вказівником:
 
-```cpp
-#include <experimental/propagate_const>
-
-class Widget {
-    struct Impl;
-    std::experimental::propagate_const<std::unique_ptr<Impl>> pImpl_;
-
-public:
-    void mutate();
-    void inspect() const {
-        // pImpl_ автоматично розіменовується як const Impl*
-    }
-};
-```
+:::code pimpl-d/cpp/2-obhortka-std.cpp
 
 Якщо компілятор чи стандартна бібліотека не мають заголовка `<experimental/propagate_const>`, написання власної мінімальної обгортки займає близько двадцяти рядків коду, що перевантажують `operator->()` та `operator*()` для константних і неконстантних посилань:
 
-```cpp
-template <typename T>
-class PropagateConst {
-    T ptr_;
-public:
-    template <typename U>
-    explicit PropagateConst(U&& u) : ptr_(std::forward<U>(u)) {}
-
-    auto* get() noexcept { return ptr_.get(); }
-    const auto* get() const noexcept { return ptr_.get(); }
-
-    auto* operator->() noexcept { return get(); }
-    const auto* operator->() const noexcept { return get(); }
-
-    auto& operator*() noexcept { return *get(); }
-    const auto& operator*() const noexcept { return *get(); }
-};
-```
+:::code pimpl-d/cpp/2-obhortka-std-2.cpp
 
 ## Зворотний зв'язок: коли реалізації потрібен зовнішній клас
 
@@ -316,24 +187,7 @@ public:
 
 Для цього структура `Impl` зберігає так званий **зворотний вказівник** (англ. *back-pointer*):
 
-```cpp
-// Widget.cpp
-struct Widget::Impl {
-    Widget* owner_; // Зворотний вказівник на зовнішній об'єкт
-    int progress_{0};
-
-    explicit Impl(Widget* owner) : owner_(owner) {}
-
-    void on_network_data(int bytes) {
-        progress_ += bytes;
-        if (progress_ > 1000) {
-            owner_->notify_ui(); // Виклик публічного методу зовнішнього класу
-        }
-    }
-};
-
-Widget::Widget() : pImpl_(std::make_unique<Impl>(this)) {}
-```
+:::code pimpl-d/cpp/Widget-2.cpp
 
 Важливе питання щодо безпеки життєвого циклу: чи може сирий вказівник `owner_` стати недійсним (висячим)?
 
@@ -345,65 +199,13 @@ Widget::Widget() : pImpl_(std::make_unique<Impl>(this)) {}
 
 Коли виникає потреба створити ієрархію успадкування для класів, що використовують PIMPL, класичною помилкою початківця є додавання власного покажчика `std::unique_ptr<DerivedImpl>` у похідний клас:
 
-```cpp
-// ПОМИЛКА: Два покажчики та дві алокації в купі на один об'єкт
-class Base {
-    struct BaseImpl;
-    std::unique_ptr<BaseImpl> pImpl_;
-};
-
-class Derived : public Base {
-    struct DerivedImpl;
-    std::unique_ptr<DerivedImpl> pDerivedImpl_; // ДРУГА алокація в купі!
-};
-```
+:::code pimpl-d/cpp/uspadkuvannia-v-klasakh-iz.cpp
 
 Такий підхід подвоює кількість динамічних алокацій для кожного похідного об'єкта, збільшує розмір `Derived` на стеку до 16 байтів та призводить до розсинхронізації стану двох незалежних структур реалізації.
 
 Канонічне промислове рішення полягає у **дзеркальному успадкуванні структур реалізації** з передаванням єдиного покажчика вгору по ієрархії:
 
-```cpp
-// Base.h
-class Base {
-public:
-    Base();
-    virtual ~Base();
-    void base_action();
-
-protected:
-    struct Impl;
-    // Захищений конструктор для спадкоємців
-    explicit Base(std::unique_ptr<Impl> impl);
-    std::unique_ptr<Impl> pImpl_;
-};
-
-// Derived.h
-class Derived : public Base {
-public:
-    Derived();
-    ~Derived() override;
-    void derived_action();
-};
-
-// Derived.cpp
-#include "Derived.h"
-#include "Base.h"
-
-struct Derived::Impl : public Base::Impl {
-    int extra_field_{42};
-};
-
-Derived::Derived() 
-    : Base(std::make_unique<Derived::Impl>()) {}
-
-Derived::~Derived() = default;
-
-void Derived::derived_action() {
-    // Безпечний статичний каст, оскільки тип Impl гарантовано Derived::Impl
-    auto* impl = static_cast<Derived::Impl*>(pImpl_.get());
-    impl->extra_field_ += 10;
-}
-```
+:::code pimpl-d/cpp/uspadkuvannia-v-klasakh-iz-2.cpp
 
 При такому дизайні:
 * розмір `Base` та `Derived` на стеку залишається рівним рівно 8 байтам;
@@ -418,27 +220,7 @@ void Derived::derived_action() {
 
 У класі з PIMPL м'ютекс ховається всередині закритої структури `Impl`:
 
-```cpp
-// Widget.cpp
-#include "Widget.h"
-#include <mutex>
-#include <string>
-
-struct Widget::Impl {
-    mutable std::mutex mtx_;
-    std::string protected_data_;
-
-    void set_data(std::string data) {
-        std::lock_guard<std::mutex> lock(mtx_);
-        protected_data_ = std::move(data);
-    }
-
-    std::string get_data() const {
-        std::lock_guard<std::mutex> lock(mtx_);
-        return protected_data_;
-    }
-};
-```
+:::code pimpl-d/cpp/Widget-3.cpp
 
 Це дає одразу три переваги:
 1. Заголовок `Widget.h` не містить `#include <mutex>` і не знає про спосіб синхронізації (м'ютекс, `std::shared_mutex`, `std::atomic` або lock-free черга).
@@ -474,52 +256,11 @@ public:
 
 Розглянемо практичний приклад використання `std::pmr::monotonic_buffer_resource` для PIMPL:
 
-```cpp
-#include <memory_resource>
-#include <memory>
-
-class PmrWidget {
-    struct Impl;
-    
-    // Власний видалювач, що повертає пам'ять у PMR-ресурс
-    struct PmrDeleter {
-        std::pmr::memory_resource* mr_;
-        void operator()(Impl* ptr) const noexcept;
-    };
-
-    std::unique_ptr<Impl, PmrDeleter> pImpl_;
-
-public:
-    explicit PmrWidget(std::pmr::memory_resource* mr);
-    ~PmrWidget();
-};
-```
+:::code pimpl-d/cpp/keruvannia-pamiattiu-za.hpp
 
 У файлі реалізації об'єкт `Impl` конструюється безпосередньо в пулі пам'яті:
 
-```cpp
-// PmrWidget.cpp
-#include "PmrWidget.h"
-
-struct PmrWidget::Impl {
-    int data_[1024];
-};
-
-void PmrWidget::PmrDeleter::operator()(Impl* ptr) const noexcept {
-    if (ptr) {
-        ptr->~Impl();
-        mr_->deallocate(ptr, sizeof(Impl), alignof(Impl));
-    }
-}
-
-PmrWidget::PmrWidget(std::pmr::memory_resource* mr) {
-    void* mem = mr->allocate(sizeof(Impl), alignof(Impl));
-    auto* impl = ::new (mem) Impl();
-    pImpl_ = std::unique_ptr<Impl, PmrDeleter>(impl, PmrDeleter{mr});
-}
-
-PmrWidget::~PmrWidget() = default;
-```
+:::code pimpl-d/cpp/PmrWidget.cpp
 
 Завдяки цьому підходу клієнт може передати стек-буфер `std::pmr::monotonic_buffer_resource arena(stack_buf, sizeof(stack_buf))` у конструктор `PmrWidget`, отримавши нульову вартість алокацій і повну ізоляцію заголовка.
 

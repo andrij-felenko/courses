@@ -49,65 +49,7 @@ head = наступний(head);  // (2) зробити слот видимим 
 
 Зберемо повну, компільовану реалізацію. Це не псевдокод — це той код, що ляже у прошивку. Почнімо зі структури. Елемент зробимо шаблонним параметром, місткість — степенем двійки; ключове — типи покажчиків і те, як вони лягають у пам'ять.
 
-```cpp
-#include <atomic>
-#include <cstddef>
-#include <cstdint>
-#include <new>          // std::hardware_destructive_interference_size
-
-template <typename T, size_t N>
-class SpscRing {
-    static_assert((N & (N - 1)) == 0, "N мусить бути степенем двійки");
-    static constexpr size_t MASK = N - 1;   // загортання через «і» замість %
-
-    // head і tail — у РІЗНИХ кеш-лініях (чому — див. пастку про false sharing).
-    alignas(64) std::atomic<size_t> head_{0};   // пише лише продюсер
-    alignas(64) std::atomic<size_t> tail_{0};   // пише лише консюмер
-    alignas(64) T buf_[N];                       // самі дані — теж окремо
-
-public:
-    // ── бік ПРОДЮСЕРА ──────────────────────────────────────────────
-    bool push(const T& item) {
-        // head_ читаємо relaxed: ми — його ЄДИНИЙ писач, свіжіше нікого нема.
-        const size_t h = head_.load(std::memory_order_relaxed);
-        const size_t next = (h + 1) & MASK;
-
-        // tail_ читаємо ACQUIRE: треба побачити, які слоти консюмер уже звільнив.
-        if (next == tail_.load(std::memory_order_acquire))
-            return false;                        // повно → відмова (політика на вибір)
-
-        buf_[h] = item;                          // (1) СПЕРШУ дані у слот
-
-        // (2) ПОТІМ публікуємо новий head RELEASE-записом: він замикає під собою
-        //     запис у слот вище, тож консюмер, побачивши next, побачить і дані.
-        head_.store(next, std::memory_order_release);
-        return true;
-    }
-
-    // ── бік КОНСЮМЕРА ──────────────────────────────────────────────
-    bool pop(T& out) {
-        // tail_ читаємо relaxed: ми — його єдиний писач.
-        const size_t t = tail_.load(std::memory_order_relaxed);
-
-        // head_ читаємо ACQUIRE: якщо побачимо новий head, то побачимо й дані,
-        //     які продюсер поклав ДО свого release.
-        if (t == head_.load(std::memory_order_acquire))
-            return false;                        // порожньо
-
-        out = buf_[t];                           // (1) забрати дані зі слота
-
-        // (2) звільнити слот RELEASE-записом tail: продюсер, побачивши новий
-        //     tail, знатиме, що слот вільний, — і не перезапише його, поки ми читали.
-        tail_.store((t + 1) & MASK, std::memory_order_release);
-        return true;
-    }
-
-    bool empty() const {
-        return head_.load(std::memory_order_acquire) ==
-               tail_.load(std::memory_order_acquire);
-    }
-};
-```
+:::code proj-spsc-ring-buffer/cpp/robochyi-kod-spsc-bufer-na.cpp
 
 Розберімо, **чому кожен порядок саме такий** — бо це і є вся суть, і саме тут помиляються.
 
@@ -119,39 +61,7 @@ public:
 
 Тепер — як цим користуватися в реальній прошивці. Продюсер на одному ядрі, консюмер на іншому, обидва крутяться у своїх циклах:
 
-```cpp
-// Кадр, що передаємо між ядрами (кілька слів — саме той випадок, коли
-// «не розірвати навпіл» важливо).
-struct Frame {
-    uint32_t timestamp;
-    uint16_t channel[8];
-    uint8_t  flags;
-};
-
-SpscRing<Frame, 256> radio_queue;   // спільний об'єкт, видимий обом ядрам
-
-// ── ядро 0: продюсер (напр., колбек готового кадру радіо) ──
-void on_frame_ready(const Frame& f) {
-    if (!radio_queue.push(f)) {
-        // Черга повна: консюмер не встигає. Політика — на ваш розсуд:
-        // відкинути найновіший (як тут), відкинути найстаріший, лічити втрати.
-        ++dropped_frames;
-    }
-}
-
-// ── ядро 1: консюмер (задача обробки) ──
-void processing_task() {
-    Frame f;
-    for (;;) {
-        if (radio_queue.pop(f)) {
-            handle(f);               // обробляємо кадр
-        } else {
-            // Черга порожня: коротко поступитися ядром, щоб не палити його вхолосту.
-            vTaskDelay(1);           // або __WFE() / yield — за середовищем
-        }
-    }
-}
-```
+:::code proj-spsc-ring-buffer/cpp/robochyi-kod-spsc-bufer-na-2.cpp
 
 Зверніть увагу на дві практичні речі. Політика **переповнення** — свідомий вибір, а не дрібниця: у телеметрії часто краще відкинути найстаріший кадр (свіжий важливіший), у надійній передачі — рахувати втрати й сигналити наверх; тут для простоти показано відмову на найновішому. І цикл консюмера **не крутить порожнечу гарячим циклом** — коли черга порожня, він поступається ядром (`vTaskDelay`, `__WFE`, `yield`), інакше спалить ціле ядро на безплідне опитування.
 

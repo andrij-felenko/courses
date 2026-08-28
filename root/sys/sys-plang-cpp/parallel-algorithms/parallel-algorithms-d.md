@@ -20,25 +20,7 @@
 
 Усі класи політик визначено в просторі імен `std::execution`. Вони підтримують стандартне конструювання, копіювання та гарантують відсутність винятків при знищенні об'єкта (`nothrow`). Для безпосереднього використання стандарт надає чотири глобальні константні екземпляри:
 
-```cpp
-namespace std::execution {
-    // Послідовне детерміноване виконання (C++17)
-    class sequenced_policy { /* реалізаційно-визначено */ };
-    inline constexpr sequenced_policy seq{};
-
-    // Паралельне багатопотокове виконання (C++17)
-    class parallel_policy { /* реалізаційно-визначено */ };
-    inline constexpr parallel_policy par{};
-
-    // Паралельне багатопотокове та векторизоване SIMD-виконання (C++17)
-    class parallel_unsequenced_policy { /* реалізаційно-визначено */ };
-    inline constexpr parallel_unsequenced_policy par_unseq{};
-
-    // Однопотокове векторизоване SIMD-виконання (C++20)
-    class unsequenced_policy { /* реалізаційно-визначено */ };
-    inline constexpr unsequenced_policy unseq{};
-}
-```
+:::code parallel-algorithms-d/cpp/1-arkhitektura-zaholovka.cpp
 
 Для метапрограмування та концептуальних обмежень стандарт надає типаж `std::is_execution_policy_v<T>`, який повертає `true` лише для офіційних політик або схвалених компіляторних розширень.
 
@@ -118,82 +100,8 @@ std::for_each(std::execution::par_unseq, data.begin(), data.end(), [&](int& x) {
 Це означає, що паралельний алгоритм не дозволяє виняткам залишати межі користувацької лямбди. Якщо всередині функції можлива помилка, розробник зобов'язаний обробити її локально за допомогою блоку `try/catch` або спроєктувати логіку без використання винятків:
 
 :::tabs
-```cpp
-// Правильний підхід: локальна ізоляція помилок у паралельному коді
-#include <algorithm>
-#include <execution>
-#include <vector>
-#include <optional>
-#include <iostream>
-
-struct ProcessResult {
-    int id;
-    std::optional<double> value;
-    std::string error_message;
-};
-
-void process_data_safely(const std::vector<int>& inputs, std::vector<ProcessResult>& outputs) {
-    outputs.resize(inputs.size());
-
-    std::transform(std::execution::par, inputs.begin(), inputs.end(), outputs.begin(), [](int x) {
-        ProcessResult res;
-        res.id = x;
-        try {
-            if (x < 0) {
-                throw std::invalid_argument("Від'ємне значення неприпустиме");
-            }
-            res.value = 100.0 / x; // Можливе ділення на нуль або помилка
-        } catch (const std::exception& ex) {
-            res.value = std::nullopt;
-            res.error_message = ex.what();
-        } catch (...) {
-            res.value = std::nullopt;
-            res.error_message = "Невідома помилка";
-        }
-        return res;
-    });
-}
-```
-```c
-/* Еквівалент мовою C: ручне потокове виконання з поверненням кодів помилок */
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-
-typedef struct {
-    int id;
-    double value;
-    int has_value;
-    char error_message[64];
-} ProcessResultC;
-
-typedef struct {
-    const int* inputs;
-    ProcessResultC* outputs;
-    size_t start;
-    size_t end;
-} WorkerTask;
-
-void* worker_func(void* arg) {
-    WorkerTask* task = (WorkerTask*)arg;
-    for (size_t i = task->start; i < task->end; ++i) {
-        int x = task->inputs[i];
-        task->outputs[i].id = x;
-        if (x < 0) {
-            task->outputs[i].has_value = 0;
-            snprintf(task->outputs[i].error_message, 64, "Від'ємне значення неприпустиме");
-        } else if (x == 0) {
-            task->outputs[i].has_value = 0;
-            snprintf(task->outputs[i].error_message, 64, "Ділення на нуль");
-        } else {
-            task->outputs[i].value = 100.0 / x;
-            task->outputs[i].has_value = 1;
-            task->outputs[i].error_message[0] = '\0';
-        }
-    }
-    return NULL;
-}
-```
+:::code parallel-algorithms-d/cpp/3-obrobka-vyniatkiv.cpp
+:::code parallel-algorithms-d/c/main.c
 :::
 
 Єдиний випадок, коли сам виклик паралельного алгоритму може викинути виняток у точку виклику — це `std::bad_alloc`, якщо внутрішній планувальник бібліотеки не зміг виділити оперативну пам'ять для ініціалізації пулу задач або керуючих структур даних.
@@ -308,24 +216,7 @@ oneTBB є найбільш зрілим, масштабованим та фак�
 - Отримані часткові суми знову групуються попарно й підсумовуються.
 - Загальна кількість паралельних кроків становить `O(log₂ N)` замість `O(N)`.
 
-```cpp
-#include <numeric>
-#include <execution>
-#include <vector>
-#include <iostream>
-
-void demonstrate_reduction() {
-    std::vector<double> values(10'000'000, 1.0);
-
-    // 1. Послідовне лінійне згортання C++98 (O(N) кроків)
-    double sum_seq = std::accumulate(values.begin(), values.end(), 0.0);
-
-    // 2. Паралельне деревоподібне згортання C++17 (O(log N) глибина)
-    double sum_par = std::reduce(std::execution::par_unseq, values.begin(), values.end(), 0.0);
-
-    std::cout << "Сума seq: " << sum_seq << ", Сума par: " << sum_par << '\n';
-}
-```
+:::code parallel-algorithms-d/cpp/6-paralelni-reduktsii-std.cpp
 
 ### Пастка обчислень із плаваючою комою (Floating-Point Non-Associativity)
 Слід пам'ятати про важливий математичний нюанс: апаратне додавання чисел із плаваючою комою стандарту IEEE 754 **не є строго асоціативним** через округлення молодших бітів мантиси:

@@ -28,46 +28,7 @@
 
 ### 2.2. Реалізація enum_to_string та string_to_enum
 
-```cpp
-#include <string_view>
-#include <optional>
-#include <vector>
-#include <stdexcept>
-#include <meta>
-
-// Конвертація значення enum у строкове представлення
-template <typename E>
-    requires std::is_enum_v<E>
-constexpr auto enum_to_string(E value) -> std::string_view {
-    constexpr auto enum_info = ^^E;
-    constexpr auto enumerators = std::meta::enumerators_of(enum_info);
-
-    // Розгортання статичного switch під час компіляції
-    template for (constexpr auto e : enumerators) {
-        if (value == [: e :]) {
-            return std::meta::name_of(e);
-        }
-    }
-
-    return "Unknown";
-}
-
-// Конвертація рядка в значення enum
-template <typename E>
-    requires std::is_enum_v<E>
-constexpr auto string_to_enum(std::string_view str) -> std::optional<E> {
-    constexpr auto enum_info = ^^E;
-    constexpr auto enumerators = std::meta::enumerators_of(enum_info);
-
-    template for (constexpr auto e : enumerators) {
-        if (str == std::meta::name_of(e)) {
-            return [: e :];
-        }
-    }
-
-    return std::nullopt;
-}
-```
+:::code proj-json-serializer/cpp/2-2-realizatsiia-enum-to.cpp
 
 ### 2.3. Покроковий розбір компіляції
 
@@ -108,139 +69,7 @@ struct JsonKey {
 
 Нижче наведено повний вихідний код серіалізатора, готовий до використання в проекті:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <vector>
-#include <optional>
-#include <concepts>
-#include <type_traits>
-#include <format>
-#include <meta>
-
-// Допоміжна функція екранування рядків для JSON
-inline auto escape_json_string(std::string_view input) -> std::string {
-    std::string output;
-    output.reserve(input.size() + 8);
-    output.push_back('"');
-    for (char c : input) {
-        switch (c) {
-            case '"':  output += "\\\""; break;
-            case '\\': output += "\\\\"; break;
-            case '\b': output += "\\b";  break;
-            case '\f': output += "\\f";  break;
-            case '\n': output += "\\n";  break;
-            case '\r': output += "\\r";  break;
-            case '\t': output += "\\t";  break;
-            default:   output.push_back(c); break;
-        }
-    }
-    output.push_back('"');
-    return output;
-}
-
-// Попереднє оголошення головної функції серіалізації
-template <typename T>
-auto to_json(const T& value) -> std::string;
-
-// 1. Серіалізація примітивних типів
-template <typename T>
-    requires std::is_arithmetic_v<T> && (!std::same_as<T, bool>)
-auto serialize_value(const T& val) -> std::string {
-    return std::to_string(val);
-}
-
-inline auto serialize_value(bool val) -> std::string {
-    return val ? "true" : "false";
-}
-
-inline auto serialize_value(std::string_view val) -> std::string {
-    return escape_json_string(val);
-}
-
-inline auto serialize_value(const std::string& val) -> std::string {
-    return escape_json_string(val);
-}
-
-// 2. Серіалізація переліків
-template <typename E>
-    requires std::is_enum_v<E>
-auto serialize_value(E val) -> std::string {
-    return escape_json_string(enum_to_string(val));
-}
-
-// 3. Серіалізація опціональних значень
-template <typename T>
-auto serialize_value(const std::optional<T>& opt) -> std::string {
-    if (!opt.has_value()) {
-        return "null";
-    }
-    return to_json(*opt);
-}
-
-// 4. Серіалізація масивів та контейнерів
-template <typename Container>
-    requires requires(const Container& c) {
-        { c.begin() } -> std::input_or_output_iterator;
-        { c.end() }   -> std::input_or_output_iterator;
-    } && (!std::same_as<Container, std::string>) && (!std::same_as<Container, std::string_view>)
-auto serialize_value(const Container& cont) -> std::string {
-    std::string out = "[";
-    bool first = true;
-    for (const auto& item : cont) {
-        if (!first) out += ", ";
-        out += to_json(item);
-        first = false;
-    }
-    out += "]";
-    return out;
-}
-
-// 5. Серіалізація структур через статичну рефлексію
-template <typename T>
-    requires std::is_class_v<T> && (!requires(const T& c) { c.begin(); }) && (!std::same_as<T, std::string>)
-auto serialize_struct(const T& obj) -> std::string {
-    constexpr auto type_info = ^^T;
-    constexpr auto members = std::meta::nonstatic_data_members_of(type_info);
-
-    std::string out = "{";
-    bool first = true;
-
-    template for (constexpr auto member : members) {
-        // Перевіряємо, чи поле публічне
-        static_assert(std::meta::is_public(member),
-            "Серіалізація підтримує лише структури з публічними полями даних");
-
-        if (!first) {
-            out += ", ";
-        }
-
-        // Визначаємо ім'я ключа: перевіряємо наявність анотації JsonKey
-        std::string_view key_name = std::meta::name_of(member);
-
-        // Формуємо пару "ключ": значення через оператор сплайсингу
-        out += escape_json_string(key_name);
-        out += ": ";
-        out += to_json(obj.[: member :]);
-
-        first = false;
-    }
-
-    out += "}";
-    return out;
-}
-
-// Головна точка входу серіалізації
-template <typename T>
-auto to_json(const T& value) -> std::string {
-    if constexpr (std::is_class_v<T> && !requires(const T& c) { c.begin(); } && !std::same_as<T, std::string>) {
-        return serialize_struct(value);
-    } else {
-        return serialize_value(value);
-    }
-}
-```
+:::code proj-json-serializer/cpp/4-povnyi-kod-serializatora.cpp
 
 ---
 
@@ -256,120 +85,7 @@ auto to_json(const T& value) -> std::string {
 
 ### 5.2. Повний код десеріалізатора
 
-```cpp
-#include <sstream>
-#include <charconv>
-
-// Простий парсер токенів JSON для демонстрації
-struct JsonParser {
-    std::string_view src;
-    size_t pos = 0;
-
-    void skip_whitespace() {
-        while (pos < src.size() && (src[pos] == ' ' || src[pos] == '\t' || src[pos] == '\n' || src[pos] == '\r')) {
-            pos++;
-        }
-    }
-
-    bool consume(char expected) {
-        skip_whitespace();
-        if (pos < src.size() && src[pos] == expected) {
-            pos++;
-            return true;
-        }
-        return false;
-    }
-
-    auto parse_string() -> std::string {
-        skip_whitespace();
-        if (!consume('"')) throw std::runtime_error("Очікувався символ '\"'");
-        size_t start = pos;
-        while (pos < src.size() && src[pos] != '"') {
-            if (src[pos] == '\\') pos++; // пропуск екранованого символу
-            pos++;
-        }
-        std::string result(src.substr(start, pos - start));
-        consume('"');
-        return result;
-    }
-
-    template <typename NumberType>
-    auto parse_number() -> NumberType {
-        skip_whitespace();
-        size_t start = pos;
-        if (pos < src.size() && (src[pos] == '-' || src[pos] == '+')) pos++;
-        while (pos < src.size() && ((src[pos] >= '0' && src[pos] <= '9') || src[pos] == '.')) {
-            pos++;
-        }
-        std::string_view num_str = src.substr(start, pos - start);
-        NumberType val{};
-        auto [ptr, ec] = std::from_chars(num_str.data(), num_str.data() + num_str.size(), val);
-        if (ec != std::errc{}) throw std::runtime_error("Помилка парсингу числа");
-        return val;
-    }
-
-    auto parse_bool() -> bool {
-        skip_whitespace();
-        if (src.substr(pos, 4) == "true") { pos += 4; return true; }
-        if (src.substr(pos, 5) == "false") { pos += 5; return false; }
-        throw std::runtime_error("Очікувалося логічне значення true/false");
-    }
-};
-
-// Десеріалізація примітивних значень
-template <typename T>
-void parse_into(JsonParser& parser, T& target) {
-    if constexpr (std::same_as<T, int> || std::same_as<T, uint32_t> || std::same_as<T, size_t>) {
-        target = parser.parse_number<T>();
-    } else if constexpr (std::same_as<T, double> || std::same_as<T, float>) {
-        target = parser.parse_number<T>();
-    } else if constexpr (std::same_as<T, bool>) {
-        target = parser.parse_bool();
-    } else if constexpr (std::same_as<T, std::string>) {
-        target = parser.parse_string();
-    } else if constexpr (std::is_enum_v<T>) {
-        std::string str = parser.parse_string();
-        auto opt = string_to_enum<T>(str);
-        if (!opt) throw std::runtime_error("Невідоме значення enum у JSON: " + str);
-        target = *opt;
-    } else if constexpr (std::is_class_v<T>) {
-        // Десеріалізація вкладеної структури через рефлексію
-        constexpr auto type_info = ^^T;
-        constexpr auto members = std::meta::nonstatic_data_members_of(type_info);
-
-        if (!parser.consume('{')) throw std::runtime_error("Очікувався початок об'єкта '{'");
-
-        while (!parser.consume('}')) {
-            std::string key = parser.parse_string();
-            if (!parser.consume(':')) throw std::runtime_error("Очікувалося двоеточие ':' після ключа");
-
-            bool field_found = false;
-            template for (constexpr auto member : members) {
-                if (key == std::meta::name_of(member)) {
-                    parse_into(parser, target.[: member :]);
-                    field_found = true;
-                }
-            }
-
-            if (!field_found) {
-                // Пропуск невідомого поля (або генерація помилки)
-                parser.parse_string();
-            }
-
-            parser.consume(',');
-        }
-    }
-}
-
-// Головна функція десеріалізації
-template <typename T>
-auto from_json(std::string_view json_text) -> T {
-    JsonParser parser{.src = json_text};
-    T result{};
-    parse_into(parser, result);
-    return result;
-}
-```
+:::code proj-json-serializer/cpp/5-2-povnyi-kod.cpp
 
 ---
 
@@ -377,63 +93,7 @@ auto from_json(std::string_view json_text) -> T {
 
 Протестуємо серіалізацію та десеріалізацію на складній моделі даних із вкладеною структурою, переліком та контейнером:
 
-```cpp
-// Оголошення переліку статусів
-enum class AccessLevel {
-    Guest,
-    User,
-    Admin,
-    Superuser
-};
-
-// Вкладена структура географічних координат
-struct GeoLocation {
-    double latitude;
-    double longitude;
-};
-
-// Головна сутність профілю користувача
-struct UserAccount {
-    int id;
-    std::string username;
-    bool is_active;
-    AccessLevel role;
-    GeoLocation location;
-    std::vector<std::string> tags;
-};
-
-auto main() -> int {
-    // 1. Створення та ініціалізація об'єкта
-    UserAccount account{
-        .id = 1042,
-        .username = "developer_alex",
-        .is_active = true,
-        .role = AccessLevel::Admin,
-        .location = {
-            .latitude = 50.4501,
-            .longitude = 30.5234
-        },
-        .tags = {"cpp26", "reflection", "performance"}
-    };
-
-    // 2. Автоматична серіалізація в JSON без жодного макросу
-    std::string json_payload = to_json(account);
-    std::cout << "Згенерований JSON:\n" << json_payload << "\n\n";
-
-    // 3. Зворотна десеріалізація з JSON у новий об'єкт
-    UserAccount restored_account = from_json<UserAccount>(json_payload);
-
-    std::cout << "Відновлений об'єкт:\n";
-    std::cout << "ID: " << restored_account.id << "\n";
-    std::cout << "Username: " << restored_account.username << "\n";
-    std::cout << "Active: " << (restored_account.is_active ? "yes" : "no") << "\n";
-    std::cout << "Role: " << enum_to_string(restored_account.role) << "\n";
-    std::cout << "Latitude: " << restored_account.location.latitude << "\n";
-    std::cout << "Longitude: " << restored_account.location.longitude << "\n";
-
-    return 0;
-}
-```
+:::code proj-json-serializer/cpp/6-demonstratsiinyi-pryklad.hpp
 
 Вивід програми:
 ```json
@@ -446,44 +106,7 @@ auto main() -> int {
 
 Статична рефлексія не обмежується серіалізацією в JSON. На основі тих самих метаданих можна автоматично генерувати DDL-вирази для створення таблиць у реляційних базах даних (наприклад, SQLite чи PostgreSQL):
 
-```cpp
-template <typename T>
-auto generate_create_table() -> std::string {
-    constexpr auto type_info = ^^T;
-    constexpr auto members = std::meta::nonstatic_data_members_of(type_info);
-
-    std::string sql = "CREATE TABLE ";
-    sql += std::meta::name_of(type_info);
-    sql += " (\n";
-
-    bool first = true;
-    template for (constexpr auto member : members) {
-        if (!first) sql += ",\n";
-
-        sql += "    ";
-        sql += std::meta::name_of(member);
-        sql += " ";
-
-        constexpr auto field_type = std::meta::type_of(member);
-        if constexpr (field_type == ^^int || field_type == ^^uint32_t) {
-            sql += "INTEGER";
-        } else if constexpr (field_type == ^^double || field_type == ^^float) {
-            sql += "REAL";
-        } else if constexpr (field_type == ^^std::string) {
-            sql += "TEXT";
-        } else if constexpr (field_type == ^^bool) {
-            sql += "BOOLEAN";
-        } else {
-            sql += "BLOB";
-        }
-
-        first = false;
-    }
-
-    sql += "\n);";
-    return sql;
-}
-```
+:::code proj-json-serializer/cpp/7-heneratsiia-skhemy-bazy.cpp
 
 Цей приклад ілюструє силу уніфікованого інтерфейсу рефлексії: один і той самий опис структури даних C++ одночасно слугує джерелом для JSON API, двійкового протоколу обміну та схеми сховища без дублювання інформації в кодовій базі.
 
@@ -493,23 +116,7 @@ auto generate_create_table() -> std::string {
 
 Окрім текстового JSON, аналогічний підхід на базі статичної рефлексії C++26 дозволяє будувати надшвидкі двійкові серіалізатори з прямою упаковкою байтів. Використовуючи функцію `std::meta::offset_of` та предикат `std::meta::is_trivially_copyable`, серіалізатор може автоматично обирати між побайтовим копіюванням `std::memcpy` для тривіальних структур та поелементним записом полів у мережевий буфер:
 
-```cpp
-template <typename T>
-void serialize_binary(const T& obj, std::vector<uint8_t>& buffer) {
-    constexpr auto type_info = ^^T;
-
-    // Якщо структура тривіальна і не має вказівників — копіюємо весь блок пам'яті
-    if constexpr (std::is_trivially_copyable_v<T>) {
-        const auto* byte_ptr = reinterpret_cast<const uint8_t*>(&obj);
-        buffer.insert(buffer.end(), byte_ptr, byte_ptr + sizeof(T));
-    } else {
-        // Поелементна серіалізація полів через рефлексію
-        template for (constexpr auto member : std::meta::nonstatic_data_members_of(type_info)) {
-            serialize_binary(obj.[: member :], buffer);
-        }
-    }
-}
-```
+:::code proj-json-serializer/cpp/8-dviikova-serializatsiia.cpp
 
 Така оптимізація гарантує, що для простих структур даних (POD) час виконання серіалізації зводиться до однієї машинної інструкції копіювання пам'яті, що критично для високонавантажених мережевих систем.
 
@@ -521,30 +128,7 @@ void serialize_binary(const T& obj, std::vector<uint8_t>& buffer) {
 
 Статична рефлексія дозволяє обчислити криптографічно стійкий хеш структури (schema hash) безпосередньо під час компіляції без виконання програми:
 
-```cpp
-consteval auto compute_struct_signature(std::meta::info type_info) -> uint64_t {
-    uint64_t hash = 14695981039346656037ULL; // початкове значення FNV-1a
-    constexpr uint64_t prime = 1099511628211ULL;
-
-    auto update_hash = [&](std::string_view text) {
-        for (char c : text) {
-            hash ^= static_cast<uint8_t>(c);
-            hash *= prime;
-        }
-    };
-
-    // Враховуємо ім'я самої структури
-    update_hash(std::meta::name_of(type_info));
-
-    // Враховуємо імена та типи всіх нестатичних полів
-    for (auto member : std::meta::nonstatic_data_members_of(type_info)) {
-        update_hash(std::meta::name_of(member));
-        update_hash(std::meta::display_name_of(std::meta::type_of(member)));
-    }
-
-    return hash;
-}
-```
+:::code proj-json-serializer/cpp/9-avtomatychnyi.cpp
 
 Цей хеш можна вбудовувати в заголовок мережевого пакета. Якщо клієнт та сервер мають різний `compute_struct_signature(^^Message)`, з'єднання відхиляється на етапі рукостискання, усуваючи ризик пошкодження пам'яті через розсинхронізацію схем даних.
 
@@ -556,39 +140,7 @@ consteval auto compute_struct_signature(std::meta::info type_info) -> uint64_t {
 
 У класичному C++ розробникам доводилося вручну писати дві паралельні структури даних. Статична рефлексія C++26 разом із генератором `define_class` дозволяє автоматично трансформувати будь-яку структуру `AoS` у відповідний контейнер `SoA`:
 
-```cpp
-template <typename StructType>
-class SoAContainer {
-    // Автоматичне обчислення типів векторів для кожного поля StructType
-    static consteval auto generate_soa_layout() -> std::meta::info {
-        std::vector<std::meta::data_member_spec> specs;
-        for (auto f : std::meta::nonstatic_data_members_of(^^StructType)) {
-            auto vec_type = std::meta::substitute(^^std::vector, std::array{std::meta::type_of(f)});
-            specs.push_back({
-                .type = vec_type,
-                .name = std::meta::name_of(f)
-            });
-        }
-        return std::meta::define_class(specs);
-    }
-
-    using Storage = [: generate_soa_layout() :];
-    Storage storage;
-    size_t count = 0;
-
-public:
-    void push_back(const StructType& item) {
-        template for (constexpr auto f : std::meta::nonstatic_data_members_of(^^StructType)) {
-            constexpr auto member_name = std::meta::name_of(f);
-            // Додаємо елемент у відповідний вектор SoA-сховища
-            storage.[: f :].push_back(item.[: f :]);
-        }
-        count++;
-    }
-
-    auto size() const noexcept -> size_t { return count; }
-};
-```
+:::code proj-json-serializer/cpp/10-transformatsiia.cpp
 
 Цей механізм демонструє фундаментальну перевагу рефлексії: зміна внутрішнього фізичного представлення пам'яті відбувається автоматично під час збірки без дублювання коду та без ризику розсинхронізації полів.
 
@@ -650,19 +202,7 @@ void report_parse_error(std::string_view field_name, std::string_view token, siz
 
 Для підтримки таких типів організовується механізм користувацьких адаптерів (англ. *custom serialization hooks*). За допомогою перевірки концепту `has_custom_json_v<T>` серіалізатор віддає пріоритет спеціалізованим функціям перетворення:
 
-```cpp
-// Концепт для виявлення користувацького методу серіалізації
-template <typename T>
-concept CustomSerializable = requires(const T& val) {
-    { to_custom_json(val) } -> std::same_as<std::string>;
-};
-
-// Приклад адаптера для часових міток std::chrono
-inline auto to_custom_json(const std::chrono::system_clock::time_point& tp) -> std::string {
-    auto epoch_ms = std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count();
-    return std::to_string(epoch_ms);
-}
-```
+:::code proj-json-serializer/cpp/14-tochky-rozshyrennia.cpp
 
 У головній диспетчерській функції `to_json` перевірка концепту `CustomSerializable<T>` виконується в першу чергу, що дозволяє легко додавати підтримку складних типів без модифікації ядра рефлексивного рушія.
 

@@ -64,89 +64,8 @@ std::latch init_gate(4);
 Розглянемо практичний шаблон, де головний потік рушія запускає 3 фонові потоки для зчитування текстур, звуків і геометрії рівня, після чого чекає готовності всіх підсистем.
 
 :::tabs
-```cpp
-#include <iostream>
-#include <latch>
-#include <thread>
-#include <vector>
-#include <span>
-#include <string_view>
-
-void load_textures(std::latch& done) {
-    // Симуляція зчитування текстур з SSD
-    std::this_thread::sleep_for(std::chrono::milliseconds(80));
-    std::cout << "[IO] Текстури завантажено\n";
-    done.count_down(); // Декремент без блокування потоку
-}
-
-void load_audio(std::latch& done) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(40));
-    std::cout << "[IO] Аудіобанки декодовано\n";
-    done.count_down();
-}
-
-void load_geometry(std::latch& done) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(120));
-    std::cout << "[IO] Геометрію рівнів побудовано\n";
-    done.count_down();
-}
-
-int main() {
-    constexpr ptrdiff_t total_tasks = 3;
-    std::latch loading_latch(total_tasks);
-
-    std::jthread t1(load_textures, std::ref(loading_latch));
-    std::jthread t2(load_audio, std::ref(loading_latch));
-    std::jthread t3(load_geometry, std::ref(loading_latch));
-
-    std::cout << "[Main] Очікування завершення завантаження ресурсів...\n";
-    loading_latch.wait(); // Блокується до досягнення нуля
-
-    std::cout << "[Main] Усі підсистеми готові. Запуск ігрового циклу!\n";
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>
-
-/* В аналогічній POSIX C реалізації доводиться створювати м'ютекс,
-   умовну змінну та вручну контролювати цілочисельний лічильник */
-typedef struct {
-    pthread_mutex_t mtx;
-    pthread_cond_t cv;
-    int counter;
-} posix_latch_t;
-
-void posix_latch_init(posix_latch_t* l, int count) {
-    pthread_mutex_init(&l->mtx, NULL);
-    pthread_cond_init(&l->cv, NULL);
-    l->counter = count;
-}
-
-void posix_latch_count_down(posix_latch_t* l) {
-    pthread_mutex_lock(&l->mtx);
-    l->counter--;
-    if (l->counter == 0) {
-        pthread_cond_broadcast(&l->cv);
-    }
-    pthread_mutex_unlock(&l->mtx);
-}
-
-void posix_latch_wait(posix_latch_t* l) {
-    pthread_mutex_lock(&l->mtx);
-    while (l->counter > 0) {
-        pthread_cond_wait(&l->cv, &l->mtx);
-    }
-    pthread_mutex_unlock(&l->mtx);
-}
-
-void posix_latch_destroy(posix_latch_t* l) {
-    pthread_mutex_destroy(&l->mtx);
-    pthread_cond_destroy(&l->cv);
-}
-```
+:::code latch-barrier-semaphore-d/cpp/pryklad-paralelne.cpp
+:::code latch-barrier-semaphore-d/c/pryklad-paralelne.c
 :::
 
 У коді C++20 `std::latch` не потребує ручного керування замками чи очищення ресурсів у деструкторі, а за відсутності конкуренції не виконує системних викликів ядра.
@@ -204,101 +123,8 @@ class barrier;
 Розглянемо паралельне згладжування матриці пікселів (алгоритм Гаусса / розв'язання рівняння теплопровідності) з подвійною буферизацією (англ. *ping-pong buffers*):
 
 :::tabs
-```cpp
-#include <iostream>
-#include <barrier>
-#include <vector>
-#include <thread>
-#include <span>
-#include <numeric>
-
-void run_simulation() {
-    constexpr int num_threads = 4;
-    constexpr int num_steps = 3;
-
-    std::vector<float> buffer_a(1024, 1.0f);
-    std::vector<float> buffer_b(1024, 0.0f);
-    std::vector<float>* current_in = &buffer_a;
-    std::vector<float>* current_out = &buffer_b;
-
-    int current_step = 0;
-
-    // Completion callback: викликається один раз у кінці кожної фази
-    auto on_phase_complete = [&]() noexcept {
-        std::swap(current_in, current_out);
-        ++current_step;
-        std::cout << "[Бар'єр] Фаза " << current_step << " завершена. Буфери обміняно.\n";
-    };
-
-    std::barrier sync_point(num_threads, on_phase_complete);
-    std::vector<std::jthread> workers;
-    workers.reserve(num_threads);
-
-    for (int id = 0; id < num_threads; ++id) {
-        workers.emplace_back([id, &sync_point, &current_in, &current_out, num_steps]() {
-            for (int step = 0; step < num_steps; ++step) {
-                // 1. Обчислювальна частина для потоку id
-                const size_t chunk_size = 1024 / 4;
-                const size_t start = id * chunk_size;
-                const size_t end = start + chunk_size;
-
-                for (size_t i = start; i < end; ++i) {
-                    (*current_out)[i] = (*current_in)[i] * 0.95f;
-                }
-
-                // 2. Очікування решти потоків та виконання swap у callback
-                sync_point.arrive_and_wait();
-            }
-        });
-    }
-}
-
-int main() {
-    run_simulation();
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-
-/* У стандартному C POSIX надає pthread_barrier_t,
-   але він не має вбудованого completion callback */
-#define NUM_THREADS 4
-#define NUM_STEPS 3
-
-pthread_barrier_t g_barrier;
-float buffer_a[1024];
-float buffer_b[1024];
-float* current_in = buffer_a;
-float* current_out = buffer_b;
-
-void* worker(void* arg) {
-    long id = (long)arg;
-    size_t chunk_size = 1024 / NUM_THREADS;
-    size_t start = id * chunk_size;
-    size_t end = start + chunk_size;
-
-    for (int step = 0; step < NUM_STEPS; ++step) {
-        for (size_t i = start; i < end; ++i) {
-            current_out[i] = current_in[i] * 0.95f;
-        }
-
-        // PTHREAD_BARRIER_SERIAL_THREAD повертається рівно одному потоку
-        int rc = pthread_barrier_wait(&g_barrier);
-        if (rc == PTHREAD_BARRIER_SERIAL_THREAD) {
-            float* tmp = current_in;
-            current_in = current_out;
-            current_out = tmp;
-            printf("[POSIX Barrier] Крок %d завершено.\n", step + 1);
-        }
-        // Потрібен ДРУГИЙ бар'єр, щоб інші потоки не почали
-        // читати current_in ДО того, як серійний потік завершить swap!
-    }
-    return NULL;
-}
-```
+:::code latch-barrier-semaphore-d/cpp/pryklad-paralelnyi.cpp
+:::code latch-barrier-semaphore-d/c/pryklad-paralelnyi.c
 :::
 
 Уважно зверни увагу на пастку в коді POSIX C: оскільки `pthread_barrier_wait` розблоковує потоки паралельно з виконанням обміну буферів, у POSIX-коді без другого бар'єра виникає стан гонки (інші потоки можуть прочитати покажчик `current_in` до або під час його зміни єдиним потоком). Клас `std::barrier` у C++20 позбавлений цієї проблеми за побудовою: жоден потік не розблоковується доти, доки `CompletionFunction` повністю не завершить своє виконання.
@@ -322,23 +148,7 @@ void* worker(void* arg) {
 
 Стандарт визначає клас-шаблон:
 
-```cpp
-template<ptrdiff_t LeastMaxValue = /* залежить від платформи */>
-class counting_semaphore {
-public:
-    static constexpr ptrdiff_t max() noexcept;
-    explicit counting_semaphore(ptrdiff_t desired);
-    ~counting_semaphore();
-
-    void release(ptrdiff_t update = 1);
-    void acquire();
-    bool try_acquire() noexcept;
-    template<class Rep, class Period>
-    bool try_acquire_for(const std::chrono::duration<Rep, Period>& rel_time);
-    template<class Clock, class Duration>
-    bool try_acquire_until(const std::chrono::time_point<Clock, Duration>& abs_time);
-};
-```
+:::code latch-barrier-semaphore-d/cpp/counting-semaphore-proty.hpp
 
 Параметр шаблону `LeastMaxValue` вказує компілятору **гарантоване мінімальне максимальне значення** лічильника, яке має підтримувати реалізація. Це дозволяє компілятору оптимізувати внутрішній розмір атомарного типу: наприклад, якщо `LeastMaxValue == 1`, семафор можна розмістити в одному байті або 32-бітному слові.
 
@@ -368,74 +178,8 @@ using binary_semaphore = std::counting_semaphore<1>;
 Якщо сервер має 100 робочих потоків, але зовнішній API дозволяє не більше 4 одночасних з'єднань, `std::counting_semaphore` забезпечує елегантне регулювання пропускної здатності (англ. *rate limiting* / *concurrency throttling*):
 
 :::tabs
-```cpp
-#include <iostream>
-#include <semaphore>
-#include <thread>
-#include <vector>
-#include <span>
-#include <chrono>
-
-class ConnectionPoolLimiter {
-public:
-    explicit ConnectionPoolLimiter(ptrdiff_t max_concurrent)
-        : sem_(max_concurrent) {}
-
-    void execute_transaction(int client_id) {
-        // Захоплюємо 1 дозвіл із пулу (блокується, якщо всі 4 зайняті)
-        sem_.acquire();
-
-        // Критична секція обмеженого ресурсу
-        std::cout << "[Клієнт " << client_id << "] Отримав з'єднання. Виконання запиту...\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        std::cout << "[Клієнт " << client_id << "] Завершив роботу. Повернення з'єднання.\n";
-
-        // Звільняємо дозвіл для наступного очікуючого клієнта
-        sem_.release();
-    }
-
-private:
-    std::counting_semaphore<16> sem_;
-};
-
-int main() {
-    ConnectionPoolLimiter limiter(4); // Дозволено максимум 4 одночасні з'єднання
-    std::vector<std::jthread> clients;
-    clients.reserve(10);
-
-    for (int i = 1; i <= 10; ++i) {
-        clients.emplace_back([&limiter, i]() {
-            limiter.execute_transaction(i);
-        });
-    }
-
-    return 0;
-}
-```
-```c
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <unistd.h>
-
-/* У чистому C під POSIX використовується sem_t із <semaphore.h> */
-sem_t g_posix_sem;
-
-void* client_task(void* arg) {
-    long id = (long)arg;
-    
-    // sem_wait() еквівалентний acquire()
-    sem_wait(&g_posix_sem);
-    
-    printf("[POSIX Client %ld] Отримав з'єднання...\n", id);
-    usleep(50000); // 50 мс
-    printf("[POSIX Client %ld] Завершив роботу.\n", id);
-    
-    // sem_post() еквівалентний release()
-    sem_post(&g_posix_sem);
-    return NULL;
-}
-```
+:::code latch-barrier-semaphore-d/cpp/pryklad-pul-obmezhennia.cpp
+:::code latch-barrier-semaphore-d/c/pryklad-pul-obmezhennia.c
 :::
 
 ## Апаратна реалізація, Futex та модель пам'яті

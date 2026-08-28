@@ -6,38 +6,7 @@
 
 Обидва значення дає один прохід по тексту, тому й тримати їх зручно разом.
 
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <string>
-
-struct Summary {
-    std::size_t words = 0;   // кількість слів
-    std::string digest;      // геш тексту, шістнадцятковим рядком
-};
-
-// FNV-1a, 64 біти: одна з найпростіших пристойних некриптографічних геш-функцій
-std::string to_hex(std::uint64_t v) {
-    static const char* d = "0123456789abcdef";
-    std::string out(16, '0');
-    for (int i = 15; i >= 0; --i, v >>= 4) out[i] = d[v & 0xF];
-    return out;
-}
-
-Summary compute_summary(const std::string& text) {
-    std::uint64_t h = 0xcbf29ce484222325ull;      // FNV offset basis
-    std::size_t words = 0;
-    bool in_word = false;
-
-    for (unsigned char c : text) {
-        h = (h ^ c) * 0x100000001b3ull;           // FNV prime
-        const bool space = (c == ' ' || c == '\n' || c == '\t' || c == '\r');
-        if (space)            in_word = false;
-        else if (!in_word)  { ++words; in_word = true; }
-    }
-    return Summary{words, to_hex(h)};
-}
-```
+:::code proj-logical-const-cache/cpp/spilna-chastyna-shcho-my.cpp
 
 Функція чиста: той самий текст завжди дає той самий `Summary`. Саме ця чистота й робить кеш законним — вона гарантує, що запам'ятана відповідь ніколи не розійдеться з обчисленою наново. Якби `compute_summary` залежала ще від чогось (від часу, від глобальної таблиці, від локалі), кеш би вже брехав, і жоден замок цього не полагодив би. Запам'ятовувати взагалі можна лише результат [чистої функції](root:sf-apps/pure-functions-side-effects) від того стану, який кеш стереже, — це передумова, яку не перевіряє ні компілятор, ні санітайзер.
 
@@ -45,24 +14,7 @@ Summary compute_summary(const std::string& text) {
 
 ## Версія 1: чесна спроба, яка не компілюється
 
-```cpp
-class Document {
-    std::string text_;
-    Summary     cache_;
-    bool        ready_ = false;
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    std::size_t word_count() const {
-        if (!ready_) {
-            cache_ = compute_summary(text_);   // ✗
-            ready_ = true;                     // ✗
-        }
-        return cache_.words;
-    }
-};
-```
+:::code proj-logical-const-cache/cpp/versiia-1-chesna-sproba.cpp
 
 GCC відповідає рівно те, що відбувається:
 
@@ -77,70 +29,13 @@ error: assignment of member 'Document::ready_' in read-only object
 
 ## Версія 2: mutable — компілюється і тихо ламається
 
-```cpp
-class Document {
-    std::string     text_;
-    mutable Summary cache_;
-    mutable bool    ready_ = false;
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    std::size_t word_count() const {
-        if (!ready_) { cache_ = compute_summary(text_); ready_ = true; }
-        return cache_.words;
-    }
-    std::string digest() const {
-        if (!ready_) { cache_ = compute_summary(text_); ready_ = true; }
-        return cache_.digest;
-    }
-};
-```
+:::code proj-logical-const-cache/cpp/versiia-2-mutable.cpp
 
 Компілюється, працює, тести зелені. У однопотоковій програмі цей клас бездоганний: `word_count()` віддає те саме число скільки завгодно разів, просто вдруге швидше. Логічна константність дотримана.
 
 А тепер два потоки питають той самий документ одночасно.
 
-```cpp
-#include <atomic>
-#include <iostream>
-#include <thread>
-
-std::string make_text(int seed) {
-    std::string s;
-    for (int i = 0; i < 400; ++i) {            // рівно 400 слів
-        s += "word";
-        s += char('a' + (seed + i) % 26);
-        s += ' ';
-    }
-    return s;
-}
-
-int main() {
-    std::size_t bad = 0;
-
-    for (int round = 0; round < 50000; ++round) {
-        Document doc(make_text(round));        // свіжий об'єкт: кеш порожній
-        std::atomic<int> gate{0};
-        std::size_t a = 0, b = 0;
-
-        auto worker = [&](std::size_t& out) {
-            gate.fetch_add(1, std::memory_order_relaxed);
-            while (gate.load(std::memory_order_relaxed) < 2)   // стартуємо разом
-                std::this_thread::yield();
-            out = doc.word_count();
-        };
-
-        std::thread t1(worker, std::ref(a));
-        std::thread t2(worker, std::ref(b));
-        t1.join();
-        t2.join();
-
-        if (a != 400 || b != 400) ++bad;
-    }
-    std::cout << "неправильних відповідей: " << bad << " із 100000\n";
-}
-```
+:::code proj-logical-const-cache/cpp/versiia-2-mutable-2.cpp
 
 Свіжий документ на кожному колі — обов'язковий, інакше кеш прогріється на першому ж виклику й гонитися буде нічому. Спільний лічильник `gate` вирівнює старт: без нього другий потік майже завжди приходить, коли перший уже все порахував, і вікно гонки не відкривається.
 
@@ -181,34 +76,7 @@ SUMMARY: ThreadSanitizer: data race doc.cpp:23 in Document::word_count() const
 
 ## Версія 3: mutable-м'ютекс — просто й правильно
 
-```cpp
-#include <mutex>
-
-class Document {
-    std::string        text_;
-    mutable std::mutex m_;
-    mutable Summary    cache_;
-    mutable bool       ready_ = false;
-
-    void ensure_locked() const {          // викликати ЛИШЕ під захопленим m_
-        if (!ready_) { cache_ = compute_summary(text_); ready_ = true; }
-    }
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    std::size_t word_count() const {
-        std::lock_guard lock(m_);
-        ensure_locked();
-        return cache_.words;
-    }
-    std::string digest() const {
-        std::lock_guard lock(m_);
-        ensure_locked();
-        return cache_.digest;             // копія під замком — назовні йде значення
-    }
-};
-```
+:::code proj-logical-const-cache/cpp/versiia-3-mutable-miuteks.cpp
 
 М'ютекс теж `mutable`, і це не косметика: захоплення замка змінює його стан, а робимо ми це з `const`-методу — без `mutable` версія 3 не скомпілюється так само, як версія 1. Тип `std::mutex` у полі — це нормально й правильно; докладніше про самі замки та їхні RAII-обгортки — у [м'ютексі й RAII-замках](root:sys-plang-cpp/mutex-and-raii-locks).
 
@@ -239,37 +107,7 @@ public:
 
 ## Версія 4: атомарний прапорець — правильно і швидко
 
-```cpp
-#include <atomic>
-#include <mutex>
-
-class Document {
-    std::string             text_;
-    mutable std::mutex      m_;
-    mutable Summary         cache_;
-    mutable std::atomic<bool> ready_{false};
-
-    void fill() const {
-        std::lock_guard lock(m_);
-        if (!ready_.load(std::memory_order_relaxed)) {   // під замком — досить relaxed
-            cache_ = compute_summary(text_);
-            ready_.store(true, std::memory_order_release);
-        }
-    }
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    std::size_t word_count() const {
-        if (!ready_.load(std::memory_order_acquire)) fill();
-        return cache_.words;
-    }
-    std::string digest() const {
-        if (!ready_.load(std::memory_order_acquire)) fill();
-        return cache_.digest;
-    }
-};
-```
+:::code proj-logical-const-cache/cpp/versiia-4-atomarnyi.cpp
 
 Уся правильність тримається на парі `release` — `acquire`, і варто розібрати, що саме ці два слова обіцяють. Запис `ready_.store(true, release)` каже: усе, що цей потік записав **до** цього рядка, стає видимим для будь-якого потоку, який прочитає з `ready_` значення `true` через `acquire`. Читання `ready_.load(acquire)`, побачивши `true`, каже симетричне: усе, що записав потік-публікатор, тепер видно й мені. Разом вони будують місток «раніше-ніж» між двома потоками — рівно те, чого не було у версії 2. Це загальна механіка [порядку пам'яті](root:sf-tasks/memory-ordering-barriers), і `std::atomic` — місце, де вона в C++ записується словами; докладніше — в [std::atomic і порядку пам'яті](root:sys-plang-cpp/std-atomic).
 
@@ -296,23 +134,7 @@ ret
 
 Те саме можна записати коротше, віддавши всю синхронізацію бібліотеці:
 
-```cpp
-#include <mutex>
-
-class Document {
-    std::string          text_;
-    mutable std::once_flag once_;
-    mutable Summary      cache_;
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    std::size_t word_count() const {
-        std::call_once(once_, [this] { cache_ = compute_summary(text_); });
-        return cache_.words;
-    }
-};
-```
+:::code proj-logical-const-cache/cpp/variant-na-once-flag.cpp
 
 [`std::call_once`](root:sys-plang-cpp/call-once-lazy-init) гарантує, що лямбда виконається рівно один раз, а її завершення буде «раніше-ніж» повернення з усіх інших викликів із тим самим прапорцем. Порядку пам'яті тут немає взагалі — його немає де переплутати, і це головна перевага варіанта. Три речі, які варто знати, перш ніж його брати.
 
@@ -330,23 +152,7 @@ public:
 
 ## Замір: як не збрехати самому собі
 
-```cpp
-#include <chrono>
-#include <cstdio>
-
-template <class Doc>
-void bench(const char* name, const Doc& doc, int reps) {
-    doc.word_count();                                   // прогріти кеш
-
-    volatile std::size_t sink = 0;                      // щоб цикл не викинули
-    const auto t0 = std::chrono::steady_clock::now();
-    for (int i = 0; i < reps; ++i) sink += doc.word_count();
-    const auto t1 = std::chrono::steady_clock::now();
-
-    const double ns = std::chrono::duration<double, std::nano>(t1 - t0).count() / reps;
-    std::printf("%-34s %7.2f нс/виклик\n", name, ns);
-}
-```
+:::code proj-logical-const-cache/cpp/zamir-iak-ne-zbrekhaty.cpp
 
 Три речі, без яких замір нічого не показує. `volatile sink` — інакше оптимізатор побачить, що результат нікуди не йде, і викине весь цикл; поміряний нуль ти приймеш за перемогу. Прогрів до старту годинника — інакше в перший виклик потрапить увесь `compute_summary`, і на тисячі повторів він розмажеться в рівний шум. І `steady_clock`, а не `system_clock`: перший монотонний, другий може стрибнути назад посеред заміру, бо його підправив NTP.
 
@@ -382,59 +188,7 @@ docs.push_back(Document("текст"));   // ✗ use of deleted function
 
 **Переміщення мусить скинути кеш джерела.** Після переміщення `text_` джерело лишається [в дійсному, але невизначеному стані](root:sys-plang-cpp/move-semantics) — його рядок майже напевно порожній, але стандарт цього не обіцяє. Якщо лишити прапорець готовності, джерело почне впевнено відповідати «400 слів» над порожнім текстом. Формально ним і не можна користуватися, крім присвоєння й знищення, — практично ж перший `assert(doc.word_count() == recount(doc.text()))` у зневаджувальній збірці спрацює саме тут, і шукати причину доведеться довго.
 
-```cpp
-class Document {
-    std::string             text_;
-    mutable std::mutex      m_;
-    mutable Summary         cache_;
-    mutable std::atomic<bool> ready_{false};
-
-public:
-    explicit Document(std::string text) : text_(std::move(text)) {}
-
-    Document(const Document& other) {
-        std::lock_guard lock(other.m_);          // джерело живе — його треба стерегти
-        text_  = other.text_;
-        cache_ = other.cache_;
-        ready_.store(other.ready_.load(std::memory_order_relaxed),
-                     std::memory_order_relaxed);
-        // m_ — свіжий власний м'ютекс: новий об'єкт ще нікому не роздано
-    }
-
-    Document(Document&& other) noexcept
-        : text_(std::move(other.text_)),
-          cache_(std::move(other.cache_)),
-          ready_(other.ready_.load(std::memory_order_relaxed)) {
-        other.cache_ = Summary{};                          // джерело більше не має тексту —
-        other.ready_.store(false, std::memory_order_relaxed);  // його кеш став брехнею
-    }
-
-    Document& operator=(const Document& other) {
-        if (this == &other) return *this;        // обов'язково, і не заради швидкості
-        std::scoped_lock lock(m_, other.m_);     // C++17: обидва разом, без дедлоку
-        text_  = other.text_;
-        cache_ = other.cache_;
-        ready_.store(other.ready_.load(std::memory_order_relaxed),
-                     std::memory_order_relaxed);
-        return *this;
-    }
-
-    Document& operator=(Document&& other) noexcept {
-        if (this == &other) return *this;
-        text_  = std::move(other.text_);
-        cache_ = std::move(other.cache_);
-        ready_.store(other.ready_.load(std::memory_order_relaxed),
-                     std::memory_order_relaxed);
-        other.cache_ = Summary{};
-        other.ready_.store(false, std::memory_order_relaxed);
-        return *this;
-    }
-
-    ~Document() = default;
-
-    // word_count(), digest() і fill() — без змін, як у версії 4
-};
-```
+:::code proj-logical-const-cache/cpp/versiia-5-shcho-robytsia-z.cpp
 
 Розберімо, чому кожне з цих рішень саме таке.
 

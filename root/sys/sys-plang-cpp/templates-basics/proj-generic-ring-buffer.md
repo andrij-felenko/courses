@@ -22,295 +22,7 @@
 
 Наведений нижче клас підтримує повний життєвий цикл елементів, семантику переміщення, суворі гарантії винятків, функціональні шаблони методів, підтримку ітераторів діапазонів `range-based for`, конструктори з буферів іншої місткості та політику примусового витіснення.
 
-```cpp
-#include <iostream>
-#include <cstddef>
-#include <new>
-#include <utility>
-#include <type_traits>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <string_view>
-#include <iterator>
-#include <algorithm>
-
-template <typename T, std::size_t Capacity>
-class RingBuffer {
-    static_assert(Capacity > 0, "Розмір кільцевого буфера зобов'язаний бути більшим за 0!");
-
-public:
-    // Шаблони псевдонімів (Alias Templates) для стандартизації інтерфейсу
-    using value_type      = T;
-    using size_type       = std::size_t;
-    using reference       = T&;
-    using const_reference = const T&;
-    using pointer         = T*;
-    using const_pointer   = const T*;
-
-    // Вкладений шаблон ітератора кільцевого буфера
-    template <bool IsConst>
-    class RingIterator {
-    public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type        = T;
-        using difference_type   = std::ptrdiff_t;
-        using pointer           = std::conditional_t<IsConst, const T*, T*>;
-        using reference         = std::conditional_t<IsConst, const T&, T&>;
-
-        RingIterator(std::conditional_t<IsConst, const RingBuffer*, RingBuffer*> buffer, size_type offset)
-            : buffer_(buffer), offset_(offset) {}
-
-        reference operator*() const {
-            return (*buffer_)[offset_];
-        }
-
-        pointer operator->() const {
-            return &((*buffer_)[offset_]);
-        }
-
-        RingIterator& operator++() {
-            ++offset_;
-            return *this;
-        }
-
-        RingIterator operator++(int) {
-            RingIterator tmp = *this;
-            ++offset_;
-            return tmp;
-        }
-
-        bool operator==(const RingIterator& other) const noexcept {
-            return buffer_ == other.buffer_ && offset_ == other.offset_;
-        }
-
-        bool operator!=(const RingIterator& other) const noexcept {
-            return !(*this == other);
-        }
-
-    private:
-        std::conditional_t<IsConst, const RingBuffer*, RingBuffer*> buffer_;
-        size_type offset_{0};
-    };
-
-    using iterator       = RingIterator<false>;
-    using const_iterator = RingIterator<true>;
-
-    // Конструктор за замовчуванням: створює порожній буфер без конструювання елементів
-    constexpr RingBuffer() noexcept : head_(0), tail_(0), size_(0) {}
-
-    // Конструктор копіювання того ж типу
-    RingBuffer(const RingBuffer& other) {
-        for (size_type i = 0; i < other.size_; ++i) {
-            push(other[i]);
-        }
-    }
-
-    // Узагальнений конструктор копіювання з буфера іншої місткості OtherCapacity
-    template <std::size_t OtherCapacity>
-    explicit RingBuffer(const RingBuffer<T, OtherCapacity>& other) {
-        const size_type count_to_copy = std::min(Capacity, other.size());
-        for (size_type i = 0; i < count_to_copy; ++i) {
-            push(other[i]);
-        }
-    }
-
-    // Конструктор переміщення
-    RingBuffer(RingBuffer&& other) noexcept(std::is_nothrow_move_constructible_v<T>) {
-        while (!other.empty()) {
-            auto val = other.pop();
-            if (val) {
-                push(std::move(*val));
-            }
-        }
-    }
-
-    // Деструктор: знищує лише реально існуючі елементи
-    ~RingBuffer() noexcept {
-        clear();
-    }
-
-    // Оператор копіювального присвоювання
-    RingBuffer& operator=(const RingBuffer& other) {
-        if (this != &other) {
-            clear();
-            for (size_type i = 0; i < other.size_; ++i) {
-                push(other[i]);
-            }
-        }
-        return *this;
-    }
-
-    // Оператор переміщувального присвоювання
-    RingBuffer& operator=(RingBuffer&& other) noexcept(std::is_nothrow_move_constructible_v<T>) {
-        if (this != &other) {
-            clear();
-            while (!other.empty()) {
-                auto val = other.pop();
-                if (val) {
-                    push(std::move(*val));
-                }
-            }
-        }
-        return *this;
-    }
-
-    // Очищення буфера: оптимізовано для тривіальних та нетривіальних типів
-    void clear() noexcept {
-        if constexpr (!std::is_trivially_destructible_v<T>) {
-            while (!empty()) {
-                pop();
-            }
-        }
-        head_ = 0;
-        tail_ = 0;
-        size_ = 0;
-    }
-
-    [[nodiscard]] constexpr size_type size() const noexcept { return size_; }
-    [[nodiscard]] constexpr size_type capacity() const noexcept { return Capacity; }
-    [[nodiscard]] constexpr bool empty() const noexcept { return size_ == 0; }
-    [[nodiscard]] constexpr bool full() const noexcept { return size_ == Capacity; }
-
-    // Додавання копіюванням: сувора безпека до винятків (Strong Exception Safety)
-    bool push(const T& item) {
-        if (full()) {
-            return false;
-        }
-        // Placement new у комірку пам'яті tail_
-        ::new (static_cast<void*>(element_address(tail_))) T(item);
-        tail_ = next_index(tail_);
-        ++size_;
-        return true;
-    }
-
-    // Додавання переміщенням
-    bool push(T&& item) {
-        if (full()) {
-            return false;
-        }
-        ::new (static_cast<void*>(element_address(tail_))) T(std::move(item));
-        tail_ = next_index(tail_);
-        ++size_;
-        return true;
-    }
-
-    // Примусове додавання з витісненням найстарішого елемента при переповненні
-    void push_overwrite(const T& item) {
-        if (full()) {
-            // Знищуємо найстаріший елемент перед перезаписом
-            element_address(head_)->~T();
-            head_ = next_index(head_);
-            --size_;
-        }
-        push(item);
-    }
-
-    // Конструювання безпосередньо у буфері (Emplace)
-    template <typename... Args>
-    bool emplace(Args&&... args) {
-        if (full()) {
-            return false;
-        }
-        ::new (static_cast<void*>(element_address(tail_))) T(std::forward<Args>(args)...);
-        tail_ = next_index(tail_);
-        ++size_;
-        return true;
-    }
-
-    // Вилучення елемента з поверненням через std::optional
-    std::optional<T> pop() {
-        if (empty()) {
-            return std::nullopt;
-        }
-        T* ptr = element_address(head_);
-        std::optional<T> result(std::move(*ptr));
-        ptr->~T(); // Явний виклик деструктора вилученого об'єкта
-        head_ = next_index(head_);
-        --size_;
-        return result;
-    }
-
-    // Доступ за логічним індексом (0 — найстаріший доданий елемент)
-    reference operator[](size_type index) {
-        return *element_address((head_ + index) % Capacity);
-    }
-
-    const_reference operator[](size_type index) const {
-        return *element_address((head_ + index) % Capacity);
-    }
-
-    reference front() {
-        if (empty()) throw std::underflow_error("RingBuffer порожній при зверненні до front()");
-        return *element_address(head_);
-    }
-
-    const_reference front() const {
-        if (empty()) throw std::underflow_error("RingBuffer порожній при зверненні до front() const");
-        return *element_address(head_);
-    }
-
-    // Вкладений шаблон методу трансформації (Member Function Template)
-    template <typename Transformer>
-    auto map(Transformer&& fn) const {
-        using ResultType = std::invoke_result_t<Transformer, const T&>;
-        RingBuffer<ResultType, Capacity> result;
-        for (size_type i = 0; i < size_; ++i) {
-            result.push(fn((*this)[i]));
-        }
-        return result;
-    }
-
-    // Методи ітераторів
-    iterator begin() noexcept { return iterator(this, 0); }
-    iterator end() noexcept { return iterator(this, size_); }
-    const_iterator begin() const noexcept { return const_iterator(this, 0); }
-    const_iterator end() const noexcept { return const_iterator(this, size_); }
-    const_iterator cbegin() const noexcept { return const_iterator(this, 0); }
-    const_iterator cend() const noexcept { return const_iterator(this, size_); }
-
-    // Метод діагностичного виведення (демонстрація лінивого інстанціювання!)
-    // Вимагає наявності operator<< для типу T.
-    void dump(std::string_view label = "Buffer") const {
-        std::cout << "[" << label << " (size=" << size_ << "/" << Capacity << ")]: ";
-        for (size_type i = 0; i < size_; ++i) {
-            std::cout << (*this)[i] << " ";
-        }
-        std::cout << "\n";
-    }
-
-private:
-    // Дружнє оголошення шаблону для доступу між екземплярами різного розміру
-    template <typename U, std::size_t OtherCap>
-    friend class RingBuffer;
-
-    // Оптимізований розрахунок наступного індексу через побітову маску або остачу
-    static constexpr bool is_power_of_two = (Capacity > 0) && ((Capacity & (Capacity - 1)) == 0);
-
-    static constexpr size_type next_index(size_type idx) noexcept {
-        if constexpr (is_power_of_two) {
-            return (idx + 1) & (Capacity - 1);
-        } else {
-            return (idx + 1) % Capacity;
-        }
-    }
-
-    // Допоміжний метод розрахунку адреси комірки
-    T* element_address(size_type idx) noexcept {
-        return reinterpret_cast<T*>(&storage_[idx * sizeof(T)]);
-    }
-
-    const T* element_address(size_type idx) const noexcept {
-        return reinterpret_cast<const T*>(&storage_[idx * sizeof(T)]);
-    }
-
-    // Неініціалізоване сховище з коректним вирівнюванням
-    alignas(alignof(T)) std::byte storage_[Capacity * sizeof(T)];
-    size_type head_{0};
-    size_type tail_{0};
-    size_type size_{0};
-};
-```
+:::code proj-generic-ring-buffer/cpp/povna-realizatsiia.cpp
 
 ---
 
@@ -375,18 +87,7 @@ static constexpr size_type next_index(size_type idx) noexcept {
 ### 5. Оптимізація очищення для тривіально деструктованих типів
 
 У методі `clear()` ми перевіряємо властивість типу `T` через рису типу `std::is_trivially_destructible_v<T>`:
-```cpp
-void clear() noexcept {
-    if constexpr (!std::is_trivially_destructible_v<T>) {
-        while (!empty()) {
-            pop();
-        }
-    }
-    head_ = 0;
-    tail_ = 0;
-    size_ = 0;
-}
-```
+:::code proj-generic-ring-buffer/cpp/5-optymizatsiia.cpp
 Якщо буфер містить скалярні типи (`int`, `double`, `uint8_t` або прості структури C), компілятор повністю викидає цикл викликів деструкторів і генерує три інструкції запису нулів у поля `head_`, `tail_` та `size_`, що виконується миттєво.
 
 ### 6. Узагальнені міжрозмірні операції копіювання
@@ -443,29 +144,7 @@ auto map(Transformer&& fn) const {
 Клас реалізує узагальнений ітератор `RingIterator<IsConst>`, який зберігає логічний зсув `offset_` від початку черги `head_`. При розіменуванні `*it` ітератор викликає оператор індексації `(*buffer_)[offset_]`, автоматично виконуючи кільцеву трансформацію індексу.
 
 Це дозволяє писати ідіоматичний код і підключати стандартні адаптери C++20 Ranges:
-```cpp
-#include <ranges>
-
-RingBuffer<int, 8> numbers;
-numbers.push(10);
-numbers.push(15);
-numbers.push(20);
-numbers.push(25);
-
-// Повноцінна ітерація через Range-based for
-for (const auto& val : numbers) {
-    std::cout << val << " ";
-}
-
-// Конвеєрна обробка через C++20 Views
-auto even_numbers = numbers 
-                  | std::views::filter([](int n) { return n % 2 == 0; })
-                  | std::views::transform([](int n) { return n * 2; });
-
-for (int n : even_numbers) {
-    std::cout << "Трансформоване парне: " << n << "\n";
-}
-```
+:::code proj-generic-ring-buffer/cpp/vkladenyi-iterator-ta.cpp
 
 ---
 
@@ -551,62 +230,7 @@ void process_buffer(BufferPtr ptr) {
 
 Завдяки шаблонам та атомарним операціям `std::atomic` ми можемо створити спеціалізовану lock-free версію буфера:
 
-```cpp
-#include <atomic>
-#include <new>
-
-template <typename T, std::size_t Capacity>
-class LockFreeSPSCQueue {
-    static_assert(Capacity > 0 && ((Capacity & (Capacity - 1)) == 0),
-                  "Розмір Lock-Free черги зобов'язаний бути степенем двійки!");
-
-public:
-    LockFreeSPSCQueue() : head_(0), tail_(0) {}
-
-    ~LockFreeSPSCQueue() {
-        T dummy;
-        while (pop(dummy)) {}
-    }
-
-    // Викликається винятково потоком-виробником (Producer)
-    bool push(const T& item) {
-        const size_t current_tail = tail_.load(std::memory_order_relaxed);
-        const size_t current_head = head_.load(std::memory_order_acquire);
-
-        if ((current_tail - current_head) == Capacity) {
-            return false; // Черга заповнена
-        }
-
-        ::new (static_cast<void*>(&storage_[(current_tail & (Capacity - 1)) * sizeof(T)])) T(item);
-        tail_.store(current_tail + 1, std::memory_order_release);
-        return true;
-    }
-
-    // Викликається винятково потоком-споживачем (Consumer)
-    bool pop(T& item) {
-        const size_t current_head = head_.load(std::memory_order_relaxed);
-        const size_t current_tail = tail_.load(std::memory_order_acquire);
-
-        if (current_head == current_tail) {
-            return false; // Черга порожня
-        }
-
-        T* ptr = reinterpret_cast<T*>(&storage_[(current_head & (Capacity - 1)) * sizeof(T)]);
-        item = std::move(*ptr);
-        ptr->~T();
-
-        head_.store(current_head + 1, std::memory_order_release);
-        return true;
-    }
-
-private:
-    alignas(alignof(T)) std::byte storage_[Capacity * sizeof(T)];
-
-    // Розділення індексів на різні кеш-лінії для запобігання False Sharing (64 байти)
-    alignas(64) std::atomic<std::size_t> head_{0};
-    alignas(64) std::atomic<std::size_t> tail_{0};
-};
-```
+:::code proj-generic-ring-buffer/cpp/potokobezpechna-lock-free.cpp
 
 У цій реалізації параметр NTTP `Capacity` забезпечує роботу швидкої побітової маски, а атомарні змінні з бар'єрами пам'яті `memory_order_acquire` та `memory_order_release` гарантують, що запис даних у пам'ять завершиться до того, як інший потік побачить оновлення індексу. Вирівнювання `alignas(64)` ізолює `head_` та `tail_` на окремих рядках процесорного кешу, виключаючи деградацію продуктивності через конфлікт кеш-ліній (англ. *False Sharing*).
 
@@ -618,41 +242,11 @@ private:
 
 Створимо структуру, яка свідомо не підтримує форматування та виведення в текстовий потік:
 
-```cpp
-struct HardwareFrame {
-    std::uint32_t packet_id;
-    std::uint16_t payload_crc;
-    double timestamp;
-
-    HardwareFrame(std::uint32_t id, std::uint16_t crc, double ts)
-        : packet_id(id), payload_crc(crc), timestamp(ts) {}
-
-    // operator<< свідомо ВІДСУТНІЙ!
-};
-```
+:::code proj-generic-ring-buffer/cpp/praktychna-perevirka.cpp
 
 Протестуємо поведінку компілятора:
 
-```cpp
-void test_lazy_compilation() {
-    // 1. Успішна компіляція для HardwareFrame:
-    RingBuffer<HardwareFrame, 32> telemetry_queue;
-    telemetry_queue.emplace(101, 0xA4F2, 42.001);
-    telemetry_queue.emplace(102, 0x11B0, 42.002);
-
-    auto frame = telemetry_queue.pop();
-    if (frame) {
-        std::cout << "Отримано апаратний кадр #" << frame->packet_id << "\n";
-    }
-
-    // Компілятор успішно інстанціює emplace, pop, деструктор.
-    // Метод dump() НЕ викликається, тому компілятор не перевіряє operator<<.
-
-    // 2. Якщо розкоментувати наступний рядок, трансляція зупиниться з помилкою:
-    // telemetry_queue.dump("Telemetry");
-    // [error: no match for 'operator<<' (operand types are 'std::ostream' and 'HardwareFrame')]
-}
-```
+:::code proj-generic-ring-buffer/cpp/praktychna-perevirka-2.cpp
 
 ---
 
@@ -660,51 +254,7 @@ void test_lazy_compilation() {
 
 Щоб переконатися у відсутності витоків пам'яті або подвійного виклику деструкторів, створимо спеціальний клас-шпигун `InstanceTracker`:
 
-```cpp
-struct InstanceTracker {
-    static inline int live_instances = 0;
-    static inline int constructor_calls = 0;
-    static inline int destructor_calls = 0;
-
-    int id;
-
-    explicit InstanceTracker(int val) : id(val) {
-        ++live_instances;
-        ++constructor_calls;
-    }
-
-    InstanceTracker(const InstanceTracker& other) : id(other.id) {
-        ++live_instances;
-        ++constructor_calls;
-    }
-
-    InstanceTracker(InstanceTracker&& other) noexcept : id(other.id) {
-        ++live_instances;
-        ++constructor_calls;
-    }
-
-    ~InstanceTracker() {
-        --live_instances;
-        ++destructor_calls;
-    }
-};
-
-void run_memory_lifecycle_test() {
-    {
-        RingBuffer<InstanceTracker, 4> tracker_buffer;
-        tracker_buffer.emplace(1);
-        tracker_buffer.emplace(2);
-        tracker_buffer.emplace(3);
-
-        std::cout << "Створено об'єктів: " << InstanceTracker::live_instances << " (очікується 3)\n";
-
-        auto item = tracker_buffer.pop(); // Вилучаємо один елемент
-        std::cout << "Після pop(): живих " << InstanceTracker::live_instances << " (очікується 3: 2 в буфері + 1 у змінній item)\n";
-    }
-    // При виході з блоку знищується tracker_buffer та item
-    std::cout << "Після завершення області видимості: живих " << InstanceTracker::live_instances << " (очікується 0)\n";
-}
-```
+:::code proj-generic-ring-buffer/cpp/testuvannia-invariantiv.cpp
 
 Цей тест підтверджує: наш узагальнений буфер конструює рівно стільки об'єктів, скільки було додано, і знищує їх рівно в момент вилучення або очищення, без жодного витоку пам'ять.
 
@@ -717,22 +267,7 @@ void run_memory_lifecycle_test() {
 Щоб прискорити компіляцію та зменшити навантаження на лінкер, ми організуємо проект із трьох модулів:
 
 ### 1. Заголовковий файл: RingBuffer_Config.hpp
-```cpp
-#pragma once
-#include "RingBuffer.hpp"
-#include <cstdint>
-#include <string>
-
-// Оголошення зручних псевдонімів
-using RawByteBuffer = RingBuffer<std::uint8_t, 256>;
-using SignalBuffer  = RingBuffer<double, 64>;
-using LogQueue      = RingBuffer<std::string, 16>;
-
-// Заборона генерації коду в одиницях трансляції, що включають цей заголовок
-extern template class RingBuffer<std::uint8_t, 256>;
-extern template class RingBuffer<double, 64>;
-extern template class RingBuffer<std::string, 16>;
-```
+:::code proj-generic-ring-buffer/cpp/RingBuffer.hpp
 
 ### 2. Файл явного інстанціювання: RingBuffer_Config.cpp
 ```cpp
@@ -745,35 +280,7 @@ template class RingBuffer<std::string, 16>;
 ```
 
 ### 3. Файл основного модуля: main.cpp
-```cpp
-#include "RingBuffer_Config.hpp"
-#include <iostream>
-
-int main() {
-    RawByteBuffer network_rx_queue;
-    network_rx_queue.push(0x7E); // Символ прапорця HDLC
-    network_rx_queue.push(0xFF);
-    network_rx_queue.push(0x03);
-
-    std::cout << "Розмір черги RX: " << network_rx_queue.size() << " байт\n";
-
-    LogQueue system_events;
-    system_events.push("BOOT_OK");
-    system_events.push("SENSORS_CALIBRATED");
-    system_events.dump("Events");
-
-    // Перевірка функціональної трансформації map:
-    auto event_lengths = system_events.map([](const std::string& s) { return s.length(); });
-    std::cout << "Довжина першої події: " << event_lengths.front() << "\n";
-
-    // Перевірка конструктора з іншої місткості:
-    RingBuffer<std::string, 4> small_event_log(system_events);
-    std::cout << "Скопійовано у малий буфер: " << small_event_log.size() << " події\n";
-
-    run_memory_lifecycle_test();
-    return 0;
-}
-```
+:::code proj-generic-ring-buffer/cpp/3-fail-osnovnoho-modulia.cpp
 
 Під час паралельної збірки компілятор у файлі `main.cpp` пропускає повторну трансляцію тіл методів `RingBuffer`, залишаючи зовнішні символи. Усі виклики лінкуються з єдиним скомпільованим об'єктним файлом `RingBuffer_Config.o`.
 

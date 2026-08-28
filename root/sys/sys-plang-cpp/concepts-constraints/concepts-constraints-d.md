@@ -23,21 +23,7 @@
 
 До стандарту C++20 єдиним інструментом вибіркового застосування шаблонів було правило **SFINAE** (Substitution Failure Is Not An Error — невдала підстановка не є помилкою) у поєднанні з метафункцією `std::enable_if_t`.
 
-```cpp
-// Підхід C++14/C++17: обмеження через SFINAE у списку параметрів за замовчуванням
-template<typename T, 
-         typename = std::enable_if_t<std::is_integral_v<T>>>
-void process_value(T value) {
-    // Реалізація для цілих чисел
-}
-
-template<typename T, 
-         typename = std::enable_if_t<std::is_floating_point_v<T>>,
-         typename = void> // Штучний параметр для уникнення однакових сигнатур шаблону
-void process_value(T value) {
-    // Реалізація для чисел із плаваючою комою
-}
-```
+:::code concepts-constraints-d/cpp/1-problema-vidkrytoho.cpp
 
 Конвеєр обробки такого коду компілятором складався з багатьох трудомістких кроків. Під час розв'язання перевантаження для кожного кандидата компілятор підставляв тип аргументу у вираз `std::enable_if_t`. Якщо предикат дорівнював `false`, у структурі `enable_if` було відсутнє поле `type`, що створювало помилку підстановки в сигнатурі. Компілятор відкидав цього кандидата без зупинки компіляції.
 
@@ -152,19 +138,7 @@ concept AllocatorTraitsAware = requires {
 2. Гарантію відсутності винятків за допомогою специфікатора `noexcept` (опціонально).
 3. Відповідність типу поверненого значення певному концепту за допомогою стрілки `-> Concept` (опціонально).
 
-```cpp
-template<typename T>
-concept SmartHandle = requires(T handle) {
-    // 1. Метод close() існує, не викидає винятків і повертає void
-    { handle.close() } noexcept -> std::same_as<void>;
-
-    // 2. Метод size() існує і повертає тип, що задовольняє std::integral
-    { handle.size() } -> std::integral;
-
-    // 3. Розіменування повертає посилання, що конвертується в const char*
-    { *handle } -> std::convertible_to<const char*>;
-};
-```
+:::code concepts-constraints-d/cpp/3-skladeni-vymohy-compound.cpp
 
 Складена вимога `-> Concept` працює за особливим правилом підстановки: компілятор бере тип результату виразу `decltype((expr))` і передає його як **перший** аргумент концепту праворуч від стрілки. Запис `{ x.size() } -> std::convertible_to<std::size_t>` розгортається компілятором у перевірку `std::convertible_to<decltype((x.size())), std::size_t>`.
 
@@ -176,22 +150,7 @@ concept SmartHandle = requires(T handle) {
 
 Цей вид вимог є джерелом найпоширенішої помилки серед розробників-початківців. Розглянемо різницю між двома записами:
 
-```cpp
-// ПОМИЛКА: проста вимога замість вкладеної!
-template<typename T>
-concept BadLimit = requires {
-    sizeof(T) <= 8; // ПРОСТА ВИМОГА: перевіряє лише валідність оператора <=.
-                    // Вираз sizeof(T) <= 8 завжди валідний синтаксично,
-                    // тому концепт завжди поверне true навіть для структури в 1024 байти!
-};
-
-// ПРАВИЛЬНО: вкладена вимога
-template<typename T>
-concept CorrectLimit = requires {
-    requires sizeof(T) <= 8; // ВКЛАДЕНА ВИМОГА: компілятор обчислює значення
-                             // і вимагає істинності (true).
-};
-```
+:::code concepts-constraints-d/cpp/4-vkladeni-vymohy-nested.cpp
 
 Вкладені вимоги необхідні тоді, коли всередині концепту потрібно перевірити складні константні умови над типами або властивостями, які вже були виведені на попередніх рядках блоку `requires`. Наприклад, перевірка збігу типу результату зі спеціалізацією іншого шаблону:
 
@@ -273,21 +232,7 @@ auto fetch_element(T& container, std::size_t index)
 - Коли обмеження накладається на тип повернення, який залежить від `decltype(...)` або складних вкладених типів.
 - Для методів шаблонних класів: заголовок `template<typename T>` належить усьому класу, а окремий метод можна обмежити додатковим хвостовим реченням `requires`.
 
-```cpp
-template<typename T>
-class DynamicArray {
-public:
-    // Цей метод доступний лише тоді, коли тип T підтримує копіювання
-    void push_back(const T& item) requires std::copyable<T> {
-        // Копіювання елемента в масив
-    }
-
-    // Цей метод доступний для будь-якого переміщуваного типу
-    void push_back(T&& item) requires std::movable<T> {
-        // Переміщення елемента в масив
-    }
-};
-```
+:::code concepts-constraints-d/cpp/3-khvostove-rechennia.cpp
 
 Такий підхід дозволяє створювати екземпляри `DynamicArray<std::unique_ptr<int>>`: клас успішно інстанціюється, метод копіювання просто ігнорується компілятором, а метод переміщення залишається доступним.
 
@@ -357,61 +302,13 @@ auto merge_sorted = []<std::totally_ordered T>(std::span<const T> a, std::span<c
 
 Розглянемо практичний приклад:
 
-```cpp
-// Концепт 1: базове ціле число
-template<typename T>
-concept Integral = std::is_integral_v<T>; // Атом A
-
-// Концепт 2: знакове ціле число
-template<typename T>
-concept SignedIntegral = Integral<T> && std::is_signed_v<T>; // Атоми A && B
-
-// Кандидат 1
-template<Integral T>
-void advance_cursor(T step) {
-    std::cout << "Загальний цілочисловий крок\n";
-}
-
-// Кандидат 2
-template<SignedIntegral T>
-void advance_cursor(T step) {
-    std::cout << "Оптимізований знаковий крок\n";
-}
-
-int main() {
-    advance_cursor(-5); // int задовольняє обидва концепти.
-                        // Оскільки SignedIntegral нормалізується в (A && B),
-                        // воно поглинає Integral (A).
-                        // Викликається Кандидат 2 без жодної неоднозначності!
-}
-```
+:::code concepts-constraints-d/cpp/matematychne-pravylo.cpp
 
 ### Пастка синтаксичної ідентичності атомів
 
 Для успішного спрацювання subsumption атомарні обмеження повинні збігатися на рівні синтаксичного дерева вихідного коду (Same Identity Rule). Якщо два розробники напишуть однакові перевірки, але в різних концептах без прямого повторного використання, поглинання зламається:
 
-```cpp
-// Концепт автора бібліотеки A
-template<typename T>
-concept FastTypeA = sizeof(T) <= 8;
-
-// Концепт автора бібліотеки B
-template<typename T>
-concept FastTypeB = sizeof(T) <= 8;
-
-template<typename T>
-concept SuperFast = FastTypeB<T> && std::is_trivial_v<T>;
-
-template<FastTypeA T>
-void run(T obj); // Нормалізовано: Атом 1 (визначений у FastTypeA)
-
-template<SuperFast T>
-void run(T obj); // Нормалізовано: Атом 2 (визначений у FastTypeB) && Атом 3
-
-// ПОМИЛКА: хоча тіла FastTypeA та FastTypeB ідентичні за текстом,
-// компілятор розглядає їх як різні атоми AST.
-// run(10) призведе до ambiguous call!
-```
+:::code concepts-constraints-d/cpp/pastka-syntaksychnoi.cpp
 
 Щоб subsumption працював бездоганно, спеціалізовані концепти завжди повинні будуватися шляхом явного посилання на базові концепти (`concept B = A<T> && extra;`), а не копіюванням їхнього тексту.
 
@@ -534,22 +431,7 @@ void cleanup(T& container) {
 
 Розглянемо вираз, який повинен перевіряти, чи підтримує тип операцію `a + b` та операцію `a - b`:
 
-```cpp
-// ПОМИЛКА: некоректне розуміння блоку requires
-template<typename T>
-concept BrokenLogic = requires(T a, T b) {
-    (a + b) && (a - b); // Це ПРОСТА вимога синтаксису оператора && між результатами!
-                         // Якщо a + b повертає void, вираз викличе помилку,
-                         // навіть якщо оператор + існує!
-};
-
-// ПРАВИЛЬНО: роздільні вимоги або логічний оператор між концептами
-template<typename T>
-concept CorrectLogic = requires(T a, T b) {
-    a + b;
-    a - b;
-};
-```
+:::code concepts-constraints-d/cpp/pastka-2-lohichni.cpp
 
 Кожен рядок у блоці `requires` є незалежною вимогою. Логічні оператори `&&` та `||` повинні об'єднувати окремі концепти або блоки `requires` зовні, а не всередині фігурних дужок.
 

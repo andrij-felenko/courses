@@ -97,27 +97,7 @@ class span;
 
 У **GCC libstdc++** внутрішній розклад полів реалізовано через базовий деталізуючий шаблон `__detail::__span_ptr_default`:
 
-```cpp
-// Концептуальна схема реалізації libstdc++
-template <typename _Tp, std::size_t _Extent>
-class __span_base {
-public:
-    constexpr __span_base(_Tp* __ptr, std::size_t) noexcept : _M_ptr(__ptr) {}
-    constexpr std::size_t _M_size() const noexcept { return _Extent; }
-    _Tp* _M_ptr;
-};
-
-// Спеціалізація для dynamic_extent додає поле розміру
-template <typename _Tp>
-class __span_base<_Tp, std::dynamic_extent> {
-public:
-    constexpr __span_base(_Tp* __ptr, std::size_t __size) noexcept 
-        : _M_ptr(__ptr), _M_size_val(__size) {}
-    constexpr std::size_t _M_size() const noexcept { return _M_size_val; }
-    _Tp* _M_ptr;
-    std::size_t _M_size_val;
-};
-```
+:::code span-contiguous-d/cpp/morfolohiia-realizatsii-u.cpp
 
 У специфікації **System V AMD64 ABI** (яка використовується в операційних системах Linux, macOS та BSD) структура, що складається з двох 64-бітних полів (вказівника та числа), класифікується як `INTEGER` клас. Це означає, що при передачі об'єкта `std::span<T, std::dynamic_extent>` за значенням у функцію:
 
@@ -141,25 +121,7 @@ void process(std::span<const float> s);
 
 Оскільки `std::span` є безволодісним поглядом, його константність працює за аналогією з сирим вказівником `T* const`, а не за аналогією з `std::vector<T>`.
 
-```cpp
-int data[5] = {1, 2, 3, 4, 5};
-
-// 1. Модифікований span на модифіковані дані (T*)
-std::span<int> s1{data};
-s1[0] = 42; // ЗМІНЮЄ елемент у пам'яті data[0]
-
-// 2. Константний span на модифіковані дані (T* const)
-const std::span<int> s2{data};
-s2[0] = 99; // ДОЗВОЛЕНО! Змінюється елемент, а не сам вказівник data_
-
-// 3. Модифікований span на константні дані (const T*)
-std::span<const int> s3{data};
-// s3[0] = 100; // ПОМИЛКА КОМПІЛЯЦІЇ! Елементи захищені від запису
-
-// 4. Константний span на константні дані (const T* const)
-const std::span<const int> s4{data};
-// s4[0] = 100; // ПОМИЛКА КОМПІЛЯЦІЇ!
-```
+:::code span-contiguous-d/cpp/konstantnist-u-std-span.cpp
 
 Для створення захищеного від запису інтерфейсу функція має приймати `std::span<const T>`. Саме кваліфікатор `const` у першому параметрі шаблону `ElementType` забороняє модифікацію підпорядкованих елементів через оператор `operator[]` або через ітератори.
 
@@ -204,20 +166,7 @@ C++20 надає безпечну альтернативу у вигляді ф�
 ![Переінтерпретація типів у байтовий зріз](img/byte-reinterpretation.svg)
 *Байтова переінтерпретація: безпечне перетворення масиву структур у зріз std::byte.*
 
-```cpp
-struct Point {
-    float x, y, z;
-};
-
-Point cloud[100];
-std::span<Point, 100> point_span{cloud};
-
-// Перетворення у константний байтовий зріз
-std::span<const std::byte, 1200> byte_view = std::as_bytes(point_span);
-
-// Перетворення у модифікований байтовий зріз для запису з мережі чи файлу
-std::span<std::byte, 1200> writable_byte_view = std::as_writable_bytes(point_span);
-```
+:::code span-contiguous-d/cpp/bezpechna-baitova.hpp
 
 Особливості функцій переінтерпретації:
 - Вони повертають новий `std::span`, типом елементів якого є `std::byte` (або `const std::byte`).
@@ -233,22 +182,7 @@ std::span<std::byte, 1200> writable_byte_view = std::as_writable_bytes(point_spa
 
 Застосування `std::span` дозволяє створити легкі безпечні обгортки над системними викликами POSIX без погіршення продуктивності:
 
-```cpp
-#include <span>
-#include <cstddef>
-#include <unistd.h>
-#include <sys/uio.h>
-
-// Безпечна обгортка над системним викликом write()
-ssize_t safe_write(int fd, std::span<const std::byte> data) noexcept {
-    return ::write(fd, data.data(), data.size_bytes());
-}
-
-// Запис масиву розсіяних зрізів через writev()
-ssize_t safe_writev(int fd, std::span<const struct iovec> io_vectors) noexcept {
-    return ::writev(fd, io_vectors.data(), static_cast<int>(io_vectors.size()));
-}
-```
+:::code span-contiguous-d/cpp/modernizatsiia-zastarilykh.hpp
 
 Використання `std::span` у системних обгортках гарантує, що розмір `data.size_bytes()` завжди точно відповідає адресі `data.data()`, усуваючи ризик передачі некоректної довжини буфера у системні виклики ядра Linux або macOS.
 
@@ -269,18 +203,7 @@ inline constexpr bool std::ranges::enable_borrowed_range<std::span<ElementType, 
 
 Це сигналізує бібліотеці Ranges, що ітератори `std::span` запозичують пам'ять у зовнішнього джерела, а тому залишаються цілком валидними навіть після того, як сам тимчасовий об'єкт `std::span` виходить з області видимості. Це дозволяє безперешкодно передавати `std::span` у комбінатори поглядів (views adaptation pipelines):
 
-```cpp
-std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-// Створення конвеєра адаптерів над std::span без виділення пам'яті
-auto even_squares = std::span{data}
-                  | std::views::filter([](int n) { return n % 2 == 0; })
-                  | std::views::transform([](int n) { return n * n; });
-
-for (int val : even_squares) {
-    // Обробка обчислених значень
-}
-```
+:::code span-contiguous-d/cpp/intehratsiia-z-diapazonamy.cpp
 
 ## Автоматична векторизація (SIMD) та паралельні обчислення
 

@@ -95,65 +95,16 @@ auto unsigned_count = static_cast<unsigned int>(count);
 
 :::tabs
 @tab C (Немає підтримки explicit)
-```c
-#include <stdint.h>
-
-typedef struct {
-    int32_t raw_value;
-} HandleC;
-
-HandleC make_handle_c(int32_t v) {
-    HandleC h = { v };
-    return h;
-}
-```
+:::code cast-operators-d/c/konstruktory-ta-operatory.c
 @tab C++ (Ідіоматичний static_cast)
-```cpp
-#include <cstdint>
-
-class BufferHandle {
-public:
-    explicit BufferHandle(int32_t id) noexcept : id_(id) {}
-    explicit operator bool() const noexcept { return id_ >= 0; }
-    [[nodiscard]] int32_t get() const noexcept { return id_; }
-
-private:
-    int32_t id_;
-};
-
-void process() {
-    int32_t raw_fd = 105;
-    // Виклик explicit-конструктора
-    BufferHandle handle = static_cast<BufferHandle>(raw_fd);
-
-    // Виклик explicit-оператора operator bool()
-    bool is_valid = static_cast<bool>(handle);
-}
-```
+:::code cast-operators-d/cpp/konstruktory-ta-operatory.cpp
 :::
 
 ### Перетворення типізованих переліків (Scoped Enums `enum class`)
 
 У сучасному C++ переліки `enum class` не приводяться до цілих чисел неявно, що усуває випадкові помилки змішування прапорців. `static_cast` є єдиним безпечним способом конвертації між переліком та його базовим цілочисельним типом:
 
-```cpp
-#include <type_traits>
-#include <cstdint>
-
-enum class EngineState : uint8_t {
-    kStopped = 0,
-    kStarting = 1,
-    kRunning = 2,
-    kFault = 255
-};
-
-// Конвертація з цілого числа (наприклад, з двійкового протоколу):
-uint8_t raw_byte = 2;
-auto state = static_cast<EngineState>(raw_byte);
-
-// Зворотна конвертація у базовий цілочисельний тип:
-auto raw_val = static_cast<std::underlying_type_t<EngineState>>(state);
-```
+:::code cast-operators-d/cpp/peretvorennia-typizovanykh.hpp
 
 > [!NOTE]
 > Якщо ціле число виходить за межі діапазону допустимих значень базового типу переліку, приведення має визначену стандартом поведінку для `enum class` з фіксованим базовим типом (значення обчислюється за правилами модульної арифметики або усікання).
@@ -189,18 +140,7 @@ struct SafeWrapper {
 
 При множинному спадкуванні об'єкт `Derived` містить підоб'єкт `BaseB` за певним зміщенням (наприклад, +8 байтів). Коли ми виконуємо downcast:
 
-```cpp
-struct BaseA { int a; };
-struct BaseB { int b; };
-struct Derived : BaseA, BaseB { int c; };
-
-Derived obj;
-BaseB* pBaseB = &obj; // Адреса зміщена на +8 байтів: 0x1008
-
-// static_cast знає структуру класів і ВІДНІМАЄ 8 байтів!
-// Результат: 0x1000 (початок об'єкта Derived)
-Derived* pDerived = static_cast<Derived*>(pBaseB);
-```
+:::code cast-operators-d/cpp/navihatsiia-v.cpp
 
 Компілятор генерує апаратну інструкцію `lea rax, [rdi-8]` або `sub rdi, 8`. Вказівник коригується автоматично.
 
@@ -242,22 +182,7 @@ int Derived::* p_derived = static_cast<int Derived::*>(p_base);
 При роботі зі `static_cast` в ієрархіях класів важливо чітко розрізняти приведення покажчиків/посилань та приведення за значенням (by-value).
 
 Коли об'єкт похідного класу приводиться до типу базового класу за значенням:
-```cpp
-struct Base {
-    int id{1};
-    virtual void print() const { std::cout << "Base\n"; }
-};
-
-struct Derived : Base {
-    int extra_payload{42};
-    void print() const override { std::cout << "Derived\n"; }
-};
-
-Derived d;
-// Небезпека: Object Slicing!
-Base b = static_cast<Base>(d);
-b.print(); // Виводить "Base", а не "Derived"!
-```
+:::code cast-operators-d/cpp/problema-zrizannia-obiekta.cpp
 
 У цьому випадку відбувається копіювання виключно полів класу `Base` у новий стек-фрейм змінної `b`. Усі додаткові поля класу `Derived` відкидаються (зрізаються), а покажчик на віртуальну таблицю `vptr` перезаписується адресою vtable класу `Base`. Поліморфізм повністю втрачається. `static_cast` повинен застосовуватися до посилань (`static_cast<Base&>(d)`) або покажчиків, щоб зберегти цілісність поліморфного об'єкта.
 
@@ -265,20 +190,7 @@ b.print(); // Виводить "Base", а не "Derived"!
 
 Особливе обмеження `static_cast` виникає в ромбоподібних ієрархіях із віртуальним спадкуванням:
 
-```cpp
-struct Node { virtual ~Node() = default; };
-struct LeftBranch : virtual Node {};
-struct RightBranch : virtual Node {};
-struct DiamondNode : LeftBranch, RightBranch {};
-
-void inspect_diamond(Node* node) {
-    // ПОМИЛКА КОМПІЛЯЦІЇ: static_cast не може виконати downcast від віртуальної бази!
-    // DiamondNode* d = static_cast<DiamondNode*>(node); // Error: cannot cast from virtual base
-
-    // ЄДИНИЙ безпечний спосіб — dynamic_cast:
-    DiamondNode* d = dynamic_cast<DiamondNode*>(node);
-}
-```
+:::code cast-operators-d/cpp/rombopodibna-iierarkhiia.cpp
 
 Чому `static_cast` безсилий при віртуальному спадкуванні?
 При віртуальному спадкуванні зміщення базового підоб'єкта `Node` відносно `DiamondNode` не є фіксованою константою часу компіляції. Розташування `Node` визначається лише в момент створення кінцевого об'єкта і зберігається у таблиці зсувів віртуальних баз (`vbtable` / *virtual base table*). Оскільки `static_cast` не звертається до метаданих часу виконання, компілятор відмовляється генерувати статичний зсув і видає помилку. Лише `dynamic_cast` здатен прочитати зміщення з `vbtable` та обчислити правильну адресу.
@@ -327,25 +239,7 @@ int calculate_hash_bridge(std::string_view text) {
 
 Іншим класичним патерном є усунення дублювання коду в константних та неконстантних версіях методів доступу (патерн Скотта Мейєрса):
 
-```cpp
-class TextBuffer {
-public:
-    const char& operator[](size_t idx) const noexcept {
-        // Складна логіка перевірки меж, блокування м'ютекса, логування
-        return data_[idx];
-    }
-
-    char& operator[](size_t idx) noexcept {
-        // Викликаємо const-версію та знімаємо const з поверненого посилання
-        return const_cast<char&>(
-            static_cast<const TextBuffer&>(*this)[idx]
-        );
-    }
-
-private:
-    char data_[1024]{};
-};
-```
+:::code cast-operators-d/cpp/lehalne-zastosuvannia.cpp
 
 ### Модифікація `volatile` у вбудованих системах
 
@@ -366,38 +260,13 @@ void handle_hardware_dma(volatile uint8_t* dma_buffer, size_t size) {
 
 Мова C++ надає спеціалізований інструмент — ключове слово `mutable` (від лат. *mutabilis* — змінний). Поля, позначені як `mutable`, можуть легально модифікуватися всередині `const`-методів без застосування `const_cast`:
 
-```cpp
-#include <mutex>
-
-class ThreadSafeCache {
-public:
-    int get_value(int key) const {
-        std::lock_guard<std::mutex> lock(mutex_); // mutex_ змінює стан, будучи mutable!
-        return cached_value_;
-    }
-
-private:
-    int cached_value_{0};
-    mutable std::mutex mutex_; // Легальна зміна стану в const-контексті
-};
-```
+:::code cast-operators-d/cpp/fizychna-proty-lohichnoi.cpp
 
 ### Безпечне додавання константності: `std::as_const` (C++17)
 
 Для зворотного процесу — безпечного додавання кваліфікатора `const` для виклику константних перевантажень — стандарт C++17 запровадив утиліту `std::as_const` (заголовок `<utility>`):
 
-```cpp
-#include <utility>
-#include <vector>
-
-void process_vector(std::vector<int>& v);
-void process_vector(const std::vector<int>& v);
-
-void caller(std::vector<int>& my_vec) {
-    // Явний виклик const-версії функції без небезпечного ручного касту:
-    process_vector(std::as_const(my_vec));
-}
-```
+:::code cast-operators-d/cpp/bezpechne-dodavannia.cpp
 
 ### Невизначена поведінка: запис у справжній `const`
 
@@ -487,22 +356,7 @@ uint32_t bits = *u_ptr; // НЕВИЗНАЧЕНА ПОВЕДІНКА!
 
 `reinterpret_cast` дозволяє конвертувати покажчик на функцію однієї сигнатури у покажчик на функцію іншої сигнатури:
 
-```cpp
-using GenericFunc = void (*)();
-using SpecificFunc = int (*)(double, int);
-
-SpecificFunc real_func = [](double d, int i) -> int { return static_cast<int>(d) + i; };
-
-// Збереження покажчика у загальному реєстрі функцій:
-GenericFunc stored = reinterpret_cast<GenericFunc>(real_func);
-
-// НЕВИЗНАЧЕНА ПОВЕДІНКА: прямий виклик через неправильну сигнатуру!
-// stored(); // UB: порушення конвенції виклику (Calling Convention Mismatch)
-
-// Єдиний законний спосіб — приведення назад до точного вихідного типу:
-auto restored = reinterpret_cast<SpecificFunc>(stored);
-int result = restored(3.14, 10); // Валідно!
-```
+:::code cast-operators-d/cpp/pryvedennia-pokazhchykiv.hpp
 
 ### Атомарні вказівники та приведення в багатопотоковому середовищі
 
@@ -512,24 +366,7 @@ int result = restored(3.14, 10); // Валідно!
 
 Правильний підхід полягає в завантаженні значення з атоміка та подальшому застосуванні `static_cast` або `dynamic_cast`:
 
-```cpp
-#include <atomic>
-
-struct NodeBase { virtual ~NodeBase() = default; };
-struct WorkerNode : NodeBase { int worker_id{0}; };
-
-std::atomic<NodeBase*> global_head{nullptr};
-
-void process_worker() {
-    // 1. Атомарне завантаження з бар'єром пам'яті acquire
-    NodeBase* raw_ptr = global_head.load(std::memory_order_acquire);
-
-    // 2. Безпечне приведення після атомарного читання
-    if (auto* worker = dynamic_cast<WorkerNode*>(raw_ptr)) {
-        // Робота з WorkerNode
-    }
-}
-```
+:::code cast-operators-d/cpp/atomarni-vkazivnyky-ta.cpp
 
 У C++20 для роботи з сирою пам'яттю без створення окремого об'єкта `std::atomic` використовується `std::atomic_ref<T>` (заголовок `<atomic>`), який гарантує коректні атомарні операції над вирівняними даними.
 
@@ -608,65 +445,16 @@ extern "C" void* __dynamic_cast(
 
 :::tabs
 @tab C++ (Вказівники — повернення nullptr)
-```cpp
-#include <iostream>
-
-struct Shape { virtual ~Shape() = default; };
-struct Circle : Shape { void draw_circle() {} };
-struct Square : Shape { void draw_square() {} };
-
-void render(Shape* shape) {
-    // Якщо shape не є екземпляром Circle, dynamic_cast повертає nullptr
-    if (auto* circle = dynamic_cast<Circle*>(shape)) {
-        circle->draw_circle();
-    } else {
-        // Об'єкт належить до іншого підтипу
-    }
-}
-```
+:::code cast-operators-d/cpp/obrobka-pomylok.cpp
 @tab C++ (Посилання — виняток std::bad_cast)
-```cpp
-#include <typeinfo>
-#include <iostream>
-
-struct Shape { virtual ~Shape() = default; };
-struct Circle : Shape { void draw_circle() {} };
-
-void render_ref(Shape& shape) {
-    try {
-        // Оскільки «нульових посилань» не існує, невдача кидає виняток:
-        Circle& circle = dynamic_cast<Circle&>(shape);
-        circle.draw_circle();
-    } catch (const std::bad_cast& e) {
-        std::cerr << "Помилка приведення посилання: " << e.what() << '\n';
-    }
-}
-```
+:::code cast-operators-d/cpp/obrobka-pomylok-2.cpp
 :::
 
 ### Cross-cast: приведення між сусідніми гілками
 
 Унікальною можливістю `dynamic_cast` є виконання **cross-cast (бічного приведення)** між незалежними інтерфейсними гілками множинного спадкування:
 
-```cpp
-struct ILogger { virtual void log() = 0; virtual ~ILogger() = default; };
-struct ISerializable { virtual void serialize() = 0; virtual ~ISerializable() = default; };
-
-class NetworkService : public ILogger, public ISerializable {
-public:
-    void log() override {}
-    void serialize() override {}
-};
-
-void process_service(ILogger* logger) {
-    // ILogger та ISerializable не пов'язані між собою спадкуванням.
-    // dynamic_cast знаходить через vtable спільний Most Derived Object (NetworkService)
-    // та обчислює точну адресу інтерфейсу ISerializable:
-    if (auto* serializable = dynamic_cast<ISerializable*>(logger)) {
-        serializable->serialize();
-    }
-}
-```
+:::code cast-operators-d/cpp/cross-cast-pryvedennia.cpp
 
 Жоден інший оператор C++ (включаючи `static_cast`) не здатний виконати cross-cast, оскільки зміщення між незалежними інтерфейсами неможливо визначити статично без інформації про кінцевий похідний клас.
 
@@ -706,20 +494,7 @@ static_assert(float_to_raw_bits(1.0f) == 0x3F800000u);
 
 Стандарт C++23 запровадив утиліту `std::forward_like` (заголовок `<utility>`), яка копіює кваліфікатори константності та посилання від типу власника до його підоб'єкта:
 
-```cpp
-#include <utility>
-#include <string>
-
-struct UserSession {
-    std::string token;
-
-    template <typename Self>
-    auto&& get_token(this Self&& self) noexcept {
-        // Замість складного ланцюжка static_cast копіює const/rvalue кваліфікатори Self на поле token:
-        return std::forward_like<Self>(self.token);
-    }
-};
-```
+:::code cast-operators-d/cpp/std-forward-like-c-23.cpp
 
 Ця техніка усуває необхідність у чотирьох перевантаженнях методів (`&`, `const &`, `&&`, `const &&`), зводячи їх до єдиної шаблонної функції з явним параметром `this` (Deducing this, P0847).
 
@@ -760,80 +535,9 @@ struct UserSession {
 
 :::tabs
 @tab C (Manual type tagging)
-```c
-#include <stdbool.h>
-
-typedef enum {
-    NODE_EXPR,
-    NODE_STMT,
-    NODE_DECL
-} NodeKindC;
-
-typedef struct {
-    NodeKindC kind;
-} ASTNodeC;
-
-typedef struct {
-    ASTNodeC base;
-    int value;
-} ExprNodeC;
-
-bool is_expr_node_c(const ASTNodeC* node) {
-    return node && node->kind == NODE_EXPR;
-}
-
-ExprNodeC* cast_to_expr_c(ASTNodeC* node) {
-    return is_expr_node_c(node) ? (ExprNodeC*)node : 0;
-}
-```
+:::code cast-operators-d/c/8-produktyvnist-ta.c
 @tab C++ (LLVM-style Custom RTTI)
-```cpp
-#include <concepts>
-#include <memory>
-#include <iostream>
-
-class ASTNode {
-public:
-    enum class Kind {
-        kExpr,
-        kStmt,
-        kDecl
-    };
-
-    explicit constexpr ASTNode(Kind k) noexcept : kind_(k) {}
-    [[nodiscard]] constexpr Kind get_kind() const noexcept { return kind_; }
-    virtual ~ASTNode() = default;
-
-private:
-    Kind kind_;
-};
-
-class ExprNode final : public ASTNode {
-public:
-    explicit constexpr ExprNode(int val) noexcept
-        : ASTNode(Kind::kExpr), value_(val) {}
-
-    // Метод перевірки типу для системи LLVM-style RTTI
-    static bool classof(const ASTNode* node) noexcept {
-        return node && node->get_kind() == Kind::kExpr;
-    }
-
-    [[nodiscard]] int get_value() const noexcept { return value_; }
-
-private:
-    int value_;
-};
-
-// Реалізація власного шаблону dyn_cast
-template <typename Target, typename Source>
-Target* fast_dyn_cast(Source* src) noexcept {
-    if (Target::classof(src)) {
-        // Оскільки перевірку тегу пройдено, static_cast є на 100% безпечним і безкоштовним!
-        return static_cast<Target*>(src);
-    }
-    return nullptr;
-}
-```
+:::code cast-operators-d/cpp/8-produktyvnist-ta.cpp
 :::
 
 ### Чому LLVM-style RTTI перевершує `dynamic_cast`?
@@ -847,28 +551,7 @@ Target* fast_dyn_cast(Source* src) noexcept {
 
 Він повністю замінює віртуальні таблиці та runtime-приведення на нуль-вартісний `static_cast`:
 
-```cpp
-template <typename Derived>
-class ShapeCRTP {
-public:
-    void draw() const {
-        // Статичний downcast без жодного оверхеду vtable та RTTI:
-        static_cast<const Derived*>(this)->draw_impl();
-    }
-};
-
-class CircleCRTP : public ShapeCRTP<CircleCRTP> {
-public:
-    void draw_impl() const {
-        // Конкретна реалізація малювання кола
-    }
-};
-
-template <typename T>
-void render_shape(const ShapeCRTP<T>& shape) {
-    shape.draw(); // Прямий виклик функції без vtable lookup (inlined!)
-}
-```
+:::code cast-operators-d/cpp/statychnyi-polimorfizm.cpp
 
 Компілятор інлайнить виклик `draw_impl()`, зводячи вартість поліморфного виклику до абсолютного нуля (Zero-Cost Abstraction).
 
@@ -876,31 +559,7 @@ void render_shape(const ShapeCRTP<T>& shape) {
 
 У сучасному проектуванні на C++ замість важких поліморфних ієрархій із спадкуванням та `dynamic_cast` дедалі частіше використовується тип `std::variant` (заголовок `<variant>`). Він реалізує типізоване безпечне об'єднання із зіставленням шаблонів через `std::visit`:
 
-```cpp
-#include <variant>
-#include <string>
-#include <iostream>
-
-struct CircleShape { double radius; };
-struct SquareShape { double side; };
-struct TriangleShape { double base, height; };
-
-using ShapeVariant = std::variant<CircleShape, SquareShape, TriangleShape>;
-
-void render_variant(const ShapeVariant& shape) {
-    // Безпечний патерн-матчинг без RTTI, vtable та жодних кастів:
-    std::visit([](const auto& s) {
-        using T = std::decay_t<decltype(s)>;
-        if constexpr (std::is_same_v<T, CircleShape>) {
-            std::cout << "Коло радіусом " << s.radius << '\n';
-        } else if constexpr (std::is_same_v<T, SquareShape>) {
-            std::cout << "Квадрат зі стороною " << s.side << '\n';
-        } else if constexpr (std::is_same_v<T, TriangleShape>) {
-            std::cout << "Трикутник\n";
-        }
-    }, shape);
-}
-```
+:::code cast-operators-d/cpp/suchasna-alternatyva.cpp
 
 #### Порівняння класичного поліморфізму та `std::variant`:
 1. **Розміщення в пам'яті:** `std::variant` зберігає об'єкт безпосередньо у виділеному буфері за значенням, не потребуючи динамічного виділення пам'яті в купі (`heap allocation`) та вказівників.

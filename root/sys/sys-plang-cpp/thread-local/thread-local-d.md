@@ -21,40 +21,7 @@
 
 Специфікатор `thread_local` визначає **тривалість зберігання потоку** (thread storage duration) і може комбінуватися зі специфікаторами видимості та зв'язування `static` або `extern`. На відміну від автоматичних змінних на стеку чи глобальних змінних у спільній статичній пам'яті процесу, кожна `thread_local` змінна існує у стількох незалежних екземплярах, скільки активних потоків виконує даний процес.
 
-```cpp
-#include <iostream>
-#include <thread>
-#include <string>
-
-// 1. Глобальна thread_local змінна із зовнішнім зв'язуванням (External Linkage)
-thread_local int per_thread_counter = 0;
-
-// 2. Статична змінна рівня одиниці трансляції (Internal Linkage)
-static thread_local std::string per_thread_tag = "unnamed";
-
-void worker(int thread_id) {
-    // 3. Блочна thread_local змінна: неявно static, ініціалізується ліниво
-    thread_local int invocation_count = 0;
-
-    per_thread_counter += 10;
-    per_thread_tag = "worker-" + std::to_string(thread_id);
-    invocation_count++;
-
-    std::cout << "Thread " << thread_id 
-              << ": counter=" << per_thread_counter 
-              << ", tag=" << per_thread_tag 
-              << ", invocations=" << invocation_count 
-              << ", address=" << &per_thread_counter << '\n';
-}
-
-int main() {
-    std::jthread t1(worker, 1);
-    std::jthread t2(worker, 2);
-    t1.join();
-    t2.join();
-    worker(0); // Виконання в головному потоці
-}
-```
+:::code thread-local-d/cpp/semantyka-spetsyfikatora.cpp
 
 У наведеному фрагменті кожен із трьох потоків (два створених через `std::jthread` та головний потік `main`) модифікує виключно власні екземпляри `per_thread_counter`, `per_thread_tag` та `invocation_count`. Жодних станів гонитви (data races) не виникає, операції не потребують м'ютексів, а виведення виразів `&per_thread_counter` демонструє унікальні адреси віртуальної пам'яті для кожного потоку.
 
@@ -225,49 +192,8 @@ General Dynamic (call __tls_get_addr)  ──►  Local Exec (movq %fs:offset)
 Коли програма завантажує плагіни або динамічні модулі під час роботи через системний виклик `dlopen()`, обслуговування `thread_local` змінних стає складнішим через використання структури **Dynamic Thread Vector (DTV)**.
 
 :::tabs
-```c
-/* Динамічне завантаження плагіна з TLS на мові C */
-#include <dlfcn.h>
-#include <stdio.h>
-
-typedef void (*process_fn)(void);
-
-void load_and_run(const char* lib_path) {
-    void* handle = dlopen(lib_path, RTLD_NOW);
-    if (!handle) {
-        fprintf(stderr, "dlopen error: %s\n", dlerror());
-        return;
-    }
-    process_fn fn = (process_fn)dlsym(handle, "process_event");
-    if (fn) fn();
-    dlclose(handle);
-}
-```
-```cpp
-// Ідіоматичне C++ RAII-завантаження динамічного модуля
-#include <dlfcn.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-
-class DynamicModule {
-    void* handle_{nullptr};
-public:
-    explicit DynamicModule(const char* path) {
-        handle_ = dlopen(path, RTLD_NOW);
-        if (!handle_) {
-            throw std::runtime_error(dlerror());
-        }
-    }
-    ~DynamicModule() {
-        if (handle_) dlclose(handle_);
-    }
-    template<typename T>
-    T get_symbol(const char* name) const {
-        return reinterpret_cast<T>(dlsym(handle_, name));
-    }
-};
-```
+:::code thread-local-d/c/main.c
+:::code thread-local-d/cpp/dynamichne-zavantazhennia.cpp
 :::
 
 ### Робота Dynamic Thread Vector (DTV)
@@ -325,30 +251,7 @@ dlopen failed: cannot allocate memory in static TLS block
 - При першому зверненні потоку функція перевіряє `__tls_guard`: якщо прапорець хибний, встановлює його в `true`, виконує конструктор об'єкта за допомогою виклику `placement new` на виділеній пам'яті TLS і реєструє деструктор.
 - При наступних зверненнях того ж потоку умова розгалуження оминає конструктор.
 
-```cpp
-// Сирцевий код на C++:
-thread_local std::string per_thread_buffer = initialize_buffer();
-
-// Еквівалентний псевдокод, що генерується компілятором (Itanium ABI):
-static thread_local bool __tls_guard_per_thread_buffer = false;
-static thread_local alignas(std::string) std::byte __tls_storage_buffer[sizeof(std::string)];
-
-std::string& __get_per_thread_buffer() {
-    if (!__tls_guard_per_thread_buffer) {
-        __tls_guard_per_thread_buffer = true;
-        // 1. Виклик конструктора на попередньо виділеній TLS-пам'яті
-        ::new (static_cast<void*>(__tls_storage_buffer)) std::string(initialize_buffer());
-        
-        // 2. Реєстрація деструктора для поточного потоку
-        __cxa_thread_atexit(
-            [](void* ptr) { reinterpret_cast<std::string*>(ptr)->~basic_string(); },
-            __tls_storage_buffer,
-            &__dso_handle
-        );
-    }
-    return *reinterpret_cast<std::string*>(__tls_storage_buffer);
-}
-```
+:::code thread-local-d/cpp/2-dynamichna-linyva.cpp
 
 Накладною витратою динамічної ініціалізації є те, що кожне звернення до змінної вимагає виконання інструкції перевірки умови (Branch Check). Щоб гарантувати статичну ініціалізацію складних об'єктів і повністю усунути сторожові прапорці, починаючи з стандарту C++20 рекомендується використовувати специфікатор `constinit thread_local`.
 
@@ -400,22 +303,7 @@ extern "C" int __cxa_thread_atexit(
 
 Стандартний псевдовипадковий генератор `std::mt19937` (Mersenne Twister) містить внутрішній стан розміром 2500 байтів. Одночасний виклик `std::mt19937::operator()` з різних потоків є станом гонитви. Використання м'ютекса знижує швидкість генерації чисел з 200 мільйонів операцій за секунду до 3 мільйонів. Розміщення генератора у `thread_local` забезпечує максимальну швидкість без блокувань.
 
-```cpp
-#include <random>
-#include <cstdint>
-
-uint64_t generate_random_id() {
-    // Кожен потік отримує власний екземпляр генератора,
-    // ініціалізований унікальним зерном при першому виклику
-    thread_local std::mt19937_64 engine([]() {
-        std::random_device rd;
-        return (static_cast<uint64_t>(rd()) << 32) ^ rd();
-    }());
-    
-    std::uniform_int_distribution<uint64_t> dist;
-    return dist(engine);
-}
-```
+:::code thread-local-d/cpp/1-potokobezpechnyi.cpp
 
 ### 2. Потоково-локальні арени виділення пам'яті
 
@@ -427,47 +315,7 @@ uint64_t generate_random_id() {
 
 Замість інкременту єдиної змінної `std::atomic<uint64_t>`, що викликає кеш-контеншн між ядрами, кожен потік накопичує події у локальному лічильнику. Потік моніторингу періодично зчитує суму показників.
 
-```cpp
-#include <atomic>
-#include <vector>
-#include <numeric>
-
-class ThreadSafeMetric {
-    struct ThreadCounter {
-        std::atomic<uint64_t> value{0};
-        alignas(64) char padding[56]; // Захист від False Sharing між сусідніми структурами
-    };
-
-    static inline std::vector<ThreadCounter*> registry_;
-    static inline std::mutex registry_mtx_;
-
-    static ThreadCounter& get_local_counter() {
-        thread_local ThreadCounter local_counter;
-        thread_local struct Registration {
-            Registration(ThreadCounter* counter) {
-                std::lock_guard<std::mutex> lock(registry_mtx_);
-                registry_.push_back(counter);
-            }
-        } reg(&local_counter);
-        return local_counter;
-    }
-
-public:
-    void increment() {
-        // Локальний інкремент без конкуренції: запис виключно у власний L1-кеш
-        get_local_counter().value.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    uint64_t read_total() const {
-        std::lock_guard<std::mutex> lock(registry_mtx_);
-        uint64_t total = 0;
-        for (const auto* counter : registry_) {
-            total += counter->value.load(std::memory_order_relaxed);
-        }
-        return total;
-    }
-};
-```
+:::code thread-local-d/cpp/3-smuhovi-lichylnyky.cpp
 
 ---
 
@@ -509,19 +357,7 @@ thread_local char scratchpad[64 * 1024];
 - Звернення до `thread_local` змінної **до `co_await`** відбудеться з пам'яті потоку `A`.
 - Звернення до тієї ж `thread_local` змінної **після `co_await`** відбудеться з пам'яті потоку `B`!
 
-```cpp
-#include <coroutine>
-
-Task process_coroutine() {
-    // Звернення до пам'яті Потоку 1
-    thread_local_buffer.push_back("Data Part 1");
-
-    co_await async_io_operation(); // Призупинення. Відновлення у Потоці 2!
-
-    // НЕБЕЗПЕКА: Тепер ми читаємо буфер Потоку 2, де наших даних немає!
-    send_data(thread_local_buffer);
-}
-```
+:::code thread-local-d/cpp/3-spivprohramy-c-20.cpp
 
 *Правило*: Ніколи не зберігайте між точками призупинення `co_await` стан, прив'язаний до `thread_local`, або покажчики на нього.
 

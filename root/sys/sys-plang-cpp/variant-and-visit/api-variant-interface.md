@@ -114,22 +114,7 @@ constexpr bool holds_alternative(const variant<Types...>& v) noexcept;
 Повертає `true` тоді й лише тоді, коли `v.index()` збігається з індексом типу `T` у списку `Types...`. Якщо тип `T` не входить до списку `Types...` або зустрічається там декілька разів, виклик призводить до помилки компіляції під час аналізу типів.
 
 ### std::get
-```cpp
-template <typename T, typename... Types>
-constexpr T& get(variant<Types...>& v);
-
-template <typename T, typename... Types>
-constexpr const T& get(const variant<Types...>& v);
-
-template <typename T, typename... Types>
-constexpr T&& get(variant<Types...>&& v);
-
-template <size_t I, typename... Types>
-constexpr variant_alternative_t<I, variant<Types...>>& get(variant<Types...>& v);
-
-template <size_t I, typename... Types>
-constexpr const variant_alternative_t<I, variant<Types...>>& get(const variant<Types...>& v);
-```
+:::code api-variant-interface/cpp/std-get.hpp
 Здійснює прямий доступ до значення за типом або індексом. Повертає посилання на активну альтернативу. Якщо індекс запитуваного типу не збігається з `v.index()`, або якщо варіант перебуває у стані `valueless_by_exception()`, функція викидає виняток `std::bad_variant_access`.
 
 ### std::get_if
@@ -148,25 +133,7 @@ get_if(variant<Types...>* pv) noexcept;
 
 ## 5. Допоміжні класи та метафункції
 
-```cpp
-// Отримання кількості альтернатив у варіанті на етапі компіляції
-template <typename T> struct variant_size;
-
-template <typename... Types>
-struct variant_size<variant<Types...>> : std::integral_constant<size_t, sizeof...(Types)> {};
-
-template <typename T>
-inline constexpr size_t variant_size_v = variant_size<T>::value;
-
-// Отримання типу альтернативи за її індексом I
-template <size_t I, typename T> struct variant_alternative;
-
-template <size_t I, typename T>
-using variant_alternative_t = typename variant_alternative<I, T>::type;
-
-// Константа порожнього або невалідного стану
-inline constexpr size_t variant_npos = -1;
-```
+:::code api-variant-interface/cpp/5-dopomizhni-klasy-ta.cpp
 
 Метафункція `std::variant_alternative_t<I, VariantType>` дозволяє отримувати точний тип `I`-ї альтернативи під час компіляції у шаблонних алгоритмах та утилітах метапрограмування.
 
@@ -174,21 +141,7 @@ inline constexpr size_t variant_npos = -1;
 
 Клас `std::monostate` слугує явним маркером порожнього стану у варіантах, перша альтернатива яких не підтримує конструктор за замовчуванням.
 
-```cpp
-namespace std {
-    struct monostate {};
-
-    constexpr bool operator==(monostate, monostate) noexcept { return true; }
-    constexpr bool operator!=(monostate, monostate) noexcept { return false; }
-    constexpr bool operator<(monostate, monostate) noexcept { return false; }
-    constexpr bool operator>(monostate, monostate) noexcept { return false; }
-    constexpr bool operator<=(monostate, monostate) noexcept { return true; }
-    constexpr bool operator>=(monostate, monostate) noexcept { return true; }
-    constexpr strong_ordering operator<=>(monostate, monostate) noexcept {
-        return strong_ordering::equal;
-    }
-}
-```
+:::code api-variant-interface/cpp/6-klas-std-monostate-ta.cpp
 
 ### Логіка виконання операторів порівняння двох варіантів:
 При виконанні `v1 == v2` алгоритм діє наступним чином:

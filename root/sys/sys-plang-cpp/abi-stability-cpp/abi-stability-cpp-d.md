@@ -68,20 +68,7 @@
 
 В **Itanium C++ ABI** (GCC, Clang) усі манглені імена починаються з префікса `_Z`. Якщо функція є членом класу або розташована в просторі імен, додається літера `N`, далі чергуються довжини назв та самі назви, а завершується ланцюжок літерою `E` перед кодуванням типів аргументів:
 
-```cpp
-namespace Engine {
-    class Widget {
-    public:
-        void render(int width, double scale);
-    };
-}
-// Манглене ім'я в Itanium ABI: _ZN6Engine6Widget6renderEid
-// Розбір: _Z (префікс C++)
-//         N (вкладене ім'я)
-//         6Engine 6Widget 6render (простір імен, клас, функція)
-//         E (кінець списку імен)
-//         i (int) d (double) (типи аргументів)
-```
+:::code abi-stability-cpp-d/cpp/2-1-manhlinh-imen-name.cpp
 
 В **MSVC ABI** (Microsoft Visual C++) використовується власна система, де імена починаються зі знака питання `?`:
 `?render@Widget@Engine@@QEAAXHN@Z`. Тут кваліфікатор `QEAA` додатково шифрує модифікатор доступу `public`, константність покажчика `this` та угоду про виклик, а `X`, `H`, `N` кодують типи `void`, `int` та `double`.
@@ -102,24 +89,7 @@ namespace Engine {
 
 Розглянемо випадок, коли порядок полів оптимізовано для економії пам'яті:
 
-```cpp
-// Версія 1.0: Неефективне розташування (розмір 24 байти)
-struct DataV1 {
-    char   flag;      // 1 байт  [зміщення 0x00]
-                      // 7 байтів padding
-    double value;     // 8 байтів [зміщення 0x08]
-    int    id;        // 4 байти  [зміщення 0x10]
-                      // 4 байти padding (округлення до alignof(double)=8)
-};
-
-// Версія 1.1: Розробник переставив поля (розмір 16 байтів)
-struct DataV2 {
-    double value;     // 8 байтів [зміщення 0x00]
-    int    id;        // 4 байти  [зміщення 0x08]
-    char   flag;      // 1 байт   [зміщення 0x0C]
-                      // 3 байти padding
-};
-```
+:::code abi-stability-cpp-d/cpp/2-2-rozmishchennia-v.cpp
 
 Хоча склад полів не змінився, зміщення `offsetof(Data, id)` змінилося з `0x10` на `0x08`. Клієнтська програма, скомпільована з версією 1.0, під час читання `data.id` зчитуватиме байти з адреси `+0x10`, де у версії 1.1 взагалі немає даних структури.
 
@@ -191,26 +161,7 @@ struct DataV2 {
 
 Будь-яке додавання або видалення поля (навіть `private`), а також зміна типу поля зі збереженням імені ламає зміщення всіх наступних змінних та змінює `sizeof(Class)`:
 
-```cpp
-// v1.0 у shared library
-class Session {
-public:
-    int get_id() const { return id_; }
-private:
-    int id_;         // зміщення +0
-    double timeout_; // зміщення +8
-};
-
-// v1.1: Розробник додав нове приватне поле
-class Session {
-public:
-    int get_id() const { return id_; }
-private:
-    int id_;             // зміщення +0
-    bool authenticated_; // зміщення +4 (НОВЕ ПОЛЕ)
-    double timeout_;     // зміщення +8 -> зсунулося на +16 через вирівнювання!
-};
-```
+:::code abi-stability-cpp-d/cpp/3-1-zmina-rozmiru-abo.cpp
 
 Якщо стара клієнтська програма створила об'єкт `Session` на власному стеку (виділивши під нього 16 байтів за старим розміром), а нова версія бібліотеки записує в об'єкт 24 байти, бібліотека перетре сусідні дані на стеку клієнта (Stack Buffer Overflow).
 
@@ -220,22 +171,7 @@ private:
 
 Додавання деструктора до структури виглядає безпечним покращенням коду, проте воно кардинально змінює двійковий контракт передачі аргументів:
 
-```cpp
-// v1.0: Тривіальний тип -> передається в регістрі %rdi (System V ABI)
-struct Point {
-    int x;
-    int y;
-};
-void draw_point(Point p); // Асемблер: mov rdi, [адреса]; call draw_point
-
-// v1.1: Додано логування в деструкторі -> тип став MEMORY
-struct Point {
-    int x;
-    int y;
-    ~Point() { log("destroyed"); } // Нетривіальний деструктор!
-};
-void draw_point(Point p); // Асемблер: lea rdi, [rsp+8]; call draw_point
-```
+:::code abi-stability-cpp-d/cpp/3-2-dodavannia.cpp
 
 Якщо клієнт скомпільовано з версією 1.0, він запише координати прямо в регістр `%rdi`. Оновлена функція `draw_point` з версії 1.1 інтерпретує значення в `%rdi` як покажчик на пам'ять стеку і спробує розіменувати числові координати як адресу пам'яті, що призведе до негайного падіння з `SIGSEGV`.
 
@@ -311,26 +247,7 @@ void draw_point(Point p); // Асемблер: lea rdi, [rsp+8]; call draw_point
 
 Ідіома PImpl повністю ізолює приватний стан класу від публічного заголовка. Публічний клас містить виключно один непрозорий покажчик `std::unique_ptr<Impl>` на структуру реалізації, оголошену в заголовку як неповний тип (`forward declaration`):
 
-```cpp
-// widget.hpp — стабільний заголовок клієнта
-#pragma once
-#include <memory>
-
-class Widget {
-public:
-    Widget();
-    ~Widget(); // Обов'язково неінлайновий деструктор!
-
-    Widget(Widget&&) noexcept;
-    Widget& operator=(Widget&&) noexcept;
-
-    void draw();
-
-private:
-    struct Impl;                  // Неповний тип (Forward declaration)
-    std::unique_ptr<Impl> pimpl_; // Фіксований розмір: 8 байтів назавжди
-};
-```
+:::code abi-stability-cpp-d/cpp/widget.hpp
 
 Усі приватні змінні, важкі залежності та структури даних додаються виключно всередині файлу `widget.cpp`. Розмір класу `Widget` для клієнта назавжди зафіксований на рівні 8 байтів.
 
@@ -340,21 +257,7 @@ private:
 
 Найвищий рівень міжмовної та міжкомпіляторної стабільності забезпечує плоский двійковий C-шлюз із використанням непрозорих покажчиків:
 
-```cpp
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct engine_handle_opaque* engine_handle_t;
-
-int  engine_create(engine_handle_t* out_handle);
-int  engine_process(engine_handle_t handle, const double* data, size_t size);
-void engine_destroy(engine_handle_t handle);
-
-#ifdef __cplusplus
-}
-#endif
-```
+:::code abi-stability-cpp-d/cpp/5-2-chystyi-c-shliuz.hpp
 
 Оскільки плоский C ABI не має манглінгу імен C++, віртуальних таблиць чи винятків, цей інтерфейс гарантовано працює між будь-якими компіляторами (наприклад, хост на Rust/Go/C#, що завантажує плагін на C++20).
 

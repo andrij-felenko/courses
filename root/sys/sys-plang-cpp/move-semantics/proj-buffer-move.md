@@ -14,38 +14,7 @@ g++ -std=c++17 -O2 -Wall -Wextra buffer.cpp -o demo && ./demo
 
 Приріст, а не журнал окремих рядків, — свідомий вибір. Друкувати кожен виклик у момент, коли він стається, спокусливо, але порядок дій усередині `std::vector` — деталь реалізації: одна бібліотека спершу будує новий елемент, потім переносить старі, інша може зробити навпаки. Приріст за операцію відтворюється однаково скрізь, тож саме на нього можна спиратися у висновках.
 
-```cpp
-#include <cstddef>
-#include <cstring>
-#include <iostream>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-struct Stats {
-    long ctor = 0, dtor = 0;
-    long copy_ctor = 0, copy_assign = 0;
-    long move_ctor = 0, move_assign = 0;
-    long long bytes_copied = 0;
-};
-
-inline Stats g;                       // inline-змінна: одна на всю програму (C++17)
-
-void report(const char* what, const Stats& before) {
-    std::cout << what << " |";
-    auto item = [](const char* name, long long delta) {
-        if (delta) std::cout << "  " << name << ' ' << delta;
-    };
-    item("ctor",      g.ctor        - before.ctor);
-    item("copy-ctor", g.copy_ctor   - before.copy_ctor);
-    item("move-ctor", g.move_ctor   - before.move_ctor);
-    item("copy-asg",  g.copy_assign - before.copy_assign);
-    item("move-asg",  g.move_assign - before.move_assign);
-    item("dtor",      g.dtor        - before.dtor);
-    item("MiB",      (g.bytes_copied - before.bytes_copied) >> 20);
-    std::cout << '\n';
-}
-```
+:::code proj-buffer-move/cpp/doshka-lichylnykiv.cpp
 
 `item` друкує лише ненульове — інакше кожен рядок звіту перетворювався б на стіну нулів, серед якої губиться те єдине число, заради якого все й затіяно.
 
@@ -55,75 +24,7 @@ void report(const char* what, const Stats& before) {
 
 Одне місце в лістингу зроблено перемикачем: `MOVE_NOEXCEPT` дає змогу зібрати ту саму програму без `noexcept` у конструкторі переміщення й порівняти журнали. У справжньому коді такого макроса, звісно, нема — там просто стоїть `noexcept`.
 
-```cpp
-#ifdef EXPERIMENT_NO_NOEXCEPT          // -DEXPERIMENT_NO_NOEXCEPT для другого прогону
-#  define MOVE_NOEXCEPT
-#else
-#  define MOVE_NOEXCEPT noexcept
-#endif
-
-class Buffer {
-    std::byte*  data_ = nullptr;
-    std::size_t size_ = 0;
-
-public:
-    explicit Buffer(std::size_t n)
-        : data_(n ? new std::byte[n] : nullptr), size_(n) {
-        ++g.ctor;
-    }
-
-    ~Buffer() {                                            // 1. деструктор
-        ++g.dtor;
-        delete[] data_;                                    // на nullptr — законний нуль-ефект
-    }
-
-    Buffer(const Buffer& other)                            // 2. копіювання
-        : data_(other.size_ ? new std::byte[other.size_] : nullptr),
-          size_(other.size_) {
-        if (size_) std::memcpy(data_, other.data_, size_);
-        ++g.copy_ctor;
-        g.bytes_copied += size_;
-    }
-
-    Buffer& operator=(const Buffer& other) {               // 3. копіювальне присвоєння
-        std::byte* fresh = other.size_ ? new std::byte[other.size_] : nullptr;
-        if (other.size_) std::memcpy(fresh, other.data_, other.size_);
-        delete[] data_;                     // своє звільняємо ПІСЛЯ вдалого виділення
-        data_ = fresh;
-        size_ = other.size_;
-        ++g.copy_assign;
-        g.bytes_copied += size_;
-        return *this;
-    }
-
-    Buffer(Buffer&& other) MOVE_NOEXCEPT                   // 4. переміщення
-        : data_(std::exchange(other.data_, nullptr)),
-          size_(std::exchange(other.size_, 0)) {
-        ++g.move_ctor;
-    }
-
-    Buffer& operator=(Buffer&& other) noexcept {           // 5. переміщувальне присвоєння
-        if (this == &other) return *this;   // без цього рядка — звільнений вказівник
-        delete[] data_;
-        data_ = std::exchange(other.data_, nullptr);
-        size_ = std::exchange(other.size_, 0);
-        ++g.move_assign;
-        return *this;
-    }
-
-    void swap(Buffer& other) noexcept {
-        std::swap(data_, other.data_);
-        std::swap(size_, other.size_);
-    }
-
-    std::size_t size() const noexcept { return size_; }
-};
-
-#ifndef EXPERIMENT_NO_NOEXCEPT
-static_assert(std::is_nothrow_move_constructible_v<Buffer>,
-              "тип із ресурсом мусить переміщуватися без винятків");
-#endif
-```
+:::code proj-buffer-move/cpp/klas.cpp
 
 Чотири рішення в цьому лістингу варто пояснити окремо, бо кожне з них — відповідь на конкретну аварію.
 
@@ -139,18 +40,7 @@ static_assert(std::is_nothrow_move_constructible_v<Buffer>,
 
 Три заміри нижче — три окремі функції; `main` викликає їх одна за одною. Ось перша:
 
-```cpp
-void demo_vector() {
-    std::vector<Buffer> v;
-    for (int i = 1; i <= 4; ++i) {
-        Stats before = g;
-        std::size_t cap = v.capacity();
-        v.push_back(Buffer(1u << 20));          // тимчасовий на 1 МіБ
-        std::cout << "push_back #" << i << "  cap " << cap << " -> " << v.capacity();
-        report("", before);
-    }
-}
-```
+:::code proj-buffer-move/cpp/zamir-pershyi-skilky.cpp
 
 Журнал (libstdc++ і libc++ подвоюють місткість; у MSVC множник 1.5, тож моменти перерозподілу інші, а картина та сама):
 
@@ -298,22 +188,7 @@ vector<Buffer>, 4 × push_back(1 МіБ):
 
 Обидві виглядають нешкідливо, обидві мовчки перетворюють переміщення на копіювання. Додамо до файлу три структури-піддослідні:
 
-```cpp
-struct Plain  { Buffer buf; };                       // нічого зайвого
-struct Frame  { const Buffer buf; int id = 0; };     // константне поле
-struct Holder { Buffer buf; ~Holder() {} };          // власний деструктор
-
-static_assert( std::is_nothrow_move_constructible_v<Plain>);
-static_assert( std::is_move_constructible_v<Holder>);          // «так» — але це копіювання
-static_assert(!std::is_nothrow_move_constructible_v<Holder>);  // ось де правда
-static_assert(!std::is_nothrow_move_constructible_v<Frame>);
-
-void demo_traps() {
-    { Plain  a{Buffer(1u << 20)}; Stats m = g; Plain  b = std::move(a); report("Plain                ", m); }
-    { Frame  a{Buffer(1u << 20)}; Stats m = g; Frame  b = std::move(a); report("Frame  (const-поле)  ", m); }
-    { Holder a{Buffer(1u << 20)}; Stats m = g; Holder b = std::move(a); report("Holder (свій ~Holder)", m); }
-}
-```
+:::code proj-buffer-move/cpp/dvi-pastky-iaki-lichylnyky.cpp
 
 ```
 Plain                 |  move-ctor 1

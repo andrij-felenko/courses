@@ -115,20 +115,7 @@ std::string debug_out = std::format("{:?}", raw);
 
 Починаючи з стандарту C++20, заголовочний файл `<chrono>` тісно інтегровано із підсистемою `<format>`. Специфікатори форматування часових точок та тривалостей оперують прапорцями, аналогічними POSIX-функції `strftime`:
 
-```cpp
-#include <format>
-#include <chrono>
-
-auto now = std::chrono::system_clock::now();
-
-// Форматування дати й часу за специфікаторами strftime
-std::string time_str = std::format("{:%Y-%m-%d %H:%M:%S}", now);
-// Приклад: "2026-08-14 19:25:00"
-
-// Днів тижня та місяців
-std::string verbose_date = std::format("{:%A, %B %d, %Y}", now);
-// Приклад: "Friday, August 14, 2026"
-```
+:::code api-format-specifiers/cpp/formatuvannia-datu-i-chasu.hpp
 
 Ключові специфікатори часу:
 - `%Y` / `%y` — рік з чотирьох цифр (`2026`) / двозначний рік (`26`).
@@ -142,21 +129,7 @@ std::string verbose_date = std::format("{:%A, %B %d, %Y}", now);
 
 Стандарт **C++23** додав підтримку автоматичного форматування контейнерів стандартної бібліотеки (`std::vector`, `std::array`, `std::map`, `std::set`, `std::span` тощо) у заголовочний файл `<format>`.
 
-```cpp
-#include <format>
-#include <vector>
-#include <map>
-#include <string>
-
-std::vector<int> nums = {10, 20, 30};
-std::string v_out = std::format("{}", nums); // "[10, 20, 30]"
-
-std::map<std::string, int> ages = {{"Alice", 25}, {"Bob", 30}};
-std::string m_out = std::format("{}", ages); // "{\"Alice\": 25, \"Bob\": 30}"
-
-// Специфікатор 'n' відключає зовнішні дужки контейнера
-std::string raw_nums = std::format("{::#x}", nums); // "[0xa, 0x14, 0x1e]" (з внутрішнім специфікатором елемента)
-```
+:::code api-format-specifiers/cpp/formatuvannia-diapazoniv.cpp
 
 Синтаксис розширеного специфікатора діапазонів має вигляд `{:[range-spec][::element-spec]}`. Подвійне двоеточіє `::` слугує роздільником між прапорцями самого діапазону (наприклад, `n` для відключення дужок) та специфікаціями форматування кожного індивідуального елемента всередині масиву.
 
@@ -166,21 +139,7 @@ std::string raw_nums = std::format("{::#x}", nums); // "[0xa, 0x14, 0x1e]" (з �
 
 Спеціалізація повинна надавати два обов'язкові класи методів:
 
-```cpp
-namespace std {
-    template <typename CharT>
-    struct formatter<MyType, CharT> {
-        // 1. Метод розбору специфікатора формату у consteval/constexpr контексті
-        constexpr auto parse(basic_format_parse_context<CharT>& ctx) 
-            -> typename basic_format_parse_context<CharT>::iterator;
-
-        // 2. Метод запису заформатованого значення у вихідний ітератор під час виконання
-        template <typename FormatContext>
-        auto format(const MyType& val, FormatContext& ctx) const 
-            -> typename FormatContext::iterator;
-    };
-}
-```
+:::code api-format-specifiers/cpp/publichnyi-interfeis.cpp
 
 ### Деталізований API контекстів розбору та форматування
 
@@ -202,60 +161,7 @@ namespace std {
 
 Розглянемо повноцінний практичний приклад спеціалізації шаблону `std::formatter` для структури `Point3D`, яка підтримує кілька режимів виводу:
 
-```cpp
-// Детальний приклад спеціалізації для власного типу Point3D із повноцінною обробкою
-#include <format>
-#include <string_view>
-#include <cstdint>
-
-struct Point3D {
-    double x, y, z;
-};
-
-template <>
-struct std::formatter<Point3D> {
-    enum class Mode { Default, Compact, Hex };
-    Mode mode = Mode::Default;
-    int precision = 2;
-
-    // 1. Розбір специфікації у constexpr контексті
-    constexpr auto parse(std::format_parse_context& ctx) {
-        auto it = ctx.begin();
-        auto end = ctx.end();
-
-        if (it != end && *it != '}') {
-            if (*it == 'c') { mode = Mode::Compact; ++it; }
-            else if (*it == 'x') { mode = Mode::Hex; ++it; }
-        }
-
-        if (it != end && *it == '.') {
-            ++it;
-            if (it != end && *it >= '0' && *it <= '9') {
-                precision = *it - '0';
-                ++it;
-            }
-        }
-
-        if (it != end && *it != '}') {
-            throw std::format_error("Invalid format specifier for Point3D");
-        }
-        return it;
-    }
-
-    // 2. Генерація текстового виводу у вихідний ітератор
-    template <typename FormatContext>
-    auto format(const Point3D& pt, FormatContext& ctx) const {
-        if (mode == Mode::Hex) {
-            return std::format_to(ctx.out(), "({:a}, {:a}, {:a})", pt.x, pt.y, pt.z);
-        } else if (mode == Mode::Compact) {
-            return std::format_to(ctx.out(), "{:.{}f},{:.{}f},{:.{}f}", 
-                                  pt.x, precision, pt.y, precision, pt.z, precision);
-        }
-        return std::format_to(ctx.out(), "Point3D(x={:.{}f}, y={:.{}f}, z={:.{}f})", 
-                              pt.x, precision, pt.y, precision, pt.z, precision);
-    }
-};
-```
+:::code api-format-specifiers/cpp/2-klas-std-basic-format.cpp
 
 ### Вбудовані форматирувальники стандартної бібліотеки
 

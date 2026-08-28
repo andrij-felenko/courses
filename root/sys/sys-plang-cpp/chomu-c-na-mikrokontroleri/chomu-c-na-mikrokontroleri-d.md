@@ -87,20 +87,7 @@ typedef struct {
     uint32_t pin3 : 2;
 } GpioModer_Bitfield;
 ```
-```cpp
-// Безпечний підхід C++: типізовані бітові поля через enum class та зміщення
-enum class PinMode : uint32_t { Input = 0b00, Output = 0b01, Alt = 0b10, Analog = 0b11 };
-
-template <size_t PinIndex>
-struct PinField {
-    static constexpr uint32_t shift = PinIndex * 2U;
-    static constexpr uint32_t mask  = 0b11U << shift;
-
-    static constexpr uint32_t encode(PinMode mode) noexcept {
-        return static_cast<uint32_t>(mode) << shift;
-    }
-};
-```
+:::code chomu-c-na-mikrokontroleri-d/cpp/typobezpechnyi-dostup-do.cpp
 :::
 
 Такий підхід несе критичні небезпеки у вбудованих системах: стандарт мови C залишає порядок розташування бітових полів (від молодших до старших чи навпаки) на розсуд реалізації компілятора (implementation-defined behavior). Крім того, операція запису в окреме бітове поле структури може транслюватися компілятором у байтові або 16-бітні інструкції запису (`strb`/`strh`), які заборонені багатьма периферійними шинами й викликають виняток Hard Fault.
@@ -108,45 +95,8 @@ struct PinField {
 У C++ апаратний регістр моделюють через шаблонні класи, які гарантують атомарне 32-бітне вирівнювання та сувору ізоляцію типів:
 
 :::tabs
-```c
-/* Доступ до регістрів мовою C через макроси CMSIS */
-#include <stdint.h>
-
-#define GPIOA_BASE  0x40020000UL
-#define GPIOA_MODER (*(volatile uint32_t*)(GPIOA_BASE + 0x00))
-#define GPIOA_IDR   (*(volatile uint32_t*)(GPIOA_BASE + 0x10))
-
-/* Помилка: випадковий запис у регістр тільки для читання (IDR) */
-void bad_c_code(void) {
-    GPIOA_IDR = 0x1234; /* Компілятор C не бачить помилки! */
-}
-```
-```cpp
-// Доступ до регістрів мовою C++ через шаблони та політики
-#include <cstdint>
-
-enum class Access { ReadOnly, WriteOnly, ReadWrite };
-
-template <uintptr_t Addr, typename T, Access Mode>
-struct MmioRegister {
-    static inline T read() noexcept requires (Mode == Access::ReadOnly || Mode == Access::ReadWrite) {
-        return *reinterpret_cast<volatile T*>(Addr);
-    }
-
-    static inline void write(T val) noexcept requires (Mode == Access::WriteOnly || Mode == Access::ReadWrite) {
-        *reinterpret_cast<volatile T*>(Addr) = val;
-    }
-};
-
-using GpioA_Moder = MmioRegister<0x40020000UL, uint32_t, Access::ReadWrite>;
-using GpioA_Idr   = MmioRegister<0x40020010UL, uint32_t, Access::ReadOnly>;
-
-void safe_cpp_code() {
-    GpioA_Moder::write(0x400); // Коректно: регістр підтримує запис
-    // GpioA_Idr::write(0x1234); 
-    // ПОМИЛКА КОМПІЛЯЦІЇ: концепція requires не задоволена!
-}
-```
+:::code chomu-c-na-mikrokontroleri-d/c/typobezpechnyi-dostup-do.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/typobezpechnyi-dostup-do-2.cpp
 :::
 
 Повну архітектуру типізованого драйвера регістрів із підтримкою бітових масок та атомарних блокувань демонструє [повний проект типізованого драйвера MMIO](root:sys-plang-cpp/chomu-c-na-mikrokontroleri/proj-typed-register-abstraction.md).
@@ -163,46 +113,8 @@ void safe_cpp_code() {
 Порівняємо два варіанти реалізації цієї задачі:
 
 :::tabs
-```c
-/* c_gpio_config.c */
-#include <stdint.h>
-
-#define GPIOA_BASE  0x40020000UL
-#define GPIOA_MODER (*(volatile uint32_t*)(GPIOA_BASE + 0x00))
-
-void configure_pin_c(void) {
-    uint32_t val = GPIOA_MODER;
-    val &= ~(0x3U << 10); // Очищення бітів 10..11
-    val |= (0x1U << 10);  // Встановлення режиму Output (01)
-    GPIOA_MODER = val;
-}
-```
-```cpp
-// cpp_gpio_config.hpp
-#include <cstdint>
-
-enum class Pin : uint8_t { P5 = 5 };
-enum class Mode : uint32_t { Input = 0b00, Output = 0b01 };
-
-template <uintptr_t Base>
-struct Gpio {
-    template <Pin P, Mode M>
-    static inline void set_mode() noexcept {
-        constexpr uint32_t shift = static_cast<uint8_t>(P) * 2U;
-        constexpr uint32_t clear_mask = 0b11U << shift;
-        constexpr uint32_t set_mask = static_cast<uint32_t>(M) << shift;
-
-        auto* reg = reinterpret_cast<volatile uint32_t*>(Base);
-        *reg = (*reg & ~clear_mask) | set_mask;
-    }
-};
-
-using GpioA = Gpio<0x40020000UL>;
-
-void configure_pin_cpp() {
-    GpioA::set_mode<Pin::P5, Mode::Output>();
-}
-```
+:::code chomu-c-na-mikrokontroleri-d/c/c_gpio_config.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/porivniannia-zhenerovanoho.cpp
 :::
 
 Якщо скомпілювати обидві функції оптимізуючим компілятором `arm-none-eabi-gcc` та `arm-none-eabi-g++` із прапорцем `-O2` або `-Os`, ми отримаємо абсолютно тотожні асемблерні послідовності інструкцій ARM Thumb-2:
@@ -248,51 +160,8 @@ SRAM_overhead = Використання_RAM(C++) - Використання_RAM
 Специфікатори `constexpr` та `consteval` дозволяють перенести **обчислення часу компіляції** (лат. *computatio* — розрахунок та лат. *compilare* — збирати докупи) безпосередньо у транслятор.
 
 :::tabs
-```c
-/* Розрахунок дільника UART мовою C (виконується в рантаймі) */
-#include <stdint.h>
-
-typedef struct {
-    uint32_t mantissa;
-    uint32_t fraction;
-} UartBaudDiv;
-
-UartBaudDiv calculate_baud_c(uint32_t f_pclk, uint32_t baud) {
-    /* Обчислення при кожному виклику в рантаймі */
-    uint32_t div = (25 * f_pclk) / (4 * baud);
-    UartBaudDiv res;
-    res.mantissa = div / 100;
-    res.fraction = (((div - (res.mantissa * 100)) * 16) + 50) / 100;
-    return res;
-}
-```
-```cpp
-// Розрахунок дільника UART мовою C++ (виконується під час збирання)
-#include <cstdint>
-
-struct UartBaudDiv {
-    uint16_t mantissa;
-    uint8_t  fraction;
-
-    [[nodiscard]] constexpr uint16_t to_brr() const noexcept {
-        return static_cast<uint16_t>((mantissa << 4) | (fraction & 0x0F));
-    }
-};
-
-consteval UartBaudDiv calculate_baud_cpp(uint32_t f_pclk, uint32_t baud) {
-    if (baud == 0 || f_pclk < baud) {
-        // Зупиняє компіляцію, якщо параметри некоректні
-        throw "Некоректний бітрейт для поточної тактової частоти!";
-    }
-    uint32_t div = (25 * f_pclk) / (4 * baud);
-    uint32_t mantissa = div / 100;
-    uint32_t fraction = (((div - (mantissa * 100)) * 16) + 50) / 100;
-    return { static_cast<uint16_t>(mantissa), static_cast<uint8_t>(fraction) };
-}
-
-// Значення обчислюється один раз під час трансляції
-constexpr auto BRR_VALUE = calculate_baud_cpp(84000000UL, 115200UL).to_brr();
-```
+:::code chomu-c-na-mikrokontroleri-d/c/obchyslennia-na-etapi.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/obchyslennia-na-etapi.cpp
 :::
 
 Ключова перевага `consteval` полягає в тому, що компілятор гарантовано не виділяє інструкцій для розрахунку. У машинний код потрапляє лише кінцева константа `BRR_VALUE` (у цьому випадку `0x02D9`). Якщо інженер помилково вкаже бітрейт `11520000` при тактовій частоті шини `8000000`, помилка буде виявлена на етапі компіляції.
@@ -314,68 +183,8 @@ constexpr auto BRR_VALUE = calculate_baud_cpp(84000000UL, 115200UL).to_brr();
 Цю проблему розв'язує ідіома **ініціалізація як отримання ресурсу, RAII** (англ. *Resource Acquisition Is Initialization*, від лат. *initialis* — початковий та *acquirere* — здобувати). Деструктор локального об'єкта гарантовано викликається компілятором при виході з області видимості за будь-яких умов.
 
 :::tabs
-```c
-/* Критична секція мовою C із ризиком витоку блокування */
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Асемблерні макроси Cortex-M */
-static inline uint32_t disable_interrupts(void) {
-    uint32_t primask;
-    __asm volatile ("mrs %0, primask\ncpsid i" : "=r"(primask) :: "memory");
-    return primask;
-}
-
-static inline void restore_interrupts(uint32_t primask) {
-    __asm volatile ("msr primask, %0" :: "r"(primask) : "memory");
-}
-
-bool process_sensor_c(int sensor_id, uint32_t* out_val) {
-    uint32_t state = disable_interrupts();
-    
-    if (sensor_id < 0) {
-        /* ДЕФЕКТ: Забули відновити переривання перед виходом! */
-        return false; 
-    }
-    
-    *out_val = *(volatile uint32_t*)0x40001000;
-    restore_interrupts(state);
-    return true;
-}
-```
-```cpp
-// Критична секція мовою C++ із гарантованим деструктором
-#include <cstdint>
-#include <optional>
-
-class [[nodiscard]] InterruptLock {
-public:
-    InterruptLock() noexcept {
-        asm volatile ("mrs %0, primask\ncpsid i" : "=r"(primask_) :: "memory");
-    }
-
-    ~InterruptLock() noexcept {
-        asm volatile ("msr primask, %0" :: "r"(primask_) : "memory");
-    }
-
-    InterruptLock(const InterruptLock&) = delete;
-    InterruptLock& operator=(const InterruptLock&) = delete;
-
-private:
-    uint32_t primask_{0};
-};
-
-std::optional<uint32_t> process_sensor_cpp(int sensor_id) noexcept {
-    InterruptLock lock; // Переривання заблоковано
-
-    if (sensor_id < 0) {
-        return std::nullopt; // Деструктор lock відпрацює автоматично!
-    }
-
-    uint32_t val = *reinterpret_cast<volatile uint32_t*>(0x40001000UL);
-    return val; // Деструктор lock відпрацює автоматично!
-}
-```
+:::code chomu-c-na-mikrokontroleri-d/c/determinizm-resursiv-raii.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/determinizm-resursiv-raii.cpp
 :::
 
 Важливою особливістю реалізації `InterruptLock` є збереження регістра `PRIMASK`. Якщо критична секція викликається всередині іншої функції, яка вже вимкнула переривання, відновлення регістра не увімкне переривання передчасно, а збереже стан вимкнення до завершення зовнішнього блоку.
@@ -399,50 +208,8 @@ std::optional<uint32_t> process_sensor_cpp(int sensor_id) noexcept {
 Щоб зберегти зручність абстракції без накладних витрат, у C++ застосовують **статичний поліморфізм** (грец. *polys* — численний та *morphe* — форма). Його реалізують через шаблон повторюваного успадкування, відомий як **CRTP** (англ. *Curiously Recurring Template Pattern*), або за допомогою концепцій стандарту C++20.
 
 :::tabs
-```c
-/* Поліморфізм мовою C через структури з покажчиками на функції */
-#include <stdint.h>
-
-typedef struct {
-    void (*write_byte)(uint8_t data);
-    uint8_t (*read_byte)(void);
-} BusInterface_C;
-
-void send_packet_c(const BusInterface_C* bus, const uint8_t* data, uint32_t len) {
-    for (uint32_t i = 0; i < len; ++i) {
-        /* Непрямий виклик через вказівник у RAM: процесор не може виконати інлайнінг */
-        bus->write_byte(data[i]);
-    }
-}
-```
-```cpp
-// Статичний поліморфізм мовою C++20 через концепції (Concepts)
-#include <cstdint>
-#include <span>
-
-template <typename T>
-concept BusDevice = requires(T bus, uint8_t byte) {
-    { bus.write_byte(byte) } noexcept -> std::same_as<void>;
-    { bus.read_byte() } noexcept -> std::same_as<uint8_t>;
-};
-
-struct HardwareSpi {
-    static inline void write_byte(uint8_t data) noexcept {
-        *reinterpret_cast<volatile uint8_t*>(0x4001300CUL) = data;
-    }
-    static inline uint8_t read_byte() noexcept {
-        return *reinterpret_cast<volatile uint8_t*>(0x4001300CUL);
-    }
-};
-
-template <BusDevice Bus>
-void send_packet_cpp(Bus& bus, std::span<const uint8_t> data) noexcept {
-    for (uint8_t byte : data) {
-        // Метод write_byte повністю вбудовується безпосередньо в тіло циклу!
-        bus.write_byte(byte);
-    }
-}
-```
+:::code chomu-c-na-mikrokontroleri-d/c/statychnyi-polimorfizm.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/statychnyi-polimorfizm.cpp
 :::
 
 У C++ версії компілятор знає точний тип шини `HardwareSpi` на етапі збирання. Він повністю розгортає цикл і генерує прямий запис у регістр даних SPI без виділення пам'яті під покажчики та без накладних витрат на виклики функцій.
@@ -467,33 +234,8 @@ void send_packet_cpp(Bus& bus, std::span<const uint8_t> data) noexcept {
 - `std::optional<T>`: безпечне повернення результату функції, яка може завершитися помилкою, без використання магічних чисел або винятків.
 
 :::tabs
-```c
-/* Обробка буфера мовою C через сирі покажчики */
-#include <stdint.h>
-#include <stdbool.h>
-
-bool parse_frame_c(const uint8_t* buffer, uint32_t size, uint16_t* out_crc) {
-    if (!buffer || size < 4) {
-        return false;
-    }
-    *out_crc = (uint16_t)((buffer[size - 2] << 8) | buffer[size - 1]);
-    return true;
-}
-```
-```cpp
-// Обробка буфера мовою C++ через std::span та std::optional
-#include <cstdint>
-#include <span>
-#include <optional>
-
-[[nodiscard]] std::optional<uint16_t> parse_frame_cpp(std::span<const uint8_t> frame) noexcept {
-    if (frame.size() < 4) {
-        return std::nullopt;
-    }
-    uint16_t crc = static_cast<uint16_t>((frame[frame.size() - 2] << 8) | frame.back());
-    return crc;
-}
-```
+:::code chomu-c-na-mikrokontroleri-d/c/bezpeka-pamiati-ta-robota.c
+:::code chomu-c-na-mikrokontroleri-d/cpp/bezpeka-pamiati-ta-robota.cpp
 :::
 
 Якщо системі все ж необхідно створити складний об'єкт під час роботи, застосовують механізм розміщувального створення об'єкта (англ. *placement new*), описаний у темі [вирівнювання та розміщувальний new](root:sys-plang-cpp/alignment-placement-new). Об'єкт створюється у заздалегідь виділеному статичному буфері з суворим контролем вирівнювання пам'яті `alignas`.

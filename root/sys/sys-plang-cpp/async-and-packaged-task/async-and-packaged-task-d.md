@@ -108,22 +108,7 @@ while (fut.wait_for(std::chrono::seconds(0)) != std::future_status::ready) {
 
 При передачі аргументів у `std::async` треба пам'ятати про правила згортання типів `std::decay_t`. За замовчуванням усі аргументи копіюються або переміщуються у внутрішнє сховище спільного стану:
 
-```cpp
-void update_data(std::string& data);
-void process_unique(std::unique_ptr<Data> ptr);
-
-std::string my_str = "hello";
-auto my_ptr = std::make_unique<Data>();
-
-// ПОМИЛКА КОМПІЛЯЦІЇ: async намагається передати rvalue-копію у lvalue-посилання!
-// auto fut1 = std::async(std::launch::async, update_data, my_str);
-
-// ПРАВИЛЬНО: використовуємо std::ref для явного передавання посилання
-auto fut1 = std::async(std::launch::async, update_data, std::ref(my_str));
-
-// ПРАВИЛЬНО: переміщуємо move-only об'єкти
-auto fut2 = std::async(std::launch::async, process_unique, std::move(my_ptr));
-```
+:::code async-and-packaged-task-d/cpp/peredavannia-ta.hpp
 
 При передачі методів класу першим аргументом передається вказівник на метод `&Class::method`, а другим — екземпляр об'єкта (або посилання чи вказівник на нього). Якщо передати сам об'єкт за значенням, `std::async` створить його повну копію у купі спільного стану.
 
@@ -135,36 +120,13 @@ auto fut2 = std::async(std::launch::async, process_unique, std::move(my_ptr));
 
 У C++11/17 не існує вбудованого способу скасувати виконання `std::async`, який вже розпочав роботу. У C++20 для цього рекомендується передавати у функцію об'єкт `std::stop_token`:
 
-```cpp
-// Функція з підтримкою кооперативного скасування у C++20
-int cancellable_task(std::stop_token stop_tok, int target) {
-    for (int i = 0; i < target; ++i) {
-        if (stop_tok.stop_requested()) {
-            std::cout << "Задачу скасовано на кроці " << i << std::endl;
-            return -1;
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-    return target * 2;
-}
-```
+:::code async-and-packaged-task-d/cpp/skasuvannia-zadach-cherez.cpp
 
 ### Відстеження стану готовності через таймаути (Polling vs Blocking)
 
 Замість незручного безперервного виклику `.get()`, який блокує потік на невизначений термін, методи `.wait_for(timeout)` та `.wait_until(timepoint)` дозволяють реалізувати реактивне відстеження готовності асинхронного результату:
 
-```cpp
-auto fut = std::async(std::launch::async, heavy_job);
-
-// Періодичне опитування стану з тайм-аутом у 50 мілісекунд
-while (fut.wait_for(std::chrono::milliseconds(50)) == std::future_status::timeout) {
-    // Головний потік може малювати UI або обробляти події
-    render_loading_spinner();
-}
-
-// Результат гарантовано готовий!
-auto result = fut.get();
-```
+:::code async-and-packaged-task-d/cpp/vidstezhennia-stanu.cpp
 
 ---
 
@@ -218,21 +180,7 @@ fut2.get();
 
 `std::packaged_task` — це контейнер-обгортка над довільним callable-об'єктом (функцією, лямбдою, функтором), який пов'язує виконання цієї функції зі спільним станом та надає об'єкт `std::future<R>`.
 
-```cpp
-// 1. Створюємо packaged_task над лямбдою
-std::packaged_task<int(int, int)> task([](int a, int b) {
-    return a + b;
-});
-
-// 2. Витягуємо future для отримання результату
-std::future<int> fut = task.get_future();
-
-// 3. Виконуємо задачу (можна у поточному потоці, іншому потоці чи пулі)
-task(10, 20);
-
-// 4. Отримуємо результат
-std::cout << "Результат: " << fut.get() << std::endl; // Виведе 30
-```
+:::code async-and-packaged-task-d/cpp/4-rozdilennia-zadachi-i.cpp
 
 ### Реалізація паттерну Type Erasure та макет пам'яті
 
@@ -240,25 +188,7 @@ std::cout << "Результат: " << fut.get() << std::endl; // Виведе 3
 
 Оскільки у момент створення задача може обгортати лямбду будь-якого розміру з різними каптурами (від 8 байтів до кількох кілобайтів), `std::packaged_task` зберігає всередині поліморфний вказівник на абстрактний інтерфейс виконання:
 
-```cpp
-// Приблизна внутрішня концептуальна структура packaged_task
-template<typename R, typename... Args>
-class packaged_task<R(Args...)> {
-    struct task_base {
-        virtual ~task_base() = default;
-        virtual void invoke(Args&&... args) = 0;
-    };
-
-    template<typename F>
-    struct task_impl : task_base {
-        F func_;
-        std::promise<R> promise_;
-        // ...
-    };
-
-    std::unique_ptr<task_base> ptr_;
-};
-```
+:::code async-and-packaged-task-d/cpp/realizatsiia-patternu-type.cpp
 
 Цей макет пояснює, чому `std::packaged_task` є move-only об'єктом: він володіє ексклюзивним поліморфним вказівником `ptr_` на створену задачу. У разі використання малих функторів реалізації компіляторів застосовують внутрішню оптимізацію Small Functor Optimization (SFO), зберігаючи об'єкти розміром до 16-32 байтів безпосередньо у внутрішньому буфері без додаткових викликів `malloc`.
 
@@ -330,48 +260,13 @@ std::packaged_task<int(int, int)> task(generic_lambda);
 
 Завдяки стиранню типів розробник може легко додавати до `std::packaged_task` функціонал вимірювання затримок (Latency Tracing) або метрик через узагальнені обгортки з використанням `if constexpr` у C++17:
 
-```cpp
-template<typename Func>
-auto make_measured_task(Func&& f) {
-    using return_type = std::invoke_result_t<Func>;
-    
-    return std::packaged_task<return_type()>([f = std::forward<Func>(f)]() mutable {
-        auto start = std::chrono::high_resolution_clock::now();
-        
-        if constexpr (std::is_same_v<return_type, void>) {
-            f();
-            auto elapsed = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "[Телеметрія] Час виконання: " 
-                      << std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count() 
-                      << " мкс" << std::endl;
-        } else {
-            auto res = f();
-            auto elapsed = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "[Телеметрія] Час виконання: " 
-                      << std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count() 
-                      << " мкс" << std::endl;
-            return res;
-        }
-    });
-}
-```
+:::code async-and-packaged-task-d/cpp/patern-vymiriuvannia.cpp
 
 ### Повторне використання задачі через `.reset()`
 
 На відміну від `std::promise` чи `std::async`, об'єкт `std::packaged_task` підтримує повторне використання. Метод `.reset()` виділяє новий спільний стан, залишаючи збережену функцію незмінною:
 
-```cpp
-std::packaged_task<int()> task([] { return rand() % 100; });
-
-auto fut1 = task.get_future();
-task(); // Перший запуск
-int res1 = fut1.get();
-
-task.reset(); // Скидаємо стан і створюємо новий future!
-auto fut2 = task.get_future();
-task(); // Другий запуск
-int res2 = fut2.get();
-```
+:::code async-and-packaged-task-d/cpp/povtorne-vykorystannia.hpp
 
 ![Архітектура std::packaged_task](img/packaged-task-pipeline.svg)
 *Внутрішній конвеєр std::packaged_task: від передачі обчислювальної функції до зчитування результату через спільний стан.*
@@ -390,22 +285,7 @@ int res2 = fut2.get();
 
 Коли потік-споживач викликає `future.get()`, середовище виконання розпаковує `std::exception_ptr` і виконує `std::rethrow_exception()`, повторно кидаючи точно такий самий виняток у потоці споживача:
 
-```cpp
-std::packaged_task<double(double, double)> task([](double a, double b) {
-    if (b == 0.0) throw std::invalid_argument("Ділення на нуль!");
-    return a / b;
-});
-
-std::future<double> fut = task.get_future();
-std::thread worker(std::move(task), 10.0, 0.0);
-worker.detach();
-
-try {
-    double res = fut.get(); // Повторно кидає std::invalid_argument
-} catch (const std::exception& e) {
-    std::cout << "Перехоплено виняток з фонового потоку: " << e.what() << std::endl;
-}
-```
+:::code async-and-packaged-task-d/cpp/avtomatychnyi-probros.cpp
 
 ### Інтеграція з трасуванням стеку C++23 (`std::stacktrace`)
 
@@ -426,18 +306,7 @@ try {
 
 Для реалізації паттерну **Один-до-багатьох (One-to-Many Notification / Broadcast)** використовується `std::shared_future`:
 
-```cpp
-std::packaged_task<int()> task([] { return 42; });
-std::shared_future<int> shared_fut = task.get_future().share();
-
-// Декілька потоків можуть безпечно викликати shared_fut.get() паралельно!
-std::thread t1([shared_fut] { std::cout << "T1: " << shared_fut.get() << "\n"; });
-std::thread t2([shared_fut] { std::cout << "T2: " << shared_fut.get() << "\n"; });
-
-task();
-t1.join();
-t2.join();
-```
+:::code async-and-packaged-task-d/cpp/rozsylka-rezultatu-bahatom.hpp
 
 ### Захист потоко-локальних даних: `make_ready_at_thread_exit`
 

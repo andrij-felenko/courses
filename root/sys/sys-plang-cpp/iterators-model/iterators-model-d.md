@@ -46,18 +46,7 @@ for (int* p = begin; p != end; ++p) {
 
 Алгоритму `std::find` абсолютно байдуже, що саме відбувається всередині `operator++()`. Для `std::vector` це додавання 4 або 8 байт до адреси регістру; для `std::list` — це перехід за вказівником `current = current->next`; для `std::cin_get` — це зчитування байта з системного буфера введення операційної системи. Код алгоритму залишається **єдиним і незмінним**:
 
-```cpp
-template<typename InputIt, typename T>
-InputIt find(InputIt first, InputIt last, const T& value) {
-    while (first != last) {
-        if (*first == value) {
-            return first;
-        }
-        ++first;
-    }
-    return first;
-}
-```
+:::code iterators-model-d/cpp/chomu-alhorytmam-potriben.cpp
 
 Цей простий цикл `while (first != last)` є фундаментом усвідомлення ітераторів: алгоритм бачить лише **дві точечні межі** діапазону та курсор між ними.
 
@@ -116,24 +105,7 @@ InputIt find(InputIt first, InputIt last, const T& value) {
 3. **`std::vector<T>::const_iterator`** відповідає покажчикові на константу `const T*`. Можна переміщати ітератор (`++it`), але **неможливо змінити** прочитаний елемент (`*it = newVal` заборонено).
 4. **`const std::vector<T>::const_iterator`** відповідає константному покажчикові на константу `const T* const`. Заборонено і рух ітератора, і модифікацію елемента.
 
-```cpp
-std::vector<int> vec = {10, 20, 30};
-
-// 1. Звичайний ітератор
-auto it = vec.begin(); 
-*it = 15; // OK
-++it;    // OK
-
-// 2. Константний ітератор (const_iterator)
-std::vector<int>::const_iterator cit = vec.cbegin(); 
-// *cit = 25; // ✗ Помилка компіляції: спроба модифікувати const даних
-++cit;        // ✓ OK: ітератор вільно рухається
-
-// 3. Константний об'єкт ітератора
-const auto const_it = vec.begin();
-*const_it = 99; // ✓ OK: вміст змінювати можна
-// ++const_it;  // ✗ Помилка компіляції: сам ітератор є const
-```
+:::code iterators-model-d/cpp/konstantnist-iteratoriv.hpp
 
 ### Правила неявних перетворень
 Стандарт C++ гарантує неявне перетворення (англ. *implicit conversion*) з `iterator` у `const_iterator`, що відповідає неплатному перетворенню вказівника `T*` у `const T*`. Проте зворотне перетворення з `const_iterator` у `iterator` є суворо забороненим за правилами збереження const-коректності. 
@@ -148,32 +120,7 @@ const auto const_it = vec.begin();
 
 Щоб зберегти валідність адрес у пам'яті та уникнути прочитання неіснуючої комірки перед `begin()`, розробники STL застосували **математичний зсув на один елемент назад під час розіменування**:
 
-```cpp
-template<typename BidirectionalIt>
-class reverse_iterator {
-public:
-    using iterator_type = BidirectionalIt;
-
-    explicit reverse_iterator(BidirectionalIt it) : current_(it) {}
-
-    // Метод base() повертає базовий прямоточний ітератор
-    BidirectionalIt base() const { return current_; }
-
-    // Зворотний інкремент кличе декремент базового ітератора!
-    reverse_iterator& operator++() {
-        --current_;
-        return *this;
-    }
-
-    // Розіменування читає елемент на один крок лівіше від current_!
-    reference operator*() const {
-        BidirectionalIt temp = current_;
-        return *(--temp);
-    }
-private:
-    BidirectionalIt current_;
-};
-```
+:::code iterators-model-d/cpp/zvorotni-iteratory-std.cpp
 
 Завдяки цьому зсувові виконуються такі тотожності:
 - `container.rbegin().base() == container.end()`
@@ -189,44 +136,14 @@ private:
 ### 1. `std::istream_iterator<T>` та `std::ostream_iterator<T>`
 Дозволяють читати та писати форматовані дані через оператори `>>` та `<<`:
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <iterator>
-
-int main() {
-    // Зчитування масиву цілих чисел прямо з консольного вводу до кінця файлу (EOF)
-    std::cout << "Введіть числа (Ctrl+D / Ctrl+Z для завершення): ";
-    std::istream_iterator<int> cin_it(std::cin);
-    std::istream_iterator<int> eos; // Конструктор за замовчуванням створює вартовий кінця потоку
-
-    std::vector<int> numbers(cin_it, eos); // Заповнення вектора з потоку!
-
-    // Друк елементів через ostream_iterator з розділювачем пробілом
-    std::cout << "Прочитані числа: ";
-    std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<int>(std::cout, " "));
-    std::cout << "\n";
-}
-```
+:::code iterators-model-d/cpp/1-std-istream-iterator-t.cpp
 
 ### 2. `std::istreambuf_iterator<char>` та `std::ostreambuf_iterator<char>`
 Коли потрібно прочитати файл без форматованого парсингу чисел та пропускання пробілів, `std::istream_iterator` стає надто повільним через перевірки локалі та форматування.
 
 У таких задачах використовують `std::istreambuf_iterator<char>`, який працює безпосередньо з системним буфером `std::streambuf` операційної системи за один прохід:
 
-```cpp
-#include <fstream>
-#include <string>
-#include <iterator>
-
-std::string read_entire_file(const std::string& path) {
-    std::ifstream file(path, std::ios::binary);
-    // Читання всього файла в пам'ять за один виклик алгоритму
-    return std::string(std::istreambuf_iterator<char>(file),
-                       std::istreambuf_iterator<char>());
-}
-```
+:::code iterators-model-d/cpp/2-std-istreambuf-iterator.cpp
 
 Цей підхід є у десятки разів швидшим за обхід у циклі `file.get()` або `file >> val`, оскільки усуває створення тимчасових об'єктів та виклики функцій форматування.
 
@@ -289,20 +206,7 @@ auto it = begin(my_custom_container); // Шукає my_namespace::begin, а по
 
 У C++20 для розв'язання цієї проблеми введено функцію **`std::to_address(it)`**:
 
-```cpp
-#include <memory>
-#include <vector>
-
-void process_c_api(const int* data, size_t count);
-
-void example(const std::vector<int>& vec) {
-    if (vec.empty()) return;
-
-    // Безпечний витяг адреси пам'яті без розіменування!
-    const int* ptr = std::to_address(vec.begin());
-    process_c_api(ptr, vec.size());
-}
-```
+:::code iterators-model-d/cpp/nyzkorivnevyi-vytiah-adres.cpp
 
 Функція `std::to_address` під час компіляції розгортає сурогатний ітератор у сирий вказівник `T*` без виклику `operator*()`, забезпечуючи абсолютну безпеку роботи з C-API.
 
@@ -312,20 +216,7 @@ void example(const std::vector<int>& vec) {
 
 Яскравим прикладом є вид `std::views::iota(start, end)`:
 
-```cpp
-#include <iostream>
-#include <ranges>
-
-int main() {
-    // Генерація числа від 1 до нескінченності без створення вектора
-    auto infinite_range = std::views::iota(1);
-
-    // Взяти перші 5 елементів і надрукувати
-    for (int val : infinite_range | std::views::take(5)) {
-        std::cout << val << " "; // 1 2 3 4 5
-    }
-}
-```
+:::code iterators-model-d/cpp/heneratory-neskinchennykh.cpp
 
 Ітератор `iota_view::iterator` зберігає лише одне ціле число `current_`. Оператор `++it` робить `current_++`, а розіменування `*it` повертає поточне значення за копією. Витрати пам'яті складають рівно `sizeof(int)` (4 байти) для послідовності будь-якого довжини!
 
@@ -385,45 +276,11 @@ struct iterator_traits<T*> {
 ### Вибір реалізації під час компіляції
 Тепер функція `std::advance` обирає найшвидшу реалізацію шляхом перевантаження приватних функцій під час компіляції:
 
-```cpp
-namespace detail {
-    // Реалізація для ітераторів довільного доступу: O(1)
-    template<typename RandomIt, typename Distance>
-    void advance_impl(RandomIt& it, Distance n, std::random_access_iterator_tag) {
-        it += n; // Одна інструкція зсуву адреси!
-    }
-
-    // Реалізація для звичайних ітераторів: O(n)
-    template<typename InputIt, typename Distance>
-    void advance_impl(InputIt& it, Distance n, std::input_iterator_tag) {
-        while (n > 0) {
-            ++it;
-            --n;
-        }
-    }
-}
-
-template<typename It, typename Distance>
-void advance(It& it, Distance n) {
-    using category = typename std::iterator_traits<It>::iterator_category;
-    detail::advance_impl(it, n, category{}); // Компілятор обирає потрібне перевантаження за тегом
-}
-```
+:::code iterators-model-d/cpp/vybir-realizatsii-pid-chas.cpp
 
 У C++17 ця шаблонна магія з перевантаженням функцій була спрощена завдяки виразу `if constexpr`:
 
-```cpp
-template<typename It, typename Distance>
-void advance(It& it, Distance n) {
-    using category = typename std::iterator_traits<It>::iterator_category;
-
-    if constexpr (std::is_base_of_v<std::random_access_iterator_tag, category>) {
-        it += n; // Оптимізована гілка за O(1)
-    } else {
-        while (n > 0) { ++it; --n; } // Покроковий прохід за O(n)
-    }
-}
-```
+:::code iterators-model-d/cpp/vybir-realizatsii-pid-chas-2.cpp
 
 В обидвох випадках невідповідна гілка коду повністю відтинається компілятором і не потрапляє до фінального машинного коду.
 
@@ -451,19 +308,7 @@ const char* text = "Hello World";
 ### Реалізація вартового кінця рядка без strlen()
 Завдяки асиметричній моделі ми можемо створити порожній вартовий `NullTerminatedSentinel`, який перевіряє досягнення символу `\0` прямо під час порівняння у циклі:
 
-```cpp
-struct NullTerminatedSentinel {
-    friend bool operator==(const char* it, NullTerminatedSentinel) {
-        return *it == '\0'; // Умова зупинки — досягнення нульового байта
-    }
-};
-
-const char* text = "Hello World";
-// Замість strlen() передаємо асиметричну пару [const char*, NullTerminatedSentinel]
-for (auto it = text; it != NullTerminatedSentinel{}; ++it) {
-    std::cout << *it; // Однопрохідна обробка без попереднього сканування!
-}
-```
+:::code iterators-model-d/cpp/realizatsiia-vartovoho.cpp
 
 Процесор виконує роботу за **один єдиний прохід** по пам'яті. Жодного попереднього обчислення довжини рядка не відбувається.
 
@@ -491,26 +336,7 @@ note: because 'std::_List_iterator<int>' does not satisfy 'random_access_iterato
 
 Вид (англ. *view*) — це легковаговий адаптер діапазону, створення та копіювання якого виконується за `O(1)` незалежно від кількості елементів у контейнері. Види **не володіють** елементами пам'яті, а лишь зберігають ітератори або вказівники на вихідний контейнер.
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <ranges>
-
-int main() {
-    std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-    // Створення конвеєра обробки даних через оператор pipe |
-    auto results = numbers 
-                 | std::views::filter([](int n) { return n % 2 == 0; })
-                 | std::views::transform([](int n) { return n * n; })
-                 | std::views::take(3);
-
-    // Ітерація виконується ледачо (lazy evaluation)!
-    for (int val : results) {
-        std::cout << val << " "; // Надрукує: 4 16 36
-    }
-}
-```
+:::code iterators-model-d/cpp/arkhitektura-ledachykh.cpp
 
 ### Як ітератори рухають ледачі конвеєри (Lazy Evaluation)
 У наведеному вище прикладі жодного проміжного вектора або виділення динамічної пам'яті не створюється. 

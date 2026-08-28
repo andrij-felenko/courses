@@ -55,28 +55,7 @@ int rand(void) {
 ```
 
 @tab cpp
-```cpp
-#include <random>
-
-// Ідіоматична C++ альтернатива через власний клас-генератор LCG
-class LcgEngine {
-public:
-    using result_type = uint32_t;
-
-    explicit LcgEngine(uint32_t seed = 1) : state_(seed) {}
-
-    static constexpr result_type min() { return 0; }
-    static constexpr result_type max() { return 32767; }
-
-    result_type operator()() {
-        state_ = state_ * 1103515245U + 12345U;
-        return (state_ / 65536U) % 32768U;
-    }
-
-private:
-    uint32_t state_;
-};
-```
+:::code std-random-d/cpp/1-3-stan-honytvy-u.cpp
 :::
 
 ---
@@ -112,21 +91,7 @@ private:
 
 Алгоритм базується на множенні двох 32-бітних чисел з отриманні 64-бітного результату:
 
-```cpp
-uint32_t fast_bounded_rand(uint32_t range, uint32_t (*random_src)()) {
-    uint64_t multiresult = static_cast<uint64_t>(random_src()) * static_cast<uint64_t>(range);
-    uint32_t leftover = static_cast<uint32_t>(multiresult); // Молодші 32 біти
-
-    if (leftover < range) {
-        uint32_t threshold = -range % range; // Поріг обчислюється лише у 0.1% випадків
-        while (leftover < threshold) {
-            multiresult = static_cast<uint64_t>(random_src()) * static_cast<uint64_t>(range);
-            leftover = static_cast<uint32_t>(multiresult);
-        }
-    }
-    return static_cast<uint32_t>(multiresult >> 32); // Старші 32 біти є цільовим числом
-}
-```
+:::code std-random-d/cpp/2-2-optymizovanyi-alhorytm.cpp
 
 Завдяки цьому операція `idiv` виконується лише тоді, коли дробова частина потрапляє у невелику порогову зону, що прискорює генерацію у 3 рази.
 
@@ -303,63 +268,10 @@ double val = reinterpret_bits_to_double(random_53_bits | 0x3ff0000000000000ULL) 
 
 :::tabs
 @tab c
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-// Старий C-підхід (з присутнім Modulo Bias та небезпекою глобального стану)
-int roll_dice_c(void) {
-    // 1. Поганий посів через час у секундах (time_t)
-    // Якщо програма перезапускається двічі за секунду, послідовність буде тотожною
-    // 2. Modulo bias при діленні на 6
-    return (rand() % 6) + 1;
-}
-
-int main(void) {
-    // Ініціалізація глобального стану LCG
-    srand((unsigned int)time(NULL));
-
-    for (int i = 0; i < 5; ++i) {
-        printf("C Dice Roll: %d\n", roll_dice_c());
-    }
-    return 0;
-}
-```
+:::code std-random-d/c/main.c
 
 @tab cpp
-```cpp
-#include <iostream>
-#include <random>
-
-// Сучасний C++11/C++20 підхід (Беззсувний, об'єктно-орієнтований, потокобезпечний)
-class DiceRoller {
-public:
-    DiceRoller() 
-        // 1. Ініціалізація апаратною ентропією
-        : rng_(rd_())
-        // 2. Діапазон [1, 6] без модульного зміщення
-        , dist_(1, 6) {}
-
-    int roll() {
-        return dist_(rng_);
-    }
-
-private:
-    std::random_device rd_;
-    std::mt19937 rng_;
-    std::uniform_int_distribution<int> dist_;
-};
-
-int main() {
-    DiceRoller roller;
-
-    for (int i = 0; i < 5; ++i) {
-        std::cout << "C++ Dice Roll: " << roller.roll() << "\n";
-    }
-    return 0;
-}
-```
+:::code std-random-d/cpp/5-porivnialnyi-kod.cpp
 :::
 
 Переваги C++ реалізації:
@@ -375,31 +287,7 @@ int main() {
 
 Для вирішення цієї проблеми стандарт C++ надає клас `std::seed_seq`. Він збирає кілька слів апаратної ентропії і перемішує їх через нелінійне хешування, розсіюючи біти по всьому вектору стану генератора:
 
-```cpp
-#include <random>
-#include <array>
-#include <iostream>
-
-std::mt19937 create_robust_engine() {
-    std::random_device rd;
-
-    // Збираємо 8 32-бітних слів апаратної ентропії (256 бітів)
-    std::array<std::uint32_t, 8> seeds;
-    for (auto& s : seeds) {
-        s = rd();
-    }
-
-    // seed_seq розширює 256 бітів ентропії на всі 624 елементи стану MT19937
-    std::seed_seq seq(seeds.begin(), seeds.end());
-    return std::mt19937(seq);
-}
-
-int main() {
-    std::mt19937 rng = create_robust_engine();
-    std::cout << "Якісно ініціалізоване число: " << rng() << "\n";
-    return 0;
-}
-```
+:::code std-random-d/cpp/6-initsializatsiia-ta.cpp
 
 ### Механіка двофазного розсіювання у `std::seed_seq`
 Клас `std::seed_seq` застосовує наступний алгоритм перемішування бітів:
@@ -417,34 +305,7 @@ int main() {
 
 Ідіоматичним розв'язком у modern C++ є використання специфікатора `thread_local`. Кожен потік отримує власний ізольований екземпляр генератора, виділений у пам'яті Thread Local Storage (TLS):
 
-```cpp
-#include <iostream>
-#include <random>
-#include <thread>
-#include <vector>
-
-void worker_thread(int thread_id) {
-    // thread_local ініціалізується один раз при старті кожного потоку
-    thread_local std::mt19937 rng([]() {
-        std::random_device rd;
-        return std::mt19937(rd());
-    }());
-
-    std::uniform_int_distribution<int> dist(100, 999);
-    std::cout << "Thread " << thread_id << " generated: " << dist(rng) << "\n";
-}
-
-int main() {
-    std::vector<std::thread> threads;
-    for (int i = 0; i < 4; ++i) {
-        threads.emplace_back(worker_thread, i);
-    }
-    for (auto& t : threads) {
-        t.join();
-    }
-    return 0;
-}
-```
+:::code std-random-d/cpp/7-bahatopotokovi.cpp
 
 ### 7.1. Вплив вирівнювання пам'яті та уникнення False Sharing
 При розміщенні масивів генераторів у багатопотокових структурах виникає ризик явища **помилкового розділення пам'яті (False Sharing)**. 
@@ -465,24 +326,7 @@ struct alignas(64) ThreadRngState {
 ### 7.2. Забезпечення детермінованості та відтворюваності (Reproducibility)
 При зневадженні складних систем або під час наукового моделювання критичноважно вміти точно повторити послідовність випадкових подій. Для цього зафіксовують однакові значення початкового посіву:
 
-```cpp
-#include <iostream>
-#include <random>
-#include <cassert>
-
-void verify_reproducibility() {
-    std::mt19937 rng1(1337);
-    std::mt19937 rng2(1337);
-
-    std::uniform_real_distribution<double> dist(0.0, 1.0);
-
-    for (int i = 0; i < 1000; ++i) {
-        // Обидві послідовності збігаються біт-в-біт
-        assert(dist(rng1) == dist(rng2));
-    }
-    std::cout << "✔ Відтворюваність повністю підтверджена!\n";
-}
-```
+:::code std-random-d/cpp/7-2-zabezpechennia.cpp
 
 ### 7.3. Текстова потокова серіалізація та міжплатформні відмінності
 Оператори `operator<<` та `operator>>` забезпечують збереження та відновлення внутрішнього стану генераторів. Для `std::mt19937` стан серіалізується у вигляді 624 десяткових чисел, розділених пробілами.

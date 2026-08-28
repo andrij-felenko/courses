@@ -10,19 +10,7 @@
 
 Щоб розв'язати цю проблему, до робочих чернеток майбутнього стандарту C++98 було введено поняття **повної (явної) спеціалізації** (англ. *explicit specialization*):
 
-```cpp
-// Первинний шаблон
-template<typename T>
-bool are_equal(T a, T b) {
-    return a == b;
-}
-
-// Повна спеціалізація для const char*
-template<>
-bool are_equal<const char*>(const char* a, const char* b) {
-    return std::strcmp(a, b) == 0;
-}
-```
+:::code hist-specialization-evolution/cpp/pokhodzhennia-shabloniv-i.cpp
 
 У цей же час, у 1993–1994 роках, Александер Степанов (англ. *Alexander Stepanov*) та Менґ Лі (англ. *Meng Lee*) створювали Standard Template Library (STL) у лабораторіях Hewlett-Packard. Вони зіткнулися з тим, що алгоритмам на кшталт `std::distance` або `std::advance` необхідно було знати категорію ітератора та його тип різниці (`difference_type`). Для класів ітераторів це поле можна було оголосити всередині класу (`using difference_type = std::ptrdiff_t;`), проте звичайні сирі вказівники `int*` не є класами й не можуть містити вкладених псевдонімів типів.
 
@@ -32,21 +20,7 @@ bool are_equal<const char*>(const char* a, const char* b) {
 
 У відповідь на виклики розробки STL комітет стандартизації ISO C++ схвалив концепцію **часткової спеціалізації** (англ. *partial specialization*) для шаблонів класів і структур. Це дозволило створити знамениту ідіому `std::iterator_traits`:
 
-```cpp
-// Первинний шаблон для класів-ітераторів
-template<typename Iterator>
-struct iterator_traits {
-    using value_type = typename Iterator::value_type;
-    using difference_type = typename Iterator::difference_type;
-};
-
-// Часткова спеціалізація для будь-яких вказівників T*
-template<typename T>
-struct iterator_traits<T*> {
-    using value_type = T;
-    using difference_type = std::ptrdiff_t;
-};
-```
+:::code hist-specialization-evolution/cpp/vvedennia-chastkovoi.cpp
 
 Однак для шаблонів функцій часткову спеціалізацію стандартизувати відмовилися. Причиною стало те, що функції у C++, на відміну від класів, уже володіли потужним вбудованим механізмом вибору альтернативних реалізацій — **перевантаженням функцій** (англ. *function overloading*).
 
@@ -73,24 +47,7 @@ void process(T* ptr);  // Варіант 2: перевантаження для 
 
 Дімов і Абрагамс продемонстрували класичний контрприклад:
 
-```cpp
-// 1. Первинний шаблон для довільного типу
-template<typename T>
-void f(T);
-
-// 2. Повна спеціалізація первинного шаблону для вказівника на int
-template<>
-void f<int*>(int*);
-
-// 3. Нове перевантаження первинного шаблону для довільних вказівників
-template<typename T>
-void f(T*);
-
-int main() {
-    int* p = nullptr;
-    f(p); // Яка функція буде викликана?
-}
-```
+:::code hist-specialization-evolution/cpp/trahediia-std-swap-ta.cpp
 
 Інтуїтивно розробник очікує, що для аргументу `int*` компілятор викличе повну спеціалізацію `f<int*>(int*)`, оскільки вона ідеально відповідає типу аргументу. Проте стандарт C++98 приписував компілятору виконати зовсім іншу послідовність дій:
 
@@ -132,22 +89,7 @@ void serialize<T*>(T* x);
 
 Першим стандартизованим рішенням стала ідіома **делегування у статичні методи структур** (англ. *helper struct delegation*). Оскільки класи та структури підтримують часткову спеціалізацію без жодних конфліктів із перевантаженням, функціональний шаблон перетворювався на тонку обгортку, яка делегувала роботу внутрішній структурі:
 
-```cpp
-template<typename T>
-struct ProcessorHelper {
-    static void execute(const T& value) { /* Загальна реалізація */ }
-};
-
-template<typename T>
-struct ProcessorHelper<T*> {
-    static void execute(const T* value) { /* Для вказівників */ }
-};
-
-template<typename T>
-void process(const T& value) {
-    ProcessorHelper<T>::execute(value);
-}
-```
+:::code hist-specialization-evolution/cpp/evoliutsiia-idiom-vid-tag.cpp
 
 Другим підходом став **Tag Dispatching** (диспетчеризація за тегами), що ліг в основу алгоритмів STL (`std::advance`, `std::distance`) та бібліотеки Boost.Serialization. Публічна функція викликала внутрішню перевантажену функцію, передаючи додатковий фіктивний аргумент-тег, створений через виклик конструктора `typename std::iterator_traits<It>::iterator_category()`. Компілятор обирав потрібне перевантаження через стандартний алгоритм overload resolution.
 

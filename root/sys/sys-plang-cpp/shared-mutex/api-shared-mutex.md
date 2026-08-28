@@ -19,32 +19,7 @@
 Клас `std::shared_mutex` реалізує примітив синхронізації з підтримкою двох рівнів доступу: монопольного (для потоків запису) та сумісного (для потоків читання). У мові C++17 він не надає методів обмеження часу очікування, що дозволяє реалізувати його з мінімальними накладними витратами пам'яті (зазвичай 4 або 8 байтів).
 
 ### Оголошення класу
-```cpp
-namespace std {
-    class shared_mutex {
-    public:
-        shared_mutex();
-        ~shared_mutex();
-
-        shared_mutex(const shared_mutex&) = delete;
-        shared_mutex& operator=(const shared_mutex&) = delete;
-
-        // Монопольний режим (Exclusive Access / Writer)
-        void lock();
-        bool try_lock();
-        void unlock();
-
-        // Сумісний режим (Shared Access / Reader)
-        void lock_shared();
-        bool try_lock_shared();
-        void unlock_shared();
-
-        // Отримання системного дескриптора (опційно у деяких реалізаціях)
-        using native_handle_type = /* системно-залежний тип */;
-        native_handle_type native_handle();
-    };
-}
-```
+:::code api-shared-mutex/cpp/oholoshennia-klasu.hpp
 
 ### Конструктори та деструктор
 
@@ -115,28 +90,7 @@ namespace std {
 Клас `std::shared_timed_mutex` розширює інтерфейс `std::shared_mutex` чотирма додатковими шаблонними методами для обмеження часу очікування замка.
 
 ### Оголошення додаткових методів
-```cpp
-namespace std {
-    class shared_timed_mutex {
-    public:
-        // Базові методи lock(), try_lock(), unlock(), lock_shared(), try_lock_shared(), unlock_shared()
-
-        // Блокування на запис із граничним часом
-        template <class Rep, class Period>
-        bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
-
-        template <class Clock, class Duration>
-        bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
-
-        // Блокування на читання з граничним часом
-        template <class Rep, class Period>
-        bool try_lock_shared_for(const std::chrono::duration<Rep, Period>& timeout_duration);
-
-        template <class Clock, class Duration>
-        bool try_lock_shared_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
-    };
-}
-```
+:::code api-shared-mutex/cpp/oholoshennia-dodatkovykh.hpp
 
 ### Деталі специфікації часових методів
 
@@ -159,63 +113,7 @@ namespace std {
 
 ### Конструктори та їх стратегії блокування
 
-```cpp
-namespace std {
-    template <class Mutex>
-    class shared_lock {
-    public:
-        using mutex_type = Mutex;
-
-        // 1. Порожній конструктор
-        shared_lock() noexcept : pm(nullptr), owns(false) {}
-
-        // 2. Стандартне сумісне блокування (захоплює lock_shared)
-        explicit shared_lock(mutex_type& m) 
-            : pm(std::addressof(m)), owns(true) { m.lock_shared(); }
-
-        // 3. Відкладене блокування (без виклику lock_shared)
-        shared_lock(mutex_type& m, defer_lock_t) noexcept 
-            : pm(std::addressof(m)), owns(false) {}
-
-        // 4. Спроба блокування без зупинки потоку
-        shared_lock(mutex_type& m, try_to_lock_t) 
-            : pm(std::addressof(m)), owns(m.try_lock_shared()) {}
-
-        // 5. Перебрання вже захопленого замка
-        shared_lock(mutex_type& m, adopt_lock_t) 
-            : pm(std::addressof(m)), owns(true) {}
-
-        // 6. Конструктори з часовими інтервалами
-        template <class Rep, class Period>
-        shared_lock(mutex_type& m, const chrono::duration<Rep, Period>& timeout_duration)
-            : pm(std::addressof(m)), owns(m.try_lock_shared_for(timeout_duration)) {}
-
-        template <class Clock, class Duration>
-        shared_lock(mutex_type& m, const chrono::time_point<Clock, Duration>& timeout_time)
-            : pm(std::addressof(m)), owns(m.try_lock_shared_until(timeout_time)) {}
-
-        // Деструктор
-        ~shared_lock() {
-            if (owns) pm->unlock_shared();
-        }
-
-        // Оператори переміщення
-        shared_lock(shared_lock&& u) noexcept 
-            : pm(u.pm), owns(u.owns) { u.pm = nullptr; u.owns = false; }
-
-        shared_lock& operator=(shared_lock&& u) noexcept {
-            if (owns) pm->unlock_shared();
-            pm = u.pm; owns = u.owns;
-            u.pm = nullptr; u.owns = false;
-            return *this;
-        }
-
-        // Заборона копіювання
-        shared_lock(const shared_lock&) = delete;
-        shared_lock& operator=(const shared_lock&) = delete;
-    };
-}
-```
+:::code api-shared-mutex/cpp/konstruktory-ta-ikh.cpp
 
 ### Методи управління станом `std::shared_lock`
 

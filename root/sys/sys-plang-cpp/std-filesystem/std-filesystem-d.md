@@ -22,32 +22,8 @@
 3. Кореневі елементи та префікси (Root Components): У POSIX абсолютний шлях завжди починається з єдиного кореня `/`. У Windows шлях містить кореневе ім'я диска (наприклад `C:` або `D:`), кореневий каталог (`\`), або префікси мережевих ресурсів UNC (наприклад `\\server\share`), а також пристроєві префікси для обходу обмеження максимальної довжини шляху в 260 символів (MAX_PATH).
 
 :::tabs
-```c
-// POSIX C: Перевірка існування файлу та створення каталогу
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-int ensure_directory_posix(const char* path) {
-    struct stat st;
-    if (stat(path, &st) != 0) {
-        return mkdir(path, 0755); // POSIX вимагає маску прав
-    }
-    return S_ISDIR(st.st_mode) ? 0 : -1;
-}
-```
-```cpp
-// Win32 C++: Перевірка існування файлу та створення каталогу
-#include <windows.h>
-
-bool ensure_directory_win32(const wchar_t* path) {
-    DWORD attr = GetFileAttributesW(path);
-    if (attr == INVALID_FILE_ATTRIBUTES) {
-        return CreateDirectoryW(path, NULL) != 0; // Win32 приймає структуру безпеки
-    }
-    return (attr & FILE_ATTRIBUTE_DIRECTORY) != 0;
-}
-```
+:::code std-filesystem-d/c/main.c
+:::code std-filesystem-d/cpp/skelet-problemy-chomu-syri.cpp
 :::
 
 Крім того, класичні C-функції системного обходу каталогів `opendir()` та `readdir()` повертають елементи, які містять службові посилання на поточний каталог `.` та батьківський каталог `..`. Розробник змушений вручну писати умови фільтрації цих записів. Якщо забути перевірити ці умови у рекурсивній функції обходу, програма впаде у безкінечну рекурсію і вичерпає увесь стек процесу.
@@ -69,24 +45,7 @@ bool ensure_directory_win32(const wchar_t* path) {
 
 Внутрішньо об'єкт `path` зберігає шлях у нативному форматі поточної операційної системи (типом `string_type` є `std::string` у POSIX та `std::wstring` у Windows). При цьому клас надає багатий набір синтаксичних методів розбору:
 
-```cpp
-#include <iostream>
-#include <filesystem>
-
-namespace fs = std::filesystem;
-
-void parse_path_demo() {
-    fs::path p = "/usr/local/bin/app.tar.gz";
-
-    std::cout << "Повний шлях:       " << p << "\n";
-    std::cout << "Кореневе ім'я:     " << p.root_name() << "\n";     // ""
-    std::cout << "Кореневий каталог: " << p.root_directory() << "\n";// "/"
-    std::cout << "Батьківський шлях: " << p.parent_path() << "\n";   // "/usr/local/bin"
-    std::cout << "Ім'я файлу:        " << p.filename() << "\n";      // "app.tar.gz"
-    std::cout << "Базове ім'я:       " << p.stem() << "\n";          // "app.tar"
-    std::cout << "Розширення:        " << p.extension() << "\n";     // ".gz"
-}
-```
+:::code std-filesystem-d/cpp/arkhitektura-klasu-path.cpp
 
 Оператор додування `operator/=` (або його метод-аналог `append()`) виконує інтелектуальне об'єднання шляхів: якщо ліва частина не закінчується на розділювач, оператор автоматично вставляє нативний розділювач поточної системи `preferred_separator`. Натомість оператор конкатенації `operator+=` (або `concat()`) додає символи безпосередньо в кінець рядка, що є ідеальним для додавання суфіксів чи нових розширення файлів.
 
@@ -148,34 +107,7 @@ void parse_path_demo() {
 - `disable_recursion_pending()` — наказує ітератору пропустити занурення у поточний підкаталог на наступному кроці.
 - `pop()` — примусово завершує обхід поточного підкаталогу та повертає ітератор у батьківський каталог.
 
-```cpp
-#include <iostream>
-#include <filesystem>
-
-namespace fs = std::filesystem;
-
-void scan_with_options(const fs::path& root_dir) {
-    std::error_code ec;
-    // Пропускати каталоги без прав доступу замість генерації винятку
-    auto options = fs::directory_options::skip_permission_denied;
-
-    fs::recursive_directory_iterator it(root_dir, options, ec);
-    fs::recursive_directory_iterator end_it;
-
-    while (it != end_it) {
-        const fs::directory_entry& entry = *it;
-
-        // Приклад: не заходити у приховані каталоги (наприклад, .git)
-        if (entry.is_directory() && entry.path().filename().string().starts_with(".")) {
-            it.disable_recursion_pending(); // Пропустити занурення
-        } else {
-            std::cout << "Глибина [" << it.depth() << "]: " << entry.path() << "\n";
-        }
-
-        it.increment(ec); // Безпечний крок без винятків
-    }
-}
-```
+:::code std-filesystem-d/cpp/obkhid-derev-katalohiv.cpp
 
 Критично важливим аспектем є обробка символьних посилань на каталоги. За замовчуванням (`directory_options::none`) рекурсивний ітератор не слідує символьним посиланням на каталоги, розглядаючи їх як звичайні файли-посилання. Якщо включити прапорець `directory_options::follow_directory_symlinks`, ітератор почне рекурсивно заходити у цільові каталоги посилань. Однак якщо у файловій системі існує циклічне символьне посилання (наприклад, `link -> ..`), ітератор зациклиться. Розробник повинен самостійно відстежувати відвідані індексні дескриптори у хеш-таблиці або уникати цього прапорця.
 
@@ -231,35 +163,7 @@ for (const auto& entry : fs::directory_iterator(dir_path)) {
 1. Гілка з винятками (Throwing overload): Функція не приймає параметр коду помилки. У разі збою операційна система ґенерує виняток `std::filesystem_error`. Цей виняток успадковує `std::system_error` і містить код помилки, а також методи `path1()` та `path2()` для отримання шляхів, що спричинили збій.
 2. Гілка з кодом помилки (No-throw overload): Функція приймає посилання на змінну `std::error_code& ec`. При виникненні збою функція не кидає виняток, а записує код системної помилки у передану змінну `ec` і повертає дефолтне значення. Якщо операція завершилася успішно, функція викликає `ec.clear()`.
 
-```cpp
-#include <iostream>
-#include <filesystem>
-#include <system_error>
-
-namespace fs = std::filesystem;
-
-void error_handling_comparison(const fs::path& target_path) {
-    // Варіант А: Обробка через винятки (зручно у прикладному коді)
-    try {
-        std::uintmax_t sz = fs::file_size(target_path);
-        std::cout << "Розмір: " << sz << "\n";
-    } catch (const fs::filesystem_error& ex) {
-        std::cerr << "Виняток: " << ex.what() << "\n"
-                  << " Код:   " << ex.code().message() << "\n"
-                  << " Шлях 1: " << ex.path1() << "\n";
-    }
-
-    // Варіант Б: Обробка через error_code (ідеально для системного коду без винятків)
-    std::error_code ec;
-    std::uintmax_t sz = fs::file_size(target_path, ec);
-    if (ec) {
-        std::cerr << "Помилка (без винятку): " << ec.message() 
-                  << " [значення: " << ec.value() << "]\n";
-    } else {
-        std::cout << "Розмір: " << sz << "\n";
-    }
-}
-```
+:::code std-filesystem-d/cpp/dvokamerna-obrobka-pomylok.cpp
 
 У високонавантажених сервісах та системному програмуванні слід завжди надавати перевагу no-throw версіям функцій із параметром `std::error_code`. Це усуває накладні витрати на виділення пам'яті під об'єкти винятків та розмотування стеку процесора під час обробки очікуваних відмов файлової системи (наприклад, при відсутності файлу або відмові доступу).
 
@@ -285,26 +189,7 @@ void error_handling_comparison(const fs::path& target_path) {
 
 Функція `fs::remove()` видаляє один файл або порожній каталог. Функція `fs::remove_all()` рекурсивно видаляє каталог із усім його вмістом (аналог команди `rm -rf`) і повертає кількість вилучених об'єктів.
 
-```cpp
-#include <filesystem>
-#include <iostream>
-
-namespace fs = std::filesystem;
-
-void directory_operations_demo() {
-    std::error_code ec;
-    fs::path nested_dir = "sandbox/data/logs/2026";
-
-    // Створення всього ланцюжка каталогів
-    if (fs::create_directories(nested_dir, ec)) {
-        std::cout << "Каталоги успішно створено!\n";
-    }
-
-    // Рекурсивне видалення з підрахунком вилучених об'єктів
-    std::uintmax_t removed_count = fs::remove_all("sandbox", ec);
-    std::cout << "Вилучено об'єктів: " << removed_count << "\n";
-}
-```
+:::code std-filesystem-d/cpp/rekursyvne-stvorennia-ta.cpp
 
 ### Копіювання та перейменування
 

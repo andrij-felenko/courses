@@ -56,23 +56,7 @@ void analyze_and_log(T item) {
 
 Під час Фази 1 компілятор виконує звичайний некваліфікований або кваліфікований пошук імен у контексті визначення шаблону. Якщо ім'я знайдено, компілятор фіксує відповідне оголошення.
 
-```cpp
-#include <iostream>
-
-void setup_environment() {
-    std::cout << "Global environment setup\n";
-}
-
-template <typename T>
-void worker_node(T data) {
-    setup_environment(); // Незалежне ім'я! Пошук відбувається на Фазі 1.
-}
-
-// УВАГА: Функція оголошена ПІСЛЯ визначення шаблону
-void setup_environment(int priority) {
-    std::cout << "Priority setup: " << priority << "\n";
-}
-```
+:::code two-phase-name-lookup-d/cpp/persha-faza-syntaksychnyi.cpp
 
 У наведеному прикладі виклик `setup_environment()` всередині `worker_node` є незалежним. Компілятор шукає ім'я `setup_environment` на Фазі 1 і знаходить першу функцію без параметрів. Якщо пізніше у програмі буде додано виклик `setup_environment(10)` всередині шаблону, але сама функція із сигнатурою `void setup_environment(int)` буде оголошена нижче за текст шаблону, Фаза 1 завершиться помилкою компіляції. Компілятор не чекатиме інстанціювання і не шукатиме функцію нижче за текстом — зв'язування незалежного імені жорстко зафіксоване на Фазі 1.
 
@@ -112,38 +96,7 @@ void setup_environment(int priority) {
 
 Розглянемо механіку Фази 2 на повному прикладі:
 
-```cpp
-#include <iostream>
-
-// ── Контекст визначення шаблону (Фаза 1) ──────────────────────────────────
-template <typename T>
-void execute_pipeline(T obj) {
-    // process_item(obj) — ЗАЛЕЖНИЙ виклик, бо obj має тип T.
-    // Пошук імені process_item відкладено до Фази 2.
-    process_item(obj);
-}
-
-// ── Модуль користувача (між шаблоном і main) ─────────────────────────────
-namespace physics {
-    struct Particle {
-        double mass = 1.0;
-    };
-
-    // Функція оголошена ПІСЛЯ шаблону execute_pipeline,
-    // але всередині асоційованого простору physics!
-    void process_item(const Particle& p) {
-        std::cout << "Processing particle with mass: " << p.mass << "\n";
-    }
-}
-
-// ── Точка інстанціювання (POI) ─────────────────────────────────────────────
-int main() {
-    physics::Particle p;
-    // Виклик інстанціює execute_pipeline<physics::Particle>.
-    // POI розміщується перед main().
-    execute_pipeline(p);
-}
-```
+:::code two-phase-name-lookup-d/cpp/tochka-instantsiiuvannia.cpp
 
 Коли компілятор обробляє `execute_pipeline(p)` у функції `main()`, він запускає Фазу 2 для виклику `process_item(obj)`:
 
@@ -163,29 +116,7 @@ int main() {
 
 Уявимо типовий клас-спадкоємець:
 
-```cpp
-template <typename T>
-class Base {
-public:
-    void clear_cache() {
-        // очищення ресурсів
-    }
-protected:
-    int flags = 0;
-};
-
-template <typename T>
-class Derived : public Base<T> {
-public:
-    void reset() {
-        // ПОМИЛКА КОМПІЛЯЦІЇ: 'clear_cache' was not declared in this scope
-        clear_cache(); 
-        
-        // ПОМИЛКА КОМПІЛЯЦІЇ: 'flags' was not declared in this scope
-        flags = 0; 
-    }
-};
-```
+:::code two-phase-name-lookup-d/cpp/klasychna-pastka.cpp
 
 Для людини цей код здається абсолютно прозорим: `Derived` успадковує `Base`, отже `clear_cache()` і `flags` є членами базового класу. Проте для компілятора на Фазі 1 цей код є синтаксичною помилкою.
 
@@ -208,35 +139,7 @@ public:
 
 Щоб код скомпілювався, розробник повинен явним чином підказати компіляторові, що пошук цих імен слід відкласти до Фази 2.
 
-```cpp
-template <typename T>
-class DerivedFixed : public Base<T> {
-public:
-    void reset_v1() {
-        // Рішення 1: Явне використання вказівника this->
-        // Вираз this->clear_cache() є залежним, бо this має тип DerivedFixed<T>*
-        this->clear_cache();
-        this->flags = 0;
-    }
-
-    void reset_v2() {
-        // Рішення 2: Явна кваліфікація іменем базового класу
-        // Перетворює ім'я на залежне кваліфіковане ім'я
-        Base<T>::clear_cache();
-        Base<T>::flags = 0;
-    }
-
-    // Рішення 3: Введення імен в область видимості класу через using (найкраща практика)
-    using Base<T>::clear_cache;
-    using Base<T>::flags;
-
-    void reset_v3() {
-        // Тепер виклики працюють без префіксів у будь-якому місці класу
-        clear_cache();
-        flags = 0;
-    }
-};
-```
+:::code two-phase-name-lookup-d/cpp/try-idiomatychni-sposoby.cpp
 
 Використання `this->` або `using Base<T>::member;` є стандартом надійного узагальненого коду. Важливо пам'ятати, що Рішення 2 (`Base<T>::clear_cache()`) вимикає механізм віртуального виклику, якщо метод був віртуальним, тоді як `this->clear_cache()` зберігає віртуальний поліморфізм.
 

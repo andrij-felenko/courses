@@ -10,23 +10,7 @@
 
 ### Пошук першого збігу
 
-```cpp
-// Традиційний синтаксис
-template <class InputIt, class T>
-InputIt find(InputIt first, InputIt last, const T& value);
-
-template <class InputIt, class UnaryPredicate>
-InputIt find_if(InputIt first, InputIt last, UnaryPredicate p);
-
-template <class InputIt, class UnaryPredicate>
-InputIt find_if_not(InputIt first, InputIt last, UnaryPredicate q);
-
-// C++20 Ranges
-namespace std::ranges {
-    template <input_range R, class T, class Proj = std::identity>
-    borrowed_iterator_t<R> find(R&& r, const T& value, Proj proj = {});
-}
-```
+:::code api-algorithms-toolbox/cpp/poshuk-pershoho-zbihu.hpp
 
 #### Детальний механізм виконання
 Алгоритм `std::find` послідовно проходить від `first` до `last`, розіменовуючи ітератор та порівнюючи отримане значення з `value` за допомогою `operator==`. Виконання негайно зупиняється на першому елементі, для якого порівняння повертає `true`. У виклику `std::find_if` замість оператора рівності значення передається у предикат `p`.
@@ -41,26 +25,7 @@ namespace std::ranges {
 
 ### Кількісний підрахунок та перевірка кванторів
 
-```cpp
-// Підрахунок входжень
-template <class InputIt, class T>
-typename iterator_traits<InputIt>::difference_type
-count(InputIt first, InputIt last, const T& value);
-
-template <class InputIt, class UnaryPredicate>
-typename iterator_traits<InputIt>::difference_type
-count_if(InputIt first, InputIt last, UnaryPredicate p);
-
-// Логічні квантори (C++11)
-template <class InputIt, class UnaryPredicate>
-bool all_of(InputIt first, InputIt last, UnaryPredicate p);
-
-template <class InputIt, class UnaryPredicate>
-bool any_of(InputIt first, InputIt last, UnaryPredicate p);
-
-template <class InputIt, class UnaryPredicate>
-bool none_of(InputIt first, InputIt last, UnaryPredicate p);
-```
+:::code api-algorithms-toolbox/cpp/kilkisnyi-pidrakhunok-ta.hpp
 
 #### Детальний механізм виконання
 `count` та `count_if` сканують послідовність від початку до кінця і повертають число типів `difference_type`. Квантори `all_of`, `any_of` та `none_of` здійснюють перевірку з коротким замиканням: `any_of` перериває цикл при першому `true`, тоді як `all_of` та `none_of` переривають цикл при першому `false`.
@@ -100,22 +65,7 @@ ForwardIt1 search(ForwardIt1 first, ForwardIt1 last,
 
 ### Копіювання та переміщення
 
-```cpp
-// Послідовне копіювання
-template <class InputIt, class OutputIt>
-OutputIt copy(InputIt first, InputIt last, OutputIt d_first);
-
-template <class InputIt, class OutputIt, class UnaryPredicate>
-OutputIt copy_if(InputIt first, InputIt last, OutputIt d_first, UnaryPredicate pred);
-
-// Переміщення елементів через rvalue-посилання (C++11)
-template <class InputIt, class OutputIt>
-OutputIt move(InputIt first, InputIt last, OutputIt d_first);
-
-// Копіювання у зворотному напрямку (для перекриваються діапазонів)
-template <class BidiIt1, class BidiIt2>
-BidiIt2 copy_backward(BidiIt1 first, BidiIt1 last, BidiIt2 d_last);
-```
+:::code api-algorithms-toolbox/cpp/kopiiuvannia-ta.hpp
 
 #### Детальний механізм виконання
 `std::copy` розіменовує ітератор джерела та присвоює значення у приймач. `std::move` перетворює кожен елемент на rvalue через `std::move(*it)` та викликає оператор присвоєння переміщенням.
@@ -130,23 +80,7 @@ BidiIt2 copy_backward(BidiIt1 first, BidiIt1 last, BidiIt2 d_last);
 
 ### Трансформація, генерація та заповнення
 
-```cpp
-// Унарна трансформація: destination[i] = op(source[i])
-template <class InputIt, class OutputIt, class UnaryOperation>
-OutputIt transform(InputIt first, InputIt last, OutputIt d_first, UnaryOperation op);
-
-// Бінарна трансформація: destination[i] = op(source1[i], source2[i])
-template <class InputIt1, class InputIt2, class OutputIt, class BinaryOperation>
-OutputIt transform(InputIt1 first1, InputIt1 last1, InputIt2 first2,
-                  OutputIt d_first, BinaryOperation binary_op);
-
-// Заповнення константою або результатами генератора
-template <class ForwardIt, class T>
-void fill(ForwardIt first, ForwardIt last, const T& value);
-
-template <class ForwardIt, class Generator>
-void generate(ForwardIt first, ForwardIt last, Generator g);
-```
+:::code api-algorithms-toolbox/cpp/transformatsiia.hpp
 
 #### Детальний механізм виконання
 `std::transform` зчитує кожен елемент з одного чи двох джерел, передає їх у трансформаційну функцію і записує результат у приймач. `std::fill` записує константне значення `value`, а `std::generate` записує результат виклику генератора `g()`.
@@ -158,18 +92,7 @@ void generate(ForwardIt first, ForwardIt last, Generator g);
 
 ### Перегрупування та видалення елементів (Remove-Erase)
 
-```cpp
-// Зсув небажаних значень у кінець діапазону
-template <class ForwardIt, class T>
-ForwardIt remove(ForwardIt first, ForwardIt last, const T& value);
-
-template <class ForwardIt, class UnaryPredicate>
-ForwardIt remove_if(ForwardIt first, ForwardIt last, UnaryPredicate p);
-
-// Вилучення послідовних однаковим елементів у впорядкованому масиві
-template <class ForwardIt>
-ForwardIt unique(ForwardIt first, ForwardIt last);
-```
+:::code api-algorithms-toolbox/cpp/perehrupuvannia-ta.hpp
 
 #### Детальний механізм виконання та Remove-Erase ідіома
 Алгоритми `remove`, `remove_if` та `unique` **не змінюють розмір контейнера та не звільняють пам'ять**. Вони лише перезаписують неугодні елементи тими елементами справа, які мають залишитися, за допомогою оператора присвоєння переміщенням (`move assignment`). 
@@ -187,30 +110,7 @@ ForwardIt unique(ForwardIt first, ForwardIt last);
 
 ### Повне, стабільне та часткове сортування
 
-```cpp
-// Стандартне сортування (Introsort)
-template <class RandomIt>
-void sort(RandomIt first, RandomIt last);
-
-template <class RandomIt, class Compare>
-void sort(RandomIt first, RandomIt last, Compare comp);
-
-// Стабільне сортування (збереження відносного порядку однакових елементів)
-template <class RandomIt>
-void stable_sort(RandomIt first, RandomIt last);
-
-// Часткове сортування: перші K елементів стають впорядкованими
-template <class RandomIt>
-void partial_sort(RandomIt first, RandomIt middle, RandomIt last);
-
-// Пошук K-го порядкового елемента (Quickselect)
-template <class RandomIt>
-void nth_element(RandomIt first, RandomIt nth, RandomIt last);
-
-// Розділення масиву на дві частини за предикатом
-template <class ForwardIt, class UnaryPredicate>
-ForwardIt partition(ForwardIt first, ForwardIt last, UnaryPredicate p);
-```
+:::code api-algorithms-toolbox/cpp/povne-stabilne-ta.hpp
 
 #### Детальний механізм виконання алгоритмів сортування
 
@@ -226,23 +126,7 @@ ForwardIt partition(ForwardIt first, ForwardIt last, UnaryPredicate p);
 
 Працюють виключно на діапазонах, які попередньо відсортовані за відповідним компаратором.
 
-```cpp
-// Пошук першого елемента, не меншого за значення (>=)
-template <class ForwardIt, class T>
-ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value);
-
-// Пошук першого елемента, строго більшого за значення (>)
-template <class ForwardIt, class T>
-ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value);
-
-// Отримання пари ітераторів [lower_bound, upper_bound)
-template <class ForwardIt, class T>
-std::pair<ForwardIt, ForwardIt> equal_range(ForwardIt first, ForwardIt last, const T& value);
-
-// Перевірка наявності елемента
-template <class ForwardIt, class T>
-bool binary_search(ForwardIt first, ForwardIt last, const T& value);
-```
+:::code api-algorithms-toolbox/cpp/4-dviikovyi-poshuk-na.hpp
 
 #### Детальні гарантії складності
 - При передачі `RandomAccessIterator` (наприклад `std::vector::begin()`): кількість порівнянь і кроків складає `O(log N)`.
@@ -254,28 +138,7 @@ bool binary_search(ForwardIt first, ForwardIt last, const T& value);
 
 Алгоритми обчислення згортки, префіксних сум та скалярних добутків.
 
-```cpp
-// Класичне послідовне накопичення (C++98)
-template <class InputIt, class T>
-T accumulate(InputIt first, InputIt last, T init);
-
-template <class InputIt, class T, class BinaryOperation>
-T accumulate(InputIt first, InputIt last, T init, BinaryOperation op);
-
-// Паралельна згортка (C++17)
-template <class ExecutionPolicy, class ForwardIt, class T, class BinaryOperation>
-T reduce(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, T init, BinaryOperation op);
-
-// Трансформація та згортка (MapReduce)
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T,
-          class BinaryOp1, class BinaryOp2>
-T transform_reduce(ExecutionPolicy&& policy, ForwardIt1 first1, ForwardIt1 last1,
-                 ForwardIt2 first2, T init, BinaryOp1 transform_op, BinaryOp2 reduce_op);
-
-// Генерація послідовності інкрементованих значень (v[0]=val, v[1]=val+1...)
-template <class ForwardIt, class T>
-void iota(ForwardIt first, ForwardIt last, T value);
-```
+:::code api-algorithms-toolbox/cpp/5-chyselni-ta-matematychni.hpp
 
 #### Відмінності `accumulate` та `reduce`
 `std::accumulate` виконує строго послідовну ліву згортку від першого елемента до останнього. `std::reduce` з C++17 дає змогу виконувати довільне перегрупування та паралелізацію операцій між нитками процесора. Для коректності результату `std::reduce` вимагає, щоб операція `BinaryOperation` була **асоціативною та комутативною**.

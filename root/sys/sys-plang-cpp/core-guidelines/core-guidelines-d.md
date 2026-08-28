@@ -89,84 +89,8 @@
 Розглянемо практичне зіставлення застарілого процедурного підходу та сучасного ідіоматичного проєктування інтерфейсу:
 
 :::tabs
-```c
-/* Традиційний C-підхід: амбівалентне володіння, небезпечні масиви, коди помилок */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    char* name;
-    double* readings;
-    int readings_count;
-} SensorData;
-
-SensorData* create_sensor(const char* name, const double* initial_data, int count) {
-    if (!name || count < 0) return NULL;
-
-    SensorData* s = (SensorData*)malloc(sizeof(SensorData));
-    if (!s) return NULL;
-
-    s->name = (char*)malloc(strlen(name) + 1);
-    strcpy(s->name, name);
-
-    if (count > 0 && initial_data) {
-        s->readings = (double*)malloc(sizeof(double) * count);
-        memcpy(s->readings, initial_data, sizeof(double) * count);
-        s->readings_count = count;
-    } else {
-        s->readings = NULL;
-        s->readings_count = 0;
-    }
-    return s;
-}
-
-void destroy_sensor(SensorData* s) {
-    if (!s) return;
-    free(s->name);
-    free(s->readings);
-    free(s);
-}
-```
-```cpp
-// Сучасний C++ за правилами Core Guidelines: повна типобезпека, RAII та відсутність витоків
-#include <string>
-#include <vector>
-#include <span>
-#include <memory>
-#include <string_view>
-
-class SensorData {
-public:
-    // I.13: std::span захищає від виходу за межі масиву без додаткового виділення пам'яті
-    // F.16: std::string_view передає рядок без зайвих копіювань
-    SensorData(std::string_view name, std::span<const double> initial_data)
-        : name_(name), readings_(initial_data.begin(), initial_data.end()) {}
-
-    // C.21 / C.67: Правило нуля — компілятор автоматично генерує коректний деструктор,
-    // конструктори переміщення та копіювання без ручного керування пам'яттю
-    ~SensorData() = default;
-    SensorData(const SensorData&) = default;
-    SensorData& operator=(const SensorData&) = default;
-    SensorData(SensorData&&) noexcept = default;
-    SensorData& operator=(SensorData&&) noexcept = default;
-
-    [[nodiscard]] std::string_view name() const noexcept { return name_; }
-    [[nodiscard]] std::span<const double> readings() const noexcept { return readings_; }
-
-private:
-    std::string name_;
-    std::vector<double> readings_;
-};
-
-// R.30: Фабрична функція повертає об'єкт через std::unique_ptr, явно фіксуючи передачу володіння
-[[nodiscard]] std::unique_ptr<SensorData> make_sensor(
-    std::string_view name, 
-    std::span<const double> initial_data) 
-{
-    return std::make_unique<SensorData>(name, initial_data);
-}
-```
+:::code core-guidelines-d/c/main.c
+:::code core-guidelines-d/cpp/pravyla-peredachi.cpp
 :::
 
 ---
@@ -319,29 +243,7 @@ C++ Core Guidelines структуровані у тематичні розді�
 
 Core Guidelines вимагають негайного обертання таких C-ресурсів у типи з автоматичним керуванням за допомогою `std::unique_ptr` із кастомним видалячем (Custom Deleter) без створення додаткових класів:
 
-```cpp
-#include <memory>
-#include <cstdio>
-
-// Спеціальний функтор-видаляч для файлового дескриптора C
-struct FileCloser {
-    void operator()(std::FILE* fp) const noexcept {
-        if (fp) {
-            std::fclose(fp);
-        }
-    }
-};
-
-// Зручний аліас типу безпечного файлового дескриптора
-using UniqueFile = std::unique_ptr<std::FILE, FileCloser>;
-
-[[nodiscard]] UniqueFile open_secure_config(const char* path) {
-    std::FILE* raw_file = std::fopen(path, "re");
-    // Негайно передаємо володіння розумному вказівнику:
-    // деструктор гарантовано викличе std::fclose при будь-якому виході або винятку
-    return UniqueFile(raw_file);
-}
-```
+:::code core-guidelines-d/cpp/6-intehratsiia-z-c.cpp
 
 Для локального автоматичного очищення ресурсів у процедурних блоках застосовується тип `gsl::finally`, який гарантує виконання лямбда-виразу при виході зі скоупу:
 
@@ -394,28 +296,7 @@ Core Guidelines не вимагають неможливого, проте вс�
 
 Для фіксації винятків застосовуються спеціальні конструкції:
 
-```cpp
-#include <cstddef>
-#include <new>
-
-// Приклад: низькорівневий системний алокатор пам'яті
-class SystemMemoryArena {
-public:
-    [[nodiscard]] void* allocate_aligned(std::size_t bytes, std::size_t alignment) {
-        // Документоване придушення для лінтера Clang-Tidy
-        // NOLINTNEXTLINE(cppcoreguidelines-owning-memory): Арена керує пулом самостійно
-        void* raw_memory = ::operator new(bytes, std::align_val_t{alignment});
-        return raw_memory;
-    }
-
-    void deallocate(void* ptr) noexcept {
-        // MSVC C++ Core Check анотація
-        [[gsl::suppress("cppcoreguidelines-owning-memory", 
-          justification = "Звільнення сирого блоку пам'яті внутрішньої арени")]]
-        ::operator delete(ptr);
-    }
-};
-```
+:::code core-guidelines-d/cpp/8-iierarkhiia-ta-lehitymni.cpp
 
 ---
 

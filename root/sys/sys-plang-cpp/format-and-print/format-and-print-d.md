@@ -34,35 +34,8 @@
 Нижче наведено порівняльний приклад розв'язання одного й того самого завдання: форматування мережевого логу з адресою та портом за допомогою C-style `snprintf` та сучасного C++20 `std::format`.
 
 :::tabs
-```c
-/* Традиційний підхід мовою C: snprintf із фіксованим буфером */
-#include <stdio.h>
-#include <stddef.h>
-
-void format_address_c(char* buf, size_t buf_size, const char* host, int port) {
-    /* Потенційна небезпека: якщо host буде некоректним вказівником або специфікатор %s 
-       отримає int, компілятор C не виявить помилку на етапі збірки.
-       При перевищенні buf_size рядок буде обрізано без попередження. */
-    snprintf(buf, buf_size, "Server %s listening on port %d", host, port);
-}
-```
-```cpp
-// Сучасний ідіоматичний C++20 підхід: std::format та std::format_to
-#include <format>
-#include <string>
-#include <string_view>
-#include <span>
-
-std::string format_address_cpp(std::string_view host, int port) {
-    // Повна типобезпека: рядок формату перевіряється під час компіляції через consteval
-    return std::format("Server {} listening on port {}", host, port);
-}
-
-void format_address_cpp_no_alloc(std::span<char> buf, std::string_view host, int port) {
-    // Безалокаційний запис у наявний масив пам'яті із суворим контролем межі
-    std::format_to_n(buf.data(), buf.size() - 1, "Server {} listening on port {}", host, port);
-}
-```
+:::code format-and-print-d/c/main.c
+:::code format-and-print-d/cpp/2-vazhkyi-ta-stanovyi.cpp
 :::
 
 Як видно з порівняння, C++20 поєднує візуальну цілісність та компактність рядка форматування C із повною типобезпекою та безалокаційним виводом безпосередньо у надані масиви пам'яті.
@@ -140,25 +113,7 @@ namespace std {
 
 Замінники можуть містити явні індекси аргументів `{0}`, `{1}`, `{2}`. Це дозволяє дублювати аргументи або змінювати порядок їх виводу у заформатованому рядку без зміни порядків параметрів у виклику функції:
 
-```cpp
-#include <format>
-#include <string>
-#include <iostream>
-
-int main() {
-    std::string name = "Олександр";
-    int count = 5;
-
-    // Автоматична нумерація аргументів (по порядку передачі)
-    std::string s1 = std::format("{} придбав {} товарів", name, count);
-
-    // Явна позиційна нумерація (ідеально для локалізації та перекладів)
-    // Німецький варіант вимоги іншого порядку слів: "5 товарів було куплено Олександром"
-    std::string s2 = std::format("{1} items bought by {0}", name, count);
-
-    std::cout << s1 << "\n" << s2 << "\n";
-}
-```
+:::code format-and-print-d/cpp/pozytsiini-arhumenty-ta.cpp
 
 Зверніть увагу на важливе правило стандарту: в одному рядку форматування не можна змішувати автоматичну нумерацію `{}` та явну позиційну нумерацію `{0}`. Компілятор виявить таке змішування ще під час збірки й згенерує помилку.
 
@@ -168,18 +123,7 @@ int main() {
 
 Ширина поля `width` та точність `precision` можуть бути не лише жорстко зафіксованими числами у рядку форматування, а й обчислюватися динамічно під час виконання програми:
 
-```cpp
-#include <format>
-#include <string>
-
-std::string format_table_row(std::string_view label, double val, int width, int prec) {
-    // Вкладені дужки {} означають, що ширина та точність беруться з наступних аргументів
-    return std::format("{:<{}} : {:>{}.{}f}", label, width, val, width, prec);
-}
-
-// Виклик format_table_row("CPU", 45.6789, 12, 2)
-// Поверне рядок: "CPU          :        45.68"
-```
+:::code format-and-print-d/cpp/dynamichne-keruvannia.cpp
 
 ### Форматування контейнерів та діапазонів у C++23 (Ranges Formatting)
 
@@ -187,30 +131,7 @@ std::string format_table_row(std::string_view label, double val, int width, int 
 
 Тепер для виводу вмісту масиву не потрібно писати ручні цикли:
 
-```cpp
-#include <format>
-#include <vector>
-#include <map>
-#include <string>
-#include <iostream>
-
-int main() {
-    std::vector<int> numbers = {10, 20, 30, 40};
-    
-    // Стандартний вивід вектора
-    std::cout << std::format("{}", numbers) << "\n"; // "[10, 20, 30, 40]"
-
-    // Внутрішній специфікатор форматування елементів (Hex з префіксом)
-    std::cout << std::format("{::#x}", numbers) << "\n"; // "[0xa, 0x14, 0x1e, 0x28]"
-
-    // Специфікатор 'n' відключає зовнішні квадратні дужки (no brackets)
-    std::cout << std::format("{:n}", numbers) << "\n"; // "10, 20, 30, 40"
-
-    // Форматування словника map
-    std::map<std::string, int> items = {{"apple", 5}, {"banana", 12}};
-    std::cout << std::format("{}", items) << "\n"; // "{\"apple\": 5, \"banana\": 12}"
-}
-```
+:::code format-and-print-d/cpp/formatuvannia-konteineriv.cpp
 
 Це суттєво спрощує налагодження та логування складних структур даних у сучасних C++23 проєктах.
 
@@ -224,22 +145,7 @@ int main() {
 
 Функція `std::format_to` приймає вихідний ітератор `out` першим аргументом і записує заформатовані символи безпосередньо у наданий контейнер або буфер пам'яті:
 
-```cpp
-#include <format>
-#include <vector>
-#include <iterator>
-#include <iostream>
-
-int main() {
-    std::vector<char> buffer;
-    
-    // Запис символів безпосередньо у кінець вектора через back_inserter
-    std::format_to(std::back_inserter(buffer), "X: {}, Y: {}", 100, 200);
-
-    // Буфер тепер містить символи без додаткових тимчасових std::string у купі
-    std::cout << std::string_view(buffer.data(), buffer.size()) << "\n";
-}
-```
+:::code format-and-print-d/cpp/1-zapys-u-dovilni.cpp
 
 ### 2. Безалокаційне логування у стековий масив через std::format_to_n
 
@@ -257,26 +163,7 @@ namespace std {
 
 Поле `out` показує підсумкову позицію вказівника за останнім записаним символом, а `size` містить загальну кількість символів, які мав би згенерувати розгортка (навіть якщо вони не помістилися у фіксовану межу `N`).
 
-```cpp
-#include <format>
-#include <array>
-#include <string_view>
-#include <iostream>
-
-void safe_stack_log(int id, double temperature) {
-    // Фіксований буфер на стеку — 0 алокацій у купі!
-    std::array<char, 64> stack_buf;
-
-    // Залишаємо 1 байт під нульовий термінатор
-    auto res = std::format_to_n(stack_buf.data(), stack_buf.size() - 1, 
-                                "Sensor #{}: temp = {:.2f} C", id, temperature);
-
-    // Завершуємо рядок
-    *res.out = '\0';
-
-    std::cout << "Logged: " << stack_buf.data() << " (Total chars: " << res.size << ")\n";
-}
-```
+:::code format-and-print-d/cpp/2-bezalokatsiine.cpp
 
 > 🔧 **Навіщо це.**
 > Застосування `std::format_to_n` разом із стековими масивами `std::array<char, N>` або локальними буферами є стандартом де-факто при побудові систем високочастотного трейдингу (HFT), ігрових рушіїв та ядер операційних систем. Це повністю виключає паузи алокатора пам'яті, гарантує захист від атаки переповнення буфера (Buffer Overflow) і робить обчислення детермінованими за часом виконання.
@@ -292,21 +179,7 @@ void safe_stack_log(int id, double temperature) {
 ![Порівняння шляхів виводу: std::cout vs printf vs std::print](img/print-vs-iostream-perf.svg)
 *Порівняння шляхів виводу: std::print оминає iostream-буфери та використовує прямі виклики OS з підтримкою Unicode.*
 
-```cpp
-#include <print>
-#include <string_view>
-
-int main() {
-    std::string_view user = "Олексій";
-    int score = 2500;
-
-    // C++23 std::print: прямоточний вивід без створення std::string
-    std::print("Вітаємо, {}! Ваш результат: {} балів.\n", user, score);
-
-    // std::println автоматично додає символ нового рядка '\n' у кінці
-    std::println("Гра завершена успішно.");
-}
-```
+:::code format-and-print-d/cpp/c-23-std-print-ta-std.cpp
 
 ### Механіка прямоточного виводу та нативна підтримка UTF-8
 
@@ -324,47 +197,7 @@ int main() {
 
 Конструкція спеціалізації вимагає реалізації двох методів:
 
-```cpp
-#include <format>
-#include <string_view>
-
-// Власний тип даних
-struct Vector2D {
-    double x;
-    double y;
-};
-
-// Спеціалізація std::formatter у просторі імен std
-template <>
-struct std::formatter<Vector2D> {
-    bool is_hex = false;
-
-    // 1. Метод parse аналізує специфікатор формату в constexpr-контексті
-    constexpr auto parse(std::format_parse_context& ctx) {
-        auto it = ctx.begin();
-        auto end = ctx.end();
-
-        if (it != end && *it == 'x') {
-            is_hex = true;
-            ++it;
-        }
-
-        if (it != end && *it != '}') {
-            throw std::format_error("Invalid format specifier for Vector2D");
-        }
-        return it;
-    }
-
-    // 2. Метод format виконує безпосередній запис заформатованих даних у буфер
-    template <typename FormatContext>
-    auto format(const Vector2D& vec, FormatContext& ctx) const {
-        if (is_hex) {
-            return std::format_to(ctx.out(), "({:a}, {:a})", vec.x, vec.y);
-        }
-        return std::format_to(ctx.out(), "({:.2f}, {:.2f})", vec.x, vec.y);
-    }
-};
-```
+:::code format-and-print-d/cpp/rozshyrennia-dlia-vlasnykh.cpp
 
 Після оголошення цієї спеціалізації тип `Vector2D` стає повноправним громадянином підсистеми форматування:
 
@@ -379,33 +212,7 @@ std::string s2 = std::format("Hex: {:x}", v); // "Hex: (0x1.921fb54442d18p+1, 0x
 
 Якщо власний тип легко перетворюється на об'єкт, який вже має форматирувальник у стандартній бібліотеці (наприклад, на `std::string_view` чи `int`), писати дубльований метод `parse()` не потрібно. Розробник може успадкувати форматирувальник від розширеного базового типу:
 
-```cpp
-#include <format>
-#include <string_view>
-
-enum class UserRole { Admin, Moderator, User, Guest };
-
-// Перетворення enum у string_view
-constexpr std::string_view to_string(UserRole role) noexcept {
-    switch (role) {
-        case UserRole::Admin:     return "Admin";
-        case UserRole::Moderator: return "Moderator";
-        case UserRole::User:      return "User";
-        case UserRole::Guest:     return "Guest";
-    }
-    return "Unknown";
-}
-
-// Успадкування форматування від std::formatter<std::string_view>
-template <>
-struct std::formatter<UserRole> : std::formatter<std::string_view> {
-    template <typename FormatContext>
-    auto format(UserRole role, FormatContext& ctx) const {
-        // Передаємо заформатований string_view у базовий клас
-        return std::formatter<std::string_view>::format(to_string(role), ctx);
-    }
-};
-```
+:::code format-and-print-d/cpp/delehuvannia-formatuvannia.cpp
 
 При такому підході тип `UserRole` автоматично успадковує всі специфікатори форматування рядків (ширину, вирівнювання, заповнювачі): виклик `std::format("{:*^12}", UserRole::Admin)` згенерує `"***Admin****"`.
 
@@ -416,20 +223,7 @@ struct std::formatter<UserRole> : std::formatter<std::string_view> {
 1. **Компіляційні помилки (Compile-time Errors).** Виникають при використанні `std::format` із константними строковими літералами. Якщо специфікатор некоректний, розбір у `consteval`-конструкторі `std::basic_format_string` перериває збірку проєкту.
 2. **Динамічні винятки під час виконання (Runtime Exceptions).** Виникають у випадках використання `std::vformat` з неконстантними рядками форматування або при передачі некоректних динамічних параметрів ширини. У таких випадках підсистема кидає виняток `std::format_error` (який успадковано від `std::runtime_error`).
 
-```cpp
-#include <format>
-#include <iostream>
-
-void dynamic_format_demo(const std::string& user_fmt_str) {
-    try {
-        // Динамічний розбір у runtime через vformat
-        std::string res = std::vformat(user_fmt_str, std::make_format_args(42));
-        std::cout << "Result: " << res << "\n";
-    } catch (const std::format_error& e) {
-        std::cerr << "Format error caught: " << e.what() << "\n";
-    }
-}
-```
+:::code format-and-print-d/cpp/obrobka-pomylok-ta.cpp
 
 Підсистема надає сильну гарантію безпеки винятків (Strong Exception Guarantee): якщо під час форматування аргументів у `std::format_to` один із форматирувачів кидає виняток, стан вихідного буфера лишається цілісним, а виділені внутрішні ресурси коректно звільняються.
 
@@ -441,21 +235,7 @@ void dynamic_format_demo(const std::string& user_fmt_str) {
 
 Якщо ж розробнику дійсно необхідний вивід з урахуванням локалі користувача, граматика пропонує модифікатор `L`:
 
-```cpp
-#include <format>
-#include <locale>
-#include <iostream>
-
-int main() {
-    double num = 1234567.89;
-
-    // Незалежно від локалі (завжди POSIX): "1234567.89"
-    std::string default_fmt = std::format("{}", num);
-
-    // З урахуванням потокової локалі L (наприклад, "1 234 567,89" або "1,234,567.89")
-    std::string loc_fmt = std::format(std::locale("uk_UA.UTF-8"), "{:L}", num);
-}
-```
+:::code format-and-print-d/cpp/obrobka-lokalei-ta.cpp
 
 ### Низькорівневий алгоритм Dragonbox для чисел із плаваючою крапкою
 
@@ -471,22 +251,7 @@ int main() {
 - `__cpp_lib_print` (заголовок `<print>`) — підтверджує наявність `std::print` та `std::println` (C++23).
 - `__cpp_lib_format_ranges` — свідчить про підтримку форматування контейнерів та діапазонів (C++23).
 
-```cpp
-#include <version>
-
-#if defined(__cpp_lib_print)
-    #include <print>
-    #define LOG_PRINT(...) std::print(__VA_ARGS__)
-#elif defined(__cpp_lib_format)
-    #include <format>
-    #include <iostream>
-    #define LOG_PRINT(...) std::cout << std::format(__VA_ARGS__)
-#else
-    // Фолбек для старіших компіляторів
-    #include <fmt/core.h>
-    #define LOG_PRINT(...) fmt::print(__VA_ARGS__)
-#endif
-```
+:::code format-and-print-d/cpp/sumisnist-ta-makrosy.cpp
 
 Завдяки сумісності граматики `std::format` із бібліотекою `fmtlib`, проєкти можуть легко мігрувати на стандартні засоби C++20/C++23 у міру оновлення системних компіляторів.
 

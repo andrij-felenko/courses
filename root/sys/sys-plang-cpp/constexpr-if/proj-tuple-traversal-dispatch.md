@@ -20,27 +20,7 @@
 
 До появи `if constexpr` для ітерації по кортежу доводилося створювати допоміжний шаблонний клас зі спеціалізаціями для кроку рекурсії та для базового випадку зупинки:
 
-```cpp
-// Традиційний підхід C++11/C++14: розрив логіки на два окремі шаблони
-template<std::size_t Index, std::size_t Size>
-struct TupleIterator {
-    template<typename Tuple, typename Func>
-    static void iterate(const Tuple& t, Func&& f) {
-        f(std::get<Index>(t), Index);
-        // Рекурсивний виклик для наступного індексу
-        TupleIterator<Index + 1, Size>::iterate(t, std::forward<Func>(f));
-    }
-};
-
-// Часткова спеціалізація для зупинки рекурсії, коли Index == Size
-template<std::size_t Size>
-struct TupleIterator<Size, Size> {
-    template<typename Tuple, typename Func>
-    static void iterate(const Tuple&, Func&&) {
-        // Базовий випадок: нічого не робимо
-    }
-};
-```
+:::code proj-tuple-traversal-dispatch/cpp/tradytsiinyi-pidkhid-do-c.cpp
 
 Цей підхід вимагав написання двох класів, збільшував час компіляції через генерацію додаткових типів у таблиці символів та створював труднощі при налагодженні. Якщо в тілі функції виникала синтаксична помилка, стек викликів інстанціювання заглиблювався на десятки рівнів шаблонних класів, що ускладнювало пошук реальної причини збою.
 
@@ -48,38 +28,7 @@ struct TupleIterator<Size, Size> {
 
 За допомогою `if constexpr` уся логіка рекурсивного розгортання та перевірки межі контейнера концентрується в одній функції без жодних допоміжних спеціалізацій:
 
-```cpp
-#include <iostream>
-#include <tuple>
-#include <string>
-#include <type_traits>
-#include <utility>
-
-namespace detail {
-
-template<std::size_t Index = 0, typename Func, typename... Types>
-constexpr void tuple_for_each_impl(const std::tuple<Types...>& t, Func&& f) {
-    constexpr std::size_t total_elements = sizeof...(Types);
-
-    if constexpr (Index < total_elements) {
-        // 1. Обробляємо поточний елемент кортежу
-        f(std::get<Index>(t), Index);
-
-        // 2. Рекурсивний перехід до наступного елемента
-        // Якщо Index + 1 == total_elements, ця гілка ВІДКИДАЄТЬСЯ компілятором!
-        if constexpr (Index + 1 < total_elements) {
-            tuple_for_each_impl<Index + 1>(t, std::forward<Func>(f));
-        }
-    }
-}
-
-} // namespace detail
-
-template<typename Func, typename... Types>
-constexpr void tuple_for_each(const std::tuple<Types...>& t, Func&& f) {
-    detail::tuple_for_each_impl<0>(t, std::forward<Func>(f));
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/suchasna-realizatsiia.cpp
 
 ### Покрокове простеження інстанціювання компілятором
 
@@ -116,46 +65,7 @@ constexpr void tuple_for_each_fold(const std::tuple<Types...>& t, Func&& f) {
 
 Створимо узагальнену систему друку, яка автоматично форматує значення відповідно до їхніх типів (екранує рядки, перетворює булеві прапорці у текст, виводить числа):
 
-```cpp
-template<typename... Types>
-void print_as_json_array(const std::tuple<Types...>& t) {
-    std::cout << "[";
-    tuple_for_each(t, [](const auto& item, std::size_t index) {
-        if (index > 0) {
-            std::cout << ", ";
-        }
-
-        using ValueType = std::decay_t<decltype(item)>;
-
-        // Статична інтроспекція типу кожного окремого поля
-        if constexpr (std::is_same_v<ValueType, std::string> || 
-                      std::is_same_v<ValueType, const char*>) {
-            std::cout << '"' << item << '"';
-        } else if constexpr (std::is_same_v<ValueType, bool>) {
-            std::cout << (item ? "true" : "false");
-        } else if constexpr (std::is_null_pointer_v<ValueType>) {
-            std::cout << "null";
-        } else {
-            std::cout << item;
-        }
-    });
-    std::cout << "]\n";
-}
-
-int main() {
-    auto telemetry_record = std::make_tuple(
-        42,
-        std::string("Engine/Temperature"),
-        98.6,
-        true,
-        nullptr
-    );
-
-    // Виведе: [42, "Engine/Temperature", 98.6, true, null]
-    print_as_json_array(telemetry_record);
-    return 0;
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/praktychne-zastosuvannia.cpp
 
 ## Задача 2: Статична диспетчеризація кроку ітератора (Generic Advance)
 
@@ -166,35 +76,7 @@ int main() {
 
 ### Реалізація узагальненого advance через if constexpr
 
-```cpp
-#include <iterator>
-#include <vector>
-#include <list>
-#include <forward_list>
-#include <type_traits>
-
-template<typename Iterator, typename Distance>
-constexpr void generic_advance(Iterator& it, Distance n) {
-    using Category = typename std::iterator_traits<Iterator>::iterator_category;
-
-    if constexpr (std::is_base_of_v<std::random_access_iterator_tag, Category>) {
-        // 1. Швидкий шлях прямого доступу O(1)
-        it += n;
-    } else if constexpr (std::is_base_of_v<std::bidirectional_iterator_tag, Category>) {
-        // 2. Двосторонній прохід O(n)
-        if (n > 0) {
-            while (n--) ++it;
-        } else {
-            while (n++) --it;
-        }
-    } else {
-        // 3. Односпрямований рух тільки вперед O(n)
-        while (n--) {
-            ++it;
-        }
-    }
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/realizatsiia-uzahalnenoho.cpp
 
 ### Порівняльний аналіз згенерованого машинного коду (x86-64)
 
@@ -246,51 +128,7 @@ template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 
 ### Реалізація диспетчера подій
 
-```cpp
-#include <variant>
-#include <iostream>
-#include <string>
-#include <type_traits>
-
-// Допоміжний шаблон для відкладеної перевірки повноти гілок
-template<typename> inline constexpr bool dependent_false = false;
-
-struct SystemAlert {
-    int severity_code;
-    std::string message;
-};
-
-struct SensorReading {
-    uint32_t sensor_id;
-    double value;
-};
-
-struct HeartbeatPing {
-    uint64_t timestamp_ns;
-};
-
-using TelemetryEvent = std::variant<SystemAlert, SensorReading, HeartbeatPing>;
-
-void process_telemetry(const TelemetryEvent& event) {
-    std::visit([](const auto& item) {
-        using T = std::decay_t<decltype(item)>;
-
-        if constexpr (std::is_same_v<T, SystemAlert>) {
-            std::cout << "[ТРИВОГА Рівень " << item.severity_code << "] " 
-                      << item.message << "\n";
-        } else if constexpr (std::is_same_v<T, SensorReading>) {
-            std::cout << "[ДАТЧИК #" << item.sensor_id << "] Показник: " 
-                      << item.value << "\n";
-        } else if constexpr (std::is_same_v<T, HeartbeatPing>) {
-            std::cout << "[ПУЛЬС] Позначка часу: " 
-                      << item.timestamp_ns << " нс\n";
-        } else {
-            // Якщо у variant буде додано новий тип, компілятор видасть помилку тут!
-            static_assert(dependent_false<T>, "Не всі типи variant покрито обробником!");
-        }
-    }, event);
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/realizatsiia-dyspetchera.cpp
 
 Цей підхід поєднує централізовану структуру коду з гарантією компілятора: якщо в майбутньому хтось розширить `TelemetryEvent`, додавши четвертий тип, збірка програми негайно зупиниться із вказівкою на точне місце, де бракує нової гілки.
 
@@ -304,87 +142,11 @@ void process_telemetry(const TelemetryEvent& event) {
 
 ### Повна реалізація серіалізатора
 
-```cpp
-#include <vector>
-#include <cstdint>
-#include <cstring>
-#include <string>
-#include <type_traits>
-#include <iostream>
-
-template<typename> inline constexpr bool dependent_false_v = false;
-
-// Допоміжний трейт для виявлення контейнерів std::vector
-template<typename> struct is_vector : std::false_type {};
-template<typename T, typename Alloc> 
-struct is_vector<std::vector<T, Alloc>> : std::true_type {};
-
-class BinaryStreamWriter {
-public:
-    template<typename T>
-    void write(const T& value) {
-        using CleanType = std::decay_t<T>;
-
-        if constexpr (std::is_trivially_copyable_v<CleanType> && !std::is_pointer_v<CleanType>) {
-            // Шлях 1: Пряме копіювання байтів пам'яті для POD-типів
-            const auto* byte_ptr = reinterpret_cast<const uint8_t*>(&value);
-            buffer_.insert(buffer_.end(), byte_ptr, byte_ptr + sizeof(CleanType));
-        } else if constexpr (std::is_same_v<CleanType, std::string>) {
-            // Шлях 2: Рядки серіалізуються як довжина (uint32_t) + символи
-            auto length = static_cast<uint32_t>(value.size());
-            write(length);
-            buffer_.insert(buffer_.end(), value.data(), value.data() + length);
-        } else if constexpr (is_vector<CleanType>::value) {
-            // Шлях 3: Вектори серіалізуються рекурсивно
-            auto count = static_cast<uint32_t>(value.size());
-            write(count);
-            for (const auto& element : value) {
-                write(element);
-            }
-        } else {
-            static_assert(dependent_false_v<CleanType>, 
-                          "Тип не підтримує двійкову серіалізацію!");
-        }
-    }
-
-    [[nodiscard]] const std::vector<uint8_t>& get_buffer() const noexcept {
-        return buffer_;
-    }
-
-    [[nodiscard]] std::size_t size_bytes() const noexcept {
-        return buffer_.size();
-    }
-
-private:
-    std::vector<uint8_t> buffer_;
-};
-```
+:::code proj-tuple-traversal-dispatch/cpp/povna-realizatsiia.cpp
 
 ### Тестування роботи серіалізатора
 
-```cpp
-struct Header {
-    uint32_t magic = 0xDEADBEEF;
-    uint16_t version = 1;
-};
-
-int main() {
-    BinaryStreamWriter writer;
-
-    Header hdr;
-    writer.write(hdr); // Шлях 1: 6 байтів прямого копіювання
-
-    std::string device_name = "LiDAR-Front";
-    writer.write(device_name); // Шлях 2: 4 байти довжини + 11 байтів тексту
-
-    std::vector<int32_t> raw_points = {100, 250, -45, 890};
-    writer.write(raw_points); // Шлях 3: 4 байти розміру + 4*4 байти чисел
-
-    std::cout << "Загальний розмір серіалізованого буфера: " 
-              << writer.size_bytes() << " байтів\n";
-    return 0;
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/testuvannia-roboty.cpp
 
 ## Задача 5: Алгебраїчна оптимізація матричних операцій
 
@@ -392,55 +154,7 @@ int main() {
 
 Використання `if constexpr` дозволяє реалізувати єдиний оператор множення `operator*`, який на етапі компіляції розпізнає структурні властивості операндів і генерує найбільш оптимальний машинний код:
 
-```cpp
-#include <array>
-#include <iostream>
-#include <type_traits>
-
-enum class MatrixKind { Dense, Diagonal, Identity };
-
-template<typename T, std::size_t N, MatrixKind Kind>
-struct Matrix {
-    static constexpr MatrixKind kind = Kind;
-    static constexpr std::size_t size = N;
-
-    // Для діагональної матриці зберігаємо лише N елементів, для щільної — N*N
-    std::array<T, (Kind == MatrixKind::Dense ? N * N : (Kind == MatrixKind::Diagonal ? N : 0))> data{};
-};
-
-template<typename T, std::size_t N, MatrixKind K1, MatrixKind K2>
-auto multiply_matrices(const Matrix<T, N, K1>& a, const Matrix<T, N, K2>& b) {
-    if constexpr (K1 == MatrixKind::Identity) {
-        // 1. Множення на одиничну матрицю зліва: повертаємо b без змін O(1)
-        return b;
-    } else if constexpr (K2 == MatrixKind::Identity) {
-        // 2. Множення на одиничну матрицю справа: повертаємо a без змін O(1)
-        return a;
-    } else if constexpr (K1 == MatrixKind::Diagonal && K2 == MatrixKind::Diagonal) {
-        // 3. Множення двох діагональних матриць: попарний добуток діагоналей O(N)
-        Matrix<T, N, MatrixKind::Diagonal> result;
-        for (std::size_t i = 0; i < N; ++i) {
-            result.data[i] = a.data[i] * b.data[i];
-        }
-        return result;
-    } else {
-        // 4. Загальний випадок: стандартне кубічне множення матриць O(N³)
-        Matrix<T, N, MatrixKind::Dense> result;
-        for (std::size_t i = 0; i < N; ++i) {
-            for (std::size_t k = 0; k < N; ++k) {
-                T r = (K1 == MatrixKind::Diagonal ? (i == k ? a.data[i] : T{0}) : a.data[i * N + k]);
-                if (r != T{0}) {
-                    for (std::size_t j = 0; j < N; ++j) {
-                        T val_b = (K2 == MatrixKind::Diagonal ? (k == j ? b.data[k] : T{0}) : b.data[k * N + j]);
-                        result.data[i * N + j] += r * val_b;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/zadacha-5-alhebraichna.cpp
 
 У цьому прикладі, якщо розробник перемножує дві діагональні матриці `Matrix<float, 1024, MatrixKind::Diagonal>`, компілятор повністю відкидає трирівневий вкладений цикл загального множення `O(N³)` і замінює його на векторний SIMD-прохід з 1024 множень з плаваючою крапкою.
 
@@ -450,41 +164,7 @@ auto multiply_matrices(const Matrix<T, N, K1>& a, const Matrix<T, N, K2>& b) {
 
 Конструкція `if constexpr` дозволяє реалізувати повністю статичну фабрику апаратних інтерфейсів без віртуальних викликів та без динамічної пам'яті:
 
-```cpp
-#include <cstdint>
-#include <iostream>
-#include <type_traits>
-
-enum class BusProtocol { SPI, I2C, UART };
-
-template<BusProtocol Proto>
-class HardwareBusDriver {
-public:
-    void initialize() {
-        if constexpr (Proto == BusProtocol::SPI) {
-            // Налаштування SPI: ввімкнення тактування, конфігурація CPOL/CPHA
-            std::cout << "Ініціалізація апаратного модуля SPI: швидкість 10 МГц\n";
-        } else if constexpr (Proto == BusProtocol::I2C) {
-            // Налаштування I2C: конфігурація підтягуючих резисторів, стандартний режим 400 кГц
-            std::cout << "Ініціалізація апаратного модуля I2C: швидкість 400 кГц\n";
-        } else if constexpr (Proto == BusProtocol::UART) {
-            // Налаштування UART: швидкість 115200 бод, 8 біт даних, 1 стоп-біт
-            std::cout << "Ініціалізація апаратного модуля UART: 115200 бод\n";
-        }
-    }
-
-    template<typename BufferType>
-    void transmit(const BufferType& buffer) {
-        if constexpr (Proto == BusProtocol::SPI) {
-            // Використання швидкого контролера прямого доступу до пам'яті DMA
-            std::cout << "SPI: пряма передача блоку пам'яті через DMA\n";
-        } else {
-            // Побайтне надсилання через чергу переривань
-            std::cout << "Побайтне надсилання в апаратний буфер FIFO\n";
-        }
-    }
-};
-```
+:::code proj-tuple-traversal-dispatch/cpp/zadacha-6-statychnyi.cpp
 
 Кожен екземпляр `HardwareBusDriver<BusProtocol::SPI>` після компіляції перетворюється на монолітний блок апаратного коду, який працює безпосередньо з регістрами мікроконтролера на граничній швидкості кремнію.
 
@@ -494,52 +174,7 @@ public:
 
 Використання `if constexpr` всередині узагальненої функції `get<I>()` дозволяє елегантно роздавати посилання на потрібні поля без написання десятків окремих явних спеціалізацій:
 
-```cpp
-#include <string>
-#include <tuple>
-#include <iostream>
-
-struct GeoCoordinate {
-    double latitude;
-    double longitude;
-    double altitude_meters;
-    std::string location_name;
-};
-
-// Реалізація функції get<I> через if constexpr
-template<std::size_t Index>
-constexpr decltype(auto) get(const GeoCoordinate& coord) {
-    if constexpr (Index == 0) {
-        return coord.latitude;
-    } else if constexpr (Index == 1) {
-        return coord.longitude;
-    } else if constexpr (Index == 2) {
-        return coord.altitude_meters;
-    } else if constexpr (Index == 3) {
-        return coord.location_name;
-    } else {
-        static_assert(Index < 4, "Індекс виходить за межі структури GeoCoordinate!");
-    }
-}
-
-// Спеціалізація метаданих для підтримки structured bindings
-namespace std {
-    template<> struct tuple_size<GeoCoordinate> : std::integral_constant<std::size_t, 4> {};
-    template<> struct tuple_element<0, GeoCoordinate> { using type = double; };
-    template<> struct tuple_element<1, GeoCoordinate> { using type = double; };
-    template<> struct tuple_element<2, GeoCoordinate> { using type = double; };
-    template<> struct tuple_element<3, GeoCoordinate> { using type = std::string; };
-}
-
-int main() {
-    GeoCoordinate station{50.4501, 30.5234, 179.0, "Kyiv-Center"};
-
-    // Пряме розпакування через structured bindings
-    const auto& [lat, lon, alt, name] = station;
-    std::cout << "Станція: " << name << " (" << lat << ", " << lon << ")\n";
-    return 0;
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/zadacha-7-adaptatsiia.cpp
 
 Завдяки цьому протокол адаптації структури реалізується максимально стисло та безпечно.
 
@@ -549,35 +184,7 @@ int main() {
 
 Традиційно для цього створювали фіктивні класи `NullMutex` та реалізовували шаблонні параметри блокувань. За допомогою `if constexpr` вибір стратегії блокування здійснюється безпосередньо у місці виклику операцій:
 
-```cpp
-#include <mutex>
-#include <shared_mutex>
-#include <iostream>
-
-template<bool ThreadSafe = true>
-class ThreadSafeMetricsRegistry {
-public:
-    void increment(const std::string& name) {
-        if constexpr (ThreadSafe) {
-            // Захоплюємо ексклюзивне блокування тільки якщо увімкнено багатопотоковість
-            std::unique_lock lock(mutex_);
-            unsafe_increment(name);
-        } else {
-            // Прямий виклик без жодних атомарних операцій та захоплення блокувань
-            unsafe_increment(name);
-        }
-    }
-
-private:
-    void unsafe_increment(const std::string& name) {
-        // Інкремент внутрішнього лічильника метрик
-        std::cout << "Оновлено метрику: " << name << "\n";
-    }
-
-    // Для однопотокового варіанта м'ютекс взагалі можна вилучити або зробити порожнім
-    std::mutex mutex_;
-};
-```
+:::code proj-tuple-traversal-dispatch/cpp/zadacha-8-statychne.cpp
 
 Коли контейнер інстанціюється як `ThreadSafeMetricsRegistry<false>`, компілятор повністю відкидає гілку створення об'єкта `std::unique_lock`, а всі виклики `increment()` інлайняться в прямі операції над пам'яттю без жодної інструкції блокування шини (`lock cmpxchg`).
 
@@ -636,21 +243,6 @@ void transmit(T& obj) {
 
 Правильне вирішення у стандарті C++17 полягає у використанні **вкладених блоків** `if constexpr`:
 
-```cpp
-template<typename T>
-void transmit_safe(T& obj) {
-    if constexpr (std::is_class_v<T>) {
-        // Тут гарантовано, що T є класом, тому звернення
-        // до внутрішніх типів не зламає збірку для примітивних типів
-        if constexpr (requires_custom_header_v<T>) {
-            obj.send();
-        } else {
-            obj.write_raw();
-        }
-    } else {
-        // Гілка для скалярних типів
-    }
-}
-```
+:::code proj-tuple-traversal-dispatch/cpp/tonki-kraiovi-vypadky.cpp
 
 Вкладені блоки `if constexpr` створюють суворий каскадний бар'єр: компілятор навіть не починає аналізувати внутрішній блок, якщо зовнішня умова виявилася хибною, що гарантує надійність збірки узагальнених бібліотек.

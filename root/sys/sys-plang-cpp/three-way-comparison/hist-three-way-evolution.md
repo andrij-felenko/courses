@@ -15,31 +15,7 @@
 
 Ситуація ставала критичною у випадках гетерогенних (мішаних) порівнянь. Уявімо клас рядка `MyString`, який повинен ефективно порівнюватися як із власними екземплярами, так і з сирими C-рядками `const char*` без виділення тимчасової динамічної пам'яті:
 
-```cpp
-// 1. Порівняння двох об'єктів MyString (6 операторів)
-bool operator==(const MyString&, const MyString&);
-bool operator!=(const MyString&, const MyString&);
-bool operator< (const MyString&, const MyString&);
-bool operator<=(const MyString&, const MyString&);
-bool operator> (const MyString&, const MyString&);
-bool operator>=(const MyString&, const MyString&);
-
-// 2. Порівняння MyString з const char* (6 операторів)
-bool operator==(const MyString&, const char*);
-bool operator!=(const MyString&, const char*);
-bool operator< (const MyString&, const char*);
-bool operator<=(const MyString&, const char*);
-bool operator> (const MyString&, const char*);
-bool operator>=(const MyString&, const char*);
-
-// 3. Зворотне порівняння const char* з MyString (ще 6 операторів!)
-bool operator==(const char*, const MyString&);
-bool operator!=(const char*, const MyString&);
-bool operator< (const char*, const MyString&);
-bool operator<=(const char*, const MyString&);
-bool operator> (const char*, const MyString&);
-bool operator>=(const char*, const MyString&);
-```
+:::code hist-three-way-evolution/cpp/problema-kombinatornoho.hpp
 
 Вісімнадцять окремих сигнатур на один клас. Якщо типи підтримували ще й третій сумісний формат (наприклад, числовий тип із різними розмірами розрядності `FixedPoint<16>` та `FixedPoint<32>`), кількість необхідних функцій зростала пропорційно `6 · N²`. На практиці це призводило до копіювання фрагментів коду, механічних помилок (де у тілі `operator>=` випадково забували знак рівності) та значного збільшення часу синтаксичного аналізу файлів заголовків.
 
@@ -47,21 +23,7 @@ bool operator>=(const char*, const MyString&);
 
 У першому міжнародному стандарті ISO/IEC 14882:1998 комітет спробував вирішити проблему механічно за допомогою узагальнених шаблонів. У заголовок `<utility>` додали спеціальний допоміжний простір імен `std::rel_ops`. Він містив чотири шаблони операторів, які автоматично виражали відсутні операції через користувацькі `==` та `<`:
 
-```cpp
-namespace std::rel_ops {
-    template <class T>
-    bool operator!=(const T& x, const T& y) { return !(x == y); }
-
-    template <class T>
-    bool operator>(const T& x, const T& y) { return y < x; }
-
-    template <class T>
-    bool operator<=(const T& x, const T& y) { return !(y < x); }
-
-    template <class T>
-    bool operator>=(const T& x, const T& y) { return !(x < y); }
-}
-```
+:::code hist-three-way-evolution/cpp/pastka-shablonnoi-dopomohy.cpp
 
 Задум авторів стандарту C++98 здавався простим: розробникові типу достатньо було надати дві базові операції, після чого в коді клієнта писалося `using namespace std::rel_ops;`, і всі шість операторів ставали доступними. Проте на практиці цей механізм породив більше проблем, ніж розв'язав, і швидко перетворився на антипатерн:
 

@@ -8,19 +8,7 @@
 
 Спеціально для розв'язання цієї задачі у заголовочному файлі `<utility>` було створено шаблон `std::pair<T1, T2>`. Дизайн `std::pair` у стандарті C++98 був гранично простим та відкритим:
 
-```cpp
-template <typename T1, typename T2>
-struct pair {
-    T1 first;
-    T2 second;
-
-    pair() : first(), second() {}
-    pair(const T1& a, const T2& b) : first(a), second(b) {}
-    
-    template <typename U1, typename U2>
-    pair(const pair<U1, U2>& p) : first(p.first), second(p.second) {}
-};
-```
+:::code hist-tuple-evolution/cpp/main.cpp
 
 Головною перевагою `std::pair` була наявність відкритих полів `first` та `second`, що дозволяло звертатися до елементів без жодних викликів додаткових аксесорів чи методів-геттерів. Степанов свідомо обрав публічні поля замість інкапсульованих методів `get_first()`, оскільки прагнув нульових накладних витрат на наївних компіляторах 1990-х років, які не завжди вміли ефективно вбудовувати (inlining) дрібні методи доступу.
 

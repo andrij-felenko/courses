@@ -43,33 +43,7 @@
 
 Похідний клас утворює власну область видимості, яка вкладена в область видимості базового класу. Затуляння виникає в той момент, коли в похідному класі з'являється функція з такою самою назвою, навіть якщо її параметри зовсім інші:
 
-```cpp
-#include <iostream>
-#include <string_view>
-
-struct Base {
-    void print(int value) {
-        std::cout << "Base::print(int): " << value << '\n';
-    }
-    void print(std::string_view text) {
-        std::cout << "Base::print(string_view): " << text << '\n';
-    }
-};
-
-struct Derived : public Base {
-    // Оголошення print(double) затуляє ВСІ перевантаження print у Base!
-    void print(double value) {
-        std::cout << "Derived::print(double): " << value << '\n';
-    }
-};
-
-int main() {
-    Derived d;
-    d.print(3.14);    // ✓ Викликає Derived::print(double)
-    d.print(42);      // ⚠ Неявно перетворює int на double -> Derived::print(42.0)
-    // d.print("hi"); // ✗ ПОМИЛКА КОМПІЛЯЦІЇ: const char* не можна перетворити на double!
-}
-```
+:::code using-and-name-hiding-d/cpp/zatuliannia-metodiv-u.cpp
 
 У виклику `d.print("hi")` пошук імені знайшов `Derived::print(double)` у класі `Derived` і зупинився. На фазі розв'язання перевантажень єдиний кандидат — функція з аргументом `double`. Оскільки рядок `"hi"` не приводиться до числа з рухомою комою, компілятор зупиняє збирання, незважаючи на те, що в `Base` є ідеальний метод `print(std::string_view)`.
 
@@ -77,34 +51,7 @@ int main() {
 
 Затуляння працює однаково для звичайних і для віртуальних методів. Якщо базовий клас має кілька перевантажень віртуального методу, а похідний клас перевизначає (`override`) лише один із них, решта перевантажень стають затуленими для некваліфікованого доступу через об'єкт похідного типу:
 
-```cpp
-struct BaseRenderer {
-    virtual ~BaseRenderer() = default;
-    virtual void render(int width, int height) = 0;
-    virtual void render(double scale_factor) = 0;
-};
-
-struct SvgRenderer : public BaseRenderer {
-    // Перевизначаємо лише один віртуальний метод:
-    void render(int width, int height) override {
-        std::cout << "SvgRenderer: " << width << "x" << height << '\n';
-    }
-    // render(double) з базового класу тепер ЗАТУЛЕНО для SvgRenderer
-};
-
-void run() {
-    SvgRenderer svg;
-    svg.render(800, 600); // ✓ Працює: точний збіг із SvgRenderer::render(int, int)
-    
-    // svg.render(1.5);   // ⚠ НЕ викликає render(double)! 
-                          // 1.5 обрізається до int 1, викликаючи render(int, int) зі спотворенням!
-    
-    // Проте через покажчик на Base віртуальність працює повністю:
-    BaseRenderer* base_ptr = &svg;
-    // base_ptr->render(1.5); // Викличе чистий віртуальний метод Base (UB / runtime error), 
-                              // бо SvgRenderer його не реалізував!
-}
-```
+:::code using-and-name-hiding-d/cpp/zatuliannia-virtualnykh.cpp
 
 Якщо клас не реалізував друге перевантаження, компілятор дозволить виклик через неявне приведення аргументів до першого перевантаження, що є джерелом важковловимих помилок часу виконання.
 
@@ -164,29 +111,7 @@ using typename BaseContainer::ValueType;
 
 Розглянемо такий приклад:
 
-```cpp
-class BaseService {
-public:
-    void execute(double value) {
-        std::cout << "BaseService::execute(double)\n";
-    }
-};
-
-class CustomService : public BaseService {
-public:
-    using BaseService::execute; // втягнули public execute(double)
-
-private:
-    void execute(int value) {   // закритий внутрішній помічник
-        std::cout << "CustomService::execute(int) [private]\n";
-    }
-};
-
-int main() {
-    CustomService service;
-    // service.execute(10); // ✗ ПОМИЛКА КОМПІЛЯЦІЇ!
-}
-```
+:::code using-and-name-hiding-d/cpp/pastka-pryvatnykh.cpp
 
 Що тут відбувається?
 1. Пошук імені формує множину кандидатів: `BaseService::execute(double)` (відкритий через using) та `CustomService::execute(int)` (приватний).
@@ -199,24 +124,7 @@ int main() {
 
 Щоб повернути затулені функції базового класу в область видимості похідного класу, застосовують `using`-оголошення (англ. *using-declaration*). Воно втягує всі однойменні перевантаження з базового класу безпосередньо в поточний клас:
 
-```cpp
-struct DerivedWithUsing : public Base {
-    // Вносимо всі перевантаження print з Base у область видимості DerivedWithUsing:
-    using Base::print;
-
-    // Додаємо власне перевантаження:
-    void print(double value) {
-        std::cout << "DerivedWithUsing::print(double): " << value << '\n';
-    }
-};
-
-int main() {
-    DerivedWithUsing d;
-    d.print(3.14);  // ✓ DerivedWithUsing::print(double)
-    d.print(42);    // ✓ Base::print(int) — точний збіг!
-    d.print("hi");  // ✓ Base::print(string_view) — точний збіг!
-}
-```
+:::code using-and-name-hiding-d/cpp/vidnovlennia-mnozhyny.cpp
 
 ![Порівняння класів без using та з using. Ліворуч: затуляння методів базового класу призводить до помилки компіляції або некоректних приведень. Праворуч: using Base::foo втягує всі методи у спільну множину перевантажень](img/base-derived-hiding.svg)
 
@@ -232,25 +140,7 @@ int main() {
 
 Якщо сигнатура методу в похідному класі повністю збігається із сигнатурою методу з `Base` (однакові типи параметрів, константність і `ref`-кваліфікатори), метод похідного класу перемагає й заміщує базовий:
 
-```cpp
-struct BaseCalculator {
-    int compute(int x) { return x * 2; }
-    double compute(double x) { return x * 2.0; }
-};
-
-struct AdvancedCalculator : public BaseCalculator {
-    using BaseCalculator::compute;
-
-    // Точний збіг сигнатури з BaseCalculator::compute(int):
-    int compute(int x) { return x * 3; }
-};
-
-int main() {
-    AdvancedCalculator calc;
-    std::cout << calc.compute(10);   // Виведе 30 (AdvancedCalculator::compute)
-    std::cout << calc.compute(2.5);  // Виведе 5.0 (BaseCalculator::compute)
-}
-```
+:::code using-and-name-hiding-d/cpp/pravylo-tochnoho-zbihu.cpp
 
 Метод `AdvancedCalculator::compute(int)` повністю приховує `BaseCalculator::compute(int)`, але `BaseCalculator::compute(double)` залишається доступним завдяки `using`.
 
@@ -258,33 +148,7 @@ int main() {
 
 Щоб побачити повну взаємодію всіх рівнів пошуку імен, розглянемо комплексну ієрархію з п'яти областей видимості:
 
-```cpp
-// Рівень 1: Глобальний простір
-void log_event(long x) { std::cout << "Global long: " << x << '\n'; }
-
-// Рівень 2: Простір імен сервісів
-namespace SystemServices {
-    void log_event(const char* s) { std::cout << "SystemServices string: " << s << '\n'; }
-
-    // Рівень 3: Базовий клас
-    struct BaseHandler {
-        void log_event(double d) { std::cout << "Base double: " << d << '\n'; }
-    };
-
-    // Рівень 4: Похідний клас
-    struct CustomHandler : public BaseHandler {
-        using BaseHandler::log_event; // втягуємо BaseHandler::log_event(double)
-        void log_event(std::string_view sv) { std::cout << "Custom string_view: " << sv << '\n'; }
-
-        // Рівень 5: Локальний метод
-        void run() {
-            log_event("hello"); // Виклик А
-            log_event(3.14);    // Виклик Б
-            log_event(100L);    // Виклик В
-        }
-    };
-}
-```
+:::code using-and-name-hiding-d/cpp/pokrokovyi-zhyttievyi.cpp
 
 Простежимо роботу компілятора для кожного виклику:
 
@@ -305,32 +169,7 @@ namespace SystemServices {
 
 Коли using-оголошення відновлює шаблонні методи з базового класу, вони беруть участь у впорядкуванні перевантажень за обмеженнями (англ. *Partial Ordering of Constraints*):
 
-```cpp
-#include <concepts>
-
-struct GenericBase {
-    template <typename T>
-    void process(T val) {
-        std::cout << "GenericBase::process(загальний шаблон)\n";
-    }
-};
-
-struct ConstrainedDerived : public GenericBase {
-    using GenericBase::process;
-
-    // Спеціалізоване перевантаження з концептом:
-    template <std::integral T>
-    void process(T val) {
-        std::cout << "ConstrainedDerived::process(цілочисельний концепт)\n";
-    }
-};
-
-void test_constraints() {
-    ConstrainedDerived d;
-    d.process(42);   // Викликає ConstrainedDerived::process (більш обмежений кандидат!)
-    d.process(3.14); // Викликає GenericBase::process (обмеження integral не виконано)
-}
-```
+:::code using-and-name-hiding-d/cpp/vzaiemodiia-z-kontseptamy.cpp
 
 Компілятор обирає найбільш обмеженого кандидата серед усіх доступних функцій у відновленій множині перевантажень, дозволяючи будувати гнучкі шари статичної валідації.
 
@@ -370,29 +209,7 @@ void custom_algorithm(T& a, T& b) {
 * **`using Namespace::Symbol;`** фізично імпортує символ у ту саму область видимості, де написано цей рядок (локальний блок чи простір імен). Символ поводиться так, ніби його щойно оголосили тут, і він **затуляє** всі однойменні символи із зовнішніх охопних областей.
 * **`using namespace Namespace;`** **не вносить** символи в поточну область! Натомість вона робить їх видимими так, ніби вони були оголошені в **найближчому спільному предку** поточного простору та імпортованого простору.
 
-```cpp
-namespace LibA {
-    void process(double x) {
-        std::cout << "LibA::process(double): " << x << '\n';
-    }
-}
-
-// Глобальна функція:
-void process(int x) {
-    std::cout << "::process(int): " << x << '\n';
-}
-
-void test_using_declaration() {
-    using LibA::process; // Вводить process(double) безпосередньо в область функції test_using_declaration
-    process(10);         // Викликає LibA::process(10.0)! Глобальна process(int) ЗАТУЛЕНА.
-}
-
-void test_using_directive() {
-    using namespace LibA; // Робить символи LibA видимими на рівні глобального простору (спільний предок)
-    // process(10);       // ✗ ПОМИЛКА: неоднозначність (Ambiguity)!
-                          // ::process(int) і LibA::process(double) змагаються на одному рівні!
-}
-```
+:::code using-and-name-hiding-d/cpp/riznytsia-v-tochtsi.cpp
 
 ![Порівняння using-оголошення та using-директиви. Using-оголошення вводить символ локально й затуляє глобальний контекст. Using-директива виносить символи на рівень спільного предка, створюючи неоднозначність виклику](img/declaration-vs-directive.svg)
 
@@ -481,20 +298,7 @@ using remove_reference_t = typename std::remove_reference<T>::type;
 
 Щоб створити спеціалізовану поведінку, використовують класичний ідіоматичний патерн: спеціалізують допоміжну структуру, а назовні надають універсальний аліас:
 
-```cpp
-template <typename T>
-struct StorageTraits {
-    using type = T;
-};
-
-template <>
-struct StorageTraits<bool> {
-    using type = uint8_t; // оптимізація бітового представлення
-};
-
-template <typename T>
-using StorageType = typename StorageTraits<T>::type;
-```
+:::code using-and-name-hiding-d/cpp/spetsializatsiia-ta.cpp
 
 ### Слабкі псевдоніми проти строгої типізації (Strong Typedef)
 
@@ -534,54 +338,13 @@ CountedVec v = {1, 2, 3}; // У C++20 виводить CountedVec<int>!
 
 Якщо базовий клас надає метод як `protected` (доступний лише спадкоємцям), похідний клас може відкрити його публічно для всіх користувачів:
 
-```cpp
-class DeviceDriver {
-protected:
-    void reset_hardware_registers() {
-        std::cout << "Апаратне скидання регістрів виконано.\n";
-    }
-};
-
-class AdminDeviceController : public DeviceDriver {
-public:
-    // Відкриваємо protected-метод базового класу назовні:
-    using DeviceDriver::reset_hardware_registers;
-};
-
-int main() {
-    AdminDeviceController admin;
-    admin.reset_hardware_registers(); // ✓ Дозволено: метод став public у похідному класі
-}
-```
+:::code using-and-name-hiding-d/cpp/zmina-zakhyshchenoho.cpp
 
 ### Вибірковий експорт при приватному успадкуванні
 
 Приватно успадкований базовий клас (`class Stack : private std::vector<int>`) ховає всі свої методи від клієнтів `Stack`. За допомогою `using` можна відкрити лише окремі безпечні операції без написання ручних функцій-делегатів:
 
-```cpp
-template <typename T>
-class SafeStack : private std::vector<T> {
-public:
-    // Робимо публічними лише ті операції vector, які потрібні стеку:
-    using std::vector<T>::empty;
-    using std::vector<T>::size;
-
-    void push(const T& value) {
-        this->push_back(value);
-    }
-
-    void pop() {
-        if (!empty()) {
-            this->pop_back();
-        }
-    }
-
-    const T& top() const {
-        return this->back();
-    }
-    // Операції insert, erase, operator[] залишаються схованими в private!
-};
-```
+:::code using-and-name-hiding-d/cpp/vybirkovyi-eksport-pry.cpp
 
 ![Зміна прав доступу за допомогою using у приватному успадкуванні. Захищені та публічні методи базового класу вибірково переносяться в публічну секцію похідного класу](img/access-control-reshape.svg)
 
@@ -595,20 +358,7 @@ public:
 
 До стандарту C++11, якщо базовий клас мав кілька конструкторів, похідний клас мусив явно продублювати кожен із них:
 
-```cpp
-struct BaseWidget {
-    BaseWidget(std::string name, int width, int height);
-    BaseWidget(int width, int height);
-    explicit BaseWidget(int id);
-};
-
-// До C++11: рутинне перенаправлення
-struct DerivedWidgetOld : public BaseWidget {
-    DerivedWidgetOld(std::string name, int w, int h) : BaseWidget(std::move(name), w, h) {}
-    DerivedWidgetOld(int w, int h) : BaseWidget(w, h) {}
-    explicit DerivedWidgetOld(int id) : BaseWidget(id) {}
-};
-```
+:::code using-and-name-hiding-d/cpp/uspadkuvannia.cpp
 
 У C++11 з'явилася конструкція `using Base::Base;`, яка автоматично генерує всі конструктори базового класу для похідного:
 
@@ -634,19 +384,7 @@ struct DerivedWidget : public BaseWidget {
    };
    ```
 4. **Конфлікт однакових конструкторів при множинному успадкуванні**:
-   ```cpp
-   struct BaseA { BaseA(int); };
-   struct BaseB { BaseB(int); };
-
-   struct MultiDerived : public BaseA, public BaseB {
-       using BaseA::BaseA;
-       using BaseB::BaseB;
-
-       // ПОМИЛКА: MultiDerived(int) неоднозначний!
-       // Щоб виправити, похідний клас мусить явно визначити власний конструктор:
-       MultiDerived(int v) : BaseA(v), BaseB(v) {}
-   };
-   ```
+   :::code using-and-name-hiding-d/cpp/tonkoshchi-ta-kraiovi.cpp
 5. **Віртуальне успадкування та успадковані конструктори**: якщо базовий клас є віртуальним (`struct Derived : virtual Base`), виклик конструктора `Derived(...)` вимагає прямої ініціалізації віртуальної бази найпохіднішим класом ієрархії, навіть якщо проміжні класи успадковують конструктори через `using`.
 
 ## Варіативні using-оголошення та патерн Overload у C++17
@@ -655,27 +393,7 @@ struct DerivedWidget : public BaseWidget {
 
 Це уможливило створення компактного та елегантного патерну **Overload** для диспетчеризації `std::visit` над `std::variant`:
 
-```cpp
-#include <variant>
-#include <iostream>
-
-template <typename... Ts>
-struct Overload : Ts... {
-    using Ts::operator()...; // Розгортає operator() для кожного типу в пакеті Ts
-};
-
-// Deduction guide (автоматичне виведення типів аргументів конструктора):
-template <typename... Ts>
-Overload(Ts...) -> Overload<Ts...>;
-
-void dispatch(const std::variant<int, double, std::string>& val) {
-    std::visit(Overload{
-        [](int v) { std::cout << "Ціле число: " << v << '\n'; },
-        [](double v) { std::cout << "Дробове число: " << v << '\n'; },
-        [](const std::string& v) { std::cout << "Рядок: " << v << '\n'; }
-    }, val);
-}
-```
+:::code using-and-name-hiding-d/cpp/variatyvni-using.cpp
 
 Без `using Ts::operator()...;` кожен базовий функціональний об'єкт мав би свій `operator()`, але виклик `overload(10)` завершився б помилкою через неоднозначність пошуку імені між кількома базами. `using` зливає всі оператори в єдину відкриту множину перевантажень. Практичні приклади композиції міксинів та побудови відвідувачів реалізовано у вставці [⚙️ Практика побудови множин перевантажень та інтерфейсів через using](root:sys-plang-cpp/using-and-name-hiding/proj-overload-set-builder.md).
 
@@ -683,23 +401,7 @@ void dispatch(const std::variant<int, double, std::string>& val) {
 
 Строго типізовані переліки `enum class` усувають конфлікти імен, але змушують повторювати назву переліку перед кожним значенням. У C++20 конструкція `using enum` дозволяє імпортувати всі перелічувачі в локальний блок або клас:
 
-```cpp
-enum class HttpCode {
-    Ok = 200,
-    NotFound = 404,
-    InternalError = 500
-};
-
-std::string_view get_status_message(HttpCode code) {
-    switch (code) {
-        using enum HttpCode; // Усі елементи HttpCode доступні без префікса
-        case Ok:            return "200 OK";
-        case NotFound:      return "404 Not Found";
-        case InternalError: return "500 Internal Server Error";
-    }
-    return "Unknown";
-}
-```
+:::code using-and-name-hiding-d/cpp/using-enum-u-c-20.cpp
 
 Директива `using enum` підтримує і вибірковий імпорт окремих значень: `using HttpCode::Ok;`.
 
@@ -709,34 +411,7 @@ std::string_view get_status_message(HttpCode code) {
 
 Через це некваліфіковані імена в залежних базових класах **ігноруються** компілятором:
 
-```cpp
-template <typename T>
-struct BaseProcessor {
-    void process_data() {
-        std::cout << "Базова обробка даних\n";
-    }
-};
-
-template <typename T>
-struct DerivedProcessor : public BaseProcessor<T> {
-    void execute() {
-        // process_data(); // ✗ ПОМИЛКА: 'process_data' was not declared in this scope!
-        
-        // Спосіб 1: виклик через this-> (робить ім'я залежним від T)
-        this->process_data(); // ✓ Працює
-        
-        // Спосіб 2: кваліфікований виклик (вимикає віртуальність!)
-        BaseProcessor<T>::process_data(); // ✓ Працює, але без динамічного поліморфізму
-    }
-
-    // Спосіб 3 (найбільш ідіоматичний): явне using-оголошення
-    using BaseProcessor<T>::process_data;
-
-    void execute_clean() {
-        process_data(); // ✓ Працює природно й зберігає віртуальність!
-    }
-};
-```
+:::code using-and-name-hiding-d/cpp/pastka-zalezhnykh-bazovykh.cpp
 
 Використання `using BaseProcessor<T>::process_data;` у тілі класу вказує компілятору, що ім'я існує в залежному базовому класі, дозволяючи писати природний код без надлишкових `this->`.
 
@@ -768,18 +443,7 @@ struct DerivedProcessor : public BaseProcessor<T> {
 
 За допомогою комбінації `export using` інтерфейсний файл модуля може контрольовано надавати клієнтам доступ до вибраних сутностей:
 
-```cpp
-export module MathEngine;
-
-namespace internal {
-    export struct Vector3D { double x, y, z; };
-    export Vector3D add(Vector3D a, Vector3D b);
-}
-
-// Експортуємо функціонал у відкритий кореневий простір модуля:
-export using internal::Vector3D;
-export using internal::add;
-```
+:::code using-and-name-hiding-d/cpp/vzaiemodiia-z-moduliamy-c.cpp
 
 Коли клієнтська програма імпортує модуль `import MathEngine;`, некваліфікований пошук імені негайно знаходить `Vector3D` та `add`, тоді як простір `internal` та його приватні деталі реалізації залишаються ізольованими.
 

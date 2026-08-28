@@ -52,24 +52,7 @@ requires (!std::is_function_v<T> && !std::is_void_v<T>)
 
 Починаючи з C++17, функція `std::launder` позначена специфікатором `constexpr`. Це дозволяє використовувати її під час обчислень на етапі компіляції:
 
-```cpp
-constexpr int evaluate_at_compile_time() {
-    struct Item {
-        const int value;
-    };
-
-    alignas(Item) std::byte storage[sizeof(Item)];
-    
-    // Створення об'єкта в constexpr-контексті (C++20 через std::construct_at)
-    Item* p = std::construct_at(reinterpret_cast<Item*>(storage), 42);
-    
-    // Отримання через launder у constexpr
-    Item* clean_p = std::launder(reinterpret_cast<Item*>(storage));
-    return clean_p->value;
-}
-
-static_assert(evaluate_at_compile_time() == 42);
-```
+:::code api-launder-contract/cpp/robota-v-konstantnykh.cpp
 
 Під час компіляції інтерпретатор `constexpr`-виразів компілятора (наприклад, у Clang та GCC) суворо перевіряє дотримання передумов `[ptr.launder]`. Якщо виклик `std::launder` спрямовано на неініціалізоване сховище або неіснуючий об'єкт, компілятор миттєво зупиняє компіляцію з детальною помилкою трасування, виявляючи помилки пам'яті ще до запуску програми.
 
@@ -81,28 +64,7 @@ static_assert(evaluate_at_compile_time() == 42);
 
 Розглянемо випадок, коли масив байтів або масив структур перевикористовується для створення послідовності нових об'єктів:
 
-```cpp
-struct Element {
-    const int val;
-};
-
-void array_example() {
-    alignas(Element) std::byte storage[sizeof(Element) * 2];
-
-    auto* e0 = new (storage + 0 * sizeof(Element)) Element{10};
-    auto* e1 = new (storage + 1 * sizeof(Element)) Element{20};
-
-    // Отримання вказівника на перший елемент
-    Element* p0 = std::launder(reinterpret_cast<Element*>(storage));
-    
-    // Чи можна робити p0 + 1 для доступу до другого елемента?
-    // За стандартом C++: так, якщо p0 вказує на елемент масиву Element[2].
-    // Але якщо об'єкти створювалися окремо у сирому буфері std::byte[],
-    // вони формально не утворюють єдиний масив Element[2] до C++20!
-    // Безпечний підхід:
-    Element* p1 = std::launder(reinterpret_cast<Element*>(storage + sizeof(Element)));
-}
-```
+:::code api-launder-contract/cpp/1-elementy-masyviv-i.cpp
 
 У C++17 окремі виклики розміщувального `new` створюють окремі повні об'єкти `Element`, а не єдиний об'єкт-масив `Element[2]`. Тому адресна арифметика `p0 + 1` формально виходить за межі першого об'єкта `Element`. Щоб отримати валідний вказівник на другий об'єкт, необхідно явно застосувати `std::launder` до адреси другого елемента.
 
@@ -110,33 +72,7 @@ void array_example() {
 
 Якщо об'єкт `Derived` розміщується в пам'яті, де раніше жив інший об'єкт `Derived`, а ми маємо вказівник на його базовий клас `Base*`:
 
-```cpp
-struct Base {
-    int x;
-};
-
-struct Derived : Base {
-    const int y;
-};
-
-void subobject_example() {
-    alignas(Derived) std::byte buf[sizeof(Derived)];
-    
-    auto* d1 = new (buf) Derived{{1}, 2};
-    Base* b = d1; // вказівник на підоб'єкт Base
-
-    d1->~Derived();
-    new (buf) Derived{{10}, 20};
-
-    // Виклик std::launder(b) повертає Base*, що вказує на підоб'єкт Base нового Derived.
-    Base* new_b = std::launder(b);
-    
-    // Чи можна робити static_cast<Derived*>(new_b)?
-    // Так! Оскільки new_b тепер легально зв'язаний із новим об'єктом.
-    Derived* new_d = static_cast<Derived*>(new_b);
-    std::cout << new_d->y << '\n'; // 20
-}
-```
+:::code api-launder-contract/cpp/2-pidobiekty-ta-bazovi.cpp
 
 ## Внутрішня взаємодія з бекендом компілятора (LLVM і GCC)
 
@@ -187,24 +123,7 @@ void subobject_example() {
 2. Конструюється новий об'єкт через розміщувальний `new`.
 3. Методи доступу `operator*()`, `operator->()` та `value()` зобов'язані використовувати `std::launder`:
 
-```cpp
-template <typename T>
-class optional_storage {
-    alignas(T) std::byte data_[sizeof(T)];
-    bool init_ = false;
-
-public:
-    constexpr T& value() & {
-        if (!init_) throw std::bad_optional_access{};
-        return *std::launder(reinterpret_cast<T*>(data_));
-    }
-
-    constexpr const T& value() const& {
-        if (!init_) throw std::bad_optional_access{};
-        return *std::launder(reinterpret_cast<const T*>(data_));
-    }
-};
-```
+:::code api-launder-contract/cpp/1-std-optional-t.hpp
 
 ### 2. `std::variant<Types...>`
 

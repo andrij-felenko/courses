@@ -78,19 +78,7 @@ auto compute_max(const T& a, const U& b) -> std::common_type_t<T, U> {
 
 Арифметичні концепти стандарту C++20 усувають необхідність писати складні конструкції SFINAE з використанням `std::is_integral` та `std::is_floating_point`.
 
-```cpp
-template<typename T>
-concept integral = std::is_integral_v<T>;
-
-template<typename T>
-concept signed_integral = std::integral<T> && std::is_signed_v<T>;
-
-template<typename T>
-concept unsigned_integral = std::integral<T> && !std::is_signed_v<T>;
-
-template<typename T>
-concept floating_point = std::is_floating_point_v<T>;
-```
+:::code api-concepts-reference/cpp/aryfmetychni-kontsepty-ta.cpp
 
 #### Особливості та нюанси арифметичних концептів
 
@@ -105,33 +93,7 @@ concept floating_point = std::is_floating_point_v<T>;
 
 Операції зміни стану є критичними для сортування, перестановки елементів та керування пам'яттю.
 
-```cpp
-template<typename LHS, typename RHS>
-concept assignable_from = 
-    std::is_lvalue_reference_v<LHS> &&
-    std::common_reference_with<
-        const std::remove_reference_t<LHS>&,
-        const std::remove_reference_t<RHS>&> &&
-    requires(LHS lhs, RHS&& rhs) {
-        { lhs = static_cast<RHS&&>(rhs) } -> std::same_as<LHS>;
-    };
-
-template<typename T>
-concept swappable = 
-    requires(T& a, T& b) {
-        ranges::swap(a, b);
-    };
-
-template<typename T, typename U>
-concept swappable_with = 
-    std::common_reference_with<T, U> &&
-    requires(T&& t, U&& u) {
-        ranges::swap(static_cast<T&&>(t), static_cast<T&&>(t));
-        ranges::swap(static_cast<U&&>(u), static_cast<U&&>(u));
-        ranges::swap(static_cast<T&&>(t), static_cast<U&&>(u));
-        ranges::swap(static_cast<U&&>(u), static_cast<T&&>(t));
-    };
-```
+:::code api-concepts-reference/cpp/kontsepty-prysvoiennia-ta.cpp
 
 Головна відмінність `std::swappable` полягає у використанні точок кастомізації (CPO) простору імен `std::ranges::swap`. Цей механізм спочатку шукає користувацьку функцію `swap` в асоційованому просторі імен через аргументно-залежний пошук (ADL), а якщо її немає — безпечно викликає `std::swap` за умови, що тип є переміщуваним.
 
@@ -141,43 +103,7 @@ concept swappable_with =
 
 Життєвий цикл об'єктів у C++ визначається правилами створення в пам'яті, ініціалізації, копіювання, переміщення та виклику деструктора. Стандарт C++20 формалізує ці кроки у вигляді суворої послідовності концептів.
 
-```cpp
-// 1. Безпечне знищення об'єкта
-template<typename T>
-concept destructible = std::is_nothrow_destructible_v<T>;
-
-// 2. Створення об'єкта з аргументами
-template<typename T, typename... Args>
-concept constructible_from = 
-    std::destructible<T> && 
-    std::is_constructible_v<T, Args...>;
-
-// 3. Ініціалізація за замовчуванням
-template<typename T>
-concept default_initializable = 
-    std::constructible_from<T> &&
-    requires {
-        T{};
-        ::new (static_cast<void*>(nullptr)) T;
-    } &&
-    requires {
-        T();
-    };
-
-// 4. Конструювання переміщенням
-template<typename T>
-concept move_constructible = 
-    std::constructible_from<T, T> && 
-    std::convertible_to<T, T>;
-
-// 5. Конструювання копіюванням
-template<typename T>
-concept copy_constructible = 
-    std::move_constructible<T> &&
-    std::constructible_from<T, T&> && std::convertible_to<T&, T> &&
-    std::constructible_from<T, const T&> && std::convertible_to<const T&, T> &&
-    std::constructible_from<T, const T> && std::convertible_to<const T, T>;
-```
+:::code api-concepts-reference/cpp/2-kontsepty-zhyttievoho.cpp
 
 ### Чому destructible вимагає noexcept
 
@@ -215,36 +141,7 @@ std::regular
 
 ### Формальні визначення об'єктної ієрархії
 
-```cpp
-// 1. Переміщуваний тип: можна перемістити конструктором та оператором присвоєння
-template<typename T>
-concept movable = 
-    std::is_object_v<T> &&
-    std::move_constructible<T> &&
-    std::assignable_from<T&, T> &&
-    std::swappable<T>;
-
-// 2. Копійовний тип: можна дублювати в пам'яті без руйнування оригіналу
-template<typename T>
-concept copyable = 
-    std::copy_constructible<T> &&
-    std::movable<T> &&
-    std::assignable_from<T&, T&> &&
-    std::assignable_from<T&, const T&> &&
-    std::assignable_from<T&, const T>;
-
-// 3. Напіврегулярний тип: копійовний тип з можливістю створення за замовчуванням
-template<typename T>
-concept semiregular = 
-    std::copyable<T> && 
-    std::default_initializable<T>;
-
-// 4. Регулярний тип: напіврегулярний тип із математичною рівністю значень
-template<typename T>
-concept regular = 
-    std::semiregular<T> && 
-    std::equality_comparable<T>;
-```
+:::code api-concepts-reference/cpp/formalni-vyznachennia.cpp
 
 ### Філософія та значення концепту std::regular
 
@@ -264,56 +161,7 @@ concept regular =
 
 Концепти порівняння формалізують вимоги до бінарних операторів відношення (`==`, `!=`, `<`, `<=`, `>`, `>=`) та нового тристороннього оператора космічного корабля (`<=>`), введеного у C++20.
 
-```cpp
-// 1. Перевірка на рівність для одного типу
-template<typename T>
-concept equality_comparable = 
-    requires(const std::remove_reference_t<T>& a,
-             const std::remove_reference_t<T>& b) {
-        { a == b } -> std::convertible_to<bool>;
-        { a != b } -> std::convertible_to<bool>;
-    };
-
-// 2. Двостороннє перехресне порівняння на рівність для двох різних типів
-template<typename T, typename U>
-concept equality_comparable_with = 
-    std::equality_comparable<T> &&
-    std::equality_comparable<U> &&
-    std::common_reference_with<
-        const std::remove_reference_t<T>&,
-        const std::remove_reference_t<U>&> &&
-    std::equality_comparable<
-        std::common_reference_t<
-            const std::remove_reference_t<T>&,
-            const std::remove_reference_t<U>&>> &&
-    requires(const std::remove_reference_t<T>& t,
-             const std::remove_reference_t<U>& u) {
-        { t == u } -> std::convertible_to<bool>;
-        { t != u } -> std::convertible_to<bool>;
-        { u == t } -> std::convertible_to<bool>;
-        { u != t } -> std::convertible_to<bool>;
-    };
-
-// 3. Строгий повний порядок (Total Ordering)
-template<typename T>
-concept totally_ordered = 
-    std::equality_comparable<T> &&
-    requires(const std::remove_reference_t<T>& a,
-             const std::remove_reference_t<T>& b) {
-        { a < b }  -> std::convertible_to<bool>;
-        { a > b }  -> std::convertible_to<bool>;
-        { a <= b } -> std::convertible_to<bool>;
-        { a >= b } -> std::convertible_to<bool>;
-    };
-
-// 4. Тристороннє порівняння через spaceship operator (<=>)
-template<typename T, typename Cat = std::partial_ordering>
-concept three_way_comparable = 
-    requires(const std::remove_reference_t<T>& a,
-             const std::remove_reference_t<T>& b) {
-        { a <=> b } -> std::convertible_to<Cat>;
-    };
-```
+:::code api-concepts-reference/cpp/4-kontsepty-porivniannia.cpp
 
 ### Семантичні аксіоми концепту totally_ordered
 
@@ -340,46 +188,7 @@ concept three_way_comparable =
 
 Узагальнені алгоритми стандартної бібліотеки приймають функції зворотного виклику (callbacks), компаратори, проєкції та предикати. Група концептів виклику дозволяє точно зафіксувати вимоги до сигнатури функції та типу поверненого результату.
 
-```cpp
-// 1. Загальний концепт викликабельного об'єкта
-template<typename F, typename... Args>
-concept invocable = 
-    requires(F&& f, Args&&... args) {
-        std::invoke(std::forward<F>(f), std::forward<Args>(args)...);
-    };
-
-// 2. Регулярний викликабельний об'єкт (детермінована функція без побічних ефектів)
-template<typename F, typename... Args>
-concept regular_invocable = 
-    std::invocable<F, Args...>;
-
-// 3. Булевий предикат
-template<typename F, typename... Args>
-concept predicate = 
-    std::regular_invocable<F, Args...> &&
-    requires(F&& f, Args&&... args) {
-        { std::invoke(std::forward<F>(f), std::forward<Args>(args)...) } 
-            -> std::convertible_to<bool>;
-    };
-
-// 4. Бінарне відношення
-template<typename R, typename T, typename U>
-concept relation = 
-    std::predicate<R, T, T> &&
-    std::predicate<R, U, U> &&
-    std::predicate<R, T, U> &&
-    std::predicate<R, U, T>;
-
-// 5. Відношення еквівалентності
-template<typename R, typename T, typename U>
-concept equivalence_relation = 
-    std::relation<R, T, U>;
-
-// 6. Строгий слабкий порядок (Strict Weak Ordering — вимога для std::ranges::sort)
-template<typename R, typename T, typename U>
-concept strict_weak_order = 
-    std::relation<R, T, U>;
-```
+:::code api-concepts-reference/cpp/5-kontsepty.cpp
 
 ### Синтаксична тотожність проти семантичного контракту
 
@@ -397,24 +206,7 @@ concept strict_weak_order =
 
 Концепти бібліотеки `<concepts>` є прямим фундаментом для системи концептів ітераторів у заголовному файлі `<iterator>` та діапазонів у `<ranges>`.
 
-```cpp
-#include <iterator>
-#include <ranges>
-
-// Ієрархія концептів ітераторів C++20:
-// std::input_or_output_iterator
-//   ▲
-//   ├── std::output_iterator<T>
-//   └── std::input_iterator
-//         ▲
-//         └── std::forward_iterator
-//               ▲
-//               └── std::bidirectional_iterator
-//                     ▲
-//                     └── std::random_access_iterator
-//                           ▲
-//                           └── std::contiguous_iterator
-```
+:::code api-concepts-reference/cpp/6-zviazok-iz-kontseptamy.cpp
 
 ### Як базові концепти формують вимоги до ітераторів
 
@@ -442,19 +234,7 @@ concept strict_weak_order =
 
 При написанні фабричних методів або контейнерів із семантикою `emplace` необхідно передавати типи аргументів із кваліфікаторами посилань:
 
-```cpp
-// НЕПРАВИЛЬНО: вимагає можливості створити rvalue-копію
-template<typename T, typename... Args>
-requires std::constructible_from<T, Args...>
-T create_object(Args&&... args);
-
-// ПРАВИЛЬНО: враховує категорії значень переданих аргументів
-template<typename T, typename... Args>
-requires std::constructible_from<T, Args&&...>
-T create_object(Args&&... args) {
-    return T(std::forward<Args>(args)...);
-}
-```
+:::code api-concepts-reference/cpp/pravylo-2-pravylna.cpp
 
 ### Правило 3: Використання концептів як захисних бар'єрів API
 

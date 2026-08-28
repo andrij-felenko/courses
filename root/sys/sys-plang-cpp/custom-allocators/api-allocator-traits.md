@@ -44,32 +44,7 @@
 
 Усі операції з пам'яттю та об'єктами здійснюються через статичні функції-члени `allocator_traits`:
 
-```cpp
-// 1. Виділення сирої пам'яті
-[[nodiscard]] static pointer allocate(Alloc& a, size_type n);
-[[nodiscard]] static pointer allocate(Alloc& a, size_type n, const_void_pointer hint);
-
-// 2. Виділення пам'яті з інформацією про надлишкову ємність (C++23)
-[[nodiscard]] static std::allocation_result<pointer, size_type>
-allocate_at_least(Alloc& a, size_type n);
-
-// 3. Звільнення сирої пам'яті
-static void deallocate(Alloc& a, pointer p, size_type n);
-
-// 4. Ініціалізація та конструювання об'єкта
-template <class T, class... Args>
-static void construct(Alloc& a, T* p, Args&&... args);
-
-// 5. Знищення об'єкта
-template <class T>
-static void destroy(Alloc& a, T* p);
-
-// 6. Теоретичний ліміт виділення
-static size_type max_size(const Alloc& a) noexcept;
-
-// 7. Створення алокатора для копійованого контейнера
-static Alloc select_on_container_copy_construction(const Alloc& a);
-```
+:::code api-allocator-traits/cpp/statychni-metody-ta-ikhni.hpp
 
 #### Детальний аналіз поведінки кожного методу:
 
@@ -136,44 +111,7 @@ static Alloc select_on_container_copy_construction(const Alloc& a);
 
 Абстрактний клас `std::pmr::memory_resource` визначено у заголовному файлі `<memory_resource>`. Він реалізує ідіому невіртуального інтерфейсу (NVI): відкриті публічні методи виконують попередню перевірку аргументів та перенаправляють виклик до захищених чистих віртуальних методів.
 
-```cpp
-namespace std::pmr {
-
-class memory_resource {
-public:
-    virtual ~memory_resource() = default;
-
-    // Публічний невіртуальний інтерфейс
-    [[nodiscard]] void* allocate(std::size_t bytes, std::size_t alignment = alignof(std::max_align_t)) {
-        return do_allocate(bytes, alignment);
-    }
-
-    void deallocate(void* p, std::size_t bytes, std::size_t alignment = alignof(std::max_align_t)) {
-        do_deallocate(p, bytes, alignment);
-    }
-
-    bool is_equal(const memory_resource& other) const noexcept {
-        return do_is_equal(other);
-    }
-
-protected:
-    // Чисті віртуальні методи, які зобов'язана реалізувати конкретна стратегія пам'яті
-    virtual void* do_allocate(std::size_t bytes, std::size_t alignment) = 0;
-    virtual void do_deallocate(void* p, std::size_t bytes, std::size_t alignment) = 0;
-    virtual bool do_is_equal(const memory_resource& other) const noexcept = 0;
-};
-
-// Оператори рівності
-inline bool operator==(const memory_resource& a, const memory_resource& b) noexcept {
-    return &a == &b || a.is_equal(b);
-}
-
-inline bool operator!=(const memory_resource& a, const memory_resource& b) noexcept {
-    return !(a == b);
-}
-
-} // namespace std::pmr
-```
+:::code api-allocator-traits/cpp/3-interfeis-std-pmr-memory.cpp
 
 ### Контракти віртуальних методів `memory_resource`:
 
@@ -210,44 +148,13 @@ inline bool operator!=(const memory_resource& a, const memory_resource& b) noexc
 
 Монотонний буферний ресурс забезпечує швидке виділення пам'яті послідовним зсувом покажчика (лінійна арена). Окремі виклики `deallocate` є порожніми операціями (no-op). Вся виділена пам'ять повертається джерелу лише під час виклику методу `release()` або знищення екземпляра класу.
 
-```cpp
-class monotonic_buffer_resource : public memory_resource {
-public:
-    monotonic_buffer_resource();
-    explicit monotonic_buffer_resource(memory_resource* upstream);
-    explicit monotonic_buffer_resource(std::size_t initial_size);
-    monotonic_buffer_resource(std::size_t initial_size, memory_resource* upstream);
-    monotonic_buffer_resource(void* buffer, std::size_t buffer_size);
-    monotonic_buffer_resource(void* buffer, std::size_t buffer_size, memory_resource* upstream);
-
-    virtual ~monotonic_buffer_resource();
-
-    void release();
-    memory_resource* upstream_resource() const;
-};
-```
+:::code api-allocator-traits/cpp/5-1-std-pmr-monotonic.hpp
 
 ### 5.2. `std::pmr::unsynchronized_pool_resource` та `synchronized_pool_resource`
 
 Пули пам'яті організовують виділення за класами фіксованих розмірів (geometric size classes). Це усуває фрагментацію при частому створенні та знищенні дрібних об'єктів.
 
-```cpp
-struct pool_options {
-    std::size_t max_blocks_per_chunk = 0;        // Максимальна кількість блоків у чанку
-    std::size_t largest_required_pool_block = 0; // Поріг розміру: більші запити обходять пул і йдуть в upstream
-};
-
-class unsynchronized_pool_resource : public memory_resource {
-public:
-    explicit unsynchronized_pool_resource(const pool_options& opts = {}, memory_resource* upstream = get_default_resource());
-    explicit unsynchronized_pool_resource(memory_resource* upstream);
-    virtual ~unsynchronized_pool_resource();
-
-    void release();
-    memory_resource* upstream_resource() const;
-    pool_options options() const;
-};
-```
+:::code api-allocator-traits/cpp/5-2-std-pmr-unsynchronized.hpp
 
 ---
 
@@ -255,62 +162,7 @@ public:
 
 Клас `std::pmr::polymorphic_allocator<T>` зв'язує поліморфні ресурси `memory_resource` зі статичними інтерфейсами стандартних контейнерів. Він зберігає всередині лише один покажчик `memory_resource*`.
 
-```cpp
-namespace std::pmr {
-
-template <class T = std::byte>
-class polymorphic_allocator {
-public:
-    using value_type = T;
-
-    polymorphic_allocator() noexcept : res_(get_default_resource()) {}
-    polymorphic_allocator(memory_resource* r) noexcept : res_(r ? r : get_default_resource()) {}
-    polymorphic_allocator(const polymorphic_allocator& other) = default;
-
-    template <class U>
-    polymorphic_allocator(const polymorphic_allocator<U>& other) noexcept : res_(other.resource()) {}
-
-    [[nodiscard]] T* allocate(std::size_t n) {
-        return static_cast<T*>(res_->allocate(n * sizeof(T), alignof(T)));
-    }
-
-    void deallocate(T* p, std::size_t n) noexcept {
-        res_->deallocate(p, n * sizeof(T), alignof(T));
-    }
-
-    [[nodiscard]] void* allocate_bytes(std::size_t nbytes, std::size_t alignment = alignof(std::max_align_t)) {
-        return res_->allocate(nbytes, alignment);
-    }
-
-    void deallocate_bytes(void* p, std::size_t nbytes, std::size_t alignment = alignof(std::max_align_t)) noexcept {
-        res_->deallocate(p, nbytes, alignment);
-    }
-
-    template <class U, class... Args>
-    void construct(U* p, Args&&... args);
-
-    template <class U>
-    void destroy(U* p) noexcept {
-        p->~U();
-    }
-
-    memory_resource* resource() const noexcept { return res_; }
-
-    polymorphic_allocator select_on_container_copy_construction() const noexcept {
-        return polymorphic_allocator();
-    }
-
-private:
-    memory_resource* res_;
-};
-
-template <class T1, class T2>
-bool operator==(const polymorphic_allocator<T1>& a, const polymorphic_allocator<T2>& b) noexcept {
-    return *a.resource() == *b.resource();
-}
-
-} // namespace std::pmr
-```
+:::code api-allocator-traits/cpp/6-adapter-std-pmr.cpp
 
 ### Важливі правила роботи `polymorphic_allocator`:
 1. **Поведінка при копіюванні контейнера:** Метод `select_on_container_copy_construction` повертає алокатор за замовчуванням (`get_default_resource()`). Якщо ви скопіювали вектор, створений на стеку локальної функції, результуюча копія автоматично виділить пам'ять у системній купі, що запобігає спробам запису у знищений стековий фрейм після виходу з функції.
@@ -322,27 +174,7 @@ bool operator==(const polymorphic_allocator<T1>& a, const polymorphic_allocator<
 
 Стандартна бібліотека визначає готові псевдоніми у просторі імен `std::pmr`:
 
-```cpp
-namespace std::pmr {
-    template <class T>
-    using vector = std::vector<T, polymorphic_allocator<T>>;
-
-    template <class charT, class traits = std::char_traits<charT>>
-    using basic_string = std::basic_string<charT, traits, polymorphic_allocator<charT>>;
-
-    using string = basic_string<char>;
-    using wstring = basic_string<wchar_t>;
-
-    template <class T>
-    using list = std::list<T, polymorphic_allocator<T>>;
-
-    template <class Key, class T, class Compare = std::less<Key>>
-    using map = std::map<Key, T, Compare, polymorphic_allocator<std::pair<const Key, T>>>;
-
-    template <class Key, class T, class Hash = std::hash<Key>, class KeyEqual = std::equal_to<Key>>
-    using unordered_map = std::unordered_map<Key, T, Hash, KeyEqual, polymorphic_allocator<std::pair<const Key, T>>>;
-}
-```
+:::code api-allocator-traits/cpp/7-standartni-psevdonimy.cpp
 
 ---
 
@@ -352,35 +184,7 @@ namespace std::pmr {
 
 ### Інтерфейс та методи `std::scoped_allocator_adaptor`
 
-```cpp
-template <class OuterAlloc, class... InnerAllocs>
-class scoped_allocator_adaptor : public OuterAlloc {
-public:
-    using outer_allocator_type = OuterAlloc;
-    using inner_allocator_type = /* наступний рівень або сам scoped_allocator */;
-
-    // Конструктори
-    scoped_allocator_adaptor();
-    template <class OuterA2>
-    explicit scoped_allocator_adaptor(OuterA2&& outerAlloc, const InnerAllocs&... innerAllocs) noexcept;
-
-    // Доступ до алокаторів рівнів
-    outer_allocator_type& outer_allocator() noexcept;
-    const outer_allocator_type& outer_allocator() const noexcept;
-    inner_allocator_type& inner_allocator() noexcept;
-    const inner_allocator_type& inner_allocator() const noexcept;
-
-    // Конструювання з автоматичним розгортанням пар і кортежів
-    template <class T, class... Args>
-    void construct(T* p, Args&&... args);
-
-    template <class T1, class T2, class... Args1, class... Args2>
-    void construct(std::pair<T1, T2>* p,
-                   std::piecewise_construct_t,
-                   std::tuple<Args1...> x,
-                   std::tuple<Args2...> y);
-};
-```
+:::code api-allocator-traits/cpp/interfeis-ta-metody-std.hpp
 
 ### Механізм конструювання:
 * Зовнішній алокатор `OuterAlloc` використовується для виділення пам'яті під сам контейнер верхнього рівня.

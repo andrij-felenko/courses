@@ -10,20 +10,7 @@
 
 Ось клас на дванадцять рядків, у якому немає жодної помилки — і який ламає програму на другому ж рядку використання.
 
-```cpp
-class Buffer {
-    char*  data;
-    size_t size;
-public:
-    explicit Buffer(size_t n) : data(new char[n]), size(n) {}
-    ~Buffer() { delete[] data; }
-};
-
-void demo() {
-    Buffer a(4);
-    Buffer b = a;      // ← ось тут усе вирішується
-}                      // ← ось тут усе падає
-```
+:::code rule-of-five-zero-d/cpp/part.cpp
 
 Рядок `Buffer b = a;` компілюється без єдиного попередження. На виході з `demo()` гинуть обидва об'єкти, кожен виконує свій деструктор, кожен виконує `delete[] data` — і обидва передають алокаторові **одну й ту саму адресу**. Друге звільнення затирає службові структури купи; програма падає тут або, що гірше, через хвилину в зовсім іншому місці. Це [невизначена поведінка](root:sf-lang/undefined-behavior) в чистому вигляді.
 
@@ -122,52 +109,7 @@ public:
 
 **Клас із одноосібним володінням блоком пам'яті, усі п'ять операцій.**
 
-```cpp
-#include <algorithm>
-#include <cstring>
-#include <utility>
-
-class Buffer {
-    char*  data = nullptr;
-    size_t size = 0;
-public:
-    explicit Buffer(size_t n) : data(new char[n]), size(n) {}
-
-    // 1. деструктор: delete[] на nullptr — законна дія без наслідків
-    ~Buffer() { delete[] data; }
-
-    // 2. копіювальний конструктор: власний блок для нового об'єкта
-    Buffer(const Buffer& other)
-        : data(new char[other.size]), size(other.size) {
-        std::memcpy(data, other.data, size);
-    }
-
-    // 3. копіювальне присвоєння: спершу здобути, потім віддати старе
-    Buffer& operator=(const Buffer& other) {
-        char* fresh = new char[other.size];      // якщо кине — стан незмінний
-        std::memcpy(fresh, other.data, other.size);
-        delete[] data;
-        data = fresh;
-        size = other.size;
-        return *this;
-    }
-
-    // 4. переміщувальний конструктор: забрати й знеструмити джерело
-    Buffer(Buffer&& other) noexcept
-        : data(std::exchange(other.data, nullptr)),
-          size(std::exchange(other.size, 0)) {}
-
-    // 5. переміщувальне присвоєння
-    Buffer& operator=(Buffer&& other) noexcept {
-        if (this != &other) {
-            delete[] data;
-            data = std::exchange(other.data, nullptr);
-            size = std::exchange(other.size, 0);
-        }
-        return *this;
-    }
-};
-```
+:::code rule-of-five-zero-d/cpp/piatirka-napysana-iak-slid.cpp
 
 Тут кожен рядок відповідає на щось із сказаного вище, і варто пройтися по чотирьох неочевидних місцях.
 
@@ -187,24 +129,7 @@ C++11 дав спосіб оголосити спеціальну функцію
 
 Разом із правилом п'яти це дає точний словник намірів:
 
-```cpp
-// тип, який можна лише переміщувати (одноосібне володіння)
-class Connection {
-public:
-    ~Connection();
-    Connection(const Connection&)            = delete;
-    Connection& operator=(const Connection&) = delete;
-    Connection(Connection&&) noexcept;
-    Connection& operator=(Connection&&) noexcept;
-};
-
-// тип, який не рухається взагалі: ані копії, ані переміщення
-class Registry {
-public:
-    Registry(const Registry&)            = delete;
-    Registry& operator=(const Registry&) = delete;
-};
-```
+:::code rule-of-five-zero-d/cpp/default-i-delete-skazaty.cpp
 
 Формально видаляти копії в `Connection` не обов'язково: оголошені переміщення видалили б їх і самі. Але явний `= delete` — це документація, яку перевіряє компілятор: читач бачить намір, а не мусить пригадувати ланцюжок пригнічень. Те саме з `= default`: коли ви пишете деструктор у базовому класі й одразу після нього чотири рядки `= default`, ви не «повторюєте очевидне» — ви повертаєте те, що вимкнув попередній рядок.
 

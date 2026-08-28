@@ -24,28 +24,7 @@
 
 Коли функція-член повертає посилання на внутрішнє поле або в'ювер на внутрішній буфер, її обов'язково слід позначити атрибутом:
 
-```cpp
-#include <string>
-#include <string_view>
-
-class UserProfile {
-    std::string nickname_;
-    std::string email_;
-public:
-    UserProfile(std::string nick, std::string mail)
-        : nickname_(std::move(nick)), email_(std::move(mail)) {}
-
-    // Повертає посилання, що прив'язане до часу життя об'єкта UserProfile
-    const std::string& get_nickname() const [[clang::lifetimebound]] {
-        return nickname_;
-    }
-
-    // Повертає view, прив'язаний до часу життя *this
-    std::string_view get_email_view() const [[clang::lifetimebound]] {
-        return email_;
-    }
-};
-```
+:::code api-lifetime-attributes/cpp/anotatsiia-funktsii.cpp
 
 Тепер, якщо користувач викличе метод на тимчасовому об'єкті, компілятор негайно виявить дефект:
 
@@ -64,28 +43,7 @@ std::string_view view_mail = fetch_user().get_email_view(); // warning: temporar
 
 Атрибут можна застосовувати до окремих параметрів вільних функцій, перевантажених операторів та конструкторів класів-обгорток:
 
-```cpp
-#include <string>
-#include <string_view>
-
-// Функція повертає посилання на один із двох переданих аргументів
-template <typename T>
-const T& custom_min(const T& a [[clang::lifetimebound]], 
-                    const T& b [[clang::lifetimebound]]) {
-    return (b < a) ? b : a;
-}
-
-// Конструктор в'ювера, що запозичує буфер у контейнера
-template <typename T>
-class MySpan {
-    const T* data_;
-    size_t size_;
-public:
-    template <typename Container>
-    MySpan(const Container& c [[clang::lifetimebound]])
-        : data_(c.data()), size_(c.size()) {}
-};
-```
+:::code api-lifetime-attributes/cpp/anotatsiia-vilnykh.cpp
 
 Перевірка коректності викликів:
 
@@ -104,37 +62,7 @@ MySpan<char> span = std::string("temporary text");
 
 У патернах побудови об'єктів (Builder) або текучих інтерфейсах (Fluent API) методи зазвичай повертають посилання `Builder&` на самих себе (`return *this;`). Якщо такий ланцюжок викликається над тимчасовим об'єктом Builder, проміжне посилання може вислизнути назовні:
 
-```cpp
-#include <string>
-#include <vector>
-
-class QueryBuilder {
-    std::string query_;
-public:
-    QueryBuilder& add_filter(std::string_view f) [[clang::lifetimebound]] {
-        query_ += " WHERE " + std::string(f);
-        return *this;
-    }
-
-    QueryBuilder& set_limit(int limit) [[clang::lifetimebound]] {
-        query_ += " LIMIT " + std::to_string(limit);
-        return *this;
-    }
-
-    std::string build() const {
-        return query_;
-    }
-};
-
-void run() {
-    // Безпечно: виклик build() повертає значення std::string за значенням до кінця повного виразу
-    std::string q = QueryBuilder{}.add_filter("active=1").set_limit(10).build();
-
-    // Небезпечно: збереження посилання на проміжний тимчасовий Builder
-    // Завдяки [[clang::lifetimebound]] компілятор видасть попередження
-    QueryBuilder& builder_ref = QueryBuilder{}.add_filter("active=1"); // warning: temporary bound to reference
-}
-```
+:::code api-lifetime-attributes/cpp/anotatsiia-lantsiuzhkovykh.cpp
 
 ## Атрибут `[[clang::lifetime_capture_by(X)]]`
 
@@ -142,25 +70,7 @@ void run() {
 
 Синтаксис дозволяє явно вказати ім'я цільового параметра-власника, який захоплює посилання:
 
-```cpp
-#include <vector>
-#include <string_view>
-
-struct EventSink {
-    std::vector<std::string_view> subscribers;
-
-    // Вказує, що метод зберігає view всередині об'єкта 'this'
-    void subscribe(std::string_view sv [[clang::lifetime_capture_by(this)]]) {
-        subscribers.push_back(sv);
-    }
-};
-
-void register_events(EventSink& sink) {
-    std::string temp_event = "on_network_timeout";
-    sink.subscribe(temp_event); 
-    // warning: object backing 'temp_event' captured by 'sink' will be destroyed on scope exit, leaving dangling view in 'sink'
-}
-```
+:::code api-lifetime-attributes/cpp/atrybut-clang-lifetime.cpp
 
 Якщо `EventSink` живе довше за функцію `register_events`, компілятор попередить, що внутрішній вектор `subscribers` отримав недійсне посилання на стек.
 
@@ -173,29 +83,7 @@ void register_events(EventSink& sink) {
 
 Бібліотека GSL (Guidelines Support Library) та інструменти аналізу надають відповідні атрибути для явного декларування ролі користувацьких класів:
 
-```cpp
-#include <gsl/gsl>
-
-// Декларуємо власника ресурсу
-template <typename T>
-class [[gsl::Owner(T)]] CustomBuffer {
-    T* data_;
-    size_t size_;
-public:
-    CustomBuffer(size_t n) : data_(new T[n]), size_(n) {}
-    ~CustomBuffer() { delete[] data_; }
-};
-
-// Декларуємо невласницький в'ювер
-template <typename T>
-class [[gsl::Pointer(T)]] CustomBufferView {
-    const T* ptr_;
-    size_t size_;
-public:
-    CustomBufferView(const CustomBuffer<T>& buf) 
-        : ptr_(buf.data()), size_(buf.size()) {}
-};
-```
+:::code api-lifetime-attributes/cpp/anotatsii-c-core.cpp
 
 Коли компілятор або статичний аналізатор (MSVC Lifetime Checker чи Clang static analyzer) обробляє класи, помічені цими атрибутами, він застосовує такі суворі правила:
 1. Заборонено створювати об'єкт-Pointer від тимчасового об'єкта-Owner поза межами повного виразу.

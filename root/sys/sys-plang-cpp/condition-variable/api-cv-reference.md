@@ -106,20 +106,7 @@ void wait(std::unique_lock<std::mutex>& lock, Predicate pred); // (2)
 
 Метод `wait_for()` зупиняє виконання потоку на заданий відносний проміжок часу або до надходження сповіщення.
 
-```cpp
-template<class Rep, class Period>
-std::cv_status wait_for(
-    std::unique_lock<std::mutex>& lock,
-    const std::chrono::duration<Rep, Period>& rel_time
-); // (1)
-
-template<class Rep, class Period, class Predicate>
-bool wait_for(
-    std::unique_lock<std::mutex>& lock,
-    const std::chrono::duration<Rep, Period>& rel_time,
-    Predicate pred
-); // (2)
-```
+:::code api-cv-reference/cpp/ochikuvannia-z-vidnosnym.cpp
 
 * **Деталі реалізації (1):** Внутрішньо конвертує відносний інтервал `rel_time` в абсолютну часову точку через `std::chrono::steady_clock::now() + rel_time` і викликає `wait_until()`.
 * **Перелічуваний тип `std::cv_status`:**
@@ -133,20 +120,7 @@ bool wait_for(
 
 Метод `wait_until()` зупиняє виконання потоку до досягнення конкретної часової точки.
 
-```cpp
-template<class Clock, class Duration>
-std::cv_status wait_until(
-    std::unique_lock<std::mutex>& lock,
-    const std::chrono::time_point<Clock, Duration>& abs_time
-); // (1)
-
-template<class Clock, class Duration, class Predicate>
-bool wait_until(
-    std::unique_lock<std::mutex>& lock,
-    const std::chrono::time_point<Clock, Duration>& abs_time,
-    Predicate pred
-); // (2)
-```
+:::code api-cv-reference/cpp/ochikuvannia-do.cpp
 
 * **Робота з годинниками:** Застосування `std::chrono::steady_clock` гарантує стійкість до зміни системного часу.
 * **Перевага над wait_for:** Рекомендовано застосовувати саме `wait_until()` у циклах повторної перевірки, оскільки цей метод не накопичує похибку часу при повторних фіктивних засинаннях.
@@ -171,30 +145,7 @@ bool wait_until(
 
 Починаючи зі стандарту C++20, клас `std::condition_variable_any` отримав розширені методи очікування з об'єктом `std::stop_token`.
 
-```cpp
-template<class Lock, class Predicate>
-bool wait(
-    Lock& lock,
-    std::stop_token stoken,
-    Predicate pred
-); // (1) C++20
-
-template<class Lock, class Rep, class Period, class Predicate>
-bool wait_for(
-    Lock& lock,
-    std::stop_token stoken,
-    const std::chrono::duration<Rep, Period>& rel_time,
-    Predicate pred
-); // (2) C++20
-
-template<class Lock, class Clock, class Duration, class Predicate>
-bool wait_until(
-    Lock& lock,
-    std::stop_token stoken,
-    const std::chrono::time_point<Clock, Duration>& abs_time,
-    Predicate pred
-); // (3) C++20
-```
+:::code api-cv-reference/cpp/konstruktsii-c-20-z.cpp
 
 #### Механізм роботи stop_token
 

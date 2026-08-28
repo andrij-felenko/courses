@@ -26,25 +26,7 @@
 1. **Повна (явна) спеціалізація** (англ. *explicit/full specialization*) — повністю фіксує всі параметри шаблону конкретними типами або значеннями. У заголовку такої конструкції записується порожній список `template<>`.
 2. **Часткова спеціалізація** (англ. *partial specialization*) — фіксує лише частину параметрів шаблону або накладає структурний шаблон на тип (наприклад, перехоплює всі вказівники `T*`, константні посилання `const T&` чи контейнери `std::vector<T>`), залишаючи можливість подальшої параметризації.
 
-```cpp
-// 1. Первинний шаблон структури
-template<typename T, typename Allocator = std::allocator<T>>
-struct DataBuffer {
-    void store(const T& item);
-};
-
-// 2. Часткова спеціалізація для будь-яких вказівників T*
-template<typename T, typename Allocator>
-struct DataBuffer<T*, Allocator> {
-    void store(const T* item); // Специфічна логіка збереження вказівників
-};
-
-// 3. Повна спеціалізація для конкретного типу void
-template<>
-struct DataBuffer<void, std::allocator<void>> {
-    void store_raw(const void* item, std::size_t bytes);
-};
-```
+:::code specialization-overload-d/cpp/anatomiia-spetsializatsii.hpp
 
 Для шаблонів класів, структур та змінних (починаючи з C++14) обидва види спеціалізації працюють прозоро й передбачувано, оскільки класи та змінні не підтримують перевантаження за іменами. Проте для шаблонів функцій діють зовсім інші правила.
 
@@ -105,26 +87,7 @@ void process_value(T* val);  // Перевантаження 2: для вказ�
 
 Простежимо, що відбувається на рівні семантичного дерева транслятора при поєднанні перевантаження та повної спеціалізації:
 
-```cpp
-// 1. Первинний шаблон А (загальний)
-template<typename T>
-void execute(T x);
-
-// 2. Повна спеціалізація первинного шаблону А для int*
-template<>
-void execute<int*>(int* x);
-
-// 3. Первинний шаблон Б (перевантаження для вказівників)
-template<typename T>
-void execute(T* x);
-
-int main() {
-    int value = 100;
-    int* ptr = &value;
-    
-    execute(ptr); // Який код виконається?
-}
-```
+:::code specialization-overload-d/cpp/rozbir-klasychnoho.cpp
 
 Виконаємо трасування логіки компілятора:
 
@@ -261,46 +224,7 @@ ld: error: duplicate symbol: void render<int>(int)
 
 Це фундаментальний патерн, який використовується в бібліотеках STL та Boost. Публічна функція є неспеціалізованим шаблоном-обгорткою, яка передає свої аргументи у статичний метод допоміжного шаблонного класу. Оскільки класи підтримують як повну, так і часткову спеціалізацію, розробник отримує повну свободу кастомізації:
 
-```cpp
-namespace detail {
-
-// Первинний шаблон допоміжної структури
-template<typename T>
-struct FormatterHelper {
-    static void print(const T& val) {
-        std::cout << "General value: " << val << "\n";
-    }
-};
-
-// Часткова спеціалізація для вказівників T*
-template<typename T>
-struct FormatterHelper<T*> {
-    static void print(const T* ptr) {
-        if (ptr) {
-            std::cout << "Pointer to: ";
-            FormatterHelper<T>::print(*ptr); // Рекурсивне делегування
-        } else {
-            std::cout << "Null pointer\n";
-        }
-    }
-};
-
-// Повна спеціалізація для const char*
-template<>
-struct FormatterHelper<const char*> {
-    static void print(const char* str) {
-        std::cout << "C-String: \"" << (str ? str : "") << "\"\n";
-    }
-};
-
-} // namespace detail
-
-// ЄДИНА публічна функція інтерфейсу
-template<typename T>
-void format_and_print(const T& value) {
-    detail::FormatterHelper<T>::print(value);
-}
-```
+:::code specialization-overload-d/cpp/1-idioma-delehuvannia-u.cpp
 
 ![Ідіома делегування спеціалізації функцій у допоміжні структури](img/helper-delegation-flow.svg)
 *Архітектура ідіоми делегування: публічний шаблон функції транслює запит у статичний метод частково спеціалізованої структури.*
@@ -309,77 +233,17 @@ void format_and_print(const T& value) {
 
 Якщо вибір алгоритму залежить від категорій типів (наприклад, типи ітераторів чи властивості пам'яті), функція викликає внутрішнє перевантаження, передаючи додатковий фіктивний аргумент-тег:
 
-```cpp
-namespace tags {
-    struct FastMemcpyTag {};
-    struct ElementWiseTag {};
-}
-
-template<typename T>
-void copy_buffer_impl(const T* src, T* dst, std::size_t n, tags::FastMemcpyTag) {
-    std::memcpy(dst, src, n * sizeof(T));
-}
-
-template<typename T>
-void copy_buffer_impl(const T* src, T* dst, std::size_t n, tags::ElementWiseTag) {
-    for (std::size_t i = 0; i < n; ++i) {
-        dst[i] = src[i];
-    }
-}
-
-template<typename T>
-void copy_buffer(const T* src, T* dst, std::size_t n) {
-    using Tag = std::conditional_t<
-        std::is_trivially_copyable_v<T>,
-        tags::FastMemcpyTag,
-        tags::ElementWiseTag
-    >;
-    copy_buffer_impl(src, dst, n, Tag{});
-}
-```
+:::code specialization-overload-d/cpp/2-dyspetcheryzatsiia-za.cpp
 
 ### 3. Сучасне рішення: if constexpr та Концепти C++20
 
 У стандартах C++17 та C++20 потреба у структурах-помічниках та селекторах тегів значно зменшилася завдяки появі конструкції `if constexpr` та мовних **Концептів** (Concepts):
 
-```cpp
-template<typename T>
-void process_modern(const T& val) {
-    if constexpr (std::is_pointer_v<T>) {
-        if (val != nullptr) {
-            process_modern(*val);
-        }
-    } 
-    else if constexpr (std::is_integral_v<T>) {
-        // Оптимізований шлях для цілих чисел
-    } 
-    else {
-        // Загальний шлях
-    }
-}
-```
+:::code specialization-overload-d/cpp/3-suchasne-rishennia-if.cpp
 
 Коли ж потрібно перевантажувати функції на рівні інтерфейсів, C++20 пропонує механізм **Constraint Subsumption** (поглинання обмежень концептів):
 
-```cpp
-template<typename T>
-concept Printable = requires(T a) { std::cout << a; };
-
-template<typename T>
-concept FormattedPrintable = Printable<T> && requires(T a) { a.custom_format(); };
-
-// Перевантаження 1: для будь-яких типів із оператором <<
-template<Printable T>
-void display(T val) {
-    std::cout << val << "\n";
-}
-
-// Перевантаження 2: для типів із власним методом форматування
-template<FormattedPrintable T>
-void display(T val) {
-    val.custom_format();
-}
-```
+:::code specialization-overload-d/cpp/3-suchasne-rishennia-if-2.cpp
 
 Компілятор бачить, що концепт `FormattedPrintable` є суворішим за `Printable` (він поглинає його завдяки оператору `&&`). Тому для типів із методом `custom_format()` автоматично обирається Перевантаження 2 без жодного ризику конфліктів Дімова-Абрагамса.
 

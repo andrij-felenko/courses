@@ -42,35 +42,7 @@ auto timed(F f, A... a) {
 
 ## Код
 
-```cpp
-#include <chrono>
-#include <concepts>
-#include <functional>
-#include <utility>
-
-// Зупиняє відлік у деструкторі — тому в тілі обгортки
-// між викликом і `return` не буде жодної інструкції.
-class tick_guard {
-    std::chrono::steady_clock::time_point start_;
-    std::chrono::nanoseconds& out_;
-public:
-    explicit tick_guard(std::chrono::nanoseconds& out) noexcept
-        : start_(std::chrono::steady_clock::now()), out_(out) {}
-    ~tick_guard() { out_ = std::chrono::steady_clock::now() - start_; }
-
-    tick_guard(const tick_guard&) = delete;
-    tick_guard& operator=(const tick_guard&) = delete;
-};
-
-template <class F, class... A>
-    requires std::invocable<F, A...>
-decltype(auto) timed(std::chrono::nanoseconds& out, F&& f, A&&... a)
-    noexcept(noexcept(std::invoke(std::forward<F>(f), std::forward<A>(a)...)))
-{
-    tick_guard g{out};
-    return std::invoke(std::forward<F>(f), std::forward<A>(a)...);
-}
-```
+:::code proj-transparent-wrapper/cpp/kod.cpp
 
 `std::invoke` замість прямого `f(a...)` узято не для краси: він однаково викликає функції, лямбди, функтори — і **вказівники на члени**, у яких синтаксис виклику зовсім інший. Обгортка на голому `f(a...)` для `&Point::x` просто не збереться. Своєї поведінки `std::invoke` не додає й тут: його власна специфікація — `noexcept(is_nothrow_invocable_v<F, Args...>)`.
 
@@ -93,77 +65,7 @@ auto timed(std::chrono::nanoseconds& out, F&& f, A&&... a)
 
 ## Тести, що доводять прозорість
 
-```cpp
-#include <cassert>
-#include <map>
-#include <string>
-#include <type_traits>
-#include <vector>
-
-// Один узагальнений доступ, що віддає рівно те, що віддав контейнер.
-constexpr auto lookup = [](auto&& c, auto&& k) -> decltype(auto) {
-    return c.at(k);
-};
-
-// Лічильник копій і переміщень.
-struct probe {
-    static inline int copies = 0, moves = 0;
-    probe() = default;
-    probe(const probe&)     { ++copies; }
-    probe(probe&&) noexcept { ++moves; }
-};
-probe  by_value()     { return probe{}; }
-probe& by_reference() { static probe p; return p; }
-
-int main() {
-    std::chrono::nanoseconds t{};
-    std::vector<int>  vi{1, 2, 3};
-    std::vector<bool> vb{true, false};
-    const std::map<std::string, int> mi{{"a", 1}};
-
-    // 1. Категорія й константність доходять неушкодженими.
-    static_assert(std::is_same_v<decltype(timed(t, lookup, vi, 0)),  int&>);
-    static_assert(std::is_same_v<decltype(timed(t, lookup, mi, "a")), const int&>);
-    static_assert(std::is_same_v<decltype(timed(t, lookup, vb, 0)),
-                                 std::vector<bool>::reference>);
-
-    // 2. Крізь обгортку так само пишуть — і в звичайний контейнер, і в посередник.
-    timed(t, lookup, vi, 0) = 42;
-    timed(t, lookup, vb, 1) = true;
-    assert(vi[0] == 42 && vb[1]);
-
-    // 3. Жодної зайвої копії й жодного зайвого переміщення.
-    probe::copies = probe::moves = 0;
-
-    probe made = timed(t, by_value);
-    assert(probe::copies == 0 && probe::moves == 0);
-
-    probe& same = timed(t, by_reference);
-    assert(&same == &by_reference());
-    assert(probe::copies == 0 && probe::moves == 0);
-
-    // 4. Обіцянка про винятки — рівно та сама.
-    auto quiet = []() noexcept { return 1; };
-    auto loud  = []()          { return 1; };
-    static_assert( noexcept(timed(t, quiet)));
-    static_assert(!noexcept(timed(t, loud)));
-
-    // 5. Для непридатних аргументів обгортка не ламається — вона зникає.
-    static_assert(!requires { timed(t, quiet, 1, 2, 3); });
-
-    // 6. Аргументи проходять наскрізь зі своєю категорією.
-    auto sink = [](probe) { };   // бере за значенням
-    probe src;
-
-    probe::copies = probe::moves = 0;
-    timed(t, sink, src);         // lvalue → одна копія, і та вже в самому sink
-    assert(probe::copies == 1 && probe::moves == 0);
-
-    probe::copies = probe::moves = 0;
-    timed(t, sink, probe{});     // rvalue → жодної копії, одне переміщення
-    assert(probe::copies == 0 && probe::moves == 1);
-}
-```
+:::code proj-transparent-wrapper/cpp/testy-shcho-dovodiat.cpp
 
 Третій тест варто прочитати уважно: нуль там не через щедрість оптимізатора. `by_value()` віддає prvalue, `std::invoke` повертає його як prvalue, `timed` — теж, і `probe made = timed(...)` ініціалізується ним же. Кожна ланка цього ланцюга — `return` prvalue того самого типу, а таке з C++17 усувається **обов'язково**: об'єкт від початку будується на своєму кінцевому місці. Що саме гарантовано, а що лишилося доброю волею компілятора, показує [стенд, який рахує копії](root:sys-plang-cpp/copy-elision/proj-copy-probe.md) — однофайлова програма, де кожне народження друкує свій номер.
 

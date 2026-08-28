@@ -163,19 +163,7 @@ std::execution::start(op_state);
 
 Коли викликається `connect()`, компілятор рекурсивно розгортає всі вкладені сендери у вкладені структури стану:
 
-```cpp
-template <class PrevOpState, class Func, class Receiver>
-struct then_operation_state {
-    PrevOpState prev_op_;       // Вкладений стан попередньої операції
-    Func func_;                 // Збережена функція-трансформатор
-    Receiver rcvr_;             // Приймач результату
-
-    void start() noexcept {
-        // Запуск попереднього кроку
-        std::execution::start(prev_op_);
-    }
-};
-```
+:::code p2300-senders-receivers-d/cpp/5-anatomiia-nulovykh.cpp
 
 Оскільки типи всіх проміжних операцій відомі під час компіляції, розмір фінального об'єкта `OperationState` обчислюється статично як `sizeof(FinalOpState)`. Компілятор точно знає зміщення (offsets) кожного поля всередині структури. Під час виклику `connect()` весь конвеєр інстанціюється як єдиний безперервний блок пам'яті на стеку викликаючої функції або всередині фрейму корутини.
 
@@ -211,18 +199,7 @@ auto snd = std::execution::just(10, 20)
 ### Монадичне асинхронне зв'язування: `let_value`
 Якщо наступний крок сам є асинхронною операцією, що повертає новий Sender, замість `then` застосовується `let_value` (аналог `flatMap` або монадичного `bind`):
 
-```cpp
-auto fetch_user(int id) { /* повертає Sender<User> */ }
-auto fetch_orders(User u) { /* повертає Sender<Orders> */ }
-
-auto pipeline = std::execution::just(42)
-              | std::execution::let_value([](int id) {
-                    return fetch_user(id);
-                })
-              | std::execution::let_value([](User user) {
-                    return fetch_orders(user);
-                });
-```
+:::code p2300-senders-receivers-d/cpp/monadychne-asynkhronne.cpp
 
 ### Обробка помилок та відновлення: `upon_error` та `let_error`
 P2300 дозволяє обробляти помилки без використання дорогих конструкцій `try/catch`:
@@ -259,19 +236,7 @@ auto combined = std::execution::when_all(task_a, task_b)
 ### Блокуючий міст: `sync_wait`
 Для зв'язку асинхронного графа зі звичайними синхронними функціями використовується споживач `std::execution::sync_wait`:
 
-```cpp
-int main() {
-    auto work = std::execution::schedule(pool.get_scheduler())
-              | std::execution::then([] { return 42; });
-
-    auto result = std::execution::sync_wait(std::move(work));
-
-    if (result.has_value()) {
-        auto [val] = *result;
-        std::cout << "Отримано значення: " << val << std::endl;
-    }
-}
-```
+:::code p2300-senders-receivers-d/cpp/blokuiuchyi-mist-sync-wait.cpp
 
 ---
 
@@ -298,22 +263,7 @@ int main() {
 У традиційних підходах виклик ядра GPU вимагає явного блокування хоста або використання нестандартних CUDA/HIP стрімів із низькорівневими C-функціями зворотного виклику (`cudaLaunchHostFunc`). Це порушує типізацію та унеможливлює безалокаційну передачу даних.
 
 У моделі `std::execution` контекст графічного процесора представляється стандартним планувальником:
-```cpp
-// Концепція виконання на GPU через stdexec
-auto gpu_sch = gpu_context.get_scheduler();
-
-auto pipeline = std::execution::schedule(cpu_pool.get_scheduler())
-              | std::execution::then([] { return generate_input_matrix(); })
-              | std::execution::continues_on(gpu_sch)
-              | std::execution::then([](const Matrix& m) {
-                    // Виконується на ядрах GPU (CUDA / Vulkan Compute)
-                    return matrix_multiply_kernel(m);
-                })
-              | std::execution::continues_on(cpu_pool.get_scheduler())
-              | std::execution::then([](const Matrix& res) {
-                    save_result_to_disk(res);
-                });
-```
+:::code p2300-senders-receivers-d/cpp/8-heterohenni-obchyslennia.cpp
 
 Коли операція перемикається на `gpu_sch`, стан операції `OperationState` напряму ставить команду виконання у чергу команд драйвера GPU (Ring Buffer відеокарти) без виділення проміжних буферів хоста. Сигнал завершення ядра відеокарти активує апаратне переривання, яке безпосередньо викликає `set_value` наступного приймача на CPU.
 
@@ -341,18 +291,7 @@ auto pipeline = std::execution::schedule(cpu_pool.get_scheduler())
 - **Корутини (`co_await`)** — це синтаксичний шар для розробника, коли алгоритм вимагає складних імперативних циклів та розгалужень.
 
 Будь-який Sender автоматично стає очікуваним типом (Awaitable) усередині корутини:
-```cpp
-exec::task<void> handle_client(scheduler auto sch, socket_handle sock) {
-    // Асинхронно перемикаємося на цільовий планувальник
-    co_await std::execution::schedule(sch);
-
-    // Очікуємо на завершення сендера без блокування системного потоку
-    auto header = co_await async_read_header(sock);
-    auto payload = co_await async_read_payload(sock, header.length);
-
-    co_await async_process_data(payload);
-}
-```
+:::code p2300-senders-receivers-d/cpp/10-symbioz-iz-korutynamy-c.cpp
 Компілятор генерує внутрішній Receiver, чий метод `set_value` відновлює виконання корутини (`coroutine_handle::resume()`), а метод `set_error` передає виняток у тіло корутини.
 
 Навпаки, корутинний тип задачі `exec::task<T>` сам задовольняє концепт `sender`, що дозволяє безшовно вбудовувати корутини у функціональні конвеєри.

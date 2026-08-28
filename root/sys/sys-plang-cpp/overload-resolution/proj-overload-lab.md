@@ -8,43 +8,7 @@
 
 ## Драбина на живому наборі
 
-```cpp
-// lab.cpp — g++ -std=c++20 lab.cpp   |   clang++ -std=c++20 lab.cpp
-#include <cstdio>
-
-// Мітки: за типом результату впізнаємо переможця.
-struct AsInt    { static constexpr const char* who = "f(int)";    };
-struct AsDouble { static constexpr const char* who = "f(double)"; };
-struct AsBool   { static constexpr const char* who = "f(bool)";   };
-struct AsMeters { static constexpr const char* who = "f(Meters)"; };
-struct AsAny    { static constexpr const char* who = "f(...)";    };
-
-struct Meters { double v; };
-struct Feet   { double v; operator Meters() const { return { v * 0.3048 }; } };
-struct Blob   { };                    // ні в що не перетворюється
-
-AsInt    f(int)    { return {}; }
-AsDouble f(double) { return {}; }
-AsBool   f(bool)   { return {}; }
-AsMeters f(Meters) { return {}; }
-AsAny    f(...)    { return {}; }
-
-#define SHOW(expr) std::printf("%-14s → %s\n", #expr, (expr).who)
-
-int main() {
-    short s = 7;
-    float x = 1.5f;
-    const char* text = "мс";
-
-    SHOW( f(42)        );   // точний збіг
-    SHOW( f(s)         );   // підвищення   short → int
-    SHOW( f(x)         );   // підвищення   float → double
-    SHOW( f('a')       );   // підвищення   char  → int
-    SHOW( f(text)      );   // перетворення const char* → bool
-    SHOW( f(Feet{1.0}) );   // користувацьке перетворення
-    SHOW( f(Blob{})    );   // нікуди більше — багатокрапка
-}
-```
+:::code proj-overload-lab/cpp/lab.cpp
 
 ```
 f(42)          → f(int)
@@ -64,21 +28,7 @@ f(Blob{})      → f(...)
 
 Той самий прилад працює й на методах, бо для добору вираз ліворуч від крапки — просто ще один аргумент, нульовий:
 
-```cpp
-struct AsMut   { static constexpr const char* who = "data()";       };
-struct AsConst { static constexpr const char* who = "data() const"; };
-
-struct Buf {
-    AsMut   data()       { return {}; }   // неявний параметр: Buf&
-    AsConst data() const { return {}; }   // неявний параметр: const Buf&
-};
-
-Buf b;
-const Buf& cb = b;
-
-SHOW( b.data()  );
-SHOW( cb.data() );
-```
+:::code proj-overload-lab/cpp/nulova-pozytsiia-obiekt.cpp
 
 ```
 b.data()       → data()
@@ -91,20 +41,7 @@ cb.data()      → data() const
 
 Мітка працює й тоді, коли програма не запускається — бо `decltype` нічого не викликає. Допишемо у той самий файл:
 
-```cpp
-#include <type_traits>
-
-short       probe_s{};
-float       probe_x{};
-const char* probe_p{};
-
-static_assert(std::is_same_v<decltype(f(42)),        AsInt>);
-static_assert(std::is_same_v<decltype(f(probe_s)),   AsInt>);
-static_assert(std::is_same_v<decltype(f(probe_x)),   AsDouble>);
-static_assert(std::is_same_v<decltype(f(probe_p)),   AsBool>);
-static_assert(std::is_same_v<decltype(f(Feet{1.0})), AsMeters>);
-static_assert(std::is_same_v<decltype(f(Blob{})),    AsAny>);
-```
+:::code proj-overload-lab/cpp/spytaty-kompiliator-ne.hpp
 
 Цей блок не додає до програми ані байта й не потребує навіть визначень функцій — самих оголошень досить, бо виклик не відбувається ([риси типів](root:sys-plang-cpp/type-traits) тут лише порівнюють два типи). І в цьому головна практична користь усього прийому: такий `static_assert` у тесті прибиває цвяхом, куди саме йде конкретний виклик у вашій кодовій базі. Коли завтра хтось додасть у бібліотеку ще одне перевантаження й добір поїде, ви дізнаєтеся про це помилкою компіляції, а не зміною поведінки програми.
 
@@ -155,18 +92,7 @@ SHOW( p(1, 2)   );      // error: call of overloaded 'p(int, int)' is ambiguous
 
 ## Поломка друга: імені немає в списку
 
-```cpp
-struct Device {
-    void send(int code)        { std::puts("Device::send(int)"); }
-    void send(const char* msg) { std::puts("Device::send(const char*)"); }
-};
-struct Radio : Device {
-    void send(double hz)       { std::puts("Radio::send(double)"); }
-};
-
-Radio r;
-r.send("ping");
-```
+:::code proj-overload-lab/cpp/polomka-druha-imeni-nemaie.cpp
 
 ```
 clang++ (скорочено):
@@ -192,19 +118,7 @@ Device::send(const char*)
 
 ## Поломка третя: шаблон, що з'їв копіювальний конструктор
 
-```cpp
-#include <utility>                      // std::as_const
-
-struct Person {
-    template <class S>
-    explicit Person(S&&) { std::printf("шаблон: %s\n", __PRETTY_FUNCTION__); }
-    Person(const Person&) { std::puts("копіювальний конструктор"); }
-};
-
-Person a{"Ада"};
-Person b{a};                    // копія?
-Person c{std::as_const(a)};     // теж копія?
-```
+:::code proj-overload-lab/cpp/polomka-tretia-shablon.cpp
 
 ```
 шаблон: Person::Person(S&&) [with S = const char (&)[7]]

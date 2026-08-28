@@ -21,35 +21,7 @@
 
 ### Шаблони класів та структур
 
-```cpp
-// 1. Первинний шаблон класу
-template<typename T, typename Allocator = std::allocator<T>>
-class Buffer {
-public:
-    void allocate(std::size_t n);
-};
-
-// 2. Часткова спеціалізація для вказівників (зберігає параметризацію T)
-template<typename T, typename Allocator>
-class Buffer<T*, Allocator> {
-public:
-    void allocate(std::size_t n);
-};
-
-// 3. Часткова спеціалізація для пар типів
-template<typename T1, typename T2, typename Allocator>
-class Buffer<std::pair<T1, T2>, Allocator> {
-public:
-    void allocate(std::size_t n);
-};
-
-// 4. Повна (явна) спеціалізація для конкретного типу void
-template<>
-class Buffer<void, std::allocator<void>> {
-public:
-    void allocate_raw(std::size_t bytes);
-};
-```
+:::code api-specialization-rules/cpp/shablony-klasiv-ta.hpp
 
 **Нормативні вимоги до аргументів часткової спеціалізації:**
 - Список аргументів часткової спеціалізації (`<T*, Allocator>`) повинен залежати від параметрів, оголошених у заголовку `template<typename T, typename Allocator>`.
@@ -60,42 +32,13 @@ public:
 
 Шаблони змінних підтримують як повну, так і часткову спеціалізацію за тими самими правилами, що й класи:
 
-```cpp
-// Первинний шаблон змінної
-template<typename T>
-constexpr std::size_t alignment_v = alignof(T);
-
-// Часткова спеціалізація для масивів невідомого розміру
-template<typename T>
-constexpr std::size_t alignment_v<T[]> = alignof(T);
-
-// Часткова спеціалізація для вказівників на функції
-template<typename Ret, typename... Args>
-constexpr std::size_t alignment_v<Ret(*)(Args...)> = alignof(void*);
-
-// Повна спеціалізація для void (оскільки alignof(void) не є валідним виразом)
-template<>
-constexpr std::size_t alignment_v<void> = 0;
-```
+:::code api-specialization-rules/cpp/shablony-zminnykh-variable.hpp
 
 ### Спеціалізація шаблонів-параметрів шаблонів (Template Template Parameters)
 
 Часткова спеціалізація дозволяє розпізнавати тип контейнера або узагальненого шаблону незалежно від типу збережених елементів:
 
-```cpp
-// Первинний шаблон інспектора контейнерів
-template<typename T>
-struct ContainerInspector {
-    static constexpr bool is_container = false;
-};
-
-// Часткова спеціалізація для будь-якого шаблону з одним типом-параметром (наприклад, std::vector<T>)
-template<template<typename, typename...> class Container, typename Element, typename... Rest>
-struct ContainerInspector<Container<Element, Rest...>> {
-    static constexpr bool is_container = true;
-    using value_type = Element;
-};
-```
+:::code api-specialization-rules/cpp/spetsializatsiia-shabloniv.cpp
 
 ### Чому заборонено спеціалізувати шаблони псевдонімів (Alias Templates)
 
@@ -116,30 +59,7 @@ using TypeHandler<int> = double;
 
 Стандарт C++ дозволяє повністю спеціалізувати окремий метод шаблонного класу без повної спеціалізації всього класу:
 
-```cpp
-template<typename T>
-struct Processor {
-    void process_data(T val) {
-        // Загальний алгоритм
-    }
-
-    template<typename U>
-    void transform(U extra);
-};
-
-// Повна спеціалізація конкретного методу первинного шаблону:
-template<>
-inline void Processor<int>::process_data(int val) {
-    // Швидкий бітовий алгоритм виключно для Processor<int>
-}
-
-// Повна спеціалізація вкладеного шаблонного методу:
-template<>
-template<>
-inline void Processor<double>::transform<int>(int extra) {
-    // Реалізація для Processor<double>::transform<int>
-}
-```
+:::code api-specialization-rules/cpp/spetsializatsiia-metodiv-i.cpp
 
 ---
 
@@ -147,29 +67,7 @@ inline void Processor<double>::transform<int>(int extra) {
 
 У кодових базах часто плутають синтаксис **явної інстанціації** (англ. *explicit instantiation*) та **явної спеціалізації** (англ. *explicit specialization*). Ця різниця має вирішальне значення для лінкування:
 
-```cpp
-template<typename T>
-struct DataHolder {
-    void compute() {}
-};
-
-// 1. ЯВНА ІНСТАНЦІАЦІЯ (Explicit Instantiation Definition):
-// Змушує компілятор згенерувати код для DataHolder<int> за правилами ПЕРВИННОГО шаблону.
-// Зверніть увагу: після template немає кутових дужок <>!
-template struct DataHolder<int>;
-
-// 2. ДЕКЛАРАЦІЯ ЯВНОЇ ІНСТАНЦІАЦІЇ (C++11 extern template):
-// Забороняє компілятору генерувати код у поточній одиниці трансляції (економія часу збірки).
-extern template struct DataHolder<int>;
-
-// 3. ЯВНА СПЕЦІАЛІЗАЦІЯ (Explicit Specialization):
-// Повністю ЗАМІЩУЄ первинний шаблон альтернативним користувацьким кодом.
-// Обов'язково починається з template<>!
-template<>
-struct DataHolder<double> {
-    void custom_algorithm() {}
-};
-```
+:::code api-specialization-rules/cpp/2-vidminnist-mizh-iavnoiu.cpp
 
 ---
 
@@ -182,41 +80,11 @@ struct DataHolder<double> {
 1. **Оголошення після первинного шаблону**: Спеціалізація повинна з'являтися у коді строго *після* оголошення первинного шаблону. Якщо компілятор зустріне використання первинного шаблону для типу `X` до того, як побачить оголошення спеціалізації для `X`, він згенерує екземпляр із первинного шаблону. Наступна поява спеціалізації в тій самій одиниці трансляції призведе до фатальної помилки компіляції.
 2. **Простір імен спеціалізації**: Повна або часткова спеціалізація повинна оголошуватися в тому самому просторі імен, що й первинний шаблон (або у просторі імен, який безпосередньо огортає простір первинного шаблону):
 
-```cpp
-namespace core {
-    template<typename T>
-    struct Formatter; // Первинний шаблон у namespace core
-}
-
-// ВАЛІДНО: спеціалізація у просторі імен первинного шаблону
-namespace core {
-    template<>
-    struct Formatter<int> { /* ... */ };
-}
-
-// ВАЛІДНО у C++11/C++14/C++17/C++20: явна кваліфікація з глобального простору
-template<>
-struct core::Formatter<double> { /* ... */ };
-```
+:::code api-specialization-rules/cpp/poriadok-oholoshennia-ta.cpp
 
 3. **Заборона спеціалізації всередині класу (Class Scope)**: Спеціалізувати шаблонний метод або вкладений шаблон структури безпосередньо всередині тіла класу заборонено:
 
-```cpp
-struct Engine {
-    template<typename T>
-    void compute(T val);
-
-    // ПОМИЛКА КОМПІЛЯЦІЇ: explicit specialization in non-namespace scope
-    // template<>
-    // void compute<int>(int val) {}
-};
-
-// ПРАВИЛЬНО: винесення повної спеціалізації на рівень namespace
-template<>
-inline void Engine::compute<int>(int val) {
-    // Реалізація
-}
-```
+:::code api-specialization-rules/cpp/poriadok-oholoshennia-ta-2.cpp
 
 ### Пастка правила єдиного визначення (ODR) для повних спеціалізацій
 
@@ -224,32 +92,7 @@ inline void Engine::compute<int>(int val) {
 
 Якщо повна спеціалізація поміщена у заголовочний файл (`.hpp`), який підключається до кількох одиниць трансляції (`.cpp`), виникає порушення правила одного визначення (англ. *One Definition Rule*, ODR). Компілятор згенерує машинний код для цієї функції в кожному об'єктному файлі, що призведе до помилки лінкера `multiple definition of ...` (LNK2005 у MSVC).
 
-```cpp
-// logger.hpp
-template<typename T>
-void log_data(T value) { /* Шаблон: не викликає ODR колізій */ }
-
-// ПОМИЛКА ЛІНКУВАННЯ при include у декілька .cpp:
-// template<>
-// void log_data<const char*>(const char* value) { std::puts(value); }
-
-// ПРАВИЛЬНЕ РІШЕННЯ 1: inline специфікатор (C++11/C++17)
-template<>
-inline void log_data<const char*>(const char* value) { 
-    std::puts(value); 
-}
-
-// ПРАВИЛЬНЕ РІШЕННЯ 2: розділення на оголошення в .hpp та визначення в .cpp
-// logger.hpp:
-template<>
-void log_data<std::string>(std::string value);
-
-// logger.cpp:
-template<>
-void log_data<std::string>(std::string value) {
-    std::printf("%s\n", value.c_str());
-}
-```
+:::code api-specialization-rules/cpp/pastka-pravyla-iedynoho.cpp
 
 Часткові спеціалізації класів та змінних завжди залишаються шаблонами, тому вони не генерують безпосередніх символів у таблиці лінкера і не потребують специфікатора `inline` у заголовках.
 
@@ -383,21 +226,7 @@ void execute(T val, std::type_identity_t<T> opt);
 
 У C++20 механізм часткового впорядкування було розширено поняттям **поглинання обмежень** (англ. *Constraint Subsumption*, §13.7.6.1 [temp.constr.order]):
 
-```cpp
-template<typename T>
-concept Integral = std::is_integral_v<T>;
-
-template<typename T>
-concept SignedIntegral = Integral<T> && std::is_signed_v<T>;
-
-// Перевантаження 1: вимагає концепт Integral
-template<Integral T>
-void compute(T val);
-
-// Перевантаження 2: вимагає більш суворий концепт SignedIntegral
-template<SignedIntegral T>
-void compute(T val);
-```
+:::code api-specialization-rules/cpp/7-vzaiemodiia-z.hpp
 
 Коли сигнатури функцій є повністю ідентичними (`void compute(T)`), компілятор нормалізує логічні вирази у виразах `requires`. Концепт `SignedIntegral` логічно тягне за собою (англ. *subsumes*) концепт `Integral` завдяки кон'юнкції `&&`. Тому друге перевантаження визнається **більш обмеженим** (англ. *more constrained*) і перемагає в overload resolution без виникнення помилки неоднозначності.
 

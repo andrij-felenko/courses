@@ -12,25 +12,7 @@
 ### 1.1 `std::mutex` (C++11)
 Основоположний ексклюзивний нерекурсивний м'ютекс. Забезпечує ефекти синхронізації пам'яті: успішний виклик `unlock()` на певному м'ютексі синхронізується з наступним успішним викликом `lock()` або `try_lock()` на тому самому м'ютексі (порядок Happens-Before).
 
-```cpp
-namespace std {
-    class mutex {
-    public:
-        constexpr mutex() noexcept;
-        ~mutex();
-
-        mutex(const mutex&) = delete;
-        mutex& operator=(const mutex&) = delete;
-
-        void lock();
-        bool try_lock();
-        void unlock();
-
-        using native_handle_type = /* implementation-defined */;
-        native_handle_type native_handle();
-    };
-}
-```
+:::code api-locks-reference/cpp/1-1-std-mutex-c-11.hpp
 
 #### Детальний опис методів:
 - **`void lock()`**: Блокує викликальну нитку доти, доки м'ютекс не буде успішно захоплено. 
@@ -51,25 +33,7 @@ namespace std {
 ### 1.2 `std::recursive_mutex` (C++11)
 Рекурсивний ексклюзивний м'ютекс, який дозволяє одній і тій самій нитці виконання захоплювати його повторно багаторазово без виникнення дедлоку.
 
-```cpp
-namespace std {
-    class recursive_mutex {
-    public:
-        recursive_mutex();
-        ~recursive_mutex();
-
-        recursive_mutex(const recursive_mutex&) = delete;
-        recursive_mutex& operator=(const recursive_mutex&) = delete;
-
-        void lock();
-        bool try_lock() noexcept;
-        void unlock();
-
-        using native_handle_type = /* implementation-defined */;
-        native_handle_type native_handle();
-    };
-}
-```
+:::code api-locks-reference/cpp/1-2-std-recursive-mutex-c.hpp
 
 #### Детальний опис специфіки:
 - **Лічильник замикань**: Об'єкт підтримує внутрішній лічильник рівнів замикання для нитки-власника. Кожен успішний виклик `lock()` або `try_lock()` збільшує лічильник на 1.
@@ -81,28 +45,7 @@ namespace std {
 ### 1.3 `std::timed_mutex` та `std::recursive_timed_mutex` (C++11)
 Розширюють інтерфейс базових м'ютексів підтримкою методів очікування з часовими лімітами (таймаутами).
 
-```cpp
-namespace std {
-    class timed_mutex {
-    public:
-        timed_mutex();
-        ~timed_mutex();
-
-        timed_mutex(const timed_mutex&) = delete;
-        timed_mutex& operator=(const timed_mutex&) = delete;
-
-        void lock();
-        bool try_lock();
-        void unlock();
-
-        template <class Rep, class Period>
-        bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
-
-        template <class Clock, class Duration>
-        bool try_lock_until(const std::chrono::time_point<Clock, Duration>& timeout_time);
-    };
-}
-```
+:::code api-locks-reference/cpp/1-3-std-timed-mutex-ta-std.hpp
 
 #### Детальний опис методик очікування:
 - **`try_lock_for(duration)`**: Блокує нитку до успішного захоплення м'ютекса або до закінчення відносного проміжку часу `timeout_duration`. Повертає `true`, якщо замок здобуто, і `false`, якщо вичерпано час очікування.
@@ -113,28 +56,7 @@ namespace std {
 ### 1.4 `std::shared_mutex` (C++17) та `std::shared_timed_mutex` (C++14)
 Підтримують два роздільні рівні володіння: ексклюзивне (для ниток-писців) та спільне (для ниток-читачів). Задовольняють вимогам концепції `SharedLockable`.
 
-```cpp
-namespace std {
-    class shared_mutex {
-    public:
-        shared_mutex();
-        ~shared_mutex();
-
-        shared_mutex(const shared_mutex&) = delete;
-        shared_mutex& operator=(const shared_mutex&) = delete;
-
-        // Ексклюзивне володіння (Writers)
-        void lock();
-        bool try_lock();
-        void unlock();
-
-        // Спільне володіння (Readers)
-        void lock_shared();
-        bool try_lock_shared();
-        void unlock_shared();
-    };
-}
-```
+:::code api-locks-reference/cpp/1-4-std-shared-mutex-c-17.hpp
 
 #### Детальний опис рівнів доступу:
 - **`lock_shared()`**: Захоплює м'ютекс у спільному режимі. Декілька ниток можуть одночасно утримувати спільний замок. Якщо інша нитка утримує м'ютекс в ексклюзивному режимі, викликальна нитка блокується.
@@ -172,22 +94,7 @@ namespace std {
 ### 3.1 `std::lock_guard` (C++11)
 Строго обмежена за області видимості (scope-based) RAII-обгортка над одним м'ютексом.
 
-```cpp
-namespace std {
-    template <class Mutex>
-    class lock_guard {
-    public:
-        using mutex_type = Mutex;
-
-        explicit lock_guard(mutex_type& m);
-        lock_guard(mutex_type& m, adopt_lock_t t);
-        ~lock_guard();
-
-        lock_guard(const lock_guard&) = delete;
-        lock_guard& operator=(const lock_guard&) = delete;
-    };
-}
-```
+:::code api-locks-reference/cpp/3-1-std-lock-guard-c-11.hpp
 
 #### Гарантії та обмеження:
 - Конструктор `explicit lock_guard(m)` викликає `m.lock()`.
@@ -200,24 +107,7 @@ namespace std {
 ### 3.2 `std::scoped_lock` (C++17)
 Варіативна RAII-обгортка для атомарного захоплення від 0 до `N` м'ютексів із гарантованим уникненням взаємного блокування (Deadlock Avoidance).
 
-```cpp
-namespace std {
-    template <class... MutexTypes>
-    class scoped_lock {
-    public:
-        using mutex_type = /* лише якщо sizeof...(MutexTypes) == 1 */;
-
-        explicit scoped_lock(MutexTypes&... m);
-        scoped_lock(adopt_lock_t t, MutexTypes&... m);
-        explicit scoped_lock(MutexTypes& m);
-        scoped_lock() noexcept; // порожній замок для 0 м'ютексів
-        ~scoped_lock();
-
-        scoped_lock(const scoped_lock&) = delete;
-        scoped_lock& operator=(const scoped_lock&) = delete;
-    };
-}
-```
+:::code api-locks-reference/cpp/3-2-std-scoped-lock-c-17.hpp
 
 #### Специфіка роботи:
 - Для 1 м'ютекса: конструктор викликає `m.lock()`.
@@ -229,46 +119,7 @@ namespace std {
 ### 3.3 `std::unique_lock` (C++11)
 Гнучка RAII-обгортка із підтримкою переміщення володіння, відкладеного захоплення, таймаутів та ручного управління.
 
-```cpp
-namespace std {
-    template <class Mutex>
-    class unique_lock {
-    public:
-        using mutex_type = Mutex;
-
-        unique_lock() noexcept;
-        explicit unique_lock(mutex_type& m);
-        unique_lock(mutex_type& m, defer_lock_t) noexcept;
-        unique_lock(mutex_type& m, try_to_lock_t);
-        unique_lock(mutex_type& m, adopt_lock_t);
-
-        template <class Rep, class Period>
-        unique_lock(mutex_type& m, const std::chrono::duration<Rep, Period>& timeout_duration);
-
-        ~unique_lock();
-
-        unique_lock(const unique_lock&) = delete;
-        unique_lock& operator=(const unique_lock&) = delete;
-
-        unique_lock(unique_lock&& u) noexcept;
-        unique_lock& operator=(unique_lock&& u) noexcept;
-
-        void lock();
-        bool try_lock();
-
-        template <class Rep, class Period>
-        bool try_lock_for(const std::chrono::duration<Rep, Period>& timeout_duration);
-
-        void unlock();
-
-        bool owns_lock() const noexcept;
-        explicit operator bool() const noexcept;
-
-        mutex_type* release() noexcept;
-        mutex_type* mutex() const noexcept;
-    };
-}
-```
+:::code api-locks-reference/cpp/3-3-std-unique-lock-c-11.hpp
 
 #### Деталізація методів:
 - **`owns_lock()` / `operator bool()`**: Повертає `true`, якщо об'єкт `unique_lock` наразі утримує м'ютекс.
@@ -280,35 +131,7 @@ namespace std {
 ### 3.4 `std::shared_lock` (C++14)
 RAII-обгортка для поділюваного доступу на читання над об'єктами типу `std::shared_mutex`.
 
-```cpp
-namespace std {
-    template <class Mutex>
-    class shared_lock {
-    public:
-        using mutex_type = Mutex;
-
-        shared_lock() noexcept;
-        explicit shared_lock(mutex_type& m); // викликає m.lock_shared()
-        shared_lock(mutex_type& m, defer_lock_t) noexcept;
-        shared_lock(mutex_type& m, try_to_lock_t);
-        shared_lock(mutex_type& m, adopt_lock_t);
-        ~shared_lock();                      // викликає m.unlock_shared()
-
-        shared_lock(const shared_lock&) = delete;
-        shared_lock& operator=(const shared_lock&) = delete;
-
-        shared_lock(shared_lock&& u) noexcept;
-        shared_lock& operator=(shared_lock&& u) noexcept;
-
-        void lock();
-        bool try_lock();
-        void unlock();
-
-        bool owns_lock() const noexcept;
-        explicit operator bool() const noexcept;
-    };
-}
-```
+:::code api-locks-reference/cpp/3-4-std-shared-lock-c-14.hpp
 
 ---
 
@@ -333,18 +156,7 @@ namespace std {
 
 ### 4.2 Одноразова ініціалізація: `std::call_once` та `std::once_flag` (C++11)
 
-```cpp
-namespace std {
-    struct once_flag {
-        constexpr once_flag() noexcept;
-        once_flag(const once_flag&) = delete;
-        once_flag& operator=(const once_flag&) = delete;
-    };
-
-    template <class Callable, class... Args>
-    void call_once(once_flag& flag, Callable&& f, Args&&... args);
-}
-```
+:::code api-locks-reference/cpp/4-2-odnorazova.cpp
 
 - **`std::call_once`**: Гарантує, що передана функція або об'єкт виклику `f` буде виконано **рівно один раз** на даному екземплярі `once_flag`, навіть якщо `call_once` одночасно викликають сотні паралельних ниток.
 - **Гарантія безпеки винятків**: Якщо виклик `f` завершується винятком, прапорець `once_flag` **не вважається встановленим**. Наступна нитка, яка викликає `call_once` з цим прапорцем, знову спробує виконати `f`.
@@ -354,53 +166,6 @@ namespace std {
 ## 5. Зведений приклад використання типів замків (C та C++)
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdbool.h>
-
-typedef struct {
-    pthread_mutex_t lock;
-    int data;
-} SafeContainer;
-
-void init_container(SafeContainer* c) {
-    pthread_mutex_init(&c->lock, NULL);
-    c->data = 0;
-}
-
-void write_data(SafeContainer* c, int val) {
-    pthread_mutex_lock(&c->lock);
-    c->data = val;
-    pthread_mutex_unlock(&c->lock);
-}
-
-void destroy_container(SafeContainer* c) {
-    pthread_mutex_destroy(&c->lock);
-}
-```
-```cpp
-#include <mutex>
-#include <shared_mutex>
-#include <iostream>
-
-class SafeContainer {
-private:
-    mutable std::shared_mutex rw_mtx_;
-    int data_ = 0;
-
-public:
-    // Читання: багато ниток одночасно через std::shared_lock
-    int read_data() const {
-        std::shared_lock<std::shared_mutex> lock(rw_mtx_);
-        return data_;
-    }
-
-    // Запис: ексклюзивно через std::scoped_lock
-    void write_data(int val) {
-        std::scoped_lock lock(rw_mtx_);
-        data_ = val;
-    }
-};
-```
+:::code api-locks-reference/c/main.c
+:::code api-locks-reference/cpp/5-zvedenyi-pryklad.cpp
 :::

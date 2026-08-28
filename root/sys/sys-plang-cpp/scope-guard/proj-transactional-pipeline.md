@@ -25,62 +25,7 @@
 
 Для побудови надійного конвеєра реалізуємо повнофункціональний клас `ScopeGuard`. Клас повинен володіти виконуваним об'єктом за семантикою переміщення, забороняти небезпечне копіювання, надавати метод `dismiss()` для скасування відкату та гарантувати безпеку винятків у деструкторі:
 
-```cpp
-#include <utility>
-#include <type_traits>
-
-template <typename Callback>
-class ScopeGuard {
-    Callback callback_;
-    bool active_{true};
-
-public:
-    // Конструктор захоплює довільний функціональний об'єкт
-    explicit ScopeGuard(Callback&& cb) noexcept(std::is_nothrow_move_constructible_v<Callback>)
-        : callback_(std::move(cb)) {}
-
-    explicit ScopeGuard(const Callback& cb) noexcept(std::is_nothrow_copy_constructible_v<Callback>)
-        : callback_(cb) {}
-
-    // Заборона копіювання: відповідальність за відкат належить одному екземпляру
-    ScopeGuard(const ScopeGuard&) = delete;
-    ScopeGuard& operator=(const ScopeGuard&) = delete;
-
-    // Переміщення передає обов'язок відкату новому об'єкту, знеструмлюючи джерело
-    ScopeGuard(ScopeGuard&& other) noexcept(std::is_nothrow_move_constructible_v<Callback>)
-        : callback_(std::move(other.callback_)),
-          active_(std::exchange(other.active_, false)) {}
-
-    ScopeGuard& operator=(ScopeGuard&& other) noexcept {
-        if (this != &other) {
-            if (active_) {
-                callback_();
-            }
-            callback_ = std::move(other.callback_);
-            active_ = std::exchange(other.active_, false);
-        }
-        return *this;
-    }
-
-    // Деструктор викликає дію відкату, якщо охоронець не був скасований
-    ~ScopeGuard() {
-        if (active_) {
-            callback_();
-        }
-    }
-
-    // Скасування відкату після успішного завершення операції
-    void dismiss() noexcept {
-        active_ = false;
-    }
-};
-
-// Фабрична функція для автоматичного виведення типів аргументів
-template <typename Callback>
-[[nodiscard]] auto make_scope_guard(Callback&& cb) {
-    return ScopeGuard<std::decay_t<Callback>>(std::forward<Callback>(cb));
-}
-```
+:::code proj-transactional-pipeline/cpp/realizatsiia-uzahalnenoho.cpp
 
 Атрибут `[[nodiscard]]` над фабричною функцією захищає від критичної помилки: якщо викликати `make_scope_guard([&]{ ... });` без збереження результату в іменовану змінну, тимчасовий об'єкт знищиться негайно в кінці повного виразу, виконавши відкат завчасно замість очікування виходу з області видимості.
 
@@ -89,195 +34,8 @@ template <typename Callback>
 Розгляньмо повний приклад транзакційної функції оновлення конфігурації. У вкладці C показано класичний низькорівневий підхід із ручним відстеженням міток помилок `goto fail`, а у вкладці C++ — сучасну ідіоматичну реалізацію з автоматичним відкатом через деструктори охоронців.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <unistd.h>
-
-typedef struct {
-    int log_level;
-    char server_addr[64];
-    int port;
-} ServerConfig;
-
-// Глобальний кеш налаштувань у процесі
-static ServerConfig g_active_config;
-
-bool save_and_apply_config_c(const char* target_path, const ServerConfig* new_cfg) {
-    char tmp_path[256];
-    char bak_path[256];
-    snprintf(tmp_path, sizeof(tmp_path), "%s.tmp", target_path);
-    snprintf(bak_path, sizeof(bak_path), "%s.bak", target_path);
-
-    bool tmp_created = false;
-    bool bak_created = false;
-    ServerConfig prev_cache;
-
-    // 1. Створення та запис у тимчасовий файл
-    FILE* f = fopen(tmp_path, "wb");
-    if (!f) {
-        return false;
-    }
-    tmp_created = true;
-
-    if (fwrite(new_cfg, sizeof(ServerConfig), 1, f) != 1) {
-        fclose(f);
-        goto fail;
-    }
-
-    // Примусове скидання буферів ОС на накопичувач
-    fflush(f);
-    fsync(fileno(f));
-    fclose(f);
-
-    // 2. Валідація параметрів конфігурації
-    if (new_cfg->port <= 0 || new_cfg->port > 65535) {
-        goto fail;
-    }
-    if (strlen(new_cfg->server_addr) == 0) {
-        goto fail;
-    }
-
-    // 3. Створення резервної копії попереднього файлу
-    if (access(target_path, F_OK) == 0) {
-        if (rename(target_path, bak_path) != 0) {
-            goto fail;
-        }
-        bak_created = true;
-    }
-
-    // 4. Атомарне перейменування тимчасового файлу на цільовий
-    if (rename(tmp_path, target_path) != 0) {
-        goto fail;
-    }
-    tmp_created = false; // файл зайняв цільове місце
-
-    // 5. Оновлення стану в оперативній пам'яті
-    memcpy(&prev_cache, &g_active_config, sizeof(ServerConfig));
-    memcpy(&g_active_config, new_cfg, sizeof(ServerConfig));
-
-    // Успішне завершення: видаляємо старий бекап
-    if (bak_created) {
-        unlink(bak_path);
-    }
-    return true;
-
-fail:
-    // Ручний каскад відкату у зворотному порядку створення
-    if (tmp_created) {
-        unlink(tmp_path);
-    }
-    if (bak_created) {
-        rename(bak_path, target_path);
-    }
-    return false;
-}
-```
-```cpp
-#include <iostream>
-#include <fstream>
-#include <filesystem>
-#include <string>
-#include <string_view>
-#include <system_error>
-
-namespace fs = std::filesystem;
-
-struct ServerConfig {
-    int log_level{1};
-    std::string server_addr{"127.0.0.1"};
-    int port{8080};
-};
-
-// Глобальний стан сервісу
-static ServerConfig g_active_config;
-
-void validate_config(const ServerConfig& cfg) {
-    if (cfg.port <= 0 || cfg.port > 65535) {
-        throw std::invalid_argument("Неприпустимий порт сервера");
-    }
-    if (cfg.server_addr.empty()) {
-        throw std::invalid_argument("Порожня адреса сервера");
-    }
-}
-
-void notify_subsystems(const ServerConfig& cfg) {
-    // Симуляція сповіщення інших потоків або виділення пам'яті під мережевий сокет
-    if (cfg.server_addr == "invalid.local") {
-        throw std::runtime_error("Мережева підсистема відхилила нову адресу");
-    }
-}
-
-void save_and_apply_config_cpp(const fs::path& target_path, const ServerConfig& new_cfg) {
-    const fs::path tmp_path = target_path.string() + ".tmp";
-    const fs::path bak_path = target_path.string() + ".bak";
-
-    // 1. Запис даних у тимчасовий файл
-    {
-        std::ofstream out(tmp_path, std::ios::binary | std::ios::trunc);
-        if (!out.is_open()) {
-            throw std::runtime_error("Неможливо створити тимчасовий файл: " + tmp_path.string());
-        }
-        out << new_cfg.log_level << "\n"
-            << new_cfg.server_addr << "\n"
-            << new_cfg.port << "\n";
-        out.flush();
-    }
-
-    // Охоронець 1: видалення тимчасового файлу у разі будь-якого збою
-    auto remove_tmp_guard = make_scope_guard([&tmp_path] noexcept {
-        std::error_code ec;
-        fs::remove(tmp_path, ec);
-    });
-
-    // 2. Валідація структури налаштувань (може викинути виняток)
-    validate_config(new_cfg);
-
-    // 3. Створення резервної копії поточного конфігураційного файлу
-    bool had_backup = false;
-    if (fs::exists(target_path)) {
-        fs::rename(target_path, bak_path);
-        had_backup = true;
-    }
-
-    // Охоронець 2: повернення резервної копії, якщо щось зламається далі
-    auto restore_bak_guard = make_scope_guard([&, had_backup] noexcept {
-        if (had_backup) {
-            std::error_code ec;
-            fs::rename(bak_path, target_path, ec);
-        }
-    });
-
-    // 4. Атомарна підміна основного файлу
-    fs::rename(tmp_path, target_path);
-
-    // Тимчасовий файл став основним, видаляти його як сміття більше не потрібно
-    remove_tmp_guard.dismiss();
-
-    // 5. Оновлення кешу налаштувань у пам'яті
-    ServerConfig old_cache = g_active_config;
-    g_active_config = new_cfg;
-
-    // Охоронець 3: відновлення пам'яті у разі помилки в підсистемах
-    auto restore_cache_guard = make_scope_guard([&old_cache] noexcept {
-        g_active_config = std::move(old_cache);
-    });
-
-    // 6. Сповіщення підсистем процесу (може викинути виняток під час ініціалізації сокета)
-    notify_subsystems(new_cfg);
-
-    // Всі кроки пройшли успішно: скасовуємо відкати й прибираємо бекап
-    restore_cache_guard.dismiss();
-    restore_bak_guard.dismiss();
-
-    if (had_backup) {
-        std::error_code ec;
-        fs::remove(bak_path, ec);
-    }
-}
-```
+:::code proj-transactional-pipeline/c/porivniannia-realizatsii-c.c
+:::code proj-transactional-pipeline/cpp/porivniannia-realizatsii-c.cpp
 :::
 
 ## Архітектурний аналіз: чому Scope Guard перевершує goto
@@ -325,144 +83,8 @@ Scope Guard однаково бездоганно працює з обома п�
 У цьому сценарії помилка на етапі захоплення м'ютекса повинна звільнити відображення `munmap`, закрити файловий дескриптор `close` та видалити спільний сегмент `shm_unlink`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <stdbool.h>
-
-typedef struct {
-    pthread_mutex_t lock;
-    int counter;
-} SharedRegion;
-
-bool init_shared_service_c(const char* shm_name, size_t size) {
-    int fd = -1;
-    SharedRegion* ptr = (SharedRegion*)MAP_FAILED;
-    bool shm_created = false;
-
-    // 1. Створення спільного сегмента
-    fd = shm_open(shm_name, O_CREAT | O_RDWR | O_EXCL, 0600);
-    if (fd < 0) {
-        return false;
-    }
-    shm_created = true;
-
-    // 2. Встановлення розміру сегмента
-    if (ftruncate(fd, (off_t)size) != 0) {
-        goto fail;
-    }
-
-    // 3. Відображення в адресний простір процесу
-    ptr = (SharedRegion*)mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (ptr == MAP_FAILED) {
-        goto fail;
-    }
-
-    // 4. Ініціалізація міжпроцесного м'ютекса
-    pthread_mutexattr_t mattr;
-    pthread_mutexattr_init(&mattr);
-    pthread_mutexattr_setpshared(&mattr, PTHREAD_PROCESS_SHARED);
-
-    if (pthread_mutex_init(&ptr->lock, &mattr) != 0) {
-        pthread_mutexattr_destroy(&mattr);
-        goto fail;
-    }
-    pthread_mutexattr_destroy(&mattr);
-
-    ptr->counter = 0;
-    close(fd);
-    return true;
-
-fail:
-    if (ptr != MAP_FAILED) {
-        munmap(ptr, size);
-    }
-    if (fd >= 0) {
-        close(fd);
-    }
-    if (shm_created) {
-        shm_unlink(shm_name);
-    }
-    return false;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <system_error>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <pthread.h>
-
-struct SharedRegion {
-    pthread_mutex_t lock;
-    int counter{0};
-};
-
-void init_shared_service_cpp(std::string_view shm_name, size_t size) {
-    const std::string name_str(shm_name);
-
-    // 1. Створення сегмента пам'яті
-    int fd = ::shm_open(name_str.c_str(), O_CREAT | O_RDWR | O_EXCL, 0600);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "shm_open failed");
-    }
-
-    // Охоронець 1: видалення імені сегмента з системи
-    auto unlink_guard = make_scope_guard([&name_str] noexcept {
-        ::shm_unlink(name_str.c_str());
-    });
-
-    // Охоронець 2: закриття файлового дескриптора на виході
-    auto close_guard = make_scope_guard([fd] noexcept {
-        ::close(fd);
-    });
-
-    // 2. Встановлення розміру
-    if (::ftruncate(fd, static_cast<off_t>(size)) != 0) {
-        throw std::system_error(errno, std::generic_category(), "ftruncate failed");
-    }
-
-    // 3. Відображення в адресний простір
-    void* raw_ptr = ::mmap(nullptr, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (raw_ptr == MAP_FAILED) {
-        throw std::system_error(errno, std::generic_category(), "mmap failed");
-    }
-    auto* region = static_cast<SharedRegion*>(raw_ptr);
-
-    // Охоронець 3: скидання відображення у разі збою ініціалізації м'ютекса
-    auto unmap_guard = make_scope_guard([raw_ptr, size] noexcept {
-        ::munmap(raw_ptr, size);
-    });
-
-    // 4. Налаштування міжпроцесного м'ютекса
-    pthread_mutexattr_t mattr;
-    ::pthread_mutexattr_init(&mattr);
-    auto mattr_guard = make_scope_guard([&mattr] noexcept {
-        ::pthread_mutexattr_destroy(&mattr);
-    });
-
-    if (::pthread_mutexattr_setpshared(&mattr, PTHREAD_PROCESS_SHARED) != 0 ||
-        ::pthread_mutex_init(&region->lock, &mattr) != 0) {
-        throw std::system_error(errno, std::generic_category(), "mutex init failed");
-    }
-
-    region->counter = 0;
-
-    // Успіх: сегмент ініціалізовано. Відв'язуємо охоронці, які знищували б створене середовище:
-    unlink_guard.dismiss();
-    unmap_guard.dismiss();
-    // close_guard спрацює в кінці функції за планом, бо дескриптор після mmap більше не потрібен
-    // mattr_guard спрацює в кінці функції, звільнивши атрибути м'ютекса
-}
-```
+:::code proj-transactional-pipeline/c/bahatoresursnyi-systemnyi.c
+:::code proj-transactional-pipeline/cpp/bahatoresursnyi-systemnyi.cpp
 :::
 
 У цій програмі чітко видно різницю між постійними ресурсами та транзакційними діями відкату:
@@ -507,43 +129,7 @@ unlink("config.json.tmp")               = 0
 
 Оскільки наш `ScopeGuard` підтримує семантику переміщення, екземпляри охоронців можна зберігати у стандартному контейнері `std::vector`:
 
-```cpp
-#include <vector>
-#include <functional>
-
-void setup_distributed_workspace(const std::vector<std::string>& node_dirs) {
-    // Вектор анонімних охоронців для відкату динамічної кількості дій
-    std::vector<ScopeGuard<std::function<void()>>> rollbacks;
-    rollbacks.reserve(node_dirs.size());
-
-    // Якщо функція перерветься винятком на 5-му вузлі,
-    // деструктор вектора знищить усі збережені охоронці,
-    // які автоматично відкотять перші 4 вузли!
-    auto all_guard = make_scope_guard([&rollbacks] noexcept {
-        // Очищення у зворотному порядку (LIFO)
-        for (auto it = rollbacks.rbegin(); it != rollbacks.rend(); ++it) {
-            // деструктор кожного елемента виконає збережену дію
-        }
-    });
-
-    for (const auto& dir : node_dirs) {
-        fs::create_directories(dir);
-        rollbacks.emplace_back(make_scope_guard([dir] noexcept {
-            std::error_code ec;
-            fs::remove_all(dir, ec);
-        }));
-    }
-
-    // Додаткові операції ініціалізації
-    // initialize_network_mesh(node_dirs);
-
-    // Успіх: скасовуємо відкат усіх створених каталогів
-    for (auto& g : rollbacks) {
-        g.dismiss();
-    }
-    all_guard.dismiss();
-}
-```
+:::code proj-transactional-pipeline/cpp/dynamichni-konveiery-ta.cpp
 
 Ця техніка забезпечує сильну виняткову гарантію для масивів ресурсів довільної довжини без необхідності написання спеціалізованих контейнерів-обгорток.
 
@@ -553,25 +139,7 @@ void setup_distributed_workspace(const std::vector<std::string>& node_dirs) {
 
 Коли сопрограма призупиняє своє виконання через `co_await`, локальні стекові змінні **не знищуються**: вони зберігаються всередині динамічного фрейму сопрограми в купі (англ. *coroutine frame*). Відповідно, деструктори `ScopeGuard` **не виконуються** під час призупинення:
 
-```cpp
-#include <coroutine>
-
-// Приклад поведінки охоронця у сопрограмі
-Task<void> async_transaction_step(Database& db) {
-    db.acquire_lock();
-    auto lock_guard = make_scope_guard([&db] noexcept {
-        db.release_lock();
-    });
-
-    // Призупинення сопрограми: деструктор lock_guard НЕ викликається!
-    co_await async_network_fetch();
-
-    // Відновлення виконання: lock_guard залишається активним
-    db.apply_changes();
-
-    // Завершення сопрограми (co_return): lock_guard знищується тут
-}
-```
+:::code proj-transactional-pipeline/cpp/vzaiemodiia-z-asynkhronnym.cpp
 
 Якщо ж сопрограму буде примусово знищено ззовні через виклик методу дескриптора `coroutine_handle<>::destroy()`, фрейм сопрограми розгортається, і деструктори всіх активних об'єктів (включно зі `ScopeGuard`) будуть коректно викликані, забезпечуючи надійний відкат навіть в асинхронному контексті.
 
@@ -581,39 +149,7 @@ Task<void> async_transaction_step(Database& db) {
 
 Без охоронця ранній вихід через `return std::unexpected(...)` змушує дублювати код очищення перед кожною перевіркою результату:
 
-```cpp
-#include <expected>
-#include <string>
-
-enum class ErrorCode { DiskFull, BadChecksum, PermissionDenied };
-
-std::expected<void, ErrorCode> write_data_monadic(const fs::path& target) {
-    const fs::path tmp = target.string() + ".tmp";
-    if (!create_file(tmp)) {
-        return std::unexpected(ErrorCode::PermissionDenied);
-    }
-
-    // Охоронець гарантує видалення тимчасового файлу при будь-якому ранньому return
-    auto tmp_guard = make_scope_guard([&tmp] noexcept {
-        std::error_code ec;
-        fs::remove(tmp, ec);
-    });
-
-    auto write_res = write_payload(tmp);
-    if (!write_res) {
-        return std::unexpected(write_res.error()); // tmp_guard видалить файл тут!
-    }
-
-    auto check_res = verify_checksum(tmp);
-    if (!check_res) {
-        return std::unexpected(check_res.error()); // tmp_guard видалить файл тут!
-    }
-
-    fs::rename(tmp, target);
-    tmp_guard.dismiss(); // успіх: файл залишається
-    return {};
-}
-```
+:::code proj-transactional-pipeline/cpp/intehratsiia-z.cpp
 
 Як видно з прикладу, Scope Guard природно поєднує виразність деструкторів RAII з функціональним стилем передачі результатів через `std::expected`.
 
@@ -644,25 +180,7 @@ std::expected<void, ErrorCode> write_data_monadic(const fs::path& target) {
 
 Для захисту критичних транзакцій від переривання сигналами `SIGINT` або `SIGTERM` під час модифікації файлів застосовують маскування сигналів через `pthread_sigmask`:
 
-```cpp
-#include <signal.h>
-
-void safe_signal_transaction() {
-    sigset_t block_mask, old_mask;
-    sigemptyset(&block_mask);
-    sigaddset(&block_mask, SIGINT);
-    sigaddset(&block_mask, SIGTERM);
-
-    // Блокуємо сигнали на час критичної секції
-    pthread_sigmask(SIG_BLOCK, &block_mask, &old_mask);
-    auto sig_guard = make_scope_guard([&old_mask] noexcept {
-        // Гарантоване відновлення маски сигналів на виході
-        pthread_sigmask(SIG_SETMASK, &old_mask, nullptr);
-    });
-
-    // Виконання атомарного збереження конфігурації...
-}
-```
+:::code proj-transactional-pipeline/cpp/asynkhronni-syhnaly.cpp
 
 У такій конфігурації охоронець `sig_guard` надійно відновлює маску сигналів навіть у разі викидання винятку з тіла транзакції.
 

@@ -14,23 +14,7 @@
 
 Найпростіша наївна реалізація полягає у створенні глобального об'єкта `Registry` та використанні статичних об'єктів для виклику методу реєстрації:
 
-```cpp
-// registry.hpp
-class Registry {
-public:
-    Registry(); // Динамічний конструктор
-    void add_module(const char* name);
-};
-extern Registry g_registry;
-
-// module_network.cpp
-struct NetworkRegistrar {
-    NetworkRegistrar() {
-        g_registry.add_module("Network"); // Ризик SIOF!
-    }
-};
-static NetworkRegistrar s_network_reg;
-```
+:::code proj-safe-registry/cpp/pidkhid-1-zvychainyi.cpp
 
 Цей код містить приховану міну сповільненої дії. Оскільки `g_registry` та `s_network_reg` розташовані в різних одиницях трансляції, порядок виконання їхніх конструкторів не визначений стандартом C++. Якщо компонувальник операційної системи вирішить спочатку виконати конструктор `NetworkRegistrar`, метод `add_module` звернеться до сирої пам'яті `g_registry` ще до виклику її конструктора. Це спричиняє аварійне завершення процесу (SIGSEGV) ще до старту `main()`.
 
@@ -68,22 +52,7 @@ Registry& get_registry() {
 
 Інтрузивний зв'язний список розв'язує цю проблему елегантно: вказівник на наступний елемент (`next`) зберігається безпосередньо всередині самого дескриптора модуля. Пам'ять під дескриптор виділяється статично у відповідній одиниці трансляції модуля.
 
-```cpp
-#include <string_view>
-#include <atomic>
-#include <cstdint>
-
-struct SubsystemNode {
-    std::string_view name;
-    uint32_t priority;
-    void (*initialize_fn)();
-    SubsystemNode* next{nullptr};
-
-    // constexpr-конструктор дозволяє сформувати структуру вузла під час збірки
-    constexpr SubsystemNode(std::string_view n, uint32_t p, void (*init)()) noexcept
-        : name(n), priority(p), initialize_fn(init), next(nullptr) {}
-};
-```
+:::code proj-safe-registry/cpp/krok-1-proektuvannia.cpp
 
 Використання `std::string_view` замість `const char*` або `std::string` надає зручний інтерфейс із збереженням інформації про довжину рядка без динамічного виділення пам'яті. Конструктор позначено як `constexpr` та `noexcept`, що дозволяє компілятору повністю обчислити стан вузла на етапі компіляції.
 
@@ -95,54 +64,7 @@ struct SubsystemNode {
 
 Реєстрація вузлів реалізується через безблокувальний алгоритм на основі інструкції порівняння з обміном (англ. *Compare-And-Swap*, CAS):
 
-```cpp
-class SubsystemRegistry {
-private:
-    std::atomic<SubsystemNode*> head_{nullptr};
-    std::atomic<size_t> count_{0};
-
-public:
-    // Конструктор гарантує нульовий початковий стан на етапі компіляції
-    constexpr SubsystemRegistry() noexcept
-        : head_(nullptr), count_(0) {}
-
-    SubsystemRegistry(const SubsystemRegistry&) = delete;
-    SubsystemRegistry& operator=(const SubsystemRegistry&) = delete;
-
-    // Безблокувальне додавання вузла до списку
-    void register_subsystem(SubsystemNode* node) noexcept {
-        if (!node) return;
-
-        SubsystemNode* current_head = head_.load(std::memory_order_relaxed);
-        do {
-            node->next = current_head;
-        } while (!head_.compare_exchange_weak(
-            current_head, node,
-            std::memory_order_release,
-            std::memory_order_relaxed
-        ));
-
-        count_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    void start_all() const {
-        SubsystemNode* curr = head_.load(std::memory_order_acquire);
-        while (curr) {
-            if (curr->initialize_fn) {
-                curr->initialize_fn();
-            }
-            curr = curr->next;
-        }
-    }
-
-    [[nodiscard]] size_t size() const noexcept {
-        return count_.load(std::memory_order_relaxed);
-    }
-};
-
-// Глобальний екземпляр реєстру в заголовковому файлі
-inline constinit SubsystemRegistry g_registry{};
-```
+:::code proj-safe-registry/cpp/krok-2-realizatsiia.cpp
 
 Розглянемо ключові деталі цієї реалізації:
 
@@ -154,18 +76,7 @@ inline constinit SubsystemRegistry g_registry{};
 
 Для автоматичного підключення модулів створимо клас-посередник `AutoRegister` та зручний препроцесорний макрос:
 
-```cpp
-class AutoRegister {
-public:
-    AutoRegister(SubsystemNode& node) noexcept {
-        g_registry.register_subsystem(&node);
-    }
-};
-
-#define REGISTER_SUBSYSTEM(name_str, priority_num, init_func) \
-    static SubsystemNode s_node_##init_func{name_str, priority_num, init_func}; \
-    static AutoRegister s_autoreg_##init_func{s_node_##init_func}
-```
+:::code proj-safe-registry/cpp/krok-3-mekhanizm.cpp
 
 Коли розробник пише у вихідному файлі `REGISTER_SUBSYSTEM("AudioEngine", 50, start_audio);`, компілятор створює два статичні об'єкти з внутрішнім зв'язуванням (`internal linkage`):
 
@@ -180,25 +91,7 @@ public:
 
 Створимо потоково-локальний буфер збору статистики за допомогою `constinit thread_local`:
 
-```cpp
-struct ThreadTraceBuffer {
-    static constexpr size_t kCapacity = 128;
-    uint64_t events[kCapacity];
-    size_t write_index;
-    uint32_t thread_id;
-
-    constexpr ThreadTraceBuffer() noexcept
-        : events{}, write_index(0), thread_id(0) {}
-
-    void record_event(uint64_t event_id) noexcept {
-        if (write_index < kCapacity) {
-            events[write_index++] = event_id;
-        }
-    }
-};
-
-constinit thread_local ThreadTraceBuffer t_trace_buffer{};
-```
+:::code proj-safe-registry/cpp/krok-4-potokovo-lokalnyi.cpp
 
 Застосування `constinit` у поєднанні з `thread_local` забезпечує фундаментальну оптимізацію:
 
@@ -213,135 +106,7 @@ constinit thread_local ThreadTraceBuffer t_trace_buffer{};
 
 Нижче наведено повний автономний код модульної системи, що об'єднує реєстрацію трьох незалежних підсистем (керування пам'яттю, мережевий стек, аудіосистема) та багатопотоковий збір подій:
 
-```cpp
-#include <iostream>
-#include <string_view>
-#include <atomic>
-#include <thread>
-#include <vector>
-
-// ── Оголошення структур реєстру ─────────────────────────────────────────────
-struct SubsystemNode {
-    std::string_view name;
-    uint32_t priority;
-    void (*initialize_fn)();
-    SubsystemNode* next{nullptr};
-
-    constexpr SubsystemNode(std::string_view n, uint32_t p, void (*init)()) noexcept
-        : name(n), priority(p), initialize_fn(init), next(nullptr) {}
-};
-
-class SubsystemRegistry {
-private:
-    std::atomic<SubsystemNode*> head_{nullptr};
-    std::atomic<size_t> count_{0};
-
-public:
-    constexpr SubsystemRegistry() noexcept : head_(nullptr), count_(0) {}
-
-    void register_subsystem(SubsystemNode* node) noexcept {
-        if (!node) return;
-        SubsystemNode* current_head = head_.load(std::memory_order_relaxed);
-        do {
-            node->next = current_head;
-        } while (!head_.compare_exchange_weak(
-            current_head, node,
-            std::memory_order_release,
-            std::memory_order_relaxed
-        ));
-        count_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    void start_all() const {
-        SubsystemNode* curr = head_.load(std::memory_order_acquire);
-        while (curr) {
-            std::cout << "[Реєстр] Ініціалізація підсистеми: " << curr->name 
-                      << " (пріоритет: " << curr->priority << ")\n";
-            if (curr->initialize_fn) {
-                curr->initialize_fn();
-            }
-            curr = curr->next;
-        }
-    }
-
-    [[nodiscard]] size_t size() const noexcept {
-        return count_.load(std::memory_order_relaxed);
-    }
-};
-
-// Єдиний екземпляр реєстру, доступний для всіх модулів
-inline constinit SubsystemRegistry g_registry{};
-
-class AutoRegister {
-public:
-    AutoRegister(SubsystemNode& node) noexcept {
-        g_registry.register_subsystem(&node);
-    }
-};
-
-// ── Модуль 1: Драйвер пам'яті (імітація memory_subsystem.cpp) ────────────────
-void init_memory() {
-    std::cout << "  -> [Memory] Менеджер віртуальної пам'яті активовано.\n";
-}
-static SubsystemNode s_mem_node{"VirtualMemoryManager", 100, init_memory};
-static AutoRegister s_mem_reg{s_mem_node};
-
-// ── Модуль 2: Мережевий стек (імітація network_subsystem.cpp) ────────────────
-void init_network() {
-    std::cout << "  -> [Network] Мережевий стек готовий приймати пакети.\n";
-}
-static SubsystemNode s_net_node{"NetworkStack", 200, init_network};
-static AutoRegister s_net_reg{s_net_node};
-
-// ── Модуль 3: Аудіо підсистема (імітація audio_subsystem.cpp) ────────────────
-void init_audio() {
-    std::cout << "  -> [Audio] Аудіо підсистему синхронізовано з апаратним кодеком.\n";
-}
-static SubsystemNode s_audio_node{"AudioEngine", 50, init_audio};
-static AutoRegister s_audio_reg{s_audio_node};
-
-// ── Потоковий трекер подій ──────────────────────────────────────────────────
-struct WorkerStats {
-    uint64_t tasks_processed{0};
-    constexpr WorkerStats() noexcept = default;
-};
-
-constinit thread_local WorkerStats t_stats{};
-
-void worker_thread_task(int thread_id) {
-    for (int i = 0; i < 10000; ++i) {
-        t_stats.tasks_processed++;
-    }
-    std::cout << "[Потік " << thread_id << "] Оброблено задач: " 
-              << t_stats.tasks_processed << "\n";
-}
-
-// ── Точка входу в програму ─────────────────────────────────────────────────
-int main() {
-    std::cout << "=== Запуск програми ===\n";
-    std::cout << "Кількість модулів, зареєстрованих до входу в main(): " 
-              << g_registry.size() << "\n\n";
-
-    // Старт усіх зареєстрованих компонентів
-    g_registry.start_all();
-    std::cout << "\n";
-
-    // Створення пулу потоків
-    std::vector<std::jthread> workers;
-    for (int i = 1; i <= 3; ++i) {
-        workers.emplace_back(worker_thread_task, i);
-    }
-
-    for (auto& w : workers) {
-        if (w.joinable()) {
-            w.join();
-        }
-    }
-
-    std::cout << "\n=== Програму успішно завершено без SIOF та витоків пам'яті ===\n";
-    return 0;
-}
-```
+:::code proj-safe-registry/cpp/krok-5-povnyi-robochyi.cpp
 
 ## Модель пам'яті та апаратна синхронізація
 
@@ -412,20 +177,7 @@ testq   %rax, %rax
 
 ### Звернення через синглтон Мейєрса:
 
-```nasm
-; Звернення до Meyers' Singleton get_registry():
-movzbl  guard_variable_for_get_registry(%rip), %eax ; Перевірка байта захисту
-testb   %al, %al
-jne     .L_already_inited                           ; Швидкий перехід, якщо вже ініціалізовано
-leaq    guard_variable_for_get_registry(%rip), %rdi
-call    __cxa_guard_acquire                         ; Системний виклик блокування
-testl   %eax, %eax
-je      .L_already_inited
-...
-call    __cxa_guard_release                         ; Звільнення блокування
-.L_already_inited:
-movq    instance_memory(%rip), %rax
-```
+:::code proj-safe-registry/asm/main.s
 
 Як бачимо, навіть у гарячому шляху синглтон Мейєрса вимагає читання змінної захисту та умовного переходу, а при першому виклику здійснює два системні виклики функцій бібліотеки підтримки C++ ABI.
 

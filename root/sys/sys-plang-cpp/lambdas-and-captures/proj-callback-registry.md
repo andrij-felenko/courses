@@ -8,40 +8,7 @@
 
 Задача мінімальна: підписатися, відписатися, розіслати. Подія — один структурний тип, обробник — `std::function`, підписка ідентифікується числом.
 
-```cpp
-#include <cstddef>
-#include <functional>
-#include <utility>
-#include <vector>
-
-struct Tick { long long ms; double value; };
-
-class EventBus {
-public:
-    using Handler = std::function<void(const Tick&)>;
-    using Id = std::size_t;
-
-    Id subscribe(Handler h) {
-        const Id id = next_++;
-        slots_.push_back(Slot{id, std::move(h)});
-        return id;
-    }
-
-    void unsubscribe(Id id) {
-        for (std::size_t i = 0; i < slots_.size(); ++i)
-            if (slots_[i].id == id) { slots_.erase(slots_.begin() + i); return; }
-    }
-
-    void publish(const Tick& ev) {
-        for (Slot& s : slots_) s.handler(ev);
-    }
-
-private:
-    struct Slot { Id id; Handler handler; };
-    std::vector<Slot> slots_;
-    Id next_ = 1;
-};
-```
+:::code proj-callback-registry/cpp/reiestr-u-trydtsiat.cpp
 
 Це версія, яку пишуть за п'ять хвилин і яка проходить перший тест. Далі ми знайдемо діру ще й у самому `unsubscribe`, і в `publish`, — але почнімо з тієї, заради якої все затіяно.
 
@@ -65,19 +32,7 @@ private:
 
 Тепер зіштовхнімо часи життя:
 
-```cpp
-#include <cstdio>
-
-int main() {
-    EventBus bus;
-    {
-        Chart chart(bus);
-        bus.publish({1, 0.5});   // усе гаразд: chart живий
-    }                            // ~Chart відпрацював; підписка лишилася в шині
-    bus.publish({2, 0.7});       // this у замиканні вказує в нікуди
-    std::puts("дійшли до кінця");
-}
-```
+:::code proj-callback-registry/cpp/persha-pidpyska-i-persha.cpp
 
 Другий `publish` викликає обробник, обробник кличе `push` за мертвим `this`, `push` дописує число у `data_` — вектор, чий буфер уже повернуто алокатору. Це [невизначена поведінка](root:sf-lang/undefined-behavior) чистої води: [висяче посилання](root:sys-plang-cpp/dangling-references), просто заховане в полі об'єкта, куди ніхто не заглядає.
 
@@ -109,18 +64,7 @@ void watchThreshold(EventBus& bus) {
 
 Зробити провал відтворюваним можна дешево: досить забруднити пам'ять між смертю власника й розсилкою.
 
-```cpp
-void clobberStack() {
-    volatile char noise[1024];
-    for (int i = 0; i < 1024; ++i) noise[i] = char(0xA5);
-}
-
-void reproduce(EventBus& bus) {
-    watchThreshold(bus);
-    clobberStack();          // кадр watchThreshold перезаписано
-    bus.publish({3, 9.9});   // порівняння зі сміттям, інкремент у чужий байт
-}
-```
+:::code proj-callback-registry/cpp/chomu-tse-pratsiuie-na.cpp
 
 Чесний інструмент тут один — [санітайзери пам'яті](root:sf-release/address-sanitizer): збірка з `-fsanitize=address` ловить звернення до звільненої купи одразу й друкує обидва стеки — де звільнили і де звернулися. Для випадку зі стеком потрібен ще й ключ середовища `ASAN_OPTIONS=detect_stack_use_after_return=1`: перевірка коштує пам'яті й часу, тому вмикається окремо (на Linux у свіжих clang вона типово ввімкнена, покладатися на це між платформами не варто).
 
@@ -132,19 +76,7 @@ void reproduce(EventBus& bus) {
 
 Наївний варіант із `[&]` переписується так:
 
-```cpp
-#include <memory>
-
-struct Stats { double threshold; int hits; };
-
-std::shared_ptr<Stats> watchThreshold(EventBus& bus) {
-    auto st = std::make_shared<Stats>(Stats{3.5, 0});
-    bus.subscribe([st](const Tick& ev) {          // замикання володіє станом
-        if (ev.value > st->threshold) ++st->hits;
-    });
-    return st;                                    // той, хто підписав, читає ті самі лічильники
-}
-```
+:::code proj-callback-registry/cpp/vypravlennia-pershe.cpp
 
 Зверніть увагу, що змінилося не тільки захоплення. Посилальний варіант був спокусливий саме тим, що результат лишався «тут», у локальних змінних. Коли замикання стає власником, стан мусить переїхати в спільне місце — і хтось має його повернути назовні. Володіння не безкоштовне з погляду будови коду: ви більше не можете писати в локальну змінну з обробника, ви пишете у спільний об'єкт.
 
@@ -165,26 +97,7 @@ EventBus::Id logToFile(EventBus& bus, std::string path) {
 
 Копіювати стан добре, поки стану мало. Коли обробник має викликати **метод** живого об'єкта — а це типова ситуація в інтерфейсному й мережевому коді, — копія не годиться: потрібен саме той екземпляр, а не його двійник. Тут працює [слабке посилання](root:sys-plang-cpp/shared-weak-ptr): замикання тримає не адресу, а квиток, за яким можна спробувати отримати володіння й дізнатися, чи є ще кого тримати.
 
-```cpp
-class Chart : public std::enable_shared_from_this<Chart> {
-public:
-    static std::shared_ptr<Chart> create() { return std::shared_ptr<Chart>(new Chart); }
-
-    void attach(EventBus& bus) {
-        std::weak_ptr<Chart> weak = weak_from_this();
-        bus.subscribe([weak](const Tick& ev) {
-            if (std::shared_ptr<Chart> live = weak.lock())
-                live->push(ev.value);
-        });
-    }
-
-    void push(double v) { data_.push_back(v); }
-
-private:
-    Chart() = default;
-    std::vector<double> data_;
-};
-```
+:::code proj-callback-registry/cpp/vypravlennia-druhe-slabke.cpp
 
 Підписка виконується в окремому `attach`, а не в конструкторі, і це не примха. `shared_from_this()` вимагає, щоб на об'єкт уже існував `shared_ptr`; у конструкторі його ще немає, і з C++17 виклик кидає `std::bad_weak_ptr` (до C++17 це була невизначена поведінка). `weak_from_this()`, доданий у C++17, не кидає — але в конструкторі поверне порожнє слабке посилання, з якого `lock()` ніколи нічого не дасть. Тому конструктор ховають, а об'єкт видають фабрикою; підписка — окремим кроком, коли `shared_ptr` уже існує.
 
@@ -196,43 +109,7 @@ private:
 
 Ідея [RAII](root:sf-lang/raii) тут застосовується дослівно: підписка — це ресурс, отриманий при створенні об'єкта, і звільнити його має деструктор.
 
-```cpp
-class Subscription {
-public:
-    Subscription() = default;
-    Subscription(EventBus& bus, EventBus::Id id) : bus_(&bus), id_(id) {}
-
-    Subscription(const Subscription&) = delete;
-    Subscription& operator=(const Subscription&) = delete;
-
-    Subscription(Subscription&& other) noexcept
-        : bus_(other.bus_), id_(other.id_) { other.bus_ = nullptr; }
-
-    Subscription& operator=(Subscription&& other) noexcept {
-        if (this != &other) {
-            reset();
-            bus_ = other.bus_;
-            id_  = other.id_;
-            other.bus_ = nullptr;
-        }
-        return *this;
-    }
-
-    ~Subscription() { reset(); }
-
-    void reset() {
-        if (bus_) { bus_->unsubscribe(id_); bus_ = nullptr; }
-    }
-
-private:
-    EventBus* bus_ = nullptr;
-    EventBus::Id id_ = 0;
-};
-
-inline Subscription EventBus::connect(Handler h) {
-    return Subscription(*this, subscribe(std::move(h)));
-}
-```
+:::code proj-callback-registry/cpp/token-vidpysky-raii-na.cpp
 
 Копіювання заборонено, переміщення дозволено — інакше два токени зняли б один слот двічі. Це [правило п'яти](root:sys-plang-cpp/rule-of-five-zero) у чистому вигляді: щойно клас відповідає за звільнення ресурсу, він мусить сказати, що робити з копією й переміщенням. Переміщений токен лишається з `bus_ == nullptr` і в деструкторі не робить нічого.
 
@@ -240,22 +117,7 @@ inline Subscription EventBus::connect(Handler h) {
 
 Тепер підписник із попереднього розділу дописується одним полем і одним знаком рівності:
 
-```cpp
-class Chart : public std::enable_shared_from_this<Chart> {
-public:
-    // …
-    void attach(EventBus& bus) {
-        std::weak_ptr<Chart> weak = weak_from_this();
-        sub_ = bus.connect([weak](const Tick& ev) {
-            if (std::shared_ptr<Chart> live = weak.lock())
-                live->push(ev.value);
-        });
-    }
-private:
-    std::vector<double> data_;
-    Subscription sub_;      // ~Chart зніме слот
-};
-```
+:::code proj-callback-registry/cpp/token-vidpysky-raii-na-2.cpp
 
 Тут напрошується питання: якщо токен і так знімає слот у деструкторі, навіщо ще й `weak_ptr`? В однонитковому реєстрі з негайною розсилкою — справді ні до чого, вистачить токена. Слабке посилання потрібне рівно в двох випадках: коли розсилка йде з іншої нитки, ніж знищення підписника, і коли шина не викликає обробники одразу, а складає події в чергу. В обох ситуаціях між «відписалися» й «обробник уже почав виконуватися» є щілина, яку токен закрити не може.
 
@@ -273,62 +135,7 @@ bus.unsubscribe(myId);   // з тіла обробника, який зараз 
 
 Виправлення розділяє два поняття, які легко сплутати: **зняти слот** і **знищити обробник**. Зняття — це позначка, знищення — окрема операція після розсилки.
 
-```cpp
-#include <algorithm>   // std::remove_if
-
-class Subscription;    // повне визначення — нижче
-
-class EventBus {
-public:
-    using Handler = std::function<void(const Tick&)>;
-    using Id = std::size_t;
-
-    Id subscribe(Handler h) {
-        const Id id = next_++;
-        std::vector<Slot>& target = (depth_ == 0) ? slots_ : pending_;
-        target.push_back(Slot{id, true, std::move(h)});
-        return id;
-    }
-
-    void unsubscribe(Id id) {
-        if (!markDead(slots_, id)) markDead(pending_, id);
-        if (depth_ == 0) flush();
-    }
-
-    void publish(const Tick& ev) {
-        ++depth_;
-        const std::size_t n = slots_.size();   // підписки, створені зараз, чекають наступної події
-        for (std::size_t i = 0; i < n; ++i)
-            if (slots_[i].alive) slots_[i].handler(ev);
-        if (--depth_ == 0) flush();
-    }
-
-    [[nodiscard]] Subscription connect(Handler h);
-
-private:
-    struct Slot { Id id; bool alive; Handler handler; };
-
-    static bool markDead(std::vector<Slot>& v, Id id) {
-        for (Slot& s : v)
-            if (s.id == id && s.alive) { s.alive = false; return true; }
-        return false;
-    }
-
-    void flush() {
-        slots_.erase(std::remove_if(slots_.begin(), slots_.end(),
-                                    [](const Slot& s) { return !s.alive; }),
-                     slots_.end());
-        for (Slot& s : pending_)
-            if (s.alive) slots_.push_back(std::move(s));
-        pending_.clear();
-    }
-
-    std::vector<Slot> slots_;
-    std::vector<Slot> pending_;
-    Id next_ = 1;
-    int depth_ = 0;
-};
-```
+:::code proj-callback-registry/cpp/pastka-persha-samovidpyska.cpp
 
 Три речі тримають цю версію купи. По-перше, під час розсилки `slots_` не змінює розміру: нові підписки йдуть у `pending_`, зняті лише міняють прапорець. Тому `slots_[i]` лишається дійсним посиланням на весь час виклику. По-друге, обхід іде до знімка `n`, а не до поточного розміру, — обробник, підписаний під час розсилки, не отримає ту саму подію, що його породила (інакше легко написати нескінченний цикл). По-третє, лічильник `depth_` враховує вкладені `publish`: чистка відбувається один раз, коли розсилка справді закінчилася.
 

@@ -49,20 +49,7 @@
 
 Стандарт мови C++ визначає дві форми синтаксису: одиничне оголошення та блокову директиву зв'язування.
 
-```cpp
-// Одиничне оголошення функції з C-зв'язуванням
-extern "C" int crypto_calculate_hash(const char* data, size_t len);
-
-// Одиничне оголошення глобальної змінної
-extern "C" int g_crypto_active_sessions;
-
-// Блокова специфікація зв'язування
-extern "C" {
-    int  crypto_engine_init(const char* config_json);
-    int  crypto_engine_process(const uint8_t* in, uint8_t* out, size_t len);
-    void crypto_engine_shutdown(void);
-}
-```
+:::code extern-c-interop-d/cpp/syntaksys-spetsyfikatsii.hpp
 
 Всередині блоку `extern "C" { ... }` діють фундаментальні семантичні правила:
 
@@ -114,29 +101,7 @@ typedef void (*cpp_signal_handler_t)(int);
 
 Компілятор C++ завжди визначає макрос `__cplusplus`, тоді як компілятор чистого C цього макроса не має. Оскільки компілятор C не підтримує ключове слово `extern "C"` і зупиниться з синтаксичною помилкою, специфікація обов'язково ізолюється директивами умовної компіляції:
 
-```cpp
-#ifndef ENGINE_API_H
-#define ENGINE_API_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Оголошення C-сумісних типів та сигнатур функцій */
-typedef struct engine_t engine_t;
-
-int  engine_init(engine_t** out_engine, const char* config);
-void engine_release(engine_t* engine);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* ENGINE_API_H */
-```
+:::code extern-c-interop-d/cpp/idioma-dvomovnykh.hpp
 
 ### Препроцесорна поведінка для двох компіляторів
 
@@ -157,18 +122,7 @@ void engine_release(engine_t* engine);
 1. **Заборона включення C++ заголовків усередині `extern "C"`.** Якщо помістити директиву `#include <vector>` або `#include <string>` всередину блоку `extern "C" { ... }`, усі шаблони та перевантажені оператори стандартної бібліотеки C++ отримають C-linkage. Компілятор спробує вимкнути манглінг для шаблонів і зупинить збирання сотнями помилок про неможливість перевантаження функцій.
 2. **Розміщення стандартних C-заголовків.** Усі стандартні заголовки (`<stddef.h>`, `<stdint.h>`, `<stdbool.h>`) повинні включатися **до** відкриття блоку `extern "C"`, або перебувати за межами умовних охоронних блоків.
 3. **Зручні C++ обгортки всередині двомовного заголовка.** Якщо заголовок використовується розробниками на C++, у ньому можна надати додаткові inline-обгортки на основі шаблонів або RAII, сховані під `#ifdef __cplusplus`:
-```cpp
-#ifdef __cplusplus
-// Допоміжна inline C++ функція, невидима для C-компілятора
-inline std::unique_ptr<engine_t, void(*)(engine_t*)> make_scoped_engine(const char* cfg) {
-    engine_t* ptr = nullptr;
-    if (engine_init(&ptr, cfg) == 0 && ptr) {
-        return { ptr, engine_release };
-    }
-    return { nullptr, engine_release };
-}
-#endif
-```
+:::code extern-c-interop-d/cpp/pravyla-hihiieny-spilnykh.cpp
 
 ## Проектування C-API для бібліотек на C++: патерн Opaque Handle
 
@@ -205,31 +159,7 @@ void engine_destroy(engine_t* engine);
 
 3. **Повне визначення структури у C++ файлі реалізації:**
    У закритому файлі `.cpp` структура визначається повністю. Вона містить екземпляр реального C++ класу, загорнутий у розумний покажчик:
-```cpp
-/* Файл реалізації engine.cpp */
-#include "engine_api.h"
-#include <memory>
-#include <vector>
-#include <string>
-
-class EngineCore {
-public:
-    explicit EngineCore(std::string name) : name_(std::move(name)) {
-        buffer_.reserve(4096);
-    }
-    void process(const uint8_t* data, size_t len) {
-        // Складна внутрішня C++ логіка
-    }
-private:
-    std::string name_;
-    std::vector<uint8_t> buffer_;
-};
-
-// Повне визначення структури дескриптора
-struct engine_t {
-    std::unique_ptr<EngineCore> core;
-};
-```
+:::code extern-c-interop-d/cpp/engine.cpp
 
 ### Захист від змішування алокаторів пам'яті
 
@@ -243,23 +173,7 @@ engine_create(&handle, "AES");
 /* ... робота ... */
 free(handle); /* Фатальна помилка: не викликаються деструктори C++ */
 ```
-```cpp
-// Коректний C++ код: автоматичне керування через RAII-делетер
-struct EngineDeleter {
-    void operator()(engine_t* ptr) const noexcept {
-        engine_destroy(ptr);
-    }
-};
-
-using ScopedEngine = std::unique_ptr<engine_t, EngineDeleter>;
-
-void run() {
-    engine_t* raw = nullptr;
-    engine_create(&raw, "AES");
-    ScopedEngine handle(raw);
-    // engine_destroy викличеться автоматично наприкінці області видимості
-}
-```
+:::code extern-c-interop-d/cpp/zakhyst-vid-zmishuvannia.cpp
 :::
 
 Якщо пам'ять для екземпляра була виділена всередині бібліотеки через C++ оператор `new` (або `std::make_unique`), а клієнтський додаток викликає функцію `free()` з системної бібліотеки `libc`, виникають фатальні наслідки:
@@ -268,18 +182,7 @@ void run() {
 
 Звільнення дескриптора зобов'язане відбуватися виключно через фабричну функцію `engine_destroy`:
 
-```cpp
-extern "C" void engine_destroy(engine_t* engine) {
-    if (!engine) return;
-    try {
-        // Відновлюємо володіння через unique_ptr:
-        // оператор delete викличе деструктори EngineCore та його полів
-        std::unique_ptr<engine_t> cleaner(engine);
-    } catch (...) {
-        // Захист межі C-ABI
-    }
-}
-```
+:::code extern-c-interop-d/cpp/zakhyst-vid-zmishuvannia-2.cpp
 
 ## Бар'єр винятків (Exception Barrier)
 
@@ -293,48 +196,13 @@ extern "C" void engine_destroy(engine_t* engine) {
 
 Кожна публічна функція C-API зобов'язана встановлювати абсолютний **бар'єр винятків** (англ. *Exception Barrier*). Жоден виняток C++ не повинен покинути межі функції: усі винятки перехоплюються за допомогою суцільного блоку `try { ... } catch (...)` та транслюються у стандартизовані коди повернення:
 
-```cpp
-extern "C" int engine_process(engine_t* engine, const uint8_t* in, size_t len) noexcept {
-    if (!engine || !engine->core || !in) {
-        set_thread_local_error("Недійсний нульовий покажчик аргументу");
-        return -1; // INVALID_ARGUMENT
-    }
-
-    try {
-        engine->core->process(in, len);
-        return 0; // SUCCESS
-    } catch (const std::invalid_argument& e) {
-        set_thread_local_error(e.what());
-        return -1; // INVALID_ARGUMENT
-    } catch (const std::bad_alloc& e) {
-        set_thread_local_error(e.what());
-        return -2; // OUT_OF_MEMORY
-    } catch (const std::exception& e) {
-        set_thread_local_error(e.what());
-        return -3; // RUNTIME_ERROR
-    } catch (...) {
-        set_thread_local_error("Невідомий критичний системний виняток C++");
-        return -4; // UNKNOWN_ERROR
-    }
-}
-```
+:::code extern-c-interop-d/cpp/patern-exception-barrier.cpp
 
 ### Потокобезпечна передача діагностики (Thread-Local Error Reporting)
 
 Щоб клієнт не втрачав детального текстового опису проблеми (`e.what()`), бібліотека організовує потоколокальне сховище повідомлень за аналогією з функцією `GetLastError` у Win32 API або `strerror` у POSIX:
 
-```cpp
-/* Потоколокальний буфер останньої помилки */
-thread_local std::string g_last_error_buffer;
-
-static void set_thread_local_error(const std::string& msg) noexcept {
-    g_last_error_buffer = msg;
-}
-
-extern "C" const char* engine_get_last_error(void) {
-    return g_last_error_buffer.c_str();
-}
-```
+:::code extern-c-interop-d/cpp/potokobezpechna-peredacha.cpp
 
 Оскільки змінна оголошена зі специфікатором `thread_local`, кожен потік операційної системи має власний ізольований буфер. Якщо один потік отримує помилку `OUT_OF_MEMORY`, а інший паралельно виконує успішні запити, їхні діагностичні повідомлення ніколи не перетинаються і не потребують синхронізації через м'ютекси.
 
@@ -349,20 +217,7 @@ extern "C" const char* engine_get_last_error(void) {
 
 Для безпечної передачі через двійкову межу C-ABI структура зобов'язана мати **стандартне розміщення** (`std::is_standard_layout_v<T> == true`).
 
-```cpp
-#include <type_traits>
-#include <cstdint>
-
-struct TelemetryPacket {
-    uint32_t device_id;
-    float    voltage;
-    float    current;
-    uint64_t timestamp_us;
-};
-
-static_assert(std::is_standard_layout_v<TelemetryPacket>, 
-              "TelemetryPacket повинен мати Standard Layout для сумісності з C!");
-```
+:::code extern-c-interop-d/cpp/sumisnist-struktur-danykh.cpp
 
 ### Формальні вимоги до Standard Layout типів:
 1. **Єдиний контроль доступу.** Усі нестатичні члени мають однаковий специфікатор доступу (виключно `public` для структур C-API).
@@ -442,85 +297,8 @@ typedef void (*stream_callback_t)(const uint8_t* chunk, size_t size, void* user_
 Нижче наведено порівняння реалізації реєстрації зворотного виклику з боку клієнта на чистому C та з боку ідіоматичного C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-/* Оголошення C-API */
-typedef void (*data_ready_cb)(const uint8_t* data, size_t len, void* user_data);
-void stream_register_handler(data_ready_cb cb, void* user_data);
-
-/* Структура користувацького контексту в C-коді */
-typedef struct ConsumerContext {
-    size_t total_received;
-    FILE*  log_file;
-} ConsumerContext;
-
-/* Звичайна C-функція зворотного виклику */
-static void on_data_chunk(const uint8_t* data, size_t len, void* user_data) {
-    ConsumerContext* ctx = (ConsumerContext*)user_data;
-    if (ctx && data) {
-        ctx->total_received += len;
-        fprintf(ctx->log_file, "Отримано %zu байтів (разом: %zu)\n", len, ctx->total_received);
-    }
-}
-
-int main(void) {
-    ConsumerContext app_state;
-    app_state.total_received = 0;
-    app_state.log_file = stdout;
-
-    /* Реєструємо функцію та покажчик на стан */
-    stream_register_handler(on_data_chunk, &app_state);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-#include <memory>
-#include <cstdint>
-
-/* Оголошення зовнішнього C-API */
-extern "C" {
-    typedef void (*data_ready_cb)(const uint8_t* data, size_t len, void* user_data);
-    void stream_register_handler(data_ready_cb cb, void* user_data);
-}
-
-// C++ клас-обробник подій
-class NetworkReceiver {
-public:
-    void handle_chunk(std::span<const uint8_t> buffer) {
-        bytes_accumulated_ += buffer.size();
-        std::cout << "[C++ Handler] Отримано чанк: " << buffer.size() 
-                  << " байтів (сумарно: " << bytes_accumulated_ << ")\n";
-    }
-
-    void subscribe_to_stream() {
-        // Статичний трамплін: C calling convention, без захоплення стану
-        auto trampoline = [](const uint8_t* data, size_t len, void* user_data) noexcept {
-            auto* self = static_cast<NetworkReceiver*>(user_data);
-            if (self && data) {
-                self->handle_chunk(std::span<const uint8_t>(data, len));
-            }
-        };
-
-        // Реєстрація: передаємо статичну функцію-трамплін та покажчик this
-        stream_register_handler(trampoline, this);
-    }
-
-private:
-    size_t bytes_accumulated_{0};
-};
-
-int main() {
-    NetworkReceiver receiver;
-    receiver.subscribe_to_stream();
-    return 0;
-}
-```
+:::code extern-c-interop-d/c/main.c
+:::code extern-c-interop-d/cpp/patern-trampoline.cpp
 :::
 
 Повний наскрізний приклад проектування промислового C-API для C++ бібліотеки (із власними делетерами `std::unique_ptr`, конфігурацією збирання CMake та багатомовними біндінгами для Rust і Python) наведено у [практичній реалізації стабільного C-API](root:sys-plang-cpp/extern-c-interop/proj-c-wrapper.md).

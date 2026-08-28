@@ -30,18 +30,7 @@
 
 Концептуально макет пам'яті `std::optional<T>` можна уявити наступною структурою:
 
-```cpp
-template <typename T>
-class optional {
-private:
-    union {
-        char dummy; // Активний член, коли optional порожній (нічого не конструюється)
-        T    value; // Активний член, коли optional заповнений
-    } storage;
-
-    bool m_has_value; // Прапорець стану: true = заповнений, false = порожній
-};
-```
+:::code optional-d/cpp/2-anatomiia-maketu-pamiati.cpp
 
 Оскільки союз (`union`) не викликає конструктори своїх членів автоматично при створенні самого союзу, `std::optional` отримує можливість точного контролю над часом життя об'єкта `T`.
 
@@ -102,25 +91,7 @@ if (m_has_value) {
 
 Реалізація цього механізму у бібліотеках libstdc++ та MSVC STL досягається за допомогою часткової спеціалізації базових метапрограмувальних класів `std::_Optional_base`:
 
-```cpp
-// Концептуальна реалізація умовного деструктора у бібліотеці STL
-template <typename T, bool = std::is_trivially_destructible_v<T>>
-struct _Optional_destruct_base {
-    // Нетривіальний деструктор для типів із власними ресурсами
-    ~_Optional_destruct_base() {
-        if (this->_M_has_value) {
-            this->_M_payload.~T();
-        }
-    }
-};
-
-// Спеціалізація для тривіальних типів (int, double, просто структури)
-template <typename T>
-struct _Optional_destruct_base<T, true> {
-    // Тривіальний деструктор за замовчуванням = default!
-    ~_Optional_destruct_base() = default;
-};
-```
+:::code optional-d/cpp/metaprohramuvannia-ta.cpp
 
 Аналогічна метапрограмувальна ієрархія будується для конструктора копіювання `_Optional_copy_base`, конструктора переміщення `_Optional_move_base` та операторів присвоєння.
 
@@ -200,19 +171,7 @@ std::optional<std::vector<int>> opt(std::in_place, {1, 2, 3, 4, 5});
 
 У стандартах C++17/C++20 обробка послідовності функцій, кожна з яких може повернути `std::optional`, вимагала написання виснажливих вкладених умовних гілок:
 
-```cpp
-// Підхід C++17: виснажлива драбина з вкладених if
-std::optional<User> user = find_user(user_id);
-if (user) {
-    std::optional<Config> config = load_config(*user);
-    if (config) {
-        std::optional<Session> session = start_session(*config);
-        if (session) {
-            session->run();
-        }
-    }
-}
-```
+:::code optional-d/cpp/5-monadychni-operatsii-u-c.cpp
 
 Цей паттерн відомий як «драбина піраміди жаху» (англ. *pyramid of doom*). Вона ускладнює читання коду, збільшує цикломатичну складність та створює ризик пропустити перевірку на одному з рівнів.
 
@@ -275,19 +234,7 @@ find_user(user_id)
 
 Спеціалізація `std::optional<bool>` створює тип, що має **три можливі стани**: `true`, `false` та `std::nullopt`. Головна пастка полягає у використанні об'єкта в умовних операторах `if`:
 
-```cpp
-std::optional<bool> opt_flag = false;
-
-// ПАСТКА! Неявне зведення до bool перевіряє has_value(), а не значення усередині!
-if (opt_flag) {
-    // Цей блок ВИКОНАЄТЬСЯ, тому що opt_flag МІСТИТЬ значення (нехай і false!)
-}
-
-// Коректна перевірка значення усередині optional<bool>:
-if (opt_flag.value_or(false)) {
-    // Виконається лише тоді, коли opt_flag заповнений І дорівнює true
-}
-```
+:::code optional-d/cpp/pastka-std-optional-bool.cpp
 
 Неявне перетворення `explicit operator bool()` перевіряє лише наявність значення (`has_value()`). Тому `std::optional<bool>`, який містить `false`, перетворюється на значення `true` під час умовного аналізу `if (opt_flag)`.
 

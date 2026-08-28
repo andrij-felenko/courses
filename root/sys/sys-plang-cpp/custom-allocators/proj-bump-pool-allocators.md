@@ -26,79 +26,7 @@ aligned_offset = (offset + alignment - 1) & ~(alignment - 1)
 
 Клас `Arena` інкапсулює володіння виділеним масивом байтів, контролює межі пам'яті та забезпечує метод миттєвого скидання `reset()`.
 
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <new>
-#include <utility>
-#include <memory>
-#include <vector>
-#include <iostream>
-
-class Arena {
-public:
-    explicit Arena(std::size_t capacity)
-        : capacity_(capacity),
-          buffer_(static_cast<std::byte*>(::operator new(capacity, std::align_val_t{alignof(std::max_align_t)}))),
-          offset_(0) {}
-
-    ~Arena() {
-        ::operator delete(buffer_, std::align_val_t{alignof(std::max_align_t)});
-    }
-
-    Arena(const Arena&) = delete;
-    Arena& operator=(const Arena&) = delete;
-
-    Arena(Arena&& other) noexcept
-        : capacity_(other.capacity_),
-          buffer_(other.buffer_),
-          offset_(other.offset_) {
-        other.buffer_ = nullptr;
-        other.capacity_ = 0;
-        other.offset_ = 0;
-    }
-
-    Arena& operator=(Arena&& other) noexcept {
-        if (this != &other) {
-            ::operator delete(buffer_, std::align_val_t{alignof(std::max_align_t)});
-            capacity_ = other.capacity_;
-            buffer_ = other.buffer_;
-            offset_ = other.offset_;
-            other.buffer_ = nullptr;
-            other.capacity_ = 0;
-            other.offset_ = 0;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] void* allocate(std::size_t bytes, std::size_t alignment) {
-        std::size_t aligned_offset = (offset_ + alignment - 1) & ~(alignment - 1);
-
-        if (aligned_offset + bytes > capacity_) {
-            throw std::bad_alloc();
-        }
-
-        offset_ = aligned_offset + bytes;
-        return buffer_ + aligned_offset;
-    }
-
-    void deallocate(void* /*p*/, std::size_t /*bytes*/) noexcept {
-        // Лінійна арена не підтримує поштучне звільнення
-    }
-
-    void reset() noexcept {
-        offset_ = 0;
-    }
-
-    [[nodiscard]] std::size_t used_bytes() const noexcept { return offset_; }
-    [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
-
-private:
-    std::size_t capacity_;
-    std::byte* buffer_;
-    std::size_t offset_;
-};
-```
+:::code proj-bump-pool-allocators/cpp/klas-syroi-areny-arena.cpp
 
 ### Шаблонний адаптер `ArenaAllocator<T>`
 
@@ -109,42 +37,7 @@ private:
 2. **Конструктор переприв'язки типів (Rebind Constructor):** Шаблонний конструктор `template <typename U> ArenaAllocator(const ArenaAllocator<U>& other)` є критично важливим для контейнерів STL. Коли ви створюєте `std::list<int, ArenaAllocator<int>>`, список змушений створити внутрішній екземпляр алокатора `ArenaAllocator<ListNode<int>>` шляхом копіювання вашого алокатора. Без цього шаблонного конструктора компіляція контейнера завершиться помилкою.
 3. **Семантика рівності алокаторів:** Два екземпляри `ArenaAllocator` вважаються рівними тоді й лише тоді, коли вони вказують на один і той самий об'єкт `Arena`. Це гарантує коректну роботу операцій `std::vector::swap` та `std::move` за константний час `O(1)`.
 
-```cpp
-template <typename T>
-class ArenaAllocator {
-public:
-    using value_type = T;
-
-    explicit ArenaAllocator(Arena& arena) noexcept : arena_(&arena) {}
-
-    template <typename U>
-    ArenaAllocator(const ArenaAllocator<U>& other) noexcept : arena_(other.arena_) {}
-
-    [[nodiscard]] T* allocate(std::size_t n) {
-        return static_cast<T*>(arena_->allocate(n * sizeof(T), alignof(T)));
-    }
-
-    void deallocate(T* p, std::size_t n) noexcept {
-        arena_->deallocate(p, n * sizeof(T));
-    }
-
-    template <typename U>
-    bool operator==(const ArenaAllocator<U>& other) const noexcept {
-        return arena_ == other.arena_;
-    }
-
-    template <typename U>
-    bool operator!=(const ArenaAllocator<U>& other) const noexcept {
-        return !(*this == other);
-    }
-
-    template <typename U>
-    friend class ArenaAllocator;
-
-private:
-    Arena* arena_;
-};
-```
+:::code proj-bump-pool-allocators/cpp/shablonnyi-adapter.cpp
 
 ---
 
@@ -177,116 +70,11 @@ stride_ = (std::max(block_size, sizeof(FreeNode*)) + alignment - 1) & ~(alignmen
 
 ### Клас пулу `FixedPool`
 
-```cpp
-class FixedPool {
-private:
-    struct FreeNode {
-        FreeNode* next;
-    };
-
-public:
-    FixedPool(std::size_t block_size, std::size_t block_count, std::size_t alignment)
-        : block_size_(std::max(block_size, sizeof(FreeNode))),
-          block_count_(block_count),
-          alignment_(std::max(alignment, alignof(FreeNode))),
-          free_list_(nullptr) {
-        stride_ = (block_size_ + alignment_ - 1) & ~(alignment_ - 1);
-        buffer_ = static_cast<std::byte*>(::operator new(stride_ * block_count_, std::align_val_t{alignment_}));
-        reset();
-    }
-
-    ~FixedPool() {
-        ::operator delete(buffer_, std::align_val_t{alignment_});
-    }
-
-    FixedPool(const FixedPool&) = delete;
-    FixedPool& operator=(const FixedPool&) = delete;
-
-    [[nodiscard]] void* allocate() {
-        if (!free_list_) {
-            throw std::bad_alloc();
-        }
-        FreeNode* node = free_list_;
-        free_list_ = free_list_->next;
-        allocated_count_++;
-        return static_cast<void*>(node);
-    }
-
-    void deallocate(void* p) noexcept {
-        if (!p) return;
-        FreeNode* node = static_cast<FreeNode*>(p);
-        node->next = free_list_;
-        free_list_ = node;
-        allocated_count_--;
-    }
-
-    void reset() noexcept {
-        free_list_ = nullptr;
-        allocated_count_ = 0;
-        for (std::size_t i = 0; i < block_count_; ++i) {
-            FreeNode* node = reinterpret_cast<FreeNode*>(buffer_ + i * stride_);
-            node->next = free_list_;
-            free_list_ = node;
-        }
-    }
-
-    [[nodiscard]] std::size_t allocated_count() const noexcept { return allocated_count_; }
-    [[nodiscard]] std::size_t block_count() const noexcept { return block_count_; }
-
-private:
-    std::size_t block_size_;
-    std::size_t block_count_;
-    std::size_t alignment_;
-    std::size_t stride_;
-    std::byte* buffer_;
-    FreeNode* free_list_;
-    std::size_t allocated_count_ = 0;
-};
-```
+:::code proj-bump-pool-allocators/cpp/klas-pulu-fixedpool.cpp
 
 ### Адаптер `PoolAllocator<T>`
 
-```cpp
-template <typename T>
-class PoolAllocator {
-public:
-    using value_type = T;
-
-    explicit PoolAllocator(FixedPool& pool) noexcept : pool_(&pool) {}
-
-    template <typename U>
-    PoolAllocator(const PoolAllocator<U>& other) noexcept : pool_(other.pool_) {}
-
-    [[nodiscard]] T* allocate(std::size_t n) {
-        if (n != 1) {
-            throw std::bad_alloc();
-        }
-        return static_cast<T*>(pool_->allocate());
-    }
-
-    void deallocate(T* p, std::size_t n) noexcept {
-        if (n == 1) {
-            pool_->deallocate(p);
-        }
-    }
-
-    template <typename U>
-    bool operator==(const PoolAllocator<U>& other) const noexcept {
-        return pool_ == other.pool_;
-    }
-
-    template <typename U>
-    bool operator!=(const PoolAllocator<U>& other) const noexcept {
-        return !(*this == other);
-    }
-
-    template <typename U>
-    friend class PoolAllocator;
-
-private:
-    FixedPool* pool_;
-};
-```
+:::code proj-bump-pool-allocators/cpp/adapter-poolallocator-t.cpp
 
 ---
 
@@ -294,51 +82,7 @@ private:
 
 Клас `StackBufferResource` реалізує інтерфейс `std::pmr::memory_resource`. Він виділяє пам'ять із локального масиву на стеку розміром `BufferSize`. Якщо стек-буфер заповнюється повністю, ресурс автоматично перенаправляє наступні запити до батьківського upstream-ресурсу (наприклад, системної купи).
 
-```cpp
-#include <memory_resource>
-
-template <std::size_t BufferSize>
-class StackBufferResource : public std::pmr::memory_resource {
-public:
-    explicit StackBufferResource(std::pmr::memory_resource* upstream = std::pmr::get_default_resource())
-        : upstream_(upstream), offset_(0) {}
-
-    ~StackBufferResource() override = default;
-
-    [[nodiscard]] std::size_t bytes_used_on_stack() const noexcept { return offset_; }
-    [[nodiscard]] std::size_t upstream_alloc_count() const noexcept { return upstream_count_; }
-
-protected:
-    void* do_allocate(std::size_t bytes, std::size_t alignment) override {
-        std::size_t aligned_offset = (offset_ + alignment - 1) & ~(alignment - 1);
-
-        if (aligned_offset + bytes <= BufferSize) {
-            offset_ = aligned_offset + bytes;
-            return stack_buffer_ + aligned_offset;
-        }
-
-        upstream_count_++;
-        return upstream_->allocate(bytes, alignment);
-    }
-
-    void do_deallocate(void* p, std::size_t bytes, std::size_t alignment) override {
-        if (p >= stack_buffer_ && p < stack_buffer_ + BufferSize) {
-            return;
-        }
-        upstream_->deallocate(p, bytes, alignment);
-    }
-
-    bool do_is_equal(const std::pmr::memory_resource& other) const noexcept override {
-        return this == &other;
-    }
-
-private:
-    alignas(std::max_align_t) std::byte stack_buffer_[BufferSize];
-    std::pmr::memory_resource* upstream_;
-    std::size_t offset_;
-    std::size_t upstream_count_ = 0;
-};
-```
+:::code proj-bump-pool-allocators/cpp/3-vlasnyi-polimorfnyi.cpp
 
 ---
 
@@ -346,78 +90,7 @@ private:
 
 Нижче наведено повну програму, яка тестує роботу всіх трьох виділювачів пам'яті зі стандартними контейнерами STL:
 
-```cpp
-#include <list>
-#include <chrono>
-
-struct Particle {
-    float x, y, z;
-    float vx, vy, vz;
-    int id;
-
-    Particle(int id_val) : x(0), y(0), z(0), vx(1), vy(1), vz(1), id(id_val) {}
-};
-
-int main() {
-    std::cout << "=== 1. Тестування ArenaAllocator з std::vector ===" << std::endl;
-    {
-        Arena arena(1024 * 1024);
-        ArenaAllocator<Particle> alloc(arena);
-
-        std::vector<Particle, ArenaAllocator<Particle>> particles(alloc);
-        particles.reserve(1000);
-
-        for (int i = 0; i < 1000; ++i) {
-            particles.emplace_back(i);
-        }
-
-        std::cout << "Створено " << particles.size() << " часток.\n";
-        std::cout << "Використано пам'яті в арені: " << arena.used_bytes() << " байтів.\n";
-
-        particles.clear();
-        arena.reset();
-        std::cout << "Після arena.reset() використано: " << arena.used_bytes() << " байтів.\n\n";
-    }
-
-    std::cout << "=== 2. Тестування PoolAllocator з std::list ===" << std::endl;
-    {
-        FixedPool pool(sizeof(Particle) + 2 * sizeof(void*), 500, alignof(std::max_align_t));
-        PoolAllocator<Particle> alloc(pool);
-
-        std::list<Particle, PoolAllocator<Particle>> particle_list(alloc);
-        for (int i = 0; i < 100; ++i) {
-            particle_list.emplace_back(i);
-        }
-
-        std::cout << "Розмір списку: " << particle_list.size() << "\n";
-        std::cout << "Активних слотів у пулі: " << pool.allocated_count() << "\n";
-
-        particle_list.pop_front();
-        particle_list.pop_front();
-        std::cout << "Після видалення 2 вузлів зайнято: " << pool.allocated_count() << " слотів.\n\n";
-    }
-
-    std::cout << "=== 3. Тестування StackBufferResource з std::pmr ===" << std::endl;
-    {
-        StackBufferResource<512> stack_res;
-
-        std::pmr::vector<int> numbers(&stack_res);
-        numbers.reserve(64);
-
-        for (int i = 0; i < 64; ++i) {
-            numbers.push_back(i * 10);
-        }
-
-        std::cout << "Використано на стеку: " << stack_res.bytes_used_on_stack() << " байтів.\n";
-        std::cout << "Звернень до купи: " << stack_res.upstream_alloc_count() << "\n";
-
-        numbers.resize(500);
-        std::cout << "Після resize(500) звернень до купи: " << stack_res.upstream_alloc_count() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-bump-pool-allocators/cpp/4-demonstratsiinyi-stend-i.cpp
 
 ### Порівняльний аналіз профілювання продуктивності
 

@@ -200,21 +200,7 @@ move_if_noexcept(T& x) noexcept { return std::move(x); }
 
 Наслідок для автора класу виходить різкий. Ось два класи, що відрізняються одним словом:
 
-```cpp
-class Slow {                              // без обіцянки
-    std::vector<double> data_;
-public:
-    Slow(Slow&& o) : data_(std::move(o.data_)) {}
-    Slow(const Slow&) = default;
-};
-
-class Fast {                              // з обіцянкою
-    std::vector<double> data_;
-public:
-    Fast(Fast&& o) noexcept : data_(std::move(o.data_)) {}
-    Fast(const Fast&) = default;
-};
-```
+:::code noexcept-d/cpp/main.cpp
 
 Тіла конструкторів переміщення однакові — обидва лише переставляють вказівники всередині `vector` і не звертаються до купи. Але `std::vector<Slow>`, доростаючи до мільйона елементів, **копіюватиме** кожен елемент при кожному перерозподілі, тобто виділятиме мільйон нових масивів `double` і переписуватиме їхній вміст, тоді як `std::vector<Fast>` обійдеться переписуванням вказівників.
 

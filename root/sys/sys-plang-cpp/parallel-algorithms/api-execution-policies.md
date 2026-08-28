@@ -12,21 +12,7 @@
 
 Усі класи політик виконання є типами без власного внутрішнього стану (stateless types). Вони мають загальнодоступні стандартні конструктори за замовчуванням, конструктори копіювання та переміщення, а також деструктори, що гарантовано не викидають винятків (`noexcept`).
 
-```cpp
-namespace std::execution {
-    // 1. Послідовне детерміноване виконання (C++17)
-    class sequenced_policy { /* реалізаційно-визначено */ };
-
-    // 2. Паралельне багатопотокове виконання (C++17)
-    class parallel_policy { /* реалізаційно-визначено */ };
-
-    // 3. Паралельне багатопотокове та векторизоване SIMD-виконання (C++17)
-    class parallel_unsequenced_policy { /* реалізаційно-визначено */ };
-
-    // 4. Однопотокове векторизоване SIMD-виконання (C++20)
-    class unsequenced_policy { /* реалізаційно-визначено */ };
-}
-```
+:::code api-execution-policies/cpp/klasy-polityk-vykonannia.cpp
 
 ### Стандартні глобальні екземпляри об'єктів політик
 
@@ -146,19 +132,7 @@ ForwardIt for_each_n(ExecutionPolicy&& policy, ForwardIt first, Size n, UnaryFun
 #### `std::transform` (Унарна та бінарна форми)
 Трансформує елементи вхідного діапазону та записує результати у вихідний діапазон.
 
-```cpp
-// Унарна трансформація: y[i] = op(x[i])
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class UnaryOperation>
-ForwardIt2 transform(ExecutionPolicy&& policy, 
-                     ForwardIt1 first1, ForwardIt1 last1, 
-                     ForwardIt2 d_first, UnaryOperation unary_op);
-
-// Бінарна трансформація: z[i] = op(x[i], y[i])
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class ForwardIt3, class BinaryOperation>
-ForwardIt3 transform(ExecutionPolicy&& policy, 
-                     ForwardIt1 first1, ForwardIt1 last1, 
-                     ForwardIt2 first2, ForwardIt3 d_first, BinaryOperation binary_op);
-```
+:::code api-execution-policies/cpp/std-transform-unarna-ta.hpp
 - **Контракт безпеки пам'яті:** Вихідний діапазон `[d_first, ...)` не повинен перекриватися з вхідним діапазоном, якщо тільки `d_first == first1` (дозволено трансформацію на місці).
 - **Повертане значення:** Ітератор на кінець вихідного діапазону `d_first + (last1 - first1)`.
 
@@ -199,27 +173,7 @@ void stable_sort(ExecutionPolicy&& policy, RandomAccessIt first, RandomAccessIt 
 
 ### 3. Алгоритми пошуку, підрахунку та предикатної фільтрації
 
-```cpp
-// Пошук першого входження
-template <class ExecutionPolicy, class ForwardIt, class T>
-ForwardIt find(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, const T& value);
-
-// Пошук за предикатом
-template <class ExecutionPolicy, class ForwardIt, class UnaryPredicate>
-ForwardIt find_if(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, UnaryPredicate p);
-
-// Підрахунок елементів
-template <class ExecutionPolicy, class ForwardIt, class UnaryPredicate>
-typename std::iterator_traits<ForwardIt>::difference_type
-count_if(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, UnaryPredicate p);
-
-// Перевірка умов
-template <class ExecutionPolicy, class ForwardIt, class UnaryPredicate>
-bool all_of(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, UnaryPredicate p);
-
-template <class ExecutionPolicy, class ForwardIt, class UnaryPredicate>
-bool any_of(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, UnaryPredicate p);
-```
+:::code api-execution-policies/cpp/3-alhorytmy-poshuku.hpp
 
 ---
 
@@ -231,88 +185,26 @@ bool any_of(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, UnaryPred
 
 Алгоритм `std::reduce` є паралельним еквівалентом `std::accumulate`. Головна відмінність полягає в тому, що порядок групування та виконання операцій є довільним (деревоподібним).
 
-```cpp
-// Сигнатура 1: Сума з нульовим початковим значенням типу елементів
-template <class ExecutionPolicy, class ForwardIt>
-typename std::iterator_traits<ForwardIt>::value_type
-reduce(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last);
-
-// Сигнатура 2: Сума з явним значенням init
-template <class ExecutionPolicy, class ForwardIt, class T>
-T reduce(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, T init);
-
-// Сигнатура 3: Редукція з користувацьким бінарним оператором
-template <class ExecutionPolicy, class ForwardIt, class T, class BinaryOp>
-T reduce(ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, T init, BinaryOp binary_op);
-```
+:::code api-execution-policies/cpp/1-alhorytm-std-reduce.hpp
 - **Математичний контракт:** `binary_op` **зобов'язаний бути асоціативним та комутативним**. Якщо операція порушує асоціативність (наприклад, множення чисел з плаваючою комою у граничних випадках), результат обчислення може коливатися між різними запусками через різний порядок згортання дерева.
 
 ### 2. Алгоритм `std::transform_reduce` (Паралельний Map-Reduce)
 
 Виконує трансформацію вхідних значень і подальше паралельне згортання за один прохід через пам'ять.
 
-```cpp
-// Унарна форма (Map -> Reduce): згортання результатів transform_op(x)
-template <class ExecutionPolicy, class ForwardIt, class T, class BinaryOp, class UnaryOp>
-T transform_reduce(ExecutionPolicy&& policy, 
-                   ForwardIt first, ForwardIt last, 
-                   T init, BinaryOp reduce_op, UnaryOp transform_op);
-
-// Бінарна форма (Скалярний добуток): згортання результатів transform_op(x, y)
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T, class BinaryOp1, class BinaryOp2>
-T transform_reduce(ExecutionPolicy&& policy, 
-                   ForwardIt1 first1, ForwardIt1 last1, 
-                   ForwardIt2 first2, 
-                   T init, BinaryOp1 reduce_op, BinaryOp2 transform_op);
-```
+:::code api-execution-policies/cpp/2-alhorytm-std-transform.hpp
 
 ### 3. Префіксне сканування: `std::inclusive_scan` та `std::exclusive_scan`
 
 Префіксне сканування (паралельна префіксна сума) перетворює масив значень на масив кумулятивних станів за паралельний час `O(log N)`.
 
-```cpp
-// std::inclusive_scan: y[i] = x[0] + ... + x[i]
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2>
-ForwardIt2 inclusive_scan(ExecutionPolicy&& policy, 
-                          ForwardIt1 first, ForwardIt1 last, 
-                          ForwardIt2 d_first);
-
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class BinaryOp, class T>
-ForwardIt2 inclusive_scan(ExecutionPolicy&& policy, 
-                          ForwardIt1 first, ForwardIt1 last, 
-                          ForwardIt2 d_first, BinaryOp binary_op, T init);
-
-// std::exclusive_scan: y[0] = init, y[i] = init + x[0] + ... + x[i-1]
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T>
-ForwardIt2 exclusive_scan(ExecutionPolicy&& policy, 
-                          ForwardIt1 first, ForwardIt1 last, 
-                          ForwardIt2 d_first, T init);
-
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T, class BinaryOp>
-ForwardIt2 exclusive_scan(ExecutionPolicy&& policy, 
-                          ForwardIt1 first, ForwardIt1 last, 
-                          ForwardIt2 d_first, T init, BinaryOp binary_op);
-```
+:::code api-execution-policies/cpp/3-prefiksne-skanuvannia.hpp
 
 ### 4. Комбіновані операції: `transform_inclusive_scan` та `transform_exclusive_scan`
 
 Ці алгоритми дозволяють спочатку застосувати унарну функцію перетворення до кожного елемента, а потім виконати префіксне сканування без виділення проміжного буфера пам'яті:
 
-```cpp
-// Трансформація + інклюзивне сканування
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class BinaryOp, class UnaryOp>
-ForwardIt2 transform_inclusive_scan(ExecutionPolicy&& policy, 
-                                    ForwardIt1 first, ForwardIt1 last, 
-                                    ForwardIt2 d_first, 
-                                    BinaryOp binary_op, UnaryOp unary_op);
-
-// Трансформація + ексклюзивне сканування
-template <class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T, class BinaryOp, class UnaryOp>
-ForwardIt2 transform_exclusive_scan(ExecutionPolicy&& policy, 
-                                    ForwardIt1 first, ForwardIt1 last, 
-                                    ForwardIt2 d_first, 
-                                    T init, BinaryOp binary_op, UnaryOp unary_op);
-```
+:::code api-execution-policies/cpp/4-kombinovani-operatsii.hpp
 
 ---
 

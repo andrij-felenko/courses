@@ -180,19 +180,7 @@ try {
 
 Правильна організація ланцюжка обробки вимагає розташування блоків від найменш абстрактного (похідного) до найбільш абстрактного (базового):
 
-```cpp
-// ✓ КОРЕКТНИЙ ПОРЯДОК: Спеціалізовані обробники попереду
-try {
-    std::vector<int> v;
-    v.at(10);
-} catch (const std::out_of_range& e) {
-    // Обробка конкретно виходу за межі діапазону
-} catch (const std::runtime_error& e) {
-    // Обробка помилок виконання
-} catch (const std::exception& e) {
-    // Базовий обробник для всіх інших стандартних винятків
-}
-```
+:::code std-exception-hierarchy-d/cpp/pravylo-sortuvannia-blokiv.cpp
 
 ### Проблема зрізання об'єкта (Object Slicing)
 
@@ -204,70 +192,8 @@ try {
 2. **Скидання vtable**: Таблиця віртуальних методів скопійованого об'єкта перемикається на `std::exception::vtable`. У результаті виклик `e.what()` повертає банальне значення `"std::exception"`, а не оригінальний текст помилки.
 
 :::tabs
-```cpp
-#include <iostream>
-#include <stdexcept>
-#include <string>
-
-// Функція обробки файлового контейнера
-void parse_config_file(const std::string& path) {
-    if (path.empty()) {
-        throw std::invalid_argument("Конфігураційний шлях не може бути порожнім");
-    }
-}
-
-void execute_safe_operation() {
-    try {
-        parse_config_file("");
-    } catch (const std::exception& e) { // ✓ Безпечне поліморфне посилання
-        std::cout << "Успішно перехоплено: " << e.what() << std::endl;
-    }
-}
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Еквівалентна C-модель обробки помилок через статусний код
-typedef struct {
-    int is_error;
-    char message[128];
-} c_status_t;
-
-c_status_t parse_config_file_c(const char* path) {
-    c_status_t status = {0, ""};
-    if (path == NULL || strlen(path) == 0) {
-        status.is_error = 1;
-        strncpy(status.message, "Конфігураційний шлях порожній", sizeof(status.message) - 1);
-    }
-    return status;
-}
-
-void execute_safe_operation_c(void) {
-    c_status_t res = parse_config_file_c("");
-    if (res.is_error) {
-        printf("C-style помилка: %s\n", res.message);
-    }
-}
-:::
-
----
-
-## 5. Інтеграція системних помилок операційної системи: std::system_error, std::error_code та std::error_category
-
-До появу стандарту C++11 розробники системного коду були змушені вручну форматувати числові коди системних помилок (POSIX `errno` або Windows `GetLastError()`) у текстові рядки перед створенням винятку `std::runtime_error`. Це призводило до витоків пам'яті та унеможливлювало програмну перевірку типів помилок у блоках `catch`.
-
-Стандарт C++11 розв'язав цю проблему через запровадження винятку `std::system_error`, який поєднує поліморфізм C++ із детермінованими кодами помилок операційної системи.
-
-![Макет пам'яті std::system_error](img/exception-memory-layout.svg)
-*Анатомія std::system_error: поєднання коду помилки, статичної категорії та динамічно сформованого повідомлення what().*
-
-### Структура std::error_code та категорій помилок
-
-Об'єкт `std::system_error` містить всередині легковаговий екземпляр `std::error_code`, який складається з двох елементів:
-
-```cpp
+:::code std-exception-hierarchy-d/cpp/problema-zrizannia-obiekta.cpp
+:::code std-exception-hierarchy-d/c/main.c
 class error_code {
     int val_;                         // Числове значення помилки (наприклад, 104 ECONNRESET)
     const error_category* cat_;       // Вказівник на статичну категорію помилки

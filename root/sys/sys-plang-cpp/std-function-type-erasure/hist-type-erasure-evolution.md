@@ -14,29 +14,7 @@
 
 Ця техніка отримала назву **стирання типів** (англ. *type erasure*). Вона дозволила створювати гетерогенні контейнери, наприклад `std::vector<boost::function<void()>>`, і зберігати там глобальні функції, функтори та результати викликів `boost::bind`.
 
-```cpp
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
-#include <iostream>
-
-struct Calculator {
-    void add(int a, int b) { std::cout << (a + b) << '\n'; }
-};
-
-void legacy_print(int result) {
-    std::cout << "Result: " << result << '\n';
-}
-
-int main() {
-    // Boost.Function зберігає як вказівники на функції, так і зв'язані методи
-    boost::function<void(int, int)> func1 = &legacy_print; // Адаптація сигнатури
-    
-    Calculator calc;
-    boost::function<void()> func2 = boost::bind(&Calculator::add, &calc, 10, 20);
-    
-    func2(); // Друкує 30
-}
-```
+:::code hist-type-erasure-evolution/cpp/vytoky-problema-callback.cpp
 
 Головним викликом бібліотеки Boost.Function на компіляторах початку 2000-х років (на кшталт GCC 2.95 або MSVC 6.0) була відсутність варіативних шаблонів (англ. *variadic templates*). Щоб підтримати функції з різною кількістю аргументів (від 0 до 10), розробники Boost вимушені були використовувати макроси препроцесора та згенеровані файли заголовків видами `boost/function/function0.hpp`, `function1.hpp` аж до `function10.hpp`.
 
@@ -94,21 +72,7 @@ std::move_only_function<void() &&> one_shot_fn;
 
 На відміну від `std::function` та `std::move_only_function`, клас `std::function_ref` є **безволодісним поглядом** (англ. *non-owning view*), аналогічно до `std::string_view` або `std::span`.
 
-```cpp
-// C++26: std::function_ref не виділяє пам'ять і не копіює функтор
-void process_events(std::function_ref<void(int)> callback) {
-    callback(100);
-}
-
-int main() {
-    auto heavy_lambda = [buffer = std::vector<int>(1000)] (int val) {
-        // ...
-    };
-    
-    // Передача без жодної алокації та без копіювання векторного буфера!
-    process_events(heavy_lambda);
-}
-```
+:::code hist-type-erasure-evolution/cpp/lehkovahovyi-pohliad-bez.cpp
 
 `std::function_ref` складається лише з двох покажчиків (`sizeof = 16` байтів):
 - `void* object_ptr` — адреса самого функтора чи контексту в пам'яті;

@@ -6,55 +6,7 @@
 
 Заголовок `<contracts>` надає типи даних, службові переліки та точки інтеграції середовища виконання, необхідні для реєстрації, інспекції та обробки порушень контрактів. Він входить до складу вільного від залежностей ядра стандартної бібліотеки C++26 і доступний як у звичайних середовищах виконання, так і в автономних середовищах розробки для вбудованих систем (freestanding implementations).
 
-```cpp
-namespace std::contracts {
-
-    // Класифікація контрактного специфікатора за його синтаксичною роллю
-    enum class contract_kind : unsigned char {
-        pre,        // Преумова функції (pre)
-        post,       // Постумова функції (post)
-        assert      // Внутрішнє твердження в тілі блоку (contract_assert)
-    };
-
-    // Спосіб ідентифікації та реєстрації порушення під час оцінки
-    enum class detection_mode : unsigned char {
-        predicate_false,      // Вираз предиката успішно обчислився і повернув false
-        evaluation_exception  // Під час обчислення предиката виник необроблений виняток
-    };
-
-    // Клас метаданих порушення контракту
-    class contract_violation {
-    public:
-        // Конструктори копіювання та переміщення видалені для збереження цілісності рантайму
-        contract_violation(const contract_violation&) = delete;
-        contract_violation(contract_violation&&) = delete;
-        contract_violation& operator=(const contract_violation&) = delete;
-        contract_violation& operator=(contract_violation&&) = delete;
-
-        // Номер рядка вихідного коду, де оголошено відповідний контракт
-        [[nodiscard]] constexpr uint_least32_t line_number() const noexcept;
-
-        // Ім'я або повний шлях до файлу вихідного коду (UTF-8 рядок із нульовим байтом)
-        [[nodiscard]] constexpr const char* file_name() const noexcept;
-
-        // Сигнатура або ім'я функції, до якої прив'язано контракт
-        [[nodiscard]] constexpr const char* function_name() const noexcept;
-
-        // Текст або мітка контракту, зазначена в квадратних дужках [name]
-        [[nodiscard]] constexpr const char* comment() const noexcept;
-
-        // Текстовий запис виразу предиката мовою C++
-        [[nodiscard]] constexpr const char* predicate() const noexcept;
-
-        // Вид контракту: pre, post або assert
-        [[nodiscard]] constexpr contract_kind kind() const noexcept;
-
-        // Причина спрацювання механізму порушення
-        [[nodiscard]] constexpr detection_mode detection_mode() const noexcept;
-    };
-
-} // namespace std::contracts
-```
+:::code api-contracts/cpp/standartnyi-zaholovok.cpp
 
 ---
 
@@ -240,25 +192,7 @@ auto safe_divider = [](double a, double b)
    - Компілятор зупиняє збирання з діагностичним повідомленням про помилку компіляції, вказуючи вихідний рядок контракту, предикат та значення вхідних параметрів.
 3. Режим `ignore` під час константного обчислення не перевіряє предикат, що дозволяє виконувати constexpr-функції без додаткових витрат часу трансляції.
 
-```cpp
-constexpr int compute_factorial(int n)
-    pre: n >= 0 && n <= 12
-    post(r): r >= 1
-{
-    int res = 1;
-    for (int i = 2; i <= n; ++i) {
-        res *= i;
-    }
-    return res;
-}
-
-// Успішна компіляція: преумова n >= 0 виконується
-constexpr int f5 = compute_factorial(5);
-
-// Помилка компіляції: порушення преумови pre: n >= 0 && n <= 12
-// static_assert вимагає коректного константного виразу
-constexpr int f_bad = compute_factorial(-3); // Помилка: -3 не в діапазоні [0, 12]
-```
+:::code api-contracts/cpp/pravyla-kompiliatsii.cpp
 
 ---
 
@@ -271,23 +205,7 @@ constexpr int f_bad = compute_factorial(-3); // Помилка: -3 не в ді�
 2. **Перевизначення постумов (Covariance):** Перевизначена функція-член не має права послаблювати постумови базового класу (гарантувати клієнту менше). Вона може лише посилювати свої гарантії або залишати їх ідентичними.
 3. **Правило перенесення контрактів у C++26:** Якщо віртуальна функція перевизначається в похідному класі без повторного явного написання контрактів, вона автоматично успадковує преумови та постумови базової віртуальної функції. Якщо нащадок вказує додаткові контракти, середовище виконання комбінує перевірки відповідно до правил LSP (преумови через логічне «АБО», постумови через логічне «ТА»).
 
-```cpp
-class BaseStream {
-public:
-    virtual ~BaseStream() = default;
-
-    virtual std::size_t read_bytes(std::span<std::byte> dst)
-        pre [valid_buffer]: !dst.empty()
-        post(bytes_read): bytes_read <= dst.size() = 0;
-};
-
-class NonBlockingStream : public BaseStream {
-public:
-    // Автоматично успадковує pre [valid_buffer] та post(bytes_read)
-    // Може повертати 0 байтів, якщо даних ще немає, що цілком відповідає bytes_read <= dst.size()
-    std::size_t read_bytes(std::span<std::byte> dst) override;
-};
-```
+:::code api-contracts/cpp/semantychni-pravyla-dlia.cpp
 
 ---
 
@@ -300,21 +218,7 @@ public:
 - **Контракти (`pre` / `post`)** перевіряють семантичні значення даних під час виконання (чи є `.size() > 0`, чи не є покажчик нульовим).
 - Концепти та контракти не конкурують, а доповнюють один одного: концепт відсікає некоректні типи на етапі інстанціювання шаблону, а контракт контролює коректність аргументів під час виклику.
 
-```cpp
-template <typename T>
-    requires std::integral<T> // Концепт: перевірка типу під час компіляції
-T fast_gcd(T a, T b)
-    pre: a > 0 && b > 0     // Контракт: перевірка числових значень
-    post(g): g > 0 && (a % g == 0) && (b % g == 0)
-{
-    while (b != 0) {
-        T t = b;
-        b = a % b;
-        a = t;
-    }
-    return a;
-}
-```
+:::code api-contracts/cpp/vzaiemodiia-z-kontseptamy.cpp
 
 ---
 
@@ -353,50 +257,7 @@ void handle_contract_violation(const std::contracts::contract_violation& violati
 
 ### Зразок реалізації надійного обробника з телеметрією:
 
-```cpp
-#include <contracts>
-#include <cstdio>
-#include <cstdlib>
-
-void handle_contract_violation(const std::contracts::contract_violation& v) noexcept {
-    static thread_local bool in_violation_handler = false;
-    if (in_violation_handler) {
-        // Запобігання повторному входу у разі рекурсивного збою
-        return;
-    }
-    in_violation_handler = true;
-
-    const char* kind_str = "невідомий";
-    switch (v.kind()) {
-        case std::contracts::contract_kind::pre:    kind_str = "преумова (pre)"; break;
-        case std::contracts::contract_kind::post:   kind_str = "постумова (post)"; break;
-        case std::contracts::contract_kind::assert: kind_str = "твердження (assert)"; break;
-    }
-
-    const char* mode_str = (v.detection_mode() == std::contracts::detection_mode::predicate_false)
-        ? "предикат хибний"
-        : "виник виняток під час оцінки";
-
-    std::fprintf(stderr,
-        "[CRITICAL CONTRACT VIOLATION]\n"
-        "  Файл:        %s:%u\n"
-        "  Функція:     %s\n"
-        "  Тип:         %s\n"
-        "  Мітка:       %s\n"
-        "  Предикат:    %s\n"
-        "  Причина:     %s\n",
-        v.file_name(),
-        static_cast<unsigned int>(v.line_number()),
-        v.function_name(),
-        kind_str,
-        v.comment()[0] != '\0' ? v.comment() : "<немає>",
-        v.predicate(),
-        mode_str
-    );
-
-    in_violation_handler = false;
-}
-```
+:::code api-contracts/cpp/zrazok-realizatsii.cpp
 
 ---
 

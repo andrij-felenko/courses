@@ -36,95 +36,19 @@ modular_matrix_project/
 
 Інтерфейсний розділ оголошується директивою `export module matrix:types;`. Усі сутності, позначені ключовим словом `export`, експортуються в простір імен розділу:
 
-```cpp
-export module matrix:types;
-
-import <array>;
-import <cstddef>;
-
-export namespace math {
-
-struct Vector2 {
-    double x{0.0};
-    double y{0.0};
-};
-
-struct Matrix2x2 {
-    std::array<double, 4> data{1.0, 0.0, 0.0, 1.0}; // Одинична матриця за замовчуванням
-
-    [[nodiscard]] constexpr double at(std::size_t row, std::size_t col) const noexcept {
-        return data[row * 2 + col];
-    }
-
-    [[nodiscard]] constexpr double& at(std::size_t row, std::size_t col) noexcept {
-        return data[row * 2 + col];
-    }
-};
-
-} // namespace math
-```
+:::code proj-cmake-modular-library/cpp/1-interfeisnyi-rozdil.cpp
 
 ### 2. Внутрішній розділ операцій: `src/matrix_ops.cppm`
 
 Внутрішній розділ оголошується як `module matrix:ops;` без префікса `export`. Він слугує для внутрішньої декомпозиції коду бібліотеки:
 
-```cpp
-module matrix:ops;
-
-import :types; // Імпорт інтерфейсного розділу всередині того самого модуля
-
-namespace math::internal {
-
-[[nodiscard]] constexpr double determinant(const Matrix2x2& m) noexcept {
-    return m.at(0, 0) * m.at(1, 1) - m.at(0, 1) * m.at(1, 0);
-}
-
-[[nodiscard]] constexpr Vector2 transform(const Matrix2x2& m, const Vector2& v) noexcept {
-    return Vector2{
-        m.at(0, 0) * v.x + m.at(0, 1) * v.y,
-        m.at(1, 0) * v.x + m.at(1, 1) * v.y
-    };
-}
-
-} // namespace math::internal
-```
+:::code proj-cmake-modular-library/cpp/2-vnutrishnii-rozdil.cpp
 
 ### 3. Розділ збереження з глобальним фрагментом: `src/matrix_storage.cppm`
 
 Коли модулю потрібні системні C-заголовки (наприклад, `<fcntl.h>`, `<unistd.h>` або `<sys/stat.h>`), їх не можна підключати через звичайний `#include` у тілі модуля, бо це порушить правила модуляризації. Їх розміщують у **глобальному фрагменті модуля** перед директивою `export module`:
 
-```cpp
-module; // Початок глобального фрагмента модуля
-
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-export module matrix:storage;
-
-import :types;
-import <string_view>;
-import <system_error>;
-
-export namespace math {
-
-[[nodiscard]] std::error_code save_to_binary_file(std::string_view path, const Matrix2x2& m) noexcept {
-    int fd = ::open(path.data(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-
-    ssize_t written = ::write(fd, m.data.data(), sizeof(double) * 4);
-    ::close(fd);
-
-    if (written != sizeof(double) * 4) {
-        return std::make_error_code(std::errc::io_error);
-    }
-    return {};
-}
-
-} // namespace math
-```
+:::code proj-cmake-modular-library/cpp/3-rozdil-zberezhennia-z.cpp
 
 Макроси `O_WRONLY`, `O_CREAT`, `O_TRUNC` та системні функції оголошені у глобальному фрагменті, тому вони доступні для компіляції цієї функції, але **жоден із цих макросів не вийде назовні** до споживачів модуля `matrix`.
 
@@ -132,111 +56,19 @@ export namespace math {
 
 Головний інтерфейс визначає публічне обличчя модуля. Він явно декларує, які розділи передаються назовні, а які залишаються внутрішньою таємницею:
 
-```cpp
-export module matrix;
-
-// Реекспорт: усі клієнти matrix автоматично бачать типи з :types та операції збереження з :storage
-export import :types;
-export import :storage;
-
-// Приватний імпорт: внутрішні алгоритми потрібні тут, але не виходять назовні
-import :ops;
-
-import <optional>;
-import <string>;
-
-export namespace math {
-
-[[nodiscard]] Matrix2x2 multiply(const Matrix2x2& a, const Matrix2x2& b) noexcept {
-    Matrix2x2 res;
-    for (std::size_t r = 0; r < 2; ++r) {
-        for (std::size_t c = 0; c < 2; ++c) {
-            res.at(r, c) = a.at(r, 0) * b.at(0, c) + a.at(r, 1) * b.at(1, c);
-        }
-    }
-    return res;
-}
-
-[[nodiscard]] std::optional<Vector2> solve_2x2(const Matrix2x2& a, const Vector2& b) noexcept {
-    const double det = internal::determinant(a);
-    constexpr double eps = 1e-12;
-    if (det > -eps && det < eps) {
-        return std::nullopt; // Матриця вироджена
-    }
-
-    const double inv_det = 1.0 / det;
-    return Vector2{
-        (b.x * a.at(1, 1) - b.y * a.at(0, 1)) * inv_det,
-        (a.at(0, 0) * b.y - a.at(1, 0) * b.x) * inv_det
-    };
-}
-
-// Оголошення функції друку: її реалізацію навмисно винесено у matrix_io.cpp
-void print_matrix(const Matrix2x2& m, const std::string& label);
-
-} // namespace math
-```
+:::code proj-cmake-modular-library/cpp/4-holovna-interfeisna.cpp
 
 ### 5. Одиниця реалізації модуля: `src/matrix_io.cpp`
 
 Одиниця реалізації модуля починається директивою `module matrix;`. Вона належить до сфери модуля `matrix` (Module Purview) і бачить абсолютно всі його оголошення, але сама не може нічого експортувати:
 
-```cpp
-module matrix;
-
-import <iostream>;
-import <iomanip>;
-
-namespace math {
-
-void print_matrix(const Matrix2x2& m, const std::string& label) {
-    std::cout << "=== " << label << " ===\n";
-    for (std::size_t r = 0; r < 2; ++r) {
-        std::cout << "| ";
-        for (std::size_t c = 0; c < 2; ++c) {
-            std::cout << std::setw(8) << std::fixed << std::setprecision(3) << m.at(r, c) << " ";
-        }
-        std::cout << "|\n";
-    }
-}
-
-} // namespace math
-```
+:::code proj-cmake-modular-library/cpp/5-odynytsia-realizatsii.cpp
 
 ### 6. Клієнтський виконуваний файл: `app/main.cpp`
 
 Клієнтський код повністю позбавлений препроцесорних директив підключення локальних заголовків:
 
-```cpp
-import matrix;
-import <iostream>;
-
-int main() {
-    math::Matrix2x2 a;
-    a.at(0, 0) = 2.0; a.at(0, 1) = 1.0;
-    a.at(1, 0) = 1.0; a.at(1, 1) = 3.0;
-
-    math::Vector2 b{5.0, 5.0};
-
-    math::print_matrix(a, "Матриця A");
-
-    const auto sol = math::solve_2x2(a, b);
-    if (sol.has_value()) {
-        std::cout << "Розв'язок Ax = b: x = " << sol->x << ", y = " << sol->y << "\n";
-    } else {
-        std::cout << "Система не має розв'язку\n";
-    }
-
-    auto err = math::save_to_binary_file("matrix.bin", a);
-    if (err) {
-        std::cout << "Помилка запису файлу: " << err.message() << "\n";
-    } else {
-        std::cout << "Матрицю успішно записано у matrix.bin\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-cmake-modular-library/cpp/6-kliientskyi-vykonuvanyi.cpp
 
 ## Конфігурація CMake 3.28+ та файлові набори `FILE_SET`
 
@@ -248,60 +80,7 @@ int main() {
 
 Для розв'язання цієї задачі стандарт CMake 3.28 ввів механізм файлових наборів типу `CXX_MODULES`:
 
-```cmake
-cmake_minimum_required(VERSION 3.28)
-project(ModularMatrixProject CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Додавання модульної бібліотеки
-add_library(matrix_lib)
-
-# 1. Реєстрація інтерфейсних файлів модулів та розділів
-target_sources(matrix_lib
-    PUBLIC
-        FILE_SET CXX_MODULES TYPE CXX_MODULES
-        BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src
-        FILES
-            src/matrix.cppm
-            src/matrix_types.cppm
-            src/matrix_ops.cppm
-            src/matrix_storage.cppm
-)
-
-# 2. Додавання звичайних файлів реалізації (не потребують генерації експортного BMI)
-target_sources(matrix_lib
-    PRIVATE
-        src/matrix_io.cpp
-)
-
-# Налаштування властивостей компілятора
-target_compile_features(matrix_lib PUBLIC cxx_std_20)
-
-# Створення клієнтської програми
-add_executable(matrix_app app/main.cpp)
-
-# Підключення модульної бібліотеки до клієнта
-target_link_libraries(matrix_app PRIVATE matrix_lib)
-
-# Налаштування встановлення бібліотеки для зовнішнього споживання
-install(TARGETS matrix_lib
-    EXPORT MatrixLibTargets
-    FILE_SET CXX_MODULES DESTINATION include/modules
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-)
-
-install(EXPORT MatrixLibTargets
-    FILE MatrixLibConfig.cmake
-    NAMESPACE math::
-    DESTINATION lib/cmake/MatrixLib
-    CXX_MODULES_DIRECTORY modules
-)
-```
+:::code proj-cmake-modular-library/cmake/konfihuratsiia-cmake-3-28.cmake
 
 ## Як працює сканування залежностей: протокол P1689
 
@@ -370,32 +149,7 @@ build app/main.o: dyndep | src/matrix.pcm
 
 У компіляторі **Clang**:
 
-```bash
-# 1. Генерація BMI розділів
-clang++ -std=c++20 --precompile src/matrix_types.cppm -o build/matrix_types.pcm
-clang++ -std=c++20 --precompile src/matrix_ops.cppm \
-    -fmodule-file=matrix:types=build/matrix_types.pcm \
-    -o build/matrix_ops.pcm
-clang++ -std=c++20 --precompile src/matrix_storage.cppm \
-    -fmodule-file=matrix:types=build/matrix_types.pcm \
-    -o build/matrix_storage.pcm
-
-# 2. Генерація головного BMI
-clang++ -std=c++20 --precompile src/matrix.cppm \
-    -fmodule-file=matrix:types=build/matrix_types.pcm \
-    -fmodule-file=matrix:ops=build/matrix_ops.pcm \
-    -fmodule-file=matrix:storage=build/matrix_storage.pcm \
-    -o build/matrix.pcm
-
-# 3. Генерація об'єктного коду реалізації та споживача
-clang++ -std=c++20 -c src/matrix_io.cpp \
-    -fmodule-file=matrix=build/matrix.pcm \
-    -o build/matrix_io.o
-
-clang++ -std=c++20 -c app/main.cpp \
-    -fmodule-file=matrix=build/matrix.pcm \
-    -o build/main.o
-```
+:::code proj-cmake-modular-library/sh/main.sh
 
 У компіляторі **GCC (версії 14+)**:
 
@@ -425,21 +179,7 @@ cl /std:c++20 /TP /c app/main.cpp /reference matrix=build\matrix.ifc /Fo:build\m
 
 Коли модульна бібліотека зібрана та встановлена в систему за допомогою `cmake --install build`, зовнішній проєкт може підключити її через звичайний файл конфігурації. У клієнтському проєкті створюється наступний `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.28)
-project(ExternalConsumer CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Пошук встановленої модульної бібліотеки
-find_package(MatrixLib REQUIRED CONFIG)
-
-add_executable(consumer_app consumer_main.cpp)
-
-# Підключення автоматично імпортує вихідні інтерфейси модулів у дерево збірки споживача
-target_link_libraries(consumer_app PRIVATE math::matrix_lib)
-```
+:::code proj-cmake-modular-library/cmake/spozhyvannia-vstanovlenoi.cmake
 
 Зверніть увагу на фундаментальну відмінність: CMake автоматично компілює бінарні інтерфейси модулів (`.pcm`/`.ifc`) безпосередньо в каталозі збірки споживача, використовуючи встановлені `.cppm` файли та прапорці компілятора споживача. Це гарантує повну сумісність ABI та налаштувань оптимізації.
 

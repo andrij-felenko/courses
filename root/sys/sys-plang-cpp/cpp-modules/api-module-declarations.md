@@ -79,19 +79,7 @@ export namespace math::linear {
 
 #### 4. Експорт шаблонів і концептів:
 Усі параметризовані конструкції та концепти C++20 експортуються разом зі своїми визначеннями, оскільки компілятору споживача потрібне повне синтаксичне дерево для інстанціації:
-```cpp
-export template <typename T>
-concept Serializable = requires(T a) {
-    { a.serialize() } -> std::same_as<std::string>;
-};
-
-export template <Serializable T>
-class MessageQueue {
-public:
-    void push(T msg);
-    T pop();
-};
-```
+:::code api-module-declarations/cpp/4-eksport-shabloniv-i.cpp
 
 ### Заборони та обмеження експорту
 
@@ -142,18 +130,7 @@ import <module-name>;
 | **Module Linkage (Модульне)** | Неекспортовані сутності глобального простору або просторів імен модуля | Так | **Так** (через спільну сферу модуля або внутрішні розділи) | **Ні** (повна ізоляція від клієнтів) |
 | **External Linkage (Зовнішнє)** | Сутності, позначені ключовим словом `export` | Так | Так | **Так** (через `import`) |
 
-```cpp
-export module cryptography;
-
-// 1. Internal Linkage: унікальна для цього файлу, не конфліктує з іншими static-функціями
-static void mix_entropy(uint64_t* state);
-
-// 2. Module Linkage: доступна всім файлам модуля cryptography, але невидима для імпортерів
-void generate_prime_candidate(mpz_t out);
-
-// 3. External Linkage: публічний контракт модуля для зовнішніх споживачів
-export void generate_rsa_keypair(PublicKey* pub, PrivateKey* priv);
-```
+:::code api-module-declarations/cpp/4-vydy-komponuvannia-v-c.hpp
 
 ### Взаємодія з `extern "C"` та зв'язками інших мов
 
@@ -198,40 +175,11 @@ export extern "C" {
 
 Розглянемо модуль бази даних, який навмисно приховує назву внутрішнього дескриптора транзакції, але дозволяє повноцінно працювати з ним через фабричний інтерфейс:
 
-```cpp
-// --- Файл transaction_engine.cppm ---
-export module transaction_engine;
-
-// Тип НЕ експортується: його назва TransactionContext відсутня в таблиці імен споживача
-struct TransactionContext {
-    uint64_t tx_id{0};
-    bool is_active{true};
-
-    void commit() { is_active = false; }
-    void rollback() { is_active = false; }
-};
-
-// Експортована функція повертає тип за значенням
-export TransactionContext begin_transaction(uint64_t id) {
-    return TransactionContext{id, true};
-}
-```
+:::code api-module-declarations/cpp/rozbir-povedinky.cpp
 
 У клієнтському коді споживач взаємодіє з типом через механізм виведення типів `auto`:
 
-```cpp
-// --- Файл client.cpp ---
-import transaction_engine;
-
-void run_client() {
-    // TransactionContext ctx; // ❌ ПОМИЛКА: ідентифікатор TransactionContext невидимий (Not Visible)
-
-    auto ctx = begin_transaction(1001); // ✅ ДОЗВОЛЕНО: тип TransactionContext досяжний (Reachable)
-    ctx.commit();                       // ✅ ДОЗВОЛЕНО: компілятор знає макет класу та зміщення методу commit
-    
-    constexpr size_t ctx_sz = sizeof(ctx); // ✅ ДОЗВОЛЕНО: повний розмір структури відомий із BMI
-}
-```
+:::code api-module-declarations/cpp/client.cpp
 
 ## 7. Модулі стандартної бібліотеки C++23: `std` та `std.compat`
 
@@ -269,33 +217,7 @@ int main() {
 
 Приватний фрагмент модуля — це спеціальна мовна конструкція, яка дозволяє розмістити реалізацію функцій та закритих деталей класу в одному фізичному файлі з інтерфейсом, повністю виключаючи цей код із генерованого бінарного інтерфейсу (BMI):
 
-```cpp
-export module secure_enclave;
-
-export class Enclave {
-public:
-    Enclave();
-    ~Enclave();
-    void execute_secure(int command);
-private:
-    void decrypt_hardware_keys();
-};
-
-// Початок приватного фрагмента
-module :private;
-
-Enclave::Enclave() = default;
-Enclave::~Enclave() = default;
-
-void Enclave::execute_secure(int command) {
-    decrypt_hardware_keys();
-    // Виконання команди
-}
-
-void Enclave::decrypt_hardware_keys() {
-    // Складні асемблерні інструкції та взаємодія з криптопроцесором
-}
-```
+:::code api-module-declarations/cpp/8-pryvatnyi-frahment.cpp
 
 ### Інженерні наслідки використання приватного фрагмента
 

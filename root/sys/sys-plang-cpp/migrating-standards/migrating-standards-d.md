@@ -155,18 +155,7 @@ void (*func_ptr)() = safe_action; // C++11: компілюється
 До C++17 повернення об'єкта за значенням із функції або ініціалізація тимчасовим об'єктом формально вимагали наявності доступного конструктора копіювання чи переміщення, навіть якщо компілятор оптимізував виклик (RVO, Return Value Optimization).
 
 У C++17 вираз категорії prvalue (pure rvalue) більше не є готовим тимчасовим об'єктом — це лише інструкція для ініціалізації цільової пам'яті:
-```cpp
-struct NonMovableServer {
-    NonMovableServer() = default;
-    NonMovableServer(const NonMovableServer&) = delete;
-    NonMovableServer(NonMovableServer&&) = delete;
-};
-
-NonMovableServer create_server() {
-    return NonMovableServer(); // C++14: помилка компіляції (конструктор переміщення видалено!)
-                               // C++17: валідний код (гарантоване опущення копіювання)
-}
-```
+:::code migrating-standards-d/cpp/4-oboviazkove-opushchennia.cpp
 Це відкрило можливість створювати фабрики для некопійованих і непереміщуваних типів (наприклад, `std::mutex`), проте змінило правила перевірки доступності спеціальних функцій-членів.
 
 #### 5. Уточнення порядку обчислення виразів (Order of Evaluation)
@@ -187,25 +176,7 @@ C++17 надав фундаментальні типи `std::optional`, `std::va
 
 Заміна поліморфних ієрархій або небезпечних об'єднань `union` у стилі C на `std::variant` із функціональним візитором `std::visit` дозволяє створювати закриті алгебраїчні типи даних із перевіркою всіх гілок під час компіляції:
 
-```cpp
-#include <variant>
-#include <string>
-#include <iostream>
-
-// Патерн перевантаження для std::visit
-template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
-template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
-
-using Command = std::variant<int, std::string, double>;
-
-void process_command(const Command& cmd) {
-    std::visit(overloaded {
-        [](int val) { std::cout << "Команда скидання: " << val << "\n"; },
-        [](const std::string& str) { std::cout << "Текстова команда: " << str << "\n"; },
-        [](double timeout) { std::cout << "Таймаут: " << timeout << "с\n"; }
-    }, cmd);
-}
-```
+:::code migrating-standards-d/cpp/6-slovnykovi-typy-std.cpp
 
 Крайовим випадком для `std::variant` є стан `valueless_by_exception`: якщо під час зміни типу об'єкта конструктор згенерував виняток, варіант може втратити значення, а спроба звернення до нього викликає `std::bad_variant_access`.
 
@@ -238,23 +209,7 @@ Configuration cfg{8080, 30};   // C++17: компілюється (агрега�
 У C++20 введено тристоронній оператор порівняння `<=>` (Spaceship) та нові правила резолюції перевантажень для операторів `==` та `!=`. Компілятор автоматично генерує симетричні переписані кандидати: якщо визначено лише `bool operator==(const MyType&, int)`, вираз `10 == obj` автоматично переписується компілятором у `obj == 10`.
 
 Це створює неоднозначності в застарілому коді з неявними приведеннями типів:
-```cpp
-struct CustomIndex {
-    int value;
-    // Неявне приведення до int
-    operator int() const { return value; }
-    
-    // Старе перевантаження C++98
-    bool operator==(const CustomIndex& rhs) const { return value == rhs.value; }
-};
-
-CustomIndex a{5}, b{5};
-bool eq = (a == b); // C++17: викликає CustomIndex::operator==
-                    // C++20: ambiguity error!
-                    // Компілятор бачить двох рівноцінних кандидатів:
-                    // 1) operator==(a, b)
-                    // 2) переписаний варіант через operator int(): (int)a == (int)b
-```
+:::code migrating-standards-d/cpp/2-perepysuvannia.cpp
 
 #### 3. Модулі C++20 та перехідний період із заголовними файлами
 
@@ -326,26 +281,7 @@ bool eq = (a == b); // C++17: викликає CustomIndex::operator==
 Такий код швидко ламається на нових версіях Clang або MSVC, які впроваджують можливості стандарту в іншому порядку.
 
 Сучасний підхід спирається на стандартизовані **макроси тестування можливостей (Feature Test Macros за стандартом SD-6)**, які повертають числове значення дати ухвалення ревізії:
-```cpp
-// Сучасний надійний шаблон сумісності
-#if defined(__has_include)
-    #if __has_include(<version>)
-        #include <version>
-    #endif
-#endif
-
-#if defined(__cpp_lib_string_view) && (__cpp_lib_string_view >= 201606L)
-    #include <string_view>
-    namespace compat {
-        using string_view = std::string_view;
-    }
-#else
-    #include "compat/fallback_string_view.hpp"
-    namespace compat {
-        using string_view = compat::fallback_string_view;
-    }
-#endif
-```
+:::code migrating-standards-d/cpp/nebezpeka-perevirky-versii.cpp
 
 ### Проблема порушення правила одного визначення (ODR)
 
@@ -372,35 +308,7 @@ struct PacketHeader {
 
 Єдиним надійним архітектурним шаблоном є створення **адаптера з C-сумісним або непрозорим RAII-інтерфейсом**:
 
-```cpp
-// legacy_adapter.hpp — чистий C++20 інтерфейс
-#pragma once
-#include <memory>
-#include <string>
-#include <string_view>
-
-namespace modern_app {
-
-class LegacyDatabaseBridge {
-public:
-    LegacyDatabaseBridge();
-    ~LegacyDatabaseBridge();
-
-    LegacyDatabaseBridge(const LegacyDatabaseBridge&) = delete;
-    LegacyDatabaseBridge& operator=(const LegacyDatabaseBridge&) = delete;
-    LegacyDatabaseBridge(LegacyDatabaseBridge&&) noexcept;
-    LegacyDatabaseBridge& operator=(LegacyDatabaseBridge&&) noexcept;
-
-    [[nodiscard]] bool connect(std::string_view connection_string);
-    [[nodiscard]] std::string execute(std::string_view query);
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> pimpl_;
-};
-
-} // namespace modern_app
-```
+:::code migrating-standards-d/cpp/legacy_adapter.hpp
 
 Файл реалізації `legacy_adapter.cpp` компілюється в окремій одиниці трансляції зі старим прапорцем стандарту або транслює старі типи (`char*`, `std::auto_ptr`) у сучасні контейнери, гарантуючи, що жоден застарілий тип STL не просочиться у глобальний простір імен клієнтського коду.
 

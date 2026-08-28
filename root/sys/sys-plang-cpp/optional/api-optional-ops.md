@@ -6,26 +6,7 @@
 
 Шаблон `std::optional<T>` визначено в заголовочному файлі `<optional>` у просторі назв `std`. Тип `T` мусить задовольняти базовим вимогам `Destructible` (тобто мати доступний та коректний деструктор). Стандарт забороняє створювати `std::optional` для масивів, типів `std::nullopt_t` та `std::in_place_t`. До стандарту C++26 спеціалізація `std::optional<T&>` є некоректною і викликає помилку компіляції під час аналізу `static_assert`, оскільки семантика присвоєння для посилань виникає з фундаментального розходження між перезв'язуванням посилання та модифікацією цільового об'єкта.
 
-```cpp
-namespace std {
-    // Основний шаблон класу
-    template <class T>
-    class optional;
-
-    // Маркер порожнього стану
-    struct nullopt_t {
-        explicit constexpr nullopt_t(int) {}
-    };
-    inline constexpr nullopt_t nullopt{0};
-
-    // Виняток при некоректному доступі
-    class bad_optional_access : public std::exception {
-    public:
-        bad_optional_access() noexcept;
-        virtual const char* what() const noexcept override;
-    };
-}
-```
+:::code api-optional-ops/cpp/vkladeni-typy-marker.cpp
 
 Конструкція `std::nullopt_t` розроблена як унікальний теговий тип, що не дозволяє неплідне неявне зведення з типів `nullptr_t` або звичайних цілочисельних нулів. Передача `std::nullopt` у будь-яку функцію, яка приймає `std::optional<T>`, явно сигналізує про створення або скидання об'єкта до порожнього стану. Виняток `std::bad_optional_access` успадковується безпосередньо від `std::exception` і кидається лише при виклику методу `.value()` над об'єктом, у якого прапорець `has_value()` дорівнює `false`.
 
@@ -55,33 +36,7 @@ namespace std {
 
 Для перевірки наявності значення та доступу до нього `std::optional` надає розробнику два фундаментально різних сімейства методів: захищені (з перевіркою стану) та незахищені (з нульовими накладними витратами).
 
-```cpp
-// 1. Перевірка наявності значення
-constexpr bool has_value() const noexcept;
-constexpr explicit operator bool() const noexcept;
-
-// 2. Розгортання без перевірки (Unchecked Access — швидкий доступ, O(1), noexcept)
-constexpr const T& operator*() const& noexcept;
-constexpr T& operator*() & noexcept;
-constexpr const T&& operator*() const&& noexcept;
-constexpr T&& operator*() && noexcept;
-
-constexpr const T* operator->() const noexcept;
-constexpr T* operator->() noexcept;
-
-// 3. Розгортання з перевіркою (Checked Access — кидає bad_optional_access)
-constexpr const T& value() const&;
-constexpr T& value() &;
-constexpr const T&& value() const&&;
-constexpr T&& value() &&;
-
-// 4. Безпечне розгортання із дефолтом
-template <class U>
-constexpr T value_or(U&& default_value) const&;
-
-template <class U>
-constexpr T value_or(U&& default_value) &&;
-```
+:::code api-optional-ops/cpp/metody-sposterezhennia-ta.cpp
 
 ### Детальний аналіз гарантій доступу
 
@@ -98,28 +53,7 @@ constexpr T value_or(U&& default_value) &&;
 
 Модифікатори дозволяють динамічно змінювати стан `optional`, замінювати збережений об'єкт, повторно конструювати його на місці або повертати пам'ять у порожній стан.
 
-```cpp
-// Скидання стану у порожній (виклик деструктора T.~T() якщо заповнений)
-void reset() noexcept;
-
-// Конструювання об'єкта на місці (inplace construction)
-template <class... Args>
-T& emplace(Args&&... args);
-
-template <class U, class... Args>
-T& emplace(std::initializer_list<U> il, Args&&... args);
-
-// Присвоєння
-optional& operator=(nullopt_t) noexcept;
-optional& operator=(const optional& rhs);
-optional& operator=(optional&& rhs) noexcept(...);
-
-template <class U = T>
-optional& operator=(U&& rhs);
-
-// Обмін вмістом
-void swap(optional& rhs) noexcept(...);
-```
+:::code api-optional-ops/cpp/modyfikatory-stanu-ta.hpp
 
 Анатомія роботи модифікатора `emplace(args...)` є наступною: якщо `std::optional` на момент виклику вже містив заповнений об'єкт, метод спочатку викликає його деструктор `val.~T()`, знищуючи старий вміст. Після цього у тому ж самому внутрішньому буфері викликається placement new `::new (address) T(std::forward<Args>(args)...)`. Метод повертає посилання `T&` на новостворений об'єкт. Це гарантує, що адреса буфера усередині `optional` залишається незмінною, а нові ресурси конструюються без додаткових виділень пам'яті у купі.
 
@@ -134,40 +68,7 @@ void swap(optional& rhs) noexcept(...);
 
 Додані у стандарту C++23 (згідно з прийнятою пропозицією P0798R8), монадичні оператори дозволяють будувати декларативні конвеєри обробки без використання вкладених умовних гілок `if (opt.has_value())`.
 
-```cpp
-// 1. and_then: связує функції, що повертають std::optional<U>
-template <class F>
-constexpr auto and_then(F&& f) &;
-
-template <class F>
-constexpr auto and_then(F&& f) const&;
-
-template <class F>
-constexpr auto and_then(F&& f) &&;
-
-template <class F>
-constexpr auto and_then(F&& f) const&&;
-
-// 2. transform: застосовує трансформацію T -> U та повертає std::optional<U>
-template <class F>
-constexpr auto transform(F&& f) &;
-
-template <class F>
-constexpr auto transform(F&& f) const&;
-
-template <class F>
-constexpr auto transform(F&& f) &&;
-
-template <class F>
-constexpr auto transform(F&& f) const&&;
-
-// 3. or_else: надає альтернативне джерело std::optional<T>, якщо поточний порожній
-template <class F>
-constexpr optional or_else(F&& f) const&;
-
-template <class F>
-constexpr optional or_else(F&& f) &&;
-```
+:::code api-optional-ops/cpp/monadychni-operatsii-c-23.cpp
 
 ### Формальна специфікація поведінки монадичних методів
 

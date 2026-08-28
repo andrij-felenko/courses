@@ -5,32 +5,8 @@
 У класичній мові C рішенням цієї суперечності стала домовленість про виділення «магічних» значень з діапазону повернення. Якщо функція повертає вказівник, значення `NULL` сигналізує про помилку (як у виклику `malloc`). Якщо функція повертає ціле число, значення `-1` або від'ємний код вказує на збій (як у системних викликах POSIX `read` чи `write`). Конкретизація ж причини збою виносилася у глобальну або попотокову змінну `errno`.
 
 :::tabs
-```c
-// Класичний підхід мови C з виділеним магічним значенням та errno
-int fd = open("/etc/config.json", O_RDONLY);
-if (fd == -1) {
-    // Деталі помилки зберігаються окремо в попотоковій змінній errno
-    if (errno == ENOENT) {
-        // Файл не знайдено в файловій системі
-    } else if (errno == EACCES) {
-        // Відсутні права доступу для даного процесу
-    }
-}
-```
-```cpp
-// Еквівалентний C++23 підхід без errno з використанням std::expected
-#include <expected>
-#include <system_error>
-#include <fcntl.h>
-
-std::expected<int, std::error_code> safe_posix_open(const char* path, int flags) {
-    int fd = ::open(path, flags);
-    if (fd == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return fd;
-}
-```
+:::code hist-error-handling-evolution/c/main.c
+:::code hist-error-handling-evolution/cpp/main.cpp
 :::
 
 Цей підхід мав фундаментальні недоліки, які гостро проявилися з розвитку багатопотоковості, паралельних обчислень та складних програмних архітектур:

@@ -89,23 +89,7 @@
 2. **Усі чотири видалені — риса `false`.** Придатних операцій не лишилося зовсім, а означення вимагає щонайменше одну.
 3. **Один user-provided десь у наборі — риса `false` для всього класу**, навіть якщо решта операцій ідеальні.
 
-```cpp
-#include <type_traits>
-
-struct Probe {
-    int a;
-    Probe(const Probe&)            = delete;
-    Probe& operator=(const Probe&) = delete;
-    Probe(Probe&&)                 = default;
-    Probe& operator=(Probe&&)      = default;
-    // деструктор не оголошено — його згенерують тривіальним
-};
-
-static_assert(!std::is_copy_constructible_v<Probe>);
-static_assert( std::is_trivially_move_constructible_v<Probe>);
-static_assert( std::is_trivially_copyable_v<Probe>);   // ← видалені копії не заважають
-static_assert( std::is_nothrow_move_constructible_v<Probe>);
-```
+:::code api-special-members/cpp/std-is-trivially-copyable.hpp
 
 ## Що коштує втрачена тривіальність
 
@@ -158,27 +142,7 @@ static_assert( std::is_nothrow_move_constructible_v<Probe>);
 
 Мінімальний зонд, який можна вставити в будь-який проєкт і прогнати по своїх типах:
 
-```cpp
-#include <cstdio>
-#include <memory>
-#include <string>
-#include <type_traits>
-
-template <class T>
-void probe(const char* name) {
-    std::printf("%-16s trivially_copyable=%d  nothrow_move=%d  trivially_dtor=%d\n",
-                name,
-                (int)std::is_trivially_copyable_v<T>,
-                (int)std::is_nothrow_move_constructible_v<T>,
-                (int)std::is_trivially_destructible_v<T>);
-}
-
-int main() {
-    probe<int>("int");                          // 1  1  1
-    probe<std::unique_ptr<int>>("unique_ptr");  // 0  1  0
-    probe<std::string>("string");               // 0  1  0
-}
-```
+:::code api-special-members/cpp/pastka-rys-vony-pytaiut.cpp
 
 Для власних типів читати це варто так: нуль у другій колонці на типі, який мав переміщуватися дешево, — найчастіше загублений `noexcept`; нуль у третій на типі без жодного ресурсу — здебільшого `= default`-деструктор, винесений у `.cpp`.
 

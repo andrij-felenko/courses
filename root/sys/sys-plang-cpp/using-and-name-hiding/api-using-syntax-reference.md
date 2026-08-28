@@ -207,22 +207,7 @@ using nested-name-specifier enum-name :: enumerator ;
 
 У модулях C++20 ключове слово `using` може поєднуватися зі специфікатором `export` для експорту сутностей з інтерфейсу модуля:
 
-```cpp
-export module MyMathModule;
-
-namespace internal_detail {
-    export struct Matrix { /* ... */ };
-    export void fast_inverse(Matrix& m);
-}
-
-// Експортуємо конкретні сутності в інтерфейс модуля:
-export using internal_detail::Matrix;
-export using internal_detail::fast_inverse;
-
-// Експорт переліку:
-export enum class Status { Ok, Fail };
-export using enum Status;
-```
+:::code api-using-syntax-reference/cpp/9-vzaiemodiia-z-moduliamy.cpp
 
 Коли клієнтський файл виконує `import MyMathModule;`, усі символи, оголошені з `export using`, стають доступними у відповідних просторах імен клієнтського коду без необхідності включати внутрішні деталі реалізації модуля.
 
@@ -232,19 +217,7 @@ export using enum Status;
 
 Особливе місце в пошуку імен займає патерн «прихованого друга» (англ. *Hidden Friend*):
 
-```cpp
-class Fraction {
-private:
-    int num_, den_;
-public:
-    Fraction(int n, int d) : num_(n), den_(d) {}
-
-    // Прихований друг: оголошено й визначено всередині класу
-    friend Fraction operator+(const Fraction& a, const Fraction& b) {
-        return Fraction(a.num_ * b.den_ + b.num_ * a.den_, a.den_ * b.den_);
-    }
-};
-```
+:::code api-using-syntax-reference/cpp/10-druzhni-funktsii-friend.cpp
 
 Функція `operator+` не є членом класу `Fraction` і не є видимою для звичайного некваліфікованого пошуку чи using-оголошень у просторі імен. Вона стає доступною **виключно через ADL**, коли хоча б один з аргументів виклику має тип `Fraction`. Це усуває конфлікти імен і запобігає небажаним неявним перетворенням з інших типів.
 

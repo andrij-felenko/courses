@@ -8,49 +8,7 @@
 
 Розглянемо серверний компонент, який керує мережевими сесіями та виділяє динамічні буфери для обробки пакетів:
 
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-#include <cstring>
-
-class BaseService {
-public:
-    void serve() { /* базовий цикл обробки */ }
-    // Помилка: деструктор залишено невіртуальним за замовчуванням
-    ~BaseService() = default;
-};
-
-class HeavyStreamingService : public BaseService {
-    char* dynamic_payload{nullptr};
-    std::size_t payload_size{0};
-    std::vector<int> active_sessions;
-
-public:
-    HeavyStreamingService(std::size_t size)
-        : payload_size(size), active_sessions(1000, 1) {
-        dynamic_payload = new char[payload_size];
-        std::memset(dynamic_payload, 0x55, payload_size);
-        std::cout << "[+] HeavyStreamingService створено: " << payload_size << " байтів у купі\n";
-    }
-
-    ~HeavyStreamingService() {
-        delete[] dynamic_payload;
-        std::cout << "[-] HeavyStreamingService успішно зруйновано\n";
-    }
-};
-
-int main() {
-    std::cout << "=== Старт тесту: видалення через BaseService* ===\n";
-    BaseService* service = new HeavyStreamingService(1024 * 1024); // 1 МБ
-    
-    // Поліморфне видалення через покажчик на базу
-    delete service;
-    
-    std::cout << "=== Завершення main() ===\n";
-    return 0;
-}
-```
+:::code proj-polymorphic-destruction/cpp/laboratoriia-1.cpp
 
 ### Механізм роботи AddressSanitizer і тіньової пам'яті
 
@@ -104,54 +62,7 @@ SUMMARY: AddressSanitizer: 1052576 byte(s) leaked in 2 allocation(s).
 
 Дослідимо внутрішню топологію об'єкта та покажемо, як невіртуальний деструктор призводить до фатального падіння аллокатора операційної системи.
 
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <cstdint>
-
-struct InterfaceA {
-    virtual void methodA() = 0;
-    virtual ~InterfaceA() = default; // Віртуальний деструктор
-};
-
-struct InterfaceB {
-    virtual void methodB() = 0;
-    // Помилка: деструктор НЕ є віртуальним
-    ~InterfaceB() = default;
-};
-
-class ConcreteComponent : public InterfaceA, public InterfaceB {
-    int payload_data[16]{};
-public:
-    ConcreteComponent() { payload_data[0] = 42; }
-    void methodA() override { std::cout << "Виклик methodA()\n"; }
-    void methodB() override { std::cout << "Виклик methodB()\n"; }
-    ~ConcreteComponent() { std::cout << "Виклик ~ConcreteComponent()\n"; }
-};
-
-int main() {
-    std::cout << "=== Дослідження зміщення покажчиків ===\n";
-    ConcreteComponent* component = new ConcreteComponent();
-    
-    // Отримуємо поліморфні покажчики на різні інтерфейси одного об'єкта
-    InterfaceA* ptrA = component;
-    InterfaceB* ptrB = component;
-
-    std::cout << std::hex << std::showbase;
-    std::cout << "Адреса ConcreteComponent (початок блоку malloc): " << reinterpret_cast<uintptr_t>(component) << "\n";
-    std::cout << "Адреса InterfaceA (зсув 0):                     " << reinterpret_cast<uintptr_t>(ptrA) << "\n";
-    std::cout << "Адреса InterfaceB (зсув +8/+16):                " << reinterpret_cast<uintptr_t>(ptrB) << "\n";
-
-    std::ptrdiff_t offset = reinterpret_cast<char*>(ptrB) - reinterpret_cast<char*>(component);
-    std::cout << std::dec;
-    std::cout << "Фізичний зсув покажчика InterfaceB: " << offset << " байтів\n";
-
-    // Спроба видалення через InterfaceA (безпечно)
-    delete ptrA;
-    
-    return 0;
-}
-```
+:::code proj-polymorphic-destruction/cpp/laboratoriia-2-fizychne.cpp
 
 ### Результат роботи та аналіз адрес пам'яті
 
@@ -187,71 +98,7 @@ int main() {
 
 Щоб наочно побачити, як невіртуальний деструктор пошкоджує пам'ять без множинного успадкування в стандарті C++14/17, створимо модель ізольованого пулу пам'яті (*size-segregated memory pool*).
 
-```cpp
-#include <iostream>
-#include <cstddef>
-#include <vector>
-#include <cassert>
-
-// Модель пулу пам'яті з корзинами для різних розмірів
-class SimpleSegregatedAllocator {
-    static constexpr std::size_t BIN_SMALL = 8;
-    static constexpr std::size_t BIN_LARGE = 128;
-
-    std::vector<void*> free_list_small;
-    std::vector<void*> free_list_large;
-
-public:
-    void* allocate(std::size_t size) {
-        if (size <= BIN_SMALL) {
-            std::cout << "[ALLOC] Виділено з пулу SMALL (" << size << " байтів)\n";
-            return ::operator new(BIN_SMALL);
-        }
-        std::cout << "[ALLOC] Виділено з пулу LARGE (" << size << " байтів)\n";
-        return ::operator new(BIN_LARGE);
-    }
-
-    void deallocate(void* ptr, std::size_t size) {
-        if (size <= BIN_SMALL) {
-            std::cout << "[FREE]  Повернено в пул SMALL (" << size << " байтів) <-- ПОМИЛКА ДЕАЛОКАЦІЇ!\n";
-            free_list_small.push_back(ptr);
-        } else {
-            std::cout << "[FREE]  Повернено в пул LARGE (" << size << " байтів)\n";
-            free_list_large.push_back(ptr);
-        }
-    }
-};
-
-static SimpleSegregatedAllocator g_pool;
-
-struct BaseNode {
-    // Невіртуальний деструктор
-    ~BaseNode() = default;
-
-    static void* operator new(std::size_t sz) {
-        return g_pool.allocate(sz);
-    }
-    static void operator delete(void* ptr, std::size_t sz) noexcept {
-        g_pool.deallocate(ptr, sz);
-    }
-};
-
-struct BigDataNode : public BaseNode {
-    char raw_payload[120]{}; // Робить об'єкт великим (120 байтів)
-    ~BigDataNode() = default;
-};
-
-int main() {
-    std::cout << "=== Тест деалокації з точним розміром ===\n";
-    std::cout << "sizeof(BaseNode):    " << sizeof(BaseNode) << " байтів\n";
-    std::cout << "sizeof(BigDataNode): " << sizeof(BigDataNode) << " байтів\n\n";
-
-    BaseNode* node = new BigDataNode();
-    delete node; // Поліморфне видалення
-
-    return 0;
-}
-```
+:::code proj-polymorphic-destruction/cpp/laboratoriia-3.cpp
 
 ### Аналіз консольного виводу
 
@@ -276,65 +123,7 @@ sizeof(BigDataNode): 120 байтів
 
 Коли об'єкт не призначений для динамічного поліморфного видалення через покажчик на базу, використання `virtual` є невиправданою витратою пам'яті та швидкодії процесора. Реалізуємо безпечну домішку на основі шаблону CRTP (*Curiously Recurring Template Pattern*) із захищеним деструктором.
 
-```cpp
-#include <iostream>
-#include <memory>
-#include <string>
-#include <chrono>
-
-// Шаблонний базовий клас CRTP
-template <typename Derived>
-class ObservableMixin {
-protected:
-    // Захищений невіртуальний деструктор блокує небезпечне видалення
-    ~ObservableMixin() = default;
-
-public:
-    void emit_event(const std::string& msg) {
-        // Статична диспетчеризація часу компіляції (inline)
-        static_cast<Derived*>(this)->handle_event(msg);
-    }
-};
-
-// Конкретний сервіс
-class TelemetryManager : public ObservableMixin<TelemetryManager> {
-    int counter{0};
-public:
-    void handle_event(const std::string& msg) {
-        ++counter;
-        std::cout << "[Event #" << counter << "] " << msg << "\n";
-    }
-
-    ~TelemetryManager() {
-        std::cout << "[~] TelemetryManager успішно очищено\n";
-    }
-};
-
-int main() {
-    std::cout << "=== Статичний поліморфізм CRTP ===\n";
-    
-    // 1. Створення на стеку
-    {
-        TelemetryManager manager;
-        manager.emit_event("Ініціалізація датчиків");
-    }
-
-    // 2. Створення в купі через покажчик на конкретний тип
-    {
-        auto dynamic_mgr = std::make_unique<TelemetryManager>();
-        dynamic_mgr->emit_event("Отримано кадр телеметрії");
-    }
-
-    // 3. Перевірка безпеки компіляції:
-    /*
-    ObservableMixin<TelemetryManager>* unsafe_ptr = new TelemetryManager();
-    delete unsafe_ptr; // ПОМИЛКА КОМПІЛЯЦІЇ: деструктор захищений!
-    */
-
-    std::cout << "Розмір TelemetryManager: " << sizeof(TelemetryManager) << " байтів\n";
-    return 0;
-}
-```
+:::code proj-polymorphic-destruction/cpp/laboratoriia-4-nulovi.cpp
 
 ### Переваги захищеного деструктора
 

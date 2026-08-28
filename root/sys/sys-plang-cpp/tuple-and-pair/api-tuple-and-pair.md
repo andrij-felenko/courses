@@ -10,19 +10,7 @@
 
 ### Оголошення шаблонних класів
 
-```cpp
-// Заголовок <utility>
-namespace std {
-    template <typename T1, typename T2>
-    struct pair;
-}
-
-// Заголовок <tuple>
-namespace std {
-    template <typename... Types>
-    class tuple;
-}
-```
+:::code api-tuple-and-pair/cpp/oholoshennia-shablonnykh.cpp
 
 Вибір розділення заголовків зумовлений історичними причинами: `std::pair` є легковагою структурою, необхідною для базових алгоритмів STL та контейнера `std::map`, тому її визначення винесене у легкий заголовок `<utility>`. Клас `std::tuple` вимагає підтримки вариативних шаблонів і складних метафункцій інтроспекції, які зібрані у заголовочному файлі `<tuple>`.
 
@@ -41,31 +29,7 @@ namespace std {
 
 ### Конструктори та оператори присвоєння
 
-```cpp
-// 1. Конструктор за замовчуванням (умовно explicit)
-constexpr explicit(/* див. умови */) pair();
-
-// 2. Конструктор з елементів (умовно explicit)
-constexpr explicit(/* див. умови */) pair(const T1& x, const T2& y);
-
-// 3. Шаблонний конструктор з ідеальним передаванням (C++11)
-template <typename U1 = T1, typename U2 = T2>
-constexpr explicit(/* див. умови */) pair(U1&& x, U2&& y);
-
-// 4. Перетворювальний конструктор копіювання з іншої пари
-template <typename U1, typename U2>
-constexpr explicit(/* див. умови */) pair(const pair<U1, U2>& p);
-
-// 5. Перетворювальний конструктор переміщення з іншої пари
-template <typename U1, typename U2>
-constexpr explicit(/* див. умови */) pair(pair<U1, U2>&& p);
-
-// 6. Посекційний конструктор (piecewise construction)
-template <typename... Args1, typename... Args2>
-constexpr pair(piecewise_construct_t,
-               tuple<Args1...> first_args,
-               tuple<Args2...> second_args);
-```
+:::code api-tuple-and-pair/cpp/konstruktory-ta-operatory.hpp
 
 #### Порожній конструктор за замовчуванням
 
@@ -81,19 +45,7 @@ constexpr pair(piecewise_construct_t,
 
 Конструктор з тегом `std::piecewise_construct` використовується для конструювання полів `first` та `second` безпосередньо за місцем (in-place) шляхом розпакування параметрів із двох наданих `std::tuple`:
 
-```cpp
-#include <utility>
-#include <tuple>
-#include <string>
-#include <vector>
-
-// Передавання аргументів у конструктори складних типів усередині пари
-std::pair<std::string, std::vector<int>> p(
-    std::piecewise_construct,
-    std::forward_as_tuple(5, 'a'),       // Конструює string("aaaaa")
-    std::forward_as_tuple(10, 42)        // Конструює vector з 10 елементами 42
-);
-```
+:::code api-tuple-and-pair/cpp/posektsiine.cpp
 
 Цей конструктор є незамінним під час роботи з типами, які не підтримують копіювання або переміщення, або чиє конструювання вимагає передачі багатьох аргументів у внутрішні поля.
 
@@ -103,31 +55,7 @@ std::pair<std::string, std::vector<int>> p(
 
 ### Конструктори та операції створення
 
-```cpp
-// 1. Конструктор за замовчуванням
-constexpr explicit(/* див. умови */) tuple();
-
-// 2. Конструктор з константних посилань
-constexpr explicit(/* див. умови */) tuple(const Types&... args);
-
-// 3. Шаблонний конструктор з ідеальним передаванням (універсальні посилання)
-template <typename... UTypes>
-constexpr explicit(/* див. умови */) tuple(UTypes&&... args);
-
-// 4. Перетворювальний конструктор з іншого tuple
-template <typename... UTypes>
-constexpr explicit(/* див. умови */) tuple(const tuple<UTypes...>& u);
-
-template <typename... UTypes>
-constexpr explicit(/* див. умови */) tuple(tuple<UTypes...>&& u);
-
-// 5. Конструктор конвертації з std::pair (лише для tuple з 2 елементів)
-template <typename U1, typename U2>
-constexpr explicit(/* див. умови */) tuple(const pair<U1, U2>& p);
-
-template <typename U1, typename U2>
-constexpr explicit(/* див. умови */) tuple(pair<U1, U2>&& p);
-```
+:::code api-tuple-and-pair/cpp/konstruktory-ta-operatsii.hpp
 
 #### Аналіз універсальних конструкторів з умовною тривіальністю
 
@@ -316,18 +244,7 @@ constexpr T make_from_tuple(Tuple&& t);
 
 `std::pair` та `std::tuple` підтримують повний набір операторів порівняння. Порівняння виконується лексикографічно — від першого елемента до останнього.
 
-```cpp
-// C++11–C++17: оператори ==, !=, <, <=, >, >=
-template <typename... TTypes, typename... UTypes>
-constexpr bool operator==(const tuple<TTypes...>& t, const tuple<UTypes...>& u);
-
-template <typename... TTypes, typename... UTypes>
-constexpr bool operator<(const tuple<TTypes...>& t, const tuple<UTypes...>& u);
-
-// C++20: оператор трьохстороннього порівняння (<=>)
-template <typename... TTypes, typename... UTypes>
-constexpr auto operator<=>(const tuple<TTypes...>& t, const tuple<UTypes...>& u);
-```
+:::code api-tuple-and-pair/cpp/7-operatory-porivniannia.hpp
 
 Оператор `<=>` у C++20 повертає спільну категорію порівняння `std::common_comparison_category_t`, яка може бути `std::strong_ordering`, `std::weak_ordering` або `std::partial_ordering` залежно від властивостей елементів.
 

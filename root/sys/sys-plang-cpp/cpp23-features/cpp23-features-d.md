@@ -89,25 +89,7 @@ struct Coordinate {
 
 У C++23 базовий клас стає звичайною нешаблонною структурою. Метод базового класу автоматично отримує фактичний тип нащадка через явний параметр `this Self&& self`:
 
-```cpp
-struct Printable {
-    template <typename Self>
-    void print(this const Self& self) {
-        // self має тип фактичного нащадка, а не Printable
-        std::println("Об'єкт: {}", self.to_string());
-    }
-};
-
-struct User : Printable {
-    std::string name;
-    std::string to_string() const { return name; }
-};
-
-struct Device : Printable {
-    int id;
-    std::string to_string() const { return std::to_string(id); }
-};
-```
+:::code cpp23-features-d/cpp/statychnyi-polimorfizm-bez.cpp
 
 Цей підхід повністю ліквідує необхідність шаблонного спадкування, усуває небезпеку помилкового інстанціювання `struct Device : Printable<User>` і кардинально прискорює компіляцію великих ієрархій компонентів.
 
@@ -115,45 +97,11 @@ struct Device : Printable {
 
 При створенні класів-будівників метод налаштування властивості зазвичай повертає посилання на поточний об'єкт `*this`. Коли такий будівник успадковується іншим класом, виклик базового методу зрізає тип результату до базового посилання:
 
-```cpp
-// Проблема у C++20: зрізання типу при успадкуванні
-struct BaseBuilder {
-    BaseBuilder& set_tag(std::string_view t) { tag = t; return *this; }
-    std::string tag;
-};
-
-struct HttpBuilder : BaseBuilder {
-    HttpBuilder& set_port(int p) { port = p; return *this; }
-    int port{80};
-};
-
-// HttpBuilder().set_tag("api").set_port(8080); // Помилка компіляції: set_tag повертає BaseBuilder&
-```
+:::code cpp23-features-d/cpp/budivnychyi-interfeis.cpp
 
 Завдяки Deducing this базовий метод повертає посилання на фактичний похідний тип, забезпечуючи коректне ланцюжкове викликання:
 
-```cpp
-struct BaseBuilder {
-    template <typename Self>
-    Self&& set_tag(this Self&& self, std::string_view t) {
-        self.tag = t;
-        return std::forward<Self>(self);
-    }
-    std::string tag;
-};
-
-struct HttpBuilder : BaseBuilder {
-    template <typename Self>
-    Self&& set_port(this Self&& self, int p) {
-        self.port = p;
-        return std::forward<Self>(self);
-    }
-    int port{80};
-};
-
-// Працює ідеально в C++23:
-auto req = HttpBuilder{}.set_tag("api").set_port(8080);
-```
+:::code cpp23-features-d/cpp/budivnychyi-interfeis-2.cpp
 
 ### Покажчики на функції замість покажчиків на методи
 
@@ -163,20 +111,7 @@ auto req = HttpBuilder{}.set_tag("api").set_port(8080);
 
 Deducing this істотно спрощує написання класів-обгорток (проксі, декораторів, логерів), які повинні перехоплювати виклики методів і делегувати їх внутрішньому об'єкту, зберігаючи точні кваліфікатори доступу. Раніше написання універсального проксі вимагало генерації макросів або десятків спеціалізацій для константних та rvalue-об'єктів:
 
-```cpp
-template <typename Target>
-struct LoggingWrapper {
-    Target inner;
-
-    template <typename Self, typename... Args>
-    auto execute(this Self&& self, Args&&... args) 
-        -> decltype(auto) 
-    {
-        std::println("Початок виконання операції");
-        return std::forward_like<Self>(self.inner).execute(std::forward<Args>(args)...);
-    }
-};
-```
+:::code cpp23-features-d/cpp/universalni-dekoratory-ta.cpp
 
 ### Природна рекурсія в лямбда-виразах
 
@@ -207,23 +142,7 @@ int val = fibonacci(10); // Обчислює 55 без виділення дин
 
 Папір P2128R6 зняв обмеження одного аргументу: тепер `operator[]` може приймати довільну кількість аргументів будь-яких типів (зокрема пакети параметрів `Args...`):
 
-```cpp
-template <typename T, size_t Rows, size_t Cols>
-struct Matrix {
-    T data[Rows * Cols];
-
-    T& operator[](size_t r, size_t c) noexcept {
-        return data[r * Cols + c];
-    }
-
-    const T& operator[](size_t r, size_t c) const noexcept {
-        return data[r * Cols + c];
-    }
-};
-
-Matrix<float, 4, 4> mat;
-mat[1, 2] = 3.14f; // Природний математичний доступ до елемента
-```
+:::code cpp23-features-d/cpp/bahatovymirnyi-operator.cpp
 
 Цей синтаксис став базовим фундаментом для бібліотечного типу `std::mdspan`.
 
@@ -295,20 +214,7 @@ auto diff = -50z; // Знаковий тип std::ptrdiff_t
 
 Обробка відсутності значення або збою операції в традиційному C++ змушувала розробників писати багатослівні каскади перевірок, відомі як «піраміда умов»:
 
-```cpp
-// Класичний стиль C++17
-std::optional<User> find_user(int id);
-std::optional<Address> get_address(const User& u);
-std::optional<GeoPoint> get_coords(const Address& a);
-
-std::optional<GeoPoint> locate(int id) {
-    auto u = find_user(id);
-    if (!u) return std::nullopt;
-    auto a = get_address(*u);
-    if (!a) return std::nullopt;
-    return get_coords(*a);
-}
-```
+:::code cpp23-features-d/cpp/funktsionalnyi-potik.cpp
 
 ### Монадичні розширення std::optional
 
@@ -333,20 +239,7 @@ std::optional<GeoPoint> locate(int id) {
 
 На відміну від `std::optional`, `std::expected` зберігає детальну інформацію про причину збою, не вимагаючи генерації винятків:
 
-```cpp
-enum class NetError { Timeout, HostNotFound, AccessDenied };
-
-std::expected<std::string, NetError> fetch_data(std::string_view url);
-std::expected<JsonDoc, NetError> parse_json(std::string_view text);
-
-auto result = fetch_data("https://api.service.internal/config")
-    .and_then(parse_json)
-    .transform([](const JsonDoc& doc) { return doc["port"].as_int(); })
-    .or_else([](NetError err) -> std::expected<int, NetError> {
-        if (err == NetError::Timeout) return 8080; // Відновлення через резервний порт
-        return std::unexpected(err); // Прокидання помилки далі
-    });
-```
+:::code cpp23-features-d/cpp/std-expected-t-e.cpp
 
 ![Монадичний конвеєр std::expected та std::optional](img/monadic-pipeline.svg)
 
@@ -376,23 +269,7 @@ if (auto res = write_file("/var/log/sys.log", buffer); !res) {
 
 У великих архітектурах низькорівневі помилки підсистем (наприклад, помилки читання з диска `std::io_errc`) не повинні виходити в бізнес-логіку програми у сирому вигляді. Метод `transform_error(f)` дозволяє виконати мапінг кодів помилок без переривання монадичного конвеєра:
 
-```cpp
-enum class DbError { ConnectionLost, RecordNotFound, CorruptedData };
-enum class ApiError { InternalServerError, NotFound, Unauthorized };
-
-std::expected<Record, DbError> load_from_db(int id);
-
-std::expected<Record, ApiError> get_user_record(int id) {
-    return load_from_db(id).transform_error([](DbError e) -> ApiError {
-        switch (e) {
-            case DbError::RecordNotFound: return ApiError::NotFound;
-            case DbError::ConnectionLost:
-            case DbError::CorruptedData:  return ApiError::InternalServerError;
-        }
-        std::unreachable();
-    });
-}
-```
+:::code cpp23-features-d/cpp/transformatsiia-pomylok.cpp
 
 ### Порівняльний аналіз стратегій обробки збоїв
 
@@ -415,21 +292,7 @@ std::expected<Record, ApiError> get_user_record(int id) {
 
 Стандарт C++23 представив заголовок `<print>` (папір P2093R14). Функції `std::print` та `std::println` поєднують строгий контроль рядка формату під час компіляції (успадкований від `std::format` C++20) з максимальною швидкістю низькорівневого запису:
 
-```cpp
-#include <print>
-
-int main() {
-    std::string module = "CoreEngine";
-    int thread_id = 4;
-    double latency_ms = 0.428;
-
-    // Вивід у стандартний stdout
-    std::println("[{}] Потік {}: затримка {:.2f} мс", module, thread_id, latency_ms);
-
-    // Прямий вивід у файл потоку C (FILE*)
-    std::println(stderr, "Критична помилка ініціалізації");
-}
-```
+:::code cpp23-features-d/cpp/vyvid-novoho-pokolinnia.cpp
 
 Ключові архітектурні переваги `std::println`:
 1. **Прямі системні виклики:** Замість посимвольного запису через буфери `std::streambuf`, функція формує готовий UTF-8 пакет у локальному буфері на стеку і записує його за один виклик `write()` у POSIX або `WriteConsoleW()` у Windows.
@@ -442,18 +305,7 @@ int main() {
 
 Заголовок `<stacktrace>` стандартизував захоплення та форматування трасування:
 
-```cpp
-#include <stacktrace>
-#include <print>
-
-void deep_operation() {
-    auto trace = std::stacktrace::current();
-    for (const auto& frame : trace) {
-        std::println("Функція: {}, файл: {}:{}", 
-                     frame.description(), frame.source_file(), frame.source_line());
-    }
-}
-```
+:::code cpp23-features-d/cpp/prohramna-inspektsiia.cpp
 
 `std::stacktrace::current()` фіксує ланцюжок кадрів стека без зупинки процесу. Якщо налагоджувальні символи (DWARF або PDB) скомпільовані разом із бінарним файлом, методи `source_file()` та `source_line()` повертають точне місцезнаходження виклику в сирцевому коді.
 
@@ -467,28 +319,7 @@ void deep_operation() {
 
 Об'єкт `std::mdspan` складається з покажчика на початок даних і трьох ортогональних політик:
 
-```cpp
-#include <mdspan>
-#include <vector>
-#include <print>
-
-void process_tensor() {
-    std::vector<double> buffer(3 * 4, 0.0);
-
-    // Створення 2D-виду розміром 3x4 поверх плоского вектора
-    std::mdspan<double, std::extents<size_t, 3, 4>> matrix(buffer.data());
-
-    // Запис через багатовимірний operator[]
-    matrix[1, 2] = 42.0;
-
-    // Стовпчик за стовпчиком (Fortran-layout) для інтеграції з LAPACK/BLAS
-    std::mdspan<double, std::dextents<size_t, 2>, std::layout_left> fortran_matrix(
-        buffer.data(), 3, 4
-    );
-
-    std::println("Елемент buffer[6]: {}", buffer[1 * 4 + 2]); // Друкує 42.0
-}
-```
+:::code cpp23-features-d/cpp/bahatovymirnyi-masyv-std.cpp
 
 ![Проекція багатовимірних координат у std::mdspan](img/mdspan-layout.svg)
 
@@ -505,20 +336,7 @@ void process_tensor() {
 
 Для виділення підматриць, окремих рядків, стовпчиків чи просторових площин без алокації нової пам'яті C++23 надає функцію `std::submdspan`:
 
-```cpp
-#include <mdspan>
-
-void slice_3d_volume() {
-    double raw_data[100 * 100 * 100];
-    std::mdspan<double, std::extents<size_t, 100, 100, 100>> volume(raw_data);
-
-    // Отримання 2D-зрізу (переріз по Z = 42)
-    auto plane_2d = std::submdspan(volume, 42, std::full_extent, std::full_extent);
-
-    // plane_2d має ранг 2 та розмірність 100x100
-    plane_2d[10, 20] = 1.0; // Записує безпосередньо у вихідний масив raw_data
-}
-```
+:::code cpp23-features-d/cpp/zrizy-pidvymiriv-cherez.cpp
 
 ### Плоскі асоціативні контейнери std::flat_map та std::flat_set
 
@@ -526,23 +344,7 @@ void slice_3d_volume() {
 
 Адаптери `std::flat_map` та `std::flat_set` (заголовки `<flat_map>` та `<flat_set>`) зберігають елементи у двох паралельних неперервних векторах (`std::vector<Key>` та `std::vector<Value>`):
 
-```cpp
-#include <flat_map>
-#include <print>
-
-void benchmark_map() {
-    std::flat_map<int, std::string> accounts;
-
-    accounts.insert({1024, "Адміністратор"});
-    accounts.insert({2048, "Оператор"});
-    accounts.insert({512, "Гість"});
-
-    // Пошук за O(log N) через двійковий пошук у кеш-локальному векторі
-    if (auto it = accounts.find(1024); it != accounts.end()) {
-        std::println("Знайдено: {}", it->second);
-    }
-}
-```
+:::code cpp23-features-d/cpp/ploski-asotsiatyvni.cpp
 
 Властивості плоских контейнерів:
 - **Швидкість читання:** Двійковий пошук у неперервному векторі ключів працює у 3–8 разів швидше за обхід вузлового дерева `std::map`, оскільки сусідні ключі завантажуються в кеш процесора цілими лініями по 64 байти.
@@ -555,23 +357,7 @@ void benchmark_map() {
 
 Якщо програмі потрібно модифікувати велику кількість ключів або значень, `std::flat_map` дозволяє вилучити внутрішні вектори у формі структури `containers` без копіювання, змінити їх напряму та замінити назад:
 
-```cpp
-#include <flat_map>
-#include <algorithm>
-
-void bulk_update(std::flat_map<int, double>& prices) {
-    // Вилучення векторів
-    auto [keys, values] = std::move(prices).extract();
-
-    // Масове оновлення всіх значень за один векторний прохід
-    for (auto& val : values) {
-        val *= 1.20; // Додавання ПДВ
-    }
-
-    // Повернення векторів у плоску мапу
-    prices.replace(std::move(keys), std::move(values));
-}
-```
+:::code cpp23-features-d/cpp/manipuliatsiia.cpp
 
 ### Ліниві корутини: std::generator
 
@@ -579,32 +365,7 @@ void bulk_update(std::flat_map<int, double>& prices) {
 
 `std::generator<T>` (заголовок `<generator>`) надає синхронний лінивий генератор послідовностей, сумісний із бібліотекою Ranges:
 
-```cpp
-#include <generator>
-#include <ranges>
-#include <print>
-
-std::generator<uint64_t> generate_primes() {
-    co_yield 2;
-    co_yield 3;
-    for (uint64_t n = 5; ; n += 2) {
-        bool is_prime = true;
-        for (uint64_t i = 3; i * i <= n; i += 2) {
-            if (n % i == 0) { is_prime = false; break; }
-        }
-        if (is_prime) co_yield n;
-    }
-}
-
-int main() {
-    // Об'єднання генератора з адаптерами std::ranges
-    for (auto prime : generate_primes() 
-                    | std::views::filter([](auto p) { return p % 10 == 7; })
-                    | std::views::take(5)) {
-        std::println("Просте число: {}", prime);
-    }
-}
-```
+:::code cpp23-features-d/cpp/linyvi-korutyny-std.cpp
 
 Генератор не виділяє пам'ять під послідовність наперед: наступне просте число обчислюється лише тоді, коли ітератор циклу `for` робить крок `++it`.
 
@@ -612,24 +373,7 @@ int main() {
 
 Коли генератор викликає інший генератор або діапазон (наприклад, при рекурсивному обході бінарного дерева або файлової системи), інструкція `co_yield std::ranges::elements_of(sub_generator)` передає управління дочірній корутині без накладних витрат на покрокове розгортання проміжного циклу:
 
-```cpp
-#include <generator>
-#include <ranges>
-#include <string>
-
-struct TreeNode {
-    std::string value;
-    std::vector<TreeNode> children;
-};
-
-std::generator<const std::string&> traverse_tree(const TreeNode& node) {
-    co_yield node.value;
-    for (const auto& child : node.children) {
-        // Делегування генерації вкладеному піддереву
-        co_yield std::ranges::elements_of(traverse_tree(child));
-    }
-}
-```
+:::code cpp23-features-d/cpp/vkladeni-heneratory-cherez.cpp
 
 ### Нові адаптери бібліотеки std::ranges
 
@@ -652,19 +396,7 @@ std::generator<const std::string&> traverse_tree(const TreeNode& node) {
 
 Утиліта `std::move_only_function` (заголовок `<functional>`) вимагає лише семантики переміщення (`MoveConstructible`). Крім того, вона дозволяє явно вказувати константність виклику та специфікатор `noexcept` прямо у сигнатурі:
 
-```cpp
-#include <functional>
-#include <memory>
-
-struct Task {
-    std::unique_ptr<int[]> buffer;
-};
-
-// Зберігає переміщуваний об'єкт без виділення пам'яті в купі для SBO
-std::move_only_function<void() noexcept> task_runner = [t = Task{std::make_unique<int[]>(1024)}]() noexcept {
-    // Безпечне виконання задачі
-};
-```
+:::code cpp23-features-d/cpp/std-move-only-function.cpp
 
 ### Фіксована ширина чисел із плаваючою крапкою <stdfloat>
 

@@ -33,19 +33,7 @@ if constexpr ( init-statement(opt) condition ) statement else statement
 3. **Помилка часу компіляції при неконстантності:** якщо умова містить значення, відомі лише під час виконання (Runtime Values), або неконстантні виклики функцій, компілятор зобов'язаний негайно зупинити процес збірки з діагностичним повідомленням про неможливість обчислення виразу під час трансляції.
 4. **Особливості оголошення змінної в condition:** якщо в умові оголошується змінна (`if constexpr (constexpr auto flag = check())`), вона зобов'язана мати тип, що перетворюється на `bool`. Спроба оголосити змінну неконстантного типу в умові `if constexpr` є синтаксичною помилкою.
 
-```cpp
-template<typename T>
-void validate(T x) {
-    // ВАЛІДНО: константний предикат метаінформації про тип
-    if constexpr (std::is_integral_v<T>) { /* ... */ }
-
-    // ВАЛІДНО: вираз оператора sizeof є константою компіляції
-    if constexpr (sizeof(T) > 8) { /* ... */ }
-
-    // ПОМИЛКА: значення параметра x відоме лише у runtime!
-    if constexpr (x > 0) { /* ... */ } 
-}
-```
+:::code api-constexpr-if-syntax/cpp/vymohy-do-vyrazu-umovy.cpp
 
 ## Нормативна семантика відкинутих інструкцій (Discarded Statements [stmt.if]/2)
 
@@ -131,21 +119,7 @@ void handle(T val) {
 
 Щоб обійти це обмеження стандарту C++17, розробники використовують ідіому залежної константи (Dependent False Idiom). Створюється допоміжний шаблон змінної, значення якого завжди дорівнює `false`, проте його обчислення синтаксично прив'язане до типу `T`:
 
-```cpp
-template<typename...>
-inline constexpr bool dependent_false = false;
-
-template<typename T>
-void handle_valid(T val) {
-    if constexpr (std::is_integral_v<T>) {
-        // обробка цілих чисел
-    } else {
-        // ВАЛІДНО: вираз dependent_false<T> залежить від T
-        // Компілятор відкладає оцінку на Фазу 2 (інстанціювання)
-        static_assert(dependent_false<T>, "Непідтримуваний тип T!");
-    }
-}
-```
+:::code api-constexpr-if-syntax/cpp/spetsyfikatsiia-ta.cpp
 
 Оскільки `dependent_false<T>` залежить від `T`, компілятор ігнорує вираз на Фазі 1. На Фазі 2, якщо гілка `else` стає відкинутою інструкцією, шаблон `dependent_false<T>` у ній взагалі не інстанціюється. Помилка виникає виключно тоді, коли функція реально викликається з типом, для якого умова `is_integral_v<T>` дорівнює `false`.
 
@@ -161,18 +135,7 @@ void handle_valid(T val) {
 2. **Узгодженість активних інструкцій:** якщо всередині активної гілки (або поза межами `if constexpr`) знаходиться декілька інструкцій `return`, усі вони зобов'язані виводити в точності один і той самий тип даних відповідно до стандартних правил виведення `auto`.
 3. **Поліморфізм повертаного типу (Polymorphic Return Type):** функція з умовним компілюванням може повертати принципово різні типи даних для різних аргументів інстанціювання, що замінює складні метапрограмні структури вибору типу повернення на базі `std::conditional_t` або SFINAE.
 
-```cpp
-template<typename T>
-auto extract_data(T obj) {
-    if constexpr (std::is_pointer_v<T>) {
-        return *obj;          // Якщо T = double*, результуючий тип: double
-    } else if constexpr (std::is_integral_v<T>) {
-        return obj * 2;        // Якщо T = int, результуючий тип: int
-    } else {
-        return std::string(obj); // Якщо T = const char*, результуючий тип: std::string
-    }
-}
-```
+:::code api-constexpr-if-syntax/cpp/vyvedennia-typu.cpp
 
 У наведеному прикладі під час виклику `extract_data(5)` активною є друга гілка, яка повертає `int`. Перша та третя гілки позначаються як відкинуті інструкції, тому несумісність між типами `double`, `int` та `std::string` не викликає жодних помилок трансляції.
 

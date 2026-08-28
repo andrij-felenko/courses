@@ -43,40 +43,7 @@ namespace std {
 
 `std::span` надає набір конструкторів, що охоплюють створення зрізів із будь-яких джерел суцільних даних. Кожен конструктор має чітко визначені умови SFINAE (`std::enable_if` або `requires`), які запобігають некоректному зв'язуванню типів.
 
-```cpp
-// 1. Конструктор за замовчуванням (тільки якщо Extent == 0 або dynamic_extent)
-constexpr span() noexcept;
-
-// 2. З двох ітераторів (first, count або first, last)
-template <typename It>
-constexpr explicit(Extent != std::dynamic_extent)
-span(It first, size_type count);
-
-template <typename It, typename End>
-constexpr explicit(Extent != std::dynamic_extent)
-span(It first, End last);
-
-// 3. З C-масиву
-template <std::size_t N>
-constexpr span(element_type (&arr)[N]) noexcept;
-
-// 4. З std::array
-template <typename T, std::size_t N>
-constexpr span(std::array<T, N>& arr) noexcept;
-
-template <typename T, std::size_t N>
-constexpr span(const std::array<T, N>& arr) noexcept;
-
-// 5. З контейнерів (std::vector, std::string тощо) або довільних ranges
-template <typename Rng>
-constexpr explicit(Extent != std::dynamic_extent)
-span(Rng&& range);
-
-// 6. Конструктор конверсії з іншого span (наприклад, з модифікованого у const)
-template <typename OtherElementType, std::size_t OtherExtent>
-constexpr explicit(Extent != std::dynamic_extent && OtherExtent == std::dynamic_extent)
-span(const span<OtherElementType, OtherExtent>& other) noexcept;
-```
+:::code api-span-interface/cpp/3-detalnyi-analiz.hpp
 
 ### Семантичні деталі конструкторів:
 
@@ -107,26 +74,7 @@ std::span s_st{st_arr}; // Автоматично виводить std::span<con
 
 Методи доступу до даних надають прямий доступ до елементів масиву з мінімальними накладними витратами. Вони спроектовані з розрахунком на інлайнінг (англ. *inlining*) компілятором у пряму арифметику вказівників.
 
-```cpp
-// Повертає посилання на i-й елемент (без перевірки меж у release)
-constexpr reference operator[](size_type idx) const;
-
-// Повертає посилання на перший та останній елемент
-constexpr reference front() const;
-constexpr reference back() const;
-
-// Повертає вказівник на початок масиву у пам'яті
-constexpr pointer data() const noexcept;
-
-// Кількість елементів у зрізі
-constexpr size_type size() const noexcept;
-
-// Загальний розмір масиву у байтах (size() * sizeof(element_type))
-constexpr size_type size_bytes() const noexcept;
-
-// Перевірка чи порожній зріз (size() == 0)
-[[nodiscard]] constexpr bool empty() const noexcept;
-```
+:::code api-span-interface/cpp/4-operatsii-dostupu-do.cpp
 
 ### Деталі поведінки методів фронтального та кінцевого доступу:
 
@@ -146,26 +94,7 @@ constexpr size_type size_bytes() const noexcept;
 
 `std::span` надає методи для вирізання піддіапазонів. Кожна з функцій існує у двох варіантах: зі статичним розміром (параметри шаблону) та динамічним розміром (аргументи функції).
 
-```cpp
-// 1. Перші N елементів
-template <std::size_t Count>
-constexpr span<element_type, Count> first() const;
-
-constexpr span<element_type, std::dynamic_extent> first(size_type count) const;
-
-// 2. Останні N елементів
-template <std::size_t Count>
-constexpr span<element_type, Count> last() const;
-
-constexpr span<element_type, std::dynamic_extent> last(size_type count) const;
-
-// 3. Піддіапазон починаючи з Pos розміром Count
-template <std::size_t Offset, std::size_t Count = std::dynamic_extent>
-constexpr auto subspan() const;
-
-constexpr span<element_type, std::dynamic_extent> 
-subspan(size_type offset, size_type count = std::dynamic_extent) const;
-```
+:::code api-span-interface/cpp/5-metody-stvorennia-zriziv.cpp
 
 ### Специфікація обчислення типів повернення для subspan():
 
@@ -181,20 +110,7 @@ subspan(size_type offset, size_type count = std::dynamic_extent) const;
 
 Для низькорівневої обробки байтів замість небезпечних приведень `reinterpret_cast<const char*>` стандарт C++20 надає дві вільностоячі функції у просторі назв `std`:
 
-```cpp
-namespace std {
-    template <typename ElementType, std::size_t Extent>
-    span<const std::byte, 
-         Extent == dynamic_extent ? dynamic_extent : Extent * sizeof(ElementType)>
-    as_bytes(span<ElementType, Extent> s) noexcept;
-
-    template <typename ElementType, std::size_t Extent>
-    requires (!std::is_const_v<ElementType>)
-    span<std::byte, 
-         Extent == dynamic_extent ? dynamic_extent : Extent * sizeof(ElementType)>
-    as_writable_bytes(span<ElementType, Extent> s) noexcept;
-}
-```
+:::code api-span-interface/cpp/6-bezpechna-baitova.cpp
 
 ### Фізичний механізм роботи:
 

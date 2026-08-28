@@ -84,35 +84,7 @@ void print_count(Types... args) {
 
 Розглянемо, як позиція трикрапки визначає межі патерну:
 
-```cpp
-template <typename... Args>
-void demo_patterns(Args... args) {
-    // Патерн 1: Просте розпакування імен аргументів
-    // Патерн: args
-    // Результат: consume(a1, a2, a3);
-    consume(args...);
-
-    // Патерн 2: Виклик функції для кожного елемента
-    // Патерн: transform(args)
-    // Результат: consume(transform(a1), transform(a2), transform(a3));
-    consume(transform(args)...);
-
-    // Патерн 3: Виклик функції над усім розпакованим пакетом
-    // Патерн: args
-    // Результат: consume(transform(a1, a2, a3));
-    consume(transform(args...));
-
-    // Патерн 4: Взяття адреси кожного аргументу
-    // Патерн: &args
-    // Результат: consume(&a1, &a2, &a3);
-    consume((&args)...);
-
-    // Патерн 5: Ідеальна передача з приведенням типів
-    // Патерн: std::forward<Args>(args)
-    // Результат: consume(std::forward<T1>(a1), std::forward<T2>(a2), std::forward<T3>(a3));
-    consume(std::forward<Args>(args)...);
-}
-```
+:::code variadic-and-folds-d/cpp/mekhanika-rozpakuvannia.cpp
 
 ### Синхронне розпакування кількох пакетів (Multi-pack Expansion)
 
@@ -181,19 +153,7 @@ void pair_up(const Types&... types, const Indices&... indices) {
 
 У C++11 єдиним штатним способом обробки елементів пакета була функціональна декомпозиція на голову (`Head`) та хвіст (`Tail...`):
 
-```cpp
-// 1. Базовий випадок (термінатор рекурсії для 0 аргументів)
-void print_all() {
-    std::cout << '\n';
-}
-
-// 2. Рекурсивний шаблон
-template <typename Head, typename... Tail>
-void print_all(const Head& head, const Tail&... tail) {
-    std::cout << head << ' ';
-    print_all(tail...); // Рекурсивний виклик для залишку пакета
-}
-```
+:::code variadic-and-folds-d/cpp/rekursyvnyi-pidkhid-c-11.cpp
 
 ![Порівняння компіляції: C++11 рекурсія проти C++17 Fold Expressions](img/recursive-vs-fold-ast.svg)
 
@@ -244,18 +204,7 @@ void print_all_fast(const Args&... args) {
 
 > ⚠️ **Круглі дужки обов'язкові:** Вираз згортки завжди береться в круглі дужки: `(args + ...)`. Запис `args + ...` без дужок є грубою синтаксичною помилкою.
 
-```cpp
-template <typename... Args>
-auto sum_all(Args... args) {
-    return (args + ...); // Унарна права згортка: a1 + (a2 + (a3 + a4))
-}
-
-template <typename... Args>
-void print_spaced(const Args&... args) {
-    // Бінарна ліва згортка для потоку введення-виведення
-    (std::cout << ... << args) << '\n';
-}
-```
+:::code variadic-and-folds-d/cpp/chotyry-hramatychni-formy.cpp
 
 Детальний перелік усіх 32 операторів, синтаксичних правил та тонкощів роботи парсера наведено у [довіднику операторів згортки та правил для порожніх пакетів](root:sys-plang-cpp/variadic-and-folds/api-fold-operators.md).
 
@@ -322,60 +271,19 @@ std::visit(Overloaded{
 
 Вирази згортки дозволяють створювати компактні перевірки концептів та типів без використання складних метафункцій:
 
-```cpp
-// Перевірка, що ВСІ типи в пакеті є цілочисельними
-template <typename... Ts>
-constexpr bool all_integral_v = (std::is_integral_v<Ts> && ...);
-
-// Перевірка, що ХОЧА Б ОДИН тип є покажчиком
-template <typename... Ts>
-constexpr bool has_pointer_v = (std::is_pointer_v<Ts> || ...);
-
-// Застосування у концептах C++20:
-template <typename... Args>
-    requires (std::is_integral_v<Args> && ...)
-void process_integers_only(Args... args) {
-    // Функція компілюється лише тоді, коли всі аргументи — цілі числа
-}
-```
+:::code variadic-and-folds-d/cpp/2-statychna-perevirka.cpp
 
 ### 3. Ланцюжок виконання функцій за оператором коми
 
 Оператор коми гарантує виконання побічних ефектів строго зліва направо. Це дозволяє створювати елегантні конвеєри послідовної обробки:
 
-```cpp
-template <typename... Callbacks>
-void notify_observers(int event_id, Callbacks&&... callbacks) {
-    // Згортка за комою викликає кожен callback послідовно
-    (std::forward<Callbacks>(callbacks)(event_id), ...);
-}
-
-template <typename Target, typename... Values>
-void push_all(Target& container, Values&&... vals) {
-    (container.push_back(std::forward<Values>(vals)), ...);
-}
-```
+:::code variadic-and-folds-d/cpp/3-lantsiuzhok-vykonannia.cpp
 
 ### 4. Розпакування кортежів через `std::index_sequence`
 
 Кортежі `std::tuple` не є пакетами параметрів, тому їх не можна розпакувати прямо через `tuple...`. Для передачі елементів кортежу у функцію використовують послідовність індексів `std::index_sequence` та допоміжну функцію розпакування:
 
-```cpp
-template <typename Func, typename Tuple, size_t... Is>
-constexpr decltype(auto) apply_tuple_impl(Func&& f, Tuple&& t, std::index_sequence<Is...>) {
-    return std::forward<Func>(f)(std::get<Is>(std::forward<Tuple>(t))...);
-}
-
-template <typename Func, typename Tuple>
-constexpr decltype(auto) apply_tuple(Func&& f, Tuple&& t) {
-    constexpr size_t size = std::tuple_size_v<std::remove_reference_t<Tuple>>;
-    return apply_tuple_impl(
-        std::forward<Func>(f),
-        std::forward<Tuple>(t),
-        std::make_index_sequence<size>{}
-    );
-}
-```
+:::code variadic-and-folds-d/cpp/4-rozpakuvannia-kortezhiv.cpp
 
 Повну архітектуру типізованого конвеєра обробки повідомлень із розпакуванням кортежів та порівняльним аналізом асемблерного виходу наведено у [практичній реалізації конвеєра обробки повідомлень з розпакуванням кортежів](root:sys-plang-cpp/variadic-and-folds/proj-tuple-pipeline.md).
 

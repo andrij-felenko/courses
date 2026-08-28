@@ -14,64 +14,13 @@
 
 ### 1.1. Оголошення функції та сигнатура
 
-```cpp
-#include <cxxabi.h>
-
-namespace abi {
-    extern "C" char* __cxa_demangle(
-        const char* mangled_name,
-        char*       output_buffer,
-        size_t*     length,
-        int*        status
-    );
-}
-```
+:::code api-demangle/cpp/1-1-oholoshennia-funktsii.cpp
 
 Функція експортується з C-сумісним зв'язуванням (`extern "C"`) усередині простору імен `abi` (у деяких реалізаціях синонімічного з `__cxxabiv1`), що уможливлює її прямий виклик як із програм на чистому C, так і з сучасного коду на C++.
 
 :::tabs
-```c
-#include <cxxabi.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void print_symbol_info(const char* mangled) {
-    int status = 0;
-    char* demangled = abi::__cxa_demangle(mangled, NULL, NULL, &status);
-    
-    if (status == 0 && demangled != NULL) {
-        printf("Оригінальний символ:  %s\n", mangled);
-        printf("Декодований вигляд:   %s\n", demangled);
-        free(demangled);
-    } else {
-        printf("Не вдалося декодувати символ %s (код помилки: %d)\n", mangled, status);
-    }
-}
-```
-```cpp
-#include <cxxabi.h>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <string_view>
-
-std::string demangle(std::string_view mangled) {
-    if (mangled.empty()) {
-        return {};
-    }
-    
-    int status = 0;
-    std::unique_ptr<char, void(*)(void*)> buffer{
-        abi::__cxa_demangle(mangled.data(), nullptr, nullptr, &status),
-        std::free
-    };
-    
-    if (status == 0 && buffer) {
-        return std::string(buffer.get());
-    }
-    return std::string(mangled);
-}
-```
+:::code api-demangle/c/1-1-oholoshennia-funktsii.c
+:::code api-demangle/cpp/1-1-oholoshennia-funktsii-2.cpp
 :::
 
 ### 1.2. Детальна специфікація параметрів
@@ -108,57 +57,8 @@ std::string demangle(std::string_view mangled) {
 2. **Багаторазове використання буфера (Buffer Reuse):** При профілюванні тисяч адрес викликів постійні алокації та звільнення пам'яті створюють значне навантаження на купу. Передача одного й того самого буфера між викликами дозволяє алокатору одноразово розширити його до максимального розміру й повторно використовувати для всіх наступних символів:
 
 :::tabs
-```c
-#include <cxxabi.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void process_symbol_batch(const char** list, size_t count) {
-    size_t capacity = 512;
-    char* buffer = (char*)malloc(capacity);
-    int status = 0;
-
-    for (size_t i = 0; i < count; ++i) {
-        char* result = abi::__cxa_demangle(list[i], buffer, &capacity, &status);
-        if (status == 0 && result != NULL) {
-            buffer = result; // Покажчик міг змінитися після виклику realloc
-            printf("[%zu] %s\n", i, buffer);
-        } else {
-            printf("[%zu] %s (без змін)\n", i, list[i]);
-        }
-    }
-    free(buffer);
-}
-```
-```cpp
-#include <cxxabi.h>
-#include <iostream>
-#include <memory>
-#include <span>
-#include <string_view>
-#include <vector>
-
-void process_symbol_batch_cpp(std::span<const char* const> symbols) {
-    size_t capacity = 512;
-    std::unique_ptr<char, void(*)(void*)> buffer{
-        static_cast<char*>(std::malloc(capacity)),
-        std::free
-    };
-    int status = 0;
-
-    for (size_t i = 0; i < symbols.size(); ++i) {
-        char* raw_ptr = buffer.release();
-        char* result = abi::__cxa_demangle(symbols[i], raw_ptr, &capacity, &status);
-        buffer.reset(result ? result : raw_ptr);
-
-        if (status == 0 && buffer) {
-            std::cout << "[" << i << "] " << buffer.get() << '\n';
-        } else {
-            std::cout << "[" << i << "] " << symbols[i] << " (без змін)\n";
-        }
-    }
-}
-```
+:::code api-demangle/c/1-5-pravyla-volodinnia.c
+:::code api-demangle/cpp/1-5-pravyla-volodinnia.cpp
 :::
 
 ### 1.6. Потокобезпека та заборона виклику в обробниках сигналів
@@ -174,79 +74,11 @@ void process_symbol_batch_cpp(std::span<const char* const> symbols) {
 
 ### 2.1. Оголошення та підключення
 
-```cpp
-#include <windows.h>
-#include <dbghelp.h>
-
-#pragma comment(lib, "dbghelp.lib")
-
-DWORD WINAPI UnDecorateSymbolName(
-    PCSTR DecoratedName,
-    PSTR  UnDecoratedName,
-    DWORD UndecoratedLength,
-    DWORD Flags
-);
-```
+:::code api-demangle/cpp/2-1-oholoshennia-ta.cpp
 
 :::tabs
-```c
-#include <windows.h>
-#include <dbghelp.h>
-#include <stdio.h>
-
-void win32_print_symbol(const char* decorated) {
-    char buffer[1024];
-    DWORD len = UnDecorateSymbolName(
-        decorated,
-        buffer,
-        sizeof(buffer),
-        UNDNAME_COMPLETE
-    );
-    
-    if (len > 0) {
-        printf("Windows декодовано: %s\n", buffer);
-    } else {
-        printf("Помилка декодування, код: %lu\n", GetLastError());
-    }
-}
-```
-```cpp
-#include <windows.h>
-#include <dbghelp.h>
-#include <iostream>
-#include <string>
-#include <string_view>
-
-std::string win32_undecorate(std::string_view decorated, DWORD flags = UNDNAME_COMPLETE) {
-    if (decorated.empty()) {
-        return {};
-    }
-    
-    std::string result(1024, '\0');
-    DWORD len = UnDecorateSymbolName(
-        decorated.data(),
-        result.data(),
-        static_cast<DWORD>(result.size()),
-        flags
-    );
-    
-    if (len == 0 && GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
-        result.resize(4096);
-        len = UnDecorateSymbolName(
-            decorated.data(),
-            result.data(),
-            static_cast<DWORD>(result.size()),
-            flags
-        );
-    }
-    
-    if (len > 0) {
-        result.resize(len);
-        return result;
-    }
-    return std::string(decorated);
-}
-```
+:::code api-demangle/c/2-1-oholoshennia-ta.c
+:::code api-demangle/cpp/2-1-oholoshennia-ta-2.cpp
 :::
 
 ### 2.2. Повна матриця прапорців декодування (Flags)
@@ -290,19 +122,7 @@ MSVC ABI кодує не лише функції, а й службові кон�
 
 Утиліта `c++filt` (входить до GNU Binutils) та `llvm-cxxfilt` (частина LLVM) здатні декодувати окремі аргументи або працювати як потоковий фільтр:
 
-```bash
-# Розшифрування окремого символу:
-c++filt _ZN4math6Vector3addERKS0_
-
-# Фільтрація експортованих символів динамічної бібліотеки ELF:
-nm -D --defined-only libengine.so | c++filt
-
-# Декодування списку символів із журналу падіння:
-cat crash.log | c++filt > readable_crash.log
-
-# Примусове декодування Windows-символів утилітою llvm-cxxfilt:
-llvm-cxxfilt --format=msvc "?calculate@MathHelper@@QEAAHHN@Z"
-```
+:::code api-demangle/sh/main.sh
 
 Ключові прапорці запуску `c++filt`:
 - `-_`, `--strip-underscore`: Ігнорувати початковий символ підкреслення (обов'язковий прапорець для об'єктних файлів Mach-O на macOS).
@@ -331,37 +151,7 @@ is :- "public: int __cdecl MathHelper::calculate(int,double)"
 Оператор мови C++ `typeid(T).name()` повертає внутрішній рядок назви типу. Проте стандарт ISO C++ свідомо не стандартизує формат цього рядка, залишаючи його на розсуд розробників компілятора.
 
 :::tabs
-```cpp
-#include <iostream>
-#include <typeinfo>
-#include <vector>
-#include <string>
-
-#if defined(__GNUC__) || defined(__clang__)
-#include <cxxabi.h>
-#include <memory>
-
-std::string demangled_typename(const std::type_info& ti) {
-    int status = 0;
-    std::unique_ptr<char, void(*)(void*)> res{
-        abi::__cxa_demangle(ti.name(), nullptr, nullptr, &status),
-        std::free
-    };
-    return (status == 0 && res) ? std::string(res.get()) : ti.name();
-}
-#else
-std::string demangled_typename(const std::type_info& ti) {
-    // На MSVC typeid().name() вже містить декодований людиночитабельний рядок
-    return ti.name();
-}
-#endif
-
-int main() {
-    std::vector<int> numbers;
-    std::cout << "Сире ім'я typeid:   " << typeid(numbers).name() << '\n';
-    std::cout << "Людиночитабельне:  " << demangled_typename(typeid(numbers)) << '\n';
-}
-```
+:::code api-demangle/cpp/4-dynamichna.cpp
 :::
 
 ### Відмінності поведінки RTTI між компіляторами
@@ -385,22 +175,5 @@ int main() {
 Використання C++23 `std::stacktrace` усуває необхідність прямої підтримки системних заголовків `<cxxabi.h>` та `<dbghelp.h>` у прикладному коді:
 
 :::tabs
-```cpp
-#include <iostream>
-#include <stacktrace>
-
-void trigger_diagnostic() {
-    auto trace = std::stacktrace::current();
-    std::cout << "--- Діагностичний звіт C++23 ---\n";
-    for (const auto& entry : trace) {
-        std::cout << entry.description() << " ("
-                  << entry.source_file() << ":" << entry.source_line() << ")\n";
-    }
-}
-
-int main() {
-    trigger_diagnostic();
-    return 0;
-}
-```
+:::code api-demangle/cpp/4-1-spetsyfikatsiia-std.cpp
 :::

@@ -33,63 +33,7 @@
 
 ### Повна конфігурація CMakeLists.txt з ізоляцією та перевикористанням PCH
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(EngineCore LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Створення статичної бібліотеки ядра
-add_library(core_lib STATIC
-    src/UserSession.cpp
-    src/Database.cpp
-    src/Network.cpp
-)
-
-target_include_directories(core_lib PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-)
-
-# Оголошення попередньо скомпільованих заголовків для бібліотеки
-target_precompile_headers(core_lib
-    PRIVATE
-        # Контейнери та утиліти STL
-        <vector>
-        <string>
-        <string_view>
-        <memory>
-        <unordered_map>
-        <map>
-        <algorithm>
-        <chrono>
-        <functional>
-        <optional>
-        <variant>
-        # Сторонні важкі заголовки
-        <fmt/format.h>
-)
-
-# Використання спільного PCH між кількома цілями (REUSE_FROM)
-add_executable(engine_app
-    src/main.cpp
-)
-
-target_link_libraries(engine_app PRIVATE core_lib)
-
-# Повторне використання вже згенерованого PCH від core_lib для уникнення дублювання
-target_precompile_headers(engine_app REUSE_FROM core_lib)
-
-# Тестовий бінарник, який також повторно використовує базовий PCH
-add_executable(engine_tests
-    tests/test_main.cpp
-    tests/test_session.cpp
-)
-target_link_libraries(engine_tests PRIVATE core_lib)
-target_precompile_headers(engine_tests REUSE_FROM core_lib)
-```
+:::code proj-iwyu-pch-setup/cmake/povna-konfihuratsiia.cmake
 
 ### Пастки інвалідації кешу та прапорців компіляції
 
@@ -156,82 +100,13 @@ PCH надзвичайно чутливий до середовища компі
 
 CMake дозволяє запускати IWYU прозоро під час кожної компіляції за допомогою цільової властивості `CXX_INCLUDE_WHAT_YOU_USE`:
 
-```cmake
-# Перевірка наявності програми IWYU в системі
-find_program(IWYU_TOOL_PATH NAMES include-what-you-use iwyu)
-
-option(ENABLE_IWYU "Увімкнути автоматичний аудит заголовків через IWYU" OFF)
-
-if(IWYU_TOOL_PATH AND ENABLE_IWYU)
-    message(STATUS "IWYU знайдено: ${IWYU_TOOL_PATH}")
-    
-    # Формування аргументів командного рядка для аналізатора
-    set(IWYU_COMMAND_LINE
-        "${IWYU_TOOL_PATH}"
-        "-Xiwyu" "--mapping_file=${CMAKE_CURRENT_SOURCE_DIR}/iwyu_mappings.imp"
-        "-Xiwyu" "--max_line_length=120"
-        "-Xiwyu" "--no_fwd_decls"
-        "-Xiwyu" "--verbose=1"
-    )
-    
-    # Прив'язка аналізатора до бібліотеки
-    set_target_properties(core_lib PROPERTIES
-        CXX_INCLUDE_WHAT_YOU_USE "${IWYU_COMMAND_LINE}"
-    )
-endif()
-```
+:::code proj-iwyu-pch-setup/cmake/intehratsiia-iwyu-v.cmake
 
 ### Скрипт автоматичного застосування правок IWYU
 
 Для масового рефакторингу кодової бази використовують утиліту `fix_includes.py`. Скрипт зчитує діагностичний звіт IWYU і автоматично редагує вихідні файли, вставляючи пропущені директиви `#include`, видаляючи мертві включення та сортуючи список заголовків за алфавітом.
 
-```python
-#!/usr/bin/env python3
-"""Скрипт запуску IWYU та автоматичного виправлення заголовків."""
-import subprocess
-import sys
-import os
-
-def run_iwyu_cleanup(build_dir, source_dir):
-    compile_commands = os.path.join(build_dir, "compile_commands.json")
-    if not os.path.exists(compile_commands):
-        print(f"Помилка: {compile_commands} не знайдено! Зберіть проєкт із -DCMAKE_EXPORT_COMPILE_COMMANDS=ON")
-        sys.exit(1)
-
-    print("=== Крок 1: Запуск аналізу через iwyu_tool.py ===")
-    iwyu_report_file = os.path.join(build_dir, "iwyu_report.txt")
-    mapping_path = os.path.join(source_dir, "iwyu_mappings.imp")
-    
-    cmd = [
-        "iwyu_tool.py",
-        "-p", build_dir,
-        "--",
-        "-Xiwyu", f"--mapping_file={mapping_path}",
-        "-Xiwyu", "--no_default_mappings"
-    ]
-    
-    with open(iwyu_report_file, "w", encoding="utf-8") as out:
-        subprocess.run(cmd, stdout=out, stderr=subprocess.STDOUT, text=True)
-    
-    print(f"Звіт IWYU збережено у: {iwyu_report_file}")
-    
-    print("=== Крок 2: Автоматичне виправлення коду через fix_includes.py ===")
-    with open(iwyu_report_file, "r", encoding="utf-8") as report:
-        fix_cmd = [
-            "fix_includes.py",
-            "--comments",        # Додавати коментарі з назвами символів біля include
-            "--safe_headers",   # Захищати системні заголовки від агресивного видалення
-            "--reorder"         # Сортувати заголовки за канонічним порядком
-        ]
-        subprocess.run(fix_cmd, stdin=report, text=True)
-    
-    print("Очищення заголовків успішно завершено.")
-
-if __name__ == "__main__":
-    b_dir = sys.argv[1] if len(sys.argv) > 1 else "build"
-    s_dir = sys.argv[2] if len(sys.argv) > 2 else "."
-    run_iwyu_cleanup(b_dir, s_dir)
-```
+:::code proj-iwyu-pch-setup/py/skrypt-avtomatychnoho.py
 
 ---
 
@@ -243,23 +118,7 @@ if __name__ == "__main__":
 
 Починаючи з CMake 3.25, система збірки надає штатний механізм контролю самодостатності заголовків через концепцію `FILE_SET`:
 
-```cmake
-# Оголошення публічного набору заголовків бібліотеки
-target_sources(core_lib
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS include
-        FILES
-            include/UserSession.h
-            include/Database.h
-            include/Network.h
-)
-
-# Увімкнення автоматичної перевірки самодостатності
-set_target_properties(core_lib PROPERTIES
-    VERIFY_INTERFACE_HEADER_SETS ON
-)
-```
+:::code proj-iwyu-pch-setup/cmake/pidkhid-cmake-3-25-verify.cmake
 
 Під час генерації проєкту CMake автоматично створює у каталозі збірки тимчасові файли `UserSession.h.cxx`, `Database.h.cxx`, `Network.h.cxx`. Кожен із них містить рівно один рядок:
 
@@ -273,32 +132,7 @@ set_target_properties(core_lib PROPERTIES
 
 Для проєктів, які використовують CMake версій 3.15–3.24, аналогічну поведінку реалізують через користувацьку функцію:
 
-```cmake
-# Функція генерації автономних перевірочних одиниць
-function(add_header_self_containment_test target_name header_files)
-    set(test_sources "")
-    
-    foreach(hdr_path IN LISTS header_files)
-        get_filename_component(hdr_base "${hdr_path}" NAME_WE)
-        set(gen_cpp "${CMAKE_CURRENT_BINARY_DIR}/header_checks/test_${hdr_base}.cpp")
-        
-        # Генерація ізольованого файлу трансляції
-        file(WRITE "${gen_cpp}"
-            "// Автоматичний синтетичний тест самодостатності\n"
-            "#include \"${hdr_path}\"\n"
-            "int main() { return 0; }\n"
-        )
-        list(APPEND test_sources "${gen_cpp}")
-    endforeach()
-
-    # Створення тестового таргета
-    add_executable(${target_name}_verify_headers EXCLUDE_FROM_ALL ${test_sources})
-    target_link_libraries(${target_name}_verify_headers PRIVATE ${target_name})
-    
-    # Додавання кастомної команди до глобального списку перевірок
-    add_custom_target(check_headers DEPENDS ${target_name}_verify_headers)
-endfunction()
-```
+:::code proj-iwyu-pch-setup/cmake/universalnyi-henerator.cmake
 
 ---
 
@@ -310,58 +144,7 @@ endfunction()
 
 Скрипт автоматично виконує чисту збірку проєкту з трасуванням, збирає всі файли `.json` та формує структурований звіт про найважчі заголовки та шаблони:
 
-```python
-#!/usr/bin/env python3
-"""CI-скрипт діагностики часу збірки та агрегації результатів ftime-trace."""
-import subprocess
-import sys
-import os
-import shutil
-
-def run_build_profiling(build_dir):
-    print("=== Крок 1: Конфігурація та чиста збірка з -ftime-trace ===")
-    os.makedirs(build_dir, exist_ok=True)
-    
-    # Генерація Ninja-проєкту з прапорцем трасування Clang
-    cmake_cmd = [
-        "cmake", "-B", build_dir, "-G", "Ninja",
-        "-DCMAKE_CXX_COMPILER=clang++",
-        "-DCMAKE_CXX_FLAGS=-ftime-trace",
-        "-DCMAKE_BUILD_TYPE=Release"
-    ]
-    subprocess.run(cmake_cmd, check=True)
-    
-    # Повне очищення перед вимірюванням
-    subprocess.run(["ninja", "-C", build_dir, "-t", "clean"], check=True)
-    
-    # Запуск повної збірки
-    subprocess.run(["ninja", "-C", build_dir], check=True)
-    
-    print("=== Крок 2: Агрегація даних через ClangBuildAnalyzer ===")
-    cba_binary = shutil.which("ClangBuildAnalyzer")
-    if not cba_binary:
-        print("Помилка: ClangBuildAnalyzer не знайдено у PATH!")
-        sys.exit(1)
-        
-    trace_archive = os.path.join(build_dir, "build_trace_data.bin")
-    
-    # Збирання всіх окремих .json файлів трасування у бінарний архів
-    subprocess.run([cba_binary, "--all", build_dir, trace_archive], check=True)
-    
-    # Генерація фінального текстового аналітичного звіту
-    analysis = subprocess.run([cba_binary, "--analyze", trace_archive],
-                              capture_output=True, text=True, check=True)
-    
-    report_output_path = os.path.join(build_dir, "build_speed_report.txt")
-    with open(report_output_path, "w", encoding="utf-8") as f:
-        f.write(analysis.stdout)
-        
-    print(analysis.stdout)
-    print(f"\nЗвіт профілювання збережено: {report_output_path}")
-
-if __name__ == "__main__":
-    run_build_profiling("build_profile_ci")
-```
+:::code proj-iwyu-pch-setup/py/realizatsiia-ci-skryptu-z.py
 
 ### Інтерпретація метрик звіту ClangBuildAnalyzer
 
@@ -428,31 +211,7 @@ set_target_properties(core_lib PROPERTIES
 
 ### Приклад конфігурації C++20 Модулів у CMakeLists.txt
 
-```cmake
-cmake_minimum_required(VERSION 3.28)
-project(ModularApp LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-add_library(network_module)
-
-# Оголошення інтерфейсних файлів C++20 модулів
-target_sources(network_module
-    PUBLIC
-        FILE_SET CXX_MODULES
-        BASE_DIRS src/modules
-        FILES
-            src/modules/Network.ixx
-            src/modules/Session.ixx
-    PRIVATE
-        src/modules/NetworkImpl.cpp
-)
-
-add_executable(app_modular src/main.cpp)
-target_link_libraries(app_modular PRIVATE network_module)
-```
+:::code proj-iwyu-pch-setup/cmake/pryklad-konfihuratsii-c-20.cmake
 
 ---
 

@@ -81,29 +81,7 @@ void relay(T&& x);               // НЕ rvalue-посилання: прийма
 
 Візьмімо клас, який володіє шматком пам'яті, — найчистіший випадок, де переміщення має сенс:
 
-```cpp
-class Buffer {
-    std::byte*  data_ = nullptr;
-    std::size_t size_ = 0;
-
-public:
-    explicit Buffer(std::size_t n)
-        : data_(new std::byte[n]), size_(n) {}
-
-    ~Buffer() { delete[] data_; }
-
-    Buffer(const Buffer& other)                       // копіювання
-        : data_(new std::byte[other.size_]), size_(other.size_) {
-        std::memcpy(data_, other.data_, size_);
-    }
-
-    Buffer(Buffer&& other) noexcept                   // переміщення
-        : data_(other.data_), size_(other.size_) {
-        other.data_ = nullptr;
-        other.size_ = 0;
-    }
-};
-```
+:::code move-semantics-d/cpp/main.cpp
 
 Конструктор копіювання просить у купи нову ділянку й переносить туди байти: його ціна росте з розміром даних. Конструктор переміщення не звертається до купи взагалі — він переписує два поля й обнуляє джерело. Його ціна стала й дорівнює кільком присвоєнням, скільки б мегабайтів не лежало за вказівником.
 

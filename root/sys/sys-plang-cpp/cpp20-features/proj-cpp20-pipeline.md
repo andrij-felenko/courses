@@ -26,27 +26,7 @@
 
 Концепт `TelemetrySink` встановлює інтерфейс для кінцевого споживача оброблених даних, гарантуючи наявність методу `consume`, який приймає оброблені пакети за посиланням.
 
-```cpp
-#include <concepts>
-#include <cstdint>
-#include <string_view>
-#include <type_traits>
-
-// Концепт, що перевіряє структурний контракт сенсорного вимірювання
-template<typename T>
-concept SensorReading = requires(const T& r) {
-    { r.timestamp_ms } -> std::convertible_to<std::uint64_t>;
-    { r.raw_value }    -> std::floating_point;
-    { r.sensor_id }    -> std::convertible_to<std::string_view>;
-    { r.is_valid() }   -> std::same_as<bool>;
-};
-
-// Концепт для приймача оброблених повідомлень
-template<typename Sink, typename Data>
-concept TelemetrySink = requires(Sink& sink, const Data& data) {
-    { sink.consume(data) } -> std::same_as<void>;
-};
-```
+:::code proj-cpp20-pipeline/cpp/2-krok-1-formuvannia.cpp
 
 Використання таких концептів у сигнатурах функцій повністю витісняє шаблони з SFINAE. Якщо програміст передасть у конвеєр структуру, де поле `raw_value` є цілим числом замість типу з плаваючою комою, або де метод `is_valid()` не повертає булеве значення, компілятор відхилить виклик на межі інтерфейсу та надасть вичерпне повідомлення із зазначенням невідповідного рядка.
 
@@ -67,115 +47,7 @@ static_assert(SensorReading<ThermalReading>, "ThermalReading must satisfy Sensor
 
 Реалізація класу `Generator<T>` вимагає опису внутрішньої структури `promise_type`, створення дескриптора `std::coroutine_handle` та адаптації ітератора для відповідності концепту `std::input_iterator`.
 
-```cpp
-#include <coroutine>
-#include <exception>
-#include <utility>
-
-template<typename T>
-class Generator {
-public:
-    struct promise_type {
-        const T* current_value{nullptr};
-        std::exception_ptr exception{nullptr};
-
-        Generator get_return_object() noexcept {
-            return Generator{std::coroutine_handle<promise_type>::from_promise(*this)};
-        }
-
-        // Призупиняємось одразу при створенні: лінивий старт
-        std::suspend_always initial_suspend() noexcept { return {}; }
-        
-        // Призупиняємось при завершенні, щоб зберегти стан до виклику destroy()
-        std::suspend_always final_suspend() noexcept { return {}; }
-
-        // Обробка оператора co_yield
-        std::suspend_always yield_value(const T& value) noexcept {
-            current_value = std::addressof(value);
-            return {};
-        }
-
-        void return_void() noexcept {}
-
-        void unhandled_exception() noexcept {
-            exception = std::current_exception();
-        }
-    };
-
-    using handle_type = std::coroutine_handle<promise_type>;
-
-    explicit Generator(handle_type h) noexcept : handle_(h) {}
-
-    ~Generator() {
-        if (handle_) {
-            handle_.destroy();
-        }
-    }
-
-    // Заборона копіювання для захисту від подвійного звільнення фрейму
-    Generator(const Generator&) = delete;
-    Generator& operator=(const Generator&) = delete;
-
-    // Переміщення дескриптора володіння
-    Generator(Generator&& other) noexcept : handle_(std::exchange(other.handle_, {})) {}
-    Generator& operator=(Generator&& other) noexcept {
-        if (this != &other) {
-            if (handle_) handle_.destroy();
-            handle_ = std::exchange(other.handle_, {});
-        }
-        return *this;
-    }
-
-    // Клас ітератора для інтеграції з циклами range-based for та std::ranges
-    class Iterator {
-    public:
-        using value_type = T;
-        using difference_type = std::ptrdiff_t;
-
-        explicit Iterator(handle_type h) : handle_(h) {}
-
-        Iterator& operator++() {
-            handle_.resume();
-            if (handle_.done()) {
-                auto& ex = handle_.promise().exception;
-                if (ex) std::rethrow_exception(ex);
-            }
-            return *this;
-        }
-
-        void operator++(int) { ++(*this); }
-
-        const T& operator*() const noexcept {
-            return *(handle_.promise().current_value);
-        }
-
-        bool operator==(std::default_sentinel_t) const noexcept {
-            return !handle_ || handle_.done();
-        }
-
-    private:
-        handle_type handle_{};
-    };
-
-    Iterator begin() {
-        if (handle_) {
-            handle_.resume();
-            if (handle_.done()) {
-                auto& ex = handle_.promise().exception;
-                if (ex) std::rethrow_exception(ex);
-            }
-        }
-        return Iterator{handle_};
-    }
-
-    std::default_sentinel_t end() const noexcept {
-        return {};
-    }
-
-private:
-    handle_type handle_{};
-};
-```
+:::code proj-cpp20-pipeline/cpp/3-krok-2-realizatsiia.cpp
 
 ### Механізм внутрішньої трансформації корутини компілятором
 
@@ -200,56 +72,7 @@ private:
 
 Опишемо конкретну структуру сенсорного показника `ThermalReading`, яка задовольняє концепт `SensorReading`, структуру аварійного сповіщення `ProcessedAlarm` та налаштуємо для них типобезпечне форматування через бібліотеку `std::format`:
 
-```cpp
-#include <format>
-#include <string>
-
-struct ThermalReading {
-    std::uint64_t timestamp_ms{0};
-    std::string   sensor_id{};
-    double        raw_value{0.0}; // Температура в Кельвінах
-    bool          calibrated{true};
-
-    [[nodiscard]] bool is_valid() const noexcept {
-        return calibrated && raw_value > 0.0;
-    }
-};
-
-// Спеціалізація std::formatter для ThermalReading
-template<>
-struct std::formatter<ThermalReading> : std::formatter<std::string_view> {
-    auto format(const ThermalReading& r, std::format_context& ctx) const {
-        std::string temp_buf = std::format(
-            "[{:>8} ms] Сенсор: {:<8} | Сире: {:6.2f} K | Стан: {}",
-            r.timestamp_ms,
-            r.sensor_id,
-            r.raw_value,
-            r.calibrated ? "OK" : "ПОМИЛКА"
-        );
-        return std::formatter<std::string_view>::format(temp_buf, ctx);
-    }
-};
-
-// Структура обробленого сигналу тривоги
-struct ProcessedAlarm {
-    std::uint64_t timestamp_ms;
-    std::string   sensor_id;
-    double        celsius;
-};
-
-template<>
-struct std::formatter<ProcessedAlarm> : std::formatter<std::string_view> {
-    auto format(const ProcessedAlarm& a, std::format_context& ctx) const {
-        std::string buf = std::format(
-            "🚨 ТРИВОГА [{:>8} ms] {} -> {:6.2f} °C",
-            a.timestamp_ms,
-            a.sensor_id,
-            a.celsius
-        );
-        return std::formatter<std::string_view>::format(buf, ctx);
-    }
-};
-```
+:::code proj-cpp20-pipeline/cpp/4-krok-3-modeli-danykh-ta.hpp
 
 Спадкування від `std::formatter<std::string_view>` є рекомендованою ідіомою C++20: це дозволяє автоматично підтримувати стандартні специфікатори вирівнювання, заповнення та ширини поля без написання власного парсера рядка формату. Усі перевірки валідності специфікаторів виконуються під час компіляції завдяки механізму негайних функцій `consteval`.
 
@@ -259,88 +82,7 @@ struct std::formatter<ProcessedAlarm> : std::formatter<std::string_view> {
 
 Зберемо повний робочий конвеєр: генератор постачає сирий потік, конвеєр `std::ranges::views` здійснює трирівневу фільтрацію та математичну конвертацію, а фоновий потік `std::jthread` керує виконанням з можливістю плавної зупинки через семафор.
 
-```cpp
-#include <iostream>
-#include <ranges>
-#include <vector>
-#include <chrono>
-#include <thread>
-#include <semaphore>
-
-using namespace std::chrono_literals;
-
-// 1. Корутина симуляції надходження телеметричних пакетів
-Generator<ThermalReading> simulate_telemetry_stream(std::uint64_t max_count) {
-    const std::vector<std::string> ids = {"REACTOR-1", "COOLING-2", "TURBINE-A"};
-    double base_temperature_k = 345.0; // ~71.85 °C
-
-    for (std::uint64_t i = 1; i <= max_count; ++i) {
-        // Симуляція коливань показників та сплесків температури
-        double jitter = ((i % 6 == 0) ? 58.0 : ((i % 2 == 0) ? 14.0 : -6.0));
-        co_yield ThermalReading{
-            .timestamp_ms = i * 100,
-            .sensor_id = ids[i % ids.size()],
-            .raw_value = base_temperature_k + jitter,
-            .calibrated = (i % 17 != 0) // Періодична симуляція відмови калібрування
-        };
-    }
-}
-
-// 2. Функція побудови лінивого конвеєра діапазонів
-template<SensorReading R>
-auto create_anomaly_pipeline(Generator<R>& stream, double alert_celsius_threshold) {
-    namespace rv = std::views;
-
-    return stream
-        | rv::filter([](const R& reading) {
-            return reading.is_valid();
-          })
-        | rv::transform([](const R& reading) -> ProcessedAlarm {
-            return ProcessedAlarm{
-                .timestamp_ms = reading.timestamp_ms,
-                .sensor_id = reading.sensor_id,
-                .celsius = reading.raw_value - 273.15 // Перетворення з Кельвінів у градуси Цельсія
-            };
-          })
-        | rv::filter([alert_celsius_threshold](const ProcessedAlarm& alarm) {
-            return alarm.celsius >= alert_celsius_threshold;
-          });
-}
-
-// 3. Головна функція запуску та координації
-int main() {
-    std::cout << "=== Запуск системи моніторингу на базі C++20 ===" << std::endl;
-
-    std::binary_semaphore worker_started{0};
-
-    // Запуск фонового робітника в окремому потоці std::jthread
-    std::jthread worker([&worker_started](std::stop_token stop) {
-        worker_started.release(); // Сигналізуємо головному потоку про успішний старт
-
-        auto stream = simulate_telemetry_stream(60);
-        auto alarms = create_anomaly_pipeline(stream, 80.0); // Поріг тривоги: >= 80 °C
-
-        for (const ProcessedAlarm& alarm : alarms) {
-            if (stop.stop_requested()) {
-                std::cout << "Отримано сигнал зупинки stop_token. Переривання обробки." << std::endl;
-                break;
-            }
-
-            // Вивід структурованого аварійного сповіщення
-            std::cout << std::format("{}", alarm) << "\n";
-            std::this_thread::sleep_for(25ms);
-        }
-    });
-
-    worker_started.acquire();
-    std::this_thread::sleep_for(180ms);
-
-    // При виході з main деструктор worker автоматично надішле запит на зупинку
-    // та дочекається завершення потоку (RAII Auto-Join)
-    std::cout << "=== Головний потік ініціює завершення програми ===" << std::endl;
-    return 0;
-}
-```
+:::code proj-cpp20-pipeline/cpp/5-krok-4-pobudova-povnoho.cpp
 
 ---
 

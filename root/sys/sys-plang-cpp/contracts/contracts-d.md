@@ -91,18 +91,7 @@ float calculate_audio_power(const float* buffer, std::size_t size) noexcept
 
 Постумова описує стан системи та значення, яке повертає функція в разі успішного завершення. Для перевірки обчисленого результату використовується спеціальний синтаксис зв'язування ідентифікатора в круглих дужках `post(identifier)`:
 
-```cpp
-int integer_square_root(int n) noexcept
-    pre [positive_input]: n >= 0
-    post(result): result >= 0 && (result * result <= n) && ((result + 1) * (result + 1) > n)
-{
-    int r = 0;
-    while ((r + 1) * (r + 1) <= n) {
-        ++r;
-    }
-    return r;
-}
-```
+:::code contracts-d/cpp/oholoshennia-postumov-post.cpp
 
 У цьому прикладі ідентифікатор `result` у виразі постумови автоматично зв'язується з константним посиланням на значення, яке функція повертає через інструкцію `return`.
 
@@ -117,24 +106,7 @@ int integer_square_root(int n) noexcept
 
 Специфікатор `contract_assert` призначений для перевірки локальних інваріантів алгоритму безпосередньо у внутрішніх точках тіла функції. Він є повноправною інструкцією (statement) мови C++26:
 
-```cpp
-void binary_search_step(std::span<const int> sorted_data, int target) {
-    std::size_t low = 0;
-    std::size_t high = sorted_data.size();
-
-    while (low < high) {
-        std::size_t mid = low + (high - low) / 2;
-
-        contract_assert [valid_midpoint]: mid >= low && mid < high;
-
-        if (sorted_data[mid] < target) {
-            low = mid + 1;
-        } else {
-            high = mid;
-        }
-    }
-}
-```
+:::code contracts-d/cpp/vnutrishni-tverdzhennia.cpp
 
 На відміну від застарілого макроса `assert()`, `contract_assert` підпорядковується правилам областей видимості та просторів імен, бере участь у шаблонах та інтегрується зі стандартизованим середовищем виконання обробки порушень.
 
@@ -151,47 +123,7 @@ void binary_search_step(std::span<const int> sorted_data, int target) {
 Розглянемо клас банківського рахунку:
 - **Інваріант:** баланс рахунку ніколи не може бути від'ємним (`balance_ >= 0`), а унікальний ідентифікатор рахунку завжди більший за нуль (`id_ > 0`).
 
-```cpp
-class BankAccount {
-private:
-    int id_{0};
-    int balance_{0};
-
-    [[nodiscard]] bool check_class_invariant() const noexcept {
-        return id_ > 0 && balance_ >= 0;
-    }
-
-public:
-    explicit BankAccount(int id, int initial_deposit) noexcept
-        pre [valid_id]: id > 0
-        pre [valid_deposit]: initial_deposit >= 0
-        post: check_class_invariant()
-        : id_(id), balance_(initial_deposit) {}
-
-    void deposit(int amount) noexcept
-        pre: check_class_invariant()
-        pre [positive_amount]: amount > 0
-        post: check_class_invariant()
-    {
-        balance_ += amount;
-    }
-
-    void withdraw(int amount) noexcept
-        pre: check_class_invariant()
-        pre [sufficient_funds]: amount > 0 && amount <= balance_
-        post: check_class_invariant()
-    {
-        balance_ -= amount;
-    }
-
-    [[nodiscard]] int balance() const noexcept
-        pre: check_class_invariant()
-        post(b): b == balance_ && check_class_invariant()
-    {
-        return balance_;
-    }
-};
-```
+:::code contracts-d/cpp/invarianty-klasiv-ta.cpp
 
 У такій моделі:
 - Конструктор приймає на себе зобов'язання перетворити сиру пам'ять на об'єкт, що задовольняє інваріант (`post: check_class_invariant()`).
@@ -349,34 +281,7 @@ void handle_contract_violation(const std::contracts::contract_violation& violati
 
 Клас `contract_violation` надає вичерпну інформацію про природу та місце виникнення дефекту через методи-аксесори:
 
-```cpp
-#include <contracts>
-#include <cstdio>
-
-void handle_contract_violation(const std::contracts::contract_violation& v) noexcept {
-    const char* kind_name = "невідомий";
-    switch (v.kind()) {
-        case std::contracts::contract_kind::pre:    kind_name = "ПРЕУМОВА"; break;
-        case std::contracts::contract_kind::post:   kind_name = "ПОСТУМОВА"; break;
-        case std::contracts::contract_kind::assert: kind_name = "ТВЕРДЖЕННЯ"; break;
-    }
-
-    std::fprintf(stderr,
-        "[АВАРІЯ КОНТРАКТУ]\n"
-        "  Файл:      %s (рядок %u)\n"
-        "  Функція:   %s\n"
-        "  Категорія: %s\n"
-        "  Мітка:     %s\n"
-        "  Предикат:  %s\n",
-        v.file_name(),
-        static_cast<unsigned int>(v.line_number()),
-        v.function_name(),
-        kind_name,
-        v.comment()[0] != '\0' ? v.comment() : "<немає>",
-        v.predicate()
-    );
-}
-```
+:::code contracts-d/cpp/obrobnyk-porushen-ta-klas.cpp
 
 ### Залізні обмеження безпеки обробника
 1. **Заборона викидання винятків:** обробник порушень зобов'язаний мати специфікатор `noexcept`. Спроба викинути виняток призводить до негайної активації `std::terminate()`. Контрактне порушення — це дефект у коді, а не виняткова ситуація, яку можна нейтралізувати блоком `catch`.
@@ -434,26 +339,7 @@ void write_data(int* ptr, int value)
 2. Якщо умова контракту виявляється хибною, компілятор трактує це як неможливість обчислення константного значення і **зупиняє збирання з помилкою компіляції**.
 3. Компілятор генерує зрозуміле діагностичне повідомлення, де вказує точні значення константних параметрів, які призвели до порушення.
 
-```cpp
-constexpr int compute_factorial(int n) noexcept
-    pre [non_negative]: n >= 0
-    pre [no_overflow]: n <= 12
-    post(r): r >= 1
-{
-    int result = 1;
-    for (int i = 2; i <= n; ++i) {
-        result *= i;
-    }
-    return result;
-}
-
-// Успішна компіляція: преумови виконані
-constexpr int f5 = compute_factorial(5);
-
-// Помилка компіляції: порушення преумови pre [no_overflow] для n = 15
-// static_assert вимагає успішного завершення константного виразу
-constexpr int f15 = compute_factorial(15);
-```
+:::code contracts-d/cpp/kontrakty-v-konstantnykh.cpp
 
 Завдяки цьому контракти стають універсальним засобом верифікації коду, що працює з однаковою логікою як під час складання програми, так і під час її запуску на кінцевому обладнанні.
 

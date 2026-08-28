@@ -108,20 +108,7 @@ Vector R = A + B * 2.5 + C;
 
 Базовий клас параметризується типом самого похідного класу `Derived`:
 
-```cpp
-template <typename Derived>
-struct VecExpr {
-    // Доступ до елемента за індексом через статичне приведення
-    [[nodiscard]] decltype(auto) operator[](std::size_t i) const {
-        return static_cast<const Derived&>(*this)[i];
-    }
-
-    // Повертає загальну кількість елементів у виразі
-    [[nodiscard]] std::size_t size() const {
-        return static_cast<const Derived&>(*this).size();
-    }
-};
-```
+:::code expression-templates-d/cpp/3-1-bazovyi-klas-crtp.cpp
 
 Приведення `static_cast<const Derived&>(*this)` виконується під час компіляції. Компілятор знає точний тип `Derived`, тому виклик `operator[]` прямує безпосередньо у відповідний метод похідного класу без таблиці віртуальних функцій (`vtable`).
 
@@ -129,115 +116,25 @@ struct VecExpr {
 
 Клас `Vector` володіє реальними даними у пам'яті та успадковує `VecExpr<Vector>`:
 
-```cpp
-class Vector : public VecExpr<Vector> {
-private:
-    std::vector<double> data_;
-
-public:
-    explicit Vector(std::size_t size, double val = 0.0) : data_(size, val) {}
-
-    // Конструктор ініціалізації з довільного виразу
-    template <typename E>
-    Vector(const VecExpr<E>& expr) : data_(expr.size()) {
-        *this = expr;
-    }
-
-    // Оператор присвоєння — ДРАЙВЕР ОБЧИСЛЕННЯ ВЕСЬОГО ДЕРЕВА
-    template <typename E>
-    Vector& operator=(const VecExpr<E>& expr) {
-        const E& e = static_cast<const E&>(expr);
-        const std::size_t n = e.size();
-        
-        if (data_.size() != n) {
-            data_.resize(n);
-        }
-        
-        // Єдиний цикл усього виразу!
-        for (std::size_t i = 0; i < n; ++i) {
-            data_[i] = e[i];
-        }
-        return *this;
-    }
-
-    double operator[](std::size_t i) const { return data_[i]; }
-    double& operator[](std::size_t i) { return data_[i]; }
-    std::size_t size() const { return data_.size(); }
-};
-```
+:::code expression-templates-d/cpp/3-2-lystovyi-vuzol.cpp
 
 ### 3.3. Вузол бінарної операції: `VecAdd`
 
 Вузол додавання успадковує `VecExpr<VecAdd<LHS, RHS>>` та зберігає посилання на лівий і правий операнди:
 
-```cpp
-template <typename LHS, typename RHS>
-class VecAdd : public VecExpr<VecAdd<LHS, RHS>> {
-private:
-    const LHS& lhs_;
-    const RHS& rhs_;
-
-public:
-    VecAdd(const LHS& lhs, const RHS& rhs) : lhs_(lhs), rhs_(rhs) {}
-
-    // Метод доступу обчислює суму для i-го елемента «льоту»
-    double operator[](std::size_t i) const {
-        return lhs_[i] + rhs_[i];
-    }
-
-    std::size_t size() const {
-        return lhs_.size();
-    }
-};
-```
+:::code expression-templates-d/cpp/3-3-vuzol-binarnoi.cpp
 
 ### 3.4. Вузол скалярного множення: `VecScale`
 
 Вузол скалярного множення зберігає посилання на вираз та числове значення скаляра:
 
-```cpp
-template <typename E>
-class VecScale : public VecExpr<VecScale<E>> {
-private:
-    const E& expr_;
-    double alpha_;
-
-public:
-    VecScale(const E& expr, double alpha) : expr_(expr), alpha_(alpha) {}
-
-    double operator[](std::size_t i) const {
-        return expr_[i] * alpha_;
-    }
-
-    std::size_t size() const {
-        return expr_.size();
-    }
-};
-```
+:::code expression-templates-d/cpp/3-4-vuzol-skaliarnoho.cpp
 
 ### 3.5. Оператори-генератори
 
 Оператори `+` та `*` створюють відповідні вузли дерев:
 
-```cpp
-template <typename LHS, typename RHS>
-VecAdd<LHS, RHS> operator+(const VecExpr<LHS>& lhs, const VecExpr<RHS>& rhs) {
-    return VecAdd<LHS, RHS>(
-        static_cast<const LHS&>(lhs),
-        static_cast<const RHS&>(rhs)
-    );
-}
-
-template <typename E>
-VecScale<E> operator*(const VecExpr<E>& expr, double alpha) {
-    return VecScale<E>(static_cast<const E&>(expr), alpha);
-}
-
-template <typename E>
-VecScale<E> operator*(double alpha, const VecExpr<E>& expr) {
-    return VecScale<E>(static_cast<const E&>(expr), alpha);
-}
-```
+:::code expression-templates-d/cpp/3-5-operatory-heneratory.cpp
 
 Повний приклад працюючого рушія з реалізацією скалярного множення, віднімання та порівнянням із C-підходом міститься у [практичній реалізації DSL для векторної алгебри](root:sys-plang-cpp/expression-templates/proj-expression-vector.md).
 
@@ -428,25 +325,7 @@ struct storage_traits {
 
 ### 7.1. Вузол унарної функції `VecUnary`
 
-```cpp
-template <typename Op, typename E>
-class VecUnary : public VecExpr<VecUnary<Op, E>> {
-private:
-    const E& expr_;
-    Op op_;
-
-public:
-    VecUnary(const E& expr, Op op = Op{}) : expr_(expr), op_(op) {}
-
-    double operator[](std::size_t i) const {
-        return op_(expr_[i]);
-    }
-
-    std::size_t size() const {
-        return expr_.size();
-    }
-};
-```
+:::code expression-templates-d/cpp/7-1-vuzol-unarnoi-funktsii.cpp
 
 ### 7.2. Функція-генератор `sin`
 
@@ -473,19 +352,7 @@ VecUnary<SinOp, E> sin(const VecExpr<E>& expr) {
 
 З появою C++20 кодові бази шаблонів виразів стали значно лаконічнішими завдяки **концептам (Concepts)**. Замість вимогати успадкування від CRTP-бази `VecExpr`, ми можемо описати вимоги до вузла виразу безпосередньо:
 
-```cpp
-template <typename T>
-concept VectorExpression = requires(const T& expr, std::size_t i) {
-    { expr.size() } -> std::convertible_to<std::size_t>;
-    { expr[i] }     -> std::convertible_to<double>;
-};
-
-// Простий і чистий оператор додавання без CRTP і без SFINAE
-template <VectorExpression LHS, VectorExpression RHS>
-auto operator+(const LHS& lhs, const RHS& rhs) {
-    return VecAdd<LHS, RHS>(lhs, rhs);
-}
-```
+:::code expression-templates-d/cpp/8-suchasnyi-c-20-kontsepty.cpp
 
 Якщо припуститися помилки й спробувати додати вектор до невідповідного типу, компілятор C++20 не вивалить три сторінки непрохідних нутрощів шаблону, а чітко вкаже: `type 'int' does not satisfy concept 'VectorExpression'`.
 

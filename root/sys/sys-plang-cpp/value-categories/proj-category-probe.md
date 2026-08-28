@@ -18,25 +18,7 @@
 
 Перше, що спадає на думку: категорія якось пов'язана з посиланнями, а про посилання є готова риса типу. Риси типів (type traits) — це шаблони-запитання про тип, які компілятор обчислює під час компіляції й віддає `true`/`false` або інший тип; ціла їхня родина лежить у заголовку `<type_traits>`, і `std::is_reference_v<T>` серед них найпростіша ([риси типів](root:sys-plang-cpp/type-traits)). Спробуймо:
 
-```cpp
-#include <cstdio>
-#include <string>
-#include <type_traits>
-#include <utility>
-
-std::string make();
-
-#define NAIVE(expr) (std::is_reference_v<decltype(expr)> ? "rvalue" : "prvalue")
-
-int main() {
-    std::string s = "text";
-    std::string&& r = make();
-
-    std::puts(NAIVE(s));             // "prvalue" — а насправді lvalue
-    std::puts(NAIVE(r));             // "rvalue"  — а насправді теж lvalue
-    std::puts(NAIVE(std::move(s)));  // "rvalue"  — правда, але випадкова
-}
-```
+:::code proj-category-probe/cpp/naivna-sproba-iaka-breshe.cpp
 
 Три рядки — і два з них хибні. Помилок теж дві, і вони незалежні.
 
@@ -145,76 +127,13 @@ VALUE_CATEGORY((0, s));                  // а тут кома всередин�
 
 ## Готовий прилад
 
-```cpp
-// value_category_probe.hpp — вимірювач категорії виразу
-#pragma once
-#include <type_traits>
-
-namespace probe {
-
-struct lvalue_t  {};
-struct xvalue_t  {};
-struct prvalue_t {};
-
-// Категорію закодовано ФОРМОЮ типу, який віддає decltype((expr))
-template <typename T> struct category      { using tag = prvalue_t; };
-template <typename T> struct category<T&>  { using tag = lvalue_t;  };
-template <typename T> struct category<T&&> { using tag = xvalue_t;  };
-
-// Псевдонім рятує від typename у шаблонному коді
-template <typename T> using category_t = typename category<T>::tag;
-
-constexpr const char* plain(lvalue_t)  { return "lvalue";  }
-constexpr const char* plain(xvalue_t)  { return "xvalue";  }
-constexpr const char* plain(prvalue_t) { return "prvalue"; }
-
-constexpr const char* qualified(lvalue_t)  { return "const lvalue";  }
-constexpr const char* qualified(xvalue_t)  { return "const xvalue";  }
-constexpr const char* qualified(prvalue_t) { return "const prvalue"; }
-
-template <typename T>
-constexpr const char* describe() {
-    if constexpr (std::is_const_v<std::remove_reference_t<T>>)
-        return qualified(category_t<T>{});
-    else
-        return plain(category_t<T>{});
-}
-
-}  // namespace probe
-
-// Для людини: рядок, який можна надрукувати
-#define VALUE_CATEGORY(...) (::probe::describe<decltype((__VA_ARGS__))>())
-
-// Для збірки: перевірка, яка ламає компіляцію при регресії
-#define STATIC_CATEGORY(expected, ...)                                    \
-    static_assert(                                                        \
-        std::is_same_v<::probe::category_t<decltype((__VA_ARGS__))>,      \
-                       ::probe::expected>,                                \
-        "не та категорія виразу: " #__VA_ARGS__)
-```
+:::code proj-category-probe/cpp/value_category_probe.hpp
 
 Мітка навмисне не знає про `const`: «яка це категорія» і «чи константне» — два різні питання, і змішувати їх у тесті було б незручно. Рядок для людини їх поєднує, бо людині потрібна повна картина одразу; перевірка для збірки — розділяє, бо перевіряти хочеться щось одне за раз.
 
 Користуються ним так:
 
-```cpp
-#include <cstdio>
-#include <string>
-#include <utility>
-#include "value_category_probe.hpp"
-
-// Нічого з цього не треба ВИЗНАЧАТИ: жоден вираз нижче не виконується
-std::string          make();
-extern std::string   s;
-extern std::string&& r;
-
-int main() {
-    std::puts(VALUE_CATEGORY(s));             // lvalue
-    std::puts(VALUE_CATEGORY(r));             // lvalue  ← має ім'я
-    std::puts(VALUE_CATEGORY(std::move(s)));  // xvalue
-    std::puts(VALUE_CATEGORY(make()));        // prvalue
-}
-```
+:::code proj-category-probe/cpp/hotovyi-prylad.cpp
 
 Ця програма компілюється й лінкується — попри те, що ні `make`, ні `s`, ні `r` ніде не визначені. Визначення потрібні тому, хто збирається щось виконувати; вимірювачеві досить оголошень.
 
@@ -222,29 +141,7 @@ int main() {
 
 Далі — те, заради чого прилад і будували. Оголошення для всіх рядків такі:
 
-```cpp
-std::string        make();
-const std::string  make_const();     // так писати не варто — але подивімося
-std::string&       shared();
-std::string&&      expiring();
-
-struct Buf { int cells[4]; };
-Buf make_buf();
-
-struct Node {
-    std::string  name;
-    std::string& alias;              // посилальний член
-    unsigned     flag : 1;           // бітове поле
-    static std::string kind;         // статичний член
-};
-
-extern Node n;
-extern std::string s, s2;
-extern const std::string cs;
-extern std::string&& r;              // іменоване посилання на rvalue
-extern int arr[4], i;
-extern bool cond;
-```
+:::code proj-category-probe/cpp/prohin-po-vyrazakh-de.hpp
 
 Спершу очікуване — щоб було з чим порівнювати:
 
@@ -323,22 +220,7 @@ VALUE_CATEGORY(*static_cast<int(*)(int)>(f));  // lvalue — функція, у�
 
 Найцінніше застосування вимірювача — не друк, а сторожа в CI. `static_assert` перевіряє умову під час компіляції й, коли вона хибна, ламає збірку з вашим текстом помилки — тобто регресія помирає до того, як хтось її запустить ([перевірки на етапі компіляції](root:sf-lang/static-assert)).
 
-```cpp
-class Config {
-    std::string text_;
-public:
-    const std::string& text() const& { return text_; }   // з живого об'єкта — дивимося
-    std::string        text() &&     { return std::move(text_); }  // з тимчасового — забираємо
-};
-
-extern Config cfg;
-
-STATIC_CATEGORY(lvalue_t,  cfg.text());        // вид на чуже, без копії
-STATIC_CATEGORY(prvalue_t, Config{}.text());   // нутрощі забрано
-
-static_assert(!std::is_const_v<std::remove_reference_t<decltype((Config{}.text()))>>,
-              "повернення const-значення вимикає переміщення");
-```
+:::code proj-category-probe/cpp/toi-samyi-makros-u-testakh.cpp
 
 Цінність цих трьох рядків стає видно через півроку. Хтось «спрощує» клас і прибирає перевантаження з `&&` — другий рядок ламає збірку з поясненням, замість того щоб профіль через місяць показав зайві копії в гарячому шляху. Хтось дописує `const` до типу повернення «для надійності» — падає третій рядок, бо цей `const` тихо вимикає переміщення для всіх користувачів методу. Такі самі сторожі варто ставити на власні контейнери: `STATIC_CATEGORY(xvalue_t, std::move(v)[0])` фіксує, що ваш `operator[]` із `&&`-кваліфікатором справді віддає приречений елемент, а не звичайне посилання.
 

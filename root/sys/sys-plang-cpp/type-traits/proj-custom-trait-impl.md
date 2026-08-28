@@ -15,31 +15,7 @@
 
 Найпростіший варіант власного трейту — перевірити, чи є тип `T` конкретною спеціалізацією певного шаблону класу (наприклад, `std::vector<U, Alloc>` або `std::optional<U>`). Для цього застосовують двокрокову паттерн-модель: первинний шаблон задає негативну відповідь за замовчуванням через успадкування від `std::false_type`, а часткова спеціалізація перехоплює потрібну структуру і повертає `std::true_type`.
 
-```cpp
-#include <iostream>
-#include <type_traits>
-#include <vector>
-#include <string>
-
-// 1. Первинний шаблон: за замовчуванням будь-який тип — це не std::vector
-template<typename T>
-struct is_std_vector : std::false_type {};
-
-// 2. Часткова спеціалізація для будь-якого std::vector<T, Alloc>
-template<typename T, typename Alloc>
-struct is_std_vector<std::vector<T, Alloc>> : std::true_type {};
-
-// 3. Змінна-допомагач (C++17 variable template)
-template<typename T>
-inline constexpr bool is_std_vector_v = is_std_vector<T>::value;
-
-int main() {
-    std::cout << std::boolalpha;
-    std::cout << "int є vector: " << is_std_vector_v<int> << "\n"; // false
-    std::cout << "std::vector<double> є vector: " 
-              << is_std_vector_v<std::vector<double>> << "\n"; // true
-}
-```
+:::code proj-custom-trait-impl/cpp/tekhnika-1-chastkova.cpp
 
 Цей підхід ідеально працює для точного зіставлення за шаблоном структури, але він є безсилим, коли треба перевірити не конкретний імплантований шаблон, а загальну **синтаксичну поведінку** чи **інтерфейсні властивості** типу.
 
@@ -51,45 +27,7 @@ int main() {
 
 Розглянемо створення власного метапредиката `has_serialize`, який перевіряє, чи має клас `T` метод `std::string serialize() const`:
 
-```cpp
-#include <iostream>
-#include <type_traits>
-#include <string>
-
-// Первинний шаблон із додатковим параметром-заповнювачем (по замовчуванню void)
-template<typename T, typename = void>
-struct has_serialize : std::false_type {};
-
-// Часткова спеціалізація за допомогою std::void_t та std::declval
-template<typename T>
-struct has_serialize<T, std::void_t<
-    decltype(std::declval<const T&>().serialize())
->> : std::is_same<
-    decltype(std::declval<const T&>().serialize()), 
-    std::string
-> {};
-
-template<typename T>
-inline constexpr bool has_serialize_v = has_serialize<T>::value;
-
-// Тестові типи для перевірки
-struct GoodClass {
-    std::string serialize() const { return "data"; }
-};
-
-struct BadReturnClass {
-    int serialize() const { return 42; } // Метод є, але тип повернення не std::string
-};
-
-struct NoMethodClass {};
-
-int main() {
-    std::cout << std::boolalpha;
-    std::cout << "GoodClass: " << has_serialize_v<GoodClass> << "\n";            // true
-    std::cout << "BadReturnClass: " << has_serialize_v<BadReturnClass> << "\n";  // false
-    std::cout << "NoMethodClass: " << has_serialize_v<NoMethodClass> << "\n";    // false
-}
-```
+:::code proj-custom-trait-impl/cpp/tekhnika-2-idioma-std-void.cpp
 
 ### Анатомія метафункції `std::declval<T>()` та приховані пастки
 
@@ -104,31 +42,7 @@ int main() {
 
 Ще одна поширена задача — перевірити, чи підтримує тип `T` range-based `for`-цикл, тобто чи існують для нього виклики `std::begin(x)` та `std::end(x)`.
 
-```cpp
-#include <iostream>
-#include <type_traits>
-#include <vector>
-#include <iterator>
-
-template<typename T, typename = void>
-struct is_iterable : std::false_type {};
-
-template<typename T>
-struct is_iterable<T, std::void_t<
-    decltype(std::begin(std::declval<T&>())),
-    decltype(std::end(std::declval<T&>()))
->> : std::true_type {};
-
-template<typename T>
-inline constexpr bool is_iterable_v = is_iterable<T>::value;
-
-int main() {
-    std::cout << std::boolalpha;
-    std::cout << "vector є iterable: " << is_iterable_v<std::vector<int>> << "\n"; // true
-    std::cout << "int[5] є iterable: " << is_iterable_v<int[5]> << "\n";           // true
-    std::cout << "double є iterable: " << is_iterable_v<double> << "\n";           // false
-}
-```
+:::code proj-custom-trait-impl/cpp/tekhnika-3-introspektsiia.cpp
 
 Цей трейт чудово розпізнає як контейнери STL, так і сирі C-масиви `int[5]`, бо для масивів у заголовочному файлі `<iterator>` перевантажено функції `std::begin` та `std::end`.
 
@@ -138,69 +52,7 @@ int main() {
 
 Основою ідіоми є тип `nonesuch` (який неможливо сконструювати чи знищити) та шаблонний детектор:
 
-```cpp
-#include <iostream>
-#include <type_traits>
-#include <vector>
-
-namespace custom {
-
-// Спеціальний тип для позначення невдалої підстановки в інтроспекції
-struct nonesuch {
-    ~nonesuch() = delete;
-    nonesuch(nonesuch const&) = delete;
-    void operator=(nonesuch const&) = delete;
-};
-
-namespace detail {
-template <template <class...> class Op, class AlwaysVoid, class... Args>
-struct detector : std::false_type {
-    using type = nonesuch;
-};
-
-template <template <class...> class Op, class... Args>
-struct detector<Op, std::void_t<Op<Args...>>, Args...> : std::true_type {
-    using type = Op<Args...>;
-};
-} // namespace detail
-
-// 1. Метапредикат: чи валідний вираз Op<Args...>?
-template <template <class...> class Op, class... Args>
-using is_detected = typename detail::detector<Op, void, Args...>::value_type;
-
-template <template <class...> class Op, class... Args>
-inline constexpr bool is_detected_v = is_detected<Op, Args...>::value;
-
-// 2. Безпечний витяг типу: повертає Op<Args...> або nonesuch у разі помилки
-template <template <class...> class Op, class... Args>
-using detected_t = typename detail::detector<Op, void, Args...>::type;
-
-} // namespace custom
-
-// --- Застосування Detection Idiom ---
-
-// Шаблон операції: перевірка наявності вкладеного типу value_type
-template<typename T>
-using value_type_t = typename T::value_type;
-
-// Шаблон операції: перевірка оператора індексації [size_t]
-template<typename T>
-using index_operator_t = decltype(std::declval<T>()[std::declval<size_t>()]);
-
-int main() {
-    std::cout << std::boolalpha;
-
-    // Перевірка наявності вкладеного typeset value_type
-    std::cout << "vector має value_type: " 
-              << custom::is_detected_v<value_type_t, std::vector<int>> << "\n"; // true
-    std::cout << "int має value_type: " 
-              << custom::is_detected_v<value_type_t, int> << "\n";              // false
-
-    // Перевірка наявності оператора []
-    std::cout << "vector має operator[]: " 
-              << custom::is_detected_v<index_operator_t, std::vector<int>> << "\n"; // true
-}
-```
+:::code proj-custom-trait-impl/cpp/tekhnika-4-vyiavlennia.cpp
 
 ## Зведення застережень та типових помилок метаінженерії
 

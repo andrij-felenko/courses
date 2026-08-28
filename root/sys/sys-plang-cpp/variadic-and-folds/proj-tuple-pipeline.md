@@ -21,38 +21,7 @@
 
 Для представлення поліморфного типу без використання успадкування застосуємо стандартний типізований союз `std::variant`:
 
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <variant>
-#include <tuple>
-#include <utility>
-#include <cstdint>
-#include <type_traits>
-#include <memory>
-#include <chrono>
-
-struct PingEvent {
-    uint64_t timestamp;
-    uint32_t sequence_id;
-};
-
-struct TelemetryEvent {
-    uint64_t timestamp;
-    double voltage;
-    double current;
-    double temperature;
-};
-
-struct CommandEvent {
-    uint64_t timestamp;
-    std::string command;
-    int priority;
-};
-
-using EventVariant = std::variant<PingEvent, TelemetryEvent, CommandEvent>;
-```
+:::code proj-tuple-pipeline/cpp/1-arkhitekturne.cpp
 
 ---
 
@@ -62,48 +31,7 @@ using EventVariant = std::variant<PingEvent, TelemetryEvent, CommandEvent>;
 
 Такий підхід повністю узгоджується з концепцією статичного поліморфізму: якщо фільтр не цікавиться подіями типу `PingEvent`, компілятор під час мономорфізації інстанціює тривіальний метод-заглушку `return true;`, який оптимізатор миттєво видаляє з результуючого коду.
 
-```cpp
-// Фільтр 1: Перевірка валідності часової мітки (застосовується до всіх подій)
-struct TimestampFilter {
-    uint64_t min_allowed_time;
-
-    template <typename Event>
-    constexpr bool operator()(const Event& event) const noexcept {
-        return event.timestamp >= min_allowed_time;
-    }
-};
-
-// Фільтр 2: Перевірка параметрів живлення (діє виключно на TelemetryEvent)
-struct PowerFilter {
-    double max_voltage;
-    double max_current;
-
-    constexpr bool operator()(const TelemetryEvent& telemetry) const noexcept {
-        return telemetry.voltage <= max_voltage && 
-               telemetry.current <= max_current && 
-               telemetry.current >= 0.0;
-    }
-
-    template <typename OtherEvent>
-    constexpr bool operator()(const OtherEvent&) const noexcept {
-        return true; // Інші події не підлягають перевірці живлення
-    }
-};
-
-// Фільтр 3: Перевірка пріоритету команд (діє виключно на CommandEvent)
-struct CommandPriorityFilter {
-    int min_priority;
-
-    constexpr bool operator()(const CommandEvent& cmd) const noexcept {
-        return cmd.priority >= min_priority;
-    }
-
-    template <typename OtherEvent>
-    constexpr bool operator()(const OtherEvent&) const noexcept {
-        return true;
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/2-realizatsiia-statychnykh.cpp
 
 ---
 
@@ -111,25 +39,7 @@ struct CommandPriorityFilter {
 
 Клас `EventPipeline` агрегує довільний набір об'єктів-фільтрів через типізований кортеж `std::tuple<Filters...>`. Для виконання валідації події ми розгортаємо виклик кортежу за допомогою функції `std::apply` та виразу згортки логічного І (`&&`):
 
-```cpp
-template <typename... Filters>
-class EventPipeline {
-    std::tuple<Filters...> filters_;
-
-public:
-    constexpr explicit EventPipeline(Filters... filters)
-        : filters_(std::move(filters)...) {}
-
-    template <typename Event>
-    [[nodiscard]] constexpr bool process(const Event& event) const noexcept {
-        return std::apply([&](const auto&... filter_instances) noexcept {
-            // Унарна права згортка логічного І: (filter_instances(event) && ...)
-            // Гарантує виконання за правилом короткого замикання (short-circuit)
-            return (filter_instances(event) && ...);
-        }, filters_);
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/3-statychnyi-konveier-ta.cpp
 
 ### Аналіз механізму короткого замикання (Short-Circuiting)
 
@@ -152,29 +62,7 @@ return (filter1(event) && (filter2(event) && filter3(event)));
 
 Цю трансформацію виконує стандартна допоміжна структура `std::index_sequence`:
 
-```cpp
-namespace custom {
-
-template <typename Func, typename Tuple, size_t... Indices>
-constexpr decltype(auto) apply_impl(Func&& func, Tuple&& tuple, std::index_sequence<Indices...>) {
-    // Розпакування пакету індексів у патерн std::get<Indices>
-    return std::forward<Func>(func)(
-        std::get<Indices>(std::forward<Tuple>(tuple))...
-    );
-}
-
-template <typename Func, typename Tuple>
-constexpr decltype(auto) apply(Func&& func, Tuple&& tuple) {
-    constexpr size_t tuple_size = std::tuple_size_v<std::remove_reference_t<Tuple>>;
-    return apply_impl(
-        std::forward<Func>(func),
-        std::forward<Tuple>(tuple),
-        std::make_index_sequence<tuple_size>{}
-    );
-}
-
-} // namespace custom
-```
+:::code proj-tuple-pipeline/cpp/4-vlasna-realizatsiia.cpp
 
 ### Покроковий розбір конвеєра виведення типів:
 1. Виклик `custom::apply(f, tuple)` обчислює розмір кортежу під час компіляції за допомогою трейта `std::tuple_size_v`. Для кортежу з трьох елементів розмір дорівнює `3`.
@@ -191,46 +79,14 @@ constexpr decltype(auto) apply(Func&& func, Tuple&& tuple) {
 
 Ідіома `Overloaded` поєднує множинне варіативне успадкування від пакету замикань із варіативним `using`-оголошенням:
 
-```cpp
-// Оголошення структури, яка успадковує всі типи замикань із пакета Ts
-template <typename... Ts>
-struct Overloaded : Ts... {
-    // C++17 розпакування using-оголошень введення operator() усіх базових класів
-    using Ts::operator()...;
-};
-
-// Посібник з виведення аргументів шаблону класу (CTAD Guide)
-template <typename... Ts>
-Overloaded(Ts...) -> Overloaded<Ts...>;
-```
+:::code proj-tuple-pipeline/cpp/5-dyspetcheryzatsiia.cpp
 
 ### Принцип роботи перевантаження замикань:
 Кожен лямбда-вираз у мові C++ є унікальним анонімним класом із власним константним методом `operator()`. Коли структура `Overloaded` успадковує три лямбда-вирази, вона отримує три незалежні базові класи. 
 
 Рядок `using Ts::operator()...;` розпаковує оператор виклику кожного базового класу в єдину область видимості похідної структури `Overloaded`. У результаті створюється єдиний об'єкт із повноцінним набором перевантажених методів, з яких компілятор під час виклику `std::visit` обирає найбільш точне перевантаження за стандартними правилами розв'язання перевантажень (Overload Resolution).
 
-```cpp
-class EventDispatcher {
-public:
-    void dispatch(const EventVariant& event_variant) const {
-        std::visit(Overloaded{
-            [](const PingEvent& ping) {
-                std::cout << "[PING] Отримано пінг seq=" << ping.sequence_id
-                          << " час=" << ping.timestamp << '\n';
-            },
-            [](const TelemetryEvent& telem) {
-                std::cout << "[ТЕЛЕМЕТРІЯ] Напруга=" << telem.voltage
-                          << " В, Струм=" << telem.current
-                          << " А, Температура=" << telem.temperature << " °C\n";
-            },
-            [](const CommandEvent& cmd) {
-                std::cout << "[КОМАНДА] Директива: \"" << cmd.command
-                          << "\" (пріоритет=" << cmd.priority << ")\n";
-            }
-        }, event_variant);
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/pryntsyp-roboty.cpp
 
 ---
 
@@ -240,24 +96,7 @@ public:
 
 Для організації такого ланцюжка ідеально підходить згортка за оператором коми `(actions(event), ...)`, яка гарантує послідовне виконання зліва направо:
 
-```cpp
-template <typename... Actions>
-class ActionPipeline {
-    std::tuple<Actions...> actions_;
-
-public:
-    constexpr explicit ActionPipeline(Actions... actions)
-        : actions_(std::move(actions)...) {}
-
-    template <typename Event>
-    void execute(const Event& event) const {
-        std::apply([&](const auto&... action_instances) {
-            // Згортка за оператором коми послідовно викликає кожну дію
-            (action_instances(event), ...);
-        }, actions_);
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/6-lantsiuzhok.cpp
 
 ---
 
@@ -267,22 +106,7 @@ public:
 
 Для цього використовується оператор `noexcept` у поєднанні з виразом згортки кон'юнкції:
 
-```cpp
-template <typename... Filters>
-class SafePipeline {
-    std::tuple<Filters...> filters_;
-
-public:
-    template <typename Event>
-    constexpr bool process(const Event& event) const
-        noexcept((noexcept(std::declval<Filters>()(event)) && ...))
-    {
-        return std::apply([&](const auto&... f) noexcept((noexcept(f(event)) && ...)) {
-            return (f(event) && ...);
-        }, filters_);
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/7-statychne-vyvedennia.cpp
 
 Компілятор обчислює вираз `(noexcept(f(event)) && ...)` на етапі синтаксичного аналізу. Якщо хоча б один фільтр може згенерувати виняток, результат згортки стає `false`, і компілятор генерує відповідні таблиці розгортання стека (Stack Unwinding Tables). Якщо ж усі фільтри позначені як `noexcept`, компілятор повністю прибирає службові таблиці обробки винятків (DWARF `.eh_frame` в Linux або SEH у Windows), що зменшує розмір бінарного файлу на 15–20% і прискорює виконання.
 
@@ -294,21 +118,7 @@ public:
 
 Варіативний конвеєр забезпечує збереження категорії значення (value category) за допомогою ідеальної передачі `std::forward`:
 
-```cpp
-template <typename... Filters>
-class MoveAwarePipeline {
-    std::tuple<Filters...> filters_;
-
-public:
-    template <typename Event>
-    constexpr bool process(Event&& event) const {
-        return std::apply([&](const auto&... f) {
-            // Передача універсального посилання гарантує відсутність небажаних копіювань
-            return (f(std::forward<Event>(event)) && ...);
-        }, filters_);
-    }
-};
-```
+:::code proj-tuple-pipeline/cpp/8-pidtrymka-move-only.cpp
 
 Це дозволяє фільтрам проводити інспекцію важких буферів без створення тимчасових копій у пам'яті, що є обов'язковою умовою для систем нульового копіювання (Zero-Copy Networking).
 
@@ -318,56 +128,7 @@ public:
 
 Зберемо всі спроєктовані компоненти у цілісну програму:
 
-```cpp
-int main() {
-    // 1. Створення статичного конвеєра валідації
-    constexpr EventPipeline pipeline{
-        TimestampFilter{ .min_allowed_time = 1000 },
-        PowerFilter{ .max_voltage = 24.5, .max_current = 10.0 },
-        CommandPriorityFilter{ .min_priority = 1 }
-    };
-
-    // 2. Створення ланцюжка протоколювання подій
-    const ActionPipeline logging_pipeline{
-        [](const auto& ev) { std::cout << "-> [ЛОГ СИСТЕМИ] Час події: " << ev.timestamp << '\n'; },
-        [](const auto&)    { std::cout << "-> [МЕТРИКИ] Лічильник оброблених пакетів +1\n"; }
-    };
-
-    // 3. Створення диспетчера кінцевих дій
-    const EventDispatcher dispatcher;
-
-    // 4. Набір вхідних тестових подій
-    const EventVariant events[] = {
-        // Валідна телеметрія
-        TelemetryEvent{ .timestamp = 1050, .voltage = 12.4, .current = 2.1, .temperature = 38.5 },
-        // Невалідна телеметрія: перевищення максимальної напруги 24.5 В
-        TelemetryEvent{ .timestamp = 1100, .voltage = 28.2, .current = 1.5, .temperature = 41.0 },
-        // Невалідна команда: пріоритет 0 нижчий за поріг фільтра
-        CommandEvent{ .timestamp = 1200, .command = "SYSTEM_SHUTDOWN", .priority = 0 },
-        // Валідна команда
-        CommandEvent{ .timestamp = 1300, .command = "CALIBRATE_GYRO", .priority = 5 }
-    };
-
-    for (const auto& ev : events) {
-        std::cout << "\n--- Обробка нового повідомлення ---\n";
-        
-        const bool is_valid = std::visit([&](const auto& concrete_event) {
-            return pipeline.process(concrete_event);
-        }, ev);
-
-        if (is_valid) {
-            std::visit([&](const auto& concrete_event) {
-                logging_pipeline.execute(concrete_event);
-            }, ev);
-            dispatcher.dispatch(ev);
-        } else {
-            std::cout << "[ВІДХИЛЕНО] Подія не пройшла перевірку фільтрами конвеєра!\n";
-        }
-    }
-
-    return 0;
-}
-```
+:::code proj-tuple-pipeline/cpp/9-kompleksnyi-pryklad-ta.cpp
 
 ---
 

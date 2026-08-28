@@ -14,19 +14,7 @@
 
 Вимоги до уніфікованого вузла виразу у C++20 формалізуються за допомогою концептів. Концепти дозволяють перевірити наявність усіх методів ще на етапі комбінування типів:
 
-```cpp
-#include <type_traits>
-#include <cstddef>
-#include <concepts>
-
-// Концепт C++20, що формалізує вимоги до векторного виразу
-template <typename T>
-concept VectorExpression = requires(const T& expr, std::size_t i) {
-    typename T::value_type;
-    { expr.size() } -> std::same_as<std::size_t>;
-    { expr[i] }     -> std::convertible_to<typename T::value_type>;
-};
-```
+:::code api-expression-interface/cpp/1-kontrakt-interfeisu.cpp
 
 ---
 
@@ -68,47 +56,13 @@ double v = expr[0]; // Dangling reference: пам'ять усередині make
 
 Щоб уникнути цього підводного каменя, виробничі бібліотеки використовують метафункції для визначення типу поля. Якщо операнд є lvalue, зберігається константне посилання (`const T&`). Якщо операнд є rvalue, об'єкт зберігається **за значенням** (`T`):
 
-```cpp
-template <typename T>
-struct expression_storage_traits {
-    // Якщо T є lvalue-посиланням (наприклад, Vector&), зберігаємо const Vector&.
-    // Якщо T є значенням (тимчасовим rvalue, наприклад Vector), зберігаємо за значенням Vector.
-    using type = std::conditional_t<
-        std::is_lvalue_reference_v<T>,
-        const std::remove_reference_t<T>&,
-        const std::remove_reference_t<T>
-    >;
-};
-
-template <typename T>
-using storage_type_t = typename expression_storage_traits<T>::type;
-```
+:::code api-expression-interface/cpp/3-2-selektor-typiv.cpp
 
 ### 3.3. Приклад застосування політики у вузлі виразу
 
 Завдяки цьому селектору вузол виразу захищений від висячих посилань незалежно від того, як його було сконструйовано:
 
-```cpp
-template <typename LHS, typename RHS>
-class VecAdd {
-private:
-    // Автоматичний вибір: посилання для lvalue, значення для rvalue
-    storage_type_t<LHS> lhs_;
-    storage_type_t<RHS> rhs_;
-
-public:
-    VecAdd(LHS&& lhs, RHS&& rhs)
-        : lhs_(std::forward<LHS>(lhs)), rhs_(std::forward<RHS>(rhs)) {}
-
-    double operator[](std::size_t i) const {
-        return lhs_[i] + rhs_[i];
-    }
-
-    std::size_t size() const {
-        return lhs_.size();
-    }
-};
-```
+:::code api-expression-interface/cpp/3-3-pryklad-zastosuvannia.cpp
 
 ---
 
@@ -120,19 +74,7 @@ public:
 
 Для вирішення цієї проблеми надається публічний метод `.eval()` та специфічні риси оцінки, які примусово обчислюють проміжний вираз у новий буфер:
 
-```cpp
-template <typename Derived>
-class ExpressionBase {
-public:
-    // Примусова оцінка виразу у тимчасовий конкретний контейнер
-    template <typename ConcreteContainer>
-    [[nodiscard]] ConcreteContainer eval() const {
-        ConcreteContainer temp(static_cast<const Derived&>(*this).size());
-        temp = static_cast<const Derived&>(*this); // Викликає злитий цикл
-        return temp;
-    }
-};
-```
+:::code api-expression-interface/cpp/4-1-metod-eval.cpp
 
 ### 4.2. Метаінспекція аліасингу у виразах
 
@@ -197,30 +139,7 @@ std::ranges::transform_view<
 
 Для підтримки таких виразів вузол виразу обчислює підсумковий тип елемента за допомогою метафункції `std::common_type_t`:
 
-```cpp
-template <typename LHS, typename RHS>
-class MixedVecAdd {
-public:
-    // Тип результату визначається як спільний тип операндів
-    using value_type = std::common_type_t<
-        typename LHS::value_type,
-        typename RHS::value_type
-    >;
-
-private:
-    const LHS& lhs_;
-    const RHS& rhs_;
-
-public:
-    MixedVecAdd(const LHS& lhs, const RHS& rhs) : lhs_(lhs), rhs_(rhs) {}
-
-    value_type operator[](std::size_t i) const {
-        return static_cast<value_type>(lhs_[i]) + static_cast<value_type>(rhs_[i]);
-    }
-
-    std::size_t size() const { return lhs_.size(); }
-};
-```
+:::code api-expression-interface/cpp/7-prosuvannia-typiv-pry.cpp
 
 Завдяки цьому компілятор автоматично виконує розширення типів (`float` -> `double`) безпосередньо у SIMD-регістрах під час виконання єдиного злитого циклу.
 

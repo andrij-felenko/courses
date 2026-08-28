@@ -66,18 +66,7 @@
 
 В Itanium ABI власні поля похідного класу або наступні порожні бази **можуть бути розміщені всередині tail padding попередньої бази**, за умови, що це не порушує правила унікальності адрес. Це дозволяє суттєво зекономити пам'ять:
 
-```cpp
-struct Base {
-    virtual ~Base() = default; // vptr: 8 байтів (зсув 0..7)
-    int32_t val;               // 4 байти (зсув 8..11)
-    // 4 байти tail padding (зсув 12..15)
-};
-
-struct Derived : public Base {
-    int32_t extra; // Розміщується за зсувом 12 всередині tail padding Base!
-    // sizeof(Derived) залишається 16 байтів замість 24!
-};
-```
+:::code api-abi-layout-rules/cpp/2-2-povtorne-vykorystannia.cpp
 
 ### 2.3. Майже порожні віртуальні бази (Nearly Empty Virtual Bases)
 
@@ -296,26 +285,7 @@ Base* vbase = reinterpret_cast<Base*>(vbptr_addr + offset_to_vbase);
 
 Розглянемо покроковий розрахунок пам'яті для складної ієрархії, що поєднує невіртуальне та віртуальне спадкування:
 
-```cpp
-struct CommonBase {
-    virtual void base_fn();
-    int32_t base_id; // 4 байти
-};
-
-struct InterfaceA : virtual public CommonBase {
-    virtual void fn_a();
-    int32_t a_val;   // 4 байти
-};
-
-struct InterfaceB : virtual public CommonBase {
-    virtual void fn_b();
-    int32_t b_val;   // 4 байти
-};
-
-struct ConcreteCombined : public InterfaceA, public InterfaceB {
-    int64_t combined_id; // 8 байтів
-};
-```
+:::code api-abi-layout-rules/cpp/9-praktychnyi-rozrakhunok.hpp
 
 ### 9.1. Покроковий розрахунок зміщень за Itanium ABI:
 
