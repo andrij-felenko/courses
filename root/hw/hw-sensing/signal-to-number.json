@@ -157,8 +157,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-imu-fifo.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jitter-integration-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-imu-fifo-driver.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

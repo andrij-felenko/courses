@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="40.0" width="220.0" height="110.0" rx="6" fill="#f8f9fa" stroke="#495057" stroke-width="1.5"/>
+<text x="150.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Сирі відліки АЦП</text>
+<text x="150.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">R_raw, G_raw, B_raw, C_raw</text>
+<text x="150.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час накопичення ATIME</text>
+<text x="150.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Аналогове підсилення AGAIN</text>
+<line x1="260.0" y1="95.0" x2="310.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="310.0" y="40.0" width="230.0" height="110.0" rx="6" fill="#e7f5ff" stroke="#1c7ed6" stroke-width="1.5"/>
+<text x="425.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1c7ed6" text-anchor="middle" font-weight="700">2. Нормування та ІЧ-відсікання</text>
+<text x="425.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">N = Raw / (ATIME · AGAIN)</text>
+<text x="425.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Віднімання темнового струму</text>
+<text x="425.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Компенсація ІЧ-хвоста (Clear/IR)</text>
+<line x1="540.0" y1="95.0" x2="590.0" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="590.0" y="40.0" width="210.0" height="110.0" rx="6" fill="#f3f0ff" stroke="#7950f2" stroke-width="1.5"/>
+<text x="695.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7950f2" text-anchor="middle" font-weight="700">3. Матриця корекції (CCM)</text>
+<text x="695.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">[X, Y, Z]ᵀ = M · [R, G, B]ᵀ</text>
+<text x="695.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Калібрування ColorChecker</text>
+<text x="695.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Опорний ілюмінант D65/A</text>
+<line x1="695.0" y1="150.0" x2="695.0" y2="200.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="200.0" width="250.0" height="100.0" rx="6" fill="#e6fcf5" stroke="#0ca678" stroke-width="1.5"/>
+<text x="685.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0ca678" text-anchor="middle" font-weight="700">4. Тристимулус CIE 1931</text>
+<text x="685.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">x = X / (X + Y + Z)</text>
+<text x="685.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">y = Y / (X + Y + Z)</text>
+<line x1="560.0" y1="250.0" x2="480.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="240.0" y="195.0" width="240.0" height="105.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+<text x="360.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#f59f00" text-anchor="middle" font-weight="700">5А. Колірна температура CCT</text>
+<text x="360.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">n = (x - 0.3320)/(0.1858 - y)</text>
+<text x="360.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CCT = 449n³+3525n²+6823n+5520</text>
+<text x="360.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Формула МакКамі (McCamy)</text>
+<rect x="40.0" y="330.0" width="360.0" height="105.0" rx="6" fill="#ffe3e3" stroke="#e03131" stroke-width="1.5"/>
+<text x="220.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e03131" text-anchor="middle" font-weight="700">5Б. Перетворення у sRGB (D65)</text>
+<text x="220.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">[R_lin, G_lin, B_lin]ᵀ = M_srgb · [X, Y, Z]ᵀ</text>
+<text x="220.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гамма-корекція (γ ≈ 2.2) + кліпування [0..255]</text>
+<text x="220.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Готовий колір для дисплеїв та UI</text>
+<rect x="440.0" y="330.0" width="360.0" height="105.0" rx="6" fill="#ebfbee" stroke="#2b8a3e" stroke-width="1.5"/>
+<text x="620.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2b8a3e" text-anchor="middle" font-weight="700">5В. Освітленість у Люксах (Lux)</text>
+<text x="620.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Lux = 683 · Y  (з координати Y CIE 1931)</text>
+<text x="620.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">або зважена сума c_r·R + c_g·G + c_b·B</text>
+<text x="620.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фотометричний світловий потік</text>
+<line x1="685.0" y1="300.0" x2="685.0" y2="330.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="290.0" x2="320.0" y2="330.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

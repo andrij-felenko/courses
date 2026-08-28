@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мінімізація самонагріву: імпульсне живлення дільника замість постійного</text>
+<rect x="24.0" y="55.0" width="340.0" height="280.0" rx="8" fill="#fdf0ed" stroke="#c0392b" stroke-width="1.3"/>
+<text x="194.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Постійне живлення (DC)</text>
+<text x="194.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P = V² / (4·R) постійно виділяється в кристалі</text>
+<rect x="45.0" y="120.0" width="298.0" height="75.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="55.0" y1="175.0" x2="330.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="55.0" y1="140.0" x2="330.0" y2="140.0" stroke="#c0392b" stroke-width="2.2"/>
+<text x="60.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Потужність P_dc = 0.27 мВт (100% часу)</text>
+<text x="310.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">час t</text>
+<rect x="64.9" y="225.2" width="258.3" height="59.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="194.0" y="244.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="194.0" dy="0.0">Самонагрів: ΔT = P / δ</tspan><tspan x="194.0" dy="14.3">Для δ = 1.5 мВт/°C:</tspan><tspan x="194.0" dy="14.3">ΔT_self ≈ +0.18 °C (постійна похибка!)</tspan></text>
+<rect x="396.0" y="55.0" width="340.0" height="280.0" rx="8" fill="#eef8f1" stroke="#27ae60" stroke-width="1.3"/>
+<text x="566.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Імпульсне опитування (Pulsed)</text>
+<text x="566.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Живлення подається лише на час перетворення АЦП</text>
+<rect x="417.0" y="120.0" width="298.0" height="75.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="427.0" y1="175.0" x2="702.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="450.0" y="138.0" width="12.0" height="37.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.2"/>
+<line x1="456.0" y1="130.0" x2="456.0" y2="138.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="456.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 мкс</text>
+<rect x="530.0" y="138.0" width="12.0" height="37.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.2"/>
+<line x1="536.0" y1="130.0" x2="536.0" y2="138.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="536.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 мкс</text>
+<rect x="610.0" y="138.0" width="12.0" height="37.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.2"/>
+<line x1="616.0" y1="130.0" x2="616.0" y2="138.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="616.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 мкс</text>
+<text x="432.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">P_pulse</text>
+<text x="685.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">час t</text>
+<rect x="418.1" y="225.2" width="295.9" height="59.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="566.0" y="244.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="566.0" dy="0.0">Коефіцієнт заповнення D = 0.05%</tspan><tspan x="566.0" dy="14.3">Середня потужність P_avg = 0.14 мкВт</tspan><tspan x="566.0" dy="14.3">ΔT_self &lt; 0.0001 °C (повне усунення похибки)</tspan></text>
+</svg>

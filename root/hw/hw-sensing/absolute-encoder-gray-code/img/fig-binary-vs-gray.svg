@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кодовий стрибок при зміні кількох бітів у двійковому коді проти коду Грея</text>
+<rect x="30.0" y="52.0" width="370.0" height="416.0" rx="6" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.4"/>
+<text x="215.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий двійковий код: 7 (0111₂) → 8 (1000₂)</text>
+<text x="215.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перемикаються всі 4 біти одночасно</text>
+<text x="75.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b3 (MSB): 0 → 1</text>
+<line x1="65.0" y1="135.0" x2="365.0" y2="135.0" stroke="#dcdde1" stroke-width="1.0"/>
+<path d="M 65 135 L 206 135 L 206 117 L 365 117" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="75.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b2: 1 → 0</text>
+<line x1="65.0" y1="175.0" x2="365.0" y2="175.0" stroke="#dcdde1" stroke-width="1.0"/>
+<path d="M 65 157 L 224 157 L 224 175 L 365 175" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="75.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b1: 1 → 0</text>
+<line x1="65.0" y1="215.0" x2="365.0" y2="215.0" stroke="#dcdde1" stroke-width="1.0"/>
+<path d="M 65 197 L 224 197 L 224 215 L 365 215" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="75.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b0 (LSB): 1 → 0</text>
+<line x1="65.0" y1="255.0" x2="365.0" y2="255.0" stroke="#dcdde1" stroke-width="1.0"/>
+<path d="M 65 237 L 224 237 L 224 255 L 365 255" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="206" y="110" width="18" height="160" rx="2" fill="rgba(231, 76, 60, 0.22)" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+<text x="215.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зона перекосу (Δt / Δx)</text>
+<line x1="65.0" y1="350.0" x2="365.0" y2="350.0" stroke="#6b7280" stroke-width="1.0"/>
+<path d="M 65 360 L 206 360 L 206 315 L 224 315 L 224 354 L 365 354" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<text x="120.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Позиція: 7</text>
+<text x="215.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">15 (1111₂)!</text>
+<text x="310.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Позиція: 8</text>
+<text x="215.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">У сервоприводі: ударний стрибок моменту й струму</text>
+<rect x="440.0" y="52.0" width="370.0" height="416.0" rx="6" fill="#f4faf5" stroke="#27ae60" stroke-width="1.4"/>
+<text x="625.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e7a43" text-anchor="middle" font-weight="700">Код Грея: 7 (0100_G) → 8 (1100_G)</text>
+<text x="625.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Змінюється рівно ОДИН біт (b3)</text>
+<text x="485.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b3: 0 → 1 (єдина зміна)</text>
+<line x1="475.0" y1="135.0" x2="775.0" y2="135.0" stroke="#dcdde1" stroke-width="1.0"/>
+<path d="M 475 135 L 625 135 L 625 117 L 775 117" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<text x="485.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b2: 1 → 1 (без змін)</text>
+<line x1="475.0" y1="175.0" x2="775.0" y2="175.0" stroke="#dcdde1" stroke-width="1.0"/>
+<line x1="475.0" y1="157.0" x2="775.0" y2="157.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="485.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b1: 0 → 0 (без змін)</text>
+<line x1="475.0" y1="215.0" x2="775.0" y2="215.0" stroke="#dcdde1" stroke-width="1.0"/>
+<line x1="475.0" y1="215.0" x2="775.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="485.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">b0: 0 → 0 (без змін)</text>
+<line x1="475.0" y1="255.0" x2="775.0" y2="255.0" stroke="#dcdde1" stroke-width="1.0"/>
+<line x1="475.0" y1="255.0" x2="775.0" y2="255.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="625.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7a43" text-anchor="middle" font-weight="700">Одинарний перехід: нульова невизначеність</text>
+<line x1="475.0" y1="350.0" x2="775.0" y2="350.0" stroke="#6b7280" stroke-width="1.0"/>
+<path d="M 475 360 L 625 360 L 625 354 L 775 354" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<text x="530.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Позиція: 7 (0100_G)</text>
+<text x="720.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Позиція: 8 (1100_G)</text>
+<text x="625.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e7a43" text-anchor="middle" font-weight="700">Монотонний крок на ±1 квант за будь-яких умов</text>
+</svg>

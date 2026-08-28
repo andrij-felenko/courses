@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-172.94 -10 1112.94 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-172.94" y="-10" width="1112.94" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двочастотне часове розгортання фази (Temporal Phase Unwrapping)</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">груба одноперіодна фаза визначає цілий номер смуги k(x), а високочастотна — дає субпіксельну точність</text>
+<text x="140.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">1. Груба фаза Φ1
+(1 період, без розривів)</text>
+<line x1="160.0" y1="135.0" x2="860.0" y2="135.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="135.0" x2="160.0" y2="75.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="130.0" x2="840.0" y2="85.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="500.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Неперервна фаза Φ1 ∈ [−π, +π)</text>
+<text x="140.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">2. Точна фаза φ2
+(N=8 періодів, загорнута)</text>
+<line x1="160.0" y1="245.0" x2="860.0" y2="245.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="245.0" x2="160.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="240.0" x2="245.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="245.0" y1="240.0" x2="330.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="245.0" y1="195.0" x2="245.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="330.0" y1="240.0" x2="415.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="330.0" y1="195.0" x2="330.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="415.0" y1="240.0" x2="500.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="415.0" y1="195.0" x2="415.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="500.0" y1="240.0" x2="585.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="500.0" y1="195.0" x2="500.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="585.0" y1="240.0" x2="670.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="585.0" y1="195.0" x2="585.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="670.0" y1="240.0" x2="755.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="670.0" y1="195.0" x2="670.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="755.0" y1="240.0" x2="840.0" y2="195.0" stroke="#531dab" stroke-width="2.2"/>
+<line x1="755.0" y1="195.0" x2="755.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="140.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">3. Порядок смуги k(x)
+k = round( (8·Φ1 − φ2) / 2π )</text>
+<line x1="160.0" y1="355.0" x2="860.0" y2="355.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="355.0" x2="160.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="348.0" x2="245.0" y2="348.0" stroke="#d48806" stroke-width="3.0"/>
+<text x="202.5" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=0</text>
+<line x1="245.0" y1="341.5" x2="330.0" y2="341.5" stroke="#d48806" stroke-width="3.0"/>
+<line x1="245.0" y1="348.0" x2="245.0" y2="341.5" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="287.5" y="336.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=1</text>
+<line x1="330.0" y1="335.0" x2="415.0" y2="335.0" stroke="#d48806" stroke-width="3.0"/>
+<line x1="330.0" y1="341.5" x2="330.0" y2="335.0" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="372.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=2</text>
+<line x1="415.0" y1="328.5" x2="500.0" y2="328.5" stroke="#d48806" stroke-width="3.0"/>
+<line x1="415.0" y1="335.0" x2="415.0" y2="328.5" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="457.5" y="323.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=3</text>
+<line x1="500.0" y1="322.0" x2="585.0" y2="322.0" stroke="#d48806" stroke-width="3.0"/>
+<line x1="500.0" y1="328.5" x2="500.0" y2="322.0" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="542.5" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=4</text>
+<line x1="585.0" y1="315.5" x2="670.0" y2="315.5" stroke="#d48806" stroke-width="3.0"/>
+<line x1="585.0" y1="322.0" x2="585.0" y2="315.5" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="627.5" y="310.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=5</text>
+<line x1="670.0" y1="309.0" x2="755.0" y2="309.0" stroke="#d48806" stroke-width="3.0"/>
+<line x1="670.0" y1="315.5" x2="670.0" y2="309.0" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="712.5" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=6</text>
+<line x1="755.0" y1="302.5" x2="840.0" y2="302.5" stroke="#d48806" stroke-width="3.0"/>
+<line x1="755.0" y1="309.0" x2="755.0" y2="302.5" stroke="#d48806" stroke-width="1.5" stroke-dasharray="2 2"/>
+<text x="797.5" y="297.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d48806" text-anchor="middle" font-weight="700">k=7</text>
+<text x="140.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">4. Абсолютна фаза Φ
+Φ(x) = φ2(x) + 2π·k(x)</text>
+<line x1="160.0" y1="465.0" x2="860.0" y2="465.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="465.0" x2="160.0" y2="405.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="460.0" x2="840.0" y2="410.0" stroke="#27ae60" stroke-width="3.2"/>
+<text x="500.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Неперервна абсолютна фаза Φ ∈ [0, 16π) → точна глибина Z</text>
+</svg>

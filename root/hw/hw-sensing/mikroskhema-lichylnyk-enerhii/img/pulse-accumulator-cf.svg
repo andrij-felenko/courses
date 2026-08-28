@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 942.7 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="942.7" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний акумулятор енергії та формування повірочних імпульсів CF</text>
+<rect x="53.6" y="80.2" width="132.9" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Миттєва потужність</tspan><tspan x="120.0" dy="14.3">p(t) = v(t) · i(t)</tspan><tspan x="120.0" dy="14.3">(частота 8 кГц)</tspan></text>
+<line x1="195.0" y1="110.0" x2="245.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="229.8" y="80.2" width="170.5" height="59.6" rx="6" fill="#e8f4fd" stroke="#2457d6" stroke-width="1.5"/><text x="315.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">Фільтр LPF / Усереднення</tspan><tspan x="315.0" dy="14.3">Активна потужність P</tspan><tspan x="315.0" dy="14.3">(регістр AWATT / BWATT)</tspan></text>
+<line x1="390.0" y1="110.0" x2="440.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="466.0" y="80.2" width="157.9" height="59.6" rx="6" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/><text x="545.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">Внутрішній накопичувач</tspan><tspan x="545.0" dy="14.3">Acc = Acc + P · Δt</tspan><tspan x="545.0" dy="14.3">(48-бітний акумулятор)</tspan></text>
+<line x1="650.0" y1="110.0" x2="700.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="711.0" y="80.2" width="157.9" height="59.6" rx="6" fill="#fdfbf7" stroke="#d97706" stroke-width="1.5"/><text x="790.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Компаратор порогу</tspan><tspan x="790.0" dy="14.3">Acc ≥ CF_DEN</tspan><tspan x="790.0" dy="14.3">(поріг кванта енергії)</tspan></text>
+<line x1="790.0" y1="155.0" x2="790.0" y2="210.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="790.0" y1="210.0" x2="545.0" y2="210.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="545.0" y1="210.0" x2="545.0" y2="155.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="670.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">Acc = Acc - CF_DEN (збереження залишку)</text>
+<line x1="790.0" y1="155.0" x2="790.0" y2="270.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="805.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Переповнення</text>
+<rect x="679.7" y="280.2" width="220.6" height="59.6" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="790.0" y="299.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Формувач імпульсу</tspan><tspan x="790.0" dy="14.3">Тривалість 80 мс</tspan><tspan x="790.0" dy="14.3">(відкритий колектор / Push-Pull)</tspan></text>
+<line x1="790.0" y1="360.0" x2="790.0" y2="400.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="657.2" y="412.4" width="265.5" height="45.3" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/><text x="790.0" y="431.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">Вихідний пін CF1 / CF2</tspan><tspan x="790.0" dy="14.3">(Світлодіод: напр. 3200 імп/кВт·год)</tspan></text>
+<rect x="80.0" y="230.0" width="560.0" height="200.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="240.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Графік накопичення енергії та імпульсів</text>
+<line x1="120.0" y1="340.0" x2="600.0" y2="340.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="120.0" y1="405.0" x2="600.0" y2="405.0" stroke="#333333" stroke-width="1.2"/>
+<text x="110.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Acc</text>
+<text x="110.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CF</text>
+<line x1="120.0" y1="285.0" x2="600.0" y2="285.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="560.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Поріг CF_DEN</text>
+<line x1="140.0" y1="340.0" x2="260.0" y2="285.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="260.0" y1="285.0" x2="260.0" y2="340.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="260.0" y1="340.0" x2="380.0" y2="285.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="380.0" y1="285.0" x2="380.0" y2="340.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="380.0" y1="340.0" x2="500.0" y2="285.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="500.0" y1="285.0" x2="500.0" y2="340.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="140.0" y1="370.0" x2="260.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="260.0" y1="370.0" x2="260.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="260.0" y1="400.0" x2="290.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="290.0" y1="400.0" x2="290.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="290.0" y1="370.0" x2="380.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="380.0" y1="370.0" x2="380.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="380.0" y1="400.0" x2="410.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="410.0" y1="400.0" x2="410.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="410.0" y1="370.0" x2="500.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="500.0" y1="370.0" x2="500.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="500.0" y1="400.0" x2="530.0" y2="400.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="530.0" y1="400.0" x2="530.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="530.0" y1="370.0" x2="580.0" y2="370.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="330.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">t_pulse = 80 мс (1 імпульс = 1 квант енергії)</text>
+</svg>

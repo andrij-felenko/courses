@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1061.2 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1061.2" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронограма вичитування: поріг Watermark, переривання та SPI DMA Burst</text>
+<text x="470.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Процесор спить або зайнятий іншими задачами під час накопичення та фонового трансферу</text>
+<text x="40.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівень заповнення FIFO (байти)</text>
+<line x1="50.0" y1="180.0" x2="880.0" y2="180.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="50.0" y1="180.0" x2="50.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="50.0" y1="135.0" x2="880.0" y2="135.0" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="890.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start" font-weight="700">Поріг Watermark (WM = 160 B)</text>
+<polyline points="50.0,180.0 350.0,135.0 370.0,180.0 670.0,135.0 690.0,180.0 880.0,150.0" fill="none" stroke="#1e40af" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="200.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Накопичення кадрів (10 кадрів × 16 Б = 10 мс)</text>
+<text x="520.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Накопичення кадрів (10 кадрів × 16 Б = 10 мс)</text>
+<text x="40.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Пін переривання INT1</text>
+<line x1="50.0" y1="250.0" x2="880.0" y2="250.0" stroke="#333333" stroke-width="1.5"/>
+<polyline points="50.0,250.0 350.0,250.0 350.0,225.0 370.0,225.0 370.0,250.0 670.0,250.0 670.0,225.0 690.0,225.0 690.0,250.0 880.0,250.0" fill="none" stroke="#b91c1c" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="360.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">EXTI IRQ</text>
+<text x="680.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">EXTI IRQ</text>
+<text x="40.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Транзакція SPI Bus (DMA)</text>
+<line x1="50.0" y1="320.0" x2="880.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="355.0" y="305.0" width="55.0" height="30.0" rx="3" fill="#e0f2fe" stroke="#1e40af" stroke-width="1.5"/>
+<text x="382.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">DMA Read
+(64 мкс)</text>
+<rect x="675.0" y="305.0" width="55.0" height="30.0" rx="3" fill="#e0f2fe" stroke="#1e40af" stroke-width="1.5"/>
+<text x="702.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">DMA Read
+(64 мкс)</text>
+<text x="40.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Активність CPU (Cortex-M)</text>
+<rect x="50.0" y="395.0" width="830.0" height="45.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="55.0" y="400.0" width="290.0" height="35.0" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.0"/>
+<text x="200.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">CPU вільний (Сон / WFI / інші процеси)</text>
+<rect x="350.0" y="400.0" width="15.0" height="35.0" rx="2" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.0"/>
+<rect x="415.0" y="400.0" width="130.0" height="35.0" rx="3" fill="#fef3c7" stroke="#caa24a" stroke-width="1.0"/>
+<text x="480.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парсинг 10 кадрів + EKF</text>
+<rect x="550.0" y="400.0" width="120.0" height="35.0" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.0"/>
+<text x="610.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Вільний CPU</text>
+<rect x="670.0" y="400.0" width="15.0" height="35.0" rx="2" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.0"/>
+<rect x="735.0" y="400.0" width="130.0" height="35.0" rx="3" fill="#fef3c7" stroke="#caa24a" stroke-width="1.0"/>
+<text x="800.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парсинг 10 кадрів + EKF</text>
+</svg>

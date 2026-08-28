@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="880.0" height="480.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="30.0" y="40.0" width="260.0" height="420.0" rx="6" fill="#fff1f2" stroke="#e11d48" stroke-width="1.5"/>
+<text x="160.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#9f1239" text-anchor="middle" font-weight="700">1. Неоднорідність (NU)</text>
+<text x="160.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#be123c" text-anchor="middle">Сирий відгук пікселів матриці</text>
+<rect x="50.0" y="105.0" width="220.0" height="200.0" rx="4" fill="#ffffff" stroke="#fda4af" stroke-width="1.2"/>
+<line x1="70.0" y1="280.0" x2="250.0" y2="280.0" stroke="#475569" stroke-width="1.5"/>
+<line x1="70.0" y1="280.0" x2="70.0" y2="120.0" stroke="#475569" stroke-width="1.5"/>
+<text x="230.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">T_сцени</text>
+<text x="60.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">DN</text>
+<line x1="70.0" y1="250.0" x2="240.0" y2="140.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="70.0" y1="220.0" x2="240.0" y2="160.0" stroke="#2563eb" stroke-width="2.0"/>
+<line x1="70.0" y1="190.0" x2="240.0" y2="130.0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="160.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle">• Розкид R0: ±5%...10%</text>
+<text x="160.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle">• Розкид чутливості (TCR): ±3%</text>
+<text x="160.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle">• Розкид теплопровідності G_th</text>
+<text x="160.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">FPN (просторово-фіксований</text>
+<text x="160.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">шум) перекриває корисний</text>
+<text x="160.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">тепловий сигнал у 50+ разів!</text>
+<line x1="290.0" y1="250.0" x2="320.0" y2="250.0" stroke="#e11d48" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="320.0" y="40.0" width="260.0" height="420.0" rx="6" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="450.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#075985" text-anchor="middle" font-weight="700">2. Калібрування шторкою</text>
+<text x="450.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">Одноточкова корекція зміщення</text>
+<rect x="350.0" y="110.0" width="200.0" height="100.0" rx="4" fill="#ffffff" stroke="#38bdf8" stroke-width="1.2"/>
+<rect x="370.0" y="130.0" width="160.0" height="60.0" rx="3" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+<text x="450.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Механічна заслінка</text>
+<text x="450.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Ізотермічне тіло T_shutter</text>
+<rect x="340.0" y="225.0" width="220.0" height="110.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.2"/>
+<text x="450.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0c4a6e" text-anchor="middle" font-weight="700">Зняття кадру зміщення:</text>
+<text x="450.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Offset[i] = Y_shutter[i]</text>
+<text x="450.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0c4a6e" text-anchor="middle" font-weight="700">Корекція в реальному часі:</text>
+<text x="450.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Y_corr[i] = Y[i] − Offset[i] + S0</text>
+<text x="450.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">• Шторка перекриває FPA</text>
+<text x="450.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">  на 100–300 мс кожні 2–5 хв</text>
+<text x="450.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">• Компенсує тепловий</text>
+<text x="450.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle">  дрейф корпусу сенсора</text>
+<line x1="580.0" y1="250.0" x2="610.0" y2="250.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="40.0" width="260.0" height="420.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="740.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">3. Двоточкова FFC</text>
+<text x="740.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle">Корекція підсилення й зсуву</text>
+<rect x="630.0" y="105.0" width="220.0" height="200.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<line x1="650.0" y1="280.0" x2="830.0" y2="280.0" stroke="#475569" stroke-width="1.5"/>
+<line x1="650.0" y1="280.0" x2="650.0" y2="120.0" stroke="#475569" stroke-width="1.5"/>
+<text x="810.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">T_сцени</text>
+<text x="640.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">DN</text>
+<line x1="690.0" y1="280.0" x2="690.0" y2="120.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="690.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-weight="700">T_cold</text>
+<line x1="780.0" y1="280.0" x2="780.0" y2="120.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="780.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">T_hot</text>
+<line x1="650.0" y1="260.0" x2="820.0" y2="135.0" stroke="#16a34a" stroke-width="3.0"/>
+<circle cx="690.0" cy="230.0" r="4.0" fill="#0284c7" stroke="#0369a1" stroke-width="1.5"/>
+<circle cx="780.0" cy="165.0" r="4.0" fill="#dc2626" stroke="#b91c1c" stroke-width="1.5"/>
+<rect x="625.0" y="320.0" width="230.0" height="70.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="740.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle" font-weight="700">Gain[i] = ΔDN_target / (Y_h[i] − Y_c[i])</text>
+<text x="740.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Y_out[i] = Gain[i] · (Y[i] − Y_c[i]) + C0</text>
+<text x="740.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Результат: однорідне поле,</text>
+<text x="740.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">NETD &lt; 40 мК, чиста термограма</text>
+</svg>

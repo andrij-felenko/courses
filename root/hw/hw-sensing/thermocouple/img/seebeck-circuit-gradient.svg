@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генерація термо-ЕРС вздовж температурного градієнта</text>
+<rect x="30.0" y="60.0" width="160.0" height="260.0" rx="8" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="110.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Гаряча зона</text>
+<text x="110.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">T_hot (робочий спай)</text>
+<rect x="540.0" y="60.0" width="190.0" height="260.0" rx="8" fill="#e3f2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="635.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Холодна зона (CJC)</text>
+<text x="635.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">T_cold (ізотермічна планка)</text>
+<circle cx="110.0" cy="190.0" r="8.0" fill="#ff7043" stroke="#c0392b" stroke-width="2.0"/>
+<text x="110.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Робочий спай</text>
+<line x1="110.0" y1="190.0" x2="160.0" y2="150.0" stroke="#d9534f" stroke-width="3.5"/>
+<line x1="160.0" y1="150.0" x2="560.0" y2="150.0" stroke="#d9534f" stroke-width="3.5"/>
+<rect x="205.6" y="114.2" width="288.8" height="31.5" rx="6" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/><text x="350.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Провідник A (наприклад, Хромель: S_A &gt; 0)</tspan></text>
+<line x1="110.0" y1="190.0" x2="160.0" y2="230.0" stroke="#337ab7" stroke-width="3.5"/>
+<line x1="160.0" y1="230.0" x2="560.0" y2="230.0" stroke="#337ab7" stroke-width="3.5"/>
+<rect x="205.6" y="236.2" width="288.8" height="31.5" rx="6" fill="#ffffff" stroke="#337ab7" stroke-width="1.5"/><text x="350.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Провідник B (наприклад, Алюмель: S_B &lt; 0)</tspan></text>
+<circle cx="560.0" cy="150.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="560.0" cy="230.0" r="6.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="585.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Клема (+)</text>
+<text x="585.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Клема (−)</text>
+<line x1="560.0" y1="150.0" x2="650.0" y2="150.0" stroke="#d35400" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="560.0" y1="230.0" x2="650.0" y2="230.0" stroke="#d35400" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="650.0" y1="150.0" x2="650.0" y2="170.0" stroke="#d35400" stroke-width="2.0"/>
+<line x1="650.0" y1="230.0" x2="650.0" y2="210.0" stroke="#d35400" stroke-width="2.0"/>
+<rect x="620.0" y="170.0" width="60.0" height="40.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="650.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">АЦП</text>
+<rect x="565.0" y="270.0" width="140.0" height="36.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="635.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Давач T_cold (NTC/RTD)</text>
+<line x1="210.0" y1="345.0" x2="510.0" y2="345.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="360.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Температурний градієнт dT/dx генерує напругу вздовж дротів</text>
+</svg>

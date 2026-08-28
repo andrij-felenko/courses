@@ -53,7 +53,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -63,8 +63,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-analog-rms.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rectified-error.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dsp-true-rms.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -79,8 +97,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-metrology-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "uncertainty-budget",

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матрична компенсація ІЧ-завади для джерел з різною колірною температурою</text>
+<rect x="30.0" y="48.0" width="220.0" height="295.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="140.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">1. Білий LED (Холодний)</text>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">T = 6500 K</text>
+<rect x="38.0" y="102.0" width="204.0" height="46.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="140.0" y="116.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Суто видиме світло (420–680 нм), ІЧ-складова майже нульова.</tspan></text>
+<rect x="38.0" y="156.0" width="204.0" height="78.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="140.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Відгук каналів ALS:</text>
+<text x="46.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start" font-weight="700">CH0 = 100</text>
+<text x="46.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">CH1 = 2 (ІЧ ≈ 0)</text>
+<rect x="38.0" y="242.0" width="204.0" height="48.0" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="140.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Результат після корекції:</text>
+<text x="140.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">E_v = 1.0·100 - 1.8·2 ≈ 96.4 лк</text>
+<rect x="270.0" y="48.0" width="220.0" height="295.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="380.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">2. Лампа розжарювання</text>
+<text x="380.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">T = 2700 K</text>
+<rect x="278.0" y="102.0" width="204.0" height="46.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="380.0" y="140.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">90% енергії в ІЧ-діапазоні (750–2000 нм), слабке синє світло.</tspan></text>
+<rect x="278.0" y="156.0" width="204.0" height="78.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="380.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Відгук каналів ALS:</text>
+<text x="286.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start" font-weight="700">CH0 = 450 (величезна ІЧ)</text>
+<text x="286.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">CH1 = 195 (високий ІЧ)</text>
+<rect x="278.0" y="242.0" width="204.0" height="48.0" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="380.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Результат після корекції:</text>
+<text x="380.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">E_v = 1.0·450 - 1.8·195 ≈ 99.0 лк</text>
+<rect x="510.0" y="48.0" width="220.0" height="295.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="620.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">3. Пряме сонячне світло</text>
+<text x="620.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">T = 5800 K (AM1.5)</text>
+<rect x="518.0" y="102.0" width="204.0" height="46.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/><text x="620.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Потужний неперервний спектр: видиме світло + потужне ІЧ.</tspan></text>
+<rect x="518.0" y="156.0" width="204.0" height="78.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="620.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Відгук каналів ALS:</text>
+<text x="526.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start" font-weight="700">CH0 = 1000</text>
+<text x="526.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">CH1 = 420</text>
+<rect x="518.0" y="242.0" width="204.0" height="48.0" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="620.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Результат після корекції:</text>
+<text x="620.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">E_v = 1.0·1000 - 1.8·420 ≈ 244 лк*</text>
+<rect x="30.0" y="352.0" width="700.0" height="56.0" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="380.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Загальне матричне рівняння відсікання: E_v = a · CH0 − b · CH1</text>
+<text x="380.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">Коефіцієнти a та b калібруються за відношенням Ratio = CH1 / CH0 для різних джерел світла</text>
+</svg>

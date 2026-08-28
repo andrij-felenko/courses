@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 780 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="780" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="760.0" height="390.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура конвеєра обробки мультисенсорних даних та розрахунку AQI</text>
+<text x="90.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Сирі сигнали</text>
+<rect x="20.0" y="55.0" width="140.0" height="44.0" rx="4" fill="#e8f8f5" stroke="#16a085" stroke-width="1.4"/>
+<text x="90.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптичний лічильник</text>
+<text x="90.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(PM2.5 / PM10)</text>
+<rect x="20.0" y="109.0" width="140.0" height="44.0" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1.4"/>
+<text x="90.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Електрохімічні комірки</text>
+<text x="90.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(CO, NO2, SO2, O3)</text>
+<rect x="20.0" y="163.0" width="140.0" height="44.0" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.4"/>
+<text x="90.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">NDIR давач</text>
+<text x="90.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(CO2)</text>
+<rect x="20.0" y="217.0" width="140.0" height="44.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="90.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MOX давач</text>
+<text x="90.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(VOC / IAQ)</text>
+<rect x="20.0" y="271.0" width="140.0" height="44.0" rx="4" fill="#fdedec" stroke="#e74c3c" stroke-width="1.4"/>
+<text x="90.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">T / RH давач</text>
+<text x="90.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(SHT3x / BME280)</text>
+<text x="275.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Фізична корекція</text>
+<rect x="195.0" y="55.0" width="160.0" height="44.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гігроскопічна поправка</text>
+<text x="275.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(здуття аерозолю за RH)</text>
+<line x1="160.0" y1="77.0" x2="195.0" y2="77.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="195.0" y="109.0" width="160.0" height="44.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Температурний дрейф нуля</text>
+<text x="275.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+ крос-чутливість NO2/O3</text>
+<line x1="160.0" y1="131.0" x2="195.0" y2="131.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="195.0" y="163.0" width="160.0" height="44.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Температурна лінеаризація</text>
+<text x="275.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та тиск</text>
+<line x1="160.0" y1="185.0" x2="195.0" y2="185.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="195.0" y="217.0" width="160.0" height="44.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відстеження базової лінії</text>
+<text x="275.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та вологості</text>
+<line x1="160.0" y1="239.0" x2="195.0" y2="239.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="195.0" y="271.0" width="160.0" height="44.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="275.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Опорні канали T (°C)</text>
+<text x="275.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та RH (%)</text>
+<line x1="160.0" y1="293.0" x2="195.0" y2="293.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="293.0" x2="180.0" y2="293.0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="180.0" y1="293.0" x2="180.0" y2="77.0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="2,2"/>
+<line x1="180.0" y1="77.0" x2="195.0" y2="77.0" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="450.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Адаптивні фільтри</text>
+<rect x="375.0" y="55.0" width="150.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="450.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">EPA NowCast (12 год)</text>
+<text x="450.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">динамічне зважування</text>
+<line x1="355.0" y1="77.0" x2="375.0" y2="77.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="375.0" y="109.0" width="150.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ковзне вікно (1 год / 8 год)</text>
+<text x="450.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">інтерполяція пропусків</text>
+<line x1="355.0" y1="131.0" x2="375.0" y2="131.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="375.0" y="163.0" width="150.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="450.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ковзне вікно (8 год)</text>
+<text x="450.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усереднення CO</text>
+<line x1="355.0" y1="185.0" x2="375.0" y2="185.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="375.0" y="217.0" width="150.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="450.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відносний індекс IAQ</text>
+<text x="450.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(алгоритм сенсора)</text>
+<line x1="355.0" y1="239.0" x2="375.0" y2="239.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="375.0" y="271.0" width="150.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="450.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Метео-параметри</text>
+<text x="450.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(фільтрація шумів)</text>
+<line x1="355.0" y1="293.0" x2="375.0" y2="293.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="600.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Суб-індекси I_p</text>
+<rect x="555.0" y="55.0" width="90.0" height="44.0" rx="4" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+<text x="600.0" y="71.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_PM2.5</text>
+<text x="600.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">I = 125</text>
+<line x1="525.0" y1="77.0" x2="555.0" y2="77.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="555.0" y="109.0" width="90.0" height="44.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="600.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_NO2 / I_O3</text>
+<text x="600.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">I = 42</text>
+<line x1="525.0" y1="131.0" x2="555.0" y2="131.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="555.0" y="163.0" width="90.0" height="44.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="600.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_CO</text>
+<text x="600.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">I = 18</text>
+<line x1="525.0" y1="185.0" x2="555.0" y2="185.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="555.0" y="217.0" width="90.0" height="44.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="600.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_SO2</text>
+<text x="600.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">I = 12</text>
+<line x1="525.0" y1="239.0" x2="555.0" y2="239.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="555.0" y="271.0" width="90.0" height="44.0" rx="4" fill="#ffffff" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="600.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I_PM10</text>
+<text x="600.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d4ac0d" text-anchor="middle" font-weight="700">I = 65</text>
+<line x1="525.0" y1="293.0" x2="555.0" y2="293.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="700.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Агрегація</text>
+<rect x="665.0" y="95.0" width="75.0" height="160.0" rx="6" fill="#fff0f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="702.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">AQI</text>
+<text x="702.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">= max(I_p)</text>
+<text x="702.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="22" fill="#d35400" text-anchor="middle" font-weight="700">125</text>
+<text x="702.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Чутливі</text>
+<text x="702.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Домінанта:</text>
+<text x="702.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PM2.5</text>
+<line x1="645.0" y1="77.0" x2="665.0" y2="175.0" stroke="#6b7280" stroke-width="1.1"/>
+<line x1="645.0" y1="131.0" x2="665.0" y2="175.0" stroke="#6b7280" stroke-width="1.1"/>
+<line x1="645.0" y1="185.0" x2="665.0" y2="175.0" stroke="#6b7280" stroke-width="1.1"/>
+<line x1="645.0" y1="239.0" x2="665.0" y2="175.0" stroke="#6b7280" stroke-width="1.1"/>
+<line x1="645.0" y1="293.0" x2="665.0" y2="175.0" stroke="#6b7280" stroke-width="1.1"/>
+<rect x="73.0" y="336.4" width="613.9" height="37.3" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/><text x="380.0" y="351.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Токсикологічний принцип некомпенсованості: агрегація через max() запобігає маскуванню небезпеки.</tspan><tspan x="380.0" dy="14.3">Чисте повітря за іншими газами не може зменшити токсичний вплив домінуючого забруднювача!</tspan></text>
+</svg>

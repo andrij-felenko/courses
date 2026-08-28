@@ -17,7 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -69,8 +69,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-apd-spad.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-excess-noise.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -85,8 +97,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-candela-standard.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectral-conversion.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "photo-sensors",
@@ -105,8 +129,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-lux-spectral-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-als-autorange-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "uv-light-sensor",
@@ -115,7 +151,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -125,8 +161,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cie-1931.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mccamy-cct.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-as7341-spectral.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -209,8 +263,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-guard-ring.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tia-stability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dark-current-filter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dual-gain-sensor",

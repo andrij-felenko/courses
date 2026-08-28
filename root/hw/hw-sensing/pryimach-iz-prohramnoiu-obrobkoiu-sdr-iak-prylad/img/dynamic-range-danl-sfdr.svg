@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15.2 -10 982.87 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-15.2" y="-10" width="982.87" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний діапазон вимірювального SDR: шуми, нелінійність та компресія</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">рівні потужності, відображений середній шум (DANL), точка 1 dB компресії (P1dB) та SFDR</text>
+<line x1="100.0" y1="370.0" x2="910.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="100.0" y1="370.0" x2="100.0" y2="80.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="925.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">f (Частота)</text>
+<text x="65.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потужність (dBm)</text>
+<line x1="100.0" y1="120.0" x2="880.0" y2="120.0" stroke="#b91c1c" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text x="92.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="end" font-weight="700">0 dBFS (Кліпінг АЦП)</text>
+<line x1="100.0" y1="150.0" x2="880.0" y2="150.0" stroke="#caa24a" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="92.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#caa24a" text-anchor="end" font-weight="700">P1dB (Компресія)</text>
+<rect x="100.0" y="330.0" width="780.0" height="40.0" rx="6" fill="#f8fafc" stroke="none" stroke-width="0.0"/>
+<line x1="100.0" y1="330.0" x2="880.0" y2="330.0" stroke="#64748b" stroke-width="1.4" stroke-dasharray="2 2"/>
+<text x="870.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="end" font-weight="700">DANL (RBW = 100 kHz)</text>
+<line x1="100.0" y1="355.0" x2="880.0" y2="355.0" stroke="#15803d" stroke-width="1.6"/>
+<text x="870.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="end" font-weight="700">DANL (RBW = 1 kHz) → шум падає на 20 dB</text>
+<line x1="380.0" y1="370.0" x2="380.0" y2="180.0" stroke="#1d4ed8" stroke-width="3.5"/>
+<circle cx="380.0" cy="180.0" r="4.0" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="0.0"/>
+<text x="380.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">Основний сигнал f₀</text>
+<line x1="560.0" y1="370.0" x2="560.0" y2="265.0" stroke="#7e22ce" stroke-width="2.0"/>
+<text x="560.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7e22ce" text-anchor="middle" font-weight="700">Дзеркало (-f₀)</text>
+<line x1="680.0" y1="370.0" x2="680.0" y2="280.0" stroke="#b91c1c" stroke-width="2.0"/>
+<text x="680.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">IMD3 / Спур</text>
+<line x1="460.0" y1="180.0" x2="460.0" y2="280.0" stroke="#7e22ce" stroke-width="2.0"/>
+<line x1="460.0" y1="230.0" x2="460.0" y2="180.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="230.0" x2="460.0" y2="280.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="start" font-weight="700">SFDR (Динамічний діапазон без завад)</text>
+<line x1="280.0" y1="180.0" x2="280.0" y2="355.0" stroke="#15803d" stroke-width="1.8"/>
+<line x1="280.0" y1="267.5" x2="280.0" y2="180.0" stroke="#15803d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="267.5" x2="280.0" y2="355.0" stroke="#15803d" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="270.0" y="271.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="end" font-weight="700">SNR / Динамічний діапазон</text>
+<rect x="100.0" y="395.0" width="780.0" height="38.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="490.0" y="411.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Зменшення смуги RBW у 10 разів знижує рівень шуму DANL на 10 dB: DANL = -174 dBm/Hz + NF + 10·log₁₀(RBW).</tspan><tspan x="490.0" dy="12.3">Максимальний корисний сигнал обмежений точкою 1 dB компресії LNA та межею 0 dBFS АЦП.</tspan></text>
+</svg>

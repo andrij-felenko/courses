@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лінеаризація траєкторії сигналів: усунення зміщення та еліптичності</text>
+<line x1="60.0" y1="220.0" x2="300.0" y2="220.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="180.0" y1="100.0" x2="180.0" y2="340.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="283.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Bx</text>
+<text x="190.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">By</text>
+<ellipse cx="205.0" cy="202.0" rx="95.0" ry="68.0" fill="#fef2f2" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4 2"/>
+<circle cx="205.0" cy="202.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="201.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Зміщення (Ox, Oy)</text>
+<circle cx="180.0" cy="220.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="180.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сирі сигнали: зміщення + різниця амплітуд</text>
+<line x1="315.0" y1="220.0" x2="395.0" y2="220.0" stroke="#27ae60" stroke-width="3.0" marker-end="url(#arrow)"/>
+<rect x="278.2" y="161.1" width="153.6" height="47.8" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="355.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="355.0" dy="0.0">1. Зняття зсуву (Offset)</tspan><tspan x="355.0" dy="13.7">2. Нормування (Gain)</tspan><tspan x="355.0" dy="13.7">3. Ортогоналізація</tspan></text>
+<line x1="420.0" y1="220.0" x2="660.0" y2="220.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="540.0" y1="100.0" x2="540.0" y2="340.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="655.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Bx_cal</text>
+<text x="550.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">By_cal</text>
+<circle cx="540.0" cy="220.0" r="85.0" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+<circle cx="540.0" cy="220.0" r="4.0" fill="#2563eb" stroke="#2563eb" stroke-width="1.0"/>
+<line x1="540.0" y1="220.0" x2="594.6" y2="154.9" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<path d="M570.0 220.0 A30.0 30.0 0 0 0 559.3 197.0" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+<text x="578.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">θ</text>
+<text x="540.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Ідеальне коло: точний кут θ = atan2(By, Bx)</text>
+</svg>

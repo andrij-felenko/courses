@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Топології підключення RTD та механізми компенсації опору ліній</text>
+<rect x="20.0" y="50.0" width="460.0" height="136.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.3"/>
+<text x="34.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2-Wire: пряме підключення (похибка від кабелю)</text>
+<rect x="36.0" y="84.0" width="100.0" height="86.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="86.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимірювач</text>
+<text x="86.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">I_EXC</text>
+<text x="86.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">V_meas (АЦП)</text>
+<line x1="136.0" y1="104.0" x2="230.0" y2="104.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="230.0" y="96.0" width="44.0" height="16.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.1"/>
+<text x="252.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RL1</text>
+<line x1="274.0" y1="104.0" x2="360.0" y2="104.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="136.0" y1="150.0" x2="230.0" y2="150.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="230.0" y="142.0" width="44.0" height="16.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.1"/>
+<text x="252.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RL2</text>
+<line x1="274.0" y1="150.0" x2="360.0" y2="150.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="360.0" y="92.0" width="80.0" height="70.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="400.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Pt100</text>
+<text x="400.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">R_RTD</text>
+<rect x="500.0" y="50.0" width="320.0" height="136.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="516.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Рівняння вимірювання 2-Wire:</text>
+<text x="516.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">V_meas = I_EXC · (R_RTD + RL1 + RL2)</text>
+<text x="516.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="start">• Кабель 10 м (0.5 мм²) додає 1.4 Ω</text>
+<text x="516.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Для Pt100 це фатальна похибка ΔT ≈ +3.6 °C!</text>
+<text x="516.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="start">• Температурний дрейф міді спотворює шкалу</text>
+<rect x="20.0" y="205.0" width="460.0" height="142.0" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.3"/>
+<text x="34.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">3-Wire: подвійне джерело струму IDAC</text>
+<rect x="36.0" y="239.0" width="100.0" height="96.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="86.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Подвійний IDAC</text>
+<text x="86.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">I1 = I2 = I_EXC</text>
+<text x="86.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Диф. АЦП</text>
+<text x="86.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">V_A − V_B</text>
+<line x1="136.0" y1="253.0" x2="230.0" y2="253.0" stroke="#d97706" stroke-width="1.6"/>
+<rect x="230.0" y="245.0" width="44.0" height="16.0" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.1"/>
+<text x="252.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">RL1</text>
+<line x1="274.0" y1="253.0" x2="360.0" y2="253.0" stroke="#d97706" stroke-width="1.6"/>
+<line x1="136.0" y1="287.0" x2="230.0" y2="287.0" stroke="#d97706" stroke-width="1.6"/>
+<rect x="230.0" y="279.0" width="44.0" height="16.0" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.1"/>
+<text x="252.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">RL2</text>
+<line x1="274.0" y1="287.0" x2="360.0" y2="287.0" stroke="#d97706" stroke-width="1.6"/>
+<line x1="136.0" y1="321.0" x2="230.0" y2="321.0" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="230.0" y="313.0" width="44.0" height="16.0" rx="2" fill="#f1f5f9" stroke="#4b5563" stroke-width="1.1"/>
+<text x="252.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle" font-weight="700">RL3</text>
+<line x1="274.0" y1="321.0" x2="360.0" y2="321.0" stroke="#4b5563" stroke-width="1.6"/>
+<rect x="360.0" y="247.0" width="80.0" height="50.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="400.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Pt100</text>
+<line x1="360.0" y1="287.0" x2="400.0" y2="287.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="400.0" y1="287.0" x2="400.0" y2="321.0" stroke="#2457d6" stroke-width="1.4"/>
+<line x1="360.0" y1="321.0" x2="400.0" y2="321.0" stroke="#2457d6" stroke-width="1.4"/>
+<rect x="500.0" y="205.0" width="320.0" height="142.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="516.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Рівняння компенсації 3-Wire:</text>
+<text x="516.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">V_A = I1·(RL1 + R_RTD) + (I1+I2)·RL3</text>
+<text x="516.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">V_B = I2·RL2 + (I1+I2)·RL3</text>
+<text x="516.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">ΔV = I_EXC · R_RTD + I_EXC · (RL1 − RL2)</text>
+<text x="516.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="start" font-weight="700">• Якщо RL1 = RL2, опір лінії повністю зникає!</text>
+<rect x="20.0" y="365.0" width="460.0" height="142.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.3"/>
+<text x="34.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">4-Wire Kelvin: повне апаратне усунення опору дротів</text>
+<rect x="36.0" y="399.0" width="100.0" height="96.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="86.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Force (струм)</text>
+<text x="86.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">I_EXC</text>
+<text x="86.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Sense (напруга)</text>
+<text x="86.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">R_in &gt; 10 GΩ</text>
+<line x1="136.0" y1="411.0" x2="230.0" y2="411.0" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="230.0" y="403.0" width="44.0" height="16.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.1"/>
+<text x="252.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RL1</text>
+<line x1="274.0" y1="411.0" x2="360.0" y2="411.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="136.0" y1="483.0" x2="230.0" y2="483.0" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="230.0" y="475.0" width="44.0" height="16.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.1"/>
+<text x="252.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RL4</text>
+<line x1="274.0" y1="483.0" x2="360.0" y2="483.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="136.0" y1="435.0" x2="230.0" y2="435.0" stroke="#15803d" stroke-width="1.4" stroke-dasharray="3,2"/>
+<rect x="230.0" y="427.0" width="44.0" height="16.0" rx="2" fill="#dcfce7" stroke="#15803d" stroke-width="1.1"/>
+<text x="252.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">RL2</text>
+<line x1="274.0" y1="435.0" x2="360.0" y2="423.0" stroke="#15803d" stroke-width="1.4" stroke-dasharray="3,2"/>
+<line x1="136.0" y1="459.0" x2="230.0" y2="459.0" stroke="#15803d" stroke-width="1.4" stroke-dasharray="3,2"/>
+<rect x="230.0" y="451.0" width="44.0" height="16.0" rx="2" fill="#dcfce7" stroke="#15803d" stroke-width="1.1"/>
+<text x="252.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">RL3</text>
+<line x1="274.0" y1="459.0" x2="360.0" y2="471.0" stroke="#15803d" stroke-width="1.4" stroke-dasharray="3,2"/>
+<rect x="360.0" y="409.0" width="80.0" height="74.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="400.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Pt100</text>
+<text x="400.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">R_RTD</text>
+<rect x="500.0" y="365.0" width="320.0" height="142.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="516.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">Рівняння вимірювання 4-Wire (Kelvin):</text>
+<text x="516.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">I_sense ≈ 0  →  ΔV(RL2) = 0, ΔV(RL3) = 0</text>
+<text x="516.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">V_sense = V_RTD = I_EXC · R_RTD</text>
+<text x="516.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="start" font-weight="700">• Опір кабелю будь-якої довжини = 0 похибки</text>
+<text x="516.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="start">• Стандарт прецизійної метрології та еталонів</text>
+</svg>

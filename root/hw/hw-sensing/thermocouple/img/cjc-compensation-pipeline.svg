@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт збору даних і послідовність компенсації холодного спаю</text>
+<rect x="20.0" y="55.0" width="215.0" height="145.0" rx="6" fill="#fff8e1" stroke="#ffa000" stroke-width="1.4"/>
+<text x="127.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Апаратний фронтенд</text>
+<text x="127.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="127.0" dy="0.0">Вхідна термо-ЕРС V_raw</tspan><tspan x="127.0" dy="14.3">Фільтр НЧ + PGA (In-Amp)</tspan><tspan x="127.0" dy="14.3">24-біт ΔΣ АЦП (зчитує мкВ)</tspan></text>
+<text x="127.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">→ Вихід: V_raw (мВ)</text>
+<rect x="20.0" y="220.0" width="215.0" height="145.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.4"/>
+<text x="127.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Сенсор холодного спаю</text>
+<text x="127.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="127.0" dy="0.0">NTC / RTD PT100 на клемах</tspan><tspan x="127.0" dy="14.3">Зчитування температури</tspan><tspan x="127.0" dy="14.3">планки клем T_cj</tspan></text>
+<text x="127.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">→ Вихід: T_cj (°C)</text>
+<line x1="235.0" y1="127.0" x2="275.0" y2="175.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="235.0" y1="292.0" x2="275.0" y2="245.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="55.0" width="460.0" height="310.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="510.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Обчислювальний алгоритм у прошивці мікроконтролера</text>
+<rect x="303.9" y="101.8" width="412.1" height="46.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="510.0" y="121.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Етап A: Перетворення T_cj у напругу еквівалентного спаю</tspan><tspan x="510.0" dy="15.0">V_cj = NIST_Direct_Poly(T_cj)</tspan></text>
+<line x1="510.0" y1="150.0" x2="510.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="314.0" y="181.2" width="392.0" height="47.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="510.0" y="201.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Етап B: Лінійне додавання термоелектрорушійних сил</tspan><tspan x="510.0" dy="15.6">V_total = V_raw + V_cj   (в мілівольтах)</tspan></text>
+<line x1="510.0" y1="230.0" x2="510.0" y2="260.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="279.0" y="271.8" width="462.1" height="46.5" rx="6" fill="#e3f2fd" stroke="#2457d6" stroke-width="1.5"/><text x="510.0" y="291.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Етап C: Обернений поліном NIST для сумарної напруги</tspan><tspan x="510.0" dy="15.0">T_hot = NIST_Inverse_Poly(V_total)   (вихідна температура, °C)</tspan></text>
+<text x="510.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ПОМИЛКА: Не можна додавати температури напряму T_hot ≠ T_raw + T_cj!</text>
+</svg>

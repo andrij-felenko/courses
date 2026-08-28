@@ -61,12 +61,62 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-barometer-registers.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piezoresistive-bridge.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-barometer-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pitot-tube",
           "title": "Трубка Піто",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ms4525do.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compressible-airspeed.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "taktylni-matrytsi-i-optotaktylna-sensoryka",
+          "title": "Тактильні матриці та оптична тактильна сенсорика: пєзорезистивні сітки, GelSight і детектування прослизання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "six-axis-force-torque-sensor",
+          "title": "Багатоосьовий силомоментний давач (6-Axis F/T Sensor)",
           "basic": {
             "status": "empty"
           },
@@ -127,7 +177,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -137,12 +187,40 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-as5048-spi.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hall-coordinate-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hall-linearization.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "lvdt",
           "title": "LVDT — лінійний диференційний трансформатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "optical-stroboscopic-tachometry",
+          "title": "Оптична та стробоскопічна тахометрія: вимірювання обертів без контакту",
           "basic": {
             "status": "empty"
           },
@@ -195,6 +273,16 @@
           "detailed": {
             "status": "done"
           }
+        },
+        {
+          "slug": "optical-gyroscopes-fog-rlg",
+          "title": "Оптичні гіроскопи (FOG і RLG): інтерферометрія Саньяка, нерухомий промінь та навігаційний клас точності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -219,8 +307,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-six-position-ls.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "imu-vibration-isolation",
@@ -230,6 +324,16 @@
           },
           "detailed": {
             "status": "done"
+          }
+        },
+        {
+          "slug": "vibration-rectification-error",
+          "title": "Помилка випрямлення вібрації (VRE): нелінійність підвісу, несиметричний кліпінг і хибний зсув нуля в MEMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
           }
         }
       ]

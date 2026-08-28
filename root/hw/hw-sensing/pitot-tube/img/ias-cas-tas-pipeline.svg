@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскад обчислення повітряних швидкостей (IAS → CAS → EAS → TAS)</text>
+<rect x="30.0" y="52.0" width="780.0" height="385.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="50.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.8"/>
+<text x="130.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0284c7" text-anchor="middle" font-weight="700">1. Приладова (IAS)</text>
+<text x="130.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Indicated Airspeed</text>
+<line x1="65.0" y1="138.0" x2="195.0" y2="138.0" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="130.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Давач: ΔP = P_tot − P_stat</text>
+<text x="130.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ρ₀ = 1.225 кг/м³ (МСА)</text>
+<rect x="65.0" y="200.0" width="130.0" height="42.0" rx="4" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.2"/>
+<text x="130.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">v_ias = √(2·ΔP / ρ₀)</text>
+<text x="130.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle">Визначає звалювання
+та підйомну силу крила</text>
+<line x1="215.0" y1="190.0" x2="245.0" y2="190.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="248.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="328.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">2. Калібрована (CAS)</text>
+<text x="328.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Calibrated Airspeed</text>
+<line x1="263.0" y1="138.0" x2="393.0" y2="138.0" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="328.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Поправки трубки:</text>
+<text x="328.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Похибка монтажу (α, β)</text>
+<text x="328.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Аеродинаміка фюзеляжу</text>
+<rect x="263.0" y="215.0" width="130.0" height="42.0" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="328.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">CAS = IAS + ΔV_pos</text>
+<text x="328.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">Таблиця / поліном
+продувки в трубі</text>
+<line x1="413.0" y1="190.0" x2="443.0" y2="190.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="446.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="526.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">3. Еквівалентна (EAS)</text>
+<text x="526.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Equivalent Airspeed</text>
+<line x1="461.0" y1="138.0" x2="591.0" y2="138.0" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="526.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Стисливість повітря:</text>
+<text x="526.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Важлива при M &gt; 0.3</text>
+<rect x="461.0" y="200.0" width="130.0" height="42.0" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="526.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">EAS = CAS · f_comp(M)</text>
+<text x="526.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle">Враховує хвилю тиску
+стисливого газу</text>
+<line x1="611.0" y1="190.0" x2="641.0" y2="190.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="644.0" y="80.0" width="160.0" height="220.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="724.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Істинна (TAS)</text>
+<text x="724.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">True Airspeed</text>
+<line x1="659.0" y1="138.0" x2="789.0" y2="138.0" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="724.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Густина на висоті ρ(P,T):</text>
+<text x="724.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P_stat (барометр), T (OAT)</text>
+<rect x="659.0" y="200.0" width="130.0" height="42.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="724.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TAS = EAS · √(ρ₀ / ρ)</text>
+<text x="724.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">Справжня швидкість
+відносно маси повітря</text>
+<rect x="50.0" y="320.0" width="754.0" height="95.0" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1.6"/>
+<text x="150.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навігаційний векторний трикутник:</text>
+<text x="150.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Вектор шляхової швидкості (Ground Speed):</text>
+<text x="150.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">V_ground = V_tas + V_wind</text>
+<line x1="480.0" y1="370.0" x2="600.0" y2="345.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="535.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V_tas (курс)</text>
+<line x1="600.0" y1="345.0" x2="660.0" y2="385.0" stroke="#0284c7" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="655.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">V_wind</text>
+<line x1="480.0" y1="370.0" x2="660.0" y2="385.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="575.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">V_ground (GNSS трек)</text>
+</svg>

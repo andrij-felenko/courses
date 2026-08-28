@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт вимірювання та цифрової обробки напруженості поля</text>
+<rect x="40.0" y="65.0" width="130.0" height="85.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/><text x="105.0" y="97.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">Триосьовий зонд</tspan><tspan x="105.0" dy="13.7">(X, Y, Z диполі +</tspan><tspan x="105.0" dy="13.7">діоди Шотткі)</tspan></text>
+<rect x="210.0" y="65.0" width="115.0" height="85.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/><text x="267.5" y="96.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="267.5" dy="0.0">Високоомний</tspan><tspan x="267.5" dy="15.0">буфер / ПУ</tspan><tspan x="267.5" dy="15.0">(3 канали)</tspan></text>
+<rect x="365.0" y="65.0" width="135.0" height="85.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/><text x="432.5" y="96.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="432.5" dy="0.0">3-канальний</tspan><tspan x="432.5" dy="15.0">True RMS / Log</tspan><tspan x="432.5" dy="15.0">детектор (AD8318)</tspan></text>
+<rect x="540.0" y="65.0" width="125.0" height="85.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.8"/><text x="602.5" y="96.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="602.5" dy="0.0">Прецизійний</tspan><tspan x="602.5" dy="15.0">24-бітний АЦП</tspan><tspan x="602.5" dy="15.0">(диференційний)</tspan></text>
+<rect x="705.0" y="65.0" width="120.0" height="85.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/><text x="765.0" y="96.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="765.0" dy="0.0">Мікроконтролер</tspan><tspan x="765.0" dy="15.0">(STM32 / ESP32)</tspan><tspan x="765.0" dy="15.0">DSP обробка</tspan></text>
+<line x1="170.0" y1="107.0" x2="210.0" y2="107.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="325.0" y1="107.0" x2="365.0" y2="107.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="107.0" x2="540.0" y2="107.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="107.0" x2="705.0" y2="107.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="190.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_x,y,z</text>
+<text x="345.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аналог</text>
+<text x="520.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">V_det</text>
+<text x="685.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SPI / I2C</text>
+<rect x="40.0" y="185.0" width="785.0" height="175.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="55.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Програмний конвеєр обробки даних (Firmware Processing Pipeline):</text>
+<rect x="60.0" y="220.0" width="160.0" height="120.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="140.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Калібрування</text>
+<text x="140.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">і лінеаризація</text>
+<text x="140.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Компенсація темп. дрейфу</text>
+<text x="140.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та корекція АХ детектора</text>
+<text x="140.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">через поліноми або LUT</text>
+<rect x="250.0" y="220.0" width="165.0" height="120.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="332.5" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Антенний фактор</text>
+<text x="332.5" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">AF(f) та E_x,y,z</text>
+<text x="332.5" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Множення на AF(f):</text>
+<text x="332.5" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">E_k = V_k · 10^(AF/20)</text>
+<text x="332.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Врахування частоти джерела</text>
+<rect x="445.0" y="220.0" width="165.0" height="120.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="527.5" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Просторовий</text>
+<text x="527.5" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">вектор E_total</text>
+<text x="527.5" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Розрахунок модуля:</text>
+<text x="527.5" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">E_tot = √(E_x² + E_y² + E_z²)</text>
+<text x="527.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Густина S = E_tot² / 377</text>
+<rect x="640.0" y="220.0" width="165.0" height="120.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="722.5" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Усереднення й</text>
+<text x="722.5" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">норма ICNIRP</text>
+<text x="722.5" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ковзне вікно 6 хв (RMS)</text>
+<text x="722.5" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Порівняння з лімітом ГДР</text>
+<text x="722.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тривога перевищення %</text>
+<line x1="220.0" y1="280.0" x2="250.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="415.0" y1="280.0" x2="445.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="280.0" x2="640.0" y2="280.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

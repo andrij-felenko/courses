@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-41.13 -10 861.13 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-41.13" y="-10" width="861.13" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два шляхи детектування УФ: фільтрований кремній проти широкозонних напівпровідників</text>
+<rect x="30.0" y="50.0" width="370.0" height="300.0" rx="8" fill="#fffaf5" stroke="#d35400" stroke-width="1.8"/>
+<text x="215.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Кремнієвий фотодіод + фільтри (VEML/Si11xx)</text>
+<line x1="45.0" y1="84.0" x2="385.0" y2="84.0" stroke="#d35400" stroke-width="1.0"/>
+<rect x="65.0" y="102.0" width="300.0" height="24.0" rx="6" fill="#dfe6e9" stroke="#636e72" stroke-width="1.2"/>
+<text x="215.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Інтерференційний діелектричний фільтр</text>
+<rect x="65.0" y="130.0" width="300.0" height="34.0" rx="6" fill="#b2bec3" stroke="#2d3436" stroke-width="1.2"/>
+<text x="215.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кремнієвий p-n перехід (Eg = 1.12 еВ)</text>
+<text x="215.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Природна чутливість: 190–1100 нм (УФ + ВИД + ІЧ)</text>
+<text x="55.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фізичні виклики та обмеження:</text>
+<text x="55.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="55.0" dy="0.0">• Фільтр має витік 0.1–1% у видимій та ІЧ області.</tspan><tspan x="55.0" dy="13.1">• Потужне сонце (&gt;800 Вт/м²) створює паразитний ІЧ-струм,</tspan><tspan x="55.0" dy="13.1">  що перекриває слабкий сигнал УФ у рази.</tspan><tspan x="55.0" dy="13.1">• Потребує 4 канали (UVA, UVB, VIS, IR) і матричну</tspan><tspan x="55.0" dy="13.1">  компенсацію перехресного засвічення в DSP.</tspan></text>
+<rect x="420.0" y="50.0" width="370.0" height="300.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.8"/>
+<text x="605.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Широкозонний фотодіод (SiC / GaN / AlGaN)</text>
+<line x1="435.0" y1="84.0" x2="775.0" y2="84.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="455.0" y="102.0" width="300.0" height="24.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="605.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Кварцове вікно / прямий контакт із світлом</text>
+<rect x="455.0" y="130.0" width="300.0" height="34.0" rx="6" fill="#a3e4d7" stroke="#117864" stroke-width="1.2"/>
+<text x="605.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кристал 4H-SiC (Eg = 3.26 еВ) / AlGaN</text>
+<text x="605.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Сліпий до видимого: фотони &gt;380 нм не породжують пар!</text>
+<text x="445.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фізичні переваги:</text>
+<text x="445.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="445.0" dy="0.0">• Природна «сонцесліпість» (visible/solar-blind).</tspan><tspan x="445.0" dy="13.1">• Придушення видимого та ІЧ &gt; 10⁴–10⁶ БЕЗ фільтрів.</tspan><tspan x="445.0" dy="13.1">• Темновий струм &lt; 10 фА (у 1000 разів менший за кремній).</tspan><tspan x="445.0" dy="13.1">• Стійкість до жорсткого УФ і деградації кристала.</tspan><tspan x="445.0" dy="13.1">• Висока ціна; вимагає прецизійного TIA (пА-струми).</tspan></text>
+<text x="410.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Широкозонний напівпровідник вирішує проблему оптичної селективності на рівні квантової забороненої зони речовини</text>
+</svg>

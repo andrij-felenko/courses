@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1220 379" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1220" height="379" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурний конвеєр обробки сигналу в цифровому MEMS-барометрі</text>
+<rect x="40.0" y="120.0" width="145.0" height="95.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="112.5" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700"><tspan x="112.5" dy="0.0">MEMS-елемент</tspan><tspan x="112.5" dy="15.6">+ PTAT-термодавач</tspan></text>
+<text x="112.5" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">міст ΔR/R (P, T)</text>
+<line x1="189.0" y1="167.5" x2="215.0" y2="167.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="219.0" y="120.0" width="145.0" height="95.0" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.0"/>
+<text x="291.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700"><tspan x="291.5" dy="0.0">Аналоговий тракт</tspan><tspan x="291.5" dy="15.6">+ 24-бітний ΔΣ-АЦП</tspan></text>
+<text x="291.5" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle">Oversampling 1..64×</text>
+<line x1="368.0" y1="167.5" x2="394.0" y2="167.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="398.0" y="120.0" width="165.0" height="95.0" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="2.0"/>
+<text x="480.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700"><tspan x="480.5" dy="0.0">Поліноміальна</tspan><tspan x="480.5" dy="15.6">компенсація (DSP)</tspan></text>
+<text x="480.5" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">NVM коефіцієнти</text>
+<rect x="413.0" y="65.0" width="135.0" height="42.0" rx="3" fill="#f1f5f9" stroke="#64748b" stroke-width="1.4"/>
+<text x="480.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700"><tspan x="480.5" dy="0.0">Заводська пам'ять NVM</tspan><tspan x="480.5" dy="13.0">(калібрувальні trim-константи)</tspan></text>
+<line x1="480.5" y1="107.0" x2="480.5" y2="118.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="567.0" y1="167.5" x2="593.0" y2="167.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="597.0" y="120.0" width="175.0" height="95.0" rx="5" fill="#fae8ff" stroke="#a855f7" stroke-width="2.0"/>
+<text x="684.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="middle" font-weight="700"><tspan x="684.5" dy="0.0">Апаратний IIR-фільтр</tspan><tspan x="684.5" dy="15.6">+ FIFO / Інтерфейс</tspan></text>
+<text x="684.5" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="middle">I2C / SPI вихід</text>
+<line x1="776.0" y1="167.5" x2="822.0" y2="167.5" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="832.0" y="167.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700"><tspan x="832.0" dy="0.0">Тиск у Па</tspan><tspan x="832.0" dy="14.3">Висота в метрах</tspan></text>
+<rect x="420.0" y="315.0" width="780.0" height="44.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/><text x="810.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">Повний конвеєр: від мікровольтного зміщення п'єзорезистивного моста до каліброваного тиску та висоти</tspan></text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="400.0" rx="0" fill="#ffffff" stroke="none" stroke-width="0.0"/>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм розпізнавання хвильового патерну та автомат станів (FSM)</text>
+<rect x="40.0" y="55.0" width="380.0" height="325.0" rx="6" fill="#fcfcfc" stroke="#dcdde1" stroke-width="1.2"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналіз сигналу PIR у часі</text>
+<text x="140.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Справжній рух людини (валідна пара)</text>
+<line x1="55.0" y1="150.0" x2="395.0" y2="150.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="55.0" y1="125.0" x2="395.0" y2="125.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="55.0" y1="175.0" x2="395.0" y2="175.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="405.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">+Vth</text>
+<text x="405.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">-Vth</text>
+<path d="M 60 150 L 100 150 Q 130 95, 160 150 Q 190 205, 220 150 L 260 150 L 390 150" fill="none" stroke="#8e44ad" stroke-width="2.2"/>
+<circle cx="145.0" cy="110.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="145.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Пік 1</text>
+<circle cx="205.0" cy="190.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="205.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Пік 2</text>
+<text x="290.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Перехід 0</text>
+<line x1="175.0" y1="135.0" x2="175.0" y2="165.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="140.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">2. Одиночна завада (іскра / спалах світла)</text>
+<line x1="55.0" y1="280.0" x2="395.0" y2="280.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="55.0" y1="258.0" x2="395.0" y2="258.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="55.0" y1="302.0" x2="395.0" y2="302.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<path d="M 60 280 L 120 280 L 135 245 L 150 280 L 390 280" fill="none" stroke="#d35400" stroke-width="1.8"/>
+<text x="230.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Немає від'ємного піку → ВІДХИЛЕНО</text>
+<text x="230.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">FSM фільтрує до 98% хибних спрацьовувань</text>
+<rect x="440.0" y="55.0" width="360.0" height="325.0" rx="6" fill="#fcfcfc" stroke="#dcdde1" stroke-width="1.2"/>
+<text x="620.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів (FSM DSP)</text>
+<rect x="545.6" y="97.5" width="148.8" height="35.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/><text x="620.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">IDLE (Очікування спокою)</tspan><tspan x="620.0" dy="13.0">|V - V_baseline| &lt; V_th</tspan></text>
+<line x1="620.0" y1="140.0" x2="620.0" y2="175.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="710.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перевищено +Vth</text>
+<rect x="505.7" y="182.5" width="228.6" height="35.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.4"/><text x="620.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">FIRST_PEAK_DETECTED</tspan><tspan x="620.0" dy="13.0">Запуск таймера вікна T_win (0.2–1.5 с)</tspan></text>
+<line x1="620.0" y1="225.0" x2="620.0" y2="260.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="718.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Перетин 0 та спад нижче -Vth</text>
+<rect x="514.2" y="272.5" width="211.5" height="35.0" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.8"/><text x="620.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">MOTION_CONFIRMED (Рух підтверджено)</tspan><tspan x="620.0" dy="13.0">Генерація вихідного сигналу / події</tspan></text>
+<path d="M 520 200 C 470 200, 470 115, 530 115" fill="none" stroke="#d35400" stroke-width="1.4" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+<text x="465.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle">Таймаут T_win</text>
+<path d="M 720 290 C 785 290, 785 115, 715 115" fill="none" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+<text x="785.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Завершення події</text>
+</svg>

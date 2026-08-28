@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація спотворень вимірювального тракту: Систематичні проти Випадкових</text>
+<rect x="30.0" y="55.0" width="410.0" height="365.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="235.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Систематичні похибки (Детерміновані / Bias)</text>
+<line x1="75.0" y1="260.0" x2="395.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="75.0" y1="100.0" x2="75.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<text x="385.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Vin</text>
+<text x="60.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Vout</text>
+<line x1="75.0" y1="260.0" x2="395.0" y2="100.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="355.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ідеал (1:1)</text>
+<line x1="75.0" y1="235.0" x2="395.0" y2="105.0" stroke="#ea580c" stroke-width="1.8"/>
+<text x="85.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="start" font-weight="700">+ Offset (Vos)</text>
+<line x1="75.0" y1="260.0" x2="395.0" y2="140.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="375.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Gain error</text>
+<rect x="45.0" y="275.0" width="380.0" height="135.0" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.0"/>
+<text x="55.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a3412" text-anchor="start" font-weight="700">1. Зсув нуля (Offset / Bias):</text>
+<text x="65.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Термоелектричні ЕРС (Seebeck), струми витоку, Vos ОП</text>
+<text x="55.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a3412" text-anchor="start" font-weight="700">2. Масштабна похибка (Gain Error):</text>
+<text x="65.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Допуск опорної напруги Vref, відхилення дільників R1/R2</text>
+<text x="55.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a3412" text-anchor="start" font-weight="700">3. Температурний дрейф (Drift):</text>
+<text x="65.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Повільна зміна параметрів у часі (ppm/°C, ppm/рік)</text>
+<rect x="460.0" y="55.0" width="410.0" height="365.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="665.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Випадкові похибки (Стохастичні / Noise)</text>
+<line x1="505.0" y1="260.0" x2="825.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="505.0" y1="100.0" x2="505.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<text x="815.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час</text>
+<text x="490.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V(t)</text>
+<line x1="505.0" y1="180.0" x2="520.0" y2="158.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="520.0" y1="158.0" x2="535.0" y2="198.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="535.0" y1="198.0" x2="550.0" y2="152.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="550.0" y1="152.0" x2="565.0" y2="212.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="565.0" y1="212.0" x2="580.0" y2="166.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="580.0" y1="166.0" x2="595.0" y2="205.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="595.0" y1="205.0" x2="610.0" y2="150.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="610.0" y1="150.0" x2="625.0" y2="192.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="625.0" y1="192.0" x2="640.0" y2="156.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="640.0" y1="156.0" x2="655.0" y2="208.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="655.0" y1="208.0" x2="670.0" y2="164.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="670.0" y1="164.0" x2="685.0" y2="200.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="685.0" y1="200.0" x2="700.0" y2="146.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="700.0" y1="146.0" x2="715.0" y2="198.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="715.0" y1="198.0" x2="730.0" y2="154.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="730.0" y1="154.0" x2="745.0" y2="210.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="745.0" y1="210.0" x2="760.0" y2="168.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="760.0" y1="168.0" x2="775.0" y2="202.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="775.0" y1="202.0" x2="790.0" y2="162.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="790.0" y1="162.0" x2="805.0" y2="185.0" stroke="#93c5fd" stroke-width="1.2"/>
+<line x1="505.0" y1="180.0" x2="520.0" y2="174.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="520.0" y1="174.5" x2="535.0" y2="184.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="535.0" y1="184.5" x2="550.0" y2="173.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="550.0" y1="173.0" x2="565.0" y2="188.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="565.0" y1="188.0" x2="580.0" y2="176.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="580.0" y1="176.5" x2="595.0" y2="186.2" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="595.0" y1="186.2" x2="610.0" y2="172.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="610.0" y1="172.5" x2="625.0" y2="183.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="625.0" y1="183.0" x2="640.0" y2="174.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="640.0" y1="174.0" x2="655.0" y2="187.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="655.0" y1="187.0" x2="670.0" y2="176.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="670.0" y1="176.0" x2="685.0" y2="185.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="685.0" y1="185.0" x2="700.0" y2="171.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="700.0" y1="171.5" x2="715.0" y2="184.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="715.0" y1="184.5" x2="730.0" y2="173.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="730.0" y1="173.5" x2="745.0" y2="187.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="745.0" y1="187.5" x2="760.0" y2="177.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="760.0" y1="177.0" x2="775.0" y2="185.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="775.0" y1="185.5" x2="790.0" y2="175.5" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="790.0" y1="175.5" x2="805.0" y2="181.2" stroke="#2457d6" stroke-width="2.0"/>
+<text x="525.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#60a5fa" text-anchor="start">Сирий шум σ</text>
+<text x="525.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Усереднене (N=16): σ/√16 = σ/4</text>
+<rect x="475.0" y="275.0" width="380.0" height="135.0" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="485.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">1. Тепловий шум Найквіста-Джонсона:</text>
+<text x="495.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Vn = √(4 k_B T R Δf) — білий шум резистивного опору кола</text>
+<text x="485.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">2. Дробовий шум (Shot noise):</text>
+<text x="495.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">In = √(2 q I Δf) — квантова дискретність носіїв заряду</text>
+<text x="485.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">3. Флікер-шум (1/f noise):</text>
+<text x="495.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Низькочастотні флуктуації контактів та напівпровідників</text>
+</svg>
