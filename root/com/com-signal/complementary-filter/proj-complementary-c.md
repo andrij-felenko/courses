@@ -19,98 +19,15 @@
 Спершу структура — стан і налаштування в одному місці:
 
 :::tabs
-```cpp
-#include <math.h>
-
-typedef struct {
-    /* параметри */
-    float alpha;        /* базовий коеф. довіри гіроскопу (напр. 0.98f)   */
-    float g;            /* очікувана норма прискорення спокою, м/с² (9.81)*/
-    float acc_band;     /* допуск |a|−g, за яким акселерометру не вірити  */
-    /* стан (живе між тактами) */
-    float roll, pitch;  /* поточні оцінки кутів, рад                      */
-    int   seeded;       /* чи засіяно стартову оцінку                     */
-} Comp;
-
-void comp_init(Comp *c, float alpha, float g, float acc_band)
-{
-    c->alpha = alpha;  c->g = g;  c->acc_band = acc_band;
-    c->roll = 0.0f;  c->pitch = 0.0f;  c->seeded = 0;
-}
-```
-```python
-from dataclasses import dataclass
-
-
-@dataclass
-class Comp:
-    # параметри
-    alpha: float          # базовий коеф. довіри гіроскопу (напр. 0.98)
-    g: float              # очікувана норма прискорення спокою, м/с² (9.81)
-    acc_band: float       # допуск |a|−g, за яким акселерометру не вірити
-    # стан (живе між тактами)
-    roll: float = 0.0     # поточна оцінка крену, рад
-    pitch: float = 0.0    # поточна оцінка тангажа, рад
-    seeded: bool = False  # чи засіяно стартову оцінку
-```
+:::code proj-complementary-c/cpp/kod.cpp
+:::code proj-complementary-c/py/kod.py
 :::
 
 Тепер крок. Аргументи: три осі гіроскопа `gx,gy,gz` (рад/с), три осі акселерометра `ax,ay,az` (будь-які однакові одиниці — масштаб скоротиться в `atan2f`, але норму рахуємо для вимикача, тож тут зручно тримати м/с²), і **виміряний** період `dt` (с):
 
 :::tabs
-```cpp
-void comp_step(Comp *c, float gx, float gy,
-               float ax, float ay, float az, float dt)
-{
-    /* 1. опорні кути з акселерометра (atan2f — стійкий у всіх чвертях) */
-    float roll_acc  = atan2f(ay, az);
-    float pitch_acc = atan2f(-ax, sqrtf(ay*ay + az*az));
-
-    /* 2. засіяти стартову оцінку показом акселерометра, не нулем */
-    if (!c->seeded) {
-        c->roll  = roll_acc;
-        c->pitch = pitch_acc;
-        c->seeded = 1;
-        return;                 /* перший такт лише сіє, не інтегрує */
-    }
-
-    /* 3. вимикач довіри: якщо |a| далеко від g — підняти alpha майже до 1 */
-    float amag = sqrtf(ax*ax + ay*ay + az*az);
-    float a = c->alpha;
-    if (fabsf(amag - c->g) > c->acc_band)
-        a = 0.999f;             /* маневр: майже самий гіроскоп */
-
-    /* 4. зважена сума окремо по кожній осі, кожна — своя вісь гіроскопа */
-    c->roll  = a * (c->roll  + gx * dt) + (1.0f - a) * roll_acc;
-    c->pitch = a * (c->pitch + gy * dt) + (1.0f - a) * pitch_acc;
-}
-```
-```python
-import math
-
-
-def comp_step(c, gx, gy, ax, ay, az, dt):
-    # 1. опорні кути з акселерометра (atan2 — стійкий у всіх чвертях)
-    roll_acc  = math.atan2(ay, az)
-    pitch_acc = math.atan2(-ax, math.sqrt(ay*ay + az*az))
-
-    # 2. засіяти стартову оцінку показом акселерометра, не нулем
-    if not c.seeded:
-        c.roll  = roll_acc
-        c.pitch = pitch_acc
-        c.seeded = True
-        return                  # перший такт лише сіє, не інтегрує
-
-    # 3. вимикач довіри: якщо |a| далеко від g — підняти alpha майже до 1
-    amag = math.sqrt(ax*ax + ay*ay + az*az)
-    a = c.alpha
-    if abs(amag - c.g) > c.acc_band:
-        a = 0.999               # маневр: майже самий гіроскоп
-
-    # 4. зважена сума окремо по кожній осі, кожна — своя вісь гіроскопа
-    c.roll  = a * (c.roll  + gx * dt) + (1.0 - a) * roll_acc
-    c.pitch = a * (c.pitch + gy * dt) + (1.0 - a) * pitch_acc
-```
+:::code proj-complementary-c/cpp/kod-2.cpp
+:::code proj-complementary-c/py/kod-2.py
 :::
 
 Виклик із переривання таймера виглядає так — увесь сенс у тому, що `dt` **міряний**, а не константа:

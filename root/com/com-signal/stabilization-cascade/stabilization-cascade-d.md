@@ -84,50 +84,11 @@
 
 Спершу — структура й один такт ПІД (свідомо короткий, із головними захистами; повну обв'язку розбирає [тема про дискретний ПІД](root:com-signal/discrete-pid)):
 
-```c
-typedef struct {
-    float kp, ki, kd;          // коефіцієнти
-    float integ;               // накопичений інтеграл (стан)
-    float meas_prev;           // попередній вимір (стан, для D)
-    float i_min, i_max;        // межі антивіндапу
-    float out_min, out_max;    // межі виходу
-} PID;
-
-// один такт: ціль (setpoint), вимір (meas), крок часу dt
-float pid_step(PID *p, float setpoint, float meas, float dt) {
-    float e = setpoint - meas;                    // помилка
-    p->integ += e * dt;                           // I: накопичуємо
-    if (p->integ > p->i_max) p->integ = p->i_max; // антивіндап
-    if (p->integ < p->i_min) p->integ = p->i_min;
-    float deriv = (p->meas_prev - meas) / dt;     // D від ВИМІРУ (не від помилки)
-    p->meas_prev = meas;
-    float u = p->kp * e + p->ki * p->integ + p->kd * deriv;
-    if (u > p->out_max) u = p->out_max;           // межі виконавчого органу
-    if (u < p->out_min) u = p->out_min;
-    return u;
-}
-```
+:::code stabilization-cascade-d/c/dva-vnutrishnikh-pid-u-c.c
 
 А тепер — серце каскаду. Зверніть увагу: це лише **два виклики** того самого `pid_step`, де вихід першого стає завданням другого:
 
-```c
-// один такт каскаду стабілізації для ОДНІЄЇ осі (напр. крен).
-// angle_sp     — бажаний кут (з пульта; для утримання горизонту = 0)
-// angle_meas   — виміряний кут (з фільтра орієнтації)
-// rate_meas    — виміряна кутова швидкість (НАПРЯМУ з гіроскопа)
-float cascade_step(PID *outer, PID *inner,
-                   float angle_sp, float angle_meas,
-                   float rate_meas, float dt)
-{
-    // ЗОВНІШНІЙ контур (кут): його ВИХІД — це БАЖАНА кутова швидкість
-    float rate_sp = pid_step(outer, angle_sp, angle_meas, dt);
-
-    // ВНУТРІШНІЙ контур (швидкість): ціль — щойно отримана rate_sp
-    float motor_cmd = pid_step(inner, rate_sp, rate_meas, dt);
-
-    return motor_cmd;   // піде в мікшер моторів
-}
-```
+:::code stabilization-cascade-d/c/dva-vnutrishnikh-pid-u-c-2.c
 
 Уся суть каскаду — в одному рядку зчеплення: `rate_sp`, вихід зовнішнього ПІД, передається **завданням** у внутрішній. Зовнішній мислить у кутах, віддає — у швидкостях; внутрішній приймає швидкість як ціль і відповідає тягою. Більш нічого «каскадного» в коді немає — це два знайомих ПІД, поставлені **один за одним**.
 

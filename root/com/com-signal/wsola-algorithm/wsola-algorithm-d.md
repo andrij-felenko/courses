@@ -205,69 +205,8 @@ w[n] = 0.5 · (1.0 − cos(2π · n / N)),    n ∈ [0, N-1]
 Ось як виглядає ядро пошуку оптимального зміщення на мовах C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Пошук оптимального зміщення δ за критерієм максимуму кореляції.
-   ref_buf  — вказівник на початок еталонного шаблону x[τ_{k-1} + Hs]
-   cand_buf — вказівник на початок області пошуку x[k*Ha - seek_range]
-   L        — довжина шаблону (template_size)
-   seek     — радіус пошуку Δ (seek_range)
-*/
-int wsola_find_best_shift_c(const float *ref_buf, const float *cand_buf, int L, int seek) {
-    float max_corr = -1e30f;
-    int best_delta = 0;
-
-    for (int d = -seek; d <= seek; ++d) {
-        const float *cand = cand_buf + (d + seek);
-        float corr = 0.0f;
-
-        /* Внутрішній цикл: обчислення скалярного добутку векторів */
-        for (int m = 0; m < L; ++m) {
-            corr += ref_buf[m] * cand[m];
-        }
-
-        if (corr > max_corr) {
-            max_corr = corr;
-            best_delta = d;
-        }
-    }
-
-    return best_delta;
-}
-```
-```cpp
-#include <span>
-#include <algorithm>
-#include <numeric>
-
-/* Ідіоматична C++ реалізація пошуку зміщення через std::span */
-[[nodiscard]] int wsola_find_best_shift_cpp(
-    std::span<const float> ref,
-    std::span<const float> search_region,
-    int seek_range) noexcept {
-    
-    const size_t L = ref.size();
-    float max_corr = -1e30f;
-    int best_delta = 0;
-
-    for (int d = -seek_range; d <= seek_range; ++d) {
-        const size_t offset = static_cast<size_t>(d + seek_range);
-        auto cand = search_region.subspan(offset, L);
-
-        // Скалярний добуток через стандартний алгоритм
-        const float corr = std::inner_product(
-            ref.begin(), ref.end(), cand.begin(), 0.0f);
-
-        if (corr > max_corr) {
-            max_corr = corr;
-            best_delta = d;
-        }
-    }
-
-    return best_delta;
-}
-```
+:::code wsola-algorithm-d/c/main.c
+:::code wsola-algorithm-d/cpp/main.cpp
 :::
 
 Повну реалізацію потокового рушія WSOLA з керуванням буферами, циклом кроків та вивільненням пам'яті винесено в окремий практичний проект.

@@ -191,74 +191,8 @@ FF D9                          EOI — кінець зображення
 Найкоротший корисний парсер JPEG нічого не декодує — він лише **йде по маркерах** і друкує структуру файлу. Уся логіка вище вміщається в один цикл: знайти `0xFF`, розібрати тип, для сегмента прочитати big-endian довжину й перестрибнути, а для `SOS` — проскочити стиснутий потік до наступного маркера, зважаючи на байт-стафінг.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-
-// Пройти сегменти JPEG у буфері buf (n байтів) і надрукувати структуру файлу.
-void walk_jpeg(const uint8_t *buf, long n) {
-    long i = 0;
-    while (i + 1 < n) {
-        if (buf[i] != 0xFF) { i++; continue; }       // маркер починається на 0xFF
-        uint8_t m = buf[i + 1];
-        if (m == 0xFF) { i++; continue; }             // 0xFF-заповнювач — пропустити
-        i += 2;                                        // проковтнули «FF xx»
-
-        if (m == 0xD8) { puts("SOI"); continue; }                  // стандалон
-        if (m == 0xD9) { puts("EOI"); break;    }                  // стандалон, кінець
-        if (m >= 0xD0 && m <= 0xD7) { printf("RST%d\n", m - 0xD0); continue; }
-
-        long len = (buf[i] << 8) | buf[i + 1];         // big-endian; рахує себе + дані
-        printf("FF%02X  довжина=%ld  даних=%ld\n", m, len, len - 2);
-
-        if (m == 0xDA) {                               // SOS: далі — стиснутий потік
-            i += len;                                  // перескочити заголовок скану…
-            while (i + 1 < n) {                        // …і сам потік до наступного маркера
-                if (buf[i] == 0xFF && buf[i + 1] != 0x00 &&
-                    !(buf[i + 1] >= 0xD0 && buf[i + 1] <= 0xD7))
-                    break;                             // справжній маркер (не FF00, не RSTn)
-                i++;
-            }
-            continue;
-        }
-        i += len;                                      // на наступний сегмент
-    }
-}
-```
-```python
-def walk_jpeg(buf: bytes) -> None:
-    """Пройти сегменти JPEG і надрукувати структуру файлу."""
-    i, n = 0, len(buf)
-    while i + 1 < n:
-        if buf[i] != 0xFF:                    # маркер починається на 0xFF
-            i += 1; continue
-        m = buf[i + 1]
-        if m == 0xFF:                         # 0xFF-заповнювач — пропустити
-            i += 1; continue
-        i += 2                                # проковтнули «FF xx»
-
-        if m == 0xD8:                         # SOI — стандалон
-            print("SOI"); continue
-        if m == 0xD9:                         # EOI — стандалон, кінець
-            print("EOI"); break
-        if 0xD0 <= m <= 0xD7:                 # RST0..RST7 — стандалон
-            print(f"RST{m - 0xD0}"); continue
-
-        length = (buf[i] << 8) | buf[i + 1]   # big-endian; рахує себе + дані
-        print(f"FF{m:02X}  довжина={length}  даних={length - 2}")
-
-        if m == 0xDA:                         # SOS: далі — стиснутий потік
-            i += length                       # перескочити заголовок скану…
-            while i + 1 < n:                  # …і сам потік до наступного маркера
-                if buf[i] == 0xFF and buf[i + 1] != 0x00 \
-                        and not (0xD0 <= buf[i + 1] <= 0xD7):
-                    break                     # справжній маркер (не FF00, не RSTn)
-                i += 1
-            continue
-        i += length                           # на наступний сегмент
-
-# walk_jpeg(open("photo.jpg", "rb").read())
-```
+:::code api-markers/c/main.c
+:::code api-markers/py/main.py
 :::
 
 Це і є «мінімальний виклик» контракту формату: маючи саму лише таблицю маркерів і правило довжини, будь-який `.jpg` розкладається на сегменти — фундамент і для повного декодера, і для легких інструментів, що витягують розміри чи метадані, не розпаковуючи пікселів.

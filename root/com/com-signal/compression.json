@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 2
           }
         },
         {
@@ -44,7 +45,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -61,7 +63,8 @@
           "proj": [
             {
               "file": "proj-generation-cascade-c.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -116,13 +119,15 @@
           "proj": [
             {
               "file": "proj-jpeg-encode.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-markers.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -140,7 +145,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {

@@ -23,63 +23,9 @@ y[n] = b₀·x[n] + b₁·x[n−1] + b₂·x[n−2]  −  a₁·y[n−1] − a�
 Ось одна ланка в коді. Стан — два минулі входи й два минулі виходи; усе чесно й наочно:
 
 :::tabs
-```c
-#include <stddef.h>
-
-// Один біквад, пряма форма I. Стан — два минулі входи й два минулі виходи.
-typedef struct {
-    float b0, b1, b2;     // коефіцієнти прямої гілки (входи)
-    float a1, a2;         // коефіцієнти зворотної гілки (виходи); у формулі віднімаються
-    float x1, x2;         // x[n-1], x[n-2]
-    float y1, y2;         // y[n-1], y[n-2]
-} biquad_t;
-
-float biquad_step(biquad_t *s, float x) {
-    float y = s->b0 * x  + s->b1 * s->x1 + s->b2 * s->x2
-                         - s->a1 * s->y1 - s->a2 * s->y2;   // 5 множень
-    // зсуваємо лінії затримки на один такт
-    s->x2 = s->x1;  s->x1 = x;
-    s->y2 = s->y1;  s->y1 = y;
-    return y;
-}
-```
-```cpp
-// Один біквад, пряма форма I. Стан — два минулі входи й два минулі виходи.
-struct Biquad {
-    float b0, b1, b2;     // коефіцієнти прямої гілки (входи)
-    float a1, a2;         // коефіцієнти зворотної гілки (виходи); у формулі віднімаються
-    float x1 = 0, x2 = 0; // x[n-1], x[n-2]
-    float y1 = 0, y2 = 0; // y[n-1], y[n-2]
-
-    float step(float x) {
-        float y = b0 * x  + b1 * x1 + b2 * x2
-                          - a1 * y1 - a2 * y2;   // 5 множень
-        // зсуваємо лінії затримки на один такт
-        x2 = x1;  x1 = x;
-        y2 = y1;  y1 = y;
-        return y;
-    }
-};
-```
-```python
-from dataclasses import dataclass
-
-# Один біквад, пряма форма I. Стан — два минулі входи й два минулі виходи.
-@dataclass
-class Biquad:
-    b0: float; b1: float; b2: float   # коефіцієнти прямої гілки (входи)
-    a1: float; a2: float              # коефіцієнти зворотної гілки; у формулі віднімаються
-    x1: float = 0.0; x2: float = 0.0  # x[n-1], x[n-2]
-    y1: float = 0.0; y2: float = 0.0  # y[n-1], y[n-2]
-
-    def step(self, x: float) -> float:
-        y = (self.b0 * x  + self.b1 * self.x1 + self.b2 * self.x2
-                          - self.a1 * self.y1 - self.a2 * self.y2)   # 5 множень
-        # зсуваємо лінії затримки на один такт
-        self.x2 = self.x1;  self.x1 = x
-        self.y2 = self.y1;  self.y1 = y
-        return y
-```
+:::code proj-biquad-c/c/odna-lanka-priama-forma-i.c
+:::code proj-biquad-c/cpp/odna-lanka-priama-forma-i.cpp
+:::code proj-biquad-c/py/odna-lanka-priama-forma-i.py
 :::
 
 Зверніть увагу на знаки в `biquad_step`: зворотні доданки **віднімаються** (`- a1*y1 - a2*y2`). Це найзвичніша пастка, до якої повернемося нижче: різні інструменти віддають `a1, a2` із протилежним знаком, і якщо не узгодити їх із цією формулою, фільтр поведеться зовсім не так, як замовляли.
@@ -89,33 +35,8 @@ class Biquad:
 Каскад — це масив ланок, через який відлік проходить одна по одній. Нічого складного: вихід попередньої стає входом наступної.
 
 :::tabs
-```c
-typedef struct {
-    biquad_t *stage;      // масив ланок
-    size_t    n;          // скільки їх
-} biquad_chain_t;
-
-float chain_step(biquad_chain_t *c, float x) {
-    float v = x;
-    for (size_t i = 0; i < c->n; ++i)
-        v = biquad_step(&c->stage[i], v);   // вихід однієї → вхід наступної
-    return v;
-}
-```
-```cpp
-#include <vector>
-
-struct BiquadChain {
-    std::vector<Biquad> stage;   // масив ланок
-
-    float step(float x) {
-        float v = x;
-        for (auto &s : stage)
-            v = s.step(v);       // вихід однієї → вхід наступної
-        return v;
-    }
-};
-```
+:::code proj-biquad-c/c/kaskad-lantsiuzhok.c
+:::code proj-biquad-c/cpp/kaskad-lantsiuzhok.cpp
 ```python
 class BiquadChain:
     def __init__(self, stages: list[Biquad]):
@@ -172,71 +93,9 @@ v = lp.step(sample)   # один відфільтрований відлік
 Перш ніж довіряти фільтру реальні дані, переконайтеся, що він **згасає**. Найпростіший і найнадійніший тест — подати одиничний імпульс (`1`, далі самі нулі) і подивитися на хвіст: у стабільного фільтра вихід прямує до нуля, у нестабільного — наростає або дзвенить без кінця.
 
 :::tabs
-```c
-void biquad_reset_chain(biquad_chain_t *c) {
-    for (size_t i = 0; i < c->n; ++i) {
-        c->stage[i].x1 = c->stage[i].x2 = 0.0f;
-        c->stage[i].y1 = c->stage[i].y2 = 0.0f;
-    }
-}
-
-// Повертає 1, якщо хвіст згас (фільтр стабільний), інакше 0.
-int biquad_is_stable(biquad_chain_t *c) {
-    biquad_reset_chain(c);
-    float out = chain_step(c, 1.0f);              // імпульс
-    float peak = (out < 0 ? -out : out);
-    for (int n = 1; n < 1000; ++n) {
-        out = chain_step(c, 0.0f);               // далі — нулі
-        float m = (out < 0 ? -out : out);
-        if (m > peak) peak = m;
-        if (m > 1e6f) { biquad_reset_chain(c); return 0; }  // вибухає
-    }
-    biquad_reset_chain(c);
-    return (out < 1e-3f && out > -1e-3f);         // хвіст справді згас
-}
-```
-```cpp
-void reset(BiquadChain &c) {
-    for (auto &s : c.stage) {
-        s.x1 = s.x2 = 0.0f;
-        s.y1 = s.y2 = 0.0f;
-    }
-}
-
-// Повертає true, якщо хвіст згас (фільтр стабільний), інакше false.
-bool is_stable(BiquadChain &c) {
-    reset(c);
-    float out = c.step(1.0f);                     // імпульс
-    float peak = std::abs(out);
-    for (int n = 1; n < 1000; ++n) {
-        out = c.step(0.0f);                      // далі — нулі
-        peak = std::max(peak, std::abs(out));
-        if (std::abs(out) > 1e6f) { reset(c); return false; }  // вибухає
-    }
-    reset(c);
-    return std::abs(out) < 1e-3f;                 // хвіст справді згас
-}
-```
-```python
-def reset(c: BiquadChain) -> None:
-    for s in c.stage:
-        s.x1 = s.x2 = 0.0
-        s.y1 = s.y2 = 0.0
-
-# Повертає True, якщо хвіст згас (фільтр стабільний), інакше False.
-def is_stable(c: BiquadChain) -> bool:
-    reset(c)
-    out = c.step(1.0)                     # імпульс
-    peak = abs(out)
-    for _ in range(1, 1000):
-        out = c.step(0.0)                 # далі — нулі
-        peak = max(peak, abs(out))
-        if abs(out) > 1e6:                # вибухає
-            reset(c)
-            return False
-    reset(c)
-    return abs(out) < 1e-3               # хвіст справді згас
-```
+:::code proj-biquad-c/c/perevirka-stabilnosti.c
+:::code proj-biquad-c/cpp/perevirka-stabilnosti.cpp
+:::code proj-biquad-c/py/perevirka-stabilnosti.py
 :::
 
 Цей тест ловить найгірше: каскад, що розганяється через переплутані знаки коефіцієнтів, помилку в порядку ланок чи похибку квантування, яка зрушила полюс за одиничне коло. Проганяти його варто **на самому залізі**, бо в цілій арифметиці фільтр може бути стабільним на ПК (де рахунок іде в числах із комою, що пливе) і нестабільним на чипі — нестабільність любить ховатися саме там.

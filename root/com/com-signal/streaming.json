@@ -28,7 +28,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -39,7 +40,8 @@
           "math": [
             {
               "file": "math-rate-distortion.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -83,7 +85,8 @@
           "proj": [
             {
               "file": "proj-h264-cabac-pipeline.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -111,21 +114,25 @@
           "proj": [
             {
               "file": "proj-nal-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-intra-refresh-wave.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-sei-telemetry-embed.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-sps-pps.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -153,13 +160,15 @@
           "proj": [
             {
               "file": "proj-mp4-parser.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-container-demux.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -194,13 +203,15 @@
           "proj": [
             {
               "file": "proj-g711-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-opus-encoder.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -211,30 +222,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-wsola.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-cross-correlation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-wsola-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-wsola-parameters.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -245,7 +262,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -278,7 +296,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           }
         }
       ]

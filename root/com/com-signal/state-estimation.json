@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -30,7 +31,8 @@
           "slug": "predict-vs-measure",
           "title": "Передбачення vs вимір",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
             "status": "deeper",
@@ -51,7 +53,8 @@
           "proj": [
             {
               "file": "proj-predict-correct-tracker.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -68,13 +71,15 @@
           "math": [
             {
               "file": "math-gaussian-fusion.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-fusion-compare-c.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -92,7 +97,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -109,12 +115,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-fusion-in-flight.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -178,11 +186,13 @@
           "slug": "motion-model",
           "title": "Модель руху",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "math": [
             {
@@ -224,7 +234,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -234,7 +245,9 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 2,
+            "recode": true
           }
         }
       ]

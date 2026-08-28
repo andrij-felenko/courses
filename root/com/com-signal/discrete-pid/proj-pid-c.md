@@ -14,121 +14,13 @@
 
 Спершу структура — увесь стан і вся настройка регулятора в одному місці. Поля з підкресленням-комантарем «стан» переживають виклики; решта — параметри:
 
-```c
-#include <stdint.h>
-
-typedef struct {
-    /* параметри (задаємо при ініціалізації) */
-    float kp, ki, kd;        /* коефіцієнти П, І, Д                       */
-    float tau;               /* стала фільтра похідної, с (≈ 1/(2πfc))    */
-    float i_min, i_max;      /* межі інтеграла (антивіндап)               */
-    float u_min, u_max;      /* межі виходу (фізичні межі виконавчого)    */
-    /* стан (живе між тактами) */
-    float integral;          /* накопичений інтеграл                      */
-    float meas_prev;         /* вимір на попередньому такті               */
-    float deriv_f;           /* відфільтрована похідна                    */
-} PID;
-
-void pid_init(PID *c, float kp, float ki, float kd, float tau,
-              float i_min, float i_max, float u_min, float u_max)
-{
-    c->kp = kp;  c->ki = ki;  c->kd = kd;  c->tau = tau;
-    c->i_min = i_min;  c->i_max = i_max;
-    c->u_min = u_min;  c->u_max = u_max;
-    c->integral = 0.0f;  c->meas_prev = 0.0f;  c->deriv_f = 0.0f;
-}
-
-static inline float clampf(float x, float lo, float hi)
-{
-    if (x < lo) return lo;
-    if (x > hi) return hi;
-    return x;
-}
-```
+:::code proj-pid-c/c/kod.c
 
 Тепер гаряча функція. Її викликають **рівномірно** кожні `dt` секунд — найкраще з таймерного переривання; `dt` передаємо як аргумент, щоб у разі нерівних викликів підставити **фактичний** крок, а не номінальний:
 
 :::tabs
-```c
-float pid_step(PID *c, float setpoint, float meas, float dt)
-{
-    float e = setpoint - meas;                       /* помилка                      */
-
-    /* I: накопичуємо й ОДРАЗУ затискаємо (антивіндап) */
-    c->integral += e * dt;
-    c->integral = clampf(c->integral, c->i_min, c->i_max);
-
-    /* D: від виміру (не від помилки) → нема поштовху на зміну завдання */
-    float deriv = (c->meas_prev - meas) / dt;        /* = −d(meas)/dt                */
-    /* однополюсний ФНЧ на похідну: гасить шумові сплески */
-    float a = dt / (dt + c->tau);                    /* 0 < a ≤ 1                    */
-    c->deriv_f += (deriv - c->deriv_f) * a;
-
-    /* сума трьох складових */
-    float u = c->kp * e + c->ki * c->integral + c->kd * c->deriv_f;
-
-    /* межі виконавчого органу */
-    u = clampf(u, c->u_min, c->u_max);
-
-    c->meas_prev = meas;                             /* запам'ятати для наступного   */
-    return u;
-}
-
-/* скидання стану — викликати при зброєнні/зльоті, перш ніж контур піде в роботу */
-void pid_reset(PID *c, float meas)
-{
-    c->integral = 0.0f;
-    c->meas_prev = meas;        /* щоб перша похідна була 0, а не сплеск */
-    c->deriv_f = 0.0f;
-}
-```
-```python
-def _clamp(x, lo, hi):
-    return lo if x < lo else hi if x > hi else x
-
-
-class PID:
-    """Дискретний ПІД зі станом і чотирма захистами (той самий модуль, що на C)."""
-
-    def __init__(self, kp, ki, kd, tau, i_min, i_max, u_min, u_max):
-        # параметри (задаємо при ініціалізації)
-        self.kp, self.ki, self.kd = kp, ki, kd
-        self.tau = tau                    # стала фільтра похідної, с
-        self.i_min, self.i_max = i_min, i_max   # межі інтеграла (антивіндап)
-        self.u_min, self.u_max = u_min, u_max   # межі виходу (виконавчий орган)
-        # стан (живе між тактами)
-        self.integral = 0.0               # накопичений інтеграл
-        self.meas_prev = 0.0              # вимір на попередньому такті
-        self.deriv_f = 0.0                # відфільтрована похідна
-
-    def step(self, setpoint, meas, dt):
-        e = setpoint - meas                           # помилка
-
-        # I: накопичуємо й ОДРАЗУ затискаємо (антивіндап)
-        self.integral += e * dt
-        self.integral = _clamp(self.integral, self.i_min, self.i_max)
-
-        # D: від виміру (не від помилки) → нема поштовху на зміну завдання
-        deriv = (self.meas_prev - meas) / dt          # = −d(meas)/dt
-        # однополюсний ФНЧ на похідну: гасить шумові сплески
-        a = dt / (dt + self.tau)                      # 0 < a ≤ 1
-        self.deriv_f += (deriv - self.deriv_f) * a
-
-        # сума трьох складових
-        u = self.kp * e + self.ki * self.integral + self.kd * self.deriv_f
-
-        # межі виконавчого органу
-        u = _clamp(u, self.u_min, self.u_max)
-
-        self.meas_prev = meas                         # запам'ятати для наступного
-        return u
-
-    def reset(self, meas):
-        """Скидання стану — при зброєнні/зльоті, перш ніж контур піде в роботу."""
-        self.integral = 0.0
-        self.meas_prev = meas      # щоб перша похідна була 0, а не сплеск
-        self.deriv_f = 0.0
-```
+:::code proj-pid-c/c/kod-2.c
+:::code proj-pid-c/py/main.py
 :::
 
 Порядок дій тут не випадковий. Інтеграл оновлюємо й затискаємо **до** того, як скласти `u` — інакше роздутий за насичення інтеграл устиг би просочитися у вихід ще цього такту. Похідну рахуємо від `meas`, тож стрибок `setpoint` на неї не впливає взагалі. А `pid_reset` ставить `meas_prev = meas` (а не нуль) — інакше перша ж похідна після ввімкнення була б `(0 − meas)/dt`, тобто фальшивий сплеск.

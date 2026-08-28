@@ -1,0 +1,16 @@
+typedef enum {
+    MEDIA_TYPE_UNKNOWN = 0,
+    MEDIA_TYPE_VIDEO,
+    MEDIA_TYPE_AUDIO,
+    MEDIA_TYPE_SUBTITLE
+} MediaStreamType;
+
+typedef enum {
+    CODEC_ID_UNKNOWN = 0,
+    CODEC_ID_H264,
+    CODEC_ID_HEVC_H265,
+    CODEC_ID_AV1,
+    CODEC_ID_AAC,
+    CODEC_ID_OPUS,
+    CODEC_ID_PCM_S16LE
+} MediaCodecID;

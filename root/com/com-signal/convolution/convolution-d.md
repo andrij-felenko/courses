@@ -72,42 +72,8 @@ y[7] = 1·0.25                     = 0.25
 **Згортка масиву сигналу з ядром (C).** Прямий переклад формули `y[m] = Σ x[k]·h[m−k]`:
 
 :::tabs
-```c
-// x[0..nx-1] — сигнал, h[0..nh-1] — ядро, y[0..nx+nh-2] — результат
-void convolve(const float *x, int nx,
-              const float *h, int nh,
-              float *y)
-{
-    int ny = nx + nh - 1;
-    for (int m = 0; m < ny; m++) {
-        float acc = 0.0f;
-        for (int k = 0; k < nx; k++) {
-            int j = m - k;                 // індекс ядра, біжить назустріч
-            if (j >= 0 && j < nh)          // лише там, де ядро накриває сигнал
-                acc += x[k] * h[j];        // помнож і додай
-        }
-        y[m] = acc;
-    }
-}
-```
-```python
-import numpy as np
-
-# x — сигнал, h — ядро; повертає масив довжини len(x)+len(h)-1
-def convolve(x, h):
-    x = np.asarray(x, dtype=float)
-    h = np.asarray(h, dtype=float)
-    ny = len(x) + len(h) - 1
-    y = np.zeros(ny)
-    for m in range(ny):
-        for k in range(len(x)):
-            j = m - k                       # індекс ядра, біжить назустріч
-            if 0 <= j < len(h):             # лише там, де ядро накриває сигнал
-                y[m] += x[k] * h[j]         # помнож і додай
-    return y
-
-# на практиці той самий результат дає готова np.convolve(x, h)
-```
+:::code convolution-d/c/main.c
+:::code convolution-d/py/main.py
 :::
 
 Два вкладені цикли: зовнішній перебирає зсуви `m`, внутрішній — накопичує суму добутків. Перевірка `j` всередині відсікає ті пари, де ядро звисає за край сигналу, — саме вона й дає правильні хвостики. Десяток рядків — і це повноцінна згортка, без жодної бібліотеки.

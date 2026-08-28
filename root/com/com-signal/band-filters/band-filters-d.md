@@ -100,56 +100,8 @@
 Кілька чисел — і готова специфікація. Перетворити їх на п'ять коефіцієнтів біквада можна навіть без зовнішнього інструмента — стандартними формулами (тут — «кулінарна книга» Бристоу-Джонсона для notch). Ось як ці три числа стають коефіцієнтами прямо в коді:
 
 :::tabs
-```cpp
-// notch на f0 за частоти дискретизації fs і добротності Q → коеф. біквада
-#include <cmath>
-
-struct Biquad { float b0, b1, b2, a1, a2; };  // вже нормовані на a0
-
-Biquad design_notch(float f0, float fs, float Q) {
-    const float w0    = 2.0f * static_cast<float>(M_PI) * f0 / fs;  // 2π·50/1000 ≈ 0.3142 рад/відлік
-    const float cosw0 = std::cos(w0);
-    const float alpha = std::sin(w0) / (2.0f * Q);  // sin(w0)/(2·12.5) — задає ширину
-
-    const float a0 = 1.0f + alpha;                  // спільний знаменник
-    Biquad bq;
-    bq.b0 = 1.0f          / a0;                     // у чисельнику: s² + 1
-    bq.b1 = (-2.0f*cosw0) / a0;
-    bq.b2 = 1.0f          / a0;
-    bq.a1 = (-2.0f*cosw0) / a0;                     // зворотний зв'язок
-    bq.a2 = (1.0f - alpha)/ a0;
-    return bq;                                      // b1 == a1 — прикмета саме notch
-}
-```
-```python
-# notch на f0 за частоти дискретизації fs і добротності Q → коеф. біквада
-import math
-from dataclasses import dataclass
-
-
-@dataclass
-class Biquad:  # вже нормовані на a0
-    b0: float
-    b1: float
-    b2: float
-    a1: float
-    a2: float
-
-
-def design_notch(f0: float, fs: float, Q: float) -> Biquad:
-    w0    = 2.0 * math.pi * f0 / fs   # 2π·50/1000 ≈ 0.3142 рад/відлік
-    cosw0 = math.cos(w0)
-    alpha = math.sin(w0) / (2.0 * Q)  # sin(w0)/(2·12.5) — задає ширину
-
-    a0 = 1.0 + alpha                  # спільний знаменник
-    return Biquad(                    # b1 == a1 — прикмета саме notch
-        b0=1.0          / a0,         # у чисельнику: s² + 1
-        b1=(-2.0*cosw0) / a0,
-        b2=1.0          / a0,
-        a1=(-2.0*cosw0) / a0,         # зворотний зв'язок
-        a2=(1.0 - alpha)/ a0,
-    )
-```
+:::code band-filters-d/cpp/main.cpp
+:::code band-filters-d/py/main.py
 :::
 
 Помітьте, як усе сходиться: тип (notch) обрали за задачею, гостроту (Q) — за вимогою не чіпати сусіднє, сімейство (БІХ) — за потребою [гостроти при малих ресурсах](root:com-signal/iir-filter). Самі ж п'ять коефіцієнтів потім крутяться в [різницевому рівнянні біквада](root:com-signal/iir-filter) на кожному відліку.

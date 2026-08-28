@@ -22,42 +22,8 @@
 Для уніфікованої ідентифікації доріжок у контейнері використовуються строго типізовані константи:
 
 :::tabs
-```c
-typedef enum {
-    MEDIA_TYPE_UNKNOWN = 0,
-    MEDIA_TYPE_VIDEO,
-    MEDIA_TYPE_AUDIO,
-    MEDIA_TYPE_SUBTITLE
-} MediaStreamType;
-
-typedef enum {
-    CODEC_ID_UNKNOWN = 0,
-    CODEC_ID_H264,
-    CODEC_ID_HEVC_H265,
-    CODEC_ID_AV1,
-    CODEC_ID_AAC,
-    CODEC_ID_OPUS,
-    CODEC_ID_PCM_S16LE
-} MediaCodecID;
-```
-```cpp
-enum class MediaStreamType : std::uint8_t {
-    Unknown = 0,
-    Video,
-    Audio,
-    Subtitle
-};
-
-enum class MediaCodecID : std::uint16_t {
-    Unknown = 0,
-    H264,
-    HevcH265,
-    Av1,
-    Aac,
-    Opus,
-    PcmS16LE
-};
-```
+:::code api-container-demux/c/2-1-perelichennia-typiv.c
+:::code api-container-demux/cpp/2-1-perelichennia-typiv.cpp
 :::
 
 ### 2.2. Метадані треку (`StreamInfo`)
@@ -65,47 +31,8 @@ enum class MediaCodecID : std::uint16_t {
 Структура `StreamInfo` містить повний набір фізичних та програмних характеристик, необхідних для ініціалізації апаратних декодерів або графічних контекстів (OpenGL / Direct3D / Vulkan):
 
 :::tabs
-```c
-typedef struct {
-    uint32_t stream_index;        // Порядковий індекс треку в контейнері (0, 1, 2...)
-    MediaStreamType type;          // Тип даних (відео, аудіо, субтитри)
-    MediaCodecID codec_id;         // Ідентифікатор алгоритму стиснення
-    uint32_t time_base_num;        // Чисельник часової шкали (наприклад, 1)
-    uint32_t time_base_den;        // Знаменник часової шкали (наприклад, 90000 Гц)
-
-    // Специфічні геометричні параметри відео
-    uint32_t width;                // Ширина кадру в пікселях
-    uint32_t height;               // Висота кадру в пікселях
-
-    // Специфічні акустичні параметри аудіо
-    uint32_t sample_rate;          // Частота дискретизації відліків (Гц)
-    uint32_t channels;             // Кількість аудіоканалів (1 = моно, 2 = стерео, 6 = 5.1)
-
-    // Спеціальний заголовок ініціалізації кодека (Codec Extradata)
-    uint8_t *extradata;            // Вказівник на заголовок ініціалізації кодека
-    size_t extradata_size;         // Розмір заголовка в байтах
-} StreamInfo;
-```
-```cpp
-struct StreamInfo {
-    std::uint32_t stream_index{0};
-    MediaStreamType type{MediaStreamType::Unknown};
-    MediaCodecID codec_id{MediaCodecID::Unknown};
-    std::uint32_t time_base_num{1};
-    std::uint32_t time_base_den{90000};
-
-    // Параметри відео
-    std::uint32_t width{0};
-    std::uint32_t height{0};
-
-    // Параметри аудіо
-    std::uint32_t sample_rate{0};
-    std::uint32_t channels{0};
-
-    // Заголовок ініціалізації кодека
-    std::vector<std::uint8_t> extradata;
-};
-```
+:::code api-container-demux/c/2-2-metadani-treku.c
+:::code api-container-demux/cpp/2-2-metadani-treku.cpp
 :::
 
 ### 2.3. Структура елементарного пакета (`MediaPacket`)
@@ -113,75 +40,15 @@ struct StreamInfo {
 Одиниця зчитування стиснених даних з демультиплексора, яка передається безпосередньо у вхідний буфер декодера:
 
 :::tabs
-```c
-typedef struct {
-    uint32_t stream_index;        // Індекс треку, якому належить даний пакет
-    uint8_t *data;                 // Буфер зі стисненим кадром (наприклад, NAL-одиниця)
-    size_t size;                   // Розмір бувера у байтах
-    int64_t pts;                   // Presentation Time Stamp (у тиках time_base)
-    int64_t dts;                   // Decode Time Stamp (у тиках time_base)
-    int64_t duration;              // Тривалість відтворення кадру у тиках
-    uint32_t flags;                // Бітові прапорці стану пакета
-} MediaPacket;
-
-#define PACKET_FLAG_KEYFRAME (1 << 0)  // Пакет містить IDR / Ключовий кадр
-#define PACKET_FLAG_CORRUPT  (1 << 1)  // Пакет містить виявлені завади каналу
-```
-```cpp
-enum class PacketFlags : std::uint32_t {
-    None     = 0,
-    Keyframe = 1 << 0,
-    Corrupt  = 1 << 1
-};
-
-struct MediaPacket {
-    std::uint32_t stream_index{0};
-    std::vector<std::uint8_t> data;
-    std::int64_t pts{0};
-    std::int64_t dts{0};
-    std::int64_t duration{0};
-    PacketFlags flags{PacketFlags::None};
-};
-```
+:::code api-container-demux/c/2-3-struktura.c
+:::code api-container-demux/cpp/2-3-struktura.cpp
 :::
 
 ## 3. Сигнатури функцій API та контракт викликів
 
 :::tabs
-```c
-// Відкриття джерела та первинний розбір заголовків контейнера
-int demuxer_open(const char *url, void **context);
-
-// Отримання кількості знайдених треків у медіаконтейнері
-uint32_t demuxer_get_stream_count(void *context);
-
-// Зчитування параметрів конкретного треку за його індексом
-int demuxer_get_stream_info(void *context, uint32_t stream_index, StreamInfo *info);
-
-// Послідовне зчитування наступного пакета кадрів з контейнера
-int demuxer_read_packet(void *context, MediaPacket *packet);
-
-// Звільнення пам'яті пакета після завершення обробки в декодері
-void demuxer_free_packet(MediaPacket *packet);
-
-// Точне або ключове позиціонування за часовим штампом (Seek)
-int demuxer_seek(void *context, uint32_t stream_index, int64_t target_pts, int flags);
-
-// Закриття контейнера та повне звільнення усіх системних ресурсів
-void demuxer_close(void *context);
-```
-```cpp
-class IDemuxer {
-public:
-    virtual ~IDemuxer() = default;
-
-    virtual std::expected<void, std::string> open(std::string_view url) = 0;
-    virtual std::uint32_t getStreamCount() const noexcept = 0;
-    virtual std::expected<StreamInfo, std::string> getStreamInfo(std::uint32_t streamIndex) const = 0;
-    virtual std::expected<MediaPacket, std::string> readPacket() = 0;
-    virtual std::expected<void, std::string> seek(std::uint32_t streamIndex, std::int64_t targetPts, bool seekBackward) = 0;
-};
-```
+:::code api-container-demux/c/3-syhnatury-funktsii-api.h
+:::code api-container-demux/cpp/3-syhnatury-funktsii-api.cpp
 :::
 
 ## 4. Суворі правила контракту та інваріанти поведінки

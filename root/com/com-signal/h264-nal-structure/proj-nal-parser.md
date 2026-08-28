@@ -39,60 +39,7 @@
 ![Автомат сканера: три стани за кількістю підряд-нулів, перехід у «стартовий код» лише за байтом 01 із стану «≥2 нулів»; нижче — низка байтів зі станом після кожного](img/start-code-scan.svg)
 *Увесь стан сканера — це одне число: скільки нулів поспіль щойно пройшло. Байт `03` усередині вантажу скидає лічильник, тому `01` одразу за ним межею не стає. А коли межа знайдена, усі три (чи п'ять) нулів перед `01` треба відняти від попередньої одиниці — вони частина коду, а не вантажу.*
 
-```c
-/* h264scan.c — розбирач потоку H.264 Annex B.
-   Збірка: cc -O2 -std=c11 -o h264scan h264scan.c
-   Запуск: ./h264scan stream.h264                                       */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-
-typedef struct {
-    uint8_t *buf;      /* увесь потік у пам'яті   */
-    long     len;
-    long     pos;      /* звідки шукати далі      */
-} annexb_t;
-
-typedef struct {
-    uint8_t *data;     /* байти одиниці без стартового коду й хвостових нулів */
-    long     len;
-    long     off;      /* зсув у файлі — щоб було що надрукувати */
-} nal_t;
-
-/* Повертає 1, якщо в потоці знайшлася ще одна одиниця. */
-static int annexb_next(annexb_t *it, nal_t *out)
-{
-    uint8_t *b = it->buf;
-    long n = it->len, i = it->pos, zeros = 0, begin = -1;
-
-    /* 1. Стати на початок вантажу: пропустити нулі й одиничку. */
-    while (i < n) {
-        uint8_t c = b[i++];
-        if      (c == 0x00)               zeros++;
-        else if (c == 0x01 && zeros >= 2) { begin = i; break; }
-        else                              zeros = 0;
-    }
-    if (begin < 0) { it->pos = n; return 0; }   /* стартових кодів більше немає */
-
-    /* 2. Знайти початок НАСТУПНОГО коду — і саме початок, разом із нулями. */
-    long end;
-    zeros = 0;
-    for (;;) {
-        if (i == n) { end = n - zeros; it->pos = n; break; }
-        uint8_t c = b[i++];
-        if (c == 0x00) { zeros++; continue; }
-        if (c == 0x01 && zeros >= 2) { end = i - 1 - zeros; it->pos = end; break; }
-        zeros = 0;
-    }
-
-    out->data = b + begin;
-    out->len  = end - begin;
-    out->off  = begin;
-    return 1;
-}
-```
+:::code proj-nal-parser/c/h264scan.c
 
 Два місця тут варті погляду. У другому циклі `end = i - 1 - zeros`: `i-1` — це індекс байта `01`, а перед ним лежить рівно `zeros` нулів, тож відняти треба всі. Якщо потік урвався без наступного коду, `end = n - zeros` робить те саме для хвоста файлу — нулі в кінці теж не вантаж.
 
@@ -109,22 +56,7 @@ static int annexb_next(annexb_t *it, nal_t *out)
 ![Байти одиниці зверху і те саме після зняття захисту знизу: захисний байт 03 у вихід не потрапляє, тому записувач w відстає від читача r на один байт](img/unescape-inplace.svg)
 *Інваріант, який дозволяє працювати без копії: `w ≤ r` на кожному кроці, бо записувач або встигає за читачем, або відстає. Тому джерело й приймач можуть бути тим самим буфером.*
 
-```c
-/* Знімає захисні байти 0x03. Пише не більше cap байтів у dst, повертає,
-   скільки вийшло. dst може дорівнювати src: записувач ніколи не випереджає
-   читача, тому робота йде просто в буфері, без зайвої копії. */
-static long unescape(uint8_t *dst, long cap, const uint8_t *src, long len)
-{
-    long w = 0, zeros = 0;
-    for (long r = 0; r < len && w < cap; r++) {
-        uint8_t c = src[r];
-        if (zeros >= 2 && c == 0x03) { zeros = 0; continue; }
-        dst[w++] = c;
-        zeros = (c == 0x00) ? zeros + 1 : 0;
-    }
-    return w;
-}
-```
+:::code proj-nal-parser/c/riven-baitiv-zniaty.c
 
 Скидання `zeros = 0` після викинутої трійки — не косметика. Без нього послідовність `00 00 03 00 00 03 01` перетворилася б на щось інше, ніж вихідні `00 00 00 00 01`: другу трійку розбирач би не впізнав. Правило мусить бути точним дзеркалом кодувальникового, інакше воно необоротне.
 
@@ -138,52 +70,7 @@ static long unescape(uint8_t *dst, long cap, const uint8_t *src, long len)
 
 Ключове рішення тут — **як поводитися з виходом за межі**. Перевіряти повернене значення на кожному з тридцяти викликів неможливо, код перетвориться на лабіринт. Тому читач тримає прапорець `bad`: щойно біти скінчилися, він піднімається й далі не гасне, а всі наступні читання чесно повертають нулі. Розбір іде до кінця по сміттю, нікуди не виходячи за буфер, і рішення ухвалюється один раз наприкінці.
 
-```c
-typedef struct {
-    const uint8_t *data;
-    long  nbits;
-    long  pos;
-    int   bad;          /* біти скінчилися або поле безглузде */
-} bits_t;
-
-static void bits_init(bits_t *br, const uint8_t *data, long nbytes)
-{
-    br->data = data; br->nbits = nbytes * 8; br->pos = 0; br->bad = 0;
-}
-
-static unsigned u1(bits_t *br)
-{
-    if (br->pos >= br->nbits) { br->bad = 1; return 0; }
-    unsigned v = (br->data[br->pos >> 3] >> (7 - (br->pos & 7))) & 1u;
-    br->pos++;
-    return v;
-}
-
-static uint32_t un(bits_t *br, int n)
-{
-    uint32_t v = 0;
-    for (int i = 0; i < n; i++) v = (v << 1) | u1(br);
-    return v;
-}
-
-/* ue(v): k нулів, одиничка, k бітів залишку → (2^k − 1) + залишок. */
-static uint32_t ue(bits_t *br)
-{
-    int lead = 0;
-    while (u1(br) == 0) {
-        if (++lead > 31 || br->bad) { br->bad = 1; return 0; }
-    }
-    return lead ? ((1u << lead) - 1 + un(br, lead)) : 0;
-}
-
-/* se(v): те саме ue, розкладене в знак: 0→0, 1→+1, 2→−1, 3→+2, 4→−2 … */
-static int32_t se(bits_t *br)
-{
-    uint32_t k = ue(br);
-    int32_t  v = (int32_t)((k + 1) >> 1);
-    return (k & 1) ? v : -v;
-}
-```
+:::code proj-nal-parser/c/riven-bitiv-chytach-i-kod.c
 
 Обмеження `lead > 31` — не педантизм, а захист. У зіпсованому потоці рядок нулів може тягнутися тисячами бітів; без обмеження `1u << lead` дає невизначену поведінку, а лічильник довжини — сміття, за яким розбір піде читати неіснуючу пам'ять. Тридцять два нулі поспіль у справжньому SPS не трапляються ніколи, тож поріг безпечний і водночас достатній.
 
@@ -191,114 +78,7 @@ static int32_t se(bits_t *br)
 
 Набір параметрів послідовності — найцінніша одиниця в потоці й найпоказовіша для розбирача: майже всі поля треба прочитати лише для того, щоб дійти до чотирьох чисел наприкінці.
 
-```c
-typedef struct {
-    int      valid;
-    unsigned id, profile_idc, level_idc;
-    unsigned chroma_format_idc, separate_colour_plane_flag;
-    unsigned log2_max_frame_num;      /* уже з доданою четвіркою */
-    unsigned poc_type, log2_max_poc_lsb, poc_always_zero;
-    unsigned frame_mbs_only_flag;
-    unsigned coded_w, coded_h;        /* пікселі до обрізання */
-    unsigned width, height;           /* справжні пікселі картинки */
-} sps_t;
-
-/* Матриці квантування нас не цікавлять, але пропустити їх, не прочитавши,
-   неможливо — довжина кожного значення залежить від самого значення. */
-static void skip_scaling_list(bits_t *br, int n)
-{
-    int last = 8, next = 8;
-    for (int j = 0; j < n && !br->bad; j++) {
-        if (next != 0) next = (last + se(br) + 256) % 256;
-        if (next != 0) last = next;
-    }
-}
-
-static int parse_sps(const uint8_t *rbsp, long len, sps_t *s)
-{
-    bits_t br; bits_init(&br, rbsp, len);
-    memset(s, 0, sizeof *s);
-
-    s->profile_idc = un(&br, 8);
-    un(&br, 8);                     /* прапорці обмежень + резерв */
-    s->level_idc   = un(&br, 8);
-    s->id          = ue(&br);
-    if (s->id > 31) return 0;
-
-    s->chroma_format_idc = 1;       /* 4:2:0 — значення за замовчуванням */
-    switch (s->profile_idc) {
-    case 100: case 110: case 122: case 244: case  44:
-    case  83: case  86: case 118: case 128: case 138:
-    case 139: case 134: case 135: case 144:
-        s->chroma_format_idc = ue(&br);
-        if (s->chroma_format_idc > 3) return 0;
-        if (s->chroma_format_idc == 3) s->separate_colour_plane_flag = u1(&br);
-        ue(&br);                    /* bit_depth_luma_minus8   */
-        ue(&br);                    /* bit_depth_chroma_minus8 */
-        u1(&br);                    /* qpprime_y_zero_transform_bypass_flag */
-        if (u1(&br)) {              /* seq_scaling_matrix_present_flag */
-            int lists = (s->chroma_format_idc != 3) ? 8 : 12;
-            for (int i = 0; i < lists; i++)
-                if (u1(&br)) skip_scaling_list(&br, (i < 6) ? 16 : 64);
-        }
-        break;
-    default: break;
-    }
-
-    s->log2_max_frame_num = ue(&br) + 4;
-    if (s->log2_max_frame_num > 16) return 0;
-
-    s->poc_type = ue(&br);
-    if (s->poc_type == 0) {
-        s->log2_max_poc_lsb = ue(&br) + 4;
-        if (s->log2_max_poc_lsb > 16) return 0;
-    } else if (s->poc_type == 1) {
-        s->poc_always_zero = u1(&br);
-        se(&br); se(&br);           /* зсуви для неопорних кадрів і полів */
-        uint32_t cycle = ue(&br);
-        if (cycle > 255) return 0;
-        for (uint32_t i = 0; i < cycle && !br.bad; i++) se(&br);
-    } else if (s->poc_type > 2) return 0;
-
-    ue(&br);                        /* max_num_ref_frames */
-    u1(&br);                        /* gaps_in_frame_num_value_allowed_flag */
-
-    uint32_t mbs_w = ue(&br) + 1;
-    uint32_t map_h = ue(&br) + 1;
-    if (mbs_w > 4096 || map_h > 4096) return 0;
-
-    s->frame_mbs_only_flag = u1(&br);
-    if (!s->frame_mbs_only_flag) u1(&br);   /* mb_adaptive_frame_field_flag */
-    u1(&br);                                /* direct_8x8_inference_flag    */
-
-    uint32_t cl = 0, cr = 0, ct = 0, cb = 0;
-    if (u1(&br)) {                          /* frame_cropping_flag */
-        cl = ue(&br); cr = ue(&br); ct = ue(&br); cb = ue(&br);
-        if (cl > 4096 || cr > 4096 || ct > 4096 || cb > 4096) return 0;
-    }
-    if (br.bad) return 0;
-
-    s->coded_w = mbs_w * 16;
-    s->coded_h = map_h * (2u - s->frame_mbs_only_flag) * 16;
-
-    /* Одиниця обрізання — не піксель. По горизонталі це SubWidthC,
-       по вертикалі SubHeightC, ще й подвоєне, коли кадр може бути полями. */
-    unsigned ux = 1, uy = 2 - s->frame_mbs_only_flag;
-    if (s->chroma_format_idc != 0 && !s->separate_colour_plane_flag) {
-        unsigned sub_w = (s->chroma_format_idc == 3) ? 1 : 2;
-        unsigned sub_h = (s->chroma_format_idc == 1) ? 2 : 1;
-        ux = sub_w;
-        uy = sub_h * (2 - s->frame_mbs_only_flag);
-    }
-
-    uint32_t cut_x = (cl + cr) * ux, cut_y = (ct + cb) * uy;
-    if (cut_x >= s->coded_w || cut_y >= s->coded_h) return 0;
-    s->width  = s->coded_w - cut_x;
-    s->height = s->coded_h - cut_y;
-    s->valid  = 1;
-    return 1;
-}
-```
+:::code proj-nal-parser/c/sps-iak-iz-makroblokiv.c
 
 Перелік профілів на початку — не таблиця «гарних» кодеків, а точний список тих [профілів](root:sf-visual/h264-profiles-levels), у чиєму SPS взагалі є поля формату кольору й глибини бітів. Базовий і головний профілі їх не мають, і 4:2:0 з вісьмома бітами там мається на увазі. Розбирач, який читає ці поля завжди, зсуне все далі за ними й отримає безглузду роздільність саме на найпоширеніших потоках. Значення 144 у списку — застарілий номер старого профілю High 4:4:4, який стандарт скасував, але в реальних файлах він досі трапляється, і серйозні декодери його терплять.
 
@@ -320,106 +100,17 @@ static int parse_sps(const uint8_t *rbsp, long len, sps_t *s)
 
 З PPS нам потрібні лише чотири перші поля — далі його синтаксис нас не обходить.
 
-```c
-typedef struct {
-    int      valid;
-    unsigned id, sps_id;
-    unsigned cabac;        /* entropy_coding_mode_flag */
-    unsigned poc_bottom;   /* bottom_field_pic_order_in_frame_present_flag */
-} pps_t;
-
-static int parse_pps(const uint8_t *rbsp, long len, pps_t *p)
-{
-    bits_t br; bits_init(&br, rbsp, len);
-    memset(p, 0, sizeof *p);
-    p->id     = ue(&br);
-    p->sps_id = ue(&br);
-    if (br.bad || p->id > 255 || p->sps_id > 31) return 0;
-    p->cabac      = u1(&br);
-    p->poc_bottom = u1(&br);
-    p->valid = !br.bad;
-    return p->valid;
-}
-```
+:::code proj-nal-parser/c/slaisy-de-kinchaietsia.c
 
 Прапорець `cabac` тут — той самий біт, що перемикає весь спосіб читання решти потоку між [контекстно-адаптивним арифметичним кодуванням](root:com-signal/cabac) і простішою табличною CAVLC. Нам він потрібен лише для звіту, але саме він показує, чому набори параметрів мусять приходити раніше за слайси: без цього біта наступні дані не «неповні», а взагалі нечитні.
 
 Заголовок слайса читаємо рівно до тих полів, які потрібні, щоб відрізнити один кадр від іншого.
 
-```c
-typedef struct {
-    unsigned first_mb, slice_type, pps_id;
-    unsigned frame_num, field_pic, bottom_field;
-    unsigned idr_pic_id, poc_lsb;
-    int32_t  delta_poc_bottom, delta_poc0, delta_poc1;
-    unsigned ref_idc, type;          /* із байта заголовка NAL */
-} slice_t;
-
-static int parse_slice(const uint8_t *rbsp, long len,
-                       unsigned ref_idc, unsigned type,
-                       const sps_t *sps_tab, const pps_t *pps_tab,
-                       slice_t *sh)
-{
-    bits_t br; bits_init(&br, rbsp, len);
-    memset(sh, 0, sizeof *sh);
-    sh->ref_idc = ref_idc;
-    sh->type    = type;
-
-    sh->first_mb   = ue(&br);
-    sh->slice_type = ue(&br);
-    sh->pps_id     = ue(&br);
-    if (br.bad || sh->pps_id > 255) return 0;
-
-    const pps_t *pps = &pps_tab[sh->pps_id];
-    if (!pps->valid) return 0;                 /* цього PPS ще не бачили */
-    const sps_t *sps = &sps_tab[pps->sps_id];
-    if (!sps->valid) return 0;                 /* цього SPS ще не бачили */
-
-    if (sps->separate_colour_plane_flag) un(&br, 2);   /* colour_plane_id */
-    sh->frame_num = un(&br, sps->log2_max_frame_num);
-    if (!sps->frame_mbs_only_flag) {
-        sh->field_pic = u1(&br);
-        if (sh->field_pic) sh->bottom_field = u1(&br);
-    }
-    if (type == 5) sh->idr_pic_id = ue(&br);
-
-    if (sps->poc_type == 0) {
-        sh->poc_lsb = un(&br, sps->log2_max_poc_lsb);
-        if (pps->poc_bottom && !sh->field_pic) sh->delta_poc_bottom = se(&br);
-    } else if (sps->poc_type == 1 && !sps->poc_always_zero) {
-        sh->delta_poc0 = se(&br);
-        if (pps->poc_bottom && !sh->field_pic) sh->delta_poc1 = se(&br);
-    }
-    return !br.bad;
-}
-```
+:::code proj-nal-parser/c/slaisy-de-kinchaietsia-2.c
 
 Тепер саме порівняння. Стандарт у пункті 7.4.1.2.4 перелічує ознаки, за якими перший слайс нового кадру відрізняється від слайса попереднього; досить одного розходження.
 
-```c
-static int new_picture(const slice_t *c, const slice_t *p)
-{
-    /* Найдешевша ознака: слайс почався з нульового макроблока. Вона
-       працює, бо всі поширені кодувальники видають слайси кадру
-       в порядку зростання номерів макроблоків. */
-    if (c->first_mb == 0) return 1;
-
-    /* А це вже точний перелік зі стандарту — на випадок, коли слайси
-       йдуть не по порядку або в потік домішано надлишкові копії. */
-    if (c->frame_num        != p->frame_num)        return 1;
-    if (c->pps_id           != p->pps_id)           return 1;
-    if (c->field_pic        != p->field_pic)        return 1;
-    if (c->bottom_field     != p->bottom_field)     return 1;
-    if ((c->ref_idc == 0)   != (p->ref_idc == 0))   return 1;
-    if (c->poc_lsb          != p->poc_lsb)          return 1;
-    if (c->delta_poc_bottom != p->delta_poc_bottom) return 1;
-    if (c->delta_poc0       != p->delta_poc0)       return 1;
-    if (c->delta_poc1       != p->delta_poc1)       return 1;
-    if ((c->type == 5)      != (p->type == 5))      return 1;
-    if (c->type == 5 && c->idr_pic_id != p->idr_pic_id) return 1;
-    return 0;
-}
-```
+:::code proj-nal-parser/c/slaisy-de-kinchaietsia-3.c
 
 Порівняння лічильників порядку показу в цьому переліку виглядає надлишковим поруч із `frame_num` — але саме воно рятує в одному конкретному випадку, про який нижче, у пастках.
 
@@ -427,103 +118,7 @@ static int new_picture(const slice_t *c, const slice_t *p)
 
 Лишилося зчитати файл і прогнати цикл. Тип і важливість одиниці лежать у першому ж байті: старший біт має бути нулем, наступні два — важливість, молодші п'ять — тип.
 
-```c
-static const char *nal_name(unsigned t)
-{
-    switch (t) {
-    case 1:  return "слайс";
-    case 5:  return "слайс IDR";
-    case 6:  return "SEI";
-    case 7:  return "SPS";
-    case 8:  return "PPS";
-    case 9:  return "роздільник AU";
-    case 12: return "наповнювач";
-    default: return "інше";
-    }
-}
-
-int main(int argc, char **argv)
-{
-    if (argc != 2) { fprintf(stderr, "вжиток: %s stream.h264\n", argv[0]); return 2; }
-
-    FILE *f = fopen(argv[1], "rb");
-    if (!f) { perror(argv[1]); return 1; }
-    if (fseek(f, 0, SEEK_END) != 0) { fprintf(stderr, "потрібен звичайний файл\n"); return 1; }
-    long size = ftell(f);
-    if (size < 0) { perror("ftell"); return 1; }
-    rewind(f);
-
-    uint8_t *buf = malloc(size ? (size_t)size : 1);
-    if (!buf || fread(buf, 1, (size_t)size, f) != (size_t)size) {
-        fprintf(stderr, "не прочитав файл\n"); return 1;
-    }
-    fclose(f);
-
-    static sps_t sps_tab[32];
-    static pps_t pps_tab[256];
-    slice_t prev = { 0 };
-    int  have_prev = 0;
-    long au = 0, idr = 0, first_idr = -1;
-
-    annexb_t it = { buf, size, 0 };
-    nal_t nal;
-
-    while (annexb_next(&it, &nal)) {
-        if (nal.len < 1) continue;
-        if (nal.data[0] & 0x80) {                    /* forbidden_zero_bit */
-            printf("%9ld  заголовок пошкоджено\n", nal.off);
-            continue;
-        }
-        unsigned ref_idc = (nal.data[0] >> 5) & 3u;
-        unsigned type    =  nal.data[0] & 0x1Fu;
-
-        printf("%9ld  тип %2u  ref %u  %8ld Б  %s",
-               nal.off, type, ref_idc, nal.len, nal_name(type));
-
-        if (type == 7 || type == 8) {
-            /* набори параметрів короткі — знімаємо захист повністю, на місці */
-            long n = unescape(nal.data + 1, nal.len - 1, nal.data + 1, nal.len - 1);
-            if (type == 7) {
-                sps_t s;
-                if (parse_sps(nal.data + 1, n, &s)) {
-                    sps_tab[s.id] = s;
-                    printf("  →  %ux%u (кодовано %ux%u), профіль %u, рівень %u.%u",
-                           s.width, s.height, s.coded_w, s.coded_h,
-                           s.profile_idc, s.level_idc / 10, s.level_idc % 10);
-                } else printf("  →  розібрати не вдалося");
-            } else {
-                pps_t p;
-                if (parse_pps(nal.data + 1, n, &p)) {
-                    pps_tab[p.id] = p;
-                    printf("  →  SPS %u, %s", p.sps_id, p.cabac ? "CABAC" : "CAVLC");
-                } else printf("  →  розібрати не вдалося");
-            }
-        } else if (type == 1 || type == 5) {
-            uint8_t hdr[64];        /* заголовка вистачає з головою */
-            long n = unescape(hdr, sizeof hdr, nal.data + 1, nal.len - 1);
-            slice_t sh;
-            if (parse_slice(hdr, n, ref_idc, type, sps_tab, pps_tab, &sh)) {
-                int fresh = !have_prev || new_picture(&sh, &prev);
-                printf("   mb %u, frame_num %u", sh.first_mb, sh.frame_num);
-                if (fresh) {
-                    au++;
-                    if (type == 5) { idr++; if (first_idr < 0) first_idr = nal.off; }
-                    printf("   ← кадр %ld%s", au, type == 5 ? "  (IDR — точка входу)" : "");
-                }
-                prev = sh; have_prev = 1;
-            } else printf("  →  наборів параметрів ще не було");
-        }
-        putchar('\n');
-    }
-
-    printf("\nкадрів: %ld, з них IDR: %ld", au, idr);
-    if (first_idr >= 0) printf("; перша точка входу на зсуві %ld\n", first_idr);
-    else                printf("; ЖОДНОЇ точки входу — потік нізвідки почати\n");
-
-    free(buf);
-    return 0;
-}
-```
+:::code proj-nal-parser/c/use-razom.c
 
 На звичайному потоці з камери це дає приблизно таке:
 
@@ -567,21 +162,7 @@ int main(int argc, char **argv)
 
 **Потік із префіксами довжини замість стартових кодів.** Байти, витягнуті з MP4, виглядають майже так само, але замість `00 00 00 01` перед кожною одиницею стоїть її довжина. Сканер стартових кодів на такому потоці або не знаходить нічого, або — гірше — знаходить випадкові збіги всередині вантажу й видає купу «одиниць» зі сміттям. Розрізнити формати дешево:
 
-```c
-/* Груба, але надійна ознака: якщо перші чотири байти прочитати
-   як довжину, вона має привести рівно до наступного заголовка NAL. */
-static int looks_length_prefixed(const uint8_t *b, long n)
-{
-    if (n < 5) return 0;
-    if (b[0] == 0 && b[1] == 0 && (b[2] == 1 || (b[2] == 0 && b[3] == 1))) return 0;
-
-    uint32_t len = ((uint32_t)b[0] << 24) | ((uint32_t)b[1] << 16) |
-                   ((uint32_t)b[2] <<  8) |  (uint32_t)b[3];
-    long next = 4 + (long)len;
-    if (len == 0 || next >= n) return 0;
-    return (b[next] & 0x80) == 0 && (b[next] & 0x1Fu) != 0;
-}
-```
+:::code proj-nal-parser/c/pastky-na-iaki.c
 
 **Наборів параметрів на початку немає.** Потік, підхоплений посеред трансляції, або файл, записаний із середини, починається зі слайсів, чиї заголовки нема чим розбирати — саме тому наш `parse_slice` чесно повертає нуль замість того, щоб вгадувати. Правильна поведінка: не викидати одиниці, а притримати їх, доки не прийде SPS із PPS (у Annex B вони повторюються перед кожним IDR), або взяти набори з опису сеансу — у RTSP їх передають окремим полем, у MP4 вони лежать у заголовку доріжки. Розбирач, який на це не розрахований, показує порожній звіт на цілком справному потоці.
 

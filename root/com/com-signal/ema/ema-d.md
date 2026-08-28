@@ -107,43 +107,8 @@ N_еф ≈ 2/0.1 − 1 = 19 відліків
 **Приклад (увесь EMA на C).** Згладжуємо потік з АЦП. Хочемо усереднення «як вікно 20», тож беремо α ≈ 2/(N+1) ≈ 0.1; перший відлік кладемо в оцінку, далі лише підштовхуємо її:
 
 :::tabs
-```c
-#include <stdbool.h>
-
-typedef struct {
-    float y;          // поточна згладжена оцінка
-    float alpha;      // коефіцієнт згладжування, 0..1
-    bool  primed;     // чи вже ініціалізовано першим відліком
-} ema_t;
-
-void ema_init(ema_t *f, float alpha) {
-    f->alpha  = alpha;
-    f->primed = false;   // y задамо першим же відліком, не нулем
-}
-
-float ema_step(ema_t *f, float x) {
-    if (!f->primed) {            // старт біля істини, а не від нуля
-        f->y = x;
-        f->primed = true;
-    } else {
-        f->y += f->alpha * (x - f->y);   // одне множення, одне додавання
-    }
-    return f->y;
-}
-```
-```python
-class Ema:
-    def __init__(self, alpha):
-        self.alpha = alpha    # коефіцієнт згладжування, 0..1
-        self.y = None         # y задамо першим же відліком, не нулем
-
-    def step(self, x):
-        if self.y is None:            # старт біля істини, а не від нуля
-            self.y = x
-        else:
-            self.y += self.alpha * (x - self.y)   # одне множення, одне додавання
-        return self.y
-```
+:::code ema-d/c/main.c
+:::code ema-d/py/main.py
 :::
 
 Вибір α тут не з голови: для усереднення «як вікно N» беруть α ≈ 2/(N+1), а для вікна 20 це рівно

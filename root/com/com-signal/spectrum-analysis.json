@@ -82,7 +82,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -179,13 +180,15 @@
           "math": [
             {
               "file": "math-beat-frequency.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-range-doppler.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -213,7 +216,8 @@
           "proj": [
             {
               "file": "proj-range-doppler.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
