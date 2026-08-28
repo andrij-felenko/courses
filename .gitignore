@@ -21,6 +21,9 @@ scripts/__pycache__/
 # разові скрипти під конкретний прогін. Усе це — стан ПРОЦЕСУ, а не вміст книг: переживає коло
 # на диску, але у версіонуванні не має сенсу (регенерується наступним батчем).
 /scripts/_finish/
+# Пакети для суддів нових тем: вхід одного прогону, відтворюються з _newtopics-audit.json
+# через scripts/newtopics-judge-prep.js. Цінність має ВИРОК (_newtopics-*.json), не пакет.
+/scripts/_judge/
 
 # Службові звіти агентів у теках тем (пише конвеєр, читає людина один раз і забуває)
 report.json
@@ -85,6 +88,7 @@ audit_report.json
 /scripts/*_b64.txt
 /scripts/gen_*.py
 /scripts/generate_*.py
+/scripts/generate_*.js
 /scripts/make_*.py
 /scripts/make_*.js
 /scripts/write_*.py
