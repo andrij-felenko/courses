@@ -34,19 +34,7 @@
 
 Зберемо це в код — не в «магічну сталу 1 кОм», а в чесну функцію, що з параметрів навантаження й транзистора рахує опір. Тоді, змінивши струм чи транзистор, ви одразу бачите новий `Rb`, а не гадаєте:
 
-```c
-// Підбір базового резистора для NPN-ключа в насиченні.
-// Усе в базових одиницях СІ: струми в амперах, напруги у вольтах, опір в омах.
-float base_resistor(float i_load,     // струм крізь навантаження, А
-                    float hfe_min,    // МІНІМАЛЬНИЙ hFE із даташита (гірший випадок!)
-                    float v_gpio,     // рівень «1» на виводі МК (3.3 або 5.0)
-                    float overdrive)  // запас насичення, 3…10 (типово 5)
-{
-    float i_base = (i_load / hfe_min) * overdrive;  // потрібний струм бази з запасом
-    float v_rb   = v_gpio - 0.7f;                   // на резисторі падає рівень мінус Vbe
-    return v_rb / i_base;                           // закон Ома → опір, Ом
-}
-```
+:::code api-transistor-switch/c/bazovyi-rezystor-formula.c
 
 **Ключ на 5-вольтове реле, 100 мА, керування з піна 3.3 В.**
 ```c
@@ -63,18 +51,7 @@ float rb = base_resistor(0.100f,  // Iнав = 100 мА
 
 Але є друга, підступніша пастка — **вивід МК теж має віддати цей струм бази**, а він обмежений. Тому чесна функція мусить не лише порахувати `Rb`, а й перевірити, що GPIO цей струм потягне:
 
-```c
-// Скільки струму втече в базу при заданому Rb — і чи стерпить це вивід МК.
-float base_current(float rb, float v_gpio) {
-    return (v_gpio - 0.7f) / rb;    // струм бази, А
-}
-
-bool gpio_can_drive(float rb, float v_gpio, float pin_limit) {
-    return base_current(rb, v_gpio) <= pin_limit;  // pin_limit ≈ 0.020…0.040 А
-}
-// При Rb = 470 Ом і 3.3 В: i_base = 2.6/470 ≈ 5.5 мА — виводу легко (стеля ~20 мА).
-// А от Rb = 100 Ом дав би 26 мА — уже НЕБЕЗПЕЧНО для типового піна.
-```
+:::code api-transistor-switch/c/bazovyi-rezystor-formula-2.c
 
 Ось чому «просто постав 1 кОм» — не таке вже безглузде правило: при 1 кОм струм бази ≈ 2.6 мА, виводу дрібниця, а транзистора вистачить на сотню-дві міліампер навантаження. Але щойно навантаження росте й `Rb` доводиться зменшувати, ця перевірка рятує вивід від перевантаження. [Про власне обмеження струму піна](root:hw-digital/slew-rate-gpio) — окрема тема; тут досить пам'ятати, що стеля є і її видно у функції.
 
@@ -85,103 +62,9 @@ bool gpio_can_drive(float rb, float v_gpio, float pin_limit) {
 Тепер сам ключ. З боку коду це вивід, який треба ініціалізувати у безпечний стан і потім вмикати/вимикати. Але є нюанс, через який голе виставляння рівня — хоч `digitalWrite`, хоч `gpio_set_level`, хоч `HAL_GPIO_WritePin` — небезпечне: **полярність залежить від того, NPN це чи PNP**. Для NPN-ключа низом `HIGH` вмикає навантаження; для PNP-ключа верхом усе навпаки — `LOW` вмикає, бо PNP керується мінусом. Якщо цю різницю тримати в голові й розсипати по коду сирі рівні, рано чи пізно переплутаєш. Тому полярність варто **сховати в тип** — хай `on()` завжди означає «увімкнути», хоч би що там під ним було.
 
 :::tabs
-```arduino
-#include <Arduino.h>
-
-// Ключ на біполярному транзисторі. Полярність задається при створенні,
-// далі on()/off() означають саме «увімкнути/вимкнути навантаження»,
-// незалежно від того, NPN це низом чи PNP верхом.
-class Switch {
-public:
-    enum Polarity { ACTIVE_HIGH, ACTIVE_LOW };  // NPN низом vs PNP верхом
-
-    Switch(uint8_t pin, Polarity pol = ACTIVE_HIGH)
-        : pin_(pin), active_low_(pol == ACTIVE_LOW) {}
-
-    void begin() {
-        pinMode(pin_, OUTPUT);
-        off();                 // ГАРАНТОВАНИЙ старт: навантаження вимкнене
-    }
-
-    void on()  { digitalWrite(pin_, active_low_ ? LOW  : HIGH); }
-    void off() { digitalWrite(pin_, active_low_ ? HIGH : LOW ); }
-    void set(bool state) { state ? on() : off(); }
-    void toggle() { on_ = !on_; set(on_); }
-    bool is_on() const { return on_; }
-
-private:
-    uint8_t pin_;
-    bool active_low_;
-    bool on_ = false;
-};
-```
-```esp-idf
-// Те саме на ESP-IDF. Мова тут C, тож замість класу — структура плюс функції;
-// полярність так само живе в даних, а не в кожному виклику.
-#include "driver/gpio.h"
-#include "esp_err.h"
-
-typedef struct {
-    gpio_num_t pin;
-    bool       active_low;   // true → PNP верхом: рівень «0» вмикає навантаження
-    bool       on;
-} sw_t;
-
-static void sw_on (sw_t *s) { gpio_set_level(s->pin, s->active_low ? 0 : 1); s->on = true;  }
-static void sw_off(sw_t *s) { gpio_set_level(s->pin, s->active_low ? 1 : 0); s->on = false; }
-
-static esp_err_t sw_begin(sw_t *s) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << s->pin,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    esp_err_t err = gpio_config(&cfg);
-    if (err == ESP_OK) sw_off(s);   // ГАРАНТОВАНИЙ старт: навантаження вимкнене
-    return err;
-}
-
-static void sw_set(sw_t *s, bool state) { state ? sw_on(s) : sw_off(s); }
-static void sw_toggle(sw_t *s) { sw_set(s, !s->on); }
-```
-```stm32
-// Те саме на STM32 HAL. «Пін» тут — пара порт + маска, решта логіки та сама.
-#include "stm32f4xx_hal.h"
-#include <stdbool.h>
-
-typedef struct {
-    GPIO_TypeDef *port;
-    uint16_t      pin;         // GPIO_PIN_0 … GPIO_PIN_15
-    bool          active_low;  // true → PNP верхом: рівень «0» вмикає
-    bool          on;
-} sw_t;
-
-static void sw_on(sw_t *s) {
-    HAL_GPIO_WritePin(s->port, s->pin, s->active_low ? GPIO_PIN_RESET : GPIO_PIN_SET);
-    s->on = true;
-}
-static void sw_off(sw_t *s) {
-    HAL_GPIO_WritePin(s->port, s->pin, s->active_low ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    s->on = false;
-}
-
-static void sw_begin(sw_t *s) {
-    __HAL_RCC_GPIOB_CLK_ENABLE();     // без такту на порт запис нікуди не піде
-    sw_off(s);                        // спершу потрібний рівень у регістрі виходу…
-    GPIO_InitTypeDef io = {
-        .Pin   = s->pin,
-        .Mode  = GPIO_MODE_OUTPUT_PP,
-        .Pull  = GPIO_NOPULL,
-        .Speed = GPIO_SPEED_FREQ_LOW,
-    };
-    HAL_GPIO_Init(s->port, &io);      // …і аж потім вивід стає виходом: без сплеску
-}
-
-static void sw_set(sw_t *s, bool state) { state ? sw_on(s) : sw_off(s); }
-static void sw_toggle(sw_t *s) { sw_set(s, !s->on); }
-```
+:::code api-transistor-switch/c/arduino/obhortka-kliucha-typ.ino
+:::code api-transistor-switch/c/esp-idf/obhortka-kliucha-typ.c
+:::code api-transistor-switch/c/stm32/obhortka-kliucha-typ.c
 :::
 
 Зверніть увагу на дві навмисні деталі. Перша — `begin()` **завжди** починає з `off()`: поки код не сказав інакше, навантаження вимкнене. Це не дрібниця. Пін мікроконтролера після скидання часто перебуває у стані «вхід» і плаває; якщо на ньому висить база транзистора, ключ може випадково прочинитися на старті, і реле клацне, а мотор смикнеться ще до того, як ваша програма прокинулась. Явний `off()` у `begin()` прибиває цей стан. Друга — конструктор бере `Polarity`, тому один і той самий клас обслуговує і NPN низом, і PNP верхом; код, що вмикає навантаження, виглядає однаково, а різницю знає лише тип.
@@ -189,62 +72,9 @@ static void sw_toggle(sw_t *s) { sw_set(s, !s->on); }
 Вживається це прозоро:
 
 :::tabs
-```arduino
-Switch pump(5);                        // NPN-ключ низом на піні 5: HIGH вмикає
-Switch lamp(6, Switch::ACTIVE_LOW);    // PNP-ключ верхом на піні 6: LOW вмикає
-
-void setup() {
-    pump.begin();
-    lamp.begin();     // обидва стартують ВИМКНЕНИМИ
-}
-
-void loop() {
-    pump.on();        // «увімкнути насос» — байдуже, що там NPN
-    delay(3000);
-    pump.off();
-    lamp.toggle();    // перемкнути лампу в протилежний стан
-    delay(1000);
-}
-```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static sw_t pump = { .pin = GPIO_NUM_5, .active_low = false };  // NPN низом: «1» вмикає
-static sw_t lamp = { .pin = GPIO_NUM_6, .active_low = true  };  // PNP верхом: «0» вмикає
-
-void app_main(void) {
-    ESP_ERROR_CHECK(sw_begin(&pump));
-    ESP_ERROR_CHECK(sw_begin(&lamp));      // обидва стартують ВИМКНЕНИМИ
-
-    while (1) {
-        sw_on(&pump);                      // «увімкнути насос» — байдуже, що там NPN
-        vTaskDelay(pdMS_TO_TICKS(3000));
-        sw_off(&pump);
-        sw_toggle(&lamp);                  // перемкнути лампу в протилежний стан
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```stm32
-static sw_t pump = { GPIOB, GPIO_PIN_5, false };  // NPN низом: «1» вмикає
-static sw_t lamp = { GPIOB, GPIO_PIN_6, true  };  // PNP верхом: «0» вмикає
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();     // згенерований CubeMX-ом розгін тактування
-    sw_begin(&pump);
-    sw_begin(&lamp);          // обидва стартують ВИМКНЕНИМИ
-
-    while (1) {
-        sw_on(&pump);         // «увімкнути насос» — байдуже, що там NPN
-        HAL_Delay(3000);
-        sw_off(&pump);
-        sw_toggle(&lamp);     // перемкнути лампу в протилежний стан
-        HAL_Delay(1000);
-    }
-}
-```
+:::code api-transistor-switch/c/arduino/obhortka-kliucha-typ-2.ino
+:::code api-transistor-switch/c/esp-idf/obhortka-kliucha-typ-2.c
+:::code api-transistor-switch/c/stm32/obhortka-kliucha-typ-2.c
 :::
 
 ## Плавно: PWM — апаратний таймер замість рівня
@@ -262,18 +92,7 @@ void Switch::analog(uint8_t duty8) {
     analogWrite(pin_, active_low_ ? (255 - duty8) : duty8);
 }
 ```
-```esp-idf
-// Те саме на ESP-IDF: шпаруватість приймає драйвер LEDC — окремий блок периферії.
-// Записане значення набуває чинності лише після ledc_update_duty().
-#include "driver/ledc.h"
-
-void sw_analog(sw_t *s, ledc_channel_t ch, uint8_t duty8) {
-    // для active_low інвертуємо: 0 має лишатись «вимкнено»
-    uint32_t d = s->active_low ? (uint32_t)(255 - duty8) : duty8;
-    ESP_ERROR_CHECK(ledc_set_duty(LEDC_LOW_SPEED_MODE, ch, d));   // 8-бітний таймер → 0…255
-    ESP_ERROR_CHECK(ledc_update_duty(LEDC_LOW_SPEED_MODE, ch));
-}
-```
+:::code api-transistor-switch/c/esp-idf/plavno-pwm-aparatnyi.c
 ```stm32
 // Те саме на STM32 HAL: шпаруватість — це число в регістрі порівняння каналу.
 // Розрядність тут задає не константа, а період таймера (ARR), тож 0…255 масштабуємо.
@@ -295,18 +114,7 @@ void loop() {
     for (int d = 255; d >= 0; d--) { lamp.analog(d); delay(6); }  // згасання
 }
 ```
-```esp-idf
-static sw_t lamp = { .pin = GPIO_NUM_9, .active_low = false };   // канал LEDC уже налаштований
-
-void lamp_breathe(void) {   // vTaskDelay крокує тіками планувальника (типово 10 мс)
-    for (int d = 0; d <= 255; d++) {                             // розгоряння
-        sw_analog(&lamp, LEDC_CHANNEL_0, d); vTaskDelay(pdMS_TO_TICKS(10));
-    }
-    for (int d = 255; d >= 0; d--) {                             // згасання
-        sw_analog(&lamp, LEDC_CHANNEL_0, d); vTaskDelay(pdMS_TO_TICKS(10));
-    }
-}
-```
+:::code api-transistor-switch/c/esp-idf/plavno-pwm-aparatnyi-2.c
 ```stm32
 static sw_t lamp = { GPIOB, GPIO_PIN_9, false };
 extern TIM_HandleTypeDef htim4;   // канал уже запущений: HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4)
@@ -323,71 +131,9 @@ void lamp_breathe(void) {
 На сучасних контролерах на кшталт ESP32 функції `analogWrite` у звичному вигляді немає — там PWM дає окремий периферійний блок **LEDC** (LED Control), який треба спершу налаштувати: прив'язати вивід до каналу, задати частоту й розрядність. Починаючи з версії 3.x ядра Arduino-ESP32, старі `ledcSetup()`/`ledcAttachPin()` замінені одним викликом `ledcAttach(pin, freq, resolution)`, а шпаруватість пишеться `ledcWrite(pin, duty)` — канал прив'язується автоматично (перевірено за міграційним гайдом Espressif). Загальне правило звідси й видно: перш ніж писати шпаруватість, PWM треба **налаштувати** — задати частоту й розрядність і прив'язати до них вивід. Різниця лише в тому, скільки викликів на це йде:
 
 :::tabs
-```arduino
-// Варіант методів для ESP32 (Arduino-ESP32 core 3.x).
-// LEDC: 5 кГц — вище звукового діапазону (реле/мотор не «пищать»),
-// 8-бітна розрядність → шпаруватість теж 0…255, як і analogWrite.
-void Switch::begin_pwm(uint32_t freq_hz = 5000, uint8_t bits = 8) {
-    ledcAttach(pin_, freq_hz, bits);   // прив'язати вивід, задати частоту й розрядність
-    analog(0);                         // старт: вимкнено
-}
-
-void Switch::analog(uint8_t duty8) {
-    ledcWrite(pin_, active_low_ ? (255 - duty8) : duty8);
-}
-```
-```esp-idf
-// Те саме на чистому ESP-IDF: те, що ledcAttach() ховає, тут стоїть окремо —
-// спершу ТАЙМЕР (частота й розрядність), потім КАНАЛ (прив'язка до виводу).
-#include "driver/ledc.h"
-
-esp_err_t sw_begin_pwm(sw_t *s, ledc_channel_t ch, uint32_t freq_hz) {
-    ledc_timer_config_t timer = {
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .duty_resolution = LEDC_TIMER_8_BIT,   // 8 біт → шпаруватість 0…255
-        .timer_num       = LEDC_TIMER_0,
-        .freq_hz         = freq_hz,            // 5000 — вище звукового діапазону
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
-    ledc_channel_config_t chan = {
-        .gpio_num   = s->pin,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel    = ch,
-        .intr_type  = LEDC_INTR_DISABLE,
-        .timer_sel  = LEDC_TIMER_0,
-        .duty       = s->active_low ? 255 : 0,  // старт: вимкнено
-        .hpoint     = 0,
-    };
-    return ledc_channel_config(&chan);
-}
-```
-```stm32
-// Те саме на STM32 HAL: частоту задають дільник (PSC) і період (ARR).
-// 84 МГц / (PSC+1) / (ARR+1) = 5 кГц; беремо PSC = 65, ARR = 255 —
-// тоді ARR заразом дає ту саму 8-бітну шкалу шпаруватості 0…255.
-TIM_HandleTypeDef htim4;
-
-void sw_begin_pwm(sw_t *s, uint32_t channel) {
-    __HAL_RCC_TIM4_CLK_ENABLE();
-    htim4.Instance           = TIM4;
-    htim4.Init.Prescaler     = 65;                       // 84 МГц / 66 ≈ 1.27 МГц
-    htim4.Init.CounterMode   = TIM_COUNTERMODE_UP;
-    htim4.Init.Period        = 255;                      // 1.27 МГц / 256 ≈ 5 кГц
-    htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    HAL_TIM_PWM_Init(&htim4);
-
-    TIM_OC_InitTypeDef oc = {
-        .OCMode     = TIM_OCMODE_PWM1,
-        .Pulse      = s->active_low ? 255 : 0,           // старт: вимкнено
-        .OCPolarity = TIM_OCPOLARITY_HIGH,
-        .OCFastMode = TIM_OCFAST_DISABLE,
-    };
-    HAL_TIM_PWM_ConfigChannel(&htim4, &oc, channel);
-    HAL_TIM_PWM_Start(&htim4, channel);   // вивід у режим AF задає HAL_TIM_PWM_MspInit()
-}
-```
+:::code api-transistor-switch/c/arduino/plavno-pwm-aparatnyi.ino
+:::code api-transistor-switch/c/esp-idf/plavno-pwm-aparatnyi-3.c
+:::code api-transistor-switch/c/stm32/plavno-pwm-aparatnyi.c
 :::
 
 Вибір частоти — не дрібниця. Для лампи згодиться будь-яка вища за 100 Гц (око не бачить мерехтіння). Для мотора чи реле частоту беруть **вище звукового діапазону** (18–20 кГц і вище), інакше котушка починає тихо, але прикро **пищати** на частоті PWM — вона ж механічно вібрує в такт. П'ять кілогерців — компроміс для навчального прикладу; для мотора підняли б до 20 кГц.
@@ -399,31 +145,8 @@ void sw_begin_pwm(sw_t *s, uint32_t channel) {
 Гасник — суто апаратна деталь, коду про неї нема. Але саме тому її **найлегше забути**: у прошивці ніщо про неї не нагадує. Пропущений діод на реле — одна з найчастіших причин, чому ключ на транзисторі «раптом здох». Тож зробімо так, щоб код **нагадував** сам: окремий тип `InductiveSwitch`, у конструкторі якого стоїть обов'язковий прапорець-нагадування. Компілятор не перевірить, чи ви справді впаяли діод, — але сам факт, що для реле й мотора ви **мусите** взяти інший тип, змушує згадати про гасник у момент написання коду.
 
 :::tabs
-```arduino
-// Ключ для ІНДУКТИВНОГО навантаження (реле, мотор, соленоїд).
-// Наслідує звичайний Switch — уся логіка та сама; окремий тип існує,
-// щоб сам вибір типу нагадав: «тут ОБОВ'ЯЗКОВИЙ діод-гасник паралельно котушці».
-class InductiveSwitch : public Switch {
-public:
-    InductiveSwitch(uint8_t pin, Polarity pol = ACTIVE_HIGH)
-        : Switch(pin, pol) {}
-    // Різкий обрив струму — саме те, чого боїться котушка; гасник
-    // (1N4148 / 1N4007, катод до +V) МУСИТЬ стояти в схемі. Коду тут нема —
-    // це апаратна деталь, але тип на неї вказує.
-};
-```
-```esp-idf
-// У C наслідування немає, але прийом той самий: ОКРЕМИЙ тип, який не можна
-// випадково переплутати зі звичайним ключем. Компілятор не пропустить
-// ind_sw_t туди, де чекають sw_t, — і сам вибір типу нагадає про гасник.
-typedef struct { sw_t sw; } ind_sw_t;   // реле / мотор / соленоїд
-
-static esp_err_t ind_sw_begin(ind_sw_t *s) { return sw_begin(&s->sw); }
-static void      ind_sw_on   (ind_sw_t *s) { sw_on(&s->sw); }
-static void      ind_sw_off  (ind_sw_t *s) { sw_off(&s->sw); }
-// Гасник (1N4148 / 1N4007, катод до +V) МУСИТЬ стояти в схемі паралельно
-// котушці. Коду тут нема — це апаратна деталь, але тип на неї вказує.
-```
+:::code api-transistor-switch/c/arduino/induktyvne-navantazhennia.ino
+:::code api-transistor-switch/c/esp-idf/induktyvne-navantazhennia.c
 :::
 
 :::tabs
@@ -458,67 +181,9 @@ void app_main(void) {
 *NPN сидить між навантаженням і землею — HIGH на виводі його вмикає. PNP сидить між плюсом і навантаженням — його вмикає LOW. Код керує двома половинами дзеркально; клас ховає цю різницю за однаковим on().*
 
 :::tabs
-```arduino
-// Дві половини одного вузла: NPN тримає низ, PNP — верх.
-// Обидва керуються з піна, але з протилежною полярністю.
-Switch low_side (5, Switch::ACTIVE_HIGH);   // NPN низом:  HIGH → увімк
-Switch high_side(6, Switch::ACTIVE_LOW);    // PNP верхом: LOW  → увімк
-
-void setup() {
-    low_side.begin();
-    high_side.begin();     // обидва вимкнені (кожен у свій «вимкнено»)
-}
-
-void loop() {
-    // Попри протилежну апаратну полярність, семантика ОДНАКОВА:
-    low_side.on();         // digitalWrite(5, HIGH)
-    high_side.on();        // digitalWrite(6, LOW) — але це теж «увімкнути»
-    delay(1000);
-    low_side.off();
-    high_side.off();
-    delay(1000);
-}
-```
-```esp-idf
-// Дві половини одного вузла: NPN тримає низ, PNP — верх.
-static sw_t low_side  = { .pin = GPIO_NUM_5, .active_low = false };  // NPN низом:  «1» → увімк
-static sw_t high_side = { .pin = GPIO_NUM_6, .active_low = true  };  // PNP верхом: «0» → увімк
-
-void app_main(void) {
-    ESP_ERROR_CHECK(sw_begin(&low_side));
-    ESP_ERROR_CHECK(sw_begin(&high_side));   // обидва вимкнені (кожен у свій «вимкнено»)
-
-    while (1) {
-        // Попри протилежну апаратну полярність, семантика ОДНАКОВА:
-        sw_on(&low_side);                    // gpio_set_level(GPIO_NUM_5, 1)
-        sw_on(&high_side);                   // gpio_set_level(GPIO_NUM_6, 0) — теж «увімкнути»
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        sw_off(&low_side);
-        sw_off(&high_side);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```stm32
-// Дві половини одного вузла: NPN тримає низ, PNP — верх.
-static sw_t low_side  = { GPIOB, GPIO_PIN_5, false };  // NPN низом:  «1» → увімк
-static sw_t high_side = { GPIOB, GPIO_PIN_6, true  };  // PNP верхом: «0» → увімк
-
-void node_run(void) {
-    sw_begin(&low_side);
-    sw_begin(&high_side);      // обидва вимкнені (кожен у свій «вимкнено»)
-
-    while (1) {
-        // Попри протилежну апаратну полярність, семантика ОДНАКОВА:
-        sw_on(&low_side);      // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET)
-        sw_on(&high_side);     // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET)
-        HAL_Delay(1000);
-        sw_off(&low_side);
-        sw_off(&high_side);
-        HAL_Delay(1000);
-    }
-}
-```
+:::code api-transistor-switch/c/arduino/komplementarna-para-nyz-na.ino
+:::code api-transistor-switch/c/esp-idf/komplementarna-para-nyz-na.c
+:::code api-transistor-switch/c/stm32/komplementarna-para-nyz-na.c
 :::
 
 Тут видно всю вигоду абстракції над полярністю. Читаючи `low_side.on()` і `high_side.on()`, ви думаєте про **намір** («увімкнути обидва»), а не про те, що на одному піні при цьому `HIGH`, а на іншому `LOW`. Спробуйте написати те саме голими викликами запису рівня — і рано чи пізно на PNP поставите «1», вимкнувши його там, де хотіли ввімкнути.
@@ -532,49 +197,9 @@ void node_run(void) {
 З боку коду MOSFET-ключ керується так само, як NPN низом: `HIGH` на затворі відкриває канал, `LOW` закриває. Тобто наш клас `Switch` із полярністю `ACTIVE_HIGH` підходить без змін:
 
 :::tabs
-```arduino
-// MOSFET-ключ (2N7000, N-канал, низом). Той самий інтерфейс, що й у NPN:
-// HIGH відкриває канал. Базового резистора НЕМА — керуємо напругою на затворі.
-Switch mosfet(5);                 // ACTIVE_HIGH за замовчуванням
-
-void setup() {
-    mosfet.begin();               // затвор у «0», канал закритий
-    // Апаратно: затвор → (опц. 100…220 Ом) → пін; підтяжка 100 кОм затвор→GND.
-}
-
-void loop() {
-    mosfet.on();   digitalWrite(LED_BUILTIN, HIGH);  delay(500);
-    mosfet.off();  digitalWrite(LED_BUILTIN, LOW);   delay(500);
-}
-```
-```esp-idf
-// Той самий ключ, той самий тип: для коду MOSFET нічим не відрізняється від NPN низом.
-static sw_t mosfet = { .pin = GPIO_NUM_5, .active_low = false };
-
-void app_main(void) {
-    ESP_ERROR_CHECK(sw_begin(&mosfet));   // затвор у «0», канал закритий
-    // Апаратно: затвор → (опц. 100…220 Ом) → вивід; підтяжка 100 кОм затвор→GND.
-    // ⚠ 3.3 В на затворі 2N7000 замало — див. перевірку нижче.
-    while (1) {
-        sw_on(&mosfet);  vTaskDelay(pdMS_TO_TICKS(500));
-        sw_off(&mosfet); vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-```
-```stm32
-// Той самий ключ, той самий тип: для коду MOSFET нічим не відрізняється від NPN низом.
-static sw_t mosfet = { GPIOB, GPIO_PIN_5, false };
-
-void mosfet_blink(void) {
-    sw_begin(&mosfet);        // затвор у «0», канал закритий
-    // Апаратно: затвор → (опц. 100…220 Ом) → вивід; підтяжка 100 кОм затвор→GND.
-    // ⚠ вивід STM32 дає 3.3 В — для 2N7000 це мало, див. перевірку нижче.
-    while (1) {
-        sw_on(&mosfet);  HAL_Delay(500);
-        sw_off(&mosfet); HAL_Delay(500);
-    }
-}
-```
+:::code api-transistor-switch/c/arduino/variant-na-mosfet-2n7000.ino
+:::code api-transistor-switch/c/esp-idf/variant-na-mosfet-2n7000.c
+:::code api-transistor-switch/c/stm32/variant-na-mosfet-2n7000.c
 :::
 
 Код тривіальний — але з `2N7000` є пастка, яку жоден код не покриє, і про неї треба сказати прямо. **Поріг затвора в нього високуватий.** За даташитами (Vishay, ON Semiconductor, Microchip) напруга відмикання `Vgs(th)` лежить у діапазоні 0.8…3.0 В — це напруга, за якої канал **починає** проводити, а не за якої він повністю відкритий. Повне насичення (мале опору каналу) datasheet нормує аж при `Vgs = 4.5 В` і вище — там `Rds(on)` спадає до кількох ом. Це усталений факт із документації, і з нього випливає прикрий висновок:
