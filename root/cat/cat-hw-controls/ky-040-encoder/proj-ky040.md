@@ -53,23 +53,7 @@ void onClkFall() {
 
 Ось суть. Тримаємо мітку часу останнього зарахованого краю; новий край беремо до уваги, лише якщо від попереднього минуло більше за поріг (скажімо, 2 мс):
 
-```cpp
-const uint8_t PIN_CLK = 2;
-const uint8_t PIN_DT  = 3;
-
-volatile long          counter    = 0;
-volatile unsigned long lastEdgeUs = 0;      // час останнього зарахованого краю
-
-void onClkFall() {
-  unsigned long now = micros();
-  // ігноруємо все, що ближче за 2 мс до попереднього краю — це брязкіт
-  if (now - lastEdgeUs < 2000UL) return;
-  lastEdgeUs = now;
-
-  if (digitalRead(PIN_DT) == HIGH) counter++;   // DT ще «1» → за годинниковою
-  else                             counter--;    // DT уже «0» → проти
-}
-```
+:::code proj-ky040/cpp/pidkhid-1-hasinnia.cpp
 
 > 🔧 **Навіщо `micros()`, а не `millis()`.** Брязкіт живе в масштабі мілісекунд, і поріг 1–2 мс — це якраз межа, де `millis()` (крок 1 мс) уже загрубий: два справжні швидкі краї можуть потрапити в одну й ту саму мілісекунду. `micros()` дає роздільність краще за мікросекунду й дозволяє ставити поріг точно. Різниця `now - lastEdgeUs` рахується без помилок навіть при переповненні лічильника (кожні ~71 хв на 16 МГц AVR), бо віднімання беззнакове й «завертається» правильно — тому важливо тримати обидві величини `unsigned long`.
 
@@ -98,105 +82,9 @@ void onClkFall() {
 Стани машини (для повнокрокового режиму — коли крок зараховуємо раз на клац):
 
 :::tabs
-```cpp
-// прапорці напряму — у старших бітах результату
-#define DIR_NONE 0x00   // цикл ще не завершено
-#define DIR_CW   0x10   // завершено крок за годинниковою
-#define DIR_CCW  0x20   // завершено крок проти годинникової
-
-// стани самого автомата (проміжні кроки обходу кільця)
-#define R_START     0x0
-#define R_CW_FINAL  0x1
-#define R_CW_BEGIN  0x2
-#define R_CW_NEXT   0x3
-#define R_CCW_BEGIN 0x4
-#define R_CCW_FINAL 0x5
-#define R_CCW_NEXT  0x6
-
-// повнокрокова таблиця: рядок = стан, стовпець = зчитане (CLK<<1)|DT ∈ {0,1,2,3}
-const uint8_t ttable[7][4] = {
-  // R_START:      00           01           10           11
-  {R_START,     R_CW_BEGIN,  R_CCW_BEGIN, R_START},
-  // R_CW_FINAL
-  {R_CW_NEXT,   R_START,     R_CW_FINAL,  R_START | DIR_CW},
-  // R_CW_BEGIN
-  {R_CW_NEXT,   R_CW_BEGIN,  R_START,     R_START},
-  // R_CW_NEXT
-  {R_CW_NEXT,   R_CW_BEGIN,  R_CW_FINAL,  R_START},
-  // R_CCW_BEGIN
-  {R_CCW_NEXT,  R_START,     R_CCW_BEGIN, R_START},
-  // R_CCW_FINAL
-  {R_CCW_NEXT,  R_CCW_FINAL, R_START,     R_START | DIR_CCW},
-  // R_CCW_NEXT
-  {R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START},
-};
-```
-```python
-# прапорці напряму — у старших бітах результату
-DIR_NONE = 0x00   # цикл ще не завершено
-DIR_CW   = 0x10   # завершено крок за годинниковою
-DIR_CCW  = 0x20   # завершено крок проти годинникової
-
-# стани самого автомата (проміжні кроки обходу кільця)
-R_START     = 0x0
-R_CW_FINAL  = 0x1
-R_CW_BEGIN  = 0x2
-R_CW_NEXT   = 0x3
-R_CCW_BEGIN = 0x4
-R_CCW_FINAL = 0x5
-R_CCW_NEXT  = 0x6
-
-# повнокрокова таблиця: рядок = стан, стовпець = зчитане (CLK<<1)|DT ∈ {0,1,2,3}
-TTABLE = (
-    # R_START:      00           01           10           11
-    (R_START,     R_CW_BEGIN,  R_CCW_BEGIN, R_START),
-    # R_CW_FINAL
-    (R_CW_NEXT,   R_START,     R_CW_FINAL,  R_START | DIR_CW),
-    # R_CW_BEGIN
-    (R_CW_NEXT,   R_CW_BEGIN,  R_START,     R_START),
-    # R_CW_NEXT
-    (R_CW_NEXT,   R_CW_BEGIN,  R_CW_FINAL,  R_START),
-    # R_CCW_BEGIN
-    (R_CCW_NEXT,  R_START,     R_CCW_BEGIN, R_START),
-    # R_CCW_FINAL
-    (R_CCW_NEXT,  R_CCW_FINAL, R_START,     R_START | DIR_CCW),
-    # R_CCW_NEXT
-    (R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START),
-)
-```
-```micropython
-# прапорці напряму — у старших бітах результату
-DIR_NONE = const(0x00)   # цикл ще не завершено
-DIR_CW   = const(0x10)   # завершено крок за годинниковою
-DIR_CCW  = const(0x20)   # завершено крок проти годинникової
-
-# стани самого автомата (проміжні кроки обходу кільця)
-R_START     = const(0x0)
-R_CW_FINAL  = const(0x1)
-R_CW_BEGIN  = const(0x2)
-R_CW_NEXT   = const(0x3)
-R_CCW_BEGIN = const(0x4)
-R_CCW_FINAL = const(0x5)
-R_CCW_NEXT  = const(0x6)
-
-# повнокрокова таблиця: рядок = стан, стовпець = зчитане (CLK<<1)|DT ∈ {0,1,2,3}
-TTABLE = (
-    # R_START:      00           01           10           11
-    (R_START,     R_CW_BEGIN,  R_CCW_BEGIN, R_START),
-    # R_CW_FINAL
-    (R_CW_NEXT,   R_START,     R_CW_FINAL,  R_START | DIR_CW),
-    # R_CW_BEGIN
-    (R_CW_NEXT,   R_CW_BEGIN,  R_START,     R_START),
-    # R_CW_NEXT
-    (R_CW_NEXT,   R_CW_BEGIN,  R_CW_FINAL,  R_START),
-    # R_CCW_BEGIN
-    (R_CCW_NEXT,  R_START,     R_CCW_BEGIN, R_START),
-    # R_CCW_FINAL
-    (R_CCW_NEXT,  R_CCW_FINAL, R_START,     R_START | DIR_CCW),
-    # R_CCW_NEXT
-    (R_CCW_NEXT,  R_CCW_FINAL, R_CCW_BEGIN, R_START),
-)
-```
+:::code proj-ky040/cpp/tablytsia-perekhodiv.cpp
+:::code proj-ky040/py/tablytsia-perekhodiv.py
+:::code proj-ky040/py/micropython/tablytsia-perekhodiv.py
 :::
 
 Уся робота декодера тепер — **один рядок**:
@@ -238,26 +126,7 @@ def process_encoder(clk, dt):
 
 Найпростіше вжити цей автомат — просто дзьобати обидва піни в головному циклі якнайчастіше. Жодних переривань, уся логіка на видноті:
 
-```cpp
-const uint8_t PIN_CLK = 2;
-const uint8_t PIN_DT  = 3;
-
-long counter = 0;
-
-void setup() {
-  pinMode(PIN_CLK, INPUT);        // на платі KY-040 підтяжки на CLK і DT вже є
-  pinMode(PIN_DT,  INPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  uint8_t result = processEncoder(digitalRead(PIN_CLK), digitalRead(PIN_DT));
-  if      (result == DIR_CW)  { counter++; Serial.println(counter); }
-  else if (result == DIR_CCW) { counter--; Serial.println(counter); }
-
-  // ... тут може бути решта роботи, АЛЕ вона не має надовго блокувати цикл ...
-}
-```
+:::code proj-ky040/cpp/tisnyi-tsykl-opytuvannia.cpp
 
 Головна умова опитування: цикл мусить **встигати проглянути піни частіше, ніж вони міняються**. Прикинемо запас. Навіть швидкий оберт рукою — це дай Боже кілька обертів на секунду; при 20 фіксаторах на оберт і 4 змінах на фіксатор виходить близько `4 · 20 · 5 ≈ 400` змін на секунду, тобто зміна раз на ~2.5 мс. Порожній `loop()` на 16 МГц Arduino крутиться в масштабі мікросекунд — тобто встигне подивитись на піни **сотні разів** між двома змінами. Запас гігантський. Проблема з'являється, лише якщо в циклі завелась довга блокувальна дія: `delay(50)`, повільний друк, очікування I²C-дисплея. Тоді на ці 50 мс код осліп — і швидкий оберт у цю мить проґавиться. Правило просте: **у циклі з опитуванням енкодера не має бути довгих `delay`**.
 
@@ -265,34 +134,7 @@ void loop() {
 
 Коли головний цикл таки буває зайнятий (велике меню, повільна графіка, мережа), опитування ненадійне — і тоді CLK саджають на пін, здатний на переривання по краю. Переривання смикне обробник **у ту саму мить**, коли лінія змінилась, хоч би чим був зайнятий `loop()`. Той самий автомат, але виклик — з обробника:
 
-```cpp
-const uint8_t PIN_CLK = 2;        // мусить бути пін із перериванням (Uno: D2 або D3)
-const uint8_t PIN_DT  = 3;
-
-volatile long counter = 0;
-
-void onEncoderEdge() {
-  uint8_t result = processEncoder(digitalRead(PIN_CLK), digitalRead(PIN_DT));
-  if      (result == DIR_CW)  counter++;
-  else if (result == DIR_CCW) counter--;
-}
-
-void setup() {
-  pinMode(PIN_CLK, INPUT);
-  pinMode(PIN_DT,  INPUT);
-  // ловимо ОБИДВА фронти CLK: автомат сам розбереться, брязкіт відсіється таблицею
-  attachInterrupt(digitalPinToInterrupt(PIN_CLK), onEncoderEdge, CHANGE);
-  Serial.begin(9600);
-}
-
-void loop() {
-  static long shown = 0;
-  noInterrupts();
-  long now = counter;             // читаємо volatile-лічильник атомарно
-  interrupts();
-  if (now != shown) { shown = now; Serial.println(now); }
-}
-```
+:::code proj-ky040/cpp/variant-na-pereryvanni.cpp
 
 Тут кілька тонкощів, кожна варта уваги.
 
@@ -315,23 +157,7 @@ void loop() {
 
 Друга: механічна кнопка теж [брязкає](root:hw-digital/contact-debounce) — за один натиск контакт кілька мілісекунд смикається. Наївне «якщо `LOW` — це натиск» зарахує один тиск як три. Найпростіший надійний дебаунс кнопки — ловити **перехід** «1→0» і після нього ігнорувати пін фіксований час:
 
-```cpp
-const uint8_t PIN_SW = 4;
-
-bool          swPrev      = HIGH;      // попередній стан кнопки
-unsigned long swLastMs    = 0;         // час останньої зміни
-const unsigned long SW_DEBOUNCE = 30;  // мс глухоти після краю
-
-bool buttonPressed() {                 // повертає true РАЗ на кожен натиск
-  bool now = digitalRead(PIN_SW);
-  if (now != swPrev && (millis() - swLastMs) > SW_DEBOUNCE) {
-    swLastMs = millis();
-    swPrev   = now;
-    if (now == LOW) return true;       // край «відпущено → натиснуто»
-  }
-  return false;
-}
-```
+:::code proj-ky040/cpp/knopka-sw-input-pullup-i.cpp
 
 Тут `millis()` (крок 1 мс) цілком годиться: людський натиск триває десятки-сотні мілісекунд, а брязкіт кнопки — одиниці, тож поріг 20–40 мс надійно розділяє їх, і грубість `millis()` не заважає. Ловимо саме **край** `1→0`, а не рівень, — інакше поки палець тисне, `buttonPressed()` вертав би `true` у кожному циклі.
 
@@ -339,96 +165,11 @@ bool buttonPressed() {                 // повертає true РАЗ на ко
 
 Зберемо все в один самодостатній клас, який ховає таблицю, дебаунс кнопки й атомарний лічильник за простим фасадом. Кладеться в проєкт, конфігурується трьома пінами — і далі ти лише питаєш «на скільки крутнули» й «чи натиснули». Клас працює і в режимі опитування (клич `.tick()` у циклі), і на перериванні (клич `.tick()` з обробника).
 
-```cpp
-// ── KY040.h ─────────────────────────────────────────────────────────────────
-#pragma once
-#include <Arduino.h>
-
-class KY040 {
-public:
-  KY040(uint8_t pinClk, uint8_t pinDt, uint8_t pinSw)
-    : _clk(pinClk), _dt(pinDt), _sw(pinSw) {}
-
-  void begin() {
-    pinMode(_clk, INPUT);            // на платі KY-040 підтяжки CLK/DT вже стоять
-    pinMode(_dt,  INPUT);
-    pinMode(_sw,  INPUT_PULLUP);     // а на кнопці підтяжки нема — вмикаємо внутрішню
-  }
-
-  // Викликати ЯКОМОГА ЧАСТІШЕ: з loop() (опитування) або з обробника краю CLK/DT.
-  // Оновлює лічильник; тримати короткою — придатна для переривання.
-  void tick() {
-    // повнокрокова таблиця Бакстона (крок раз на клац фіксатора);
-    // локальна static — жодних клопотів з окремим визначенням члена класу
-    static const uint8_t T[7][4] = {
-      {0x0, 0x2, 0x4, 0x0},              // R_START
-      {0x3, 0x0, 0x1, 0x0 | 0x10},       // R_CW_FINAL  → DIR_CW
-      {0x3, 0x2, 0x0, 0x0},              // R_CW_BEGIN
-      {0x3, 0x2, 0x1, 0x0},              // R_CW_NEXT
-      {0x6, 0x0, 0x4, 0x0},              // R_CCW_BEGIN
-      {0x6, 0x5, 0x0, 0x0 | 0x20},       // R_CCW_FINAL → DIR_CCW
-      {0x6, 0x5, 0x4, 0x0},              // R_CCW_NEXT
-    };
-    uint8_t pin = (digitalRead(_clk) << 1) | digitalRead(_dt);
-    _state = T[_state & 0x0F][pin];
-    uint8_t dir = _state & 0x30;
-    if      (dir == 0x10) _count++;      // DIR_CW
-    else if (dir == 0x20) _count--;      // DIR_CCW
-  }
-
-  // Накопичене значення. atomic-читання для 8-бітних платформ.
-  long position() const {
-    noInterrupts();
-    long v = _count;
-    interrupts();
-    return v;
-  }
-  void  setPosition(long v) { noInterrupts(); _count = v; interrupts(); }
-
-  // true РІВНО раз на кожен натиск кнопки (з дебаунсом). Кликати з loop().
-  bool pressed() {
-    bool now = digitalRead(_sw);
-    if (now != _swPrev && (millis() - _swMs) > SW_DEBOUNCE) {
-      _swMs   = millis();
-      _swPrev = now;
-      if (now == LOW) return true;
-    }
-    return false;
-  }
-
-private:
-  const uint8_t _clk, _dt, _sw;
-  volatile long _count  = 0;
-  volatile uint8_t _state = 0;         // R_START
-
-  bool          _swPrev = HIGH;
-  unsigned long _swMs   = 0;
-  static const unsigned long SW_DEBOUNCE = 30;
-};
-```
+:::code proj-ky040/cpp/hotovyi-klas-uziaty-i.hpp
 
 Використання виходить майже банальним — а вся хитрість схована всередині:
 
-```cpp
-#include "KY040.h"
-
-KY040 knob(2, 3, 4);         // CLK=D2, DT=D3, SW=D4
-long  value = 0;
-
-void setup() {
-  knob.begin();
-  Serial.begin(9600);
-  // Надійно: CLK і DT на перериванні (обидва пінии Uno — з апаратним INT).
-  attachInterrupt(digitalPinToInterrupt(2), []{ knob.tick(); }, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(3), []{ knob.tick(); }, CHANGE);
-}
-
-void loop() {
-  long now = knob.position();
-  if (now != value) { value = now; Serial.println(value); }
-  if (knob.pressed()) { knob.setPosition(0); Serial.println("reset"); }
-}
-```
+:::code proj-ky040/cpp/hotovyi-klas-uziaty-i.cpp
 
 Якщо переривань бракує чи не хочеться з ними морочитись — викинь обидва `attachInterrupt` і поклич `knob.tick()` першим рядком у `loop()`; поки в циклі немає довгих `delay`, працюватиме так само надійно.
 
@@ -439,78 +180,9 @@ void loop() {
 Іноді 20 клацань на оберт замало — хочеться реагувати не раз на фіксатор, а **двічі**: на кожен «півклац». Тоді беруть **півкрокову** таблицю: вона зараховує напрям на кожному переході через стани `00` і `11`, тобто дає два відліки на повний квадратурний цикл замість одного.
 
 :::tabs
-```cpp
-// Півкрокові стани
-#define R_START      0x0
-#define R_CCW_BEGIN  0x1
-#define R_CW_BEGIN   0x2
-#define R_START_M    0x3
-#define R_CW_BEGIN_M 0x4
-#define R_CCW_BEGIN_M 0x5
-
-const uint8_t ttable_half[6][4] = {
-  // R_START
-  {R_START_M,           R_CW_BEGIN,    R_CCW_BEGIN,   R_START},
-  // R_CCW_BEGIN
-  {R_START_M | DIR_CCW, R_START,       R_CCW_BEGIN,   R_START},
-  // R_CW_BEGIN
-  {R_START_M | DIR_CW,  R_CW_BEGIN,    R_START,       R_START},
-  // R_START_M (проміжний «спокій» усередині циклу)
-  {R_START_M,           R_CCW_BEGIN_M, R_CW_BEGIN_M,  R_START},
-  // R_CW_BEGIN_M
-  {R_START_M,           R_START_M,     R_CW_BEGIN_M,  R_START | DIR_CW},
-  // R_CCW_BEGIN_M
-  {R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW},
-};
-```
-```python
-# Півкрокові стани
-R_START       = 0x0
-R_CCW_BEGIN   = 0x1
-R_CW_BEGIN    = 0x2
-R_START_M     = 0x3
-R_CW_BEGIN_M  = 0x4
-R_CCW_BEGIN_M = 0x5
-
-TTABLE_HALF = (
-    # R_START
-    (R_START_M,           R_CW_BEGIN,    R_CCW_BEGIN,   R_START),
-    # R_CCW_BEGIN
-    (R_START_M | DIR_CCW, R_START,       R_CCW_BEGIN,   R_START),
-    # R_CW_BEGIN
-    (R_START_M | DIR_CW,  R_CW_BEGIN,    R_START,       R_START),
-    # R_START_M (проміжний «спокій» усередині циклу)
-    (R_START_M,           R_CCW_BEGIN_M, R_CW_BEGIN_M,  R_START),
-    # R_CW_BEGIN_M
-    (R_START_M,           R_START_M,     R_CW_BEGIN_M,  R_START | DIR_CW),
-    # R_CCW_BEGIN_M
-    (R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW),
-)
-```
-```micropython
-# Півкрокові стани
-R_START       = const(0x0)
-R_CCW_BEGIN   = const(0x1)
-R_CW_BEGIN    = const(0x2)
-R_START_M     = const(0x3)
-R_CW_BEGIN_M  = const(0x4)
-R_CCW_BEGIN_M = const(0x5)
-
-TTABLE_HALF = (
-    # R_START
-    (R_START_M,           R_CW_BEGIN,    R_CCW_BEGIN,   R_START),
-    # R_CCW_BEGIN
-    (R_START_M | DIR_CCW, R_START,       R_CCW_BEGIN,   R_START),
-    # R_CW_BEGIN
-    (R_START_M | DIR_CW,  R_CW_BEGIN,    R_START,       R_START),
-    # R_START_M (проміжний «спокій» усередині циклу)
-    (R_START_M,           R_CCW_BEGIN_M, R_CW_BEGIN_M,  R_START),
-    # R_CW_BEGIN_M
-    (R_START_M,           R_START_M,     R_CW_BEGIN_M,  R_START | DIR_CW),
-    # R_CCW_BEGIN_M
-    (R_START_M,           R_CCW_BEGIN_M, R_START_M,     R_START | DIR_CCW),
-)
-```
+:::code proj-ky040/cpp/pivkrokovyi-rezhym-koly.cpp
+:::code proj-ky040/py/pivkrokovyi-rezhym-koly.py
+:::code proj-ky040/py/micropython/pivkrokovyi-rezhym-koly.py
 :::
 
 Логіка `process()` та сама — міняється лише таблиця й розмір масиву (`[6][4]`). Коли який режим брати:

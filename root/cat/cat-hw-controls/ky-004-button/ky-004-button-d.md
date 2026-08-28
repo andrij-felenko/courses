@@ -93,34 +93,8 @@ S   →  будь-який цифровий пін (напр. D2 на Arduino Un
 **Умова.** KY-004 (pull-down, спокій «0») підключено: S на D2 Arduino Uno, живлення 5 В, земля на GND. При натиску хочемо запалити вбудований світлодіод на D13.
 
 :::tabs
-```cpp
-const uint8_t PIN_BTN = 2;       // сигнал KY-004
-const uint8_t PIN_LED = 13;      // вбудований світлодіод
-
-void setup() {
-  pinMode(PIN_BTN, INPUT);       // підтяжка вже на платі — INPUT, не INPUT_PULLUP
-  pinMode(PIN_LED, OUTPUT);
-}
-
-void loop() {
-  if (digitalRead(PIN_BTN) == HIGH)   // pull-down: натиск = «1»
-    digitalWrite(PIN_LED, HIGH);
-  else
-    digitalWrite(PIN_LED, LOW);
-}
-```
-```micropython
-from machine import Pin
-
-btn = Pin(2, Pin.IN)             # підтяжка вже на платі — просто IN, без PULL
-led = Pin(25, Pin.OUT)           # вбудований світлодіод
-
-while True:
-    if btn.value() == 1:         # pull-down: натиск = «1»
-        led.on()
-    else:
-        led.off()
-```
+:::code ky-004-button-d/cpp/iak-chytaty-knopku-v-kodi.cpp
+:::code ky-004-button-d/py/micropython/iak-chytaty-knopku-v-kodi.py
 :::
 
 Цей код працює — але **лише на pull-down платі**. Трапиться pull-up KY-004 — і логіка перевернеться: світлодіод горітиме у спокої й гаснутиме на натиск. А ще він **наївний до брязкоту**: механічний контакт кнопки в мить замикання кілька мілісекунд [клацає](root:hw-digital/contact-debounce), тож якщо рахувати натиски, один тик пальця нерідко зарахується як два-три.
@@ -130,61 +104,8 @@ while True:
 **Умова.** Той самий KY-004 на D2, але плата може бути будь-якої полярності. Хочемо ловити саме **момент натиску** (один раз на одне натискання) і рахувати натиски в Serial, не збиваючись від брязкоту.
 
 :::tabs
-```cpp
-const uint8_t PIN_BTN = 2;
-uint8_t idle;                    // рівень спокою — визначимо на старті
-long presses = 0;
-
-void setup() {
-  pinMode(PIN_BTN, INPUT);       // KY-004 має підтяжку на платі
-  Serial.begin(9600);
-  delay(20);                     // дати лінії влягтися
-  idle = digitalRead(PIN_BTN);   // що читається у спокої — те й «не натиснуто»
-  // idle==LOW → плата pull-down;  idle==HIGH → плата pull-up. Далі байдуже.
-}
-
-void loop() {
-  static uint8_t last = idle;    // попередній усталений стан
-  uint8_t now = digitalRead(PIN_BTN);
-
-  if (now != last) {             // рівень змінився — можливо, натиск або брязкіт
-    delay(15);                   // антибрязкіт: чекаємо, поки контакт устоїться
-    now = digitalRead(PIN_BTN);  // перечитуємо усталений рівень
-    if (now != last) {           // зміна справжня
-      last = now;
-      if (now != idle) {         // перейшли зі стану спокою — це НАТИСК
-        presses++;
-        Serial.println(presses);
-      }
-    }
-  }
-}
-```
-```micropython
-from machine import Pin
-from time import sleep_ms
-
-btn = Pin(2, Pin.IN)             # KY-004 має підтяжку на платі
-
-sleep_ms(20)                     # дати лінії влягтися
-idle = btn.value()               # що читається у спокої — те й «не натиснуто»
-# idle==0 → плата pull-down;  idle==1 → плата pull-up. Далі байдуже.
-
-last = idle                      # попередній усталений стан
-presses = 0
-
-while True:
-    now = btn.value()
-
-    if now != last:              # рівень змінився — можливо, натиск або брязкіт
-        sleep_ms(15)             # антибрязкіт: чекаємо, поки контакт устоїться
-        now = btn.value()        # перечитуємо усталений рівень
-        if now != last:          # зміна справжня
-            last = now
-            if now != idle:      # перейшли зі стану спокою — це НАТИСК
-                presses += 1
-                print(presses)
-```
+:::code ky-004-button-d/cpp/iak-chytaty-knopku-v-kodi-2.cpp
+:::code ky-004-button-d/py/micropython/iak-chytaty-knopku-v-kodi-2.py
 :::
 
 Тепер той самий скетч однаково працює на будь-якій KY-004: він не знає й не питає, pull-down плата чи pull-up, — він лише порівнює поточний рівень зі спокоєм. І брязкіт більше не роздвоює натиск, бо після кожної зміни код перечитує рівень аж коли контакт устоявся.

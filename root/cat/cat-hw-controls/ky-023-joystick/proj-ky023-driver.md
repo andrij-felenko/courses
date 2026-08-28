@@ -100,52 +100,8 @@ def calibrate_center(a, samples=64):
 Зберемо все в одну функцію. Вона й є серце драйвера:
 
 :::tabs
-```cpp
-// Сире число осі → −100..+100 із мертвою зоною біля нуля.
-int readAxis(const Axis &a) {
-    int raw = analogRead(a.pin);
-    int d   = raw - a.center;                  // відхилення від центру, знакове
-
-    // 1) мертва зона: близько до центру — це строгий нуль
-    if (d > -a.deadzone && d < a.deadzone) return 0;
-
-    int out;
-    if (d > 0) {
-        // додатний бік: від краю мертвої зони до верхнього краю ходу
-        out = map(d, a.deadzone, a.hi - a.center, 0, 100);
-    } else {
-        // від'ємний бік: від краю мертвої зони до нижнього краю ходу
-        out = map(d, -a.deadzone, a.lo - a.center, 0, -100);
-    }
-
-    out = constrain(out, -100, 100);           // не вилазити за діапазон
-    return a.invert ? -out : out;              // 3) інверсія осі, якщо треба
-}
-```
-```micropython
-# Лінійна пропорція цілими числами, як Arduino map().
-def _map(v, from_lo, from_hi, to_lo, to_hi):
-    return (v - from_lo) * (to_hi - to_lo) // (from_hi - from_lo) + to_lo
-
-# Сире число осі → −100..+100 із мертвою зоною біля нуля.
-def read_axis(a):
-    raw = a.pin.read()                         # ADC.read() → сире число
-    d = raw - a.center                         # відхилення від центру, знакове
-
-    # 1) мертва зона: близько до центру — це строгий нуль
-    if -a.deadzone < d < a.deadzone:
-        return 0
-
-    if d > 0:
-        # додатний бік: від краю мертвої зони до верхнього краю ходу
-        out = _map(d, a.deadzone, a.hi - a.center, 0, 100)
-    else:
-        # від'ємний бік: від краю мертвої зони до нижнього краю ходу
-        out = _map(d, -a.deadzone, a.lo - a.center, 0, -100)
-
-    out = max(-100, min(100, out))             # не вилазити за діапазон
-    return -out if a.invert else out           # 3) інверсія осі, якщо треба
-```
+:::code proj-ky023-driver/cpp/domasshtabuvaty-reshtu.cpp
+:::code proj-ky023-driver/py/micropython/domasshtabuvaty-reshtu.py
 :::
 
 Тут `map(value, fromLo, fromHi, toLo, toHi)` — стандартна Arduino-функція, що лінійно перекладає число з одного діапазону в інший; вона робить пропорцію, ту саму `(value − fromLo)·(toHi − toLo)/(fromHi − fromLo) + toLo`, тільки цілими числами. А `constrain` затискає результат у межі: без нього, якщо конкретний потенціометр дотягує трохи далі за розрахунковий край, вихід міг би вискочити за ±100 і зіпсувати логіку, що на нього спирається.
@@ -186,38 +142,8 @@ vertical   = vry          # ... і сюди vrx
 Чому саме так, а не «нахил = координата»? Бо хід джойстика короткий — пара сантиметрів, — а екран великий. Якби нахил задавав абсолютну позицію, увесь екран мусив би вміститися в ті два сантиметри ходу, і навести на дрібну ціль стало б неможливо: найменший дрож руки перестрибував би півекрана. А «нахил = швидкість» дає обидва режими одразу: ледь торкнувся — повзеш по пікселю, вихилив — летиш через увесь екран.
 
 :::tabs
-```cpp
-int cursorX = 64, cursorY = 32;         // поточна позиція (напр. пікселі дисплея)
-
-void moveCursor() {
-    int vx = readAxis(horizontal);      // −100..+100
-    int vy = readAxis(vertical);
-
-    // швидкість у «пікселів за крок»: 100 на осі → 5 пікселів за виклик
-    cursorX += vx / 20;
-    cursorY += vy / 20;
-
-    // не давати курсору втекти за межі екрана 128×64
-    cursorX = constrain(cursorX, 0, 127);
-    cursorY = constrain(cursorY,  0,  63);
-}
-```
-```micropython
-cursor_x, cursor_y = 64, 32             # поточна позиція (напр. пікселі дисплея)
-
-def move_cursor():
-    global cursor_x, cursor_y
-    vx = read_axis(horizontal)          # −100..+100
-    vy = read_axis(vertical)
-
-    # швидкість у «пікселів за крок»: 100 на осі → 5 пікселів за виклик
-    cursor_x += int(vx / 20)
-    cursor_y += int(vy / 20)
-
-    # не давати курсору втекти за межі екрана 128×64
-    cursor_x = max(0, min(127, cursor_x))
-    cursor_y = max(0, min(63,  cursor_y))
-```
+:::code proj-ky023-driver/cpp/retsept-1-vesty-kursor-chy.cpp
+:::code proj-ky023-driver/py/micropython/retsept-1-vesty-kursor-chy.py
 :::
 
 Ділення `vx / 20` — це і є «чутливість»: більший дільник робить курсор повільнішим і точнішим, менший — швидшим і нервовішим. Оскільки `readAxis` уже віддає чесний нуль у спокої (завдяки мертвій зоні), відпущений джойстик додає рівно нуль, і курсор стоїть як укопаний — без «повзання», яким славляться наївні реалізації без калібрування.
@@ -231,35 +157,8 @@ def move_cursor():
 Питання лише в тому, як дві осі джойстика лягають на дві швидкості. Найінтуїтивніший спосіб — **керування однією ручкою через змішування**: вісь Y (вперед-назад) задає спільний хід, вісь X (вліво-вправо) додає різницю. Змішуємо їх арифметично:
 
 :::tabs
-```cpp
-// Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
-struct Motors { int left, right; };
-
-Motors tankMix() {
-    int drive = readAxis(vertical);     // вперед/назад: спільна складова
-    int turn  = readAxis(horizontal);   // ліворуч/праворуч: різницева складова
-
-    int left  = drive + turn;           // праворуч → лівий мотор швидше
-    int right = drive - turn;           // ... а правий повільніше
-
-    left  = constrain(left,  -100, 100);
-    right = constrain(right, -100, 100);
-    return { left, right };
-}
-```
-```micropython
-# Танкове змішування: одна ручка → дві швидкості моторів (−100..+100 кожна).
-def tank_mix():
-    drive = read_axis(vertical)         # вперед/назад: спільна складова
-    turn  = read_axis(horizontal)       # ліворуч/праворуч: різницева складова
-
-    left  = drive + turn                # праворуч → лівий мотор швидше
-    right = drive - turn                # ... а правий повільніше
-
-    left  = max(-100, min(100, left))
-    right = max(-100, min(100, right))
-    return left, right
-```
+:::code proj-ky023-driver/cpp/retsept-2-tankove.cpp
+:::code proj-ky023-driver/py/micropython/retsept-2-tankove.py
 :::
 
 Чому `left = drive + turn`, а не навпаки? Проведімо це руками, бо тут легко наплутати знак і потім довго дивуватися, чому робот крутить не туди. Хай `drive = 0` (стоїмо), а `turn = +100` (ручка вправо до кінця). Тоді `left = +100`, `right = −100`: ліве колесо крутиться вперед, праве назад — робот розвертається **праворуч** на місці. Саме те, що очікуєш від «ручка вправо». Якщо на твоєму залізі виходить дзеркально — не переписуй формулу, а інвертуй потрібний мотор у полі `invert` відповідної осі; логіка змішування має лишатися чистою.
@@ -275,54 +174,8 @@ def tank_mix():
 Ідея переходу від осей до напрямків — розбити площину навколо центру на сектори. Але робити це через кути (арктангенс, вимірювання градусів) — і повільно на дрібному мікроконтролері, і зайво. Значно простіше й надійніше — **звести кожну вісь до трьох станів** (−1, 0, +1) з тим самим порогом мертвої зони, а тоді з двох таких «трійкових» осей скласти напрямок. Двовимірна решітка 3×3 дає рівно дев'ять клітин: центральна — спокій, чотири бічні — прямі напрямки, чотири кутові — діагоналі.
 
 :::tabs
-```cpp
-enum Dir { DIR_NONE, DIR_N, DIR_NE, DIR_E, DIR_SE,
-           DIR_S, DIR_SW, DIR_W, DIR_NW };
-
-// Звести вісь до знака −1/0/+1 за порогом (частка від повного ходу).
-int sign3(int v, int threshold = 40) {
-    if (v >  threshold) return  1;
-    if (v < -threshold) return -1;
-    return 0;
-}
-
-Dir readDir() {
-    int hx = sign3(readAxis(horizontal));   // −1, 0, +1  (захід … схід)
-    int hy = sign3(readAxis(vertical));     // −1, 0, +1  (південь … північ)
-
-    if (hx == 0 && hy == 0) return DIR_NONE;
-
-    // 3×3 → напрямок; вважаємо +Y = північ (вгору), +X = схід (вправо)
-    if (hy ==  1) return (hx == -1) ? DIR_NW : (hx == 1) ? DIR_NE : DIR_N;
-    if (hy == -1) return (hx == -1) ? DIR_SW : (hx == 1) ? DIR_SE : DIR_S;
-    return (hx == -1) ? DIR_W : DIR_E;      // hy == 0, hx ≠ 0
-}
-```
-```micropython
-# Напрямки як прості константи (IntEnum на MicroPython зайвий).
-DIR_NONE, DIR_N, DIR_NE, DIR_E, DIR_SE = 0, 1, 2, 3, 4
-DIR_S, DIR_SW, DIR_W, DIR_NW = 5, 6, 7, 8
-
-# Звести вісь до знака −1/0/+1 за порогом (частка від повного ходу).
-def sign3(v, threshold=40):
-    if v >  threshold: return  1
-    if v < -threshold: return -1
-    return 0
-
-def read_dir():
-    hx = sign3(read_axis(horizontal))       # −1, 0, +1  (захід … схід)
-    hy = sign3(read_axis(vertical))         # −1, 0, +1  (південь … північ)
-
-    if hx == 0 and hy == 0:
-        return DIR_NONE
-
-    # 3×3 → напрямок; вважаємо +Y = північ (вгору), +X = схід (вправо)
-    if hy ==  1:
-        return DIR_NW if hx == -1 else DIR_NE if hx == 1 else DIR_N
-    if hy == -1:
-        return DIR_SW if hx == -1 else DIR_SE if hx == 1 else DIR_S
-    return DIR_W if hx == -1 else DIR_E     # hy == 0, hx ≠ 0
-```
+:::code proj-ky023-driver/cpp/retsept-3-visim-napriamkiv.cpp
+:::code proj-ky023-driver/py/micropython/retsept-3-visim-napriamkiv.py
 :::
 
 Поріг `threshold = 40` тут важливіший, ніж здається, і задає **розмір «мертвого хреста»** між напрямками. Візьми його замалим — і напрямки перемикатимуться від найменшого дотику, а на межі секторів команда тремтітиме між, скажімо, «північ» і «північний схід». Візьми завеликим — і доведеться хилити ручку майже до упору, щоб узагалі спрацювало. Сорок відсотків повного ходу — розумний початок: спокійна зона широка, а до країв усе однозначно.
@@ -343,79 +196,8 @@ def read_dir():
 Загорнемо кнопку в маленьку структуру, як робили з віссю, і винесемо з неї дві корисні події: `pressed` (рівно один імпульс у мить натискання) і `held` (рівний рівень «тримають зараз»). Саме `pressed` — те, що потрібне для лічби кліків і перемикання режимів.
 
 :::tabs
-```cpp
-struct Button {
-    uint8_t  pin;
-    bool     stable;        // останній сталий (гашений) рівень: true = відпущено
-    bool     lastRead;      // останній миттєвий відлік — для лічби вікна
-    uint32_t lastChange;    // коли миттєвий рівень востаннє змінився, мс
-    bool     pressedEvent;  // виставляється на один цикл у мить натиску
-};
-
-const uint32_t DEBOUNCE_MS = 25;
-
-void buttonSetup(Button &b, uint8_t pin) {
-    b.pin = pin;
-    pinMode(pin, INPUT_PULLUP);         // на модулі підтяжки немає!
-    b.stable = b.lastRead = true;       // спокій = HIGH (відпущено)
-    b.lastChange = millis();
-    b.pressedEvent = false;
-}
-
-// Викликати щоцикл. Оновлює стан; pressedEvent — один імпульс на натиск.
-void buttonUpdate(Button &b) {
-    b.pressedEvent = false;
-    bool now = digitalRead(b.pin);      // HIGH = відпущено, LOW = натиснуто
-
-    if (now != b.lastRead) {            // рівень смикнувся — перезапустити вікно
-        b.lastChange = millis();
-        b.lastRead   = now;
-    }
-
-    // рівень протримався сталим досить довго — приймаємо його
-    if (millis() - b.lastChange >= DEBOUNCE_MS && now != b.stable) {
-        b.stable = now;
-        if (b.stable == LOW)            // перехід HIGH→LOW = справжній натиск
-            b.pressedEvent = true;
-    }
-}
-
-bool buttonPressed(Button &b) { return b.pressedEvent; }         // один імпульс
-bool buttonHeld(Button &b)    { return b.stable == LOW; }        // тримають зараз
-```
-```micropython
-import time
-from machine import Pin
-
-DEBOUNCE_MS = 25
-
-class Button:
-    def __init__(self, pin_num):
-        self.pin = Pin(pin_num, Pin.IN, Pin.PULL_UP)  # на модулі підтяжки немає!
-        self.stable = True                   # спокій = HIGH (відпущено)
-        self.last_read = True                # останній миттєвий відлік
-        self.last_change = time.ticks_ms()   # коли рівень востаннє змінився, мс
-        self.pressed_event = False           # один імпульс у мить натиску
-
-    # Викликати щоцикл. Оновлює стан; pressed_event — один імпульс на натиск.
-    def update(self):
-        self.pressed_event = False
-        now = bool(self.pin.value())         # 1 = відпущено, 0 = натиснуто
-
-        if now != self.last_read:            # рівень смикнувся — перезапустити вікно
-            self.last_change = time.ticks_ms()
-            self.last_read = now
-
-        # рівень протримався сталим досить довго — приймаємо його
-        if time.ticks_diff(time.ticks_ms(), self.last_change) >= DEBOUNCE_MS \
-                and now != self.stable:
-            self.stable = now
-            if not self.stable:              # перехід HIGH→LOW = справжній натиск
-                self.pressed_event = True
-
-    def pressed(self):  return self.pressed_event   # один імпульс
-    def held(self):     return not self.stable      # тримають зараз
-```
+:::code proj-ky023-driver/cpp/retsept-4-chystyi-natysk.cpp
+:::code proj-ky023-driver/py/micropython/retsept-4-chystyi-natysk.py
 :::
 
 Прочитаймо логіку, бо вона хитріша за вигляд. Змінна `lastRead` стежить за **миттєвим** рівнем: щойно він відрізнився від попереднього — ми не робимо нічого, крім як заводимо годинник `lastChange` наново. Поки контакт деренчить, цей годинник раз у раз скидається й ніколи не встигає добігти до 25 мс — тож `stable` не рухається, брязкіт мовчить. Аж коли рівень нарешті вгамувався й протримався 25 мс без смикань, ми приймаємо його в `stable`; і саме в мить, коли `stable` уперше стало `LOW`, виставляємо `pressedEvent` на один цикл. Наступний виклик його погасить. Отак із брудної черги імпульсів народжується рівно одна чиста подія «натиснуто».
@@ -426,83 +208,7 @@ class Button:
 
 Складімо драйвер і всі рецепти в один робочий скетч під Arduino Uno чи Nano. Осі на A0/A1, кнопка на D2. Скетч показує все відразу: калібрує центр на старті, читає обидві осі в −100…+100, рахує танкове змішування й ловить чисті натиски кнопки, друкуючи їх у монітор порту.
 
-```cpp
-// ── KY-023 повний драйвер — Arduino Uno/Nano (10-бітний АЦП, 0..1023) ──
-const int ADC_MAX = 1023;               // 10 біт
-
-struct Axis {
-    uint8_t pin; int center, lo, hi, deadzone; bool invert;
-};
-Axis vrx = { A0, 512, 0, ADC_MAX, 24, false };
-Axis vry = { A1, 512, 0, ADC_MAX, 24, false };
-Axis &horizontal = vrx;
-Axis &vertical   = vry;
-
-void calibrateCenter(Axis &a, uint8_t samples = 64) {
-    long acc = 0;
-    for (uint8_t i = 0; i < samples; i++) { acc += analogRead(a.pin); delay(3); }
-    a.center = acc / samples;
-}
-
-int readAxis(const Axis &a) {
-    int d = analogRead(a.pin) - a.center;
-    if (d > -a.deadzone && d < a.deadzone) return 0;
-    int out = (d > 0) ? map(d, a.deadzone, a.hi - a.center, 0,  100)
-                      : map(d, -a.deadzone, a.lo - a.center, 0, -100);
-    out = constrain(out, -100, 100);
-    return a.invert ? -out : out;
-}
-
-// ── кнопка з неблокуючим гасінням ──
-struct Button { uint8_t pin; bool stable, lastRead; uint32_t lastChange; bool ev; };
-const uint32_t DEBOUNCE_MS = 25;
-Button sw;
-
-void buttonSetup(Button &b, uint8_t pin) {
-    b.pin = pin; pinMode(pin, INPUT_PULLUP);
-    b.stable = b.lastRead = true; b.lastChange = millis(); b.ev = false;
-}
-void buttonUpdate(Button &b) {
-    b.ev = false;
-    bool now = digitalRead(b.pin);
-    if (now != b.lastRead) { b.lastChange = millis(); b.lastRead = now; }
-    if (millis() - b.lastChange >= DEBOUNCE_MS && now != b.stable) {
-        b.stable = now;
-        if (b.stable == LOW) b.ev = true;
-    }
-}
-
-long clicks = 0;
-
-void setup() {
-    Serial.begin(9600);
-    calibrateCenter(vrx);               // ручку НЕ чіпати під час старту!
-    calibrateCenter(vry);
-    buttonSetup(sw, 2);
-    Serial.print("Центр: X="); Serial.print(vrx.center);
-    Serial.print(" Y=");       Serial.println(vry.center);
-}
-
-void loop() {
-    buttonUpdate(sw);
-    if (sw.ev) { clicks++; Serial.print("клік #"); Serial.println(clicks); }
-
-    int vx = readAxis(horizontal);
-    int vy = readAxis(vertical);
-
-    // танкове змішування — приклад використання осей
-    int left  = constrain(vy + vx, -100, 100);
-    int right = constrain(vy - vx, -100, 100);
-
-    Serial.print("X="); Serial.print(vx);
-    Serial.print(" Y="); Serial.print(vy);
-    Serial.print("  L="); Serial.print(left);
-    Serial.print(" R=");  Serial.print(right);
-    Serial.print(sw.stable == LOW ? "  [тримають]" : "");
-    Serial.println();
-    delay(30);                          // рівний темп циклу
-}
-```
+:::code proj-ky023-driver/cpp/povnyi-sketch-pid-arduino.cpp
 
 Залий, відкрий монітор порту на 9600 — і в рядку побачиш обидві осі коло нуля в спокої, змішані швидкості моторів і лічильник кліків, що росте рівно на одиницю за натиск, попри брязкіт. Одне залізне правило старту: **під час `setup()` ручку не чіпай**, бо саме тоді міряється центр; торкнешся — «нуль» поповзе, і в роботі відпущений джойстик даватиме ненульове число.
 
@@ -516,18 +222,7 @@ void loop() {
 
 **Третє — який пін вибрати під вісь.** Тут ховається пастка, якої на Arduino не буває зовсім. У ESP32 два аналого-цифрові блоки, ADC1 і ADC2, і **ADC2 конфліктує з Wi-Fi**: щойно радіо ввімкнене, входи ADC2 віддають випадкове сміття замість напруги. Перевірено за документацією Espressif і трекером Arduino-ESP32: піни ADC2 не можна читати як аналогові, поки працює Wi-Fi. Тому осі джойстика вішай на входи **ADC1** — це GPIO 32, 33, 34, 35, 36, 37, 38, 39. Якщо радіо тобі не потрібне, ADC2 теж спрацює; але поставити осі на ADC1 нічого не коштує й одразу знімає цілий клас загадкових «джойстик дуріє, відколи ввімкнув Wi-Fi».
 
-```cpp
-// ── KY-023 під ESP32 (12-бітний АЦП, 0..4095) — відмінності від Arduino ──
-const int ADC_MAX = 4095;               // 12 біт: центр у спокої ≈ 2048
-
-// Осі — на входах ADC1 (безпечні з Wi-Fi). Живлення модуля — 3V3, НЕ 5V!
-Axis vrx = { 34, 2048, 0, ADC_MAX, 90, false };   // GPIO34 = ADC1
-Axis vry = { 35, 2048, 0, ADC_MAX, 90, false };   // GPIO35 = ADC1
-Axis &horizontal = vrx;
-Axis &vertical   = vry;
-// кнопку — на будь-який звичайний GPIO зі входом і підтяжкою, напр. GPIO25
-// (GPIO34/35/36/39 — «тільки вхід» і БЕЗ внутрішньої підтяжки, для кнопки не годяться!)
-```
+:::code proj-ky023-driver/cpp/povnyi-sketch-pid-esp32-12.cpp
 
 Дві дрібніші, але дошкульні відмінності на закуску. **Мертву зону масштабуй разом із розмахом**: 24 одиниці на 10-бітній Arduino — це той самий поріг, що ≈90 на 12-бітному ESP32 (розмах учетверо ширший, тож і смужка вчетверо ширша в одиницях). Візьмеш ту саму цифру 24 на ESP32 — мертва зона вийде вчетверо вужчою, і біля центру знову з'явиться дрож. І про **піни кнопки**: частина ніжок ESP32 (GPIO 34, 35, 36, 39) — «тільки вхід» і не мають внутрішньої підтяжки взагалі, тож `INPUT_PULLUP` на них нічого не тримає, і гола кнопка SW знову висітиме. Вішай кнопку на пін зі справжньою підтяжкою (майже будь-який інший GPIO), а «тільки-вхідні» бережи для осей, яким підтяжка ні до чого.
 

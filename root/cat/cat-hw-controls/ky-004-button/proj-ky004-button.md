@@ -59,202 +59,15 @@
 Ось повна обгортка. Пишемо як заголовний клас — увесь у `.h`, щоб просто вкинути в скетч; ніяких зовнішніх бібліотек, чистий Arduino/ESP32. Читай із коментарями — кожен шматок закриває один пункт нашого списку.
 
 :::tabs
-```cpp
-// Button.h — неблокуюча обгортка кнопки під KY-004 (і будь-яку іншу).
-// Сама визначає полярність (спокій на старті), гасить брязкіт,
-// віддає події «натиснуто/відпущено» й детектить довгий натиск.
-#pragma once
-#include <Arduino.h>
-
-class Button {
-public:
-  // pin — цифровий вивід із сигналом; debounceMs — вікно антибрязкоту;
-  // longMs — поріг довгого натиску (0 → детект вимкнено).
-  Button(uint8_t pin, uint16_t debounceMs = 15, uint16_t longMs = 800)
-    : _pin(pin), _debounce(debounceMs), _long(longMs) {}
-
-  // Викликати один раз у setup(). Пін — як INPUT: підтяжка вже на платі KY-004.
-  void begin() {
-    pinMode(_pin, INPUT);
-    delay(2);                        // дати лінії влягтися перед зчитуванням спокою
-    _idle    = digitalRead(_pin);    // рівень спокою → еталон «відпущено»
-    _stable  = _idle;                // усталений стан стартує зі спокою
-    _reading = _idle;
-    _changed = millis();
-    _pressedNow = _releasedNow = _longNow = false;
-    _longFired  = false;
-  }
-
-  // Викликати ЧАСТО (щопрохід loop). Не блокує. Оновлює стан і зводить події.
-  void update() {
-    _pressedNow = _releasedNow = _longNow = false;   // події живуть один прохід
-    uint32_t now = millis();
-    uint8_t raw = digitalRead(_pin);
-
-    if (raw != _reading) {           // сирий рівень смикнувся — почати відлік вікна
-      _reading = raw;
-      _changed = now;
-    }
-
-    // рівень протримався стабільно ціле вікно → визнати його усталеним
-    if ((uint32_t)(now - _changed) >= _debounce && raw != _stable) {
-      _stable = raw;
-      if (_stable != _idle) {        // перейшли зі спокою → НАТИСК
-        _pressedNow = true;
-        _pressStart = now;
-        _longFired  = false;
-      } else {                       // повернулися у спокій → ВІДПУЩЕНО
-        _releasedNow = true;
-      }
-    }
-
-    // довгий натиск: кнопка усталено натиснута довше за поріг — раз на утримання
-    if (_long && isPressed() && !_longFired &&
-        (uint32_t)(now - _pressStart) >= _long) {
-      _longNow   = true;
-      _longFired = true;
-    }
-  }
-
-  // ── Питання назовні ────────────────────────────────────────────────
-  bool isPressed()  const { return _stable != _idle; }  // усталений стан «натиснуто»
-  bool pressed()    const { return _pressedNow;  }       // мить натиску (1 прохід)
-  bool released()   const { return _releasedNow; }       // мить відпускання
-  bool longPress()  const { return _longNow;     }       // щойно перетнули поріг утримання
-
-private:
-  uint8_t  _pin, _idle = LOW, _stable = LOW, _reading = LOW;
-  uint16_t _debounce, _long;
-  uint32_t _changed = 0, _pressStart = 0;
-  bool _pressedNow = false, _releasedNow = false, _longNow = false, _longFired = false;
-};
-```
-```micropython
-# button.py — неблокуюча обгортка кнопки під KY-004 (і будь-яку іншу).
-# Сама визначає полярність (спокій на старті), гасить брязкіт,
-# віддає події «натиснуто/відпущено» й детектить довгий натиск.
-from machine import Pin
-from time import ticks_ms, ticks_diff, sleep_ms
-
-
-class Button:
-    # pin — номер цифрового виводу із сигналом; debounce_ms — вікно антибрязкоту;
-    # long_ms — поріг довгого натиску (0 → детект вимкнено).
-    def __init__(self, pin, debounce_ms=15, long_ms=800):
-        self._pin_num = pin
-        self._debounce = debounce_ms
-        self._long = long_ms
-
-    # Викликати один раз на старті. Пін — як IN: підтяжка вже на платі KY-004.
-    def begin(self):
-        self._pin = Pin(self._pin_num, Pin.IN)
-        sleep_ms(2)                       # дати лінії влягтися перед зчитуванням спокою
-        self._idle = self._pin.value()    # рівень спокою → еталон «відпущено»
-        self._stable = self._idle         # усталений стан стартує зі спокою
-        self._reading = self._idle
-        self._changed = ticks_ms()
-        self._press_start = 0
-        self._pressed_now = False
-        self._released_now = False
-        self._long_now = False
-        self._long_fired = False
-
-    # Викликати ЧАСТО (щопрохід циклу). Не блокує. Оновлює стан і зводить події.
-    def update(self):
-        self._pressed_now = False         # події живуть один прохід
-        self._released_now = False
-        self._long_now = False
-        now = ticks_ms()
-        raw = self._pin.value()
-
-        if raw != self._reading:          # сирий рівень смикнувся — почати відлік вікна
-            self._reading = raw
-            self._changed = now
-
-        # рівень протримався стабільно ціле вікно → визнати його усталеним
-        if ticks_diff(now, self._changed) >= self._debounce and raw != self._stable:
-            self._stable = raw
-            if self._stable != self._idle:   # перейшли зі спокою → НАТИСК
-                self._pressed_now = True
-                self._press_start = now
-                self._long_fired = False
-            else:                            # повернулися у спокій → ВІДПУЩЕНО
-                self._released_now = True
-
-        # довгий натиск: кнопка усталено натиснута довше за поріг — раз на утримання
-        if (self._long and self.is_pressed() and not self._long_fired
-                and ticks_diff(now, self._press_start) >= self._long):
-            self._long_now = True
-            self._long_fired = True
-
-    # ── Питання назовні ────────────────────────────────────────────────
-    def is_pressed(self):   return self._stable != self._idle  # усталений стан «натиснуто»
-    def pressed(self):      return self._pressed_now           # мить натиску (1 прохід)
-    def released(self):     return self._released_now          # мить відпускання
-    def long_press(self):   return self._long_now              # щойно перетнули поріг утримання
-```
+:::code proj-ky004-button/cpp/robochyi-kod-klas-button.hpp
+:::code proj-ky004-button/py/micropython/button.py
 :::
 
 Тепер — як цим користуватися. Скетч, що на короткий натиск перемикає світлодіод, а на довгий — гасить його й друкує лічильник:
 
 :::tabs
-```cpp
-#include "Button.h"
-
-Button btn(2);                 // сигнал KY-004 на D2; вікно 15 мс, довгий 800 мс — за замовчуванням
-const uint8_t LED = 13;
-bool ledOn = false;
-long presses = 0;
-
-void setup() {
-  Serial.begin(9600);
-  pinMode(LED, OUTPUT);
-  btn.begin();                 // тут визначиться полярність — не тримай кнопку!
-}
-
-void loop() {
-  btn.update();                // єдиний обов'язок: смикати часто й неблокуюче
-
-  if (btn.pressed()) {         // мить натиску — рівно раз на тик
-    ledOn = !ledOn;
-    digitalWrite(LED, ledOn);
-    presses++;
-  }
-  if (btn.longPress()) {       // тримали довше 800 мс
-    ledOn = false;
-    digitalWrite(LED, LOW);
-    Serial.print("натисків: ");
-    Serial.println(presses);
-  }
-
-  // ... тут може бути будь-що інше: loop не блокується кнопкою ...
-}
-```
-```micropython
-from machine import Pin
-from button import Button
-
-btn = Button(2)                    # сигнал KY-004 на GPIO2; вікно 15 мс, довгий 800 мс — за замовчуванням
-led = Pin(13, Pin.OUT)
-led_on = False
-presses = 0
-
-btn.begin()                        # тут визначиться полярність — не тримай кнопку!
-
-while True:
-    btn.update()                   # єдиний обов'язок: смикати часто й неблокуюче
-
-    if btn.pressed():              # мить натиску — рівно раз на тик
-        led_on = not led_on
-        led.value(led_on)
-        presses += 1
-    if btn.long_press():           # тримали довше 800 мс
-        led_on = False
-        led.value(0)
-        print("натисків:", presses)
-
-    # ... тут може бути будь-що інше: цикл не блокується кнопкою ...
-```
+:::code proj-ky004-button/cpp/robochyi-kod-klas-button.cpp
+:::code proj-ky004-button/py/micropython/robochyi-kod-klas-button.py
 :::
 
 Зверни увагу, чого тут **немає**: жодного `delay` у `loop`, жодного `digitalRead` напряму, жодного `if (level == HIGH)`. Уся полярність, увесь брязкіт, уся арифметика утримання сховані. Назовні лишилися тільки змістовні питання. І цей самий скетч ти можеш перенести на pull-up KY-004, не змінивши ні рядка, — `begin()` розбереться сам.
@@ -314,31 +127,8 @@ _idle = digitalRead(_pin);
 **Кілька кнопок — просто масив, але один `update()` кожній.** Клас спеціально маленький і без статичного стану, тож кнопок можна завести скільки треба:
 
 :::tabs
-```cpp
-Button btns[3] = { Button(2), Button(3), Button(4) };
-
-void setup() {
-  for (auto& b : btns) b.begin();   // кожна визначить свою полярність окремо
-}
-
-void loop() {
-  for (auto& b : btns) b.update();  // кожній — свій update щопрохід
-  if (btns[0].pressed()) { /* ... */ }
-  if (btns[1].longPress()) { /* ... */ }
-}
-```
-```micropython
-btns = [Button(2), Button(3), Button(4)]
-
-for b in btns:
-    b.begin()                       # кожна визначить свою полярність окремо
-
-while True:
-    for b in btns:
-        b.update()                  # кожній — свій update щопрохід
-    if btns[0].pressed():    ...    # ...
-    if btns[1].long_press(): ...    # ...
-```
+:::code proj-ky004-button/cpp/skladnist-i-pastky.cpp
+:::code proj-ky004-button/py/micropython/skladnist-i-pastky.py
 :::
 
 Кожен об'єкт тримає свій стан (лічені байти), полярність визначає незалежно — тож на одній платі можеш мати pull-down і pull-up KY-004 поряд, і код на це навіть не гляне. Єдина дисципліна та сама: кожній кнопці — свій `update()` раз за прохід.
