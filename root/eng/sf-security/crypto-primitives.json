@@ -1,588 +1,618 @@
 {
- "schema": 7,
- "kind": "eng",
- "book": "sf-security",
- "slug": "crypto-primitives",
- "title": "Криптографічні примітиви",
- "scope": "",
- "chapters": [
-  {
-   "slug": "randomness",
-   "title": "Джерела випадковості",
-   "topics": [
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "crypto-primitives",
+  "title": "Криптографічні примітиви",
+  "scope": "",
+  "chapters": [
     {
-     "slug": "entropy-source",
-     "title": "Джерело ентропії (TRNG)",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "api": [
-      {
-       "file": "api-kernel-random-syscalls.md",
-       "status": "recheck"
-      }
-     ],
-     "hist": [
-      {
-       "file": "hist-lavarand-and-trng-flaws.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-min-entropy-extraction.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-health-tests-rct-apt.md",
-       "status": "recheck"
-      }
-     ]
+      "slug": "randomness",
+      "title": "Джерела випадковості",
+      "topics": [
+        {
+          "slug": "entropy-source",
+          "title": "Джерело ентропії (TRNG)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-kernel-random-syscalls.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-lavarand-and-trng-flaws.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-min-entropy-extraction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-health-tests-rct-apt.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "csprng",
+          "title": "Криптографічний генератор випадкових чисел (CSPRNG)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rng-disasters.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-unpredictability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-key-erasure.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
     },
     {
-     "slug": "csprng",
-     "title": "Криптографічний генератор випадкових чисел (CSPRNG)",
-     "basic": {
-      "status": "pending"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-rng-disasters.md",
-       "status": "done"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-unpredictability.md",
-       "status": "done"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-fast-key-erasure.md",
-       "status": "done"
-      }
-     ]
+      "slug": "symmetric-ciphers",
+      "title": "Симетричні шифри",
+      "topics": [
+        {
+          "slug": "block-cipher",
+          "title": "Блоковий шифр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-feistel-to-rijndael.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spn-galois.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aes-constant-time.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "stream-cipher",
+          "title": "Потоковий шифр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vernam-to-chacha.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-berlekamp-massey.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chacha20-stream.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cose-and-cwt-iot-security",
+          "title": "Криптографічні структури COSE та токени безпеки CWT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "format-preserving-encryption",
+          "title": "Шифрування зі збереженням формату (FPE): режими FF1, FF3-1 та токенізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hash-functions",
+      "title": "Гешфункції й похідні ключі",
+      "topics": [
+        {
+          "slug": "cryptographic-hash",
+          "title": "Криптографічні гешфункції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "cryptographic-hash-functions",
+          "title": "Криптографічні хеш-функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hash-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chp-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-merkle-damgard.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "key-derivation-function",
+          "title": "Похідні ключі: KDF і HKDF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "password-hashing",
+          "title": "Зберігання паролів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-phc-and-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tmto-and-entropy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-argon2-rehash-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-password-hashers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hard-problems",
+      "title": "Тверді задачі",
+      "topics": [
+        {
+          "slug": "discrete-log-problem",
+          "title": "Проблема дискретного логарифма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-diffie-hellman-dlog.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pohlig-hellman.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dlog-solvers.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dlog-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lattice-cryptography",
+          "title": "Решіткова криптографія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lattice-cryptography.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lattice-foundations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lwe-implementation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pqc-standards.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "public-key-ciphers",
+      "title": "Шифри з відкритим ключем",
+      "topics": [
+        {
+          "slug": "public-key-crypto",
+          "title": "Криптографія з відкритим ключем: ключі, підпис, ланцюг сертифікатів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-public-key-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-trapdoor-functions.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cert-chain-verify.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-x509-asn1.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rsa",
+          "title": "RSA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "rsa-cryptosystem",
+          "title": "Криптосистема RSA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rsa-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rsa-correctness-and-attacks.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rsa-implementation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rsa-keys-and-formats.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "diffie-hellman",
+          "title": "Обмін ключами Діффі — Геллмана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-crypto-key-exchange.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-merkle-diffie-hellman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-subgroup-confinement.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ecdh-x25519.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "paillier-cryptosystem",
+          "title": "Криптосистема Пайє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-paillier-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-composite-residuosity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-paillier-implementation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-paillier-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "threshold-signatures",
+          "title": "Порогові підписи та криптографічна агрегація: (t, n)-схеми, BLS та DKG",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "information-theoretic",
+      "title": "Досконала таємність",
+      "topics": [
+        {
+          "slug": "perfect-secrecy",
+          "title": "Досконала таємність Шеннона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vernam-shannon.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shannon-entropy-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-one-time-pad.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "shamir-secret-sharing",
+          "title": "Розділення секрету Шаміра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shamir-secret-sharing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shamir-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shamir-secret-sharing.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cryptanalysis",
+      "title": "Криптоаналіз",
+      "topics": [
+        {
+          "slug": "pohlig-hellman-algorithm",
+          "title": "Алгоритм Поліга — Геллмана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pohlig-hellman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pohlig-hellman-prime-power.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pohlig-hellman.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lll-algorithm",
+          "title": "LLL-алгоритм редукції ґраток",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lenstra-lovasz.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gram-schmidt-reduction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lattice-reduction.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "berlekamp-massey",
+          "title": "Алгоритм Берлекампа–Мессі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
     }
-   ]
-  },
-  {
-   "slug": "symmetric-ciphers",
-   "title": "Симетричні шифри",
-   "topics": [
-    {
-     "slug": "block-cipher",
-     "title": "Блоковий шифр",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-feistel-to-rijndael.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-spn-galois.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-aes-constant-time.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "stream-cipher",
-     "title": "Потоковий шифр",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-vernam-to-chacha.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-berlekamp-massey.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-chacha20-stream.md",
-       "status": "recheck"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "hash-functions",
-   "title": "Гешфункції й похідні ключі",
-   "topics": [
-    {
-     "slug": "cryptographic-hash",
-     "title": "Криптографічні гешфункції",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     }
-    },
-    {
-     "slug": "cryptographic-hash-functions",
-     "title": "Криптографічні хеш-функції",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-hash-evolution.md",
-       "status": "done"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-chp-proof.md",
-       "status": "done"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-merkle-damgard.md",
-       "status": "done"
-      }
-     ]
-    },
-    {
-     "slug": "key-derivation-function",
-     "title": "Похідні ключі: KDF і HKDF",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     }
-    },
-    {
-     "slug": "password-hashing",
-     "title": "Зберігання паролів",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-phc-and-evolution.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-tmto-and-entropy.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-argon2-rehash-pipeline.md",
-       "status": "recheck"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-password-hashers.md",
-       "status": "recheck"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "hard-problems",
-   "title": "Тверді задачі",
-   "topics": [
-    {
-     "slug": "discrete-log-problem",
-     "title": "Проблема дискретного логарифма",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-diffie-hellman-dlog.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-pohlig-hellman.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-dlog-solvers.md",
-       "status": "recheck"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-dlog-interface.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "lattice-cryptography",
-     "title": "Решіткова криптографія",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-lattice-cryptography.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-lattice-foundations.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-lwe-implementation.md",
-       "status": "recheck"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-pqc-standards.md",
-       "status": "recheck"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "public-key-ciphers",
-   "title": "Шифри з відкритим ключем",
-   "topics": [
-    {
-     "slug": "public-key-crypto",
-     "title": "Криптографія з відкритим ключем: ключі, підпис, ланцюг сертифікатів",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-public-key-revolution.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-trapdoor-functions.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-cert-chain-verify.md",
-       "status": "recheck"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-x509-asn1.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "rsa",
-     "title": "RSA",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     }
-    },
-    {
-     "slug": "rsa-cryptosystem",
-     "title": "Криптосистема RSA",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-rsa-genesis.md",
-       "status": "done"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-rsa-correctness-and-attacks.md",
-       "status": "done"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-rsa-implementation.md",
-       "status": "done"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-rsa-keys-and-formats.md",
-       "status": "done"
-      }
-     ]
-    },
-    {
-     "slug": "diffie-hellman",
-     "title": "Обмін ключами Діффі — Геллмана",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "api": [
-      {
-       "file": "api-crypto-key-exchange.md",
-       "status": "recheck"
-      }
-     ],
-     "hist": [
-      {
-       "file": "hist-merkle-diffie-hellman.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-subgroup-confinement.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-ecdh-x25519.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "paillier-cryptosystem",
-     "title": "Криптосистема Пайє",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-paillier-origin.md",
-       "status": "done"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-composite-residuosity.md",
-       "status": "done"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-paillier-implementation.md",
-       "status": "done"
-      }
-     ],
-     "api": [
-      {
-       "file": "api-paillier-interface.md",
-       "status": "done"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "information-theoretic",
-   "title": "Досконала таємність",
-   "topics": [
-    {
-     "slug": "perfect-secrecy",
-     "title": "Досконала таємність Шеннона",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-vernam-shannon.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-shannon-entropy-proof.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-one-time-pad.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "shamir-secret-sharing",
-     "title": "Розділення секрету Шаміра",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-shamir-secret-sharing.md",
-       "status": "done"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-shamir-proof.md",
-       "status": "done"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-shamir-secret-sharing.md",
-       "status": "done"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "slug": "cryptanalysis",
-   "title": "Криптоаналіз",
-   "topics": [
-    {
-     "slug": "pohlig-hellman-algorithm",
-     "title": "Алгоритм Поліга — Геллмана",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-pohlig-hellman.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-pohlig-hellman-prime-power.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-pohlig-hellman.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "lll-algorithm",
-     "title": "LLL-алгоритм редукції ґраток",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "recheck"
-     },
-     "hist": [
-      {
-       "file": "hist-lenstra-lovasz.md",
-       "status": "recheck"
-      }
-     ],
-     "math": [
-      {
-       "file": "math-gram-schmidt-reduction.md",
-       "status": "recheck"
-      }
-     ],
-     "proj": [
-      {
-       "file": "proj-lattice-reduction.md",
-       "status": "recheck"
-      }
-     ]
-    },
-    {
-     "slug": "berlekamp-massey",
-     "title": "Алгоритм Берлекампа–Мессі",
-     "basic": {
-      "status": "empty"
-     },
-     "detailed": {
-      "status": "pending"
-     }
-    }
-   ]
-  }
- ]
+  ]
 }

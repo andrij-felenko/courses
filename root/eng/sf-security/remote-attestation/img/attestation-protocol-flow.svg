@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="800.0" height="520.0" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="1.5"/>
+<text x="400.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол виклику-відповіді віддаленої атестації TPM 2.0</text>
+<rect x="35.4" y="47.0" width="169.1" height="45.9" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/><text x="120.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Верифікатор</tspan><tspan x="120.0" dy="16.9">(Віддалений сервер)</tspan></text>
+<rect x="295.3" y="47.0" width="209.4" height="45.9" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/><text x="400.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Хост / Клієнтський агент</tspan><tspan x="400.0" dy="16.9">(Операційна система)</tspan></text>
+<rect x="603.5" y="47.0" width="153.0" height="45.9" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/><text x="680.0" y="66.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Апаратний TPM 2.0</tspan><tspan x="680.0" dy="16.9">(Кремнієвий якір)</tspan></text>
+<line x1="120.0" y1="105.0" x2="120.0" y2="355.0" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="460.0" x2="120.0" y2="495.0" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="400.0" y1="105.0" x2="400.0" y2="495.0" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="680.0" y1="105.0" x2="680.0" y2="195.0" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="680.0" y1="265.0" x2="680.0" y2="495.0" stroke="#90a4ae" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="140.0" x2="395.0" y2="140.0" stroke="#2e7d32" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">1. Challenge (Nonce + PCR Selection)</text>
+<line x1="400.0" y1="180.0" x2="675.0" y2="180.0" stroke="#1565c0" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="540.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d47a1" text-anchor="middle" font-weight="700">2. TPM2_Quote(AK_handle, Nonce, PCRs)</text>
+<rect x="611.3" y="206.0" width="137.4" height="48.0" rx="6" fill="#ffe0b2" stroke="#fb8c00" stroke-width="1.5"/><text x="680.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">TPM формує TPMS_ATTEST</tspan><tspan x="680.0" dy="13.0">гешує вибрані PCR</tspan><tspan x="680.0" dy="13.0">підписує приватним AK</tspan></text>
+<line x1="680.0" y1="280.0" x2="405.0" y2="280.0" stroke="#e65100" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="540.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#bf360c" text-anchor="middle" font-weight="700">3. TPM2B_ATTEST + TPMT_SIGNATURE</text>
+<line x1="400.0" y1="340.0" x2="125.0" y2="340.0" stroke="#1565c0" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0d47a1" text-anchor="middle" font-weight="700">4. Quote + TCG Event Log</text>
+<rect x="45.6" y="373.0" width="148.8" height="74.0" rx="6" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/><text x="120.0" y="387.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Верифікація:</tspan><tspan x="120.0" dy="13.0">1. Перевірка підпису AK</tspan><tspan x="120.0" dy="13.0">2. Перевірка Nonce</tspan><tspan x="120.0" dy="13.0">3. Відтворення Event Log</tspan><tspan x="120.0" dy="13.0">4. Звірка з еталоном RIM</tspan></text>
+<line x1="120.0" y1="475.0" x2="395.0" y2="475.0" stroke="#2e7d32" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">5. Рішення про довіру (mTLS / Сесійний токен)</text>
+</svg>

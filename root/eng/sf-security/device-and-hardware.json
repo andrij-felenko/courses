@@ -93,6 +93,60 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-tpm2-quote-structures.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-secure-enclave-attestation.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-remote-attestation-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tpm2-quote-verifier.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hardware-security-module",
+          "title": "Апаратні модулі безпеки (HSM): архітектура, запечатування ключів та фізичний конверт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "arm-trustzone",
+          "title": "ARM TrustZone: апаратна ізоляція пам'яті, периферії та Secure World",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pkcs-11",
+          "title": "PKCS#11: стандартний інтерфейс криптографічних модулів Cryptoki",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
           }
         }
@@ -205,8 +259,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-constant-time-primitives.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-timing-attacks-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-statistical-extraction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-remote-timing-attack-demo.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "cache-side-channel",
@@ -315,8 +393,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-fault-resistant-primitives.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-dpa-and-fault-attacks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dpa-correlation-coefficient.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fault-resistant-crypto-guard.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu",
@@ -325,8 +427,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-fault-hardened-primitives.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fault-injection-methods.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-glitch-and-smartcard-wars.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-voltage-glitch-tester.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tamper-iak-prystrii-pomichaie-shcho-ioho-rozkryly",
@@ -335,12 +461,80 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-tamper-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tamper-sensors.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-tamper-response-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tamper-zeroization-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "radioslid-prystroiu",
           "title": "Радіослід пристрою: як його знаходять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-rf-metrics.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-tempest-and-van-eck.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iq-cfo-and-tdoa.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rf-signature-extractor.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cold-boot-attack",
+          "title": "Атака холодного перезавантаження (Cold Boot Attack) та криптографічний захист RAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "physically-unclonable-functions",
+          "title": "Фізично неклоновані функції (PUF) та Fuzzy Extractor",
           "basic": {
             "status": "empty"
           },

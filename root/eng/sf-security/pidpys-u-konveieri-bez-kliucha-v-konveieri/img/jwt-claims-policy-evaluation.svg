@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія OIDC JWT токену та оцінка умов у рушії політик підпису</text>
+<rect x="40.0" y="55.0" width="450.0" height="440.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="265.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Структура OIDC токену раннера (JWT)</text>
+<rect x="55.0" y="95.0" width="420.0" height="385.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="265.0" y="226.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">{</tspan><tspan x="265.0" dy="11.7">  &quot;iss&quot;: &quot;https://token.actions.githubusercontent.com&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;sub&quot;: &quot;repo:acme-corp/firmware-app:ref:refs/tags/v2.4.0&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;aud&quot;: &quot;https://signing.internal.acme.net&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;repository&quot;: &quot;acme-corp/firmware-app&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;ref&quot;: &quot;refs/tags/v2.4.0&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;ref_type&quot;: &quot;tag&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;actor&quot;: &quot;release-maintainer&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;job_workflow_ref&quot;: &quot;acme-corp/firmware-app/.github/workflows/release.yml@refs/tags/v2.4.0&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;sha&quot;: &quot;7f8b91a2c3d4e5f60718293a4b5c6d7e8f901234&quot;,</tspan><tspan x="265.0" dy="11.7">  &quot;exp&quot;: 1724810400</tspan><tspan x="265.0" dy="11.7">}</tspan></text>
+<rect x="530.0" y="55.0" width="470.0" height="440.0" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="765.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Оцінка правил у Policy Engine</text>
+<rect x="545.0" y="105.0" width="440.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Довірений Issuer (IdP)</text>
+<text x="970.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ДОЗВОЛЕНО</text>
+<text x="560.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">iss == &quot;https://token.actions.githubusercontent.com&quot;</text>
+<rect x="545.0" y="180.0" width="440.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Цільовий сервіс (Audience)</text>
+<text x="970.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ДОЗВОЛЕНО</text>
+<text x="560.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">aud == &quot;https://signing.internal.acme.net&quot;</text>
+<rect x="545.0" y="255.0" width="440.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Репозиторій проекту</text>
+<text x="970.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ДОЗВОЛЕНО</text>
+<text x="560.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">repository == &quot;acme-corp/firmware-app&quot;</text>
+<rect x="545.0" y="330.0" width="440.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Захищений тег релізу</text>
+<text x="970.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ДОЗВОЛЕНО</text>
+<text x="560.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ref matches &quot;^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$&quot;</text>
+<rect x="545.0" y="405.0" width="440.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">5. Довірений Workflow</text>
+<text x="970.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">✓ ДОЗВОЛЕНО</text>
+<text x="560.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">job_workflow_ref contains &quot;.github/workflows/release.yml&quot;</text>
+</svg>

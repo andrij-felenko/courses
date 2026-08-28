@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскад узгодженого розкриття вразливостей у ланцюгу постачання</text>
+<rect x="20.0" y="50.0" width="225.0" height="140.0" rx="6" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/>
+<text x="132.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a855f7" text-anchor="middle" font-weight="700">Upstream постачальник</text>
+<text x="132.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Бібліотека, RTOS, SoC)</text>
+<line x1="35.0" y1="105.0" x2="230.0" y2="105.0" stroke="#e9d5ff" stroke-width="1.0"/>
+<text x="132.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Виявлення 0-day дірки</text>
+<text x="132.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Призначення CVE-ID</text>
+<text x="132.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a855f7" text-anchor="middle" font-weight="700">• Старт ембарго під CVD</text>
+<line x1="250.0" y1="120.0" x2="290.0" y2="120.0" stroke="#a855f7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="270.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#a855f7" text-anchor="middle" font-weight="700">Ембарго</text>
+<rect x="295.0" y="40.0" width="245.0" height="165.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="417.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">OEM-виробник пристрою</text>
+<text x="417.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Інтегратор прошивки/ПЗ)</text>
+<line x1="310.0" y1="95.0" x2="525.0" y2="95.0" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="417.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Оцінка експлуатабельності</text>
+<text x="417.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Генерація VEX (affected/not)</text>
+<text x="417.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">• 24h/72h сповіщення CSIRT</text>
+<text x="417.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Збірка захищеного оновлення</text>
+<text x="417.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Синхронізація дати релізу</text>
+<line x1="545.0" y1="120.0" x2="585.0" y2="120.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="565.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CSAF/VEX</text>
+<rect x="590.0" y="50.0" width="230.0" height="140.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Downstream клієнти</text>
+<text x="705.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Оператори інфраструктури)</text>
+<line x1="605.0" y1="105.0" x2="805.0" y2="105.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="705.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Автоматичний прийом VEX</text>
+<text x="705.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Застосування патча/OTA</text>
+<text x="705.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">• Мітигація на рівні мережі</text>
+<rect x="30.0" y="240.0" width="780.0" height="80.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="420.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Координаційний хаб (CSIRTs Network / ENISA / CERT-UA)</text>
+<text x="420.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Забезпечує захищений обмін інформацією під час ембарго та запобігає завчасному розкриттю PoC</text>
+<text x="420.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Штрафи за порушення строків: до 15 млн євро / 2.5% обороту за CRA; до 10 млн / 2% за NIS 2</text>
+<line x1="132.0" y1="192.0" x2="132.0" y2="235.0" stroke="#a855f7" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="417.0" y1="207.0" x2="417.0" y2="235.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="705.0" y1="192.0" x2="705.0" y2="235.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+</svg>

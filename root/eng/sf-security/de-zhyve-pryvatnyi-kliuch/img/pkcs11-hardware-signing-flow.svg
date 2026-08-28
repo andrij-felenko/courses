@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптографічний підпис через PKCS#11: Ізоляція закритого ключа</text>
+<rect x="35.0" y="55.0" width="350.0" height="390.0" rx="8" fill="#f8f9f9" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="210.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Простір хоста (Host OS / User Space)</text>
+<text x="210.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Застосунок + PKCS#11 Driver (libykcs11 / softhsm)</text>
+<line x1="50.0" y1="107.0" x2="370.0" y2="107.0" stroke="#bdc3c7" stroke-width="1.0"/>
+<rect x="495.0" y="55.0" width="350.0" height="390.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="670.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний анклав (Secure Element / HSM)</text>
+<text x="670.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Внутрішній криптопроцесор + Невитягуваний ключ</text>
+<line x1="510.0" y1="107.0" x2="830.0" y2="107.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<rect x="55.0" y="125.0" width="310.0" height="48.0" rx="6" fill="#ffffff" stroke="#34495e" stroke-width="1.2"/>
+<text x="210.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Обчислення гешу даних на хості</text>
+<text x="210.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Digest = SHA-256(Document) [32 байти]</text>
+<line x1="365.0" y1="195.0" x2="515.0" y2="195.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">C_Sign(hSession, Digest, &amp;Signature)</text>
+<text x="440.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Передається лише 32 байти гешу + дескриптор ключа</text>
+<rect x="515.0" y="245.0" width="310.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="670.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Перевірка авторизації в чипі</text>
+<text x="670.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка PIN-коду + Touch User Presence</text>
+<rect x="515.0" y="315.0" width="310.0" height="52.0" rx="6" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.5"/>
+<text x="670.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Обчислення підпису в кремнії</text>
+<text x="670.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Signature = ECDSA_Sign(PrivKey, Digest)</text>
+<line x1="515.0" y1="385.0" x2="365.0" y2="385.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="440.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Повернення байтів підпису (R, S)</text>
+<text x="440.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Приватний ключ жодного разу не торкнувся RAM хоста</text>
+</svg>

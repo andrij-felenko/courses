@@ -81,6 +81,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "eap-radius-network-access",
+          "title": "Мережева автентифікація 802.1X, EAP та RADIUS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -411,8 +421,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-est-rfc7030.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ieee8021ar-and-devid.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-device-identity-mtls.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "de-zhyve-pryvatnyi-kliuch",
@@ -421,8 +449,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-pkcs11-signing.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hsm-token-kms.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-hsm-and-key-ceremonies.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pkcs11-token-sign.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pidpys-u-konveieri-bez-kliucha-v-konveieri",
@@ -431,8 +483,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-signing-service-rpc.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-keyless-signing-models.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-solarwinds-and-code-signing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-remote-signer-client.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vidklykannia-kliucha-i-sertyfikata-peredbachene",
@@ -441,8 +517,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ocsp-stapling-and-crl.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-diginotar-and-revocation-crisis.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bloom-crlite-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-firmware-key-revocation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "secrets-management",
@@ -475,6 +575,26 @@
         {
           "slug": "key-management",
           "title": "Управління ключами та KMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "certificate-transparency",
+          "title": "Прозорість сертифікатів (Certificate Transparency)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "openpgp-format-and-web-of-trust",
+          "title": "Формат OpenPGP, підключі й Web of Trust",
           "basic": {
             "status": "empty"
           },

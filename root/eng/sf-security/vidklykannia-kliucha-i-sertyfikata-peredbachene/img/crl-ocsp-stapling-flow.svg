@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння мережевих механізмів перевірки статусу сертифікатів</text>
+<rect x="20.0" y="55.0" width="285.0" height="445.0" rx="8" fill="#fafafa" stroke="#7f8c8d" stroke-width="1.4"/>
+<rect x="30.0" y="65.0" width="265.0" height="32.0" rx="5" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.0"/>
+<text x="162.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Списки відкликань (CRL)</text>
+<rect x="40.0" y="115.0" width="100.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="90.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IoT Клієнт</text>
+<rect x="185.0" y="115.0" width="100.0" height="34.0" rx="4" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="235.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">CRL Сервер</text>
+<line x1="90.0" y1="175.0" x2="235.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="162.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">HTTP GET /list.crl</text>
+<line x1="235.0" y1="215.0" x2="90.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="162.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">CRL (2..10 МБ ASN.1)</text>
+<rect x="35.0" y="250.0" width="255.0" height="235.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="162.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Характеристики CRL:</text>
+<text x="45.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Обсяг: O(N) — зростає з часом</text>
+<text x="45.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пам'ять: парсинг великих DER</text>
+<text x="45.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  дерев вимагає мегабайти RAM</text>
+<text x="45.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Свіжість: кешується на дні/тижні</text>
+<text x="45.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  (вікно для атаки до оновлення)</text>
+<text x="45.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Трафік: катастрофічний для IoT</text>
+<text x="45.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Автономність: підтримує оффлайн</text>
+<text x="45.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  роботу після завантаження</text>
+<rect x="325.0" y="55.0" width="285.0" height="445.0" rx="8" fill="#fafafa" stroke="#7f8c8d" stroke-width="1.4"/>
+<rect x="335.0" y="65.0" width="265.0" height="32.0" rx="5" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.0"/>
+<text x="467.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Прямий онлайн-запит (OCSP)</text>
+<rect x="345.0" y="115.0" width="100.0" height="34.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="395.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IoT Клієнт</text>
+<rect x="490.0" y="115.0" width="100.0" height="34.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="540.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d6608" text-anchor="middle" font-weight="700">OCSP Сервер</text>
+<line x1="395.0" y1="175.0" x2="540.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="467.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">OCSPRequest(CertID)</text>
+<line x1="540.0" y1="215.0" x2="395.0" y2="215.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="467.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">OCSPResp (Good/Revoked)</text>
+<rect x="340.0" y="250.0" width="255.0" height="235.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="467.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Характеристики OCSP:</text>
+<text x="350.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Обсяг: компактна відповідь (~1 КБ)</text>
+<text x="350.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Затримка: +1 мережевий RTT</text>
+<text x="350.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  до встановлення кожного TLS</text>
+<text x="350.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Приватність: CA бачить IP клієнта</text>
+<text x="350.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  та адреси всіх його з'єднань</text>
+<text x="350.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Вразливість CA: точка DDoS-атаки</text>
+<text x="350.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Збій зв'язку: штовхає в Soft-Fail</text>
+<text x="350.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  (пропуск неперевіреного ключа)</text>
+<rect x="630.0" y="55.0" width="285.0" height="445.0" rx="8" fill="#f4fbf6" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="640.0" y="65.0" width="265.0" height="32.0" rx="5" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.0"/>
+<text x="772.5" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. OCSP Stapling (Must-Staple)</text>
+<rect x="642.0" y="110.0" width="76.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="680.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IoT Клієнт</text>
+<rect x="730.0" y="110.0" width="78.0" height="28.0" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="769.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">TLS Сервер</text>
+<rect x="820.0" y="110.0" width="82.0" height="28.0" rx="4" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="861.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">CA Сервер</text>
+<line x1="775.0" y1="150.0" x2="855.0" y2="150.0" stroke="#7d6608" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="855.0" y1="173.0" x2="775.0" y2="173.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="815.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кеш OCSP</text>
+<line x1="680.0" y1="200.0" x2="765.0" y2="200.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="722.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">status_request</text>
+<line x1="765.0" y1="230.0" x2="680.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="722.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Stapled OCSP</text>
+<rect x="645.0" y="250.0" width="255.0" height="235.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="772.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Переваги OCSP Stapling:</text>
+<text x="655.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• 0 додаткових RTT для клієнта</text>
+<text x="655.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• 0 контактів клієнта з CA</text>
+<text x="655.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  (повна конфіденційність вузла)</text>
+<text x="655.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Кешування: сервер бере на себе</text>
+<text x="655.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  навантаження запитів до CA</text>
+<text x="655.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Захист від MITM: прапорець</text>
+<text x="655.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  Must-Staple блокує спроби</text>
+<text x="655.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  зловмисника вирізати статус</text>
+</svg>

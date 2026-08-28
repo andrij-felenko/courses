@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналіз побічних каналів: пряме спостереження (SPA) та диференційний аналіз (DPA/CPA)</text>
+<rect x="30.0" y="55.0" width="460.0" height="455.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="260.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Простий аналіз енергоспоживання (SPA)</text>
+<text x="260.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Візуальна реконструкція алгоритму за однією осцилограмою</text>
+<rect x="50.0" y="115.0" width="420.0" height="160.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="260.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Осцилограма струму I(t) під час RSA Square-and-Multiply</text>
+<rect x="65.0" y="155.0" width="55.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="92.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Square
+(біт 0)</text>
+<rect x="130.0" y="155.0" width="55.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="157.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Square</text>
+<rect x="190.0" y="155.0" width="80.0" height="80.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="230.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Multiply
+(біт 1)</text>
+<rect x="280.0" y="155.0" width="55.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="307.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Square
+(біт 0)</text>
+<rect x="345.0" y="155.0" width="55.0" height="80.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="372.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Square</text>
+<rect x="405.0" y="155.0" width="60.0" height="80.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.4"/>
+<text x="435.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Multiply
+(біт 1)</text>
+<rect x="50.0" y="290.0" width="420.0" height="205.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="260.0" y="346.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">Механізм атаки:</tspan><tspan x="260.0" dy="14.3">• Різні математичні інструкції активують різні вузли АЛП.</tspan><tspan x="260.0" dy="14.3">• Множення (MUL) містить каскади суматорів і споживає</tspan><tspan x="260.0" dy="14.3">  значно більший струм, ніж піднесення до квадрата (SQR).</tspan><tspan x="260.0" dy="14.3">• Атакуючий візуально зчитує секретний ключ d:</tspan><tspan x="260.0" dy="14.3">  d = 0b0101...</tspan><tspan x="260.0" dy="14.3"></tspan><tspan x="260.0" dy="14.3">Захист: алгоритми з постійним часом (Montgomery Ladder).</tspan></text>
+<rect x="510.0" y="55.0" width="500.0" height="455.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="760.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Диференційний та кореляційний аналіз (DPA/CPA)</text>
+<text x="760.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Статистичне відновлення ключа через тисячі осцилограм</text>
+<rect x="530.0" y="115.0" width="460.0" height="160.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="760.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель витоку: Вага Геммінґа HW(S-Box(P ⊕ k_guess))</text>
+<line x1="550.0" y1="240.0" x2="970.0" y2="240.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="540.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="580.0" y1="235.0" x2="595.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="595.0" y1="245.0" x2="610.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="620.0" y1="235.0" x2="635.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="635.0" y1="245.0" x2="650.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="660.0" y1="235.0" x2="675.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="675.0" y1="245.0" x2="690.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="700.0" y1="235.0" x2="715.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="715.0" y1="245.0" x2="730.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="780.0" y1="235.0" x2="795.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="795.0" y1="245.0" x2="810.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="820.0" y1="235.0" x2="835.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="835.0" y1="245.0" x2="850.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="860.0" y1="235.0" x2="875.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="875.0" y1="245.0" x2="890.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="900.0" y1="235.0" x2="915.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="915.0" y1="245.0" x2="930.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="940.0" y1="235.0" x2="955.0" y2="245.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="955.0" y1="245.0" x2="970.0" y2="238.0" stroke="#4b5563" stroke-width="1.0"/>
+<line x1="720.0" y1="240.0" x2="740.0" y2="160.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="740.0" y1="160.0" x2="760.0" y2="240.0" stroke="#c0392b" stroke-width="2.2"/>
+<circle cx="740.0" cy="160.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="740.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пік кореляції: k* = 0x2B</text>
+<rect x="530.0" y="290.0" width="460.0" height="205.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="760.0" y="339.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">Механізм атаки:</tspan><tspan x="760.0" dy="14.3">1. Запис N = 10 000 осцилограм споживання при випадкових текстах P_i.</tspan><tspan x="760.0" dy="14.3">2. Обчислення гіпотетичного значення байта проміжного стану:</tspan><tspan x="760.0" dy="14.3">   V(i, k) = S-Box(P_i ⊕ k).</tspan><tspan x="760.0" dy="14.3">3. Розрахунок моделі енергоспоживання (Hamming Weight HW(V)).</tspan><tspan x="760.0" dy="14.3">4. Обчислення коефіцієнта кореляції Пірсона ρ(k) для всіх 256 ключів.</tspan><tspan x="760.0" dy="14.3">5. Для правильного k* виникає статистичний сплеск ρ &gt; 0.7.</tspan><tspan x="760.0" dy="14.3"></tspan><tspan x="760.0" dy="14.3">Захист: маскування булевими частками (Boolean Masking).</tspan></text>
+</svg>

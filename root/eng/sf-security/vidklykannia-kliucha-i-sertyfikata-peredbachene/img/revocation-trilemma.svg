@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трилема відкликання у розподілених та вбудованих системах</text>
+<rect x="25.0" y="55.0" width="270.0" height="270.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="35.0" y="65.0" width="250.0" height="34.0" rx="5" fill="#fadbd8" stroke="#c0392b" stroke-width="1.0"/>
+<text x="160.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Режим Soft-Fail (Fail-Open)</text>
+<text x="40.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Поведінка: якщо сервер OCSP/CRL</text>
+<text x="40.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  не відповідає — довіряти сертифікату</text>
+<text x="40.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• Стійкість зв'язку: 100% працездатність</text>
+<text x="40.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Вразливість: фатальна діра безпеки</text>
+<text x="40.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  Зловмисник блокує пакети до CA</text>
+<text x="40.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  і підсовує скомпрометований ключ</text>
+<rect x="40.0" y="270.0" width="240.0" height="38.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НАСЛІДОК: ІЛЮЗІЯ БЕЗПЕКИ</text>
+<rect x="325.0" y="55.0" width="270.0" height="270.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<rect x="335.0" y="65.0" width="250.0" height="34.0" rx="5" fill="#fcf3cf" stroke="#d4ac0d" stroke-width="1.0"/>
+<text x="460.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d6608" text-anchor="middle" font-weight="700">2. Режим Hard-Fail (Fail-Closed)</text>
+<text x="340.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Поведінка: без свіжого доказу</text>
+<text x="340.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  відкликання сесія суворо блокується</text>
+<text x="340.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• Рівень захисту: нульова довіра</text>
+<text x="340.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Вразливість: ризик відмови парку</text>
+<text x="340.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  Падіння сервера CA або збій мережі</text>
+<text x="340.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  миттєво вимикає 100 000 пристроїв</text>
+<rect x="340.0" y="270.0" width="240.0" height="38.0" rx="5" fill="#ffffff" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="460.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">НАСЛІДОК: БЛОКУВАННЯ ПАРКУ</text>
+<rect x="625.0" y="55.0" width="270.0" height="270.0" rx="8" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="635.0" y="65.0" width="250.0" height="34.0" rx="5" fill="#d4e6f1" stroke="#2457d6" stroke-width="1.0"/>
+<text x="760.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Ресурсні обмеження IoT</text>
+<text x="640.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Поведінка: завантаження повних</text>
+<text x="640.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  списків CRL або прямі OCSP-запити</text>
+<text x="640.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Пам'ять: CRL на 5 МБ не влізе у 128 КБ RAM</text>
+<text x="640.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Трафік: вузький канал (LoRa/NB-IoT)</text>
+<text x="640.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  OCSP додає затримку RTT до кожного</text>
+<text x="640.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  з'єднання та виснажує батарею живлення</text>
+<rect x="640.0" y="270.0" width="240.0" height="38.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="760.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">НАСЛІДОК: ВИСНАЖЕННЯ РЕСУРСІВ</text>
+<rect x="25.0" y="350.0" width="870.0" height="110.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="460.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Архітектурний вихід: комбінований багаторівневий захист</text>
+<text x="45.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мережевий трафік TLS: OCSP Stapling + Must-Staple (сервер кешує доказ, клієнт не робить запитів до CA)</text>
+<text x="45.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечне завантаження (Secure Boot): апаратні таблиці eFuse + монотонні лічильники версій Anti-Rollback</text>
+<text x="45.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зміна кореневих ключів (Root Rollover): заздалегідь прошиті резервні слоти OEM + період подвійного підпису</text>
+</svg>

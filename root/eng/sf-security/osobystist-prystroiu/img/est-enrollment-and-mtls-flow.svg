@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність онбордингу пристрою за протоколом EST (RFC 7030)</text>
+<text x="440.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність онбордингу пристрою за протоколом EST (RFC 7030)</text>
+<line x1="150.0" y1="75.0" x2="150.0" y2="510.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="450.0" y1="75.0" x2="450.0" y2="510.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="750.0" y1="75.0" x2="750.0" y2="510.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+<rect x="75.0" y="45.0" width="150.0" height="36.0" rx="5" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.2"/>
+<text x="150.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b4f72" text-anchor="middle" font-weight="700">IoT Пристрій</text>
+<text x="150.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(IDevID в SE)</text>
+<rect x="375.0" y="45.0" width="150.0" height="36.0" rx="5" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+<text x="450.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">EST Сервер / RA</text>
+<text x="450.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Enrollment Proxy)</text>
+<rect x="675.0" y="45.0" width="150.0" height="36.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="750.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">Корпоративний CA</text>
+<text x="750.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Enterprise PKI)</text>
+<rect x="50.0" y="100.0" width="780.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#aab7b8" stroke-width="1.0"/>
+<text x="440.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: mTLS рукостискання на базі заводського сертифіката IDevID</text>
+<line x1="150.0" y1="133.0" x2="450.0" y2="133.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">mTLS: Клієнт пред'являє IDevID + ClientCertificateVerify</text>
+<line x1="150.0" y1="195.0" x2="450.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="300.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. GET /.well-known/est/cacerts</text>
+<line x1="450.0" y1="230.0" x2="150.0" y2="230.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="300.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. 200 OK (PKCS#7 з ланцюжком CA сертифікатів)</text>
+<rect x="80.0" y="258.0" width="140.0" height="28.0" rx="4" fill="#d4efdf" stroke="#27ae60" stroke-width="1.2"/>
+<text x="150.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#145a32" text-anchor="middle" font-weight="700">Генерація пари LDevID</text>
+<line x1="150.0" y1="325.0" x2="450.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="300.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. POST /.well-known/est/simpleenroll (CSR / PKCS#10)</text>
+<line x1="450.0" y1="370.0" x2="750.0" y2="370.0" stroke="#8e44ad" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="600.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">4. Валідація IDevID та запит сертифіката</text>
+<line x1="750.0" y1="405.0" x2="450.0" y2="405.0" stroke="#8e44ad" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="600.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">5. Підписаний LDevID сертифікат</text>
+<line x1="450.0" y1="445.0" x2="150.0" y2="445.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">6. 200 OK (PKCS#7 з новим LDevID сертифікатом)</text>
+<rect x="50.0" y="485.0" width="780.0" height="40.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="440.0" y="501.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#145a32" text-anchor="middle" font-weight="700">Фаза 2: Щоденна експлуатація через LDevID mTLS (IoT Hub / MQTT / 802.1X)</text>
+<text x="440.0" y="517.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">IDevID більше не використовується; поновлення сертифіката через /simplereenroll</text>
+</svg>

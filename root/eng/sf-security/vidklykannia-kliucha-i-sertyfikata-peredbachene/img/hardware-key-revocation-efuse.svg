@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне відкликання ключів і захист від відкату у кристалі</text>
+<rect x="25.0" y="55.0" width="430.0" height="420.0" rx="8" fill="#fdfefe" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="35.0" y="65.0" width="410.0" height="32.0" rx="5" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.0"/>
+<text x="240.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратна матриця публічних ключів (OTP / ROM)</text>
+<rect x="40.0" y="110.0" width="400.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="50.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 0 (OEM Root Key A)</text>
+<text x="430.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">АКТИВНИЙ / АНУЛЬОВАНИЙ</text>
+<text x="50.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Хеш відкритого ключа: SHA-256 Digest 0</text>
+<text x="50.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Стан анулювання: eFuse Revocation Bit 0 = 1 (ПЕРЕПАЛЕНО)</text>
+<rect x="40.0" y="195.0" width="400.0" height="75.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="50.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 1 (OEM Root Key B)</text>
+<text x="430.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">АКТИВНИЙ (ПОТОЧНИЙ ЧИННИЙ)</text>
+<text x="50.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Хеш відкритого ключа: SHA-256 Digest 1</text>
+<text x="50.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Стан анулювання: eFuse Revocation Bit 1 = 0 (ЧИСТИЙ)</text>
+<rect x="40.0" y="280.0" width="400.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="50.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 2 (OEM Root Key C)</text>
+<text x="430.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">РЕЗЕРВНИЙ (STANDBY)</text>
+<text x="50.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Хеш відкритого ключа: SHA-256 Digest 2</text>
+<text x="50.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">• Стан анулювання: eFuse Revocation Bit 2 = 0 (ЧИСТИЙ)</text>
+<rect x="40.0" y="365.0" width="400.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+<text x="50.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот 3 (Emergency Key D)</text>
+<text x="430.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">АВАРІЙНИЙ ХОЛОДНИЙ (COLD)</text>
+<text x="50.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Хеш відкритого ключа: SHA-256 Digest 3</text>
+<text x="50.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">• Стан анулювання: eFuse Revocation Bit 3 = 0 (ЧИСТИЙ)</text>
+<rect x="485.0" y="55.0" width="430.0" height="420.0" rx="8" fill="#fdfefe" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="495.0" y="65.0" width="410.0" height="32.0" rx="5" fill="#fadbd8" stroke="#c0392b" stroke-width="1.0"/>
+<text x="700.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Монотонний лічильник версій (Anti-Rollback Counter)</text>
+<text x="505.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Принцип однобічного перепалювання бітів eFuse:</text>
+<text x="505.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перемичка eFuse фізично плавиться імпульсом струму</text>
+<text x="505.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Стан 0 -&gt; 1 є незворотним (повернути 1 -&gt; 0 неможливо)</text>
+<rect x="505.0" y="180.0" width="390.0" height="60.0" rx="4" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="700.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Масив 32 бітів eFuse Security Counter:</text>
+<rect x="525.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="543.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="568.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="586.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="611.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="629.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="654.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="672.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="697.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="715.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="740.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="758.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="783.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="801.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="826.0" y="212.0" width="36.0" height="20.0" rx="3" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="844.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="700.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Поточне значення апаратного лічильника: Версія 4 (4 біти спалено)</text>
+<rect x="505.0" y="275.0" width="390.0" height="185.0" rx="6" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="700.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм перевірки під час Secure Boot:</text>
+<text x="515.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. ROM читає заголовок прошивки: FW_Ver та Key_Index</text>
+<text x="515.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">2. Перевірка слота: eFuse_Revoked[Key_Index] == 0?</text>
+<text x="515.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">   (якщо 1 — негайна зупинка: КЛЮЧ АНУЛЬОВАНО)</text>
+<text x="515.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">3. Перевірка версії: FW_Ver &gt;= HW_AntiRollback_Ver?</text>
+<text x="515.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">   (якщо менше — відхилення: СПРОБА ВІДКАТУ FW)</text>
+<text x="515.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">4. Якщо FW_Ver &gt; HW_Ver: прожиг бітів eFuse до FW_Ver</text>
+<text x="515.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">   (фіксація мінімальної допустимої версії)</text>
+</svg>

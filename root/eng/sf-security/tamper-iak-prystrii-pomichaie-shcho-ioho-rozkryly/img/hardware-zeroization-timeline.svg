@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія захисної реакції: від фізичного дотику до повного занулення</text>
+<line x1="80.0" y1="230.0" x2="960.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="960.0" y1="230.0" x2="1000.0" y2="230.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="990.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Час</text>
+<circle cx="120.0" cy="230.0" r="7.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="120.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">T = 0</text>
+<line x1="120.0" y1="230.0" x2="120.0" y2="145.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+<rect x="25.0" y="70.0" width="190.0" height="85.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="120.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Фізичне розкриття</text>
+<rect x="30.0" y="102.0" width="180.0" height="48.0" rx="6" fill="#fdecea" stroke="#fdecea" stroke-width="1.5"/><text x="120.0" y="116.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Розрив сітки Mesh,</tspan><tspan x="120.0" dy="13.0">відкриття мікроперемикача</tspan><tspan x="120.0" dy="13.0">чи сплеск фотоструму</tspan></text>
+<circle cx="330.0" cy="230.0" r="7.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="330.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">T + 10..50 нс</text>
+<line x1="330.0" y1="230.0" x2="330.0" y2="300.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+<rect x="235.0" y="300.0" width="190.0" height="85.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="330.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратна зероїзація</text>
+<rect x="240.0" y="332.0" width="180.0" height="48.0" rx="6" fill="#fdecea" stroke="#fdecea" stroke-width="1.5"/><text x="330.0" y="346.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Асинхронний імпульс;</tspan><tspan x="330.0" dy="13.0">розряд BKP SRAM,</tspan><tspan x="330.0" dy="13.0">скидання ключів AES/PKA</tspan></text>
+<circle cx="560.0" cy="230.0" r="7.0" fill="#d97706" stroke="#ffffff" stroke-width="2.0"/>
+<text x="560.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">T + 1..5 мкс</text>
+<line x1="560.0" y1="230.0" x2="560.0" y2="145.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="2,2"/>
+<rect x="465.0" y="70.0" width="190.0" height="85.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="560.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Tamper NMI / Прокидання</text>
+<rect x="470.0" y="102.0" width="180.0" height="48.0" rx="6" fill="#fef3c7" stroke="#fef3c7" stroke-width="1.5"/><text x="560.0" y="116.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Процесор переходить у</tspan><tspan x="560.0" dy="13.0">найвище переривання;</tspan><tspan x="560.0" dy="13.0">очищення CPU RAM і регістрів</tspan></text>
+<circle cx="790.0" cy="230.0" r="7.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<text x="790.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">T + 10..50 мкс</text>
+<line x1="790.0" y1="230.0" x2="790.0" y2="300.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+<rect x="695.0" y="300.0" width="190.0" height="85.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="790.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксація та блокування</text>
+<rect x="700.0" y="332.0" width="180.0" height="48.0" rx="6" fill="#eafaf0" stroke="#eafaf0" stroke-width="1.5"/><text x="790.0" y="346.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">Запис чорної скриньки RTC,</tspan><tspan x="790.0" dy="13.0">блокування JTAG/SWD,</tspan><tspan x="790.0" dy="13.0">перехід у незворотний Lock</tspan></text>
+</svg>

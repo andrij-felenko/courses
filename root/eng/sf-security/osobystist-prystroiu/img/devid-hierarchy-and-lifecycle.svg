@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія ідентичностей IEEE 802.1AR: IDevID та LDevID</text>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія ідентичностей IEEE 802.1AR: Заводський IDevID та Експлуатаційний LDevID</text>
+<rect x="30.0" y="60.0" width="390.0" height="415.0" rx="10" fill="#fdfefe" stroke="#2980b9" stroke-width="1.6"/>
+<rect x="40.0" y="70.0" width="370.0" height="35.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.0"/>
+<text x="225.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1b4f72" text-anchor="middle" font-weight="700">Initial Device Identifier (IDevID)</text>
+<text x="50.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Створюється: На заводі виробника (OEM)</text>
+<text x="50.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Приватний ключ: Невитягуваний, у Secure Element</text>
+<text x="50.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Сертифікат: Підписаний кореневим CA виробника</text>
+<text x="50.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Термін дії: Необмежений (на весь час життя чипа)</text>
+<text x="50.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Атрибути: SAN містить HardwareModuleName / UID</text>
+<text x="50.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Можливість зміни: Фізично заблоковано від перезапису</text>
+<rect x="45.0" y="285.0" width="360.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="225.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основне призначення IDevID:</text>
+<text x="55.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Доказ автентичності апаратури при постачанні</text>
+<text x="55.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Захист від клонування та підробки плат</text>
+<text x="55.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">3. Первинний безпечний онбординг (Bootstrap mTLS)</text>
+<text x="55.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">   через протоколи EST (RFC 7030) або BRSKI</text>
+<rect x="520.0" y="60.0" width="390.0" height="415.0" rx="10" fill="#fdfefe" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="530.0" y="70.0" width="370.0" height="35.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="715.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#145a32" text-anchor="middle" font-weight="700">Local Device Identifier (LDevID)</text>
+<text x="540.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Створюється: Під час впровадження у мережу</text>
+<text x="540.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Приватний ключ: Згенерований чипом або оператором</text>
+<text x="540.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Сертифікат: Підписаний внутрішнім Enterprise CA</text>
+<text x="540.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Термін дії: Обмежений (наприклад, 90 днів / 1 рік)</text>
+<text x="540.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Атрибути: Локальне доменне ім'я, роль пристрою</text>
+<text x="540.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">• Можливість зміни: Регулярне поновлення за EST</text>
+<rect x="535.0" y="285.0" width="360.0" height="175.0" rx="6" fill="#f4f6f8" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="715.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Основне призначення LDevID:</text>
+<text x="545.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Щоденна робота у внутрішній мережі</text>
+<text x="545.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Мережевий доступ 802.1X (RADIUS / EAP-TLS)</text>
+<text x="545.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">3. Робота з брокером MQTT / IoT Gateway</text>
+<text x="545.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">4. Відкликання сертифіката без блокування чипа</text>
+<line x1="430.0" y1="220.0" x2="510.0" y2="220.0" stroke="#d35400" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="430.0" y="180.0" width="80.0" height="32.0" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+<text x="470.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">Онбординг</text>
+<text x="470.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle">(EST / BRSKI)</text>
+</svg>
