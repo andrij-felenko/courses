@@ -43,22 +43,7 @@ COMMIT;
 
 Ідея патерну полягає в тому, що подія для зовнішнього споживача зберігається в спеціальну таблицю `outbox_events` у тій самій базі даних і в межах тієї самої локальної транзакції ACID, що й основні бізнес-дані:
 
-```sql
-BEGIN;
-
-INSERT INTO orders (id, user_id, amount, status) 
-VALUES ('ord_101', 'usr_55', 10000, 'paid');
-
-INSERT INTO outbox_events (
-    id, tenant_id, destination_url, secret_key, 
-    event_type, payload, status, next_retry_at
-) VALUES (
-    'evt_999', 'tenant_abc', 'https://shop.example.com/webhooks', 'whsec_xyz',
-    'order.paid', '{"order_id": "ord_101", "amount": 10000}', 'pending', NOW()
-);
-
-COMMIT;
-```
+:::code webhook-provider-d/sql/patern-transactional.sql
 
 Завдяки властивості атомарності (Atomicity) реляційної СУБД можливі лише два наслідки: або бізнес-запис і подія гарантовано збережуться разом на диску, або у випадку збою транзакція повністю відкотиться, не залишивши жодного сліду.
 
@@ -68,21 +53,7 @@ COMMIT;
 
 Окремий фоновий процес регулярно вибирає партії подій зі статусом `pending` за допомогою конструкції `SELECT ... FOR UPDATE SKIP LOCKED`:
 
-```sql
-UPDATE outbox_events
-SET status = 'processing',
-    locked_by = 'worker-node-1',
-    locked_at = NOW()
-WHERE id IN (
-    SELECT id FROM outbox_events
-    WHERE (status = 'pending' OR status = 'failed')
-      AND next_retry_at <= NOW()
-    ORDER BY next_retry_at ASC
-    LIMIT 100
-    FOR UPDATE SKIP LOCKED
-)
-RETURNING *;
-```
+:::code webhook-provider-d/sql/1-tranzaktsiine.sql
 
 Конструкція `SKIP LOCKED` наказує рушію бази даних миттєво пропускати рядки, які вже заблоковані паралельними воркерами. Це виключає затримки очікування блокувань (lock contention) і дозволяє запускати десятки паралельних процесів вибірки. Після підтвердження доставки статус рядка оновлюється на `delivered` або запис видаляється.
 

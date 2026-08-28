@@ -8,33 +8,7 @@
 
 Керування пулами в бібліотеці `requests` здійснюється через підключення екземпляра `HTTPAdapter` до об'єкта `Session`. Адаптер інкапсулює клас `urllib3.PoolManager`, який відповідає за розподіл сокетів за ключами `(scheme, host, port)`.
 
-```python
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
-
-session = requests.Session()
-
-# Налаштування стратегії повторних спроб
-retries = Retry(
-    total=3,
-    backoff_factor=0.5,
-    status_forcelist=[500, 502, 503, 504],
-    allowed_methods={"HEAD", "GET", "PUT", "DELETE", "OPTIONS"},
-    raise_on_status=False
-)
-
-# Монтування адаптера з параметрами пулу
-adapter = HTTPAdapter(
-    pool_connections=20,  # Кількість кешованих пулів хостів
-    pool_maxsize=50,       # Максимум з'єднань на один хост
-    max_retries=retries,   # Політика повторів
-    pool_block=True        # Блокувати потік при вичерпанні ліміту
-)
-
-session.mount("https://", adapter)
-session.mount("http://", adapter)
-```
+:::code api-session-pool-config/py/main.py
 
 ### Довідник параметрів HTTPAdapter та PoolManager
 
@@ -80,38 +54,7 @@ response = session.get("https://api.example.com/data", timeout=(3.05, 10.0))
 
 Особливістю Go є вкрай низьке значення параметра `MaxIdleConnsPerHost` за замовчуванням (всього 2 сокети). У високонавантажених мікросервісних застосунках, де сотні горутин паралельно звертаються до одного бекенду, це призводить до масового закриття сокетів після кожного виклику та виникнення затримок через постійні повторні TLS-хендшейки.
 
-```go
-package main
-
-import (
-	"net"
-	"net/http"
-	"time"
-)
-
-func createOptimizedClient() *http.Client {
-	transport := &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout:   5 * time.Second,  // Граничний час на TCP Connect
-			KeepAlive: 30 * time.Second, // Інтервал TCP Keep-Alive зондів (L4)
-		}).DialContext,
-		ForceAttemptHTTP2:     true,
-		MaxIdleConns:          100,              // Загальний ліміт сокетів у стані IDLE
-		MaxIdleConnsPerHost:   20,               // Вільних сокетів для одного хоста
-		MaxConnsPerHost:       50,               // Жорсткий ліміт активних+вільних (0 = безлім)
-		IdleConnTimeout:       90 * time.Second, // Час життя неактивного сокета в пулі
-		TLSHandshakeTimeout:   5 * time.Second,  // Тайм-аут на TLS
-		ResponseHeaderTimeout: 10 * time.Second, // Очікування першого байта заголовків
-		DisableKeepAlives:     false,            // false = тримати сокети відкритими
-	}
-
-	return &http.Client{
-		Transport: transport,
-		Timeout:   30 * time.Second, // Загальний тайм-аут на весь життєвий цикл запиту
-	}
-}
-```
+:::code api-session-pool-config/go/main.go
 
 ### Довідник полів http.Transport
 

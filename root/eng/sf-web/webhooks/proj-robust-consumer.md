@@ -36,23 +36,7 @@
 
 Осердя — одна таблиця. `event_id` тут — ідентифікатор *провайдера* (Stripe кладе його як `evt_…`, GitHub — у заголовок `X-GitHub-Delivery`), а не якийсь наш власний. Саме він — ключ ідемпотентності, тож він і первинний ключ: база сама не дасть двом рядкам із однаковим `event_id` існувати.
 
-```sql
-CREATE TABLE webhook_inbox (
-    event_id     TEXT        PRIMARY KEY,        -- ідентифікатор ПРОВАЙДЕРА, не наш
-    type         TEXT        NOT NULL,           -- payment.succeeded, push, …
-    payload      JSONB       NOT NULL,           -- сире тіло, збережене як прийшло
-    status       TEXT        NOT NULL DEFAULT 'received',  -- received→processing→done | dead
-    attempts     INT         NOT NULL DEFAULT 0,
-    received_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
-    processed_at TIMESTAMPTZ
-);
-
--- Курсор звірки: доки ми дочитали чужий журнал подій.
-CREATE TABLE reconciliation_cursor (
-    source    TEXT        PRIMARY KEY,
-    last_seen TIMESTAMPTZ NOT NULL
-);
-```
+:::code proj-robust-consumer/sql/main.sql
 
 Поле `status` — не прикраса, а стан-машина, на якій тримається вся ідемпотентність обробки: подія живе `received → processing → done`, а безнадійна відходить у `dead`. `attempts` рахує невдалі підходи, щоб отруйна подія не крутилася вічно.
 
@@ -77,109 +61,9 @@ CREATE TABLE reconciliation_cursor (
 Порівнювати підпис теж треба обережно — **порівнянням сталого часу** (`timingSafeEqual` / `hmac.compare_digest` / `hmac.Equal`). Звичайне `==` виходить із циклу на першому розбіжному байті, і за часом відповіді зловмисник може побайтово вгадати правильний підпис. Ось приймальний ендпоінт цілком:
 
 :::tabs
-```ts
-import express from "express";
-import crypto from "node:crypto";
-
-const app = express();
-const SECRET = process.env.WEBHOOK_SECRET!;
-
-// express.raw, НЕ express.json: інакше сирі байти, над якими рахувався
-// підпис, будуть уже недоступні — лишиться тільки розібраний об'єкт.
-app.post("/webhooks", express.raw({ type: "application/json" }), async (req, res) => {
-  const raw = req.body as Buffer;                       // сирі байти тіла
-  if (!verify(raw, req.header("X-Signature") ?? "")) {
-    return res.sendStatus(401);                         // підпис не збігся — геть
-  }
-
-  let event: { id: string; type: string };
-  try {
-    event = JSON.parse(raw.toString("utf8"));           // розбір ЛИШЕ після перевірки
-  } catch {
-    return res.sendStatus(400);                         // криве тіло — не наша подія
-  }
-
-  try {
-    if (await inboxInsert(event.id, event.type, raw)) { // нова — false, якщо дубль
-      await enqueue(event.id);                          // роботу знімемо з гарячого шляху
-    }
-    return res.sendStatus(200);                         // 200 і новій, і дублю
-  } catch {
-    return res.sendStatus(500);                         // не зберегли — хай ПОВТОРЯТЬ, не 200!
-  }
-});
-
-function verify(raw: Buffer, sig: string): boolean {
-  const expected = crypto.createHmac("sha256", SECRET).update(raw).digest("hex");
-  const a = Buffer.from(sig), b = Buffer.from(expected);
-  return a.length === b.length && crypto.timingSafeEqual(a, b);  // сталий час
-}
-```
-```py
-import hmac, hashlib, json, os
-from flask import Flask, request, abort
-
-app = Flask(__name__)
-SECRET = os.environ["WEBHOOK_SECRET"].encode()
-
-@app.post("/webhooks")
-def receive():
-    raw = request.get_data()                       # сирі байти, доки їх не чіпав розбір
-    if not verify(raw, request.headers.get("X-Signature", "")):
-        abort(401)                                 # підпис не збігся — геть
-
-    try:
-        event = json.loads(raw)                    # розбір ЛИШЕ після перевірки
-    except ValueError:
-        abort(400)                                 # криве тіло — не наша подія
-
-    try:
-        if inbox_insert(event["id"], event["type"], raw):   # нова — False, якщо дубль
-            enqueue(event["id"])                   # роботу знімемо з гарячого шляху
-        return "", 200                             # 200 і новій, і дублю
-    except Exception:
-        abort(500)                                 # не зберегли — хай ПОВТОРЯТЬ, не 200!
-
-def verify(raw: bytes, sig: str) -> bool:
-    expected = hmac.new(SECRET, raw, hashlib.sha256).hexdigest()
-    return hmac.compare_digest(sig, expected)      # сталий час
-```
-```go
-func receive(w http.ResponseWriter, r *http.Request) {
-    raw, err := io.ReadAll(r.Body)                     // сирі байти ПЕРШЕ
-    if err != nil {
-        w.WriteHeader(http.StatusBadRequest)
-        return
-    }
-    if !verify(raw, r.Header.Get("X-Signature")) {
-        w.WriteHeader(http.StatusUnauthorized)         // підпис не збігся — геть
-        return
-    }
-
-    var ev struct{ ID, Type string }
-    if json.Unmarshal(raw, &ev) != nil {               // розбір ЛИШЕ після перевірки
-        w.WriteHeader(http.StatusBadRequest)           // криве тіло — не наша подія
-        return
-    }
-
-    isNew, err := inboxInsert(r.Context(), ev.ID, ev.Type, raw)
-    if err != nil {
-        w.WriteHeader(http.StatusInternalServerError)  // не зберегли — хай ПОВТОРЯТЬ, не 200!
-        return
-    }
-    if isNew {
-        enqueue(ev.ID)                                 // роботу знімемо з гарячого шляху
-    }
-    w.WriteHeader(http.StatusOK)                       // 200 і новій, і дублю
-}
-
-func verify(raw []byte, sig string) bool {
-    mac := hmac.New(sha256.New, secret)
-    mac.Write(raw)
-    expected := hex.EncodeToString(mac.Sum(nil))
-    return hmac.Equal([]byte(sig), []byte(expected))   // сталий час
-}
-```
+:::code proj-robust-consumer/ts/pastka-rozboru-pered.ts
+:::code proj-robust-consumer/py/pastka-rozboru-pered.py
+:::code proj-robust-consumer/go/pastka-rozboru-pered.go
 :::
 
 Заголовок `X-Signature` тут узагальнений. У житті провайдери називають його по-своєму й іноді загортають у нього мітку часу проти повторного відтворення старого перехопленого запиту: Stripe шле `Stripe-Signature: t=…,v1=…`, де HMAC-SHA256 рахується не від самого тіла, а від рядка `мітка.тіло`, і відхиляє підпис, старший за 5 хвилин; GitHub — `X-Hub-Signature-256: sha256=…` над сирим тілом (усталені факти з їхньої документації). Повну схему з міткою часу й вікном терпимості розбирає [підпис і верифікація вебхука](root:sf-web/webhook-security) — тут нам досить того, що підпис рахується над сирими байтами й звіряється сталим часом.
@@ -191,18 +75,7 @@ func verify(raw []byte, sig string) bool {
 `inbox_insert` — серце дедуплікації, і воно навдивовижу коротке. Не «спершу перевір, чи є, потім вставляй» — між перевіркою і вставкою два паралельні запити прослизнуть обидва. Натомість — одна вставка, що *сама* є перевіркою: `ON CONFLICT DO NOTHING`. Обмеження унікальності на `event_id` пропустить рівно один рядок; хто програв гонку — дістане «нуль вставлених» і зрозуміє, що подію вже взяли.
 
 :::tabs
-```ts
-// Одна вставка = дедуп. rowCount каже, ми поклали нову подію чи наштовхнулися на дубль.
-async function inboxInsert(id: string, type: string, raw: Buffer): Promise<boolean> {
-  const r = await pool.query(
-    `INSERT INTO webhook_inbox (event_id, type, payload)
-     VALUES ($1, $2, $3)
-     ON CONFLICT (event_id) DO NOTHING`,
-    [id, type, raw.toString("utf8")],
-  );
-  return r.rowCount === 1;          // 1 — вставили нову; 0 — конфлікт, уже бачили
-}
-```
+:::code proj-robust-consumer/ts/vstavka-iak-dedup.ts
 ```py
 def inbox_insert(event_id: str, type_: str, raw: bytes) -> bool:
     with pool.connection() as conn:
@@ -214,20 +87,7 @@ def inbox_insert(event_id: str, type_: str, raw: bytes) -> bool:
         )
         return cur.rowcount == 1     # 1 — нова; 0 — дубль
 ```
-```go
-func inboxInsert(ctx context.Context, id, typ string, raw []byte) (bool, error) {
-    res, err := db.ExecContext(ctx,
-        `INSERT INTO webhook_inbox (event_id, type, payload)
-         VALUES ($1, $2, $3)
-         ON CONFLICT (event_id) DO NOTHING`,
-        id, typ, string(raw))
-    if err != nil {
-        return false, err
-    }
-    n, _ := res.RowsAffected()
-    return n == 1, nil               // 1 — нова; 0 — дубль
-}
-```
+:::code proj-robust-consumer/go/vstavka-iak-dedup.go
 :::
 
 Оце й усе, що робить синхронний шлях. Він тонкий навмисно: усе, що тут станеться, провайдер чекає в реальному часі, за лічені секунди. Записали факт, поставили в чергу, відповіли `200`. Товсту роботу — далі, поза запитом, [фоновим робітником](root:sf-web/background-jobs).
@@ -264,157 +124,9 @@ enqueue(event.id)   // 2) поклали в чергу
 3. **Ефект і відмітку — в ОДНІЙ транзакції.** Побічний ефект (позначити рахунок оплаченим) і `UPDATE … SET status='done'` комітяться **разом**. Або лягло і те, і те, або — при збої — ні те, ні те. Ніколи не буває «ефект стався, а відмітки нема» (обробив би вдруге) чи навпаки. На цьому [атомарність транзакції](root:sf-data/transactions-acid) і стоїть.
 
 :::tabs
-```ts
-const MAX_ATTEMPTS = 8;
-type Ack = "ack" | "retry";                            // прибрати з черги / повернути
-
-async function handle(eventId: string): Promise<Ack> {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    const { rows } = await client.query(
-      `SELECT status, payload FROM webhook_inbox
-       WHERE event_id = $1 FOR UPDATE`, [eventId]);     // замок на рядок
-    const row = rows[0];
-    if (!row || row.status === "done" || row.status === "dead") {
-      await client.query("COMMIT");
-      return "ack";                                     // уже зроблено/відкладено — тихо
-    }
-
-    await applySideEffect(client, row.payload);         // у ТІЙ САМІЙ транзакції
-    await client.query(
-      `UPDATE webhook_inbox SET status='done', processed_at=now()
-       WHERE event_id = $1`, [eventId]);
-    await client.query("COMMIT");                       // ефект і 'done' лягають РАЗОМ
-    return "ack";
-  } catch (err) {
-    await client.query("ROLLBACK");                     // нічого не закомічено — стан чистий
-    return onFailure(eventId, err);                     // attempts+1, можливо — в DLQ
-  } finally {
-    client.release();
-  }
-}
-
-// Сам ефект теж ідемпотентний: умова paid=false робить повтор нічим.
-async function applySideEffect(client: PoolClient, payload: any) {
-  await client.query(
-    `UPDATE invoices SET paid = true, paid_at = now()
-     WHERE id = $1 AND paid = false`, [payload.data.invoice_id]);
-}
-
-async function onFailure(eventId: string, err: unknown): Promise<Ack> {
-  const { rows } = await pool.query(
-    `UPDATE webhook_inbox SET attempts = attempts + 1
-     WHERE event_id = $1 RETURNING attempts`, [eventId]);
-  if (rows[0].attempts >= MAX_ATTEMPTS) {
-    await pool.query(`UPDATE webhook_inbox SET status='dead' WHERE event_id = $1`, [eventId]);
-    alertHuman(eventId, err);                           // отруйна подія — хай гляне людина
-    return "ack";                                       // прибрати з живої черги
-  }
-  return "retry";                                       // назад у чергу, з наростанням паузи
-}
-```
-```py
-MAX_ATTEMPTS = 8
-
-def handle(event_id: str) -> str:                # "ack" — прибрати; "retry" — повернути
-    try:
-        with pool.connection() as conn:          # вихід без винятку → COMMIT; виняток → ROLLBACK
-            row = conn.execute(
-                "SELECT status, payload FROM webhook_inbox "
-                "WHERE event_id = %s FOR UPDATE", (event_id,)).fetchone()   # замок на рядок
-            if row is None or row["status"] in ("done", "dead"):
-                return "ack"                     # уже зроблено/відкладено — тихо
-
-            apply_side_effect(conn, row["payload"])      # у ТІЙ САМІЙ транзакції
-            conn.execute(
-                "UPDATE webhook_inbox SET status='done', processed_at=now() "
-                "WHERE event_id = %s", (event_id,))
-        return "ack"                             # дійшли сюди → ефект і 'done' закомічені РАЗОМ
-    except Exception as err:
-        return on_failure(event_id, err)         # виняток → with уже відкотив; окремо attempts+1
-
-def apply_side_effect(conn, payload):
-    # Умова paid=false робить повтор нічим — сам ефект теж ідемпотентний.
-    conn.execute(
-        "UPDATE invoices SET paid = true, paid_at = now() "
-        "WHERE id = %s AND paid = false", (payload["data"]["invoice_id"],))
-
-def on_failure(event_id: str, err: Exception) -> str:
-    with pool.connection() as conn:
-        attempts = conn.execute(
-            "UPDATE webhook_inbox SET attempts = attempts + 1 "
-            "WHERE event_id = %s RETURNING attempts", (event_id,)).fetchone()["attempts"]
-        if attempts >= MAX_ATTEMPTS:
-            conn.execute("UPDATE webhook_inbox SET status='dead' WHERE event_id = %s", (event_id,))
-            alert_human(event_id, err)           # отруйна подія — хай гляне людина
-            return "ack"                         # прибрати з живої черги
-    return "retry"                               # назад у чергу, з наростанням паузи
-```
-```go
-const maxAttempts = 8
-
-// повертає true — прибрати з черги (ack); false — повернути в чергу (retry)
-func handle(ctx context.Context, eventID string) bool {
-    tx, err := db.BeginTx(ctx, nil)
-    if err != nil {
-        return false                                   // не почали — назад у чергу
-    }
-    defer tx.Rollback()                                // no-op після Commit; підстрахує будь-який вихід
-
-    var status string
-    var payload []byte
-    err = tx.QueryRowContext(ctx,
-        `SELECT status, payload FROM webhook_inbox
-         WHERE event_id = $1 FOR UPDATE`, eventID).Scan(&status, &payload)  // замок на рядок
-    switch {
-    case err == sql.ErrNoRows:
-        tx.Commit(); return true                       // рядка нема — нічого гасити
-    case err != nil:
-        return onFailure(ctx, eventID, err)
-    case status == "done" || status == "dead":
-        tx.Commit(); return true                       // уже зроблено/відкладено — тихо
-    }
-
-    if err := applySideEffect(ctx, tx, payload); err != nil {   // у ТІЙ САМІЙ транзакції
-        return onFailure(ctx, eventID, err)
-    }
-    if _, err := tx.ExecContext(ctx,
-        `UPDATE webhook_inbox SET status='done', processed_at=now()
-         WHERE event_id = $1`, eventID); err != nil {
-        return onFailure(ctx, eventID, err)
-    }
-    if err := tx.Commit(); err != nil {                // ефект і 'done' лягають РАЗОМ
-        return onFailure(ctx, eventID, err)
-    }
-    return true
-}
-
-func applySideEffect(ctx context.Context, tx *sql.Tx, payload []byte) error {
-    var ev struct{ Data struct{ InvoiceID string `json:"invoice_id"` } }
-    if err := json.Unmarshal(payload, &ev); err != nil {
-        return err
-    }
-    // Умова paid=false робить повтор нічим — сам ефект теж ідемпотентний.
-    _, err := tx.ExecContext(ctx,
-        `UPDATE invoices SET paid = true, paid_at = now()
-         WHERE id = $1 AND paid = false`, ev.Data.InvoiceID)
-    return err
-}
-
-func onFailure(ctx context.Context, eventID string, cause error) bool {
-    var attempts int
-    db.QueryRowContext(ctx,
-        `UPDATE webhook_inbox SET attempts = attempts + 1
-         WHERE event_id = $1 RETURNING attempts`, eventID).Scan(&attempts)
-    if attempts >= maxAttempts {
-        db.ExecContext(ctx, `UPDATE webhook_inbox SET status='dead' WHERE event_id = $1`, eventID)
-        alertHuman(eventID, cause)                      // отруйна подія — хай гляне людина
-        return true                                     // прибрати з живої черги
-    }
-    return false                                        // назад у чергу, з наростанням паузи
-}
-```
+:::code proj-robust-consumer/ts/robitnyk-stan-mashyna-v.ts
+:::code proj-robust-consumer/py/robitnyk-stan-mashyna-v.py
+:::code proj-robust-consumer/go/robitnyk-stan-mashyna-v.go
 :::
 
 Простеж три сценарії повтору по цьому коду — і побачиш, як стан-машина їх ковтає:
@@ -451,69 +163,9 @@ LIMIT 500;
 Тому вебхуки самі по собі — доставка «як вийде»; вони ніколи не мусять бути єдиним шляхом для того, чого проґавити не можна. Страхувальна сітка — [звірка](root:sf-distributed/reconciliation): періодично тягни журнал подій із API провайдера й прогонь кожну через ту саму вставку-дедуп. Ті, що ти вже бачив, відсіються самі (конфлікт → «не нова»); ті, яких провайдер не доніс, вставляться вперше й підуть у чергу.
 
 :::tabs
-```ts
-const OVERLAP_MS = 10 * 60 * 1000;   // перекрити вікно на 10 хв — щоб не проґавити межу
-
-async function reconcile() {
-  const cursor = await loadCursor("payments");
-  const since = cursor - OVERLAP_MS;                       // навмисно тягнемо ширше
-  let maxSeen = cursor;
-
-  for await (const event of provider.listEvents({ since })) {   // посторінково з чужого API
-    const raw = Buffer.from(JSON.stringify(event));
-    if (await inboxInsert(event.id, event.type, raw)) {
-      await enqueue(event.id);          // цієї події ми не бачили — провайдер її облишив
-    }                                   // бачили — insert віддав false, тихо пропускаємо
-    maxSeen = Math.max(maxSeen, event.created * 1000);
-  }
-  await saveCursor("payments", maxSeen);                   // зрушуємо курсор уперед
-}
-```
-```py
-OVERLAP = timedelta(minutes=10)   # перекрити вікно — щоб не проґавити межу
-
-def reconcile():
-    cursor = load_cursor("payments")
-    since = cursor - OVERLAP                                  # навмисно тягнемо ширше
-    max_seen = cursor
-
-    for event in provider.list_events(since=since):          # посторінково з чужого API
-        raw = json.dumps(event).encode()
-        if inbox_insert(event["id"], event["type"], raw):
-            enqueue(event["id"])         # цієї події ми не бачили — провайдер її облишив
-        # бачили — inbox_insert віддав False, тихо пропускаємо
-        max_seen = max(max_seen, datetime.fromtimestamp(event["created"], tz=timezone.utc))
-    save_cursor("payments", max_seen)                        # зрушуємо курсор уперед
-```
-```go
-const overlap = 10 * time.Minute   // перекрити вікно — щоб не проґавити межу
-
-func reconcile(ctx context.Context) error {
-    cursor := loadCursor("payments")
-    since := cursor.Add(-overlap)                            // навмисно тягнемо ширше
-    maxSeen := cursor
-
-    events, err := provider.ListEvents(ctx, since)           // посторінково з чужого API
-    if err != nil {
-        return err
-    }
-    for _, event := range events {
-        raw, _ := json.Marshal(event)
-        isNew, err := inboxInsert(ctx, event.ID, event.Type, raw)
-        if err != nil {
-            return err
-        }
-        if isNew {
-            enqueue(event.ID)            // цієї події ми не бачили — провайдер її облишив
-        }
-        if t := time.Unix(event.Created, 0); t.After(maxSeen) {
-            maxSeen = t
-        }
-    }
-    saveCursor("payments", maxSeen)                          // зрушуємо курсор уперед
-    return nil
-}
-```
+:::code proj-robust-consumer/ts/zvirka-distaty-te-shcho.ts
+:::code proj-robust-consumer/py/zvirka-distaty-te-shcho.py
+:::code proj-robust-consumer/go/zvirka-distaty-te-shcho.go
 :::
 
 Дві тонкощі роблять звірку правильною. **Перше — перекриття вікна.** Ми тягнемо події не від точного курсора, а на десять хвилин раніше. Чужий «список від часу T» може проґавити подію, що сіла рівно на межу через розбіжність годинників чи затримку індексації в провайдера. Перекриття наздоганяє межу, а вставка-дедуп робить повторне вичитування *безкоштовним*: усе, що ти вже бачив, відсіється саме собою. Тому не бійся тягнути ширше — бійся тягнути вужче. **Друге — курсор рухаємо за найпізнішою *побаченою* подією**, а не за «зараз»: якщо звірка впаде посеред сторінки, наступний запуск почне з того, де насправді спинився, а не перестрибне непрочитане.

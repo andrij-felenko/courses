@@ -50,37 +50,8 @@ def new_sid() -> str:
 Найчистіше цей контракт виражає Go — інтерфейс там річ першого класу; поруч той самий контракт у TypeScript:
 
 :::tabs
-```go
-package session
-
-import "time"
-
-type Session struct {
-    UserID    string
-    CreatedAt time.Time // початок відліку абсолютного строку
-}
-
-// Store ховає, ДЕ лежать сесії. Політика (строки, ротація) — вище, над ним.
-type Store interface {
-    Create(userID string) (sid string, err error)
-    Lookup(sid string) (*Session, error)           // nil — немає/згасла; усередині ковзає idle
-    Rotate(sid string) (newSid string, err error)  // новий номер, ті самі дані, старий мертвий
-    Destroy(sid string) error
-}
-```
-```ts
-export interface Session {
-  userId: string;
-  createdAt: number;                              // мс, початок абсолютного строку
-}
-
-export interface Store {
-  create(userId: string): Promise<string>;        // → новий sid
-  lookup(sid: string): Promise<Session | null>;   // null — немає/згасла; усередині ковзає idle
-  rotate(sid: string): Promise<string | null>;    // новий номер, ті самі дані, старий мертвий
-  destroy(sid: string): Promise<void>;
-}
-```
+:::code proj-session-store/go/main.go
+:::code proj-session-store/ts/krok-2-interfeis.ts
 :::
 
 Запис навмисно худий: `userId` — щоб знати, хто це, і `createdAt` — щоб знати, коли впаде абсолютна стеля. Момент останньої дії (для ковзного простою) реалізація тримає по-своєму: у пам'яті — окремим полем, у Redis — це просто TTL самого ключа. Ролі, права, ім'я — усе, що змінюється, — тримати в записі не варто: підняв `userId`, а решту дістав зі свого джерела правди, щоб відкликання ролі спрацьовувало миттєво, а не «до кінця сесії».
@@ -99,111 +70,8 @@ const ABSOLUTE_MS = 12 * 3_600_000;   // тверда стеля: 12 год ві
 Ліки — двошарові. **Ліниве згасання**: `lookup` сам перевіряє обидва строки й викидає запис, якщо той протух, — так мертвий номер ніколи не пройде, навіть якщо його ще не підмели. І **періодичне прибирання** (sweep): раз на хвилину пробігтися й викинути протухлі, щоб `Map` не роздувалася від сесій, на які ніхто вже не дивиться. Разом вони й дають те, що в Redis робить сам движок:
 
 :::tabs
-```ts
-import { randomBytes } from "node:crypto";
-
-type Rec = { userId: string; createdAt: number; lastSeen: number };
-
-export class MemoryStore implements Store {
-  private map = new Map<string, Rec>();
-
-  constructor() {
-    // без прибирання Map тече, а згаслі сесії живуть далі — тож підмітаємо
-    setInterval(() => this.sweep(), 60_000).unref();
-  }
-
-  async create(userId: string): Promise<string> {
-    const sid = randomBytes(18).toString("base64url");
-    const now = Date.now();
-    this.map.set(sid, { userId, createdAt: now, lastSeen: now });
-    return sid;
-  }
-
-  async lookup(sid: string): Promise<Session | null> {
-    const r = this.map.get(sid);
-    if (!r) return null;
-    const now = Date.now();
-    if (now - r.lastSeen > IDLE_MS || now - r.createdAt > ABSOLUTE_MS) {
-      this.map.delete(sid);              // згасла за простоєм АБО впала абсолютна стеля
-      return null;
-    }
-    r.lastSeen = now;                     // ковзання: посунули дедлайн простою вперед
-    return { userId: r.userId, createdAt: r.createdAt };
-  }
-
-  async rotate(sid: string): Promise<string | null> {
-    const r = this.map.get(sid);
-    if (!r) return null;
-    const next = randomBytes(18).toString("base64url");
-    this.map.set(next, { ...r, lastSeen: Date.now() });
-    this.map.delete(sid);                 // старий номер мертвий тієї ж миті
-    return next;
-  }
-
-  async destroy(sid: string): Promise<void> {
-    this.map.delete(sid);                 // відкликання — просто викидаємо запис
-  }
-
-  private sweep(): void {
-    const now = Date.now();
-    for (const [sid, r] of this.map)
-      if (now - r.lastSeen > IDLE_MS || now - r.createdAt > ABSOLUTE_MS)
-        this.map.delete(sid);
-  }
-}
-```
-```py
-import secrets, time, threading
-
-IDLE_S = 30 * 60          # ковзний простій: 30 хв
-ABSOLUTE_S = 12 * 3600    # тверда стеля: 12 год
-
-class MemoryStore:
-    def __init__(self) -> None:
-        self._map: dict[str, dict] = {}
-        self._lock = threading.Lock()      # кілька потоків можуть лізти водночас
-
-    def create(self, user_id: str) -> str:
-        sid = secrets.token_urlsafe(18)
-        now = time.time()
-        with self._lock:
-            self._map[sid] = {"user_id": user_id, "created_at": now, "last_seen": now}
-        return sid
-
-    def lookup(self, sid: str) -> dict | None:
-        now = time.time()
-        with self._lock:
-            r = self._map.get(sid)
-            if r is None:
-                return None
-            if now - r["last_seen"] > IDLE_S or now - r["created_at"] > ABSOLUTE_S:
-                del self._map[sid]         # згасла за простоєм АБО впала абсолютна стеля
-                return None
-            r["last_seen"] = now           # ковзання
-            return {"user_id": r["user_id"], "created_at": r["created_at"]}
-
-    def rotate(self, sid: str) -> str | None:
-        with self._lock:
-            r = self._map.pop(sid, None)   # старий номер мертвий тієї ж миті
-            if r is None:
-                return None
-            nxt = secrets.token_urlsafe(18)
-            r["last_seen"] = time.time()
-            self._map[nxt] = r
-            return nxt
-
-    def destroy(self, sid: str) -> None:
-        with self._lock:
-            self._map.pop(sid, None)
-
-    def sweep(self) -> None:               # кликати періодично (напр., раз на хвилину)
-        now = time.time()
-        with self._lock:
-            dead = [s for s, r in self._map.items()
-                    if now - r["last_seen"] > IDLE_S or now - r["created_at"] > ABSOLUTE_S]
-            for s in dead:
-                del self._map[s]
-```
+:::code proj-session-store/ts/krok-3-realizatsiia-v.ts
+:::code proj-session-store/py/krok-3-realizatsiia-v.py
 :::
 
 Ця реалізація чудова для розробки й тестів, але має вбудовану стелю: щойно серверів стане більше одного, `Map` у пам'яті кожного з них перестане бачити сесії сусіда. Тому наступний крок — той самий інтерфейс, але поверх спільного сховища.
@@ -215,108 +83,8 @@ class MemoryStore:
 Абсолютна стеля хитріша, і саме на ній народжується показова помилка. Спокуса: закодувати абсолют теж через TTL. Але ж ми **ковзаємо** TTL на кожному запиті — і кожне ковзання зсуває стелю вперед, тож у активного користувача сесія стає **безсмертною**, а абсолютний строк випаровується. Тому абсолют мусить жити **окремим полем** `createdAt` у самому записі, а ковзання — бути **обмеженим** цим полем: новий idle-TTL ніколи не проб'є абсолютну стелю. Одна ця перевірка — `min(idle, абсолют − now)` — і робить два лічильники по-справжньому незалежними.
 
 :::tabs
-```ts
-import { randomBytes } from "node:crypto";
-import type Redis from "ioredis";
-
-const KEY = (sid: string) => `sess:${sid}`;
-const IDLE_S = 30 * 60;
-const ABSOLUTE_S = 12 * 3600;
-
-export class RedisStore implements Store {
-  constructor(private redis: Redis) {}
-
-  async create(userId: string): Promise<string> {
-    const sid = randomBytes(18).toString("base64url");
-    const value = JSON.stringify({ userId, createdAt: Date.now() });
-    // NX — на випадок (астрономічно рідкої) колізії; EX — idle-TTL одразу на ключі
-    await this.redis.set(KEY(sid), value, "EX", IDLE_S, "NX");
-    return sid;
-  }
-
-  async lookup(sid: string): Promise<Session | null> {
-    const raw = await this.redis.get(KEY(sid));
-    if (!raw) return null;                       // ключа немає — Redis уже згасив за idle
-    const s: Session = JSON.parse(raw);
-    const absLeft = s.createdAt / 1000 + ABSOLUTE_S - Date.now() / 1000;
-    if (absLeft <= 0) {                          // впала абсолютна стеля
-      await this.redis.del(KEY(sid));
-      return null;
-    }
-    // ковзання, ОБМЕЖЕНЕ абсолютом: idle ніколи не проб'є стелю
-    await this.redis.expire(KEY(sid), Math.floor(Math.min(IDLE_S, absLeft)));
-    return s;
-  }
-
-  async rotate(sid: string): Promise<string | null> {
-    const next = randomBytes(18).toString("base64url");
-    // атомарно одним скриптом: прочитати, покласти під новим ключем, знищити старий
-    const ok = await this.redis.eval(ROTATE_LUA, 2, KEY(sid), KEY(next), String(IDLE_S));
-    return ok ? next : null;
-  }
-
-  async destroy(sid: string): Promise<void> {
-    await this.redis.del(KEY(sid));              // відкликання — один DEL
-  }
-}
-
-// KEYS[1] старий ключ, KEYS[2] новий, ARGV[1] idle-TTL
-const ROTATE_LUA = `
-  local v = redis.call('GET', KEYS[1])
-  if not v then return nil end
-  redis.call('SET', KEYS[2], v, 'EX', ARGV[1])
-  redis.call('DEL', KEYS[1])
-  return 1`;
-```
-```py
-import secrets, time, json
-import redis
-
-IDLE_S = 30 * 60
-ABSOLUTE_S = 12 * 3600
-
-_ROTATE = """
-local v = redis.call('GET', KEYS[1])
-if not v then return nil end
-redis.call('SET', KEYS[2], v, 'EX', ARGV[1])
-redis.call('DEL', KEYS[1])
-return 1
-"""
-
-class RedisStore:
-    def __init__(self, r: redis.Redis) -> None:
-        self._r = r
-        self._rotate = r.register_script(_ROTATE)   # Lua — атомарний rotate
-
-    def _key(self, sid: str) -> str:
-        return f"sess:{sid}"
-
-    def create(self, user_id: str) -> str:
-        sid = secrets.token_urlsafe(18)
-        value = json.dumps({"user_id": user_id, "created_at": time.time()})
-        self._r.set(self._key(sid), value, ex=IDLE_S, nx=True)
-        return sid
-
-    def lookup(self, sid: str) -> dict | None:
-        raw = self._r.get(self._key(sid))
-        if raw is None:
-            return None                              # ключа немає — Redis згасив за idle
-        s = json.loads(raw)
-        abs_left = s["created_at"] + ABSOLUTE_S - time.time()
-        if abs_left <= 0:
-            self._r.delete(self._key(sid))           # впала абсолютна стеля
-            return None
-        self._r.expire(self._key(sid), int(min(IDLE_S, abs_left)))  # ковзання, обмежене абсолютом
-        return s
-
-    def rotate(self, sid: str) -> str | None:
-        nxt = secrets.token_urlsafe(18)
-        ok = self._rotate(keys=[self._key(sid), self._key(nxt)], args=[IDLE_S])
-        return nxt if ok else None
-
-    def destroy(self, sid: str) -> None:
-        self._r.delete(self._key(sid))
-```
+:::code proj-session-store/ts/krok-4-realizatsiia-na.ts
+:::code proj-session-store/py/krok-4-realizatsiia-na.py
 :::
 
 ![Блок-схема операції lookup: спершу перевірка, чи є запис sess:sid у сховищі (ні — повертаємо null як аноніма), потім перевірка абсолютної стелі now мінус createdAt проти абсолютного строку (так — знищуємо сесію й повертаємо null), і лише інакше — ковзання, тобто виставлення idle-TTL у значення мінімуму від idle й залишку абсолюту, після чого повертаємо запис Session](img/lookup-flow.svg)
@@ -329,28 +97,7 @@ class RedisStore:
 
 Сховище готове; лишається натягти на нього два обробники, у яких і живе решта безпеки. **Вхід** — це не просто «створити сесію». Якщо з запитом уже приїхав чийсь номер (анонімний або підсунутий зловмисником), його треба **вбити** й видати цілком свіжий — це ротація в найсильнішій формі: не просто новий ключ, а новий запис із чистим відліком абсолютного строку. Саме так велить канон безпеки (OWASP): на кожній зміні рівня прав, і насамперед — на вході, старий номер знищити, новий видати, щоб підсунута копія після входу вже нічого не відмикала.
 
-```ts
-// ВХІД: перевірили пароль → знищили те, що приїхало → видали свіжий номер
-async function login(req, res, username: string, password: string) {
-  const user = await verifyPassword(username, password);   // автентифікація
-  if (!user) return res.status(401).end();
-
-  const incoming = parseCookie(req.headers.cookie).sid;
-  if (incoming) await store.destroy(incoming);   // ротація: старий номер тепер мертвий
-  const sid = await store.create(user.id);       // новий запис, чистий відлік строку
-
-  res.setHeader("Set-Cookie",
-    `sid=${sid}; HttpOnly; Secure; SameSite=Lax; Path=/`);
-}
-
-// ВИХІД: спершу гасимо ПРАВДУ у сховищі, і лише потім прибираємо cookie
-async function logout(req, res) {
-  const sid = parseCookie(req.headers.cookie).sid;
-  if (sid) await store.destroy(sid);             // запис мертвий → номер нічого не варт
-  res.setHeader("Set-Cookie",
-    `sid=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`);
-}
-```
+:::code proj-session-store/ts/krok-5-polityka-zverkhu.ts
 
 Форма цих обробників однакова в будь-якому фреймворку й будь-якій мові — важлива не мова, а порядок дій: на вході спершу `destroy` вхідного номера, тоді `create`; на виході спершу `destroy` у сховищі, і лише потім чистка cookie. А `rotate` з інтерфейсу лишається для випадків, коли сесія триває, але рівень прав змінився серед сеансу, — увімкнув режим адміністратора, підвищив собі роль: там запис треба зберегти, а номер під ним — поміняти.
 

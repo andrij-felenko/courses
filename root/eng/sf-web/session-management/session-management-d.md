@@ -30,47 +30,8 @@
 Увесь цикл — три короткі рухи: **вхід створює сесію, cookie возить номер, вихід знищує сесію**.
 
 :::tabs
-```ts
-import { randomBytes } from "node:crypto";
-
-// Сервер тримає правду в себе; клієнт отримає лише номер
-const sessions = new Map<string, { userId: string; createdAt: number }>();
-
-function login(res: Response, userId: string) {
-  const sid = randomBytes(16).toString("hex");        // 128 біт із CSPRNG
-  sessions.set(sid, { userId, createdAt: Date.now() });
-  res.setHeader("Set-Cookie",
-    `sid=${sid}; HttpOnly; Secure; SameSite=Lax; Path=/`);
-}
-
-function whoAmI(req: Request): string | null {
-  const sid = parseCookie(req.headers.cookie).sid;
-  const session = sid ? sessions.get(sid) : undefined;
-  return session ? session.userId : null;             // немає запису → анонім
-}
-
-function logout(sid: string) {
-  sessions.delete(sid);        // знищуємо ПРАВДУ на сервері, не лише cookie
-}
-```
-```py
-import secrets, time
-
-sessions: dict[str, dict] = {}          # правда живе на сервері
-
-def login(response, user_id: str) -> None:
-    sid = secrets.token_hex(16)         # 128 біт із CSPRNG
-    sessions[sid] = {"user_id": user_id, "created_at": time.time()}
-    response.set_cookie("sid", sid, httponly=True, secure=True, samesite="Lax")
-
-def who_am_i(request) -> str | None:
-    sid = request.cookies.get("sid")
-    session = sessions.get(sid) if sid else None
-    return session["user_id"] if session else None     # немає запису → анонім
-
-def logout(sid: str) -> None:
-    sessions.pop(sid, None)       # знищуємо ПРАВДУ на сервері, не лише cookie
-```
+:::code session-management-d/ts/index.ts
+:::code session-management-d/py/main.py
 :::
 
 Зверни увагу на `logout`: він викидає запис зі **сховища**, а не просто просить браузер забути cookie. Це не дрібниця, а осердя всієї моделі. Якщо вихід лише стирає cookie, а серверний запис живий, то будь-хто, хто встиг переписати номер собі, і далі заходить як ти. Правда — на сервері, тож і гасити сесію треба **там**. Саме звідси випливає велика перевага серверних сесій: їх **можна відкликати** будь-якої миті — досить прибрати запис, і номер миттєво стає мертвим. Повний робочий склад сесій — із генерацією номерів, строками, ротацією й відкликанням — [зібрано окремим проєктом](root:sf-web/session-management/proj-session-store.md).

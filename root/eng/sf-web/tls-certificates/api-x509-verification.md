@@ -62,21 +62,7 @@ int custom_verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx) {
     return preverify_ok;
 }
 ```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <openssl/x509_vfy.h>
-
-int custom_verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx) noexcept {
-    if (!preverify_ok) {
-        const int err = X509_STORE_CTX_get_error(x509_ctx);
-        const int depth = X509_STORE_CTX_get_error_depth(x509_ctx);
-        const std::string_view err_str = X509_verify_cert_error_string(err);
-        std::cerr << "[!] Помилка валідації на глибині " << depth << ": " << err_str << "\n";
-    }
-    return preverify_ok;
-}
-```
+:::code api-x509-verification/cpp/main.cpp
 :::
 
 Ця функція викликається бібліотекою OpenSSL для кожного сертифіката в ланцюжку знизу вгору: спочатку для кореневого CA (найбільша глибина, наприклад `depth = 2`), потім для проміжних центрів (`depth = 1`), і врешті для кінцевого сертифіката сервера (`depth = 0`).
@@ -134,19 +120,6 @@ int custom_verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx) noexcept 
 
 Для швидкої ізоляції проблем конфігурації TLS на сервері або клієнті використовують утиліту OpenSSL CLI `s_client`.
 
-```bash
-# 1. Повна перевірка з показом усіх сертифікатів ланцюжка та індикацією SNI
-openssl s_client -connect api.example.com:443 -servername api.example.com -showcerts
-
-# 2. Тестування з використанням власного локального CA бандла
-openssl s_client -connect api.internal.corp:443 -servername api.internal.corp -CAfile /etc/ssl/custom-ca.pem
-
-# 3. Тестування mTLS з надсиланням сертифіката та приватного ключа клієнта
-openssl s_client -connect secure-gw.bank.com:8443 \
-    -servername secure-gw.bank.com \
-    -CAfile /etc/ssl/ca-bundle.pem \
-    -cert client.crt \
-    -key client.key
-```
+:::code api-x509-verification/sh/main.sh
 
 Під час аналізу результатів звертайте увагу на рядок `Verify return code`: код `0 (ok)` підтверджує абсолютну валідність ланцюжка, тоді як будь-яке інше числове значення відповідає конкретному рядку в наведеній вище таблиці кодів помилок.

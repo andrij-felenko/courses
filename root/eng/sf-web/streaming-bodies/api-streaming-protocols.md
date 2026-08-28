@@ -84,36 +84,8 @@ trailer-section  = *( field-line CRLF )
 Основними параметрами керування буферизацією є системні опції, які налаштовуються через виклик `setsockopt()`:
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-void configure_streaming_socket(int sock_fd) {
-    int rcvbuf = 128 * 1024;
-    setsockopt(sock_fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf));
-
-    int sndbuf = 128 * 1024;
-    setsockopt(sock_fd, SOL_SOCKET, SO_SNDBUF, &sndbuf, sizeof(sndbuf));
-
-    int nodelay = 1;
-    setsockopt(sock_fd, IPPROTO_TCP, TCP_NODELAY, &nodelay, sizeof(nodelay));
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-
-void configure_streaming_socket(int sock_fd) noexcept {
-    constexpr int kBufferSize = 128 * 1024;
-    ::setsockopt(sock_fd, SOL_SOCKET, SO_RCVBUF, &kBufferSize, sizeof(kBufferSize));
-    ::setsockopt(sock_fd, SOL_SOCKET, SO_SNDBUF, &kBufferSize, sizeof(kBufferSize));
-
-    constexpr int kNoDelay = 1;
-    ::setsockopt(sock_fd, IPPROTO_TCP, TCP_NODELAY, &kNoDelay, sizeof(kNoDelay));
-}
-```
+:::code api-streaming-protocols/c/main.c
+:::code api-streaming-protocols/cpp/main.hpp
 :::
 
 Параметр `SO_RCVBUF` визначає розмір приймального буфера ядра. У сучасних версіях Linux за увімкненого автопідлаштування вікон TCP значення цього буфера динамічно змінюється ядром у межах діапазону, заданого системною конфігурацією `/proc/sys/net/ipv4/tcp_rmem` (мінімальний, типовий та максимальний розміри). Ручне встановлення `SO_RCVBUF` фіксує буфер на подвоєному значенні вказаного числа й вимикає механізм автоматичного тюнінгу TCP.

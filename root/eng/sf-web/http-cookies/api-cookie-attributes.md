@@ -209,20 +209,7 @@ cookie-pair       = cookie-name "=" cookie-value
 ### Storage Access API (SAA)
 Якщо сторонньому сервісу (наприклад, віджету авторизації через соціальну мережу або платіжному модулю) необхідно отримати доступ до своїх непарційованих cookie всередині `iframe`, він зобов'язаний скористатися **Storage Access API (SAA)**:
 
-```javascript
-// Перевірка та запит доступу до сторонніх cookie всередині iframe
-if (document.requestStorageAccess) {
-  document.hasStorageAccess().then(hasAccess => {
-    if (!hasAccess) {
-      // Вимагає прямої взаємодії користувача (User Gesture: клік або тач)
-      document.requestStorageAccess().then(
-        () => { /* Доступ надано: document.cookie тепер бачить власні cookie */ },
-        () => { /* Користувач або браузер відхилив доступ */ }
-      );
-    }
-  });
-}
-```
+:::code api-cookie-attributes/js/index.js
 
 Виклик `document.requestStorageAccess()` викликає системне діалогове вікно браузера з проханням надати дозвіл. Якщо користувач погоджується, браузер тимчасово відкриває доступ до сховища cookie стороннього ресурсу виключно у контексті поточної вкладки.
 

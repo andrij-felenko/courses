@@ -12,46 +12,7 @@
 
 Щоб виконати елементарну дію, яка стала стандартом сучасної веб-розробки — наприклад, надіслати `POST`-запит із даними JSON, передати заголовок авторизації та автоматично зберегти сесійні cookie, — розробнику на Python доводилося писати понад двадцять рядків заплутаного низькорівневого коду:
 
-```python
-import json
-import urllib
-import urllib2
-import cookielib
-
-# Створення сховища cookie
-cookie_jar = cookielib.CookieJar()
-cookie_processor = urllib2.HTTPCookieProcessor(cookie_jar)
-
-# Налаштування менеджера автентифікації
-password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-password_mgr.add_password(None, "https://api.example.com", "user", "secret")
-auth_handler = urllib2.HTTPBasicAuthHandler(password_mgr)
-
-# Збирання конвеєра відкриття
-opener = urllib2.build_opener(cookie_processor, auth_handler)
-urllib2.install_opener(opener)
-
-# Підготовка тіла та заголовків
-payload = json.dumps({"query": "status"}).encode("utf-8")
-request = urllib2.Request(
-    "https://api.example.com/v1/data",
-    data=payload,
-    headers={
-        "Content-Type": "application/json; charset=utf-8",
-        "Accept": "application/json",
-        "User-Agent": "CustomApp/1.0"
-    }
-)
-
-# Виконання запиту та ручне перехоплення статус-кодів
-try:
-    response = opener.open(request, timeout=10)
-    body = response.read()
-except urllib2.HTTPError as exc:
-    print(f"Помилка HTTP {exc.code}: {exc.read()}")
-except urllib2.URLError as exc:
-    print(f"Помилка мережі: {exc.reason}")
-```
+:::code hist-python-http-clients/py/main.py
 
 У цій моделі кожен аспект мережевого зв'язку — додавання обробника перенаправлень, керування проксі чи валідація сертифікатів TLS — вимагав створення окремого класу-обробника (`Handler`) та повторного збирання ланцюжка `build_opener`. Якщо сервер повертав статус `404 Not Found` або `500 Internal Server Error`, `urllib2` генерував виняток `HTTPError`, який одночасно був об'єктом відповіді, що ламало передбачуваність обробки помилок.
 

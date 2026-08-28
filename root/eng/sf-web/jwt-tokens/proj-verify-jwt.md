@@ -24,211 +24,9 @@
 Ось повний модуль — три однакові за поведінкою реалізації трьома рідними для бекенду мовами. Кожна містить усе: base64url із паддингом, підпис `HS256`, порівняння сталого часу, прибитий алгоритм і перевірку часових тверджень `exp`/`nbf`/`iat`.
 
 :::tabs
-```python
-import base64, hashlib, hmac, json, time
-
-# ── base64url без службових '=' (JWT їх не тримає) ────────────────────────
-def b64url_encode(raw: bytes) -> str:
-    return base64.urlsafe_b64encode(raw).rstrip(b"=").decode("ascii")
-
-def b64url_decode(s: str) -> bytes:
-    pad = "=" * (-len(s) % 4)          # добити довжину до кратної чотирьом
-    return base64.urlsafe_b64decode(s + pad)
-
-def hs256(msg: bytes, secret: bytes) -> bytes:
-    return hmac.new(secret, msg, hashlib.sha256).digest()
-
-class InvalidToken(Exception):
-    pass
-
-# ── ВИДАЧА ────────────────────────────────────────────────────────────────
-def issue(claims: dict, secret: bytes, ttl: int = 900) -> str:
-    now = int(time.time())
-    header  = {"alg": "HS256", "typ": "JWT"}
-    payload = {**claims, "iat": now, "nbf": now, "exp": now + ttl}
-    signing_input = (
-        b64url_encode(json.dumps(header,  separators=(",", ":")).encode())
-        + "." +
-        b64url_encode(json.dumps(payload, separators=(",", ":")).encode())
-    )
-    sig = b64url_encode(hs256(signing_input.encode(), secret))
-    return signing_input + "." + sig
-
-# ── ПЕРЕВІРКА ──────────────────────────────────────────────────────────────
-def verify(token: str, secret: bytes, leeway: int = 30) -> dict:
-    parts = token.split(".")
-    if len(parts) != 3:
-        raise InvalidToken("не три частини")
-    header_b64, payload_b64, sig_b64 = parts
-
-    # (1) АЛГОРИТМ ПРИБИТО: очікуваний — НАШ, а не той, що в токені
-    if json.loads(b64url_decode(header_b64)).get("alg") != "HS256":
-        raise InvalidToken("несподіваний alg")
-
-    # (2) ПОРІВНЯННЯ СТАЛОГО ЧАСУ на сирих байтах підпису
-    expected = hs256((header_b64 + "." + payload_b64).encode(), secret)
-    if not hmac.compare_digest(expected, b64url_decode(sig_b64)):
-        raise InvalidToken("підпис не збігається")
-
-    # (3) ЧАСОВІ ТВЕРДЖЕННЯ (з невеликим допуском на розбіжність годинників)
-    payload = json.loads(b64url_decode(payload_b64))
-    now = int(time.time())
-    if "exp" in payload and now > payload["exp"] + leeway:
-        raise InvalidToken("протермінований")
-    if "nbf" in payload and now + leeway < payload["nbf"]:
-        raise InvalidToken("ще не набув чинності")
-    if "iat" in payload and now + leeway < payload["iat"]:
-        raise InvalidToken("виданий у майбутньому")
-    return payload
-```
-```go
-package jwt
-
-import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
-	"encoding/json"
-	"errors"
-	"strings"
-	"time"
-)
-
-// RawURLEncoding — це base64url БЕЗ службових '=', саме як у JWT.
-var b64 = base64.RawURLEncoding
-
-func hs256(msg, secret []byte) []byte {
-	m := hmac.New(sha256.New, secret)
-	m.Write(msg)
-	return m.Sum(nil)
-}
-
-var ErrInvalid = errors.New("невалідний токен")
-
-// ── ВИДАЧА ─────────────────────────────────────────────────────────────────
-func Issue(claims map[string]any, secret []byte, ttl time.Duration) (string, error) {
-	now := time.Now().Unix()
-	claims["iat"] = now
-	claims["nbf"] = now
-	claims["exp"] = now + int64(ttl.Seconds())
-
-	h, _ := json.Marshal(map[string]string{"alg": "HS256", "typ": "JWT"})
-	p, err := json.Marshal(claims)
-	if err != nil {
-		return "", err
-	}
-	signingInput := b64.EncodeToString(h) + "." + b64.EncodeToString(p)
-	sig := b64.EncodeToString(hs256([]byte(signingInput), secret))
-	return signingInput + "." + sig, nil
-}
-
-// ── ПЕРЕВІРКА ────────────────────────────────────────────────────────────────
-func Verify(token string, secret []byte, leeway time.Duration) (map[string]any, error) {
-	parts := strings.Split(token, ".")
-	if len(parts) != 3 {
-		return nil, ErrInvalid
-	}
-	headerJSON, err := b64.DecodeString(parts[0])
-	if err != nil {
-		return nil, ErrInvalid
-	}
-	var header struct {
-		Alg string `json:"alg"`
-	}
-	if json.Unmarshal(headerJSON, &header) != nil {
-		return nil, ErrInvalid
-	}
-	// (1) АЛГОРИТМ ПРИБИТО
-	if header.Alg != "HS256" {
-		return nil, ErrInvalid
-	}
-	// (2) СТАЛИЙ ЧАС: hmac.Equal порівнює до кінця незалежно від вмісту
-	sig, err := b64.DecodeString(parts[2])
-	if err != nil {
-		return nil, ErrInvalid
-	}
-	if !hmac.Equal(hs256([]byte(parts[0]+"."+parts[1]), secret), sig) {
-		return nil, ErrInvalid
-	}
-	// (3) ЧАСОВІ ТВЕРДЖЕННЯ
-	payloadJSON, err := b64.DecodeString(parts[1])
-	if err != nil {
-		return nil, ErrInvalid
-	}
-	var claims map[string]any
-	if json.Unmarshal(payloadJSON, &claims) != nil {
-		return nil, ErrInvalid
-	}
-	now, skew := time.Now().Unix(), int64(leeway.Seconds())
-	if exp, ok := asUnix(claims["exp"]); ok && now > exp+skew {
-		return nil, ErrInvalid
-	}
-	if nbf, ok := asUnix(claims["nbf"]); ok && now+skew < nbf {
-		return nil, ErrInvalid
-	}
-	if iat, ok := asUnix(claims["iat"]); ok && now+skew < iat {
-		return nil, ErrInvalid
-	}
-	return claims, nil
-}
-
-// JSON-числа в Go розпаковуються у float64 — обережно з ними.
-func asUnix(v any) (int64, bool) {
-	f, ok := v.(float64)
-	return int64(f), ok
-}
-```
-```ts
-import { createHmac, timingSafeEqual } from "node:crypto";
-
-// Node вміє кодек 'base64url' (від v14) — він без службових '='.
-const enc = (buf: Buffer): string => buf.toString("base64url");
-const dec = (s: string): Buffer => Buffer.from(s, "base64url");
-
-const hs256 = (msg: string, secret: Buffer): Buffer =>
-  createHmac("sha256", secret).update(msg).digest();
-
-type Claims = Record<string, unknown>;
-
-// ── ВИДАЧА ────────────────────────────────────────────────────────────────
-export function issue(claims: Claims, secret: Buffer, ttl = 900): string {
-  const now = Math.floor(Date.now() / 1000);
-  const header = { alg: "HS256", typ: "JWT" };
-  const payload = { ...claims, iat: now, nbf: now, exp: now + ttl };
-  const signingInput =
-    enc(Buffer.from(JSON.stringify(header))) + "." +
-    enc(Buffer.from(JSON.stringify(payload)));
-  return `${signingInput}.${enc(hs256(signingInput, secret))}`;
-}
-
-// ── ПЕРЕВІРКА ──────────────────────────────────────────────────────────────
-export function verify(token: string, secret: Buffer, leeway = 30): Claims {
-  const parts = token.split(".");
-  if (parts.length !== 3) throw new Error("не три частини");
-  const [headerB64, payloadB64, sigB64] = parts;
-
-  // (1) АЛГОРИТМ ПРИБИТО
-  const header = JSON.parse(dec(headerB64).toString());
-  if (header.alg !== "HS256") throw new Error("несподіваний alg");
-
-  // (2) СТАЛИЙ ЧАС: timingSafeEqual вимагає буфери однакової довжини
-  const expected = hs256(`${headerB64}.${payloadB64}`, secret);
-  const got = dec(sigB64);
-  if (expected.length !== got.length || !timingSafeEqual(expected, got))
-    throw new Error("підпис не збігається");
-
-  // (3) ЧАСОВІ ТВЕРДЖЕННЯ
-  const payload = JSON.parse(dec(payloadB64).toString()) as Claims;
-  const now = Math.floor(Date.now() / 1000);
-  const num = (k: string) =>
-    typeof payload[k] === "number" ? (payload[k] as number) : undefined;
-  const exp = num("exp"), nbf = num("nbf"), iat = num("iat");
-  if (exp !== undefined && now > exp + leeway) throw new Error("протермінований");
-  if (nbf !== undefined && now + leeway < nbf) throw new Error("ще не набув чинності");
-  if (iat !== undefined && now + leeway < iat) throw new Error("виданий у майбутньому");
-  return payload;
-}
-```
+:::code proj-verify-jwt/py/robochyi-modul-vydacha-i.py
+:::code proj-verify-jwt/go/main.go
+:::code proj-verify-jwt/ts/index.ts
 :::
 
 Три речі в цьому коді варті окремого погляду, бо кожна — це або пастка, або майбутній щит.
@@ -258,19 +56,7 @@ evil = forge_none({"sub": "42", "role": "admin"})
 
 Тепер — уразливий перевіряч, той, що читає алгоритм із токена. Він виглядає невинно, навіть дбайливо: «а, тут `none`, підписувати не треба, просто віддам навантаження».
 
-```python
-def verify_naive(token: str, secret: bytes) -> dict:
-    header_b64, payload_b64, sig_b64 = token.split(".")
-    alg = json.loads(b64url_decode(header_b64)).get("alg")   # ← вірить токену
-    if alg == "none":
-        return json.loads(b64url_decode(payload_b64))        # ← ЖОДНОЇ перевірки
-    if alg == "HS256":
-        expected = hs256((header_b64 + "." + payload_b64).encode(), secret)
-        if not hmac.compare_digest(expected, b64url_decode(sig_b64)):
-            raise InvalidToken("підпис не збігається")
-        return json.loads(b64url_decode(payload_b64))
-    raise InvalidToken("невідомий alg")
-```
+:::code proj-verify-jwt/py/ataka-persha-alg-none.py
 
 Зіткнімо підробку з обома перевіряками:
 
@@ -291,42 +77,13 @@ verify(evil, secret)        →  InvalidToken("несподіваний alg")  �
 
 Ось наївний перевіряч, що підтримує обидва сімейства й — фатально — бере алгоритм із токена, а «ключ» щоразу подає той самий, що йому налаштували:
 
-```python
-def verify_naive_multi(token: str, key: bytes) -> dict:
-    """key — це те, що сервіс тримає для перевірки. Для RS256 — ВІДКРИТИЙ ключ (PEM)."""
-    header_b64, payload_b64, sig_b64 = token.split(".")
-    alg = json.loads(b64url_decode(header_b64)).get("alg")   # ← знову вірить токену
-    signing_input = (header_b64 + "." + payload_b64).encode()
-    sig = b64url_decode(sig_b64)
-    if alg == "RS256":
-        rsa_verify(signing_input, sig, key)                  # key як ВІДКРИТИЙ ключ
-    elif alg == "HS256":
-        if not hmac.compare_digest(hs256(signing_input, key), sig):
-            raise InvalidToken("підпис не збігається")       # key як HMAC-СЕКРЕТ (!)
-    else:
-        raise InvalidToken("невідомий alg")
-    return json.loads(b64url_decode(payload_b64))
-```
+:::code proj-verify-jwt/py/ataka-druha-plutanyna.py
 
 Ось де западня. Той самий параметр `key` — рядок PEM відкритого ключа — на гілці `RS256` тлумачиться як **відкритий ключ**, а на гілці `HS256` — як **HMAC-секрет**. Для наївної бібліотеки це просто «ключ», байти й байти; що вони означають, вирішує `alg`. А `alg` вибирає зловмисник.
 
 І він вибирає `HS256`. Секрет для HMAC йому потрібен — але це ж відкритий ключ, він **відомий усім**, отже, є і в зловмисника. Тепер підробка — це наш власний `hs256`, той самий, що ми написали на початку, з відкритим ключем на місці секрету. Жодного приватного ключа, жодного справжнього RSA:
 
-```python
-# Відкритий ключ сервера — не таємниця, його роздано вільно:
-PUBLIC_PEM = b"-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZI...AENc9\n-----END PUBLIC KEY-----\n"
-
-def forge_confusion(claims: dict, public_pem: bytes) -> str:
-    header  = b64url_encode(json.dumps({"alg": "HS256", "typ": "JWT"},
-                                       separators=(",", ":")).encode())
-    payload = b64url_encode(json.dumps(claims, separators=(",", ":")).encode())
-    signing_input = header + "." + payload
-    sig = b64url_encode(hs256(signing_input.encode(), public_pem))   # СЕКРЕТ = відкритий ключ
-    return signing_input + "." + sig
-
-evil = forge_confusion({"sub": "42", "role": "admin"}, PUBLIC_PEM)
-verify_naive_multi(evil, PUBLIC_PEM)   # →  {"role": "admin"}   БЕЗ приватного ключа
-```
+:::code proj-verify-jwt/py/ataka-druha-plutanyna-2.py
 
 Наївний перевіряч бачить `alg:HS256`, бере наданий йому `key` (відкритий ключ) як HMAC-секрет, рахує `hs256(signing_input, PUBLIC_PEM)` — і дістає **точно той тег**, що поклав зловмисник. Збіг. Той, хто мав лише *перевіряти*, раптом навчився *підробляти* — не діставши приватного ключа, а лише зловживши тим, що перевіряч сам обрав, як тлумачити ключ.
 

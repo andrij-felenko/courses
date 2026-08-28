@@ -172,63 +172,8 @@ CLIENT TRACKING on|off [REDIRECT client_id] [PREFIX prefix] [BCAST] [OPTIN] [OPT
 ### Бінарна структура повідомлення ClusterMsg
 
 :::tabs
-```c
-typedef struct {
-    char sig[4];                  /* Сигнатура протоколу: "RCmb" (Redis Cluster message bus) */
-    uint32_t totlen;              /* Загальна довжина пакета в байтах */
-    uint16_t ver;                 /* Версія протоколу кластера (1) */
-    uint16_t port;                /* Базовий TCP-порт клієнтських підключень */
-    uint16_t type;                /* Тип повідомлення: PING, PONG, MEET, FAIL, PUBLISH */
-    uint16_t count;               /* Кількість вкладених блоків Gossip-секції */
-    uint64_t currentEpoch;        /* Поточна глобальна епоха конфігурації */
-    uint64_t configEpoch;         /* Епоха конфігурації цього конкретного вузла */
-    uint64_t offset;              /* Зсув реплікації (Replication Offset) */
-    char sender[40];              /* 160-бітний Node ID відправника */
-    unsigned char myslots[2048];  /* Бітова маска з 16384 бітів: слоти, закріплені за вузлом */
-    char slaveof[40];             /* Node ID майстра (якщо відправник є реплікою) */
-    uint16_t my_ip[16];           /* IP-адреса відправника */
-    uint16_t pport;               /* Порт TLS (якщо активовано) */
-    uint16_t cport;               /* Порт кластерної шини (16379) */
-    uint16_t flags;               /* Прапорці вузла: CLUSTER_NODE_MASTER, etc. */
-    unsigned char state;          /* Стан кластера: CLUSTER_OK / CLUSTER_FAIL */
-    unsigned char mflags[3];      /* Додаткові прапорці повідомлення */
-} clusterMsg;
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-enum class ClusterMsgType : uint16_t {
-    Ping = 0,
-    Pong = 1,
-    Meet = 2,
-    Fail = 3,
-    Publish = 4
-};
-
-#pragma pack(push, 1)
-struct ClusterMsg {
-    std::array<char, 4> sig;                 // Сигнатура "RCmb"
-    uint32_t totlen;                         // Загальна довжина кадру
-    uint16_t ver;                            // Версія протоколу
-    uint16_t port;                           // Клієнтський порт
-    ClusterMsgType type;                     // Типізований enum повідомлення
-    uint16_t count;                          // Кількість записів Gossip
-    uint64_t current_epoch;                  // Глобальна епоха
-    uint64_t config_epoch;                   // Локальна епоха вузла
-    uint64_t replication_offset;             // Зсув реплікації
-    std::array<char, 40> sender_node_id;     // 160-бітний SHA1 ID вузла
-    std::array<uint8_t, 2048> slot_bitmap;   // 16 384 бітів закріплених слотів
-    std::array<char, 40> master_node_id;     // ID ведучого вузла
-    std::array<uint16_t, 16> sender_ip;      // IP-адреса вузла
-    uint16_t tls_port;                       // Порт TLS
-    uint16_t cluster_bus_port;               // Порт шини Cluster Bus
-    uint16_t node_flags;                     // Бітові прапорці ролі й стану
-    uint8_t cluster_state;                   // Стан кластера (OK / FAIL)
-    std::array<uint8_t, 3> message_flags;    // Додаткові службові прапорці
-};
-#pragma pack(pop)
-```
+:::code api-redis-cluster-protocol/c/main.c
+:::code api-redis-cluster-protocol/cpp/main.cpp
 :::
 
 Бітова карта `myslots[2048]` містить 16 384 біти. Якщо біт на індексі `k` дорівнює `1`, це означає, що вузол-відправник обслуговує слот `k`. Завдяки обміну цими бітовими картами інформація про будь-яке перепризначення слотів або перемикання майстрів поширюється між усіма серверами кластера за час `O(log N)` без потреби у зовнішніх координаторах консенсусу.

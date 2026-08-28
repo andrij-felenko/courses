@@ -19,24 +19,7 @@
 
 ## Схема: один стовпець часу замість трьох станів
 
-```sql
-CREATE TABLE jobs (
-    id            bigserial   PRIMARY KEY,
-    kind          text        NOT NULL,                 -- який обробник виконує
-    payload       jsonb       NOT NULL,                 -- аргументи задачі
-    status        text        NOT NULL DEFAULT 'ready'
-                  CHECK (status IN ('ready', 'dead')),  -- станів лише два
-    run_at        timestamptz NOT NULL DEFAULT now(),   -- «не раніше цього моменту»
-    attempts      int         NOT NULL DEFAULT 0,       -- скільки разів задачу БРАЛИ
-    max_attempts  int         NOT NULL DEFAULT 5,
-    locked_by     text,                                 -- хто взяв востаннє
-    last_error    text,
-    created_at    timestamptz NOT NULL DEFAULT now()
-);
-
--- єдиний індекс, яким ходить застовплення
-CREATE INDEX jobs_ready ON jobs (run_at, id) WHERE status = 'ready';
-```
+:::code proj-durable-queue/sql/skhema-odyn-stovpets-chasu.sql
 
 Найпомітніше тут — те, чого нема. Нема стану `running`. Спокуса завести його велика: задачу взяли — позначмо «виконується». Але цей стан бреше тієї ж миті, коли виконавець гине: рядок лишається `running` назавжди, бо перевести його назад нікому — той, хто мав це зробити, і є мертвий. Далі доводиться писати наглядача, що ходить по таблиці й шукає рядки, які «виконуються» надто довго, — а наглядач сам потребує наглядача.
 
@@ -78,22 +61,7 @@ INSERT INTO jobs (kind, payload, run_at)
 
 Ось те місце, заради якого написано решту. Виконавець мусить забрати задачу так, щоб її не забрав ніхто інший, — і зробити це одним ходом:
 
-```sql
-UPDATE jobs
-   SET run_at    = now() + make_interval(secs => $2),   -- оренда
-       attempts  = attempts + 1,
-       locked_by = $3
- WHERE id IN (
-       SELECT id FROM jobs
-        WHERE status = 'ready'
-          AND run_at <= now()
-          AND attempts < max_attempts
-        ORDER BY run_at, id
-        LIMIT $1
-        FOR UPDATE SKIP LOCKED
- )
-RETURNING id, kind, payload, attempts, max_attempts;
-```
+:::code proj-durable-queue/sql/zastovplennia-odyn-zapyt.sql
 
 Розберімо по шматках — тут майже кожен рядок закриває окрему діру.
 
@@ -126,249 +94,9 @@ RETURNING id, kind, payload, attempts, max_attempts;
 Тепер обв'язка: вічний цикл «застовпити → зробити → закрити», який і є виконавцем.
 
 :::tabs
-```go
-package queue
-
-import (
-    "context"
-    "database/sql"
-    "encoding/json"
-    "log"
-    "math"
-    "math/rand"
-    "time"
-)
-
-const claimSQL = `
-UPDATE jobs SET run_at = now() + make_interval(secs => $2),
-                attempts = attempts + 1, locked_by = $3
- WHERE id IN (SELECT id FROM jobs
-               WHERE status = 'ready' AND run_at <= now()
-                 AND attempts < max_attempts
-               ORDER BY run_at, id LIMIT $1 FOR UPDATE SKIP LOCKED)
-RETURNING id, kind, payload, attempts, max_attempts`
-
-const lease = 60 * time.Second
-
-type Job struct {
-    ID          int64
-    Kind        string
-    Payload     json.RawMessage
-    Attempts    int
-    MaxAttempts int
-}
-
-type Handler func(context.Context, Job) error
-
-// Run крутить одного виконавця, доки не скасують ctx.
-func Run(ctx context.Context, db *sql.DB, me string, h Handler) error {
-    for ctx.Err() == nil {
-        jobs, err := claim(ctx, db, 1, me)
-        if err != nil {
-            return err
-        }
-        if len(jobs) == 0 { // черга порожня — почекати з розкидом
-            idle := 500 + rand.Intn(500)
-            select {
-            case <-ctx.Done():
-                return nil
-            case <-time.After(time.Duration(idle) * time.Millisecond):
-            }
-            continue
-        }
-        for _, j := range jobs {
-            runOne(ctx, db, me, h, j)
-        }
-    }
-    return nil
-}
-
-func claim(ctx context.Context, db *sql.DB, n int, me string) ([]Job, error) {
-    rows, err := db.QueryContext(ctx, claimSQL, n, lease.Seconds(), me)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
-    var out []Job
-    for rows.Next() {
-        var j Job
-        if err := rows.Scan(&j.ID, &j.Kind, &j.Payload, &j.Attempts, &j.MaxAttempts); err != nil {
-            return nil, err
-        }
-        out = append(out, j)
-    }
-    return out, rows.Err()
-}
-
-func runOne(ctx context.Context, db *sql.DB, me string, h Handler, j Job) {
-    // дедлайн задачі коротший за оренду — щоб не працювати після її кінця;
-    // зупинка процесу не рве вже початої задачі, тому WithoutCancel
-    jctx, cancel := context.WithTimeout(context.WithoutCancel(ctx), lease-5*time.Second)
-    defer cancel()
-
-    // якщо закрити рядок не вдалося — задачу поверне оренда, тож просто пишемо в журнал
-    closeRow := func(q string, args ...any) {
-        if _, err := db.Exec(q, args...); err != nil {
-            log.Printf("задача %d: рядок не закрито: %v", j.ID, err)
-        }
-    }
-
-    switch err := h(jctx, j); {
-    case err == nil:
-        closeRow(`DELETE FROM jobs WHERE id = $1 AND locked_by = $2`, j.ID, me)
-    case j.Attempts >= j.MaxAttempts:
-        closeRow(`UPDATE jobs SET status = 'dead', last_error = $2, run_at = now()
-                   WHERE id = $1 AND locked_by = $3`, j.ID, err.Error(), me)
-    default:
-        closeRow(`UPDATE jobs SET run_at = now() + make_interval(secs => $2), last_error = $3
-                   WHERE id = $1 AND locked_by = $4`, j.ID, backoff(j.Attempts), err.Error(), me)
-    }
-}
-
-// backoff повертає затримку в секундах: база·2^(спроба−1), зі стелею й розкидом.
-func backoff(attempt int) float64 {
-    const base, ceil = 5.0, 3600.0
-    d := math.Min(ceil, base*math.Pow(2, float64(attempt-1)))
-    return d/2 + rand.Float64()*d/2 // розкид: [d/2 .. d]
-}
-```
-```ts
-import { Pool } from "pg";
-
-const CLAIM = `
-UPDATE jobs SET run_at = now() + make_interval(secs => $2),
-                attempts = attempts + 1, locked_by = $3
- WHERE id IN (SELECT id FROM jobs
-               WHERE status = 'ready' AND run_at <= now()
-                 AND attempts < max_attempts
-               ORDER BY run_at, id LIMIT $1 FOR UPDATE SKIP LOCKED)
-RETURNING id, kind, payload, attempts, max_attempts`;
-
-const LEASE_S = 60;
-
-export type Job = {
-  id: string;              // bigint приходить рядком — не втрачаємо точності
-  kind: string;
-  payload: unknown;
-  attempts: number;
-  max_attempts: number;
-};
-
-export type Handler = (job: Job, signal: AbortSignal) => Promise<void>;
-
-export async function runWorker(pool: Pool, me: string, handle: Handler, stop: AbortSignal) {
-  while (!stop.aborted) {
-    const { rows } = await pool.query<Job>(CLAIM, [1, LEASE_S, me]);
-    if (rows.length === 0) {                       // черга порожня — почекати з розкидом
-      await sleep(500 + Math.random() * 500);
-      continue;
-    }
-    for (const job of rows) await runOne(pool, me, handle, job);
-  }
-}
-
-async function runOne(pool: Pool, me: string, handle: Handler, job: Job) {
-  // дедлайн задачі коротший за оренду — щоб не працювати після її кінця
-  const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), (LEASE_S - 5) * 1000);
-  let failure: string | null = null;
-  try {
-    await handle(job, ctl.signal);
-  } catch (e) {
-    failure = e instanceof Error ? e.message : String(e);
-  } finally {
-    clearTimeout(timer);
-  }
-
-  try {
-    if (failure === null) {
-      await pool.query(`DELETE FROM jobs WHERE id = $1 AND locked_by = $2`, [job.id, me]);
-    } else if (job.attempts >= job.max_attempts) {
-      await pool.query(
-        `UPDATE jobs SET status = 'dead', last_error = $2, run_at = now()
-          WHERE id = $1 AND locked_by = $3`, [job.id, failure, me]);
-    } else {
-      await pool.query(
-        `UPDATE jobs SET run_at = now() + make_interval(secs => $2), last_error = $3
-          WHERE id = $1 AND locked_by = $4`, [job.id, backoff(job.attempts), failure, me]);
-    }
-  } catch (e) {
-    // рядок не закрито — задачу поверне оренда, тож просто пишемо в журнал
-    console.error(`задача ${job.id}: рядок не закрито`, e);
-  }
-}
-
-/** Затримка в секундах: база·2^(спроба−1), зі стелею й розкидом. */
-function backoff(attempt: number): number {
-  const base = 5, ceil = 3600;
-  const d = Math.min(ceil, base * 2 ** (attempt - 1));
-  return d / 2 + Math.random() * d / 2;            // розкид: [d/2 .. d]
-}
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-```
-```py
-import logging
-import random
-import threading
-from typing import Any, Callable
-from psycopg_pool import ConnectionPool
-
-CLAIM = """
-UPDATE jobs SET run_at = now() + make_interval(secs => %s),
-                attempts = attempts + 1, locked_by = %s
- WHERE id IN (SELECT id FROM jobs
-               WHERE status = 'ready' AND run_at <= now()
-                 AND attempts < max_attempts
-               ORDER BY run_at, id LIMIT %s FOR UPDATE SKIP LOCKED)
-RETURNING id, kind, payload, attempts, max_attempts
-"""
-
-LEASE_S = 60
-Handler = Callable[[str, Any], None]
-
-
-def run_worker(pool: ConnectionPool, me: str, handle: Handler, stop: threading.Event) -> None:
-    while not stop.is_set():
-        with pool.connection() as conn:                       # транзакція на запит
-            rows = conn.execute(CLAIM, (LEASE_S, me, 1)).fetchall()
-        if not rows:                                          # черга порожня — почекати з розкидом
-            stop.wait(0.5 + random.random() * 0.5)
-            continue
-        for row in rows:
-            _run_one(pool, me, handle, *row)
-
-
-def _run_one(pool: ConnectionPool, me: str, handle: Handler,
-             job_id: int, kind: str, payload: Any, attempts: int, max_attempts: int) -> None:
-    failure: str | None = None
-    try:
-        handle(kind, payload)          # дедлайн задачі — таймаути всередині обробника
-    except Exception as exc:
-        failure = str(exc)
-
-    try:
-        with pool.connection() as conn:
-            if failure is None:
-                conn.execute("DELETE FROM jobs WHERE id = %s AND locked_by = %s", (job_id, me))
-            elif attempts >= max_attempts:
-                conn.execute("UPDATE jobs SET status = 'dead', last_error = %s, run_at = now()"
-                             " WHERE id = %s AND locked_by = %s", (failure, job_id, me))
-            else:
-                conn.execute("UPDATE jobs SET run_at = now() + make_interval(secs => %s),"
-                             " last_error = %s WHERE id = %s AND locked_by = %s",
-                             (backoff(attempts), failure, job_id, me))
-    except Exception:
-        # рядок не закрито — задачу поверне оренда, тож просто пишемо в журнал
-        logging.exception("задача %s: рядок не закрито", job_id)
-
-
-def backoff(attempt: int) -> float:
-    """Затримка в секундах: база·2^(спроба−1), зі стелею й розкидом."""
-    base, ceil = 5.0, 3600.0
-    d = min(ceil, base * 2 ** (attempt - 1))
-    return d / 2 + random.random() * d / 2          # розкид: [d/2 .. d]
-```
+:::code proj-durable-queue/go/main.go
+:::code proj-durable-queue/ts/index.ts
+:::code proj-durable-queue/py/main.py
 :::
 
 Виконавців запускають по кілька в одному процесі й на кількох машинах одразу — код той самий, а домовлятися між собою їм не треба взагалі: усю координацію взяла на себе база. Аргумент `me` — ім'я виконавця, будь-який стабільний на час життя процесу рядок: ім'я машини, номер процесу, номер потоку.
@@ -377,18 +105,7 @@ def backoff(attempt: int) -> float:
 
 Три шляхи з обробника — три різні оператори, і всі троє мають той самий хвіст `AND locked_by = $me`.
 
-```sql
--- успіх: рядок просто зникає
-DELETE FROM jobs WHERE id = $1 AND locked_by = $2;
-
--- невдача, спроби ще є: відсунути час і записати причину
-UPDATE jobs SET run_at = now() + make_interval(secs => $2), last_error = $3
- WHERE id = $1 AND locked_by = $4;
-
--- невдача, спроби вичерпано: відкласти вбік
-UPDATE jobs SET status = 'dead', last_error = $2, run_at = now()
- WHERE id = $1 AND locked_by = $3;
-```
+:::code proj-durable-queue/sql/zakryttia-uspikh-povtor.sql
 
 Навіщо `locked_by` в умові — видно з неприємного сценарію. Виконавець узяв задачу з орендою на 60 секунд і завис: складальник сміття став на паузу, мережа кліпнула, віртуалку приморозили. Оренда вичерпалась, задачу взяв інший виконавець і робить її наново. А потім перший **відмерзає** й дописує свій `DELETE` — стираючи рядок, який зараз у роботі в другого. Другий доробить і не знайде рядка, або, гірше, задача зникне на пів дорозі. Умова `locked_by = $me` це блокує: другий виконавець уже переписав `locked_by` на себе, тож `DELETE` застарілого не зачепить жодного рядка. Це те саме [оптимістичне блокування](root:sf-data/optimistic-locking) — «зміни, лише якщо стан такий, як я бачив», — а `locked_by` виконує роль версії рядка.
 

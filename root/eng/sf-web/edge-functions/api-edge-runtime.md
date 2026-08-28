@@ -67,24 +67,7 @@ interface ExecutionContext {
 
 Об'єкт `Request` інкапсулює всі параметри вхідного HTTP-повідомлення, включаючи метод, URL-адресу, заголовки, потокове тіло та специфічні крайові метадані підключення.
 
-```ts
-interface Request {
-  readonly method: string;
-  readonly url: string;
-  readonly headers: Headers;
-  readonly body: ReadableStream<Uint8Array> | null;
-  readonly bodyUsed: boolean;
-  readonly redirect: RequestRedirect;
-  readonly signal: AbortSignal;
-  readonly cf?: IncomingRequestCfProperties;
-
-  clone(): Request;
-  arrayBuffer(): Promise<ArrayBuffer>;
-  blob(): Promise<Blob>;
-  json<T = unknown>(): Promise<T>;
-  text(): Promise<string>;
-}
-```
+:::code api-edge-runtime/ts/2-spetsyfikatsiia.ts
 
 ### Особливості поведінки та методи класу `Request`
 
@@ -96,19 +79,7 @@ interface Request {
 
 Клас `Headers` забезпечує роботу з заголовками протоколу HTTP згідно зі стандартом RFC 9110.
 
-```ts
-interface Headers {
-  append(name: string, value: string): void;
-  delete(name: string): void;
-  get(name: string): string | null;
-  has(name: string): boolean;
-  set(name: string, value: string): void;
-  forEach(callback: (value: string, name: string) => void): void;
-  entries(): IterableIterator<[string, string]>;
-  keys(): IterableIterator<string>;
-  values(): IterableIterator<string>;
-}
-```
+:::code api-edge-runtime/ts/klas-headers-pravyla.ts
 
 #### Правила роботи з заголовками в Edge Runtime
 1. **Регістронезалежність імен**: усі імена заголовків автоматично нормалізуються до нижнього регістру (lowercase). Виклики `headers.get('Content-Type')` та `headers.get('content-type')` повертають ідентичний результат.
@@ -134,44 +105,13 @@ interface Headers {
 
 Об'єкт `Response` інкапсулює HTTP-відповідь, що передається клієнту або надходить від бекенду під час виконання підзапиту.
 
-```ts
-interface ResponseInit {
-  status?: number;
-  statusText?: string;
-  headers?: HeadersInit;
-}
-
-interface Response {
-  readonly status: number;
-  readonly statusText: string;
-  readonly ok: boolean;
-  readonly headers: Headers;
-  readonly body: ReadableStream<Uint8Array> | null;
-  readonly bodyUsed: boolean;
-
-  clone(): Response;
-  arrayBuffer(): Promise<ArrayBuffer>;
-  json<T = unknown>(): Promise<T>;
-  text(): Promise<string>;
-}
-```
+:::code api-edge-runtime/ts/3-spetsyfikatsiia.ts
 
 ### Потокова обробка: класи `ReadableStream`, `WritableStream` та `TransformStream`
 
 У крайових середовищах із лімітом пам'яті 128 МБ категорично заборонено повністю вичитувати в пам'ять великі файли, відеопотоки або довгі HTML-документи. Будь-яка масштабована модифікація вмісту має виконуватися потоково за допомогою інтерфейсу `TransformStream`.
 
-```ts
-interface TransformStream<I = Uint8Array, O = Uint8Array> {
-  readonly readable: ReadableStream<O>;
-  readonly writable: WritableStream<I>;
-}
-
-interface Transformer<I, O> {
-  start?(controller: TransformStreamDefaultController<O>): void;
-  transform?(chunk: I, controller: TransformStreamDefaultController<O>): void | Promise<void>;
-  flush?(controller: TransformStreamDefaultController<O>): void | Promise<void>;
-}
-```
+:::code api-edge-runtime/ts/potokova-obrobka-klasy.ts
 
 ### Механіка зворотного тиску (Backpressure)
 
@@ -184,33 +124,7 @@ interface Transformer<I, O> {
 
 Інтерфейс `HTMLRewriter` реалізує швидкий потоковий парсер на основі SAX-моделі (без побудови повного DOM-дерева в оперативній пам'яті). Він дозволяє перехоплювати HTML-теги за CSS-селекторами та модифікувати атрибути, вставляти фрагменти або змінювати текст прямо під час проходження потоку байтів до клієнта.
 
-```ts
-interface Element {
-  readonly tagName: string;
-  readonly attributes: IterableIterator<[string, string]>;
-  readonly namespaceURI: string;
-  getAttribute(name: string): string | null;
-  hasAttribute(name: string): boolean;
-  setAttribute(name: string, value: string): this;
-  removeAttribute(name: string): this;
-  before(content: string, options?: { html?: boolean }): this;
-  after(content: string, options?: { html?: boolean }): this;
-  prepend(content: string, options?: { html?: boolean }): this;
-  append(content: string, options?: { html?: boolean }): this;
-  setInnerContent(content: string, options?: { html?: boolean }): this;
-  remove(): this;
-  removeAndKeepContent(): this;
-}
-
-interface HTMLRewriter {
-  on(selector: string, handlers: {
-    element?(element: Element): void | Promise<void>;
-    comments?(comment: unknown): void | Promise<void>;
-    text?(text: unknown): void | Promise<void>;
-  }): this;
-  transform(response: Response): Response;
-}
-```
+:::code api-edge-runtime/ts/potokova-modyfikatsiia.ts
 
 Використання `HTMLRewriter` забезпечує потокову динамічну персоналізацію HTML-сторінок (наприклад, підстановку імені користувача, CSRF-токенів чи локалізованих рядків) із затримкою обробки менше 1 мілісекунди та нульовою додатковою буферизацією.
 
@@ -220,22 +134,7 @@ interface HTMLRewriter {
 
 Усі криптографічні операції на краю мережі виконуються через стандартизований неблокуючий інтерфейс `SubtleCrypto`, що забезпечує апаратне прискорення операцій безпосередньо в рушії V8.
 
-```ts
-interface SubtleCrypto {
-  digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
-  importKey(
-    format: 'raw' | 'pkcs8' | 'spki' | 'jwk',
-    keyData: BufferSource | JsonWebKey,
-    algorithm: AlgorithmIdentifier | RsaHashedImportParams | HmacImportParams,
-    extractable: boolean,
-    keyUsages: KeyUsage[]
-  ): Promise<CryptoKey>;
-  sign(algorithm: AlgorithmIdentifier | HmacParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-  verify(algorithm: AlgorithmIdentifier | HmacParams, key: CryptoKey, signature: BufferSource, data: BufferSource): Promise<boolean>;
-  encrypt(algorithm: AlgorithmIdentifier | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-  decrypt(algorithm: AlgorithmIdentifier | AesGcmParams, key: CryptoKey, data: BufferSource): Promise<ArrayBuffer>;
-}
-```
+:::code api-edge-runtime/ts/4-kryptohrafichnyi.ts
 
 ### Порівняльна характеристика криптографічних примітивів
 
@@ -269,37 +168,7 @@ interface Cache {
 
 Розподілене сховище ключ-значення реалізує модель високої доступності та низької затримки читання, жертвуючи строгою миттєвою узгодженістю запису на користь узгодженості в кінцевому підсумку (Eventual Consistency).
 
-```ts
-interface KVNamespace {
-  get(key: string, options?: { cacheTtl?: number }): Promise<string | null>;
-  get<T>(key: string, options: { type: 'json'; cacheTtl?: number }): Promise<T | null>;
-  get(key: string, options: { type: 'arrayBuffer'; cacheTtl?: number }): Promise<ArrayBuffer | null>;
-  get(key: string, options: { type: 'stream'; cacheTtl?: number }): Promise<ReadableStream | null>;
-
-  getWithMetadata<T = unknown, M = unknown>(
-    key: string,
-    options?: { type: 'json'; cacheTtl?: number }
-  ): Promise<{ value: T | null; metadata: M | null }>;
-
-  put(
-    key: string,
-    value: string | ArrayBuffer | ReadableStream,
-    options?: { expiration?: number; expirationTtl?: number; metadata?: unknown }
-  ): Promise<void>;
-
-  delete(key: string): Promise<void>;
-
-  list<M = unknown>(options?: {
-    prefix?: string;
-    limit?: number;
-    cursor?: string;
-  }): Promise<{
-    keys: Array<{ name: string; expiration?: number; metadata?: M }>;
-    list_complete: boolean;
-    cursor?: string;
-  }>;
-}
-```
+:::code api-edge-runtime/ts/6-interfeis-rozpodilenoho.ts
 
 ### Механізм локального кешування на PoP (`cacheTtl`)
 
@@ -316,21 +185,7 @@ interface KVNamespace {
 
 Для усунення цих затримок стандарт Edge Runtime надає інтерфейс **Service Bindings** та систему прямого виклику віддалених процедур у пам'яті (**Worker RPC**).
 
-```ts
-interface Fetcher {
-  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-}
-
-// Прямий виклик типізованого RPC-інтерфейсу суміжного воркера
-interface AuthService {
-  validateSession(token: string): Promise<{ userId: string; role: string }>;
-  revokeToken(token: string): Promise<boolean>;
-}
-
-interface Env {
-  AUTH_WORKER: Fetcher & AuthService;
-}
-```
+:::code api-edge-runtime/ts/7-mizhservisna.ts
 
 ### Механіка прямого виклику Service Binding
 1. **Нульовий оверхед мережевого стека**: виклик `env.AUTH_WORKER.validateSession(token)` виконується як пряма передача повідомлення між двома ізолятами V8 у межах одного фізичного процесу хоста.
@@ -345,31 +200,7 @@ interface Env {
 
 Durable Object поєднує модель акторів (Actor Model) із транзакційним сховищем ключ-значення, гарантуючи, що для конкретного ідентифікатора у світі в будь-який момент часу існує рівно один активний екземпляр класу.
 
-```ts
-interface DurableObjectState {
-  readonly id: DurableObjectId;
-  readonly storage: DurableObjectStorage;
-  waitUntil(promise: Promise<unknown>): void;
-  acceptWebSocket(ws: WebSocket, tags?: string[]): void;
-  getWebSockets(tag?: string): WebSocket[];
-}
-
-interface DurableObjectStorage {
-  get<T = unknown>(key: string): Promise<T | undefined>;
-  get<T = unknown>(keys: string[]): Promise<Map<string, T>>;
-  put<T = unknown>(key: string, value: T): Promise<void>;
-  put<T = unknown>(entries: Record<string, T>): Promise<void>;
-  delete(key: string): Promise<boolean>;
-  delete(keys: string[]): Promise<number>;
-  deleteAll(): Promise<void>;
-  list<T = unknown>(options?: { prefix?: string; start?: string; end?: string; limit?: number }): Promise<Map<string, T>>;
-  transaction<T>(closure: (txn: DurableObjectTransaction) => Promise<T>): Promise<T>;
-}
-
-interface DurableObject {
-  fetch(request: Request): Promise<Response> | Response;
-}
-```
+:::code api-edge-runtime/ts/8-stiiki-obiekty-z.ts
 
 ### Механіка транзакцій та координації
 - **Ізоляція та відсутність стану гонитви**: усі вхідні HTTP-запити та повідомлення WebSockets до одного екземпляра Durable Object обробляються послідовно в єдиному однопотоковому циклі подій. Це усуває потребу в розподілених блокуваннях (Distributed Locks) і м'ютексах;

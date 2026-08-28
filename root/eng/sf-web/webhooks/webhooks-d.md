@@ -65,83 +65,9 @@
 Уся приймальна частина стискається в коротку, жорстко впорядковану послідовність: узяти сире тіло → перевірити підпис → розібрати й дістати ідентифікатор → спробувати відзначити його (уже є — тихо 200) → покласти в чергу → повернути 200. Ось вона на трьох поширених стеках:
 
 :::tabs
-```ts
-import express from "express";
-import crypto from "node:crypto";
-
-const app = express();
-const SECRET = process.env.WEBHOOK_SECRET!;
-const seen = new Set<string>();          // насправді — стійке сховище, не пам'ять
-
-// важливо: сирі байти тіла, а не розібраний JSON
-app.post("/webhooks", express.raw({ type: "application/json" }), (req, res) => {
-  const sig = req.header("X-Signature") ?? "";
-  const expected = crypto.createHmac("sha256", SECRET)
-    .update(req.body)                    // req.body — Buffer сирих байтів
-    .digest("hex");
-  // порівняння сталого часу — щоб через час відповіді не витік підпис
-  const ok = sig.length === expected.length &&
-    crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
-  if (!ok) return res.sendStatus(401);
-
-  const event = JSON.parse(req.body.toString("utf8"));
-  if (seen.has(event.id)) return res.sendStatus(200);   // вже бачили — тихо
-  seen.add(event.id);
-
-  queue.push(event);                     // зняти роботу з гарячого шляху
-  return res.sendStatus(200);            // підтвердити ОДРАЗУ
-});
-```
-```py
-import hmac, hashlib, os
-from flask import Flask, request, abort
-
-app = Flask(__name__)
-SECRET = os.environ["WEBHOOK_SECRET"].encode()
-seen = set()                              # насправді — стійке сховище, не пам'ять
-
-@app.post("/webhooks")
-def receive():
-    raw = request.get_data()              # сирі байти тіла, не розібраний JSON
-    expected = hmac.new(SECRET, raw, hashlib.sha256).hexdigest()
-    sig = request.headers.get("X-Signature", "")
-    if not hmac.compare_digest(sig, expected):   # порівняння сталого часу
-        abort(401)
-
-    event = request.get_json()
-    if event["id"] in seen:               # вже бачили — тихо
-        return "", 200
-    seen.add(event["id"])
-
-    queue.put(event)                      # зняти роботу з гарячого шляху
-    return "", 200                        # підтвердити ОДРАЗУ
-```
-```go
-var seen sync.Map                         // насправді — стійке сховище, не пам'ять
-
-func receive(w http.ResponseWriter, r *http.Request) {
-    raw, _ := io.ReadAll(r.Body)          // сирі байти тіла, не розібраний JSON
-
-    mac := hmac.New(sha256.New, secret)
-    mac.Write(raw)
-    expected := hex.EncodeToString(mac.Sum(nil))
-    sig := r.Header.Get("X-Signature")
-    if !hmac.Equal([]byte(sig), []byte(expected)) {   // порівняння сталого часу
-        w.WriteHeader(http.StatusUnauthorized)
-        return
-    }
-
-    var event Event
-    json.Unmarshal(raw, &event)
-    if _, dup := seen.LoadOrStore(event.ID, true); dup {  // вже бачили — тихо
-        w.WriteHeader(http.StatusOK)
-        return
-    }
-
-    queue <- event                        // зняти роботу з гарячого шляху
-    w.WriteHeader(http.StatusOK)          // підтвердити ОДРАЗУ
-}
-```
+:::code webhooks-d/ts/index.ts
+:::code webhooks-d/py/main.py
+:::code webhooks-d/go/main.go
 :::
 
 `seen` тут — спрощення: справжня дедуплікація це стійкий унікальний запис у базі, а не множина в пам'яті (яку зітре найближчий перезапуск). І навіть із нею робітник, що розгрібає чергу, мусить бути ідемпотентним сам: відмітити-і-покласти-в-чергу — не одна атомарна дія, тож між ними процес може впасти. Повний приймач — зі стійкою скринькою, робітником і задачею звірки — розібрано покроково в [проєкті-приймачі](root:sf-web/webhooks/proj-robust-consumer.md).

@@ -29,19 +29,23 @@
           "comp": [
             {
               "file": "comp-api-gateways.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-api-gateway-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-envoy-gateway-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             },
             {
               "file": "api-gateway-d.md",
@@ -68,13 +72,16 @@
           "proj": [
             {
               "file": "proj-reverse-proxy-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-proxy-protocol-headers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -103,13 +110,15 @@
           "proj": [
             {
               "file": "proj-reverse-proxy-balancer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-proxy-protocol-headers.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -120,7 +129,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -137,7 +147,8 @@
           "proj": [
             {
               "file": "proj-aggregation-bff.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -166,19 +177,24 @@
           "math": [
             {
               "file": "math-consistent-hashing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-resilient-cache-client.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-redis-cluster-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -200,13 +216,16 @@
           "proj": [
             {
               "file": "proj-edge-tag-purger.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cdn-headers-and-purge.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -240,7 +259,8 @@
           "proj": [
             {
               "file": "proj-edge-worker.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -268,13 +288,15 @@
           "proj": [
             {
               "file": "proj-edge-gateway.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-edge-runtime.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

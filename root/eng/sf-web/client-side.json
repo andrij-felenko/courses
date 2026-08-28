@@ -18,24 +18,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-requests-structures.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-python-http-clients.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-transport-adapter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -47,24 +53,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-url-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
             {
               "file": "hist-uri-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-url-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -75,12 +86,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-session-pool-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -92,7 +106,9 @@
           "proj": [
             {
               "file": "proj-connection-pool.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -110,12 +126,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-auth-headers-and-schemes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -127,7 +145,9 @@
           "proj": [
             {
               "file": "proj-token-refresh-interceptor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -139,24 +159,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "api": [
             {
               "file": "api-x509-verification.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-ca-breaches-and-ct.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-mtls-client-server.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -174,24 +200,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-ethernet-backoff.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-jitter-distributions.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-idempotent-retry.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -202,12 +233,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-streaming-protocols.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
@@ -219,7 +253,9 @@
           "proj": [
             {
               "file": "proj-streaming-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -237,7 +273,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -248,13 +285,16 @@
           "proj": [
             {
               "file": "proj-cookie-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cookie-attributes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         },
@@ -277,13 +317,16 @@
           "proj": [
             {
               "file": "proj-cors-middleware.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-cors-headers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }

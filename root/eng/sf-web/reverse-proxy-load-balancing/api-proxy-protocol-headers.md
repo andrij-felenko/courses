@@ -199,65 +199,8 @@ PROXY <INET_PROTOCOL> <CLIENT_IP> <PROXY_IP> <CLIENT_PORT> <PROXY_PORT>\r\n
 #### Офіційна C-структура бінарного заголовка PROXY Protocol v2:
 
 :::tabs
-```c
-#include <stdint.h>
-
-struct proxy_hdr_v2 {
-    uint8_t sig[12];  /* \x0D \x0A \x0D \x0A \x00 \x0D \x0A \x51 \x55 \x49 \x54 \x0A */
-    uint8_t ver_cmd;  /* старші 4 біти: 0x20 (v2), молодші 4 біти: 0x01 (PROXY) */
-    uint8_t fam_tr;   /* старші 4 біти: 0x10 (INET) / 0x20 (INET6), молодші: 0x01 (STREAM) */
-    uint16_t len;     /* довжина адресної структури та векторів TLV у байтах */
-    union {
-        struct {
-            uint32_t src_addr;
-            uint32_t dst_addr;
-            uint16_t src_port;
-            uint16_t dst_port;
-        } ipv4;
-        struct {
-            uint8_t  src_addr[16];
-            uint8_t  dst_addr[16];
-            uint16_t src_port;
-            uint16_t dst_port;
-        } ipv6;
-        struct {
-            uint8_t  src_addr[108];
-            uint8_t  dst_addr[108];
-        } unix_sock;
-    } addr;
-};
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct ProxyHeaderV2 {
-    std::array<uint8_t, 12> sig;
-    uint8_t ver_cmd;
-    uint8_t fam_tr;
-    uint16_t len;
-    union AddressUnion {
-        struct IPv4Data {
-            uint32_t src_addr;
-            uint32_t dst_addr;
-            uint16_t src_port;
-            uint16_t dst_port;
-        } ipv4;
-        struct IPv6Data {
-            std::array<uint8_t, 16> src_addr;
-            std::array<uint8_t, 16> dst_addr;
-            uint16_t src_port;
-            uint16_t dst_port;
-        } ipv6;
-        struct UnixData {
-            std::array<uint8_t, 108> src_addr;
-            std::array<uint8_t, 108> dst_addr;
-        } unix_sock;
-    } addr;
-};
-#pragma pack(pop)
-```
+:::code api-proxy-protocol-headers/c/ofitsiina-c-struktura.c
+:::code api-proxy-protocol-headers/cpp/ofitsiina-c-struktura.cpp
 :::
 
 ### Парсинг заголовка PROXY Protocol v2
@@ -265,109 +208,8 @@ struct ProxyHeaderV2 {
 Для коректного розбору заголовка приймаючий сервер виконує покрокову валідацію:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <arpa/inet.h>
-
-static const uint8_t PROXY_V2_SIG[12] = {
-    0x0D, 0x0A, 0x0D, 0x0A, 0x00, 0x0D, 0x0A, 0x51, 0x55, 0x49, 0x54, 0x0A
-};
-
-int parse_proxy_v2(const uint8_t *buf, size_t buf_len, char *src_ip_out, uint16_t *src_port_out) {
-    if (buf_len < 16) return -1; /* Замалий буфер для базового заголовка */
-
-    /* 1. Перевірка 12-байтної сигнатури */
-    if (memcmp(buf, PROXY_V2_SIG, 12) != 0) return -1;
-
-    /* 2. Перевірка версії (мусить бути 2) */
-    uint8_t ver = (buf[12] >> 4) & 0x0F;
-    if (ver != 2) return -1;
-
-    uint8_t cmd = buf[12] & 0x0F;
-    if (cmd == 0x00) {
-        /* LOCAL з'єднання: адреса не передається */
-        return 0;
-    } else if (cmd != 0x01) {
-        return -1; /* Невідома команда */
-    }
-
-    uint8_t fam = (buf[13] >> 4) & 0x0F;
-    uint16_t payload_len = ntohs(*(const uint16_t *)(buf + 14));
-    if (buf_len < 16 + payload_len) return -1; /* Неповні дані */
-
-    const struct proxy_hdr_v2 *hdr = (const struct proxy_hdr_v2 *)buf;
-
-    if (fam == 0x01) { /* IPv4 */
-        struct in_addr in;
-        in.s_addr = hdr->addr.ipv4.src_addr;
-        inet_ntop(AF_INET, &in, src_ip_out, INET_ADDRSTRLEN);
-        *src_port_out = ntohs(hdr->addr.ipv4.src_port);
-        return 1;
-    } else if (fam == 0x02) { /* IPv6 */
-        inet_ntop(AF_INET6, hdr->addr.ipv6.src_addr, src_ip_out, INET6_ADDRSTRLEN);
-        *src_port_out = ntohs(hdr->addr.ipv6.src_port);
-        return 1;
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <string>
-#include <optional>
-#include <span>
-#include <cstring>
-#include <arpa/inet.h>
-
-struct ClientConnectionContext {
-    std::string ip;
-    uint16_t port{0};
-};
-
-std::optional<ClientConnectionContext> parse_proxy_v2_cpp(std::span<const uint8_t> buffer) {
-    constexpr std::array<uint8_t, 12> MagicSig = {
-        0x0D, 0x0A, 0x0D, 0x0A, 0x00, 0x0D, 0x0A, 0x51, 0x55, 0x49, 0x54, 0x0A
-    };
-
-    if (buffer.size() < 16) return std::nullopt;
-
-    if (std::memcmp(buffer.data(), MagicSig.data(), MagicSig.size()) != 0) {
-        return std::nullopt;
-    }
-
-    uint8_t ver = (buffer[12] >> 4) & 0x0F;
-    if (ver != 2) return std::nullopt;
-
-    uint8_t cmd = buffer[12] & 0x0F;
-    if (cmd == 0x00) return ClientConnectionContext{"127.0.0.1", 0}; // LOCAL
-    if (cmd != 0x01) return std::nullopt;
-
-    uint8_t fam = (buffer[13] >> 4) & 0x0F;
-    uint16_t payload_len = (static_cast<uint16_t>(buffer[14]) << 8) | buffer[15];
-    if (buffer.size() < 16 + payload_len) return std::nullopt;
-
-    const auto* hdr = reinterpret_cast<const ProxyHeaderV2*>(buffer.data());
-
-    ClientConnectionContext ctx;
-    if (fam == 0x01) { // IPv4
-        char ip_str[INET_ADDRSTRLEN];
-        in_addr in{hdr->addr.ipv4.src_addr};
-        ::inet_ntop(AF_INET, &in, ip_str, sizeof(ip_str));
-        ctx.ip = ip_str;
-        ctx.port = ::ntohs(hdr->addr.ipv4.src_port);
-        return ctx;
-    } else if (fam == 0x02) { // IPv6
-        char ip_str[INET6_ADDRSTRLEN];
-        ::inet_ntop(AF_INET6, hdr->addr.ipv6.src_addr.data(), ip_str, sizeof(ip_str));
-        ctx.ip = ip_str;
-        ctx.port = ::ntohs(hdr->addr.ipv6.src_port);
-        return ctx;
-    }
-
-    return std::nullopt;
-}
-```
+:::code api-proxy-protocol-headers/c/parsynh-zaholovka-proxy.c
+:::code api-proxy-protocol-headers/cpp/parsynh-zaholovka-proxy.cpp
 :::
 
 ### Розширення TLV (Type-Length-Value) у PROXY v2

@@ -121,19 +121,7 @@
 
 У реляційній базі даних (наприклад, PostgreSQL) монотонне оновлення захищається на рівні атомарного SQL-запиту:
 
-```sql
-UPDATE notification_attempts
-SET 
-    status = :new_status,
-    updated_at = NOW()
-WHERE id = :attempt_id
-  AND (
-      -- Дозволяємо перехід уперед за прогресивною шкалою успіху
-      status_rank(:new_status) > status_rank(status)
-      -- Дозволяємо перехід у термінальну помилку лише до моменту фізичної доставки
-      OR (:new_status IN ('FAILED_PERMANENT', 'EXPIRED') AND status_rank(status) < status_rank('DELIVERED'))
-  );
-```
+:::code delivery-tracking-d/sql/pryntsyp-monotonnosti-ta.sql
 
 Якщо жоден рядок не оновився (`rows_affected == 0`), це означає, що система вже зафіксувала вищий рівень прогресу, і старіший вебхук відхиляється як застарілий дублікат.
 
@@ -236,46 +224,7 @@ t_expire = t_created + TTL
 
 Для ефективної обробки життєвого циклу дані розділяються на три рівні: агрегат повідомлення (`notifications`), історія спроб за кожним каналом (`notification_attempts`) та сирий буферний журнал подій (`delivery_events`).
 
-```sql
-CREATE TYPE delivery_status_enum AS ENUM (
-  'CREATED', 'DISPATCHED', 'SENT',
-  'DELIVERED', 'OPENED', 'CLICKED',
-  'FAILED_TRANSIENT', 'FAILED_PERMANENT', 'EXPIRED'
-);
-
--- Таблиця агрегатів повідомлень (секціонована за часом створення)
-CREATE TABLE notifications (
-  id UUID PRIMARY KEY,
-  user_id UUID NOT NULL,
-  cascade_route TEXT[] NOT NULL,
-  current_status delivery_status_enum NOT NULL DEFAULT 'CREATED',
-  expires_at TIMESTAMPTZ NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-) PARTITION BY RANGE (created_at);
-
--- Таблиця окремих спроб відправки через кожен канал
-CREATE TABLE notification_attempts (
-  id UUID PRIMARY KEY,
-  notification_id UUID NOT NULL,
-  channel TEXT NOT NULL,
-  provider TEXT NOT NULL,
-  provider_msg_id TEXT,
-  status delivery_status_enum NOT NULL,
-  error_code TEXT,
-  dispatched_at TIMESTAMPTZ NOT NULL,
-  updated_at TIMESTAMPTZ NOT NULL
-);
-
--- Буферний журнал сирих вебхуків для швидкого прийому телеметрії
-CREATE TABLE delivery_events (
-  event_id TEXT PRIMARY KEY,
-  notification_id UUID NOT NULL,
-  status delivery_status_enum NOT NULL,
-  raw_payload JSONB NOT NULL,
-  received_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-```
+:::code delivery-tracking-d/sql/reliatsiina-skhema.sql
 
 ### Асинхронна буферизація вебхуків через брокер повідомлень
 
@@ -283,18 +232,7 @@ CREATE TABLE delivery_events (
 2. **Партиціонування в Kafka за ідентифікатором користувача**: повідомлення телеметрії відправляються в Kafka з ключем `user_id`. Це гарантує, що всі події доставки для конкретного користувача потрапляють до однієї партиції брокера і вичитуються строго послідовно, виключаючи стан гонки між паралельними воркерами.
 3. **Пакетне оновлення (Batch Updates)**: фоновий воркер вичитує події з Kafka пачками (по 500–1000 штук), здійснює дедуплікацію за `event_id` та виконує оновлення бази даних одним SQL-запитом через конструкцію `UPDATE ... FROM (VALUES ...)`:
 
-```sql
-UPDATE notification_attempts AS na
-SET 
-    status = v.status::delivery_status_enum,
-    updated_at = NOW()
-FROM (VALUES 
-    ('550e8400-e29b-41d4-a716-446655440001'::uuid, 'DELIVERED'),
-    ('550e8400-e29b-41d4-a716-446655440002'::uuid, 'FAILED_PERMANENT')
-) AS v(attempt_id, status)
-WHERE na.id = v.attempt_id
-  AND status_rank(v.status::delivery_status_enum) > status_rank(na.status);
-```
+:::code delivery-tracking-d/sql/asynkhronna-buferyzatsiia.sql
 
 ## 7. Виробничі пастки та крайові випадки
 

@@ -32,29 +32,7 @@
 
 Об'єкт `PreparedRequest` — це незмінний зліпок HTTP-запиту, де всі компоненти приведені до стандартів IETF (RFC 7230, RFC 7231, RFC 3986):
 
-```python
-import requests
-
-# 1. Створення сирого декларативного запиту
-req = requests.Request(
-    method="POST",
-    url="https://api.example.com/v1/items",
-    params={"category": "електроніка", "limit": 10},
-    json={"name": "Датчик тиску", "price": 450.0},
-    headers={"Accept": "application/json", "X-Custom-Trace": "9a7f"},
-    auth=("admin", "secret_pass")
-)
-
-# 2. Сесія виконує підготовку та нормалізацію
-session = requests.Session()
-prepared = session.prepare_request(req)
-
-# Огляд сформованого зліпка запиту
-print(prepared.method)   # 'POST'
-print(prepared.url)      # 'https://api.example.com/v1/items?category=%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D1%96%D0%BA%D0%B0&limit=10'
-print(prepared.headers)  # CaseInsensitiveDict з автоматично доданими Content-Type, Content-Length, Authorization
-print(prepared.body)     # b'{"name": "\xd0\x94\xd0\xb0\xd1\x82\xd1\x87\xd0\xb8\xd0\xba \xd1\x82\xd0\xb8\xd1\x81\xd0\xba\xd1\x83", "price": 450.0}'
-```
+:::code requests-client-d/py/zhyttievyi-tsykl-zapytu.py
 
 ![Життєвий цикл запиту: конвеєр обробки та перетворень](/root/eng/sf-web/requests-client/img/request-lifecycle.svg)
 
@@ -146,18 +124,7 @@ session = requests.Session()
 
 Бібліотека `requests` автоматично активує цей механізм, якщо у параметр `data` передано генератор або ітератор байтів:
 
-```python
-def stream_large_file(file_path: str):
-    with open(file_path, "rb") as f:
-        while chunk := f.read(65536): # Читання блоками по 64 КБ
-            yield chunk
-
-# Відправлення гігабайтного файлу без виділення гігабайта в RAM
-response = requests.post(
-    "https://storage.example.com/upload",
-    data=stream_large_file("/var/backups/db.dump")
-)
-```
+:::code requests-client-d/py/protokol-poblokovoho.py
 
 ## Проксі-сервери: тунелювання через HTTP CONNECT
 
@@ -221,21 +188,7 @@ with requests.get("https://cdn.example.com/large-dataset.tar.gz", stream=True) a
 
 У `requests` за цю логіку відповідає внутрішній генератор `Session.resolve_redirects`:
 
-```python
-response = requests.post(
-    "http://example.com/login",
-    data={"user": "alice"},
-    allow_redirects=True
-)
-
-# Якщо сервер відповів 301 на HTTPS-версію, response містить фінальну відповідь
-print(response.status_code) # 200
-print(response.url)         # 'https://example.com/dashboard'
-
-# Історія перенаправлень зберігається у вигляді ланцюжка
-for prev in response.history:
-    print(f"Крок: {prev.status_code} -> {prev.headers.get('Location')}")
-```
+:::code requests-client-d/py/mekhanizm-perenapravlen-ta.py
 
 Механізм редиректів виконує три ключові правила безпеки та сумісності:
 
@@ -255,173 +208,8 @@ for prev in response.history:
 У C/C++ відправлення запиту вимагає ручного керування структурами пам'яті, створення списків заголовків `curl_slist`, реєстрації функцій зворотного виклику для збирання чанків відповіді в пам'ять та явного звільнення кожного ресурсу.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <curl/curl.h>
-
-struct HttpResponse {
-    char *data;
-    size_t size;
-};
-
-static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp) {
-    size_t total_size = size * nmemb;
-    struct HttpResponse *resp = (struct HttpResponse *)userp;
-
-    char *ptr = realloc(resp->data, resp->size + total_size + 1);
-    if (!ptr) return 0; // Нестача оперативної пам'яті
-
-    resp->data = ptr;
-    memcpy(&(resp->data[resp->size]), contents, total_size);
-    resp->size += total_size;
-    resp->data[resp->size] = '\0';
-
-    return total_size;
-}
-
-int main(void) {
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    CURL *curl = curl_easy_init();
-
-    if (!curl) {
-        fprintf(stderr, "Помилка ініціалізації curl\n");
-        return 1;
-    }
-
-    struct HttpResponse response = { .data = malloc(1), .size = 0 };
-    struct curl_slist *headers = NULL;
-
-    headers = curl_slist_append(headers, "Content-Type: application/json");
-    headers = curl_slist_append(headers, "Accept: application/json");
-
-    const char *payload = "{\"sensor\":\"BMP280\",\"pressure_hpa\":1013.25}";
-
-    // Налаштування параметрів запиту (аналог PreparedRequest)
-    curl_easy_setopt(curl, CURLOPT_URL, "https://httpbin.org/post");
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload);
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_memory_callback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&response);
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10L);
-    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3L);
-    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // allow_redirects=True
-
-    CURLcode res = curl_easy_perform(curl);
-
-    if (res == CURLE_OK) {
-        long status_code = 0;
-        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &status_code);
-        printf("HTTP-статус: %ld, Отримано байтів: %zu\n", status_code, response.size);
-    } else {
-        fprintf(stderr, "Мережевий збій: %s\n", curl_easy_strerror(res));
-    }
-
-    // Ручне звільнення всіх низькорівневих ресурсів
-    curl_slist_free_all(headers);
-    free(response.data);
-    curl_easy_cleanup(curl);
-    curl_global_cleanup();
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <memory>
-#include <expected>
-#include <format>
-#include <curl/curl.h>
-
-class NativeHttpClient {
-public:
-    struct Response {
-        long status_code{0};
-        std::string body;
-    };
-
-    struct SListDeleter {
-        void operator()(curl_slist* list) const noexcept {
-            if (list) curl_slist_free_all(list);
-        }
-    };
-    using SListPtr = std::unique_ptr<curl_slist, SListDeleter>;
-
-    struct CurlDeleter {
-        void operator()(CURL* handle) const noexcept {
-            if (handle) curl_easy_cleanup(handle);
-        }
-    };
-    using CurlPtr = std::unique_ptr<CURL, CurlDeleter>;
-
-    NativeHttpClient() : curl_(curl_easy_init()) {
-        if (!curl_) {
-            throw std::runtime_error("Неможливо ініціалізувати CURL дескриптор");
-        }
-    }
-
-    std::expected<Response, std::string> post_json(const std::string& url, const std::string& json_body, long timeout_sec = 10) {
-        std::string response_buffer;
-        SListPtr headers;
-
-        // Безпечне додавання заголовків
-        headers.reset(curl_slist_append(headers.release(), "Content-Type: application/json"));
-        headers.reset(curl_slist_append(headers.release(), "Accept: application/json"));
-
-        curl_easy_setopt(curl_.get(), CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl_.get(), CURLOPT_POSTFIELDS, json_body.c_str());
-        curl_easy_setopt(curl_.get(), CURLOPT_HTTPHEADER, headers.get());
-        curl_easy_setopt(curl_.get(), CURLOPT_WRITEFUNCTION, &NativeHttpClient::writeCallback);
-        curl_easy_setopt(curl_.get(), CURLOPT_WRITEDATA, &response_buffer);
-        curl_easy_setopt(curl_.get(), CURLOPT_TIMEOUT, timeout_sec);
-        curl_easy_setopt(curl_.get(), CURLOPT_CONNECTTIMEOUT, 3L);
-        curl_easy_setopt(curl_.get(), CURLOPT_FOLLOWLOCATION, 1L);
-
-        CURLcode res = curl_easy_perform(curl_.get());
-        if (res != CURLE_OK) {
-            return std::unexpected(std::format("Помилка запиту libcurl: {}", curl_easy_strerror(res)));
-        }
-
-        long status_code = 0;
-        curl_easy_getinfo(curl_.get(), CURLINFO_RESPONSE_CODE, &status_code);
-
-        return Response{
-            .status_code = status_code,
-            .body = std::move(response_buffer)
-        };
-    }
-
-private:
-    static size_t writeCallback(char* ptr, size_t size, size_t nmemb, void* userdata) {
-        auto* buffer = static_cast<std::string*>(userdata);
-        size_t total = size * nmemb;
-        buffer->append(ptr, total);
-        return total;
-    }
-
-    CurlPtr curl_;
-};
-
-int main() {
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    try {
-        NativeHttpClient client;
-        auto result = client.post_json("https://httpbin.org/post", "{\"sensor\":\"BMP280\",\"pressure_hpa\":1013.25}");
-        if (result) {
-            std::cout << std::format("Успіх! Статус: {}, Тіло: {} байтів\n", result->status_code, result->body.size());
-        } else {
-            std::cerr << result.error() << '\n';
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Виняток: " << e.what() << '\n';
-    }
-    curl_global_cleanup();
-    return 0;
-}
-```
+:::code requests-client-d/c/main.c
+:::code requests-client-d/cpp/main.cpp
 :::
 
 Як демонструють приклади, використання RAII у C++ усуває ризики витоків пам'яті та дескрипторів сокетів, але концептуальна структура залишається незмінною: як у `libcurl`, так і в `requests`/`urllib3` обов'язково присутні конвеєр нормалізації заголовків, буферизація сокетного потоку та механізм перевірки статус-кодів.
