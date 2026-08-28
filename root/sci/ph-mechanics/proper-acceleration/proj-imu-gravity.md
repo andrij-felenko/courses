@@ -68,104 +68,18 @@ q · (a_b − g_body)  =  q·a_b − q·(q⁻¹·(0,0,g))  =  q·a_b − (0, 0, 
 
 Спершу — примітиви й поворот вектора. Формула повороту `v' = q ⊗ (0,v) ⊗ q*` розгортається в кілька множень без тимчасових кватерніонів (стандартний у робототехніці запис через подвійний [векторний добуток](root:math-algebra/cross-product) векторної частини `q` з `v`):
 
-```c
-#include <math.h>
-
-typedef struct { float x, y, z; } vec3;
-typedef struct { float w, x, y, z; } quat;
-
-/* спряжений кватерніон = обернений поворот (для одиничного q) */
-static quat quat_conj(quat q) { quat r = { q.w, -q.x, -q.y, -q.z }; return r; }
-
-/* застосувати поворот q до вектора v: v' = q ⊗ (0,v) ⊗ q* */
-static vec3 quat_rotate(quat q, vec3 v) {
-    float tx = 2.0f * (q.y*v.z - q.z*v.y);
-    float ty = 2.0f * (q.z*v.x - q.x*v.z);
-    float tz = 2.0f * (q.x*v.y - q.y*v.x);
-    vec3 r = { v.x + q.w*tx + (q.y*tz - q.z*ty),
-               v.y + q.w*ty + (q.z*tx - q.x*tz),
-               v.z + q.w*tz + (q.x*ty - q.y*tx) };
-    return r;
-}
-```
+:::code proj-imu-gravity/c/robochyi-kod.c
 
 Тепер ядро: тяжіння в осях корпусу, лінійне прискорення й детектор падіння. Світові осі беремо так, що `z` дивиться **вгору**, тож світове тяжіння-реакція — це `(0, 0, +G)` (те, що давач показує в спокої):
 
 :::tabs
-```c
-static const float G = 9.81f;         /* м/с² */
-static const float FF = 1.0f;         /* поріг падіння: ~0.1g, м/с² */
-
-/* напрямок тяжіння-реакції, повернутий у поточні осі корпусу */
-static vec3 gravity_in_body(quat q) {
-    vec3 up = { 0.0f, 0.0f, G };      /* світовий «вгору·g» */
-    return quat_rotate(quat_conj(q), up);   /* світ → корпус = обернений q */
-}
-
-/* чисте лінійне прискорення руху в осях корпусу */
-static vec3 linear_accel(vec3 a_b, quat q) {
-    vec3 g = gravity_in_body(q);
-    vec3 r = { a_b.x - g.x, a_b.y - g.y, a_b.z - g.z };
-    return r;
-}
-
-/* вільне падіння: увесь вектор показу майже нульовий */
-static int is_free_fall(vec3 a_b) {
-    float m2 = a_b.x*a_b.x + a_b.y*a_b.y + a_b.z*a_b.z;
-    return m2 < FF * FF;              /* |a_b| < поріг */
-}
-```
-```py
-import numpy as np
-
-G  = 9.81          # м/с²
-FF = 1.0           # поріг падіння: ~0.1g, м/с²
-
-def quat_rotate(q, v):               # q = (w,x,y,z), v = (x,y,z)
-    w, x, y, z = q
-    qv = np.array([x, y, z])
-    t  = 2.0 * np.cross(qv, v)
-    return v + w * t + np.cross(qv, t)
-
-def quat_conj(q):
-    w, x, y, z = q
-    return np.array([w, -x, -y, -z])
-
-def gravity_in_body(q):              # світ → корпус = обернений q
-    up = np.array([0.0, 0.0, G])
-    return quat_rotate(quat_conj(q), up)
-
-def linear_accel(a_b, q):            # чисте прискорення руху в осях корпусу
-    return np.asarray(a_b) - gravity_in_body(q)
-
-def is_free_fall(a_b):               # увесь показ майже нульовий
-    return np.dot(a_b, a_b) < FF * FF
-```
+:::code proj-imu-gravity/c/robochyi-kod-2.c
+:::code proj-imu-gravity/py/main.py
 :::
 
 І крок інтегрування. Стан навігації живе між викликами; на кожному відліку IMU повертаємо лінійне прискорення у світ і двічі інтегруємо. Порядок двох рядків **не довільний** — спершу оновлюємо швидкість прискоренням цього такту, і лише потім цією свіжою швидкістю рухаємо положення. Це напівнеявний (симплектичний) Ейлер; він утримує похибку інтегрування обмеженою, тоді як зворотний порядок дає їй систематично накопичуватися:
 
-```c
-typedef struct {
-    vec3 v;   /* швидкість у світових осях, м/с */
-    vec3 p;   /* положення у світових осях, м    */
-} nav_state;
-
-/* Один крок обробки: a_b — питома сила (осі корпусу), q — орієнтація, dt — крок. */
-void imu_step(nav_state *s, vec3 a_b, quat q, float dt) {
-    if (is_free_fall(a_b)) return;        /* у падінні інтегрувати нічого */
-
-    vec3 a_body  = linear_accel(a_b, q);  /* прибрати тяжіння */
-    vec3 a_world = quat_rotate(q, a_body);/* корпус → світ */
-
-    s->v.x += a_world.x * dt;             /* 1) спершу швидкість */
-    s->v.y += a_world.y * dt;
-    s->v.z += a_world.z * dt;
-    s->p.x += s->v.x * dt;                /* 2) тоді нею — положення */
-    s->p.y += s->v.y * dt;
-    s->p.z += s->v.z * dt;
-}
-```
+:::code proj-imu-gravity/c/robochyi-kod-3.c
 
 Ось і вся обробка: близько сорока рядків звичайного C без жодної зовнішньої бібліотеки. Викликаєте `imu_step` по кожному перериванню давача — і `s->p` веде вас у просторі. Рівно доти, доки похибка не наростила свій квадрат; чому — за мить.
 

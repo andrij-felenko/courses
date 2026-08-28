@@ -35,7 +35,8 @@
           "proj": [
             {
               "file": "proj-flat-plate-drag.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -57,19 +58,23 @@
           "math": [
             {
               "file": "math-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-thwaites-method.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -80,7 +85,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -91,11 +97,13 @@
           "proj": [
             {
               "file": "proj-thwaites-separation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             },
             {
               "file": "proj-airfoil-separation-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -124,7 +132,8 @@
           "proj": [
             {
               "file": "proj-drag-trajectory.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -158,13 +167,15 @@
           "proj": [
             {
               "file": "proj-instability-simulation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-stability-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -187,19 +198,23 @@
           "math": [
             {
               "file": "math-kolmogorov-scaling.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-dns-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-rans-models.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }
@@ -228,19 +243,23 @@
           "math": [
             {
               "file": "math-bjerknes-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-vortex-tracker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-vorticity-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -268,13 +287,16 @@
           "proj": [
             {
               "file": "proj-vortex-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-vortex-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -296,19 +318,23 @@
           "math": [
             {
               "file": "math-ertel-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-ertel-pv-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-pv-diagnostics.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -330,19 +356,23 @@
           "math": [
             {
               "file": "math-baroclinic-effect.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-baroclinic-effect.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-baroclinic-effect.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -365,25 +395,30 @@
           "hist": [
             {
               "file": "hist-mach-cone.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-compressible-flow.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-mach-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-gasdynamics-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -400,25 +435,30 @@
           "hist": [
             {
               "file": "hist-laval-nozzle.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-isentropic-nozzle.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-nozzle-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-nozzle-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -440,19 +480,23 @@
           "math": [
             {
               "file": "math-prandtl-meyer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-prandtl-meyer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-prandtl-meyer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },

@@ -52,54 +52,8 @@ E[ наївний шлях ] = (N−1) · σ·√π       (робот стоїт
 Переміщення дивиться на кінці, шлях біжить по всьому масиву:
 
 :::tabs
-```python
-import math
-
-Point = tuple[float, float]        # (x, y) у метрах
-
-
-def net_displacement(pts: list[Point]) -> tuple[Point, float]:
-    """Вектор rₙ − r₀ та його модуль. Порожньо/один відлік → нуль."""
-    if len(pts) < 2:
-        return (0.0, 0.0), 0.0
-    (x0, y0), (xn, yn) = pts[0], pts[-1]
-    dx, dy = xn - x0, yn - y0
-    return (dx, dy), math.hypot(dx, dy)
-
-
-def path_length(pts: list[Point]) -> float:
-    """Сума довжин відрізків між сусідніми відліками."""
-    total = 0.0
-    for (xa, ya), (xb, yb) in zip(pts, pts[1:]):
-        total += math.hypot(xb - xa, yb - ya)
-    return total
-```
-```go
-package odometry
-
-import "math"
-
-type Pt struct{ X, Y float64 } // метри
-
-// NetDisplacement — вектор rₙ − r₀ та його модуль.
-func NetDisplacement(pts []Pt) (Pt, float64) {
-	if len(pts) < 2 {
-		return Pt{}, 0
-	}
-	first, last := pts[0], pts[len(pts)-1]
-	d := Pt{last.X - first.X, last.Y - first.Y}
-	return d, math.Hypot(d.X, d.Y)
-}
-
-// PathLength — сума довжин відрізків між сусідніми відліками.
-func PathLength(pts []Pt) float64 {
-	total := 0.0
-	for i := 1; i < len(pts); i++ {
-		total += math.Hypot(pts[i].X-pts[i-1].X, pts[i].Y-pts[i-1].Y)
-	}
-	return total
-}
-```
+:::code proj-odometry/py/dvi-bazovi-velychyny.py
+:::code proj-odometry/go/dvi-bazovi-velychyny.go
 :::
 
 Два тонкі місця, які легко проґавити. Перше — `hypot` замість «руками» `sqrt(dx*dx+dy*dy)`: він рахує той самий корінь, але не переповнюється і не втрачає точність, коли координати великі (для GPS у метрах від далекого початку — доречно). Друге — межі масиву: на порожньому чи одному відліку переміщення нульове, а цикл шляху просто не робить жодної ітерації й повертає нуль. Без цієї перевірки `pts[-1]` на порожньому впаде.
@@ -139,39 +93,8 @@ func PathLength(pts []Pt) float64 {
 Порівнювати треба **не** з попереднім сирим відліком, а з **останньою збереженою** точкою — «якорем». Інакше повільний, але справжній рух розсиплеться: якщо об'єкт повзе по 2 см за такт, а ε = 9 см, то кожен окремий крок менший за поріг — і наївне «пропусти короткий крок» викине **весь рух до єдиного**, показавши нуль. Правильно ж: тримаємо якір, і поки відліки тремтять біля нього в межах ε — мовчимо; щойно котрийсь **вийшов** за коло ε — зараховуємо стрибок від якоря й **переносимо якір** на цю точку. Повільне повзання так накопичиться правильно: якір не зрушить, поки сума дрібних кроків не винесе точку за поріг, а тоді зарахується одразу весь набіг.
 
 :::tabs
-```python
-def path_length_deadband(pts: list[Point], eps: float) -> float:
-    """Шлях із порогом кроку. Відрізок зараховуємо лише коли відхід
-    від ОСТАННЬОЇ ЗБЕРЕЖЕНОЇ точки (якоря) досяг eps."""
-    if not pts:
-        return 0.0
-    total = 0.0
-    ax, ay = pts[0]                    # якір — остання збережена точка
-    for x, y in pts[1:]:
-        step = math.hypot(x - ax, y - ay)
-        if step >= eps:
-            total += step
-            ax, ay = x, y              # якір рухаємо ЛИШЕ на зарахованому кроці
-    return total
-```
-```go
-// PathLengthDeadband — шлях із порогом мінімального кроку eps.
-func PathLengthDeadband(pts []Pt, eps float64) float64 {
-	if len(pts) == 0 {
-		return 0
-	}
-	total := 0.0
-	anchor := pts[0] // остання збережена точка
-	for _, p := range pts[1:] {
-		step := math.Hypot(p.X-anchor.X, p.Y-anchor.Y)
-		if step >= eps {
-			total += step
-			anchor = p // якір рухаємо ЛИШЕ на зарахованому кроці
-		}
-	}
-	return total
-}
-```
+:::code proj-odometry/py/porih-minimalnoho-kroku.py
+:::code proj-odometry/go/porih-minimalnoho-kroku.go
 :::
 
 Одне-єдине місце тут вирішує все — рядок `anchor = p` **всередині** `if`, а не поза ним. Винеси його назовні (оновлюй якір щокроку) — і поріг знову міряє від сусіда, повертаючи ту саму ваду з розсипаним повільним рухом. Тримай усередині — і якір стоїть, поки тремтіння не переросте в справжній крок.
@@ -188,49 +111,8 @@ func PathLengthDeadband(pts []Pt, eps float64) float64 {
 Інший підхід — не відкидати кроки, а спершу **прибрати тремтіння з самих точок**, а вже по згладжених рахувати звичайний `path_length`. Найпростіший згладжувач — [ковзне середнє](root:com-signal/moving-average): кожну точку замінюємо на середнє її сусідів у вікні ±w. Незалежний шум сусідніх відліків частково гаситься усередненням (розкид падає приблизно як √(кількість усереднених)), а плавна форма траєкторії лишається.
 
 :::tabs
-```python
-def moving_average(pts: list[Point], w: int) -> list[Point]:
-    """Згладити відліки вікном ±w (проста ковзна середня по обох осях)."""
-    n = len(pts)
-    out: list[Point] = []
-    for i in range(n):
-        lo, hi = max(0, i - w), min(n, i + w + 1)
-        seg = pts[lo:hi]
-        xs = sum(p[0] for p in seg) / len(seg)
-        ys = sum(p[1] for p in seg) / len(seg)
-        out.append((xs, ys))
-    return out
-
-
-# ужиток: спершу згладити, тоді звичайний шлях
-s = path_length(moving_average(pts, w=2))
-```
-```go
-// MovingAverage згладжує відліки вікном ±w по обох осях.
-func MovingAverage(pts []Pt, w int) []Pt {
-	n := len(pts)
-	out := make([]Pt, n)
-	for i := range pts {
-		lo, hi := i-w, i+w+1
-		if lo < 0 {
-			lo = 0
-		}
-		if hi > n {
-			hi = n
-		}
-		var sx, sy float64
-		for _, p := range pts[lo:hi] {
-			sx += p.X
-			sy += p.Y
-		}
-		cnt := float64(hi - lo)
-		out[i] = Pt{sx / cnt, sy / cnt}
-	}
-	return out
-}
-
-// ужиток: PathLength(MovingAverage(pts, 2))
-```
+:::code proj-odometry/py/zhladzhuvannia-kovzne.py
+:::code proj-odometry/go/zhladzhuvannia-kovzne.go
 :::
 
 І в цього способу своя ціна, дзеркальна до порога. Усереднення розмиває не лише шум, а й **справжні різкі повороти**: гострий кут маршруту після згладжування зрізується в дугу, коротшу за реальний злам, тож шлях виходить **занижений** на крутих поворотах. Перевіримо на чверті кола радіуса 5 м (істинна довжина дуги π/2·5 ≈ 7.85 м): наївний шлях через шум давав ≈ 9.70 м (+24%), згладжування вікном w = 3 стягує до ≈ 7.69 м — уже трохи **менше** істини, бо зрізало кривину. Що ширше вікно, то чистіше гаситься шум і то дужче округлюються справжні повороти; ширину добирають під баланс цих двох.

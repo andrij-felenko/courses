@@ -109,30 +109,8 @@ q = ½·ρ·v²   ⟹   v = √(2·Δp / ρ)
 Функція, що перетворює перепад тиску на швидкість, тривіальна — але живе вона зазвичай у прошивці польотного контролера, на гарячому шляху опитування давача, тож пишемо її мовою заліза (а поряд — той самий вираз мовою для швидкого розрахунку на землі):
 
 :::tabs
-```cpp
-#include <math.h>
-
-// Повітряна швидкість із перепаду тиску Пито (гальмівний − статичний).
-// v = sqrt( 2*dp / rho )
-float airspeed_from_dp(float dp_pa, float rho) {
-    if (dp_pa <= 0.0f) return 0.0f;   // від'ємний перепад — шум або зустрічний бік
-    return sqrtf(2.0f * dp_pa / rho);
-}
-
-// виклик: airspeed_from_dp(200.0f, 1.225f);
-```
-```py
-from math import sqrt
-
-# Повітряна швидкість із перепаду тиску Пито (гальмівний − статичний).
-# v = sqrt( 2*dp / rho )
-def airspeed_from_dp(dp_pa, rho):
-    if dp_pa <= 0.0:
-        return 0.0
-    return sqrt(2.0 * dp_pa / rho)
-
-# виклик: airspeed_from_dp(200.0, 1.225)
-```
+:::code dynamic-pressure-d/cpp/main.cpp
+:::code dynamic-pressure-d/py/main.py
 :::
 
 Підставмо крок за кроком:

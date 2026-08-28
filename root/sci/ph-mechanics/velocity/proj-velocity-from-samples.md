@@ -114,66 +114,8 @@ N = 9 (M = 4):  Σk² = 60  →  σ_v = σ / (7.75·Δt)
 Ключ до дешевизни: ваги `k` — маленькі цілі, тож увесь чисельник рахується в цілих, і єдиний поділ на float лишається наостанок. Тримаємо N останніх відліків у кільці; на кожному новому відліку зважуємо їх готовими цілими вагами `−M … M`.
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-#define NW 7                  /* довжина вікна (непарна)        */
-#define MW ((NW - 1) / 2)     /* напівширина = 3                */
-
-typedef struct {
-    int32_t buf[NW];   /* кільце сирих відліків (напр. лічильник енкодера) */
-    int     head;      /* куди ляже наступний відлік                       */
-    int     filled;    /* скільки вже покладено (до NW)                    */
-    float   inv_dt;    /* 1/Δt, Гц                                         */
-} Slope;
-
-void slope_init(Slope *s, float dt)
-{
-    s->head = 0;  s->filled = 0;  s->inv_dt = 1.0f / dt;
-}
-
-/* Покласти новий відлік x; повернути оцінку швидкості (одиниць/с).
-   Оцінка стосується ЦЕНТРУ вікна — тобто відстає на MW·Δt. */
-float slope_push(Slope *s, int32_t x)
-{
-    s->buf[s->head] = x;
-    s->head = (s->head + 1) % NW;
-    if (s->filled < NW) {            /* вікно ще не повне */
-        s->filled++;
-        return 0.0f;
-    }
-    /* найстаріший відлік — саме там, куди тепер вказує head */
-    int64_t num = 0;                 /* int64: k·counts не перекине розрядність */
-    int idx = s->head;
-    for (int k = -MW; k <= MW; k++) {
-        num += (int64_t)k * s->buf[idx];
-        idx = (idx + 1) % NW;
-    }
-    const int32_t SUMK2 = MW * (MW + 1) * (2 * MW + 1) / 3;   /* =28 при NW=7 */
-    return (float)num / (float)SUMK2 * s->inv_dt;
-}
-```
-```python
-from collections import deque
-
-
-class Slope:
-    def __init__(self, n, dt):
-        assert n % 2 == 1, "вікно має бути непарним"
-        self.m = (n - 1) // 2
-        self.k = list(range(-self.m, self.m + 1))          # ваги −M … M
-        self.sumk2 = self.m * (self.m + 1) * (2 * self.m + 1) // 3
-        self.inv_dt = 1.0 / dt
-        self.buf = deque(maxlen=n)                          # кільце сам-по-собі
-
-    def push(self, x):
-        self.buf.append(x)                                 # найновіший — праворуч
-        if len(self.buf) < self.buf.maxlen:
-            return 0.0                                      # вікно ще не повне
-        # deque іде від найстарішого до найновішого — рівно як k = −M … M
-        num = sum(ki * xi for ki, xi in zip(self.k, self.buf))
-        return num / self.sumk2 * self.inv_dt              # оцінка в центрі вікна
-```
+:::code proj-velocity-from-samples/cpp/main.cpp
+:::code proj-velocity-from-samples/py/kod-rivnomirni-vidliky.py
 :::
 
 Тонкий, але приємний факт: оскільки Σk = 0, додавання сталої до всіх відліків **не змінює** чисельник (`Σk·c = c·Σk = 0`). Тому фільтр байдужий до абсолютного значення лічильника — його цікавить лише локальна зміна. Це і робить оцінку стійкою до повільного дрейфу нуля, і дозволяє лічильнику енкодера безпечно рости великим (аж поки не перекине розрядність самого типу — тому чисельник накопичуємо в `int64_t`).
@@ -209,19 +151,7 @@ def lsq_velocity(ts, xs):
 
 Замість двох метрів за секунду — п'ять із гаком, лише через одну збрехану точку. Рятунок — оцінка, що спирається на **медіану**, а не на середнє: медіану далека точка зрушити не може, бо вона голосує позицією, а не величиною. Класичний хід — **оцінка Тейла–Сена**: візьми нахили **всіх пар** точок і поверни їхню медіану. Вона витримує аж до ~29 % викидів у даних, перш ніж зламатися, — проти нуля у звичайних найменших квадратів.
 
-```python
-from statistics import median
-
-
-def theil_sen_velocity(ts, xs):
-    """Стійка оцінка: медіана нахилів усіх пар точок (Тейл–Сен).
-       Витримує до ~29 % викидів. O(n²) пар — дешево для вікна в 5–15 відліків."""
-    slopes = [(xs[j] - xs[i]) / (ts[j] - ts[i])
-              for i in range(len(ts))
-              for j in range(i + 1, len(ts))
-              if ts[j] != ts[i]]
-    return median(slopes)
-```
+:::code proj-velocity-from-samples/py/nerivnomirni-vidliky-i.py
 
 На тих самих даних із викидом:
 

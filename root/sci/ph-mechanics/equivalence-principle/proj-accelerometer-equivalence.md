@@ -24,21 +24,7 @@ def accelerometer(a, g):
 
 ## Три ситуації — і два однакові числа
 
-```python
-G_EARTH = -9.81   # поле біля поверхні тягне ВНИЗ → від'ємне, бо «вгору» додатне
-G_VOID  =  0.0    # далеко в порожнечі поля тяжіння немає зовсім
-
-scenarios = [
-    #  ситуація                              a (справжнє)   g (місцеве поле)
-    ("лежить на столі (спокій)",                  0.00,        G_EARTH),
-    ("вільно падає",                             -9.81,        G_EARTH),
-    ("ракета в порожнечі, розгін угору на g",      9.81,        G_VOID),
-]
-
-for name, a, g in scenarios:
-    f = accelerometer(a, g)
-    print(f"{name:38s}  a={a:+5.2f}  g={g:+5.2f}  →  показ f = {f:+5.2f}")
-```
+:::code proj-accelerometer-equivalence/py/try-sytuatsii-i-dva.py
 
 Виводить:
 
@@ -71,49 +57,11 @@ assert accelerometer(0.00, G_EARTH) == accelerometer(9.81, G_VOID)   # стіл 
 
 Покажімо це так само прямо — двома світами, що дають **однаковий показ**. Візьмімо 2D: вісь `x` — уперед-горизонт, `z` — угору.
 
-```python
-import math
-
-g = 9.81                              # тут g — величина поля; напрямок задаємо вектором
-
-def rot(v, ang):
-    """Повернути 2D-вектор на кут ang (рад)."""
-    c, s = math.cos(ang), math.sin(ang)
-    x, z = v
-    return (c*x - s*z, s*x + c*z)
-
-def reading_body(tilt, a_world):
-    """Показ акселерометра у ВЛАСНИХ осях: f = a − g, повернуте у тіло.
-    tilt — справжній нахил давача (рад); a_world — справжнє прискорення у світі."""
-    g_world = (0.0, -g)
-    f_world = (a_world[0] - g_world[0], a_world[1] - g_world[1])
-    return rot(f_world, -tilt)        # світ → тіло: поворот на −tilt
-
-def recover_accel(f_body, tilt_hat):
-    """Відновити прискорення у світі з показу, знаючи ОЦІНКУ орієнтації."""
-    fw = rot(f_body, tilt_hat)        # тіло → світ за оцінкою
-    return (fw[0], fw[1] - g)         # додати поле назад: a = f + g_world
-```
+:::code proj-accelerometer-equivalence/py/rakhunok-za.py
 
 Тепер два світи. Хай алгоритм гадає, що давач **рівний** (`tilt_hat = 0`):
 
-```python
-DEG = math.pi / 180
-d = 3 * DEG                                              # неув'язка орієнтації: 3°
-
-fT = reading_body(tilt=d,   a_world=(0.0, 0.0))           # T: нахил, але СПОКІЙ
-fP = reading_body(tilt=0.0, a_world=(g*math.sin(d), 0.0)) # P: рівний, але РОЗГІН уперед
-
-print("показ давача (осі тіла):")
-print(f"  світ T (нахил, спокій):    f_тіло = ({fT[0]:+.4f}, {fT[1]:+.4f})")
-print(f"  світ P (рівний, розгін):   f_тіло = ({fP[0]:+.4f}, {fP[1]:+.4f})")
-
-aT = recover_accel(fT, tilt_hat=0.0)
-aP = recover_accel(fP, tilt_hat=0.0)
-print("що відновив навігатор (поздовжня, вертикальна):")
-print(f"  зі світу T:  a = ({aT[0]:+.4f}, {aT[1]:+.4f})   ← фальшивий розгін!")
-print(f"  зі світу P:  a = ({aP[0]:+.4f}, {aP[1]:+.4f})   ← справжній розгін")
-```
+:::code proj-accelerometer-equivalence/py/rakhunok-za-2.py
 
 Виводить:
 
@@ -133,19 +81,7 @@ print(f"  зі світу P:  a = ({aP[0]:+.4f}, {aP[1]:+.4f})   ← справ�
 
 А коли фальшивий розгін не відрізнити, його **інтегрують як справжній**. Сталий `g·sinΔ` за час `t` дає фальшивий шлях `½·g·sinΔ·t²` — квадратично:
 
-```python
-def drift(phantom_accel, seconds, dt=0.01):
-    """Двічі проінтегрувати сталий фальшивий розгін → фальшивий шлях."""
-    v = p = 0.0
-    for _ in range(int(seconds / dt)):
-        v += phantom_accel * dt        # спершу швидкість
-        p += v * dt                    # тоді нею — положення
-    return p
-
-for deg in (1, 3, 5):
-    ph = g * math.sin(deg * DEG)
-    print(f"  Δ={deg}°   g·sinΔ = {ph:.3f} м/с²   дрейф за 60 с = {drift(ph, 60):.0f} м")
-```
+:::code proj-accelerometer-equivalence/py/rakhunok-za-3.py
 
 ```
   Δ=1°   g·sinΔ = 0.171 м/с²   дрейф за 60 с = 308 м

@@ -42,22 +42,7 @@
 
 Діагностична функція `phase_norm()` використовується для моніторингу загальної амплітуди відхилення системи у фазовому просторі та виявлення числової нестійкості.
 
-```cpp
-struct PhaseState {
-    std::size_t dim{0};
-    std::vector<double> q{};
-    std::vector<double> p{};
-    double t{0.0};
-
-    [[nodiscard]] double phase_norm() const noexcept {
-        double sum = 0.0;
-        for (std::size_t i = 0; i < dim; ++i) {
-            sum += q[i] * q[i] + p[i] * p[i];
-        }
-        return std::sqrt(sum);
-    }
-};
-```
+:::code api-phase-space/cpp/phasestate-stan-u-fazovomu.cpp
 
 При роботі зі структурами `PhaseState` бібліотека гарантує відсутність прихованого копіювання даних (англ. *zero-copy semantics*): усі передачі станів у функції обчислення градієнтів здійснюються за незмінними посиланнями `const PhaseState&`.
 
@@ -73,25 +58,7 @@ struct PhaseState {
 | `compute_gradients` | `const PhaseState& state, std::vector<double>& dq_dt, std::vector<double>& dp_dt` | `void` | Обчислює похідні `dqᵢ/dt = ∂H/∂pᵢ` та `dpᵢ/dt = -∂H/∂qᵢ`. |
 | `compute_hessian` | `const PhaseState& state, std::vector<double>& hessian_matrix` | `void` | Обчислює матрицю Других похідних розміру `2N × 2N` для прямої перевірки `∇ · v = 0`. |
 
-```cpp
-class IHamiltonianSystem {
-public:
-    virtual ~IHamiltonianSystem() = default;
-
-    [[nodiscard]] virtual double compute_energy(const PhaseState& state) const = 0;
-    
-    virtual void compute_gradients(
-        const PhaseState& state, 
-        std::vector<double>& dq_dt, 
-        std::vector<double>& dp_dt
-    ) const = 0;
-
-    virtual void compute_hessian(
-        const PhaseState& state,
-        std::vector<double>& hessian_2n_by_2n
-    ) const = 0;
-};
-```
+:::code api-phase-space/cpp/ihamiltoniansystem.cpp
 
 Контракт вимагає, щоб метод `compute_gradients` не виконував динамічного виділення пам'яті (`malloc` або `new`) під час обчислень, а заповнював наперед виділені вектори-буфери `dq_dt` та `dp_dt`. Це повністю усуває системні затримки на виділення пам'яті у гарячих обчислювальних циклах інтегрування.
 
@@ -121,20 +88,7 @@ Hessian = ┌                                         ┐
 | `VerletLeapfrog` | Стормера-Верле другого порядку | Так | **Так (`det J ≡ 1.000000`)** |
 | `Ruth4thOrder` | Симплектичний четвертого порядку | Так | **Так (`det J ≡ 1.000000`)** |
 
-```cpp
-class IIntegrator {
-public:
-    virtual ~IIntegrator() = default;
-
-    virtual void step(
-        const IHamiltonianSystem& system,
-        PhaseState& state,
-        double dt
-    ) = 0;
-
-    [[nodiscard]] virtual bool is_symplectic() const noexcept = 0;
-};
-```
+:::code api-phase-space/cpp/iintegrator-kontrakt.cpp
 
 Симплектичні інтегратори проектуються за принципом зсуву канонічних змінних. Наприклад, у симплектичному методі Ейлера-Кромера оновлення імпульсу виконується на основі поточної координати, а оновлення координати — на основі вже **нового** імпульсу. Ця несиметрія перетворює матрицю кріку на відображення з визначником `det J ≡ 1.000000`, що строго зберігає фазовий об'єм системи.
 
@@ -153,49 +107,7 @@ public:
 
 Для підсумкової статистичної оцінки стану системи використовується об'єкт метрик `VolumeMetrics`.
 
-```cpp
-struct VolumeMetrics {
-    double initial_volume{0.0};
-    double current_volume{0.0};
-    double jacobian_determinant{1.0};
-    double relative_volume_error{0.0};
-};
-
-class PhaseVolumeTracker {
-public:
-    explicit PhaseVolumeTracker(std::size_t num_particles)
-        : m_particle_count(num_particles) {}
-
-    [[nodiscard]] VolumeMetrics evaluate_metrics(
-        const std::vector<PhaseState>& ensemble
-    ) const {
-        VolumeMetrics metrics;
-        metrics.current_volume = calculate_hull_volume(ensemble);
-        metrics.jacobian_determinant = calculate_avg_jacobian(ensemble);
-        if (m_initial_volume > 0.0) {
-            metrics.relative_volume_error = 
-                std::abs(metrics.current_volume - m_initial_volume) / m_initial_volume;
-        } else {
-            metrics.initial_volume = metrics.current_volume;
-        }
-        return metrics;
-    }
-
-    [[nodiscard]] bool verify_liouville_theorem(
-        double jacobian_det, 
-        double tolerance = 1e-6
-    ) const noexcept {
-        return std::abs(jacobian_det - 1.0) <= tolerance;
-    }
-
-private:
-    std::size_t m_particle_count{0};
-    mutable double m_initial_volume{0.0};
-
-    double calculate_hull_volume(const std::vector<PhaseState>& ensemble) const;
-    double calculate_avg_jacobian(const std::vector<PhaseState>& ensemble) const;
-};
-```
+:::code api-phase-space/cpp/phasevolumetracker.cpp
 
 Алгоритм `calculate_hull_volume` підтримує двовимірний розрахунок через формулу Гаусса (галасових шнурків) для 2D фазових проекцій, а також алгоритми Монте-Карло для обчислення фазових гіпероб'ємів у вищих вимірах `2N > 2`.
 
@@ -225,21 +137,7 @@ private:
 
 Контракт `IHamiltonianSystem` розроблено як **потокобезпечний незмінний об'єкт** (англ. *thread-safe const object*). Метод `compute_gradients` не змінює внутрішній стан системи, що дозволяє виконувати паралельні виклики з багатьох обчислювальних потоків OpenMP, POSIX threads або GPU-ядер CUDA без використання блокувань (м'ютексів).
 
-```cpp
-// Приклад паралельного кроку ансамблю через OpenMP
-void parallel_ensemble_step(
-    const IHamiltonianSystem& system,
-    IIntegrator& integrator,
-    std::vector<PhaseState>& ensemble,
-    double dt
-) {
-    const std::size_t n = ensemble.size();
-    #pragma omp parallel for schedule(static)
-    for (std::size_t i = 0; i < n; ++i) {
-        integrator.step(system, ensemble[i], dt);
-    }
-}
-```
+:::code api-phase-space/cpp/7-osoblyvosti-paralelnoho.cpp
 
 Під час паралельного обчислення кожен потік працює з власними наперед виділеними буферами пам'яті для градієнтів, що виключає стан гонитви за даними (англ. *data race*) та запобігає фальшивому сумісному використанню кеш-ліній (англ. *false sharing*).
 
@@ -261,47 +159,6 @@ void parallel_ensemble_step(
 
 Нижче наведено робочий приклад ініціалізації гармонічного осцилятора, виконання кроків інтегрування та відстеження виконання теореми Ліувілля через інтерфейси API.
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-
-class HarmonicOscillator : public IHamiltonianSystem {
-public:
-    [[nodiscard]] double compute_energy(const PhaseState& s) const override {
-        return 0.5 * (s.p[0] * s.p[0] + s.q[0] * s.q[0]);
-    }
-
-    void compute_gradients(
-        const PhaseState& s, 
-        std::vector<double>& dq, 
-        std::vector<double>& dp
-    ) const override {
-        dq[0] = s.p[0];
-        dp[0] = -s.q[0];
-    }
-
-    void compute_hessian(const PhaseState&, std::vector<double>& h) const override {
-        h = {0.0, 1.0, -1.0, 0.0};
-    }
-};
-
-int main() {
-    HarmonicOscillator system;
-    PhaseState state{.dim = 1, .q = {1.0}, .p = {0.0}, .t = 0.0};
-    PhaseVolumeTracker tracker(100);
-
-    std::cout << "Ініціалізація гамільтонової системи...\n";
-    std::cout << "Початкова енергія H = " << system.compute_energy(state) << "\n";
-    
-    double det_J = 1.000000;
-    bool is_liouville_valid = tracker.verify_liouville_theorem(det_J);
-    
-    std::cout << "Перевірка теореми Ліувілля: det J = " << det_J 
-              << " -> " << (is_liouville_valid ? "УСПІШНО (det J == 1)" : "ПОМИЛКА") << "\n";
-              
-    return 0;
-}
-```
+:::code api-phase-space/cpp/9-pryklad-povnoho-tsyklu.cpp
 
 Використання даного архітектурного контракту гарантує строгий чисельний контроль за виконанням законів збереження механіки та запобігає артефактам фазового роздуття у наукових та інженерних розрахунках.

@@ -51,64 +51,13 @@ r(t + Δt) ≈ r(t) + Δt · v
 Якою мовою це писати? Задача — числове інтегрування звичайних диференціальних рівнянь, і кандидатів двоє, кожен сильний зі свого боку. **Python з numpy**: цикл кроку читається майже як математичний запис, вектор стану дається задарма, а нам важить *побачити* траєкторію й швидко порівняти методи — виразність тут головна. **C++**: інтегратор руху — це класичний гарячий цикл, у якому крутяться фізичні рушії ігор, симуляції реального часу й польотні контролери; там мільйони кроків на секунду, і сира швидкодія та ощадливість пам'яті вирішують. Обидва проходять поріг доречності, тож головний крокувальник — у вкладках, ідіоматично в кожній мові:
 
 :::tabs
-```python
-import numpy as np
-
-def euler(r, v, accel, dt):
-    """Один крок явного Ейлера. accel(r, v) → прискорення від стану."""
-    a = accel(r, v)
-    return r + v * dt, v + a * dt          # ОБИДВА оновлення — зі СТАРИХ значень
-
-def semi_implicit(r, v, accel, dt):
-    """Напівнеявний Ейлер: усього один переставлений рядок проти явного."""
-    a = accel(r, v)
-    v_new = v + a * dt                      # спершу оновлюємо швидкість…
-    return r + v_new * dt, v_new            # …а положення веземо вже НОВОЮ швидкістю
-```
-```cpp
-struct Vec2 {
-    double x{}, y{};
-    Vec2 operator+(Vec2 b) const { return {x + b.x, y + b.y}; }
-    Vec2 operator*(double s) const { return {x * s, y * s}; }
-};
-using Accel = Vec2 (*)(Vec2 r, Vec2 v);    // прискорення від стану
-
-// Один крок явного Ейлера: обидва оновлення зі СТАРИХ значень.
-void euler(Vec2& r, Vec2& v, Accel accel, double dt) {
-    Vec2 a = accel(r, v);
-    r = r + v * dt;
-    v = v + a * dt;
-}
-
-// Напівнеявний Ейлер: усього один переставлений рядок.
-void semi_implicit(Vec2& r, Vec2& v, Accel accel, double dt) {
-    Vec2 a = accel(r, v);
-    v = v + a * dt;                         // спершу швидкість…
-    r = r + v * dt;                         // …положення вже НОВОЮ швидкістю
-}
-```
+:::code proj-numerical-integration/py/ideia-zakon-tse-retsept.py
+:::code proj-numerical-integration/cpp/main.cpp
 :::
 
 Стан — двовимірний вектор (по x і по y незалежно), тож той самий крок годиться і для вертикального падіння, і для косого кидка. Уся інша робота — придумати праву частину, прискорення від стану, і прокрутити цикл. Плюмбінг зручно лишити виразному Python (у C++ це той самий `for`, що клепле `euler(r, v, ...)`):
 
-```python
-g = np.array([0.0, -9.8])                     # тяжіння вниз
-
-def linear_drag(m, k):                        # опір ∝ швидкості (мале, повільне тіло)
-    return lambda r, v: g - (k / m) * v
-
-def quadratic_drag(m, c):                     # опір ∝ швидкості² (реальне повітря)
-    return lambda r, v: g - (c / m) * np.linalg.norm(v) * v
-
-def simulate(accel, r0, v0, dt, steps, step=euler):
-    r, v = np.array(r0, float), np.array(v0, float)
-    R = np.empty((steps + 1, 2)); R[0] = r
-    V = np.empty_like(R);         V[0] = v
-    for i in range(steps):                    # ← гарячий цикл: тут живе вся вартість
-        r, v = step(r, v, accel, dt)
-        R[i + 1], V[i + 1] = r, v
-    return np.arange(steps + 1) * dt, R, V
-```
+:::code proj-numerical-integration/py/ideia-zakon-tse-retsept-2.py
 
 ## Пастка перша: завеликий крок вигадує вибух
 

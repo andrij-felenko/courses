@@ -60,18 +60,7 @@ L = ½ · ρ · v² · S · CL
 **Приклад: яка швидкість утримає легкий безпілотник?** Апарат масою 2 кг, площа крила 0.30 м², приймемо CL = 0.6 у крейсері, густина біля землі ρ = 1.225 кг/м³. Знайдімо мінімальну швидкість, за якої L = mg.
 
 :::tabs
-```cpp
-#include <math.h>
-
-// Швидкість, за якої підіймальна сила зрівноважує вагу.
-// L = 0.5*rho*v^2*S*CL = m*g   ->   v = sqrt( 2*m*g / (rho*S*CL) )
-float level_flight_speed(float m, float S, float CL, float rho) {
-    const float g = 9.81f;
-    return sqrtf(2.0f * m * g / (rho * S * CL));
-}
-
-// виклик: level_flight_speed(2.0f, 0.30f, 0.6f, 1.225f);
-```
+:::code fixed-wing-lift-d/cpp/main.cpp
 ```py
 from math import sqrt
 

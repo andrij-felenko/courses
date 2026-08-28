@@ -39,21 +39,7 @@ Wᵢ = ½·(Fᵢ + Fᵢ₊₁)·(xᵢ₊₁ − xᵢ)
 Пряма сума трапецій по логу (x, F). Крок навмисне не припускаємо рівним — беремо (xᵢ₊₁ − xᵢ) щоразу:
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Робота змінної сили: ∫F dx методом трапецій.
-   x[i] — положення (м), F[i] — сила там (Н), n — довжина логу.
-   Крок Δx може бути нерівним і навіть від'ємним (рух назад). */
-double trapz_work(const double *x, const double *F, size_t n) {
-    double W = 0.0;
-    for (size_t i = 0; i + 1 < n; ++i) {
-        double dx = x[i + 1] - x[i];
-        W += 0.5 * (F[i] + F[i + 1]) * dx;   /* площа однієї смужки */
-    }
-    return W;                                 /* Дж, якщо x у м, F у Н */
-}
-```
+:::code proj-work-integral/c/zminna-syla-f-dx-po.c
 ```python
 def trapz_work(x, F):
     """∫F dx по трапеціях для логу (x, F); крок може бути нерівним."""
@@ -96,31 +82,8 @@ F, Н:   0     12    20    18    6
 Тепер лічильник, що біжить наживо. Кожен такт керування ти читаєш силу на валу й швидкість і доливаєш у скарбничку внесок цього такту, F·v·Δt. Це причинний, прямокутний спосіб — і саме те, що вміє прошивка. У C він природний до непристойності: структура з одним полем і рядок додавання, який кличеться з переривання таймера.
 
 :::tabs
-```c
-/* Лічильник енергії реального часу.
-   Кожен такт: energy += P·Δt = F·v·Δt. Знак зберігається сам —
-   гальмівний такт (сила проти швидкості) дає від'ємний внесок. */
-typedef struct {
-    double energy_J;        /* накопичена робота, Дж */
-} EnergyMeter;
-
-static inline void meter_tick(EnergyMeter *m,
-                              double force_N, double vel_mps, double dt_s) {
-    m->energy_J += force_N * vel_mps * dt_s;
-}
-```
-```python
-import numpy as np
-
-def cycle_energy(F, v, dt):
-    """Енергія за цикл із логу сили й швидкості, рівний крок dt (с)."""
-    return float(np.sum(F * v) * dt)          # Σ F·v·Δt — знак і все
-
-# нерівний такт: беремо справжні мітки часу t і трапецію по потужності
-def cycle_energy_uneven(F, v, t):
-    P = F * v                                  # миттєва потужність
-    return float(np.sum(0.5 * (P[:-1] + P[1:]) * np.diff(t)))
-```
+:::code proj-work-integral/c/enerhiia-dvyhuna-za-tsykl.c
+:::code proj-work-integral/py/main.py
 :::
 
 **Приклад: робочий хід із гальмуванням.** Привод розганяв навантаження, тоді на кінці ходу почав його стримувати — сила стала від'ємною (проти руху), хоч тіло ще їхало вперед. Такт Δt = 0.1 с:
@@ -146,24 +109,7 @@ def cycle_energy_uneven(F, v, t):
 Найзагальніший випадок: тіло їде по кривій, сила щомиті дивиться кудись убік від руху. Тут працює не число, а **вектор**. На кожному плечі береш переміщення Δr = rᵢ₊₁ − rᵢ і скалярно множиш на силу — а щоб не втратити точність, силу на плечі усереднюєш (та сама трапеція, тільки векторна):
 
 :::tabs
-```c
-#include <stddef.h>
-
-/* Робота вздовж траєкторії: Σ F·Δr = Σ (Fx·Δx + Fy·Δy).
-   Силу на плечі беремо серединою двох відліків; знак дає сам добуток. */
-double path_work(const double *x, const double *y,
-                 const double *Fx, const double *Fy, size_t n) {
-    double W = 0.0;
-    for (size_t i = 0; i + 1 < n; ++i) {
-        double dx = x[i + 1] - x[i];
-        double dy = y[i + 1] - y[i];
-        double fx = 0.5 * (Fx[i] + Fx[i + 1]);
-        double fy = 0.5 * (Fy[i] + Fy[i + 1]);
-        W += fx * dx + fy * dy;               /* скалярний добуток F·Δr */
-    }
-    return W;
-}
-```
+:::code proj-work-integral/c/robota-vzdovzh-traiektorii.c
 ```python
 import numpy as np
 

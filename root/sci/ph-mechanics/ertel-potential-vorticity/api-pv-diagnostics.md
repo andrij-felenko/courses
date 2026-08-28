@@ -48,48 +48,8 @@
 Структура `gfd_grid_t` описує геометричні розміри, просторові кроки дискретизації та географічну орієнтацію обчислювальної області.
 
 :::tabs
-```c
-typedef enum {
-    GFD_GRID_CARTESIAN = 0, /* Декартова прямокутна сітка в метричних координатах */
-    GFD_GRID_F_PLANE   = 1, /* Наближення f-площини (f = f0 = const) */
-    GFD_GRID_BETA_PLANE= 2, /* Наближення beta-площини (f = f0 + beta * y) */
-    GFD_GRID_SPHERICAL = 3  /* Сферичні географічні координати (довгота λ, широта φ) */
-} gfd_grid_type_t;
-
-typedef struct {
-    int nx;                 /* Кількість вузлів уздовж вісі X (довгота / східний напрямок) */
-    int ny;                 /* Кількість вузлів уздовж вісі Y (широта / північний напрямок) */
-    int nz;                 /* Кількість вузлів уздовж вісі Z (висота / вертикаль) */
-    double dx;              /* Просторовий крок сітки за X (метри або градуси довготи) */
-    double dy;              /* Просторовий крок сітки за Y (метри або градуси широти) */
-    double dz;              /* Просторовий крок сітки за Z (метри або паскалі) */
-    double f0;              /* Базовий параметр Коріоліса для f-площини (1/с) */
-    double beta;            /* Меридіональний градієнт параметра Коріоліса df/dy (1/(м·с)) */
-    double ref_lat;         /* Опорна широта для центра області (градуси) */
-    gfd_grid_type_t type;   /* Режим координатної системи сітки */
-} gfd_grid_t;
-```
-```cpp
-enum class GridType {
-    Cartesian = 0,
-    FPlane    = 1,
-    BetaPlane = 2,
-    Spherical = 3
-};
-
-struct Grid {
-    int nx{0};
-    int ny{0};
-    int nz{0};
-    double dx{1000.0};
-    double dy{1000.0};
-    double dz{100.0};
-    double f0{1e-4};
-    double beta{1.6e-11};
-    double ref_lat{45.0};
-    GridType type{GridType::FPlane};
-};
-```
+:::code api-pv-diagnostics/c/1-heometriia-sitky-gfd.c
+:::code api-pv-diagnostics/cpp/1-heometriia-sitky-gfd.cpp
 :::
 
 Детальний опис полів `gfd_grid_t`:
@@ -112,22 +72,7 @@ typedef struct {
     int is_owner;           /* 1 якщо структура є власником пам'яті, 0 якщо це зовнішній слайс */
 } gfd_field3d_t;
 ```
-```cpp
-struct Field3DView {
-    std::span<const double> data;
-    size_t stride_x{0};
-    size_t stride_y{0};
-    size_t stride_z{0};
-
-    [[nodiscard]] constexpr size_t index(size_t i, size_t j, size_t k) const noexcept {
-        return i * stride_x + j * stride_y + k * stride_z;
-    }
-
-    [[nodiscard]] constexpr double operator()(size_t i, size_t j, size_t k) const noexcept {
-        return data[index(i, j, k)];
-    }
-};
-```
+:::code api-pv-diagnostics/cpp/2-bufer-tryvymirnoho-polia.cpp
 :::
 
 Поведінка strides та порядок розташування у пам'яті:
@@ -140,36 +85,8 @@ struct Field3DView {
 ### 3. Налаштування розрахунку `gfd_pv_options_t`
 
 :::tabs
-```c
-typedef enum {
-    GFD_BC_PERIODIC = 0,    /* Періодичні граничні умови (для замкнених паралелей) */
-    GFD_BC_CLAMPED  = 1,    /* Задані фіксовані значення на границях */
-    GFD_BC_NEUMANN  = 2     /* Нульовий градієнт (∂q/∂n = 0) на границях */
-} gfd_bc_type_t;
-
-typedef struct {
-    int use_pvu_units;      /* 1 — виводити в PVU (10^-6 м²·с⁻¹·К·кг⁻¹), 0 — у SI */
-    int diff_order;         /* Порядок точності різницевої схеми: 2 або 4 */
-    gfd_bc_type_t bc_x;     /* Тип граничних умов за віссю X */
-    gfd_bc_type_t bc_y;     /* Тип граничних умов за віссю Y */
-    gfd_bc_type_t bc_z;     /* Тип граничних умов за віссю Z */
-} gfd_pv_options_t;
-```
-```cpp
-enum class BCType {
-    Periodic = 0,
-    Clamped  = 1,
-    Neumann  = 2
-};
-
-struct PVOptions {
-    bool use_pvu_units{true};
-    int diff_order{2};
-    BCType bc_x{BCType::Periodic};
-    BCType bc_y{BCType::Neumann};
-    BCType bc_z{BCType::Neumann};
-};
-```
+:::code api-pv-diagnostics/c/3-nalashtuvannia.c
+:::code api-pv-diagnostics/cpp/3-nalashtuvannia.cpp
 :::
 
 Опис опцій:
@@ -191,20 +108,7 @@ gfd_status_t gfd_field3d_create(
 
 void gfd_field3d_destroy(gfd_field3d_t *field);
 ```
-```cpp
-class Field3DOwner {
-public:
-    Field3DOwner(int nx, int ny, int nz)
-        : nx_(nx), ny_(ny), nz_(nz), buffer_(static_cast<size_t>(nx) * ny * nz, 0.0) {}
-
-    [[nodiscard]] std::span<double> span() noexcept { return buffer_; }
-    [[nodiscard]] std::span<const double> span() const noexcept { return buffer_; }
-
-private:
-    int nx_, ny_, nz_;
-    std::vector<double> buffer_;
-};
-```
+:::code api-pv-diagnostics/cpp/gfd-field3d-create-ta-gfd.cpp
 :::
 
 Функція `gfd_field3d_create` виділяє суцільний блок пам'яті розміром `nx * ny * nz * sizeof(double)` та ініціалізує відповідні `stride_x`, `stride_y`, `stride_z` у порядку Row-Major. Поле `is_owner` встановлюється в `1`.
@@ -216,18 +120,7 @@ private:
 Основна діагностична функція для розрахунку потенціальної вихореності Ертеля.
 
 :::tabs
-```c
-gfd_status_t gfd_pv_compute_ertel(
-    const gfd_grid_t *grid,
-    const gfd_field3d_t *u,
-    const gfd_field3d_t *v,
-    const gfd_field3d_t *w,
-    const gfd_field3d_t *theta,
-    const gfd_field3d_t *rho,
-    const gfd_pv_options_t *opts,
-    gfd_field3d_t *pv_out
-);
-```
+:::code api-pv-diagnostics/c/gfd-pv-compute-ertel.c
 ```cpp
 [[nodiscard]] std::expected<std::vector<double>, gfd_status_t> computeErtelPV(
     const Grid& grid,
@@ -261,18 +154,7 @@ gfd_status_t gfd_pv_compute_relative_vorticity(
     gfd_field3d_t *wz_out
 );
 ```
-```cpp
-struct VorticityVectorResult {
-    std::vector<double> wx;
-    std::vector<double> wy;
-    std::vector<double> wz;
-};
-
-[[nodiscard]] std::expected<VorticityVectorResult, gfd_status_t> computeRelativeVorticity(
-    const Grid& grid,
-    Field3DView u, Field3DView v, Field3DView w
-);
-```
+:::code api-pv-diagnostics/cpp/gfd-pv-compute-relative.cpp
 :::
 
 Ця функція корисна при діагностиці зсувної та криволінійної вихореності в струминних течіях незалежно від стратифікації.
@@ -291,78 +173,14 @@ gfd_status_t gfd_pv_compute_gradient(
     gfd_field3d_t *d_dz
 );
 ```
-```cpp
-struct GradientVectorResult {
-    std::vector<double> dx;
-    std::vector<double> dy;
-    std::vector<double> dz;
-};
-
-[[nodiscard]] std::expected<GradientVectorResult, gfd_status_t> computeGradient(
-    const Grid& grid,
-    Field3DView scalar
-);
-```
+:::code api-pv-diagnostics/cpp/gfd-pv-compute-gradient.cpp
 :::
 
 ## Високорівневий обгортковий клас для C++
 
 Для розробників на C++20/C++23 бібліотека надає заголовочний клас `gfd::PVDiagnosticEngine`, який загортає низькорівневі C-функції в RAII-контейнери із використанням `std::span` та `std::expected`.
 
-```cpp
-namespace gfd {
-
-class PVDiagnosticEngine {
-public:
-    explicit PVDiagnosticEngine(gfd_grid_t grid, gfd_pv_options_t options = {})
-        : grid_(grid), opts_(options) {}
-
-    ~PVDiagnosticEngine() = default;
-
-    PVDiagnosticEngine(const PVDiagnosticEngine&) = delete;
-    PVDiagnosticEngine& operator=(const PVDiagnosticEngine&) = delete;
-    PVDiagnosticEngine(PVDiagnosticEngine&&) noexcept = default;
-    PVDiagnosticEngine& operator=(PVDiagnosticEngine&&) noexcept = default;
-
-    [[nodiscard]] std::expected<std::vector<double>, gfd_status_t> execute(
-        std::span<const double> u,
-        std::span<const double> v,
-        std::span<const double> w,
-        std::span<const double> theta,
-        std::span<const double> rho
-    ) const {
-        const size_t total_size = static_cast<size_t>(grid_.nx) * grid_.ny * grid_.nz;
-        if (u.size() != total_size || v.size() != total_size ||
-            w.size() != total_size || theta.size() != total_size ||
-            rho.size() != total_size) 
-        {
-            return std::unexpected(GFD_ERR_SPAN_MISMATCH);
-        }
-
-        std::vector<double> pv_result(total_size, 0.0);
-
-        gfd_field3d_t f_u{const_cast<double*>(u.data()), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-        gfd_field3d_t f_v{const_cast<double*>(v.data()), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-        gfd_field3d_t f_w{const_cast<double*>(w.data()), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-        gfd_field3d_t f_th{const_cast<double*>(theta.data()), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-        gfd_field3d_t f_rho{const_cast<double*>(rho.data()), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-        gfd_field3d_t f_pv{pv_result.data(), static_cast<size_t>(grid_.ny * grid_.nz), static_cast<size_t>(grid_.nz), 1, 0};
-
-        gfd_status_t st = gfd_pv_compute_ertel(&grid_, &f_u, &f_v, &f_w, &f_th, &f_rho, &opts_, &f_pv);
-        if (st != GFD_SUCCESS) {
-            return std::unexpected(st);
-        }
-
-        return pv_result;
-    }
-
-private:
-    gfd_grid_t grid_;
-    gfd_pv_options_t opts_;
-};
-
-} // namespace gfd
-```
+:::code api-pv-diagnostics/cpp/vysokorivnevyi-obhortkovyi.cpp
 
 ## Гарантії граничних умов та потокобезпечності
 

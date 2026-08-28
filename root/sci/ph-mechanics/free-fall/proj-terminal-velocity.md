@@ -37,51 +37,11 @@ a = 0   →   g = β·v_t²   →   v_t = √(g/β) = √( 2mg / (C_d·ρ·A) )
 
 **Робочий код.** Задача суто числова, і читатися вона має як формула, а не як боротьба з мовою, — тож пишемо Python. Уся фізика вміщається у дві функції: одна рахує контрольну граничну швидкість, друга крокує рівняння руху й на кожному кроці віддає пару (час, швидкість).
 
-```py
-import math
-
-g   = 9.81     # м/с²   прискорення вільного падіння
-rho = 1.2      # кг/м³  густина повітря коло землі
-
-def terminal(m, Cd, A):
-    "Аналітична межа: там, де опір рівно з'їдає вагу."
-    return math.sqrt(2*m*g / (Cd*rho*A))
-
-def fall(m, Cd, A, dt=0.001, t_end=25.0):
-    "Крок за кроком інтегруємо m·dv/dt = m·g − ½·Cd·ρ·A·v²."
-    beta = 0.5*Cd*rho*A / m         # a = g − beta·v²
-    v = 0.0                         # старт зі спокою
-    t = 0.0
-    while t < t_end:
-        a  = g - beta * v*abs(v)    # опір завжди проти руху
-        v += a * dt                 # ← увесь метод Ейлера тут
-        t += dt
-        yield t, v
-```
+:::code proj-terminal-velocity/py/part.py
 
 Тепер проженемо цим два зовсім різні тіла й для кожного порівняємо повітряну швидкість із вакуумною `g·t`:
 
-```py
-def report(name, m, Cd, A, marks):
-    vt = terminal(m, Cd, A)
-    print(f"\n{name}:  v_t = {vt:.1f} м/с  ({vt*3.6:.0f} км/год)")
-    print("   t, с | v (повітря) | v = g·t (вакуум)")
-    marks = iter(sorted(marks)); target = next(marks)
-    for t, v in fall(m, Cd, A):
-        if t >= target:
-            print(f"  {t:5.1f} | {v:9.2f}   | {g*t:9.1f}")
-            try: target = next(marks)
-            except StopIteration: break
-
-# Парашутист «пузом донизу»
-report("Парашутист", m=80, Cd=0.9, A=0.50, marks=[2, 5, 10, 20])
-
-# Дощова крапля: масу й переріз рахуємо з радіуса кулі
-r = 0.002                           # м, велика крапля (≈4 мм у діаметрі)
-m_drop = 1000 * (4/3)*math.pi*r**3  # вода, ρ_w = 1000 кг/м³
-A_drop = math.pi*r**2
-report("Дощова крапля", m=m_drop, Cd=0.47, A=A_drop, marks=[0.5, 1, 2, 3])
-```
+:::code proj-terminal-velocity/py/part-2.py
 
 Запуск дає ось таке:
 

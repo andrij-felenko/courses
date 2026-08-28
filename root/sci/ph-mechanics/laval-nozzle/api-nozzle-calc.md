@@ -153,30 +153,8 @@ struct NozzleGeometry {
 Результуюча структура локального стану газодинамічного потоку у конкретному перерізі `x`.
 
 :::tabs
-```c
-typedef struct {
-    double x;           /* Осьова координата точки, м */
-    double area;        /* Поперечна площа перерізу, м² */
-    double mach;        /* Число Маха M */
-    double pressure;    /* Статичний тиск P, Па */
-    double temp;        /* Статична температура T, К */
-    double density;     /* Густина ρ, кг/м³ */
-    double vel;         /* Швидкість газу u, м/с */
-    double P0_local;    /* Повний тиск у даній точці (ураховує втрати на скачку), Па */
-} flow_point_state_t;
-```
-```cpp
-struct FlowPointState {
-    double x{0.0};           // Осьова координата точки, м
-    double area{0.0};        // Поперечна площа перерізу, м²
-    double mach{0.0};        // Число Маха M
-    double pressure{0.0};    // Статичний тиск P, Па
-    double temp{0.0};        // Статична температура T, К
-    double density{0.0};     // Густина ρ, кг/м³
-    double vel{0.0};         // Швидкість газу u, м/с
-    double P0_local{0.0};    // Локальний повний тиск P0, Па
-};
-```
+:::code api-nozzle-calc/c/3-3-parametry-techii-u.c
+:::code api-nozzle-calc/cpp/3-3-parametry-techii-u.cpp
 :::
 
 ### 3.4 Результат розрахунку прямого скачка ущільнення (`shock_wave_info_t` / `ShockWaveInfo`)
@@ -184,30 +162,8 @@ struct FlowPointState {
 Містить детальну інформацію про геометричне положення та термодинамічні стрибки у випадку виникнення ударної хвилі у дифузорі.
 
 :::tabs
-```c
-typedef struct {
-    bool shock_present; /* Чи наявний скачок усередині сопла */
-    double x_shock;     /* Координата скачка ущільнення, м */
-    double A_shock;     /* Площа сопла в місці скачка, м² */
-    double M1;          /* Число Маха перед скачком (M1 > 1) */
-    double M2;          /* Число Маха за скачком (M2 < 1) */
-    double P1;          /* Статичний тиск до скачка, Па */
-    double P2;          /* Статичний тиск після скачка, Па */
-    double P0_loss;     /* Втрата повного тиску (P01 - P02), Па */
-} shock_wave_info_t;
-```
-```cpp
-struct ShockWaveInfo {
-    bool shock_present{false}; // Прапорець наявності скачка усередині дифузора
-    double x_shock{0.0};        // Координата розрахункового скачка, м
-    double A_shock{0.0};        // Площа перерізу у точці скачка, м²
-    double M1{1.0};             // Число Маха перед скачком (надзвукове, M1 > 1)
-    double M2{1.0};             // Число Маха за скачком (дозвукове, M2 < 1)
-    double P1{0.0};             // Доскачковий статичний тиск, Па
-    double P2{0.0};             // Післяскачковий статичний тиск, Па
-    double P0_loss{0.0};        // Незворотна втрата повного тиску, Па
-};
-```
+:::code api-nozzle-calc/c/3-4-rezultat-rozrakhunku.c
+:::code api-nozzle-calc/cpp/3-4-rezultat-rozrakhunku.cpp
 :::
 
 ## 4. Специфікація функцій C API
@@ -337,54 +293,8 @@ std::expected<std::vector<FlowPointState>, NozzleError> solveFullMesh(
 Версія C++20 надає строго типізований об'єктно-орієнтований інтерфейс із підтримкою семантики переміщення, обробкою помилок через `std::expected` та роботою з неволодіючими зрізами `std::span`.
 
 :::tabs
-```c
-/* C-заголовок сумісності libnozzle_c.h */
-#ifndef LIBNOZZLE_C_H
-#define LIBNOZZLE_C_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-nozzle_error_t nozzle_init_default_air(gas_properties_t *gas);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* LIBNOZZLE_C_H */
-```
-```cpp
-// C++20 Заголовок модульного інтерфейсу NozzleEvaluator.hpp
-#pragma once
-#include <expected>
-#include <span>
-#include <vector>
-
-namespace NozzleLib {
-
-class NozzleEvaluator {
-public:
-    explicit NozzleEvaluator(GasProperties gas_props) noexcept : gas_(gas_props) {}
-
-    [[nodiscard]] std::expected<double, NozzleError> 
-    getMachFromAreaRatio(double area_ratio, bool supersonic) const noexcept;
-
-    [[nodiscard]] std::expected<double, NozzleError> 
-    getChokedMassFlow(double A_throat) const noexcept;
-
-    [[nodiscard]] std::expected<RegimeAnalysisResult, NozzleError> 
-    determineRegime(const NozzleGeometry& geom) const noexcept;
-
-    [[nodiscard]] std::expected<std::vector<FlowPointState>, NozzleError> 
-    evaluateMesh(const NozzleGeometry& geom, std::span<const double> x_mesh, std::span<const double> area_mesh) const;
-
-private:
-    GasProperties gas_;
-};
-
-} // namespace NozzleLib
-```
+:::code api-nozzle-calc/c/libnozzle_c.h
+:::code api-nozzle-calc/cpp/NozzleEvaluator.hpp
 :::
 
 ## 6. Специфікація параметрів CLI-утиліти (`nozzle-sim`)

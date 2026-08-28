@@ -119,38 +119,8 @@ enum class BaroclinicFdOrder : int32_t {
 Усі просторові та термодинамічні параметри сітки передаються у вигляді структури:
 
 :::tabs
-```c
-typedef struct {
-    size_t nx;                     /* Кількість вузлів по осі X (зональний напрямок) */
-    size_t ny;                     /* Кількість вузлів по осі Y (меридіональний напрямок) */
-    size_t nz;                     /* Кількість вузлів по осі Z (вертикальний напрямок) */
-    double dx;                     /* Крок сітки по осі X (метри) */
-    double dy;                     /* Крок сітки по осі Y (метри) */
-    double dz;                     /* Крок сітки по осі Z (метри, для z-рівнів) */
-    double latitude_deg;           /* Опорна географічна широта у градусах (-90..+90) */
-    double coriolis_f0;            /* Параметр Коріоліса f0 (1/с), якщо 0 — рахується з latitude_deg */
-    double gravity_g;              /* Прискорення вільного падіння (за замовчуванням 9.80665 м/с²) */
-    baroclinic_coord_type_t coord; /* Тип вертикальної координати */
-    baroclinic_bc_type_t bc;       /* Тип граничних умов */
-    baroclinic_fd_order_t fd_order;/* Порядок скінченних різниць */
-} baroclinic_grid_config_t;
-```
-```cpp
-struct BaroclinicGridConfig {
-    size_t nx{0};
-    size_t ny{0};
-    size_t nz{0};
-    double dx{10000.0};
-    double dy{10000.0};
-    double dz{100.0};
-    double latitude_deg{45.0};
-    double coriolis_f0{0.0};
-    double gravity_g{9.80665};
-    BaroclinicCoordType coord{BaroclinicCoordType::ZLevels};
-    BaroclinicBcType bc{BaroclinicBcType::ZeroFill};
-    BaroclinicFdOrder fd_order{BaroclinicFdOrder::Order2Central};
-};
-```
+:::code api-baroclinic-effect/c/main.c
+:::code api-baroclinic-effect/cpp/4-struktura-konfihuratsii.cpp
 :::
 
 Перед використанням конфігурації у викликах обчислювальних функцій її обов'язково слід піддати валідації через виклик `baroclinic_config_init()`.
@@ -304,52 +274,7 @@ std::string_view get_error_string(int err_code) noexcept;
 
 У мові C++20 надається безпечний об'єктний обгортковий клас `baroclinic::Solver`, який керує внутрішнім станом, забезпечує перевірку меж та підтримує паралельні алгоритми виконання `std::execution::par`.
 
-```cpp
-namespace baroclinic {
-
-class BaroclinicException : public std::runtime_error {
-public:
-    explicit BaroclinicException(int code)
-        : std::runtime_error(std::string(get_error_string(code))), code_(code) {}
-    int code() const noexcept { return code_; }
-private:
-    int code_;
-};
-
-class Solver {
-public:
-    explicit Solver(BaroclinicGridConfig config) : config_(config) {
-        init_config(config_);
-    }
-
-    // Обчислення моменту завихреності через std::span (без копіювання)
-    std::vector<double> compute_torque(
-        std::span<const double> pressure,
-        std::span<const double> density) const
-    {
-        const size_t total = config_.nx * config_.ny * config_.nz;
-        if (pressure.size() != total || density.size() != total) {
-            throw BaroclinicException(BAROCLINIC_ERR_OUT_OF_BOUNDS);
-        }
-
-        std::vector<double> torque(total, 0.0);
-        BaroclinicState state{.pressure = pressure, .density = density};
-        BaroclinicOutput out{.baroclinic_torque_z = torque};
-
-        int rc = compute_torque(config_, state, out);
-        if (rc < 0) throw BaroclinicException(rc);
-
-        return torque;
-    }
-
-    const BaroclinicGridConfig& config() const noexcept { return config_; }
-
-private:
-    BaroclinicGridConfig config_;
-};
-
-} // namespace baroclinic
-```
+:::code api-baroclinic-effect/cpp/interfeis-c-20-namespace.cpp
 
 ## Високорівневий Python-інтерфейс та CLI
 
@@ -357,36 +282,7 @@ private:
 
 Для високорівневої роботи у науковому стеку Python надається клас `BaroclinicDiagnostic`, який підтримує масиви `numpy.ndarray` та об'єкти `xarray.DataArray`:
 
-```py
-import numpy as np
-
-class BaroclinicDiagnostic:
-    def __init__(self, dx: float, dy: float, dz: float, latitude: float = 45.0):
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.latitude = latitude
-        self.f0 = 2.0 * 7.2921159e-5 * np.sin(np.radians(latitude))
-        self.g = 9.80665
-
-    def compute_torque(self, p: np.ndarray, rho: np.ndarray) -> np.ndarray:
-        """Обчислює бароклінний момент τ_z на 3D масивах."""
-        drho_dx = np.gradient(rho, self.dx, axis=2)
-        drho_dy = np.gradient(rho, self.dy, axis=1)
-        dp_dx   = np.gradient(p,   self.dx, axis=2)
-        dp_dy   = np.gradient(p,   self.dy, axis=1)
-        
-        return (drho_dx * dp_dy - drho_dy * dp_dx) / (rho ** 2)
-
-    def compute_thermal_wind(self, T: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-        """Обчислює вертикальний зсув геострофічного вітру (du_g/dz, dv_g/dz)."""
-        dT_dx = np.gradient(T, self.dx, axis=2)
-        dT_dy = np.gradient(T, self.dy, axis=1)
-        
-        du_g_dz = - (self.g / (self.f0 * T)) * dT_dy
-        dv_g_dz =   (self.g / (self.f0 * T)) * dT_dx
-        return du_g_dz, dv_g_dz
-```
+:::code api-baroclinic-effect/py/main.py
 
 ### Командний рядок (CLI Tool `baroclinic-diag`)
 

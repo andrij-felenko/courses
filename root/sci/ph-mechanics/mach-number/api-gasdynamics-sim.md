@@ -80,19 +80,7 @@ typedef struct {
     double speed_of_sound_m_s;  /* Локальна швидкість звуку a [м/с] */
 } isa_atmosphere_state_t;
 ```
-```cpp
-namespace gas_dynamics {
-
-struct isa_atmosphere_state {
-    double altitude_m{};          // Геопотенціальна висота над рівнем моря [м]
-    double temperature_k{};       // Абсолютна статична температура газу T [К]
-    double pressure_pa{};         // Статичний барометричний тиск p [Па]
-    double density_kg_m3{};       // Густина повітря ρ [кг/м³]
-    double speed_of_sound_m_s{};  // Локальна швидкість звуку a [м/с]
-};
-
-} // namespace gas_dynamics
-```
+:::code api-gasdynamics-sim/cpp/3-1-struktura-stanu.cpp
 :::
 
 **Вимоги до полів:**
@@ -106,34 +94,8 @@ struct isa_atmosphere_state {
 Описує кінематичні та термодинамічні характеристики потоку газу навколо рухомого об'єкта або всередині аеродинамічного каналу.
 
 :::tabs
-```c
-typedef struct {
-    double true_airspeed_m_s;      /* Істинна повітряна швидкість v [м/с] */
-    double mach_number;            /* Безрозмірне число Маха M = v / a */
-    double total_temperature_k;     /* Повна температура гальмування T₀ [К] */
-    double total_pressure_pa;       /* Повний тиск гальмування p₀ [Па] */
-    double dynamic_pressure_pa;     /* Динамічний тиск (швидкісний напір) q [Па] */
-    double prandtl_glauert_factor;    /* Поправка стисливості 1/√(1-M²) (для M < 1) */
-    uint32_t flow_regime_flags;    /* Бітові прапорці режиму течії */
-    uint32_t reserved;             /* Резервне поле для вирівнювання структури */
-} compressible_flow_state_t;
-```
-```cpp
-namespace gas_dynamics {
-
-struct compressible_flow_state {
-    double true_airspeed_m_s{};      // Істинна повітряна швидкість v [м/с]
-    double mach_number{};            // Безрозмірне число Маха M = v / a
-    double total_temperature_k{};     // Повна температура гальмування T₀ [К]
-    double total_pressure_pa{};       // Повний тиск гальмування p₀ [Па]
-    double dynamic_pressure_pa{};     // Динамічний тиск (швидкісний напір) q [Па]
-    double prandtl_glauert_factor{};    // Поправка стисливості 1/√(1-M²) (для M < 1)
-    std::uint32_t flow_regime_flags{};// Бітові прапорці режиму течії
-    std::uint32_t reserved{};         // Резервне поле для вирівнювання структури
-};
-
-} // namespace gas_dynamics
-```
+:::code api-gasdynamics-sim/c/main.c
+:::code api-gasdynamics-sim/cpp/3-2-struktura-stanu.cpp
 :::
 
 **Особливості обчислення полів:**
@@ -156,20 +118,7 @@ typedef struct {
     double total_pressure_loss; /* Коефіцієнт збереження повного тиску p₀₂ / p₀₁ */
 } shock_wave_params_t;
 ```
-```cpp
-namespace gas_dynamics {
-
-struct shock_wave_params {
-    double upstream_mach{};       // Число Маха перед скачком M₁ (> 1.0)
-    double downstream_mach{};     // Число Маха після скачка M₂ (< 1.0)
-    double pressure_ratio{};      // Відношення статичних тисків p₂ / p₁
-    double temperature_ratio{};   // Відношення статичних температур T₂ / T₁
-    double density_ratio{};       // Відношення густин ρ₂ / ρ₁
-    double total_pressure_loss{}; // Коефіцієнт збереження повного тиску p₀₂ / p₀₁
-};
-
-} // namespace gas_dynamics
-```
+:::code api-gasdynamics-sim/cpp/3-3-struktura-skachka.cpp
 :::
 
 ---
@@ -369,21 +318,7 @@ namespace gas_dynamics {
 #define FLOW_REGIME_SHOCK_WAVE_PRESENT       (1U << 5) /* У потоці присутні скачки ущільнення */
 #define FLOW_REGIME_THERMAL_EFFECTS_CRITICAL (1U << 6) /* Критичний кінетичний нагрів (T₀ > 500 K) */
 ```
-```cpp
-namespace gas_dynamics {
-
-enum class regime_flags : std::uint32_t {
-    subsonic_incompressible  = (1U << 0), // M < 0.3
-    subsonic_compressible    = (1U << 1), // 0.3 <= M < 0.8
-    transonic                = (1U << 2), // 0.8 <= M <= 1.2
-    supersonic               = (1U << 3), // 1.2 < M <= 5.0
-    hypersonic               = (1U << 4), // M > 5.0
-    shock_wave_present       = (1U << 5), // Скачки ущільнення
-    thermal_effects_critical = (1U << 6)  // Нагрів T0 > 500 K
-};
-
-} // namespace gas_dynamics
-```
+:::code api-gasdynamics-sim/cpp/5-2-spetsyfikatsiia.cpp
 :::
 
 ---

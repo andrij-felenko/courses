@@ -18,19 +18,7 @@ aₓ = −GM·───        a_y = −GM·───            (величин
 
 Щоб числа були чисті, працюймо в одиницях, де гравітаційний параметр `GM = 1`. Це нічого не спрощує у фізиці — лише прибирає множники. Ось увесь апарат у коді: прискорення в точці й повна енергія, яка нам знадобиться як детектор брехні.
 
-```py
-import math
-
-GM = 1.0                          # одиниці, де гравітаційний параметр = 1
-
-def accel(x, y):
-    r = math.hypot(x, y)          # відстань до зорі
-    k = -GM / r**3                # спільний множник −GM/r³
-    return k * x, k * y           # прискорення = −GM·(x, y)/r³, тягне до центра
-
-def energy(x, y, vx, vy):
-    return 0.5 * (vx*vx + vy*vy) - GM / math.hypot(x, y)   # ½v² − GM/r
-```
+:::code proj-orbit-integrator/py/stan-i-zakon-rukhu.py
 
 Повна енергія `½v² − GM/r` для зв'язаної орбіти стала й від'ємна. Це наш головний свідок: справжня орбіта повторюється вічно, отже її енергія не має ні рости, ні спадати. Якщо в симуляції енергія попливла — попливла орбіта.
 
@@ -45,22 +33,7 @@ def energy(x, y, vx, vy):
 
 Це метод Ейлера — найпряміша дискретизація [похідної](root:math-analysis/derivative): похідна це відношення приростів, тож приріст ≈ похідна · крок. Запишімо крок так, щоб різні методи можна було порівняти на тому самому старті. Стан тримаємо списком `[x, y, vₓ, v_y]`, а функція-крок міняє його на місці:
 
-```py
-def step_euler(s, dt):
-    x, y, vx, vy = s
-    ax, ay = accel(x, y)
-    s[0], s[1] = x + vx*dt,  y + vy*dt        # положення рухаємо СТАРОЮ швидкістю
-    s[2], s[3] = vx + ax*dt, vy + ay*dt       # швидкість — старим прискоренням
-
-def run(step, dt, nsteps, s0=(1.0, 0.0, 0.0, 1.2)):
-    s = list(s0)
-    E0 = energy(*s); emin = emax = E0
-    for _ in range(nsteps):
-        step(s, dt)
-        e = energy(*s)
-        emin, emax = min(emin, e), max(emax, e)
-    return s, (emax - emin) / abs(E0)          # розмах енергії відносно початкової
-```
+:::code proj-orbit-integrator/py/naiprostishyi-krok-eiler.py
 
 Старт `(1, 0, 0, 1.2)` — це перигелій еліпса з витягнутістю `e = 0.44`: планета в найближчій точці, `1` одиниця від зорі, з поперечною швидкістю `1.2`. Період такої орбіти — близько `15` одиниць часу. Запустімо `8` обертів дрібним кроком `dt = 0.01` і подивімося на екран.
 
@@ -176,53 +149,8 @@ def step_verlet(s, dt):
 Кернел leapfrog — це той самий гарячий цикл, який у справжніх розрахунках N-тіл крутиться мільярди разів; там його пишуть не задля читабельності, а задля швидкодії, тісно й без зайвих алокацій. Той самий крок — прозоро Python-ом для розуміння і щільно C++ для гарячого циклу:
 
 :::tabs
-```py
-# демо-мова: прозоро, стан — простий список
-def accel(x, y):
-    inv = -GM / (x*x + y*y)**1.5              # −GM / r³
-    return inv*x, inv*y
-
-def verlet_step(s, dt):
-    x, y, vx, vy = s
-    ax, ay = accel(x, y)
-    x += vx*dt + 0.5*ax*dt*dt                 # дрейф
-    y += vy*dt + 0.5*ay*dt*dt
-    ax2, ay2 = accel(x, y)                    # сила в новій точці
-    s[0], s[1] = x, y
-    s[2] = vx + 0.5*(ax + ax2)*dt             # швидкість — середнім прискоренням
-    s[3] = vy + 0.5*(ay + ay2)*dt
-
-s = [1.0, 0.0, 0.0, 1.2]
-for _ in range(100_000_000):                  # сто мільйонів кроків — і енергія не тікає
-    verlet_step(s, 0.01)
-```
-```cpp
-// гарячий цикл: тісно, без алокацій — так рахують N-тіл насправді
-#include <cmath>
-struct Body { double x, y, vx, vy; };
-constexpr double GM = 1.0;
-
-static inline void accel(double x, double y, double& ax, double& ay) {
-    double r2 = x*x + y*y;
-    double inv = -GM / (r2 * std::sqrt(r2));  // −GM / r³
-    ax = inv*x;  ay = inv*y;
-}
-
-static inline void verlet_step(Body& b, double dt) {
-    double ax, ay;  accel(b.x, b.y, ax, ay);
-    b.x += b.vx*dt + 0.5*ax*dt*dt;            // дрейф
-    b.y += b.vy*dt + 0.5*ay*dt*dt;
-    double ax2, ay2;  accel(b.x, b.y, ax2, ay2);  // сила в новій точці
-    b.vx += 0.5*(ax + ax2)*dt;                // швидкість — середнім прискоренням
-    b.vy += 0.5*(ay + ay2)*dt;
-}
-
-int main() {
-    Body b{1.0, 0.0, 0.0, 1.2};
-    for (long i = 0; i < 100'000'000L; ++i)   // сто мільйонів кроків
-        verlet_step(b, 0.01);
-}
-```
+:::code proj-orbit-integrator/py/shche-krashche-leapfrog.py
+:::code proj-orbit-integrator/cpp/main.cpp
 :::
 
 ## Перевірка рівних площ: другий закон Кеплера прямо з коду

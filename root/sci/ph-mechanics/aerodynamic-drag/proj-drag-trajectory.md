@@ -42,60 +42,11 @@ a_y = −g − β·|v|·v_y ,     |v| = √( vₓ² + v_y² )
 
 Задача суто чисельна й наскрізь векторна, тож пишемо мовою, якою двовимірний крок читається як формула, — Python із numpy, де додати два вектори означає буквально `a + b`. Уся фізика — у функції `make_accel`, що повертає прискорення для будь-якої швидкості; два кроки — грубий Ейлер і точний RK4 — взаємозамінні, щоб їх можна було порівняти на тому самому польоті:
 
-```py
-import numpy as np
-
-g   = 9.81            # м/с²
-rho = 1.2             # кг/м³, повітря коло землі
-
-def make_accel(m, Cd, A):
-    "Прискорення як функція швидкості: a = g − β·|v|·v."
-    beta = 0.5*Cd*rho*A / m
-    gvec = np.array([0.0, -g])
-    def accel(v):
-        speed = np.hypot(v[0], v[1])      # |v| — повна швидкість
-        return gvec - beta*speed*v        # опір: величина ∝ |v|², напрям −v̂
-    return accel
-
-def euler_step(r, v, accel, dt):
-    return r + v*dt, v + accel(v)*dt      # найпряміший крок: один нахил
-
-def rk4_step(r, v, accel, dt):
-    # стан (r, v); похідні: dr/dt = v, dv/dt = a(v). Опитуємо нахил 4 рази.
-    k1r, k1v = v,              accel(v)
-    k2r, k2v = v + 0.5*dt*k1v, accel(v + 0.5*dt*k1v)
-    k3r, k3v = v + 0.5*dt*k2v, accel(v + 0.5*dt*k2v)
-    k4r, k4v = v + dt*k3v,     accel(v + dt*k3v)
-    r_new = r + dt/6*(k1r + 2*k2r + 2*k3r + k4r)
-    v_new = v + dt/6*(k1v + 2*k2v + 2*k3v + k4v)
-    return r_new, v_new
-```
+:::code proj-drag-trajectory/py/robochyi-kod.py
 
 Драйвер кидає тіло під кутом і крокує, доки воно не пірне під землю; останній крок перестрибує *y* = 0, тож точку падіння знаходимо лінійною інтерполяцією — беремо ту частку кроку, за яку висота якраз обнулилась:
 
-```py
-def fly(v0, angle_deg, m, Cd, A, step=rk4_step, dt=0.01):
-    "Кидаємо тіло під кутом, крокуємо до приземлення, вертаємо зведення польоту."
-    accel = make_accel(m, Cd, A)
-    th = np.radians(angle_deg)
-    r = np.array([0.0, 0.0])
-    v = v0*np.array([np.cos(th), np.sin(th)])
-    t = apex = t_apex = 0.0
-    while True:
-        r1, v1 = step(r, v, accel, dt)
-        if r1[1] < 0:                          # перетнули землю
-            f = r[1] / (r[1] - r1[1])          # частка кроку до y = 0
-            r_land = r + f*(r1 - r)
-            v_land = v + f*(v1 - v)
-            t += f*dt
-            return dict(range=r_land[0], t=t, apex=apex, t_apex=t_apex,
-                        v_land=np.hypot(*v_land),
-                        ang_land=np.degrees(np.arctan2(-v_land[1], v_land[0])))
-        if v[1] >= 0 and v1[1] < 0:            # верхівка дуги
-            apex, t_apex = r1[1], t
-        r, v = r1, v1
-        t += dt
-```
+:::code proj-drag-trajectory/py/robochyi-kod-2.py
 
 Проженімо тим самим бейсбольним м'ячем два світи — без повітря (*C_d* = 0, опір зникає) і з повітрям:
 
@@ -172,19 +123,7 @@ def step(r, v, beta, dt):
     v = v + a*dt                         # СПЕРШУ швидкість…
     return r + v*dt, v                   # …ТОДІ рух новою v
 ```
-```cpp
-// реальний час: щокадру, тісно, без алокацій (напівнеявний Ейлер)
-#include <cmath>
-struct Vec2 { float x, y; };
-
-static inline void step(Vec2& r, Vec2& v, float beta, float dt) {
-    float sp = std::sqrt(v.x*v.x + v.y*v.y);     // |v| — повна швидкість
-    float ax = -beta*sp*v.x;                     // a = g − β·|v|·v
-    float ay = -9.81f - beta*sp*v.y;
-    v.x += ax*dt;   v.y += ay*dt;                // СПЕРШУ швидкість…
-    r.x += v.x*dt;  r.y += v.y*dt;               // …ТОДІ рух новою v — стійкіше
-}
-```
+:::code proj-drag-trajectory/cpp/main.cpp
 :::
 
 Обидва роблять те саме; C++ просто дає передбачувано швидкий машинний код там, де крок викликають десятки тисяч разів на секунду. Напівнеявний порядок (спершу оновити **v**, тоді рухати **r** уже новою швидкістю) коштує нуль зайвого й помітно стійкіший за наївний — корисна звичка для реального часу.

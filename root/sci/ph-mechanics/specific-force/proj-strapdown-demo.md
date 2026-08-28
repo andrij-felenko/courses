@@ -45,72 +45,8 @@ acc = f_тіла = (0, Ω²·R, g) = (0, 4.00, 9.81) м/с²    ← стала
 Ядро — гарячий цикл реального часу на борту, тож пишемо його мовою заліза; поруч — той самий код читабельною мовою, який можна одразу запустити.
 
 :::tabs
-```c
-#include <math.h>
-
-typedef struct { float x, y, z; }    Vec3;
-typedef struct { float w, x, y, z; } Quat;
-
-// Добуток кватерніонів a ⊗ b (складання двох поворотів).
-static Quat quat_mul(Quat a, Quat b) {
-    return (Quat){
-        a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
-        a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
-        a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
-        a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w
-    };
-}
-
-// Повернути до одиничної довжини — інакше обертання «попливе» масштабом.
-static Quat quat_unit(Quat q) {
-    float inv = 1.0f / sqrtf(q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z);
-    return (Quat){ q.w*inv, q.x*inv, q.y*inv, q.z*inv };
-}
-
-// Повернути вектор тіла у світ:  v_світ = q ⊗ (0,v) ⊗ q*.
-static Vec3 quat_rotate(Quat q, Vec3 v) {
-    Quat p  = { 0.0f, v.x, v.y, v.z };
-    Quat qc = { q.w, -q.x, -q.y, -q.z };
-    Quat r  = quat_mul(quat_mul(q, p), qc);
-    return (Vec3){ r.x, r.y, r.z };
-}
-
-// Точний приріст орієнтації з вектора повороту θ = ω·dt за крок.
-static Quat quat_delta(Vec3 rotvec) {
-    float a = sqrtf(rotvec.x*rotvec.x + rotvec.y*rotvec.y + rotvec.z*rotvec.z);
-    if (a < 1e-9f)                      // мала межа: θ/2 просто у векторну частину
-        return (Quat){ 1.0f, 0.5f*rotvec.x, 0.5f*rotvec.y, 0.5f*rotvec.z };
-    float s = sinf(a * 0.5f) / a;
-    return (Quat){ cosf(a * 0.5f), rotvec.x*s, rotvec.y*s, rotvec.z*s };
-}
-```
-```py
-import math
-
-def qmul(a, b):                       # добуток кватерніонів a ⊗ b
-    aw, ax, ay, az = a
-    bw, bx, by, bz = b
-    return (aw*bw - ax*bx - ay*by - az*bz,
-            aw*bx + ax*bw + ay*bz - az*by,
-            aw*by - ax*bz + ay*bw + az*bx,
-            aw*bz + ax*by - ay*bx + az*bw)
-
-def qunit(q):                         # повернути до одиничної довжини
-    inv = 1.0 / math.sqrt(sum(c*c for c in q))
-    return tuple(c*inv for c in q)
-
-def qrot(q, v):                       # повернути вектор тіла у світ
-    w, x, y, z = q
-    r = qmul(qmul(q, (0.0,) + tuple(v)), (w, -x, -y, -z))
-    return (r[1], r[2], r[3])
-
-def quat_delta(rotvec):               # точний приріст із θ = ω·dt
-    a = math.sqrt(sum(c*c for c in rotvec))
-    if a < 1e-12:                     # мала межа: θ/2 у векторну частину
-        return (1.0, 0.5*rotvec[0], 0.5*rotvec[1], 0.5*rotvec[2])
-    s = math.sin(a/2) / a
-    return (math.cos(a/2), rotvec[0]*s, rotvec[1]*s, rotvec[2]*s)
-```
+:::code proj-strapdown-demo/c/robochyi-kod-kvaternionne.c
+:::code proj-strapdown-demo/py/robochyi-kod-kvaternionne.py
 :::
 
 Чому приріст будуємо саме так? За крок dt апарат довертається на вектор повороту θ = ω·dt. Точний одиничний кватерніон такого повороту — це (cos(|θ|/2), θ̂·sin(|θ|/2)), де θ̂ — вісь, а |θ| — кут. Це не наближення: для сталої за крок кутової швидкості формула точна, і добуток одиничних кватерніонів лишається одиничним аж до похибки заокруглення. (Чому «навпіл» і звідки кінематика q̇ = ½·q⊗ω — окрема тема; тут ми користуємося готовим результатом.)
@@ -120,53 +56,8 @@ def quat_delta(rotvec):               # точний приріст із θ = ω
 Тепер сам чотирикроковий цикл: докрутити орієнтацію, повернути питому силу у світ, додати гравітацію, проінтегрувати у швидкість і положення. Один тонкий момент заклали одразу — інтегруємо не прямокутником, а **трапецією**: швидкість нарощуємо середнім прискоренням початку й кінця кроку, положення — середньою швидкістю. Навіщо саме так, побачимо на числах трохи згодом; поки що просто закладімо це в код.
 
 :::tabs
-```c
-static const Vec3 G_WORLD = { 0.0f, 0.0f, -9.81f };   // гравітація вниз, вісь Z угору
-
-// Один крок strapdown-механізації.
-// q — орієнтація «тіло → світ»; v, p — швидкість і положення у світі;
-// a_prev — світове прискорення з попереднього кроку (для трапеції);
-// gyro — кутова швидкість тіла (рад/с); acc — питома сила тіла (м/с²).
-void strapdown_step(Quat *q, Vec3 *v, Vec3 *p, Vec3 *a_prev,
-                    Vec3 gyro, Vec3 acc, float dt)
-{
-    // 1. Орієнтація: докрутити точним приростом і ОБОВ'ЯЗКОВО нормувати.
-    Vec3 rotvec = { gyro.x*dt, gyro.y*dt, gyro.z*dt };
-    *q = quat_unit(quat_mul(*q, quat_delta(rotvec)));
-
-    // 2. Питому силу з осей тіла — у світ.   3. Додати гравітацію.
-    Vec3 fw = quat_rotate(*q, acc);
-    Vec3 aw = { fw.x + G_WORLD.x, fw.y + G_WORLD.y, fw.z + G_WORLD.z };
-
-    // 4. Трапеція: швидкість — середнім прискоренням, позиція — середньою швидкістю.
-    Vec3 vn = {
-        v->x + 0.5f*(a_prev->x + aw.x)*dt,
-        v->y + 0.5f*(a_prev->y + aw.y)*dt,
-        v->z + 0.5f*(a_prev->z + aw.z)*dt
-    };
-    p->x += 0.5f*(v->x + vn.x)*dt;
-    p->y += 0.5f*(v->y + vn.y)*dt;
-    p->z += 0.5f*(v->z + vn.z)*dt;
-    *v = vn;
-    *a_prev = aw;
-}
-```
-```py
-G_WORLD = (0.0, 0.0, -9.81)           # гравітація вниз, вісь Z угору
-
-def strapdown_step(q, v, p, a_prev, gyro, acc, dt):
-    # 1. Орієнтація: докрутити точним приростом і ОБОВ'ЯЗКОВО нормувати.
-    q = qunit(qmul(q, quat_delta((gyro[0]*dt, gyro[1]*dt, gyro[2]*dt))))
-
-    # 2. Питому силу у світ.   3. Додати гравітацію.
-    fw = qrot(q, acc)
-    aw = (fw[0], fw[1], fw[2] + G_WORLD[2])
-
-    # 4. Трапеція: швидкість — середнім прискоренням, позиція — середньою швидкістю.
-    vn = tuple(v[i] + 0.5*(a_prev[i] + aw[i])*dt for i in range(3))
-    p  = tuple(p[i] + 0.5*(v[i]     + vn[i])*dt for i in range(3))
-    return q, vn, p, aw
-```
+:::code proj-strapdown-demo/c/iadro-odyn-krok.c
+:::code proj-strapdown-demo/py/iadro-odyn-krok.py
 :::
 
 Уся динамічна пам'ять навігатора — оці кілька чисел: кватерніон (4), швидкість (3), положення (3) та одне минуле прискорення (3). Тринадцять чисел утримують увесь стан руху апарата. Це і є та «математична платформа», що заступила кардани.
@@ -175,33 +66,7 @@ def strapdown_step(q, v, p, a_prev, gyro, acc, dt):
 
 Лишилося вигнати нашу синтетичну істину й драйвер, що крутить цикл. Це вже не гарячий борт, а звичайний офлайн-скрипт — пишемо його читабельним Python:
 
-```py
-R, V = 100.0, 20.0                    # радіус і швидкість віражу
-OM   = V / R                          # 0.20 рад/с — стала кутова швидкість
-G    = 9.81
-DT   = 1.0 / 500                      # 500 Гц — типова частота IMU
-
-GYRO = (0.0, 0.0, OM)                 # ← стала (виведено вище)
-ACC  = (0.0, OM*OM*R, G)              # ← стала: (0, 4.00, 9.81)
-
-def truth(t):                         # де апарат насправді, у кожну мить
-    return (R*math.cos(OM*t), R*math.sin(OM*t), 0.0)
-
-def start():                          # орієнтація на θ=0: курс +90° (ніс на +Y)
-    q = qunit((math.cos(math.pi/4), 0.0, 0.0, math.sin(math.pi/4)))
-    return q, (0.0, V, 0.0), (R, 0.0, 0.0)
-
-def run(seconds):
-    q, v, p = start()
-    fw = qrot(q, ACC)                 # засіяти «минуле» прискорення з початку
-    a_prev = (fw[0], fw[1], fw[2] - G)
-    worst = 0.0
-    for k in range(round(seconds / DT)):
-        q, v, p, a_prev = strapdown_step(q, v, p, a_prev, GYRO, ACC, DT)
-        true = truth(DT * (k + 1))
-        worst = max(worst, math.dist(p, true))
-    return worst, math.dist(p, (R, 0.0, 0.0))   # (найгірша похибка, незамикання)
-```
+:::code proj-strapdown-demo/py/prohnaty-i-porivniaty.py
 
 Один віток кола — це 2π/Ω ≈ 31.4 с, тобто близько 15 700 кроків на 500 Гц. Запускаємо на цілий віток і дивимося, наскільки далеко відновлене положення відбігає від істини й чи вертається коло само в себе:
 
@@ -228,23 +93,7 @@ def run(seconds):
 
 Досі давачі були бездоганні. У житті вони брешуть, і найпідступніша брехня — **сталий зсув** (англ. *bias*): давач тихо додає до кожного заміру ту саму малу похибку. Уведімо її й нехай апарат стоїть **нерухомо** — так чистіше видно, як зсув сам собою породжує рух із нічого. Нерухомо гіроскоп мав би показувати нулі, акселерометр — саму опору (0, 0, g). Додаймо до цих чесних показів невеликий сталий зсув:
 
-```py
-def vadd(a, b): return (a[0]+b[0], a[1]+b[1], a[2]+b[2])
-
-def run_static(seconds, acc_bias, gyro_bias, sample):
-    q, v, p = (1.0, 0.0, 0.0, 0.0), (0., 0., 0.), (0., 0., 0.)
-    acc0 = (0., 0., G)                            # нерухомо: лише опора
-    fw = qrot(q, vadd(acc0, acc_bias)); a_prev = (fw[0], fw[1], fw[2] - G)
-    nxt, rows = sample, []
-    for k in range(round(seconds / DT)):
-        gyro = gyro_bias                          # істинна ω = 0, лишається зсув
-        acc  = vadd(acc0, acc_bias)               # істинна f + зсув
-        q, v, p, a_prev = strapdown_step(q, v, p, a_prev, gyro, acc, DT)
-        t = DT * (k + 1)
-        if t >= nxt - 1e-9:
-            rows.append((t, math.hypot(p[0], p[1]))); nxt += sample
-    return rows
-```
+:::code proj-strapdown-demo/py/teper-zlamaimo-ioho-zsuv.py
 
 Спершу — **зсув акселерометра** завбільшки 1 мілі-g (тисячна частка g, 0.00981 м/с²) по одній горизонтальній осі. Це скромно навіть для дешевого MEMS-давача. Женемо десять хвилин:
 

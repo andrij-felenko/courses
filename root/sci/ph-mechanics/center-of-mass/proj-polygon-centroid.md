@@ -15,40 +15,8 @@ r_цм = (Σ mᵢ·rᵢ) / (Σ mᵢ)      окремо по кожній осі
 Практично це один прохід: накопичуємо зважену суму положень і сумарну масу, а ділимо один раз наприкінці. Розмірність байдужа — той самий цикл працює для площини й для простору, бо кожна вісь усереднюється незалежно.
 
 :::tabs
-```py
-def center_of_mass(masses, positions):
-    """masses[i] — маса i-ї точки; positions[i] — її координати (кортеж
-    будь-якої вимірності). Повертає центр мас як кортеж тієї самої вимірності."""
-    total = 0.0
-    acc = [0.0] * len(positions[0])
-    for m, p in zip(masses, positions):
-        total += m
-        for k, coord in enumerate(p):
-            acc[k] += m * coord               # накопичуємо mᵢ·rᵢ по осях
-    if total == 0.0:
-        raise ValueError("сумарна маса нульова")
-    return tuple(a / total for a in acc)      # ділимо один раз наприкінці
-```
-```cpp
-#include <vector>
-#include <stdexcept>
-
-struct Vec3 { double x{}, y{}, z{}; };
-
-Vec3 center_of_mass(const std::vector<double>& mass,
-                    const std::vector<Vec3>& pos) {
-    double total = 0.0;
-    Vec3 acc;                                   // {0, 0, 0}
-    for (std::size_t i = 0; i < mass.size(); ++i) {
-        total += mass[i];
-        acc.x += mass[i] * pos[i].x;            // накопичуємо mᵢ·rᵢ
-        acc.y += mass[i] * pos[i].y;
-        acc.z += mass[i] * pos[i].z;
-    }
-    if (total == 0.0) throw std::invalid_argument("сумарна маса нульова");
-    return { acc.x / total, acc.y / total, acc.z / total };
-}
-```
+:::code proj-polygon-centroid/py/nabir-materialnykh-tochok.py
+:::code proj-polygon-centroid/cpp/nabir-materialnykh-tochok.cpp
 :::
 
 **Приклад: кронштейн із трьох деталей.** Мотор 250 г, батарея 400 г і плата 80 г закріплені у площині (координати в міліметрах від кута рами).
@@ -121,46 +89,8 @@ C_y = 1/(6A) · Σ (yᵢ + yᵢ₊₁)·cᵢ
 Уся формула — це один прохід по ребрах із трьома накопичувачами: подвоєна площа й дві незважені суми чисельника. Ділимо наприкінці. Знак площі лишаємо як є — він ще стане в пригоді.
 
 :::tabs
-```py
-def polygon_centroid(pts):
-    """pts — вершини простого контуру за порядком обходу (за чи проти
-    годинникової — байдуже). Повертає (центроїд, знакова площа).
-    Це НЕ середнє вершин: зважуємо площею, а не рахуємо кути."""
-    n = len(pts)
-    a2 = cx = cy = 0.0                       # a2 — подвоєна знакова площа (2A)
-    for i in range(n):
-        x0, y0 = pts[i]
-        x1, y1 = pts[(i + 1) % n]            # наступна вершина, обвід замкнено
-        cross = x0 * y1 - x1 * y0            # 2·площа трикутника O-Pᵢ-Pᵢ₊₁
-        a2 += cross
-        cx += (x0 + x1) * cross
-        cy += (y0 + y1) * cross
-    if a2 == 0.0:
-        raise ValueError("вироджений контур: нульова площа")
-    return (cx / (3.0 * a2), cy / (3.0 * a2)), a2 / 2.0
-```
-```cpp
-#include <vector>
-#include <stdexcept>
-
-struct Vec2 { double x{}, y{}; };
-struct Centroid { Vec2 c; double area; };    // area — знакова
-
-Centroid polygon_centroid(const std::vector<Vec2>& p) {
-    const std::size_t n = p.size();
-    double a2 = 0.0, cx = 0.0, cy = 0.0;      // a2 = 2·(знакова площа)
-    for (std::size_t i = 0; i < n; ++i) {
-        const Vec2& a = p[i];
-        const Vec2& b = p[(i + 1) % n];       // наступна вершина (обвід замкнено)
-        const double cross = a.x * b.y - b.x * a.y;
-        a2 += cross;
-        cx += (a.x + b.x) * cross;
-        cy += (a.y + b.y) * cross;
-    }
-    if (a2 == 0.0) throw std::invalid_argument("вироджений контур: нульова площа");
-    return { { cx / (3.0 * a2), cy / (3.0 * a2) }, a2 / 2.0 };
-}
-```
+:::code proj-polygon-centroid/py/robochyi-kod-tsentroida.py
+:::code proj-polygon-centroid/cpp/robochyi-kod-tsentroida.cpp
 :::
 
 Зверни увагу на `(i + 1) % n`: остання вершина замикається на першу, тож ребро P_{n−1}→P₀ теж рахується — контур має бути циклом. Прогонимо той самий підступний прямокутник із зайвою вершиною, на якому спіткнулося середнє:

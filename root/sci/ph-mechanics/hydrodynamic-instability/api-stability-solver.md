@@ -136,63 +136,15 @@ typedef enum {
 
 ### 10.1 Переліки типів граничних умов та алгоритмів розв'язання
 
-```c
-typedef enum {
-    HYDRO_BC_RIGID_WALL   = 0,  /* Тверді стінки з прилипанням: ϕ(±1) = 0, ϕ'(±1) = 0 */
-    HYDRO_BC_FREE_SLIP    = 1,  /* Вільне ковзання без дотичного напруження: ϕ(±1) = 0, ϕ''(±1) = 0 */
-    HYDRO_BC_PERIODIC     = 2,  /* Періодичні умови для вільного зсувного шару */
-    HYDRO_BC_FREE_SURFACE = 3   /* Вільна поверхня з капілярним напруженням */
-} hydro_bc_type_t;
-
-typedef enum {
-    HYDRO_SOLVER_QZ_LAPACK     = 0, /* Повний QZ алгоритм LAPACK (zggev) для всіх значень */
-    HYDRO_SOLVER_ARNOLDI_ARPACK = 1  /* Ітераційний метод Арнольді (ARPACK) для найнебезпечніших мод */
-} hydro_solver_algo_t;
-
-typedef enum {
-    HYDRO_LOG_NONE  = 0,  /* Логування вимкнено */
-    HYDRO_LOG_INFO  = 1,  /* Інформаційні повідомлення про перебіг обчислень */
-    HYDRO_LOG_DEBUG = 2   /* Докладна налагоджувальна інформація та норми матриць */
-} hydro_log_level_t;
-```
+:::code api-stability-solver/c/10-1-pereliky-typiv.c
 
 ### 10.2 Конфігурація обчислювальної сітки `hydro_grid_config_t`
 
-```c
-typedef struct {
-    int N;                       /* Кількість точок колакації Чебишова (рекомендовано N = 64..256) */
-    double Re;                   /* Число Рейнольдса потоку Re = U_max * h / nu */
-    double Ra;                   /* Число Релея для конвекції Релея — Бенара */
-    double Pr;                   /* Число Прандтля для конвективних задач */
-    double We;                   /* Число Вебера для вільної поверхні */
-    double beta_fs;              /* Параметр градієнта тиску Фалькнера — Скена */
-    double atwood;               /* Число Атвуда для нестійкості Рихтмаєра — Мешкова */
-    double delta_v;              /* Стрибок швидкості від ударної хвилі */
-    double alpha;                /* Волнове число збурення α > 0 */
-    double beta;                 /* Поперечне волнове число β (для 3D мод, β=0 для 2D) */
-    hydro_bc_type_t bc_type;     /* Тип фізичних граничних умов */
-    hydro_solver_algo_t solver;  /* Чисельний алгоритм пошуку власних значень */
-    double shift_real;           /* Дійсна частина зсуву спектру для методу Арнольді */
-    double shift_imag;           /* Уявна частина зсуву спектру для методу Арнольді */
-} hydro_grid_config_t;
-```
+:::code api-stability-solver/c/10-2-konfihuratsiia.c
 
 ### 10.3 Структура комплексного числа та спектрального результату
 
-```c
-typedef struct {
-    double real;   /* c_r: Фазова швидкість переміщення хвилі */
-    double imag;   /* c_i: Інкремент зростання (c_i > 0 означає нестійкість!) */
-} hydro_complex_t;
-
-typedef struct {
-    int num_modes;               /* Кількість знайдених власних мод (дорівнює N-4) */
-    hydro_complex_t *eigenvalues;/* Динамічний масив комплексних власних значень [num_modes] */
-    hydro_complex_t *eigenmodes; /* Динамічний масив власних векторів size: num_modes * N */
-    int max_unstable_idx;        /* Індекс найнестійкішої моди з max(c_i) */
-    double max_growth_rate;      /* Максимальний інкремент зростання γ_max = α * max(c_i) */
-} hydro_spectrum_result_t;
-```
+:::code api-stability-solver/c/10-3-struktura.c
 
 ## 11. Алгебраїчна побудова дискретних матричних операторів
 
@@ -262,198 +214,11 @@ offset = col · (N + 1) + row   [COLUMN-MAJOR ORDER ЗМІЩЕННЯ]
 
 ### 14.1 Створення та видалення профілів швидкостей
 
-```c
-/**
- * @brief Створює профіль швидкості плоскопаралельного потоку Поазейля U(y) = 1 - y²
- * 
- * Обчислює дійсні значення швидкості U(y) та її другої похідної U''(y) = -2 у точках Чебишова.
- * 
- * @param config Позитивна конфігурація сітки (N, Re, alpha)
- * @param profile[out] Подвійний вказівник на створену структуру профілю
- * @return HYDRO_SUCCESS або код помилки HYDRO_ERR_INVALID_PARAM / HYDRO_ERR_OUT_OF_MEMORY
- */
-hydro_status_t hydro_profile_create_poiseuille(
-    const hydro_grid_config_t *config,
-    void **profile
-);
-
-/**
- * @brief Створює профіль швидкості вільного зсувного шару U(y) = tanh(y)
- * 
- * Обчислює U(y) = tanh(y) та другу похідну U''(y) = -2*tanh(y)*(1 - tanh²(y)) у точках Чебишова.
- * 
- * @param config Позитивна конфігурація сітки
- * @param profile[out] Подвійний вказівник на створену структуру профілю
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_profile_create_tanh(
-    const hydro_grid_config_t *config,
-    void **profile
-);
-
-/**
- * @brief Створює пограничний шар Блазіуса U(η) за розв'язком рівняння Блазіуса
- * 
- * @param config Конфігурація сітки
- * @param profile[out] Подвійний вказівник на вихідну структуру
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_profile_create_blasius(
-    const hydro_grid_config_t *config,
-    void **profile
-);
-
-/**
- * @brief Створює початковий шар нестійкості Рихтмаєра — Мешкова
- * 
- * @param config Конфігурація сітки (atwood, delta_v)
- * @param profile[out] Вказівник на створений профіль
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_profile_create_shock_interface(
-    const hydro_grid_config_t *config,
-    void **profile
-);
-
-/**
- * @brief Перераховує 3D параметри збурення в 2D за теоремою Сквайрса
- * 
- * @param alpha 3D подовжнє хвильове число
- * @param beta 3D поперечне хвильове число
- * @param re 3D число Рейнольдса
- * @param alpha_2d[out] Еквівалентне 2D хвильове число
- * @param re_2d[out] Еквівалентне 2D число Рейнольдса
- */
-void hydro_transform_squire_3d_to_2d(
-    double alpha,
-    double beta,
-    double re,
-    double *alpha_2d,
-    double *re_2d
-);
-
-/**
- * @brief Створює користувальницький профіль швидкості за вказаними масивами U(y) та U''(y)
- * 
- * @param config Конфігурація сітки
- * @param u_values Масив значень швидкості розміром N+1
- * @param u_pp_values Масив значень другої похідної швидкості розміром N+1
- * @param profile[out] Подвійний вказівник на вихідну структуру
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_profile_create_custom(
-    const hydro_grid_config_t *config,
-    const double *u_values,
-    const double *u_pp_values,
-    void **profile
-);
-
-/**
- * @brief Звільняє пам'ять, виділену під профіль швидкості
- * @param profile Вказівник на профіль
- */
-void hydro_profile_free(void *profile);
-```
+:::code api-stability-solver/c/14-1-stvorennia-ta.h
 
 ### 14.2 Формування дискретних операторів та розв'язання задачі Орра — Зоммерфельда
 
-```c
-/**
- * @brief Обчислює повний спектр власних значень рівняння Орра — Зоммерфельда
- * 
- * Процедура виконує такі кроки:
- * 1. Збирає диф-матриці Чебишова D1, D2, D4 розміром (N+1) x (N+1).
- * 2. Формує комплексну матрицю лівого оператора A = (U - c)*(D2 - a²*I) - U''*I + i/(a*Re)*(D4 - 2a²D2 + a⁴I).
- * 3. Накладає граничні умови шляхом редукції рядків для стінок y = ±1.
- * 4. Викликає LAPACK zggev для знаходження комплексних власних чисел c.
- * 5. Впорядковує моди за зменшенням уявної частини c_i.
- * 
- * @param profile Валідний профіль швидкості U(y)
- * @param config Специфікація сітки та числа Рейнольдса
- * @param result[out] Структура з результатами обчислення спектра
- * @return HYDRO_SUCCESS у разі успішної збіжності алгоритму
- */
-hydro_status_t hydro_solve_spectrum_orr_sommerfeld(
-    const void *profile,
-    const hydro_grid_config_t *config,
-    hydro_spectrum_result_t *result
-);
-
-/**
- * @brief Обчислює спектр нестійкості Релея — Бенара для конвекції Буссінеска
- * 
- * @param config Специфікація сітки (N, Ra, Pr, alpha)
- * @param result[out] Структура з результатами обчислення
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_solve_spectrum_boussinesq(
-    const hydro_grid_config_t *config,
-    hydro_spectrum_result_t *result
-);
-
-/**
- * @brief Витягує амплітудну власну функцію ϕ(y) для заданої моди
- * @param result Валідний результат обчислення спектра
- * @param mode_idx Індекс моди (0 <= mode_idx < result->num_modes)
- * @param mode_shape_out[out] Виділений користувачем масив розміром N для збереження ϕ(y)
- * @return HYDRO_SUCCESS або HYDRO_ERR_INVALID_PARAM
- */
-hydro_status_t hydro_get_mode_shape(
-    const hydro_spectrum_result_t *result,
-    int mode_idx,
-    hydro_complex_t *mode_shape_out
-);
-
-/**
- * @brief Обчислює оптимальний резольвентний коефіцієнт підсилення G(omega)
- * 
- * @param profile Вказівник на профіль
- * @param config Конфігурація сітки
- * @param omega Частота вимушуючої сили omega
- * @param max_gain[out] Вихідне максимальне сингулярне значення резольвенти G(omega)
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_compute_resolvent_gain(
-    const void *profile,
-    const hydro_grid_config_t *config,
-    double omega,
-    double *max_gain
-);
-
-/**
- * @brief Обчислює максимальний перехідний ріст енергії G(t) немодального аналізу
- * 
- * @param profile Вказівник на профіль
- * @param config Конфігурація сітки
- * @param t Часовий момент t > 0
- * @param max_growth[out] Вихідне значення максимального коефіцієнта підсилення G(t)
- * @return HYDRO_SUCCESS або код помилки
- */
-hydro_status_t hydro_compute_transient_growth(
-    const void *profile,
-    const hydro_grid_config_t *config,
-    double t,
-    double *max_growth
-);
-
-/**
- * @brief Налаштовує рівень логування діагностичних повідомлень
- * @param level Рівень логування
- */
-void hydro_set_log_level(hydro_log_level_t level);
-
-/**
- * @brief Повертає текстовий опис останньої помилки у даному потоці
- * @return Текстовий рядок опису помилки (статичний буфер)
- */
-const char* hydro_get_last_error_message(void);
-
-/**
- * @brief Звільняє пам'ять у структурі результатів спектрального розв'язання
- * @param result Вказівник на структуру результату
- */
-void hydro_spectrum_result_free(hydro_spectrum_result_t *result);
-```
+:::code api-stability-solver/c/14-2-formuvannia.h
 
 ## 15. Алгоритми QZ (LAPACK) та Арнольді (ARPACK)
 
@@ -467,162 +232,15 @@ void hydro_spectrum_result_free(hydro_spectrum_result_t *result);
 Нижче наведено реальні самодостатні приклади використання бібліотеки `libhydro_stability` для обчислення критичного числа Рейнольдса нестійкості Поазейля.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "hydro_stability.h"
-
-int main(void) {
-    hydro_grid_config_t config = {
-        .N = 128,
-        .Re = 5772.2,       /* Критичне число Рейнольдса плоскої течії Поазейля */
-        .alpha = 1.02,      /* Найнебезпечніше волнове число */
-        .beta = 0.0,        /* 2D збурення за теоремою Сквайрса */
-        .bc_type = HYDRO_BC_RIGID_WALL,
-        .solver = HYDRO_SOLVER_QZ_LAPACK,
-        .shift_real = 0.0,
-        .shift_imag = 0.0
-    };
-
-    void *profile = NULL;
-    hydro_status_t status = hydro_profile_create_poiseuille(&config, &profile);
-    if (status != HYDRO_SUCCESS) {
-        fprintf(stderr, "Помилка створення профілю Поазейля: %d\n", status);
-        return 1;
-    }
-
-    hydro_spectrum_result_t result;
-    status = hydro_solve_spectrum_orr_sommerfeld(profile, &config, &result);
-    if (status != HYDRO_SUCCESS) {
-        fprintf(stderr, "Помилка розв'язання спектральної задачі: %d\n", status);
-        hydro_profile_free(profile);
-        return 1;
-    }
-
-    printf("Спектральний аналіз нестійкості Поазейля (N=%d, Re=%.1f, alpha=%.2f):\n", 
-           config.N, config.Re, config.alpha);
-    printf("Кількість знайдених мод: %d\n", result.num_modes);
-    printf("Найнестійкіша мода idx: %d\n", result.max_unstable_idx);
-    printf("Фазова швидкість c_r: %.6f\n", result.eigenvalues[result.max_unstable_idx].real);
-    printf("Інкремент зростання c_i: %.6f\n", result.eigenvalues[result.max_unstable_idx].imag);
-
-    if (result.eigenvalues[result.max_unstable_idx].imag > 0.0) {
-        printf("ВИСНОВОК: Потік є ЛІНІЙНО НЕСТІЙКИМ (c_i > 0)\n");
-    } else {
-        printf("ВИСНОВОК: Потік є СТІЙКИМ (c_i <= 0)\n");
-    }
-
-    hydro_spectrum_result_free(&result);
-    hydro_profile_free(profile);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <vector>
-#include <stdexcept>
-#include "hydro_stability.h"
-
-namespace hydro {
-
-class StabilitySolver {
-private:
-    hydro_grid_config_t config_;
-    void* profile_{nullptr};
-
-public:
-    StabilitySolver(int N, double Re, double alpha, hydro_bc_type_t bc = HYDRO_BC_RIGID_WALL) {
-        config_.N = N;
-        config_.Re = Re;
-        config_.alpha = alpha;
-        config_.beta = 0.0;
-        config_.bc_type = bc;
-        config_.solver = HYDRO_SOLVER_QZ_LAPACK;
-        config_.shift_real = 0.0;
-        config_.shift_imag = 0.0;
-
-        hydro_status_t st = hydro_profile_create_poiseuille(&config_, &profile_);
-        if (st != HYDRO_SUCCESS) {
-            throw std::runtime_error("Failed to create fluid profile: error code " + std::to_string(st));
-        }
-    }
-
-    ~StabilitySolver() {
-        if (profile_) {
-            hydro_profile_free(profile_);
-        }
-    }
-
-    StabilitySolver(const StabilitySolver&) = delete;
-    StabilitySolver& operator=(const StabilitySolver&) = delete;
-
-    [[nodiscard]] hydro_spectrum_result_t solve() const {
-        hydro_spectrum_result_t result{};
-        hydro_status_t st = hydro_solve_spectrum_orr_sommerfeld(profile_, &config_, &result);
-        if (st != HYDRO_SUCCESS) {
-            throw std::runtime_error("Orr-Sommerfeld solver failed: error code " + std::to_string(st));
-        }
-        return result;
-    }
-};
-
-} // namespace hydro
-
-int main() {
-    try {
-        hydro::StabilitySolver solver(128, 5772.2, 1.02);
-        hydro_spectrum_result_t res = solver.solve();
-
-        std::cout << "C++ Stability Solver Execution Success!\n";
-        std::cout << "Max Growth Rate c_i: " << res.eigenvalues[res.max_unstable_idx].imag << "\n";
-
-        hydro_spectrum_result_free(&res);
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << "\n";
-        return 1;
-    }
-    return 0;
-}
-```
+:::code api-stability-solver/c/16-povnotsinni-pryklady.c
+:::code api-stability-solver/cpp/main.cpp
 :::
 
 ## 17. Інтеграція з Python через бібліотеку `ctypes`
 
 Завдяки C-сумісному ABI бібліотеку `libhydro_stability` легко імпортувати у Python без компіляції додаткових C-розширень за допомогою модулю `ctypes`.
 
-```python
-import ctypes
-import numpy as np
-
-# Завантаження динамічної бібліотеки .so / .dll
-lib = ctypes.CDLL("./libhydro_stability.so")
-
-# Визначення типів
-class HydroGridConfig(ctypes.Structure):
-    _fields_ = [
-        ("N", ctypes.c_int),
-        ("Re", ctypes.c_double),
-        ("Ra", ctypes.c_double),
-        ("Pr", ctypes.c_double),
-        ("We", ctypes.c_double),
-        ("beta_fs", ctypes.c_double),
-        ("atwood", ctypes.c_double),
-        ("delta_v", ctypes.c_double),
-        ("alpha", ctypes.c_double),
-        ("beta", ctypes.c_double),
-        ("bc_type", ctypes.c_int),
-        ("solver", ctypes.c_int),
-        ("shift_real", ctypes.c_double),
-        ("shift_imag", ctypes.c_double)
-    ]
-
-# Налаштування аргументів функцій
-lib.hydro_profile_create_poiseuille.argtypes = [ctypes.POINTER(HydroGridConfig), ctypes.POINTER(ctypes.c_void_p)]
-lib.hydro_profile_create_poiseuille.restype = ctypes.c_int
-
-print("Python ctypes integration initialized successfully.")
-```
+:::code api-stability-solver/py/main.py
 
 ## 18. Консольний інструмент CLI `hydro_stability_cli`
 

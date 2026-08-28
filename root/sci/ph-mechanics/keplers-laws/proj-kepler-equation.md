@@ -101,77 +101,8 @@ y = 1.524·0.99563·0.90515      = 1.3734 а.о.
 Зберемо все в готову функцію: із часу рахуємо `M`, ітерацією Ньютона добуваємо `E`, з `E` — координати. Мова цієї задачі — **науково-числова**: тут важать плавна робота з дробовими числами, тригонометрія й швидкий внутрішній цикл (у пропагаторі орбіт це рівняння розв'язують мільйони разів для тисяч тіл, тож поруч із наочним Python доречний і швидкий C++ — той самий алгоритм у гарячій петлі). Обидві версії — повні й робочі, з робастним стартом, про який ідеться нижче:
 
 :::tabs
-```py
-import math
-
-def solve_kepler(M, e, tol=1e-12, max_iter=100):
-    """M = E − e·sinE  →  E.  Робастний старт E₀ = π для великих e (комети)."""
-    M %= 2 * math.pi                        # звести M у [0, 2π)
-    flip = M > math.pi
-    if flip:                                # симетрія E(2π−M) = 2π − E(M): рахуємо на [0, π]
-        M = 2 * math.pi - M
-    E = math.pi if e > 0.8 else M + e * math.sin(M)     # початкове наближення
-    for _ in range(max_iter):
-        dE = (E - e * math.sin(E) - M) / (1 - e * math.cos(E))
-        E -= dE
-        if abs(dE) < tol:                   # квадратична збіжність: зазвичай 3–6 кроків
-            break
-    return 2 * math.pi - E if flip else E
-
-def orbit_xy(a, e, T, t, t0=0.0):
-    """Координати (x, y) відносно Сонця; +x — на перигелій, +y — за рухом планети."""
-    M = 2 * math.pi * (t - t0) / T          # середня аномалія: росте лінійно з часом
-    E = solve_kepler(M, e)
-    x = a * (math.cos(E) - e)
-    y = a * math.sqrt(1 - e * e) * math.sin(E)
-    return x, y
-
-# Приклад: Марс через 100 діб після перигелію
-a, e, T = 1.524, 0.0934, 686.98             # а.о., —, діб
-x, y = orbit_xy(a, e, T, t=100.0)
-r  = math.hypot(x, y)
-nu = math.degrees(math.atan2(y, x))         # істинна аномалія; правильна чверть — саме через atan2
-print(f"x={x:.4f}  y={y:.4f}  r={r:.4f} а.о.  ν={nu:.2f}°")
-# → x=0.6902  y=1.2709  r=1.4462 а.о.  ν=61.49°
-```
-```cpp
-#include <cmath>
-#include <cstdio>
-constexpr double PI = 3.14159265358979323846;
-
-// M = E − e·sinE  →  E.  Робастний старт E₀ = π для великих e (комети).
-double solve_kepler(double M, double e, double tol = 1e-12, int max_iter = 100) {
-    M = std::fmod(M, 2 * PI);
-    if (M < 0) M += 2 * PI;                        // fmod може дати відʼємне — вирівнюємо
-    bool flip = M > PI;
-    if (flip) M = 2 * PI - M;                      // симетрія: рахуємо на [0, π]
-    double E = (e > 0.8) ? PI : M + e * std::sin(M);   // початкове наближення
-    for (int i = 0; i < max_iter; ++i) {
-        double dE = (E - e * std::sin(E) - M) / (1 - e * std::cos(E));
-        E -= dE;
-        if (std::fabs(dE) < tol) break;            // квадратична збіжність
-    }
-    return flip ? 2 * PI - E : E;
-}
-
-struct Vec2 { double x, y; };
-
-// (x, y) відносно Сонця; +x — на перигелій.
-Vec2 orbit_xy(double a, double e, double T, double t, double t0 = 0.0) {
-    double M = 2 * PI * (t - t0) / T;              // середня аномалія
-    double E = solve_kepler(M, e);
-    return { a * (std::cos(E) - e), a * std::sqrt(1 - e * e) * std::sin(E) };
-}
-
-int main() {
-    Vec2 p = orbit_xy(1.524, 0.0934, 686.98, 100.0);   // Марс, +100 діб
-    double r  = std::hypot(p.x, p.y);
-    double nu = std::atan2(p.y, p.x) * 180 / PI;
-    std::printf("x=%.4f  y=%.4f  r=%.4f а.о.  nu=%.2f\n", p.x, p.y, r, nu);
-    // → x=0.6902  y=1.2709  r=1.4462 а.о.  nu=61.49
-    return 0;
-}
-```
+:::code proj-kepler-equation/py/main.py
+:::code proj-kepler-equation/cpp/main.cpp
 :::
 
 Кут `ν` беремо через `atan2` (двоаргументний [арктангенс](root:math-geometry/atan2)), а не через звичайний `atan(y/x)`: лише `atan2` знає знаки обох координат і кладе кут у правильну чверть, тож планета в лівій половині орбіти не «телепортується» у праву. Це та дрібниця, на якій регулярно спотикаються саморобні пропагатори.

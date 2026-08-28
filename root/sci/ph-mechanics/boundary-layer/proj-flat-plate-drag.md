@@ -40,42 +40,7 @@ f′(∞) = 1       (далеко від стінки — повна швидк�
 
 Спершу зберемо все з нуля, щоб було видно кожен гвинтик. Стан — трійка `[f, f′, f″]`; права частина дає її похідну `[f′, f″, f‴]`, де f‴ = −½·f·f″. Крокуємо класичним Рунге — Куттою четвертого порядку (RK4): чотири проби нахилу на кроці, зважене середнє — і похибка падає як h⁴, тож навіть грубий крок дає п'ять-шість вірних цифр.
 
-```python
-import numpy as np
-
-def blasius_rhs(state):
-    """state = [f, f′, f″]  →  [f′, f″, f‴],  де f‴ = −½·f·f″."""
-    f, fp, fpp = state
-    return np.array([fp, fpp, -0.5 * f * fpp])
-
-def rk4_step(state, h):
-    k1 = blasius_rhs(state)
-    k2 = blasius_rhs(state + 0.5 * h * k1)
-    k3 = blasius_rhs(state + 0.5 * h * k2)
-    k4 = blasius_rhs(state + h * k3)
-    return state + (h / 6.0) * (k1 + 2*k2 + 2*k3 + k4)
-
-def f_prime_at_infinity(fpp0, eta_max=8.0, h=0.005):
-    """Проінтегрувати з f″(0)=fpp0 і повернути f′ на далекому краю."""
-    state = np.array([0.0, 0.0, fpp0])
-    for _ in range(int(eta_max / h)):
-        state = rk4_step(state, h)
-    return state[1]
-
-def solve_blasius(eta_max=8.0, h=0.005, tol=1e-10):
-    """Пристрілка бісекцією по f″(0), поки f′(η_max) → 1."""
-    lo, hi = 0.0, 1.0
-    while hi - lo > tol:
-        mid = 0.5 * (lo + hi)
-        if f_prime_at_infinity(mid, eta_max, h) > 1.0:
-            hi = mid          # переліт → нахил завеликий, опускаємо стелю
-        else:
-            lo = mid          # недоліт → замалий, піднімаємо підлогу
-    return 0.5 * (lo + hi)
-
-fpp0 = solve_blasius()
-print(f"f''(0) = {fpp0:.6f}")
-```
+:::code proj-flat-plate-drag/py/krok-1-prystrilka-rukamy.py
 
 ```
 f''(0) = 0.332059
@@ -87,23 +52,7 @@ f''(0) = 0.332059
 
 Руками ми написали, щоб було видно механіку. У реальній роботі ніхто не котить власний RK4 і бісекцію — під це є відточені інструменти: `solve_ivp` з адаптивним кроком інтегрує систему, а `brentq` шукає корінь. Уся задача згортається в дюжину рядків.
 
-```python
-from scipy.integrate import solve_ivp
-from scipy.optimize import brentq
-
-def rhs(eta, y):                       # y = [f, f′, f″]
-    f, fp, fpp = y
-    return [fp, fpp, -0.5 * f * fpp]
-
-def miss(fpp0, eta_max=8.0):
-    """Наскільки f′ на краю промахує повз 1 — цільова для коренешукача."""
-    sol = solve_ivp(rhs, (0.0, eta_max), [0.0, 0.0, fpp0],
-                    rtol=1e-10, atol=1e-12)
-    return sol.y[1, -1] - 1.0
-
-fpp0 = brentq(miss, 0.0, 1.0, xtol=1e-12)   # знайти корінь miss(s) = 0
-print(f"f''(0) = {fpp0:.6f}")
-```
+:::code proj-flat-plate-drag/py/krok-2-te-same.py
 
 ```
 f''(0) = 0.332059
@@ -135,27 +84,7 @@ f''(0) = 0.332059
 
 А сам опір — це коефіцієнт, помножений на динамічний напір q = ½·ρ·U² й на змочену площу:
 
-```python
-import numpy as np
-
-rho, nu = 1.204, 1.5e-5        # повітря: густина кг/м³, кінематична в'язкість м²/с
-U, L, b = 30.0, 2.0, 1.0       # швидкість м/с, довжина й ширина пластини, м
-
-Re_L = U * L / nu
-q    = 0.5 * rho * U**2         # динамічний напір, Па
-A    = L * b                    # площа однієї змоченої сторони, м²
-
-Cf_lam  = 1.328 / np.sqrt(Re_L)
-Cf_turb = 0.074 / Re_L**0.2
-Cf_mix  = 0.074 / Re_L**0.2 - 1742.0 / Re_L
-x_tr    = 5e5 * nu / U          # де ламінарний шар зривається в турбулентний
-
-print(f"Re_L       = {Re_L:.2e}")
-print(f"перехід    = {x_tr*100:.0f} см від носа")
-for name, Cf in [("ламінарний", Cf_lam), ("турбулентний", Cf_turb), ("змішаний", Cf_mix)]:
-    D = Cf * q * A * 2          # пластина змочена з обох боків
-    print(f"{name:12s}: C_f = {Cf:.5f}   опір = {D:5.2f} Н")
-```
+:::code proj-flat-plate-drag/py/vid-chysla-do-tovshchyny-i.py
 
 ```
 Re_L       = 4.00e+06

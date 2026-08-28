@@ -119,38 +119,8 @@ class Ema:
 де *p* — статичний тиск (його дає той самий барометр, що й висоту), а *T* — температура повітря за бортом у кельвінах (давач OAT; якщо його немає — беруть температуру стандартної атмосфери на поточній висоті).
 
 :::tabs
-```cpp
-#define R_AIR   287.05f      // Дж/(кг·К) — питома газова стала сухого повітря
-#define RHO_SSL 1.225f       // кг/м³ — густина ISA на рівні моря
-#define P_SSL   101325.0f    // Па — тиск ISA на рівні моря
-#define GAMMA   1.4f         // показник адіабати повітря
-
-float air_density(float p_static, float T_kelvin) {
-    return p_static / (R_AIR * T_kelvin);         // ρ = p/(R·T)
-}
-
-float eas_from_dp(float dp) {                     // приладова (еталонна ρ₀)
-    return (dp <= 0.0f) ? 0.0f : sqrtf(2.0f * dp / RHO_SSL);
-}
-
-float tas_from_dp(float dp, float rho) {          // справжня (реальна ρ)
-    return (dp <= 0.0f) ? 0.0f : sqrtf(2.0f * dp / rho);
-}
-```
-```py
-from math import sqrt
-
-R_AIR, RHO_SSL, P_SSL, GAMMA = 287.05, 1.225, 101325.0, 1.4
-
-def air_density(p_static, T_kelvin):
-    return p_static / (R_AIR * T_kelvin)          # ρ = p/(R·T)
-
-def eas_from_dp(dp):                              # приладова
-    return 0.0 if dp <= 0 else sqrt(2.0 * dp / RHO_SSL)
-
-def tas_from_dp(dp, rho):                         # справжня
-    return 0.0 if dp <= 0 else sqrt(2.0 * dp / rho)
-```
+:::code proj-pitot-airspeed/cpp/pryladova-shvydkist-proty.cpp
+:::code proj-pitot-airspeed/py/pryladova-shvydkist-proty.py
 :::
 
 **Приклад: той самий Δ*p* на висоті 3 км.** Диференційний давач показує Δ*p* = 500 Па. Барометр дає статичний тиск *p* = 70 100 Па, давач OAT — температуру −4.5 °C = 268.65 К (це і є стандартна атмосфера на 3000 м).
@@ -188,18 +158,7 @@ TAS = M · a
 Спершу з перепаду й статичного тиску дістаємо число Маха, потім множимо на місцеву швидкість звуку — і маємо справжню швидкість без нестисливого наближення. Що приємно, ця формула при малих *M* сама зводиться до звичного √(2Δ*p*/ρ): доданок у дужках при повільному потоці якраз дорівнює ½ρ*v²*/*p*. Тобто стислива версія коректна **на всьому діапазоні** — просто на малих швидкостях збігається з простою.
 
 :::tabs
-```cpp
-#include <math.h>
-
-// Справжня швидкість зі стисливою поправкою (дозвукове гальмування, γ=1.4).
-// M² = 5·[(Δp/p + 1)^(2/7) − 1];  TAS = M·√(γRT).
-float tas_compressible(float dp, float p_static, float T_kelvin) {
-    if (dp <= 0.0f) return 0.0f;
-    float m2 = 5.0f * (powf(dp / p_static + 1.0f, 2.0f / 7.0f) - 1.0f);
-    float a  = sqrtf(GAMMA * R_AIR * T_kelvin);      // місцева швидкість звуку
-    return sqrtf(m2) * a;                            // TAS = M·a
-}
-```
+:::code proj-pitot-airspeed/cpp/velyki-dozvukovi-popravka.cpp
 ```py
 def tas_compressible(dp, p_static, T_kelvin):
     if dp <= 0:
@@ -221,63 +180,8 @@ CAS = a₀ · √( 5 · [ (Δp/p₀ + 1)^(2/7) − 1 ] )      a₀ = 340.29 м/�
 Складімо чотири поправки в одну функцію, яку прошивка викликає щоцикл. Порядок кроків не випадковий — він рівно той, що ми вивели: зняти зсув → згладити **знаковий** перепад → відсікти дрібне порогом → взяти реальну густину → дати обидві швидкості, а на великих дозвукових уточнити справжню стисливою формулою.
 
 :::tabs
-```cpp
-typedef struct {
-    float offset;     // нуль-зсув (Па), знятий на землі
-    Ema   lp;         // ФНЧ на знаковому перепаді тиску
-    float q_min;      // поріг зони нечутливості (Па)
-    bool  valid;      // чи можна вірити поточному числу
-    float eas, tas;   // останні швидкості (м/с)
-} Airspeed;
-
-void airspeed_update(Airspeed *s, float dp_raw,
-                     float p_static, float T_kelvin, float dt) {
-    // 1. зняти нуль-зсув (він повзе з температурою — періодично перезаміряти на землі)
-    float dp = dp_raw - s->offset;
-
-    // 2. ФНЧ на ЗНАКОВОМУ перепаді — ДО відсікання, щоб симетричний шум усереднився в нуль
-    float alpha = dt / (0.05f + dt);            // τ ≈ 50 мс
-    dp = ema_update(&s->lp, dp, alpha);
-
-    // 3. зона нечутливості: нижче порогу q крихітний і тоне в шумі
-    if (dp < s->q_min) { s->valid = false; s->eas = s->tas = 0.0f; return; }
-    s->valid = true;
-
-    // 4. густина з реального статичного тиску й температури
-    float rho = air_density(p_static, T_kelvin);
-
-    // 5. приладова (ρ₀) і справжня (реальна ρ) швидкості
-    s->eas = sqrtf(2.0f * dp / RHO_SSL);
-    s->tas = sqrtf(2.0f * dp / rho);
-
-    // 6. на великих дозвукових — стислива поправка (інакше TAS завищена)
-    if (s->tas > 80.0f)
-        s->tas = tas_compressible(dp, p_static, T_kelvin);
-}
-```
-```py
-class Airspeed:
-    def __init__(self, offset=0.0, q_min=15.0):
-        self.offset = offset      # нуль-зсув (Па)
-        self.lp = Ema()           # ФНЧ на знаковому Δp
-        self.q_min = q_min        # поріг зони нечутливості (Па)
-        self.valid = False
-        self.eas = self.tas = 0.0
-
-    def update(self, dp_raw, p_static, T_kelvin, dt):
-        dp = dp_raw - self.offset                       # 1. зняти зсув
-        dp = self.lp.update(dp, dt / (0.05 + dt))       # 2. ФНЧ на знаковому Δp
-        if dp < self.q_min:                             # 3. зона нечутливості
-            self.valid = False
-            self.eas = self.tas = 0.0
-            return
-        self.valid = True
-        rho = air_density(p_static, T_kelvin)           # 4. реальна густина
-        self.eas = (2.0 * dp / RHO_SSL) ** 0.5          # 5a. приладова
-        self.tas = (2.0 * dp / rho) ** 0.5              # 5b. справжня
-        if self.tas > 80.0:                             # 6. стислива поправка
-            self.tas = tas_compressible(dp, p_static, T_kelvin)
-```
+:::code proj-pitot-airspeed/cpp/use-razom-tsykl-onovlennia.cpp
+:::code proj-pitot-airspeed/py/use-razom-tsykl-onovlennia.py
 :::
 
 ![Схема обробки: сирий перепад тиску проходить зняття нуль-зсуву, фільтр низьких частот на знаковому сигналі, зону нечутливості, а тоді ділиться на густину — і дає дві швидкості, приладову й справжню, причому справжня на великих дозвукових ще уточнюється стисливою поправкою.](img/pitot-pipeline.svg)

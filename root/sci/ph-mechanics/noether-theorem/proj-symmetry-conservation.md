@@ -21,38 +21,11 @@ a = −μ · q / |q|³        (q = (x, y) — вектор положення)
 
 Стартові умови задамо так, щоб орбіта була наочним еліпсом. Пустимо частинку з перигелію (найближчої до центру точки) `r = 0.4` поперек радіуса зі швидкістю `v = 2`. Формула живої сили `v² = μ·(2/r − 1/a)` дає велику піввісь `a = 1`, звідси ексцентриситет `e = 0.6`, період `T = 2π ≈ 6.283`, афелій `r = 1.6`. Точні значення зарядів на старті — `E = −0.5`, `L = 0.8`; саме їх мусить утримати чесний інтегратор.
 
-```py
-import numpy as np
-
-mu = 1.0                          # G·M (нормовані одиниці)
-q0 = np.array([0.4, 0.0])         # старт у перигелії
-v0 = np.array([0.0, 2.0])         # a=1, e=0.6 → E=−0.5, L=0.8, T=2π
-
-def accel(q):
-    r = np.hypot(*q)
-    return -mu * q / r**3
-
-def energy(q, v):
-    return 0.5 * v @ v - mu / np.hypot(*q)
-
-def ang_mom(q, v):
-    return q[0]*v[1] - q[1]*v[0]   # = r²·θ̇  (m = 1)
-```
+:::code proj-symmetry-conservation/py/stsena-odna-planeta-odne.py
 
 Лишається мірило — проста петля, що жене орбіту заданим методом `step` на 20 обертів і стежить за найбільшим відхиленням обох зарядів та найдальшим досягнутим радіусом:
 
-```py
-def integrate(step, dt, n_orbits=20):
-    q, v = q0.copy(), v0.copy()
-    E0, L0 = energy(q, v), ang_mom(q, v)
-    dE_max = dL_max = r_max = 0.0
-    for _ in range(int(n_orbits * 2*np.pi / dt)):
-        q, v = step(q, v, dt)                       # один крок обраного методу
-        dE_max = max(dE_max, abs(energy(q, v) - E0))
-        dL_max = max(dL_max, abs(ang_mom(q, v) - L0))
-        r_max  = max(r_max,  np.hypot(*q))
-    return energy(q, v), dE_max, dL_max, r_max
-```
+:::code proj-symmetry-conservation/py/stsena-odna-planeta-odne-2.py
 
 Це вся оснастка. Далі — три способи зробити крок у часі, і вся драма в тому, **чим саме** вони відрізняються.
 

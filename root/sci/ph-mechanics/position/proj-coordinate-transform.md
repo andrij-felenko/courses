@@ -25,44 +25,13 @@
 
 На площині вибір лише один нетривіальний — прямокутні ↔ полярні. Уся суть — у двох формулах Піфагора й арктангенса, але арктангенс тут із пасткою, і саме через неї в коді стоїть не звичайний `atan`, а `atan2`:
 
-```python
-import math
-
-def rect_to_polar(x, y):
-    """Прямокутні (x, y) → полярні (r, φ). φ у радіанах, у діапазоні (−π, π]."""
-    r   = math.hypot(x, y)      # √(x² + y²), стійке навіть до дуже великих чисел
-    phi = math.atan2(y, x)      # НЕ atan(y/x): atan2 знає чверть
-    return r, phi
-
-def polar_to_rect(r, phi):
-    """Полярні (r, φ) → прямокутні (x, y)."""
-    return r * math.cos(phi), r * math.sin(phi)
-```
+:::code proj-coordinate-transform/py/perekoduvannia-ta-sama.py
 
 Чому `atan2(y, x)`, а не `atan(y / x)`? Бо ділення `y / x` затирає знаки: точки (1, 1) і (−1, −1) дають ту саму частку 1, тож звичайний арктангенс поверне для них однаковий кут, хоч вони на протилежних боках. А ще при x = 0 частка вибухає в нескінченність. `atan2` бере обидва числа окремо, дивиться на їхні знаки й тому безпомилково відрізняє всі чотири чверті та спокійно віддає ±90° на самій осі y. Це не примха — це єдиний надійний спосіб дістати кут з пари координат, і докладніше він розібраний окремо ([atan2 — чотиричвертний арктангенс](root:math-geometry/atan2)).
 
 У просторі систем-родичів дві. **Циліндрична** (ρ, φ, z) — це полярна на площині xy плюс незмінна висота z: годиться, коли задача має вісь симетрії, як труба чи гвинт. **Сферична** (r, θ, φ) міряє відстань від початку й два кути — саме нею природно говорять про напрямок на небі чи промінь радара:
 
-```python
-def rect_to_cyl(x, y, z):
-    """Прямокутні → циліндричні (ρ, φ, z)."""
-    return math.hypot(x, y), math.atan2(y, x), z
-
-def cyl_to_rect(rho, phi, z):
-    return rho * math.cos(phi), rho * math.sin(phi), z
-
-def rect_to_sph(x, y, z):
-    """Прямокутні → сферичні (r, θ, φ):
-       θ — полярний кут від осі z, φ — азимут у площині xy (домовленість фізиків)."""
-    r     = math.sqrt(x*x + y*y + z*z)
-    theta = math.atan2(math.hypot(x, y), z)   # кут від осі z, у [0, π]
-    phi   = math.atan2(y, x)                    # азимут, у (−π, π]
-    return r, theta, phi
-
-def sph_to_rect(r, theta, phi):
-    s = r * math.sin(theta)                     # довжина проєкції на площину xy
-    return s * math.cos(phi), s * math.sin(phi), r * math.cos(theta)
-```
+:::code proj-coordinate-transform/py/perekoduvannia-ta-sama-2.py
 
 **Приклад (точка в трьох мовах).** Візьмімо тіло з прямокутними координатами (2, 3, 6) — те саме, що в темі-власниці стояло за сім метрів від початку. Перепишімо його трьома способами:
 
@@ -106,18 +75,7 @@ R(θ) =  ⎢                ⎥
 
 А от повернути **осі** на кут α (стрілка стоїть, сітка крутиться) — це те саме, що покрутити стрілку в протилежний бік на −α. Тому нові координати нерухомої точки дає та сама матриця, лише з від'ємним кутом. Одна функція обслуговує обидва випадки:
 
-```python
-def rot2(theta):
-    """Матриця повороту на кут θ (радіани). Крутить ВЕКТОР на +θ;
-       щоб повернути ОСІ на +α, клич із −α."""
-    c, s = math.cos(theta), math.sin(theta)
-    return ((c, -s),
-            (s,  c))
-
-def apply(M, v):
-    """Множення матриці на вектор: (M · v)."""
-    return tuple(sum(M[i][j] * v[j] for j in range(len(v))) for i in range(len(M)))
-```
+:::code proj-coordinate-transform/py/povorot-osei-mnozhennia-na.py
 
 **Приклад (повернули осі на 90°).** Точка лежить на старій осі x у (1, 0). Крутнемо всю координатну сітку на 90° проти годинника й спитаємо, які числа в неї тепер:
 
@@ -134,21 +92,7 @@ def apply(M, v):
 
 Відповідь збирається у два кроки, і **порядок їх не можна переставляти**. Спершу поверни тілесний вектор так, щоб він ліг у світові напрямки (перешкода ж «уперед» по-роботовому, а «уперед» нахилене на 30°). Тоді додай положення робота — бо тілесний нуль сидить не в кутку кімнати, а в точці **d**:
 
-```python
-def transpose(M):
-    return tuple(zip(*M))          # для повороту обернути = транспонувати (див. нижче)
-
-def add(a, b): return tuple(ai + bi for ai, bi in zip(a, b))
-def sub(a, b): return tuple(ai - bi for ai, bi in zip(a, b))
-
-def body_to_world(p_body, R, d):
-    """Точку з тіла-носія у світ: СПЕРШУ поворот, ТОДІ трансляція."""
-    return add(apply(R, p_body), d)          # p_world = R · p_body + d
-
-def world_to_body(p_world, R, d):
-    """Зворотний бік: спершу трансляція назад, тоді зворотний поворот (Rᵀ)."""
-    return apply(transpose(R), sub(p_world, d))   # p_body = Rᵀ · (p_world − d)
-```
+:::code proj-coordinate-transform/py/povna-zmina-systemy.py
 
 **Приклад (перешкода в координатах кімнати).** Порахуймо на очах:
 
@@ -183,83 +127,8 @@ R = rot2(30°) = ⎡ 0.866  −0.5  ⎤
 Мова цього кроку — на вибір. Для ясності головний варіант Python, де формула читається як формула. Але той самий переклад крутиться в польотному контролері на кожен GNSS-фікс, у гарячому циклі реального часу — тож поруч той самий код мовою, що справді літає в прошивках автопілотів (PX4, ArduPilot писані на C++):
 
 :::tabs
-```python
-import math
-
-# WGS84 — еліпсоїд, на якому GNSS міряє координати
-A  = 6378137.0                 # велика піввісь, м
-F  = 1.0 / 298.257223563       # стиснення
-E2 = F * (2.0 - F)             # квадрат першого ексцентриситету
-
-def geodetic_to_ecef(lat_deg, lon_deg, h):
-    """Географічні (широта, довгота у °, висота в м) → ECEF (X, Y, Z), м."""
-    lat, lon = math.radians(lat_deg), math.radians(lon_deg)
-    sf, cf = math.sin(lat), math.cos(lat)
-    sl, cl = math.sin(lon), math.cos(lon)
-    N = A / math.sqrt(1.0 - E2 * sf * sf)          # радіус кривини першого вертикала
-    x = (N + h) * cf * cl
-    y = (N + h) * cf * sl
-    z = (N * (1.0 - E2) + h) * sf
-    return x, y, z
-
-def ecef_to_enu(p, ref, lat0_deg, lon0_deg):
-    """ECEF-точку → місцеві East-North-Up відносно опори (lat0, lon0 та її ECEF ref)."""
-    dx, dy, dz = p[0] - ref[0], p[1] - ref[1], p[2] - ref[2]   # трансляція: відняли опору
-    sf, cf = math.sin(math.radians(lat0_deg)), math.cos(math.radians(lat0_deg))
-    sl, cl = math.sin(math.radians(lon0_deg)), math.cos(math.radians(lon0_deg))
-    east  =        -sl*dx +        cl*dy                        # поворот на місцеві осі
-    north = -sf*cl*dx - sf*sl*dy + cf*dz
-    up    =  cf*cl*dx + cf*sl*dy + sf*dz
-    return east, north, up
-
-# опорна точка — нуль місцевої сітки (злітний майданчик)
-ref = geodetic_to_ecef(50.4500, 30.5200, 180.0)
-# дрон, як його бачить GNSS
-drone = geodetic_to_ecef(50.4510, 30.5225, 205.0)
-
-e, n, u = ecef_to_enu(drone, ref, 50.4500, 30.5200)
-print(f"E={e:.2f}  N={n:.2f}  U={u:.2f} м")
-# E=177.56  N=111.24  U=25.00 м
-```
-```cpp
-#include <cmath>
-#include <cstdio>
-
-struct Vec3 { double x, y, z; };
-
-constexpr double A   = 6378137.0;              // WGS84, велика піввісь, м
-constexpr double F   = 1.0 / 298.257223563;    // стиснення
-constexpr double E2  = F * (2.0 - F);          // квадрат ексцентриситету
-constexpr double DEG = 3.14159265358979324 / 180.0;
-
-static Vec3 geodetic_to_ecef(double lat_deg, double lon_deg, double h) {
-    const double lat = lat_deg * DEG, lon = lon_deg * DEG;
-    const double sf = std::sin(lat), cf = std::cos(lat);
-    const double sl = std::sin(lon), cl = std::cos(lon);
-    const double N = A / std::sqrt(1.0 - E2 * sf * sf);   // радіус кривини
-    return { (N + h) * cf * cl,
-             (N + h) * cf * sl,
-             (N * (1.0 - E2) + h) * sf };
-}
-
-static Vec3 ecef_to_enu(Vec3 p, Vec3 ref, double lat0_deg, double lon0_deg) {
-    const double dx = p.x - ref.x, dy = p.y - ref.y, dz = p.z - ref.z;  // трансляція
-    const double sf = std::sin(lat0_deg*DEG), cf = std::cos(lat0_deg*DEG);
-    const double sl = std::sin(lon0_deg*DEG), cl = std::cos(lon0_deg*DEG);
-    return {        -sl*dx +        cl*dy,                 // поворот на East-North-Up
-             -sf*cl*dx - sf*sl*dy + cf*dz,
-              cf*cl*dx + cf*sl*dy + sf*dz };
-}
-
-int main() {
-    const Vec3 ref   = geodetic_to_ecef(50.4500, 30.5200, 180.0);  // майданчик
-    const Vec3 drone = geodetic_to_ecef(50.4510, 30.5225, 205.0);  // GNSS-фікс
-    const Vec3 enu   = ecef_to_enu(drone, ref, 50.4500, 30.5200);
-    std::printf("E=%.2f  N=%.2f  U=%.2f m\n", enu.x, enu.y, enu.z);
-    // E=177.56  N=111.24  U=25.00 m
-    return 0;
-}
-```
+:::code proj-coordinate-transform/py/naskriznyi-pryklad-ta-sama.py
+:::code proj-coordinate-transform/cpp/main.cpp
 :::
 
 Обидві мови дають ту саму відповідь — дрон стоїть на 177.56 м східніше, 111.24 м північніше й 25.00 м вище злітного майданчика. І остання цифра — тиха, але переконлива перевірка: у географічних координатах дрон був рівно на 25 метрів вище опори (205 проти 180), і `Up` повернув саме ці 25 метрів. Якби матриця повороту чи порядок кроків були переплутані, вертикаль розмазалася б по горизонталі й ці чисті 25 метрів не зійшлися б. Із двох сирих ECEF-різниць у сотні тисяч метрів (обидві точки за тисячі кілометрів від центру Землі) переклад витяг три акуратні місцеві числа — рівно ті, якими автопілот думає про політ.

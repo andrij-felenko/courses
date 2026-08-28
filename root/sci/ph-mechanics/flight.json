@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -29,7 +30,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -62,7 +64,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -73,13 +76,16 @@
           "math": [
             {
               "file": "math-thin-airfoil.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-panel-method.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -96,13 +102,16 @@
           "hist": [
             {
               "file": "hist-lilienthal.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-polar-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -118,7 +127,9 @@
           "proj": [
             {
               "file": "proj-flight-envelope.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -256,7 +267,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -267,7 +279,8 @@
           "math": [
             {
               "file": "math-blade-element.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -279,12 +292,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-rankine-froude.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -295,12 +310,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-inflow-advance-ratio.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -311,7 +328,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -327,7 +345,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -338,7 +357,8 @@
           "proj": [
             {
               "file": "proj-yaw-mixer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -360,13 +380,16 @@
           "math": [
             {
               "file": "math-vortex-ring.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-rotor-inflow-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -377,18 +400,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-gutin-acoustics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-noise-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -423,7 +450,8 @@
           "proj": [
             {
               "file": "proj-speed-to-fly.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -452,7 +480,8 @@
           "proj": [
             {
               "file": "proj-endurance-calculator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -491,7 +520,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {

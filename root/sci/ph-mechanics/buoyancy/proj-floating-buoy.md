@@ -48,47 +48,7 @@ f(d) = V_занурений(d) − (ρ_тіла / ρ_води) · V_повний
 
 Ось увесь пошук осадки в робочому коді. Мова — Python: тут важить прозорість фізики, а не сирі такти, і читабельна чисельна логіка коштовніша за швидкодію.
 
-```python
-import math
-
-RHO_WATER = 1000.0   # густина води, кг/м³
-G = 9.81             # м/с²
-
-def bisect(f, lo, hi, tol=1e-10, itmax=100):
-    """Половинний поділ. f(lo) і f(hi) МУСЯТЬ мати різні знаки."""
-    flo, fhi = f(lo), f(hi)
-    if flo == 0.0: return lo
-    if fhi == 0.0: return hi
-    if (flo < 0) == (fhi < 0):
-        raise ValueError("корінь не затиснутий: однакові знаки на кінцях")
-    for _ in range(itmax):
-        mid = 0.5 * (lo + hi)
-        fm = f(mid)
-        if fm == 0.0 or 0.5 * (hi - lo) < tol:
-            return mid
-        if (flo < 0) == (fm < 0):
-            lo, flo = mid, fm      # корінь у правій половині
-        else:
-            hi, fhi = mid, fm      # корінь у лівій половині
-    return 0.5 * (lo + hi)
-
-def sphere_submerged_volume(d, R):
-    """Об'єм кульового сегмента висоти d: куля радіуса R занурена на глибину d."""
-    d = min(max(d, 0.0), 2 * R)
-    return math.pi * d * d * (R - d / 3.0)
-
-def draft(rho_body, total_volume, submerged_volume, h_max):
-    """Осадка d із рівноваги: витіснений об'єм = (ρ_тіла/ρ_води)·V_повний."""
-    target = (rho_body / RHO_WATER) * total_volume
-    return bisect(lambda d: submerged_volume(d) - target, 0.0, h_max)
-
-R = 0.10                                    # радіус кулі, м
-rho_body = 600.0                            # дерево, кг/м³
-V_total = 4.0 / 3.0 * math.pi * R ** 3
-d = draft(rho_body, V_total,
-          lambda z: sphere_submerged_volume(z, R), h_max=2 * R)
-print("осадка кулі: d = %.4f м" % d)        # → 0.1134 м
-```
+:::code proj-floating-buoy/py/zadacha-1-osadka-iak-korin.py
 
 Дерев'яна куля радіуса 10 см сідає на **0.1134 м** — трохи нижче за екватор (той на 0.10 м), як і має бути: густина 0.6 від води жене занурення за половину, аж поки вужчий верх кулі не догодить рівновазі. Кубічне рівняння розв'язане, а ми навіть не згадали слово «кубічне» — бісекція знайшла корінь із самого монотонного профілю.
 
@@ -98,19 +58,7 @@ print("осадка кулі: d = %.4f м" % d)        # → 0.1134 м
 
 А чи справді код працюватиме для форми **без** формули сегмента — лише за профілем перерізу? Перевірмо, підмінивши точний об'єм чисельним інтегралом площі перерізу по глибині (площа перерізу кулі на висоті z — це коло радіуса² = z·(2R − z)):
 
-```python
-def submerged_volume_by_profile(d, area_of_depth, n=2000):
-    """Витіснений об'єм для БУДЬ-ЯКОГО профілю A(z) — метод трапецій."""
-    step = d / n
-    s = 0.5 * (area_of_depth(0.0) + area_of_depth(d))
-    for i in range(1, n):
-        s += area_of_depth(i * step)
-    return s * step
-
-area = lambda z: math.pi * z * (2 * R - z)          # переріз кулі на глибині z
-print(submerged_volume_by_profile(d, area))         # 2.513274e-03
-print(sphere_submerged_volume(d, R))                # 2.513274e-03 — збіг
-```
+:::code proj-floating-buoy/py/zadacha-1-osadka-iak-korin-2.py
 
 Обидва дають **2.513274·10⁻³ м³** — інтеграл профілю точно ліг на формулу сегмента. Отже, шлях «таблиця перерізів → інтеграл → корінь» працює, і саме ним рахують осадку справжніх корпусів, де жодної замкненої формули немає.
 
@@ -138,66 +86,7 @@ T = 2π · √( d / g )
 
 Ідея перевірки прямолінійна: візьмімо закон Ньютона як диференціальне рівняння, **проінтегруймо його числом**, виміряймо період безпосередньо з насимульованого x(t) і звірмо з аналітичним T. Якщо код правильний і крок дібраний — вони мусять збігтися. Тут і чигає найковарніша пастка проєкту.
 
-```python
-import numpy as np
-
-def make_bob(rho_body, total_volume, waterplane_area):
-    m = rho_body * total_volume
-    omega2 = RHO_WATER * G * waterplane_area / m
-    return omega2, 2 * np.pi / np.sqrt(omega2)      # (ω², аналітичний період)
-
-Awp = math.pi * d * (2 * R - d)                     # площа на рівні води
-omega2, T = make_bob(rho_body, V_total, Awp)
-
-def accel(x):
-    return -omega2 * x                              # притоплення → повертальна сила
-
-def step_euler(x, v, h):                            # ЯВНИЙ Ейлер
-    return x + v * h, v + accel(x) * h
-
-def step_symplectic(x, v, h):                       # напівнеявний (Ейлер — Кромер)
-    v = v + accel(x) * h                            # спершу швидкість…
-    x = x + v * h                                   # …тоді координата за НОВОЮ швидкістю
-    return x, v
-
-def step_rk4(x, v, h):                              # Рунге — Кутта 4-го порядку
-    def f(x, v): return v, accel(x)
-    k1x, k1v = f(x, v)
-    k2x, k2v = f(x + 0.5*h*k1x, v + 0.5*h*k1v)
-    k3x, k3v = f(x + 0.5*h*k2x, v + 0.5*h*k2v)
-    k4x, k4v = f(x + h*k3x,     v + h*k3v)
-    x += h/6.0 * (k1x + 2*k2x + 2*k3x + k4x)
-    v += h/6.0 * (k1v + 2*k2v + 2*k3v + k4v)
-    return x, v
-
-def simulate(step, x0, v0, h, steps):
-    xs = [x0]
-    x, v = x0, v0
-    for _ in range(steps):
-        x, v = step(x, v, h)
-        xs.append(x)
-    return np.array(xs)
-
-def period_from_zeros(xs, h):
-    """Період — середня відстань між висхідними перетинами нуля (з інтерполяцією)."""
-    cross = [(i - 1 - xs[i-1] / (xs[i] - xs[i-1]))
-             for i in range(1, len(xs))
-             if xs[i-1] <= 0 < xs[i]]
-    return float(np.mean(np.diff(cross))) * h
-
-N = 60                       # кроків на період
-h = T / N
-steps = N * 12               # дванадцять періодів гойдання
-x0 = 0.02                    # притопили на 2 см і відпустили
-
-for name, step in [("Ейлер", step_euler),
-                   ("симплектичний", step_symplectic),
-                   ("RK4", step_rk4)]:
-    xs = simulate(step, x0, 0.0, h, steps)
-    print("%-13s T=%.5f с   амплітуда наприкінці %.3f м"
-          % (name, period_from_zeros(xs, h), abs(xs[-N:]).max()))
-print("%-13s T=%.5f с" % ("аналітичний", T))
-```
+:::code proj-floating-buoy/py/zadacha-2-hoidannia-male.py
 
 Вивід — і одразу видно, хто збрехав:
 
