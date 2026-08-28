@@ -137,7 +137,7 @@ S = |C(p₁)| · |C(p₂)| · ... · |C(pₙ)|
 
 ## 3. Джерела пакетів, конфігурація та загроза Dependency Confusion
 
-Менеджер `pip` підтримує гнучку систему підключення джерел дистрибутивів: загальнодоступного індексу PyPI, корпоративних приватних сховищ (Nexus, JFrog Artifactory, GitLab Package Registry, devpi, AWS CodeArtifact), локальних каталогів файлової системи та окремих архівів.
+Менеджер `pip` підтримує гнучку систему підключення джерел дистрибутивів: загальнодоступного індексу PyPI, корпоративних [приватних індексів пакетів](root:sys-plang-python/private-package-indexes) (Devpi, JFrog Artifactory, Sonatype Nexus, GitLab Package Registry, AWS CodeArtifact), локальних каталогів файлової системи та окремих архівів.
 
 Конфігураційні параметри зчитуються за суворою ієрархією:
 1. Системний рівень (`/etc/pip.conf` у Linux, `C:\ProgramData\pip\pip.ini` у Windows).

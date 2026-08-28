@@ -283,9 +283,9 @@ pip install requests fastapi uvicorn
 - Під час старту CPython перевіряє каталог запуску. Знайшовши `pyvenv.cfg`, інтерпретатор встановлює `sys.prefix = "/шлях/до/.venv"`, залишаючи `sys.base_prefix = "/usr"`.
 - Список `sys.path` перенаправляється в каталог `.venv/lib/pythonX.Y/site-packages`. Системні пакунки дистрибутива стають невидимими, а маркер `EXTERNALLY-MANAGED` ігнорується.
 
-### 2. Ізоляція консольних утиліт (pipx)
+### 2. [Ізоляція утиліт через pipx](root:sys-plang-python/pipx-cli-isolation)
 
-Для запуску глобальних CLI-інструментів, написаних на Python (`ansible`, `black`, `flake8`, `poetry`, `yt-dlp`, `cookiecutter`, `httpie`), використовується менеджер `pipx`:
+Для запуску глобальних CLI-інструментів, написаних на Python (`ansible`, `black`, `flake8`, `poetry`, `yt-dlp`, `cookiecutter`, `httpie`), використовується менеджер `pipx` ([детальний розбір у статті про pipx](root:sys-plang-python/pipx-cli-isolation)):
 
 ```bash
 # Встановлення ізольованої утиліти

@@ -89,8 +89,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-wsgi-environ.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-wsgi-evolution.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "flask-and-fastapi",
@@ -99,8 +111,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-framework-contracts.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-wsgi-to-asgi.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iot-telemetry-bench.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "websockets-python",
@@ -119,8 +149,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-paho-v2.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-paho-mqtt-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iot-ingestion-service.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

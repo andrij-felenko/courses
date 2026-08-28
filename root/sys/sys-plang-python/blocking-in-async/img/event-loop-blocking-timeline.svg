@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив блокувального виклику на диспетчеризацію задач у циклі подій</text>
+<rect x="20.0" y="50.0" width="800.0" height="180.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="220.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Нормальна кооперативна диспетчеризація (Non-blocking I/O)</text>
+<line x1="50.0" y1="150.0" x2="780.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="770.0" y1="150.0" x2="790.0" y2="150.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="760.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<rect x="60.0" y="100.0" width="130.0" height="40.0" rx="4" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="125.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Задача 1: I/O (await)</text>
+<rect x="220.0" y="100.0" width="140.0" height="40.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="290.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Задача 2: Таймер 50мс</text>
+<rect x="390.0" y="100.0" width="150.0" height="40.0" rx="4" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="465.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Задача 3: TCP-запит</text>
+<rect x="570.0" y="100.0" width="130.0" height="40.0" rx="4" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="635.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Задача 1: Обробка</text>
+<line x1="190.0" y1="100.0" x2="190.0" y2="150.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="360.0" y1="100.0" x2="360.0" y2="150.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="540.0" y1="100.0" x2="540.0" y2="150.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="420.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Кожна задача віддає керування через await -&gt; нульова затримка інших задач</text>
+<rect x="20.0" y="250.0" width="800.0" height="190.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="250.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Блокування єдиного потоку циклу подій (Синхронний виклик)</text>
+<line x1="50.0" y1="360.0" x2="780.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="770.0" y1="360.0" x2="790.0" y2="360.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="760.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<rect x="60.0" y="305.0" width="380.0" height="45.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="250.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Задача 1: time.sleep(200ms) або requests.get() [БЛОКУВАННЯ]</text>
+<rect x="470.0" y="305.0" width="140.0" height="45.0" rx="4" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="540.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Задача 2: Таймер</text>
+<text x="540.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Затримка +150мс!</text>
+<rect x="630.0" y="305.0" width="140.0" height="45.0" rx="4" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Задача 3: TCP-пакет</text>
+<text x="700.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Чекає в буфері ОС</text>
+<text x="250.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Потік ОС завис: селектор epoll не викликається, черга _ready заблокована</text>
+<text x="420.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідок: колапс пропускної здатності та спайк затримок (latency spike) для всіх клієнтів</text>
+</svg>

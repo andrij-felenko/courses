@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр прийому телеметрії IoT у FastAPI з Pydantic v2 та DI</text>
+<rect x="25.0" y="65.0" width="215.0" height="240.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="132.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Вхідний запит</text>
+<line x1="33.0" y1="101.0" x2="232.0" y2="101.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="35.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• HTTP POST /api/v1/telemetry</text>
+<text x="35.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• TCP сокет -&gt; Uvicorn ASGI</text>
+<text x="35.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Словник scope: 'http'</text>
+<text x="35.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Неблокувальний receive()</text>
+<line x1="243.0" y1="185.0" x2="263.0" y2="185.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="266.0" y="65.0" width="215.0" height="240.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="373.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Pydantic v2 (Rust Core)</text>
+<line x1="274.0" y1="101.0" x2="473.0" y2="101.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="276.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Парсинг JSON у C/Rust шарі</text>
+<text x="276.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка діапазонів (ge, le)</text>
+<text x="276.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• ISO 8601 -&gt; datetime об'єкт</text>
+<text x="276.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Авто-відповідь 422 Unprocessable</text>
+<line x1="484.0" y1="185.0" x2="504.0" y2="185.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="507.0" y="65.0" width="215.0" height="240.0" rx="6" fill="#fef9e7" stroke="#b78103" stroke-width="1.6"/>
+<text x="614.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b78103" text-anchor="middle" font-weight="700">3. Впровадження залежностей</text>
+<line x1="515.0" y1="101.0" x2="714.0" y2="101.0" stroke="#b78103" stroke-width="1.0"/>
+<text x="517.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Depends(verify_device_token)</text>
+<text x="517.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Depends(get_db_session)</text>
+<text x="517.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Обчислення графа залежностей</text>
+<text x="517.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Контроль життєвого циклу ресурсів</text>
+<line x1="725.0" y1="185.0" x2="745.0" y2="185.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="748.0" y="65.0" width="215.0" height="240.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="855.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Асинхронний бекенд</text>
+<line x1="756.0" y1="101.0" x2="955.0" y2="101.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="758.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ендпоінт async def ingest_data()</text>
+<text x="758.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• await db.telemetry.insert(...)</text>
+<text x="758.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Неблокувальний драйвер asyncpg</text>
+<text x="758.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Публікація в Redis/MQTT чергу</text>
+<rect x="25.0" y="330.0" width="930.0" height="125.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="490.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключова оптимізація FastAPI: асинхронний нерозривний конвеєр</text>
+<text x="45.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Валідація виконується в pydantic-core (написаному на Rust), що в 5-15 разів швидше за Marshmallow/чистий Python.</text>
+<text x="45.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Ендпоінт не виділяє окремий потік операційної системи під час очікування відповіді від бази даних (I/O Wait).</text>
+<text x="45.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Помилки валідації повертають стандартизований RFC 7807 JSON з точним шляхом до некоректного датчика чи поля.</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл сокетного HTTP-сервера: від TCP-байтів до відповіді</text>
+<rect x="40.0" y="48.0" width="180.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="70.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">HTTP-клієнт (curl)</tspan></text>
+<rect x="400.0" y="48.0" width="200.0" height="36.0" rx="6" fill="#fdf3e7" stroke="#b08900" stroke-width="1.5"/><text x="500.0" y="70.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">TCP-сокет ядра (Буфер)</tspan></text>
+<rect x="780.0" y="48.0" width="180.0" height="36.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="70.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="870.0" dy="0.0">Python HTTP Server</tspan></text>
+<line x1="130.0" y1="86.0" x2="130.0" y2="455.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="500.0" y1="86.0" x2="500.0" y2="203.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="500.0" y1="249.0" x2="500.0" y2="455.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="870.0" y1="86.0" x2="870.0" y2="92.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="870.0" y1="128.0" x2="870.0" y2="225.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="870.0" y1="295.0" x2="870.0" y2="325.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="870.0" y1="365.0" x2="870.0" y2="455.0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="762.3" y="91.9" width="215.5" height="36.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="106.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">socket() -&gt; bind() -&gt; listen()</tspan><tspan x="870.0" dy="13.7">server_sock.accept() -&gt; блокування</tspan></text>
+<line x1="130.0" y1="140.0" x2="490.0" y2="140.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="315.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">TCP SYN / Handshake</text>
+<line x1="500.0" y1="148.0" x2="860.0" y2="148.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="685.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">accept() повертає (client_sock, addr)</text>
+<line x1="130.0" y1="190.0" x2="490.0" y2="190.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="315.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">POST /telemetry HTTP/1.1 + Headers + Body</text>
+<rect x="415.0" y="205.0" width="170.0" height="42.0" rx="6" fill="#fff9c4" stroke="#b08900" stroke-width="1.5"/><text x="500.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Буфер прийому ОС</tspan><tspan x="500.0" dy="13.0">recv(4096) частинами</tspan></text>
+<line x1="590.0" y1="220.0" x2="860.0" y2="220.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="758.5" y="229.5" width="222.9" height="61.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="870.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Накопичення буфера:</tspan><tspan x="870.0" dy="13.0">Пошук b'\r\n\r\n' (кінець заголовків)</tspan><tspan x="870.0" dy="13.0">Вилучення Content-Length: N</tspan><tspan x="870.0" dy="13.0">Дочитування тіла розміром N байтів</tspan></text>
+<rect x="768.2" y="326.9" width="203.5" height="36.1" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="870.0" y="341.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="870.0" dy="0.0">Маршрутизація та обробка:</tspan><tspan x="870.0" dy="13.7">Обчислення JSON / метрик / стану</tspan></text>
+<line x1="860.0" y1="395.0" x2="510.0" y2="395.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="685.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">client_sock.sendall(HTTP/1.1 200 OK...)</text>
+<line x1="490.0" y1="425.0" x2="140.0" y2="425.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="315.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">HTTP/1.1 200 OK + Content-Length + JSON</text>
+<rect x="221.7" y="463.8" width="556.6" height="22.5" rx="6" fill="#fbfbfb" stroke="#333333" stroke-width="1.5"/><text x="500.0" y="478.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">Connection: close -&gt; client_sock.close() | Connection: keep-alive -&gt; цикл наступного recv()</tspan></text>
+</svg>
