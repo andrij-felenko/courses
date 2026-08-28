@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розкладка Flash-пам'яті для незалежного Dual-Bank оновлення моделей</text>
+<rect x="40.0" y="60.0" width="520.0" height="400.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="300.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адресний простір NOR Flash (2048 КБ)</text>
+<rect x="50.0" y="96.0" width="500.0" height="40.0" rx="4" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x0800_0000</text>
+<text x="200.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Завантажувач (Bootloader) · 64 КБ</text>
+<text x="60.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Старт системи, перевірка векторів</text>
+<rect x="50.0" y="142.0" width="500.0" height="70.0" rx="4" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x0801_0000</text>
+<text x="200.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Прошивка застосунку та TFLM · 768 КБ</text>
+<text x="60.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">FreeRTOS, драйвери, рушій інференсу, OTA-стек</text>
+<rect x="50.0" y="218.0" width="500.0" height="38.0" rx="4" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.5"/>
+<text x="60.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x080D_0000</text>
+<text x="200.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="start" font-weight="700">Метадані та NV-конфіг · 32 КБ</text>
+<text x="60.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Покажчик активного слота, Trial-лічильник, CRC32</text>
+<rect x="50.0" y="262.0" width="500.0" height="80.0" rx="4" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x080D_8000</text>
+<text x="200.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Слот моделі А (АКТИВНИЙ) · 512 КБ</text>
+<text x="60.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Заголовок (Ed25519 + SHA256) + FlatBuffer int8 ваг</text>
+<rect x="50.0" y="348.0" width="500.0" height="80.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="60.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x0815_8000</text>
+<text x="200.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Слот моделі B (СТАДІЙНИЙ / OTA) · 512 КБ</text>
+<text x="60.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Цільовий буфер запису чанків і тіньового тесту</text>
+<rect x="50.0" y="434.0" width="500.0" height="20.0" rx="4" fill="#f9f9f9" stroke="#6b7280" stroke-width="1.5"/>
+<text x="60.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0x081D_8000</text>
+<text x="200.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Журнал телеметрії · 160 КБ</text>
+<rect x="580.0" y="100.0" width="320.0" height="80.0" rx="6" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="592.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Основна прошивка</text>
+<rect x="592.0" y="126.0" width="296.0" height="50.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="740.0" y="147.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">Рушій інференсу TFLM скомпільований у код.</tspan><tspan x="740.0" dy="14.3">Працює безперервно навіть під час OTA.</tspan></text>
+<line x1="580.0" y1="140.0" x2="554.0" y2="140.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="580.0" y="210.0" width="320.0" height="72.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.5"/>
+<text x="592.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="start" font-weight="700">Атомарний покажчик</text>
+<rect x="592.0" y="236.0" width="296.0" height="42.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="740.0" y="253.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">Один сектор пам'яті зберігає активний слот.</tspan><tspan x="740.0" dy="14.3">Перемикання відбувається зміною 1 байта.</tspan></text>
+<line x1="580.0" y1="246.0" x2="554.0" y2="246.0" stroke="#b8860b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="580.0" y="310.0" width="320.0" height="78.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="592.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Ізоляція пам'яті (Dual-Slot)</text>
+<rect x="592.0" y="336.0" width="296.0" height="48.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="740.0" y="356.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">OTA-клієнт стирає та пише Банк B.</tspan><tspan x="740.0" dy="14.3">Банк A залишається недоторканим при збоях.</tspan></text>
+<line x1="580.0" y1="349.0" x2="554.0" y2="349.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="580.0" y="414.0" width="320.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="592.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Тіньовий запуск (Shadow Mode)</text>
+<rect x="592.0" y="440.0" width="296.0" height="26.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="740.0" y="456.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">Нова вага валідується на живому потоці сенсорів.</tspan></text>
+<line x1="580.0" y1="442.0" x2="554.0" y2="442.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+</svg>

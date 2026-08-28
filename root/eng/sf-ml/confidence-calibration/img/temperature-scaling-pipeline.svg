@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 900 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="900" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="360.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр калібрування логітів та прийняття рішень на борту</text>
+<rect x="40.0" y="65.0" width="160.0" height="95.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="120.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихід нейромережі</text>
+<text x="120.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Сирі логіти z ∈ ℝᴷ</text>
+<text x="120.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[ 4.8,  1.2, -0.9 ]</text>
+<line x1="200.0" y1="112.5" x2="235.0" y2="112.5" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="235.0" y="65.0" width="175.0" height="95.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="322.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Масштабування T</text>
+<text x="322.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">z' = z / T  (T = 2.4)</text>
+<text x="322.5" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">[ 2.0,  0.5, -0.375 ]</text>
+<line x1="410.0" y1="112.5" x2="445.0" y2="112.5" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="445.0" y="65.0" width="175.0" height="95.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="532.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стабільний Softmax</text>
+<text x="532.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">pᵢ = e^(z'ᵢ) / ∑ e^(z'ⱼ)</text>
+<text x="532.5" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Впевненість p̂ = max(p)</text>
+<line x1="620.0" y1="112.5" x2="655.0" y2="112.5" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="655.0" y="65.0" width="185.0" height="95.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="747.5" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Калібровані ймовірності</text>
+<text x="747.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="middle" font-weight="700">p̂ = 0.76  (було 0.97)</text>
+<text x="747.5" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Клас: «Перешкода»</text>
+<line x1="747.0" y1="160.0" x2="747.0" y2="210.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="620.0" y="215.0" width="250.0" height="50.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="745.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка порогу безпеки</text>
+<text x="745.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Чи виконується p̂ ≥ τ_safe (0.85)?</text>
+<line x1="620.0" y1="240.0" x2="490.0" y2="240.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="490.0" y1="240.0" x2="490.0" y2="290.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="555.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК (p̂ ≥ 0.85)</text>
+<rect x="370.0" y="295.0" width="240.0" height="50.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Штатне виконання маневру</text>
+<text x="490.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Керування віддано ML-моделі</text>
+<line x1="747.0" y1="265.0" x2="747.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="759.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">НІ (p̂ &lt; 0.85)</text>
+<rect x="635.0" y="295.0" width="230.0" height="50.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="750.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Активація бекап-сенсорів</text>
+<text x="750.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Лідар / Сонар / Захисна зупинка</text>
+<rect x="40.0" y="215.0" width="300.0" height="130.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="190.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключова властивість T-Scaling</text>
+<text x="55.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Точність (argmax) не змінюється:</text>
+<text x="65.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">argmax(z/T) ≡ argmax(z)</text>
+<text x="55.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Усуває фальшиву впевненість:</text>
+<text x="65.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">захищає від хибних спрацювань</text>
+</svg>

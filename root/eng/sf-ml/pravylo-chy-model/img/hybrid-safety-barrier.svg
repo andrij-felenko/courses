@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 955 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="955" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура гібридного селектора з детермінованим бар'єром безпеки</text>
+<rect x="20.0" y="180.0" width="180.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Сенсорна телеметрія</tspan><tspan x="110.0" dy="13.0">(x_t ∈ R^N)</tspan><tspan x="110.0" dy="13.0">• Камери, IMU, лідар</tspan><tspan x="110.0" dy="13.0">• Струм, напруга, одометрія</tspan></text>
+<line x1="200.0" y1="210.0" x2="225.0" y2="210.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="210.0" x2="225.0" y2="110.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="110.0" x2="260.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кадри/хмари точок</text>
+<line x1="200.0" y1="250.0" x2="225.0" y2="250.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="250.0" x2="225.0" y2="360.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="225.0" y1="360.0" x2="260.0" y2="360.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ознаки стану</text>
+<rect x="260.0" y="50.0" width="300.0" height="130.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Нейромережевий планувальник</text>
+<text x="410.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Квантована INT8 CNN / Transformer</text>
+<text x="410.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Оцінка оптимальної траєкторії u_ml</text>
+<text x="410.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">• Евристична генерація пропозиції</text>
+<rect x="260.0" y="300.0" width="300.0" height="130.0" rx="8" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="410.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Резервний детермінований контролер</text>
+<text x="410.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Фізичний PID / Гальмування / Зависання</text>
+<text x="410.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Розрахунок безпечної дії u_safe</text>
+<text x="410.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">• Доведена стабільність за Ляпуновим</text>
+<line x1="560.0" y1="115.0" x2="595.0" y2="115.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="595.0" y1="115.0" x2="595.0" y2="200.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="595.0" y1="200.0" x2="630.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="575.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Пропозиція u_ml</text>
+<line x1="560.0" y1="365.0" x2="595.0" y2="365.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="595.0" y1="365.0" x2="595.0" y2="290.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="595.0" y1="290.0" x2="630.0" y2="290.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="575.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Резерв u_safe</text>
+<rect x="630.0" y="140.0" width="290.0" height="210.0" rx="10" fill="#fef3d6" stroke="#d97706" stroke-width="2.2"/>
+<text x="775.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#92400e" text-anchor="middle" font-weight="700">Детермінований бар'єр безпеки</text>
+<line x1="645.0" y1="185.0" x2="905.0" y2="185.0" stroke="#d97706" stroke-width="1.2"/>
+<text x="775.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Перевірка інваріантів стану (h(x) ≥ 0)</text>
+<text x="775.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Контроль меж прискорень і струмів</text>
+<text x="775.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3. Детекція дрейфу (Out-of-Distribution)</text>
+<text x="775.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">4. Тайм-аут інференсу (WCET &lt; 5 мс)</text>
+<text x="775.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Селектор: u_out = Safe(u_ml) ? u_ml : u_safe</text>
+<line x1="775.0" y1="350.0" x2="775.0" y2="430.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="430.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/><text x="775.0" y="456.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Верифікована дія u_out</tspan><tspan x="775.0" dy="16.9">Видача на актуатори / ШІМ</tspan></text>
+<line x1="920.0" y1="245.0" x2="935.0" y2="245.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="925.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">Аварійний лог</text>
+</svg>

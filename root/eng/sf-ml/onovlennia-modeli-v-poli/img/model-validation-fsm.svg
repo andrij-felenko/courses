@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1112 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1112" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий автомат верифікації, безпечного тіньового тестування та відкату</text>
+<rect x="40.0" y="70.0" width="220.0" height="76.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="150.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. ЗВИЧАЙНИЙ ІНФЕРЕНС</text>
+<text x="150.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Банк A керує моторами</text>
+<text x="150.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Watchdog активний</text>
+<rect x="370.0" y="70.0" width="220.0" height="76.0" rx="6" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="480.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2. ПРИЙОМ ЧАНКІВ (OTA)</text>
+<text x="480.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запис у стадійний Банк B</text>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Бітова маска секторів</text>
+<rect x="700.0" y="70.0" width="220.0" height="76.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="810.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">3. КРИПТО-ВЕРИФІКАЦІЯ</text>
+<text x="810.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">SHA-256 + Ed25519 підпис</text>
+<text x="810.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка цілісності</text>
+<rect x="700.0" y="220.0" width="220.0" height="76.0" rx="6" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.8"/>
+<text x="810.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">4. ВАЛІДАЦІЯ СХЕМИ</text>
+<text x="810.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">OpResolver + тензори</text>
+<text x="810.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Арена &lt;= розмір SRAM</text>
+<rect x="370.0" y="220.0" width="220.0" height="76.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="480.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. АТОМАРНИЙ СВОП</text>
+<text x="480.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">active_slot = BANK_B</text>
+<text x="480.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стан: TRIAL, boot_cnt = 0</text>
+<rect x="370.0" y="370.0" width="220.0" height="80.0" rx="6" fill="#f0f4fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="480.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">6. ТІНЬОВИЙ ЗАПУСК</text>
+<text x="480.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Паралельний інференс B</text>
+<text x="480.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Порівняння з базою A</text>
+<rect x="40.0" y="370.0" width="220.0" height="80.0" rx="6" fill="#e8f6ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="150.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">7. ПІДТВЕРДЖЕННЯ</text>
+<text x="150.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Дельта &lt; порогу безпеки</text>
+<text x="150.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стан: CONFIRMED в NV</text>
+<rect x="700.0" y="370.0" width="220.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="810.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">8. АВАРІЙНИЙ ВІДКАТ</text>
+<text x="810.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">active_slot = BANK_A</text>
+<text x="810.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стирання B + лог помилки</text>
+<line x1="260.0" y1="108.0" x2="366.0" y2="108.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="313.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">OTA-запит</text>
+<line x1="590.0" y1="108.0" x2="696.0" y2="108.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100% чанків</text>
+<line x1="810.0" y1="146.0" x2="810.0" y2="216.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="816.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="start">Підпис OK</text>
+<line x1="700.0" y1="258.0" x2="594.0" y2="258.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="647.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сумісно</text>
+<line x1="480.0" y1="296.0" x2="480.0" y2="366.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="486.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Reboot / Trial</text>
+<line x1="370.0" y1="410.0" x2="264.0" y2="410.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="317.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Валідно</text>
+<line x1="590.0" y1="410.0" x2="696.0" y2="410.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Розбіжність</text>
+<line x1="810.0" y1="450.0" x2="810.0" y2="480.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="810.0" y1="480.0" x2="150.0" y2="480.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 3"/>
+<line x1="150.0" y1="480.0" x2="150.0" y2="150.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Безпечний відкат на стабільний Банк A без втручання оператора</text>
+<line x1="920.0" y1="108.0" x2="936.0" y2="108.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="936.0" y1="108.0" x2="936.0" y2="410.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="936.0" y1="410.0" x2="924.0" y2="410.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="942.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Невдалий підпис / несумісність</text>
+</svg>

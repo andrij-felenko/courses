@@ -17,18 +17,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-rule-vs-model-bench.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "metryky-iakosti-modeli",
           "title": "Метрики якості моделі: точність, повнота, матриця плутанини",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-classification-metrics-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "porih-i-tsina-pomylky",
@@ -37,8 +49,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-cost-sensitive-threshold-optimizer.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -50,11 +68,17 @@
           "slug": "confidence-calibration",
           "title": "Калібрування впевненості моделі",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-temperature-scaler.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "ne-znaiu",
@@ -63,8 +87,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-selective-classifier.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "model-explainability",
@@ -106,11 +136,17 @@
           "slug": "distribution-shift",
           "title": "Зсув розподілу даних",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-covariate-shift-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dreif-u-poli",
@@ -119,8 +155,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-ondevice-drift-monitor.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -135,24 +177,28 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-shortcut-legends.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-base-rate-threshold.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-slice-audit.md",
-              "status": "done"
+              "status": "recheck"
+            },
+            {
+              "file": "proj-ethical-safety-interlock.md",
+              "status": "recheck"
             }
           ]
         },

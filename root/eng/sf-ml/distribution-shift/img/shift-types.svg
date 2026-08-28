@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="960.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація зсувів розподілу у просторі ймовірностей P(X, Y)</text>
+<text x="480.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Спільний розподіл: P(X, Y) = P(X) · P(Y | X) = P(Y) · P(X | Y)</text>
+<rect x="25.0" y="75.0" width="285.0" height="380.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="25.0" y="75.0" width="285.0" height="42.0" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="167.5" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Зсув коваріат (Covariate Shift)</text>
+<rect x="40.0" y="130.0" width="255.0" height="68.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="167.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P(X) змінюється</text>
+<text x="167.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P(Y | X) залишається сталим</text>
+<text x="167.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">P_test(X) ≠ P_train(X)</text>
+<rect x="45.0" y="210.0" width="245.0" height="110.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="60.0" y1="300.0" x2="275.0" y2="300.0" stroke="#333333" stroke-width="1.2"/>
+<path d="M 70 300 Q 105 225 140 300 Q 175 300 205 300" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<text x="105.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P_train(X)</text>
+<path d="M 125 300 Q 160 300 195 300 Q 230 225 265 300" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4,3"/>
+<text x="230.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P_test(X)</text>
+<line x1="170.0" y1="225.0" x2="170.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="3,2"/>
+<text x="170.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Межа Y|X</text>
+<text x="167.5" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні причини в бортових системах:</text>
+<text x="45.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зміна сенсора, освітлення, оптики</text>
+<text x="45.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Туман, дощ, засліплення сонцем</text>
+<text x="45.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Перехід із шосе на бездоріжжя</text>
+<text x="45.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Наслідок: висока впевненість на OOD</text>
+<rect x="337.0" y="75.0" width="285.0" height="380.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="337.0" y="75.0" width="285.0" height="42.0" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="479.5" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Зсув концепту (Concept Shift)</text>
+<rect x="352.0" y="130.0" width="255.0" height="68.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="479.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P(Y | X) змінюється</text>
+<text x="479.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P(X) може бути незмінним</text>
+<text x="479.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">P_test(Y|X) ≠ P_train(Y|X)</text>
+<rect x="357.0" y="210.0" width="245.0" height="110.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="372.0" y1="300.0" x2="587.0" y2="300.0" stroke="#333333" stroke-width="1.2"/>
+<path d="M 387 300 Q 477 225 572 300 Q 587 300 592 300" fill="none" stroke="#6b7280" stroke-width="2.0"/>
+<text x="477.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">P(X) незмінний</text>
+<line x1="447.0" y1="230.0" x2="447.0" y2="310.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="447.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Межа Train</text>
+<line x1="517.0" y1="230.0" x2="517.0" y2="310.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="517.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Межа Test</text>
+<line x1="452.0" y1="255.0" x2="512.0" y2="255.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="479.5" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні причини в бортових системах:</text>
+<text x="357.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Поява ожеледиці: гальмівний шлях</text>
+<text x="357.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зміна правил руху чи розмітки</text>
+<text x="357.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Камуфляж, мімікрія, знос шасі</text>
+<text x="357.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Наслідок: хибні прогнози безпеки</text>
+<rect x="650.0" y="75.0" width="285.0" height="380.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="650.0" y="75.0" width="285.0" height="42.0" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="792.5" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Зсув апріорних значень (Label Shift)</text>
+<rect x="665.0" y="130.0" width="255.0" height="68.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="792.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P(Y) змінюється</text>
+<text x="792.5" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P(X | Y) залишається сталим</text>
+<text x="792.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">P_test(Y) ≠ P_train(Y)</text>
+<rect x="670.0" y="210.0" width="245.0" height="110.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="730.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Навчання (Train)</text>
+<rect x="700.0" y="240.0" width="25.0" height="60.0" rx="2" fill="#2457d6" stroke="#333333" stroke-width="1.0"/>
+<rect x="735.0" y="280.0" width="25.0" height="20.0" rx="2" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<text x="712.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">90%</text>
+<text x="747.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10%</text>
+<text x="845.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Експлуатація (Test)</text>
+<rect x="815.0" y="275.0" width="25.0" height="25.0" rx="2" fill="#2457d6" stroke="#333333" stroke-width="1.0"/>
+<rect x="850.0" y="235.0" width="25.0" height="65.0" rx="2" fill="#c0392b" stroke="#333333" stroke-width="1.0"/>
+<text x="827.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">20%</text>
+<text x="862.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">80%</text>
+<text x="792.5" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні причини в бортових системах:</text>
+<text x="670.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Спалах дефектів на лінії виробництва</text>
+<text x="670.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вхід дрона в зону високої загрози</text>
+<text x="670.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зміна балансу норма/аномалія</text>
+<text x="670.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Наслідок: зсув байєсового порогу</text>
+</svg>

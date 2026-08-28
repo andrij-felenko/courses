@@ -579,6 +579,123 @@ def fig_parity_identity():
     render(os.path.join(OUT, 'parity-identity.svg'), W, H, *f)
 
 
+# ── Фігура: ієрархія прав прийняття рішень ──────────────────────────────────
+def fig_decision_rights_hierarchy():
+    W, H = 840, 480
+    f = [text(W / 2, 28, "Ієрархія повноважень прийняття рішень у критичних системах",
+              size=17, bold=True)]
+
+    layers = [
+        ("Рівень 1: Фізичний E-Stop та апаратний інтерлок (Найвищий пріоритет)",
+         ["Безумовне апаратне знеструмлення приводів; неможливо заблокувати програмно",
+          "Прямий розрив кола живлення сухими контактами без участі мікроконтролера"],
+         "#fdecea", POS, 64),
+        ("Рівень 2: Людина-оператор (Human-in-the-Loop / Human-on-the-Loop)",
+         ["Авторизація небезпечних дій, видача токенів доступу, негайне ручне вето",
+          "Відповідальність за наслідки та право скасування будь-якої дії системи"],
+         "#fff8e1", "#c9a227", 154),
+        ("Рівень 3: Детермінований програмний бар'єр безпеки (Safety Gate)",
+         ["Перевірка лімітів (швидкість, струм, робоча зона), тайм-аутів та аудит логів",
+          "Апаратний сторожовий таймер (Watchdog) та блокування при збоях зв'язку"],
+         "#eef7f0", FIELD, 244),
+        ("Рівень 4: Модель машинного навчання (NPU / Deep Neural Network)",
+         ["Лише ймовірнісні рекомендації, класифікація та оцінка стану",
+          "Повна відсутність прямого доступу до силових ключів та актуаторів"],
+         "#eef2ff", NEG, 334),
+    ]
+
+    for title_text, desc_lines, fill, stroke, y in layers:
+        f.append(fitbox(60, y, 720, 72, [title_text] + desc_lines, size=13, fill=fill, stroke=stroke))
+
+    f.append(arrow(420, 138, 420, 152, color=LINE, sw=1.8))
+    f.append(arrow(420, 228, 420, 242, color=LINE, sw=1.8))
+    f.append(arrow(420, 318, 420, 332, color=LINE, sw=1.8))
+
+    f.append(fitbox(60, 420, 720, 44,
+                    ["Нейромережа знаходиться на найнижчому рівні: жодна дія не виконується без валідації рівнями 1–3"],
+                    size=12, fill="#f7f8fa", stroke="#c9ccd3", bold=True))
+
+    render(os.path.join(OUT, 'decision-rights-hierarchy.svg'), W, H, *f)
+
+
+# ── Фігура: схема апаратного та програмного інтерлока E-Stop ────────────────
+def fig_hardware_estop_interlock():
+    W, H = 900, 460
+    f = [text(W / 2, 26, "Схема апаратного та програмного інтерлока безпеки (E-Stop)",
+              size=17, bold=True)]
+
+    f.append(fitbox(40, 60, 220, 84,
+                    ["NPU / Обчислювач ML",
+                     "• Модель виявлення / аналізу",
+                     "• Команда: ACTUATE_REQ",
+                     "• Оцінка впевненості: 0.95"],
+                    size=12, fill="#eef2ff", stroke=NEG))
+
+    f.append(fitbox(40, 174, 220, 80,
+                    ["Журнал аудиту (Blackbox)",
+                     "• Non-volatile Secure Flash",
+                     "• Запис: стан + хеш ваг",
+                     "• Збереження ДО дії"],
+                    size=12, fill="#f7f8fa", stroke="#c9ccd3"))
+
+    f.append(fitbox(310, 60, 230, 96,
+                    ["Контролер безпеки (MCU)",
+                     "• Детерміновані перевірки",
+                     "• Валідація токена людини",
+                     "• Фіксація логу в пам'ять",
+                     "• Сигнал: ARM_ENABLE"],
+                    size=12, fill="#eef7f0", stroke=FIELD))
+
+    f.append(fitbox(310, 186, 230, 68,
+                    ["Пульт оператора (HITL)",
+                     "• Кнопка підтвердження",
+                     "• Токен авторизації (TTL)"],
+                    size=12, fill="#fff8e1", stroke="#c9a227"))
+
+    f.append(fitbox(590, 80, 120, 60,
+                    ["Апаратна", "схема AND"],
+                    size=12, fill="#ffffff", stroke=INK, bold=True))
+
+    f.append(fitbox(590, 174, 120, 80,
+                    ["Кнопка E-Stop",
+                     "Фізичний розрив",
+                     "сухих контактів"],
+                    size=12, fill="#fdecea", stroke=POS, bold=True))
+
+    f.append(fitbox(750, 120, 120, 84,
+                    ["Силовий комутатор",
+                     "MOSFET / Реле",
+                     "Комутація",
+                     "живлення V_PWR"],
+                    size=12, fill="#fdecea", stroke=POS))
+
+    f.append(fitbox(740, 240, 140, 50,
+                    ["Виконавчі приводи", "Двигуни / Лазер"],
+                    size=12, fill="#f7f8fa", stroke="#c9ccd3"))
+
+    f.append(arrow(260, 102, 310, 102, color=LINE, sw=1.8))
+    f.append(text(285, 94, "REQ", size=10, color=MUTED))
+
+    f.append(arrow(425, 186, 425, 156, color=LINE, sw=1.8))
+    f.append(arrow(310, 210, 260, 210, color=LINE, sw=1.8))
+
+    f.append(arrow(540, 102, 590, 102, color=FIELD, sw=1.8))
+    f.append(text(565, 94, "ARM", size=10, color=FIELD))
+
+    f.append(arrow(710, 110, 750, 140, color=LINE, sw=1.8))
+    f.append(arrow(710, 214, 750, 180, color=POS, sw=2.0))
+
+    f.append(arrow(810, 204, 810, 240, color=POS, sw=2.2))
+    f.append(text(815, 222, "V_PWR", size=11, color=POS, bold=True, anchor="start"))
+
+    f.append(fitbox(40, 310, 840, 54,
+                    ["Головний принцип: E-Stop розриває живлення приводів напряму на фізичному рівні.",
+                     "Жодна команда моделі чи помилка в NPU не може програмно замкнути розімкнене коло."],
+                    size=12, fill="#fff8e1", stroke="#c9a227"))
+
+    render(os.path.join(OUT, 'hardware-estop-interlock.svg'), W, H, *f)
+
+
 if __name__ == '__main__':
     fig_base_rate_tree()
     fig_iso_cost_roc()
@@ -590,4 +707,7 @@ if __name__ == '__main__':
     fig_psi_noise_floor()
     fig_legend_timeline()
     fig_evidence_ladder()
+    fig_decision_rights_hierarchy()
+    fig_hardware_estop_interlock()
     print("ok")
+
