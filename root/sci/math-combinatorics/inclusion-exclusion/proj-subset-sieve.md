@@ -30,80 +30,9 @@ r простих задають рівно 2ʳ підмножин, і кожну
 Головний варіант — C++: задача лічильна, а фіксована ширина цілого робить видимою головну пастку (переповнення добутку), заради якої й стоїть захисна перевірка. Поряд Python, де та сама перевірка потрібна вже не для правильности, а лише щоб не множити даремно, і Rust, де переповнення ловить сама мова через `checked_mul`.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <vector>
-#include <bit>          // std::popcount (C++20)
-
-// Скільки чисел у [1, N] взаємно прості з усіма простими p[0..r-1]
-// (не діляться на жоден). Порожня маска дає весь N — доданок «нуля множин».
-int64_t coprime_count(int64_t N, const std::vector<int64_t>& p) {
-    int r = (int)p.size();
-    int64_t total = 0;
-    for (uint32_t mask = 0; mask < (1u << r); ++mask) {
-        int64_t prod = 1;
-        bool over = false;
-        for (int i = 0; i < r; ++i)
-            if ((mask >> i) & 1) {
-                if (p[i] > N / prod) { over = true; break; }   // добуток перевищив би N
-                prod *= p[i];
-            }
-        int64_t term = over ? 0 : N / prod;                    // ⌊N / добуток⌋
-        total += (std::popcount(mask) & 1) ? -term : term;     // знак за парністю розміру
-    }
-    return total;
-}
-
-// Скільки діляться бодай на одне — це просто доповнення.
-int64_t divisible_by_any(int64_t N, const std::vector<int64_t>& p) {
-    return N - coprime_count(N, p);
-}
-```
-```python
-def coprime_count(N: int, primes: list[int]) -> int:
-    total = 0
-    for mask in range(1 << len(primes)):
-        prod, over = 1, False
-        for i, pi in enumerate(primes):
-            if (mask >> i) & 1:
-                if pi > N // prod:          # добуток перевищив би N → далі ⌊N/добуток⌋ = 0
-                    over = True             # тут це ЛИШЕ оптимізація: цілі Python необмежені,
-                    break                   # переповнення не буває, обриваємо марне множення
-                prod *= pi
-        term = 0 if over else N // prod
-        total += -term if bin(mask).count("1") & 1 else term   # знак за парністю розміру
-    return total
-
-
-def divisible_by_any(N: int, primes: list[int]) -> int:
-    return N - coprime_count(N, primes)
-```
-```rust
-fn coprime_count(n: i64, primes: &[i64]) -> i64 {
-    let r = primes.len();
-    let mut total: i64 = 0;
-    for mask in 0u32..(1 << r) {
-        let mut prod: i64 = 1;
-        let mut over = false;
-        for (i, &pi) in primes.iter().enumerate() {
-            if (mask >> i) & 1 == 1 {
-                // checked_mul повертає None при переповненні i64 — мова ловить пастку сама
-                match prod.checked_mul(pi) {
-                    Some(v) if v <= n => prod = v,
-                    _ => { over = true; break; }    // переповнення АБО добуток > N → доданок 0
-                }
-            }
-        }
-        let term = if over { 0 } else { n / prod };            // ⌊N / добуток⌋
-        total += if mask.count_ones() & 1 == 1 { -term } else { term };  // знак за парністю
-    }
-    total
-}
-
-fn divisible_by_any(n: i64, primes: &[i64]) -> i64 {
-    n - coprime_count(n, primes)
-}
-```
+:::code proj-subset-sieve/cpp/kod.cpp
+:::code proj-subset-sieve/py/main.py
+:::code proj-subset-sieve/rust/main.rs
 :::
 
 Уся суть — у двох вкладених циклах: зовнішній обходить 2ʳ масок, внутрішній для кожної маски множить щонайбільше r простих. Звідси й складність — **O(2ʳ·r)**. Ключова деталь — перевірка `p[i] > N / prod` **перед** множенням, а не після: якби ми спершу помножили й лише тоді дивилися, добуток міг би вискочити за межу типу ще до перевірки, і зловити переповнення було б нічим. Ділення `N / prod` тут безпечне (`prod` ще не більше за N), а результат порівняння точно каже, чи наступний множник виштовхне добуток за N. Щойно виштовхне — доданок однаково нульовий (⌊N / щось-більше-за-N⌋ = 0), тож множення сміливо обриваємо.
@@ -142,19 +71,7 @@ r      доданків (2ʳ)        на практиці
 Це вже не 2ⁿ, а лінійний прохід — жодного перебору підмножин:
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <vector>
-
-// Субфакторіали !0 … !n точною цілою рекурентою (жодних дробів і float).
-std::vector<int64_t> subfactorials(int n) {
-    std::vector<int64_t> d(n + 1);
-    d[0] = 1;
-    for (int k = 1; k <= n; ++k)
-        d[k] = (int64_t)k * d[k - 1] + ((k & 1) ? -1 : +1);   // (−1)ᵏ: −1 для непарних k
-    return d;
-}
-```
+:::code proj-subset-sieve/cpp/druhyi-pryklad-koly.cpp
 ```python
 def subfactorials(n: int) -> list[int]:
     """!0 … !n точною рекурентою; цілі Python необмежені — точно для будь-якого n."""

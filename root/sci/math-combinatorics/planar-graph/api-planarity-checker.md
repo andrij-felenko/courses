@@ -31,33 +31,7 @@ typedef enum PlanarResult {
     PLANAR_ERR_NO_CERTIFICATE  = -5  /* Запит сертифіката Куратовського для планарного графа */
 } PlanarResult;
 ```
-```cpp
-#include <system_error>
-#include <string_view>
-
-enum class PlanarStatus {
-    Ok = 0,
-    NonPlanar,
-    NullPointer,
-    InvalidVertex,
-    EdgeCapacityExceeded,
-    NotEmbedded,
-    NoCertificate
-};
-
-[[nodiscard]] constexpr std::string_view to_string(PlanarStatus status) noexcept {
-    switch (status) {
-        case PlanarStatus::Ok: return "OK (Planar)";
-        case PlanarStatus::NonPlanar: return "Non-Planar Graph";
-        case PlanarStatus::NullPointer: return "Null Pointer Error";
-        case PlanarStatus::InvalidVertex: return "Invalid Vertex Index";
-        case PlanarStatus::EdgeCapacityExceeded: return "Edge Capacity Exceeded";
-        case PlanarStatus::NotEmbedded: return "Graph Not Embedded";
-        case PlanarStatus::NoCertificate: return "No Kuratowski Certificate Available";
-    }
-    return "Unknown Error";
-}
-```
+:::code api-planarity-checker/cpp/1-perelik-kodiv-rezultativ.cpp
 :::
 
 Семантика кодів результатів:
@@ -95,41 +69,8 @@ enum class ObstructionType {
 Сертифікат непланарності надає вичерпний топологічний доказ того, чому граф не може бути зображений на площині.
 
 :::tabs
-```c
-typedef struct KuratowskiPath {
-    int u;                  /* Початкова базова вершина */
-    int v;                  /* Кінцева базова вершина */
-    int* path_vertices;     /* Масив проміжних вершин підрозбиття ребра (довжини length + 1) */
-    int length;             /* Кількість ребер у топологічному шляху */
-} KuratowskiPath;
-
-typedef struct KuratowskiCertificate {
-    KuratowskiType type;    /* Тип знайденої обструкції (K5 або K3,3) */
-    int core_vertices[6];   /* Індекси базових вузлів (5 для K5, 6 для K3,3) */
-    int core_count;         /* Кількість базових вузлів (5 або 6) */
-    KuratowskiPath paths[15]; /* Топологічні шляхи між базовими вузлами (10 для K5, 9 для K3,3) */
-    int path_count;         /* Загальна кількість шляхів */
-} KuratowskiCertificate;
-```
-```cpp
-#include <vector>
-
-struct SubdividedPath {
-    std::size_t u;
-    std::size_t v;
-    std::vector<std::size_t> vertices;
-};
-
-struct KuratowskiWitness {
-    ObstructionType type{ObstructionType::None};
-    std::vector<std::size_t> core_vertices;
-    std::vector<SubdividedPath> paths;
-
-    [[nodiscard]] bool is_valid() const noexcept {
-        return type != ObstructionType::None;
-    }
-};
-```
+:::code api-planarity-checker/c/3-struktura-sertyfikata.c
+:::code api-planarity-checker/cpp/3-struktura-sertyfikata.cpp
 :::
 
 Поля структури сертифіката:
@@ -195,53 +136,8 @@ struct FaceRecord {
 ### 6. Основний дескриптор графа (`PlanarGraph` / `PlanarGraphModel`)
 
 :::tabs
-```c
-typedef struct PlanarGraph {
-    int num_vertices;       /* Кількість вершин V */
-    int num_edges;          /* Кількість ненапрямлених ребер E */
-    int num_faces;          /* Кількість граней F */
-    
-    int* head;              /* Індекси перших напівребер для кожної вершини */
-    HalfEdge* half_edges;   /* Масив напівребер розміром 2 * max_edges */
-    int half_edge_count;    /* Поточна кількість напівребер у масиві */
-    int max_edges;          /* Максимальна виділена місткість ребер */
-    
-    int** rotation_system;  /* rotation_system[u] — циклічний масив ребер навколо u */
-    int* rotation_degree;   /* Ступінь кожної вершини deg(u) */
-    bool is_embedded;       /* true, якщо вкладення побудовано успішно */
-    
-    PlanarFace* faces;      /* Масив топологічних граней розбиття */
-} PlanarGraph;
-```
-```cpp
-#include <vector>
-#include <memory>
-
-class PlanarGraphModel {
-public:
-    explicit PlanarGraphModel(std::size_t num_vertices, std::size_t max_edges = 0);
-    ~PlanarGraphModel() = default;
-
-    PlanarGraphModel(const PlanarGraphModel&) = delete;
-    PlanarGraphModel& operator=(const PlanarGraphModel&) = delete;
-    PlanarGraphModel(PlanarGraphModel&&) noexcept = default;
-    PlanarGraphModel& operator=(PlanarGraphModel&&) noexcept = default;
-
-    [[nodiscard]] std::size_t vertex_count() const noexcept { return num_vertices_; }
-    [[nodiscard]] std::size_t edge_count() const noexcept { return num_edges_; }
-    [[nodiscard]] std::size_t face_count() const noexcept { return faces_.size(); }
-    [[nodiscard]] bool is_embedded() const noexcept { return is_embedded_; }
-
-private:
-    std::size_t num_vertices_{0};
-    std::size_t num_edges_{0};
-    bool is_embedded_{false};
-
-    std::vector<HalfEdgeRecord> half_edges_;
-    std::vector<std::vector<std::size_t>> rotation_system_;
-    std::vector<FaceRecord> faces_;
-};
-```
+:::code api-planarity-checker/c/6-osnovnyi-deskryptor.c
+:::code api-planarity-checker/cpp/6-osnovnyi-deskryptor.cpp
 :::
 
 ## Специфікація функцій життєвого циклу графа
@@ -480,118 +376,8 @@ PlanarGraphModel::build_dual() const;
 Наведений приклад демонструє повний цикл роботи з інтерфейсом: ініціалізацію графа, додавання ребер, лінійну перевірку планарності, побудову комбінаторного вкладення, виділення граней та перевірку формули Ейлера.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-/* Умовний заголовок бібліотеки planar_graph.h */
-
-int main(void) {
-    PlanarGraph* g = NULL;
-    
-    /* Створюємо граф: октаедр (6 вершин, 12 ребер, 8 граней) */
-    if (planar_graph_create(&g, 6, 12) != PLANAR_OK) {
-        fprintf(stderr, "Помилка виділення пам'яті\n");
-        return EXIT_FAILURE;
-    }
-
-    /* Додаємо ребра екваторіального квадрата */
-    planar_graph_add_edge(g, 0, 1, NULL);
-    planar_graph_add_edge(g, 1, 2, NULL);
-    planar_graph_add_edge(g, 2, 3, NULL);
-    planar_graph_add_edge(g, 3, 0, NULL);
-
-    /* Додаємо ребра до північного полюса (вершина 4) */
-    planar_graph_add_edge(g, 4, 0, NULL);
-    planar_graph_add_edge(g, 4, 1, NULL);
-    planar_graph_add_edge(g, 4, 2, NULL);
-    planar_graph_add_edge(g, 4, 3, NULL);
-
-    /* Додаємо ребра до південного полюса (вершина 5) */
-    planar_graph_add_edge(g, 5, 0, NULL);
-    planar_graph_add_edge(g, 5, 1, NULL);
-    planar_graph_add_edge(g, 5, 2, NULL);
-    planar_graph_add_edge(g, 5, 3, NULL);
-
-    /* 1. Лінійна перевірка планарності */
-    bool is_planar = false;
-    if (planar_graph_check_planarity(g, &is_planar) == PLANAR_OK && is_planar) {
-        printf("Граф є планарним!\n");
-
-        /* 2. Побудова комбінаторного вкладення */
-        planar_graph_compute_embedding(g);
-
-        /* 3. Виділення граней */
-        planar_graph_extract_faces(g);
-        printf("Вершин: %d, Ребер: %d, Граней: %d\n",
-               g->num_vertices, g->num_edges, g->num_faces);
-        printf("Баланс Ейлера V - E + F = %d (очікується 2)\n",
-               g->num_vertices - g->num_edges + g->num_faces);
-    } else {
-        printf("Граф не є планарним!\n");
-    }
-
-    /* 4. Звільнення ресурсів */
-    planar_graph_destroy(g);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-
-int main() {
-    // Створюємо граф октаедра (6 вершин)
-    auto graph_result = create_planar_graph(6, 12);
-    if (!graph_result) {
-        std::cerr << "Помилка створення графа\n";
-        return 1;
-    }
-
-    auto g = std::move(graph_result.value());
-
-    // Екваторіальний контур
-    g->add_edge(0, 1);
-    g->add_edge(1, 2);
-    g->add_edge(2, 3);
-    g->add_edge(3, 0);
-
-    // Зв'язки з північним полюсом
-    g->add_edge(4, 0);
-    g->add_edge(4, 1);
-    g->add_edge(4, 2);
-    g->add_edge(4, 3);
-
-    // Зв'язки з південним полюсом
-    g->add_edge(5, 0);
-    g->add_edge(5, 1);
-    g->add_edge(5, 2);
-    g->add_edge(5, 3);
-
-    // 1. Перевірка планарності
-    auto planarity = g->check_planarity();
-    if (planarity && *planarity) {
-        std::cout << "Граф є планарним!\n";
-
-        // 2. Побудова системи ротацій
-        g->compute_embedding();
-
-        // 3. Виділення граней
-        auto faces = g->extract_faces();
-        if (faces) {
-            std::cout << "Вершин: " << g->vertex_count()
-                      << ", Ребер: " << g->edge_count()
-                      << ", Граней: " << faces->size() << "\n";
-            std::cout << "Баланс Ейлера: "
-                      << g->vertex_count() - g->edge_count() + faces->size()
-                      << " (очікується 2)\n";
-        }
-    }
-
-    return 0;
-}
-```
+:::code api-planarity-checker/c/povnyi-pryklad-naskriznoho.c
+:::code api-planarity-checker/cpp/povnyi-pryklad-naskriznoho.cpp
 :::
 
 ## Обробка граничних та крайових випадків

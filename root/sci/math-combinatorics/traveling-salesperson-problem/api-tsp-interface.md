@@ -18,71 +18,10 @@
 
 :::tabs
 @tab C
-```c
-/**
- * @brief Тип геометрії або метрики відстаней між містами.
- */
-typedef enum {
-    TSP_METRIC_EUCLIDEAN_2D = 0, /* Двовимірна евклідова відстань */
-    TSP_METRIC_MANHATTAN    = 1, /* Мангеттенська відстань (|x1-x2| + |y1-y2|) */
-    TSP_METRIC_GENERAL      = 2, /* Загальна симетрична матриця відстаней */
-    TSP_METRIC_ASYMMETRIC   = 3  /* Асиметрична матриця (w[i][j] != w[j][i]) */
-} tsp_metric_type_t;
-
-/**
- * @brief Алгоритм, що застосовується для розв'язання задачі.
- */
-typedef enum {
-    TSP_ALG_HELD_KARP       = 0, /* Точний алгоритм DP: O(n^2 * 2^n), n <= 22 */
-    TSP_ALG_BRANCH_AND_BOUND= 1, /* Точний алгоритм гілок і меж, n <= 60 */
-    TSP_ALG_CHRISTOFIDES    = 2, /* 1.5-апроксимація для метричних задач, n <= 5000 */
-    TSP_ALG_2OPT_HEURISTIC  = 3  /* Швидка евристика локального пошуку, n <= 100000 */
-} tsp_algorithm_t;
-
-/**
- * @brief Коди статусу та помилок виконання солвера.
- */
-typedef enum {
-    TSP_SUCCESS             =  0, /* Успішне завершення, оптимальний або наближений розв'язок знайдено */
-    TSP_ERR_INVALID_PARAM   = -1, /* Некоректні вхідні аргументи (NULL вказівники, n = 0) */
-    TSP_ERR_NON_METRIC      = -2, /* Граф не задовольняє нерівність трикутника для алгоритму Крістофідеса */
-    TSP_ERR_TIMEOUT         = -3, /* Перевищено максимальний відведений час виконання */
-    TSP_ERR_OUT_OF_MEMORY   = -4, /* Неможливо виділити необхідний обсяг системної пам'яті */
-    TSP_ERR_OVERFLOW        = -5  /* Кількість вершин n перевищує межу алгоритму (наприклад n > 31 для DP) */
-} tsp_status_t;
-```
+:::code api-tsp-interface/c/1-1-perelichuvani-typy-ta.c
 
 @tab C++
-```cpp
-#include <cstdint>
-
-namespace tsp {
-
-enum class MetricType : uint8_t {
-    Euclidean2D = 0,
-    Manhattan   = 1,
-    General     = 2,
-    Asymmetric  = 3
-};
-
-enum class Algorithm : uint8_t {
-    HeldKarp       = 0,
-    BranchAndBound = 1,
-    Christofides   = 2,
-    LocalSearch2Opt= 3
-};
-
-enum class Status : int8_t {
-    Success          =  0,
-    InvalidParameter = -1,
-    NonMetric        = -2,
-    Timeout          = -3,
-    OutOfMemory      = -4,
-    Overflow         = -5
-};
-
-} // namespace tsp
-```
+:::code api-tsp-interface/cpp/1-1-perelichuvani-typy-ta.cpp
 :::
 
 Детальний функціональний опис кожного значення перелічуваного типу:
@@ -110,70 +49,10 @@ enum class Status : int8_t {
 
 :::tabs
 @tab C
-```c
-/**
- * @brief Функція зворотного виклику для відстеження прогресу (Callback).
- * @param progress Дробове значення від 0.0 (початок) до 1.0 (завершення).
- * @param user_data Вказівник на контекст користувача.
- * @return true — продовжувати обчислення, false — негайно перервати обчислення.
- */
-typedef bool (*tsp_progress_cb)(double progress, void* user_data);
-
-/**
- * @brief Конфігураційна структура параметрів солвера.
- */
-typedef struct {
-    tsp_algorithm_t algorithm;  /* Обраний алгоритм розв'язання */
-    tsp_metric_type_t metric;   /* Тип метрики вхідних даних */
-    double time_limit_sec;      /* Ліміт часу в секундах (0.0 — без обмеження) */
-    double target_precision;    /* Бажаний коефіцієнт точності (наприклад 0.05 = 5%) */
-    size_t num_threads;         /* Кількість паралельних потоків обробки */
-    tsp_progress_cb callback;   /* Функція зворотного виклику для прогресу */
-    void* user_data;            /* Контекстний вказівник для колбеку */
-} tsp_config_t;
-
-/**
- * @brief Структура для повернення результату розв'язання.
- */
-typedef struct {
-    tsp_status_t status;        /* Код статусу виконання */
-    double tour_cost;           /* Загальна довжина/вага знайденого маршруту */
-    int* tour;                  /* Динамічний масив послідовності вершин розміру (n + 1) */
-    size_t tour_size;           /* Кількість елементів у масиві tour (n + 1) */
-    double elapsed_time_sec;    /* Фактично витрачений час обчислення у секундах */
-    uint64_t nodes_evaluated;   /* Кількість переглянутих станів/вузлів дерева */
-} tsp_result_t;
-```
+:::code api-tsp-interface/c/2-1-opys-poliv.c
 
 @tab C++
-```cpp
-#include <vector>
-#include <chrono>
-#include <functional>
-
-namespace tsp {
-
-using ProgressCallback = std::function<bool(double progress)>;
-
-struct Config {
-    Algorithm algorithm{Algorithm::Christofides};
-    MetricType metric{MetricType::General};
-    std::chrono::duration<double> time_limit{0};
-    double target_precision{0.0};
-    size_t num_threads{1};
-    ProgressCallback callback{nullptr};
-};
-
-struct Result {
-    Status status{Status::Success};
-    double tour_cost{0.0};
-    std::vector<size_t> tour;
-    std::chrono::duration<double> elapsed_time{0};
-    uint64_t nodes_evaluated{0};
-};
-
-} // namespace tsp
-```
+:::code api-tsp-interface/cpp/2-1-opys-poliv.cpp
 :::
 
 Детальна семантика полів конфігурації та результату:
@@ -196,86 +75,10 @@ struct Result {
 
 :::tabs
 @tab C
-```c
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
- * @brief Ініціалізація структури конфігурації за замовчуванням.
- * @param config Вказівник на структуру конфігурації.
- */
-void tsp_config_init(tsp_config_t* config);
-
-/**
- * @brief Головна функція розв'язання задачі комівояжера за матрицею відстаней.
- * @param matrix Матриця відстаней розміру n x n (одномірний масив row-major).
- * @param n Кількість вершин/міст у графі.
- * @param config Налаштування солвера (якщо NULL, використовуються за замовчуванням).
- * @param result Вихідна структура результату.
- * @return TSP_SUCCESS у разі успіху або код помилки.
- */
-tsp_status_t tsp_solve_matrix(const double* matrix, size_t n, 
-                             const tsp_config_t* config, 
-                             tsp_result_t* result);
-
-/**
- * @brief Звільнення динамічної пам'яті, виділеної у структурі результату.
- * @param result Вказівник на структуру результату.
- */
-void tsp_result_free(tsp_result_t* result);
-
-/**
- * @brief Перевірка матриці відстаней на відповідність нерівності трикутника.
- * @param matrix Матриця розміру n x n.
- * @param n Кількість вершин.
- * @return true — якщо нерівність трикутника виконується для всіх трійок вершин.
- */
-bool tsp_validate_triangle_inequality(const double* matrix, size_t n);
-
-#ifdef __cplusplus
-}
-#endif
-```
+:::code api-tsp-interface/c/3-publichni-funktsii-ta.h
 
 @tab C++
-```cpp
-#include <vector>
-#include <memory>
-#include <span>
-
-namespace tsp {
-
-class Solver {
-public:
-    explicit Solver(Algorithm alg = Algorithm::Christofides) 
-        : config_{.algorithm = alg} {}
-
-    Solver& set_metric(MetricType metric) {
-        config_.metric = metric;
-        return *this;
-    }
-
-    Solver& set_time_limit(std::chrono::duration<double> limit) {
-        config_.time_limit = limit;
-        return *this;
-    }
-
-    Solver& set_threads(size_t threads) {
-        config_.num_threads = threads;
-        return *this;
-    }
-
-    [[nodiscard]] Result solve(std::span<const double> matrix_flat, size_t n) const;
-    [[nodiscard]] Result solve(const std::vector<std::vector<double>>& matrix) const;
-    [[nodiscard]] static bool validate_triangle_inequality(const std::vector<std::vector<double>>& matrix);
-
-private:
-    Config config_;
-};
-
-} // namespace tsp
-```
+:::code api-tsp-interface/cpp/3-publichni-funktsii-ta.cpp
 :::
 
 Детальний порядок виклику функцій:
@@ -303,18 +106,6 @@ private:
 4. **Інтеграція з іншими мовами через FFI:**
    Завдяки відсутності складних структур C++ у заголовочному файлі `tsp.h`, бібліотека легко імпортується у мову Python за допомогою пакета `ctypes`:
 
-```python
-import ctypes
-
-class TSPResult(ctypes.Structure):
-    _fields_ = [
-        ("status", ctypes.c_int),
-        ("tour_cost", ctypes.c_double),
-        ("tour", ctypes.POINTER(ctypes.c_int)),
-        ("tour_size", ctypes.c_size_t),
-        ("elapsed_time_sec", ctypes.c_double),
-        ("nodes_evaluated", ctypes.c_uint64)
-    ]
-```
+:::code api-tsp-interface/py/main.py
 
 Це дозволяє використовувати високопродуктивне C-ядро `libtsp` у високорівневих скриптах аналізу даних без втрати швидкодії.

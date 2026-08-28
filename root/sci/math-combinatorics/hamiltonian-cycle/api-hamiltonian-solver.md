@@ -33,21 +33,7 @@ typedef enum {
     HAMILTONIAN_ERROR_CANCELED     = -5   /* Виконання скасовано за запитом користувача */
 } hamiltonian_status_t;
 ```
-```cpp
-namespace hamiltonian {
-
-enum class Status : int32_t {
-    Success           =  0,  // Гамільтонів цикл знайдено успішно
-    NoCycleExists     =  1,  // Доведено відсутність циклу у графі
-    ErrorNullPointer  = -1,  // Передано невалідний вказівник nullptr
-    ErrorInvalidSize  = -2,  // Некоректна кількість вершин
-    ErrorOutOfMemory  = -3,  // Нестача оперативної пам'яті
-    ErrorTimeout      = -4,  // Перевищено ліміт часу виконання
-    ErrorCanceled     = -5   // Виконання скасовано за запитом
-};
-
-} // namespace hamiltonian
-```
+:::code api-hamiltonian-solver/cpp/2-kody-povernennia-ta.cpp
 :::
 
 ### Деталізація семантики кодів статусу та обробка помилок
@@ -75,18 +61,7 @@ typedef enum {
     HAMILTONIAN_ALGO_SAT_REDUCE = 3   /* Звідність до 3SAT та виклик SAT-солвера */
 } hamiltonian_algo_t;
 ```
-```cpp
-namespace hamiltonian {
-
-enum class Algorithm : uint8_t {
-    Auto      = 0,  // Автоматичний вибір двигуна
-    Backtrack = 1,  // Точний пошук у глибину з відсіканням
-    HeldKarp  = 2,  // Динамічне програмування з бітовими масками
-    SatReduce = 3   // Звідність до 3SAT та виклик SAT-солвера
-};
-
-} // namespace hamiltonian
-```
+:::code api-hamiltonian-solver/cpp/3-perelichuvanyi-typ.cpp
 :::
 
 ---
@@ -106,23 +81,7 @@ typedef struct {
     int num_threads;               /* Кількість паралельних потоків (1 = однопотоковий режим) */
 } hamiltonian_config_t;
 ```
-```cpp
-#include <chrono>
-#include <cstddef>
-
-namespace hamiltonian {
-
-struct Config {
-    Algorithm algorithm{Algorithm::Auto};
-    std::chrono::milliseconds timeout{0};
-    size_t max_memory_bytes{0};
-    bool find_all_cycles{false};
-    bool enable_dirac_check{true};
-    int num_threads{1};
-};
-
-} // namespace hamiltonian
-```
+:::code api-hamiltonian-solver/cpp/4-struktura-konfihuratsii.cpp
 :::
 
 ### Опис полів конфігурації
@@ -150,22 +109,7 @@ typedef struct {
     double elapsed_seconds;       /* Точний витрачений час у секундах */
 } hamiltonian_result_t;
 ```
-```cpp
-#include <vector>
-#include <chrono>
-#include <cstdint>
-
-namespace hamiltonian {
-
-struct Result {
-    Status status{Status::NoCycleExists};
-    std::vector<size_t> path{};
-    uint64_t states_explored{0};
-    std::chrono::duration<double> elapsed_time{0};
-};
-
-} // namespace hamiltonian
-```
+:::code api-hamiltonian-solver/cpp/5-struktura-rezultatu.cpp
 :::
 
 ### Правила володіння пам'яттю (Memory Ownership Contract)
@@ -180,104 +124,8 @@ struct Result {
 Нижче наведено повні заголовочні файли інтерфейсу для C та C++.
 
 :::tabs
-```c
-#ifndef LIBHAMILTONIAN_H
-#define LIBHAMILTONIAN_H
-
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct hamiltonian_graph hamiltonian_graph_t;
-
-/* Створення нового графа на num_vertices вершин */
-hamiltonian_graph_t* hamiltonian_graph_create(size_t num_vertices);
-
-/* Звільнення ресурсів графа */
-void hamiltonian_graph_free(hamiltonian_graph_t *graph);
-
-/* Додавання неупорядкованого ребра між u та v */
-hamiltonian_status_t hamiltonian_graph_add_edge(hamiltonian_graph_t *graph, size_t u, size_t v);
-
-/* Ініціалізація структури конфігурації параметрами за замовчуванням */
-void hamiltonian_config_init_default(hamiltonian_config_t *config);
-
-/* Основна функція розв'язання задачі гамільтонового циклу */
-hamiltonian_status_t hamiltonian_solve(
-    const hamiltonian_graph_t *graph,
-    const hamiltonian_config_t *config,
-    hamiltonian_result_t *out_result
-);
-
-/* Звільнення внутрішніх ресурсів структури результату */
-void hamiltonian_result_free(hamiltonian_result_t *result);
-
-/* Допоміжна перевірка достатніх умов Дірака (O(V)) */
-bool hamiltonian_check_dirac_condition(const hamiltonian_graph_t *graph);
-
-/* Допоміжна перевірка достатніх умов Оре (O(V²)) */
-bool hamiltonian_check_ore_condition(const hamiltonian_graph_t *graph);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* LIBHAMILTONIAN_H */
-```
-```cpp
-#ifndef LIBHAMILTONIAN_HPP
-#define LIBHAMILTONIAN_HPP
-
-#include <vector>
-#include <optional>
-#include <cstdint>
-#include <chrono>
-#include <span>
-
-namespace hamiltonian {
-
-class Graph {
-public:
-    explicit Graph(size_t vertices);
-    ~Graph() = default;
-
-    Graph(const Graph&) = delete;
-    Graph& operator=(const Graph&) = delete;
-    Graph(Graph&&) noexcept = default;
-    Graph& operator=(Graph&&) noexcept = default;
-
-    Status add_edge(size_t u, size_t v);
-    [[nodiscard]] size_t num_vertices() const noexcept;
-    [[nodiscard]] size_t num_edges() const noexcept;
-    [[nodiscard]] bool has_edge(size_t u, size_t v) const noexcept;
-
-    [[nodiscard]] bool check_dirac() const noexcept;
-    [[nodiscard]] bool check_ore() const noexcept;
-
-private:
-    size_t vertices_;
-    size_t edges_{0};
-    std::vector<std::vector<uint8_t>> adj_;
-};
-
-class Solver {
-public:
-    explicit Solver(Config config = {});
-    
-    [[nodiscard]] Result solve(const Graph& graph) const;
-    
-private:
-    Config config_;
-};
-
-} // namespace hamiltonian
-
-#endif /* LIBHAMILTONIAN_HPP */
-```
+:::code api-hamiltonian-solver/c/6-publichnyi-api.h
+:::code api-hamiltonian-solver/cpp/6-publichnyi-api.hpp
 :::
 
 ### Детальна специфікація функцій C API
@@ -307,82 +155,8 @@ private:
 Нижче наведено повні приклади створення графа, налаштування конфігурації та обробки результатів мовами C та C++.
 
 :::tabs
-```c
-#include "libhamiltonian.h"
-#include <stdio.h>
-
-int main(void) {
-    size_t n = 5;
-    hamiltonian_graph_t *g = hamiltonian_graph_create(n);
-    if (!g) return 1;
-
-    /* Створення циклу 0-1-2-3-4-0 з додатковими хордами */
-    hamiltonian_graph_add_edge(g, 0, 1);
-    hamiltonian_graph_add_edge(g, 1, 2);
-    hamiltonian_graph_add_edge(g, 2, 3);
-    hamiltonian_graph_add_edge(g, 3, 4);
-    hamiltonian_graph_add_edge(g, 4, 0);
-    hamiltonian_graph_add_edge(g, 1, 3);
-
-    hamiltonian_config_t config;
-    hamiltonian_config_init_default(&config);
-    config.algorithm = HAMILTONIAN_ALGO_HELD_KARP;
-
-    hamiltonian_result_t result;
-    hamiltonian_status_t st = hamiltonian_solve(g, &config, &result);
-
-    if (st == HAMILTONIAN_SUCCESS) {
-        printf("Гамільтонів цикл знайдено (вершин %zu):\n", result.path_length);
-        for (size_t i = 0; i < result.path_length; ++i) {
-            printf("%zu ", result.path[i]);
-        }
-        printf("\nВитрачено часу: %.6f сек, станів: %lu\n", 
-               result.elapsed_seconds, (unsigned long)result.states_explored);
-    } else {
-        printf("Гамільтонів цикл відсутній або сталася помилка: %d\n", st);
-    }
-
-    hamiltonian_result_free(&result);
-    hamiltonian_graph_free(g);
-    return 0;
-}
-```
-```cpp
-#include "libhamiltonian.hpp"
-#include <iostream>
-
-int main() {
-    constexpr size_t n = 5;
-    hamiltonian::Graph g(n);
-
-    g.add_edge(0, 1);
-    g.add_edge(1, 2);
-    g.add_edge(2, 3);
-    g.add_edge(3, 4);
-    g.add_edge(4, 0);
-    g.add_edge(1, 3);
-
-    hamiltonian::Config config;
-    config.algorithm = hamiltonian::Algorithm::HeldKarp;
-    config.timeout = std::chrono::milliseconds(5000);
-
-    hamiltonian::Solver solver(config);
-    hamiltonian::Result res = solver.solve(g);
-
-    if (res.status == hamiltonian::Status::Success) {
-        std::cout << "Гамільтонів цикл знайдено (вершин " << res.path.size() << "):\n";
-        for (size_t v : res.path) {
-            std::cout << v << " ";
-        }
-        std::cout << "\nВитрачено часу: " << res.elapsed_time.count() 
-                  << "s, досліджені стани: " << res.states_explored << "\n";
-    } else {
-        std::cout << "Гамільтонів цикл відсутній.\n";
-    }
-
-    return 0;
-}
-```
+:::code api-hamiltonian-solver/c/7-pryklad-idiomatychnoho.c
+:::code api-hamiltonian-solver/cpp/7-pryklad-idiomatychnoho.cpp
 :::
 
 ---

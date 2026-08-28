@@ -95,53 +95,8 @@ L = E − V + 1.
 **Дано граф зі списком суміжності; перевірити, чи досяжна вершина `dst` зі старту `src`.**
 
 :::tabs
-```cpp
-#include <vector>
-#include <queue>
-
-// adj[v] — список сусідів вершини v; вершини занумеровано 0..N-1
-bool reachable(const std::vector<std::vector<int>>& adj, int src, int dst) {
-    if (src == dst) return true;
-    std::vector<char> seen(adj.size(), 0);   // хто вже відвіданий
-    std::queue<int> frontier;                // фронт хвилі обходу
-    seen[src] = 1;
-    frontier.push(src);
-
-    while (!frontier.empty()) {
-        int v = frontier.front();
-        frontier.pop();
-        for (int nb : adj[v]) {              // усі сусіди поточної вершини
-            if (nb == dst) return true;      // дійшли до цілі
-            if (!seen[nb]) {                 // ще не бачили — у фронт
-                seen[nb] = 1;
-                frontier.push(nb);
-            }
-        }
-    }
-    return false;                            // фронт вичерпано — шляху нема
-}
-```
-```python
-from collections import deque
-
-# adj[v] — список сусідів вершини v; вершини занумеровано 0..N-1
-def reachable(adj, src, dst):
-    if src == dst:
-        return True
-    seen = [False] * len(adj)            # хто вже відвіданий
-    frontier = deque([src])              # фронт хвилі обходу
-    seen[src] = True
-
-    while frontier:
-        v = frontier.popleft()
-        for nb in adj[v]:                # усі сусіди поточної вершини
-            if nb == dst:                # дійшли до цілі
-                return True
-            if not seen[nb]:             # ще не бачили — у фронт
-                seen[nb] = True
-                frontier.append(nb)
-    return False                         # фронт вичерпано — шляху нема
-```
+:::code graph-theory-d/cpp/main.cpp
+:::code graph-theory-d/py/main.py
 :::
 
 Кожну вершину тут кладемо у фронт **щонайбільше раз** (бо відмічаємо `seen`), а її ребра переглядаємо лише коли витягуємо вершину. Тому весь обхід коштує приблизно «число вершин плюс число ребер» — лінійно за розміром графа. На матриці суміжності рядок кожної вершини довелося б пробігати цілком (N клітинок), і вийшло б помітно дорожче на розрідженому графі — ось де подання дається взнаки на практиці.

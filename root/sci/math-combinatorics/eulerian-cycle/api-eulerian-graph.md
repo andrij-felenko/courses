@@ -43,32 +43,8 @@
 Всі функції бібліотечного інтерфейсу повертають деталізований системний статус. Це дозволяє клієнтському коду точно діагностувати причину відмови та вживати відповідних заходів відновлення.
 
 :::tabs
-```c
-typedef enum {
-    EULER_SUCCESS                 =  0, /* Операція успішно виконана */
-    EULER_ERR_NULL_POINTER        = -1, /* Передано нульовий покажчик (NULL) */
-    EULER_ERR_INVALID_VERTEX      = -2, /* Індекс вершини виходить за межі [0, V-1] */
-    EULER_ERR_OUT_OF_MEMORY       = -3, /* Помилка виділення динамічної пам'яті */
-    EULER_ERR_NOT_EULERIAN        = -4, /* Граф не задовольняє умові парності степеней */
-    EULER_ERR_DISCONNECTED        = -5, /* Ребра належать кільком компонентам */
-    EULER_ERR_NO_PATH_EXISTS      = -6, /* Ейлерів шлях/цикл не існує */
-    EULER_ERR_EMPTY_GRAPH         = -7, /* Граф не містить жодного ребра */
-    EULER_ERR_FROZEN_GRAPH        = -8  /* Спроба модифікації заклиненого графа */
-} euler_status_t;
-```
-```cpp
-enum class Status : int32_t {
-    Success             =  0,
-    NullPointer         = -1,
-    InvalidVertex       = -2,
-    OutOfMemory         = -3,
-    NotEulerian         = -4,
-    Disconnected        = -5,
-    NoPathExists        = -6,
-    EmptyGraph          = -7,
-    FrozenGraph         = -8
-};
-```
+:::code api-eulerian-graph/c/1-perelichennia-statusiv.c
+:::code api-eulerian-graph/cpp/1-perelichennia-statusiv.cpp
 :::
 
 #### Деталізація семантики помилок:
@@ -131,19 +107,7 @@ struct EdgeInfo {
 Контракт C API інкапсулює внутрішні деталі реалізації за допомогою непрозорого покажчика (Opaque Pointer), тоді як C++ використовує ідіому Pimpl з `std::unique_ptr`.
 
 :::tabs
-```c
-typedef struct euler_graph_s euler_graph_t;
-
-struct euler_graph_s {
-    int num_vertices;            /* Кількість вершин V */
-    int num_edges;               /* Кількість ребер E */
-    euler_graph_type_t type;     /* Тип графа */
-    int* in_degree;              /* Масив вхідних степеней */
-    int* out_degree;             /* Масив вихідних степеней */
-    void* adj_lists;             /* Списки суміжності */
-    bool is_frozen;              /* Прапорець заклинення */
-};
-```
+:::code api-eulerian-graph/c/4-neprozora-struktura.c
 ```cpp
 class EulerianGraph {
 private:
@@ -320,84 +284,8 @@ void euler_graph_free(euler_graph_t* graph);
 Нижче наведено повноцінні приклади створення графа, додавання ребер, перевірки властивостей та знаходження ейлерового циклу.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "euler_api.h"
-
-int main(void) {
-    euler_graph_t* graph = NULL;
-    euler_status_t status;
-
-    /* 1. Створення орієнтованого графа з 4 вершинами */
-    status = euler_graph_create(4, EULER_GRAPH_DIRECTED, &graph);
-    if (status != EULER_SUCCESS) {
-        fprintf(stderr, "Помилка створення графа: %d\n", status);
-        return EXIT_FAILURE;
-    }
-
-    /* 2. Додавання ребер: 0->1->2->3->0 та 1->3->1 */
-    euler_graph_add_edge(graph, 0, 1, 1, NULL);
-    euler_graph_add_edge(graph, 1, 2, 1, NULL);
-    euler_graph_add_edge(graph, 2, 3, 1, NULL);
-    euler_graph_add_edge(graph, 3, 0, 1, NULL);
-    euler_graph_add_edge(graph, 1, 3, 1, NULL);
-    euler_graph_add_edge(graph, 3, 1, 1, NULL);
-
-    /* 3. Пошук ейлерового циклу */
-    euler_result_t result;
-    status = euler_graph_find_circuit(graph, 0, &result);
-
-    if (status == EULER_SUCCESS) {
-        printf("Ейлерів цикл успішно знайдено (довжина %d вершин):\n", result.length);
-        for (int i = 0; i < result.length; i++) {
-            printf("%d%s", result.path_vertices[i], (i == result.length - 1) ? "\n" : " -> ");
-        }
-        euler_result_free(&result);
-    } else {
-        printf("Не вдалося побудувати ейлерів цикл, код помилки: %d\n", status);
-    }
-
-    /* 4. Звільнення ресурсів */
-    euler_graph_free(graph);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include "euler_api.hpp"
-
-int main() {
-    try {
-        // 1. Створення орієнтованого графа з 4 вершинами (RAII)
-        euler::EulerianGraph graph(4, euler::GraphType::Directed);
-
-        // 2. Додавання ребер: 0->1->2->3->0 та 1->3->1
-        graph.add_edge(0, 1);
-        graph.add_edge(1, 2);
-        graph.add_edge(2, 3);
-        graph.add_edge(3, 0);
-        graph.add_edge(1, 3);
-        graph.add_edge(3, 1);
-
-        // 3. Пошук ейлерового циклу через std::optional
-        if (auto result = graph.find_circuit(0)) {
-            std::cout << "Ейлерів цикл успішно знайдено (довжина " 
-                      << result->vertices.size() << " вершин):\n";
-            for (std::size_t i = 0; i < result->vertices.size(); ++i) {
-                std::cout << result->vertices[i] 
-                          << (i == result->vertices.size() - 1 ? "\n" : " -> ");
-            }
-        } else {
-            std::cout << "Граф не містить ейлерового циклу.\n";
-        }
-    } catch (const std::exception& ex) {
-        std::cerr << "Системна помилка: " << ex.what() << "\n";
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
-}
-```
+:::code api-eulerian-graph/c/pryklad-vykorystannia-api.c
+:::code api-eulerian-graph/cpp/pryklad-vykorystannia-api.cpp
 :::
 
 ---

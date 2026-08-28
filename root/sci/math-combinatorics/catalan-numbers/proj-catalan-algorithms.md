@@ -12,43 +12,8 @@
 Оскільки внутрішній цикл здійснює послідовний доступ до елементів суцільного масиву `c`, процесорний префетчер L1/L2 кешу успішно прогнозує завантаження даних із RAM. Завдяки цьому внутрішній цикл виконується з мінімальною кількістю кеш-промахів, а кожна оновлювана комірка пам'яті завантажується безпосередньо у L1-кеш.
 
 :::tabs
-```c
-// Динамічне програмування мовою C: обчислення масиву C[0...n]
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-uint64_t* catalan_dp_array(size_t n) {
-    uint64_t* c = (uint64_t*)calloc(n + 1, sizeof(uint64_t));
-    if (!c) return NULL;
-
-    c[0] = 1;
-    for (size_t i = 1; i <= n; ++i) {
-        for (size_t j = 0; j < i; ++j) {
-            c[i] += c[j] * c[i - 1 - j];
-        }
-    }
-    return c;
-}
-```
-```cpp
-// Динамічне програмування мовою C++: ідіоматичний контейнер std::vector
-#include <vector>
-#include <cstdint>
-#include <stdexcept>
-
-std::vector<std::uint64_t> generate_catalan_sequence(std::size_t n) {
-    std::vector<std::uint64_t> c(n + 1, 0);
-    c[0] = 1;
-
-    for (std::size_t i = 1; i <= n; ++i) {
-        for (std::size_t j = 0; j < i; ++j) {
-            c[i] += c[j] * c[i - 1 - j];
-        }
-    }
-    return c;
-}
-```
+:::code proj-catalan-algorithms/c/mekhanizm-tabuliatsii-ta.c
+:::code proj-catalan-algorithms/cpp/mekhanizm-tabuliatsii-ta.cpp
 :::
 
 Часова складність становить `O(n²)`, а просторова складність — `O(n)`.
@@ -72,40 +37,8 @@ Cᵢ = Cᵢ⋇ · (4i - 2) / (i + 1)
 - **64-бітний тип `uint64_t`**: Межа переповнення досягається при `n = 36` (`C₃₅ = 3,116,285,494,907,301,260`, а `C₃₆ = 14,304,180,486,636,048,088 > 2⁶⁴ - 1`).
 
 :::tabs
-```c
-// Мультиплікативне обчислення мовою C з перевіркою переповнення uint64_t
-#include <stdint.h>
-#include <stdbool.h>
-
-bool catalan_direct(uint32_t n, uint64_t* result) {
-    if (n > 35) {
-        // C_36 переповнює 64-бітне беззнакове число uint64_t (C_36 = 14,304,180,486,636,048,088 > 2^64-1)
-        return false;
-    }
-    uint64_t res = 1;
-    for (uint64_t i = 1; i <= n; ++i) {
-        res = res * (4 * i - 2) / (i + 1);
-    }
-    *result = res;
-    return true;
-}
-```
-```cpp
-// Мультиплікативне обчислення мовою C++ з використанням std::optional
-#include <cstdint>
-#include <optional>
-
-std::optional<std::uint64_t> compute_catalan_single(std::uint32_t n) noexcept {
-    if (n > 35) {
-        return std::nullopt; // Межа 64-бітного беззнакового типом uint64_t
-    }
-    std::uint64_t res = 1;
-    for (std::uint64_t i = 1; i <= n; ++i) {
-        res = res * (4 * i - 2) / (i + 1);
-    }
-    return res;
-}
-```
+:::code proj-catalan-algorithms/c/limity-aparatnykh.c
+:::code proj-catalan-algorithms/cpp/limity-aparatnykh.cpp
 :::
 
 Часова складність становить `O(n)`, а просторова складність — `O(1)`.
@@ -126,70 +59,8 @@ a⁻¹ ≡ aᴹ⁻² (mod M)
 Піднесення до степеня `M - 2` виконується за допомогою алгоритму бінарного піднесення до степеня (Binary Exponentiation) за `O(log M)` часу.
 
 :::tabs
-```c
-// Модулярне обчислення числа Каталана мовою C
-#include <stdint.h>
-
-static uint64_t power_mod(uint64_t base, uint64_t exp, uint64_t mod) {
-    uint64_t res = 1;
-    base %= mod;
-    while (exp > 0) {
-        if (exp % 2 == 1) res = (res * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return res;
-}
-
-static uint64_t mod_inverse(uint64_t n, uint64_t mod) {
-    return power_mod(n, mod - 2, mod);
-}
-
-uint64_t catalan_mod(uint32_t n, uint64_t mod) {
-    uint64_t res = 1;
-    for (uint32_t i = 1; i <= n; ++i) {
-        uint64_t num = (4 * (uint64_t)i - 2) % mod;
-        uint64_t den_inv = mod_inverse(i + 1, mod);
-        res = (res * num) % mod;
-        res = (res * den_inv) % mod;
-    }
-    return res;
-}
-```
-```cpp
-// Модулярне обчислення числа Каталана мовою C++ з узагальненим типом
-#include <cstdint>
-
-class ModularCatalan {
-public:
-    static std::uint64_t compute(std::uint32_t n, std::uint64_t mod) {
-        std::uint64_t res = 1;
-        for (std::uint32_t i = 1; i <= n; ++i) {
-            std::uint64_t num = (4ULL * i - 2) % mod;
-            std::uint64_t den_inv = mod_inverse(i + 1, mod);
-            res = (res * num) % mod;
-            res = (res * den_inv) % mod;
-        }
-        return res;
-    }
-
-private:
-    static std::uint64_t power(std::uint64_t base, std::uint64_t exp, std::uint64_t mod) noexcept {
-        std::uint64_t res = 1;
-        base %= mod;
-        while (exp > 0) {
-            if (exp & 1) res = (res * base) % mod;
-            base = (base * base) % mod;
-            exp >>= 1;
-        }
-        return res;
-    }
-
-    static std::uint64_t mod_inverse(std::uint64_t val, std::uint64_t mod) noexcept {
-        return power(val, mod - 2, mod);
-    }
-};
-```
+:::code proj-catalan-algorithms/c/alhorytm-moduliarnoho.c
+:::code proj-catalan-algorithms/cpp/alhorytm-moduliarnoho.cpp
 :::
 
 Загальна часова складність обчислення за модулем становить `O(n log M)`.
@@ -206,78 +77,8 @@ private:
 5. Процес рекурсивно продовжується для лівого та правого дітей. Якщо `rank ≥ count`, значення `count` віднімається від `rank`, і ми переходимо до наступного `left_size`.
 
 :::tabs
-```c
-// Побудова топології двійкового дерева за порядковим індексом (Unranking) мовою C
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-typedef struct Node {
-    struct Node* left;
-    struct Node* right;
-} Node;
-
-static Node* create_node(void) {
-    Node* n = (Node*)calloc(1, sizeof(Node));
-    return n;
-}
-
-Node* build_tree_unrank(size_t n, uint64_t rank, const uint64_t* C) {
-    if (n == 0) return NULL;
-
-    Node* root = create_node();
-    for (size_t left_size = 0; left_size < n; ++left_size) {
-        size_t right_size = n - 1 - left_size;
-        uint64_t count = C[left_size] * C[right_size];
-        if (rank < count) {
-            uint64_t left_rank = rank / C[right_size];
-            uint64_t right_rank = rank % C[right_size];
-            root->left = build_tree_unrank(left_size, left_rank, C);
-            root->right = build_tree_unrank(right_size, right_rank, C);
-            return root;
-        }
-        rank -= count;
-    }
-    return root;
-}
-```
-```cpp
-// Побудова топології двійкового дерева за порядковим індексом (Unranking) мовою C++ (RAII)
-#include <memory>
-#include <vector>
-#include <cstdint>
-
-struct TreeStructureNode {
-    std::unique_ptr<TreeStructureNode> left;
-    std::unique_ptr<TreeStructureNode> right;
-};
-
-std::unique_ptr<TreeStructureNode> unrank_binary_tree(
-    std::size_t n, 
-    std::uint64_t rank, 
-    const std::vector<std::uint64_t>& catalan_table) 
-{
-    if (n == 0) {
-        return nullptr;
-    }
-
-    auto root = std::make_unique<TreeStructureNode>();
-    for (std::size_t left_size = 0; left_size < n; ++left_size) {
-        std::size_t right_size = n - 1 - left_size;
-        std::uint64_t count = catalan_table[left_size] * catalan_table[right_size];
-
-        if (rank < count) {
-            std::uint64_t left_rank = rank / catalan_table[right_size];
-            std::uint64_t right_rank = rank % catalan_table[right_size];
-            root->left = unrank_binary_tree(left_size, left_rank, catalan_table);
-            root->right = unrank_binary_tree(right_size, right_rank, catalan_table);
-            return root;
-        }
-        rank -= count;
-    }
-    return root;
-}
-```
+:::code proj-catalan-algorithms/c/mekhanizm-roboty.c
+:::code proj-catalan-algorithms/cpp/mekhanizm-roboty.cpp
 :::
 
 Часова складність алгоритму Unranking становить `O(n²)`, що дозволяє генерувати рівномірно розподілені випадкові топології двійкових дерев для `n = 30` менш ніж за 1 мікросекунду.

@@ -24,19 +24,7 @@ typedef enum {
     WALK_ERR_MAX_STEPS        = -6   // Перевищено ліміт кроків без досягнення збіжності
 } WalkStatus;
 ```
-```cpp
-#include <cstdint>
-
-enum class WalkStatus : int32_t {
-    Success             =  0,  // Операцію виконано успішно
-    ErrInvalidArg       = -1,  // Некоректний аргумент
-    ErrDisconnected     = -2,  // Граф незв'язний
-    ErrPeriodic         = -3,  // Граф дводольний
-    ErrDampingRange     = -4,  // Некоректний alpha
-    ErrNoMemory         = -5,  // Брак пам'яті
-    ErrMaxSteps         = -6   // Перевищено кроки
-};
-```
+:::code api-random-walks/cpp/1-1-kody-povernennia-ta.cpp
 :::
 
 Значення `WALK_SUCCESS` гарантує, що результуючі вказівники містять коректно обчислені дані. У разі повернення будь-якого від'ємного коду вихідні аргументи залишаються у незмінному стані або скидаються до безпечних типових значень.
@@ -58,20 +46,7 @@ typedef struct {
     const double* weights;    // Масив ваг ребер (NULL для невиваженого графа)
 } GraphSpec;
 ```
-```cpp
-#include <cstdint>
-#include <span>
-#include <optional>
-
-struct GraphSpec {
-    uint32_t num_vertices{0};
-    uint64_t num_edges{0};
-    bool is_directed{false};
-    std::span<const uint32_t> row_ptr{};
-    std::span<const uint32_t> col_idx{};
-    std::optional<std::span<const double>> weights{std::nullopt};
-};
-```
+:::code api-random-walks/cpp/1-2-konstruktsii-opysu.cpp
 :::
 
 Використання беззнакових 32-бітних цілих чисел дозволяє представляти графи розміром до 4 мільярдів вершин, а 64-бітний лічильник `num_edges` знімає обмеження на кількість ребер для надвеликих мереж.
@@ -269,18 +244,7 @@ WalkStatus graph_walk_generate_ust_wilson(
     uint32_t* out_edges_v
 );
 ```
-```cpp
-#include <vector>
-#include <utility>
-#include <expected>
-
-using EdgePair = std::pair<uint32_t, uint32_t>;
-
-std::expected<std::vector<EdgePair>, WalkStatus> generate_ust_wilson(
-    const GraphSpec& graph,
-    uint32_t seed
-);
-```
+:::code api-random-walks/cpp/2-5-heneratsiia.cpp
 :::
 
 Якщо граф не є зв'язним, функція перериває виконання та повертає код `WALK_ERR_DISCONNECTED`.
@@ -301,20 +265,7 @@ WalkStatus graph_walk_effective_resistance(
     double* out_commute_time
 );
 ```
-```cpp
-#include <expected>
-
-struct ResistanceResult {
-    double r_eff{0.0};
-    double commute_time{0.0};
-};
-
-std::expected<ResistanceResult, WalkStatus> calculate_effective_resistance(
-    const GraphSpec& graph,
-    uint32_t u,
-    uint32_t v
-);
-```
+:::code api-random-walks/cpp/2-6-obchyslennia.cpp
 :::
 
 Обчислення виконується за допомогою ітеративних методів розв'язання системи лінійних рівнянь з матрицею Лапласа графа.
@@ -332,39 +283,7 @@ typedef struct GraphWalkEngineC GraphWalkEngineC;
 GraphWalkEngineC* engine_c_create(const GraphSpec* spec);
 void engine_c_destroy(GraphWalkEngineC* engine);
 ```
-```cpp
-namespace graph_walk {
-
-class GraphWalkEngine {
-public:
-    explicit GraphWalkEngine(GraphSpec spec);
-    ~GraphWalkEngine();
-
-    // Заборона копіювання, дозволено переміщення
-    GraphWalkEngine(const GraphWalkEngine&) = delete;
-    GraphWalkEngine& operator=(const GraphWalkEngine&) = delete;
-    GraphWalkEngine(GraphWalkEngine&&) noexcept;
-    GraphWalkEngine& operator=(GraphWalkEngine&&) noexcept;
-
-    // Метод s-t зв'язності
-    [[nodiscard]] bool is_connected(size_t s, size_t t, uint32_t trials = 5) const;
-
-    // Обчислення PageRank
-    [[nodiscard]] std::vector<double> pagerank(const WalkConfig& config, uint64_t num_walks) const;
-
-    // Генерація UST
-    [[nodiscard]] std::vector<std::pair<uint32_t, uint32_t>> generate_ust(uint32_t seed) const;
-
-    // Спектральні характеристики
-    [[nodiscard]] SpectralInfo analyze_spectrum() const;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace graph_walk
-```
+:::code api-random-walks/cpp/3-c-obhortka-vysokoho.hpp
 :::
 
 Використання ідіоми pImpl (Pointer to Implementation) приховує низькорівневі C-структури та забезпечує повну бінарну сумісність (ABI stability) при оновленні версій бібліотеки.

@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           }
         },
         {
@@ -72,13 +73,15 @@
           "proj": [
             {
               "file": "proj-planarity-test.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-planarity-checker.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -122,13 +125,15 @@
           "proj": [
             {
               "file": "proj-dsatur-coloring.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-coloring-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -167,19 +172,23 @@
           "math": [
             {
               "file": "math-ramsey-bounds.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-ramsey-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-ramsey-checker.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

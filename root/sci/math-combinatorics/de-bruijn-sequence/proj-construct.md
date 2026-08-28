@@ -15,52 +15,8 @@
 > 🔧 **Навіщо стек, а не рекурсія.** Наївний Гірхольцер пишуть рекурсивно — і на великому графі він валить програму. Глибина рекурсії дорівнює довжині обходу, тобто **числу ребер** `kⁿ`; уже для `B(2, 25)` це 33 мільйони вкладених викликів, і стек викликів переповнюється задовго до відповіді. Явний стек у купі знімає стелю: пам'ять росте там, де її багато, а не на тоненькому стеку викликів.
 
 :::tabs
-```python
-def de_bruijn_hierholzer(k, n):
-    m = k ** (n - 1)                 # вершини: слова довжини n-1, як числа 0..m-1
-    nxt = [0] * m                    # наступний невитрачений вихідний символ вершини
-    stack = [(0, -1)]                # (вершина, символ ребра, яким сюди зайшли)
-    seq = []
-    while stack:
-        v, sym = stack[-1]
-        if nxt[v] < k:               # є ще невитрачене ребро — заходимо глибше
-            c = nxt[v]
-            nxt[v] += 1
-            stack.append(((v * k + c) % m, c))
-        else:                        # глухий кут — відступаємо, записуючи ребро
-            stack.pop()
-            if sym != -1:
-                seq.append(sym)
-    seq.reverse()
-    return seq
-```
-```cpp
-#include <vector>
-#include <utility>
-#include <algorithm>
-
-std::vector<int> de_bruijn_hierholzer(int k, int n) {
-    std::size_t m = 1;                             // m = k^(n-1) — число вершин
-    for (int i = 0; i < n - 1; ++i) m *= static_cast<std::size_t>(k);
-
-    std::vector<int> nxt(m, 0);                    // наступний невитрачений символ вершини
-    std::vector<std::pair<std::size_t, int>> stack{ {0, -1} };  // (вершина, ребро-вхід)
-    std::vector<int> seq;
-
-    while (!stack.empty()) {
-        auto [v, sym] = stack.back();
-        if (nxt[v] < k) {                          // є невитрачене ребро — глибше
-            int c = nxt[v]++;
-            stack.push_back({ (v * k + c) % m, c });
-        } else {                                   // глухий кут — відступ із записом
-            stack.pop_back();
-            if (sym != -1) seq.push_back(sym);
-        }
-    }
-    std::reverse(seq.begin(), seq.end());
-    return seq;
-}
-```
+:::code proj-construct/py/sposib-1-eileriv-tsykl.py
+:::code proj-construct/cpp/sposib-1-eileriv-tsykl.cpp
 :::
 
 Складність: кожне з `kⁿ` ребер один раз кладеться на стек і один раз знімається, тож час **O(kⁿ)** — лінійний за довжиною відповіді, швидше нікуди. Пам'ять теж **O(kⁿ)**: стек у найгіршому разі тримає майже весь обхід. Це універсальний спосіб — жодних умов на `k, n`, — і єдиний, що легко дає **будь-яку** з наявних послідовностей, якщо перебирати ребра в різному порядку. Ціна універсальності — та сама пам'ять `O(kⁿ)`, від якої два наступні способи частково втечуть.
@@ -90,47 +46,8 @@ std::vector<int> de_bruijn_hierholzer(int k, int n) {
 Перші `2³ = 8` символів — це циклічна відповідь: `00011101`. Решта — «хвіст» довжини `n − 1`, потрібний лише лінійному рядку, щоб дочитати вікна через стик.
 
 :::tabs
-```python
-def de_bruijn_greedy(k, n):
-    seq = [0] * n                          # старт: n нулів
-    seen = {tuple(seq)}                    # єдине поки що вікно
-    while True:
-        tail = tuple(seq[len(seq) - (n - 1):])       # останні n-1 символів
-        c = next((s for s in range(k - 1, -1, -1)    # найбільший символ,
-                  if tail + (s,) not in seen), None)  # що не повторює вікна
-        if c is None:                      # жоден не годиться — стоп
-            break
-        seq.append(c)
-        seen.add(tail + (c,))
-    return seq[:k ** n]                     # циклічна частина
-```
-```cpp
-#include <vector>
-
-std::vector<int> de_bruijn_greedy(int k, int n) {
-    std::size_t kn = 1;                          // kn = k^n
-    for (int i = 0; i < n; ++i) kn *= static_cast<std::size_t>(k);
-    std::size_t kn1 = kn / k;                    // k^(n-1)
-
-    std::vector<char> seen(kn, 0);               // вікна кодуємо числом 0..k^n-1
-    std::vector<int> seq(n, 0);
-    std::size_t win = 0;                         // код поточного вікна довжини n
-    seen[0] = 1;                                 // вікно з самих нулів
-
-    while (true) {
-        std::size_t base = (win % kn1) * k;      // відкинули старший символ, зсунули
-        int chosen = -1;
-        for (int c = k - 1; c >= 0; --c)         // найбільший символ першим
-            if (!seen[base + c]) { chosen = c; break; }
-        if (chosen < 0) break;                   // жоден не годиться — стоп
-        seq.push_back(chosen);
-        win = base + chosen;
-        seen[win] = 1;
-    }
-    seq.resize(kn);                              // циклічна частина
-    return seq;
-}
-```
+:::code proj-construct/py/sposib-2-zhadibnyi-dopysui.py
+:::code proj-construct/cpp/sposib-2-zhadibnyi-dopysui.cpp
 :::
 
 У Python вікна — кортежі в множині: читається як означення. У C++ вікно спаковане в число (`win % kⁿ⁻¹ · k + c` — той самий зсув, що й у графі), а `seen` — плаский масив бітів; перевірка й позначка коштують по одній дії. Час — **O(k · kⁿ)** (на кожен із `kⁿ` символів скануємо до `k` кандидатів), пам'ять — **O(kⁿ)** на масив `seen`.
@@ -155,46 +72,8 @@ std::vector<int> de_bruijn_greedy(int k, int n) {
 Рівно наш еталон. Генерувати ці слова окремо й сортувати не треба — короткий рекурсивний генератор видає їх уже впорядкованими:
 
 :::tabs
-```python
-def de_bruijn_fkm(k, n):
-    a = [0] * (n + 1)               # a[1..n] — поточне слово-кандидат
-    seq = []
-    def gen(t, p):                  # t: заповнено символів; p: довжина періоду
-        if t > n:
-            if n % p == 0:          # період p ділить n → слово Ліндона довжини p
-                seq.extend(a[1:p + 1])
-        else:
-            a[t] = a[t - p]         # менша гілка: продовжити період
-            gen(t + 1, p)
-            for c in range(a[t - p] + 1, k):   # більший символ рве період
-                a[t] = c
-                gen(t + 1, t)
-    gen(1, 1)
-    return seq
-```
-```cpp
-#include <vector>
-#include <functional>
-
-std::vector<int> de_bruijn_fkm(int k, int n) {
-    std::vector<int> a(n + 1, 0), seq;
-    std::function<void(int, int)> gen = [&](int t, int p) {   // t: довжина; p: період
-        if (t > n) {
-            if (n % p == 0)                                   // період p ділить n
-                seq.insert(seq.end(), a.begin() + 1, a.begin() + p + 1);
-        } else {
-            a[t] = a[t - p];                                  // менша гілка: тягнемо період
-            gen(t + 1, p);
-            for (int c = a[t - p] + 1; c < k; ++c) {          // більший символ — новий період
-                a[t] = c;
-                gen(t + 1, t);
-            }
-        }
-    };
-    gen(1, 1);
-    return seq;
-}
-```
+:::code proj-construct/py/sposib-3-konkatenatsiia.py
+:::code proj-construct/cpp/sposib-3-konkatenatsiia.cpp
 :::
 
 Як воно працює: `a[1..t]` завжди тримається «пренамистом» — найменшим лексикографічно продовженням, а `p` стежить за довжиною найдовшого префікса, що вже є словом Ліндона (поточний період). Гілка `a[t] = a[t−p]` тягне той самий період далі; гілки з більшим символом починають свіже слово Ліндона довжини `t`. Обхід іде за зростанням, тож слова виходять уже в лексикографічному порядку, а коли `p ∣ n` — виписуємо `a[1..p]`.
