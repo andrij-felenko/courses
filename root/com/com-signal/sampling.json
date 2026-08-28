@@ -73,6 +73,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "s-curve-velocity-profile-jerk-limiting",
+          "title": "S-подібне профілювання руху та обмеження ривка (Jerk-Limited Profile)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -150,11 +160,17 @@
           "slug": "cic-filter",
           "title": "CIC-фільтр (каскад інтегратор–гребінка)",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cic-response.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "plot-downsampling",

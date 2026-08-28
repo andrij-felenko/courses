@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 783.6 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="783.6" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний алгоритм валідації вимірювань і розгалуження обробки</text>
+<rect x="41.7" y="46.8" width="276.7" height="46.5" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="66.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Вхідні дані кроку k:</tspan><tspan x="180.0" dy="15.0">Вимір zₖ, Прогноз x̂⁻, Коваріація P⁻</tspan></text>
+<rect x="77.3" y="134.3" width="205.4" height="61.4" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="180.0" y="154.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">1. Нев'язка спостереження:</tspan><tspan x="180.0" dy="15.0">yₖ = zₖ − H·x̂⁻</tspan><tspan x="180.0" dy="15.0">Sₖ = H·P⁻·Hᵀ + Rₖ</tspan></text>
+<line x1="180.0" y1="93.2" x2="180.0" y2="134.3" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="70.2" y="241.8" width="219.6" height="46.5" rx="6" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.6"/><text x="180.0" y="261.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">2. Нормований квадрат (NIS):</tspan><tspan x="180.0" dy="15.0">d² = yₖᵀ · Sₖ⁻¹ · yₖ</tspan></text>
+<line x1="180.0" y1="195.7" x2="180.0" y2="241.8" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<polygon points="180,338 290,380 180,422 70,380" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="180.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка</text>
+<text x="180.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">критерію χ²</text>
+<line x1="180.0" y1="288.2" x2="180.0" y2="338.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="364.5" y="233.1" width="211.0" height="73.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="252.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">A. Прийняти вимір (d² ≤ γ₁):</tspan><tspan x="470.0" dy="14.3">K = P⁻·Hᵀ·S⁻¹</tspan><tspan x="470.0" dy="14.3">x̂ = x̂⁻ + K·yₖ</tspan><tspan x="470.0" dy="14.3">P = (I − K·H)·P⁻</tspan></text>
+<rect x="344.1" y="343.1" width="251.9" height="73.9" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/><text x="470.0" y="362.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">B. М'яке оновлення (γ₁ &lt; d² ≤ γ₂):</tspan><tspan x="470.0" dy="14.3">s = d² / γ₁  (масштаб шуму)</tspan><tspan x="470.0" dy="14.3">R* = s·Rₖ;  перерахунок S, K</tspan><tspan x="470.0" dy="14.3">x̂ = x̂⁻ + K*·yₖ</tspan></text>
+<rect x="350.9" y="445.2" width="238.2" height="59.6" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="464.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">C. Відкинути вимір (d² &gt; γ₂):</tspan><tspan x="470.0" dy="14.3">x̂ = x̂⁻;  P = P⁻  (пропуск)</tspan><tspan x="470.0" dy="14.3">Лічильник викидів++; монітор NIS</tspan></text>
+<path d="M 275 360 Q 320 270 360 270" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="307.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">d² ≤ γ₁</text>
+<line x1="290.0" y1="380.0" x2="360.0" y2="380.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="320.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">γ₁ &lt; d² ≤ γ₂</text>
+<path d="M 275 400 Q 320 475 360 475" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">d² &gt; γ₂</text>
+<line x1="580.0" y1="270.0" x2="670.0" y2="270.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="580.0" y1="380.0" x2="670.0" y2="380.0" stroke="#d97706" stroke-width="1.5"/>
+<line x1="580.0" y1="475.0" x2="670.0" y2="475.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="670.0" y1="270.0" x2="670.0" y2="475.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="670.0" y1="380.0" x2="720.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="715.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Наступний</text>
+<text x="715.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">такт k+1</text>
+</svg>

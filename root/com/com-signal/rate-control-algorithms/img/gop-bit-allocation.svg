@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адаптивний розподіл бюджету бітів у структурі GOP</text>
+<rect x="61.4" y="31.0" width="217.2" height="48.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/><text x="170.0" y="45.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Опорний I-кадр (~5–8× ваги P)</tspan><tspan x="170.0" dy="13.0">Високий пріоритет: базове оновлення,</tspan><tspan x="170.0" dy="13.0">помилка впливає на всю групу</tspan></text>
+<rect x="328.4" y="31.0" width="143.1" height="48.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="400.0" y="45.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">P-кадри (середня вага)</tspan><tspan x="400.0" dy="13.0">Несуть вектори руху</tspan><tspan x="400.0" dy="13.0">та залишок передбачення</tspan></text>
+<rect x="529.9" y="31.0" width="160.2" height="48.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/><text x="610.0" y="45.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">B-кадри (найменша вага)</tspan><tspan x="610.0" dy="13.0">Двонапрямлене усереднення,</tspan><tspan x="610.0" dy="13.0">не є опорними в базі</tspan></text>
+<rect x="70.0" y="145.0" width="630.0" height="190.0" rx="4" fill="#fbfcfd" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="70.0" y1="335.0" x2="725.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="335.0" x2="70.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="725.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Порядок кадрів у GOP</text>
+<text x="60.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Виділені біти</text>
+<rect x="88.0" y="192.9" width="39.8" height="142.1" rx="3" fill="#fde8e8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="107.9" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I₀</text>
+<text x="107.9" y="186.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">88%</text>
+<rect x="149.2" y="310.8" width="39.8" height="24.2" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="169.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₁</text>
+<text x="169.0" y="304.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">15%</text>
+<rect x="210.3" y="312.4" width="39.8" height="22.6" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="230.2" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₂</text>
+<text x="230.2" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">14%</text>
+<rect x="271.5" y="273.6" width="39.8" height="61.4" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="291.4" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P₃</text>
+<text x="291.4" y="267.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">38%</text>
+<rect x="332.7" y="309.2" width="39.8" height="25.8" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="352.5" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₄</text>
+<text x="352.5" y="303.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">16%</text>
+<rect x="393.8" y="310.8" width="39.8" height="24.2" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="413.7" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₅</text>
+<text x="413.7" y="304.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">15%</text>
+<rect x="455.0" y="263.9" width="39.8" height="71.1" rx="3" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="474.9" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P₆</text>
+<text x="474.9" y="257.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">44%</text>
+<rect x="516.2" y="304.3" width="39.8" height="30.7" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="536.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₇</text>
+<text x="536.0" y="298.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">19%</text>
+<rect x="577.3" y="302.7" width="39.8" height="32.3" rx="3" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<text x="597.2" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">B₈</text>
+<text x="597.2" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">20%</text>
+<rect x="638.5" y="183.2" width="39.8" height="151.8" rx="3" fill="#fde8e8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="658.4" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I₉</text>
+<text x="658.4" y="177.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">94%</text>
+<path d="M 107.9 269.6 L 169.0 267.4 L 230.2 263.4 L 291.4 258.2 L 352.5 252.0 L 413.7 245.0 L 474.9 237.3 L 536.0 229.0 L 597.2 219.9 L 658.4 210.4" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="4,3"/>
+<text x="690.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Складність сцени (SATD)</text>
+</svg>

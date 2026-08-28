@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура безударного ПІД з контуром зворотного стеження (Tracking Mode)</text>
+<text x="35.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">r[k]</text>
+<line x1="55.0" y1="90.0" x2="85.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="95.0" cy="90.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="95.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="95.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<line x1="95.0" y1="140.0" x2="95.0" y2="100.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="35.0" y1="140.0" x2="95.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<text x="35.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">y[k]</text>
+<line x1="105.0" y1="90.0" x2="150.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="125.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">e[k]</text>
+<circle cx="150.0" cy="90.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="150.0" y1="45.0" x2="150.0" y2="135.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="150.0" y1="45.0" x2="185.0" y2="45.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="181.4" y="25.2" width="87.2" height="39.6" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="225.0" y="41.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Пропорційна</tspan><tspan x="225.0" dy="15.6">Kp · e[k]</tspan></text>
+<line x1="150.0" y1="90.0" x2="185.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="195.0" cy="90.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="195.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="195.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="205.0" y1="90.0" x2="240.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="227.4" y="70.2" width="135.1" height="39.6" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="295.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="295.0" dy="0.0">Інтегратор I</tspan><tspan x="295.0" dy="15.6">I[k] = I[k-1] + ΔI</tspan></text>
+<line x1="150.0" y1="135.0" x2="185.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="178.0" y="115.2" width="94.1" height="39.6" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="225.0" y="131.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Диференційна</tspan><tspan x="225.0" dy="15.6">−Kd · Δy/Δt</tspan></text>
+<line x1="265.0" y1="45.0" x2="380.0" y2="45.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="350.0" y1="90.0" x2="380.0" y2="90.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="265.0" y1="135.0" x2="380.0" y2="135.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="380.0" y1="45.0" x2="380.0" y2="80.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="380.0" y1="135.0" x2="380.0" y2="100.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="380.0" cy="90.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="372.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="380.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="390.0" y1="90.0" x2="440.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="415.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">u_calc</text>
+<rect x="440.0" y="50.0" width="120.0" height="90.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перемикач</text>
+<circle cx="460.0" cy="90.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="460.0" cy="120.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="535.0" cy="100.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="460.0" y1="90.0" x2="532.0" y2="98.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="480.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Auto</text>
+<text x="480.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Manual</text>
+<line x1="410.0" y1="120.0" x2="460.0" y2="120.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">u_man</text>
+<line x1="535.0" y1="100.0" x2="600.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="595.9" y="80.2" width="128.3" height="39.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="660.0" y="96.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">Обмежувач (Sat)</tspan><tspan x="660.0" dy="15.6">[u_min ... u_max]</tspan></text>
+<line x1="725.0" y1="100.0" x2="785.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="760.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">u_act[k]</text>
+<circle cx="755.0" cy="100.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="755.0" y1="100.0" x2="755.0" y2="230.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="755.0" y1="230.0" x2="540.0" y2="230.0" stroke="#27ae60" stroke-width="1.8"/>
+<circle cx="415.0" cy="90.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="415.0" y1="90.0" x2="415.0" y2="210.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="415.0" y1="210.0" x2="540.0" y2="210.0" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="540.0" cy="220.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="540.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+</text>
+<text x="540.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">−</text>
+<line x1="530.0" y1="220.0" x2="450.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="490.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">e_trk = u_act − u_calc</text>
+<rect x="282.2" y="200.2" width="155.6" height="39.6" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="360.0" y="216.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Підсилювач узгодження</tspan><tspan x="360.0" dy="15.6">Kt = 1 / Tt</tspan></text>
+<line x1="275.0" y1="220.0" x2="195.0" y2="220.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="195.0" y1="220.0" x2="195.0" y2="100.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="125.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Поправка ΔI_trk = Kt·e_trk·Δt</text>
+<rect x="91.6" y="294.4" width="636.7" height="41.3" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="410.0" y="311.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">У ручному режимі (Manual) або при насиченні (Sat) контур узгодження автоматично коригує інтегратор,</tspan><tspan x="410.0" dy="14.3">підтримуючи u_calc = u_act. У момент перемикання стрибок відсутній (Δu = 0).</tspan></text>
+</svg>

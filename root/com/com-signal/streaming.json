@@ -27,8 +27,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rate-control.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rate-distortion.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "hrd-buffer-model",
@@ -98,6 +110,14 @@
           "proj": [
             {
               "file": "proj-nal-parser.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-intra-refresh-wave.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-sei-telemetry-embed.md",
               "status": "done"
             }
           ],

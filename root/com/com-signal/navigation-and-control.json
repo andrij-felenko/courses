@@ -45,6 +45,26 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "gnss-multipath-mitigation-techniques",
+          "title": "Багатопроменевість у GNSS: спотворення корелятора, дросельні кільця та алгоритми придушення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "override-and-auctioneering-control",
+          "title": "Селективне та перекривне керування: вибір екстремуму й слідкуючий анти-віндап",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -69,8 +89,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dead-reckoning.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-error-propagation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strapdown-integrator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "visual-inertial-odometry",
@@ -115,6 +153,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "gimbaled-inertial-platform",
+          "title": "Гіроплатформи та карданні ІНС: маятник Шулера, горизонтування та порівняння з SINS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -186,6 +234,12 @@
               "file": "proj-pid-c.md",
               "status": "done"
             }
+          ],
+          "math": [
+            {
+              "file": "math-velocity-form-derivation.md",
+              "status": "done"
+            }
           ]
         },
         {
@@ -195,8 +249,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-bumpless-pid.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -217,6 +277,16 @@
         {
           "slug": "phase-margin",
           "title": "Запас по фазі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "relay-feedback-autotuning",
+          "title": "Релейний автотюнінг: пошук критичного підсилення через граничні цикли",
           "basic": {
             "status": "empty"
           },
@@ -263,8 +333,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-scurve-kinematics.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

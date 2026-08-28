@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель віртуального буфера VBV / HRD: динаміка наповнення</text>
+<rect x="80.0" y="80.0" width="620.0" height="210.0" rx="4" fill="#fbfcfd" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="80.0" y="80.0" width="620.0" height="22.0" rx="6" fill="#fef2f2" stroke="none" stroke-width="1.5"/>
+<line x1="80.0" y1="102.0" x2="700.0" y2="102.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="690.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Стеля буфера B_max (Ризик Buffer Overflow)</text>
+<rect x="80.0" y="268.0" width="620.0" height="22.0" rx="6" fill="#fef2f2" stroke="none" stroke-width="1.5"/>
+<line x1="80.0" y1="268.0" x2="700.0" y2="268.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="690.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Дно буфера 0 (Ризик Buffer Underflow — затихання відео)</text>
+<line x1="80.0" y1="290.0" x2="725.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="290.0" x2="80.0" y2="55.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="725.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Час t (дискретні моменти DTS)</text>
+<text x="68.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Наповнення буфера B(t) (біти)</text>
+<line x1="95.0" y1="286.0" x2="95.0" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="95.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I1</text>
+<text x="103.0" y="195.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">−S_I</text>
+<line x1="176.2" y1="286.0" x2="176.2" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="176.2" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P1</text>
+<line x1="257.4" y1="286.0" x2="257.4" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="257.4" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P2</text>
+<line x1="338.6" y1="286.0" x2="338.6" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="338.6" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P3</text>
+<line x1="419.8" y1="286.0" x2="419.8" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="419.8" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I5</text>
+<text x="427.8" y="251.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">−S_I</text>
+<line x1="501.0" y1="286.0" x2="501.0" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="501.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P5</text>
+<line x1="582.2" y1="286.0" x2="582.2" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="582.2" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P6</text>
+<line x1="663.4" y1="286.0" x2="663.4" y2="294.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="663.4" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">P7</text>
+<path d="M 95.0 153.5 L 95.0 237.5 L 176.2 209.6 L 176.2 234.8 L 257.4 206.8 L 257.4 227.8 L 338.6 199.9 L 338.6 229.3 L 419.8 201.4 L 419.8 302.2 L 501.0 274.2 L 501.0 297.4 L 582.2 269.4 L 582.2 288.3 L 663.4 260.4 L 663.4 281.4" fill="none" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="200.0" y1="150.0" x2="270.0" y2="125.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="270.0" y1="125.0" x2="275.0" y2="123.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="243.8" y="104.1" width="172.4" height="31.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="330.0" y="117.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Приплив з каналу:</tspan><tspan x="330.0" dy="12.3">+R_in · Δt (лінійне зростання)</tspan></text>
+<rect x="414.8" y="119.9" width="223.2" height="46.2" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="526.4" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="526.4" dy="0.0">Після важкого кадру буфер падає;</tspan><tspan x="526.4" dy="12.3">Регулятор збільшує QP наступних кадрів,</tspan><tspan x="526.4" dy="12.3">щоб не допустити Underflow</tspan></text>
+</svg>

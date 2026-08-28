@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стрибок сигналу при зміні коефіцієнтів (Gain Scheduling) та інтегральна компенсація</text>
+<rect x="50.0" y="55.0" width="335.0" height="260.0" rx="6" fill="#fff5f5" stroke="#feb2b2" stroke-width="1.5"/>
+<text x="217.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Позиційна форма без компенсації</text>
+<rect x="65.0" y="95.0" width="305.0" height="45.0" rx="4" fill="#fff" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="217.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">u[k] = Kp(t) · e[k] + I[k]</text>
+<line x1="80.0" y1="190.0" x2="200.0" y2="190.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="200.0" y1="190.0" x2="200.0" y2="160.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="200.0" y1="160.0" x2="350.0" y2="160.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Kp_1 = 1.0</text>
+<text x="280.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Kp_2 = 2.5</text>
+<line x1="80.0" y1="270.0" x2="200.0" y2="270.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="200.0" y1="270.0" x2="200.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="200.0" y1="230.0" x2="350.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="210.0" y1="265.0" x2="210.0" y2="235.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="220.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Δu = (Kp2 − Kp1) · e</text>
+<text x="217.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">⚠ Стрибок пропорційної складової б'є по приводу</text>
+<rect x="435.0" y="55.0" width="335.0" height="260.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="602.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Компенсоване перемикання або інкрементна форма</text>
+<rect x="450.0" y="95.0" width="305.0" height="45.0" rx="4" fill="#fff" stroke="#86efac" stroke-width="1.5"/>
+<text x="602.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">I_new = I_old − (Kp_new − Kp_old) · e[k]</text>
+<line x1="465.0" y1="175.0" x2="585.0" y2="175.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="585.0" y1="175.0" x2="585.0" y2="150.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="585.0" y1="150.0" x2="735.0" y2="150.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="665.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Kp зростає (+ΔKp)</text>
+<line x1="465.0" y1="210.0" x2="585.0" y2="210.0" stroke="#6366f1" stroke-width="1.5"/>
+<line x1="585.0" y1="210.0" x2="585.0" y2="235.0" stroke="#6366f1" stroke-width="1.8"/>
+<line x1="585.0" y1="235.0" x2="735.0" y2="235.0" stroke="#6366f1" stroke-width="1.5"/>
+<text x="665.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6366f1" text-anchor="middle">I компенсує (−ΔKp·e)</text>
+<line x1="465.0" y1="270.0" x2="735.0" y2="270.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="585.0" cy="270.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="595.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сума u[k] неперервна (Δu = 0)</text>
+<text x="602.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Зміна коефіцієнтів змінює лише динаміку, без стрибка</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35.08 -10 855.08 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-35.08" y="-10" width="855.08" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура 2-DoF регулятора з профілюванням уставки (Setpoint Ramping)</text>
+<text x="30.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Уставка
+r_raw(t)</text>
+<line x1="60.0" y1="85.0" x2="95.0" y2="85.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="73.5" y="65.2" width="183.0" height="39.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="165.0" y="81.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Профілювач уставки</tspan><tspan x="165.0" dy="15.6">|dr/dt| ≤ v_max (S-curve)</tspan></text>
+<line x1="240.0" y1="85.0" x2="290.0" y2="85.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="265.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">r_f(t)</text>
+<circle cx="290.0" cy="85.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="290.0" y1="45.0" x2="290.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="290.0" y1="45.0" x2="330.0" y2="45.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="322.4" y="27.3" width="85.2" height="35.3" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/><text x="365.0" y="41.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">Вага уставки</tspan><tspan x="365.0" dy="14.3">b · r_f</tspan></text>
+<line x1="405.0" y1="45.0" x2="435.0" y2="45.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="445.0" cy="45.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="445.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="445.0" y="57.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<line x1="455.0" y1="45.0" x2="490.0" y2="45.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="476.1" y="33.0" width="107.8" height="24.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="530.0" y="49.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Kp · (b·r − y)</tspan></text>
+<line x1="290.0" y1="130.0" x2="435.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="445.0" cy="130.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="445.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="445.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">−</text>
+<line x1="455.0" y1="130.0" x2="490.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="475.9" y="118.0" width="128.3" height="24.0" rx="6" fill="#eef2ff" stroke="#2457d6" stroke-width="1.5"/><text x="540.0" y="134.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Ki · ∫ (r − y) dt</tspan></text>
+<rect x="448.5" y="193.0" width="183.0" height="24.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="540.0" y="209.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">−Kd · (dy/dt) / (1 + τ·s)</tspan></text>
+<text x="30.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимір давача
+y(t)</text>
+<line x1="70.0" y1="260.0" x2="445.0" y2="260.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="445.0" cy="260.0" r="3.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="445.0" y1="260.0" x2="445.0" y2="55.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="445.0" y1="260.0" x2="445.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="445.0" y1="205.0" x2="480.0" y2="205.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="480.0" y1="205.0" x2="490.0" y2="205.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="45.0" x2="660.0" y2="45.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="595.0" y1="130.0" x2="660.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="600.0" y1="205.0" x2="660.0" y2="205.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="660.0" y1="45.0" x2="660.0" y2="120.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="660.0" y1="205.0" x2="660.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="660.0" cy="130.0" r="10.0" fill="#fff" stroke="#333333" stroke-width="1.8"/>
+<text x="660.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="652.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<text x="660.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<line x1="670.0" y1="130.0" x2="740.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="750.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керування
+u(t)</text>
+<rect x="44.6" y="289.4" width="730.8" height="41.3" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="410.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Два ступені свободи (2-DoF): за уставки b = 0 пропорційна складова не смикає привід при стрибку r(t),</tspan><tspan x="410.0" dy="14.3">диференційна складова D береться суто від швидкості зміни виходу (-dy/dt), а темп наростання задає Ramping-фільтр.</tspan></text>
+</svg>
