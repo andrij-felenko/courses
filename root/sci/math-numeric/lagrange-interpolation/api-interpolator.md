@@ -18,77 +18,8 @@
 #### 1.2. Структури даних C-інтерфейсу:
 
 :::tabs
-```c
-/**
- * @brief Перелічувальний тип статусів виконання операцій у C-API.
- */
-typedef enum {
-    INTERP_SUCCESS               =  0,  /**< Операцію виконано успішно */
-    INTERP_ERR_NULL_POINTER      = -1,  /**< Передано нульовий вказівник */
-    INTERP_ERR_INVALID_SIZE      = -2,  /**< Некоректний розмір масиву (n < 1) */
-    INTERP_ERR_DUPLICATE_NODE    = -3,  /**< Знайдено однакові x-вузли (ділення на 0) */
-    INTERP_ERR_ALLOC_FAILED      = -4,  /**< Помилка виділення динамічної пам'яті */
-    INTERP_ERR_OUT_OF_BOUNDS     = -5,  /**< Точка x виходить за межі інтервалу */
-    INTERP_ERR_SINGULAR_MODULO   = -6   /**< Нульовий або непросний модуль u у GF(p) */
-} interp_status_t;
-
-/**
- * @brief Дескриптор барицентричного інтерполятора другої родини.
- */
-typedef struct {
-    double*          x_nodes;   /**< Динамічний масив вузлів x_k */
-    double*          y_nodes;   /**< Динамічний масив значень y_k */
-    double*          weights;   /**< Попередньо обчислені ваги w_k */
-    size_t           count;     /**< Поточна кількість вузлів n */
-    size_t           capacity;  /**< Виділена ємність масивів */
-    double           eps;       /**< Поріг порівняння вузлів на рівність */
-    bool             is_ready;  /**< Прапорець готовності ваг w_k */
-} barycentric_interp_t;
-
-/**
- * @brief Дескриптор криптографічного інтерполятора GF(p).
- */
-typedef struct {
-    int64_t*         x_shares;  /**< Масив x-координат часток */
-    int64_t*         y_shares;  /**< Масив y-координат часток */
-    size_t           count;     /**< Кількість часток k */
-    int64_t          prime_mod; /**< Просте число p (модуль поля) */
-} gf_interp_t;
-```
-```cpp
-/**
- * @brief Перелічувальний тип статусів виконання операцій у C++20 API.
- */
-enum class InterpStatus : int32_t {
-    Success             =  0,  ///< Операцію виконано успішно
-    ErrNullPointer      = -1,  ///< Передано нульовий вказівник
-    ErrInvalidSize      = -2,  ///< Некоректний розмір масиву
-    ErrDuplicateNode    = -3,  ///< Знайдено однакові x-вузли
-    ErrAllocFailed      = -4,  ///< Помилка виділення пам'яті
-    ErrOutOfBounds     = -5,  ///< Точка x виходить за межі інтервалу
-    ErrSingularModulo   = -6   ///< Нульовий або складний модуль u
-};
-
-/**
- * @brief Внутрішній стан барицентричного інтерполятора у C++20.
- */
-struct BarycentricInterpState {
-    std::vector<double> x_nodes;  ///< Контейнер вузлів x_k
-    std::vector<double> y_nodes;  ///< Контейнер значень y_k
-    std::vector<double> weights;  ///< Попередньо обчислені ваги w_k
-    double              eps{1e-12};
-    bool                is_ready{false};
-};
-
-/**
- * @brief Внутрішній стан криптографічного інтерполятора GF(p) у C++20.
- */
-struct GFInterpState {
-    std::vector<int64_t> x_shares;  ///< Контейнер x-координат часток
-    std::vector<int64_t> y_shares;  ///< Контейнер y-координат часток
-    int64_t              prime_mod;  ///< Просте число p (модуль поля)
-};
-```
+:::code api-interpolator/c/main.c
+:::code api-interpolator/cpp/1-2-struktury-danykh-c.cpp
 :::
 
 ---
@@ -178,43 +109,7 @@ struct GFInterpState {
 
 Для сучасного C++ надається шаблонний клас `interpol::BarycentricInterpolator<T>`, який реалізує семантику переміщення (Move Semantics), RAII та безпеку відносно винятків (Strong Exception Guarantee).
 
-```cpp
-namespace interpol {
-
-template <std::floating_point T = double>
-class BarycentricInterpolator {
-public:
-    explicit BarycentricInterpolator(size_t initial_capacity = 8, T eps = static_cast<T>(1e-12));
-    
-    // Переміщення дозволено, копіювання дозволено
-    BarycentricInterpolator(const BarycentricInterpolator&) = default;
-    BarycentricInterpolator(BarycentricInterpolator&&) noexcept = default;
-    BarycentricInterpolator& operator=(const BarycentricInterpolator&) = default;
-    BarycentricInterpolator& operator=(BarycentricInterpolator&&) noexcept = default;
-    ~BarycentricInterpolator() = default;
-
-    // Додавання вузлів та оцінка
-    bool add_point(T x, T y);
-    [[nodiscard]] std::optional<T> evaluate(T target_x) const noexcept;
-    [[nodiscard]] T operator()(T target_x) const; // Викидає std::out_of_range при n==0
-
-    // Стан та очищення
-    void clear() noexcept;
-    [[nodiscard]] size_t size() const noexcept;
-    [[nodiscard]] bool empty() const noexcept;
-    [[nodiscard]] std::span<const T> x_nodes() const noexcept;
-    [[nodiscard]] std::span<const T> y_nodes() const noexcept;
-    [[nodiscard]] std::span<const T> weights() const noexcept;
-
-private:
-    std::vector<T> x_;
-    std::vector<T> y_;
-    std::vector<T> weights_;
-    T eps_;
-};
-
-} // namespace interpol
-```
+:::code api-interpolator/cpp/3-c-20-kontrakt-ta.hpp
 
 ---
 

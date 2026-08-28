@@ -40,43 +40,8 @@
 **Розберемо ті самі 32 біти float32 у три поля й відновимо значення −3.5.**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-#include <math.h>
-
-// Дістати з float три поля IEEE 754 single і зібрати значення назад.
-float decode_f32(float x) {
-    uint32_t bits;
-    memcpy(&bits, &x, sizeof bits);        // біти float як ціле — без UB
-
-    uint32_t s    =  bits >> 31;           // 1 біт знаку (позиція 31)
-    uint32_t exp  = (bits >> 23) & 0xFF;   // 8 бітів порядку (30..23)
-    uint32_t mant =  bits & 0x7FFFFF;      // 23 біти мантиси (22..0)
-
-    // −3.5f → s = 1, exp = 128, mant = 0x600000 (двійкове 110...0)
-    float sign = (s ? -1.0f : 1.0f);
-    float frac = 1.0f + (float)mant / 0x800000;   // прихована 1 + дріб/2^23
-    return sign * frac * ldexpf(1.0f, (int)exp - 127);   // × 2^(exp−127)
-}
-```
-```python
-import struct
-
-# Дістати з float три поля IEEE 754 single і зібрати значення назад.
-def decode_f32(x):
-    # біти float32 як ціле — без UB (пакування в 4 байти)
-    bits = struct.unpack("<I", struct.pack("<f", x))[0]
-
-    s    =  bits >> 31          # 1 біт знаку (позиція 31)
-    exp  = (bits >> 23) & 0xFF  # 8 бітів порядку (30..23)
-    mant =  bits & 0x7FFFFF     # 23 біти мантиси (22..0)
-
-    # −3.5 → s = 1, exp = 128, mant = 0x600000 (двійкове 110...0)
-    sign = -1.0 if s else 1.0
-    frac = 1.0 + mant / 0x800000   # прихована 1 + дріб/2^23
-    return sign * frac * 2.0 ** (exp - 127)   # × 2^(exp−127)
-```
+:::code ieee754-d/c/main.c
+:::code ieee754-d/py/main.py
 :::
 
 Підставивши `-3.5f`, дістаємо `s = 1`, `exp = 128`, `mant = 0x600000`; тоді `frac = 1 + 0x600000/0x800000 = 1.75`, а `ldexpf(1, 128−127) = 2`, тож результат — рівно `-3.5`. Гілки для денормалей і `exp = 255` тут свідомо опущено — їх додають окремою перевіркою, коли поле порядку набуває крайнього значення, бо тоді правило збирання числа міняється.
