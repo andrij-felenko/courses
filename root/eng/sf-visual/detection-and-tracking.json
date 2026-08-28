@@ -147,8 +147,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stauffer-grimson.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gmm-background.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-embedded-subtraction.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -231,6 +249,16 @@
         {
           "slug": "color-histogram",
           "title": "Колірна гістограма і трекінг за кольором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "visual-servoing-control",
+          "title": "Візуальне сервокерування (Visual Servoing): матриця взаємодії зображення (Image Jacobian), IBVS та PBVS",
           "basic": {
             "status": "empty"
           },

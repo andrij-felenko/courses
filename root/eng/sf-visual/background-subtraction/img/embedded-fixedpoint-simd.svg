@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізована архітектура: Q8.8 фіксована кома та 4-піксельний SIMD на ARM Cortex-M</text>
+<rect x="25.0" y="50.0" width="370.0" height="32.0" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="210.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e22ce" text-anchor="middle" font-weight="700">Арифметика Q8.8 на мікроконтролері (uint16_t)</text>
+<rect x="25.0" y="86.0" width="370.0" height="244.0" rx="8" fill="#faf5ff" stroke="#333333" stroke-width="1.5"/>
+<rect x="45.0" y="100.0" width="330.0" height="50.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="45.0" y="100.0" width="165.0" height="50.0" rx="4" fill="#e9d5ff" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="127.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Ціла частина (8 біт)</text>
+<text x="127.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Яскравість пікселя 0..255</text>
+<text x="292.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дробова частина (8 біт)</text>
+<text x="292.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Накопичувач згладжування 1/256</text>
+<rect x="45.0" y="165.0" width="330.0" height="85.0" rx="5" fill="#ffffff" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="210.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Оновлення без ділення й float:</text>
+<text x="210.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B_q16 += ((I_t &lt;&lt; 8) − B_q16) &gt;&gt; SHIFT</text>
+<text x="210.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">При α = 1/16 (SHIFT=4) — лише 1 зсув і 1 віднімання!</text>
+<text x="210.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять для кадру 320×240 (QVGA):</text>
+<text x="210.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Тло B (Q8.8) = 150 КБ RAM  (вміщається у SRAM STM32)</text>
+<rect x="415.0" y="50.0" width="380.0" height="32.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="605.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SIMD: 4 пікселі за такт (ARM DSP / Cortex-M4/M7)</text>
+<rect x="415.0" y="86.0" width="380.0" height="244.0" rx="8" fill="#eff6ff" stroke="#333333" stroke-width="1.5"/>
+<text x="435.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Регістр R0 (Кадр I_t):</text>
+<rect x="435.0" y="125.0" width="80.0" height="30.0" rx="3" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="475.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P0 (8-біт)</text>
+<rect x="520.0" y="125.0" width="80.0" height="30.0" rx="3" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="560.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P1 (8-біт)</text>
+<rect x="605.0" y="125.0" width="80.0" height="30.0" rx="3" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="645.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P2 (8-біт)</text>
+<rect x="690.0" y="125.0" width="80.0" height="30.0" rx="3" fill="#bfdbfe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="730.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">P3 (8-біт)</text>
+<text x="435.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Регістр R1 (Тло B_t):</text>
+<rect x="435.0" y="190.0" width="80.0" height="30.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="475.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">B0 (8-біт)</text>
+<rect x="520.0" y="190.0" width="80.0" height="30.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="560.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">B1 (8-біт)</text>
+<rect x="605.0" y="190.0" width="80.0" height="30.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="645.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">B2 (8-біт)</text>
+<rect x="690.0" y="190.0" width="80.0" height="30.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="730.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">B3 (8-біт)</text>
+<rect x="435.0" y="235.0" width="340.0" height="65.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="605.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1 такт процесора: __UQSUB8 / __USUB8</text>
+<text x="605.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Паралельне беззнакове насичене віднімання</text>
+<text x="605.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Швидкість: &gt; 120 FPS для QVGA на 64 МГц MCU</text>
+</svg>

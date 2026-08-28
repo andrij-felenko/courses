@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фазова кореляція: перехід у частотний домен зводить зсув до гострого імпульсу Дірака</text>
+<rect x="20.0" y="65.0" width="175.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="107.5" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Просторові кадри</text>
+<rect x="45.0" y="110.0" width="125.0" height="75.0" rx="3" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<rect x="80.0" y="130.0" width="30.0" height="30.0" rx="6" fill="#cbd5e1" stroke="none" stroke-width="1.5"/>
+<text x="107.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зображення I(x,y)</text>
+<text x="107.5" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шаблон T(x,y)</text>
+<rect x="30.0" y="233.0" width="155.0" height="24.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.0"/><text x="107.5" y="248.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="107.5" dy="0.0">Доповнення нулями</tspan></text>
+<line x1="199.0" y1="165.0" x2="229.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="214.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2D FFT</text>
+<rect x="235.0" y="65.0" width="175.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="322.5" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Частотний домен</text>
+<circle cx="322.5" cy="150.0" r="35.0" fill="#fef3c7" stroke="#f59f00" stroke-width="1.2"/>
+<circle cx="322.5" cy="150.0" r="12.0" fill="#f59f00" stroke="none" stroke-width="1.5"/>
+<text x="322.5" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектри F_I та F_T</text>
+<text x="322.5" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">F_I = ℱ{I}, F_T = ℱ{T}</text>
+<rect x="245.0" y="233.0" width="155.0" height="24.0" rx="6" fill="#fef3c7" stroke="#f59f00" stroke-width="1.0"/><text x="322.5" y="248.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="322.5" dy="0.0">Комплексні амплітуди</tspan></text>
+<line x1="414.0" y1="165.0" x2="444.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="429.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R(u,v)</text>
+<rect x="450.0" y="65.0" width="175.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="537.5" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Фазовий спектр</text>
+<rect x="475.0" y="110.0" width="125.0" height="75.0" rx="3" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="537.5" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">F_I · F_T*</text>
+<line x1="495.0" y1="152.0" x2="580.0" y2="152.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="537.5" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">|F_I · F_T*|</text>
+<text x="537.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нормалізація амплітуд</text>
+<rect x="460.0" y="233.0" width="155.0" height="24.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/><text x="537.5" y="248.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="537.5" dy="0.0">Залишається лише фаза</tspan></text>
+<line x1="629.0" y1="165.0" x2="659.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="644.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2D IFFT</text>
+<rect x="665.0" y="65.0" width="175.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="752.5" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Просторовий відгук</text>
+<rect x="690.0" y="110.0" width="125.0" height="75.0" rx="3" fill="#f8fafc" stroke="#27ae60" stroke-width="1.2"/>
+<line x1="700.0" y1="170.0" x2="805.0" y2="170.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="750.0" y1="170.0" x2="750.0" y2="120.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="750.0" cy="120.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="1.5"/>
+<text x="750.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">δ(x−Δx, y−Δy)</text>
+<text x="752.5" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ідеальний дельта-пік</text>
+<rect x="675.0" y="233.0" width="155.0" height="24.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.0"/><text x="752.5" y="248.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="752.5" dy="0.0">Координати зсуву (Δx, Δy)</tspan></text>
+</svg>

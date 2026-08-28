@@ -14,11 +14,29 @@
           "slug": "camera-model",
           "title": "Модель камери-обскури й внутрішні параметри",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pinhole-to-brown.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-zhang-homography.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-camera-undistort.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "camera-calibration",
@@ -103,8 +121,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-template-matching.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ncc-invariance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-template-matching.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
