@@ -32,48 +32,8 @@ void setup() {
     IrSender.begin(3);   // вивід 3 — сюди через резистор іде пін S модуля
 }
 ```
-```esp-idf
-#include "driver/rmt_tx.h"
-
-static rmt_channel_handle_t chan;              // канал RMT — «магнітофон» таймінгів
-
-void ir_begin(int gpio) {                      // вивід будь-який вільний
-    rmt_tx_channel_config_t cfg = {
-        .clk_src = RMT_CLK_SRC_DEFAULT,
-        .gpio_num = gpio,
-        .resolution_hz = 1000000,              // 1 тік = 1 мкс
-        .mem_block_symbols = 64,
-        .trans_queue_depth = 4,
-    };
-    ESP_ERROR_CHECK(rmt_new_tx_channel(&cfg, &chan));
-
-    rmt_carrier_config_t carrier = {           // несучу домішує сама апаратура
-        .frequency_hz = 38000,
-        .duty_cycle = 0.33,
-    };
-    ESP_ERROR_CHECK(rmt_apply_carrier(chan, &carrier));
-    ESP_ERROR_CHECK(rmt_enable(chan));
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-TIM_HandleTypeDef htim3;                       // TIM3_CH1 виведений на PA6
-
-void ir_begin(void) {                          // несуча — канал ШІМ таймера
-    __HAL_RCC_TIM3_CLK_ENABLE();
-    htim3.Instance = TIM3;
-    htim3.Init.Prescaler = 0;                          // таймер тактується 84 МГц
-    htim3.Init.Period = 84000000 / 38000 - 1;          // ≈ 2210 → 38 кГц
-    htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-    HAL_TIM_PWM_Init(&htim3);
-
-    TIM_OC_InitTypeDef oc = {0};
-    oc.OCMode = TIM_OCMODE_PWM1;
-    oc.Pulse = (htim3.Init.Period + 1) / 3;            // ≈ 1/3 — як світить пульт
-    HAL_TIM_PWM_ConfigChannel(&htim3, &oc, TIM_CHANNEL_1);
-}
-```
+:::code api-irremote-nec/c/esp-idf/pidkliuchyty-biblioteku.c
+:::code api-irremote-nec/c/stm32/pidkliuchyty-biblioteku.c
 :::
 
 `IrSender` — це вже готовий глобальний об'єкт, який бібліотека створює за вас; свій заводити не треба, лише покликати в нього `begin(pin)` з номером виводу. Один цей виклик робить велику роботу: він налаштовує апаратний таймер мікроконтролера так, щоб той сам, без участі процесора, генерував на цьому виводі меандр 38 кГц, коли треба світити. Ось чому номер виводу тут не довільний.
@@ -114,76 +74,9 @@ Raspberry Pi Pico     RP2040         будь-який
 Найкоротший робочий передавач шле одну команду й нічого більше. Робота скрізь та сама — завести несучу на виводі, видати кадр, зачекати; різниться лише те, чим кадр складають — готовим викликом бібліотеки чи власним переліком таймінгів:
 
 :::tabs
-```arduino
-#include <IRremote.hpp>
-
-void setup() {
-    IrSender.begin(3);
-}
-
-void loop() {
-    IrSender.sendNEC(0x00, 0x34, 0);   // адреса 0x00, команда 0x34, 0 повторів
-    delay(1000);
-}
-```
-```esp-idf
-#include "driver/rmt_tx.h"
-#include "freertos/FreeRTOS.h"
-
-static rmt_encoder_handle_t enc;                 // «копія» — шле символи як є
-static rmt_symbol_word_t frame[34];
-
-static rmt_symbol_word_t sym(uint16_t on, uint16_t off) {   // пачка / тиша, мкс
-    return (rmt_symbol_word_t){ .duration0 = on,  .level0 = 1,
-                                .duration1 = off, .level1 = 0 };
-}
-
-static void nec_send(uint8_t addr, uint8_t cmd) {
-    uint32_t w = addr | (uint32_t)(uint8_t)~addr << 8
-               | (uint32_t)cmd << 16 | (uint32_t)(uint8_t)~cmd << 24;
-    int n = 0;
-    frame[n++] = sym(9000, 4500);                     // преамбула
-    for (int i = 0; i < 32; i++, w >>= 1)
-        frame[n++] = sym(560, (w & 1) ? 1690 : 560);  // «1» — довша пауза
-    frame[n++] = sym(560, 0);                         // стоп-імпульс
-    rmt_transmit_config_t tc = { .loop_count = 0 };
-    ESP_ERROR_CHECK(rmt_transmit(chan, enc, frame, n * sizeof(frame[0]), &tc));
-}
-
-void app_main(void) {
-    ir_begin(18);
-    rmt_copy_encoder_config_t cc = {};
-    ESP_ERROR_CHECK(rmt_new_copy_encoder(&cc, &enc));
-
-    while (1) {
-        nec_send(0x00, 0x34);                         // адреса 0x00, команда 0x34
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```stm32
-// htim3 налаштовано в ir_begin(): TIM3_CH1 = 38 кГц, шпаруватість ≈ 1/3
-static void mark(uint16_t us) {                  // пачка несучої
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-    delay_us(us);                                // мікросекундна пауза (DWT або окремий TIM)
-    HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
-}
-static void space(uint16_t us) { delay_us(us); } // тиша тієї ж довжини
-
-static void send_nec(uint8_t addr, uint8_t cmd) {
-    uint32_t w = addr | (uint32_t)(uint8_t)~addr << 8
-               | (uint32_t)cmd << 16 | (uint32_t)(uint8_t)~cmd << 24;
-    mark(9000); space(4500);                     // преамбула
-    for (int i = 0; i < 32; i++, w >>= 1) { mark(560); space((w & 1) ? 1690 : 560); }
-    mark(560);                                   // стоп-імпульс
-}
-
-int main(void) {
-    HAL_Init();
-    ir_begin();
-    while (1) { send_nec(0x00, 0x34); HAL_Delay(1000); }
-}
-```
+:::code api-irremote-nec/c/arduino/main.ino
+:::code api-irremote-nec/c/esp-idf/peredaty-komandu-sendnec-i.c
+:::code api-irremote-nec/c/stm32/peredaty-komandu-sendnec-i.c
 :::
 
 Розберемо три числа в `sendNEC`, бо саме тут виникає плутанина «а що вписувати».
@@ -209,19 +102,7 @@ int main(void) {
 // затиснути «гучність +» на приблизно пів секунди правильними повторами NEC
 IrSender.sendNEC(0x04, 0x34, 4);   // 1 повний кадр + 4 фірмові короткі повтори
 ```
-```esp-idf
-static const rmt_symbol_word_t nec_repeat[2] = {
-    { .duration0 = 9000, .level0 = 1, .duration1 = 2250, .level1 = 0 },
-    { .duration0 = 560,  .level0 = 1, .duration1 = 0,    .level1 = 0 },
-};
-
-rmt_transmit_config_t tc = { .loop_count = 0 };
-nec_send(0x04, 0x34);                             // 1 повний кадр…
-for (int i = 0; i < 4; i++) {                     // …і 4 короткі повтори
-    vTaskDelay(pdMS_TO_TICKS(40));                // повтор — кожні 110 мс від початку кадру
-    ESP_ERROR_CHECK(rmt_transmit(chan, enc, nec_repeat, sizeof(nec_repeat), &tc));
-}
-```
+:::code api-irremote-nec/c/esp-idf/utrymannia-knopky-chomu.c
 ```stm32
 static void nec_repeat(void) {                    // кадр-повтор: без адреси й команди
     mark(9000); space(2250); mark(560);

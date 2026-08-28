@@ -47,31 +47,7 @@
 
 Найкоротший робочий приймач такий:
 
-```cpp
-#include <IRremote.hpp>          // у версії 4.x підключати саме .hpp, і лише в ОДНОМУ файлі
-
-const uint8_t PIN_IR = 2;        // OUT приймача заведено на цифровий вивід 2
-
-void setup() {
-    Serial.begin(115200);
-    IrReceiver.begin(PIN_IR, ENABLE_LED_FEEDBACK);   // почати приймання; ENABLE_LED_FEEDBACK — блимати вбудованим LED на прийом
-    Serial.println(F("Наводь пульт і тисни кнопки..."));
-}
-
-void loop() {
-    if (IrReceiver.decode()) {                        // прийшов повний кадр?
-        // головне — три поля результату:
-        Serial.print(F("Протокол: "));
-        Serial.print(getProtocolString(IrReceiver.decodedIRData.protocol));   // NEC / SONY / RC5 / UNKNOWN
-        Serial.print(F("  адреса=0x"));
-        Serial.print(IrReceiver.decodedIRData.address, HEX);
-        Serial.print(F("  команда=0x"));
-        Serial.println(IrReceiver.decodedIRData.command, HEX);
-
-        IrReceiver.resume();                          // ОБОВ'ЯЗКОВО: звільнити буфер під наступний кадр
-    }
-}
-```
+:::code api-nec-decode/cpp/shliakh-pershyi-biblioteka.cpp
 
 Розберемо, що тут насправді відбувається, бо кожен рядок ховає роботу.
 
@@ -87,18 +63,7 @@ void loop() {
 
 Затисніть кнопку — і у serial поллється потік, де адреса й команда раптом стають `0x0`. Це не збій: так влаштований сам NEC. Повний кадр пульт шле **один раз**, а поки кнопку тримають, випускає короткі **коди-повтори** — службові посилки «те саме, ще тримаю», без адреси й команди всередині. Бібліотека віддає такий повтор як окремий `decode()` з піднятим прапорцем, і його треба впізнавати, а не приймати за нову кнопку:
 
-```cpp
-if (IrReceiver.decode()) {
-    if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_IS_REPEAT) {
-        // кнопку ТРИМАЮТЬ — команда та сама, що останнього повного кадру
-        handleHeld(lastCommand);           // напр. плавно міняти гучність далі
-    } else {
-        lastCommand = IrReceiver.decodedIRData.command;   // новий повний кадр — запам'ятати команду
-        handlePress(lastCommand);
-    }
-    IrReceiver.resume();
-}
-```
+:::code api-nec-decode/cpp/povtor-pry-utrymanni-ne.cpp
 
 Логіка проста: повний кадр приносить нову команду й ви її запам'ятовуєте; повтор говорить лише «попередня триває», тож ви застосовуєте **збережену** команду. Без цієї гілки утримання «гучність+» або нічого не робитиме (бо в повторі команда нульова), або смикатиметься.
 
@@ -144,155 +109,8 @@ if (IrReceiver.decode()) {
 Той самий декодер має сенс і на восьмибітному Arduino (AVR, C/C++ — рідна мова заліза), і на ESP32/Pico, де багато хто пише мікропітоном; логіка тотожна, тож ось обидва варіанти:
 
 :::tabs
-```cpp
-// --- Ручний декодер NEC на Arduino / AVR ---
-// OUT приймача → вивід 2 (на Uno/Nano вивід 2 і 3 уміють зовнішні переривання)
-const uint8_t PIN_IR = 2;
-
-volatile uint32_t gaps[70];        // кільце тривалостей між спадами (кадр = 1 преамбула + 32 біти ≈ 33 спади)
-volatile uint8_t  head = 0, tail = 0;
-volatile uint32_t lastFall = 0;
-
-// ISR: коротко! зняти час, покласти інтервал у кільце, вийти
-void onFall() {
-    uint32_t now = micros();
-    uint32_t gap = now - lastFall;
-    lastFall = now;
-    uint8_t nextHead = (head + 1) % 70;
-    if (nextHead != tail) {        // не переповнити кільце
-        gaps[head] = gap;
-        head = nextHead;
-    }
-}
-
-// стани автомата
-enum { IDLE, DATA } state = IDLE;
-uint32_t bits = 0;                 // сюди складаємо 32 біти (молодшим уперед)
-uint8_t  nbits = 0;
-uint32_t lastValue = 0;            // останній повний кадр (для повтору)
-
-void setup() {
-    Serial.begin(115200);
-    pinMode(PIN_IR, INPUT);
-    attachInterrupt(digitalPinToInterrupt(PIN_IR), onFall, FALLING);
-    Serial.println(F("Ручний NEC-декодер готовий."));
-}
-
-void loop() {
-    // забрати з кільця всі нові інтервали (poll-and-drain)
-    while (tail != head) {
-        uint32_t gap = gaps[tail];
-        tail = (tail + 1) % 70;
-        handleGap(gap);
-    }
-}
-
-// одна порція логіки автомата на один інтервал між спадами
-void handleGap(uint32_t gap) {
-    // допуск ±30% — дешеві пульти сильно «пливуть» за таймінгом
-    if (within(gap, 13500)) {          // преамбула повного кадру
-        state = DATA; bits = 0; nbits = 0;
-        return;
-    }
-    if (within(gap, 11250)) {          // код-повтор: кнопку тримають
-        Serial.print(F("ПОВТОР (тримають): addr=0x"));
-        Serial.print((lastValue) & 0xFF, HEX);
-        Serial.print(F(" cmd=0x"));
-        Serial.println((lastValue >> 16) & 0xFF, HEX);
-        state = IDLE;
-        return;
-    }
-    if (state == DATA) {
-        uint8_t bit = (gap > 1200) ? 1 : 0;    // поріг посередині між ~1.1 і ~2.2 мс
-        bits |= ((uint32_t)bit << nbits);       // молодший біт уперед
-        nbits++;
-        if (nbits == 32) {
-            decodeFrame(bits);
-            state = IDLE;
-        }
-    }
-}
-
-bool within(uint32_t v, uint32_t target) {
-    return v > (uint32_t)(target * 0.7) && v < (uint32_t)(target * 1.3);
-}
-
-void decodeFrame(uint32_t raw) {
-    uint8_t addr  =  raw        & 0xFF;
-    uint8_t addrN = (raw >> 8)  & 0xFF;
-    uint8_t cmd   = (raw >> 16) & 0xFF;
-    uint8_t cmdN  = (raw >> 24) & 0xFF;
-
-    // перевірка інверсних байтів (для звичайного NEC)
-    bool ok = ((uint8_t)(addr ^ addrN) == 0xFF) && ((uint8_t)(cmd ^ cmdN) == 0xFF);
-    lastValue = raw;
-
-    Serial.print(F("addr=0x")); Serial.print(addr, HEX);
-    Serial.print(F(" cmd=0x"));  Serial.print(cmd, HEX);
-    Serial.println(ok ? F("  [XOR ok]") : F("  [XOR BAD або extended-NEC]"));
-}
-```
-```python
-# --- Ручний декодер NEC на MicroPython (ESP32 / Pico) ---
-# OUT приймача → GPIO 4 (будь-який вивід з підтримкою переривань)
-from machine import Pin
-import time
-
-PIN_IR = 4
-gaps = []                       # проста черга інтервалів між спадами
-last_fall = time.ticks_us()
-
-def on_fall(pin):               # ISR: коротко! зняти час, покласти інтервал, вийти
-    global last_fall
-    now = time.ticks_us()
-    gaps.append(time.ticks_diff(now, last_fall))   # ticks_diff коректно рахує навіть на переповненні лічильника
-    last_fall = now
-
-ir = Pin(PIN_IR, Pin.IN)
-ir.irq(trigger=Pin.IRQ_FALLING, handler=on_fall)
-
-state = "IDLE"
-bits = 0
-nbits = 0
-last_value = 0
-
-def within(v, target):          # допуск ±30% під тремтіння дешевих пультів
-    return target * 0.7 < v < target * 1.3
-
-def handle_gap(gap):
-    global state, bits, nbits, last_value
-    if within(gap, 13500):                  # преамбула повного кадру
-        state, bits, nbits = "DATA", 0, 0
-        return
-    if within(gap, 11250):                  # код-повтор: кнопку тримають
-        addr = last_value & 0xFF
-        cmd  = (last_value >> 16) & 0xFF
-        print("ПОВТОР (тримають): addr=0x%02X cmd=0x%02X" % (addr, cmd))
-        state = "IDLE"
-        return
-    if state == "DATA":
-        bit = 1 if gap > 1200 else 0        # поріг між ~1.1 і ~2.2 мс
-        bits |= (bit << nbits)              # молодший біт уперед
-        nbits += 1
-        if nbits == 32:
-            decode_frame(bits)
-            state = "IDLE"
-
-def decode_frame(raw):
-    global last_value
-    addr  =  raw        & 0xFF
-    addr_n = (raw >> 8)  & 0xFF
-    cmd   = (raw >> 16) & 0xFF
-    cmd_n  = (raw >> 24) & 0xFF
-    ok = ((addr ^ addr_n) == 0xFF) and ((cmd ^ cmd_n) == 0xFF)
-    last_value = raw
-    tag = "[XOR ok]" if ok else "[XOR BAD або extended-NEC]"
-    print("addr=0x%02X cmd=0x%02X  %s" % (addr, cmd, tag))
-
-while True:                                 # головний цикл: забрати з черги все накопичене
-    while gaps:
-        handle_gap(gaps.pop(0))
-```
+:::code api-nec-decode/cpp/kod-isr-lovyt-chas-loop.cpp
+:::code api-nec-decode/py/main.py
 :::
 
 Розберемо, чому декодер саме такий, а не інакший.

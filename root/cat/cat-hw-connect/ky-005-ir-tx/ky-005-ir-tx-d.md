@@ -112,95 +112,9 @@ KY-005            Мікроконтролер
 Найкоротший приклад, що шле одну команду NEC раз на секунду:
 
 :::tabs
-```arduino
-#include <IRremote.hpp>
-
-const int PIN_SEND = 3;      // вивід, на якому висить S (через резистор)
-
-void setup() {
-    IrSender.begin(PIN_SEND);          // бібліотека сама налаштує таймер під 38 кГц
-}
-
-void loop() {
-    uint16_t address = 0x00;           // адреса пристрою
-    uint8_t  command = 0x34;           // код команди (яку «кнопку» шлемо)
-    IrSender.sendNEC(address, command, 0);   // 0 — без повторів
-    delay(1000);
-}
-```
-```esp-idf
-#include "driver/ledc.h"
-#include "esp_rom_sys.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_SEND 18          // GPIO, на якому висить S (через резистор)
-
-// LEDC тримає несучу 38 кГц; вмикаємо й вимикаємо її шпаруватістю
-static void carrier(bool on) {
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, on ? 85 : 0);  // ~1/3
-    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-}
-static void mark(int us)  { carrier(true);  esp_rom_delay_us(us); }
-static void space(int us) { carrier(false); esp_rom_delay_us(us); }
-
-static void send_nec(uint32_t frame) {       // 32 біти, молодшим уперед
-    mark(9000); space(4500);                 // преамбула NEC
-    for (int i = 0; i < 32; i++) {
-        mark(560);
-        space(((frame >> i) & 1) ? 1690 : 560);  // «1» — довга пауза, «0» — коротка
-    }
-    mark(560); carrier(false);               // завершальна пачка
-}
-
-void app_main(void) {
-    ledc_timer_config_t t = { .speed_mode = LEDC_LOW_SPEED_MODE,
-        .duty_resolution = LEDC_TIMER_8_BIT, .timer_num = LEDC_TIMER_0,
-        .freq_hz = 38000, .clk_cfg = LEDC_AUTO_CLK };
-    ledc_timer_config(&t);
-    ledc_channel_config_t c = { .gpio_num = PIN_SEND, .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel = LEDC_CHANNEL_0, .timer_sel = LEDC_TIMER_0, .duty = 0, .hpoint = 0 };
-    ledc_channel_config(&c);
-
-    while (1) {
-        send_nec(0xCB34FF00);    // адреса 0x00, команда 0x34 з інверсіями
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```stm32
-#include "main.h"
-
-extern TIM_HandleTypeDef htim3;   // ШІМ 38 кГц, канал 1 — це вивід S
-extern TIM_HandleTypeDef htim2;   // вільний лічильник на 1 МГц — мікросекунди
-
-static void delay_us(uint16_t us) {
-    __HAL_TIM_SET_COUNTER(&htim2, 0);
-    while (__HAL_TIM_GET_COUNTER(&htim2) < us) { }
-}
-
-// «Пачка» — увімкнена несуча, «пауза» — вимкнена
-static void mark(uint16_t us)  { HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); delay_us(us); }
-static void space(uint16_t us) { HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);  delay_us(us); }
-
-static void send_nec(uint32_t frame) {       // 32 біти, молодшим уперед
-    mark(9000); space(4500);                 // преамбула NEC
-    for (int i = 0; i < 32; i++) {
-        mark(560);
-        space(((frame >> i) & 1) ? 1690 : 560);  // «1» — довга пауза, «0» — коротка
-    }
-    mark(560);
-    HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1); // завершальна пачка й тиша
-}
-
-void ir_loop(void) {              // виклик після MX_TIM2_Init()/MX_TIM3_Init()
-    HAL_TIM_Base_Start(&htim2);
-    while (1) {
-        send_nec(0xCB34FF00);     // адреса 0x00, команда 0x34 з інверсіями
-        HAL_Delay(1000);
-    }
-}
-```
+:::code ky-005-ir-tx-d/c/arduino/main.ino
+:::code ky-005-ir-tx-d/c/esp-idf/main.c
+:::code ky-005-ir-tx-d/c/stm32/main.c
 :::
 
 Звідки взяти числа `address` і `command`? Їх або дивляться в базі ІЧ-кодів для конкретної техніки, або — найнадійніше — «підслуховують» рідний пульт [ІЧ-приймачем](root:cat-hw-connect/vs1838b-ir-rx): наводите пульт, ловите приймачем адресу й код кожної кнопки, а потім віддаєте ті самі числа через KY-005. Так ваша плата стає точною копією пульта. Увесь цей сценарій — зняти код приймачем і повторити його передавачем — розписано по кроках з готовим кодом окремо: [клон пульта на KY-005](root:cat-hw-connect/ky-005-ir-tx/proj-clone-remote.md).

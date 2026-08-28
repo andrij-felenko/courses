@@ -47,37 +47,13 @@ port.print("...") → відправити рядок тексту (ті сам�
 
 **Оголошення й запуск.** Створюємо програмний порт на двох ніжках і задаємо йому **робочу** швидкість модуля (типово 9600 — не плутати з командними 38400, вони знадобляться в режимі AT).
 
-```arduino
-#include <SoftwareSerial.h>
-
-// SoftwareSerial(rxPin, txPin): rxPin приймає ВІД модуля, txPin шле В модуль.
-//   D10 ← TXD модуля (напряму, TXD віддає 3.3 В — Uno читає як 1)
-//   D11 → RXD модуля (ТІЛЬКИ через дільник 1к/2к! 5 В прямо псує вхід)
-SoftwareSerial btSerial(10, 11);   // (RX, TX) з боку Arduino
-
-void setup() {
-    Serial.begin(9600);      // апаратний порт → монітор по USB
-    btSerial.begin(9600);    // програмний порт → модуль, РОБОЧА швидкість
-    Serial.println("Готово. Байти між монітором і модулем ідуть наскрізь.");
-}
-```
+:::code api-hc05-uart/c/arduino/arduino-uno-cherez.ino
 
 Зверніть увагу на порядок аргументів `SoftwareSerial(10, 11)`: **перший — RX** (ніжка, що слухає модуль), **другий — TX** (ніжка, що шле в модуль). Переплутати їх — класична помилка: код виглядає правильно, а зв'язку немає, бо ви слухаєте ніжку, у яку самі ж пишете. І пам'ятайте фізику: TX Arduino (D11) — це 5-вольтовий вихід, а RXD модуля терпить лише 3.3 В, тож між ними обов'язковий дільник; зустрічна лінія (TXD модуля → D10) іде напряму. Докладніше про сам дільник — [дільник напруги](root:hw-analog/voltage-divider).
 
 **Наскрізне возіння — обидва напрями.** Найпростіший корисний скетч: усе, що прийшло з монітора, віддати модулю, і навпаки. Це «дротик» між комп'ютером і радіо — ним зручно вручну слати щось напарнику й бачити відповіді.
 
-```arduino
-void loop() {
-    // Монітор (ви друкуєте) → модуль (летить по радіо)
-    if (Serial.available()) {
-        btSerial.write(Serial.read());
-    }
-    // Модуль (прийшло по радіо) → монітор (бачите на екрані)
-    if (btSerial.available()) {
-        Serial.write(btSerial.read());
-    }
-}
-```
+:::code api-hc05-uart/c/arduino/arduino-uno-cherez-2.ino
 
 Оце вже повноцінний бездротовий термінал. Кожен `if` перевіряє свій струмок і, якщо байт є, миттю перекладає його в інший порт. Ніяких `delay`, ніякого чекання — цикл крутиться вільно, тому обидва напрями обслуговуються майже одночасно.
 
@@ -88,58 +64,8 @@ void loop() {
 **ESP32.** У нього три апаратні UART: UART0 зайнятий USB-монітором, модулю даємо UART2 — типово на ніжках GPIO16 (RX) і GPIO17 (TX). В Arduino-ядрі ці порти видно як об'єкти `Serial` і `Serial2`, у чистому ESP-IDF — як номери `UART_NUM_0` / `UART_NUM_2` у драйвері `driver/uart.h`.
 
 :::tabs
-```arduino
-// ESP32: Serial → монітор по USB, Serial2 → модуль.
-// Serial2 типово на GPIO16 (RX2) і GPIO17 (TX2).
-//   GPIO16 ← TXD модуля (напряму, обидва 3.3 В)
-//   GPIO17 → RXD модуля (напряму, TX уже 3.3 В — дільник НЕ потрібен)
-void setup() {
-    Serial.begin(115200);                          // монітор
-    Serial2.begin(9600, SERIAL_8N1, 16, 17);       // модуль: 9600, 8 біт, без парності, 1 стоп
-    //           швидкість  формат      RX  TX
-    Serial.println("ESP32 ↔ HC-05 через апаратний UART2");
-}
-
-void loop() {
-    while (Serial2.available()) Serial.write(Serial2.read());  // модуль → монітор
-    while (Serial.available())  Serial2.write(Serial.read());  // монітор → модуль
-}
-```
-```esp-idf
-// Те саме на чистому ESP-IDF: драйвер UART2, ніжки задаються явно.
-#include "driver/uart.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define BT_UART   UART_NUM_2
-#define PIN_TXD   17          // → RXD модуля (обидва 3.3 В, дільник НЕ потрібен)
-#define PIN_RXD   16          // ← TXD модуля
-#define BUF_SIZE  1024
-
-void bt_uart_init(int baud) {
-    const uart_config_t cfg = {
-        .baud_rate  = baud,                      // робоча швидкість модуля
-        .data_bits  = UART_DATA_8_BITS,          // 8 біт даних…
-        .parity     = UART_PARITY_DISABLE,       // …без парності…
-        .stop_bits  = UART_STOP_BITS_1,          // …1 стоп-біт — це і є 8N1
-        .flow_ctrl  = UART_HW_FLOWCTRL_DISABLE,
-        .source_clk = UART_SCLK_DEFAULT,
-    };
-    ESP_ERROR_CHECK(uart_driver_install(BT_UART, BUF_SIZE, 0, 0, NULL, 0));
-    ESP_ERROR_CHECK(uart_param_config(BT_UART, &cfg));
-    // порядок аргументів: (порт, TX, RX, RTS, CTS)
-    ESP_ERROR_CHECK(uart_set_pin(BT_UART, PIN_TXD, PIN_RXD,
-                                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
-}
-
-// модуль → лог; зустрічний напрям тут дає сама консоль ESP-IDF
-void bt_bridge_task(void *arg) {
-    uint8_t b;
-    for (;;) {
-        if (uart_read_bytes(BT_UART, &b, 1, pdMS_TO_TICKS(20)) == 1) putchar(b);
-    }
-}
-```
+:::code api-hc05-uart/c/arduino/esp32-i-stm32-cherez.ino
+:::code api-hc05-uart/c/esp-idf/esp32-i-stm32-cherez.c
 :::
 
 Форма `Serial2.begin(9600, SERIAL_8N1, 16, 17)` явно задає й формат кадру (`SERIAL_8N1` — 8 біт даних, без парності, 1 стоп-біт: рівно те, що чекає HC-05), і ніжки. Ніжки можна поставити майже будь-які — ESP32 маршрутизує UART на різні GPIO, — але типові 16/17 працюють, якщо на вашій платі вони вільні (на модулях із PSRAM ці два виводи бувають зайняті внутрішньо, тоді беруть інші).
@@ -147,44 +73,8 @@ void bt_bridge_task(void *arg) {
 **STM32.** Тут теж кілька USART. Один із них зазвичай виведений на USB або на ST-Link і слугує монітором; модулю даємо інший — наприклад USART1 на штатних ніжках PA9/PA10. В ядрі Arduino_Core_STM32 це об'єкт `Serial1`, у згенерованому CubeMX проєкті — хендл `huart1`.
 
 :::tabs
-```arduino
-// STM32 (напр. Blue Pill / Nucleo): модуль на USART1 (типово PA9=TX, PA10=RX).
-// Плата на 3.3 В → з'єднання з модулем напряму, без дільника.
-HardwareSerial &bt = Serial1;   // псевдонім для читабельності
-
-void setup() {
-    Serial.begin(115200);       // монітор (USB або ST-Link VCP)
-    bt.begin(9600);             // модуль на робочій швидкості
-}
-
-void loop() {
-    while (bt.available())     Serial.write(bt.read());   // модуль → монітор
-    while (Serial.available()) bt.write(Serial.read());   // монітор → модуль
-}
-```
-```stm32
-// STM32 HAL: CubeMX уже згенерував huart1 (модуль, 9600 8N1)
-// і huart2 (монітор через ST-Link VCP). Плата на 3.3 В → без дільника.
-#include "main.h"
-
-extern UART_HandleTypeDef huart1;   // модуль
-extern UART_HandleTypeDef huart2;   // монітор
-
-// Викликати з головного циклу. Тайм-аут 10 мс на прийом означає:
-// байта немає — не чекаємо, а йдемо перевіряти зустрічний напрям.
-void bt_bridge(void) {
-    uint8_t b;
-
-    if (HAL_UART_Receive(&huart1, &b, 1, 10) == HAL_OK)   // модуль → монітор
-        HAL_UART_Transmit(&huart2, &b, 1, 100);
-
-    if (HAL_UART_Receive(&huart2, &b, 1, 10) == HAL_OK)   // монітор → модуль
-        HAL_UART_Transmit(&huart1, &b, 1, 100);
-
-    // Опитування придатне для 9600. На вищих швидкостях беріть
-    // HAL_UART_Receive_IT / _DMA у кільцевий буфер, інакше губитимете байти.
-}
-```
+:::code api-hc05-uart/c/arduino/esp32-i-stm32-cherez-2.ino
+:::code api-hc05-uart/c/stm32/esp32-i-stm32-cherez.c
 :::
 
 Суть скрізь одна: **звідки прилітають байти — це деталь плати**, а не радіо. Програмний порт на Uno, UART2 на ESP32, USART1 на STM32 — усе це той самий порт із чотирма діями (в Arduino вони звуться `available/read/write/print`, деінде інакше), і будь-яка логіка над ним не залежить від того, який фізичний UART його живить. Це прямий наслідок картини «код бачить не радіо, а байтовий струмок».
@@ -204,62 +94,9 @@ void bt_bridge(void) {
 **Керуємо EN із коду.** Заведемо ніжку EN на вихід і піднімемо її перед тим, як живити модуль — на макетці це зручно зробити так: EN модуля на цифровий вихід МК, VCC модуля — на керований вихід (транзистор чи просто ніжку, якщо струм малий), і спершу підняти EN, тоді дати живлення.
 
 :::tabs
-```arduino
-const int PIN_EN = 9;    // EN (KEY) модуля → ця ніжка МК
-const int PIN_BT_POWER = 8;  // керує живленням модуля (через транзистор), опційно
-
-void enterATMode() {
-    pinMode(PIN_EN, OUTPUT);
-    digitalWrite(PIN_EN, HIGH);      // EN високо — ЩЕ ДО подачі живлення модулю
-    // якщо живлення керується ніжкою — тут його вмикаємо ПІСЛЯ підняття EN:
-    pinMode(PIN_BT_POWER, OUTPUT);
-    digitalWrite(PIN_BT_POWER, LOW); // на мить знеструмити…
-    delay(100);
-    digitalWrite(PIN_BT_POWER, HIGH);// …і подати знову — модуль стартує вже в AT
-    delay(500);                      // дати модулю прокинутись
-    btSerial.begin(38400);           // КОМАНДНА швидкість HC-05, не 9600!
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-
-#define PIN_EN        GPIO_NUM_9    // EN (KEY) модуля
-#define PIN_BT_POWER  GPIO_NUM_8    // живлення модуля через транзистор, опційно
-
-void enter_at_mode(void) {
-    const gpio_config_t io = {
-        .pin_bit_mask = (1ULL << PIN_EN) | (1ULL << PIN_BT_POWER),
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-
-    gpio_set_level(PIN_EN, 1);              // EN високо — ЩЕ ДО подачі живлення
-    gpio_set_level(PIN_BT_POWER, 0);        // на мить знеструмити…
-    vTaskDelay(pdMS_TO_TICKS(100));
-    gpio_set_level(PIN_BT_POWER, 1);        // …і подати знову — модуль стартує в AT
-    vTaskDelay(pdMS_TO_TICKS(500));         // дати модулю прокинутись
-    ESP_ERROR_CHECK(uart_set_baudrate(BT_UART, 38400));  // КОМАНДНА швидкість, не 9600!
-}
-```
-```stm32
-// CubeMX: EN → PB0, керування живленням → PB1, обидва GPIO_Output.
-// huart1 — порт до модуля.
-void enter_at_mode(void) {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);    // EN високо — ЩЕ ДО живлення
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);  // на мить знеструмити…
-    HAL_Delay(100);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);    // …і подати знову
-    HAL_Delay(500);                                        // дати модулю прокинутись
-
-    // перевідкриваємо порт на командній швидкості
-    HAL_UART_DeInit(&huart1);
-    huart1.Init.BaudRate = 38400;           // КОМАНДНА швидкість HC-05, не 9600!
-    if (HAL_UART_Init(&huart1) != HAL_OK) Error_Handler();
-}
-```
+:::code api-hc05-uart/c/arduino/kontrakt-druhyi-rezhym-at.ino
+:::code api-hc05-uart/c/esp-idf/kontrakt-druhyi-rezhym-at.c
+:::code api-hc05-uart/c/stm32/kontrakt-druhyi-rezhym-at.c
 :::
 
 Якщо живлення модуля ви не комутуєте з коду (VCC просто на 5 В постійно), то EN піднімають кнопкою на платі, натиснутою під час подачі живлення, — а програма тоді лише відкриває порт на 38400. Але керувати EN із коду зручніше: не треба тримати кнопку.
@@ -267,94 +104,9 @@ void enter_at_mode(void) {
 **Шлемо команду й розбираємо відповідь.** Ось серце всього — функція, що надсилає одну AT-команду, чекає відповідь до кінця рядка й каже, чи побачила `OK`. Саме брак цієї перевірки робить налаштування «сліпим»: команду послали, а спрацювала вона чи ні — невідомо.
 
 :::tabs
-```arduino
-// Надіслати AT-команду й дочекатися відповіді.
-// Повертає true, якщо у відповіді трапилось "OK"; false — таймаут або "ERROR".
-// resp (опційно) — куди скласти повний текст відповіді для друку в монітор.
-bool sendAT(const char *cmd, String &resp, uint32_t timeoutMs = 1000) {
-    // 1) очистити «хвіст» попередньої відповіді з буфера
-    while (btSerial.available()) btSerial.read();
-
-    // 2) надіслати команду + ОБОВ'ЯЗКОВІ \r\n
-    btSerial.print(cmd);
-    btSerial.print("\r\n");
-
-    // 3) збирати відповідь, доки не побачимо кінець рядка або не вийде час
-    resp = "";
-    uint32_t start = millis();
-    while (millis() - start < timeoutMs) {
-        while (btSerial.available()) {
-            char c = btSerial.read();
-            resp += c;
-            // модуль завершує відповідь \r\n; побачивши \n — рядок готовий
-            if (c == '\n') {
-                return resp.indexOf("OK") >= 0;   // є "OK" → успіх
-            }
-        }
-    }
-    return false;   // час вийшов, повного рядка так і не прийшло
-}
-```
-```esp-idf
-#include <string.h>
-#include "esp_timer.h"
-
-// Ті самі три кроки. Замість String — буфер виклику: у прошивці без
-// динамічних рядків видно, скільки пам'яті коштує відповідь.
-bool send_at(const char *cmd, char *resp, size_t cap, uint32_t timeout_ms) {
-    // 1) очистити «хвіст» попередньої відповіді з приймального буфера драйвера
-    uart_flush_input(BT_UART);
-
-    // 2) надіслати команду + ОБОВ'ЯЗКОВІ \r\n
-    uart_write_bytes(BT_UART, cmd, strlen(cmd));
-    uart_write_bytes(BT_UART, "\r\n", 2);
-
-    // 3) збирати відповідь, доки не побачимо кінець рядка або не вийде час
-    size_t n = 0;
-    int64_t start = esp_timer_get_time();          // мікросекунди від старту
-    while ((esp_timer_get_time() - start) / 1000 < timeout_ms) {
-        uint8_t c;
-        if (uart_read_bytes(BT_UART, &c, 1, pdMS_TO_TICKS(10)) != 1) continue;
-        if (n < cap - 1) resp[n++] = (char)c;
-        if (c == '\n') {                           // рядок готовий
-            resp[n] = '\0';
-            return strstr(resp, "OK") != NULL;     // є "OK" → успіх
-        }
-    }
-    resp[n] = '\0';
-    return false;   // час вийшов, повного рядка так і не прийшло
-}
-```
-```stm32
-#include <string.h>
-
-// Те саме на HAL: тайм-аут відлічуємо системним тіком HAL_GetTick().
-bool send_at(const char *cmd, char *resp, size_t cap, uint32_t timeout_ms) {
-    // 1) вичитати «хвіст» минулої відповіді (тайм-аут 0 — доки є байти)
-    uint8_t junk;
-    while (HAL_UART_Receive(&huart1, &junk, 1, 0) == HAL_OK) { }
-    __HAL_UART_CLEAR_OREFLAG(&huart1);   // і скинути прапорець переповнення
-
-    // 2) надіслати команду + ОБОВ'ЯЗКОВІ \r\n
-    HAL_UART_Transmit(&huart1, (uint8_t *)cmd, strlen(cmd), 100);
-    HAL_UART_Transmit(&huart1, (uint8_t *)"\r\n", 2, 100);
-
-    // 3) збирати відповідь, доки не побачимо кінець рядка або не вийде час
-    size_t n = 0;
-    uint32_t start = HAL_GetTick();                // мілісекунди від старту
-    while (HAL_GetTick() - start < timeout_ms) {
-        uint8_t c;
-        if (HAL_UART_Receive(&huart1, &c, 1, 10) != HAL_OK) continue;
-        if (n < cap - 1) resp[n++] = (char)c;
-        if (c == '\n') {                           // рядок готовий
-            resp[n] = '\0';
-            return strstr(resp, "OK") != NULL;     // є "OK" → успіх
-        }
-    }
-    resp[n] = '\0';
-    return false;   // час вийшов, повного рядка так і не прийшло
-}
-```
+:::code api-hc05-uart/c/arduino/kontrakt-druhyi-rezhym-at-2.ino
+:::code api-hc05-uart/c/esp-idf/kontrakt-druhyi-rezhym-at-2.c
+:::code api-hc05-uart/c/stm32/kontrakt-druhyi-rezhym-at-2.c
 :::
 
 Розберемо, чому кожен крок саме такий. **Очищення буфера** на початку прибирає недочитані байти минулої команди — інакше вони приклеяться до нової відповіді й зіб'ють розбір. **`\r\n` після команди** — те саме залізне правило: без них модуль не вважатиме команду завершеною. **Збір до `\n`** — модуль закінчує відповідь переведенням рядка, тож поява `\n` означає «рядок цілий, можна розбирати»; чекати далі нема сенсу. І **таймаут за годинником контролера** (`millis()` в Arduino, `esp_timer_get_time()` в ESP-IDF, `HAL_GetTick()` на STM32) — щоб функція не зависла назавжди, якщо модуль мовчить (не та швидкість, не піднято EN): не діждавшись рядка за секунду, чесно повертаємо `false`.
@@ -364,71 +116,9 @@ bool send_at(const char *cmd, char *resp, size_t cap, uint32_t timeout_ms) {
 **Уся послідовність налаштування.** Тепер зберемо конфігурацію в один прохід. Кожну команду шлемо, друкуємо відповідь у монітор і зупиняємось, якщо щось не `OK`, — бо далі гнати команди в модуль, який уже не відповідає, безглуздо.
 
 :::tabs
-```arduino
-void configureModule() {
-    String resp;
-
-    struct { const char *cmd; const char *what; } steps[] = {
-        { "AT",                  "перевірка зв'язку" },
-        { "AT+NAME=MyBT",        "ім'я модуля" },
-        { "AT+PSWD=4726",        "новий PIN (замість 1234)" },
-        { "AT+UART=9600,0,0",    "робоча швидкість 9600, 1 стоп-біт, без парності" },
-        { "AT+ROLE=0",           "роль: ведений (slave) — чекає вхідне з'єднання [HC-05]" },
-    };
-
-    for (auto &s : steps) {
-        bool ok = sendAT(s.cmd, resp);
-        Serial.print(s.what);
-        Serial.print("  →  ");
-        Serial.print(resp);                    // повний текст відповіді модуля
-        if (!ok) {
-            Serial.println(">>> НЕ OK. Перевір: EN високо? швидкість 38400? \\r\\n?");
-            return;                             // далі немає сенсу
-        }
-    }
-    Serial.println("Налаштування завершено. Знеструм і подай живлення без EN.");
-}
-```
-```esp-idf
-static const char *TAG = "hc05";
-
-static const struct { const char *cmd; const char *what; } steps[] = {
-    { "AT",                  "перевірка зв'язку" },
-    { "AT+NAME=MyBT",        "ім'я модуля" },
-    { "AT+PSWD=4726",        "новий PIN (замість 1234)" },
-    { "AT+UART=9600,0,0",    "робоча швидкість 9600, 1 стоп-біт, без парності" },
-    { "AT+ROLE=0",           "роль: ведений (slave) — чекає вхідне з'єднання [HC-05]" },
-};
-
-void configure_module(void) {
-    char resp[64];
-    for (size_t i = 0; i < sizeof(steps) / sizeof(steps[0]); i++) {
-        bool ok = send_at(steps[i].cmd, resp, sizeof(resp), 1000);
-        ESP_LOGI(TAG, "%s  →  %s", steps[i].what, resp);   // повний текст відповіді
-        if (!ok) {
-            ESP_LOGE(TAG, "НЕ OK. Перевір: EN високо? швидкість 38400? \\r\\n?");
-            return;                                        // далі немає сенсу
-        }
-    }
-    ESP_LOGI(TAG, "Налаштування завершено. Знеструм і подай живлення без EN.");
-}
-```
-```stm32
-// Таблиця steps[] — та сама; різниця лише в тому, куди йде звіт.
-// printf тут заведений на huart2 (ST-Link VCP) через _write().
-void configure_module(void) {
-    char resp[64];
-    for (size_t i = 0; i < sizeof(steps) / sizeof(steps[0]); i++) {
-        bool ok = send_at(steps[i].cmd, resp, sizeof(resp), 1000);
-        printf("%s  →  %s", steps[i].what, resp);          // повний текст відповіді
-        if (!ok) {
-            printf(">>> НЕ OK. Перевір: EN високо? швидкість 38400? \\r\\n?\n");
-            return;                                        // далі немає сенсу
-        }
-    }
-    printf("Налаштування завершено. Знеструм і подай живлення без EN.\n");
-}
-```
+:::code api-hc05-uart/c/arduino/kontrakt-druhyi-rezhym-at-3.ino
+:::code api-hc05-uart/c/esp-idf/kontrakt-druhyi-rezhym-at-3.c
+:::code api-hc05-uart/c/stm32/kontrakt-druhyi-rezhym-at-3.c
 :::
 
 Кілька слів про самі команди, бо їхній синтаксис теж має пастки. `AT+UART=9600,0,0` задає **три** речі одразу: робочу швидкість (9600), стоп-біти (0 = один стоп-біт), парність (0 = немає) — і кома між ними обов'язкова. `AT+ROLE=0` робить модуль веденим (чекає вхідне з'єднання), `AT+ROLE=1` — ведучим (сам шукає й під'єднується); але `ROLE=1` осмислений лише на HC-05 — у HC-06 команди немає, він завжди ведений. `AT+PSWD=4726` (на новіших прошивках PIN беруть у лапки: `AT+PSWD="4726"`) міняє PIN із заводського `1234`. Якщо якась команда впала на `ERROR`, найчастіша причина — версія прошивки з іншим синтаксисом (з лапками чи без), і варто звірити відповідь `AT+VERSION?`.
@@ -444,65 +134,9 @@ void configure_module(void) {
 Заводимо STATE на вільний вхід і читаємо як звичайну ніжку. Але корисне не саме значення, а **момент переходу**: щойно STATE впав з 1 у 0 — зв'язок щойно обірвався; піднявся з 0 у 1 — напарник щойно під'єднався. Реагувати треба на цю *подію*, один раз, а не щоцикл, доки стан тримається.
 
 :::tabs
-```arduino
-const int PIN_STATE = 7;    // STATE модуля → цей вхід МК
-bool wasConnected = false;
-
-void setup() {
-    // ...інша ініціалізація...
-    pinMode(PIN_STATE, INPUT);
-}
-
-void loop() {
-    bool connected = digitalRead(PIN_STATE);   // 1 = є з'єднання, 0 = немає
-
-    if (!wasConnected && connected) {          // 0→1: напарник щойно під'єднався
-        Serial.println("З'єднання встановлено.");
-    }
-    if (wasConnected && !connected) {          // 1→0: зв'язок щойно обірвався
-        Serial.println("Зв'язок втрачено.");
-    }
-    wasConnected = connected;
-}
-```
-```esp-idf
-#define PIN_STATE GPIO_NUM_7        // STATE модуля → цей вхід
-
-void state_watch_task(void *arg) {
-    const gpio_config_t io = {
-        .pin_bit_mask = 1ULL << PIN_STATE,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_ENABLE,   // без модуля вхід тримається в 0
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-
-    bool was = false;
-    for (;;) {
-        bool now = gpio_get_level(PIN_STATE);   // 1 = є з'єднання, 0 = немає
-        if (!was && now) ESP_LOGI(TAG, "З'єднання встановлено.");   // 0→1
-        if (was && !now) ESP_LOGW(TAG, "Зв'язок втрачено.");        // 1→0
-        was = now;
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-```
-```stm32
-// CubeMX: STATE → PB5, GPIO_Input із підтяжкою вниз.
-// Викликати з головного циклу; printf заведений на huart2.
-void state_poll(void) {
-    static bool was = false;
-    bool now = (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_SET);
-
-    if (!was && now) printf("З'єднання встановлено.\n");   // 0→1
-    if (was && !now) printf("Зв'язок втрачено.\n");        // 1→0
-    was = now;
-
-    // Той самий перехід можна ловити не опитуванням, а лінією EXTI на PB5:
-    // тоді реакція йде з HAL_GPIO_EXTI_Callback(), а цикл лишається вільним.
-}
-```
+:::code api-hc05-uart/c/arduino/kontrakt-tretii-nizhka.ino
+:::code api-hc05-uart/c/esp-idf/kontrakt-tretii-nizhka.c
+:::code api-hc05-uart/c/stm32/kontrakt-tretii-nizhka.c
 :::
 
 Логіка `wasConnected && !connected` спрацьовує **рівно на переході** 1→0, а не щоцикл, доки зв'язку немає. Це важливо: реагувати треба на *подію* обриву (один раз), а не безперервно повторювати дію, доки зв'язку немає. Дзеркальний перехід `!wasConnected && connected` (0→1) — момент, коли напарник щойно під'єднався; на ньому зручно, наприклад, привітати напарника чи скинути стан у безпечне значення. Що саме робити на цих двох подіях — то вже логіка вашого приладу.

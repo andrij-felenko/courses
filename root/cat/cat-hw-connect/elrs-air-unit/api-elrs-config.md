@@ -79,65 +79,7 @@ RSSI_TYPE        = 5      # 5 = RSSI з MAVLink RADIO_STATUS
 
 Почнемо зі «сніфера» — він відкриває порт, ловить кадри за байтом-стартом `0xC8` і рахує, чого й скільки прилітає:
 
-```python
-import serial
-import time
-from collections import Counter
-
-PORT = "COM7"       # Windows; на Linux — "/dev/ttyUSB0", на macOS — "/dev/tty.usbserial-XXXX"
-BAUD = 420000       # ELRS-CRSF; для MAVLink-режиму поставили б 460800
-
-CRSF_SYNC = 0xC8    # байт-старт (він же адреса польотного контролера)
-
-def crc8_dvb_s2(data: bytes) -> int:
-    """CRC8/DVB-S2, поліном 0xD5 — той самий, що в кадрі CRSF."""
-    crc = 0
-    for b in data:
-        crc ^= b
-        for _ in range(8):
-            crc = ((crc << 1) ^ 0xD5) & 0xFF if (crc & 0x80) else (crc << 1) & 0xFF
-    return crc
-
-def sniff(seconds: float = 3.0):
-    ser = serial.Serial(PORT, BAUD, timeout=0.05)
-    types = Counter()          # скільки кадрів кожного типу
-    bad_crc = 0                # скільки кадрів не пройшли CRC
-    buf = bytearray()
-    t_end = time.time() + seconds
-    try:
-        while time.time() < t_end:
-            buf += ser.read(256)                 # порція довільного розміру
-            # виловлюємо кадри: старт(0xC8) + довжина + тіло
-            while len(buf) >= 2:
-                if buf[0] != CRSF_SYNC:
-                    del buf[0]                   # не старт — зсуваємось на байт
-                    continue
-                length = buf[1]                  # тип + дані + CRC
-                if length < 2 or length > 62:    # довжина поза діапазоном — фальстарт
-                    del buf[0]
-                    continue
-                if len(buf) < 2 + length:        # кадр іще не добрано — чекаємо
-                    break
-                frame = bytes(buf[:2 + length])
-                del buf[:2 + length]
-                ftype = frame[2]                 # байт типу — одразу після довжини
-                # CRC накриває тип+дані (без старту, без довжини, без самого CRC)
-                calc = crc8_dvb_s2(frame[2:2 + length - 1])
-                if calc != frame[-1]:
-                    bad_crc += 1
-                    continue
-                types[ftype] += 1
-    finally:
-        ser.close()
-
-    print(f"Порт {PORT} @ {BAUD}: {sum(types.values())} цілих кадрів, "
-          f"{bad_crc} із битим CRC")
-    for t, n in types.most_common():
-        print(f"  тип 0x{t:02X}: {n}")
-
-if __name__ == "__main__":
-    sniff()
-```
+:::code api-elrs-config/py/krok-2-vidkryty-port-i.py
 
 Прогнавши це на живому блоці в CRSF-режимі, ви побачите приблизно таке:
 
@@ -158,111 +100,8 @@ if __name__ == "__main__":
 Ось де код природно роздвоюється на дві мови. **Побудова кадру каналів** — рівно та операція, що живе і на host-стенді (Python шле в USB-порт), і на **мікроконтролері**, який сам грає роль передавача чи містка на іншу шину; на боці МК це вже домен «регістри, такти, кожен байт на рахунку», де пишуть на C/C++. Тому покажу обидві мови вкладками — той самий алгоритм, ідіоматично в кожній. Ключова тонкість спільна: **11 бітів не кратні 8**, тож канали не збігаються з межами байтів і «переливаються» один в одного, порядком little-endian (молодші біти каналу — в молодші біти байта).
 
 :::tabs
-```python
-import serial
-
-CRSF_SYNC = 0xC8                    # адреса польотного контролера / байт-старт
-CRSF_FRAMETYPE_RC = 0x16            # тип: пакет 16 RC-каналів
-CRSF_CENTER = 992                   # центр стіка (1500 мкс) у «тіках» CRSF
-
-def crc8_dvb_s2(data: bytes) -> int:
-    crc = 0
-    for b in data:
-        crc ^= b
-        for _ in range(8):
-            crc = ((crc << 1) ^ 0xD5) & 0xFF if (crc & 0x80) else (crc << 1) & 0xFF
-    return crc
-
-def pack_channels(ch: list[int]) -> bytes:
-    """16 каналів по 11 біт (0…2047) → 22 байти, little-endian."""
-    assert len(ch) == 16
-    acc = 0        # накопичувач бітів
-    bits = 0       # скільки валідних бітів зараз в acc
-    out = bytearray()
-    for value in ch:
-        acc |= (value & 0x7FF) << bits   # доливаємо 11 біт зверху
-        bits += 11
-        while bits >= 8:                 # зчерпуємо всі готові байти знизу
-            out.append(acc & 0xFF)
-            acc >>= 8
-            bits -= 8
-    if bits > 0:                         # останній неповний байт (тут не буває: 176 % 8 == 0)
-        out.append(acc & 0xFF)
-    return bytes(out)                    # рівно 22 байти
-
-def build_rc_frame(ch: list[int]) -> bytes:
-    """Повний CRSF-кадр каналів: старт + довжина + тип + 22 байти + CRC."""
-    payload = pack_channels(ch)          # 22 байти
-    length = len(payload) + 2            # тип(1) + дані(22) + CRC(1) = 24
-    body = bytes([CRSF_FRAMETYPE_RC]) + payload   # тип + дані
-    crc = crc8_dvb_s2(body)              # CRC накриває тип+дані
-    return bytes([CRSF_SYNC, length]) + body + bytes([crc])
-
-def send_sticks(port: str = "COM7", baud: int = 420000):
-    """Слати нейтральні канали 50 разів на секунду (типовий темп CRSF-стенду)."""
-    import time
-    ser = serial.Serial(port, baud)
-    ch = [CRSF_CENTER] * 16              # усі стіки в центрі
-    ch[2] = 172                          # канал газу (індекс 2) — у мінімум (172 ≈ 988 мкс)
-    frame = build_rc_frame(ch)
-    try:
-        while True:
-            ser.write(frame)             # один готовий кадр
-            time.sleep(0.02)             # 20 мс → 50 Гц
-    finally:
-        ser.close()
-```
-```cpp
-#include <stdint.h>
-#include <string.h>
-
-// Побудова CRSF-кадру каналів на боці МК (передавач / місток на іншу шину).
-#define CRSF_SYNC           0xC8   // адреса FC / байт-старт
-#define CRSF_FRAMETYPE_RC   0x16   // тип: пакет 16 RC-каналів
-#define CRSF_CENTER         992    // центр стіка (1500 мкс) у «тіках»
-
-// CRC8/DVB-S2, поліном 0xD5 — той самий, що в кадрі CRSF.
-static uint8_t crsf_crc8(const uint8_t *ptr, uint8_t len) {
-    uint8_t crc = 0;
-    for (uint8_t i = 0; i < len; ++i) {
-        crc ^= ptr[i];
-        for (uint8_t b = 0; b < 8; ++b)
-            crc = (crc & 0x80) ? (uint8_t)((crc << 1) ^ 0xD5)
-                               : (uint8_t)(crc << 1);
-    }
-    return crc;
-}
-
-// 16 каналів по 11 біт (0…2047) → 22 байти, little-endian.
-static void pack_channels(const uint16_t ch[16], uint8_t out[22]) {
-    uint32_t acc = 0;   // накопичувач бітів
-    uint8_t  bits = 0;  // скільки валідних бітів зараз в acc
-    uint8_t  o = 0;     // індекс вихідного байта
-    for (uint8_t c = 0; c < 16; ++c) {
-        acc |= (uint32_t)(ch[c] & 0x7FF) << bits;   // доливаємо 11 біт зверху
-        bits += 11;
-        while (bits >= 8) {                          // зчерпуємо готові байти знизу
-            out[o++] = (uint8_t)(acc & 0xFF);
-            acc >>= 8;
-            bits -= 8;
-        }
-    }
-    // 16×11 = 176 біт = рівно 22 байти, залишку немає
-}
-
-// Повний кадр каналів у buf; повертає його довжину (26 байтів).
-uint8_t crsf_build_rc_frame(const uint16_t ch[16], uint8_t buf[26]) {
-    uint8_t payload[22];
-    pack_channels(ch, payload);
-    uint8_t len = 22 + 2;               // тип(1) + дані(22) + CRC(1) = 24
-    buf[0] = CRSF_SYNC;                 // старт
-    buf[1] = len;                       // поле довжини
-    buf[2] = CRSF_FRAMETYPE_RC;         // тип
-    memcpy(&buf[3], payload, 22);       // дані
-    buf[3 + 22] = crsf_crc8(&buf[2], 1 + 22);  // CRC над типом+даними
-    return 2 + len;                     // повний кадр = старт+довжина+тіло = 26
-}
-```
+:::code api-elrs-config/py/krok-3-zibraty-crsf-kadr.py
+:::code api-elrs-config/cpp/main.cpp
 :::
 
 Пройдімо арифметику пакування на числах, бо саме тут родзинка, і саме тут усе «повзе», якщо схибити на біт.
@@ -290,30 +129,7 @@ uint8_t crsf_build_rc_frame(const uint16_t ch[16], uint8_t buf[26]) {
 
 Зворотний потік — телеметрія — це такі самі CRSF-кадри, лише інших типів, і найхарактерніший з них — **статистика лінка** (тип `0x14`), 10 байтів, у яких блок звітує про здоров'я власного каналу: RSSI, LQ, SNR. Прочитати їх host-side — це той самий вилов кадрів, що в сніфері, плюс розбір десяти байтів у строгому порядку. Одна тонкість варта уваги наперед, бо на ній спотикаються всі: **RSSI приходить як додатне число, що означає від'ємні дБм** (байт `92` — це −92 дБм), а **SNR — знаковий** (байт `250` насправді означає −6 дБ, бо відношення сигнал/шум буває від'ємним, коли сигнал тоне в шумі):
 
-```python
-def parse_link_stats(payload: bytes) -> dict:
-    """Тіло кадру 0x14 (10 байтів) → метрики здоров'я лінка."""
-    def s8(v):                          # байт → знаковий int8 (250 → −6)
-        return v - 256 if v >= 128 else v
-    return {
-        "up_rssi_ant1": -payload[0],    # висхідний RSSI, антена 1 (дБм, ЗАВЖДИ від'ємний)
-        "up_rssi_ant2": -payload[1],    # висхідний RSSI, антена 2 (дБм)
-        "up_lq":         payload[2],    # висхідна якість лінка (%, 0…100)
-        "up_snr":        s8(payload[3]), # висхідний SNR (дБ, ЗНАКОВИЙ!)
-        "active_ant":    payload[4],    # активна антена (0 / 1)
-        "rf_mode":       payload[5],    # радіорежим (профіль швидкості)
-        "up_tx_power":   payload[6],    # потужність передавача (код)
-        "dn_rssi":      -payload[7],    # низхідний RSSI (дБм)
-        "dn_lq":         payload[8],    # низхідна якість лінка (%)
-        "dn_snr":        s8(payload[9]),# низхідний SNR (дБ, ЗНАКОВИЙ!)
-    }
-
-# Виловивши кадр type=0x14 тим самим циклом, що в sniff():
-#   stats = parse_link_stats(frame[3:3 + 10])
-#   print(f"RSSI {stats['up_rssi_ant1']} дБм, LQ {stats['up_lq']}%, "
-#         f"SNR {stats['up_snr']} дБ")
-# Друкує напр.: RSSI -63 дБм, LQ 100%, SNR 9 дБ
-```
+:::code api-elrs-config/py/krok-4-prochytaty.py
 
 Три числа з десяти — це «пульс» лінка, і читати їх треба разом, бо кожне бреше окремо. **RSSI** каже, наскільки сильний сигнал долітає (−60 сильний, −95 на межі), але сильний RSSI ще не гарантія: поряд із мотором RSSI може бути пристойним, а пакети — гинути. **LQ** (частка пакетів, що долітають цілими, у відсотках) чесніше віщує розрив — коли він тане до 70–80%, лінк уже «на межі», хоч RSSI ще нічого. **SNR** показує, наскільки сигнал підноситься над шумом; коли він іде до нуля й нижче, приймачу дедалі важче відрізняти сигнал від фону. Разом вони дають ранній сигнал тривоги: зв'язок тане поступово, і за цими цифрами видно момент, коли ще можна розвернутися додому, поки керування тримає.
 

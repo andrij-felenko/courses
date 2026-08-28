@@ -55,45 +55,7 @@
 
 Цей шар — суто про байти на шині, і мова тут одна: керування регістрами радіочипа живе там, де ви тримаєте лінію CSN і тактуєте SPI руками. На мікроконтролері це C поверх апаратного SPI:
 
-```c
-#include <stdint.h>
-
-// командні байти nRF24 (даташит, розділ команд SPI)
-#define R_REGISTER    0x00      // прочитати регістр: 0x00 | reg
-#define W_REGISTER    0x20      // записати регістр:  0x20 | reg
-
-// номери регістрів, що знадобляться далі
-#define CONFIG        0x00
-#define EN_AA         0x01      // авто-ACK по пайпах
-#define EN_RXADDR     0x02      // які приймальні пайпи ввімкнені
-#define SETUP_AW      0x03      // довжина адреси (3/4/5 байтів)
-#define SETUP_RETR    0x04      // ARD (затримка) + ARC (к-сть повторів)
-#define STATUS        0x07      // прапорці подій; повертається на кожен 1-й байт
-#define OBSERVE_TX    0x08      // лічильники втрат і повторів
-#define DYNPD         0x1C      // динамічний payload по пайпах
-#define FEATURE       0x1D      // EN_DPL / EN_ACK_PAY / EN_DYN_ACK
-
-// spi_xfer(b) — послати байт b, повернути прийнятий (апаратна ф-я платформи)
-// csn_low()/csn_high() — опустити/підняти лінію CSN
-
-// записати один байт value в регістр reg; повертає STATUS (перший прийнятий байт)
-uint8_t nrf_write_reg(uint8_t reg, uint8_t value) {
-    csn_low();
-    uint8_t status = spi_xfer(W_REGISTER | reg);   // 1-й байт → назад іде STATUS
-    spi_xfer(value);                                // 2-й байт → сам запис
-    csn_high();
-    return status;
-}
-
-// прочитати один байт регістра reg
-uint8_t nrf_read_reg(uint8_t reg) {
-    csn_low();
-    spi_xfer(R_REGISTER | reg);                     // команда (STATUS нам тут не треба)
-    uint8_t value = spi_xfer(0xFF);                 // женемо «сміття» 0xFF, щоб виштовхати дані
-    csn_high();
-    return value;
-}
-```
+:::code api-esb/c/nyzhnii-shar-odyn-rehistr.c
 
 Дві деталі, на яких новачок спотикається. Перша: щоб **прочитати** байт із чипа, все одно треба щось у нього **послати** — SPI обмінюється в обидва боки одночасно, тож ми шлемо `0xFF` («порожняк»), і поки цей байт іде в чип, назустріч виповзає потрібний регістр. Друга: CSN мусить опуститися **перед** командним байтом і піднятися **після** останнього байта даних — саме перепад CSN угору каже чипу «транзакцію завершено, застосуй». Лишите CSN унизу між двома незв'язаними операціями — чип сприйме їх як одну довгу й наламає дров.
 
@@ -181,66 +143,8 @@ void nrf_setup_retransmit(void) {
 Записуються адреси у блок регістрів RX_ADDR_P0…P5 (від 0x0A), причому P0/P1 — багатобайтовим записом, а P2…P5 — одним байтом. І не забути ввімкнути потрібні труби бітами в **EN_RXADDR**:
 
 :::tabs
-```c
-#define RX_ADDR_P0    0x0A
-#define RX_ADDR_P1    0x0B
-#define RX_ADDR_P2    0x0C      // далі P3=0x0D, P4=0x0E, P5=0x0F
-
-// записати БАГАТОБАЙТОВУ адресу (для P0/P1): 5 байтів у регістр
-void nrf_write_addr(uint8_t reg, const uint8_t *addr, uint8_t len) {
-    csn_low();
-    spi_xfer(W_REGISTER | reg);
-    for (uint8_t i = 0; i < len; i++) spi_xfer(addr[i]);
-    csn_high();
-}
-
-void nrf_setup_pipes(void) {
-    uint8_t base[5]   = {0xC2, 0xC2, 0xC2, 0xC2, 0xC2};  // адреса P1 (спільний префікс)
-    nrf_write_addr(RX_ADDR_P1, base, 5);                  // повна адреса P1
-
-    // P2 і P3 — лише молодший байт; старші 4 позичать у P1
-    nrf_write_reg(RX_ADDR_P2, 0xC3);                      // адреса = C2 C2 C2 C2 C3
-    nrf_write_reg(RX_ADDR_P3, 0xC4);                      // адреса = C2 C2 C2 C2 C4
-
-    // увімкнути труби P1,P2,P3 (біти 1,2,3) у EN_RXADDR
-    nrf_write_reg(EN_RXADDR, (1 << 1) | (1 << 2) | (1 << 3));
-}
-```
-```python
-# керування nRF24 через spidev (напр. на Raspberry Pi): та сама логіка регістрів
-import spidev
-
-R_REGISTER = 0x00
-W_REGISTER = 0x20
-RX_ADDR_P1 = 0x0B
-RX_ADDR_P2 = 0x0C
-RX_ADDR_P3 = 0x0D
-EN_RXADDR  = 0x02
-
-spi = spidev.SpiDev()
-spi.open(0, 0)            # шина 0, пристрій 0 (лінією CE0 керує ядро)
-spi.max_speed_hz = 8_000_000
-spi.mode = 0             # SPI режим 0: CPOL=0, CPHA=0 — як любить nRF24
-
-def write_reg(reg, value):
-    # xfer2 сам опускає й піднімає CS навколо транзакції
-    return spi.xfer2([W_REGISTER | reg, value])[0]   # [0] — це STATUS
-
-def write_addr(reg, addr):
-    # багатобайтова адреса (для P0/P1): команда + усі байти однією транзакцією
-    spi.xfer2([W_REGISTER | reg] + list(addr))
-
-def setup_pipes():
-    base = [0xC2, 0xC2, 0xC2, 0xC2, 0xC2]   # адреса P1 (спільний префікс)
-    write_addr(RX_ADDR_P1, base)             # повна адреса P1
-
-    # P2, P3 — лише молодший байт; старші 4 позичать у P1
-    write_reg(RX_ADDR_P2, 0xC3)              # адреса = C2 C2 C2 C2 C3
-    write_reg(RX_ADDR_P3, 0xC4)              # адреса = C2 C2 C2 C2 C4
-
-    # увімкнути труби P1,P2,P3 (біти 1,2,3)
-    write_reg(EN_RXADDR, (1 << 1) | (1 << 2) | (1 << 3))
-```
+:::code api-esb/c/shist-trub-i-spilni.c
+:::code api-esb/py/shist-trub-i-spilni.py
 :::
 
 ## Динамічний payload і ACK із вантажем
@@ -266,46 +170,8 @@ def setup_pipes():
 Ось як увімкнути обидві можливості для труби 1:
 
 :::tabs
-```c
-#define FEATURE       0x1D
-#define DYNPD         0x1C
-#define EN_DPL        2         // біт «динамічний payload» у FEATURE
-#define EN_ACK_PAY    1         // біт «ACK з вантажем» у FEATURE
-#define W_ACK_PAYLOAD 0xA8      // SPI-команда: покласти вантаж у майбутній ACK
-
-// увімкнути динамічний payload + ACK-payload для труби 1
-void nrf_enable_dynamic_ack_payload(void) {
-    // FEATURE: підняти EN_DPL і EN_ACK_PAY
-    nrf_write_reg(FEATURE, (1 << EN_DPL) | (1 << EN_ACK_PAY));
-    // DYNPD: дозволити динамічну довжину саме на трубі 1 (біт 1)
-    nrf_write_reg(DYNPD, (1 << 1));
-}
-
-// приймач: заздалегідь покласти 3 байти вантажу в ACK для труби 1
-void nrf_load_ack_payload(const uint8_t *data, uint8_t len) {
-    csn_low();
-    spi_xfer(W_ACK_PAYLOAD | 1);            // молодші 3 біти команди — номер труби
-    for (uint8_t i = 0; i < len; i++) spi_xfer(data[i]);
-    csn_high();
-}
-```
-```python
-FEATURE       = 0x1D
-DYNPD         = 0x1C
-EN_DPL        = 2
-EN_ACK_PAY    = 1
-W_ACK_PAYLOAD = 0xA8
-
-# увімкнути динамічний payload + ACK-payload для труби 1
-def enable_dynamic_ack_payload():
-    write_reg(FEATURE, (1 << EN_DPL) | (1 << EN_ACK_PAY))
-    write_reg(DYNPD, (1 << 1))              # динамічна довжина на трубі 1
-
-# приймач: заздалегідь покласти вантаж у ACK для труби 1
-def load_ack_payload(data):
-    # молодші 3 біти команди — номер труби; далі самі байти вантажу
-    spi.xfer2([W_ACK_PAYLOAD | 1] + list(data))
-```
+:::code api-esb/c/dynamichnyi-payload-i-ack.c
+:::code api-esb/py/dynamichnyi-payload-i-ack.py
 :::
 
 Тут ховається класична пастка клонів. Багато дешевих модулів несуть не оригінальний чип Nordic, а сумісний клон (часто Si24R1), і на частині з них регістр FEATURE **спочатку заблокований** — прямий запис у нього нічого не робить, EN_DPL і EN_ACK_PAY не вмикаються, і ACK-payload мовчки не працює. Розблоковують його спеціальною командою `ACTIVATE` (0x50) з байтом `0x73` слідом — недокументованою, вписаною в даташит nRF24L01 лише ревізією 2.0. На сучасному nRF24L01+ від Nordic FEATURE зазвичай доступний одразу, а от на старому не-«плюс» чипі й на частині клонів без цього `ACTIVATE` EN_DPL і EN_ACK_PAY не вмикаються, і ACK-payload мовчки не працює. Тому багато бібліотек шлють `ACTIVATE` про всяк випадок, а скарга «на моєму модулі ACK-payload не працює, хоч код правильний» — це майже завжди незроблений `ACTIVATE` на клоні.
