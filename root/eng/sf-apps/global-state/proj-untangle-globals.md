@@ -5,49 +5,8 @@
 Ось сервіс продовження передплат. Він працює в проді, приносить гроші, його ніхто не чіпав два роки — і всередині нього чотири глобали: конфіг, годинник, логер, лічильник.
 
 :::tabs
-```python
-# billing.py
-import logging
-from datetime import datetime, timedelta
-
-settings = {"fee_rate": 0.02, "grace_days": 3, "period_days": 30}   # глобал 1: конфіг
-renewals_total = 0                                                  # глобал 2: лічильник
-log = logging.getLogger("billing")                                  # глобал 3: логер
-
-
-def renew(sub):
-    global renewals_total
-    now = datetime.now()                                            # глобал 4: годинник
-    deadline = sub.paid_until + timedelta(days=settings["grace_days"])
-    if now > deadline:
-        log.warning("sub %s: пільговий строк вичерпано", sub.id)
-        return Renewal("expired", 0.0, sub.paid_until)
-    amount = round(sub.plan_price * (1 + settings["fee_rate"]), 2)
-    sub.paid_until = now + timedelta(days=settings["period_days"])
-    renewals_total += 1
-    log.info("sub %s: продовжено на %.2f", sub.id, amount)
-    return Renewal("ok", amount, sub.paid_until)
-```
-```ts
-// billing.ts
-export const settings = { feeRate: 0.02, graceDays: 3, periodDays: 30 }; // глобал 1: конфіг
-export let renewalsTotal = 0;                                            // глобал 2: лічильник
-const log = console;                                                     // глобал 3: логер
-
-export function renew(sub: Subscription): Renewal {
-  const now = new Date();                                                // глобал 4: годинник
-  const deadline = addDays(sub.paidUntil, settings.graceDays);
-  if (now.getTime() > deadline.getTime()) {
-    log.warn(`sub ${sub.id}: пільговий строк вичерпано`);
-    return { status: "expired", amount: 0, paidUntil: sub.paidUntil };
-  }
-  const amount = Math.round(sub.planPrice * (1 + settings.feeRate) * 100) / 100;
-  sub.paidUntil = addDays(now, settings.periodDays);
-  renewalsTotal += 1;
-  log.info(`sub ${sub.id}: продовжено на ${amount.toFixed(2)}`);
-  return { status: "ok", amount, paidUntil: sub.paidUntil };
-}
-```
+:::code proj-untangle-globals/py/billing.py
+:::code proj-untangle-globals/ts/billing.ts
 :::
 
 Логіка тут проста: якщо строк оплати минув більш ніж на пільгові дні — передплата згасла; інакше беремо платіж, посуваємо оплачений строк на місяць уперед, рахуємо й логуємо. Двадцять рядків.
@@ -123,38 +82,8 @@ test("renew", () => {
 Перш ніж чіпати бодай символ, треба сітка. І ось перша користь із означення Фезерса: шов не мусить бути гарним — він мусить бути. Python дає такий шов задарма: ім'я `datetime` у модулі `billing` можна підмінити **ззовні**, не торкаючись `renew`. У TypeScript те саме роблять фальшиві таймери.
 
 :::tabs
-```python
-from unittest.mock import patch
-
-def test_характеризація_продовження_із_запізненням():
-    """Пришпилює ФАКТИЧНУ поведінку — включно з багом. Це не «правильно», це «як є»."""
-    billing.renewals_total = 0
-    with patch("billing.datetime") as dt:            # ← шов: точка вмикання ззовні
-        dt.now.return_value = datetime(2026, 3, 3, 9, 0)
-        sub = Subscription("s-1", 100.0, paid_until=datetime(2026, 3, 1, 0, 0))
-        r = billing.renew(sub)
-        assert r.status == "ok"
-        assert r.amount == 102.0
-        assert sub.paid_until == datetime(2026, 4, 2, 9, 0)   # ← ФАКТ, а не бажане
-        assert billing.renewals_total == 1
-```
-```ts
-import { vi } from "vitest";
-
-test("характеризація: продовження із запізненням", () => {
-  vi.useFakeTimers();                                        // ← шов: точка вмикання ззовні
-  vi.setSystemTime(new Date(Date.UTC(2026, 2, 3, 9, 0)));
-  try {
-    const sub: Subscription = { id: "s-1", planPrice: 100, paidUntil: utc(2026, 3, 1) };
-    const r = renew(sub);
-    expect(r.status).toBe("ok");
-    expect(r.amount).toBe(102);
-    expect(sub.paidUntil).toEqual(utc(2026, 4, 2, 9));        // ← ФАКТ, а не бажане
-  } finally {
-    vi.useRealTimers();
-  }
-});
-```
+:::code proj-untangle-globals/py/krok-0-sitka-cherez.py
+:::code proj-untangle-globals/ts/krok-0-sitka-cherez.ts
 :::
 
 Такий тест зветься **характеризаційним** — теж термін Фезерса. Його призначення не сказати «правильно», а сказати «отак воно поводиться зараз». Різниця принципова: побачивши в тесті `2026-04-02 09:00` замість очікуваного `2026-03-31`, рука сама тягнеться «виправити». Не тягнися. Спершу зафіксуй факт, і хай він побуде зафіксованим — це і є сітка. Судити, чи факт правильний, будемо окремим кроком і свідомо.
@@ -183,38 +112,8 @@ def test_із_іншою_ставкою():
 **Друга — порт `Clock`:** об'єкт із методом `now()`, який кладуть у конструктор. Дорожче на один інтерфейс, але виправдано, коли об'єкт живе довго й питає час не раз (перевірити строк, проставити мітку, порахувати затримку) — інакше `now` доведеться тягати параметром крізь усі методи, і ти лише переклав проблему на поверх вище. Наш `Billing` саме такий, тож беремо порт.
 
 :::tabs
-```python
-from typing import Protocol
-
-class Clock(Protocol):
-    def now(self) -> datetime: ...
-
-class SystemClock:
-    def now(self) -> datetime:
-        return datetime.now()
-
-class FixedClock:
-    def __init__(self, moment: datetime) -> None:
-        self._moment = moment
-    def now(self) -> datetime:
-        return self._moment
-```
-```ts
-export interface Clock {
-  now(): Date;
-}
-
-export const systemClock: Clock = {
-  now: () => new Date(),
-};
-
-export class FixedClock implements Clock {
-  constructor(private readonly moment: Date) {}
-  now(): Date {
-    return new Date(this.moment);   // копія: тест не зможе зіпсувати еталон
-  }
-}
-```
+:::code proj-untangle-globals/py/shov-1-hodynnyk.py
+:::code proj-untangle-globals/ts/shov-1-hodynnyk.ts
 :::
 
 І тепер найважливіше правило всієї роботи, за яке платять кров'ю ті, хто його не знає: **заведення шва — це рефакторинг. Поведінка не міняється. Сітка мусить лишитися зеленою.**
@@ -230,66 +129,8 @@ export class FixedClock implements Clock {
 А далі відкривається вся вісь — тести, яких не існувало в природі. Зверни увагу на `build`: після одного шва він знає рівно про одну залежність. Конфіг і лічильник поки що глобальні — їхня черга попереду, і змішувати не будемо.
 
 :::tabs
-```python
-def build(clock):
-    return Billing(clock=clock)          # поки що залежність рівно одна
-
-def test_запізнілий_платіж_не_посуває_день_списання():
-    svc = build(FixedClock(datetime(2026, 3, 3, 9, 0)))       # платіж на 2-й день пільги
-    sub = Subscription("s-1", 100.0, paid_until=datetime(2026, 3, 1, 0, 0))
-    assert svc.renew(sub).status == "ok"
-    assert sub.paid_until == datetime(2026, 3, 31, 0, 0)      # + рівно 30д від СТРОКУ
-
-def test_рівно_межа_пільгового_строку():
-    svc = build(FixedClock(datetime(2026, 3, 4, 0, 0)))       # секунда в секунду
-    sub = Subscription("s-1", 100.0, paid_until=datetime(2026, 3, 1, 0, 0))
-    assert svc.renew(sub).status == "ok"
-
-def test_на_секунду_пізніше_межі():
-    svc = build(FixedClock(datetime(2026, 3, 4, 0, 0, 1)))
-    sub = Subscription("s-1", 100.0, paid_until=datetime(2026, 3, 1, 0, 0))
-    assert svc.renew(sub).status == "expired"
-    assert sub.paid_until == datetime(2026, 3, 1, 0, 0)       # згасла — строк не рухаємо
-
-def test_високосне_29_лютого():
-    svc = build(FixedClock(datetime(2024, 2, 29, 12, 0)))
-    sub = Subscription("s-1", 100.0, paid_until=datetime(2024, 2, 29, 0, 0))
-    svc.renew(sub)
-    assert sub.paid_until == datetime(2024, 3, 30, 0, 0)
-
-def test_дванадцять_продовжень_без_дрейфу():
-    sub = Subscription("s-1", 100.0, paid_until=datetime(2026, 1, 1))
-    for _ in range(12):
-        build(FixedClock(sub.paid_until + timedelta(days=2))).renew(sub)   # щоразу +2д
-    assert sub.paid_until == datetime(2026, 1, 1) + timedelta(days=360)    # дрейф 0
-```
-```ts
-const build = (clock: Clock) => new Billing(clock);   // поки що залежність рівно одна
-const utc = (y: number, m: number, d: number, h = 0, mi = 0, s = 0) =>
-  new Date(Date.UTC(y, m - 1, d, h, mi, s));
-
-test("запізнілий платіж не посуває день списання", () => {
-  const svc = build(new FixedClock(utc(2026, 3, 3, 9)));      // платіж на 2-й день пільги
-  const sub: Subscription = { id: "s-1", planPrice: 100, paidUntil: utc(2026, 3, 1) };
-  expect(svc.renew(sub).status).toBe("ok");
-  expect(sub.paidUntil).toEqual(utc(2026, 3, 31));            // + рівно 30д від СТРОКУ
-});
-
-test("на секунду пізніше межі", () => {
-  const svc = build(new FixedClock(utc(2026, 3, 4, 0, 0, 1)));
-  const sub: Subscription = { id: "s-1", planPrice: 100, paidUntil: utc(2026, 3, 1) };
-  expect(svc.renew(sub).status).toBe("expired");
-  expect(sub.paidUntil).toEqual(utc(2026, 3, 1));             // згасла — строк не рухаємо
-});
-
-test("дванадцять продовжень без дрейфу", () => {
-  const sub: Subscription = { id: "s-1", planPrice: 100, paidUntil: utc(2026, 1, 1) };
-  for (let i = 0; i < 12; i++) {
-    build(new FixedClock(addDays(sub.paidUntil, 2))).renew(sub);           // щоразу +2д
-  }
-  expect(sub.paidUntil).toEqual(addDays(utc(2026, 1, 1), 360));            // дрейф 0
-});
-```
+:::code proj-untangle-globals/py/shov-1-hodynnyk-2.py
+:::code proj-untangle-globals/ts/shov-1-hodynnyk-2.ts
 :::
 
 Межа пільгового строку — секунда в секунду. Секунда по межі. Двадцять дев'яте лютого. Дванадцять продовжень поспіль, кожне із затримкою. Жоден із цих тестів не був можливий учора — не «незручний», а неможливий: усі вони живуть при `Δ ≠ 0`, тобто на осі, якої не існувало.
@@ -347,36 +188,8 @@ def build() -> Billing:
 Помітно це, до речі, вже на брудному шві. У Python `billing.renewals_total = 0` перед тестом — бридко, але працює. А в TypeScript із модулями ESM той самий рух просто **заборонено**: імпортоване зв'язування доступне лише на читання, і `renewalsTotal = 0` падає з `TypeError: Assignment to constant variable`. Щоб обнулити глобал із тесту, довелося б експортувати `resetForTests()` — бойовий код, який існує винятково заради тестів, тобто течу видно вже в публічному інтерфейсі модуля. Мова тут просто голосніше каже те, що в Python лише шепоче.
 
 :::tabs
-```python
-import threading
-
-class Metrics:
-    def __init__(self) -> None:
-        self._lock = threading.Lock()
-        self._counts: dict[str, int] = {}
-
-    def bump(self, name: str) -> None:
-        with self._lock:                                    # рівно ОДНЕ місце мутації
-            self._counts[name] = self._counts.get(name, 0) + 1
-
-    def value(self, name: str) -> int:
-        with self._lock:
-            return self._counts.get(name, 0)
-```
-```ts
-export class Metrics {
-  // у Node цикл подій однопотоковий — замок тут не потрібен і був би обманом
-  private readonly counts = new Map<string, number>();
-
-  bump(name: string): void {
-    this.counts.set(name, (this.counts.get(name) ?? 0) + 1);
-  }
-
-  value(name: string): number {
-    return this.counts.get(name) ?? 0;
-  }
-}
-```
+:::code proj-untangle-globals/py/shov-3-lichylnyk-hlobal.py
+:::code proj-untangle-globals/ts/shov-3-lichylnyk-hlobal.ts
 :::
 
 Різниця між вкладками тут змістовна, а не синтаксична. У Python замок потрібен; у Node всередині одного циклу подій — ні, і ставити його було б удаванням безпеки, якої нема від чого захищати. Але щойно з'являються `worker_threads` чи кластер із чотирьох процесів — спільність вертається, тільки вже **між** процесами, і жоден замок у пам'яті її не врятує: лічильники доведеться зводити назовні (у Prometheus, у Redis). Порядок дій той самий: спершу назви власника, потім вирішуй, як він захищає свій стан.
@@ -430,19 +243,7 @@ def test_лічильники_не_течуть_між_тестами():
 
 А шов, потрібний тестам, у логера вже є — його дала стандартна бібліотека, і впорскувати нічого:
 
-```python
-def test_згаслу_передплату_видно_в_лозі():
-    recs = []
-    class Cap(logging.Handler):
-        def emit(self, record): recs.append(record.getMessage())
-    h = Cap()
-    billing.log.addHandler(h)          # ← точка вмикання: підміняємо ПРИЗНАЧЕННЯ, не логер
-    try:
-        billing.renew(sub)
-        assert any("продовжено" in m for m in recs)
-    finally:
-        billing.log.removeHandler(h)
-```
+:::code proj-untangle-globals/py/shov-4-loher-toi-iakyi-my.py
 
 Це шов у точному сенсі Фезерса: поведінка змінилася (рядки полетіли в список замість консолі), у `renew` не відредаговано нічого. Той самий трюк у pytest робить `caplog`, у vitest — `vi.spyOn(console, "info")`.
 
@@ -459,50 +260,8 @@ def test_згаслу_передплату_видно_в_лозі():
 Чотири глобали — три шви й одне обґрунтоване «ні». Сервіс тепер каже правду про себе просто конструктором:
 
 :::tabs
-```python
-class Billing:
-    def __init__(self, cfg: BillingConfig, clock: Clock, metrics: Metrics) -> None:
-        self._cfg = cfg
-        self._clock = clock
-        self._metrics = metrics
-
-    def renew(self, sub: Subscription) -> Renewal:
-        now = self._clock.now()
-        deadline = sub.paid_until + timedelta(days=self._cfg.grace_days)
-        if now > deadline:
-            log.warning("sub %s: пільговий строк вичерпано", sub.id)
-            self._metrics.bump("renewals_expired")
-            return Renewal("expired", 0.0, sub.paid_until)
-        amount = round(sub.plan_price * (1 + self._cfg.fee_rate), 2)
-        sub.paid_until = sub.paid_until + timedelta(days=self._cfg.period_days)
-        self._metrics.bump("renewals_ok")
-        log.info("sub %s: продовжено на %.2f", sub.id, amount)
-        return Renewal("ok", amount, sub.paid_until)
-```
-```ts
-export class Billing {
-  constructor(
-    private readonly cfg: BillingConfig,
-    private readonly clock: Clock,
-    private readonly metrics: Metrics,
-  ) {}
-
-  renew(sub: Subscription): Renewal {
-    const now = this.clock.now();
-    const deadline = addDays(sub.paidUntil, this.cfg.graceDays);
-    if (now.getTime() > deadline.getTime()) {
-      log.warn(`sub ${sub.id}: пільговий строк вичерпано`);
-      this.metrics.bump("renewals_expired");
-      return { status: "expired", amount: 0, paidUntil: sub.paidUntil };
-    }
-    const amount = Math.round(sub.planPrice * (1 + this.cfg.feeRate) * 100) / 100;
-    sub.paidUntil = addDays(sub.paidUntil, this.cfg.periodDays);
-    this.metrics.bump("renewals_ok");
-    log.info(`sub ${sub.id}: продовжено на ${amount.toFixed(2)}`);
-    return { status: "ok", amount, paidUntil: sub.paidUntil };
-  }
-}
-```
+:::code proj-untangle-globals/py/shcho-z-tsoho-vyishlo.py
+:::code proj-untangle-globals/ts/shcho-z-tsoho-vyishlo.ts
 :::
 
 Тіло `renew` майже не змінилося — і це добра ознака: ми не переписували логіку, ми виводили залежності з тіні. Дивишся на конструктор — бачиш рівно три речі, від яких `Billing` залежить, і жодної, про яку не сказано. Спосіб, у який це зроблено, зветься [впровадженням залежностей](root:sf-apps/dependency-injection); тут важить не назва, а те, що сигнатура перестала брехати.
@@ -521,18 +280,7 @@ export class Billing {
 extend-select = ["DTZ"]     # flake8-datetimez: DTZ005 ловить datetime.now() без tz
 ```
 
-```js
-// eslint.config.js — годинник читають лише в корені композиції
-rules: {
-  "no-restricted-syntax": [
-    "error",
-    { selector: "NewExpression[callee.name='Date'][arguments.length=0]",
-      message: "час беруть із Clock; new Date() — лише в composition root" },
-    { selector: "CallExpression[callee.object.name='Date'][callee.property.name='now']",
-      message: "час беруть із Clock; Date.now() — лише в composition root" },
-  ],
-}
-```
+:::code proj-untangle-globals/js/eslint.config.js
 
 Плюс виняток рівно для одного файлу — кореня композиції. Без цього шов протримається до першого поспіху.
 

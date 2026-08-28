@@ -32,64 +32,8 @@
 Спершу візьмімо чистий випадок для ясності самого механізму звірки: нехай реалізація **повертає значення** й **не має побічного ефекту** — скажімо, `render(template, data): string`, що будує текст сповіщення. Стару верстку тексту міняємо на нову, і звіряти можна прямо рядок із рядком. Обгортка виглядає так:
 
 :::tabs
-```ts
-interface Renderer {
-  render(template: string, data: Record<string, unknown>): string;
-}
-
-// Звіряч — сам реалізація шва, тримає стару (control) й нову (candidate)
-class ComparingRenderer implements Renderer {
-  constructor(
-    private control: Renderer,      // стара, їй довіряємо — її вихід іде клієнтові
-    private candidate: Renderer,    // нова, у тіні
-    private log: MismatchLog,
-  ) {}
-
-  render(template: string, data: Record<string, unknown>): string {
-    const result = this.control.render(template, data);   // це піде користувачеві
-
-    // Нова — в тіні. Її помилка НЕ сміє зачепити користувача,
-    // тож ловимо все, що вона кине, і трактуємо як розбіжність.
-    try {
-      const shadow = this.candidate.render(template, data);
-      if (shadow !== result) {
-        this.log.mismatch({ template, control: result, candidate: shadow });
-      }
-    } catch (err) {
-      this.log.candidateThrew({ template, error: err });
-    }
-
-    return result;                  // завжди повертаємо перевірене
-  }
-}
-```
-```py
-from typing import Protocol, Any
-
-class Renderer(Protocol):
-    def render(self, template: str, data: dict[str, Any]) -> str: ...
-
-# Звіряч — сам реалізація шва, тримає стару (control) й нову (candidate)
-class ComparingRenderer:
-    def __init__(self, control: Renderer, candidate: Renderer, log: "MismatchLog"):
-        self._control = control      # стара, їй довіряємо — її вихід іде клієнтові
-        self._candidate = candidate  # нова, у тіні
-        self._log = log
-
-    def render(self, template: str, data: dict[str, Any]) -> str:
-        result = self._control.render(template, data)   # це піде користувачеві
-
-        # Нова — в тіні. Її помилка НЕ сміє зачепити користувача,
-        # тож ловимо все, що вона кине, і трактуємо як розбіжність.
-        try:
-            shadow = self._candidate.render(template, data)
-            if shadow != result:
-                self._log.mismatch(template=template, control=result, candidate=shadow)
-        except Exception as err:
-            self._log.candidate_threw(template=template, error=err)
-
-        return result               # завжди повертаємо перевірене
-```
+:::code proj-parallel-run-verify/ts/ideia-obhortka-shcho.ts
+:::code proj-parallel-run-verify/py/ideia-obhortka-shcho.py
 :::
 
 Придивись до двох рішень, які тут не випадкові. По-перше, результат клієнтові готують **першим**, зі старої, і повертають його **безумовно** — хай там що станеться з новою, користувач дістане перевірену відповідь. По-друге, виклик нової загорнутий у перехоплення **всіх** винятків: у тіні нова не має права впасти назовні. Її падіння — це теж розбіжність, ще й найважливіша: «на цьому вході нова взагалі не працює». Ловимо, логуємо, живемо далі. Ці дві риси — не прикраса, а суть безпечного затінення: **нова не впливає ні на результат, ні на живучість** гарячого шляху.
@@ -99,18 +43,7 @@ class ComparingRenderer:
 Нова стоїть у роз'єм так само просто, як стояли стара й нова поодинці — на час спостереження замість готового `Renderer` збираємо звіряч:
 
 :::tabs
-```ts
-// На час спостереження клієнт отримує звіряч замість готової реалізації
-function makeRenderer(flags: Flags): Renderer {
-  const legacy = new LegacyRenderer();
-  const modern = new ModernRenderer();
-
-  if (flags.enabled("render-shadow-compare")) {
-    return new ComparingRenderer(legacy, modern, mismatchLog);
-  }
-  return flags.enabled("render-use-modern") ? modern : legacy;
-}
-```
+:::code proj-parallel-run-verify/ts/ideia-obhortka-shcho-2.ts
 ```py
 # На час спостереження клієнт отримує звіряч замість готової реалізації
 def make_renderer(flags: "Flags") -> Renderer:
@@ -130,110 +63,15 @@ def make_renderer(flags: "Flags") -> Renderer:
 Затінення на **кожному** виклику одразу — теж ризик: якщо нова реалізація важка або десь підвисає, ти подвоїш навантаження на весь бойовий потік заради спостереження. Тому вмикають його **порціями**, спрямовуючи в тінь спершу крихітну частку викликів, і на кожному щаблі дивляться на дві речі: **частку розбіжностей** (скільки відсотків затінених викликів розійшлися) і **вартість** (наскільки нова просадила час і ресурс). Ось прапорець, що вміє відсоток:
 
 :::tabs
-```ts
-interface Flags {
-  // Детермінований відсоток: той самий ключ+ідентифікатор → та сама відповідь,
-  // тож один користувач стабільно або в тіні, або ні — не мерехтить від виклику до виклику.
-  sampled(key: string, id: string): boolean;
-}
-
-class ComparingRenderer implements Renderer {
-  constructor(
-    private control: Renderer,
-    private candidate: Renderer,
-    private log: MismatchLog,
-    private flags: Flags,
-  ) {}
-
-  render(template: string, data: Record<string, unknown>): string {
-    const result = this.control.render(template, data);
-
-    // У тінь потрапляє лише вибрана відсотком частка викликів
-    if (this.flags.sampled("render-shadow-percent", template)) {
-      const started = performance.now();
-      try {
-        const shadow = this.candidate.render(template, data);
-        this.log.timing("candidate", performance.now() - started);   // вартість
-        if (shadow !== result) {
-          this.log.mismatch({ template, control: result, candidate: shadow });
-        }
-      } catch (err) {
-        this.log.candidateThrew({ template, error: err });
-      }
-    }
-    return result;
-  }
-}
-```
-```py
-from typing import Protocol
-import time
-
-class Flags(Protocol):
-    # Детермінований відсоток: той самий ключ+ідентифікатор → та сама відповідь,
-    # тож один користувач стабільно або в тіні, або ні — не мерехтить від виклику до виклику.
-    def sampled(self, key: str, id: str) -> bool: ...
-
-class ComparingRenderer:
-    def __init__(self, control, candidate, log, flags):
-        self._control, self._candidate = control, candidate
-        self._log, self._flags = log, flags
-
-    def render(self, template, data):
-        result = self._control.render(template, data)
-
-        # У тінь потрапляє лише вибрана відсотком частка викликів
-        if self._flags.sampled("render-shadow-percent", template):
-            started = time.perf_counter()
-            try:
-                shadow = self._candidate.render(template, data)
-                self._log.timing("candidate", time.perf_counter() - started)  # вартість
-                if shadow != result:
-                    self._log.mismatch(template=template, control=result, candidate=shadow)
-            except Exception as err:
-                self._log.candidate_threw(template=template, error=err)
-        return result
-```
+:::code proj-parallel-run-verify/ts/rozkochuvannia-praportsem.ts
+:::code proj-parallel-run-verify/py/rozkochuvannia-praportsem.py
 :::
 
 Ключова тонкість тут — слово **детермінований** у коментарі до `sampled`. Наївний відсоток — це `random() < 0.01` на кожному виклику. Він працює для «затінити 1% викликів», але **ламається**, щойно один логічний суб'єкт (користувач, замовлення) робить кілька викликів: той самий користувач то потрапляє в тінь, то ні, мерехтить від запиту до запиту. Для чистого читання це терпимо, а от коли перемикання стосується стану — це катастрофа (користувач бачить нову поведінку на одному запиті й стару на наступному). Тому відсоток рахують **не від кидка монети, а від хешу стабільного ідентифікатора**: `hash(key + id) % 100 < percent`. Тоді рішення про конкретний `id` **стале в часі** — він або завжди в обраній частці, або завжди поза нею. Так виглядає чесна реалізація:
 
 :::tabs
-```ts
-import { createHash } from "node:crypto";
-
-class PercentFlags implements Flags {
-  constructor(private percentByKey: Map<string, number>) {}
-
-  sampled(key: string, id: string): boolean {
-    const pct = this.percentByKey.get(key) ?? 0;   // 0 → вимкнено; 1, 10, 100 — щаблі
-    if (pct >= 100) return true;
-    if (pct <= 0) return false;
-    // Хеш стабільного id → рівномірне число 0..99; те саме id → та сама відповідь
-    const h = createHash("sha256").update(`${key}:${id}`).digest();
-    const bucket = h.readUInt32BE(0) % 100;
-    return bucket < pct;
-  }
-}
-```
-```py
-import hashlib
-
-class PercentFlags:
-    def __init__(self, percent_by_key: dict[str, int]):
-        self._percent_by_key = percent_by_key
-
-    def sampled(self, key: str, id: str) -> bool:
-        pct = self._percent_by_key.get(key, 0)     # 0 → вимкнено; 1, 10, 100 — щаблі
-        if pct >= 100:
-            return True
-        if pct <= 0:
-            return False
-        # Хеш стабільного id → рівномірне число 0..99; те саме id → та сама відповідь
-        digest = hashlib.sha256(f"{key}:{id}".encode()).digest()
-        bucket = int.from_bytes(digest[:4], "big") % 100
-        return bucket < pct
-```
+:::code proj-parallel-run-verify/ts/rozkochuvannia-praportsem-2.ts
+:::code proj-parallel-run-verify/py/rozkochuvannia-praportsem-2.py
 :::
 
 Тепер розкочування — це рух одного числа в конфізі, без розгортання коду:
@@ -276,32 +114,8 @@ render-shadow-percent:  0  →  1  →  10  →  50  →  100
 Ліки — **порівнювати не сирий вихід, а його суть**, нормалізувавши все несуттєве. Це те саме місце, де бібліотека Scientist дає гак `compare` замість голого `==`: ти сам кажеш, що означає «однаково» для **цієї** пари реалізацій. Практично — зводиш обидва результати до канонічного вигляду (виполюєш мітки часу, згенеровані id, сортуєш колекції) і порівнюєш уже його:
 
 :::tabs
-```ts
-// Порівнюємо СУТЬ, а не сирий вихід: нормалізуємо все, що законно різне
-function sameNotification(a: Notification, b: Notification): boolean {
-  const canon = (n: Notification) => ({
-    to: n.to,
-    body: n.body.trim(),
-    // мітку часу й згенерований id викидаємо — вони МУСЯТЬ різнитися
-    attachments: [...n.attachments].sort(),   // порядок несуттєвий → сортуємо
-  });
-  return JSON.stringify(canon(a)) === JSON.stringify(canon(b));
-}
-```
-```py
-import json
-
-# Порівнюємо СУТЬ, а не сирий вихід: нормалізуємо все, що законно різне
-def same_notification(a: "Notification", b: "Notification") -> bool:
-    def canon(n):
-        return {
-            "to": n.to,
-            "body": n.body.strip(),
-            # мітку часу й згенерований id викидаємо — вони МУСЯТЬ різнитися
-            "attachments": sorted(n.attachments),   # порядок несуттєвий → сортуємо
-        }
-    return json.dumps(canon(a), sort_keys=True) == json.dumps(canon(b), sort_keys=True)
-```
+:::code proj-parallel-run-verify/ts/pastka-persha.ts
+:::code proj-parallel-run-verify/py/pastka-persha.py
 :::
 
 Тут ховається пастка в пастці. Нормалізацію легко перестаратися: якщо ти виполеш **забагато**, то замаскуєш **справжню** розбіжність. Скажімо, збив обидві мітки часу до однакового значення «щоб не шуміло» — і проґавив, що нова помилилася в часовому поясі на години. Нормалізація мусить прибирати рівно те, що **законно** недетерміноване, і жодним рухом більше. Кожен виполений вимір — це свідоме «тут різниця не має значення, і ось чому»; якщо ти не можеш це договорити, вимір лишай і розбирайся з розбіжністю по суті.
@@ -319,40 +133,8 @@ def same_notification(a: "Notification", b: "Notification") -> bool:
 **Перший — розділити рішення й дію (найкращий, коли можливий).** Часто побічний ефект — це лише **останній** крок, а вся складність, яку варто звіряти, сидить у **обчисленні перед ним**: кому слати, з яким текстом, чи слати взагалі. Тоді виділяємо чисту частину — «вирішити, що надіслати» — і затінюємо **її**, а сам «надіслати» лишаємо поза звіркою, одноразовим, зі старої гілки. Це те саме розчеплення на [чисте ядро й побічний ефект на краю](root:sf-apps/pure-functions-side-effects), лише прикладене до затінення: звіряємо ядро, дію не чіпаємо.
 
 :::tabs
-```ts
-// Розчеплюємо: РІШЕННЯ (чисте, звіряємо) окремо від ДІЇ (ефект, не дублюємо)
-interface NotificationPlanner {
-  plan(order: Order): NotificationPlan;   // кому, що, чи слати — чисте, без ефекту
-}
-
-class NotifyService {
-  constructor(
-    private planner: NotificationPlanner,   // сюди підставляємо ComparingPlanner
-    private send: (plan: NotificationPlan) => void,   // ефект — поза звіркою
-  ) {}
-
-  notify(order: Order): void {
-    const plan = this.planner.plan(order);   // тут стара й нова звіряються В ТІНІ
-    this.send(plan);                          // а шлемо РІВНО РАЗ, за планом старої
-  }
-}
-```
-```py
-from typing import Protocol, Callable
-
-# Розчеплюємо: РІШЕННЯ (чисте, звіряємо) окремо від ДІЇ (ефект, не дублюємо)
-class NotificationPlanner(Protocol):
-    def plan(self, order: "Order") -> "NotificationPlan": ...   # кому, що, чи слати — чисте
-
-class NotifyService:
-    def __init__(self, planner: NotificationPlanner, send: Callable[["NotificationPlan"], None]):
-        self._planner = planner   # сюди підставляємо ComparingPlanner
-        self._send = send         # ефект — поза звіркою
-
-    def notify(self, order: "Order") -> None:
-        plan = self._planner.plan(order)   # тут стара й нова звіряються В ТІНІ
-        self._send(plan)                    # а шлемо РІВНО РАЗ, за планом старої
-```
+:::code proj-parallel-run-verify/ts/pastka-druha-pobichni.ts
+:::code proj-parallel-run-verify/py/pastka-druha-pobichni.py
 :::
 
 Тепер `ComparingPlanner` — це наш звіряч із першого прикладу, тільки над `plan()`: обидві планувалки рахують план, ми звіряємо два **плани** (чисті дані!), а надсилає систему **один** план — старий. Уся ризикована логіка перевірена на бойових даних, а лист пішов один. Це найчистіший вихід, і він майже завжди досяжний, бо в більшості дій справді є що відокремити: рішення — окремо, ефект — окремо.
@@ -400,42 +182,8 @@ class DryRunQueueNotifier:
 Останній пункт має пряме пом'якшення: якщо нова гілка **читає** (не пише) і її результат потрібен лише для звірки, а не користувачеві, — її виконують **асинхронно**, поза гарячим шляхом. Стара відповідає користувачеві **негайно**, а нова доганяє в тіні, коли встигне, і звірку роблять уже після того, як користувач отримав своє. Тоді затінення взагалі не додає латентності — лишається тільки вартість процесора й зовнішніх викликів:
 
 :::tabs
-```ts
-render(template: string, data: Record<string, unknown>): string {
-  const result = this.control.render(template, data);   // користувач отримує ЦЕ негайно
-
-  if (this.flags.sampled("render-shadow-percent", template)) {
-    // Нова доганяє в тіні поза гарячим шляхом — латентності користувачеві не додає.
-    queueMicrotask(() => {
-      try {
-        const shadow = this.candidate.render(template, data);
-        if (shadow !== result) this.log.mismatch({ template, control: result, candidate: shadow });
-      } catch (err) {
-        this.log.candidateThrew({ template, error: err });
-      }
-    });
-  }
-  return result;   // не чекаємо на тінь
-}
-```
-```py
-import asyncio
-
-def render(self, template, data):
-    result = self._control.render(template, data)   # користувач отримує ЦЕ негайно
-
-    if self._flags.sampled("render-shadow-percent", template):
-        # Нова доганяє в тіні поза гарячим шляхом — латентності користувачеві не додає.
-        async def shadow_run():
-            try:
-                shadow = self._candidate.render(template, data)
-                if shadow != result:
-                    self._log.mismatch(template=template, control=result, candidate=shadow)
-            except Exception as err:
-                self._log.candidate_threw(template=template, error=err)
-        asyncio.get_event_loop().create_task(shadow_run())
-    return result   # не чекаємо на тінь
-```
+:::code proj-parallel-run-verify/ts/pastka-tretia-podviine.ts
+:::code proj-parallel-run-verify/py/pastka-tretia-podviine.py
 :::
 
 Асинхронна тінь знімає латентність, але **не** знімає вартості процесора й зовнішніх викликів — робота все одно робиться двічі. Саме тому затінення — **тимчасовий** режим, а не постійний: його вмикають на дні спостереження й вимикають, щойно докази зібрано. Тримати звіряч у бойовому потоці «про всяк випадок» назавжди — значить платити подвійним обчисленням вічно, а це вже [технічний борг](root:sf-apps/technical-debt), не страховка. Затінення — це риштування навколо заміни: поки міграція йде — воно тримає, коли добудовано — його знімають.

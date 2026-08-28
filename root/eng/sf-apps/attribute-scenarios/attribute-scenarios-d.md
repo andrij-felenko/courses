@@ -224,35 +224,8 @@ W = 1 / (μ − λ) = (1/μ) · 1/(1 − ρ)
 **Умова: перевіряємо, що p95 зібраних затримок укладається в поріг сценарію.**
 
 :::tabs
-```python
-import math
-
-def p95(samples_ms: list[float]) -> float:
-    ordered = sorted(samples_ms)
-    # Метод найближчого рангу: індекс, нижче за який лежить 95% значень.
-    k = math.ceil(0.95 * len(ordered)) - 1
-    return ordered[max(k, 0)]
-
-def meets_latency_scenario(samples_ms: list[float], threshold_ms: float) -> bool:
-    # Сценарій: у пік профіль віддається за <= threshold у 95% випадків.
-    if not samples_ms:
-        return False                     # без даних вимогу не підтверджено
-    return p95(samples_ms) <= threshold_ms
-```
-```typescript
-function p95(samplesMs: number[]): number {
-  const ordered = [...samplesMs].sort((a, b) => a - b);
-  // Метод найближчого рангу: індекс, нижче за який лежить 95% значень.
-  const k = Math.ceil(0.95 * ordered.length) - 1;
-  return ordered[Math.max(k, 0)];
-}
-
-function meetsLatencyScenario(samplesMs: number[], thresholdMs: number): boolean {
-  // Сценарій: у пік профіль віддається за <= threshold у 95% випадків.
-  if (samplesMs.length === 0) return false;   // без даних вимогу не підтверджено
-  return p95(samplesMs) <= thresholdMs;
-}
-```
+:::code attribute-scenarios-d/py/main.py
+:::code attribute-scenarios-d/ts/index.ts
 :::
 
 Зверніть увагу, звідки в коді взялися і `0.95`, і `threshold_ms`, і сама ідея сортувати, а не усереднювати. Усе — прямо зі сценарію: частка «95%» дала перцентиль, міра «200 мс» дала поріг, а вибір перцентиля замість середнього — це вже урок математики міри, вкладений у перевірку. Якщо після якоїсь зміни в системі ця функція почне повертати `false`, ми дізнаємося, що зламали властивість, про яку домовлялися, — і дізнаємося на тесті, а не з аварії на бойовому. Ось чому сценарій називають містком: він з'єднує розмову зі стейкхолдерами з рядком коду, що ту розмову стереже.

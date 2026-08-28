@@ -132,42 +132,8 @@ doc.title = "Нова назва"
 Правильна модель випливає з того, що історія — це позиція на лінії. Зберігаючи файл, ми запам'ятовуємо не факт, а **індекс кроку**, на якому сталося збереження; «змінений» — це просто «поточний індекс не дорівнює збереженому».
 
 :::tabs
-```ts
-class History {
-  private steps: Step[] = [];
-  private index = 0;        // скільки кроків застосовано
-  private savedIndex = 0;   // індекс, на якому документ збережено
-
-  markSaved(): void { this.savedIndex = this.index; }
-  isDirty(): boolean { return this.index !== this.savedIndex; }
-
-  // нова дія зрізає гілку повтору
-  push(step: Step): void {
-    this.steps.length = this.index;                 // усе після поточного — відрізано
-    if (this.savedIndex > this.index) this.savedIndex = -1;  // збереження було в зрізаному
-    this.steps.push(step);
-    this.index++;
-  }
-}
-```
-```cpp
-class History {
-  std::vector<Step> steps_;
-  int index_ = 0;        // скільки кроків застосовано
-  int savedIndex_ = 0;   // індекс, на якому документ збережено
-public:
-  void markSaved() { savedIndex_ = index_; }
-  bool isDirty() const { return index_ != savedIndex_; }
-
-  // нова дія зрізає гілку повтору
-  void push(Step step) {
-    steps_.resize(index_);                          // усе після поточного — відрізано
-    if (savedIndex_ > index_) savedIndex_ = -1;     // збереження було в зрізаному
-    steps_.push_back(std::move(step));
-    ++index_;
-  }
-};
-```
+:::code undo-redo-command-stack-d/ts/index.ts
+:::code undo-redo-command-stack-d/cpp/main.cpp
 :::
 
 Останній рядок у `push` — той самий випадок, у якому наївна реалізація помиляється. Якщо людина відкотилася на три кроки назад і зробила нову дію, гілка повтору зникає; а коли точка збереження лишилася саме в цій зрізаній гілці, вона стає **недосяжною назавжди**. Тому `savedIndex` стає −1: жодна позиція історії більше не збігається зі станом файлу, і документ чесно вважається зміненим, скільки б ти не тиснув «назад». Це не запобіжний перестрах, а точна правда — той стан, який лежить у файлі, з цієї гілки вже не відтворити.

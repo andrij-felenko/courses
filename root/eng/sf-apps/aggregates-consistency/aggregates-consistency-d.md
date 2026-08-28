@@ -49,68 +49,8 @@ line.quantity = 0                   # хтось інший прибрав то�
 Перепишемо замовлення так, щоб порушити правило стало неможливо:
 
 :::tabs
-```ts
-class Order {
-  // Внутрішні частини — приватні. Ззовні до них не дотягтися.
-  #lines: OrderLine[] = [];
-  #discount = 0;
-
-  addLine(product: ProductId, qty: number, price: Money): void {
-    if (qty <= 0) throw new Error("кількість має бути додатною");
-    this.#lines.push(new OrderLine(product, qty, price));
-    // правило перевіряти не треба: додавання рядка лише збільшує суму
-  }
-
-  applyDiscount(amount: Money): void {
-    if (amount.isNegative()) throw new Error("знижка не буває від'ємною");
-    if (amount.greaterThan(this.subtotal()))         // ← спільне правило
-      throw new Error("знижка не може перевищити суму рядків");
-    this.#discount = amount;
-  }
-
-  removeLine(product: ProductId): void {
-    this.#lines = this.#lines.filter(l => !l.product.equals(product));
-    // прибрали рядок → сума впала → знижка могла стати завеликою:
-    if (this.#discount > this.subtotal())
-      this.#discount = this.subtotal();               // тримаємо правило
-  }
-
-  subtotal(): Money { return this.#lines.reduce((s, l) => s.add(l.total()), Money.ZERO); }
-  total(): Money    { return this.subtotal().subtract(this.#discount); }
-}
-```
-```python
-class Order:
-    def __init__(self) -> None:
-        # Внутрішні частини — приватні. Ззовні до них не дотягтися.
-        self._lines: list[OrderLine] = []
-        self._discount = Money.ZERO
-
-    def add_line(self, product: ProductId, qty: int, price: Money) -> None:
-        if qty <= 0:
-            raise ValueError("кількість має бути додатною")
-        self._lines.append(OrderLine(product, qty, price))
-        # правило перевіряти не треба: додавання рядка лише збільшує суму
-
-    def apply_discount(self, amount: Money) -> None:
-        if amount.is_negative():
-            raise ValueError("знижка не буває від'ємною")
-        if amount > self.subtotal():                     # ← спільне правило
-            raise ValueError("знижка не може перевищити суму рядків")
-        self._discount = amount
-
-    def remove_line(self, product: ProductId) -> None:
-        self._lines = [l for l in self._lines if l.product != product]
-        # прибрали рядок → сума впала → знижка могла стати завеликою:
-        if self._discount > self.subtotal():
-            self._discount = self.subtotal()             # тримаємо правило
-
-    def subtotal(self) -> Money:
-        return sum((l.total() for l in self._lines), Money.ZERO)
-
-    def total(self) -> Money:
-        return self.subtotal() - self._discount
-```
+:::code aggregates-consistency-d/ts/index.ts
+:::code aggregates-consistency-d/py/main.py
 :::
 
 Придивися, що змінилося по суті. Рядки й знижка більше не окремі об'єкти, до яких хтось має ключі, — вони **всередині** `Order`, за приватним муром. Єдиний спосіб застосувати знижку — гукнути `applyDiscount`, а він **не дасть** порушити правило. Прибирання рядка тягне за собою можливе порушення (сума впала нижче знижки) — і корінь тут-таки його гасить. Тепер немає такого сценарію, у якому правило впаде: код, що змінив би частину повз корінь, **не компілюється** (у типізованій мові) або **не має до чого звернутися** (у динамічній), бо приватного поля просто не видно.

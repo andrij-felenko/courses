@@ -15,63 +15,8 @@
 Почнемо з сутності, у якій уже є те, на чому спотикається наївне копіювання: вкладений об'єкт (`Stats`) і вкладений список (`loot`). Обидва **змінні** — тож ділити їх між копіями не можна, інакше правка одного клона тихо зачепить іншого.
 
 :::tabs
-```ts
-class Stats {
-  constructor(
-    public attack: number,
-    public defense: number,
-    public resist: Map<string, number>,   // вкладена ЗМІННА мапа опорів
-  ) {}
-
-  clone(): Stats {
-    // глибоко: власна нова мапа, а не спільна з оригіналом
-    return new Stats(this.attack, this.defense, new Map(this.resist));
-  }
-}
-
-class Monster {
-  constructor(
-    public name: string,
-    public hp: number,
-    public stats: Stats,       // вкладений об'єкт
-    public loot: string[],     // вкладений список
-  ) {}
-
-  clone(): Monster {
-    return new Monster(
-      this.name,               // рядок незмінний — просто значення
-      this.hp,                 // число — просто значення
-      this.stats.clone(),      // глибоко: власний Stats
-      [...this.loot],          // глибоко: власний масив (елементи-рядки незмінні)
-    );
-  }
-}
-```
-```py
-class Stats:
-    def __init__(self, attack, defense, resist):
-        self.attack = attack
-        self.defense = defense
-        self.resist = resist            # вкладений ЗМІННИЙ dict опорів
-
-    def clone(self):
-        # глибоко: власний новий dict, а не спільний з оригіналом
-        return Stats(self.attack, self.defense, dict(self.resist))
-
-class Monster:
-    def __init__(self, name, hp, stats, loot):
-        self.name = name                # рядок незмінний — просто значення
-        self.hp = hp                    # число — просто значення
-        self.stats = stats              # вкладений об'єкт
-        self.loot = loot                # вкладений список
-
-    def clone(self):
-        return Monster(
-            self.name, self.hp,
-            self.stats.clone(),         # глибоко: власний Stats
-            list(self.loot),            # глибоко: власний список
-        )
-```
+:::code proj-prototype-registry/ts/robocha-model-z-korektnym.ts
+:::code proj-prototype-registry/py/robocha-model-z-korektnym.py
 :::
 
 Придивися до `loot`. `[...this.loot]` (чи `list(self.loot)`) робить **новий** масив, але копіює його елементи «як є». Тут це безпечно рівно тому, що елементи — рядки, а рядок незмінний: ділити його між копіями нема чим зашкодити. Якби в списку лежали **змінні об'єкти**, цього поверхневого масиву було б замало — довелося б клонувати ще й кожен елемент (`this.loot.map(x => x.clone())`). Глибина копії — не властивість контейнера, а властивість **кожного рівня** вкладеності; спинятися можна лише там, де далі йде незмінне.
@@ -81,70 +26,15 @@ class Monster:
 Тепер сам реєстр. Він параметризований будь-яким типом, що вміє себе клонувати, — і в цьому вся його універсальність:
 
 :::tabs
-```ts
-class PrototypeRegistry<T extends { clone(): T }> {
-  private prototypes = new Map<string, T>();
-
-  register(key: string, proto: T): void {   // покласти зразок під ключем
-    this.prototypes.set(key, proto);
-  }
-
-  create(key: string): T {
-    const proto = this.prototypes.get(key);
-    if (!proto) throw new Error(`немає прототипу: ${key}`);
-    return proto.clone();                    // новий об'єкт — копія зразка
-  }
-}
-```
-```py
-class PrototypeRegistry:
-    def __init__(self):
-        self._prototypes = {}
-
-    def register(self, key, proto):          # покласти зразок під ключем
-        self._prototypes[key] = proto
-
-    def create(self, key):
-        proto = self._prototypes.get(key)
-        if proto is None:
-            raise KeyError(f"немає прототипу: {key}")
-        return proto.clone()                 # новий об'єкт — копія зразка
-```
+:::code proj-prototype-registry/ts/reiestr.ts
+:::code proj-prototype-registry/py/reiestr.py
 :::
 
 Зверни увагу на обмеження `T extends { clone(): T }` у TypeScript: реєстр приймає будь-що з методом `clone()`, що повертає такий самий тип. Це не косметика — це договір, який компілятор змушує дотримати: покласти в реєстр об'єкт без коректного `clone()` просто не вийде. Тепер увімкнемо його й переконаймося, що копії справді незалежні:
 
 :::tabs
-```ts
-const bestiary = new PrototypeRegistry<Monster>();
-bestiary.register("орк",
-  new Monster("орк", 30,
-    new Stats(8, 4, new Map([["вогонь", -2]])),
-    ["монета", "шкура"]));
-
-const a = bestiary.create("орк");
-const b = bestiary.create("орк");
-
-a.loot.push("щит");                 // чіпаємо здобич ОДНІЄЇ копії
-console.log(b.loot);                // ['монета','шкура'] — інша копія недоторкана
-console.log(a.stats === b.stats);   // false — кожна має власний Stats
-a.stats.resist.set("вогонь", 0);    // міняємо опір однієї...
-console.log(b.stats.resist.get("вогонь")); // -2 — інша не змінилась
-```
-```py
-bestiary = PrototypeRegistry()
-bestiary.register("орк",
-    Monster("орк", 30, Stats(8, 4, {"вогонь": -2}), ["монета", "шкура"]))
-
-a = bestiary.create("орк")
-b = bestiary.create("орк")
-
-a.loot.append("щит")                    # чіпаємо здобич ОДНІЄЇ копії
-print(b.loot)                           # ['монета','шкура'] — інша недоторкана
-print(a.stats is b.stats)               # False — кожна має власний Stats
-a.stats.resist["вогонь"] = 0            # міняємо опір однієї...
-print(b.stats.resist["вогонь"])         # -2 — інша не змінилась
-```
+:::code proj-prototype-registry/ts/reiestr-2.ts
+:::code proj-prototype-registry/py/reiestr-2.py
 :::
 
 Оце і є мета: два орки з одного зразка, які поводяться як **два справжні різні орки**, а не як дві назви одного. Кожен рядок перевірки тут проходить рівно тому, що `clone()` чесно відділив кожне змінне поле. Забери з нього хоч один рівень глибини — і одна з цих перевірок мовчки провалиться. Саме цим мовчазним провалам і присвячена решта.
@@ -153,33 +43,7 @@ print(b.stats.resist["вогонь"])         # -2 — інша не зміни�
 
 Перш ніж до пасток — окремий кут, під яким та сама ідея виглядає інакше. У класових мовах із базовими типами постає питання: маючи в руках `Entity*` невідомого підтипу, як зробити його копію **правильного** класу? Конструктор покликати поліморфно не можна — `new` вимагає знати конкретний тип. Відповідь C++ — усталена ідіома «віртуального конструктора»: віртуальний `clone()`, тіло якого кличе **конструктор копії** свого точного типу.
 
-```cpp
-#include <memory>
-#include <string>
-#include <vector>
-
-struct Entity {
-    virtual ~Entity() = default;
-    // «віртуальний конструктор»: кожен нащадок віддасть копію СВОГО типу
-    virtual std::unique_ptr<Entity> clone() const = 0;
-    virtual void render() const = 0;
-};
-
-struct Monster : Entity {
-    std::string name;
-    int hp;
-    std::vector<std::string> loot;      // ВЛАСНИЙ вектор
-
-    Monster(std::string name, int hp, std::vector<std::string> loot)
-        : name(std::move(name)), hp(hp), loot(std::move(loot)) {}
-
-    std::unique_ptr<Entity> clone() const override {
-        // одне тіло — виклик КОНСТРУКТОРА КОПІЇ через *this
-        return std::make_unique<Monster>(*this);   // Monster(const Monster&)
-    }
-    void render() const override { /* намалювати */ }
-};
-```
+:::code proj-prototype-registry/cpp/main.cpp
 
 Уся хитрість — у рядку `std::make_unique<Monster>(*this)`. `*this` — це `const Monster&`, тож `make_unique` кличе **конструктор копії** `Monster(const Monster&)`. А оскільки метод віртуальний, виклик `proto->clone()` крізь `Entity*` потрапляє в реалізацію справжнього підтипу — і повертає копію саме `Monster`, хоча в місці виклику про `Monster` ніде не сказано:
 
@@ -212,22 +76,7 @@ struct Broken : Entity {
 Тепер до зламів. Найпідступніший починається невинно: об'єкт росте. Через місяць у `Monster` додають поле `speed`, правлять конструктор — і забувають про `clone()`.
 
 :::tabs
-```ts
-class Monster {
-  constructor(
-    public name: string,
-    public hp: number,
-    public stats: Stats,
-    public loot: string[],
-    public speed = 1,          // ← ДОДАЛИ пізніше
-  ) {}
-
-  clone(): Monster {
-    // забули про speed! кожен клон тихо дістане speed = 1
-    return new Monster(this.name, this.hp, this.stats.clone(), [...this.loot]);
-  }
-}
-```
+:::code proj-prototype-registry/ts/pastka-1-zabute-pole.ts
 ```py
 class Monster:
     def __init__(self, name, hp, stats, loot, speed=1):   # ← speed ДОДАЛИ пізніше
@@ -333,62 +182,13 @@ class Monster:
 Ось той самий обхід із memo, руками:
 
 :::tabs
-```ts
-function deepClone<T>(value: T, memo = new Map<object, any>()): T {
-  if (value === null || typeof value !== "object") return value;  // примітив — як є
-  if (memo.has(value)) return memo.get(value);   // вже копіювали — ТА САМА копія
-
-  // зберегти клас: копія має той самий прототип, що й оригінал
-  const copy = Array.isArray(value)
-    ? [] as any
-    : Object.create(Object.getPrototypeOf(value));
-
-  memo.set(value, copy);                          // ← реєстрація ДО рекурсії рве цикл
-  for (const k of Object.keys(value))
-    copy[k] = deepClone((value as any)[k], memo);
-  return copy;
-}
-```
-```py
-def deep_clone(value, memo=None):
-    if memo is None:
-        memo = {}
-    if isinstance(value, (str, int, float, bool)) or value is None:
-        return value                     # примітив — як є
-    if id(value) in memo:
-        return memo[id(value)]           # вже копіювали — ТА САМА копія
-
-    if isinstance(value, list):
-        copy_obj = []
-        memo[id(value)] = copy_obj       # ← реєстрація ДО рекурсії рве цикл
-        copy_obj.extend(deep_clone(x, memo) for x in value)
-        return copy_obj
-
-    cls = value.__class__
-    copy_obj = cls.__new__(cls)          # той самий клас, без __init__
-    memo[id(value)] = copy_obj           # ← реєстрація ДО рекурсії
-    for k, v in value.__dict__.items():
-        setattr(copy_obj, k, deep_clone(v, memo))
-    return copy_obj
-```
+:::code proj-prototype-registry/ts/pastka-3-tsykly-i.ts
+:::code proj-prototype-registry/py/pastka-3-tsykly-i.py
 :::
 
 Один рядок несе всю вагу: `memo.set(value, copy)` **перед** циклом по полях. Якби ми зареєстрували копію після рекурсії, обхід дійшов би по циклу назад до `value`, не знайшов би його в memo — і пішов би на друге коло, і на нескінченне. Саме так, до речі, і влаштовані вбудовані глибокі копіювальники: `copy.deepcopy` у Python передає в `__deepcopy__(self, memo)` цю саму таблицю, і якщо пишеш хук сам, memo треба **прокинути** далі, зареєструвавши новий об'єкт до рекурсії:
 
-```py
-import copy
-
-class Monster:
-    def __deepcopy__(self, memo):
-        new = Monster.__new__(Monster)
-        memo[id(self)] = new             # ЗАРЕЄСТРУВАТИ до рекурсії — інакше цикл зламає
-        new.name = self.name             # скаляри — як є
-        new.hp = self.hp
-        new.stats = copy.deepcopy(self.stats, memo)  # углиб, з тим самим memo
-        new.loot = list(self.loot)
-        new.squad = copy.deepcopy(self.squad, memo)  # цикл: memo поверне вже створений new
-        return new
-```
+:::code proj-prototype-registry/py/pastka-3-tsykly-i-2.py
 
 `structuredClone` у JavaScript робить те саме внутрішньо — «підтримує мапу вже відвіданих посилань, щоб не обходити цикли нескінченно», — тому цикли він ковтає задарма. Але пам'ятай пастку 2: задарма він при цьому губить клас. memo рятує не лише від циклів: він ще зберігає **спільну тотожність**. Якщо два різні поля вказують на **один** об'єкт (ромб, а не цикл), memo подбає, щоб на них припала **одна** копія, а не дві, — і структура копії дзеркалить структуру оригіналу, а не роздвоює спільні вузли.
 
@@ -413,20 +213,7 @@ class Monster:
 Що означає «глибоко скопіювати сокет»? Нічого. Живе TCP-з'єднання — це не байти в пам'яті, а стан **по той бік**: дескриптор в ядрі, порт, буфери, домовленість із віддаленою стороною. Скопіювати його байт-у-байт — отримати дескриптор, що вказує на чуже з'єднання, яким два об'єкти орудують навперебій. Тому `copy.deepcopy` на об'єкті з сокетом або впаде, або зробить каліку, а `structuredClone` чесно кине `DataCloneError`. І це не вада копіювальників — це вони кажуть тобі правду: **машина не знає, що означає копія цього ресурсу**. Знаєш лише ти, і рішень тут три, залежно від сенсу ресурсу:
 
 :::tabs
-```ts
-class Monster {
-  clone(): Monster {
-    const c = Object.assign(Object.create(Monster.prototype), this);
-    c.stats = this.stats.clone();
-    c.loot = [...this.loot];
-    // ЖИВІ ресурси — свідоме рішення на кожен:
-    c.telemetry = this.telemetry;        // (а) ПОДІЛИТИ: спільна інфраструктура
-    c.socket = null;                     // (б) СКИНУТИ: копія під'єднається сама, ліниво
-    c.logFile = openLog(this.logPath);   // (в) ПЕРЕВІДКРИТИ: власний свіжий дескриптор
-    return c;
-  }
-}
-```
+:::code proj-prototype-registry/ts/pastka-4-klonuvannia.ts
 ```py
 def clone(self):
     c = copy.copy(self)

@@ -9,76 +9,8 @@
 Магазин рахує вартість доставки. Служб спершу було дві, тепер чотири, і кожна лічить по-своєму: одна бере плоску ставку плюс за кілограм, інша — за зони віддалі, третя дає безкоштовно понад поріг суми, кур'єрська — множник на терміновість. Уся ця логіка стеклася в один метод:
 
 :::tabs
-```ts
-type Carrier = "flat" | "zonal" | "free_over" | "courier";
-
-class Shipment {
-  constructor(
-    public carrier: Carrier,
-    public weightKg: number,
-    public distanceKm: number,
-    public orderTotal: number,
-    public express: boolean,
-  ) {}
-
-  shippingCost(): number {
-    // ← пахучий метод: усі служби зашиті в один switch
-    switch (this.carrier) {
-      case "flat":
-        return 50 + this.weightKg * 10;
-
-      case "zonal": {
-        const zone = Math.ceil(this.distanceKm / 100); // 1 зона = 100 км
-        return 40 + zone * 25;
-      }
-
-      case "free_over":
-        if (this.orderTotal >= 1000) return 0;
-        return 60 + this.weightKg * 8;
-
-      case "courier": {
-        const base = 80 + this.distanceKm * 1.5;
-        return this.express ? base * 1.6 : base;
-      }
-
-      default:
-        throw new Error(`Невідома служба: ${this.carrier}`);
-    }
-  }
-}
-```
-```py
-from math import ceil
-from dataclasses import dataclass
-
-@dataclass
-class Shipment:
-    carrier: str          # "flat" | "zonal" | "free_over" | "courier"
-    weight_kg: float
-    distance_km: float
-    order_total: float
-    express: bool
-
-    def shipping_cost(self) -> float:
-        # ← пахучий метод: усі служби зашиті в один if-ланцюг
-        if self.carrier == "flat":
-            return 50 + self.weight_kg * 10
-
-        if self.carrier == "zonal":
-            zone = ceil(self.distance_km / 100)   # 1 зона = 100 км
-            return 40 + zone * 25
-
-        if self.carrier == "free_over":
-            if self.order_total >= 1000:
-                return 0.0
-            return 60 + self.weight_kg * 8
-
-        if self.carrier == "courier":
-            base = 80 + self.distance_km * 1.5
-            return base * 1.6 if self.express else base
-
-        raise ValueError(f"Невідома служба: {self.carrier}")
-```
+:::code proj-replace-conditional-with-strategy/ts/zadacha.ts
+:::code proj-replace-conditional-with-strategy/py/zadacha.py
 :::
 
 Придивімося, **чому** це болить, — бо без діагнозу лікування наосліп. Тут не одна проблема, а кілька, і вони складаються.
@@ -134,57 +66,8 @@ class ShippingStrategy(ABC):
 Тепер механічна, але уважна частина: кожен `case` переїжджає в окремий клас, що реалізує інтерфейс. Тіло гілки стає тілом методу `cost` — майже дослівно, лише `this.carrier` зникає (клас уже *є* цією службою), а решта полів читається з переданого `s`.
 
 :::tabs
-```ts
-class FlatRate implements ShippingStrategy {
-  cost(s: Shipment): number {
-    return 50 + s.weightKg * 10;
-  }
-}
-
-class ZonalRate implements ShippingStrategy {
-  cost(s: Shipment): number {
-    const zone = Math.ceil(s.distanceKm / 100);
-    return 40 + zone * 25;
-  }
-}
-
-class FreeOverThreshold implements ShippingStrategy {
-  cost(s: Shipment): number {
-    if (s.orderTotal >= 1000) return 0;
-    return 60 + s.weightKg * 8;
-  }
-}
-
-class CourierRate implements ShippingStrategy {
-  cost(s: Shipment): number {
-    const base = 80 + s.distanceKm * 1.5;
-    return s.express ? base * 1.6 : base;
-  }
-}
-```
-```py
-from math import ceil
-
-class FlatRate(ShippingStrategy):
-    def cost(self, s):
-        return 50 + s.weight_kg * 10
-
-class ZonalRate(ShippingStrategy):
-    def cost(self, s):
-        zone = ceil(s.distance_km / 100)
-        return 40 + zone * 25
-
-class FreeOverThreshold(ShippingStrategy):
-    def cost(self, s):
-        if s.order_total >= 1000:
-            return 0.0
-        return 60 + s.weight_kg * 8
-
-class CourierRate(ShippingStrategy):
-    def cost(self, s):
-        base = 80 + s.distance_km * 1.5
-        return base * 1.6 if s.express else base
-```
+:::code proj-replace-conditional-with-strategy/ts/krok-2-vynesty-kozhnu.ts
+:::code proj-replace-conditional-with-strategy/py/krok-2-vynesty-kozhnu.py
 :::
 
 Кожна формула тепер — **самостійна річ із іменем**. `ZonalRate` можна імпортувати в тест, згодувати їй три відправлення з різними віддалями й перевірити межі зон — не піднімаючи ні `switch`, ні решти служб. Те, що вчора було приклеєним шматком, сьогодні живе окремо: його видно, його можна назвати, перевірити й віддати іншому.
@@ -198,40 +81,8 @@ class CourierRate(ShippingStrategy):
 Правильний хід — винести спільне **вбік як інструмент, а не вгору як предка**. Просту повторювану арифметику робимо звичайною функцією-помічником (чи приватним методом контексту), яку стратегії **кличуть**, коли вона їм до речі:
 
 :::tabs
-```ts
-// спільна арифметика живе ВБІК — як інструмент, не як предок
-function weightFee(base: number, s: Shipment, perKg: number): number {
-  return base + s.weightKg * perKg;
-}
-
-class FlatRate implements ShippingStrategy {
-  cost(s: Shipment): number {
-    return weightFee(50, s, 10);            // кличе спільне
-  }
-}
-
-class FreeOverThreshold implements ShippingStrategy {
-  cost(s: Shipment): number {
-    if (s.orderTotal >= 1000) return 0;     // СВОЯ, відмінна умова лишається тут
-    return weightFee(60, s, 8);             // а спільну частину — переуживає
-  }
-}
-```
-```py
-# спільна арифметика живе ВБІК — як інструмент, не як предок
-def weight_fee(base: float, s: "Shipment", per_kg: float) -> float:
-    return base + s.weight_kg * per_kg
-
-class FlatRate(ShippingStrategy):
-    def cost(self, s):
-        return weight_fee(50, s, 10)            # кличе спільне
-
-class FreeOverThreshold(ShippingStrategy):
-    def cost(self, s):
-        if s.order_total >= 1000:              # СВОЯ, відмінна умова лишається тут
-            return 0.0
-        return weight_fee(60, s, 8)            # а спільну частину — переуживає
-```
+:::code proj-replace-conditional-with-strategy/ts/krok-3-kudy-podity-spilnyi.ts
+:::code proj-replace-conditional-with-strategy/py/krok-3-kudy-podity-spilnyi.py
 :::
 
 Різниця між «вбік» і «вгору» тонка на вигляд, але вирішальна по суті. Успадкований предок **нав'язує** структуру: стратегія мусить лягти в форму, яку задав базовий клас, і відступити від неї коштує зламаної ієрархії. Функція-помічник **пропонує** послугу: хочеш — клич, не хочеш — рахуй по-своєму. `ZonalRate` і `CourierRate` формулу «за вагу» просто не кличуть — у них інша арифметика, і вони нікому нічого не винні. Стратегії лишаються рівні й незалежні: жодна не предок жодній, спільне між ними — не ланцюг спадкування, а **бібліотечка збоку**, до якої звертаються добровільно.
@@ -247,54 +98,8 @@ class FreeOverThreshold(ShippingStrategy):
 Стратегії готові — лишилося прибрати сам `switch`, той магніт для змін. Ключове усвідомлення: `switch` за типом — це, по суті, **таблиця пошуку, записана від руки**. «Якщо flat, візьми оце; якщо zonal — оте» — це рядки таблиці, лише розписані гілками. Запишімо таблицю прямо — мапою, де ключ це тип служби, а значення — готовий об'єкт-стратегія:
 
 :::tabs
-```ts
-// мапа «тип → стратегія» замість switch — будується ОДИН раз
-const STRATEGIES: Record<Carrier, ShippingStrategy> = {
-  flat:      new FlatRate(),
-  zonal:     new ZonalRate(),
-  free_over: new FreeOverThreshold(),
-  courier:   new CourierRate(),
-};
-
-class Shipment {
-  constructor(
-    public carrier: Carrier,
-    public weightKg: number,
-    public distanceKm: number,
-    public orderTotal: number,
-    public express: boolean,
-  ) {}
-
-  shippingCost(): number {
-    const strategy = STRATEGIES[this.carrier];        // пошук замість switch
-    if (!strategy) throw new Error(`Невідома служба: ${this.carrier}`);
-    return strategy.cost(this);                        // делегуємо, не знаючи, яка саме
-  }
-}
-```
-```py
-# мапа «тип → стратегія» замість if-ланцюга — будується ОДИН раз
-STRATEGIES: dict[str, ShippingStrategy] = {
-    "flat":      FlatRate(),
-    "zonal":     ZonalRate(),
-    "free_over": FreeOverThreshold(),
-    "courier":   CourierRate(),
-}
-
-@dataclass
-class Shipment:
-    carrier: str
-    weight_kg: float
-    distance_km: float
-    order_total: float
-    express: bool
-
-    def shipping_cost(self) -> float:
-        strategy = STRATEGIES.get(self.carrier)       # пошук замість if-ланцюга
-        if strategy is None:
-            raise ValueError(f"Невідома служба: {self.carrier}")
-        return strategy.cost(self)                     # делегуємо, не знаючи, яка саме
-```
+:::code proj-replace-conditional-with-strategy/ts/krok-4-zaminyty-switch-na.ts
+:::code proj-replace-conditional-with-strategy/py/krok-4-zaminyty-switch-na.py
 :::
 
 Порівняй `shippingCost` тепер із тим, з чого починали. Був `switch` на пів екрана, що знав тарифи всіх служб. Стало три рядки, що **не знають жодного тарифу**: дістати стратегію з таблиці за ключем і віддати їй роботу. Метод перетворився з довідника на **диспетчера** — він більше не рахує, він лише скеровує. Це той самий незмінний процес, про який іде мова в стратегії загалом: контекст делегує, не відаючи деталей, а деталі живуть у підставному об'єкті.
@@ -306,24 +111,7 @@ class Shipment:
 Тепер найголовніша перевірка, заради якої все й затівалося. Прийшла вимога: підключити «пошту» — плоска ставка плюс невелика надбавка за кілограм. Дивимося, що для цього треба **чіпнути** з написаного.
 
 :::tabs
-```ts
-// 1. новий клас — ПОРУЧ, окремим файлом, наявне не відкриваємо
-class PostalRate implements ShippingStrategy {
-  cost(s: Shipment): number {
-    return weightFee(30, s, 12);          // переуживає той самий помічник
-  }
-}
-
-// 2. один рядок у таблиці
-const STRATEGIES: Record<Carrier, ShippingStrategy> = {
-  flat:      new FlatRate(),
-  zonal:     new ZonalRate(),
-  free_over: new FreeOverThreshold(),
-  courier:   new CourierRate(),
-  postal:    new PostalRate(),           // ← усе, що додали
-};
-// (+ "postal" у тип Carrier)
-```
+:::code proj-replace-conditional-with-strategy/ts/krok-5-dodaty-novu-sluzhbu.ts
 ```py
 # 1. новий клас — ПОРУЧ, наявне не відкриваємо
 class PostalRate(ShippingStrategy):

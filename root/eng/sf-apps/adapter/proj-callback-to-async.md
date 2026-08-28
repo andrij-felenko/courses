@@ -38,42 +38,8 @@
 Почнімо з простого боку — операції, що дає **один** результат і завершується. Патерн тут загальний, живе однаково в Node і в Python-asyncio, тож покажу двома мовами:
 
 :::tabs
-```ts
-import { readFile } from "node:fs";
-
-// Adaptee: класичний err-first колбек
-//   readFile(path, (err, data) => ...)
-// Target: щось, що можна await-ити
-function readFileAsync(path: string): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    readFile(path, (err, data) => {
-      if (err) reject(err);   // гілка помилки колбека → reject
-      else resolve(data);     // гілка успіху → resolve
-    });
-  });
-}
-
-// стара функція тепер живе у світі await:
-const data = await readFileAsync("./config.json");
-```
-```py
-import asyncio
-
-def read_file_async(path):
-    loop = asyncio.get_running_loop()
-    fut = loop.create_future()          # порожній «проміс»
-
-    def on_done(err, data):             # старий колбек
-        if err:
-            fut.set_exception(err)      # → reject
-        else:
-            fut.set_result(data)        # → resolve
-
-    legacy_read(path, on_done)          # чужа колбекова функція
-    return fut                          # це awaitable
-
-data = await read_file_async("./config.json")
-```
+:::code proj-callback-to-async/ts/krok-1-odnorazova.ts
+:::code proj-callback-to-async/py/krok-1-odnorazova.py
 :::
 
 Різниця між мовами тут повчальна. У JS дві функції-виходи тобі **дають** — їх передає `new Promise`. У Python ти сам робиш порожнє майбутнє (`loop.create_future()`) і кличеш на ньому `set_result`/`set_exception`. Форма та сама: два боки одного колбека спрямовані в два методи одного майбутнього. Одна тонкість Python: майбутнє **не потоко-безпечне**, тож якщо чужий колбек стрельне з іншого потоку, замість прямого `set_result` треба `loop.call_soon_threadsafe(fut.set_result, data)` — інакше рушій asyncio зіпсується. У Node такої турботи нема, бо колбек так чи так виконається у [циклі подій](root:sf-tasks/event-loop) того самого потоку — не зараз, а на пізнішому оберті, коли поточний синхронний код добіжить.
@@ -96,42 +62,7 @@ const data = await readFileAsync("./config.json");
 
 Сучасне скасування в JS — `AbortController`/`AbortSignal`. Той, хто кличе, передає `signal`; коли він робить `abort()`, твій проміс мусить `reject`. Це API Node/браузера, замкнене на себе, тож тут одна мова — TypeScript:
 
-```ts
-import { readFile } from "node:fs";
-
-function readFileAsync(
-  path: string,
-  opts: { signal?: AbortSignal; timeoutMs?: number } = {},
-): Promise<Buffer> {
-  const { signal, timeoutMs } = opts;
-  return new Promise<Buffer>((resolve, reject) => {
-    if (signal?.aborted) return reject(signal.reason);  // уже скасовано — навіть не починаємо
-
-    let settled = false;
-
-    const timer =
-      timeoutMs != null
-        ? setTimeout(() => finish(() => reject(new Error(`таймаут ${timeoutMs} мс`))), timeoutMs)
-        : null;
-
-    const onAbort = () => finish(() => reject(signal!.reason));
-    signal?.addEventListener("abort", onAbort, { once: true });
-
-    // ЄДИНА хвіртка виходу: перший результат виграє, решту глушимо, і ЗАВЖДИ прибираємо
-    function finish(settle: () => void) {
-      if (settled) return;                              // одноразовість — захист від подвійного виклику
-      settled = true;
-      if (timer) clearTimeout(timer);                   // прибрати таймер
-      signal?.removeEventListener("abort", onAbort);    // зняти слухач — інакше витік
-      settle();
-    }
-
-    readFile(path, (err, data) => {
-      finish(() => (err ? reject(err) : resolve(data)));
-    });
-  });
-}
-```
+:::code proj-callback-to-async/ts/krok-2-provesty.ts
 
 Оця крихітна `finish` — серце всієї вставки. Вона робить три речі, які наївна обгортка забуває, і кожна з них — окремий рядок таблиці з малюнка:
 
@@ -164,76 +95,8 @@ await readFileAsync(path, { signal });
 Тож форма перехідника міняється: замість одного промісу ти будуєш об'єкт із `[Symbol.asyncIterator]`, і кожен `next()` повертає проміс **наступної** події. Складність тут — буферизація: події приходять незалежно від того, чи споживач уже попросив, тож потрібна невелика черга й спосіб **розбудити** `next()`, що чекає. Візерунок знов загальний, тож дві мови:
 
 :::tabs
-```ts
-import { EventEmitter } from "node:events";
-
-async function* streamToIterable<T>(
-  src: EventEmitter,
-  dataEvent = "data",
-  endEvent = "end",
-): AsyncGenerator<T> {
-  const queue: T[] = [];
-  let done = false;
-  let failure: unknown = null;
-  let wake: (() => void) | null = null;
-  const bump = () => { wake?.(); wake = null; };
-
-  const onData = (v: T) => { queue.push(v); bump(); };
-  const onEnd = () => { done = true; bump(); };
-  const onErr = (e: unknown) => { failure = e; done = true; bump(); };
-
-  src.on(dataEvent, onData);
-  src.once(endEvent, onEnd);
-  src.once("error", onErr);       // 'error' БЕЗ слухача кладе процес — мусимо перехопити
-
-  try {
-    while (true) {
-      while (queue.length) yield queue.shift()!;      // віддати все накопичене
-      if (failure) throw failure;
-      if (done) return;
-      await new Promise<void>((r) => (wake = r));      // поспати до наступної події
-    }
-  } finally {
-    src.off(dataEvent, onData);   // прибрати ВСІ слухачі —
-    src.off(endEvent, onEnd);     // finally спрацює й на break споживача,
-    src.off("error", onErr);      // і на throw в тілі, і на нормальний кінець
-  }
-}
-
-// споживання читається як звичайний цикл:
-for await (const chunk of streamToIterable<Buffer>(socket)) {
-  handle(chunk);
-  if (enough) break;   // ← generator.return() → спрацьовує finally → слухачі зняті
-}
-```
-```py
-import asyncio
-
-async def stream_to_iter(src, data_event="data", end_event="end"):
-    queue: asyncio.Queue = asyncio.Queue()
-    _DONE = object()
-
-    def on_data(v): queue.put_nowait(v)
-    def on_end():   queue.put_nowait(_DONE)
-
-    src.on(data_event, on_data)
-    src.once(end_event, on_end)
-    try:
-        while True:
-            item = await queue.get()      # поспати до наступної події
-            if item is _DONE:
-                return
-            yield item
-    finally:
-        src.off(data_event, on_data)      # прибрати слухачі й на break, і на кінці
-        src.off(end_event, on_end)
-
-# споживання:
-async for chunk in stream_to_iter(socket):
-    handle(chunk)
-    if enough:
-        break
-```
+:::code proj-callback-to-async/ts/krok-3-potik-podii-tse-ne.ts
+:::code proj-callback-to-async/py/krok-3-potik-podii-tse-ne.py
 :::
 
 Той `finally` — вузол безпеки проти витоку. Коли споживач робить `break` у `for await`, рушій кличе в генератора `.return()`, а той виконує `finally`, а той знімає всі слухачі. Без нього `break` (чи `throw` у тілі циклу) лишив би `onData` причепленим назавжди — класичний витік, що з'їдає пам'ять на кожному ранньому виході. Порівняй із Кроком 2: там симетрію тримала хвіртка `finish`, тут — блок `finally`; ідея одна, форма різна.

@@ -24,63 +24,8 @@
 Тут і криється пастка, у яку так легко впасти. Оскільки зброя й броня незалежні, а поведінка залежить від **обох**, окремий тип доводиться заводити на кожну їхню **комбінацію**. Не «меченосець», а «меченосець-у-легкій» і «меченосець-у-важкій» — окремо. Ось цей код, чесно доведений до кінця:
 
 :::tabs
-```cpp
-#include <cstdio>
-
-// Базовий ворог: обіцяє два числа — завдану й поглинуту шкоду.
-class Enemy {
-public:
-    virtual int attack() const = 0;   // скільки шкоди завдає
-    virtual int defend() const = 0;   // скільки шкоди тримає
-    virtual ~Enemy() = default;
-};
-
-// Кожна КОМБІНАЦІЯ зброя×броня — окремий клас.
-class SwordLight : public Enemy {
-public:
-    int attack() const override { return 10; }  // меч
-    int defend() const override { return 2;  }   // легка
-};
-class SwordHeavy : public Enemy {
-public:
-    int attack() const override { return 10; }  // меч
-    int defend() const override { return 7;  }   // важка
-};
-class BowLight : public Enemy {
-public:
-    int attack() const override { return 6; }   // лук
-    int defend() const override { return 2; }    // легка
-};
-class BowHeavy : public Enemy {
-public:
-    int attack() const override { return 6; }   // лук
-    int defend() const override { return 7; }    // важка
-};
-```
-```python
-from abc import ABC, abstractmethod
-
-# Базовий ворог: обіцяє два числа — завдану й поглинуту шкоду.
-class Enemy(ABC):
-    @abstractmethod
-    def attack(self): ...   # скільки шкоди завдає
-    @abstractmethod
-    def defend(self): ...   # скільки шкоди тримає
-
-# Кожна КОМБІНАЦІЯ зброя×броня — окремий клас.
-class SwordLight(Enemy):
-    def attack(self): return 10   # меч
-    def defend(self): return 2    # легка
-class SwordHeavy(Enemy):
-    def attack(self): return 10   # меч
-    def defend(self): return 7    # важка
-class BowLight(Enemy):
-    def attack(self): return 6    # лук
-    def defend(self): return 2    # легка
-class BowHeavy(Enemy):
-    def attack(self): return 6    # лук
-    def defend(self): return 7    # важка
-```
+:::code proj-strategy-refactor/cpp/naivnyi-start-klas-na.cpp
+:::code proj-strategy-refactor/py/naivnyi-start-klas-na.py
 :::
 
 Два види зброї, дві броні — **чотири** класи. Код компілюється, працює, і на цьому масштабі навіть виглядає невинно. Але вже тут видно перший тривожний знак: подивись, скільки разів повторилося число `10`. Меч завдає десять і в `SwordLight`, і в `SwordHeavy` — та сама логіка меча продубльована в кожному класі, де меч зустрічається. Зміниш баланс меча на `12` — правити доведеться у **двох** місцях, а забудеш одне — дістанеш ворога, що б'є мечем по-різному залежно від броні. Це вже прямий підрив [принципу DRY](root:sf-apps/dry-kiss-yagni): та сама істина про меч живе у двох копіях, і копії розповзаються.
@@ -88,21 +33,7 @@ class BowHeavy(Enemy):
 Тепер додаймо третю вісь — **броню «магічна»** — і порахуймо, що станеться.
 
 :::tabs
-```cpp
-// Додаємо ОДНУ броню — а класів доводиться дописати стільки,
-// скільки є видів зброї:
-class SwordMagic : public Enemy {
-public:
-    int attack() const override { return 10; }
-    int defend() const override { return 5; }
-};
-class BowMagic : public Enemy {
-public:
-    int attack() const override { return 6; }
-    int defend() const override { return 5; }
-};
-// Було 4 → стало 6. Одна нова броня коштувала ДВА класи.
-```
+:::code proj-strategy-refactor/cpp/naivnyi-start-klas-na-2.cpp
 ```python
 # Додаємо ОДНУ броню — а класів доводиться дописати стільки,
 # скільки є видів зброї:
@@ -157,103 +88,8 @@ class BowMagic(Enemy):
 Ось те саме, переписане на стратегії. Зверни увагу, як зникло дублювання: число «шкода меча = 10» тепер живе в **одному** місці — у класі `Sword`, — хоч би скільки осей ми додали згодом.
 
 :::tabs
-```cpp
-#include <cstdio>
-#include <memory>
-#include <utility>
-
-// ── Вісь «зброя»: інтерфейс + різновиди (по одному класу на вид) ──
-struct Weapon {
-    virtual int  hit()  const = 0;      // скільки шкоди завдає
-    virtual const char* name() const = 0;
-    virtual ~Weapon() = default;
-};
-struct Sword : Weapon {
-    int hit() const override { return 10; }       // логіка меча — В ОДНОМУ місці
-    const char* name() const override { return "меч"; }
-};
-struct Bow : Weapon {
-    int hit() const override { return 6; }
-    const char* name() const override { return "лук"; }
-};
-
-// ── Вісь «броня»: інтерфейс + різновиди ──
-struct Armor {
-    virtual int  block() const = 0;     // скільки шкоди тримає
-    virtual const char* name() const = 0;
-    virtual ~Armor() = default;
-};
-struct Light : Armor {
-    int block() const override { return 2; }
-    const char* name() const override { return "легка"; }
-};
-struct Heavy : Armor {
-    int block() const override { return 7; }
-    const char* name() const override { return "важка"; }
-};
-struct Magic : Armor {
-    int block() const override { return 5; }
-    const char* name() const override { return "магічна"; }
-};
-
-// ── Ворог НЕ успадковує осі — він їх ТРИМАЄ полями ──
-class Enemy {
-    std::unique_ptr<Weapon> weapon;     // яка зброя зараз
-    std::unique_ptr<Armor>  armor;      // яка броня зараз
-public:
-    Enemy(std::unique_ptr<Weapon> w, std::unique_ptr<Armor> a)
-        : weapon(std::move(w)), armor(std::move(a)) {}
-
-    // Делегувальні обгортки: ворог не рахує сам, а перепитує деталь.
-    int attack() const { return weapon->hit();  }
-    int defend() const { return armor->block(); }
-
-    void describe() const {
-        std::printf("ворог: %s + %s → атака %d, захист %d\n",
-                    weapon->name(), armor->name(), attack(), defend());
-    }
-};
-```
-```python
-# ── Вісь «зброя»: інтерфейс + різновиди (по одному класу на вид) ──
-class Weapon:
-    def hit(self):  ...   # скільки шкоди завдає
-    def name(self): ...
-class Sword(Weapon):
-    def hit(self):  return 10        # логіка меча — В ОДНОМУ місці
-    def name(self): return "меч"
-class Bow(Weapon):
-    def hit(self):  return 6
-    def name(self): return "лук"
-
-# ── Вісь «броня»: інтерфейс + різновиди ──
-class Armor:
-    def block(self): ...   # скільки шкоди тримає
-    def name(self):  ...
-class Light(Armor):
-    def block(self): return 2
-    def name(self):  return "легка"
-class Heavy(Armor):
-    def block(self): return 7
-    def name(self):  return "важка"
-class Magic(Armor):
-    def block(self): return 5
-    def name(self):  return "магічна"
-
-# ── Ворог НЕ успадковує осі — він їх ТРИМАЄ полями ──
-class Enemy:
-    def __init__(self, weapon, armor):
-        self.weapon = weapon        # яка зброя зараз
-        self.armor  = armor         # яка броня зараз
-
-    # Делегувальні обгортки: ворог не рахує сам, а перепитує деталь.
-    def attack(self): return self.weapon.hit()
-    def defend(self): return self.armor.block()
-
-    def describe(self):
-        print(f"ворог: {self.weapon.name()} + {self.armor.name()} → "
-              f"атака {self.attack()}, захист {self.defend()}")
-```
+:::code proj-strategy-refactor/cpp/robochyi-kod-kompozytsiina.cpp
+:::code proj-strategy-refactor/py/robochyi-kod-kompozytsiina.py
 :::
 
 Порахуймо тепер те, що коштувало 6 класів у спадковій версії. Тут — `Weapon`, `Sword`, `Bow` (три сутності на вісь зброї) і `Armor`, `Light`, `Heavy`, `Magic` (чотири на вісь броні). Формально це більше **іменованих** типів, ніж 6, — і чесний спостерігач мусить це визнати, а не замовчати. Але дивись, що станеться далі, коли осі почнуть рости, — саме там ховається справжня різниця.
@@ -261,19 +97,7 @@ class Enemy:
 Складання конкретного ворога — це не оголошення нового класу, а звичайний вираз, який пишуть **під час роботи**:
 
 :::tabs
-```cpp
-int main() {
-    // Будь-яка комбінація збирається на місці — БЕЗ нового типу.
-    Enemy knight(std::make_unique<Sword>(), std::make_unique<Heavy>());
-    Enemy archer(std::make_unique<Bow>(),   std::make_unique<Light>());
-    Enemy mage  (std::make_unique<Sword>(), std::make_unique<Magic>());
-
-    knight.describe();   // ворог: меч + важка → атака 10, захист 7
-    archer.describe();   // ворог: лук + легка → атака 6,  захист 2
-    mage.describe();     // ворог: меч + магічна → атака 10, захист 5
-    return 0;
-}
-```
+:::code proj-strategy-refactor/cpp/robochyi-kod-kompozytsiina-2.cpp
 ```python
 # Будь-яка комбінація збирається на місці — БЕЗ нового типу.
 knight = Enemy(Sword(), Heavy())
@@ -297,61 +121,14 @@ mage.describe()     # ворог: меч + магічна → атака 10, з�
 У **композиційній** — це означає дописати рівно один новий інтерфейс і три його реалізації:
 
 :::tabs
-```cpp
-// Нова вісь — новий інтерфейс + по одному класу на вид. І ВСЕ.
-struct Element {
-    virtual int  bonus() const = 0;     // додаткова шкода від стихії
-    virtual const char* name() const = 0;
-    virtual ~Element() = default;
-};
-struct Plain : Element {
-    int bonus() const override { return 0; }
-    const char* name() const override { return "звичайна"; }
-};
-struct Fire : Element {
-    int bonus() const override { return 4; }
-    const char* name() const override { return "вогонь"; }
-};
-struct Ice : Element {
-    int bonus() const override { return 3; }
-    const char* name() const override { return "крига"; }
-};
-```
-```python
-# Нова вісь — новий інтерфейс + по одному класу на вид. І ВСЕ.
-class Element:
-    def bonus(self): ...   # додаткова шкода від стихії
-    def name(self):  ...
-class Plain(Element):
-    def bonus(self): return 0
-    def name(self):  return "звичайна"
-class Fire(Element):
-    def bonus(self): return 4
-    def name(self):  return "вогонь"
-class Ice(Element):
-    def bonus(self): return 3
-    def name(self):  return "крига"
-```
+:::code proj-strategy-refactor/cpp/os-de-kompozytsiia.cpp
+:::code proj-strategy-refactor/py/os-de-kompozytsiia.py
 :::
 
 А в самому ворогові — одне нове поле й один допис у делегуванні:
 
 :::tabs
-```cpp
-class Enemy {
-    std::unique_ptr<Weapon>  weapon;
-    std::unique_ptr<Armor>   armor;
-    std::unique_ptr<Element> element;    // ← нове поле
-public:
-    Enemy(std::unique_ptr<Weapon> w, std::unique_ptr<Armor> a,
-          std::unique_ptr<Element> e)
-        : weapon(std::move(w)), armor(std::move(a)), element(std::move(e)) {}
-
-    // атака тепер = базова шкода зброї + бонус стихії
-    int attack() const { return weapon->hit() + element->bonus(); }
-    int defend() const { return armor->block(); }
-};
-```
+:::code proj-strategy-refactor/cpp/os-de-kompozytsiia-2.cpp
 ```python
 class Enemy:
     def __init__(self, weapon, armor, element):
@@ -383,48 +160,8 @@ class Enemy:
 Композиція знімає це обмеження задарма — бо вид тепер не в типі, а в **полі**, а поле можна перепризначити. Додаймо ворогові зброю, що ламається в бою й міняється на іншу:
 
 :::tabs
-```cpp
-class Enemy {
-    std::unique_ptr<Weapon> weapon;
-    std::unique_ptr<Armor>  armor;
-public:
-    Enemy(std::unique_ptr<Weapon> w, std::unique_ptr<Armor> a)
-        : weapon(std::move(w)), armor(std::move(a)) {}
-
-    int attack() const { return weapon->hit(); }
-    int defend() const { return armor->block(); }
-
-    // Підміна стратегії НА ЛЬОТУ — той самий об'єкт, інша поведінка.
-    void rearm(std::unique_ptr<Weapon> w) { weapon = std::move(w); }
-};
-
-int main() {
-    Enemy foe(std::make_unique<Sword>(), std::make_unique<Heavy>());
-    std::printf("до: атака %d\n", foe.attack());   // до: атака 10
-
-    foe.rearm(std::make_unique<Bow>());            // меч зламався — беремо лук
-    std::printf("після: атака %d\n", foe.attack()); // після: атака 6
-    return 0;
-}
-```
-```python
-class Enemy:
-    def __init__(self, weapon, armor):
-        self.weapon = weapon
-        self.armor  = armor
-
-    def attack(self): return self.weapon.hit()
-    def defend(self): return self.armor.block()
-
-    # Підміна стратегії НА ЛЬОТУ — той самий об'єкт, інша поведінка.
-    def rearm(self, w): self.weapon = w
-
-foe = Enemy(Sword(), Heavy())
-print(f"до: атака {foe.attack()}")      # до: атака 10
-
-foe.rearm(Bow())                        # меч зламався — беремо лук
-print(f"після: атака {foe.attack()}")   # після: атака 6
-```
+:::code proj-strategy-refactor/cpp/pidmina-povedinky-pid-chas.cpp
+:::code proj-strategy-refactor/py/pidmina-povedinky-pid-chas.py
 :::
 
 Той самий `foe` — той самий об'єкт за тією самою адресою — щойно бив мечем на 10, а тепер б'є луком на 6. Жодного нового типу, жодного знищення об'єкта; змінилося лише те, що лежить у полі `weapon`. Це і є пряма винагорода за «має» замість «є»: поведінка стала **даними**, які можна підмінити, а не властивістю типу, яку намертво відлито при створенні. Той самий важіль «розширювати, не переписуючи наявне» лежить в основі [принципу відкритості-закритості](root:sf-apps/open-closed): нову зброю додаєш новим класом `Weapon`, старого ворога не чіпаєш, а перемкнути його на цю зброю можна навіть під час бою.

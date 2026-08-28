@@ -37,73 +37,8 @@
 Ось як це виглядає. Патерн тут загальний, не прив'язаний до заліза чи регістрів, а платіжні інтеграції рівною мірою живуть і на бекенді Node, і в Python-сервісах, тож покажу двома мовами:
 
 :::tabs
-```ts
-// ЦІЛЬ — інтерфейс, який очікує вся наша система
-interface PaymentGateway {
-  charge(amountUAH: number, currency: string): Promise<string>; // повертає id платежу
-}
-
-// АДАПТОВАНИЙ — чужий SDK; ми його НЕ міняємо, лише використовуємо
-class StripeClient {
-  createCharge(p: { amountInCents: number; currency: string }): Promise<{ id: string }> {
-    /* ... справжній виклик до Stripe ... */
-    return Promise.resolve({ id: "ch_123" });
-  }
-}
-
-// АДАПТЕР — реалізує ЦІЛЬ, усередині тримає АДАПТОВАНОГО і перекладає
-class StripeAdapter implements PaymentGateway {
-  constructor(private stripe: StripeClient) {}         // тримаємо чужий об'єкт полем
-
-  async charge(amountUAH: number, currency: string): Promise<string> {
-    const res = await this.stripe.createCharge({
-      amountInCents: Math.round(amountUAH * 100),      // гривні → центи
-      currency: currency.toLowerCase(),                // "UAH" → "uah"
-    });
-    return res.id;                                     // { id } → просто id
-  }
-}
-
-// Клієнтський код НЕ знає про Stripe — він бачить лише PaymentGateway
-async function pay(gateway: PaymentGateway) {
-  const id = await gateway.charge(499, "UAH");
-  console.log("оплачено, платіж", id);
-}
-
-pay(new StripeAdapter(new StripeClient()));
-```
-```py
-from typing import Protocol
-
-# ЦІЛЬ — інтерфейс, який очікує вся наша система
-class PaymentGateway(Protocol):
-    def charge(self, amount_uah: float, currency: str) -> str: ...   # повертає id платежу
-
-# АДАПТОВАНИЙ — чужий SDK; ми його НЕ міняємо, лише використовуємо
-class StripeClient:
-    def create_charge(self, *, amount_in_cents: int, currency: str) -> dict:
-        # ... справжній виклик до Stripe ...
-        return {"id": "ch_123"}
-
-# АДАПТЕР — реалізує ЦІЛЬ, усередині тримає АДАПТОВАНОГО і перекладає
-class StripeAdapter:                                    # структурно реалізує PaymentGateway
-    def __init__(self, stripe: StripeClient):
-        self._stripe = stripe                           # тримаємо чужий об'єкт полем
-
-    def charge(self, amount_uah: float, currency: str) -> str:
-        res = self._stripe.create_charge(
-            amount_in_cents=round(amount_uah * 100),     # гривні → центи
-            currency=currency.lower(),                   # "UAH" → "uah"
-        )
-        return res["id"]                                 # {"id": ...} → просто id
-
-# Клієнтський код НЕ знає про Stripe — він бачить лише PaymentGateway
-def pay(gateway: PaymentGateway) -> None:
-    payment_id = gateway.charge(499, "UAH")
-    print("оплачено, платіж", payment_id)
-
-pay(StripeAdapter(StripeClient()))
-```
+:::code adapter/ts/index.ts
+:::code adapter/py/main.py
 :::
 
 Придивись, де саме відбувається магія, — і що її насправді нема. Уся суть у методі `charge` адаптера: він приймає аргументи **у твоїх термінах** (гривні, `"UAH"`), робить три дрібні перекладки (множення на 100, `toLowerCase`, витягання `id`) і кличе чужий метод **у його термінах**. Клієнтський `pay` не має жодного натяку, що за `PaymentGateway` ховається саме Stripe: підстав інший адаптер — і той самий `pay` піде через PayPal, ні на рядок не змінившись.
@@ -122,29 +57,7 @@ GoF описує адаптер у двох формах, і різниця мі
 
 **Класовий адаптер** — адаптер **успадковує від адаптованого** (і заразом реалізує ціль), тож дістає його методи прямо, без поля-посередника. У мовах з множинним спадкуванням (C++) це виглядає так:
 
-```cpp
-// Ціль — інтерфейс, який очікує наш код
-struct PaymentGateway {
-    virtual std::string charge(double amountUAH, const std::string& currency) = 0;
-    virtual ~PaymentGateway() = default;
-};
-
-// Адаптований — чужий клас із власним методом
-struct StripeClient {
-    std::string createCharge(long amountInCents, const std::string& currency) {
-        return "ch_123";
-    }
-};
-
-// КЛАСОВИЙ адаптер: успадковує обидва — і ціль, і адаптованого
-class StripeAdapter : public PaymentGateway, private StripeClient {
-public:
-    std::string charge(double amountUAH, const std::string& currency) override {
-        // createCharge доступний напряму — він успадкований, поля нема
-        return createCharge(std::lround(amountUAH * 100), toLower(currency));
-    }
-};
-```
+:::code adapter/cpp/main.cpp
 
 Різниця не косметична. Класовий адаптер прив'язаний до **одного конкретного** класу адаптованого (успадкувати можна лише від нього), не працює з його підкласами через посилання й не переключається на льоту — усе визначено на етапі компіляції. Через це, а ще через те, що більшість сучасних мов (Java, C#, TS, Python) множинного спадкування класів не мають, **об'єктний адаптер — стандартний вибір**, а класовий лишається радше цікавою можливістю там, де мова її дає й де хочеться перевизначити частину поведінки адаптованого.
 

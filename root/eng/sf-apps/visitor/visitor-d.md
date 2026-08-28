@@ -40,101 +40,15 @@
 Зберімо все докупи. Спільний інтерфейс фігур оголошує `accept`; спільний інтерфейс відвідувачів — по методу на кожен вид фігури. Кожна фігура в `accept` кличе «свій» метод відвідувача:
 
 :::tabs
-```ts
-interface Shape {
-  accept<R>(v: ShapeVisitor<R>): R;          // тут починається подвійна диспетчеризація
-}
-
-interface ShapeVisitor<R> {                  // по методу на КОЖЕН вид фігури
-  visitCircle(c: Circle): R;
-  visitRectangle(r: Rectangle): R;
-  visitTriangle(t: Triangle): R;
-}
-
-class Circle implements Shape {
-  constructor(public r: number) {}
-  accept<R>(v: ShapeVisitor<R>): R { return v.visitCircle(this); }    // я — коло
-}
-class Rectangle implements Shape {
-  constructor(public w: number, public h: number) {}
-  accept<R>(v: ShapeVisitor<R>): R { return v.visitRectangle(this); }
-}
-class Triangle implements Shape {
-  constructor(public base: number, public height: number) {}
-  accept<R>(v: ShapeVisitor<R>): R { return v.visitTriangle(this); }
-}
-```
-```py
-from abc import ABC, abstractmethod
-from math import pi
-
-class Shape(ABC):
-    @abstractmethod
-    def accept(self, v):        # тут починається подвійна диспетчеризація
-        ...
-
-class ShapeVisitor(ABC):        # по методу на КОЖЕН вид фігури
-    @abstractmethod
-    def visit_circle(self, c): ...
-    @abstractmethod
-    def visit_rectangle(self, r): ...
-    @abstractmethod
-    def visit_triangle(self, t): ...
-
-class Circle(Shape):
-    def __init__(self, r): self.r = r
-    def accept(self, v): return v.visit_circle(self)        # я — коло
-
-class Rectangle(Shape):
-    def __init__(self, w, h): self.w, self.h = w, h
-    def accept(self, v): return v.visit_rectangle(self)
-
-class Triangle(Shape):
-    def __init__(self, base, height): self.base, self.height = base, height
-    def accept(self, v): return v.visit_triangle(self)
-```
+:::code visitor-d/ts/kistiak-na-prykladi.ts
+:::code visitor-d/py/kistiak-na-prykladi.py
 :::
 
 Тепер кожна операція — це один клас-відвідувач, у якому зібрані всі гілки за видами фігур. Порахувати площу й вивести SVG — два незалежні відвідувачі:
 
 :::tabs
-```ts
-class AreaVisitor implements ShapeVisitor<number> {         // операція «площа» — ЦІЛА, в одному класі
-  visitCircle(c: Circle): number       { return Math.PI * c.r * c.r; }
-  visitRectangle(r: Rectangle): number { return r.w * r.h; }
-  visitTriangle(t: Triangle): number   { return t.base * t.height / 2; }
-}
-
-class SvgVisitor implements ShapeVisitor<string> {          // інша операція — інший клас
-  visitCircle(c: Circle): string       { return `<circle r="${c.r}"/>`; }
-  visitRectangle(r: Rectangle): string { return `<rect width="${r.w}" height="${r.h}"/>`; }
-  visitTriangle(t: Triangle): string   { return `<polygon points="0,0 ${t.base},0 0,${t.height}"/>`; }
-}
-
-const shapes: Shape[] = [new Circle(2), new Rectangle(3, 4), new Triangle(6, 2)];
-
-const area = new AreaVisitor();
-const total = shapes.reduce((s, sh) => s + sh.accept(area), 0);   // 12.566… + 12 + 6 = 30.566…
-
-const svg = new SvgVisitor();
-const markup = shapes.map(sh => sh.accept(svg)).join("\n");
-```
-```py
-class AreaVisitor(ShapeVisitor):        # операція «площа» — ЦІЛА, в одному класі
-    def visit_circle(self, c):    return pi * c.r * c.r
-    def visit_rectangle(self, r): return r.w * r.h
-    def visit_triangle(self, t):  return t.base * t.height / 2
-
-class SvgVisitor(ShapeVisitor):         # інша операція — інший клас
-    def visit_circle(self, c):    return f'<circle r="{c.r}"/>'
-    def visit_rectangle(self, r): return f'<rect width="{r.w}" height="{r.h}"/>'
-    def visit_triangle(self, t):  return f'<polygon points="0,0 {t.base},0 0,{t.height}"/>'
-
-shapes = [Circle(2), Rectangle(3, 4), Triangle(6, 2)]
-
-total  = sum(s.accept(AreaVisitor()) for s in shapes)       # 12.566… + 12 + 6 = 30.566…
-markup = "\n".join(s.accept(SvgVisitor()) for s in shapes)
-```
+:::code visitor-d/ts/kistiak-na-prykladi-2.ts
+:::code visitor-d/py/kistiak-na-prykladi-2.py
 :::
 
 Подивись на `shapes.reduce(… sh.accept(area) …)`. Цикл не питає, яка перед ним фігура, — він кличе `accept`, і подвійна диспетчеризація сама заводить кожну фігуру в правильний метод `AreaVisitor`. А тепер найголовніший наслідок: щоб додати **нову операцію** — скажімо, експорт у JSON, — ти пишеш `class JsonVisitor implements ShapeVisitor<object>` з трьома методами й **не торкаєшся жодного класу фігури**. Операція народжується цілою, збоку, як окремий файл. Саме цього ми й домагалися: [принцип відкритості-закритості](root:sf-apps/open-closed) виконано з боку операцій — додаємо, не відкриваючи наявне. Той самий подвійний-диспетч як ілюстрацію OCP, з покроковим розбором викликів, розібрано [окремо](root:sf-apps/open-closed/proj-visitor-double-dispatch.md).
@@ -165,21 +79,7 @@ markup = "\n".join(s.accept(SvgVisitor()) for s in shapes)
 
 Є й глибший двійник — з іншого світу. У мовах із **сумарними типами й зіставленням зі зразком** (англ. *pattern matching*) відвідувач узагалі не потрібен: операція — це проста функція, що робить `match`/`switch` за видом значення. Той самий приклад мовою, де це рідне:
 
-```rust
-enum Shape {
-    Circle { r: f64 },
-    Rectangle { w: f64, h: f64 },
-    Triangle { base: f64, height: f64 },
-}
-
-fn area(s: &Shape) -> f64 {          // ця функція — і є «AreaVisitor», лише без церемоній
-    match s {
-        Shape::Circle { r }            => std::f64::consts::PI * r * r,
-        Shape::Rectangle { w, h }      => w * h,
-        Shape::Triangle { base, height } => base * height / 2.0,
-    }
-}
-```
+:::code visitor-d/rust/main.rs
 
 Функція `area` в одному тілі обробляє всі види — це достеменно `AreaVisitor`, тільки замість `accept`/`visit` тут одна конструкція мови. І тягар той самий, дзеркальний: додати `svg` — це нова функція (дешево), а додати варіант `Hexagon` змусить компілятор підсвітити **кожен** `match` як неповний (дорого). Відвідувач — це, по суті, спосіб зімітувати таке зіставлення зі зразком у мові, де його немає, коштом ручних `accept`/`visit`. Про самі сумарні типи, на яких стоїть цей дуальний погляд, — у статті [типи як дизайн](root:sf-apps/type-driven-design).
 

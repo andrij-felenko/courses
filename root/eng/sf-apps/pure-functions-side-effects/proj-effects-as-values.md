@@ -9,72 +9,9 @@
 Нехай ми робимо щоденний бонус у застосунку: раз на добу гравець «крутить колесо» й отримує монети — зазвичай трохи, зрідка джекпот. Ось успадкований код, у якому все злиплося.
 
 :::tabs
-```ts
-// ── ДО: одна функція говорить зі світом п'ятьма голосами ──
-let clock = () => Date.now();          // глобальний годинник
-let rng   = () => Math.random();       // глобальний генератор
-let cfg   = loadConfig();              // глобальний конфіг
-
-function claimBonus(userId: number): number {
-  const user = db.loadUser(userId);              // читання з БД
-  const now  = clock();                          // прихований вхід: час
-  if (now - user.lastClaim < cfg.cooldownMs) {   // ще рано
-    return 0;
-  }
-  const roll   = rng();                          // прихований вхід: випадковість
-  const amount = roll < cfg.jackpotChance ? cfg.jackpotBonus : cfg.baseBonus;
-
-  user.balance  += amount;                        // мутація входу
-  user.lastClaim = now;
-  db.saveUser(user);                              // запис у БД
-  db.appendLedger(userId, amount, now);           // ще запис у БД
-  mailer.send(user.email, `Бонус +${amount}`);    // посилка листа
-  return amount;
-}
-```
-```py
-# ── ДО: одна функція говорить зі світом п'ятьма голосами ──
-clock = lambda: now_ms()          # глобальний годинник
-rng   = lambda: random.random()   # глобальний генератор
-cfg   = load_config()             # глобальний конфіг
-
-def claim_bonus(user_id: int) -> int:
-    user = db.load_user(user_id)                     # читання з БД
-    now  = clock()                                   # прихований вхід: час
-    if now - user.last_claim < cfg.cooldown_ms:      # ще рано
-        return 0
-    roll   = rng()                                   # прихований вхід: випадковість
-    amount = cfg.jackpot_bonus if roll < cfg.jackpot_chance else cfg.base_bonus
-
-    user.balance  += amount                          # мутація входу
-    user.last_claim = now
-    db.save_user(user)                               # запис у БД
-    db.append_ledger(user_id, amount, now)           # ще запис у БД
-    mailer.send(user.email, f"Бонус +{amount}")      # посилка листа
-    return amount
-```
-```cpp
-// ── ДО: одна функція говорить зі світом п'ятьма голосами ──
-long   nowMs();                 // глобальний годинник
-double rng();                   // глобальний генератор
-Config cfg = loadConfig();      // глобальний конфіг
-
-long claimBonus(int userId) {
-    User user = db.loadUser(userId);                 // читання з БД
-    long now  = nowMs();                             // прихований вхід: час
-    if (now - user.lastClaim < cfg.cooldownMs)       // ще рано
-        return 0;
-    double roll = rng();                             // прихований вхід: випадковість
-    long amount = (roll < cfg.jackpotChance) ? cfg.jackpotBonus : cfg.baseBonus;
-
-    user.balance  += amount;                         // мутація входу
-    user.lastClaim = now;
-    db.saveUser(user);                               // запис у БД
-    db.appendLedger(userId, amount, now);            // ще запис у БД
-    mailer.send(user.email, "Бонус +" + std::to_string(amount));  // лист
-    return amount;
-}
-```
+:::code proj-effects-as-values/ts/zadacha-funktsiia-shcho.ts
+:::code proj-effects-as-values/py/zadacha-funktsiia-shcho.py
+:::code proj-effects-as-values/cpp/zadacha-funktsiia-shcho.cpp
 :::
 
 Придивись, де тут сховане рішення. Функція не просто рахує суму — вона **вирішує, які саме дії вчинити**: чи взагалі щось робити (гілка кулдауну), скільки нарахувати, який текст листа. І це рішення нероздільно зрощене з самим чиненням: гілка `if` веде до трьох викликів, що б'ють у справжню базу й справжню пошту. Щоб перевірити одну-єдину думку — «на щасливому кидку в джекпот нараховуємо 500, а не 50» — доведеться заморозити годинник, підмінити генератор, виставити конфіг, підставити базу й перехопити пошту. П'ять підготовок заради однієї перевірки арифметики й одного `if`.
@@ -113,19 +50,7 @@ type Effect =
   | { kind: "appendLedger"; userId: number; amount: number; at: number }
   | { kind: "notify";       to: string; text: string };
 ```
-```py
-from dataclasses import dataclass
-
-# кожен варіант — свій незмінний клас; Effect — їх об'єднання
-@dataclass(frozen=True)
-class SaveUser:     user: "User"
-@dataclass(frozen=True)
-class AppendLedger: user_id: int; amount: int; at: int
-@dataclass(frozen=True)
-class Notify:       to: str; text: str
-
-Effect = SaveUser | AppendLedger | Notify
-```
+:::code proj-effects-as-values/py/krok-druhyi-efekt-tse-dani.py
 ```cpp
 // кожен варіант — свій struct; Effect — їх варіант (тег усередині std::variant)
 struct SaveUser     { User user; };
@@ -143,62 +68,9 @@ using Effect = std::variant<SaveUser, AppendLedger, Notify>;
 Тепер ядро. Воно приймає всі явні входи й повертає `Effect[]` — **план намірів**. Жодного `db`, жодного `mailer`, жодного годинника: лише вхідні дані на вході й список намірів на виході.
 
 :::tabs
-```ts
-// ЧИСТЕ ядро: усі входи явні, на виході — план намірів (дані)
-function decideBonus(user: User, now: number, roll: number, cfg: Config): Effect[] {
-  if (now - user.lastClaim < cfg.cooldownMs)
-    return [];                                     // на кулдауні — план ПОРОЖНІЙ
-
-  const amount  = roll < cfg.jackpotChance ? cfg.jackpotBonus : cfg.baseBonus;
-  const updated = { ...user, balance: user.balance + amount, lastClaim: now };
-  const text    = amount === cfg.jackpotBonus ? `Джекпот! +${amount}` : `Бонус +${amount}`;
-
-  return [
-    { kind: "saveUser",     user: updated },
-    { kind: "appendLedger", userId: user.id, amount, at: now },
-    { kind: "notify",       to: user.email, text },
-  ];
-}
-```
-```py
-from dataclasses import replace
-
-# ЧИСТЕ ядро: усі входи явні, на виході — план намірів (дані)
-def decide_bonus(user: User, now: int, roll: float, cfg: Config) -> list[Effect]:
-    if now - user.last_claim < cfg.cooldown_ms:
-        return []                                  # на кулдауні — план ПОРОЖНІЙ
-
-    amount  = cfg.jackpot_bonus if roll < cfg.jackpot_chance else cfg.base_bonus
-    updated = replace(user, balance=user.balance + amount, last_claim=now)
-    text    = f"Джекпот! +{amount}" if amount == cfg.jackpot_bonus else f"Бонус +{amount}"
-
-    return [
-        SaveUser(updated),
-        AppendLedger(user.id, amount, now),
-        Notify(user.email, text),
-    ]
-```
-```cpp
-// ЧИСТЕ ядро: усі входи явні, на виході — план намірів (дані)
-std::vector<Effect> decideBonus(const User& user, long now, double roll, const Config& cfg) {
-    if (now - user.lastClaim < cfg.cooldownMs)
-        return {};                                 // на кулдауні — план ПОРОЖНІЙ
-
-    long amount   = (roll < cfg.jackpotChance) ? cfg.jackpotBonus : cfg.baseBonus;
-    User updated  = user;                          // копія, вхід не чіпаємо
-    updated.balance  += amount;
-    updated.lastClaim = now;
-    std::string text = (amount == cfg.jackpotBonus)
-        ? "Джекпот! +" + std::to_string(amount)
-        : "Бонус +"    + std::to_string(amount);
-
-    return {
-        SaveUser{updated},
-        AppendLedger{user.id, amount, now},
-        Notify{user.email, text},
-    };
-}
-```
+:::code proj-effects-as-values/ts/iadro-povertaie-plan-a-ne.ts
+:::code proj-effects-as-values/py/iadro-povertaie-plan-a-ne.py
+:::code proj-effects-as-values/cpp/iadro-povertaie-plan-a-ne.cpp
 :::
 
 Зверни увагу на дві речі, у яких і сидить уся сила. Перша: гілка кулдауну повертає `[]` — **порожній план**. «Нічого не робити» стало таким самим значенням, як і «зробити три речі»; це не окрема гілка керування в оболонці, а звичайні дані, які ядро повертає й які так само легко перевірити. Друга: рішення *скільки нарахувати* й *який текст листа* тепер лежить у поверненому значенні. Оболонка про це нічого не знає — вона не бачила ні `cfg.jackpotChance`, ні гілки `if`. **Усе рішення переїхало в чисте ядро й стало даними.**
@@ -226,59 +98,9 @@ amount           = 500
 Намірам потрібен той, хто оживить їх у світі. Це **виконавець** (у теорії його звуть **інтерпретатором**, від лат. *interpres* — тлумач: він тлумачить дані-намір у справжню дію). Він бере один намір і робить рівно один ефект — розгалуження за міткою й нічого більше:
 
 :::tabs
-```ts
-// ВИКОНАВЕЦЬ: намір → справжній ефект. Жодних рішень, лише розгалуження за kind.
-function run(eff: Effect, db: Db, mailer: Mailer): void {
-  switch (eff.kind) {
-    case "saveUser":     db.saveUser(eff.user); return;
-    case "appendLedger": db.appendLedger(eff.userId, eff.amount, eff.at); return;
-    case "notify":       mailer.send(eff.to, eff.text); return;
-    default:             const _never: never = eff; return _never;   // забув варіант — не збереться
-  }
-}
-
-// ОБОЛОНКА: принести дані → спитати ядро → прокрутити план. Три рядки, нуль рішень.
-function claimBonus(userId: number, deps: Deps): void {
-  const user = deps.db.loadUser(userId);
-  const plan = decideBonus(user, deps.clock(), deps.rng(), deps.cfg);
-  for (const eff of plan) run(eff, deps.db, deps.mailer);
-}
-```
-```py
-# ВИКОНАВЕЦЬ: намір → справжній ефект. Жодних рішень, лише розбір за типом.
-def run(eff: Effect, db: Db, mailer: Mailer) -> None:
-    match eff:
-        case SaveUser(user):              db.save_user(user)
-        case AppendLedger(uid, amt, at):  db.append_ledger(uid, amt, at)
-        case Notify(to, text):            mailer.send(to, text)
-
-# ОБОЛОНКА: принести дані → спитати ядро → прокрутити план. Три рядки, нуль рішень.
-def claim_bonus(user_id: int, deps: Deps) -> None:
-    user = deps.db.load_user(user_id)
-    plan = decide_bonus(user, deps.clock(), deps.rng(), deps.cfg)
-    for eff in plan:
-        run(eff, deps.db, deps.mailer)
-```
-```cpp
-// ВИКОНАВЕЦЬ: намір → справжній ефект. std::visit розгалужує за активним варіантом.
-template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-template<class... Ts> overload(Ts...) -> overload<Ts...>;
-
-void run(const Effect& eff, Database& db, Mailer& mailer) {
-    std::visit(overload{
-        [&](const SaveUser& e)     { db.saveUser(e.user); },
-        [&](const AppendLedger& e) { db.appendLedger(e.userId, e.amount, e.at); },
-        [&](const Notify& e)       { mailer.send(e.to, e.text); },
-    }, eff);
-}
-
-// ОБОЛОНКА: принести дані → спитати ядро → прокрутити план. Нуль рішень.
-void claimBonus(int userId, Deps& deps) {
-    User user = deps.db.loadUser(userId);
-    auto plan = decideBonus(user, deps.clock(), deps.rng(), deps.cfg);
-    for (const Effect& eff : plan) run(eff, deps.db, deps.mailer);
-}
-```
+:::code proj-effects-as-values/ts/krykhitnyi-vykonavets-na.ts
+:::code proj-effects-as-values/py/krykhitnyi-vykonavets-na.py
+:::code proj-effects-as-values/cpp/krykhitnyi-vykonavets-na.cpp
 :::
 
 Погляньмо, що вийшло, збоку. Ядро вирішує все й не торкається світу. Виконавець торкається світу й нічого не вирішує — він **написаний раз** і годиться для будь-якого ядра, що повертає ці наміри. Оболонка звелася до «принеси — спитай — прокрути»: у ній не лишилося жодної гілки, жодного числа, жодного рядка тексту листа. Уся розумна частина — по один бік межі; уся брудна — по другий. Цей поділ «чисте всередині, брудне зовні» — окремий структурний принцип, [функціональне ядро, імперативна оболонка](root:sf-apps/functional-core-imperative-shell); тут ми доводимо його до краю, зробивши даними навіть перелік ефектів.
@@ -289,21 +111,7 @@ void claimBonus(int userId, Deps& deps) {
 
 Одне слово про **вичерпність**. Коли з'явиться четвертий вид наміру — скажімо, `pushNotify` — гарно, коли компілятор сам нагадає, що виконавець його ще не вміє. У TypeScript це роблять рядком `const _never: never = eff`: якщо лишився неврахований варіант, `eff` не звузиться до `never` і код не збереться. Мова з рідними сумами типів дає це задарма — ось той самий виконавець на Rust, де `match` **зобов'язаний** покрити всі варіанти, інакше помилка компіляції:
 
-```rust
-enum Effect {
-    SaveUser(User),
-    AppendLedger { user_id: u64, amount: i64, at: i64 },
-    Notify { to: String, text: String },
-}
-
-fn run(eff: Effect, db: &mut Db, mailer: &Mailer) {
-    match eff {                        // додаси варіант — доки не обробиш його тут, не збереться
-        Effect::SaveUser(u)                          => db.save_user(u),
-        Effect::AppendLedger { user_id, amount, at } => db.append_ledger(user_id, amount, at),
-        Effect::Notify { to, text }                  => mailer.send(&to, &text),
-    }
-}
-```
+:::code proj-effects-as-values/rust/main.rs
 
 Це не дрібниця: перелік намірів — це чесний, видимий у типі список усього, що програма взагалі вміє робити зі світом. Додав нову дію — компілятор проведе тебе за руку туди, де її треба навчити виконувати.
 
@@ -312,44 +120,8 @@ fn run(eff: Effect, db: &mut Db, mailer: &Mailer) {
 Ось де прийом окупається сповна — і саме тут видно, чим він відрізняється від простого розтину. Тест ядра не звіряє одне число. Він звіряє **весь план цілком**: які наміри, у якому порядку, з якими полями. І робить це прямим порівнянням даних — без жодного підставного об'єкта.
 
 :::tabs
-```ts
-test("джекпот на щасливому кидку → повний план", () => {
-  const user: User = { id: 7, email: "a@b.c", balance: 300, lastClaim: 0 };
-  const cfg: Config = { baseBonus: 50, jackpotBonus: 500, jackpotChance: 0.05,
-                        cooldownMs: 24 * 3600_000 };
-
-  const plan = decideBonus(user, 25 * 3600_000, 0.03, cfg);   // 25 год, кидок 0.03
-
-  expect(plan).toEqual([                                       // звіряємо ДАНІ, не поведінку
-    { kind: "saveUser",     user: { id: 7, email: "a@b.c", balance: 800, lastClaim: 25*3600_000 } },
-    { kind: "appendLedger", userId: 7, amount: 500, at: 25 * 3600_000 },
-    { kind: "notify",       to: "a@b.c", text: "Джекпот! +500" },
-  ]);
-});
-
-test("на кулдауні → план порожній", () => {
-  const user: User = { id: 7, email: "a@b.c", balance: 300, lastClaim: 0 };
-  expect(decideBonus(user, 2 * 3600_000, 0.9, cfg)).toEqual([]);   // 2 год — ще рано
-});
-```
-```py
-def test_jackpot_plan():
-    user = User(id=7, email="a@b.c", balance=300, last_claim=0)
-    cfg  = Config(base_bonus=50, jackpot_bonus=500, jackpot_chance=0.05,
-                  cooldown_ms=24 * 3_600_000)
-
-    plan = decide_bonus(user, 25 * 3_600_000, 0.03, cfg)      # 25 год, кидок 0.03
-
-    assert plan == [                                          # звіряємо ДАНІ, не поведінку
-        SaveUser(User(id=7, email="a@b.c", balance=800, last_claim=25 * 3_600_000)),
-        AppendLedger(7, 500, 25 * 3_600_000),
-        Notify("a@b.c", "Джекпот! +500"),
-    ]
-
-def test_cooldown_empty_plan():
-    user = User(id=7, email="a@b.c", balance=300, last_claim=0)
-    assert decide_bonus(user, 2 * 3_600_000, 0.9, cfg) == []  # 2 год — ще рано
-```
+:::code proj-effects-as-values/ts/test-iadro-tablytsia.ts
+:::code proj-effects-as-values/py/test-iadro-tablytsia.py
 :::
 
 Порівняй це з тим, що звіряє тест у розтині «обчислення проти ефектів». Там ядро повертало число, і тест звіряв **число** — правильна сума. А *які ефекти станеться* — запис у базу, лист — перевіряли окремо, підставними об'єктами в оболонці. Тут ядро повертає весь план, і тест звіряє **самі наміри**: що на джекпот піде лист саме з текстом «Джекпот! +500», що ledger дістане саме +500, що на кулдауні не станеться взагалі нічого. Ми перевірили *рішення про ефекти*, жодного ефекту не вчинивши й жодного мока не написавши. Порожній план на кулдауні перевіряється так само тривіально, як і повний, — це просто `== []`.

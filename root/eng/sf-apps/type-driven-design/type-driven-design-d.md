@@ -225,24 +225,7 @@ struct Basket { items: List⟨Item⟩, count: Int }   // інваріант: cou
 
 Наївно стан тримають прапорцем усередині одного типу: `Connection` з полем `is_open`, і `send()` перевіряє його в рантаймі. Це повертає нас у світ оборонних перевірок, а «слати в закрите з'єднання» лишається **записуваним** — просто впаде пізніше. Ідея типостану інша: зробити **стан частиною типу**. Не один `Connection` із прапорцем, а різні типи `Conn⟨Closed⟩`, `Conn⟨Open⟩`, `Conn⟨Authed⟩`, і кожну операцію визначити **лише на тому стані-типі, де вона законна**:
 
-```rust
-use std::marker::PhantomData;
-
-struct Conn<S> { sock: Socket, _s: PhantomData<S> }   // S — стан, лише на рівні типів
-struct Closed; struct Open; struct Authed;            // маркери-стани (порожні)
-
-impl Conn<Closed> {
-    fn connect(self) -> Conn<Open> { /* ... */ }       // Closed → Open
-}
-impl Conn<Open> {
-    fn authenticate(self, key: &Key) -> Conn<Authed> { /* ... */ }   // Open → Authed
-    fn close(self) -> Conn<Closed> { /* ... */ }
-}
-impl Conn<Authed> {
-    fn request(&self, r: Req) -> Resp { /* ... */ }    // ЛИШЕ тут: слати можна лише автентифікованим
-    fn close(self) -> Conn<Closed> { /* ... */ }
-}
-```
+:::code type-driven-design-d/rust/main.rs
 
 Метод `request` існує **тільки** на `Conn⟨Authed⟩`. Викликати його на `Conn⟨Open⟩` — не «отримати помилку в рантаймі», а **не скомпілюватися**: у типу `Conn⟨Open⟩` такого методу нема. А ще перехід `connect(self)` **забирає** старий об'єкт за значенням (Rust переміщує його), тож після `connect` стара змінна типу `Conn⟨Closed⟩` більше недоступна — використати з'єднання «після закриття» так само неможливо, бо `close(self)` спожив хендл. Це працює завдяки тому, що Rust трактує значення як **афінні** (англ. *affine* — вжити не більше одного разу): перехід стану **поглинає** попередній стан, і повернутися до нього нема як.
 

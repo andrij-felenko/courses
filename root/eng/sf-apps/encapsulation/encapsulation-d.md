@@ -39,59 +39,9 @@ acc.balance = -5000             # правило мовчки зламане, н
 Інкапсуляція розрубує це так: **стан ховаємо, а замість прямого доступу даємо операції, які єдині мають право його змінювати** — і кожна така операція сама стежить за інваріантом.
 
 :::tabs
-```ts
-class Account {
-  #balance = 0;                 // приховане: ззовні не видно й не змінити
-
-  deposit(sum: number): void {
-    if (sum <= 0) throw new Error("сума має бути додатною");
-    this.#balance += sum;
-  }
-  withdraw(sum: number): void {
-    if (sum <= 0) throw new Error("сума має бути додатною");
-    if (sum > this.#balance) throw new Error("недостатньо коштів");  // інваріант під захистом
-    this.#balance -= sum;
-  }
-  get amount(): number { return this.#balance; }   // лише читання
-}
-```
-```py
-class Account:
-    def __init__(self) -> None:
-        self._balance = 0        # приховане за домовленістю (підкреслення)
-
-    def deposit(self, sum: int) -> None:
-        if sum <= 0:
-            raise ValueError("сума має бути додатною")
-        self._balance += sum
-
-    def withdraw(self, sum: int) -> None:
-        if sum <= 0:
-            raise ValueError("сума має бути додатною")
-        if sum > self._balance:
-            raise ValueError("недостатньо коштів")   # інваріант під захистом
-        self._balance -= sum
-
-    @property
-    def amount(self) -> int:     # лише читання
-        return self._balance
-```
-```cpp
-class Account {
-    long balance = 0;            // private за замовчуванням у class — приховане
-public:
-    void deposit(long sum) {
-        if (sum <= 0) throw std::invalid_argument("сума має бути додатною");
-        balance += sum;
-    }
-    void withdraw(long sum) {
-        if (sum <= 0) throw std::invalid_argument("сума має бути додатною");
-        if (sum > balance) throw std::runtime_error("недостатньо коштів");  // інваріант
-        balance -= sum;
-    }
-    long amount() const { return balance; }   // лише читання
-};
-```
+:::code encapsulation-d/ts/dvi-polovyny-odnoho.ts
+:::code encapsulation-d/py/dvi-polovyny-odnoho.py
+:::code encapsulation-d/cpp/main.cpp
 :::
 
 Тепер стан можна зачепити **лише через ці двері**, і кожні двері охороняють правило. Немає способу зробити баланс від'ємним ззовні — бо єдиний шлях до нього проходить через `withdraw`, а той перевіряє. Правило перестало залежати від пам'яті програмістів і стало властивістю самого об'єкта.
@@ -170,18 +120,7 @@ class Order {
 // Клієнт тепер порядкує чужими нутрощами:
 order.items.push(newItem);                       // правило перевірити ЗАБУЛИ
 ```
-```py
-class Order:
-    def __init__(self) -> None:
-        self._items: list[Item] = []
-
-    @property
-    def items(self) -> list[Item]:
-        return self._items      # віддали внутрішній список назовні
-
-# Клієнт тепер порядкує чужими нутрощами:
-order.items.append(new_item)   # правило перевірити ЗАБУЛИ
-```
+:::code encapsulation-d/py/hettery-na-vse-tse-ne.py
 :::
 
 Формально поле приватне. Насправді інкапсуляції нуль: геттер віддав назовні **живе внутрішнє посилання**, і тепер будь-хто змінює вміст замовлення повз усі правила — так само, як із відкритим полем, тільки з зайвим кроком. Стан ніби сховали, а керування ним віддали. Такий об'єкт — з даними без поведінки, з якого стирчать самі геттери-сеттери, — називають [анемічною моделлю](root:sf-apps/anemic-domain-model): вся логіка, що *мала б* бути всередині, розтікається по клієнтах, і кожен інваріант знову тримається на пам'яті.
@@ -189,35 +128,8 @@ order.items.append(new_item)   # правило перевірити ЗАБУЛ�
 Ліки — перевернути напрям розмови з об'єктом. Замість «дай мені свій список, я сам додам» — «**додай ось це, а вже як — твоя справа**». Клієнт каже, *що* треба зробити, а *як* і з якими перевірками вирішує сам об'єкт:
 
 :::tabs
-```ts
-class Order {
-  #items: Item[] = [];
-
-  addItem(it: Item): void {
-    if (this.#closed) throw new Error("замовлення закрите");   // правило всередині
-    this.#items.push(it);
-  }
-  get itemCount(): number { return this.#items.length; }        // назовні — факт, не нутрощі
-}
-order.addItem(newItem);   // перевірка вже застосована, обійти нема як
-```
-```py
-class Order:
-    def __init__(self) -> None:
-        self._items: list[Item] = []
-        self._closed = False
-
-    def add_item(self, it: Item) -> None:
-        if self._closed:
-            raise RuntimeError("замовлення закрите")   # правило всередині
-        self._items.append(it)
-
-    @property
-    def item_count(self) -> int:      # назовні — факт, не нутрощі
-        return len(self._items)
-
-order.add_item(new_item)   # перевірка вже застосована, обійти нема як
-```
+:::code encapsulation-d/ts/hettery-na-vse-tse-ne.ts
+:::code encapsulation-d/py/hettery-na-vse-tse-ne-2.py
 :::
 
 Цей розворот — «не питай стан, щоб вирішити за об'єкт; **скажи об'єктові, що зробити**» — має власне ім'я, [«кажи, не питай» (Tell, Don't Ask)](root:sf-apps/tell-dont-ask), і він природно випливає з інкапсуляції: якщо поведінка живе поряд зі станом, клієнтові нема потреби виймати стан назовні. Показувати назовні варто **факти** («скільки позицій», «чи можна ще додати»), а не **сирі нутрощі** («ось мій масив, роби що хочеш»).

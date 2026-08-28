@@ -35,35 +35,8 @@
 У парадигмі об'єктно-орієнтованого програмування розробник мислить категоріями сутностей реального світу. Об'єкт «Частка» володіє координатами, швидкістю та масою, тому природно описати його як єдиний клас або структуру, а сукупність часток — як динамічний масив або вектор таких структур:
 
 :::tabs
-```c
-typedef struct {
-    float x, y, z;
-    float vx, vy, vz;
-    float mass;
-    float radius;
-    int id;
-    int flags;
-    float pad[2]; // Доповнення до 64 байтів
-} Particle;
-
-Particle particles[1000000];
-```
-```cpp
-#include <vector>
-#include <cstdint>
-
-struct alignas(64) Particle {
-    float x, y, z;
-    float vx, vy, vz;
-    float mass;
-    float radius;
-    int32_t id;
-    int32_t flags;
-    float pad[2]; // 64 байти
-};
-
-std::vector<Particle> particles(1000000);
-```
+:::code data-layout-aos-soa-d/c/masyv-struktur-aos.c
+:::code data-layout-aos-soa-d/cpp/masyv-struktur-aos.cpp
 :::
 
 У пам'яті такий масив виглядає як монотонна черга з мільйона блоків по 64 байти, де поля кожної частки упаковані суцільно одне за одним:
@@ -87,37 +60,8 @@ std::vector<Particle> particles(1000000);
 Щоб повернути 100% утилізацію кешу та шини, організацію даних розвертають навиворіт. Замість масиву, що містить багато структур, створюють одну структуру, яка містить паралельні масиви для кожного окремого поля. Цей патерн називається **структурою масивів** (англ. *Structure of Arrays*, скорочено **SoA**):
 
 :::tabs
-```c
-typedef struct {
-    float *x;
-    float *y;
-    float *z;
-    float *vx;
-    float *vy;
-    float *vz;
-    float *mass;
-    float *radius;
-    int *id;
-    int *flags;
-} ParticlesSoA;
-```
-```cpp
-#include <vector>
-#include <cstdint>
-
-struct ParticlesSoA {
-    std::vector<float> x, y, z;
-    std::vector<float> vx, vy, vz;
-    std::vector<float> mass;
-    std::vector<float> radius;
-    std::vector<int32_t> id;
-    std::vector<int32_t> flags;
-
-    explicit ParticlesSoA(std::size_t n)
-        : x(n), y(n), z(n), vx(n), vy(n), vz(n),
-          mass(n), radius(n), id(n), flags(n) {}
-};
-```
+:::code data-layout-aos-soa-d/c/struktura-masyviv-soa.c
+:::code data-layout-aos-soa-d/cpp/struktura-masyviv-soa.cpp
 :::
 
 У фізичній пам'яті дані розташовуються довгими однорідними масивами:
@@ -204,37 +148,8 @@ struct ParticlesSoA {
 Ідея полягає в тому, щоб розбити всю сукупність сутностей на невеликі фіксовані блоки (тайли). Розмір тайла `LANES` обирається рівним або кратним ширині векторного регістру цільового процесора (наприклад, 8 для AVX2 або 16 для AVX-512):
 
 :::tabs
-```c
-#define LANES 8
-
-typedef struct {
-    float x[LANES];
-    float y[LANES];
-    float z[LANES];
-    float vx[LANES];
-    float vy[LANES];
-    float vz[LANES];
-} ParticleTile;
-
-ParticleTile tiles[1000000 / LANES];
-```
-```cpp
-#include <vector>
-#include <cstddef>
-
-inline constexpr std::size_t SIMD_LANES = 8;
-
-struct alignas(32) ParticleTile {
-    float x[SIMD_LANES];
-    float y[SIMD_LANES];
-    float z[SIMD_LANES];
-    float vx[SIMD_LANES];
-    float vy[SIMD_LANES];
-    float vz[SIMD_LANES];
-};
-
-std::vector<ParticleTile> tiles(1000000 / SIMD_LANES);
-```
+:::code data-layout-aos-soa-d/c/aosoa-array-of-structures.c
+:::code data-layout-aos-soa-d/cpp/aosoa-array-of-structures.cpp
 :::
 
 Чому AoSoA вважається «золотим стандартом» для високопродуктивних обчислень:

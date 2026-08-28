@@ -75,65 +75,15 @@ def test_legacy_discount_vip_over_threshold():
     got = compute_discount(cart, vip=True)
     assert got == pytest.approx(180.0)       # ← спостережена нинішня величина
 ```
-```go
-// Характеризаційний тест: фіксуємо поведінку ЯК Є, перед рефакторингом.
-// Ми не питаємо «чи правильно 15%» — ми фіксуємо, що ЗАРАЗ саме 15%,
-// щоб рефакторинг випадково цього не зрушив.
-func TestLegacyDiscountVipOverThreshold(t *testing.T) {
-    cart := Cart{}
-    cart.Add(Item{Price: 100.0, Qty: 12})    // сума 1200, поріг VIP
-    got := ComputeDiscount(cart, true /*vip*/)
-    if math.Abs(got-180.0) > 1e-9 {          // ← спостережена нинішня величина
-        t.Errorf("got %v, want 180.0", got)
-    }
-}
-```
+:::code rewrite-vs-refactor-d/go/koly-refaktorynh-pravylna.go
 :::
 
 Тепер, коли сітка натягнута, функцію можна чистити малими кроками — виділяти зрозумілі шматки, давати іменам сенс, розбивати монстра на частини:
 
 :::tabs
-```cpp
-// Крок рефакторингу: та сама поведінка, зрозуміліша будова.
-// Магічні числа стали іменами, гілки — окремими функціями.
-static constexpr double VIP_THRESHOLD = 1000.0;
-static constexpr double VIP_RATE      = 0.15;
-
-double compute_discount(const Cart& cart, bool vip) {
-    const double subtotal = cart.subtotal();
-    if (vip && subtotal >= VIP_THRESHOLD)
-        return subtotal * VIP_RATE;          // 1200 · 0.15 = 180 — тест досі зелений
-    return regular_discount(subtotal);
-}
-```
-```py
-# Крок рефакторингу: та сама поведінка, зрозуміліша будова.
-# Магічні числа стали іменами, гілки — окремими функціями.
-VIP_THRESHOLD = 1000.0
-VIP_RATE      = 0.15
-
-def compute_discount(cart: Cart, vip: bool) -> float:
-    subtotal = cart.subtotal()
-    if vip and subtotal >= VIP_THRESHOLD:
-        return subtotal * VIP_RATE           # 1200 · 0.15 = 180 — тест досі зелений
-    return regular_discount(subtotal)
-```
-```go
-// Крок рефакторингу: та сама поведінка, зрозуміліша будова.
-// Магічні числа стали іменами, гілки — окремими функціями.
-const (
-    VipThreshold = 1000.0
-    VipRate      = 0.15
-)
-
-func ComputeDiscount(cart Cart, vip bool) float64 {
-    subtotal := cart.Subtotal()
-    if vip && subtotal >= VipThreshold {
-        return subtotal * VipRate            // 1200 · 0.15 = 180 — тест досі зелений
-    }
-    return regularDiscount(subtotal)
-}
-```
+:::code rewrite-vs-refactor-d/cpp/main.cpp
+:::code rewrite-vs-refactor-d/py/main.py
+:::code rewrite-vs-refactor-d/go/koly-refaktorynh-pravylna-2.go
 :::
 
 Тест зелений до й після — отже, поведінку збережено, а код став придатнішим до наступної зміни. Ось що таке рефакторинг: не «переписати краще», а **безперервно тримати систему в тонусі, не втрачаючи жодної миті її працездатності**. Цю страхувальну техніку — характеризаційні тести навколо коду без тестів — детальніше розбирає окрема тема [археологія legacy](root:sf-apps/legacy-archaeology).

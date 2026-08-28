@@ -20,18 +20,7 @@
 Наївне рішення — тримати всі варіанти в одному місці й вибирати гілкою:
 
 :::tabs
-```ts
-class Order {
-  discountFor(customer: Customer): number {
-    // усі знижкові правила зашиті в один метод
-    if (customer.tier === "vip")        return this.total * 0.20;
-    if (customer.tier === "loyal")      return this.total * 0.10;
-    if (customer.isFirstPurchase)       return this.total * 0.05;
-    if (this.isBlackFriday())           return this.total * 0.30;
-    return 0;
-  }
-}
-```
+:::code strategy-d/ts/shcho-same-zminiuietsia.ts
 ```py
 class Order:
     def discount_for(self, customer: Customer) -> float:
@@ -57,85 +46,15 @@ class Order:
 Перепишімо знижки через стратегію. Спершу — контракт і кілька реалізацій:
 
 :::tabs
-```ts
-interface DiscountPolicy {                       // інтерфейс стратегії: одна операція
-  discount(order: Order): number;
-}
-
-class NoDiscount implements DiscountPolicy {
-  discount(order: Order): number { return 0; }
-}
-class VipDiscount implements DiscountPolicy {
-  discount(order: Order): number { return order.total * 0.20; }
-}
-class SeasonalDiscount implements DiscountPolicy {
-  constructor(private rate: number) {}           // стратегія може мати власний стан
-  discount(order: Order): number { return order.total * this.rate; }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class DiscountPolicy(ABC):                        # інтерфейс стратегії: одна операція
-    @abstractmethod
-    def discount(self, order: "Order") -> float: ...
-
-class NoDiscount(DiscountPolicy):
-    def discount(self, order): return 0.0
-
-class VipDiscount(DiscountPolicy):
-    def discount(self, order): return order.total * 0.20
-
-class SeasonalDiscount(DiscountPolicy):
-    def __init__(self, rate: float):              # стратегія може мати власний стан
-        self.rate = rate
-    def discount(self, order): return order.total * self.rate
-```
+:::code strategy-d/ts/kistiak-paterna-interfeis.ts
+:::code strategy-d/py/kistiak-paterna-interfeis.py
 :::
 
 Тепер контекст. Замовлення більше не тримає жодного знижкового правила — воно тримає **одну стратегію** й делегує їй:
 
 :::tabs
-```ts
-class Order {
-  constructor(
-    public total: number,
-    private policy: DiscountPolicy,              // контекст тримає СТРАТЕГІЮ полем
-  ) {}
-
-  finalPrice(): number {
-    return this.total - this.policy.discount(this); // делегує, не знаючи, яка саме
-  }
-
-  setPolicy(policy: DiscountPolicy): void {      // стратегію можна підмінити на льоту
-    this.policy = policy;
-  }
-}
-
-// збірка: хто саме — вирішується ЗЗОВНІ, в одному місці
-const order = new Order(1000, new VipDiscount());
-order.finalPrice();                              // 800
-order.setPolicy(new SeasonalDiscount(0.30));
-order.finalPrice();                              // 700
-```
-```py
-class Order:
-    def __init__(self, total: float, policy: DiscountPolicy):
-        self.total = total
-        self._policy = policy                     # контекст тримає СТРАТЕГІЮ полем
-
-    def final_price(self) -> float:
-        return self.total - self._policy.discount(self)  # делегує, не знаючи, яка саме
-
-    def set_policy(self, policy: DiscountPolicy) -> None:  # підмінити на льоту
-        self._policy = policy
-
-# збірка: хто саме — вирішується ЗЗОВНІ, в одному місці
-order = Order(1000, VipDiscount())
-order.final_price()               # 800
-order.set_policy(SeasonalDiscount(0.30))
-order.final_price()               # 700
-```
+:::code strategy-d/ts/kistiak-paterna-interfeis-2.ts
+:::code strategy-d/py/kistiak-paterna-interfeis-2.py
 :::
 
 Придивись до `finalPrice()`. Це весь незмінний процес: узяти повну суму, відняти знижку. Він викликає `policy.discount(this)`, **не маючи жодного уявлення**, яке правило спрацює — у рантаймі виклик потрапить у той клас, який зараз лежить у полі `policy`. Це звичайне [динамічне зв'язування](root:sf-lang/polymorphism), і саме воно робить контекст сліпим до варіантів. Додати нову знижку — це створити новий клас поруч і ніде не чіпнути `Order`. Стабільне лишилося стабільним; росте лише те, що й мало рости.
@@ -161,43 +80,8 @@ order.final_price()               # 700
 Класична GoF-стратегія — це інтерфейс і класи, бо книжку писали для мов, де інакше поведінку передати не було як. Але якщо приглянутися, інтерфейс `DiscountPolicy` має рівно **один метод**. А одна операція — це, по суті, функція. У мовах, де [функції можна передавати як звичайні значення](root:sf-lang/first-class-functions), цілий клас-обгортку навколо єдиного методу часто можна прибрати й передавати саму функцію.
 
 :::tabs
-```ts
-// стратегія — це просто тип функції
-type DiscountPolicy = (order: Order) => number;
-
-const vip: DiscountPolicy        = (o) => o.total * 0.20;
-const seasonal = (rate: number): DiscountPolicy => (o) => o.total * rate;
-
-class Order {
-  constructor(public total: number, private policy: DiscountPolicy) {}
-  finalPrice(): number { return this.total - this.policy(this); }
-}
-
-const order = new Order(1000, vip);              // передаємо функцію, не об'єкт
-order.finalPrice();                              // 800
-new Order(1000, seasonal(0.30)).finalPrice();    // 700
-```
-```py
-from typing import Callable
-
-# стратегія — це просто тип функції: Order -> float
-DiscountPolicy = Callable[["Order"], float]
-
-def vip(o: "Order") -> float: return o.total * 0.20
-def seasonal(rate: float) -> DiscountPolicy:
-    return lambda o: o.total * rate
-
-class Order:
-    def __init__(self, total: float, policy: DiscountPolicy):
-        self.total = total
-        self._policy = policy
-    def final_price(self) -> float:
-        return self.total - self._policy(self)   # кличемо функцію напряму
-
-order = Order(1000, vip)              # передаємо функцію, не об'єкт
-order.final_price()                   # 800
-Order(1000, seasonal(0.30)).final_price()   # 700
-```
+:::code strategy-d/ts/stratehiia-funktsiia-koly.ts
+:::code strategy-d/py/stratehiia-funktsiia-koly.py
 :::
 
 Це та сама стратегія — контекст усе так само тримає змінний алгоритм полем і делегує йому, — тільки без церемонії з інтерфейсом і класами. `seasonal(0.30)` показує, що функція-стратегія теж носить стан: замикання пам'ятає `rate`, як поле пам'ятало б його в об'єкті. Ось чому досвідчений погляд бачить у багатьох «функціях вищого порядку» саме стратегію, названу іншими словами: `array.sort(порівнювач)`, `retry(операція, політика)`, обробник події — усе це контекст, що приймає підставний алгоритм.

@@ -67,78 +67,8 @@ class CrmOrderDto:
 Наш бік — доменні типи. Чиста мова складу, [незмінні значення](root:sf-apps/immutability) там, де їм місце. Жодного натяку на CRM.
 
 :::tabs
-```ts
-// domain/order.ts — НАШ світ. Мова складу. Про CRM не чув.
-export class Article { constructor(readonly code: string) {} }
-export class Color   { static parse(s: string) { return new Color(s); }
-                       private constructor(readonly name: string) {} }
-export class Size    { static parse(s: string) { return new Size(s); }
-                       private constructor(readonly label: string) {} }
-export class ClientId { constructor(readonly value: string) {} }
-
-export class Product {
-  constructor(
-    readonly article: Article,
-    readonly color: Color,
-    readonly size: Size,
-  ) {}
-}
-
-export class Order {
-  constructor(
-    readonly client: ClientId,
-    readonly product: Product,
-    readonly quantity: number,  // завжди > 0 — модель від'ємних не знає
-  ) {}
-  reserve(): void { /* чисте доменне правило складу */ }
-}
-
-// Порт: що домен ВИМАГАЄ. Оголошено нашою мовою.
-export interface OrderSource {
-  next(): Order | null;
-}
-```
-```python
-# domain/order.py — НАШ світ. Мова складу. Про CRM не чув.
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Article: code: str
-
-@dataclass(frozen=True)
-class Color:
-    name: str
-    @staticmethod
-    def parse(s: str) -> "Color": return Color(s)
-
-@dataclass(frozen=True)
-class Size:
-    label: str
-    @staticmethod
-    def parse(s: str) -> "Size": return Size(s)
-
-@dataclass(frozen=True)
-class ClientId: value: str
-
-@dataclass(frozen=True)
-class Product:
-    article: Article
-    color: Color
-    size: Size
-
-@dataclass(frozen=True)
-class Order:
-    client: ClientId
-    product: Product
-    quantity: int  # завжди > 0 — модель від'ємних не знає
-    def reserve(self) -> None: ...  # чисте доменне правило складу
-
-# Порт: що домен ВИМАГАЄ. Оголошено нашою мовою.
-class OrderSource(ABC):
-    @abstractmethod
-    def next(self) -> Order | None: ...
-```
+:::code proj-build-acl/ts/order.ts
+:::code proj-build-acl/py/order.py
 :::
 
 Зверни увагу на дрібницю, яка потім зіграє велику роль: `Order.quantity` тут **завжди додатне**. Модель складу поняття «мінус три штуки» не має. Це не випадковість і не строгість заради строгості — це те саме табу, яке шар мусить стерегти. Від'ємне число з CRM не має права стати `quantity`; воно або перекладається в інше наше поняття, або відбивається. Тип домену вже кодує це правило, і перекладачеві доведеться його поважати.
@@ -148,76 +78,8 @@ class OrderSource(ABC):
 Фасад стоїть упритул до CRM. Він розгортає посторінкову видачу, тримає буфер, за потреби ретрайне — уся ця морока замкнена тут, за одним чесним викликом `fetchNext()`, що віддає сирий `CrmOrderDto` або `null`, коли записи скінчились. Фасад **навмисно** лишається в чужих типах: перекласти — не його робота.
 
 :::tabs
-```ts
-// acl/crmFacade.ts — ховає незручний доступ. Усе ще в ЧУЖИХ типах.
-import { CrmOrderDto } from "../crm/dto";
-import { CrmHttpClient } from "../crm/httpClient"; // сира HTTP-обгортка CRM
-
-export class CrmOrderFacade {
-  private buffer: CrmOrderDto[] = [];
-  private page = 0;
-  private exhausted = false;
-
-  constructor(private http: CrmHttpClient) {}
-
-  // Один чесний виклик замість пагінації, ретраїв і формату відповіді.
-  async fetchNext(): Promise<CrmOrderDto | null> {
-    if (this.buffer.length === 0 && !this.exhausted) {
-      await this.loadPage();
-    }
-    return this.buffer.shift() ?? null;
-  }
-
-  private async loadPage(): Promise<void> {
-    const resp = await this.retry(() =>
-      this.http.get(`/orders?page=${this.page}&size=100`));
-    this.buffer = resp.items;          // сирі CrmOrderDto
-    this.exhausted = resp.items.length === 0;
-    this.page += 1;
-  }
-
-  private async retry<T>(fn: () => Promise<T>, tries = 3): Promise<T> {
-    for (let i = 0; ; i++) {
-      try { return await fn(); }
-      catch (e) { if (i >= tries - 1) throw e; }
-    }
-  }
-}
-```
-```python
-# acl/crm_facade.py — ховає незручний доступ. Усе ще в ЧУЖИХ типах.
-from collections import deque
-from crm.dto import CrmOrderDto
-from crm.http_client import CrmHttpClient  # сира HTTP-обгортка CRM
-
-class CrmOrderFacade:
-    def __init__(self, http: CrmHttpClient):
-        self._http = http
-        self._buffer: deque[CrmOrderDto] = deque()
-        self._page = 0
-        self._exhausted = False
-
-    # Один чесний виклик замість пагінації, ретраїв і формату відповіді.
-    def fetch_next(self) -> CrmOrderDto | None:
-        if not self._buffer and not self._exhausted:
-            self._load_page()
-        return self._buffer.popleft() if self._buffer else None
-
-    def _load_page(self) -> None:
-        resp = self._retry(
-            lambda: self._http.get(f"/orders?page={self._page}&size=100"))
-        self._buffer = deque(resp.items)      # сирі CrmOrderDto
-        self._exhausted = not resp.items
-        self._page += 1
-
-    def _retry(self, fn, tries=3):
-        for i in range(tries):
-            try:
-                return fn()
-            except Exception:
-                if i >= tries - 1:
-                    raise
-```
+:::code proj-build-acl/ts/crmFacade.ts
+:::code proj-build-acl/py/crm_facade.py
 :::
 
 Фасад — це той шар, який хочеться підмінити в тесті: реальний ходить у мережу, а тестовий віддає підготовлені записи з пам'яті. Тому фасад теж корисно сховати за вузьким інтерфейсом «джерело сирих записів». Але поки що важливіше інше — перекладач, бо саме він тримає межу.
@@ -250,77 +112,8 @@ class UnsupportedByModel(Exception):
 Тепер сам перекладач. Це чиста функція над даними — жодної мережі, жодного стану; лише два словники й правила між ними. Тому його так легко тестувати: подав `CrmOrderDto` — дістав або `Order`, або `UnsupportedByModel`.
 
 :::tabs
-```ts
-// acl/orderTranslator.ts — ЄДИНЕ місце, де мови CRM і складу зустрічаються.
-import { CrmOrderDto } from "../crm/dto";
-import { Order, Product, Article, Color, Size, ClientId } from "../domain/order";
-import { UnsupportedByModel } from "../domain/errors";
-
-const KNOWN_STATUS = new Set([1, 2, 3]); // статуси, що мають відповідник у нас
-
-export function translateOrder(dto: CrmOrderDto): Order {
-  // --- чуже без пари: відбій на порозі ---
-  if (dto.qty < 0)
-    throw new UnsupportedByModel("повернення (від'ємна кількість) з CRM");
-  if (dto.qty === 0)
-    throw new UnsupportedByModel("нульова кількість");
-  if (!KNOWN_STATUS.has(dto.status_code))
-    throw new UnsupportedByModel(`статус ${dto.status_code} без відповідника`);
-
-  // --- переклад: народжуємо наші поняття ---
-  const product = parseSku(dto.sku);
-  const client  = parseClient(dto.client_ref);
-  return new Order(client, product, dto.qty);
-}
-
-function parseSku(sku: string): Product {
-  const parts = sku.split("/");
-  if (parts.length !== 3)
-    throw new UnsupportedByModel(`SKU не розкладається на 3 частини: "${sku}"`);
-  const [article, color, size] = parts;
-  return new Product(new Article(article), Color.parse(color), Size.parse(size));
-}
-
-function parseClient(ref: string): ClientId {
-  if (!ref.startsWith("CL:"))
-    throw new UnsupportedByModel(`client_ref без префікса "CL:": "${ref}"`);
-  return new ClientId(ref.slice(3));
-}
-```
-```python
-# acl/order_translator.py — ЄДИНЕ місце, де мови CRM і складу зустрічаються.
-from crm.dto import CrmOrderDto
-from domain.order import Order, Product, Article, Color, Size, ClientId
-from domain.errors import UnsupportedByModel
-
-KNOWN_STATUS = {1, 2, 3}  # статуси, що мають відповідник у нас
-
-def translate_order(dto: CrmOrderDto) -> Order:
-    # --- чуже без пари: відбій на порозі ---
-    if dto.qty < 0:
-        raise UnsupportedByModel("повернення (від'ємна кількість) з CRM")
-    if dto.qty == 0:
-        raise UnsupportedByModel("нульова кількість")
-    if dto.status_code not in KNOWN_STATUS:
-        raise UnsupportedByModel(f"статус {dto.status_code} без відповідника")
-
-    # --- переклад: народжуємо наші поняття ---
-    product = _parse_sku(dto.sku)
-    client  = _parse_client(dto.client_ref)
-    return Order(client, product, dto.qty)
-
-def _parse_sku(sku: str) -> Product:
-    parts = sku.split("/")
-    if len(parts) != 3:
-        raise UnsupportedByModel(f'SKU не розкладається на 3 частини: "{sku}"')
-    article, color, size = parts
-    return Product(Article(article), Color.parse(color), Size.parse(size))
-
-def _parse_client(ref: str) -> ClientId:
-    if not ref.startswith("CL:"):
-        raise UnsupportedByModel(f'client_ref без префікса "CL:": "{ref}"')
-    return ClientId(ref[3:])
-```
+:::code proj-build-acl/ts/orderTranslator.ts
+:::code proj-build-acl/py/order_translator.py
 :::
 
 Придивись до порядку всередині `translateOrder`: спершу **всі відбої**, і лише потім **переклад**. Це не косметика. Перекладач — вартовий, і вартовий спершу перевіряє перепустку, а тоді пускає. Якби ми спершу розібрали `SKU`, а вже потім спохопились про від'ємне `qty`, ми б витратили роботу на дані, які й так не мали права зайти. Гірше — легше було б випадково повернути напівзібраний `Order` десь у середині. Політика «нема пари — відбій негайно» тримає інваріант простим: **або на виході коректний `Order`, або помилка; проміжного стану не буває**.
@@ -330,71 +123,15 @@ def _parse_client(ref: str) -> ClientId:
 Фасад дає сирі записи, перекладач їх перекладає. З'єднати їх у реалізацію порту `OrderSource` — робота точки збірки. Саме тут, і лише тут, фасад зустрічається з перекладачем; домен цієї зустрічі не бачить.
 
 :::tabs
-```ts
-// acl/crmOrderSource.ts — реалізація ПОРТУ. Склеює фасад + перекладач.
-import { OrderSource, Order } from "../domain/order";
-import { CrmOrderFacade } from "./crmFacade";
-import { translateOrder } from "./orderTranslator";
-
-export class CrmOrderSource implements OrderSource {
-  constructor(private facade: CrmOrderFacade) {}
-
-  // Порт синхронний (як оголосив домен); async-фасад мостимо буфером —
-  // деталі мосту опущено, суть тут — склейка фасаду з перекладачем.
-  next(): Order | null {
-    const dto = this.facade.nextBuffered();   // сирий CrmOrderDto або null
-    return dto === null ? null : translateOrder(dto);
-  }
-}
-```
-```python
-# acl/crm_order_source.py — реалізація ПОРТУ. Склеює фасад + перекладач.
-from domain.order import OrderSource, Order
-from acl.crm_facade import CrmOrderFacade
-from acl.order_translator import translate_order
-
-class CrmOrderSource(OrderSource):
-    def __init__(self, facade: CrmOrderFacade):
-        self._facade = facade
-
-    def next(self) -> Order | None:
-        dto = self._facade.fetch_next()
-        return None if dto is None else translate_order(dto)
-```
+:::code proj-build-acl/ts/crmOrderSource.ts
+:::code proj-build-acl/py/crm_order_source.py
 :::
 
 І composition root — місце, де все стягується докупи й передається в домен. Це єдине місце в програмі, яке одночасно «бачить» і CRM-фасад, і доменний сервіс. Воно **навмисно тонке** й **навмисно поза доменом**: домен отримує вже готовий `OrderSource` і не знає, звідки той узявся.
 
 :::tabs
-```ts
-// main.ts — composition root. Поза доменом. Єдине місце, що бачить обидва світи.
-import { CrmHttpClient } from "./crm/httpClient";
-import { CrmOrderFacade } from "./acl/crmFacade";
-import { CrmOrderSource } from "./acl/crmOrderSource";
-import { OrderService } from "./domain/orderService";
-
-const http   = new CrmHttpClient(process.env.CRM_URL!);
-const facade = new CrmOrderFacade(http);
-const source = new CrmOrderSource(facade);   // ← ось де CRM стає OrderSource
-const service = new OrderService(source);    // домен бачить лише порт
-
-service.processBatch();
-```
-```python
-# main.py — composition root. Поза доменом. Єдине місце, що бачить обидва світи.
-import os
-from crm.http_client import CrmHttpClient
-from acl.crm_facade import CrmOrderFacade
-from acl.crm_order_source import CrmOrderSource
-from domain.order_service import OrderService
-
-http    = CrmHttpClient(os.environ["CRM_URL"])
-facade  = CrmOrderFacade(http)
-source  = CrmOrderSource(facade)    # ← ось де CRM стає OrderSource
-service = OrderService(source)      # домен бачить лише порт
-
-service.process_batch()
-```
+:::code proj-build-acl/ts/main.ts
+:::code proj-build-acl/py/main.py
 :::
 
 Тепер уся конструкція стоїть. Але поки що її непроникність тримається **лише на нашій добрій волі**: ніщо, крім домовленості, не заважає завтра комусь написати в доменному сервісі `import { CrmOrderDto }` і почати колупати `dto.sku` прямо там. Час зробити так, щоб заважало.
@@ -412,48 +149,8 @@ service.process_batch()
 У світі Java для цього є готовий інструмент ArchUnit, де правило пишеться майже словами: `noClasses().that().resideInAPackage("..domain..").should().dependOnClassesThat().resideInAPackage("..crm..")`. У TS і Python готове теж є (у TS — `dependency-cruiser` чи ESLint-правило `no-restricted-imports`; у Python — `import-linter`), але корисно раз побачити, що це не магія: під капотом — просто читання імпортів і перевірка, що заборонених серед них нема. Напишімо своїми руками, щоб було видно механізм.
 
 :::tabs
-```ts
-// tests/impermeable.structure.test.ts
-// Fitness-функція: жоден файл домену не сміє імпортувати нічого з crm/.
-import { readFileSync } from "fs";
-import { globSync } from "glob";
-
-test("домен не імпортує CRM", () => {
-  const domainFiles = globSync("src/domain/**/*.ts");
-  const offenders: string[] = [];
-
-  for (const file of domainFiles) {
-    const src = readFileSync(file, "utf8");
-    // будь-який import ... from "...crm..." — порушення
-    const importsCrm = /import[^;]*from\s+["'][^"']*\/crm\/[^"']*["']/.test(src);
-    if (importsCrm) offenders.push(file);
-  }
-
-  expect(offenders).toEqual([]); // жодного протікання на рівні залежностей
-});
-```
-```python
-# tests/test_impermeable_structure.py
-# Fitness-функція: жоден модуль домену не сміє імпортувати нічого з crm.
-import ast, pathlib
-
-def test_domain_does_not_import_crm():
-    domain_files = pathlib.Path("src/domain").rglob("*.py")
-    offenders = []
-
-    for file in domain_files:
-        tree = ast.parse(file.read_text(encoding="utf-8"))
-        for node in ast.walk(tree):
-            mod = None
-            if isinstance(node, ast.Import):
-                mod = ",".join(a.name for a in node.names)
-            elif isinstance(node, ast.ImportFrom):
-                mod = node.module or ""
-            if mod and "crm" in mod.split("."):
-                offenders.append(f"{file}: {mod}")
-
-    assert offenders == []  # жодного протікання на рівні залежностей
-```
+:::code proj-build-acl/ts/impermeable.structure.test.ts
+:::code proj-build-acl/py/test_impermeable_structure.py
 :::
 
 Різниця в глибині між двома реалізаціями показова, і вона тут повчальна. Версія на Python розбирає файл у **синтаксичне дерево** (`ast`) і дивиться саме на вузли імпорту — це точно й не сплутає слово `crm` у коментарі з реальним імпортом. Версія на TS іде дешевшим шляхом — регулярним виразом по тексту, — і цього для гейта досить, але вона крихкіша: химерно записаний імпорт вона може проґавити, а `crm` у рядку-літералі — хибно звинуватити. Для промислового використання в TS беруть готовий `dependency-cruiser`, який теж будує справжній граф залежностей. Мораль одна: **точність перевірки має відповідати ціні протікання** — для твердої межі домену краще дерево, ніж регулярка.
@@ -467,68 +164,8 @@ def test_domain_does_not_import_crm():
 Це вже звичайний юніт-тест, і перекладач ідеально для нього створений: чиста функція без стану. Перевіряємо обидва боки контракту — що добре пропускається, а погане відбивається саме `UnsupportedByModel`, а не якось інакше.
 
 :::tabs
-```ts
-// tests/impermeable.behavior.test.ts
-import { translateOrder } from "../src/acl/orderTranslator";
-import { UnsupportedByModel } from "../src/domain/errors";
-import { Order } from "../src/domain/order";
-
-const good = {
-  sku: "ART-00417/RED/XL", qty: 5, status_code: 2, client_ref: "CL:88213",
-};
-
-test("валідне замовлення перекладається в чистий Order", () => {
-  const order = translateOrder(good);
-  expect(order).toBeInstanceOf(Order);
-  expect(order.quantity).toBe(5);
-  expect(order.product.article.code).toBe("ART-00417");
-  expect(order.client.value).toBe("88213");     // "CL:" зрізано
-});
-
-// Кожне чуже поняття без пари МУСИТЬ відбитися UnsupportedByModel.
-test.each([
-  ["повернення",        { ...good, qty: -3 }],
-  ["нульова кількість", { ...good, qty: 0 }],
-  ["невідомий статус",  { ...good, status_code: 7 }],
-  ["кривий SKU",        { ...good, sku: "ART-00417-RED" }],
-  ["client без CL:",    { ...good, client_ref: "88213" }],
-])("відбиває: %s", (_name, dto) => {
-  expect(() => translateOrder(dto)).toThrow(UnsupportedByModel);
-});
-```
-```python
-# tests/test_impermeable_behavior.py
-import pytest
-from acl.order_translator import translate_order
-from domain.errors import UnsupportedByModel
-from domain.order import Order
-from crm.dto import CrmOrderDto
-
-def good(**over) -> CrmOrderDto:
-    base = dict(sku="ART-00417/RED/XL", qty=5,
-                status_code=2, client_ref="CL:88213")
-    base.update(over)
-    return CrmOrderDto(**base)
-
-def test_valid_order_translates_to_clean_order():
-    order = translate_order(good())
-    assert isinstance(order, Order)
-    assert order.quantity == 5
-    assert order.product.article.code == "ART-00417"
-    assert order.client.value == "88213"          # "CL:" зрізано
-
-# Кожне чуже поняття без пари МУСИТЬ відбитися UnsupportedByModel.
-@pytest.mark.parametrize("name, dto", [
-    ("повернення",        good(qty=-3)),
-    ("нульова кількість", good(qty=0)),
-    ("невідомий статус",  good(status_code=7)),
-    ("кривий SKU",        good(sku="ART-00417-RED")),
-    ("client без CL:",    good(client_ref="88213")),
-])
-def test_rejects_unsupported(name, dto):
-    with pytest.raises(UnsupportedByModel):
-        translate_order(dto)
-```
+:::code proj-build-acl/ts/impermeable.behavior.test.ts
+:::code proj-build-acl/py/test_impermeable_behavior.py
 :::
 
 Ці два тести разом і є доказ непроникності — але доводять вони різне, і в цьому вся суть. Структурний каже: «чужий тип **фізично не дотягується** до домену». Поведінковий каже: «чуже поняття, навіть дотягнувшись до перекладача, **не проходить крізь нього** скаліченим — воно відбивається, а не мутує в кривий доменний об'єкт». Перший стереже двері, другий стереже вартового. Прибереш будь-який — і лишиться діра: без структурного хтось затягне DTO повз перекладач прямим імпортом; без поведінкового перекладач одного дня «на радощах» пропустить `qty = -3`, і від'ємна кількість оселиться в домені, який присягався її не знати.

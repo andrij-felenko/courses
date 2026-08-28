@@ -61,50 +61,8 @@ class OrderService:
 **Стан 2 — вставляємо шов.** Оголошуємо абстракцію поняттями клієнта — «сповіщувач», а не «поштар» і не «черга», — і робимо так, щоб стару реалізацію вона огортала. Клієнт більше не називає клас, він приймає абстракцію ззовні:
 
 :::tabs
-```ts
-// Шов: обіцянка мовою клієнта, без натяку на пошту чи чергу
-interface Notifier {
-  notify(to: string, message: string): void;
-}
-
-// Стара реалізація тепер лише виконує обіцянку
-class LegacyMailerNotifier implements Notifier {
-  private mailer = new LegacyMailer();
-  notify(to: string, message: string) {
-    this.mailer.sendMail(to, message);
-  }
-}
-
-class OrderService {
-  constructor(private notifier: Notifier) {}   // залежність від шва, не від деталі
-  placeOrder(order: Order) {
-    // ...бізнес-логіка...
-    this.notifier.notify(order.email, "Замовлення прийнято");
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-# Шов: обіцянка мовою клієнта, без натяку на пошту чи чергу
-class Notifier(ABC):
-    @abstractmethod
-    def notify(self, to: str, message: str) -> None: ...
-
-# Стара реалізація тепер лише виконує обіцянку
-class LegacyMailerNotifier(Notifier):
-    def __init__(self):
-        self._mailer = LegacyMailer()
-    def notify(self, to, message):
-        self._mailer.send_mail(to, message)
-
-class OrderService:
-    def __init__(self, notifier: Notifier):    # залежність від шва, не від деталі
-        self._notifier = notifier
-    def place_order(self, order):
-        # ...бізнес-логіка...
-        self._notifier.notify(order.email, "Замовлення прийнято")
-```
+:::code branch-by-abstraction-d/ts/iak-tse-vyhliadaie-v-kodi.ts
+:::code branch-by-abstraction-d/py/iak-tse-vyhliadaie-v-kodi.py
 :::
 
 Після цього кроку **нічого не змінилося для користувача** — сповіщення так само йдуть старим шляхом, — але код уже готовий прийняти другу реалізацію. Це важлива риса прийому: більшість роботи припадає на кроки, які **нічого не ламають і нічого не вмикають**, лише розчищають місце.
@@ -112,36 +70,8 @@ class OrderService:
 **Стан 3 — нове поряд.** Пишемо другу реалізацію тієї самої обіцянки. Вона може бути ще неповна чи невідлагоджена — байдуже, бо нею **ще ніхто не користується**. І ставимо прапорець, який поки що дивиться на стару:
 
 :::tabs
-```ts
-// Нова реалізація — та сама обіцянка, інші нутрощі
-class QueueNotifier implements Notifier {
-  constructor(private queue: MessageQueue) {}
-  notify(to: string, message: string) {
-    this.queue.publish("notifications", { to, message });
-  }
-}
-
-// Вибір реалізації за прапорцем — одне місце на весь застосунок
-function makeNotifier(flags: Flags): Notifier {
-  return flags.enabled("queue-notifications")
-    ? new QueueNotifier(messageQueue)
-    : new LegacyMailerNotifier();
-}
-```
-```py
-# Нова реалізація — та сама обіцянка, інші нутрощі
-class QueueNotifier(Notifier):
-    def __init__(self, queue):
-        self._queue = queue
-    def notify(self, to, message):
-        self._queue.publish("notifications", {"to": to, "message": message})
-
-# Вибір реалізації за прапорцем — одне місце на весь застосунок
-def make_notifier(flags):
-    if flags.enabled("queue-notifications"):
-        return QueueNotifier(message_queue)
-    return LegacyMailerNotifier()
-```
+:::code branch-by-abstraction-d/ts/iak-tse-vyhliadaie-v-kodi-2.ts
+:::code branch-by-abstraction-d/py/iak-tse-vyhliadaie-v-kodi-2.py
 :::
 
 **Стан 4 — перемикаємо.** Коли нова реалізація готова й перевірена, повертаємо прапорець на неї. Тут стане в пригоді те, що обидві реалізації живі одночасно: перш ніж перемкнути всіх, можна [ганяти нову **паралельно** зі старою й звіряти вихід](root:sf-apps/branch-by-abstraction/proj-parallel-run-verify.md) — на частині користувачів, у тестовому середовищі, з логуванням розбіжностей. Перемикання роблять поступово: спершу 1% користувачів, тоді 10%, тоді всіх — і на кожному щаблі дивляться на метрики. Помітили біду — прапорець **миттю повертають назад**, на стару реалізацію, без розгортання нової версії й без відкату коду.

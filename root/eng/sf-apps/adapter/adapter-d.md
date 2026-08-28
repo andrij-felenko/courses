@@ -43,64 +43,8 @@
 Наївний приклад каже: «переклади гривні в центи множенням на 100». Це **хибно** для реального світу, і саме тут іграшка ламається. За стандартом ISO 4217 кожна валюта має свій показник дробовості: для більшості це 2 знаки (÷100), але єна (JPY) має **0** знаків — у неї немає дійсної копійки, тож 499 єн — це 499 найдрібніших одиниць, а не 49900; а динар Бахрейну (BHD) і динар Кувейту (KWD) мають **3** знаки — діляться на 1000. Адаптер, що всюди множить на 100, тихо завищить платіж у єнах у сто разів і занизить у динарах удесятеро. Тому правильний переклад входу — не константа, а функція від валюти:
 
 :::tabs
-```ts
-class StripeError extends Error { constructor(public code: string) { super(code); } }
-class PaymentError extends Error {}                 // ТВІЙ словник помилок
-
-// Найдрібніших одиниць в одиниці валюти — за ISO 4217. Типово 100; винятки — окремо.
-const MINOR: Record<string, number> = { JPY: 1, KRW: 1, BHD: 1000, KWD: 1000, OMR: 1000 };
-const toMinor = (amount: number, cur: string) =>
-  Math.round(amount * (MINOR[cur] ?? 100));         // не «×100», а за валютою
-
-interface PaymentGateway {
-  charge(amount: number, currency: string): Promise<string>;
-}
-
-class StripeAdapter implements PaymentGateway {
-  constructor(private stripe: StripeClient) {}       // адаптований — ПОЛЕМ (композиція)
-
-  async charge(amount: number, currency: string): Promise<string> {
-    try {
-      const res = await this.stripe.createCharge({
-        amountInMinor: toMinor(amount, currency),    // f_in: одиниці за валютою
-        currency: currency.toLowerCase(),            // f_in: "UAH" → "uah"
-      });
-      return res.id;                                 // f_out: { id } → id
-    } catch (e) {
-      if (e instanceof StripeError)                  // f_out і для ПОМИЛОК:
-        throw new PaymentError(`платіж відхилено: ${e.code}`);  // чужа помилка → наша
-      throw e;                                       // не наша — не ковтаємо, пускаємо далі
-    }
-  }
-}
-```
-```py
-class StripeError(Exception):
-    def __init__(self, code: str): self.code = code
-
-class PaymentError(Exception):                        # ТВІЙ словник помилок
-    pass
-
-# Найдрібніших одиниць в одиниці валюти — за ISO 4217. Типово 100; винятки — окремо.
-MINOR = {"JPY": 1, "KRW": 1, "BHD": 1000, "KWD": 1000, "OMR": 1000}
-
-def to_minor(amount: float, cur: str) -> int:
-    return round(amount * MINOR.get(cur, 100))        # не «×100», а за валютою
-
-class StripeAdapter:                                  # структурно реалізує PaymentGateway
-    def __init__(self, stripe: "StripeClient"):
-        self._stripe = stripe                         # адаптований — ПОЛЕМ (композиція)
-
-    def charge(self, amount: float, currency: str) -> str:
-        try:
-            res = self._stripe.create_charge(
-                amount_in_minor=to_minor(amount, currency),  # f_in: одиниці за валютою
-                currency=currency.lower(),                   # f_in: "UAH" → "uah"
-            )
-            return res["id"]                          # f_out: {"id": ...} → id
-        except StripeError as e:                      # f_out і для ПОМИЛОК:
-            raise PaymentError(f"платіж відхилено: {e.code}")  # чужа помилка → наша
-```
+:::code adapter-d/ts/obiektnyi-adapter-pid.ts
+:::code adapter-d/py/main.py
 :::
 
 Тут видно два переклади, яких у наївному переказі патерну немає, а в реальності без них адаптер діряве.
@@ -117,42 +61,7 @@ class StripeAdapter:                                  # структурно р�
 
 Друга форма — **класовий адаптер** — успадковує від адаптованого (і заразом реалізує ціль), тож дістає його методи прямо, без поля-посередника. У мовах із множинним спадкуванням класів (передусім C++) це має точний і повчальний вигляд:
 
-```cpp
-#include <cctype>
-#include <cmath>
-#include <string>
-
-static std::string toLower(std::string s) {
-    for (char& c : s) c = (char)std::tolower((unsigned char)c);
-    return s;
-}
-
-struct PaymentGateway {                       // Ціль
-    virtual std::string charge(double amount, const std::string& cur) = 0;
-    virtual ~PaymentGateway() = default;
-};
-
-class StripeClient {                          // Адаптований (чужий), із ВІРТУАЛЬНИМ методом
-public:
-    virtual std::string createCharge(long minor, const std::string& cur) {
-        return "ch_live";                     // справжній виклик до Stripe
-    }
-    virtual ~StripeClient() = default;
-};
-
-// КЛАСОВИЙ адаптер: Ціль — ПУБЛІЧНО (is-a), Адаптований — ПРИВАТНО (implemented-in-terms-of)
-class StripeAdapter : public PaymentGateway, private StripeClient {
-public:
-    std::string charge(double amount, const std::string& cur) override {
-        return createCharge(std::lround(amount * 100), toLower(cur));  // метод предка — напряму
-    }
-private:
-    // ЄДИНА справжня перевага класової форми: перевизначити поведінку адаптованого
-    std::string createCharge(long minor, const std::string& cur) override {
-        return "test_" + StripeClient::createCharge(minor, cur);       // напр., позначити тестовим
-    }
-};
-```
+:::code adapter-d/cpp/main.cpp
 
 Тут два неочевидні рішення несуть увесь сенс. **Ціль успадкована публічно, адаптований — приватно.** Це не примха: публічне спадкування означає «є різновидом» (`StripeAdapter` *є* `PaymentGateway` — так, клієнт має право бачити його як ціль). А приватне означає «реалізований через» — адаптований для адаптера лише матеріал, і зовнішній код **не сміє** прийняти адаптер за `StripeClient`. Якби адаптований успадкували публічно, адаптер випадково став би ще й `StripeClient` для всіх охочих — і абстракція, яку він мав захистити, потекла б у зворотний бік.
 
@@ -166,25 +75,7 @@ private:
 
 Є й третя форма, яку GoF називає **параметризованим (pluggable) адаптером**, і вона рятує, коли адаптованих багато, а різниця між ними дрібна. Писати окремий клас-адаптер на кожен чужий об'єкт — марнотратно, якщо весь адаптер зводиться до пари рядків перекладу. Тоді сам **переклад передають як параметр** — функцією-замиканням, а не підкласом:
 
-```ts
-// Один адаптер на всіх: «форму» перекладу впорскуємо замиканням.
-class PluggableGateway<T> implements PaymentGateway {
-  constructor(
-    private adaptee: T,
-    private doCharge: (a: T, amount: number, currency: string) => Promise<string>,
-  ) {}
-  charge(amount: number, currency: string): Promise<string> {
-    return this.doCharge(this.adaptee, amount, currency);   // уся специфіка — у замиканні
-  }
-}
-
-const stripeGw = new PluggableGateway(
-  new StripeClient(),
-  (s, amount, cur) =>
-    s.createCharge({ amountInMinor: toMinor(amount, cur), currency: cur.toLowerCase() })
-     .then(r => r.id),                                       // переклад — тут, без окремого класу
-);
-```
+:::code adapter-d/ts/parametryzovanyi-adapter.ts
 
 Замість ієрархії класів-адаптерів — один узагальнений адаптер і по замиканню на кожного адаптованого. Виграш очевидний, коли адаптованих десятки, а кожен потребує двох рядків. Плата — слабший тип-контроль: компілятор уже не стежить, що переклад для `StripeClient` справді бере `StripeClient`, бо все сховане за функцією. Тому параметризовану форму беруть саме там, де адаптерів багато й вони прості; для одного важливого інтеграційного шва звичайний клас-адаптер чесніший і надійніший.
 

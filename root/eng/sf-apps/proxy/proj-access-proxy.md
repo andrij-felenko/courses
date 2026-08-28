@@ -3,65 +3,9 @@
 Візьмімо сервіс, який справді хочеться поставити під нагляд, — `OrderService`, доступ до замовлень. У нього три методи, і кожен цінний по-своєму:
 
 :::tabs
-```ts
-interface OrderService {
-  getOrder(id: string): Order;           // читання: часте, безпечне, добре кешується
-  placeOrder(order: Order): string;      // запис: створює замовлення, треба право
-  cancelOrder(id: string): void;         // запис: скасовує, треба право (та ще й вище)
-}
-
-// Справжній сервіс: ходить у базу, нічого не знає про права й кеш.
-class RealOrderService implements OrderService {
-  getOrder(id: string): Order {
-    return db.query("SELECT ... WHERE id = ?", id);   // дорогий похід у базу
-  }
-  placeOrder(order: Order): string {
-    return db.insert(order);
-  }
-  cancelOrder(id: string): void {
-    db.update("UPDATE orders SET state='cancelled' WHERE id = ?", id);
-  }
-}
-```
-```py
-from typing import Protocol
-
-class OrderService(Protocol):
-    def get_order(self, id: str) -> "Order": ...        # читання: часте, безпечне, кешується
-    def place_order(self, order: "Order") -> str: ...   # запис: треба право
-    def cancel_order(self, id: str) -> None: ...        # запис: треба право (вище)
-
-# Справжній сервіс: ходить у базу, нічого не знає про права й кеш.
-class RealOrderService:
-    def get_order(self, id: str) -> "Order":
-        return db.query("SELECT ... WHERE id = ?", id)   # дорогий похід у базу
-
-    def place_order(self, order: "Order") -> str:
-        return db.insert(order)
-
-    def cancel_order(self, id: str) -> None:
-        db.update("UPDATE orders SET state='cancelled' WHERE id = ?", id)
-```
-```java
-interface OrderService {
-    Order getOrder(String id);            // читання: часте, безпечне, кешується
-    String placeOrder(Order order);       // запис: треба право
-    void cancelOrder(String id);          // запис: треба право (вище)
-}
-
-// Справжній сервіс: ходить у базу, нічого не знає про права й кеш.
-class RealOrderService implements OrderService {
-    public Order getOrder(String id) {
-        return db.query("SELECT ... WHERE id = ?", id);   // дорогий похід у базу
-    }
-    public String placeOrder(Order order) {
-        return db.insert(order);
-    }
-    public void cancelOrder(String id) {
-        db.update("UPDATE orders SET state='cancelled' WHERE id = ?", id);
-    }
-}
-```
+:::code proj-access-proxy/ts/part.ts
+:::code proj-access-proxy/py/part.py
+:::code proj-access-proxy/java/part.java
 :::
 
 Цей сервіс має бути **тупим і чистим**: узяв запит — сходив у базу — віддав. Ніякого «а чи можна цьому користувачеві», ніякого «а може, ми це вже питали хвилину тому». Домішати сюди перевірку прав означало б, що логіка замовлень і логіка безпеки зрослися в одному класі: правиш охорону — ризикуєш зачепити роботу з базою, і навпаки. А кеш усередині сервісу — це вже третя, зовсім чужа турбота в тому самому місці. Три різні відповідальності в одному класі — рецепт коду, який ніхто не наважується чіпати.
@@ -75,92 +19,9 @@ class RealOrderService implements OrderService {
 Заведімо мінімум інфраструктури: хто зараз діє (`currentUser`) і яке право потрібне для кожної дії. Читати замовлення може будь-хто залогінений; створювати — той, у кого є право `orders:write`; скасовувати — лише той, у кого `orders:cancel` (це небезпечніше, ніж просто створити).
 
 :::tabs
-```ts
-class AccessDenied extends Error {}   // окремий тип, щоб клієнт міг його впіймати
-
-class ProtectedOrderService implements OrderService {
-  constructor(
-    private real: OrderService,        // кого захищаємо (делегат)
-    private user: User,                // від чийого імені йдуть виклики
-  ) {}
-
-  private require(permission: string): void {
-    if (!this.user.can(permission)) {  // одна точка перевірки для всіх методів
-      throw new AccessDenied(`${this.user.name}: немає права ${permission}`);
-    }
-  }
-
-  getOrder(id: string): Order {
-    this.require("orders:read");        // спершу право...
-    return this.real.getOrder(id);      // ...тоді делегуємо
-  }
-  placeOrder(order: Order): string {
-    this.require("orders:write");
-    return this.real.placeOrder(order);
-  }
-  cancelOrder(id: string): void {
-    this.require("orders:cancel");
-    this.real.cancelOrder(id);
-  }
-}
-```
-```py
-class AccessDenied(Exception):        # окремий тип, щоб клієнт міг його впіймати
-    pass
-
-class ProtectedOrderService:
-    def __init__(self, real: OrderService, user: "User") -> None:
-        self._real = real              # кого захищаємо (делегат)
-        self._user = user              # від чийого імені йдуть виклики
-
-    def _require(self, permission: str) -> None:
-        if not self._user.can(permission):   # одна точка перевірки для всіх методів
-            raise AccessDenied(f"{self._user.name}: немає права {permission}")
-
-    def get_order(self, id: str) -> "Order":
-        self._require("orders:read")    # спершу право...
-        return self._real.get_order(id) # ...тоді делегуємо
-
-    def place_order(self, order: "Order") -> str:
-        self._require("orders:write")
-        return self._real.place_order(order)
-
-    def cancel_order(self, id: str) -> None:
-        self._require("orders:cancel")
-        self._real.cancel_order(id)
-```
-```java
-class AccessDeniedException extends RuntimeException {   // щоб клієнт міг упіймати
-    AccessDeniedException(String msg) { super(msg); }
-}
-
-class ProtectedOrderService implements OrderService {
-    private final OrderService real;    // кого захищаємо (делегат)
-    private final User user;            // від чийого імені йдуть виклики
-    ProtectedOrderService(OrderService real, User user) {
-        this.real = real; this.user = user;
-    }
-
-    private void require(String permission) {
-        if (!user.can(permission)) {    // одна точка перевірки для всіх методів
-            throw new AccessDeniedException(user.name() + ": немає права " + permission);
-        }
-    }
-
-    public Order getOrder(String id) {
-        require("orders:read");         // спершу право...
-        return real.getOrder(id);       // ...тоді делегуємо
-    }
-    public String placeOrder(Order order) {
-        require("orders:write");
-        return real.placeOrder(order);
-    }
-    public void cancelOrder(String id) {
-        require("orders:cancel");
-        real.cancelOrder(id);
-    }
-}
-```
+:::code proj-access-proxy/ts/zakhysnyi-proksi-pravo.ts
+:::code proj-access-proxy/py/zakhysnyi-proksi-pravo.py
+:::code proj-access-proxy/java/zakhysnyi-proksi-pravo.java
 :::
 
 Подивімося, що тут насправді сталося. Клієнт більше не отримує `RealOrderService` — йому дають `ProtectedOrderService`, і тип у нього той самий `OrderService`, тож клієнт нічого не помічає. Але тепер кожен виклик спершу заходить у `require`, і якщо права немає — метод справжнього сервісу **навіть не викликається**: виняток летить раніше, база не чіпається. Охорона стоїть перед дверима, а не всередині кімнати.
@@ -190,95 +51,9 @@ bob.cancelOrder("ord-42")  → require("orders:cancel")→ bob.can("cancel")== f
 Складемо його як окремий заступник. Кеш тримає вже прочитані замовлення за `id`; лог пише перед і після делегування. Тонкий момент, який видно одразу: **кешувати можна лише читання**. `getOrder` — чистий запит, його відповідь можна запам'ятати. А `placeOrder` і `cancelOrder` **міняють стан**, і саме вони роблять кеш застарілим: скасував замовлення — те, що лежить у кеші, більше не відповідає базі. Тому запис не лише не кешується — він **скидає кеш**.
 
 :::tabs
-```ts
-class LoggingCachingOrderService implements OrderService {
-  private cache = new Map<string, Order>();   // id → вже прочитане замовлення
-  constructor(private real: OrderService) {}
-
-  getOrder(id: string): Order {
-    const hit = this.cache.get(id);
-    if (hit !== undefined) {
-      log(`getOrder(${id}) — з кешу`);
-      return hit;                              // база не чіпається взагалі
-    }
-    log(`getOrder(${id}) — промах, іду в базу`);
-    const order = this.real.getOrder(id);
-    this.cache.set(id, order);                 // запам'ятали на майбутнє
-    return order;
-  }
-
-  placeOrder(order: Order): string {
-    log(`placeOrder(...)`);
-    const id = this.real.placeOrder(order);
-    this.cache.set(id, order);                 // свіже замовлення одразу відоме
-    return id;
-  }
-
-  cancelOrder(id: string): void {
-    log(`cancelOrder(${id})`);
-    this.real.cancelOrder(id);
-    this.cache.delete(id);   // ← ІНВАЛІДАЦІЯ: кеш більше не відповідає базі
-  }
-}
-```
-```py
-class LoggingCachingOrderService:
-    def __init__(self, real: OrderService) -> None:
-        self._real = real
-        self._cache: dict[str, "Order"] = {}   # id → вже прочитане замовлення
-
-    def get_order(self, id: str) -> "Order":
-        if id in self._cache:
-            log(f"get_order({id}) — з кешу")
-            return self._cache[id]             # база не чіпається взагалі
-        log(f"get_order({id}) — промах, іду в базу")
-        order = self._real.get_order(id)
-        self._cache[id] = order                # запам'ятали на майбутнє
-        return order
-
-    def place_order(self, order: "Order") -> str:
-        log("place_order(...)")
-        id = self._real.place_order(order)
-        self._cache[id] = order                # свіже замовлення одразу відоме
-        return id
-
-    def cancel_order(self, id: str) -> None:
-        log(f"cancel_order({id})")
-        self._real.cancel_order(id)
-        self._cache.pop(id, None)   # ← ІНВАЛІДАЦІЯ: кеш більше не відповідає базі
-```
-```java
-class LoggingCachingOrderService implements OrderService {
-    private final Map<String, Order> cache = new HashMap<>();   // id → замовлення
-    private final OrderService real;
-    LoggingCachingOrderService(OrderService real) { this.real = real; }
-
-    public Order getOrder(String id) {
-        Order hit = cache.get(id);
-        if (hit != null) {
-            log("getOrder(" + id + ") — з кешу");
-            return hit;                         // база не чіпається взагалі
-        }
-        log("getOrder(" + id + ") — промах, іду в базу");
-        Order order = real.getOrder(id);
-        cache.put(id, order);                   // запам'ятали на майбутнє
-        return order;
-    }
-
-    public String placeOrder(Order order) {
-        log("placeOrder(...)");
-        String id = real.placeOrder(order);
-        cache.put(id, order);                   // свіже замовлення одразу відоме
-        return id;
-    }
-
-    public void cancelOrder(String id) {
-        log("cancelOrder(" + id + ")");
-        real.cancelOrder(id);
-        cache.remove(id);   // ← ІНВАЛІДАЦІЯ: кеш більше не відповідає базі
-    }
-}
-```
+:::code proj-access-proxy/ts/rozumne-posylannia-kesh.ts
+:::code proj-access-proxy/py/rozumne-posylannia-kesh.py
+:::code proj-access-proxy/java/rozumne-posylannia-kesh.java
 :::
 
 Одна деталь у `cancelOrder` варта того, щоб на ній спинитися: без рядка інвалідації весь заступник тихо стає **джерелом брехні**. Уяви, що ми його забули. Хтось читає замовлення — воно лягає в кеш зі станом «активне». Потім те саме замовлення скасовують — база оновлюється, а в кеші лишається стара копія «активне». Наступний `getOrder` радісно віддає з кешу скасоване замовлення як активне, і жодна помилка ніде не спливе — просто система показує неправду. Тому кеш живе за законом: **усе, що міняє дані, мусить прибрати з кешу застарілий запис**; це той самий обовʼязок, що й тримати [інваріанти узгодженими](root:sf-apps/invariants) — правило «кеш відповідає базі» має виконуватися після кожної операції, не лише після читання.
@@ -286,45 +61,9 @@ class LoggingCachingOrderService implements OrderService {
 Тепер найцінніше: **заступники складаються один на одного**, бо кожен має інтерфейс `OrderService` і всередині тримає теж `OrderService` — йому байдуже, справжній це сервіс чи ще один проксі. Складімо ланцюжок так, щоб зовні стояла охорона, за нею облік, а в глибині — база:
 
 :::tabs
-```ts
-const real = new RealOrderService();
-const cached = new LoggingCachingOrderService(real);     // облік поверх бази
-const guarded = new ProtectedOrderService(cached, bob);  // охорона поверх обліку
-
-// bob працює через один тип OrderService і не бачить ні охорони, ні кешу, ні бази:
-guarded.getOrder("ord-42");
-// → перевірка права read (ок) → лог → промах кешу → база → у кеш
-guarded.getOrder("ord-42");
-// → перевірка права read (ок) → лог → влучення в кеш → база НЕ чіпається
-guarded.cancelOrder("ord-42");
-// → перевірка права cancel → у bob його немає → AccessDenied, кеш і база цілі
-```
-```py
-real = RealOrderService()
-cached = LoggingCachingOrderService(real)       # облік поверх бази
-guarded = ProtectedOrderService(cached, bob)    # охорона поверх обліку
-
-# bob працює через один тип OrderService і не бачить ні охорони, ні кешу, ні бази:
-guarded.get_order("ord-42")
-# → перевірка права read (ок) → лог → промах кешу → база → у кеш
-guarded.get_order("ord-42")
-# → перевірка права read (ок) → лог → влучення в кеш → база НЕ чіпається
-guarded.cancel_order("ord-42")
-# → перевірка права cancel → у bob його немає → AccessDenied, кеш і база цілі
-```
-```java
-OrderService real = new RealOrderService();
-OrderService cached = new LoggingCachingOrderService(real);      // облік поверх бази
-OrderService guarded = new ProtectedOrderService(cached, bob);   // охорона поверх обліку
-
-// bob працює через один тип OrderService і не бачить ні охорони, ні кешу, ні бази:
-guarded.getOrder("ord-42");
-// → перевірка права read (ок) → лог → промах кешу → база → у кеш
-guarded.getOrder("ord-42");
-// → перевірка права read (ок) → лог → влучення в кеш → база НЕ чіпається
-guarded.cancelOrder("ord-42");
-// → перевірка права cancel → у bob його немає → AccessDenied, кеш і база цілі
-```
+:::code proj-access-proxy/ts/rozumne-posylannia-kesh-2.ts
+:::code proj-access-proxy/py/rozumne-posylannia-kesh-2.py
+:::code proj-access-proxy/java/rozumne-posylannia-kesh-2.java
 :::
 
 Порядок у ланцюжку не випадковий, і його варто прочитати вголос: **охорона зовні — щоб відмова спрацьовувала першою**, ще до того, як облік узагалі задумається про кеш. Якби ми поставили кеш зовні, а охорону всередині, то читання без права спершу влучило б у кеш і повернуло дані — а вже потім (запізно) охорона сказала б «не можна». Заступники — не просто набір обгорток, а **впорядкований конвеєр**, і місце кожного в ньому визначає, що станеться раніше.
@@ -342,109 +81,16 @@ guarded.cancelOrder("ord-42");
 Механізм у кожної мови свій, і в кожній він ідіоматичний по-своєму — тож розберімо всі три окремо. Задачу візьмемо ту саму, найпростішу для показу: **розумне посилання, що логує кожен виклик і делегує далі**, але тепер — для будь-якого методу автоматично.
 
 :::tabs
-```py
-# Python: __getattr__ спрацьовує на доступ до атрибута, якого В САМОМУ проксі немає.
-# Повертаємо загорнуту функцію — одна точка на всі методи делегата.
-class LoggingProxy:
-    def __init__(self, real: object) -> None:
-        object.__setattr__(self, "_real", real)   # обходимо власний __getattr__
-
-    def __getattr__(self, name: str):
-        attr = getattr(self._real, name)          # дістали справжній метод/поле
-        if not callable(attr):
-            return attr                            # поле — віддаємо як є
-        def wrapper(*args, **kwargs):              # ← ЄДИНА точка для всіх методів
-            log(f"→ {name}{args}")
-            result = attr(*args, **kwargs)         # делегуємо справжньому
-            log(f"← {name} = {result!r}")
-            return result
-        return wrapper
-
-# Один проксі накриває ВЕСЬ інтерфейс, скільки б методів у ньому не було:
-service: OrderService = LoggingProxy(RealOrderService())   # type: ignore[assignment]
-service.get_order("ord-42")   # __getattr__("get_order") → wrapper → лог + делегування
-service.place_order(order)    # той самий шлях, ані рядка окремо під нього не писали
-```
-```ts
-// JavaScript/TypeScript: об'єкт Proxy з пастками (trap) get + apply.
-// get віддає загорнутий метод; тонкість — прив'язати this до РЕАЛЬНОГО об'єкта.
-function loggingProxy<T extends object>(real: T): T {
-  return new Proxy(real, {
-    get(target, prop, receiver) {
-      const value = Reflect.get(target, prop, receiver);
-      if (typeof value !== "function") return value;   // поле — як є
-      return function (this: unknown, ...args: unknown[]) {   // ← єдина точка
-        log(`→ ${String(prop)}(${args})`);
-        const result = Reflect.apply(value, target, args);    // this = target, НЕ проксі!
-        log(`← ${String(prop)} = ${result}`);
-        return result;
-      };
-    },
-  });
-}
-
-// Один проксі накриває весь інтерфейс:
-const service: OrderService = loggingProxy(new RealOrderService());
-service.getOrder("ord-42");   // trap get("getOrder") → обгортка → лог + делегування
-service.placeOrder(order);    // той самий шлях, окремого коду під метод немає
-```
-```java
-// Java: java.lang.reflect.Proxy будує клас на льоту, усі виклики йдуть в invoke().
-import java.lang.reflect.*;
-
-class LoggingHandler implements InvocationHandler {
-    private final Object real;
-    LoggingHandler(Object real) { this.real = real; }
-
-    // ← ЄДИНА точка: сюди приходить БУДЬ-ЯКИЙ виклик будь-якого методу інтерфейсу
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        log("→ " + method.getName() + Arrays.toString(args));
-        Object result = method.invoke(real, args);   // делегуємо справжньому
-        log("← " + method.getName() + " = " + result);
-        return result;
-    }
-}
-
-@SuppressWarnings("unchecked")
-static <T> T loggingProxy(Class<T> iface, T real) {
-    return (T) Proxy.newProxyInstance(
-        iface.getClassLoader(),
-        new Class<?>[]{ iface },          // ← лише ІНТЕРФЕЙСИ, не конкретні класи
-        new LoggingHandler(real));
-}
-
-// Один проксі накриває весь інтерфейс:
-OrderService service = loggingProxy(OrderService.class, new RealOrderService());
-service.getOrder("ord-42");   // → invoke(method=getOrder) → лог + делегування
-service.placeOrder(order);    // той самий invoke, окремого коду під метод немає
-```
+:::code proj-access-proxy/py/bil-dubliuvannia.py
+:::code proj-access-proxy/ts/bil-dubliuvannia.ts
+:::code proj-access-proxy/java/bil-dubliuvannia.java
 :::
 
 Прочитаймо, що спільного в трьох таких різних на вигляд шматках. У кожному є **рівно одна точка**, крізь яку проходять **усі** виклики: у Python це `wrapper` усередині `__getattr__`, у JS — функція, яку повертає пастка `get`, у Java — метод `invoke`. Двадцять методів чи двісті — код заступника не росте ні на рядок. Додав сервісу новий метод — динамічний проксі підхопить його **сам**, бо він не перелічує методи, а ловить звертання як факт. Ось чому в мовах із широким інтерфейсом ручну обгортку так часто замінюють на динамічну: пишеш поведінку заступника один раз замість того, щоб дублювати її по методу.
 
 Захисний проксі динамічно робиться так само — лише замість логу в тій єдиній точці стоїть перевірка права. Ось Java-варіант, щоб побачити, що змінюється тільки нутро `invoke`, а весь каркас той самий:
 
-```java
-class ProtectionHandler implements InvocationHandler {
-    private final Object real;
-    private final User user;
-    // мапа: назва методу → потрібне право
-    private static final Map<String, String> NEED = Map.of(
-        "getOrder",    "orders:read",
-        "placeOrder",  "orders:write",
-        "cancelOrder", "orders:cancel");
-
-    ProtectionHandler(Object real, User user) { this.real = real; this.user = user; }
-
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        String need = NEED.get(method.getName());
-        if (need != null && !user.can(need)) {          // одна точка охорони
-            throw new AccessDeniedException(user.name() + ": немає права " + need);
-        }
-        return method.invoke(real, args);               // право є (або не потрібне) → делегуємо
-    }
-}
-```
+:::code proj-access-proxy/java/bil-dubliuvannia-2.java
 
 Одна точка, мапа «метод → право» замість трьох майже однакових ручних методів. Двадцять методів у сервісі — мапа на двадцять рядків, а не двадцять обгорток. Дублювання інтерфейсу зникло.
 

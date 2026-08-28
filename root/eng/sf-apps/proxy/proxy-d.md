@@ -26,121 +26,17 @@
 Ось той самий приклад із картинкою в коді. Спочатку — спільний інтерфейс і важкий об'єкт:
 
 :::tabs
-```ts
-interface Image {
-  draw(): void;
-  width(): number;
-}
-
-// Справжній об'єкт: створення = читання файлу з диска (дорого).
-class RealImage implements Image {
-  private pixels: Uint8Array;
-  constructor(private path: string) {
-    this.pixels = loadFromDisk(path);   // читаємо ВЕСЬ файл уже в конструкторі
-    console.log(`завантажено ${path}`);
-  }
-  draw(): void { /* малюємо pixels */ }
-  width(): number { return readWidthOf(this.pixels); }
-}
-```
-```py
-from typing import Protocol
-
-class Image(Protocol):
-    def draw(self) -> None: ...
-    def width(self) -> int: ...
-
-# Справжній об'єкт: створення = читання файлу з диска (дорого).
-class RealImage:
-    def __init__(self, path: str) -> None:
-        self.pixels = load_from_disk(path)     # читаємо ВЕСЬ файл уже в конструкторі
-        print(f"завантажено {path}")
-
-    def draw(self) -> None:
-        ...   # малюємо pixels
-
-    def width(self) -> int:
-        return read_width_of(self.pixels)
-```
-```java
-interface Image {
-    void draw();
-    int width();
-}
-
-// Справжній об'єкт: створення = читання файлу з диска (дорого).
-class RealImage implements Image {
-    private final byte[] pixels;
-    RealImage(String path) {
-        this.pixels = loadFromDisk(path);   // читаємо ВЕСЬ файл уже в конструкторі
-        System.out.println("завантажено " + path);
-    }
-    public void draw() { /* малюємо pixels */ }
-    public int width() { return readWidthOf(pixels); }
-}
-```
+:::code proxy-d/ts/proksi-tse-zastupnyk-iz.ts
+:::code proxy-d/py/proksi-tse-zastupnyk-iz.py
+:::code proxy-d/java/proksi-tse-zastupnyk-iz.java
 :::
 
 Тепер проксі з тим самим інтерфейсом. Він **не** читає файл у конструкторі — тримає лише шлях, а справжню картинку створює аж коли по неї приходять:
 
 :::tabs
-```ts
-class ImageProxy implements Image {
-  private real: RealImage | null = null;   // ще немає — файл не читаний
-  constructor(private path: string) {}     // конструктор дешевий: лише запам'ятали шлях
-
-  private load(): RealImage {
-    if (this.real === null) this.real = new RealImage(this.path);   // читаємо ОДИН раз
-    return this.real;
-  }
-
-  draw(): void { this.load().draw(); }       // прийшли малювати → тепер треба справжній
-  width(): number { return this.load().width(); }
-}
-
-// Клієнт не бачить різниці — тип той самий:
-const gallery: Image[] = paths.map(p => new ImageProxy(p));   // 2000 картинок, 0 читань із диска
-gallery[0].draw();   // читається РІВНО одна — перша
-```
-```py
-class ImageProxy:
-    def __init__(self, path: str) -> None:
-        self.path = path                # конструктор дешевий: лише запам'ятали шлях
-        self._real: RealImage | None = None   # ще немає — файл не читаний
-
-    def _load(self) -> RealImage:
-        if self._real is None:
-            self._real = RealImage(self.path)   # читаємо ОДИН раз
-        return self._real
-
-    def draw(self) -> None:
-        self._load().draw()             # прийшли малювати → тепер треба справжній
-
-    def width(self) -> int:
-        return self._load().width()
-
-# Клієнт не бачить різниці — тип той самий:
-gallery: list[Image] = [ImageProxy(p) for p in paths]   # 2000 картинок, 0 читань із диска
-gallery[0].draw()   # читається РІВНО одна — перша
-```
-```java
-class ImageProxy implements Image {
-    private final String path;
-    private RealImage real = null;      // ще немає — файл не читаний
-    ImageProxy(String path) { this.path = path; }   // конструктор дешевий
-
-    private RealImage load() {
-        if (real == null) real = new RealImage(path);   // читаємо ОДИН раз
-        return real;
-    }
-    public void draw() { load().draw(); }        // прийшли малювати → тепер треба справжній
-    public int width() { return load().width(); }
-}
-
-// Клієнт не бачить різниці — тип той самий:
-List<Image> gallery = paths.stream().map(ImageProxy::new).toList();
-gallery.get(0).draw();   // читається РІВНО одна — перша
-```
+:::code proxy-d/ts/proksi-tse-zastupnyk-iz-2.ts
+:::code proxy-d/py/proksi-tse-zastupnyk-iz-2.py
+:::code proxy-d/java/proksi-tse-zastupnyk-iz-2.java
 :::
 
 Відкрити документ тепер коштує стільки, скільки коштує створити дві тисячі порожніх заступників, — тобто майже нічого. Файл із диска читається лише для тієї картинки, яку справді намалювали. Ця конкретна різновидність проксі — та, що відкладає створення дорогого об'єкта, — зветься **віртуальний проксі (англ. *virtual* — той, що існує по суті, але не насправді до пори)**, і трюк усередині нього — це [ліниве завантаження](root:sf-data/lazy-loading): не робити роботу, поки по результат не прийшли.

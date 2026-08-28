@@ -38,47 +38,8 @@
 Повернімося до площ. Ось звична форма — усе рішення в одній функції:
 
 :::tabs
-```c
-typedef enum { CIRCLE, RECT, TRIANGLE } ShapeKind;
-
-typedef struct {
-    ShapeKind kind;
-    double a, b;            // радіус / сторони / основа й висота
-} Shape;
-
-double area(const Shape *s) {
-    switch (s->kind) {
-        case CIRCLE:   return 3.14159265 * s->a * s->a;
-        case RECT:     return s->a * s->b;
-        case TRIANGLE: return 0.5 * s->a * s->b;
-        // кожна нова фігура — нова гілка ТУТ, у вже працюючій функції
-    }
-    return 0.0;
-}
-```
-```python
-from dataclasses import dataclass
-from enum import Enum
-
-class ShapeKind(Enum):
-    CIRCLE = 1
-    RECT = 2
-    TRIANGLE = 3
-
-@dataclass
-class Shape:
-    kind: ShapeKind
-    a: float                # радіус / сторони / основа й висота
-    b: float = 0.0
-
-def area(s: Shape) -> float:
-    match s.kind:
-        case ShapeKind.CIRCLE:   return 3.14159265 * s.a * s.a
-        case ShapeKind.RECT:     return s.a * s.b
-        case ShapeKind.TRIANGLE: return 0.5 * s.a * s.b
-        # кожна нова фігура — нова гілка ТУТ, у вже працюючій функції
-    return 0.0
-```
+:::code open-closed/c/main.c
+:::code open-closed/py/toi-samyi-pryklad-dvi.py
 :::
 
 Щоб додати фігуру, треба відкрити `area` і `ShapeKind`. Функція росте, `switch` розповзається, і — головне — той самий код, що рахує коло, редагується заради трикутника. Він **закритий для розширення**: розширити його можна лише модифікацією. Це те, що ми хочемо перевернути.
@@ -86,63 +47,8 @@ def area(s: Shape) -> float:
 Тепер поставимо завісу — інтерфейс `Shape` з операцією `area`, а конкретні фігури зробимо його реалізаціями:
 
 :::tabs
-```cpp
-struct Shape {                       // завіса: стабільний контракт
-    virtual double area() const = 0;
-    virtual ~Shape() = default;
-};
-
-struct Circle : Shape {
-    double r;
-    double area() const override { return 3.14159265 * r * r; }
-};
-
-struct Rect : Shape {
-    double w, h;
-    double area() const override { return w * h; }
-};
-
-// Нова фігура — НОВИЙ клас, окремий файл. Нічого вище не відкрито:
-struct Triangle : Shape {
-    double base, height;
-    double area() const override { return 0.5 * base * height; }
-};
-
-double total(const std::vector<Shape*> &shapes) {   // клієнт закритий
-    double sum = 0.0;
-    for (const Shape *s : shapes) sum += s->area();  // не знає про Triangle
-    return sum;
-}
-```
-```python
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-
-class Shape(ABC):                    # завіса: стабільний контракт
-    @abstractmethod
-    def area(self) -> float: ...
-
-@dataclass
-class Circle(Shape):
-    r: float
-    def area(self) -> float: return 3.14159265 * self.r * self.r
-
-@dataclass
-class Rect(Shape):
-    w: float
-    h: float
-    def area(self) -> float: return self.w * self.h
-
-# Нова фігура — НОВИЙ клас, окремий файл. Нічого вище не відкрито:
-@dataclass
-class Triangle(Shape):
-    base: float
-    height: float
-    def area(self) -> float: return 0.5 * self.base * self.height
-
-def total(shapes: list[Shape]) -> float:   # клієнт закритий
-    return sum(s.area() for s in shapes)    # не знає про Triangle
-```
+:::code open-closed/cpp/main.cpp
+:::code open-closed/py/toi-samyi-pryklad-dvi-2.py
 :::
 
 ![Додати трикутник можна двома способами: правкою наявного switch (шрам у працюючому коді) або новим класом за інтерфейсом (працюючий код недоторканий).](img/two-shapes.svg)

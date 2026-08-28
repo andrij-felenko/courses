@@ -14,23 +14,7 @@
 
 ### Кістяк типу
 
-```cpp
-#include <variant>
-#include <string>
-#include <cstdint>
-
-struct Data {                    // те, що зрештою отримали (умовно)
-    int32_t  code;
-    uint16_t length;
-};
-
-struct Loading {};                             // жодного поля — сам факт «триває»
-struct Failed  { std::string message;          // текст помилки для лога/екрана
-                 int          httpCode; };      // і код відповіді, якщо був
-struct Ready   { Data value; };                // лише корисне навантаження
-
-using RequestState = std::variant<Loading, Failed, Ready>;
-```
+:::code proj-sum-types-cpp/cpp/kistiak-typu.cpp
 
 Три речі варто вимовити повільно, бо на них усе тримається.
 
@@ -79,19 +63,7 @@ template <class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 
 Це два рядки, але за ними — три можливості C++17, які варто розуміти, бо саме на них ідіома тримається. `struct overloaded : Ts...` — **успадкування від пакета типів**: візитор успадковує від кожної переданої лямбди. `using Ts::operator()...;` — **розгортання пакета в using-оголошенні**: витягуємо `operator()` кожної лямбди в область видимості нащадка, щоб усі вони стали перевантаженнями одного виклику. А підказка виведення дозволяє написати `overloaded{ lambda1, lambda2, lambda3 }` і дати компіляторові самому скласти список базових типів (у C++20 агрегатне виведення робить це саме, тож другий рядок можна викинути). Ось як це працює на нашому стані:
 
-```cpp
-#include <string>
-
-std::string describe(const RequestState& st) {
-    return std::visit(overloaded{
-        [](const Loading&)      { return std::string{"Вантажимо…"}; },
-        [](const Failed&  f)    { return "Помилка (" + std::to_string(f.httpCode)
-                                         + "): " + f.message; },
-        [](const Ready&   r)    { return "Готово, байтів: "
-                                         + std::to_string(r.value.length); },
-    }, st);
-}
-```
+:::code proj-sum-types-cpp/cpp/rozbir-cherez-std-visit-ta.cpp
 
 `std::visit` дивиться на активний індекс `st` і викликає рівно ту лямбду, чий параметр пасує. Жодних `if`, жодних приведень — диспетчеризація за типом, яку компілятор перетворює зазвичай на просту таблицю переходів (англ. *jump table*).
 
@@ -207,23 +179,7 @@ moveTo(50.45, 30.52);      // а це взагалі повернуло нас �
 
 ### Обгортка як слід
 
-```cpp
-class Latitude {
-    double deg_;
-public:
-    explicit constexpr Latitude(double d) : deg_(d) {}   // лише навмисне загортання
-    constexpr double value() const { return deg_; }      // дістати голе число
-};
-
-class Longitude {
-    double deg_;
-public:
-    explicit constexpr Longitude(double d) : deg_(d) {}
-    constexpr double value() const { return deg_; }
-};
-
-void moveTo(Latitude lat, Longitude lon);
-```
+:::code proj-sum-types-cpp/cpp/obhortka-iak-slid.cpp
 
 Тепер:
 
@@ -241,26 +197,7 @@ Latitude x = 50.45;                          // ПОМИЛКА: explicit не п
 
 Гола обгортка вміє лише зберігати число. Але з величинами треба щось робити: порівнювати, додавати, віднімати. Оператори доводиться дописувати — і саме тут новотип у C++ показує свою ціну (у Rust чи Haskell частину цього виводять автоматично). Розберемо на `Meters`, де арифметика має ясний фізичний сенс:
 
-```cpp
-class Meters {
-    double m_;
-public:
-    explicit constexpr Meters(double m) : m_(m) {}
-    constexpr double value() const { return m_; }
-
-    // порівняння: метр із метром — коректно
-    friend constexpr bool operator<(Meters a, Meters b) { return a.m_ < b.m_; }
-    friend constexpr bool operator==(Meters a, Meters b) { return a.m_ == b.m_; }
-
-    // додавання/віднімання: метр + метр = метр (розмірність зберігається)
-    friend constexpr Meters operator+(Meters a, Meters b) { return Meters{a.m_ + b.m_}; }
-    friend constexpr Meters operator-(Meters a, Meters b) { return Meters{a.m_ - b.m_}; }
-
-    // множення на безрозмірне число: 3 · метр = метр (масштаб)
-    friend constexpr Meters operator*(Meters a, double k) { return Meters{a.m_ * k}; }
-    friend constexpr Meters operator*(double k, Meters a) { return Meters{a.m_ * k}; }
-};
-```
+:::code proj-sum-types-cpp/cpp/potribni-operatory.cpp
 
 Тут захована глибша думка, ніж «додаймо оператори для зручності». **Не кожна арифметична операція над величиною має фізичний сенс, і тип може це відображати.** `Meters + Meters` — метри (додати дві довжини природно). `Meters * double` — метри (масштабувати довжину числом природно). А от `Meters * Meters` — це вже **квадратні метри**, площа, інша розмірність, і навмисне **не** визначати цей оператор — правильний хід: він змусить задуматися, що результат — не довжина. Так само `Meters + double` не визначено — не можна додати голе число до довжини, бо число невідомо в яких одиницях. Тип не просто носить дані — він **кодує правила комбінування**, і компілятор стежить за їх дотриманням. У C++20 частину цієї писанини знімає `operator<=>` (космічний корабель), що з одного рядка генерує всі порівняння:
 
@@ -275,18 +212,7 @@ friend constexpr bool operator==(Meters a, Meters b) = default;
 
 Окрема користь від типів-величин — **безпечне перетворення одиниць**. Коли метри й фути обидва «голі» `double`, їх плутають; коли кожне має свій тип, перетворення стає єдиною легальною дорогою між ними, і випадково змішати їх уже не вийде:
 
-```cpp
-class Feet {
-    double ft_;
-public:
-    explicit constexpr Feet(double ft) : ft_(ft) {}
-    constexpr double value() const { return ft_; }
-};
-
-// єдиний легальний міст між одиницями — явне перетворення
-constexpr Meters toMeters(Feet f) { return Meters{ f.value() * 0.3048 }; }
-constexpr Feet   toFeet(Meters m) { return Feet{   m.value() / 0.3048 }; }
-```
+:::code proj-sum-types-cpp/cpp/peretvorennia-odynyts.cpp
 
 Коефіцієнт `0.3048` — точне означення: 1 міжнародний фут = 0.3048 метра рівно (усталено з 1959 року міжнародною угодою про ярд і фунт). Тепер висота від барометра у футах і висота від GPS у метрах не змішаються мовчки — щоб їх зіставити, доведеться явно прогнати одну через `toMeters`, і ця точка перетворення видима в коді. Помилка «додав фути до метрів» стає неможливою: `Feet{100} + Meters{50}` не скомпілюється, бо оператор `+` для різних типів не визначено. Порівняй зі світом голих чисел, де `100 + 50` радо дасть безглузді `150` невідомо чого.
 
@@ -294,32 +220,7 @@ constexpr Feet   toFeet(Meters m) { return Feet{   m.value() / 0.3048 }; }
 
 Тут стає очевидною ціна новотипів у C++: `Latitude`, `Longitude`, `Meters`, `Seconds`, `Feet` — усі мають **однаковісінький** кістяк: одне поле `double`, explicit-конструктор, `value()`, той самий набір операторів. Копіювати це п'ять разів — саме той дубляж, з яким бореться дизайн. Ліки — **шаблон-база**, що містить спільну механіку раз, а конкретні типи лише називають себе:
 
-```cpp
-// Спільний кістяк новотипу над double. Параметр Tag робить кожен
-// інстанс ОКРЕМИМ типом, навіть якщо всередині той самий double.
-template <class Tag>
-class Quantity {
-    double v_;
-public:
-    explicit constexpr Quantity(double v) : v_(v) {}
-    constexpr double value() const { return v_; }
-
-    friend constexpr bool operator<(Quantity a, Quantity b) { return a.v_ < b.v_; }
-    friend constexpr bool operator==(Quantity a, Quantity b) { return a.v_ == b.v_; }
-    friend constexpr Quantity operator+(Quantity a, Quantity b) { return Quantity{a.v_ + b.v_}; }
-    friend constexpr Quantity operator-(Quantity a, Quantity b) { return Quantity{a.v_ - b.v_}; }
-    friend constexpr Quantity operator*(Quantity a, double k)   { return Quantity{a.v_ * k}; }
-    friend constexpr Quantity operator*(double k, Quantity a)   { return Quantity{a.v_ * k}; }
-};
-
-// Кожна величина — окремий тег-структура (порожня, лише щоб розрізняти типи):
-struct MetersTag; struct SecondsTag; struct LatitudeTag; struct LongitudeTag;
-
-using Meters    = Quantity<MetersTag>;
-using Seconds   = Quantity<SecondsTag>;
-using Latitude  = Quantity<LatitudeTag>;
-using Longitude = Quantity<LongitudeTag>;
-```
+:::code proj-sum-types-cpp/cpp/shablon-pomichnyk-proty.cpp
 
 Механізм, який робить це можливим, — **тег-параметр** (англ. *phantom type*, фантомний тип). `Tag` ніде всередині `Quantity` не використовується — це порожній маркер. Але для системи типів `Quantity<MetersTag>` і `Quantity<SecondsTag>` — **два цілком різні, несумісні типи**, бо різняться параметром шаблона. Тег ніколи не існує в пам'яті (структури `MetersTag`, `SecondsTag` навіть не потрібно означувати — досить оголосити), він живе виключно на рівні типів під час компіляції. Один шаблон дає скільки завгодно взаємонесумісних величин без жодного повтореного рядка:
 

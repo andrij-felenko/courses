@@ -58,39 +58,8 @@ NPV = Σ  CF_t / (1 + r)ᵗ        (t = 0 … N)
 За голою сумою «збудувати» виграє на 50 тисяч. Але це складання доларів із різних років як рівних — саме та помилка. Приведімо все до сьогодні. Позначимо `A(r) = Σ 1/(1+r)ᵗ` за `t = 1…5` — множник, що згортає п'ять однакових річних платежів в одну теперішню суму (його виведення — у вкладці про NPV). Порахуймо приклад для трьох ставок:
 
 :::tabs
-```python
-def annuity_factor(r, years=5):
-    # A(r) = сума 1/(1+r)^t за t=1..years — згортає рівний річний потік у теперішню суму
-    return sum(1 / (1 + r) ** t for t in range(1, years + 1))
-
-def pv_build(r):   # 150 наперед + 20/рік підтримки
-    return 150 + 20 * annuity_factor(r)
-
-def pv_buy(r):     # 60/рік підписки, нічого наперед
-    return 60 * annuity_factor(r)
-
-for r in (0.10, 0.35):
-    b, s = pv_build(r), pv_buy(r)
-    winner = "збудувати" if b < s else "купити"
-    print(f"r={r:.0%}: build={b:.1f}  buy={s:.1f}  → {winner}")
-```
-```typescript
-function annuityFactor(r: number, years = 5): number {
-  // A(r) = сума 1/(1+r)^t за t=1..years — згортає рівний річний потік у теперішню суму
-  let a = 0;
-  for (let t = 1; t <= years; t++) a += 1 / (1 + r) ** t;
-  return a;
-}
-
-const pvBuild = (r: number) => 150 + 20 * annuityFactor(r); // 150 наперед + 20/рік
-const pvBuy = (r: number) => 60 * annuityFactor(r);         // 60/рік підписки
-
-for (const r of [0.10, 0.35]) {
-  const b = pvBuild(r), s = pvBuy(r);
-  const winner = b < s ? "збудувати" : "купити";
-  console.log(`r=${(r * 100).toFixed(0)}%: build=${b.toFixed(1)} buy=${s.toFixed(1)} → ${winner}`);
-}
-```
+:::code cost-as-attribute-d/py/worked-pryklad-iak-stavka.py
+:::code cost-as-attribute-d/ts/worked-pryklad-iak-stavka.ts
 :::
 
 Підставмо руками, щоб побачити, що діється:
@@ -253,34 +222,8 @@ CDN                            2                50               25.0
 **Умова.** Два способи витримати змінне навантаження. **Крихкий** — фіксована потужність під очікуваний пік: дешевий, поки навантаження в межах, але при потрійному напливі падає, і тоді аварійні витрати (простій, овертайм, втрачені продажі) величезні. **Стійкий** — автоскейл із чергою: трохи дорожчий у штатному режимі, зате росте полого. Прикиньмо очікувану вартість за трьома сценаріями з їхніми ймовірностями:
 
 :::tabs
-```python
-# (ймовірність, вартість крихкого, вартість стійкого) за сценаріями навантаження, тис. $
-scenarios = [
-    ("низьке",     0.3,  8, 12),
-    ("очікуване",  0.5, 10, 14),
-    ("високе",     0.2, 60, 22),   # крихкий падає й тягне аварійні витрати
-]
-exp_fragile = sum(p * f for _, p, f, _ in scenarios)
-exp_robust  = sum(p * r for _, p, _, r in scenarios)
-worst_fragile = max(f for _, _, f, _ in scenarios)
-worst_robust  = max(r for _, _, _, r in scenarios)
-print(f"очікувана:  крихкий={exp_fragile:.1f}  стійкий={exp_robust:.1f}")
-print(f"найгірша:   крихкий={worst_fragile}     стійкий={worst_robust}")
-```
-```typescript
-// [ймовірність, вартість крихкого, вартість стійкого] за сценаріями, тис. $
-const scenarios: [string, number, number, number][] = [
-  ["низьке",    0.3,  8, 12],
-  ["очікуване", 0.5, 10, 14],
-  ["високе",    0.2, 60, 22], // крихкий падає й тягне аварійні витрати
-];
-const expFragile = scenarios.reduce((s, [, p, f]) => s + p * f, 0);
-const expRobust  = scenarios.reduce((s, [, p, , r]) => s + p * r, 0);
-const worstFragile = Math.max(...scenarios.map(([, , f]) => f));
-const worstRobust  = Math.max(...scenarios.map(([, , , r]) => r));
-console.log(`очікувана: крихкий=${expFragile.toFixed(1)} стійкий=${expRobust.toFixed(1)}`);
-console.log(`найгірша:  крихкий=${worstFragile} стійкий=${worstRobust}`);
-```
+:::code cost-as-attribute-d/py/rishennia-pid.py
+:::code cost-as-attribute-d/ts/rishennia-pid.ts
 :::
 
 ```

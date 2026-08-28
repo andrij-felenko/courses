@@ -47,103 +47,15 @@
 Зберемо патерн у найпростішому вигляді. Колегам потрібне одне: знати посередника й кликати його при зміні. Ось спільна основа й три віджети — код загальний, об'єктний, тож покажемо його двома мовами:
 
 :::tabs
-```ts
-interface Mediator {
-  notify(sender: Widget, event: string): void;   // єдине, що колега кличе
-}
-
-abstract class Widget {                           // КОЛЕГА
-  constructor(protected mediator: Mediator) {}    // знає лише посередника
-}
-
-class Checkbox extends Widget {
-  checked = false;
-  toggle() {
-    this.checked = !this.checked;
-    this.mediator.notify(this, "toggled");        // «я змінився» — і все
-  }
-}
-
-class TextField extends Widget {
-  value = "";
-  enabled = true;
-  setValue(v: string) {
-    this.value = v;
-    this.mediator.notify(this, "typed");
-  }
-}
-
-class Button extends Widget {
-  enabled = false;
-  render() { console.log(`[Оформити] ${this.enabled ? "активна" : "згасла"}`); }
-}
-```
-```py
-from typing import Protocol
-
-class Mediator(Protocol):
-    def notify(self, sender: "Widget", event: str) -> None: ...
-
-class Widget:                                     # КОЛЕГА
-    def __init__(self, mediator: Mediator) -> None:
-        self._m = mediator                        # знає лише посередника
-
-class Checkbox(Widget):
-    checked = False
-    def toggle(self) -> None:
-        self.checked = not self.checked
-        self._m.notify(self, "toggled")           # «я змінився» — і все
-
-class TextField(Widget):
-    value = ""
-    enabled = True
-    def set_value(self, v: str) -> None:
-        self.value = v
-        self._m.notify(self, "typed")
-
-class Button(Widget):
-    enabled = False
-    def render(self) -> None:
-        print(f"[Оформити] {'активна' if self.enabled else 'згасла'}")
-```
+:::code mediator-d/ts/naimenshyi-robochyi.ts
+:::code mediator-d/py/naimenshyi-robochyi.py
 :::
 
 Тепер серце патерна — конкретний посередник. Він тримає всіх колег і в одному методі описує **всю поведінку вікна**:
 
 :::tabs
-```ts
-class OrderDialog implements Mediator {           // КОНКРЕТНИЙ ПОСЕРЕДНИК
-  readonly selfPickup = new Checkbox(this);       // тримає всіх колег
-  readonly address    = new TextField(this);
-  readonly submit     = new Button(this);
-
-  notify(sender: Widget, event: string) {         // уся логіка вікна — тут
-    if (sender === this.selfPickup && event === "toggled") {
-      this.address.enabled = !this.selfPickup.checked;   // самовивіз → адреса зайва
-      if (this.selfPickup.checked) this.address.value = "";
-    }
-    // кнопка активна, якщо самовивіз АБО адресу вписано
-    this.submit.enabled = this.selfPickup.checked || this.address.value.trim() !== "";
-    this.submit.render();
-  }
-}
-```
-```py
-class OrderDialog:                                # КОНКРЕТНИЙ ПОСЕРЕДНИК
-    def __init__(self) -> None:
-        self.self_pickup = Checkbox(self)         # тримає всіх колег
-        self.address = TextField(self)
-        self.submit = Button(self)
-
-    def notify(self, sender: Widget, event: str) -> None:   # уся логіка вікна — тут
-        if sender is self.self_pickup and event == "toggled":
-            self.address.enabled = not self.self_pickup.checked   # самовивіз → адреса зайва
-            if self.self_pickup.checked:
-                self.address.value = ""
-        # кнопка активна, якщо самовивіз АБО адресу вписано
-        self.submit.enabled = self.self_pickup.checked or self.address.value.strip() != ""
-        self.submit.render()
-```
+:::code mediator-d/ts/naimenshyi-robochyi-2.ts
+:::code mediator-d/py/naimenshyi-robochyi-2.py
 :::
 
 І сам сценарій. Жоден віджет не торкається іншого — усе тече через посередника:

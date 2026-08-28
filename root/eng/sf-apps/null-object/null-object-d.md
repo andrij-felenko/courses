@@ -32,73 +32,15 @@ if (this.logger !== null) {
 Розберімо це на коді. Спершу — інтерфейс і звичайна реалізація, а поряд — порожня:
 
 :::tabs
-```ts
-interface Logger {
-  write(msg: string): void;
-}
-
-class FileLogger implements Logger {
-  constructor(private path: string) {}
-  write(msg: string): void {
-    appendFileSync(this.path, msg + "\n");
-  }
-}
-
-class NullLogger implements Logger {
-  write(_msg: string): void { /* навмисно нічого */ }
-}
-```
-```py
-from typing import Protocol
-
-class Logger(Protocol):
-    def write(self, msg: str) -> None: ...
-
-class FileLogger:
-    def __init__(self, path: str) -> None:
-        self._path = path
-    def write(self, msg: str) -> None:
-        with open(self._path, "a", encoding="utf-8") as f:
-            f.write(msg + "\n")
-
-class NullLogger:
-    def write(self, msg: str) -> None:
-        pass                        # навмисно нічого
-```
+:::code null-object-d/ts/ideia-zrobyty-vidsutnist.ts
+:::code null-object-d/py/ideia-zrobyty-vidsutnist.py
 :::
 
 Тепер той, хто логером користується. Його поле — завжди `Logger`, ніколи порожнє, тож у коді немає жодної перевірки:
 
 :::tabs
-```ts
-class OrderService {
-  constructor(private logger: Logger) {}     // завжди Logger, ніколи null
-
-  place(order: Order): void {
-    // ...оформлення замовлення...
-    this.logger.write(`замовлення ${order.id} оформлено`);  // без перевірки
-  }
-}
-
-// логування ввімкнене:
-new OrderService(new FileLogger("orders.log"));
-// вимкнене — підставляємо ПОРОЖНІЙ об'єкт, а не null:
-new OrderService(new NullLogger());
-```
-```py
-class OrderService:
-    def __init__(self, logger: Logger) -> None:
-        self._logger = logger        # завжди Logger, ніколи None
-
-    def place(self, order: Order) -> None:
-        # ...оформлення замовлення...
-        self._logger.write(f"замовлення {order.id} оформлено")  # без перевірки
-
-# логування ввімкнене:
-OrderService(FileLogger("orders.log"))
-# вимкнене — ПОРОЖНІЙ об'єкт, не None:
-OrderService(NullLogger())
-```
+:::code null-object-d/ts/ideia-zrobyty-vidsutnist-2.ts
+:::code null-object-d/py/ideia-zrobyty-vidsutnist-2.py
 :::
 
 Рішення «є логер чи ні» переїхало **в одне місце** — туди, де сервіс складають. Далі за течією про це вже ніхто не думає: `place`, `cancel`, `refund` кличуть `logger.write(...)` однаково й безпечно. Стабільний код (сам сервіс) став простішим саме тому, що змінне питання «а раптом порожньо?» винесли за його межі.
@@ -122,45 +64,8 @@ OrderService(NullLogger())
 Класичний приклад — пошук клієнта, який міг нічого не знайти:
 
 :::tabs
-```ts
-interface Customer {
-  name(): string;
-  discountRate(): number;
-}
-
-class RegularCustomer implements Customer {
-  constructor(private _name: string, private rate: number) {}
-  name(): string { return this._name; }
-  discountRate(): number { return this.rate; }
-}
-
-class NullCustomer implements Customer {
-  name(): string { return "Гість"; }        // нейтральне ім'я
-  discountRate(): number { return 0; }      // жодної знижки — розумний типовий стан
-}
-
-function findCustomer(id: string): Customer {
-  return db.lookup(id) ?? new NullCustomer();  // ніколи не повертаємо null
-}
-```
-```py
-class Customer(Protocol):
-    def name(self) -> str: ...
-    def discount_rate(self) -> float: ...
-
-class RegularCustomer:
-    def __init__(self, name: str, rate: float) -> None:
-        self._name, self._rate = name, rate
-    def name(self) -> str: return self._name
-    def discount_rate(self) -> float: return self._rate
-
-class NullCustomer:
-    def name(self) -> str: return "Гість"       # нейтральне ім'я
-    def discount_rate(self) -> float: return 0.0  # жодної знижки
-
-def find_customer(cid: str) -> Customer:
-    return db.lookup(cid) or NullCustomer()      # ніколи не None
-```
+:::code null-object-d/ts/ne-lyshe-nichoho-ne-robyty.ts
+:::code null-object-d/py/ne-lyshe-nichoho-ne-robyty.py
 :::
 
 Тепер `findCustomer(id).discountRate()` працює завжди: знайшли справжнього — повернеться його ставка; не знайшли — повернеться нуль, і ціна порахується без знижки, як для гостя. Виклик не мусить питати «а чи є клієнт» — порожній клієнт **сам знає**, як виглядає розумна відповідь за відсутності. Порожній об'єкт буває двох ґатунків: тихий (метод нічого не робить) і відповідальний (метод віддає нейтральне значення) — але суть одна: замість діри, з якою мусить розбиратися кожен, є об'єкт, який розбирається сам.

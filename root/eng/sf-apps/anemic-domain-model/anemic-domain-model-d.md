@@ -17,47 +17,8 @@
 Ось замовлення в такому знекровленому стилі. Придивися не до синтаксису, а до того, **де живе думка**.
 
 :::tabs
-```ts
-// Знекровлена модель: замовлення нічого не вміє, лише тримає поля навстіж
-class Order {
-  status: string = "new";       // "new" | "paid" | "shipped" | "cancelled"
-  items: Item[] = [];
-  discount: number = 0;         // відсоток знижки, 0..100 — хтозна, ніхто не стереже
-  total: number = 0;
-}
-
-// Уся думка — ЗЗОВНІ, у сервісі; кожен викликач тримає свій уламок правил
-class OrderService {
-  applyDiscount(o: Order, percent: number): void {
-    o.discount = percent;        // жодної перевірки: приймуться й 500, і −20
-    o.total = o.items.reduce((s, i) => s + i.price, 0) * (1 - o.discount / 100);
-  }
-
-  ship(o: Order): void {
-    // тут ЗАБУЛИ перевірити, що замовлення взагалі оплачене
-    o.status = "shipped";
-  }
-}
-```
-```python
-# Знекровлена модель: замовлення нічого не вміє, лише тримає поля навстіж
-class Order:
-    def __init__(self):
-        self.status = "new"       # "new" | "paid" | "shipped" | "cancelled"
-        self.items = []
-        self.discount = 0         # відсоток знижки, 0..100 — ніхто не стереже
-        self.total = 0
-
-# Уся думка — ЗЗОВНІ, у сервісі; кожен викликач тримає свій уламок правил
-class OrderService:
-    def apply_discount(self, o, percent):
-        o.discount = percent      # жодної перевірки: приймуться й 500, і −20
-        o.total = sum(i.price for i in o.items) * (1 - o.discount / 100)
-
-    def ship(self, o):
-        # тут ЗАБУЛИ перевірити, що замовлення взагалі оплачене
-        o.status = "shipped"
-```
+:::code anemic-domain-model-d/ts/iak-tse-vyhliadaie.ts
+:::code anemic-domain-model-d/py/iak-tse-vyhliadaie.py
 :::
 
 Хвороба вилазить сама. Правило «відвантажити можна лише оплачене замовлення» — це правило самого замовлення, частина його природи. Але тут його **немає**: `ship` бере будь-яке замовлення й ставить `"shipped"`, бо автор цього методу не тримав у голові весь життєвий цикл. Правило «знижка від 0 до 100 відсотків» теж загубилося. Кожен викликач тримає власний уламок спільного закону, і разом ці уламки не складаються в цілісність — а часто й суперечать одне одному.
@@ -104,48 +65,8 @@ OrderService().ship(o)     # відвантажили неоплачене
 Ліки прямо випливають із діагнозу: коли метод у сервісі тільки те й робить, що порпає поля чужого об'єкта, — **пересели його до тих полів**. Правило про власний стан замовлення має стати методом самого замовлення. Тоді викликачеві нема чого питати: він каже одне слово, а вся дрібна робота з полями й перевірками відбувається там, де ці поля рідні.
 
 :::tabs
-```ts
-class Order {
-  private _status = "new";
-  private _discount = 0;
-  private _items: Item[] = [];
-
-  // правило знижки тепер ТУТ, разом зі своїм вартовим
-  applyDiscount(percent: number): void {
-    if (this._status !== "new")
-      throw new DomainError("знижку міняють лише до оплати");
-    if (percent < 0 || percent > 100)
-      throw new DomainError("знижка поза межами 0..100");
-    this._discount = percent;
-  }
-
-  ship(): void {
-    if (this._status !== "paid")           // перевірка, якої бракувало
-      throw new DomainError("відвантажують лише оплачене");
-    this._status = "shipped";
-  }
-}
-```
-```python
-class Order:
-    def __init__(self):
-        self._status = "new"
-        self._discount = 0
-        self._items = []
-
-    # правило знижки тепер ТУТ, разом зі своїм вартовим
-    def apply_discount(self, percent):
-        if self._status != "new":
-            raise DomainError("знижку міняють лише до оплати")
-        if percent < 0 or percent > 100:
-            raise DomainError("знижка поза межами 0..100")
-        self._discount = percent
-
-    def ship(self):
-        if self._status != "paid":           # перевірка, якої бракувало
-            raise DomainError("відвантажують лише оплачене")
-        self._status = "shipped"
-```
+:::code anemic-domain-model-d/ts/protyotruta-bahata-model.ts
+:::code anemic-domain-model-d/py/protyotruta-bahata-model.py
 :::
 
 Різниця не косметична. Поля закриті, тож `o._status = "shipped"` уже не пройде повз цикл. Правило зібралося з розкиданих уламків в одне місце, назване мовою предмета, і забути його не можна — воно на шляху. Сервіс після цього худне до чесної оркестрації: дістати замовлення зі сховища, сказати йому `ship()`, зберегти. Це і є **багата модель** — та, де поведінка живе разом із даними; ідею прямо пов'язують з [DDD Еванса](root:sf-apps/domain-driven-design), тоді як «анемічна» — термін-антонім Фаулера.

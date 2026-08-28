@@ -47,30 +47,8 @@
 Уяви базовий клас, що рахує додавання елементів, і нащадка, що додає до нього журналювання:
 
 :::tabs
-```java
-class CountingList<T> {
-    protected int count = 0;
-    void add(T x)              { count++; store(x); }
-    void addAll(List<T> xs)    { for (T x : xs) add(x); }   // ← базова реалізація гукає власний add()
-}
-
-class LoggingList<T> extends CountingList<T> {
-    @Override void add(T x)           { log(x);        super.add(x); }
-    @Override void addAll(List<T> xs) { log("batch");  super.addAll(xs); }  // super.addAll → this.add → знову log(x)
-}
-```
-```ts
-class CountingList<T> {
-  protected count = 0;
-  add(x: T): void        { this.count++; this.store(x); }
-  addAll(xs: T[]): void  { for (const x of xs) this.add(x); }  // ← базова реалізація гукає власний add()
-}
-
-class LoggingList<T> extends CountingList<T> {
-  override add(x: T): void       { this.log(x);       super.add(x); }
-  override addAll(xs: T[]): void { this.log("batch"); super.addAll(xs); }  // super.addAll → this.add → знову log(x)
-}
-```
+:::code open-closed-d/java/main.java
+:::code open-closed-d/ts/dvi-istorychni-prochytky-i.ts
 :::
 
 `addAll` тепер журналює двічі: один раз як пакет, і ще раз кожен елемент — бо `super.addAll` усередині гукає `add`, а `add` у нащадку перевизначений. Автор нащадка не міг цього передбачити: те, що `addAll` реалізовано **через** `add`, — внутрішня деталь базового класу, якої в контракті немає. І симетрична біда: якщо автори бази «оптимізують» `addAll`, щоб той більше не гукав `add`, нащадок **тихо втратить** журналювання елементів, хоч його власний код не змінився ні на символ. Це **проблема крихкого базового класу** (англ. *fragile base class*): нащадок зчеплений не з контрактом предка, а з його нутром, з послідовністю внутрішніх викликів.
@@ -153,37 +131,8 @@ OCP — сила, доки завіса стоїть на реальній ос�
 **Замкнена множина типів — навпаки, хочемо вичерпний `switch`.** Уся сила поліморфної завіси в тому, що множина реалізацій **відкрита**. Але буває навпаки: множина скінченна, відома й стабільна за самою природою предмета — три стани світлофора, чотири масті, два боки монети. Тут відкритість не потрібна, а закритість проти модифікації навіть **шкодить**. Якщо розкласти такі варіанти поліморфно, то, додавши новий (скажімо, п'ятий стан), ти мовчки отримаєш реалізації, що його не обробляють, — компілятор нічого не скаже, бо кожен клас формально повний. А якщо натомість написати **вичерпний** `switch` по замкненому переліку (сума типів, `sealed`-ієрархія, `enum`), компілятор сам покаже **кожне** місце, яке треба оновити, — забути неможливо:
 
 :::tabs
-```rust
-enum Shape { Circle(f64), Rect(f64, f64), Triangle(f64, f64) }
-
-fn area(s: &Shape) -> f64 {
-    match s {
-        Shape::Circle(r)       => 3.14159265 * r * r,
-        Shape::Rect(w, h)      => w * h,
-        Shape::Triangle(b, h)  => 0.5 * b * h,
-        // додав Shape::Hexagon — і КОЖЕН match без цієї гілки
-        // перестає компілюватися: компілятор перелічує всі місця
-    }
-}
-```
-```ts
-type Shape =
-  | { kind: "circle"; r: number }
-  | { kind: "rect"; w: number; h: number }
-  | { kind: "triangle"; b: number; h: number };
-
-function area(s: Shape): number {
-  switch (s.kind) {
-    case "circle":   return 3.14159265 * s.r * s.r;
-    case "rect":     return s.w * s.h;
-    case "triangle": return 0.5 * s.b * s.h;
-    default: {
-      const _exhaustive: never = s;   // додав новий вид — тип «звузиться» не до never,
-      return _exhaustive;             // і компілятор укаже саме цей switch
-    }
-  }
-}
-```
+:::code open-closed-d/rust/main.rs
+:::code open-closed-d/ts/hranychni-umovy-koly.ts
 :::
 
 Тут ми **свідомо відмовляємося** від закритості для модифікації в обмін на гарантію повноти — і це кращий обмін, коли множина замкнена. Правило-орієнтир: **відкрита множина → завіса; замкнена → вичерпний перебір**. Поставити завісу на замкнену множину — означає сховати від себе саме ті місця, які інакше вказав би компілятор. Це, до речі, ще одна причина цінувати [дизайн через типи](root:sf-apps/type-driven-design): сума типів робить неповноту помилкою компіляції, а не тихою дірою в рантаймі.

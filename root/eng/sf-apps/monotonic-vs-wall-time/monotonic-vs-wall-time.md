@@ -21,33 +21,8 @@
 **Той самий замір двома годинниками — настінним і монотонним:**
 
 :::tabs
-```py
-import time
-
-# настінний: календарний, його підводить NTP
-t0 = time.time()                 # 1_753_444_800.0 — секунди від 1970
-# ... робота ...                 # у цю мить NTP крокнув годинник на 5 с назад
-elapsed = time.time() - t0       # може вийти  -3.0  — «мінус секунди»
-
-# монотонний: лише росте, до календаря відношення не має
-m0 = time.monotonic()
-# ... та сама робота ...          # крок годинника його не торкається
-elapsed = time.monotonic() - m0  # завжди ≥ 0 — справжня тривалість
-```
-```cpp
-#include <chrono>
-using namespace std::chrono;
-
-// настінний: system_clock прив'язаний до календаря, його переставляють
-auto t0 = system_clock::now();
-// ... робота ...                       // NTP крокнув годинник назад
-auto d  = system_clock::now() - t0;     // duration може стати від'ємною
-
-// монотонний: steady_clock лише росте
-auto m0 = steady_clock::now();
-// ... та сама робота ...
-auto dm = steady_clock::now() - m0;     // завжди ≥ 0
-```
+:::code monotonic-vs-wall-time/py/main.py
+:::code monotonic-vs-wall-time/cpp/main.hpp
 :::
 
 Один і той самий рядок «взяти різницю» дає правду на монотонному годиннику й брехню на настінному — бо `steady_clock` і `time.monotonic` за визначенням не вміють іти назад, а `system_clock` і `time.time` зобов'язані слухатися календаря. Імена в кожної платформи свої — `Date.now()` проти `performance.now()`, `System.currentTimeMillis()` проти `System.nanoTime()`, — але пара та сама: «календарний» і «сталий»; [повний перелік викликів на кожній платформі](root:sf-apps/monotonic-vs-wall-time/api-clocks.md) зручно тримати під рукою.

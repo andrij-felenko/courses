@@ -22,37 +22,8 @@
 Зроблене руками, це виглядає буквально як абзац коду на порозі програми. Кожен рядок — один вузол графа; порядок рядків — це й є обхід від листя до кореня:
 
 :::tabs
-```python
-def main():
-    # ── листя: ні від кого не залежить ──
-    config = Config.from_env()
-    logger = FileLogger(config.log_path, level=config.log_level)
-
-    # ── середина: спирається на вже створене ──
-    http = HttpClient(timeout=config.http_timeout, logger=logger)
-    gateway = StripeGateway(http, api_key=config.stripe_key)
-
-    # ── корінь: заради нього все й збирали ──
-    payments = PaymentService(gateway, logger=logger)
-
-    run_app(payments)   # запускаємо — граф готовий, ядро не чуло слова «Stripe»
-```
-```ts
-function main() {
-  // ── листя: ні від кого не залежить ──
-  const config = Config.fromEnv();
-  const logger = new FileLogger(config.logPath, config.logLevel);
-
-  // ── середина: спирається на вже створене ──
-  const http = new HttpClient(config.httpTimeout, logger);
-  const gateway = new StripeGateway(http, config.stripeKey);
-
-  // ── корінь: заради нього все й збирали ──
-  const payments = new PaymentService(gateway, logger);
-
-  runApp(payments); // запускаємо — граф готовий, ядро не чуло слова «Stripe»
-}
-```
+:::code di-container-d/py/hraf-a-ne-spysok.py
+:::code di-container-d/ts/hraf-a-ne-spysok.ts
 :::
 
 Це — увесь композиційний корінь у явному вигляді. Він **великий**, і це нормально: у нього стягнулося все знання про конкретні реалізації, що його ми виполоскали з решти коду. Одне місце знає всі імена — зате всі інші не знають жодного. За можливість підмінити базу, провайдера чи логер, не чіпаючи ядра, платить рівно цей абзац, і платить один раз.
@@ -66,30 +37,8 @@ function main() {
 Інструмент, що робить цю роботу, зветься **DI-контейнер** (або IoC-контейнер — «container» тут у сенсі «місткість, що тримає всі складові»). Домовляєшся з ним заздалегідь: «коли хтось попросить `PaymentGateway` — дай `StripeGateway`; коли попросить `Logger` — дай `FileLogger`». Це **реєстрація** — таблиця відповідностей «обіцянка → реалізація». А тоді просиш у контейнера верхівку: `resolve(PaymentService)`. Далі він робить сам те, що ти робив би руками — тільки не збиваючись: дивиться, чого просить конструктор `PaymentService`, бачить `PaymentGateway`, лізе в таблицю, знаходить `StripeGateway`, помічає, що тому треба `HttpClient`, збирає спершу його, і так рекурсивно спускається до листя й піднімається назад, аж поки в руках не опиниться готовий граф.
 
 :::tabs
-```python
-c = Container()
-# ── реєстрація: таблиця «обіцянка → реалізація» ──
-c.bind(Logger,          FileLogger)
-c.bind(HttpClient,      HttpClient)
-c.bind(PaymentGateway,  StripeGateway)
-c.bind(PaymentService,  PaymentService)
-
-# ── один запит на верхівку — контейнер сам обійде весь граф ──
-payments = c.resolve(PaymentService)   # створив Logger, HttpClient, StripeGateway, PaymentService
-run_app(payments)
-```
-```ts
-const c = new Container();
-// ── реєстрація: таблиця «обіцянка → реалізація» ──
-c.bind(Logger,         FileLogger);
-c.bind(HttpClient,     HttpClient);
-c.bind(PaymentGateway, StripeGateway);
-c.bind(PaymentService, PaymentService);
-
-// ── один запит на верхівку — контейнер сам обійде весь граф ──
-const payments = c.resolve(PaymentService); // створив Logger, HttpClient, StripeGateway, PaymentService
-runApp(payments);
-```
+:::code di-container-d/py/koly-hraf-rozrostaietsia.py
+:::code di-container-d/ts/koly-hraf-rozrostaietsia.ts
 :::
 
 Зверни увагу, що контейнер **не скасовує** композиційний корінь — він **його населяє**. Реєстрація й один виклик `resolve` — це той самий корінь, тільки замість ручного абзацу тепер таблиця правил і машина, що складає граф за ними. Рішення «що є що» так само зібране в одному місці на краю програми; ми лише передоручили нудне сплітання інструментові. Усередині ж контейнер робить ту саму механіку — покроково її видно в [маленькому контейнері, зібраному вручну зі звичайного словника](root:sf-apps/di-container/proj-hand-rolled-container.md), і там ясно, що ніякого чаклунства немає: це обхід графа за таблицею плюс кеш уже створеного.

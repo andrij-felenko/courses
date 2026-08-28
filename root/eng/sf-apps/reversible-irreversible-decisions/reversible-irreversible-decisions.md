@@ -111,70 +111,10 @@ async function orderTotal(db: Client, orderId: number): Promise<number> {
 А тепер той самий вибір за швом. Логіка знає лише інтерфейс `OrderRepo`; яка саме база під ним — її не обходить:
 
 :::tabs
-```cpp
-// ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
-struct OrderRepo {                       // порт: контракт без бази
-    virtual double total(int order_id) = 0;
-    virtual ~OrderRepo() = default;
-};
-
-double order_total(OrderRepo& repo, int order_id) {
-    return repo.total(order_id);         // жодного сліду конкретної бази
-}
-
-// Конкретна база живе в ОДНОМУ місці — в адаптері:
-struct PgOrderRepo : OrderRepo {         // сьогодні PostgreSQL...
-    double total(int order_id) override { /* pqxx-запит саме тут */ }
-};
-// Завтра інша база — новий адаптер, а order_total і виклики не міняються.
-```
-```py
-# ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
-from abc import ABC, abstractmethod
-
-class OrderRepo(ABC):                     # порт: контракт без бази
-    @abstractmethod
-    def total(self, order_id: int) -> float: ...
-
-def order_total(repo: OrderRepo, order_id: int) -> float:
-    return repo.total(order_id)           # жодного сліду конкретної бази
-
-# Конкретна база живе в ОДНОМУ місці — в адаптері:
-class PgOrderRepo(OrderRepo):             # сьогодні PostgreSQL...
-    def total(self, order_id: int) -> float: ...  # psycopg2-запит саме тут
-# Завтра інша база — новий адаптер, а order_total і виклики не міняються.
-```
-```go
-// ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
-type OrderRepo interface {                // порт: контракт без бази
-    Total(orderID int) float64
-}
-
-func orderTotal(repo OrderRepo, orderID int) float64 {
-    return repo.Total(orderID)            // жодного сліду конкретної бази
-}
-
-// Конкретна база живе в ОДНОМУ місці — в адаптері:
-type PgOrderRepo struct{ db *pgx.Conn }  // сьогодні PostgreSQL...
-func (r PgOrderRepo) Total(orderID int) float64 { /* pgx-запит саме тут */ }
-// Завтра інша база — новий адаптер, а orderTotal і виклики не міняються.
-```
-```ts
-// ЗІ ШВОМ: логіка знає тільки інтерфейс, база — за адаптером
-interface OrderRepo {                     // порт: контракт без бази
-    total(orderId: number): Promise<number>;
-}
-
-function orderTotal(repo: OrderRepo, orderId: number): Promise<number> {
-    return repo.total(orderId);           // жодного сліду конкретної бази
-}
-
-// Конкретна база живе в ОДНОМУ місці — в адаптері:
-class PgOrderRepo implements OrderRepo {  // сьогодні PostgreSQL...
-    async total(orderId: number): Promise<number> { /* pg-запит саме тут */ return 0; }
-}
-// Завтра інша база — новий адаптер, а orderTotal і виклики не міняються.
-```
+:::code reversible-irreversible-decisions/cpp/main.cpp
+:::code reversible-irreversible-decisions/py/main.py
+:::code reversible-irreversible-decisions/go/main.go
+:::code reversible-irreversible-decisions/ts/index.ts
 :::
 
 Двері з однобічних стали двобічними: щоб змінити базу, тепер пишуть новий клас-адаптер, а вся система вище шва лишається на місці.

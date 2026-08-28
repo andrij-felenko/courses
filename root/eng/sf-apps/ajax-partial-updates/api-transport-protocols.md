@@ -42,29 +42,7 @@ DONE (4) <──(кінцевий байт)── LOADING (3, часткові �
 
 ### Сигнатура ключових методів та подій
 
-```ts
-interface XMLHttpRequest extends XMLHttpRequestEventTarget {
-  open(method: string, url: string, async?: boolean, user?: string, password?: string): void;
-  setRequestHeader(name: string, value: string): void;
-  send(body?: Document | XMLHttpRequestBodyInit | null): void;
-  abort(): void;
-
-  readonly readyState: number;
-  readonly status: number;
-  readonly statusText: string;
-  readonly responseText: string;
-  readonly responseXML: Document | null;
-  responseType: XMLHttpRequestResponseType; // "" | "arraybuffer" | "blob" | "document" | "json" | "text"
-
-  readonly upload: XMLHttpRequestUpload; // Надає події progress, load, error для тіла POST-запиту
-
-  onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
-  onload: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-  onerror: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-  onprogress: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-  ontimeout: ((this: XMLHttpRequest, ev: ProgressEvent) => any) | null;
-}
-```
+:::code api-transport-protocols/ts/syhnatura-kliuchovykh.ts
 
 ---
 
@@ -74,47 +52,13 @@ interface XMLHttpRequest extends XMLHttpRequestEventTarget {
 
 ### Базова сигнатура виклику
 
-```ts
-function fetch(
-  input: RequestInfo | URL,
-  init?: RequestInit
-): Promise<Response>;
-
-interface RequestInit {
-  method?: string;
-  headers?: HeadersInit;
-  body?: BodyInit | null;
-  mode?: "cors" | "no-cors" | "same-origin" | "navigate";
-  credentials?: "omit" | "same-origin" | "include";
-  cache?: "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
-  redirect?: "follow" | "error" | "manual";
-  signal?: AbortSignal | null;
-  keepalive?: boolean;
-}
-```
+:::code api-transport-protocols/ts/bazova-syhnatura-vyklyku.ts
 
 ### Читання потокового тіла відповіді (`ReadableStream`)
 
 Потокове читання дозволяє уникнути виділення монолітного буфера пам'яті під великі відповіді. Байти обробляються чанками (*chunks*) у міру їхнього надходження через мережевий сокет:
 
-```ts
-const response = await fetch("/api/stream", { signal: abortController.signal });
-
-if (!response.ok) {
-  throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-}
-
-const reader = response.body?.getReader();
-const decoder = new TextDecoder("utf-8");
-
-while (reader) {
-  const { value, done } = await reader.read();
-  if (done) break;
-  // value є типізованим масивом Uint8Array
-  const chunkText = decoder.decode(value, { stream: true });
-  processChunkIncremental(chunkText);
-}
-```
+:::code api-transport-protocols/ts/chytannia-potokovoho-tila.ts
 
 ---
 
@@ -146,29 +90,7 @@ data: Вашу підписку успішно оновлено.
 
 ### Клієнтський інтерфейс `EventSource`
 
-```ts
-const sse = new EventSource("/api/live-feed", { withCredentials: true });
-
-// Обробка стандартних подій без зазначеного типу
-sse.onmessage = (event: MessageEvent) => {
-  const payload = JSON.parse(event.data);
-  console.log("Отримано базове повідомлення:", payload);
-};
-
-// Підписка на кастомний тип події (поле event: user_alert)
-sse.addEventListener("user_alert", (event: MessageEvent) => {
-  displayAlertBanner(event.data);
-});
-
-// Обробка стану з'єднання та помилок
-sse.onerror = (err) => {
-  if (sse.readyState === EventSource.CLOSED) {
-    console.error("З'єднання остаточно закрито сервером");
-  } else if (sse.readyState === EventSource.CONNECTING) {
-    console.warn("Тимчасовий обрив; браузер виконує автоматичний reconnect");
-  }
-};
-```
+:::code api-transport-protocols/ts/kliientskyi-interfeis.ts
 
 ---
 
@@ -198,33 +120,7 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 
 ### Клієнтський API WebSocket
 
-```ts
-const ws = new WebSocket("wss://server.example.com/socket");
-ws.binaryType = "arraybuffer";
-
-ws.onopen = () => {
-  // Відправлення текстового повідомлення
-  ws.send(JSON.stringify({ action: "SUBSCRIBE", channel: "telemetry" }));
-};
-
-ws.onmessage = (event: MessageEvent) => {
-  if (typeof event.data === "string") {
-    const json = JSON.parse(event.data);
-    handleTextMessage(json);
-  } else if (event.data instanceof ArrayBuffer) {
-    const view = new DataView(event.data);
-    handleBinaryFrame(view);
-  }
-};
-
-ws.onclose = (event: CloseEvent) => {
-  console.log(`Сокет закрито: код=${event.code}, причина=${event.reason}, чисте=${event.wasClean}`);
-};
-
-ws.onerror = (event: Event) => {
-  console.error("Помилка транспортного рівня WebSocket", event);
-};
-```
+:::code api-transport-protocols/ts/kliientskyi-api-websocket.ts
 
 ---
 

@@ -116,18 +116,7 @@ class Billing:
 # тест тривіальний і повністю ізольований:
 assert Billing(fee_rate=0.02).charge(order) == expected
 ```
-```ts
-class Billing {
-  constructor(private readonly feeRate: number) {}   // залежність на видноті
-
-  charge(order: Order): number {
-    return order.total * this.feeRate;
-  }
-}
-
-// тест тривіальний і повністю ізольований:
-expect(new Billing(0.02).charge(order)).toBe(expected);
-```
+:::code global-state-d/ts/index.ts
 :::
 
 Зверни увагу, що саме змінилося. Тіло `charge` майже те саме — але тепер `Billing` **чесно каже**, що йому потрібна ставка, і кожен тест дає свою, не чіпаючи нічого спільного. Ставку створюють і задають один раз — у корені композиції, — а далі вона незмінно живе всередині свого власника. Червона клітина квадранта зникла: стан більше не спільний-і-мутабельний, він або переданий, або незмінний.

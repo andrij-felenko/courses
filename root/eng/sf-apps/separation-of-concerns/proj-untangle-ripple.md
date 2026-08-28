@@ -32,53 +32,11 @@
 
 Звіт про місячний рахунок: дістати оплачені замовлення, порахувати суму зі знижкою й ПДВ, скласти рядок, надрукувати його й записати в журнал.
 
-```ts
-// billing.ts — доступ до бази, правило, формат, вивід і журнал в одному тілі
-import { Db } from "./db";
-
-export async function printMonthlyInvoice(db: Db, userId: number, month: string) {
-  const rows = await db.query<{ amount: number; kind: string }>(
-    "select amount, kind from orders where user_id = ? and month = ? and status = 'paid'",
-    [userId, month],
-  );
-  if (rows.length === 0) {
-    console.log("Замовлень за місяць немає");
-    return;
-  }
-  let net = 0;
-  for (const r of rows) {
-    if (r.kind === "refund") net -= r.amount;
-    else net += r.amount;
-  }
-  if (net < 0) net = 0;
-  if (net > 5000) net = Math.round(net * 0.95 * 100) / 100;  // знижка постійним
-  const total = Math.round(net * 1.2 * 100) / 100;           // ПДВ 20 %
-  const line = `Разом до сплати: ${total.toFixed(2)} грн`;
-  console.log(line);
-  await db.exec(
-    "insert into invoice_log (user_id, month, total) values (?, ?, ?)",
-    [userId, month, total],
-  );
-}
-```
+:::code proj-untangle-ripple/ts/billing.ts
 
 Двадцять чотири рядки без порожніх і коментарів. Викликає її семирядковий `main`: відкрити базу, передати виклик, закрити. Перевіряє все це єдиний тест — і йому потрібен справжній Postgres, бо інакше до правила не дістатися:
 
-```ts
-// billing.test.ts — єдиний спосіб перевірити правило, поки все сплетено
-test("рахунок за місяць", async () => {
-  const db = await openTestDb();                 // контейнер із Postgres
-  await db.exec("delete from orders where user_id = 7");
-  await db.exec("delete from invoice_log where user_id = 7");
-  await db.exec("insert into orders values (7, '2026-06', 5000, 'sale', 'paid')");
-  await db.exec("insert into orders values (7, '2026-06', 900, 'sale', 'paid')");
-  const out = await captureStdout(() => printMonthlyInvoice(db, 7, "2026-06"));
-  expect(out.trim()).toBe("Разом до сплати: 6726.00 грн");
-  const log = await db.query("select total from invoice_log where user_id = 7");
-  expect(log[0].total).toBeCloseTo(6726.0);
-  await db.close();
-});
-```
+:::code proj-untangle-ripple/ts/billing.test.ts
 
 **Умова прикладу: два оплачені замовлення того самого користувача — 5000 і 900 грн; знижка 5 % від 5000 грн обороту; ПДВ 20 %.**
 
@@ -126,192 +84,7 @@ change джерело  printInvoice main
 
 Далі — сама програма. Робота тут графова й одноразова на кожен запит, тож C++ бере її природно: обхід по векторах суміжності без жодних алокацій у гарячому циклі, і той самий код витримає граф із десятків тисяч вузлів, куди руками вже не заглянеш.
 
-```cpp
-// ripple.cpp — радіус вибуху зміни за графом одиниць коду.
-// Збірка: g++ -std=c++17 -O2 -o ripple ripple.cpp
-// Запуск: ./ripple model.units
-
-#include <algorithm>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iterator>
-#include <map>
-#include <queue>
-#include <sstream>
-#include <string>
-#include <vector>
-
-struct Unit {
-    std::string name;
-    int  lines  = 0;
-    bool hidden = false;   // споживачі спираються на обіцянку, а не на нутрощі
-    bool test   = false;   // тест звіряє поведінку, тому бачить крізь межу
-    bool slow   = false;   // потребує бази чи мережі
-};
-
-struct Change {
-    std::string name;
-    std::vector<int> seeds;            // одиниці, які відкриваєш і правиш
-};
-
-struct Model {
-    std::vector<Unit> unit;
-    std::vector<std::vector<int>> users;   // users[v] — хто спирається на v
-    std::map<std::string, int> byName;
-    std::vector<Change> change;
-
-    int id(const std::string& name) {
-        auto [it, fresh] = byName.emplace(name, static_cast<int>(unit.size()));
-        if (fresh) {
-            unit.push_back(Unit{name});
-            users.emplace_back();
-        }
-        return it->second;
-    }
-};
-
-static Model load(const char* path) {
-    std::ifstream in(path);
-    if (!in) { std::fprintf(stderr, "не відкрити %s\n", path); std::exit(1); }
-
-    Model m;
-    for (std::string raw; std::getline(in, raw); ) {
-        if (auto hash = raw.find('#'); hash != std::string::npos) raw.erase(hash);
-        std::istringstream ls(raw);
-        std::string kind;
-        if (!(ls >> kind)) continue;
-
-        if (kind == "unit") {
-            std::string name;
-            int lines = 0;
-            ls >> name >> lines;
-            Unit& u = m.unit[m.id(name)];
-            u.lines = lines;
-            for (std::string flag; ls >> flag; ) {
-                if      (flag == "hidden") u.hidden = true;
-                else if (flag == "test")   u.test   = true;
-                else if (flag == "slow")   u.test = u.slow = true;
-            }
-        } else if (kind == "dep") {
-            std::string from, to;
-            ls >> from >> to;
-            const int t = m.id(to), f = m.id(from);   // id() може посунути вектор,
-            m.users[t].push_back(f);                  // тож спершу індекси, потім доступ
-        } else if (kind == "change") {
-            Change c;
-            ls >> c.name;
-            for (std::string s; ls >> s; ) c.seeds.push_back(m.id(s));
-            m.change.push_back(std::move(c));
-        }
-    }
-    return m;
-}
-
-struct Blast {
-    std::vector<int> edit, reread, fast, slow;
-};
-
-static Blast blastOf(const Model& m, const Change& c) {
-    std::vector<char> seen(m.unit.size(), 0);
-    std::queue<int> q;
-    Blast b;
-
-    for (int s : c.seeds)
-        if (!seen[s]) { seen[s] = 1; b.edit.push_back(s); q.push(s); }
-
-    while (!q.empty()) {
-        const int v = q.front();
-        q.pop();
-        const bool holds = m.unit[v].hidden;            // межа тримає обіцянку
-        for (int w : m.users[v]) {
-            if (seen[w]) continue;
-            if (holds && !m.unit[w].test) continue;     // споживач бачить лише обіцянку
-            seen[w] = 1;
-            if (m.unit[w].test) (m.unit[w].slow ? b.slow : b.fast).push_back(w);
-            else                b.reread.push_back(w);
-            q.push(w);
-        }
-    }
-    return b;
-}
-
-static int linesOf(const Model& m, const std::vector<int>& v) {
-    int s = 0;
-    for (int i : v) s += m.unit[i].lines;
-    return s;
-}
-
-// Вартість поширення: частка пар (А, Б), де А хоч якимось шляхом дістає до Б.
-// Рахуємо лише на коді — тести до розкладу системи не належать.
-static void propagationCost(const Model& m) {
-    const int n = static_cast<int>(m.unit.size());
-    std::vector<std::vector<int>> deps(n);
-    int code = 0;
-    for (int v = 0; v < n; ++v) {
-        if (m.unit[v].test) continue;
-        ++code;
-        for (int u : m.users[v])
-            if (!m.unit[u].test) deps[u].push_back(v);
-    }
-
-    long long reach = 0;
-    for (int s = 0; s < n; ++s) {
-        if (m.unit[s].test) continue;
-        std::vector<char> seen(n, 0);
-        std::queue<int> q;
-        seen[s] = 1;
-        q.push(s);
-        while (!q.empty()) {
-            const int v = q.front();
-            q.pop();
-            ++reach;
-            for (int w : deps[v]) if (!seen[w]) { seen[w] = 1; q.push(w); }
-        }
-    }
-
-    const double sq = 1.0 * code * code;
-    std::printf("вартість поширення: %.1f %% (без діагоналі %.1f %%)\n",
-                100.0 * reach / sq,
-                code > 1 ? 100.0 * (reach - code) / (sq - code) : 0.0);
-}
-
-int main(int argc, char** argv) {
-    if (argc < 2) { std::fprintf(stderr, "вжиток: ripple <модель.units>\n"); return 1; }
-    const Model m = load(argv[1]);
-
-    int codeUnits = 0, codeLines = 0, testUnits = 0, testLines = 0;
-    for (const Unit& u : m.unit) {
-        if (u.test) { ++testUnits; testLines += u.lines; }
-        else        { ++codeUnits; codeLines += u.lines; }
-    }
-    std::printf("модель: код %d од. / %d ряд.; тести %d од. / %d ряд.\n",
-                codeUnits, codeLines, testUnits, testLines);
-    propagationCost(m);
-
-    for (const Change& c : m.change) {
-        const Blast b = blastOf(m, c);
-        const int edit = linesOf(m, b.edit), reread = linesOf(m, b.reread);
-        std::printf("\n%s: правити %zu од. / %d ряд.; перечитати %zu од. / %d ряд.\n",
-                    c.name.c_str(), b.edit.size(), edit, b.reread.size(), reread);
-        std::printf("  у голові разом: %d ряд.; тести: швидких %zu, повільних %zu\n",
-                    edit + reread, b.fast.size(), b.slow.size());
-    }
-
-    for (size_t i = 0; i < m.change.size(); ++i)
-        for (size_t j = i + 1; j < m.change.size(); ++j) {
-            std::vector<int> a = m.change[i].seeds, b = m.change[j].seeds, both;
-            std::sort(a.begin(), a.end());
-            std::sort(b.begin(), b.end());
-            std::set_intersection(a.begin(), a.end(), b.begin(), b.end(),
-                                  std::back_inserter(both));
-            if (!both.empty())
-                std::printf("\nспільні одиниці «%s» і «%s»: %zu — паралельно не зробити\n",
-                            m.change[i].name.c_str(), m.change[j].name.c_str(), both.size());
-        }
-    return 0;
-}
-```
+:::code proj-untangle-ripple/cpp/ripple.cpp
 
 Модель тут написана руками, бо в ній тринадцять рядків. Для справжнього дерева її будує [статичний аналіз](root:sf-release/static-analysis): для C і C++ список залежностей дає сам компілятор (`g++ -MM`), для TypeScript чи Go — обхід імпортів, для точності на рівні функцій — розбір дерева розбору. Формат навмисне тупий саме тому, що його має вміти виплюнути будь-який скрипт.
 
@@ -340,26 +113,7 @@ $ ./ripple step0.units
 
 Перший розріз очевидний: правило рахування нічого не потребує від світу, отже, може стати [чистою функцією без побічних дій](root:sf-apps/pure-functions-side-effects).
 
-```ts
-// rules.ts — самі правила, жодного доступу назовні
-export type Order = { amount: number; kind: "sale" | "refund" };
-
-const round2 = (v: number) => Math.round(v * 100) / 100;
-
-export function netAmount(orders: Order[]): number {
-  let net = 0;
-  for (const o of orders) net += o.kind === "refund" ? -o.amount : o.amount;
-  return Math.max(0, round2(net));
-}
-
-export function discounted(net: number): number {
-  return net > 5000 ? round2(net * 0.95) : net;
-}
-
-export function totalDue(orders: Order[]): number {
-  return round2(discounted(netAmount(orders)) * 1.2);   // ПДВ 20 %
-}
-```
+:::code proj-untangle-ripple/ts/rules.ts
 
 У сплетеній функції лишилося шістнадцять рядків: підпис, чотири на запит, чотири на порожній випадок, виклик правила, рядок формату з виводом, чотири на журнал і закривна дужка. Зате ставку тепер можна перевірити за мілісекунди — без бази, без перехоплення виводу:
 
@@ -392,18 +146,7 @@ test("ставка й знижка", () => {
 
 Формат — це два рядки, які треба відокремити не заради розміру, а заради того, щоб вони мали власне ім'я й власний тест.
 
-```ts
-// money.ts — лише подання грошей рядком
-export function formatMoney(v: number): string {
-  const rounded = Math.round(v * 100) / 100;
-  return `${rounded.toFixed(2)} грн`;
-}
-
-// invoice.ts — що саме пишемо користувачеві
-export function invoiceLine(total: number): string {
-  return `Разом до сплати: ${formatMoney(total)}`;
-}
-```
+:::code proj-untangle-ripple/ts/money.ts
 
 Сама сплетена функція від цього не покоротшала — рядок `const line = …; console.log(line)` просто став `console.log(invoiceLine(total))`, ті самі шістнадцять рядків. Переїхав не обсяг, а клопіт. `invoiceLine` дістає в моделі позначку `hidden`, і це не подарунок собі: той, хто його друкує, справді не розбирає рядок на частини. Заміри (вивід стисло):
 
@@ -430,48 +173,7 @@ export function formatMoney(v: number): string {
 
 Лишилося найцікавіше — і найменш вдячне за мірилом рядків. Сценарій звіту досі сам ходить у базу. Розрізаємо це [інверсією залежності](root:sf-apps/dependency-inversion): сценарій оголошує, чого хоче від світу, а хто це дасть — вирішують зовні.
 
-```ts
-// ports.ts — що звіт вимагає від світу, без згадки про базу
-export interface OrdersSource {
-  ordersOf(userId: number, month: string): Promise<Order[]>;
-}
-
-// sqlOrders.ts — один із можливих постачальників замовлень
-export class SqlOrders implements OrdersSource {
-  constructor(private db: Db) {}
-
-  async ordersOf(userId: number, month: string): Promise<Order[]> {
-    const rows = await this.db.query<{ amount: number; kind: string }>(
-      "select amount, kind from orders where user_id = ? and month = ? and status = 'paid'",
-      [userId, month],
-    );
-    return rows.map((r) => ({
-      amount: r.amount,
-      kind: r.kind === "refund" ? "refund" : "sale",
-    }));
-  }
-}
-
-// report.ts — сценарій: узяти замовлення, порахувати, скласти рядок
-export async function monthlyInvoice(src: OrdersSource, userId: number, month: string) {
-  const orders = await src.ordersOf(userId, month);
-  if (orders.length === 0) return { total: 0, line: "Замовлень за місяць немає" };
-  const total = totalDue(orders);
-  return { total, line: invoiceLine(total) };
-}
-
-// main.ts — композиційний корінь: тут і тільки тут вибирають реалізації
-async function main() {
-  const db = await openDb(process.env.DB_URL!);
-  const src = new SqlOrders(db);
-  const [userId, month] = [Number(process.argv[2]), process.argv[3]];
-  const { total, line } = await monthlyInvoice(src, userId, month);
-  console.log(line);
-  await logInvoice(db, userId, month, total);
-  await db.close();
-}
-main();
-```
+:::code proj-untangle-ripple/ts/ports.ts
 
 Це знайомий розклад [портів і адаптерів](root:sf-apps/hexagonal-architecture), але тут він цікавий не назвою, а тим, що з ним робить мірка. Модель тепер така:
 

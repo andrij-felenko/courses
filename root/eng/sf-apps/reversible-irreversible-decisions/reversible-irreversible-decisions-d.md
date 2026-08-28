@@ -145,53 +145,9 @@
 **Сторож шва як fitness-функція.** Хай правило буде просте: жоден код поза пакетом-адаптером не сміє залежати від конкретного драйвера бази — уся система знає лише порт-інтерфейс.
 
 :::tabs
-```java
-// Java, ArchUnit: правило архітектури як звичайний тест — падає на білді
-@AnalyzeClasses(packages = "com.shop")
-class SeamGuardTest {
-    @ArchTest
-    static final ArchRule db_driver_stays_behind_the_adapter =
-        noClasses()
-            .that().resideOutsideOfPackage("..persistence.adapter..")
-            .should().dependOnClassesThat().resideInAPackage("org.postgresql..");
-    // будь-який імпорт драйвера повз адаптер = червоний білд
-}
-```
-```ts
-// TypeScript, ts-morph: обійти імпорти й упасти, якщо драйвер протік повз адаптер
-import { Project } from "ts-morph";
-
-const project = new Project({ tsConfigFilePath: "tsconfig.json" });
-const leaks = project.getSourceFiles()
-    .filter(f => !f.getFilePath().includes("/persistence/adapter/"))
-    .filter(f => f.getImportDeclarations()
-        .some(d => d.getModuleSpecifierValue().startsWith("pg")));
-
-if (leaks.length > 0) {
-    console.error("Драйвер бази протік повз адаптер:", leaks.map(f => f.getFilePath()));
-    process.exit(1);           // завалюємо білд — шов порушено
-}
-```
-```py
-# Python, ast: пройти дерева імпортів і впасти, якщо драйвер поза адаптером
-import ast, pathlib, sys
-
-leaks = []
-for path in pathlib.Path("shop").rglob("*.py"):
-    if "persistence/adapter" in str(path):
-        continue                          # адаптеру драйвер знати можна
-    tree = ast.parse(path.read_text(encoding="utf-8"))
-    for node in ast.walk(tree):
-        if isinstance(node, (ast.Import, ast.ImportFrom)):
-            name = getattr(node, "module", "") or ""
-            names = [a.name for a in getattr(node, "names", [])]
-            if "psycopg2" in name or "psycopg2" in names:
-                leaks.append(str(path))
-
-if leaks:
-    print("Драйвер бази протік повз адаптер:", leaks)
-    sys.exit(1)                           # завалюємо білд — шов порушено
-```
+:::code reversible-irreversible-decisions-d/java/main.java
+:::code reversible-irreversible-decisions-d/ts/index.ts
+:::code reversible-irreversible-decisions-d/py/main.py
 :::
 
 Така перевірка коштує десяток рядків, а робить те, чого не зробить жодна пильність: тримає шов чесним автоматично, назавжди, попри плинність команди й тиск термінів. Двері, які вона стереже, не тануть.

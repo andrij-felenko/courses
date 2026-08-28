@@ -40,81 +40,9 @@
 Для прикладу візьмімо той самий контракт експортера з тіла статті — «дай розширення файлу й умій перетворити документ на байти», — але тепер додамо йому номер і точку входу:
 
 :::tabs
-```python
-# contract.py — це знають ОБИДВІ сторони: і ядро, і кожен автор плагіна.
-# Номер версії контракту. Піднімаємо його ЩОРАЗУ, коли міняємо форму гнізда
-# так, що старі плагіни перестають працювати (несумісна зміна).
-HOST_API = 3
-
-from typing import Protocol
-
-class Exporter(Protocol):
-    extension: str                                   # "pdf", "html", "md"
-    def export(self, doc: "Document") -> bytes: ...  # документ -> байти
-
-class Host(Protocol):
-    """Вузьке вікно, яке ядро дає плагінові. НІЧОГО, крім цього, плагін
-    про ядро не знає — і не може дотягтись до його нутрощів."""
-    def register_exporter(self, e: Exporter) -> None: ...
-
-# Умовлена точка входу. КОЖЕН плагін-файл зобов'язаний виставити саме її:
-#     PLUGIN_API = 3
-#     def register(host: Host) -> None: ...
-```
-```ts
-// contract.ts — це знають ОБИДВІ сторони: і ядро, і кожен автор плагіна.
-// Номер версії контракту. Піднімаємо його ЩОРАЗУ, коли міняємо форму гнізда
-// так, що старі плагіни перестають працювати (несумісна зміна).
-export const HOST_API = 3;
-
-export interface Exporter {
-  readonly extension: string;               // "pdf", "html", "md"
-  export(doc: Document): Uint8Array;        // документ -> байти
-}
-
-export interface Host {
-  // Вузьке вікно, яке ядро дає плагінові. НІЧОГО, крім цього, плагін
-  // про ядро не знає — і не може дотягтись до його нутрощів.
-  registerExporter(e: Exporter): void;
-}
-
-// Умовлена форма плагіна: модуль ЗОБОВ'ЯЗАНИЙ експортувати саме це —
-//   export const PLUGIN_API = 3;
-//   export function register(host: Host): void { ... }
-```
-```cpp
-// contract.h — це знають ОБИДВІ сторони: і ядро, і кожен автор плагіна.
-#pragma once
-#include <cstdint>
-#include <string>
-#include <vector>
-
-// Номер версії контракту. Піднімаємо його ЩОРАЗУ, коли міняємо форму гнізда
-// так, що старі плагіни перестають працювати (несумісна зміна).
-inline constexpr int HOST_API = 3;
-
-struct Block { std::string title; std::string body; };
-struct Document { std::vector<Block> blocks; };
-
-struct Exporter {
-    virtual std::string extension() const = 0;                              // "pdf", "html", "md"
-    virtual std::vector<std::uint8_t> exportDoc(const Document&) const = 0; // документ -> байти
-    virtual ~Exporter() = default;
-};
-
-struct Host {
-    // Вузьке вікно, яке ядро дає плагінові. НІЧОГО, крім цього, плагін
-    // про ядро не знає — і не може дотягтись до його нутрощів.
-    virtual void registerExporter(Exporter* e) = 0;
-    virtual ~Host() = default;
-};
-
-// Умовлена форма плагіна: спільна бібліотека ЗОБОВ'ЯЗАНА виставити НАЗОВНІ
-// два символи з C-зв'язуванням (стабільні, без манглінгу імена в .so).
-// export/register — ключові слова C++, тож точка входу зветься plugin_register:
-//   extern "C" const int PLUGIN_API = 3;
-//   extern "C" void plugin_register(Host& host);
-```
+:::code proj-plugin-loader/py/contract.py
+:::code proj-plugin-loader/ts/contract.ts
+:::code proj-plugin-loader/cpp/kontrakt-nomer-versii.hpp
 :::
 
 Зверни увагу на об'єкт `Host`. Це не саме ядро й не купа його полів — це **навмисно звужене вікно** рівно з тими діями, які плагінам справді потрібні. Плагін дістає `register_exporter` — і більше нічого. Він не бачить ні буфера тексту, ні файлової системи ядра, ні реєстру напряму. Кожна дія, яку ти **не** поклав у `Host`, — це дія, якої чужий код зробити не зможе, хоч би як хотів. Тут проходить перша, найдешевша лінія оборони периметра: вузький `host` обмежує чужий код не забороною, а браком самої можливості. Це прямо продовжує [поділ інтерфейсу й реалізації](root:sf-apps/interface-vs-implementation): плагін бачить контракт, нутрощі ядра лишаються приховані.
@@ -124,64 +52,9 @@ struct Host {
 Щоб було на чому випробувати завантажувач, ось справний плагін — окремий файл, який автор ядра ніколи не бачив. Він знає тільки контракт: оголошує свою версію, реалізує `Exporter` і в `register` вписує себе через `host`.
 
 :::tabs
-```python
-# plugins/markdown_exporter.py — сторонній файл у теці plugins/.
-PLUGIN_API = 3                      # під яку версію контракту зібрано
-
-class MarkdownExporter:
-    extension = "md"
-    def export(self, doc) -> bytes:
-        text = "\n\n".join(f"# {b.title}\n\n{b.body}" for b in doc.blocks)
-        return text.encode("utf-8")
-
-def register(host) -> None:         # умовлена точка входу
-    host.register_exporter(MarkdownExporter())
-```
-```ts
-// plugins/markdownExporter.ts — сторонній файл у теці plugins/.
-import type { Host, Exporter, Document } from "../contract";
-
-export const PLUGIN_API = 3;        // під яку версію контракту зібрано
-
-class MarkdownExporter implements Exporter {
-  readonly extension = "md";
-  export(doc: Document): Uint8Array {
-    const text = doc.blocks.map(b => `# ${b.title}\n\n${b.body}`).join("\n\n");
-    return new TextEncoder().encode(text);
-  }
-}
-
-export function register(host: Host): void {   // умовлена точка входу
-  host.registerExporter(new MarkdownExporter());
-}
-```
-```cpp
-// plugins/markdown_exporter.cpp — сторонній файл, зібраний у markdown_exporter.so:
-//   g++ -std=c++17 -shared -fPIC markdown_exporter.cpp -o markdown_exporter.so
-#include "contract.h"
-
-extern "C" const int PLUGIN_API = 3;      // під яку версію контракту зібрано
-
-namespace {                               // клас не світиться назовні
-class MarkdownExporter : public Exporter {
-public:
-    std::string extension() const override { return "md"; }
-    std::vector<std::uint8_t> exportDoc(const Document& doc) const override {
-        std::string text;
-        for (const auto& b : doc.blocks) {
-            if (!text.empty()) text += "\n\n";
-            text += "# " + b.title + "\n\n" + b.body;
-        }
-        return {text.begin(), text.end()};   // рядок -> байти
-    }
-};
-}  // namespace
-
-extern "C" void plugin_register(Host& host) {   // умовлена точка входу
-    static MarkdownExporter exporter;            // живе весь час роботи ядра
-    host.registerExporter(&exporter);
-}
-```
+:::code proj-plugin-loader/py/markdown_exporter.py
+:::code proj-plugin-loader/ts/markdownExporter.ts
+:::code proj-plugin-loader/cpp/markdown_exporter.cpp
 :::
 
 Файл повністю самодостатній. Його можна написати, покласти в теку й прибрати, ні на йоту не чіпаючи ядра, — рівно те, заради чого плагіни й існують. Тепер напишімо ту частину ядра, що вміє знайти цей файл, оживити його й дати йому зареєструватися, — і вистояти, коли на його місці опиниться файл гнилий.
@@ -203,368 +76,33 @@ extern "C" void plugin_register(Host& host) {   // умовлена точка �
 **Крок 1. Реєстр і host — вузьке вікно ядра.** Реєстр — звичайний словник «розширення → плагін», а `host` виставляє плагінам лише дозволену дію:
 
 :::tabs
-```python
-import importlib.util
-import logging
-import sys
-from pathlib import Path
-
-from contract import HOST_API   # версія, яку вміє ЦЕ ядро
-
-log = logging.getLogger("loader")
-
-
-class ExportRegistry:
-    """Серце ядра: сюди плагіни складають себе, звідси ядро їх бере."""
-    def __init__(self) -> None:
-        self._by_ext: dict[str, object] = {}
-
-    def register(self, e) -> None:
-        self._by_ext[e.extension] = e
-
-    def export_as(self, ext: str, doc) -> bytes:
-        return self._by_ext[ext].export(doc)
-
-
-class Host:
-    """Єдине вікно, яке ядро дає плагінові. Плагін дотягується до ядра
-    ТІЛЬКИ через методи цього об'єкта — і нікуди більше."""
-    def __init__(self, registry: ExportRegistry) -> None:
-        self._registry = registry
-
-    def register_exporter(self, e) -> None:
-        # можна ще й перевірити тип e, щоб кривий плагін не поклав дурницю
-        self._registry.register(e)
-```
-```ts
-import { pathToFileURL } from "node:url";
-import { readdir } from "node:fs/promises";
-import * as path from "node:path";
-import { HOST_API, type Exporter, type Host } from "./contract";
-
-// проста заміна логера — у реальному ядрі це ваш logger
-const log = console;
-
-class ExportRegistry {
-  // Серце ядра: сюди плагіни складають себе, звідси ядро їх бере.
-  private byExt = new Map<string, Exporter>();
-
-  register(e: Exporter): void {
-    this.byExt.set(e.extension, e);
-  }
-
-  exportAs(ext: string, doc: Document): Uint8Array {
-    const e = this.byExt.get(ext);
-    if (!e) throw new Error(`немає плагіна для .${ext}`);
-    return e.export(doc);
-  }
-}
-
-class HostImpl implements Host {
-  // Єдине вікно, яке ядро дає плагінові. Плагін дотягується до ядра
-  // ТІЛЬКИ через методи цього об'єкта — і нікуди більше.
-  constructor(private readonly registry: ExportRegistry) {}
-
-  registerExporter(e: Exporter): void {
-    this.registry.register(e);
-  }
-}
-```
-```cpp
-// loader.cpp — ядро. Збірка: g++ -std=c++17 loader.cpp -ldl -o core
-#include "contract.h"
-#include <dlfcn.h>          // dlopen, dlsym, dlclose, dlerror
-#include <filesystem>
-#include <iostream>
-#include <map>
-#include <algorithm>
-#include <stdexcept>
-
-namespace fs = std::filesystem;
-
-// проста заміна логера — у реальному ядрі це ваш logger
-static void warn(const std::string& m) { std::cerr << "WARN: " << m << '\n'; }
-static void info(const std::string& m) { std::cerr << "INFO: " << m << '\n'; }
-
-class ExportRegistry {
-    // Серце ядра: сюди плагіни складають себе, звідси ядро їх бере.
-    std::map<std::string, Exporter*> byExt;
-public:
-    void add(Exporter* e) { byExt[e->extension()] = e; }   // "register" — слово C++
-    bool has(const std::string& ext) const { return byExt.count(ext) != 0; }
-    std::vector<std::uint8_t> exportAs(const std::string& ext, const Document& doc) {
-        return byExt.at(ext)->exportDoc(doc);   // .at кине out_of_range, якщо плагіна нема
-    }
-};
-
-class HostImpl : public Host {
-    // Єдине вікно, яке ядро дає плагінові. Плагін дотягується до ядра
-    // ТІЛЬКИ через методи цього об'єкта — і нікуди більше.
-    ExportRegistry& registry;
-public:
-    explicit HostImpl(ExportRegistry& r) : registry(r) {}
-    void registerExporter(Exporter* e) override { registry.add(e); }
-};
-```
+:::code proj-plugin-loader/py/robochyi-zavantazhuvach.py
+:::code proj-plugin-loader/ts/robochyi-zavantazhuvach.ts
+:::code proj-plugin-loader/cpp/loader.cpp
 :::
 
 **Крок 2. Завантажити один файл і звірити версію — усе під пасткою.** Це найтонша функція: вона тримає першу й другу гілку «не так». Завантаження може вибухнути (биткий файл, помилка в коді верхнього рівня модуля); версія може не зійтися. Обидва випадки — не падіння, а зрозумілий виняток, який зловить цикл:
 
 :::tabs
-```python
-class PluginError(Exception):
-    """Плагін не придатний — з поясненням, придатним для журналу."""
-
-
-def load_one(pyfile: Path) -> object:
-    """Оживити ОДИН файл у модуль і звірити версію контракту.
-    Кидає PluginError із людською причиною, якщо щось не так."""
-    name = f"plugins.{pyfile.stem}"
-
-    # -- фаза «завантажити»: тут виконується ЧУЖИЙ код верхнього рівня --
-    spec = importlib.util.spec_from_file_location(name, pyfile)
-    if spec is None or spec.loader is None:
-        raise PluginError(f"{pyfile.name}: не вдалося прочитати як модуль")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module          # щоб модуль знаходив себе за іменем
-    try:
-        spec.loader.exec_module(module)  # <-- гострий крок: виконати файл
-    except Exception as e:
-        sys.modules.pop(name, None)      # прибрати напівживий модуль
-        # ланцюжок винятку зберігаємо через "from e" — у журналі буде видно,
-        # ЩО саме кинув плагін і на якому рядку його файлу
-        raise PluginError(f"{pyfile.name}: збій при завантаженні: {e!r}") from e
-
-    # -- фаза «звірити версію»: раніше, ніж чіпати register --
-    api = getattr(module, "PLUGIN_API", None)
-    if api != HOST_API:
-        raise PluginError(
-            f"{pyfile.name}: несумісний контракт "
-            f"(плагін під API {api!r}, ядро дає {HOST_API})"
-        )
-    if not hasattr(module, "register"):
-        raise PluginError(f"{pyfile.name}: немає точки входу register(host)")
-    return module
-```
-```ts
-class PluginError extends Error {}   // плагін не придатний, із поясненням
-
-interface PluginModule {
-  PLUGIN_API?: unknown;
-  register?: (host: Host) => void;
-}
-
-async function loadOne(file: string): Promise<PluginModule> {
-  // -- фаза «завантажити»: тут виконується ЧУЖИЙ код верхнього рівня --
-  let mod: PluginModule;
-  try {
-    // pathToFileURL обов'язковий: на Windows "C:\..." не є валідним
-    // специфікатором модуля, а file://-URL — є.
-    mod = (await import(pathToFileURL(file).href)) as PluginModule;
-  } catch (e) {
-    throw new PluginError(`${path.basename(file)}: збій при завантаженні: ${String(e)}`);
-  }
-
-  // -- фаза «звірити версію»: раніше, ніж чіпати register --
-  if (mod.PLUGIN_API !== HOST_API) {
-    throw new PluginError(
-      `${path.basename(file)}: несумісний контракт ` +
-      `(плагін під API ${String(mod.PLUGIN_API)}, ядро дає ${HOST_API})`,
-    );
-  }
-  if (typeof mod.register !== "function") {
-    throw new PluginError(`${path.basename(file)}: немає точки входу register(host)`);
-  }
-  return mod;
-}
-```
-```cpp
-struct PluginError : std::runtime_error {          // плагін не придатний, із поясненням
-    using std::runtime_error::runtime_error;
-};
-
-using RegisterFn = void (*)(Host&);   // тип умовленої точки входу
-
-// Оживити ОДИН .so, звірити версію, повернути вказівник на plugin_register.
-// Кидає PluginError із людською причиною, якщо щось не так.
-RegisterFn load_one(const fs::path& file) {
-    const std::string name = file.filename().string();
-
-    // -- фаза «завантажити»: dlopen вливає ЧУЖИЙ код у наш процес --
-    // RTLD_NOW: зв'язати всі символи ОДРАЗУ, щоб биткий плагін упав тут,
-    // а не колись потім усередині виклику. RTLD_LOCAL: не світити його символи.
-    void* handle = dlopen(file.c_str(), RTLD_NOW | RTLD_LOCAL);
-    if (!handle)
-        throw PluginError(name + ": збій при завантаженні: " + dlerror());
-
-    // -- фаза «звірити версію»: раніше, ніж чіпати plugin_register --
-    auto* api = reinterpret_cast<const int*>(dlsym(handle, "PLUGIN_API"));
-    if (!api || *api != HOST_API) {
-        std::string had = api ? std::to_string(*api) : "?";
-        dlclose(handle);                     // прибрати несумісний модуль
-        throw PluginError(name + ": несумісний контракт (плагін під API "
-                          + had + ", ядро дає " + std::to_string(HOST_API) + ")");
-    }
-
-    auto reg = reinterpret_cast<RegisterFn>(dlsym(handle, "plugin_register"));
-    if (!reg) {
-        dlclose(handle);
-        throw PluginError(name + ": немає точки входу plugin_register(host)");
-    }
-    return reg;   // handle навмисно лишаємо відкритим: код плагіна має жити далі
-}
-```
+:::code proj-plugin-loader/py/robochyi-zavantazhuvach-2.py
+:::code proj-plugin-loader/ts/robochyi-zavantazhuvach-2.ts
+:::code proj-plugin-loader/cpp/robochyi-zavantazhuvach.cpp
 :::
 
 **Крок 3. Цикл по теці — серце завантажувача.** Він сканує `plugins/`, для кожного файлу пробує завантажити, звірити й гукнути `register`, і **кожен збій ловить окремо**, щоб один поганий файл не зачепив ні ядро, ні решту. Це та петля, у якій живе вся надійність:
 
 :::tabs
-```python
-def load_plugins(folder: Path, registry: ExportRegistry) -> None:
-    host = Host(registry)
-    loaded, failed = 0, 0
-
-    for pyfile in sorted(folder.glob("*.py")):
-        if pyfile.name.startswith("_"):
-            continue                      # службові файли — не плагіни
-        try:
-            module = load_one(pyfile)     # фази 1-2: завантажити + звірити версію
-
-            # -- фаза «register»: знову ЧУЖИЙ код, знову під пасткою --
-            try:
-                module.register(host)     # <-- плагін вписує себе в реєстр
-            except Exception as e:
-                raise PluginError(
-                    f"{pyfile.name}: register(host) кинув {e!r}"
-                ) from e
-
-        except PluginError as e:
-            # ЄДИНЕ місце, де збій плагіна гаситься: логуємо й беремо наступний.
-            log.warning("плагін пропущено — %s", e)
-            failed += 1
-            continue                      # <-- ядро НЕ падає, цикл іде далі
-        else:
-            loaded += 1
-
-    log.info("плагінів завантажено: %d, пропущено: %d", loaded, failed)
-```
-```ts
-async function loadPlugins(folder: string, registry: ExportRegistry): Promise<void> {
-  const host = new HostImpl(registry);
-  let loaded = 0, failed = 0;
-
-  const entries = (await readdir(folder))
-    .filter(n => n.endsWith(".js") && !n.startsWith("_"))
-    .sort();
-
-  for (const name of entries) {
-    const file = path.join(folder, name);
-    try {
-      const mod = await loadOne(file);           // фази 1-2
-
-      // -- фаза «register»: знову ЧУЖИЙ код, знову під пасткою --
-      try {
-        mod.register!(host);                      // плагін вписує себе в реєстр
-      } catch (e) {
-        throw new PluginError(`${name}: register(host) кинув ${String(e)}`);
-      }
-      loaded++;
-    } catch (e) {
-      if (e instanceof PluginError) {
-        // ЄДИНЕ місце, де збій плагіна гаситься: логуємо й беремо наступний.
-        log.warn(`плагін пропущено — ${e.message}`);
-        failed++;
-        continue;                                 // ядро НЕ падає
-      }
-      throw e;                                     // не наша помилка — не ковтаємо
-    }
-  }
-
-  log.info(`плагінів завантажено: ${loaded}, пропущено: ${failed}`);
-}
-```
-```cpp
-void load_plugins(const fs::path& folder, ExportRegistry& registry) {
-    HostImpl host(registry);
-    int loaded = 0, failed = 0;
-
-    std::vector<fs::path> files;               // зібрати кандидатів і впорядкувати
-    for (const auto& entry : fs::directory_iterator(folder)) {
-        const fs::path& p = entry.path();
-        if (p.extension() == ".so" && p.filename().string().front() != '_')
-            files.push_back(p);                // службові файли на "_" — не плагіни
-    }
-    std::sort(files.begin(), files.end());
-
-    for (const auto& file : files) {
-        try {
-            RegisterFn reg = load_one(file);   // фази 1-2: завантажити + звірити версію
-
-            // -- фаза «register»: знову ЧУЖИЙ код, знову під пасткою --
-            // Пастка ловить лише C++-виняток з плагіна; сегфолт вона НЕ спіймає —
-            // за цією межею потрібна вже пісочниця (див. периметр довіри нижче).
-            try {
-                reg(host);                     // плагін вписує себе в реєстр
-            } catch (const std::exception& e) {
-                throw PluginError(file.filename().string()
-                                  + ": plugin_register кинув " + e.what());
-            }
-            ++loaded;
-        } catch (const PluginError& e) {
-            // ЄДИНЕ місце, де збій плагіна гаситься: логуємо й беремо наступний.
-            warn(std::string("плагін пропущено — ") + e.what());
-            ++failed;
-            continue;                          // ядро НЕ падає, цикл іде далі
-        }
-    }
-    info("плагінів завантажено: " + std::to_string(loaded)
-         + ", пропущено: " + std::to_string(failed));
-}
-```
+:::code proj-plugin-loader/py/robochyi-zavantazhuvach-3.py
+:::code proj-plugin-loader/ts/robochyi-zavantazhuvach-3.ts
+:::code proj-plugin-loader/cpp/robochyi-zavantazhuvach-2.cpp
 :::
 
 **Крок 4. Точка збірки — і ядро працює далі.** Тут ядро створює реєстр, наповнює його з теки й одразу починає ним користуватися. Байдуже, скільки плагінів у теці збоїло, — ядро дійшло сюди живим:
 
 :::tabs
-```python
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
-
-    registry = ExportRegistry()
-    load_plugins(Path("plugins"), registry)       # тека могла мати й гнилі файли
-
-    # ядро працює з тими, що завантажились; несправні просто відсутні в реєстрі
-    doc = ...                                      # якийсь документ ядра
-    if "md" in registry._by_ext:
-        data = registry.export_as("md", doc)
-```
-```ts
-async function main(): Promise<void> {
-  const registry = new ExportRegistry();
-  await loadPlugins(path.resolve("plugins"), registry);  // могли бути й гнилі файли
-
-  // ядро працює з тими, що завантажились; несправні просто відсутні в реєстрі
-  const doc = /* якийсь документ ядра */ null as unknown as Document;
-  try {
-    const data = registry.exportAs("md", doc);
-  } catch { /* плагіна .md не завантажилось — ядро це переживає */ }
-}
-main();
-```
-```cpp
-int main() {
-    ExportRegistry registry;
-    load_plugins("plugins", registry);   // тека могла мати й гнилі .so
-
-    // ядро працює з тими, що завантажились; несправні просто відсутні в реєстрі
-    Document doc = /* якийсь документ ядра */ {};
-    if (registry.has("md")) {
-        std::vector<std::uint8_t> data = registry.exportAs("md", doc);
-        (void)data;   // ... ядро віддає байти користувачеві
-    }
-    return 0;
-}
-```
+:::code proj-plugin-loader/py/robochyi-zavantazhuvach-4.py
+:::code proj-plugin-loader/ts/robochyi-zavantazhuvach-4.ts
+:::code proj-plugin-loader/cpp/robochyi-zavantazhuvach-3.cpp
 :::
 
 Ось і весь завантажувач. Кинь у теку `plugins/` файл `markdown_exporter.py` згори — він завантажиться, звіриться (API 3 = 3), зареєструється, і `export_as("md", …)` запрацює. Кинь поряд недописаний файл, що падає на першому рядку, — цикл спіймає `PluginError`, залогує «збій при завантаженні», обмине його й далі візьме наступний. Кинь плагін із `PLUGIN_API = 2` — його чесно відхилить звірка версій із запису «несумісний контракт», і жодного невиразного падіння в нутрощах пізніше не станеться. Ядро в усіх трьох випадках лишається живим і корисним.

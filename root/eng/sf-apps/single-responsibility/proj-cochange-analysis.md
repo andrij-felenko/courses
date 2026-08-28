@@ -34,28 +34,7 @@
 
 Матеріал добуваємо однією командою. Якщо `git log` і поняття коміту — ще нове, варто спершу зазирнути в [Контроль версій і git](root:sf-release/version-control): коміт — це знімок змін із метаданими, а `--name-only` додає до кожного список змінених файлів.
 
-```python
-import subprocess
-from collections import Counter
-from itertools import combinations
-
-def read_commits(repo="."):
-    """Список комітів; кожен — множина змінених у ньому файлів."""
-    out = subprocess.run(
-        ["git", "-C", repo, "log", "--no-merges",
-         "--name-only", "--pretty=format:%x00%H"],
-        capture_output=True, text=True, check=True,
-    ).stdout
-    commits = []
-    for chunk in out.split("\x00"):        # \x00 — наш роздільник комітів
-        lines = chunk.splitlines()
-        if not lines:
-            continue
-        files = {ln for ln in lines[1:] if ln}   # рядок 0 — хеш; далі файли
-        if files:
-            commits.append(files)
-    return commits
-```
+:::code proj-cochange-analysis/py/krok-1-vytiahty-istoriiu-z.py
 
 Кожен прапорець тут несе вагу. `--name-only` друкує під кожним комітом список його файлів — власне те, що нам і треба. `--no-merges` викидає коміти-злиття: merge заново «торкається» всього, що розійшлося в гілках, і роздуває фальшиві зв'язки, нічого не кажучи про наміри автора. А `--pretty=format:%x00%H` — маленький трюк розбору: `%x00` вставляє перед кожним записом невидимий байт-нуль, і ми ділимо вивід саме по ньому, а не вгадуємо межі комітів за порожніми рядками. Це робить парсер стійким: розбили по `\x00`, у кожному шматку перший рядок — хеш, решта непорожніх — файли. Множина (`set`) заразом прибирає можливі дублікати рядків, тож файл рахується раз на коміт.
 
@@ -74,20 +53,7 @@ def read_commits(repo="."):
 
 Один-єдиний рефактор на 200 файлів вкидає в лічильники майже двадцять тисяч фальшивих пар. Кілька таких комітів — і справжні шви тонуть у шумі. Ліки прості: **пропускати коміти, більші за поріг** `K`. Змістовна зміна за один намір рідко чіпає більше кількох файлів; усе, що ширше, — майже напевно механічне причісування, а не робота однієї сили.
 
-```python
-def cochange(commits, max_files=12):
-    """Лічильники: скільки разів мінявся кожен файл і кожна пара разом."""
-    file_count = Counter()
-    pair_count = Counter()
-    for files in commits:
-        if len(files) > max_files:            # відсів шумового мега-коміту
-            continue
-        for f in files:
-            file_count[f] += 1
-        for a, b in combinations(sorted(files), 2):
-            pair_count[(a, b)] += 1
-    return file_count, pair_count
-```
+:::code proj-cochange-analysis/py/krok-2-vidsiiaty-shumovi.py
 
 `sorted(files)` перед `combinations` дає **впорядкований** ключ пари: `(a, b)` завжди з `a < b`, тож пара «звіт+політика» рахується в одну комірку, хоч би в якому порядку файли стояли в коміті. `Counter` бере на себе підрахунок.
 
@@ -97,25 +63,7 @@ def cochange(commits, max_files=12):
 
 Лишається перетворити лічильники на впорядкований список. На кожну пару рахуємо обидві напрямлені впевненості, орієнтуємо правило за сильнішим боком (за домовленістю Аґравала правило пишуть як імплікацію X⇒Y), відсіюємо слабке за порогами й сортуємо.
 
-```python
-def rank(file_count, pair_count, min_support=3, min_conf=0.5):
-    """Пари над порогами, орієнтовані за сильнішим боком, від сильних до слабких."""
-    rows = []
-    for (a, b), support in pair_count.items():
-        if support < min_support:
-            continue
-        conf_a = support / file_count[a]      # впевненість a ⇒ b
-        conf_b = support / file_count[b]      # впевненість b ⇒ a
-        if conf_a >= conf_b:                  # орієнтуємо за сильнішим боком
-            src, dst, conf, rev = a, b, conf_a, conf_b
-        else:
-            src, dst, conf, rev = b, a, conf_b, conf_a
-        if conf < min_conf:
-            continue
-        rows.append((conf, support, rev, src, dst))
-    rows.sort(reverse=True)
-    return rows
-```
+:::code proj-cochange-analysis/py/krok-3-metryka-i.py
 
 `conf` — сила правила в його сильнішому напрямку; `rev` — впевненість назад, і саме розрив між ними невдовзі скаже нам найбільше.
 
@@ -127,18 +75,7 @@ def rank(file_count, pair_count, min_support=3, min_conf=0.5):
 
 Драйвер лишень зчитує репозиторій, рахує й друкує таблицю:
 
-```python
-if __name__ == "__main__":
-    import sys
-    repo = sys.argv[1] if len(sys.argv) > 1 else "."
-    commits = read_commits(repo)
-    file_count, pair_count = cochange(commits)
-    print(f"комітів (без merge): {len(commits)}")
-    print(f"пар усього: {len(pair_count)}\n")
-    print(f"{'conf':>5} {'supp':>4} {'rev':>5}   правило (міняли X → міняли й Y)")
-    for conf, support, rev, src, dst in rank(file_count, pair_count):
-        print(f"{conf:5.2f} {support:4d} {rev:5.2f}   {src}  ⇒  {dst}")
-```
+:::code proj-cochange-analysis/py/povnyi-skrypt-i-vyvid-na.py
 
 Усе — близько п'ятдесяти рядків. Тепер проженімо його на крихітній історії, зумисне зліпленій так, щоб у ній сидів прихований шов. Уяви кадрову систему з чотирьох файлів: `pay_calculator.py` (зарплата, актор — фінанси), `hour_reporter.py` (звіт про години, актор — операції), `employee_repo.py` (збереження в базу, актор — інфраструктура) і `hours_policy.py` — непримітний файлик, у якому живе правило «скільки годин рахувати звичайними». І зарплата, і звіт мусять це правило знати, тож обидва актори раз за разом правлять `hours_policy` разом зі своїм файлом. А наприкінці — один коміт масового переформатування, що торкнувся всього дерева. Ось що бачить інструмент:
 

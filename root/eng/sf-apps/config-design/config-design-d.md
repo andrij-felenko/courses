@@ -51,51 +51,8 @@
 Ось цей порядок, зібраний у код. Кожен наступний пласт накладається поверх попереднього звичайним злиттям словників:
 
 :::tabs
-```python
-import os
-
-def load_config():
-    # 1. Найслабший пласт: типові значення просто в коді
-    cfg = {"port": 3000, "log_level": "info", "db_url": "localhost:5432"}
-
-    # 2. Спільний файл — те, що однакове скрізь
-    cfg.update(read_yaml("config.yaml"))
-
-    # 3. Файл конкретного середовища перекриває спільний
-    env = os.environ.get("APP_ENV", "dev")
-    cfg.update(read_yaml(f"config.{env}.yaml"))
-
-    # 4. Змінні середовища сильніші за файли (сюди хмара кладе секрети)
-    if "PORT" in os.environ:
-        cfg["port"] = int(os.environ["PORT"])
-    if "DB_URL" in os.environ:
-        cfg["db_url"] = os.environ["DB_URL"]
-
-    # 5. Аргумент рядка перебиває все — разове ручне втручання
-    cfg.update(parse_cli_overrides())
-    return cfg
-```
-```ts
-function loadConfig(): Config {
-  // 1. Найслабший пласт: типові значення просто в коді
-  let cfg: Partial<Config> = { port: 3000, logLevel: "info", dbUrl: "localhost:5432" };
-
-  // 2. Спільний файл — те, що однакове скрізь
-  cfg = { ...cfg, ...readYaml("config.yaml") };
-
-  // 3. Файл конкретного середовища перекриває спільний
-  const env = process.env.APP_ENV ?? "dev";
-  cfg = { ...cfg, ...readYaml(`config.${env}.yaml`) };
-
-  // 4. Змінні середовища сильніші за файли (сюди хмара кладе секрети)
-  if (process.env.PORT) cfg.port = Number(process.env.PORT);
-  if (process.env.DB_URL) cfg.dbUrl = process.env.DB_URL;
-
-  // 5. Аргумент рядка перебиває все — разове ручне втручання
-  cfg = { ...cfg, ...parseCliOverrides() };
-  return cfg as Config;
-}
-```
+:::code config-design-d/py/zvidky-beretsia-znachennia.py
+:::code config-design-d/ts/zvidky-beretsia-znachennia.ts
 :::
 
 Зверни увагу на дрібницю, що коштує багато: у пункті 4 значення зі змінної середовища — завжди **рядок**, і `PORT=8080` без явного `int(...)` дасть тобі текст `"8080"` там, де код чекає число. Половина загадкових збоїв конфігу — саме про це: типи зі змінних середовища губляться, бо середовище не знає жодних типів, крім тексту.
@@ -107,33 +64,8 @@ function loadConfig(): Config {
 Ліки — **швидкий провал (англ. *fail-fast*)**: перевір увесь конфіг **одразу після читання, до того як застосунок почне робити хоч щось корисне**. Немає обов'язкового значення — впади негайно, гучно, з ясним повідомленням, **до** прийому першого запиту. Краще застосунок, який чесно не піднявся зі словами «не задано DB_URL», ніж той, що піднявся і мовчки ламається під навантаженням.
 
 :::tabs
-```python
-def validate(cfg):
-    problems = []
-    if not cfg.get("db_url"):
-        problems.append("DB_URL не задано")
-    if not (1 <= cfg["port"] <= 65535):
-        problems.append(f"port={cfg['port']} поза діапазоном 1..65535")
-    if cfg["log_level"] not in ("debug", "info", "warn", "error"):
-        problems.append(f"невідомий log_level={cfg['log_level']}")
-    if problems:
-        # усі помилки разом, а не по одній за запуск
-        raise SystemExit("Конфіг непридатний:\n  " + "\n  ".join(problems))
-```
-```ts
-function validate(cfg: Config): void {
-  const problems: string[] = [];
-  if (!cfg.dbUrl) problems.push("DB_URL не задано");
-  if (!(cfg.port >= 1 && cfg.port <= 65535))
-    problems.push(`port=${cfg.port} поза діапазоном 1..65535`);
-  if (!["debug", "info", "warn", "error"].includes(cfg.logLevel))
-    problems.push(`невідомий logLevel=${cfg.logLevel}`);
-  if (problems.length) {
-    // усі помилки разом, а не по одній за запуск
-    throw new Error("Конфіг непридатний:\n  " + problems.join("\n  "));
-  }
-}
-```
+:::code config-design-d/py/prochytaty-ne-dosyt.py
+:::code config-design-d/ts/prochytaty-ne-dosyt.ts
 :::
 
 Два прийоми тут працюють разом. Перший — **збери всі помилки, а не першу-ліпшу**: інакше виправиш одну, запустиш, дізнаєшся про наступну, і так п'ять разів. Другий і важливіший — перевіряй **на самому старті**, перш ніж підключати базу, відкривати порти чи приймати запити. Тоді поганий конфіг ловиться за секунду при деплої, а не за годину під навантаженням.

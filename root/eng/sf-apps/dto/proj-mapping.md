@@ -9,86 +9,15 @@
 Візьмемо конкретно. Усередині живе домен — рівно той, що в статті-власнику:
 
 :::tabs
-```cpp
-// Багатий домен: поведінка, приховані поля, інваріанти під замком
-class Order {
-    OrderId            id_;         // внутрішній ключ бази
-    Money              cost_;       // собівартість — назовні не їде
-    std::vector<Line>  lines_;      // рядки замовлення (товар, кількість, ціна)
-    Status             status_;     // New / Paid / Shipped / Cancelled
-public:
-    Money  total()  const;         // правило: сума з урахуванням знижок
-    bool   canCancel() const;      // правило: коли скасування дозволене
-    void   cancel();               // міняє статус, боронячи інваріант
-    // ... конструктор, що НЕ дає створити некоректне замовлення
-};
-
-struct Line {                       // рядок домену теж багатий: valid-об'єкти
-    Sku      sku;                   // код товару (не голий рядок — тип із перевіркою)
-    int      qty;                   // кількість > 0 (гарантує конструктор)
-    Money    unitPrice;
-};
-```
-```python
-from dataclasses import dataclass
-
-# Багатий домен: поведінка, приховані поля, інваріанти під замком
-class Order:
-    def __init__(self, id, cost, lines, status):
-        self._id = id              # внутрішній ключ бази
-        self._cost = cost          # собівартість — назовні не їде
-        self._lines = lines        # рядки замовлення (товар, кількість, ціна)
-        self._status = status      # New / Paid / Shipped / Cancelled
-
-    def total(self) -> Money:      # правило: сума з урахуванням знижок
-        ...
-    def can_cancel(self) -> bool:  # правило: коли скасування дозволене
-        ...
-    def cancel(self) -> None:      # міняє статус, боронячи інваріант
-        ...
-    # ... конструктор, що НЕ дає створити некоректне замовлення
-
-@dataclass(frozen=True)
-class Line:                        # рядок домену теж багатий: valid-об'єкти
-    sku: Sku                       # код товару (не голий рядок — тип із перевіркою)
-    qty: int                       # кількість > 0 (гарантує конструктор)
-    unit_price: Money
-```
+:::code proj-mapping/cpp/zadacha-dva-perekladannia.cpp
+:::code proj-mapping/py/zadacha-dva-perekladannia.py
 :::
 
 І пласка виписка, що перетинає межу:
 
 :::tabs
-```cpp
-struct LineDto {
-    std::string sku;                // тут уже голий рядок — DTO «дурний»
-    int         qty;
-    double      unitPrice;          // гроші як double — на межі так буває
-};
-
-struct OrderDto {
-    long                    id;
-    double                  total;  // готовий результат, не собівартість
-    std::string             status; // "new" / "paid" / "shipped" / "cancelled"
-    std::vector<LineDto>    lines;
-};
-```
-```python
-from dataclasses import dataclass, field
-
-@dataclass
-class LineDto:
-    sku: str                        # тут уже голий рядок — DTO «дурний»
-    qty: int
-    unit_price: float               # гроші як float — на межі так буває
-
-@dataclass
-class OrderDto:
-    id: int
-    total: float                    # готовий результат, не собівартість
-    status: str                     # "new" / "paid" / "shipped" / "cancelled"
-    lines: list[LineDto] = field(default_factory=list)
-```
+:::code proj-mapping/cpp/zadacha-dva-perekladannia-2.cpp
+:::code proj-mapping/py/zadacha-dva-perekladannia-2.py
 :::
 
 Тепер два напрями, і кожен несе свою халепу.
@@ -163,76 +92,8 @@ class OrderAssembler:
 **Напрям назовні — `toDto`.** Тут головне не «скопіювати поля», а **не пропустити рішень**: підсумок рахуємо правилом, статус переводимо через єдину відповідність, приховані поля не чіпаємо, вкладені рядки перекладаємо своїм маленьким маппером.
 
 :::tabs
-```cpp
-// Єдина відповідність enum ⇄ рядок — в одному місці на обидва напрями
-static std::string statusToString(Status s) {
-    switch (s) {
-        case Status::New:       return "new";
-        case Status::Paid:      return "paid";
-        case Status::Shipped:   return "shipped";
-        case Status::Cancelled: return "cancelled";
-    }
-    // жодного default: щойно додаси стан у enum — компілятор
-    // (з -Wswitch) нагадає дописати переклад тут, а не мовчки збреше
-    throw std::logic_error("невідомий Status у statusToString");
-}
-
-// Маленький маппер для вкладеного рядка — своя дрібна відповідальність
-static LineDto lineToDto(const Line& l) {
-    return LineDto{
-        l.sku.str(),               // Sku → голий рядок: тип роздягається на межі
-        l.qty,
-        l.unitPrice.toDouble()     // Money → double: свідома втрата типу-грошей
-    };
-}
-
-OrderDto toDto(const Order& order) {
-    OrderDto dto;
-    dto.id     = order.id().value();          // OrderId → long
-    dto.total  = order.total().toDouble();    // ПРАВИЛО, не сире поле: рахуємо
-    dto.status = statusToString(order.status());
-    // cost_ навмисно НЕ їде — рішення дизайну, втілене мовчанням
-
-    dto.lines.reserve(order.lines().size());
-    for (const Line& l : order.lines())
-        dto.lines.push_back(lineToDto(l));
-    return dto;
-}
-```
-```python
-# Єдина відповідність enum ⇄ рядок — в одному місці на обидва напрями
-_STATUS_TO_STR = {
-    Status.NEW:       "new",
-    Status.PAID:      "paid",
-    Status.SHIPPED:   "shipped",
-    Status.CANCELLED: "cancelled",
-}
-
-def status_to_string(s: Status) -> str:
-    try:
-        return _STATUS_TO_STR[s]
-    except KeyError:
-        # щойно додаси стан у enum, а сюди ні — впаде голосно тут,
-        # а не мовчки поверне порожнечу
-        raise ValueError(f"невідомий Status у status_to_string: {s}")
-
-# Маленький маппер для вкладеного рядка — своя дрібна відповідальність
-def line_to_dto(l: Line) -> LineDto:
-    return LineDto(
-        sku=l.sku.str(),               # Sku → голий рядок: тип роздягається на межі
-        qty=l.qty,
-        unit_price=l.unit_price.to_float(),  # Money → float: свідома втрата типу-грошей
-    )
-
-def to_dto(order: Order) -> OrderDto:
-    return OrderDto(
-        id=order.id.value,                     # OrderId → int
-        total=order.total().to_float(),        # ПРАВИЛО, не сире поле: рахуємо
-        status=status_to_string(order.status),
-        # cost навмисно НЕ їде — рішення дизайну, втілене мовчанням
-        lines=[line_to_dto(l) for l in order.lines],
-    )
-```
+:::code proj-mapping/cpp/robochyi-kod-obydva.cpp
+:::code proj-mapping/py/robochyi-kod-obydva.py
 :::
 
 Зверни увагу на три речі, у яких і є вся суть цього напряму. По-перше, `dto.total = order.total()` — не читання поля, а **виклик правила**: DTO несе назовні *результат*, а не сирі складники, з яких клієнт мусив би сам щось рахувати (та ще й маючи доступ до собівартості, якого йому не можна). По-друге, `statusToString` — **єдина точка** перекладу стану; коли завтра з'явиться `Status::Refunded`, ти хочеш, щоб компілятор змусив тебе дописати рядок тут, а не щоб код тихо повернув порожнечу. По-третє, `cost_` не згадується взагалі — і це найважливіший рядок, якого немає: приховане поле лишається прихованим саме тому, що перекладач свідомо його не бере.
@@ -240,85 +101,8 @@ def to_dto(order: Order) -> OrderDto:
 **Напрям усередину — `fromDto`.** Ось де ставимо митницю. Правило одне й непорушне: **спочатку перевір усе, і тільки з перевіреного будуй домен через його конструктор** — той конструктор, що має право відмовити.
 
 :::tabs
-```cpp
-static Status statusFromString(const std::string& s) {
-    if (s == "new")       return Status::New;
-    if (s == "paid")      return Status::Paid;
-    if (s == "shipped")   return Status::Shipped;
-    if (s == "cancelled") return Status::Cancelled;
-    throw ValidationError("невідомий статус: '" + s + "'");   // митниця сказала «ні»
-}
-
-static Line lineFromDto(const LineDto& d) {
-    if (d.qty <= 0)
-        throw ValidationError("кількість мусить бути > 0, прийшло " +
-                              std::to_string(d.qty));
-    if (d.sku.empty())
-        throw ValidationError("порожній код товару (sku)");
-    // Sku(...) сам ще раз перевірить формат — валідні типи бороняться самі
-    return Line{ Sku(d.sku), d.qty, Money::fromDouble(d.unitPrice) };
-}
-
-Order fromDto(const OrderDto& dto) {
-    // 1) Перевіряємо ВСЕ, поки дані ще пласкі й дурні
-    if (dto.lines.empty())
-        throw ValidationError("замовлення без жодного рядка");
-
-    std::vector<Line> lines;
-    lines.reserve(dto.lines.size());
-    for (const LineDto& d : dto.lines)
-        lines.push_back(lineFromDto(d));      // кожен рядок крізь митницю
-
-    Status status = statusFromString(dto.status);
-
-    // dto.total НЕ довіряємо: домен порахує суму САМ і не дасть її підмінити.
-    // Клієнт міг прислати будь-яке число — воно не має влади над інваріантом.
-
-    // 2) Лише тепер будуємо домен — через конструктор, що боронить інваріанти
-    return Order::create(OrderId(dto.id), std::move(lines), status);
-    //     ^ якщо комбінація полів усе одно нездорова (напр. Shipped без оплати),
-    //       конструктор кине САМ — останній рубіж оборони
-}
-```
-```python
-_STATUS_FROM_STR = {
-    "new":       Status.NEW,
-    "paid":      Status.PAID,
-    "shipped":   Status.SHIPPED,
-    "cancelled": Status.CANCELLED,
-}
-
-def status_from_string(s: str) -> Status:
-    try:
-        return _STATUS_FROM_STR[s]
-    except KeyError:
-        raise ValidationError(f"невідомий статус: '{s}'")   # митниця сказала «ні»
-
-def line_from_dto(d: LineDto) -> Line:
-    if d.qty <= 0:
-        raise ValidationError(f"кількість мусить бути > 0, прийшло {d.qty}")
-    if not d.sku:
-        raise ValidationError("порожній код товару (sku)")
-    # Sku(...) сам ще раз перевірить формат — валідні типи бороняться самі
-    return Line(Sku(d.sku), d.qty, Money.from_float(d.unit_price))
-
-def from_dto(dto: OrderDto) -> Order:
-    # 1) Перевіряємо ВСЕ, поки дані ще пласкі й дурні
-    if not dto.lines:
-        raise ValidationError("замовлення без жодного рядка")
-
-    lines = [line_from_dto(d) for d in dto.lines]   # кожен рядок крізь митницю
-
-    status = status_from_string(dto.status)
-
-    # dto.total НЕ довіряємо: домен порахує суму САМ і не дасть її підмінити.
-    # Клієнт міг прислати будь-яке число — воно не має влади над інваріантом.
-
-    # 2) Лише тепер будуємо домен — через конструктор, що боронить інваріанти
-    return Order.create(OrderId(dto.id), lines, status)
-    #      ^ якщо комбінація полів усе одно нездорова (напр. Shipped без оплати),
-    #        конструктор кине САМ — останній рубіж оборони
-```
+:::code proj-mapping/cpp/robochyi-kod-obydva-2.cpp
+:::code proj-mapping/py/robochyi-kod-obydva-2.py
 :::
 
 Тут кожен рядок — рішення про довіру. `qty <= 0` відсікаємо **до** того, як воно дійде до домену. `dto.total` **свідомо ігноруємо**: сума — це внутрішнє правило, і дати зовнішньому числу владу над нею означало б відчинити двері для шахрайства («замовлення на тисячу, а в total пишу нуль»). Домен рахує сам. І фінальний рубіж — `Order::create`: навіть якщо кожне окреме поле пройшло, їхня **комбінація** може бути хвора (відвантажене, але неоплачене), і тоді відмовляє конструктор. Митниця стоїть у два ешелони: поля перевіряє маппер, їхню сумісність — домен.
@@ -327,31 +111,7 @@ def from_dto(dto: OrderDto) -> Order:
 
 **Часткове оновлення.** Повертаємось до відкладеної задачі. Клієнт шле DTO, щоб змінити **щось одне**, а не перестворити замовлення. Наївний `fromDto` тут шкідливий: він будує домен **з нуля**, а отже все, чого в DTO нема, буде втрачене або підмінене. Правильний хід — **не будувати наново, а оновити наявний**, і чіпати лише те, що прийшло:
 
-```cpp
-// Часткове оновлення: беремо ЖИВЕ замовлення й міняємо тільки надіслане.
-// optional-поля кажуть «це поле клієнт справді хотів змінити»,
-// а не «тут випадково нуль».
-struct OrderPatchDto {
-    std::optional<std::string>          status;   // є → міняй статус
-    std::optional<std::vector<LineDto>> lines;    // є → заміни рядки
-    // чого нема — те не чіпаємо
-};
-
-void applyPatch(Order& order, const OrderPatchDto& patch) {
-    if (patch.status) {                            // прийшов статус?
-        Status s = statusFromString(*patch.status);
-        order.changeStatus(s);   // МЕТОД ДОМЕНУ, а не присвоєння поля:
-                                 // домен сам вирішить, чи перехід дозволений
-    }
-    if (patch.lines) {                             // прийшли рядки?
-        std::vector<Line> lines;
-        for (const LineDto& d : *patch.lines)
-            lines.push_back(lineFromDto(d));
-        order.replaceLines(std::move(lines));      // теж крізь правило домену
-    }
-    // status немає в патчі → статус лишився як був. Нічого не знесли.
-}
-```
+:::code proj-mapping/cpp/robochyi-kod-obydva-3.cpp
 
 Ключ — розрізнити **«поле прийшло зі значенням»** і **«поля не було»**. Плаский DTO цього сам не вміє: у ньому `status = ""` неоднозначне — то клієнт хоче порожній статус чи просто не чіпав його? `std::optional` знімає двозначність: `nullopt` означає «не чіпай», значення — «зміни на це». І кожна зміна йде **через метод домену** (`changeStatus`, `replaceLines`), а не через сире присвоєння поля, бо тільки домен знає, чи дозволений перехід зі стану в стан. Патч-DTO — це список побажань; домен лишається тим, хто каже, які з них законні.
 

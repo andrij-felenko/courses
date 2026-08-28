@@ -74,36 +74,8 @@ class CrmOrderDto:
 **Як це виглядає без шару — отруєння в дії.** Найлегший шлях: розібрати їхні поля прямо в сервісі, який оформлює замовлення.
 
 :::tabs
-```ts
-// БЕЗ шару: чужий формат розповзається по доменному коду
-class OrderService {
-  place(dto: CrmOrderDto): void {
-    const parts = dto.sku.split("/");       // знання про їхній формат — тут
-    const article = parts[0];
-    const color = parts[1];                  // а завтра формат зміниться…
-    if (dto.qty < 0) { /* якось окремо на повернення */ }
-    if (dto.status_code === 7) {             // магічне число в домені
-      // тягнемо чуже поняття "зарезервовано деінде" у свою модель
-    }
-    const clientId = dto.client_ref.slice(3); // зрізаємо "CL:"
-    // …і так у кожному місці, що торкається замовлення
-  }
-}
-```
-```python
-# БЕЗ шару: чужий формат розповзається по доменному коду
-class OrderService:
-    def place(self, dto: CrmOrderDto) -> None:
-        parts = dto.sku.split("/")            # знання про їхній формат — тут
-        article = parts[0]
-        color = parts[1]                       # а завтра формат зміниться…
-        if dto.qty < 0:
-            ...                                # якось окремо на повернення
-        if dto.status_code == 7:               # магічне число в домені
-            ...                                # тягнемо чуже поняття у свою модель
-        client_id = dto.client_ref[3:]         # зрізаємо "CL:"
-        # …і так у кожному місці, що торкається замовлення
-```
+:::code anti-corruption-layer-d/ts/pryklad-pryimaiemo.ts
+:::code anti-corruption-layer-d/py/pryklad-pryimaiemo.py
 :::
 
 Придивись, що тут не так, — не стилістично, а по суті. Знання про чужий формат (`split("/")`, число `7`, префікс `"CL:"`) сидить **усередині доменного правила**. `OrderService` тепер знає про CRM. Якщо CRM змінить роздільник із `/` на `|`, ламається твоя бізнес-логіка, а не якийсь крайовий адаптер. І якщо таких місць, що торкаються замовлення, десять — знання про CRM розмазане по всіх десятьох. Це і є те розповзання, яке з дрібниці виростає в стратегічний глухий кут.
@@ -111,91 +83,14 @@ class OrderService:
 **Тепер той самий стик із шаром.** Ставимо на кордоні перекладач. Домен оголошує, що йому потрібно, **своєю мовою**, і не знає про CRM нічого.
 
 :::tabs
-```ts
-// Порт: що домен ВИМАГАЄ від зовнішнього світу. Мова складу, жодного CRM.
-interface OrderSource {
-  next(): Order | null;   // дай наступне замовлення як НАШ об'єкт
-}
-
-// ACL: єдине місце, де живе знання про чужий формат
-class CrmOrderAcl implements OrderSource {
-  constructor(private crm: CrmClient) {}
-
-  next(): Order | null {
-    const dto = this.crm.fetchNext();
-    if (dto === null) return null;
-    return this.translate(dto);            // переклад чужого на наше — тут і лише тут
-  }
-
-  private translate(dto: CrmOrderDto): Order {
-    if (dto.qty < 0)
-      throw new UnsupportedByModel("повернень наш склад не приймає з CRM");
-    if (![1, 2, 3].includes(dto.status_code))
-      throw new UnsupportedByModel(`статус ${dto.status_code} не має відповідника`);
-
-    const product = this.parseSku(dto.sku);      // "ART-00417/RED/XL" → Product
-    const client  = new ClientId(dto.client_ref.replace(/^CL:/, ""));
-    return new Order(client, product, dto.qty);  // чистий об'єкт нашої моделі
-  }
-
-  private parseSku(sku: string): Product {
-    const [article, color, size] = sku.split("/");
-    return new Product(new Article(article), Color.parse(color), Size.parse(size));
-  }
-}
-```
-```python
-# Порт: що домен ВИМАГАЄ від зовнішнього світу. Мова складу, жодного CRM.
-from abc import ABC, abstractmethod
-
-class OrderSource(ABC):
-    @abstractmethod
-    def next(self) -> Order | None:   # дай наступне замовлення як НАШ об'єкт
-        ...
-
-# ACL: єдине місце, де живе знання про чужий формат
-class CrmOrderAcl(OrderSource):
-    def __init__(self, crm: CrmClient):
-        self._crm = crm
-
-    def next(self) -> Order | None:
-        dto = self._crm.fetch_next()
-        if dto is None:
-            return None
-        return self._translate(dto)            # переклад чужого на наше — тут і лише тут
-
-    def _translate(self, dto: CrmOrderDto) -> Order:
-        if dto.qty < 0:
-            raise UnsupportedByModel("повернень наш склад не приймає з CRM")
-        if dto.status_code not in (1, 2, 3):
-            raise UnsupportedByModel(f"статус {dto.status_code} не має відповідника")
-
-        product = self._parse_sku(dto.sku)          # "ART-00417/RED/XL" → Product
-        client  = ClientId(dto.client_ref.removeprefix("CL:"))
-        return Order(client, product, dto.qty)      # чистий об'єкт нашої моделі
-
-    def _parse_sku(self, sku: str) -> Product:
-        article, color, size = sku.split("/")
-        return Product(Article(article), Color.parse(color), Size.parse(size))
-```
+:::code anti-corruption-layer-d/ts/pryklad-pryimaiemo-2.ts
+:::code anti-corruption-layer-d/py/pryklad-pryimaiemo-2.py
 :::
 
 А тепер — сервіс, заради чистоти якого все й затівалося:
 
 :::tabs
-```ts
-// Домен більше НЕ знає про CRM. Говорить лише своєю мовою через порт.
-class OrderService {
-  constructor(private source: OrderSource) {}   // залежить від СВОГО інтерфейсу
-
-  processBatch(): void {
-    let order: Order | null;
-    while ((order = this.source.next()) !== null) {
-      order.reserve();       // чисте доменне правило, жодного split чи числа 7
-    }
-  }
-}
-```
+:::code anti-corruption-layer-d/ts/pryklad-pryimaiemo-3.ts
 ```python
 # Домен більше НЕ знає про CRM. Говорить лише своєю мовою через порт.
 class OrderService:

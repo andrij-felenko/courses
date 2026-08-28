@@ -48,119 +48,8 @@
 Пишемо двома мовами, якими такі екрани й пишуть: TypeScript — сьогоднішній клієнт, Java — дім цієї розкладки з часів Swing, GWT і раннього Android. Ідіоми різні, будова однакова.
 
 :::tabs
-```ts
-// ── Модель: єдина, хто знає правило меж. Про екран — ані слова.
-class Thermostat {
-  static readonly MIN = 5;
-  static readonly MAX = 30;
-  private value = 22;
-
-  get target(): number { return this.value; }
-
-  nudge(delta: number): void {
-    this.value = Math.max(Thermostat.MIN, Math.min(Thermostat.MAX, this.value + delta));
-  }
-}
-
-// ── Контракт екрана: п'ять команд і один сигнал назовні.
-interface ThermostatView {
-  showTemperature(text: string): void;   // готовий рядок, не число
-  showBarColor(hex: string): void;
-  setMinusEnabled(on: boolean): void;
-  setPlusEnabled(on: boolean): void;
-  showStatus(text: string): void;
-  onNudge(handler: (delta: number) => void): void;
-}
-
-const HOT = "#c0392b", COLD = "#2457d6", CALM = "#6b7280";
-
-// ── Презентер: одна дорога до подання — render().
-class ThermostatPresenter {
-  constructor(
-    private readonly view: ThermostatView,
-    private readonly model: Thermostat,
-  ) {}
-
-  start(): void {
-    this.view.onNudge(delta => {
-      this.model.nudge(delta);   // межу обріже сама модель
-      this.render();             // і одразу — свіжий кадр цілком
-    });
-    this.render();               // перший кадр малюємо самі, до будь-якого дотику
-  }
-
-  /** Увесь екран як функція від стану моделі. Інших шляхів до подання нема. */
-  private render(): void {
-    const t = this.model.target;
-    this.view.showTemperature(`${t}°`);
-    this.view.showBarColor(t > 24 ? HOT : t < 18 ? COLD : CALM);
-    this.view.setMinusEnabled(t > Thermostat.MIN);
-    this.view.setPlusEnabled(t < Thermostat.MAX);
-    this.view.showStatus(
-      t >= Thermostat.MAX ? `Вище не можна: ${t}°`
-      : t <= Thermostat.MIN ? `Нижче не можна: ${t}°`
-      : `Тримає ${t}°`);
-  }
-}
-```
-```java
-import java.util.function.IntConsumer;
-
-// ── Модель: єдина, хто знає правило меж. Про екран — ані слова.
-final class Thermostat {
-    static final int MIN = 5, MAX = 30;
-    private int value = 22;
-
-    int target() { return value; }
-
-    void nudge(int delta) {
-        value = Math.max(MIN, Math.min(MAX, value + delta));
-    }
-}
-
-// ── Контракт екрана: п'ять команд і один сигнал назовні.
-interface ThermostatView {
-    void showTemperature(String text);   // готовий рядок, не число
-    void showBarColor(String hex);
-    void setMinusEnabled(boolean on);
-    void setPlusEnabled(boolean on);
-    void showStatus(String text);
-    void onNudge(IntConsumer handler);
-}
-
-// ── Презентер: одна дорога до подання — render().
-final class ThermostatPresenter {
-    static final String HOT = "#c0392b", COLD = "#2457d6", CALM = "#6b7280";
-
-    private final ThermostatView view;
-    private final Thermostat model;
-
-    ThermostatPresenter(ThermostatView view, Thermostat model) {
-        this.view = view;
-        this.model = model;
-    }
-
-    void start() {
-        view.onNudge(delta -> {
-            model.nudge(delta);   // межу обріже сама модель
-            render();             // і одразу — свіжий кадр цілком
-        });
-        render();                 // перший кадр малюємо самі, до будь-якого дотику
-    }
-
-    /** Увесь екран як функція від стану моделі. Інших шляхів до подання нема. */
-    private void render() {
-        int t = model.target();
-        view.showTemperature(t + "°");
-        view.showBarColor(t > 24 ? HOT : t < 18 ? COLD : CALM);
-        view.setMinusEnabled(t > Thermostat.MIN);
-        view.setPlusEnabled(t < Thermostat.MAX);
-        view.showStatus(t >= Thermostat.MAX ? "Вище не можна: " + t + "°"
-                      : t <= Thermostat.MIN ? "Нижче не можна: " + t + "°"
-                      : "Тримає " + t + "°");
-    }
-}
-```
+:::code proj-passive-view/ts/robochyi-kod-model.ts
+:::code proj-passive-view/java/robochyi-kod-model.java
 :::
 
 Дві дрібниці в презентері варті окремого слова.
@@ -174,52 +63,8 @@ final class ThermostatPresenter {
 Тепер найцікавіше — код екрана, який не має права ні на одну думку.
 
 :::tabs
-```ts
-// Справжнє подання: тільки віджети. Ні арифметики, ні умов, ні складання рядків.
-class ThermostatScreen implements ThermostatView {
-  constructor(private readonly root: HTMLElement) {}
-
-  private el<T extends HTMLElement>(cls: string): T {
-    return this.root.querySelector<T>("." + cls)!;
-  }
-
-  showTemperature(text: string): void { this.el("temp").textContent = text; }
-  showBarColor(hex: string): void     { this.el("bar").style.background = hex; }
-  setMinusEnabled(on: boolean): void  { this.el<HTMLButtonElement>("minus").disabled = !on; }
-  setPlusEnabled(on: boolean): void   { this.el<HTMLButtonElement>("plus").disabled = !on; }
-  showStatus(text: string): void      { this.el("status").textContent = text; }
-
-  onNudge(handler: (delta: number) => void): void {
-    this.el("minus").addEventListener("click", () => handler(-1));
-    this.el("plus").addEventListener("click", () => handler(+1));
-  }
-}
-```
-```java
-import javax.swing.*;
-import java.awt.*;
-import java.util.function.IntConsumer;
-
-// Справжнє подання: тільки віджети. Ні арифметики, ні умов, ні складання рядків.
-final class ThermostatPanel extends JPanel implements ThermostatView {
-    private final JLabel  temp   = new JLabel("", SwingConstants.CENTER);
-    private final JPanel  bar    = new JPanel();
-    private final JButton minus  = new JButton("−");
-    private final JButton plus   = new JButton("+");
-    private final JLabel  status = new JLabel("", SwingConstants.CENTER);
-
-    public void showTemperature(String text) { temp.setText(text); }
-    public void showBarColor(String hex)     { bar.setBackground(Color.decode(hex)); }
-    public void setMinusEnabled(boolean on)  { minus.setEnabled(on); }
-    public void setPlusEnabled(boolean on)   { plus.setEnabled(on); }
-    public void showStatus(String text)      { status.setText(text); }
-
-    public void onNudge(IntConsumer handler) {
-        minus.addActionListener(e -> handler.accept(-1));
-        plus.addActionListener(e -> handler.accept(+1));
-    }
-}
-```
+:::code proj-passive-view/ts/spravzhnie-podannia.ts
+:::code proj-passive-view/java/spravzhnie-podannia.java
 :::
 
 Придивись до форми цього класу: кожен метод — один рядок, і в жодному нема ні умови, ні обчислення, ні склеювання рядка. Переклад типів дозволений — `Color.decode("#c0392b")` перетворює рядок на те, що вміє віджет, — але вибору кольору тут нема, колір уже приїхав готовим.
@@ -233,116 +78,8 @@ final class ThermostatPanel extends JPanel implements ThermostatView {
 Те, що воно тримає саме кадр, а не журнал викликів, — рішення, а не дрібниця. Дублер, що записує послідовність викликів, робить тест чутливим до того, **як** презентер малює: переставив два рядки в `render()` — і тест червоний, хоча екран той самий. Дублер, що тримає стан, звіряє те, що людина побачила б. Це давня межа між перевіркою стану і перевіркою взаємодій — про те, коли доречна яка, є окремий розбір, [дублери як рішення дизайну](root:progarch/test-doubles-when); для екрана майже завжди доречний стан.
 
 :::tabs
-```ts
-// ── Фальшиве подання: не малює нічого, лише тримає останній кадр.
-class FakeView implements ThermostatView {
-  temp = ""; color = ""; status = "";
-  minusEnabled = true; plusEnabled = true;
-  press: (delta: number) => void = () => { throw new Error("ніхто не підписався на дотики"); };
-
-  showTemperature(text: string) { this.temp = text; }
-  showBarColor(hex: string)     { this.color = hex; }
-  setMinusEnabled(on: boolean)  { this.minusEnabled = on; }
-  setPlusEnabled(on: boolean)   { this.plusEnabled = on; }
-  showStatus(text: string)      { this.status = text; }
-  onNudge(handler: (delta: number) => void) { this.press = handler; }
-}
-
-function check(ok: boolean, what: string): void {
-  if (!ok) throw new Error("не збіглося: " + what);
-}
-
-function screenUnderTest(): FakeView {
-  const view = new FakeView();
-  new ThermostatPresenter(view, new Thermostat()).start();
-  return view;
-}
-
-// 1. Кадр існує ще до першого дотику.
-{
-  const v = screenUnderTest();
-  check(v.temp === "22°", "перший напис");
-  check(v.status === "Тримає 22°", "перший рядок стану");
-  check(v.plusEnabled && v.minusEnabled, "обидві кнопки живі посередині шкали");
-}
-
-// 2. Один дотик веде ввесь кадр, а не саму цифру.
-{
-  const v = screenUnderTest();
-  v.press(+1);
-  check(v.temp === "23°", "напис після «+»");
-  check(v.color === CALM, "колір у спокійній зоні");
-  check(v.status === "Тримає 23°", "рядок стану після «+»");
-}
-
-// 3. Стеля: модель не пускає далі, кнопка гасне, рядок стану міняє тон.
-{
-  const v = screenUnderTest();
-  for (let i = 0; i < 20; i++) v.press(+1);   // 22 → 30, а далі нікуди
-  check(v.temp === "30°", "напис на стелі");
-  check(v.plusEnabled === false, "«+» на стелі згасла");
-  check(v.minusEnabled === true, "«−» на стелі жива");
-  check(v.status === "Вище не можна: 30°", "рядок стану на стелі");
-  check(v.color === HOT, "колір на стелі");
-}
-
-console.log("усі перевірки пройшли — жодного віджета не створено");
-```
-```java
-import java.util.function.IntConsumer;
-
-// ── Фальшиве подання: не малює нічого, лише тримає останній кадр.
-final class FakeView implements ThermostatView {
-    String temp = "", color = "", status = "";
-    boolean minusEnabled = true, plusEnabled = true;
-    IntConsumer press = d -> { throw new IllegalStateException("ніхто не підписався на дотики"); };
-
-    public void showTemperature(String text) { temp = text; }
-    public void showBarColor(String hex)     { color = hex; }
-    public void setMinusEnabled(boolean on)  { minusEnabled = on; }
-    public void setPlusEnabled(boolean on)   { plusEnabled = on; }
-    public void showStatus(String text)      { status = text; }
-    public void onNudge(IntConsumer handler) { press = handler; }
-}
-
-final class PassiveViewDemo {
-    static void check(boolean ok, String what) {
-        if (!ok) throw new AssertionError("не збіглося: " + what);
-    }
-
-    static FakeView screenUnderTest() {
-        FakeView view = new FakeView();
-        new ThermostatPresenter(view, new Thermostat()).start();
-        return view;
-    }
-
-    public static void main(String[] args) {
-        // 1. Кадр існує ще до першого дотику.
-        FakeView v1 = screenUnderTest();
-        check("22°".equals(v1.temp), "перший напис");
-        check("Тримає 22°".equals(v1.status), "перший рядок стану");
-        check(v1.plusEnabled && v1.minusEnabled, "обидві кнопки живі посередині шкали");
-
-        // 2. Один дотик веде ввесь кадр, а не саму цифру.
-        FakeView v2 = screenUnderTest();
-        v2.press.accept(+1);
-        check("23°".equals(v2.temp), "напис після «+»");
-        check(ThermostatPresenter.CALM.equals(v2.color), "колір у спокійній зоні");
-        check("Тримає 23°".equals(v2.status), "рядок стану після «+»");
-
-        // 3. Стеля: модель не пускає далі, кнопка гасне, рядок стану міняє тон.
-        FakeView v3 = screenUnderTest();
-        for (int i = 0; i < 20; i++) v3.press.accept(+1);   // 22 → 30, а далі нікуди
-        check("30°".equals(v3.temp), "напис на стелі");
-        check(!v3.plusEnabled, "«+» на стелі згасла");
-        check(v3.minusEnabled, "«−» на стелі жива");
-        check("Вище не можна: 30°".equals(v3.status), "рядок стану на стелі");
-        check(ThermostatPresenter.HOT.equals(v3.color), "колір на стелі");
-
-        System.out.println("усі перевірки пройшли — жодного віджета не створено");
-    }
-}
-```
+:::code proj-passive-view/ts/test-uves-zastosunok-bez.ts
+:::code proj-passive-view/java/test-uves-zastosunok-bez.java
 :::
 
 Перевірки тут навмисне голі — у справжньому проєкті це JUnit або Vitest, і від назви каркаса не міняється нічого. Важливе інше: третій випадок — рівно той, на якому ламається латання полів. Він проходить за мілісекунди, не піднімає вікна, не чекає анімації — його можна ганяти на складальному сервері, де графічної підсистеми немає зовсім.
@@ -373,63 +110,7 @@ final class PassiveViewDemo {
 
 Щоб подання могло взяти цифру саме, модель мусить уміти сказати «я змінилася» — тобто стати спостережуваною, з підпискою в дусі [спостерігача](root:sf-apps/observer). Стала ниточка «цей напис завжди показує це число» і зветься [прив'язкою даних](root:sf-apps/data-binding).
 
-```ts
-// Модель тепер сама повідомляє про зміну — без цього прив'язки не буває.
-class ObservableThermostat extends Thermostat {
-  private readonly listeners: Array<() => void> = [];
-
-  onChange(listener: () => void): void { this.listeners.push(listener); }
-
-  nudge(delta: number): void {
-    const before = this.target;
-    super.nudge(delta);
-    if (this.target !== before) this.listeners.forEach(fn => fn());
-  }
-}
-
-// Контракт екрана схуд: цифру презентер більше не диктує.
-interface SupervisedView {
-  showBarColor(hex: string): void;
-  setMinusEnabled(on: boolean): void;
-  setPlusEnabled(on: boolean): void;
-  showStatus(text: string): void;
-  onNudge(handler: (delta: number) => void): void;
-}
-
-// Подання само тримає ниточку від числа моделі до напису.
-class BoundThermostatScreen extends ThermostatScreen implements SupervisedView {
-  constructor(root: HTMLElement, model: ObservableThermostat) {
-    super(root);
-    const paint = () => this.showTemperature(`${model.target}°`);
-    model.onChange(paint);
-    paint();
-  }
-}
-
-// Презентер лишає собі тільки те, де є що вирішувати.
-class SupervisingController {
-  constructor(
-    private readonly view: SupervisedView,
-    private readonly model: Thermostat,
-  ) {}
-
-  start(): void {
-    this.view.onNudge(delta => { this.model.nudge(delta); this.render(); });
-    this.render();
-  }
-
-  private render(): void {
-    const t = this.model.target;
-    this.view.showBarColor(t > 24 ? HOT : t < 18 ? COLD : CALM);
-    this.view.setMinusEnabled(t > Thermostat.MIN);
-    this.view.setPlusEnabled(t < Thermostat.MAX);
-    this.view.showStatus(
-      t >= Thermostat.MAX ? `Вище не можна: ${t}°`
-      : t <= Thermostat.MIN ? `Нижче не можна: ${t}°`
-      : `Тримає ${t}°`);
-  }
-}
-```
+:::code proj-passive-view/ts/toi-samyi-ekran-na.ts
 
 Порахуймо чесно, що змінилося.
 
@@ -463,24 +144,7 @@ onTargetTyped(handler: (text: string) => void) // поле доповідає, �
 
 Лікують це в поданні, і саме там, де хвороба:
 
-```java
-final class TargetField {                      // усередині подання
-    private final JTextField field = new JTextField();
-    private boolean pushing = false;           // «зараз пишу я, а не людина»
-
-    void show(String text) {
-        pushing = true;
-        try { field.setText(text); }
-        finally { pushing = false; }
-    }
-
-    void onTyped(Consumer<String> handler) {
-        field.getDocument().addDocumentListener(new TextChangeListener(() -> {
-            if (!pushing) handler.accept(field.getText());   // луну назовні не пускаємо
-        }));
-    }
-}
-```
+:::code proj-passive-view/java/luna-podannia-chuie.java
 
 Прапорець мусить жити в поданні, не в презентері. Це властивість віджета, а не логіки; винесеш його в презентер — і фальшивці доведеться вдавати ще й цю дивину, а презентер почне знати, на чому його малюють. Контракт від цього не міняється зовсім: назовні подання й далі просто виконує команду й доповідає про те, що зробила людина.
 
@@ -506,26 +170,7 @@ showTargetField(text: string): void {
 
 Тому підписка має віддавати спосіб від неї відмовитися, а презентер — мати `stop()`, симетричний до `start()`:
 
-```ts
-interface ThermostatView {
-  // …команди…
-  onNudge(handler: (delta: number) => void): () => void;   // повертає «відписатися»
-}
-
-class ThermostatPresenter {
-  private off: (() => void) | null = null;
-
-  start(): void {
-    this.off = this.view.onNudge(delta => { this.model.nudge(delta); this.render(); });
-    this.render();
-  }
-
-  stop(): void {
-    this.off?.();     // відпустили подання: ні подій звідти, ні посилань на нього
-    this.off = null;
-  }
-}
-```
+:::code proj-passive-view/ts/prezenter-perezhyvaie.ts
 
 `stop()` кличе той, хто володіє екраном, у мить його смерті. А `this.off === null` заодно стає простою відповіддю на питання «чи є ще куди малювати» — і ця відповідь знадобиться зараз же.
 
@@ -533,44 +178,12 @@ class ThermostatPresenter {
 
 Дотягни задачу до правди: справжній термостат не міняє число в пам'яті, а посилає команду котлові по мережі. Виклик стає повільним і може не вдатися — отже, на екрані з'являються ще два стани, «чекаємо» і «не вийшло». Робота з таким викликом — звичайне [асинхронне очікування](root:sf-tasks/async-await), і в презентері воно виглядає так:
 
-```ts
-private token = 0;                       // мітка найсвіжішого дотику
-private busy = false;
-private error: string | null = null;
-
-private async nudge(delta: number): Promise<void> {
-  const mine = ++this.token;
-  this.busy = true; this.error = null;
-  this.render();                         // кадр «надсилаю…» — одразу, ще до відповіді
-  try {
-    await this.model.nudge(delta);       // тут — розмова з котлом
-  } catch {
-    if (mine === this.token) this.error = "Котел не відповідає";
-  }
-  if (mine !== this.token) return;       // поки чекали, встиг новіший дотик — цей кадр застарів
-  if (!this.off) return;                 // екран уже закрили — малювати нікуди
-  this.busy = false;
-  this.render();
-}
-```
+:::code proj-passive-view/ts/koly-model-povilna-kadr.ts
 
 Дві перевірки перед останнім кадром — не перестраховка, а два справжні випадки. Людина тисне «+» двічі поспіль; відповіді приходять у будь-якому порядку, і без мітки повільніша перша відповідь затре собою свіжішу другу. А закритий екран — це те саме `stop()`: відповідь, що приїхала після смерті подання, малювати нікуди.
 
 Далі найважливіше. Обидва нові стани не розповзаються по обробниках — вони просто входять у кадр:
 
-```ts
-private render(): void {
-  const t = this.model.target;
-  this.view.showTemperature(`${t}°`);
-  this.view.showBarColor(t > 24 ? HOT : t < 18 ? COLD : CALM);
-  this.view.setMinusEnabled(!this.busy && t > Thermostat.MIN);
-  this.view.setPlusEnabled(!this.busy && t < Thermostat.MAX);
-  this.view.showStatus(
-    this.busy ? "Надсилаю…"
-    : this.error ?? (t >= Thermostat.MAX ? `Вище не можна: ${t}°`
-                   : t <= Thermostat.MIN ? `Нижче не можна: ${t}°`
-                   : `Тримає ${t}°`));
-}
-```
+:::code proj-passive-view/ts/koly-model-povilna-kadr-2.ts
 
 Один стан — одна правка в одній функції, і всі його наслідки видно поруч. А тест дістає новий випадок задарма: підсунь моделі повільну відповідь, звір кадр «надсилаю…» з погашеними кнопками, дай відповіді приїхати — і звір кадр після неї. Так само без вікна, без циклу подій і без жодного віджета.

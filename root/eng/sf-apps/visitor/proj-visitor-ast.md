@@ -9,75 +9,8 @@
 Спершу — контракт. Вузли вміють єдину річ: «прийняти відвідувача» методом `accept`, який тут-таки кличе назад той його метод, що відповідає саме цьому виду вузла. Відвідувач, дзеркально, має по методу на кожен вид вузла. Обидва інтерфейси параметризуємо типом результату `R` — бо обчислювач поверне число, друкар — рядок, а оптимізатор — узагалі нове дерево, і жодних зведень типів це коштувати не має:
 
 :::tabs
-```ts
-interface Expr {
-  accept<R>(v: ExprVisitor<R>): R;          // уся обв'язка — цей один рядок
-}
-
-interface ExprVisitor<R> {                  // по методу на КОЖЕН вид вузла
-  visitNum(e: Num): R;
-  visitVar(e: Var): R;
-  visitNeg(e: Neg): R;
-  visitAdd(e: Add): R;
-  visitMul(e: Mul): R;
-}
-
-class Num implements Expr {
-  constructor(readonly value: number) {}
-  accept<R>(v: ExprVisitor<R>): R { return v.visitNum(this); }   // я — число
-}
-class Var implements Expr {
-  constructor(readonly name: string) {}
-  accept<R>(v: ExprVisitor<R>): R { return v.visitVar(this); }
-}
-class Neg implements Expr {
-  constructor(readonly arg: Expr) {}
-  accept<R>(v: ExprVisitor<R>): R { return v.visitNeg(this); }
-}
-class Add implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  accept<R>(v: ExprVisitor<R>): R { return v.visitAdd(this); }
-}
-class Mul implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  accept<R>(v: ExprVisitor<R>): R { return v.visitMul(this); }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Expr(ABC):
-    @abstractmethod
-    def accept(self, v): ...          # уся обв'язка — цей один метод
-
-class ExprVisitor(ABC):               # по методу на КОЖЕН вид вузла
-    @abstractmethod
-    def visit_num(self, e): ...
-    @abstractmethod
-    def visit_var(self, e): ...
-    @abstractmethod
-    def visit_neg(self, e): ...
-    @abstractmethod
-    def visit_add(self, e): ...
-    @abstractmethod
-    def visit_mul(self, e): ...
-
-class Num(Expr):
-    def __init__(self, value): self.value = value
-    def accept(self, v): return v.visit_num(self)      # я — число
-class Var(Expr):
-    def __init__(self, name): self.name = name
-    def accept(self, v): return v.visit_var(self)
-class Neg(Expr):
-    def __init__(self, arg): self.arg = arg
-    def accept(self, v): return v.visit_neg(self)
-class Add(Expr):
-    def __init__(self, left, right): self.left, self.right = left, right
-    def accept(self, v): return v.visit_add(self)
-class Mul(Expr):
-    def __init__(self, left, right): self.left, self.right = left, right
-    def accept(self, v): return v.visit_mul(self)
-```
+:::code proj-visitor-ast/ts/pidklad-vuzly-i-obviazka.ts
+:::code proj-visitor-ast/py/pidklad-vuzly-i-obviazka.py
 :::
 
 Кожен `accept` — це один рядок: «я знаю, який я вузол, тож кличу свій метод у відвідувача». Виклик `expr.accept(v)` спершу диспетчеризується за справжнім типом вузла (у, скажімо, `Mul.accept`), а вже той упевнено кличе `v.visitMul(this)`, диспетчеризуючись удруге — за справжнім типом відвідувача. Два віртуальні виклики поспіль обрали метод за двома типами; прийом зветься подвійною диспетчеризацією, і тут ми ним просто користуємося, як готовим інструментом. Уся інша вага статті — не в цих п'яти рядках `accept`, а в тому, що ми над цим підкладом збудуємо.
@@ -95,31 +28,8 @@ class Mul(Expr):
 **Обчислювач** повертає число. Єдина тонкість — `Var`: щоб дати змінній значення, потрібне **середовище** (англ. *environment*), таблиця «ім'я → число». Незв'язана змінна — це помилка, і чесніше впасти з нею, ніж мовчки підставити нуль:
 
 :::tabs
-```ts
-class Evaluator implements ExprVisitor<number> {
-  constructor(private env: Record<string, number>) {}
-  visitNum(e: Num): number { return e.value; }
-  visitVar(e: Var): number {
-    if (!(e.name in this.env)) throw new Error(`змінна ${e.name} не зв'язана`);
-    return this.env[e.name];
-  }
-  visitNeg(e: Neg): number { return -e.arg.accept(this); }
-  visitAdd(e: Add): number { return e.left.accept(this) + e.right.accept(this); }
-  visitMul(e: Mul): number { return e.left.accept(this) * e.right.accept(this); }
-}
-```
-```py
-class Evaluator(ExprVisitor):
-    def __init__(self, env): self.env = env
-    def visit_num(self, e): return e.value
-    def visit_var(self, e):
-        if e.name not in self.env:
-            raise KeyError(f"змінна {e.name} не зв'язана")
-        return self.env[e.name]
-    def visit_neg(self, e): return -e.arg.accept(self)
-    def visit_add(self, e): return e.left.accept(self) + e.right.accept(self)
-    def visit_mul(self, e): return e.left.accept(self) * e.right.accept(self)
-```
+:::code proj-visitor-ast/ts/chotyry-operatsii-chotyry.ts
+:::code proj-visitor-ast/py/chotyry-operatsii-chotyry.py
 :::
 
 **Лічильник** повертає кількість вузлів у піддереві: лист — це один, а внутрішній вузол — одиниця плюс лічби дітей. Ту саму рекурсію, лише з іншим склеюванням («+1» замість арифметики):
@@ -149,97 +59,15 @@ class Counter(ExprVisitor):
 Щоб друкар знав, чи слабша дитина, кожен `visit` повертає не голий рядок, а **пару**: сам текст і пріоритет його кореня. Це той випадок, коли `R` вигідно зробити багатшим за «очевидну відповідь»: батько отримує від дитини і рядок, і число, за яким вирішує, чи брати її в дужки. Пріоритети: атом (`Num`, `Var`) — 4, `Neg` — 3, `Mul` — 2, `Add` — 1.
 
 :::tabs
-```ts
-type Printed = { text: string; prec: number };
-
-class Printer implements ExprVisitor<Printed> {
-  visitNum(e: Num): Printed { return { text: String(e.value), prec: 4 }; }
-  visitVar(e: Var): Printed { return { text: e.name, prec: 4 }; }
-  visitNeg(e: Neg): Printed {
-    const a = e.arg.accept(this);
-    return { text: "-" + this.wrap(a, 4), prec: 3 };     // -(x + 3), але -5 без дужок
-  }
-  visitMul(e: Mul): Printed {
-    const l = e.left.accept(this), r = e.right.accept(this);
-    return { text: this.wrap(l, 2) + " * " + this.wrap(r, 2), prec: 2 };
-  }
-  visitAdd(e: Add): Printed {
-    const l = e.left.accept(this), r = e.right.accept(this);
-    return { text: this.wrap(l, 1) + " + " + this.wrap(r, 1), prec: 1 };
-  }
-  private wrap(p: Printed, need: number): string {    // дужки, лише якщо дитина слабша
-    return p.prec < need ? "(" + p.text + ")" : p.text;
-  }
-}
-```
-```py
-class Printer(ExprVisitor):
-    def visit_num(self, e): return (str(e.value), 4)
-    def visit_var(self, e): return (e.name, 4)
-    def visit_neg(self, e):
-        t, p = e.arg.accept(self)
-        return ("-" + self._wrap(t, p, 4), 3)           # -(x + 3), але -5 без дужок
-    def visit_mul(self, e):
-        lt, lp = e.left.accept(self); rt, rp = e.right.accept(self)
-        return (self._wrap(lt, lp, 2) + " * " + self._wrap(rt, rp, 2), 2)
-    def visit_add(self, e):
-        lt, lp = e.left.accept(self); rt, rp = e.right.accept(self)
-        return (self._wrap(lt, lp, 1) + " + " + self._wrap(rt, rp, 1), 1)
-    @staticmethod
-    def _wrap(text, prec, need):                        # дужки, лише якщо дитина слабша
-        return f"({text})" if prec < need else text
-```
+:::code proj-visitor-ast/ts/chotyry-operatsii-chotyry-2.ts
+:::code proj-visitor-ast/py/chotyry-operatsii-chotyry-2.py
 :::
 
 **Оптимізатор** — згортання констант (англ. *constant folding*), класична [оптимізація компілятора](root:sf-lang/compiler-optimizations): де обидва операнди вже сталі, порахувати їх наперед і замінити піддерево готовим числом. Цей відвідувач унікальний тим, що повертає `R = Expr` — **нове дерево**, а не число чи рядок. Ключ — обробляти дітей **першими** (post-order): коли `visitAdd` дивиться на своїх дітей, вони вже згорнуті, тож досить перевірити, чи не стали вони обидва `Num`. Заразом підбираємо кілька алгебричних тотожностей — `x + 0`, `x * 1`, `x * 0`:
 
 :::tabs
-```ts
-class Folder implements ExprVisitor<Expr> {
-  visitNum(e: Num): Expr { return e; }
-  visitVar(e: Var): Expr { return e; }
-  visitNeg(e: Neg): Expr {
-    const a = e.arg.accept(this);
-    return a instanceof Num ? new Num(-a.value) : new Neg(a);
-  }
-  visitAdd(e: Add): Expr {
-    const l = e.left.accept(this), r = e.right.accept(this);
-    if (l instanceof Num && r instanceof Num) return new Num(l.value + r.value);
-    if (l instanceof Num && l.value === 0) return r;      // 0 + x = x
-    if (r instanceof Num && r.value === 0) return l;      // x + 0 = x
-    return new Add(l, r);
-  }
-  visitMul(e: Mul): Expr {
-    const l = e.left.accept(this), r = e.right.accept(this);
-    if (l instanceof Num && r instanceof Num) return new Num(l.value * r.value);
-    if ((l instanceof Num && l.value === 0) || (r instanceof Num && r.value === 0)) return new Num(0);
-    if (l instanceof Num && l.value === 1) return r;      // 1 * x = x
-    if (r instanceof Num && r.value === 1) return l;      // x * 1 = x
-    return new Mul(l, r);
-  }
-}
-```
-```py
-class Folder(ExprVisitor):
-    def visit_num(self, e): return e
-    def visit_var(self, e): return e
-    def visit_neg(self, e):
-        a = e.arg.accept(self)
-        return Num(-a.value) if isinstance(a, Num) else Neg(a)
-    def visit_add(self, e):
-        l = e.left.accept(self); r = e.right.accept(self)
-        if isinstance(l, Num) and isinstance(r, Num): return Num(l.value + r.value)
-        if isinstance(l, Num) and l.value == 0: return r          # 0 + x = x
-        if isinstance(r, Num) and r.value == 0: return l          # x + 0 = x
-        return Add(l, r)
-    def visit_mul(self, e):
-        l = e.left.accept(self); r = e.right.accept(self)
-        if isinstance(l, Num) and isinstance(r, Num): return Num(l.value * r.value)
-        if (isinstance(l, Num) and l.value == 0) or (isinstance(r, Num) and r.value == 0): return Num(0)
-        if isinstance(l, Num) and l.value == 1: return r          # 1 * x = x
-        if isinstance(r, Num) and r.value == 1: return l          # x * 1 = x
-        return Mul(l, r)
-```
+:::code proj-visitor-ast/ts/chotyry-operatsii-chotyry-3.ts
+:::code proj-visitor-ast/py/chotyry-operatsii-chotyry-3.py
 :::
 
 Тут `instanceof Num` — не той заборонений розбір за типом, від якого тікає відвідувач. Він не питає «котрий із п'яти видів переді мною?» (це досі робить `accept`/`visit`), а лише вузьке «а чи згорнулася дитина до літерала?» — так/ні. Дистпетч по сім'ї типів лишається на подвійній диспетчеризації; `instanceof` тут — локальна перевірка одного факту.
@@ -313,22 +141,7 @@ g.accept(Folder()).accept(Printer())[0]     # "14 + x"
 **Нова операція.** Скомпілюймо вираз у програму для **стекової машини** — списку інструкцій `push`/`load`/`add`/`mul`/`neg`, які по черзі кладуть числа на стек і згортають його вершину. Це рівно те, у що компілюють вирази справжні [байткодові віртуальні машини](root:sf-lang/bytecode-vm), і виходить це відвідувачем настільки прямо, що аж дивно:
 
 :::tabs
-```ts
-type Instr =
-  | { op: "push"; value: number } | { op: "load"; name: string }
-  | { op: "add" } | { op: "mul" } | { op: "neg" };
-
-class Compiler implements ExprVisitor<Instr[]> {
-  visitNum(e: Num): Instr[]  { return [{ op: "push", value: e.value }]; }
-  visitVar(e: Var): Instr[]  { return [{ op: "load", name: e.name }]; }
-  visitNeg(e: Neg): Instr[]  { return [...e.arg.accept(this), { op: "neg" }]; }
-  visitAdd(e: Add): Instr[]  { return [...e.left.accept(this), ...e.right.accept(this), { op: "add" }]; }
-  visitMul(e: Mul): Instr[]  { return [...e.left.accept(this), ...e.right.accept(this), { op: "mul" }]; }
-}
-
-e.accept(new Compiler());
-// [push 2, load x, push 3, add, mul, load x, neg, add]
-```
+:::code proj-visitor-ast/ts/asymetriia-tsiny-nazhyvo.ts
 ```py
 class Compiler(ExprVisitor):
     def visit_num(self, e): return [("push", e.value)]
@@ -374,37 +187,7 @@ interface ExprVisitor<R> { /* … */ visitDiv(e: Div): R; }         // +1 ряд
 
 Уся ця церемонія `accept`/`visit` — це спосіб зімітувати одну конструкцію в мові, де її немає: **сумарний тип** (одне з кількох, англ. *sum type*) плюс **зіставлення зі зразком** (англ. *pattern matching*). Там, де ця пара рідна — як у Rust, — відвідувач не потрібен зовсім: вузол стає варіантом переліку, а операція — звичайною функцією з `match` за видом вузла:
 
-```rust
-use std::collections::HashMap;
-
-enum Expr {
-    Num(f64),
-    Var(String),
-    Neg(Box<Expr>),
-    Add(Box<Expr>, Box<Expr>),
-    Mul(Box<Expr>, Box<Expr>),
-}
-
-// «обчислювач» — проста функція; той самий обхід, лише без accept/visit
-fn eval(e: &Expr, env: &HashMap<String, f64>) -> f64 {
-    match e {
-        Expr::Num(v)    => *v,
-        Expr::Var(x)    => env[x],
-        Expr::Neg(a)    => -eval(a, env),
-        Expr::Add(l, r) => eval(l, env) + eval(r, env),
-        Expr::Mul(l, r) => eval(l, env) * eval(r, env),
-    }
-}
-
-// «лічильник» — інша функція, той самий розбір
-fn count(e: &Expr) -> u32 {
-    match e {
-        Expr::Num(_) | Expr::Var(_)       => 1,
-        Expr::Neg(a)                      => 1 + count(a),
-        Expr::Add(l, r) | Expr::Mul(l, r) => 1 + count(l) + count(r),
-    }
-}
-```
+:::code proj-visitor-ast/rust/main.rs
 
 Функція `eval` в одному тілі обробляє всі п'ять видів — це достеменно наш `Evaluator`, лише замість інтерфейсу `ExprVisitor` і п'яти `visit`-методів тут одна конструкція мови. І тягар — дзеркально той самий. Додати операцію (`print`, `compile`) — це нова `fn`, що не чіпає жодного типу: дешево. А додати варіант `Div` — і компілятор Rust відмовиться збирати проєкт, підсвітивши **кожен** `match` як неповний, доки той не отримає гілку `Expr::Div`. Та сама асиметрія «легко операції, важко типи», лише перевірку повноти тут дає мова задарма — тоді як у нашій OO-версії ту саму роль грає інтерфейс, а кожне `implements` перевіряється замість кожного `match`.
 

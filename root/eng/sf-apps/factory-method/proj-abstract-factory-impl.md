@@ -13,98 +13,15 @@
 Спочатку самі продукти — лише інтерфейси, бо клієнт має бачити тільки їх:
 
 :::tabs
-```ts
-interface Connection {
-  run(cmd: Command): Promise<Rows>;
-  close(): Promise<void>;
-}
-interface Command {
-  readonly sql: string;
-  bind(...params: unknown[]): this;
-}
-interface Transaction {
-  commit(): Promise<void>;
-  rollback(): Promise<void>;
-}
-```
-```py
-from typing import Protocol, Any
-
-class Command(Protocol):
-    sql: str
-    def bind(self, *params: Any) -> "Command": ...
-
-class Connection(Protocol):
-    async def run(self, cmd: Command) -> "Rows": ...
-    async def close(self) -> None: ...
-
-class Transaction(Protocol):
-    async def commit(self) -> None: ...
-    async def rollback(self) -> None: ...
-```
+:::code proj-abstract-factory-impl/ts/realizatsiia-1-klas-na.ts
+:::code proj-abstract-factory-impl/py/realizatsiia-1-klas-na.py
 :::
 
 Тепер фабрика — метод на кожен продукт — і по конкретному класу на кожну родину:
 
 :::tabs
-```ts
-interface DbFactory {                       // абстрактна фабрика: метод на КОЖЕН вид
-  createConnection(): Connection;
-  createCommand(): Command;
-  createTransaction(): Transaction;
-}
-
-class PostgresFactory implements DbFactory {   // уся трійка — Postgres
-  createConnection(): Connection   { return new PgConnection(this.cfg); }
-  createCommand():    Command      { return new PgCommand(); }
-  createTransaction(): Transaction { return new PgTransaction(); }
-  constructor(private cfg: PgConfig) {}
-}
-class MySqlFactory implements DbFactory {      // уся трійка — MySQL
-  createConnection(): Connection   { return new MyConnection(this.cfg); }
-  createCommand():    Command      { return new MyCommand(); }
-  createTransaction(): Transaction { return new MyTransaction(); }
-  constructor(private cfg: MyConfig) {}
-}
-
-// клієнт бачить лише DbFactory й тримає ОДНУ фабрику — уся трійка з однієї СУБД
-async function loadUser(db: DbFactory, id: number): Promise<User> {
-  const conn = db.createConnection();
-  const cmd  = db.createCommand().bind(id);   // цей cmd — тієї ж СУБД, що й conn
-  const rows = await conn.run(cmd);
-  return toUser(rows);
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class DbFactory(ABC):                        # абстрактна фабрика: метод на КОЖЕН вид
-    @abstractmethod
-    def create_connection(self) -> Connection: ...
-    @abstractmethod
-    def create_command(self) -> Command: ...
-    @abstractmethod
-    def create_transaction(self) -> Transaction: ...
-
-class PostgresFactory(DbFactory):            # уся трійка — Postgres
-    def __init__(self, cfg: "PgConfig"): self.cfg = cfg
-    def create_connection(self) -> Connection:  return PgConnection(self.cfg)
-    def create_command(self) -> Command:        return PgCommand()
-    def create_transaction(self) -> Transaction: return PgTransaction()
-
-class MySqlFactory(DbFactory):               # уся трійка — MySQL
-    def __init__(self, cfg: "MyConfig"): self.cfg = cfg
-    def create_connection(self) -> Connection:  return MyConnection(self.cfg)
-    def create_command(self) -> Command:        return MyCommand()
-    def create_transaction(self) -> Transaction: return MyTransaction()
-
-# клієнт бачить лише DbFactory й тримає ОДНУ фабрику — уся трійка з однієї СУБД
-async def load_user(db: DbFactory, id: int) -> "User":
-    conn = db.create_connection()
-    cmd  = db.create_command().bind(id)       # цей cmd — тієї ж СУБД, що й conn
-    rows = await conn.run(cmd)
-    return to_user(rows)
-```
+:::code proj-abstract-factory-impl/ts/realizatsiia-1-klas-na-2.ts
+:::code proj-abstract-factory-impl/py/realizatsiia-1-klas-na-2.py
 :::
 
 Придивись, де тут живе інваріант родини. Клієнт `loadUser` тримає **одну** фабрику типу `DbFactory` і будує з неї всю трійку. Він фізично не може взяти з'єднання з `PostgresFactory`, а команду з `MySqlFactory` — у нього на руках лише один об'єкт `db`, і кожен його метод повертає продукт того самого драйвера, бо всередині конкретної фабрики всі `new` прибиті до одного драйвера цвяхом. Щоб змішати родини, довелося б свідомо тримати дві фабрики й перехрещувати їхні виходи — а це вже помітний код, а не тиха друкарська помилка. **Узгодженість гарантована структурою: одна фабрика — одна родина.**
@@ -120,70 +37,8 @@ async def load_user(db: DbFactory, id: int) -> "User":
 GoF пропонують згорнути ці `N` класів в **один**, а відмінність родин винести в **дані**. Спосіб — патерн **Прототип** (гр. *prōtótypon* — первовзір, первісний зразок): новий об'єкт народжується не через `new ConcreteClass()`, а через **клонування наявного взірця**. Тоді одна конфігурована фабрика тримає по одному взірцю кожного виду продукту й на запит просто клонує потрібний. Мовою самих GoF: «конкретна фабрика ініціалізується прототипним примірником кожного продукту родини й створює новий продукт клонуванням свого прототипу… цей підхід усуває потребу в новому класі-фабриці для кожної нової родини продуктів» (*Design Patterns*, розділ Abstract Factory, розділ Implementation; *усталене джерело*).
 
 :::tabs
-```ts
-interface Prototype { clone(): Prototype; }   // усе, що вміє себе клонувати
-
-// один клас на ВСІ родини: відмінність — у переданому реєстрі взірців
-class PrototypeFactory {
-  constructor(private registry: Map<string, Prototype>) {}
-
-  private create(kind: string): Prototype {
-    const proto = this.registry.get(kind);
-    if (!proto) throw new Error(`Немає прототипа для '${kind}'`);
-    return proto.clone();                     // народження = клон взірця
-  }
-  createConnection()  { return this.create("connection")  as Connection; }
-  createCommand()     { return this.create("command")     as Command; }
-  createTransaction() { return this.create("transaction") as Transaction; }
-}
-
-// «Postgres-фабрика» — це той самий клас, лише інший НАБІР даних
-const postgres = new PrototypeFactory(new Map<string, Prototype>([
-  ["connection",  new PgConnection(pgCfg)],
-  ["command",     new PgCommand()],
-  ["transaction", new PgTransaction()],
-]));
-// «MySQL-фабрика» — той самий клас, підмінили дані
-const mysql = new PrototypeFactory(new Map<string, Prototype>([
-  ["connection",  new MyConnection(myCfg)],
-  ["command",     new MyCommand()],
-  ["transaction", new MyTransaction()],
-]));
-```
-```py
-from typing import Protocol
-
-class Prototype(Protocol):
-    def clone(self) -> "Prototype": ...
-
-# один клас на ВСІ родини: відмінність — у переданому реєстрі взірців
-class PrototypeFactory:
-    def __init__(self, registry: dict[str, Prototype]):
-        self._registry = registry
-
-    def _create(self, kind: str) -> Prototype:
-        proto = self._registry.get(kind)
-        if proto is None:
-            raise KeyError(f"Немає прототипа для '{kind}'")
-        return proto.clone()                  # народження = клон взірця
-
-    def create_connection(self):  return self._create("connection")
-    def create_command(self):     return self._create("command")
-    def create_transaction(self): return self._create("transaction")
-
-# «Postgres-фабрика» — той самий клас, лише інший НАБІР даних
-postgres = PrototypeFactory({
-    "connection":  PgConnection(pg_cfg),
-    "command":     PgCommand(),
-    "transaction": PgTransaction(),
-})
-# «MySQL-фабрика» — той самий клас, підмінили дані
-mysql = PrototypeFactory({
-    "connection":  MyConnection(my_cfg),
-    "command":     MyCommand(),
-    "transaction": MyTransaction(),
-})
-```
+:::code proj-abstract-factory-impl/ts/realizatsiia-2-odyn-klas.ts
+:::code proj-abstract-factory-impl/py/realizatsiia-2-odyn-klas.py
 :::
 
 Ось у чому суть повороту. У першій реалізації «яка це родина» закодовано **типом класу** — є клас `PostgresFactory`, і сам факт, що ти тримаєш його примірник, означає Postgres. У другій «яка це родина» стало **вмістом реєстру** — набором взірців, який ти передав у конструктор. `PrototypeFactory` не знає й знати не хоче, що вона «постгресова»; вона знає лише «клонуй те, що лежить під цим ключем». `N` класів згорнулися в один клас плюс `N` наборів даних.
@@ -201,53 +56,8 @@ mysql = PrototypeFactory({
 **Умова: клонуємо взірець команди двічі й додаємо параметр в одну копію.**
 
 :::tabs
-```ts
-class SqlCommand {
-  constructor(public sql: string, public params: unknown[]) {}
-  cloneShallow(): SqlCommand {                   // params — ТА САМА ланка
-    return new SqlCommand(this.sql, this.params);
-  }
-  cloneDeep(): SqlCommand {                       // params — власна копія
-    return new SqlCommand(this.sql, [...this.params]);
-  }
-}
-
-const proto = new SqlCommand("INSERT INTO users(name) VALUES (?)", []);
-
-const a = proto.cloneShallow();
-const b = proto.cloneShallow();
-a.params.push("Ann");
-console.log(b.params);      // ["Ann"]  ← b теж має Ann: масив СПІЛЬНИЙ
-console.log(proto.params);  // ["Ann"]  ← і сам взірець забруднено
-
-const clean = new SqlCommand("INSERT INTO users(name) VALUES (?)", []);
-const c = clean.cloneDeep();
-const d = clean.cloneDeep();
-c.params.push("Bob");
-console.log(d.params);      // []  ← незалежні, як і має бути
-```
-```py
-import copy
-
-class SqlCommand:
-    def __init__(self, sql: str, params: list):
-        self.sql = sql
-        self.params = params
-
-proto = SqlCommand("INSERT INTO users(name) VALUES (%s)", [])
-
-a = copy.copy(proto)        # поверхнева: params — той самий список
-b = copy.copy(proto)
-a.params.append("Ann")
-print(b.params)             # ['Ann']  ← спільний список
-print(proto.params)         # ['Ann']  ← і сам взірець забруднено
-
-clean = SqlCommand("INSERT INTO users(name) VALUES (%s)", [])
-c = copy.deepcopy(clean)    # глибока: власний список
-d = copy.deepcopy(clean)
-c.params.append("Bob")
-print(d.params)             # []  ← незалежні, як і має бути
-```
+:::code proj-abstract-factory-impl/ts/semantyka-klonuvannia.ts
+:::code proj-abstract-factory-impl/py/semantyka-klonuvannia.py
 :::
 
 Помилка тут не гучна — код збирається, тести на одному запиті проходять, і лише під навантаженням, коли команди клонуються пачками, параметри одного запиту раптом просочуються в інший. У Python `copy.copy` — поверхневе за замовчуванням (розділяє вкладене), `copy.deepcopy` — рекурсивне; глибину налаштовують методами `__copy__`/`__deepcopy__`. У TypeScript готового клону немає взагалі — пишеш `clone()` руками; вбудований `structuredClone` копіює глибоко, але **втрачає клас** (повертає звичайний об'єкт без методів) і кидає виняток на тому, що скопіювати не можна.
@@ -267,32 +77,8 @@ print(d.params)             # []  ← незалежні, як і має бут�
 У другій реалізації інваріант тримає лише **дисципліна заповнення реєстру** — а це властивість **рантайму**. Поглянь, що компілятор пропускає без звуку:
 
 :::tabs
-```ts
-// реєстр нібито Postgres, але хтось помилково поклав MySQL-команду
-const registry = new Map<string, Prototype>([
-  ["connection",  new PgConnection(pgCfg)],
-  ["command",     new MyCommand()],      // ← чужа родина!
-  ["transaction", new PgTransaction()],
-]);
-const db = new PrototypeFactory(registry);
-
-const conn = db.createConnection();       // Postgres-з'єднання
-const cmd  = db.createCommand();          // а це — MySQL-команда
-await conn.run(cmd);                      // ЗБИРАЄТЬСЯ. Падає лише тут, у рантаймі
-```
-```py
-# реєстр нібито Postgres, але хтось помилково поклав MySQL-команду
-registry = {
-    "connection":  PgConnection(pg_cfg),
-    "command":     MyCommand(),          # ← чужа родина!
-    "transaction": PgTransaction(),
-}
-db = PrototypeFactory(registry)
-
-conn = db.create_connection()             # Postgres-з'єднання
-cmd  = db.create_command()                # а це — MySQL-команда
-await conn.run(cmd)                       # ЗБИРАЄТЬСЯ. Падає лише тут, у рантаймі
-```
+:::code proj-abstract-factory-impl/ts/de-zhyve-invariant-typy.ts
+:::code proj-abstract-factory-impl/py/de-zhyve-invariant-typy.py
 :::
 
 `MyCommand` і `PgCommand` обидві реалізують `Command`, тому значення в реєстрі задовольняє тип — компілятор бачить лише «команда», і йому байдуже, з якого вона драйвера. Мапа за рядковим ключем розв'язала кожен елемент від решти, а разом з тим розв'язала й той зв'язок, що робив їх однією родиною. Порушення випливе тільки тоді, коли Postgres-з'єднання спробує виконати MySQL-команду й діалекти не зійдуться — в проді, під навантаженням, у стек-трейсі, за яким не одразу видно, що корінь — у неправильно зібраному реєстрі десь при старті.

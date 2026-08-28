@@ -10,25 +10,7 @@
 
 Найпряміший об'єктний рефлекс — успадкувати `HashSet` і перевизначити обидва методи, якими додають елементи: `add` (додати один) і `addAll` (додати цілу пачку). Кожен нарощує лічильник на стільки, скільки додав:
 
-```java
-import java.util.*;
-
-// Зламано — недоречне вживання спадкування!
-class InstrumentedHashSet<E> extends HashSet<E> {
-    private int addCount = 0;               // скільки елементів пробували додати
-
-    @Override public boolean add(E e) {
-        addCount++;                          // один елемент
-        return super.add(e);
-    }
-    @Override public boolean addAll(Collection<? extends E> c) {
-        addCount += c.size();                // ціла пачка
-        return super.addAll(c);
-    }
-
-    public int getAddCount() { return addCount; }
-}
-```
+:::code proj-self-call-fragility/java/zadacha-mnozhyna-shcho.java
 
 На вигляд бездоганно. `add` рахує один, `addAll` рахує розмір пачки, обидва чесно передають роботу базі через `super`. Зв'язок «є» тут теж чесний: `InstrumentedHashSet` **справді є** `HashSet` — усюди, де очікують множину, він підійде без застережень, жоден зайвий метод крізь інтерфейс не протік. Здавалося б, комар носа не підточить. Перевірмо.
 
@@ -89,55 +71,11 @@ s.addAll(["раз","два","три"])
 
 Спершу — багаторазова пересильна заготовка. Вона тримає загорнуту `Set` приватним полем `s` і **делегує** їй геть усе. Жодної власної логіки тут нема; її призначення — щоб клас-лічильник не мусив вручну переписувати два десятки методів `Set`, а перевизначав лише потрібні:
 
-```java
-import java.util.*;
-
-// Багаторазовий пересильний клас: реалізує Set, усе передає полю s.
-class ForwardingSet<E> implements Set<E> {
-    private final Set<E> s;                       // загорнута множина
-    public ForwardingSet(Set<E> s) { this.s = s; }
-
-    public void clear()                              { s.clear(); }
-    public boolean contains(Object o)                { return s.contains(o); }
-    public boolean isEmpty()                         { return s.isEmpty(); }
-    public int size()                                { return s.size(); }
-    public Iterator<E> iterator()                    { return s.iterator(); }
-    public boolean add(E e)                          { return s.add(e); }
-    public boolean remove(Object o)                  { return s.remove(o); }
-    public boolean containsAll(Collection<?> c)      { return s.containsAll(c); }
-    public boolean addAll(Collection<? extends E> c) { return s.addAll(c); }
-    public boolean removeAll(Collection<?> c)        { return s.removeAll(c); }
-    public boolean retainAll(Collection<?> c)        { return s.retainAll(c); }
-    public Object[] toArray()                        { return s.toArray(); }
-    public <T> T[] toArray(T[] a)                    { return s.toArray(a); }
-
-    @Override public boolean equals(Object o) { return s.equals(o); }
-    @Override public int hashCode()           { return s.hashCode(); }
-    @Override public String toString()        { return s.toString(); }
-}
-```
+:::code proj-self-call-fragility/java/robochyi-kod-peresylnyi.java
 
 Тепер лічильник. Він успадковує **пересильну заготовку** (а не `HashSet`!) і перевизначає рівно ті самі два методи, що й раніше:
 
-```java
-// Обгортка з лічильником — композиція замість спадкування HashSet.
-class InstrumentedSet<E> extends ForwardingSet<E> {
-    private int addCount = 0;
-
-    public InstrumentedSet(Set<E> s) { super(s); }   // загортаємо будь-яку Set
-
-    @Override public boolean add(E e) {
-        addCount++;
-        return super.add(e);                          // → ForwardingSet.add → s.add
-    }
-    @Override public boolean addAll(Collection<? extends E> c) {
-        addCount += c.size();
-        return super.addAll(c);                       // → ForwardingSet.addAll → s.addAll
-    }
-
-    public int getAddCount() { return addCount; }
-}
-```
+:::code proj-self-call-fragility/java/robochyi-kod-peresylnyi-2.java
 
 Код майже дослівно повторює зламану версію — ті самі `addCount++` і `addCount += c.size()`. Але тепер він рахує правильно:
 
@@ -186,61 +124,9 @@ Set<String> sorted  = new InstrumentedSet<>(new TreeSet<>());       // відс�
 Може здатися, що вся ця біда — примха конкретно `HashSet` чи конкретно Java. Ні. Самовиклик — базовий механізм будь-якої мови з віртуальними методами: щойно метод базового класу кличе інший **перевизначуваний** метод того самого об'єкта, виклик під час роботи полетить у найпохіднішу версію. Щоб побачити це очима, а не на віру, напишімо базу **власноруч** — так, щоб самовиклик було видно в самому коді, — і зробімо це трьома різними мовами:
 
 :::tabs
-```java
-// База, чий пачковий метод САМ кличе перевизначуваний add — самовиклик як на долоні.
-class Bag<E> {
-    protected List<E> items = new ArrayList<>();
-    public void add(E e)                { items.add(e); }
-    public void addAll(Collection<E> c) { for (E e : c) add(e); }   // ← самовиклик
-}
-
-// Нащадок рахує — і ловить те саме подвоєння, що й з HashSet.
-class CountingBag<E> extends Bag<E> {
-    int count = 0;
-    @Override public void add(E e)                { count++;          super.add(e); }
-    @Override public void addAll(Collection<E> c) { count += c.size(); super.addAll(c); }
-}
-// new CountingBag<String>().addAll(List.of("a","b","c"))  →  count = 6, а не 3
-```
-```cpp
-// Та сама база — але в C++ самовиклик оживає лише тому, що add/addAll оголошено virtual.
-template <class E>
-class Bag {
-protected:
-    std::vector<E> items;
-public:
-    virtual void add(const E& e)                 { items.push_back(e); }
-    virtual void addAll(const std::vector<E>& c) { for (const E& e : c) add(e); }   // ← самовиклик
-    virtual ~Bag() = default;
-};
-
-// Нащадок рахує — і ловить те саме подвоєння, що й з HashSet.
-template <class E>
-class CountingBag : public Bag<E> {
-public:
-    int count = 0;
-    void add(const E& e)                 override { ++count;           Bag<E>::add(e); }
-    void addAll(const std::vector<E>& c) override { count += c.size();  Bag<E>::addAll(c); }
-};
-// CountingBag<std::string> b; b.addAll({"a","b","c"});  →  b.count == 6, а не 3
-```
-```python
-# Та сама база: пачковий метод сам кличе перевизначуваний add.
-class Bag:
-    def __init__(self):        self.items = []
-    def add(self, e):          self.items.append(e)
-    def add_all(self, xs):
-        for e in xs: self.add(e)                    # ← самовиклик
-
-# Нащадок рахує — і ловить те саме подвоєння.
-class CountingBag(Bag):
-    def __init__(self):
-        super().__init__(); self.count = 0
-    def add(self, e):     self.count += 1;      super().add(e)
-    def add_all(self, xs): self.count += len(xs); super().add_all(xs)
-
-# CountingBag().add_all(["a","b","c"])  →  count == 6, а не 3
-```
+:::code proj-self-call-fragility/java/samovyklyk-ne-prymkha-java.java
+:::code proj-self-call-fragility/cpp/main.cpp
+:::code proj-self-call-fragility/py/main.py
 :::
 
 В усіх трьох мовах результат однаковий: `count` виходить 6, бо пачковий метод спершу рахує пачку сам, а тоді його самовиклик `add` ще раз проходить її через перевизначений лічильник. Механізм тотожний; різниться лише те, чим мова вмикає динамічне зв'язування. У Java та Python методи віртуальні за замовчуванням, тож самовиклик злітає вгору сам собою. У C++ його доводиться **впустити явно**: подвоєння виникає лише тому, що база оголосила `add` і `addAll` як `virtual` — прибери це слово, і виклик статично прив'яжеться до `Bag::add`, а подвоєння зникне зовсім. C++ тут просто робить видимим те саме рішення бази, від якого самовиклик і залежить.

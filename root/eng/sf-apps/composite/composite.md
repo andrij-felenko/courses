@@ -11,19 +11,7 @@
 
 Найпростіший підхід породжує код, який роз'їдає програму зсередини:
 
-```ts
-function totalSize(item: FileSystemItem): number {
-  if (item.kind === "file") {
-    return item.size;
-  } else if (item.kind === "folder") {
-    let sum = 0;
-    for (const child of item.children) {
-      sum += totalSize(child);   // а тут знову той самий if усередині
-    }
-    return sum;
-  }
-}
-```
+:::code composite/ts/part.ts
 
 Придивись, що тут негаразд. Клієнт — той, хто хоче розмір, — **мусить сам розрізняти** файл і теку. Щоразу, коли він робить будь-що з елементом дерева, він перевіряє його вид і розгалужується. І це не одне місце: намалювати дерево на екрані — той самий `if`. Порахувати кількість елементів — той самий `if`. Знайти найбільший — знову. Кожна операція над деревом обростає розгалуженням «а це в мене лист чи вузол?». Додаси третій вид елемента (скажімо, символьне посилання) — доведеться знайти **всі** ці `if`-и по всій програмі й дописати гілку. Це прямо той тягар, від якого рятує [принцип відкритості-закритості](root:sf-apps/open-closed).
 
@@ -44,59 +32,8 @@ function totalSize(item: FileSystemItem): number {
 Тепер операція `size()` для теки виглядає так — і зверни увагу, що жодного розрізнення «файл це чи тека» в ній немає:
 
 :::tabs
-```ts
-interface Component {
-  size(): number;                 // спільний інтерфейс: обіцянка обом
-}
-
-class File implements Component {
-  constructor(private bytes: number) {}
-  size(): number {
-    return this.bytes;            // лист: власне число
-  }
-}
-
-class Folder implements Component {
-  private children: Component[] = [];
-
-  add(c: Component): void {        // тільки в компонувальника
-    this.children.push(c);
-  }
-
-  size(): number {
-    let sum = 0;
-    for (const c of this.children) {
-      sum += c.size();            // питаю розмір, НЕ питаючи, хто це
-    }
-    return sum;
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Component(ABC):
-    @abstractmethod
-    def size(self) -> int:        # спільний інтерфейс: обіцянка обом
-        ...
-
-class File(Component):
-    def __init__(self, num_bytes: int):
-        self._bytes = num_bytes
-
-    def size(self) -> int:
-        return self._bytes        # лист: власне число
-
-class Folder(Component):
-    def __init__(self):
-        self._children: list[Component] = []
-
-    def add(self, c: Component) -> None:   # тільки в компонувальника
-        self._children.append(c)
-
-    def size(self) -> int:
-        return sum(c.size() for c in self._children)   # питаю, НЕ питаючи, хто це
-```
+:::code composite/ts/shcho-same-obiednaty.ts
+:::code composite/py/shcho-same-obiednaty.py
 :::
 
 Дивись на рядок `sum += c.size()`. Тут `c` — це `Component`. Він може бути файлом, може бути текою на десять рівнів углиб — байдуже. Тека кличе `size()`, і **динамічне зв'язування** саме спрямує виклик у потрібну реалізацію: у файлі поверне число, у вкладеній теці — знову запустить підсумовування вглиб. Ми не пишемо рекурсію явно — вона **вбудована в будову**: тека, питаючи розмір у своїх дітей, серед яких є теки, автоматично спускається деревом до самого дна. Це той випадок, коли [рекурсія](root:sf-algorithms/recursion) не окремий прийом, а прямий наслідок того, що структура посилається сама на себе.
@@ -108,34 +45,8 @@ class Folder(Component):
 Тепер найголовніший наслідок, заради якого все й затівалося. Подивись, як користується цим клієнт:
 
 :::tabs
-```ts
-// збираємо дерево
-const root = new Folder();
-const src = new Folder();
-src.add(new File(1200));
-src.add(new File(800));
-root.add(src);
-root.add(new File(500));
-
-// а тепер — увага — клієнт НЕ знає й не питає, що перед ним
-console.log(root.size());      // 2500
-console.log(src.size());       // 2000
-console.log(new File(42).size());  // 42 — той самий виклик
-```
-```py
-# збираємо дерево
-root = Folder()
-src = Folder()
-src.add(File(1200))
-src.add(File(800))
-root.add(src)
-root.add(File(500))
-
-# а тепер — увага — клієнт НЕ знає й не питає, що перед ним
-print(root.size())        # 2500
-print(src.size())         # 2000
-print(File(42).size())    # 42 — той самий виклик
-```
+:::code composite/ts/kliient-bilshe-ne-bachyt.ts
+:::code composite/py/kliient-bilshe-ne-bachyt.py
 :::
 
 `root.size()`, `src.size()`, `File(42).size()` — це три однакові виклики. Клієнтові байдуже, що перше — дерево з п'яти вузлів, друге — гілка, третє — самотній файл. Для нього це все просто `Component`, у якого можна спитати розмір. **Одну річ і групу речей він тримає в руках однаково** — це і є та рівність, яку обіцяє патерн. Банда чотирьох сформулювала його намір саме так: «скомпонувати об'єкти в деревну структуру, що представляє ієрархію частина-ціле, і дати клієнтам однаково поводитися з окремими об'єктами та їхніми групами» ([так вони це записали](root:sf-apps/composite/hist-composite-birth.md)).
@@ -183,65 +94,8 @@ print(File(42).size())    # 42 — той самий виклик
 Оберемо прозорість — бо саме однаковість є метою патерна, а безпеку хоч трохи повертаємо явним рішенням. Банда чотирьох, зваживши те саме, теж схилилася до прозорості, назвавши доступ до дітей через спільний інтерфейс важливішим. Практичний вихід: у базовому `Component` дати `add`/`remove` з розумною поведінкою за замовчуванням, яка **відмовляє**, а компонувальник її перевизначає:
 
 :::tabs
-```ts
-abstract class Component {
-  abstract size(): number;
-
-  // прозорість: методи є в кожного, але за замовчуванням чесно відмовляють
-  add(c: Component): void {
-    throw new Error("листок не може мати дітей");
-  }
-  remove(c: Component): void {
-    throw new Error("листок не може мати дітей");
-  }
-}
-
-class File extends Component {
-  constructor(private bytes: number) { super(); }
-  size(): number { return this.bytes; }
-  // add/remove успадковані — кинуть виняток, і це чесно
-}
-
-class Folder extends Component {
-  private children: Component[] = [];
-  size(): number { return this.children.reduce((s, c) => s + c.size(), 0); }
-  add(c: Component): void { this.children.push(c); }        // перевизначає
-  remove(c: Component): void {
-    this.children = this.children.filter(x => x !== c);
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Component(ABC):
-    @abstractmethod
-    def size(self) -> int: ...
-
-    # прозорість: методи є в кожного, але за замовчуванням чесно відмовляють
-    def add(self, c: "Component") -> None:
-        raise TypeError("листок не може мати дітей")
-
-    def remove(self, c: "Component") -> None:
-        raise TypeError("листок не може мати дітей")
-
-class File(Component):
-    def __init__(self, num_bytes: int):
-        self._bytes = num_bytes
-    def size(self) -> int:
-        return self._bytes
-    # add/remove успадковані — кинуть виняток, і це чесно
-
-class Folder(Component):
-    def __init__(self):
-        self._children: list[Component] = []
-    def size(self) -> int:
-        return sum(c.size() for c in self._children)
-    def add(self, c: Component) -> None:        # перевизначає
-        self._children.append(c)
-    def remove(self, c: Component) -> None:
-        self._children.remove(c)
-```
+:::code composite/ts/tsina-odnakovosti.ts
+:::code composite/py/tsina-odnakovosti.py
 :::
 
 Це компроміс, а не перемога: помилка «додав дитину до листка» лишається рантаймовою. Але вона **гучна** — виняток одразу вкаже, де саме порушено правило, — і за це ми отримали найцінніше: клієнт справді тримає всіх за один інтерфейс. У мовах зі строгим контролем типів дехто обирає протилежно — безпеку, — і живе з приведенням типів у клієнті. Ідеального боку немає; є свідомий вибір, що для цієї задачі болючіше.

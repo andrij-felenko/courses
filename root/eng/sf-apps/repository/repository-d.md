@@ -9,41 +9,8 @@
 Візьмімо метод, який мав би читатися як чисте бізнес-правило — «чи вважати клієнта постійним». Саме правило коротке: три останні оплачені замовлення, кожне понад 500. А тепер подивімося, що в тому методі написано насправді.
 
 :::tabs
-```ts
-async function isLoyalCustomer(customerId: string): Promise<boolean> {
-  const conn = await pool.getConnection();
-  try {
-    const rows = await conn.query(
-      "SELECT total, created_at FROM orders " +
-      "WHERE customer_id = ? AND status = 'paid' " +
-      "ORDER BY created_at DESC LIMIT 3",
-      [customerId],
-    );
-    const orders = rows.map(r => new Order(r.total, new Date(r.created_at)));
-    // одне-єдине бізнес-правило, поховане під греблею з драйвера:
-    return orders.length === 3 && orders.every(o => o.total > 500);
-  } finally {
-    conn.release();
-  }
-}
-```
-```py
-def is_loyal_customer(customer_id: str) -> bool:
-    conn = pool.getconn()
-    try:
-        cur = conn.cursor()
-        cur.execute(
-            "SELECT total, created_at FROM orders "
-            "WHERE customer_id = %s AND status = 'paid' "
-            "ORDER BY created_at DESC LIMIT 3",
-            (customer_id,),
-        )
-        orders = [Order(total, created_at) for total, created_at in cur.fetchall()]
-        # одне-єдине бізнес-правило, поховане під греблею з драйвера:
-        return len(orders) == 3 and all(o.total > 500 for o in orders)
-    finally:
-        pool.putconn(conn)
-```
+:::code repository-d/ts/part.ts
+:::code repository-d/py/part.py
 :::
 
 Одне змістовне речення — `orders.length === 3 && orders.every(...)` — тоне під греблею з іншого світу: з'єднання з пулу, рядок `SELECT`, розбір відповіді драйвера, ручне перетворення рядків таблиці на об'єкти `Order`. Метод, що мав відповідати на питання предметної області, на дев'ять десятих зайнятий тим, **як саме** дані лежать у базі.
@@ -69,45 +36,8 @@ def is_loyal_customer(customer_id: str) -> bool:
 Щоб домен розмовляв з колекцією й не знав про базу, потрібні дві розведені частини. Перша — **інтерфейс репозиторію**: вузький контракт, названий мовою предметної області, який оголошує, що з колекцією можна робити. Він живе **з доменом** — це домен диктує, які операції йому потрібні. Друга — **конкретна реалізація**: клас, що виконує цей контракт над реальним сховищем. Вона живе **в інфраструктурі** — там, де вже дозволено знати про SQL, драйвери й з'єднання.
 
 :::tabs
-```ts
-// контракт — біля домену; названий доменною мовою, не мовою таблиць
-interface OrderRepository {
-  byId(id: OrderId): Promise<Order | null>;
-  forCustomer(id: CustomerId): Promise<Order[]>;
-  save(order: Order): Promise<void>;
-  remove(order: Order): Promise<void>;
-}
-
-// сервіс залежить ЛИШЕ від контракту — жодного натяку на сховище
-class LoyaltyService {
-  constructor(private orders: OrderRepository) {}
-
-  async isLoyal(customerId: CustomerId): Promise<boolean> {
-    const paid = (await this.orders.forCustomer(customerId))
-      .filter(o => o.isPaid());
-    return paid.length >= 3 && paid.every(o => o.total > 500);
-  }
-}
-```
-```py
-from typing import Protocol, Optional
-
-# контракт — біля домену; названий доменною мовою, не мовою таблиць
-class OrderRepository(Protocol):
-    def by_id(self, id: OrderId) -> Optional[Order]: ...
-    def for_customer(self, id: CustomerId) -> list[Order]: ...
-    def save(self, order: Order) -> None: ...
-    def remove(self, order: Order) -> None: ...
-
-# сервіс залежить ЛИШЕ від контракту — жодного натяку на сховище
-class LoyaltyService:
-    def __init__(self, orders: OrderRepository):
-        self._orders = orders
-
-    def is_loyal(self, customer_id: CustomerId) -> bool:
-        paid = [o for o in self._orders.for_customer(customer_id) if o.is_paid()]
-        return len(paid) >= 3 and all(o.total > 500 for o in paid)
-```
+:::code repository-d/ts/kistiak-kontrakt-u-domeni.ts
+:::code repository-d/py/kistiak-kontrakt-u-domeni.py
 :::
 
 Подивися на `isLoyal`. Це вже чисте бізнес-правило — воно про постійність клієнта, а не про базу. `LoyaltyService` тримає поле `orders` типу **інтерфейсу** й не має найменшого уявлення, звідки ті замовлення беруться. Це те саме, що [принцип інверсії залежностей](root:sf-apps/dependency-inversion) робить у загальному вигляді: **високорівневий домен не тягнеться вниз до бази — він оголошує контракт, а низькорівнева база тягнеться вгору й той контракт виконує**. Стрілка залежності перевернута: не домен залежить від сховища, а сховище від домену.
@@ -115,62 +45,8 @@ class LoyaltyService:
 Тепер — самі реалізації. І ось де ховається найпереконливіший доказ, що патерн працює: **один і той самий інтерфейс** можна виконати над геть різними сховищами, і сервіс не відрізнить.
 
 :::tabs
-```ts
-// справжня — над базою: тут дозволено знати про SQL і драйвер
-class SqlOrderRepository implements OrderRepository {
-  constructor(private db: Db, private mapper: OrderMapper) {}
-
-  async byId(id: OrderId): Promise<Order | null> {
-    const row = await this.db.queryOne("SELECT * FROM orders WHERE id = ?", [id]);
-    return row ? this.mapper.toDomain(row) : null;
-  }
-  async forCustomer(id: CustomerId): Promise<Order[]> {
-    const rows = await this.db.query("SELECT * FROM orders WHERE customer_id = ?", [id]);
-    return rows.map(r => this.mapper.toDomain(r));
-  }
-  async save(o: Order): Promise<void> { await this.db.upsert("orders", this.mapper.toRow(o)); }
-  async remove(o: Order): Promise<void> { await this.db.exec("DELETE FROM orders WHERE id = ?", [o.id]); }
-}
-
-// підставна — над звичайною мапою в пам'яті: жодної бази
-class InMemoryOrderRepository implements OrderRepository {
-  private store = new Map<OrderId, Order>();
-
-  async byId(id: OrderId) { return this.store.get(id) ?? null; }
-  async forCustomer(id: CustomerId) {
-    return [...this.store.values()].filter(o => o.customerId === id);
-  }
-  async save(o: Order) { this.store.set(o.id, o); }
-  async remove(o: Order) { this.store.delete(o.id); }
-}
-```
-```py
-# справжня — над базою: тут дозволено знати про SQL і драйвер
-class SqlOrderRepository:
-    def __init__(self, db, mapper):
-        self._db, self._mapper = db, mapper
-
-    def by_id(self, id):
-        row = self._db.query_one("SELECT * FROM orders WHERE id = %s", (id,))
-        return self._mapper.to_domain(row) if row else None
-
-    def for_customer(self, id):
-        rows = self._db.query("SELECT * FROM orders WHERE customer_id = %s", (id,))
-        return [self._mapper.to_domain(r) for r in rows]
-
-    def save(self, o):    self._db.upsert("orders", self._mapper.to_row(o))
-    def remove(self, o):  self._db.execute("DELETE FROM orders WHERE id = %s", (o.id,))
-
-# підставна — над звичайним словником у пам'яті: жодної бази
-class InMemoryOrderRepository:
-    def __init__(self):
-        self._store: dict[OrderId, Order] = {}
-
-    def by_id(self, id):        return self._store.get(id)
-    def for_customer(self, id): return [o for o in self._store.values() if o.customer_id == id]
-    def save(self, o):          self._store[o.id] = o
-    def remove(self, o):        self._store.pop(o.id, None)
-```
+:::code repository-d/ts/kistiak-kontrakt-u-domeni-2.ts
+:::code repository-d/py/kistiak-kontrakt-u-domeni-2.py
 :::
 
 Дві реалізації одного контракту. Одна перекладає кожен виклик на SQL і кличе [відображувач об'єкт↔рядок](root:sf-data/data-mapper), друга просто кладе об'єкти в `Map` і бере їх звідти. Для `LoyaltyService` вони нерозрізненні — він тримає `OrderRepository`, а який саме клас туди підставили, вирішується **ззовні, в одному місці збірки**. Оце й є весь патерн: домен пише правила проти уявної колекції, а який світ ховається за нею — SQL, документи чи мапа для тесту — обирають на межі, не чіпаючи домен.

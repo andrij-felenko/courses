@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,7 +29,8 @@
           "proj": [
             {
               "file": "proj-untangle-fat-controller.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -36,7 +38,8 @@
           "slug": "model-view-presenter",
           "title": "Модель–подання–презентер (MVP)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "empty"
@@ -44,13 +47,15 @@
           "hist": [
             {
               "file": "hist-mvp-birth.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-passive-view.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -58,7 +63,8 @@
           "slug": "model-view-viewmodel",
           "title": "Модель–подання–модель подання (MVVM)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "empty"
@@ -72,7 +78,8 @@
           "proj": [
             {
               "file": "proj-tiny-binding.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -94,7 +101,8 @@
           "proj": [
             {
               "file": "proj-signal-graph.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -105,7 +113,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -122,7 +131,8 @@
           "proj": [
             {
               "file": "proj-tiny-store.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -145,19 +155,22 @@
           "hist": [
             {
               "file": "hist-three-thresholds.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-mhp-cycle.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-optimistic-flow.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -168,7 +181,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -185,7 +199,8 @@
           "proj": [
             {
               "file": "proj-offloaded-search.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -196,7 +211,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -207,13 +223,17 @@
           "proj": [
             {
               "file": "proj-event-rate-limiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-rate-limiter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -235,13 +255,16 @@
           "math": [
             {
               "file": "math-virtual-offsets.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-virtual-scroller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -253,30 +276,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-vdom-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-reconciliation-strategies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-tree-diff.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-vdom-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -343,24 +372,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-ajax-revolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-partial-fetch-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-transport-protocols.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -371,7 +408,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -382,7 +420,9 @@
           "proj": [
             {
               "file": "proj-optimistic-mutation-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -405,19 +445,23 @@
           "math": [
             {
               "file": "math-conflict-resolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-mutation-queue.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-sync-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }
@@ -434,7 +478,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -451,7 +496,8 @@
           "proj": [
             {
               "file": "proj-undoable-store.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -473,19 +519,24 @@
           "math": [
             {
               "file": "math-checkpoint-interval.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-wal-recovery.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-storage-durability.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -502,7 +553,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -513,7 +565,8 @@
           "proj": [
             {
               "file": "proj-ui-worker-handoff.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -524,7 +577,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -535,13 +589,16 @@
           "proj": [
             {
               "file": "proj-binder-ipc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-manifest-components.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -563,13 +620,16 @@
           "proj": [
             {
               "file": "proj-webpush-crypto.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-push-protocols.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -597,13 +657,17 @@
           "proj": [
             {
               "file": "proj-sdui-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-schema-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -614,7 +678,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -625,11 +690,13 @@
           "proj": [
             {
               "file": "proj-plural-message-format.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             },
             {
               "file": "proj-embedded-i18n-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

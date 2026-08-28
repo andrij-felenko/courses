@@ -38,74 +38,15 @@
 Абстракція звучить туманно, поки не побачиш код. А тут і бачити нема чого складного — шина подій у своєму ядрі це словник, що відображає ім'я події на список функцій-обробників. Ось повна робоча реалізація; це загальний прикладний код, тож покажу двома мовами, якими такі речі й пишуть на практиці.
 
 :::tabs
-```ts
-type Handler = (event: unknown) => void;
-
-class EventBus {
-  private handlers = new Map<string, Handler[]>();
-
-  // підписник заявляє інтерес до типу події
-  subscribe(eventType: string, handler: Handler): void {
-    const list = this.handlers.get(eventType) ?? [];
-    list.push(handler);
-    this.handlers.set(eventType, list);
-  }
-
-  // видавець оголошує факт; шина розносить його всім підписаним
-  publish(eventType: string, event: unknown): void {
-    for (const handler of this.handlers.get(eventType) ?? []) {
-      handler(event);
-    }
-  }
-}
-```
-```python
-from collections import defaultdict
-from typing import Callable
-
-class EventBus:
-    def __init__(self) -> None:
-        self._handlers: dict[str, list[Callable]] = defaultdict(list)
-
-    # підписник заявляє інтерес до типу події
-    def subscribe(self, event_type: str, handler: Callable) -> None:
-        self._handlers[event_type].append(handler)
-
-    # видавець оголошує факт; шина розносить його всім підписаним
-    def publish(self, event_type: str, event: object) -> None:
-        for handler in self._handlers[event_type]:
-            handler(event)
-```
+:::code event-driven-architecture-d/ts/naiprostisha-shyna-iaku.ts
+:::code event-driven-architecture-d/py/naiprostisha-shyna-iaku.py
 :::
 
 Двадцять рядків — і вся суть уже тут. Тепер `placeOrder` не кличе пошту й доставку; вона кличе `bus.publish`. А кожна реакція живе окремо:
 
 :::tabs
-```ts
-// збірка застосунку: підписки в одному місці
-bus.subscribe("OrderPlaced", (e) => sendConfirmationEmail(e));
-bus.subscribe("OrderPlaced", (e) => awardLoyaltyPoints(e));
-bus.subscribe("OrderPlaced", (e) => notifyShipping(e));
-
-// сам видавець нічого про них не знає
-function placeOrder(cart: Cart): void {
-  const order = saveOrder(cart);
-  reserveStock(order);
-  bus.publish("OrderPlaced", { orderId: order.id, userId: cart.userId });
-}
-```
-```python
-# збірка застосунку: підписки в одному місці
-bus.subscribe("OrderPlaced", lambda e: send_confirmation_email(e))
-bus.subscribe("OrderPlaced", lambda e: award_loyalty_points(e))
-bus.subscribe("OrderPlaced", lambda e: notify_shipping(e))
-
-# сам видавець нічого про них не знає
-def place_order(cart: Cart) -> None:
-    order = save_order(cart)
-    reserve_stock(order)
-    bus.publish("OrderPlaced", {"order_id": order.id, "user_id": cart.user_id})
-```
+:::code event-driven-architecture-d/ts/naiprostisha-shyna-iaku-2.ts
+:::code event-driven-architecture-d/py/naiprostisha-shyna-iaku-2.py
 :::
 
 Придивись, що сталося з формою залежностей. Раніше стрілки йшли **з** `placeOrder` **до** пошти, доставки, аналітики — модуль замовлення залежав від усіх них. Тепер стрілки йдуть **до шини** з обох боків: `placeOrder` залежить від шини, обробники залежать від шини, а один від одного — ніхто. Додати шосте, десяте, соте сповіщення — це дописати рядок `subscribe` у збірці застосунку. Код `placeOrder` при цьому не розгортаєш і навіть не відкриваєш. Ось за що платить обмін: **точку, де народжується факт, ти замикаєш раз і більше не чіпаєш**, скільки б наслідків не наростало.
@@ -138,31 +79,7 @@ def place_order(cart: Cart) -> None:
 
 Ось асинхронний варіант — розв'язка в часі, не лише в коді. Тут TypeScript особливо на своєму місці: цикл подій вбудований у саму мову.
 
-```ts
-class AsyncEventBus {
-  private handlers = new Map<string, ((e: unknown) => Promise<void> | void)[]>();
-
-  subscribe(type: string, h: (e: unknown) => Promise<void> | void): void {
-    const list = this.handlers.get(type) ?? [];
-    list.push(h);
-    this.handlers.set(type, list);
-  }
-
-  // повертається ОДРАЗУ; обробники йдуть у наступному такті циклу подій
-  publish(type: string, event: unknown): void {
-    const handlers = this.handlers.get(type) ?? [];
-    queueMicrotask(async () => {
-      for (const h of handlers) {
-        try {
-          await h(event);            // падіння одного не валить видавця…
-        } catch (err) {
-          console.error(`handler for ${type} failed`, err);  // …його ловлять тут
-        }
-      }
-    });
-  }
-}
-```
+:::code event-driven-architecture-d/ts/synkhronno-chy-asynkhronno.ts
 
 Зверни увагу на два зрушення, які асинхронність приносить разом. По-перше, `publish` більше нічого не повертає видавцеві — той оголосив факт і пішов, не знаючи й не питаючи про долю наслідків. По-друге, з'явився `try/catch` довкола кожного обробника: раз збій уже не може дійти до видавця, його **мусить** ловити хтось інший, інакше він просто зникне мовчки. Асинхронна шина знімає одну проблему (зчеплення в часі) і тут-таки віддає натомість дві нові — обробку помилок, яку більше нікому передати, і втрату гарантії «все або нічого». Це не вада реалізації, це природа асинхронності: розв'язавши в часі, ти розв'язав і долі.
 

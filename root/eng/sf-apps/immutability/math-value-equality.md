@@ -89,38 +89,8 @@
 Ось як зрив рефлексивності виглядає в коді — той самий приклад двома ідіомами:
 
 :::tabs
-```java
-class Tag {                         // «значення», але МІНЛИВЕ — у цьому вся біда
-    String name;
-    Tag(String n) { name = n; }
-    @Override public boolean equals(Object o) {
-        return o instanceof Tag t && t.name.equals(name);
-    }
-    @Override public int hashCode() { return name.hashCode(); }
-}
-
-var set = new HashSet<Tag>();
-var a = new Tag("cola");
-set.add(a);                         // лягає в кошик геш("cola")
-a.name = "beer";                    // мутація поля, що бере участь у геші
-
-set.contains(a);                    // false — той самий об'єкт «не в множині»!
-set.iterator().next() == a;         // true  — а перебором він ось він, тут
-```
-```py
-class Tag:                          # те саме: рівність за вмістом, поле мінливе
-    def __init__(self, name): self.name = name
-    def __eq__(self, o): return isinstance(o, Tag) and o.name == self.name
-    def __hash__(self): return hash(self.name)
-
-s = set()
-a = Tag("cola")
-s.add(a)                            # кошик за hash("cola")
-a.name = "beer"                     # мутація поля геша
-
-a in s                              # False — той самий об'єкт «не в множині»
-next(iter(s)) is a                  # True  — перебором він на місці
-```
+:::code math-value-equality/java/main.java
+:::code math-value-equality/py/main.py
 :::
 
 Обидві мови кажуть одне: щойно поле, за яким рахується рівність і геш, змінюється **після** вставки, об'єкт випадає з таблиці, лишаючись у ній фізично. Зверни увагу — ані Java, ані Python **не перегешовують** ключ, коли ти мутуєш його ззовні; вони й не можуть цього помітити. Тому єдиний надійний захист — не давати ключеві змінюватися взагалі.

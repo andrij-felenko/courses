@@ -29,39 +29,7 @@
 У Java «нема модифікатора» і означає package-private — видно лише в тому самому пакеті. У C# те саме дає `internal` — видно лише в межах тієї самої збірки (assembly). Ось `warehouse` у двох мовах: фасад назовні, реалізація замкнена.
 
 :::tabs
-```java
-// ── warehouse/api/Warehouse.java — фасад: public, його бачать усі ──
-package shop.warehouse.api;
-
-public interface Warehouse {
-    Reservation reserve(OrderId id, int qty);   // єдине, що видно ззовні
-}
-
-// ── warehouse/internal/WarehouseServiceImpl.java — НЕ public ──
-package shop.warehouse.internal;
-
-import shop.warehouse.api.Warehouse;
-
-// зверни увагу: НЕ "public class" — клас package-private.
-// Поза пакетом shop.warehouse.internal його не видно взагалі.
-class WarehouseServiceImpl implements Warehouse {
-    private final StockTable stock;             // StockTable теж НЕ public
-
-    WarehouseServiceImpl(StockTable stock) { this.stock = stock; }
-
-    @Override public Reservation reserve(OrderId id, int qty) {
-        return stock.hold(id, qty);
-    }
-}
-
-// ── orders намагається зрадити межу ──
-package shop.orders.internal;
-
-import shop.warehouse.api.Warehouse;                       // ✅ фасад — можна
-// import shop.warehouse.internal.WarehouseServiceImpl;    // ❌ НЕ КОМПІЛЮЄТЬСЯ:
-//   "WarehouseServiceImpl is not public in shop.warehouse.internal;
-//    cannot be accessed from outside package"
-```
+:::code proj-module-boundaries/java/Warehouse.java
 ```csharp
 // ── Warehouse.Api/Warehouse.cs — фасад: public ──
 namespace Shop.Warehouse.Api;
@@ -106,41 +74,7 @@ using Shop.Warehouse.Api;                        // ✅ фасад — можн�
 
 Канонічний інструмент цього ешелону в світі Java — **ArchUnit**: бібліотека, яка формулює архітектурні правила звичайним JUnit-тестом. Ти пишеш правило майже людською мовою — «жоден клас, що не в `warehouse`, не має залежати від класів у `warehouse.internal`» — а ArchUnit сканує зібрані класи й перевіряє. Ось той самий інваріант межі у вигляді робочого тесту.
 
-```java
-// architecture/ModuleBoundaryTest.java — запускається як звичайний тест у CI
-import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
-import com.tngtech.archunit.lang.ArchRule;
-
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
-
-class ModuleBoundaryTest {
-
-    // сканується один раз: усі класи застосунку
-    private final JavaClasses app =
-        new ClassFileImporter().importPackages("shop..");
-
-    // ПРАВИЛО 1: нутрощі warehouse — приватні для всіх, крім самого warehouse
-    @Test void warehouseInternalsAreHidden() {
-        ArchRule rule = noClasses()
-            .that().resideOutsideOfPackage("shop.warehouse..")
-            .should().dependOnClassesThat().resideInAPackage("shop.warehouse.internal..")
-            .because("ззовні дозволено лише фасад shop.warehouse.api");
-
-        rule.check(app);   // ← кине AssertionError зі списком порушників
-    }
-
-    // ПРАВИЛО 2: напрям стрілки — orders може знати warehouse, але не навпаки
-    @Test void warehouseDoesNotDependOnOrders() {
-        ArchRule rule = noClasses()
-            .that().resideInAPackage("shop.warehouse..")
-            .should().dependOnClassesThat().resideInAPackage("shop.orders..")
-            .because("склад нижче замовлень за потоком; зворотна стрілка = цикл");
-
-        rule.check(app);
-    }
-}
-```
+:::code proj-module-boundaries/java/ModuleBoundaryTest.java
 
 Тепер найважливіше — **як це червоніє**. Хтось у `orders` пише `import shop.warehouse.internal.WarehouseServiceImpl;` (уявімо, що межу пакетів обійшли рефлексією або клас таки зробили `public`). Наступний прогін тесту дає не абстрактне «щось не так», а точний акт із місцем злочину:
 
@@ -279,62 +213,8 @@ SELECT quantity FROM stock WHERE sku = ?     -- ← читаємо ЧУЖУ та
 Крок другий — дати фасаду **другу реалізацію**, що ходить по мережі замість локального виклику. Інтерфейс той самий; змінюється тіло. Був локальний `WarehouseServiceImpl` — стає `WarehouseHttpClient`, який кличе виділений сервіс складу.
 
 :::tabs
-```ts
-// БУЛО: локальна реалізація за бар'єром warehouse/index.ts
-export const makeWarehouse = (s: StockTable): Warehouse =>
-  new WarehouseService(s);
-
-// СТАЛО: за тим самим бар'єром — клієнт до винесеного сервісу.
-// Жоден імпортер 'warehouse' не змінюється: тип Warehouse той самий.
-class WarehouseHttpClient implements Warehouse {
-  constructor(private baseUrl: string) {}
-  async reserve(id: OrderId, qty: number): Promise<Reservation> {
-    const r = await fetch(`${this.baseUrl}/reserve`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ orderId: id, qty }),
-    });
-    if (!r.ok) throw new WarehouseUnavailable(r.status);   // ← НОВЕ: мережа падає
-    return (await r.json()) as Reservation;
-  }
-}
-export const makeWarehouse = (base: string): Warehouse =>
-  new WarehouseHttpClient(base);
-```
-```java
-// БУЛО: фабрика повертала локальну реалізацію
-public final class WarehouseFactory {
-    public static Warehouse local(StockTable stock) {
-        return new WarehouseServiceImpl(stock);
-    }
-}
-
-// СТАЛО: та сама фабрика повертає клієнт до сервісу.
-// Тип Warehouse не змінився — виклики orders лишаються дослівно ті самі.
-public final class WarehouseHttpClient implements Warehouse {
-    private final HttpClient http;
-    private final URI base;
-
-    public WarehouseHttpClient(HttpClient http, URI base) {
-        this.http = http; this.base = base;
-    }
-
-    @Override public Reservation reserve(OrderId id, int qty) {
-        HttpRequest req = HttpRequest.newBuilder()
-            .uri(base.resolve("/reserve"))
-            .POST(bodyOf(id, qty))
-            .build();
-        try {
-            HttpResponse<String> res = http.send(req, ofString());
-            if (res.statusCode() != 200)                   // ← НОВЕ: мережа падає
-                throw new WarehouseUnavailable(res.statusCode());
-            return parse(res.body());
-        } catch (IOException | InterruptedException e) {
-            throw new WarehouseUnavailable(e);             // таймаут, обрив
-        }
-    }
-}
-```
+:::code proj-module-boundaries/ts/index.ts
+:::code proj-module-boundaries/java/zarady-choho-mezha.java
 :::
 
 Крок третій — **перевести дані**: таблиця `stock` переїжджає у власну базу нового сервісу. Оскільки (пастка перша!) ніхто, крім `warehouse`, до `stock` не звертався, переїзд не зачіпає чужого коду. Якби `orders` колись зробив той `SELECT` повз фасад — саме тут виймання б і застрягло, бо разом зі складом довелося б рвати й замовлення. Ось чому дисципліна таблиць окупається саме в цю мить.

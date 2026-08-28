@@ -58,91 +58,8 @@
 Спершу — самі поняття. `Shipment` (відправлення) знає свою вагу й вікно доставки; `Route` (маршрут однієї машини на день) — впорядкований список зупинок і сумарну вагу, яку не можна перевищити. Модель одразу боронить свої правила: маршрут не дає покласти в себе вантаж, що не влазить.
 
 :::tabs
-```ts
-// routing/domain/Shipment.ts — поняття предмета, мова перевізника
-export interface TimeWindow {
-  from: number;  // хвилини від початку доби, напр. 540 = 09:00
-  to: number;    // 1020 = 17:00
-}
-
-export class Shipment {
-  constructor(
-    public readonly id: string,
-    public readonly address: string,
-    public readonly weightKg: number,
-    public readonly window: TimeWindow,
-  ) {
-    if (weightKg <= 0) throw new Error("вага відправлення має бути додатною");
-    if (window.from >= window.to) throw new Error("порожнє вікно доставки");
-  }
-}
-
-// routing/domain/Route.ts — маршрут однієї машини; сам боронить своє правило
-export class Route {
-  private readonly stops: Shipment[] = [];
-  private loadKg = 0;
-
-  constructor(
-    public readonly vehicleId: string,
-    public readonly capacityKg: number,
-  ) {}
-
-  tryAdd(s: Shipment): boolean {
-    if (this.loadKg + s.weightKg > this.capacityKg) return false; // не влазить
-    this.stops.push(s);
-    this.loadKg += s.weightKg;
-    return true;
-  }
-
-  get shipments(): readonly Shipment[] { return this.stops; }
-  get fillRatio(): number { return this.loadKg / this.capacityKg; }
-}
-```
-```python
-# routing/domain/shipment.py — поняття предмета, мова перевізника
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class TimeWindow:
-    frm: int   # хвилини від початку доби, напр. 540 = 09:00
-    to: int    # 1020 = 17:00
-
-@dataclass(frozen=True)
-class Shipment:
-    id: str
-    address: str
-    weight_kg: float
-    window: TimeWindow
-
-    def __post_init__(self):
-        if self.weight_kg <= 0:
-            raise ValueError("вага відправлення має бути додатною")
-        if self.window.frm >= self.window.to:
-            raise ValueError("порожнє вікно доставки")
-
-# routing/domain/route.py — маршрут однієї машини; сам боронить своє правило
-class Route:
-    def __init__(self, vehicle_id: str, capacity_kg: float):
-        self.vehicle_id = vehicle_id
-        self.capacity_kg = capacity_kg
-        self._stops: list[Shipment] = []
-        self._load_kg = 0.0
-
-    def try_add(self, s: Shipment) -> bool:
-        if self._load_kg + s.weight_kg > self.capacity_kg:
-            return False                       # не влазить
-        self._stops.append(s)
-        self._load_kg += s.weight_kg
-        return True
-
-    @property
-    def shipments(self) -> list[Shipment]:
-        return list(self._stops)
-
-    @property
-    def fill_ratio(self) -> float:
-        return self._load_kg / self.capacity_kg
-```
+:::code proj-decompose-courier/ts/Shipment.ts
+:::code proj-decompose-courier/py/shipment.py
 :::
 
 Придивися, що ця модель не знає про базу даних, про HTTP, про жоден зовнішній сервіс. Вона знає тільки перевезення. Це і є «багата модель ядра»: не анемічний мішок полів із геттерами, а поняття, які **несуть правила предмета в собі** — маршрут відмовляє перевантаженню сам, не покладаючись на те, що хтось зовні перевірить.
@@ -169,25 +86,7 @@ export interface RoutePlanner {
   plan(req: PlanRequest): Route[];   // дай план НАШИМИ поняттями
 }
 ```
-```python
-# routing/domain/route_planner.py — ПОРТ. Мова ядра, жодного OR-Tools.
-from typing import Protocol
-from dataclasses import dataclass
-
-@dataclass
-class VehicleSpec:
-    id: str
-    capacity_kg: float
-
-@dataclass
-class PlanRequest:
-    shipments: list[Shipment]
-    vehicles: list[VehicleSpec]
-
-class RoutePlanner(Protocol):
-    def plan(self, req: PlanRequest) -> list[Route]:
-        ...                              # дай план НАШИМИ поняттями
-```
+:::code proj-decompose-courier/py/route_planner.py
 :::
 
 Це і є точка «писати vs узяти готове», матеріалізована в коді. **Інтерфейс `RoutePlanner` — своє** (тут живе рішення, що для нас добрий план); **його реалізація поверх OR-Tools — узяте готове** (двигун-розв'язувач). Порт — рівно та лінія, вздовж якої проходить рішення. Усе, що вище порту, — ядро, яке ми пишемо самі назавжди; усе, що нижче, — замінний адаптер над чужим.
@@ -199,71 +98,8 @@ class RoutePlanner(Protocol):
 Тому адаптер — це не просто «виклик бібліотеки». Це [антикорупційний шар: він приймає поняття ядра, перекладає їх у мову OR-Tools туди, а результат перекладає назад у наші `Route`](root:sf-apps/anti-corruption-layer). Чуже входить і виходить **лише тут**; ядро назовні бачить тільки свій порт і свої поняття. Адаптер сидить в інфраструктурному кутку модуля ядра (`routing/infra/`) — він частина реалізації ядра, але єдине місце, куди пущено чужий словник.
 
 :::tabs
-```ts
-// routing/infra/OrToolsPlanner.ts — АДАПТЕР + ACL.
-// Єдине місце, де живе мова чужого розв'язувача.
-import { RoutePlanner, PlanRequest } from "../domain/RoutePlanner";
-import { Route, Shipment } from "../domain/Route";
-import { solveVrp } from "some-or-tools-binding"; // чужий SDK — лише тут
-
-export class OrToolsPlanner implements RoutePlanner {
-  plan(req: PlanRequest): Route[] {
-    // 1) НАШЕ → ЧУЖЕ: перекладаємо відправлення в матрицю індексів
-    const nodes = req.shipments.map((s, i) => ({ index: i, addr: s.address }));
-    const distance = this.buildDistanceMatrix(nodes);      // їхня «розмірність»
-    const demands = req.shipments.map((s) => s.weightKg);  // їхній колбек попиту
-    const caps = req.vehicles.map((v) => v.capacityKg);
-
-    // 2) кличемо чужий двигун — тут його мова індексів і матриць
-    const raw = solveVrp({ distance, demands, capacities: caps });
-
-    // 3) ЧУЖЕ → НАШЕ: індекси вузлів назад у Route з наших Shipment
-    return raw.routes.map((r, k) => {
-      const route = new Route(req.vehicles[k].id, caps[k]);
-      for (const nodeIndex of r.stops) {
-        route.tryAdd(req.shipments[nodeIndex]);   // назад у наші поняття
-      }
-      return route;
-    });
-  }
-
-  private buildDistanceMatrix(nodes: { addr: string }[]): number[][] {
-    // тут була б геокодизація/матриця відстаней; деталь чужого світу
-    return nodes.map(() => nodes.map(() => 0));
-  }
-}
-```
-```python
-# routing/infra/or_tools_planner.py — АДАПТЕР + ACL.
-# Єдине місце, де живе мова чужого розв'язувача.
-from ..domain.route_planner import RoutePlanner, PlanRequest
-from ..domain.route import Route
-from some_or_tools_binding import solve_vrp   # чужий SDK — лише тут
-
-class OrToolsPlanner(RoutePlanner):
-    def plan(self, req: PlanRequest) -> list[Route]:
-        # 1) НАШЕ → ЧУЖЕ: відправлення в матрицю індексів
-        nodes = list(enumerate(s.address for s in req.shipments))
-        distance = self._build_distance_matrix(nodes)     # їхня «розмірність»
-        demands = [s.weight_kg for s in req.shipments]    # їхній колбек попиту
-        caps = [v.capacity_kg for v in req.vehicles]
-
-        # 2) кличемо чужий двигун — тут його мова індексів і матриць
-        raw = solve_vrp(distance=distance, demands=demands, capacities=caps)
-
-        # 3) ЧУЖЕ → НАШЕ: індекси вузлів назад у Route з наших Shipment
-        routes: list[Route] = []
-        for k, r in enumerate(raw.routes):
-            route = Route(req.vehicles[k].id, caps[k])
-            for node_index in r.stops:
-                route.try_add(req.shipments[node_index])  # назад у наші поняття
-            routes.append(route)
-        return routes
-
-    def _build_distance_matrix(self, nodes) -> list[list[float]]:
-        # тут була б геокодизація/матриця відстаней; деталь чужого світу
-        return [[0.0 for _ in nodes] for _ in nodes]
-```
+:::code proj-decompose-courier/ts/OrToolsPlanner.ts
+:::code proj-decompose-courier/py/or_tools_planner.py
 :::
 
 Три пронумеровані блоки — це і є перекладач у дії: НАШЕ→ЧУЖЕ на вході, чужий двигун усередині, ЧУЖЕ→НАШЕ на виході. Поза цим файлом жоден рядок ядра не знає, що всередині OR-Tools, а не власний код чи інший рушій. Саме тому наступного року можна поміняти OR-Tools на комерційний розв'язувач, переписавши **один** файл, а домен не помітить.
@@ -271,75 +107,15 @@ class OrToolsPlanner(RoutePlanner):
 І ось безпосередній дивіденд від порту: та сама межа дає **дублера для тестів**. Ганяти важкий OR-Tools у кожному юніт-тесті ядра — марно повільно; тож поруч кладемо просту жадібну реалізацію того самого порту, яка складає машини «як влізе», без оптимізації. Для тестів логіки бізнесу її досить, а для дешевого тарифу клієнта — навіть згодиться в бою.
 
 :::tabs
-```ts
-// routing/infra/GreedyPlanner.ts — той самий порт, проста реалізація.
-// Для тестів ядра і для дешевого тарифу: кладемо «як влізе».
-import { RoutePlanner, PlanRequest } from "../domain/RoutePlanner";
-import { Route } from "../domain/Route";
-
-export class GreedyPlanner implements RoutePlanner {
-  plan(req: PlanRequest): Route[] {
-    const routes = req.vehicles.map((v) => new Route(v.id, v.capacityKg));
-    for (const s of req.shipments) {
-      const target = routes.find((r) => r.tryAdd(s)); // у першу, куди влазить
-      if (!target) throw new Error(`нікуди покласти ${s.id}`);
-    }
-    return routes;
-  }
-}
-```
-```python
-# routing/infra/greedy_planner.py — той самий порт, проста реалізація.
-# Для тестів ядра і для дешевого тарифу: кладемо «як влізе».
-from ..domain.route_planner import RoutePlanner, PlanRequest
-from ..domain.route import Route
-
-class GreedyPlanner(RoutePlanner):
-    def plan(self, req: PlanRequest) -> list[Route]:
-        routes = [Route(v.id, v.capacity_kg) for v in req.vehicles]
-        for s in req.shipments:
-            placed = any(r.try_add(s) for r in routes)  # у першу, куди влазить
-            if not placed:
-                raise ValueError(f"нікуди покласти {s.id}")
-        return routes
-```
+:::code proj-decompose-courier/ts/GreedyPlanner.ts
+:::code proj-decompose-courier/py/greedy_planner.py
 :::
 
 Над портом сидить сервіс застосунку — тонкий диригент, що бере відправлення й машини, кличе планувальник (будь-який, за портом) і повертає план. Він не знає й не хоче знати, який саме планувальник йому підсунули: у бою — `OrToolsPlanner`, у тесті — `GreedyPlanner`. Це вирішує складання застосунку ззовні.
 
 :::tabs
-```ts
-// routing/app/PlanRoutesService.ts — диригент ядра. Мова предмета, не SDK.
-import { RoutePlanner, PlanRequest } from "../domain/RoutePlanner";
-import { Route } from "../domain/Route";
-
-export class PlanRoutesService {
-  constructor(private readonly planner: RoutePlanner) {} // порт, не реалізація
-
-  planDay(req: PlanRequest): Route[] {
-    if (req.shipments.length === 0) return [];
-    const routes = this.planner.plan(req);
-    // тут — суто наші правила поверх плану: напр. відкинути напівпорожні
-    return routes.filter((r) => r.fillRatio > 0.15);
-  }
-}
-```
-```python
-# routing/app/plan_routes_service.py — диригент ядра. Мова предмета, не SDK.
-from ..domain.route_planner import RoutePlanner, PlanRequest
-from ..domain.route import Route
-
-class PlanRoutesService:
-    def __init__(self, planner: RoutePlanner):   # порт, не реалізація
-        self._planner = planner
-
-    def plan_day(self, req: PlanRequest) -> list[Route]:
-        if not req.shipments:
-            return []
-        routes = self._planner.plan(req)
-        # тут — суто наші правила поверх плану: напр. відкинути напівпорожні
-        return [r for r in routes if r.fill_ratio > 0.15]
-```
+:::code proj-decompose-courier/ts/PlanRoutesService.ts
+:::code proj-decompose-courier/py/plan_routes_service.py
 :::
 
 ![Шлях виклику планування маршрутів крізь шари системи: зліва направо сервіс застосунку ядра PlanRoutesService мовою Shipment і Route кличе порт RoutePlanner як інтерфейс, далі адаптер OrToolsPlanner який є ACL і перекладає туди й назад, і нарешті чужий готовий розв'язувач OR-Tools у пунктирній рамці; вертикальна пунктирна межа поділяє своє від межі зі світом; нижче окремою гілкою від того самого порту відходить простий дублер GreedyPlanner для тестів і дешевого тарифу](img/courier-request-flow.svg)
@@ -351,36 +127,8 @@ class PlanRoutesService:
 Модуль `fleet/` (автопарк) — теж наш код, але без пафосу ядра. Тут поняття бідніші, правил менше, і ми свідомо не інвестуємо в глибоку модель: машина, її пробіг, дата наступного ТО. Ніяких портів на пів світу — простий сервіс над сховищем.
 
 :::tabs
-```ts
-// fleet/domain/Vehicle.ts — допоміжне: чесно, надійно, без вилизування
-export class Vehicle {
-  constructor(
-    public readonly id: string,
-    public readonly capacityKg: number,
-    private odometerKm: number,
-    private nextServiceKm: number,
-  ) {}
-
-  needsService(): boolean { return this.odometerKm >= this.nextServiceKm; }
-  addTrip(km: number): void { this.odometerKm += km; }
-}
-```
-```python
-# fleet/domain/vehicle.py — допоміжне: чесно, надійно, без вилизування
-class Vehicle:
-    def __init__(self, id: str, capacity_kg: float,
-                 odometer_km: float, next_service_km: float):
-        self.id = id
-        self.capacity_kg = capacity_kg
-        self._odometer_km = odometer_km
-        self._next_service_km = next_service_km
-
-    def needs_service(self) -> bool:
-        return self._odometer_km >= self._next_service_km
-
-    def add_trip(self, km: float) -> None:
-        self._odometer_km += km
-```
+:::code proj-decompose-courier/ts/Vehicle.ts
+:::code proj-decompose-courier/py/vehicle.py
 :::
 
 Ключове тут — **пропорція зусиль**, а не сам код. Ядро дістало порт, дублера, ACL, багату модель, що боронить інваріанти. Автопарк дістав два методи. Це не недбалість — це правильний розподіл: обидва працюють, але в допоміжне ми не влили те, що влили в ядро, бо воно того не варте. Розкрій дав дозвіл на цю нерівність.
@@ -394,46 +142,8 @@ class Vehicle:
 Сповіщення — беремо готовий поштовий сервіс (скажімо, SendGrid). Ядро оголошує, що йому треба надіслати листа, своєю мовою; адаптер над SDK це виконує:
 
 :::tabs
-```ts
-// notify/EmailSender.ts — ПОРТ. Що системі треба, її словами.
-export interface EmailSender {
-  send(to: string, subject: string, body: string): Promise<void>;
-}
-
-// notify/SendgridSender.ts — тонкий АДАПТЕР над готовим сервісом.
-import { EmailSender } from "./EmailSender";
-import sgMail from "@sendgrid/mail"; // чужий SDK — лише тут
-
-export class SendgridSender implements EmailSender {
-  constructor(apiKey: string) { sgMail.setApiKey(apiKey); }
-
-  async send(to: string, subject: string, body: string): Promise<void> {
-    await sgMail.send({ to, from: "ops@courier.example", subject, text: body });
-  }
-}
-```
-```python
-# notify/email_sender.py — ПОРТ. Що системі треба, її словами.
-from typing import Protocol
-
-class EmailSender(Protocol):
-    def send(self, to: str, subject: str, body: str) -> None:
-        ...
-
-# notify/sendgrid_sender.py — тонкий АДАПТЕР над готовим сервісом.
-from sendgrid import SendGridAPIClient        # чужий SDK — лише тут
-from sendgrid.helpers.mail import Mail
-from .email_sender import EmailSender
-
-class SendgridSender(EmailSender):
-    def __init__(self, api_key: str):
-        self._client = SendGridAPIClient(api_key)
-
-    def send(self, to: str, subject: str, body: str) -> None:
-        msg = Mail(from_email="ops@courier.example",
-                   to_emails=to, subject=subject, plain_text_content=body)
-        self._client.send(msg)
-```
+:::code proj-decompose-courier/ts/EmailSender.ts
+:::code proj-decompose-courier/py/email_sender.py
 :::
 
 Порівняй `EmailSender` з `RoutePlanner`. Форма та сама — порт плюс адаптер, — але **вага інша**. За `RoutePlanner` стоїть багате ядро: правила бізнесу, дублер, ACL із двобічним перекладом. За `EmailSender` — порожньо: три рядки виклику чужого SDK, жодної власної моделі листа, бо лист — це загальне, і нам байдуже до його влаштування. Однакова форма, протилежна інвестиція. Це і є розкрій, застиглий у коді: не «всюди порти заради портів», а «порт — там, де межа, а товщина за портом — за сортом».

@@ -80,19 +80,7 @@ mapped = fold_right(lambda x, a: [x * x] + a, [], [3, 1, 4]) # [9, 1, 16]
 
 Прикладімо до обходу. «Решту обходу» списку будь-якої миті описує одна-єдина річ: який хвіст ще не спожито. Тож defunctionalization згортає весь стан в один **курсор** — вказівник на непройдений суфікс. `next()` читає голову й пересуває курсор на хвіст:
 
-```python
-class ListIterator:
-    def __init__(self, head):
-        self.cur = head              # стан = решта обходу, згорнута в ОДИН вказівник
-
-    def has_next(self):
-        return self.cur is not None
-
-    def next(self):
-        node = self.cur
-        self.cur = node.next         # δ: крок до наступного стану
-        return node.value
-```
+:::code math-iterator-fold-duality/py/defunctionalization-reshtu.py
 
 Для списку відкладене обчислення — рівний ланцюжок, тож вистачає одного вказівника. А ось де defunctionalization по-справжньому заробляє — це дерево. Симетричний обхід (*in-order*) двійкового дерева рекурсує ліворуч, відвідує вузол, рекурсує праворуч:
 
@@ -105,25 +93,7 @@ inorder(t, z) = якщо t порожнє: z
 
 У мить, коли ми віддаємо вузол, «решта» — це: доробити праве піддерево цього вузла, а тоді ще не пройдені праві піддерева всіх предків, по порядку. Це вже не один вказівник — це **стек** відкладених вузлів. І цей стек — не що інше, як власний стек викликів рекурсії, зроблений явним. Знефункціоналізувати симетричну згортку означає витягти прихований стек викликів мови у звичайний список, який ти тримаєш у полі:
 
-```python
-class InOrderIterator:
-    def __init__(self, root):
-        self.stack = []
-        self._descend(root)          # стан = стек напівпройдених вузлів
-
-    def _descend(self, node):
-        while node is not None:      # завантажуємо лівий хребет
-            self.stack.append(node)
-            node = node.left
-
-    def has_next(self):
-        return len(self.stack) > 0
-
-    def next(self):
-        node = self.stack.pop()      # δ: наступний найлівіший вузол
-        self._descend(node.right)    # праве піддерево стає новою «рештою»
-        return node.value
-```
+:::code math-iterator-fold-duality/py/defunctionalization-reshtu-2.py
 
 Версія з генератором і `yield` пише цей стек за тебе: компілятор застосовує defunctionalization до обходу сам, заморожуючи кадр виклику як відновний об'єкт. Обчислення, застигле посеред кроку й здатне ожити з того самого місця, — це [корутина](root:sys-plang-cpp/coroutines); генератор — це згортка, поставлена на паузу.
 

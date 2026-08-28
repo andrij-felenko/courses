@@ -16,133 +16,8 @@
 ### Системні виклики та ідіоматичні обгортки
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/file.h>
-#include <stdio.h>
-#include <errno.h>
-
-#if defined(__APPLE__)
-#include <sys/fcntl.h>
-#endif
-
-/* 1. Створення унікального тимчасового файлу в тому ж каталозі */
-int open_temporary_atomic(const char *path) {
-    return open(path, O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0644);
-}
-
-/* 2. Примусове скидання брудних сторінок сторінкового кешу на фізичний диск */
-int sync_file_to_disk(int fd) {
-#if defined(__APPLE__)
-    /* На macOS звичайний fsync скидає лише в кеш накопичувача, F_FULLFSYNC — у флешкомірки */
-    return fcntl(fd, F_FULLFSYNC);
-#else
-    return fsync(fd);
-#endif
-}
-
-/* 3. Атомарна підміна запису в таблиці каталогу */
-int atomic_replace_file(const char *temp_path, const char *target_path) {
-    return rename(temp_path, target_path);
-}
-
-/* 4. Ексклюзивне блокування файлу від інших процесів */
-int acquire_file_lease(int fd) {
-    return flock(fd, LOCK_EX | LOCK_NB);
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/file.h>
-#include <filesystem>
-#include <string>
-#include <system_error>
-#include <memory>
-
-#if defined(__APPLE__)
-#include <sys/fcntl.h>
-#endif
-
-namespace fs = std::filesystem;
-
-class PosixFileDescriptor {
-public:
-    explicit PosixFileDescriptor(int fd = -1) : fd_(fd) {}
-    ~PosixFileDescriptor() {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    PosixFileDescriptor(const PosixFileDescriptor&) = delete;
-    PosixFileDescriptor& operator=(const PosixFileDescriptor&) = delete;
-
-    PosixFileDescriptor(PosixFileDescriptor&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-
-    PosixFileDescriptor& operator=(PosixFileDescriptor&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool is_valid() const noexcept { return fd_ >= 0; }
-
-    void sync() {
-        if (fd_ < 0) return;
-#if defined(__APPLE__)
-        if (::fcntl(fd_, F_FULLFSYNC) != 0) {
-            throw std::system_error(errno, std::generic_category(), "F_FULLFSYNC failed");
-        }
-#else
-        if (::fsync(fd_) != 0) {
-            throw std::system_error(errno, std::generic_category(), "fsync failed");
-        }
-#endif
-    }
-
-    bool try_lock_exclusive() {
-        return fd_ >= 0 && ::flock(fd_, LOCK_EX | LOCK_NB) == 0;
-    }
-
-private:
-    int fd_{-1};
-};
-
-class PosixAtomicStorage {
-public:
-    static PosixFileDescriptor open_temp(const fs::path& temp_path) {
-        int fd = ::open(temp_path.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0644);
-        if (fd < 0) {
-            throw std::system_error(errno, std::generic_category(), "open O_EXCL failed");
-        }
-        return PosixFileDescriptor(fd);
-    }
-
-    static void commit_replace(const fs::path& temp_path, const fs::path& target_path) {
-        if (::rename(temp_path.c_str(), target_path.c_str()) != 0) {
-            throw std::system_error(errno, std::generic_category(), "rename failed");
-        }
-
-        // Фіксація запису в таблиці батьківського каталогу
-        fs::path parent_dir = target_path.parent_path();
-        if (parent_dir.empty()) parent_dir = ".";
-        
-        int dir_fd = ::open(parent_dir.c_str(), O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-        if (dir_fd >= 0) {
-            PosixFileDescriptor dir_guard(dir_fd);
-            dir_guard.sync();
-        }
-    }
-};
-```
+:::code api-storage-durability/c/systemni-vyklyky-ta.c
+:::code api-storage-durability/cpp/systemni-vyklyky-ta.cpp
 :::
 
 ### Особливості та підводні камені синхронізації в POSIX
@@ -173,137 +48,8 @@ public:
 ### Сигнатури та ідіоматичні обгортки Win32 API
 
 :::tabs
-```c
-#include <windows.h>
-
-/* 1. Відкриття файлу з контролем спільного доступу */
-HANDLE create_file_writer(LPCWSTR path) {
-    return CreateFileW(
-        path,
-        GENERIC_READ | GENERIC_WRITE,
-        FILE_SHARE_READ,                 /* Заборона іншим процесам писати у файл */
-        NULL,
-        CREATE_ALWAYS,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL
-    );
-}
-
-/* 2. Скидання системного буфера на фізичний диск */
-BOOL sync_windows_buffers(HANDLE hFile) {
-    return FlushFileBuffers(hFile);
-}
-
-/* 3. Атомарна заміна цільового файлу */
-BOOL replace_file_atomic(LPCWSTR target_path, LPCWSTR temp_path) {
-    return ReplaceFileW(
-        target_path,
-        temp_path,
-        NULL,
-        REPLACEFILE_IGNORE_MERGE_ERRORS,
-        NULL,
-        NULL
-    );
-}
-
-/* 4. Ексклюзивне блокування діапазону байтів */
-BOOL lock_windows_file(HANDLE hFile) {
-    OVERLAPPED ov = {0};
-    return LockFileEx(
-        hFile,
-        LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY,
-        0,
-        MAXDWORD,
-        MAXDWORD,
-        &ov
-    );
-}
-```
-```cpp
-#include <windows.h>
-#include <string>
-#include <system_error>
-#include <filesystem>
-
-namespace fs = std::filesystem;
-
-class Win32Handle {
-public:
-    explicit Win32Handle(HANDLE handle = INVALID_HANDLE_VALUE) : handle_(handle) {}
-    ~Win32Handle() {
-        if (handle_ != INVALID_HANDLE_VALUE) {
-            CloseHandle(handle_);
-        }
-    }
-
-    Win32Handle(const Win32Handle&) = delete;
-    Win32Handle& operator=(const Win32Handle&) = delete;
-
-    Win32Handle(Win32Handle&& other) noexcept : handle_(other.handle_) {
-        other.handle_ = INVALID_HANDLE_VALUE;
-    }
-
-    Win32Handle& operator=(Win32Handle&& other) noexcept {
-        if (this != &other) {
-            if (handle_ != INVALID_HANDLE_VALUE) CloseHandle(handle_);
-            handle_ = other.handle_;
-            other.handle_ = INVALID_HANDLE_VALUE;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] HANDLE get() const noexcept { return handle_; }
-    [[nodiscard]] bool is_valid() const noexcept { return handle_ != INVALID_HANDLE_VALUE; }
-
-    void flush() {
-        if (handle_ != INVALID_HANDLE_VALUE && !FlushFileBuffers(handle_)) {
-            throw std::system_error(GetLastError(), std::system_category(), "FlushFileBuffers failed");
-        }
-    }
-
-private:
-    HANDLE handle_{INVALID_HANDLE_VALUE};
-};
-
-class Win32AtomicStorage {
-public:
-    static Win32Handle open_exclusive_writer(const fs::path& path) {
-        HANDLE h = CreateFileW(
-            path.c_str(),
-            GENERIC_READ | GENERIC_WRITE,
-            FILE_SHARE_READ,
-            nullptr,
-            CREATE_ALWAYS,
-            FILE_ATTRIBUTE_NORMAL,
-            nullptr
-        );
-        if (h == INVALID_HANDLE_VALUE) {
-            throw std::system_error(GetLastError(), std::system_category(), "CreateFileW failed");
-        }
-        return Win32Handle(h);
-    }
-
-    static void commit_replace(const fs::path& temp_path, const fs::path& target_path) {
-        if (!ReplaceFileW(
-                target_path.c_str(),
-                temp_path.c_str(),
-                nullptr,
-                REPLACEFILE_IGNORE_MERGE_ERRORS,
-                nullptr,
-                nullptr)) {
-            // Якщо цільовий файл ще не існував, використовуємо MoveFileExW
-            DWORD err = GetLastError();
-            if (err == ERROR_FILE_NOT_FOUND) {
-                if (!MoveFileExW(temp_path.c_str(), target_path.c_str(), MOVEFILE_REPLACE_EXISTING)) {
-                    throw std::system_error(GetLastError(), std::system_category(), "MoveFileExW failed");
-                }
-                return;
-            }
-            throw std::system_error(err, std::system_category(), "ReplaceFileW failed");
-        }
-    }
-};
-```
+:::code api-storage-durability/c/syhnatury-ta-idiomatychni.c
+:::code api-storage-durability/cpp/syhnatury-ta-idiomatychni.cpp
 :::
 
 ### Особливості семантики Windows
@@ -320,45 +66,13 @@ public:
 
 ### Інтерфейс `FileSystemSyncAccessHandle` (OPFS)
 
-```typescript
-// Отримання дескриптора синхронного доступу всередині Dedicated Worker
-const root: FileSystemDirectoryHandle = await navigator.storage.getDirectory();
-const fileHandle = await root.getFileHandle("document.wal", { create: true });
-const accessHandle: FileSystemSyncAccessHandle = await fileHandle.createSyncAccessHandle();
-
-// Синхронний запис порції даних у заданий зсув
-const bytesWritten: number = accessHandle.write(buffer, { at: offset });
-
-// Примусова синхронізація з енергонезалежним носієм (аналог fsync)
-accessHandle.flush();
-
-// Атомарна зміна розміру (обрізання журналу після чекпойнта)
-accessHandle.truncate(0);
-
-// Закриття ексклюзивного доступу
-accessHandle.close();
-```
+:::code api-storage-durability/ts/interfeis.ts
 
 ### Координація вкладок через Web Locks API
 
 Для запобігання конфліктам кількох відкритих вкладок браузера над одним документом використовується `navigator.locks`:
 
-```typescript
-// Запит ексклюзивного права на модифікацію документа
-await navigator.locks.request(
-  `doc-lock-${documentId}`,
-  { mode: "exclusive", ifAvailable: true },
-  async (lock) => {
-    if (!lock) {
-      // Інша вкладка вже редагує документ
-      console.warn("Документ заблоковано іншим сеансом. Перехід у режим Read-Only.");
-      return;
-    }
-    // Ексклюзивне володіння: виконуємо запис у WAL
-    await runDocumentEventLoop();
-  }
-);
-```
+:::code api-storage-durability/ts/koordynatsiia-vkladok.ts
 
 ### Рівні надійності IndexedDB (`durability`)
 
@@ -383,25 +97,7 @@ const tx = db.transaction(["mutations"], "readwrite", { durability: "strict" });
 2. Читачі використовують індекс спільної пам'яті `db-shm` (Shared Memory), читаючи свіжі версії сторінок із журналу або старі з основної бази.
 3. Читання й запис більше ніколи не блокують одне одного.
 
-```sql
--- 1. Увімкнення Write-Ahead Logging замість класичного rollback-журналу
-PRAGMA journal_mode = WAL;
-
--- 2. Рівень синхронізації з диском
--- FULL (2): fsync після кожної транзакції (повний захист від раптового знеструмлення)
--- NORMAL (1): fsync лише при контрольних точках (стійкість до краху процесу застосунку)
--- OFF (0): повна відсутність синхронізації (високий ризик пошкодження)
-PRAGMA synchronous = NORMAL;
-
--- 3. Автоматичний поріг чекпойнта у сторінках (за замовчуванням 1000 сторінок = ~4 МБ)
-PRAGMA wal_autocheckpoint = 1000;
-
--- 4. Час очікування при блокуванні іншим процесом (у мілісекундах)
-PRAGMA busy_timeout = 5000;
-
--- 5. Ексклюзивний режим блокування для запобігання доступу сторонніх процесів
-PRAGMA locking_mode = EXCLUSIVE;
-```
+:::code api-storage-durability/sql/main.sql
 
 У режимі `journal_mode = WAL` директива `PRAGMA synchronous = NORMAL` забезпечує відмінний компроміс: навіть у разі падіння операційної системи сама база даних SQLite не може бути пошкоджена. Єдиний ризик — втрата останніх транзакцій, які ще не закріпилися контрольною точкою, тоді як у класичному режимі `NORMAL` загрожує повною руйнацією B-дерева.
 

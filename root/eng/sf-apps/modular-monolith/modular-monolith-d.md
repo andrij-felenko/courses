@@ -40,53 +40,9 @@
 Уся суть у тому, **де** живе ця заборона. Ось три модулі однієї системи, кожен показує назовні рівно один фасад, а всю кухню ховає. Зверни увагу, як мова допомагає прибити межу: у Java те, що не позначено `public`, взагалі невидиме поза пакетом; у TypeScript цю роль грає бар'єр `index.ts`, що реекспортує лише дозволене; у Python — угода `__all__` і префікс підкреслення.
 
 :::tabs
-```java
-// package warehouse — межа = сам пакет; лише public видно ззовні
-package shop.warehouse;
-
-public interface Warehouse {                 // ← фасад: єдине, що бачать сусіди
-    Reservation reserve(OrderId id, int qty);
-}
-
-// клас реалізації — package-private (немає public), поза пакетом невидимий
-class WarehouseService implements Warehouse {
-    private final StockTable stock;          // ← приватна нутрощі, чужим зась
-    public Reservation reserve(OrderId id, int qty) {
-        return stock.hold(id, qty);          // логіка резервування
-    }
-}
-```
-```ts
-// warehouse/warehouse.ts — реалізація ховається у теці
-class WarehouseService {
-  constructor(private stock: StockTable) {}  // приватна нутрощі
-  reserve(id: OrderId, qty: number): Reservation {
-    return this.stock.hold(id, qty);
-  }
-}
-
-// warehouse/index.ts — ЄДИНІ двері модуля: реекспортуємо лише фасад
-export type { Reservation, OrderId };
-export interface Warehouse {                 // сусіди імпортують тільки це
-  reserve(id: OrderId, qty: number): Reservation;
-}
-export const makeWarehouse = (s: StockTable): Warehouse => new WarehouseService(s);
-// StockTable назовні НЕ експортовано — його не існує для сусідів
-```
-```python
-# warehouse/__init__.py — фасад через __all__
-from ._service import Warehouse, make_warehouse   # _service — приватний модуль
-__all__ = ["Warehouse", "make_warehouse"]          # видно лише це
-
-# warehouse/_service.py — підкреслення = «не чіпай ззовні»
-class _StockTable:                                  # приватна нутрощі
-    def hold(self, order_id, qty): ...
-
-class Warehouse:                                    # фасад
-    def __init__(self, stock: _StockTable): self._stock = stock
-    def reserve(self, order_id, qty):
-        return self._stock.hold(order_id, qty)
-```
+:::code modular-monolith-d/java/main.java
+:::code modular-monolith-d/ts/warehouse.ts
+:::code modular-monolith-d/py/__init__.py
 :::
 
 У всіх трьох випадках сусідній модуль може написати лише `warehouse.reserve(id, n)`. Дотягтися до `StockTable`/`_StockTable` — не може: його **не видно**. Ось де живе межа. Не в наміри, не в коментарі «будь ласка, не чіпайте» — а в тому, що чуже просто **недоступне за іменем**.

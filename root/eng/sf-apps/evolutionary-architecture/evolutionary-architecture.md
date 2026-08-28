@@ -52,63 +52,14 @@ void publish_order(rd_kafka_t* k, const Order& o) {
     rd_kafka_producev(k, /* … купа kafka-специфіки … */);   // прибито до Kafka
 }
 ```
-```go
-// БЕЗ ШВА: конкретна черга протекла в бізнес-логіку
-package orders
-
-import (
-	"context"
-
-	"github.com/segmentio/kafka-go" // тип Kafka просочився сюди
-)
-
-func PublishOrder(ctx context.Context, w *kafka.Writer, o Order) error {
-	payload := serialize(o)
-	// прибито до Kafka: конкретний Writer у сигнатурі, kafka.Message у тілі
-	return w.WriteMessages(ctx, kafka.Message{Value: payload})
-}
-```
+:::code evolutionary-architecture/go/persha-opora-zvorotnist.go
 :::
 
 А тепер той самий вибір за швом. Логіка знає лише порт `EventBus`; яка саме черга під ним — її не обходить:
 
 :::tabs
-```cpp
-// ЗІ ШВОМ: логіка знає тільки порт, черга — за адаптером
-struct EventBus {                              // порт: контракт без черги
-    virtual void publish(const std::string& topic,
-                         const std::string& payload) = 0;
-    virtual ~EventBus() = default;
-};
-
-void publish_order(EventBus& bus, const Order& o) {
-    bus.publish("orders", serialize(o));       // жодного сліду Kafka
-}
-
-// Конкретна черга живе в ОДНОМУ місці — в адаптері:
-struct KafkaBus : EventBus { /* rdkafka саме тут */ };
-// Завтра RabbitMQ чи хмарна черга — новий адаптер, publish_order не міняється.
-```
-```go
-// ЗІ ШВОМ: логіка знає тільки порт, черга — за адаптером
-package orders
-
-// EventBus — порт: контракт без черги.
-type EventBus interface {
-	Publish(topic string, payload []byte) error
-}
-
-func PublishOrder(bus EventBus, o Order) error {
-	return bus.Publish("orders", serialize(o)) // жодного сліду Kafka
-}
-
-// Конкретна черга живе в ОДНОМУ місці — в адаптері:
-type KafkaBus struct{ /* kafka.Writer саме тут */ }
-
-func (b *KafkaBus) Publish(topic string, payload []byte) error { /* ... */ }
-
-// Завтра RabbitMQ чи хмарна черга — новий адаптер, PublishOrder не міняється.
-```
+:::code evolutionary-architecture/cpp/persha-opora-zvorotnist.cpp
+:::code evolutionary-architecture/go/persha-opora-zvorotnist-2.go
 :::
 
 Вибір черги з незворотного став зворотним: щоб її замінити, пишуть новий адаптер, а вся система вище шва лишається на місці. Так система набуває здатності еволюціонувати саме там, де інакше застигла б.
@@ -124,31 +75,8 @@ func (b *KafkaBus) Publish(topic string, payload []byte) error { /* ... */ }
 Приклад робить ідею відчутною. Припустімо, у системі важлива вимога: рівні шарів не повинні звертатися один до одного в обхід — домен не має права смикати базу напряму, минаючи репозиторій. Це архітектурне правило. Поки його стереже лише пам'ять розробників, воно порушується за перший же аврал. Фітнес-функція робить його **виконуваним тестом**, що біжить у складанні:
 
 :::tabs
-```cpp
-// Фітнес-функція: домен не сміє знати про шар доступу до бази.
-// Проста форма — тест, що падає, коли правило порушено.
-TEST(ArchitectureFitness, DomainDoesNotDependOnDb) {
-    auto deps = scan_includes("src/domain");        // усі #include домену
-    for (const auto& inc : deps) {
-        // жоден файл домену не має тягнути заголовки шару БД
-        EXPECT_FALSE(starts_with(inc, "db/"))
-            << "Домен звертається до бази напряму: " << inc;
-    }
-}
-```
-```go
-// Фітнес-функція: домен не сміє знати про шар доступу до бази.
-// Проста форма — тест, що падає, коли правило порушено.
-func TestDomainDoesNotDependOnDb(t *testing.T) {
-	deps := scanImports("./domain/...") // усі import-и домену
-	for _, imp := range deps {
-		// жоден пакет домену не має тягнути пакети шару БД
-		if strings.HasPrefix(imp, "app/db/") {
-			t.Errorf("Домен звертається до бази напряму: %s", imp)
-		}
-	}
-}
-```
+:::code evolutionary-architecture/cpp/druha-opora-perevirka.cpp
+:::code evolutionary-architecture/go/druha-opora-perevirka.go
 :::
 
 Тепер правило перестало бути побажанням на діаграмі й стало умовою, без якої складання не проходить. Кожна зміна, що потай порушує архітектуру, зупиняється тут — автоматично, без наради й без рев'ю. Ось що означає «напрямна зміна»: система вільна рости, але щоразу проходить крізь ворота, які пильнують важливе.

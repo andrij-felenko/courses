@@ -159,20 +159,7 @@ function onQueryChanged(text: string): void {
   });
 }
 ```
-```cpp
-std::atomic<uint64_t> generation{0};     // читає фон, пише потік інтерфейсу
-
-void onQueryChanged(std::string text) {
-    const uint64_t my = generation.fetch_add(1) + 1;
-    pool.submit([this, text = std::move(text), my] {
-        auto rows = search(text);                       // фоновий потік
-        postToUiThread([this, rows = std::move(rows), my] {
-            if (my != generation.load()) return;         // застаріла відповідь
-            renderRows(rows);                            // тут ми знову власник дерева
-        });
-    });
-}
-```
+:::code ui-thread-offloading-d/cpp/zvorotnyi-shliakh-de-i.cpp
 :::
 
 **Робота більше не потрібна.** Викинути відповідь — добре, але процесор на неї вже витрачено. Тому запит, що втратив сенс, треба **скасовувати**, і скасування може бути тільки добровільним: вбити чужий потік посеред роботи не можна — він лишить по собі захоплені замки й недобудовані структури. Робочий цикл сам зазирає в прапорець на межі ітерації й повертається достроково; це [кооперативне скасування](root:sf-tasks/cooperative-cancellation), і його треба закладати в роботу з першого дня, бо додати його пізніше в готовий довгий цикл майже неможливо.
@@ -217,28 +204,7 @@ void onQueryChanged(std::string text) {
 
 **Сторожовий пінг циклу.** Найцінніший з трьох, бо ловить те, чого не бачить профіль процесора: очікування на замки, синхронні виклики через межу процесу, паузи середовища. Окремий потік періодично кладе в чергу інтерфейсу порожнє завдання й міряє, скільки воно там пролежало.
 
-```cpp
-// сторожовий потік: міряє, за скільки цикл інтерфейсу забирає порожнє завдання
-void watchdogLoop(std::atomic<bool>& running) {
-    using clock = std::chrono::steady_clock;
-    while (running.load(std::memory_order_relaxed)) {
-        auto sent = clock::now();
-        auto answered = std::make_shared<std::promise<clock::time_point>>();
-        auto fut = answered->get_future();
-
-        postToUiThread([answered] { answered->set_value(clock::now()); });
-
-        if (fut.wait_for(std::chrono::seconds(2)) == std::future_status::timeout) {
-            reportStall(std::chrono::milliseconds(2000), captureUiStack());
-        } else {
-            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-                          fut.get() - sent).count();
-            if (ms > 50) reportStall(std::chrono::milliseconds(ms), captureUiStack());
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    }
-}
-```
+:::code ui-thread-offloading-d/cpp/iak-perekonatysia-shcho.cpp
 
 Затримка цього пінгу — пряма міра того, наскільки інтерфейс живий **зараз**, у користувача, а не в лабораторії. І це число варто збирати з робочих збірок: більшість затримок, що псують враження, живуть на чужих машинах, на холодному диску, на повільному мережевому томі й на конфігураціях, яких у розробника немає. [Робочий приклад повного шляху — від набору тексту до показу результату, зі скринею на одне місце, поколіннями й скасуванням](root:sf-apps/ui-thread-offloading/proj-offloaded-search.md) показує, як ці частини складаються в один механізм.
 

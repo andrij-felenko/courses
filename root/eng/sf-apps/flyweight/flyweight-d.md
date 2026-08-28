@@ -45,39 +45,11 @@
 
 Візьмемо конкретні числа. Розкладемо стан на важкий спільний вид і легкий контекст і порахуємо байти. Тут доречний C++: розмір кожного поля видно очима.
 
-```cpp
-// Внутрішній стан — спільний і незмінний. Важкий: сітка + текстура + колір.
-struct TreeKind {
-    std::string          name;     // "дуб", "сосна", "береза"
-    std::vector<Vertex>  mesh;     // десятки тисяч вершин — сотні КБ
-    TextureId            texture;  // хендл текстури в пам'яті GPU
-    uint32_t             color;    // RGBA
-};                                 // ефективно ~1 МБ на один вид
-
-// Зовнішній стан — свій на кожне дерево. Легкий.
-struct Tree {
-    float            x, y, z;      // 12 Б — де стоїть
-    float            scale;        //  4 Б — який завбільшки
-    const TreeKind*  kind;         //  8 Б — вказівник на СПІЛЬНИЙ вид
-};                                 // 24 Б на дерево
-```
+:::code flyweight-d/cpp/porakhuimo-pamiat.cpp
 
 Фабрика видає спільні види й нікому не дає створити другий «дуб»:
 
-```cpp
-class TreeKindFactory {
-    std::unordered_map<std::string, std::unique_ptr<TreeKind>> pool_;
-public:
-    const TreeKind* get(const std::string& name) {
-        auto it = pool_.find(name);
-        if (it != pool_.end()) return it->second.get();  // уже є — той самий примірник
-        auto kind = loadTreeKind(name);                  // нема — створити РАЗ
-        const TreeKind* raw = kind.get();
-        pool_[name] = std::move(kind);
-        return raw;
-    }
-};
-```
+:::code flyweight-d/cpp/porakhuimo-pamiat-2.cpp
 
 Тепер арифметика на мільйон дерев і три види:
 

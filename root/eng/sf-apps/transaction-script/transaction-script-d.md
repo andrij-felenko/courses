@@ -33,66 +33,8 @@
 Найкраще видно на живому коді. Це звичайна серверна логіка — не регістри й не гарячий цикл, а послідовність ділових кроків із запитами до бази, — тож пишемо мовами, якими таку логіку й пишуть; ідея та сама:
 
 :::tabs
-```ts
-// одна ділова операція — одна процедура, згори вниз, як рецепт
-async function placeOrder(customerId: string, productId: number, qty: number): Promise<number> {
-  const tx = await db.begin();                        // відкрили транзакцію: усе або нічого
-  try {
-    const product = await tx.get(
-      "SELECT price, stock FROM products WHERE id = ?", productId);
-    if (!product) throw new Error("немає такого товару");
-    if (product.stock < qty) throw new Error("недостатньо на складі");
-
-    const discount = await loyaltyDiscount(tx, customerId);   // спільна підпроцедура
-    const total = product.price * qty * (1 - discount);
-
-    const { lastID: orderId } = await tx.run(
-      "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-      customerId, total);
-    await tx.run(
-      "INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-      orderId, productId, qty, product.price);
-    await tx.run(
-      "UPDATE products SET stock = stock - ? WHERE id = ?", qty, productId);
-
-    await tx.commit();                                // усі чотири зміни доїхали разом
-    return orderId;
-  } catch (e) {
-    await tx.rollback();                              // будь-яка невдача — відкат усього
-    throw e;
-  }
-}
-```
-```py
-def place_order(customer_id: str, product_id: int, qty: int) -> int:
-    tx = db.begin()                                   # відкрили транзакцію: усе або нічого
-    try:
-        product = tx.execute(
-            "SELECT price, stock FROM products WHERE id = ?", (product_id,)).fetchone()
-        if product is None:
-            raise ValueError("немає такого товару")
-        if product.stock < qty:
-            raise ValueError("недостатньо на складі")
-
-        discount = loyalty_discount(tx, customer_id)  # спільна підпроцедура
-        total = product.price * qty * (1 - discount)
-
-        cur = tx.execute(
-            "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-            (customer_id, total))
-        order_id = cur.lastrowid
-        tx.execute(
-            "INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-            (order_id, product_id, qty, product.price))
-        tx.execute(
-            "UPDATE products SET stock = stock - ? WHERE id = ?", (qty, product_id))
-
-        tx.commit()                                   # усі чотири зміни доїхали разом
-        return order_id
-    except Exception:
-        tx.rollback()                                 # будь-яка невдача — відкат усього
-        raise
-```
+:::code transaction-script-d/ts/index.ts
+:::code transaction-script-d/py/main.py
 :::
 
 Читається згори вниз, як рецепт: перевір товар, порахуй суму, запиши замовлення, спиши залишок, закрий транзакцію. Ніякої непрямості — жодного об'єкта, у який довелося б заглядати, щоб дізнатися, «а що станеться далі». Уся операція перед очима, у порядку, у якому вона відбувається. Помітьте й те, що спільний шматок — знижку — уже винесено в підпроцедуру `loyaltyDiscount`: сценарії **можуть** ділити дрібні підзадачі, і це перша лінія оборони проти повторів.

@@ -5,125 +5,9 @@
 Візьмемо дерево, яке вже стоїть перед очима: файлова система. Листок — файл із розміром у байтах; вузол — тека, що тримає список складових (файлів і теки). Один спільний тип `Component`, у нього є ім'я, у теки додатково є діти. Основну ідею покажемо в трьох мовах одразу: у TypeScript і Python вона читається найлегше, а C++ тут не забаганка — саме там «системний стек» буквальний і рекурсія впирається в нього по-справжньому (це нам знадобиться нижче). Ось кістяк, на якому все стоятиме:
 
 :::tabs
-```ts
-interface Component {
-  readonly name: string;
-}
-
-class File implements Component {
-  constructor(readonly name: string, readonly bytes: number) {}
-}
-
-class Folder implements Component {
-  readonly children: Component[] = [];
-  constructor(readonly name: string) {}
-
-  add(c: Component): this {
-    this.children.push(c);
-    return this;                       // зручно ланцюжком будувати дерево
-  }
-}
-
-// піддослідне дерево
-const tree = new Folder("проєкт")
-  .add(new Folder("src")
-    .add(new File("main.ts", 1200))
-    .add(new File("util.ts", 800))
-    .add(new Folder("ui")
-      .add(new File("button.ts", 640))
-      .add(new File("modal.ts", 1500))))
-  .add(new Folder("docs")
-    .add(new File("guide.md", 300))
-    .add(new File("api.md", 950)))
-  .add(new File("README.md", 200));
-```
-```py
-from __future__ import annotations
-from dataclasses import dataclass, field
-
-
-class Component:
-    name: str
-
-
-@dataclass
-class File(Component):
-    name: str
-    num_bytes: int
-
-
-@dataclass
-class Folder(Component):
-    name: str
-    children: list[Component] = field(default_factory=list)
-
-    def add(self, c: Component) -> "Folder":
-        self.children.append(c)
-        return self                    # зручно ланцюжком будувати дерево
-
-
-# піддослідне дерево
-tree = Folder("проєкт", [
-    Folder("src", [
-        File("main.ts", 1200),
-        File("util.ts", 800),
-        Folder("ui", [
-            File("button.ts", 640),
-            File("modal.ts", 1500),
-        ]),
-    ]),
-    Folder("docs", [
-        File("guide.md", 300),
-        File("api.md", 950),
-    ]),
-    File("README.md", 200),
-])
-```
-```cpp
-#include <string>
-#include <vector>
-#include <memory>
-
-struct Component {
-    std::string name;
-    explicit Component(std::string n) : name(std::move(n)) {}
-    virtual ~Component() = default;              // робить тип поліморфним → доступний dynamic_cast
-};
-
-struct File : Component {
-    long bytes;
-    File(std::string n, long b) : Component(std::move(n)), bytes(b) {}
-};
-
-struct Folder : Component {
-    std::vector<std::unique_ptr<Component>> children;   // тека ВОЛОДІЄ дітьми
-    explicit Folder(std::string n) : Component(std::move(n)) {}
-
-    Folder* add(std::unique_ptr<Component> c) {
-        children.push_back(std::move(c));
-        return this;                             // зручно ланцюжком будувати дерево
-    }
-};
-
-// піддослідне дерево (будова — у тілі якоїсь функції)
-auto ui = std::make_unique<Folder>("ui");
-ui->add(std::make_unique<File>("button.ts", 640))
-  ->add(std::make_unique<File>("modal.ts", 1500));
-
-auto src = std::make_unique<Folder>("src");
-src->add(std::make_unique<File>("main.ts", 1200))
-   ->add(std::make_unique<File>("util.ts", 800));
-src->add(std::move(ui));
-
-auto docs = std::make_unique<Folder>("docs");
-docs->add(std::make_unique<File>("guide.md", 300))
-    ->add(std::make_unique<File>("api.md", 950));
-
-auto tree = std::make_unique<Folder>("проєкт");
-tree->add(std::move(src));
-tree->add(std::move(docs));
-tree->add(std::make_unique<File>("README.md", 200));
-```
+:::code proj-composite-traversal/ts/part.ts
+:::code proj-composite-traversal/py/part.py
+:::code proj-composite-traversal/cpp/part.cpp
 :::
 
 Це дерево з десяти вузлів: три теки-контейнери (`проєкт`, `src`, `docs`, `ui` — насправді чотири теки) і шість файлів-листків. Далі всі три задачі ганяємо по ньому.
@@ -137,45 +21,9 @@ tree->add(std::make_unique<File>("README.md", 200));
 Запишімо цей переказ дослівно:
 
 :::tabs
-```ts
-function countNodes(node: Component): number {
-  if (node instanceof Folder) {
-    let total = 1;                         // сама тека — один вузол
-    for (const child of node.children) {
-      total += countNodes(child);          // плюс усе, що в кожній дитині
-    }
-    return total;
-  }
-  return 1;                                // листок — рівно один вузол
-}
-
-console.log(countNodes(tree));   // 10
-```
-```py
-def count_nodes(node: Component) -> int:
-    if isinstance(node, Folder):
-        total = 1                          # сама тека — один вузол
-        for child in node.children:
-            total += count_nodes(child)    # плюс усе, що в кожній дитині
-        return total
-    return 1                               # листок — рівно один вузол
-
-
-print(count_nodes(tree))   # 10
-```
-```cpp
-int countNodes(const Component* node) {
-    if (auto* folder = dynamic_cast<const Folder*>(node)) {   // «це тека?»
-        int total = 1;                         // сама тека — один вузол
-        for (const auto& child : folder->children)
-            total += countNodes(child.get());  // плюс усе, що в кожній дитині
-        return total;
-    }
-    return 1;                                  // листок — рівно один вузол
-}
-
-// countNodes(tree.get())  →  10
-```
+:::code proj-composite-traversal/ts/zadacha-persha-porakhuvaty.ts
+:::code proj-composite-traversal/py/zadacha-persha-porakhuvaty.py
+:::code proj-composite-traversal/cpp/zadacha-persha-porakhuvaty.cpp
 :::
 
 Зверни увагу на форму. Є **база** — випадок, коли спускатися нема куди: листок повертає 1 і на цьому гілка обриває занурення. Є **крок** — тека складає одиницю за себе з сумою по дітях. Без бази рекурсія не мала б де зупинитися й падала б; тут базу дає сама природа листка — у нього немає дітей, тож нема куди йти глибше. Дерево скінченне, кожен спуск веде до листків, отже занурення гарантовано доходить до дна й повертається.
@@ -191,73 +39,9 @@ int countNodes(const Component* node) {
 Логіка та сама рекурсивна, але з двома тонкощами. Перша: тека до шляху кожної своєї дитини дописує спереду власне ім'я. Друга: щоб не плодити зайвих списків, зручно передавати список-накопичувач усередину — кожен листок **дописує** в нього свій шлях, а не повертає власний маленький список, який потім хтось зшиватиме.
 
 :::tabs
-```ts
-function collectPaths(
-  node: Component,
-  prefix = "",
-  out: string[] = [],
-): string[] {
-  const path = prefix ? `${prefix}/${node.name}` : node.name;
-  if (node instanceof Folder) {
-    for (const child of node.children) {
-      collectPaths(child, path, out);      // спускаємось, несучи шлях сюди
-    }
-  } else {
-    out.push(path);                        // листок — фіксуємо повний шлях
-  }
-  return out;
-}
-
-for (const p of collectPaths(tree)) console.log(p);
-// проєкт/src/main.ts
-// проєкт/src/util.ts
-// проєкт/src/ui/button.ts
-// проєкт/src/ui/modal.ts
-// проєкт/docs/guide.md
-// проєкт/docs/api.md
-// проєкт/README.md
-```
-```py
-def collect_paths(
-    node: Component,
-    prefix: str = "",
-    out: list[str] | None = None,
-) -> list[str]:
-    if out is None:
-        out = []                           # не роби [] значенням за замовчуванням!
-    path = f"{prefix}/{node.name}" if prefix else node.name
-    if isinstance(node, Folder):
-        for child in node.children:
-            collect_paths(child, path, out)   # спускаємось, несучи шлях сюди
-    else:
-        out.append(path)                   # листок — фіксуємо повний шлях
-    return out
-
-
-for p in collect_paths(tree):
-    print(p)
-```
-```cpp
-// робоча рекурсія: акумулятор out передаємо посиланням і дописуємо в нього
-void collectPaths(const Component* node, const std::string& prefix,
-                  std::vector<std::string>& out) {
-    std::string path = prefix.empty() ? node->name : prefix + "/" + node->name;
-    if (auto* folder = dynamic_cast<const Folder*>(node)) {
-        for (const auto& child : folder->children)
-            collectPaths(child.get(), path, out);   // спускаємось, несучи шлях сюди
-    } else {
-        out.push_back(path);                         // листок — фіксуємо повний шлях
-    }
-}
-
-// зручна обгортка: свіжий акумулятор на кожен виклик — тож пастки «спільного
-// стандартного значення», як у Python, тут не виникає в принципі
-std::vector<std::string> collectPaths(const Component* root) {
-    std::vector<std::string> out;
-    collectPaths(root, "", out);
-    return out;
-}
-```
+:::code proj-composite-traversal/ts/zadacha-druha-zibraty-vsi.ts
+:::code proj-composite-traversal/py/zadacha-druha-zibraty-vsi.py
+:::code proj-composite-traversal/cpp/zadacha-druha-zibraty-vsi.cpp
 :::
 
 Пітонів рядок `if out is None` — не забаганка. Якби ми написали `out: list[str] = []` у сигнатурі, той список створився б **один раз** при визначенні функції й жив би між викликами; другий виклик `collect_paths(tree)` дописував би імена в той самий, уже непорожній список. Це класична пастка мутабельного значення за замовчуванням у Python — тому загальний ідіом саме `None` як сигнал «створи свіжий усередині». У TypeScript і C++ цієї пастки немає: у TS `out: string[] = []` обчислюється на кожен виклик наново, а в C++ ми просто передаємо акумулятор явно, тож ділити його між викликами нема як.
@@ -271,56 +55,9 @@ std::vector<std::string> collectPaths(const Component* root) {
 Рекурсія читається так: найбільший листок піддерева — це, для листка, він сам; для теки — найбільший серед найбільших листків її дітей. Тобто кожна тека питає в дітей «дай свого чемпіона», а тоді з отриманих чемпіонів обирає одного.
 
 :::tabs
-```ts
-function largestFile(node: Component): File | null {
-  if (node instanceof File) return node;   // листок сам собі чемпіон
-
-  let best: File | null = null;
-  for (const child of node.children) {
-    const candidate = largestFile(child);   // чемпіон піддерева-дитини
-    if (candidate && (!best || candidate.bytes > best.bytes)) {
-      best = candidate;
-    }
-  }
-  return best;                              // порожня тека поверне null
-}
-
-const top = largestFile(tree);
-console.log(top?.name, top?.bytes);   // modal.ts 1500
-```
-```py
-def largest_file(node: Component) -> File | None:
-    if isinstance(node, File):
-        return node                        # листок сам собі чемпіон
-
-    best: File | None = None
-    for child in node.children:
-        candidate = largest_file(child)    # чемпіон піддерева-дитини
-        if candidate and (best is None or candidate.num_bytes > best.num_bytes):
-            best = candidate
-    return best                            # порожня тека поверне None
-
-
-top = largest_file(tree)
-print(top.name, top.num_bytes if top else None)   # modal.ts 1500
-```
-```cpp
-const File* largestFile(const Component* node) {
-    if (auto* file = dynamic_cast<const File*>(node))
-        return file;                             // листок сам собі чемпіон
-
-    auto* folder = static_cast<const Folder*>(node);   // не File → тека
-    const File* best = nullptr;
-    for (const auto& child : folder->children) {
-        const File* candidate = largestFile(child.get());   // чемпіон піддерева-дитини
-        if (candidate && (!best || candidate->bytes > best->bytes))
-            best = candidate;
-    }
-    return best;                                 // порожня тека поверне nullptr
-}
-
-// auto* top = largestFile(tree.get());  →  modal.ts 1500
-```
+:::code proj-composite-traversal/ts/zadacha-tretia-znaity.ts
+:::code proj-composite-traversal/py/zadacha-tretia-znaity.py
+:::code proj-composite-traversal/cpp/zadacha-tretia-znaity.cpp
 :::
 
 Тут база трохи інша: листок повертає себе, а порожня тека (яка теж «дно», але без листка) повертає «нічого» — `null`/`None`/`nullptr`. Порівняння `!best || candidate.bytes > best.bytes` акуратно ковтає цей порожній випадок: перший знайдений кандидат стає чемпіоном беззастережно, далі — лише коли строго більший. Так три задачі — підрахунок, збір, пошук екстремуму — виявляються трьома варіаціями одного спуску: різняться тільки базою й тим, як вузол зводить відповіді дітей.
@@ -370,55 +107,9 @@ const File* largestFile(const Component* node) {
 Ось підрахунок вузлів явним стеком — та сама відповідь, та сама складність за часом, але **системний стек лишається мілким**, хоч би яким глибоким було дерево:
 
 :::tabs
-```ts
-function countNodesIter(root: Component): number {
-  let total = 0;
-  const stack: Component[] = [root];       // наш власний стек — у купі
-  while (stack.length > 0) {
-    const node = stack.pop()!;             // беремо вузол на обробку
-    total++;                               // рахуємо його
-    if (node instanceof Folder) {
-      for (const child of node.children) {
-        stack.push(child);                 // дітей — назад у стек, на потім
-      }
-    }
-  }
-  return total;
-}
-
-console.log(countNodesIter(tree));   // 10
-```
-```py
-def count_nodes_iter(root: Component) -> int:
-    total = 0
-    stack: list[Component] = [root]        # наш власний стек — у купі
-    while stack:
-        node = stack.pop()                 # беремо вузол на обробку
-        total += 1                         # рахуємо його
-        if isinstance(node, Folder):
-            stack.extend(node.children)    # дітей — назад у стек, на потім
-    return total
-
-
-print(count_nodes_iter(tree))   # 10
-```
-```cpp
-int countNodesIter(const Component* root) {
-    int total = 0;
-    std::vector<const Component*> stack{ root };   // наш власний стек — у купі
-    while (!stack.empty()) {
-        const Component* node = stack.back();      // беремо вузол на обробку
-        stack.pop_back();
-        ++total;                                   // рахуємо його
-        if (auto* folder = dynamic_cast<const Folder*>(node))
-            for (const auto& child : folder->children)
-                stack.push_back(child.get());      // дітей — назад у стек, на потім
-    }
-    return total;
-}
-
-// countNodesIter(tree.get())  →  10
-```
+:::code proj-composite-traversal/ts/toi-samyi-obkhid-bez.ts
+:::code proj-composite-traversal/py/toi-samyi-obkhid-bez.py
+:::code proj-composite-traversal/cpp/toi-samyi-obkhid-bez.cpp
 :::
 
 Порівняй два цикли життя. Рекурсивний варіант тримав кадри в **системному** стеку — тому й падав, коли той переповнювався. Ітеративний тримає вузли у **своєму** списку в купі (англ. *heap*) — а купа велика, і список у ній росте, доки вистачає загальної пам'яті процесу, без жодної межі на «глибину викликів». Стек викликів у циклі при цьому весь час мілкий: один кадр самого `countNodesIter`, який крутить `while`. Дерево-бурулька завглибшки мільйон? Список у піку потримає скількись посилань — і все відпрацює, тоді як рекурсія давно б упала.
@@ -428,53 +119,9 @@ int countNodesIter(const Component* root) {
 Бо стек — не єдиний вибір контейнера. Заміни його на **чергу** (англ. *queue*, «першим прийшов, першим пішов», FIFO) — і той самий цикл почне обходити дерево не вглиб, а **вшир**: спершу всі вузли одного рівня, тоді всі наступного. Це вже обхід у ширину (англ. *breadth-first*), і корисний він там, де потрібен «найближчий до кореня» вузол — приміром, знайти файл, лежачи якнайближче до верху:
 
 :::tabs
-```ts
-function collectByLevel(root: Component): string[] {
-  const out: string[] = [];
-  const queue: Component[] = [root];       // черга замість стека — обхід ушир
-  while (queue.length > 0) {
-    const node = queue.shift()!;           // беремо з ПОЧАТКУ (FIFO)
-    out.push(node.name);
-    if (node instanceof Folder) {
-      for (const child of node.children) {
-        queue.push(child);                 // діти йдуть у хвіст
-      }
-    }
-  }
-  return out;   // [проєкт, src, docs, README.md, main.ts, util.ts, ui, ...]
-}
-```
-```py
-from collections import deque
-
-def collect_by_level(root: Component) -> list[str]:
-    out: list[str] = []
-    queue = deque([root])                  # черга замість стека — обхід ушир
-    while queue:
-        node = queue.popleft()             # беремо з ПОЧАТКУ (FIFO)
-        out.append(node.name)
-        if isinstance(node, Folder):
-            queue.extend(node.children)    # діти йдуть у хвіст
-    return out   # [проєкт, src, docs, README.md, main.ts, util.ts, ui, ...]
-```
-```cpp
-#include <queue>
-
-std::vector<std::string> collectByLevel(const Component* root) {
-    std::vector<std::string> out;
-    std::queue<const Component*> queue;            // черга замість стека — обхід ушир
-    queue.push(root);
-    while (!queue.empty()) {
-        const Component* node = queue.front();     // беремо з ПОЧАТКУ (FIFO)
-        queue.pop();
-        out.push_back(node->name);
-        if (auto* folder = dynamic_cast<const Folder*>(node))
-            for (const auto& child : folder->children)
-                queue.push(child.get());           // діти йдуть у хвіст
-    }
-    return out;   // [проєкт, src, docs, README.md, main.ts, util.ts, ui, ...]
-}
-```
+:::code proj-composite-traversal/ts/toi-samyi-obkhid-bez-2.ts
+:::code proj-composite-traversal/py/toi-samyi-obkhid-bez-2.py
+:::code proj-composite-traversal/cpp/toi-samyi-obkhid-bez-2.cpp
 :::
 
 Одна й та сама механіка — «дістань вузол, обробити, поклади дітей назад» — дає обхід або вглиб, або вшир **лише** залежно від того, з якого кінця контейнера ми забираємо. Це той рідкісний випадок, коли зміна однієї структури даних безшумно перемикає поведінку алгоритму, і варто тримати його в голові: стек → углиб, черга → вшир.

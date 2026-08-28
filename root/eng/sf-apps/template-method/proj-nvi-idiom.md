@@ -6,39 +6,11 @@
 
 Почнімо з наївного C++-каркаса й подивімося, де він тріщить. Хай є звіт: спільна голова, спільний хвіст, а всередині — тіло, яке кожен формат малює по-своєму. Перша спокуса — зробити метод, що малює звіт, **публічним віртуальним**, щоб нащадок «підправив тіло», перевизначивши (англ. *override*) його:
 
-```cpp
-class Report {
-public:
-    // публічний ВІРТУАЛЬНИЙ метод: нащадок його перевизначить
-    virtual std::string render(const std::vector<Field>& fields) const {
-        std::string out = header(fields.size());   // спільна голова
-        for (const auto& f : fields)               // типове тіло
-            out += f.key + ": " + f.value + "\n";
-        out += footer();                            // спільний хвіст
-        return out;
-    }
-    virtual ~Report() = default;
-protected:
-    std::string header(std::size_t n) const { return "=== REPORT (" + std::to_string(n) + ") ===\n"; }
-    std::string footer() const { return "=== END ===\n"; }
-};
-```
+:::code proj-nvi-idiom/cpp/zadacha-koly-karkas-mozhna.cpp
 
 Тепер нащадок хоче лише **інше тіло** — JSON замість «ключ: значення». Але єдина точка, яку йому дали, — це весь `render`. Тож він пише:
 
-```cpp
-class JsonReport : public Report {
-public:
-    std::string render(const std::vector<Field>& fields) const override {
-        std::string s = "{";
-        for (std::size_t i = 0; i < fields.size(); ++i) {
-            if (i) s += ",";
-            s += "\"" + fields[i].key + "\":\"" + fields[i].value + "\"";
-        }
-        return s + "}";           // ← і голова, і хвіст зникли, і ніхто не сказав
-    }
-};
-```
+:::code proj-nvi-idiom/cpp/zadacha-koly-karkas-mozhna-2.cpp
 
 Придивись, що сталося. Програміст хотів підмінити **одну ланку** — тіло. А перевизначив **увесь** метод, бо іншого гачка не існувало. Разом із тілом він мовчки викинув `header()` і `footer()`. Звіт тепер без голови й хвоста; якби в `render` предка була ще й перевірка вхідних даних чи запис у журнал — зникли б і вони. І найгірше: **компілятор не сказав ані слова**. `override` формально коректний, сигнатура збіглася, програма зібралася й запустилася. Каркас обвалився там, де його ніхто не побачить, — у звіті, який комусь ляже на стіл наступного кварталу.
 
@@ -61,78 +33,11 @@ public:
 
 Тепер найсмачніше — місце, яке дає предкові NVI, а публічно-віртуальний підхід відбирає. Раз ворота невіртуальні й виконуються завжди, предок може **обгорнути дірку перевірками**: перевірити передумову перед кроком нащадка, перевірити його результат після, і ствердити інваріант цілого. Це прямий вияв [проєктування за контрактом](root:sf-release/design-by-contract): у кожного кроку є передумова (що йому вільно припускати), післяумова (що він мусить забезпечити) й інваріант (що лишається істинним завжди), і в NVI **предок — той, хто ці умови стереже**, а не сподівається, що нащадок не збреше.
 
-```cpp
-#include <string>
-#include <vector>
-#include <stdexcept>
-#include <cassert>
-
-struct Field { std::string key, value; };
-
-class Report {
-public:
-    // ВОРОТА: публічний НЕвіртуальний каркас. Нащадок його не перевизначить.
-    std::string render(const std::vector<Field>& fields) const {
-        // — передумова: далі крок нащадка вільно припускає, що список не порожній
-        if (fields.empty())
-            throw std::invalid_argument("render: порожній список полів");
-
-        std::string out = header(fields.size());     // спільний крок — завжди
-
-        std::string body = renderBody(fields);        // ← ДІРКА: код нащадка
-
-        // — післяумова: перевіряємо те, що нащадок ОБІЦЯВ віддати
-        assert(!body.empty()          && "renderBody вернув порожнє тіло");
-        assert(body.back() != '\n'    && "тіло не має завершуватись переносом");
-
-        out += body;
-        out += footer();                              // спільний крок — завжди
-
-        // — інваріант результату: звіт завжди починається заголовком
-        assert(out.rfind(MAGIC, 0) == 0 && "звіт втратив заголовок");
-        return out;
-    }
-
-    virtual ~Report() = default;   // публічний віртуальний — бо видаляємо через Report*
-
-private:
-    // ДІРКА: приватна ВІРТУАЛЬНА. Нащадок МУСИТЬ дати; покликати ззовні не може.
-    virtual std::string renderBody(const std::vector<Field>& fields) const = 0;
-
-    // ЗАМКНЕНІ спільні кроки — приватні невіртуальні, однакові для всіх.
-    static constexpr const char* MAGIC = "=== REPORT ===";
-    std::string header(std::size_t n) const {
-        return std::string(MAGIC) + " (fields: " + std::to_string(n) + ")\n";
-    }
-    std::string footer() const { return "\n=== END ===\n"; }
-};
-```
+:::code proj-nvi-idiom/cpp/robochyi-karkas-vorota-z.hpp
 
 Нащадок пише **рівно одну функцію** — дірку — і не має до чого більше дотягтися:
 
-```cpp
-class TextReport : public Report {
-    // без специфікатора → private за замовчуванням; так і має бути
-    std::string renderBody(const std::vector<Field>& fields) const override {
-        std::string s;
-        for (const auto& f : fields)
-            s += f.key + ": " + f.value + "\n";
-        s.pop_back();               // прибрати останній перенос — цього вимагає післяумова
-        return s;
-    }
-};
-
-class JsonReport : public Report {
-    std::string renderBody(const std::vector<Field>& fields) const override {
-        std::string s = "{";
-        for (std::size_t i = 0; i < fields.size(); ++i) {
-            if (i) s += ",";
-            s += "\"" + fields[i].key + "\":\"" + fields[i].value + "\"";
-        }
-        return s + "}";
-    }
-};
-```
+:::code proj-nvi-idiom/cpp/robochyi-karkas-vorota-z.cpp
 
 Зверни увагу на дрібницю, що доводить сенс контракту: `TextReport::renderBody` спокійно робить `s.pop_back()`, не перевіряючи, чи є що прибирати. Він **має право** так робити, бо ворота вже стятли порожній список передумовою — до дірки код нащадка добереться лише тоді, коли полів щонайменше одне. Передумова, яку стереже предок, **дає нащадкові право на припущення**; це і є контракт у дії.
 
@@ -194,31 +99,7 @@ render() — невіртуальні ворота — веде крок за к
 
 **Настанова 3 — `protected virtual` лише тоді, коли нащадок мусить кликати базову реалізацію.** Іноді крок нащадка природно **надбудовує** базовий: спершу зробити те, що робив предок, а тоді додати своє. Але приватну віртуальну нащадок покликати не може — тож `Base::step()` йому недоступний. Виняток саме для цього випадку: підвищуємо ланку до `protected virtual`, щоб нащадок мав право покликати базу.
 
-```cpp
-class Validator {
-    // ворота — невіртуальні, як завжди
-public:
-    void check(const Request& r) const {
-        if (r.id == 0) throw std::invalid_argument("check: нема id");  // спільна передумова
-        rules(r);                                                       // ← дірка-надбудова
-    }
-    virtual ~Validator() = default;
-protected:
-    // protected — саме тому, що нащадок МУСИТЬ надбудувати цю базову перевірку
-    virtual void rules(const Request& r) const {
-        if (r.size == 0) throw std::invalid_argument("rules: порожній запит");
-    }
-};
-
-class StrictValidator : public Validator {
-protected:
-    void rules(const Request& r) const override {
-        Validator::rules(r);                       // спершу базові правила — тепер це можна
-        if (r.size > MAX) throw std::invalid_argument("rules: завеликий запит");
-    }
-    static constexpr std::size_t MAX = 4096;
-};
-```
+:::code proj-nvi-idiom/cpp/chotyry-nastanovy-herba.hpp
 
 `protected` тут — **свідомий виняток**, а не типовий стан. Він каже прямо: «ця ланка задумана як точка надбудови, базову версію звати можна». Усе, що такою точкою не задумане, лишається приватним — і нащадок навіть не спокуситься покликати те, чого не бачить.
 

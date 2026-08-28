@@ -58,23 +58,7 @@
 
 Кожен елемент у дереві `root` підпорядковується єдиному контракту вузла абстрактного синтаксичного дерева:
 
-```typescript
-interface Node {
-  id: string;                      // Унікальний ідентифікатор вузла в межах екрана
-  type: string;                    // Назва компонента для пошуку в Component Registry
-  props?: Record<string, any>;     // Статичні властивості та конфігурація віджета
-  bind?: {                         // Декларативне зв'язування з клієнтським станом
-    value?: string;                // JSON Pointer до поля в сховищі стану (наприклад, "/user/email")
-    [propName: string]: string | undefined;
-  };
-  visibility?: Expression;         // Логічний AST-вираз; результат false виключає вузол з рендер-дерева
-  enabled?: Expression;            // Логічний AST-вираз; результат false блокує взаємодію (disabled-стан)
-  validation?: ValidationRule[];   // Список декларативних правил перевірки коректності значення
-  actions?: Record<string, Action>;// Обробники подій ("on_click", "on_change", "on_blur", "on_mount")
-  children?: Node[];               // Вкладені дочірні вузли для контейнерних елементів
-  fallback?: Node;                 // Запасний вузол для застарілих клієнтів, якщо type не зареєстровано
-}
-```
+:::code api-schema-spec/ts/2-bazova-model-vuzla-node.ts
 
 ### Життєвий цикл рендерингу вузла
 1. **Обчислення видимості (`visibility`):** якщо вираз повертає `false`, вузол не створює нативного віджета й не займає місце в геометрії екрана.
@@ -143,20 +127,7 @@ interface Node {
 
 Для динамічного обчислення видимості полів, умовного блокування кнопок та розрахунку підсумкових сум використовується строго типізоване Тюрінг-неповне дерево операцій. Виконання довільного рядкового коду заборонено на рівні синтаксичного аналізатора.
 
-```typescript
-type Expression =
-  | boolean
-  | number
-  | string
-  | { var: string }                        // Звернення до змінної стану за JSON Pointer: { "var": "/cart/total" }
-  | { op: "==" | "!=" | ">" | ">=" | "<" | "<=", left: Expression, right: Expression }
-  | { op: "and" | "or", args: Expression[] }
-  | { op: "not", arg: Expression }
-  | { op: "in", item: Expression, list: Expression[] }
-  | { op: "regex", value: Expression, pattern: string }
-  | { op: "+" | "-" | "*" | "/", left: Expression, right: Expression }
-  | { op: "ternary", condition: Expression, true_val: Expression, false_val: Expression };
-```
+:::code api-schema-spec/ts/4-hramatyka-bezpechnykh.ts
 
 ### Семантика обчислення операторів:
 * **`var`:** вичитує значення з контексту стану форми. Якщо шлях не існує, повертає `null` без виклику винятків.

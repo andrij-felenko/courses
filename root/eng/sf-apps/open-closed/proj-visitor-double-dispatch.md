@@ -13,80 +13,9 @@
 Зроби це віртуальними методами — і одразу видно, куди вдарить.
 
 :::tabs
-```ts
-interface Expr {
-  eval(): number;
-  print(): string;   // щоб додати друк, довелося ВІДКРИТИ інтерфейс…
-}
-
-class Num implements Expr {
-  constructor(readonly value: number) {}
-  eval(): number { return this.value; }
-  print(): string { return String(this.value); }        // …і КОЖЕН клас
-}
-class Add implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  eval(): number { return this.left.eval() + this.right.eval(); }
-  print(): string { return `(${this.left.print()} + ${this.right.print()})`; }
-}
-class Mul implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  eval(): number { return this.left.eval() * this.right.eval(); }
-  print(): string { return `(${this.left.print()} * ${this.right.print()})`; }
-}
-```
-```cpp
-// Кожна операція — метод у контракті.
-struct Expr {
-    virtual ~Expr() = default;
-    virtual int eval() const = 0;
-    virtual std::string print() const = 0;   // щоб додати друк, довелося ВІДКРИТИ інтерфейс…
-};
-
-struct Num : Expr {
-    int value;
-    explicit Num(int value) : value(value) {}
-    int eval() const override { return value; }
-    std::string print() const override { return std::to_string(value); }   // …і КОЖЕН клас
-};
-struct Add : Expr {
-    const Expr *left, *right;
-    Add(const Expr* left, const Expr* right) : left(left), right(right) {}
-    int eval() const override { return left->eval() + right->eval(); }
-    std::string print() const override { return "(" + left->print() + " + " + right->print() + ")"; }
-};
-struct Mul : Expr {
-    const Expr *left, *right;
-    Mul(const Expr* left, const Expr* right) : left(left), right(right) {}
-    int eval() const override { return left->eval() * right->eval(); }
-    std::string print() const override { return "(" + left->print() + " * " + right->print() + ")"; }
-};
-```
-```java
-interface Expr {
-    int eval();
-    String print();   // щоб додати друк, довелося ВІДКРИТИ інтерфейс…
-}
-
-final class Num implements Expr {
-    final int value;
-    Num(int value) { this.value = value; }
-    public int eval() { return value; }
-    public String print() { return Integer.toString(value); }   // …і КОЖЕН клас
-}
-final class Add implements Expr {
-    final Expr left, right;
-    Add(Expr left, Expr right) { this.left = left; this.right = right; }
-    public int eval() { return left.eval() + right.eval(); }
-    public String print() { return "(" + left.print() + " + " + right.print() + ")"; }
-}
-final class Mul implements Expr {
-    final Expr left, right;
-    Mul(Expr left, Expr right) { this.left = left; this.right = right; }
-    public int eval() { return left.eval() * right.eval(); }
-    public String print() { return "(" + left.print() + " * " + right.print() + ")"; }
-}
-```
+:::code proj-visitor-double-dispatch/ts/zadacha-derevo-vyrazu-nad.ts
+:::code proj-visitor-double-dispatch/cpp/zadacha-derevo-vyrazu-nad.cpp
+:::code proj-visitor-double-dispatch/java/zadacha-derevo-vyrazu-nad.java
 :::
 
 Кожна операція — метод у контракті `Expr`. Додати `eval` було безкоштовно, поки він один. Але наступний прохід, `print`, змусив відкрити `interface Expr` і дописати тіло в `Num`, в `Add`, у `Mul`. Третій прохід (`rpn`) — знову відкрити всі три класи. Кожна нова операція розповзається по **всіх** наявних типах: вона — новий стовпець матриці, а віртуальні методи тримають код по рядках (клас = один тип із усіма своїми методами), тож новий стовпець ріже впоперек кожен рядок. Операційна вісь відкрита навстіж, і закрити її віртуальними методами не вийде — вони закривають рівно другу.
@@ -113,140 +42,9 @@ final class Mul implements Expr {
 Зберемо рушій цілком. Спершу — **контракт**: вузли вміють лише «прийняти відвідувача», а відвідувач має по методу на кожен вид вузла. Обидва інтерфейси параметризуємо типом результату `R` — щоб `Eval` повертав число, `Print` — рядок, і все це без жодного зведення типів:
 
 :::tabs
-```ts
-// Вузли дерева — кожен уміє тільки прийняти відвідувача й покликати свій visit.
-interface Expr {
-  accept<R>(v: Visitor<R>): R;
-}
-
-class Num implements Expr {
-  constructor(readonly value: number) {}
-  accept<R>(v: Visitor<R>): R { return v.visitNum(this); }
-}
-class Add implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  accept<R>(v: Visitor<R>): R { return v.visitAdd(this); }
-}
-class Mul implements Expr {
-  constructor(readonly left: Expr, readonly right: Expr) {}
-  accept<R>(v: Visitor<R>): R { return v.visitMul(this); }
-}
-
-// Операція — окремий об'єкт. Один метод на кожен вид вузла.
-interface Visitor<R> {
-  visitNum(n: Num): R;
-  visitAdd(a: Add): R;
-  visitMul(m: Mul): R;
-}
-
-// Прохід 1: обчислити значення (R = number).
-class Eval implements Visitor<number> {
-  visitNum(n: Num): number { return n.value; }
-  visitAdd(a: Add): number { return a.left.accept(this) + a.right.accept(this); }
-  visitMul(m: Mul): number { return m.left.accept(this) * m.right.accept(this); }
-}
-
-// Прохід 2: надрукувати у дужках (R = string).
-class Print implements Visitor<string> {
-  visitNum(n: Num): string { return String(n.value); }
-  visitAdd(a: Add): string { return `(${a.left.accept(this)} + ${a.right.accept(this)})`; }
-  visitMul(m: Mul): string { return `(${m.left.accept(this)} * ${m.right.accept(this)})`; }
-}
-```
-```cpp
-struct Num; struct Add; struct Mul;          // попереднє оголошення вузлів
-
-// Операція — окремий об'єкт. Один метод на кожен вид вузла.
-struct Visitor {
-    virtual ~Visitor() = default;
-    virtual void visitNum(const Num& n) = 0;
-    virtual void visitAdd(const Add& a) = 0;
-    virtual void visitMul(const Mul& m) = 0;
-};
-
-// Вузли дерева — кожен уміє тільки прийняти відвідувача й покликати свій visit.
-struct Expr {
-    virtual ~Expr() = default;
-    virtual void accept(Visitor& v) const = 0;
-};
-
-struct Num : Expr {
-    int value;
-    explicit Num(int value) : value(value) {}
-    void accept(Visitor& v) const override { v.visitNum(*this); }
-};
-struct Add : Expr {
-    const Expr *left, *right;
-    Add(const Expr* left, const Expr* right) : left(left), right(right) {}
-    void accept(Visitor& v) const override { v.visitAdd(*this); }
-};
-struct Mul : Expr {
-    const Expr *left, *right;
-    Mul(const Expr* left, const Expr* right) : left(left), right(right) {}
-    void accept(Visitor& v) const override { v.visitMul(*this); }
-};
-
-// Прохід 1: обчислити значення. Кожен відвідувач несе свій типізований результат (int).
-struct Eval : Visitor {
-    int result = 0;
-    int run(const Expr& e) { e.accept(*this); return result; }
-    void visitNum(const Num& n) override { result = n.value; }
-    void visitAdd(const Add& a) override { result = run(*a.left) + run(*a.right); }
-    void visitMul(const Mul& m) override { result = run(*m.left) * run(*m.right); }
-};
-
-// Прохід 2: надрукувати у дужках (тут результат — std::string).
-struct Print : Visitor {
-    std::string result;
-    std::string run(const Expr& e) { e.accept(*this); return result; }
-    void visitNum(const Num& n) override { result = std::to_string(n.value); }
-    void visitAdd(const Add& a) override { result = "(" + run(*a.left) + " + " + run(*a.right) + ")"; }
-    void visitMul(const Mul& m) override { result = "(" + run(*m.left) + " * " + run(*m.right) + ")"; }
-};
-```
-```java
-// Вузли дерева — кожен уміє тільки прийняти відвідувача й покликати свій visit.
-interface Expr {
-    <R> R accept(Visitor<R> v);
-}
-
-final class Num implements Expr {
-    final int value;
-    Num(int value) { this.value = value; }
-    public <R> R accept(Visitor<R> v) { return v.visitNum(this); }
-}
-final class Add implements Expr {
-    final Expr left, right;
-    Add(Expr left, Expr right) { this.left = left; this.right = right; }
-    public <R> R accept(Visitor<R> v) { return v.visitAdd(this); }
-}
-final class Mul implements Expr {
-    final Expr left, right;
-    Mul(Expr left, Expr right) { this.left = left; this.right = right; }
-    public <R> R accept(Visitor<R> v) { return v.visitMul(this); }
-}
-
-// Операція — окремий об'єкт. Один метод на кожен вид вузла.
-interface Visitor<R> {
-    R visitNum(Num n);
-    R visitAdd(Add a);
-    R visitMul(Mul m);
-}
-
-// Прохід 1: обчислити значення (R = Integer).
-final class Eval implements Visitor<Integer> {
-    public Integer visitNum(Num n) { return n.value; }
-    public Integer visitAdd(Add a) { return a.left.accept(this) + a.right.accept(this); }
-    public Integer visitMul(Mul m) { return m.left.accept(this) * m.right.accept(this); }
-}
-
-// Прохід 2: надрукувати у дужках (R = String).
-final class Print implements Visitor<String> {
-    public String visitNum(Num n) { return Integer.toString(n.value); }
-    public String visitAdd(Add a) { return "(" + a.left.accept(this) + " + " + a.right.accept(this) + ")"; }
-    public String visitMul(Mul m) { return "(" + m.left.accept(this) + " * " + m.right.accept(this) + ")"; }
-}
-```
+:::code proj-visitor-double-dispatch/ts/robochyi-kod-vuzly.ts
+:::code proj-visitor-double-dispatch/cpp/robochyi-kod-vuzly.cpp
+:::code proj-visitor-double-dispatch/java/robochyi-kod-vuzly.java
 :::
 
 Зверни увагу, хто веде рекурсію. Тіло `visitAdd` саме кличе `a.left.accept(this)` і `a.right.accept(this)` — тобто **відвідувач** обходить піддерева, передаючи `this` (себе) далі вглиб. Це навмисно: різні проходи хочуть різного порядку. `Print` спускається зліва направо й обгортає в дужки; `Eval` — так само, але множить; майбутній прохід «глибина» захоче взяти максимум по дітях, а не суму. Рекурсію тримає той, хто знає, як саме йому обходити, — сам відвідувач.
@@ -296,18 +94,7 @@ class Rpn implements Visitor<string> {
 
 tree.accept(new Rpn());   // "2 3 + 4 *"
 ```
-```cpp
-// Нова операція — НОВИЙ клас. Жоден вузол не відкрито.
-struct Rpn : Visitor {
-    std::string result;
-    std::string run(const Expr& e) { e.accept(*this); return result; }
-    void visitNum(const Num& n) override { result = std::to_string(n.value); }
-    void visitAdd(const Add& a) override { result = run(*a.left) + " " + run(*a.right) + " +"; }
-    void visitMul(const Mul& m) override { result = run(*m.left) + " " + run(*m.right) + " *"; }
-};
-
-Rpn{}.run(tree);   // "2 3 + 4 *"
-```
+:::code proj-visitor-double-dispatch/cpp/obydvi-osi-v-dii-nova.cpp
 ```java
 // Нова операція — НОВИЙ клас. Жоден вузол не відкрито.
 final class Rpn implements Visitor<String> {
@@ -391,18 +178,7 @@ interface Visitor<R> {
 
 Лишилося розібрати найтоншу деталь — чому відскок `accept` взагалі потрібен, і що дає система типів. Спокуса щоразу та сама: «навіщо два методи, зробімо один `visit`, що сам розбереться за типом аргумента». У мові зі статичними типами ця спроба розбивається об те, як обирається **перевантаження** (англ. *overload*):
 
-```java
-interface Visitor {
-    void visit(Num n);
-    void visit(Add a);
-    void visit(Mul m);
-}
-
-Expr e = new Add(new Num(2), new Num(3));   // статичний тип змінної — Expr
-visitor.visit(e);   // ✗ не компілюється: перевантаження visit(Expr) немає.
-                    //   Java обирає перевантаження за СТАТИЧНИМ типом e (Expr),
-                    //   а не за тим, що там Add у рантаймі.
-```
+:::code proj-visitor-double-dispatch/java/chomu-same-accept.java
 
 Ось де собака зарита. Перевантаження в Java (і в C++, і в C#) розв'язується на **компіляції**, за оголошеним типом виразу, а не за тим, що реально лежить в об'єкті під час виконання. `visitor.visit(e)`, де `e` оголошено як `Expr`, шукає `visit(Expr)` — і не знаходить. Відскок `accept` лагодить це елегантно: усередині `Add.accept` вказівник `this` має статичний тип `Add`, тож `v.visitAdd(this)` (чи `v.visit(this)` з перевантаженнями) компілятор розв'язує **точно**, а те, **котрий** `accept` спрацював, обрала віртуальна диспетчеризація в рантаймі. Перший виклик добуває рантайм-тип і робить його статично відомим; другий цим користується. Два диспетчі — це рантайм-вибір, помножений на компіляційний вибір перевантаження, і разом вони дають клітину без жодного `instanceof`.
 

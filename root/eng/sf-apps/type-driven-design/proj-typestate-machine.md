@@ -19,157 +19,9 @@
 Ось повний автомат — на Rust, C++ і TypeScript. Транспорт (реальний сокет, UART, TLS-сесія) тут — мінімальна заглушка, щоб приклад компілювався сам собою; уся вага — на типах навколо нього.
 
 :::tabs
-```rust
-use std::marker::PhantomData;
-
-// Стани протоколу — порожні типи-маркери. Даних нема; сенс лише в імені.
-struct Closed;
-struct Open;
-struct Authed;
-
-// Транспорт — заглушка. У житті тут TcpStream, UART, що завгодно.
-struct Wire { peer: String, inbox: Vec<u8> }
-impl Wire {
-    fn dial(peer: &str) -> Wire { Wire { peer: peer.to_owned(), inbox: Vec::new() } }
-    fn put(&mut self, bytes: &[u8]) { let _ = bytes; /* запис у канал */ }
-    fn take(&mut self) -> Vec<u8> { std::mem::take(&mut self.inbox) }
-}
-
-struct AuthError;
-
-// Хендл, параметризований СТАНОМ S.
-// PhantomData<S> «вживає» параметр S, не займаючи ні байта в рантаймі.
-struct Conn<S> { wire: Wire, _state: PhantomData<S> }
-
-// Приватний перехід-помічник: перекласти транспорт у хендл іншого стану.
-// НЕ pub — тільки методи нижче міняють стан, і лише за протоколом.
-impl<S> Conn<S> {
-    fn retag<T>(self) -> Conn<T> {
-        Conn { wire: self.wire, _state: PhantomData }
-    }
-}
-
-impl Conn<Closed> {
-    fn new(peer: &str) -> Conn<Closed> {
-        Conn { wire: Wire::dial(peer), _state: PhantomData }
-    }
-    fn open(self) -> Conn<Open> { self.retag() }        // Closed → Open
-}
-
-impl Conn<Open> {
-    // Open → Authed. Споживає self; при відмові з'єднання згортається разом із ним.
-    fn authenticate(mut self, key: &str) -> Result<Conn<Authed>, AuthError> {
-        self.wire.put(key.as_bytes());
-        if key.is_empty() { Err(AuthError) } else { Ok(self.retag()) }
-    }
-    fn close(self) -> Conn<Closed> { self.retag() }     // Open → Closed
-}
-
-impl Conn<Authed> {
-    // ЛИШЕ тут. &mut self, а не self: у цьому стані можна слати БАГАТО запитів.
-    fn request(&mut self, body: &str) -> Vec<u8> {
-        self.wire.put(body.as_bytes());
-        self.wire.take()
-    }
-    fn close(self) -> Conn<Closed> { self.retag() }     // Authed → Closed
-}
-```
-```cpp
-#include <string>
-#include <vector>
-#include <utility>
-#include <concepts>
-
-// Стани протоколу — порожні типи-маркери. Даних нема; сенс лише в імені.
-struct Closed {};
-struct Open   {};
-struct Authed {};
-
-// Транспорт — заглушка. У житті тут TCP-сокет, UART, TLS-сесія.
-class Wire {
-    std::string peer_;
-    std::vector<unsigned char> inbox_;
-    explicit Wire(std::string peer) : peer_(std::move(peer)) {}
-public:
-    static Wire dial(const std::string& peer) { return Wire{peer}; }
-    void put(const std::string& bytes) { (void)bytes; /* запис у канал */ }
-    std::vector<unsigned char> take() { return std::move(inbox_); }
-};
-
-// Хендл, параметризований СТАНОМ S. Стан живе лише в типі — поля під нього немає.
-template <class S>
-class Conn {
-    Wire wire_;
-    explicit Conn(Wire w) : wire_(std::move(w)) {}
-    template <class> friend class Conn;   // переходи бачать приватний конструктор сусіда
-
-public:
-    Conn(const Conn&)            = delete;   // копіювати НЕ можна — інакше два живі хендли
-    Conn& operator=(const Conn&) = delete;
-    Conn(Conn&&)                 = default;  // переміщати — можна
-    Conn& operator=(Conn&&)      = default;
-
-    static Conn<Closed> start(const std::string& peer)
-        requires std::same_as<S, Closed>
-    { return Conn<Closed>{Wire::dial(peer)}; }
-
-    // Closed → Open. `&&` — метод лише на rvalue: викликати можна тільки на
-    // переміщеному (std::move) чи тимчасовому хендлі. [[nodiscard]] — новий стан не загубиш.
-    [[nodiscard]] Conn<Open> open() &&
-        requires std::same_as<S, Closed>
-    { return Conn<Open>{std::move(wire_)}; }
-
-    // Open → Authed. Теж &&: перехід споживає хендл.
-    [[nodiscard]] Conn<Authed> authenticate(const std::string& key) &&
-        requires std::same_as<S, Open>
-    { wire_.put(key); return Conn<Authed>{std::move(wire_)}; }
-
-    // ЛИШЕ у Authed. `&`, не &&: у цьому стані шлемо БАГАТО запитів, не споживаючи.
-    std::vector<unsigned char> request(const std::string& body) &
-        requires std::same_as<S, Authed>
-    { wire_.put(body); return wire_.take(); }
-
-    // Authed/Open → Closed. && — теж споживає.
-    [[nodiscard]] Conn<Closed> close() &&
-        requires (std::same_as<S, Open> || std::same_as<S, Authed>)
-    { return Conn<Closed>{std::move(wire_)}; }
-};
-```
-```typescript
-type Closed = "closed";
-type Open   = "open";
-type Authed = "authed";
-
-class Wire {
-    private constructor(private readonly peer: string) {}
-    static dial(peer: string): Wire { return new Wire(peer); }
-    put(bytes: string): void { /* запис у канал */ }
-    roundtrip(body: string): Uint8Array { this.put(body); return new Uint8Array(); }
-}
-
-class Conn<S extends Closed | Open | Authed> {
-    // Фантомне поле: несе стан S у ТИПІ. `declare` — у рантаймі поля немає.
-    private declare readonly _state: S;
-    private constructor(private readonly wire: Wire) {}
-
-    static start(peer: string): Conn<Closed> { return new Conn(Wire.dial(peer)); }
-
-    // `this: Conn<...>` — параметр this: метод доступний лише в цьому стані.
-    open(this: Conn<Closed>): Conn<Open> {
-        return this as unknown as Conn<Open>;
-    }
-    authenticate(this: Conn<Open>, key: string): Conn<Authed> {
-        this.wire.put(key);
-        return this as unknown as Conn<Authed>;   // ТОЙ САМИЙ об'єкт, лише перетипований
-    }
-    request(this: Conn<Authed>, body: string): Uint8Array {
-        return this.wire.roundtrip(body);
-    }
-    close(this: Conn<Open> | Conn<Authed>): Conn<Closed> {
-        return this as unknown as Conn<Closed>;
-    }
-}
-```
+:::code proj-typestate-machine/rust/kistiak-stan-u-typi.rs
+:::code proj-typestate-machine/cpp/main.cpp
+:::code proj-typestate-machine/ts/index.ts
 :::
 
 Три речі варто вимовити повільно, бо на них тримається вся гарантія Rust-версії.
@@ -186,24 +38,7 @@ class Conn<S extends Closed | Open | Authed> {
 
 Тепер найцікавіше — подивитися на happy-path і на кожну спробу порушити протокол поруч, із точними кодами помилок rustc:
 
-```rust
-let closed = Conn::<Closed>::new("device.local:6000");
-
-// closed.request("x");    // E0599: у Conn<Closed> немає методу request
-let open = closed.open();  // Closed → Open; closed ПЕРЕМІЩЕНО в open
-
-// closed.open();          // E0382: use of moved value `closed`
-// open.request("x");      // E0599: у Conn<Open> ще немає request (не автентифіковані)
-
-let mut authed = open.authenticate("s3cr3t").ok().unwrap();  // Open → Authed; open спожито
-
-// open.close();           // E0382: use of moved value `open`
-let _r1 = authed.request("GET /telemetry");   // ✓ лише тут request живе
-let _r2 = authed.request("GET /status");      // ✓ &mut self — скільки завгодно разів
-
-let _back = authed.close();  // Authed → Closed; authed спожито
-// authed.request("x");     // E0382: use of moved value `authed` — стале після close()
-```
+:::code proj-typestate-machine/rust/shcho-kompiliuietsia-a.rs
 
 Придивись, які саме дві помилки стережуть протокол, бо вони різні за походженням. `E0599` (*no method named ... found*) — це «операція **не існує** в цьому стані»: `request` на `Closed` чи `Open`. `E0382` (*use of moved value*) — це «хендл **спожито**, старим уже не скористаєшся»: повторний `open` на з'їденому `closed`, `close` на з'їденому `open`, `request` на з'їденому `authed`. Перша боронить від **виклику не в тому стані**; друга — від **повторного вжитку старого хендла**. Разом вони закривають увесь простір незаконних послідовностей, і закривають на збірці.
 
@@ -280,60 +115,7 @@ authed.request("stale");         // ⚠ КОМПІЛЮЄТЬСЯ: authed усе 
 
 **Ідея.** Той самий типостан, лише стан тепер — не «фаза з'єднання», а «які обов'язкові поля вже задано». Заведемо два маркери, `Missing` і `Set`, і два фантомні параметри: `RequestBuilder<U, M>`, де `U` каже про URL, `M` — про метод. `url(...)` переводить `U` з `Missing` у `Set`, `method(...)` — `M`. А `send()` визначимо **лише** на `RequestBuilder<Set, Set>` — коли обидва задано.
 
-```rust
-use std::marker::PhantomData;
-
-struct Missing;   // поле ще не задано
-struct Set;       // поле задано
-
-struct RequestBuilder<U, M> {
-    url: Option<String>,
-    method: Option<String>,
-    headers: Vec<(String, String)>,
-    _u: PhantomData<U>,
-    _m: PhantomData<M>,
-}
-
-impl RequestBuilder<Missing, Missing> {
-    fn new() -> Self {
-        RequestBuilder { url: None, method: None, headers: Vec::new(),
-                         _u: PhantomData, _m: PhantomData }
-    }
-}
-
-// url() існує, ЛИШЕ поки URL іще Missing: переставити двічі не вийде.
-// M лишаємо яким був — метод це не чіпає.
-impl<M> RequestBuilder<Missing, M> {
-    fn url(self, u: &str) -> RequestBuilder<Set, M> {
-        RequestBuilder { url: Some(u.to_owned()), method: self.method,
-                         headers: self.headers, _u: PhantomData, _m: PhantomData }
-    }
-}
-
-impl<U> RequestBuilder<U, Missing> {
-    fn method(self, m: &str) -> RequestBuilder<U, Set> {
-        RequestBuilder { url: self.url, method: Some(m.to_owned()),
-                         headers: self.headers, _u: PhantomData, _m: PhantomData }
-    }
-}
-
-// Необов'язкові поля доступні В БУДЬ-ЯКОМУ стані — прапорців не міняють.
-impl<U, M> RequestBuilder<U, M> {
-    fn header(mut self, k: &str, v: &str) -> Self {
-        self.headers.push((k.to_owned(), v.to_owned()));
-        self
-    }
-}
-
-// send() існує ЛИШЕ у вершині <Set, Set>.
-impl RequestBuilder<Set, Set> {
-    fn send(self) -> String {
-        let url = self.url.unwrap();        // <Set, _> — доказ, що тут Some
-        let method = self.method.unwrap();  // <_, Set> — доказ, що тут Some
-        format!("{method} {url} [{} заголовків]", self.headers.len())
-    }
-}
-```
+:::code proj-typestate-machine/rust/zadacha-2-budivnyk-z.rs
 
 Використання читається як звичайний ланцюжок, а компілятор мовчки стереже, що ланцюжок повний:
 
@@ -385,18 +167,7 @@ let conn = if config.secure {
 
 Ліки — стягнути обидва статичні типи в **один рантаймний** через `enum`, лишивши одну чесну перевірку переходу на межі:
 
-```rust
-enum Link { Open(Conn<Open>), Authed(Conn<Authed>) }
-
-fn from_config(secure: bool, key: &str, c: Conn<Open>) -> Link {
-    if secure {
-        c.authenticate(key).map(Link::Authed).unwrap_or_else(|_| todo!())
-    } else {
-        Link::Open(c)
-    }
-}
-// далі — match по Link; гілка Authed має request, гілка Open — ні.
-```
+:::code proj-typestate-machine/rust/skladnist-i-pastky.rs
 
 Типостан сяє, коли протокол зашитий у **код**; коли він приходить із **даних**, чесніший компроміс — рантаймний `enum` із перевіркою на межі, а не спроба протягнути невідомий стан на рівень типів.
 

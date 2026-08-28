@@ -104,84 +104,7 @@ protoc --proto_path=proto --cpp_out=src/backend/generated proto/user_profile.pro
 Тепер інженер бекенду пише бізнес-логіку домену, спираючись на згенеровані класи. Використовуємо сучасні можливості стандарту C++20: семантику `std::expected` для явної обробки помилок без накладних витрат на винятки, рядкові перегляди `std::string_view`, перевірку інваріантів перед мутаціями та автоматичне вимірювання часу через `<chrono>`.
 
 :::tabs
-```cpp
-#include <string_view>
-#include <expected>
-#include <chrono>
-#include <regex>
-#include <memory>
-#include <iostream>
-#include "user_profile.pb.h"
-
-namespace billing::domain {
-
-// Коди помилок валідації бізнес-правил профілю
-enum class ValidationError {
-    InvalidEmailFormat,
-    NegativeBalanceNotAllowed,
-    AccountSuspended,
-    InvalidAccountId
-};
-
-class ProfileDomainService {
-public:
-    // Перевірка інваріантів домену перед збереженням чи мутацією
-    [[nodiscard]] std::expected<void, ValidationError> validate_profile(
-        const billing::v1::UserProfile& profile
-    ) const noexcept {
-        if (profile.account_id() == 0) {
-            return std::unexpected(ValidationError::InvalidAccountId);
-        }
-
-        if (profile.is_suspended()) {
-            return std::unexpected(ValidationError::AccountSuspended);
-        }
-
-        // Перевірка формату адреси електронної пошти за стандартом
-        static const std::regex email_pattern(
-            R"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-        );
-        if (!std::regex_match(profile.email(), email_pattern)) {
-            return std::unexpected(ValidationError::InvalidEmailFormat);
-        }
-
-        // Баланс не може бути від’ємним для базових акаунтів
-        if (profile.balance_cents() < 0) {
-            return std::unexpected(ValidationError::NegativeBalanceNotAllowed);
-        }
-
-        return {};
-    }
-
-    // Застосування транзакційного списання коштів з балансу
-    [[nodiscard]] std::expected<billing::v1::UserProfile, ValidationError> apply_charge(
-        billing::v1::UserProfile current,
-        int64_t charge_amount_cents
-    ) const {
-        auto check = validate_profile(current);
-        if (!check) {
-            return std::unexpected(check.error());
-        }
-
-        if (current.balance_cents() < charge_amount_cents) {
-            return std::unexpected(ValidationError::NegativeBalanceNotAllowed);
-        }
-
-        // Безпечна модифікація через згенеровані аксесори
-        current.set_balance_cents(current.balance_cents() - charge_amount_cents);
-
-        // Оновлення мітки часу останньої мутації
-        const auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()
-        ).count();
-        current.set_updated_at_ms(now_ms);
-
-        return current;
-    }
-};
-
-} // namespace billing::domain
-```
+:::code proj-schema-codegen/cpp/main.cpp
 :::
 
 У наведеному коді інженер ніде не оголошував структури DTO вручну. Назви методів `set_balance_cents()`, `email()`, `is_suspended()` згенеровані компілятором строго за контрактом. Якщо поле у схемі буде перейменовано або змінить тип, спроба скомпілювати цей C++ файл негайно завершиться помилкою з чіткою вказівкою номера рядка.
@@ -195,58 +118,7 @@ protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto     
 
 Отримуємо файл `src/frontend/generated/user_profile.ts`. У ньому містяться суворі типи та клієнтські хелпери:
 
-```ts
-// Згенеровано автоматично з user_profile.proto — НЕ РЕДАГУВАТИ ВРУЧНУ
-
-export enum SubscriptionTier {
-  TIER_UNSPECIFIED = 0,
-  TIER_FREE = 1,
-  TIER_STANDARD = 2,
-  TIER_PREMIUM = 3,
-}
-
-export interface UserProfileDTO {
-  accountId: string;      // 64-бітні числа транслюються в рядок для точності в JS
-  email: string;
-  balanceCents: number;
-  tier: SubscriptionTier;
-  isSuspended: boolean;
-  updatedAtMs: number;
-}
-
-export interface UpdateEmailRequestDTO {
-  accountId: string;
-  newEmail: string;
-}
-
-// Клієнтський клас для безпечної взаємодії з бекендом
-export class BillingClient {
-  private readonly baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
-
-  // Отримання канонічного профілю з сервера
-  async fetchProfile(accountId: string): Promise<UserProfileDTO> {
-    const response = await fetch(`${this.baseUrl}/v1/accounts/${accountId}`);
-    if (!response.ok) {
-      throw new Error(`Помилка отримання профілю: статус ${response.status}`);
-    }
-    const data: UserProfileDTO = await response.json();
-    return data;
-  }
-
-  // Обчислення форматованого балансу в гривнях (похідне подання для UI)
-  formatBalanceUah(profile: UserProfileDTO): string {
-    const uah = profile.balanceCents / 100;
-    return new Intl.NumberFormat('uk-UA', {
-      style: 'currency',
-      currency: 'UAH',
-    }).format(uah);
-  }
-}
-```
+:::code proj-schema-codegen/ts/index.ts
 
 ### Тонкощі типів: проблема 64-бітних цілих чисел у JavaScript
 
@@ -268,57 +140,7 @@ export class BillingClient {
 3. Порівнює криптографічний SHA-256 хеш згенерованих файлів із тими, що зафіксовані в репозиторії.
 4. Якщо хеші не збігаються — негайно блокує збірку та деплой із чітким повідомленням про помилку.
 
-```py
-# -*- coding: utf-8 -*-
-import os
-import sys
-import hashlib
-import subprocess
-import tempfile
-
-PROTO_FILE = "proto/user_profile.proto"
-GEN_CPP_HEADER = "src/backend/generated/user_profile.pb.h"
-GEN_TS_FILE = "src/frontend/generated/user_profile.ts"
-
-def calculate_sha256(filepath: str) -> str:
-    hasher = hashlib.sha256()
-    with open(filepath, "rb") as f:
-        while chunk := f.read(65536):
-            hasher.update(chunk)
-    return hasher.hexdigest()
-
-def verify_contracts() -> bool:
-    print(f"[*] Перевірка єдиного джерела правди для {PROTO_FILE}...")
-    if not os.path.exists(PROTO_FILE):
-        print(f"[ERROR] Файл схеми {PROTO_FILE} не знайдено!")
-        return False
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        cmd = ["protoc", f"--proto_path={os.path.dirname(PROTO_FILE)}", f"--cpp_out={tmpdir}", PROTO_FILE]
-        try:
-            subprocess.run(cmd, check=True, capture_output=True)
-        except subprocess.CalledProcessError as err:
-            print(f"[ERROR] Помилка виклику protoc: {err.stderr.decode()}")
-            return False
-
-        temp_header = os.path.join(tmpdir, "user_profile.pb.h")
-        if os.path.exists(GEN_CPP_HEADER) and os.path.exists(temp_header):
-            current_hash = calculate_sha256(GEN_CPP_HEADER)
-            fresh_hash = calculate_sha256(temp_header)
-            if current_hash != fresh_hash:
-                print("[X] ПОМИЛКА: Виявлено дрейф моделей C++!")
-                print("    Згенеровані файли не відповідають файлу схеми.")
-                print("    Виконайте 'make codegen' перед створенням Pull Request.")
-                return False
-
-        print("[OK] C++ контракти повністю відповідають схемі.")
-        print("[OK] Дрейфу моделей не виявлено. Єдине джерело правди збережено.")
-        return True
-
-if __name__ == "__main__":
-    if not verify_contracts():
-        sys.exit(1)
-```
+:::code proj-schema-codegen/py/main.py
 
 ## Наскрізне простеження: життєвий цикл виклику крізь SSOT-конвеєр
 

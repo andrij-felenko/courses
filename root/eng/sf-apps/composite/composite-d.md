@@ -37,74 +37,8 @@
 Розв'язок прямий: нехай кожен вузол тримає посилання на свого батька. Додаємо поле `parent`.
 
 :::tabs
-```ts
-abstract class Component {
-  parent: Composite | null = null;      // зворотне посилання вгору; у кореня — null
-  abstract size(): number;
-}
-
-class Leaf extends Component {
-  constructor(private bytes: number) { super(); }
-  size(): number { return this.bytes; }
-}
-
-class Composite extends Component {
-  readonly children: Component[] = [];
-
-  add(child: Component): void {
-    child.parent?.remove(child);        // спершу від'єднати від старого батька
-    this.children.push(child);          // 1) додали в список (зв'язок униз)
-    child.parent = this;                // 2) той самий крок ставить .parent (зв'язок угору)
-  }
-
-  remove(child: Component): void {
-    const i = this.children.indexOf(child);
-    if (i >= 0) {
-      this.children.splice(i, 1);       // прибрали зі списку
-      child.parent = null;              // і одразу обнулили батька
-    }
-  }
-
-  size(): number {
-    return this.children.reduce((sum, c) => sum + c.size(), 0);
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Component(ABC):
-    def __init__(self):
-        self.parent: "Composite | None" = None   # зворотне посилання вгору
-
-    @abstractmethod
-    def size(self) -> int: ...
-
-class Leaf(Component):
-    def __init__(self, num_bytes: int):
-        super().__init__()
-        self._bytes = num_bytes
-    def size(self) -> int:
-        return self._bytes
-
-class Composite(Component):
-    def __init__(self):
-        super().__init__()
-        self.children: list[Component] = []
-
-    def add(self, child: Component) -> None:
-        if child.parent is not None:
-            child.parent.remove(child)            # від'єднати від старого батька
-        self.children.append(child)               # 1) зв'язок униз
-        child.parent = self                        # 2) зв'язок угору
-
-    def remove(self, child: Component) -> None:
-        self.children.remove(child)
-        child.parent = None
-
-    def size(self) -> int:
-        return sum(c.size() for c in self.children)
-```
+:::code composite-d/ts/pohliad-uhoru-batkivske.ts
+:::code composite-d/py/pohliad-uhoru-batkivske.py
 :::
 
 Тепер піднятися до кореня чи виміряти глибину — це прогулянка вгору за посиланнями `parent`, і коштує вона рівно стільки, яка висота вузла над дном, а не розміру всього дерева:
@@ -149,44 +83,8 @@ def depth(node: Component) -> int:
 Захист простий і коштує рівно стільки ж, скільки підйом до кореня. Перш ніж узяти `child` собі, композит перевіряє: чи не є `child` часом моїм **пращуром** (або мною самим)? Бо якщо `child` уже наді мною в дереві, то, поклавши його **під** себе, я замкну кільце.
 
 :::tabs
-```ts
-class Composite extends Component {
-  add(child: Component): void {
-    if (child === this || this.hasAncestor(child)) {
-      throw new Error("додавання створило б цикл");   // гучна відмова, не тихе псування
-    }
-    child.parent?.remove(child);
-    this.children.push(child);
-    child.parent = this;
-  }
-
-  // чи є `candidate` десь на шляху від мене до кореня?
-  private hasAncestor(candidate: Component): boolean {
-    for (let p = this.parent; p !== null; p = p.parent) {
-      if (p === candidate) return true;              // так — він мій пращур
-    }
-    return false;
-  }
-}
-```
-```py
-class Composite(Component):
-    def add(self, child: Component) -> None:
-        if child is self or self._has_ancestor(child):
-            raise ValueError("додавання створило б цикл")   # гучна відмова
-        if child.parent is not None:
-            child.parent.remove(child)
-        self.children.append(child)
-        child.parent = self
-
-    def _has_ancestor(self, candidate: Component) -> bool:
-        p = self.parent
-        while p is not None:                 # ідемо від себе вгору до кореня
-            if p is candidate:
-                return True
-            p = p.parent
-        return p is not None                 # (недосяжно: цикл вище вже неможливий)
-```
+:::code composite-d/ts/koly-derevo-perestaie-buty.ts
+:::code composite-d/py/koly-derevo-perestaie-buty.py
 :::
 
 Перевірка `hasAncestor` іде вгору за тими самими `parent`-посиланнями, що ведуть від вузла до кореня, — ще одне застосування зв'язку вгору. Коштує вона O(h): один прохід від вузла до кореня. Це та ціна, яку варто платити на кожне `add`, коли дерево збирається з ненадійного джерела (введення користувача, десеріалізація, автоматична побудова), — бо вартість пропущеного циклу не O(h), а зависання процесу.
@@ -202,57 +100,8 @@ class Composite(Component):
 Ось де посилання `parent` окупається сповна. Коли змінюється листок глибоко в дереві — файл виріс, фігуру пересунули, — змінюється не лише його власний агрегат. Змінюється розмір **його теки**, і теки **над нею**, і так аж до кореня: кожен пращур тепер має неправильний кеш, бо в його піддереві щось зрушило. А от **сусідні** піддерева — ті, що не лежать на шляху від зміни до кореня, — незаймані, їхній кеш чинний. Отже, зміна має позначити брудними рівно вузли **на шляху вгору до кореня** — і жодного більше. А пройти цей шлях угору дозволяє саме посилання `parent`.
 
 :::tabs
-```ts
-class Composite extends Component {
-  private cached: number | null = null;   // збережений агрегат; null = брудний
-
-  size(): number {
-    if (this.cached === null) {            // брудний — рахуємо й запам'ятовуємо
-      this.cached = this.children.reduce((s, c) => s + c.size(), 0);
-    }
-    return this.cached;                    // чистий — віддаємо миттєво, O(1)
-  }
-
-  invalidate(): void {                     // зробити брудним себе й усіх пращурів
-    for (let p: Composite | null = this; p !== null; p = p.parent) {
-      if (p.cached === null) break;        // уже брудний → вище теж брудні, спиняємось
-      p.cached = null;
-    }
-  }
-
-  add(child: Component): void {
-    /* ...перевірки, вставка, parent... */
-    this.children.push(child);
-    child.parent = this;
-    this.invalidate();                     // структура змінилась → шлях до кореня брудний
-  }
-}
-```
-```py
-class Composite(Component):
-    def __init__(self):
-        super().__init__()
-        self.children: list[Component] = []
-        self._cached: int | None = None      # None = брудний
-
-    def size(self) -> int:
-        if self._cached is None:             # брудний — рахуємо й кешуємо
-            self._cached = sum(c.size() for c in self.children)
-        return self._cached                  # чистий — миттєво
-
-    def invalidate(self) -> None:            # себе й усіх пращурів — у брудні
-        p: "Composite | None" = self
-        while p is not None:
-            if p._cached is None:            # уже брудний вище → далі не йдемо
-                break
-            p._cached = None
-            p = p.parent
-
-    def add(self, child: Component) -> None:
-        self.children.append(child)
-        child.parent = self
-        self.invalidate()                    # шлях до кореня тепер брудний
-```
+:::code composite-d/ts/kesh-ahrehatu-iak-zmina.ts
+:::code composite-d/py/kesh-ahrehatu-iak-zmina.py
 :::
 
 Придивись до `invalidate`: він іде вгору за `parent` і зупиняється, щойно натрапить на вже брудний вузол, — бо якщо цей вузол брудний, то й усі над ним уже брудні (їх позначила попередня зміна), і ходити далі марно. Ця дрібна зупинка робить повторні зміни в тій самій гілці майже безкоштовними.
@@ -305,34 +154,7 @@ class Composite(Component):
 
 **Третій — проміжний, `getComposite()`.** Банда чотирьох запропонувала третій шлях, що бере потроху від обох. У `Component` оголошують метод, який **сам-про-себе** каже, композит це чи ні: `getComposite()` повертає за замовчуванням `null`, а `Composite` перевизначає його, повертаючи себе. Клієнт питає **один раз** — і дістає або типізований дескриптор композита, або `null`, чесно й статично перевірено, без розсипаних усюди `instanceof`.
 
-```ts
-abstract class Component {
-  abstract size(): number;
-  getComposite(): Composite | null { return null; }   // лист за замовчуванням — не композит
-}
-
-class Leaf extends Component {
-  constructor(private bytes: number) { super(); }
-  size(): number { return this.bytes; }
-  // getComposite() успадкований → null: лист чесно зізнається, що дітей не має
-}
-
-class Composite extends Component {
-  readonly children: Component[] = [];
-  size(): number { return this.children.reduce((s, c) => s + c.size(), 0); }
-  getComposite(): Composite { return this; }           // лише композит віддає себе
-  add(child: Component): void { /* ... */ }
-}
-
-// клієнт: одне питання замість розсипу instanceof
-function tryAdd(node: Component, child: Component): void {
-  const box = node.getComposite();
-  if (box !== null) {
-    box.add(child);          // тип звужено до Composite статично — add доступний і безпечний
-  }
-  // якщо null — це лист, додавати нема куди, і ми це знаємо чесно
-}
-```
+:::code composite-d/ts/try-chesni-rozviazky.ts
 
 Різниця з голим `instanceof` тонка, але важлива: `getComposite()` робить «чи ти композит?» **частиною контракту** `Component`, а не здогадкою клієнта про конкретні класи. Клієнт не називає жодного конкретного типу листка — він питає інтерфейс, і той відповідає. Дехто робить простіший варіант — `isComposite(): boolean`, — але тоді після перевірки все одно доводиться приводити тип руками; `getComposite()` повертає вже звужений дескриптор і тим економить приведення.
 
@@ -349,51 +171,8 @@ function tryAdd(node: Component, child: Component): void {
 **Сумарний тип дешевий рівно навпаки.** Замість ієрархії класів опиши вузол як тип, що є **однією з** кількох форм (лист **або** композит), а операції — як вільні функції, що розбирають ці форми зіставленням зі зразком (англ. *pattern matching*):
 
 :::tabs
-```rust
-// вузол — це ОДНА З форм; композит тримає список того самого типу
-enum Node {
-    Leaf(u64),               // розмір у байтах
-    Composite(Vec<Node>),    // діти того самого типу Node
-}
-
-// операція — вільна функція з ВИЧЕРПНИМ зіставленням
-fn size(node: &Node) -> u64 {
-    match node {
-        Node::Leaf(bytes)        => *bytes,
-        Node::Composite(kids)    => kids.iter().map(size).sum(),
-    }
-}
-
-// ДОДАТИ ОПЕРАЦІЮ — це нова функція; НАЯВНЕ не чіпаємо:
-fn count(node: &Node) -> u64 {
-    match node {
-        Node::Leaf(_)            => 1,
-        Node::Composite(kids)    => 1 + kids.iter().map(count).sum::<u64>(),
-    }
-}
-```
-```ts
-// вузол — розрізнюване об'єднання: рівно одна з форм
-type Node =
-  | { kind: "leaf"; bytes: number }
-  | { kind: "composite"; children: Node[] };
-
-// операція — вільна функція; switch розбирає форми
-function size(node: Node): number {
-  switch (node.kind) {
-    case "leaf":      return node.bytes;
-    case "composite": return node.children.reduce((s, c) => s + size(c), 0);
-  }
-}
-
-// ДОДАТИ ОПЕРАЦІЮ — нова функція, наявне незаймане:
-function count(node: Node): number {
-  switch (node.kind) {
-    case "leaf":      return 1;
-    case "composite": return 1 + node.children.reduce((s, c) => s + count(c), 0);
-  }
-}
-```
+:::code composite-d/rust/main.rs
+:::code composite-d/ts/naihlybsha-vis-chomu-novi.ts
 :::
 
 Тут додати операцію — це написати одну нову функцію з `match`, і жодна наявна функція не змінюється. Зате додати новий **вид** вузла — скажімо, `Symlink` — означає дописати варіант у тип, після чого **кожна** функція з `match` мусить обробити новий випадок. І ось найкрасивіше: у Rust компілятор **змусить** тебе це зробити — `match` має бути вичерпним, і поки не додаси гілку `Symlink` у кожній функції, код не збереться. У листка ж тут ніколи не постає питання «куди подіти `add`»: лист — це форма `Leaf(u64)`, у якій просто немає списку дітей, тож зайвому методу нізвідки взятися. Дилема прозорість-проти-безпеки зникла разом зі спільним набором методів.

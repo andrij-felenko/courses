@@ -74,49 +74,8 @@ adaptor := PluggableAdaptor on: aPerson
 Блоки `[:p | p name]` і `[:p :val | p name: val]` — це і є «вставні» частини: два замикачі кажуть адаптерові, як саме читати й писати значення в цьому конкретному об'єкті. Ідея пережила Smalltalk і живе в кожній сучасній мові із замиканнями — щоразу, коли ти конфігуруєш адаптер лямбдою замість нового класу, ти повторюєш винахід ParcPlace. Приклад загальний, з домену звичайного об'єктного коду, тож двома мовами стеку, де замикачі однаково ідіоматичні:
 
 :::tabs
-```ts
-// Один адаптер на БАГАТО джерел: поведінку «як дістати/покласти значення»
-// вкладають ЗЗОВНІ — замикачами, а не новим підкласом.
-class PluggableAdapter<S, T> {
-  constructor(
-    private subject: S,
-    private get: (s: S) => T,
-    private set: (s: S, v: T) => void,
-  ) {}
-  value(): T { return this.get(this.subject); }
-  setValue(v: T): void { this.set(this.subject, v); }
-}
-
-// той самий клас пристосовує геть різні об'єкти — без підкласу на кожен:
-const nameCell = new PluggableAdapter(person, p => p.fullName,
-                                      (p, v) => { p.fullName = v; });
-const tempCell = new PluggableAdapter(sensor, s => s.celsius,
-                                      (s, v) => { s.celsius = v; });
-```
-```py
-from dataclasses import dataclass
-from typing import Callable, Generic, TypeVar
-
-S = TypeVar("S"); T = TypeVar("T")
-
-# Один адаптер на БАГАТО джерел: поведінку «як дістати/покласти значення»
-# вкладають ЗЗОВНІ — замикачами, а не новим підкласом.
-@dataclass
-class PluggableAdapter(Generic[S, T]):
-    subject: S
-    get: Callable[[S], T]
-    set: Callable[[S, T], None]
-    def value(self) -> T:
-        return self.get(self.subject)
-    def set_value(self, v: T) -> None:
-        self.set(self.subject, v)
-
-# той самий клас пристосовує геть різні об'єкти — без підкласу на кожен:
-name_cell = PluggableAdapter(person, lambda p: p.full_name,
-                             lambda p, v: setattr(p, "full_name", v))
-temp_cell = PluggableAdapter(sensor, lambda s: s.celsius,
-                             lambda s, v: setattr(s, "celsius", v))
-```
+:::code hist-wrapper-impedance/ts/index.ts
+:::code hist-wrapper-impedance/py/main.py
 :::
 
 Придивись, що тут «вставне»: сам клас `PluggableAdapter` написано **раз**, а `nameCell` і `tempCell` пристосовують зовсім різні об'єкти (`person` і `sensor`) без жодного нового підкласу — уся різниця в переданих замикачах. Це і є «pluggable»: точку адаптації винесено в параметр, і адаптер стає універсальним гніздом, у яке вставляють поведінку. Слово чесно описує саме цей хід — на відміну від «Wrapper», що описував лише форму.

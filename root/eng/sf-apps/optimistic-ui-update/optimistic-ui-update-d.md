@@ -92,19 +92,7 @@ S_view = reduce(S_server, [Δ₁, Δ₂, ..., Δₙ])
 
 Найпростіший підхід полягає в тому, що безпосередньо перед застосуванням оптимістичної зміни застосунок робить копію поточного стану або того піддерева даних, яке зазнає змін. Цей знімок зберігається в контексті виконуваної мутації:
 
-```ts
-// Псевдокод знімка мутації
-const previousState = clone(store.getState().todos);
-
-try {
-  store.setState(applyOptimisticUpdate(previousState, action));
-  await api.saveTodo(action.payload);
-} catch (error) {
-  // Відкат: тупе відновлення знімка
-  store.setState(previousState);
-  showToast("Не вдалося зберегти завдання");
-}
-```
+:::code optimistic-ui-update-d/ts/1-vidkat-za-znimkom.ts
 
 Цей спосіб надійний і простий, доки користувач виконує дії суворо по одній з великими паузами. Проте він катастрофічно ламається за наявності кількох паралельних дій.
 
@@ -262,57 +250,12 @@ const id = crypto.randomUUID(); // "f81d4fae-7dec-11d0-a765-00a0c91e6bf6"
 #### 1. Монотонні лічильники ревізій (Sequence Tokens)
 Кожна мутація для конкретної сутності отримує локальний монотонно зростаючий номер версії (`seq = 1, 2, 3, ...`). Клієнт запам'ятовує останній застосований номер:
 
-```ts
-class EntityStateHolder {
-  private latestSeq = 0;
-  private value = false;
-
-  public applyServerResponse(seq: number, serverValue: boolean) {
-    // Якщо прийшла відповідь на старіший запит, ніж той, що ми вже врахували — відкидаємо
-    if (seq < this.latestSeq) {
-      console.warn(`Застаріла відповідь seq=${seq} проігнорована (поточна seq=${this.latestSeq})`);
-      return;
-    }
-    this.latestSeq = seq;
-    this.value = serverValue;
-  }
-}
-```
+:::code optimistic-ui-update-d/ts/1-monotonni-lichylnyky.ts
 
 #### 2. Примусове скасування сокетів через AbortController
 Якщо користувач ініціює нову мутацію над сутністю, для якої в мережі вже перебуває попередній незавершений запит, попередній HTTP-запит повинен бути негайно анульований на рівні браузерного API:
 
-```ts
-let currentAbortController: AbortController | null = null;
-
-async function updateStatus(newStatus: boolean) {
-  // 1. Скасовуємо попередній запит у польоті
-  if (currentAbortController) {
-    currentAbortController.abort();
-  }
-  currentAbortController = new AbortController();
-
-  // 2. Оптимістично оновлюємо UI
-  setOptimisticStatus(newStatus);
-
-  try {
-    const response = await fetch('/api/status', {
-      method: 'POST',
-      body: JSON.stringify({ status: newStatus }),
-      signal: currentAbortController.signal // прив'язка сигналу скасування
-    });
-    const data = await response.json();
-    setCanonicalStatus(data.status);
-  } catch (err: any) {
-    if (err.name === 'AbortError') {
-      // Запит було правомірно перервано новішою дією — нічого не відкочуємо!
-      return;
-    }
-    // Справжній збій мережі — виконуємо відкат
-    rollbackStatus();
-  }
-}
-```
+:::code optimistic-ui-update-d/ts/2-prymusove-skasuvannia.ts
 
 #### 3. Серіалізація черги запитів (Per-Entity FIFO Pipeline)
 Для критичних операцій (наприклад, зміна прав доступу чи переміщення позицій списку) запити для однієї сутності шикуються у суворо послідовну чергу: наступний HTTP-запит не виходить у мережу доти, доки попередній не завершився або не був скасований.

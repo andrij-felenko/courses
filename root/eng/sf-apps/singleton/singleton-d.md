@@ -31,54 +31,8 @@
 Порівняймо два способи дати класу годинник — джерело поточного часу. Це класична перевірка на «звідусіль», бо час усередині логіки хочеться підмінити в тесті на застиглий:
 
 :::tabs
-```ts
-// «один + глобально»: логіка сама лізе по глобальний годинник
-class SystemClock {
-  private static inst: SystemClock | null = null;
-  static instance(): SystemClock {
-    return (SystemClock.inst ??= new SystemClock());
-  }
-  now(): Date { return new Date(); }
-}
-
-class SubscriptionService {
-  renew(sub: Subscription) {
-    const now = SystemClock.instance().now();   // прихована залежність від часу
-    if (now > sub.expiresAt) sub.markExpired();
-  }
-}
-
-// «один + передають руками»: годинник приходить явно, його видно в конструкторі
-interface Clock { now(): Date; }
-
-class SubscriptionService2 {
-  constructor(private clock: Clock) {}          // залежність на видноті
-  renew(sub: Subscription) {
-    if (this.clock.now() > sub.expiresAt) sub.markExpired();
-  }
-}
-// у тесті:  new SubscriptionService2({ now: () => new Date("2030-01-01") })
-```
-```go
-// «один + глобально»: пакетна функція time.Now() — теж глобальний доступ
-func (s *SubscriptionService) Renew(sub *Subscription) {
-    if time.Now().After(sub.ExpiresAt) {        // прихована залежність від часу
-        sub.MarkExpired()
-    }
-}
-
-// «один + передають руками»: годинник — це інтерфейс, який дають ззовні
-type Clock interface{ Now() time.Time }
-
-type SubscriptionService2 struct{ clock Clock }
-
-func (s *SubscriptionService2) Renew(sub *Subscription) {
-    if s.clock.Now().After(sub.ExpiresAt) {     // залежність на видноті
-        sub.MarkExpired()
-    }
-}
-// у тесті передають застиглий годинник, що завжди повертає 2030-01-01
-```
+:::code singleton-d/ts/dvi-osi-a-ne-odna.ts
+:::code singleton-d/go/main.go
 :::
 
 В обох варіантах справжній годинник у програмі, найпевніше, **один**. Різниця лише по осі досяжності — і саме вона вирішує все: у першому випадку `SubscriptionService` неможливо перевірити на конкретній даті, бо час зашитий намертво; у другому тест просто передає інший `Clock`. Ми забрали «звідусіль» і лишили «один» — рівно те, що було потрібно.
@@ -116,35 +70,8 @@ func (s *SubscriptionService2) Renew(sub *Subscription) {
 *Сінглтон робить одну ідентичність зі спільним станом; моностейт — багато ідентичностей з тим самим спільним станом. Зовні перший — один об'єкт, другий — багато, але «правда» в них одна.*
 
 :::tabs
-```py
-class Borg:
-    _shared = {}                       # один словник на весь клас
-    def __init__(self):
-        self.__dict__ = Borg._shared   # усі екземпляри ділять один і той самий __dict__
-
-class Settings(Borg):
-    def __init__(self):
-        super().__init__()
-        if not hasattr(self, "theme"):
-            self.theme = "light"       # ініціалізуємо лише вперше
-
-a = Settings(); b = Settings()
-a.theme = "dark"
-print(b.theme)        # "dark" — хоча b створювали окремо: стан у них спільний
-print(a is b)         # False — це РІЗНІ об'єкти з однаковим станом
-```
-```ts
-class Settings {
-  private static shared = { theme: "light" };  // один об'єкт-стан на весь клас
-  get theme() { return Settings.shared.theme; }
-  set theme(v: string) { Settings.shared.theme = v; }
-}
-
-const a = new Settings(), b = new Settings();
-a.theme = "dark";
-console.log(b.theme);   // "dark" — стан спільний
-console.log(a === b);   // false — об'єкти різні
-```
+:::code singleton-d/py/main.py
+:::code singleton-d/ts/susidy-iakykh-plutaiut-iz.ts
 :::
 
 Навіщо взагалі така вивернута конструкція? Її принада — в тому, що моностейт **виглядає як звичайний клас**: його створюють через звичайне `new`, він може мати підкласи, його передають як звичайний об'єкт. Немає незручного `getInstance()`, немає приватного конструктора. Тому код, що ним користується, не знає й не мусить знати, що за лаштунками стан спільний. Але тут-таки й криється його вада, ще підступніша за сінглтонову: **спільність стану невидима на місці вжитку**. Коли пишеш `Config.getInstance()`, ти принаймні бачиш слово «instance» і здогадуєшся про глобальність; а коли пишеш звичайне `new Settings()` і несподівано отримуєш чужі зміни — здивування повне. Моностейт лишається тим самим [глобальним станом](root:sf-apps/global-state), лише краще замаскованим, тож усі його тестові й зв'язковані болі нікуди не діваються — просто їх важче помітити.
@@ -176,18 +103,7 @@ console.log(a === b);   // false — об'єкти різні
 
 Ліки — саме **construct-on-first-use**: не робити `Config` глобальним об'єктом, а сховати його в функцію з локальною статичною змінною, яка будується рівно тоді, коли до неї вперше звернуться:
 
-```cpp
-// замість глобального Config config; — функція, що будує його ліниво
-Config& config() {
-    static Config instance;   // збудується при ПЕРШОМУ виклику config(),
-    return instance;          // а не в невизначений момент старту
-}
-
-// тепер конструктор Logger безпечно кличе config():
-Logger::Logger() {
-    auto host = config().get("log.host");   // config() гарантовано вже збудований
-}
-```
+:::code singleton-d/cpp/main.cpp
 
 Тепер `Config` не існує «десь на старті в невизначену мить» — він народжується точно в перший момент, коли справді знадобився, тож будь-який його користувач гарантовано дістає вже готовий об'єкт. Це і є той самий «сінглтон Меєрса»; від C++11 така локальна статика ще й ініціалізується потокобезпечно. Один прийом закриває дві проблеми одразу — і невизначений порядок, і гонитву потоків.
 

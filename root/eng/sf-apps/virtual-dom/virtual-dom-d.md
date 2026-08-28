@@ -316,27 +316,7 @@ setStatus("online");
 
 Сучасні рушії використовують **пакетування оновлень** (англ. *batching*). Запити на рендеринг реєструються у внутрішній черзі та відкладаються до завершення поточного синхронного коду за допомогою мікрозадачі:
 
-```ts
-let isScheduled = false;
-const updateQueue = new Set<Component>();
-
-export function scheduleUpdate(component: Component) {
-  updateQueue.add(component);
-
-  if (!isScheduled) {
-    isScheduled = true;
-    queueMicrotask(flushUpdates);
-  }
-}
-
-function flushUpdates() {
-  for (const component of updateQueue) {
-    component.update();
-  }
-  updateQueue.clear();
-  isScheduled = false;
-}
-```
+:::code virtual-dom-d/ts/index.ts
 
 Завдяки черзі мікрозадач (`queueMicrotask`) усі синхронні мутації стану зливаються в один-єдиний прохід дифінгу, а результуючі зміни потрапляють у реальний DOM за один спільний такт графічного конвеєра браузера.
 

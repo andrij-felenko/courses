@@ -9,86 +9,8 @@
 Ось із чого ми стартуємо. Замовлення — голий носій даних: поле статусу та пара «дай статус / постав статус». Уся логіка переходів розсипана по викликачах — по «сервісах», «менеджерах», обробниках запитів.
 
 :::tabs
-```cpp
-#include <string>
-#include <stdexcept>
-
-// Замовлення — лише мішок даних: статус назовні, жодного правила всередині
-class Order {
-public:
-    explicit Order(std::string id) : id_(std::move(id)), status_("new") {}
-
-    std::string getStatus() const { return status_; }
-    void setStatus(std::string s) { status_ = std::move(s); }
-
-    const std::string& id() const { return id_; }
-
-private:
-    std::string id_;
-    std::string status_;   // "new" | "paid" | "shipped" | "cancelled"
-};
-
-// --- переходи живуть ЗЗОВНІ, у різних кутках коду ---
-
-// оформлення (шар оплати)
-void payOrder(Order& order) {
-    if (order.getStatus() == "new") {
-        order.setStatus("paid");
-    } else {
-        throw std::runtime_error("не можна оплатити: " + order.getStatus());
-    }
-}
-
-// склад (інший шар, часто інший автор)
-void shipOrder(Order& order) {
-    // тут ЗАБУЛИ перевірити, що замовлення оплачене
-    order.setStatus("shipped");
-}
-
-// скасування (ще один шар)
-void cancelOrder(Order& order) {
-    if (order.getStatus() != "shipped") {
-        order.setStatus("cancelled");
-    } else {
-        throw std::runtime_error("відвантажене вже не скасувати");
-    }
-}
-```
-```python
-class Order:
-    """Замовлення — лише мішок даних: статус назовні, жодного правила всередині."""
-    def __init__(self, order_id):
-        self.order_id = order_id
-        self.status = "new"          # "new" | "paid" | "shipped" | "cancelled"
-
-    def get_status(self):
-        return self.status
-
-    def set_status(self, s):
-        self.status = s
-
-
-# --- переходи живуть ЗЗОВНІ, у різних кутках коду ---
-
-# оформлення (шар оплати)
-def pay_order(order):
-    if order.get_status() == "new":
-        order.set_status("paid")
-    else:
-        raise RuntimeError(f"не можна оплатити: {order.get_status()}")
-
-# склад (інший шар, часто інший автор)
-def ship_order(order):
-    # тут ЗАБУЛИ перевірити, що замовлення оплачене
-    order.set_status("shipped")
-
-# скасування (ще один шар)
-def cancel_order(order):
-    if order.get_status() != "shipped":
-        order.set_status("cancelled")
-    else:
-        raise RuntimeError("відвантажене вже не скасувати")
-```
+:::code proj-refactor-ask-to-tell/cpp/zadacha-zamovlennia-iakym.cpp
+:::code proj-refactor-ask-to-tell/py/zadacha-zamovlennia-iakym.py
 :::
 
 Придивися, і хвороба вилазить сама. Правило «відвантажити можна лише оплачене» — це правило самого замовлення, частина його природи. Але його тут просто **немає**: `shipOrder` бере будь-яке замовлення й ставить `"shipped"`, бо автор складського шару не тримав у голові весь автомат станів і забув перевірку. Правило «скасувати можна все, крім відвантаженого» живе в третьому місці — і воно неповне, бо про скасоване теж треба було подумати, а ніхто не подумав. Кожен викликач тримає **свій уламок** спільного правила, і разом ці уламки не складаються в цілісний закон.
@@ -133,148 +55,15 @@ o.set_status("banana")        # і взагалі будь-хто може вп�
 Ось той самий приклад після рефакторингу. Стан — перелік. Кожен перехід — команда з вартовим. Недозволений перехід кидає виняток, а не тихо псує стан. Назовні стирчить лише один чесний запит — прочитати поточний статус.
 
 :::tabs
-```cpp
-#include <string>
-#include <stdexcept>
-
-enum class Status { New, Paid, Shipped, Cancelled };
-
-// для повідомлень і показу — стан у людський рядок
-std::string toString(Status s) {
-    switch (s) {
-        case Status::New:       return "new";
-        case Status::Paid:      return "paid";
-        case Status::Shipped:   return "shipped";
-        case Status::Cancelled: return "cancelled";
-    }
-    return "?";
-}
-
-// власний тип помилки — щоб викликач ловив саме недозволений перехід
-class OrderError : public std::logic_error {
-public:
-    explicit OrderError(const std::string& msg) : std::logic_error(msg) {}
-};
-
-class Order {
-public:
-    explicit Order(std::string id)
-        : id_(std::move(id)), status_(Status::New) {}
-
-    // --- КОМАНДИ: кожна стереже свій інваріант ---
-
-    void pay() {
-        require(status_ == Status::New, "оплатити можна лише нове");
-        status_ = Status::Paid;
-    }
-
-    void ship() {
-        require(status_ == Status::Paid, "відвантажити можна лише оплачене");
-        status_ = Status::Shipped;
-    }
-
-    void cancel() {
-        require(status_ != Status::Shipped && status_ != Status::Cancelled,
-                "скасувати вже не можна");
-        status_ = Status::Cancelled;
-    }
-
-    // --- ЗАПИТ: лише читає, нічого не міняє ---
-    Status status() const { return status_; }
-    const std::string& id() const { return id_; }
-
-private:
-    // спільний вартовий: не виконуй перехід, якщо умова хибна
-    void require(bool ok, const char* why) const {
-        if (!ok)
-            throw OrderError(std::string(why) + " (зараз " + toString(status_) + ")");
-    }
-
-    std::string id_;
-    Status status_;
-};
-```
-```python
-from enum import Enum
-
-
-class Status(Enum):
-    NEW = "new"
-    PAID = "paid"
-    SHIPPED = "shipped"
-    CANCELLED = "cancelled"
-
-
-class OrderError(Exception):
-    """Недозволений перехід стану замовлення."""
-
-
-class Order:
-    def __init__(self, order_id):
-        self._id = order_id
-        self._status = Status.NEW
-
-    # --- КОМАНДИ: кожна стереже свій інваріант ---
-
-    def pay(self):
-        self._require(self._status is Status.NEW, "оплатити можна лише нове")
-        self._status = Status.PAID
-
-    def ship(self):
-        self._require(self._status is Status.PAID, "відвантажити можна лише оплачене")
-        self._status = Status.SHIPPED
-
-    def cancel(self):
-        self._require(self._status not in (Status.SHIPPED, Status.CANCELLED),
-                      "скасувати вже не можна")
-        self._status = Status.CANCELLED
-
-    # --- ЗАПИТ: лише читає, нічого не міняє ---
-    @property
-    def status(self):
-        return self._status
-
-    @property
-    def id(self):
-        return self._id
-
-    # спільний вартовий: не виконуй перехід, якщо умова хибна
-    def _require(self, ok, why):
-        if not ok:
-            raise OrderError(f"{why} (зараз {self._status.value})")
-```
+:::code proj-refactor-ask-to-tell/cpp/robochyi-kod-zamovlennia.cpp
+:::code proj-refactor-ask-to-tell/py/robochyi-kod-zamovlennia.py
 :::
 
 Тепер поглянь, як змінився викликач. Уся зовнішня арифметика станів зникла — лишилися накази:
 
 :::tabs
-```cpp
-Order o("A-1");
-o.pay();      // new -> paid
-o.ship();     // paid -> shipped
-// o.cancel(); // кине OrderError: "скасувати вже не можна (зараз shipped)"
-
-// склад більше НЕ МОЖЕ відвантажити неоплачене — навіть якби забув перевірку:
-Order bad("A-2");
-try {
-    bad.ship();          // OrderError: "відвантажити можна лише оплачене (зараз new)"
-} catch (const OrderError& e) {
-    // помилку видно ТУТ, а не через тиждень у зіпсованих даних
-}
-```
-```python
-o = Order("A-1")
-o.pay()       # new -> paid
-o.ship()      # paid -> shipped
-# o.cancel()  # кине OrderError: "скасувати вже не можна (зараз shipped)"
-
-# склад більше НЕ МОЖЕ відвантажити неоплачене — навіть якби забув перевірку:
-bad = Order("A-2")
-try:
-    bad.ship()           # OrderError: "відвантажити можна лише оплачене (зараз new)"
-except OrderError:
-    pass                 # помилку видно ТУТ, а не через тиждень у зіпсованих даних
-```
+:::code proj-refactor-ask-to-tell/cpp/robochyi-kod-zamovlennia-2.cpp
+:::code proj-refactor-ask-to-tell/py/robochyi-kod-zamovlennia-2.py
 :::
 
 Три речі змінилися по суті, не косметично.
@@ -333,18 +122,7 @@ badge = f"Замовлення {order.id}: {order.status.value}"
 Ту саму межу легко перевірити на трьох типових запитах, які **правильно** лишити запитами:
 
 :::tabs
-```cpp
-// показ — читаємо стан, щоб намалювати
-std::string line = "#" + order.id() + " — " + toString(order.status());
-
-// сортування — читаємо стан як ключ; нічого не міняємо
-std::sort(orders.begin(), orders.end(),
-    [](const Order& a, const Order& b) { return a.status() < b.status(); });
-
-// звіт — рахуємо, скільки замовлень оплачено; жодної зміни станів
-long paid = std::count_if(orders.begin(), orders.end(),
-    [](const Order& o) { return o.status() == Status::Paid; });
-```
+:::code proj-refactor-ask-to-tell/cpp/mezha-de-nakaz-a-de.cpp
 ```python
 # показ — читаємо стан, щоб намалювати
 line = f"#{order.id} — {order.status.value}"

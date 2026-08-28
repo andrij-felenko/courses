@@ -20,70 +20,8 @@
 Мова тут — звичайного застосунку, не заліза, тож приклад ідіоматичний двома мовами стеку: TypeScript і Python.
 
 :::tabs
-```ts
-type Status = "open" | "armed" | "due" | "superseded";
-type Dir = "rising" | "falling";        // куди «погано»: метрика росте чи падає
-
-interface Condition {
-  signal: string;   // ключ метрики у знімку, напр. "search.p99_ms"
-  dir: Dir;
-  armAt: number;    // поріг зведення — увійти в смугу спостереження
-  fireAt: number;   // поріг спрацювання (для rising: armAt ≤ fireAt)
-}
-
-interface Trigger {
-  conditions: Condition[];   // може стежити за кількома сигналами
-  mode: "all" | "any";       // поєднати їх кон'юнкцією чи диз'юнкцією
-  holdFor: number;           // скільки вимірів поспіль умова має триматися
-  leadWeeks: number;         // L — на скільки наперед прогнозувати = час на втілення
-}
-
-interface Decision {
-  id: string;
-  title: string;
-  options: string[];     // живі альтернативи, ще на столі
-  uncertainty: string;   // який факт чекаємо дізнатися
-  trigger: Trigger;
-  owner: string;         // хто відповідає, коли настане момент
-  adr: string;           // ADR, що фіксує саме відкладання
-  // рухомий стан, який веде реєстр:
-  status: Status;
-  holdCount: number;     // скільки вимірів поспіль трималося спрацювання
-}
-```
-```py
-from dataclasses import dataclass
-from enum import Enum
-
-class Status(str, Enum):
-    OPEN = "open"; ARMED = "armed"; DUE = "due"; SUPERSEDED = "superseded"
-
-@dataclass
-class Condition:
-    signal: str        # ключ метрики, напр. "search.p99_ms"
-    direction: str     # "rising" | "falling" — куди «погано»
-    arm_at: float      # поріг зведення — увійти в смугу спостереження
-    fire_at: float     # поріг спрацювання (для rising: arm_at ≤ fire_at)
-
-@dataclass
-class Trigger:
-    conditions: list[Condition]
-    mode: str = "all"          # "all" | "any"
-    hold_for: int = 3          # скільки вимірів поспіль умова має триматися
-    lead_weeks: float = 0.0    # L — горизонт прогнозу = час на втілення
-
-@dataclass
-class Decision:
-    id: str
-    title: str
-    options: list[str]         # живі альтернативи, ще на столі
-    uncertainty: str           # який факт чекаємо дізнатися
-    trigger: Trigger
-    owner: str                 # хто відповідає, коли настане момент
-    adr: str                   # ADR, що фіксує саме відкладання
-    status: Status = Status.OPEN
-    hold_count: int = 0        # скільки вимірів поспіль трималося спрацювання
-```
+:::code proj-options-ledger/ts/odyn-zapys-iz-choho.ts
+:::code proj-options-ledger/py/odyn-zapys-iz-choho.py
 :::
 
 Запис живе в тому самому місці, що й решта відкладених ставок команди, — у [ризик-реєстрі](root:sf-apps/risk-register): відкладене рішення і є ризик, лише з умовою закриття замість опису наслідку. Різниця в тому, що звичайний ризик описують словами, а цей — предикатом, який машина вміє перевірити.
@@ -129,89 +67,8 @@ def naive_due(p99: float) -> bool:
 Для цього тримаємо не одне останнє значення, а коротке вікно останніх щотижневих замірів, і з нього рахуємо нахил — темп зміни за тиждень. Найчесніший нахил на зашумлених даних дає пряма найменших квадратів по вікну: вона усереднює шум, а не хапається за останню пару точок. Прогноз тоді — проста лінійна екстраполяція краю вікна на `L` наперед.
 
 :::tabs
-```ts
-// Знімок: для кожного сигналу — вікно останніх щотижневих замірів.
-type Window = Record<string, number[]>;   // signal → [найдавніший … найновіший]
-
-const latest = (xs: number[]): number => xs[xs.length - 1];
-
-// Нахил (одиниць за тиждень) методом найменших квадратів по вікну.
-function slopePerWeek(xs: number[]): number {
-  const n = xs.length;
-  if (n < 2) return 0;
-  const meanX = (n - 1) / 2;                      // тижні 0…n-1
-  const meanY = xs.reduce((a, b) => a + b, 0) / n;
-  let num = 0, den = 0;
-  for (let i = 0; i < n; i++) {
-    num += (i - meanX) * (xs[i] - meanY);
-    den += (i - meanX) ** 2;
-  }
-  return den === 0 ? 0 : num / den;
-}
-
-// Прогноз на L тижнів наперед — лінійна екстраполяція краю вікна.
-const project = (xs: number[], leadWeeks: number): number =>
-  latest(xs) + slopePerWeek(xs) * leadWeeks;
-
-const past = (v: number, thr: number, dir: Dir): boolean =>
-  dir === "rising" ? v >= thr : v <= thr;
-
-// Зводимося на ФАКТІ (arm по latest), стріляємо за ПРОГНОЗОМ (fire по project).
-function isArmed(t: Trigger, w: Window): boolean {
-  const hit = t.conditions.map(c => {
-    const xs = w[c.signal];
-    return xs?.length ? past(latest(xs), c.armAt, c.dir) : false;
-  });
-  return t.mode === "all" ? hit.every(Boolean) : hit.some(Boolean);
-}
-
-function isFiring(t: Trigger, w: Window): boolean {
-  const hit = t.conditions.map(c => {
-    const xs = w[c.signal];
-    return xs?.length ? past(project(xs, t.leadWeeks), c.fireAt, c.dir) : false;
-  });
-  return t.mode === "all" ? hit.every(Boolean) : hit.some(Boolean);
-}
-```
-```py
-Window = dict[str, list[float]]   # signal → [найдавніший … найновіший]
-
-def latest(xs: list[float]) -> float:
-    return xs[-1]
-
-def slope_per_week(xs: list[float]) -> float:
-    """Нахил (одиниць за тиждень) методом найменших квадратів по вікну."""
-    n = len(xs)
-    if n < 2:
-        return 0.0
-    mean_x = (n - 1) / 2                    # тижні 0…n-1
-    mean_y = sum(xs) / n
-    num = sum((i - mean_x) * (x - mean_y) for i, x in enumerate(xs))
-    den = sum((i - mean_x) ** 2 for i in range(n))
-    return num / den if den else 0.0
-
-def project(xs: list[float], lead_weeks: float) -> float:
-    """Прогноз на L тижнів наперед — лінійна екстраполяція краю вікна."""
-    return latest(xs) + slope_per_week(xs) * lead_weeks
-
-def past(v: float, thr: float, direction: str) -> bool:
-    return v >= thr if direction == "rising" else v <= thr
-
-# Зводимося на ФАКТІ (arm по latest), стріляємо за ПРОГНОЗОМ (fire по project).
-def is_armed(t: Trigger, w: Window) -> bool:
-    hits = []
-    for c in t.conditions:
-        xs = w.get(c.signal)
-        hits.append(past(latest(xs), c.arm_at, c.direction) if xs else False)
-    return all(hits) if t.mode == "all" else any(hits)
-
-def is_firing(t: Trigger, w: Window) -> bool:
-    hits = []
-    for c in t.conditions:
-        xs = w.get(c.signal)
-        hits.append(past(project(xs, t.lead_weeks), c.fire_at, c.direction) if xs else False)
-    return all(hits) if t.mode == "all" else any(hits)
-```
+:::code proj-options-ledger/ts/prohnoz-i-lead-time.ts
+:::code proj-options-ledger/py/prohnoz-i-lead-time.py
 :::
 
 Тут навмисна асиметрія, і вона несе сенс. **Зводимося** ми на факті — `arm` звіряємо з реальним останнім значенням: не хочемо починати стежити через сам лише прогноз, бо прогноз на низьких значеннях легко перебільшує. А **стріляємо** за прогнозом — `fire` звіряємо з екстрапольованим значенням на `L` наперед. Дві межі (arm нижче за fire) лишаються мертвою смугою проти тремтіння, а прогноз накладається згори як запас на втілення.
@@ -225,79 +82,8 @@ def is_firing(t: Trigger, w: Window) -> bool:
 Тепер серце реєстру — обчислювач, що робить один тік: бере реєстр і свіже вікно метрик, оновлює стан кожного запису й повертає перелік тих, що щойно спрацювали. Уся логіка смуги, стійкості й прогнозу сходиться сюди, у скромний скінченний автомат.
 
 :::tabs
-```ts
-interface FireEvent {
-  decisionId: string; title: string; owner: string;
-  adr: string; options: string[]; uncertainty: string;
-}
-
-function tick(ledger: Decision[], w: Window): FireEvent[] {
-  const fired: FireEvent[] = [];
-  for (const d of ledger) {
-    if (d.status === "superseded") continue;         // закрите не чіпаємо
-    const armed = isArmed(d.trigger, w);
-    const firing = armed && isFiring(d.trigger, w);  // стріляти лише в межах смуги
-
-    if (d.status === "open" && armed) {
-      d.status = "armed";
-      d.holdCount = 0;
-    }
-    if (d.status === "armed") {
-      if (!armed) {
-        d.status = "open";                 // впали нижче arm — відбій, тремтіння згашене
-        d.holdCount = 0;
-      } else if (firing) {
-        d.holdCount += 1;                  // стійкість: рахуємо виміри поспіль
-        if (d.holdCount >= d.trigger.holdFor) {
-          d.status = "due";
-          fired.push({
-            decisionId: d.id, title: d.title, owner: d.owner,
-            adr: d.adr, options: d.options, uncertainty: d.uncertainty,
-          });
-        }
-      } else {
-        d.holdCount = 0;                   // серія урвалась — лічильник у нуль
-      }
-    }
-  }
-  return fired;
-}
-```
-```py
-@dataclass
-class FireEvent:
-    decision_id: str
-    title: str
-    owner: str
-    adr: str
-    options: list[str]
-    uncertainty: str
-
-def tick(ledger: list[Decision], w: Window) -> list[FireEvent]:
-    fired: list[FireEvent] = []
-    for d in ledger:
-        if d.status is Status.SUPERSEDED:            # закрите не чіпаємо
-            continue
-        armed = is_armed(d.trigger, w)
-        firing = armed and is_firing(d.trigger, w)   # стріляти лише в межах смуги
-
-        if d.status is Status.OPEN and armed:
-            d.status = Status.ARMED
-            d.hold_count = 0
-        if d.status is Status.ARMED:
-            if not armed:
-                d.status = Status.OPEN               # відбій — тремтіння згашене
-                d.hold_count = 0
-            elif firing:
-                d.hold_count += 1                    # стійкість: виміри поспіль
-                if d.hold_count >= d.trigger.hold_for:
-                    d.status = Status.DUE
-                    fired.append(FireEvent(
-                        d.id, d.title, d.owner, d.adr, d.options, d.uncertainty))
-            else:
-                d.hold_count = 0                     # серія урвалась
-    return fired
-```
+:::code proj-options-ledger/ts/obchysliuvach-odyn-prohin.ts
+:::code proj-options-ledger/py/obchysliuvach-odyn-prohin.py
 :::
 
 Дві дрібниці в коді несуть усю поведінку. По-перше, `open` і `armed` перевіряються двома окремими `if`, а не через `else` — тож за один тік запис може перейти `open → armed` і одразу почати рахувати стійкість, не марнуючи цілого тижня на порожній перехід. По-друге, `firing` окремо накладено на `armed`: стріляти можна лише всередині смуги, тож несподіваний стрибок прогнозу за `fire`, поки факт іще під `arm`, спрацювання не дасть — спершу треба чесно зайти в смугу.
@@ -327,55 +113,8 @@ def tick(ledger: list[Decision], w: Window) -> list[FireEvent]:
 Тут-таки закриваємо одну з найтихіших пасток — **осиротілого власника**. Поки рішення чекало, автор його міг піти з команди. Тоді сигнал спрацює, а відповісти нема кому. Тож перед сповіщенням звіряємо власника з чинним складом команди, і якщо його там уже немає — ескалюємо на запасного й позначаємо запис як осиротілий.
 
 :::tabs
-```ts
-type Roster = Set<string>;   // хто зараз у команді
-
-interface AdrSupersede { supersedes: string; status: "proposed"; rationale: string; }
-
-// notify — межа інтеграції: канал команди (чат, пошта, тикет). Тут лише виклик.
-declare function notify(owner: string, message: string): void;
-
-function act(ev: FireEvent, roster: Roster, fallback: string): AdrSupersede {
-  // Пастка «осиротілий власник»: перевіряємо, що власник іще живий.
-  const owner = roster.has(ev.owner) ? ev.owner : fallback;
-  const orphaned = owner !== ev.owner;
-
-  notify(owner, [
-    `Настав відповідальний момент: ${ev.title}.`,
-    `Невизначеність знято — час обрати з: ${ev.options.join(", ")}.`,
-    orphaned ? `⚠ Початковий власник (${ev.owner}) поза командою — ескальовано на ${owner}.` : "",
-  ].filter(Boolean).join(" "));
-
-  return { supersedes: ev.adr, status: "proposed",
-           rationale: `Тригер спрацював: ${ev.uncertainty}.` };
-}
-```
-```py
-@dataclass
-class AdrSupersede:
-    supersedes: str
-    rationale: str
-    status: str = "proposed"
-
-def notify(owner: str, message: str) -> None:
-    ...   # межа інтеграції: канал команди (чат, пошта, тикет)
-
-def act(ev: FireEvent, roster: set[str], fallback: str) -> AdrSupersede:
-    # Пастка «осиротілий власник»: перевіряємо, що власник іще живий.
-    owner = ev.owner if ev.owner in roster else fallback
-    orphaned = owner != ev.owner
-
-    lines = [
-        f"Настав відповідальний момент: {ev.title}.",
-        f"Невизначеність знято — час обрати з: {', '.join(ev.options)}.",
-    ]
-    if orphaned:
-        lines.append(f"⚠ Власник {ev.owner!r} поза командою — ескальовано на {owner}.")
-    notify(owner, " ".join(lines))
-
-    return AdrSupersede(supersedes=ev.adr,
-                        rationale=f"Тригер спрацював: {ev.uncertainty}.")
-```
+:::code proj-options-ledger/ts/dii-spovistyty-vlasnyka-i.ts
+:::code proj-options-ledger/py/dii-spovistyty-vlasnyka-i.py
 :::
 
 Механіку самих ADR — форму запису, статуси, як supersede заміщує попередній, — розібрано окремо в [журналі архітектурних рішень](root:sf-apps/architecture-decision-records/proj-adr-tooling.md); реєстр лише **пропонує** заміну, а веде її вже ADR-інструментарій. Поділ праці чіткий: реєстр каже **коли** й **кому**, ADR фіксує **що саме** й **чому**.
@@ -405,47 +144,8 @@ def act(ev: FireEvent, roster: set[str], fallback: str) -> AdrSupersede:
 **Лагінг-сигнал без запасу.** Обрали метрику, що відстає від того, що справді болить (середнє замість хвоста, добова агрегація замість погодинної), або `leadWeeks` менший за реальний час на втілення. Тоді навіть чистий, стійкий сигнал приходить **запізно** — момент уже минув. `lint` ловить грубий випадок `leadWeeks ≤ 0`; тонший (сигнал відстає більше, ніж дає запас `L`) вимагає ока людини, яка знає природу метрики.
 
 :::tabs
-```ts
-function lint(d: Decision, history: Window[]): string[] {
-  const warn: string[] = [];
-  if (!d.uncertainty.trim())
-    warn.push("невизначеність не названо — це прокрастинація, не відкладання");
-  if (d.options.length < 2)
-    warn.push("менше двох живих опцій — вибір уже зроблено за замовчуванням");
-  if (d.trigger.conditions.length === 0)
-    warn.push("тригер без умов — спрацює будь-коли");
-  if (d.trigger.leadWeeks <= 0)
-    warn.push("leadWeeks ≤ 0: стріляємо на пробитому порозі — спізнимось на час втілення");
-  for (const c of d.trigger.conditions) {
-    const noBand = c.dir === "rising" ? c.fireAt < c.armAt : c.fireAt > c.armAt;
-    if (noBand) warn.push(`${c.signal}: fire по той бік arm — смуги гістерезису немає`);
-  }
-  // «Тригер, що не спрацює ніколи»: чи хоч раз спрацював би на реальній історії?
-  if (history.length > 0 && !history.some(w => isFiring(d.trigger, w)))
-    warn.push("на всій історії тригер не спрацював би жодного разу — поріг недосяжний?");
-  return warn;
-}
-```
-```py
-def lint(d: Decision, history: list[Window]) -> list[str]:
-    warn: list[str] = []
-    if not d.uncertainty.strip():
-        warn.append("невизначеність не названо — це прокрастинація, не відкладання")
-    if len(d.options) < 2:
-        warn.append("менше двох живих опцій — вибір уже зроблено за замовчуванням")
-    if not d.trigger.conditions:
-        warn.append("тригер без умов — спрацює будь-коли")
-    if d.trigger.lead_weeks <= 0:
-        warn.append("lead_weeks ≤ 0: стріляємо на пробитому порозі — спізнимось на час втілення")
-    for c in d.trigger.conditions:
-        no_band = c.fire_at < c.arm_at if c.direction == "rising" else c.fire_at > c.arm_at
-        if no_band:
-            warn.append(f"{c.signal}: fire по той бік arm — смуги гістерезису немає")
-    # «Тригер, що не спрацює ніколи»: чи хоч раз спрацював би на історії?
-    if history and not any(is_firing(d.trigger, w) for w in history):
-        warn.append("на всій історії тригер не спрацював би жодного разу — поріг недосяжний?")
-    return warn
-```
+:::code proj-options-ledger/ts/skladnist-i-pastky.ts
+:::code proj-options-ledger/py/skladnist-i-pastky.py
 :::
 
 Перші дві перевірки `lint` цілять не в код, а в чесність запису. Порожня `uncertainty` — це відкладання без названого факту, тобто прокрастинація в масці інженерної обачності. Менш ніж дві живі опції — це рішення, що вже ухвалене за замовчуванням, лише не записане. Реєстр тим і цінний, що змушує назвати обидві речі вголос: **яку невизначеність ти чекаєш зняти** і **яка подія скаже, що момент настав**. Хто не може заповнити ці поля, той не відкладає рішення відповідально — він його уникає. А машина, що вночі проганяє тригери, лише робить видимою ту дисципліну, яку інакше зʼїдають забудькуватість і страх.

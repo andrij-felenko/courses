@@ -56,30 +56,8 @@
 Порівняймо два стани одного модуля. Ось як задумано: логіка знає лише порт, конкретна база захована за швом.
 
 :::tabs
-```cpp
-// ЗАДУМАНО: логіка залежить від порту, не від бази.
-struct OrderRepository {                     // порт: контракт без бази
-    virtual Order load(int id) = 0;
-    virtual ~OrderRepository() = default;
-};
-
-int order_total(OrderRepository& repo, int id) {
-    Order o = repo.load(id);                 // жодного сліду бази
-    return o.total();
-}
-```
-```python
-# ЗАДУМАНО: логіка залежить від порту, не від бази.
-from abc import ABC, abstractmethod
-
-class OrderRepository(ABC):                  # порт: контракт без бази
-    @abstractmethod
-    def load(self, order_id: int) -> Order: ...
-
-def order_total(repo: OrderRepository, order_id: int) -> int:
-    order = repo.load(order_id)              # жодного сліду бази
-    return order.total()
-```
+:::code architecture-erosion-d/cpp/main.cpp
+:::code architecture-erosion-d/py/main.py
 :::
 
 А ось те саме після однієї поступки під тиском — «швидше напряму, порт обійду»:

@@ -56,76 +56,8 @@
 Почнімо з типів — вони і є та «структура опису», навколо якої обертається все інше. Прояв (`Manifestation`) має глобально унікальний ключ, свою в'ю і людську назву в цій в'ю. Відповідність (`Correspondence`) — просто пара ключів, ненапрямлена. Деталь розгортання тримає, на яких вузлах живе прояв (більше одного вузла — це репліки) і які вузли з'єднані мережею. Виклик функційної в'ю несе оголошений рід — `local` чи `remote`.
 
 :::tabs
-```ts
-// В'ю, у яких елемент може проявитися.
-type View =
-  | 'functional' | 'information' | 'concurrency'
-  | 'development' | 'deployment'  | 'operational';
-
-// Прояв елемента в ОДНІЙ в'ю. Ключ унікальний, напр. "deployment:svc-order".
-interface Manifestation { id: string; view: View; label: string; }
-
-// Відповідність (ISO 42010): «це той самий логічний елемент у двох в'ю». Ненапрямлена.
-interface Correspondence { a: string; b: string; }
-
-// Деталь розгортання: де живе прояв і які вузли з'єднані мережею.
-interface Deployment {
-  hosts: Record<string, string[]>;   // id прояву-розгортання → вузли (>1 = репліки)
-  links: Array<[string, string]>;    // мережеві зв'язки між вузлами (пари)
-}
-
-// Деталь функційної в'ю: виклик між двома елементами, оголошений local|remote.
-interface Call { from: string; to: string; kind: 'local' | 'remote'; }
-
-// Увесь опис як дані.
-interface Description {
-  manifestations: Manifestation[];
-  correspondences: Correspondence[];
-  deployment: Deployment;
-  calls: Call[];
-  requiredViews: View[];             // в'ю, у які МУСИТЬ дотягнутися кожен елемент
-}
-```
-```python
-from dataclasses import dataclass
-
-View = str  # 'functional'|'information'|'concurrency'|'development'|'deployment'|'operational'
-
-# Прояв елемента в ОДНІЙ в'ю. Ключ унікальний, напр. "deployment:svc-order".
-@dataclass(frozen=True)
-class Manifestation:
-    id: str
-    view: View
-    label: str
-
-# Відповідність (ISO 42010): «це той самий логічний елемент у двох в'ю». Ненапрямлена.
-@dataclass(frozen=True)
-class Correspondence:
-    a: str
-    b: str
-
-# Деталь розгортання: де живе прояв і які вузли з'єднані мережею.
-@dataclass
-class Deployment:
-    hosts: dict[str, list[str]]           # id прояву-розгортання → вузли (>1 = репліки)
-    links: list[tuple[str, str]]          # мережеві зв'язки між вузлами
-
-# Деталь функційної в'ю: виклик між двома елементами, оголошений local|remote.
-@dataclass(frozen=True)
-class Call:
-    frm: str
-    to: str
-    kind: str    # 'local' | 'remote'
-
-# Увесь опис як дані.
-@dataclass
-class Description:
-    manifestations: list[Manifestation]
-    correspondences: list[Correspondence]
-    deployment: Deployment
-    calls: list[Call]
-    required_views: list[View]           # в'ю, у які МУСИТЬ дотягнутися кожен елемент
-```
+:::code proj-consistency-check/ts/krok-1-struktura-danykh.ts
+:::code proj-consistency-check/py/krok-1-struktura-danykh.py
 :::
 
 Одне рішення тут варте того, щоб назвати його вголос: **відповідності — окремі ребра, а не спільний ключ**. Спокуса зробити простіше — вважати, що прояви з однаковою назвою в різних в'ю і є той самий елемент, — веде в халепу, бо в реальних описах один елемент зветься в кожній в'ю по-своєму (`OrderValidator`, `order/validation`, `svc-order`). Тільки явні відповідності чесно кажуть, що це одне; збіг назв — випадковість, на яку не можна спиратися (до цього ще повернемось у пастках).
@@ -135,65 +67,8 @@ class Description:
 Тепер відновимо групи. Будуємо ненапрямлений список суміжності з відповідностей і збираємо зв'язні компоненти звичайним обходом. Уся тонкість тут — в одному рядку, який легко проґавити: **множина відвіданих**. Без неї циклічна відповідність (`A↔B`, `B↔C`, `C↔A` — цілком імовірна, коли відповідності проставляли троє різних людей) заганяє обхід у нескінченну петлю. З нею кожну вершину чіпаємо один раз, і цикл стає нешкідливим — просто зайві ребра всередині однієї групи.
 
 :::tabs
-```ts
-// Групуємо прояви у зв'язні компоненти графа відповідностей.
-// Кожна група — усі прояви ОДНОГО логічного елемента в різних в'ю.
-function resolveGroups(desc: Description): Manifestation[][] {
-  const byId = new Map(desc.manifestations.map(m => [m.id, m] as const));
-
-  // ненапрямлений список суміжності
-  const adj = new Map<string, string[]>();
-  const touch = (x: string) => { if (!adj.has(x)) adj.set(x, []); return adj.get(x)!; };
-  for (const m of desc.manifestations) touch(m.id);
-  for (const { a, b } of desc.correspondences) { touch(a).push(b); touch(b).push(a); }
-
-  const seen = new Set<string>();     // ← без цього циклічна відповідність зациклить обхід
-  const groups: Manifestation[][] = [];
-  for (const start of adj.keys()) {
-    if (seen.has(start)) continue;
-    const group: Manifestation[] = [];
-    const stack = [start];
-    seen.add(start);
-    while (stack.length) {
-      const x = stack.pop()!;
-      const m = byId.get(x);
-      if (m) group.push(m);
-      for (const y of adj.get(x)!) if (!seen.has(y)) { seen.add(y); stack.push(y); }
-    }
-    groups.push(group);
-  }
-  return groups;
-}
-```
-```python
-# Групуємо прояви у зв'язні компоненти графа відповідностей.
-# Кожна група — усі прояви ОДНОГО логічного елемента в різних в'ю.
-def resolve_groups(desc: Description) -> list[list[Manifestation]]:
-    by_id = {m.id: m for m in desc.manifestations}
-
-    # ненапрямлений список суміжності
-    adj: dict[str, list[str]] = {m.id: [] for m in desc.manifestations}
-    for c in desc.correspondences:
-        adj.setdefault(c.a, []); adj.setdefault(c.b, [])
-        adj[c.a].append(c.b); adj[c.b].append(c.a)
-
-    seen: set[str] = set()          # ← без цього циклічна відповідність зациклить обхід
-    groups: list[list[Manifestation]] = []
-    for start in adj:
-        if start in seen:
-            continue
-        group, stack = [], [start]
-        seen.add(start)
-        while stack:
-            x = stack.pop()
-            if x in by_id:
-                group.append(by_id[x])
-            for y in adj[x]:
-                if y not in seen:
-                    seen.add(y); stack.append(y)
-        groups.append(group)
-    return groups
-```
+:::code proj-consistency-check/ts/krok-2-rezolver-hrup.ts
+:::code proj-consistency-check/py/krok-2-rezolver-hrup.py
 :::
 
 Два дрібні рішення варто пояснити. Ми `touch`-аємо (заводимо в графі) **кожен** прояв, навіть той, на який не показує жодна відповідність, — бо самотній прояв теж має стати групою з однієї вершини, інакше він тихо випаде з перевірки покриття. І ми пропускаємо в групу лише ті ключі, що є в `byId`: відповідність може посилатися на неоголошений прояв (одрук у ключі), і такий висячий кінець ми не тягнемо в групу як вершину-привид. Результат — список груп, де кожна група претендує бути одним логічним елементом.
@@ -203,40 +78,8 @@ def resolve_groups(desc: Description) -> list[list[Manifestation]]:
 Перша перевірка. Для кожної групи знаходимо її функційний прояв (він і робить групу «елементом»), збираємо множину в'ю, наявних у групі, і питаємо: чи всі обов'язкові в'ю в ній є? Ті, яких бракує, — і є діри покриття. Це буквально подвійний обхід: зовні — по елементах, усередині — по обов'язкових в'ю.
 
 :::tabs
-```ts
-interface Orphan { element: string; missing: View[]; }
-
-function checkCoverage(groups: Manifestation[][], required: View[]): Orphan[] {
-  const orphans: Orphan[] = [];
-  for (const group of groups) {
-    const fe = group.find(m => m.view === 'functional');
-    if (!fe) continue;                                   // група без функц. елемента — не тут
-    const views = new Set(group.map(m => m.view));
-    const missing = required.filter(v => !views.has(v)); // ← обхід required × ця група
-    if (missing.length) orphans.push({ element: fe.label, missing });
-  }
-  return orphans;
-}
-```
-```python
-@dataclass
-class Orphan:
-    element: str
-    missing: list[View]
-
-def check_coverage(groups: list[list[Manifestation]],
-                   required: list[View]) -> list[Orphan]:
-    orphans: list[Orphan] = []
-    for group in groups:
-        fe = next((m for m in group if m.view == "functional"), None)
-        if fe is None:                                   # група без функц. елемента — не тут
-            continue
-        views = {m.view for m in group}
-        missing = [v for v in required if v not in views]  # ← обхід required × ця група
-        if missing:
-            orphans.append(Orphan(fe.label, missing))
-    return orphans
-```
+:::code proj-consistency-check/ts/krok-3-pokryttia-lovymo.ts
+:::code proj-consistency-check/py/krok-3-pokryttia-lovymo.py
 :::
 
 Що вважати «обов'язковим», задає `requiredViews` — і це не дрібниця, а власне правило відповідності, записане списком. Мінімум зі стандартної практики: кожен функційний елемент мусить мати місце в **розробці** (який модуль його реалізує), **конкурентній** в'ю (який процес його виконує) і **розгортанні** (який вузол його хостить). Інформаційна в'ю обов'язкова не для всіх — лише для елементів, що володіють даними; тому її в загальний `requiredViews` не кладемо, а лишаємо на окреме, точніше правило (про це в пастках).
@@ -250,79 +93,8 @@ def check_coverage(groups: list[list[Manifestation]],
 Друга перевірка — заради неї весь інструмент. Спершу з груп будуємо просту мапу: **функційний елемент → його вузли розгортання** (через ту саму групу дістаємось до прояву-розгортання й беремо його `hosts`). Далі кладемо мережеві зв'язки в множину (в обидва боки), щоб питати «чи є мережа між цими вузлами» за сталий час. І проходимо кожен виклик, оголошений `local`, з єдиним правилом: якщо ціль реплікована на кілька вузлів (її дістають через балансувальник — а це вже мережа) **або** кінці сидять на різних вузлах, з'єднаних мережею, то «local» — брехня.
 
 :::tabs
-```ts
-interface FalseLocal { from: string; to: string; why: string; }
-
-function checkFalseLocal(desc: Description, groups: Manifestation[][]): FalseLocal[] {
-  // функц. елемент → його вузли розгортання (через групу відповідностей)
-  const info = new Map<string, { nodes: string[]; label: string }>();
-  for (const group of groups) {
-    const fe = group.find(m => m.view === 'functional');
-    const dep = group.find(m => m.view === 'deployment');
-    if (fe) info.set(fe.id, { nodes: dep ? (desc.deployment.hosts[dep.id] ?? []) : [], label: fe.label });
-  }
-
-  // мережеві зв'язки в обидва боки — для O(1) перевірки «чи є мережа»
-  const linked = new Set<string>();
-  for (const [x, y] of desc.deployment.links) { linked.add(`${x}|${y}`); linked.add(`${y}|${x}`); }
-  const crosses = (a: string[], b: string[]) =>
-    a.some(na => b.some(nb => na !== nb && linked.has(`${na}|${nb}`)));
-
-  const bad: FalseLocal[] = [];
-  for (const call of desc.calls) {
-    if (call.kind !== 'local') continue;                 // перевіряємо лише заявлені local
-    const from = info.get(call.from), to = info.get(call.to);
-    if (!from || !to) continue;
-    if (to.nodes.length > 1)
-      bad.push({ from: from.label, to: to.label,
-                 why: `ціль реплікована на ${to.nodes.length} вузли — виклик іде через балансувальник (мережа)` });
-    else if (crosses(from.nodes, to.nodes))
-      bad.push({ from: from.label, to: to.label, why: "кінці на різних вузлах, з'єднаних мережею" });
-  }
-  return bad;
-}
-```
-```python
-@dataclass
-class FalseLocal:
-    frm: str
-    to: str
-    why: str
-
-def check_false_local(desc: Description,
-                      groups: list[list[Manifestation]]) -> list[FalseLocal]:
-    # функц. елемент → його вузли розгортання (через групу відповідностей)
-    info: dict[str, tuple[list[str], str]] = {}
-    for group in groups:
-        fe = next((m for m in group if m.view == "functional"), None)
-        dep = next((m for m in group if m.view == "deployment"), None)
-        if fe is not None:
-            nodes = desc.deployment.hosts.get(dep.id, []) if dep else []
-            info[fe.id] = (nodes, fe.label)
-
-    # мережеві зв'язки в обидва боки — для O(1) перевірки «чи є мережа»
-    linked: set[tuple[str, str]] = set()
-    for x, y in desc.deployment.links:
-        linked.add((x, y)); linked.add((y, x))
-
-    def crosses(a: list[str], b: list[str]) -> bool:
-        return any(na != nb and (na, nb) in linked for na in a for nb in b)
-
-    bad: list[FalseLocal] = []
-    for call in desc.calls:
-        if call.kind != "local":                         # перевіряємо лише заявлені local
-            continue
-        a = info.get(call.frm); b = info.get(call.to)
-        if a is None or b is None:
-            continue
-        (a_nodes, a_lbl), (b_nodes, b_lbl) = a, b
-        if len(b_nodes) > 1:
-            bad.append(FalseLocal(a_lbl, b_lbl,
-                f"ціль реплікована на {len(b_nodes)} вузли — виклик іде через балансувальник (мережа)"))
-        elif crosses(a_nodes, b_nodes):
-            bad.append(FalseLocal(a_lbl, b_lbl, "кінці на різних вузлах, з'єднаних мережею"))
-    return bad
-```
+:::code proj-consistency-check/ts/krok-4-khybno-lokalnyi.ts
+:::code proj-consistency-check/py/krok-4-khybno-lokalnyi.py
 :::
 
 Дивись, як це ловить рівно той сюрприз із `OrderValidator`. У функційній в'ю виклик `OrderApi → OrderValidator` чесно оголошений `local`. Але в'ю розгортання розкладає `OrderValidator` на `svc-order-1` і `svc-order-2` — дві репліки. Мапа `info` дає цілі **два** вузли, `to.nodes.length > 1` спрацьовує — і перевірник виносить вирок: виклик, оголошений локальним, насправді неминуче йде мережею через балансувальник. Ту саму неузгодженість, яку людське око проґавить (бо функційну й розгортальну діаграми дивляться в різний час різні люди), програма бачить із одного зіставлення груп.
@@ -338,144 +110,8 @@ def check_false_local(desc: Description,
 Лишилось з'єднати частини у програму, що повертає **код виходу**: нуль — коли порушень немає, ненуль — коли є. Саме код виходу читає конвеєр складання. Опис нижче — той самий приклад із `OrderValidator`, доведений до даних: чотири елементи, у яких `AuditLog` завис без конкурентної в'ю (сирота), а виклик `OrderApi → OrderValidator` оголошений `local` при двох репліках цілі (хибно-локальний). Виклик `OrderApi → AuditLog` теж `local`, але обидва кінці на `svc-api` — щирий локальний виклик, і перевірник має його **пропустити**, а не зчинити хибну тривогу.
 
 :::tabs
-```ts
-// Компактні конструктори: ключ прояву = "<в'ю>:<назва>".
-const M = (view: View, label: string): Manifestation => ({ id: `${view}:${label}`, view, label });
-const C = (a: string, b: string): Correspondence => ({ a, b });
-
-const demo: Description = {
-  manifestations: [
-    M('functional', 'OrderApi'),    M('functional', 'OrderValidator'),
-    M('functional', 'PricingEngine'), M('functional', 'AuditLog'),
-    M('development', 'order-api'),  M('development', 'order-validation'),
-    M('development', 'pricing'),    M('development', 'audit'),
-    M('concurrency', 'api-loop'),   M('concurrency', 'order-pool'),
-    M('concurrency', 'pricing-pool'),               // ← для AuditLog прояву в конкурентній НЕМАЄ
-    M('deployment', 'OrderApi'),    M('deployment', 'OrderValidator'),
-    M('deployment', 'PricingEngine'), M('deployment', 'AuditLog'),
-    M('information', 'draft-order'),
-  ],
-  correspondences: [
-    C('functional:OrderApi', 'development:order-api'),
-    C('functional:OrderApi', 'concurrency:api-loop'),
-    C('functional:OrderApi', 'deployment:OrderApi'),
-    C('functional:OrderValidator', 'development:order-validation'),
-    C('functional:OrderValidator', 'concurrency:order-pool'),
-    C('functional:OrderValidator', 'deployment:OrderValidator'),
-    C('functional:OrderValidator', 'information:draft-order'),
-    C('functional:PricingEngine', 'development:pricing'),
-    C('functional:PricingEngine', 'concurrency:pricing-pool'),
-    C('functional:PricingEngine', 'deployment:PricingEngine'),
-    C('functional:AuditLog', 'development:audit'),
-    C('functional:AuditLog', 'deployment:AuditLog'),  // ← конкурентної відповідності немає → сирота
-  ],
-  deployment: {
-    hosts: {
-      'deployment:OrderApi': ['svc-api'],
-      'deployment:OrderValidator': ['svc-order-1', 'svc-order-2'],   // ← репліки!
-      'deployment:PricingEngine': ['svc-pricing'],
-      'deployment:AuditLog': ['svc-api'],
-    },
-    links: [
-      ['svc-api', 'svc-order-1'], ['svc-api', 'svc-order-2'],
-      ['svc-order-1', 'svc-pricing'], ['svc-order-2', 'svc-pricing'],
-    ],
-  },
-  calls: [
-    { from: 'functional:OrderApi', to: 'functional:OrderValidator', kind: 'local' },  // ← БАГ
-    { from: 'functional:OrderApi', to: 'functional:AuditLog',       kind: 'local' },  // ← щиро локальний
-    { from: 'functional:OrderValidator', to: 'functional:PricingEngine', kind: 'remote' },
-  ],
-  requiredViews: ['development', 'concurrency', 'deployment'],
-};
-
-function run(desc: Description): number {
-  const groups = resolveGroups(desc);
-  const orphans = checkCoverage(groups, desc.requiredViews);
-  const falseLocals = checkFalseLocal(desc, groups);
-
-  for (const o of orphans)
-    console.log(`[orphan]       ${o.element} — немає прояву в в'ю: ${o.missing.join(', ')}`);
-  for (const f of falseLocals)
-    console.log(`[false-local]  ${f.from} → ${f.to} — ${f.why}`);
-
-  const total = orphans.length + falseLocals.length;
-  console.log(`consistency: ${total} violation(s)`);
-  return total === 0 ? 0 : 1;                          // 0 — пропустити, 1 — завалити збірку
-}
-
-process.exit(run(demo));
-```
-```python
-# Компактний конструктор: ключ прояву = "<в'ю>:<назва>".
-def M(view: View, label: str) -> Manifestation:
-    return Manifestation(f"{view}:{label}", view, label)
-
-def build_demo() -> Description:
-    return Description(
-        manifestations=[
-            M("functional", "OrderApi"),    M("functional", "OrderValidator"),
-            M("functional", "PricingEngine"), M("functional", "AuditLog"),
-            M("development", "order-api"),  M("development", "order-validation"),
-            M("development", "pricing"),    M("development", "audit"),
-            M("concurrency", "api-loop"),   M("concurrency", "order-pool"),
-            M("concurrency", "pricing-pool"),              # ← для AuditLog прояву в конкурентній НЕМАЄ
-            M("deployment", "OrderApi"),    M("deployment", "OrderValidator"),
-            M("deployment", "PricingEngine"), M("deployment", "AuditLog"),
-            M("information", "draft-order"),
-        ],
-        correspondences=[
-            Correspondence("functional:OrderApi", "development:order-api"),
-            Correspondence("functional:OrderApi", "concurrency:api-loop"),
-            Correspondence("functional:OrderApi", "deployment:OrderApi"),
-            Correspondence("functional:OrderValidator", "development:order-validation"),
-            Correspondence("functional:OrderValidator", "concurrency:order-pool"),
-            Correspondence("functional:OrderValidator", "deployment:OrderValidator"),
-            Correspondence("functional:OrderValidator", "information:draft-order"),
-            Correspondence("functional:PricingEngine", "development:pricing"),
-            Correspondence("functional:PricingEngine", "concurrency:pricing-pool"),
-            Correspondence("functional:PricingEngine", "deployment:PricingEngine"),
-            Correspondence("functional:AuditLog", "development:audit"),
-            Correspondence("functional:AuditLog", "deployment:AuditLog"),  # ← конкурентної немає → сирота
-        ],
-        deployment=Deployment(
-            hosts={
-                "deployment:OrderApi": ["svc-api"],
-                "deployment:OrderValidator": ["svc-order-1", "svc-order-2"],   # ← репліки!
-                "deployment:PricingEngine": ["svc-pricing"],
-                "deployment:AuditLog": ["svc-api"],
-            },
-            links=[
-                ("svc-api", "svc-order-1"), ("svc-api", "svc-order-2"),
-                ("svc-order-1", "svc-pricing"), ("svc-order-2", "svc-pricing"),
-            ],
-        ),
-        calls=[
-            Call("functional:OrderApi", "functional:OrderValidator", "local"),   # ← БАГ
-            Call("functional:OrderApi", "functional:AuditLog", "local"),         # ← щиро локальний
-            Call("functional:OrderValidator", "functional:PricingEngine", "remote"),
-        ],
-        required_views=["development", "concurrency", "deployment"],
-    )
-
-def run(desc: Description) -> int:
-    groups = resolve_groups(desc)
-    orphans = check_coverage(groups, desc.required_views)
-    false_locals = check_false_local(desc, groups)
-
-    for o in orphans:
-        print(f"[orphan]       {o.element} — немає прояву в в'ю: {', '.join(o.missing)}")
-    for f in false_locals:
-        print(f"[false-local]  {f.frm} → {f.to} — {f.why}")
-
-    total = len(orphans) + len(false_locals)
-    print(f"consistency: {total} violation(s)")
-    return 0 if total == 0 else 1                       # 0 — пропустити, 1 — завалити збірку
-
-if __name__ == "__main__":
-    import sys
-    sys.exit(run(build_demo()))
-```
+:::code proj-consistency-check/ts/krok-5-zbyraiemo.ts
+:::code proj-consistency-check/py/krok-5-zbyraiemo.py
 :::
 
 Запущений на цьому описі, перевірник друкує рівно два порушення — і жодної хибної тривоги на щиро локальному `OrderApi → AuditLog`:

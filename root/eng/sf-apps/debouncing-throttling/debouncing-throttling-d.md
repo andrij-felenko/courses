@@ -210,72 +210,8 @@ t = 200 мс: Тік таймера          → минуло 100 мс → ВИ�
 Правильна клієнтська архітектура об'єднує trailing debounce із механізмом скасування мережевих запитів `AbortController`:
 
 :::tabs
-```ts
-class AutocompleteController {
-  private abortController: AbortController | null = null;
-
-  // Дебаунс на 300 мс для запобігання зайвим мережевим викликам
-  public onInputChanged = debounce(async (query: string) => {
-    // Скасовуємо попередній HTTP-запит, якщо він ще не завершився
-    if (this.abortController) {
-      this.abortController.abort();
-    }
-    this.abortController = new AbortController();
-
-    try {
-      const response = await fetch(`/api/suggest?q=${encodeURIComponent(query)}`, {
-        signal: this.abortController.signal,
-      });
-      const suggestions: string[] = await response.json();
-      this.renderDropdown(suggestions);
-    } catch (err: any) {
-      if (err.name !== 'AbortError') {
-        this.showErrorState(err);
-      }
-    }
-  }, 300);
-
-  private renderDropdown(items: string[]): void {
-    // Оновлення списку підказок у DOM
-  }
-
-  private showErrorState(err: Error): void {
-    // Відображення стану помилки
-  }
-}
-```
-```js
-class AutocompleteController {
-  abortController = null;
-
-  onInputChanged = debounce(async (query) => {
-    if (this.abortController) {
-      this.abortController.abort();
-    }
-    this.abortController = new AbortController();
-
-    try {
-      const response = await fetch(`/api/suggest?q=${encodeURIComponent(query)}`, {
-        signal: this.abortController.signal,
-      });
-      const suggestions = await response.json();
-      this.renderDropdown(suggestions);
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        this.showErrorState(err);
-      }
-    }
-  }, 300);
-
-  renderDropdown(items) {
-    // Оновлення списку підказок у DOM
-  }
-
-  showErrorState(err) {
-    // Відображення стану помилки
-  }
-}
-```
+:::code debouncing-throttling-d/ts/stsenarii-1.ts
+:::code debouncing-throttling-d/js/stsenarii-1.js
 :::
 
 ### Сценарій 2: Перетягування елементів (Drag & Drop) через `rafThrottle`
@@ -285,68 +221,8 @@ class AutocompleteController {
 Застосування `rafThrottle` разом із властивістю `transform: translate3d(x, y, 0)` дозволяє винести анімацію на окремий шар графічного прискорювача (GPU Compositor), повністю уникаючи блокування потоку інтерфейсу:
 
 :::tabs
-```ts
-class DraggableCard {
-  private element: HTMLElement;
-  private currentX = 0;
-  private currentY = 0;
-
-  constructor(element: HTMLElement) {
-    this.element = element;
-    this.initEvents();
-  }
-
-  private updateTransform = rafThrottle((x: number, y: number) => {
-    // Зміна transform виконується на GPU строго перед фазою Paint
-    this.element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-  });
-
-  private onPointerMove = (event: PointerEvent): void => {
-    this.currentX += event.movementX;
-    this.currentY += event.movementY;
-    // Викликаємо тротлер: 1000 подій миші коалесціюються в 60/120 викликів на секунду
-    this.updateTransform(this.currentX, this.currentY);
-  };
-
-  private initEvents(): void {
-    this.element.addEventListener('pointermove', this.onPointerMove);
-  }
-
-  public destroy(): void {
-    this.updateTransform.cancel();
-    this.element.removeEventListener('pointermove', this.onPointerMove);
-  }
-}
-```
-```js
-class DraggableCard {
-  constructor(element) {
-    this.element = element;
-    this.currentX = 0;
-    this.currentY = 0;
-    this.initEvents();
-  }
-
-  updateTransform = rafThrottle((x, y) => {
-    this.element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-  });
-
-  onPointerMove = (event) => {
-    this.currentX += event.movementX;
-    this.currentY += event.movementY;
-    this.updateTransform(this.currentX, this.currentY);
-  };
-
-  initEvents() {
-    this.element.addEventListener('pointermove', this.onPointerMove);
-  }
-
-  destroy() {
-    this.updateTransform.cancel();
-    this.element.removeEventListener('pointermove', this.onPointerMove);
-  }
-}
-```
+:::code debouncing-throttling-d/ts/stsenarii-2.ts
+:::code debouncing-throttling-d/js/stsenarii-2.js
 :::
 
 > 🔧 **Навіщо це.** Тротлінг через `requestAnimationFrame` — це єдиний спосіб досягти ідеальної плавності анімацій 60/120 FPS без мікроривків під час швидкого руху ігрових мишей чи сенсорних жестів. Будь-який фіксований таймер `setTimeout` на зразок `16.6 мс` неминуче конфліктуватиме з фазою апаратного сигналу VSync, створюючи періодичні пропуски кадрів.

@@ -93,22 +93,7 @@
 Класичним прикладом порушення приховування інформації за наявності мовної інкапсуляції є створення класу, де всі поля оголошені приватними, але до кожного з них додано тривіальні публічні методи читання та запису (ґеттери й сеттери):
 
 :::tabs
-```cpp
-/* АНТИПАТЕРН: формальна інкапсуляція без приховування інформації */
-class TelemetryEngine {
-public:
-    // Ґеттери й сеттери повністю виказують структуру та розмір буфера
-    void set_raw_samples(const std::vector<float> &s) { raw_samples_ = s; }
-    [[nodiscard]] const std::vector<float>& get_raw_samples() const noexcept { return raw_samples_; }
-
-    void set_head_index(size_t h) { head_ = h; }
-    [[nodiscard]] size_t get_head_index() const noexcept { return head_; }
-
-private:
-    std::vector<float> raw_samples_; // Таємниця витекла через сигнатури методів!
-    size_t head_{0};
-};
-```
+:::code information-hiding-d/cpp/pastka.cpp
 ```c
 /* Той самий антипатерн на C: структури з відкритим доступом */
 typedef struct {
@@ -175,30 +160,7 @@ sensor_t* sensor_create(uint8_t bus_id);
 int       sensor_read_temperature(sensor_t *s, float *out_temp);
 void      sensor_destroy(sensor_t *s);
 ```
-```cpp
-/* sensor.hpp — публічний контракт на C++ */
-#pragma once
-#include <memory>
-#include <expected>
-#include <cstdint>
-
-enum class SensorError { Timeout, InvalidCrc };
-
-class Sensor {
-public:
-    explicit Sensor(uint8_t bus_id);
-    ~Sensor();
-
-    Sensor(Sensor &&) noexcept;
-    Sensor& operator=(Sensor &&) noexcept;
-
-    [[nodiscard]] std::expected<float, SensorError> read_temperature() noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> pimpl_;
-};
-```
+:::code information-hiding-d/cpp/sensor.hpp
 :::
 
 Компілятор, транслюючи файл клієнта `main.c`, знає лише, що `sensor_t*` — це покажчик. Оскільки розмір покажчика на конкретній платформі завжди константний (8 байтів на 64-бітних архітектурах), компілятор успішно виділяє пам'ять під сам покажчик і генерує виклики функцій. Проте він принципово забороняє код виду `s->bus_id`, оскільки зміщення полів йому невідомі.
@@ -206,59 +168,8 @@ private:
 Повне тіло структури описується виключно у файлі реалізації (`sensor.c` або `sensor.cpp`):
 
 :::tabs
-```c
-/* sensor.c — прихована таємниця на C */
-#include "sensor.h"
-#include <stdlib.h>
-
-struct sensor {
-    uint8_t  bus_id;
-    uint32_t calibration_raw[16];
-    float    last_reading;
-    void    *spi_handle;
-};
-
-sensor_t* sensor_create(uint8_t bus_id) {
-    sensor_t *s = (sensor_t*)malloc(sizeof(struct sensor));
-    if (!s) return NULL;
-    s->bus_id = bus_id;
-    s->last_reading = 0.0f;
-    return s;
-}
-
-int sensor_read_temperature(sensor_t *s, float *out_temp) {
-    if (!s || !out_temp) return -1;
-    *out_temp = s->last_reading;
-    return 0;
-}
-
-void sensor_destroy(sensor_t *s) {
-    free(s);
-}
-```
-```cpp
-/* sensor.cpp — прихована таємниця на C++ */
-#include "sensor.hpp"
-#include <array>
-
-struct Sensor::Impl {
-    uint8_t bus_id;
-    std::array<uint32_t, 16> calibration_raw{};
-    float last_reading{0.0f};
-
-    explicit Impl(uint8_t id) : bus_id(id) {}
-};
-
-Sensor::Sensor(uint8_t bus_id) : pimpl_(std::make_unique<Impl>(bus_id)) {}
-Sensor::~Sensor() = default;
-Sensor::Sensor(Sensor &&) noexcept = default;
-Sensor& Sensor::operator=(Sensor &&) noexcept = default;
-
-std::expected<float, SensorError> Sensor::read_temperature() noexcept {
-    if (!pimpl_) return std::unexpected(SensorError::Timeout);
-    return pimpl_->last_reading;
-}
-```
+:::code information-hiding-d/c/sensor.c
+:::code information-hiding-d/cpp/sensor.cpp
 :::
 
 ### Перевага компіляційного бар'єра

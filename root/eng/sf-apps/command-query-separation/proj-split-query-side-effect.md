@@ -9,56 +9,8 @@
 Уяви клас, що видає й обслуговує сесії користувачів. Народився він чистим — пара полів, кілька очевидних методів. Але за півроку в нього дописали лічильник звернень «для метрик», лінивий кеш конфігурації «щоб не читати з диска щоразу», журнал «щоб бачити, хто що питає». Кожен допис здавався дрібним і робився **всередині наявного get-методу**, бо навіщо плодити нові — ось же зручне місце. Ось цей клас, чесно доведений до стану, у якому такий код зазвичай і потрапляє на очі:
 
 :::tabs
-```ts
-class SessionService {
-  private hits = 0;                       // лічильник звернень «для метрик»
-  private config: Config | null = null;   // лінивий кеш конфігурації
-  private sessions = new Map<string, Session>();
-  private readonly log: Logger;
-  private readonly store: ConfigStore;
-
-  constructor(log: Logger, store: ConfigStore) {
-    this.log = log;
-    this.store = store;
-  }
-
-  // «get» у назві — а всередині МІНЯЄ лічильник і ще й пише в журнал
-  getSession(id: string): Session | undefined {
-    this.hits += 1;                                  // ← прихована зміна
-    this.log.info(`session lookup #${this.hits}: ${id}`); // ← ще ефект
-    return this.sessions.get(id);
-  }
-
-  // теж «get» — а при першому виклику ЧИТАЄ з диска й КЕШУЄ
-  getConfig(): Config {
-    if (this.config === null) {
-      this.config = this.store.load();               // ← прихована зміна
-    }
-    return this.config;
-  }
-}
-```
-```python
-class SessionService:
-    def __init__(self, log: Logger, store: ConfigStore) -> None:
-        self._hits = 0                     # лічильник звернень «для метрик»
-        self._config: Config | None = None # лінивий кеш конфігурації
-        self._sessions: dict[str, Session] = {}
-        self._log = log
-        self._store = store
-
-    # «get» у назві — а всередині МІНЯЄ лічильник і ще й пише в журнал
-    def get_session(self, id: str) -> Session | None:
-        self._hits += 1                                   # ← прихована зміна
-        self._log.info(f"session lookup #{self._hits}: {id}")  # ← ще ефект
-        return self._sessions.get(id)
-
-    # теж «get» — а при першому виклику ЧИТАЄ з диска й КЕШУЄ
-    def get_config(self) -> Config:
-        if self._config is None:
-            self._config = self._store.load()             # ← прихована зміна
-        return self._config
-```
+:::code proj-split-query-side-effect/ts/patsiient-servis-sesii.ts
+:::code proj-split-query-side-effect/py/patsiient-servis-sesii.py
 :::
 
 Два методи, обидва починаються на `get`, обидва обіцяють назвою «я лише питаю» — і обидва щось міняють. Але міняють вони по-різному, і в цій різниці вся сіль цієї вставки. `getSession` зсуває **спостережуваний** стан: лічильник `hits` — це число, яке хтось читає, тож кожен зайвий виклик псує метрику. `getConfig` теж міняє поле, але його ефект зовні **непомітний**: скільки не клич, віддається та сама конфігурація. Перший — справжній баг, що чекає на розчеплення. Другий — прийнятний виняток, і треба вміти довести, чому. Розберімо їх окремо, у порядку зростання підступності.
@@ -100,45 +52,8 @@ if service.get_session(id) is not None:   # виклик №1
 Крок третій — очисти запит. Тепер `getSession` робить рівно те, що обіцяє назвою: повертає сесію й нічого більше.
 
 :::tabs
-```ts
-class SessionService {
-  private hits = 0;
-  private sessions = new Map<string, Session>();
-
-  // ЗАПИТ: лише повертає, стан не чіпає. Клич скільки хоч.
-  getSession(id: string): Session | undefined {
-    return this.sessions.get(id);
-  }
-
-  // КОМАНДА: явно реєструє перегляд. Нічого не повертає.
-  recordSessionView(id: string): void {
-    this.hits += 1;
-  }
-
-  // ЗАПИТ на саму метрику — теж чистий.
-  viewCount(): number {
-    return this.hits;
-  }
-}
-```
-```python
-class SessionService:
-    def __init__(self) -> None:
-        self._hits = 0
-        self._sessions: dict[str, Session] = {}
-
-    # ЗАПИТ: лише повертає, стан не чіпає. Клич скільки хоч.
-    def get_session(self, id: str) -> Session | None:
-        return self._sessions.get(id)
-
-    # КОМАНДА: явно реєструє перегляд. Нічого не повертає.
-    def record_session_view(self, id: str) -> None:
-        self._hits += 1
-
-    # ЗАПИТ на саму метрику — теж чистий.
-    def view_count(self) -> int:
-        return self._hits
-```
+:::code proj-split-query-side-effect/ts/vypadok-1-get-metod-shcho.ts
+:::code proj-split-query-side-effect/py/vypadok-1-get-metod-shcho.py
 :::
 
 Тепер відповідальність за метрику переїхала туди, де їй місце, — до **викликача**, який єдиний знає, що саме є «переглядом». Той самий фрагмент, що раніше тихо накручував лічильник удвічі, тепер чесний: читання скільки завгодно безкоштовне, а зміна відбувається рівно там і рівно стільки разів, скільки поставив автор:
@@ -272,37 +187,8 @@ hits = 5 на старті
 Ось той самий лічильник, переписаний чесним атомарним винятком. Зверни увагу: метод **навмисне** і повертає, і міняє — і це не недбалість, а єдиний спосіб закрити щілину:
 
 :::tabs
-```ts
-// TS: атомарність будуємо на індивідуальному замку навколо
-// неподільної секції (у Node немає вбудованого атомарного лічильника
-// для звичайного числа — але ідея та сама: read-modify-write як ОДНЕ ціле).
-class ViewCounter {
-  private hits = 0;
-  private readonly lock = new Mutex();
-
-  // Чесний виняток: І міняє, І повертає — але НЕПОДІЛЬНО.
-  async nextViewNumber(): Promise<number> {
-    return this.lock.runExclusive(() => {
-      this.hits += 1;      // зміна
-      return this.hits;    // і повернення — між ними ніхто не влізе
-    });
-  }
-}
-```
-```python
-import threading
-
-class ViewCounter:
-    def __init__(self) -> None:
-        self._hits = 0
-        self._lock = threading.Lock()
-
-    # Чесний виняток: І міняє, І повертає — але НЕПОДІЛЬНО.
-    def next_view_number(self) -> int:
-        with self._lock:        # секцію не розірве інший потік
-            self._hits += 1     # зміна
-            return self._hits   # і повернення разом — атомарно
-```
+:::code proj-split-query-side-effect/ts/vypadok-3-koly-honytva.ts
+:::code proj-split-query-side-effect/py/vypadok-3-koly-honytva.py
 :::
 
 Тепер два одночасні перегляди дістануть **різні** номери — 6 і 7, — і жоден номер не пропаде, бо неможливо прослизнути між читанням і зміною: вони склеєні в одну операцію. Ми свідомо порушили CQS — але порушили **чесно**: назва `nextViewNumber` не бреше, вона прямо каже «дай наступний номер», тобто відкрито обіцяє й зміну (наступний — значить, лічильник посунувся), і повернення. Ніхто не сплутає її з безневинним `viewCount()`, який лише дивиться.

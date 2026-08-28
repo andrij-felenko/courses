@@ -11,68 +11,8 @@
 Ось той самий «швидкий» обробник у повний зріст. Дивись не на те, що він працює, а на те, **що в ньому злиплося**:
 
 :::tabs
-```python
-# «Екран»: поточне число живе прямо у віджеті-полі. Модель? Її нема.
-screen_target = 22          # ← джерело правди — саме поле на екрані
-bar_widget = ""             # намальована смужка
-
-def on_plus_clicked():
-    global screen_target, bar_widget
-    # 1) ВВІД+ЧИТАННЯ: беремо поточне число з ПОЛЯ на екрані
-    current = screen_target
-    # 2) ПРАВИЛО предметної області: підняти на 1, але не вище 30
-    current = current + 1
-    if current > 30:
-        current = 30
-    # 3) РЕНДЕР: вписати назад у поле і перемалювати смужку
-    screen_target = current
-    filled = round((current - 5) / (30 - 5) * 20)
-    bar_widget = "█" * filled + "·" * (20 - filled)
-    # 4) ЗБЕРЕЖЕННЯ: записати на диск
-    with open("target.txt", "w") as fp:
-        fp.write(str(current))
-
-def on_minus_clicked():
-    global screen_target, bar_widget
-    current = screen_target
-    current = current - 1
-    if current < 5:                 # ← та сама логіка, лише межа інша
-        current = 5
-    screen_target = current
-    filled = round((current - 5) / (30 - 5) * 20)   # ← і рендер скопійовано
-    bar_widget = "█" * filled + "·" * (20 - filled)
-    with open("target.txt", "w") as fp:             # ← і збереження скопійовано
-        fp.write(str(current))
-```
-```ts
-// «Екран»: поточне число живе прямо у віджеті-полі. Моделі нема.
-let screenTarget = 22;      // ← джерело правди — саме поле на екрані
-let barWidget = "";
-
-function onPlusClicked(): void {
-  // 1) ВВІД+ЧИТАННЯ: беремо поточне число з ПОЛЯ на екрані
-  let current = screenTarget;
-  // 2) ПРАВИЛО предметної області: підняти на 1, але не вище 30
-  current = current + 1;
-  if (current > 30) current = 30;
-  // 3) РЕНДЕР: вписати назад у поле і перемалювати смужку
-  screenTarget = current;
-  const filled = Math.round((current - 5) / (30 - 5) * 20);
-  barWidget = "█".repeat(filled) + "·".repeat(20 - filled);
-  // 4) ЗБЕРЕЖЕННЯ: записати на диск
-  fs.writeFileSync("target.txt", String(current));
-}
-
-function onMinusClicked(): void {
-  let current = screenTarget;
-  current = current - 1;
-  if (current < 5) current = 5;              // ← та сама логіка, інша межа
-  screenTarget = current;
-  const filled = Math.round((current - 5) / (30 - 5) * 20);  // ← рендер скопійовано
-  barWidget = "█".repeat(filled) + "·".repeat(20 - filled);
-  fs.writeFileSync("target.txt", String(current));           // ← збереження скопійовано
-}
-```
+:::code proj-untangle-fat-controller/py/sprut-obrobnyk-shcho-robyt.py
+:::code proj-untangle-fat-controller/ts/sprut-obrobnyk-shcho-robyt.ts
 :::
 
 Придивімося, що тут насправді відбувається, бо код короткий, а хвороб у ньому чотири.
@@ -96,61 +36,8 @@ function onMinusClicked(): void {
 Почнемо з серця. Витягнемо з обробника те, що застосунок **знає** і за яким **законом**: число «бажана температура» і межу 5–30. Це й буде модель — і в ній не має бути ані слова про поле, смужку чи диск.
 
 :::tabs
-```python
-class Thermostat:
-    MIN, MAX = 5, 30
-
-    def __init__(self, target=22):
-        self._target = self._clamp(target)
-        self._observers = []                 # хто хоче знати про зміни — не знаю хто
-
-    @property
-    def target(self):
-        return self._target
-
-    def nudge(self, delta):
-        new = self._clamp(self._target + delta)
-        if new == self._target:
-            return                           # нічого не змінилось — нікого не турбуємо
-        self._target = new
-        for notify in self._observers:       # сповістити залежних, не називаючи їх
-            notify()
-
-    def on_change(self, fn):
-        self._observers.append(fn)
-
-    @staticmethod
-    def _clamp(t):
-        return max(Thermostat.MIN, min(Thermostat.MAX, t))
-```
-```ts
-class Thermostat {
-  static readonly MIN = 5;
-  static readonly MAX = 30;
-
-  #target: number;
-  #observers: Array<() => void> = [];        // хто хоче знати — не знаю хто
-
-  constructor(target = 22) {
-    this.#target = Thermostat.clamp(target);
-  }
-
-  get target(): number { return this.#target; }
-
-  nudge(delta: number): void {
-    const next = Thermostat.clamp(this.#target + delta);
-    if (next === this.#target) return;       // нічого не змінилось — нікого не турбуємо
-    this.#target = next;
-    for (const notify of this.#observers) notify();   // сповістити залежних
-  }
-
-  onChange(fn: () => void): void { this.#observers.push(fn); }
-
-  private static clamp(t: number): number {
-    return Math.max(Thermostat.MIN, Math.min(Thermostat.MAX, t));
-  }
-}
-```
+:::code proj-untangle-fat-controller/py/krok-1-pravylo-i-stan-u.py
+:::code proj-untangle-fat-controller/ts/krok-1-pravylo-i-stan-u.ts
 :::
 
 Зверни увагу на три зважені рішення в цьому невеликому класі.
@@ -194,55 +81,8 @@ class ThermostatController {
 Далі — те, **як** число показано оку. Було два способи (цифра й смужка) — робимо два подання, і кожне вміє рівно одне: узяти з моделі поточний стан і намалювати його. Жодних рішень, жодних правил, жодного запису назад у модель. Чистий читач.
 
 :::tabs
-```python
-class DigitView:
-    def __init__(self, model):
-        self._model = model
-        model.on_change(self.render)     # підписатися на сигнал зміни
-        self.render()                    # намалюватися одразу, не чекаючи першої зміни
-
-    def render(self):
-        print(f"  {self._model.target}°")
-
-
-class BarView:
-    def __init__(self, model):
-        self._model = model
-        model.on_change(self.render)
-        self.render()
-
-    def render(self):
-        t = self._model.target
-        span = Thermostat.MAX - Thermostat.MIN
-        filled = round((t - Thermostat.MIN) / span * 20)
-        print("  " + "█" * filled + "·" * (20 - filled))
-```
-```ts
-class DigitView {
-  constructor(private readonly model: Thermostat) {
-    model.onChange(() => this.render());   // підписатися на сигнал зміни
-    this.render();                         // намалюватися одразу
-  }
-
-  render(): void {
-    console.log(`  ${this.model.target}°`);
-  }
-}
-
-class BarView {
-  constructor(private readonly model: Thermostat) {
-    model.onChange(() => this.render());
-    this.render();
-  }
-
-  render(): void {
-    const t = this.model.target;
-    const span = Thermostat.MAX - Thermostat.MIN;
-    const filled = Math.round((t - Thermostat.MIN) / span * 20);
-    console.log("  " + "█".repeat(filled) + "·".repeat(20 - filled));
-  }
-}
-```
+:::code proj-untangle-fat-controller/py/krok-3-podannia-lyshe.py
+:::code proj-untangle-fat-controller/ts/krok-3-podannia-lyshe.ts
 :::
 
 Кожне подання в конструкторі підписується на модель і одразу малюється вперше (щоб екран не був порожній до першого натискання), а далі просто чекає сигналу «змінилася», щоб перечитати `target` і перемалюватися. Обидва дивляться на **одне й те саме** число моделі — тому й показують узгоджене; неможливо, щоб цифра казала 23, а смужка малювала 24, бо джерело в них спільне.
@@ -263,50 +103,8 @@ class BarView {
 Тепер зберемо все докупи — і тут стане видно, навіщо була вся морока зі списком безіменних слухачів. Лишилася четверта справа спрута — **збереження**. Куди її? Не в контролер (він тлумач) і не в подання (воно читач). Збереження реагує на зміну стану так само, як подання, — тож зробімо його ще одним підписником на той самий сигнал:
 
 :::tabs
-```python
-from pathlib import Path
-
-class FileStore:
-    def __init__(self, model, path):
-        self._model = model
-        self._path = path
-        model.on_change(self.save)       # той самий сигнал, що й у подань
-
-    def save(self):
-        Path(self._path).write_text(str(self._model.target))
-
-
-# ── збірка: усе сходиться на одній моделі ──
-model = Thermostat(22)
-digit = DigitView(model)                 # підписник 1
-bar   = BarView(model)                   # підписник 2
-store = FileStore(model, "target.txt")   # підписник 3
-controller = ThermostatController(model)
-
-controller.plus_clicked()   # 22 → 23: обидва подання перемалювались, файл записався
-```
-```ts
-import * as fs from "node:fs";
-
-class FileStore {
-  constructor(private readonly model: Thermostat, private readonly path: string) {
-    model.onChange(() => this.save());   // той самий сигнал, що й у подань
-  }
-
-  private save(): void {
-    fs.writeFileSync(this.path, String(this.model.target));
-  }
-}
-
-// ── збірка: усе сходиться на одній моделі ──
-const model = new Thermostat(22);
-const digit = new DigitView(model);              // підписник 1
-const bar   = new BarView(model);                // підписник 2
-const store = new FileStore(model, "target.txt"); // підписник 3
-const controller = new ThermostatController(model);
-
-controller.plusClicked();   // 22 → 23: обидва подання перемалювались, файл записався
-```
+:::code proj-untangle-fat-controller/py/krok-4-dva-podannia-i.py
+:::code proj-untangle-fat-controller/ts/krok-4-dva-podannia-i.ts
 :::
 
 Простежмо одне натискання наскрізь. Користувач тисне «+» → контролер перекладає це в `model.nudge(+1)` → модель піднімає число до 23, перевіряє свій закон межі й, бо число змінилося, **шле один сигнал** «я змінилася» → цей сигнал будить усіх трьох підписників: `DigitView` перечитує й друкує «23°», `BarView` перечитує й домальовує блок, `FileStore` перечитує й пише «23» у файл. Коло замкнулося, а модель за весь цей час **не назвала жодного з трьох**.
@@ -320,66 +118,8 @@ controller.plusClicked();   // 22 → 23: обидва подання перем
 Тепер — те, заради чого все затівалося. У спрута перевірити, що межа 30° справді тримається, було ніяк: правило сиділо в тілі кнопки, і щоб його торкнутися, треба було намалювати кнопку й натиснути. Тепер правило живе в моделі, а модель **не знає, що існує якийсь екран**. Отже, її можна смикнути тестом у повній тиші:
 
 :::tabs
-```python
-def test_rule_holds_without_a_screen():
-    m = Thermostat(29)
-    m.nudge(+1)          # 30
-    m.nudge(+1)          # спроба 31 → лишається 30
-    m.nudge(+1)          # знову 30
-    assert m.target == 30          # верхня межа тримається — БЕЗ віджета
-
-def test_lower_bound():
-    m = Thermostat(6)
-    m.nudge(-1); m.nudge(-1); m.nudge(-1)
-    assert m.target == 5           # нижня межа тримається
-
-def test_both_views_react_to_one_change():
-    m = Thermostat(22)
-    seen = []
-    m.on_change(lambda: seen.append(("подання-А", m.target)))
-    m.on_change(lambda: seen.append(("подання-Б", m.target)))
-    m.nudge(+1)
-    assert seen == [("подання-А", 23), ("подання-Б", 23)]   # обидва почули одну зміну
-
-def test_no_signal_when_nothing_changes():
-    m = Thermostat(30)
-    fired = []
-    m.on_change(lambda: fired.append(1))
-    m.nudge(+1)                    # на межі: число не змінилось
-    assert fired == []             # зайвого сповіщення нема
-```
-```ts
-test("правило тримається без екрана", () => {
-  const m = new Thermostat(29);
-  m.nudge(+1);   // 30
-  m.nudge(+1);   // спроба 31 → лишається 30
-  m.nudge(+1);   // знову 30
-  expect(m.target).toBe(30);           // верхня межа тримається — БЕЗ віджета
-});
-
-test("нижня межа тримається", () => {
-  const m = new Thermostat(6);
-  m.nudge(-1); m.nudge(-1); m.nudge(-1);
-  expect(m.target).toBe(5);
-});
-
-test("обидва подання реагують на одну зміну", () => {
-  const m = new Thermostat(22);
-  const seen: Array<[string, number]> = [];
-  m.onChange(() => seen.push(["подання-А", m.target]));
-  m.onChange(() => seen.push(["подання-Б", m.target]));
-  m.nudge(+1);
-  expect(seen).toEqual([["подання-А", 23], ["подання-Б", 23]]);  // обидва почули
-});
-
-test("на межі зайвого сигналу нема", () => {
-  const m = new Thermostat(30);
-  const fired: number[] = [];
-  m.onChange(() => fired.push(1));
-  m.nudge(+1);                          // число не змінилось
-  expect(fired).toEqual([]);
-});
-```
+:::code proj-untangle-fat-controller/py/vyhrash-pravylo.py
+:::code proj-untangle-fat-controller/ts/vyhrash-pravylo.ts
 :::
 
 Прожиймо перший тест на пальцях, щоб побачити, що саме він ловить:
@@ -412,18 +152,7 @@ class ThermostatController:
         self._bar_view.redraw(t)              # ← контролер сам МАЛЮЄ
         self._store.save(t)                   # ← і сам ЗБЕРІГАЄ
 ```
-```ts
-// ПАСТКА — товстий контролер: у переклад вводу знову залізли правило, читання екрана, рендер і запис
-class ThermostatController {
-  plusClicked(): void {
-    let t = this.digitView.readNumber();  // ← читає стан З ЕКРАНА, не з моделі
-    if (t < 30) t += 1;                   // ← ПРАВИЛО межі — знову тут!
-    this.model.setTarget(t);              // ← модель зведена до сетера-мішка
-    this.barView.redraw(t);               // ← контролер сам МАЛЮЄ
-    this.store.save(t);                   // ← і сам ЗБЕРІГАЄ
-  }
-}
-```
+:::code proj-untangle-fat-controller/ts/pastka-persha-tovstyi.ts
 :::
 
 Придивись — це той самий спрут, тільки перевдягнений у клас із гордим іменем «Контролер». Правило межі `if t < 30` повернулося в обробник. Стан знову читають з екрана (`read_number`), а не з моделі, — отже, джерело правди знову у віджеті. А модель виродилася: у неї відібрали `nudge` з його законом і лишили голий `set_target` — сетер, який покірно бере будь-яке число, навіть 31, бо перевіряти вже не його робота. Модель стала [анемічним мішком полів](root:sf-apps/anemic-domain-model) без поведінки: формально вона є, а по суті нічого не знає й нічого не вирішує.
@@ -449,34 +178,8 @@ class ThermostatController {
 Друга хвороба нападає з іншого боку — на подання. Читач потроху розумнішає: спершу «трохи підправить» показане число, потім сам щось вирішить, а зрештою — і моделі торкнеться. Ось як це виглядає в коді:
 
 :::tabs
-```python
-# ПАСТКА — розумне подання: у читача залізла логіка й навіть запис у модель
-class BarView:
-    def render(self):
-        t = self._model.target
-        if t > 28:                       # ← подання САМО «підправляє» число під себе
-            t = 28
-        if self._model.target >= Thermostat.MAX:   # ← подання ВИРІШУЄ політику
-            self._model.nudge(-1)                  # ← і МІНЯЄ модель — читач став писарем
-        span = Thermostat.MAX - Thermostat.MIN
-        filled = round((t - Thermostat.MIN) / span * 20)
-        print("  " + "█" * filled + "·" * (20 - filled))
-```
-```ts
-// ПАСТКА — розумне подання: у читача залізла логіка й навіть запис у модель
-class BarView {
-  render(): void {
-    let t = this.model.target;
-    if (t > 28) t = 28;                          // ← подання САМО «підправляє» число
-    if (this.model.target >= Thermostat.MAX) {   // ← подання ВИРІШУЄ політику
-      this.model.nudge(-1);                      // ← і МІНЯЄ модель — читач став писарем
-    }
-    const span = Thermostat.MAX - Thermostat.MIN;
-    const filled = Math.round((t - Thermostat.MIN) / span * 20);
-    console.log("  " + "█".repeat(filled) + "·".repeat(20 - filled));
-  }
-}
-```
+:::code proj-untangle-fat-controller/py/pastka-druha-rozumne.py
+:::code proj-untangle-fat-controller/ts/pastka-druha-rozumne.ts
 :::
 
 Два різні лиха в одному тілі, і обидва варто назвати окремо.

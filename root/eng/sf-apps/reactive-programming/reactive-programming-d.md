@@ -32,62 +32,8 @@
 Ось потік, що штовхає числа з інтервалом, зроблений голими руками, без жодної бібліотеки. Це загальний прикладний код, тож покажу двома мовами, якими такі речі й пишуть.
 
 :::tabs
-```ts
-type Observer<T> = {
-  next: (value: T) => void;       // нове значення
-  complete: () => void;           // потік вичерпано
-  error: (e: unknown) => void;    // потік зламався
-};
-
-// потік = функція, що приймає спостерігача й починає його годувати
-type Stream<T> = (observer: Observer<T>) => () => void;   // повертає «відписку»
-
-// джерело: штовхає 0,1,2,... кожні ms мілісекунд
-function interval(ms: number): Stream<number> {
-  return (observer) => {
-    let n = 0;
-    const id = setInterval(() => observer.next(n++), ms);
-    return () => clearInterval(id);   // виклич це, щоб зупинити потік
-  };
-}
-
-const stop = interval(1000)({
-  next: (n) => console.log("тік", n),
-  complete: () => console.log("кінець"),
-  error: (e) => console.error(e),
-});
-// stop();  // відписка — джерело замовкне
-```
-```python
-from typing import Callable, Generic, TypeVar
-import threading
-
-T = TypeVar("T")
-
-class Observer(Generic[T]):
-    def next(self, value: T) -> None: ...
-    def complete(self) -> None: ...
-    def error(self, e: object) -> None: ...
-
-# потік = функція, що приймає спостерігача й починає його годувати,
-# і повертає «відписку»
-Stream = Callable[[Observer[T]], Callable[[], None]]
-
-def interval(seconds: float) -> Stream:
-    def start(observer: Observer) -> Callable[[], None]:
-        n = 0
-        stopped = threading.Event()
-        def tick() -> None:
-            nonlocal n
-            if stopped.is_set():
-                return
-            observer.next(n)
-            n += 1
-            threading.Timer(seconds, tick).start()
-        threading.Timer(seconds, tick).start()
-        return stopped.set   # виклич, щоб зупинити потік
-    return start
-```
+:::code reactive-programming-d/ts/naiprostishyi-potik-iakyi.ts
+:::code reactive-programming-d/py/main.py
 :::
 
 Двадцять рядків — і вся суть уже тут. Потік — це не структура даних, а **функція, яку ти запускаєш**, передавши їй три колбеки; вона починає штовхати значення й повертає ручку, щоб її зупинити. Зверни увагу на цю ручку-відписку: масив не треба «зупиняти», а потік — треба, бо він живий і триває в часі. Забув відписатися від потоку, який більше не потрібен, — і джерело далі годує мертвий колбек, тримаючи в пам'яті все, за що той чіпляється. Це головна нова турбота, яку приносить push: у світі pull ресурс звільняється сам, коли ти перестав тягнути; у світі push ти **мусиш явно сказати «досить»**.
@@ -151,33 +97,7 @@ searchInput               // потік рядків: користувач др�
 
 Ось той самий контракт у коді — споживач, що бере порціями по своїй готовності. Тут TypeScript особливо на своєму місці: цей push-із-попитом лежить в основі стандартних потоків самої платформи.
 
-```ts
-interface Subscription {
-  request(n: number): void;   // споживач: «готовий прийняти ще n»
-  cancel(): void;
-}
-
-interface Subscriber<T> {
-  onSubscribe(sub: Subscription): void;
-  onNext(value: T): void;
-  onComplete(): void;
-  onError(e: unknown): void;
-}
-
-// повільний споживач: бере по одному, обробляє, лише тоді просить наступне
-const slowConsumer: Subscriber<number> = {
-  onSubscribe(sub) {
-    this.sub = sub;
-    sub.request(1);                 // спершу прошу лише одне
-  },
-  onNext(value) {
-    heavyProcess(value);            // повільна робота
-    this.sub!.request(1);           // осилив — тепер прошу ще одне
-  },
-  onComplete() { console.log("готово"); },
-  onError(e) { console.error(e); },
-} as Subscriber<number> & { sub?: Subscription };
-```
+:::code reactive-programming-d/ts/protytysk-koly-dzherelo.ts
 
 Придивись до `onNext`: споживач просить наступне значення **лише після того, як упорався з поточним**. Джерело фізично не може його випередити — без нового `request` воно не має дозволу штовхати. Швидкість усього конвеєра тепер задає найповільніша ланка, і затоплення стало неможливим за побудовою, а не за рахунок вгадування розмірів буфера. Саме цей контракт — `Publisher`, `Subscriber`, `Subscription` з методом `request(n)` — стандартизували під назвою [Reactive Streams](root:sf-apps/reactive-programming/hist-reactive-streams-spec.md), і згодом він в'їхав просто в стандартну бібліотеку Java як набір інтерфейсів `Flow`. Домовленість про цей зворотний попит — не деталь реалізації якоїсь бібліотеки, а **спільна мова**, якою різні реактивні бібліотеки стикуються між собою, не втрачаючи протитиску на межі.
 

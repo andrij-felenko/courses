@@ -43,78 +43,15 @@
 Найпростіша форма цього ходу — **декоратор (англ. *decorator*)**: об'єкт чи функція, що має той самий інтерфейс, що й обгорнута справа, додає до неї концерн і делегує решту всередину. Порівняй наскрізний концерн, вписаний руками, з тим самим концерном як обгорткою:
 
 :::tabs
-```python
-# Концерн вписаний у справу: логування переплетене з роботою
-class OrderService:
-    def place_order(self, order):
-        log.info("place_order: in")          # концерн
-        try:
-            result = self._do_place(order)   # справа
-            log.info("place_order: ok")      # концерн
-            return result
-        except Exception:
-            log.exception("place_order: err")  # концерн
-            raise
-```
-```ts
-// Концерн вписаний у справу: логування переплетене з роботою
-class OrderService {
-  placeOrder(order: Order): Receipt {
-    log.info("placeOrder: in");            // концерн
-    try {
-      const r = this.doPlace(order);       // справа
-      log.info("placeOrder: ok");          // концерн
-      return r;
-    } catch (e) {
-      log.error("placeOrder: err", e);     // концерн
-      throw e;
-    }
-  }
-}
-```
+:::code cross-cutting-concerns-d/py/holovnyi-khid-vynesty.py
+:::code cross-cutting-concerns-d/ts/holovnyi-khid-vynesty.ts
 :::
 
 Тут `place_order` знає про логування рівно стільки ж, скільки про замовлення, — і той самий `try/except` доведеться скопіювати в кожен метод. Винесемо логування в декоратор, а справу лишимо чистою:
 
 :::tabs
-```python
-# Концерн — обгортка. Справа не знає, що її логують.
-def logged(fn):
-    def wrapper(*args, **kwargs):
-        log.info(f"{fn.__name__}: in")
-        try:
-            r = fn(*args, **kwargs)
-            log.info(f"{fn.__name__}: ok")
-            return r
-        except Exception:
-            log.exception(f"{fn.__name__}: err")
-            raise
-    return wrapper
-
-class OrderService:
-    @logged
-    def place_order(self, order):
-        return self._do_place(order)   # лише справа, нічого зайвого
-```
-```ts
-// Концерн — обгортка. Справа не знає, що її логують.
-function logged<A extends unknown[], R>(name: string, fn: (...a: A) => R) {
-  return (...args: A): R => {
-    log.info(`${name}: in`);
-    try {
-      const r = fn(...args);
-      log.info(`${name}: ok`);
-      return r;
-    } catch (e) {
-      log.error(`${name}: err`, e);
-      throw e;
-    }
-  };
-}
-
-const placeOrder = logged("placeOrder", (order: Order): Receipt =>
-  doPlace(order));                    // лише справа, нічого зайвого
-```
+:::code cross-cutting-concerns-d/py/holovnyi-khid-vynesty-2.py
+:::code cross-cutting-concerns-d/ts/holovnyi-khid-vynesty-2.ts
 :::
 
 Логіка логу тепер існує **в одному** місці. Захотіли додати ідентифікатор запиту в кожен лог — правимо `logged`, і зміна накриває всіх, хто цим декоратором позначений. Розпорошення зникло, бо концерн більше не розсипаний; переплетення зникло, бо `place_order` знову про одне.

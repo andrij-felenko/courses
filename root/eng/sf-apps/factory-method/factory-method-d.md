@@ -23,26 +23,7 @@
 
 Придивімося до цього на живому коді. Каркас діалогу вміє себе відмалювати — це спільний процес, однаковий для всіх платформ. Але *яку саме кнопку* створити при відмальовуванні, знає лише конкретна платформа. Каркас лишає цю ланку дірою:
 
-```ts
-abstract class Dialog {
-  // фабричний метод: тип результату — АБСТРАКЦІЯ, конкретики каркас не знає
-  protected abstract createButton(): Button;
-
-  render(): void {                 // шаблонний метод — незмінний скелет
-    const ok = this.createButton();   // ...кличе діру...
-    ok.onClick(() => this.close());
-    ok.paint();
-  }
-  close(): void { /* спільна логіка */ }
-}
-
-class WindowsDialog extends Dialog {
-  // коваріантне звуження: повертаємо КОНКРЕТНІШИЙ тип, і це легально
-  protected createButton(): WindowsButton {
-    return new WindowsButton();
-  }
-}
-```
+:::code factory-method-d/ts/fabrychnyi-metod-tse-dira.ts
 
 Метод `render` — код каркаса, і він кличе `createButton()`, **не маючи жодного уявлення**, який клас звідти вийде. У рантаймі виклик через [динамічне зв'язування](root:sf-lang/polymorphism) потрапить у той метод, який реалізував конкретний нащадок. Оце й є те, за що GoF дали фабричному методу другу назву — **«віртуальний конструктор»** (англ. *Virtual Constructor*; *усталений синонім із каталогу GoF*). Назва точна й показує парадокс, який патерн розв'язує. Конструктор не може бути віртуальним у принципі: щоб його викликати, ти **мусиш назвати конкретний клас** — `new WindowsButton()`, — а віртуальність саме про те, щоб імені не називати. Фабричний метод повертає цю відібрану можливість: це віртуальний метод, який усередині робить `new`, тож ти дістаєш поліморфну підстановку класу там, де голий конструктор її не дає. «Віртуальний конструктор» — це конструктор, у якого повернули віртуальність.
 
@@ -64,25 +45,7 @@ class WindowsDialog extends Dialog {
 
 Друга форма тонша: база дає фабричному методу **стандартну реалізацію**, яка повертає якийсь типовий продукт, а нащадок перевизначає її **лише за потреби**. Тоді базовий клас уже **не абстрактний** — ним можна користуватися як є, а спадкування вмикається тільки там, де стандарт не влаштовує:
 
-```ts
-class Application {
-  // фабричний метод зі СТАНДАРТОМ — базу можна вживати без нащадків
-  protected createDocument(): Document {
-    return new PlainTextDocument();   // розумний типовий продукт
-  }
-  newDocument(): Document {
-    const doc = this.createDocument();
-    doc.open();
-    return doc;
-  }
-}
-
-class DrawingApp extends Application {
-  protected createDocument(): Document {   // перевизначаємо ЛИШЕ там, де треба
-    return new DrawingDocument();
-  }
-}
-```
+:::code factory-method-d/ts/dvi-formy-fabrychnoho.ts
 
 Різниця між формами — не косметична, вона про **обов'язок**. Абстрактна форма робить вибір продукту обов'язковим рішенням кожного нащадка; форма зі стандартом робить його **необов'язковим уточненням**. Перша каже «ти мусиш обрати», друга — «є розумний типовий, зміни, якщо хочеш». Обирай першу, коли типового продукту чесно немає й будь-який стандарт був би брехнею; обирай другу, коли переважна більшість випадків задоволена одним продуктом, а спеціалізація — рідкісний виняток. Плутанина тут коштує реально: зробиш метод абстрактним там, де 90% нащадків хотіли б однакового, — і змусиш кожного з них писати той самий рядок; даси стандарт там, де його чесно нема, — і хтось забуде перевизначити й дістане тихо неправильний продукт.
 
@@ -90,43 +53,9 @@ class DrawingApp extends Application {
 
 Є випадок, де фабричний метод розкриває глибшу роль, ніж просто «народити продукт», і GoF описали його окремо під назвою **паралельні класові ієрархії** (англ. *parallel class hierarchies*). Уяви дві ієрархії, які **мусять іти в ногу**. Класичний приклад із книги — графічний редактор: є ієрархія фігур (`Figure`: лінія, текст, коло) і паралельна їй ієрархія маніпуляторів — об'єктів, що обробляють інтерактивне тягання кожної фігури мишею (`Manipulator`: `LineManipulator`, `TextManipulator`). Кожній фігурі відповідає **свій** маніпулятор: лінію тягнуть за кінці, текст — за рамку, і переплутати їх не можна.
 
-```ts
-abstract class Figure {
-  // фабричний метод — ШОВ між ієрархією фігур та ієрархією маніпуляторів
-  abstract createManipulator(): Manipulator;
-  abstract draw(): void;
-}
+:::code factory-method-d/ts/paralelni-iierarkhii.ts
 
-class LineFigure extends Figure {
-  createManipulator(): Manipulator { return new LineManipulator(this); }
-  draw(): void { /* ... */ }
-}
-class TextFigure extends Figure {
-  createManipulator(): Manipulator { return new TextManipulator(this); }
-  draw(): void { /* ... */ }
-}
-```
-
-```py
-from abc import ABC, abstractmethod
-
-class Figure(ABC):
-    # фабричний метод — ШОВ між ієрархією фігур та ієрархією маніпуляторів
-    @abstractmethod
-    def create_manipulator(self) -> "Manipulator": ...
-    @abstractmethod
-    def draw(self) -> None: ...
-
-class LineFigure(Figure):
-    def create_manipulator(self) -> "Manipulator":
-        return LineManipulator(self)
-    def draw(self) -> None: ...
-
-class TextFigure(Figure):
-    def create_manipulator(self) -> "Manipulator":
-        return TextManipulator(self)
-    def draw(self) -> None: ...
-```
+:::code factory-method-d/py/paralelni-iierarkhii.py
 
 Тут фабричний метод робить дещо більше, ніж ховає `new`: він **зшиває дві ієрархії так, що вони не можуть розсинхронізуватися**. Поки кожна фігура сама віддає свій маніпулятор через `createManipulator`, неможливо випадково зіставити лінію з текстовим маніпулятором — зв'язок закодовано в одному місці, у самій фігурі. Додаєш нову фігуру (`PolygonFigure`) — компілятор змусить тебе реалізувати `createManipulator`, і ти в ту ж мить оголосиш її пару (`PolygonManipulator`). Дві ієрархії ростуть разом, бо шов між ними — обов'язковий метод. Ось де фабричний метод стає не економією рядка, а **гарантією парности**: він тримає інваріант «кожній фігурі — її маніпулятор» структурно, а не дисципліною програміста. Цю ідею — «нехай тип сам віддає свого напарника» — ми зараз побачимо розгорнутою до цілого набору напарників в абстрактній фабриці.
 
@@ -144,44 +73,9 @@ class TextFigure(Figure):
 
 Розкладімо будову на **п'ять учасників** — на цих іменах тримається весь патерн, і бачити їх окремо корисно, бо кожен несе свою роль:
 
-```ts
-// (1) AbstractFactory — інтерфейс із операцією на КОЖЕН вид продукту
-interface GuiFactory {
-  createButton(): Button;      // (3) AbstractProduct «Button»
-  createCheckbox(): Checkbox;  // (3) AbstractProduct «Checkbox»
-}
+:::code factory-method-d/ts/abstraktna-fabryka.ts
 
-// (2) ConcreteFactory — реалізує весь набір в одному стилі (зазвичай сінглтон)
-class DarkFactory implements GuiFactory {
-  createButton(): Button     { return new DarkButton(); }    // (4) ConcreteProduct
-  createCheckbox(): Checkbox { return new DarkCheckbox(); }  // (4) ConcreteProduct
-}
-
-// (5) Client — бачить ЛИШЕ AbstractFactory та AbstractProduct, конкретних імен не знає
-function buildForm(ui: GuiFactory): Control[] {
-  return [ui.createButton(), ui.createCheckbox()];
-}
-```
-
-```py
-from abc import ABC, abstractmethod
-
-# (1) AbstractFactory — операція на КОЖЕН вид продукту
-class GuiFactory(ABC):
-    @abstractmethod
-    def create_button(self) -> "Button": ...       # (3) AbstractProduct
-    @abstractmethod
-    def create_checkbox(self) -> "Checkbox": ...    # (3) AbstractProduct
-
-# (2) ConcreteFactory — увесь набір в одному стилі
-class DarkFactory(GuiFactory):
-    def create_button(self) -> "Button":     return DarkButton()      # (4) ConcreteProduct
-    def create_checkbox(self) -> "Checkbox": return DarkCheckbox()    # (4) ConcreteProduct
-
-# (5) Client — бачить лише абстракції
-def build_form(ui: GuiFactory) -> list["Control"]:
-    return [ui.create_button(), ui.create_checkbox()]
-```
+:::code factory-method-d/py/abstraktna-fabryka.py
 
 Тепер — головне, заради чого патерн існує, і що варто вміти довести, а не просто повторити. **Чому узгодженість гарантована?** Простежмо це як інваріант, крок за кроком.
 
@@ -211,18 +105,7 @@ def build_form(ui: GuiFactory) -> list["Control"]:
 
 **Друга реалізація — на прототипах.** А що, як родин **дуже багато**? Тоді перша реалізація вимагає **класу-фабрики на кожну родину** — десятки майже однакових класів, які різняться лише тим, які `new` викликають. GoF пропонують інше: **одна** конфігурована фабрика, яка тримає **реєстр прототипів** — по одному зразковому примірнику кожного виду продукту — і творить нові, **клонуючи** їх. Тут вступає [прототип](root:sf-apps/prototype) — патерн, де новий об'єкт роблять копіюванням наявного зразка замість виклику конструктора за іменем класу.
 
-```ts
-// одна конфігурована фабрика замість класу-на-родину
-class PrototypeFactory implements GuiFactory {
-  constructor(private readonly protos: { button: Button; checkbox: Checkbox }) {}
-  createButton(): Button     { return this.protos.button.clone(); }
-  createCheckbox(): Checkbox { return this.protos.checkbox.clone(); }
-}
-
-// родина — це просто НАБІР ПРОТОТИПІВ; нова родина = новий набір, БЕЗ нового класу
-const dark  = new PrototypeFactory({ button: darkButtonProto,  checkbox: darkCheckboxProto });
-const light = new PrototypeFactory({ button: lightButtonProto, checkbox: lightCheckboxProto });
-```
+:::code factory-method-d/ts/dvi-realizatsii.ts
 
 Різниця глибша, ніж здається. У першій реалізації знання «яка кнопка в темній родині» вшите в **код** методу `DarkFactory.createButton`. У другій воно винесене в **дані** — у прототип `darkButtonProto`, який фабриці передали при створенні. Тому нова родина в прототипній реалізації не потребує **жодного нового класу**: збираєш новий набір прототипів — і маєш нову фабрику. N класів-фабрик згорнулися в один клас плюс дані. Це та сама трансформація «код → дані», що перетворює `switch` на реєстрову таблицю, тільки застосована до цілої фабрики.
 
@@ -260,18 +143,7 @@ const light = new PrototypeFactory({ button: lightButtonProto, checkbox: lightCh
 
 Оскільки додавання нового виду продукту таке болюче, GoF пропонують і **обхідний хід** — щоправда, чесно позначаючи його ціну. Замість методу-на-кожен-вид можна дати **один** параметризований метод `make(kind)`, що приймає дискримінатор виду й повертає **базовий** абстрактний продукт:
 
-```ts
-enum Kind { Button, Checkbox, Scrollbar }
-
-interface FlexFactory {
-  make(kind: Kind): Product;   // ОДИН нетипізований метод замість методу-на-вид
-}
-
-// тепер новий вид не міняє сигнатуру фабрики — лише додається case всередині make.
-// але ціна:
-const p = factory.make(Kind.Scrollbar);
-const sb = p as Scrollbar;      // downcast — статичну безпеку типів втрачено
-```
+:::code factory-method-d/ts/nezruchnyi-kompromis.ts
 
 Придивись, що саме тут виміняно. Тепер новий вид продукту **не змінює сигнатуру** фабрики: `make` лишається тим самим, усередині нього просто додається ще один варіант. Дорога операція (новий стовпець) подешевшала. Але заплатили **статичною безпекою типів**: `make` повертає загальний `Product`, тож клієнт мусить **звужувати тип вручну** (`as Scrollbar`), і компілятор більше не гарантує, що там справді прокрутка. Гірше — конкретна родина може не підтримувати цей вид, і тоді помилка виповзе лише в рантаймі. Це і є суть проблеми виразности в мініатюрі: **щоб здешевити додавання видів, довелося пожертвувати тим, що давав окремий типізований метод**. Немає безкоштовного розширення в обидві осі одразу — є лише вибір, чим платити. GoF не ховають цей компроміс, і це зразок чесного опису патерна: показати не лише силу, а й точну ціну.
 

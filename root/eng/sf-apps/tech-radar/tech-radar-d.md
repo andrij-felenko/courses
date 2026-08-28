@@ -77,168 +77,17 @@ Hold — це найтісніший зв'язок радара з [керова
 Куди надійніше — перетворити рішення радара на **автоматичну перевірку**, яка сама падає, коли правило порушене. Це та сама ідея, що й [фітнес-функції](root:sf-apps/fitness-functions): важливе архітектурне правило не тримають у пам'яті, а роблять виконуваним тестом у складанні. Радар дає такому тесту чудову поживу — блипи в кільці Hold це прямі, машинно-перевірні заборони «нового на цьому не починаємо». Покажімо це кодом. Нехай радар описаний як звичайні дані, а маленька перевірка стереже, щоб жоден новий модуль не тягнув бібліотеку, оголошену в Hold:
 
 :::tabs
-```cpp
-// Радар як дані: кожен блип — назва, кільце, квадрант.
-// Найпростіша форма — таблиця, яку легко тримати поряд із кодом.
-typedef enum { ADOPT, TRIAL, ASSESS, HOLD } Ring;
-
-typedef struct {
-    const char* name;    // напр. ідентифікатор бібліотеки/пакета
-    Ring        ring;    // куди команда його поклала
-} Blip;
-
-static const Blip RADAR[] = {
-    { "grpc",         ADOPT  },
-    { "kafka",        ADOPT  },
-    { "postgres",     ADOPT  },
-    { "rabbitmq",     TRIAL  },
-    { "mongo",        ASSESS },
-    { "soap-legacy",  HOLD   },   // від цього відходимо
-    { "custom-queue", HOLD   },   // самописна черга — більше нового не заводимо
-};
-static const int RADAR_N = sizeof(RADAR) / sizeof(RADAR[0]);
-
-// Знайти кільце технології за назвою; -1, якщо її на радарі нема взагалі.
-static int ring_of(const char* dep) {
-    for (int i = 0; i < RADAR_N; ++i)
-        if (strcmp(RADAR[i].name, dep) == 0)
-            return (int)RADAR[i].ring;
-    return -1;   // не на радарі — окремий випадок, теж вартий уваги
-}
-```
-```py
-# Радар як дані: кожен блип — назва, кільце, квадрант.
-# Найпростіша форма — таблиця, яку легко тримати поряд із кодом.
-from enum import IntEnum
-
-class Ring(IntEnum):
-    ADOPT  = 0
-    TRIAL  = 1
-    ASSESS = 2
-    HOLD   = 3
-
-# напр. ідентифікатор бібліотеки/пакета -> кільце, куди команда його поклала
-RADAR = {
-    "grpc":         Ring.ADOPT,
-    "kafka":        Ring.ADOPT,
-    "postgres":     Ring.ADOPT,
-    "rabbitmq":     Ring.TRIAL,
-    "mongo":        Ring.ASSESS,
-    "soap-legacy":  Ring.HOLD,    # від цього відходимо
-    "custom-queue": Ring.HOLD,    # самописна черга — більше нового не заводимо
-}
-
-# Знайти кільце технології за назвою; None, якщо її на радарі нема взагалі.
-def ring_of(dep):
-    return RADAR.get(dep)   # не на радарі — окремий випадок, теж вартий уваги
-```
-```go
-// Радар як дані: кожен блип — назва, кільце, квадрант.
-// Найпростіша форма — таблиця, яку легко тримати поряд із кодом.
-package radar
-
-type Ring int
-
-const (
-	ADOPT Ring = iota
-	TRIAL
-	ASSESS
-	HOLD
-)
-
-// напр. ідентифікатор бібліотеки/пакета -> кільце, куди команда його поклала
-var RADAR = map[string]Ring{
-	"grpc":         ADOPT,
-	"kafka":        ADOPT,
-	"postgres":     ADOPT,
-	"rabbitmq":     TRIAL,
-	"mongo":        ASSESS,
-	"soap-legacy":  HOLD, // від цього відходимо
-	"custom-queue": HOLD, // самописна черга — більше нового не заводимо
-}
-
-// Знайти кільце технології за назвою; (_, false), якщо її на радарі нема взагалі.
-func ringOf(dep string) (Ring, bool) {
-	r, ok := RADAR[dep] // не на радарі — окремий випадок, теж вартий уваги
-	return r, ok
-}
-```
+:::code tech-radar-d/cpp/iak-zrobyty-shchob-radar.cpp
+:::code tech-radar-d/py/iak-zrobyty-shchob-radar.py
+:::code tech-radar-d/go/iak-zrobyty-shchob-radar.go
 :::
 
 Тепер сама фітнес-функція — перевірка, що біжить у складанні й падає, якщо новий модуль спирається на щось із Hold. Вона бере список залежностей, які модуль оголосив, і звіряє кожну з радаром:
 
 :::tabs
-```cpp
-// Фітнес-функція радара: новий код не сміє залежати від блипа в HOLD.
-// Повертає кількість порушень (0 — складання проходить).
-int check_no_hold_deps(const char* module, const char* deps[], int n) {
-    int violations = 0;
-    for (int i = 0; i < n; ++i) {
-        int r = ring_of(deps[i]);
-        if (r == HOLD) {
-            fprintf(stderr,
-                "[радар] %s тягне '%s' — це кільце HOLD, нового на цьому не заводимо\n",
-                module, deps[i]);
-            ++violations;
-        } else if (r == -1) {
-            // не заборона, а сигнал: технологія взагалі поза радаром —
-            // її не оцінювали, тож варто винести на найближчий перегляд
-            fprintf(stderr,
-                "[радар] увага: %s тягне '%s', якого нема на радарі\n",
-                module, deps[i]);
-        }
-    }
-    return violations;
-}
-```
-```py
-import sys
-
-# Фітнес-функція радара: новий код не сміє залежати від блипа в HOLD.
-# Повертає кількість порушень (0 — складання проходить).
-def check_no_hold_deps(module, deps):
-    violations = 0
-    for dep in deps:
-        r = ring_of(dep)
-        if r == Ring.HOLD:
-            print(f"[радар] {module} тягне '{dep}' — це кільце HOLD, "
-                  f"нового на цьому не заводимо", file=sys.stderr)
-            violations += 1
-        elif r is None:
-            # не заборона, а сигнал: технологія взагалі поза радаром —
-            # її не оцінювали, тож варто винести на найближчий перегляд
-            print(f"[радар] увага: {module} тягне '{dep}', якого нема на радарі",
-                  file=sys.stderr)
-    return violations
-```
-```go
-import (
-	"fmt"
-	"os"
-)
-
-// Фітнес-функція радара: новий код не сміє залежати від блипа в HOLD.
-// Повертає кількість порушень (0 — складання проходить).
-func checkNoHoldDeps(module string, deps []string) int {
-	violations := 0
-	for _, dep := range deps {
-		r, ok := ringOf(dep)
-		if ok && r == HOLD {
-			fmt.Fprintf(os.Stderr,
-				"[радар] %s тягне '%s' — це кільце HOLD, нового на цьому не заводимо\n",
-				module, dep)
-			violations++
-		} else if !ok {
-			// не заборона, а сигнал: технологія взагалі поза радаром —
-			// її не оцінювали, тож варто винести на найближчий перегляд
-			fmt.Fprintf(os.Stderr,
-				"[радар] увага: %s тягне '%s', якого нема на радарі\n",
-				module, dep)
-		}
-	}
-	return violations
-}
-```
+:::code tech-radar-d/cpp/iak-zrobyty-shchob-radar-2.cpp
+:::code tech-radar-d/py/iak-zrobyty-shchob-radar-2.py
+:::code tech-radar-d/go/iak-zrobyty-shchob-radar-2.go
 :::
 
 Порахуймо на конкретному прикладі, щоб побачити, як це спрацьовує в бою.

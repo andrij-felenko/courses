@@ -13,45 +13,8 @@
 А рука потягнеться до спадкування: «незмінний список — це ж різновид списка, хай успадкує звичайний, а `add` ми йому перевизначимо, щоб він обурювався». Ось ця ієрархія цілком:
 
 :::tabs
-```ts
-class ArrayList<T> {
-  protected items: T[] = [];
-
-  get(i: number): T { return this.items[i]; }
-  size(): number { return this.items.length; }
-  add(x: T): void { this.items.push(x); }
-}
-
-// «Незмінний список — різновид списка?» — і тут закладено пастку:
-class ImmutableList<T> extends ArrayList<T> {
-  constructor(initial: T[]) {
-    super();
-    this.items = [...initial];        // наповнили раз, при створенні
-  }
-  add(_x: T): void {
-    throw new Error("список незмінний: додавати не можна");
-  }
-}
-```
-```python
-class ArrayList:
-    def __init__(self):
-        self._items = []
-
-    def get(self, i):        return self._items[i]
-    def size(self) -> int:   return len(self._items)
-    def add(self, x) -> None:
-        self._items.append(x)
-
-# «Незмінний список — різновид списка?» — і тут закладено пастку:
-class ImmutableList(ArrayList):
-    def __init__(self, initial):
-        super().__init__()
-        self._items = list(initial)        # наповнили раз, при створенні
-
-    def add(self, x) -> None:
-        raise TypeError("список незмінний: додавати не можна")
-```
+:::code proj-collection-substitution/ts/krok-0-iierarkhiia-iaka.ts
+:::code proj-collection-substitution/py/krok-0-iierarkhiia-iaka.py
 :::
 
 Код компілюється (у TypeScript) і запускається (у Python) без жодного зауваження. Метод `add` на місці, сигнатура та сама, тип-перевірка задоволена. `ImmutableList` — законний, з погляду обох систем типів, нащадок `ArrayList`: усе, що вміє база, формально вміє й він.
@@ -63,36 +26,8 @@ class ImmutableList(ArrayList):
 Напишемо тепер код, який користується списком **чесно** — тобто спираючись рівно на те, що обіцяє `ArrayList`, і нічого не знаючи про існування якогось там незмінного різновиду. Хай це буде функція, що наповнює переданий їй список числами:
 
 :::tabs
-```ts
-// Клієнт написаний під ArrayList і вірить його контракту:
-// «дали список — у нього можна додавати».
-function fill(list: ArrayList<number>, n: number): void {
-  for (let i = 0; i < n; i++) {
-    list.add(i);                    // контракт ArrayList це дозволяє
-  }
-}
-
-const normal = new ArrayList<number>();
-fill(normal, 3);                    // ок: [0, 1, 2]
-console.log(normal.size());         // 3
-
-const frozen = new ImmutableList<number>([10, 20]);
-fill(frozen, 3);                    // ← ВИБУХ: Error на першому ж add
-```
-```python
-# Клієнт написаний під ArrayList і вірить його контракту:
-# «дали список — у нього можна додавати».
-def fill(lst: "ArrayList", n: int) -> None:
-    for i in range(n):
-        lst.add(i)                  # контракт ArrayList це дозволяє
-
-normal = ArrayList()
-fill(normal, 3)                     # ок: [0, 1, 2]
-print(normal.size())                # 3
-
-frozen = ImmutableList([10, 20])
-fill(frozen, 3)                     # ← ВИБУХ: TypeError на першому ж add
-```
+:::code proj-collection-substitution/ts/krok-1-chesnyi-kliient.ts
+:::code proj-collection-substitution/py/krok-1-chesnyi-kliient.py
 :::
 
 Придивись, у чому фокус жорстокості цього падіння. Функція `fill` **правильна**. Вона не робить нічого сумнівного: бере тип `ArrayList`, у якого в контракті чорним по білому написано «`add` додає елемент», і викликає `add`. Тип-перевірка на неї не має жодних претензій — і мала б рацію. Автор `fill` не міг передбачити, що комусь спаде на думку підсунути під `ArrayList` об'єкт, чий `add` — це замаскована відмова.
@@ -144,51 +79,11 @@ ImmutableList.add(x):
 
 Ось цей рефакторинг у TypeScript, де ключова робота лягає на структуру інтерфейсів:
 
-```ts
-// Чесний мінімум: тільки читання. Це вміють УСІ списки.
-interface ReadableList<T> {
-  get(i: number): T;
-  size(): number;
-}
-
-// Розширення: додавання — окрема обіцянка, лише для тих, хто вміє.
-interface MutableList<T> extends ReadableList<T> {
-  add(x: T): void;
-}
-
-// Змінний список реалізує ОБИДВА інтерфейси.
-class ArrayList<T> implements MutableList<T> {
-  private items: T[] = [];
-  get(i: number): T { return this.items[i]; }
-  size(): number { return this.items.length; }
-  add(x: T): void { this.items.push(x); }
-}
-
-// Незмінний реалізує ЛИШЕ ReadableList — про add навіть не згадує.
-class ImmutableList<T> implements ReadableList<T> {
-  private readonly items: readonly T[];
-  constructor(initial: readonly T[]) { this.items = [...initial]; }
-  get(i: number): T { return this.items[i]; }
-  size(): number { return this.items.length; }
-}
-```
+:::code proj-collection-substitution/ts/krok-3-rozdilyty-typ.ts
 
 Тепер найважливіше — переписати клієнта так, щоб він **просив рівно те, що йому треба**. Функція `fill` додає елементи, отже їй потрібне не «якийсь список», а саме `MutableList`:
 
-```ts
-// fill вимагає рівно свою потребу — можливість додавати.
-function fill(list: MutableList<number>, n: number): void {
-  for (let i = 0; i < n; i++) list.add(i);
-}
-
-fill(new ArrayList<number>(), 3);       // ок
-
-const frozen = new ImmutableList<number>([10, 20]);
-fill(frozen, 3);
-//   ^^^^^^ Argument of type 'ImmutableList<number>' is not
-//          assignable to parameter of type 'MutableList<number>'.
-//          Property 'add' is missing in type 'ImmutableList<number>'.
-```
+:::code proj-collection-substitution/ts/krok-3-rozdilyty-typ-2.ts
 
 Ось у цьому рядку й лежить уся перемога. Виклик `fill(frozen, 3)` **не компілюється**. Не «падає в тесті», не «кидає виняток у проді через півроку» — а взагалі не збирається, з чіткою вказівкою: у `ImmutableList` немає `add`, а `MutableList` його вимагає. Небезпечну підстановку відхилено на найранішому можливому рубежі, ще до того, як програма стала програмою. LSP тут не «дотримано зусиллям волі» — його **неможливо порушити**, бо ніхто вже й не обіцяє того, чого не робить.
 
@@ -196,50 +91,11 @@ fill(frozen, 3);
 
 Тепер той самий рефакторинг у Python. Тут інструмент інший — **протокол (`Protocol`)**, структурний інтерфейс: клас вважається його реалізацією не тому, що явно від нього успадкував, а тому, що має потрібні методи:
 
-```python
-from typing import Protocol
-
-# Чесний мінімум: тільки читання.
-class ReadableList(Protocol):
-    def get(self, i: int): ...
-    def size(self) -> int: ...
-
-# Розширення: додавання — окрема обіцянка.
-class MutableList(ReadableList, Protocol):
-    def add(self, x) -> None: ...
-
-# Змінний список має ВСІ методи — отже структурно він MutableList.
-class ArrayList:
-    def __init__(self):
-        self._items = []
-    def get(self, i):        return self._items[i]
-    def size(self) -> int:   return len(self._items)
-    def add(self, x) -> None:
-        self._items.append(x)
-
-# Незмінний НЕ має add — отже структурно він лише ReadableList.
-class ImmutableList:
-    def __init__(self, initial):
-        self._items = tuple(initial)      # кортеж: сам не мутує
-    def get(self, i):        return self._items[i]
-    def size(self) -> int:   return len(self._items)
-```
+:::code proj-collection-substitution/py/krok-3-rozdilyty-typ.py
 
 І клієнт, що просить рівно свою потребу:
 
-```python
-# fill просить MutableList — тобто «уміє add».
-def fill(lst: MutableList, n: int) -> None:
-    for i in range(n):
-        lst.add(i)
-
-fill(ArrayList(), 3)                       # ок
-
-frozen = ImmutableList([10, 20])
-fill(frozen, 3)
-#    ^^^^^^ mypy: Argument 1 to "fill" has incompatible type
-#           "ImmutableList"; expected "MutableList"
-```
+:::code proj-collection-substitution/py/krok-3-rozdilyty-typ-2.py
 
 Тут криється тонкість, яку чесно назвати обов'язково — бо вона змінює те, на що можна покластися. У TypeScript помилку ловить **компілятор**: код із `fill(frozen)` просто не збереться в JavaScript, і зламати підстановку в зібраній програмі неможливо. У Python помилку ловить **mypy** (чи інший статичний перевіряч типів) — окремий інструмент, який запускають поряд. Якщо його не запустити, Python радо виконає `fill(frozen, 3)` і впаде під час роботи з `AttributeError: 'ImmutableList' object has no attribute 'add'` — бо анотації типів у Python за замовчуванням не перевіряються під час виконання, це підказки для інструментів і людей, а не бар'єр рантайму. Тобто той самий рефакторинг у Python дає той самий захист **лише за умови**, що перевірка типів — частина твого процесу (у CI, у редакторі). Немає перевірки — немає й гарантії; лишається сама структура, яка бодай **документує** намір і скеровує чесного програміста.
 
@@ -256,50 +112,8 @@ fill(frozen, 3)
 Спершу закріпимо спільний контракт `ReadableList` — те, що мусить бути істинним для будь-якого списка, змінного й незмінного однаково:
 
 :::tabs
-```ts
-// Контрактний тест: істинний для БУДЬ-ЯКОГО ReadableList.
-// Приймає фабрику, щоб прогнати той самий тест на кожній реалізації.
-function readableContract(
-  name: string,
-  make: (init: number[]) => ReadableList<number>,
-): void {
-  test(`${name}: читання за контрактом ReadableList`, () => {
-    const list = make([10, 20, 30]);
-    expect(list.size()).toBe(3);          // постумова size
-    expect(list.get(0)).toBe(10);         // постумова get
-    expect(list.get(2)).toBe(30);
-  });
-}
-
-// Той самий контракт — на обох реалізаціях. Обидві мусять пройти.
-readableContract("ArrayList", (init) => {
-  const l = new ArrayList<number>();
-  for (const x of init) l.add(x);
-  return l;
-});
-readableContract("ImmutableList", (init) => new ImmutableList<number>(init));
-```
-```python
-import pytest
-
-# Контрактний тест як параметризована фабрика: той самий тест
-# прогоняється на КОЖНІЙ реалізації ReadableList.
-def make_arraylist(init):
-    l = ArrayList()
-    for x in init:
-        l.add(x)
-    return l
-
-def make_immutable(init):
-    return ImmutableList(init)
-
-@pytest.mark.parametrize("make", [make_arraylist, make_immutable])
-def test_readable_contract(make):
-    lst = make([10, 20, 30])
-    assert lst.size() == 3                # постумова size
-    assert lst.get(0) == 10               # постумова get
-    assert lst.get(2) == 30
-```
+:::code proj-collection-substitution/ts/krok-4-testy-shcho.ts
+:::code proj-collection-substitution/py/krok-4-testy-shcho.py
 :::
 
 Обидві реалізації проходять цей тест — і в цьому вся суть. `ImmutableList` **справді** підставний скрізь, де очікують `ReadableList`: як читабельний список він бездоганний, жодної обіцянки не порушує. Проблема ніколи не була в тому, що незмінний список поганий, — проблема була в тому, що його оголосили вміти те, чого він не вміє. Контрактний тест на `ReadableList` це підтверджує: у своєму чесному типі він громадянин першого сорту.

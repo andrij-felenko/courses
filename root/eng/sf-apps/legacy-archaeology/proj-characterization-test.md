@@ -8,45 +8,7 @@
 
 Ось наша здобич — типова legacy-функція розрахунку суми рахунку. Я лишив у ній рівно ті хвороби, що роблять код нетестовним, і жодної зайвої. Прочитайте й спробуйте подумки написати до неї тест — ви впретеся в стіну на третьому рядку.
 
-```cpp
-#include <string>
-#include <ctime>
-#include <cstdio>
-
-// Глобальний мутабельний стан — його виставляє хтось десь-інде,
-// а функція мовчки на нього спирається.
-double g_discountRate = 0.0;          // "проведено" з іншого модуля
-bool   g_isBlackFriday = false;
-
-// Легасі-функція. Хвороби, які роблять її нетестовною:
-//  1) читає глобальний стан (g_discountRate, g_isBlackFriday);
-//  2) сама лізе до годинника (std::time) — результат залежить від дати;
-//  3) сама лізе до "бази" через глобальну функцію lookupVatRate();
-//  4) усе це вшито намертво, підмінити нічим.
-extern double lookupVatRate(const std::string& country);  // "ходить у БД"
-
-double computeInvoiceTotal(double net, const std::string& country, int qty) {
-    double subtotal = net * qty;
-
-    // знижка з глобального стану
-    if (g_discountRate > 0.0)
-        subtotal *= (1.0 - g_discountRate);
-
-    // сезонна знижка — залежить від РЕАЛЬНОЇ дати (годинник!)
-    std::time_t now = std::time(nullptr);
-    std::tm* lt = std::localtime(&now);
-    if (g_isBlackFriday || (lt->tm_mon == 10 && lt->tm_mday == 29))  // 29 листопада
-        subtotal *= 0.90;
-
-    // ПДВ — ставку тягне з "бази" (мережа / БД)
-    double vat = lookupVatRate(country);        // напр., 0.19 для "DE"
-    double total = subtotal * (1.0 + vat);
-
-    // копійки округляємо донизу (як воно історично й робило)
-    long cents = (long)(total * 100.0);         // усічення, не round!
-    return cents / 100.0;
-}
-```
+:::code proj-characterization-test/cpp/zadacha-funktsiia-iaku.cpp
 
 Порахуймо, чому це неможливо протестувати як є. Щоб тест був **тестом**, він мусить бути **детермінованим** — на той самий вхід той самий вихід, завжди. А тут вихід залежить від трьох речей, яких у виклику **не видно**: від глобальних `g_discountRate`/`g_isBlackFriday`, які виставив хтось інший; від **сьогоднішньої дати** (29 листопада функція поводиться інакше, ніж 30-го); від того, що поверне `lookupVatRate`, який лізе кудись у мережу. Запустіть цей код двічі в різні дні — дістанете різні числа. Такий код не те що погано тестувати — його **в принципі** не можна закарбувати, поки ці приховані входи не стануть **явними, керованими входами**. Оце й є перша, найважливіша робота.
 
@@ -75,50 +37,7 @@ double computeInvoiceTotal(double net, const std::string& country, int qty) {
 
 **Годинник і «база» — шов через параметр (найпростіший).** Найдешевший шов — просто **винести приховану залежність у параметр**. Замість того щоб функція сама лізла до `std::time` і `lookupVatRate`, хай їх **передають ззовні**. Аби не зламати всіх, хто вже кличе стару сигнатуру, лишаємо тонку обгортку зі старим іменем.
 
-```cpp
-#include <functional>
-
-// Тепер годинник і "база" — це ЯВНІ входи (типажі-функції).
-// Клас-обгортка для стану, щоб не тягнути глобалі всередину.
-struct InvoiceCtx {
-    double discountRate;       // було g_discountRate
-    bool   forceSeasonal;      // було g_isBlackFriday
-    std::function<std::tm()>              clock;    // шов #1: годинник
-    std::function<double(const std::string&)> vat;  // шов #2: "база"
-};
-
-// "Чиста" версія: поведінка ТА САМА, але всі входи явні й керовані.
-double computeInvoiceTotal(double net, const std::string& country,
-                           int qty, const InvoiceCtx& ctx) {
-    double subtotal = net * qty;
-
-    if (ctx.discountRate > 0.0)
-        subtotal *= (1.0 - ctx.discountRate);
-
-    std::tm lt = ctx.clock();                       // замість std::time+localtime
-    if (ctx.forceSeasonal || (lt.tm_mon == 10 && lt.tm_mday == 29))
-        subtotal *= 0.90;
-
-    double vat = ctx.vat(country);                  // замість lookupVatRate
-    double total = subtotal * (1.0 + vat);
-
-    long cents = (long)(total * 100.0);             // те саме усічення
-    return cents / 100.0;
-}
-
-// Стара сигнатура жива — просто збирає контекст із глобалів і делегує.
-// Жоден наявний виклик не зламано; поведінка байт-у-байт та сама.
-extern double lookupVatRate(const std::string& country);
-double computeInvoiceTotal(double net, const std::string& country, int qty) {
-    InvoiceCtx ctx;
-    ctx.discountRate  = g_discountRate;
-    ctx.forceSeasonal = g_isBlackFriday;
-    ctx.clock = []{ std::time_t t = std::time(nullptr);
-                    return *std::localtime(&t); };
-    ctx.vat   = [](const std::string& c){ return lookupVatRate(c); };
-    return computeInvoiceTotal(net, country, qty, ctx);
-}
-```
+:::code proj-characterization-test/cpp/krok-2-prorizaty-try-shvy.cpp
 
 Помітьте, що саме сталося й чого **не** сталося. Стало: годинник і база — тепер звичайні параметри, які в тесті можна **зафіксувати** («хай дата буде 15 березня, а ставка DE — рівно 0.19»). Не сталося: жодної зміни в **арифметиці**. Усічення `(long)(total*100.0)` лишилося усіченням, знижка лишилася знижкою, порядок множень той самий. Це критично: шов має бути **прозорим для поведінки**. Якби я «заодно» замінив усічення на округлення, я б уже зіпсував ту саму поведінку, яку збираюся фотографувати, — і сітка закарбувала б **не те**, що жило в проді.
 
@@ -126,38 +45,7 @@ double computeInvoiceTotal(double net, const std::string& country, int qty) {
 
 **Глобальний стан, який змінюють глибоко всередині, — шов через віртуальний метод.** Параметр рятує, коли залежність можна просто **передати**. Але буває, що приховане звернення сидить глибоко в надрах об'єкта, і протягти параметр через десять рівнів викликів — це переписати пів системи. Тоді працює другий шов Фезерса — **subclass and override method** («успадкуй і перекрий метод»). Ідею видно на трохи іншому прикладі — на класі, що всередині сам ходить до годинника:
 
-```cpp
-// Легасі-клас: десь глибоко в processDay() сам бере "зараз".
-class BillingRun {
-public:
-    int processDay(double net, const std::string& country) {
-        std::tm today = currentDate();          // <-- приховане звернення
-        int days = daysUntilMonthEnd(today);
-        // ... купа логіки, що спирається на days ...
-        return days * 2;                        // умовний "результат"
-    }
-protected:
-    // ШОВ: єдина точка, де клас дізнається дату. Робимо її virtual,
-    // щоб у тесті перекрити — не чіпаючи ні краплі processDay().
-    virtual std::tm currentDate() {
-        std::time_t t = std::time(nullptr);
-        return *std::localtime(&t);
-    }
-private:
-    static int daysUntilMonthEnd(const std::tm& d);
-};
-
-// У тесті: успадковуємось і підміняємо ЛИШЕ дату. Уся інша логіка —
-// справжня, недоторкана. Це і є "subclass and override".
-class BillingRunAt : public BillingRun {
-public:
-    explicit BillingRunAt(std::tm fixed) : fixed_(fixed) {}
-protected:
-    std::tm currentDate() override { return fixed_; }
-private:
-    std::tm fixed_;
-};
-```
+:::code proj-characterization-test/cpp/krok-2-prorizaty-try-shvy-2.cpp
 
 Різниця між двома швами — суто про **вартість доступу**. Якщо приховану залежність легко передати згори (як наш годинник у вільній функції) — ріжте параметром. Якщо вона зашита в глибину об'єкта й протягувати параметр дорого — виділіть її в **один захищений віртуальний метод** і перекрийте його підкласом у тесті. Обидва шви **не змінюють поведінку продакшену**: у бойовому коді працює базова реалізація, підмінений лише той єдиний метод — і лише в тесті.
 
@@ -167,58 +55,11 @@ private:
 
 Спочатку — крихітний тест-каркас, щоб не тягнути залежність і щоб було видно кожну шестерню. Він поводиться, як `EXPECT_*` у GoogleTest, тільки на долоні:
 
-```cpp
-#include <cmath>
-#include <iostream>
-#include <string>
-
-// Мінімальний тест-каркас у дусі GoogleTest (EXPECT_*), без залежностей.
-static int g_fail = 0, g_total = 0;
-
-#define EXPECT_NEAR(got, want, eps) do {                                   \
-    ++g_total;                                                             \
-    double _g = (got), _w = (want);                                       \
-    if (std::fabs(_g - _w) > (eps)) {                                     \
-        ++g_fail;                                                          \
-        std::cerr << "FAIL " << __func__ << ": got " << _g                 \
-                  << ", want " << _w << "\n";                              \
-    }                                                                      \
-} while (0)
-
-#define EXPECT_EQ_STR(got, want) do {                                      \
-    ++g_total;                                                             \
-    std::string _g = (got), _w = (want);                                  \
-    if (_g != _w) { ++g_fail;                                              \
-        std::cerr << "FAIL " << __func__ << ": got [" << _g                \
-                  << "], want [" << _w << "]\n"; }                         \
-} while (0)
-```
+:::code proj-characterization-test/cpp/krok-3-nakynuty.cpp
 
 Тепер сам ритуал. **Фаза А — свідомо хибне очікування.** Беремо конкретний, добре визначений вхід і пишемо перевірку, про яку **наперед знаємо, що вона впаде**, бо число в ній — навмисна нісенітниця:
 
-```cpp
-// Допоміжне: контекст із зафіксованими годинником і базою.
-static InvoiceCtx fixedCtx(double disc, bool seasonal,
-                           std::tm date, double vatRate) {
-    InvoiceCtx c;
-    c.discountRate = disc;
-    c.forceSeasonal = seasonal;
-    c.clock = [date]{ return date; };            // час ЗАФІКСОВАНО
-    c.vat   = [vatRate](const std::string&){ return vatRate; };  // база ЗАФІКСОВАНА
-    return c;
-}
-static std::tm dateOf(int y, int mon1based, int day) {
-    std::tm t{}; t.tm_year = y - 1900; t.tm_mon = mon1based - 1; t.tm_mday = day;
-    return t;
-}
-
-void CharacterizeInvoice_plainDay() {
-    // net=100, qty=3, DE, БЕЗ знижок, звичайний день (15 березня), ПДВ 19%.
-    InvoiceCtx ctx = fixedCtx(0.0, false, dateOf(2025, 3, 15), 0.19);
-    double got = computeInvoiceTotal(100.0, "DE", 3, ctx);
-    EXPECT_NEAR(got, -1.0, 1e-9);       // -1 — НАВМИСНА дурниця, хай упаде
-}
-```
+:::code proj-characterization-test/cpp/krok-3-nakynuty-2.cpp
 
 Запускаємо. Тест падає й у повідомленні викидає правду: `FAIL ...: got 357, want -1`. Ось воно — **фактична** поведінка на цьому вході. Ми не питали «а скільки *правильно* податку з трьох по сто?»; ми спитали «а скільки система рахує *зараз*?» — і код сам відповів: 357.00.
 
@@ -235,29 +76,7 @@ void CharacterizeInvoice_plainDay() {
 
 Далі — **ще пари, що обстрілюють приховані гілки й краї**. Кожна нова пара — це запалена частина функції, яку тепер видно:
 
-```cpp
-void CharacterizeInvoice_blackFriday() {
-    // той самий вхід, але вмикаємо сезонну знижку 10%
-    InvoiceCtx ctx = fixedCtx(0.0, true, dateOf(2025, 3, 15), 0.19);
-    double got = computeInvoiceTotal(100.0, "DE", 3, ctx);
-    EXPECT_NEAR(got, 321.30, 1e-9);     // 300 * 0.90 * 1.19 = 321.30
-}
-
-void CharacterizeInvoice_seasonalByDate() {
-    // знижку НЕ форсуємо, але дата = 29 листопада -> код увімкне її сам
-    InvoiceCtx ctx = fixedCtx(0.0, false, dateOf(2025, 11, 29), 0.19);
-    double got = computeInvoiceTotal(100.0, "DE", 3, ctx);
-    EXPECT_NEAR(got, 321.30, 1e-9);     // та сама гілка, але через КАЛЕНДАР
-}
-
-void CharacterizeInvoice_truncationBites() {
-    // підбираємо вхід, де усічення копійок РЕАЛЬНО зрізає частку.
-    // net=10, qty=1, знижка 3% -> 9.70; ПДВ 19% -> 11.543; усічення -> 11.54
-    InvoiceCtx ctx = fixedCtx(0.03, false, dateOf(2025, 3, 15), 0.19);
-    double got = computeInvoiceTotal(10.0, "XX", 1, ctx);
-    EXPECT_NEAR(got, 11.54, 1e-9);      // не 11.54(3): усічення донизу спіймано
-}
-```
+:::code proj-characterization-test/cpp/krok-3-nakynuty-3.cpp
 
 Останній тест — найцінніший, бо він закарбовує саме те **дивацтво**, яке легко зруйнувати: усічення копійок замість округлення. `11.543` перетворюється на `11.54`, бо `(long)(11.543*100.0)` дає `1154`, а не `1155`. Якщо завтра хтось «наведе лад» і замінить усічення на `std::round`, цей тест **упаде** — і саме тоді ви ухвалите свідоме рішення: це був баг, який ми виправляємо (і оновлюємо тест), чи поведінка, від якої залежать чиїсь звірки (і тоді усічення чіпати не можна). Сітка не вирішує за вас — вона **не дає зміні пройти повз вашу увагу**.
 
@@ -271,57 +90,7 @@ void CharacterizeInvoice_truncationBites() {
 
 Побудуймо його на нашій задачі. Хай функція повертає не число, а **розкладений рахунок** — структуру з рядками. Серіалізуємо її в стабільний текст і звіряємо зі знімком.
 
-```cpp
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-
-struct InvoiceLine { std::string sku; int qty; double lineTotal; };
-struct Invoice {
-    std::vector<InvoiceLine> lines;
-    double discount;
-    double vat;
-    double total;
-};
-
-// Серіалізація у СТАБІЛЬНИЙ, детермінований текст — це серце golden-master.
-// Кожне рішення тут захищає нас від хибних провалів (див. пастки нижче):
-//  - фіксований формат чисел (2 знаки), щоб 11.5 і 11.50 не розійшлись;
-//  - явний, а не "як вийде", порядок рядків;
-//  - жодних адрес, дат генерації, вказівників — нічого недетермінованого.
-std::string renderInvoice(const Invoice& inv) {
-    std::ostringstream os;
-    os << std::fixed << std::setprecision(2);
-    for (const auto& l : inv.lines)
-        os << "LINE " << l.sku << " x" << l.qty
-           << " = " << l.lineTotal << "\n";
-    os << "DISCOUNT " << inv.discount << "\n";
-    os << "VAT "      << inv.vat      << "\n";
-    os << "TOTAL "    << inv.total    << "\n";
-    return os.str();
-}
-
-// Ядро approval-перевірки: якщо еталона ще нема — створюємо його (перший
-// прогін "затверджує" поточну поведінку); якщо є — звіряємо байт-у-байт.
-bool approve(const std::string& name, const std::string& actual) {
-    std::string path = std::string("golden/") + name + ".txt";
-    std::ifstream in(path);
-    if (!in) {                                  // еталона нема -> запам'ятати
-        std::ofstream out(path);
-        out << actual;
-        std::cerr << "APPROVED (new): " << path << "\n";
-        return true;                            // перший раз завжди "проходить"
-    }
-    std::stringstream buf; buf << in.rdbuf();
-    std::string expected = buf.str();
-    if (expected == actual) return true;
-    // розбіжність: показуємо, ЩО поїхало (у житті тут diff-інструмент)
-    std::cerr << "GOLDEN MISMATCH " << name << "\n--- expected ---\n"
-              << expected << "--- actual ---\n" << actual;
-    return false;
-}
-```
+:::code proj-characterization-test/cpp/golden-master-koly-vykhid.cpp
 
 Тест на golden-master виглядає оманливо коротко — уся вага сховалась у серіалізації й еталоні:
 
@@ -350,50 +119,11 @@ void CharacterizeInvoice_golden() {
 - **Час.** Дата генерації, `now()`, лічильник uptime у виводі — усе це змінюється щопрогону. Лік: **не серіалізувати час узагалі** або підмінити його фіксованим (той самий шов-годинник, що ми вже прорізали). Рядок `Generated: 2025-03-15 14:32:07` у знімку — гарантований хиткий тест.
 - **Випадковість.** UUID, `rand()`, випадкова сіль. Лік: у тесті **засіяти генератор сталим зерном** або підмінити його детермінованою заглушкою. Ось як це виглядає на прикладі виходу з UUID:
 
-```cpp
-// Порядок і час прибрали; лишилась третя міна — випадковий UUID у виводі.
-// Лік: детермінований генератор під тестом (шов, як і для годинника).
-struct IdGen { std::function<std::string()> next; };
-
-std::string renderWithId(const Invoice& inv, IdGen& ids) {
-    std::ostringstream os;
-    os << "ID " << ids.next() << "\n";        // під тестом -> передбачувано
-    os << renderInvoice(inv);
-    return os.str();
-}
-// У тесті:
-//   int n = 0;
-//   IdGen ids{ [&]{ return "ID-" + std::to_string(++n); } };  // 1,2,3...
-// У проді той самий IdGen отримує справжній генератор UUID.
-```
+:::code proj-characterization-test/cpp/pastky-try-sposoby-zrobyty.cpp
 
 - **Порядок, що не гарантований.** Найпідступніше джерело, бо код «наче працює». Обхід `std::unordered_map` / `unordered_set` дає елементи в **непередбачуваному** порядку — він залежить від реалізації хеш-таблиці й може змінитися навіть між запусками. Серіалізуєте рахунок, ітеруючи `unordered_map` по SKU, — і знімок щоразу тасується. Лік: **сортувати перед серіалізацією**.
 
-```cpp
-#include <unordered_map>
-#include <map>
-#include <algorithm>
-
-// НЕ роби так: порядок обходу unordered_map не визначений ->
-// знімок нестабільний -> хиткий golden-тест.
-std::string renderBad(const std::unordered_map<std::string, double>& m) {
-    std::ostringstream os;
-    for (const auto& kv : m) os << kv.first << "=" << kv.second << "\n";  // ПАСТКА
-    return os.str();
-}
-
-// Роби так: витягни ключі, ВІДСОРТУЙ, тоді серіалізуй у сталому порядку.
-std::string renderStable(const std::unordered_map<std::string, double>& m) {
-    std::vector<std::string> keys;
-    keys.reserve(m.size());
-    for (const auto& kv : m) keys.push_back(kv.first);
-    std::sort(keys.begin(), keys.end());                 // детермінований порядок
-    std::ostringstream os;
-    os << std::fixed << std::setprecision(2);
-    for (const auto& k : keys) os << k << "=" << m.at(k) << "\n";
-    return os.str();
-}
-```
+:::code proj-characterization-test/cpp/pastky-try-sposoby-zrobyty-2.cpp
 
 Складність тут дрібна, але варта згадки: сортування додає `O(k·log k)` на `k` ключів проти `O(k)` наївного обходу. Ціна мізерна, а купує вона **детермінізм** — без якого golden-master просто не працює. Це рівно той випадок, коли трохи гіршу асимптотику беруть свідомо, бо вона дає інваріант «той самий вхід → той самий байт».
 
@@ -413,21 +143,7 @@ void CharacterizeInvoice_truncationBites() {
 
 **Пастка 3 — занадто крихкий знімок.** Протилежна крайність. Якщо в golden-текст натоптати **все підряд** — кожне службове поле, кожен пробіл, кожну технічну дрібницю, — тест почне падати від **косметики**: додали пробіл у форматуванні, переставили два незначущі атрибути — і сотня знімків червоні, хоча поведінка не змінилась. Такий тест не захищає, а **виснажує**: люди звикають бездумно «перезатверджувати» еталон на кожен провал — і одного разу перезатвердять разом із косметикою **справжню** регресію. Лік — **нормалізувати знімок перед звіркою**: лишати в ньому тільки те, що справді має значення, а мінливу дрібницю **свідомо зрізати**.
 
-```cpp
-#include <regex>
-
-// Нормалізація ПЕРЕД звіркою: прибираємо те, що не несе поведінки,
-// щоб знімок не падав від косметики. Лишаємо суть.
-std::string normalize(std::string s) {
-    // 1) стягуємо повторні пробіли до одного (форматування — не поведінка)
-    s = std::regex_replace(s, std::regex("[ \\t]+"), " ");
-    // 2) прибираємо волатильні технічні поля цілими рядками
-    s = std::regex_replace(s, std::regex("(?m)^TRACE_ID .*$\\n"), "");
-    // 3) числа лишаємо як є — вони Є поведінкою, їх чіпати НЕ можна
-    return s;
-}
-// approve(name, normalize(renderInvoice(inv)));
-```
+:::code proj-characterization-test/cpp/pastky-try-sposoby-zrobyty-3.cpp
 
 Тонка межа тут — між «шумом» і «поведінкою», і плутати їх не можна в обидва боки. Пробіли, порядок службових рядків, `TRACE_ID` — це шум, його ріжемо. Але **числа, суми, ставки, статуси** — це і є поведінка; якщо їх «занормалізувати» (округлити в нормалізаторі, замаскувати), сітка перестане ловити саме те, заради чого існує. Добрий знімок — той, що падає **тоді й лише тоді**, коли змінилась поведінка, яку тобі не байдуже втратити.
 

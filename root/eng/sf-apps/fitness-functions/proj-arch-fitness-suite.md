@@ -11,27 +11,7 @@
 Граф зберігаємо найдешевше — **списком суміжності** (англ. *adjacency* — сусідство): відображення «модуль → множина модулів, від яких він прямо залежить». Множина, а не список, бо той самий імпорт трапляється в коді десятки разів, а нас цікавить сам факт ребра, не його кратність.
 
 :::tabs
-```cpp
-#include <string>
-#include <vector>
-#include <utility>
-#include <unordered_map>
-#include <unordered_set>
-
-using Graph = std::unordered_map<std::string, std::unordered_set<std::string>>;
-
-// граф: модуль → модулі, від яких він ПРЯМО залежить
-Graph build_graph(const std::vector<std::pair<std::string, std::string>>& edges) {
-    Graph g;
-    for (const auto& [src, dst] : edges) {
-        g[src];                               // вузол існує навіть без вихідних ребер
-        g[dst];
-        if (src != dst)                       // самопосилання модуля на себе — не ребро
-            g[src].insert(dst);
-    }
-    return g;
-}
-```
+:::code proj-arch-fitness-suite/cpp/hraf-iz-importiv-iedyna.cpp
 ```python
 # граф: модуль → модулі, від яких він ПРЯМО залежить
 def build_graph(edges: list[tuple[str, str]]) -> dict[str, set[str]]:
@@ -43,47 +23,14 @@ def build_graph(edges: list[tuple[str, str]]) -> dict[str, set[str]]:
             g[src].add(dst)
     return g
 ```
-```typescript
-// граф: модуль → модулі, від яких він ПРЯМО залежить
-type Graph = Map<string, Set<string>>;
-
-function buildGraph(edges: [string, string][]): Graph {
-  const g: Graph = new Map();
-  const node = (m: string) => g.get(m) ?? g.set(m, new Set()).get(m)!;
-  for (const [src, dst] of edges) {
-    node(src); node(dst);                 // вузол існує навіть без вихідних ребер
-    if (src !== dst) node(src).add(dst);  // самопосилання модуля на себе — не ребро
-  }
-  return g;
-}
-```
+:::code proj-arch-fitness-suite/ts/hraf-iz-importiv-iedyna.ts
 :::
 
 Зверни увагу на дві дрібниці, що вже тут відсіюють хибні тривоги: ми заводимо вузол навіть без ребер (щоб самотній модуль не зник із перевірки) і викидаємо самопосилання `src == dst` (файл модуля імпортує сусідній файл того самого модуля — усередині це не міжмодульне ребро). Обидві — не з теорії графів, а з того, як виглядають справжні репозиторії.
 
 А звідки береться список `edges`? Оце і є той складний крок, який усі недооцінюють. Побудова графа — не теорія, а **розбір коду**, і він завжди прив'язаний до мови, яку аналізуємо. Для Python найчесніший спосіб — не регулярка, а справжнє синтаксичне дерево через модуль `ast` (англ. *abstract syntax tree*): він бачить рівно те, що бачить інтерпретатор, і не спіткнеться на рядку, де слово `import` трапилось у коментарі чи в стрічці.
 
-```python
-import ast, pathlib
-
-def extract_edges(root: str, internal: set[str]) -> list[tuple[str, str]]:
-    edges = []
-    for path in pathlib.Path(root).rglob("*.py"):
-        module = path.relative_to(root).parts[0]         # верхня тека = модуль
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):             # import a.b, c
-                targets = [alias.name for alias in node.names]
-            elif isinstance(node, ast.ImportFrom) and node.module:  # from a.b import c
-                targets = [node.module]
-            else:
-                continue
-            for t in targets:
-                dep = t.split(".")[0]                    # 'db.pool' → 'db'
-                if dep in internal:                      # лише СВОЇ модулі
-                    edges.append((module, dep))
-    return edges
-```
+:::code proj-arch-fitness-suite/py/hraf-iz-importiv-iedyna.py
 
 Тут уже видно три рішення, кожне з яких — потенційна діра. **Ґранулярність**: ми згортаємо файл до його верхньої теки (`parts[0]`), тобто граф — на рівні модулів, не файлів; хочеш дрібніше — бери два сегменти, але тоді граф росте. **Фільтр `internal`**: чужі бібліотеки (стандартна бібліотека, пакети з реєстру) відкидаємо — граф про **твою** структуру, а не про півсвіту залежностей. **Резолюція шляху**: `'db.pool' → 'db'` бере верхній пакет; якщо в тебе перейменування шляхів (аліаси в `tsconfig`, namespace-пакети Python), цей рядок доведеться зробити розумнішим, бо інакше ребро проґавиться.
 
@@ -111,77 +58,9 @@ util    → (нічого)
 Правило «модуль X не сміє залежати від модуля Y» майже ніколи не про пряме ребро. Пряме ребро видно очима в рев'ю; підступне — це коли X дістає Y **через ланцюжок**, якого ніхто не тримав у голові: X → щось → щось → Y. Тому чесне питання — не «чи є ребро X → Y», а «чи є **шлях** X → … → Y», тобто питання про **досяжність** (англ. *reachability*). А досяжність — це просто обхід графа від X: усе, куди можна дійти, і є множина досяжного.
 
 :::tabs
-```cpp
-// Чи є напрямлений шлях src → … → dst.
-bool reaches(const Graph& g, const std::string& src, const std::string& dst) {
-    std::unordered_set<std::string> seen{src};
-    std::vector<std::string> stack{src};
-    while (!stack.empty()) {
-        std::string u = stack.back();
-        stack.pop_back();
-        auto it = g.find(u);
-        if (it == g.end()) continue;
-        for (const std::string& v : it->second) {   // порядок обходу не важить
-            if (v == dst) return true;
-            if (seen.insert(v).second)               // вставили вперше → у стек
-                stack.push_back(v);
-        }
-    }
-    return false;
-}
-
-// rules: пари (X, Y) зі змістом «X не сміє досягати Y».
-std::vector<std::string> check_forbidden(
-        const Graph& g,
-        const std::vector<std::pair<std::string, std::string>>& rules) {
-    std::vector<std::string> bad;
-    for (const auto& [x, y] : rules)
-        if (reaches(g, x, y))
-            bad.push_back(x + " ⇏ " + y + ": є шлях " + x + " → … → " + y);
-    return bad;
-}
-```
-```python
-def reaches(g: dict[str, set[str]], src: str, dst: str) -> bool:
-    """Чи є напрямлений шлях src → … → dst."""
-    seen, stack = {src}, [src]
-    while stack:
-        u = stack.pop()
-        for v in g.get(u, ()):        # порядок обходу не важить — шукаємо сам факт шляху
-            if v == dst:
-                return True
-            if v not in seen:
-                seen.add(v)
-                stack.append(v)
-    return False
-
-def check_forbidden(g, rules: list[tuple[str, str]]) -> list[str]:
-    """rules: пари (X, Y) зі змістом «X не сміє досягати Y»."""
-    return [f"{x} ⇏ {y}: є шлях {x} → … → {y}"
-            for x, y in rules if reaches(g, x, y)]
-```
-```typescript
-function reaches(g: Graph, src: string, dst: string): boolean {
-  // Чи є напрямлений шлях src → … → dst.
-  const seen = new Set([src]);
-  const stack = [src];
-  while (stack.length) {
-    const u = stack.pop()!;
-    for (const v of g.get(u) ?? []) {   // порядок обходу не важить — шукаємо сам факт шляху
-      if (v === dst) return true;
-      if (!seen.has(v)) { seen.add(v); stack.push(v); }
-    }
-  }
-  return false;
-}
-
-function checkForbidden(g: Graph, rules: [string, string][]): string[] {
-  // rules: пари (X, Y) зі змістом «X не сміє досягати Y».
-  return rules
-    .filter(([x, y]) => reaches(g, x, y))
-    .map(([x, y]) => `${x} ⇏ ${y}: є шлях ${x} → … → ${y}`);
-}
-```
+:::code proj-arch-fitness-suite/cpp/perevirka-1-zaboronena.cpp
+:::code proj-arch-fitness-suite/py/perevirka-1-zaboronena.py
+:::code proj-arch-fitness-suite/ts/perevirka-1-zaboronena.ts
 :::
 
 Прогорнімо лихий коміт номер один. Хтось у модулі `db` імпортує застарілий помічник із `legacy` — додає ребро `db → legacy`. Саме по собі воно невинне: `db`(рівень 1) → `legacy`(рівень 0) веде вниз, циклу не творить. Але правило в нас таке: **`orders` уже відучили від `legacy`, і назад дороги нема** — `orders ⇏ legacy`. Питаємо `reaches(g, "orders", "legacy")`: обхід від `orders` іде `orders → db`, звідти вже `db → legacy` — і ми на місці. Перевірка друкує `orders ⇏ legacy: є шлях orders → … → legacy`, складання падає. Жодне око в рев'ю коміта в `db` не побачило б, що воно ламає правило про `orders`, — а обхід графа побачив за мікросекунди.
@@ -195,23 +74,7 @@ function checkForbidden(g: Graph, rules: [string, string][]): string[] {
 Шарувата архітектура — це домовленість про напрям: вищі шари спираються на нижчі, ніколи навпаки. `web` кличе домен, домен кличе `db`, `db` кличе `util` — і жоден із них не сміє потягнутися вгору, бо тоді фундамент починає залежати від даху. Формально це **частковий порядок** (лат. *ordo* — лад): припиши кожному модулеві рівень-число, і закон один — ребро не сміє вести з нижчого рівня у вищий.
 
 :::tabs
-```cpp
-// level: модуль → номер шару (більший = вищий). Ребро вгору — порушення.
-std::vector<std::string> check_layers(
-        const Graph& g, const std::unordered_map<std::string, int>& level) {
-    auto lv = [&](const std::string& m) {
-        auto it = level.find(m);
-        return it == level.end() ? 0 : it->second;
-    };
-    std::vector<std::string> bad;
-    for (const auto& [u, deps] : g)
-        for (const std::string& v : deps)
-            if (lv(u) < lv(v))                        // залежність веде ВГОРУ
-                bad.push_back(u + "(р." + std::to_string(lv(u)) + ") → " +
-                              v + "(р." + std::to_string(lv(v)) + "): ребро вгору");
-    return bad;
-}
-```
+:::code proj-arch-fitness-suite/cpp/perevirka-2-porushennia.cpp
 ```python
 def check_layers(g, level: dict[str, int]) -> list[str]:
     """level: модуль → номер шару (більший = вищий). Ребро вгору — порушення."""
@@ -222,18 +85,7 @@ def check_layers(g, level: dict[str, int]) -> list[str]:
                 bad.append(f"{u}(р.{level[u]}) → {v}(р.{level[v]}): ребро вгору")
     return bad
 ```
-```typescript
-function checkLayers(g: Graph, level: Map<string, number>): string[] {
-  // level: модуль → номер шару (більший = вищий). Ребро вгору — порушення.
-  const bad: string[] = [];
-  const lv = (m: string) => level.get(m) ?? 0;
-  for (const [u, deps] of g)
-    for (const v of deps)
-      if (lv(u) < lv(v))                               // залежність веде ВГОРУ
-        bad.push(`${u}(р.${lv(u)}) → ${v}(р.${lv(v)}): ребро вгору`);
-  return bad;
-}
-```
+:::code proj-arch-fitness-suite/ts/perevirka-2-porushennia.ts
 :::
 
 Уся перевірка — один прохід усіма ребрами з порівнянням двох чисел, O(V + E), без жодного обходу. Лихий коміт номер два: застарілий листок `legacy` раптом імпортує високорівневий `report` — ребро `legacy → report`. Рівні: `legacy`=0, `report`=2, отже 0 < 2 — залежність пнеться вгору крізь два шари. Перевірка друкує `legacy(р.0) → report(р.2): ребро вгору`. Зверни увагу, що це ребро **не** цикл (з `report` назад до `legacy` шляху нема) і **не** підпадає під жодну названу заборону — його ловить саме й тільки закон рівнів.
@@ -252,115 +104,9 @@ function checkLayers(g: Graph, level: Map<string, number>): string[] {
 Тепер найважливіше для практики: детектор мусить не просто сказати «цикл є», а **назвати його**. «Десь у ста модулях є цикл» — це не допомога, це знущання; корисне повідомлення — це `orders → report → orders`. Тому поряд із кольорами ведемо мапу батьків: для кожного вузла пам'ятаємо, з якого ми в нього прийшли. Коли натрапляємо на сіре ребро `u → v`, підіймаємося по батьках від `u` вгору, аж поки не впремося у `v`, — це і є тіло циклу, лишається його розвернути й дописати замикач.
 
 :::tabs
-```cpp
-#include <optional>
-#include <functional>
-#include <algorithm>
-
-enum Color { WHITE, GRAY, BLACK };
-
-std::optional<std::vector<std::string>> find_cycle(const Graph& g) {
-    std::unordered_map<std::string, Color> color;
-    for (const auto& [u, _] : g) color[u] = WHITE;
-    std::unordered_map<std::string, std::string> parent;
-
-    std::function<std::optional<std::vector<std::string>>(const std::string&)> walk =
-        [&](const std::string& u) -> std::optional<std::vector<std::string>> {
-        color[u] = GRAY;                              // u зайшов у стек обходу
-        std::vector<std::string> nbrs(g.at(u).begin(), g.at(u).end());
-        std::sort(nbrs.begin(), nbrs.end());          // детермінований звіт
-        for (const auto& v : nbrs) {
-            if (color[v] == GRAY) {                   // ребро у СІРЕ = замкнення назад
-                std::vector<std::string> path{u};
-                while (path.back() != v)              // підіймаємось по батьках u → … → v
-                    path.push_back(parent[path.back()]);
-                std::reverse(path.begin(), path.end());  // тепер v → … → u
-                path.push_back(v);                    // ребро u → v замикає цикл
-                return path;
-            }
-            if (color[v] == WHITE) {
-                parent[v] = u;
-                if (auto found = walk(v)) return found;
-            }
-        }
-        color[u] = BLACK;                             // u й усе під ним оброблено
-        return std::nullopt;
-    };
-
-    for (const auto& [u, _] : g)
-        if (color[u] == WHITE)
-            if (auto found = walk(u)) return found;    // напр. {"orders","report","orders"}
-    return std::nullopt;
-}
-```
-```python
-WHITE, GRAY, BLACK = 0, 1, 2
-
-def find_cycle(g: dict[str, set[str]]) -> list[str] | None:
-    color = {u: WHITE for u in g}
-    parent: dict[str, str] = {}
-
-    def walk(u: str) -> list[str] | None:
-        color[u] = GRAY                       # u зайшов у стек обходу
-        for v in sorted(g[u]):                # sorted — щоб звіт був детермінований
-            if color[v] == GRAY:              # ребро у СІРЕ = замкнення назад
-                path = [u]
-                while path[-1] != v:          # підіймаємось по батьках u → … → v
-                    path.append(parent[path[-1]])
-                path.reverse()                # тепер v → … → u
-                path.append(v)                # ребро u → v замикає цикл
-                return path
-            if color[v] == WHITE:
-                parent[v] = u
-                found = walk(v)
-                if found:
-                    return found
-        color[u] = BLACK                      # u й усе під ним оброблено
-        return None
-
-    for u in g:
-        if color[u] == WHITE:
-            found = walk(u)
-            if found:
-                return found                  # напр. ['orders', 'report', 'orders']
-    return None
-```
-```typescript
-const WHITE = 0, GRAY = 1, BLACK = 2;
-
-function findCycle(g: Graph): string[] | null {
-  const color = new Map<string, number>([...g.keys()].map(u => [u, WHITE] as [string, number]));
-  const parent = new Map<string, string>();
-
-  function walk(u: string): string[] | null {
-    color.set(u, GRAY);                              // u зайшов у стек обходу
-    for (const v of [...g.get(u)!].sort()) {         // sort — щоб звіт був детермінований
-      if (color.get(v) === GRAY) {                   // ребро у СІРЕ = замкнення назад
-        const path = [u];
-        while (path[path.length - 1] !== v)          // підіймаємось по батьках u → … → v
-          path.push(parent.get(path[path.length - 1])!);
-        path.reverse();                              // тепер v → … → u
-        path.push(v);                                // ребро u → v замикає цикл
-        return path;
-      }
-      if (color.get(v) === WHITE) {
-        parent.set(v, u);
-        const found = walk(v);
-        if (found) return found;
-      }
-    }
-    color.set(u, BLACK);                             // u й усе під ним оброблено
-    return null;
-  }
-
-  for (const u of g.keys())
-    if (color.get(u) === WHITE) {
-      const found = walk(u);
-      if (found) return found;                       // напр. ['orders','report','orders']
-    }
-  return null;
-}
-```
+:::code proj-arch-fitness-suite/cpp/perevirka-3-tsykly.cpp
+:::code proj-arch-fitness-suite/py/perevirka-3-tsykly.py
+:::code proj-arch-fitness-suite/ts/perevirka-3-tsykly.ts
 :::
 
 Лихий коміт номер три: `report` уже спокійно кликав `orders` (сусіди по шару 2, законно), а тепер хтось у `orders` додає імпорт `report` — ребро `orders → report`. Обхід від `orders` фарбує його в сіре, іде в `report`, з `report` доходить до `orders` — а `orders` сіре, воно ж у стеку. Зворотне ребро. Піднявшись по батьках, детектор повертає `['orders', 'report', 'orders']` і друкує саме цю петлю. Закон шарів тут мовчить (обидва на рівні 2), заборон між ними нема — цикл ловить лише циклова перевірка.
@@ -413,20 +159,7 @@ function findCycle(g: Graph): string[] | null {
 Найгрубший храповик (англ. *ratchet* — механізм, що крутиться лише в один бік) стереже саме **число**: «порушень не більш як двісті, і планка може тіснитися лише вниз». Він годиться для агрегатних метрик, де важлива кількість, а не поіменність. Але для графа залежностей є точніший інструмент — **базова лінія на множині конкретних ребер**. Заморозь у файл рівно ту множину порушень, що є зараз (кожне як рядок `"legacy→report"`), закомить її в репозиторій — і хай ворота падають лише на порушеннях, яких у базі **не було**. Полагоджене порушення випадає з бази й **уже ніколи не повернеться**.
 
 :::tabs
-```cpp
-// current — нинішні порушення (напр. "legacy→report"); baseline — заморожені.
-// Падаємо лише на НОВИХ; базу тіснимо до тих старих, що ще лишилися.
-std::pair<bool, std::unordered_set<std::string>> gate(
-        const std::unordered_set<std::string>& current,
-        const std::unordered_set<std::string>& baseline) {
-    std::unordered_set<std::string> fresh, kept;
-    for (const auto& v : current) {
-        if (baseline.count(v)) kept.insert(v);        // старі, що ще лишилися → нова база
-        else                   fresh.insert(v);       // порушення, яких у базі не було
-    }
-    return { fresh.empty(), kept };
-}
-```
+:::code proj-arch-fitness-suite/cpp/legacy-bazova-liniia-na.cpp
 ```python
 def gate(current: set[str], baseline: set[str]) -> tuple[bool, set[str]]:
     """current — нинішні порушення (напр. 'legacy→report'); baseline — заморожені.

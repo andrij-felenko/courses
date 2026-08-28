@@ -15,104 +15,15 @@
 
 Найпряміший підхід — один обчислювач, що дивиться на тип вузла й розгалужується. Спершу текст розбирають у дерево вузлів (число, змінна, додавання, множення), а тоді рекурсивно його обходять:
 
-```ts
-type Node =
-  | { op: "num"; value: number }
-  | { op: "var"; name: string }
-  | { op: "add"; left: Node; right: Node }
-  | { op: "mul"; left: Node; right: Node };
-
-function evalNode(n: Node, env: Map<string, number>): number {
-  switch (n.op) {
-    case "num": return n.value;
-    case "var": return env.get(n.name)!;
-    case "add": return evalNode(n.left, env) + evalNode(n.right, env);
-    case "mul": return evalNode(n.left, env) * evalNode(n.right, env);
-  }
-}
-```
+:::code gof-behavioral-microcatalog-d/ts/interpretator-hramatyka.ts
 
 Для крихітної граматики це чесне, ясне рішення, і не варто вдавати, ніби воно погане. Але придивись, де воно тисне: **уся логіка всіх правил зібрана в одному `switch`**. З'явилося нове правило граматики — скажімо, віднімання чи виклик функції — і ти повертаєшся в цей центральний обчислювач правити його. А якщо над деревом є ще й інші операції (не лише «обчислити», а й «надрукувати гарно», «перевірити типи»), то кожна з них — свій `switch` з тими самими гілками, і додати правило означає обійти їх усі.
 
 Патерн **Інтерпретатор (лат. *interpres* — тлумач, посередник)** робить один розворот: **зроби кожне правило граматики окремим класом, і хай кожен клас уміє обчислити сам себе**. Число — клас. Змінна — клас. Додавання — клас, що тримає два під-вирази. У кожного з них є метод `interpret()`. Вираз перетворюється на **дерево** таких об'єктів (це і є [абстрактне синтаксичне дерево, AST](root:sf-lang/abstract-syntax-tree)), а обчислення — це виклик `interpret()` на корені, який рекурсивно кличе `interpret()` у дітей, і значення спливають знизу вгору:
 
 :::tabs
-```ts
-// Спільний інтерфейс: кожен вузол уміє обчислити сам себе
-interface Expr {
-  interpret(env: Map<string, number>): number;
-}
-
-// Термінали — листя дерева: обчислюються без звертань кудись далі
-class Num implements Expr {
-  constructor(private value: number) {}
-  interpret(_env: Map<string, number>): number { return this.value; }
-}
-class Var implements Expr {
-  constructor(private name: string) {}
-  interpret(env: Map<string, number>): number {
-    const v = env.get(this.name);
-    if (v === undefined) throw new Error(`невідома змінна ${this.name}`);
-    return v;
-  }
-}
-
-// Нетермінали — тримають під-вирази й рекурсивно їх обчислюють
-class Add implements Expr {
-  constructor(private left: Expr, private right: Expr) {}
-  interpret(env: Map<string, number>): number {
-    return this.left.interpret(env) + this.right.interpret(env);
-  }
-}
-class Mul implements Expr {
-  constructor(private left: Expr, private right: Expr) {}
-  interpret(env: Map<string, number>): number {
-    return this.left.interpret(env) * this.right.interpret(env);
-  }
-}
-
-// Вираз "x + 3 * 2" — зібраний як дерево об'єктів
-const tree: Expr = new Add(new Var("x"), new Mul(new Num(3), new Num(2)));
-console.log(tree.interpret(new Map([["x", 5]])));   // 11
-```
-```py
-from __future__ import annotations
-from typing import Protocol
-
-# Спільний інтерфейс: кожен вузол уміє обчислити сам себе
-class Expr(Protocol):
-    def interpret(self, env: dict[str, int]) -> int: ...
-
-# Термінали — листя дерева: обчислюються без звертань кудись далі
-class Num:
-    def __init__(self, value: int): self.value = value
-    def interpret(self, env: dict[str, int]) -> int:
-        return self.value
-
-class Var:
-    def __init__(self, name: str): self.name = name
-    def interpret(self, env: dict[str, int]) -> int:
-        if self.name not in env:
-            raise KeyError(f"невідома змінна {self.name}")
-        return env[self.name]
-
-# Нетермінали — тримають під-вирази й рекурсивно їх обчислюють
-class Add:
-    def __init__(self, left: Expr, right: Expr):
-        self.left, self.right = left, right
-    def interpret(self, env: dict[str, int]) -> int:
-        return self.left.interpret(env) + self.right.interpret(env)
-
-class Mul:
-    def __init__(self, left: Expr, right: Expr):
-        self.left, self.right = left, right
-    def interpret(self, env: dict[str, int]) -> int:
-        return self.left.interpret(env) * self.right.interpret(env)
-
-# Вираз "x + 3 * 2" — зібраний як дерево об'єктів
-tree: Expr = Add(Var("x"), Mul(Num(3), Num(2)))
-print(tree.interpret({"x": 5}))   # 11
-```
+:::code gof-behavioral-microcatalog-d/ts/interpretator-hramatyka-2.ts
+:::code gof-behavioral-microcatalog-d/py/interpretator-hramatyka.py
 :::
 
 Ось у чому суть перетворення. Дерево виразу — це [Компонувальник](root:sf-apps/composite), застосований до граматики: корінь `Add` викликає `interpret()` у своїх дітей і **не знає й не питає**, що там під ним — ще одна операція чи голе число, бо і гілка, і лист однакові на цей виклик. Рекурсія робить усю решту: виклик іде вниз по гілках, а значення повертаються вгору й поєднуються. Тому `x + 3 * 2` при `x = 5` дає `5 + (3 · 2) = 11`, і жоден вузол не бачить дерева цілком — кожен знає лише свій шматок.
@@ -144,86 +55,8 @@ print(tree.interpret({"x": 5}))   # 11
 - **Доглядач (Caretaker)** — той, хто знає, **коли** зберігати й відновлювати (напр. стос скасувань). Тримає знімки, впорядковує їх у часі, але **всередину не заглядає ніколи**.
 
 :::tabs
-```ts
-// Знімок — непрозора коробка. Доглядач може її ТРИМАТИ,
-// але поля читає лише сам редактор, що її створив.
-class EditorMemento {
-  constructor(
-    readonly text: string,       // readonly: знімок — фотографія, не жива змінна
-    readonly cursor: number,
-  ) {}
-}
-
-class Editor {                    // Джерело
-  private text = "";
-  private cursor = 0;
-
-  type(s: string) {
-    this.text = this.text.slice(0, this.cursor) + s + this.text.slice(this.cursor);
-    this.cursor += s.length;
-  }
-
-  save(): EditorMemento {         // САМЕ пакує свій стан у коробку
-    return new EditorMemento(this.text, this.cursor);
-  }
-  restore(m: EditorMemento) {     // і САМЕ вміє з неї відновитися
-    this.text = m.text;
-    this.cursor = m.cursor;
-  }
-  toString() { return this.text; }
-}
-
-// Доглядач — стос скасувань: тримає коробки, всередину не заглядає
-const editor = new Editor();
-const history: EditorMemento[] = [];
-
-editor.type("Привіт");
-history.push(editor.save());      // контрольна точка
-editor.type(", світе");
-console.log(`${editor}`);          // "Привіт, світе"
-
-editor.restore(history.pop()!);   // undo
-console.log(`${editor}`);          // "Привіт"
-```
-```py
-from dataclasses import dataclass
-
-# frozen=True: знімок незмінний — справжня фотографія, а не посилання на живий стан
-@dataclass(frozen=True)
-class EditorMemento:
-    text: str
-    cursor: int
-
-class Editor:                     # Джерело
-    def __init__(self):
-        self._text = ""
-        self._cursor = 0
-
-    def type(self, s: str) -> None:
-        self._text = self._text[:self._cursor] + s + self._text[self._cursor:]
-        self._cursor += len(s)
-
-    def save(self) -> EditorMemento:          # САМЕ пакує свій стан
-        return EditorMemento(self._text, self._cursor)
-
-    def restore(self, m: EditorMemento) -> None:   # і САМЕ з нього відновлюється
-        self._text, self._cursor = m.text, m.cursor
-
-    def __str__(self) -> str:
-        return self._text
-
-# Доглядач — стос скасувань: тримає знімки, всередину не заглядає
-editor = Editor()
-history: list[EditorMemento] = []
-
-editor.type("Привіт")
-history.append(editor.save())     # контрольна точка
-editor.type(", світе")
-print(editor)                      # Привіт, світе
-
-editor.restore(history.pop())     # undo
-print(editor)                      # Привіт
-```
+:::code gof-behavioral-microcatalog-d/ts/znimok-zberehty-stan-ne.ts
+:::code gof-behavioral-microcatalog-d/py/znimok-zberehty-stan-ne.py
 :::
 
 ![Три ролі Знімка. Ліворуч Джерело — редактор із прихованим станом (text, cursor). Посередині Знімок — запечатана коробка з замком, підпис «читає лише Джерело». Праворуч Доглядач — стос таких коробок (історія скасувань) з підписом «тримає, але не відкриває». Стрілка save() веде від Джерела до Знімка (пакує стан), стрілка restore() веде назад (вертає стан), стрілка «у стос» веде від Знімка до Доглядача](img/memento-roles.svg)

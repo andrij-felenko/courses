@@ -122,55 +122,8 @@ E_now = 15 + 0.6·20 = 15 + 12 = 27 люд.-днів   <   50 = E_defer
 Ось ця перевірка в коді — маленька, але вона перетворює суперечку на арифметику:
 
 :::tabs
-```ts
-interface Deferral {
-  carryPerWeek: number;   // c — накладні за тиждень тримання відкритим
-  weeksToLRM: number;     // t* — коли настане відповідальний момент
-  reversalCost: number;   // C_r — ціна відкоту хибного вибору
-  wrongNow: number;       // p(0) — ймовірність хибитися, обравши зараз
-  wrongAtLRM: number;     // p(t*) — ймовірність хибитися на моменті
-}
-
-// Скільки коштує чесно дочекатися відповідального моменту.
-const costOfDeferring = (d: Deferral): number =>
-  d.carryPerWeek * d.weeksToLRM + d.wrongAtLRM * d.reversalCost;
-
-// Скільки коштує вкласти R у шов (адаптер/інтерфейс) і обрати вже зараз.
-const costOfSeamNow = (d: Deferral, seam: number, reduced: number): number =>
-  seam + d.wrongNow * reduced;
-
-function verdict(d: Deferral, seam: number, reduced: number): string {
-  const defer = costOfDeferring(d);
-  const now = costOfSeamNow(d, seam, reduced);
-  return now < defer
-    ? `Зроби оборотним і обирай зараз (${now.toFixed(0)} < ${defer.toFixed(0)})`
-    : `Відкладай до моменту (${defer.toFixed(0)} < ${now.toFixed(0)})`;
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Deferral:
-    carry_per_week: float   # c — накладні за тиждень тримання відкритим
-    weeks_to_lrm: float     # t* — коли настане відповідальний момент
-    reversal_cost: float    # C_r — ціна відкоту хибного вибору
-    wrong_now: float        # p(0) — ймовірність хибитися, обравши зараз
-    wrong_at_lrm: float     # p(t*) — ймовірність хибитися на моменті
-
-def cost_of_deferring(d: Deferral) -> float:
-    return d.carry_per_week * d.weeks_to_lrm + d.wrong_at_lrm * d.reversal_cost
-
-def cost_of_seam_now(d: Deferral, seam: float, reduced: float) -> float:
-    return seam + d.wrong_now * reduced
-
-def verdict(d: Deferral, seam: float, reduced: float) -> str:
-    defer = cost_of_deferring(d)
-    now = cost_of_seam_now(d, seam, reduced)
-    if now < defer:
-        return f"Зроби оборотним і обирай зараз ({now:.0f} < {defer:.0f})"
-    return f"Відкладай до моменту ({defer:.0f} < {now:.0f})"
-```
+:::code last-responsible-moment-d/ts/index.ts
+:::code last-responsible-moment-d/py/main.py
 :::
 
 Суть не в тому, щоб гнати ці числа в CI, — вони приблизні. Суть у тому, що «оборотність» перестає бути гаслом і стає величиною, яку можна порівняти з ціною чекання. Часто виявляється, що шов дешевший за терпіння.

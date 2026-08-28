@@ -36,85 +36,15 @@ CQRS — це той самий поділ, **піднятий з рівня м�
 Покажу це кодом. Це загальний прикладний рівень застосунку, тож наведу двома мовами, якими такий код і пишуть на практиці. Спершу бік команд — тут живе поведінка:
 
 :::tabs
-```ts
-// КОМАНДА — намір змінити стан. Проста структура: що зробити й з чим.
-type PlaceOrder = { userId: string; items: LineItem[] };
-
-class PlaceOrderHandler {
-  constructor(private orders: OrderRepository) {}
-
-  handle(cmd: PlaceOrder): void {
-    // доменна модель із правилами: конструктор боронить інваріанти
-    const order = Order.create(cmd.userId, cmd.items);
-    order.reserveStock();          // кине помилку, якщо товару бракує
-    this.orders.save(order);       // зберігаємо нормалізовано
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-# КОМАНДА — намір змінити стан. Проста структура: що зробити й з чим.
-@dataclass
-class PlaceOrder:
-    user_id: str
-    items: list[LineItem]
-
-class PlaceOrderHandler:
-    def __init__(self, orders: OrderRepository) -> None:
-        self._orders = orders
-
-    def handle(self, cmd: PlaceOrder) -> None:
-        # доменна модель із правилами: конструктор боронить інваріанти
-        order = Order.create(cmd.user_id, cmd.items)
-        order.reserve_stock()       # кине помилку, якщо товару бракує
-        self._orders.save(order)    # зберігаємо нормалізовано
-```
+:::code cqrs-d/ts/nailehsha-forma-dvi-modeli.ts
+:::code cqrs-d/py/nailehsha-forma-dvi-modeli.py
 :::
 
 А тепер бік запитів — тут поведінки нема **взагалі**, лише дані під екран:
 
 :::tabs
-```ts
-// ЗАПИТ повертає плоский тип рівно під потребу екрана — не доменний Order.
-type OrderView = {
-  id: string; customerName: string; total: number; status: string;
-};
-
-class OrderQueries {
-  constructor(private db: Db) {}
-
-  // читаємо коротким шляхом; жодних правил, жодних агрегатів
-  getOrderView(id: string): OrderView {
-    return this.db.queryOne(`
-      SELECT o.id, u.name AS customerName, o.total, o.status
-      FROM orders o JOIN users u ON u.id = o.user_id
-      WHERE o.id = ?`, [id]);
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-# ЗАПИТ повертає плоский тип рівно під потребу екрана — не доменний Order.
-@dataclass
-class OrderView:
-    id: str
-    customer_name: str
-    total: float
-    status: str
-
-class OrderQueries:
-    def __init__(self, db: Db) -> None:
-        self._db = db
-
-    # читаємо коротким шляхом; жодних правил, жодних агрегатів
-    def get_order_view(self, order_id: str) -> OrderView:
-        return self._db.query_one("""
-            SELECT o.id, u.name AS customer_name, o.total, o.status
-            FROM orders o JOIN users u ON u.id = o.user_id
-            WHERE o.id = ?""", [order_id])
-```
+:::code cqrs-d/ts/nailehsha-forma-dvi-modeli-2.ts
+:::code cqrs-d/py/nailehsha-forma-dvi-modeli-2.py
 :::
 
 База — одна. Таблиці — ті самі. Але два боки більше не діляться моделлю. `PlaceOrderHandler` не знає про `OrderView`, а `OrderQueries` не знає про доменний `Order` з його правилами й навіть не завантажує його — воно читає рівно ті стовпці, що потрібні екрану, одним запитом. Кожен бік вільний розвиватися у свій бік: команда — точнішати в правилах, запит — швидшати й денормалізуватися, і вони одне одному більше не заважають.

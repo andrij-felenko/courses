@@ -139,33 +139,8 @@ if is_expired(session, now):
 Розведімо їх у коді. Ядро повертає `Validated` — суму типів «або значення, або відмова з причиною»; воно не знає слова «виняток»:
 
 :::tabs
-```ts
-// ── ЯДРО: бізнес-невалідність — це ДАНІ (відмова з причиною), не виняток ──
-type Validated<T> =
-  | { ok: true;  value: T }
-  | { ok: false; reason: string };
-
-function validateTransfer(acc: Account, amount: number): Validated<number> {
-  if (amount <= 0)          return { ok: false, reason: "сума ≤ 0" };
-  if (amount > acc.balance) return { ok: false, reason: "недостатньо коштів" };
-  return { ok: true, value: amount };
-}
-```
-```py
-from dataclasses import dataclass
-
-# ── ЯДРО: бізнес-невалідність — це ДАНІ (відмова з причиною), не виняток ──
-@dataclass(frozen=True)
-class Ok:   value: float
-@dataclass(frozen=True)
-class Err:  reason: str
-Validated = Ok | Err
-
-def validate_transfer(acc: Account, amount: float) -> Validated:
-    if amount <= 0:            return Err("сума ≤ 0")
-    if amount > acc.balance:   return Err("недостатньо коштів")
-    return Ok(amount)
-```
+:::code functional-core-imperative-shell-d/ts/dvi-porody-pomylok-vidmova.ts
+:::code functional-core-imperative-shell-d/py/dvi-porody-pomylok-vidmova.py
 :::
 
 А оболонка обгортає **лише дотики до світу** в захист від збоїв — повтор навколо читання й запису — і поводиться з відмовою ядра як зі звичайними даними, не як з аварією:
@@ -204,58 +179,8 @@ async def transfer(id: str, amount: float) -> None:
 Ось той самий план, прочитаний трьома різними тлумачами:
 
 :::tabs
-```ts
-type Effect =
-  | { kind: "email";  to: string; body: string }
-  | { kind: "charge"; account: string; amount: number };
-type Plan = Effect[];
-
-// Тлумач 1 — СПРАВЖНІ дії: єдине місце, де опис стає дотиком до світу.
-async function runReal(plan: Plan): Promise<void> {
-  for (const e of plan) {
-    if (e.kind === "email")  await mailer.send(e.to, e.body);
-    if (e.kind === "charge") await ledger.charge(e.account, e.amount);
-  }
-}
-
-// Тлумач 2 — СУХИЙ ПРОГІН: нічого не робить, лише каже, що зробив би.
-function runDry(plan: Plan): string[] {
-  return plan.map(e => e.kind === "email"
-    ? `надіслав би лист → ${e.to}`
-    : `списав би ${e.amount} з ${e.account}`);
-}
-
-// Тлумач 3 — ОЦІНКА: скільки грошей зачепить план, не виконуючи його.
-function totalCharged(plan: Plan): number {
-  return plan.reduce((s, e) => e.kind === "charge" ? s + e.amount : s, 0);
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Email:  to: str; body: str
-@dataclass(frozen=True)
-class Charge: account: str; amount: float
-Effect = Email | Charge
-Plan = list[Effect]
-
-# Тлумач 1 — СПРАВЖНІ дії: єдине місце, де опис стає дотиком до світу.
-async def run_real(plan: Plan) -> None:
-    for e in plan:
-        match e:
-            case Email(to, body):    await mailer.send(to, body)
-            case Charge(acc, amt):   await ledger.charge(acc, amt)
-
-# Тлумач 2 — СУХИЙ ПРОГІН: нічого не робить, лише каже, що зробив би.
-def run_dry(plan: Plan) -> list[str]:
-    return [f"надіслав би лист → {e.to}" if isinstance(e, Email)
-            else f"списав би {e.amount} з {e.account}" for e in plan]
-
-# Тлумач 3 — ОЦІНКА: скільки грошей зачепить план, не виконуючи його.
-def total_charged(plan: Plan) -> float:
-    return sum(e.amount for e in plan if isinstance(e, Charge))
-```
+:::code functional-core-imperative-shell-d/ts/plan-tse-malenka-mova-a.ts
+:::code functional-core-imperative-shell-d/py/plan-tse-malenka-mova-a.py
 :::
 
 Той самий план тепер уміє все це — і жодна з нових здатностей не коштувала ядру ані рядка. `runDry` — це безпечний «а що станеться, якщо запустити?» для клієнта чи адміністратора. `totalCharged` — попередня оцінка вартості перед виконанням. У тестах пишуть ще один тлумач — **записувач**, що просто складає, які ефекти прийшли, замість виконувати їх. Легко уявити й тлумача-**оптимізатор**, який перед виконанням злютує сотню окремих листів в один дайджест або переставить незалежні дії, щоб зробити їх пакетом. Ядро вирішує **що** зробити; кожен тлумач вирішує **як, де і чи взагалі** це виконати.
@@ -288,19 +213,7 @@ const withVol  = (t: number) => (t > 1000 ? t * 0.95 : t);
 // Велике рішення — композиція малих. Ціле лишається чистим.
 const price = (items: Item[], rate: number) => withVol(withTax(rate)(subtotal(items)));
 ```
-```py
-# Кожен крок — чиста функція від значення до значення.
-def subtotal(items: list[Item]) -> float:
-    return sum(i.price * i.qty for i in items)
-def with_tax(rate: float):
-    return lambda t: t * (1 + rate)
-def with_vol(t: float) -> float:
-    return t * 0.95 if t > 1000 else t
-
-# Велике рішення — композиція малих. Ціле лишається чистим.
-def price(items: list[Item], rate: float) -> float:
-    return with_vol(with_tax(rate)(subtotal(items)))
-```
+:::code functional-core-imperative-shell-d/py/iadra-skladaiutsia-male.py
 :::
 
 Тепер зверни увагу на контраст, який і робить композицію цінною. Спробуй так само скласти два **переплетені** шматки, кожен з яких сам ходить у базу. Щоб перевірити їхню склейку, ти мусиш обставити моками **обидва** набори залежностей одразу — і що більше шматків склеюєш, то більший стенд підробок доводиться тримати; складність риштування росте з кількістю з'єднань. Чисті ж шматки склеюються **без** з'єднувальної складності: між ними біжать лише значення, тому склеїти десять чистих кроків не дорожче, ніж викликати їх поспіль.
@@ -334,19 +247,7 @@ let plans: Vec<Plan> = inputs
     .map(|inp| decide(&state, inp))
     .collect();
 ```
-```go
-// decide — чиста: (State, Input) Plan. Кожна горутина пише у СВІЙ індекс.
-plans := make([]Plan, len(inputs))
-var wg sync.WaitGroup
-for i, inp := range inputs {
-    wg.Add(1)
-    go func(i int, inp Input) {          // state лише читається, спільного запису нема
-        defer wg.Done()
-        plans[i] = decide(state, inp)    // різні i → різні комірки → без мʼютекса
-    }(i, inp)
-}
-wg.Wait()
-```
+:::code functional-core-imperative-shell-d/go/main.go
 :::
 
 У Rust це навіть не питання дисципліни, а гарантія компілятора: спробуй усередині `decide` записати щось спільне — і код просто не збереться, бо `par_iter` вимагає, щоб замикання не ділило змінного стану. Go покладається на домовленість, але суть та сама: `state` лише читають, а кожна горутина пише у **свою** комірку `plans[i]`, тож умови (1)+(2) ніде не збігаються.

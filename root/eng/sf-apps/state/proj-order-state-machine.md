@@ -35,203 +35,8 @@
 Ось повний автомат. Той самий код двома мовами — вкладками; логіка ідентична, різниця лише в ідіомах мови.
 
 :::tabs
-```ts
-// ── Спільний інтерфейс стану ──────────────────────────────────────────────
-// Кожен стан мусить уміти відповісти на кожну з чотирьох подій.
-// База дає безпечні типові відповіді, а конкретні стани перекривають лише те,
-// що для них має сенс — так «забута клітина» стає явним рішенням, а не дірою.
-abstract class OrderState {
-  abstract readonly name: string;
-
-  // Типова відповідь на дозволену-в-таблиці подію, яку стан не описав, — заборона.
-  pay(order: Order):    void { this.reject("оплатити"); }
-  ship(order: Order):   void { this.reject("відправити"); }
-  cancel(order: Order): void { this.reject("скасувати"); }
-  refund(order: Order): void { this.reject("повернути гроші"); }
-
-  protected reject(action: string): never {
-    throw new IllegalTransition(
-      `не можна ${action}: замовлення у стані «${this.name}»`);
-  }
-  // Тихий ігнор — окремий, СВІДОМИЙ вихід, а не мовчазне «нічого не сталось».
-  protected ignore(order: Order, note: string): void {
-    order.log(`ігнор: ${note} (стан «${this.name}»)`);
-  }
-}
-
-class IllegalTransition extends Error {}
-
-// ── Контекст: тримає поточний стан і делегує йому все ──────────────────────
-class Order {
-  private state: OrderState = States.New;   // спільний екземпляр, див. нижче
-  readonly logbook: string[] = [];
-
-  constructor(readonly id: string) {}
-
-  // Публічний API — жодного if за станом, самі делегації:
-  pay()    { this.state.pay(this); }
-  ship()   { this.state.ship(this); }
-  cancel() { this.state.cancel(this); }
-  refund() { this.state.refund(this); }
-
-  // Перехід — єдина точка, де стан змінюється; звідси зручно логувати весь маршрут.
-  transitionTo(next: OrderState) {
-    this.log(`${this.state.name} → ${next.name}`);
-    this.state = next;
-  }
-  get stateName() { return this.state.name; }
-  log(msg: string) { this.logbook.push(msg); }
-}
-
-// ── Конкретні стани: кожен — один рядок таблиці ───────────────────────────
-class NewState extends OrderState {
-  readonly name = "New";
-  pay(order: Order)    { /* провести оплату */ order.transitionTo(States.Paid); }
-  cancel(order: Order) { order.transitionTo(States.Cancelled); }
-  // ship, refund — не описані → база кине заборону. Це клітини (New,ship)/(New,refund).
-}
-
-class PaidState extends OrderState {
-  readonly name = "Paid";
-  ship(order: Order)   { /* відвантажити */ order.transitionTo(States.Shipped); }
-  cancel(order: Order) { /* скасування після оплати = повернення грошей */
-                         order.transitionTo(States.Refunded); }
-  refund(order: Order) { order.transitionTo(States.Refunded); }
-}
-
-class ShippedState extends OrderState {
-  readonly name = "Shipped";
-  ship(order: Order)   { this.ignore(order, "повторне відправлення"); } // (Shipped,ship)=ігнор
-  refund(order: Order) { order.transitionTo(States.Refunded); }
-  // pay, cancel — база кине заборону: платити й скасовувати відправлене вже пізно.
-}
-
-// Кінцеві стани: будь-яка «дія» або заборонена, або ігнорується — далі шляху немає.
-class CancelledState extends OrderState {
-  readonly name = "Cancelled";
-  cancel(order: Order) { this.ignore(order, "повторне скасування"); } // (Cancelled,cancel)=ігнор
-}
-
-class RefundedState extends OrderState {
-  readonly name = "Refunded";
-  refund(order: Order) { this.ignore(order, "повторне повернення"); } // (Refunded,refund)=ігнор
-}
-
-// ── Пул спільних екземплярів: по ОДНОМУ на стан на всю програму ───────────
-const States = {
-  New:       new NewState(),
-  Paid:      new PaidState(),
-  Shipped:   new ShippedState(),
-  Cancelled: new CancelledState(),
-  Refunded:  new RefundedState(),
-} as const;
-```
-```py
-from __future__ import annotations
-
-
-# ── Спільний інтерфейс стану ──────────────────────────────────────────────
-# Кожен стан мусить уміти відповісти на кожну з чотирьох подій.
-# База дає безпечні типові відповіді, а конкретні стани перекривають лише те,
-# що для них має сенс — так «забута клітина» стає явним рішенням, а не дірою.
-class IllegalTransition(Exception):
-    pass
-
-
-class OrderState:
-    name: str = "?"
-
-    # Типова відповідь на подію, яку стан не описав, — заборона.
-    def pay(self, order: "Order") -> None:    self._reject("оплатити")
-    def ship(self, order: "Order") -> None:   self._reject("відправити")
-    def cancel(self, order: "Order") -> None: self._reject("скасувати")
-    def refund(self, order: "Order") -> None: self._reject("повернути гроші")
-
-    def _reject(self, action: str) -> None:
-        raise IllegalTransition(
-            f"не можна {action}: замовлення у стані «{self.name}»")
-
-    # Тихий ігнор — окремий, СВІДОМИЙ вихід, а не мовчазне «нічого не сталось».
-    def _ignore(self, order: "Order", note: str) -> None:
-        order.log(f"ігнор: {note} (стан «{self.name}»)")
-
-
-# ── Контекст: тримає поточний стан і делегує йому все ──────────────────────
-class Order:
-    def __init__(self, id: str) -> None:
-        self.id = id
-        self._state: OrderState = States.NEW    # спільний екземпляр, див. нижче
-        self.logbook: list[str] = []
-
-    # Публічний API — жодного if за станом, самі делегації:
-    def pay(self) -> None:    self._state.pay(self)
-    def ship(self) -> None:   self._state.ship(self)
-    def cancel(self) -> None: self._state.cancel(self)
-    def refund(self) -> None: self._state.refund(self)
-
-    # Перехід — єдина точка, де стан змінюється; звідси зручно логувати маршрут.
-    def transition_to(self, nxt: OrderState) -> None:
-        self.log(f"{self._state.name} → {nxt.name}")
-        self._state = nxt
-
-    @property
-    def state_name(self) -> str:
-        return self._state.name
-
-    def log(self, msg: str) -> None:
-        self.logbook.append(msg)
-
-
-# ── Конкретні стани: кожен — один рядок таблиці ───────────────────────────
-class NewState(OrderState):
-    name = "New"
-    def pay(self, order: "Order") -> None:    # провести оплату
-        order.transition_to(States.PAID)
-    def cancel(self, order: "Order") -> None:
-        order.transition_to(States.CANCELLED)
-    # ship, refund не описані → база кине заборону. Клітини (New,ship)/(New,refund).
-
-
-class PaidState(OrderState):
-    name = "Paid"
-    def ship(self, order: "Order") -> None:   # відвантажити
-        order.transition_to(States.SHIPPED)
-    def cancel(self, order: "Order") -> None:  # скасування після оплати = повернення
-        order.transition_to(States.REFUNDED)
-    def refund(self, order: "Order") -> None:
-        order.transition_to(States.REFUNDED)
-
-
-class ShippedState(OrderState):
-    name = "Shipped"
-    def ship(self, order: "Order") -> None:    # (Shipped,ship) = ігнор
-        self._ignore(order, "повторне відправлення")
-    def refund(self, order: "Order") -> None:
-        order.transition_to(States.REFUNDED)
-    # pay, cancel → база кине заборону: платити й скасовувати відправлене вже пізно.
-
-
-# Кінцеві стани: будь-яка дія або заборонена, або ігнорується — шляху далі немає.
-class CancelledState(OrderState):
-    name = "Cancelled"
-    def cancel(self, order: "Order") -> None:  # (Cancelled,cancel) = ігнор
-        self._ignore(order, "повторне скасування")
-
-
-class RefundedState(OrderState):
-    name = "Refunded"
-    def refund(self, order: "Order") -> None:  # (Refunded,refund) = ігнор
-        self._ignore(order, "повторне повернення")
-
-
-# ── Пул спільних екземплярів: по ОДНОМУ на стан на всю програму ───────────
-class States:
-    NEW = NewState()
-    PAID = PaidState()
-    SHIPPED = ShippedState()
-    CANCELLED = CancelledState()
-    REFUNDED = RefundedState()
-```
+:::code proj-order-state-machine/ts/robochyi-avtomat-klas-na.ts
+:::code proj-order-state-machine/py/robochyi-avtomat-klas-na.py
 :::
 
 Придивись, як тут ліг кожен елемент таблиці, і чому саме так.
@@ -245,42 +50,8 @@ class States:
 Ось як машина працює на живому сценарії:
 
 :::tabs
-```ts
-const o = new Order("A-001");
-o.pay();      // New → Paid
-o.ship();     // Paid → Shipped
-o.ship();     // ігнор: повторне відправлення (стан «Shipped») — стан не змінився
-o.refund();   // Shipped → Refunded
-console.log(o.stateName);         // "Refunded"
-
-try { o.cancel(); }               // у Refunded cancel не описаний → заборона з бази
-catch (e) { console.log((e as Error).message); }
-// "не можна скасувати: замовлення у стані «Refunded»"
-
-console.log(o.logbook);
-// [ "New → Paid", "Paid → Shipped",
-//   "ігнор: повторне відправлення (стан «Shipped»)",
-//   "Shipped → Refunded" ]
-```
-```py
-o = Order("A-001")
-o.pay()       # New → Paid
-o.ship()      # Paid → Shipped
-o.ship()      # ігнор: повторне відправлення (стан «Shipped») — стан не змінився
-o.refund()    # Shipped → Refunded
-print(o.state_name)               # "Refunded"
-
-try:
-    o.cancel()                    # у Refunded cancel не описаний → заборона з бази
-except IllegalTransition as e:
-    print(e)
-# "не можна скасувати: замовлення у стані «Refunded»"
-
-print(o.logbook)
-# ['New → Paid', 'Paid → Shipped',
-#  'ігнор: повторне відправлення (стан «Shipped»)',
-#  'Shipped → Refunded']
-```
+:::code proj-order-state-machine/ts/robochyi-avtomat-klas-na-2.ts
+:::code proj-order-state-machine/py/robochyi-avtomat-klas-na-2.py
 :::
 
 Три долі клітини — перехід, ігнор, заборона — тут видно поряд, у чистому вигляді: `pay/ship/refund` рухають маршрут, повторний `ship` ковтається без наслідків, а `cancel` у кінцевому стані падає. Журнал `logbook` — безкоштовний бонус того, що переходи проходять через **одну** точку `transitionTo`: увесь життєвий шлях замовлення записаний сам собою.
@@ -296,71 +67,15 @@ print(o.logbook)
 І ось тут — пастка, тиха й підступна. Спільний екземпляр можна безпечно перевикористовувати **лише доти, доки стан не має власних змінних даних**. Досить одного програміста, що вирішить «зручно ж зберегти час оплати прямо в стані»:
 
 :::tabs
-```ts
-// ❌ ОТРУЄНО: власне змінне поле в об'єкті, який СПІЛЬНИЙ для всіх замовлень
-class PaidState extends OrderState {
-  readonly name = "Paid";
-  paidAt?: Date;                       // ← здається невинним
-
-  ship(order: Order) {
-    this.paidAt = new Date();          // ← пише у СПІЛЬНИЙ об'єкт States.Paid
-    order.transitionTo(States.Shipped);
-  }
-}
-// Наслідок: States.Paid один на всі замовлення. Замовлення B оплатилось —
-// перезаписало paidAt, поставлене замовленням A хвилину тому. Дані течуть
-// між НЕ пов'язаними замовленнями. Баг плаваючий, відтворюється лише під
-// навантаженням, коли два замовлення в Paid одночасно.
-```
-```py
-# ❌ ОТРУЄНО: власне змінне поле в об'єкті, який СПІЛЬНИЙ для всіх замовлень
-class PaidState(OrderState):
-    name = "Paid"
-    paid_at = None                     # ← здається невинним
-
-    def ship(self, order: "Order") -> None:
-        self.paid_at = datetime.now()  # ← пише у СПІЛЬНИЙ об'єкт States.PAID
-        order.transition_to(States.SHIPPED)
-# Наслідок: States.PAID один на всі замовлення. Замовлення B оплатилось —
-# перезаписало paid_at, поставлене замовленням A хвилину тому. Дані течуть
-# між НЕ пов'язаними замовленнями. Баг плаваючий, відтворюється лише під
-# навантаженням, коли два замовлення в Paid одночасно.
-```
+:::code proj-order-state-machine/ts/pastka-persha-spilnyi-stan.ts
+:::code proj-order-state-machine/py/pastka-persha-spilnyi-stan.py
 :::
 
 Ліки прості й непорушні: **спільний об'єкт-стан мусить бути незмінним (без власних змінних полів)**. Усе, що стосується конкретного замовлення, кладемо в контекст — там йому й місце:
 
 :::tabs
-```ts
-// ✅ Правильно: дані замовлення — у контексті, стан лишається спільним і чистим
-class Order {
-  private state: OrderState = States.New;
-  paidAt?: Date;                       // ← поле замовлення, не стану
-  /* ... */
-}
-class PaidState extends OrderState {
-  readonly name = "Paid";
-  ship(order: Order) {
-    order.paidAt ??= new Date();       // ← пишемо в КОНКРЕТНЕ замовлення
-    order.transitionTo(States.Shipped);
-  }
-}
-```
-```py
-# ✅ Правильно: дані замовлення — у контексті, стан лишається спільним і чистим
-class Order:
-    def __init__(self, id: str) -> None:
-        self._state: OrderState = States.NEW
-        self.paid_at = None            # ← поле замовлення, не стану
-        # ...
-
-class PaidState(OrderState):
-    name = "Paid"
-    def ship(self, order: "Order") -> None:
-        if order.paid_at is None:
-            order.paid_at = datetime.now()   # ← пишемо в КОНКРЕТНЕ замовлення
-        order.transition_to(States.SHIPPED)
-```
+:::code proj-order-state-machine/ts/pastka-persha-spilnyi-stan-2.ts
+:::code proj-order-state-machine/py/pastka-persha-spilnyi-stan-2.py
 :::
 
 Правило, яке варто прибити цвяхом: **якщо стан спільний — він не має права нічого пам'ятати про окреме замовлення**. Пам'ять — робота контексту. Стан — тільки поведінка. Порушиш це — і дістанеш найгидкіший клас багів: дані, що протікають між об'єктами, які й гадки не мають один про одного, з відтворенням лише під навантаженням.
@@ -370,31 +85,8 @@ class PaidState(OrderState):
 Це — дзеркальний бік попередньої пастки, і трапляється навіть тоді, коли стани чесно незмінні. Стан нічого не тримає, перевикористовувати його **можна** — а програміст усе одно на кожен перехід пише `new`:
 
 :::tabs
-```ts
-// ❌ Марнотратно: новий об'єкт стану на КОЖЕН перехід, хоч він порожній і спільний
-class NewState extends OrderState {
-  pay(order: Order) { order.transitionTo(new PaidState()); }  // ← new щоразу
-}
-class PaidState extends OrderState {
-  ship(order: Order) { order.transitionTo(new ShippedState()); }  // ← і тут new
-}
-// Мільйон замовлень пройшли через Paid → мільйон однакових PaidState,
-// кожен живе рівно до наступного переходу й одразу йде у смітник.
-// Тиск на збирач сміття на порожньому місці.
-```
-```py
-# ❌ Марнотратно: новий об'єкт стану на КОЖЕН перехід, хоч він порожній і спільний
-class NewState(OrderState):
-    def pay(self, order: "Order") -> None:
-        order.transition_to(PaidState())     # ← новий об'єкт щоразу
-
-class PaidState(OrderState):
-    def ship(self, order: "Order") -> None:
-        order.transition_to(ShippedState())  # ← і тут новий
-# Мільйон замовлень пройшли через Paid → мільйон однакових PaidState,
-# кожен живе до наступного переходу й одразу йде у смітник.
-# Тиск на збирач сміття на порожньому місці.
-```
+:::code proj-order-state-machine/ts/pastka-druha-dubliuvannia.ts
+:::code proj-order-state-machine/py/pastka-druha-dubliuvannia.py
 :::
 
 Ліки — той самий пул `States`, з якого ми й починали: не `new PaidState()`, а `States.Paid`. Один екземпляр на стан, спільний для всіх переходів усіх замовлень назавжди. У коді автомата вгорі це вже зроблено правильно — стани створюються раз у `States`, а всі переходи посилаються на готове.
@@ -408,36 +100,8 @@ class PaidState(OrderState):
 Ось де архітектура з базою рятує від тихого провалу. Забудеш описати клітину — вона не проковтнеться мовчки, вона **впаде з бази**. Порівняй дві реалізації того самого недогляду:
 
 :::tabs
-```ts
-// Додали стан OnHold, але забули клітину (OnHold, cancel) —
-// бо з утримання теж мусить бути можна скасувати замовлення.
-class OnHoldState extends OrderState {
-  readonly name = "OnHold";
-  pay(order: Order) { order.transitionTo(States.Paid); }   // платіж підтвердили
-  // cancel — ЗАБУЛИ описати
-}
-
-const o = new Order("B-002");
-/* ... замовлення потрапило в OnHold ... */
-o.cancel();
-// → IllegalTransition: "не можна скасувати: замовлення у стані «OnHold»"
-// Перший же тест, що торкнеться цієї клітини, ГУЧНО падає. Дірку видно одразу.
-```
-```py
-# Додали стан OnHold, але забули клітину (OnHold, cancel) —
-# бо з утримання теж мусить бути можна скасувати замовлення.
-class OnHoldState(OrderState):
-    name = "OnHold"
-    def pay(self, order: "Order") -> None:
-        order.transition_to(States.PAID)     # платіж підтвердили
-    # cancel — ЗАБУЛИ описати
-
-o = Order("B-002")
-# ... замовлення потрапило в OnHold ...
-o.cancel()
-# → IllegalTransition: "не можна скасувати: замовлення у стані «OnHold»"
-# Перший же тест, що торкнеться цієї клітини, ГУЧНО падає. Дірку видно одразу.
-```
+:::code proj-order-state-machine/ts/pastka-tretia-zabutyi.ts
+:::code proj-order-state-machine/py/pastka-tretia-zabutyi.py
 :::
 
 Кинута помилка тут — **благо**, не біда: вона перетворює забуту клітину на видиму, відтворювану поломку в розробці замість тихого зависання в проді. Порівняй із версією, де замовлення тримає стан рядком-прапорцем і `switch` розкиданий по методах: там забута гілка в новому `case` просто провалюється в `default` (або взагалі нікуди) — жодного сигналу, замовлення тихо застрягає, а ти дізнаєшся про це від сердитого клієнта.
@@ -453,77 +117,8 @@ o.cancel()
 Ось той самий автомат замовлення, зібраний **таблицею** замість класів:
 
 :::tabs
-```ts
-// Уся таблиця як дані: (стан, подія) → наступний стан або спеціальна мітка.
-type Cell = { to: string } | "reject" | "ignore";
-
-const TABLE: Record<string, Record<string, Cell>> = {
-  New:       { pay: {to:"Paid"}, cancel: {to:"Cancelled"},
-               ship: "reject",   refund: "reject" },
-  Paid:      { ship: {to:"Shipped"}, cancel: {to:"Refunded"}, refund: {to:"Refunded"},
-               pay: "reject" },
-  Shipped:   { refund: {to:"Refunded"}, ship: "ignore",
-               pay: "reject", cancel: "reject" },
-  Cancelled: { cancel: "ignore", pay: "reject", ship: "reject", refund: "reject" },
-  Refunded:  { refund: "ignore", pay: "reject", ship: "reject", cancel: "reject" },
-};
-
-class Order {
-  state = "New";
-  logbook: string[] = [];
-  constructor(readonly id: string) {}
-
-  fire(event: string) {                       // ОДИН рушій на всі події
-    const cell = TABLE[this.state]?.[event];
-    if (cell === undefined || cell === "reject")
-      throw new Error(`не можна ${event}: стан «${this.state}»`);
-    if (cell === "ignore") { this.logbook.push(`ігнор: ${event}`); return; }
-    this.logbook.push(`${this.state} → ${cell.to}`);
-    this.state = cell.to;                      // + тут же побічна дія події, якщо треба
-  }
-  pay()    { this.fire("pay"); }
-  ship()   { this.fire("ship"); }
-  cancel() { this.fire("cancel"); }
-  refund() { this.fire("refund"); }
-}
-```
-```py
-# Уся таблиця як дані: (стан, подія) → наступний стан або спеціальна мітка.
-TABLE = {
-    "New":       {"pay": "Paid", "cancel": "Cancelled",
-                  "ship": "reject", "refund": "reject"},
-    "Paid":      {"ship": "Shipped", "cancel": "Refunded", "refund": "Refunded",
-                  "pay": "reject"},
-    "Shipped":   {"refund": "Refunded", "ship": "ignore",
-                  "pay": "reject", "cancel": "reject"},
-    "Cancelled": {"cancel": "ignore", "pay": "reject",
-                  "ship": "reject", "refund": "reject"},
-    "Refunded":  {"refund": "ignore", "pay": "reject",
-                  "ship": "reject", "cancel": "reject"},
-}
-
-
-class Order:
-    def __init__(self, id: str) -> None:
-        self.id = id
-        self.state = "New"
-        self.logbook: list[str] = []
-
-    def fire(self, event: str) -> None:         # ОДИН рушій на всі події
-        cell = TABLE.get(self.state, {}).get(event)
-        if cell is None or cell == "reject":
-            raise Exception(f"не можна {event}: стан «{self.state}»")
-        if cell == "ignore":
-            self.logbook.append(f"ігнор: {event}")
-            return
-        self.logbook.append(f"{self.state} → {cell}")
-        self.state = cell                        # + тут же побічна дія події, якщо треба
-
-    def pay(self):    self.fire("pay")
-    def ship(self):   self.fire("ship")
-    def cancel(self): self.fire("cancel")
-    def refund(self): self.fire("refund")
-```
+:::code proj-order-state-machine/ts/skilky-tse-koshtuie-switch.ts
+:::code proj-order-state-machine/py/skilky-tse-koshtuie-switch.py
 :::
 
 Обидві реалізації описують **ту саму таблицю** — і це головне, що треба вкласти в голову, перш ніж порівнювати: скільки правил в автоматі, стільки й доведеться написати, хоч класами, хоч таблицею. Різниця не в **кількості** правил, а в тому, **як вони розкладені** й **як поводяться при рості**.

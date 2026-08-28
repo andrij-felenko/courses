@@ -17,88 +17,8 @@
 Одна операція — «розмістити замовлення» — і навколо неї чотири сусіди, кожен з яких по-своєму заважає тесту.
 
 :::tabs
-```ts
-type Money = number; // копійки
-
-interface PriceCatalog { priceOf(sku: string): Money; }
-interface OrderRepository {
-  save(order: Order): void;
-  find(id: string): Order | undefined;
-}
-interface Notifier { sendConfirmation(email: string, total: Money): void; }
-interface AuditLog { record(event: string, id: string): void; }
-
-interface Line  { sku: string; qty: number; }
-interface Order { id: string; email: string; total: Money; status: "placed"; }
-interface PlaceOrderCmd { orderId: string; email: string; items: Line[]; }
-
-interface Deps {
-  catalog: PriceCatalog; repo: OrderRepository;
-  notifier: Notifier;    audit: AuditLog;
-}
-
-function placeOrder(cmd: PlaceOrderCmd, deps: Deps): Order {
-  const total = cmd.items.reduce(
-    (sum, line) => sum + deps.catalog.priceOf(line.sku) * line.qty, 0);
-  const order: Order = { id: cmd.orderId, email: cmd.email, total, status: "placed" };
-  deps.repo.save(order);
-  deps.notifier.sendConfirmation(order.email, total);
-  deps.audit.record("order_placed", order.id);
-  return order;
-}
-```
-```py
-from dataclasses import dataclass, replace
-from typing import Protocol
-
-Money = int  # копійки
-
-class PriceCatalog(Protocol):
-    def price_of(self, sku: str) -> Money: ...
-
-class OrderRepository(Protocol):
-    def save(self, order: "Order") -> None: ...
-    def find(self, order_id: str) -> "Order | None": ...
-
-class Notifier(Protocol):
-    def send_confirmation(self, email: str, total: Money) -> None: ...
-
-class AuditLog(Protocol):
-    def record(self, event: str, order_id: str) -> None: ...
-
-@dataclass
-class Line:
-    sku: str
-    qty: int
-
-@dataclass
-class Order:
-    id: str
-    email: str
-    total: Money
-    status: str  # "placed"
-
-@dataclass
-class PlaceOrderCmd:
-    order_id: str
-    email: str
-    items: list[Line]
-
-@dataclass
-class Deps:
-    catalog: PriceCatalog
-    repo: OrderRepository
-    notifier: Notifier
-    audit: AuditLog
-
-def place_order(cmd: PlaceOrderCmd, deps: Deps) -> Order:
-    total = sum(deps.catalog.price_of(line.sku) * line.qty for line in cmd.items)
-    order = Order(id=cmd.order_id, email=cmd.email, total=total, status="placed")
-    deps.repo.save(order)
-    deps.notifier.send_confirmation(order.email, total)
-    deps.audit.record("order_placed", order.id)
-    return order
-```
+:::code proj-test-doubles/ts/zadacha-servis-iz-piatma.ts
+:::code proj-test-doubles/py/zadacha-servis-iz-piatma.py
 :::
 
 Зверни увагу на природу цих чотирьох сусідів — вона різна, і саме вона диктує, який дублер до кого пасує. **Каталог цін** відповідає на **запит**: ти в нього питаєш ціну, він повертає число, жодного сліду в світі не лишаючи. **Сховище** тримає **стан**: поклав — потім прочитав. **Сповіщувач** виконує **команду**: шле лист назовні, і повернути нічого не має — уся суть у побічній дії на зовнішній світ. А **аудит-лог** тут — дрібний обов'язковий формалізм, який більшість тестів взагалі не цікавить.
@@ -177,41 +97,8 @@ class InMemoryOrders:
 Ось де ховається різниця «заглушка проти фейка», яку часто змазують. Заглушка **віддає** те, що ти в неї вклав; фейк **робить** те, що робив би справжній. Тому саме фейк дає тобі перевіряти **стан**: після `placeOrder` можна спитати сховище — «а замовлення справді там, і статус правильний?» — і воно чесно відповість, бо чесно зберегло. Зберемо перших трьох дублерів в один тест і звіримо саме стан.
 
 :::tabs
-```ts
-import assert from "node:assert/strict";
-
-function test_total_and_persisted() {
-  const catalog = new StubCatalog({ "KAVA-250": 250, "CUKOR-1": 90 }); // заглушка
-  const repo = new InMemoryOrders();                                    // фейк
-  const spy = new SpyNotifier();                                        // тут байдужий
-  const cmd: PlaceOrderCmd = {
-    orderId: "ORD-1", email: "olena@shop.ua",
-    items: [{ sku: "KAVA-250", qty: 2 }, { sku: "CUKOR-1", qty: 1 }],
-  };
-
-  const order = placeOrder(cmd, { catalog, repo, notifier: spy, audit: dummyAudit });
-
-  // перевірка СТАНУ: сума порахована й замовлення справді збережене
-  assert.equal(order.total, 590);              // 2·250 + 1·90 = 590
-  assert.deepEqual(repo.find("ORD-1"), order); // фейк повертає те, що поклали
-}
-```
-```py
-def test_total_and_persisted() -> None:
-    catalog = StubCatalog({"KAVA-250": 250, "CUKOR-1": 90})  # заглушка
-    repo = InMemoryOrders()                                  # фейк
-    spy = SpyNotifier()                                      # тут байдужий
-    cmd = PlaceOrderCmd(
-        order_id="ORD-1", email="olena@shop.ua",
-        items=[Line("KAVA-250", 2), Line("CUKOR-1", 1)],
-    )
-
-    order = place_order(cmd, Deps(catalog, repo, spy, DummyAudit()))
-
-    # перевірка СТАНУ: сума порахована й замовлення справді збережене
-    assert order.total == 590             # 2·250 + 1·90 = 590
-    assert repo.find("ORD-1") == order    # фейк повертає те, що поклали
-```
+:::code proj-test-doubles/ts/feik-sproshchena-ale.ts
+:::code proj-test-doubles/py/feik-sproshchena-ale.py
 :::
 
 Тест нічого не питає про те, **як** система дійшла результату. Він дивиться на слід: сума `590`, замовлення в сховищі. Це і є перевірка стану — і для запиту (ціна) та стану (збереження) вона природна. Але зі сповіщенням так не вийде, і саме тут починаються два останні дублери.
@@ -221,46 +108,8 @@ def test_total_and_persisted() -> None:
 Сповіщувач шле лист. Що звіряти? Стану нема — лист полетів назовні, у процесі нічого не осіло. Єдине спостережуване тут — **факт виклику**: система мала покликати `sendConfirmation` з правильною поштою й сумою. Щоб цей факт піймати, потрібен дублер, який **запам'ятовує**, кого й з чим кликали. Це **шпигун** — заглушка, яка додатково веде журнал викликів, щоб ти звірив його **після**.
 
 :::tabs
-```ts
-class SpyNotifier implements Notifier {
-  readonly calls: Array<{ email: string; total: Money }> = [];
-  sendConfirmation(email: string, total: Money): void {
-    this.calls.push({ email, total });
-  }
-}
-
-function test_confirmation_sent() {
-  const spy = new SpyNotifier();
-  placeOrder(
-    { orderId: "ORD-2", email: "olena@shop.ua", items: [{ sku: "KAVA-250", qty: 2 }] },
-    { catalog: new StubCatalog({ "KAVA-250": 250 }), repo: new InMemoryOrders(),
-      notifier: spy, audit: dummyAudit },
-  );
-
-  // перевірка ВЗАЄМОДІЇ: рівно одне сповіщення, з тими даними
-  assert.equal(spy.calls.length, 1);
-  assert.deepEqual(spy.calls[0], { email: "olena@shop.ua", total: 500 }); // 2·250
-}
-```
-```py
-class SpyNotifier:
-    def __init__(self) -> None:
-        self.calls: list[tuple[str, Money]] = []
-
-    def send_confirmation(self, email: str, total: Money) -> None:
-        self.calls.append((email, total))
-
-def test_confirmation_sent() -> None:
-    spy = SpyNotifier()
-    place_order(
-        PlaceOrderCmd("ORD-2", "olena@shop.ua", [Line("KAVA-250", 2)]),
-        Deps(StubCatalog({"KAVA-250": 250}), InMemoryOrders(), spy, DummyAudit()),
-    )
-
-    # перевірка ВЗАЄМОДІЇ: рівно одне сповіщення, з тими даними
-    assert len(spy.calls) == 1
-    assert spy.calls[0] == ("olena@shop.ua", 500)  # 2·250
-```
+:::code proj-test-doubles/ts/shpyhun-zapysaty-koho.ts
+:::code proj-test-doubles/py/shpyhun-zapysaty-koho.py
 :::
 
 Порядок дій у шпигуна класичний: **спорудив — виконав — звірив** (arrange–act–assert). Спершу проганяєш дію, потім, наприкінці, розглядаєш журнал. Шпигун — усе ще пасивний під час прогону: він мовчки нотує й нікому не заважає. Активним звіряння стає лише в останньому рядку тесту, твоїми руками. А що, якби дублер сам знав, чого чекати, і сам собі виніс вирок?
@@ -270,65 +119,8 @@ def test_confirmation_sent() -> None:
 Останній, найозброєніший дублер відрізняється від шпигуна двома речами. Перше: очікування задають **наперед**, до дії, — «я чекаю рівно одне сповіщення на цю пошту з цією сумою». Друге: **мок звіряє себе сам** — у нього є метод `verify`, і це його обов'язок винести вирок, а не твій. Понад те, мок може впасти **негайно** на несподіваному чи неправильному виклику, не чекаючи кінця тесту.
 
 :::tabs
-```ts
-class MockNotifier implements Notifier {
-  private expected: { email: string; total: Money } | null = null;
-  private actual:   { email: string; total: Money } | null = null;
-
-  expectConfirmation(email: string, total: Money): void {
-    this.expected = { email, total };            // очікування — НАПЕРЕД
-  }
-  sendConfirmation(email: string, total: Money): void {
-    if (this.actual) throw new Error("сповіщення надіслано двічі"); // падає одразу
-    this.actual = { email, total };
-  }
-  verify(): void {                               // мок звіряє себе сам
-    const ok = this.actual && this.expected
-      && this.actual.email === this.expected.email
-      && this.actual.total === this.expected.total;
-    if (!ok) throw new Error(
-      `очікували ${JSON.stringify(this.expected)}, дістали ${JSON.stringify(this.actual)}`);
-  }
-}
-
-function test_confirmation_mock() {
-  const mock = new MockNotifier();
-  mock.expectConfirmation("olena@shop.ua", 500); // ← спершу озброюємо очікуванням
-  placeOrder(
-    { orderId: "ORD-3", email: "olena@shop.ua", items: [{ sku: "KAVA-250", qty: 2 }] },
-    { catalog: new StubCatalog({ "KAVA-250": 250 }), repo: new InMemoryOrders(),
-      notifier: mock, audit: dummyAudit },
-  );
-  mock.verify();                                  // ← мок сам виносить вирок
-}
-```
-```py
-class MockNotifier:
-    def __init__(self) -> None:
-        self._expected: "tuple[str, Money] | None" = None
-        self._actual:   "tuple[str, Money] | None" = None
-
-    def expect_confirmation(self, email: str, total: Money) -> None:
-        self._expected = (email, total)            # очікування — НАПЕРЕД
-
-    def send_confirmation(self, email: str, total: Money) -> None:
-        if self._actual is not None:
-            raise AssertionError("сповіщення надіслано двічі")  # падає одразу
-        self._actual = (email, total)
-
-    def verify(self) -> None:                       # мок звіряє себе сам
-        assert self._actual == self._expected, \
-            f"очікували {self._expected}, дістали {self._actual}"
-
-def test_confirmation_mock() -> None:
-    mock = MockNotifier()
-    mock.expect_confirmation("olena@shop.ua", 500)  # ← спершу озброюємо
-    place_order(
-        PlaceOrderCmd("ORD-3", "olena@shop.ua", [Line("KAVA-250", 2)]),
-        Deps(StubCatalog({"KAVA-250": 250}), InMemoryOrders(), mock, DummyAudit()),
-    )
-    mock.verify()                                   # ← мок сам виносить вирок
-```
+:::code proj-test-doubles/ts/mok-ozbroienyi.ts
+:::code proj-test-doubles/py/mok-ozbroienyi.py
 :::
 
 Тут я зліпив мок руками — щоб механізм було видно наскрізь. У справжньому проєкті цю церемонію бере на себе бібліотека (у Python — `unittest.mock`, у TypeScript — `jest`/`vitest`), але роль лишається та сама: очікування наперед, самозвіряння. Різниця шпигуна й мока тонка, але справжня: шпигун — це **пасивний диктофон**, який ти розшифровуєш сам; мок — **прокурор із заготованим звинуваченням**, який сам вирішує, чи винна система.
@@ -354,44 +146,8 @@ def test_confirmation_mock() -> None:
 Ось як виглядає такий тест-зліпок. Він мокає всіх чотирьох сусідів і звіряє точну послідовність викликів.
 
 :::tabs
-```ts
-// КРИХКИЙ тест: заморожує внутрішню структуру виконання
-function test_place_order_fragile() {
-  const seq: string[] = [];
-  const catalog: PriceCatalog = { priceOf: (s) => { seq.push(`price:${s}`); return 250; } };
-  const repo:    OrderRepository = { save: () => { seq.push("save"); }, find: () => undefined };
-  const notify:  Notifier  = { sendConfirmation: () => { seq.push("notify"); } };
-  const audit:   AuditLog  = { record: () => { seq.push("audit"); } };
-
-  placeOrder(
-    { orderId: "ORD-4", email: "o@x", items: [{ sku: "KAVA-250", qty: 2 }] },
-    { catalog, repo, notifier: notify, audit },
-  );
-
-  // припущення про ТОЧНУ структуру, а не про поведінку:
-  assert.deepEqual(seq, ["price:KAVA-250", "save", "notify", "audit"]);
-}
-```
-```py
-def test_place_order_fragile() -> None:
-    seq: list[str] = []
-
-    class Rec:
-        def price_of(self, s: str) -> Money: seq.append(f"price:{s}"); return 250
-        def save(self, o: Order) -> None: seq.append("save")
-        def find(self, i: str) -> "Order | None": return None
-        def send_confirmation(self, e: str, t: Money) -> None: seq.append("notify")
-        def record(self, e: str, i: str) -> None: seq.append("audit")
-
-    r = Rec()
-    place_order(
-        PlaceOrderCmd("ORD-4", "o@x", [Line("KAVA-250", 2)]),
-        Deps(r, r, r, r),
-    )
-
-    # припущення про ТОЧНУ структуру, а не про поведінку:
-    assert seq == ["price:KAVA-250", "save", "notify", "audit"]
-```
+:::code proj-test-doubles/ts/pastka-nadmirnoho-mokannia.ts
+:::code proj-test-doubles/py/pastka-nadmirnoho-mokannia.py
 :::
 
 Тепер уяви безневинний рефакторинг: ти вирішив писати аудит **перед** відсиланням листа (щоб слід у журналі був навіть якщо пошта відмовить). Поведінка, яку бачить користувач, — та сама: замовлення збережене, лист надійшов, сума правильна. Але `seq` тепер `["price…", "save", "audit", "notify"]` — і крихкий тест червоніє, хоча нічого не зламалося. Ти пересунув два рядки місцями — і поплатився переписуванням тесту. Помнож це на сотні таких тестів, і вийде та сама картина, від якої команди зневірюються в тестах: кожен рефакторинг тягне зливу фальшивих падінь, а справжніх помилок ці тести не ловлять — вони стережуть **форму**, а не суть.
@@ -421,42 +177,8 @@ def test_place_order_fragile() -> None:
 Відповідь — патерн **скромний об'єкт (англ. *humble object*)**: зроби цей крайній адаптер настільки бідним на логіку, що в ньому нíчому буде помилятися. Витягни **всю** думку — форматування листа, рішення, що і як слати, — у чисту, щільно тестовану частину, а адаптерові лиши голе делегування.
 
 :::tabs
-```ts
-// Уся логіка — у чистій частині, яку тестуємо густо й дешево.
-class ConfirmationComposer {
-  compose(email: string, total: Money): { to: string; subject: string; body: string } {
-    const hrn = (total / 100).toFixed(2);
-    return { to: email, subject: "Замовлення прийнято",
-             body: `Дякуємо! До сплати: ${hrn} грн.` };
-  }
-}
-
-// Скромна оболонка: жодного рішення — лише делегування + один зовнішній виклик.
-class SmtpNotifier implements Notifier {
-  constructor(
-    private readonly composer: ConfirmationComposer,
-    private readonly smtp: SmtpClient,   // чуже, за ВЛАСНИМ портом
-  ) {}
-  sendConfirmation(email: string, total: Money): void {
-    this.smtp.send(this.composer.compose(email, total));
-  }
-}
-```
-```py
-class ConfirmationComposer:
-    def compose(self, email: str, total: Money) -> dict[str, str]:
-        hrn = f"{total / 100:.2f}"
-        return {"to": email, "subject": "Замовлення прийнято",
-                "body": f"Дякуємо! До сплати: {hrn} грн."}
-
-class SmtpNotifier:
-    def __init__(self, composer: ConfirmationComposer, smtp: "SmtpClient") -> None:
-        self._composer = composer      # чиста логіка
-        self._smtp = smtp              # чуже, за ВЛАСНИМ портом
-
-    def send_confirmation(self, email: str, total: Money) -> None:
-        self._smtp.send(self._composer.compose(email, total))
-```
+:::code proj-test-doubles/ts/skromnyi-obiekt-na-samomu.ts
+:::code proj-test-doubles/py/skromnyi-obiekt-na-samomu.py
 :::
 
 Тепер `ConfirmationComposer` — звичайна чиста функція: тестуй її десятками випадків без жодного дубля (гривні, копійки, довгі суми, порожні). А `SmtpNotifier` схуднув до одного рядка, у якому фактично немає що ламати, — тож і покривати його юніт-тестом майже нема сенсу; вистачить одного інтеграційного, де замість `SmtpClient` підставлено фейк порту. Слово «humble» у цю назву приніс Майкл Фізерс, а до каталогу патернів його завів той-таки Мезарош — і суть його одна: **зіштовхни логіку з нетестовного краю всередину, у тестовне ядро**.

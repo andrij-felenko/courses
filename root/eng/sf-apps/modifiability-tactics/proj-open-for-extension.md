@@ -15,31 +15,8 @@
 Найпряміший спосіб — той, з якого всі починають: `switch` у серці рушія.
 
 :::tabs
-```ts
-type Row = Record<string, unknown>;
-
-// ЯДРО, яке доводиться відкривати на КОЖЕН новий формат
-function exportReport(format: string, rows: Row[]): string {
-  switch (format) {
-    case "csv":  return toCsv(rows);
-    case "json": return JSON.stringify(rows, null, 2);
-    // ← новий формат = нова гілка ТУТ, у вже робочому ядрі
-    default: throw new Error(`невідомий формат: ${format}`);
-  }
-}
-```
-```py
-import json
-
-# ЯДРО, яке доводиться відкривати на КОЖЕН новий формат
-def export_report(fmt: str, rows: list[dict]) -> str:
-    if fmt == "csv":
-        return to_csv(rows)
-    if fmt == "json":
-        return json.dumps(rows, ensure_ascii=False, indent=2)
-    # ← новий формат = нова гілка ТУТ, у вже робочому ядрі
-    raise ValueError(f"невідомий формат: {fmt}")
-```
+:::code proj-open-for-extension/ts/zadacha-rushii-zvitiv-u.ts
+:::code proj-open-for-extension/py/zadacha-rushii-zvitiv-u.py
 :::
 
 Проблема не косметична. Щоб навчити рушій формату `xml`, треба **відкрити цю функцію** й дописати гілку. І гірше: щойно гілки почнуть кликати справжні форматувальники, ядро муситиме **імпортувати кожен** із них — тобто ядро знатиме поіменно всі варіанти, залежатиме від кожного. Стрілка залежності вказує з ядра **вниз**, до конкретних форматів, а це саме той бік, з якого зміна тече найгустіше: додав формат — торкнувся ядра.
@@ -71,59 +48,8 @@ def export_report(fmt: str, rows: list[dict]) -> str:
 Зберемо рушій. Спершу — **ядро**: контракт, реєстр і диспетчер, зібрані в один модуль. Це той код, який ми напишемо раз і більше ніколи не відкриємо заради нового формату.
 
 :::tabs
-```ts
-// --- registry.ts: ЯДРО. Пишеться раз, на формати не відкривається ---
-export type Row = Record<string, unknown>;
-
-// Контракт розширення (порт). Ядро володіє ним; варіанти його реалізують.
-export interface Exporter {
-  readonly format: string;               // ключ, під яким варіант відповідає
-  export(rows: Row[]): string;           // єдина операція контракту
-}
-
-const registry = new Map<string, Exporter>();
-
-// Точка самозапису. Її кличе КОЖЕН варіант — з власного файлу.
-export function register(exporter: Exporter): void {
-  if (registry.has(exporter.format))
-    throw new Error(`формат '${exporter.format}' вже зайнято`);
-  registry.set(exporter.format, exporter);
-}
-
-// Диспетчер: знайти реалізацію за форматом і делегувати. Жодного варіанта не знає.
-export function exportReport(format: string, rows: Row[]): string {
-  const exporter = registry.get(format);
-  if (!exporter) throw new Error(`немає експортера для '${format}'`);
-  return exporter.export(rows);          // поліморфний виклик
-}
-```
-```py
-# --- registry.py: ЯДРО. Пишеться раз, на формати не відкривається ---
-from typing import Protocol
-
-Row = dict[str, object]
-
-# Контракт розширення (порт). Ядро володіє ним; варіанти його реалізують.
-class Exporter(Protocol):
-    format: str
-    def export(self, rows: list[Row]) -> str: ...
-
-_registry: dict[str, Exporter] = {}
-
-# Декоратор самозапису — ідіоматичний спосіб оголоситися в Python.
-def register(cls: type) -> type:
-    if cls.format in _registry:
-        raise ValueError(f"формат '{cls.format}' вже зайнято")
-    _registry[cls.format] = cls()          # один спільний екземпляр (він без стану)
-    return cls
-
-# Диспетчер: знайти реалізацію за форматом і делегувати. Жодного варіанта не знає.
-def export_report(fmt: str, rows: list[Row]) -> str:
-    exporter = _registry.get(fmt)
-    if exporter is None:
-        raise ValueError(f"немає експортера для '{fmt}'")
-    return exporter.export(rows)           # поліморфний виклик
-```
+:::code proj-open-for-extension/ts/registry.ts
+:::code proj-open-for-extension/py/registry.py
 :::
 
 Зверни увагу, чого в цьому файлі **немає**: жодного слова `csv`, `json`, `xml`. Диспетчер `exportReport` однаковий для двох форматів і для двадцяти — він бере ключ, дістає реалізацію, делегує. `register` теж сліпий до того, кого реєструє: приходить будь-хто, хто відповідає контракту. Ядро — це чиста механіка «оголоси себе → тебе знайдуть», без натяку на те, хто саме оголоситься.
@@ -131,54 +57,12 @@ def export_report(fmt: str, rows: list[Row]) -> str:
 Тепер два формати, кожен — **окремий файл, що сам себе оголошує** при завантаженні. У TypeScript самозапис — це виклик `register(...)` на рівні модуля; у Python ідіома інша й чистіша — **декоратор класу**, що реєструє його в момент імпорту.
 
 :::tabs
-```ts
-// --- exporters/csv.ts: цілком самодостатній, залежить лише від контракту ---
-import { Exporter, Row, register } from "../registry";
-
-class CsvExporter implements Exporter {
-  readonly format = "csv";
-  export(rows: Row[]): string {
-    if (rows.length === 0) return "";
-    const cols = Object.keys(rows[0]);
-    const head = cols.join(",");
-    const body = rows.map(r => cols.map(c => String(r[c])).join(",")).join("\n");
-    return `${head}\n${body}`;
-  }
-}
-
-register(new CsvExporter());     // ← самозапис при завантаженні модуля
-```
-```py
-# --- exporters/csv_exporter.py: самодостатній, залежить лише від контракту ---
-from ..registry import register, Row
-
-@register
-class CsvExporter:
-    format = "csv"
-    def export(self, rows: list[Row]) -> str:
-        if not rows:
-            return ""
-        cols = list(rows[0].keys())
-        head = ",".join(cols)
-        body = "\n".join(",".join(str(r[c]) for c in cols) for r in rows)
-        return f"{head}\n{body}"
-```
+:::code proj-open-for-extension/ts/csv.ts
+:::code proj-open-for-extension/py/csv_exporter.py
 :::
 
 :::tabs
-```ts
-// --- exporters/json.ts ---
-import { Exporter, Row, register } from "../registry";
-
-class JsonExporter implements Exporter {
-  readonly format = "json";
-  export(rows: Row[]): string {
-    return JSON.stringify(rows, null, 2);
-  }
-}
-
-register(new JsonExporter());
-```
+:::code proj-open-for-extension/ts/json.ts
 ```py
 # --- exporters/json_exporter.py ---
 import json
@@ -218,34 +102,8 @@ print(export_report("csv", rows))
 Тепер — те, заради чого все й затіяно. Прийшла вимога навчити рушій формату `xml`. Ось **повний** обсяг правок:
 
 :::tabs
-```ts
-// --- exporters/xml.ts: НОВИЙ файл. Більше не чіпаємо НІЧОГО ---
-import { Exporter, Row, register } from "../registry";
-
-class XmlExporter implements Exporter {
-  readonly format = "xml";
-  export(rows: Row[]): string {
-    const cell = (k: string, v: unknown) => `<${k}>${String(v)}</${k}>`;
-    const row  = (r: Row) =>
-      `  <row>${Object.entries(r).map(([k, v]) => cell(k, v)).join("")}</row>`;
-    return `<rows>\n${rows.map(row).join("\n")}\n</rows>`;
-  }
-}
-
-register(new XmlExporter());
-```
-```py
-# --- exporters/xml_exporter.py: НОВИЙ файл. Більше не чіпаємо НІЧОГО ---
-from ..registry import register, Row
-
-@register
-class XmlExporter:
-    format = "xml"
-    def export(self, rows: list[Row]) -> str:
-        cell = lambda k, v: f"<{k}>{v}</{k}>"
-        row = lambda r: "  <row>" + "".join(cell(k, v) for k, v in r.items()) + "</row>"
-        return "<rows>\n" + "\n".join(row(r) for r in rows) + "\n</rows>"
-```
+:::code proj-open-for-extension/ts/xml.ts
+:::code proj-open-for-extension/py/xml_exporter.py
 :::
 
 Подивись на цей diff очима рев'ювера. `registry.ts` — **не відкритий**. `csv.ts`, `json.ts` — **не відкриті**, їхній перевірений код навіть не перечитувався. Диспетчер `exportReport` — той самий байт у байт. Уся зміна — **один новий файл**, який ні з ким наявним не перетинається. Фізично неможливо, щоб поява `XmlExporter` зіпсувала розрахунок `csv`, бо вони ніде не дотикаються — знають лише спільний контракт, а він не змінився. Це і є хвиля в ядро, що дорівнює нулю: `fan_in` ядра не зріс, бо на ядро й далі спирається рівно контракт, а не список форматів.

@@ -31,61 +31,13 @@ while (running) {
 
 У GLUT є обробник простою — функція, яку віконний цикл кличе, коли в черзі немає жодної події. Виглядає як ідеальне гніздо для чужої роботи:
 
-```c
-static CURLM *multi;
-
-static void reap_finished(void) {
-    CURLMsg *m;
-    int left;
-    while ((m = curl_multi_info_read(multi, &left))) {
-        if (m->msg != CURLMSG_DONE) continue;
-        CURL *e = m->easy_handle;
-        char *priv = NULL;
-        curl_easy_getinfo(e, CURLINFO_PRIVATE, &priv);
-        tile_ready((struct Tile *)priv, m->data.result);   // тут можна чіпати вікно
-        curl_multi_remove_handle(multi, e);
-        curl_easy_cleanup(e);
-    }
-}
-
-static void on_idle(void) {
-    int running;
-    curl_multi_perform(multi, &running);   // повертається негайно, навіть коли роботи нема
-    reap_finished();
-}
-
-int main(int argc, char **argv) {
-    /* ...glutInit, glutCreateWindow, curl_global_init, multi = curl_multi_init()... */
-    glutIdleFunc(on_idle);
-    glutMainLoop();
-}
-```
+:::code proj-two-loops/c/sposib-1-hist-krokuie-v.c
 
 Це працює — і це найгірша річ, яку можна зробити з ноутбуком користувача. Обробник простою кличуть **не «зрідка, коли нічого не відбувається»**, а безперервно: щойно черга подій порожня, цикл гукає його знову й знову, мільйони разів за секунду. Такий цикл ніде не спить, тож процесор весь час зайнятий на сто відсотків одного ядра — і байдуже, чи є хоч один активний перенос. Це класичне [зайняте очікування](root:sf-tasks/polling-vs-events) — спосіб дізнатися про подію, перепитуючи джерело замість того, щоб чекати сигналу від нього; він завжди міняє енергію на затримку, і в обробнику простою міняє її за найгіршим курсом.
 
 Лікують це так: викидають обробник простою й ставлять на його місце **таймер**, який сам себе переставляє, а період беруть у гостя.
 
-```c
-#define CAP_MS 16                          // стеля затримки: один кадр 60 Гц
-
-static int gen = 0;                        // мітка покоління таймера
-static void tick(int my_gen);
-
-static void arm(void) {
-    long ms = -1;
-    curl_multi_timeout(multi, &ms);        // −1 → свого дедлайну в libcurl зараз нема
-    if (ms < 0 || ms > CAP_MS) ms = CAP_MS;
-    glutTimerFunc((unsigned)ms, tick, ++gen);
-}
-
-static void tick(int my_gen) {
-    if (my_gen != gen) return;             // цей таймер уже скасовано новішим
-    int running;
-    curl_multi_perform(multi, &running);
-    reap_finished();
-    if (running > 0) arm();                // нема переносів — нема й таймера
-}
-```
+:::code proj-two-loops/c/sposib-1-hist-krokuie-v-2.c
 
 `curl_multi_timeout` каже, скільки мілісекунд можна не турбувати бібліотеку, поки не настане **її власний** дедлайн: час на з'єднання, на розв'язання імені, на мінімальну швидкість. Значення −1 означає «зараз жодного дедлайну не заведено», і документація окремо просить не спати після цього довше за кілька секунд.
 
@@ -135,44 +87,7 @@ printf("%.3f мкс на виклик\n",
 
 Наступна ідея очевидна: якщо єдиний сон на двох не ділиться, дай кожному свій потік — хай кожен спить своїм сном. Гість дістає власний потік і повне право блокуватися скільки треба; господар лишається з вікном і нічого про мережу не знає. Єдина точка зустрічі — черга готових результатів.
 
-```cpp
-struct Done { long id; CURLcode code; std::string body; };
-
-class Fetcher {
-public:
-    void start() { th_ = std::thread([this] { loop(); }); }
-
-    void stop() {
-        stop_.store(true, std::memory_order_relaxed);
-        curl_multi_wakeup(multi_);          // єдиний спосіб урвати чужий сон ззовні
-        th_.join();
-    }
-
-    std::vector<Done> drain() {             // кличе ПОТІК ВІКНА
-        std::vector<Done> out;
-        std::lock_guard<std::mutex> g(mx_);
-        out.swap(ready_);                   // лок тримаємо наносекунди
-        return out;
-    }
-
-private:
-    void loop() {
-        while (!stop_.load(std::memory_order_relaxed)) {
-            int running = 0;
-            curl_multi_perform(multi_, &running);
-            reap();                                             // кладе готове в ready_ під локом
-            int numfds = 0;
-            curl_multi_poll(multi_, nullptr, 0, 1000, &numfds);  // ТУТ потік спить
-        }
-    }
-
-    CURLM *multi_;
-    std::thread th_;
-    std::atomic<bool> stop_{false};
-    std::mutex mx_;
-    std::vector<Done> ready_;
-};
-```
+:::code proj-two-loops/cpp/main.cpp
 
 `curl_multi_poll` — це і є «бібліотечний сон» гостя: він сам збирає свої сокети, сам рахує свій найближчий дедлайн і кладе потік спати рівно до першої з двох подій. Ніякого опитування, ніякого періоду — гість реагує на байти миттєво.
 
@@ -202,72 +117,13 @@ static void drain_tick(int my_gen) {
 
 Третій спосіб знімає компроміс замість того, щоб ним керувати: якщо гість погодиться сказати, **яких саме дескрипторів** він чекає й **коли** його розбудити за годинником, то очікування можна зробити одне на двох. У libcurl для цього є сокетний інтерфейс: два зворотні виклики, через які бібліотека повідомляє свої наміри.
 
-```c
-static int ep, tfd;                        // epoll і timerfd
-static CURLM *multi;
-
-/* libcurl: «за цим fd стеж ось на що» / «цей fd мені більше не потрібен» */
-static int on_socket(CURL *easy, curl_socket_t s, int what, void *userp, void *sockp) {
-    if (what == CURL_POLL_REMOVE) {
-        epoll_ctl(ep, EPOLL_CTL_DEL, s, NULL);
-        curl_multi_assign(multi, s, NULL);
-        return 0;
-    }
-    struct epoll_event ev = {0};
-    ev.data.fd = s;
-    ev.events = ((what & CURL_POLL_IN)  ? EPOLLIN  : 0)
-              | ((what & CURL_POLL_OUT) ? EPOLLOUT : 0);
-    epoll_ctl(ep, sockp ? EPOLL_CTL_MOD : EPOLL_CTL_ADD, s, &ev);
-    curl_multi_assign(multi, s, (void *)1);   // мітка «цей fd уже в наборі»
-    return 0;
-}
-
-/* libcurl: «розбуди мене через ms мілісекунд» / «мій таймер більше не потрібен» */
-static int on_timer(CURLM *m, long ms, void *userp) {
-    struct itimerspec its = {0};              // усі нулі — таймер вимкнено
-    if (ms >= 0) {
-        if (ms == 0) ms = 1;                  // 0 = «негайно», а нуль у timerfd означає «вимкни»
-        its.it_value.tv_sec  = ms / 1000;
-        its.it_value.tv_nsec = (ms % 1000) * 1000000L;
-    }
-    timerfd_settime(tfd, 0, &its, NULL);
-    return 0;
-}
-```
+:::code proj-two-loops/c/sposib-3-odyn-son-na-dvokh.c
 
 `timerfd` тут потрібен, щоб перетворити час на дескриптор: годинник, який стає готовим до читання, коли настав його момент, — і тоді єдине очікування вміє чекати і на байти, і на час однаково. Пастка з нулем справжня й коштує кількох годин: коли libcurl каже `0`, він просить кроку негайно, а нульова структура в `timerfd_settime` означає «таймер вимкнути». Один мілісекундний зсув рятує від тиші, у якій перенос просто не починається.
 
 Далі — сам цикл. Він твій, і в ньому одне-єдине місце, де процес спить:
 
-```c
-curl_multi_setopt(multi, CURLMOPT_SOCKETFUNCTION, on_socket);
-curl_multi_setopt(multi, CURLMOPT_TIMERFUNCTION, on_timer);
-curl_multi_add_handle(multi, easy);
-
-int running = 0;
-curl_multi_socket_action(multi, CURL_SOCKET_TIMEOUT, 0, &running);   // перший поштовх
-
-for (;;) {
-    struct epoll_event evs[64];
-    int n = epoll_wait(ep, evs, 64, -1);      // −1: спимо, доки не станеться НІЧОГО
-    for (int i = 0; i < n; i++) {
-        int fd = evs[i].data.fd;
-        if (fd == tfd) {
-            uint64_t ticks;
-            read(tfd, &ticks, sizeof ticks);
-            curl_multi_socket_action(multi, CURL_SOCKET_TIMEOUT, 0, &running);
-        } else if (fd == ui_fd) {
-            pump_ui();                        // одна ітерація циклу господаря
-        } else {
-            int mask = ((evs[i].events & EPOLLIN)  ? CURL_CSELECT_IN  : 0)
-                     | ((evs[i].events & EPOLLOUT) ? CURL_CSELECT_OUT : 0)
-                     | ((evs[i].events & EPOLLERR) ? CURL_CSELECT_ERR : 0);
-            curl_multi_socket_action(multi, fd, mask, &running);
-        }
-    }
-    reap_finished();
-}
-```
+:::code proj-two-loops/c/sposib-3-odyn-son-na-dvokh-2.c
 
 Читається це просто: `epoll_wait(-1)` — жодних пробуджень, поки нічого не сталося; прокинулись — дивимось, **чий саме** дескриптор став готовим, і робимо крок тому, чий він. Обидві величини з рахунку способу 1 стають найкращими можливими одночасно: нуль зайвих пробуджень і затримка, що дорівнює часу пробудження ядра. Компроміс не налаштований — його **немає**, бо ми більше нічого не питаємо, а справді чекаємо. Механіка самого очікування — у [select, poll, epoll](root:sys-unix/select-poll-epoll): один виклик, у якому потік спить на багатьох джерелах одразу, і саме він робить можливим об'єднання чужих джерел у наше очікування.
 

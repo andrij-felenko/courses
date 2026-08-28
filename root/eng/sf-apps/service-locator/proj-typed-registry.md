@@ -4,21 +4,7 @@
 
 А наївний варіант — оцей:
 
-```ts
-class Locator {
-  private static map = new Map<string, unknown>();
-  static register(key: string, value: unknown): void { Locator.map.set(key, value); }
-  static get(key: string): unknown { return Locator.map.get(key); }
-}
-
-Locator.register("gateway", new StripeGateway());          // на старті програми
-
-const gateway = Locator.get("gateway") as PaymentGateway;  // ① приведення руками, у кожній точці
-gateway.charge(order.total());
-
-const g = Locator.get("getway") as PaymentGateway;         // ② одрук: компілюється, g === undefined
-g.charge(order.total());                                    //    → TypeError аж у рантаймі
-```
+:::code proj-typed-registry/ts/part.ts
 
 Тут дві незалежні болячки, і плутати їх не варто, бо лікуються вони окремо. Перша — **ключ-рядок**. `get` повертає `unknown` («хтозна-що»), тож на кожному виклику доводиться руками дописувати `as PaymentGateway`, і ніхто не звіряє, що під цим ключем справді лежить шлюз, а не годинник. А `"getway"` замість `"gateway"` — звичайнісінький одрук — компілятор пропускає без єдиного слова: рядок є рядок. Помилка визріває мовчки й вибухає лише тоді, коли по службу нарешті прийдуть, — може, за пів години після старту, під навантаженням, у проді. Друга болячка ортогональна першій: реєстр **статичний і один на всю програму**. Те `static map` — це [глобальний стан](root:sf-apps/global-state), спільне змінне сховище для всіх запитів і всіх тестів заразом.
 
@@ -29,42 +15,7 @@ g.charge(order.total());                                    //    → TypeError 
 Ідея першої латки коротка: якщо ключ носитиме при собі тип служби, яку позначає, то компілятор зможе і перевірити, що ти кладеш під нього правильну реалізацію, і повернути тобі точний тип, коли береш, — без жодного приведення руками. А одрук у ключі стане не «іншим рядком», а посиланням на те, чого не існує, — і компілятор ловитиме його негайно.
 
 :::tabs
-```ts
-// Токен — звичайне значення, але параметризоване типом служби, яку він позначає.
-class Token<T> {
-  // Поле-фантом: у типі є, у рантаймі — нема (declare не породжує жодного коду).
-  // Без згадки T компілятор вважав би Token<A> і Token<B> взаємозамінними; поле це лікує.
-  declare readonly _service: T;
-  constructor(readonly description: string) {}
-}
-
-class ServiceRegistry {
-  private map = new Map<Token<unknown>, unknown>();
-
-  // register вимагає, щоб value був саме тим T, що обіцяє токен.
-  register<T>(token: Token<T>, value: T): void {
-    this.map.set(token, value);
-  }
-
-  // resolve повертає T, не any. Єдине приведення заховане ТУТ і виправдане register.
-  resolve<T>(token: Token<T>): T {
-    if (!this.map.has(token)) {
-      throw new Error(`Служба не зареєстрована: ${token.description}`);
-    }
-    return this.map.get(token) as T;
-  }
-}
-
-// Токени — константи в одному місці. Ключ — це вони, а не рядок.
-const GATEWAY = new Token<PaymentGateway>("payment-gateway");
-const CLOCK   = new Token<Clock>("clock");
-
-registry.register(GATEWAY, new StripeGateway());   // ok: StripeGateway is PaymentGateway
-// registry.register(GATEWAY, new SystemClock());  // ✗ компілятор: Clock не є PaymentGateway
-
-const gateway = registry.resolve(GATEWAY);         // тип: PaymentGateway, без приведення
-// registry.resolve(GATEWY);                        // ✗ компілятор: Cannot find name 'GATEWY'
-```
+:::code proj-typed-registry/ts/kliuch-shcho-nese-typ.ts
 ```csharp
 // У .NET ключем стає сам тип служби — рядків нема взагалі.
 var services = new ServiceCollection();
@@ -80,30 +31,7 @@ services.AddKeyedScoped<IPaymentGateway, StripeGateway>("primary");
 services.AddKeyedScoped<IPaymentGateway, PayPalGateway>("backup");
 var backup = provider.GetRequiredKeyedService<IPaymentGateway>("backup");
 ```
-```python
-from typing import TypeVar, Protocol, cast
-
-T = TypeVar("T")
-
-class PaymentGateway(Protocol):
-    def charge(self, amount: int) -> None: ...
-
-class ServiceRegistry:
-    def __init__(self) -> None:
-        self._map: dict[type, object] = {}
-
-    def register(self, key: type[T], value: T) -> None:
-        self._map[key] = value
-
-    def resolve(self, key: type[T]) -> T:
-        if key not in self._map:
-            raise LookupError(f"Служба не зареєстрована: {key.__name__}")
-        return cast(T, self._map[key])   # єдине приведення, як і в TS
-
-registry.register(PaymentGateway, StripeGateway())  # клас — це ключ
-gateway = registry.resolve(PaymentGateway)          # mypy бачить тип PaymentGateway
-# registry.resolve(PymentGateway)                   # ✗ NameError на самій згадці
-```
+:::code proj-typed-registry/py/main.py
 :::
 
 Гляньмо, чому ці три версії такі різні на вигляд, хоч ідея одна.
@@ -135,46 +63,7 @@ transient — новий екземпляр на кожне розв'язанн�
 Корінь створюють один раз на старті. Він тримає рецепти всіх служб (як кожну зробити) і кеш **сінглтонів** — по одному екземпляру на весь застосунок. Після старту корінь **заморожують**: більше в нього нічого не реєструють. На кожен запит від кореня відгалужують **область** (scope) — легкий об'єкт із власним, окремим кешем для **scoped**-служб. Сінглтон область бере з кореня (той самий для всіх), а scoped робить і кладе **до себе**; наступний запит дістане свою, свіжу. Коли запит завершився, область звільняють — і разом з нею гинуть усі її scoped-екземпляри та все, що вони тримали.
 
 :::tabs
-```ts
-type Lifetime = "singleton" | "scoped" | "transient";
-type Factory<T> = (scope: Scope) => T;
-
-class Root {
-  private recipes = new Map<Token<unknown>, { life: Lifetime; make: Factory<unknown> }>();
-  private singletons = new Map<Token<unknown>, unknown>();   // спільний кеш — на КОРЕНІ
-  private frozen = false;
-
-  register<T>(token: Token<T>, life: Lifetime, make: Factory<T>): void {
-    if (this.frozen) throw new Error("Реєстрація лише до заморозки кореня");
-    this.recipes.set(token, { life, make });
-  }
-  freeze(): void { this.frozen = true; }
-
-  recipe(token: Token<unknown>) {
-    const r = this.recipes.get(token);
-    if (!r) throw new Error(`Не зареєстровано: ${token.description}`);
-    return r;
-  }
-  singleton<T>(token: Token<T>, scope: Scope): T {
-    if (!this.singletons.has(token)) this.singletons.set(token, this.recipe(token).make(scope));
-    return this.singletons.get(token) as T;
-  }
-  createScope(): Scope { return new Scope(this); }
-}
-
-class Scope {
-  private cache = new Map<Token<unknown>, unknown>();   // scoped-кеш — свій на КОЖНУ область
-  constructor(private root: Root) {}
-
-  resolve<T>(token: Token<T>): T {
-    const { life, make } = this.root.recipe(token);
-    if (life === "singleton") return this.root.singleton(token, this);
-    if (life === "transient") return make(this) as T;    // новий щоразу
-    if (!this.cache.has(token)) this.cache.set(token, make(this));  // scoped: один на цю область
-    return this.cache.get(token) as T;
-  }
-}
-```
+:::code proj-typed-registry/ts/odyn-ekzempliar-na-zapyt-a.ts
 ```csharp
 // Каркас робить те саме, лиш ховає рівні за словами Singleton/Scoped/Transient.
 var services = new ServiceCollection();

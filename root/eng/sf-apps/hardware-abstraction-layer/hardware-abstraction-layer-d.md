@@ -132,34 +132,8 @@ BSP містить:
 У мові C інтерфейс периферійного пристрою представляють у вигляді структури, що містить покажчики на функції (аналог таблиці віртуальних методів у C++), та структури дескриптора, яка поєднує покажчик на цю таблицю з непрозорим покажчиком на апаратно-залежний контекст екземпляра.
 
 :::tabs
-```c
-/* Загальний інтерфейс лінії GPIO */
-struct hal_gpio_pin;
-
-typedef struct {
-    hal_status_t (*set_level)(const struct hal_gpio_pin *pin, hal_gpio_level_t level);
-    hal_status_t (*get_level)(const struct hal_gpio_pin *pin, hal_gpio_level_t *out_level);
-    hal_status_t (*toggle)(const struct hal_gpio_pin *pin);
-} hal_gpio_ops_t;
-
-typedef struct hal_gpio_pin {
-    const hal_gpio_ops_t *ops;
-    void *ctx;
-} hal_gpio_pin_t;
-```
-```cpp
-namespace hal {
-
-/* Еквівалент концептуального контракту C++20 без динамічних покажчиків */
-template <typename T>
-concept GpioPin = requires(T pin, PinLevel lvl) {
-    { pin.set_level(lvl) } -> std::same_as<Status>;
-    { pin.get_level() } -> std::same_as<PinLevel>;
-    { pin.toggle() } -> std::same_as<Status>;
-};
-
-} // namespace hal
-```
+:::code hardware-abstraction-layer-d/c/main.h
+:::code hardware-abstraction-layer-d/cpp/mekhanizm-dynamichnoho-hal.cpp
 :::
 
 Коли прикладний код або драйвер датчика викликає операцію встановлення рівня лінії:
@@ -196,18 +170,7 @@ pin.set_level(hal::PinLevel::High);
 /* У C99 статичний поліморфізм вимагає ручного перейменування функцій або препроцесора */
 #define STM32_GPIO_SET(port, pin) ((port)->BSRR = (1U << (pin)))
 ```
-```cpp
-namespace hal {
-
-template <typename T>
-concept GpioPin = requires(T pin, PinLevel lvl) {
-    { pin.set_level(lvl) } -> std::same_as<Status>;
-    { pin.get_level() } -> std::same_as<PinLevel>;
-    { pin.toggle() } -> std::same_as<Status>;
-};
-
-} // namespace hal
-```
+:::code hardware-abstraction-layer-d/cpp/mekhanizm-statychnoho-hal.cpp
 :::
 
 Конкретна реалізація піна для мікроконтролера оформлюється як шаблонний клас, параметризований базовою адресою регістрів та номером піна:
@@ -219,26 +182,7 @@ void stm32_gpioa5_set_high(void) {
     *((volatile uint32_t*)(0x48000000 + 0x18)) = (1U << 5);
 }
 ```
-```cpp
-namespace hal::stm32 {
-
-template <uintptr_t PortBase, uint8_t PinIndex>
-requires (PinIndex <= 15)
-struct StaticGpioPin {
-    static inline auto* const Port = reinterpret_cast<GpioRegisters*>(PortBase);
-
-    static Status set_level(PinLevel lvl) noexcept {
-        if (lvl == PinLevel::High) {
-            Port->BSRR = (1U << PinIndex);
-        } else {
-            Port->BSRR = (1U << (PinIndex + 16));
-        }
-        return Status::Ok;
-    }
-};
-
-} // namespace hal::stm32
-```
+:::code hardware-abstraction-layer-d/cpp/mekhanizm-statychnoho-hal-2.cpp
 :::
 
 Драйвер датчика або прикладний компонент приймає тип піна як параметр шаблону, обмежений відповідним концептом:
@@ -378,18 +322,7 @@ hal_spi_read(&spi_bus, data_buf, 256, 100);
 hal_gpio_set(&cs_pin, HAL_GPIO_LEVEL_HIGH);
 hal_spi_release_bus(&spi_bus);
 ```
-```cpp
-/* RAII блокування шини у C++20 */
-{
-    auto lock = bus.acquire_lock();
-    cs_pin.set_level(hal::PinLevel::Low);
-
-    bus.write(cmd_buf, 100);
-    bus.read(data_buf, 100);
-
-    cs_pin.set_level(hal::PinLevel::High);
-} // М'ютекс шини автоматично звільняється при виході lock зі скоупу
-```
+:::code hardware-abstraction-layer-d/cpp/arbitrazh-spilnoho-dostupu.hpp
 :::
 
 ### Контекст переривань (ISR Context) проти контексту потоку

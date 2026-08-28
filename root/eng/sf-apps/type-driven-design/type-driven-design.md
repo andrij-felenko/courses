@@ -145,22 +145,7 @@ type RequestState =
     | { kind: "failed"; message: string }    // лише текст помилки
     | { kind: "ready";  value: Data };       // лише дані
 ```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Loading: ...                    # жодних полів — і не треба
-
-@dataclass
-class Failed:
-    message: str                      # лише текст помилки
-
-@dataclass
-class Ready:
-    value: Data                       # лише дані
-
-RequestState = Loading | Failed | Ready
-```
+:::code type-driven-design/py/main.py
 :::
 
 Тепер `Failed` **не має** поля `data`, а `Ready` **не має** поля `error` — не тому, що ми домовилися їх не чіпати, а тому, що їх фізично немає в цих типах. Стан «помилка з даними» неможливо записати: немає структури, куди його вкласти. П'ять незаконних поєднань зникли не з голови програміста, а з простору можливих значень. А код, що розбирає стан, більше не ставить оборонних питань «а раптом і те, і те» — він просто перебирає три чесні випадки, і компілятор **не дасть** забути жоден:

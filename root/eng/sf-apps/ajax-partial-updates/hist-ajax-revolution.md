@@ -36,18 +36,7 @@
 
 У березні 1999 року вийшов Internet Explorer 5.0. У ньому з'явилася можливість ініціалізувати мережевий запит просто з коду сторінки:
 
-```js
-// Перший в історії синтаксис фонового запиту (IE 5.0, 1999)
-var xhr = new ActiveXObject("MSXML2.XMLHTTP.3.0");
-xhr.open("GET", "/api/inbox", true);
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        var xmlDoc = xhr.responseXML;
-        updateEmailList(xmlDoc);
-    }
-};
-xhr.send(null);
-```
+:::code hist-ajax-revolution/js/index.js
 
 Створений об'єкт дозволяв виконувати методи `GET`, `POST` та інші HTTP-запити у фоновому потоці, не блокуючи інтерфейс користувача, та автоматично парсив відповідь у дерево XML DOM або повертав її у вигляді сирого тексту.
 

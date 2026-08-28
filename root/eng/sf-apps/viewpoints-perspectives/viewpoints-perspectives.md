@@ -59,37 +59,8 @@
 **Умова.** Є обробник запиту. У функційній в'ю нас цікавить, *що* він робить (структура викликів). У конкурентній в'ю — *що працює одночасно* і де спільний ресурс, який треба захистити.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <mutex>
-
-// Спільний лічильник: його бачать УСІ потоки, що обробляють запити.
-static std::uint64_t g_requests = 0;
-static std::mutex g_lock;
-
-void handle_request(const char *path) {
-    route(path);                          // ← видно у ФУНКЦІЙНІЙ в'ю: що викликає що
-
-    {
-        std::lock_guard<std::mutex> guard(g_lock);  // ← видно у КОНКУРЕНТНІЙ в'ю: точка синхронізації
-        g_requests++;                     //    спільний ресурс під замком
-    }
-}
-```
-```python
-import threading
-
-# Спільний лічильник: його бачать УСІ потоки, що обробляють запити.
-g_requests = 0
-g_lock = threading.Lock()
-
-def handle_request(path):
-    route(path)                 # ← видно у ФУНКЦІЙНІЙ в'ю: що викликає що
-
-    with g_lock:                # ← видно у КОНКУРЕНТНІЙ в'ю: точка синхронізації
-        global g_requests
-        g_requests += 1         #    спільний ресурс під замком
-```
+:::code viewpoints-perspectives/cpp/main.cpp
+:::code viewpoints-perspectives/py/main.py
 :::
 
 Той самий десяток рядків розкладається на два зрізи, які **не бачать один одного**:

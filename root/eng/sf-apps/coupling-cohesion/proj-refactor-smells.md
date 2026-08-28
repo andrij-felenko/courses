@@ -11,36 +11,8 @@
 **Задача.** У проєкті завівся `SensorUtils` — тека, куди пів року складали все, що «дотичне до давачів і не мало іншого дому». Спершу дві функції, тепер одинадцять. Кожен програміст, якому не було куди подіти хелпер, доклав свій. Тепер це виглядає так:
 
 :::tabs
-```cpp
-// SensorUtils: звалище. Що спільного? Слово "sensor" у назві файлу — і все.
-class SensorUtils {
-public:
-    static float   celsiusFromRaw(uint16_t raw);      // математика перетворення
-    static uint8_t crc8(const uint8_t* d, size_t n);  // контрольна сума I²C
-    static void    logReading(float t);               // запис у кільцевий буфер
-    static bool    isPlausible(float t);              // перевірка діапазону
-    static uint32_t millisSinceBoot();                // обгортка над таймером
-    static void    blinkError(uint8_t code);          // блимання світлодіодом
-    // …ще п'ять таких самих різнорідних
-};
-```
-```python
-# SensorUtils: звалище. Що спільного? Слово "sensor" у назві файлу — і все.
-class SensorUtils:
-    @staticmethod
-    def celsius_from_raw(raw: int) -> float: ...      # математика перетворення
-    @staticmethod
-    def crc8(data: bytes) -> int: ...                 # контрольна сума I²C
-    @staticmethod
-    def log_reading(t: float) -> None: ...            # запис у кільцевий буфер
-    @staticmethod
-    def is_plausible(t: float) -> bool: ...           # перевірка діапазону
-    @staticmethod
-    def millis_since_boot() -> int: ...               # обгортка над таймером
-    @staticmethod
-    def blink_error(code: int) -> None: ...           # блимання світлодіодом
-    # …ще п'ять таких самих різнорідних
-```
+:::code proj-refactor-smells/cpp/zapakh-1-klas-zvalyshche.cpp
+:::code proj-refactor-smells/py/zapakh-1-klas-zvalyshche.py
 :::
 
 **Ідея.** Випадкова зв'язність (найнижчий щабель) означає, що речі складено докупи **без причини** — назва файлу не причина. Рух проти неї один: **розкласти за причиною зміни**. Не «за темою», не «за схожістю» — саме за тим, **що змусить це поле правити**. Функції, що змінюються з однієї причини, ідуть в один дім; що з різних — у різні. Ось де живе справжня причина кожного шматка:
@@ -53,45 +25,8 @@ class SensorUtils:
 **Крок правки.** Розтягуємо звалище за цими причинами. Кожна купка стає класом із власним іменем, що каже, **чому** він існує:
 
 :::tabs
-```cpp
-// Дім для знання про конкретний давач — правиться при зміні давача
-class Tmp117 {
-public:
-    static float celsius(uint16_t raw) { return raw * 0.0078125f; }  // 7.8125 м°C/LSB
-    static bool  plausible(float c)    { return c > -40.0f && c < 125.0f; }
-};
-
-// Дім для знання про шину — правиться при зміні протоколу
-class I2cFrame {
-public:
-    static uint8_t crc8(const uint8_t* d, size_t n);  // поліном 0x07, як у SMBus
-};
-
-// Дім для логу — правиться при зміні формату/носія
-class ReadingLog {
-public:
-    void append(float celsius);
-};
-```
-```python
-# Дім для знання про конкретний давач — правиться при зміні давача
-class Tmp117:
-    @staticmethod
-    def celsius(raw: int) -> float:
-        return raw * 0.0078125          # 7.8125 м°C/LSB
-    @staticmethod
-    def plausible(c: float) -> bool:
-        return -40.0 < c < 125.0
-
-# Дім для знання про шину — правиться при зміні протоколу
-class I2cFrame:
-    @staticmethod
-    def crc8(data: bytes) -> int: ...   # поліном 0x07, як у SMBus
-
-# Дім для логу — правиться при зміні формату/носія
-class ReadingLog:
-    def append(self, celsius: float) -> None: ...
-```
+:::code proj-refactor-smells/cpp/zapakh-1-klas-zvalyshche-2.cpp
+:::code proj-refactor-smells/py/zapakh-1-klas-zvalyshche-2.py
 :::
 
 `blinkError`/`millisSinceBoot` переїжджають у платформний `Board` — вони не про давач узагалі.
@@ -136,41 +71,8 @@ void SensorTask::poll() {
 **Задача.** Функція калібрування бере поправку й пише її в лог. Хтось колись передав їй увесь об'єкт `Reading` — «щоб було під рукою», — і відтоді вона знає про всю його форму:
 
 :::tabs
-```cpp
-struct Reading {
-    float    celsius;
-    uint16_t raw;
-    uint32_t timestamp;
-    uint8_t  sensorId;
-    uint8_t  crc;
-    int8_t   rssi;       // сила сигналу, якщо давач бездротовий
-    // …структура росте, її чіпають з десятка причин
-};
-
-// Зчеплення за зліпком: бере всю структуру, використовує ДВА поля
-float applyCalibration(const Reading& r, const CalTable& tbl) {
-    float offset = tbl.lookup(r.sensorId);   // потрібне поле 1
-    return r.celsius + offset;               // потрібне поле 2
-    // решта Reading тут не використана — але функція від неї залежить
-}
-```
-```python
-@dataclass
-class Reading:
-    celsius: float
-    raw: int
-    timestamp: int
-    sensor_id: int
-    crc: int
-    rssi: int           # сила сигналу, якщо давач бездротовий
-    # …структура росте, її чіпають з десятка причин
-
-# Зчеплення за зліпком: бере всю структуру, використовує ДВА поля
-def apply_calibration(r: Reading, tbl: CalTable) -> float:
-    offset = tbl.lookup(r.sensor_id)         # потрібне поле 1
-    return r.celsius + offset                # потрібне поле 2
-    # решта Reading тут не використана — але функція від неї залежить
-```
+:::code proj-refactor-smells/cpp/zapakh-2-peredacha-tsiloho.cpp
+:::code proj-refactor-smells/py/zapakh-2-peredacha-tsiloho.py
 :::
 
 **Ідея.** Зчеплення за зліпком (**stamp**) означає: модулю передали **цілу складену структуру**, а йому потрібні лічені поля. Тепер він зайво знає про всю форму `Reading` — і кожна зміна цієї форми потенційно тягнеться до нього, хоч по суті не стосується. Рух проти: **передавати рівно потрібне** — ті два скалярні параметри, і нічого більше. Функція перестає залежати від структури, від якої не залежить її логіка.
@@ -243,23 +145,7 @@ bool writeRecord(const uint8_t* data, size_t len, bool durable) {
 
 **Крок правки.** Розчеплюємо гілки. Спільний шматок (сам `write`) лишається приватним, дві публічні функції беруть кожна свій шлях:
 
-```cpp
-private:
-    bool rawWrite(const uint8_t* data, size_t len) {   // спільне ядро
-        return file_.write(data, len) == len;
-    }
-public:
-    // Швидкий шлях — ім'я каже саме за себе
-    bool logRecord(const uint8_t* data, size_t len) {
-        return rawWrite(data, len);
-    }
-    // Надійний шлях — окрема функція, окрема гарантія
-    bool commitRecord(const uint8_t* data, size_t len) {
-        if (!rawWrite(data, len)) return false;
-        file_.sync();
-        return verifyLastWrite(data, len);
-    }
-```
+:::code proj-refactor-smells/cpp/zapakh-3-parametr.cpp
 
 **Код після — точка виклику.** Тепер намір видно без стрибка в реалізацію:
 
@@ -294,19 +180,7 @@ commitRecord(alarm, alen);       // подія тривоги — надійно
 
 **Задача.** Стан радіоканалу тримають у глобальній змінній, бо «до неї треба з багатьох місць»: обробник переривань пише туди RSSI, задача телеметрії читає, веб-конфіг скидає лічильники.
 
-```cpp
-// Спільне зчеплення: глобал, у який пише і читає будь-хто, будь-коли
-volatile int  g_rssi        = 0;
-volatile bool g_linkUp      = false;
-uint32_t      g_packetsLost = 0;
-
-// у перериванні радіо:
-void radio_isr() { g_rssi = readRssi(); g_linkUp = (g_rssi > -90); }
-// у задачі телеметрії:
-void telemetryTask() { if (g_linkUp) send(g_rssi); }
-// у веб-конфізі:
-void onReset() { g_packetsLost = 0; g_linkUp = false; }  // хто ще це бачить?
-```
+:::code proj-refactor-smells/cpp/zapakh-4-spilna-hlobalna.cpp
 
 **Ідея.** Спільне зчеплення (**common**) — модулі спілкуються через **спільну змінну, яку кожен може мовчки змінити**. Проблем тут дві, і обидві злі. Перша: **ніхто не володіє інваріантом**. `g_linkUp` мав би означати `g_rssi > -90`, але `onReset` виставляє `g_linkUp = false`, не чіпаючи `g_rssi`, — і тепер вони суперечать одне одному. Друга, специфічна для прошивки: **гонитва**. `radio_isr` пише `g_rssi` посеред того, як `telemetryTask` його читає; на 8/16-бітному ядрі 32-бітне читання неатомарне, і задача може вхопити половину старого, половину нового значення.
 
@@ -314,37 +188,7 @@ void onReset() { g_packetsLost = 0; g_linkUp = false; }  // хто ще це б�
 
 **Крок правки.** Обгортаємо стан у клас `LinkStatus`. Пряме поле стає приватним; читання й запис — через методи, де інваріант і захист зібрані докупи:
 
-```cpp
-class LinkStatus {
-public:
-    // Запис — лише звідси; інваріант linkUp ⟺ rssi>поріг тримається тут
-    void updateRssi(int rssi) {
-        CriticalSection cs;           // закрили переривання на час запису
-        rssi_   = rssi;
-        linkUp_ = (rssi > RSSI_THRESHOLD);
-    }
-    void reset() {
-        CriticalSection cs;
-        packetsLost_ = 0;
-        linkUp_      = false;
-        rssi_        = RSSI_FLOOR;    // і rssi узгоджуємо — не лишаємо брехати
-    }
-    // Читання — атомарний зліпок, щоб не вхопити півзначення
-    struct Snapshot { int rssi; bool up; uint32_t lost; };
-    Snapshot read() const {
-        CriticalSection cs;
-        return { rssi_, linkUp_, packetsLost_ };
-    }
-private:
-    static constexpr int RSSI_THRESHOLD = -90;
-    static constexpr int RSSI_FLOOR     = -128;
-    volatile int      rssi_        = RSSI_FLOOR;
-    volatile bool     linkUp_      = false;
-    volatile uint32_t packetsLost_ = 0;
-};
-
-LinkStatus g_link;   // один екземпляр — але доступ лише через його методи
-```
+:::code proj-refactor-smells/cpp/zapakh-4-spilna-hlobalna-2.cpp
 
 Тепер клієнти не торкаються полів:
 

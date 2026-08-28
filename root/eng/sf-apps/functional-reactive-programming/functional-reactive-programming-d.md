@@ -368,97 +368,19 @@ sample(1000ms):
 
 ### 1. Імперативний підхід з колбеками (крихкий, схильний до витоків)
 
-```ts
-let timerId: number | null = null;
-let lastRequestId = 0;
-let isLoading = false;
-let results = [];
-
-inputElement.addEventListener("input", (e) => {
-  const query = (e.target as HTMLInputElement).value.trim();
-  if (!query) {
-    results = [];
-    renderResults([]);
-    return;
-  }
-
-  if (timerId !== null) clearTimeout(timerId);
-
-  timerId = window.setTimeout(() => {
-    isLoading = true;
-    renderLoader(true);
-    const currentRequestId = ++lastRequestId;
-
-    fetch(`/api/search?q=${encodeURIComponent(query)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        // Захист від стану гонитви вручну через лічильник ID
-        if (currentRequestId === lastRequestId) {
-          results = data;
-          renderResults(data);
-        }
-      })
-      .catch((err) => handleError(err))
-      .finally(() => {
-        if (currentRequestId === lastRequestId) {
-          isLoading = false;
-          renderLoader(false);
-        }
-      });
-  }, 300);
-});
-```
+:::code functional-reactive-programming-d/ts/1-imperatyvnyi-pidkhid-z.ts
 
 *Недоліки:* Стан (`isLoading`, `results`, `timerId`, `lastRequestId`) розмазаний по глобальних змінних; ручне керування таймерами та номерами запитів легко зламати додаванням нової вимоги.
 
 ### 2. Підхід ReactiveX / RxJS (декларативний потік подій)
 
-```ts
-import { fromEvent } from "rxjs";
-import { map, filter, debounceTime, distinctUntilChanged, switchMap, tap, catchError } from "rxjs/operators";
-
-const search$ = fromEvent<InputEvent>(inputElement, "input").pipe(
-  map(e => (e.target as HTMLInputElement).value.trim()),
-  filter(text => text.length > 0),
-  debounceTime(300),
-  distinctUntilChanged(),
-  tap(() => renderLoader(true)),
-  switchMap(query => 
-    fetchSearch(query).pipe(
-      catchError(err => {
-        handleError(err);
-        return of([]);
-      })
-    )
-  ),
-  tap(() => renderLoader(false))
-);
-
-const subscription = search$.subscribe(results => renderResults(results));
-// При закритті екрана: subscription.unsubscribe();
-```
+:::code functional-reactive-programming-d/ts/2-pidkhid-reactivex-rxjs.ts
 
 *Переваги:* Уся логіка — це один лінійний конвеєр перетворень; скасування застарілих запитів бере на себе `switchMap`.
 
 ### 3. Підхід сучасних Сигналів (SolidJS / Fine-Grained Reactivity)
 
-```ts
-import { createSignal, createResource } from "solid-js";
-
-const [query, setQuery] = createSignal("");
-
-// createResource автоматично керує станом завантаження, скасуванням та кешуванням
-const [results] = createResource(query, async (q) => {
-  if (!q.trim()) return [];
-  const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
-  return res.json();
-});
-
-// У JSX/шаблоні:
-// <input onInput={(e) => debounce(() => setQuery(e.target.value), 300)} />
-// <Show when={results.loading}><Loader /></Show>
-// <For each={results()}>{item => <ResultCard data={item} />}</For>
-```
+:::code functional-reactive-programming-d/ts/3-pidkhid-suchasnykh.ts
 
 *Переваги:* Нульовий шаблонний код для підписок; стан завантаження `results.loading` є реактивним сигналом; компонент рендериться декларативно без ручного виклику функцій малювання.
 

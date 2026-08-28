@@ -38,18 +38,7 @@ class OrderService:
 Ліки прості аж до банальності: **не створюй залежність — прийми її**. Хай конструктор попросить `PaymentGateway` і збереже те, що дали; а хто саме там опиниться, вирішить хтось інший, іззовні.
 
 :::tabs
-```ts
-class OrderService {
-  constructor(private gateway: PaymentGateway) {}   // просимо ззовні, не створюємо
-
-  checkout(order: Order): void {
-    this.gateway.charge(order.total());
-  }
-}
-
-// хтось зовні вирішує, ЩО саме подати:
-const service = new OrderService(new StripeGateway());
-```
+:::code dependency-injection-d/ts/index.ts
 ```py
 class OrderService:
     def __init__(self, gateway: PaymentGateway):      # просимо ззовні, не створюємо

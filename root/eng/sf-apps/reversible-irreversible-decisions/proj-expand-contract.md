@@ -58,57 +58,13 @@ ALTER TABLE orders ADD COLUMN amount_minor BIGINT;
 
 Перша, найнадійніша, — **синхронізаційний тригер** у самій базі. Його перевага в тому, що він ловить **усі** шляхи запису одразу: жоден забутий кутовий сценарій, жоден скрипт, що пише в таблицю повз застосунок, не проскочить. Це канонічний спосіб із «Refactoring Databases» — тримати стару й нову форми в синхроні тригером на час переходу.
 
-```sql
--- Синхронізація на час переходу: похідну колонку веде сама база.
--- Джерело правди поки що — total; amount_minor щоразу виводиться з нього.
-CREATE FUNCTION sync_amount_minor() RETURNS trigger AS $$
-BEGIN
-    NEW.amount_minor := ROUND(NEW.total * 100)::BIGINT;   -- гривні → копійки, точно
-    RETURN NEW;
-END $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trg_sync_amount_minor
-    BEFORE INSERT OR UPDATE OF total ON orders
-    FOR EACH ROW EXECUTE FUNCTION sync_amount_minor();
-```
+:::code proj-expand-contract/sql/faza-1-rozhornuty-expand.sql
 
 Друга стратегія — **подвійний запис у застосунку**: кожен шлях, що пише замовлення, ставить обидва поля сам. Її беруть, коли значення нової форми не виводиться простою формулою з бази, а народжується в логіці (наприклад, валюту знає лише код). Виглядає це так:
 
 :::tabs
-```py
-from decimal import Decimal
-
-# Подвійний запис: обидві форми в одному операторі, узгоджено.
-# total тут — Decimal (точні гривні); копійки — цілим, без float.
-def create_order(conn, customer_id: int, total: Decimal) -> None:
-    amount_minor = int((total * 100).to_integral_value())   # рівно round(total·100)
-    conn.execute(
-        "INSERT INTO orders (customer_id, total, amount_minor) "
-        "VALUES (%s, %s, %s)",
-        (customer_id, total, amount_minor),
-    )
-```
-```ts
-// number у JS — float64; для грошей це небезпечно, і саме в цьому причина
-// міграції. Тому total тримаємо рядком-десятковим, а копійки рахуємо цілими
-// точно, без float: ціла частина · 100 + рівно два знаки дробу.
-function toMinor(dec: string): bigint {
-  const neg = dec.startsWith("-");                   // знак — окремо, щоб не зіпсувати дріб
-  const [whole, frac = ""] = dec.replace("-", "").split(".");
-  const cents = (frac + "00").slice(0, 2);           // рівно 2 знаки копійок
-  const v = BigInt(whole) * 100n + BigInt(cents);
-  return neg ? -v : v;
-}
-
-// Подвійний запис: обидві форми в одному операторі, узгоджено.
-async function createOrder(db: Db, customerId: number, total: string /* "123.45" */) {
-  await db.query(
-    `INSERT INTO orders (customer_id, total, amount_minor)
-     VALUES ($1, $2, $3)`,
-    [customerId, total, toMinor(total)],
-  );
-}
-```
+:::code proj-expand-contract/py/faza-1-rozhornuty-expand.py
+:::code proj-expand-contract/ts/faza-1-rozhornuty-expand.ts
 :::
 
 **Відкат фази 1 — тривіальний і повний.** Стара форма за весь час не змінилася ні на байт, тож повернутися означає просто прибрати те, що додали:
@@ -139,42 +95,8 @@ UPDATE orders SET amount_minor = ROUND(total * 100)::BIGINT
 Тому заповнюють **пакетами** (англ. *batch*): багато коротких транзакцій замість однієї довгої. Кожен пакет бере вузьку смугу за первинним ключем, оновлює її, комітить і дає системі дихнути. Драйвер циклу пише мовою застосунку:
 
 :::tabs
-```py
-import time
-
-# Заднє заповнення пакетами: багато коротких транзакцій, а не одна довга.
-# Ідемпотентно й відновлювано: умова amount_minor IS NULL означає, що
-# повторний запуск просто продовжить з місця, де спинилися.
-def backfill(conn, batch: int = 5000, pause: float = 0.2) -> None:
-    max_id = conn.execute("SELECT max(id) FROM orders").scalar() or 0
-    lo = 0
-    while lo <= max_id:
-        conn.execute(
-            "UPDATE orders SET amount_minor = ROUND(total * 100)::BIGINT "
-            "WHERE id >= %s AND id < %s AND amount_minor IS NULL",
-            (lo, lo + batch),
-        )
-        conn.commit()          # кожен пакет — окрема коротка транзакція
-        lo += batch
-        time.sleep(pause)      # віддати такт проду й реплікам
-```
-```ts
-// Заднє заповнення пакетами: багато коротких транзакцій, а не одна довга.
-// Ідемпотентно й відновлювано: умова amount_minor IS NULL означає, що
-// повторний запуск просто продовжить з місця, де спинилися.
-async function backfill(db: Db, batch = 5000, pauseMs = 200): Promise<void> {
-  const { rows } = await db.query("SELECT COALESCE(max(id), 0) AS m FROM orders");
-  const maxId = Number(rows[0].m);
-  for (let lo = 0; lo <= maxId; lo += batch) {
-    await db.query(
-      `UPDATE orders SET amount_minor = ROUND(total * 100)::BIGINT
-        WHERE id >= $1 AND id < $2 AND amount_minor IS NULL`,
-      [lo, lo + batch],
-    );                          // кожен пакет — окрема коротка транзакція
-    await new Promise((r) => setTimeout(r, pauseMs)); // віддати такт проду
-  }
-}
-```
+:::code proj-expand-contract/py/faza-2-mihruvaty-migrate.py
+:::code proj-expand-contract/ts/faza-2-mihruvaty-migrate.ts
 :::
 
 Дві властивості цього циклу — не дрібниці, а те, що робить його безпечним. По-перше, **ідемпотентність**: умова `amount_minor IS NULL` означає, що вже заповнені рядки пакет не чіпає. Тому цикл можна обірвати будь-коли й запустити знову — він продовжить з місця зупинки, не зіпсувавши зробленого. По-друге, **пауза між пакетами** свідомо віддає пропускну здатність живому навантаженню: заповнення повзе фоном, не конкуруючи з користувачами за диск і за реплікацію. Тонше про ідемпотентність повторюваних операцій — в [ідемпотентності](root:sf-distributed/idempotency): чому «повтор дає той самий результат» — це те, що робить фонові процеси безпечними.
@@ -182,48 +104,8 @@ async function backfill(db: Db, batch = 5000, pauseMs = 200): Promise<void> {
 Коли backfill добіг кінця, настає серце фази — **подвійне читання зі звірянням**. Читач бере обидві форми, порівнює їх і лише тоді вирішує, якій вірити. Спершу — у «тіньовому» режимі: авторитетна досі стара форма, а нова читається паралельно тільки щоб **звірити** й нагромадити докази, що вона збігається.
 
 :::tabs
-```py
-# Подвійне читання зі звірянням. Поки trust_new=False — стара авторитетна,
-# нова читається лише для звіряння (тінь). Коли доказів досить — прапорець
-# перемикають, і авторитетною стає нова.
-def read_amount_minor(conn, order_id: int, trust_new: bool) -> int:
-    row = conn.execute(
-        "SELECT total, amount_minor FROM orders WHERE id = %s", (order_id,)
-    ).one()
-    old_as_new = int((row.total * 100).to_integral_value())  # стара, зведена до копійок
-
-    if row.amount_minor is None:
-        return old_as_new                    # ще не заповнено — падаємо на стару
-
-    if row.amount_minor != old_as_new:       # РОЗБІЖНІСТЬ — інваріант порушено!
-        metrics.increment("amount_minor.drift")
-        log.error("drift order=%s old=%s new=%s",
-                  order_id, old_as_new, row.amount_minor)
-        return old_as_new                    # у сумніві — авторитетна стара
-
-    return row.amount_minor if trust_new else old_as_new
-```
-```ts
-// Подвійне читання зі звірянням. Поки trustNew=false — стара авторитетна,
-// нова читається лише для звіряння (тінь). Коли доказів досить — прапорець
-// перемикають, і авторитетною стає нова.
-async function readAmountMinor(db: Db, orderId: number, trustNew: boolean): Promise<bigint> {
-  const { rows } = await db.query(
-    "SELECT total, amount_minor FROM orders WHERE id = $1", [orderId],
-  );
-  const { total, amount_minor } = rows[0];
-  const oldAsNew = toMinor(String(total));                 // стара → копійки (той самий toMinor)
-
-  if (amount_minor == null) return oldAsNew;               // ще не заповнено
-
-  if (BigInt(amount_minor) !== oldAsNew) {                 // РОЗБІЖНІСТЬ!
-    metrics.increment("amount_minor.drift");
-    log.error(`drift order=${orderId} old=${oldAsNew} new=${amount_minor}`);
-    return oldAsNew;                                        // у сумніві — стара
-  }
-  return trustNew ? BigInt(amount_minor) : oldAsNew;
-}
-```
+:::code proj-expand-contract/py/faza-2-mihruvaty-migrate-2.py
+:::code proj-expand-contract/ts/faza-2-mihruvaty-migrate-2.ts
 :::
 
 ![Ліворуч подвійний запис: один запис застосунку оновлює обидві колонки total і amount_minor за формулою; праворуч подвійне читання зі звірянням: читач бере обидві, порівнює minor із round(total·100), при збігу віддає нову, при розбіжності б'є тривогу й не дає згортати](img/dual-rw.svg)
@@ -261,24 +143,7 @@ SELECT count(*) AS drift
 
 Коли ворота відчинені, згортання йде обережним порядком. Спершу переносять **джерело правди** на нову колонку: застосунок починає писати `amount_minor` напряму, а щоб стара форма лишалася дійсною **до останньої секунди** (інваріант — понад усе), напрям синхронізації розвертають — тепер уже `total` виводиться з `amount_minor`:
 
-```sql
--- 3a. Розвернути синхронізацію: тепер джерело правди — amount_minor,
---     а стара total лишається дійсною (виводиться), щоб відкат був можливий
---     аж до самого DROP. Нову колонку робимо обов'язковою — і цей крок
---     САМ перевіряє повноту backfill: якщо є хоч один NULL, він упаде.
-ALTER TABLE orders ALTER COLUMN amount_minor SET NOT NULL;
-
-CREATE OR REPLACE FUNCTION sync_amount_minor() RETURNS trigger AS $$
-BEGIN
-    NEW.total := NEW.amount_minor / 100.0;   -- зворотний напрям: копійки → гривні
-    RETURN NEW;
-END $$ LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS trg_sync_amount_minor ON orders;
-CREATE TRIGGER trg_sync_amount_minor
-    BEFORE INSERT OR UPDATE OF amount_minor ON orders
-    FOR EACH ROW EXECUTE FUNCTION sync_amount_minor();
-```
+:::code proj-expand-contract/sql/faza-3-zhornuty-contract.sql
 
 Зверни увагу на `SET NOT NULL`: він не косметика, а **ворота-доказ**. PostgreSQL пропустить його лише тоді, коли в колонці немає жодного `NULL`, — тобто сам крок відмовиться виконатися, якщо backfill неповний. Ми змусили базу перевірити повноту за нас. *(На дуже великій таблиці навіть цей скан беруть онлайн: спершу `ADD CONSTRAINT ... CHECK (amount_minor IS NOT NULL) NOT VALID`, тоді `VALIDATE CONSTRAINT` без важкого замка, і аж потім `SET NOT NULL` спирається на вже перевірене обмеження.)*
 

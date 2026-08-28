@@ -35,156 +35,15 @@
 **Крок 1. Засіяний генератор: увесь стан — одне число.** Візьмемо SplitMix64 — крихітний, але справжній генератор: його весь стан — одне 64-бітове число, а `next()` — чиста функція від нього. Ніякого глобального `rand`, ніякої ентропії ОС.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <cstdio>
-#include <functional>
-#include <queue>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
-constexpr uint64_t K = 5; // скільки різних операцій вкидає клієнт
-
-// SplitMix64: увесь стан — одне 64-бітове число; next() — чиста функція від нього.
-struct Rand {
-    uint64_t state;
-    explicit Rand(uint64_t seed) : state(seed) {}
-
-    uint64_t next() {
-        state += 0x9E3779B97F4A7C15ULL;
-        uint64_t z = state;
-        z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
-        z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
-        return z ^ (z >> 31);
-    }
-
-    uint64_t intn(uint64_t n) { return next() % n; } // рівномірно в [0, n)
-    bool chance(uint64_t pct) { return intn(100) < pct; }
-};
-```
-```go
-package main
-
-import (
-	"container/heap"
-	"fmt"
-)
-
-const K = 5 // скільки різних операцій вкидає клієнт
-
-// SplitMix64: увесь стан — одне 64-бітове число; next() — чиста функція від нього.
-type Rand struct{ state uint64 }
-
-func NewRand(seed uint64) *Rand { return &Rand{state: seed} }
-
-func (r *Rand) next() uint64 {
-	r.state += 0x9E3779B97F4A7C15
-	z := r.state
-	z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9
-	z = (z ^ (z >> 27)) * 0x94D049BB133111EB
-	return z ^ (z >> 31)
-}
-
-func (r *Rand) intn(n uint64) uint64  { return r.next() % n } // рівномірно в [0, n)
-func (r *Rand) chance(pct uint64) bool { return r.intn(100) < pct }
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator.go
 :::
 
 **Крок 2. Планувальник: черга подій за віртуальним часом.** Серце симулятора — купа (min-heap) подій, упорядкована за часом. Головний цикл витягує найранішу, посуває годинник на її мить і виконує. Тонкий, але критичний момент — **розрив нічиїх**: якщо дві події призначені на той самий час, порядок між ними має вирішувати не випадок, а щось детерміноване. Беремо порядковий номер народження події (`seq`) — так однаковий час завжди розкладається однаково.
 
 :::tabs
-```cpp
-struct Event {
-    uint64_t at;  // віртуальний час спрацювання
-    uint64_t seq; // номер народження — детермінований розрив нічиїх
-    std::function<void()> fn;
-};
-
-// priority_queue — max-купа, тож компаратор інвертований: «пізніший = нижчий
-// пріоритет». Так найраніший at спливає першим, а за рівного at вирішує менший seq.
-struct Later {
-    bool operator()(const Event& a, const Event& b) const {
-        if (a.at != b.at) return a.at > b.at;
-        return a.seq > b.seq; // однаковий час → вирішує seq, а не випадковість
-    }
-};
-
-struct Sim {
-    uint64_t now = 0;
-    uint64_t seq = 0;
-    Rand rng;
-    std::priority_queue<Event, std::vector<Event>, Later> q;
-
-    explicit Sim(uint64_t seed) : rng(seed) {}
-
-    // after — запланувати fn через delay одиниць віртуального часу.
-    void after(uint64_t delay, std::function<void()> fn) {
-        ++seq;
-        q.push(Event{now + delay, seq, std::move(fn)});
-    }
-
-    // run — головний цикл: доки є події, брати найранішу, посувати годинник, виконувати.
-    void run() {
-        while (!q.empty()) {
-            Event e = q.top();
-            q.pop();
-            now = e.at; // годинник СТРИБАЄ прямо на час події — жодного реального очікування
-            e.fn();
-        }
-    }
-};
-```
-```go
-type Event struct {
-	at  uint64 // віртуальний час спрацювання
-	seq uint64 // номер народження — детермінований розрив нічиїх
-	fn  func()
-}
-
-type queue []*Event
-
-func (q queue) Len() int { return len(q) }
-func (q queue) Less(i, j int) bool {
-	if q[i].at != q[j].at {
-		return q[i].at < q[j].at
-	}
-	return q[i].seq < q[j].seq // однаковий час → вирішує seq, а не випадковість
-}
-func (q queue) Swap(i, j int) { q[i], q[j] = q[j], q[i] }
-func (q *queue) Push(x any)   { *q = append(*q, x.(*Event)) }
-func (q *queue) Pop() any {
-	old := *q
-	e := old[len(old)-1]
-	*q = old[:len(old)-1]
-	return e
-}
-
-type Sim struct {
-	now uint64
-	seq uint64
-	rng *Rand
-	q   queue
-}
-
-func NewSim(seed uint64) *Sim { return &Sim{rng: NewRand(seed)} }
-
-// after — запланувати fn через delay одиниць віртуального часу.
-func (s *Sim) after(delay uint64, fn func()) {
-	s.seq++
-	heap.Push(&s.q, &Event{at: s.now + delay, seq: s.seq, fn: fn})
-}
-
-// run — головний цикл: доки є події, брати найранішу, посувати годинник, виконувати.
-func (s *Sim) run() {
-	for s.q.Len() > 0 {
-		e := heap.Pop(&s.q).(*Event)
-		s.now = e.at // годинник СТРИБАЄ прямо на час події — жодного реального очікування
-		e.fn()
-	}
-}
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator-2.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator-2.go
 :::
 
 Зверни увагу на `now = e.at`: між двома подіями віртуальний час **стрибає** через порожнечу. У симуляції немає «зачекати секунду» — є лише «наступна подія аж на секунді пізніше». Саме тому симулятор жене на логічній швидкості, ні на що не чекаючи: тисяча симульованих секунд минає за стільки, скільки треба на обробку самих подій.
@@ -192,56 +51,8 @@ func (s *Sim) run() {
 **Крок 3. Симульована мережа: долю кожного повідомлення обирає симулятор.** Ось де народжується злий світ. Мережа не доставляє повідомлення «одразу» — вона дає йому затримку із засіяного діапазону (а різні затримки в різних повідомлень і **перетасовують порядок** — те, що вилетіло першим, може дійти другим) і час від часу **губить** його зовсім. Кожне таке рішення — з генератора, тобто з зерна.
 
 :::tabs
-```cpp
-// Мережа під повним контролем симулятора: він сам вирішує долю кожного повідомлення.
-struct Net {
-    Sim& sim;
-    uint64_t dropPct;
-    uint64_t minLat;
-    uint64_t maxLat;
-    std::vector<std::string> log;
-
-    // send доставляє deliver() КОЛИСЬ — або не доставляє зовсім. Усе рішення — із зерна.
-    void send(const std::string& desc, std::function<void()> deliver) {
-        char t[48];
-        if (sim.rng.chance(dropPct)) { // втрата
-            std::snprintf(t, sizeof t, "t=%2llu  ВТРАТА   ", (unsigned long long)sim.now);
-            log.push_back(std::string(t) + desc);
-            return;
-        }
-        uint64_t lat = minLat + sim.rng.intn(maxLat - minLat + 1); // затримка з засіяного діапазону
-        sim.after(lat, [this, desc, deliver = std::move(deliver)]() {
-            char t[48];
-            std::snprintf(t, sizeof t, "t=%2llu  доставка ", (unsigned long long)sim.now);
-            log.push_back(std::string(t) + desc);
-            deliver();
-        });
-    }
-};
-```
-```go
-// Мережа під повним контролем симулятора: він сам вирішує долю кожного повідомлення.
-type Net struct {
-	sim     *Sim
-	dropPct uint64
-	minLat  uint64
-	maxLat  uint64
-	log     []string
-}
-
-// send доставляє deliver() КОЛИСЬ — або не доставляє зовсім. Усе рішення — із зерна.
-func (n *Net) send(desc string, deliver func()) {
-	if n.sim.rng.chance(n.dropPct) { // втрата
-		n.log = append(n.log, fmt.Sprintf("t=%2d  ВТРАТА   %s", n.sim.now, desc))
-		return
-	}
-	lat := n.minLat + n.sim.rng.intn(n.maxLat-n.minLat+1) // затримка з засіяного діапазону
-	n.sim.after(lat, func() {
-		n.log = append(n.log, fmt.Sprintf("t=%2d  доставка %s", n.sim.now, desc))
-		deliver()
-	})
-}
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator-3.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator-3.go
 :::
 
 Тим самим механізмом впорскують і **падіння вузлів**: досить запланувати подію «вузол помер» (яка вимикає його прапорець `alive` і глушить його відповіді) і пізнішу «вузол ожив» — обидві на моменти, узяті з зерна. Тут ми лишаємо код тонким і зупиняємося на мережі, але принцип той самий: будь-який збій — це просто подія, вкинута симулятором за рішенням генератора.
@@ -249,195 +60,22 @@ func (n *Net) send(desc string, deliver func()) {
 **Крок 4. Система під тестом.** Тепер — власне логіка, яку перевіряємо. Навмисно проста, щоб баг було видно, але баг **справжній**, з тих, що валять справжні системи. Клієнт шле серверові операцію «додай одиницю» й, якщо не діждався підтвердження за таймаут, **повторює** її тим самим ідентифікатором. Сервер застосовує операції. У наївній версії сервер застосовує **все, що прийшло**; у виправленій — дедуплікує за ідентифікатором.
 
 :::tabs
-```cpp
-// Сервер-лічильник. dedup=false → наївний (застосовує все); true — дедуплікує за opID.
-struct Server {
-    uint64_t value = 0;
-    bool dedup = false;
-    std::unordered_map<uint64_t, bool> seen;
-
-    void apply(uint64_t opID) {
-        if (dedup) {
-            if (seen[opID]) return; // ідемпотентність: той самий opID рахуємо один раз
-            seen[opID] = true;
-        }
-        ++value;
-    }
-};
-
-// Клієнт шле операцію й повторює її, якщо не діждався підтвердження за timeout.
-struct Client {
-    Sim& sim;
-    Net& net;
-    Server& srv;
-    std::unordered_map<uint64_t, bool> acked;
-    uint64_t timeout;
-
-    void sendOp(uint64_t opID, int attempt) {
-        char d[48];
-        std::snprintf(d, sizeof d, "op%llu спроба%d", (unsigned long long)opID, attempt);
-        std::string desc = d;
-        net.send("cli→srv " + desc, [this, opID, desc]() {
-            srv.apply(opID); // сервер застосовує
-            net.send("srv→cli ack " + desc, [this, opID]() {
-                acked[opID] = true; // …і підтверджує
-            });
-        });
-        sim.after(timeout, [this, opID, attempt]() { // таймер повтору
-            if (!acked[opID] && attempt < 3) {
-                sendOp(opID, attempt + 1); // не діждались ack → шлемо ТОЙ САМИЙ opID знову
-            }
-        });
-    }
-};
-```
-```go
-// Сервер-лічильник. seen == nil → наївний (застосовує все); інакше — дедуплікує за opID.
-type Server struct {
-	value uint64
-	seen  map[uint64]bool
-}
-
-func (srv *Server) apply(opID uint64) {
-	if srv.seen != nil {
-		if srv.seen[opID] {
-			return // ідемпотентність: той самий opID рахуємо один раз
-		}
-		srv.seen[opID] = true
-	}
-	srv.value++
-}
-
-// Клієнт шле операцію й повторює її, якщо не діждався підтвердження за timeout.
-type Client struct {
-	sim     *Sim
-	net     *Net
-	srv     *Server
-	acked   map[uint64]bool
-	timeout uint64
-}
-
-func (c *Client) sendOp(opID uint64, attempt int) {
-	desc := fmt.Sprintf("op%d спроба%d", opID, attempt)
-	c.net.send("cli→srv "+desc, func() {
-		c.srv.apply(opID) // сервер застосовує
-		c.net.send("srv→cli ack "+desc, func() {
-			c.acked[opID] = true // …і підтверджує
-		})
-	})
-	c.sim.after(c.timeout, func() { // таймер повтору
-		if !c.acked[opID] && attempt < 3 {
-			c.sendOp(opID, attempt+1) // не діждались ack → шлемо ТОЙ САМИЙ opID знову
-		}
-	})
-}
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator-4.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator-4.go
 :::
 
 **Крок 5. Один прогін — чиста функція від зерна.** Складаємо світ, вкидаємо `K` операцій у різні моменти, женемо цикл до порожньої черги й перевіряємо **інваріант**. Інваріант тут — **безпековий**: жодну операцію не пораховано двічі, тобто `value ≤ K`. (Окремо існує інваріант живучості — «кожну операцію зрештою пораховано», тобто `value ≥ K`; його ламають справжні втрати, і це вже інша розмова. Тому безпеку пишемо як `≤`, а не `==`.)
 
 :::tabs
-```cpp
-// Один прогін — чиста функція від зерна: та сама відповідь щоразу.
-struct Result {
-    bool ok;
-    uint64_t value;
-    std::vector<std::string> log;
-};
-
-Result runOnce(uint64_t seed, bool naive) {
-    Sim s(seed);
-    Net net{s, 0, 1, 12}; // втрати тут вимкнені (dropPct=0) — ізолюємо гонитву таймауту
-    Server srv;
-    srv.dedup = !naive;
-    Client cli{s, net, srv, {}, 24};
-
-    for (uint64_t i = 0; i < K; ++i) { // вкидаємо K операцій у різні моменти
-        s.after(i * 10, [&cli, i]() { cli.sendOp(i, 1); });
-    }
-    s.run();
-
-    // ІНВАРІАНТ БЕЗПЕКИ: жодну операцію не пораховано двічі.
-    return {srv.value <= K, srv.value, net.log};
-}
-```
-```go
-// Один прогін — чиста функція від зерна: та сама відповідь щоразу.
-func runOnce(seed uint64, naive bool) (ok bool, value uint64, log []string) {
-	s := NewSim(seed)
-	net := &Net{sim: s, dropPct: 0, minLat: 1, maxLat: 12} // втрати тут вимкнені — ізолюємо гонитву таймауту
-	srv := &Server{}
-	if !naive {
-		srv.seen = map[uint64]bool{}
-	}
-	cli := &Client{sim: s, net: net, srv: srv, acked: map[uint64]bool{}, timeout: 24}
-
-	for i := uint64(0); i < K; i++ { // вкидаємо K операцій у різні моменти
-		id := i
-		s.after(i*10, func() { cli.sendOp(id, 1) })
-	}
-	s.run()
-
-	// ІНВАРІАНТ БЕЗПЕКИ: жодну операцію не пораховано двічі.
-	return srv.value <= K, srv.value, net.log
-}
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator-5.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator-5.go
 :::
 
 **Крок 6. Перебір зерен: знайти рідкісний збій і тут-таки його відтворити.** Ось фінальний акорд — те, заради чого все й будувалося. Женемо зерна поспіль; на першому, що ламає інваріант, друкуємо його — і **повторюємо той самий прогін**, щоб дістати той самий журнал крок за кроком.
 
 :::tabs
-```cpp
-// Перебір зерен: знайти перше, що ламає інваріант, і тут-таки відтворити його.
-void sweep(bool naive, uint64_t seeds) {
-    for (uint64_t seed = 0; seed < seeds; ++seed) {
-        Result r = runOnce(seed, naive);
-        if (!r.ok) {
-            std::printf("ЗБІЙ на зерні %llu: value=%llu, а мало бути ≤ %llu\n",
-                        (unsigned long long)seed, (unsigned long long)r.value,
-                        (unsigned long long)K);
-            Result again = runOnce(seed, naive); // ТЕ САМЕ зерно → ТОЙ САМИЙ журнал
-            for (const std::string& line : again.log) {
-                std::printf("    %s\n", line.c_str());
-            }
-            return;
-        }
-    }
-    std::printf("усі %llu зерен пройшли інваріант\n", (unsigned long long)seeds);
-}
-
-int main() {
-    std::printf("== наївний сервер ==\n");
-    sweep(true, 1'000'000);
-    std::printf("== виправлений (ідемпотентний) сервер ==\n");
-    sweep(false, 1'000'000);
-    return 0;
-}
-```
-```go
-// Перебір зерен: знайти перше, що ламає інваріант, і тут-таки відтворити його.
-func sweep(naive bool, seeds uint64) {
-	for seed := uint64(0); seed < seeds; seed++ {
-		ok, value, _ := runOnce(seed, naive)
-		if !ok {
-			fmt.Printf("ЗБІЙ на зерні %d: value=%d, а мало бути ≤ %d\n", seed, value, K)
-			_, _, log := runOnce(seed, naive) // ТЕ САМЕ зерно → ТОЙ САМИЙ журнал
-			for _, line := range log {
-				fmt.Println("   ", line)
-			}
-			return
-		}
-	}
-	fmt.Printf("усі %d зерен пройшли інваріант\n", seeds)
-}
-
-func main() {
-	fmt.Println("== наївний сервер ==")
-	sweep(true, 1_000_000)
-	fmt.Println("== виправлений (ідемпотентний) сервер ==")
-	sweep(false, 1_000_000)
-}
-```
+:::code proj-deterministic-simulation/cpp/robochyi-symuliator-6.cpp
+:::code proj-deterministic-simulation/go/robochyi-symuliator-6.go
 :::
 
 Це весь симулятор — планувальник, генератор, впорснутий час, симульована мережа, система під тестом і перебір зерен. Кількасот рядків, а поводиться як машина часу.

@@ -28,43 +28,8 @@
 Ось мінімальний пул — досить, щоб побачити ідею в коді:
 
 :::tabs
-```py
-class Pool:
-    def __init__(self, create, size):
-        self._create = create
-        self._free = [create() for _ in range(size)]   # заплатили за народження наперед
-        self._in_use = set()
-
-    def acquire(self):
-        obj = self._free.pop() if self._free else self._create()
-        self._in_use.add(obj)
-        return obj
-
-    def release(self, obj):
-        self._in_use.discard(obj)
-        self._free.append(obj)          # назад на полицю, НЕ знищуємо
-```
-```ts
-class Pool<T> {
-  private free: T[];
-  private inUse = new Set<T>();
-
-  constructor(private create: () => T, size: number) {
-    this.free = Array.from({ length: size }, () => create());  // заплатили за народження наперед
-  }
-
-  acquire(): T {
-    const obj = this.free.pop() ?? this.create();
-    this.inUse.add(obj);
-    return obj;
-  }
-
-  release(obj: T): void {
-    this.inUse.delete(obj);
-    this.free.push(obj);              // назад на полицю, НЕ знищуємо
-  }
-}
-```
+:::code object-pool/py/main.py
+:::code object-pool/ts/index.ts
 :::
 
 У `acquire` немає дорогого `create()`, поки на полиці щось є — об'єкт просто знімають зі списку вільних. `release` не знищує його, а кладе назад. Уся дорога робота сталася раз, у конструкторі. Але цей пул **небезпечний**, і саме на його прогалинах видно, де в патерні справжня складність: він мовчки припускає, що об'єкт повертають **чистим**, повертають **завжди** і після повернення більше не **чіпають**. Жодне з цих припущень не тримається саме собою.

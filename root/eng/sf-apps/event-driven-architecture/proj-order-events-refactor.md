@@ -11,33 +11,8 @@
 Ось `placeOrder` такою, якою вона стає за рік життя. Спершу вона робила своє — зберегти замовлення, зарезервувати товар. Потім бізнес почав дописувати наслідки, і кожен ліг сюди ж, прямим викликом.
 
 :::tabs
-```ts
-async function placeOrder(cart: Cart): Promise<Order> {
-  const order = await saveOrder(cart);        // головна дія
-  await reserveStock(order);                   // головна дія
-
-  // …а далі наросли наслідки, кожен — прямий виклик чужого модуля
-  await sendConfirmationEmail(order);          // пошта
-  await awardLoyaltyPoints(order);             // бонуси
-  await notifyShipping(order);                  // доставка
-  await trackSaleAnalytics(order);             // аналітика
-
-  return order;
-}
-```
-```python
-async def place_order(cart: Cart) -> Order:
-    order = await save_order(cart)             # головна дія
-    await reserve_stock(order)                 # головна дія
-
-    # …а далі наросли наслідки, кожен — прямий виклик чужого модуля
-    await send_confirmation_email(order)       # пошта
-    await award_loyalty_points(order)          # бонуси
-    await notify_shipping(order)               # доставка
-    await track_sale_analytics(order)          # аналітика
-
-    return order
-```
+:::code proj-order-events-refactor/ts/krok-0-tovsta-funktsiia-z.ts
+:::code proj-order-events-refactor/py/krok-0-tovsta-funktsiia-z.py
 :::
 
 Придивись, що тут не так, — і не так тут не довжина. Роботу все одно треба зробити: лист має піти, бали нарахуватися. Погано інше: **`placeOrder` тримає в собі список усіх зацікавлених**. Вона імпортує пошту, доставку, аналітику, бонуси — знає про чотири чужі царини, до яких її власна справа стосунку не має. Додати п'яту вимогу (проведення в бухгалтерію) — дописати сюди п'ятий рядок і п'ятий імпорт. Ця функція стала вузлом, крізь який проходить пів системи.
@@ -53,42 +28,8 @@ async def place_order(cart: Cart) -> Order:
 Шина в її найпростішому вигляді — це словник «ім'я події → список обробників». Двадцять рядків.
 
 :::tabs
-```ts
-type Handler = (event: unknown) => void;
-
-class EventBus {
-  private handlers = new Map<string, Handler[]>();
-
-  subscribe(type: string, handler: Handler): void {
-    const list = this.handlers.get(type) ?? [];
-    list.push(handler);
-    this.handlers.set(type, list);
-  }
-
-  // викликає обробників ЗАРАЗ ЖЕ, у тому самому потоці
-  publish(type: string, event: unknown): void {
-    for (const handler of this.handlers.get(type) ?? []) {
-      handler(event);
-    }
-  }
-}
-```
-```python
-from collections import defaultdict
-from typing import Callable
-
-class EventBus:
-    def __init__(self) -> None:
-        self._handlers: dict[str, list[Callable]] = defaultdict(list)
-
-    def subscribe(self, type_: str, handler: Callable) -> None:
-        self._handlers[type_].append(handler)
-
-    # викликає обробників ЗАРАЗ ЖЕ, у тому самому потоці
-    def publish(self, type_: str, event: object) -> None:
-        for handler in self._handlers[type_]:
-            handler(event)
-```
+:::code proj-order-events-refactor/ts/krok-1-synkhronna-shyna.ts
+:::code proj-order-events-refactor/py/krok-1-synkhronna-shyna.py
 :::
 
 Тепер `placeOrder` худне до самої суті. Вона робить своє й оголошує, що зробила:
@@ -160,60 +101,8 @@ bus.subscribe("OrderPlaced", lambda e: notify_shipping(e))
 Ключ — `queueMicrotask` у TypeScript (і `asyncio` у Python): він каже «виконай це не зараз, а щойно поточна робота добіжить до паузи». У JavaScript це **мікрозадача** — вона стане в чергу мікрозадач і виконається після поточного синхронного коду, але раніше за будь-який таймер чи ввід-вивід. Саме те, що треба: видавець дороблює своє й повертається, а обробники прокидаються одразу по тому.
 
 :::tabs
-```ts
-type AsyncHandler = (event: unknown) => Promise<void> | void;
-
-class AsyncEventBus {
-  private handlers = new Map<string, AsyncHandler[]>();
-
-  subscribe(type: string, handler: AsyncHandler): void {
-    const list = this.handlers.get(type) ?? [];
-    list.push(handler);
-    this.handlers.set(type, list);
-  }
-
-  // повертається ОДРАЗУ; обробники йдуть у наступному такті
-  publish(type: string, event: unknown): void {
-    const handlers = this.handlers.get(type) ?? [];
-    queueMicrotask(async () => {
-      for (const handler of handlers) {
-        try {
-          await handler(event);            // збій одного не валить видавця…
-        } catch (err) {
-          console.error(`handler for ${type} failed`, err);   // …ловимо тут
-        }
-      }
-    });
-  }
-}
-```
-```python
-import asyncio
-from collections import defaultdict
-from typing import Awaitable, Callable
-
-AsyncHandler = Callable[[object], Awaitable[None]]
-
-class AsyncEventBus:
-    def __init__(self) -> None:
-        self._handlers: dict[str, list[AsyncHandler]] = defaultdict(list)
-
-    def subscribe(self, type_: str, handler: AsyncHandler) -> None:
-        self._handlers[type_].append(handler)
-
-    # повертається ОДРАЗУ; обробники плануються окремою задачею
-    def publish(self, type_: str, event: object) -> None:
-        handlers = list(self._handlers[type_])
-
-        async def run() -> None:
-            for handler in handlers:
-                try:
-                    await handler(event)         # збій одного не валить видавця…
-                except Exception as err:         # …ловимо тут
-                    print(f"handler for {type_} failed: {err!r}")
-
-        asyncio.create_task(run())               # планує й одразу віддає керування
-```
+:::code proj-order-events-refactor/ts/krok-2-asynkhronna-shyna.ts
+:::code proj-order-events-refactor/py/krok-2-asynkhronna-shyna.py
 :::
 
 Тепер `placeOrder` навіть не мусить бути асинхронною — вона нічого не чекає:
@@ -255,31 +144,8 @@ def place_order(cart: Cart) -> Order:
 Синхронна шина мала одну хорошу властивість, якої асинхронна нас щойно позбавила: коли `publish` синхронний і обробник кидає виняток, ти **дізнаєшся** про це — виняток або зупинить програму, або його впіймає зовнішній `try/catch` і залогує. Збій голосний. Асинхронна шина забирає цю голосність. Обробник відпрацьовує сам по собі, окремою мікрозадачею, і якщо в ньому станеться збій, **а ти забув `try/catch`**, — цей збій нікуди не полетить, бо летіти нема куди. Подивись, як саме він зникає:
 
 :::tabs
-```ts
-// НЕПРАВИЛЬНО: та сама шина, але БЕЗ try/catch
-publish(type: string, event: unknown): void {
-  const handlers = this.handlers.get(type) ?? [];
-  queueMicrotask(async () => {
-    for (const handler of handlers) {
-      await handler(event);       // впав? виняток стане unhandled rejection
-    }                              // — і, якщо його ніхто не слухає, ПРОСТО ЗНИКНЕ
-  });
-}
-// placeOrder давно повернулась. Лист не пішов. У метриках чисто.
-// Ніхто не впав, ніхто не залогував. Помилки наче й не було.
-```
-```python
-# НЕПРАВИЛЬНО: та сама шина, але БЕЗ try/except
-def publish(self, type_: str, event: object) -> None:
-    handlers = list(self._handlers[type_])
-
-    async def run() -> None:
-        for handler in handlers:
-            await handler(event)   # впав? виняток осяде у Task, який ніхто
-                                   # не чекає (`await`) — і ТИХО пропаде
-    asyncio.create_task(run())
-# place_order давно повернулась. Лист не пішов. У метриках чисто.
-```
+:::code proj-order-events-refactor/ts/pastka-kroku-2-vyniatok.ts
+:::code proj-order-events-refactor/py/pastka-kroku-2-vyniatok.py
 :::
 
 Механіка зникнення в обох мовах та сама по суті, різна за назвою. У JavaScript непійманий виняток з `async`-функції стає **unhandled rejection** — відхиленою обіцянкою, яку ніхто не «спіймав»; якщо на цю подію середовища не навісити слухач, вона в кращому разі надрукує попередження в консоль (яку ніхто не читає), у гіршому — промине геть тихо. У Python виняток осідає в об'єкті `Task`, створеному через `create_task`; поки цей `Task` ніхто не `await`-нув, виняток лежить у ньому мертвим вантажем і випливе хіба що попередженням «Task exception was never retrieved», коли задачу збиратиме прибиральник пам'яті — тобто колись, невідомо коли, а може й ніколи.
@@ -293,19 +159,7 @@ def publish(self, type_: str, event: object) -> None:
 Ось на якому саме рядку розбивається ілюзія:
 
 :::tabs
-```ts
-function placeOrder(cart: Cart): Order {
-  const order = saveOrder(cart);      // ← ТРАНЗАКЦІЯ зафіксувалась: замовлення в базі НАЗАВЖДИ
-  reserveStock(order);
-  bus.publish("OrderPlaced", { orderId: order.id, userId: cart.userId });
-  // ↑ подія лягла в чергу мікрозадач — тобто В ОПЕРАТИВНУ ПАМ'ЯТЬ
-  return order;
-}
-// А тепер уяви: між publish і виконанням обробників процес падає.
-// kill -9, OOM, перезапуск деплою, зникло живлення.
-// Замовлення в базі Є (транзакція встигла). Черга подій БУЛА в пам'яті — і зникла з нею.
-// Лист покупцеві не піде НІКОЛИ. Подія просто випарувалась.
-```
+:::code proj-order-events-refactor/ts/mezha-iaku-ne-pereity-v.ts
 ```python
 def place_order(cart: Cart) -> Order:
     order = save_order(cart)          # ← ТРАНЗАКЦІЯ зафіксувалась: замовлення в базі НАЗАВЖДИ
@@ -335,32 +189,8 @@ def place_order(cart: Cart) -> Order:
 Але для цього подія мусить нести **власний унікальний ідентифікатор** — не `orderId` (на одне замовлення припадає багато різних подій, і всі мали б той самий `orderId`), а id **саме цього оголошення**. Ось тут і назріла потреба виділити **форму події** в окремий тип, а не сунути сирий об'єкт-словник. Заведімо конверт, у якому в кожної події є `eventId`, `type` і корисне навантаження:
 
 :::tabs
-```ts
-type DomainEvent<T = unknown> = {
-  eventId: string;    // унікальний id САМЕ ЦЬОГО оголошення (не orderId!)
-  type: string;
-  payload: T;
-};
-
-// маленький помічник збирає конверт і проставляє свіжий id
-function makeEvent<T>(type: string, payload: T): DomainEvent<T> {
-  return { eventId: crypto.randomUUID(), type, payload };
-}
-```
-```python
-import uuid
-from dataclasses import dataclass, field
-from typing import Generic, TypeVar
-
-T = TypeVar("T")
-
-@dataclass(frozen=True)          # frozen — подія незмінна, знімок минулого
-class DomainEvent(Generic[T]):
-    type: str
-    payload: T
-    event_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    # унікальний id САМЕ ЦЬОГО оголошення (не order_id!)
-```
+:::code proj-order-events-refactor/ts/krok-3-idempotentnist-i.ts
+:::code proj-order-events-refactor/py/krok-3-idempotentnist-i.py
 :::
 
 Тепер видавець кладе не голий словник, а конверт із власним id:

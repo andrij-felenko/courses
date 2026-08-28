@@ -146,38 +146,9 @@ def test_discount_applies_once():
 
 Каркас гукає тонкий перекладач; перекладач перетворює його словник на звичайний виклик твоєї функції; усе, що глибше, живе у світі бібліотек, де напрямок виклику знову твій. Ця межа — не додатковий шар «про всяк випадок», а місце, де закінчується чужа мова. Ось як виглядають обидва боки на тому самому обробнику:
 
-```ts
-// Захоплено: рішення живе всередині чужого типу.
-// Це не можна покликати ні з тесту, ні з іншої точки входу.
-app.post("/orders/:id/confirm", async (req: Request, res: Response) => {
-  const order = await db.orders.findById(req.params.id);
-  if (order.status !== "new") return res.status(409).send("вже підтверджено");
-  order.status = "confirmed";
-  order.confirmedAt = new Date();
-  await db.orders.save(order);
-  res.json(order);
-});
-```
+:::code framework-vs-library-d/ts/trymaty-inversiiu-na-kraiu.ts
 
-```ts
-// На краю: перекладач нічого не вирішує, рішення — звичайна чиста функція.
-type Confirmation =
-  | { ok: true; order: Order }
-  | { ok: false; reason: string };
-
-export function confirmOrder(order: Order, now: Date): Confirmation {
-  if (order.status !== "new") return { ok: false, reason: "вже підтверджено" };
-  return { ok: true, order: { ...order, status: "confirmed", confirmedAt: now } };
-}
-
-app.post("/orders/:id/confirm", async (req, res) => {
-  const order = await repo.byId(req.params.id);
-  const result = confirmOrder(order, new Date());
-  if (!result.ok) return res.status(409).send(result.reason);
-  await repo.save(result.order);
-  res.json(result.order);
-});
-```
+:::code framework-vs-library-d/ts/trymaty-inversiiu-na-kraiu-2.ts
 
 Функція `confirmOrder` не знає ні про HTTP, ні про каркас, ні про базу; її кличуть із перекладача, з тесту, з нічної задачі й із команди в терміналі — з чотирьох різних господарів циклу, не змінивши в ній жодного рядка. Це і є та властивість, заради якої межу проводять.
 

@@ -9,138 +9,8 @@
 Спершу — сама підсистема, яку фасад ховатиме. Це чотири незалежні служби, і кожна вміє одне своє. Жодна не знає про решту й не знає про фасад — це важливо, бо саме тому фасадів над ними може бути скільки завгодно, і саме тому кожну можна тестувати окремо.
 
 :::tabs
-```ts
-// ── Підсистема: чотири служби, кожна робить одне й нічого не знає про сусідів ──
-
-interface CartItem { sku: string; qty: number; price: number; }
-interface Cart     { items: CartItem[]; total: number; email: string; }
-interface Card     { token: string; }
-
-class OutOfStockError extends Error {}
-class PaymentDeclinedError extends Error {}
-
-// 1. Склад: резервує товар і вміє резерв ЗНЯТИ (це стане ключем до відкоту)
-class InventoryService {
-  reserve(items: CartItem[]): ReservationId {
-    for (const it of items) {
-      if (!this.hasStock(it.sku, it.qty))
-        throw new OutOfStockError(`Немає ${it.qty}× ${it.sku}`);
-    }
-    return this.hold(items);          // повертає розписку про резерв
-  }
-  release(id: ReservationId): void { /* повертає товар на полицю */ }
-
-  private hasStock(sku: string, qty: number): boolean { /* ... */ return true; }
-  private hold(items: CartItem[]): ReservationId { /* ... */ return "res_1" as ReservationId; }
-}
-
-// 2. Платіж: списує гроші; може відхилити картку
-class PaymentGateway {
-  charge(card: Card, amount: number): Charge {
-    const ok = this.callProvider(card.token, amount);   // зовнішній API банку
-    if (!ok) throw new PaymentDeclinedError("Картку відхилено");
-    return { id: `chg_${Date.now()}`, amount };
-  }
-  refund(chargeId: string): void { /* повертає гроші, теж компенсація */ }
-
-  private callProvider(token: string, amount: number): boolean { /* ... */ return true; }
-}
-
-// 3. Сховище замовлень: створює й зберігає запис замовлення
-class OrderRepository {
-  create(cart: Cart, chargeId: string): Order {
-    return { id: `ord_${Date.now()}`, cart, chargeId, status: "paid" };
-  }
-}
-
-// 4. Пошта: шле листи; НЕ критична — її збій не має валити замовлення
-class EmailService {
-  sendConfirmation(order: Order): void { /* SMTP, може бути недоступний */ }
-}
-
-type ReservationId = string & { readonly brand: unique symbol };
-interface Charge { id: string; amount: number; }
-interface Order  { id: string; cart: Cart; chargeId: string; status: string; }
-```
-```py
-# ── Підсистема: чотири служби, кожна робить одне й нічого не знає про сусідів ──
-from dataclasses import dataclass
-
-
-@dataclass
-class CartItem:
-    sku: str
-    qty: int
-    price: float
-
-@dataclass
-class Cart:
-    items: list[CartItem]
-    total: float
-    email: str
-
-@dataclass
-class Card:
-    token: str
-
-
-class OutOfStockError(Exception): ...
-class PaymentDeclinedError(Exception): ...
-
-
-# 1. Склад: резервує товар і вміє резерв ЗНЯТИ (це стане ключем до відкоту)
-class InventoryService:
-    def reserve(self, items: list[CartItem]) -> str:
-        for it in items:
-            if not self._has_stock(it.sku, it.qty):
-                raise OutOfStockError(f"Немає {it.qty}× {it.sku}")
-        return self._hold(items)          # повертає розписку про резерв
-
-    def release(self, reservation_id: str) -> None:
-        ...                               # повертає товар на полицю
-
-    def _has_stock(self, sku: str, qty: int) -> bool: ...
-    def _hold(self, items: list[CartItem]) -> str: return "res_1"
-
-
-# 2. Платіж: списує гроші; може відхилити картку
-class PaymentGateway:
-    def charge(self, card: Card, amount: float) -> "Charge":
-        ok = self._call_provider(card.token, amount)     # зовнішній API банку
-        if not ok:
-            raise PaymentDeclinedError("Картку відхилено")
-        return Charge(id="chg_...", amount=amount)
-
-    def refund(self, charge_id: str) -> None:
-        ...                               # повертає гроші, теж компенсація
-
-    def _call_provider(self, token: str, amount: float) -> bool: return True
-
-
-# 3. Сховище замовлень: створює й зберігає запис замовлення
-class OrderRepository:
-    def create(self, cart: Cart, charge_id: str) -> "Order":
-        return Order(id="ord_...", cart=cart, charge_id=charge_id, status="paid")
-
-
-# 4. Пошта: шле листи; НЕ критична — її збій не має валити замовлення
-class EmailService:
-    def send_confirmation(self, order: "Order") -> None:
-        ...                               # SMTP, може бути недоступний
-
-
-@dataclass
-class Charge:
-    id: str
-    amount: float
-
-@dataclass
-class Order:
-    id: str
-    cart: Cart
-    charge_id: str
-    status: str
-```
+:::code proj-facade-checkout/ts/pidsystema-chotyry-servisy.ts
+:::code proj-facade-checkout/py/pidsystema-chotyry-servisy.py
 :::
 
 Придивись до двох деталей у цій підсистемі — вони вирішать усе далі. Перша: `InventoryService` має не лише `reserve`, а й **`release`** — метод, що знімає резерв. Друга: `PaymentGateway` має не лише `charge`, а й **`refund`**. Ці парні методи — не прикраса. Це те, чим ми відкочуватимемо зроблене, коли черговий крок упаде. Без них відкіт неможливий, і фасад був би приречений лишати систему в перекошеному стані.
@@ -150,63 +20,8 @@ class Order:
 Тепер уяви, що фасаду немає, і всю послідовність тримає сам веб-контролер — той код, що обробляє POST на `/checkout`. Він мусить власноруч і в правильному порядку смикати чотири служби, та ще й сам розрулювати збої.
 
 :::tabs
-```ts
-// БЕЗ фасаду: контролер сам знає всі 4 служби, порядок і відкіт
-class CheckoutController {
-  constructor(
-    private inventory: InventoryService,   // залежність 1
-    private payments: PaymentGateway,      // залежність 2
-    private orders: OrderRepository,       // залежність 3
-    private mailer: EmailService,          // залежність 4
-  ) {}
-
-  handlePost(cart: Cart, card: Card): Response {
-    let reservation: ReservationId | null = null;
-    try {
-      reservation = this.inventory.reserve(cart.items);          // крок 1
-      const charge = this.payments.charge(card, cart.total);     // крок 2
-      const order  = this.orders.create(cart, charge.id);        // крок 3
-      try { this.mailer.sendConfirmation(order); }               // крок 4
-      catch { /* лист не критичний — ковтаємо */ }
-      return Response.ok(order.id);
-    } catch (e) {
-      if (reservation) this.inventory.release(reservation);      // відкіт!
-      if (e instanceof OutOfStockError)      return Response.conflict("Розкупили");
-      if (e instanceof PaymentDeclinedError) return Response.paymentRequired("Відхилено");
-      throw e;
-    }
-  }
-}
-```
-```py
-# БЕЗ фасаду: контролер сам знає всі 4 служби, порядок і відкіт
-class CheckoutController:
-    def __init__(self, inventory, payments, orders, mailer):
-        self._inventory = inventory       # залежність 1
-        self._payments = payments         # залежність 2
-        self._orders = orders             # залежність 3
-        self._mailer = mailer             # залежність 4
-
-    def handle_post(self, cart: Cart, card: Card) -> "Response":
-        reservation = None
-        try:
-            reservation = self._inventory.reserve(cart.items)         # крок 1
-            charge = self._payments.charge(card, cart.total)          # крок 2
-            order = self._orders.create(cart, charge.id)              # крок 3
-            try:
-                self._mailer.send_confirmation(order)                 # крок 4
-            except Exception:
-                pass                        # лист не критичний — ковтаємо
-            return Response.ok(order.id)
-        except OutOfStockError:
-            if reservation:
-                self._inventory.release(reservation)                  # відкіт!
-            return Response.conflict("Розкупили")
-        except PaymentDeclinedError:
-            if reservation:
-                self._inventory.release(reservation)                  # відкіт!
-            return Response.payment_required("Відхилено")
-```
+:::code proj-facade-checkout/ts/iak-zhyve-kliient-bez.ts
+:::code proj-facade-checkout/py/iak-zhyve-kliient-bez.py
 :::
 
 Зупинися й полічи, що знає цей контролер. Він тримає **чотири** посилання на служби. Він знає, що резерв іде **перед** платежем, платіж **перед** записом, лист **останнім**. Він знає, що при падінні треба **зняти резерв**. І знає, які саме винятки котра служба кидає, щоб перекласти їх у правильні HTTP-відповіді. Це не одна відповідальність — це п'ять переплетених знань про чужі нутрощі, зшиті в одному методі веб-шару.
@@ -218,104 +33,8 @@ class CheckoutController:
 Тепер стягнемо все це за одні двері. Фасад забирає собі і чотири залежності, і порядок, і — головне — **логіку відкоту**. Клієнт більше не знатиме нічого з цього.
 
 :::tabs
-```ts
-// Фасад: тримає підсистему, порядок і відкіт. Клієнт не знає нічого з цього.
-class CheckoutFacade {
-  constructor(
-    private inventory: InventoryService,
-    private payments: PaymentGateway,
-    private orders: OrderRepository,
-    private mailer: EmailService,
-  ) {}
-
-  placeOrder(cart: Cart, card: Card): OrderResult {
-    // Крок 1: резерв. Якщо тут упало — відкочувати ще нічого, просто виходимо.
-    let reservation: ReservationId;
-    try {
-      reservation = this.inventory.reserve(cart.items);
-    } catch (e) {
-      if (e instanceof OutOfStockError) return { ok: false, reason: "out_of_stock" };
-      throw e;
-    }
-
-    // Крок 2: платіж. Якщо ВІН упав — резерв уже висить: ЗНІМАЄМО його (компенсація).
-    let charge: Charge;
-    try {
-      charge = this.payments.charge(card, cart.total);
-    } catch (e) {
-      this.inventory.release(reservation);            // ← відкіт кроку 1
-      if (e instanceof PaymentDeclinedError) return { ok: false, reason: "declined" };
-      throw e;
-    }
-
-    // Крок 3: запис замовлення. Якщо впав — треба зняти І резерв, І платіж.
-    let order: Order;
-    try {
-      order = this.orders.create(cart, charge.id);
-    } catch (e) {
-      this.payments.refund(charge.id);                // ← відкіт кроку 2
-      this.inventory.release(reservation);            // ← відкіт кроку 1
-      throw e;                                         // це вже наша вина, не клієнтова
-    }
-
-    // Крок 4: лист. НЕ критичний — його збій не валить замовлення й не відкочує.
-    try { this.mailer.sendConfirmation(order); }
-    catch { /* залогувати й забути: гроші взято, товар зарезервовано, запис є */ }
-
-    return { ok: true, orderId: order.id };
-  }
-}
-
-type OrderResult =
-  | { ok: true;  orderId: string }
-  | { ok: false; reason: "out_of_stock" | "declined" };
-```
-```py
-# Фасад: тримає підсистему, порядок і відкіт. Клієнт не знає нічого з цього.
-class CheckoutFacade:
-    def __init__(self, inventory, payments, orders, mailer):
-        self._inventory = inventory
-        self._payments = payments
-        self._orders = orders
-        self._mailer = mailer
-
-    def place_order(self, cart: Cart, card: Card) -> "OrderResult":
-        # Крок 1: резерв. Якщо тут упало — відкочувати ще нічого, просто виходимо.
-        try:
-            reservation = self._inventory.reserve(cart.items)
-        except OutOfStockError:
-            return OrderResult(ok=False, reason="out_of_stock")
-
-        # Крок 2: платіж. Якщо ВІН упав — резерв уже висить: ЗНІМАЄМО (компенсація).
-        try:
-            charge = self._payments.charge(card, cart.total)
-        except PaymentDeclinedError:
-            self._inventory.release(reservation)          # ← відкіт кроку 1
-            return OrderResult(ok=False, reason="declined")
-
-        # Крок 3: запис замовлення. Якщо впав — знімаємо І резерв, І платіж.
-        try:
-            order = self._orders.create(cart, charge.id)
-        except Exception:
-            self._payments.refund(charge.id)              # ← відкіт кроку 2
-            self._inventory.release(reservation)          # ← відкіт кроку 1
-            raise                                         # це вже наша вина, не клієнтова
-
-        # Крок 4: лист. НЕ критичний — його збій не валить замовлення й не відкочує.
-        try:
-            self._mailer.send_confirmation(order)
-        except Exception:
-            pass          # залогувати й забути: гроші взято, товар є, запис є
-
-        return OrderResult(ok=True, order_id=order.id)
-
-
-@dataclass
-class OrderResult:
-    ok: bool
-    order_id: str | None = None
-    reason: str | None = None
-```
+:::code proj-facade-checkout/ts/fasad-shcho-vmiie.ts
+:::code proj-facade-checkout/py/fasad-shcho-vmiie.py
 :::
 
 Оце вже фасад, який витримує реальність. Але перш ніж радіти, чесно спитаймо: чи не порушили ми головне правило — «фасад делегує, не вирішує»? Тут же тепер є логіка: try, catch, `release`, `refund`. Хіба це не «рішення»? Розберімо це прямо, бо тут проходить найтонша межа патерну.
@@ -359,36 +78,8 @@ class OrderResult:
 А тепер той самий контролер **із фасадом**:
 
 :::tabs
-```ts
-// ІЗ фасадом: контролер знає РІВНО ОДИН тип підсистеми — сам фасад
-class CheckoutController {
-  constructor(private checkout: CheckoutFacade) {}   // єдина залежність
-
-  handlePost(cart: Cart, card: Card): Response {
-    const result = this.checkout.placeOrder(cart, card);
-    if (result.ok) return Response.ok(result.orderId);
-    switch (result.reason) {
-      case "out_of_stock": return Response.conflict("Розкупили");
-      case "declined":     return Response.paymentRequired("Відхилено");
-    }
-  }
-}
-```
-```py
-# ІЗ фасадом: контролер знає РІВНО ОДИН тип підсистеми — сам фасад
-class CheckoutController:
-    def __init__(self, checkout: CheckoutFacade):
-        self._checkout = checkout        # єдина залежність
-
-    def handle_post(self, cart: Cart, card: Card) -> "Response":
-        result = self._checkout.place_order(cart, card)
-        if result.ok:
-            return Response.ok(result.order_id)
-        if result.reason == "out_of_stock":
-            return Response.conflict("Розкупили")
-        if result.reason == "declined":
-            return Response.payment_required("Відхилено")
-```
+:::code proj-facade-checkout/ts/vymiriuiemo-zcheplennia-4.ts
+:::code proj-facade-checkout/py/vymiriuiemo-zcheplennia-4.py
 :::
 
 ```
@@ -426,43 +117,8 @@ placeOrder:
 А ось як він **гниє** — кожен доданий рядок сам собою здається розумним, і саме тому пастка спрацьовує:
 
 :::tabs
-```ts
-placeOrder(cart: Cart, card: Card): OrderResult {
-  // ✗ рахує знижку — це БІЗНЕС-рішення, а не виклик підсистеми
-  if (cart.total > 1000) cart.total *= 0.9;
-
-  // ✗ вирішує, чи давати клієнтові кредит — знову бізнес-правило
-  if (this.isVip(cart.email) && cart.total < this.creditLimit(cart.email)) { /* ... */ }
-
-  // ✗ сам рахує податок за таблицею регіонів — предметна логіка
-  const tax = cart.total * this.taxRateFor(cart.region);
-
-  // ✗ веде власний стан — лічильник, кеш, історія
-  this.ordersToday++;
-  this.recentCarts.push(cart);
-
-  // ...і десь тут, поміж усім цим, ще й ті чотири виклики служб
-}
-```
-```py
-def place_order(self, cart: Cart, card: Card) -> "OrderResult":
-    # ✗ рахує знижку — це БІЗНЕС-рішення, а не виклик підсистеми
-    if cart.total > 1000:
-        cart.total *= 0.9
-
-    # ✗ вирішує, чи давати клієнтові кредит — знову бізнес-правило
-    if self._is_vip(cart.email) and cart.total < self._credit_limit(cart.email):
-        ...
-
-    # ✗ сам рахує податок за таблицею регіонів — предметна логіка
-    tax = cart.total * self._tax_rate_for(cart.region)
-
-    # ✗ веде власний стан — лічильник, кеш, історія
-    self._orders_today += 1
-    self._recent_carts.append(cart)
-
-    # ...і десь тут, поміж усім цим, ще й ті чотири виклики служб
-```
+:::code proj-facade-checkout/ts/de-dveri-staiut.ts
+:::code proj-facade-checkout/py/de-dveri-staiut.py
 :::
 
 Кожен з цих рядків окремо звучить безневинно. Але разом вони переродили клас. Тепер `CheckoutFacade` **знижку рахує**, **кредит вирішує**, **податок обчислює**, **стан веде** — і десь між усім цим ще й кличе чотири служби. Це вже не двері. Це **[божественний об'єкт](root:sf-apps/anti-patterns)** — клас, крізь який тече й рішення, і стан, і вся логіка, і від якого тепер залежить усе. Спробуй тепер його протестувати: кожен тест мусить підняти всю чотирьохсервісну підсистему **плюс** підсунути VIP-статус, кредитний ліміт, податкову таблицю. Спробуй перевикористати логіку знижки деінде — не вийде, вона замурована в оформленні. Двері, які мали **зменшувати** зчеплення, самі стали найзчепленішою точкою системи.

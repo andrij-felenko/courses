@@ -22,35 +22,8 @@
 Щоб перевірки складалися в набір, а не лежали купою розрізнених скриптів, дамо їм **єдину форму**. Фітнес-функція для нас — це щось, що має ім'я, знає, яку вісь стереже, і вміє винести вирок. Вирок — це прапорець «пройшло» плюс людський опис, куди йти дивитися, коли не пройшло.
 
 :::tabs
-```typescript
-// Спільний контракт: усе, що вміє винести вирок про одну вісь системи.
-interface Verdict {
-  readonly passed: boolean;
-  readonly detail: string;               // куди дивитися, коли не пройшло
-}
-
-interface FitnessFunction {
-  readonly name: string;
-  readonly axis: string;                 // яку вісь системи стереже
-  run(): Verdict | Promise<Verdict>;     // синхронна (структура) чи асинхронна (вимір)
-}
-```
-```python
-from dataclasses import dataclass
-from typing import Callable
-
-# Спільний контракт: усе, що вміє винести вирок про одну вісь системи.
-@dataclass(frozen=True)
-class Verdict:
-    passed: bool
-    detail: str                          # куди дивитися, коли не пройшло
-
-@dataclass(frozen=True)
-class FitnessFunction:
-    name: str
-    axis: str                            # яку вісь системи стереже
-    run: Callable[[], Verdict]           # виносить вирок
-```
+:::code proj-fitness-harness/ts/ideia-fitnes-funktsiia-iak.ts
+:::code proj-fitness-harness/py/ideia-fitnes-funktsiia-iak.py
 :::
 
 Уся сила харнеса — саме в цій одноманітності. Кожна перевірка, хоч яка різна всередині (одна читає імпорти статично, інша ганяє живу систему й міряє час), назовні виглядає однаково: спитали `run()` — дістали `Verdict`. Тому «додати ще одну вісь під нагляд» коштує рівно стільки, скільки написати ще один об'єкт цієї форми й дописати його в список. Набір не переписують — його **доростають**.
@@ -58,18 +31,7 @@ class FitnessFunction:
 А сам харнес — це список фітнес-функцій і той, хто по черзі їх питає, друкує вироки й зводить усе в код виходу:
 
 :::tabs
-```typescript
-async function runHarness(ffs: FitnessFunction[]): Promise<number> {
-  let failed = 0;
-  for (const ff of ffs) {
-    const v = await ff.run();            // await не заважає синхронним — вони теж підійдуть
-    console.log(`[${v.passed ? "PASS" : "FAIL"}] ${ff.name} — ${ff.axis}\n        ${v.detail}`);
-    if (!v.passed) failed++;
-  }
-  console.log(`\nпідсумок: ${ffs.length - failed}/${ffs.length} осей тримається`);
-  return failed === 0 ? 0 : 1;           // код виходу для воріт CI
-}
-```
+:::code proj-fitness-harness/ts/ideia-fitnes-funktsiia-iak-2.ts
 ```python
 def run_harness(ffs: list[FitnessFunction]) -> int:
     failed = 0
@@ -90,64 +52,8 @@ def run_harness(ffs: list[FitnessFunction]) -> int:
 У TS-проєкті з базовими (не відносними) імпортами — коли `import { save } from "db/postgres"` резолвиться від кореня вихідників — ціль ребра видно просто в тексті: перший сегмент рядка в лапках і є модуль-ціль, точнісінько як у C перший сегмент `#include`. Зберімо всі теки-модулі, тоді пройдімо файли й на кожен внутрішній імпорт додаймо ребро:
 
 :::tabs
-```typescript
-import { readdirSync, statSync, readFileSync } from "node:fs";
-import { join, relative, sep } from "node:path";
-
-type Graph = Map<string, Set<string>>;   // модуль → модулі, від яких він залежить
-
-// import ... from "spec"  /  export ... from "spec"
-const IMPORT_RE = /(?:import|export)[^'"]*?from\s*['"]([^'"]+)['"]/g;
-
-const moduleOf = (root: string, file: string) => relative(root, file).split(sep)[0];
-
-function walk(dir: string): string[] {
-  const out: string[] = [];
-  for (const name of readdirSync(dir)) {
-    const full = join(dir, name);
-    if (statSync(full).isDirectory()) out.push(...walk(full));
-    else if (/\.tsx?$/.test(name)) out.push(full);
-  }
-  return out;
-}
-
-function buildGraph(root: string): Graph {
-  const files = walk(root);
-  const layers = new Set(files.map(f => moduleOf(root, f)));      // усі реальні модулі-теки
-  const g: Graph = new Map([...layers].map(l => [l, new Set()]));
-
-  for (const file of files) {
-    const from = moduleOf(root, file);
-    for (const m of readFileSync(file, "utf8").matchAll(IMPORT_RE)) {
-      const to = m[1].split("/")[0];                             // перший сегмент специфікатора
-      if (layers.has(to) && to !== from) g.get(from)!.add(to);   // лише внутрішні міжмодульні ребра
-    }
-  }
-  return g;
-}
-```
-```python
-import re
-from pathlib import Path
-
-IMPORT_RE = re.compile(r'''(?:import|export)[^'"]*?from\s*['"]([^'"]+)['"]''')
-
-def module_of(root: Path, file: Path) -> str:
-    return file.relative_to(root).parts[0]            # перший сегмент шляху = модуль/шар
-
-def build_graph(root: Path) -> dict[str, set[str]]:
-    files = [p for p in root.rglob("*") if p.suffix in {".ts", ".tsx"}]
-    layers = {module_of(root, f) for f in files}      # усі реальні модулі-теки
-    g: dict[str, set[str]] = {l: set() for l in layers}
-
-    for file in files:
-        frm = module_of(root, file)
-        for spec in IMPORT_RE.findall(file.read_text(encoding="utf-8", errors="ignore")):
-            to = spec.split("/")[0]                    # перший сегмент специфікатора
-            if to in layers and to != frm:             # лише внутрішні міжмодульні ребра
-                g[frm].add(to)
-    return g
-```
+:::code proj-fitness-harness/ts/spilna-osnova-hraf.ts
+:::code proj-fitness-harness/py/spilna-osnova-hraf.py
 :::
 
 Два свідомі спрощення варто назвати вголос. По-перше, зовнішні пакунки (`"react"`, `"zod"`) самі відсіюються — їхнього першого сегмента немає серед наших тек, тож ребро не додається; нас цікавить **внутрішня** структура, не залежність від бібліотек. По-друге, відносні імпорти (`"./util"`, `"../db/pg"`) цей наївний збирач **пропускає** — їхній перший сегмент (`.` або `..`) теж не модуль. У проєкті, де межі шарів перетинають лише базовими імпортами, цього досить; щойно між шарами ходять відносними шляхами, кожен імпорт треба резолвити до реального файлу тим самим набором шляхів, що й складач. Повний, чесний до резолвінгу й до згенерованих файлів збирач графа (і чому саме цикл — найтоксичніший сигнал у ньому) розібрано окремо на прикладі C-дерева з `#include` — [інструмент, що будує граф залежностей і ловить порушення шарів та цикли](root:sf-apps/architecture-erosion/proj-dependency-checker.md); тут нам граф потрібен лише як спільна основа для двох осей.
@@ -157,27 +63,7 @@ def build_graph(root: Path) -> dict[str, set[str]]:
 Перше запитання до графа найпростіше й **локальне**: чи кожне окреме ребро дозволене картою шарів? Карту тримаємо як множину дозволених пар «шар → шар»; усе, чого в множині немає, заборонено за замовчуванням — політика «заборонено все, крім дозволеного» надійніша за зворотну, бо нове порушення не прослизне крізь діру в списку заборон.
 
 :::tabs
-```typescript
-const edge = (a: string, b: string) => `${a}->${b}`;
-
-function layerRule(g: Graph, allowed: Set<string>): FitnessFunction {
-  return {
-    name: "layers",
-    axis: "структура: залежності шарів",
-    run(): Verdict {
-      const bad: string[] = [];
-      for (const [from, tos] of g)
-        for (const to of tos)
-          if (!allowed.has(edge(from, to))) bad.push(`${from} → ${to}`);
-      return {
-        passed: bad.length === 0,
-        detail: bad.length ? `заборонені ребра: ${bad.join(", ")}`
-                           : "усі залежності дозволені",
-      };
-    },
-  };
-}
-```
+:::code proj-fitness-harness/ts/vis-struktury-atomarne.ts
 ```python
 def layer_rule(g: dict[str, set[str]], allowed: set[tuple[str, str]]) -> FitnessFunction:
     def run() -> Verdict:
@@ -207,60 +93,8 @@ def layer_rule(g: dict[str, set[str]], allowed: set[tuple[str, str]]) -> Fitness
 Уся магія — в одному спостереженні. Ідучи по ребру `v → w`, дивимося на колір `w`. Якщо `w` **сіра** — значить, вона вже лежить у нашому ж поточному ланцюжку занурення, і ми щойно замкнули на неї стрілку. Це **зворотне ребро** (англ. *back edge*), а зворотне ребро в напрямленому графі **завжди означає цикл** — це усталена теорема теорії графів: напрямлений граф ациклічний тоді й лише тоді, коли DFS не знаходить жодного зворотного ребра. Ребро в **білу** вершину — просто крок углиб. Ребро в **чорну** — безпечне: та гілка вже вийдена, повернутися нею в поточний ланцюжок неможливо (два шляхи, що сходяться в одну вже пройдену вершину, — це не цикл). Отже, цикл є **тоді й лише тоді**, коли обхід зустрічає ребро в сіру вершину — і в цю мить сам цикл лежить у стеку, від сірої цілі до поточної вершини.
 
 :::tabs
-```typescript
-enum Color { White, Gray, Black }
-
-function findCycles(g: Graph): string[][] {
-  const color = new Map<string, Color>([...g.keys()].map(v => [v, Color.White]));
-  const stack: string[] = [];                    // поточний ланцюжок занурення (сірі вершини)
-  const cycles: string[][] = [];
-
-  const dfs = (v: string): void => {
-    color.set(v, Color.Gray);                    // входимо — вершина тепер у ланцюжку
-    stack.push(v);
-    for (const w of g.get(v) ?? []) {
-      const c = color.get(w) ?? Color.White;
-      if (c === Color.Gray) {                    // ребро в СІРУ → зворотне ребро → цикл
-        cycles.push(stack.slice(stack.indexOf(w)));   // хвіст стеку від w до v — саме коло
-      } else if (c === Color.White) {
-        dfs(w);                                  // ще не ходили — крок углиб
-      }
-      // Black — гілка вже вийдена, пропускаємо
-    }
-    color.set(v, Color.Black);                   // виходимо — вершина й нащадки позаду
-    stack.pop();
-  };
-
-  for (const v of g.keys())
-    if (color.get(v) === Color.White) dfs(v);    // ліс: запуск із кожної ще білої вершини
-  return cycles;
-}
-```
-```python
-WHITE, GRAY, BLACK = 0, 1, 2
-
-def find_cycles(g: dict[str, set[str]]) -> list[list[str]]:
-    color = {v: WHITE for v in g}
-    stack: list[str] = []                        # поточний ланцюжок занурення (сірі вершини)
-    cycles: list[list[str]] = []
-
-    def dfs(v: str) -> None:
-        color[v] = GRAY                          # входимо — вершина тепер у ланцюжку
-        stack.append(v)
-        for w in g.get(v, ()):
-            if color.get(w, WHITE) == GRAY:      # ребро в СІРУ → зворотне ребро → цикл
-                cycles.append(stack[stack.index(w):])   # хвіст стеку від w до v — саме коло
-            elif color.get(w, WHITE) == WHITE:
-                dfs(w)                           # ще не ходили — крок углиб
-            # BLACK — гілка вже вийдена, пропускаємо
-        color[v] = BLACK                         # виходимо — вершина й нащадки позаду
-        stack.pop()
-
-    for v in g:
-        if color[v] == WHITE:                    # ліс: запуск із кожної ще білої вершини
-            dfs(v)
-    return cycles
-```
+:::code proj-fitness-harness/ts/vis-formy-hrafa-tsykly-i.ts
+:::code proj-fitness-harness/py/vis-formy-hrafa-tsykly-i.py
 :::
 
 Чому три кольори, а не два? Простого «відвіданий / невідвіданий» замало: вершина, у яку ми вже заходили й **вийшли** (чорна), — це геть не те саме, що вершина, у якій ми **зараз перебуваємо** (сіра). Стрілка в першу — нормальний повторний прихід у вже пройдений вузол; стрілка в другу — цикл. Змішати ці два стани в один колір — і алгоритм або проґавить справжні цикли, або нафантазує неіснуючі. Зовнішній цикл у кінці — не окремий обхід щоразу, а один прохід «лісом»: граф залежностей майже завжди не зв'язний одним коренем (верхні шари — вершини, у які ніхто не входить), тож DFS запускають із кожної ще білої вершини, і сумарно кожну фарбують один раз.
@@ -268,23 +102,7 @@ def find_cycles(g: dict[str, set[str]]) -> list[list[str]]:
 Лишається загорнути цей обхід у фітнес-функцію спільної форми:
 
 :::tabs
-```typescript
-function acyclic(g: Graph): FitnessFunction {
-  return {
-    name: "acyclic",
-    axis: "форма графа: шари утворюють DAG",
-    run(): Verdict {
-      const cycles = findCycles(g);
-      return {
-        passed: cycles.length === 0,
-        detail: cycles.length
-          ? cycles.map(c => [...c, c[0]].join(" → ")).join("; ")   // замкнути коло у звіті
-          : "граф ациклічний — DAG тримається",
-      };
-    },
-  };
-}
-```
+:::code proj-fitness-harness/ts/vis-formy-hrafa-tsykly-i-2.ts
 ```python
 def acyclic(g: dict[str, set[str]]) -> FitnessFunction:
     def run() -> Verdict:
@@ -318,50 +136,8 @@ def acyclic(g: dict[str, set[str]]) -> FitnessFunction:
 Дві попередні осі читаються з коду статично, не запускаючи його. Третя інша: багато найважливішого проявляється лише в русі. Бюджет часу відповіді не побачиш в імпортах — його видно, тільки коли система працює; розмір артефакту не побачиш у графі модулів — його видно, тільки коли пакунок зібрано. І тут вирішальне: ці дві величини **міряють з одного артефакту й перевіряють разом**, бо вони **розмінюються** одна на одну. Порізав пакунок на шматки — зменшив розмір, але додав мережевих кругорейсів і підняв час відповіді. Наростив кеш заради часу — прискорив відповідь, але роздув артефакт. Дві **окремі** атомарні перевірки цього розміну не спіймають: перевірка розміру на одній збірці й перевірка часу на іншій можуть обидві світитися зеленим, поки реальний постачений артефакт вибиває один із бюджетів. Саме тому це **цілісна** (англ. *holistic*) фітнес-функція: вона пильнує не властивість, а **поєднання** властивостей, які тягнуть у різні боки.
 
 :::tabs
-```typescript
-interface Reading { p95Ms: number; artifactKb: number; }    // обидві величини з ОДНОГО артефакту
-interface Budget  { maxP95Ms: number; maxArtifactKb: number; }
-
-function budget(measure: () => Promise<Reading>, b: Budget): FitnessFunction {
-  return {
-    name: "budget",
-    axis: "швидкодія + постачання: час відповіді й розмір разом",
-    async run(): Promise<Verdict> {
-      const r = await measure();                              // один прогін — обидві величини разом
-      const over: string[] = [];
-      if (r.p95Ms > b.maxP95Ms)          over.push(`p95 ${r.p95Ms}мс > ${b.maxP95Ms}мс`);
-      if (r.artifactKb > b.maxArtifactKb) over.push(`артефакт ${r.artifactKb}КБ > ${b.maxArtifactKb}КБ`);
-      return {
-        passed: over.length === 0,                            // тримаються ОБИДВА бюджети — чи жодного розміну
-        detail: over.length ? over.join("; ") : "обидва бюджети витримано",
-      };
-    },
-  };
-}
-```
-```python
-@dataclass(frozen=True)
-class Reading:                            # обидві величини з ОДНОГО артефакту
-    p95_ms: float
-    artifact_kb: int
-
-@dataclass(frozen=True)
-class Budget:
-    max_p95_ms: float
-    max_artifact_kb: int
-
-def budget(measure: Callable[[], Reading], b: Budget) -> FitnessFunction:
-    def run() -> Verdict:
-        r = measure()                     # один прогін — обидві величини разом
-        over = []
-        if r.p95_ms > b.max_p95_ms:
-            over.append(f"p95 {r.p95_ms:.0f}мс > {b.max_p95_ms:.0f}мс")
-        if r.artifact_kb > b.max_artifact_kb:
-            over.append(f"артефакт {r.artifact_kb}КБ > {b.max_artifact_kb}КБ")
-        detail = "; ".join(over) if over else "обидва бюджети витримано"
-        return Verdict(not over, detail)  # тримаються ОБИДВА — чи жодного розміну
-    return FitnessFunction("budget", "швидкодія + постачання: час і розмір разом", run)
-```
+:::code proj-fitness-harness/ts/vis-shvydkodii-i.ts
+:::code proj-fitness-harness/py/vis-shvydkodii-i.py
 :::
 
 Сам вимір — межа, за якою починається проєктоспецифіка: зібрати артефакт, узнати його розмір із файлової системи, дати коротке навантаження й порахувати перцентиль. Ось його форма (`percentile` — звичайне сортування й вибір за індексом, `loadTest` — постріляти N запитів і записати тривалості; суть не в них):
@@ -393,42 +169,8 @@ def measure_live() -> Reading:
 Лишилось з'єднати три осі в одну програму, що повертає код виходу. Саме його читає конвеєр, щоб пропустити зміну або завалити її:
 
 :::tabs
-```typescript
-async function main(): Promise<void> {
-  const g = buildGraph("src");                                  // спільна основа для двох осей
-
-  const allowed = new Set(["ui->domain", "domain->ports", "db->ports"]);
-  const b: Budget = { maxP95Ms: 200, maxArtifactKb: 250 };      // бюджети зі сценаріїв
-
-  const ffs: FitnessFunction[] = [
-    layerRule(g, allowed),        // вісь структури  (атомарна)
-    acyclic(g),                   // вісь форми графа (атомарна)
-    budget(measureLive, b),       // осі швидкодії й постачання (цілісна)
-  ];
-
-  process.exit(await runHarness(ffs));                          // 0 пропускає, 1 валить конвеєр
-}
-main();
-```
-```python
-import sys
-
-def main() -> int:
-    g = build_graph(Path("src"))                                # спільна основа для двох осей
-
-    allowed = {("ui", "domain"), ("domain", "ports"), ("db", "ports")}
-    b = Budget(max_p95_ms=200, max_artifact_kb=250)             # бюджети зі сценаріїв
-
-    ffs = [
-        layer_rule(g, allowed),    # вісь структури  (атомарна)
-        acyclic(g),                # вісь форми графа (атомарна)
-        budget(measure_live, b),   # осі швидкодії й постачання (цілісна)
-    ]
-    return run_harness(ffs)        # 0 пропускає, 1 валить конвеєр
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
+:::code proj-fitness-harness/ts/skladannia-kharnesa-i.ts
+:::code proj-fitness-harness/py/skladannia-kharnesa-i.py
 :::
 
 Механіка інтеграції ідентична запуску тестів: конвеєр однаково реагує на код виходу. Дешеві осі (шари, цикли, розмір) можна ставити на **кожен** комміт; дорогий вимір часу на живому — на злиття чи в нічний прогін. Список `ffs` — це і є харнес: додати нову вісь (скажімо, «жоден пакет команди A не залежить від пакета команди B») означає дописати сюди ще один рядок тієї самої форми.

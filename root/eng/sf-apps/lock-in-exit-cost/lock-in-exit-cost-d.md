@@ -104,20 +104,7 @@
 Ось як цей шов виглядає в C++. Спершу — **свій** інтерфейс, у твоїх поняттях, нічого про конкретного постачальника:
 
 :::tabs
-```cpp
-// Свій контракт: рівно те, що потрібно системі.
-// Жодних типів вендора тут немає — це і є шов.
-class MessageQueue {
-public:
-    virtual ~MessageQueue() = default;
-
-    virtual bool publish(const std::string& topic,
-                         const std::string& payload) = 0;
-
-    // повертає false, якщо за timeout нічого не прийшло
-    virtual bool consume(std::string& out, int timeout_ms) = 0;
-};
-```
+:::code lock-in-exit-cost-d/cpp/iak-trymaty-porih-nyzkym.cpp
 ```go
 // Свій контракт: рівно те, що потрібно системі.
 // Жодних типів вендора тут немає — це і є шов.
@@ -129,136 +116,22 @@ type MessageQueue interface {
 	Consume(timeout time.Duration) (payload string, ok bool, err error)
 }
 ```
-```python
-from abc import ABC, abstractmethod
-
-# Свій контракт: рівно те, що потрібно системі.
-# Жодних типів вендора тут немає — це і є шов.
-class MessageQueue(ABC):
-    @abstractmethod
-    def publish(self, topic: str, payload: str) -> None:
-        ...
-
-    # повертає None, якщо за timeout нічого не прийшло
-    @abstractmethod
-    def consume(self, timeout_ms: int) -> str | None:
-        ...
-```
+:::code lock-in-exit-cost-d/py/iak-trymaty-porih-nyzkym.py
 :::
 
 Адаптер під конкретного вендора реалізує цей контракт і **лишається єдиним місцем**, що знає його SDK:
 
 :::tabs
-```cpp
-// Уся прив'язка до постачальника A замкнена ТУТ.
-// Жоден інший файл не бачить vendora::*.
-class VendorAQueue : public MessageQueue {
-    vendora::Client cli_;                 // тип вендора — лише всередині
-public:
-    explicit VendorAQueue(const std::string& url) : cli_(url) {}
-
-    bool publish(const std::string& topic,
-                const std::string& payload) override {
-        vendora::Message m;               // деталь вендора не витікає назовні
-        m.set_channel(topic);
-        m.set_body(payload);
-        return cli_.send(m) == vendora::OK;
-    }
-
-    bool consume(std::string& out, int timeout_ms) override {
-        vendora::Message m;
-        if (cli_.poll(m, timeout_ms) != vendora::OK) return false;
-        out = m.body();
-        return true;
-    }
-};
-```
-```go
-// Уся прив'язка до постачальника A замкнена ТУТ.
-// Жоден інший файл не бачить vendora.*.
-type VendorAQueue struct {
-	cli *vendora.Client // тип вендора — лише всередині
-}
-
-func NewVendorAQueue(url string) (*VendorAQueue, error) {
-	cli, err := vendora.Dial(url)
-	if err != nil {
-		return nil, err
-	}
-	return &VendorAQueue{cli: cli}, nil
-}
-
-func (q *VendorAQueue) Publish(topic, payload string) error {
-	m := vendora.Message{} // деталь вендора не витікає назовні
-	m.SetChannel(topic)
-	m.SetBody(payload)
-	return q.cli.Send(m)
-}
-
-func (q *VendorAQueue) Consume(timeout time.Duration) (string, bool, error) {
-	m, err := q.cli.Poll(timeout)
-	if err == vendora.ErrTimeout {
-		return "", false, nil
-	}
-	if err != nil {
-		return "", false, err
-	}
-	return m.Body(), true, nil
-}
-```
-```python
-# Уся прив'язка до постачальника A замкнена ТУТ.
-# Жоден інший файл не бачить vendora.
-class VendorAQueue(MessageQueue):
-    def __init__(self, url: str) -> None:
-        self._cli = vendora.Client(url)  # тип вендора — лише всередині
-
-    def publish(self, topic: str, payload: str) -> None:
-        m = vendora.Message()            # деталь вендора не витікає назовні
-        m.channel = topic
-        m.body = payload
-        if self._cli.send(m) != vendora.OK:
-            raise RuntimeError("vendorA publish failed")
-
-    def consume(self, timeout_ms: int) -> str | None:
-        m = vendora.Message()
-        if self._cli.poll(m, timeout_ms) != vendora.OK:
-            return None
-        return m.body
-```
+:::code lock-in-exit-cost-d/cpp/iak-trymaty-porih-nyzkym-2.cpp
+:::code lock-in-exit-cost-d/go/iak-trymaty-porih-nyzkym.go
+:::code lock-in-exit-cost-d/py/iak-trymaty-porih-nyzkym-2.py
 :::
 
 Решта системи працює лише з `MessageQueue&` і навіть не здогадується, хто там під сподом:
 
 :::tabs
-```cpp
-// Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
-void ship_order(MessageQueue& q, const Order& o) {
-    q.publish("orders", serialize(o));
-}
-
-int main() {
-    VendorAQueue queue("amqp://broker");  // вибір вендора — в одному рядку
-    // Переїзд на вендора B = замінити цей рядок на VendorBQueue
-    // і написати новий адаптер. Ship_order не змінюється взагалі.
-}
-```
-```go
-// Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
-func shipOrder(q MessageQueue, o Order) error {
-	return q.Publish("orders", serialize(o))
-}
-
-func main() {
-	queue, err := NewVendorAQueue("amqp://broker") // вибір вендора — в одному місці
-	if err != nil {
-		log.Fatal(err)
-	}
-	// Переїзд на вендора B = замінити цей рядок на NewVendorBQueue
-	// і написати новий адаптер. shipOrder не змінюється взагалі.
-	_ = queue
-}
-```
+:::code lock-in-exit-cost-d/cpp/iak-trymaty-porih-nyzkym-3.cpp
+:::code lock-in-exit-cost-d/go/iak-trymaty-porih-nyzkym-2.go
 ```python
 # Бізнес-логіка сліпа до вендора — говорить тільки зі швом.
 def ship_order(q: MessageQueue, o: Order) -> None:

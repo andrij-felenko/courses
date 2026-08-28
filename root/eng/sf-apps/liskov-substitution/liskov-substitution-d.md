@@ -90,44 +90,8 @@ const r: Rectangle = new Square();   // форма збігається — ок
 Уяви ієрархію: базовий тип `List` уміє і читати, і додавати. Комусь потрібен незмінний список — і його роблять нащадком `List`, а метод `add` перевизначають так, щоб він обурювався:
 
 :::tabs
-```ts
-class List<T> {
-  protected items: T[] = [];
-  get(i: number): T { return this.items[i]; }
-  add(x: T): void { this.items.push(x); }
-}
-
-// «Незмінний список — це ж різновид списка?» — і тут пастка:
-class ImmutableList<T> extends List<T> {
-  add(_x: T): void {
-    throw new Error("не можна: список незмінний");   // посилив передумову
-  }
-}
-
-// Клієнт, написаний чесно під List, ламається:
-function fill(list: List<number>): void {
-  for (let i = 0; i < 3; i++) list.add(i);   // на ImmutableList — вибух
-}
-```
-```python
-class List:
-    def __init__(self):
-        self._items = []
-    def get(self, i):
-        return self._items[i]
-    def add(self, x):
-        self._items.append(x)
-
-# «Незмінний список — це ж різновид списка?» — і тут пастка:
-class ImmutableList(List):
-    def add(self, x):
-        raise TypeError("не можна: список незмінний")   # посилив передумову
-
-# Клієнт, написаний чесно під List, ламається:
-def fill(lst: List) -> None:
-    for i in range(3):
-        lst.add(i)      # на ImmutableList — вибух
-```
+:::code liskov-substitution-d/ts/klasychna-pastka-kydaty.ts
+:::code liskov-substitution-d/py/klasychna-pastka-kydaty.py
 :::
 
 `ImmutableList` **посилив передумову** `add` до неможливого: «викликай мене лише тоді, коли ніколи». Клієнт `fill`, що писав під `List`, про це не знає й падає. За правилом контракту це чисте порушення — і воно типове: щоразу, коли нащадок реалізує метод базового типу через «кинути виняток / нічого не зробити / повернути заглушку», він майже напевно ламає LSP.
@@ -135,36 +99,8 @@ def fill(lst: List) -> None:
 Показовий момент: тут проблема **не в незмінності**. Незмінний список — цілком корисна річ. Проблема в **брехливій ієрархії**: `ImmutableList` оголосив себе різновидом `List`, хоч не вміє того, що `List` обіцяє всім. Лікування — не латати `add`, а **перебудувати типи так, щоб брехня стала неможливою**: виділити те, що вміє лише читати, окремим типом, а вміння додавати — надбудувати над ним:
 
 :::tabs
-```ts
-interface ReadableList<T> {          // чесний мінімум: тільки читання
-  get(i: number): T;
-  size(): number;
-}
-
-interface MutableList<T> extends ReadableList<T> {
-  add(x: T): void;                   // додавання — окрема, ширша обіцянка
-}
-
-// Тепер fill вимагає рівно те, що йому треба, — і Immutable сюди НЕ підставиш:
-function fill(list: MutableList<number>): void {
-  for (let i = 0; i < 3; i++) list.add(i);
-}
-```
-```python
-from typing import Protocol
-
-class ReadableList(Protocol):        # чесний мінімум: тільки читання
-    def get(self, i: int): ...
-    def size(self) -> int: ...
-
-class MutableList(ReadableList, Protocol):
-    def add(self, x) -> None: ...    # додавання — окрема, ширша обіцянка
-
-# Тепер fill вимагає рівно те, що йому треба, — і незмінний сюди НЕ підставиш:
-def fill(lst: MutableList) -> None:
-    for i in range(lst.size()):
-        lst.add(i)
-```
+:::code liskov-substitution-d/ts/klasychna-pastka-kydaty-2.ts
+:::code liskov-substitution-d/py/klasychna-pastka-kydaty-2.py
 :::
 
 Тепер незмінний список реалізує лише `ReadableList` і **фізично не може** потрапити туди, де чекають `add`, — компілятор не пустить. LSP не порушено, бо ніхто вже й не обіцяє те, чого не виконує. [Повний робочий приклад цього рефакторингу з тестами й розбором, як розділення інтерфейсів зробило порушення неможливим](root:sf-apps/liskov-substitution/proj-collection-substitution.md) — окремо, з кодом крок за кроком.

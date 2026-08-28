@@ -65,18 +65,7 @@
 **Умова.** Машина коштує 0.10 долара за годину роботи. Форма А — машина крутиться цілий місяць (720 годин). Форма Б — обчислення вмикається лише на 176 активних годин, поза ними рахунок нуль. Скільки коштує кожна форма на місяць і у скільки разів вони різняться?
 
 :::tabs
-```cpp
-// Рахунок за місяць для заданої кількості оплачуваних годин.
-// hours_billed — скільки годин реально тікає лічильник.
-double monthly_cost_usd(double price_per_hour, double hours_billed) {
-    return price_per_hour * hours_billed;   // платимо лише за оплачувані години
-}
-
-// Скільки активних годин на місяць для сервісу «години на день × дні».
-double active_hours(double hours_per_day, double workdays_per_month) {
-    return hours_per_day * workdays_per_month;
-}
-```
+:::code cloud-cost-model-d/cpp/main.cpp
 ```python
 # Рахунок за місяць для заданої кількості оплачуваних годин.
 # hours_billed — скільки годин реально тікає лічильник.
@@ -88,18 +77,7 @@ def monthly_cost_usd(price_per_hour: float, hours_billed: float) -> float:
 def active_hours(hours_per_day: float, workdays_per_month: float) -> float:
     return hours_per_day * workdays_per_month
 ```
-```go
-// Рахунок за місяць для заданої кількості оплачуваних годин.
-// hoursBilled — скільки годин реально тікає лічильник.
-func monthlyCostUSD(pricePerHour, hoursBilled float64) float64 {
-    return pricePerHour * hoursBilled // платимо лише за оплачувані години
-}
-
-// Скільки активних годин на місяць для сервісу «години на день × дні».
-func activeHours(hoursPerDay, workdaysPerMonth float64) float64 {
-    return hoursPerDay * workdaysPerMonth
-}
-```
+:::code cloud-cost-model-d/go/main.go
 :::
 
 Підставмо обидві форми:

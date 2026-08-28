@@ -33,121 +33,15 @@
 Покажемо модель двома мовами. Python — бо ним ми зараз писатимемо симуляцію; TypeScript — бо реєстр найчастіше живе у вебовому інструменті, і там та сама логіка має лягти так само чисто. Обидві версії ідіоматичні, не транслітерація одна одної.
 
 :::tabs
-```python
-from dataclasses import dataclass
-from enum import Enum
-
-class State(Enum):
-    OPEN         = "відкритий"        # виявлений, ще не зайнялися
-    WATCHED      = "під наглядом"     # тригер зведено, чекаємо
-    MITIGATING   = "пом'якшується"    # діємо наперед
-    ACCEPTED     = "прийнятий"        # свідомо лишили (залишковий рівень)
-    CLOSED       = "закритий"         # минув або пом'якшено — не загрожує
-    MATERIALIZED = "матеріалізувався" # став проблемою, пішов з реєстру
-
-# Стани, у яких рядок БІЛЬШЕ НЕ додається до сукупної загрози.
-DEAD = {State.CLOSED, State.MATERIALIZED}
-
-@dataclass
-class Risk:
-    id: str
-    desc: str
-    p: float        # ймовірність за горизонт, 0.0..1.0
-    L: float        # збиток, якщо вдарить (у грошах або днях)
-    trigger: str    # спостережна ознака-тригер
-    owner: str      # жива людина з іменем, не «команда»
-    state: State
-
-# Експозиція рядка — очікуваний збиток p·L, але лише поки рядок АКТИВНИЙ.
-def exposure(r: Risk) -> float:
-    return 0.0 if r.state in DEAD else r.p * r.L
-
-# Сукупна експозиція портфеля — сума по всіх рядках (лінійність сподівання).
-def portfolio(reg: list[Risk]) -> float:
-    return sum(exposure(r) for r in reg)
-```
-```typescript
-// Стан рядка як об'єднання рядкових літералів — вичерпний і перевірний.
-type State =
-  | "open" | "watched" | "mitigating" // активні: загрожують
-  | "accepted"                         // свідомо лишили (залишковий рівень)
-  | "closed" | "materialized";         // вибули: не загрожують
-
-const DEAD: ReadonlySet<State> = new Set(["closed", "materialized"]);
-
-interface Risk {
-  id: string;
-  desc: string;
-  p: number;       // ймовірність за горизонт, 0..1
-  L: number;       // збиток, якщо вдарить (у грошах або днях)
-  trigger: string; // спостережна ознака-тригер
-  owner: string;   // жива людина з іменем, не «команда»
-  state: State;
-}
-
-// Експозиція рядка — очікуваний збиток p·L, але лише поки рядок активний.
-const exposure = (r: Risk): number =>
-  DEAD.has(r.state) ? 0 : r.p * r.L;
-
-// Сукупна експозиція портфеля — сума по всіх рядках (лінійність сподівання).
-const portfolio = (reg: readonly Risk[]): number =>
-  reg.reduce((sum, r) => sum + exposure(r), 0);
-```
+:::code proj-risk-register-tool/py/model-ryzyku-i.py
+:::code proj-risk-register-tool/ts/model-ryzyku-i.ts
 :::
 
 Тепер дані — реальний маленький реєстр — і функція, що друкує його, посортований за загрозою. Тут навмисне є один закритий рядок: перевіримо, що він не потрапить у суму.
 
 :::tabs
-```python
-REGISTER = [
-    Risk("R1", "Vendor-API відмовить під піком", 0.30, 500_000,
-         "p95 latency > 800 мс",       "Оля",   State.MITIGATING),
-    Risk("R2", "Витік через невчасний патч",     0.10, 800_000,
-         "CVE у прямій залежності",     "Тарас", State.WATCHED),
-    Risk("R3", "Ключова людина звільниться",     0.20, 300_000,
-         "вигорання видно на 1:1",      "Ліда",  State.OPEN),
-    Risk("R4", "Схема бази застигне",            0.25, 120_000,
-         "міграція триває > 2 год",     "Оля",   State.OPEN),
-    Risk("R0", "Стара інтеграція впаде",         0.40, 200_000,
-         "—",                           "Тарас", State.CLOSED),  # закритий!
-]
-
-def rank(reg: list[Risk]) -> None:
-    live = [r for r in reg if r.state not in DEAD]
-    for r in sorted(live, key=exposure, reverse=True):
-        print(f"  {r.id}  {r.desc:30.30}  p={r.p:.2f}  L={r.L:>8.0f}"
-              f"  →  {exposure(r):>8.0f}  [{r.owner}]")
-    print(f"  Σ портфеля (активні рядки) = {portfolio(reg):.0f}")
-
-rank(REGISTER)
-```
-```typescript
-const REGISTER: Risk[] = [
-  { id: "R1", desc: "Vendor-API відмовить під піком", p: 0.30, L: 500_000,
-    trigger: "p95 latency > 800 мс",   owner: "Оля",   state: "mitigating" },
-  { id: "R2", desc: "Витік через невчасний патч",     p: 0.10, L: 800_000,
-    trigger: "CVE у прямій залежності", owner: "Тарас", state: "watched" },
-  { id: "R3", desc: "Ключова людина звільниться",     p: 0.20, L: 300_000,
-    trigger: "вигорання видно на 1:1",  owner: "Ліда",  state: "open" },
-  { id: "R4", desc: "Схема бази застигне",            p: 0.25, L: 120_000,
-    trigger: "міграція триває > 2 год", owner: "Оля",   state: "open" },
-  { id: "R0", desc: "Стара інтеграція впаде",         p: 0.40, L: 200_000,
-    trigger: "—",                       owner: "Тарас", state: "closed" }, // закритий!
-];
-
-function rank(reg: readonly Risk[]): void {
-  const live = reg.filter((r) => !DEAD.has(r.state));
-  for (const r of [...live].sort((a, b) => exposure(b) - exposure(a))) {
-    console.log(
-      `  ${r.id}  ${r.desc.padEnd(30).slice(0, 30)}  p=${r.p.toFixed(2)}` +
-      `  →  ${exposure(r).toFixed(0).padStart(8)}  [${r.owner}]`,
-    );
-  }
-  console.log(`  Σ портфеля (активні рядки) = ${portfolio(reg).toFixed(0)}`);
-}
-
-rank(REGISTER);
-```
+:::code proj-risk-register-tool/py/model-ryzyku-i-2.py
+:::code proj-risk-register-tool/ts/model-ryzyku-i-2.ts
 :::
 
 Прогін дає посортований портфель — і закритий R0 у ньому відсутній, дарма що його «сира» p·L = 80 000 була б не найменшою:
@@ -170,64 +64,11 @@ rank(REGISTER);
 
 Розподіл, з якого тягнемо кожну задачу, — **бета-PERT**: він бере три точки, лишає пік рівно на найімовірнішій оцінці, а хвіст тягне в бік песимістичної. Його зручність у тому, що середнє виходить рівно те саме `(o + 4m + p)/6`, яким планувальники користуються десятиліттями, — тільки тепер ми маємо не одне число, а всю форму, з якої можна брати перцентилі. Виводиться він із стандартного бета-розподілу двома формами (α, β), і `random.betavariate` зі стандартної бібліотеки дає його без жодних залежностей:
 
-```python
-import random
-
-# Терміни задач — три точки (оптимістично, найімовірніше, песимістично), у днях.
-TASKS = [
-    ("Міграція даних",           6, 10, 24),
-    ("Інтеграція вендор-API",    4,  7, 20),
-    ("Рефакторинг авторизації",  3,  5,  9),
-    ("Приймальні тести",         2,  4, 12),
-]
-
-# Дискретні ризики термінів: (ймовірність, +днів якщо спрацює).
-SCHED_RISKS = [
-    ("Vendor-API не витягне пік", 0.30, 10),
-    ("Ключова людина занедужає",  0.15,  8),
-]
-
-def betapert(o, m, p, rng, lam=4.0):
-    """Одна реалізація тривалості з бета-PERT за трьома точками.
-    Мода лишається рівно m; середнє — рівно (o + 4m + p)/6.
-    lam=4 — класична вага моди (чому саме 4 — в анатомії PERT)."""
-    if p <= o:
-        return float(o)
-    a = 1.0 + lam * (m - o) / (p - o)     # α:  зсув піка від o
-    b = 1.0 + lam * (p - m) / (p - o)     # β:  довжина хвоста до p
-    return o + (p - o) * rng.betavariate(a, b)
-
-def trial(rng):
-    """Один розіграний проєкт: сума задач + ті ризики, чия монета впала."""
-    total = sum(betapert(o, m, p, rng) for _, o, m, p in TASKS)
-    for _, prob, extra in SCHED_RISKS:
-        if rng.random() < prob:
-            total += extra
-    return total
-
-def simulate(n=100_000, seed=0):
-    rng = random.Random(seed)             # фіксований seed → відтворювано
-    return sorted(trial(rng) for _ in range(n))
-
-def pct(xs, q):
-    return xs[min(len(xs) - 1, int(q / 100.0 * len(xs)))]
-```
+:::code proj-risk-register-tool/py/skilky-zakladaty-monte.py
 
 Модель — **чиста функція** випадку: `trial` розігрує один проєкт, `simulate` повторює його сто тисяч разів і повертає відсортований масив, з якого `pct` бере будь-який перцентиль. Тепер зведімо докупи три числа, між якими й ховається чесний резерв:
 
-```python
-if __name__ == "__main__":
-    xs = simulate()
-    plan_mode = sum(m for _, o, m, p in TASKS)                    # наївний план на моди
-    sum_pess  = sum(p for _, o, m, p in TASKS) + sum(e for *_, e in SCHED_RISKS)
-    p80 = pct(xs, 80)
-
-    print(f"Σ мод (наївний план):      {plan_mode:.0f} днів")
-    print(f"середнє E (сподіване):     {sum(xs) / len(xs):.1f} днів")
-    print(f"P80 (беремо в зобов'язання):{p80:.0f} днів")
-    print(f"Σ песимістичних:           {sum_pess:.0f} днів")
-    print(f"чесний резерв = P80 − план = {p80 - plan_mode:.0f} днів")
-```
+:::code proj-risk-register-tool/py/skilky-zakladaty-monte-2.py
 
 Прогін друкує:
 
@@ -258,29 +99,7 @@ P80 (беремо в зобов'язання):41 днів
 
 Побачимо це на найчистішому досліді — двох моделях з **тотожним** середнім:
 
-```python
-def extra_days(rng, correlated):
-    """Три задачі можуть роздутися через брудні дані.
-    НЕЗАЛЕЖНО: три окремі ризики, кожен p=0.30, +6 днів.
-    СПІЛЬНИЙ КОРІНЬ: один ризик p=0.30, що б'є всі три РАЗОМ (+18 днів)."""
-    if correlated:
-        return 18.0 if rng.random() < 0.30 else 0.0
-    total = 0.0
-    for _ in range(3):
-        if rng.random() < 0.30:
-            total += 6.0
-    return total
-
-def sim_extra(correlated, n=100_000, seed=1):
-    rng = random.Random(seed)
-    return sorted(extra_days(rng, correlated) for _ in range(n))
-
-for corr in (False, True):
-    xs = sim_extra(corr)
-    tag = "спільний корінь" if corr else "незалежні      "
-    print(f"{tag}:  E={sum(xs)/len(xs):.1f}  "
-          f"P80={pct(xs,80):.0f}  P95={pct(xs,95):.0f}  P99={pct(xs,99):.0f}")
-```
+:::code proj-risk-register-tool/py/koly-ryzyky-maiut-spilnyi.py
 
 Обидві моделі додають у середньому 5.4 дня. Але перцентилі розходяться:
 
@@ -299,24 +118,7 @@ for corr in (False, True):
 
 Побудувати графік вигоряння — значить застосувати ту саму `portfolio()` до стану реєстру на кінець кожного спринту. Візьмімо журнал по спринтах і намалюймо його прямо в терміналі:
 
-```python
-def burndown(series: list[tuple[int, float]]) -> None:
-    """series — (номер спринту, Σ p·L наприкінці спринту). Малюємо смужками."""
-    hi = max(v for _, v in series) or 1.0
-    for sprint, total in series:
-        bar = "█" * round(total / hi * 40)
-        print(f"  спринт {sprint}:  {total/1000:5.0f}k  |{bar}")
-
-# Σ портфеля наприкінці кожного спринту (той самий portfolio() по знімках):
-burndown([
-    (0, 320_000),   # старт: усі чотири ризики відкриті
-    (1, 195_000),   # vendor пом'якшено кеш-проксі: 0.30 → 0.05
-    (2, 240_000),   # +новий ризик: проксі сам може впасти
-    (3, 160_000),   # ризик патчу минув — закрито
-    (4, 120_000),   # ключову людину розвантажили, ймовірність упала
-    (5,  95_000),   # лишилися свідомо ПРИЙНЯТІ (залишковий рівень)
-])
-```
+:::code proj-risk-register-tool/py/chy-zhyvyi-reiestr.py
 
 Малюнок читається з першого погляду:
 

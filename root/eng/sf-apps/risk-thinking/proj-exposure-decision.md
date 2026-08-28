@@ -65,74 +65,15 @@
 Спершу — кістяк: як представити один ризик і порахувати його експозицію.
 
 :::tabs
-```cpp
-#include <cstdio>
-#include <cstring>
-
-// Один ризик: назва, ймовірність спрацювання за горизонт, втрата в людино-днях.
-struct Risk {
-    const char* name;   // що саме може піти не так
-    double      p;      // ймовірність 0.0..1.0 (шанс спрацювати бодай раз за рік)
-    double      loss;   // втрата в людино-днях, якщо спрацює
-};
-
-// Експозиція одного ризику — та сама формула Бема: ймовірність × втрата.
-static double exposure(const Risk& r) {
-    return r.p * r.loss;
-}
-```
-```py
-from dataclasses import dataclass
-
-# Один ризик: назва, ймовірність спрацювання за горизонт, втрата в людино-днях.
-@dataclass
-class Risk:
-    name: str      # що саме може піти не так
-    p: float       # ймовірність 0.0..1.0 (шанс спрацювати бодай раз за рік)
-    loss: float    # втрата в людино-днях, якщо спрацює
-
-# Експозиція одного ризику — та сама формула Бема: ймовірність × втрата.
-def exposure(r: Risk) -> float:
-    return r.p * r.loss
-```
-```go
-package main
-
-import "fmt"
-
-// Один ризик: назва, ймовірність спрацювання за горизонт, втрата в людино-днях.
-type Risk struct {
-	Name string  // що саме може піти не так
-	P    float64 // ймовірність 0.0..1.0 (шанс спрацювати бодай раз за рік)
-	Loss float64 // втрата в людино-днях, якщо спрацює
-}
-
-// Експозиція одного ризику — та сама формула Бема: ймовірність × втрата.
-func exposure(r Risk) float64 {
-	return r.P * r.Loss
-}
-```
+:::code proj-exposure-decision/cpp/zvodymo-tse-v-kod.cpp
+:::code proj-exposure-decision/py/zvodymo-tse-v-kod.py
+:::code proj-exposure-decision/go/zvodymo-tse-v-kod.go
 :::
 
 Далі — варіант як масив ризиків, і функція, що згортає його в одне число. Тут криється перша тонкість, тож дивимося уважно: наївне підсумовування просто додає всі експозиції.
 
 :::tabs
-```cpp
-// Варіант архітектури: назва + список його ризиків.
-struct Variant {
-    const char* name;
-    const Risk* risks;
-    int         count;
-};
-
-// Сумарна експозиція варіанта — сума експозицій усіх ризиків (НАЇВНА версія).
-static double total_exposure_naive(const Variant& v) {
-    double sum = 0.0;
-    for (int i = 0; i < v.count; ++i)
-        sum += exposure(v.risks[i]);
-    return sum;
-}
-```
+:::code proj-exposure-decision/cpp/zvodymo-tse-v-kod-2.cpp
 ```py
 # Варіант архітектури: назва + список його ризиків.
 @dataclass
@@ -144,139 +85,15 @@ class Variant:
 def total_exposure_naive(v: Variant) -> float:
     return sum(exposure(r) for r in v.risks)
 ```
-```go
-// Варіант архітектури: назва + список його ризиків.
-type Variant struct {
-	Name  string
-	Risks []Risk
-}
-
-// Сумарна експозиція варіанта — сума експозицій усіх ризиків (НАЇВНА версія).
-func totalExposureNaive(v Variant) float64 {
-	sum := 0.0
-	for _, r := range v.Risks {
-		sum += exposure(r)
-	}
-	return sum
-}
-```
+:::code proj-exposure-decision/go/zvodymo-tse-v-kod-2.go
 :::
 
 Тепер самі дані — рівно ті таблиці, що вище, слово в слово, і порівняння двох варіантів:
 
 :::tabs
-```cpp
-static const Risk mono_risks[] = {
-    { "База — вузьке місце під навантаженням",     0.50, 20.0 },
-    { "Єдина точка відмови (падіння = весь сервіс)", 0.20, 15.0 },
-    { "Звіти гальмують основні запити",             0.40,  5.0 },
-    { "Міграції болять зі зростанням даних",        0.30,  8.0 },
-};
-
-static const Risk cache_risks[] = {
-    { "База — вузьке місце (залишковий)",           0.15, 20.0 },
-    { "Неузгодженість кешу й бази",                 0.60, 12.0 },
-    { "Неправильна інвалідація кешу",               0.50, 10.0 },
-    { "Вузол кешу сам падає / переповнюється",      0.40,  6.0 },
-    { "Складніше розгортання розподіленого стану",  0.50,  5.0 },
-    { "Команда без досвіду з цим кешем",            0.60,  8.0 },
-};
-
-static int risk_count(const Risk* arr, size_t bytes) {
-    return (int)(bytes / sizeof(Risk));
-}
-
-int main() {
-    Variant mono  = { "M (моноліт)", mono_risks,
-                      risk_count(mono_risks,  sizeof(mono_risks)) };
-    Variant cache = { "P (кеш)",     cache_risks,
-                      risk_count(cache_risks, sizeof(cache_risks)) };
-
-    double em = total_exposure_naive(mono);
-    double ep = total_exposure_naive(cache);
-
-    printf("Експозиція %s: %.1f люд.-днів\n", mono.name,  em);
-    printf("Експозиція %s: %.1f люд.-днів\n", cache.name, ep);
-
-    const Variant& winner = (em <= ep) ? mono : cache;
-    printf("Вирок: обрати %s (менша сумарна експозиція, різниця %.1f)\n",
-           winner.name, (em < ep ? ep - em : em - ep));
-    return 0;
-}
-```
-```py
-mono_risks = [
-    Risk("База — вузьке місце під навантаженням",      0.50, 20.0),
-    Risk("Єдина точка відмови (падіння = весь сервіс)", 0.20, 15.0),
-    Risk("Звіти гальмують основні запити",             0.40,  5.0),
-    Risk("Міграції болять зі зростанням даних",        0.30,  8.0),
-]
-
-cache_risks = [
-    Risk("База — вузьке місце (залишковий)",           0.15, 20.0),
-    Risk("Неузгодженість кешу й бази",                 0.60, 12.0),
-    Risk("Неправильна інвалідація кешу",               0.50, 10.0),
-    Risk("Вузол кешу сам падає / переповнюється",      0.40,  6.0),
-    Risk("Складніше розгортання розподіленого стану",  0.50,  5.0),
-    Risk("Команда без досвіду з цим кешем",            0.60,  8.0),
-]
-
-def main() -> None:
-    mono  = Variant("M (моноліт)", mono_risks)
-    cache = Variant("P (кеш)",     cache_risks)
-
-    em = total_exposure_naive(mono)
-    ep = total_exposure_naive(cache)
-
-    print(f"Експозиція {mono.name}: {em:.1f} люд.-днів")
-    print(f"Експозиція {cache.name}: {ep:.1f} люд.-днів")
-
-    winner = mono if em <= ep else cache
-    print(f"Вирок: обрати {winner.name} "
-          f"(менша сумарна експозиція, різниця {abs(em - ep):.1f})")
-
-if __name__ == "__main__":
-    main()
-```
-```go
-var monoRisks = []Risk{
-	{"База — вузьке місце під навантаженням", 0.50, 20.0},
-	{"Єдина точка відмови (падіння = весь сервіс)", 0.20, 15.0},
-	{"Звіти гальмують основні запити", 0.40, 5.0},
-	{"Міграції болять зі зростанням даних", 0.30, 8.0},
-}
-
-var cacheRisks = []Risk{
-	{"База — вузьке місце (залишковий)", 0.15, 20.0},
-	{"Неузгодженість кешу й бази", 0.60, 12.0},
-	{"Неправильна інвалідація кешу", 0.50, 10.0},
-	{"Вузол кешу сам падає / переповнюється", 0.40, 6.0},
-	{"Складніше розгортання розподіленого стану", 0.50, 5.0},
-	{"Команда без досвіду з цим кешем", 0.60, 8.0},
-}
-
-func main() {
-	mono := Variant{"M (моноліт)", monoRisks}
-	cache := Variant{"P (кеш)", cacheRisks}
-
-	em := totalExposureNaive(mono)
-	ep := totalExposureNaive(cache)
-
-	fmt.Printf("Експозиція %s: %.1f люд.-днів\n", mono.Name, em)
-	fmt.Printf("Експозиція %s: %.1f люд.-днів\n", cache.Name, ep)
-
-	winner := mono
-	if ep < em {
-		winner = cache
-	}
-	diff := em - ep
-	if diff < 0 {
-		diff = -diff
-	}
-	fmt.Printf("Вирок: обрати %s (менша сумарна експозиція, різниця %.1f)\n",
-		winner.Name, diff)
-}
-```
+:::code proj-exposure-decision/cpp/zvodymo-tse-v-kod-3.cpp
+:::code proj-exposure-decision/py/zvodymo-tse-v-kod-2.py
+:::code proj-exposure-decision/go/zvodymo-tse-v-kod-3.go
 :::
 
 Прогін дасть рівно те, що ми порахували руками:
@@ -304,126 +121,9 @@ P(A або B) = P(A) + P(B) − P(A і B)
 Наївне додавання губить від'ємний член `− P(A і B)` — рівно ту частину, де скелі накладаються, — і тому завищує. Правильна відповідь — **не рахувати зчеплені ризики як окремі доданки**. Або злий їх в один ризик із чесною спільною ймовірністю й спільною втратою, або, якщо тримаєш окремо, введи їхнє зчеплення явно. Ось як це виглядає в коді — додаємо ризикам поле «група» й у групі беремо не суму, а **об'єднання через доповнення**: ймовірність, що спрацює хоч один зчеплений ризик, дорівнює одиниці мінус ймовірність, що **жоден** не спрацює.
 
 :::tabs
-```cpp
-struct Risk {
-    const char* name;
-    double      p;
-    double      loss;
-    int         group;   // 0 = незалежний; однакове ненульове = зчеплені між собою
-};
-
-// Експозиція варіанта з урахуванням зчеплення.
-// Незалежні ризики додаємо як є. Кожну групу зчеплених згортаємо в ОДИН
-// доданок: ймовірність «спрацював хоч один» = 1 − Π(1 − p_i),
-// а втрата — найбільша в групі (спільна скеля коштує стільки, скільки
-// коштує найгірший її прояв, а не сума проявів того самого лиха).
-static double total_exposure_grouped(const Variant& v) {
-    double sum = 0.0;
-    // спочатку незалежні
-    for (int i = 0; i < v.count; ++i)
-        if (v.risks[i].group == 0)
-            sum += exposure(v.risks[i]);
-
-    // тепер групи: припустимо, номери груп у діапазоні 1..MAXG
-    const int MAXG = 16;
-    for (int g = 1; g <= MAXG; ++g) {
-        double p_none    = 1.0;   // ймовірність, що ЖОДЕН у групі не спрацював
-        double max_loss  = 0.0;   // найбільша втрата в групі
-        bool   has_group = false;
-        for (int i = 0; i < v.count; ++i) {
-            if (v.risks[i].group == g) {
-                has_group = true;
-                p_none   *= (1.0 - v.risks[i].p);
-                if (v.risks[i].loss > max_loss) max_loss = v.risks[i].loss;
-            }
-        }
-        if (has_group) {
-            double p_any = 1.0 - p_none;   // об'єднання, не сума
-            sum += p_any * max_loss;
-        }
-    }
-    return sum;
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Risk:
-    name: str
-    p: float
-    loss: float
-    group: int = 0   # 0 = незалежний; однакове ненульове = зчеплені між собою
-
-# Експозиція варіанта з урахуванням зчеплення.
-# Незалежні ризики додаємо як є. Кожну групу зчеплених згортаємо в ОДИН
-# доданок: ймовірність «спрацював хоч один» = 1 − Π(1 − p_i),
-# а втрата — найбільша в групі (спільна скеля коштує стільки, скільки
-# коштує найгірший її прояв, а не сума проявів того самого лиха).
-def total_exposure_grouped(v: Variant) -> float:
-    sum_ = 0.0
-    # спочатку незалежні
-    for r in v.risks:
-        if r.group == 0:
-            sum_ += exposure(r)
-
-    # тепер групи: збираємо номери груп, що реально трапилися
-    groups = {r.group for r in v.risks if r.group != 0}
-    for g in groups:
-        p_none = 1.0    # ймовірність, що ЖОДЕН у групі не спрацював
-        max_loss = 0.0  # найбільша втрата в групі
-        for r in v.risks:
-            if r.group == g:
-                p_none *= (1.0 - r.p)
-                max_loss = max(max_loss, r.loss)
-        p_any = 1.0 - p_none   # об'єднання, не сума
-        sum_ += p_any * max_loss
-    return sum_
-```
-```go
-type Risk struct {
-	Name  string
-	P     float64
-	Loss  float64
-	Group int // 0 = незалежний; однакове ненульове = зчеплені між собою
-}
-
-// Експозиція варіанта з урахуванням зчеплення.
-// Незалежні ризики додаємо як є. Кожну групу зчеплених згортаємо в ОДИН
-// доданок: ймовірність «спрацював хоч один» = 1 − Π(1 − p_i),
-// а втрата — найбільша в групі (спільна скеля коштує стільки, скільки
-// коштує найгірший її прояв, а не сума проявів того самого лиха).
-func totalExposureGrouped(v Variant) float64 {
-	sum := 0.0
-	// спочатку незалежні
-	for _, r := range v.Risks {
-		if r.Group == 0 {
-			sum += exposure(r)
-		}
-	}
-
-	// тепер групи: акумулюємо по номеру групи
-	pNone := map[int]float64{}
-	maxLoss := map[int]float64{}
-	for _, r := range v.Risks {
-		if r.Group == 0 {
-			continue
-		}
-		if _, ok := pNone[r.Group]; !ok {
-			pNone[r.Group] = 1.0
-		}
-		pNone[r.Group] *= (1.0 - r.P) // ймовірність, що ЖОДЕН не спрацював
-		if r.Loss > maxLoss[r.Group] {
-			maxLoss[r.Group] = r.Loss // найбільша втрата в групі
-		}
-	}
-	for g, pn := range pNone {
-		pAny := 1.0 - pn // об'єднання, не сума
-		sum += pAny * maxLoss[g]
-	}
-	return sum
-}
-```
+:::code proj-exposure-decision/cpp/pastka-persha-podviinyi.cpp
+:::code proj-exposure-decision/py/pastka-persha-podviinyi.py
+:::code proj-exposure-decision/go/pastka-persha-podviinyi.go
 :::
 
 Позначимо в даних Р, що неузгодженість та інвалідація — одна група (скажімо, `group = 1`), а решта незалежні (`group = 0`):
@@ -493,98 +193,9 @@ p_any = 1 − (1 − 0.60) × (1 − 0.50)
 Тому грамотний код не бреше однією цифрою, а показує **діапазон** і **чутливість**. Найпростіше — прогнати кожну оцінку в її розумних межах (песимістичній і оптимістичній) і подивитися, чи вирок узагалі стійкий. Ось перевірка «а чи не перевернеться все, якщо я помилився в оцінках»:
 
 :::tabs
-```cpp
-// Прогнати варіант у двох крайнощах: оптимістичній (усі p × 0.6)
-// і песимістичній (усі p × 1.4, але не вище 1.0). Дає ВИЛКУ експозиції.
-static void exposure_range(const Variant& v, double& lo, double& hi) {
-    lo = hi = 0.0;
-    for (int i = 0; i < v.count; ++i) {
-        double p_lo = v.risks[i].p * 0.6;
-        double p_hi = v.risks[i].p * 1.4;
-        if (p_hi > 1.0) p_hi = 1.0;          // ймовірність не буває > 1
-        lo += p_lo * v.risks[i].loss;
-        hi += p_hi * v.risks[i].loss;
-    }
-}
-
-// Чи стійкий вирок? Вирок надійний ЛИШЕ якщо вилки не перекриваються:
-// найгірший випадок переможця все одно кращий за найкращий випадок суперника.
-static void verdict_robust(const Variant& a, const Variant& b) {
-    double a_lo, a_hi, b_lo, b_hi;
-    exposure_range(a, a_lo, a_hi);
-    exposure_range(b, b_lo, b_hi);
-    printf("%s: %.1f .. %.1f\n", a.name, a_lo, a_hi);
-    printf("%s: %.1f .. %.1f\n", b.name, b_lo, b_hi);
-    if (a_hi < b_lo)
-        printf("Вирок СТІЙКИЙ: %s кращий навіть у найгіршому для себе разі.\n", a.name);
-    else if (b_hi < a_lo)
-        printf("Вирок СТІЙКИЙ: %s кращий навіть у найгіршому для себе разі.\n", b.name);
-    else
-        printf("Вирок ХИТКИЙ: вилки перекриваються — цифри не вирішують, "
-               "потрібні інші аргументи або точніші оцінки.\n");
-}
-```
-```py
-# Прогнати варіант у двох крайнощах: оптимістичній (усі p × 0.6)
-# і песимістичній (усі p × 1.4, але не вище 1.0). Дає ВИЛКУ експозиції.
-def exposure_range(v: Variant) -> tuple[float, float]:
-    lo = hi = 0.0
-    for r in v.risks:
-        p_lo = r.p * 0.6
-        p_hi = min(r.p * 1.4, 1.0)   # ймовірність не буває > 1
-        lo += p_lo * r.loss
-        hi += p_hi * r.loss
-    return lo, hi
-
-# Чи стійкий вирок? Вирок надійний ЛИШЕ якщо вилки не перекриваються:
-# найгірший випадок переможця все одно кращий за найкращий випадок суперника.
-def verdict_robust(a: Variant, b: Variant) -> None:
-    a_lo, a_hi = exposure_range(a)
-    b_lo, b_hi = exposure_range(b)
-    print(f"{a.name}: {a_lo:.1f} .. {a_hi:.1f}")
-    print(f"{b.name}: {b_lo:.1f} .. {b_hi:.1f}")
-    if a_hi < b_lo:
-        print(f"Вирок СТІЙКИЙ: {a.name} кращий навіть у найгіршому для себе разі.")
-    elif b_hi < a_lo:
-        print(f"Вирок СТІЙКИЙ: {b.name} кращий навіть у найгіршому для себе разі.")
-    else:
-        print("Вирок ХИТКИЙ: вилки перекриваються — цифри не вирішують, "
-              "потрібні інші аргументи або точніші оцінки.")
-```
-```go
-// Прогнати варіант у двох крайнощах: оптимістичній (усі p × 0.6)
-// і песимістичній (усі p × 1.4, але не вище 1.0). Дає ВИЛКУ експозиції.
-func exposureRange(v Variant) (lo, hi float64) {
-	for _, r := range v.Risks {
-		pLo := r.P * 0.6
-		pHi := r.P * 1.4
-		if pHi > 1.0 {
-			pHi = 1.0 // ймовірність не буває > 1
-		}
-		lo += pLo * r.Loss
-		hi += pHi * r.Loss
-	}
-	return lo, hi
-}
-
-// Чи стійкий вирок? Вирок надійний ЛИШЕ якщо вилки не перекриваються:
-// найгірший випадок переможця все одно кращий за найкращий випадок суперника.
-func verdictRobust(a, b Variant) {
-	aLo, aHi := exposureRange(a)
-	bLo, bHi := exposureRange(b)
-	fmt.Printf("%s: %.1f .. %.1f\n", a.Name, aLo, aHi)
-	fmt.Printf("%s: %.1f .. %.1f\n", b.Name, bLo, bHi)
-	switch {
-	case aHi < bLo:
-		fmt.Printf("Вирок СТІЙКИЙ: %s кращий навіть у найгіршому для себе разі.\n", a.Name)
-	case bHi < aLo:
-		fmt.Printf("Вирок СТІЙКИЙ: %s кращий навіть у найгіршому для себе разі.\n", b.Name)
-	default:
-		fmt.Print("Вирок ХИТКИЙ: вилки перекриваються — цифри не вирішують, " +
-			"потрібні інші аргументи або точніші оцінки.\n")
-	}
-}
-```
+:::code proj-exposure-decision/cpp/pastka-druha-iliuziia.cpp
+:::code proj-exposure-decision/py/pastka-druha-iliuziia.py
+:::code proj-exposure-decision/go/pastka-druha-iliuziia.go
 :::
 
 Прогін цієї перевірки на наших даних покаже приблизно таке:
@@ -616,100 +227,9 @@ P (кеш):     14.9 .. 34.9
 Що з цим робити в коді? Не викидати очікуване значення (для буденних ризиків воно чудове), а **вивести хвіст з-під усереднення** й показати окремо. Позначимо катастрофічні ризики прапорцем і не дамо їм розчинитися в сумі — навпаки, підсвітимо як **стоп-сигнал**, що вимагає окремого рішення незалежно від його внеску в середнє.
 
 :::tabs
-```cpp
-struct Risk {
-    const char* name;
-    double      p;
-    double      loss;
-    int         group;
-    bool        catastrophic;   // true = «хвіст»: рідкісна, але руйнівна подія
-};
-
-// Поріг, за яким втрата вважається такою, що її не можна усереднювати:
-// подія цього масштабу не «дорога», вона ЕКЗИСТЕНЦІЙНА для проєкту.
-static const double RUIN_THRESHOLD = 100.0;   // людино-днів
-
-// Замість того, щоб мовчки додати хвіст до середнього, виносимо його окремо.
-static void report_with_tail(const Variant& v) {
-    double routine = 0.0;                 // сума експозицій буденних ризиків
-    printf("=== %s ===\n", v.name);
-    for (int i = 0; i < v.count; ++i) {
-        const Risk& r = v.risks[i];
-        bool tail = r.catastrophic || r.loss >= RUIN_THRESHOLD;
-        if (tail) {
-            // хвіст НЕ вливаємо в середнє — показуємо як окремий стоп-сигнал
-            printf("  [ХВІСТ] %-38s p=%.3f, втрата=%.0f  <-- окреме рішення!\n",
-                   r.name, r.p, r.loss);
-        } else {
-            routine += exposure(r);
-        }
-    }
-    printf("  Буденна експозиція (усереднена): %.1f люд.-днів\n", routine);
-    printf("  Хвостові ризики середнім НЕ вимірюються — їх або усувають "
-           "(резервні копії, реплікація), або свідомо приймають ОКРЕМИМ рішенням.\n");
-}
-```
-```py
-@dataclass
-class Risk:
-    name: str
-    p: float
-    loss: float
-    group: int = 0
-    catastrophic: bool = False   # True = «хвіст»: рідкісна, але руйнівна подія
-
-# Поріг, за яким втрата вважається такою, що її не можна усереднювати:
-# подія цього масштабу не «дорога», вона ЕКЗИСТЕНЦІЙНА для проєкту.
-RUIN_THRESHOLD = 100.0   # людино-днів
-
-# Замість того, щоб мовчки додати хвіст до середнього, виносимо його окремо.
-def report_with_tail(v: Variant) -> None:
-    routine = 0.0                 # сума експозицій буденних ризиків
-    print(f"=== {v.name} ===")
-    for r in v.risks:
-        tail = r.catastrophic or r.loss >= RUIN_THRESHOLD
-        if tail:
-            # хвіст НЕ вливаємо в середнє — показуємо як окремий стоп-сигнал
-            print(f"  [ХВІСТ] {r.name:<38} p={r.p:.3f}, втрата={r.loss:.0f}"
-                  f"  <-- окреме рішення!")
-        else:
-            routine += exposure(r)
-    print(f"  Буденна експозиція (усереднена): {routine:.1f} люд.-днів")
-    print("  Хвостові ризики середнім НЕ вимірюються — їх або усувають "
-          "(резервні копії, реплікація), або свідомо приймають ОКРЕМИМ рішенням.")
-```
-```go
-type Risk struct {
-	Name         string
-	P            float64
-	Loss         float64
-	Group        int
-	Catastrophic bool // true = «хвіст»: рідкісна, але руйнівна подія
-}
-
-// Поріг, за яким втрата вважається такою, що її не можна усереднювати:
-// подія цього масштабу не «дорога», вона ЕКЗИСТЕНЦІЙНА для проєкту.
-const RuinThreshold = 100.0 // людино-днів
-
-// Замість того, щоб мовчки додати хвіст до середнього, виносимо його окремо.
-func reportWithTail(v Variant) {
-	routine := 0.0 // сума експозицій буденних ризиків
-	fmt.Printf("=== %s ===\n", v.Name)
-	for _, r := range v.Risks {
-		tail := r.Catastrophic || r.Loss >= RuinThreshold
-		if tail {
-			// хвіст НЕ вливаємо в середнє — показуємо як окремий стоп-сигнал
-			fmt.Printf("  [ХВІСТ] %-38s p=%.3f, втрата=%.0f  <-- окреме рішення!\n",
-				r.Name, r.P, r.Loss)
-		} else {
-			routine += exposure(r)
-		}
-	}
-	fmt.Printf("  Буденна експозиція (усереднена): %.1f люд.-днів\n", routine)
-	fmt.Print("  Хвостові ризики середнім НЕ вимірюються — їх або усувають " +
-		"(резервні копії, реплікація), або свідомо приймають ОКРЕМИМ рішенням.\n")
-}
-```
+:::code proj-exposure-decision/cpp/pastka-tretia-khvist.cpp
+:::code proj-exposure-decision/py/pastka-tretia-khvist.py
+:::code proj-exposure-decision/go/pastka-tretia-khvist.go
 :::
 
 Логіка тут — не арифметична, а управлінська, і в цьому суть. Хвостовий ризик не порівнюють з буденними за числом «експозиція», бо число бреше про його природу. Смертельну скелю не «зважують» — її або **прибирають зовсім** (резервні копії, реплікація, реалізм відновлення), або **свідомо приймають окремим, названим, записаним рішенням**, під яким хтось поставив підпис. Те саме, до речі, стосується вибору між нашими М і Р: якщо в одного з варіантів є хвіст, якого нема в іншого, це б'є сильніше за будь-яку різницю в буденній сумі. Моноліт із єдиною точкою відмови й без реплікації несе хвіст «втрата всього»; кеш такого хвоста не додає (він про швидкість, не про збереження даних). Отже, чесне порівняння мусить спершу **закрити хвіст** обох варіантів (у М — додати резервні копії й репліку, збивши катастрофу до буденного ризику), і **аж тоді** мірятися буденними експозиціями. Інакше можна «виграти» середнім і програти бізнес.

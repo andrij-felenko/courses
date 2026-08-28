@@ -20,26 +20,7 @@
 
 Звідси практичне правило розташування: **передумови — найпершими рядками** (перевір вхід, перш ніж щось робити), **постумови та контроль інваріанта — перед `return`**. Тоді assert читається як виконавча документація: дивлячись на тіло функції, видно, на що вона розраховує і що обіцяє.
 
-```c
-// Зразок розташування тверджень за контрактом
-size_t ring_push(ring_t *r, const uint8_t *data, size_t n) {
-    // ПЕРЕДУМОВИ — борг викликача (вхідні assert)
-    assert(r != NULL);
-    assert(data != NULL || n == 0);
-    assert(r->head < r->cap && r->tail < r->cap);   // інваріант на вході
-
-    size_t written = 0;
-    while (written < n && ring_free(r) > 0) {
-        r->buf[r->head] = data[written++];
-        r->head = (r->head + 1) % r->cap;
-    }
-
-    // ПОСТУМОВА / ІНВАРІАНТ — борг функції (вихідні assert)
-    assert(r->head < r->cap);                        // голова лишилась у межах
-    assert(written <= n);
-    return written;
-}
-```
+:::code assert-panic-d/c/shcho-naspravdi.c
 
 На практиці передумови ставлять часто, а постумови майже забувають — і дарма. Постумова ловить інший клас багів: не «мені передали погане», а «я сам напсував». Кільцевий буфер, у якого після `push` голова вилізла за межі; лічильник, що пішов у від'ємне; сума, що не зійшлася з очікуваною — це помилки **в тілі самої функції**, і вхідні assert їх не побачать, бо вхід був бездоганний. Вихідний assert ловить їх там, де вони народилися, ще до того, як зіпсований результат розповзеться по програмі. Особливо це цінно після рефакторингу: ви змінили нутрощі функції, передумови лишились ті самі, а постумова мовчки стереже, що зовнішня обіцянка не зламалась.
 
@@ -100,25 +81,7 @@ assert(err == ESP_OK);                 // зникає в релізі — і ц
 
 Власний обробник стає можливим, бо `assert` — звичайний макрос: його можна перевизначити на свій виклик, що передає `__FILE__` і `__LINE__` далі.
 
-```c
-// Власний обробник: фіксуємо контекст, ТОДІ зупиняємось
-void app_assert_failed(const char *file, int line, const char *expr) {
-    // 1) зберегти у місце, що переживе reset (журнал у Flash / RTC-пам'ять)
-    log_to_flash("ASSERT %s:%d  (%s)", file, line, expr);
-    // 2) у консоль — для того, хто дивиться зараз
-    ESP_LOGE("ASSERT", "%s:%d  expr: %s", file, line, expr);
-    // 3) лише тепер — паніка з відомою причиною
-    esp_system_abort("assert failed");
-}
-
-// Перевизначаємо стандартний assert на свій обробник
-#ifdef NDEBUG
-  #define APP_ASSERT(expr) ((void)0)
-#else
-  #define APP_ASSERT(expr) \
-      ((expr) ? (void)0 : app_assert_failed(__FILE__, __LINE__, #expr))
-#endif
-```
+:::code assert-panic-d/c/vlasnyi-obrobnyk-assert.c
 
 Ключове, чому це працює: `__FILE__`, `__LINE__` і `#expr` обчислюються **в місці виклику** макроса, не всередині `app_assert_failed`. Якби ми спробували взяти `__LINE__` усередині обробника, дістали б рядок самого обробника — марний. Макрос «фотографує» місце збою й передає знімок далі.
 
@@ -139,18 +102,7 @@ FreeRTOS **не викликає** стандартний `assert()` — бо `a
 
 Друге — інформативніше, з винесенням у функцію, що записує файл і рядок (той самий прийом власного обробника, що вище):
 
-```c
-// FreeRTOSConfig.h — варіант із записом контексту
-extern void vAssertCalled( const char *pcFile, unsigned long ulLine );
-#define configASSERT( x )  if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
-
-// десь у коді застосунку
-void vAssertCalled( const char *pcFile, unsigned long ulLine ) {
-    log_to_flash("RTOS ASSERT %s:%lu", pcFile, ulLine);   // зафіксувати
-    taskDISABLE_INTERRUPTS();                              // зупинити тік
-    for( ;; );                                            // не йти далі
-}
-```
+:::code assert-panic-d/c/configassert-u-freertos.c
 
 Чому саме `taskDISABLE_INTERRUPTS()` і нескінченний цикл, а не просто `return`: провалений assert — фатальний, виконання **не має** перетнути цей рядок. Вимкнення перерв глушить тіковий переривник, тож планувальник більше не перемкне задачу й стан застигає таким, яким був у мить збою — ідеально для огляду під JTAG.
 
@@ -172,19 +124,7 @@ ESP-IDF дає `assert` через menuconfig **три режими**, і різ
 - **Критичний інваріант** (магічне число структури, цілісність керуючого стану) — лишати ввімкненим **навіть у релізі**. Краще керований reset із відомою причиною, ніж невизначена робота на зіпсованому стані. Для цього зручний `assert`, що **не** вимикається під `NDEBUG`, — окремий макрос на кшталт `ASSERT_ALWAYS(x)`, який завжди розгортається в перевірку + `abort()`.
 - **Дорога перевірка** (обхід усього масиву, перерахунок контрольної суми великого блока) — лише під `#ifdef DEBUG`, бо в гарячому циклі вона з'їдає бюджет такту.
 
-```c
-// Інваріант, що лишається й у релізі (не залежить від NDEBUG)
-#define ASSERT_ALWAYS(expr) \
-    do { if (!(expr)) esp_system_abort("invariant: " #expr); } while (0)
-
-void tick(critical_state_t *s) {
-    ASSERT_ALWAYS(s->magic == STATE_MAGIC);   // дешево, тримаємо завжди
-#ifdef DEBUG
-    assert(crc32_ok(s));                       // дорого — лише в debug
-#endif
-    /* ... гарячий шлях ... */
-}
-```
+:::code assert-panic-d/c/rezhymy-assert-v-esp-idf-i.c
 
 ## Паніка на ESP32: що саме відбувається
 
@@ -208,42 +148,7 @@ void tick(critical_state_t *s) {
 
 Одна функція обробки команди показує всі три рівні поряд — і чим відрізняється реакція за походженням збою.
 
-```c
-#include "esp_log.h"
-#include <assert.h>
-static const char *TAG = "cmd_handler";
-
-typedef void (*cmd_fn_t)(const uint8_t *payload, size_t len);
-static cmd_fn_t s_handlers[CMD_COUNT];          // заповнюється при старті
-
-typedef struct {
-    uint32_t magic;
-    uint32_t value;
-    uint32_t crc;
-} critical_state_t;
-extern critical_state_t g_state;                // у RAM
-
-esp_err_t handle_command(uint8_t cmd_id, const uint8_t *payload, size_t len) {
-    // Рівень 1 — ОЧІКУВАНЕ: невідома команда ззовні (вхід із поля)
-    if (cmd_id >= CMD_COUNT) {
-        ESP_LOGW(TAG, "unknown cmd 0x%02x", cmd_id);
-        return ESP_ERR_NOT_SUPPORTED;           // код повернення — вирішує викликач
-    }
-
-    // Рівень 2 — ПОРУШЕНЕ ПРИПУЩЕННЯ: обробник мусить бути заповнений
-    assert(s_handlers[cmd_id] != NULL);         // NULL → баг ініціалізації
-
-    // Рівень 3 — НЕВІДНОВНИЙ СТАН: критична структура в RAM зіпсована
-    uint32_t expected = crc32_calc(&g_state, offsetof(critical_state_t, crc));
-    if (g_state.crc != expected || g_state.magic != STATE_MAGIC) {
-        ESP_LOGE(TAG, "state corrupt! crc=0x%08lx exp=0x%08lx", g_state.crc, expected);
-        esp_system_abort("state corrupt");      // паніка → reset
-    }
-
-    s_handlers[cmd_id](payload, len);
-    return ESP_OK;
-}
-```
+:::code assert-panic-d/c/worked-pryklad-try-rivni-v.c
 
 Той самий «збій» різного походження дістає різну відповідь. Невідома команда приходить ззовні — це норма, хай викликач поверне користувачу помилку. NULL-обробник можливий лише як баг ініціалізації — assert одразу вкаже рядок (а власний обробник ще й запише `file:line` у Flash). Зіпсована контрольна сума критичної структури — стан, де будь-яка наступна дія робить гірше; паніка з відомою причиною й перезапуск. Зверніть увагу на порядок: спершу найдешевша й найочікуваніша перевірка (діапазон команди), і лише потім — дорожчий контроль цілісності, який не варто гнати на кожну явно невалідну команду.
 

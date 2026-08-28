@@ -30,59 +30,8 @@
 Почнемо з найменшого, що вже **не бреше**: пул, який видає, приймає — і **скидає стан при поверненні**. Скидання ставимо в `release`, а не в `acquire`, свідомо: так на полиці **завжди** лежить чистий об'єкт, і будь-хто, хто зазирне в пул (діагностика, лічильники), бачить його в передбачуваному стані. Це зручніше й для налагодження.
 
 :::tabs
-```py
-class Pool:
-    def __init__(self, factory, size):
-        self._factory = factory                 # як народити Conn: () -> Conn
-        self._free = [factory() for _ in range(size)]   # заплатили наперед
-        self._in_use = set()
-
-    def acquire(self):
-        conn = self._free.pop()                  # знімаємо з полиці
-        self._in_use.add(conn)                   # → in-use
-        return conn
-
-    def release(self, conn):
-        conn.reset()                             # ← стерти чужий стан ДО полиці
-        self._in_use.discard(conn)               # більше не in-use
-        self._free.append(conn)                  # → free, чистим
-
-pool = Pool(factory=Conn.open, size=8)           # 8 дорогих з'єднань — раз
-conn = pool.acquire()
-conn.query("select 1")
-pool.release(conn)                               # повернули чистим
-```
-```ts
-class Pool<T> {
-  private free: T[];
-  private inUse = new Set<T>();
-
-  constructor(
-    private factory: () => T,                    // як народити Conn
-    private reset: (obj: T) => void,             // як його скинути
-    size: number,
-  ) {
-    this.free = Array.from({ length: size }, () => factory());  // наперед
-  }
-
-  acquire(): T {
-    const obj = this.free.pop()!;                // знімаємо з полиці
-    this.inUse.add(obj);                         // → in-use
-    return obj;
-  }
-
-  release(obj: T): void {
-    this.reset(obj);                             // ← стерти чужий стан ДО полиці
-    this.inUse.delete(obj);                      // більше не in-use
-    this.free.push(obj);                         // → free, чистим
-  }
-}
-
-const pool = new Pool(() => Conn.open(), (c) => c.reset(), 8);
-const conn = pool.acquire();
-conn.query("select 1");
-pool.release(conn);                              // повернули чистим
-```
+:::code proj-object-pool/py/krok-1-kistiak-acquire.py
+:::code proj-object-pool/ts/krok-1-kistiak-acquire.ts
 :::
 
 Зверни увагу на дві дрібниці, що насправді не дрібниці.
@@ -107,43 +56,7 @@ pool.release(conn);                              // повернули чист�
 
 Найкращі пули поєднують усі три: **ростуть** до `max_size`, далі **чекають** — але **з таймаутом**. Саме це й зберемо. Найчистіший інструмент тут — **потокобезпечна черга з блокувальним `get(timeout=…)`**: вона всередині вже має і замок, і умовну змінну, і таймаут — рівно нашу семантику. У Python це `queue.Queue`; його `get(timeout=t)` [за документацією](https://docs.python.org/3/library/queue.html) блокує потік до появи об'єкта й кидає `queue.Empty`, якщо за `t` секунд нічого не звільнилося.
 
-```py
-import queue
-
-class Pool:
-    def __init__(self, factory, max_size, timeout=5.0):
-        self._factory = factory
-        self._max = max_size
-        self._timeout = timeout
-        self._free = queue.LifoQueue()           # полиця з вбудованим замком
-        self._created = 0                        # скільки взагалі народили
-        self._lock = __import__("threading").Lock()   # захищає лічильник
-
-    def acquire(self):
-        # 1. Є вільний прямо зараз? Забираємо без чекання.
-        try:
-            return self._free.get_nowait()
-        except queue.Empty:
-            pass
-        # 2. Ще не доросли до межі? Народжуємо новий (політика A).
-        with self._lock:
-            if self._created < self._max:
-                self._created += 1
-                return self._factory()           # дорога плата — раз на об'єкт
-        # 3. Межу досягнуто — чекаємо звільнення до таймаута (B + C).
-        try:
-            return self._free.get(timeout=self._timeout)
-        except queue.Empty:
-            raise PoolExhausted(
-                "усі %d об'єктів зайняті понад %.1f с" % (self._max, self._timeout))
-
-    def release(self, conn):
-        conn.reset()
-        self._free.put(conn)                     # розбудить того, хто чекає в (3)
-
-class PoolExhausted(Exception):
-    pass
-```
+:::code proj-object-pool/py/krok-2-mezha-i-polityka.py
 
 Простеж, як три політики склалися в один `acquire`, і — головне — **чому саме в такому порядку**. Спершу (крок 1) дешева спроба схопити готовий: `get_nowait` не блокує, лише знімає з полиці, якщо там є. Порожньо — пробуємо вирости (крок 2) під захистом замка, бо лічильник `_created` чіпають кілька потоків; тут `max_size` ставить стелю зростанню. І лише коли рости вже нікуди, ми **чекаємо** (крок 3), але не вічно: `get(timeout=…)` або дочекається чужого `release`, або за таймаутом кине `PoolExhausted`. Три гілки — три політики, вишикувані від найдешевшої до найтерплячішої.
 
@@ -184,86 +97,8 @@ class PoolExhausted(Exception):
 Ліки — зробити перехід стану **неподільним (англ. *atomic*)**: жоден інший потік не сміє втрутитися між «побачив вільний» і «позначив зайнятим». Класичний інструмент — **замок (англ. *mutex*, від *mutual exclusion* — взаємне виключення)**: код між захопленням і звільненням замка виконує **лише один** потік водночас, решта чекає на вході.
 
 :::tabs
-```py
-import threading
-
-class Pool:
-    def __init__(self, factory, max_size, timeout=5.0):
-        self._factory = factory
-        self._max = max_size
-        self._timeout = timeout
-        self._free = []
-        self._in_use = set()
-        self._created = 0
-        self._cond = threading.Condition()       # замок + черга очікування
-
-    def acquire(self):
-        with self._cond:                         # ← зайшов один; решта чекає
-            deadline = _now() + self._timeout
-            while True:
-                if self._free:                   # є вільний — беремо
-                    conn = self._free.pop()
-                    self._in_use.add(conn)
-                    return conn
-                if self._created < self._max:    # нема — але можна вирости
-                    self._created += 1
-                    conn = self._factory()
-                    self._in_use.add(conn)
-                    return conn
-                remaining = deadline - _now()    # усе зайнято — чекаємо
-                if remaining <= 0:
-                    raise PoolExhausted("пул вичерпано")
-                self._cond.wait(remaining)       # спить, ВІДПУСКАЮЧИ замок
-
-    def release(self, conn):
-        conn.reset()
-        with self._cond:
-            self._in_use.discard(conn)
-            self._free.append(conn)
-            self._cond.notify()                  # будить одного, хто чекає
-```
-```ts
-// TS-рантайм — однопотоковий (event loop), «замка» в сенсі потоків нема.
-// Але асинхронність дає СВОЮ гонитву: між await-ами вклинюється чужий код.
-// Тому пул тут блокує не потік, а обіцянку (Promise): черга тих, хто чекає.
-class Pool<T> {
-  private free: T[] = [];
-  private created = 0;
-  private waiters: Array<(obj: T) => void> = [];   // хто чекає вільного
-
-  constructor(
-    private factory: () => T,
-    private reset: (o: T) => void,
-    private max: number,
-    private timeoutMs = 5000,
-  ) {}
-
-  async acquire(): Promise<T> {
-    if (this.free.length > 0) return this.free.pop()!;   // є вільний
-    if (this.created < this.max) {                        // можна вирости
-      this.created++;
-      return this.factory();
-    }
-    // усе зайнято — стаємо в чергу обіцянок, з таймаутом
-    return new Promise<T>((resolve, reject) => {
-      const timer = setTimeout(() => {
-        const i = this.waiters.indexOf(give);
-        if (i >= 0) this.waiters.splice(i, 1);
-        reject(new Error("пул вичерпано"));
-      }, this.timeoutMs);
-      const give = (obj: T) => { clearTimeout(timer); resolve(obj); };
-      this.waiters.push(give);
-    });
-  }
-
-  release(obj: T): void {
-    this.reset(obj);
-    const give = this.waiters.shift();            // хтось чекає?
-    if (give) give(obj);                          // віддати прямо йому
-    else this.free.push(obj);                     // ні — на полицю
-  }
-}
-```
+:::code proj-object-pool/py/krok-4-potokobezpeka-odyn.py
+:::code proj-object-pool/ts/krok-4-potokobezpeka-odyn.ts
 :::
 
 Ці дві вкладки навмисно **не однакові**, і в цій різниці — важливий урок. Python (як і Java, C#, Go, C++) має **справжні потоки**, що біжать одночасно на різних ядрах, тож пул мусить боронитися **замком**: `Condition` — це замок плюс вбудована черга сну, `wait` присипляє потік, **відпускаючи замок** (інакше решта не зайшла б навіть покласти об'єкт), а `notify` у `release` будить одного зі сплячих. У TypeScript інакше: рантайм **однопотоковий**, справжніх гонок за пам'ять нема — але є **асинхронна** гонка. Поки твоя функція чекає на `await`, рантайм пускає **інший** код, і той теж може смикнути пул. Тому TS-пул черги потоків не має, зате тримає **чергу обіцянок** (`waiters`): хто не дістав об'єкта, отримує `Promise`, який `release` **виконає напряму**, віддавши повернутий об'єкт наступному в черзі, — навіть на полицю не кладучи.
@@ -308,53 +143,11 @@ def handle(pool):
 
 **Спосіб 2 — контекстний менеджер (Python `with`).** Python дозволяє класу означити, що робити на **вході** в блок `with` і на **виході** з нього — і вихід теж гарантований, як `finally`. Даємо пулу метод, що видає об'єкт **разом із цим механізмом**:
 
-```py
-from contextlib import contextmanager
-
-class Pool:
-    # ... acquire / release, як у кроці 4 ...
-
-    @contextmanager
-    def lease(self):
-        conn = self.acquire()          # вхід у with — позичили
-        try:
-            yield conn                 # віддали користувачеві на час блоку
-        finally:
-            self.release(conn)         # вихід із with — повернули, завжди
-
-# використання: повернення НЕ можна забути — його робить сам with
-def handle(pool):
-    with pool.lease() as conn:         # ← позичив
-        rows = conn.query("select ...")
-        if not rows:
-            return None                # release однаково станеться
-        process(rows)
-    # ← тут conn уже повернутий, хай яким шляхом вийшли з блоку
-```
+:::code proj-object-pool/py/krok-5-harantovane.py
 
 Тепер забути повернення **неможливо в принципі**: воно вшите у вихід із `with`, а не покладене на пам'ять програміста. У TypeScript тієї самої надійності досягають функцією-обгорткою, що бере **колбек** і сама повертає об'єкт у `finally`:
 
-```ts
-class Pool<T> {
-  // ... acquire / release ...
-
-  async use<R>(fn: (obj: T) => Promise<R>): Promise<R> {
-    const obj = await this.acquire();     // позичив
-    try {
-      return await fn(obj);               // віддав користувачеві
-    } finally {
-      this.release(obj);                  // повернув — на будь-якому виході,
-    }                                     // навіть якщо fn кинув виняток
-  }
-}
-
-// використання: об'єкт живе рівно стільки, скільки триває колбек
-await pool.use(async (conn) => {
-  const rows = await conn.query("select ...");
-  if (rows.length === 0) return null;     // release однаково станеться
-  return process(rows);
-});
-```
+:::code proj-object-pool/ts/krok-5-harantovane.ts
 
 В обох мовах ідея одна: **не давати сирий `acquire` користувачеві напряму**. Хай публічним входом буде `lease`/`use`, що видає об'єкт **лише на час блоку чи колбека** й забирає назад автоматично. Сирий `acquire`/`release` лишається всередині — для рідкісних випадків, коли час життя об'єкта справді не лягає в один блок; але за замовчуванням усі користуються безпечною обгорткою, і витік стає структурно неможливим.
 
@@ -366,38 +159,7 @@ await pool.use(async (conn) => {
 
 Ідея: загорнути позичений об'єкт у маленький клас-«оренду». Його **конструктор** бере об'єкт із пулу, **деструктор** повертає. Далі просто заводимо змінну цього класу — і повернення станеться саме собою на виході з блоку, бо так працює мова:
 
-```cpp
-class Pool;                                  // оголошення наперед
-
-// Обгортка-оренда: тримає позичений Conn, повертає його в деструкторі.
-class Lease {
-public:
-    Lease(Pool& pool, Conn* conn) : pool_(pool), conn_(conn) {}
-    ~Lease() { if (conn_) pool_.release(conn_); }   // ← повернення тут
-
-    Conn* operator->() { return conn_; }     // щоб писати lease->query(...)
-    Conn& operator*()  { return *conn_; }
-
-    // Оренду не можна копіювати (два власники одного Conn = зомбі),
-    // але можна ПЕРЕДАВАТИ (move): старий власник знімає з себе conn_.
-    Lease(const Lease&) = delete;
-    Lease& operator=(const Lease&) = delete;
-    Lease(Lease&& o) noexcept : pool_(o.pool_), conn_(o.conn_) { o.conn_ = nullptr; }
-
-private:
-    Pool& pool_;
-    Conn* conn_;
-};
-
-// використання
-void handle(Pool& pool) {
-    Lease lease = pool.acquire();            // позичив
-    auto rows = lease->query("select ...");  // працюємо крізь ->
-    if (rows.empty())
-        return;                              // ← деструктор Lease поверне Conn
-    process(rows);
-}                                            // ← або тут: у будь-якому разі release
-```
+:::code proj-object-pool/cpp/main.cpp
 
 Придивися, скільки пасток C++ закриває **самою будовою типу**, а не дисципліною програміста.
 
@@ -413,38 +175,13 @@ void handle(Pool& pool) {
 
 **Валідація перед видачею — «чи об'єкт іще живий».** Об'єкти в пулі живуть довго, і за час лежання на полиці ресурс **міг тихо зламатися ззовні**: базу перезапустили — з'єднання мертве; сокет закрився по таймауту; ресурс протух. Видати такий об'єкт — віддати клієнтові гранату: він спробує ним скористатися й дістане незрозумілу помилку в **своєму** коді, хоча винний пул. Тому зрілий пул **перевіряє об'єкт перед видачею** й тихо викидає мертві, замінюючи свіжими:
 
-```py
-def acquire(self):
-    with self._cond:
-        deadline = _now() + self._timeout
-        while True:
-            if self._free:
-                conn = self._free.pop()
-                if not conn.is_alive():      # ← протух на полиці?
-                    self._created -= 1       # списуємо мертвий
-                    continue                 # шукаємо/родимо інший
-                self._in_use.add(conn)
-                return conn                  # віддаємо лише живий
-            # ... далі як у кроці 4: рости / чекати / таймаут ...
-```
+:::code proj-object-pool/py/krok-7-lovymo-tykh-khto.py
 
 Ціна — один дешевий `is_alive()` на видачу (для з'єднання це, скажімо, легкий пінг чи перевірка прапорця сокета). Вигода — клієнт **ніколи** не отримає з пулу мертвий об'єкт; уся крихкість довгоживучих ресурсів лишається сховraна всередині пулу, де їй і місце.
 
 **Тавро оренди — ловимо подвійне повернення й чужі об'єкти.** Друга дрібниця, що рятує години налагодження. Наївний `release` сліпо вірить, що йому повертають **його ж** об'єкт і **вперше**. А в реальному коді трапляється: повернули двічі (той самий об'єкт лягає на полицю двома копіями — і його видадуть **двом** одразу, готовий зомбі); або повернули чужий об'єкт, зроду не з цього пулу. Ось тут і стає в пригоді множина `_in_use`, яку ми завели ще в кроці 1: вона — реєстр «хто справді виданий». Повернення звіряємо з ним:
 
-```py
-def release(self, conn):
-    with self._cond:
-        if conn not in self._in_use:         # ← тавро: цей об'єкт справді в оренді?
-            raise ValueError(
-                "повертають об'єкт, якого пул не видавав "
-                "(подвійний release або чужий об'єкт)")
-        self._in_use.discard(conn)           # знімаємо тавро оренди
-    conn.reset()                             # чистимо ПОЗА замком (крок 4)
-    with self._cond:
-        self._free.append(conn)
-        self._cond.notify()
-```
+:::code proj-object-pool/py/krok-7-lovymo-tykh-khto-2.py
 
 Тепер подвійне повернення не тихо сіє зомбі, а **голосно падає** на другому `release`: перший зняв тавро (`discard`), другий не знайшов об'єкта в `_in_use` і кинув `ValueError` з прямою вказівкою на діагноз. Це і є та причина, чому `_in_use` не була надлишковою: без реєстру виданих пул **не може відрізнити** законне повернення від подвійного чи чужого. Множина, що в кроці 1 здавалася зайвою, виявилась вартовим одразу двох поламань інваріанта — зомбі й чужого об'єкта.
 

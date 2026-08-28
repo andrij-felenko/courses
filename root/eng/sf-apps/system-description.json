@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -30,7 +31,8 @@
           "slug": "viewpoints-perspectives",
           "title": "Viewpoints і perspectives (Rozanski/Woods)",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -44,7 +46,8 @@
           "proj": [
             {
               "file": "proj-consistency-check.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -52,10 +55,12 @@
           "slug": "deployment-view",
           "title": "В'ю розгортання і динамічні в'ю",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -66,7 +71,8 @@
           "proj": [
             {
               "file": "proj-deploy-as-code.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -106,7 +112,8 @@
           "slug": "c4-model",
           "title": "C4",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -126,7 +133,8 @@
           "proj": [
             {
               "file": "proj-model-as-code.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -149,19 +157,23 @@
           "comp": [
             {
               "file": "comp-c4-vs-uml-4plus1.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-c4-model-as-code.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-structurizr-dsl.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -183,7 +195,8 @@
           "proj": [
             {
               "file": "proj-decision-matrix.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -191,11 +204,13 @@
           "slug": "architecture-decision-records",
           "title": "Журнал архітектурних рішень (ADR)",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -206,7 +221,8 @@
           "proj": [
             {
               "file": "proj-adr-tooling.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -222,7 +238,8 @@
           "hist": [
             {
               "file": "hist-rfc-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -234,13 +251,16 @@
           "proj": [
             {
               "file": "proj-rfc-linter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-design-doc-template.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }

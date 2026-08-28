@@ -31,25 +31,7 @@
 
 Об'єктний розклад (той, що в ООП): **одиниця коду — це клас, а клас — це рядок**. Один клас збирає в собі всі операції для одного виду даних. Матрицю розрізано на горизонтальні смуги.
 
-```ts
-interface Shape {
-  area(): number;
-  perimeter(): number;          // набір операцій «зашитий» в інтерфейс — це стовпці
-}
-class Circle implements Shape {
-  constructor(private r: number) {}
-  area()      { return Math.PI * this.r ** 2; }
-  perimeter() { return 2 * Math.PI * this.r; }
-}
-class Rect implements Shape {
-  constructor(private w: number, private h: number) {}
-  area()      { return this.w * this.h; }
-  perimeter() { return 2 * (this.w + this.h); }
-}
-// + новий ТИП: один новий клас, старе не чіпаємо ───────────── дешево
-class Triangle implements Shape { /* area(); perimeter(); */ }
-// + нова ОПЕРАЦІЯ draw(): метод у інтерфейс і в КОЖЕН клас ──── дорого
-```
+:::code expression-problem-d/ts/dvi-odynytsi-kodu-dvi.ts
 
 Функційний розклад (той, що в ФП): **одиниця коду — це функція, а функція — це стовпець**. Одна функція збирає в собі всі види даних для однієї операції. Та сама матриця, але розрізана на вертикальні смуги.
 
@@ -162,24 +144,7 @@ retaining static type safety (e.g., no casts).
 
 **Відвідувач (Visitor).** Найперша спокуса — прийом усередині самої ООП: винести операцію в окремий об'єкт-відвідувача, що вміє обійти всі види даних (патерн із каталогу GoF, 1994). Тепер спільний контракт — це інтерфейс відвідувача, і він перелічує **типи** (метод `visitCircle`, `visitAdd` на кожен тип), а не операції.
 
-```ts
-interface Visitor<R> { num(n: number): R; add(l: Expr, r: Expr): R; }
-interface Expr { accept<R>(v: Visitor<R>): R; }
-
-class Num implements Expr {
-  constructor(public n: number) {}
-  accept<R>(v: Visitor<R>): R { return v.num(this.n); }   // подвійна диспетчеризація
-}
-class Add implements Expr {
-  constructor(public l: Expr, public r: Expr) {}
-  accept<R>(v: Visitor<R>): R { return v.add(this.l, this.r); }
-}
-// нова ОПЕРАЦІЯ = новий відвідувач; жоден вузол не чіпаємо:
-class Eval implements Visitor<number> {
-  num(n)    { return n; }
-  add(l, r) { return l.accept(this) + r.accept(this); }
-}
-```
+:::code expression-problem-d/ts/chotyry-vykhody-i-tsina.ts
 
 Механізм — **подвійна диспетчеризація**: `expr.accept(v)` спершу вибирає рядок (за типом вузла), тоді `v.add(...)` вибирає стовпець (за типом відвідувача); два одинарні виклики поспіль сходяться в одну клітину. Наслідок: нова операція — це новий клас-відвідувач, наявні вузли недоторкані (**закрито проти осі операцій**). Але придивись, що це насправді робить. Відвідувач **не розчіплює вилку — він повертає об'єкт на 90°**: новий вид даних тепер змушує додати метод `visitMul` у **кожен** наявний відвідувач. Це правильний вибір рівно тоді, коли операції плодяться частіше за типи (класичний приклад — вузли AST компілятора стабільні, а проходів-операцій усе більше); і хибний, коли росте вісь типів. Заплатиш ти протилежним боком.
 
@@ -226,22 +191,7 @@ instance Perimeter Circle where perimeter (Circle r) = 2 * pi * r
 data Triangle = Triangle Double Double
 instance Area Triangle where area (Triangle b h) = 0.5 * b * h
 ```
-```rust
-struct Circle { r: f64 }
-struct Rect   { w: f64, h: f64 }
-
-trait Area { fn area(&self) -> f64; }           // операція = трейт
-impl Area for Circle { fn area(&self) -> f64 { std::f64::consts::PI * self.r * self.r } }
-impl Area for Rect   { fn area(&self) -> f64 { self.w * self.h } }
-
-// НОВА операція = НОВИЙ трейт + impl-и; наявного не чіпаємо:
-trait Perimeter { fn perimeter(&self) -> f64; }
-impl Perimeter for Circle { fn perimeter(&self) -> f64 { 2.0 * std::f64::consts::PI * self.r } }
-
-// НОВИЙ тип = новий struct + impl наявних трейтів:
-struct Triangle { b: f64, h: f64 }
-impl Area for Triangle { fn area(&self) -> f64 { 0.5 * self.b * self.h } }
-```
+:::code expression-problem-d/rust/main.rs
 :::
 
 Обидві осі відкриті, все статично перевірено, а завдяки [монорфізації](root:sf-lang/zero-cost-abstractions) у Rust — без витрат у рантаймі. Це справді дотягує до всіх чотирьох умов Вадлера — і не дивно, що придумав класи типів той самий Вадлер за дев'ять років до того, як назвав вилку. Але й тут є ціна, і в неї є ім'я — **узгодженість** (англ. *coherence*). Щоб компілятор завжди знав, який саме екземпляр застосувати, і щоб цей вибір був єдиним у всій програмі, діє **правило сироти** (англ. *orphan rule*): екземпляр класу для типу можна оголосити лише там, де ти володієш **або** класом, **або** типом. Практичний наслідок: сторонній екземпляр — чужий трейт для чужого типу — заборонений, і щоб його все ж дати, доводиться загортати чужий тип у свій (newtype). Осі відкриті, але не будь-де: розширювати можна лише в модулі, який володіє одним із боків. Це реальна, хоч і невелика, плата за статичну єдиність.
@@ -249,24 +199,7 @@ impl Area for Triangle { fn area(&self) -> f64 { 0.5 * self.b * self.h } }
 **Об'єктні алгебри й tagless-final.** Останній вихід ламає посилку найглибше: він узагалі **не перелічує** ні типи, ні операції в спільному контракті. Замість зображати дані конкретним деревом (сумою типів), об'єктна алгебра (англ. *object algebra*) подає **конструктори** типу даних як методи узагальненого інтерфейсу, параметризованого носієм результату `A`. Операція стає реалізацією цього інтерфейсу під конкретний `A`; новий варіант — під-інтерфейсом з іще одним методом.
 
 :::tabs
-```ts
-// «алгебра» — інтерфейс конструкторів, у якого тип продукту — параметр A
-interface ExpAlg<A> {
-  lit(n: number): A;
-  add(a: A, b: A): A;
-}
-// операція = реалізація під носій A;  + операція — новий клас (СТОВПЕЦЬ задарма)
-class Eval implements ExpAlg<number> {
-  lit(n: number)            { return n; }
-  add(a: number, b: number) { return a + b; }
-}
-class Print implements ExpAlg<string> {
-  lit(n: number)            { return String(n); }
-  add(a: string, b: string) { return `(${a}+${b})`; }
-}
-// + новий ВАРІАНТ mul = під-інтерфейс, старе ціле (РЯДОК задарма)
-interface MulAlg<A> extends ExpAlg<A> { mul(a: A, b: A): A; }
-```
+:::code expression-problem-d/ts/chotyry-vykhody-i-tsina-2.ts
 ```haskell
 -- те саме як клас типів (tagless-final): конструктори — методи класу
 class ExpAlg a where

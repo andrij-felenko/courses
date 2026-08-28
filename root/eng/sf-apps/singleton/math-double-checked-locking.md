@@ -22,21 +22,7 @@ class Foo {
 
 Звідси народжується спокуслива оптимізація. Думка така: замок потрібен лиш поки поле порожнє. То перевірмо поле **без** замка спершу; якщо воно вже заповнене — просто повертаємо, без жодної синхронізації. І тільки якщо порожнє — беремо замок і всередині перевіряємо **ще раз** (раптом хтось устиг створити, поки ми чекали на замок). Дві перевірки — звідси й назва, блокування з подвійною перевіркою (англ. *double-checked locking*, DCL):
 
-```java
-class Foo {
-    private Helper helper = null;
-
-    public Helper getHelper() {
-        if (helper == null) {                  // 1-ша перевірка — БЕЗ замка
-            synchronized (this) {
-                if (helper == null)            // 2-га перевірка — під замком
-                    helper = new Helper();
-            }
-        }
-        return helper;
-    }
-}
-```
+:::code math-double-checked-locking/java/shcho-tse-za-pryiom-i.java
 
 На папері бездоганно. Гарячий шлях (об'єкт уже є) не торкається замка зовсім — лише одне порівняння з `null`. Замок бере лише рідкісний перший прохід. Внутрішня перевірка ловить перегони двох потоків, що обидва проскочили зовнішню. Логіка нібито замкнена з усіх боків.
 
@@ -131,21 +117,7 @@ helper = new Helper();
 
 Тому **правильний** DCL у сучасній Java відрізняється від зламаного рівно одним словом:
 
-```java
-class Foo {
-    private volatile Helper helper = null;     // ← єдина, але вирішальна відмінність
-
-    public Helper getHelper() {
-        if (helper == null) {                  // читання volatile: acquire-бар'єр
-            synchronized (this) {
-                if (helper == null)
-                    helper = new Helper();      // запис volatile: release-бар'єр
-            }
-        }
-        return helper;
-    }
-}
-```
+:::code math-double-checked-locking/java/stara-vs-nova-model-java.java
 
 Розберімо по кроках, що тепер тримає порядок. Запис `helper = new Helper()` — це запис volatile-поля. За новою моделлю всі записи, що йому передували (а виділення й **заповнення полів** конструктором передують присвоєнню в порядку програми), не мають права перетнути цей бар'єр донизу. Тож у мить, коли `helper` стає ненульовим для будь-кого, поля вже заповнені — гарантовано. Зовнішня перевірка `if (helper == null)` — читання того самого volatile-поля; побачивши ненульове значення, вона встановлює `happens-before` із записом, а отже читач бачить усі попередні записи автора. Вікно з напівготовим об'єктом закрилося. *(Статус: посилена семантика volatile у JSR-133 / Java 5 — документована зміна специфікації.)*
 
@@ -157,28 +129,7 @@ C++ пройшов буквально тим самим шляхом, лише �
 
 C++11 дав мові пам'яттєву модель і тип `std::atomic` з явним керуванням порядком. Правильний DCL тепер записують з атомарним посиланням і парою `release`/`acquire`:
 
-```cpp
-#include <atomic>
-#include <mutex>
-
-class Foo {
-    static std::atomic<Helper*> instance;
-    static std::mutex m;
-public:
-    static Helper* getHelper() {
-        Helper* p = instance.load(std::memory_order_acquire);   // acquire
-        if (p == nullptr) {
-            std::lock_guard<std::mutex> lock(m);
-            p = instance.load(std::memory_order_relaxed);       // під замком relaxed досить
-            if (p == nullptr) {
-                p = new Helper();                                // конструктор до кінця…
-                instance.store(p, std::memory_order_release);    // …ПОТІМ публікація (release)
-            }
-        }
-        return p;
-    }
-};
-```
+:::code math-double-checked-locking/cpp/main.cpp
 
 Логіка дзеркальна до Java. `memory_order_release` при `store` — бар'єр, що не дає записам конструктора (вони над ним у порядку програми) перетекти вниз за публікацію вказівника. `memory_order_acquire` при зовнішньому `load` — парний бар'єр: побачивши ненульовий вказівник, потік бачить і всі записи, що передували його `release`-публікації. Пара release–acquire над однією атомарною змінною і є те саме ребро `happens-before`, яке в Java дає `volatile`. Другий `load` уже під замком — тому `relaxed`: замок сам собою впорядкував усе, що треба.
 

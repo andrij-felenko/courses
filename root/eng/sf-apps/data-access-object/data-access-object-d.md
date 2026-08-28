@@ -8,27 +8,7 @@
 
 Ось метод, який мав би відповідати на одне ділове питання — «кому надіслати замовлення на погодження»: кому з активних працівників дозволено підписувати закупівлі. Саме правило коротке: роль «погоджувач» і не звільнений. А тепер погляньмо, з чого цей метод складається насправді.
 
-```java
-List<String> approverEmails() {
-    List<String> emails = new ArrayList<>();
-    Connection conn = null;
-    try {
-        conn = pool.getConnection();
-        PreparedStatement st = conn.prepareStatement(
-            "SELECT email FROM users WHERE role = ? AND active = 1");
-        st.setString(1, "approver");
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            emails.add(rs.getString("email"));   // єдиний змістовний рядок
-        }
-        return emails;
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    } finally {
-        if (conn != null) try { conn.close(); } catch (SQLException ignore) {}
-    }
-}
-```
+:::code data-access-object-d/java/part.java
 
 Змістовного тут — один рядок: `emails.add(rs.getString("email"))`. Усе решта — обслуга одного конкретного сховища: узяти з'єднання з пулу, скласти `SELECT`, підставити параметр, покрутити курсор `ResultSet`, зловити `SQLException`, не забути закрити з'єднання у `finally`. Метод, що мав відповідати на ділове питання, на дев'ять десятих зайнятий тим, **як саме** користувачі лежать у реляційній базі.
 
@@ -49,129 +29,16 @@ List<String> approverEmails() {
 Щоб бізнес-код не знав механізму, потрібні дві розведені частини. Перша — **інтерфейс DAO**: контракт, що оголошує, які операції над цими даними взагалі є. Друга — **конкретна реалізація**: клас, що виконує контракт над реальним джерелом і тільки там знає про SQL, драйвер і з'єднання.
 
 :::tabs
-```java
-// контракт — простий носій даних (Transfer Object), без жодної поведінки
-record UserRow(long id, String email, String role, boolean active) {}
-
-// інтерфейс DAO — що з цими даними можна робити
-interface UserDao {
-    UserRow findById(long id);
-    List<UserRow> findByRole(String role);
-    void insert(UserRow u);
-    void update(UserRow u);
-    void delete(long id);
-}
-
-// бізнес-код залежить ЛИШЕ від інтерфейсу — жодного натяку на сховище
-class ApprovalService {
-    private final UserDao users;
-    ApprovalService(UserDao users) { this.users = users; }
-
-    List<String> approverEmails() {
-        return users.findByRole("approver").stream()
-            .filter(UserRow::active)
-            .map(UserRow::email)
-            .toList();
-    }
-}
-```
-```ts
-// контракт — простий носій даних, без жодної поведінки
-type UserRow = { id: number; email: string; role: string; active: boolean };
-
-// інтерфейс DAO — що з цими даними можна робити
-interface UserDao {
-  findById(id: number): Promise<UserRow | null>;
-  findByRole(role: string): Promise<UserRow[]>;
-  insert(u: UserRow): Promise<void>;
-  update(u: UserRow): Promise<void>;
-  delete(id: number): Promise<void>;
-}
-
-// бізнес-код залежить ЛИШЕ від інтерфейсу — жодного натяку на сховище
-class ApprovalService {
-  constructor(private users: UserDao) {}
-
-  async approverEmails(): Promise<string[]> {
-    const rows = await this.users.findByRole("approver");
-    return rows.filter(u => u.active).map(u => u.email);
-  }
-}
-```
-```py
-from dataclasses import dataclass
-from typing import Protocol, Optional
-
-# контракт — простий носій даних, без жодної поведінки
-@dataclass
-class UserRow:
-    id: int
-    email: str
-    role: str
-    active: bool
-
-# інтерфейс DAO — що з цими даними можна робити
-class UserDao(Protocol):
-    def find_by_id(self, id: int) -> Optional[UserRow]: ...
-    def find_by_role(self, role: str) -> list[UserRow]: ...
-    def insert(self, u: UserRow) -> None: ...
-    def update(self, u: UserRow) -> None: ...
-    def delete(self, id: int) -> None: ...
-
-# бізнес-код залежить ЛИШЕ від інтерфейсу — жодного натяку на сховище
-class ApprovalService:
-    def __init__(self, users: UserDao):
-        self._users = users
-
-    def approver_emails(self) -> list[str]:
-        rows = self._users.find_by_role("approver")
-        return [u.email for u in rows if u.active]
-```
+:::code data-access-object-d/java/kistiak-interfeis-okremo.java
+:::code data-access-object-d/ts/index.ts
+:::code data-access-object-d/py/main.py
 :::
 
 Подивися на `approverEmails`. Це вже чисте ділове правило — воно про погоджувачів, а не про базу. `ApprovalService` тримає поле типу **інтерфейсу** `UserDao` й не має гадки, звідки беруться користувачі. Це те саме, що [принцип інверсії залежностей](root:sf-apps/dependency-inversion) робить у загальному вигляді: високорівневий код не тягнеться вниз до бази, а оголошує потребу через контракт — і низькорівнева реалізація той контракт виконує. А який саме клас туди підставити, вирішує [впровадження залежностей](root:sf-apps/dependency-injection): екземпляр DAO подають сервісу ззовні, в одному місці збірки.
 
 Тепер — реалізації. І ось найпереконливіший доказ, що патерн працює: **один і той самий інтерфейс** виконується над геть різними джерелами, а `ApprovalService` різниці не помітить.
 
-```java
-// над реляційною базою: тут дозволено знати про SQL і драйвер
-class SqlUserDao implements UserDao {
-    private final DataSource ds;
-    SqlUserDao(DataSource ds) { this.ds = ds; }
-
-    public List<UserRow> findByRole(String role) {
-        String sql = "SELECT id, email, role, active FROM users WHERE role = ?";
-        try (Connection c = ds.getConnection();
-             PreparedStatement st = c.prepareStatement(sql)) {
-            st.setString(1, role);
-            try (ResultSet rs = st.executeQuery()) {
-                List<UserRow> out = new ArrayList<>();
-                while (rs.next())
-                    out.add(new UserRow(rs.getLong("id"), rs.getString("email"),
-                                        rs.getString("role"), rs.getBoolean("active")));
-                return out;
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException(e);   // перевинний виняток — не SQLException назовні
-        }
-    }
-    // findById, insert, update, delete — так само над цим самим SQL
-    // ...
-}
-
-// над звичайною мапою в пам'яті: жодної бази — для тестів
-class InMemoryUserDao implements UserDao {
-    private final Map<Long, UserRow> store = new HashMap<>();
-
-    public List<UserRow> findByRole(String role) {
-        return store.values().stream()
-            .filter(u -> u.role().equals(role)).toList();
-    }
-    public void insert(UserRow u) { store.put(u.id(), u); }
-    // findById, update, delete — над цією самою Map
-    // ...
-}
-```
+:::code data-access-object-d/java/kistiak-interfeis-okremo-2.java
 
 Дві реалізації одного контракту. Одна перекладає кожен виклик на SQL, друга просто тримає записи в `HashMap`. Для `ApprovalService` вони нерозрізненні. І та `SQLException`, що в першому прикладі текла назовні й змушувала весь застосунок знати про JDBC, тут **зупиняється на межі DAO**: `SqlUserDao` ловить її й перевидає власним `DataAccessException`, який уже нічого не розповідає про природу сховища. Механізм замкнено остаточно.
 

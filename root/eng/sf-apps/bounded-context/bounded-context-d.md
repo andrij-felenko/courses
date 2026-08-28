@@ -45,115 +45,15 @@
 Тепер той самий приклад у коді. Спочатку — хвороба: один клас силкується бути товаром для всіх.
 
 :::tabs
-```ts
-// Один Product на всю систему — приречений мішок суперечностей
-class Product {
-  // поля каталогу
-  title: string;
-  description: string | null;   // складу й доставці — null
-  photos: string[];             // складу й доставці — порожньо
-  reviews: Review[];            // тут узагалі чуже
-
-  // поля складу
-  weightKg: number | null;      // каталогу — null, поки склад не зважив
-  shelf: string | null;
-  stock: number | null;
-
-  // поля доставки
-  fragile: boolean | null;
-  canLayFlat: boolean | null;
-
-  // ...і так до сімдесяти полів, половина вічно порожня
-
-  canPublish(): boolean {
-    // правило каталогу
-    return this.description !== null && this.photos.length > 0;
-  }
-  canStore(): boolean {
-    // правило складу — і воно нічого не знає про правило каталогу
-    return this.weightKg !== null;
-  }
-  // щойно створений товар: canPublish() = false, canStore() = false.
-  // Він валідний чи ні? Клас не знає — бо намагається служити всім.
-}
-```
-```python
-# Один Product на всю систему — приречений мішок суперечностей
-class Product:
-    def __init__(self) -> None:
-        # поля каталогу
-        self.title: str = ""
-        self.description: str | None = None   # складу й доставці — None
-        self.photos: list[str] = []           # складу й доставці — порожньо
-        self.reviews: list[Review] = []       # тут узагалі чуже
-        # поля складу
-        self.weight_kg: float | None = None   # каталогу — None, поки не зважили
-        self.shelf: str | None = None
-        self.stock: int | None = None
-        # поля доставки
-        self.fragile: bool | None = None
-        self.can_lay_flat: bool | None = None
-        # ...і так до сімдесяти полів, половина вічно порожня
-
-    def can_publish(self) -> bool:            # правило каталогу
-        return self.description is not None and len(self.photos) > 0
-
-    def can_store(self) -> bool:              # правило складу
-        return self.weight_kg is not None     # нічого не знає про каталог
-    # щойно створений товар: can_publish() = False, can_store() = False.
-    # Він валідний чи ні? Клас не знає — бо намагається служити всім.
-```
+:::code bounded-context-d/ts/shcho-take-obmezhenyi.ts
+:::code bounded-context-d/py/shcho-take-obmezhenyi.py
 :::
 
 А тепер — те саме, розрізане по контекстах. Три маленькі моделі замість одного монстра, і в кожній `Product` означає рівно одне.
 
 :::tabs
-```ts
-// Контекст КАТАЛОГУ: товар — це те, що показують і продають
-namespace Catalog {
-  class Product {
-    constructor(
-      private title: string,
-      private description: string,   // не nullable: без опису товару каталогу не існує
-      private photos: string[],
-    ) {
-      if (photos.length === 0) throw new Error("товар каталогу без фото не буває");
-    }
-    // тут немає ваги й полиці — вони цьому світу не потрібні
-  }
-}
-
-// Контекст СКЛАДУ: товар — це фізична одиниця зберігання
-namespace Warehouse {
-  class Product {
-    constructor(
-      private sku: string,
-      private weightKg: number,      // не nullable: без ваги на склад не приймають
-      private shelf: string,
-    ) {}
-    // тут немає опису й відгуків — складу байдуже
-  }
-}
-```
-```python
-# Контекст КАТАЛОГУ: товар — це те, що показують і продають
-class CatalogProduct:
-    def __init__(self, title: str, description: str, photos: list[str]) -> None:
-        if not photos:
-            raise ValueError("товар каталогу без фото не буває")
-        self.title = title
-        self.description = description   # без опису товару каталогу не існує
-        self.photos = photos
-        # тут немає ваги й полиці — вони цьому світу не потрібні
-
-# Контекст СКЛАДУ: товар — це фізична одиниця зберігання
-class WarehouseProduct:
-    def __init__(self, sku: str, weight_kg: float, shelf: str) -> None:
-        self.sku = sku
-        self.weight_kg = weight_kg       # без ваги на склад не приймають
-        self.shelf = shelf
-        # тут немає опису й відгуків — складу байдуже
-```
+:::code bounded-context-d/ts/shcho-take-obmezhenyi-2.ts
+:::code bounded-context-d/py/shcho-take-obmezhenyi-2.py
 :::
 
 Придивись, що зникло: жодного `null` за замовчуванням, жодного поля «на всяк випадок», жодного правила, що суперечить сусідньому. `CatalogProduct` **неможливо** створити без фото — бо в його світі товар без фото не існує. `WarehouseProduct` неможливо створити без ваги. Кожна модель стала маленькою й **чесною**: вона обіцяє рівно те, що правда в її контексті, і компілятор це стереже. Ту саму ідею — узяти один розмитий клас і розвести його на кілька контекстно-чистих — покроково розібрано на робочому рефакторингу в [проєкті поділу спільної моделі](root:sf-apps/bounded-context/proj-context-boundary-refactor.md).

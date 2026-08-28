@@ -19,90 +19,9 @@
 Патерн має рівно три різновиди частин. Перша — **шаблонний метод**: той самий незмінний кістяк, метод предка, що викликає кроки по черзі. Друга — **примітивні операції**: абстрактні кроки-заготовки, які кожен нащадок мусить реалізувати по-своєму. Третя — **гачки** (англ. *hook* — зачіп): кроки з розумною типовою поведінкою, які нащадок **може** підмінити, коли треба, а може й лишити як є. Ось наш імпорт, зібраний за цим рецептом:
 
 :::tabs
-```java
-abstract class Importer {
-    // ШАБЛОННИЙ МЕТОД: незмінний каркас. final — нащадок його не підмінить.
-    public final void importFile(String path) {
-        String text   = readFile(path);           // спільний крок
-        List<Record> rows = parse(text);           // ← дірка: дає нащадок
-        rows.removeIf(r -> !isValid(r));           // гачок із типовою поведінкою
-        saveAll(rows);                             // спільний крок
-        log(rows.size());                          // спільний крок
-    }
-
-    protected abstract List<Record> parse(String text);   // МУСИТЬ дати нащадок
-
-    protected boolean isValid(Record r) { return true; }  // гачок: МОЖЕ підмінити
-
-    private String readFile(String path) { /* однакове для всіх */ return ""; }
-    private void   saveAll(List<Record> rows) { /* однакове для всіх */ }
-    private void   log(int n) { /* однакове для всіх */ }
-}
-
-class CsvImporter extends Importer {
-    protected List<Record> parse(String text) { /* рядки, розбиті комами */ return List.of(); }
-}
-
-class JsonImporter extends Importer {
-    protected List<Record> parse(String text) { /* JSON → записи */ return List.of(); }
-    protected boolean isValid(Record r) { return r.id() > 0; }  // цей формат хоче суворіше
-}
-```
-```ts
-abstract class Importer {
-  // ШАБЛОННИЙ МЕТОД: каркас, який нащадок не чіпає
-  importFile(path: string): void {
-    const text = this.readFile(path);                     // спільний крок
-    const rows = this.parse(text).filter(r => this.isValid(r));  // дірка + гачок
-    this.saveAll(rows);                                   // спільний крок
-    this.log(rows.length);                                // спільний крок
-  }
-
-  protected abstract parse(text: string): Record[];       // мусить дати нащадок
-  protected isValid(r: Record): boolean { return true; }  // гачок із типовим «так»
-
-  private readFile(path: string): string { /* однакове */ return ""; }
-  private saveAll(rows: Record[]): void  { /* однакове */ }
-  private log(n: number): void           { /* однакове */ }
-}
-
-class CsvImporter extends Importer {
-  protected parse(text: string): Record[] { /* комами */ return []; }
-}
-class JsonImporter extends Importer {
-  protected parse(text: string): Record[] { return JSON.parse(text); }
-  protected isValid(r: Record): boolean { return r.id > 0; }  // суворіше
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Importer(ABC):
-    # ШАБЛОННИЙ МЕТОД: каркас; нащадки його не перевизначають
-    def import_file(self, path: str) -> None:
-        text = self._read_file(path)                       # спільний крок
-        rows = [r for r in self.parse(text) if self.is_valid(r)]  # дірка + гачок
-        self._save_all(rows)                               # спільний крок
-        self._log(len(rows))                               # спільний крок
-
-    @abstractmethod
-    def parse(self, text: str) -> list["Record"]: ...      # мусить дати нащадок
-
-    def is_valid(self, r: "Record") -> bool:               # гачок із типовим «так»
-        return True
-
-    def _read_file(self, path): ...     # однакове для всіх
-    def _save_all(self, rows): ...      # однакове для всіх
-    def _log(self, n): ...              # однакове для всіх
-
-class CsvImporter(Importer):
-    def parse(self, text): ...          # комами
-
-class JsonImporter(Importer):
-    def parse(self, text): ...          # JSON
-    def is_valid(self, r):              # суворіше
-        return r.id > 0
-```
+:::code template-method-d/java/main.java
+:::code template-method-d/ts/index.ts
+:::code template-method-d/py/main.py
 :::
 
 Прочитай `importFile` — це весь алгоритм, і він більше ніде не повторюється. Він викликає `parse`, **не знаючи** формату: у рантаймі виклик потрапить у той клас, екземпляром якого є об'єкт, — звичайне [динамічне зв'язування](root:sf-lang/polymorphism). `CsvImporter` пише **тільки** `parse` і успадковує решту незмінною; `JsonImporter` пише свій `parse` і додатково підмінює гачок `isValid`, бо його формату потрібна суворіша перевірка. Додати XML — це створити ще один нащадок з одним методом; каркаса ніхто не чіпає. Стале лишилося сталим і в одному місці; росте лише те, що й мало рости.

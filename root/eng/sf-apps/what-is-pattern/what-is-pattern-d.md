@@ -57,58 +57,8 @@
 Проговоримо цей кістяк на живому прикладі — тій самій Стратегії. **Назва** — «Стратегія». **Сили** — поведінка мусить мінятися, не переписуючи власника, бажано під час роботи. **Розв'язок** — три ролі:
 
 :::tabs
-```py
-# 1. Спільний інтерфейс поведінки (роль «Стратегія»)
-class AttackStrategy:
-    def attack(self) -> int: ...
-
-# 2. Конкретні стратегії — взаємозамінні реалізації
-class SwordAttack(AttackStrategy):
-    def attack(self) -> int: return 10
-
-class BowAttack(AttackStrategy):
-    def attack(self) -> int: return 6
-
-# 3. Власник ТРИМАЄ стратегію полем і делегує їй, не знаючи, яка саме
-class Enemy:
-    def __init__(self, strategy: AttackStrategy):
-        self._attack = strategy
-    def set_strategy(self, strategy: AttackStrategy):  # підміна на льоту
-        self._attack = strategy
-    def hit(self) -> int:
-        return self._attack.attack()
-
-goblin = Enemy(SwordAttack())
-print(goblin.hit())          # 10
-goblin.set_strategy(BowAttack())
-print(goblin.hit())          # 6 — поведінка змінилась, ворога не переписували
-```
-```ts
-// 1. Спільний інтерфейс поведінки (роль «Стратегія»)
-interface AttackStrategy {
-  attack(): number;
-}
-
-// 2. Конкретні стратегії — взаємозамінні реалізації
-class SwordAttack implements AttackStrategy {
-  attack(): number { return 10; }
-}
-class BowAttack implements AttackStrategy {
-  attack(): number { return 6; }
-}
-
-// 3. Власник ТРИМАЄ стратегію полем і делегує їй, не знаючи, яка саме
-class Enemy {
-  constructor(private strategy: AttackStrategy) {}
-  setStrategy(s: AttackStrategy): void { this.strategy = s; } // підміна на льоту
-  hit(): number { return this.strategy.attack(); }
-}
-
-const goblin = new Enemy(new SwordAttack());
-console.log(goblin.hit());          // 10
-goblin.setStrategy(new BowAttack());
-console.log(goblin.hit());          // 6 — поведінка змінилась, ворога не переписували
-```
+:::code what-is-pattern-d/py/main.py
+:::code what-is-pattern-d/ts/index.ts
 :::
 
 **Наслідки** — виграли: нову манеру бою додаєш новим класом, `Enemy` не чіпаєш, поведінку міняєш під час роботи. Заплатили: класів побільшало, і щоб зрозуміти, що зробить `goblin.hit()`, треба знати, який об'єкт зараз у полі `_attack`. Оце «виграв гнучкість — заплатив зайвим об'єктом і непрямістю» — типова угода будь-якого патерну.

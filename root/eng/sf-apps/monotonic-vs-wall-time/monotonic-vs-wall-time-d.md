@@ -76,38 +76,8 @@ t_wall = wall_to_monotonic_offset + t_monotonic
 Розглянемо класичний код очікування ресурсу з таймаутом, помилково побудований на настінному годиннику:
 
 :::tabs
-```c
-// ПОМИЛКА: використання настінного часу для дедлайну
-struct timeval start, now;
-gettimeofday(&start, NULL);
-double timeout_sec = 30.0;
-
-while (!resource_ready()) {
-    gettimeofday(&now, NULL);
-    double elapsed = (now.tv_sec - start.tv_sec) + 
-                     (now.tv_usec - start.tv_usec) / 1000000.0;
-    
-    if (elapsed >= timeout_sec) {
-        handle_timeout_failure();
-        break;
-    }
-    usleep(10000); // 10 мс
-}
-```
-```cpp
-// ПОМИЛКА: використання system_clock для дедлайну
-auto start = std::chrono::system_clock::now();
-auto timeout = std::chrono::seconds(30);
-
-while (!resource_ready()) {
-    auto now = std::chrono::system_clock::now();
-    if (now - start >= timeout) {
-        handle_timeout_failure();
-        break;
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-}
-```
+:::code monotonic-vs-wall-time-d/c/strybky-synkhronizatsii.c
+:::code monotonic-vs-wall-time-d/cpp/strybky-synkhronizatsii.cpp
 :::
 
 Що відбувається з цим кодом у разі NTP-стрибка:
@@ -143,37 +113,8 @@ while (!resource_ready()) {
 У вбудованих системах (Embedded) та мікроконтролерах без повноцінної операційної системи (ARM Cortex-M, RISC-V, ESP32, AVR) монотонний час зазвичай реалізується на базі апаратного системного таймера (SysTick). Переривання таймера спрацьовує раз на мілісекунду, інкрементуючи глобальну 32-бітну змінну:
 
 :::tabs
-```c
-/* STM32 HAL / CMSIS SysTick */
-volatile uint32_t uwTick = 0;
-
-void SysTick_Handler(void) {
-    uwTick++;
-}
-
-uint32_t HAL_GetTick(void) {
-    return uwTick;
-}
-```
-```cpp
-/* C++20 вбудований системний лічильник мілісекунд */
-#include <cstdint>
-#include <atomic>
-
-class SystemTick {
-public:
-    static void isr_increment() noexcept {
-        ticks_.fetch_add(1, std::memory_order_relaxed);
-    }
-
-    [[nodiscard]] static uint32_t get_tick() noexcept {
-        return ticks_.load(std::memory_order_relaxed);
-    }
-
-private:
-    static inline std::atomic<uint32_t> ticks_{0};
-};
-```
+:::code monotonic-vs-wall-time-d/c/3-problema-32-bitnoho.c
+:::code monotonic-vs-wall-time-d/cpp/3-problema-32-bitnoho.hpp
 :::
 
 ### Арифметика 49.71 днів
@@ -193,32 +134,8 @@ private:
 Типова помилка початківців у C/C++ полягає у спробі обчислити абсолютну точку дедлайну додаванням таймауту:
 
 :::tabs
-```c
-/* КАТАСТРОФІЧНА ПОМИЛКА: пряме додавання дедлайну ламається при переповненні */
-void wait_for_event_broken(uint32_t timeout_ms) {
-    uint32_t deadline = HAL_GetTick() + timeout_ms;
-    
-    while (!is_event_ready()) {
-        if (HAL_GetTick() >= deadline) {
-            handle_timeout();
-            break;
-        }
-    }
-}
-```
-```cpp
-/* КАТАСТРОФІЧНА ПОМИЛКА: розрахунок абсолютної точки на 32-бітному таймері */
-void wait_for_event_broken(uint32_t timeout_ms) {
-    uint32_t deadline = SystemTick::get_tick() + timeout_ms;
-
-    while (!is_event_ready()) {
-        if (SystemTick::get_tick() >= deadline) {
-            handle_timeout();
-            break;
-        }
-    }
-}
-```
+:::code monotonic-vs-wall-time-d/c/fatalna-pomylka-priame.c
+:::code monotonic-vs-wall-time-d/cpp/fatalna-pomylka-priame.cpp
 :::
 
 Розберемо, що відбувається на 49-й день роботи пристрою:
@@ -237,32 +154,8 @@ void wait_for_event_broken(uint32_t timeout_ms) {
 Єдиний правильний спосіб організації таймаутів та періодичних інтервалів на беззнакових лічильниках полягає у **відніманні стартової мітки від поточного часу**:
 
 :::tabs
-```c
-/* ПРАВИЛЬНО: беззнакова дельта працює крізь будь-яку кількість переповнень */
-void wait_for_event_safe(uint32_t timeout_ms) {
-    uint32_t start = HAL_GetTick();
-    
-    while (!is_event_ready()) {
-        if ((uint32_t)(HAL_GetTick() - start) >= timeout_ms) {
-            handle_timeout();
-            break;
-        }
-    }
-}
-```
-```cpp
-/* ПРАВИЛЬНО: різниця (now - start) дає точний інтервал у кільцевій групі 2³² */
-void wait_for_event_safe(uint32_t timeout_ms) {
-    const uint32_t start = SystemTick::get_tick();
-
-    while (!is_event_ready()) {
-        if ((SystemTick::get_tick() - start) >= timeout_ms) {
-            handle_timeout();
-            break;
-        }
-    }
-}
-```
+:::code monotonic-vs-wall-time-d/c/matematychno-korektna.c
+:::code monotonic-vs-wall-time-d/cpp/matematychno-korektna.cpp
 :::
 
 Чому це працює? Відповідно до стандарту мови C (ISO C99/C11 §6.2.5.9), операції над беззнаковими типами виконуються строго за модулем `2ⁿ` (для 32-бітних чисел — за модулем `2³²`). Від'ємне число `x` у комп'ютерному представленні доповняльного коду автоматично інтерпретується як `2³² + x`.
@@ -292,62 +185,8 @@ void wait_for_event_safe(uint32_t timeout_ms) {
 Коректний патерн атомарного читання без блокування переривань (Double-Read Lock-Free):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-static volatile uint32_t s_high_epoch = 0;
-
-void SysTick_Handler_64(void) {
-    static uint32_t s_last_raw = 0;
-    uint32_t current_raw = get_hardware_counter_32();
-    if (current_raw < s_last_raw) {
-        s_high_epoch++; // переповнення нижнього регістру
-    }
-    s_last_raw = current_raw;
-}
-
-uint64_t get_uptime_64(void) {
-    uint32_t high1, high2, low;
-    do {
-        high1 = s_high_epoch;
-        low   = get_hardware_counter_32();
-        high2 = s_high_epoch;
-    } while (high1 != high2); // повторити, якщо під час читання стався інкремент епохи
-    
-    return ((uint64_t)high1 << 32) | low;
-}
-```
-```cpp
-#include <cstdint>
-#include <atomic>
-
-class HighResClock64 {
-public:
-    static void on_timer_interrupt(uint32_t current_raw) noexcept {
-        static uint32_t last_raw = 0;
-        if (current_raw < last_raw) {
-            s_high_epoch.fetch_add(1, std::memory_order_relaxed);
-        }
-        last_raw = current_raw;
-    }
-
-    static uint64_t now_ticks() noexcept {
-        uint32_t high1, high2, low;
-        do {
-            high1 = s_high_epoch.load(std::memory_order_acquire);
-            low   = get_hardware_counter_32();
-            high2 = s_high_epoch.load(std::memory_order_acquire);
-        } while (high1 != high2);
-
-        return (static_cast<uint64_t>(high1) << 32) | low;
-    }
-
-private:
-    static inline std::atomic<uint32_t> s_high_epoch{0};
-    static uint32_t get_hardware_counter_32() noexcept;
-};
-```
+:::code monotonic-vs-wall-time-d/c/rozshyrennia-32-bitnoho.c
+:::code monotonic-vs-wall-time-d/cpp/rozshyrennia-32-bitnoho.cpp
 :::
 
 ## 4. Фізика та дрейф апаратного RTC: чому кварц пливе і як його коригують
@@ -406,207 +245,8 @@ private:
 3. Періодичний таймер із компенсацією дрейфу, який запобігає накопиченню помилки фази при циклічному виконанні.
 
 :::tabs
-```c
-/* time_guard.h - C99/C11 cross-platform monotonic time and deadline library */
-#ifndef TIME_GUARD_H
-#define TIME_GUARD_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-#if defined(_WIN32)
-    #include <windows.h>
-#elif defined(__APPLE__)
-    #include <mach/mach_time.h>
-    #include <time.h>
-#else
-    #include <time.h>
-#endif
-
-typedef struct {
-    uint64_t start_ns;
-    uint64_t timeout_ns;
-} deadline_t;
-
-typedef struct {
-    uint64_t next_tick_ns;
-    uint64_t period_ns;
-} ticker_t;
-
-/* Отримання поточного монотонного часу в наносекундах */
-static inline uint64_t time_monotonic_ns(void) {
-#if defined(_WIN32)
-    static LARGE_INTEGER freq;
-    static bool init = false;
-    if (!init) {
-        QueryPerformanceFrequency(&freq);
-        init = true;
-    }
-    LARGE_INTEGER counter;
-    QueryPerformanceCounter(&counter);
-    return (uint64_t)((counter.QuadPart * 1000000000ULL) / freq.QuadPart);
-#elif defined(__APPLE__)
-    static mach_timebase_info_data_t tb;
-    if (tb.denom == 0) {
-        mach_timebase_info(&tb);
-    }
-    uint64_t t = mach_continuous_time();
-    return (t * tb.numer) / tb.denom;
-#else
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-#endif
-}
-
-/* Ініціалізація дедлайну на N мілісекунд уперед */
-static inline deadline_t deadline_init_ms(uint64_t timeout_ms) {
-    deadline_t d;
-    d.start_ns = time_monotonic_ns();
-    d.timeout_ns = timeout_ms * 1000000ULL;
-    return d;
-}
-
-/* Перевірка, чи вичерпано дедлайн */
-static inline bool deadline_is_expired(const deadline_t* d) {
-    uint64_t now = time_monotonic_ns();
-    uint64_t elapsed = (now >= d->start_ns) ? (now - d->start_ns) : 0;
-    return elapsed >= d->timeout_ns;
-}
-
-/* Скільки мілісекунд залишилося (з насиченням до 0) */
-static inline uint64_t deadline_remaining_ms(const deadline_t* d) {
-    uint64_t now = time_monotonic_ns();
-    uint64_t elapsed = (now >= d->start_ns) ? (now - d->start_ns) : 0;
-    if (elapsed >= d->timeout_ns) {
-        return 0;
-    }
-    return (d->timeout_ns - elapsed) / 1000000ULL;
-}
-
-/* Ініціалізація періодичного тикера */
-static inline ticker_t ticker_init_ms(uint64_t period_ms) {
-    ticker_t t;
-    t.period_ns = period_ms * 1000000ULL;
-    t.next_tick_ns = time_monotonic_ns() + t.period_ns;
-    return t;
-}
-
-/* Очікування наступного періоду без накопичення похибки фази */
-static inline bool ticker_poll(ticker_t* t) {
-    uint64_t now = time_monotonic_ns();
-    if (now >= t->next_tick_ns) {
-        // Додаємо період до запланованої мітки, а не до now!
-        t->next_tick_ns += t->period_ns;
-        // Захист від відставання при тривалому блокуванні
-        if (now >= t->next_tick_ns) {
-            t->next_tick_ns = now + t->period_ns;
-        }
-        return true;
-    }
-    return false;
-}
-
-#endif /* TIME_GUARD_H */
-```
-```cpp
-// TimeGuard.hpp - Idiomatic C++20 precision monotonic time and deadline wrapper
-#pragma once
-
-#include <chrono>
-#include <thread>
-#include <concepts>
-#include <algorithm>
-
-namespace timing {
-
-using namespace std::chrono_literals;
-
-class MonotonicClock {
-public:
-    using clock_type = std::chrono::steady_clock;
-    using time_point = clock_type::time_point;
-    using duration   = clock_type::duration;
-
-    static time_point now() noexcept {
-        return clock_type::now();
-    }
-};
-
-class Deadline {
-public:
-    explicit Deadline(std::chrono::nanoseconds timeout) noexcept
-        : start_(MonotonicClock::now())
-        , timeout_(timeout) {}
-
-    template <typename Rep, typename Period>
-    explicit Deadline(const std::chrono::duration<Rep, Period>& timeout) noexcept
-        : Deadline(std::chrono::duration_cast<std::chrono::nanoseconds>(timeout)) {}
-
-    [[nodiscard]] bool is_expired() const noexcept {
-        return remaining_duration() == std::chrono::nanoseconds::zero();
-    }
-
-    [[nodiscard]] std::chrono::nanoseconds remaining_duration() const noexcept {
-        const auto now = MonotonicClock::now();
-        const auto elapsed = (now >= start_) ? (now - start_) : MonotonicClock::duration::zero();
-        if (elapsed >= timeout_) {
-            return std::chrono::nanoseconds::zero();
-        }
-        return std::chrono::duration_cast<std::chrono::nanoseconds>(timeout_ - elapsed);
-    }
-
-    template <typename DurationType = std::chrono::milliseconds>
-    [[nodiscard]] typename DurationType::rep remaining() const noexcept {
-        return std::chrono::duration_cast<DurationType>(remaining_duration()).count();
-    }
-
-    void reset() noexcept {
-        start_ = MonotonicClock::now();
-    }
-
-private:
-    MonotonicClock::time_point start_;
-    std::chrono::nanoseconds timeout_;
-};
-
-class PeriodicTicker {
-public:
-    explicit PeriodicTicker(std::chrono::nanoseconds period) noexcept
-        : period_(period)
-        , next_tick_(MonotonicClock::now() + period_) {}
-
-    template <typename Rep, typename Period>
-    explicit PeriodicTicker(const std::chrono::duration<Rep, Period>& period) noexcept
-        : PeriodicTicker(std::chrono::duration_cast<std::chrono::nanoseconds>(period)) {}
-
-    [[nodiscard]] bool poll() noexcept {
-        const auto now = MonotonicClock::now();
-        if (now >= next_tick_) {
-            next_tick_ += period_;
-            if (now >= next_tick_) {
-                next_tick_ = now + period_; // захист від лавини після провисання
-            }
-            return true;
-        }
-        return false;
-    }
-
-    void sleep_until_next() {
-        const auto now = MonotonicClock::now();
-        if (next_tick_ > now) {
-            std::this_thread::sleep_until(next_tick_);
-        }
-        next_tick_ += period_;
-    }
-
-private:
-    std::chrono::nanoseconds period_;
-    MonotonicClock::time_point next_tick_;
-};
-
-} // namespace timing
-```
+:::code monotonic-vs-wall-time-d/c/time_guard.h
+:::code monotonic-vs-wall-time-d/cpp/TimeGuard.hpp
 :::
 
 ## 6. Інженерний компас: матриця вибору годинника та правил проектування

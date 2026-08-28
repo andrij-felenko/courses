@@ -11,71 +11,8 @@
 Ось цей `User`, трохи скорочений (справжній удвічі довший, але й цього досить, щоб побачити всі симптоми):
 
 :::tabs
-```ts
-// Один User на всю систему — і продажам, і бухгалтерії
-class User {
-  id: string;
-  name: string;
-  email: string;
-
-  // маркер, «звідки» цей юзер — уже симптом
-  source: "sales" | "billing";
-
-  // поля продажів (для бухгалтерського юзера — null)
-  stage: "new" | "qualified" | "won" | "lost" | null;
-  probability: number | null;   // 0..1, шанс закрити угоду
-  ownerId: string | null;        // менеджер, що веде
-
-  // поля бухгалтерії (для продажного юзера — null)
-  taxId: string | null;          // ІПН / ЄДРПОУ
-  creditLimit: number | null;
-  iban: string | null;
-
-  // ...ще три десятки полів, половина завжди null
-
-  isValid(): boolean {
-    if (this.source === "sales") {
-      // продажний юзер валідний, якщо має стадію й менеджера
-      return this.stage !== null && this.ownerId !== null;
-    } else {
-      // бухгалтерський — якщо має ІПН
-      return this.taxId !== null;
-    }
-  }
-}
-```
-```python
-# Один User на всю систему — і продажам, і бухгалтерії
-from typing import Optional, Literal
-
-class User:
-    def __init__(self) -> None:
-        self.id: str = ""
-        self.name: str = ""
-        self.email: str = ""
-
-        # маркер, «звідки» цей юзер — уже симптом
-        self.source: Literal["sales", "billing"] = "sales"
-
-        # поля продажів (для бухгалтерського юзера — None)
-        self.stage: Optional[str] = None       # new | qualified | won | lost
-        self.probability: Optional[float] = None   # 0..1, шанс закрити
-        self.owner_id: Optional[str] = None    # менеджер, що веде
-
-        # поля бухгалтерії (для продажного юзера — None)
-        self.tax_id: Optional[str] = None      # ІПН / ЄДРПОУ
-        self.credit_limit: Optional[float] = None
-        self.iban: Optional[str] = None
-
-        # ...ще три десятки полів, половина завжди None
-
-    def is_valid(self) -> bool:
-        if self.source == "sales":
-            # продажний юзер валідний, якщо має стадію й менеджера
-            return self.stage is not None and self.owner_id is not None
-        # бухгалтерський — якщо має ІПН
-        return self.tax_id is not None
-```
+:::code proj-context-boundary-refactor/ts/shcho-same-bolyt.ts
+:::code proj-context-boundary-refactor/py/shcho-same-bolyt.py
 :::
 
 Придивімося до трьох місць, бо кожне — окремий діагноз, а не просто «некрасиво».
@@ -125,87 +62,15 @@ class User:
 Продажі. Тут юзер — це **потенційна угода в воронці**, тому й назвемо його по-їхньому: не абстрактний `User`, а `Lead` (англ. *lead* — наводка, зачіпка на клієнта). У нього є стадія, ймовірність і менеджер — і все це обов'язкове, бо ліда без стадії у воронці не буває.
 
 :::tabs
-```ts
-// Контекст ПРОДАЖІВ: юзер — це наводка на угоду
-namespace Sales {
-  export class Lead {
-    constructor(
-      readonly id: string,
-      readonly name: string,
-      readonly stage: "new" | "qualified" | "won" | "lost",  // не null!
-      readonly probability: number,                           // не null!
-      readonly ownerId: string,                               // не null!
-    ) {
-      if (probability < 0 || probability > 1)
-        throw new Error("ймовірність поза [0, 1]");
-    }
-    // валідність тепер вбудована: ліда без стадії просто не існує.
-    // Жодного taxId, iban — цей світ про них не чув.
-  }
-}
-```
-```python
-# Контекст ПРОДАЖІВ: юзер — це наводка на угоду
-from dataclasses import dataclass
-from typing import Literal
-
-Stage = Literal["new", "qualified", "won", "lost"]
-
-@dataclass(frozen=True)
-class Lead:
-    id: str
-    name: str
-    stage: Stage        # не None!
-    probability: float  # не None!
-    owner_id: str       # не None!
-
-    def __post_init__(self) -> None:
-        if not 0 <= self.probability <= 1:
-            raise ValueError("ймовірність поза [0, 1]")
-    # валідність тепер вбудована: ліда без стадії просто не існує.
-    # Жодного tax_id, iban — цей світ про них не чув.
-```
+:::code proj-context-boundary-refactor/ts/krok-2-vydilyty-dvi.ts
+:::code proj-context-boundary-refactor/py/krok-2-vydilyty-dvi.py
 :::
 
 Бухгалтерія. Тут той самий колись-`User` — це **платник**, тому `Payer` (англ. *payer* — платник). У нього є ІПН, кредитний ліміт і рахунок; стадія й ймовірність тут — порожній звук.
 
 :::tabs
-```ts
-// Контекст БУХГАЛТЕРІЇ: юзер — це платник за рахунками
-namespace Billing {
-  export class Payer {
-    constructor(
-      readonly id: string,
-      readonly name: string,
-      readonly taxId: string,           // не null: без ІПН платника немає
-      readonly creditLimit: number,     // не null
-      readonly iban: string,            // не null
-    ) {
-      if (!/^\d{8,10}$/.test(taxId))
-        throw new Error("ІПН має бути 8–10 цифр");
-    }
-    // Жодного stage, probability — бухгалтерії байдуже до воронки.
-  }
-}
-```
-```python
-# Контекст БУХГАЛТЕРІЇ: юзер — це платник за рахунками
-from dataclasses import dataclass
-import re
-
-@dataclass(frozen=True)
-class Payer:
-    id: str
-    name: str
-    tax_id: str        # не None: без ІПН платника немає
-    credit_limit: float
-    iban: str
-
-    def __post_init__(self) -> None:
-        if not re.fullmatch(r"\d{8,10}", self.tax_id):
-            raise ValueError("ІПН має бути 8–10 цифр")
-    # Жодного stage, probability — бухгалтерії байдуже до воронки.
-```
+:::code proj-context-boundary-refactor/ts/krok-2-vydilyty-dvi-2.ts
+:::code proj-context-boundary-refactor/py/krok-2-vydilyty-dvi-2.py
 :::
 
 Зверни увагу, що сталося з `isValid()`. Він **зник** — і це перемога, а не втрата. У старому класі валідність була окремою перевіркою, бо клас дозволяв створити нісенітницю (ліда без стадії) і мусив потім ту нісенітницю ловити. Тепер створити нісенітницю **неможливо**: `Lead` без стадії не збереться, конструктор не пропустить. Правило переїхало з методу, який треба **не забути викликати**, у конструктор, який **не можна обійти**. Це і є та сама [інкапсуляція інваріанта](root:sf-apps/interface-vs-implementation): модель, яка може існувати лише в правильному стані, не потребує зовнішнього наглядача за своєю правильністю.
@@ -221,45 +86,8 @@ class Payer:
 Правильно — винести переклад **у окрему функцію на межі**, що не належить жодному з двох класів. Вона бере `Lead` і будує `Payer`; `Lead` про неї не знає, `Payer` про неї не знає, обидва лишаються чистими. Цей перекладач і є найтонший шматок [антикорупційного шару](root:sf-apps/anti-corruption-layer) — стінки, що впускає чужі дані, але не чужі поняття.
 
 :::tabs
-```ts
-// Перекладач ЖИВЕ НА МЕЖІ — в окремому модулі, не в Sales і не в Billing.
-// Це антикорупційний шар бухгалтерії: приймає чужу модель, віддає свою.
-import { Sales } from "./sales";
-import { Billing } from "./billing";
-
-export function leadToPayer(
-  lead: Sales.Lead,
-  taxId: string,        // ІПН прийшов НЕ з ліда — його дає сам платник
-  iban: string,
-): Billing.Payer {
-  // беремо лише те, що справді перетинає кордон: id та ім'я.
-  // stage, probability, ownerId ЛИШАЮТЬСЯ за дверима — бухгалтерії вони чужі.
-  return new Billing.Payer(
-    lead.id,
-    lead.name,
-    taxId,
-    0,          // стартовий кредитний ліміт — правило БУХГАЛТЕРІЇ, не ліда
-    iban,
-  );
-}
-```
-```python
-# Перекладач ЖИВЕ НА МЕЖІ — в окремому модулі, не в sales і не в billing.
-# Це антикорупційний шар бухгалтерії: приймає чужу модель, віддає свою.
-from sales import Lead
-from billing import Payer
-
-def lead_to_payer(lead: Lead, tax_id: str, iban: str) -> Payer:
-    # беремо лише те, що справді перетинає кордон: id та ім'я.
-    # stage, probability, owner_id ЛИШАЮТЬСЯ за дверима — бухгалтерії чужі.
-    return Payer(
-        id=lead.id,
-        name=lead.name,
-        tax_id=tax_id,
-        credit_limit=0,   # стартовий ліміт — правило БУХГАЛТЕРІЇ, не ліда
-        iban=iban,
-    )
-```
+:::code proj-context-boundary-refactor/ts/krok-3-perekladach-na.ts
+:::code proj-context-boundary-refactor/py/krok-3-perekladach-na.py
 :::
 
 Тут три рішення, кожне навмисне.
@@ -301,19 +129,7 @@ def describe(user: User) -> str:
 Ця функція — та сама хвороба в мініатюрі: `describe` вдає, що описує «юзера», а насправді описує **дві різні речі** з розвилкою по `source`. Розрізаємо її навпіл, кожну половину — у свій контекст, і жодна більше не питає `source`, бо тип уже все сказав:
 
 :::tabs
-```ts
-// СТАЛО: у кожного контексту свій опис своєї моделі
-namespace Sales {
-  export function describe(lead: Lead): string {
-    return `Лід ${lead.name}: стадія ${lead.stage}, шанс ${lead.probability}`;
-  }
-}
-namespace Billing {
-  export function describe(payer: Payer): string {
-    return `Платник ${payer.name}: ІПН ${payer.taxId}, ліміт ${payer.creditLimit}`;
-  }
-}
-```
+:::code proj-context-boundary-refactor/ts/krok-4-prybraty-spilnu.ts
 ```python
 # СТАЛО: у кожного контексту свій опис своєї моделі
 # sales.py
@@ -337,41 +153,8 @@ def describe(payer: Payer) -> str:
 Ось стан ДО і ПІСЛЯ поруч, щоб побачити всю відстань, яку ми пройшли:
 
 :::tabs
-```ts
-// ДО: один клас, поле source, розвилка у валідації, півполя null
-class User {
-  source: "sales" | "billing";
-  stage: ... | null;   taxId: ... | null;   /* +40 полів */
-  isValid(): boolean {
-    if (this.source === "sales") return this.stage !== null && this.ownerId !== null;
-    return this.taxId !== null;
-  }
-}
-
-// ПІСЛЯ: два чисті світи + перекладач на межі
-namespace Sales   { export class Lead  { /* stage, probability, ownerId — усі обов'язкові */ } }
-namespace Billing { export class Payer { /* taxId, creditLimit, iban — усі обов'язкові */ } }
-function leadToPayer(lead: Sales.Lead, taxId: string, iban: string): Billing.Payer { /* межа */ }
-// source більше немає. isValid() більше немає. null-полів немає.
-```
-```python
-# ДО: один клас, поле source, розвилка у валідації, півполя None
-class User:
-    source: str
-    stage: Optional[str]; tax_id: Optional[str]   # +40 полів
-    def is_valid(self) -> bool:
-        if self.source == "sales":
-            return self.stage is not None and self.owner_id is not None
-        return self.tax_id is not None
-
-# ПІСЛЯ: два чисті світи + перекладач на межі
-@dataclass(frozen=True)
-class Lead:  ...   # stage, probability, owner_id — усі обов'язкові
-@dataclass(frozen=True)
-class Payer: ...   # tax_id, credit_limit, iban — усі обов'язкові
-def lead_to_payer(lead: Lead, tax_id: str, iban: str) -> Payer: ...  # межа
-# source більше немає. is_valid() більше немає. None-полів немає.
-```
+:::code proj-context-boundary-refactor/ts/krok-5-prybraty-staryi.ts
+:::code proj-context-boundary-refactor/py/krok-5-prybraty-staryi.py
 :::
 
 Що ми виграли, крім краси. По-перше, **неможливі стани стали справді неможливими**: не буває `Lead` без стадії, не буває `Payer` без ІПН — тип це гарантує, і цілий клас багів («а тут `stage` виявився `null`») просто зник як явище. По-друге, **зміни перестали розповзатися**: нове правило продажів чіпає лише `Lead` і `Sales.*`, бухгалтерія його навіть не перекомпілює. По-третє, **код нарешті читається як предмет**: у файлі продажів усе про воронку й нічого про ІПН, і новачок, відкривши його, бачить один зв'язний світ, а не сорок полів упереміш.

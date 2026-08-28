@@ -39,34 +39,7 @@ void      sensor_close(sensor_t *s);
 
 Тіло структури живе **тільки в `.c`**, куди клієнт не заглядає:
 
-```c
-// sensor.c  —  тіло сховане тут
-#include "sensor.h"
-#include <stdlib.h>
-
-struct sensor {           // ← справжні поля, видно лише цьому файлу
-    int      pin;
-    float    scale, offset;
-    uint16_t buf[64];
-    uint32_t last_us;
-};
-
-sensor_t *sensor_open(int pin) {
-    sensor_t *s = malloc(sizeof *s);   // sizeof знає повний тип — ми ж усередині
-    if (!s) return NULL;
-    s->pin = pin;
-    s->scale = 1.0f; s->offset = 0.0f;
-    s->last_us = 0;
-    return s;
-}
-
-float sensor_read(sensor_t *s) {
-    /* … читаємо АЦП, застосовуємо scale/offset … */
-    return 0.0f;
-}
-
-void sensor_close(sensor_t *s) { free(s); }
-```
+:::code proj-versioned-c-api/c/sensor.c
 
 Компілятор, збираючи **клієнтський** код, бачить лише рядок `typedef struct sensor sensor_t;`. Він знає, що `sensor_t` — структура, і вміє тримати **вказівник** на неї (`sensor_t *`), бо розмір вказівника той самий незалежно від того, на що він показує. Але він **відмовиться** дати клієнтові розмір (`sizeof(sensor_t)` — помилка компіляції), відмовиться створити її на стеку (`sensor_t local;` — помилка), відмовиться дати доступ до полів (`s->pin` — помилка). Клієнт **фізично не може** зачепитися за нутрощі.
 
@@ -94,19 +67,7 @@ sensor_t *s = sensor_open(&cfg);
 
 Рецепт, який тут працює й перевірений галуззю, — **поле розміру першим членом структури**:
 
-```c
-// sensor.h  —  versioned config: size ПЕРШИМ полем
-typedef struct {
-    size_t   size;          // ← скільки байтів у ЦІЙ структурі; заповнює клієнт
-    int      pin;
-    uint32_t rate_hz;
-} sensor_config_t;
-
-// зручний ініціалізатор, що проставляє size автоматично
-#define SENSOR_CONFIG_INIT  { .size = sizeof(sensor_config_t) }
-
-sensor_t *sensor_open(const sensor_config_t *cfg);
-```
+:::code proj-versioned-c-api/c/pryiom-druhyi-koly.c
 
 Клієнт заповнює `size` (найпростіше — через макрос `SENSOR_CONFIG_INIT`, тоді розмір підставляє його ж компілятор під його версію заголовка). Бібліотека, отримавши вказівник, **першим ділом читає `cfg->size`** — і так дізнається, скільки полів реально приніс цей клієнт:
 
@@ -137,24 +98,7 @@ typedef struct {
 
 Ключ у тому, що поля `size`, `pin`, `rate_hz` **лишилися на тих самих зсувах** — 0, і далі. Старий клієнт, зібраний під першу версію, кладе на стек структуру зі `size = 16` (три перші поля) і про `gain`/`offset` не знає. Нова бібліотека, прочитавши `size == 16`, **розуміє: цих полів немає** — і бере для них значення за замовчуванням. Новий клієнт, зібраний під `v2`, кладе `size = 25`, і бібліотека сміливо читає всі п'ять полів. Один і той самий двійковий код бібліотеки обслуговує обидва:
 
-```c
-// sensor.c  —  v2: читаємо нові поля ЛИШЕ якщо клієнт їх приніс
-sensor_t *sensor_open(const sensor_config_t *cfg) {
-    if (!cfg || cfg->size < sizeof(cfg->size)) return NULL;
-
-    int      pin     = cfg->pin;
-    uint32_t rate_hz = cfg->rate_hz;
-
-    // калібрування — тільки якщо структура достатньо велика, щоб його вміщати:
-    uint8_t gain   = 1;       // дефолти для старих клієнтів
-    float   offset = 0.0f;
-    if (cfg->size >= offsetof(sensor_config_t, gain) + sizeof cfg->gain)
-        gain = cfg->gain;
-    if (cfg->size >= offsetof(sensor_config_t, offset) + sizeof cfg->offset)
-        offset = cfg->offset;
-    /* … застосовуємо pin, rate_hz, gain, offset … */
-}
-```
+:::code proj-versioned-c-api/c/sensor-2.c
 
 ![Ліворуч синя колонка «заповнив клієнт, зібраний під v1»: поля size / pin / rate_hz і плашка «полів gain / offset немає», size = 16 байтів; праворуч рожева колонка «struct у новій бібліотеці v2»: ті самі три поля вище пунктирної «межі v1», а нижче — додані gain та offset, size = 25 байтів; унизу висновок про читання за size](img/versioned.svg)
 
@@ -184,21 +128,7 @@ sensor_status_t sensor_read_v2(sensor_t *s, float *out);
 
 Реалізація — стара кличе нову або живе своїм життям; головне, що обидва символи присутні в бібліотеці:
 
-```c
-// sensor.c
-sensor_status_t sensor_read_v2(sensor_t *s, float *out) {
-    if (!s || !out) return SENSOR_ERR_RANGE;
-    /* … читаємо АЦП … */
-    *out = /* виміряне зі scale/offset */ 0.0f;
-    return SENSOR_OK;             // тепер клієнт РОЗРІЗНЯЄ помилку від валідного 0.0
-}
-
-float sensor_read(sensor_t *s) {         // стара форма — тонка обгортка над новою
-    float v = 0.0f;
-    sensor_read_v2(s, &v);               // помилку стара форма мовчки ковтає, як і раніше
-    return v;                            // її контракт не змінився — 0.0 при збої
-}
-```
+:::code proj-versioned-c-api/c/sensor-3.c
 
 Старий клієнт лінкується з `sensor_read` і працює точно як раніше — **його поведінка не зрушилась ні на біт**. Новий клієнт бере `sensor_read_v2` і отримує чесний код помилки, який стара форма фізично не могла повернути (у неї `0.0f` означало і «нуль градусів», і «збій» — нерозрізнимо). Обидві живуть у бібліотеці одночасно; жоден клієнт не поставлений перед вибором «перепиши або зламайся».
 

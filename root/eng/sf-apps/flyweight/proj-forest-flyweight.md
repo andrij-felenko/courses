@@ -24,37 +24,7 @@
 
 Почнімо з виду. Головна вимога до нього — **незмінність**: якщо на цей об'єкт указує сто тисяч дубів, то будь-яка зміна поля миттєво зачепить усіх. Тому в C++ ми зашиваємо незмінність прямо в тип — поля `const`, жодного сеттера, назовні лише читання. Компілятор стане на варті: спроба щось присвоїти виду просто не збереться.
 
-```cpp
-#include <cstdint>
-#include <string>
-#include <vector>
-
-struct Vertex {                       // одна вершина сітки
-    float px, py, pz;                 // позиція     12 Б
-    float nx, ny, nz;                 // нормаль      12 Б
-    float u,  v;                      // текстурні    8 Б  → 32 Б на вершину
-};
-
-// Внутрішній стан: важкий, СПІЛЬНИЙ, НЕЗМІННИЙ.
-class TreeKind {
-public:
-    TreeKind(std::string name, std::vector<Vertex> mesh,
-             uint32_t texture, uint32_t color)
-        : name_(std::move(name)), mesh_(std::move(mesh)),
-          texture_(texture), color_(color) {}
-
-    const std::string&          name()    const { return name_; }
-    const std::vector<Vertex>&  mesh()     const { return mesh_; }
-    uint32_t                    texture() const { return texture_; }
-    uint32_t                    color()   const { return color_; }
-
-private:
-    const std::string           name_;    // "дуб", "сосна", "береза"
-    const std::vector<Vertex>   mesh_;     // десятки тисяч вершин ≈ 1 МБ
-    const uint32_t              texture_;  // хендл текстури
-    const uint32_t              color_;    // RGBA
-};
-```
+:::code proj-forest-flyweight/cpp/krok-1-vyd-lehkovahovyk.cpp
 
 Зверни увагу, де насправді лежить вага. Сам об'єкт `TreeKind` — це лише **заголовки**: рядок (кілька десятків байтів), заголовок вектора (вказівник + два розміри, 24 Б), два числа. Разом `sizeof(TreeKind)` — десятки байтів. А весь мегабайт — це **буфер сітки** на купі, на який заголовок вектора лише вказує. Оце розрізнення — «дешевий заголовок проти важкого буфера» — і буде ключем, коли доберемося до вимірювання: рахуючи пам'ять, ми маємо рахувати саме буфери, а не `sizeof` оболонок.
 
@@ -64,24 +34,7 @@ private:
 
 Тепер легка частина — те, що множиться мільйон разів, тож кожен байт тут коштує мегабайт на масштабі. Дерево — це його зовнішній стан плюс вказівник на спільний вид.
 
-```cpp
-struct Tree {
-    float           x, y, z;      // де стоїть          12 Б
-    float           scale;        // який завбільшки     4 Б
-    const TreeKind* kind;         // вказівник на СПІЛЬНИЙ вид   8 Б
-};                                // sizeof(Tree) == 24 Б
-
-class Forest {
-    std::vector<Tree> trees_;
-public:
-    void reserve(std::size_t n)   { trees_.reserve(n); }
-    void plant(float x, float y, float z, float s, const TreeKind* k) {
-        trees_.push_back({x, y, z, s, k});
-    }
-    std::size_t size() const      { return trees_.size(); }
-    const std::vector<Tree>& all() const { return trees_; }
-};
-```
+:::code proj-forest-flyweight/cpp/krok-2-derevo-kontekst-i.cpp
 
 `sizeof(Tree)` дорівнює рівно 24 — три числа позиції, число масштабу, вказівник, і жодного вирівнювального «хвоста», бо все й так лягає на межу восьми байтів. Це важливо тримати в голові: на мільйоні дерев кожні зайві 8 байтів у `Tree` — це +8 МБ до сліду. Тому вказівник (8 Б) — найдешевша можлива форма «належати до виду»; будь-що важче тут окупиться дорого.
 
@@ -91,23 +44,7 @@ public:
 
 Фабрика — це [мапа](root:sf-algorithms/hash-table) «ключ виду → примірник» з однією операцією `get`. Проси «дуб»: є в мапі — повертається той самий об'єкт; нема — фабрика створює його **раз**, кладе в мапу й повертає. Мапа й робить дублікат неможливим.
 
-```cpp
-#include <memory>
-#include <unordered_map>
-
-class TreeKindFactory {
-    std::unordered_map<std::string, std::unique_ptr<TreeKind>> pool_;
-public:
-    const TreeKind* get(const std::string& name) {
-        if (auto it = pool_.find(name); it != pool_.end())
-            return it->second.get();               // уже є — той самий примірник
-        auto kind = load_tree_kind(name);          // нема — дорого читаємо з диска РАЗ
-        const TreeKind* raw = kind.get();
-        pool_.emplace(name, std::move(kind));
-        return raw;
-    }
-};
-```
+:::code proj-forest-flyweight/cpp/krok-3-fabryka-harantiia.cpp
 
 Тут варто зупинитися на одному непомітному, але критичному факті: **повернений `const TreeKind*` лишається чинним, доки живий запис у мапі**. `std::unordered_map` — вузловий контейнер: його вузли не рухаються при рехешуванні (переставляються лише зв'язки в кошиках), тож і `unique_ptr` усередині вузла, і `TreeKind` під ним стоять на місці. Це не дрібниця стилю — на цьому тримається вся модель: тисячі дерев тримають сирий вказівник на вид і покладаються, що він не «поїде» під ними. Якби ми поклали `TreeKind` у `std::vector` (де при рості все переїжджає), усі ці вказівники стали б висячими після першого ж перевиділення. Вузлова мапа + виділення на купі через `unique_ptr` дають подвійну стабільність адреси, і саме тому вона тут доречна.
 
@@ -115,49 +52,13 @@ public:
 
 Дійшли до серця проєкту. Заведемо функцію, що читає **резидентний набір** процесу (англ. *resident set size*, RSS) — скільки фізичної пам'яті процес зараз реально займає. На Linux це друге число у `/proc/self/statm`, у сторінках.
 
-```cpp
-#include <cstdio>
-#include <unistd.h>
-
-// Резидентний набір процесу в кілобайтах.
-long resident_kib() {
-    long total_pages = 0, rss_pages = 0;
-    if (FILE* f = std::fopen("/proc/self/statm", "r")) {
-        if (std::fscanf(f, "%ld %ld", &total_pages, &rss_pages) != 2)
-            rss_pages = 0;
-        std::fclose(f);
-    }
-    return rss_pages * (sysconf(_SC_PAGESIZE) / 1024);   // сторінки → КБ
-}
-```
+:::code proj-forest-flyweight/cpp/krok-4-vymiriaty-pamiat-po.cpp
 
 > 🔧 **Навіщо це.** RSS — це не `sizeof` і не «скільки я попросив у `new`». Це **скільки фізичних сторінок ОС справді віддала процесу зараз**. Різниця принципова: пам'ять, яку ти виділив, але ще не торкнувся, може взагалі не мати фізичних сторінок (лінива підкачка), а пам'ять, яку алокатор округлив угору, — навпаки, більша за прошену. Тому єдиний чесний спосіб дізнатися, скільки ліс важить насправді, — зміряти RSS **до** й **після** засадження й узяти різницю; ця різниця відкидає незмінний фон (код, libc) і лишає слід самого лісу. Що таке резидентний набір проти віртуального адресного простору — у темі [віртуальна пам'ять](root:hw-arch/virtual-memory).
 
 Тепер сам експеримент — головна функція, що засаджує мільйон дерев і бере два знімки лічильника.
 
-```cpp
-#include <random>
-
-int main() {
-    long before = resident_kib();
-
-    TreeKindFactory kinds;
-    const TreeKind* species[] = {
-        kinds.get("oak"), kinds.get("pine"), kinds.get("birch"),
-    };
-
-    Forest forest;
-    forest.reserve(1'000'000);                       // точний буфер, без запасу
-    std::mt19937 rng(42);
-    std::uniform_real_distribution<float> pos(0.f, 10000.f), sc(0.7f, 1.4f);
-    for (int i = 0; i < 1'000'000; ++i)
-        forest.plant(pos(rng), 0.f, pos(rng), sc(rng), species[i % 3]);
-
-    long after = resident_kib();
-    std::printf("дерев: %zu   приріст RSS: %.1f МБ\n",
-                forest.size(), (after - before) / 1024.0);
-}
-```
+:::code proj-forest-flyweight/cpp/krok-4-vymiriaty-pamiat-po-2.cpp
 
 Перш ніж дивитися на число, **порахуймо, чого чекати** — інакше нема з чим звіряти. Нехай сітка кожного виду — 30 000 вершин по 32 Б.
 
@@ -210,32 +111,7 @@ int main() {
 
 Полагодити можна грубо — обгорнути весь `get` в один `std::mutex`. Це коректно, але марнотратно: після прогріву **всі** виклики — це влучення (три види давно в мапі), тобто чисте читання, а грубий замок серіалізує навіть читачів — тридцять потоків стоять у чергу за операцією, яка нічого не змінює. Тут напрошується точніший інструмент. Фабрика видів — це сховище, яке **читають дуже часто й пишуть дуже рідко** (рівно K разів за все життя, де K — число видів). Саме для такого профілю існує [замок «багато читачів, один письменник»](root:sf-tasks/readers-writer-lock) (`std::shared_mutex`): будь-яка кількість читачів заходить **одночасно**, а письменник — рідкісний і сам-один.
 
-```cpp
-#include <shared_mutex>
-
-class TreeKindFactory {
-    mutable std::shared_mutex mtx_;
-    std::unordered_map<std::string, std::unique_ptr<TreeKind>> pool_;
-public:
-    const TreeKind* get(const std::string& name) {
-        {   // ── швидкий шлях: багато читачів ПАРАЛЕЛЬНО ──
-            std::shared_lock read(mtx_);
-            if (auto it = pool_.find(name); it != pool_.end())
-                return it->second.get();
-        }
-        // ── промах: рідкісний ЕКСКЛЮЗИВНИЙ запис ──
-        std::unique_lock write(mtx_);
-        // ПОВТОРНА перевірка: поки ми відпускали read і брали write,
-        // інший потік міг уже вставити цей самий вид.
-        if (auto it = pool_.find(name); it != pool_.end())
-            return it->second.get();
-        auto kind = load_tree_kind(name);
-        const TreeKind* raw = kind.get();
-        pool_.emplace(name, std::move(kind));
-        return raw;
-    }
-};
-```
+:::code proj-forest-flyweight/cpp/krok-5-bahato-potokiv-get.cpp
 
 Найтонше місце тут — **повторна перевірка** після взяття ексклюзивного замка, і вона не випадкова. Між тим, як ми відпустили спільний замок (промах) і взяли ексклюзивний, минає час, і саме в цей проміжок інший потік, що теж промахнувся, міг уже створити й вставити «дуб». Якби ми одразу створювали свій — знову дубль. Тому під ексклюзивним замком ми **дивимося ще раз**: якщо вид уже там — беремо чужий і викидаємо намір створювати. Це та сама схема «перевір-замкни-перевір ще раз» (англ. *double-checked locking*), і пропущена друга перевірка — один із найтиповіших багів конкурентних кешів.
 
@@ -259,55 +135,7 @@ public:
 
 *Вид живе рівно доти, доки його тримає хоч одне дерево; коли останнє зникло, він гине разом зі своєю сіткою, а слабкий запис у фабриці протухає. Попросиш знову — вид відродиться за іншою адресою, тому захоплений раніше вказівник із ним уже не збігається: види порівнюй за ключем, а не за адресою.*
 
-```cpp
-#include <memory>
-#include <shared_mutex>
-#include <unordered_map>
-
-struct KindKey {                          // складений ключ відкритої множини
-    std::string species;
-    uint8_t     season;                   // 0..3
-    uint8_t     lod;                      // 0..3
-    bool operator==(const KindKey&) const = default;
-};
-struct KindKeyHash {
-    std::size_t operator()(const KindKey& k) const {
-        std::size_t h = std::hash<std::string>{}(k.species);
-        h = h * 31 + k.season;            // дешево поєднуємо доданки ключа
-        h = h * 31 + k.lod;
-        return h;
-    }
-};
-
-class WeakKindFactory {
-    std::shared_mutex mtx_;
-    std::unordered_map<KindKey, std::weak_ptr<const TreeKind>, KindKeyHash> pool_;
-public:
-    // Повертає СИЛЬНЕ посилання — його триматиме дерево-власник.
-    std::shared_ptr<const TreeKind> get(const KindKey& key) {
-        {   // швидкий шлях: читачі паралельно
-            std::shared_lock read(mtx_);
-            if (auto it = pool_.find(key); it != pool_.end())
-                if (auto sp = it->second.lock())      // ще живий?
-                    return sp;
-        }
-        std::unique_lock write(mtx_);
-        if (auto it = pool_.find(key); it != pool_.end())
-            if (auto sp = it->second.lock())          // повторна перевірка
-                return sp;
-        auto sp = std::make_shared<const TreeKind>(load_tree_kind(key));
-        pool_[key] = sp;                              // фабрика тримає СЛАБКЕ
-        return sp;                                    // сильне йде власникові
-    }
-
-    // Прибрати «протухлі» записи — інакше ростуть самі ключі.
-    void prune() {
-        std::unique_lock write(mtx_);
-        for (auto it = pool_.begin(); it != pool_.end(); )
-            it = it->second.expired() ? pool_.erase(it) : std::next(it);
-    }
-};
-```
+:::code proj-forest-flyweight/cpp/krok-6-vidkryta-mnozhyna.cpp
 
 Дерево тепер тримає `std::shared_ptr<const TreeKind> kind;` замість сирого вказівника — і за це доводиться платити. `shared_ptr` — це 16 байтів (вказівник на об'єкт + вказівник на керівний блок), тож `Tree` виростає з 24 до 32 байтів, а ліс — з 24 до 32 МБ. Ці +8 МБ — **ціна відкритості**: за гнучкість довільної множини видів кожне дерево доплачує вказівником на керівний блок і трафіком атомарного лічильника. Для закритої множини сирий 8-байтовий вказівник дешевший, тож бери відкриту схему лише тоді, коли множина ключів справді відкрита.
 
@@ -317,19 +145,7 @@ public:
 
 Друга, підступніша: **тремтіння** (англ. *thrashing*). Уяви далеку галявину, якою камера ковзає: дерева одного рідкісного виду щомиті то з'являються, то зникають з поля зору. Якщо вид тримається лише сильними посиланнями від дерев, то в момент, коли зникло останнє дерево, вид помирає — а за кадр його знову просять і **перезавантажують важку сітку з диска**. Той самий дорогий вид завантажується десятки разів на секунду. Ліки — **закріпити гарячі види**: тримати невеликий список останніх використаних видів **сильними** посиланнями, щоб вони не вмирали між кадрами.
 
-```cpp
-#include <deque>
-
-class PinnedCache {
-    static constexpr std::size_t CAP = 64;               // скільки гарячих тримати
-    std::deque<std::shared_ptr<const TreeKind>> hot_;     // СИЛЬНІ пінувальні посилання
-public:
-    void touch(std::shared_ptr<const TreeKind> k) {
-        hot_.push_front(std::move(k));
-        if (hot_.size() > CAP) hot_.pop_back();           // найхолодніший втрачає пін
-    }
-};
-```
+:::code proj-forest-flyweight/cpp/krok-6-vidkryta-mnozhyna-2.cpp
 
 Механіка проста, а ефект точний. `hot_` тримає сильні посилання на 64 останні види, тож жоден з них не помре, навіть якщо тимчасово жодне дерево на нього не вказує, — гарячий вид не тремтить. Холодний же вид виштовхується з `hot_` найновішими, втрачає своє останнє сильне посилання (якщо його не тримає жодне дерево) і чесно вмирає через слабку мапу — його сітка звільняється, а перезавантажиться він лише як його знову попросять. Виходить рівно те, чого хотіли: **гарячі види резидентні, холодні — витісняються**, і межу між ними проводить частота використання, а не програміст уручну.
 

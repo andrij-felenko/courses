@@ -32,67 +32,15 @@
 Коли два незалежні модулі використовують спільні числові або рядкові ідентифікатори без посилання на єдине джерело правди (Single Source of Truth), вони утворюють жорстку логічну зв'язку.
 
 :::tabs
-```c
-/* Файл: billing/payment_processor.c */
-#define STATUS_AUTHORIZED  1
-#define STATUS_CAPTURED    2
-#define STATUS_REFUNDED    3
-#define STATUS_CHARGEBACK  4  /* Новий статус, доданий під час релізу */
-
-void process_status(int status) {
-    if (status == STATUS_CHARGEBACK) {
-        /* спеціальна логіка блокування */
-    }
-}
-```
-```cpp
-/* Файл: billing/payment_processor.cpp */
-#include <cstdint>
-
-enum class PaymentStatus : uint8_t {
-    Authorized = 1,
-    Captured   = 2,
-    Refunded   = 3,
-    Chargeback = 4  // Новий статус, доданий під час релізу
-};
-
-void process_status(PaymentStatus status) {
-    if (status == PaymentStatus::Chargeback) {
-        // спеціальна логіка блокування
-    }
-}
-```
+:::code logical-coupling-d/c/payment_processor.c
+:::code logical-coupling-d/cpp/payment_processor.cpp
 :::
 
 Якщо модуль аналітики або генерації звітів містить власний незалежний перелік констант:
 
 :::tabs
-```c
-/* Файл: analytics/report_builder.c */
-/* Розробник скопіював значення вручну три місяці тому */
-static const char* status_to_str(int st) {
-    switch (st) {
-        case 1: return "AUTH";
-        case 2: return "CAPTURED";
-        case 3: return "REFUNDED";
-        default: return "UNKNOWN"; /* Новий статус 4 потрапить сюди і зламає звіт */
-    }
-}
-```
-```cpp
-/* Файл: analytics/report_builder.cpp */
-#include <string_view>
-
-// Розробник скопіював значення вручну три місяці тому
-std::string_view status_to_str(int st) {
-    switch (st) {
-        case 1: return "AUTH";
-        case 2: return "CAPTURED";
-        case 3: return "REFUNDED";
-        default: return "UNKNOWN"; // Новий статус 4 потрапить сюди і зламає звіт
-    }
-}
-```
+:::code logical-coupling-d/c/report_builder.c
+:::code logical-coupling-d/cpp/report_builder.cpp
 :::
 
 Додавання нового статусу `STATUS_CHARGEBACK = 4` компілюється без зауважень, але вимагає обов'язкової ручної синхронізації `report_builder`. Якщо автор забуде оновити другий файл, система зазнає тихої відмови. В історії репозиторію ці два файли завжди змінюватимуться парами.
@@ -298,47 +246,8 @@ std::string_view status_to_str(int st) {
 Замість того, щоб дублювати коди помилок або структуру заголовка в кожному модулі окремо, спільні визначення виносяться в окрему бібліотеку контрактів (Shared Types Library).
 
 :::tabs
-```c
-/* Файл: include/contracts/payment_types.h */
-#ifndef PAYMENT_TYPES_H
-#define PAYMENT_TYPES_H
-
-typedef enum {
-    PAYMENT_STATUS_AUTHORIZED = 1,
-    PAYMENT_STATUS_CAPTURED   = 2,
-    PAYMENT_STATUS_REFUNDED   = 3,
-    PAYMENT_STATUS_CHARGEBACK = 4
-} PaymentStatus;
-
-typedef struct {
-    unsigned long transaction_id;
-    PaymentStatus status;
-    long amount_cents;
-    char currency[4];
-} PaymentRecord;
-
-#endif
-```
-```cpp
-/* Файл: include/contracts/payment_types.hpp */
-#pragma once
-#include <cstdint>
-#include <string_view>
-
-enum class PaymentStatus : uint8_t {
-    Authorized = 1,
-    Captured   = 2,
-    Refunded   = 3,
-    Chargeback = 4
-};
-
-struct PaymentRecord {
-    uint64_t transaction_id;
-    PaymentStatus status;
-    int64_t amount_cents;
-    char currency[4];
-};
-```
+:::code logical-coupling-d/c/payment_types.h
+:::code logical-coupling-d/cpp/payment_types.hpp
 :::
 
 Тепер обидва модулі підключають спільний заголовок. Якщо додається новий статус, компілятор через систему попереджень (`-Wswitch`) автоматично виявляє всі місця в усіх модулях, де новий статус ще не оброблено. Логічне зачеплення трансформувалося у контрольоване синтаксичне зачеплення за стабільним інтерфейсом.

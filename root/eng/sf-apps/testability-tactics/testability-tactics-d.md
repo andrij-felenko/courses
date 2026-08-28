@@ -108,18 +108,7 @@ DRR = 1001 / 3 ≈ 334
 Навмання обраний тест ловить цей дефект із імовірністю **близько 1%**. Кидай у нього тисячу випадкових балів — з доброю ймовірністю жоден не влучить у щілину. Ось код, який ховає дефект не з лихого наміру, а з арифметики стискання:
 
 :::tabs
-```python
-# Велика DRR: 1001 входів → 3 виходи. Дефект на межі невидимий майже завжди.
-def risk_level(score: int) -> str:          # score ∈ 0..1000
-    if score < 300:
-        return "low"
-    if score < 710:                          # ЗАДУМАНО 700 — зсунуто на 10
-        return "medium"
-    return "high"
-
-# Випадковий тест майже певно дасть «medium»==«medium» або «high»==«high»:
-# дефект проявляється лише на 10 балах зі щілини [700, 710).
-```
+:::code testability-tactics-d/py/main.py
 ```typescript
 // Велика DRR: 1001 входів → 3 виходи. Дефект на межі невидимий майже завжди.
 function riskLevel(score: number): "low" | "medium" | "high" {  // 0..1000
@@ -181,18 +170,7 @@ def split_evenly(total_cents: int, parts: int) -> list[int]:
     assert sum(shares) == total_cents, f"втрачено {total_cents - sum(shares)} копійок"
     return shares
 ```
-```typescript
-function splitEvenly(totalCents: number, parts: number): number[] {
-  const base = Math.floor(totalCents / parts);
-  const shares = new Array(parts).fill(base);
-  const remainder = totalCents - base * parts;      // копійки, що не поділилися
-  for (let i = 0; i < remainder; i++) shares[i] += 1;
-  // ПОСТУМОВА: скільки взяли, стільки й роздали — інакше падаємо ТУТ
-  const sum = shares.reduce((a, b) => a + b, 0);
-  if (sum !== totalCents) throw new Error(`втрачено ${totalCents - sum} копійок`);
-  return shares;
-}
-```
+:::code testability-tactics-d/ts/index.ts
 :::
 
 Будь-яка внутрішня помилка лічби негайно валить твердження з точним числом утрати — замість того, щоб виринути через три сервіси незбіжним балансом, який ще півдня шукатимеш. Це та сама думка, що лежить в основі **проєктування за контрактом (англ. *design by contract*)** Бертрана Меєра, укладеного разом із мовою Eiffel у середині 1980-х (широко відома стаття «Applying Design by Contract», журнал *Computer*, 1992; усталене джерело). Контракт формалізує три роди тверджень: **передумова** — що клієнт зобов'язаний забезпечити перед викликом; **постумова** — що метод гарантує по завершенні; **інваріант** — що правдиве про об'єкт **завжди**. Кожне з них — око, вставлене в код, і кожне піднімає виявність там, де стоїть. Механіку контрактів, спадкування зобов'язань і зв'язок із підстановкою розгорнуто в [проєктуванні за контрактом](root:sf-release/design-by-contract/detail).

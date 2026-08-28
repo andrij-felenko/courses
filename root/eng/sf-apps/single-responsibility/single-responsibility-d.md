@@ -68,70 +68,8 @@ e₁ ~ e₂     ⟺   sig(e₁) = sig(e₂)            — однаковий п
 Наївна відповідь — вписати журнал і заміри прямо в кожен метод — і дає ту саму хворобу, від якої SRP лікує: тепер клас `PlaceOrder` міняється і коли міняється правило замовлення (актор — власник домену), і коли міняється формат журналу (актор — експлуатація). Дві причини для зміни в одному тілі, помножені на кожен обробник у системі. Розв'язок у тому, щоб помітити: наскрізну турботу не обов'язково класти **всередину** — її можна винести в **шар, що обгортає**. Ядро лишається з єдиним актором, а турбота живе рівно в одному місці й **накладається ззовні**. Класичний прийом — **декоратор** (об'єкт, що має той самий інтерфейс, що й ядро, тримає ядро всередині й додає своє до або після виклику). Ось той самий обробник замовлення з чистим ядром і двома наскрізними турботами, накинутими декораторами; це загальна бекенд-логіка, тож показано двома звичними для неї мовами:
 
 :::tabs
-```python
-import time
-
-# Ядро: тільки бізнес-правило замовлення. Єдиний актор — власник домену.
-class PlaceOrder:
-    def __init__(self, repo):
-        self.repo = repo
-
-    def __call__(self, order):
-        self.repo.save(order)
-        return order.id
-
-# Кожна наскрізна турбота — окремий декоратор, що ОБГОРТАЄ будь-який обробник.
-def with_logging(handler):
-    def wrapped(order):
-        log.info("place order %s", order.id)
-        result = handler(order)
-        log.info("order placed: %s", result)
-        return result
-    return wrapped
-
-def with_timing(handler):
-    def wrapped(order):
-        started = time.perf_counter()
-        try:
-            return handler(order)
-        finally:
-            metrics.observe("place_order", time.perf_counter() - started)
-    return wrapped
-
-# Збірка: ядро загорнуте в шари; саме воно про журнал і заміри не знає.
-handler = with_logging(with_timing(PlaceOrder(repo)))
-order_id = handler(order)
-```
-```ts
-type Handler = (order: Order) => string;
-
-// Ядро: тільки бізнес-правило замовлення.
-const placeOrder = (repo: Repo): Handler => (order) => {
-  repo.save(order);
-  return order.id;
-};
-
-// Кожна наскрізна турбота — обгортка над Handler.
-const withLogging = (next: Handler): Handler => (order) => {
-  log.info(`place order ${order.id}`);
-  const result = next(order);
-  log.info(`order placed: ${result}`);
-  return result;
-};
-
-const withTiming = (next: Handler): Handler => (order) => {
-  const started = performance.now();
-  try {
-    return next(order);
-  } finally {
-    metrics.observe("place_order", performance.now() - started);
-  }
-};
-
-// Збірка ланцюга: ядро не знає ні про журнал, ні про заміри.
-const handler = withLogging(withTiming(placeOrder(repo)));
-const orderId = handler(order);
-```
+:::code single-responsibility-d/py/main.py
+:::code single-responsibility-d/ts/index.ts
 :::
 
 Придивися, що дало обгортання. Правило замовлення живе в `PlaceOrder` і має рівно одного актора. Формат журналу живе в `with_logging` — один раз, для будь-якого обробника; коли експлуатація попросить інший формат, правиться одна функція, а не сотня методів. Заміри часу — так само один раз. Кожна причина для зміни знову лягла в одне місце; просто це «місце» — не всередині ядра, а шаром зовні. Той самий прийом у різних вбраннях — це `middleware` у веб-фреймворках, перехоплювачі (interceptors) у застосунках, проксі в мережах: скрізь наскрізна турбота піднята з тіла операції в обгортку.

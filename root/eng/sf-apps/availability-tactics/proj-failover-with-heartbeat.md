@@ -43,237 +43,16 @@
 
 **Крок 1. Монітор серцебиття: рахуємо тишу й виносимо вирок.**
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-// Скільки часу між ударами й скільки пропусків терпимо — це НЕ константи
-// «з голови», а прямий переклад сценарію доступності в числа:
-//   BEAT_PERIOD_MS  — як часто головний зобов'язаний битися;
-//   MISS_LIMIT      — скільки ударів підряд може пропасти, поки ми ще
-//                     не оголошуємо смерть (це і є ГІСТЕРЕЗИС виявлення).
-#define BEAT_PERIOD_MS   500u
-#define MISS_LIMIT       3u        // смерть визнаємо після ~1.5 с тиші
-
-typedef enum { NODE_UP, NODE_SUSPECT, NODE_DOWN } health_t;
-
-typedef struct {
-    uint32_t last_beat_ms;   // час останнього почутого удару
-    uint32_t missed;         // скільки періодів поспіль тиша
-    health_t health;         // поточний присуд монітора
-} NodeHealth;
-
-void health_init(NodeHealth *h, uint32_t now_ms) {
-    h->last_beat_ms = now_ms;
-    h->missed = 0;
-    h->health = NODE_UP;
-}
-
-// Прийшов фізичний удар від вузла — тиша скинута.
-void health_on_beat(NodeHealth *h, uint32_t now_ms) {
-    h->last_beat_ms = now_ms;
-    h->missed = 0;
-    h->health = NODE_UP;
-}
-
-// Викликається періодично (напр., з таймера монітора). Рахує тишу
-// й підіймає присуд по щаблях UP -> SUSPECT -> DOWN.
-void health_tick(NodeHealth *h, uint32_t now_ms) {
-    if (now_ms - h->last_beat_ms < BEAT_PERIOD_MS)
-        return;                          // удар устиг у вікно — усе гаразд
-
-    // період минув без удару; зсуваємо «годинник очікування» на період,
-    // щоб один пропуск рахувався один раз, а не безперервно
-    h->last_beat_ms += BEAT_PERIOD_MS;
-    h->missed++;
-
-    if (h->missed >= MISS_LIMIT)      h->health = NODE_DOWN;
-    else                              h->health = NODE_SUSPECT;
-}
-```
-```python
-from enum import Enum
-
-# Скільки часу між ударами й скільки пропусків терпимо — це НЕ константи
-# «з голови», а прямий переклад сценарію доступності в числа:
-#   BEAT_PERIOD_MS  — як часто головний зобов'язаний битися;
-#   MISS_LIMIT      — скільки ударів підряд може пропасти, поки ми ще
-#                     не оголошуємо смерть (це і є ГІСТЕРЕЗИС виявлення).
-BEAT_PERIOD_MS = 500
-MISS_LIMIT     = 3          # смерть визнаємо після ~1.5 с тиші
-
-
-class Health(Enum):
-    UP      = 0
-    SUSPECT = 1
-    DOWN    = 2
-
-
-class NodeHealth:
-    def __init__(self, now_ms: int):
-        self.last_beat_ms = now_ms   # час останнього почутого удару
-        self.missed = 0              # скільки періодів поспіль тиша
-        self.health = Health.UP      # поточний присуд монітора
-
-    # Прийшов фізичний удар від вузла — тиша скинута.
-    def on_beat(self, now_ms: int) -> None:
-        self.last_beat_ms = now_ms
-        self.missed = 0
-        self.health = Health.UP
-
-    # Викликається періодично (напр., з таймера монітора). Рахує тишу
-    # й підіймає присуд по щаблях UP -> SUSPECT -> DOWN.
-    def tick(self, now_ms: int) -> None:
-        if now_ms - self.last_beat_ms < BEAT_PERIOD_MS:
-            return                       # удар устиг у вікно — усе гаразд
-
-        # період минув без удару; зсуваємо «годинник очікування» на період,
-        # щоб один пропуск рахувався один раз, а не безперервно
-        self.last_beat_ms += BEAT_PERIOD_MS
-        self.missed += 1
-
-        if self.missed >= MISS_LIMIT:
-            self.health = Health.DOWN
-        else:
-            self.health = Health.SUSPECT
-```
+:::code proj-failover-with-heartbeat/cpp/robochyi-karkas-monitor-i.cpp
+:::code proj-failover-with-heartbeat/py/robochyi-karkas-monitor-i.py
 :::
 
 Тепер найцікавіше — автомат перемикання, що споживає присуд монітора. Він тримає роль вузла й проводить її через стани. Тут одразу закладемо гачки під обидва захисти (оренда й затримка повернення), навіть якщо перші версії їх ще не використовують, — щоб було видно, куди вони вбудуються.
 
 **Крок 2. Автомат перемикання: споживає вирок, веде роль через стани.**
 :::tabs
-```cpp
-typedef enum {
-    ROLE_STANDBY,     // ми резерв, чекаємо
-    ROLE_PRIMARY,     // ми головний, виконуємо роль
-    ROLE_PROMOTING,   // ми в процесі підняття (тут беремо оренду/кворум)
-    ROLE_REJOINING    // ми колишній головний, доганяємо стан після оживлення
-} role_t;
-
-typedef struct {
-    role_t   role;
-    NodeHealth peer;        // монітор ЧУЖОГО серцебиття (за ким стежимо)
-    uint64_t fence_token;   // наш поточний токен огорожі (див. нижче)
-    uint32_t promoting_since_ms;  // коли почали підніматися (щоб не зависнути в PROMOTING)
-} Failover;
-
-// Реакції на події, які реалізує конкретна система (заглушки-приклади):
-extern bool     acquire_lease_or_quorum(uint64_t *out_token); // взяти оренду, видати токен
-extern void     start_serving(uint64_t token);   // почати виконувати роль
-extern void     stop_serving(void);              // припинити виконувати роль
-extern uint64_t storage_current_token(void);     // найбільший токен, що бачило сховище
-
-void failover_init(Failover *f, role_t start, uint32_t now_ms) {
-    f->role = start;
-    f->fence_token = 0;
-    f->promoting_since_ms = 0;
-    health_init(&f->peer, now_ms);
-}
-
-// Головний тик автомата: викликається періодично на РЕЗЕРВНОМУ вузлі.
-// now_ms — монотонний час; peer_beat=true, якщо цим тиком прийшов удар
-// від головного.
-void failover_tick(Failover *f, uint32_t now_ms, bool peer_beat) {
-    if (peer_beat)
-        health_on_beat(&f->peer, now_ms);
-    health_tick(&f->peer, now_ms);
-
-    switch (f->role) {
-    case ROLE_STANDBY:
-        // головний мовчить достатньо довго -> пробуємо піднятися
-        if (f->peer.health == NODE_DOWN) {
-            f->role = ROLE_PROMOTING;
-            f->promoting_since_ms = now_ms;
-        }
-        break;
-
-    case ROLE_PROMOTING: {
-        // КЛЮЧОВА межа: піднятися можна ЛИШЕ взявши оренду/кворум.
-        // Це і є заслін розколу мозку — без цього кроку два вузли
-        // спокійно піднялися б удвох.
-        uint64_t token;
-        if (acquire_lease_or_quorum(&token)) {
-            f->fence_token = token;
-            start_serving(token);
-            f->role = ROLE_PRIMARY;
-        }
-        // не взяли оренду -> лишаємось PROMOTING і пробуємо наступним тиком;
-        // якщо головний насправді живий і тримає оренду, ми НІКОЛИ не піднімемось
-        break;
-    }
-
-    case ROLE_PRIMARY:
-        // ми головний; окремо стежимо, чи не втратили оренду (нижче)
-        break;
-
-    case ROLE_REJOINING:
-        // ми колись були головним, впали, ожили. Роль уже в іншого.
-        // Не рвемось назад — доганяємо стан і чекаємо (див. пастку ляпання).
-        break;
-    }
-}
-```
-```python
-from enum import Enum, auto
-
-
-class Role(Enum):
-    STANDBY   = auto()    # ми резерв, чекаємо
-    PRIMARY   = auto()    # ми головний, виконуємо роль
-    PROMOTING = auto()    # ми в процесі підняття (тут беремо оренду/кворум)
-    REJOINING = auto()    # ми колишній головний, доганяємо стан після оживлення
-
-
-# Реакції на події, які реалізує конкретна система (заглушки-приклади):
-#   acquire_lease_or_quorum() -> int | None  — взяти оренду, видати токен
-#   start_serving(token)                     — почати виконувати роль
-#   stop_serving()                           — припинити виконувати роль
-#   storage_current_token() -> int           — найбільший токен, що бачило сховище
-
-class Failover:
-    def __init__(self, start: Role, now_ms: int):
-        self.role = start
-        self.peer = NodeHealth(now_ms)   # монітор ЧУЖОГО серцебиття (за ким стежимо)
-        self.fence_token = 0             # наш поточний токен огорожі (див. нижче)
-        self.promoting_since_ms = 0      # коли почали підніматися (щоб не зависнути)
-
-    # Головний тик автомата: викликається періодично на РЕЗЕРВНОМУ вузлі.
-    # now_ms — монотонний час; peer_beat=True, якщо цим тиком прийшов удар
-    # від головного.
-    def tick(self, now_ms: int, peer_beat: bool) -> None:
-        if peer_beat:
-            self.peer.on_beat(now_ms)
-        self.peer.tick(now_ms)
-
-        if self.role is Role.STANDBY:
-            # головний мовчить достатньо довго -> пробуємо піднятися
-            if self.peer.health is Health.DOWN:
-                self.role = Role.PROMOTING
-                self.promoting_since_ms = now_ms
-
-        elif self.role is Role.PROMOTING:
-            # КЛЮЧОВА межа: піднятися можна ЛИШЕ взявши оренду/кворум.
-            # Це і є заслін розколу мозку — без цього кроку два вузли
-            # спокійно піднялися б удвох.
-            token = acquire_lease_or_quorum()
-            if token is not None:
-                self.fence_token = token
-                start_serving(token)
-                self.role = Role.PRIMARY
-            # не взяли оренду -> лишаємось PROMOTING і пробуємо наступним тиком;
-            # якщо головний живий і тримає оренду, ми НІКОЛИ не піднімемось
-
-        elif self.role is Role.PRIMARY:
-            # ми головний; окремо стежимо, чи не втратили оренду (нижче)
-            pass
-
-        elif self.role is Role.REJOINING:
-            # ми колись були головним, впали, ожили. Роль уже в іншого.
-            # Не рвемось назад — доганяємо стан і чекаємо (пастка ляпання).
-            pass
-```
+:::code proj-failover-with-heartbeat/cpp/robochyi-karkas-monitor-i-2.cpp
+:::code proj-failover-with-heartbeat/py/robochyi-karkas-monitor-i-2.py
 :::
 
 Ось і кістяк «серцебиття + перемикання» як єдиного механізму: монітор `health_*` виносить вирок, автомат `failover_*` його виконує, ведучи роль `STANDBY → PROMOTING → PRIMARY`. Уже в цьому кістяку одна межа зроблена правильно — підняття йде через `ROLE_PROMOTING`, де стоїть `acquire_lease_or_quorum`. Прибери цей крок, з'єднай `STANDBY` прямо в `PRIMARY` — і каркас стане наївним і небезпечним. Саме на цій межі й на межі повернення живуть дві пастки. Розкриймо їх.
@@ -295,49 +74,8 @@ class Failover:
 Оренда прекрасно ловить якраз завислий вузол. Поки головний висів у GC-паузі, він **не продовжував** оренду — вона згасла. Резерв узяв нову. Коли головний ожив, його оренда вже недійсна; чесний головний, перш ніж писати, перевіряє «а моя оренда ще жива?» — бачить, що ні, і **сам себе розжалує** в резерв. Ключ у слові *обмежений час*: право не можна «мати назавжди», його можна лише *тримати*, а тримати можна, лише постійно доводячи, що ти живий.
 
 :::tabs
-```cpp
-// Оренда: право на роль, дійсне до expiry_ms; треба продовжувати.
-typedef struct {
-    uint64_t token;        // монотонний токен цього періоду оренди
-    uint32_t expiry_ms;    // до якого моменту оренда дійсна
-} Lease;
-
-extern bool  lease_renew(Lease *l, uint32_t now_ms);   // продовжити в арбітра
-extern void  demote_self(void);                        // розжалувати себе в резерв
-
-// Головний зобов'язаний звати це часто. Якщо оренда згасла — НЕГАЙНО
-// припинити виконувати роль, ще ДО спроби писати.
-void primary_guard(Failover *f, Lease *l, uint32_t now_ms) {
-    if (!lease_renew(l, now_ms) || now_ms >= l->expiry_ms) {
-        // ми більше не маємо права бути головним — можливо, нас уже
-        // замінили, поки ми висіли. Складаємо роль самі.
-        stop_serving();
-        demote_self();
-        f->role = ROLE_STANDBY;
-    }
-}
-```
-```python
-# Оренда: право на роль, дійсне до expiry_ms; треба продовжувати.
-class Lease:
-    def __init__(self, token: int, expiry_ms: int):
-        self.token = token          # монотонний токен цього періоду оренди
-        self.expiry_ms = expiry_ms  # до якого моменту оренда дійсна
-
-
-# lease_renew(lease, now_ms) -> bool  — продовжити в арбітра
-# demote_self()                       — розжалувати себе в резерв
-
-# Головний зобов'язаний звати це часто. Якщо оренда згасла — НЕГАЙНО
-# припинити виконувати роль, ще ДО спроби писати.
-def primary_guard(f: Failover, lease: Lease, now_ms: int) -> None:
-    if not lease_renew(lease, now_ms) or now_ms >= lease.expiry_ms:
-        # ми більше не маємо права бути головним — можливо, нас уже
-        # замінили, поки ми висіли. Складаємо роль самі.
-        stop_serving()
-        demote_self()
-        f.role = Role.STANDBY
-```
+:::code proj-failover-with-heartbeat/cpp/zaslin-1-oznaka-orenda.cpp
+:::code proj-failover-with-heartbeat/py/zaslin-1-oznaka-orenda.py
 :::
 
 Але й оренда сама по собі має шпарину, і саме через неї нас веде класичний розбір Мартіна Клеппмана (Martin Kleppmann, «How to do distributed locking», 2016). Уяви: головний **перевірив** оренду — жива, — і рівно в цю мить його спинив GC на три секунди. Оренда за цей час згасла, резерв піднявся. GC відпустив — і головний, який щойно (за своїм відчуттям) бачив живу оренду, **іде писати**. Перевірка була, а між перевіркою й записом проліг провал у часі. Оренди **мало**; сховищу потрібен спосіб відкинути такий запізнілий запис у мить самого запису.
@@ -352,50 +90,8 @@ def primary_guard(f: Failover, lease: Lease, now_ms: int) -> None:
 *Огорожа не бореться з тим, що двоє вважають себе головними, — вона робить це нешкідливим. Сховище пропускає лише монотонно старший токен, тож відсталий писар фізично не може зіпсувати дані, хай як він упевнений у своєму праві.*
 
 :::tabs
-```cpp
-// Токен кладемо в КОЖЕН запис; сховище відкидає застарілі саме на записі.
-typedef struct {
-    uint64_t highest_seen;   // найбільший токен, який сховище вже приймало
-} FencedStore;
-
-void store_init(FencedStore *s) { s->highest_seen = 0; }
-
-// Повертає true, якщо запис прийнято. Це — ЄДИНЕ місце істини про те,
-// хто зараз має право писати. Тут гине розкол мозку.
-bool store_write(FencedStore *s, uint64_t token, const void *data, int len) {
-    if (token < s->highest_seen) {
-        // запис від відсталого «головного» — мовчки НЕ псуємо дані
-        fprintf(stderr, "fenced: токен %llu < %llu, запис відкинуто\n",
-                (unsigned long long)token, (unsigned long long)s->highest_seen);
-        return false;
-    }
-    s->highest_seen = token;         // монотонно піднімаємо планку
-    // ... власне запис data[0..len) ...
-    (void)data; (void)len;
-    return true;
-}
-```
-```python
-import sys
-
-
-# Токен кладемо в КОЖЕН запис; сховище відкидає застарілі саме на записі.
-class FencedStore:
-    def __init__(self):
-        self.highest_seen = 0    # найбільший токен, який сховище вже приймало
-
-    # Повертає True, якщо запис прийнято. Це — ЄДИНЕ місце істини про те,
-    # хто зараз має право писати. Тут гине розкол мозку.
-    def write(self, token: int, data: bytes) -> bool:
-        if token < self.highest_seen:
-            # запис від відсталого «головного» — мовчки НЕ псуємо дані
-            print(f"fenced: токен {token} < {self.highest_seen}, запис відкинуто",
-                  file=sys.stderr)
-            return False
-        self.highest_seen = token    # монотонно піднімаємо планку
-        # ... власне запис data ...
-        return True
-```
+:::code proj-failover-with-heartbeat/cpp/zaslin-2-token-ohorozhi.cpp
+:::code proj-failover-with-heartbeat/py/zaslin-2-token-ohorozhi.py
 :::
 
 Практичний вузол: токеном годиться будь-яке монотонне число, яке видає ваш координатор. У ZooKeeper це `zxid` або версія вузла-znode; у Google Chubby рівно та сама ідея названа «sequence number» (номер послідовності). Головне — **монотонність** і те, що **сховище справді перевіряє токен**. Якщо сховище токен ігнорує (а багато простих сховищ не вміють), огорожі нема, хоч би скільки токенів ви видавали, — і доводиться городити перевірку перед сховищем окремим воротарем.
@@ -427,68 +123,8 @@ class FencedStore:
 Перенесімо на наш вузол. Перше запізнення в нас уже є — той самий `MISS_LIMIT`: ми оголошуємо смерть не з першого пропуску, а після кількох підряд. Це гасить **поодинокі** моргання. Але справжній гістерезис — це коли **зворотний** перехід («визнати живим і повернути роль») вимагає **не одного** доброго удару, а стійкої серії. Тобто: щоб оголосити DOWN, треба `MISS_LIMIT` пропусків підряд; щоб після цього визнати вузол знову придатним, треба, скажімо, `HEAL_LIMIT` **добрих** ударів підряд. Дві різні риски, широка мертва зона між ними — і тремтіння на межі більше не проходить наскрізь.
 
 :::tabs
-```cpp
-#define HEAL_LIMIT   5u    // стільки ДОБРИХ ударів підряд, щоб визнати одужання
-                           // (свідомо БІЛЬШЕ за MISS_LIMIT: падати легко, вставати важко)
-
-typedef struct {
-    NodeHealth base;         // звичайний монітор із MISS_LIMIT
-    uint32_t   healthy_run;  // скільки добрих ударів підряд уже назбирано
-    bool       eligible;     // чи вузол ЗНОВУ придатний бути в ротації
-    uint32_t   eligible_since_ms;  // коли ЗНОВУ став придатним (для карантину)
-} Hysteretic;
-
-void hys_init(Hysteretic *h, uint32_t now_ms) {
-    health_init(&h->base, now_ms);
-    h->healthy_run = 0;
-    h->eligible = true;
-    h->eligible_since_ms = now_ms;
-}
-
-// Той самий тик, але з РІЗНИМИ порогами вниз і вгору.
-void hys_tick(Hysteretic *h, uint32_t now_ms, bool beat) {
-    if (beat) {
-        health_on_beat(&h->base, now_ms);
-        if (h->healthy_run < HEAL_LIMIT) h->healthy_run++;
-    }
-    health_tick(&h->base, now_ms);
-
-    if (h->base.health == NODE_DOWN) {
-        h->eligible = false;      // впав — і придатність знімаємо одразу
-        h->healthy_run = 0;       // рахунок одужання починаємо з нуля
-    } else if (!h->eligible && h->healthy_run >= HEAL_LIMIT) {
-        h->eligible = true;              // придатний ЛИШЕ після стійкої серії
-        h->eligible_since_ms = now_ms;   // звідси відлічуємо карантин повернення
-    }
-}
-```
-```python
-HEAL_LIMIT = 5    # стільки ДОБРИХ ударів підряд, щоб визнати одужання
-                  # (свідомо БІЛЬШЕ за MISS_LIMIT: падати легко, вставати важко)
-
-
-class Hysteretic:
-    def __init__(self, now_ms: int):
-        self.base = NodeHealth(now_ms)   # звичайний монітор із MISS_LIMIT
-        self.healthy_run = 0             # скільки добрих ударів підряд назбирано
-        self.eligible = True             # чи вузол ЗНОВУ придатний бути в ротації
-        self.eligible_since_ms = now_ms  # коли ЗНОВУ став придатним (для карантину)
-
-    # Той самий тик, але з РІЗНИМИ порогами вниз і вгору.
-    def tick(self, now_ms: int, beat: bool) -> None:
-        if beat:
-            self.base.on_beat(now_ms)
-            if self.healthy_run < HEAL_LIMIT:
-                self.healthy_run += 1
-        self.base.tick(now_ms)
-
-        if self.base.health is Health.DOWN:
-            self.eligible = False        # впав — і придатність знімаємо одразу
-            self.healthy_run = 0         # рахунок одужання починаємо з нуля
-        elif not self.eligible and self.healthy_run >= HEAL_LIMIT:
-            self.eligible = True             # придатний ЛИШЕ після стійкої серії
-            self.eligible_since_ms = now_ms  # звідси відлічуємо карантин
-```
+:::code proj-failover-with-heartbeat/cpp/liky-1-histerezys-dvi.cpp
+:::code proj-failover-with-heartbeat/py/liky-1-histerezys-dvi.py
 :::
 
 Асиметрія тут навмисна й важлива: `MISS_LIMIT` малий (падати треба **швидко** — інакше росте MTTR), а `HEAL_LIMIT` більший (вставати треба **обережно** — інакше повертаємо хиткого). «Легко звалити, важко реабілітувати» — це і є форма гістерезису, яка гасить ляпання, не жертвуючи швидкістю виявлення смерті.
@@ -498,36 +134,8 @@ class Hysteretic:
 Гістерезис прибирає дрож присуду, але лишається ще одне джерело метань — **надто швидке повернення** колишнього головного в роль. Навіть якщо вузол уже стабільно б'ється, кидати роль назад до нього **негайно** небезпечно: якраз коли резерв щойно все підхопив, ще один обмін ролями — це зайвий струс. Тому вводять **затримку повернення (англ. *failback delay* / *cooldown*)**: вузол, що оговтався, спершу відсиджує **карантин** — працює в резерві, стабільно б'ється, і лише **вистоявши** заданий час без зривів, дістає право знову стати головним. А часто роль йому взагалі **не повертають** автоматично: раз резерв уже добре тягне, хай тягне далі, а повернення робить людина в спокійний час. Це прийом «**sticky**»: не чіпай того, що працює, без потреби.
 
 :::tabs
-```cpp
-#define RETURN_DELAY_MS   30000u   // 30 с стабільної роботи в резерві до права вернутись
-#define STICKY_FAILBACK   true     // true = автоматично роль НЕ повертаємо взагалі
-
-// Викликається на вузлі в стані REJOINING (колишній головний, що ожив).
-// Повертає true, лише коли вузлові МОЖНА знову претендувати на роль.
-bool may_reclaim_role(Hysteretic *self, uint32_t now_ms) {
-    if (!self->eligible)                       // ще не визнаний придатним
-        return false;
-    if (STICKY_FAILBACK)                       // sticky: не забираємо роль назад самі
-        return false;
-    // відсидів у резерві стабільний карантин від миті, як став придатним?
-    return (now_ms - self->eligible_since_ms) >= RETURN_DELAY_MS;
-}
-```
-```python
-RETURN_DELAY_MS = 30000   # 30 с стабільної роботи в резерві до права вернутись
-STICKY_FAILBACK = True    # True = автоматично роль НЕ повертаємо взагалі
-
-
-# Викликається на вузлі в стані REJOINING (колишній головний, що ожив).
-# Повертає True, лише коли вузлові МОЖНА знову претендувати на роль.
-def may_reclaim_role(self: Hysteretic, now_ms: int) -> bool:
-    if not self.eligible:              # ще не визнаний придатним
-        return False
-    if STICKY_FAILBACK:                # sticky: не забираємо роль назад самі
-        return False
-    # відсидів у резерві стабільний карантин від миті, як став придатним?
-    return (now_ms - self.eligible_since_ms) >= RETURN_DELAY_MS
-```
+:::code proj-failover-with-heartbeat/cpp/liky-2-zatrymka.cpp
+:::code proj-failover-with-heartbeat/py/liky-2-zatrymka.py
 :::
 
 Разом гістерезис і затримка повернення закривають ляпання з двох боків: гістерезис не дає **присуду** тремтіти на межі, а затримка не дає **ролі** перестрибувати назад скоріше, ніж система встигла заспокоїтись. Обидва — на ребрах автомата: гістерезис на вході в `PROMOTING`, затримка на виході з `REJOINING`.

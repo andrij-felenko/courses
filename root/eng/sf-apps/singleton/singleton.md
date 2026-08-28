@@ -34,50 +34,8 @@
 Класичний сінглтон виглядає так. Клас ховає власний конструктор, тримає одне статичне поле під єдиний екземпляр і роздає його через статичний метод. Створюємо ліниво — тобто аж коли вперше попросять:
 
 :::tabs
-```ts
-class Config {
-  private static instance: Config | null = null;
-  private settings: Map<string, string>;
-
-  // приватний конструктор: ззовні new Config() не викличеш
-  private constructor() {
-    this.settings = loadFromDisk();   // дорога робота — читаємо файл
-  }
-
-  static getInstance(): Config {
-    if (Config.instance === null) {   // ще нема — створюємо
-      Config.instance = new Config();
-    }
-    return Config.instance;           // завжди той самий об'єкт
-  }
-
-  get(key: string): string | undefined {
-    return this.settings.get(key);
-  }
-}
-
-// будь-де в програмі:
-const dbHost = Config.getInstance().get("db.host");
-```
-```py
-class Config:
-    _instance = None                  # єдиний екземпляр
-
-    def __init__(self):
-        self._settings = load_from_disk()   # дорога робота — читаємо файл
-
-    @classmethod
-    def get_instance(cls):
-        if cls._instance is None:     # ще нема — створюємо
-            cls._instance = cls()
-        return cls._instance          # завжди той самий об'єкт
-
-    def get(self, key):
-        return self._settings.get(key)
-
-# будь-де в програмі:
-db_host = Config.get_instance().get("db.host")
-```
+:::code singleton/ts/naiprostisha-realizatsiia.ts
+:::code singleton/py/naiprostisha-realizatsiia.py
 :::
 
 Логіка тут прозора: перший виклик `getInstance()` бачить порожнє поле, будує об'єкт, кладе в поле й повертає; кожен наступний бачить, що поле вже зайняте, і повертає те саме. Приватний конструктор замикає єдину хвіртку створення — жоден сторонній код не зробить другий екземпляр повз цей метод.
@@ -132,36 +90,11 @@ public final class Registry {
 
 - **Python.** Модуль виконується один раз — рівно тоді, коли його вперше імпортують. Тому «сінглтон» тут — це просто об'єкт на рівні модуля; жодного класу-обгортки не треба:
 
-  ```py
-  # config.py — весь модуль виконається один раз при першому import
-  class _Config:
-      def __init__(self):
-          self._settings = load_from_disk()
-      def get(self, key):
-          return self._settings.get(key)
-
-  config = _Config()        # створюється при першому імпорті цього модуля
-
-  # деінде:  from config import config;  config.get("db.host")
-  ```
+  :::code singleton/py/config.py
 
 - **C++.** Локальна статична змінна функції ініціалізується під час першого проходу через її оголошення, і від стандарту C++11 — **потокобезпечно**: якщо два потоки заходять одночасно, другий чекає, поки перший добудує. Компілятор сам ставить прихований замок. Цей ідіом називають сінглтоном Меєрса — на честь Скотта Меєрса, який його розкрив:
 
-  ```cpp
-  class Logger {
-  public:
-      static Logger& instance() {
-          static Logger inst;   // C++11: створиться рівно раз, потокобезпечно
-          return inst;
-      }
-      Logger(const Logger&) = delete;             // не копіювати
-      Logger& operator=(const Logger&) = delete;
-  private:
-      Logger() = default;
-  };
-
-  // будь-де:  Logger::instance().log("старт");
-  ```
+  :::code singleton/cpp/main.cpp
 
 Ці способи об'єднує спільна думка: **не винаходь синхронізацію — стань на плечі тієї, що вже вбудована й перевірена**. Голий `if`-і-запис із першого прикладу пиши хіба в однопотоковій програмі, де гонитві нізвідки взятися; щойно є потоки — бери ідіом платформи. Робочі, повні варіанти під різні мови й типові граблі кожного зібрані в [проєкті потокобезпечного сінглтона](root:sf-apps/singleton/proj-thread-safe-singleton.md).
 
@@ -188,37 +121,8 @@ public final class Registry {
 Майже завжди тобі потрібне «**один**», а не «**звідусіль**». То зроби, щоб екземпляр був один, але **передавай** його явно тим, кому він потрібен, — через конструктор. Це і є [впровадження залежностей](root:sf-apps/dependency-injection): об'єкт отримує залежність ззовні, а не добуває сам глобально.
 
 :::tabs
-```ts
-// НЕ так: сервіс сам лізе по глобальний конфіг
-class OrderService {
-  placeOrder(order: Order) {
-    const cfg = Config.getInstance();          // прихована залежність
-    // ...
-  }
-}
-
-// А так: залежність приходить явно через конструктор
-class OrderService {
-  constructor(private cfg: Config) {}          // видно в сигнатурі
-  placeOrder(order: Order) {
-    // користуємось this.cfg — його дав той, хто складав програму
-  }
-}
-```
-```py
-# НЕ так: сервіс сам лізе по глобальний конфіг
-class OrderService:
-    def place_order(self, order):
-        cfg = Config.get_instance()            # прихована залежність
-        ...
-
-# А так: залежність приходить явно через конструктор
-class OrderService:
-    def __init__(self, cfg: Config):           # видно в сигнатурі
-        self._cfg = cfg
-    def place_order(self, order):
-        ...                                    # користуємось self._cfg
-```
+:::code singleton/ts/shcho-robyty-natomist.ts
+:::code singleton/py/shcho-robyty-natomist.py
 :::
 
 Різниця здається дрібною, та вона переставляє все на місця. Тепер залежність `OrderService` від конфіга **написана в конструкторі** — її видно з першого погляду. Хто саме дасть той конфіг і чи він один на всю програму — вирішується в **одному місці**, там, де застосунок збирають докупи (цей етап часто називають композиційним коренем). Хочеш один екземпляр — створюєш його там раз і роздаєш усім; у тесті замість нього спокійно передаєш фейковий. Ти забрав «звідусіль» і лишив «один» — саме те, що було потрібно. Коли складання стає великим, це роздавання беруть на себе спеціальні інструменти — [контейнери впровадження залежностей](root:sf-apps/dependency-injection), — але суть та сама: єдиність об'єкта — це рішення того, хто збирає програму, а не властивість, яку клас силою нав'язує сам собі.

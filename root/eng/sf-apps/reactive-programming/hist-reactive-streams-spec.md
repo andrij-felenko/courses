@@ -105,24 +105,7 @@ Processor<T,R>          і споживач, і джерело водночас 
 
 Провів це **Даг Ліа** (англ. *Doug Lea*) — інформатик, багаторічний керівник JSR 166 (це та робоча група, що дала Java весь її пакет засобів багатопотоковості — `java.util.concurrent`, той самий, звідки `ConcurrentHashMap`, пули потоків і `CompletableFuture`). Людина, чий авторитет у питаннях паралельності в Java важко переоцінити. Ліа запропонував **JEP 266** (JDK Enhancement Proposal — пропозиція про вдосконалення JDK) — внести інтерфейси Reactive Streams просто в стандартну бібліотеку. Після успіху версії 1.0.0 і зростання застосування пропозицію прийняли, і в **JDK 9** (2017) з'явився клас `java.util.concurrent.Flow` — контейнер із чотирма вкладеними інтерфейсами:
 
-```java
-public final class Flow {
-    public interface Publisher<T> {
-        void subscribe(Subscriber<? super T> subscriber);
-    }
-    public interface Subscriber<T> {
-        void onSubscribe(Subscription subscription);
-        void onNext(T item);
-        void onError(Throwable throwable);
-        void onComplete();
-    }
-    public interface Subscription {
-        void request(long n);   // той самий зворотний попит
-        void cancel();
-    }
-    public interface Processor<T,R> extends Subscriber<T>, Publisher<R> {}
-}
-```
+:::code hist-reactive-streams-spec/java/main.java
 
 Придивись: це **буква в букву** ті самі чотири ролі, що погодили за столом 2013–2015 років. Той самий `request(n)` (у Java-варіанті `long n`, щоб влізали великі замовлення). Ліа не вигадував новий дизайн — він **канонізував** уже погоджений галуззю контракт, надавши йому найвищий можливий статус: місце у стандартній бібліотеці, яке бачить кожен Java-розробник без жодної залежності.
 

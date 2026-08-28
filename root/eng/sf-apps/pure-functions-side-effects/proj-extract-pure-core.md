@@ -9,121 +9,8 @@
 Нехай ми пишемо бекенд крамниці. Є замовлення — кошик товарів, — і треба порахувати підсумок: сума позицій, знижка за обсяг, знижка постійного клієнта, податок, доставка. Логіка не тривіальна: знижки не додаються, а множаться каскадом, податок береться після знижок, доставка безкоштовна від певної суми. Ось як воно виглядає в коді, який ми успадкували:
 
 :::tabs
-```cpp
-// ── ДО: одна функція робить усе ──────────────────────────────────
-#include <string>
-#include <vector>
-#include <iostream>
-
-struct Item { double price; int qty; };
-
-struct Order {
-    int              id;
-    std::string      customerTier;   // "regular" | "silver" | "gold"
-    std::vector<Item> items;
-    double           computedTotal;  // ← сюди функція запише результат
-};
-
-// глобальний стан — прихований вхід, про який сигнатура мовчить
-double g_taxRate      = 0.20;
-double g_freeShipFrom = 500.0;
-double g_shipCost     = 49.0;
-
-Database db;   // глобальне з'єднання з базою
-Logger   log;  // глобальний лог
-
-double computeOrderTotal(Order& order) {          // Order& — не const!
-    double subtotal = 0.0;
-    for (Item& it : order.items)
-        subtotal += it.price * it.qty;
-
-    // знижка за обсяг
-    double volumeDisc = 0.0;
-    if      (subtotal > 1000.0) volumeDisc = 0.10;
-    else if (subtotal >  300.0) volumeDisc = 0.05;
-
-    // знижка за рівень клієнта
-    double tierDisc = 0.0;
-    if      (order.customerTier == "gold")   tierDisc = 0.08;
-    else if (order.customerTier == "silver") tierDisc = 0.04;
-
-    // каскад: спершу обсяг, тоді рівень (множаться, не додаються)
-    double afterDisc = subtotal * (1.0 - volumeDisc) * (1.0 - tierDisc);
-
-    // податок із глобального курсу
-    double taxed = afterDisc * (1.0 + g_taxRate);
-
-    // доставка
-    double shipping = (afterDisc >= g_freeShipFrom) ? 0.0 : g_shipCost;
-    double total    = taxed + shipping;
-
-    // ── а тепер ефекти, розсипані по функції ──
-    order.computedTotal = total;                       // мутація входу
-    db.saveTotal(order.id, total);                     // запис у базу
-    log.info("order " + std::to_string(order.id) +
-             " total=" + std::to_string(total));       // вивід у лог
-    std::cout << "DEBUG total=" << total << "\n";       // ще й у консоль
-
-    return total;
-}
-```
-```python
-# ── ДО: одна функція робить усе ──────────────────────────────────
-from dataclasses import dataclass, field
-
-@dataclass
-class Item:
-    price: float
-    qty: int
-
-@dataclass
-class Order:
-    id: int
-    customer_tier: str                       # "regular" | "silver" | "gold"
-    items: list[Item] = field(default_factory=list)
-    computed_total: float = 0.0              # ← сюди функція запише результат
-
-# глобальний стан — прихований вхід, про який сигнатура мовчить
-g_tax_rate       = 0.20
-g_free_ship_from = 500.0
-g_ship_cost      = 49.0
-
-db  = Database()   # глобальне з'єднання з базою
-log = Logger()     # глобальний лог
-
-def compute_order_total(order: Order) -> float:   # order міняється на місці!
-    subtotal = 0.0
-    for it in order.items:
-        subtotal += it.price * it.qty
-
-    # знижка за обсяг
-    volume_disc = 0.0
-    if   subtotal > 1000.0: volume_disc = 0.10
-    elif subtotal >  300.0: volume_disc = 0.05
-
-    # знижка за рівень клієнта
-    tier_disc = 0.0
-    if   order.customer_tier == "gold":   tier_disc = 0.08
-    elif order.customer_tier == "silver": tier_disc = 0.04
-
-    # каскад: спершу обсяг, тоді рівень (множаться, не додаються)
-    after_disc = subtotal * (1.0 - volume_disc) * (1.0 - tier_disc)
-
-    # податок із глобального курсу
-    taxed = after_disc * (1.0 + g_tax_rate)
-
-    # доставка
-    shipping = 0.0 if after_disc >= g_free_ship_from else g_ship_cost
-    total    = taxed + shipping
-
-    # ── а тепер ефекти, розсипані по функції ──
-    order.computed_total = total                       # мутація входу
-    db.save_total(order.id, total)                     # запис у базу
-    log.info(f"order {order.id} total={total}")        # вивід у лог
-    print(f"DEBUG total={total}")                      # ще й у консоль
-
-    return total
-```
+:::code proj-extract-pure-core/cpp/zadacha-funktsiia-shcho.cpp
+:::code proj-extract-pure-core/py/zadacha-funktsiia-shcho.py
 :::
 
 Придивись, скільки різних відповідальностей злиплося в одному тілі. Функція **рахує** (уся арифметика знижок і податку), **читає світ** (три глобальні змінні), **пише світ** (базу, лог, консоль) і **псує вхід** (поле `computedTotal` переданого `order`). Її сигнатура — `double computeOrderTotal(Order&)` — обіцяє «дай замовлення, отримай число», але це напівправда: насправді відповідь залежить ще й від трьох глобальних змінних, а після виклику змінюється база, лог і сам `order`.
@@ -139,42 +26,8 @@ def compute_order_total(order: Order) -> float:   # order міняється н�
 Щоб ядро було по-справжньому чистим, а не «майже», варто ще й прибрати приховані входи в окрему структуру-знімок. Три глобальні змінні податку й доставки — це насправді **політика ціноутворення**; зберемо їх у `Pricing`, і тоді ядро прийматиме її явно. Так само результат не мусить бути голим `double`: якщо ядро поверне структуру з розкладкою (проміжна сума, знижка, податок, доставка), оболонці буде що записати, а тестам — що звірити.
 
 :::tabs
-```cpp
-// ── знімок політики: колишні глобальні змінні, тепер явний вхід ──
-struct Pricing {
-    double taxRate      = 0.20;
-    double freeShipFrom = 500.0;
-    double shipCost     = 49.0;
-};
-
-// ── результат: розкладка, а не голе число ──
-struct Totals {
-    double subtotal;
-    double discount;    // сума, на яку знижено
-    double tax;
-    double shipping;
-    double total;
-};
-```
-```python
-# ── знімок політики: колишні глобальні змінні, тепер явний вхід ──
-from dataclasses import dataclass
-
-@dataclass
-class Pricing:
-    tax_rate:       float = 0.20
-    free_ship_from: float = 500.0
-    ship_cost:      float = 49.0
-
-# ── результат: розкладка, а не голе число ──
-@dataclass
-class Totals:
-    subtotal: float
-    discount: float     # сума, на яку знижено
-    tax:      float
-    shipping: float
-    total:    float
-```
+:::code proj-extract-pure-core/cpp/ideia-rozrizaty-po-shvu.cpp
+:::code proj-extract-pure-core/py/ideia-rozrizaty-po-shvu.py
 :::
 
 ## Робочий C++: чисте ядро й тонка оболонка
@@ -182,96 +35,15 @@ class Totals:
 Ось те саме, розрізане по шву. Спершу — ядро: жодного `db`, `log`, `cout`, жодної глобальної змінної, вхід `const`, усе повертається значенням.
 
 :::tabs
-```cpp
-// ── ПІСЛЯ, частина 1: ЧИСТЕ ЯДРО ─────────────────────────────────
-// const-посилання на вхід + Pricing явним аргументом + повернення значенням.
-// Ніяких db/log/cout/глобалей. Той самий вхід → той самий вихід, завжди.
-Totals computeTotals(const Order& order, const Pricing& p) {
-    double subtotal = 0.0;
-    for (const Item& it : order.items)         // const Item& — не зіпсуємо вхід
-        subtotal += it.price * it.qty;
-
-    double volumeDisc = 0.0;
-    if      (subtotal > 1000.0) volumeDisc = 0.10;
-    else if (subtotal >  300.0) volumeDisc = 0.05;
-
-    double tierDisc = 0.0;
-    if      (order.customerTier == "gold")   tierDisc = 0.08;
-    else if (order.customerTier == "silver") tierDisc = 0.04;
-
-    double afterDisc = subtotal * (1.0 - volumeDisc) * (1.0 - tierDisc);
-    double taxed     = afterDisc * (1.0 + p.taxRate);
-    double shipping  = (afterDisc >= p.freeShipFrom) ? 0.0 : p.shipCost;
-
-    return Totals{
-        subtotal,
-        subtotal - afterDisc,   // скільки всього знижено
-        taxed - afterDisc,      // сам податок
-        shipping,
-        taxed + shipping        // підсумок
-    };
-}
-```
-```python
-# ── ПІСЛЯ, частина 1: ЧИСТЕ ЯДРО ─────────────────────────────────
-# вхід не мутуємо + Pricing явним аргументом + повернення значенням.
-# Ніяких db/log/print/глобалей. Той самий вхід → той самий вихід, завжди.
-def compute_totals(order: Order, p: Pricing) -> Totals:
-    subtotal = 0.0
-    for it in order.items:                     # читаємо вхід, не псуємо його
-        subtotal += it.price * it.qty
-
-    volume_disc = 0.0
-    if   subtotal > 1000.0: volume_disc = 0.10
-    elif subtotal >  300.0: volume_disc = 0.05
-
-    tier_disc = 0.0
-    if   order.customer_tier == "gold":   tier_disc = 0.08
-    elif order.customer_tier == "silver": tier_disc = 0.04
-
-    after_disc = subtotal * (1.0 - volume_disc) * (1.0 - tier_disc)
-    taxed      = after_disc * (1.0 + p.tax_rate)
-    shipping   = 0.0 if after_disc >= p.free_ship_from else p.ship_cost
-
-    return Totals(
-        subtotal,
-        subtotal - after_disc,   # скільки всього знижено
-        taxed - after_disc,      # сам податок
-        shipping,
-        taxed + shipping,        # підсумок
-    )
-```
+:::code proj-extract-pure-core/cpp/robochyi-c-chyste-iadro-i.cpp
+:::code proj-extract-pure-core/py/robochyi-c-chyste-iadro-i.py
 :::
 
 Тепер оболонка. Вона робить рівно три речі: приносить дані, кличе ядро, виносить ефекти. Жодного обчислення в ній не лишилося — лише транспорт.
 
 :::tabs
-```cpp
-// ── ПІСЛЯ, частина 2: ТОНКА ІМПЕРАТИВНА ОБОЛОНКА ─────────────────
-// Приносить дані → кличе чисте ядро → виносить ефекти. Рішень тут нема.
-double handleOrder(int orderId, Database& db, Logger& log, const Pricing& p) {
-    Order order = db.loadOrder(orderId);          // ефект: читання ззовні
-
-    Totals t = computeTotals(order, p);           // ← усе рішення тут, у чистому
-
-    db.saveTotal(orderId, t.total);               // ефект: запис назовні
-    log.info("order " + std::to_string(orderId) +
-             " total=" + std::to_string(t.total));// ефект: вивід
-    return t.total;
-}
-```
-```python
-# ── ПІСЛЯ, частина 2: ТОНКА ІМПЕРАТИВНА ОБОЛОНКА ─────────────────
-# Приносить дані → кличе чисте ядро → виносить ефекти. Рішень тут нема.
-def handle_order(order_id: int, db: Database, log: Logger, p: Pricing) -> float:
-    order = db.load_order(order_id)               # ефект: читання ззовні
-
-    t = compute_totals(order, p)                  # ← усе рішення тут, у чистому
-
-    db.save_total(order_id, t.total)              # ефект: запис назовні
-    log.info(f"order {order_id} total={t.total}") # ефект: вивід
-    return t.total
-```
+:::code proj-extract-pure-core/cpp/robochyi-c-chyste-iadro-i-2.cpp
+:::code proj-extract-pure-core/py/robochyi-c-chyste-iadro-i-2.py
 :::
 
 Зверни увагу на кілька речей, що сталися ніби між іншим. По-перше, `db`, `log`, `Pricing` тепер **параметри**, а не глобальні змінні — оболонка бере залежності явно, тож у тесті їх легко підмінити, а в проді зібрати з реальних. По-друге, `order` більше **не мутується**: ядро прийняло його `const`, а поле `computedTotal` ми взагалі прибрали як зайве — розкладку тримає `Totals`, і хто хоче зберегти щось у базу, бере це з повернутого значення, а не з попсованого об'єкта. По-третє, налагоджувальний `std::cout` зник — йому не місце в проді (нижче ще повернемось, чому саме лог, а не `cout`).
@@ -283,51 +55,8 @@ def handle_order(order_id: int, db: Database, log: Logger, p: Pricing) -> float:
 Ось де окупається вся робота. Пригадай, що для тесту функції «до» треба було виставити три глобальні змінні, підмінити базу, підмінити лог і приглушити консоль. Тепер тест ядра виглядає так:
 
 :::tabs
-```cpp
-// ── Тест ЧИСТОГО ядра: увесь тест — вхід і очікуваний вихід ──────
-void test_totals() {
-    Pricing p;   // дефолтна політика: tax 0.20, freeShip 500, ship 49
-
-    // gold, кошик 1200 → обсяг >1000 дає 10%, gold дає 8%
-    // 1200 · 0.90 · 0.92 = 993.6 ; податок ×1.20 = 1192.32
-    // 993.6 ≥ 500 → доставка безкоштовна, тож total = 1192.32
-    Order gold{1, "gold", {{600.0, 2}}};
-    Totals g = computeTotals(gold, p);
-    assert(std::abs(g.total - 1192.32) < 1e-6);
-
-    // regular, кошик 200 → жодної знижки, доставка платна
-    // 200 ×1.20 = 240 + 49
-    Order small{2, "regular", {{200.0, 1}}};
-    assert(std::abs(computeTotals(small, p).total - 289.0) < 1e-6);
-
-    // порожній кошик → усе нулі, доставка платна
-    Order empty{3, "regular", {}};
-    assert(std::abs(computeTotals(empty, p).total - 49.0) < 1e-6);
-}
-```
-```python
-# ── Тест ЧИСТОГО ядра: увесь тест — вхід і очікуваний вихід ──────
-from math import isclose
-
-def test_totals():
-    p = Pricing()   # дефолтна політика: tax 0.20, freeShip 500, ship 49
-
-    # gold, кошик 1200 → обсяг >1000 дає 10%, gold дає 8%
-    # 1200 · 0.90 · 0.92 = 993.6 ; податок ×1.20 = 1192.32
-    # 993.6 ≥ 500 → доставка безкоштовна, тож total = 1192.32
-    gold = Order(1, "gold", [Item(600.0, 2)])
-    g = compute_totals(gold, p)
-    assert isclose(g.total, 1192.32, abs_tol=1e-6)
-
-    # regular, кошик 200 → жодної знижки, доставка платна
-    # 200 ×1.20 = 240 + 49
-    small = Order(2, "regular", [Item(200.0, 1)])
-    assert isclose(compute_totals(small, p).total, 289.0, abs_tol=1e-6)
-
-    # порожній кошик → усе нулі, доставка платна
-    empty = Order(3, "regular", [])
-    assert isclose(compute_totals(empty, p).total, 49.0, abs_tol=1e-6)
-```
+:::code proj-extract-pure-core/cpp/test-styskaietsia-do.cpp
+:::code proj-extract-pure-core/py/test-styskaietsia-do.py
 :::
 
 Кожен випадок — три рядки: збери вхід, поклич ядро, звір число. **Немає** налаштування глобального стану, **немає** підміни бази чи лога (моків), **немає** прибирання після себе, **немає** перехоплення `cout`. Тест читається як таблиця «вхід → очікуваний вихід», бо ядро саме такою таблицею і є — прозорість за посиланням у чистому вигляді.
@@ -355,55 +84,8 @@ def test_totals():
 Механіка — кеш «аргументи → результат». Ключем служить сам вхід (тут — усе, від чого залежить ядро: позиції, рівень клієнта, політика); значенням — уже пораховані `Totals`.
 
 :::tabs
-```cpp
-// ── Мемоізована обгортка над ЧИСТИМ ядром ────────────────────────
-#include <unordered_map>
-#include <sstream>
-
-// ключ кеша = усе, від чого залежить результат (весь вхід ядра).
-static std::string cacheKey(const Order& o, const Pricing& p) {
-    std::ostringstream k;
-    k << o.customerTier << '|'
-      << p.taxRate << '|' << p.freeShipFrom << '|' << p.shipCost;
-    for (const Item& it : o.items) k << '|' << it.price << 'x' << it.qty;
-    return k.str();
-}
-
-Totals computeTotalsMemo(const Order& order, const Pricing& p) {
-    static std::unordered_map<std::string, Totals> cache;
-
-    std::string key = cacheKey(order, p);
-    auto found = cache.find(key);
-    if (found != cache.end())
-        return found->second;                 // ← влучили: віддаємо збережене
-
-    Totals t = computeTotals(order, p);        // промах: рахуємо ядром
-    cache.emplace(key, t);                     // і запам'ятовуємо
-    return t;
-}
-```
-```python
-# ── Мемоізована обгортка над ЧИСТИМ ядром ────────────────────────
-
-# ключ кеша = усе, від чого залежить результат (весь вхід ядра).
-def cache_key(o: Order, p: Pricing) -> str:
-    parts = [o.customer_tier,
-             f"{p.tax_rate}", f"{p.free_ship_from}", f"{p.ship_cost}"]
-    parts += [f"{it.price}x{it.qty}" for it in o.items]
-    return "|".join(parts)
-
-_cache: dict[str, Totals] = {}   # стан між викликами (роль C++ static)
-
-def compute_totals_memo(order: Order, p: Pricing) -> Totals:
-    key = cache_key(order, p)
-    found = _cache.get(key)
-    if found is not None:
-        return found                          # ← влучили: віддаємо збережене
-
-    t = compute_totals(order, p)              # промах: рахуємо ядром
-    _cache[key] = t                           # і запам'ятовуємо
-    return t
-```
+:::code proj-extract-pure-core/cpp/memoizatsiia-bezpechna.cpp
+:::code proj-extract-pure-core/py/memoizatsiia-bezpechna.py
 :::
 
 І тут — головна думка всієї цієї вставки, заради якої вона й написана. **Чому цей кеш коректний?** Бо ядро чисте. Прозорість за посиланням каже: виклик `computeTotals(order, p)` можна без наслідків замінити його значенням. Кеш робить рівно це — замінює повторний виклик збереженим значенням першого. Оскільки той самий вхід **гарантовано** дає той самий вихід (перша обіцянка чистоти) і виклик **нічого не міняє** у світі (друга обіцянка), пропущений другий виклик нічого не ламає: ані відповідь не з'їхала, ані якийсь ефект не загубився, бо ефектів і не було.
@@ -427,18 +109,7 @@ def compute_totals_memo(order: Order, p: Pricing) -> Totals:
 
 Найпідступніша пастка. Ти зробив вхід `const`-посиланням — і думаєш, що застрахувався. Але `const` у C++ поверхневий: він забороняє міняти сам об'єкт, а не те, на що той об'єкт вказує чи посилається.
 
-```cpp
-struct Cart {
-    std::vector<Item>* items;   // ПОКАЖЧИК: const його не захистить
-    Discount*          policy;
-};
-
-double computeBad(const Cart& cart) {   // cart const, але...
-    cart.items->push_back({0,0});       // ← змінюємо чужі дані! компілюється!
-    cart.policy->timesUsed++;           // ← і ще раз! теж компілюється
-    // ...
-}
-```
+:::code proj-extract-pure-core/cpp/prykhovana-mutatsiia.cpp
 
 `const Cart&` обіцяє не чіпати `cart`, і формально ми його й не чіпаємо — ми чіпаємо `*cart.items`, чужий вектор, на який `cart` лише вказує. Компілятор пропускає це мовчки, а функція перестає бути чистою: після виклику чийсь вектор виріс. **Правило-запобіжник:** чисте ядро приймає вхід **за значенням або за `const&` на об'єкт, що сам володіє даними** (як `const Order&` вище, де `items` — це `std::vector` усередині, а не покажчик назовні). Покажчики й посилання на змінні дані всередині «чистого» входу — червоний прапорець: крізь них ефект просочується повз `const`.
 

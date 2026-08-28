@@ -33,19 +33,7 @@ class Container:
         self._bindings[promise] = impl
         return self           # щоб зчіплювати виклики: c.bind(...).bind(...)
 ```
-```ts
-type Ctor<T> = new (...args: any[]) => T;   // «конструктор, що дає T»
-
-class Container {
-  // обіцянка(токен) → { реалізація, її залежності }.
-  private bindings = new Map<Ctor, { impl: Ctor; deps: Ctor[] }>();
-
-  bind<T>(promise: Ctor<T>, impl: Ctor<T>, deps: Ctor[] = []): this {
-    this.bindings.set(promise, { impl, deps });
-    return this;              // щоб зчіплювати: c.bind(...).bind(...)
-  }
-}
-```
+:::code proj-hand-rolled-container/ts/naitonshyi-karkas-bind-i.ts
 :::
 
 Уже тут видно розходження, обіцяне вище. Python-версія кладе саму пару «обіцянка → реалізація» й на цьому все: список залежностей вона добуде пізніше, з класу. TypeScript-версія змушена приймати `deps` **третім аргументом** — бо інакше під час виконання їй нема звідки взяти, чого просить конструктор. Це не забаганка автора, а прямий наслідок того, що [типи в TypeScript стираються до запуску](root:sf-apps/type-driven-design): весь апарат типів працює, поки код компілюється, а в готовому JavaScript від нього не лишається й сліду. Промислові контейнери в цьому світі (Angular, InversifySlashtsyringe) обходять стирання декораторами й прапорцем `emitDecoratorMetadata`, який змушує компілятор **записати** типи параметрів у побічну таблицю (`design:paramtypes`), звідки їх потім дістає бібліотека `reflect-metadata`. Ми ж, щоб не тягти залежностей, чесно оголошуємо `deps` руками — і це навіть корисно, бо тримає механіку на видноті.
@@ -57,54 +45,8 @@ class Container {
 Тепер найцікавіше — `resolve`. Він робить рівно ті чотири кроки з алгоритму вище. Наведу спершу **найпростішу** версію — без кешу, без захисту від циклів, — щоб гола механіка обходу проступила без домішок:
 
 :::tabs
-```python
-import inspect
-
-class Container:
-    def __init__(self):
-        self._bindings = {}
-
-    def bind(self, promise, impl):
-        self._bindings[promise] = impl
-        return self
-
-    def resolve(self, promise):
-        # 1. яку реалізацію будувати за цією обіцянкою
-        impl = self._bindings.get(promise, promise)   # нема прив'язки — будуємо сам тип
-
-        # 2. що просить конструктор impl — читаємо рефлексією
-        sig = inspect.signature(impl.__init__)
-        params = [p for name, p in sig.parameters.items() if name != "self"]
-
-        # 3. для КОЖНОГО параметра — рекурсивно зібрати його за типом-анотацією
-        args = [self.resolve(p.annotation) for p in params]
-
-        # 4. усі залежності в руках — покликати конструктор
-        return impl(*args)
-```
-```ts
-type Ctor<T = any> = new (...args: any[]) => T;
-
-class Container {
-  private bindings = new Map<Ctor, { impl: Ctor; deps: Ctor[] }>();
-
-  bind<T>(promise: Ctor<T>, impl: Ctor<T>, deps: Ctor[] = []): this {
-    this.bindings.set(promise, { impl, deps });
-    return this;
-  }
-
-  resolve<T>(promise: Ctor<T>): T {
-    // 1. яку реалізацію будувати (нема прив'язки — сам тип, без залежностей)
-    const rec = this.bindings.get(promise) ?? { impl: promise, deps: [] };
-
-    // 2+3. deps ми оголосили заздалегідь — рекурсивно збираємо кожну
-    const args = rec.deps.map((dep) => this.resolve(dep));
-
-    // 4. усі залежності в руках — покликати конструктор
-    return new rec.impl(...args) as T;
-  }
-}
-```
+:::code proj-hand-rolled-container/py/sertse-resolve-shcho.py
+:::code proj-hand-rolled-container/ts/sertse-resolve-shcho.ts
 :::
 
 Придивися, де саме тут рекурсія. Рядок `args = [self.resolve(p.annotation) for p in params]` (і його TS-двійник `rec.deps.map(dep => this.resolve(dep))`) — це і є **весь обхід графа**. `resolve(PaymentService)` бачить, що конструктор просить `PaymentGateway` і `Logger`, і кличе `resolve` на кожному; `resolve(PaymentGateway)` бачить `HttpClient` і кличе `resolve` на ньому; `resolve(HttpClient)` бачить `Config` і `Logger` — і так спускається, аж поки не впреться в `Config`, у якого конструктор нічого не просить. Тоді список `params` порожній, `args` порожній, і `Config()` створюється **першим**. Рекурсія починає розкручуватися назад: маючи `Config` і `Logger`, збирається `HttpClient`; маючи його — `StripeGateway`; і врешті — `PaymentService`. Той самий обхід від листя до кореня, що й уручну, лише виписаний як три рядки рекурсії.
@@ -132,34 +74,8 @@ resolve(PaymentService)
 Ліки прості до сміховинного — **кеш**. Ще один словник: «цей тип уже збирали → ось готовий об'єкт, бери його, не роби нового». Перед тим, як щось будувати, `resolve` зазирає в кеш; після того, як зібрав, — кладе туди результат.
 
 :::tabs
-```python
-def resolve(self, promise):
-    # 0. чи вже є готовий? одинак — віддати збережене, не будувати вдруге
-    if promise in self._cache:
-        return self._cache[promise]
-
-    impl = self._bindings.get(promise, promise)
-    sig = inspect.signature(impl.__init__)
-    params = [p for name, p in sig.parameters.items() if name != "self"]
-    args = [self.resolve(p.annotation) for p in params]
-
-    obj = impl(*args)
-    self._cache[promise] = obj      # запам'ятати — наступний раз повернемо цей самий
-    return obj
-```
-```ts
-resolve<T>(promise: Ctor<T>): T {
-  // 0. чи вже є готовий? одинак — віддати збережене, не будувати вдруге
-  if (this.cache.has(promise)) return this.cache.get(promise) as T;
-
-  const rec = this.bindings.get(promise) ?? { impl: promise, deps: [] };
-  const args = rec.deps.map((dep) => this.resolve(dep));
-
-  const obj = new rec.impl(...args) as T;
-  this.cache.set(promise, obj);     // запам'ятати — наступний раз повернемо цей самий
-  return obj;
-}
-```
+:::code proj-hand-rolled-container/py/problema-persha-odne.py
+:::code proj-hand-rolled-container/ts/problema-persha-odne.ts
 :::
 
 Тепер `Logger` збереться раз: перший `resolve(Logger)` покладе його в кеш, другий — забере звідти. Кеш дає ще й приємний побічний ефект — обхід стає дешевшим: спільне піддерево (те, від чого залежить багато вузлів) обходиться один раз, а не стільки разів, скільки на нього стрілок. Оцей крихітний словник `_cache` — уся реалізація режиму «одинак». Промислові контейнери навколо цієї ж думки надбудовують інші режими: **свій на область** (один на HTTP-запит чи сесію — тоді кеш живе не в самому контейнері, а в дочірньому, «областевому», який народжується на запит і вмирає з ним) і **новий щоразу** (взагалі не кешувати — щоразу свіжий, для дрібних об'єктів без стану). Але серце в усіх трьох одне: кешувати чи ні, і якщо кешувати — то **в якому** кеші.
@@ -181,80 +97,8 @@ resolve<T>(promise: Ctor<T>): T {
 Зберемо все докупи — кеш і виявлення циклу — в остаточний варіант. Це вже цілком робочий іграшковий контейнер; додати до нього нема чого, крім зручностей.
 
 :::tabs
-```python
-import inspect
-
-class Container:
-    def __init__(self):
-        self._bindings = {}      # обіцянка → реалізація
-        self._cache = {}         # обіцянка → готовий одинак
-        self._building = []       # стек тих, хто ЗАРАЗ будується (для лову циклів)
-
-    def bind(self, promise, impl):
-        self._bindings[promise] = impl
-        return self
-
-    def resolve(self, promise):
-        # кеш: уже зібраний одинак — віддати, не будувати вдруге
-        if promise in self._cache:
-            return self._cache[promise]
-
-        # цикл: цей тип уже будується вище по стеку — ми повернулися по кільцю
-        if promise in self._building:
-            chain = " → ".join(t.__name__ for t in self._building) + f" → {promise.__name__}"
-            raise RuntimeError(f"Циклічна залежність: {chain}")
-
-        self._building.append(promise)       # поклали на стек: почали будувати
-        try:
-            impl = self._bindings.get(promise, promise)
-            sig = inspect.signature(impl.__init__)
-            params = [p for name, p in sig.parameters.items() if name != "self"]
-            args = [self.resolve(p.annotation) for p in params]   # ← рекурсія: обхід графа
-            obj = impl(*args)
-        finally:
-            self._building.pop()             # зняли зі стека хоч би що (навіть на помилці)
-
-        self._cache[promise] = obj           # запам'ятали одинак
-        return obj
-```
-```ts
-type Ctor<T = any> = new (...args: any[]) => T;
-
-class Container {
-  private bindings = new Map<Ctor, { impl: Ctor; deps: Ctor[] }>();
-  private cache = new Map<Ctor, unknown>();
-  private building: Ctor[] = [];             // стек тих, хто ЗАРАЗ будується
-
-  bind<T>(promise: Ctor<T>, impl: Ctor<T>, deps: Ctor[] = []): this {
-    this.bindings.set(promise, { impl, deps });
-    return this;
-  }
-
-  resolve<T>(promise: Ctor<T>): T {
-    // кеш: уже зібраний одинак — віддати
-    if (this.cache.has(promise)) return this.cache.get(promise) as T;
-
-    // цикл: цей тип уже будується вище по стеку
-    if (this.building.includes(promise)) {
-      const chain = [...this.building, promise].map((t) => t.name).join(" → ");
-      throw new Error(`Циклічна залежність: ${chain}`);
-    }
-
-    this.building.push(promise);             // поклали на стек: почали будувати
-    let obj: T;
-    try {
-      const rec = this.bindings.get(promise) ?? { impl: promise, deps: [] };
-      const args = rec.deps.map((dep) => this.resolve(dep));   // ← рекурсія: обхід графа
-      obj = new rec.impl(...args) as T;
-    } finally {
-      this.building.pop();                   // зняли зі стека хоч би що
-    }
-
-    this.cache.set(promise, obj);            // запам'ятали одинак
-    return obj as T;
-  }
-}
-```
+:::code proj-hand-rolled-container/py/problema-druha-tsykl-shcho.py
+:::code proj-hand-rolled-container/ts/problema-druha-tsykl-shcho.ts
 :::
 
 Зверни увагу на `try/finally` навколо збірки: елемент зі стека `_building` треба зняти **навіть якщо всередині щось упало**, інакше після першої ж помилки тип назавжди застрягне на стеку, і кожен наступний, цілком законний `resolve` того типу хибно кричатиме про цикл. Дрібниця, яку легко проґавити, а вилазить вона підступно — уже потім, на іншому запиті.
@@ -274,46 +118,7 @@ resolve(A):  A нема в кеші, нема в _building → кладу A у _
 
 Зберемо кінець-у-кінець на Python — з несправжніми, але реальними класами, щоб було видно, що це не псевдокод, а робочий код (контейнер узято з варіанта вище):
 
-```python
-# ── «інфраструктура»: несправжня, але поводиться чесно ──
-class Config:
-    def __init__(self):                       # листок: нічого не просить
-        self.log_path = "/var/log/app.log"
-
-class Logger:
-    def __init__(self):                       # листок
-        self.lines = []
-    def info(self, msg): self.lines.append(msg)
-
-class HttpClient:
-    def __init__(self, config: Config, logger: Logger):
-        self.config, self.logger = config, logger
-
-class StripeGateway:
-    def __init__(self, http: HttpClient):
-        self.http = http
-    def charge(self, cents): self.http.logger.info(f"charge {cents}")
-
-class PaymentService:
-    def __init__(self, gateway: StripeGateway, logger: Logger):
-        self.gateway, self.logger = gateway, logger
-    def pay(self, cents):
-        self.gateway.charge(cents)
-        self.logger.info("paid")
-
-# ── композиційний корінь: реєстрація + один resolve на верхівку ──
-c = (Container()
-     .bind(HttpClient,     HttpClient)
-     .bind(StripeGateway,  StripeGateway)
-     .bind(PaymentService, PaymentService))
-
-payments = c.resolve(PaymentService)          # обійшов увесь граф, зібрав від листя до кореня
-payments.pay(500)
-
-# ── доказ, що Logger — ОДИН на весь граф (кеш спрацював) ──
-assert payments.logger is payments.gateway.http.logger    # той самий примірник!
-print(payments.logger.lines)   # ['charge 500', 'paid'] — обидва рядки в ОДНОМУ журналі
-```
+:::code proj-hand-rolled-container/py/povnyi-pryklad-shcho.py
 
 Тут `Config` і `Logger` навіть не довелося прив'язувати: наївне правило «нема прив'язки — будуй сам тип» їх покриває, бо вони конкретні й самодостатні. `assert` наприкінці — не прикраса, а власне доказ роботи кешу: якби кеш не спрацював, `PaymentService` і `HttpClient` дістали б **різні** логери, `is` повернув би `False`, і рядки `charge 500` та `paid` розповзлися б по двох окремих журналах. А так вони в одному — саме тому, що `resolve(Logger)` вдруге повернув збережений примірник.
 

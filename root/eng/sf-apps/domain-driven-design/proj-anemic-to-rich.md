@@ -11,60 +11,8 @@
 Ось точка старту — так це виглядає в реальному коді, який «просто працює». Поліс — плаский носій даних: усі поля публічні, жодного правила всередині. А правила живуть окремо, у `PolicyService`.
 
 :::tabs
-```ts
-// Знекровлена модель: сам поліс нічого не вміє, лише тримає поля навстіж
-class Policy {
-  id: string = "";
-  status: string = "draft";        // "draft" | "active" | "grace" | "cancelled"
-  premium: number = 0;             // сума внеску, у копійках? у гривнях? хтозна
-  currency: string = "UAH";
-  dueDate: Date = new Date();
-  payments: number[] = [];         // суми платежів, теж голі числа
-}
-
-// Правило живе ЗЗОВНІ, у сервісі — і кожен викликач тримає свій уламок
-class PolicyService {
-  activate(p: Policy): void {
-    if (p.status !== "draft") throw new Error("wrong state");
-    p.status = "active";
-  }
-
-  enterGracePeriod(p: Policy): void {
-    // тут ЗАБУЛИ перевірити, що поліс узагалі активний
-    p.status = "grace";
-  }
-
-  addPayment(p: Policy, amount: number): void {
-    p.payments.push(amount);        // жодної перевірки: додасться й від'ємне
-  }
-}
-```
-```python
-# Знекровлена модель: сам поліс нічого не вміє, лише тримає поля навстіж
-class Policy:
-    def __init__(self):
-        self.id = ""
-        self.status = "draft"        # "draft" | "active" | "grace" | "cancelled"
-        self.premium = 0             # сума внеску, у копійках? у гривнях? хтозна
-        self.currency = "UAH"
-        self.due_date = None
-        self.payments = []           # суми платежів, теж голі числа
-
-
-# Правило живе ЗЗОВНІ, у сервісі — і кожен викликач тримає свій уламок
-class PolicyService:
-    def activate(self, p):
-        if p.status != "draft":
-            raise ValueError("wrong state")
-        p.status = "active"
-
-    def enter_grace_period(self, p):
-        # тут ЗАБУЛИ перевірити, що поліс узагалі активний
-        p.status = "grace"
-
-    def add_payment(self, p, amount):
-        p.payments.append(amount)    # жодної перевірки: додасться й від'ємне
-```
+:::code proj-anemic-to-rich/ts/zadacha-znekrovlenyi-polis.ts
+:::code proj-anemic-to-rich/py/zadacha-znekrovlenyi-polis.py
 :::
 
 Придивись, і хвороба вилазить сама — і вона не про естетику. Правило «увійти в пільговий період можна лише з активного» — це правило самого поліса, частина його природи. Але тут його просто **немає**: `enterGracePeriod` бере будь-який поліс і ставить `"grace"`, бо автор цього методу не тримав у голові весь життєвий цикл і забув перевірку. Правило «внесок не буває від'ємним» теж загубилося. Кожен викликач тримає власний уламок спільного закону, і разом ці уламки не складаються в цілісність.
@@ -113,51 +61,8 @@ PolicyService().enter_grace_period(p)   # "cancelled" -> "grace": воскрес
 Найдешевший і найбезпечніший крок — прибрати пряму дорогу до полів. Поки `p.status = "cancelled"` компілюється, будь-яка подальша логіка марна: її завжди можна оминути. Тож першим ділом робимо поля приватними, а замість голих сеттерів лишаємо тільки те, що справді потрібно зовні, — переважно читання.
 
 :::tabs
-```ts
-class Policy {
-  // поля закриті: ззовні до них уже не дотягтися напряму
-  private _status = "draft";
-  private _premium = 0;
-  private _payments: number[] = [];
-
-  constructor(
-    private readonly _id: string,
-    private readonly _currency: string,
-    private readonly _dueDate: Date,
-  ) {}
-
-  // назовні — лише читання того, що справді потрібне іншим шарам
-  get id(): string { return this._id; }
-  get status(): string { return this._status; }
-  get premium(): number { return this._premium; }
-  // ЖОДНОГО set status / set premium: змінити стан ззовні вже не можна
-}
-```
-```python
-class Policy:
-    def __init__(self, policy_id: str, currency: str, due_date):
-        # поля закриті угодою про підкреслення; міняти ззовні — зась
-        self._id = policy_id
-        self._currency = currency
-        self._due_date = due_date
-        self._status = "draft"
-        self._premium = 0
-        self._payments = []
-
-    # назовні — лише читання того, що справді потрібне іншим шарам
-    @property
-    def id(self) -> str:
-        return self._id
-
-    @property
-    def status(self) -> str:
-        return self._status
-
-    @property
-    def premium(self) -> int:
-        return self._premium
-    # ЖОДНОГО сеттера на status / premium: змінити стан ззовні вже не можна
-```
+:::code proj-anemic-to-rich/ts/krok-1-zakryty-polia.ts
+:::code proj-anemic-to-rich/py/krok-1-zakryty-polia.py
 :::
 
 Помітно, що вже цей крок відрізає найгрубшу діру: `p._status = "cancelled"` більше не пройде через звичайний код (у TypeScript це не скомпілюється, у Python `_status` — угода «не чіпай ззовні», яку поважають і люди, і лінтери). Але сам собою крок 1 неповний: поля закриті, а от **правила ще нема** — поліс поки що просто не вміє змінюватися взагалі. Наступний крок дає йому легальні двері з вартовим усередині.
@@ -171,77 +76,8 @@ class Policy:
 Замість голого рядка `status` заведімо перелік (англ. *enum* — тип із фіксованого списку значень): тоді сам тип не дасть з'явитися стану на кшталт `"banana"`, бо поза списком значень просто не існує. Це вже споріднена ідея — [зробити неможливий стан невиразним самим типом](root:sf-apps/type-driven-design); тут вона працює пліч-о-пліч із нашим переносом.
 
 :::tabs
-```ts
-enum PolicyStatus { Draft, Active, Grace, Cancelled }
-
-class DomainError extends Error {}   // окремий тип — щоб ловити саме порушення правила
-
-class Policy {
-  private _status = PolicyStatus.Draft;
-  private _premium = 0;
-  private _payments: number[] = [];
-
-  constructor(
-    private readonly _id: string,
-    private readonly _currency: string,
-    private readonly _dueDate: Date,
-  ) {}
-
-  // КОМАНДА: правило переходу тепер ТУТ, разом зі своїм вартовим
-  activate(): void {
-    if (this._status !== PolicyStatus.Draft)
-      throw new DomainError("активувати можна лише чернетку");
-    this._status = PolicyStatus.Active;
-  }
-
-  enterGracePeriod(): void {
-    if (this._status !== PolicyStatus.Active)      // ← перевірка, якої бракувало
-      throw new DomainError("у пільговий період входять лише з активного");
-    this._status = PolicyStatus.Grace;
-  }
-
-  get status(): PolicyStatus { return this._status; }
-}
-```
-```python
-from enum import Enum, auto
-
-
-class PolicyStatus(Enum):
-    DRAFT = auto()
-    ACTIVE = auto()
-    GRACE = auto()
-    CANCELLED = auto()
-
-
-class DomainError(Exception):
-    """Порушення доменного правила поліса."""
-
-
-class Policy:
-    def __init__(self, policy_id, currency, due_date):
-        self._id = policy_id
-        self._currency = currency
-        self._due_date = due_date
-        self._status = PolicyStatus.DRAFT
-        self._premium = 0
-        self._payments = []
-
-    # КОМАНДА: правило переходу тепер ТУТ, разом зі своїм вартовим
-    def activate(self) -> None:
-        if self._status is not PolicyStatus.DRAFT:
-            raise DomainError("активувати можна лише чернетку")
-        self._status = PolicyStatus.ACTIVE
-
-    def enter_grace_period(self) -> None:
-        if self._status is not PolicyStatus.ACTIVE:      # ← перевірка, якої бракувало
-            raise DomainError("у пільговий період входять лише з активного")
-        self._status = PolicyStatus.GRACE
-
-    @property
-    def status(self) -> PolicyStatus:
-        return self._status
-```
+:::code proj-anemic-to-rich/ts/krok-2-vnesty-invariant-iz.ts
+:::code proj-anemic-to-rich/py/krok-2-vnesty-invariant-iz.py
 :::
 
 Дивись, що сталося з тим самим сценарієм, який раніше воскрешав скасований поліс. Тепер `enterGracePeriod` **фізично не може** відпрацювати не з активного стану: вартовий кине `DomainError` у тому ж рядку, де правило порушили. Автор складського чи іншого шару більше не може забути перевірку — вона вбудована в метод, і забути її можна хіба що переписавши сам `Policy`. Правило зібралося з трьох розкиданих уламків в одне місце, назване мовою предмета.
@@ -257,56 +93,8 @@ class Policy:
 Тому крок 3 — це принцип **єдиних дверей**: усередину агрегату дані заходять і змінюються **лише** через методи-команди, а назовні витікає тільки те, що читач не може зіпсувати. Заведімо команду `addPayment` з повним вартовим і зробімо так, щоб список платежів **не витікав** назовні у вигляді, який можна змінити.
 
 :::tabs
-```ts
-class Policy {
-  private _status = PolicyStatus.Draft;
-  private _premium = 0;
-  private _payments: number[] = [];
-  /* ...конструктор і переходи стану, як у кроці 2... */
-
-  // ЄДИНІ ДВЕРІ для платежу: сюди зайти можна лише правильним значенням
-  addPayment(amount: number): void {
-    if (this._status !== PolicyStatus.Active && this._status !== PolicyStatus.Grace)
-      throw new DomainError("платіж приймають лише за чинним полісом");
-    if (amount <= 0)
-      throw new DomainError("платіж має бути додатним");
-    if (this.paidTotal() + amount > this._premium)
-      throw new DomainError("сума платежів не може перевищити премію");
-    this._payments.push(amount);
-  }
-
-  paidTotal(): number {
-    return this._payments.reduce((s, x) => s + x, 0);
-  }
-
-  // назовні — КОПІЯ, а не сам масив: читач не дотягнеться до нутрощів
-  get payments(): readonly number[] {
-    return [...this._payments];
-  }
-}
-```
-```python
-class Policy:
-    # ...конструктор і переходи стану, як у кроці 2...
-
-    # ЄДИНІ ДВЕРІ для платежу: сюди зайти можна лише правильним значенням
-    def add_payment(self, amount: int) -> None:
-        if self._status not in (PolicyStatus.ACTIVE, PolicyStatus.GRACE):
-            raise DomainError("платіж приймають лише за чинним полісом")
-        if amount <= 0:
-            raise DomainError("платіж має бути додатним")
-        if self.paid_total() + amount > self._premium:
-            raise DomainError("сума платежів не може перевищити премію")
-        self._payments.append(amount)
-
-    def paid_total(self) -> int:
-        return sum(self._payments)
-
-    # назовні — КОПІЯ, а не сам список: читач не дотягнеться до нутрощів
-    @property
-    def payments(self) -> tuple:
-        return tuple(self._payments)
-```
+:::code proj-anemic-to-rich/ts/krok-3-iedyni-dveri-cherez.ts
+:::code proj-anemic-to-rich/py/krok-3-iedyni-dveri-cherez.py
 :::
 
 Тут два тонкі місця, кожне з яких — окремий інваріант під охороною. Перше: `addPayment` не просто додає число, а перевіряє **три** умови разом — поліс чинний, сума додатна, і платежі не перебирають премії. Друге, підступніше: геттер `payments` повертає **копію** (`[...]` у TS, `tuple(...)` у Python), а не внутрішній масив. Якби він віддавав сам `_payments`, уся охорона `addPayment` розліталася б — викликач писав би `policy.payments.push(-999)` і клав би що завгодно повз двері. Читання назовні мусить бути **безпечним для нутрощів**: або незмінна копія, або незмінний тип. Це прямий вияв ідеї [«кажи, не питай»](root:sf-apps/tell-dont-ask): не витягуй у поліса змінний список, щоб самому щось із ним зробити, — **скажи** полісу прийняти платіж, а перевірку лиши йому.
@@ -320,69 +108,8 @@ class Policy:
 Ліки — **об'єкт-значення (англ. *value object*)**: маленький незмінний тип, який визначається **своїм значенням**, а не особою (два записи по 100 грн — це одні й ті самі гроші, їх не треба розрізняти за «ідентичністю»), і який сам стереже власні правила. Заведімо `Money` — суму разом із валютою, що з народження не буває від'ємною й відмовляється складатися з чужою валютою.
 
 :::tabs
-```ts
-// Об'єкт-значення: незмінний, самоперевірний, порівнюється за значенням
-class Money {
-  private constructor(
-    readonly cents: number,        // тримаємо в копійках — жодних дробових гривень
-    readonly currency: string,
-  ) {}
-
-  static of(amount: number, currency: string): Money {
-    if (!Number.isInteger(amount) || amount < 0)
-      throw new DomainError("сума має бути невід'ємним цілим числом копійок");
-    return new Money(amount, currency);
-  }
-
-  static zero(currency: string): Money { return new Money(0, currency); }
-
-  plus(other: Money): Money {
-    this.sameCurrency(other);
-    return new Money(this.cents + other.cents, this.currency);
-  }
-
-  isGreaterThan(other: Money): boolean {
-    this.sameCurrency(other);
-    return this.cents > other.cents;
-  }
-
-  private sameCurrency(other: Money): void {
-    if (this.currency !== other.currency)
-      throw new DomainError(`не складаються різні валюти: ${this.currency} і ${other.currency}`);
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)   # frozen -> незмінний і порівнюється за значенням "з коробки"
-class Money:
-    cents: int            # тримаємо в копійках — жодних дробових гривень
-    currency: str
-
-    @staticmethod
-    def of(amount: int, currency: str) -> "Money":
-        if not isinstance(amount, int) or amount < 0:
-            raise DomainError("сума має бути невід'ємним цілим числом копійок")
-        return Money(amount, currency)
-
-    @staticmethod
-    def zero(currency: str) -> "Money":
-        return Money(0, currency)
-
-    def plus(self, other: "Money") -> "Money":
-        self._same_currency(other)
-        return Money(self.cents + other.cents, self.currency)
-
-    def is_greater_than(self, other: "Money") -> bool:
-        self._same_currency(other)
-        return self.cents > other.cents
-
-    def _same_currency(self, other: "Money") -> None:
-        if self.currency != other.currency:
-            raise DomainError(f"не складаються різні валюти: {self.currency} і {other.currency}")
-```
+:::code proj-anemic-to-rich/ts/krok-4-sumu-v-obiekt.ts
+:::code proj-anemic-to-rich/py/krok-4-sumu-v-obiekt.py
 :::
 
 Три речі, які `Money` дає задарма щоразу, коли він з'являється у сигнатурі. По-перше, **валюта їде разом із сумою**, тож скласти гривні з доларами вже не вийде — `plus` кине `DomainError` замість тихо повернути безглузде число. По-друге, **від'ємних грошей не буває взагалі**: єдині двері до створення — `Money.of`, а вона відкидає від'ємне на вході, отже, жоден `Money` у системі не може бути від'ємним, і перевіряти це в кожному методі вже не треба. По-третє, **незмінність** (`readonly` / `frozen=True`) означає, що `Money` можна вільно передавати, класти в поля й повертати назовні без страху — його ніхто не зіпсує, бо змінити його неможливо, будь-яка операція народжує **новий** `Money`. Про те, чому незмінні типи так спрощують міркування, є окрема тема — [незмінність](root:sf-apps/immutability); тут вона працює як фундамент об'єкта-значення.
@@ -390,59 +117,8 @@ class Money:
 Тепер `Policy` починає говорити грошима замість чисел, і половина ручних перевірок зникає, бо переїхала в `Money`:
 
 :::tabs
-```ts
-class Policy {
-  private _premium: Money;
-  private _payments: Money[] = [];
-  /* ...інше, як раніше... */
-
-  constructor(id: string, dueDate: Date, premium: Money) {
-    this._id = id;
-    this._dueDate = dueDate;
-    this._premium = premium;         // валюта поліса задана раз, тут
-  }
-
-  addPayment(amount: Money): void {
-    if (this._status !== PolicyStatus.Active && this._status !== PolicyStatus.Grace)
-      throw new DomainError("платіж приймають лише за чинним полісом");
-    // «додатність» і «та сама валюта» вже гарантує сам Money — тут не дублюємо
-    const afterPay = this.paidTotal().plus(amount);      // кине, якщо валюти різні
-    if (afterPay.isGreaterThan(this._premium))
-      throw new DomainError("сума платежів не може перевищити премію");
-    this._payments.push(amount);
-  }
-
-  paidTotal(): Money {
-    return this._payments.reduce((s, m) => s.plus(m), Money.zero(this._premium.currency));
-  }
-}
-```
-```python
-class Policy:
-    # ...інше, як раніше...
-
-    def __init__(self, policy_id, due_date, premium: Money):
-        self._id = policy_id
-        self._due_date = due_date
-        self._premium = premium          # валюта поліса задана раз, тут
-        self._status = PolicyStatus.DRAFT
-        self._payments: list[Money] = []
-
-    def add_payment(self, amount: Money) -> None:
-        if self._status not in (PolicyStatus.ACTIVE, PolicyStatus.GRACE):
-            raise DomainError("платіж приймають лише за чинним полісом")
-        # «додатність» і «та сама валюта» вже гарантує сам Money — тут не дублюємо
-        after_pay = self.paid_total().plus(amount)       # кине, якщо валюти різні
-        if after_pay.is_greater_than(self._premium):
-            raise DomainError("сума платежів не може перевищити премію")
-        self._payments.append(amount)
-
-    def paid_total(self) -> Money:
-        total = Money.zero(self._premium.currency)
-        for m in self._payments:
-            total = total.plus(m)
-        return total
-```
+:::code proj-anemic-to-rich/ts/krok-4-sumu-v-obiekt-2.ts
+:::code proj-anemic-to-rich/py/krok-4-sumu-v-obiekt-2.py
 :::
 
 Поглянь, як покращала `addPayment`: перевірок стало менше, а гарантій — більше. Ми більше **не перевіряємо** тут ні додатність суми, ні збіг валют — це неможливо порушити, бо `Money` таким не буває й `plus` сам відмовить чужій валюті. Лишилися тільки перевірки, що справді належать **полісу**: чинний стан і межа премії. Кожен інваріант живе там, де йому місце: правила грошей — у `Money`, правила поліса — у `Policy`. Це і є поділ праці, який дає багата модель, — не одна велетенська перевірка, а сторожа, розставлена по своїх дверях.
@@ -465,65 +141,8 @@ class Policy:
 Ось як виглядає межа в коді, коли платіж стає власною внутрішньою частиною (об'єктом-значенням із датою), а корінь лишається єдиними дверима:
 
 :::tabs
-```ts
-// Внутрішня частина агрегату — теж незмінна, живе лише всередині поліса
-class Payment {
-  constructor(readonly amount: Money, readonly at: Date) {}
-}
-
-class Policy {                       // ← корінь агрегату
-  private _payments: Payment[] = []; // внутрішня частина — закрита
-  /* ...стан, премія, переходи — як раніше... */
-
-  // єдині двері: платіж додають ЛИШЕ через корінь, і тут тримається інваріант
-  addPayment(amount: Money, at: Date): void {
-    if (this._status !== PolicyStatus.Active && this._status !== PolicyStatus.Grace)
-      throw new DomainError("платіж приймають лише за чинним полісом");
-    // рахуємо суму ДО додавання — і ту саму величину перевіряємо
-    const afterPay = this.paidTotal().plus(amount);  // кине, якщо валюти різні
-    if (afterPay.isGreaterThan(this._premium))
-      throw new DomainError("сума платежів не може перевищити премію");
-    this._payments.push(new Payment(amount, at));    // інваріант ≤ премія тут тримається
-  }
-
-  paidTotal(): Money {
-    return this._payments.reduce((s, p) => s.plus(p.amount),
-                                 Money.zero(this._premium.currency));
-  }
-
-  // назовні — незмінний знімок, а не жива внутрішня колекція
-  get payments(): readonly Payment[] { return [...this._payments]; }
-}
-```
-```python
-@dataclass(frozen=True)
-class Payment:                        # внутрішня частина агрегату — теж незмінна
-    amount: Money
-    at: object                        # дата платежу
-
-
-class Policy:                         # ← корінь агрегату
-    # ...стан, премія, переходи — як раніше...
-
-    # єдині двері: платіж додають ЛИШЕ через корінь, і тут тримається інваріант
-    def add_payment(self, amount: Money, at) -> None:
-        if self._status not in (PolicyStatus.ACTIVE, PolicyStatus.GRACE):
-            raise DomainError("платіж приймають лише за чинним полісом")
-        if self.paid_total().plus(amount).is_greater_than(self._premium):
-            raise DomainError("сума платежів не може перевищити премію")
-        self._payments.append(Payment(amount, at))
-
-    def paid_total(self) -> Money:
-        total = Money.zero(self._premium.currency)
-        for p in self._payments:
-            total = total.plus(p.amount)
-        return total
-
-    # назовні — незмінний знімок, а не жива внутрішня колекція
-    @property
-    def payments(self) -> tuple:
-        return tuple(self._payments)
-```
+:::code proj-anemic-to-rich/ts/krok-5-korin-ahrehatu.ts
+:::code proj-anemic-to-rich/py/krok-5-korin-ahrehatu.py
 :::
 
 Чому це важить понад охайність? Бо тепер інваріант «сума ≤ премія» **не може розійтися ні на крок виконання**. Немає жодного шляху додати платіж, оминувши `addPayment`; немає способу дістати живий список і штовхнути туди щось повз перевірку; немає моменту, коли премію змінено, а платежі ще старі, бо весь агрегат зберігають разом. Розмір агрегату — це проєктне рішення з реальною ціною: завеликий робить кожну зміну важкою (блокуємо пів системи заради дрібниці), замалий — не втримає інваріант, який мав тримати. Де саме проводити цю межу, як пов'язувати сусідні агрегати посиланням-на-корінь, а не прямим вкладенням, і чому зв'язок між агрегатами роблять згодом-узгодженим — розібрано окремо в темі про [агрегат і корінь узгодженості](root:sf-apps/aggregates-consistency). Для нашого рефакторингу досить трьох правил: **межа — довкола того, що мусить бути істинним разом; вхід — лише через корінь; одна транзакція — один агрегат.**
@@ -566,82 +185,8 @@ class Policy:                         # ← корінь агрегату
 Тести природно діляться на два роди. Перший — **щасливий шлях**: законна послідовність команд приводить у правильний стан. Другий, важливіший, — **охорона інваріантів**: кожна заборонена дія має кинути, і об'єкт має лишитися **незмінним** (порушена команда не сміє наполовину зіпсувати стан).
 
 :::tabs
-```ts
-// ── Щасливий шлях: законні переходи ведуть куди слід ──
-test("чернетку можна активувати, тоді ввести в пільговий період", () => {
-  const p = new Policy("P-1", new Date(), Money.of(120_00, "UAH"));
-  p.activate();
-  expect(p.status).toBe(PolicyStatus.Active);
-  p.enterGracePeriod();
-  expect(p.status).toBe(PolicyStatus.Grace);
-});
-
-test("платіж у межах премії приймається й додається до суми", () => {
-  const p = new Policy("P-2", new Date(), Money.of(100_00, "UAH"));
-  p.activate();
-  p.addPayment(Money.of(40_00, "UAH"), new Date());
-  expect(p.paidTotal().cents).toBe(40_00);
-});
-
-// ── Охорона інваріантів: заборонене кидає, стан НЕ псується ──
-test("не можна ввести в пільговий період чернетку", () => {
-  const p = new Policy("P-3", new Date(), Money.of(100_00, "UAH"));
-  expect(() => p.enterGracePeriod()).toThrow(DomainError);
-  expect(p.status).toBe(PolicyStatus.Draft);      // стан лишився недоторканим
-});
-
-test("платіж понад премію відхиляється, сума не міняється", () => {
-  const p = new Policy("P-4", new Date(), Money.of(100_00, "UAH"));
-  p.activate();
-  p.addPayment(Money.of(80_00, "UAH"), new Date());
-  expect(() => p.addPayment(Money.of(30_00, "UAH"), new Date())).toThrow(DomainError);
-  expect(p.paidTotal().cents).toBe(80_00);        // невдалий платіж не додався
-});
-
-test("платіж у чужій валюті відхиляє сам Money", () => {
-  const p = new Policy("P-5", new Date(), Money.of(100_00, "UAH"));
-  p.activate();
-  expect(() => p.addPayment(Money.of(10_00, "USD"), new Date())).toThrow(DomainError);
-});
-```
-```python
-import pytest
-
-# ── Щасливий шлях: законні переходи ведуть куди слід ──
-def test_draft_activates_then_enters_grace():
-    p = Policy("P-1", None, Money.of(12000, "UAH"))
-    p.activate()
-    assert p.status is PolicyStatus.ACTIVE
-    p.enter_grace_period()
-    assert p.status is PolicyStatus.GRACE
-
-def test_payment_within_premium_is_accepted():
-    p = Policy("P-2", None, Money.of(10000, "UAH"))
-    p.activate()
-    p.add_payment(Money.of(4000, "UAH"), None)
-    assert p.paid_total().cents == 4000
-
-# ── Охорона інваріантів: заборонене кидає, стан НЕ псується ──
-def test_cannot_enter_grace_from_draft():
-    p = Policy("P-3", None, Money.of(10000, "UAH"))
-    with pytest.raises(DomainError):
-        p.enter_grace_period()
-    assert p.status is PolicyStatus.DRAFT           # стан лишився недоторканим
-
-def test_payment_over_premium_is_rejected():
-    p = Policy("P-4", None, Money.of(10000, "UAH"))
-    p.activate()
-    p.add_payment(Money.of(8000, "UAH"), None)
-    with pytest.raises(DomainError):
-        p.add_payment(Money.of(3000, "UAH"), None)
-    assert p.paid_total().cents == 8000             # невдалий платіж не додався
-
-def test_payment_in_wrong_currency_is_rejected_by_money():
-    p = Policy("P-5", None, Money.of(10000, "UAH"))
-    p.activate()
-    with pytest.raises(DomainError):
-        p.add_payment(Money.of(1000, "USD"), None)
-```
+:::code proj-anemic-to-rich/ts/iak-tse-testuvaty.ts
+:::code proj-anemic-to-rich/py/iak-tse-testuvaty.py
 :::
 
 Придивись, що саме ловлять ці тести й **чому вони можливі без жодної інфраструктури**. Тести щасливого шляху перевіряють, що законна послідовність дає правильний стан, — звичайна перевірка «вхід → стан». Тести охорони перевіряють дві речі одразу: що заборонена дія **кидає** `DomainError`, і — критично — що після невдачі об'єкт лишився **у попередньому стані** (`p.status` усе ще `Draft`, `paidTotal` усе ще `80_00`). Друга частина не менш важлива за першу: команда, що відмовляє, мусить відмовляти **чисто**, не встигнувши наполовину зіпсувати стан. Наші вартові стоять на **вході**, до будь-якої зміни, тож ця чистота дається сама собою — але перевірити її треба, бо саме тут ховається класична помилка «кинули виняток, але поле вже змінили».
@@ -663,18 +208,7 @@ get payments(): number[] { return this._payments; }   // ← НЕ роби та�
 // ЯК ТРЕБА: назовні тече лише незмінна копія / незмінний тип
 get payments(): readonly Payment[] { return [...this._payments]; }
 ```
-```python
-# ПАСТКА: геттер віддає САМ список — і вся охорона add_payment знецінена
-@property
-def payments(self):
-    return self._payments            # ← НЕ роби так
-# зовні: policy.payments.append(-999)  ← клали що завгодно повз перевірку
-
-# ЯК ТРЕБА: назовні тече лише незмінний знімок
-@property
-def payments(self):
-    return tuple(self._payments)
-```
+:::code proj-anemic-to-rich/py/skladnist-i-pastky.py
 :::
 
 Правило, що рятує: **усередину — лише через команди, назовні — лише незмінне**. Кожен новий публічний метод питай: він дає зайти в обхід вартового? Кожен геттер колекції питай: він віддає живий об'єкт чи його знімок? Одна протікла деталь — і багата модель знову знекровлена, тільки цього ти вже не побачиш за фасадом методів.

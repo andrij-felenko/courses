@@ -43,48 +43,9 @@
 Замір тривалості, дедлайн і календарний момент — три речі, які потрібні майже завжди разом:
 
 :::tabs
-```cpp
-#include <chrono>
-using namespace std::chrono;
-
-static_assert(steady_clock::is_steady, "потрібен сталий годинник");
-
-auto t0 = steady_clock::now();
-// ... робота ...
-auto ms = duration_cast<milliseconds>(steady_clock::now() - t0).count();
-
-auto deadline = steady_clock::now() + 30s;      // дедлайн усередині процесу
-bool expired  = steady_clock::now() >= deadline;
-
-auto stamp = system_clock::now();               // а це — момент за календарем
-```
-```py
-import time
-
-t0 = time.monotonic()
-# ... робота ...
-elapsed = time.monotonic() - t0                  # завжди ≥ 0
-
-deadline = time.monotonic() + 30.0
-left = max(0.0, deadline - time.monotonic())     # скільки лишилося
-
-stamp = time.time()                              # момент за календарем
-print(time.get_clock_info("monotonic"))          # який годинник під сподом
-```
-```js
-const t0 = performance.now();                    // мс від timeOrigin
-// ... робота ...
-const elapsedMs = performance.now() - t0;
-
-const deadline = performance.now() + 30_000;
-const left = () => Math.max(0, deadline - performance.now());
-
-const stamp = Date.now();                        // момент за календарем
-
-// Node.js: цілі наносекунди, без утрати точності на float
-const n0 = process.hrtime.bigint();
-const elapsedNs = process.hrtime.bigint() - n0;
-```
+:::code api-clocks/cpp/main.hpp
+:::code api-clocks/py/main.py
+:::code api-clocks/js/index.js
 ```go
 start := time.Now()                  // несе обидва покази нараз
 elapsed := time.Since(start)         // віднімання бере монотонний
@@ -96,30 +57,8 @@ if time.Now().After(deadline) {      // теж по монотонному
 
 stamp := time.Now().Round(0)         // монотонний відлік зрізано, лишився календар
 ```
-```rust
-use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
-
-let t0 = Instant::now();
-// ... робота ...
-let elapsed: Duration = t0.elapsed();            // ніколи не від'ємний
-
-let deadline = t0 + Duration::from_secs(30);
-let left = deadline.saturating_duration_since(Instant::now());
-
-let stamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-```
-```java
-long t0 = System.nanoTime();                     // довільний нуль
-// ... робота ...
-long elapsedNs = System.nanoTime() - t0;
-
-long timeoutNs = TimeUnit.SECONDS.toNanos(30);
-if (System.nanoTime() - t0 >= timeoutNs) {       // різниця, НЕ сума
-    // вийшов час
-}
-
-Instant stamp = Instant.now();                   // момент за календарем
-```
+:::code api-clocks/rust/main.rs
+:::code api-clocks/java/main.java
 ```csharp
 long t0 = Stopwatch.GetTimestamp();              // монотонні тіки
 // ... робота ...

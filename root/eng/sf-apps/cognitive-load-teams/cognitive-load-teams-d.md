@@ -56,43 +56,9 @@
 І найпоказовіше — розділити внутрішнє від стороннього прямо в коді. Той самий шматок роботи можна написати так, що вся складність на екрані — сутнісна, а можна так, що половину полиці з'їдає антураж. Ось нарахування знижки, потонуле в сторонньому:
 
 :::tabs
-```cpp
-// Стороннє глушить внутрішнє: логіку знижки видно ледве
-double finalPrice(const Order& o) {
-    // ручне складання конфігу з трьох джерел просто щоб дізнатися ставку
-    const char* env = getenv("DISCOUNT_TIER");
-    std::string tier = env ? env : readFile("/etc/app/tier.conf");
-    if (tier.empty()) tier = queryDb("SELECT tier FROM cfg LIMIT 1");
-    double rate = std::stod(tier);           // а раптом не число — впаде тут
-    // ще й ручний перерахунок валюти вкраплено в ту саму функцію
-    double usd = o.amount * fetchRate(o.ccy); // мережевий виклик усередині ціни
-    return usd - usd * rate;                  // ← а ось це і є вся суть
-}
-```
-```python
-# Стороннє глушить внутрішнє: логіку знижки видно ледве
-def final_price(o):
-    # ручне складання конфігу з трьох джерел просто щоб дізнатися ставку
-    tier = os.environ.get("DISCOUNT_TIER") or read_file("/etc/app/tier.conf")
-    if not tier:
-        tier = query_db("SELECT tier FROM cfg LIMIT 1")
-    rate = float(tier)                   # а раптом не число — впаде тут
-    # ще й ручний перерахунок валюти вкраплено в ту саму функцію
-    usd = o.amount * fetch_rate(o.ccy)   # мережевий виклик усередині ціни
-    return usd - usd * rate              # ← а ось це і є вся суть
-```
-```typescript
-// Стороннє глушить внутрішнє: логіку знижки видно ледве
-function finalPrice(o: Order): number {
-    // ручне складання конфігу з трьох джерел просто щоб дізнатися ставку
-    let tier = process.env.DISCOUNT_TIER ?? readFile("/etc/app/tier.conf");
-    if (!tier) tier = queryDb("SELECT tier FROM cfg LIMIT 1");
-    const rate = Number(tier);            // а раптом не число — буде NaN
-    // ще й ручний перерахунок валюти вкраплено в ту саму функцію
-    const usd = o.amount * fetchRate(o.ccy); // мережевий виклик усередині ціни
-    return usd - usd * rate;              // ← а ось це і є вся суть
-}
-```
+:::code cognitive-load-teams-d/cpp/main.cpp
+:::code cognitive-load-teams-d/py/main.py
+:::code cognitive-load-teams-d/ts/index.ts
 :::
 
 Уся предметна суть — останній рядок: ціна мінус ціна на ставку. Решта — стороннє: діставання конфігу з трьох місць, ручний парсинг, мережа посеред обрахунку ціни. Кожен рядок цього антуражу займає місце на полиці нарівні з логікою. Зріж стороннє — і функція стає рівно тим, чим вона є по суті:

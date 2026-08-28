@@ -13,49 +13,8 @@
 Почнімо з коду, що напрошується сам собою. Оформлення замовлення робить сервіс замовлень. Він приймає запит, а далі — очевидна послідовність: спочатку сходити в сервіс складу й попросити списати товар, тоді записати замовлення в себе. Начебто нічого підозрілого.
 
 :::tabs
-```ts
-// НАЇВНО — не робіть так. Два віддалені записи без спільної транзакції.
-class OrderService {
-  constructor(
-    private orders: OrderRepository,   // приватна база замовлень
-    private stock: StockClient,        // HTTP-клієнт до сервісу складу
-  ) {}
-
-  async placeOrder(cmd: PlaceOrder): Promise<string> {
-    const order = Order.create(cmd.customerId, cmd.items);
-
-    // КРОК 1: віддалений виклик — склад списує товар у СВОЇЙ базі
-    await this.stock.reserve(order.items);   // склад списав ✓
-
-    // ── ⟵ якщо процес упаде рівно ТУТ, товар уже списаний, а рядок нижче не виконається ──
-
-    // КРОК 2: записуємо замовлення у ВЛАСНУ базу
-    await this.orders.save(order);           // а сюди вже не дійшли ✗
-
-    return order.id;
-  }
-}
-```
-```python
-# НАЇВНО — не робіть так. Два віддалені записи без спільної транзакції.
-class OrderService:
-    def __init__(self, orders: OrderRepository, stock: StockClient) -> None:
-        self._orders = orders   # приватна база замовлень
-        self._stock = stock     # HTTP-клієнт до сервісу складу
-
-    async def place_order(self, cmd: PlaceOrder) -> str:
-        order = Order.create(cmd.customer_id, cmd.items)
-
-        # КРОК 1: віддалений виклик — склад списує товар у СВОЇЙ базі
-        await self._stock.reserve(order.items)   # склад списав ✓
-
-        # ── ⟵ якщо процес упаде рівно ТУТ, товар списаний, а рядок нижче не виконається ──
-
-        # КРОК 2: записуємо замовлення у ВЛАСНУ базу
-        await self._orders.save(order)           # а сюди вже не дійшли ✗
-
-        return order.id
-```
+:::code proj-order-across-services/ts/naivnyi-variant-iakyi.ts
+:::code proj-order-across-services/py/naivnyi-variant-iakyi.py
 :::
 
 Прочитаймо, що станеться, коли процес сервісу замовлень помре в позначеній точці — між рядком «склад списав» і рядком «записуємо замовлення». Склад свою роботу вже зробив і **зафіксував** її у своїй базі: товару стало на одиницю менше. Сервіс замовлень до свого запису **не дійшов**: замовлення в його базі немає. Система лишилась у стані, якого не мало б бути: товар з обліку зник, а замовлення, яке б це пояснило, ніде не існує. Клієнт бачить помилку й повторює — і за другим разом усе спрацьовує, тільки товару вже списано **двічі**.
@@ -89,80 +48,8 @@ class OrderService:
 Почнемо з сервісу замовлень. Уся суть — в одному: **замовлення й рядок outbox пишуться в одній транзакції**. Ніяких викликів складу тут немає й бути не може.
 
 :::tabs
-```ts
-type PlaceOrder = { customerId: string; items: LineItem[] };
-
-class OrderService {
-  constructor(private db: Db) {}   // приватна база сервісу замовлень
-
-  async placeOrder(cmd: PlaceOrder): Promise<string> {
-    const order = Order.create(cmd.customerId, cmd.items);
-
-    // ── ОДНА локальна транзакція: замовлення + намір сповістити склад ──
-    await this.db.transaction(async (tx) => {
-      await tx.insert("orders", {
-        id: order.id,
-        customer_id: order.customerId,
-        status: "placed",
-        total: order.total,
-      });
-
-      // рядок OUTBOX — намір, що поїде в чергу окремим реле.
-      // eventId генеруємо ТУТ і кладемо в тіло — саме за ним споживач
-      // упізнаватиме дублі. topic каже реле, у яку чергу це слати.
-      await tx.insert("outbox", {
-        event_id: crypto.randomUUID(),
-        topic: "OrderPlaced",
-        payload: JSON.stringify({ orderId: order.id, items: order.items }),
-        sent: false,
-        created_at: new Date(),
-      });
-    }); // ← коміт: або лягли ОБИДВА рядки, або жоден. Подвійного запису немає.
-
-    return order.id;
-  }
-}
-```
-```python
-from dataclasses import dataclass
-import json, uuid
-from datetime import datetime, timezone
-
-@dataclass
-class PlaceOrder:
-    customer_id: str
-    items: list[LineItem]
-
-class OrderService:
-    def __init__(self, db: Db) -> None:
-        self._db = db   # приватна база сервісу замовлень
-
-    async def place_order(self, cmd: PlaceOrder) -> str:
-        order = Order.create(cmd.customer_id, cmd.items)
-
-        # ── ОДНА локальна транзакція: замовлення + намір сповістити склад ──
-        async with self._db.transaction() as tx:
-            await tx.insert("orders", {
-                "id": order.id,
-                "customer_id": order.customer_id,
-                "status": "placed",
-                "total": order.total,
-            })
-
-            # рядок OUTBOX — намір, що поїде в чергу окремим реле.
-            # event_id генеруємо ТУТ і кладемо в тіло — саме за ним споживач
-            # упізнаватиме дублі. topic каже реле, у яку чергу це слати.
-            await tx.insert("outbox", {
-                "event_id": str(uuid.uuid4()),
-                "topic": "OrderPlaced",
-                "payload": json.dumps({"order_id": order.id, "items": order.items}),
-                "sent": False,
-                "created_at": datetime.now(timezone.utc),
-            })
-        # ← коміт: або лягли ОБИДВА рядки, або жоден. Подвійного запису немає.
-
-        return order.id
-```
+:::code proj-order-across-services/ts/robochyi-kod-outbox-u.ts
+:::code proj-order-across-services/py/robochyi-kod-outbox-u.py
 :::
 
 Зверніть увагу на дрібницю з великими наслідками: `eventId` народжується **тут**, у момент запису наміру, і їде в тілі події. Не в реле, не в момент відправки — саме тут. Завдяки цьому один намір має один сталий ідентифікатор на весь свій шлях, скільки б разів реле його потім не переслало. Це той якір, за який споживач ловитиме дублі.
@@ -170,57 +57,8 @@ class OrderService:
 Тепер реле. Це окрема тиха петля (у продакшні — власний фоновий процес або читання журналу змін бази; тут покажемо просту й чесну версію опитуванням таблиці). Вона бере ненадіслані рядки, шле кожен у чергу й позначає надісланим.
 
 :::tabs
-```ts
-class OutboxRelay {
-  constructor(private db: Db, private queue: Queue) {}
-
-  // Викликається за розкладом (напр. кожні 200 мс) або петлею.
-  async flush(): Promise<void> {
-    const rows = await this.db.query(
-      "SELECT * FROM outbox WHERE sent = false ORDER BY created_at LIMIT 100",
-    );
-
-    for (const row of rows) {
-      // Публікуємо ПЕРЕД тим, як позначити sent. Якщо впадемо між
-      // publish і update — рядок лишиться sent=false, і наступний
-      // прохід надішле його ЩЕ раз. Дубль на боці споживача безпечний
-      // (він ідемпотентний), а от ВТРАТА події — ні. Тому саме такий порядок.
-      await this.queue.publish(row.topic, {
-        eventId: row.event_id,      // той самий ключ дедуплікації
-        payload: JSON.parse(row.payload),
-      });
-      await this.db.execute(
-        "UPDATE outbox SET sent = true WHERE event_id = ?", [row.event_id],
-      );
-    }
-  }
-}
-```
-```python
-class OutboxRelay:
-    def __init__(self, db: Db, queue: Queue) -> None:
-        self._db = db
-        self._queue = queue
-
-    # Викликається за розкладом (напр. кожні 200 мс) або петлею.
-    async def flush(self) -> None:
-        rows = await self._db.query(
-            "SELECT * FROM outbox WHERE sent = false ORDER BY created_at LIMIT 100",
-        )
-
-        for row in rows:
-            # Публікуємо ПЕРЕД тим, як позначити sent. Якщо впадемо між
-            # publish і update — рядок лишиться sent=false, і наступний
-            # прохід надішле його ЩЕ раз. Дубль на боці споживача безпечний
-            # (він ідемпотентний), а от ВТРАТА події — ні. Тому саме такий порядок.
-            await self._queue.publish(row["topic"], {
-                "event_id": row["event_id"],   # той самий ключ дедуплікації
-                "payload": json.loads(row["payload"]),
-            })
-            await self._db.execute(
-                "UPDATE outbox SET sent = true WHERE event_id = ?", [row["event_id"]],
-            )
-```
+:::code proj-order-across-services/ts/robochyi-kod-outbox-u-2.ts
+:::code proj-order-across-services/py/robochyi-kod-outbox-u-2.py
 :::
 
 Тут захований тонкий, але принциповий вибір порядку. Ми **спершу публікуємо** подію, а **потім** позначаємо рядок надісланим. Якщо процес реле помре між цими двома діями, рядок лишиться `sent = false` — і наступний прохід реле надішле ту саму подію **ще раз**. Тобто ми свідомо обираємо ризик **дубля** замість ризику **втрати**. І це правильний вибір саме тому, що споживач у нас ідемпотентний: зайвий дубль він відкине без шкоди, а от загублену назавжди подію не відновить ніхто. Загальне правило доставки звучить так: **краще двічі, ніж жодного разу** — бо «двічі» лікується дедуплікацією, а «жодного разу» не лікується нічим.
@@ -232,61 +70,8 @@ class OutboxRelay:
 Ключова ідея: **дедуплікацію й саму дію треба виконати в одній локальній транзакції складу**. Тоді «запам'ятати, що подію оброблено» і «списати товар» стають нероздільні — знову той самий фокус атомарності в межах однієї бази, тільки тепер у сервісі складу.
 
 :::tabs
-```ts
-class StockConsumer {
-  constructor(private db: Db) {}   // приватна база сервісу складу
-
-  // Викликається чергою на кожну доставлену подію OrderPlaced.
-  async onOrderPlaced(evt: { eventId: string; payload: OrderPlacedBody }): Promise<void> {
-    await this.db.transaction(async (tx) => {
-      // 1) ДЕДУП: пробуємо застовпити eventId. Первинний ключ на
-      //    processed_events робить повторну вставку неможливою — другий
-      //    прохід тієї самої події тут спіткнеться, і ми просто вийдемо.
-      const fresh = await tx.tryInsert("processed_events", {
-        event_id: evt.eventId,
-        handled_at: new Date(),
-      });
-      if (!fresh) return;   // вже бачили цей eventId — дубль, тихо виходимо
-
-      // 2) ДІЯ: списуємо товар. У ТІЙ САМІЙ транзакції, що й відмітка дедупу,
-      //    тож «оброблено» і «списано» або сталися разом, або не сталися.
-      for (const item of evt.payload.items) {
-        await tx.execute(
-          "UPDATE stock SET qty = qty - ? WHERE sku = ? AND qty >= ?",
-          [item.qty, item.sku, item.qty],
-        );
-      }
-    }); // ← коміт: дедуп і списання нероздільні
-  }
-}
-```
-```python
-class StockConsumer:
-    def __init__(self, db: Db) -> None:
-        self._db = db   # приватна база сервісу складу
-
-    # Викликається чергою на кожну доставлену подію OrderPlaced.
-    async def on_order_placed(self, evt: OrderPlacedEvent) -> None:
-        async with self._db.transaction() as tx:
-            # 1) ДЕДУП: пробуємо застовпити event_id. Первинний ключ на
-            #    processed_events робить повторну вставку неможливою — другий
-            #    прохід тієї самої події тут спіткнеться, і ми просто вийдемо.
-            fresh = await tx.try_insert("processed_events", {
-                "event_id": evt.event_id,
-                "handled_at": datetime.now(timezone.utc),
-            })
-            if not fresh:
-                return   # вже бачили цей event_id — дубль, тихо виходимо
-
-            # 2) ДІЯ: списуємо товар. У ТІЙ САМІЙ транзакції, що й відмітка
-            #    дедупу, тож «оброблено» і «списано» або разом, або ніяк.
-            for item in evt.payload.items:
-                await tx.execute(
-                    "UPDATE stock SET qty = qty - :q WHERE sku = :s AND qty >= :q",
-                    {"q": item.qty, "s": item.sku},
-                )
-        # ← коміт: дедуп і списання нероздільні
-```
+:::code proj-order-across-services/ts/robochyi-kod-idempotentnyi.ts
+:::code proj-order-across-services/py/robochyi-kod-idempotentnyi.py
 :::
 
 Чому дедуп і дію не можна рознести на дві транзакції? Уяви, що ми спершу окремо списали товар, а потім окремо записали `eventId` у таблицю оброблених — і між цими двома комітами впали. Товар списаний, а відмітки «оброблено» немає. Черга, не діставши підтвердження, доставляє подію знову; ми не бачимо `eventId` серед оброблених, вважаємо подію новою — і списуємо товар **вдруге**. Рознесені на дві транзакції, дедуп і дія відтворюють рівно ту саму щілину подвійного запису, з якою ми боролися. Зведені в одну — щілина зникає: відмітка й списання фіксуються одним комітом, тож не буває стану «списано, але не відмічено».
@@ -302,50 +87,8 @@ class StockConsumer:
 Покажемо компенсацію для нашого випадку. Сервіс замовлень отримав `StockInsufficient` (склад не зміг списати) і має скасувати замовлення. А сам склад, коли скасовується вже оплачене раніше замовлення, має **повернути** товар — і, звісно, теж ідемпотентно, бо подія скасування так само може прийти двічі.
 
 :::tabs
-```ts
-// Компенсація на боці СКЛАДУ: повертаємо раніше списаний товар.
-class StockConsumer {
-  // ... onOrderPlaced як вище ...
-
-  async onOrderCancelled(evt: { eventId: string; payload: OrderCancelledBody }): Promise<void> {
-    await this.db.transaction(async (tx) => {
-      // та сама дедуплікація — компенсація теж має бути безпечною до повтору
-      const fresh = await tx.tryInsert("processed_events", {
-        event_id: evt.eventId, handled_at: new Date(),
-      });
-      if (!fresh) return;
-
-      // КОМПЕНСАЦІЯ: дописуємо товар назад — логічний антипод списання
-      for (const item of evt.payload.items) {
-        await tx.execute(
-          "UPDATE stock SET qty = qty + ? WHERE sku = ?", [item.qty, item.sku],
-        );
-      }
-    });
-  }
-}
-```
-```python
-# Компенсація на боці СКЛАДУ: повертаємо раніше списаний товар.
-class StockConsumer:
-    # ... on_order_placed як вище ...
-
-    async def on_order_cancelled(self, evt: OrderCancelledEvent) -> None:
-        async with self._db.transaction() as tx:
-            # та сама дедуплікація — компенсація теж має бути безпечною до повтору
-            fresh = await tx.try_insert("processed_events", {
-                "event_id": evt.event_id, "handled_at": datetime.now(timezone.utc),
-            })
-            if not fresh:
-                return
-
-            # КОМПЕНСАЦІЯ: дописуємо товар назад — логічний антипод списання
-            for item in evt.payload.items:
-                await tx.execute(
-                    "UPDATE stock SET qty = qty + :q WHERE sku = :s",
-                    {"q": item.qty, "s": item.sku},
-                )
-```
+:::code proj-order-across-services/ts/kompensatsiia-iak.ts
+:::code proj-order-across-services/py/kompensatsiia-iak.py
 :::
 
 Зверни увагу: компенсація — це такий самий ідемпотентний споживач, як і пряма дія. Ті самі три деталі повторюються й тут: подія `OrderCancelled` народжується через outbox сервісу замовлень (щоб намір скасувати не загубився), надійно доставляється чергою, ідемпотентно споживається складом (щоб не повернути товар двічі). Уся сага — це ланцюжок таких кроків, кожен зі своїм відкотом-компенсацією; коли якийсь крок остаточно провалюється, координатор запускає компенсації вже виконаних кроків у зворотному порядку, розмотуючи операцію назад до чистого стану.

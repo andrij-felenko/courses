@@ -32,86 +32,9 @@ CBAM народився як **економічне продовження** м�
 Ось модель у коді. Стратегія — це назва, вартість у тижнях і список внесків в атрибути; вигода й ROI рахуються з внесків, а не задаються рукою. Ядро задачі — класичні алгоритми (ранжування, наплічник), тому провідну мову беремо еталонну для них, C++, а поряд кладемо ті самі функції сценарними Python і TypeScript, якими справді збирають такий інструмент прийняття рішень:
 
 :::tabs
-```cpp
-#include <string>
-#include <vector>
-#include <limits>
-
-// Внесок стратегії в ОДИН атрибут: вага стейкхолдера й корисність до/після (0..100).
-struct Contribution {
-    std::string attribute;
-    double weight;   // наскільки атрибут важливий стейкхолдерам
-    double before;   // корисність зараз
-    double after;    // корисність, якщо стратегію впровадити
-};
-
-struct Strategy {
-    std::string name;
-    double cost;                            // вартість, тижні
-    std::vector<Contribution> contribs;
-
-    // CBAM: вигода = Σ вага·(корисність_після − корисність_до)
-    double benefit() const {
-        double sum = 0.0;
-        for (const auto& c : contribs)
-            sum += c.weight * (c.after - c.before);
-        return sum;
-    }
-
-    double roi() const {
-        return cost != 0.0 ? benefit() / cost
-                           : std::numeric_limits<double>::infinity();
-    }
-};
-```
-```python
-from dataclasses import dataclass
-
-# Внесок стратегії в ОДИН атрибут: вага стейкхолдера й корисність до/після (0..100).
-@dataclass
-class Contribution:
-    attribute: str
-    weight: float        # наскільки атрибут важливий стейкхолдерам
-    before: float        # корисність зараз
-    after: float         # корисність, якщо стратегію впровадити
-
-@dataclass
-class Strategy:
-    name: str
-    cost: float                    # вартість, тижні
-    contribs: list[Contribution]
-
-    def benefit(self) -> float:
-        # CBAM: вигода = Σ вага·(корисність_після − корисність_до)
-        return sum(c.weight * (c.after - c.before) for c in self.contribs)
-
-    def roi(self) -> float:
-        return self.benefit() / self.cost if self.cost else float("inf")
-```
-```ts
-// Внесок стратегії в ОДИН атрибут: вага стейкхолдера й корисність до/після (0..100).
-interface Contribution {
-  attribute: string;
-  weight: number;   // наскільки атрибут важливий стейкхолдерам
-  before: number;   // корисність зараз
-  after: number;    // корисність, якщо стратегію впровадити
-}
-
-interface Strategy {
-  name: string;
-  cost: number;               // вартість, тижні
-  contribs: Contribution[];
-}
-
-// CBAM: вигода = Σ вага·(корисність_після − корисність_до)
-function benefit(s: Strategy): number {
-  return s.contribs.reduce((acc, c) => acc + c.weight * (c.after - c.before), 0);
-}
-
-function roi(s: Strategy): number {
-  return s.cost ? benefit(s) / s.cost : Infinity;
-}
-```
+:::code proj-cbam/cpp/zvidky-beretsia-vyhoda.hpp
+:::code proj-cbam/py/zvidky-beretsia-vyhoda.py
+:::code proj-cbam/ts/zvidky-beretsia-vyhoda.ts
 :::
 
 Проженемо чотири стратегії крізь `benefit()` — і числа з таблиці зійдуться самі:
@@ -131,71 +54,9 @@ CDN            50            2                  25.0
 Наївний вибір під бюджет напрошується сам: іди по ранжованому списку зверху й бери все, що ще влазить у гаманець. Це **жадібний** алгоритм (англ. *greedy* — бери найкраще локально, тут і зараз):
 
 :::tabs
-```cpp
-#include <algorithm>
-#include <vector>
-
-// Перший зріз: за ROI спадно. O(n log n).
-std::vector<Strategy> rank_by_roi(std::vector<Strategy> strategies) {
-    std::sort(strategies.begin(), strategies.end(),
-              [](const Strategy& a, const Strategy& b) { return a.roi() > b.roi(); });
-    return strategies;
-}
-
-struct Pick {
-    std::vector<Strategy> chosen;
-    double spent;
-    double total;
-};
-
-// Іди по ранжованому списку й бери все, що ще влазить у бюджет.
-Pick greedy_pick(const std::vector<Strategy>& strategies, double budget) {
-    Pick p{{}, 0.0, 0.0};
-    for (const auto& s : rank_by_roi(strategies)) {
-        if (p.spent + s.cost <= budget) {
-            p.chosen.push_back(s);
-            p.spent += s.cost;
-        }
-    }
-    for (const auto& s : p.chosen) p.total += s.benefit();
-    return p;
-}
-```
-```python
-def rank_by_roi(strategies: list[Strategy]) -> list[Strategy]:
-    # Перший зріз: за ROI спадно. O(n log n).
-    return sorted(strategies, key=lambda s: s.roi(), reverse=True)
-
-def greedy_pick(strategies: list[Strategy], budget: float):
-    # Іди по ранжованому списку й бери все, що ще влазить у бюджет.
-    chosen, spent = [], 0.0
-    for s in rank_by_roi(strategies):
-        if spent + s.cost <= budget:
-            chosen.append(s)
-            spent += s.cost
-    total = sum(s.benefit() for s in chosen)
-    return chosen, spent, total
-```
-```ts
-function rankByRoi(strategies: Strategy[]): Strategy[] {
-  // Перший зріз: за ROI спадно. O(n log n).
-  return [...strategies].sort((a, b) => roi(b) - roi(a));
-}
-
-function greedyPick(strategies: Strategy[], budget: number) {
-  // Іди по ранжованому списку й бери все, що ще влазить у бюджет.
-  const chosen: Strategy[] = [];
-  let spent = 0;
-  for (const s of rankByRoi(strategies)) {
-    if (spent + s.cost <= budget) {
-      chosen.push(s);
-      spent += s.cost;
-    }
-  }
-  const total = chosen.reduce((acc, s) => acc + benefit(s), 0);
-  return { chosen, spent, total };
-}
-```
+:::code proj-cbam/cpp/pershyi-zriz-ranzhuvannia.cpp
+:::code proj-cbam/py/pershyi-zriz-ranzhuvannia.py
+:::code proj-cbam/ts/pershyi-zriz-ranzhuvannia.ts
 :::
 
 Бюджет — 12 тижнів. Проженемо:
@@ -249,111 +110,9 @@ dp[i][b] = max(
 Заповнивши таблицю від меншого до більшого, у `dp[n][B]` знаходимо найкращу досяжну вигоду. Але нам мало числа — потрібен **сам набір**. Його відновлюємо, ідучи таблицею назад: якщо на кроці i найкраще значення взялося не з рядка «без i-ї» (`dp[i][b] ≠ dp[i−1][b]`), значить i-ту стратегію брали — записуємо її й зменшуємо бюджет на її ціну.
 
 :::tabs
-```cpp
-#include <vector>
-#include <algorithm>
-
-// Точний 0/1-наплічник. Вартості й бюджет — цілі (тижні). O(n·B) час і пам'ять.
-Pick knapsack_pick(const std::vector<Strategy>& strategies, double budget) {
-    const int n = static_cast<int>(strategies.size());
-    const int B = static_cast<int>(budget);
-
-    std::vector<int> cost(n);
-    std::vector<double> value(n);
-    for (int i = 0; i < n; ++i) {
-        cost[i]  = static_cast<int>(strategies[i].cost);
-        value[i] = strategies[i].benefit();
-    }
-
-    // dp[i][b] — максимальна вигода з перших i стратегій за бюджету b.
-    std::vector<std::vector<double>> dp(n + 1, std::vector<double>(B + 1, 0.0));
-    for (int i = 1; i <= n; ++i) {
-        const int ci = cost[i - 1];
-        const double vi = value[i - 1];
-        for (int b = 0; b <= B; ++b) {
-            dp[i][b] = dp[i - 1][b];                 // не беремо i-ту
-            if (ci <= b) {                           // або беремо, якщо влазить
-                double take = dp[i - 1][b - ci] + vi;
-                if (take > dp[i][b]) dp[i][b] = take;
-            }
-        }
-    }
-
-    // Відновлення набору: йдемо таблицею назад.
-    Pick p{{}, 0.0, dp[n][B]};
-    int b = B;
-    for (int i = n; i >= 1; --i) {
-        if (dp[i][b] != dp[i - 1][b]) {              // i-ту брали
-            p.chosen.push_back(strategies[i - 1]);
-            b -= cost[i - 1];
-        }
-    }
-    std::reverse(p.chosen.begin(), p.chosen.end());
-    p.spent = static_cast<double>(B - b);
-    return p;
-}
-```
-```python
-def knapsack_pick(strategies: list[Strategy], budget: float):
-    # Точний 0/1-наплічник. Вартості й бюджет — цілі (тижні). O(n·B) час і пам'ять.
-    n, B = len(strategies), int(budget)
-    cost = [int(s.cost) for s in strategies]
-    value = [s.benefit() for s in strategies]
-
-    # dp[i][b] — максимальна вигода з перших i стратегій за бюджету b.
-    dp = [[0.0] * (B + 1) for _ in range(n + 1)]
-    for i in range(1, n + 1):
-        ci, vi = cost[i - 1], value[i - 1]
-        for b in range(B + 1):
-            dp[i][b] = dp[i - 1][b]                     # не беремо i-ту
-            if ci <= b:                                 # або беремо, якщо влазить
-                take = dp[i - 1][b - ci] + vi
-                if take > dp[i][b]:
-                    dp[i][b] = take
-
-    # Відновлення набору: йдемо таблицею назад.
-    chosen, b = [], B
-    for i in range(n, 0, -1):
-        if dp[i][b] != dp[i - 1][b]:                    # i-ту брали
-            chosen.append(strategies[i - 1])
-            b -= cost[i - 1]
-    chosen.reverse()
-    return chosen, B - b, dp[n][B]
-```
-```ts
-function knapsackPick(strategies: Strategy[], budget: number) {
-  // Точний 0/1-наплічник. Вартості й бюджет — цілі (тижні). O(n·B) час і пам'ять.
-  const n = strategies.length;
-  const B = Math.floor(budget);
-  const cost = strategies.map((s) => Math.floor(s.cost));
-  const value = strategies.map(benefit);
-
-  // dp[i][b] — максимальна вигода з перших i стратегій за бюджету b.
-  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(B + 1).fill(0));
-  for (let i = 1; i <= n; i++) {
-    const ci = cost[i - 1], vi = value[i - 1];
-    for (let b = 0; b <= B; b++) {
-      dp[i][b] = dp[i - 1][b];                     // не беремо i-ту
-      if (ci <= b) {                               // або беремо, якщо влазить
-        const take = dp[i - 1][b - ci] + vi;
-        if (take > dp[i][b]) dp[i][b] = take;
-      }
-    }
-  }
-
-  // Відновлення набору: йдемо таблицею назад.
-  const chosen: Strategy[] = [];
-  let b = B;
-  for (let i = n; i >= 1; i--) {
-    if (dp[i][b] !== dp[i - 1][b]) {                // i-ту брали
-      chosen.push(strategies[i - 1]);
-      b -= cost[i - 1];
-    }
-  }
-  chosen.reverse();
-  return { chosen, spent: B - b, total: dp[n][B] };
-}
-```
+:::code proj-cbam/cpp/tochnyi-vybir-naplichnyk.cpp
+:::code proj-cbam/py/tochnyi-vybir-naplichnyk.py
+:::code proj-cbam/ts/tochnyi-vybir-naplichnyk.ts
 :::
 
 Проженемо ті самі чотири стратегії з бюджетом 12 — і подивимось не лише на відповідь, а й на те, як відновлення її **збирає**, крок за кроком назад по таблиці:

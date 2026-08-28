@@ -30,56 +30,7 @@
 
 Ось увесь публічний бік. Код — C++20 і POSIX; на Windows `poll` заміниться на `WSAPoll`, решта лишиться.
 
-```cpp
-// probe.hpp — ЯДРО. Жодного циклу, жодного sleep, жодного poll усередині.
-#pragma once
-#include <chrono>
-#include <cstdint>
-#include <optional>
-#include <span>
-#include <string>
-#include <netinet/in.h>
-
-namespace probe {
-
-using Clock = std::chrono::steady_clock;
-using Id    = std::uint64_t;
-
-enum class Status { replied, timed_out, canceled, failed };
-
-struct Event {
-    Id                        id;
-    Status                    status;
-    std::chrono::milliseconds rtt{0};        // важить лише для replied
-    int                       err  = 0;      // errno, важить лише для failed
-    void*                     tag  = nullptr;// те, що дав викликач у add()
-};
-
-struct Watch { int fd; bool want_read; bool want_write; };
-
-class Core {
-public:
-    Core(std::chrono::milliseconds rto, int tries);   // rto > 0
-    ~Core();                                          // закриє всі свої дескриптори
-
-    // Годинник ядро НЕ читає саме — час приходить аргументом.
-    Id   add(Clock::time_point now, const sockaddr_in& to,
-             std::string payload, void* tag = nullptr);
-    void cancel(Id id) noexcept;        // подія canceled прийде однаково
-    void cancel_all() noexcept;
-
-    // ── чотири відповіді чужому циклові ──
-    void step(Clock::time_point now, std::span<const int> ready) noexcept;
-    std::optional<Clock::time_point> next_deadline() const noexcept;
-    std::span<const Watch>           watches() const;      // може виділити пам'ять
-    std::uint64_t watch_generation()  const noexcept;      // змінилось — перечитай watches()
-
-    std::optional<Event> take_event() noexcept;
-    std::size_t          active() const noexcept;
-};
-
-} // namespace probe
-```
+:::code proj-two-faces/cpp/probe.hpp
 
 Дві риси цього заголовка варті окремої уваги, бо саме вони роблять ядро придатним до чужого циклу, а не просто «без `run()`».
 
@@ -93,125 +44,17 @@ public:
 
 Приватна частина того самого класу — і три функції, у яких ядро вирішує, що робити.
 
-```cpp
-private:
-    struct Req {
-        int               fd;
-        std::string       payload;
-        int               left;          // скільки спроб іще лишилось
-        void*             tag;
-        Clock::time_point sent_at;
-        std::multimap<Clock::time_point, Id>::iterator timer;
-    };
-
-    void send_probe(Id id, Req& r, Clock::time_point now) noexcept;
-    void finish(Id id, Req& r, Status st, int err,
-                std::chrono::milliseconds rtt) noexcept;
-    void touch_watches() noexcept { ++generation_; watches_dirty_ = true; }
-
-    std::chrono::milliseconds rto_;
-    int                       tries_;
-    Id                        last_id_ = 0;
-    std::unordered_map<Id, Req>          reqs_;
-    std::unordered_map<int, Id>          by_fd_;
-    std::multimap<Clock::time_point, Id> timers_;   // упорядкований за строком
-    std::deque<Event>                    events_;
-    mutable std::vector<Watch>           cache_;
-    mutable bool                         watches_dirty_ = true;
-    std::uint64_t                        generation_    = 0;
-```
+:::code proj-two-faces/cpp/nutroshchi-de-zhyve.cpp
 
 `timers_` упорядкований за часом, тож найближчий строк — це завжди `timers_.begin()`. Кожен запит тримає ітератор на свій запис, тому перепланування — це стерти й вставити, без пошуку.
 
-```cpp
-// probe.cpp
-Id Core::add(Clock::time_point now, const sockaddr_in& to,
-             std::string payload, void* tag)
-{
-    const Id id = ++last_id_;                       // id ніколи не повторюється
-    int fd = ::socket(AF_INET, SOCK_DGRAM | SOCK_NONBLOCK, 0);  // Linux;
-                        // на macOS — окремим fcntl(fd, F_SETFL, O_NONBLOCK)
-    if (fd < 0 || ::connect(fd, reinterpret_cast<const sockaddr*>(&to), sizeof to) < 0) {
-        if (fd >= 0) ::close(fd);
-        events_.push_back(Event{id, Status::failed, {}, errno, tag});
-        return id;                 // id виданий, і подія за ним уже лежить у черзі
-    }
-    auto [it, _] = reqs_.emplace(id, Req{fd, std::move(payload), tries_,
-                                         tag, now, timers_.end()});
-    by_fd_[fd] = id;
-    touch_watches();
-    send_probe(id, it->second, now);
-    return id;
-}
-
-void Core::send_probe(Id id, Req& r, Clock::time_point now) noexcept
-{
-    const ssize_t n = ::send(r.fd, r.payload.data(), r.payload.size(), 0);
-    if (n < 0 && errno != EAGAIN && errno != EWOULDBLOCK && errno != EINTR) {
-        finish(id, r, Status::failed, errno, {});
-        return;
-    }
-    r.sent_at = now;                 // EAGAIN тут рахуємо за втрачений пакет:
-    --r.left;                        // повторна спроба однаково прийде за строком
-    r.timer = timers_.emplace(now + rto_, id);
-}
-```
+:::code proj-two-faces/cpp/probe.cpp
 
 `connect` на UDP-сокеті — не церемонія, а спосіб отримувати помилки. Приєднаний сокет приймає відповіді лише від своєї цілі, а ICMP-відмову «порт недосяжний» ядро операційної системи віддає застосункові як `ECONNREFUSED` на наступній дії з сокетом. Linux, за вимогою RFC 1122, віддає такі відкладені помилки навіть неприєднаному сокетові; чимало інших стеків, похідних від BSD, — лише приєднаному, тож `connect` тут ще й про переносність.
 
 Тепер сам крок. Він робить рівно дві речі: читає те, що вже прийшло, і чіпає те, чий строк вийшов.
 
-```cpp
-void Core::step(Clock::time_point now, std::span<const int> ready) noexcept
-{
-    // 1. дескриптори, які викликач побачив готовими
-    for (int fd : ready) {
-        const auto f = by_fd_.find(fd);
-        if (f == by_fd_.end()) continue;          // не наш дескриптор — мовчки повз
-        const Id id = f->second;
-        Req& r = reqs_.at(id);
-
-        char buf[1500];
-        const ssize_t n = ::recv(r.fd, buf, sizeof buf, 0);
-        if (n < 0) {
-            if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR) continue;
-            finish(id, r, Status::failed, errno, {});   // сюди приходить ECONNREFUSED
-            continue;
-        }
-        const auto rtt =
-            std::chrono::duration_cast<std::chrono::milliseconds>(now - r.sent_at);
-        finish(id, r, Status::replied, 0, rtt);
-    }
-
-    // 2. те, чий строк уже настав
-    while (!timers_.empty() && timers_.begin()->first <= now) {
-        const Id id = timers_.begin()->second;
-        Req& r = reqs_.at(id);
-        timers_.erase(timers_.begin());
-        r.timer = timers_.end();
-
-        if (r.left > 0) send_probe(id, r, now);            // ще одна спроба
-        else            finish(id, r, Status::timed_out, 0, {});
-    }
-}
-
-void Core::finish(Id id, Req& r, Status st, int err,
-                  std::chrono::milliseconds rtt) noexcept
-{
-    events_.push_back(Event{id, st, rtt, err, r.tag});  // спершу дочитати все з r
-    if (r.timer != timers_.end()) timers_.erase(r.timer);
-    by_fd_.erase(r.fd);
-    ::close(r.fd);
-    touch_watches();
-    reqs_.erase(id);            // ↓ нижче цього рядка посилання r мертве
-}
-
-std::optional<Clock::time_point> Core::next_deadline() const noexcept
-{
-    if (timers_.empty()) return std::nullopt;   // строку немає взагалі
-    return timers_.begin()->first;
-}
-```
+:::code proj-two-faces/cpp/nutroshchi-de-zhyve-2.cpp
 
 Другий цикл у `step()` завершується тільки тому, що `rto_ > 0`: `send_probe` вставляє новий строк на `now + rto_`, і той уже не менший за `now`. З нульовим `rto_` цей `while` крутився б вічно — тому нуль забороняє конструктор, а не документація.
 
@@ -221,59 +64,7 @@ std::optional<Clock::time_point> Core::next_deadline() const noexcept
 
 Ядро готове. Ось як ним користується той, у кого вже є власний цикл, — і саме заради цього читача ядро писалося без `run()`.
 
-```cpp
-// probe.hpp, поруч із Core: помічник потрібен обом обличчям.
-inline int ms_until(Clock::time_point when, Clock::time_point now) noexcept
-{
-    if (when <= now) return 0;
-    const auto ms =
-        std::chrono::duration_cast<std::chrono::milliseconds>(when - now).count();
-    // +1, бо duration_cast відкидає дробову частину: за 0.4 мс до строку
-    // без нього вийшов би timeout = 0 і цикл почав би крутитися вхолосту.
-    return static_cast<int>(std::min<long long>(ms + 1, 1000));
-}
-
-// ── твій головний цикл; ядро тут — звичайна бібліотека ──
-std::vector<pollfd> pfds;
-std::vector<int>    ready;
-std::uint64_t       seen_gen  = ~0ull;
-std::size_t         core_base = 0;
-
-while (running) {
-    if (core.watch_generation() != seen_gen) {   // набір ядра змінився
-        pfds.clear();
-        my_own_fds(pfds);                        // спершу СВОЇ дескриптори
-        core_base = pfds.size();                 // далі — суцільним шматком ядрові
-        for (const probe::Watch& w : core.watches()) {
-            pollfd p{};
-            p.fd     = w.fd;
-            p.events = static_cast<short>((w.want_read  ? POLLIN  : 0) |
-                                          (w.want_write ? POLLOUT : 0));
-            pfds.push_back(p);
-        }
-        seen_gen = core.watch_generation();
-    }
-
-    const auto now  = probe::Clock::now();
-    auto       wake = my_next_deadline();        // std::optional, твій власний строк
-    if (auto d = core.next_deadline(); d && (!wake || *d < *wake)) wake = d;
-    const int timeout = wake ? ms_until(*wake, now) : 1000;
-
-    if (::poll(pfds.data(), static_cast<nfds_t>(pfds.size()), timeout) < 0) {
-        if (errno == EINTR) continue;
-        break;
-    }
-
-    ready.clear();
-    for (std::size_t i = core_base; i < pfds.size(); ++i)
-        if (pfds[i].revents) ready.push_back(pfds[i].fd);
-
-    core.step(probe::Clock::now(), ready);              // увесь крок ядра
-    while (auto ev = core.take_event()) on_result(*ev); // наслідки — поза кроком
-
-    my_own_work(pfds);                                  // а тут — твої власні справи
-}
-```
+:::code proj-two-faces/cpp/oblychchia-pershe-tsykl.cpp
 
 Дві дрібниці в цьому циклі коштують більше, ніж здається.
 
@@ -285,79 +76,11 @@ while (running) {
 
 Тепер найголовніше в усій конструкції: оболонка пишеться **окремим файлом, самим лише публічним заголовком ядра**. Вона не заглядає в `probe.cpp`, не має друзів і не тримає нічого, крім свого циклу.
 
-```cpp
-// probe_run.hpp — ОБОЛОНКА. Нічого, крім циклу.
-#pragma once
-#include "probe.hpp"
-#include <exception>
-#include <poll.h>
-#include <vector>
-
-namespace probe {
-
-template <class OnEvent>
-void run(Core& core, OnEvent&& on_event)
-{
-    std::vector<pollfd> pfds;
-    std::vector<int>    ready;
-    std::uint64_t       seen_gen = ~0ull;
-    std::exception_ptr  escaped;
-
-    while (!escaped && core.active() > 0) {
-        if (core.watch_generation() != seen_gen) {
-            pfds.clear();
-            for (const Watch& w : core.watches()) {
-                pollfd p{};
-                p.fd     = w.fd;
-                p.events = static_cast<short>(POLLIN);
-                pfds.push_back(p);
-            }
-            seen_gen = core.watch_generation();
-        }
-
-        const auto now = Clock::now();
-        const auto d   = core.next_deadline();
-        const int  timeout = d ? ms_until(*d, now) : 1000;
-
-        if (::poll(pfds.data(), static_cast<nfds_t>(pfds.size()), timeout) < 0) {
-            if (errno == EINTR) continue;
-            break;
-        }
-
-        ready.clear();
-        for (const pollfd& p : pfds)
-            if (p.revents) ready.push_back(p.fd);
-
-        core.step(Clock::now(), ready);
-
-        while (auto ev = core.take_event()) {
-            try { on_event(*ev); }
-            catch (...) { escaped = std::current_exception(); break; }
-        }
-    }
-    // Недоставлені події лишаються В ЯДРІ: хто зловить виняток, забере їх
-    // тим самим take_event(). Оболонка не ковтає нічого й не тримає нічого.
-    if (escaped) std::rethrow_exception(escaped);
-}
-
-} // namespace probe
-```
+:::code proj-two-faces/cpp/probe_run.hpp
 
 І весь простий випадок:
 
-```cpp
-std::vector<Host> hosts = load_hosts();          // живе довше за цикл
-probe::Core core{std::chrono::milliseconds{300}, 3};
-
-const auto t0 = probe::Clock::now();
-for (Host& h : hosts) core.add(t0, h.addr, "ping", &h);
-
-probe::run(core, [](const probe::Event& e) {
-    const Host& h = *static_cast<const Host*>(e.tag);
-    std::printf("%-20s %-10s %lld мс\n", h.name.c_str(), name(e.status),
-                static_cast<long long>(e.rtt.count()));
-});
-```
+:::code proj-two-faces/cpp/oblychchia-druhe-tsykl.cpp
 
 Шість рядків проти тридцяти — рівно те, заради чого оболонки й пишуть. Але зверни увагу, чого в цих шести рядках **нема**: жодної можливості, якої не було б у попередніх тридцяти. Оболонка не додала здатностей, вона лише склала виклики в порядку, який усе одно однаковий у дев'яти випадках із десяти.
 
@@ -391,21 +114,7 @@ probe::run(core, [](const probe::Event& e) {
 
 Це та пастка, через яку конструкція гниє непомітно. Виглядає вона завжди зручно:
 
-```cpp
-// ХИБНА оболонка: свій обробник на кожен запит.
-template <class OnEvent>
-class Runner {
-    probe::Core&                           core_;
-    std::unordered_map<probe::Id, OnEvent> handlers_;   // ← знання про СПРАВУ
-    std::unordered_map<probe::Id, std::string> names_;  // ← і ще одне
-public:
-    void probe_host(const std::string& name, sockaddr_in to, OnEvent h) {
-        const auto id = core_.add(probe::Clock::now(), to, "ping");
-        handlers_.emplace(id, std::move(h));            // ядро про це не знає
-        names_.emplace(id, name);                       // і про це теж
-    }
-};
-```
+:::code proj-two-faces/cpp/1-obolonka-zavela-vlasne.cpp
 
 Тут усе працює й навіть подобається — доки хтось не візьме бібліотечне обличчя. А він отримає голий `Id` і нічого більше: щоб зв'язати наслідок із запитом, йому доведеться завести ту саму пару словників власноруч. Це ще півбіди. Біда починається, коли в оболонці оселяється не супровідний хвостик, а рішення: скільки разів повторювати, кого пропустити, коли здатися. Тоді два обличчя перестають бути обличчями одного ядра — оболонка робить одне, ядро вміє інше, і той, кому потрібен власний цикл, отримує не «те саме без циклу», а урізаний засіб.
 

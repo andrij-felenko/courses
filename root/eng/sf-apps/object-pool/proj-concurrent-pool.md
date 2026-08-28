@@ -37,39 +37,8 @@
 Найдешевша перемога. Ділимо пул на `P` шардів (беремо степінь двійки, щоб індексувати дешевою маскою `& (P−1)`, а не діленням) і відправляємо кожне ядро в шард за номером ядра. Індекс — це лише **підказка для розподілу**, а не питання коректності: якщо потік перемандрує на інше ядро й потрапить у «чужий» шард, нічого не зламається — просто розподіл навантаження стане трохи менш рівним.
 
 :::tabs
-```cpp
-#include <atomic>
-#include <sched.h>
-
-constexpr int SHARDS = 64;                 // степінь двійки → маска замість %
-
-struct alignas(64) Shard {                 // ← кожен шард на СВОЄМУ рядку кеша (крок 6)
-    LockFreeStack free;                    // список вільних (замок або без — крок 3)
-};
-Shard shards[SHARDS];
-
-inline Shard& my_shard() {
-    unsigned cpu = sched_getcpu();         // на якому ядрі я зараз — підказка
-    return shards[cpu & (SHARDS - 1)];     // дешева маска, бо SHARDS — степінь 2
-}
-```
-```rust
-use std::sync::atomic::AtomicPtr;
-
-const SHARDS: usize = 64;                   // степінь двійки → маска замість %
-
-#[repr(align(64))]                          // ← кожен шард на своєму рядку кеша (крок 6)
-struct Shard {
-    free: LockFreeStack,                    // список вільних
-}
-static SHARDS_ARR: [Shard; SHARDS] = /* ініціалізація */ todo!();
-
-#[inline]
-fn my_shard() -> &'static Shard {
-    let cpu = unsafe { libc::sched_getcpu() } as usize;   // підказка
-    &SHARDS_ARR[cpu & (SHARDS - 1)]
-}
-```
+:::code proj-concurrent-pool/cpp/krok-1-shardynh-zamok-na.cpp
+:::code proj-concurrent-pool/rust/krok-1-shardynh-zamok-na.rs
 :::
 
 Одразу впадає у вічі `alignas(64)` / `#[repr(align(64))]` на шарді — до цього дійдемо в кроці 6; поки що просто прийми, що сусідні шарди мусять сидіти на **різних** рядках кеша, інакше вся вигода шардингу випарується. Головна ж думка кроку проста: **P замків замість одного розсіюють змагання в P разів**. Якщо навантаження рівномірне, тридцять два ядра на шістдесят чотири шарди майже ніколи не зустрічаються на одному замку.
@@ -81,88 +50,8 @@ fn my_shard() -> &'static Shard {
 Тепер серце всієї витівки. Даємо кожному потокові **приватний магазин (англ. *magazine*)** — невеликий масив об'єктів, який належить **тільки цьому потокові** (`thread_local`). Оскільки ніхто інший до нього не дотягнеться, доступ до магазина **не потребує жодної синхронізації** — це звичайний масив і лічильник.
 
 :::tabs
-```cpp
-constexpr int BATCH     = 32;              // скільки брати/віддавати гуртом
-constexpr int CACHE_CAP = 2 * BATCH;       // місткість магазина
-
-struct Magazine { Conn* slot[CACHE_CAP]; int n = 0; };
-thread_local Magazine mag;                 // ← приватний для потоку: 0 синхронізації
-
-Conn* acquire() {
-    if (mag.n == 0)                        // локально порожньо?
-        refill();                          // ← рідкісний вихід до шарду: візьмемо БАТЧ
-    if (mag.n == 0)
-        return grow_or_wait();             // геть порожньо: рости / чекати / таймаут
-    return mag.slot[--mag.n];              // ← ГАРЯЧИЙ ШЛЯХ: локальний pop, без атоміків
-}
-
-void release(Conn* c) {
-    c->reset();                            // чистимо ДО того, як об'єкт стане спільним
-    if (mag.n == CACHE_CAP)                // локально повно?
-        flush();                           // ← рідкісний вихід: віддамо БАТЧ назад
-    mag.slot[mag.n++] = c;                 // ← ГАРЯЧИЙ ШЛЯХ: локальний push
-}
-
-void refill() {                            // амортизація: один вихід — BATCH об'єктів
-    Shard& s = my_shard();
-    for (int i = 0; i < BATCH; ++i) {
-        Conn* c = s.free.pop();            // звернення до спільної структури
-        if (!c) break;
-        mag.slot[mag.n++] = c;
-    }
-}
-void flush() {
-    Shard& s = my_shard();
-    for (int i = 0; i < BATCH; ++i)
-        s.free.push(mag.slot[--mag.n]);
-}
-```
-```rust
-const BATCH: usize     = 32;               // скільки брати/віддавати гуртом
-const CACHE_CAP: usize = 2 * BATCH;        // місткість магазина
-
-struct Magazine { slot: [*mut Conn; CACHE_CAP], n: usize }
-
-thread_local! {                            // ← приватний для потоку: 0 синхронізації
-    static MAG: std::cell::RefCell<Magazine> =
-        std::cell::RefCell::new(Magazine { slot: [std::ptr::null_mut(); CACHE_CAP], n: 0 });
-}
-
-fn acquire() -> *mut Conn {
-    MAG.with(|m| {
-        let mut mag = m.borrow_mut();
-        if mag.n == 0 { refill(&mut mag); }         // порожньо — беремо БАТЧ
-        if mag.n == 0 { return grow_or_wait(); }    // геть порожньо
-        mag.n -= 1;
-        mag.slot[mag.n]                             // ← ГАРЯЧИЙ ШЛЯХ: локальний pop
-    })
-}
-
-fn release(c: *mut Conn) {
-    unsafe { (*c).reset(); }                        // чистимо ДО спільного
-    MAG.with(|m| {
-        let mut mag = m.borrow_mut();
-        if mag.n == CACHE_CAP { flush(&mut mag); }  // повно — віддаємо БАТЧ
-        let n = mag.n; mag.slot[n] = c; mag.n += 1; // ← ГАРЯЧИЙ ШЛЯХ: локальний push
-    })
-}
-
-fn refill(mag: &mut Magazine) {            // один вихід — BATCH об'єктів
-    let s = my_shard();
-    for _ in 0..BATCH {
-        let c = s.free.pop();
-        if c.is_null() { break; }
-        let n = mag.n; mag.slot[n] = c; mag.n += 1;
-    }
-}
-fn flush(mag: &mut Magazine) {
-    let s = my_shard();
-    for _ in 0..BATCH {
-        mag.n -= 1;
-        s.free.push(mag.slot[mag.n]);
-    }
-}
-```
+:::code proj-concurrent-pool/cpp/krok-2-potokolokalnyi-kesh.cpp
+:::code proj-concurrent-pool/rust/krok-2-potokolokalnyi-kesh.rs
 :::
 
 Придивись, де тут дорога робота, а де дешева. Дев'яносто сім разів зі ста `acquire` — це один рядок: `mag.slot[--mag.n]`, зняти вказівник із локального масиву. Ані замка, ані атомарної операції, ані навіть промаху кеша (магазин гарячий у кеші того ж ядра). І лише раз на тридцять два, коли магазин спорожнів, потік іде до шарду — але забирає **одразу тридцять два** об'єкти. Вартість того походу — один сплеск замків чи CAS-ів — **розмазується на тридцять дві** наступні дешеві видачі.
@@ -193,83 +82,8 @@ fn flush(mag: &mut Magazine) {
 Тут же зробимо гарну економію — **вкладений (англ. *intrusive*) список**: поки об'єкт вільний, його тіло однаково не використовується, тож лінк «наступний вільний» кладемо **прямо в сам об'єкт**. Список вільних не коштує ані байта зайвої пам'яті — він живе в порожніх тілах об'єктів, що чекають видачі.
 
 :::tabs
-```cpp
-struct Conn {
-    // ... справжні поля з'єднання ...
-    Conn* next_free;                       // ← лінк вільного списку живе В об'єкті:
-};                                         //   поки Conn вільний, його тіло не потрібне
-
-class LockFreeStack {
-    std::atomic<Conn*> head{nullptr};
-public:
-    void push(Conn* n) {
-        Conn* old = head.load(std::memory_order_relaxed);
-        do {
-            n->next_free = old;                          // готуємо ланку на поточну вершину
-        } while (!head.compare_exchange_weak(
-                     old, n,
-                     std::memory_order_release,          // успіх: ПУБЛІКУЄМО n (крок 4)
-                     std::memory_order_relaxed));        // невдача: old перечитано автоматично
-    }
-
-    Conn* pop() {
-        Conn* old = head.load(std::memory_order_acquire);
-        while (old && !head.compare_exchange_weak(
-                          old, old->next_free,
-                          std::memory_order_acquire,     // успіх: БАЧИМО те, що опублікував push
-                          std::memory_order_acquire)) {
-            // old оновлено поточним head — цикл повторюється
-        }
-        return old;                                      // nullptr, якщо стек порожній
-    }
-};
-```
-```rust
-use std::sync::atomic::{AtomicPtr, Ordering};
-use std::ptr;
-
-pub struct Conn {
-    // ... справжні поля ...
-    next_free: *mut Conn,                  // ← лінк вільного списку живе в об'єкті
-}
-
-pub struct LockFreeStack { head: AtomicPtr<Conn> }
-
-impl LockFreeStack {
-    pub fn new() -> Self { Self { head: AtomicPtr::new(ptr::null_mut()) } }
-
-    pub fn push(&self, n: *mut Conn) {
-        let mut old = self.head.load(Ordering::Relaxed);
-        loop {
-            unsafe { (*n).next_free = old; }             // готуємо ланку
-            match self.head.compare_exchange_weak(
-                old, n,
-                Ordering::Release,                       // успіх: ПУБЛІКУЄМО n (крок 4)
-                Ordering::Relaxed,                       // невдача: перечитали old
-            ) {
-                Ok(_)   => return,
-                Err(cur) => old = cur,
-            }
-        }
-    }
-
-    pub fn pop(&self) -> *mut Conn {
-        let mut old = self.head.load(Ordering::Acquire);
-        while !old.is_null() {
-            let next = unsafe { (*old).next_free };      // безпечно: пул вузол НЕ звільняє
-            match self.head.compare_exchange_weak(
-                old, next,
-                Ordering::Acquire,                       // успіх: бачимо опубліковане
-                Ordering::Acquire,
-            ) {
-                Ok(_)   => return old,
-                Err(cur) => old = cur,
-            }
-        }
-        ptr::null_mut()
-    }
-}
-```
+:::code proj-concurrent-pool/cpp/krok-3-bezblokuvalnyi.cpp
+:::code proj-concurrent-pool/rust/krok-3-bezblokuvalnyi.rs
 :::
 
 Три речі варті пояснення, бо саме в них — суть безблокувального коду.
@@ -314,24 +128,7 @@ CAS head = n, release ──публікує──▶ бачимо head        �
 
 **Мічений покажчик (англ. *tagged pointer*) — природний для пулу.** Оскільки пам'ять стабільна, досить приліпити до вказівника **лічильник версій**: `head` стає парою `{вказівник, tag}`, і кожен успішний `push`/`pop` збільшує `tag` на одиницю. Тепер Потік 1 тримає стару пару `{A, v1}`, а поточна вже `{A, v3}` — подвійний CAS **не збігається за лічильником**, і небезпечна заміна відкидається: безпечний повтор. Плата — потрібен **дводовгий CAS** (англ. *double-width CAS*, на x86-64 це інструкція `cmpxchg16b`), щоб атомарно міняти й вказівник, і лічильник разом:
 
-```cpp
-struct alignas(16) Tagged {                // 16 байтів → влазить у cmpxchg16b
-    Conn* ptr;
-    uintptr_t tag;                         // ← лічильник версій проти ABA
-};
-std::atomic<Tagged> head;                  // на x86-64 компілюється в дводовгий CAS
-
-Conn* pop() {
-    Tagged old = head.load(std::memory_order_acquire), neu;
-    do {
-        if (!old.ptr) return nullptr;
-        neu.ptr = old.ptr->next_free;
-        neu.tag = old.tag + 1;             // кожна вдала заміна зсуває версію
-    } while (!head.compare_exchange_weak(old, neu,
-                 std::memory_order_acquire, std::memory_order_relaxed));
-    return old.ptr;
-}
-```
+:::code proj-concurrent-pool/cpp/krok-5-pastka-aba-koly-cas.cpp
 
 **Hazard pointers — коли вузли таки звільняють.** Якщо структура загального призначення й вузли можуть видалятися, лічильник не рятує від використання після звільнення. Тоді беруть **покажчики небезпеки (англ. *hazard pointers*)**: перш ніж торкнутись вузла, потік **публічно оголошує** його «небезпечним», і жоден інший потік не сміє звільнити оголошений вузол, доки оголошення тримається. Цей механізм безпечного вивільнення пам'яті для lock-free структур ввів Мейджед Майкл у статті «Hazard Pointers: Safe Memory Reclamation for Lock-Free Objects» (IEEE TPDS, том 15, № 6, 2004). У Rust ту саму задачу закриває `epoch`-збирання з `crossbeam`. Для нашого пулу вони надлишкові — вистачає міченого покажчика, бо пам'ять ми не повертаємо.
 

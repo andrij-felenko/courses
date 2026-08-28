@@ -54,121 +54,13 @@ http    -> log
 
 Далі — сама програма, сім шматків підряд: у тому самому порядку вони складаються в один файл `dsm.cpp`.
 
-```cpp
-// dsm.cpp — розбиття матриці залежностей.
-// g++ -std=c++20 -O2 -o dsm dsm.cpp
-//   ./dsm deps.txt
-//   ./dsm deps.txt --baseline cycles.txt        (новий блок → код повернення 2)
-//   ./dsm deps.txt --write-baseline cycles.txt
-
-#include <algorithm>
-#include <bit>
-#include <cstdint>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <queue>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
-using Word = std::uint64_t;
-static constexpr int WBITS = 64;
-
-struct Input {
-    std::vector<std::string> name;              // id → ім'я, за абеткою
-    std::vector<std::pair<int, int>> edge;      // (хто потребує, кого потребує)
-    std::vector<char> loop;                     // петля сам-на-себе
-    long long dup = 0, self = 0;                // скільки відкинуто
-};
-
-static std::string trim(const std::string& s) {
-    const size_t a = s.find_first_not_of(" \t\r\n");
-    if (a == std::string::npos) return {};
-    return s.substr(a, s.find_last_not_of(" \t\r\n") - a + 1);
-}
-
-static Input read_edges(std::istream& in) {
-    std::unordered_map<std::string, int> seen;
-    std::vector<std::string> raw;
-    std::vector<std::pair<int, int>> arc;
-
-    auto id_of = [&](const std::string& s) {
-        const auto [it, fresh] = seen.emplace(s, (int)raw.size());
-        if (fresh) raw.push_back(s);
-        return it->second;
-    };
-
-    std::string line;
-    while (std::getline(in, line)) {
-        if (const size_t h = line.find('#'); h != std::string::npos) line.resize(h);
-        const size_t arrow = line.find("->");
-        if (arrow == std::string::npos) {
-            const std::string lone = trim(line);       // елемент без залежностей
-            if (!lone.empty()) id_of(lone);
-            continue;
-        }
-        const std::string a = trim(line.substr(0, arrow));
-        const std::string b = trim(line.substr(arrow + 2));
-        if (!a.empty() && !b.empty()) arc.emplace_back(id_of(a), id_of(b));
-    }
-
-    // Перенумерація за абеткою: номер елемента більше не залежить від того,
-    // у якому порядку видобувач виплюнув рядки, — отже, не залежить і вивід.
-    const int n = (int)raw.size();
-    std::vector<int> byname(n);
-    for (int i = 0; i < n; ++i) byname[i] = i;
-    std::sort(byname.begin(), byname.end(),
-              [&](int x, int y) { return raw[x] < raw[y]; });
-
-    Input g;
-    g.name.resize(n);
-    std::vector<int> newid(n);
-    for (int k = 0; k < n; ++k) { newid[byname[k]] = k; g.name[k] = raw[byname[k]]; }
-
-    g.edge.reserve(arc.size());
-    for (const auto& e : arc) g.edge.emplace_back(newid[e.first], newid[e.second]);
-
-    std::sort(g.edge.begin(), g.edge.end());
-    g.edge.erase(std::unique(g.edge.begin(), g.edge.end()), g.edge.end());
-    g.dup = (long long)arc.size() - (long long)g.edge.size();
-
-    g.loop.assign(n, 0);                          // петлі геть з матриці, але в облік
-    std::vector<std::pair<int, int>> keep;
-    keep.reserve(g.edge.size());
-    for (const auto& e : g.edge) {
-        if (e.first == e.second) { g.loop[e.first] = 1; ++g.self; }
-        else keep.push_back(e);
-    }
-    g.edge.swap(keep);
-    return g;
-}
-```
+:::code proj-dsm-partition/cpp/dsm.cpp
 
 Сортування дуг тут робить одразу три роботи. Воно **прибирає дублікати**: чотириста імпортів того самого модуля перетворюються на одну дугу, інакше подальша лінійність від *E* була б лінійністю від кількості рядків у файлі. Воно **впорядковує списки суміжності** — сусіди кожного вузла виходять за зростанням номера, і на цьому тримається відтворюваність обходу. І воно **збирає петлі в одне місце**: діагональ матриці за угодою порожня, тож дуга «сам на себе» з матриці зникає, але не зникає з обліку.
 
 ## Дуги стають CSR
 
-```cpp
-struct Csr {
-    int n = 0;
-    std::vector<int> head, to;                    // head має n + 1 елемент
-};
-
-static Csr build_csr(int n, const std::vector<std::pair<int, int>>& edge) {
-    Csr g;
-    g.n = n;
-    g.head.assign(n + 1, 0);
-    for (const auto& e : edge) ++g.head[e.first + 1];
-    for (int i = 0; i < n; ++i) g.head[i + 1] += g.head[i];
-    g.to.resize(edge.size());
-    std::vector<int> put = g.head;                // куди класти наступного сусіда
-    for (const auto& e : edge) g.to[put[e.first]++] = e.second;
-    return g;
-}
-```
+:::code proj-dsm-partition/cpp/duhy-staiut-csr.cpp
 
 Два проходи й жодного окремого виділення пам'яті на вузол. Сусіди елемента *v* лежать у `to[head[v] .. head[v+1])` — суцільним шматком, який процесор читає лінійно й передбачувано. Порівняно з `vector<vector<int>>` це не косметика: там кожен вузол — окреме виділення й окремий промах кеша на кожному переході.
 
@@ -180,63 +72,7 @@ static Csr build_csr(int n, const std::vector<std::pair<int, int>>& edge) {
 
 Явний стек кадрів знімає питання назавжди: кадр тут — два `int`, вісім байтів, і лежить він у купі, а не в стеку потоку. Мільйон вершин углиб — вісім мегабайтів `std::vector`, і жодної різниці між операційними системами.
 
-```cpp
-struct Frame { int v; int e; };                   // вершина і номер наступної дуги
-
-// Компоненти нумеруються в порядку виходу, а він УЖЕ топологічний:
-// якщо компонента A потребує компоненти B, то comp[B] < comp[A].
-static int tarjan(const Csr& g, std::vector<int>& comp) {
-    const int n = g.n;
-    std::vector<int> idx(n, -1), low(n, 0);
-    std::vector<char> onstk(n, 0);
-    std::vector<int> cand;                        // стек кандидатів
-    std::vector<Frame> call;                      // стек кадрів замість рекурсії
-    comp.assign(n, -1);
-    int timer = 0, ncomp = 0;
-
-    for (int root = 0; root < n; ++root) {
-        if (idx[root] != -1) continue;            // кілька незв'язаних частин — звідси
-        idx[root] = low[root] = timer++;
-        cand.push_back(root);
-        onstk[root] = 1;
-        call.push_back({root, g.head[root]});
-
-        while (!call.empty()) {
-            const int v = call.back().v;
-            const int e = call.back().e;
-            if (e < g.head[v + 1]) {
-                call.back().e = e + 1;            // зсунути ДО можливого push_back:
-                const int w = g.to[e];            // після нього посилання на кадр мертве
-                if (idx[w] == -1) {
-                    idx[w] = low[w] = timer++;
-                    cand.push_back(w);
-                    onstk[w] = 1;
-                    call.push_back({w, g.head[w]});
-                } else if (onstk[w]) {
-                    low[v] = std::min(low[v], idx[w]);
-                }
-                continue;
-            }
-            if (low[v] == idx[v]) {               // v — корінь компоненти
-                for (;;) {
-                    const int w = cand.back();
-                    cand.pop_back();
-                    onstk[w] = 0;
-                    comp[w] = ncomp;
-                    if (w == v) break;
-                }
-                ++ncomp;
-            }
-            call.pop_back();
-            if (!call.empty()) {                  // повернення в батька
-                const int p = call.back().v;
-                low[p] = std::min(low[p], low[v]);
-            }
-        }
-    }
-    return ncomp;
-}
-```
+:::code proj-dsm-partition/cpp/tardzhan-bez-rekursii.cpp
 
 Один рядок тут вартий окремої уваги: `call.back().e = e + 1;` стоїть **до** `call.push_back(...)`, і не випадково. Природний варіант «взяти посилання на верхній кадр і працювати з ним» ламається мовчки: `push_back` може перевиділити масив, і посилання починає вказувати у звільнену пам'ять. Помилка не проявляється на маленьких входах, бо перевиділення трапляється рідко, — і чекає, поки граф підросте. Тому кадр тут читається значеннями, а зміна записується назад одразу.
 
@@ -244,49 +80,7 @@ static int tarjan(const Csr& g, std::vector<int>& comp) {
 
 ## Конденсація і чому порядку замало
 
-```cpp
-struct Cond {
-    int count = 0;
-    std::vector<std::vector<int>> members;        // блок → елементи, за зростанням id
-    std::vector<std::pair<int, int>> edge;        // (блок-споживач, блок-постачальник)
-};
-
-static Cond condense(const Csr& g, const std::vector<int>& comp, int ncomp) {
-    Cond c;
-    c.count = ncomp;
-    c.members.assign(ncomp, {});
-    for (int v = 0; v < g.n; ++v) c.members[comp[v]].push_back(v);
-    for (int v = 0; v < g.n; ++v)
-        for (int e = g.head[v]; e < g.head[v + 1]; ++e)
-            if (comp[v] != comp[g.to[e]]) c.edge.emplace_back(comp[v], comp[g.to[e]]);
-    std::sort(c.edge.begin(), c.edge.end());
-    c.edge.erase(std::unique(c.edge.begin(), c.edge.end()), c.edge.end());
-    return c;
-}
-
-// Порядок блоків: кожен після всіх, кого потребує. Серед незалежних блоків
-// беремо той, чий перший елемент менший за абеткою, — і вивід стає не лише
-// відтворюваним, а СТІЙКИМ: поява нового модуля не перетасовує решту.
-static std::vector<int> canonical_order(const Cond& c) {
-    std::vector<int> pending(c.count, 0);
-    std::vector<std::vector<int>> users(c.count);
-    for (const auto& e : c.edge) { ++pending[e.first]; users[e.second].push_back(e.first); }
-
-    auto worse = [&](int x, int y) { return c.members[x][0] > c.members[y][0]; };
-    std::priority_queue<int, std::vector<int>, decltype(worse)> ready(worse);
-    for (int b = 0; b < c.count; ++b) if (pending[b] == 0) ready.push(b);
-
-    std::vector<int> order;
-    order.reserve(c.count);
-    while (!ready.empty()) {
-        const int b = ready.top();
-        ready.pop();
-        order.push_back(b);
-        for (const int u : users[b]) if (--pending[u] == 0) ready.push(u);
-    }
-    return order;                                 // коротший за count — лише при помилці
-}
-```
+:::code proj-dsm-partition/cpp/kondensatsiia-i-chomu.cpp
 
 Різниця між «детермінованим» і «стійким» виводом дорого коштує тим, хто її не помітив.
 
@@ -296,80 +90,7 @@ static std::vector<int> canonical_order(const Cond& c) {
 
 ## Матриця на бітових словах
 
-```cpp
-struct Layout {
-    std::vector<int> row;                         // номер рядка → елемент
-    std::vector<int> at;                          // елемент → номер рядка
-    std::vector<int> pos;                         // блок → його номер у порядку
-};
-
-static Layout lay_out(const Cond& c, const std::vector<int>& order, int n) {
-    Layout L;
-    L.row.reserve(n);
-    for (const int b : order)
-        for (const int v : c.members[b]) L.row.push_back(v);
-    L.at.assign(n, 0);
-    for (int k = 0; k < n; ++k) L.at[L.row[k]] = k;
-    L.pos.assign(c.count, 0);
-    for (int k = 0; k < (int)order.size(); ++k) L.pos[order[k]] = k;
-    return L;
-}
-
-// Щільна бітова DSM у порядку друку. Пам'ять n²/8 байтів: 5 000 елементів —
-// 3.1 МіБ, 50 000 — 312 МіБ, тож будуємо її лише коли справді показуємо.
-static std::vector<Word> dense_dsm(const Csr& g, const Layout& L) {
-    const int n = g.n;
-    const size_t W = ((size_t)n + WBITS - 1) / WBITS;
-    std::vector<Word> m((size_t)n * W, 0);
-    for (int k = 0; k < n; ++k) {
-        const int v = L.row[k];
-        Word* dst = &m[(size_t)k * W];
-        for (int e = g.head[v]; e < g.head[v + 1]; ++e) {
-            const int j = L.at[g.to[e]];
-            dst[j / WBITS] |= Word(1) << (j % WBITS);
-        }
-    }
-    return m;
-}
-
-static void print_matrix(const Csr& g, const Input& in, const Cond& c,
-                         const std::vector<int>& comp, const Layout& L, int limit) {
-    const int n = g.n;
-    if (n > limit) {
-        std::printf("матриця не друкується: %d елементів (межа --limit %d)\n\n", n, limit);
-        return;
-    }
-    const std::vector<Word> m = dense_dsm(g, L);
-    const size_t W = ((size_t)n + WBITS - 1) / WBITS;
-
-    int wide = 7;
-    for (const std::string& s : in.name) wide = std::max(wide, (int)s.size());
-    const int prefix = 3 + 2 + wide + 2 + 6;
-
-    if (n >= 10) {                                // рядок десятків
-        std::string h((size_t)prefix, ' ');
-        for (int k = 1; k <= n; ++k) h.push_back(k < 10 ? ' ' : char('0' + k / 10 % 10));
-        std::printf("%s\n", h.c_str());
-    }
-    std::string h((size_t)prefix, ' ');           // рядок одиниць
-    for (int k = 1; k <= n; ++k) h.push_back(char('0' + k % 10));
-    std::printf("%s\n", h.c_str());
-
-    for (int k = 0; k < n; ++k) {
-        const int v = L.row[k];
-        std::string cells((size_t)n, '.');
-        for (int j = 0; j < n; ++j)
-            if ((m[(size_t)k * W + j / WBITS] >> (j % WBITS)) & 1) cells[j] = 'x';
-        cells[k] = in.loop[v] ? '@' : '#';        // діагональ; '@' — петля сам-на-себе
-        char blk[16];
-        std::snprintf(blk, sizeof blk, "B%d%s", L.pos[comp[v]] + 1,
-                      c.members[comp[v]].size() > 1 ? "*" : "");
-        std::printf("%3d  %-*s  %-6s%s\n", k + 1, wide, in.name[v].c_str(), blk,
-                    cells.c_str());
-    }
-    std::printf("\n");
-}
-```
+:::code proj-dsm-partition/cpp/matrytsia-na-bitovykh.cpp
 
 Позначки тут навмисно ASCII, а не гарні `■` і `×`. Вивід програми живе в журналі складання, проходить крізь `grep`, лягає в `diff` і подекуди читається інструментом, що рахує байти замість символів. Кожен символ рамкової графіки в UTF-8 займає три байти, і `%-*s` вирівнює **байти**: одне неанглійське ім'я модуля — і таблиця поїхала. Одна ця обставина ламала більше звітів, ніж усі помилки в алгоритмах разом.
 
@@ -377,53 +98,7 @@ static void print_matrix(const Csr& g, const Input& in, const Cond& c,
 
 Видимість рахується не по елементах, а по блоках. Усередині сильно зв'язної компоненти всі бачать те саме — інакше вони не були б однією компонентою, — тож рахувати кожному окремо означає повторити ту саму роботу стільки разів, скільки в блоці членів. Замість цього маска будується одна на блок і **над блоками**: біт *j* стоїть, якщо блок дотягується до блоку *j*. Ціна падає з *n*² до *C*² бітів, а на кодових базах із великими клубками різниця відчутна.
 
-```cpp
-struct Visibility {
-    std::vector<Word> bits;                       // блок → маска блоків (себе включно)
-    std::vector<long long> seen;                  // блок → скільки ЕЛЕМЕНТІВ бачить його член
-    long long total = 0;
-    double cost = 0.0;
-};
-
-static Visibility visibility(const Cond& c, const std::vector<int>& order, int n) {
-    const int C = c.count;
-    const size_t W = ((size_t)C + WBITS - 1) / WBITS;
-    Visibility r;
-    r.bits.assign((size_t)C * W, 0);
-    r.seen.assign(C, 0);
-
-    std::vector<std::vector<int>> deps(C);
-    for (const auto& e : c.edge) deps[e.first].push_back(e.second);
-
-    // Порядок такий, що блок іде ПІСЛЯ всіх, кого потребує, — отже, на момент
-    // обробки всі доданки вже готові, і достатньо одного проходу.
-    for (const int b : order) {
-        Word* dst = &r.bits[(size_t)b * W];
-        dst[b / WBITS] |= Word(1) << (b % WBITS);          // блок бачить сам себе
-        for (const int d : deps[b]) {
-            const Word* src = &r.bits[(size_t)d * W];
-            for (size_t k = 0; k < W; ++k) dst[k] |= src[k];
-        }
-    }
-
-    for (int b = 0; b < C; ++b) {                 // маска блоків → кількість елементів
-        long long s = 0;
-        const Word* src = &r.bits[(size_t)b * W];
-        for (size_t k = 0; k < W; ++k) {
-            Word w = src[k];
-            while (w) {
-                const int j = (int)k * WBITS + std::countr_zero(w);
-                w &= w - 1;                       // погасити молодший установлений біт
-                s += (long long)c.members[j].size();
-            }
-        }
-        r.seen[b] = s;
-        r.total += (long long)c.members[b].size() * s;
-    }
-    r.cost = (double)r.total / ((double)n * n);
-    return r;
-}
-```
+:::code proj-dsm-partition/cpp/vydymist-i-vartist.cpp
 
 ![П'ять блоків один під одним, у кожного смужка з п'яти клітинок-бітів: у першого зафарбована одна, далі щоразу на одну більше, аж до всіх п'яти; праворуч формула через OR масок попередніх блоків і скільки елементів бачить кожен член](img/visibility-blocks.svg)
 
@@ -433,140 +108,7 @@ static Visibility visibility(const Cond& c, const std::vector<int>& order, int n
 
 ## Складання докупи
 
-```cpp
-static std::string signature(const std::vector<int>& mem,
-                             const std::vector<std::string>& name) {
-    std::string s;
-    for (size_t k = 0; k < mem.size(); ++k) { if (k) s += ','; s += name[mem[k]]; }
-    return s;
-}
-
-static std::string brief(const std::vector<int>& mem,
-                         const std::vector<std::string>& name) {
-    std::string s;
-    for (size_t k = 0; k < mem.size() && k < 3; ++k) { if (k) s += ", "; s += name[mem[k]]; }
-    if (mem.size() > 3) s += ", … (" + std::to_string(mem.size()) + ")";
-    return s;
-}
-
-static void print_cycles(const Csr& g, const Input& in, const Cond& c,
-                         const std::vector<int>& comp, const std::vector<int>& order,
-                         const Layout& L) {
-    int cyc = 0;
-    for (const int b : order) if (c.members[b].size() > 1) ++cyc;
-    std::printf("циклів (блоків більш ніж з одного елемента): %d\n", cyc);
-    for (const int b : order) {
-        if (c.members[b].size() <= 1) continue;
-        std::printf("  B%d  %s\n", L.pos[b] + 1, signature(c.members[b], in.name).c_str());
-        for (const int v : c.members[b])
-            for (int e = g.head[v]; e < g.head[v + 1]; ++e)
-                if (comp[g.to[e]] == b)
-                    std::printf("      %s -> %s\n", in.name[v].c_str(),
-                                in.name[g.to[e]].c_str());
-    }
-    std::printf("\n");
-}
-
-static int check_baseline(const Input& in, const Cond& c, const std::vector<int>& order,
-                          const Layout& L, const std::string& path) {
-    std::ifstream f(path);
-    if (!f) { std::fprintf(stderr, "еталон не читається: %s\n", path.c_str()); return 1; }
-    std::unordered_set<std::string> known;
-    std::string line;
-    while (std::getline(f, line)) {
-        const std::string s = trim(line);
-        if (!s.empty()) known.insert(s);
-    }
-    int fresh = 0;
-    for (const int b : order) {
-        if (c.members[b].size() <= 1) continue;
-        const std::string s = signature(c.members[b], in.name);
-        if (!known.count(s)) {
-            std::printf("НОВИЙ блок B%d: %s\n", L.pos[b] + 1, s.c_str());
-            ++fresh;
-        }
-    }
-    if (fresh) { std::printf("нових блоків: %d — збірка падає\n", fresh); return 2; }
-    std::printf("нових блоків немає\n");
-    return 0;
-}
-
-static int write_baseline(const Input& in, const Cond& c, const std::vector<int>& order,
-                          const std::string& path) {
-    std::ofstream f(path);
-    if (!f) { std::fprintf(stderr, "еталон не пишеться: %s\n", path.c_str()); return 1; }
-    for (const int b : order)
-        if (c.members[b].size() > 1) f << signature(c.members[b], in.name) << '\n';
-    return 0;
-}
-
-int main(int argc, char** argv) {
-    std::string src, baseline, write;
-    int limit = 60;
-    for (int i = 1; i < argc; ++i) {
-        const std::string a = argv[i];
-        if (a == "--baseline" && i + 1 < argc) baseline = argv[++i];
-        else if (a == "--write-baseline" && i + 1 < argc) write = argv[++i];
-        else if (a == "--limit" && i + 1 < argc) limit = std::atoi(argv[++i]);
-        else if (!a.empty() && a[0] != '-') src = a;
-        else { std::fprintf(stderr, "не розумію аргумент: %s\n", a.c_str()); return 1; }
-    }
-
-    std::ifstream file;
-    std::istream* stream = &std::cin;
-    if (!src.empty()) {
-        file.open(src);
-        if (!file) { std::fprintf(stderr, "не читається: %s\n", src.c_str()); return 1; }
-        stream = &file;
-    }
-
-    const Input in = read_edges(*stream);
-    const int n = (int)in.name.size();
-    if (n == 0) { std::printf("порожній вхід\n"); return 0; }
-
-    const Csr g = build_csr(n, in.edge);
-    std::vector<int> comp;
-    const int ncomp = tarjan(g, comp);
-    const Cond c = condense(g, comp, ncomp);
-    const std::vector<int> order = canonical_order(c);
-    if ((int)order.size() != ncomp) {             // конденсація ациклічна за побудовою
-        std::fprintf(stderr, "внутрішня помилка: цикл у конденсації\n");
-        return 1;
-    }
-    const Layout L = lay_out(c, order, n);
-
-    std::printf("елементів: %d, дуг: %zu, блоків: %d", n, in.edge.size(), ncomp);
-    if (in.dup)  std::printf(", дублікатів відкинуто: %lld", in.dup);
-    if (in.self) std::printf(", петель сам-на-себе: %lld", in.self);
-    std::printf("\n\n");
-
-    print_matrix(g, in, c, comp, L, limit);
-    print_cycles(g, in, c, comp, order, L);
-
-    const Visibility vis = visibility(c, order, n);
-    std::vector<int> show = order;
-    if ((int)show.size() > limit) {               // на великих системах — лише найважчі
-        const size_t k = std::min<size_t>(10, show.size());
-        std::partial_sort(show.begin(), show.begin() + k, show.end(),
-                          [&](int a, int b) {     // при рівних — за абеткою, а не «як вийде»
-                              if (vis.seen[a] != vis.seen[b]) return vis.seen[a] > vis.seen[b];
-                              return c.members[a][0] < c.members[b][0];
-                          });
-        show.resize(k);
-    }
-    std::printf("видимість (скільки елементів бачить кожен член блоку):\n");
-    for (const int b : show)
-        std::printf("  B%-3d %-40s %lld\n", L.pos[b] + 1,
-                    brief(c.members[b], in.name).c_str(), vis.seen[b]);
-    std::printf("\n  сума за елементами: %lld\n", vis.total);
-    std::printf("  вартість поширення: %lld / %d² = %.1f %%\n\n", vis.total, n,
-                100.0 * vis.cost);
-
-    if (!write.empty()) return write_baseline(in, c, order, write);
-    if (!baseline.empty()) return check_baseline(in, c, order, L, baseline);
-    return 0;
-}
-```
+:::code proj-dsm-partition/cpp/skladannia-dokupy.cpp
 
 **Прогін на файлі з початку.**
 

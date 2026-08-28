@@ -87,43 +87,8 @@ B. Абстракції не мають залежати від деталей.
 Окремого слова варта ситуація, коли політика мусить **сама створювати** об'єкти по ходу роботи — не один раз на старті, а щоразу новий (з'єднання на запит, парсер на файл). Передати готовий екземпляр ззовні тут не вийде — політиці потрібна здатність *творити*, лишаючись сліпою до конкретного типу. Відповідь — теж абстракція, тільки абстракція-творець: **абстрактна фабрика**. Політика залежить від інтерфейсу `Factory`, кличе `factory.open()` і отримує абстрактний продукт; який саме — вирішує підставлена ззовні реалізація фабрики. Про самі патерни творення — [фабричний метод і абстрактна фабрика](root:sf-apps/factory-method); ось як фабрика тримає інверсію там, де без неї деталь просочилася б у політику:
 
 :::tabs
-```ts
-// Політика мусить СТВОРЮВАТИ з'єднання, але не сміє знати, чиє воно.
-// Абстрактна фабрика — теж абстракція; стрілка політики впирається в неї.
-interface Connection { query(sql: string): Row[]; close(): void; }
-interface ConnectionFactory { open(): Connection; }        // порт-творець
-
-class ReportService {
-  constructor(private readonly factory: ConnectionFactory) {}
-
-  daily(): Report {
-    const conn = this.factory.open();     // створили, не назвавши деталь
-    try { return build(conn.query("select ...")); }
-    finally { conn.close(); }
-  }
-}
-```
-```py
-from typing import Protocol
-
-class Connection(Protocol):
-    def query(self, sql: str) -> list: ...
-    def close(self) -> None: ...
-
-class ConnectionFactory(Protocol):        # порт-творець
-    def open(self) -> Connection: ...
-
-class ReportService:
-    def __init__(self, factory: ConnectionFactory):
-        self._factory = factory
-
-    def daily(self) -> "Report":
-        conn = self._factory.open()       # створили, не назвавши деталь
-        try:
-            return build(conn.query("select ..."))
-        finally:
-            conn.close()
-```
+:::code dependency-inversion-d/ts/chym-same-rozvertaiut.ts
+:::code dependency-inversion-d/py/chym-same-rozvertaiut.py
 :::
 
 І є прийом, який виглядає як DIP, але тихо його підриває, — **локатор служб (service locator)**: замість приймати залежність, політика гукає глобальний реєстр і сама витягає з нього потрібне, `locator.get(Orders)`. Формально ім'я конкретного типу зникло — але з'явилася **прихована** залежність: тепер, щоб зрозуміти, що потрібно класу, треба читати його тіло, а не сигнатуру, і забути підготувати локатор у тесті легше, ніж не передати аргумент. Тому локатор вважають радше анти-двійником впровадження: він розриває пряме ім'я деталі, але ховає сам факт залежності, а прихована залежність гірша за видиму. Правило просте — **залежності мають бути в сигнатурі, на видноті**, щоб компілятор і читач бачили їх без здогадів.
@@ -167,22 +132,7 @@ impl<S: Sink> Reporter<S> {
 
 Найдалі структурний підхід провів **Go**. Інтерфейси там задовольняються неявно: якщо тип має потрібні методи, він реалізує інтерфейс — без слова `implements`, без оголошеного зв'язку. З цього виростає порада, що стала в Go майже прислів'ям, — **приймай інтерфейси, повертай структури**, — і головне з неї: інтерфейс оголошує **той, хто ним користується**, поряд зі своєю політикою, а не той, хто його виконує. *(Усталена практика Go-спільноти; не входить до офіційного переліку Go Proverbs, але є загальновизнаною ідіомою.)*
 
-```go
-// Пакет billing (політика) оголошує ВЛАСНИЙ інтерфейс — рівно те, що йому треба.
-package billing
-
-type Ledger interface {          // інтерфейс живе у СПОЖИВАЧА
-    Record(entry Entry) error
-}
-
-type Invoicer struct {
-    ledger Ledger                // залежить від своєї ж абстракції
-}
-
-func (i *Invoicer) Charge(o Order) error {
-    return i.ledger.Record(entryFor(o))
-}
-```
+:::code dependency-inversion-d/go/main.go
 
 Тонкість, заради якої це й показано: пакет із реалізацією — скажімо, `postgres` із типом `PgLedger`, що має метод `Record(Entry) error`, — **не імпортує `billing`**. Він про політику навіть не знає; він просто випадково має потрібний метод, і цього досить. Тож на рівні пакетів `billing` не залежить від `postgres`, а `postgres` не залежить від `billing` — жодної стрілки між ними; зшиває їх лише корінь збірки в `main`. Ідея «абстракція належить споживачу» тут доведена до краю самою мовою: споживач кроїть інтерфейс рівно під свою потребу, а виконавцеві навіть не треба про нього чути.
 
@@ -195,72 +145,15 @@ func (i *Invoicer) Charge(o Order) error {
 DIP перевертає її на найважливішій межі. Інтерфейс сховища — репозиторій — оголошують **у домені**, його мовою («знайти замовлення», «зберегти замовлення»), а реалізацію кладуть у шар інфраструктури, яка тепер залежить **угору**, від домену. Ось той самий зсув на прикладі; спершу порт і сценарій у домені:
 
 :::tabs
-```ts
-// --- domain/ (політика): порт оголошено ТУТ, мовою домену ---
-export interface Orders {                       // репозиторій як абстракція домену
-  save(order: Order): Promise<void>;
-  byId(id: OrderId): Promise<Order | null>;
-}
-
-export class PlaceOrder {                        // сценарій-політика
-  constructor(private readonly orders: Orders) {}
-
-  async run(cmd: NewOrder): Promise<void> {
-    const order = Order.create(cmd);
-    await this.orders.save(order);               // знає лише обіцянку домену
-  }
-}
-```
-```py
-from typing import Protocol, Optional
-
-class Orders(Protocol):                          # репозиторій як абстракція домену
-    async def save(self, order: "Order") -> None: ...
-    async def by_id(self, id: "OrderId") -> Optional["Order"]: ...
-
-class PlaceOrder:                                # сценарій-політика
-    def __init__(self, orders: Orders):
-        self._orders = orders
-
-    async def run(self, cmd: "NewOrder") -> None:
-        order = Order.create(cmd)
-        await self._orders.save(order)           # знає лише обіцянку домену
-```
+:::code dependency-inversion-d/ts/iak-dip-trymaie-tsilu.ts
+:::code dependency-inversion-d/py/iak-dip-trymaie-tsilu.py
 :::
 
 А реалізація живе в інфраструктурі й дивиться стрілкою вгору, на домен:
 
 :::tabs
-```ts
-// --- infra/ (деталь): залежить УГОРУ, від домену ---
-import { Orders, Order, OrderId } from "../domain";
-
-export class PgOrders implements Orders {        // адаптер підлаштувався під домен
-  constructor(private readonly db: Pg) {}
-
-  async save(o: Order): Promise<void> {
-    await this.db.exec("insert into orders ...", o.row());
-  }
-  async byId(id: OrderId): Promise<Order | null> {
-    const r = await this.db.query("select ... where id = $1", [id.value]);
-    return r.rows.length ? Order.fromRow(r.rows[0]) : null;
-  }
-}
-```
-```py
-from domain import Orders, Order, OrderId        # деталь залежить УГОРУ, від домену
-
-class PgOrders:                                  # структурно задовольняє Orders (Protocol)
-    def __init__(self, db):
-        self._db = db
-
-    async def save(self, o: Order) -> None:
-        await self._db.exec("insert into orders ...", o.row())
-
-    async def by_id(self, id: OrderId):
-        r = await self._db.query("select ... where id = $1", id.value)
-        return Order.from_row(r[0]) if r else None
-```
+:::code dependency-inversion-d/ts/iak-dip-trymaie-tsilu-2.ts
+:::code dependency-inversion-d/py/iak-dip-trymaie-tsilu-2.py
 :::
 
 Домен тепер компілюється, тестується й живе, не знаючи слова «Postgres»; база стала **плагіном до бізнес-правил**, а не їхнім фундаментом. Узагальнення цього спостереження й називають **правилом залежностей (The Dependency Rule)** чистої архітектури: усі залежності коду спрямовані **всередину**, до політики; ніщо у внутрішньому колі не знає нічого про зовнішнє. Те саме розташування портів по краю домену, з адаптерами ззовні, лежить в основі [портів і адаптерів](root:sf-apps/hexagonal-architecture) та ідеї [плагінів як точок розширення](root:sf-apps/plugin-architecture) — усе це той самий один розворот, піднятий на рівень системи. Повний робочий зріз такої системи — з двома портами, двома адаптерами, коренем збірки й тестом на підробках — розібрано в окремому [проєкті «порти й адаптери»](root:sf-apps/dependency-inversion/proj-ports-and-adapters.md).

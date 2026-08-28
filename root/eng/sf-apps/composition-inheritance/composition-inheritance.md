@@ -34,37 +34,8 @@
 Полагодити цей приклад легко — і лагодить його саме композиція. Замість «стек **є** вектор» скажи «стек **має** вектор усередині»:
 
 :::tabs
-```cpp
-// Було: контракт протікає — успадкували ВЕСЬ вектор
-class Stack : public std::vector<int> {   // s.at(2), s.insert(...) — усе відкрито
-public:
-    void push(int x) { push_back(x); }
-    int  pop() { int x = back(); pop_back(); return x; }
-};
-
-// Стало: вектор СХОВАНО полем, назовні лише push/pop
-class Stack {
-    std::vector<int> data;                // приватне — клієнт його не бачить
-public:
-    void push(int x) { data.push_back(x); }
-    int  pop() { int x = data.back(); data.pop_back(); return x; }
-    bool empty() const { return data.empty(); }
-};
-```
-```python
-# Було: контракт протікає — успадкували ВЕСЬ список
-class Stack(list):                        # s[2], s.insert(...) — усе відкрито
-    def push(self, x): self.append(x)
-    def pop_top(self): return self.pop()
-
-# Стало: список СХОВАНО полем, назовні лише push/pop
-class Stack:
-    def __init__(self):
-        self._data = []                   # приватне — клієнт його не бачить
-    def push(self, x): self._data.append(x)
-    def pop(self): return self._data.pop()
-    def empty(self): return not self._data
-```
+:::code composition-inheritance/cpp/spadkuvannia-protykaie.cpp
+:::code composition-inheritance/py/spadkuvannia-protykaie.py
 :::
 
 У другому варіанті `data` — приватне поле, і `get(i)` назовні просто немає: контракт стека цілий. Ба більше, тепер вільно підмінити `std::vector` на `std::deque` чи власне сховище — жоден клієнт не зачепиться, бо він ніколи й не знав, що всередині вектор. Це і є повернута інкапсуляція: композиція **не протикає** реалізацію, вона її **ховає**.
@@ -82,57 +53,8 @@ class Stack:
 Композиція розриває добуток на суму. Ворог не **успадковує** зброю й броню — він їх **має**: тримає всередині поле «зброя» і поле «броня», а конкретну поведінку кожного бере як окрему змінну деталь. Тоді двом видам зброї й трьом видам броні відповідають **два плюс три — п'ять** незалежних деталей, і будь-яку з шести комбінацій збирають, просто підставивши потрібну пару вже під час роботи:
 
 :::tabs
-```cpp
-// Кожна вісь — окремий інтерфейс поведінки
-struct Weapon { virtual int  hit()   const = 0; virtual ~Weapon() = default; };
-struct Armor  { virtual int  block() const = 0; virtual ~Armor()  = default; };
-
-struct Sword : Weapon { int hit()   const override { return 10; } };
-struct Bow   : Weapon { int hit()   const override { return 6;  } };
-struct Light : Armor  { int block() const override { return 2;  } };
-struct Heavy : Armor  { int block() const override { return 7;  } };
-
-// Ворог НЕ успадковує зброю чи броню — він їх ТРИМАЄ
-class Enemy {
-    std::unique_ptr<Weapon> weapon;
-    std::unique_ptr<Armor>  armor;
-public:
-    Enemy(std::unique_ptr<Weapon> w, std::unique_ptr<Armor> a)
-        : weapon(std::move(w)), armor(std::move(a)) {}
-    int attack() const { return weapon->hit(); }
-    int defend() const { return armor->block(); }
-};
-
-// Будь-яку комбінацію збирають на місці — нового класу не треба
-Enemy archer(std::make_unique<Bow>(), std::make_unique<Heavy>());
-```
-```python
-# Кожна вісь — окремий інтерфейс поведінки
-class Weapon: 
-    def hit(self):   ...   # скільки шкоди завдає
-class Armor:  
-    def block(self): ...   # скільки шкоди тримає
-
-class Sword(Weapon): 
-    def hit(self):   return 10
-class Bow(Weapon):   
-    def hit(self):   return 6
-class Light(Armor):  
-    def block(self): return 2
-class Heavy(Armor):  
-    def block(self): return 7
-
-# Ворог НЕ успадковує зброю чи броню — він їх ТРИМАЄ
-class Enemy:
-    def __init__(self, weapon, armor):
-        self.weapon = weapon
-        self.armor  = armor
-    def attack(self): return self.weapon.hit()
-    def defend(self): return self.armor.block()
-
-# Будь-яку комбінацію збирають на місці — нового класу не треба
-archer = Enemy(Bow(), Heavy())
-```
+:::code composition-inheritance/cpp/druha-bida-spadkuvannia.cpp
+:::code composition-inheritance/py/druha-bida-spadkuvannia.py
 :::
 
 Щоб додати арбалет, пишеш **один** новий клас `Crossbow` — і він одразу поєднується з усіма бронями, які вже є. У світі спадкування довелось би завести стільки нових класів, скільки є видів броні. Різниця «сума проти добутку» на кількох осях перетворюється на прірву. Повний перехід «дерево-вибух → композиція» на робочому C++ — з обома версіями поряд, підрахунком, скільки класів дає кожен підхід, і чесним виміром ціни делегувальних обгорток — розібрано в [окремому проєкті-рефакторингу](root:sf-apps/composition-inheritance/proj-strategy-refactor.md).

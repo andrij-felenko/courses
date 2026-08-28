@@ -56,27 +56,7 @@ Java народилася не як мова для серверів, а все�
 
 **`FilterInputStream` — базовий декоратор.** Ось ключовий клас, підписаний Пейном. Він успадковує `InputStream` (тобто сам є потоком), але всередині тримає поле `protected InputStream in` — **посилання на інший потік**. І кожен його метод за замовчуванням просто **делегує**:
 
-```java
-// серце FilterInputStream — те, з чого починається кожна обгортка java.io
-public class FilterInputStream extends InputStream {
-    protected volatile InputStream in;      // обгорнутий потік — ТИП КОМПОНЕНТА!
-
-    protected FilterInputStream(InputStream in) {
-        this.in = in;
-    }
-
-    public int read() throws IOException {
-        return in.read();                    // просто передав униз
-    }
-    public int read(byte[] b, int off, int len) throws IOException {
-        return in.read(b, off, len);         // просто передав униз
-    }
-    public void close() throws IOException {
-        in.close();                          // просто передав униз
-    }
-    // ...так само skip(), available(), mark(), reset()
-}
-```
+:::code hist-java-io/java/main.java
 
 Сам по собі `FilterInputStream` **нічого не змінює** — він прозорий, як скло: що йому дали, те він і віддає. Він — заготовка, порожня рамка, у якій уже прокладено делегування. Конкретні обгортки успадковують його й **перекривають лише ті методи, де хочуть щось додати**, а решту лишають делегованими даром. Це різко скорочує код кожної обгортки: не треба щоразу писати весь контракт `InputStream`, досить перекрити один-два методи.
 

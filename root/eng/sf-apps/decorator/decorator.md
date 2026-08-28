@@ -55,80 +55,8 @@ n осей           = 2ⁿ класів  ← комбінаторний виб�
 Це загальна об'єктна ідея, доречна майже в будь-якій мові з інтерфейсами. Покажу двома, що по-різному розкривають механізм: Java — бо саме там декоратор канонічний і видно всі чотири ролі як окремі типи; і Python — бо в ньому те саме виходить помітно коротше, і видно, що суть патерна не в церемонії, а в ідеї обгортання.
 
 :::tabs
-```java
-// КОМПОНЕНТ — спільний інтерфейс напою
-interface Beverage {
-    int cost();
-    String description();
-}
-
-// КОНКРЕТНИЙ КОМПОНЕНТ — проста кава, яку обгортатимемо
-class Coffee implements Beverage {
-    public int cost()           { return 20; }
-    public String description() { return "кава"; }
-}
-
-// БАЗОВИЙ ДЕКОРАТОР — тримає компонент і за замовчуванням просто ДЕЛЕГУЄ
-abstract class AddOn implements Beverage {
-    protected final Beverage inner;      // посилання типу КОМПОНЕНТА, не Coffee!
-    protected AddOn(Beverage inner) { this.inner = inner; }
-    public int cost()           { return inner.cost(); }         // просто передав
-    public String description() { return inner.description(); }  // просто передав
-}
-
-// КОНКРЕТНІ ДЕКОРАТОРИ — навколо делегації додають своє
-class Milk extends AddOn {
-    Milk(Beverage inner) { super(inner); }
-    public int cost()           { return inner.cost() + 5; }
-    public String description() { return inner.description() + " + молоко"; }
-}
-class Cinnamon extends AddOn {
-    Cinnamon(Beverage inner) { super(inner); }
-    public int cost()           { return inner.cost() + 3; }
-    public String description() { return inner.description() + " + кориця"; }
-}
-
-// СКЛАДАННЯ — обгортки нанизуються в рантаймі, як конструктор
-Beverage order = new Cinnamon(new Milk(new Coffee()));
-order.description();  // "кава + молоко + кориця"
-order.cost();         // 28
-```
-```py
-from abc import ABC, abstractmethod
-
-# КОМПОНЕНТ — спільний інтерфейс напою
-class Beverage(ABC):
-    @abstractmethod
-    def cost(self) -> int: ...
-    @abstractmethod
-    def description(self) -> str: ...
-
-# КОНКРЕТНИЙ КОМПОНЕНТ — проста кава
-class Coffee(Beverage):
-    def cost(self) -> int:        return 20
-    def description(self) -> str: return "кава"
-
-# БАЗОВИЙ ДЕКОРАТОР — тримає компонент і за замовчуванням делегує
-class AddOn(Beverage):
-    def __init__(self, inner: Beverage):
-        self._inner = inner            # тип КОМПОНЕНТА — тому вкласти можна будь-що
-    def cost(self) -> int:        return self._inner.cost()
-    def description(self) -> str: return self._inner.description()
-
-# КОНКРЕТНІ ДЕКОРАТОРИ — навколо делегації додають своє
-class Milk(AddOn):
-    def cost(self) -> int:        return self._inner.cost() + 5
-    def description(self) -> str: return self._inner.description() + " + молоко"
-
-class Cinnamon(AddOn):
-    def cost(self) -> int:        return self._inner.cost() + 3
-    def description(self) -> str: return self._inner.description() + " + кориця"
-
-# СКЛАДАННЯ — обгортки нанизуються в рантаймі
-order = Cinnamon(Milk(Coffee()))
-order.description()  # "кава + молоко + кориця"
-order.cost()         # 28
-```
+:::code decorator/java/main.java
+:::code decorator/py/main.py
 :::
 
 Простеж очима шлях виклику `order.cost()`. Зовнішня обгортка — `Cinnamon` — питає ціну в того, кого тримає всередині (`inner.cost()`), і лише потім додає свої 3. А всередині в неї — `Milk`, який так само спершу питає свого `inner` і додає 5. А там уже `Coffee`, що просто віддає 20. Виклик іде **вниз крізь усі шари до справжнього об'єкта**, а числа складаються **на зворотному шляху назовні**: 20 → 25 → 28. Це та сама схема, що на зображенні вище.

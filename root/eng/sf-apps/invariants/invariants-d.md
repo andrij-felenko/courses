@@ -46,69 +46,9 @@
 Складімо це в код. Мова тут — загального застосунку, тож беремо мови стеку; правило універсальне, тому покажемо його паралельно кількома, кожна ідіоматична:
 
 :::tabs
-```ts
-class TempRange {
-  // Стан прихований — ззовні межі не переписати повз перевірку.
-  #min: number;
-  #max: number;
-
-  constructor(min: number, max: number) {
-    // встановлюємо інваріант: без коректних меж об'єкт не народжується.
-    if (min > max) throw new Error("min не може бути більший за max");
-    this.#min = min;
-    this.#max = max;
-  }
-
-  // Кожна операція зберігає інваріант.
-  setMin(v: number): void {
-    if (v > this.#max) throw new Error("min не може перевищити max");
-    this.#min = v;
-  }
-
-  width(): number { return this.#max - this.#min; }   // завжди ≥ 0 — гарантовано
-  contains(t: number): boolean { return this.#min <= t && t <= this.#max; }
-}
-```
-```python
-class TempRange:
-    def __init__(self, minimum: float, maximum: float) -> None:
-        # встановлюємо інваріант: без коректних меж об'єкт не народжується.
-        if minimum > maximum:
-            raise ValueError("min не може бути більший за max")
-        self._min = minimum      # стан прихований (умовно приватний)
-        self._max = maximum
-
-    def set_min(self, v: float) -> None:
-        # Кожна операція зберігає інваріант.
-        if v > self._max:
-            raise ValueError("min не може перевищити max")
-        self._min = v
-
-    def width(self) -> float:
-        return self._max - self._min          # завжди ≥ 0 — гарантовано
-
-    def contains(self, t: float) -> bool:
-        return self._min <= t <= self._max
-```
-```rust
-pub struct TempRange { min: f64, max: f64 }   // поля приватні для модуля
-
-impl TempRange {
-    pub fn new(min: f64, max: f64) -> Result<Self, &'static str> {
-        // встановлюємо інваріант: некоректний відрізок узагалі не створити.
-        if min > max { return Err("min не може бути більший за max"); }
-        Ok(TempRange { min, max })
-    }
-
-    pub fn set_min(&mut self, v: f64) -> Result<(), &'static str> {
-        if v > self.max { return Err("min не може перевищити max"); }
-        self.min = v;                          // зберігаємо інваріант
-        Ok(())
-    }
-
-    pub fn width(&self) -> f64 { self.max - self.min }   // завжди ≥ 0
-}
-```
+:::code invariants-d/ts/dva-oboviazky-vstanovyty-i.ts
+:::code invariants-d/py/dva-oboviazky-vstanovyty-i.py
+:::code invariants-d/rust/main.rs
 :::
 
 Придивися, що дає ця пара обов'язків разом. Раз об'єкт народжується лише коректним, а кожна операція коректність зберігає, то **за індукцією** він коректний у будь-який момент, коли на нього дивляться: база (створення) істинна, крок (кожна операція) істинність переносить — отже, істинно завжди. Це не побажання й не звичка охайного програміста, а логічний наслідок двох перекритих місць. Саме тому `width()` може без жодної перевірки повертати різницю: авторові вже **нізвідки** взяти від'ємну ширину, бо в об'єкт її нізвідки записати.
@@ -152,32 +92,8 @@ impl TempRange {
 Тоді лишається тільки перший обов'язок. Незмінний ([immutable](root:sf-apps/immutability)) об'єкт перевіряє інваріант **один раз**, у конструкторі, — і далі його нема кому й нема як порушити, бо змінити стан не можна в принципі. Не буває методу, що «забув перевірку»: методів, які міняють стан, просто немає. Замість підправляти наявний об'єкт, створюють новий — а новий знову проходить перевірку в конструкторі.
 
 :::tabs
-```ts
-class TempRange {
-  readonly min: number;
-  readonly max: number;
-  constructor(min: number, max: number) {
-    if (min > max) throw new Error("min не може бути більший за max");
-    this.min = min; this.max = max;      // перевірили ОДИН раз — і назавжди
-  }
-  // «Зміна» = новий об'єкт, що знову проходить перевірку конструктора.
-  withMin(v: number): TempRange { return new TempRange(v, this.max); }
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass(frozen=True)          # frozen → поля не переприсвоїти після створення
-class TempRange:
-    min: float
-    max: float
-    def __post_init__(self) -> None:
-        if self.min > self.max:   # перевірили ОДИН раз — і назавжди
-            raise ValueError("min не може бути більший за max")
-    # «Зміна» = новий обʼєкт, що знову проходить перевірку.
-    def with_min(self, v: float) -> "TempRange":
-        return TempRange(v, self.max)
-```
+:::code invariants-d/ts/nezminnist-koly-zberihaty.ts
+:::code invariants-d/py/nezminnist-koly-zberihaty.py
 :::
 
 Ось чому незмінність і інваріанти — природні союзники: незмінність зводить задачу «тримати правило на кожному кроці» до задачі «перевірити правило один раз». Половина способів зламати інваріант — це операції-зміни; прибери зміни — і половини загроз як не було.

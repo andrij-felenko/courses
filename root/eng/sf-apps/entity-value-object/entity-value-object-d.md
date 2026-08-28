@@ -72,53 +72,8 @@
 Подивимося, як це лягає в код. Ось об'єкт-значення «Гроші» — його рівність рахується за вмістом, а мова сама допомагає, щойно ми покажемо їй, які поля важать:
 
 :::tabs
-```ts
-// Об'єкт-значення: рівність — за ВМІСТОМ, тотожності немає.
-// Незмінний (readonly), нове значення — новий об'єкт.
-class Money {
-  constructor(
-    readonly amount: number,   // у копійках, щоб не було дробів
-    readonly currency: string,
-  ) {}
-
-  equals(other: Money): boolean {
-    // жодного id — порівнюємо всі атрибути
-    return this.amount === other.amount
-        && this.currency === other.currency;
-  }
-
-  add(other: Money): Money {
-    if (this.currency !== other.currency)
-      throw new Error("не можна додавати різні валюти");
-    return new Money(this.amount + other.amount, this.currency);  // НОВИЙ об'єкт
-  }
-}
-
-const a = new Money(30000, "UAH");
-const b = new Money(30000, "UAH");
-a.equals(b);           // true — 300 грн це 300 грн, хоч це різні об'єкти в пам'яті
-a === b;               // false — але це вже питання про пам'ять, а не про гроші
-```
-```python
-from dataclasses import dataclass
-
-# frozen=True робить об'єкт незмінним І дає рівність за полями «безкоштовно»:
-# dataclass сам згенерує __eq__, що порівнює всі поля, і __hash__.
-@dataclass(frozen=True)
-class Money:
-    amount: int          # у копійках
-    currency: str
-
-    def add(self, other: "Money") -> "Money":
-        if self.currency != other.currency:
-            raise ValueError("не можна додавати різні валюти")
-        return Money(self.amount + other.amount, self.currency)  # НОВИЙ об'єкт
-
-a = Money(30000, "UAH")
-b = Money(30000, "UAH")
-a == b            # True — рівність за вмістом, як і має бути для значення
-a is b            # False — різні об'єкти в пам'яті, але нам байдуже
-```
+:::code entity-value-object-d/ts/rivnist-os-de-podil-staie.ts
+:::code entity-value-object-d/py/rivnist-os-de-podil-staie.py
 :::
 
 Зверни увагу на дрібницю з великими наслідками: `Money` **незмінний**. Це не примха, а прямий висновок із того, що він значення. Число `300` не можна «зробити трохи більшим» — можна лише взяти інше число. Так само й гроші: `add` не чіпає старий об'єкт, а повертає новий. І це рятує від цілого класу бід — тих самих [аліасингових](root:sf-apps/immutability) помилок, коли на один об'єкт дивляться з двох місць і хтось потай його переписує. Якщо ти передав комусь `Money` і знаєш, що його не можна змінити, тобі байдуже, скільки посилань на нього гуляє системою: жодне не зіпсує іншим. Об'єкт-значення й незмінність — майже сіамські близнюки; змінний об'єкт-значення (наприклад, дата, якій можна пересунути день прямо в місці) — джерело найпідступніших багів, бо ти міняєш його «тут», а він мовчки міняється й «там».
@@ -126,46 +81,8 @@ a is b            # False — різні об'єкти в пам'яті, але 
 А ось сутність — тут усе навпаки: рівність за `id`, а стан живе й змінюється:
 
 :::tabs
-```ts
-// Сутність: рівність — за ТОТОЖНІСТЮ (id), стан вільно змінюється в часі.
-class Order {
-  private status: "новий" | "оплачений" | "скасований" = "новий";
-
-  constructor(readonly id: string) {}    // id незмінний — це нитка тотожності
-
-  pay(): void  { this.status = "оплачений"; }   // стан МІНЯЄТЬСЯ — і це нормально
-  cancel(): void { this.status = "скасований"; }
-
-  equals(other: Order): boolean {
-    return this.id === other.id;         // тільки id, атрибути не дивимось
-  }
-}
-
-const o1 = new Order("ord-42");
-o1.pay();                                // стан змінився
-const same = new Order("ord-42");        // той самий id — та сама сутність
-o1.equals(same);                         // true — попри те, що стани різні
-```
-```python
-class Order:
-    def __init__(self, id: str):
-        self.id = id                     # незмінна нитка тотожності
-        self.status = "новий"            # стан — мінливий
-
-    def pay(self):    self.status = "оплачений"     # МІНЯЄМО стан — це нормально
-    def cancel(self): self.status = "скасований"
-
-    def __eq__(self, other):
-        return isinstance(other, Order) and self.id == other.id   # тільки id
-
-    def __hash__(self):
-        return hash(self.id)             # хеш теж від id, не від стану
-
-o1 = Order("ord-42")
-o1.pay()                                 # стан змінився
-same = Order("ord-42")                   # той самий id
-o1 == same                               # True — рівність за тотожністю
-```
+:::code entity-value-object-d/ts/rivnist-os-de-podil-staie-2.ts
+:::code entity-value-object-d/py/rivnist-os-de-podil-staie-2.py
 :::
 
 Різниця в `equals`/`__eq__` — це не деталь реалізації, а **закодований сорт речі**. Коли колега за півроку прочитає ці два класи, він одразу побачить: `Order` порівнюється за `id` — отже, це те, що живе в часі й має тотожність; `Money` порівнюється за полями — отже, це чисте значення, і його можна вільно копіювати й викидати. Правильно написана рівність — це документ про природу об'єкта, який компілятор ще й перевіряє.
@@ -181,52 +98,8 @@ o1 == same                               # True — рівність за тот
 Тепер зроби email об'єктом-значенням із **однією умовою**: він не може *існувати* невалідним.
 
 :::tabs
-```ts
-class Email {
-  private constructor(readonly value: string) {}   // конструктор закритий
-
-  // єдиний вхід — через фабрику, що перевіряє
-  static create(raw: string): Email {
-    const normalized = raw.trim().toLowerCase();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(normalized))
-      throw new Error(`не email: ${raw}`);
-    return new Email(normalized);
-  }
-
-  equals(other: Email): boolean { return this.value === other.value; }
-}
-
-// Далі по всій системі тип Email — це ГАРАНТІЯ, а не надія:
-function sendWelcome(to: Email) {
-  // тут НЕ треба перевіряти — якщо в руках Email, він уже валідний і нормалізований
-}
-
-Email.create("  Ivan@Example.COM ");   // ок → зберігає "ivan@example.com"
-Email.create("привіт");                 // кине помилку тут-таки, а не колись потім
-```
-```python
-import re
-from dataclasses import dataclass
-
-_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-
-@dataclass(frozen=True)
-class Email:
-    value: str
-
-    def __post_init__(self):
-        # dataclass кличе це одразу після створення — місце для перевірки інваріанта
-        norm = self.value.strip().lower()
-        if not _RE.match(norm):
-            raise ValueError(f"не email: {self.value}")
-        object.__setattr__(self, "value", norm)   # frozen — тож так записуємо нормалізоване
-
-def send_welcome(to: Email) -> None:
-    ...   # тут перевіряти НЕ треба: тип Email == уже валідний і нормалізований
-
-Email("  Ivan@Example.COM ")   # ок → зберігає "ivan@example.com"
-Email("привіт")                # ValueError одразу, а не колись у глибині системи
-```
+:::code entity-value-object-d/ts/obiekt-znachennia-shcho.ts
+:::code entity-value-object-d/py/obiekt-znachennia-shcho.py
 :::
 
 Дивись, що сталося. Правило «валідний email» перестало бути чиєюсь відповідальністю, яку можна забути, і стало **властивістю самого типу**. Невалідний `Email` тепер неможливо навіть створити — а отже, будь-де в програмі, де в тебе на руках `Email`, ти маєш **гарантію**, а не надію. Це і є [дизайн через типи](root:sf-apps/type-driven-design): ти зробив так, що хибний стан просто не можна записати, і компілятор або конструктор ловить помилку в момент народження даних, а не за три екрани нижче, де вже незрозуміло, звідки взялося сміття.

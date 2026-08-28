@@ -61,104 +61,15 @@
 Візьмімо найважчий випадок і доведімо його до ладу, бо на ньому видно й хворобу, і ліки. Ось те місце, куди `OrderManager` зісковзнув, — один метод робить **чотири різні роботи**:
 
 :::tabs
-```py
-# ДО: один метод валідує, рахує ціну, пише в базу й шле лист.
-# Чотири причини змінюватись зрощені в одному місці.
-class OrderManager:
-    def place_order(self, cart, user):
-        if not cart.items:                       # 1) перевірка
-            raise ValueError("порожній кошик")
-        for it in cart.items:
-            if it.qty <= 0:
-                raise ValueError("хибна кількість")
-
-        total = sum(it.price * it.qty for it in cart.items)   # 2) ціна
-        if user.is_vip:
-            total *= 0.9
-
-        conn = db.connect()                       # 3) запис у базу
-        conn.execute("INSERT INTO orders(...) VALUES(...)", user.id, total)
-
-        smtp = smtplib.SMTP("mail.local")         # 4) сповіщення
-        smtp.sendmail("shop@x", user.email, f"Замовлення на {total} прийнято")
-        return total
-```
-```ts
-// ДО: один метод валідує, рахує ціну, пише в базу й шле лист.
-// Чотири причини змінюватись зрощені в одному місці.
-class OrderManager {
-  placeOrder(cart: Cart, user: User): number {
-    if (cart.items.length === 0)                 // 1) перевірка
-      throw new Error("порожній кошик");
-    for (const it of cart.items)
-      if (it.qty <= 0) throw new Error("хибна кількість");
-
-    let total = cart.items.reduce((s, it) => s + it.price * it.qty, 0); // 2) ціна
-    if (user.isVip) total *= 0.9;
-
-    const conn = db.connect();                    // 3) запис у базу
-    conn.execute("INSERT INTO orders(...) VALUES(...)", user.id, total);
-
-    const smtp = new Smtp("mail.local");          // 4) сповіщення
-    smtp.send("shop@x", user.email, `Замовлення на ${total} прийнято`);
-    return total;
-  }
-}
-```
+:::code anti-patterns-d/py/iak-rozplitaiut.py
+:::code anti-patterns-d/ts/iak-rozplitaiut.ts
 :::
 
 Ліки — розчепити чотири роботи на чотири класи, кожному лишивши **одну причину змінюватись**, а колишньому велетню віддати роль диригента, що приймає виконавців ззовні й лише складає їхню роботу:
 
 :::tabs
-```py
-# ПІСЛЯ: кожен виконавець робить одне діло; сервіс тільки диригує.
-class OrderValidator:
-    def check(self, cart): ...          # лише перевірка
-class Pricer:
-    def total(self, cart, user): ...    # лише ціна
-class OrderRepository:
-    def save(self, user, total): ...    # лише запис
-class Notifier:
-    def order_placed(self, user, total): ...  # лише сповіщення
-
-class OrderService:
-    def __init__(self, validator, pricer, repo, notifier):
-        self._validator = validator      # залежності подано ЗЗОВНІ
-        self._pricer = pricer
-        self._repo = repo
-        self._notifier = notifier
-
-    def place_order(self, cart, user):
-        self._validator.check(cart)
-        total = self._pricer.total(cart, user)
-        self._repo.save(user, total)
-        self._notifier.order_placed(user, total)
-        return total
-```
-```ts
-// ПІСЛЯ: кожен виконавець робить одне діло; сервіс тільки диригує.
-interface Validator { check(cart: Cart): void; }
-interface Pricer    { total(cart: Cart, user: User): number; }
-interface Repo      { save(user: User, total: number): void; }
-interface Notifier  { orderPlaced(user: User, total: number): void; }
-
-class OrderService {
-  constructor(                          // залежності подано ЗЗОВНІ
-    private validator: Validator,
-    private pricer: Pricer,
-    private repo: Repo,
-    private notifier: Notifier,
-  ) {}
-
-  placeOrder(cart: Cart, user: User): number {
-    this.validator.check(cart);
-    const total = this.pricer.total(cart, user);
-    this.repo.save(user, total);
-    this.notifier.orderPlaced(user, total);
-    return total;
-  }
-}
-```
+:::code anti-patterns-d/py/iak-rozplitaiut-2.py
+:::code anti-patterns-d/ts/iak-rozplitaiut-2.ts
 :::
 
 Що ми виграли, видно одразу. Тепер **розрахунок ціни можна перевірити окремо** — без бази й пошти, просто передавши `Pricer` кошик і подивившись число; раніше це було неможливо, бо ціна сиділа в тому ж методі, що й `INSERT`. Правило знижок міняється **тільки в `Pricer`** й нікого більше не зачіпає. Захотів слати не листи, а пуш — підставив інший `Notifier`, `OrderService` навіть не помітить. Заплатили ми, звісно, **зайвими класами** — але тут за них є чим платити: сили (чотири незалежні причини змінюватись) реальні, тож розбиття їх погоджує, а не вигадує складність із повітря. Повний хід цього розплітання — крок за кроком, із проміжними станами й тестами, що раптом стали можливі, — у [розборі-проєкті](root:sf-apps/anti-patterns/proj-refactor-god-object.md).

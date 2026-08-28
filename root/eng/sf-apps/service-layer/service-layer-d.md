@@ -48,54 +48,8 @@
 Подивімося на операцію `розмістити замовлення` живцем. Задача типово бекендова, тож пишемо мовами, що там реально живуть — TypeScript і Python (обидві лягають на такий приклад однаково природно). Зверни увагу, **чого в сервісі немає**: він не рахує суму й не вирішує, чи товар доступний, — усе це він **просить** у домену й у сховищ.
 
 :::tabs
-```ts
-// Сервісний шар: одна операція = один сценарій. Сам НЕ рахує правил —
-// відкриває транзакцію, дістає домен, делегує йому, зберігає, сповіщає.
-class OrderService {
-  constructor(
-    private readonly orders: OrderRepository,   // сховище (інтерфейс, не база)
-    private readonly payments: PaymentGateway,  // платіжний шлюз (інтерфейс)
-    private readonly mailer: Mailer,            // пошта (інтерфейс)
-    private readonly tx: TransactionManager,
-  ) {}
-
-  async placeOrder(cmd: PlaceOrderCommand): Promise<OrderDto> {
-    return this.tx.run(async () => {
-      const cart = await this.orders.loadCart(cmd.cartId);
-
-      // ↓ логіка ПРЕДМЕТА — рішення ухвалює домен, не сервіс
-      const order = cart.checkout();          // кине помилку, якщо кошик порожній
-
-      await this.payments.charge(order.total(), cmd.card);  // domain дав суму
-      await this.orders.save(order);
-      await this.mailer.sendConfirmation(order);            // логіка ЗАСТОСУНКУ
-      return OrderDto.from(order);            // назовні — DTO, не голий домен
-    });
-  }
-}
-```
-```python
-# Сервісний шар: одна операція = один сценарій. Сам НЕ рахує правил —
-# відкриває транзакцію, дістає домен, делегує йому, зберігає, сповіщає.
-class OrderService:
-    def __init__(self, orders, payments, mailer, tx):
-        self._orders = orders        # сховище (інтерфейс, не база)
-        self._payments = payments    # платіжний шлюз (інтерфейс)
-        self._mailer = mailer        # пошта (інтерфейс)
-        self._tx = tx
-
-    def place_order(self, cmd: PlaceOrderCommand) -> OrderDto:
-        with self._tx.begin():
-            cart = self._orders.load_cart(cmd.cart_id)
-
-            # ↓ логіка ПРЕДМЕТА — рішення ухвалює домен, не сервіс
-            order = cart.checkout()               # кине помилку, якщо кошик порожній
-
-            self._payments.charge(order.total(), cmd.card)  # domain дав суму
-            self._orders.save(order)
-            self._mailer.send_confirmation(order)           # логіка ЗАСТОСУНКУ
-            return OrderDto.from_order(order)     # назовні — DTO, не голий домен
-```
+:::code service-layer-d/ts/index.ts
+:::code service-layer-d/py/main.py
 :::
 
 Прочитай метод згори вниз — і ти читаєш **сценарій людською мовою**: дістань кошик, оформ його, зніми оплату, збережи, сповісти. Правил тут немає — вони заховані в `cart.checkout()` і `order.total()`. Сервіс — це **план дій**, а не самі рішення. Саме тому його так легко читати: він на рівні «що відбувається», а не «як саме рахується».

@@ -71,29 +71,7 @@
 * `3 (LOADING)`: завантаження тіла відповіді;
 * `4 (DONE)`: транзакцію завершено успішно або перервано збоєм.
 
-```js
-// Класичний патерн XMLHttpRequest
-const xhr = new XMLHttpRequest();
-xhr.open("GET", "/api/products?category=books", true);
-xhr.setRequestHeader("Accept", "application/json");
-
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4) {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      const data = JSON.parse(xhr.responseText);
-      renderProductList(data);
-    } else {
-      showErrorMessage("Помилка завантаження даних");
-    }
-  }
-};
-
-xhr.onerror = function () {
-  showErrorMessage("Помилка мережевого з'єднання");
-};
-
-xhr.send(null);
-```
+:::code ajax-partial-updates-d/js/index.js
 
 Головними архітектурними обмеженнями `XMLHttpRequest` були заплутана колбек-модель (англ. *callback hell*), відсутність нативної підтримки промісів та монолітна буферизація пам'яті: об'єкт накопичував повне тіло відповіді в єдиний рядок або буфер до настання стану `DONE`, що унеможливлювало ефективну обробку великих потоків даних.
 
@@ -103,35 +81,7 @@ xhr.send(null);
 
 На відміну від XHR, проміс `fetch()` переходить у стан успішного виконання (*resolved*) в ту саму мить, коли сервер повертає перші HTTP-заголовки (еквівалент стану `HEADERS_RECEIVED`). Тіло відповіді не завантажується в пам'ять завчасно, а надається у вигляді неблоківного потоку `ReadableStream`:
 
-```ts
-// Потокове читання відповіді через Fetch API
-async function fetchStreamedData(url: string, onChunk: (text: string) => void): Promise<void> {
-  const response = await fetch(url, {
-    headers: { "Accept": "text/plain; charset=utf-8" },
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-
-  const reader = response.body?.getReader();
-  if (!reader) throw new Error("Потік відповіді недоступний");
-
-  const decoder = new TextDecoder("utf-8");
-  let isDone = false;
-
-  while (!isDone) {
-    const { value, done } = await reader.read();
-    if (done) {
-      isDone = true;
-      break;
-    }
-    // value є масивом Uint8Array; декодуємо байти у текст без блокування потоку UI
-    const chunkText = decoder.decode(value, { stream: true });
-    onChunk(chunkText);
-  }
-}
-```
+:::code ajax-partial-updates-d/ts/fetch-api-ta-potokove.ts
 
 Потоковий `Fetch` дозволяє відображати перші порції даних (наприклад, перші 5 товарів у довгому списку або перші токени у відповіді генеративної мовної моделі) задовго до того, як сервер завершить генерацію всього масиву.
 
@@ -239,30 +189,7 @@ t=150 мс: Надсилання Req₂ ("cat") ──────────�
 
 Клієнтський менеджер запитів веде локальний цілочисельний лічильник `latestRequestId`. Кожен новий запит отримує унікальний номер. Коли асинхронний проміс завершується, обробник перевіряє, чи є номер відповіді рівним поточному максимальному значенню:
 
-```ts
-let latestRequestId = 0;
-
-async function handleSearchInput(query: string): Promise<void> {
-  const currentRequestId = ++latestRequestId;
-  showLoadingIndicator();
-
-  try {
-    const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-    const data = await response.json();
-
-    // Якщо за час польоту запиту користувач надіслав новіший запит — ігноруємо стару відповідь
-    if (currentRequestId !== latestRequestId) {
-      return;
-    }
-
-    renderSearchResults(data);
-  } finally {
-    if (currentRequestId === latestRequestId) {
-      hideLoadingIndicator();
-    }
-  }
-}
-```
+:::code ajax-partial-updates-d/ts/1-monotonna-numeratsiia.ts
 
 ### 2. Примусове скасування з'єднання через AbortController
 
@@ -270,31 +197,7 @@ async function handleSearchInput(query: string): Promise<void> {
 
 Стандарт `AbortController` дозволяє клієнту фізично розірвати TCP/TLS-з'єднання на рівні сокета браузера:
 
-```ts
-let activeAbortController: AbortController | null = null;
-
-async function handleSearchWithAbort(query: string): Promise<void> {
-  // Скасовуємо попередній активний запит, якщо він ще в дорозі
-  if (activeAbortController) {
-    activeAbortController.abort();
-  }
-
-  activeAbortController = new AbortController();
-  const { signal } = activeAbortController;
-
-  try {
-    const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, { signal });
-    const data = await response.json();
-    renderSearchResults(data);
-  } catch (err: any) {
-    if (err.name === "AbortError") {
-      // Скасування є штатною ситуацією — тиша в логах
-      return;
-    }
-    showErrorToast(err.message);
-  }
-}
-```
+:::code ajax-partial-updates-d/ts/2-prymusove-skasuvannia.ts
 
 ### Дебаунс і тротлінг фонових викликів
 
@@ -407,23 +310,7 @@ Access-Control-Max-Age: 86400
 * `history.replaceState(state, '', currentUrl)`: оновлює параметри поточного запису в історії (наприклад, актуалізує вибрані фільтри під час скролінгу).
 * Обробник `window.addEventListener('popstate', event => ...)`: перехоплює натискання кнопок «Назад» і «Вперед», дозволяючи клієнтському рушію завантажити відповідний фрагмент через фоновий `fetch()` замість ініціації повної навігації.
 
-```ts
-// Синхронізація фонового оновлення з адресою сторінки
-async function navigateToCategory(categoryId: number, pushHistory = true): Promise<void> {
-  const url = `/catalog?category=${categoryId}`;
-  const success = await engine.updateElement('main-content', '#products-grid', `/partials${url}`);
-
-  if (success && pushHistory) {
-    history.pushState({ categoryId }, '', url);
-  }
-}
-
-window.addEventListener('popstate', (event) => {
-  if (event.state?.categoryId) {
-    navigateToCategory(event.state.categoryId, false);
-  }
-});
-```
+:::code ajax-partial-updates-d/ts/synkhronizatsiia-z.ts
 
 ## Відправлення фінальних даних перед закриттям вкладки: beacon та keepalive
 

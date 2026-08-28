@@ -9,66 +9,8 @@
 Ось `placeOrder` цілком. Читається згори вниз, як рецепт: перевір товар, порахуй суму зі знижкою, запиши замовлення й рядок, спиши залишок, закрий транзакцію. Спільний шматок — знижку — одразу винесено в підпроцедуру `loyaltyDiscount`: це перша, найдешевша лінія оборони проти повторів, і поки правило коротке, її вистачає.
 
 :::tabs
-```ts
-// одна ділова операція — одна процедура, згори вниз
-async function placeOrder(customerId: string, productId: number, qty: number): Promise<number> {
-  const tx = await db.begin();                          // ── МЕЖА ТРАНЗАКЦІЇ: тут вона відкрита
-  try {
-    const product = await tx.get(
-      "SELECT price, stock FROM products WHERE id = ?", productId);
-    if (!product) throw new Error("немає такого товару");
-    if (product.stock < qty) throw new Error("недостатньо на складі");
-
-    const discount = await loyaltyDiscount(tx, customerId);   // спільна підпроцедура
-    const total = product.price * qty * (1 - discount);       // ← ПРАВИЛО ціни живе тут
-
-    const { lastID: orderId } = await tx.run(
-      "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-      customerId, total);
-    await tx.run(
-      "INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-      orderId, productId, qty, product.price);
-    await tx.run(
-      "UPDATE products SET stock = stock - ? WHERE id = ?", qty, productId);
-
-    await tx.commit();                                  // ── усі чотири зміни доїхали разом
-    return orderId;
-  } catch (e) {
-    await tx.rollback();                                // будь-яка невдача — відкат усього
-    throw e;
-  }
-}
-```
-```py
-def place_order(customer_id: str, product_id: int, qty: int) -> int:
-    tx = db.begin()                                     # ── МЕЖА ТРАНЗАКЦІЇ: тут вона відкрита
-    try:
-        product = tx.execute(
-            "SELECT price, stock FROM products WHERE id = ?", (product_id,)).fetchone()
-        if product is None:
-            raise ValueError("немає такого товару")
-        if product.stock < qty:
-            raise ValueError("недостатньо на складі")
-
-        discount = loyalty_discount(tx, customer_id)    # спільна підпроцедура
-        total = product.price * qty * (1 - discount)    # ← ПРАВИЛО ціни живе тут
-
-        cur = tx.execute(
-            "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-            (customer_id, total))
-        order_id = cur.lastrowid
-        tx.execute(
-            "INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-            (order_id, product_id, qty, product.price))
-        tx.execute(
-            "UPDATE products SET stock = stock - ? WHERE id = ?", (qty, product_id))
-
-        tx.commit()                                     # ── усі чотири зміни доїхали разом
-        return order_id
-    except Exception:
-        tx.rollback()                                   # будь-яка невдача — відкат усього
-        raise
-```
+:::code proj-transaction-script-refactor/ts/odyn-chystyi-stsenarii.ts
+:::code proj-transaction-script-refactor/py/odyn-chystyi-stsenarii.py
 :::
 
 Дві речі варто зафіксувати, бо на них триматиметься вся дальша історія. Перша: **межа транзакції** — це `begin` угорі й `commit`/`rollback` унизу, і вона обіймає всю процедуру. Або доїжджають усі чотири зміни (замовлення, рядок, залишок), або жодна; проміжного стану, де замовлення є, а залишок не списаний, база не покаже. Друга: рядок, позначений «ПРАВИЛО ціни живе тут», — це і є знання «скільки коштує правильне замовлення». Зараз воно вміщається в один вираз, і здається, що турбуватися нема про що.
@@ -78,42 +20,8 @@ def place_order(customer_id: str, product_id: int, qty: int) -> int:
 Тепер додамо братів. `changeQty` дозволяє покупцеві змінити кількість у вже створеному, ще не оплаченому замовленні — а отже, мусить **перерахувати підсумок за тим самим правилом**. `reorder` повторює старе замовлення новим — і теж рахує підсумок наново, бо ціни й знижка могли змінитися. Кожен — свій самодостатній сценарій зі своєю межею транзакції; наводжу лише те місце, де живе ціна:
 
 :::tabs
-```ts
-async function changeQty(orderId: number, newQty: number): Promise<void> {
-  const tx = await db.begin();
-  try {
-    const line = await tx.get(
-      "SELECT product_id, price FROM order_lines WHERE order_id = ?", orderId);
-    const order = await tx.get(
-      "SELECT customer_id FROM orders WHERE id = ?", orderId);
-
-    const discount = await loyaltyDiscount(tx, order.customer_id);
-    const total = line.price * newQty * (1 - discount);     // ← та сама формула, друга копія
-
-    await tx.run("UPDATE order_lines SET qty = ? WHERE order_id = ?", newQty, orderId);
-    await tx.run("UPDATE orders SET total = ? WHERE id = ?", total, orderId);
-    await tx.commit();
-  } catch (e) { await tx.rollback(); throw e; }
-}
-```
-```py
-def change_qty(order_id: int, new_qty: int) -> None:
-    tx = db.begin()
-    try:
-        line = tx.execute(
-            "SELECT product_id, price FROM order_lines WHERE order_id = ?", (order_id,)).fetchone()
-        order = tx.execute(
-            "SELECT customer_id FROM orders WHERE id = ?", (order_id,)).fetchone()
-
-        discount = loyalty_discount(tx, order.customer_id)
-        total = line.price * new_qty * (1 - discount)         # ← та сама формула, друга копія
-
-        tx.execute("UPDATE order_lines SET qty = ? WHERE order_id = ?", (new_qty, order_id))
-        tx.execute("UPDATE orders SET total = ? WHERE id = ?", (total, order_id))
-        tx.commit()
-    except Exception:
-        tx.rollback(); raise
-```
+:::code proj-transaction-script-refactor/ts/druhyi-i-tretii.ts
+:::code proj-transaction-script-refactor/py/druhyi-i-tretii.py
 :::
 
 `reorder` виглядає так само по суті: читає рядки старого замовлення, бере свіжу знижку й пише `total = price · qty · (1 − discount)` втретє. Три сценарії — три однакові вирази ціни. Поки правило — рівно один рядок, це навіть не боляче: очі бачать, що формула та сама, і мозок відмовляється вважати три однакові рядки проблемою. Саме ця відмова нас і підставить.
@@ -133,32 +41,8 @@ total    = net · (1 + tax(region))
 І тут стається те, заради чого ми все це писали. Цей алгоритм **не складається в один охайний виклик** — податок бере регіон, поріг бере регіон і чисту суму, гілка зчіпляє знижку із сумою. Винести його цілим у підпроцедуру можна, але спершу ніхто цього не робить: правило дописують просто там, де воно знадобилося першим, — у `placeOrder`. А тоді той самий шматок треба руками перенести у двох братів. І ось три копії, які починали однаковими, розходяться — бо переносив їх людина, поспіхом, у різні дні:
 
 :::tabs
-```ts
-// placeOrder — сюди правило додали першим, повністю
-let net = product.price * qty * (1 - discount);
-if (net < regionFloor(region)) net = regionFloor(region);   // поріг: є
-const total = net * (1 + regionTax(region));                // податок: є
-
-// changeQty — переносили другим, поріг ЗАБУЛИ
-let net2 = line.price * newQty * (1 - discount);
-const total2 = net2 * (1 + regionTax(region));              // податок: є, поріг: НЕМАЄ
-
-// reorder — руки не дійшли: стара формула, БЕЗ податку й порогу
-const total3 = line.price * qty * (1 - discount);           // ані податку, ані порогу
-```
-```py
-# place_order — сюди правило додали першим, повністю
-net = product.price * qty * (1 - discount)
-if net < region_floor(region): net = region_floor(region)   # поріг: є
-total = net * (1 + region_tax(region))                      # податок: є
-
-# change_qty — переносили другим, поріг ЗАБУЛИ
-net2 = line.price * new_qty * (1 - discount)
-total2 = net2 * (1 + region_tax(region))                    # податок: є, поріг: НЕМАЄ
-
-# reorder — руки не дійшли: стара формула, БЕЗ податку й порогу
-total3 = line.price * qty * (1 - discount)                  # ані податку, ані порогу
-```
+:::code proj-transaction-script-refactor/ts/pravylo-roste-i-kopii.ts
+:::code proj-transaction-script-refactor/py/pravylo-roste-i-kopii.py
 :::
 
 Придивіться, у чому саме підступ. **Жоден із трьох сценаріїв не зламаний.** Кожен читається згори вниз, кожен внутрішньо послідовний, кожен закриває свою транзакцію бездоганно — `commit` доводить усі зміси до бази атомарно. Але одне й те саме замовлення, проведене крізь троє дверей, дає **три різні підсумки**: створив на 100 — податок і поріг враховано; змінив кількість — податок є, поріг зник, знижка раптом проходить під мінімум; повторив замовлення — рахунок як торік, без податку зовсім. Клієнт бачить, що зміна кількості на ту саму цифру «магічно» здешевлює замовлення, і має рацію.
@@ -170,47 +54,8 @@ total3 = line.price * qty * (1 - discount)                  # ані подат�
 Найдешевший хід очевидний і правильний: якщо алгоритм ціни повторюється — витягнути його в одну функцію, а три сценарії хай кличуть її. Знижку ми так уже зробили; тепер те саме для всього правила.
 
 :::tabs
-```ts
-type Priced = { total: number; discount: number };
-
-// чиста функція: жодної бази, лише правило ціни в одному місці
-function priceOrder(unitPrice: number, qty: number, discount: number, region: string): Priced {
-  const subtotal = unitPrice * qty;
-  let net = subtotal * (1 - discount);
-  const floor = regionFloor(region);
-  if (net < floor) {                        // поріг тепер існує РІВНО ТУТ
-    net = floor;
-    discount = subtotal > 0 ? 1 - floor / subtotal : 0;   // підрізана знижка
-  }
-  const total = net * (1 + regionTax(region));
-  return { total, discount };
-}
-
-// усі три сценарії тепер кличуть одне:
-const { total } = priceOrder(product.price, qty, await loyaltyDiscount(tx, customerId), region);
-```
-```py
-from dataclasses import dataclass
-
-@dataclass
-class Priced:
-    total: float
-    discount: float
-
-# чиста функція: жодної бази, лише правило ціни в одному місці
-def price_order(unit_price: float, qty: int, discount: float, region: str) -> Priced:
-    subtotal = unit_price * qty
-    net = subtotal * (1 - discount)
-    floor = region_floor(region)
-    if net < floor:                         # поріг тепер існує РІВНО ТУТ
-        net = floor
-        discount = 1 - floor / subtotal if subtotal > 0 else 0.0  # підрізана знижка
-    total = net * (1 + region_tax(region))
-    return Priced(total=total, discount=discount)
-
-# усі три сценарії тепер кличуть одне:
-priced = price_order(product.price, qty, loyalty_discount(tx, customer_id), region)
-```
+:::code proj-transaction-script-refactor/ts/riatunok-pershyi-vynesty.ts
+:::code proj-transaction-script-refactor/py/riatunok-pershyi-vynesty.py
 :::
 
 Розходження зачинено: гілку з порогом фізично неможливо «забути в одному зі сценаріїв», бо гілка одна на всіх. Для величезної частки випадків на цьому й слід зупинитися — не кожне повторюване правило заслуговує на об'єкт, і витягнута функція розв'язує проблему тут і зараз, коштуючи один рядок сигнатури.
@@ -222,121 +67,15 @@ priced = price_order(product.price, qty, loyalty_discount(tx, customer_id), regi
 Коли обидва рипи чути одночасно — параметрів забагато, а нав'язати правило нічим, — настає момент перенести його з функції в **об'єкт, який ним володіє**. Не в порожню торбину полів, а в об'єкт, що приймає сирі дані, **сам перевіряє їх у конструкторі** й далі просто **є** правильним замовленням або не будується взагалі. Це перший, найменший крок до [предметної моделі](root:sf-apps/domain-model): один об'єкт, у якому дані й правило зрослися, — і те саме, що принцип [«кажи, не питай»](root:sf-apps/tell-dont-ask) велить робити завжди, класти поведінку туди, де живуть її дані.
 
 :::tabs
-```ts
-interface OrderInput {
-  productId: number; qty: number; unitPrice: number; stock: number;
-  discount: number; region: string;
-}
-
-class Order {
-  readonly total: number;
-  readonly discount: number;
-  readonly lines: { productId: number; qty: number; price: number }[];
-
-  constructor(i: OrderInput) {
-    // інваріанти перевіряються ОДИН раз — у мить народження об'єкта
-    if (i.qty < 1) throw new Error("кількість має бути ≥ 1");
-    if (i.stock < i.qty) throw new Error("недостатньо на складі");
-
-    const subtotal = i.unitPrice * i.qty;
-    let net = subtotal * (1 - i.discount);
-    const floor = regionFloor(i.region);
-    // інваріант, що ЗЧІПЛЯЄ поля: чиста сума ніколи не нижча за поріг регіону
-    this.discount = net < floor ? (subtotal > 0 ? 1 - floor / subtotal : 0) : i.discount;
-    net = Math.max(net, floor);
-    this.total = net * (1 + regionTax(i.region));
-    this.lines = [{ productId: i.productId, qty: i.qty, price: i.unitPrice }];
-  }
-}
-```
-```py
-from dataclasses import dataclass, field
-
-@dataclass
-class OrderInput:
-    product_id: int; qty: int; unit_price: float; stock: int
-    discount: float; region: str
-
-class Order:
-    def __init__(self, i: OrderInput):
-        # інваріанти перевіряються ОДИН раз — у мить народження об'єкта
-        if i.qty < 1:
-            raise ValueError("кількість має бути ≥ 1")
-        if i.stock < i.qty:
-            raise ValueError("недостатньо на складі")
-
-        subtotal = i.unit_price * i.qty
-        net = subtotal * (1 - i.discount)
-        floor = region_floor(i.region)
-        # інваріант, що ЗЧІПЛЯЄ поля: чиста сума ніколи не нижча за поріг регіону
-        self.discount = (1 - floor / subtotal if subtotal > 0 else 0) if net < floor else i.discount
-        net = max(net, floor)
-        self.total = net * (1 + region_tax(i.region))
-        self.lines = [{"product_id": i.product_id, "qty": i.qty, "price": i.unit_price}]
-```
+:::code proj-transaction-script-refactor/ts/riatunok-druhyi-daty.ts
+:::code proj-transaction-script-refactor/py/riatunok-druhyi-daty.py
 :::
 
 Тепер сценарій змінюється до невпізнанності — і водночас лишається сценарієм транзакції. Він далі читає рядки, далі володіє межею транзакції, далі пише й комітить; але **рахунок і перевірки віддано об'єкту**. Ось `placeOrder` у новому вигляді:
 
 :::tabs
-```ts
-async function placeOrder(customerId: string, productId: number, qty: number): Promise<number> {
-  const tx = await db.begin();                          // ── МЕЖА ТРАНЗАКЦІЇ лишилась у сценарії
-  try {
-    const product = await tx.get("SELECT price, stock FROM products WHERE id = ?", productId);
-    if (!product) throw new Error("немає такого товару");
-    const customer = await tx.get("SELECT region FROM customers WHERE id = ?", customerId);
-    const discount = await loyaltyDiscount(tx, customerId);
-
-    const order = new Order({                            // об'єкт рахує й перевіряє — БЕЗ бази
-      productId, qty, unitPrice: product.price, stock: product.stock,
-      discount, region: customer.region,
-    });
-
-    const { lastID: orderId } = await tx.run(
-      "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-      customerId, order.total);
-    for (const l of order.lines)
-      await tx.run("INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-        orderId, l.productId, l.qty, l.price);
-    await tx.run("UPDATE products SET stock = stock - ? WHERE id = ?", qty, productId);
-
-    await tx.commit();                                  // ── межа закривається тут-таки
-    return orderId;
-  } catch (e) { await tx.rollback(); throw e; }
-}
-```
-```py
-def place_order(customer_id: str, product_id: int, qty: int) -> int:
-    tx = db.begin()                                     # ── МЕЖА ТРАНЗАКЦІЇ лишилась у сценарії
-    try:
-        product = tx.execute(
-            "SELECT price, stock FROM products WHERE id = ?", (product_id,)).fetchone()
-        if product is None:
-            raise ValueError("немає такого товару")
-        customer = tx.execute(
-            "SELECT region FROM customers WHERE id = ?", (customer_id,)).fetchone()
-        discount = loyalty_discount(tx, customer_id)
-
-        order = Order(OrderInput(                        # об'єкт рахує й перевіряє — БЕЗ бази
-            product_id=product_id, qty=qty, unit_price=product.price,
-            stock=product.stock, discount=discount, region=customer.region))
-
-        cur = tx.execute(
-            "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, 'new')",
-            (customer_id, order.total))
-        order_id = cur.lastrowid
-        for l in order.lines:
-            tx.execute(
-                "INSERT INTO order_lines (order_id, product_id, qty, price) VALUES (?, ?, ?, ?)",
-                (order_id, l["product_id"], l["qty"], l["price"]))
-        tx.execute("UPDATE products SET stock = stock - ? WHERE id = ?", (qty, product_id))
-
-        tx.commit()                                     # ── межа закривається тут-таки
-        return order_id
-    except Exception:
-        tx.rollback(); raise
-```
+:::code proj-transaction-script-refactor/ts/riatunok-druhyi-daty-2.ts
+:::code proj-transaction-script-refactor/py/riatunok-druhyi-daty-2.py
 :::
 
 `changeQty` і `reorder` тепер теж будують `Order` зі своїх рядків і читають `order.total`. І тут — ключова перевага над чистою функцією: об'єкт **нав'язує** [інваріант](root:sf-apps/invariants), а не радить його. Немає способу отримати `Order`, у якого чиста сума впала під поріг або кількість менша за одиницю: конструктор або збудує коректний об'єкт, або кине виняток. Правило перестало бути порадою, до якої ходять добровільно, — воно стало умовою існування об'єкта. Той майбутній `refund`, автор якого захотів би зрізати кут, більше не може набрати формулу руками повз правило: щоб отримати підсумок, він мусить збудувати `Order`, а `Order` рахує правильно за визначенням.

@@ -62,35 +62,8 @@ class InMemoryOrderRepository:
 Шість рядків, і воно працює. Точніше — воно працює доти, доки перевіряєш тільки читання. Ось код, на якому підробка починає брехати, — і зверни увагу, що це не вигаданий, а один із найчастіших справжніх багів:
 
 :::tabs
-```ts
-class PaymentService {
-  constructor(
-    private readonly orders: OrderRepository,
-    private readonly gateway: PaymentGateway,
-  ) {}
-
-  async pay(orderId: OrderId): Promise<void> {
-    const order = await this.orders.byId(orderId);
-    if (!order) throw new Error(`немає замовлення ${orderId}`);
-    await this.gateway.charge(order.total);
-    order.markPaid();
-    // ← і тут забули: await this.orders.save(order);
-  }
-}
-```
-```py
-class PaymentService:
-    def __init__(self, orders: OrderRepository, gateway: PaymentGateway) -> None:
-        self._orders, self._gateway = orders, gateway
-
-    def pay(self, order_id: OrderId) -> None:
-        order = self._orders.by_id(order_id)
-        if order is None:
-            raise LookupError(f"немає замовлення {order_id}")
-        self._gateway.charge(order.total)
-        order.mark_paid()
-        # ← і тут забули: self._orders.save(order)
-```
+:::code proj-in-memory-repository/ts/naikorotsha-pidrobka-i-de.ts
+:::code proj-in-memory-repository/py/naikorotsha-pidrobka-i-de.py
 :::
 
 Загублений `save` — банальність, яку кожен писав. Тепер напиши на цей код чесний тест: оплатити замовлення, а тоді дістати його з репозиторію й перевірити, що воно оплачене.
@@ -122,164 +95,22 @@ class PaymentService:
 Почнімо з доменного об'єкта. Головне в ньому для нашої історії — те, що він **змінюваний**: статус міняється методом, а не переприсвоєнням поля, і зміна має правило.
 
 :::tabs
-```ts
-type OrderId = string;
-type CustomerId = string;
-type OrderStatus = "new" | "paid" | "shipped";
-
-class Order {
-  private _status: OrderStatus;
-
-  constructor(
-    readonly id: OrderId,
-    readonly customerId: CustomerId,
-    readonly total: number,
-    readonly createdAt: Date,
-    status: OrderStatus = "new",
-  ) {
-    this._status = status;
-  }
-
-  get status(): OrderStatus { return this._status; }
-  isPaid(): boolean { return this._status === "paid"; }
-
-  markPaid(): void {
-    if (this._status !== "new") {
-      throw new Error(`оплатити можна лише нове замовлення, а це «${this._status}»`);
-    }
-    this._status = "paid";
-  }
-}
-```
-```py
-from __future__ import annotations
-from datetime import datetime
-
-OrderId = str
-CustomerId = str
-
-
-class Order:
-    def __init__(self, id: OrderId, customer_id: CustomerId, total: int,
-                 created_at: datetime, status: str = "new") -> None:
-        self.id = id
-        self.customer_id = customer_id
-        self.total = total
-        self.created_at = created_at
-        self._status = status
-
-    @property
-    def status(self) -> str:
-        return self._status
-
-    def is_paid(self) -> bool:
-        return self._status == "paid"
-
-    def mark_paid(self) -> None:
-        if self._status != "new":
-            raise ValueError(f"оплатити можна лише нове замовлення, а це «{self._status}»")
-        self._status = "paid"
-```
+:::code proj-in-memory-repository/ts/robochyi-kod-domen-riadok.ts
+:::code proj-in-memory-repository/py/robochyi-kod-domen-riadok.py
 :::
 
 Далі — **рядок і мапер**. Рядок навмисно виглядає як колонки таблиці, а не як домен: імена в змійці, час — рядком ISO-8601, статус — просто текстом. Це і є та плоска правда, яку вміє зберігати база.
 
 :::tabs
-```ts
-type OrderRow = {
-  id: string;
-  customer_id: string;
-  total: number;
-  status: string;
-  created_at: string;   // ISO-8601 у UTC — як у колонці timestamptz
-};
-
-// той самий мапер, яким користується SqlOrderRepository
-const toRow = (o: Order): OrderRow => ({
-  id: o.id,
-  customer_id: o.customerId,
-  total: o.total,
-  status: o.status,
-  created_at: o.createdAt.toISOString(),
-});
-
-const toDomain = (r: OrderRow): Order =>
-  new Order(r.id, r.customer_id, r.total, new Date(r.created_at), r.status as OrderStatus);
-```
-```py
-from dataclasses import dataclass
-from datetime import timezone
-
-
-@dataclass(frozen=True)
-class OrderRow:
-    id: str
-    customer_id: str
-    total: int
-    status: str
-    created_at: str          # ISO-8601 у UTC — як у колонці timestamptz
-
-
-# той самий мапер, яким користується SqlOrderRepository
-def to_row(o: Order) -> OrderRow:
-    return OrderRow(o.id, o.customer_id, o.total, o.status,
-                    o.created_at.astimezone(timezone.utc).isoformat())
-
-
-def to_domain(r: OrderRow) -> Order:
-    return Order(r.id, r.customer_id, r.total,
-                 datetime.fromisoformat(r.created_at), r.status)
-```
+:::code proj-in-memory-repository/ts/robochyi-kod-domen-riadok-2.ts
+:::code proj-in-memory-repository/py/robochyi-kod-domen-riadok-2.py
 :::
 
 Тепер **контракт**. Тут ховається рішення, від якого залежить усе інше: правило про «три останні» вимагає порядку, і порядок мусить бути **записаний у контракті**, а не додуманий реалізацією. Тому в інтерфейсі не безликий `forCustomer`, а доменно названий пошук, чия назва сама каже, що він обіцяє:
 
 :::tabs
-```ts
-interface OrderRepository {
-  byId(id: OrderId): Promise<Order | null>;
-
-  /** Оплачені замовлення клієнта: найновіші перші, не більше за limit.
-   *  За однакового часу — старшим вважається більший id. */
-  recentPaidOrders(customerId: CustomerId, limit: number): Promise<Order[]>;
-
-  save(order: Order): Promise<void>;
-  remove(order: Order): Promise<void>;
-}
-
-class LoyaltyService {
-  constructor(private readonly orders: OrderRepository) {}
-
-  async isLoyal(customerId: CustomerId): Promise<boolean> {
-    const recent = await this.orders.recentPaidOrders(customerId, 3);
-    return recent.length === 3 && recent.every(o => o.total > 500);
-  }
-}
-```
-```py
-from typing import Optional, Protocol
-
-
-class OrderRepository(Protocol):
-    def by_id(self, id: OrderId) -> Optional[Order]: ...
-
-    def recent_paid_orders(self, customer_id: CustomerId, limit: int) -> list[Order]:
-        """Оплачені замовлення клієнта: найновіші перші, не більше за limit.
-        За однакового часу — старшим вважається більший id."""
-        ...
-
-    def save(self, order: Order) -> None: ...
-    def remove(self, order: Order) -> None: ...
-
-
-class LoyaltyService:
-    def __init__(self, orders: OrderRepository) -> None:
-        self._orders = orders
-
-    def is_loyal(self, customer_id: CustomerId) -> bool:
-        recent = self._orders.recent_paid_orders(customer_id, 3)
-        return len(recent) == 3 and all(o.total > 500 for o in recent)
-```
+:::code proj-in-memory-repository/ts/robochyi-kod-domen-riadok-3.ts
+:::code proj-in-memory-repository/py/robochyi-kod-domen-riadok-3.py
 :::
 
 Два рядки коментаря над `recentPaidOrders` — не ввічливість, а найважливіше речення в усьому файлі. Вони кажуть: порядок — частина обіцянки, і навіть нічия за часом розв'язується визначено. Без цього другого речення дві реалізації розходяться на рівному місці — розберемо, де саме, коли дійде до детермінованості.
@@ -287,55 +118,8 @@ class LoyaltyService:
 ## Робочий код: підробка
 
 :::tabs
-```ts
-class InMemoryOrderRepository implements OrderRepository {
-  private readonly rows = new Map<OrderId, OrderRow>();   // РЯДКИ, не Order
-
-  async byId(id: OrderId): Promise<Order | null> {
-    const row = this.rows.get(id);
-    return row ? toDomain(row) : null;                     // щоразу новий об'єкт
-  }
-
-  async recentPaidOrders(customerId: CustomerId, limit: number): Promise<Order[]> {
-    const cmp = (x: string, y: string) => (x < y ? -1 : x > y ? 1 : 0);
-    return [...this.rows.values()]
-      .filter(r => r.customer_id === customerId && r.status === "paid")   // WHERE
-      .sort((a, b) => cmp(b.created_at, a.created_at) || cmp(b.id, a.id)) // ORDER BY … DESC
-      .slice(0, limit)                                                    // LIMIT
-      .map(toDomain);
-  }
-
-  async save(order: Order): Promise<void> {
-    this.rows.set(order.id, toRow(order));                 // знімок, не посилання
-  }
-
-  async remove(order: Order): Promise<void> {
-    this.rows.delete(order.id);
-  }
-}
-```
-```py
-class InMemoryOrderRepository:
-    def __init__(self) -> None:
-        self._rows: dict[OrderId, OrderRow] = {}           # РЯДКИ, не Order
-
-    def by_id(self, id: OrderId) -> Optional[Order]:
-        row = self._rows.get(id)
-        return to_domain(row) if row is not None else None  # щоразу новий об'єкт
-
-    def recent_paid_orders(self, customer_id: CustomerId, limit: int) -> list[Order]:
-        rows = [r for r in self._rows.values()                        # WHERE
-                if r.customer_id == customer_id and r.status == "paid"]
-        rows.sort(key=lambda r: (datetime.fromisoformat(r.created_at), r.id),
-                  reverse=True)                                       # ORDER BY … DESC
-        return [to_domain(r) for r in rows[:limit]]                   # LIMIT
-
-    def save(self, order: Order) -> None:
-        self._rows[order.id] = to_row(order)               # знімок, не посилання
-
-    def remove(self, order: Order) -> None:
-        self._rows.pop(order.id, None)
-```
+:::code proj-in-memory-repository/ts/robochyi-kod-pidrobka.ts
+:::code proj-in-memory-repository/py/robochyi-kod-pidrobka.py
 :::
 
 Двадцять рядків — і кожен має свого двійника в SQL, який виконує `SqlOrderRepository`: `filter` — це `WHERE`, `sort` — це `ORDER BY created_at DESC, id DESC`, `slice`/зріз — це `LIMIT`. Підробка не «схожа» на запит, вона **розписує той самий запит руками**.
@@ -359,134 +143,14 @@ function paidOrder(id: string, customerId: string, total: number, d: number): Or
   return o;
 }
 ```
-```py
-from datetime import timedelta
-
-T0 = datetime(2026, 3, 1, 10, 0, tzinfo=timezone.utc)
-
-
-def day(n: int) -> datetime:
-    return T0 + timedelta(days=n)
-
-
-def paid_order(id: str, customer_id: str, total: int, d: int) -> Order:
-    o = Order(id, customer_id, total, day(d))
-    o.mark_paid()
-    return o
-```
+:::code proj-in-memory-repository/py/test-shcho-napovniuie.py
 :::
 
 А тепер — шість випадків із задачі, слово в слово:
 
 :::tabs
-```ts
-describe("LoyaltyService.isLoyal", () => {
-  let orders: InMemoryOrderRepository;
-  let loyalty: LoyaltyService;
-
-  beforeEach(() => {
-    orders = new InMemoryOrderRepository();   // ← свіжий на КОЖЕН тест
-    loyalty = new LoyaltyService(orders);
-  });
-
-  it("три останні оплачені понад 500 — постійний", async () => {
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 700, 2));
-    await orders.save(paidOrder("o-3", "c-19", 800, 3));
-    expect(await loyalty.isLoyal("c-19")).toBe(true);
-  });
-
-  it("оплачених лише два — ще не постійний", async () => {
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 700, 2));
-    expect(await loyalty.isLoyal("c-19")).toBe(false);
-  });
-
-  it("рівно 500 — це не «понад 500»", async () => {
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 500, 2));   // ← межа
-    await orders.save(paidOrder("o-3", "c-19", 700, 3));
-    expect(await loyalty.isLoyal("c-19")).toBe(false);
-  });
-
-  it("старе дешеве не тягне вниз — дивимось лише три останні", async () => {
-    await orders.save(paidOrder("o-0", "c-19", 10, 0));    // ← найстаріше й дешеве
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 700, 2));
-    await orders.save(paidOrder("o-3", "c-19", 800, 3));
-    expect(await loyalty.isLoyal("c-19")).toBe(true);
-  });
-
-  it("неоплачене не рахується, хай яке дороге", async () => {
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 700, 2));
-    await orders.save(new Order("o-3", "c-19", 9000, day(3)));   // ← лишилось «new»
-    expect(await loyalty.isLoyal("c-19")).toBe(false);
-  });
-
-  it("чужі замовлення не рахуються", async () => {
-    await orders.save(paidOrder("o-1", "c-19", 600, 1));
-    await orders.save(paidOrder("o-2", "c-19", 700, 2));
-    await orders.save(paidOrder("x-1", "c-77", 800, 3));         // ← інший клієнт
-    expect(await loyalty.isLoyal("c-19")).toBe(false);
-  });
-});
-```
-```py
-import pytest
-
-
-@pytest.fixture
-def orders() -> InMemoryOrderRepository:
-    return InMemoryOrderRepository()          # ← свіжий на КОЖЕН тест
-
-
-@pytest.fixture
-def loyalty(orders) -> LoyaltyService:
-    return LoyaltyService(orders)
-
-
-def test_three_recent_paid_over_500(orders, loyalty):
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 700, 2))
-    orders.save(paid_order("o-3", "c-19", 800, 3))
-    assert loyalty.is_loyal("c-19") is True
-
-
-def test_only_two_paid(orders, loyalty):
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 700, 2))
-    assert loyalty.is_loyal("c-19") is False
-
-
-def test_exactly_500_is_not_over_500(orders, loyalty):
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 500, 2))    # ← межа
-    orders.save(paid_order("o-3", "c-19", 700, 3))
-    assert loyalty.is_loyal("c-19") is False
-
-
-def test_old_cheap_order_is_out_of_the_window(orders, loyalty):
-    orders.save(paid_order("o-0", "c-19", 10, 0))     # ← найстаріше й дешеве
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 700, 2))
-    orders.save(paid_order("o-3", "c-19", 800, 3))
-    assert loyalty.is_loyal("c-19") is True
-
-
-def test_unpaid_does_not_count(orders, loyalty):
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 700, 2))
-    orders.save(Order("o-3", "c-19", 9000, day(3)))   # ← лишилось «new»
-    assert loyalty.is_loyal("c-19") is False
-
-
-def test_other_customers_orders_do_not_count(orders, loyalty):
-    orders.save(paid_order("o-1", "c-19", 600, 1))
-    orders.save(paid_order("o-2", "c-19", 700, 2))
-    orders.save(paid_order("x-1", "c-77", 800, 3))    # ← інший клієнт
-    assert loyalty.is_loyal("c-19") is False
-```
+:::code proj-in-memory-repository/ts/test-shcho-napovniuie.ts
+:::code proj-in-memory-repository/py/test-shcho-napovniuie-2.py
 :::
 
 Прочитай четвертий тест ще раз. Він єдиний, у якому порядок несе вагу: якщо `recentPaidOrders` віддасть **будь-які** три з чотирьох замовлень, а не три найновіші, у вибірку може потрапити десятка — і тест почервоніє. Тобто цей тест перевіряє не лише правило постійності, а й **обіцянку контракту про порядок**. Саме такий тест на живій базі без `ORDER BY` перетворюється на монетку.
@@ -528,139 +192,8 @@ def test_other_customers_orders_do_not_count(orders, loyalty):
 Технічно це просто: набір параметризують фабрикою репозиторію.
 
 :::tabs
-```ts
-function orderRepositoryContract(
-  name: string,
-  make: () => Promise<{ repo: OrderRepository; dispose: () => Promise<void> }>,
-) {
-  describe(`OrderRepository · контракт · ${name}`, () => {
-    let repo: OrderRepository;
-    let dispose: () => Promise<void>;
-
-    beforeEach(async () => {
-      const made = await make();
-      repo = made.repo;
-      dispose = made.dispose;
-    });
-    afterEach(() => dispose());
-
-    it("збережене дістається рівним", async () => {
-      const o = paidOrder("o-1", "c-19", 600, 1);
-      await repo.save(o);
-      const got = await repo.byId("o-1");
-      expect(got).not.toBeNull();
-      expect(got!.total).toBe(600);
-      expect(got!.isPaid()).toBe(true);
-      expect(got!.createdAt.toISOString()).toBe(o.createdAt.toISOString());
-    });
-
-    it("мутація ПІСЛЯ save не видима без повторного save", async () => {
-      const o = new Order("o-1", "c-19", 600, day(1));   // «new»
-      await repo.save(o);
-      o.markPaid();                                      // ← без save
-      expect((await repo.byId("o-1"))!.isPaid()).toBe(false);
-    });
-
-    it("recentPaidOrders: найновіші перші, не більше за limit", async () => {
-      await repo.save(paidOrder("o-1", "c-19", 100, 1));
-      await repo.save(paidOrder("o-3", "c-19", 300, 3));
-      await repo.save(paidOrder("o-2", "c-19", 200, 2));   // навмисно не по черзі
-      const got = await repo.recentPaidOrders("c-19", 2);
-      expect(got.map(o => o.id)).toEqual(["o-3", "o-2"]);
-    });
-
-    it("recentPaidOrders: нічию за часом розв'язує більший id", async () => {
-      await repo.save(paidOrder("o-1", "c-19", 100, 5));
-      await repo.save(paidOrder("o-9", "c-19", 200, 5));   // той самий час
-      const got = await repo.recentPaidOrders("c-19", 1);
-      expect(got.map(o => o.id)).toEqual(["o-9"]);
-    });
-
-    it("recentPaidOrders: чужих і неоплачених нема", async () => {
-      await repo.save(paidOrder("x-1", "c-77", 100, 1));
-      await repo.save(new Order("o-2", "c-19", 200, day(2)));
-      expect(await repo.recentPaidOrders("c-19", 10)).toEqual([]);
-    });
-
-    it("після remove byId дає null", async () => {
-      const o = paidOrder("o-1", "c-19", 600, 1);
-      await repo.save(o);
-      await repo.remove(o);
-      expect(await repo.byId("o-1")).toBeNull();
-    });
-  });
-}
-
-// швидка колонка — на кожен коміт
-orderRepositoryContract("InMemory", async () => ({
-  repo: new InMemoryOrderRepository(),
-  dispose: async () => {},
-}));
-
-// повільна колонка — той САМИЙ набір, але вже проти живої бази; у CI
-orderRepositoryContract("Postgres", async () => {
-  const db = await openTestDb();
-  await db.exec("TRUNCATE orders");
-  return { repo: new SqlOrderRepository(db, mapper), dispose: () => db.close() };
-});
-```
-```py
-import pytest
-
-
-@pytest.fixture(params=["in-memory", "postgres"])
-def repo(request):
-    if request.param == "in-memory":
-        yield InMemoryOrderRepository()
-    else:
-        db = open_test_db()
-        db.execute("TRUNCATE orders")
-        yield SqlOrderRepository(db, mapper)
-        db.close()
-
-
-def test_saved_comes_back_equal(repo):
-    o = paid_order("o-1", "c-19", 600, 1)
-    repo.save(o)
-    got = repo.by_id("o-1")
-    assert got is not None
-    assert got.total == 600
-    assert got.is_paid() is True
-    assert got.created_at == o.created_at
-
-
-def test_mutation_after_save_is_invisible(repo):
-    o = Order("o-1", "c-19", 600, day(1))          # «new»
-    repo.save(o)
-    o.mark_paid()                                  # ← без save
-    assert repo.by_id("o-1").is_paid() is False
-
-
-def test_recent_paid_orders_newest_first(repo):
-    repo.save(paid_order("o-1", "c-19", 100, 1))
-    repo.save(paid_order("o-3", "c-19", 300, 3))
-    repo.save(paid_order("o-2", "c-19", 200, 2))   # навмисно не по черзі
-    assert [o.id for o in repo.recent_paid_orders("c-19", 2)] == ["o-3", "o-2"]
-
-
-def test_recent_paid_orders_breaks_tie_by_id(repo):
-    repo.save(paid_order("o-1", "c-19", 100, 5))
-    repo.save(paid_order("o-9", "c-19", 200, 5))   # той самий час
-    assert [o.id for o in repo.recent_paid_orders("c-19", 1)] == ["o-9"]
-
-
-def test_recent_paid_orders_skips_others_and_unpaid(repo):
-    repo.save(paid_order("x-1", "c-77", 100, 1))
-    repo.save(Order("o-2", "c-19", 200, day(2)))
-    assert repo.recent_paid_orders("c-19", 10) == []
-
-
-def test_by_id_is_none_after_remove(repo):
-    o = paid_order("o-1", "c-19", 600, 1)
-    repo.save(o)
-    repo.remove(o)
-    assert repo.by_id("o-1") is None
-```
+:::code proj-in-memory-repository/ts/kontrakt-nabir-pidrobka.ts
+:::code proj-in-memory-repository/py/kontrakt-nabir-pidrobka.py
 :::
 
 У Python це виходить майже задарма: `params` на фікстурі — і кожен тест у файлі відпрацює двічі, проти обох реалізацій. У TypeScript набір загортають у функцію й кличуть двічі. Форма різна, суть одна.

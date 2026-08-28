@@ -29,39 +29,8 @@
 Розглянь два способи описати той самий поліс. Перший — **знекровлена модель (англ. *anemic domain model* — недокрівна доменна модель)**: об'єкт-мішок із полями та геттерами-сеттерами, у якому **немає поведінки**, а всі правила винесені кудись у «сервіс».
 
 :::tabs
-```ts
-// Знекровлена модель: сам поліс нічого не вміє, лише зберігає поля
-class Policy {
-  status: string = "active";
-  balance: number = 0;
-  dueDate: Date;
-}
-
-// Правило живе ЗЗОВНІ, у сервісі — і будь-хто може забути його викликати
-class PolicyService {
-  enterGracePeriod(p: Policy): void {
-    // хто гарантує, що всі перевірки тут, а не в трьох інших сервісах?
-    if (p.status !== "active") throw new Error("wrong state");
-    p.status = "grace";
-  }
-}
-```
-```python
-# Знекровлена модель: сам поліс нічого не вміє, лише зберігає поля
-class Policy:
-    def __init__(self, due_date):
-        self.status = "active"
-        self.balance = 0
-        self.due_date = due_date
-
-# Правило живе ЗЗОВНІ, у сервісі — і будь-хто може забути його викликати
-class PolicyService:
-    def enter_grace_period(self, p: Policy) -> None:
-        # хто гарантує, що всі перевірки тут, а не в трьох інших сервісах?
-        if p.status != "active":
-            raise ValueError("wrong state")
-        p.status = "grace"
-```
+:::code domain-driven-design-d/ts/bahata-model-povedinka.ts
+:::code domain-driven-design-d/py/bahata-model-povedinka.py
 :::
 
 Проблема не в тому, що це «не по-об'єктному» (естетика нікого не гріє). Проблема практична: правило переходу в пільговий період **не прив'язане** до поліса. Нічого не заважає іншому коду написати `p.status = "grace"` напряму, оминувши перевірку. Правило, яке має бути **одне**, розповзається по сервісах, і щоб дізнатися, що взагалі можна робити з полісом, треба обшукати весь проєкт. Об'єкт не захищає власну коректність — він голий мішок, який кожен крутить як хоче.
@@ -69,42 +38,8 @@ class PolicyService:
 Тепер **багата модель**: дані й правила, що їх стережуть, — в одному місці, а поля закриті.
 
 :::tabs
-```ts
-// Багата модель: поліс сам стежить за своїми правилами
-class Policy {
-  private status: PolicyStatus = PolicyStatus.Active;
-  private balance = 0;
-
-  // єдиний спосіб увійти в пільговий період — через це правило
-  enterGracePeriod(): void {
-    if (this.status !== PolicyStatus.Active)
-      throw new DomainError("до пільгового періоду входять лише з активного");
-    if (this.balance < 0)
-      throw new DomainError("не можна з простроченим внеском");
-    this.status = PolicyStatus.GracePeriod;
-  }
-
-  isActive(): boolean { return this.status === PolicyStatus.Active; }
-}
-```
-```python
-# Багата модель: поліс сам стежить за своїми правилами
-class Policy:
-    def __init__(self):
-        self._status = PolicyStatus.ACTIVE
-        self._balance = 0
-
-    # єдиний спосіб увійти в пільговий період — через це правило
-    def enter_grace_period(self) -> None:
-        if self._status is not PolicyStatus.ACTIVE:
-            raise DomainError("до пільгового періоду входять лише з активного")
-        if self._balance < 0:
-            raise DomainError("не можна з простроченим внеском")
-        self._status = PolicyStatus.GRACE_PERIOD
-
-    def is_active(self) -> bool:
-        return self._status is PolicyStatus.ACTIVE
-```
+:::code domain-driven-design-d/ts/bahata-model-povedinka-2.ts
+:::code domain-driven-design-d/py/bahata-model-povedinka-2.py
 :::
 
 Різниця вирішальна: тепер поліс **неможливо** привести в некоректний стан ззовні. Поле `status` закрите, єдина двері всередину — метод `enterGracePeriod`, і за ними стоїть повна перевірка. Правило живе рівно в одному місці, названо мовою предмета й **самозахищене**. Це і є суть багатої моделі — вона не «зберігає дані про поліс», вона **є** полісом з усіма його «можна» й «не можна».
@@ -122,37 +57,8 @@ class Policy:
 У кожного агрегату є **корінь (aggregate root)** — головний об'єкт, **єдина легальна двері** всередину. Зовнішній код тримає посилання лише на корінь і всі зміни робить через нього; до внутрішніх частин напряму не дотягується.
 
 :::tabs
-```ts
-// Корінь агрегату — єдині двері; позиції змінюють ЛИШЕ через замовлення
-class Order {                      // корінь
-  private lines: OrderLine[] = []; // внутрішні частини — закриті
-
-  addLine(product: ProductId, qty: number, price: Money): void {
-    if (this.isPlaced) throw new DomainError("не можна міняти оформлене замовлення");
-    this.lines.push(new OrderLine(product, qty, price));
-    // інваріант «сума = сумі позицій» тримається тут і тільки тут
-  }
-
-  total(): Money {
-    return this.lines.reduce((s, l) => s.plus(l.subtotal()), Money.zero());
-  }
-}
-```
-```python
-# Корінь агрегату — єдині двері; позиції змінюють ЛИШЕ через замовлення
-class Order:                        # корінь
-    def __init__(self):
-        self._lines: list[OrderLine] = []   # внутрішні частини — закриті
-
-    def add_line(self, product: ProductId, qty: int, price: Money) -> None:
-        if self._is_placed:
-            raise DomainError("не можна міняти оформлене замовлення")
-        self._lines.append(OrderLine(product, qty, price))
-        # інваріант «сума = сумі позицій» тримається тут і тільки тут
-
-    def total(self) -> Money:
-        return sum((l.subtotal() for l in self._lines), Money.zero())
-```
+:::code domain-driven-design-d/ts/ahrehat-mezha-vseredyni.ts
+:::code domain-driven-design-d/py/ahrehat-mezha-vseredyni.py
 :::
 
 Чому це важить понад охайність? Бо межа агрегату — це заразом **межа узгодженості при збереженні**: агрегат зберігають однією транзакцією, тож усе всередині або лягає разом, або не лягає зовсім. А значить, розмір агрегату — це проєктне рішення з реальною ціною: завеликий агрегат робить кожну зміну важкою (блокуємо пів системи заради дрібниці), замалий — не втримає інваріант, який мав тримати. Де саме проводити цю межу, як пов'язувати сусідні агрегати через посилання-на-корінь, а не через прямі вкладення, і чому зв'язок між агрегатами майже завжди роблять **згодом-узгодженим** (англ. *eventual consistency*) — розібрано в окремій темі про [агрегат і корінь узгодженості](root:sf-apps/aggregates-consistency). Для лайт-рівня досить трьох правил: **межа — довкола того, що мусить бути істинним разом; вхід — лише через корінь; одна транзакція — один агрегат.**

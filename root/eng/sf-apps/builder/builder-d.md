@@ -86,48 +86,8 @@ pizza = (PizzaBuilder(30)            # обов'язкове — одразу
 Тепер механіка, бо в ній є одна маленька хитрість, на якій усе тримається. Чому виклики `.cheese().bacon()` можна чіпляти один за одним у ланцюжок? Тому що **кожен метод-крок повертає сам будівельник** — те саме `this`. Повернув `this` — і на результаті одразу можна викликати наступний крок, знову той самий об'єкт, і так до `build()`.
 
 :::tabs
-```ts
-class PizzaBuilder {
-  private size: number;
-  private hasCheese = false;
-  private hasBacon = false;
-
-  constructor(size: number) {          // обов'язкове поле — у конструкторі
-    this.size = size;
-  }
-
-  cheese(): this {                     // крок повертає САМ будівельник...
-    this.hasCheese = true;
-    return this;                       // ...тому виклики й чіпляються в ланцюжок
-  }
-  bacon(): this {
-    this.hasBacon = true;
-    return this;
-  }
-
-  build(): Pizza {                     // остаточне зібрання — тут
-    return new Pizza(this.size, this.hasCheese, this.hasBacon);
-  }
-}
-```
-```py
-class PizzaBuilder:
-    def __init__(self, size):            # обов'язкове поле — у конструкторі
-        self._size = size
-        self._cheese = False
-        self._bacon = False
-
-    def cheese(self):                    # крок повертає САМ будівельник...
-        self._cheese = True
-        return self                      # ...тому виклики й чіпляються в ланцюжок
-
-    def bacon(self):
-        self._bacon = True
-        return self
-
-    def build(self):                     # остаточне зібрання — тут
-        return Pizza(self._size, self._cheese, self._bacon)
-```
+:::code builder-d/ts/iak-vlashtovane.ts
+:::code builder-d/py/iak-vlashtovane.py
 :::
 
 Оце `return this` в кожному кроці — уся таємниця «плинного» вигляду. Прийом, коли методи повертають об'єкт, щоб виклики зчіплювалися в один вираз, називають [плинним інтерфейсом (англ. *fluent interface*)](root:sf-apps/fluent-interface) — будівельник його найвідоміший, але не єдиний ужиток. Зверни увагу на поділ праці всередині: методи-кроки **лише запам'ятовують** рішення в приватних полях і нічого не перевіряють, а `build()` — **єдина точка**, де об'єкт справді народжується. Це важливо з двох причин, і обидві варто побачити.
@@ -145,82 +105,8 @@ class PizzaBuilder:
 **Будівельник (Builder)** — це інтерфейс із методом на кожен крок складання (`addHeader`, `addParagraph`, `addLink`, `getResult`). **Директор (Director)** — це той, хто знає **порядок кроків**, але не знає, що вони конкретно роблять; він просто веде обхід і кличе методи будівельника один за одним. Підставляючи різних конкретних будівельників у того самого директора, ти тим самим процесом обходу отримуєш різні результати.
 
 :::tabs
-```ts
-interface DocBuilder {              // РОЛІ кроків — те, ЩО можна робити
-  addHeader(text: string): void;
-  addParagraph(text: string): void;
-  getResult(): string;
-}
-
-class HtmlBuilder implements DocBuilder {     // одне представлення — HTML
-  private out = "";
-  addHeader(t: string)    { this.out += `<h1>${t}</h1>\n`; }
-  addParagraph(t: string) { this.out += `<p>${t}</p>\n`; }
-  getResult()             { return this.out; }
-}
-
-class PlainBuilder implements DocBuilder {    // інше представлення — текст
-  private out = "";
-  addHeader(t: string)    { this.out += t.toUpperCase() + "\n"; }
-  addParagraph(t: string) { this.out += t + "\n"; }
-  getResult()             { return this.out; }
-}
-
-class Director {                    // знає лише ПОРЯДОК, не знає матеріалу
-  build(b: DocBuilder): void {
-    b.addHeader("Звіт");
-    b.addParagraph("Перший абзац.");
-    b.addParagraph("Другий абзац.");
-  }
-}
-
-const director = new Director();
-const html = new HtmlBuilder();
-director.build(html);              // той самий обхід...
-console.log(html.getResult());     // ...дав HTML
-
-const plain = new PlainBuilder();
-director.build(plain);             // ...той самий обхід...
-console.log(plain.getResult());    // ...дав звичайний текст
-```
-```py
-from abc import ABC, abstractmethod
-
-class DocBuilder(ABC):              # РОЛІ кроків — те, ЩО можна робити
-    @abstractmethod
-    def add_header(self, text): ...
-    @abstractmethod
-    def add_paragraph(self, text): ...
-    @abstractmethod
-    def get_result(self): ...
-
-class HtmlBuilder(DocBuilder):                # одне представлення — HTML
-    def __init__(self):        self._out = ""
-    def add_header(self, t):    self._out += f"<h1>{t}</h1>\n"
-    def add_paragraph(self, t): self._out += f"<p>{t}</p>\n"
-    def get_result(self):       return self._out
-
-class PlainBuilder(DocBuilder):               # інше представлення — текст
-    def __init__(self):        self._out = ""
-    def add_header(self, t):    self._out += t.upper() + "\n"
-    def add_paragraph(self, t): self._out += t + "\n"
-    def get_result(self):       return self._out
-
-class Director:                    # знає лише ПОРЯДОК, не знає матеріалу
-    def build(self, b: DocBuilder):
-        b.add_header("Звіт")
-        b.add_paragraph("Перший абзац.")
-        b.add_paragraph("Другий абзац.")
-
-director = Director()
-html = HtmlBuilder()
-director.build(html)               # той самий обхід...
-print(html.get_result())           # ...дав HTML
-
-plain = PlainBuilder()
-director.build(plain)              # ...той самий обхід...
-print(plain.get_result())          # ...дав звичайний текст
-```
+:::code builder-d/ts/klasychnyi-budivelnyk-gof.ts
+:::code builder-d/py/klasychnyi-budivelnyk-gof.py
 :::
 
 Помітив, у чому фокус? `Director.build` написаний **один раз** і не знає ні про HTML, ні про текст — він оперує лише інтерфейсом `DocBuilder`. Уся різниця результату захована в тому, якого конкретного будівельника йому передали. Захочеш додати експорт у Markdown — пишеш новий `MarkdownBuilder`, а директора **не чіпаєш**: це прямий вияв [принципу відкритості-закритості](root:sf-apps/open-closed) — нова можливість додається новим класом збоку, а не правкою наявного.

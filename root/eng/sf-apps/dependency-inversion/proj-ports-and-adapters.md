@@ -31,97 +31,15 @@
 Почнемо з осердя — сутності `Order` з правилами. Жодного натяку на технологію тут немає й не буде:
 
 :::tabs
-```ts
-// domain/order.ts ── СУТНІСТЬ і правила. Не імпортує нічого зовнішнього.
-export interface Line { sku: string; price: number; qty: number; }
-
-export class DomainError extends Error {}
-
-export class Order {
-  private constructor(
-    readonly id: string,
-    readonly email: string,
-    readonly lines: Line[],
-  ) {}
-
-  static place(id: string, email: string, lines: Line[]): Order {
-    if (lines.length === 0) throw new DomainError("порожнє замовлення");   // ПРАВИЛО
-    if (!email.includes("@")) throw new DomainError("недійсна пошта");      // ПРАВИЛО
-    return new Order(id, email, lines);
-  }
-
-  total(): number {
-    return this.lines.reduce((s, l) => s + l.price * l.qty, 0);            // ПРАВИЛО
-  }
-}
-```
-```py
-# domain/order.py ── СУТНІСТЬ і правила. Не імпортує нічого зовнішнього.
-from dataclasses import dataclass
-
-
-class DomainError(Exception):
-    pass
-
-
-@dataclass(frozen=True)
-class Line:
-    sku: str
-    price: int
-    qty: int
-
-
-@dataclass(frozen=True)
-class Order:
-    id: str
-    email: str
-    lines: tuple[Line, ...]
-
-    @staticmethod
-    def place(id: str, email: str, lines: list[Line]) -> "Order":
-        if not lines:
-            raise DomainError("порожнє замовлення")          # ПРАВИЛО
-        if "@" not in email:
-            raise DomainError("недійсна пошта")              # ПРАВИЛО
-        return Order(id, email, tuple(lines))
-
-    def total(self) -> int:
-        return sum(l.price * l.qty for l in self.lines)      # ПРАВИЛО
-```
+:::code proj-ports-and-adapters/ts/order.ts
+:::code proj-ports-and-adapters/py/order.py
 :::
 
 Тепер — **дві обіцянки**, викладені мовою домену. Обидва порти вузькі: рівно те, чого сценарій справді потребує, і жодного слова більше. Порт репозиторію знає лише «зберегти» й «узяти за id»; порт сповіщувача — лише «підтвердь замовлення». Ніде немає `INSERT`, `connection`, `smtp`, `subject`:
 
 :::tabs
-```ts
-// domain/ports.ts ── ДВІ обіцянки домену, його поняттями. Ні SQL, ні SMTP.
-import { Order } from "./order";
-
-// вихідний порт №1: КУДИ складати замовлення
-export interface Orders {
-  save(order: Order): Promise<void>;
-  byId(id: string): Promise<Order | null>;
-}
-
-// вихідний порт №2: ЯК сповістити клієнта
-export interface Notifier {
-  orderPlaced(order: Order): Promise<void>;   // «підтвердь клієнтові замовлення»
-}
-```
-```py
-# domain/ports.py ── ДВІ обіцянки домену, його поняттями. Ні SQL, ні SMTP.
-from typing import Optional, Protocol
-from .order import Order
-
-
-class Orders(Protocol):                        # вихідний порт №1: КУДИ складати
-    async def save(self, order: Order) -> None: ...
-    async def by_id(self, id: str) -> Optional[Order]: ...
-
-
-class Notifier(Protocol):                      # вихідний порт №2: ЯК сповістити
-    async def order_placed(self, order: Order) -> None: ...
-```
+:::code proj-ports-and-adapters/ts/ports.ts
+:::code proj-ports-and-adapters/py/ports.py
 :::
 
 Зверни увагу на `Protocol` у Python: це і є «інтерфейс живе у споживача» у найчистішому вигляді. Порт оголошено в домені, але жодна майбутня реалізація не мусить його імпортувати чи писати `implements` — досить мати методи потрібної форми. Домен володіє обіцянкою, виконавець про це може й не знати.
@@ -129,54 +47,8 @@ class Notifier(Protocol):                      # вихідний порт №2:
 І, нарешті, сам **сценарій**. Він приймає обидва порти ззовні, тримається лише за них — і **диригує двома ефектами** в чіткому порядку. Ось де живе координація, яку не можна віддати адаптерові:
 
 :::tabs
-```ts
-// domain/place-order.ts ── СЦЕНАРІЙ. Диригує двома портами, не знає адаптерів.
-import { Order, Line } from "./order";
-import { Orders, Notifier } from "./ports";
-
-export interface NewOrder { email: string; lines: Line[]; }
-
-export class PlaceOrder {
-  constructor(
-    private readonly orders: Orders,        // ← порт, НЕ база
-    private readonly notifier: Notifier,    // ← порт, НЕ SMTP
-    private readonly newId: () => string,   // джерело id теж ззовні
-  ) {}
-
-  async run(cmd: NewOrder): Promise<Order> {
-    const order = Order.place(this.newId(), cmd.email, cmd.lines); // 1: правила
-    await this.orders.save(order);           // 2: спершу зберегти (довговічність)
-    await this.notifier.orderPlaced(order);  // 3: тоді сповістити
-    return order;
-  }
-}
-```
-```py
-# domain/place_order.py ── СЦЕНАРІЙ. Диригує двома портами, не знає адаптерів.
-from collections.abc import Callable
-from dataclasses import dataclass
-from .order import Order, Line
-from .ports import Orders, Notifier
-
-
-@dataclass(frozen=True)
-class NewOrder:
-    email: str
-    lines: list[Line]
-
-
-class PlaceOrder:
-    def __init__(self, orders: Orders, notifier: Notifier, new_id: Callable[[], str]):
-        self._orders = orders        # ← порт, НЕ база
-        self._notifier = notifier    # ← порт, НЕ SMTP
-        self._new_id = new_id        # джерело id теж ззовні
-
-    async def run(self, cmd: NewOrder) -> Order:
-        order = Order.place(self._new_id(), cmd.email, cmd.lines)  # 1: правила
-        await self._orders.save(order)             # 2: спершу зберегти
-        await self._notifier.order_placed(order)   # 3: тоді сповістити
-        return order
-```
+:::code proj-ports-and-adapters/ts/place-order.ts
+:::code proj-ports-and-adapters/py/place_order.py
 :::
 
 Порядок «спершу зберегти, тоді сповістити» — це рішення політики, а не випадковість. Якщо процес упаде між кроками, краще мати збережене замовлення без листа, ніж лист без замовлення: клієнт, що отримав підтвердження на неіснуючий запис, — гірша біда. А що коли лист **не піде** після успішного збереження — `notifier` кине виняток? Тоді за цим кодом сценарій завалиться, хоч замовлення вже в базі. У серйозній системі цей ефект виносять у чергу (патерн outbox), щоб збій пошти не валив оформлення, — але **де** саме це вирішити, вирішує домен, у `run`, а не поштовий адаптер. Обидва порти живуть під одним сценарієм саме тому, що їхню взаємодію диригує політика; розкидай ефекти по адаптерах — і цю координацію ніде буде ні побачити, ні перевірити.
@@ -188,47 +60,8 @@ class PlaceOrder:
 Перші реалізації обох портів — **найлегші можливі**, без жодної інфраструктури. Репозиторій — це словник; сповіщувач — **шпигун** (англ. *spy*, у термінології тестових дублів Джерарда Мезароса — підробка, що **запам'ятовує** дзвінки до себе). Саме те, що сповіщувач-шпигун записує, кого сповістили, робить його придатним не лише для запуску без пошти, а й для перевірки в тесті:
 
 :::tabs
-```ts
-// infra/in-memory.ts ── адаптери БЕЗ інфраструктури. Реалізують ті самі порти.
-import { Order } from "../domain/order";
-import { Orders, Notifier } from "../domain/ports";
-
-export class InMemoryOrders implements Orders {
-  private byKey = new Map<string, Order>();
-  async save(o: Order): Promise<void> { this.byKey.set(o.id, o); }
-  async byId(id: string): Promise<Order | null> { return this.byKey.get(id) ?? null; }
-}
-
-// Шпигун: не «нічого не робить», а ЗАПИСУЄ, кого сповістили.
-export class InMemoryNotifier implements Notifier {
-  readonly sent: Order[] = [];
-  async orderPlaced(o: Order): Promise<void> { this.sent.push(o); }
-}
-```
-```py
-# infra/in_memory.py ── адаптери БЕЗ інфраструктури. Реалізують ті самі порти.
-from typing import Optional
-from domain.order import Order
-
-
-class InMemoryOrders:                 # структурно задовольняє Orders (Protocol)
-    def __init__(self) -> None:
-        self._by_key: dict[str, Order] = {}
-
-    async def save(self, o: Order) -> None:
-        self._by_key[o.id] = o
-
-    async def by_id(self, id: str) -> Optional[Order]:
-        return self._by_key.get(id)
-
-
-class InMemoryNotifier:               # шпигун: ЗАПИСУЄ, кого сповістили
-    def __init__(self) -> None:
-        self.sent: list[Order] = []
-
-    async def order_placed(self, o: Order) -> None:
-        self.sent.append(o)
-```
+:::code proj-ports-and-adapters/ts/in-memory.ts
+:::code proj-ports-and-adapters/py/in_memory.py
 :::
 
 У Python-варіанті придивись, чого немає: `InMemoryOrders` **не успадковує** `Orders`, не пише жодного `implements`, не імпортує порт. Він просто має методи `save` й `by_id` потрібної форми — і цього досить, щоб `PlaceOrder`, типізований `Orders` (Protocol), його прийняв. Обіцянка належить домену, а виконавець про неї навіть не згадує в коді. У TypeScript зв'язок явний (`implements Orders`), і адаптер імпортує порт — але імпорт іде **в домен**, тобто стрілка залежності знову спрямована всередину. Дві мови, той самий напрямок.
@@ -238,96 +71,15 @@ class InMemoryNotifier:               # шпигун: ЗАПИСУЄ, кого �
 Тепер по «дорослій» реалізації на кожен порт — і тут уперше з'являються технології. Причому **різні**: під `Orders` стане база, під `Notifier` — пошта. Це і є сенс двох портів: за ними ховаються два несхожі світи введення-виведення, і кожен замкнено у своєму адаптері. Спершу репозиторій на Postgres — **єдине місце**, де живе SQL і де домен перекладається в рядок таблиці й назад:
 
 :::tabs
-```ts
-// infra/pg-orders.ts ── ЄДИНЕ місце, що знає SQL. Мапить домен ↔ рядок.
-import { Order, Line } from "../domain/order";
-import { Orders } from "../domain/ports";
-
-export class PgOrders implements Orders {
-  constructor(private readonly db: Pg) {}
-
-  async save(o: Order): Promise<void> {
-    await this.db.query(
-      `insert into orders(id, email, lines, total) values ($1, $2, $3, $4)
-       on conflict (id) do update set lines = excluded.lines, total = excluded.total`,
-      [o.id, o.email, JSON.stringify(o.lines), o.total()],
-    );
-  }
-
-  async byId(id: string): Promise<Order | null> {
-    const r = await this.db.query("select email, lines from orders where id = $1", [id]);
-    if (r.rows.length === 0) return null;
-    return Order.place(id, r.rows[0].email, JSON.parse(r.rows[0].lines) as Line[]);
-  }
-}
-```
-```py
-# infra/pg_orders.py ── ЄДИНЕ місце, що знає SQL. Мапить домен ↔ рядок.
-import json
-from typing import Optional
-from domain.order import Order, Line
-
-
-class PgOrders:
-    def __init__(self, pool):
-        self._pool = pool
-
-    async def save(self, o: Order) -> None:
-        await self._pool.execute(
-            """insert into orders(id, email, lines, total) values ($1, $2, $3, $4)
-               on conflict (id) do update set lines = excluded.lines, total = excluded.total""",
-            o.id, o.email, json.dumps([l.__dict__ for l in o.lines]), o.total(),
-        )
-
-    async def by_id(self, id: str) -> Optional[Order]:
-        row = await self._pool.fetchrow("select email, lines from orders where id = $1", id)
-        if row is None:
-            return None
-        lines = [Line(**l) for l in json.loads(row["lines"])]
-        return Order.place(id, row["email"], lines)
-```
+:::code proj-ports-and-adapters/ts/pg-orders.ts
+:::code proj-ports-and-adapters/py/pg_orders.py
 :::
 
 А ось сповіщувач на SMTP — **єдине місце**, де живе пошта, і де домен перекладається в лист. Зверни увагу: адаптер бере з домену рівно те, що домен йому дав (пошту клієнта, id, суму), і сам вирішує, як із цього зліпити повідомлення — тема, текст, відправник — це деталі пошти, і в порт вони не протікають:
 
 :::tabs
-```ts
-// infra/smtp-notifier.ts ── ЄДИНЕ місце, що знає SMTP. Мапить домен ↔ лист.
-import { Order } from "../domain/order";
-import { Notifier } from "../domain/ports";
-
-export class SmtpNotifier implements Notifier {
-  constructor(private readonly smtp: Smtp, private readonly from: string) {}
-
-  async orderPlaced(o: Order): Promise<void> {
-    await this.smtp.send({
-      from: this.from,
-      to: o.email,                                   // домен дав пошту — SMTP її вживає
-      subject: `Замовлення ${o.id} прийнято`,
-      text: `Дякуємо! Сума до сплати: ${o.total()} грн.`,
-    });
-  }
-}
-```
-```py
-# infra/smtp_notifier.py ── ЄДИНЕ місце, що знає SMTP. Мапить домен ↔ лист.
-from email.message import EmailMessage
-from domain.order import Order
-
-
-class SmtpNotifier:
-    def __init__(self, smtp, sender: str):
-        self._smtp = smtp
-        self._from = sender
-
-    async def order_placed(self, o: Order) -> None:
-        msg = EmailMessage()
-        msg["From"] = self._from
-        msg["To"] = o.email                          # домен дав пошту — SMTP її вживає
-        msg["Subject"] = f"Замовлення {o.id} прийнято"
-        msg.set_content(f"Дякуємо! Сума до сплати: {o.total()} грн.")
-        await self._smtp.send(msg)
-```
+:::code proj-ports-and-adapters/ts/smtp-notifier.ts
+:::code proj-ports-and-adapters/py/smtp_notifier.py
 :::
 
 Чотири адаптери, дві пари, два порти. Для сценарію `InMemoryOrders` і `PgOrders` нерозрізненні — обидва тримають обіцянку `Orders`; так само `InMemoryNotifier` і `SmtpNotifier` нерозрізненні як `Notifier`. Що саме встромити в кожен порт — вирішується не тут, а в одній-єдиній точці, до якої ми зараз і дійдемо.
@@ -337,44 +89,8 @@ class SmtpNotifier:
 Хтось мусить обрати конкретні адаптери й подати їх сценарію. Не сам сценарій — інакше він знов назвав би деталь на ім'я. Це робить **корінь збірки** (англ. *composition root*; композиція — від лат. *compositio*, «складання докупи») — ділянка на самому краю програми, де вже дозволено знати всі конкретні імена. Термін увів Марк Симанн у книжці про впровадження залежностей (Manning, 2011). Ось прод-збірка, де в одному місці вперше й востаннє звучать **і** «Postgres», **і** «SMTP»:
 
 :::tabs
-```ts
-// main.ts ── КОРІНЬ ЗБІРКИ. ЄДИНЕ місце, де сходяться "Postgres" і "SMTP".
-import { randomUUID } from "crypto";
-import { PlaceOrder } from "./domain/place-order";
-import { PgOrders } from "./infra/pg-orders";
-import { SmtpNotifier } from "./infra/smtp-notifier";
-
-const db = new Pg(process.env.DATABASE_URL);
-const smtp = new Smtp(process.env.SMTP_URL);
-
-// обидва адаптери сходяться ТУТ і подаються сценарію ззовні
-const placeOrder = new PlaceOrder(
-  new PgOrders(db),                        // порт Orders   ← Postgres
-  new SmtpNotifier(smtp, "shop@acme.io"),  // порт Notifier ← SMTP
-  randomUUID,
-);
-// далі placeOrder.run(...) не знає ні слова "Postgres", ні слова "SMTP"
-```
-```py
-# main.py ── КОРІНЬ ЗБІРКИ. ЄДИНЕ місце, де сходяться "Postgres" і "SMTP".
-import os
-from uuid import uuid4
-from domain.place_order import PlaceOrder
-from infra.pg_orders import PgOrders
-from infra.smtp_notifier import SmtpNotifier
-
-
-async def build_place_order() -> PlaceOrder:
-    db = await create_pool(os.environ["DATABASE_URL"])
-    smtp = await connect_smtp(os.environ["SMTP_URL"])
-    # обидва адаптери сходяться ТУТ і подаються сценарію ззовні
-    return PlaceOrder(
-        PgOrders(db),                          # порт Orders   ← Postgres
-        SmtpNotifier(smtp, "shop@acme.io"),    # порт Notifier ← SMTP
-        lambda: str(uuid4()),
-    )
-    # далі place_order.run(...) не знає ні слова "Postgres", ні слова "SMTP"
-```
+:::code proj-ports-and-adapters/ts/main.ts
+:::code proj-ports-and-adapters/py/main.py
 :::
 
 Оце й є вузол усієї системи. Корінь збірки знає **все** — домен, обидва порти, всі чотири адаптери, обидві технології, — і саме тому більше ніхто не мусить. Він конструює конкретні `PgOrders` і `SmtpNotifier`, але **подає** їх сценарію під типами портів; з цієї миті `PlaceOrder` тримає в руках лише обіцянки. Прибери подумки корінь — і решта коду навіть не здогадається, що на світі є Postgres чи пошта. Що більшає адаптерів, то товщає цей єдиний файл; коли він розростається, його впорядкування — окрема тема про [DI-контейнер і корінь збірки](root:sf-apps/di-container), але суть незмінна: **одне** місце знає всіх, решта — лише порти.
@@ -396,56 +112,8 @@ async def build_place_order() -> PlaceOrder:
 Останнє й найсмачніше природно виростає з усього попереднього. Ми зробили сценарій сліпим до адаптерів — отже, у тест можна подати **підробки** замість бази й пошти. Але тут з'являється те, чого приклад з одним портом не показав би: сценарій має **два ефекти**, і чесний тест мусить перевірити **обидва** — і що замовлення збережене, і що сповіщення пішло рівно раз на правильну пошту. Ось де шпигун-сповіщувач відпрацьовує сповна:
 
 :::tabs
-```ts
-// place-order.test.ts ── СЦЕНАРІЙ-ТЕСТ. Той самий сценарій, але на підробках.
-import { PlaceOrder } from "./domain/place-order";
-import { InMemoryOrders, InMemoryNotifier } from "./infra/in-memory";
-
-test("оформлення зберігає замовлення І шле рівно одне сповіщення", async () => {
-  const orders = new InMemoryOrders();
-  const notifier = new InMemoryNotifier();          // шпигун
-  let n = 0;
-  const placeOrder = new PlaceOrder(orders, notifier, () => String(++n));
-
-  const order = await placeOrder.run({
-    email: "kate@example.com",
-    lines: [{ sku: "book", price: 200, qty: 2 }],
-  });
-
-  // ефект 1 — замовлення справді збережене, і саме те
-  expect(await orders.byId("1")).toEqual(order);
-  expect(order.total()).toBe(400);
-
-  // ефект 2 — сповіщення надіслане РІВНО раз, на пошту клієнта
-  expect(notifier.sent).toHaveLength(1);
-  expect(notifier.sent[0].email).toBe("kate@example.com");
-});
-```
-```py
-# test_place_order.py ── СЦЕНАРІЙ-ТЕСТ. Той самий сценарій, але на підробках.
-import pytest
-from domain.place_order import PlaceOrder, NewOrder
-from domain.order import Line
-from infra.in_memory import InMemoryOrders, InMemoryNotifier
-
-
-@pytest.mark.asyncio
-async def test_зберігає_і_шле_рівно_одне_сповіщення():
-    orders = InMemoryOrders()
-    notifier = InMemoryNotifier()             # шпигун
-    seq = iter("123456789")
-    place_order = PlaceOrder(orders, notifier, lambda: next(seq))
-
-    order = await place_order.run(NewOrder("kate@example.com", [Line("book", 200, 2)]))
-
-    # ефект 1 — замовлення справді збережене, і саме те
-    assert await orders.by_id("1") == order
-    assert order.total() == 400
-
-    # ефект 2 — сповіщення надіслане РІВНО раз, на пошту клієнта
-    assert len(notifier.sent) == 1
-    assert notifier.sent[0].email == "kate@example.com"
-```
+:::code proj-ports-and-adapters/ts/place-order.test.ts
+:::code proj-ports-and-adapters/py/test_place_order.py
 :::
 
 Придивись, чого в цьому тесті **немає**: піднятого Postgres, поштового сервера, `docker-compose`, чекання мережі, перехоплення листів, очищення таблиць. Тест сам собі корінь збірки — тільки замість справжніх адаптерів встромляє підробки, а замість HTTP-запиту гукає сценарій прямо. Він перевіряє не окреме правило, а **всю оркестрацію**: чи сценарій зробив обидві потрібні речі, з правильними даними. Ось що видно на схемі тесту:
@@ -457,32 +125,8 @@ async def test_зберігає_і_шле_рівно_одне_сповіщенн
 Два порти дають ще одну перевірку, неможливу з одним, — **негативну оркестрацію**. Коли замовлення недійсне, домен має відхилити його **до** будь-яких ефектів: нічого не зберегти й нікого не сповістити. Переконатися в цьому можна, лише маючи **обидва** шпигуни порожніми:
 
 :::tabs
-```ts
-test("недійсне замовлення НЕ зберігається й НЕ шле нічого", async () => {
-  const orders = new InMemoryOrders();
-  const notifier = new InMemoryNotifier();
-  const placeOrder = new PlaceOrder(orders, notifier, () => "x");
-
-  await expect(placeOrder.run({ email: "no-at-sign", lines: [] }))
-    .rejects.toThrow();                         // правило домену відхилило
-
-  expect(await orders.byId("x")).toBeNull();    // нічого не збережено
-  expect(notifier.sent).toHaveLength(0);        // нікого не сповіщено
-});
-```
-```py
-@pytest.mark.asyncio
-async def test_недійсне_не_зберігається_і_не_шле():
-    orders = InMemoryOrders()
-    notifier = InMemoryNotifier()
-    place_order = PlaceOrder(orders, notifier, lambda: "x")
-
-    with pytest.raises(Exception):
-        await place_order.run(NewOrder("no-at-sign", []))   # правило відхилило
-
-    assert await orders.by_id("x") is None    # нічого не збережено
-    assert notifier.sent == []                # нікого не сповіщено
-```
+:::code proj-ports-and-adapters/ts/stsenarii-test-na.ts
+:::code proj-ports-and-adapters/py/stsenarii-test-na.py
 :::
 
 Обидві підробки тримають ту саму обіцянку, що й справжні адаптери, — інакше тест брехав би. Це вимога [підстановки Лісков](root:sf-apps/liskov-substitution): підробка мусить бути чесно взаємозамінна з реальним адаптером, а не «спрощеною вигадкою». Репозиторій у пам'яті справді зберігає й повертає те саме замовлення; шпигун справді рахує виклики. Доки підробки чесні, зелений тест на них — надійне свідчення, що політика правильна, а не що ми обдурили самі себе.

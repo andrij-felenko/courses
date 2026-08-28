@@ -63,51 +63,13 @@ typedef long (*DiscountFn)(long cart_total, const void *params);
 
 Тепер самі обробники. Кожен — звичайна маленька функція, у своєму місці, ні про кого більше не знає:
 
-```c
-// Параметри окремих знижок — кожна знає лише свою структуру.
-typedef struct { int percent; }          PercentParams;   // −percent%
-typedef struct { long amount; }          FlatParams;      // −amount копійок
-typedef struct { int percent; long cap; } LoyaltyParams;  // −percent%, але не більше cap
-
-static long disc_percent(long total, const void *p) {
-    const PercentParams *pp = (const PercentParams *)p;    // розтлумачив своє
-    return total * pp->percent / 100;
-}
-
-static long disc_flat(long total, const void *p) {
-    (void)total;                                           // фіксованій сума кошика байдужа
-    const FlatParams *fp = (const FlatParams *)p;
-    return fp->amount;
-}
-
-static long disc_loyalty(long total, const void *p) {
-    const LoyaltyParams *lp = (const LoyaltyParams *)p;
-    long d = total * lp->percent / 100;
-    return d < lp->cap ? d : lp->cap;                      // обмежили стелею
-}
-```
+:::code proj-extensible-dispatch/c/robochyi-kod-dyspetcher.c
 
 Зверни увагу на `(void)total;` у фіксованій знижці: параметр за контрактом є, але цій знижці він не потрібен, і `(void)total;` — ідіома C, що каже компіляторові «я знаю, що не використовую, не сваріться попередженням». Контракт єдиний для всіх, а користується кожен лише тим, що йому треба.
 
 Тепер — **завіса, сама таблиця**. Це масив, де індекс = вид знижки, а значення = вказівник на обробник:
 
-```c
-// Види знижки — індекси в таблиці. Порядок тут ЗАДАЄ відповідність рядкам.
-typedef enum {
-    DISC_PERCENT = 0,
-    DISC_FLAT,
-    DISC_LOYALTY,
-    DISC_COUNT            // не вид знижки, а «скільки їх усього» — завжди останній
-} DiscountKind;
-
-// ТАБЛИЦЯ ДИСПЕТЧЕРИЗАЦІЇ: рядок «вид → функція».
-// Додати новий вид знижки = дописати ОДИН рядок сюди (+ написати обробник вище).
-static const DiscountFn DISCOUNT_TABLE[DISC_COUNT] = {
-    [DISC_PERCENT] = disc_percent,
-    [DISC_FLAT]    = disc_flat,
-    [DISC_LOYALTY] = disc_loyalty,
-};
-```
+:::code proj-extensible-dispatch/c/robochyi-kod-dyspetcher-2.c
 
 Тут два прийоми варто вимовити повільно, бо на них тримається вся надійність.
 
@@ -117,57 +79,17 @@ static const DiscountFn DISCOUNT_TABLE[DISC_COUNT] = {
 
 І нарешті — **диспетчер**, той закритий клієнт, що ходить по таблиці:
 
-```c
-// ЦИКЛ-ДИСПЕТЧЕР: закритий. Не знає жодного виду знижки поіменно.
-// Додавання нових видів його НЕ торкається.
-long apply_discount(DiscountKind kind, long cart_total, const void *params) {
-    if (kind < 0 || kind >= DISC_COUNT)      // вихід за межі таблиці — ловимо
-        return 0;                             // невідомий вид: знижки нема
-    DiscountFn fn = DISCOUNT_TABLE[kind];    // взяли обробник за індексом
-    if (fn == NULL)                           // рядок є, а обробник не заповнено
-        return 0;
-    return fn(cart_total, params);           // викликали, не знаючи, хто це
-}
-```
+:::code proj-extensible-dispatch/c/robochyi-kod-dyspetcher-3.c
 
 Ось воно, серце. `apply_discount` бере `kind`, іде в `DISCOUNT_TABLE[kind]`, дістає вказівник і викликає його. Рядок `return fn(cart_total, params);` **однаковий для трьох видів знижки й для тридцяти трьох** — він не росте, не гілкується, не редагується ніколи. Це і є «закрито для модифікації»: диспетчер написали раз, і додавання будь-якої кількості нових знижок його не змусить змінитися. А «відкрито для розширення» — це те, що новий вид приходить дописом рядка в таблицю плюс новою функцією збоку.
 
 Складемо все в короткий сценарій використання, щоб побачити рушій у роботі:
 
-```c
-#include <stdio.h>
-
-int main(void) {
-    long cart = 100000;                       // 1000.00 грн у копійках
-
-    PercentParams tenoff  = { .percent = 10 };
-    FlatParams    fifty    = { .amount  = 5000 };          // −50.00 грн
-    LoyaltyParams loyal    = { .percent = 5, .cap = 3000 };// −5%, але ≤ 30.00 грн
-
-    printf("%ld\n", apply_discount(DISC_PERCENT, cart, &tenoff)); // 10000  (−100.00)
-    printf("%ld\n", apply_discount(DISC_FLAT,    cart, &fifty));  //  5000  (−50.00)
-    printf("%ld\n", apply_discount(DISC_LOYALTY, cart, &loyal));  //  3000  (стеля вдарила: 5% = 5000 > 3000)
-    printf("%ld\n", apply_discount(DISC_COUNT,   cart, NULL));    //     0  (невідомий вид, межу зловили)
-    return 0;
-}
-```
+:::code proj-extensible-dispatch/c/robochyi-kod-dyspetcher-4.c
 
 Тепер — **найголовніше, заради чого підхід і затіяно**. Уяви, маркетинг придумав «−200 грн на день народження». Ось повний обсяг правок, щоб рушій цьому навчився:
 
-```c
-// 1) новий вид у enum — перед DISC_COUNT:
-//    ... DISC_LOYALTY, DISC_BIRTHDAY, DISC_COUNT
-
-// 2) нова структура параметрів і новий обробник — окремо, нікого не чіпаючи:
-typedef struct { long amount; } BirthdayParams;
-static long disc_birthday(long total, const void *p) {
-    (void)total;
-    return ((const BirthdayParams *)p)->amount;
-}
-
-// 3) один рядок у таблицю:
-//    [DISC_BIRTHDAY] = disc_birthday,
-```
+:::code proj-extensible-dispatch/c/robochyi-kod-dyspetcher-5.c
 
 І все. `apply_discount` не відкривали. `disc_percent`, `disc_flat`, `disc_loyalty` не відкривали — вони як були перевірені, так і лишилися, їхній машинний код навіть не перекомпілювався б, якби це були окремі трансляційні одиниці. Радіус ураження новим видом — рівно новий обробник плюс один рядок таблиці; фізично неможливо, щоб поява `disc_birthday` зламала розрахунок відсоткової знижки, бо вони ніде не перетинаються. Це те саме, що давав новий клас `Triangle` у віртуальній версії, тільки без жодного класу — самим масивом і вказівником.
 
@@ -245,18 +167,7 @@ if (kind < 0 || kind >= DISC_COUNT)   // і від'ємне, і завелике
 
 Третя пастка тонша й кусає пізніше — коли обробники перестають бути чистими функціями «вхід → вихід» і починають **чіпати спільний стан**. Наш початковий рушій цим не грішив: кожен обробник рахував від своїх параметрів і нічого зовнішнього не читав та не міняв. Але реальні знижки штовхають до спокуси. «Знижка постійного покупця» хоче знати, скільки цей покупець витратив за рік — і хтось заводить глобальний лічильник. «Кожна п'ята покупка безкоштовна» хоче пам'ятати, котра це покупка — і з'являється глобальний стан, який обробник читає й оновлює.
 
-```c
-// НЕБЕЗПЕЧНО: обробник тримає СВІЙ прихований стан між викликами
-static int purchase_counter = 0;              // глобальний, спільний
-
-static long disc_every_fifth(long total, const void *p) {
-    (void)p;
-    purchase_counter++;                       // побічний ефект: змінив зовнішнє
-    if (purchase_counter % 5 == 0)
-        return total;                          // кожна п'ята — безкоштовно
-    return 0;
-}
-```
+:::code proj-extensible-dispatch/c/pastka-tretia-spilnyi-stan.c
 
 На вигляд працює. Але прихований стан у таблиці диспетчеризації породжує рівно ті біди, яких OCP мав позбавити.
 

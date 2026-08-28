@@ -13,95 +13,8 @@
 Гроші **незмінні**: операція над ними не псує старе значення, а народжує нове. Гроші тримають **ціле число копійок**, а не дріб із плавучою комою — бо `0.1 + 0.2` у двійковому дробі не дорівнює `0.3`, і копійка, розмита похибкою, з часом розсипає баланс. І гроші стережуть **інваріант**: сума не буває від'ємна, а складати різні валюти не можна. Вартовий цих правил стоїть у фабриці, повз яку об'єкт не створити.
 
 :::tabs
-```cpp
-#include <string>
-#include <vector>
-#include <optional>
-#include <cstdint>
-#include <stdexcept>
-
-struct DomainError : std::runtime_error {
-    using std::runtime_error::runtime_error;
-};
-
-using Cents = std::int64_t;                       // копійки цілим числом, не дріб
-
-class Money {
-public:
-    // єдині двері всередину — з вартовим: гроші не бувають від'ємні
-    static Money of(Cents cents, std::string currency) {
-        if (cents < 0) throw DomainError("гроші не бувають від'ємні");
-        return Money(cents, std::move(currency));
-    }
-    static Money zero(std::string currency) { return Money(0, std::move(currency)); }
-
-    Money add(const Money& o) const {
-        requireSameCurrency(o);
-        return Money(cents_ + o.cents_, currency_);        // новий об'єкт, старі не змінені
-    }
-    Money times(int qty) const {
-        if (qty < 0) throw DomainError("кількість не буває від'ємна");
-        return Money(cents_ * qty, currency_);
-    }
-    Money withDiscountPercent(int pct) const {
-        if (pct < 0 || pct > 100) throw DomainError("відсоток поза межами 0..100");
-        return Money(cents_ - cents_ * pct / 100, currency_);
-    }
-
-    bool operator==(const Money& o) const {                // рівність за ВМІСТОМ — рідна мові
-        return cents_ == o.cents_ && currency_ == o.currency_;
-    }
-    Cents cents() const { return cents_; }
-    const std::string& currency() const { return currency_; }
-
-private:
-    Money(Cents cents, std::string currency)               // конструктор закритий
-        : cents_(cents), currency_(std::move(currency)) {}
-    void requireSameCurrency(const Money& o) const {
-        if (currency_ != o.currency_) throw DomainError("не можна складати різні валюти");
-    }
-    Cents cents_;
-    std::string currency_;
-};
-```
-```ts
-class DomainError extends Error {}
-
-class Money {
-  private constructor(
-    readonly cents: number,            // копійки цілим числом, не дріб
-    readonly currency: string,
-  ) {}
-
-  // єдині двері всередину — з вартовим: гроші не бувають від'ємні
-  static of(cents: number, currency: string): Money {
-    if (!Number.isInteger(cents)) throw new DomainError("копійки мусять бути цілим числом");
-    if (cents < 0) throw new DomainError(`гроші не бувають від'ємні: ${cents}`);
-    return new Money(cents, currency);
-  }
-  static zero(currency: string): Money { return new Money(0, currency); }
-
-  add(o: Money): Money {
-    this.requireSameCurrency(o);
-    return new Money(this.cents + o.cents, this.currency);  // новий об'єкт, старі не змінені
-  }
-  times(qty: number): Money {
-    if (!Number.isInteger(qty) || qty < 0) throw new DomainError("кількість — ціле невід'ємне");
-    return new Money(this.cents * qty, this.currency);
-  }
-  withDiscountPercent(pct: number): Money {
-    if (pct < 0 || pct > 100) throw new DomainError("відсоток поза межами 0..100");
-    return new Money(this.cents - Math.trunc(this.cents * pct / 100), this.currency);
-  }
-
-  equals(o: Money): boolean {              // рівність за ВМІСТОМ — руками, бо оператора нема
-    return this.cents === o.cents && this.currency === o.currency;
-  }
-  private requireSameCurrency(o: Money): void {
-    if (this.currency !== o.currency) throw new DomainError("не можна складати різні валюти");
-  }
-}
-```
+:::code proj-rich-domain-model/cpp/hroshi-naimenshyi-obiekt-u.cpp
+:::code proj-rich-domain-model/ts/hroshi-naimenshyi-obiekt-u.ts
 :::
 
 Одна відмінність між вкладками не косметична, і вона показує, за що тут відповідає мова. У C++ рівність за вмістом — рідна: `operator==` робить `Money` повноцінним значенням, яке можна порівнювати `==`, класти в контейнер, передавати копією майже задарма. У TypeScript оператор перевантажити не можна, тож рівність доводиться писати методом `equals`, а `===` над двома `Money` порівняв би **посилання** — тобто збрехав би, що два однакові гроші різні. Семантику значень C++ дає, TypeScript її дисципліновано вдає — і про цю дисципліну треба пам'ятати щоразу.
@@ -121,89 +34,8 @@ class Money {
 Складімо `Product`, `Customer` і `OrderLine`, з якими розмовлятиме замовлення. Кожен — маленький, кожен стереже рівно своє.
 
 :::tabs
-```cpp
-enum class Tier { Regular, Gold };
-
-class Product {                                  // сутність: свій id, свій стан складу
-public:
-    Product(std::string id, Money unitPrice, int stock)
-        : id_(std::move(id)), unitPrice_(std::move(unitPrice)), stock_(stock) {
-        if (stock < 0) throw DomainError("залишок не буває від'ємний");
-    }
-    const Money& price() const { return unitPrice_; }
-    int stock() const { return stock_; }
-    void reserve(int qty) {                      // метод-команда: товар сам стереже склад
-        if (qty <= 0)       throw DomainError("резервувати можна лише додатну кількість");
-        if (qty > stock_)   throw DomainError("на складі лише " + std::to_string(stock_));
-        stock_ -= qty;
-    }
-    const std::string& id() const { return id_; }
-private:
-    std::string id_;
-    Money unitPrice_;
-    int stock_;
-};
-
-class Customer {                                 // сутність: свій рівень лояльності
-public:
-    Customer(std::string id, Tier tier) : id_(std::move(id)), tier_(tier) {}
-    int discountPercent() const { return tier_ == Tier::Gold ? 10 : 0; }  // знає свій відсоток
-    const std::string& id() const { return id_; }
-private:
-    std::string id_;
-    Tier tier_;
-};
-
-class OrderLine {                                // всередині агрегату замовлення
-public:
-    OrderLine(std::string productId, Money unitPrice, int qty)
-        : productId_(std::move(productId)), unitPrice_(std::move(unitPrice)), qty_(qty) {
-        if (qty <= 0) throw DomainError("кількість у позиції має бути додатна");
-    }
-    Money subtotal() const { return unitPrice_.times(qty_); }   // рахує сам, знімком ціни
-    const std::string& productId() const { return productId_; }
-private:
-    std::string productId_;                      // товар — за id, а не покажчиком
-    Money unitPrice_;                            // знімок ціни на мить додавання
-    int qty_;
-};
-```
-```ts
-type Tier = "regular" | "gold";
-
-class Product {                                  // сутність: свій id, свій стан складу
-  constructor(
-    readonly id: string,
-    private readonly unitPrice: Money,
-    private _stock: number,
-  ) {
-    if (_stock < 0) throw new DomainError("залишок не буває від'ємний");
-  }
-  price(): Money { return this.unitPrice; }
-  stock(): number { return this._stock; }
-  reserve(qty: number): void {                   // метод-команда: товар сам стереже склад
-    if (qty <= 0)            throw new DomainError("резервувати можна лише додатну кількість");
-    if (qty > this._stock)   throw new DomainError(`на складі лише ${this._stock}`);
-    this._stock -= qty;
-  }
-}
-
-class Customer {                                 // сутність: свій рівень лояльності
-  constructor(readonly id: string, private readonly tier: Tier) {}
-  discountPercent(): number { return this.tier === "gold" ? 10 : 0; }  // знає свій відсоток
-}
-
-class OrderLine {                                // всередині агрегату замовлення
-  constructor(
-    readonly productId: string,                  // товар — за id, а не посиланням
-    readonly unitPrice: Money,                   // знімок ціни на мить додавання
-    readonly qty: number,
-  ) {
-    if (qty <= 0) throw new DomainError("кількість у позиції має бути додатна");
-  }
-  subtotal(): Money { return this.unitPrice.times(this.qty); }  // рахує сам, знімком ціни
-}
-```
+:::code proj-rich-domain-model/cpp/sutnist-vidrizniaietsia.cpp
+:::code proj-rich-domain-model/ts/sutnist-vidrizniaietsia.ts
 :::
 
 Зверни увагу на два рішення в `OrderLine`, бо вони тихо визначають межу цілого. По-перше, позиція тримає товар **за `productId`, а не покажчиком** на живий `Product` — це вже проведена межа між замовленням і товаром як окремими сутностями. По-друге, позиція тримає **знімок ціни** (`unitPrice`), скопійований у мить додавання, — тож `subtotal()` рахується з тієї ціни, що була тоді, і пізніша переоцінка товару оформленого замовлення не зачепить. Значення скопіювали в момент, коли воно було правдою, — і замкнули всередині.
@@ -217,117 +49,8 @@ class OrderLine {                                // всередині агре�
 *Життєвий цикл, вкований у методи-команди. Кожен дозволений перехід — окремий метод; кожен заборонений — вартовий, що відповідає винятком. Стан приватний, тож іншого шляху змінити його, ніж крізь ці двері з вартою, просто немає.*
 
 :::tabs
-```cpp
-enum class Status { Draft, Placed, Shipped, Cancelled };
-
-class Order {
-public:
-    Order(std::string id, std::string customerId)
-        : id_(std::move(id)), customerId_(std::move(customerId)) {}
-
-    // ── команди: єдиний спосіб зрушити стан, і в кожній — вартовий ──
-    void addLine(Product& product, int qty) {
-        if (status_ != Status::Draft)
-            throw DomainError("позиції можна додавати лише чернетці");
-        product.reserve(qty);                            // розмова з Product: хай стереже склад
-        lines_.emplace_back(product.id(), product.price(), qty);
-    }
-
-    void place(const Customer& customer) {
-        if (status_ != Status::Draft)
-            throw DomainError("оформити можна лише чернетку");
-        if (lines_.empty())
-            throw DomainError("порожнє замовлення оформити не можна");
-
-        Money sum = Money::zero(lines_.front().subtotal().currency());
-        for (const OrderLine& line : lines_)
-            sum = sum.add(line.subtotal());              // OrderLine рахує сам, Money додає сам
-        total_ = sum.withDiscountPercent(customer.discountPercent());  // Customer дає свій відсоток
-        status_ = Status::Placed;                        // інваріант циклу — під замком самого Order
-    }
-
-    void ship() {
-        if (status_ != Status::Placed)
-            throw DomainError("відвантажити можна лише оформлене замовлення");
-        status_ = Status::Shipped;
-    }
-
-    void cancel() {
-        if (status_ != Status::Draft && status_ != Status::Placed)
-            throw DomainError("скасувати можна лише чернетку або оформлене");
-        status_ = Status::Cancelled;
-    }
-
-    // ── запити ──
-    Status status() const { return status_; }
-    const Money& total() const {
-        if (!total_) throw DomainError("підсумок з'являється лише в оформленого замовлення");
-        return *total_;
-    }
-private:
-    std::string id_;
-    std::string customerId_;                             // клієнт — за id, а не покажчиком
-    Status status_ = Status::Draft;
-    std::vector<OrderLine> lines_;
-    std::optional<Money> total_;                         // підсумку нема, доки не оформлено
-};
-```
-```ts
-type Status = "draft" | "placed" | "shipped" | "cancelled";
-
-class Order {
-  private _status: Status = "draft";
-  private readonly _lines: OrderLine[] = [];
-  private _total: Money | null = null;                   // підсумку нема, доки не оформлено
-
-  constructor(
-    readonly id: string,
-    readonly customerId: string,                         // клієнт — за id, а не посиланням
-  ) {}
-
-  // ── команди: єдиний спосіб зрушити стан, і в кожній — вартовий ──
-  addLine(product: Product, qty: number): void {
-    if (this._status !== "draft")
-      throw new DomainError("позиції можна додавати лише чернетці");
-    product.reserve(qty);                                // розмова з Product: хай стереже склад
-    this._lines.push(new OrderLine(product.id, product.price(), qty));
-  }
-
-  place(customer: Customer): void {
-    if (this._status !== "draft")
-      throw new DomainError("оформити можна лише чернетку");
-    if (this._lines.length === 0)
-      throw new DomainError("порожнє замовлення оформити не можна");
-
-    const sum = this._lines
-      .map(line => line.subtotal())                              // OrderLine рахує сам
-      .reduce((a, b) => a.add(b), Money.zero(this.currency()));  // Money додає сам
-    this._total = sum.withDiscountPercent(customer.discountPercent()); // Customer дає свій відсоток
-    this._status = "placed";                             // інваріант циклу — під замком самого Order
-  }
-
-  ship(): void {
-    if (this._status !== "placed")
-      throw new DomainError("відвантажити можна лише оформлене замовлення");
-    this._status = "shipped";
-  }
-
-  cancel(): void {
-    if (this._status !== "draft" && this._status !== "placed")
-      throw new DomainError("скасувати можна лише чернетку або оформлене");
-    this._status = "cancelled";
-  }
-
-  // ── запити ──
-  get status(): Status { return this._status; }
-  total(): Money {
-    if (this._total === null)
-      throw new DomainError("підсумок з'являється лише в оформленого замовлення");
-    return this._total;
-  }
-  private currency(): string { return this._lines[0].unitPrice.currency; }
-}
-```
+:::code proj-rich-domain-model/cpp/zhyttievyi-tsykl-pid.cpp
+:::code proj-rich-domain-model/ts/zhyttievyi-tsykl-pid.ts
 :::
 
 Придивись до `place` — це і є те, заради чого будувалася вся мережа. Замовлення **не рахує нічого саме**. Треба підсумок позиції — питає `OrderLine`, а той питає свій `Money`. Треба скласти суми — просить `Money` додатися до `Money`. Треба знижку — питає `Customer`, який один знає свій відсоток. `Order` лише диригує цією розмовою й наприкінці робить те єдине, що належить йому й нікому більше: перевіряє власний інваріант циклу і, якщо все гаразд, зрушує свій стан у `Placed`.
@@ -341,67 +64,8 @@ class Order {
 Але дані ж мусять десь лежати між запусками. Раз сама модель про це не дбає, значить, дбає хтось поза нею. Цей хтось входить у модель крізь **шов** — інтерфейс сховища, названий мовою предмета, а не мовою бази. Модель (точніше, сервіс над нею) звертається до цього інтерфейсу як до звичайної колекції об'єктів, а що за ним стоїть — жива база, файл чи мапа в пам'яті — її не обходить.
 
 :::tabs
-```cpp
-// ── порти: інтерфейси сховища, названі мовою предмета, не мовою SQL ──
-struct OrderRepository {
-    virtual ~OrderRepository() = default;
-    virtual Order* byId(const std::string& id) = 0;      // nullptr, якщо нема
-    virtual void   save(const Order& order)   = 0;
-};
-
-struct CustomerRepository {
-    virtual ~CustomerRepository() = default;
-    virtual const Customer* byId(const std::string& id) = 0;
-};
-
-// ── сервіс: тонка оркестрація — дістати, сказати одне слово, зберегти ──
-class PlaceOrderService {
-public:
-    PlaceOrderService(OrderRepository& orders, CustomerRepository& customers)
-        : orders_(orders), customers_(customers) {}
-
-    void place(const std::string& orderId, const std::string& customerId) {
-        Order* order = orders_.byId(orderId);
-        if (!order) throw DomainError("немає замовлення " + orderId);
-        const Customer* customer = customers_.byId(customerId);
-        if (!customer) throw DomainError("немає клієнта " + customerId);
-
-        order->place(*customer);          // домен вирішує все — сервіс лише передав слово
-        orders_.save(*order);             // збереження живе ЗЗОВНІ моделі
-    }
-private:
-    OrderRepository&    orders_;
-    CustomerRepository& customers_;
-};
-```
-```ts
-// ── порти: інтерфейси сховища, названі мовою предмета, не мовою SQL ──
-interface OrderRepository {
-  byId(id: string): Promise<Order | null>;
-  save(order: Order): Promise<void>;
-}
-interface CustomerRepository {
-  byId(id: string): Promise<Customer | null>;
-}
-
-// ── сервіс: тонка оркестрація — дістати, сказати одне слово, зберегти ──
-class PlaceOrderService {
-  constructor(
-    private readonly orders: OrderRepository,
-    private readonly customers: CustomerRepository,
-  ) {}
-
-  async place(orderId: string, customerId: string): Promise<void> {
-    const order = await this.orders.byId(orderId);
-    if (!order) throw new DomainError(`немає замовлення ${orderId}`);
-    const customer = await this.customers.byId(customerId);
-    if (!customer) throw new DomainError(`немає клієнта ${customerId}`);
-
-    order.place(customer);              // домен вирішує все — сервіс лише передав слово
-    await this.orders.save(order);      // збереження живе ЗЗОВНІ моделі
-  }
-}
-```
+:::code proj-rich-domain-model/cpp/shov-za-iakyi-model-ne.cpp
+:::code proj-rich-domain-model/ts/shov-za-iakyi-model-ne.ts
 :::
 
 Уся суть шва — у напрямі залежностей. `Order` не залежить ні від чого. `PlaceOrderService` залежить від `Order` і від **інтерфейсу** сховища. А конкретна реалізація на SQL залежатиме від того самого інтерфейсу — тобто вказує стрілкою вгору, до моделі, а не навпаки. Модель сидить у центрі й нічого під собою не знає; що саме мостить її до пласких таблиць — [репозиторій](root:sf-apps/repository) поверх [мапера даних](root:sf-data/data-mapper) — вирішується поза нею, і його можна замінити, не торкнувшись жодного правила. Сервіс же лишається чесною оркестрацією: дістав об'єкт, сказав йому одне слово, зберіг. Уся думка — у слові `place`, а воно живе в самому об'єкті.
@@ -411,77 +75,8 @@ class PlaceOrderService {
 Тепер винагорода за дисципліну. Раз модель не знає про базу, її й перевіряти можна без бази — просто зібравши об'єкти конструкторами, покликавши операцію й звіривши підсумковий стан. Ні Postgres, ні схеми, ні контейнера, ні жодного мока: усе, що є в тесті, — це самі об'єкти предмета.
 
 :::tabs
-```cpp
-#include <cassert>
-#include <functional>
-#include <iostream>
-
-static bool throwsDomain(const std::function<void()>& fn) {
-    try { fn(); } catch (const DomainError&) { return true; }
-    return false;
-}
-
-int main() {
-    // 1. постійний клієнт дістає знижку, а склад меншає
-    {
-        Product laptop("SKU-1", Money::of(3'000'000, "UAH"), 5);   // 30 000.00, 5 шт
-        Customer gold("C-1", Tier::Gold);
-
-        Order order("O-1", "C-1");
-        order.addLine(laptop, 2);
-        order.place(gold);
-
-        assert(order.status() == Status::Placed);
-        assert(order.total() == Money::of(5'400'000, "UAH"));      // 60 000 − 10%
-        assert(laptop.stock() == 3);                               // 5 − 2
-    }
-    // 2. вартові не пускають неможливий стан
-    {
-        Customer reg("C-1", Tier::Regular);
-
-        Order empty("O-2", "C-1");
-        assert(throwsDomain([&]{ empty.place(reg); }));            // порожнє оформити не можна
-
-        Product p("SKU-1", Money::of(1000, "UAH"), 10);
-        Order order("O-3", "C-1");
-        order.addLine(p, 1);
-        assert(throwsDomain([&]{ order.ship(); }));                // чернетку не відвантажити
-        order.place(reg);
-        assert(throwsDomain([&]{ order.place(reg); }));            // оформити двічі — не можна
-    }
-    std::cout << "усі перевірки пройдено — і жодної бази поруч\n";
-    return 0;
-}
-```
-```ts
-describe("оформлення замовлення — уся логіка в пам'яті", () => {
-  it("постійний клієнт дістає знижку, а склад меншає", () => {
-    const laptop = new Product("SKU-1", Money.of(3_000_000, "UAH"), 5);  // 30 000.00, 5 шт
-    const gold = new Customer("C-1", "gold");
-
-    const order = new Order("O-1", "C-1");
-    order.addLine(laptop, 2);
-    order.place(gold);
-
-    expect(order.status).toBe("placed");
-    expect(order.total().equals(Money.of(5_400_000, "UAH"))).toBe(true);  // 60 000 − 10%
-    expect(laptop.stock()).toBe(3);                                       // 5 − 2
-  });
-
-  it("вартові не пускають неможливий стан", () => {
-    const reg = new Customer("C-1", "regular");
-
-    const empty = new Order("O-2", "C-1");
-    expect(() => empty.place(reg)).toThrow(DomainError);        // порожнє оформити не можна
-
-    const order = new Order("O-3", "C-1");
-    order.addLine(new Product("SKU-1", Money.of(1000, "UAH"), 10), 1);
-    expect(() => order.ship()).toThrow(DomainError);           // чернетку не відвантажити
-    order.place(reg);
-    expect(() => order.place(reg)).toThrow(DomainError);       // оформити двічі — не можна
-  });
-});
-```
+:::code proj-rich-domain-model/cpp/usia-lohika-u-pamiati-bez.cpp
+:::code proj-rich-domain-model/ts/usia-lohika-u-pamiati-bez.ts
 :::
 
 Цей тест не звертається до `PlaceOrderService` й до репозиторіїв узагалі — і не має до них звертатися. Ділова логіка вся сидить у моделі, а модель у пам'яті повна: `addLine`, `place`, `ship`, `cancel`, знижка, резерв, кожен вартовий — усе перевіряється конструкторами й прямими викликами. Перевіряти сам шов збереження — окрема робота, і робиться вона [підробкою-репозиторієм у пам'яті проти контракт-набору](root:sf-apps/repository/proj-in-memory-repository.md), а не моками: реальний репозиторій і його підробка ганяються тим самим набором тестів, тож підробці можна вірити рівно доти, доки набір зелений на обох.
@@ -494,18 +89,7 @@ describe("оформлення замовлення — уся логіка в �
 
 **Зісковзування в анемію.** Багату модель тягне назад до анемії безперервно, і рух завжди однаковий. Спершу хтось додає невинний геттер: «мені лише прочитати `lines`». Потім поруч заводиться сервіс, що цим геттером користується — «зручніше порахувати підсумок тут». І ось правило вже живе не в об'єкті, а в сервісі:
 
-```ts
-// ЗАПАХ анемії: об'єкт лише віддає поля, а рахує й вирішує хтось інший
-class Order { lines: OrderLine[] = []; status = "draft"; }         // самі дані, жодного правила
-
-class OrderService {
-  place(order: Order, customer: Customer) {
-    if (order.lines.length === 0) throw new Error("порожнє");      // інваріант утік сюди
-    order.status = "placed";                                       // і перехід стану — теж
-    // ...і підсумок сервіс рахує сам, лізучи в order.lines
-  }
-}
-```
+:::code proj-rich-domain-model/ts/try-pastky-u-iaki.ts
 
 Це знову [сценарій транзакції](root:sf-apps/transaction-script), тільки прикидається об'єктом: усі витрати на класи є, а зиску нема, бо правило розсипане по викликачах і одну його копію рано чи пізно проґавлять. Межа між «завів об'єкти» і «оживив об'єкти» проходить рівно по тому, чи **переселилися правила всередину**. Простий гейт проти сповзання: якщо поле віддається геттером **лише для того, щоб хтось зовні над ним щось вирішив**, — це правило кличе додому, в об'єкт.
 

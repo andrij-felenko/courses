@@ -34,65 +34,8 @@
 Зберемо патерн у найпростішому вигляді. Суб'єктові потрібні три вміння: **підписати** спостерігача, **відписати** його й **сповістити** всіх. Спостерігачеві — одне: метод, який суб'єкт викличе, коли настане подія.
 
 :::tabs
-```ts
-interface Observer {
-  update(subject: WeatherStation): void;   // суб'єкт викличе це при зміні
-}
-
-class WeatherStation {                      // СУБ'ЄКТ
-  private observers = new Set<Observer>();  // список підписників
-  private _temp = 0;
-
-  subscribe(o: Observer)   { this.observers.add(o); }
-  unsubscribe(o: Observer) { this.observers.delete(o); }
-
-  private notify() {                        // серце патерна
-    for (const o of this.observers) o.update(this);
-  }
-
-  setTemp(t: number) {                      // ось тут стан змінюється
-    this._temp = t;
-    this.notify();                          // ...і одразу летить сигнал
-  }
-  get temp() { return this._temp; }
-}
-
-class Display implements Observer {         // конкретний СПОСТЕРІГАЧ
-  update(station: WeatherStation) {
-    console.log(`Табло: ${station.temp}°C`);
-  }
-}
-```
-```py
-from typing import Protocol
-
-class Observer(Protocol):
-    def update(self, subject: "WeatherStation") -> None: ...
-
-class WeatherStation:                        # СУБ'ЄКТ
-    def __init__(self) -> None:
-        self._observers: set[Observer] = set()   # список підписників
-        self._temp = 0.0
-
-    def subscribe(self, o: Observer) -> None:   self._observers.add(o)
-    def unsubscribe(self, o: Observer) -> None: self._observers.discard(o)
-
-    def _notify(self) -> None:                # серце патерна
-        for o in self._observers:
-            o.update(self)
-
-    def set_temp(self, t: float) -> None:     # ось тут стан змінюється
-        self._temp = t
-        self._notify()                        # ...і одразу летить сигнал
-
-    @property
-    def temp(self) -> float:
-        return self._temp
-
-class Display:                                # конкретний СПОСТЕРІГАЧ
-    def update(self, station: "WeatherStation") -> None:
-        print(f"Табло: {station.temp}°C")
-```
+:::code observer-d/ts/index.ts
+:::code observer-d/py/main.py
 :::
 
 Тепер сам сценарій вживання. Створюємо станцію, чіпляємо до неї табло — і з цієї миті кожна зміна температури сама тече на табло, а станція про табло нічого не «знає» понад те, що це якийсь `Observer`:

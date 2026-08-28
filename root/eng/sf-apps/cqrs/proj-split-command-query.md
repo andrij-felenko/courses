@@ -13,90 +13,8 @@
 Ось `OrderService`, як він виростає сам собою, коли ніхто його свідомо не проєктував. Наведу двома мовами прикладного рівня — саме такий код і пишуть у застосунках, де є замовлення.
 
 :::tabs
-```ts
-// ТОВСТИЙ СЕРВІС: запис і читання в одному класі, на спільній моделі.
-class OrderService {
-  constructor(private db: Db) {}
-
-  // --- запис: тут ЖИВУТЬ правила ---
-  placeOrder(userId: string, items: LineItem[]): string {
-    const order = Order.create(userId, items); // конструктор боронить інваріанти
-    order.reserveStock();                       // кине, якщо товару бракує
-    this.db.insert("orders", order.toRow());
-    for (const li of order.lines) this.db.insert("order_lines", li.toRow());
-    return order.id;
-  }
-
-  cancelOrder(id: string): void {
-    const order = this.load(id);      // тягнемо ВЕСЬ агрегат заради одного поля статусу
-    order.cancel();                   // правило: не можна скасувати відвантажене
-    this.db.update("orders", order.toRow());
-  }
-
-  // --- читання: тут правил нема, але шлях той самий, через доменну модель ---
-  getOrderView(id: string): OrderView {
-    const order = this.load(id);      // знову ВЕСЬ агрегат — заради показу трьох полів
-    const user = this.db.queryOne("SELECT name FROM users WHERE id=?", [order.userId]);
-    return {
-      id: order.id,
-      customerName: user.name,        // склеюємо дані для екрана ПРЯМО в сервісі запису
-      total: order.total(),
-      status: order.status,
-    };
-  }
-
-  listOrders(userId: string): OrderView[] {
-    const rows = this.db.query("SELECT id FROM orders WHERE user_id=?", [userId]);
-    return rows.map(r => this.getOrderView(r.id)); // N+1: по агрегату на кожен рядок
-  }
-
-  private load(id: string): Order {
-    const row = this.db.queryOne("SELECT * FROM orders WHERE id=?", [id]);
-    const lines = this.db.query("SELECT * FROM order_lines WHERE order_id=?", [id]);
-    return Order.fromRows(row, lines);
-  }
-}
-```
-```python
-# ТОВСТИЙ СЕРВІС: запис і читання в одному класі, на спільній моделі.
-class OrderService:
-    def __init__(self, db: Db) -> None:
-        self._db = db
-
-    # --- запис: тут ЖИВУТЬ правила ---
-    def place_order(self, user_id: str, items: list[LineItem]) -> str:
-        order = Order.create(user_id, items)   # конструктор боронить інваріанти
-        order.reserve_stock()                  # кине, якщо товару бракує
-        self._db.insert("orders", order.to_row())
-        for li in order.lines:
-            self._db.insert("order_lines", li.to_row())
-        return order.id
-
-    def cancel_order(self, order_id: str) -> None:
-        order = self._load(order_id)   # тягнемо ВЕСЬ агрегат заради одного поля статусу
-        order.cancel()                 # правило: не можна скасувати відвантажене
-        self._db.update("orders", order.to_row())
-
-    # --- читання: тут правил нема, але шлях той самий, через доменну модель ---
-    def get_order_view(self, order_id: str) -> OrderView:
-        order = self._load(order_id)   # знову ВЕСЬ агрегат — заради показу трьох полів
-        user = self._db.query_one("SELECT name FROM users WHERE id=?", [order.user_id])
-        return OrderView(
-            id=order.id,
-            customer_name=user.name,   # склеюємо дані для екрана ПРЯМО в сервісі запису
-            total=order.total(),
-            status=order.status,
-        )
-
-    def list_orders(self, user_id: str) -> list[OrderView]:
-        rows = self._db.query("SELECT id FROM orders WHERE user_id=?", [user_id])
-        return [self.get_order_view(r.id) for r in rows]  # N+1: агрегат на кожен рядок
-
-    def _load(self, order_id: str) -> Order:
-        row = self._db.query_one("SELECT * FROM orders WHERE id=?", [order_id])
-        lines = self._db.query("SELECT * FROM order_lines WHERE order_id=?", [order_id])
-        return Order.from_rows(row, lines)
-```
+:::code proj-split-command-query/ts/khvoryi-z-iakoho.ts
+:::code proj-split-command-query/py/khvoryi-z-iakoho.py
 :::
 
 Придивись, де саме тут болить, бо це той біль, який ми лікуватимемо, і не варто його забувати за модними словами.
@@ -116,118 +34,15 @@ class OrderService:
 Спершу бік команд. Кожна команда — це проста структура «намір із даними», а обробник її виконує через справжню доменну модель. Зверни увагу: тут з'явилася межа — обробник більше **фізично не має** методу читання під показ, тож спокуса склеїти екранне поле поруч із правилом просто зникає.
 
 :::tabs
-```ts
-// --- БІК КОМАНД: сама поведінка, жодного коду під екран ---
-type PlaceOrder = { userId: string; items: LineItem[] };
-type CancelOrder = { orderId: string };
-
-class PlaceOrderHandler {
-  constructor(private orders: OrderRepository) {}
-  handle(cmd: PlaceOrder): string {
-    const order = Order.create(cmd.userId, cmd.items);
-    order.reserveStock();
-    this.orders.save(order);          // репозиторій пише нормалізовано
-    return order.id;
-  }
-}
-
-class CancelOrderHandler {
-  constructor(private orders: OrderRepository) {}
-  handle(cmd: CancelOrder): void {
-    const order = this.orders.byId(cmd.orderId); // агрегат вантажимо, бо ТУТ це правда:
-    order.cancel();                              // правило справді читає стан замовлення
-    this.orders.save(order);
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-# --- БІК КОМАНД: сама поведінка, жодного коду під екран ---
-@dataclass
-class PlaceOrder:
-    user_id: str
-    items: list[LineItem]
-
-@dataclass
-class CancelOrder:
-    order_id: str
-
-class PlaceOrderHandler:
-    def __init__(self, orders: OrderRepository) -> None:
-        self._orders = orders
-    def handle(self, cmd: PlaceOrder) -> str:
-        order = Order.create(cmd.user_id, cmd.items)
-        order.reserve_stock()
-        self._orders.save(order)       # репозиторій пише нормалізовано
-        return order.id
-
-class CancelOrderHandler:
-    def __init__(self, orders: OrderRepository) -> None:
-        self._orders = orders
-    def handle(self, cmd: CancelOrder) -> None:
-        order = self._orders.by_id(cmd.order_id)  # агрегат вантажимо, бо ТУТ це правда:
-        order.cancel()                            # правило справді читає стан замовлення
-        self._orders.save(order)
-```
+:::code proj-split-command-query/ts/krok-1-rozvodymo-kod-u-tii.ts
+:::code proj-split-command-query/py/krok-1-rozvodymo-kod-u-tii.py
 :::
 
 Тепер бік запитів. Тут — і це головне — поведінки нема **взагалі**. Жодного `Order`, жодного репозиторія агрегатів, жодного `load`. Голий SQL, що бере рівно ті стовпці, які потрібні екрану, і повертає плоский тип. Список тепер — **один** запит із з'єднанням, а не N+1.
 
 :::tabs
-```ts
-// --- БІК ЗАПИТІВ: плоскі типи під екран, читання повз доменну модель ---
-type OrderView = { id: string; customerName: string; total: number; status: string };
-
-class OrderQueries {
-  constructor(private db: Db) {}
-
-  getOrderView(id: string): OrderView {
-    return this.db.queryOne(`
-      SELECT o.id, u.name AS customerName, o.total, o.status
-      FROM orders o JOIN users u ON u.id = o.user_id
-      WHERE o.id = ?`, [id]);
-  }
-
-  // список — ОДИН запит із JOIN, а не агрегат на кожен рядок
-  listOrders(userId: string): OrderView[] {
-    return this.db.query(`
-      SELECT o.id, u.name AS customerName, o.total, o.status
-      FROM orders o JOIN users u ON u.id = o.user_id
-      WHERE o.user_id = ?
-      ORDER BY o.created_at DESC`, [userId]);
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-# --- БІК ЗАПИТІВ: плоскі типи під екран, читання повз доменну модель ---
-@dataclass
-class OrderView:
-    id: str
-    customer_name: str
-    total: float
-    status: str
-
-class OrderQueries:
-    def __init__(self, db: Db) -> None:
-        self._db = db
-
-    def get_order_view(self, order_id: str) -> OrderView:
-        return self._db.query_one("""
-            SELECT o.id, u.name AS customer_name, o.total, o.status
-            FROM orders o JOIN users u ON u.id = o.user_id
-            WHERE o.id = ?""", [order_id])
-
-    # список — ОДИН запит із JOIN, а не агрегат на кожен рядок
-    def list_orders(self, user_id: str) -> list[OrderView]:
-        return self._db.query("""
-            SELECT o.id, u.name AS customer_name, o.total, o.status
-            FROM orders o JOIN users u ON u.id = o.user_id
-            WHERE o.user_id = ?
-            ORDER BY o.created_at DESC""", [user_id])
-```
+:::code proj-split-command-query/ts/krok-1-rozvodymo-kod-u-tii-2.ts
+:::code proj-split-command-query/py/krok-1-rozvodymo-kod-u-tii-2.py
 :::
 
 Ось і весь перший крок. Дві бази? Ні. Події? Ні. Ми просто перестали вдавати, що зміна й показ — це той самий шлях крізь код.
@@ -251,62 +66,8 @@ class OrderQueries:
 Оголосимо явну модель читання — це просто денормалізований рядок — і сховище, що ним торгує:
 
 :::tabs
-```ts
-// МОДЕЛЬ ЧИТАННЯ: денормалізований знімок, усе для картки в одному рядку.
-type OrderReadModel = {
-  id: string;
-  userId: string;
-  customerName: string;   // ← уже склеєно, жодного JOIN на читанні
-  total: number;
-  status: string;
-  updatedAt: number;      // коли знімок востаннє наздогнав запис
-};
-
-class OrderReadStore {
-  constructor(private kv: KeyValueDb) {}          // окреме сховище під читання
-
-  byId(id: string): OrderReadModel | null {
-    return this.kv.get(`order:${id}`);            // один доторок за ключем
-  }
-  listByUser(userId: string): OrderReadModel[] {
-    return this.kv.getByIndex("order_by_user", userId); // готовий індекс
-  }
-
-  // сюди пише ЛИШЕ проєкція (крок 3), не бізнес-код
-  upsert(m: OrderReadModel): void {
-    this.kv.put(`order:${m.id}`, m);
-    this.kv.index("order_by_user", m.userId, m.id);
-  }
-}
-```
-```python
-from dataclasses import dataclass
-
-# МОДЕЛЬ ЧИТАННЯ: денормалізований знімок, усе для картки в одному рядку.
-@dataclass
-class OrderReadModel:
-    id: str
-    user_id: str
-    customer_name: str    # ← уже склеєно, жодного JOIN на читанні
-    total: float
-    status: str
-    updated_at: float     # коли знімок востаннє наздогнав запис
-
-class OrderReadStore:
-    def __init__(self, kv: KeyValueDb) -> None:   # окреме сховище під читання
-        self._kv = kv
-
-    def by_id(self, order_id: str) -> OrderReadModel | None:
-        return self._kv.get(f"order:{order_id}")  # один доторок за ключем
-
-    def list_by_user(self, user_id: str) -> list[OrderReadModel]:
-        return self._kv.get_by_index("order_by_user", user_id)  # готовий індекс
-
-    # сюди пише ЛИШЕ проєкція (крок 3), не бізнес-код
-    def upsert(self, m: OrderReadModel) -> None:
-        self._kv.put(f"order:{m.id}", m)
-        self._kv.index("order_by_user", m.user_id, m.id)
-```
+:::code proj-split-command-query/ts/krok-2-okreme-skhovyshche.ts
+:::code proj-split-command-query/py/krok-2-okreme-skhovyshche.py
 :::
 
 Бік запису лишається таким, як був після кроку 1: пише нормалізовано у своє сховище, де живуть [агрегати](root:sf-apps/aggregates-consistency) й правила. Бік читання тепер бере знімки з `OrderReadStore` — і `getOrderView` перетворюється на буквально одне звертання за ключем.
@@ -328,145 +89,15 @@ class OrderReadStore:
 **Спосіб А — через подію.** Команда, відпрацювавши, оголошує факт: «замовлення оформлено», «статус змінено». Проєкція підписана на ці факти й на кожен перебудовує знімок. Так CQRS природно сходиться з [подієвим стилем](root:sf-apps/event-driven-architecture) — але, наголошую, **не зобов'язаний** до нього. Подія тут — просто зручний кур'єр зміни.
 
 :::tabs
-```ts
-// подія — плоский факт про те, що вже сталося на боці запису
-type OrderPlaced = {
-  type: "OrderPlaced";
-  orderId: string; userId: string; total: number;
-};
-type OrderCancelled = { type: "OrderCancelled"; orderId: string };
-type OrderEvent = OrderPlaced | OrderCancelled;
-
-class OrderProjection {
-  constructor(private read: OrderReadStore, private users: UserLookup) {}
-
-  // на КОЖНУ подію оновлюємо denormalized-знімок
-  on(ev: OrderEvent): void {
-    switch (ev.type) {
-      case "OrderPlaced": {
-        // ім'я клієнта склеюємо ТУТ, ОДИН раз, а не на кожному читанні
-        const name = this.users.nameOf(ev.userId);
-        this.read.upsert({
-          id: ev.orderId, userId: ev.userId, customerName: name,
-          total: ev.total, status: "placed", updatedAt: Date.now(),
-        });
-        break;
-      }
-      case "OrderCancelled": {
-        const cur = this.read.byId(ev.orderId);
-        if (cur) this.read.upsert({ ...cur, status: "cancelled", updatedAt: Date.now() });
-        break;
-      }
-    }
-  }
-}
-
-// команда тепер, окрім запису, оголошує факт — його підхопить проєкція
-class PlaceOrderHandler {
-  constructor(private orders: OrderRepository, private bus: EventBus) {}
-  handle(cmd: PlaceOrder): string {
-    const order = Order.create(cmd.userId, cmd.items);
-    order.reserveStock();
-    this.orders.save(order);
-    this.bus.publish({ type: "OrderPlaced", orderId: order.id,
-                       userId: cmd.userId, total: order.total() });
-    return order.id;
-  }
-}
-```
-```python
-from dataclasses import dataclass
-import time
-
-# подія — плоский факт про те, що вже сталося на боці запису
-@dataclass
-class OrderPlaced:
-    order_id: str
-    user_id: str
-    total: float
-
-@dataclass
-class OrderCancelled:
-    order_id: str
-
-class OrderProjection:
-    def __init__(self, read: OrderReadStore, users: UserLookup) -> None:
-        self._read = read
-        self._users = users
-
-    # на КОЖНУ подію оновлюємо denormalized-знімок
-    def on(self, ev) -> None:
-        if isinstance(ev, OrderPlaced):
-            # ім'я клієнта склеюємо ТУТ, ОДИН раз, а не на кожному читанні
-            name = self._users.name_of(ev.user_id)
-            self._read.upsert(OrderReadModel(
-                id=ev.order_id, user_id=ev.user_id, customer_name=name,
-                total=ev.total, status="placed", updated_at=time.time()))
-        elif isinstance(ev, OrderCancelled):
-            cur = self._read.by_id(ev.order_id)
-            if cur:
-                cur.status = "cancelled"
-                cur.updated_at = time.time()
-                self._read.upsert(cur)
-
-# команда тепер, окрім запису, оголошує факт — його підхопить проєкція
-class PlaceOrderHandler:
-    def __init__(self, orders: OrderRepository, bus: EventBus) -> None:
-        self._orders = orders
-        self._bus = bus
-    def handle(self, cmd: PlaceOrder) -> str:
-        order = Order.create(cmd.user_id, cmd.items)
-        order.reserve_stock()
-        self._orders.save(order)
-        self._bus.publish(OrderPlaced(order_id=order.id,
-                                      user_id=cmd.user_id, total=order.total()))
-        return order.id
-```
+:::code proj-split-command-query/ts/krok-3-proiektsiia-shcho.ts
+:::code proj-split-command-query/py/krok-3-proiektsiia-shcho.py
 :::
 
 **Спосіб Б — перечитуванням.** Жодних подій. Окремий процес періодично питає бік запису «що змінилося від часу X?» і перебудовує знімки для змінених рядків. Простіший у налагодженні (нема шини, нема доставки повідомлень), але свіжість гірша — знімок відстає рівно на період опитування.
 
 :::tabs
-```ts
-// проєкція-перечитувач: тягне змінене від контрольної точки й оновлює знімки
-class RebuildProjection {
-  constructor(private db: Db, private read: OrderReadStore) {}
-  private since = 0;  // контрольна точка: до цього моменту вже спроєктовано
-
-  tick(): void {
-    const changed = this.db.query(`
-      SELECT o.id, o.user_id, u.name AS customerName, o.total, o.status
-      FROM orders o JOIN users u ON u.id = o.user_id
-      WHERE o.updated_at > ?`, [this.since]);
-    for (const r of changed) {
-      this.read.upsert({ id: r.id, userId: r.user_id, customerName: r.customerName,
-                         total: r.total, status: r.status, updatedAt: Date.now() });
-    }
-    this.since = Date.now();  // посуваємо контрольну точку вперед
-  }
-}
-```
-```python
-import time
-
-# проєкція-перечитувач: тягне змінене від контрольної точки й оновлює знімки
-class RebuildProjection:
-    def __init__(self, db: Db, read: OrderReadStore) -> None:
-        self._db = db
-        self._read = read
-        self._since = 0.0  # контрольна точка: до цього моменту вже спроєктовано
-
-    def tick(self) -> None:
-        changed = self._db.query("""
-            SELECT o.id, o.user_id, u.name AS customer_name, o.total, o.status
-            FROM orders o JOIN users u ON u.id = o.user_id
-            WHERE o.updated_at > ?""", [self._since])
-        for r in changed:
-            self._read.upsert(OrderReadModel(
-                id=r.id, user_id=r.user_id, customer_name=r.customer_name,
-                total=r.total, status=r.status, updated_at=time.time()))
-        self._since = time.time()  # посуваємо контрольну точку вперед
-```
+:::code proj-split-command-query/ts/krok-3-proiektsiia-shcho-2.ts
+:::code proj-split-command-query/py/krok-3-proiektsiia-shcho-2.py
 :::
 
 Обидва способи мають одну спільну властивість, і вона визначальна: знімок оновлюється **не миттєво**. Між моментом, коли команда змінила стан, і моментом, коли проєкція оновила знімок, минає час. І цей час — не дрібниця, а нове явище, з яким доведеться жити.
@@ -484,39 +115,8 @@ class RebuildProjection:
 **Обхід перший: читати цей конкретний екран із боку запису.** Не всі читання рівні. Стрічка новин, каталог, звіт за місяць спокійно живуть зі знімків — там пів секунди лагу ніхто не помітить. Але екран, який користувач бачить **одразу після своєї дії** — підтвердження щойно поданої заявки, баланс одразу після переказу, — читай напряму з нормалізованого боку запису, жертвуючи швидкістю заради свіжості. Дорожче, зате правда негайна. Це і є класична **read-your-writes**-узгодженість (англ. *read-your-writes* — «читай свої записи»): гарантія, що той, хто щойно записав, свою зміну одразу й побачить, навіть якщо решта світу побачить її трохи згодом.
 
 :::tabs
-```ts
-// РОУТИНГ читання за свіжістю: свій щойно змінений — з боку запису, решта — зі знімка
-class OrderViewRouter {
-  constructor(private write: OrderRepository,
-              private read: OrderReadStore) {}
-
-  forScreen(id: string, opts: { justChangedByUser: boolean }): OrderView {
-    if (opts.justChangedByUser) {
-      const o = this.write.byId(id);        // свіжо, повільно — read-your-writes
-      return { id: o.id, customerName: o.customerName(), total: o.total(), status: o.status };
-    }
-    const snap = this.read.byId(id);        // швидко, може відставати
-    return { id: snap!.id, customerName: snap!.customerName,
-             total: snap!.total, status: snap!.status };
-  }
-}
-```
-```python
-# РОУТИНГ читання за свіжістю: свій щойно змінений — з боку запису, решта — зі знімка
-class OrderViewRouter:
-    def __init__(self, write: OrderRepository, read: OrderReadStore) -> None:
-        self._write = write
-        self._read = read
-
-    def for_screen(self, order_id: str, just_changed_by_user: bool) -> OrderView:
-        if just_changed_by_user:
-            o = self._write.by_id(order_id)   # свіжо, повільно — read-your-writes
-            return OrderView(id=o.id, customer_name=o.customer_name(),
-                             total=o.total(), status=o.status)
-        snap = self._read.by_id(order_id)     # швидко, може відставати
-        return OrderView(id=snap.id, customer_name=snap.customer_name,
-                         total=snap.total, status=snap.status)
-```
+:::code proj-split-command-query/ts/lah-iakyi-muliaie-na.ts
+:::code proj-split-command-query/py/lah-iakyi-muliaie-na.py
 :::
 
 **Обхід другий: сказати правду інтерфейсом.** Якщо читати з боку запису тут дорого, чесно попередь: «зміни застосовуються, оновіть за мить». Користувач, який **бачить**, що система прийняла його дію й працює над нею, не панікує й не тисне вдруге. Копійчаний прийом, а знімає найбільше болю — бо лікує не лаг, а **страх** користувача перед лагом.

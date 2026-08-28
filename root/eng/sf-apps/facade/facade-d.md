@@ -17,44 +17,8 @@
 Повернімося до відеобібліотеки й подивимось, що робить фасад. Ми не чіпаємо саму бібліотеку — вона лишається як є, з усіма своїми двадцятьма класами. Ми лише пишемо **один новий клас**, чия єдина робота — сховати за собою типову послідовність:
 
 :::tabs
-```ts
-// Фасад: один простий метод ховає весь порядок роботи підсистеми
-class VideoConverter {
-  convert(filename: string, targetFormat: string): File {
-    const file = new VideoFile(filename);
-    const sourceCodec = new CodecFactory().extract(file);
-    const targetCodec = targetFormat === "mp4"
-      ? new MPEG4Codec() : new OggCodec();
-
-    const buffer = BitrateReader.read(file, sourceCodec);
-    let result = BitrateReader.convert(buffer, targetCodec);
-    result = new AudioMixer().fix(result);
-
-    return new File(result);   // клієнт про все це не знає
-  }
-}
-
-// Уся робота клієнта тепер — один рядок:
-const mp4 = new VideoConverter().convert("holiday.ogg", "mp4");
-```
-```py
-# Фасад: один простий метод ховає весь порядок роботи підсистеми
-class VideoConverter:
-    def convert(self, filename: str, target_format: str) -> "File":
-        file = VideoFile(filename)
-        source_codec = CodecFactory().extract(file)
-        target_codec = MPEG4Codec() if target_format == "mp4" else OggCodec()
-
-        buffer = BitrateReader.read(file, source_codec)
-        result = BitrateReader.convert(buffer, target_codec)
-        result = AudioMixer().fix(result)
-
-        return File(result)      # клієнт про все це не знає
-
-
-# Уся робота клієнта тепер — один рядок:
-mp4 = VideoConverter().convert("holiday.ogg", "mp4")
-```
+:::code facade-d/ts/odni-dveri-zamist.ts
+:::code facade-d/py/odni-dveri-zamist.py
 :::
 
 Оце й є фасад — цілком. Ніякої магії, ніяких хитрих механізмів: звичайний клас, який усередині робить ту саму нудну послідовність викликів, що її раніше мусив писати кожен клієнт, а назовні показує один осмислений метод. Уся складність нікуди не зникла — вона **лишилась**, просто переїхала за двері, у місце, куди більше нікому не треба зазирати.
@@ -94,50 +58,8 @@ mp4 = VideoConverter().convert("holiday.ogg", "mp4")
 Візьмімо приклад, ближчий до звичайного бекенду, ніж відеокодеки, — оформлення замовлення в інтернет-крамниці. За одним натиском «Купити» стоїть чіткий, але крихкий ланцюжок: перевір наявність товару, зарезервуй його, спиши гроші, створи запис замовлення, надішли лист. Порядок тут не декоративний — не можна списати гроші раніше, ніж переконався в наявності, і не варто слати лист про успіх, поки платіж не пройшов.
 
 :::tabs
-```ts
-// Фасад над підсистемою оформлення: складає крихкий порядок в один метод
-class CheckoutFacade {
-  constructor(
-    private inventory: InventoryService,
-    private payments: PaymentGateway,
-    private orders: OrderRepository,
-    private mailer: EmailService,
-  ) {}
-
-  placeOrder(cart: Cart, card: Card): OrderId {
-    // порядок кроків — крихкий, і він захований ТУТ, а не в клієнті
-    this.inventory.reserve(cart.items);          // 1. спершу резерв
-    const charge = this.payments.charge(card, cart.total);  // 2. тоді гроші
-    const order = this.orders.create(cart, charge.id);       // 3. запис
-    this.mailer.sendConfirmation(order);          // 4. і лише тепер лист
-    return order.id;
-  }
-}
-
-// Клієнт (веб-контролер) не знає ні кроків, ні їхнього порядку:
-const id = checkout.placeOrder(cart, card);
-```
-```py
-# Фасад над підсистемою оформлення: складає крихкий порядок в один метод
-class CheckoutFacade:
-    def __init__(self, inventory, payments, orders, mailer):
-        self._inventory = inventory
-        self._payments = payments
-        self._orders = orders
-        self._mailer = mailer
-
-    def place_order(self, cart: "Cart", card: "Card") -> "OrderId":
-        # порядок кроків — крихкий, і він захований ТУТ, а не в клієнті
-        self._inventory.reserve(cart.items)                 # 1. спершу резерв
-        charge = self._payments.charge(card, cart.total)    # 2. тоді гроші
-        order = self._orders.create(cart, charge.id)        # 3. запис
-        self._mailer.send_confirmation(order)               # 4. і лише тепер лист
-        return order.id
-
-
-# Клієнт (веб-контролер) не знає ні кроків, ні їхнього порядку:
-id = checkout.place_order(cart, card)
-```
+:::code facade-d/ts/poriadok-tezh-khovaietsia.ts
+:::code facade-d/py/poriadok-tezh-khovaietsia.py
 :::
 
 Веб-контролер, що обробляє натиск кнопки, тепер не тримає в голові ні чотирьох сервісів, ні їхньої послідовності — він каже `placeOrder` і все. А правильний порядок замкнено у фасаді, у місці, куди дивишся, коли думаєш саме про оформлення замовлення. Розгорнутий розбір цього рефакторингу — з обробкою збоїв, відкотом резерву при невдалому платежі й вимірюванням зчеплення до і після — винесено в [окремий приклад-проєкт](root:sf-apps/facade/proj-facade-checkout.md).

@@ -40,198 +40,15 @@
 Почнемо з форми події та збереженого запису. Кожна збережена подія несе **тіло** (що сталося) і свою **версію** в потоці — позицію, з 1.
 
 :::tabs
-```ts
-// Тіло події — доконаний факт. Мінімум полів: що і на скільки.
-type AccountEvent =
-  | { kind: "Deposited"; amount: number }
-  | { kind: "Withdrawn"; amount: number }
-  | { kind: "FeeCharged"; amount: number };
-
-// Збережена подія = тіло + метадані потоку. version — позиція в потоці (з 1).
-interface Stored {
-  streamId: string;
-  version: number;        // 1, 2, 3, … — монотонно росте в межах потоку
-  event: AccountEvent;
-  at: string;             // мітка часу, знадобиться темпоральним запитам
-}
-
-// Сигнал конфлікту версій — окремий тип, щоб виклик міг його спіймати й повторити.
-class VersionConflict extends Error {
-  constructor(public expected: number, public actual: number) {
-    super(`очікували версію ${expected}, а потік уже на ${actual}`);
-  }
-}
-
-class EventStore {
-  // У реальності — таблиця (stream_id, version, payload) з PK (stream_id, version).
-  // Тут — просто масив на потік.
-  private streams = new Map<string, Stored[]>();
-
-  // Прочитати весь потік (для згортання й для перевірки версії).
-  read(streamId: string): Stored[] {
-    return this.streams.get(streamId) ?? [];
-  }
-
-  // Поточна версія потоку = скільки в ньому подій.
-  currentVersion(streamId: string): number {
-    return this.read(streamId).length;
-  }
-
-  // ОСЕРДЯ append-only. Дописати нові події ТІЛЬКИ якщо потік досі на expectedVersion.
-  append(streamId: string, expectedVersion: number, events: AccountEvent[]): Stored[] {
-    const stream = this.streams.get(streamId) ?? [];
-    const actual = stream.length;
-    if (actual !== expectedVersion) {
-      // Хтось дописав між нашим читанням і цим записом — відхиляємо, хай повторить.
-      throw new VersionConflict(expectedVersion, actual);
-    }
-    const now = new Date().toISOString();
-    const appended = events.map((event, i) => ({
-      streamId, version: actual + i + 1, event, at: now,
-    }));
-    this.streams.set(streamId, [...stream, ...appended]);
-    return appended;                 // ніколи не міняємо старе — лише додаємо
-  }
-}
-```
-```python
-from dataclasses import dataclass
-from datetime import datetime, timezone
-
-# Тіло події — доконаний факт. Мінімум полів: що і на скільки.
-@dataclass(frozen=True)
-class Deposited:
-    amount: float
-
-@dataclass(frozen=True)
-class Withdrawn:
-    amount: float
-
-@dataclass(frozen=True)
-class FeeCharged:
-    amount: float
-
-# Збережена подія = тіло + метадані потоку. version — позиція в потоці (з 1).
-@dataclass(frozen=True)
-class Stored:
-    stream_id: str
-    version: int            # 1, 2, 3, … — монотонно росте в межах потоку
-    event: object
-    at: str                 # мітка часу, знадобиться темпоральним запитам
-
-# Сигнал конфлікту версій — окремий виняток, щоб виклик міг його спіймати й повторити.
-class VersionConflict(Exception):
-    def __init__(self, expected: int, actual: int):
-        super().__init__(f"очікували версію {expected}, а потік уже на {actual}")
-        self.expected, self.actual = expected, actual
-
-class EventStore:
-    # У реальності — таблиця (stream_id, version, payload) з PK (stream_id, version).
-    # Тут — просто список на потік.
-    def __init__(self):
-        self._streams: dict[str, list[Stored]] = {}
-
-    # Прочитати весь потік (для згортання й для перевірки версії).
-    def read(self, stream_id: str) -> list[Stored]:
-        return self._streams.get(stream_id, [])
-
-    # Поточна версія потоку = скільки в ньому подій.
-    def current_version(self, stream_id: str) -> int:
-        return len(self.read(stream_id))
-
-    # ОСЕРДЯ append-only. Дописати нові події ТІЛЬКИ якщо потік досі на expected_version.
-    def append(self, stream_id: str, expected_version: int, events: list) -> list[Stored]:
-        stream = self._streams.get(stream_id, [])
-        actual = len(stream)
-        if actual != expected_version:
-            # Хтось дописав між нашим читанням і цим записом — відхиляємо, хай повторить.
-            raise VersionConflict(expected_version, actual)
-        now = datetime.now(timezone.utc).isoformat()
-        appended = [Stored(stream_id, actual + i + 1, ev, now)
-                    for i, ev in enumerate(events)]
-        self._streams[stream_id] = stream + appended
-        return appended                # ніколи не міняємо старе — лише додаємо
-```
+:::code proj-account-replay/ts/kod-skhovyshche-i-komanda.ts
+:::code proj-account-replay/py/kod-skhovyshche-i-komanda.py
 :::
 
 Тепер сама команда — місце, де **народжується** подія. Зверни увагу на розділення: команда читає потік, згортає його у стан, перевіряє правило проти цього стану й тільки тоді народжує подію та віддає сховищу разом з очікуваною версією. Правило спрацьовує **тут**; функція `apply` нижче не перевіряє нічого.
 
 :::tabs
-```ts
-interface Account { balance: number }
-const EMPTY: Account = { balance: 0 };
-
-// apply — СЛІПА: приймає народжену подію на віру, правил не знає.
-function apply(state: Account, e: AccountEvent): Account {
-  switch (e.kind) {
-    case "Deposited":  return { balance: state.balance + e.amount };
-    case "Withdrawn":  return { balance: state.balance - e.amount };
-    case "FeeCharged": return { balance: state.balance - e.amount };
-  }
-}
-
-// Згорнути список збережених подій у стан.
-function foldState(events: Stored[]): Account {
-  return events.reduce((s, st) => apply(s, st.event), EMPTY);
-}
-
-// Команда «зняти»: правила ТУТ. Повертаємо, чи вдалося (для повтору при конфлікті).
-function withdraw(store: EventStore, streamId: string, amount: number): boolean {
-  const history = store.read(streamId);
-  const state = foldState(history);            // стан, на якому будуємо рішення
-  const expectedVersion = history.length;      // версія, яку ми бачили
-
-  if (amount <= 0) throw new Error("сума має бути додатна");
-  if (amount > state.balance) return false;    // ПРАВИЛО: не даємо піти в мінус
-
-  const event: AccountEvent = { kind: "Withdrawn", amount };
-  try {
-    store.append(streamId, expectedVersion, [event]);
-    return true;
-  } catch (e) {
-    if (e instanceof VersionConflict) return false;  // хтось випередив — хай виклик повторить
-    throw e;
-  }
-}
-```
-```python
-@dataclass(frozen=True)
-class Account:
-    balance: float = 0.0
-
-EMPTY = Account()
-
-# apply — СЛІПА: приймає народжену подію на віру, правил не знає.
-def apply(state: Account, e) -> Account:
-    if isinstance(e, Deposited):  return Account(state.balance + e.amount)
-    if isinstance(e, Withdrawn):  return Account(state.balance - e.amount)
-    if isinstance(e, FeeCharged): return Account(state.balance - e.amount)
-    raise ValueError(f"невідома подія: {e!r}")
-
-# Згорнути список збережених подій у стан.
-def fold_state(events: list[Stored]) -> Account:
-    state = EMPTY
-    for st in events:
-        state = apply(state, st.event)
-    return state
-
-# Команда «зняти»: правила ТУТ. Повертаємо, чи вдалося (для повтору при конфлікті).
-def withdraw(store: EventStore, stream_id: str, amount: float) -> bool:
-    history = store.read(stream_id)
-    state = fold_state(history)                  # стан, на якому будуємо рішення
-    expected_version = len(history)              # версія, яку ми бачили
-
-    if amount <= 0:
-        raise ValueError("сума має бути додатна")
-    if amount > state.balance:
-        return False                             # ПРАВИЛО: не даємо піти в мінус
-
-    try:
-        store.append(stream_id, expected_version, [Withdrawn(amount)])
-        return True
-    except VersionConflict:
-        return False                             # хтось випередив — хай виклик повторить
-```
+:::code proj-account-replay/ts/kod-skhovyshche-i-komanda-2.ts
+:::code proj-account-replay/py/kod-skhovyshche-i-komanda-2.py
 :::
 
 Тепер поглянь, як саме перевірка версії гасить гонку двох касирів. Обидва прочитали потік на версії `2` (`expectedVersion = 2`), обидва вирішили зняти. Перший викликає `append(…, 2, …)` — потік справді на `2`, запис проходить, потік стає на `3`. Другий викликає `append(…, 2, …)` — але потік **уже на `3`**, `actual (3) !== expected (2)`, летить `VersionConflict`, `withdraw` повертає `false`. Виклик, отримавши `false`, перечитує **свіжий** журнал (де вже є перше зняття), згортає новий баланс, знову перевіряє правило проти нього — і цього разу правило може чесно сказати «ні, тепер уже недостатньо». Гонка перетворилася на впорядковану чергу без жодного замка.
@@ -239,32 +56,8 @@ def withdraw(store: EventStore, stream_id: str, amount: float) -> bool:
 Петля повтору — на боці виклику, і виглядає так:
 
 :::tabs
-```ts
-// Повторюємо команду, доки її не приймуть або доки правило не відмовить остаточно.
-function withdrawWithRetry(store: EventStore, streamId: string, amount: number,
-                           tries = 5): boolean {
-  for (let i = 0; i < tries; i++) {
-    const history = store.read(streamId);
-    if (amount > foldState(history).balance) return false;   // правило проти СВІЖОГО стану
-    if (withdraw(store, streamId, amount)) return true;      // прийнято
-    // інакше — конфлікт версій, крутимо ще раз зі свіжим журналом
-  }
-  throw new Error("забагато конкурентних записів — здаюся");
-}
-```
-```python
-# Повторюємо команду, доки її не приймуть або доки правило не відмовить остаточно.
-def withdraw_with_retry(store: EventStore, stream_id: str, amount: float,
-                        tries: int = 5) -> bool:
-    for _ in range(tries):
-        history = store.read(stream_id)
-        if amount > fold_state(history).balance:
-            return False                          # правило проти СВІЖОГО стану
-        if withdraw(store, stream_id, amount):
-            return True                           # прийнято
-        # інакше — конфлікт версій, крутимо ще раз зі свіжим журналом
-    raise RuntimeError("забагато конкурентних записів — здаюся")
-```
+:::code proj-account-replay/ts/kod-skhovyshche-i-komanda-3.ts
+:::code proj-account-replay/py/kod-skhovyshche-i-komanda-3.py
 :::
 
 ### Вартість і пастки кроку 1
@@ -298,86 +91,8 @@ def withdraw_with_retry(store: EventStore, stream_id: str, amount: float,
 Знімок несе три речі: до якого потоку він, на якій версії порахований і сам стан на ту версію.
 
 :::tabs
-```ts
-interface Snapshot {
-  streamId: string;
-  version: number;        // до якої версії потоку враховано події
-  state: Account;         // згорнутий стан рівно на цю версію
-}
-
-// Кеш знімків: останній знімок на потік. У реальності — окрема таблиця/сховище.
-class SnapshotStore {
-  private snaps = new Map<string, Snapshot>();
-  latest(streamId: string): Snapshot | undefined { return this.snaps.get(streamId); }
-  save(s: Snapshot): void { this.snaps.set(s.streamId, s); }
-}
-
-// Відбудова стану ЗІ знімком: беремо базу зі знімка й докладаємо лише хвіст.
-function loadState(store: EventStore, snaps: SnapshotStore, streamId: string): Account {
-  const snap = snaps.latest(streamId);
-  const baseState = snap ? snap.state : EMPTY;
-  const fromVersion = snap ? snap.version : 0;
-
-  const stream = store.read(streamId);
-  const tail = stream.slice(fromVersion);       // події ПІСЛЯ знімка — короткий хвіст
-  return tail.reduce((s, st) => apply(s, st.event), baseState);
-}
-
-// Політика знімкування: раз на SNAP_EVERY подій кладемо свіжий знімок.
-const SNAP_EVERY = 100;
-
-function maybeSnapshot(store: EventStore, snaps: SnapshotStore, streamId: string): void {
-  const version = store.currentVersion(streamId);
-  const last = snaps.latest(streamId);
-  const since = version - (last ? last.version : 0);
-  if (since >= SNAP_EVERY) {
-    // Порахувати актуальний стан (через знімок — дешево) і зберегти як новий знімок.
-    const state = loadState(store, snaps, streamId);
-    snaps.save({ streamId, version, state });
-  }
-}
-```
-```python
-@dataclass(frozen=True)
-class Snapshot:
-    stream_id: str
-    version: int            # до якої версії потоку враховано події
-    state: Account          # згорнутий стан рівно на цю версію
-
-# Кеш знімків: останній знімок на потік. У реальності — окрема таблиця/сховище.
-class SnapshotStore:
-    def __init__(self):
-        self._snaps: dict[str, Snapshot] = {}
-    def latest(self, stream_id: str) -> Snapshot | None:
-        return self._snaps.get(stream_id)
-    def save(self, s: Snapshot) -> None:
-        self._snaps[s.stream_id] = s
-
-# Відбудова стану ЗІ знімком: беремо базу зі знімка й докладаємо лише хвіст.
-def load_state(store: EventStore, snaps: SnapshotStore, stream_id: str) -> Account:
-    snap = snaps.latest(stream_id)
-    base_state = snap.state if snap else EMPTY
-    from_version = snap.version if snap else 0
-
-    stream = store.read(stream_id)
-    tail = stream[from_version:]                 # події ПІСЛЯ знімка — короткий хвіст
-    state = base_state
-    for st in tail:
-        state = apply(state, st.event)
-    return state
-
-# Політика знімкування: раз на SNAP_EVERY подій кладемо свіжий знімок.
-SNAP_EVERY = 100
-
-def maybe_snapshot(store: EventStore, snaps: SnapshotStore, stream_id: str) -> None:
-    version = store.current_version(stream_id)
-    last = snaps.latest(stream_id)
-    since = version - (last.version if last else 0)
-    if since >= SNAP_EVERY:
-        # Порахувати актуальний стан (через знімок — дешево) і зберегти як новий знімок.
-        state = load_state(store, snaps, stream_id)
-        snaps.save(Snapshot(stream_id, version, state))
-```
+:::code proj-account-replay/ts/kod-skhovyshche-znimkiv-i.ts
+:::code proj-account-replay/py/kod-skhovyshche-znimkiv-i.py
 :::
 
 Одна тонкість, яку легко проґавити: `slice(fromVersion)` / `stream[from_version:]` спирається на те, що версія — це саме **позиція** події в потоці, з 1. Знімок на версії 900 000 означає «враховано перші 900 000 подій», а вони лежать на індексах 0…899 999; отже, хвіст — з індексу 900 000, тобто рівно `stream[900000:]`. Якби версії мали діри (наприклад, глобальний лічильник на всі потоки, а не позиція в потоці), цей зріз був би хибним, і хвіст довелося б відбирати порівнянням `st.version > snap.version`. Тримати версію позицією в потоці — те, що робить зріз таким простим.
@@ -424,65 +139,8 @@ def maybe_snapshot(store: EventStore, snaps: SnapshotStore, stream_id: str) -> N
 Проєкція — це власний акумулятор плюс власна функція прикладання. Ось модель «статистика поповнень і комісій», порахована з нуля по всьому журналу.
 
 :::tabs
-```ts
-// Похідна модель, якої НЕ було на старті. Свій акумулятор, своя згортка.
-interface DepositStats {
-  depositCount: number;
-  depositTotal: number;
-  feeCount: number;
-}
-const STATS_ZERO: DepositStats = { depositCount: 0, depositTotal: 0, feeCount: 0 };
-
-// applyStats — інша згортка того самого потоку подій.
-function applyStats(s: DepositStats, e: AccountEvent): DepositStats {
-  switch (e.kind) {
-    case "Deposited":
-      return { ...s, depositCount: s.depositCount + 1,
-                     depositTotal: s.depositTotal + e.amount };
-    case "FeeCharged":
-      return { ...s, feeCount: s.feeCount + 1 };
-    case "Withdrawn":
-      return s;                       // цю проєкцію зняття не цікавлять — пропускаємо
-  }
-}
-
-// Побудувати проєкцію ЗАДНІМ ЧИСЛОМ: прогнати applyStats по всьому журналу з минулого.
-function buildDepositStats(store: EventStore, streamId: string): DepositStats {
-  return store.read(streamId).reduce((s, st) => applyStats(s, st.event), STATS_ZERO);
-}
-
-// Похідна метрика: середнє поповнення = сума / кількість.
-function averageDeposit(stats: DepositStats): number {
-  return stats.depositCount === 0 ? 0 : stats.depositTotal / stats.depositCount;
-}
-```
-```python
-# Похідна модель, якої НЕ було на старті. Свій акумулятор, своя згортка.
-@dataclass(frozen=True)
-class DepositStats:
-    deposit_count: int = 0
-    deposit_total: float = 0.0
-    fee_count: int = 0
-
-# apply_stats — інша згортка того самого потоку подій.
-def apply_stats(s: DepositStats, e) -> DepositStats:
-    if isinstance(e, Deposited):
-        return DepositStats(s.deposit_count + 1, s.deposit_total + e.amount, s.fee_count)
-    if isinstance(e, FeeCharged):
-        return DepositStats(s.deposit_count, s.deposit_total, s.fee_count + 1)
-    return s                          # зняття цю проєкцію не цікавлять — пропускаємо
-
-# Побудувати проєкцію ЗАДНІМ ЧИСЛОМ: прогнати apply_stats по всьому журналу з минулого.
-def build_deposit_stats(store: EventStore, stream_id: str) -> DepositStats:
-    stats = DepositStats()
-    for st in store.read(stream_id):
-        stats = apply_stats(stats, st.event)
-    return stats
-
-# Похідна метрика: середнє поповнення = сума / кількість.
-def average_deposit(stats: DepositStats) -> float:
-    return 0.0 if stats.deposit_count == 0 else stats.deposit_total / stats.deposit_count
-```
+:::code proj-account-replay/ts/kod-proiektsiia-statystyky.ts
+:::code proj-account-replay/py/kod-proiektsiia-statystyky.py
 :::
 
 Порівняй `applyStats` з `apply` рахунку — вони структурно однакові: акумулятор, розбір за видом події, новий акумулятор. Уся різниця в тому, **що** накопичуємо. `apply` копить баланс; `applyStats` копить суму й кількість поповнень та число комісій. Журнал під ними один і той самий, читається однаково — просто крізь дві різні лінзи. Це і є сенс фрази «журнал — сирі факти»: факт `Deposited +500` не «належить» балансу; він однаково годиться і балансу, і статистиці, і будь-якій третій моделі, яку ти напишеш післязавтра.

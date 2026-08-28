@@ -27,34 +27,7 @@ void hw_tx(const uint8_t *bytes, size_t n);
 
 Тепер сам характеризувальний тест. Він проганяє всі осмислені комбінації прапорців через **поточну** `send_frame`, а `hw_tx` перенаправлений у буфер; байти, що вийшли, ми запам'ятовуємо як **еталон** (англ. *golden* — «золотий зразок»). Після кожного кроку рефакторингу той самий прогін має дати ті самі байти.
 
-```c
-// --- test_harness.c: збирає вихід у буфер замість заліза ---
-static uint8_t  cap_buf[512];
-static size_t   cap_len;
-
-void hw_tx(const uint8_t *bytes, size_t n) {   // підміна на час тесту
-    for (size_t i = 0; i < n && cap_len < sizeof cap_buf; i++)
-        cap_buf[cap_len++] = bytes[i];
-}
-
-static void snapshot(const char *label,
-                     const uint8_t *payload, size_t len,
-                     bool crc, bool comp, bool be) {
-    cap_len = 0;                                // чистимо буфер
-    send_frame(payload, len, crc, comp, be);    // ← поточна реалізація
-    // друкуємо label + hex(cap_buf[0..cap_len]) — це і є "золотий" відбиток
-    print_hex(label, cap_buf, cap_len);
-}
-
-int main(void) {
-    uint8_t msg[] = { 0x10, 0x20, 0x30 };
-    snapshot("raw",  msg, sizeof msg, false, false, false);
-    snapshot("crc",  msg, sizeof msg, true,  false, false);
-    snapshot("comp", msg, sizeof msg, false, true,  false);
-    snapshot("be",   msg, sizeof msg, true,  false, true);
-    return 0;
-}
-```
+:::code proj-wrong-abstraction/c/test_harness.c
 
 Перший прогін дає, скажімо, отакі рядки (числа умовні, важливий сам факт фіксації):
 
@@ -73,44 +46,7 @@ be   : AA 03 30 20 10 8F 55
 
 Перш ніж розбирати, треба чесно розкрити, що всередині. Ось те тіло, яке ховалося за одним рядком сигнатури, — вкладені `if` на кожну комбінацію:
 
-```c
-// --- ДО: клубок. Один прохід, розгалуження на кожен прапорець. ---
-void send_frame(const uint8_t *payload, size_t len,
-                bool with_crc, bool compress, bool big_endian) {
-    uint8_t body[256];
-    size_t  n;
-
-    // 1) тіло: стиснути чи скопіювати як є
-    if (compress) {
-        n = rle_compress(payload, len, body);       // стиснення RLE
-    } else {
-        n = len;
-        memcpy(body, payload, len);
-    }
-
-    // 2) порядок байтів: за прапорцем — перевернути
-    if (big_endian) {
-        for (size_t i = 0; i < n / 2; i++) {
-            uint8_t t = body[i];
-            body[i] = body[n - 1 - i];
-            body[n - 1 - i] = t;
-        }
-    }
-
-    // 3) конверт + опційний CRC, усе намішано разом
-    uint8_t frame[300];
-    size_t  f = 0;
-    frame[f++] = 0xAA;                 // старт
-    frame[f++] = (uint8_t)n;           // довжина тіла
-    memcpy(frame + f, body, n); f += n;
-    if (with_crc) {
-        frame[f++] = crc8(body, n);    // CRC саме тіла
-    }
-    frame[f++] = 0x55;                 // стоп
-
-    hw_tx(frame, f);
-}
-```
+:::code proj-wrong-abstraction/c/krok-0-podyvytysia.c
 
 Уже з цього видно два болючі місця. По-перше, **не всі 32 комбінації осмислені**: `compress` разом з `big_endian` перевертає *стиснений* потік — приймач такого не розпакує, це прихована нісенітниця, яку сигнатура дозволяє. По-друге, гілки **сплетені**: CRC рахується від `body`, яке вже могло бути стиснене й перевернуте, тож семантика «CRC чого саме?» залежить від інших прапорців. Саме така сплетеність робить клубок нечитним — і саме її ми зараз розчепимо.
 
@@ -120,26 +56,7 @@ void send_frame(const uint8_t *payload, size_t len,
 
 Уяви, що зараз `send_frame` кличуть із чотирьох місць. Візьмемо перше — відправлення «сирого» кадру без нічого:
 
-```c
-// Було: send_frame(payload, len, false, false, false);
-// Стало: те саме тіло, але з підставленими прапорцями й викинутими
-//        гілками, яких цей випадок не бере.
-{
-    uint8_t body[256];
-    size_t  n = len;
-    memcpy(body, payload, len);        // compress=false → просто копія
-    // big_endian=false → перевороту нема
-
-    uint8_t frame[300];
-    size_t  f = 0;
-    frame[f++] = 0xAA;
-    frame[f++] = (uint8_t)n;
-    memcpy(frame + f, body, n); f += n;
-    // with_crc=false → CRC нема
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-```
+:::code proj-wrong-abstraction/c/krok-1-vbuduvaty-tilo.h
 
 Зверни увагу, що сталося: підставивши `false` у прапорці, я **викинув мертві гілки**. `if (compress)` з `compress == false` — то завжди `else`, тож лишається сама копія. `if (big_endian)` зникає цілком. `if (with_crc)` зникає. Те, що в клубку було розгалуженням, тут стало прямим лінійним кодом. Це і є сенс інлайну: кожен виклик **розкриває саме свою гілку** й показує її голою.
 
@@ -162,45 +79,7 @@ be   : AA 03 30 20 10 8F 55     ← збіглося
 
 Тепер чотири інлайнені блоки живуть у місцях викликів. Наступний рух — зібрати кожен клас у **свою названу функцію**. Не «універсальну» з прапорцями, а вузьку: одне ім'я — одна поведінка, яку видно з сигнатури без жодного булевого аргументу.
 
-```c
-// --- ПІСЛЯ інлайну й розлучення: три чесні функції, кожна робить одне. ---
-
-// Сирий кадр: старт, довжина, тіло, стоп. І все.
-void send_raw(const uint8_t *payload, size_t len) {
-    uint8_t frame[300];
-    size_t  f = 0;
-    frame[f++] = 0xAA;
-    frame[f++] = (uint8_t)len;
-    memcpy(frame + f, payload, len); f += len;
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-
-// Кадр із CRC тіла. Помітно, що це просто raw + один байт контролю.
-void send_crc(const uint8_t *payload, size_t len) {
-    uint8_t frame[300];
-    size_t  f = 0;
-    frame[f++] = 0xAA;
-    frame[f++] = (uint8_t)len;
-    memcpy(frame + f, payload, len); f += len;
-    frame[f++] = crc8(payload, len);   // ← єдина відмінність від raw
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-
-// Кадр зі стисненим тілом. Тіло інше, конверт той самий.
-void send_compressed(const uint8_t *payload, size_t len) {
-    uint8_t body[256];
-    size_t  n = rle_compress(payload, len, body);
-    uint8_t frame[300];
-    size_t  f = 0;
-    frame[f++] = 0xAA;
-    frame[f++] = (uint8_t)n;
-    memcpy(frame + f, body, n); f += n;
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-```
+:::code proj-wrong-abstraction/c/krok-2-daty-kopiiam-chesni.c
 
 Погляньмо, що стало видно, чого не було видно в клубку. Три функції лежать поруч, і **справжня спільність кинулася в очі сама**: усі три починають кадр однаково (`0xAA`, довжина), кладуть тіло й закривають `0x55`. Різняться вони лише тим, **яке тіло** кладуть і **чи є** байт CRC перед стопом. Ось воно — те, що клубок ховав за прапорцями: спільне тут не «функція відправлення взагалі», а вужче й конкретніше — **конверт кадру** (старт-довжина-…-стоп). А те, що здавалося спільним (сама «відправка»), насправді троїлося на три різні тіла.
 
@@ -233,44 +112,7 @@ be   : AA 03 30 20 10 8F 55     ← той самий
 
 Дублювання ми повернули свідомо — і воно зробило свою роботу: показало, що справжнє спільне тут — конверт. Тепер його **можна** винести, бо тепер ми знаємо, що це **справжня** спільність (три реальні випадки її поділяють), а не вигадана. Але виносимо інакше, ніж робив клубок: не «функцією-начальником», що всередині вирішує прапорцями, хто вона сьогодні, а **тонким приватним хелпером-слугою**, який кожна функція кличе **явно** й сама лишається господарем свого кадру.
 
-```c
-// --- Справжня спільність: збирання конверта. Приватний хелпер (static). ---
-// Кладе старт, довжину і тіло у frame; повертає, скільки байтів уже лежить.
-// Стоп-байт (і опційний CRC перед ним) кожна функція дописує САМА —
-// хелпер не знає й не вирішує, хто його кличе.
-static size_t envelope_begin(uint8_t *frame,
-                             const uint8_t *body, size_t n) {
-    size_t f = 0;
-    frame[f++] = 0xAA;                 // старт
-    frame[f++] = (uint8_t)n;           // довжина тіла
-    memcpy(frame + f, body, n); f += n;
-    return f;                          // курсор: скільки вже записано
-}
-
-void send_raw(const uint8_t *payload, size_t len) {
-    uint8_t frame[300];
-    size_t  f = envelope_begin(frame, payload, len);
-    frame[f++] = 0x55;                 // стоп — дописую сам
-    hw_tx(frame, f);
-}
-
-void send_crc(const uint8_t *payload, size_t len) {
-    uint8_t frame[300];
-    size_t  f = envelope_begin(frame, payload, len);
-    frame[f++] = crc8(payload, len);   // свій байт CRC — явно, тут
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-
-void send_compressed(const uint8_t *payload, size_t len) {
-    uint8_t body[256];
-    size_t  n = rle_compress(payload, len, body);
-    uint8_t frame[300];
-    size_t  f = envelope_begin(frame, body, n);   // тіло вже стиснене
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-```
+:::code proj-wrong-abstraction/c/krok-3-vynesty-spravzhniu.c
 
 Відчуй різницю в напрямку керування — вона і є вся суть протиотрути. У клубку керування йшло **згори вниз**: одна функція `send_frame` була начальником і всередині за прапорцями розписувала, ким їй сьогодні бути. Тут — **навпаки**: господар кадру — конкретна `send_crc`, а `envelope_begin` це маленький підлеглий, якого вона кличе, коли **їй** треба, і сама вирішує, що робити з результатом. Спільне винесене, але **жодна функція не втратила контролю над своїм кадром**: додати новий формат — це написати ще одну коротку функцію, що кличе той самий хелпер і дописує своє, а не встромити ще один `if` у чуже тіло.
 
@@ -295,22 +137,7 @@ be   : AA 03 30 20 10 8F 55     ← тримається
 
 Лишився той самий особливий формат, що вимагав перевернутого порядку байтів. Тепер, коли керування правильне, він теж стає **просто ще однією чесною функцією** — без жодного прапорця, що протікає в чужі кадри:
 
-```c
-// Формат "be": перевернуте тіло + CRC перевернутого тіла.
-// Це НЕ поперечний прапорець, а окремий формат — тому окрема функція.
-void send_be(const uint8_t *payload, size_t len) {
-    uint8_t body[256];
-    size_t  n = len;
-    for (size_t i = 0; i < len; i++)     // копія з переворотом
-        body[i] = payload[len - 1 - i];
-
-    uint8_t frame[300];
-    size_t  f = envelope_begin(frame, body, n);
-    frame[f++] = crc8(body, n);          // CRC саме перевернутого тіла
-    frame[f++] = 0x55;
-    hw_tx(frame, f);
-}
-```
+:::code proj-wrong-abstraction/c/kudy-podivsia-big-endian.c
 
 Тут явно видно те, що в клубку було приховане й небезпечне: CRC рахується **саме від перевернутого** тіла, бо приймач цього формату розвертає й перевіряє в тому ж порядку. У клубку це залежало від того, чи стоїть `big_endian` до чи після обчислення CRC у плетиві гілок, — і легко було поставити не так. Тут відповідь **вбита в код одного формату** й не залежить від жодного стороннього прапорця: `send_be` сама розвертає, сама рахує CRC від розвернутого, сама закриває. Ніхто інший на це не впливає, і ніхто інший цього не бачить.
 

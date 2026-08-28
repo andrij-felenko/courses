@@ -57,56 +57,8 @@
 Ідея — винести два створення залежностей у два окремі методи. Усе. Ті самі рядки, той самий порядок, поведінка тотожна за побудовою: ми лише дали шматочкові ім'я.
 
 :::tabs
-```py
-class OrderManager:
-    def place_order(self, cart, user):
-        if not cart.items:
-            raise ValueError("порожній кошик")
-        for it in cart.items:
-            if it.qty <= 0:
-                raise ValueError("хибна кількість")
-
-        total = sum(it.price * it.qty for it in cart.items)
-        if user.is_vip:
-            total *= 0.9
-
-        conn = self._open_db()                    # ← було db.connect()
-        conn.execute("INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total)
-
-        smtp = self._open_smtp()                  # ← було smtplib.SMTP("mail.local")
-        smtp.sendmail("shop@x", user.email, "Замовлення на %s прийнято" % total)
-        return total
-
-    # два шви — і більше нічого нового
-    def _open_db(self):
-        return db.connect()
-
-    def _open_smtp(self):
-        return smtplib.SMTP("mail.local")
-```
-```ts
-class OrderManager {
-  placeOrder(cart: Cart, user: User): number {
-    if (cart.items.length === 0) throw new Error("порожній кошик");
-    for (const it of cart.items)
-      if (it.qty <= 0) throw new Error("хибна кількість");
-
-    let total = cart.items.reduce((s, it) => s + it.price * it.qty, 0);
-    if (user.isVip) total *= 0.9;
-
-    const conn = this.openDb();                   // ← було db.connect()
-    conn.execute("INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total);
-
-    const smtp = this.openSmtp();                 // ← було new Smtp("mail.local")
-    smtp.send("shop@x", user.email, `Замовлення на ${total} прийнято`);
-    return total;
-  }
-
-  // два шви — і більше нічого нового
-  protected openDb(): Conn { return db.connect(); }
-  protected openSmtp(): Smtp { return new Smtp("mail.local"); }
-}
-```
+:::code proj-refactor-god-object/py/krok-0-prorizaty-shov-ne.py
+:::code proj-refactor-god-object/ts/krok-0-prorizaty-shov-ne.ts
 :::
 
 Чому не одразу конструктор, як у кінцевій картинці? Бо `OrderManager()` створюють у сорока місцях, і піти правити сорок місць **без сітки** — це той-таки великий стрибок, лише збоку заходить. А фабричний метод не змінює **жодного зовнішнього рядка**: ані виклику, ані конструктора, ані сигнатури. Прод навіть не помітив, що щось сталося.
@@ -120,38 +72,8 @@ class OrderManager {
 Шов є — отже, тест може підсунути щось своє. Підставні (англ. *fake*) об'єкти тут найпростіші з можливих: вони нічого не вміють, лише записують, що в них попросили.
 
 :::tabs
-```py
-class FakeConn:
-    def __init__(self): self.calls = []
-    def execute(self, sql, *args): self.calls.append((sql, args))
-
-class FakeSmtp:
-    def __init__(self): self.sent = []
-    def sendmail(self, frm, to, body): self.sent.append((frm, to, body))
-
-class TestableOrderManager(OrderManager):        # підклас ЛИШЕ для тесту
-    def __init__(self):
-        self.conn, self.smtp = FakeConn(), FakeSmtp()
-    def _open_db(self):   return self.conn        # шов спрацював
-    def _open_smtp(self): return self.smtp
-```
-```ts
-class FakeConn implements Conn {
-  calls: [string, unknown[]][] = [];
-  execute(sql: string, ...args: unknown[]) { this.calls.push([sql, args]); }
-}
-class FakeSmtp implements Smtp {
-  sent: [string, string, string][] = [];
-  send(from: string, to: string, body: string) { this.sent.push([from, to, body]); }
-}
-
-class TestableOrderManager extends OrderManager {  // підклас ЛИШЕ для тесту
-  conn = new FakeConn();
-  smtp = new FakeSmtp();
-  protected openDb(): Conn { return this.conn; }   // шов спрацював
-  protected openSmtp(): Smtp { return this.smtp; }
-}
-```
+:::code proj-refactor-god-object/py/krok-1-svidok-a-ne-suddia.py
+:::code proj-refactor-god-object/ts/krok-1-svidok-a-ne-suddia.ts
 :::
 
 А тепер — момент, заради якого все й затівалося. Що написати в очікуванні?
@@ -206,43 +128,8 @@ AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
 Тож у тест іде рівно те, що вилізло, — усе, що метод робить із зовнішнім світом:
 
 :::tabs
-```py
-def test_place_order_characterization():
-    m = TestableOrderManager()
-    cart = Cart([Item("Кава", 19.99, 1), Item("Чашка", 4.50, 2)])
-    user = User(42, "vip@x", is_vip=True)
-
-    total = m.place_order(cart, user)
-
-    # ЗАФІКСОВАНО ЯК Є. Хвіст ...0999999999998 — майже напевно баг (тікет #123),
-    # але ЗАРАЗ ми його не чіпаємо: тест стереже поведінку, а не правильність.
-    assert total == 26.090999999999998
-    assert m.conn.calls == [
-        ("INSERT INTO orders(user_id, total) VALUES(?, ?)", (42, 26.090999999999998)),
-    ]
-    assert m.smtp.sent == [
-        ("shop@x", "vip@x", "Замовлення на 26.090999999999998 прийнято"),
-    ]
-```
-```ts
-test("placeOrder — зафіксовано як є", () => {
-  const m = new TestableOrderManager();
-  const cart = { items: [{ price: 19.99, qty: 1 }, { price: 4.50, qty: 2 }] };
-  const user = { id: 42, email: "vip@x", isVip: true };
-
-  const total = m.placeOrder(cart, user);
-
-  // ЗАФІКСОВАНО ЯК Є. Хвіст ...0999999999998 — майже напевно баг (тікет #123),
-  // але ЗАРАЗ ми його не чіпаємо: тест стереже поведінку, а не правильність.
-  assert.equal(total, 26.090999999999998);
-  assert.deepEqual(m.conn.calls, [
-    ["INSERT INTO orders(user_id, total) VALUES(?, ?)", [42, 26.090999999999998]],
-  ]);
-  assert.deepEqual(m.smtp.sent, [
-    ["shop@x", "vip@x", "Замовлення на 26.090999999999998 прийнято"],
-  ]);
-});
-```
+:::code proj-refactor-god-object/py/krok-1-svidok-a-ne-suddia-2.py
+:::code proj-refactor-god-object/ts/krok-1-svidok-a-ne-suddia-2.ts
 :::
 
 > 🔧 **Навіщо це.** Тут найлегше зробити крок убік і все зіпсувати: побачити `26.090999999999998`, упізнати баг і кинутись лагодити. Не роби цього **зараз**. Тест, що фіксує баг, виглядає збоченням, але саме він робить рефакторинг можливим: поки в очікуванні стоїть точне число, будь-який твій рух межами, що його зрушить, буде помічено тієї ж секунди. Виправиш баг зараз — і в тебе більше немає еталона: тест зелений, але стереже вже не ту поведінку, яку ти обіцяв не зачепити, і наступні вісім кроків ти йтимеш наосліп. Виправлення нікуди не втече — воно чекає на кроці 8 і прийде окремим коммітом, який чесно скаже: «ось тут поведінка змінилася, свідомо». Головне — записати знахідку одразу, коментарем біля числа й тікетом: забути таке справді легко, і саме так баги живуть роками.
@@ -252,69 +139,8 @@ test("placeOrder — зафіксовано як є", () => {
 Тепер, під сіткою, — чотири `Extract Method` усередині того самого класу. Нічого не переїжджає, ніщо не змінюється; ми лише проводимо олівцем лінії там, де потім різатимемо.
 
 :::tabs
-```py
-class OrderManager:
-    def place_order(self, cart, user):
-        self._validate(cart)
-        total = self._total(cart, user)
-        self._save(user, total)
-        self._notify(user, total)
-        return total
-
-    def _validate(self, cart):
-        if not cart.items:
-            raise ValueError("порожній кошик")
-        for it in cart.items:
-            if it.qty <= 0:
-                raise ValueError("хибна кількість")
-
-    def _total(self, cart, user):
-        total = sum(it.price * it.qty for it in cart.items)
-        if user.is_vip:
-            total *= 0.9
-        return total
-
-    def _save(self, user, total):
-        self._open_db().execute(
-            "INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total)
-
-    def _notify(self, user, total):
-        self._open_smtp().sendmail(
-            "shop@x", user.email, "Замовлення на %s прийнято" % total)
-```
-```ts
-class OrderManager {
-  placeOrder(cart: Cart, user: User): number {
-    this.validate(cart);
-    const total = this.computeTotal(cart, user);
-    this.save(user, total);
-    this.notify(user, total);
-    return total;
-  }
-
-  private validate(cart: Cart): void {
-    if (cart.items.length === 0) throw new Error("порожній кошик");
-    for (const it of cart.items)
-      if (it.qty <= 0) throw new Error("хибна кількість");
-  }
-
-  private computeTotal(cart: Cart, user: User): number {
-    let total = cart.items.reduce((s, it) => s + it.price * it.qty, 0);
-    if (user.isVip) total *= 0.9;
-    return total;
-  }
-
-  private save(user: User, total: number): void {
-    this.openDb().execute(
-      "INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total);
-  }
-
-  private notify(user: User, total: number): void {
-    this.openSmtp().send(
-      "shop@x", user.email, `Замовлення на ${total} прийнято`);
-  }
-}
-```
+:::code proj-refactor-god-object/py/krok-2-rukhaiutsia-mezhi.py
+:::code proj-refactor-god-object/ts/krok-2-rukhaiutsia-mezhi.ts
 :::
 
 Клас досі божественний — той самий файл, ті самі обов'язки, той самий розмір. Але він **розкреслений**, і `place_order` уже читається як зміст книжки.
@@ -332,38 +158,8 @@ class OrderManager {
 `_total` — чистий: кошик і користувач на вході, число на виході, жодних побічних дій. Його можна винести **просто так**: узяти й перенести. Без риштовини, без фабрик, без нічого.
 
 :::tabs
-```py
-class Pricer:
-    def total(self, cart, user):
-        total = sum(it.price * it.qty for it in cart.items)
-        if user.is_vip:
-            total *= 0.9
-        return total
-
-class OrderManager:
-    def __init__(self):
-        self._pricer = Pricer()          # поки що створює сам — це тимчасово
-
-    def _total(self, cart, user):
-        return self._pricer.total(cart, user)   # старе ім'я лишилось, тіло переїхало
-```
-```ts
-class Pricer {
-  total(cart: Cart, user: User): number {
-    let total = cart.items.reduce((s, it) => s + it.price * it.qty, 0);
-    if (user.isVip) total *= 0.9;
-    return total;
-  }
-}
-
-class OrderManager {
-  private pricer = new Pricer();         // поки що створює сам — це тимчасово
-
-  private computeTotal(cart: Cart, user: User): number {
-    return this.pricer.total(cart, user);   // старе ім'я лишилось, тіло переїхало
-  }
-}
-```
+:::code proj-refactor-god-object/py/krok-3-pershyi-klas.py
+:::code proj-refactor-god-object/ts/krok-3-pershyi-klas.ts
 :::
 
 І ось він, перший приз:
@@ -378,18 +174,7 @@ def test_pricer_no_discount():
     cart = Cart([Item("Кава", 19.99, 1), Item("Чашка", 4.50, 2)])
     assert Pricer().total(cart, User(7, "bob@x", is_vip=False)) == 28.99
 ```
-```ts
-test("Pricer — знижка для VIP", () => {
-  const cart = { items: [{ price: 19.99, qty: 1 }, { price: 4.50, qty: 2 }] };
-  assert.equal(new Pricer().total(cart, { id: 42, email: "vip@x", isVip: true }),
-               26.090999999999998);
-});
-
-test("Pricer — без знижки", () => {
-  const cart = { items: [{ price: 19.99, qty: 1 }, { price: 4.50, qty: 2 }] };
-  assert.equal(new Pricer().total(cart, { id: 7, email: "bob@x", isVip: false }), 28.99);
-});
-```
+:::code proj-refactor-god-object/ts/krok-3-pershyi-klas-2.ts
 :::
 
 Без бази. Без пошти. За частку мілісекунди. Учора цього тесту не могло існувати — і не тому, що ніхто не здогадався, а тому, що **розрахунок ціни не мав меж**, за які його можна було б узяти. Тепер має.
@@ -401,48 +186,8 @@ test("Pricer — без знижки", () => {
 `_validate` теж чистий, тож хід буквально повторюється.
 
 :::tabs
-```py
-class OrderValidator:
-    def check(self, cart):
-        if not cart.items:
-            raise ValueError("порожній кошик")
-        for it in cart.items:
-            if it.qty <= 0:
-                raise ValueError("хибна кількість")
-
-def test_validator_rejects_empty_cart():
-    try:
-        OrderValidator().check(Cart([]))
-        assert False, "мало впасти"
-    except ValueError as e:
-        assert str(e) == "порожній кошик"
-
-def test_validator_rejects_zero_qty():
-    try:
-        OrderValidator().check(Cart([Item("Кава", 19.99, 0)]))
-        assert False, "мало впасти"
-    except ValueError as e:
-        assert str(e) == "хибна кількість"
-```
-```ts
-class OrderValidator {
-  check(cart: Cart): void {
-    if (cart.items.length === 0) throw new Error("порожній кошик");
-    for (const it of cart.items)
-      if (it.qty <= 0) throw new Error("хибна кількість");
-  }
-}
-
-test("Validator — порожній кошик", () => {
-  assert.throws(() => new OrderValidator().check({ items: [] }), /порожній кошик/);
-});
-
-test("Validator — нульова кількість", () => {
-  assert.throws(
-    () => new OrderValidator().check({ items: [{ price: 19.99, qty: 0 }] }),
-    /хибна кількість/);
-});
-```
+:::code proj-refactor-god-object/py/krok-4-toi-samyi-khid.py
+:::code proj-refactor-god-object/ts/krok-4-toi-samyi-khid.ts
 :::
 
 Другий винос коштував уп'ятеро менше за перший — не тому, що клас простіший, а тому, що форма вже знайома, а сітка вже висить. Ця асиметрія тримається до кінця: **найдорожчий крок — нульовий**, далі дешевшає.
@@ -452,64 +197,8 @@ test("Validator — нульова кількість", () => {
 Лишились `_save` і `_notify`. Чисто вони не виносяться: кожен тримається за свою залежність. Хід той самий, лише клас забирає **і роботу, і доступ до залежності** — приймаючи її як спосіб дістати з'єднання, а не саме з'єднання (інакше кожне замовлення тримало б відкрите гніздо від старту програми).
 
 :::tabs
-```py
-class OrderRepository:
-    def __init__(self, connect):
-        self._connect = connect
-    def save(self, user, total):
-        self._connect().execute(
-            "INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total)
-
-class EmailNotifier:
-    def __init__(self, open_smtp):
-        self._open_smtp = open_smtp
-    def order_placed(self, user, total):
-        self._open_smtp().sendmail(
-            "shop@x", user.email, "Замовлення на %s прийнято" % total)
-
-def test_repository_writes_expected_row():
-    conn = FakeConn()
-    OrderRepository(lambda: conn).save(User(42, "vip@x", True), 26.09)
-    assert conn.calls == [
-        ("INSERT INTO orders(user_id, total) VALUES(?, ?)", (42, 26.09)),
-    ]
-
-def test_notifier_sends_expected_body():
-    smtp = FakeSmtp()
-    EmailNotifier(lambda: smtp).order_placed(User(42, "vip@x", True), 26.09)
-    assert smtp.sent == [("shop@x", "vip@x", "Замовлення на 26.09 прийнято")]
-```
-```ts
-class OrderRepository {
-  constructor(private connect: () => Conn) {}
-  save(user: User, total: number): void {
-    this.connect().execute(
-      "INSERT INTO orders(user_id, total) VALUES(?, ?)", user.id, total);
-  }
-}
-
-class EmailNotifier {
-  constructor(private openSmtp: () => Smtp) {}
-  orderPlaced(user: User, total: number): void {
-    this.openSmtp().send(
-      "shop@x", user.email, `Замовлення на ${total} прийнято`);
-  }
-}
-
-test("Repository — пише очікуваний рядок", () => {
-  const conn = new FakeConn();
-  new OrderRepository(() => conn).save({ id: 42, email: "vip@x", isVip: true }, 26.09);
-  assert.deepEqual(conn.calls, [
-    ["INSERT INTO orders(user_id, total) VALUES(?, ?)", [42, 26.09]],
-  ]);
-});
-
-test("Notifier — шле очікуваний лист", () => {
-  const smtp = new FakeSmtp();
-  new EmailNotifier(() => smtp).orderPlaced({ id: 42, email: "vip@x", isVip: true }, 26.09);
-  assert.deepEqual(smtp.sent, [["shop@x", "vip@x", "Замовлення на 26.09 прийнято"]]);
-});
-```
+:::code proj-refactor-god-object/py/kroky-5-6-brudni-vony.py
+:::code proj-refactor-god-object/ts/kroky-5-6-brudni-vony.ts
 :::
 
 Риштовина ще стоїть, але вже підпирає одну дошку замість двох: `_open_db` у велетні тепер лише годує репозиторій.
@@ -517,43 +206,8 @@ test("Notifier — шле очікуваний лист", () => {
 І ось місце, де багато хто зупиняється й вирішує, що закінчив. Подивись, як `OrderManager` виглядає зараз:
 
 :::tabs
-```py
-class OrderManager:
-    def __init__(self):
-        self._validator = OrderValidator()                     # ← сам
-        self._pricer = Pricer()                                # ← сам
-        self._repo = OrderRepository(self._open_db)            # ← сам
-        self._notifier = EmailNotifier(self._open_smtp)        # ← сам
-
-    def place_order(self, cart, user):
-        self._validator.check(cart)
-        total = self._pricer.total(cart, user)
-        self._repo.save(user, total)
-        self._notifier.order_placed(user, total)
-        return total
-
-    def _open_db(self):   return db.connect()
-    def _open_smtp(self): return smtplib.SMTP("mail.local")
-```
-```ts
-class OrderManager {
-  private validator = new OrderValidator();                        // ← сам
-  private pricer = new Pricer();                                   // ← сам
-  private repo = new OrderRepository(() => this.openDb());         // ← сам
-  private notifier = new EmailNotifier(() => this.openSmtp());     // ← сам
-
-  placeOrder(cart: Cart, user: User): number {
-    this.validator.check(cart);
-    const total = this.pricer.total(cart, user);
-    this.repo.save(user, total);
-    this.notifier.orderPlaced(user, total);
-    return total;
-  }
-
-  protected openDb(): Conn { return db.connect(); }
-  protected openSmtp(): Smtp { return new Smtp("mail.local"); }
-}
-```
+:::code proj-refactor-god-object/py/kroky-5-6-brudni-vony-2.py
+:::code proj-refactor-god-object/ts/kroky-5-6-brudni-vony-2.ts
 :::
 
 Двадцять рядків замість дев'яноста, чотири класи замість одного, `place_order` читається за секунду. Виглядає як перемога — і це **ще не ПІСЛЯ**.
@@ -565,58 +219,8 @@ class OrderManager {
 Тепер, і тільки тепер — коли сітка зелена, а виконавці вже окремі, — можна чіпати конструктор.
 
 :::tabs
-```py
-class OrderService:                      # ← більше не Manager
-    def __init__(self, validator, pricer, repo, notifier):
-        self._validator = validator      # усе подано ЗЗОВНІ
-        self._pricer = pricer
-        self._repo = repo
-        self._notifier = notifier
-
-    def place_order(self, cart, user):
-        self._validator.check(cart)
-        total = self._pricer.total(cart, user)
-        self._repo.save(user, total)
-        self._notifier.order_placed(user, total)
-        return total
-
-# ── композиційний корінь: єдине місце, де програма знає справжні залежності ──
-def build_order_service():
-    return OrderService(
-        OrderValidator(),
-        Pricer(),
-        OrderRepository(db.connect),
-        EmailNotifier(lambda: smtplib.SMTP("mail.local")),
-    )
-```
-```ts
-class OrderService {                     // ← більше не Manager
-  constructor(                           // усе подано ЗЗОВНІ
-    private validator: OrderValidator,
-    private pricer: Pricer,
-    private repo: OrderRepository,
-    private notifier: EmailNotifier,
-  ) {}
-
-  placeOrder(cart: Cart, user: User): number {
-    this.validator.check(cart);
-    const total = this.pricer.total(cart, user);
-    this.repo.save(user, total);
-    this.notifier.orderPlaced(user, total);
-    return total;
-  }
-}
-
-// ── композиційний корінь: єдине місце, де програма знає справжні залежності ──
-export function buildOrderService(): OrderService {
-  return new OrderService(
-    new OrderValidator(),
-    new Pricer(),
-    new OrderRepository(() => db.connect()),
-    new EmailNotifier(() => new Smtp("mail.local")),
-  );
-}
-```
+:::code proj-refactor-god-object/py/krok-7-zniaty-ryshtovynu.py
+:::code proj-refactor-god-object/ts/krok-7-zniaty-ryshtovynu.ts
 :::
 
 За один крок сталося три речі, і кожну варто назвати.
@@ -654,33 +258,8 @@ export function buildOrderService(): OrderService {
 Лікується це одним рішенням: гроші не бувають дробові, отже, і зберігати їх треба цілими копійками, а округлення робити явно.
 
 :::tabs
-```py
-# Item.price (грн, float) → Item.price_cents (копійки, int) — частина цієї ж зміни
-class Pricer:
-    def total(self, cart, user):
-        cents = sum(it.price_cents * it.qty for it in cart.items)   # цілі копійки
-        if user.is_vip:
-            cents = (cents * 9 + 5) // 10        # −10% з явним округленням до копійки
-        return cents
-
-def test_pricer_vip_discount():
-    cart = Cart([Item("Кава", price_cents=1999, qty=1),
-                 Item("Чашка", price_cents=450, qty=2)])
-    assert Pricer().total(cart, User(42, "vip@x", is_vip=True)) == 2609   # 26.09 грн
-```
-```ts
-class Pricer {
-  total(cart: Cart, user: User): number {
-    const cents = cart.items.reduce((s, it) => s + it.priceCents * it.qty, 0);
-    return user.isVip ? Math.round(cents * 9 / 10) : cents;   // явне округлення
-  }
-}
-
-test("Pricer — знижка для VIP", () => {
-  const cart = { items: [{ priceCents: 1999, qty: 1 }, { priceCents: 450, qty: 2 }] };
-  assert.equal(new Pricer().total(cart, { id: 42, email: "vip@x", isVip: true }), 2609);
-});
-```
+:::code proj-refactor-god-object/py/krok-8-kommit-iakomu-vilno.py
+:::code proj-refactor-god-object/ts/krok-8-kommit-iakomu-vilno.ts
 :::
 
 І ось найважливіше в цьому комміті: **характеристичний тест довелося змінити**.
@@ -713,32 +292,8 @@ test("Pricer — знижка для VIP", () => {
 **Тест, що прибиває реалізацію цвяхами.** Подивись критично на дев'ятий тест — той, що перевіряє порядок викликів на підставних:
 
 :::tabs
-```py
-def test_service_calls_in_order():
-    seen = []
-    class V: check = lambda s, c: seen.append("check")
-    class P: total = lambda s, c, u: (seen.append("total"), 100)[1]
-    class R: save = lambda s, u, t: seen.append("save")
-    class N: order_placed = lambda s, u, t: seen.append("notify")
-
-    OrderService(V(), P(), R(), N()).place_order(
-        Cart([Item("Кава", price_cents=1999, qty=1)]), User(42, "vip@x", True))
-    assert seen == ["check", "total", "save", "notify"]
-```
-```ts
-test("OrderService — порядок кроків", () => {
-  const seen: string[] = [];
-  const svc = new OrderService(
-    { check: () => { seen.push("check"); } } as OrderValidator,
-    { total: () => { seen.push("total"); return 100; } } as unknown as Pricer,
-    { save: () => { seen.push("save"); } } as unknown as OrderRepository,
-    { orderPlaced: () => { seen.push("notify"); } } as unknown as EmailNotifier,
-  );
-  svc.placeOrder({ items: [{ priceCents: 1999, qty: 1 }] },
-                 { id: 42, email: "vip@x", isVip: true });
-  assert.deepEqual(seen, ["check", "total", "save", "notify"]);
-});
-```
+:::code proj-refactor-god-object/py/skladnist-i-pastky.py
+:::code proj-refactor-god-object/ts/skladnist-i-pastky.ts
 :::
 
 Він корисний: диригент і справді зобов'язаний спершу перевірити, потім порахувати, потім записати, а вже потім слати — надіслати лист про замовлення, якого не записали, було б зле, і цей порядок є частиною обіцянки. Але він же й **найкрихкіший** у всій дев'ятці, бо перевіряє не результат, а **як саме** його досягнуто. Поміняєш місцями два рядки, що чесно комутують, — тест впаде, хоч нічого не зламалось.

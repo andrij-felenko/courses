@@ -27,18 +27,7 @@
 
 Тут ховається деталь, повз яку легко проскочити, а вона і є суттю. Контрольна сума **не подорожує з даними** від диска до диска. Її рахують перед відправкою кадру й перевіряють після приймання — а на проміжному вузлі кадр перепаковують і суму рахують **наново, вже з того, що вийшло**. Ось як це виглядає в коді ретранслятора, написаного цілком чесно:
 
-```cpp
-// Ретранслятор: приймає кадр, перевіряє суму, копіює далі, ставить НОВУ суму.
-bool relay(const Frame& in, Frame& out) {
-    if (checksum(in.data, in.len) != in.sum)   // ділянка «A → шлюз» чиста?
-        return false;                          // тут помилку справді видно
-
-    std::memcpy(out.data, in.data, in.len);    // ← а ось тут ламається байт
-    out.len = in.len;
-    out.sum = checksum(out.data, out.len);     // сума рахується З ТОГО, ЩО ВИЙШЛО
-    return true;                               // ділянка «шлюз → B» теж буде «чиста»
-}
-```
+:::code end-to-end-argument-d/cpp/main.cpp
 
 Якщо байт зіпсувався всередині `memcpy`, наступний рядок обчислює суму вже для зіпсованих даних — і видає її як правильну. Проміжний вузол не бреше: він справді не знає, що дані змінилися. Він **засвідчує підробку власним підписом**, бо підписує те, що тримає в руках зараз, а не те, що йому дали.
 
@@ -136,47 +125,8 @@ p = 10⁻³ :  P = (1 − 10⁻³)^10000 = 0.0000452 →  22 100 спроб
 Практичний висновок з неї короткий і дуже конкретний: **не питай «чи дійшов мій запит» — питай «чи є наслідок»**. Квитанція про доставку принципово ненадійна, а стан кінця — можна прочитати стільки разів, скільки треба, і читання нічого не змінює.
 
 :::tabs
-```ts
-// Клієнт не питає «чи дійшов мій запит», він питає «чи є наслідок».
-async function pay(orderId: string, amount: Money): Promise<Payment> {
-  const key = idempotencyKey(orderId);          // ключ народжується разом з наміром
-  for (let attempt = 0; attempt < 5; attempt++) {
-    try {
-      return await gateway.charge({ key, orderId, amount });
-    } catch (e) {
-      if (!isRetryable(e)) break;
-      await sleep(backoff(attempt));
-    }
-  }
-  // Відповіді немає — але це НЕ означає, що списання не сталося.
-  const done = await gateway.findByKey(key);    // питаємо кінець про наслідок
-  if (done) return done;
-  throw new PaymentUnknown(key);                // чесно: стан невідомий, не «помилка»
-}
-```
-```go
-// Клієнт не питає «чи дійшов мій запит», він питає «чи є наслідок».
-func Pay(ctx context.Context, gw Gateway, orderID string, amount Money) (Payment, error) {
-	key := IdempotencyKey(orderID) // ключ народжується разом з наміром
-	var lastErr error
-	for attempt := 0; attempt < 5; attempt++ {
-		p, err := gw.Charge(ctx, ChargeReq{Key: key, OrderID: orderID, Amount: amount})
-		if err == nil {
-			return p, nil
-		}
-		lastErr = err
-		if !Retryable(err) {
-			break
-		}
-		time.Sleep(Backoff(attempt))
-	}
-	// Відповіді немає — але це НЕ означає, що списання не сталося.
-	if p, err := gw.FindByKey(ctx, key); err == nil {
-		return p, nil // наслідок є: списання відбулося
-	}
-	return Payment{}, fmt.Errorf("стан платежу %s невідомий: %w", key, lastErr)
-}
-```
+:::code end-to-end-argument-d/ts/index.ts
+:::code end-to-end-argument-d/go/main.go
 :::
 
 Різниця між цим кодом і звичайним повтором — один виклик `findByKey`, але саме він переносить джерело правди з каналу на кінець. Канал тепер може губити що завгодно: відповідь, підтвердження, з'єднання — істина лежить у шлюзі, і її звідти читають.

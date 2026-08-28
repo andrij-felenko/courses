@@ -47,58 +47,8 @@
 Покажу кодом. Це звичайний прикладний рівень застосунку — не регістри й не залізо, — тож наведу двома мовами, якими такий код і пишуть на практиці; логіка в обох та сама.
 
 :::tabs
-```ts
-// Подія — доконаний факт. Проста незмінна структура: що сталося і на скільки.
-type AccountEvent =
-  | { kind: "Deposited"; amount: number }
-  | { kind: "Withdrawn"; amount: number };
-
-type Account = { balance: number };
-
-const EMPTY: Account = { balance: 0 };          // нульовий стан — з нього все починається
-
-// apply: узяти стан і ОДНУ подію, повернути НАСТУПНИЙ стан. Без побічних ефектів.
-function apply(state: Account, e: AccountEvent): Account {
-  switch (e.kind) {
-    case "Deposited": return { balance: state.balance + e.amount };
-    case "Withdrawn": return { balance: state.balance - e.amount };
-  }
-}
-
-// Поточний стан = згортка ВСІХ подій від порожнього. Ось і вся «база».
-function replay(events: AccountEvent[]): Account {
-  return events.reduce(apply, EMPTY);
-}
-```
-```python
-from dataclasses import dataclass
-from functools import reduce
-
-# Подія — доконаний факт. Проста незмінна структура: що сталося і на скільки.
-@dataclass(frozen=True)
-class Deposited:
-    amount: float
-
-@dataclass(frozen=True)
-class Withdrawn:
-    amount: float
-
-@dataclass(frozen=True)
-class Account:
-    balance: float = 0.0                       # нульовий стан — з нього все починається
-
-# apply: узяти стан і ОДНУ подію, повернути НАСТУПНИЙ стан. Без побічних ефектів.
-def apply(state: Account, e) -> Account:
-    if isinstance(e, Deposited):
-        return Account(state.balance + e.amount)
-    if isinstance(e, Withdrawn):
-        return Account(state.balance - e.amount)
-    raise ValueError(f"невідома подія: {e!r}")
-
-# Поточний стан = згортка ВСІХ подій від порожнього. Ось і вся «база».
-def replay(events) -> Account:
-    return reduce(apply, events, Account())
-```
+:::code event-sourcing-d/ts/index.ts
+:::code event-sourcing-d/py/main.py
 :::
 
 Зверни увагу, яка `apply` скромна: жодних правил, жодних перевірок, жодних відмов. Вона просто **вірить події**, бо подія — уже доконаний факт (правила спрацювали раніше, коли команда цю подію народжувала). Це важлива й тонка річ: **народження** події й **прикладання** події — два різні кроки. Народжуючи, ми перевіряємо все й можемо відмовити. Прикладаючи вже народжене — ніколи не відмовляємо, бо переграти минуле не можна. Через це `apply` детермінована й безпечна: ті самі події в тому самому порядку **завжди** дадуть той самий стан, скільки б разів ти їх не прогнав, на якій завгодно машині. Саме ця властивість і робить усю магію нижче можливою. Формально стан — це **лівий згорток** (англ. *left fold*) послідовності подій, і з цього означення випливають усі гарантії прийому: детермінованість переграння, коректність знімка як проміжного результату згортки, незалежність від того, коли й скільки разів ти обчислюєш. [Що таке лівий згорток, чому переграння детерміноване й чому знімок — це просто збережений проміжний стан](root:sf-apps/event-sourcing/math-fold-determinism.md) — короткий розбір апарату, на якому все тримається.

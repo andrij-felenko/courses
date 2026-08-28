@@ -4,80 +4,11 @@
 
 Візьмемо реальний, упізнаваний застосунок — маленький сервіс, де користувач заходить під своїм іменем і вантажить світлини. Такий пишуть на першому тижні будь-якої роботи, і саме такий найчастіше порушує всі цікаві фактори одразу. Ось він, «до»:
 
-```python
-# app.py — застосунок «до». Працює на одній машині й тільки на ній.
-from flask import Flask, request, session, send_file
-
-app = Flask(__name__)
-
-# ── прив'язка №1: конфіг зашитий у код ──
-app.secret_key = "super-secret-please-change"        # ключ підпису сесій
-DATABASE_URL = "postgresql://localhost:5432/photos"  # адреса бази — «localhost»
-UPLOAD_DIR = "/var/app/uploads"                       # тека на ЦЬОМУ диску
-
-# ── прив'язка №2: сесія живе в пам'яті ЦЬОГО процесу ──
-# (Flask за замовчуванням кладе сесію в підписану cookie, але щойно
-#  ми починаємо тримати «залогінених» у власному dict — стан осідає в процесі)
-logged_in_users = {}   # session_id -> user_id, у пам'яті процесу
-
-@app.post("/login")
-def login():
-    user_id = check_password(request.form["user"], request.form["pass"])
-    session["sid"] = new_session_id()
-    logged_in_users[session["sid"]] = user_id   # ← стан у пам'яті
-    return {"ok": True}
-
-@app.post("/upload")
-def upload():
-    user_id = logged_in_users[session["sid"]]         # хто вантажить
-    photo = request.files["photo"]
-    path = f"{UPLOAD_DIR}/{user_id}/{photo.filename}"  # ← файл на локальний диск
-    photo.save(path)
-    return {"stored": path}
-
-@app.get("/photo/<user_id>/<name>")
-def get_photo(user_id, name):
-    return send_file(f"{UPLOAD_DIR}/{user_id}/{name}")  # ← читаємо з ЦЬОГО диска
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)   # ← порт зашитий у код
-```
+:::code proj-refactor-to-twelve-factor/py/app.py
 
 Той самий застосунок на Node — щоб було видно, що проблема не в мові, а у **формі**:
 
-```typescript
-// app.ts — застосунок «до». Та сама історія іншою мовою.
-import express from "express";
-import session from "express-session";
-import multer from "multer";
-import path from "path";
-
-const app = express();
-
-// ── прив'язка №1: конфіг зашитий у код ──
-const SECRET = "super-secret-please-change";
-const DATABASE_URL = "postgresql://localhost:5432/photos";
-const UPLOAD_DIR = "/var/app/uploads";
-
-// ── прив'язка №2: сесія в пам'яті ЦЬОГО процесу ──
-// MemoryStore за замовчуванням тримає всі сесії в купі цього процесу
-app.use(session({ secret: SECRET, resave: false, saveUninitialized: false }));
-
-const upload = multer({ dest: UPLOAD_DIR });   // ← файли на локальний диск
-
-app.post("/upload", upload.single("photo"), (req, res) => {
-  const userId = (req.session as any).userId;
-  const dest = path.join(UPLOAD_DIR, userId, req.file!.originalname);
-  // ...перекласти файл у dest на ЦЬОМУ диску...
-  res.json({ stored: dest });
-});
-
-app.get("/photo/:userId/:name", (req, res) => {
-  res.sendFile(path.join(UPLOAD_DIR, req.params.userId, req.params.name));
-});
-
-app.listen(8000, "0.0.0.0");   // ← порт зашитий у код
-```
+:::code proj-refactor-to-twelve-factor/ts/app.ts
 
 Порахуймо прив'язки, які тут вросли в код, бо саме їх ми виривати́мемо:
 
@@ -94,58 +25,9 @@ app.listen(8000, "0.0.0.0");   // ← порт зашитий у код
 
 **Ідея.** Значення заходять зі змінних середовища (англ. *environment variables*) — тих самих `DATABASE_URL`, `SECRET_KEY`, які операційна система передає процесу при старті. Той самий незмінний артефакт заходить у кожне середовище й бере звідти свої значення; код більше не містить жодного літерала, специфічного для машини. Тонкий, але вирішальний штрих — **перевірка на старті (англ. *fail-fast*)**: усі обов'язкові значення читаємо в одному місці на самому початку, і якщо чогось бракує, застосунок падає негайно, ще до першого запиту. Межу «код проти конфіг» і те, чому вона критична, детально розбирає [окрема стаття про конфігурацію](root:sf-apps/config-design); тут — практика.
 
-```python
-# config.py — єдине місце, де застосунок торкається середовища.
-import os
+:::code proj-refactor-to-twelve-factor/py/config.py
 
-class MissingConfig(Exception):
-    pass
-
-def require(name: str) -> str:
-    """Обов'язкове значення: немає — падаємо ЗАРАЗ, а не колись потім."""
-    value = os.environ.get(name)
-    if not value:
-        raise MissingConfig(f"немає обов'язкової змінної середовища {name}")
-    return value
-
-def optional(name: str, default: str) -> str:
-    return os.environ.get(name) or default
-
-class Config:
-    DATABASE_URL = require("DATABASE_URL")
-    SECRET_KEY   = require("SECRET_KEY")
-    PORT         = int(optional("PORT", "8000"))
-    LOG_LEVEL    = optional("LOG_LEVEL", "info")
-
-# Читаємо ОДИН раз при імпорті — тобто на старті процесу.
-# Забули задати SECRET_KEY у проді? Процес не підніметься взагалі,
-# і ти дізнаєшся про це на деплої, а не з нічної пейджер-тривоги.
-config = Config()
-```
-
-```typescript
-// config.ts — єдине місце, де застосунок торкається середовища.
-class MissingConfig extends Error {}
-
-function require(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new MissingConfig(`немає обов'язкової змінної середовища ${name}`);
-  return value;
-}
-
-function optional(name: string, fallback: string): string {
-  return process.env[name] || fallback;
-}
-
-export const config = {
-  DATABASE_URL: require("DATABASE_URL"),
-  SECRET_KEY:   require("SECRET_KEY"),
-  PORT:         Number(optional("PORT", "8000")),
-  LOG_LEVEL:    optional("LOG_LEVEL", "info"),
-} as const;
-// Модуль обчислюється при першому import — тобто при старті процесу.
-// Бракує обов'язкового — застосунок кидає на старті й не приймає жодного запиту.
-```
+:::code proj-refactor-to-twelve-factor/ts/config.ts
 
 Тепер у самому застосунку немає жодного літерала, специфічного для середовища: замість `"postgresql://localhost:5432/photos"` — `config.DATABASE_URL`, замість числа `8000` — `config.PORT`. Той самий код піде на машину розробника (де `DATABASE_URL` указує на локальну базу) і в прод (де він указує на бойову) без єдиної правки тексту програми.
 
@@ -165,100 +47,15 @@ export const config = {
 
 Ось сесії. Замість `dict` у пам'яті — виклик до спільного кешу:
 
-```python
-# session_store.py — сесії ЗАЛОГІНЕНИХ живуть у спільному Redis, не в процесі.
-import redis
-from config import config
+:::code proj-refactor-to-twelve-factor/py/session_store.py
 
-# Клієнт до спільного кешу; адреса — теж із середовища (крок 1).
-r = redis.from_url(config.REDIS_URL)
-
-SESSION_TTL = 3600   # сесія живе годину без активності
-
-def remember_login(sid: str, user_id: int) -> None:
-    # Було: logged_in_users[sid] = user_id  (у пам'яті ЦЬОГО процесу)
-    r.setex(f"session:{sid}", SESSION_TTL, user_id)   # ← у СПІЛЬНОМУ кеші
-
-def whoami(sid: str) -> int | None:
-    value = r.get(f"session:{sid}")
-    return int(value) if value else None   # None → сесія протухла або чужа
-```
-
-```typescript
-// sessionStore.ts — сесії залогінених у спільному Redis.
-import { createClient } from "redis";
-import { config } from "./config";
-
-const r = createClient({ url: config.REDIS_URL });
-await r.connect();
-
-const SESSION_TTL = 3600;
-
-export async function rememberLogin(sid: string, userId: number): Promise<void> {
-  // Було: MemoryStore — сесії в купі цього процесу.
-  await r.setEx(`session:${sid}`, SESSION_TTL, String(userId));  // ← у СПІЛЬНОМУ кеші
-}
-
-export async function whoami(sid: string): Promise<number | null> {
-  const value = await r.get(`session:${sid}`);
-  return value ? Number(value) : null;   // null → протухла або чужа
-}
-```
+:::code proj-refactor-to-twelve-factor/ts/sessionStore.ts
 
 Тепер файли. Замість `photo.save(path)` на локальний диск — заливка в об'єктне сховище за ключем:
 
-```python
-# storage.py — світлини живуть в об'єктному сховищі (S3-сумісному), не на диску.
-import boto3
-from config import config
+:::code proj-refactor-to-twelve-factor/py/storage.py
 
-s3 = boto3.client(
-    "s3",
-    endpoint_url=config.S3_ENDPOINT,           # адреса сховища — із середовища
-    aws_access_key_id=config.S3_KEY,
-    aws_secret_access_key=config.S3_SECRET,
-)
-BUCKET = config.S3_BUCKET
-
-def put_photo(user_id: int, name: str, data) -> str:
-    key = f"{user_id}/{name}"                   # ключ об'єкта, не шлях на диску
-    s3.upload_fileobj(data, BUCKET, key)        # ← у СПІЛЬНЕ сховище
-    return key
-
-def photo_url(user_id: int, name: str) -> str:
-    key = f"{user_id}/{name}"
-    # Підписане тимчасове посилання — клієнт забирає файл ПРЯМО зі сховища,
-    # застосунок навіть не гонить байти крізь себе.
-    return s3.generate_presigned_url(
-        "get_object", Params={"Bucket": BUCKET, "Key": key}, ExpiresIn=300
-    )
-```
-
-```typescript
-// storage.ts — світлини в S3-сумісному об'єктному сховищі.
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { config } from "./config";
-
-const s3 = new S3Client({
-  endpoint: config.S3_ENDPOINT,       // адреса сховища — із середовища
-  credentials: { accessKeyId: config.S3_KEY, secretAccessKey: config.S3_SECRET },
-  region: "auto",
-});
-const BUCKET = config.S3_BUCKET;
-
-export async function putPhoto(userId: number, name: string, body: Buffer): Promise<string> {
-  const key = `${userId}/${name}`;    // ключ об'єкта, не шлях на диску
-  await s3.send(new PutObjectCommand({ Bucket: BUCKET, Key: key, Body: body }));
-  return key;                          // ← у СПІЛЬНЕ сховище
-}
-
-export async function photoUrl(userId: number, name: string): Promise<string> {
-  const key = `${userId}/${name}`;
-  // Підписане тимчасове посилання — клієнт тягне файл прямо зі сховища.
-  return getSignedUrl(s3, new GetObjectCommand({ Bucket: BUCKET, Key: key }), { expiresIn: 300 });
-}
-```
+:::code proj-refactor-to-twelve-factor/ts/storage.ts
 
 **Яку прив'язку прибрали.** Оце найважливіший крок, бо він виймає з процесу останнє, що робило копії різними. Раніше кожна копія володіла шматком правди, якого не було в інших: перша знала «цей sid — Оленин», бо тримала це у своїй пам'яті; на другій копії диск був порожній, бо файли лежали на диску першої. Тепер обидві правди живуть назовні — у Redis і в об'єктному сховищі, — і кожна копія має до них рівний доступ. Процеси стали однакові й порожні всередині: запит користувача можна кинути на будь-який із них, бо все, що процесу треба знати, він дістає з backing-сервісу, а не з власних нутрощів. Саме тепер увімкнулося масштабування — «витримати вдвічі більше» стало означати буквально «підняти вдвічі більше однакових процесів».
 
@@ -341,62 +138,9 @@ services:
 
 Скільки триває вікно — задає середовище, і числа варто знати, бо на них розраховуєш свій обряд. У Docker після `docker stop` процесу `PID 1` летить `SIGTERM`, і за замовчуванням дається **10 секунд**, після чого — `SIGKILL`. У Kubernetes при видаленні пода йде `SIGTERM`, і типовий `terminationGracePeriodSeconds` — **30 секунд** до `SIGKILL`. Твоє завершення має вкладатися в цей строк із запасом, інакше система доб'є тебе на півдорозі, і весь сенс обряду згорить.
 
-```python
-# app.py (фрагмент) — порт із конфігу + штатне завершення за SIGTERM.
-import signal
-from wsgiref.simple_server import make_server
-from config import config
+:::code proj-refactor-to-twelve-factor/py/app-2.py
 
-def build_app():
-    ...  # той самий Flask/WSGI-застосунок
-
-def main():
-    app = build_app()
-    # Порт — із середовища (крок 1), а не число в коді.
-    httpd = make_server("0.0.0.0", config.PORT, app)
-
-    def on_term(signum, frame):
-        # Прийшов SIGTERM: перестати брати нові з'єднання...
-        httpd.shutdown()          # ← перестаємо приймати, дообслуговуємо поточні
-        # ...тут місце дозакрити те, що почали:
-        #    доробити запити в роботі, повернути завдання в чергу,
-        #    відпустити з'єднання до бази й кешу — і лише тоді вийти.
-
-    signal.signal(signal.SIGTERM, on_term)   # ← перехоплюємо ввічливе «спинись»
-    signal.signal(signal.SIGINT, on_term)    # той самий обряд і на Ctrl-C
-    httpd.serve_forever()
-
-if __name__ == "__main__":
-    main()
-```
-
-```typescript
-// app.ts (фрагмент) — порт із конфігу + штатне завершення за SIGTERM.
-import http from "http";
-import { config } from "./config";
-
-const server = http.createServer(app);   // той самий express-застосунок
-
-// Порт — із середовища (крок 1), а не число в коді.
-server.listen(config.PORT, "0.0.0.0");
-
-function shutdown(signal: string) {
-  // Прийшов SIGTERM: перестаємо брати НОВІ з'єднання,
-  // але даємо тим, що вже в роботі, дожити до відповіді.
-  server.close(() => {
-    // сюди потрапляємо, коли ВСІ активні запити дообслужено:
-    //   тепер закрити пул з'єднань до бази, від'єднати Redis — і вийти
-    process.exit(0);
-  });
-
-  // Страховка: якщо хтось завис і не дає server.close() завершитись,
-  // виходимо самі ДО того, як прилетить SIGKILL (вкладаємось у вікно).
-  setTimeout(() => process.exit(1), 9000).unref();
-}
-
-process.on("SIGTERM", () => shutdown("SIGTERM"));  // ← ввічливе «спинись» від оркестратора
-process.on("SIGINT",  () => shutdown("SIGINT"));   // ← Ctrl-C на розробці
-```
+:::code proj-refactor-to-twelve-factor/ts/app-2.ts
 
 **Яку прив'язку прибрали.** Дві останні. Порт перестав бути зашитим числом — застосунок публікує себе на тому порту, який дало середовище, і більше не припускає навіть цього про свій світ. А головне — процес перестав бути крихким: раніше його життя й смерть залежали від того, чи «пощастить» не отримати сигнал у невдалу мить; тепер він смертний **штатно**. Його можна вбивати скільки завгодно — при кожному оновленні, при кожному масштабуванні — і він щоразу прибирає за собою й виходить чисто. Це замикає одноразовість: процеси не лише однакові й порожні (крок 2) і не лише беруться з незмінного артефакту (крок 3), а й **не бояться смерті**. Аж тепер систему по-справжньому не страшно чіпати — рій копій, кожну з яких можна підняти, вбити й замінити без обірваної роботи.
 

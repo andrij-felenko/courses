@@ -63,39 +63,8 @@ class ToolbarButton:
 Ось ті самі кнопка й документ, але вже розчеплені. Спершу — спільний тип команди (сама лише обіцянка «мене можна виконати»):
 
 :::tabs
-```ts
-interface Command {
-  execute(): void;
-}
-
-class AddText implements Command {
-  constructor(private doc: Document, private text: string) {}
-  execute() { this.doc.insert(this.text); }   // знання «що робити» живе ТУТ
-}
-
-class DeleteLast implements Command {
-  constructor(private doc: Document) {}
-  execute() { this.doc.deleteLast(); }
-}
-```
-```py
-from typing import Protocol
-
-class Command(Protocol):
-    def execute(self) -> None: ...
-
-class AddText:
-    def __init__(self, doc: Document, text: str) -> None:
-        self.doc, self.text = doc, text
-    def execute(self) -> None:
-        self.doc.insert(self.text)          # знання «що робити» живе ТУТ
-
-class DeleteLast:
-    def __init__(self, doc: Document) -> None:
-        self.doc = doc
-    def execute(self) -> None:
-        self.doc.delete_last()
-```
+:::code command-d/ts/liky-try-roli-i-odyn.ts
+:::code command-d/py/liky-try-roli-i-odyn.py
 :::
 
 Тепер кнопка худне до непристойності. Вона більше не знає ні документа, ні дії — тільки команду:
@@ -112,18 +81,7 @@ const doc = new Document();
 const addBtn = new ToolbarButton(new AddText(doc, "привіт"));
 const delBtn = new ToolbarButton(new DeleteLast(doc));
 ```
-```py
-class ToolbarButton:
-    def __init__(self, command: Command) -> None:
-        self.command = command               # тримає абстрактну команду
-    def on_click(self) -> None:
-        self.command.execute()               # тисне ґудзик, і все
-
-# збірка: тут — і тільки тут — вирішуємо, ЩО робить кнопка
-doc = Document()
-add_btn = ToolbarButton(AddText(doc, "привіт"))
-del_btn = ToolbarButton(DeleteLast(doc))
-```
+:::code command-d/py/liky-try-roli-i-odyn-2.py
 :::
 
 Придивись, що сталося зі знанням. Раніше кнопка знала три речі (є документ; у нього є `insert`; вставляти треба «привіт»). Тепер вона не знає жодної — усі три переїхали в об'єкт `AddText`, а зібралися докупи в одному місці, де ми будуємо застосунок. Кнопку тепер можна повісити на **будь-яку** команду, не торкаючись її коду. Той самий `ToolbarButton` завтра запускатиме збереження файлу, післязавтра — надсилання листа. Кнопка стала по-справжньому універсальним віджетом, бо перестала знати про домен.
@@ -147,38 +105,8 @@ del_btn = ToolbarButton(DeleteLast(doc))
 Досі команда вміла тільки `execute()`. Додаймо їй другий метод — `undo()`, який повертає світ у стан «як було до». Ключова умова: щоб відкотитися, команда мусить **запам'ятати достатньо** в момент виконання. «Видалити останнє слово» перед видаленням запам'ятовує, яке саме слово видаляє, — інакше не поверне його на місце.
 
 :::tabs
-```ts
-interface Command {
-  execute(): void;
-  undo(): void;
-}
-
-class DeleteLastWord implements Command {
-  private removed = "";                 // сюди запам'ятаємо, що знесли
-  constructor(private doc: Document) {}
-
-  execute() {
-    this.removed = this.doc.lastWord(); // запам'ятали ПЕРЕД руйнуванням
-    this.doc.deleteLastWord();
-  }
-  undo() {
-    this.doc.append(this.removed);      // повернули як було
-  }
-}
-```
-```py
-class DeleteLastWord:
-    def __init__(self, doc: Document) -> None:
-        self.doc = doc
-        self.removed = ""                # сюди запам'ятаємо, що знесли
-
-    def execute(self) -> None:
-        self.removed = self.doc.last_word()  # запам'ятали ПЕРЕД руйнуванням
-        self.doc.delete_last_word()
-
-    def undo(self) -> None:
-        self.doc.append(self.removed)        # повернули як було
-```
+:::code command-d/ts/skasuvannia-komanda-shcho.ts
+:::code command-d/py/skasuvannia-komanda-shcho.py
 :::
 
 Тепер зроби так само для решти команд — і в тебе є **загальний, доменно-незалежний механізм undo/redo для всієї програми**. Викликач-історія тримає дві стопки. Виконав команду — поклав її на стопку «зроблене». Натиснули «скасувати» — зняв верхню, покликав її `undo()`, переклав на стопку «скасоване». Натиснули «повторити» — зняв зі «скасованого», знову `execute()`, повернув на «зроблене».

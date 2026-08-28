@@ -42,71 +42,8 @@
 Розгляньмо компонент, у якому один метод збудовано **через інший**. Скажімо, рядок уміє віддати символ за індексом (`at`) і віддати себе цілим (`render`), причому `render` реалізовано як цикл по `at`:
 
 :::tabs
-```java
-interface Line {
-    char at(int i);       // символ за індексом
-    String render();      // увесь рядок
-}
-
-// КОНКРЕТНИЙ КОМПОНЕНТ: render() будує все ЧЕРЕЗ at()
-class Plain implements Line {
-    private final String s;
-    Plain(String s) { this.s = s; }
-    public char at(int i) { return s.charAt(i); }
-    public String render() {
-        var b = new StringBuilder();
-        for (int i = 0; i < s.length(); i++)
-            b.append(at(i));            // це this.at(i) — і в цьому вся сіль
-        return b.toString();
-    }
-}
-
-// БАЗОВИЙ ДЕКОРАТОР — делегує все
-abstract class LineDecorator implements Line {
-    protected final Line inner;
-    protected LineDecorator(Line inner) { this.inner = inner; }
-    public char at(int i)  { return inner.at(i); }
-    public String render() { return inner.render(); }   // просто делегує
-}
-
-// КОНКРЕТНИЙ ДЕКОРАТОР: кожен символ — великим
-class Upper extends LineDecorator {
-    Upper(Line inner) { super(inner); }
-    @Override public char at(int i) { return Character.toUpperCase(inner.at(i)); }
-    // render() навмисно НЕ чіпаємо — хай делегується базовим декоратором
-}
-
-Line x = new Upper(new Plain("abc"));
-x.at(0);       // 'A'   — decorate спрацював
-x.render();    // "abc" — decorate ОБІЙДЕНО, малі літери!
-```
-```py
-class Line:
-    def at(self, i: int) -> str: ...
-    def render(self) -> str: ...
-
-# КОНКРЕТНИЙ КОМПОНЕНТ: render() будує все ЧЕРЕЗ at()
-class Plain(Line):
-    def __init__(self, s: str): self._s = s
-    def at(self, i): return self._s[i]
-    def render(self):
-        return "".join(self.at(i) for i in range(len(self._s)))  # self.at(i)!
-
-# БАЗОВИЙ ДЕКОРАТОР — делегує все
-class LineDecorator(Line):
-    def __init__(self, inner: Line): self._inner = inner
-    def at(self, i):   return self._inner.at(i)
-    def render(self):  return self._inner.render()   # просто делегує
-
-# КОНКРЕТНИЙ ДЕКОРАТОР: кожен символ — великим
-class Upper(LineDecorator):
-    def at(self, i): return self._inner.at(i).upper()
-    # render() навмисно не чіпаємо
-
-x = Upper(Plain("abc"))
-x.at(0)      # 'A'   — decorate спрацював
-x.render()   # 'abc' — decorate ОБІЙДЕНО, малі літери!
-```
+:::code decorator-d/java/naitonshe-mistse-self-ne.java
+:::code decorator-d/py/naitonshe-mistse-self-ne.py
 :::
 
 Ось несподіванка, від якої треба відштовхнутися: `x.at(0)` повертає велике `'A'`, а `x.render()` — маленьке `"abc"`. Хоча `render` теж «складається з `at`», обгортка на нього не подіяла. Простежмо чому, крок за кроком.
@@ -146,67 +83,8 @@ x.render()   # 'abc' — decorate ОБІЙДЕНО, малі літери!
 Ось перші два й четвертий режими в одному прикладі — замір часу (до + після) і кеш (замість). Ідея загальна, тож покажу двома мовами, де такі обгортки природні:
 
 :::tabs
-```py
-class Service:
-    def handle(self, key: str) -> str: ...
-
-class Real(Service):
-    def handle(self, key): return expensive(key)   # дорогий обрахунок
-
-# ДО + ПІСЛЯ: заміряти час навколо делегації
-class Timed(Service):
-    def __init__(self, inner): self._inner = inner
-    def handle(self, key):
-        t0 = time.perf_counter()             # ДО
-        out = self._inner.handle(key)        # делегація
-        log(f"{key}: {(time.perf_counter()-t0)*1e3:.1f} ms")  # ПІСЛЯ
-        return out
-
-# ЗАМІСТЬ: на влучення кеш НЕ делегує — обриває ланцюг
-class Cached(Service):
-    def __init__(self, inner): self._inner = inner; self._c = {}
-    def handle(self, key):
-        if key in self._c:
-            return self._c[key]              # обрив: назад без делегації
-        out = self._inner.handle(key)        # промах → делегуємо
-        self._c[key] = out
-        return out
-
-svc = Timed(Cached(Real()))
-```
-```ts
-interface Service { handle(key: string): string; }
-
-class Real implements Service {
-  handle(key: string) { return expensive(key); }   // дорогий обрахунок
-}
-
-// ДО + ПІСЛЯ: заміряти час навколо делегації
-class Timed implements Service {
-  constructor(private inner: Service) {}
-  handle(key: string) {
-    const t0 = performance.now();                   // ДО
-    const out = this.inner.handle(key);             // делегація
-    log(`${key}: ${(performance.now() - t0).toFixed(1)} ms`);  // ПІСЛЯ
-    return out;
-  }
-}
-
-// ЗАМІСТЬ: на влучення кеш НЕ делегує — обриває ланцюг
-class Cached implements Service {
-  private c = new Map<string, string>();
-  constructor(private inner: Service) {}
-  handle(key: string) {
-    const hit = this.c.get(key);
-    if (hit !== undefined) return hit;              // обрив: без делегації
-    const out = this.inner.handle(key);             // промах → делегуємо
-    this.c.set(key, out);
-    return out;
-  }
-}
-
-const svc = new Timed(new Cached(new Real()));
-```
+:::code decorator-d/py/shcho-shar-robyt-navkolo.py
+:::code decorator-d/ts/index.ts
 :::
 
 Зверни увагу на порядок `Timed(Cached(Real()))`: `Timed` зовні, тож він міряє **весь** виклик, зокрема й швидкі влучення кеша. Постав навпаки, `Cached(Timed(Real()))`, — і на влученні `Timed` навіть не спрацює, бо кеш обірве ланцюг раніше, ніж дійде до нього; заміри лишаться тільки для промахів. Той самий набір шарів, різний порядок — різна поведінка. Це підводить до наступного шару глибини.
@@ -250,28 +128,7 @@ blob = compress(encrypt(data))   # шифротекст статистично ~
 
 Промислове розв'язання цієї біди — не боротьба з прозорістю, а **явний аварійний люк**: домовлений метод, що віддає вкладений об'єкт. У JDBC для цього є стандартний інтерфейс `java.sql.Wrapper`, який реалізують усі декоратори з'єднань і запитів:
 
-```java
-// java.sql.Wrapper — стандартний «люк» крізь шари обгорток JDBC
-interface Wrapper {
-    <T> T unwrap(Class<T> iface) throws SQLException;   // дай справжній об'єкт під шарами
-    boolean isWrapperFor(Class<?> iface);
-}
-
-// власний декоратор з'єднання вміє віддати вкладене:
-class LoggingConnection implements Connection {   // Connection extends Wrapper
-    private final Connection inner;
-    LoggingConnection(Connection inner) { this.inner = inner; }
-    // ...усі методи Connection делегуються на inner, з логуванням...
-
-    @Override public <T> T unwrap(Class<T> iface) throws SQLException {
-        if (iface.isInstance(inner)) return iface.cast(inner);  // це вже потрібний тип
-        return inner.unwrap(iface);                             // ні — спускаємось глибше
-    }
-    @Override public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return iface.isInstance(inner) || inner.isWrapperFor(iface);
-    }
-}
-```
+:::code decorator-d/java/vtrata-osoby-i-avariinyi.java
 
 Механізм рекурсивний і показовий: кожен шар питає «це я загортаю потрібний тип?», і якщо ні — переадресовує запит глибшому шару, аж поки хтось на дні не віддасть справжній об'єкт. Той самий прийом — під іншими іменами — живе у Servlet API (`ServletRequestWrapper.getRequest()`), у безлічі бібліотек із методом `getDelegate()`. Урок: якщо ти будуєш декоратори й **знаєш**, що комусь колись знадобиться дістатися дна, — передбач люк заздалегідь, бо потім крізь глухий інтерфейс уже не пробитися.
 
@@ -285,58 +142,17 @@ class LoggingConnection implements Connection {   // Connection extends Wrapper
 
 **Динамічна мова — переспрямування задарма.** У Python (як і в Ruby) є перехоплювач звертань: коли атрибут не знайдено на об'єкті, викликається `__getattr__`, і туди можна вкласти автоматичне переспрямування на вкладений об'єкт. Тоді декоратор перекриває **лише те, що міняє**, а все інше йде вниз само:
 
-```py
-class Forwarder:
-    """переспрямовує будь-який невизначений атрибут на inner —
-       базового делегування писати не треба взагалі."""
-    def __init__(self, inner): self._inner = inner
-    def __getattr__(self, name):
-        return getattr(self._inner, name)   # усе, чого нема тут, — вниз, автоматично
-
-class LoudList(Forwarder):
-    def append(self, x):                    # єдине, що змінюємо
-        print("append", x)
-        return self._inner.append(x)
-
-xs = LoudList([1, 2, 3])
-xs.append(4)     # надрукує "append 4", тоді делегує
-xs.index(2)      # index() тут нема → __getattr__ → list.index, повертає 1
-```
+:::code decorator-d/py/khto-pyshe.py
 
 Тут базовий декоратор зник: `__getattr__` — це переспрямування «всього іншого» одним рядком. Але є чесна пастка, і її треба назвати: **спеціальні методи (`__len__`, `__iter__`, `__eq__`) через `__getattr__` не йдуть**. Python шукає їх на **типі**, а не на екземплярі, тож `len(xs)` не пройде крізь `__getattr__` і впаде, поки ти явно не визначиш `__len__`. Тобто автоматичне переспрямування покриває звичайні методи, але протоколи мови доводиться пробрасувати руками — дрібниця, на якій легко наступити.
 
 **Go — переспрямування вбудоване в мову.** Вбудовування (embedding) структур дає те, чого в Java досягають базовим декоратором, на рівні компілятора: методи вбудованого типу автоматично «підвищуються» до зовнішнього, а ти перекриваєш лише потрібні:
 
-```go
-// вбудовування io.Reader: усі його методи Go переспрямує сам
-type CountingReader struct {
-    io.Reader        // вбудований інтерфейс — не поле з іменем, а embedding
-    n int64
-}
-
-func (c *CountingReader) Read(p []byte) (int, error) {
-    k, err := c.Reader.Read(p)   // делегуємо вбудованому
-    c.n += int64(k)              // додаємо своє — рахуємо байти
-    return k, err
-}
-// якби в інтерфейсі були й інші методи, Go підвищив би їх до CountingReader
-// автоматично — писати делегацію для них не треба
-```
+:::code decorator-d/go/main.go
 
 **Динамічний проксі — один обробник на всі методи.** Java має ще й рефлексивний шлях: `java.lang.reflect.Proxy` створює об'єкт, що реалізує заданий інтерфейс, а всі його виклики зводить в один `InvocationHandler`. Це дозволяє «декорувати» весь інтерфейс **узагальнено**, не пишучи класу на метод:
 
-```java
-// один InvocationHandler декорує ВСІ методи інтерфейсу заразом
-Service proxy = (Service) Proxy.newProxyInstance(
-    Service.class.getClassLoader(),
-    new Class<?>[]{ Service.class },
-    (obj, method, args) -> {
-        long t0 = System.nanoTime();
-        Object out = method.invoke(real, args);          // делегація до справжнього
-        log(method.getName() + ": " + (System.nanoTime() - t0) + " ns");
-        return out;                                       // те саме логування — для будь-якого методу
-    });
-```
+:::code decorator-d/java/khto-pyshe.java
 
 Саме так каркаси на кшталт Spring додають логування, транзакції й перевірки прав, не змушуючи писати декоратор на кожен клас: один узагальнений обробник обгортає будь-який інтерфейс. Ціна — рефлексія: виклики йдуть повільніше й типобезпека слабшає (усе через `Object[] args`). Але для наскрізних турбот, однакових на всіх методах, це часто вигідніший обмін, ніж десятки ручних обгорток.
 
@@ -348,18 +164,7 @@ Service proxy = (Service) Proxy.newProxyInstance(
 
 Кожен шар — це **окремий об'єкт з окремим викликом**. Один логічний `read()` крізь п'ять обгорток — це п'ять справжніх викликів методів, п'ять непрямих переходів (через таблицю віртуальних методів чи через посилання на функцію), перш ніж діло дійде до справжньої роботи. У мовах, близьких до заліза, це видно найгостріше:
 
-```cpp
-// кожен шар — окремий віртуальний виклик: N шарів = N непрямих переходів
-struct Reader { virtual int read() = 0; virtual ~Reader() = default; };
-
-struct Counting : Reader {
-    Reader* inner;
-    long n = 0;
-    int read() override { ++n; return inner->read(); }  // стрибок за vptr до inner
-};
-// читання крізь 5 шарів = 5 віртуальних викликів на КОЖЕН read():
-//   стрибок за вказівником vtable, промах інлайнінгу, гірша локальність коду
-```
+:::code decorator-d/cpp/main.cpp
 
 Розкладімо, чим саме це коштує:
 
@@ -377,21 +182,7 @@ struct Counting : Reader {
 
 Найчистіше це видно на обробнику запитів. Хай обробник — це `запит → відповідь`. Тоді декоратор — це `обробник → обробник`: він бере старий обробник, повертає новий, що робить щось до/після/замість і посередині кличе старий. Той самий онієн, лише без класів:
 
-```py
-# компонент — це функція Handler: Request -> Response
-# декоратор — функція Handler -> Handler
-def timed(handler):
-    def wrapped(req):
-        t0 = time.perf_counter()
-        resp = handler(req)                    # делегація до вкладеного обробника
-        log(f"{req.path}: {(time.perf_counter()-t0)*1e3:.1f} ms")
-        return resp
-    return wrapped
-
-@timed                                          # @ — це просто home = timed(home)
-def home(req):
-    return Response("hello")
-```
+:::code decorator-d/py/funktsiine-oblychchia-koly.py
 
 Синтаксис `@timed` над функцією — це рівно `home = timed(home)`: узяли обробник, обгорнули, поклали назад під тим самим іменем. Так виглядає нанизування шарів у функційному світі, і саме на цьому стоять **middleware** веб-серверів (Express, Koa, ASP.NET, Go `net/http`): логування, авторизація, стиснення, відновлення після помилки — кожне окрема функція-обгортка, і всі складаються в стос навколо ділового обробника. Робочий конвеєр middleware з усіма чотирма режимами, з обривом ланцюга на відмові авторизації й розбором того, як кожна частина лягає на ролі GoF, зібрано в [окремому проєкті](root:sf-apps/decorator/proj-middleware-pipeline.md).
 

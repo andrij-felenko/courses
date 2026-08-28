@@ -56,48 +56,7 @@ GoF розкладає це на дві ролі, і назви ролей у к
 
 І ось на цю **конкретну Java-біль** Блох дає будівельник як третій шлях — той, що читається за іменами, **як сетери**, але дає цілісний незмінний результат, **як конструктор**:
 
-```java
-// Пункт 2 Effective Java: незмінний об'єкт із багатьма
-// (переважно необов'язковими) полями, зібраний будівельником
-public class NutritionFacts {
-    private final int servingSize;   // обов'язкове
-    private final int calories;      // необов'язкове
-    private final int sodium;        // необов'язкове
-
-    public static class Builder {
-        private final int servingSize;   // обов'язкове — у конструкторі будівельника
-        private int calories = 0;        // необов'язкові — зі значеннями за замовчуванням
-        private int sodium   = 0;
-
-        public Builder(int servingSize) {       // обов'язкове задаєш одразу
-            this.servingSize = servingSize;
-        }
-        public Builder calories(int val) {       // крок повертає САМ будівельник...
-            calories = val;
-            return this;                         // ...тому виклики чіпляються в ланцюжок
-        }
-        public Builder sodium(int val) {
-            sodium = val;
-            return this;
-        }
-        public NutritionFacts build() {          // остаточне зібрання — тут
-            return new NutritionFacts(this);     // єдина точка, де народжується об'єкт
-        }
-    }
-
-    private NutritionFacts(Builder b) {          // приватний — назовні лише через build()
-        servingSize = b.servingSize;
-        calories    = b.calories;
-        sodium      = b.sodium;
-    }
-}
-
-// місце виклику читається саме себе:
-NutritionFacts cola = new NutritionFacts.Builder(240)
-        .calories(100)
-        .sodium(35)
-        .build();
-```
+:::code hist-gof-bloch-builder/java/main.java
 
 Порівняй `new NutritionFacts.Builder(240).calories(100).sodium(35).build()` з телескопічним `new NutritionFacts(240, 8, 100, 0, 35, 27)`. Друге вимагає тримати в голові порядок і зміст шести чисел; перше проговорює кожне число вголос. Оце й був намір Блоха — не «різні представлення», а **читний і безпечний виклик у мові без іменованих параметрів**.
 

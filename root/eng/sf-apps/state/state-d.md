@@ -11,23 +11,7 @@
 
 Найпряміший спосіб це записати — завести поле `state` і в кожному методі питати його наново:
 
-```ts
-class Order {
-  state: "new" | "paid" | "shipped" = "new";
-
-  pay() {
-    if (this.state === "new") { /* провести оплату */ this.state = "paid"; }
-    else if (this.state === "paid") throw new Error("уже оплачено");
-    else if (this.state === "shipped") throw new Error("надто пізно платити");
-  }
-  ship() {
-    if (this.state === "new") throw new Error("спершу оплатіть");
-    else if (this.state === "paid") { /* відвантажити */ this.state = "shipped"; }
-    else if (this.state === "shipped") throw new Error("уже відправлено");
-  }
-  // те саме розгалуження ще й у cancel(), і в refund(), і в кожному новому методі…
-}
-```
+:::code state-d/ts/part.ts
 
 Поки станів два-три, це терпимо. Але придивись, що тут насправді коїться: **одне й те саме розгалуження `if state == …` розмазане по всіх методах**. Логіка одного стану «нове» не зібрана в жодному місці — вона розсипана по гілках `pay`, `ship`, `cancel`, `refund`. А тепер додаймо стан «повернуто» або «на утриманні платежу» — і доведеться повернутися в **кожен** метод і вписати туди новий `case`. Пропустиш один — дістанеш не помилку компіляції, а тихий баг: у новому стані якийсь метод поведеться так, наче стану й не було.
 
@@ -65,63 +49,8 @@ class Order {
 Тут патерн Стан робить свій найхарактерніший хід: **перехід — це теж обов'язок стану**. Кожен об'єкт-стан не лише знає, як реагувати на події, а й **знає, у який стан перевести власника** після успішної дії. Оплата в стані «нове» — це не просто «провести гроші», а ще й «переставити власника в `PaidState`»:
 
 :::tabs
-```ts
-interface OrderState {
-  pay(order: Order): void;
-  ship(order: Order): void;
-}
-
-class NewState implements OrderState {
-  pay(order: Order) {
-    // ...провести оплату...
-    order.setState(new PaidState());   // стан САМ переводить власника далі
-  }
-  ship(order: Order) {
-    throw new Error("спершу оплатіть");  // у цьому стані відправляти не можна
-  }
-}
-
-class PaidState implements OrderState {
-  pay(order: Order)  { throw new Error("уже оплачено"); }
-  ship(order: Order) {
-    // ...відвантажити...
-    order.setState(new ShippedState());
-  }
-}
-
-class ShippedState implements OrderState {
-  pay(order: Order)  { throw new Error("надто пізно"); }
-  ship(order: Order) { throw new Error("уже відправлено"); }
-}
-```
-```py
-from __future__ import annotations
-from typing import Protocol
-
-class OrderState(Protocol):
-    def pay(self, order: "Order") -> None: ...
-    def ship(self, order: "Order") -> None: ...
-
-class NewState:
-    def pay(self, order: "Order") -> None:
-        # ...провести оплату...
-        order.set_state(PaidState())     # стан САМ переводить власника далі
-    def ship(self, order: "Order") -> None:
-        raise RuntimeError("спершу оплатіть")  # у цьому стані відправляти не можна
-
-class PaidState:
-    def pay(self, order: "Order") -> None:
-        raise RuntimeError("уже оплачено")
-    def ship(self, order: "Order") -> None:
-        # ...відвантажити...
-        order.set_state(ShippedState())
-
-class ShippedState:
-    def pay(self, order: "Order") -> None:
-        raise RuntimeError("надто пізно")
-    def ship(self, order: "Order") -> None:
-        raise RuntimeError("уже відправлено")
-```
+:::code state-d/ts/khto-perevodyt-u-nastupnyi.ts
+:::code state-d/py/main.py
 :::
 
 Придивись, що це дає. Правило «з оплаченого можна лише відправити, а платити знову — ні» тепер **живе цілком усередині `PaidState`** — і дозволена дія, і заборонена, і те, куди вона веде. Уся таблиця дозволених переходів розкладена по класах: щоб дізнатися, куди можна з певного стану, ти читаєш **один** клас, а не збираєш картину з розкиданих `if`. Заборонений перехід — це метод, що кидає помилку; дозволений — метод, що робить дію й переставляє стан.

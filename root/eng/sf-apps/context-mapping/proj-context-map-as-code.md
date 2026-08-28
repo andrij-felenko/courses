@@ -47,167 +47,13 @@
 
 Python читає власне синтаксичне дерево через модуль `ast`, тому імпорти дістаємо **точно**, а не регулярками — жоден закоментований чи рядковий `import` не збиває нас із пантелику.
 
-```python
-#!/usr/bin/env python3
-"""Перевірка карти контекстів як код. Падає (exit 1) на забороненій стрілці."""
-from __future__ import annotations
-import ast, sys
-from pathlib import Path
-
-# 1. ОГОЛОШЕНА карта: контекст -> корінь у коді + дозволені низові з ТИПОМ зв'язку.
-#    Тип (acl / customer-supplier / conformist) стоїть поряд, щоб схема й код
-#    не розходились і в ПРИРОДІ стрілки, не лише в її наявності.
-CONTEXTS = {
-    "sales":   {"root": "app/sales",   "allow": {"billing": "acl"}},
-    "stock":   {"root": "app/stock",   "allow": {"sales": "customer-supplier"}},
-    "billing": {"root": "app/billing", "allow": {}},
-    "shared":  {"root": "app/shared",  "allow": {}, "shared_kernel": True},
-}
-
-def owner_of(module_path: str) -> str | None:
-    """Якому контексту належить шлях — за НАЙДОВШИМ збігом кореня."""
-    best, best_len = None, -1
-    p = module_path.replace("\\", "/")
-    for name, meta in CONTEXTS.items():
-        root = meta["root"]
-        if (p == root or p.startswith(root + "/")) and len(root) > best_len:
-            best, best_len = name, len(root)
-    return best
-
-def module_to_ctx(dotted: str) -> str | None:
-    """import app.billing.invoice -> 'app/billing/invoice' -> контекст billing."""
-    return owner_of(dotted.replace(".", "/"))
-
-def discovered_edges(src_root: Path) -> set[tuple[str, str]]:
-    """Реальні перетини межі: (from_ctx, to_ctx) з усіх import у коді."""
-    edges: set[tuple[str, str]] = set()
-    for py in src_root.rglob("*.py"):
-        rel = py.relative_to(src_root).with_suffix("")
-        frm = owner_of("app/" + str(rel).replace("\\", "/"))
-        if frm is None:
-            continue                                  # файл поза картою — не учасник
-        tree = ast.parse(py.read_text(encoding="utf-8"), filename=str(py))
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                targets = [a.name for a in node.names]
-            elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
-                targets = [node.module]               # level==0 -> абсолютний import
-            else:
-                continue
-            for t in targets:
-                to = module_to_ctx(t)
-                if to and to != frm:                  # перетин межі
-                    edges.add((frm, to))
-    return edges
-
-def allowed(frm: str, to: str) -> bool:
-    if CONTEXTS.get(to, {}).get("shared_kernel"):     # спільне ядро — легальний виняток
-        return True
-    return to in CONTEXTS[frm]["allow"]
-
-def main(src: str) -> int:
-    edges = discovered_edges(Path(src))
-    violations = sorted(e for e in edges if not allowed(*e))
-    if not violations:
-        print(f"карта тримається: {len(edges)} стрілок, усі оголошені")
-        return 0
-    print("ЗАБОРОНЕНІ стрілки через межу (нема на карті):", file=sys.stderr)
-    for frm, to in violations:
-        rel = CONTEXTS.get(frm, {}).get("allow", {})  # підказка: що тут узагалі дозволено
-        print(f"  {frm} -> {to}   (дозволено з {frm}: {rel or '—'})", file=sys.stderr)
-    return 1
-
-if __name__ == "__main__":
-    raise SystemExit(main(sys.argv[1] if len(sys.argv) > 1 else "app"))
-```
+:::code proj-context-map-as-code/py/main.py
 
 == TypeScript / JS
 
 У JS немає стандартного `ast` під рукою без залежностей, тож імпорти вихоплюємо регуляркою по тексту. Це трохи грубіше (див. пастку про рефлексію нижче), зате скрипт лишається без жодної залежності — його можна кинути в будь-який репозиторій і запустити `node`-ом.
 
-```javascript
-#!/usr/bin/env node
-// Перевірка карти контекстів як код. Падає (exit 1) на забороненій стрілці.
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative, sep } from "node:path";
-
-// 1. ОГОЛОШЕНА карта: контекст -> корінь + дозволені низові з ТИПОМ зв'язку.
-const CONTEXTS = {
-  sales:   { root: "src/sales",   allow: { billing: "acl" } },
-  stock:   { root: "src/stock",   allow: { sales: "customer-supplier" } },
-  billing: { root: "src/billing", allow: {} },
-  shared:  { root: "src/shared",  allow: {}, sharedKernel: true },
-};
-
-const norm = (p) => p.split(sep).join("/");
-
-function ownerOf(path) {                       // власник — за найдовшим збігом кореня
-  let best = null, bestLen = -1;
-  const p = norm(path);
-  for (const [name, meta] of Object.entries(CONTEXTS)) {
-    const r = meta.root;
-    if ((p === r || p.startsWith(r + "/")) && r.length > bestLen) {
-      best = name; bestLen = r.length;
-    }
-  }
-  return best;
-}
-
-function* walk(dir) {
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) yield* walk(full);
-    else if (/\.(m?[jt]sx?)$/.test(entry)) yield full;
-  }
-}
-
-// цілі з import ... from "X", import("X"), require("X"), export ... from "X"
-const SPEC = /(?:import[\s\S]*?from|import|export[\s\S]*?from|require)\s*\(?\s*["']([^"']+)["']/g;
-
-function resolveToCtx(spec, fromRel) {
-  if (!spec.startsWith(".")) return null;      // пакет із node_modules — не межа
-  const dir = fromRel.split("/").slice(0, -1).join("/");
-  const stack = [];
-  for (const seg of (dir + "/" + spec).split("/")) {
-    if (seg === "." || seg === "") continue;
-    if (seg === "..") stack.pop();
-    else stack.push(seg);                       // грубий resolve відносного шляху
-  }
-  return ownerOf(stack.join("/"));
-}
-
-function discoveredEdges(srcRoot) {
-  const edges = new Set();
-  for (const file of walk(srcRoot)) {
-    const rel = "src/" + norm(relative(srcRoot, file));
-    const frm = ownerOf(rel);
-    if (!frm) continue;
-    for (const m of readFileSync(file, "utf8").matchAll(SPEC)) {
-      const to = resolveToCtx(m[1], rel);
-      if (to && to !== frm) edges.add(`${frm} ${to}`);
-    }
-  }
-  return [...edges].map((e) => e.split(" "));
-}
-
-const allowed = (frm, to) =>
-  CONTEXTS[to]?.sharedKernel === true || to in CONTEXTS[frm].allow;
-
-function main(src) {
-  const edges = discoveredEdges(src);
-  const violations = edges.filter(([f, t]) => !allowed(f, t)).sort();
-  if (violations.length === 0) {
-    console.log(`карта тримається: ${edges.length} стрілок, усі оголошені`);
-    return 0;
-  }
-  console.error("ЗАБОРОНЕНІ стрілки через межу (нема на карті):");
-  for (const [f, t] of violations)
-    console.error(`  ${f} -> ${t}   (дозволено з ${f}: ${Object.keys(CONTEXTS[f].allow).join(", ") || "—"})`);
-  return 1;
-}
-
-process.exit(main(process.argv[2] ?? "src"));
-```
+:::code proj-context-map-as-code/js/krok-za-krokom-try.js
 
 :::
 
@@ -262,24 +108,7 @@ process.exit(main(process.argv[2] ?? "src"));
 
 Ліки — рахувати не сусідство, а **досяжність у графі**: для кожної забороненої пари питати, чи існує *шлях* звідси туди дозволеними ребрами. Це звичайний обхід (BFS/DFS):
 
-```javascript
-// чи існує шлях frm ~> to через наявні ребра (транзитивна досяжність)?
-function reaches(edges, frm, to) {
-  const adj = new Map();
-  for (const [a, b] of edges) (adj.get(a) ?? adj.set(a, []).get(a)).push(b);
-  const seen = new Set([frm]);
-  const queue = [frm];
-  while (queue.length) {
-    const x = queue.shift();
-    for (const y of adj.get(x) ?? []) {
-      if (y === to) return true;              // дістались забороненої цілі
-      if (!seen.has(y)) { seen.add(y); queue.push(y); }
-    }
-  }
-  return false;
-}
-// граф A->B->C: reaches(edges,"A","C") === true, хоч прямого ребра A->C нема
-```
+:::code proj-context-map-as-code/js/tranzytyvni-zalezhnosti.js
 
 Саме так працюють шарувальні контракти в готових інструментах: `import-linter` перевіряє, що ніхто вищий за списком не тягне нижчого **навіть опосередковано**. Мораль: якщо твоє правило звучить як «X **не повинен залежати** від Y» (а не «не повинен **прямо імпортувати**»), тобі потрібна досяжність, і наївна перевірка по ребрах дасть хибне «все чисто».
 

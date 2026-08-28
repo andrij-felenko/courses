@@ -100,29 +100,7 @@ function onUsdChanged(usd: number) {
 
 Ось обмінник, переписаний за цим правилом:
 
-```ts
-type State = { usd: number; eur: number; rate: number };
-
-type Action =
-  | { kind: "набрано-долари"; text: string }
-  | { kind: "набрано-євро";   text: string }
-  | { kind: "курс-оновлено";  rate: number };
-
-function update(s: State, a: Action): State {
-  switch (a.kind) {
-    case "набрано-долари": {
-      const usd = parseMoney(a.text) ?? s.usd;
-      return { ...s, usd, eur: round2(usd * s.rate) };
-    }
-    case "набрано-євро": {
-      const eur = parseMoney(a.text) ?? s.eur;
-      return { ...s, eur, usd: round2(eur / s.rate) };
-    }
-    case "курс-оновлено":
-      return { ...s, rate: a.rate, eur: round2(s.usd * a.rate) };
-  }
-}
-```
+:::code unidirectional-data-flow-d/ts/index.ts
 
 Дивитися тут треба не на `switch`, а на те, чого в цьому коді немає. Немає перерахунку у відповідь на перерахунок: обидва числа народжуються **в одному місці, за один крок, з одного джерела**. Немає сповіщень — функція нікого не будить, вона повертає значення. А отже, немає й стрілки назад: із `update` не веде жоден шлях, який знову привів би в `update`. Циклу нема куди взятися, і прапорець-сторож стає непотрібним не тому, що ми домовились його не писати, а тому, що охороняти нічого.
 

@@ -33,88 +33,8 @@
 Одна дрібниця в сетері виглядає як зайва обережність, а насправді тримає всю конструкцію: **якщо нове значення дорівнює старому — сигналу немає**. Поки що прийми це як економію зайвого перемальовування; далі стане видно, що саме на цьому рядку кільце зв'язування спиняється.
 
 :::tabs
-```ts
-// ── 1. Сигнали: словник «ім'я властивості → хто це слухає» ──
-type Listener = (value: unknown) => void;
-
-class Signals {
-  private subs = new Map<string, Set<Listener>>();
-
-  on(prop: string, fn: Listener): () => void {
-    let set = this.subs.get(prop);
-    if (!set) this.subs.set(prop, (set = new Set()));
-    set.add(fn);
-    return () => { set!.delete(fn); };          // повертаємо «відписку»
-  }
-
-  emit(prop: string, value: unknown): void {
-    const set = this.subs.get(prop);
-    if (!set) return;
-    for (const fn of [...set]) fn(value);       // копія: слухач може відписатися просто в обході
-  }
-}
-
-/** Підмінює КОЖНЕ власне поле об'єкта парою get/set із сигналом. */
-function observable<T extends object>(vm: T): T & { signals: Signals } {
-  const signals = new Signals();
-  for (const key of Object.keys(vm)) {
-    let value = (vm as any)[key];               // значення переїжджає в замикання
-    Object.defineProperty(vm, key, {
-      enumerable: true,
-      configurable: true,
-      get: () => value,
-      set: (next) => {
-        if (Object.is(next, value)) return;     // не змінилось — не сповіщаємо
-        value = next;
-        signals.emit(key, next);
-      },
-    });
-  }
-  return Object.assign(vm, { signals });
-}
-```
-```cpp
-// ── 1. Властивість, що сама тримає своїх слухачів ──
-#include <algorithm>
-#include <cstddef>
-#include <functional>
-#include <utility>
-#include <vector>
-
-template <class T>
-class Property {
-public:
-    using Listener = std::function<void(const T&)>;
-
-    explicit Property(T v = T{}) : value_(std::move(v)) {}
-
-    const T& get() const { return value_; }
-
-    void set(T next) {
-        if (next == value_) return;          // не змінилось — не сповіщаємо
-        value_ = std::move(next);
-        std::vector<Sub> copy = subs_;       // копія: слухач може відписатися просто в обході
-        for (const Sub& s : copy) s.second(value_);
-    }
-
-    std::size_t on(Listener fn) {            // повертаємо квиток на відписку
-        subs_.emplace_back(next_id_, std::move(fn));
-        return next_id_++;
-    }
-
-    void off(std::size_t id) {
-        subs_.erase(std::remove_if(subs_.begin(), subs_.end(),
-                                   [id](const Sub& s) { return s.first == id; }),
-                    subs_.end());
-    }
-
-private:
-    using Sub = std::pair<std::size_t, Listener>;
-    T value_;
-    std::vector<Sub> subs_;
-    std::size_t next_id_ = 1;
-};
-```
+:::code proj-tiny-binding/ts/pershyi-shmatok-vlastyvist.ts
+:::code proj-tiny-binding/cpp/pershyi-shmatok-vlastyvist.cpp
 :::
 
 Порівняй ці дві версії уважно — у їхній різниці ховається половина всіх мовчазних збоїв зв'язування. У версії для вебу підписка ходить **по імені-рядку**: `signals.on("temperature", …)`. Рядок узявся не з примхи — так улаштована розмітка, де прив'язку пишуть словами: `{Binding Temperature}` чи `v-model="temperature"`. Розмітка не має доступу до типів, вона вміє лише назвати властивість по буквах, тож рушій мусить вміти шукати за буквами. У версії на C++ жодних імен немає: властивість — це об'єкт, слухач чіпляється просто до нього, а помилку в імені ловить компілятор ще до запуску. Ціна цієї безпеки — прив'язку не можна написати в розмітці, її пишуть кодом.
@@ -126,136 +46,15 @@ private:
 Тепер найцікавіше — сам зв'язок. У полі вводу завжди лежить **текст**, у властивості — число, дата, прапорець. Отже, нитка потребує двох перекладів, і краще назвати їх окремою парою функцій, аніж розсипати `parseFloat` по всьому рушію:
 
 :::tabs
-```ts
-// ── 2а. Перетворювачі: у полі завжди рядок ──
-interface Convert<V> {
-  toView(v: V): string;      // властивість → текст поля
-  toModel(s: string): V;     // текст поля → властивість
-}
-
-const asText: Convert<string> = {
-  toView: v => v ?? '',
-  toModel: s => s,
-};
-
-const asNumber: Convert<number> = {
-  toView: v => Number.isFinite(v) ? String(v) : '',
-  toModel: s => {
-    const t = s.trim();
-    return t === '' ? NaN : Number(t.replace(',', '.'));  // порожнє — НЕ нуль
-  },
-};
-```
-```cpp
-// ── 2а. Перетворювачі: у віджеті завжди рядок ──
-#include <cstdio>
-#include <cstdlib>
-#include <limits>
-#include <string>
-
-std::string numToText(const double& v) {
-    if (v != v) return "";                       // NaN — порожнє поле
-    char buf[32];
-    std::snprintf(buf, sizeof buf, "%g", v);
-    return buf;
-}
-
-double textToNum(const std::string& s) {
-    const char* first = s.c_str();
-    char* last = nullptr;
-    const double v = std::strtod(first, &last);
-    if (last == first || *last != '\0')          // порожнє чи сміття — НЕ нуль
-        return std::numeric_limits<double>::quiet_NaN();
-    return v;
-}
-```
+:::code proj-tiny-binding/ts/druhyi-shmatok-nytka-mizh.ts
+:::code proj-tiny-binding/cpp/druhyi-shmatok-nytka-mizh.cpp
 :::
 
 А тепер сама нитка. Уся її суть — **дві підписки навхрест**: одна на сигнал властивості (щоб писати в поле), друга на подію віджета (щоб писати у властивість). Плюс дві дрібниці, без яких вона зіпсує життя: прапорець, що не дає ниточному оберту зайти на друге коло, і повернена «відписка», якою зв'язок знімають.
 
 :::tabs
-```ts
-// ── 2б. Зв'язок: дві підписки, прапорець і відписка ──
-function bind<T extends object, K extends Extract<keyof T, string>>(
-  el: HTMLInputElement,
-  vm: T & { signals: Signals },
-  prop: K,
-  conv: Convert<T[K]>,
-): () => void {
-  if (!(prop in vm)) {                                   // одрук ловиться ТУТ, а не мовчки
-    throw new Error(`bind: у моделі подання немає властивості «${prop}»`);
-  }
-  let writing = false;
-
-  // властивість → поле
-  const push = (v: unknown) => {
-    const text = conv.toView(v as T[K]);
-    if (el.value !== text) el.value = text;              // зайвий запис збиває каретку
-  };
-  const off = vm.signals.on(prop, push);
-
-  // поле → властивість
-  const onInput = () => {
-    if (writing) return;                                 // друге коло не робимо
-    writing = true;
-    try { vm[prop] = conv.toModel(el.value); }           // ← ось сюди ставиться точка зупину
-    finally { writing = false; }
-  };
-  el.addEventListener('input', onInput);
-
-  push(vm[prop]);                                        // початкове наповнення поля
-  return () => { off(); el.removeEventListener('input', onInput); };
-}
-```
-```cpp
-// ── 2б. Зв'язок: дві підписки, прапорець і деструктор ──
-
-// Найтонший «віджет»: текст плюс сповіщення про правку користувачем.
-struct TextField {
-    std::string text;
-    std::function<void(const std::string&)> onEdit;
-
-    void typeIn(std::string s) {                 // так «друкує користувач»
-        text = std::move(s);
-        if (onEdit) onEdit(text);
-    }
-    void show(std::string s) { text = std::move(s); }   // запис із коду — БЕЗ сповіщення
-};
-
-template <class T>
-class Binding {
-public:
-    using ToView  = std::function<std::string(const T&)>;
-    using ToModel = std::function<T(const std::string&)>;
-
-    Binding(TextField& w, Property<T>& p, ToView toView, ToModel toModel)
-        : w_(w), p_(p), toView_(std::move(toView)) {
-
-        id_ = p_.on([this](const T& v) { w_.show(toView_(v)); });   // властивість → віджет
-
-        w_.onEdit = [this, toModel](const std::string& s) {         // віджет → властивість
-            if (writing_) return;                                   // друге коло не робимо
-            writing_ = true;
-            p_.set(toModel(s));                                     // ← точка зупину тут
-            writing_ = false;
-        };
-
-        w_.show(toView_(p_.get()));                                 // початкове наповнення
-    }
-
-    ~Binding() { p_.off(id_); w_.onEdit = nullptr; }   // відписку не можна забути
-
-    Binding(const Binding&) = delete;                  // зв'язок не копіюють
-    Binding& operator=(const Binding&) = delete;
-
-private:
-    TextField& w_;
-    Property<T>& p_;
-    ToView toView_;
-    std::size_t id_ = 0;
-    bool writing_ = false;
-};
-```
+:::code proj-tiny-binding/ts/druhyi-shmatok-nytka-mizh-2.ts
+:::code proj-tiny-binding/cpp/druhyi-shmatok-nytka-mizh-2.cpp
 :::
 
 Три рядки тут варті окремої уваги.
@@ -271,50 +70,8 @@ private:
 Лишилося скласти все докупи. Зверни увагу на правило межі: воно **не частина рушія** — це звичайний підписник, який слухає одну властивість і пише в іншу. Підказку про помилку показує друге поле, тільки заборонене для набору; прив'язка до звичайного напису відрізнялася б хіба тим, що слухача події вводу там не треба зовсім.
 
 :::tabs
-```ts
-// ── 3. Модель подання й дві прив'язки ──
-const vm = observable({ temperature: 22, error: '' });
-
-// «обчислювана» властивість — просто слухач, що пише в сусідню
-vm.signals.on('temperature', () => {
-  const t = vm.temperature;
-  vm.error = (Number.isFinite(t) && t >= 5 && t <= 30) ? '' : 'дозволено 5…30';
-});
-
-const stop = [
-  bind(document.querySelector('#temp')  as HTMLInputElement, vm, 'temperature', asNumber),
-  bind(document.querySelector('#error') as HTMLInputElement, vm, 'error', asText),
-];
-
-vm.temperature = 35;        // поле саме показало «35», підказка — «дозволено 5…30»
-                            // друк у полі так само сам оновлює vm.temperature
-
-stop.forEach(off => off()); // зв'язки зняті: віджети можна викидати
-```
-```cpp
-// ── 3. Модель подання й дві прив'язки ──
-int main() {
-    Property<double> temperature{22.0};
-    Property<std::string> error;
-
-    temperature.on([&error](const double& t) {          // правило межі — звичайний підписник
-        error.set(t >= 5.0 && t <= 30.0 ? std::string{} : std::string{"дозволено 5…30"});
-    });
-
-    TextField tempField, errorField;
-    {
-        Binding<double> b1(tempField, temperature, numToText, textToNum);
-        Binding<std::string> b2(errorField, error,
-                                [](const std::string& v) { return v; },
-                                [](const std::string& s) { return s; });
-
-        temperature.set(35.0);        // tempField.text == "35", errorField.text == "дозволено 5…30"
-        tempField.typeIn("12");       // temperature.get() == 12, errorField.text == ""
-    }                                 // ← деструктори зняли обидва зв'язки
-
-    temperature.set(99.0);            // поля вже нікого не слухають: у tempField лишилось «12»
-}
-```
+:::code proj-tiny-binding/ts/tretii-shmatok-zavodymo.ts
+:::code proj-tiny-binding/cpp/tretii-shmatok-zavodymo.cpp
 :::
 
 Ось що друкує веб-версія, якщо прогнати цей сценарій із підробленим полем замість справжнього:

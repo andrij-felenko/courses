@@ -137,76 +137,8 @@ s = (p, l, u),   де   p, l, u ∈ {0, 1}
 **Умова: дві архітектури платіжного сервісу. Ваги за важливістю: вартість 5, доступність 4, швидкодія 3, безпека 4. Регулятор вимагає доступності ≥ 99.9% — це закон, а не вподобання. Варіант A (один регіон) дешевий і швидкий, та дає лише 99.0%; варіант B (мультирегіон) дорожчий і трохи повільніший, зате 99.95%.**
 
 :::tabs
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Option:
-    name: str
-    avail_pct: float      # СИРА доступність, % — для перевірки обмеження
-    scores: dict          # бали 0..5 за атрибутами — для суми вподобань
-
-W = {"вартість": 5, "доступність": 4, "швидкодія": 3, "безпека": 4}
-
-A = Option("A: один регіон",  99.00, {"вартість": 5, "доступність": 1, "швидкодія": 5, "безпека": 4})
-B = Option("B: мультирегіон", 99.95, {"вартість": 2, "доступність": 5, "швидкодія": 4, "безпека": 4})
-options = [A, B]
-
-def weighted_sum(o):
-    return sum(W[k] * o.scores[k] for k in W)
-
-# ── Наївно: доступність — просто одна з ваг, поріг «розчинено» в сумі ──
-print("наївна зважена сума (обмеження як м'яка вага):")
-for o in sorted(options, key=weighted_sum, reverse=True):
-    print(f"  {o.name:16} сума = {weighted_sum(o)}")
-
-# ── Чесно: спершу фільтр твердого порога, тоді сума серед дійсних ──
-FLOOR = 99.9   # доступність ≥ 99.9% — закон, не вподобання
-feasible = [o for o in options if o.avail_pct >= FLOOR]
-best = max(feasible, key=weighted_sum) if feasible else None
-print("\nчесно (фільтр порога, тоді сума серед дійсних):")
-for o in options:
-    if o.avail_pct >= FLOOR:
-        print(f"  {o.name:16} дійсний, сума = {weighted_sum(o)}")
-    else:
-        print(f"  {o.name:16} ВІДСІЯНО ({o.avail_pct:.2f}% < {FLOOR}%)")
-print(f"  → вибір: {best.name if best else 'нема дійсних'}")
-```
-```typescript
-type Option = {
-  name: string;
-  availPct: number;                 // СИРА доступність, % — для обмеження
-  scores: Record<string, number>;   // бали 0..5 — для суми вподобань
-};
-
-const W: Record<string, number> = { вартість: 5, доступність: 4, швидкодія: 3, безпека: 4 };
-
-const options: Option[] = [
-  { name: "A: один регіон",  availPct: 99.0,  scores: { вартість: 5, доступність: 1, швидкодія: 5, безпека: 4 } },
-  { name: "B: мультирегіон", availPct: 99.95, scores: { вартість: 2, доступність: 5, швидкодія: 4, безпека: 4 } },
-];
-
-const weightedSum = (o: Option) =>
-  Object.keys(W).reduce((s, k) => s + W[k] * o.scores[k], 0);
-
-// ── Наївно: доступність — просто одна з ваг, поріг «розчинено» в сумі ──
-console.log("наївна зважена сума (обмеження як м'яка вага):");
-for (const o of [...options].sort((a, b) => weightedSum(b) - weightedSum(a)))
-  console.log(`  ${o.name}  сума = ${weightedSum(o)}`);
-
-// ── Чесно: спершу фільтр твердого порога, тоді сума серед дійсних ──
-const FLOOR = 99.9; // доступність ≥ 99.9% — закон, не вподобання
-const feasible = options.filter((o) => o.availPct >= FLOOR);
-const best = feasible.reduce((a, b) => (weightedSum(b) > weightedSum(a) ? b : a));
-console.log("\nчесно (фільтр порога, тоді сума серед дійсних):");
-for (const o of options)
-  console.log(
-    o.availPct >= FLOOR
-      ? `  ${o.name}  дійсний, сума = ${weightedSum(o)}`
-      : `  ${o.name}  ВІДСІЯНО (${o.availPct.toFixed(2)}% < ${FLOOR}%)`,
-  );
-console.log(`  → вибір: ${best.name}`);
-```
+:::code math-stakeholder-salience/py/druha-zadacha-chomu-w-s.py
+:::code math-stakeholder-salience/ts/index.ts
 :::
 
 ```
@@ -245,39 +177,7 @@ CR = CI / RI                        ← відношення до випадко
 
 **Умова: чотири критерії — вартість, доступність, швидкодія, безпека. Перша матриця — правдоподібні судження; друга навмисне містить цикл (вартість > доступність > швидкодія > вартість). Порахуймо ваги, λmax і CR для обох.**
 
-```python
-from math import prod
-
-def reciprocal(n, upper):
-    M = [[1.0] * n for _ in range(n)]
-    for (i, j), v in upper.items():
-        M[i][j], M[j][i] = v, 1.0 / v
-    return M
-
-def ahp(M):
-    n = len(M)
-    gm = [prod(M[i]) ** (1 / n) for i in range(n)]     # середнє геометричне рядка
-    s = sum(gm)
-    w = [g / s for g in gm]                             # нормовані ваги
-    Aw = [sum(M[i][j] * w[j] for j in range(n)) for i in range(n)]
-    lam = sum(Aw[i] / w[i] for i in range(n)) / n       # оцінка λmax
-    CI = (lam - n) / (n - 1)
-    RI = {3: 0.58, 4: 0.90, 5: 1.12}[n]
-    return w, lam, CI / RI
-
-labels = ["вартість", "доступність", "швидкодія", "безпека"]
-
-# Розсудлива матриця: вартість трохи важливіша за решту, безпека ≈ доступність.
-sane = reciprocal(4, {(0, 1): 2, (0, 2): 3, (0, 3): 2, (1, 2): 2, (1, 3): 1, (2, 3): 0.5})
-# Матриця з циклом: 0>1, 1>2, але 2>0 (у скільки разів «i важливіший» іде по колу).
-cyclic = reciprocal(4, {(0, 1): 2, (1, 2): 2, (0, 2): 0.5, (0, 3): 1, (1, 3): 1, (2, 3): 1})
-
-for name, M in (("розсудлива", sane), ("з циклом", cyclic)):
-    w, lam, CR = ahp(M)
-    print(f"{name}:  ваги = " + ", ".join(f"{l} {round(100*x)}%" for l, x in zip(labels, w)))
-    verdict = "узгоджено" if CR <= 0.10 else "НЕУЗГОДЖЕНО — перегляньте судження"
-    print(f"           λmax = {lam:.3f},  CR = {CR:.3f}  → {verdict}\n")
-```
+:::code math-stakeholder-salience/py/zvidky-chesni-vahy-parni.py
 
 ```
 розсудлива:  ваги = вартість 42%, доступність 23%, швидкодія 12%, безпека 23%
@@ -327,33 +227,7 @@ i перша вигідніша ⇔ wⱼ·pᵢ − wᵢ·pⱼ < 0 ⇔ wⱼ·pᵢ
 
 **Умова: три ініціативи, одна команда. Журнал аудиту — вартість зволікання 13 (штрафи регулятора), тривалість 2. Пришвидшення оплати — 8 і 3. Мультирегіон — 13 і 8. Перебрати всі порядки й порівняти з WSJF.**
 
-```python
-from itertools import permutations
-
-# (назва, вартість зволікання за одиницю часу, тривалість)
-jobs = [
-    ("журнал аудиту",       13, 2),
-    ("пришвидшення оплати",  8, 3),
-    ("мультирегіон",        13, 8),
-]
-
-def total_delay_cost(order):
-    t, cost = 0, 0
-    for _, w, p in order:
-        t += p             # момент завершення цієї роботи
-        cost += w * t      # накопичена вартість зволікання: w · C
-    return cost
-
-# Справжній оптимум — грубий перебір усіх 3! порядків.
-best = min(permutations(jobs), key=total_delay_cost)
-# Правило WSJF — спадання відношення (вартість зволікання / тривалість).
-wsjf = sorted(jobs, key=lambda j: j[1] / j[2], reverse=True)
-
-print("перебором:", " → ".join(n for n, _, _ in best), "| ціна =", total_delay_cost(best))
-print("за WSJF:  ", " → ".join(n for n, _, _ in wsjf), "| ціна =", total_delay_cost(wsjf))
-for n, w, p in wsjf:
-    print(f"  {n:22} WSJF = {w}/{p} = {w / p:.2f}")
-```
+:::code math-stakeholder-salience/py/koho-obsluhovuvaty-pershym.py
 
 ```
 перебором: журнал аудиту → пришвидшення оплати → мультирегіон | ціна = 235

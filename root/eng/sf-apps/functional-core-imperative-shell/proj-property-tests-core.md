@@ -32,74 +32,15 @@
 Перше — **ціноутворення**. Бере товари й податкову ставку, повертає підсумок, до-знижкову суму (щоб над нею можна було сформулювати закон) і прапорець знижки:
 
 :::tabs
-```ts
-type Item = { price: number; qty: number };          // ціна в копійках
-type Order = { preDiscount: number; total: number; discounted: boolean };
-
-function priceOrder(items: Item[], taxRate: number): Order {
-  let subtotal = 0;
-  for (const it of items) subtotal += it.price * it.qty;
-  const preDiscount = subtotal * (1 + taxRate);        // сума з податком, ДО знижки
-  const discounted = preDiscount > 1000;               // знижка за великий чек
-  const total = discounted ? preDiscount * 0.95 : preDiscount;
-  return { preDiscount, total, discounted };
-}
-```
-```py
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Item:  price: int; qty: int          # ціна в копійках
-
-@dataclass(frozen=True)
-class Order: pre_discount: float; total: float; discounted: bool
-
-def price_order(items: list[Item], tax_rate: float) -> Order:
-    subtotal = sum(it.price * it.qty for it in items)
-    pre_discount = subtotal * (1 + tax_rate)           # сума з податком, ДО знижки
-    discounted = pre_discount > 1000                   # знижка за великий чек
-    total = pre_discount * 0.95 if discounted else pre_discount
-    return Order(pre_discount=pre_discount, total=total, discounted=discounted)
-```
+:::code proj-property-tests-core/ts/try-iadra-iaki.ts
+:::code proj-property-tests-core/py/try-iadra-iaki.py
 :::
 
 Друге — **антифрод-рішення** про зняття коштів. Бере рахунок і запит, повертає список **описів ефектів** (списати, сповістити) — саме описів, не самих дій; ядро планує, оболонка потім виконає:
 
 :::tabs
-```ts
-type Account = { id: string; userId: string; balance: number; frozen: boolean };
-type WithdrawReq = { amount: number };
-type Effect =
-  | { kind: "debit";  accountId: string; amount: number }
-  | { kind: "notify"; userId: string; message: string };
-
-function decideWithdraw(acc: Account, req: WithdrawReq): Effect[] {
-  if (acc.frozen)                                       // заморожено — тільки сповістити
-    return [{ kind: "notify", userId: acc.userId, message: "Рахунок заморожено" }];
-  if (req.amount > acc.balance)                         // не вистачає — тільки сповістити
-    return [{ kind: "notify", userId: acc.userId, message: "Недостатньо коштів" }];
-  return [{ kind: "debit", accountId: acc.id, amount: req.amount },
-          { kind: "notify", userId: acc.userId, message: `Видано ${req.amount}` }];
-}
-```
-```py
-@dataclass(frozen=True)
-class Account:     id: str; user_id: str; balance: int; frozen: bool
-@dataclass(frozen=True)
-class WithdrawReq: amount: int
-@dataclass(frozen=True)
-class Debit:       account_id: str; amount: int
-@dataclass(frozen=True)
-class Notify:      user_id: str; message: str
-
-def decide_withdraw(acc: Account, req: WithdrawReq) -> list:
-    if acc.frozen:                                       # заморожено — тільки сповістити
-        return [Notify(user_id=acc.user_id, message="Рахунок заморожено")]
-    if req.amount > acc.balance:                         # не вистачає — тільки сповістити
-        return [Notify(user_id=acc.user_id, message="Недостатньо коштів")]
-    return [Debit(account_id=acc.id, amount=req.amount),
-            Notify(user_id=acc.user_id, message=f"Видано {req.amount}")]
-```
+:::code proj-property-tests-core/ts/try-iadra-iaki-2.ts
+:::code proj-property-tests-core/py/try-iadra-iaki-2.py
 :::
 
 Третє — **розбиття повернення** на рівні частини (повернути суму `n` учасникам чи рознести по `n` місяцях). Гроші цілі, у копійках, тож ділити треба чесно — до останньої копійки:
@@ -135,37 +76,8 @@ def split_refund(total_cents: int, n: int) -> list[int]:
 У TypeScript це `fast-check`, у Python — `Hypothesis`. Обидві дають однакову думку: складати генератор складних значень із генераторів простих. Ось генератори товару й рахунку:
 
 :::tabs
-```ts
-import fc from "fast-check";
-
-// товар: ціна — невід'ємне ціле (копійки), кількість — 0..100
-const itemGen = fc.record({
-  price: fc.nat({ max: 100_000 }),
-  qty:   fc.integer({ min: 0, max: 100 }),
-});
-
-// заморожений рахунок: усе випадкове, але frozen ЗАВЖДИ true
-const frozenAccGen = fc.record({
-  id:      fc.string(),
-  userId:  fc.string(),
-  balance: fc.nat({ max: 1_000_000 }),
-  frozen:  fc.constant(true),
-});
-```
-```py
-from hypothesis import strategies as st
-
-# товар: ціна — невід'ємне ціле (копійки), кількість — 0..100
-item = st.builds(Item,
-    price=st.integers(min_value=0, max_value=100_000),
-    qty=st.integers(min_value=0, max_value=100))
-
-# заморожений рахунок: усе випадкове, але frozen ЗАВЖДИ True
-frozen_acc = st.builds(Account,
-    id=st.text(), user_id=st.text(),
-    balance=st.integers(min_value=0, max_value=1_000_000),
-    frozen=st.just(True))
-```
+:::code proj-property-tests-core/ts/heneratory-fabryka.ts
+:::code proj-property-tests-core/py/heneratory-fabryka.py
 :::
 
 Зверни увагу на дві дрібниці, які насправді велика справа. Перша: `price` генерується **невід'ємним** (`nat`, `min_value=0`). Це не випадковість — це **передумова закону**, вкладена в генератор. Закон «підсумок ≥ 0» істинний лише для товарів з невід'ємною ціною; дозволь генераторові від'ємні ціни — і закон чесно впаде, бо він для такого входу й не мав триматися. Генератор — це те місце, де живе «які входи взагалі коректні». Друга: `frozen: constant(true)` звужує генератор до саме тих рахунків, про які закон №3 щось стверджує. Ти не перевіряєш «для всіх рахунків», ти перевіряєш «для всіх **заморожених** рахунків і будь-яких запитів» — і генератор точно це й описує: `frozen` прибитий, решта вільна.
@@ -179,22 +91,7 @@ frozen_acc = st.builds(Account,
 **Закон 1 — підсумок ніколи не від'ємний.** Для будь-яких товарів і будь-якої невід'ємної ставки і до-знижкова сума, і підсумок ≥ 0:
 
 :::tabs
-```ts
-import { test } from "vitest";
-
-test("підсумок ніколи не від'ємний", () => {
-  fc.assert(
-    fc.property(
-      fc.array(itemGen),
-      fc.double({ min: 0, max: 0.3, noNaN: true }),
-      (items, taxRate) => {
-        const o = priceOrder(items, taxRate);
-        return o.preDiscount >= 0 && o.total >= 0;
-      }),
-    { numRuns: 10_000 },
-  );
-});
-```
+:::code proj-property-tests-core/ts/chotyry-zakony-nad-iadrom.ts
 ```py
 from hypothesis import given, settings
 import math
@@ -210,22 +107,7 @@ def test_subtotal_never_negative(items, tax_rate):
 **Закон 2 — знижку видно в підсумку тоді й лише тоді, коли до-знижкова сума > 1000.** Це біумовність, і перевіряємо її не за прапорцем (це було б переказом коду), а за **фактичними грішми**: якщо сума перейшла тисячу — підсумок мусить бути рівно на 5 % менший; якщо ні — підсумок дорівнює до-знижковій сумі:
 
 :::tabs
-```ts
-test("знижку видно в підсумку ⟺ до-знижковий > 1000", () => {
-  fc.assert(
-    fc.property(
-      fc.array(itemGen),
-      fc.double({ min: 0, max: 0.3, noNaN: true }),
-      (items, taxRate) => {
-        const o = priceOrder(items, taxRate);
-        const expected = o.preDiscount > 1000 ? o.preDiscount * 0.95 : o.preDiscount;
-        return o.discounted === (o.preDiscount > 1000)
-            && Math.abs(o.total - expected) < 1e-6;
-      }),
-    { numRuns: 10_000 },
-  );
-});
-```
+:::code proj-property-tests-core/ts/chotyry-zakony-nad-iadrom-2.ts
 ```py
 @settings(max_examples=10_000)
 @given(items=st.lists(item), tax_rate=st.floats(min_value=0, max_value=0.3))
@@ -240,20 +122,7 @@ def test_discount_iff_over_1000(items, tax_rate):
 **Закон 3 — заморожений рахунок ніколи не списують.** Ось де квантор показує силу: властивість каже, що **хоч би який** запит на зняття прийшов на заморожений рахунок, серед ефектів **не буде жодного** `debit`. Прикладами таке не закрити — запитів нескінченно; властивість же кидає тисячі різних сум і кожну перевіряє:
 
 :::tabs
-```ts
-test("заморожений рахунок ніколи не списують", () => {
-  fc.assert(
-    fc.property(
-      frozenAccGen,
-      fc.record({ amount: fc.nat({ max: 2_000_000 }) }),
-      (acc, req) => {
-        const effects = decideWithdraw(acc, req);
-        return effects.every(e => e.kind !== "debit");   // жодного списання
-      }),
-    { numRuns: 10_000 },
-  );
-});
-```
+:::code proj-property-tests-core/ts/chotyry-zakony-nad-iadrom-3.ts
 ```py
 @settings(max_examples=10_000)
 @given(acc=frozen_acc,
@@ -267,21 +136,7 @@ def test_frozen_never_debited(acc, req):
 **Закон 4 — сума частин дорівнює цілому.** Закон збереження грошей: скільки не ділили б і на скільки частин, сума частин збігається з початковою сумою, і частин рівно `n`:
 
 :::tabs
-```ts
-test("сума частин розбитого повернення = ціле", () => {
-  fc.assert(
-    fc.property(
-      fc.nat({ max: 1_000_000 }),
-      fc.integer({ min: 1, max: 100 }),
-      (total, n) => {
-        const parts = splitRefund(total, n);
-        const sum = parts.reduce((a, b) => a + b, 0);
-        return sum === total && parts.length === n;
-      }),
-    { numRuns: 10_000 },
-  );
-});
-```
+:::code proj-property-tests-core/ts/chotyry-zakony-nad-iadrom-4.ts
 ```py
 @settings(max_examples=10_000)
 @given(total=st.integers(min_value=0, max_value=1_000_000),

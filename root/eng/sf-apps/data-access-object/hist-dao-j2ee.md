@@ -20,27 +20,7 @@
 
 Одного інтерфейсу мало, якщо реалізацію все одно вибирають руками в сотні місць. Тому в первісному описі DAO ішов не сам, а в парі з **фабрикою**. Автори прямо сперли її на два породжувальні патерни «банди чотирьох»: [фабричний метод](root:sf-apps/factory-method) — коли сховище одне й не змінюється, і абстрактну фабрику — коли сховищ кілька й їх треба перемикати (документований факт за виданням). Форма з книги виглядала приблизно так:
 
-```java
-// абстрактна фабрика: приховує, з якого сховища беруться DAO
-abstract class DAOFactory {
-    abstract OrderDAO    getOrderDAO();
-    abstract CustomerDAO getCustomerDAO();
-
-    static DAOFactory getFactory(int whichStore) {   // RDB, LDAP, …
-        switch (whichStore) {
-            case RDB:  return new RdbDAOFactory();
-            case LDAP: return new LdapDAOFactory();
-            default:   return null;
-        }
-    }
-}
-
-// конкретна фабрика під реляційну базу
-class RdbDAOFactory extends DAOFactory {
-    OrderDAO    getOrderDAO()    { return new RdbOrderDAO(); }
-    CustomerDAO getCustomerDAO() { return new RdbCustomerDAO(); }
-}
-```
+:::code hist-dao-j2ee/java/main.java
 
 Задум прозорий, коли бачиш його на очах. `DAOFactory` — абстрактна фабрика: вона обіцяє видати `OrderDAO` й `CustomerDAO`, але мовчить, звідки ті беруть дані. `RdbDAOFactory` — конкретна фабрика під реляційну базу, що повертає `RdbOrderDAO`; поряд жила б `LdapDAOFactory` зі своїм `LdapOrderDAO`. Увесь застосунок бере DAO **тільки в фабрики** — і тоді перехід на інше джерело зводиться до однієї підміни: попросити іншу фабрику. Це й був той інженерний виграш, заради якого DAO виносили в окремий шар: не абстрактна краса, а дешева заміна сховища на живій системі, де половина даних сьогодні тут, а завтра переїжджає туди.
 

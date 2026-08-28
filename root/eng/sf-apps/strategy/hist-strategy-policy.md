@@ -29,19 +29,7 @@ void qsort(void *base, size_t nmemb, size_t size,
 
 Придивись до останнього параметра `compar`. Це **вказівник на функцію-порівнювач** — рівно та сама «передана поведінка», що й у Lisp. `qsort` — незмінний процес сортування; `compar` — взаємозамінне правило, яке ти приносиш. Тобто C цілком уміє стратегію: ти пишеш кілька функцій-порівнювачів і підставляєш потрібну.
 
-```c
-// два взаємозамінні «правила» — дві окремі стратегії
-int by_asc(const void *a, const void *b) {
-    return *(const int*)a - *(const int*)b;      // за зростанням
-}
-int by_desc(const void *a, const void *b) {
-    return *(const int*)b - *(const int*)a;      // за спаданням
-}
-
-int nums[] = {5, 2, 9, 1};
-qsort(nums, 4, sizeof(int), by_asc);             // підставили одну
-qsort(nums, 4, sizeof(int), by_desc);            // підставили іншу
-```
+:::code hist-strategy-policy/c/main.c
 
 А тепер — тонкість, яка все й пояснює. Уяви, що правило порівняння **не сталеˊ**, а залежить від чогось, порахованого в рантаймі: скажімо, ти хочеш сортувати рядки за відстанню до якогось заданого зразка. Функції-порівнювачу треба знати той зразок. Але підпис `compar` — жорсткий: рівно два вказівники на елементи, і жодного місця, щоб «просунути» зразок усередину. Функція в C — гола: вона не носить із собою жодного стану, тільки код. У неї немає **замикання** — механізму, яким функція пам'ятає значення з місця свого народження.
 
@@ -100,48 +88,9 @@ qsort_r(nums, 4, sizeof(int), by_closeness, &pivot);  // стан подорож
 
 Подивімось, як це виглядає, поставивши поряд рантайм-стратегію й компайл-тайм-політику — щоб побачити, що це те саме двома руками:
 
-```cpp
-// (1) КЛАСИЧНА стратегія: поведінка — рантайм-ОБ'ЄКТ за вказівником/посиланням.
-//     Який алгоритм — вирішується під час РОБОТИ програми.
-struct DiscountPolicy {
-    virtual double discount(double total) const = 0;   // спільний інтерфейс
-    virtual ~DiscountPolicy() = default;
-};
-struct VipDiscount : DiscountPolicy {
-    double discount(double total) const override { return total * 0.20; }
-};
+:::code hist-strategy-policy/cpp/toi-samyi-pryiom-na-etapi.cpp
 
-struct Order {
-    DiscountPolicy* policy;                             // поле — підставна поведінка
-    double total;
-    double final_price() const {
-        return total - policy->discount(total);         // віртуальний виклик у рантаймі
-    }
-};
-```
-
-```cpp
-// (2) ПОЛІТИКА: та сама поведінка — компайл-тайм-ТИП-параметр.
-//     Який алгоритм — вирішується під час КОМПІЛЯЦІЇ; віртуальних викликів нема.
-struct VipDiscount {
-    static double discount(double total) { return total * 0.20; }
-};
-struct NoDiscount {
-    static double discount(double total) { return 0.0; }
-};
-
-template <class Policy>                                 // поведінка приходить ТИПОМ
-struct Order {
-    double total;
-    double final_price() const {
-        return total - Policy::discount(total);         // підставлено ще до запуску
-    }
-};
-
-// вибір робиться в типі: компілятор згортає окрему версію під кожну політику
-Order<VipDiscount> a{1000};   a.final_price();          // 800
-Order<NoDiscount>  b{1000};   b.final_price();          // 1000
-```
+:::code hist-strategy-policy/cpp/toi-samyi-pryiom-na-etapi-2.cpp
 
 Порівняй два `Order`. Структурно вони роблять **одне**: тримають сталий процес `final_price` і підставну поведінку `discount`. Різниця тільки в тому, **коли** підставляється поведінка й **чим** вона представлена. У варіанті (1) поведінка — це об'єкт, вибраний під час роботи, і за нього платиш віртуальним викликом, зате можеш підмінити його на льоту через `policy = …`. У варіанті (2) поведінку зашито в тип ще при компіляції: підмінити її під час роботи не можна (тип `Order<VipDiscount>` — це назавжди інший тип, ніж `Order<NoDiscount>`), зате нема жодного рантайм-коштування — компілятор часто вбудовує все в один рядок.
 

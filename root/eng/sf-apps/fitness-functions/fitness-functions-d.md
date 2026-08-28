@@ -177,19 +177,7 @@ function ratchet(current: number, baseline: number): { pass: boolean; baseline: 
   return { pass: true, baseline: Math.min(baseline, current) };
 }
 ```
-```go
-func ratchet(current, baseline int) (bool, int) {
-	if current > baseline {
-		// регресія: порушень побільшало — ворота падають
-		return false, baseline
-	}
-	// поступ (або без змін): планка тісниться до досягнутого, ніколи назад
-	if current < baseline {
-		baseline = current
-	}
-	return true, baseline
-}
-```
+:::code fitness-functions-d/go/main.go
 :::
 
 Уся хитрість — у тому єдиному `min`: він і є храповик, що не дає планці відпустити. Прибери його, зроби планку рівною `current` завжди — і дістанеш варену жабу, ту саму перевірку, що ніколи не падає. Один рядок відділяє вартового від снодійного.

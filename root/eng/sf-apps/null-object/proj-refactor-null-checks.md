@@ -7,76 +7,8 @@
 Візьмімо акаунт у SaaS-сервісі. У користувача **може** бути платна підписка, а може й не бути — тоді він на вільному тарифі. Розробник зобразив «немає підписки» найпростіше: поле `sub` типу «підписка **або** `null`». І тепер кожен метод, якому підписка потрібна, спершу питає «а вона взагалі є?», і якщо ні — повертає значення вільного тарифу.
 
 :::tabs
-```ts
-const BASIC = new Set(["export-csv"]);   // що дозволено на вільному тарифі
-
-interface Subscription {
-  price(): number;
-  storageGb(): number;
-  seats(): number;
-  includes(feature: string): boolean;
-}
-
-class Account {
-  constructor(
-    readonly name: string,
-    private sub: Subscription | null,    // вільні користувачі: null
-  ) {}
-
-  monthlyPrice(): number {
-    if (this.sub !== null) return this.sub.price();
-    return 0;                            // вільний тариф
-  }
-  storageGb(): number {
-    if (this.sub !== null) return this.sub.storageGb();
-    return 1;                            // вільний тариф: 1 ГБ
-  }
-  seats(): number {
-    if (this.sub !== null) return this.sub.seats();
-    return 1;
-  }
-  hasFeature(f: string): boolean {
-    if (this.sub !== null) return this.sub.includes(f);
-    return BASIC.has(f);
-  }
-}
-```
-```py
-from typing import Optional, Protocol
-
-BASIC = {"export-csv"}                    # що дозволено на вільному тарифі
-
-class Subscription(Protocol):
-    def price(self) -> float: ...
-    def storage_gb(self) -> int: ...
-    def seats(self) -> int: ...
-    def includes(self, feature: str) -> bool: ...
-
-class Account:
-    def __init__(self, name: str, sub: Optional[Subscription]) -> None:
-        self.name = name
-        self._sub = sub                   # вільні користувачі: None
-
-    def monthly_price(self) -> float:
-        if self._sub is not None:
-            return self._sub.price()
-        return 0.0                        # вільний тариф
-
-    def storage_gb(self) -> int:
-        if self._sub is not None:
-            return self._sub.storage_gb()
-        return 1                          # вільний тариф: 1 ГБ
-
-    def seats(self) -> int:
-        if self._sub is not None:
-            return self._sub.seats()
-        return 1
-
-    def has_feature(self, f: str) -> bool:
-        if self._sub is not None:
-            return self._sub.includes(f)
-        return f in BASIC
-```
+:::code proj-refactor-null-checks/ts/zadacha-kod-zasiianyi.ts
+:::code proj-refactor-null-checks/py/zadacha-kod-zasiianyi.py
 :::
 
 Придивімося, що тут насправді написано чотири рази. Не перевірка `!= null` сама по собі — а **ціла політика вільного тарифу**, розмазана по методах: ціна нуль, сховище один гігабайт, одне місце, обмежений набір можливостей. Кожен `else` — крихта цієї політики. Вона не живе ніде як щось цілісне; вона існує лише як чотири уламки, розкидані поміж перевірками.
@@ -124,35 +56,8 @@ class FreeSubscription:
 **Крок 4. Прибрати діру з поля.** Це найважливіший крок, бо саме він робить перевірки зайвими. Треба гарантувати, що в поле `sub` **ніколи** не потрапить `null` — там завжди або платна підписка, або `FreeSubscription`. Рішення «є підписка чи ні» переїжджає в **одне** місце: туди, де акаунт складають (фабрику, завантажувач із бази). Тип поля стає просто `Subscription`, без «або null»:
 
 :::tabs
-```ts
-const FREE: Subscription = new FreeSubscription();   // спільний, про нього — нижче
-
-class Account {
-  constructor(
-    readonly name: string,
-    private sub: Subscription,          // ніколи не null
-  ) {}
-  // ...методи — на кроці 5
-}
-
-// єдине місце, де вирішуємо: підставити FREE замість null
-function accountFor(name: string, sub: Subscription | null): Account {
-  return new Account(name, sub ?? FREE);
-}
-```
-```py
-FREE: Subscription = FreeSubscription()   # спільний, про нього — нижче
-
-class Account:
-    def __init__(self, name: str, sub: Subscription) -> None:
-        self.name = name
-        self._sub = sub                    # ніколи не None
-    # ...методи — на кроці 5
-
-# єдине місце, де вирішуємо: підставити FREE замість None
-def account_for(name: str, sub: Optional[Subscription]) -> Account:
-    return Account(name, sub or FREE)
-```
+:::code proj-refactor-null-checks/ts/krok-za-krokom.ts
+:::code proj-refactor-null-checks/py/krok-za-krokom.py
 :::
 
 **Крок 5. Викинути перевірки.** Тепер, коли поле гарантовано має значення, тіла методів згортаються до однорядкового делегування:
@@ -200,35 +105,8 @@ class Account:
 Канонічна відповідь патерна — додати до інтерфейсу **детектор**. Часто його звуть `isNull()`, але чесніше — дати йому **семантичне** ім'я, що каже про предметну область, а не про механіку реалізації. Не «чи ти той-порожній», а «чи ти платний»:
 
 :::tabs
-```ts
-interface Subscription {
-  price(): number;
-  // ...
-  isBillable(): boolean;         // семантичний детектор, не «isNull»
-}
-
-class PaidSubscription implements Subscription {
-  isBillable(): boolean { return true; }
-  // ...
-}
-class FreeSubscription implements Subscription {
-  isBillable(): boolean { return false; }
-  // ...
-}
-```
-```py
-class Subscription(Protocol):
-    def price(self) -> float: ...
-    # ...
-    def is_billable(self) -> bool: ...   # семантичний детектор, не «is_null»
-
-class PaidSubscription:
-    def is_billable(self) -> bool: return True
-    # ...
-class FreeSubscription:
-    def is_billable(self) -> bool: return False
-    # ...
-```
+:::code proj-refactor-null-checks/ts/koly-raptom-treba.ts
+:::code proj-refactor-null-checks/py/koly-raptom-treba.py
 :::
 
 Але тримай у голові головне застереження: кожен доданий детектор **частково відкочує** рефакторинг — розгалуження повертається, просто тепер його викликають явно там, де воно справді потрібне. Це нормально, поки таких місць одиниці. Якщо ж `isBillable()` розповзається по всьому коду не гірше за колишні `null`-перевірки — це знак, що відсутність тут насправді **важлива** й видима скрізь, і, можливо, чесніше було б лишити її видимою в типі (через `Optional`), а не ховати за порожнім об'єктом. Детектор — виняток, який дозволяєш собі свідомо, а не двері, крізь які старий біль вертається назад.
@@ -292,40 +170,8 @@ wrong  = len(accounts)                                        # БРЕХНЯ: р
 Ліки — провести цю розвилку **на межі**, у тому єдиному місці, куди ми на кроці 4 винесли рішення. Завантажувач мусить розрізнити дозволену відсутність від помилкової **до** того, як підставить порожній об'єкт:
 
 :::tabs
-```ts
-// ПОГАНО: будь-яка відсутність → FREE, обидва баги проковтнуто
-function loadBad(row: Row | null): Subscription {
-  return row ? new PaidSubscription(row) : FREE;
-}
-
-// ДОБРЕ: розвилку проходимо явно, перш ніж підставляти порожній об'єкт
-function loadSubscription(userId: string): Subscription {
-  const user = users.get(userId);              // кине, якщо юзера немає — це вже не «вільний»
-  const row = plans.find(user.planId);         // find кидає на збій запиту, не повертає null
-
-  if (user.tier === "enterprise" && row === null) {
-    // enterprise без плану — порушення інваріанта, а не вільний тариф
-    throw new Error(`enterprise-акаунт ${userId} без плану — цілісність порушено`);
-  }
-  return row === null ? FREE : new PaidSubscription(row);   // рядка нема → законно вільний
-}
-```
-```py
-# ПОГАНО: будь-яка відсутність → FREE, обидва баги проковтнуто
-def load_bad(row: Optional[Row]) -> Subscription:
-    return PaidSubscription(row) if row else FREE
-
-# ДОБРЕ: розвилку проходимо явно, перш ніж підставляти порожній об'єкт
-def load_subscription(user_id: str) -> Subscription:
-    user = users[user_id]                        # KeyError, якщо юзера немає — це вже не «вільний»
-    row = plans.find(user.plan_id)               # find кидає на збій запиту, не повертає None
-
-    if user.tier == "enterprise" and row is None:
-        # enterprise без плану — порушення інваріанта, а не вільний тариф
-        raise IntegrityError(f"enterprise-акаунт {user_id} без плану — цілісність порушено")
-
-    return FREE if row is None else PaidSubscription(row)   # рядка нема → законно вільний
-```
+:::code proj-refactor-null-checks/ts/naivazhlyvishe-koly.ts
+:::code proj-refactor-null-checks/py/naivazhlyvishe-koly.py
 :::
 
 Суть у тому, що порожній об'єкт легалізує лише **дозволену** відсутність — ту, для якої «нічого» є законним, очікуваним станом з осмисленою нейтральною поведінкою. Відсутність, що насправді є [порушенням інваріанта](root:sf-apps/invariants) («enterprise завжди має план»), мусить голосно спинити виконання, а не тихо перетворитися на вільний тариф. Це той-таки принцип, що [жодна помилка не має мовчати](root:sf-apps/error-handling): підставляй нейтральне значення тільки там, де ти вже **довів**, що воно правильне для кожного шляху, яким туди можна дійти, — включно зі шляхами-помилками.

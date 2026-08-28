@@ -28,100 +28,10 @@
 Лікують це так само, як у сінглтоні: **зробити перевірку-й-створення неподільними**. Але кожна платформа дає для цього свій ідіом, і вони повчально різні — бо різні їхні моделі паралельності. Той самий реєстр логерів, потокобезпечно, трьома мовами:
 
 :::tabs
-```java
-// Java: computeIfAbsent на ConcurrentHashMap — АТОМАРНИЙ get-or-create.
-// Перевірка й вставка — під внутрішнім замком сегмента мапи, одним кроком.
-public final class LoggerRegistry {
-    private final ConcurrentMap<String, Logger> loggers = new ConcurrentHashMap<>();
-
-    public Logger get(String name) {
-        // якщо ключа нема — викликає Logger::new РІВНО раз, навіть під десятком потоків;
-        // решта чекають і отримують той самий створений екземпляр
-        return loggers.computeIfAbsent(name, Logger::new);
-    }
-}
-```
-```go
-// Go: подвійна перевірка на RWMutex. Спершу дешеве читання під RLock;
-// якщо промах — беремо ексклюзивний Lock і перевіряємо ще раз, уже під ним.
-type LoggerRegistry struct {
-    mu      sync.RWMutex
-    loggers map[string]*Logger
-}
-
-func NewLoggerRegistry() *LoggerRegistry {
-    return &LoggerRegistry{loggers: make(map[string]*Logger)}
-}
-
-func (r *LoggerRegistry) Get(name string) *Logger {
-    r.mu.RLock()
-    lg, ok := r.loggers[name]
-    r.mu.RUnlock()
-    if ok {
-        return lg // швидкий шлях: ключ уже є, жодного ексклюзивного замка
-    }
-
-    r.mu.Lock()
-    defer r.mu.Unlock()
-    if lg, ok := r.loggers[name]; ok { // друга перевірка: хтось міг створити, поки ми брали Lock
-        return lg
-    }
-    lg = newLogger(name)
-    r.loggers[name] = lg
-    return lg
-}
-```
-```cpp
-// C++: подвійна перевірка на shared_mutex. Дешеве спільне читання під
-// shared_lock; якщо промах — ексклюзивний unique_lock і друга перевірка під ним.
-#include <shared_mutex>
-#include <mutex>
-#include <unordered_map>
-#include <memory>
-#include <string>
-
-class LoggerRegistry {
-    std::unordered_map<std::string, std::shared_ptr<Logger>> loggers_;
-    std::shared_mutex mu_;
-public:
-    std::shared_ptr<Logger> get(const std::string& name) {
-        {
-            std::shared_lock read{mu_};            // читачі гарячого шляху не блокують одне одного
-            auto it = loggers_.find(name);
-            if (it != loggers_.end())
-                return it->second;                 // швидкий шлях: ключ уже є
-        }
-        std::unique_lock write{mu_};               // на створення — ексклюзивний замок
-        auto it = loggers_.find(name);             // друга перевірка: хтось міг створити, поки брали замок
-        if (it != loggers_.end())
-            return it->second;
-        auto lg = std::make_shared<Logger>(name);
-        loggers_.emplace(name, lg);
-        return lg;
-    }
-};
-```
-```python
-# Python: подвійна перевірка на threading.Lock.
-# Читання dict без замка безпечне під GIL; присвоєння атомарне — тож ідіом коректний.
-import threading
-
-class LoggerRegistry:
-    def __init__(self):
-        self._loggers: dict[str, Logger] = {}
-        self._lock = threading.Lock()
-
-    def get(self, name: str) -> "Logger":
-        lg = self._loggers.get(name)      # швидка перевірка без замка
-        if lg is not None:
-            return lg
-        with self._lock:                  # у вузьке місце — по одному
-            lg = self._loggers.get(name)  # друга перевірка вже під замком
-            if lg is None:
-                lg = Logger(name)
-                self._loggers[name] = lg
-            return lg
-```
+:::code proj-multiton-registry/java/robochyi-kod.java
+:::code proj-multiton-registry/go/main.go
+:::code proj-multiton-registry/cpp/main.cpp
+:::code proj-multiton-registry/py/main.py
 :::
 
 Придивися, як чотири мови кажуть **одне й те саме** різними словами. `computeIfAbsent` у Java — це готовий, вбудований атомарний get-or-create: тобі не видно ані `if`, ані замка, платформа зробила їх усередині. Go, C++ і Python такого одного виклику не мають, тож пишуть **подвійну перевірку** руками: дешева перевірка спочатку (щоб на гарячому шляху, коли ключ давно є, не платити за ексклюзивний замок), а якщо промах — замок і **друга** перевірка під ним, бо між першою перевіркою й захопленням замка запис міг з'явитися. Go і C++ ідуть іще на крок далі: перше читання беруть під **спільним** замком для читачів (`RWMutex` у Go, `shared_mutex` у C++), щоб паралельні читачі гарячого шляху не ставали в чергу одне за одним, і лише на створення вмикають ексклюзивний замок. Це той самий приклад двоетапної обережності, що й у класичному блокуванні з подвійною перевіркою, — але тут він **коректний без хитрощів із пам'яттю**, бо ми не публікуємо напівготове посилання: у Go запис у мапу відбувається під замком, у C++ і запис, і читання захищає той самий `shared_mutex`, у Python присвоєння в `dict` атомарне під GIL, і читач або бачить повністю готовий об'єкт, або не бачить нічого.
@@ -135,49 +45,11 @@ class LoggerRegistry:
 
 Може здатися, що в однопотокових середовищах — як-от Node.js із його однією ниткою виконання — цієї мороки нема: без потоків нема й гонитви, і реєстр зводиться до `Map` з простим `if`. Для **синхронного** створення це правда:
 
-```ts
-// Синхронний get-or-create: у Node одна нитка, гонитві нізвідки взятися
-class LoggerRegistry {
-  private loggers = new Map<string, Logger>();
-
-  get(name: string): Logger {
-    let lg = this.loggers.get(name);
-    if (lg === undefined) {
-      lg = new Logger(name);          // між get і set керування нікуди не йде
-      this.loggers.set(name, lg);
-    }
-    return lg;
-  }
-}
-```
+:::code proj-multiton-registry/ts/odnopotokovyi-ne-oznachaie.ts
 
 Але щойно створення стає **асинхронним** — а для пулів, з'єднань, дорогих клієнтів воно майже завжди асинхронне, — гонитва повертається навіть на одній нитці. Річ у `await`: у точці `await` функція **віддає керування** назад у цикл подій, і поки перший виклик чекає, поки збудується пул, другий виклик з тим самим ключем устигає пройти ту саму перевірку «пулу ще нема» й теж почати будувати. Дві нитки не потрібні — досить двох перекладених у часі `await`-ів:
 
-```ts
-class PoolRegistry {
-  private pools = new Map<string, Pool>();
-  private inflight = new Map<string, Promise<Pool>>();
-
-  get(key: string): Promise<Pool> {
-    const ready = this.pools.get(key);
-    if (ready) return Promise.resolve(ready);      // уже готовий
-
-    // ключова хитрість: кешуємо саму ОБІЦЯНКУ побудови, а не лише готовий пул.
-    // Другий виклик під час будівництва дістане ТУ САМУ обіцянку й дочекається її,
-    // а не почне будувати другий пул.
-    let building = this.inflight.get(key);
-    if (!building) {
-      building = createPool(key).then(pool => {
-        this.pools.set(key, pool);
-        this.inflight.delete(key);
-        return pool;
-      });
-      this.inflight.set(key, building);
-    }
-    return building;
-  }
-}
-```
+:::code proj-multiton-registry/ts/odnopotokovyi-ne-oznachaie-2.ts
 
 Прийом «кешувати незавершену обіцянку» — це рівно те, що в Go зветься **singleflight** («один політ»): скільки б викликів не прийшло на один ключ, поки триває створення, справжня робота виконується **один раз**, а всі решта чіпляються до того самого результату. Побачити цю гонитву на однонитковому Node важче, ніж потокову, — і саме тому вона частіше доживає до продакшну.
 
@@ -190,56 +62,8 @@ class PoolRegistry {
 Реєстр згортає цей розсип у **одну** залежність. Замість того щоб десятки місць лізли по десятки глобалів, ти створюєш реєстр **один раз** — там, де збираєш програму докупи (композиційний корінь), — і **передаєш** його тим, кому він потрібен. Один шов замість багатьох:
 
 :::tabs
-```ts
-// БУЛО: сервіс сам лізе по глобальний логер — прихована залежність, підмінити нема куди
-class OrderService {
-  process(order: Order) {
-    Logger.get("orders").info("нове замовлення");   // ← незримий глобал
-  }
-}
-
-// СТАЛО: реєстр приходить через конструктор — залежність видно, її можна підмінити
-class OrderService {
-  constructor(private loggers: LoggerRegistry) {}    // ← видно в сигнатурі
-
-  process(order: Order) {
-    this.loggers.get("orders").info("нове замовлення");
-  }
-}
-
-// збірка програми (один раз, в одному місці):
-const loggers = new LoggerRegistry();
-const orders = new OrderService(loggers);
-
-// у тесті: підставляємо фейковий реєстр — жодного глобального стану
-const fake = new FakeLoggerRegistry();
-const sut = new OrderService(fake);
-```
-```java
-// БУЛО: прихована залежність від глобального реєстру логерів
-class OrderService {
-    void process(Order order) {
-        Logger.get("orders").info("нове замовлення");  // ← незримий глобал
-    }
-}
-
-// СТАЛО: реєстр — явна залежність конструктора
-class OrderService {
-    private final LoggerRegistry loggers;
-    OrderService(LoggerRegistry loggers) { this.loggers = loggers; }  // ← видно в сигнатурі
-
-    void process(Order order) {
-        loggers.get("orders").info("нове замовлення");
-    }
-}
-
-// збірка (композиційний корінь):
-LoggerRegistry loggers = new LoggerRegistry();
-OrderService orders = new OrderService(loggers);
-
-// у тесті: свій реєстр на кожен тест, стан не тече між прогонами
-OrderService sut = new OrderService(new FakeLoggerRegistry());
-```
+:::code proj-multiton-registry/ts/reiestr-iak-zalezhnist.ts
+:::code proj-multiton-registry/java/reiestr-iak-zalezhnist.java
 :::
 
 Різниця здається косметичною, а переставляє все на місця. Залежність `OrderService` від логерів тепер **написана в конструкторі** — її видно з першого погляду. Хто дасть той реєстр і чи він один на всю програму — вирішується в **одному місці**. А головне — повертається **тестованість**: у тесті ти передаєш фейковий реєстр, кожен тест дістає свій, ізольований, і жоден не отруює наступного спільним живучим станом. Це і є [впровадження залежностей](root:sf-apps/dependency-injection): об'єкт **отримує** потрібне ззовні, а не **добуває** сам глобально; для реєстру воно працює точно так само, як для будь-якого іншого об'єкта.
@@ -283,42 +107,7 @@ OrderService sut = new OrderService(new FakeLoggerRegistry());
 
 Ліки — **обмежити реєстр**: викидати давно не вживані записи (евікція за LRU — least-recently-used), тримати стелю розміру або час життя (TTL). Але тут чигає ще одна пастка, специфічна для дорогих ресурсів: **викинути запис — це не те саме, що звільнити ресурс**. Якщо значення — пул з'єднань, файл чи сокет, то просто прибрати посилання з мапи мало: збирач сміття прибере об'єкт, але **дескриптор** (з'єднання, файловий хендл) лишиться відкритим, поки не спрацює фіналізатор — а він може й не спрацювати. Тому при евікції ресурс треба **явно закрити**:
 
-```java
-// Обмежений реєстр пулів: стеля розміру + LRU + ЗАКРИТТЯ пулу при евікції.
-public final class PoolRegistry implements AutoCloseable {
-    private static final int MAX = 64;
-    private final Map<String, ConnectionPool> pools;
-
-    public PoolRegistry() {
-        // accessOrder=true → LinkedHashMap тримає порядок за останнім доступом (LRU)
-        this.pools = new LinkedHashMap<>(16, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry<String, ConnectionPool> eldest) {
-                if (size() > MAX) {
-                    eldest.getValue().close();   // ← закрити з'єднання, не лише кинути посилання
-                    return true;                 // ← і аж тоді видалити запис
-                }
-                return false;
-            }
-        };
-    }
-
-    public synchronized ConnectionPool get(String url) {  // LinkedHashMap не потокобезпечний
-        ConnectionPool p = pools.get(url);                // get теж оновлює «свіжість» (LRU)
-        if (p == null) {
-            p = new ConnectionPool(url);
-            pools.put(url, p);                            // put запускає removeEldestEntry
-        }
-        return p;
-    }
-
-    @Override
-    public synchronized void close() {
-        pools.values().forEach(ConnectionPool::close);    // при зупинці — закрити всі
-        pools.clear();
-    }
-}
-```
+:::code proj-multiton-registry/java/neobmezhene-zrostannia-i.java
 
 У продакшні цю логіку рідко пишуть руками — беруть готову обмежену мапу (Caffeine чи Guava в Java, `lru_cache` з максимумом чи бібліотечний LRU у Python), де стеля розміру, TTL і **гачок на евікцію** (щоб закрити ресурс) уже реалізовані й перевірені. Але розуміти під ними треба саме це: реєстр без межі — це витік, а межа без закриття ресурсу — витік дескрипторів. Сам пул з'єднань, який тут виступає значенням, — це окремий патерн зі своїм життєвим циклом; як він улаштований усередині, розібрано в [пулі об'єктів](root:sf-apps/object-pool) (тримати напоготові набір дорогих на створення об'єктів і видавати їх у користування замість щоразу створювати наново).
 

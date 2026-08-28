@@ -96,68 +96,9 @@ N → ∞  :   (1+r)⁻ᴺ → 0      ⟹      A(r) → 1/r
 Зберімо все в калькулятор. Три функції покривають усю арифметику вище — теперішня вартість однієї суми, NPV довільного потоку й замкнутий множник ануїтету:
 
 :::tabs
-```cpp
-#include <cmath>
-#include <vector>
-#include <cstdio>
-
-// Теперішня вартість суми fv, яку заплатять/отримають через n років.
-double pv(double fv, double r, int n) { return fv / std::pow(1 + r, n); }
-
-// flows[t] — потік у рік t (t = 0, 1, 2, …). Зводить усе до сьогодні.
-double npv(const std::vector<double>& flows, double r) {
-    double acc = 0.0;
-    for (std::size_t t = 0; t < flows.size(); ++t)
-        acc += flows[t] / std::pow(1 + r, static_cast<double>(t));
-    return acc;
-}
-
-// A(r) = Σ 1/(1+r)^t за t = 1..n — замкнутий вигляд, без циклу.
-double annuity_factor(double r, int n) {
-    if (r == 0.0) return static_cast<double>(n);   // границя: дисконтувати нічого
-    return (1 - std::pow(1 + r, -n)) / r;
-}
-
-int main() {
-    // Рівний потік 60 тис. на рік п'ять років під 10 % — одним множенням:
-    std::printf("%.2f\n", 60 * annuity_factor(0.10, 5));   // 227.45 тис.
-}
-```
-```python
-def pv(fv, r, n):
-    """Теперішня вартість суми fv, яку заплатять/отримають через n років."""
-    return fv / (1 + r) ** n
-
-def npv(flows, r):
-    """flows[t] — потік у рік t (t = 0, 1, 2, …). Зводить усе до сьогодні."""
-    return sum(cf / (1 + r) ** t for t, cf in enumerate(flows))
-
-def annuity_factor(r, n):
-    """A(r) = Σ 1/(1+r)^t за t = 1..n — замкнутий вигляд, без циклу."""
-    if r == 0:                      # границя: дисконтувати нічого
-        return float(n)
-    return (1 - (1 + r) ** (-n)) / r
-
-# Рівний потік 60 тис. на рік п'ять років під 10 % — одним множенням:
-print(60 * annuity_factor(0.10, 5))   # 227.45 тис.
-```
-```typescript
-// Теперішня вартість суми fv, яку заплатять/отримають через n років.
-const pv = (fv: number, r: number, n: number): number => fv / (1 + r) ** n;
-
-// flows[t] — потік у рік t (t = 0, 1, 2, …). Зводить усе до сьогодні.
-const npv = (flows: number[], r: number): number =>
-  flows.reduce((acc, cf, t) => acc + cf / (1 + r) ** t, 0);
-
-// A(r) = Σ 1/(1+r)^t за t = 1..n — замкнутий вигляд, без циклу.
-function annuityFactor(r: number, n: number): number {
-  if (r === 0) return n;            // границя: дисконтувати нічого
-  return (1 - (1 + r) ** -n) / r;
-}
-
-// Рівний потік 60 тис. на рік п'ять років під 10 % — одним множенням:
-console.log(60 * annuityFactor(0.10, 5));   // 227.45 тис.
-```
+:::code math-npv/cpp/mnozhnyk-anuitetu-zhornuty.cpp
+:::code math-npv/py/mnozhnyk-anuitetu-zhornuty.py
+:::code math-npv/ts/mnozhnyk-anuitetu-zhornuty.ts
 :::
 
 ## Точка беззбитковості за ставкою
@@ -180,69 +121,9 @@ A(r*)          = 3.75
 Рішення звелося до одного рівняння: `A(r*) = 3.75`. І тут стає в пригоді те, що ми бачили на кривій, — **`A(r)` строго спадає з ростом `r`** (кожен доданок `1/(1+r)ᵗ` меншає, коли `r` більшає, тож `dA/dr < 0`). Функція неперервна й падає від `A(0) = N = 5` до нуля, а `3.75` лежить між нулем і п'ятіркою — отже, рівняння має **рівно один корінь**. Не два, не жодного: єдина ставка, що ділить світ навпіл. Аналітично `A(r) = 3.75` не розв'язати (степінь із `r` і в основі, і в показнику), зате спадність робить **бісекцію** — половинний пошук — цілком надійною: раз функція монотонна, кожен крок гарантовано вдвічі звужує вилку навколо кореня.
 
 :::tabs
-```cpp
-#include <cmath>
-#include <cstdio>
-
-double annuity_factor(double r, int n) {
-    return r == 0.0 ? static_cast<double>(n) : (1 - std::pow(1 + r, -n)) / r;
-}
-
-// Знайти r*, за якої A(r*) = target_A. A спадає з r → бісекція надійна.
-double solve_rate(double target_A, int n,
-                  double lo = 1e-9, double hi = 5.0, int iters = 100) {
-    for (int i = 0; i < iters; ++i) {
-        double mid = (lo + hi) / 2;
-        if (annuity_factor(mid, n) > target_A)
-            lo = mid;        // A завелика → ставка замала → рухаємось управо
-        else
-            hi = mid;        // A замала  → ставка завелика → рухаємось уліво
-    }
-    return (lo + hi) / 2;
-}
-
-int main() {
-    // «будувати» = «купити»:  150 + 20·A = 60·A  ⟹  A = 3.75
-    double r_star = solve_rate(3.75, 5);
-    std::printf("r* = %.4f  (%.1f %%)\n", r_star, r_star * 100);   // r* = 0.1042  (10.4 %)
-}
-```
-```python
-def annuity_factor(r, n):
-    return float(n) if r == 0 else (1 - (1 + r) ** (-n)) / r
-
-def solve_rate(target_A, n, lo=1e-9, hi=5.0, iters=100):
-    """Знайти r*, за якої A(r*) = target_A. A спадає з r → бісекція надійна."""
-    for _ in range(iters):
-        mid = (lo + hi) / 2
-        if annuity_factor(mid, n) > target_A:
-            lo = mid        # A завелика → ставка замала → рухаємось управо
-        else:
-            hi = mid        # A замала  → ставка завелика → рухаємось уліво
-    return (lo + hi) / 2
-
-# «будувати» = «купити»:  150 + 20·A = 60·A  ⟹  A = 3.75
-r_star = solve_rate(3.75, n=5)
-print(f"r* = {r_star:.4f}  ({r_star * 100:.1f} %)")   # r* = 0.1042  (10.4 %)
-```
-```typescript
-const annuityFactor = (r: number, n: number): number =>
-  r === 0 ? n : (1 - (1 + r) ** -n) / r;
-
-// Знайти r*, за якої A(r*) = targetA. A спадає з r → бісекція надійна.
-function solveRate(targetA: number, n: number, lo = 1e-9, hi = 5.0): number {
-  for (let i = 0; i < 100; i++) {
-    const mid = (lo + hi) / 2;
-    if (annuityFactor(mid, n) > targetA) lo = mid; // A завелика → ставка замала
-    else hi = mid;                                 // A замала  → ставка завелика
-  }
-  return (lo + hi) / 2;
-}
-
-// «будувати» = «купити»:  150 + 20·A = 60·A  ⟹  A = 3.75
-const rStar = solveRate(3.75, 5);
-console.log(`r* = ${rStar.toFixed(4)}  (${(rStar * 100).toFixed(1)} %)`); // 0.1042 (10.4 %)
-```
+:::code math-npv/cpp/tochka-bezzbytkovosti-za.cpp
+:::code math-npv/py/tochka-bezzbytkovosti-za.py
+:::code math-npv/ts/tochka-bezzbytkovosti-za.ts
 :::
 
 Пошук дає `r* ≈ 10.4 %`. Нижче за цю ставку дешевше збудувати, вище — купити. Уся суперечка «своє чи готове» звелася до одного чесного питання: **наша ставка вища чи нижча за 10.4 %?**

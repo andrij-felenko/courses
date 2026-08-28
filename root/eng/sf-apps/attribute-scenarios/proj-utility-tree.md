@@ -27,128 +27,9 @@
 **Умова: описати дерево корисності й наповнити його жменею сценаріїв двох-трьох атрибутів.**
 
 :::tabs
-```typescript
-// Трибальна шкала: Н=1, С=2, В=3 (низько / середньо / високо).
-type Rank = 1 | 2 | 3;
-
-interface Scenario {
-  title: string;
-  importance: Rank;   // цінність для успіху системи
-  difficulty: Rank;   // архітектурна складність досягти
-}
-
-interface Attribute {
-  name: string;            // якісний атрибут — гілка дерева
-  scenarios: Scenario[];   // листя цієї гілки
-}
-
-interface UtilityTree {
-  root: string;            // «Корисність системи»
-  attributes: Attribute[];
-}
-
-const tree: UtilityTree = {
-  root: "Корисність системи",
-  attributes: [
-    { name: "Продуктивність", scenarios: [
-      { title: "Профіль за 200 мс у пік, p95",   importance: 3, difficulty: 3 },
-      { title: "Річний звіт рахується за < 5 с",  importance: 2, difficulty: 1 },
-      { title: "Пошук у піку віддає за < 300 мс", importance: 3, difficulty: 2 },
-    ]},
-    { name: "Доступність", scenarios: [
-      { title: "Переживає втрату вузла БД, перерва ≤ 30 с", importance: 3, difficulty: 3 },
-      { title: "Переживає втрату дата-центру без втрати даних", importance: 3, difficulty: 3 },
-      { title: "Подія в журналі не губиться", importance: 2, difficulty: 2 },
-    ]},
-    { name: "Змінюваність", scenarios: [
-      { title: "Нова валюта за ≤ 2 дні, без правки ядра платежів", importance: 3, difficulty: 2 },
-      { title: "Новий канал сповіщень за ≤ тиждень", importance: 1, difficulty: 2 },
-    ]},
-  ],
-};
-```
-```python
-from dataclasses import dataclass
-
-# Трибальна шкала: Н=1, С=2, В=3 (низько / середньо / високо).
-
-@dataclass(frozen=True)
-class Scenario:
-    title: str
-    importance: int   # цінність для успіху системи (1..3)
-    difficulty: int   # архітектурна складність досягти (1..3)
-
-@dataclass
-class Attribute:
-    name: str                    # якісний атрибут — гілка дерева
-    scenarios: list[Scenario]    # листя цієї гілки
-
-@dataclass
-class UtilityTree:
-    root: str                    # «Корисність системи»
-    attributes: list[Attribute]
-
-tree = UtilityTree(
-    root="Корисність системи",
-    attributes=[
-        Attribute("Продуктивність", [
-            Scenario("Профіль за 200 мс у пік, p95",   importance=3, difficulty=3),
-            Scenario("Річний звіт рахується за < 5 с",  importance=2, difficulty=1),
-            Scenario("Пошук у піку віддає за < 300 мс", importance=3, difficulty=2),
-        ]),
-        Attribute("Доступність", [
-            Scenario("Переживає втрату вузла БД, перерва <= 30 с", importance=3, difficulty=3),
-            Scenario("Переживає втрату дата-центру без втрати даних", importance=3, difficulty=3),
-            Scenario("Подія в журналі не губиться", importance=2, difficulty=2),
-        ]),
-        Attribute("Змінюваність", [
-            Scenario("Нова валюта за <= 2 дні, без правки ядра платежів", importance=3, difficulty=2),
-            Scenario("Новий канал сповіщень за <= тиждень", importance=1, difficulty=2),
-        ]),
-    ],
-)
-```
-```cpp
-#include <string>
-#include <vector>
-
-// Трибальна шкала: Н=1, С=2, В=3 (низько / середньо / високо).
-struct Scenario {
-    std::string title;
-    int importance;   // цінність для успіху системи (1..3)
-    int difficulty;   // архітектурна складність досягти (1..3)
-};
-
-struct Attribute {
-    std::string name;                  // якісний атрибут — гілка дерева
-    std::vector<Scenario> scenarios;   // листя цієї гілки
-};
-
-struct UtilityTree {
-    std::string root;                  // «Корисність системи»
-    std::vector<Attribute> attributes;
-};
-
-const UtilityTree tree{
-    "Корисність системи",
-    {
-        {"Продуктивність", {
-            {"Профіль за 200 мс у пік, p95",   3, 3},
-            {"Річний звіт рахується за < 5 с",  2, 1},
-            {"Пошук у піку віддає за < 300 мс", 3, 2},
-        }},
-        {"Доступність", {
-            {"Переживає втрату вузла БД, перерва <= 30 с",    3, 3},
-            {"Переживає втрату дата-центру без втрати даних", 3, 3},
-            {"Подія в журналі не губиться",                   2, 2},
-        }},
-        {"Змінюваність", {
-            {"Нова валюта за <= 2 дні, без правки ядра платежів", 3, 2},
-            {"Новий канал сповіщень за <= тиждень",               1, 2},
-        }},
-    },
-};
-```
+:::code proj-utility-tree/ts/struktura-danykh-chomu.ts
+:::code proj-utility-tree/py/struktura-danykh-chomu.py
+:::code proj-utility-tree/cpp/struktura-danykh-chomu.cpp
 :::
 
 Вісім сценаріїв, три гілки. Далі вся робота — над листям.
@@ -188,100 +69,9 @@ const UtilityTree tree{
 **Умова: перетворити дерево на впорядкований короткий список і виділити драйвери.**
 
 :::tabs
-```typescript
-interface Ranked extends Scenario {
-  attribute: string;
-  score: number;      // важливість × складність
-}
-
-// Ключова ухвала — ДОБУТОК, не сума.
-const score = (s: Scenario): number => s.importance * s.difficulty;
-
-function rank(tree: UtilityTree): Ranked[] {
-  const flat: Ranked[] = [];
-  for (const attr of tree.attributes)
-    for (const s of attr.scenarios)
-      flat.push({ ...s, attribute: attr.name, score: score(s) });
-
-  // Спад за добутком; за рівних — важливіший наперед, тоді складніший.
-  // Три ключі поспіль роблять порядок цілком детермінованим.
-  flat.sort((a, b) =>
-    b.score - a.score ||
-    b.importance - a.importance ||
-    b.difficulty - a.difficulty);
-  return flat;
-}
-
-// Драйвери — крайній квадрант (В, В): і найцінніше, і найважче.
-const drivers = (ranked: Ranked[]): Ranked[] =>
-  ranked.filter(s => s.importance === 3 && s.difficulty === 3);
-```
-```python
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Ranked:
-    scenario: Scenario
-    attribute: str
-    score: int          # важливість × складність
-
-def score(s: Scenario) -> int:
-    return s.importance * s.difficulty   # ключова ухвала — ДОБУТОК, не сума
-
-def rank(tree: UtilityTree) -> list[Ranked]:
-    flat = [Ranked(s, attr.name, score(s))
-            for attr in tree.attributes
-            for s in attr.scenarios]
-    # Спад за добутком; за рівних — важливіший, тоді складніший (детермінізм).
-    flat.sort(key=lambda r: (r.score, r.scenario.importance, r.scenario.difficulty),
-              reverse=True)
-    return flat
-
-def drivers(ranked: list[Ranked]) -> list[Ranked]:
-    # Крайній квадрант (В, В): і найцінніше, і найважче.
-    return [r for r in ranked
-            if r.scenario.importance == 3 and r.scenario.difficulty == 3]
-```
-```cpp
-#include <algorithm>
-#include <iterator>
-
-struct Ranked {
-    Scenario scenario;
-    std::string attribute;
-    int score;          // важливість × складність
-};
-
-// Ключова ухвала — ДОБУТОК, не сума.
-int score(const Scenario& s) { return s.importance * s.difficulty; }
-
-std::vector<Ranked> rank(const UtilityTree& tree) {
-    std::vector<Ranked> flat;
-    for (const auto& attr : tree.attributes)
-        for (const auto& s : attr.scenarios)
-            flat.push_back({s, attr.name, score(s)});
-
-    // Спад за добутком; за рівних — важливіший наперед, тоді складніший.
-    // Три ключі поспіль роблять порядок цілком детермінованим.
-    std::sort(flat.begin(), flat.end(), [](const Ranked& a, const Ranked& b) {
-        if (a.score != b.score) return a.score > b.score;
-        if (a.scenario.importance != b.scenario.importance)
-            return a.scenario.importance > b.scenario.importance;
-        return a.scenario.difficulty > b.scenario.difficulty;
-    });
-    return flat;
-}
-
-// Драйвери — крайній квадрант (В, В): і найцінніше, і найважче.
-std::vector<Ranked> drivers(const std::vector<Ranked>& ranked) {
-    std::vector<Ranked> out;
-    std::copy_if(ranked.begin(), ranked.end(), std::back_inserter(out),
-                 [](const Ranked& r) {
-                     return r.scenario.importance == 3 && r.scenario.difficulty == 3;
-                 });
-    return out;
-}
-```
+:::code proj-utility-tree/ts/alhorytm-spliushchyty.ts
+:::code proj-utility-tree/py/alhorytm-spliushchyty.py
+:::code proj-utility-tree/cpp/alhorytm-spliushchyty.cpp
 :::
 
 Проженімо нашу вісімку крізь машину. `rank` дає впорядкований список, `drivers` відсікає верхівку:
@@ -312,18 +102,7 @@ std::vector<Ranked> drivers(const std::vector<Ranked>& ranked) {
 **Умова: знайти сценарії, яких не домінує жоден інший (стійка заміна крихкому квадранту).**
 
 :::tabs
-```typescript
-// A домінує над B: A не гірший за обома осями й строго кращий хоч за однією.
-// «Кращий» = більший: більша важливість І більша складність — «драйверніший».
-const dominates = (a: Scenario, b: Scenario): boolean =>
-  a.importance >= b.importance && a.difficulty >= b.difficulty &&
-  (a.importance > b.importance || a.difficulty > b.difficulty);
-
-// Парето-фронт: сценарії, яких не домінує жоден інший.
-function paretoFront(items: Scenario[]): Scenario[] {
-  return items.filter(a => !items.some(b => dominates(b, a)));
-}
-```
+:::code proj-utility-tree/ts/pareto-front-koly-kut.ts
 ```python
 def dominates(a: Scenario, b: Scenario) -> bool:
     # A «драйверніший» за B: не гірший за обома осями й строго за однією.
@@ -333,25 +112,7 @@ def dominates(a: Scenario, b: Scenario) -> bool:
 def pareto_front(items: list[Scenario]) -> list[Scenario]:
     return [a for a in items if not any(dominates(b, a) for b in items)]
 ```
-```cpp
-// A домінує над B: A не гірший за обома осями й строго кращий хоч за однією.
-// «Кращий» = більший: більша важливість І більша складність — «драйверніший».
-bool dominates(const Scenario& a, const Scenario& b) {
-    return a.importance >= b.importance && a.difficulty >= b.difficulty &&
-           (a.importance > b.importance || a.difficulty > b.difficulty);
-}
-
-// Парето-фронт: сценарії, яких не домінує жоден інший.
-std::vector<Scenario> paretoFront(const std::vector<Scenario>& items) {
-    std::vector<Scenario> front;
-    std::copy_if(items.begin(), items.end(), std::back_inserter(front),
-                 [&](const Scenario& a) {
-                     return std::none_of(items.begin(), items.end(),
-                         [&](const Scenario& b) { return dominates(b, a); });
-                 });
-    return front;
-}
-```
+:::code proj-utility-tree/cpp/pareto-front-koly-kut.cpp
 :::
 
 *Поле важливість × складність без жодного (В, В): квадрант дав би 0 драйверів, а Парето-фронт віддає верхню оболонку — (В, С) і (С, В).*

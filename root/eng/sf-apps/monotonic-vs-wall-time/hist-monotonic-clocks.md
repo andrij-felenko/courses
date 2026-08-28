@@ -52,34 +52,8 @@
 Шоста редакція дала латку: годинник умовної змінної можна вибрати наперед. Латка часткова — годинник фіксується один раз, коли змінну створюють, тож бібліотека, що дістала умовну змінну від викликача, не знає, за чим саме її очікування відлічується. Назвати годинник прямо в місці очікування дозволив лише `pthread_cond_clockwait`, який спершу жив як розширення бібліотек, а до стандарту потрапив аж у восьмій редакції.
 
 :::tabs
-```c
-pthread_condattr_t attr;
-pthread_condattr_init(&attr);
-pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);  /* редакція 6: годинник — на змінну */
-pthread_cond_init(&cv, &attr);
-
-struct timespec deadline;
-clock_gettime(CLOCK_MONOTONIC, &deadline);
-deadline.tv_sec += 30;                              /* абсолютний момент за СТАЛИМ годинником */
-pthread_cond_timedwait(&cv, &m, &deadline);
-
-/* редакція 8: годинник називають у самому очікуванні */
-pthread_cond_clockwait(&cv, &m, CLOCK_MONOTONIC, &deadline);
-```
-```cpp
-#include <condition_variable>
-#include <mutex>
-#include <chrono>
-
-std::condition_variable cv;
-std::mutex m;
-std::unique_lock<std::mutex> lock(m);
-
-// У C++11 std::condition_variable::wait_until
-// за замовчуванням підтримує дедлайн за std::chrono::steady_clock:
-auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(30);
-cv.wait_until(lock, deadline, [&]() { return condition_is_met(); });
-```
+:::code hist-monotonic-clocks/c/main.h
+:::code hist-monotonic-clocks/cpp/main.cpp
 :::
 
 ## Windows: сталий лічильник, який переповнюється

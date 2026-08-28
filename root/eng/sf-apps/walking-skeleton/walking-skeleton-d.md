@@ -151,90 +151,9 @@ q = 0.1          шанс розбіжності на одну домовлен�
 Погляньмо на це на живому. Найтонша нитка розподіленої системи «браузер → API → черга → воркер → сховище → читання назад»: справжні тут HTTP-стик і межа «API ↔ воркер», а черга й сховище поки заглушки — проста черга в пам'яті замість брокера й словник замість бази.
 
 :::tabs
-```ts
-import http from "node:http";
-
-// Найтонша нитка: браузер → API → «черга» → воркер → сховище → читання назад.
-// Справжні тут — HTTP-стик і межа «API ↔ воркер». Черга і сховище поки заглушки:
-// черга в пам'яті й Map замість брокера й бази. Їхня заміна — то вже м'ясо.
-const queue: number[] = [];
-const store = new Map<string, number>();
-
-// воркер — окрема «частина»: читає з черги й кладе у сховище
-setInterval(() => {
-  const v = queue.shift();
-  if (v !== undefined) store.set("temp", v);      // стик воркер → сховище
-}, 50);
-
-http.createServer((req, res) => {
-  if (req.method === "POST" && req.url === "/temp") {
-    let body = "";
-    req.on("data", (c) => (body += c));
-    req.on("end", () => { queue.push(Number(body)); res.end("ok"); }); // API → черга
-  } else if (req.url === "/temp") {
-    res.end(String(store.get("temp") ?? "—"));      // читання: нитка пройшла?
-  } else { res.statusCode = 404; res.end(); }
-}).listen(8080);
-```
-```go
-package main
-
-import ("io"; "net/http"; "strconv"; "sync")
-
-// Найтонша нитка: браузер → API → канал → воркер → сховище → читання назад.
-// Справжні тут — HTTP-стик і межа «API ↔ воркер» (канал між ґорутинами).
-// Канал і Map — заглушки майбутніх брокера й бази; їхня заміна — вже м'ясо.
-func main() {
-	queue := make(chan int, 64)
-	var mu sync.Mutex
-	store := map[string]int{}
-
-	go func() { // воркер — окрема частина: читає з каналу, пише у сховище
-		for v := range queue {
-			mu.Lock(); store["temp"] = v; mu.Unlock() // стик воркер → сховище
-		}
-	}()
-
-	http.HandleFunc("/temp", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			b, _ := io.ReadAll(r.Body)
-			v, _ := strconv.Atoi(string(b))
-			queue <- v                        // стик API → канал
-			io.WriteString(w, "ok"); return
-		}
-		mu.Lock(); v := store["temp"]; mu.Unlock()
-		io.WriteString(w, strconv.Itoa(v))    // читання: нитка пройшла?
-	})
-	http.ListenAndServe(":8080", nil)
-}
-```
-```python
-import threading, queue
-from http.server import BaseHTTPRequestHandler, HTTPServer
-
-# Найтонша нитка: браузер → API → черга → воркер → сховище → читання назад.
-# Справжні тут — HTTP-стик і межа «API ↔ воркер» (черга між потоками).
-# Черга і словник — заглушки майбутніх брокера й бази; їхня заміна — вже м'ясо.
-q: "queue.Queue[int]" = queue.Queue()
-store: dict[str, int] = {}
-
-def worker():                        # окрема частина: читає з черги, пише у сховище
-    while True:
-        store["temp"] = q.get()      # стик воркер → сховище
-
-threading.Thread(target=worker, daemon=True).start()
-
-class H(BaseHTTPRequestHandler):
-    def do_POST(self):
-        n = int(self.rfile.read(int(self.headers["Content-Length"])))
-        q.put(n)                     # стик API → черга
-        self.send_response(200); self.end_headers(); self.wfile.write(b"ok")
-    def do_GET(self):
-        self.send_response(200); self.end_headers()
-        self.wfile.write(str(store.get("temp", "—")).encode())  # нитка пройшла?
-
-HTTPServer(("", 8080), H).serve_forever()
-```
+:::code walking-skeleton-d/ts/index.ts
+:::code walking-skeleton-d/go/main.go
+:::code walking-skeleton-d/py/main.py
 :::
 
 Придивися, що тут по-справжньому, а що ні. Черга — у пам'яті, сховище — словник: це заглушки, свідомо вбогі. Але межа **між** веб-обробником і воркером — справжня (черга/канал/потік), бо саме її ми хочемо перевірити: чи домовляться дві частини про те, що і як передавати. Коли настане час замінити чергу в пам'яті на справжній брокер, а словник — на базу, це буде вже нарощування м'яса на **робочому** стику — і кожна заміна одразу видна на живій нитці, бо наскрізний тест червоніє, щойно новий стик не зійшовся. Ось де ляже глибина за Аджичем: страшний стик тут — той, що між процесами через брокер, і його ми доводитимемо всерйоз, а HTTP-вхід і читання лишимо найтоншими.

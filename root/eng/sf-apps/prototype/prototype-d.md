@@ -23,20 +23,7 @@
 Щоб клонування працювало поліморфно — тобто щоб різні класи вміли клонуватися кожен по-своєму, а клієнт цього не помічав, — `clone()` роблять частиною спільного інтерфейсу:
 
 :::tabs
-```ts
-interface Shape {
-  clone(): Shape;               // «зроблю ще один такий, як я»
-  render(): void;
-}
-
-class Circle implements Shape {
-  constructor(public x: number, public y: number, public r: number) {}
-  clone(): Shape {              // повертає новий Circle — того самого класу
-    return new Circle(this.x, this.y, this.r);
-  }
-  render() { /* намалювати коло */ }
-}
-```
+:::code prototype-d/ts/odna-zamina-z-iakoi-vse.ts
 ```py
 import copy
 
@@ -122,38 +109,8 @@ console.log(a.tags);          // ['терміново'] — оригінал н�
 Тепер зберемо другий виграш у закінчену конструкцію, яка й робить прототип по-справжньому корисним. Тримай **реєстр** (або менеджер) прототипів — відображення «ключ → налаштований зразок». Щоб створити об'єкт, ти не викликаєш конструктор, а **береш зразок за ключем і клонуєш його**:
 
 :::tabs
-```ts
-class ShapeRegistry {
-  private prototypes = new Map<string, Shape>();
-
-  register(key: string, proto: Shape) {   // покласти зразок під ключем
-    this.prototypes.set(key, proto);
-  }
-  create(key: string): Shape {
-    const proto = this.prototypes.get(key);
-    if (!proto) throw new Error(`немає прототипу: ${key}`);
-    return proto.clone();                  // новий об'єкт — копія зразка
-  }
-}
-
-const registry = new ShapeRegistry();
-registry.register("коло", new Circle(0, 0, 10));   // зразок налаштовано раз
-const c = registry.create("коло");                 // далі — лише копії
-```
-```py
-class ShapeRegistry:
-    def __init__(self):
-        self._prototypes = {}
-
-    def register(self, key, proto):        # покласти зразок під ключем
-        self._prototypes[key] = proto
-    def create(self, key):
-        return self._prototypes[key].clone()   # новий об'єкт — копія зразка
-
-registry = ShapeRegistry()
-registry.register("коло", Circle(0, 0, 10))    # зразок налаштовано раз
-c = registry.create("коло")                    # далі — лише копії
-```
+:::code prototype-d/ts/reiestr-prototypiv-druhyi.ts
+:::code prototype-d/py/main.py
 :::
 
 Помітив, що тут зникло? Жодного `if` чи `switch` за типом. Щоб додати новий різновид фігури, ти не чіпаєш ані `create`, ані реєстр — просто **реєструєш ще один екземпляр**. Нова поведінка додається новим *об'єктом* збоку, а наявний код лишається недоторканим — це прямий вияв [принципу відкритості-закритості](root:sf-apps/open-closed), тільки досягнутий **даними, а не класами**. І оскільки зразок — це звичайний об'єкт, реєстрація може відбуватися під час виконання: користувач намалював свою фігуру — і вона одразу в палітрі, без жодного нового класу.

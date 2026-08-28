@@ -42,38 +42,7 @@ struct Stack;          // тип Stack існує, але його будова 
 
 Почнімо із заголовка. Це — весь публічний бік, усе, що бачить клієнт. Жодного поля, лише неповний тип і п'ять операцій над ним.
 
-```c
-/* stack.h — публічна обіцянка. Клієнт вмикає лише це.
- * Будови стека тут НЕМАЄ й ніколи не буде. */
-#ifndef STACK_H
-#define STACK_H
-
-#include <stdbool.h>
-#include <stddef.h>   /* для size_t */
-
-/* Неповний тип: Stack існує, будова прихована.
- * typedef дає зручне ім'я Stack замість "struct Stack". */
-typedef struct Stack Stack;
-
-/* Створити порожній стек. Повертає NULL, якщо пам'яті бракує. */
-Stack *stack_new(void);
-
-/* Покласти v на вершину. Повертає true, якщо вдалося;
- * false — якщо місця немає (сенс "місця" залежить від реалізації). */
-bool stack_push(Stack *s, int v);
-
-/* Зняти верхнє. *out отримує зняте число.
- * Повертає false, якщо стек порожній (тоді *out не чіпається). */
-bool stack_pop(Stack *s, int *out);
-
-/* Скільки чисел зараз у стеку. */
-size_t stack_size(const Stack *s);
-
-/* Звільнити стек і всю його пам'ять. Після цього s недійсний. */
-void stack_free(Stack *s);
-
-#endif /* STACK_H */
-```
+:::code proj-opaque-handle-c/c/stack.h
 
 Придивімося, що саме тут обіцяно — бо кожне рішення заголовка потім віддасться свободою або кайданами. Ми обіцяли, що `stack_push` **може відмовити** (повертає `bool`), навіть не кажучи, коли й чому: у першій реалізації відмова означатиме «масив повний», а в другій — «пам'ять скінчилась». Клієнт, який чесно перевіряє результат `push`, працюватиме з **будь-якою** реалізацією, бо ми з самого початку не пообіцяли, що місце є завжди. Так само `stack_pop` повертає число через вихідний параметр `out`, а сам результат `bool` каже «чи було що знімати» — це дає чесно розрізнити «зняв нуль» і «стек порожній», не вигадуючи «магічного» значення-ознаки.
 
@@ -83,76 +52,13 @@ void stack_free(Stack *s);
 
 Тепер — нутрощі. Найпростіше, що виконує контракт: масив сталого розміру плюс лічильник вершини. Уся будова, тіла всіх п'яти функцій — в одному `.c`, і тільки там.
 
-```c
-/* stack_array.c — реалізація №1: масив фіксованого розміру.
- * ТІЛЬКИ тут відома справжня будова Stack. */
-#include "stack.h"
-#include <stdlib.h>
-
-#define STACK_CAP 64        /* стеля: більше 64 чисел не влізе */
-
-/* ОСЬ повне визначення — те, чого клієнт не бачить. */
-struct Stack {
-    int    data[STACK_CAP]; /* самі числа, у місці */
-    size_t top;             /* скільки зайнято (індекс наступного вільного) */
-};
-
-Stack *stack_new(void) {
-    Stack *s = malloc(sizeof *s);   /* sizeof працює: тут будова ВІДОМА */
-    if (s == NULL) return NULL;
-    s->top = 0;
-    return s;
-}
-
-bool stack_push(Stack *s, int v) {
-    if (s->top >= STACK_CAP) return false;   /* повний — чесна відмова */
-    s->data[s->top] = v;
-    s->top++;
-    return true;
-}
-
-bool stack_pop(Stack *s, int *out) {
-    if (s->top == 0) return false;           /* порожній */
-    s->top--;
-    *out = s->data[s->top];
-    return true;
-}
-
-size_t stack_size(const Stack *s) {
-    return s->top;
-}
-
-void stack_free(Stack *s) {
-    free(s);                 /* один шматок пам'яті — одне звільнення */
-}
-```
+:::code proj-opaque-handle-c/c/stack_array.c
 
 Зверни увагу на рядок `malloc(sizeof *s)`. Тут `sizeof` **працює** — і саме тому, що ми у файлі, де будова `struct Stack` повністю відома. Той самий `sizeof *s`, написаний у клієнтському коді, **не скомпілювався б**: у клієнта на руках лише неповний тип, а розмір невідомого — не число. Ця асиметрія — не прикрість, а суть прийому: розмір структури знає рівно той файл, що має право його знати.
 
 А тепер — клієнт. Він вмикає **лише** `stack.h` і працює з обіцянкою:
 
-```c
-/* main.c — клієнт. Вмикає ЛИШЕ заголовок, будови не бачить. */
-#include "stack.h"
-#include <stdio.h>
-
-int main(void) {
-    Stack *s = stack_new();
-    if (s == NULL) { fprintf(stderr, "нема пам'яті\n"); return 1; }
-
-    for (int i = 1; i <= 5; i++)
-        stack_push(s, i * 10);        /* 10, 20, 30, 40, 50 */
-
-    printf("розмір: %zu\n", stack_size(s));   /* 5 */
-
-    int v;
-    while (stack_pop(s, &v))          /* знімаємо, поки є що */
-        printf("зняв %d\n", v);       /* 50, 40, 30, 20, 10 — LIFO */
-
-    stack_free(s);
-    return 0;
-}
-```
+:::code proj-opaque-handle-c/c/main.c
 
 Зберемо це разом:
 
@@ -177,75 +83,7 @@ cc stack.o main.o   -o app         # злінкувати в програму
 
 Ключове: **заголовок `stack.h` ми не відкриваємо взагалі**. Ми його навіть не редагуємо. Міняється тільки `.c`.
 
-```c
-/* stack_dynamic.c — реалізація №2: масив, що росте сам.
- * Заголовок той самий. Будова — інша. */
-#include "stack.h"
-#include <stdlib.h>
-#include <stdint.h>   /* SIZE_MAX — для перевірки переповнення */
-
-struct Stack {
-    int    *data;   /* масив у КУПІ, а не в тілі структури */
-    size_t  len;    /* скільки зайнято */
-    size_t  cap;    /* скільки виділено (місткість) */
-};
-
-#define INIT_CAP 8
-
-Stack *stack_new(void) {
-    Stack *s = malloc(sizeof *s);
-    if (s == NULL) return NULL;
-    s->data = malloc(INIT_CAP * sizeof *s->data);
-    if (s->data == NULL) { free(s); return NULL; }   /* прибрати за собою */
-    s->len = 0;
-    s->cap = INIT_CAP;
-    return s;
-}
-
-/* Виростити місткість удвічі, з перевіркою переповнення size_t. */
-static bool grow(Stack *s) {
-    size_t new_cap = s->cap * 2;
-
-    /* Перевірка переповнення: якщо подвоєння перескочило через нуль
-     * (стало не більшим за старе) — далі рости нікуди. */
-    if (new_cap <= s->cap) return false;
-
-    /* Друга перевірка: new_cap * sizeof(int) теж не має переповнити. */
-    if (new_cap > SIZE_MAX / sizeof *s->data) return false;
-
-    int *bigger = realloc(s->data, new_cap * sizeof *s->data);
-    if (bigger == NULL) return false;   /* realloc не вдався — старе ціле */
-
-    s->data = bigger;
-    s->cap  = new_cap;
-    return true;
-}
-
-bool stack_push(Stack *s, int v) {
-    if (s->len == s->cap)            /* місце скінчилось — ростемо */
-        if (!grow(s)) return false;  /* не змогли вирости — чесна відмова */
-    s->data[s->len] = v;
-    s->len++;
-    return true;
-}
-
-bool stack_pop(Stack *s, int *out) {
-    if (s->len == 0) return false;
-    s->len--;
-    *out = s->data[s->len];
-    return true;
-}
-
-size_t stack_size(const Stack *s) {
-    return s->len;
-}
-
-void stack_free(Stack *s) {
-    if (s == NULL) return;
-    free(s->data);   /* СПЕРШУ внутрішній масив... */
-    free(s);         /* ...ПОТІМ саму структуру. Порядок важливий! */
-}
-```
+:::code proj-opaque-handle-c/c/stack_dynamic.c
 
 Тут з'явилося кілька речей, вартих окремого погляду, бо вони — суть різниці між іграшковою реалізацією й тією, що витримає бойовий код.
 
@@ -271,68 +109,7 @@ cc main.o stack.o -o app           # main.o навіть не перекомпі
 
 І знову — заголовок **не міняється**. Обіцянка «створи, поклади, зніми, спитай розмір, звільни» лишається дослівно тією самою; додається лише невидиме клієнтові блокування всередині. Візьмемо C11-потоки (`<threads.h>`) з їхнім м'ютексом (англ. *mutex*, від *mutual exclusion* — «взаємне виключення»):
 
-```c
-/* stack_safe.c — реалізація №3: потокобезпечна, з м'ютексом.
- * Заголовок ТОЙ САМИЙ. Клієнт той самий. */
-#include "stack.h"
-#include <stdlib.h>
-#include <threads.h>
-
-#define STACK_CAP 64
-
-struct Stack {
-    int    data[STACK_CAP];
-    size_t top;
-    mtx_t  lock;            /* м'ютекс — теж усередині, клієнт його не бачить */
-};
-
-Stack *stack_new(void) {
-    Stack *s = malloc(sizeof *s);
-    if (s == NULL) return NULL;
-    if (mtx_init(&s->lock, mtx_plain) != thrd_success) {
-        free(s);
-        return NULL;
-    }
-    s->top = 0;
-    return s;
-}
-
-bool stack_push(Stack *s, int v) {
-    mtx_lock(&s->lock);              /* заходимо — двері на замок */
-    bool ok = false;
-    if (s->top < STACK_CAP) {
-        s->data[s->top++] = v;
-        ok = true;
-    }
-    mtx_unlock(&s->lock);            /* виходимо — двері відмикаємо */
-    return ok;
-}
-
-bool stack_pop(Stack *s, int *out) {
-    mtx_lock(&s->lock);
-    bool ok = false;
-    if (s->top > 0) {
-        *out = s->data[--s->top];
-        ok = true;
-    }
-    mtx_unlock(&s->lock);
-    return ok;
-}
-
-size_t stack_size(const Stack *s) {
-    /* const заважає замкнути lock (mtx_lock хоче не-const).
-     * Читання одного size_t на більшості платформ атомарне саме собою,
-     * тож для розміру блокування можна опустити — але це рішення
-     * реалізації, і воно теж НЕ протікає в заголовок. */
-    return s->top;
-}
-
-void stack_free(Stack *s) {
-    if (s == NULL) return;
-    mtx_destroy(&s->lock);   /* знищити м'ютекс ПЕРЕД звільненням пам'яті */
-    free(s);
-}
-```
+:::code proj-opaque-handle-c/c/stack_safe.c
 
 Тут сталося щось на позір парадоксальне, і воно — квінтесенція всього прийому. Ми змінили **семантику** структури докорінно: тепер кожен `push` і `pop` бере й віддає замок, доступ серіалізовано, з'явився цілий новий член `mtx_t lock`, а `stack_new` може відмовити ще й через невдалу ініціалізацію м'ютекса. Це вже інша поведінка — безпечна там, де попередні дві тихо псували дані. І попри все це, **заголовок не змінився ні на байт**. Клієнтський `main.c` знову підійшов без єдиної правки й навіть без перекомпіляції — тільки нова `stack.o` на етапі лінкування.
 

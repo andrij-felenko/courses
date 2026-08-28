@@ -53,79 +53,9 @@
 Найпряміше рішення: раз реплік багато й вони для читання — читаймо з них. Веб-вузол на кожен `GET` бере випадкову репліку з пулу й питає її. Ось код доступу до бази — той самий приклад трьома мовами, якими реально пишуть такі сервіси:
 
 :::tabs
-```ts
-// Шлях 1: читання завжди з пулу реплік. Швидко й дешево —
-// але репліка може ще НЕ мати щойно записаного (застаріле читання).
-class ProfileStore {
-  constructor(
-    private primary: Pool,      // єдина основна — приймає записи
-    private replicas: Pool[],   // пул реплік — розносять читання
-  ) {}
-
-  async save(userId: string, patch: ProfilePatch): Promise<void> {
-    await this.primary.query(
-      "UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-      [userId, patch],
-    );
-  }
-
-  async get(userId: string): Promise<Profile> {
-    // випадкова репліка — розносимо читання рівномірно
-    const r = this.replicas[(Math.random() * this.replicas.length) | 0];
-    const { rows } = await r.query(
-      "SELECT data FROM profiles WHERE id = $1",
-      [userId],
-    );
-    return rows[0].data;   // може бути версія ДО save(), якщо репліка відстала
-  }
-}
-```
-```py
-# Шлях 1: читання завжди з пулу реплік. Швидко й дешево —
-# але репліка може ще НЕ мати щойно записаного (застаріле читання).
-import random
-
-class ProfileStore:
-    def __init__(self, primary, replicas):
-        self.primary = primary      # єдина основна — приймає записи
-        self.replicas = replicas    # пул реплік — розносять читання
-
-    async def save(self, user_id, patch):
-        await self.primary.execute(
-            "UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-            user_id, patch,
-        )
-
-    async def get(self, user_id):
-        r = random.choice(self.replicas)   # розносимо читання по репліках
-        row = await r.fetchrow(
-            "SELECT data FROM profiles WHERE id = $1", user_id,
-        )
-        return row["data"]   # може бути версія ДО save(), якщо репліка відстала
-```
-```go
-// Шлях 1: читання завжди з пулу реплік. Швидко й дешево —
-// але репліка може ще НЕ мати щойно записаного (застаріле читання).
-type ProfileStore struct {
-	primary  *pgxpool.Pool   // єдина основна — приймає записи
-	replicas []*pgxpool.Pool // пул реплік — розносять читання
-}
-
-func (s *ProfileStore) Save(ctx context.Context, userID string, patch []byte) error {
-	_, err := s.primary.Exec(ctx,
-		"UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-		userID, patch)
-	return err
-}
-
-func (s *ProfileStore) Get(ctx context.Context, userID string) ([]byte, error) {
-	r := s.replicas[rand.Intn(len(s.replicas))] // випадкова репліка
-	var data []byte
-	err := r.QueryRow(ctx,
-		"SELECT data FROM profiles WHERE id = $1", userID).Scan(&data)
-	return data, err // може бути версія ДО Save(), якщо репліка відстала
-}
-```
+:::code proj-tradeoff-web-service/ts/shliakh-1-chytaty-z.ts
+:::code proj-tradeoff-web-service/py/shliakh-1-chytaty-z.py
+:::code proj-tradeoff-web-service/go/shliakh-1-chytaty-z.go
 :::
 
 Тепер проженемо це крізь **обидві половини міри**. Спершу швидкодія — і тут шлях 1 сяє:
@@ -173,102 +103,9 @@ UI перечитує майже одразу: проміжок «запис →
 Хитріший хід виходить із того, що **свіжість потрібна не всім читанням, а лише тим, що йдуть одразу після власного запису**. Читання чужого профілю, стрічки, каталогу чудово стерпить репліку з лагом у сто мілісекунд. Тож зробімо вибірково: після запису **пришпилюємо читання цього користувача до основної** на коротке вікно W — рівно доти, доки репліка гарантовано наздожене, — а всі інші читання лишаємо на дешевих репліках. Це і є read-your-writes через **маршрутизацію**:
 
 :::tabs
-```ts
-// Шлях 2: read-your-writes. Після запису «пришпилюємо» читання цього
-// користувача до основної на вікно W — доки репліка гарантовано наздожене.
-class ProfileStore {
-  private readonly windowMs = 1000;   // W = 1 с: стеля лага з запасом
-
-  constructor(
-    private primary: Pool,
-    private replicas: Pool[],
-    private recent: RecentWrites,      // спільний на ВСІ вузли (напр. Redis із TTL)
-  ) {}
-
-  async save(userId: string, patch: ProfilePatch): Promise<void> {
-    await this.primary.query(
-      "UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-      [userId, patch],
-    );
-    await this.recent.mark(userId, this.windowMs);   // «гарячий» на W мілісекунд
-  }
-
-  async get(userId: string): Promise<Profile> {
-    const hot = await this.recent.isHot(userId);
-    const src = hot
-      ? this.primary                                   // свіжо писав → з основної
-      : this.replicas[(Math.random() * this.replicas.length) | 0];
-    const { rows } = await src.query(
-      "SELECT data FROM profiles WHERE id = $1",
-      [userId],
-    );
-    return rows[0].data;   // гаряче читання ЗАВЖДИ бачить власний запис
-  }
-}
-```
-```py
-# Шлях 2: read-your-writes. Після запису «пришпилюємо» читання цього
-# користувача до основної на вікно W — доки репліка гарантовано наздожене.
-import random
-
-class ProfileStore:
-    WINDOW_MS = 1000   # W = 1 с: стеля лага з запасом
-
-    def __init__(self, primary, replicas, recent):
-        self.primary = primary
-        self.replicas = replicas
-        self.recent = recent          # спільний на ВСІ вузли (напр. Redis із TTL)
-
-    async def save(self, user_id, patch):
-        await self.primary.execute(
-            "UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-            user_id, patch,
-        )
-        await self.recent.mark(user_id, self.WINDOW_MS)   # «гарячий» на W мс
-
-    async def get(self, user_id):
-        if await self.recent.is_hot(user_id):
-            src = self.primary                            # свіжо писав → з основної
-        else:
-            src = random.choice(self.replicas)
-        row = await src.fetchrow(
-            "SELECT data FROM profiles WHERE id = $1", user_id,
-        )
-        return row["data"]   # гаряче читання ЗАВЖДИ бачить власний запис
-```
-```go
-// Шлях 2: read-your-writes. Після запису «пришпилюємо» читання цього
-// користувача до основної на вікно W — доки репліка гарантовано наздожене.
-const writeWindow = time.Second // W = 1 с: стеля лага з запасом
-
-type ProfileStore struct {
-	primary  *pgxpool.Pool
-	replicas []*pgxpool.Pool
-	recent   RecentWrites // спільний на ВСІ вузли (напр. Redis із TTL)
-}
-
-func (s *ProfileStore) Save(ctx context.Context, userID string, patch []byte) error {
-	if _, err := s.primary.Exec(ctx,
-		"UPDATE profiles SET data = $2, updated_at = now() WHERE id = $1",
-		userID, patch); err != nil {
-		return err
-	}
-	return s.recent.Mark(ctx, userID, writeWindow) // «гарячий» на W
-}
-
-func (s *ProfileStore) Get(ctx context.Context, userID string) ([]byte, error) {
-	var src *pgxpool.Pool
-	if hot, _ := s.recent.IsHot(ctx, userID); hot {
-		src = s.primary // свіжо писав → з основної
-	} else {
-		src = s.replicas[rand.Intn(len(s.replicas))]
-	}
-	var data []byte
-	err := src.QueryRow(ctx,
-		"SELECT data FROM profiles WHERE id = $1", userID).Scan(&data)
-	return data, err // гаряче читання ЗАВЖДИ бачить власний запис
-}
-```
+:::code proj-tradeoff-web-service/ts/shliakh-2-read-your-writes.ts
+:::code proj-tradeoff-web-service/py/shliakh-2-read-your-writes.py
+:::code proj-tradeoff-web-service/go/shliakh-2-read-your-writes.go
 :::
 
 Тепер уся сіль — у числах. Пришпилення додає на основну **не всі** читання, а лише «гарячі» — ті, що йдуть у вікні W після запису. Порахуймо, скільки їх:
@@ -337,37 +174,7 @@ W ↓  вужче вікно → легше основній, АЛЕ вікно 
 
 Ця варта — **фітнес-функція** (англ. *fitness function* — функція придатності): невеликий автоматичний тест, що безперервно міряє, чи структура досі в межах свого інваріанта, і б'є на сполох, коли та підповзає до краю. Для нашого інваріанта вона міряє лаг реплікації й падає, щойно його `p99` з'їдає надто велику частку вікна W:
 
-```py
-# Фітнес-функція: стереже інваріант «лаг реплікації < вікно W».
-# Крутиться і в моніторингу (безперервно), і в CI (перед викочуванням змін).
-# Порушиться інваріант — read-your-writes провалиться ТИХО, без помилки;
-# тому ловимо завчасно, поки лаг лише підповзає до межі, а не після скарг.
-import asyncio
-
-WINDOW_MS = 1000               # те саме W, що й у маршрутизації читань
-BUDGET_MS = 0.6 * WINDOW_MS    # тривога, коли лаг з'їв 60 % запасу вікна
-
-async def replica_lag_ms(replica) -> float:
-    # На Postgres: на скільки часу репліка відстає від основної.
-    row = await replica.fetchrow(
-        "SELECT extract(epoch from (now() - pg_last_xact_replay_timestamp()))"
-        "       * 1000 AS lag_ms"
-    )
-    return row["lag_ms"] or 0.0
-
-async def assert_lag_within_window(replicas, samples=300, interval_s=0.1):
-    worst = []
-    for _ in range(samples):
-        worst.append(max([await replica_lag_ms(r) for r in replicas]))
-        await asyncio.sleep(interval_s)
-    worst.sort()
-    p99 = worst[max(0, round(0.99 * len(worst)) - 1)]
-    assert p99 < BUDGET_MS, (
-        f"лаг p99 = {p99:.0f} мс перевищив бюджет {BUDGET_MS:.0f} мс "
-        f"(вікно W = {WINDOW_MS} мс): read-your-writes більше НЕ гарантований — "
-        f"або розшир W, або лікуй реплікацію"
-    )
-```
+:::code proj-tradeoff-web-service/py/ryzyk-neryzyk-i-invariant.py
 
 > 🔧 **Навіщо це.** Фітнес-функція перетворює архітектурний висновок із запису у протоколі наради на **живу межу з сигналізацією**. Без неї інваріант «лаг < W» — це рядок, який усі забудуть за тиждень, а зрада виявиться скаргою користувача через місяць, коли база під новим навантаженням почала відставати на 3 секунди й ніхто не помітив. З нею межа сама кричить, щойно реальність до неї підповзає, — і в тебе є вибір діяти завчасно: розширити W (свідомо довантаживши основну) чи полікувати саму реплікацію. Функція придатності — це спосіб **не дати структурі тихо виїхати за межі, у яких її визнали безпечною**; докладніше про сам прийом — [фітнес-функції як варта архітектури](root:sf-apps/fitness-functions).
 

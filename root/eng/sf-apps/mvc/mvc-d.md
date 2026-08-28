@@ -29,39 +29,8 @@ MVC — найдавніша й найвідоміша відповідь на �
 Ось модель термостата — зверни увагу, що в ній немає жодного натяку на подання чи контролер:
 
 :::tabs
-```python
-class Thermostat:                    # МОДЕЛЬ: дані + правило, і нічого про екран
-    def __init__(self):
-        self._target = 22
-        self._observers = []         # хто хоче знати про зміни — не знаю хто саме
-
-    @property
-    def target(self):
-        return self._target
-
-    def nudge(self, delta):          # правило предметної області живе тут
-        self._target = max(5, min(30, self._target + delta))
-        for notify in self._observers:   # сповістити залежних, не знаючи, хто вони
-            notify()
-
-    def on_change(self, fn):
-        self._observers.append(fn)
-```
-```ts
-class Thermostat {                    // МОДЕЛЬ: дані + правило, і нічого про екран
-  private _target = 22;
-  private observers: (() => void)[] = [];   // хто хоче знати — не знаю хто саме
-
-  get target() { return this._target; }
-
-  nudge(delta: number) {              // правило предметної області живе тут
-    this._target = Math.max(5, Math.min(30, this._target + delta));
-    for (const notify of this.observers) notify();  // сповістити залежних
-  }
-
-  onChange(fn: () => void) { this.observers.push(fn); }
-}
-```
+:::code mvc-d/py/main.py
+:::code mvc-d/ts/index.ts
 :::
 
 Модель тримає число і закон (`max(5, min(30, …))`), а коли міняється — гукає всіх, хто підписався, жодного з них не називаючи. Це і є та сама механіка [спостерігача](root:sf-apps/observer): модель веде список «залежних» і шле їм сигнал «я змінилася», а хто вони — цифра, смужка чи тест — її не обходить. Подання підписується на цей сигнал, контролер лише смикає `nudge`.

@@ -20,29 +20,7 @@ mA = (raw − offset) · SCALE_NUM / SCALE_DEN
 
 Найперше правило дисципліни — **написати найпростіший код, що правильно робить діло**, і не думати про швидкість, поки не доведено, що вона проблема. Ось він, прямо за формулою, без жодних хитрощів:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <math.h>
-
-// Калібрування конкретного пристрою — визначене на етапі калібрування,
-// у пам'яті як змінні. Тому дріб НЕ згортається компілятором у константу.
-static int32_t g_offset    = 2048;   // нуль давача, кроки АЦП
-static int32_t g_scale_num = 3300;   // чисельник калібрування
-static int32_t g_scale_den = 4095;   // знаменник калібрування
-
-// Порахувати RMS струму (в мА) по буферу сирих 12-бітних відліків.
-float compute_rms_mA(const uint16_t *raw, size_t n) {
-    uint64_t sum_sq = 0;                       // сума квадратів мА
-    for (size_t i = 0; i < n; i++) {
-        int32_t centered = (int32_t)raw[i] - g_offset;
-        int32_t mA = centered * g_scale_num / g_scale_den;   // ← дріб на КОЖЕН відлік
-        sum_sq += (uint64_t)((int64_t)mA * mA);
-    }
-    float mean_sq = (float)sum_sq / (float)n;
-    return sqrtf(mean_sq);                      // корінь — ОДИН раз на весь буфер
-}
-```
+:::code proj-measure-then-optimize/c/naivna-realizatsiia.c
 
 Цей код правильний, читається з першого погляду й правиться за секунди. Якщо змінилася формула калібрування — видно рівно один рядок, який чіпати. Це і є той стан, з якого дисципліна дозволяє рухатися далі: **не раніше**, ніж він працює й ясний.
 
@@ -54,38 +32,11 @@ float compute_rms_mA(const uint16_t *raw, size_t n) {
 
 Вмикається він трьома рухами, і адреси тут не магія, а фіксована частина карти пам'яті Cortex-M: спершу вмикаємо весь блок трасування бітом `TRCENA` у регістрі `DEMCR` (за адресою `0xE000EDFC`), тоді (на Cortex-M7 — ще й знімаємо блокування записом ключа `0xC5ACCE55` у `LAR`), обнуляємо лічильник і вмикаємо його рахунок бітом `CYCCNTENA` у `DWT->CTRL` (`0xE0001000`); саме значення живе в `DWT->CYCCNT` (`0xE0001004`). Через CMSIS це виглядає так:
 
-```c
-#include "stm32f4xx.h"   // або інший CMSIS-заголовок вашого МК
-
-static inline void cyccnt_enable(void) {
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;   // увімкнути DWT/ITM
-#ifdef DWT_LAR_KEY                                     // Cortex-M7: зняти замок
-    DWT->LAR = 0xC5ACCE55;
-#endif
-    DWT->CYCCNT = 0;                                   // обнулити
-    DWT->CTRL  |= DWT_CTRL_CYCCNTENA_Msk;              // пустити лічильник
-}
-
-static inline uint32_t cyccnt(void) { return DWT->CYCCNT; }
-```
+:::code proj-measure-then-optimize/c/krok-1-tsyklu-vymiriaty-a.c
 
 Тепер обгорнімо гарячу функцію виміром. Один виклик на реальному буфері — це надто мало й потоне в шумі (переривання, розігрів конвеєра), тож проганяємо її багато разів і ділимо; про це «ділимо» ще буде окрема пастка нижче, а поки що ділимо **поза** гарячим циклом, один раз на весь замір, тому воно нічого не спотворює:
 
-```c
-#define REPS  200u
-
-void profile_rms(const uint16_t *raw, size_t n) {
-    cyccnt_enable();
-    volatile float sink = 0;                 // volatile — щоб компілятор не викинув виклик
-    uint32_t t0 = cyccnt();
-    for (unsigned r = 0; r < REPS; r++)
-        sink += compute_rms_mA(raw, n);
-    uint32_t dt = cyccnt() - t0;
-    printf("naive: %lu cycles/call, %lu cycles/sample\n",
-           (unsigned long)(dt / REPS),
-           (unsigned long)(dt / REPS / n));
-}
-```
+:::code proj-measure-then-optimize/c/krok-1-tsyklu-vymiriaty-a-2.c
 
 > 🔧 **Навіщо це.** `volatile` на `sink` — не забаганка, а рятунок від найпоширенішої брехні мікробенчмарку. Без нього компілятор бачить, що результат `compute_rms_mA` нікуди не йде, і має повне право **викинути весь виклик** — ти зміряєш нуль тактів і зрадієш «неймовірному прискоренню» коду, якого вже нема. Правило заліза: у бенчмарку результат мусить кудись **дітися** так, щоб оптимізатор не довів його непотрібність.
 
@@ -112,34 +63,7 @@ centered · SCALE_NUM / SCALE_DEN  ≈  (centered · recip) >> Q,
 
 Поділ нікуди не зник насправді — він **утік із циклу назовні**, з мільйона разів на секунду до одного разу на переналаштування калібрування. А всередині циклу лишилося множення (1 такт) і зсув (1 такт) замість поділу (2–12 тактів). Ось код; зверніть увагу, що обчислення `recip` живе окремо, у функції калібрування, і виконується лише коли калібрування змінюють:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <math.h>
-
-static int32_t g_offset = 2048;
-// Готуємо обернене ОДИН раз при зміні калібрування, а не в гарячому циклі.
-static int64_t g_recip  = 0;      // (SCALE_NUM << Q) / SCALE_DEN
-#define RECIP_Q  32
-
-void set_calibration(int32_t offset, int32_t scale_num, int32_t scale_den) {
-    g_offset = offset;
-    // Єдиний поділ на весь час життя цього калібрування:
-    g_recip  = ((int64_t)scale_num << RECIP_Q) / scale_den;
-}
-
-float compute_rms_mA_fast(const uint16_t *raw, size_t n) {
-    uint64_t sum_sq = 0;
-    for (size_t i = 0; i < n; i++) {
-        int32_t centered = (int32_t)raw[i] - g_offset;
-        // Замість ділення — множення на обернене й зсув. Обидва по 1 такту.
-        int32_t mA = (int32_t)(((int64_t)centered * g_recip) >> RECIP_Q);
-        sum_sq += (uint64_t)((int64_t)mA * mA);
-    }
-    float mean_sq = (float)sum_sq / (float)n;
-    return sqrtf(mean_sq);
-}
-```
+:::code proj-measure-then-optimize/c/krok-2-tsyklu-prybraty.c
 
 Функція робить **те саме** діло — те саме перетворення, той самий RMS, — але поділ у тілі циклу зник. Перш ніж радіти, спинімося на найважливішому кроці, який передчасна оптимізація завжди пропускає, а дисциплінована — ніколи.
 
@@ -147,25 +71,7 @@ float compute_rms_mA_fast(const uint16_t *raw, size_t n) {
 
 Швидкість, куплена ціною **іншого результату**, — не оптимізація, а новий баг у гарному вбранні. Тому перед повторним виміром треба довести, що обидві функції дають те саме на всьому діапазоні входів. Множення на обернене — не точна, а **наближена** рівність: цілочислове `(SCALE_NUM << 32) / SCALE_DEN` відкидає дробову частину, і на окремих відліках останній міліампер може відрізнятися на одиницю через округлення. Тож перевіряємо не «біт у біт», а «в межах допуску, який задача дозволяє»:
 
-```c
-#include <assert.h>
-#include <stdlib.h>
-
-void verify_equivalence(void) {
-    set_calibration(2048, 3300, 4095);
-    uint16_t buf[1024];
-    // Прогнати на випадкових і на межових входах (0, макс 12 біт).
-    for (int trial = 0; trial < 64; trial++) {
-        for (int i = 0; i < 1024; i++)
-            buf[i] = (trial == 0) ? 0
-                   : (trial == 1) ? 4095
-                   : (uint16_t)(rand() & 0x0FFF);
-        float a = compute_rms_mA(buf, 1024);       // наївна — еталон
-        float b = compute_rms_mA_fast(buf, 1024);  // швидка
-        assert(fabsf(a - b) <= 0.5f);              // допуск: пів мА
-    }
-}
-```
+:::code proj-measure-then-optimize/c/krok-3-tsyklu-pereviryty.c
 
 Цей крок — не формальність, а частина ремесла. Він ловить дві типові біди наближеного прийому: **округлення** (те, що ми щойно допустили свідомо, обмеживши допуском) і **переповнення** (якби `centered · recip` не вліз у 64 біти — але ми навмисно рахуємо в `int64_t`, тож не переповнюється). Тільки **після** того, як рівність доведено, вимір швидкості взагалі має право щось означати: інакше ми б порівнювали час двох функцій, що роблять **різні** речі, а це порівняння порожнє.
 
@@ -203,34 +109,7 @@ fast:  ~ 3050 cycles/call, ~ 3 cycles/sample
 
 А тепер — найголовніше для теми, ядро всього уроку. Уявімо іншого інженера, що взявся за ту саму функцію, але **без виміру**, за самою інтуїцією «зроблю цикл швидшим». Він бачить простий цикл підсумовування й тягнеться до найвідомішого трюку — **ручного розгортання** (*loop unrolling*): обробляти по чотири відліки за ітерацію, щоб зменшити накладні витрати на лічильник і перевірку межі. Ось що з цього виходить:
 
-```c
-// "Оптимізовано" наосліп: ручне розгортання по 4. Поділ у тілі — НЕ ЧІПАЄМО,
-// бо око його не помітило. Читати важче, з'явився окремий "хвіст", межу n
-// треба обробляти руками — новий шанс на баг саме тут.
-float compute_rms_mA_unrolled(const uint16_t *raw, size_t n) {
-    uint64_t sum_sq = 0;
-    size_t i = 0;
-    for (; i + 4 <= n; i += 4) {
-        int32_t c0 = (int32_t)raw[i]   - g_offset;
-        int32_t c1 = (int32_t)raw[i+1] - g_offset;
-        int32_t c2 = (int32_t)raw[i+2] - g_offset;
-        int32_t c3 = (int32_t)raw[i+3] - g_offset;
-        int32_t m0 = c0 * g_scale_num / g_scale_den;   // ← поділ ЛИШИВСЯ
-        int32_t m1 = c1 * g_scale_num / g_scale_den;   // ← і тут
-        int32_t m2 = c2 * g_scale_num / g_scale_den;   // ← і тут
-        int32_t m3 = c3 * g_scale_num / g_scale_den;   // ← і тут
-        sum_sq += (uint64_t)((int64_t)m0*m0) + (uint64_t)((int64_t)m1*m1)
-                + (uint64_t)((int64_t)m2*m2) + (uint64_t)((int64_t)m3*m3);
-    }
-    for (; i < n; i++) {                                // окремий хвіст — новий баг-ризик
-        int32_t c = (int32_t)raw[i] - g_offset;
-        int32_t m = c * g_scale_num / g_scale_den;
-        sum_sq += (uint64_t)((int64_t)m * m);
-    }
-    float mean_sq = (float)sum_sq / (float)n;
-    return sqrtf(mean_sq);
-}
-```
+:::code proj-measure-then-optimize/c/kontr-stsenarii-ta-sama.c
 
 Праці вкладено **більше**, ніж у правильний варіант: код розрісся вчетверо, з'явився окремий «хвіст» для `n`, не кратного чотирьом (класичне місце помилки на одиницю), читати стало важче, правити — теж. А тепер вимір:
 

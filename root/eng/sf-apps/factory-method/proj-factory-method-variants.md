@@ -11,67 +11,8 @@
 Задача, де це лягає точно: у нас є **каркас імпорту**, який веде однаковий процес — прочитати сирі байти, розібрати їх у профіль, перевірити обов'язкові поля, залогувати результат. Спільне все, крім однієї ланки: **як саме сирі байти перетворити на профіль**. Це залежить від формату, і саме цю ланку каркас лишає дірою.
 
 :::tabs
-```ts
-abstract class ProfileImporter {
-  // фабричний метод: каркас НЕ знає конкретного парсера, лишає діру
-  protected abstract createParser(): ProfileParser;
-
-  // спільний процес — той самий для всіх форматів
-  import(raw: string): Profile {
-    const parser = this.createParser();   // ...кличе діру...
-    const profile = parser.parse(raw);
-    this.assertRequiredFields(profile);
-    this.log(`Імпортовано ${profile.email}`);
-    return profile;
-  }
-
-  private assertRequiredFields(p: Profile): void {
-    if (!p.email) throw new Error("Профіль без email");
-  }
-  private log(msg: string): void { /* ... */ }
-}
-
-class JsonProfileImporter extends ProfileImporter {
-  protected createParser(): ProfileParser {   // нащадок ОБИРАЄ клас
-    return new JsonProfileParser();
-  }
-}
-class CsvProfileImporter extends ProfileImporter {
-  protected createParser(): ProfileParser {
-    return new CsvProfileParser();
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class ProfileImporter(ABC):
-    @abstractmethod
-    def _create_parser(self) -> "ProfileParser":   # діра для нащадка
-        ...
-
-    # спільний процес — той самий для всіх форматів
-    def import_(self, raw: str) -> "Profile":
-        parser = self._create_parser()             # ...кличе діру...
-        profile = parser.parse(raw)
-        self._assert_required_fields(profile)
-        self._log(f"Імпортовано {profile.email}")
-        return profile
-
-    def _assert_required_fields(self, p: "Profile") -> None:
-        if not p.email:
-            raise ValueError("Профіль без email")
-
-    def _log(self, msg: str) -> None: ...
-
-class JsonProfileImporter(ProfileImporter):
-    def _create_parser(self) -> "ProfileParser":   # нащадок ОБИРАЄ клас
-        return JsonProfileParser()
-
-class CsvProfileImporter(ProfileImporter):
-    def _create_parser(self) -> "ProfileParser":
-        return CsvProfileParser()
-```
+:::code proj-factory-method-variants/ts/riznovyd-1-klasychnyi-gof.ts
+:::code proj-factory-method-variants/py/riznovyd-1-klasychnyi-gof.py
 :::
 
 Що тут насправді працює. Метод `import` — код каркаса, і він кличе `createParser()`, **не знаючи**, який об'єкт звідти вийде. У рантаймі виклик потрапить у той метод, який реалізував конкретний нащадок. Каркас пишуть один раз, а він уміє працювати з парсерами, яких на момент його написання ще не було: завтра дописуєш `XmlProfileImporter` — і каркас проведе його тим самим процесом, ні рядка в собі не змінивши.
@@ -87,55 +28,8 @@ class CsvProfileImporter(ProfileImporter):
 Розберімо, навіщо тут ім'я, бо це не косметика. У конструктора ім'я одне — назва класу. А способів створити профіль може бути кілька, і вони відрізняються не типами аргументів, а **змістом**. Порівняй:
 
 :::tabs
-```ts
-class Profile {
-  // конструктор лишаємо приватним: назовні через нього не ходять
-  private constructor(
-    readonly email: string,
-    readonly displayName: string,
-    readonly verified: boolean,
-  ) {}
-
-  // осмислені входи в клас — кожен зі СВОЄЮ назвою і своїм добором
-  static register(email: string, displayName: string): Profile {
-    return new Profile(email.toLowerCase(), displayName, /*verified*/ false);
-  }
-  static fromVerifiedInvite(email: string): Profile {
-    return new Profile(email.toLowerCase(), email.split("@")[0], /*verified*/ true);
-  }
-  static anonymous(): Profile {
-    return new Profile("", "Гість", false);
-  }
-}
-
-const a = Profile.register("Ann@Ex.com", "Ann");     // → verified=false
-const b = Profile.fromVerifiedInvite("bob@ex.com");  // → verified=true
-```
-```py
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Profile:
-    email: str
-    display_name: str
-    verified: bool
-
-    # осмислені входи в клас — кожен зі СВОЄЮ назвою і своїм добором
-    @classmethod
-    def register(cls, email: str, display_name: str) -> "Profile":
-        return cls(email.lower(), display_name, False)
-
-    @classmethod
-    def from_verified_invite(cls, email: str) -> "Profile":
-        return cls(email.lower(), email.split("@")[0], True)
-
-    @classmethod
-    def anonymous(cls) -> "Profile":
-        return cls("", "Гість", False)
-
-a = Profile.register("Ann@Ex.com", "Ann")       # → verified=False
-b = Profile.from_verified_invite("bob@ex.com")  # → verified=True
-```
+:::code proj-factory-method-variants/ts/riznovyd-2-statychnyi.ts
+:::code proj-factory-method-variants/py/riznovyd-2-statychnyi.py
 :::
 
 Спробуй уявити те саме на самих конструкторах — і ти впораєшся в глухий кут: `new Profile(email, name, false)` і `new Profile(email, name, true)` виглядають майже однаково, і на місці виклику не видно, що це «реєстрація» проти «підтвердженого запрошення». Ім'я методу — це і є та відсутня в конструкторі інформація: воно **називає намір**. Це перша задокументована перевага статичних фабрик у Джошуа Блоха («Effective Java», Item 1: «статичні фабрики мають імена»; *усталене джерело*).
@@ -153,49 +47,8 @@ b = Profile.from_verified_invite("bob@ex.com")  # → verified=True
 Повернімося до імпорту профілів, але зайдімо з іншого боку. Тепер формат не задано типом каркаса — його треба **вивести з самих даних**: нам дали шлях до файлу, і за розширенням треба обрати парсер.
 
 :::tabs
-```ts
-interface ProfileParser { parse(raw: string): Profile; }
-
-class JsonProfileParser implements ProfileParser { parse(raw: string): Profile { /* ... */ return {} as Profile; } }
-class CsvProfileParser  implements ProfileParser { parse(raw: string): Profile { /* ... */ return {} as Profile; } }
-class XmlProfileParser  implements ProfileParser { parse(raw: string): Profile { /* ... */ return {} as Profile; } }
-
-// параметризований фабричний метод: за КЛЮЧЕМ (розширення) обирає клас
-function parserForFile(path: string): ProfileParser {
-  const ext = path.slice(path.lastIndexOf(".") + 1).toLowerCase();
-  switch (ext) {
-    case "json": return new JsonProfileParser();
-    case "csv":  return new CsvProfileParser();
-    case "xml":  return new XmlProfileParser();
-    default:
-      throw new Error(`Немає парсера для формату .${ext}`);
-  }
-}
-```
-```py
-from typing import Protocol
-
-class ProfileParser(Protocol):
-    def parse(self, raw: str) -> "Profile": ...
-
-class JsonProfileParser: 
-    def parse(self, raw: str) -> "Profile": ...   # ...
-class CsvProfileParser:
-    def parse(self, raw: str) -> "Profile": ...
-class XmlProfileParser:
-    def parse(self, raw: str) -> "Profile": ...
-
-# параметризований фабричний метод: за КЛЮЧЕМ (розширення) обирає клас
-def parser_for_file(path: str) -> ProfileParser:
-    ext = path.rsplit(".", 1)[-1].lower()
-    if ext == "json":
-        return JsonProfileParser()
-    if ext == "csv":
-        return CsvProfileParser()
-    if ext == "xml":
-        return XmlProfileParser()
-    raise ValueError(f"Немає парсера для формату .{ext}")
-```
+:::code proj-factory-method-variants/ts/riznovyd-3.ts
+:::code proj-factory-method-variants/py/riznovyd-3.py
 :::
 
 Придивися до сигнатури — і побач другу класичну пастку фабрик, найпідступнішу. Функція повертає `ProfileParser`, **інтерфейс**, а не `JsonProfileParser`. Це не дрібниця. Якби вона повертала конкретний тип, увесь сенс фабрики протік би крізь її ж сигнатуру: клієнт побачив би конкретний клас у типі результату й прив'язався б до нього. **Витік конкретного типу через сигнатуру** зводить фабрику нанівець тихо — код збирається, працює, але зчеплення, яке ми виганяли, повернулося через двері типів.
@@ -209,75 +62,15 @@ def parser_for_file(path: str) -> ProfileParser:
 Корінь болю зі `switch` видно, якщо спитати: що таке ці гілки насправді? Це **відображення ключа на клас**: `"json" → JsonProfileParser`, `"csv" → CsvProfileParser`. А відображення в мовах — це не керівна конструкція, це **дані**. Структура даних для «ключ → значення» вже є — це словник (мапа). Тож замість вписувати відповідність у код `switch`, складімо її в таблицю.
 
 :::tabs
-```ts
-interface ProfileParser { parse(raw: string): Profile; }
-
-// реєстр: ключ → конструктор. Відповідність стала ДАНИМИ, а не гілками коду
-const PARSERS = new Map<string, new () => ProfileParser>([
-  ["json", JsonProfileParser],
-  ["csv",  CsvProfileParser],
-  ["xml",  XmlProfileParser],
-]);
-
-function parserForFile(path: string): ProfileParser {
-  const ext = path.slice(path.lastIndexOf(".") + 1).toLowerCase();
-  const Ctor = PARSERS.get(ext);
-  if (!Ctor) throw new Error(`Немає парсера для формату .${ext}`);
-  return new Ctor();
-}
-
-// новий формат — БЕЗ дотику до parserForFile: лише запис у таблицю
-export function registerParser(ext: string, ctor: new () => ProfileParser): void {
-  PARSERS.set(ext, ctor);
-}
-```
-```py
-from typing import Callable
-
-# реєстр: ключ → конструктор. Відповідність стала ДАНИМИ, а не гілками коду
-_PARSERS: dict[str, Callable[[], ProfileParser]] = {
-    "json": JsonProfileParser,
-    "csv":  CsvProfileParser,
-    "xml":  XmlProfileParser,
-}
-
-def parser_for_file(path: str) -> ProfileParser:
-    ext = path.rsplit(".", 1)[-1].lower()
-    try:
-        ctor = _PARSERS[ext]
-    except KeyError:
-        raise ValueError(f"Немає парсера для формату .{ext}") from None
-    return ctor()
-
-# новий формат — БЕЗ дотику до parser_for_file: лише запис у таблицю
-def register_parser(ext: str, ctor: Callable[[], ProfileParser]) -> None:
-    _PARSERS[ext] = ctor
-```
+:::code proj-factory-method-variants/ts/vid-switch-do-reiestrovoi.ts
+:::code proj-factory-method-variants/py/vid-switch-do-reiestrovoi.py
 :::
 
 Що змінилося по суті, а не косметично. У версії зі `switch` знання «які бувають формати» **вшите в керівний потік** функції — щоб його розширити, треба редагувати саму функцію. У версії з таблицею це знання винесене **в дані**, а `parserForFile` стала маленьким сталим рушієм, який просто дивиться в таблицю й ніколи не міняється. Додати формат тепер — це `registerParser("yaml", YamlProfileParser)`, і жодна гілка ніде не чіпається. Це і є [принцип відкритості-закритості](root:sf-apps/open-closed) у чистому вигляді: поведінка розширюється **новим записом**, а не хірургією в старому коді.
 
 І тут вилазить друга, тихіша вигода. Раз відповідність — це дані, реєстр можна **наповнювати ззовні**, а не одним централізованим літералом. Кожен модуль-парсер сам зголошується в таблицю поряд зі своїм оголошенням — і центральна фабрика взагалі не знає наперед повного списку. У Python це часто роблять декоратором, який реєструє клас у мить його оголошення:
 
-```py
-_PARSERS: dict[str, Callable[[], ProfileParser]] = {}
-
-def parses(*extensions: str):
-    """Декоратор: реєструє клас-парсер під його розширеннями."""
-    def wrap(cls):
-        for ext in extensions:
-            _PARSERS[ext] = cls
-        return cls
-    return wrap
-
-@parses("json")
-class JsonProfileParser:
-    def parse(self, raw: str) -> "Profile": ...
-
-@parses("yml", "yaml")             # два ключі на один клас — вільно
-class YamlProfileParser:
-    def parse(self, raw: str) -> "Profile": ...
-```
+:::code proj-factory-method-variants/py/vid-switch-do-reiestrovoi-2.py
 
 Тепер фабрика **не має жодного місця, яке треба правити** при додаванні формату: клас сам себе вписав. Список форматів перестав бути в одному файлі — він зібрався з усіх парсерів, що завантажились. Це доводить розворот до кінця: гілки перетворилися на дані, а дані — на **самореєстрацію**.
 

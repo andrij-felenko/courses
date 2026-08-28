@@ -81,66 +81,9 @@ def serve_all(q: "queue.Queue[Request]") -> None:
 
 **Паралельна обробка: N робітників, черга спорожняється у N разів швидше.**
 :::tabs
-```c
-// Пул із N потоків тягне спільну чергу. Тепер водночас
-// обробляється N запитів — чекання в черзі падає приблизно в N разів.
-#define WORKERS 4
-
-void *worker_loop(void *arg) {
-    queue_t *q = (queue_t *)arg;
-    request_t req;
-    while (dequeue_blocking(q, &req)) {   // безпечний забір із черги
-        handle_request(&req);             // чотири такі йдуть ОДНОЧАСНО
-    }
-    return NULL;
-}
-
-void serve_all_parallel(queue_t *q) {
-    pthread_t th[WORKERS];
-    for (int i = 0; i < WORKERS; i++)
-        pthread_create(&th[i], NULL, worker_loop, q);
-    for (int i = 0; i < WORKERS; i++)
-        pthread_join(th[i], NULL);
-}
-```
-```go
-// Пул із N горутин тягне спільний канал. Тепер водночас
-// обробляється N запитів — чекання в черзі падає приблизно в N разів.
-const workers = 4
-
-func workerLoop(q <-chan Request, wg *sync.WaitGroup) {
-    defer wg.Done()
-    for req := range q { // безпечний забір із каналу
-        handleRequest(req) // чотири такі йдуть ОДНОЧАСНО
-    }
-}
-
-func serveAllParallel(q <-chan Request) {
-    var wg sync.WaitGroup
-    for i := 0; i < workers; i++ {
-        wg.Add(1)
-        go workerLoop(q, &wg)
-    }
-    wg.Wait()
-}
-```
-```python
-# Пул із N потоків тягне спільну чергу. Тепер водночас
-# обробляється N запитів — чекання в черзі падає приблизно в N разів.
-WORKERS = 4
-
-def worker_loop(q: "queue.Queue[Request]") -> None:
-    while (req := q.get()) is not None:  # безпечний забір із черги
-        handle_request(req)              # чотири такі йдуть ОДНОЧАСНО
-
-def serve_all_parallel(q: "queue.Queue[Request]") -> None:
-    threads = [threading.Thread(target=worker_loop, args=(q,))
-               for _ in range(WORKERS)]
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
-```
+:::code performance-tactics-d/c/main.c
+:::code performance-tactics-d/go/main.go
+:::code performance-tactics-d/py/main.py
 :::
 
 Чотири робітники замість одного — і черга, що росла, починає спорожнятися. Але тут і засідає найважливіший урок про паралельність: **вона не безкоштовна й не безмежна**. По-перше, `dequeue_blocking` мусить бути захищений від гонитви — сам замок на черзі знову породжує конкуренцію, і якщо робити його грубо, чотири потоки битимуться за один мьютекс так, що виграшу не буде. По-друге, прискорення впирається у **частку роботи, яку взагалі можна розпаралелити**: якщо третина обробки послідовна за своєю природою (усі пишуть в один лог, оновлюють один лічильник), то скільки б робітників ти не додав, швидше за цю третину система не поїде. Цю стелю строго описує [закон Амдала](root:sf-apps/performance-tactics/math-amdahl-little.md) — межа прискорення від паралельності, задана саме послідовною часткою; вона й пояснює, чому подвоєння ядер рідко дає подвоєння швидкості.

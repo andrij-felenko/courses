@@ -14,30 +14,7 @@
 
 Три різні відділи, три різні джерела майбутніх змін. Природний, «очевидний» дизайн збирає все в один клас, бо ж усе це «про працівника»:
 
-```cpp
-#include <string>
-#include <vector>
-
-// Пасивні дані — те, що описує працівника.
-struct EmployeeData {
-    std::string name;
-    double      hourlyRate = 0.0;   // ставка за звичайну годину
-    std::vector<double> dailyHours; // відпрацьовано щодня за період
-};
-
-// «Очевидний» God-клас: усе про працівника — тут.
-class Employee {
-public:
-    explicit Employee(EmployeeData d) : data_(std::move(d)) {}
-
-    double calculatePay();   // CFO: правила нарахування
-    std::string reportHours(); // COO: формат звіту
-    void   save();           // CTO/DBA: як лягає в базу
-
-private:
-    EmployeeData data_;
-};
-```
+:::code proj-employee-split/cpp/zadacha-try-viddily-odyn.cpp
 
 На вигляд бездоганно: усе зібрано, нічого не розкидано, «висока зв'язність». Але зв'язність тут **оманлива** — три методи рідні не одне одному, а лише спільному іменнику «працівник». За кожним стоїть свій замовник, і саме тому цей клас — не одна відповідальність, а три, зшиті в один шов.
 
@@ -50,82 +27,8 @@ private:
 Ось повна реалізація God-класу з цією спільною серединою:
 
 :::tabs
-```cpp
-class Employee {
-public:
-    explicit Employee(EmployeeData d) : data_(std::move(d)) {}
-
-    // CFO: зарплата = звичайні години × ставка
-    //             + понаднормові × ставка × 1.5
-    double calculatePay() {
-        double reg = regularHours();                 // ← спільна арифметика
-        double total = totalHours();
-        double overtime = total - reg;
-        return reg * data_.hourlyRate
-             + overtime * data_.hourlyRate * 1.5;
-    }
-
-    // COO: рядок звіту — окремо звичайні, окремо понаднормові
-    std::string reportHours() {
-        double reg = regularHours();                 // ← та сама спільна
-        double total = totalHours();
-        double overtime = total - reg;
-        return data_.name + ": reg=" + fmt(reg)
-             + " ot=" + fmt(overtime);
-    }
-
-    void save() { /* пише data_ у базу — тут не суттєво */ }
-
-private:
-    double totalHours() {
-        double s = 0.0;
-        for (double h : data_.dailyHours) s += h;
-        return s;
-    }
-
-    // ПРИХОВАНА СПІЛЬНА ЗАЛЕЖНІСТЬ ДВОХ АКТОРІВ.
-    // Скільки годин рахувати як «звичайні» (решта — понаднормові).
-    // Політика підприємства: не більше 40 звичайних годин за період.
-    double regularHours() {
-        double total = totalHours();
-        return total < 40.0 ? total : 40.0;
-    }
-
-    static std::string fmt(double v);
-    EmployeeData data_;
-};
-```
-```python
-class Employee:
-    def __init__(self, data: EmployeeData):
-        self._data = data
-
-    # CFO: зарплата = звичайні години × ставка
-    #             + понаднормові × ставка × 1.5
-    def calculate_pay(self) -> float:
-        reg = self._regular_hours()                  # ← спільна арифметика
-        overtime = self._total_hours() - reg
-        return (reg * self._data.hourly_rate
-                + overtime * self._data.hourly_rate * 1.5)
-
-    # COO: рядок звіту — окремо звичайні, окремо понаднормові
-    def report_hours(self) -> str:
-        reg = self._regular_hours()                  # ← та сама спільна
-        overtime = self._total_hours() - reg
-        return f"{self._data.name}: reg={reg:g} ot={overtime:g}"
-
-    def save(self) -> None:
-        ...                              # пише self._data у базу — тут не суттєво
-
-    def _total_hours(self) -> float:
-        return sum(self._data.daily_hours)
-
-    # ПРИХОВАНА СПІЛЬНА ЗАЛЕЖНІСТЬ ДВОХ АКТОРІВ.
-    # Скільки годин рахувати як «звичайні» (решта — понаднормові).
-    # Політика підприємства: не більше 40 звичайних годин за період.
-    def _regular_hours(self) -> float:
-        return min(self._total_hours(), 40.0)
-```
+:::code proj-employee-split/cpp/de-khovaietsia-mina-spilna.cpp
+:::code proj-employee-split/py/main.py
 :::
 
 Придивись до `regularHours()`. У її підписі нема ані слова про те, що вона обслуговує **двох різних господарів** з різних відділів. У тексті класу вона — просто приватний хелпер, «одна арифметика в одному місці», рівно те, чого вимагає здоровий глузд і принцип «не повторюйся». І саме ця невинність робить її міною: наступний програміст, який її правитиме, **не бачитиме**, що чіпає одразу дві незалежні лінії вимог.
@@ -214,114 +117,13 @@ class Employee:
 
 Спочатку — крок «спільне ще спільне». Виносимо політику годин у явну одиницю з власником і залежимо від неї відкрито.
 
-```cpp
-#include <string>
-#include <vector>
-#include <numeric>
-
-// Пасивні дані — жодної поведінки, лише опис працівника.
-struct EmployeeData {
-    std::string name;
-    double      hourlyRate = 0.0;
-    std::vector<double> dailyHours;
-};
-
-double totalHours(const EmployeeData& e) {
-    return std::accumulate(e.dailyHours.begin(), e.dailyHours.end(), 0.0);
-}
-
-// ЯВНА спільна одиниця. Тепер це не прихований хелпер, а названий
-// контракт із власником. Хто нею користується — залежить СВІДОМО;
-// зміна тут — видима зміна спільного правила, а не тиха правка.
-class HoursPolicy {
-public:
-    explicit HoursPolicy(double regularCap) : cap_(regularCap) {}
-
-    // Скільки годин рахувати звичайними (решта — понаднормові).
-    double regularHours(const EmployeeData& e) const {
-        double total = totalHours(e);
-        return total < cap_ ? total : cap_;
-    }
-    double overtimeHours(const EmployeeData& e) const {
-        return totalHours(e) - regularHours(e);
-    }
-private:
-    double cap_;   // поріг звичайних годин — тепер параметр, не «40» у тілі
-};
-
-// CFO: тільки нарахування. Залежить від політики годин ЯВНО.
-class PayCalculator {
-public:
-    explicit PayCalculator(HoursPolicy policy) : policy_(policy) {}
-
-    double calculatePay(const EmployeeData& e) const {
-        double reg = policy_.regularHours(e);
-        double ot  = policy_.overtimeHours(e);
-        return reg * e.hourlyRate + ot * e.hourlyRate * overtimeRate_;
-    }
-private:
-    HoursPolicy policy_;
-    double overtimeRate_ = 1.5;   // множник понаднормових — живе ТУТ, у CFO
-};
-
-// COO: тільки звіт. Теж залежить від політики годин ЯВНО.
-class HourReporter {
-public:
-    explicit HourReporter(HoursPolicy policy) : policy_(policy) {}
-
-    std::string report(const EmployeeData& e) const {
-        double reg = policy_.regularHours(e);
-        double ot  = policy_.overtimeHours(e);
-        return e.name + ": reg=" + fmt(reg) + " ot=" + fmt(ot);
-    }
-private:
-    HoursPolicy policy_;
-    static std::string fmt(double v);
-};
-
-// CTO/DBA: тільки збереження. Про години й зарплату не знає нічого.
-class EmployeeRepository {
-public:
-    void save(const EmployeeData& e);   // серіалізація у базу
-};
-```
+:::code proj-employee-split/cpp/robochyi-kod-pislia.cpp
 
 Зверни увагу, що змінилося на рівні залежностей. `regularHours` більше не приватний закапелок усередині `Employee` — це `HoursPolicy::regularHours`, **названа річ із власником**. `PayCalculator` і `HourReporter` тримають її **у власному полі** й дістають через явний виклик. Поріг «40» більше не захований у тілі числом — він **параметр конструктора**. Тому тепер неможливо «тихо» змінити політику для одного, не зачепивши іншого: політика — спільний об'єкт, і будь-яка зміна її поведінки — це зміна спільного контракту, яку **видно на вході** в обидва класи.
 
 А тепер — крок, який продиктував наш конфлікт: **причини розійшлися**, поріг звіту (44) і поріг оплати (40) — це різні числа з різних джерел. Отже, «спільна» політика насправді була двома. Розчіплюємо:
 
-```cpp
-// Дві РІЗНІ політики — бо це дві різні причини для зміни.
-// Оплатний поріг міняє трудовий договір (CFO); звітний — аудит (COO).
-class PayCalculator {
-public:
-    PayCalculator(double regularCap, double overtimeRate)
-        : cap_(regularCap), overtimeRate_(overtimeRate) {}
-
-    double calculatePay(const EmployeeData& e) const {
-        double reg = std::min(totalHours(e), cap_);
-        double ot  = totalHours(e) - reg;
-        return reg * e.hourlyRate + ot * e.hourlyRate * overtimeRate_;
-    }
-private:
-    double cap_;          // 40 — оплатний поріг, власність CFO
-    double overtimeRate_; // 1.5
-};
-
-class HourReporter {
-public:
-    explicit HourReporter(double reportingCap) : cap_(reportingCap) {}
-
-    std::string report(const EmployeeData& e) const {
-        double reg = std::min(totalHours(e), cap_);
-        double ot  = totalHours(e) - reg;
-        return e.name + ": reg=" + fmt(reg) + " ot=" + fmt(ot);
-    }
-private:
-    double cap_;          // 44 — звітний поріг, власність COO
-    static std::string fmt(double v);
-};
-```
+:::code proj-employee-split/cpp/robochyi-kod-pislia-2.cpp
 
 Тепер повторімо ту саму правку, що ламала все раніше: аудитор просить звітний поріг 44. Змінюємо **тільки** число, з яким конструюється `HourReporter`:
 
@@ -371,24 +173,7 @@ private:
 
 Ось **правильний**, тонкий фасад. Його єдина робота — **делегувати**. Він тримає три об'єкти й перекидає виклики, не додаючи ні краплі логіки:
 
-```cpp
-// ТОНКИЙ фасад: лише делегує. Сам НІЧОГО не рахує й не вирішує.
-// Актора в нього немає — він порожній посередник.
-class EmployeeFacade {
-public:
-    EmployeeFacade(PayCalculator pay, HourReporter rep, EmployeeRepository repo)
-        : pay_(pay), rep_(rep), repo_(repo) {}
-
-    double      calculatePay(const EmployeeData& e) const { return pay_.calculatePay(e); }
-    std::string reportHours(const EmployeeData& e) const { return rep_.report(e); }
-    void        save(EmployeeData& e)                     { repo_.save(e); }
-
-private:
-    PayCalculator      pay_;
-    HourReporter       rep_;
-    EmployeeRepository repo_;
-};
-```
+:::code proj-employee-split/cpp/pastka-fasad-shcho-potai.cpp
 
 Поки фасад такий — усе гаразд. Уся справжня логіка живе в трьох класах-акторах; фасад лише зводить їх до зручного виклику й **сам не має жодної причини для зміни**, окрім «додали/прибрали делеговану операцію». Правки CFO йдуть у `PayCalculator`, COO — у `HourReporter`, і фасад до них байдужий.
 
@@ -431,26 +216,7 @@ private:
 
 Правильне місце для `payslip` — не «розрахувати податок і зверстати рядок у фасаді», а **делегувати обидві частини їхнім власникам**: суму до виплати (з утриманнями) рахує `PayCalculator`, рядок відомості верстає `HourReporter`, а фасад лише **зводить два готові результати**:
 
-```cpp
-// Податок — у PayCalculator (це нарахування, актор CFO):
-double PayCalculator::netPay(const EmployeeData& e) const {
-    double gross = calculatePay(e);
-    return gross - gross * taxRate_;   // taxRate_ — поле PayCalculator
-}
-
-// Верстка відомості — у HourReporter (це подання, актор COO):
-std::string HourReporter::payslipLine(const EmployeeData& e,
-                                      double gross, double net) const {
-    return report(e) + " | gross=" + fmt(gross) + " net=" + fmt(net);
-}
-
-// Фасад лишається ТОНКИМ — тільки зводить готове докупи:
-std::string EmployeeFacade::payslip(const EmployeeData& e) const {
-    double gross = pay_.calculatePay(e);
-    double net   = pay_.netPay(e);            // рахунок — у CFO-класі
-    return rep_.payslipLine(e, gross, net);   // верстка — у COO-класі
-}
-```
+:::code proj-employee-split/cpp/pravylo-shcho-trymaie.hpp
 
 Тепер зміна ставки податку йде туди, де їй місце, — у `PayCalculator`; зміна формату відомості — у `HourReporter`; а фасад так само нічого не вирішує й не має власного актора. Зручний єдиний вхід збережено, а розділення за акторами — не зруйноване.
 

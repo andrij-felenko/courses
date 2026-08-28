@@ -27,27 +27,7 @@
 
 Найпростіший потокобезпечний сінглтон у Java — той, що взагалі не лінивий. Статичне поле ініціалізують просто при оголошенні; про потокобезпечність дбає сама JVM.
 
-```java
-public final class Config {
-    // JVM гарантує: статичне поле ініціалізується рівно раз, під захистом,
-    // ще до того, як хтось уперше торкнеться класу
-    private static final Config INSTANCE = new Config();
-
-    private final Map<String, String> settings;
-
-    private Config() {                       // приватний — ззовні new не викличеш
-        this.settings = loadFromDisk();      // дорога робота, робиться один раз
-    }
-
-    public static Config getInstance() {
-        return INSTANCE;
-    }
-
-    public String get(String key) {
-        return settings.get(key);
-    }
-}
-```
+:::code proj-thread-safe-singleton/java/java-hotova.java
 
 **Ідея.** JVM ініціалізує клас рівно перед першим його використанням — і ця ініціалізація за специфікацією проходить під власним замком класу, рівно один раз, навіть якщо в клас одночасно ломляться десять потоків. Поки поле `INSTANCE` присвоюють, усі інші чекають. Тому гонитві (діра 1) тут просто нема де виникнути: на момент, коли перший потік дістане `getInstance()`, поле вже давно заповнене.
 
@@ -57,29 +37,7 @@ public final class Config {
 
 Цей ідіом — стандартна відповідь Java на «хочу лінивий сінглтон і не хочу ані замків, ані зламаного `double-checked locking`». Його зазвичай звуть **сінглтоном Білла П'ю** (англ. *Bill Pugh singleton*) або **ідіомом ініціалізації на вимогу через клас-тримач** (англ. *initialization-on-demand holder idiom*) — за іменем Білла П'ю, одного з авторів декларації «Double-Checked Locking is Broken» (2000), що зрештою підштовхнула правки моделі пам'яті Java у версії 5 ([чому голий double-checked locking зламаний](root:sf-apps/singleton/math-double-checked-locking.md)).
 
-```java
-public final class Config {
-    private final Map<String, String> settings;
-
-    private Config() {
-        this.settings = loadFromDisk();      // дорога робота
-    }
-
-    // приватний вкладений клас; JVM НЕ вантажить його, поки на нього
-    // вперше не пошлються — а це станеться лише в getInstance()
-    private static class Holder {
-        static final Config INSTANCE = new Config();
-    }
-
-    public static Config getInstance() {
-        return Holder.INSTANCE;              // ось тут Holder уперше й вантажиться
-    }
-
-    public String get(String key) {
-        return settings.get(key);
-    }
-}
-```
+:::code proj-thread-safe-singleton/java/java-bill-pugh-holder.java
 
 **Ідея — уся в одному спостереженні.** JVM вантажить клас **ліниво**: не при завантаженні зовнішнього `Config`, а точно тоді, коли на клас уперше по-справжньому пошлються. Поле `Holder.INSTANCE` живе не в `Config`, а у вкладеному `Holder`. Тому просте завантаження `Config` (наприклад, щоб узяти якусь його статичну константу) **не** будує екземпляр — `Holder` спить. Він прокидається лише в рядку `return Holder.INSTANCE`, тобто рівно при першому виклику `getInstance()`. А коли `Holder` вантажиться, JVM ініціалізує його статичне поле під тим самим one-time-замком класу, що й у eager-варіанті.
 
@@ -93,24 +51,7 @@ public final class Config {
 
 Джошуа Блох у «Effective Java» (Item 3) називає **одноелементний enum** найкращим способом реалізувати сінглтон — саме тому, що він **єдиний** закриває одразу майже всі двері (гонитву, серіалізацію, рефлексію, клонування) з мінімумом зусиль з нашого боку.
 
-```java
-public enum Config {
-    INSTANCE;                                // єдина константа = єдиний екземпляр
-
-    private final Map<String, String> settings;
-
-    // конструктор enum викликається JVM рівно раз, потокобезпечно
-    Config() {
-        this.settings = loadFromDisk();      // дорога робота
-    }
-
-    public String get(String key) {
-        return settings.get(key);
-    }
-}
-
-// вживання:  Config.INSTANCE.get("db.host");
-```
+:::code proj-thread-safe-singleton/java/java-enum-sinhlton-stiikyi.java
 
 **Ідея.** Константа enum — це під капотом статичне `final`-поле, яке JVM ініціалізує при завантаженні enum-класу, під тим самим замком «рівно раз». Тобто гонитва (діра 1) закрита тим самим механізмом, що в eager. Але enum дає ще дві речі, яких звичайний клас не дає задарма:
 
@@ -125,33 +66,7 @@ public enum Config {
 
 У C++ ідіоматичний потокобезпечний лінивий сінглтон — **локальна статична змінна функції**. Його звуть **сінглтоном Меєрса** — за Скоттом Меєрсом, який його популяризував; сам механізм часто називають **magic statics** (англ. «чарівні статики»).
 
-```cpp
-#include <map>
-#include <string>
-
-class Config {
-public:
-    static Config& instance() {
-        static Config inst;   // C++11: ініціалізується рівно раз, потокобезпечно
-        return inst;
-    }
-
-    // єдиність без заборон нічого не варта: копію й присвоєння — під заборону
-    Config(const Config&)            = delete;
-    Config& operator=(const Config&) = delete;
-
-    std::string get(const std::string& key) const {
-        auto it = settings_.find(key);
-        return it != settings_.end() ? it->second : std::string{};
-    }
-
-private:
-    Config() { settings_ = load_from_disk(); }   // приватний, дорога робота
-    std::map<std::string, std::string> settings_;
-};
-
-// вживання:  Config::instance().get("db.host");
-```
+:::code proj-thread-safe-singleton/cpp/main.cpp
 
 **Ідея.** Локальна статична змінна ініціалізується не при вході в програму, а під час **першого проходу керування через її оголошення** — тобто при першому виклику `instance()`. Це дає лінивість. А від стандарту C++11 (§6.7 [stmt.dcl], п. 4) додано ключову гарантію: **якщо два потоки заходять у це оголошення одночасно, поки змінна ще ініціалізується, другий чекає завершення**. Компілятор ставить прихований однобічний замок (у GCC/Clang — через `__cxa_guard_acquire`/`__cxa_guard_release`); тобі не треба ані `if`, ані `std::mutex`. Гонитва (діра 1) закрита силами компілятора.
 
@@ -166,24 +81,7 @@ private:
 
 У Python найчистіший сінглтон — **не клас із хитрощами, а звичайний об'єкт на рівні модуля**. Річ у тім, що інтерпретатор виконує тіло модуля **рівно один раз** — при першому `import`; усі наступні імпорти дістають той самий уже готовий об'єкт із кешу модулів (`sys.modules`). Ця «рівно раз» — і є вся потрібна нам гарантія.
 
-```python
-# config.py — весь файл виконається один раз, при першому import цього модуля
-
-class _Config:
-    def __init__(self):
-        self._settings = load_from_disk()    # дорога робота, робиться один раз
-
-    def get(self, key):
-        return self._settings.get(key)
-
-
-config = _Config()        # створюється при першому імпорті config.py
-
-
-# деінде в програмі:
-#   from config import config
-#   config.get("db.host")
-```
+:::code proj-thread-safe-singleton/py/config.py
 
 **Ідея.** Тобі не потрібні ані приватний конструктор, ані статичне поле, ані замок. Ім'я `config` — модульна змінна; хто б звідки не написав `from config import config`, він отримає той самий об'єкт, бо тіло `config.py` виконалося один-єдиний раз. Клас `_Config` названо з підкресленням лише як знак «не створюй мене напряму» — Python не забороняє це технічно, це домовленість.
 
@@ -193,22 +91,7 @@ config = _Config()        # створюється при першому імп�
 
 **Якщо все ж хочеться класу з `getInstance` — обережно з `__new__`.** Іноді вимагають саме інтерфейс `Config()` → той самий об'єкт. Поширений спосіб — перевизначити `__new__` і кешувати екземпляр у полі класу. Він працює, але потребує **власного замка**, бо тіло `__new__` не серіалізоване замком імпорту:
 
-```python
-import threading
-
-class Config:
-    _instance = None
-    _lock = threading.Lock()
-
-    def __new__(cls):
-        if cls._instance is None:            # швидка перевірка без замка
-            with cls._lock:                  # у вузьке місце — по одному
-                if cls._instance is None:    # друга перевірка вже під замком
-                    inst = super().__new__(cls)
-                    inst._settings = load_from_disk()
-                    cls._instance = inst     # публікуємо ГОТОВИМ, останнім кроком
-        return cls._instance
-```
+:::code proj-thread-safe-singleton/py/python-obiekt-na-rivni.py
 
 Це і є той самий **double-checked locking**, але в Python він, на відміну від наївного Java-варіанта, коректний: присвоєння `cls._instance = inst` атомарне на рівні байткоду (захищене GIL), а сам об'єкт повністю зібрано **до** публікації. Усе ж модульний варіант вище простіший і безпечніший — до `__new__` вдавайся, лише коли інтерфейс `Config()` справді нав'язаний ззовні. І пам'ятай: `__init__` **викликається щоразу** після `__new__`, навіть коли той повернув старий екземпляр, тож дорогу ініціалізацію тримай у `__new__` (як вище), а не в `__init__` — інакше вона перечитуватиме файл на кожен `Config()`.
 
@@ -222,26 +105,7 @@ class Config:
 
 **Ідея лікування — `readResolve`.** Java дає гачок: якщо серіалізовний клас має метод `readResolve()`, движок серіалізації після десеріалізації **замінює** щойно збудований об'єкт на те, що поверне цей метод, а тимчасовий одразу йде на смітник. Повертаємо з нього наявний екземпляр — і другий не виживає:
 
-```java
-import java.io.*;
-import java.util.Map;
-
-public final class Config implements Serializable {
-    private static final Config INSTANCE = new Config();
-
-    // ВАЖЛИВО: усі поля-посилання — transient (пояснення нижче)
-    private transient Map<String, String> settings;
-
-    private Config() { this.settings = loadFromDisk(); }
-
-    public static Config getInstance() { return INSTANCE; }
-
-    // движок серіалізації викличе це замість того, щоб віддати новий об'єкт
-    private Object readResolve() throws ObjectStreamException {
-        return INSTANCE;               // тимчасовий десеріалізований об'єкт викидається
-    }
-}
-```
+:::code proj-thread-safe-singleton/java/serializatsiia-stvoriuie.java
 
 **Тонкі граблі всередині лікування.** Мало написати `readResolve` — треба ще позначити **всі поля-посилання** словом `transient`, і це не косметика. Якщо поле не `transient`, його вміст десеріалізується **раніше**, ніж запуститься `readResolve`. Зловмисно зібраний потік може в цей проміжок «викрасти» посилання на тимчасовий об'єкт — і в програмі опиниться живий другий екземпляр повз усю нашу оборону (це задокументована атака, MSC07-J у стандарті CERT). Тому: серіалізовний сінглтон + `readResolve` + `transient` на всіх посиланнях — три частини одного замка, поодинці кожна дірява.
 

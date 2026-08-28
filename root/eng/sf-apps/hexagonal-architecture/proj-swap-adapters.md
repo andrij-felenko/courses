@@ -36,193 +36,17 @@
 Серце — тип `Замовлення` й правила. Порти оголошені поряд, бо це власність ядра. Жодного натяку на технологію:
 
 :::tabs
-```ts
-// order/core.ts ── ЯДРО. Не імпортує НІЧОГО зовнішнього.
-
-export interface Позиція { товар: string; ціна: number; кількість: number; }
-
-export class Замовлення {
-  private constructor(
-    readonly id: string,
-    readonly пошта: string,
-    readonly позиції: Позиція[],
-  ) {}
-
-  static створити(id: string, пошта: string, позиції: Позиція[]): Замовлення {
-    if (позиції.length === 0) throw new Error("порожнє замовлення");     // ПРАВИЛО
-    if (!пошта.includes("@")) throw new Error("недійсна пошта");         // ПРАВИЛО
-    return new Замовлення(id, пошта, позиції);
-  }
-
-  сума(): number {
-    return this.позиції.reduce((s, п) => s + п.ціна * п.кількість, 0);   // ПРАВИЛО
-  }
-}
-
-// ── ПОРТИ ──
-// Вхідний: що ядро ПРОПОНУЄ світу
-export interface ОформленняЗамовлення {
-  оформити(пошта: string, позиції: Позиція[]): Promise<Замовлення>;
-}
-// Вихідний: що ядро ВИМАГАЄ від світу — рівно два дієслова, мовою домену
-export interface ЗамовленняСховище {
-  зберегти(з: Замовлення): Promise<void>;
-  узяти(id: string): Promise<Замовлення | null>;
-}
-```
-```python
-# order/core.py ── ЯДРО. Не імпортує НІЧОГО зовнішнього.
-from __future__ import annotations
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class Позиція:
-    товар: str
-    ціна: int
-    кількість: int
-
-
-@dataclass(frozen=True)
-class Замовлення:
-    id: str
-    пошта: str
-    позиції: tuple[Позиція, ...]
-
-    @staticmethod
-    def створити(id: str, пошта: str, позиції: list[Позиція]) -> "Замовлення":
-        if not позиції:
-            raise ValueError("порожнє замовлення")          # ПРАВИЛО
-        if "@" not in пошта:
-            raise ValueError("недійсна пошта")              # ПРАВИЛО
-        return Замовлення(id, пошта, tuple(позиції))
-
-    def сума(self) -> int:
-        return sum(п.ціна * п.кількість for п in self.позиції)   # ПРАВИЛО
-
-
-# ── ПОРТИ ──
-# Вхідний: що ядро ПРОПОНУЄ світу
-class ОформленняЗамовлення(ABC):
-    @abstractmethod
-    async def оформити(self, пошта: str, позиції: list[Позиція]) -> Замовлення: ...
-
-
-# Вихідний: що ядро ВИМАГАЄ від світу — рівно два дієслова, мовою домену
-class ЗамовленняСховище(ABC):
-    @abstractmethod
-    async def зберегти(self, з: Замовлення) -> None: ...
-    @abstractmethod
-    async def узяти(self, id: str) -> Замовлення | None: ...
-```
-```go
-// order/core.go ── ЯДРО. Пакет order не імпортує НІЧОГО зовнішнього.
-package order
-
-import "errors"
-
-type Позиція struct {
-    Товар     string
-    Ціна      int
-    Кількість int
-}
-
-type Замовлення struct {
-    ID      string
-    Пошта   string
-    Позиції []Позиція
-}
-
-func Створити(id, пошта string, позиції []Позиція) (Замовлення, error) {
-    if len(позиції) == 0 {
-        return Замовлення{}, errors.New("порожнє замовлення") // ПРАВИЛО
-    }
-    if !containsAt(пошта) {
-        return Замовлення{}, errors.New("недійсна пошта")     // ПРАВИЛО
-    }
-    return Замовлення{ID: id, Пошта: пошта, Позиції: позиції}, nil
-}
-
-func (з Замовлення) Сума() int {
-    s := 0
-    for _, п := range з.Позиції {
-        s += п.Ціна * п.Кількість // ПРАВИЛО
-    }
-    return s
-}
-
-// ── ПОРТИ ──
-
-// Вхідний: що ядро ПРОПОНУЄ світу
-type ОформленняЗамовлення interface {
-    Оформити(пошта string, позиції []Позиція) (Замовлення, error)
-}
-
-// Вихідний: що ядро ВИМАГАЄ від світу — рівно два дієслова, мовою домену
-type ЗамовленняСховище interface {
-    Зберегти(з Замовлення) error
-    Узяти(id string) (*Замовлення, error)
-}
-```
+:::code proj-swap-adapters/ts/core.ts
+:::code proj-swap-adapters/py/core.py
+:::code proj-swap-adapters/go/core.go
 :::
 
 І сам сервіс — реалізація вхідного порту, що спирається **лише** на вихідний. Він не знає, куди складає, і не хоче знати:
 
 :::tabs
-```ts
-// order/service.ts ── ЯДРО. Знає порт, не знає адаптера.
-import { ОформленняЗамовлення, ЗамовленняСховище, Замовлення, Позиція } from "./core";
-
-export class ЗамовленняСервіс implements ОформленняЗамовлення {
-  constructor(
-    private сховище: ЗамовленняСховище,     // ← вихідний порт, НЕ база
-    private нid: () => string,              // джерело id теж ззовні
-  ) {}
-
-  async оформити(пошта: string, позиції: Позиція[]): Promise<Замовлення> {
-    const з = Замовлення.створити(this.нid(), пошта, позиції); // правила всередині
-    await this.сховище.зберегти(з);          // гукає порт — байдуже, хто по той бік
-    return з;
-  }
-}
-```
-```python
-# order/service.py ── ЯДРО. Знає порт, не знає адаптера.
-from collections.abc import Callable
-from .core import ОформленняЗамовлення, ЗамовленняСховище, Замовлення, Позиція
-
-
-class ЗамовленняСервіс(ОформленняЗамовлення):
-    def __init__(self, сховище: ЗамовленняСховище, нid: Callable[[], str]):
-        self._сховище = сховище   # ← вихідний порт, НЕ база
-        self._нid = нid           # джерело id теж ззовні
-
-    async def оформити(self, пошта: str, позиції: list[Позиція]) -> Замовлення:
-        з = Замовлення.створити(self._нid(), пошта, позиції)  # правила всередині
-        await self._сховище.зберегти(з)   # гукає порт — байдуже, хто по той бік
-        return з
-```
-```go
-// order/service.go ── ЯДРО. Знає порт, не знає адаптера.
-package order
-
-type ЗамовленняСервіс struct {
-    Сховище ЗамовленняСховище // ← вихідний порт, НЕ база
-    НID     func() string     // джерело id теж ззовні
-}
-
-func (s *ЗамовленняСервіс) Оформити(пошта string, позиції []Позиція) (Замовлення, error) {
-    з, err := Створити(s.НID(), пошта, позиції) // правила всередині
-    if err != nil {
-        return Замовлення{}, err
-    }
-    if err := s.Сховище.Зберегти(з); err != nil { // гукає порт — байдуже, хто по той бік
-        return Замовлення{}, err
-    }
-    return з, nil
-}
-```
+:::code proj-swap-adapters/ts/service.ts
+:::code proj-swap-adapters/py/service.py
+:::code proj-swap-adapters/go/service.go
 :::
 
 Зверни увагу на дрібницю, що робить велику різницю: навіть **джерело id** сервіс бере ззовні (`нid`), а не гукає `crypto.randomUUID()` чи `time.Now()` сам. Це той самий рух, що й зі сховищем: усе недетерміноване й зовнішнє — крізь параметр. У тесті туди стане лічильник, що видає `"1"`, `"2"`, і замовлення робляться передбачуваними. Ядро лишається чистою функцією правил над своїми входами.
@@ -232,71 +56,9 @@ func (s *ЗамовленняСервіс) Оформити(пошта string, �
 Із боку тих, хто гукає, стоїть HTTP-обробник. Він залежить від **вхідного порту** й лише перекладає сирий запит на його виклик, а результат — назад у HTTP. Ані рядка правил тут нема:
 
 :::tabs
-```ts
-// adapters/http.ts ── ДРАЙВЕР-АДАПТЕР. Залежить від ПОРТУ, не від сервісу.
-import { ОформленняЗамовлення } from "../order/core";
-
-export class ЗамовленняHttp {
-  constructor(private застосунок: ОформленняЗамовлення) {} // ← порт, не клас
-
-  async post(req: Request, res: Response) {
-    try {
-      const з = await this.застосунок.оформити(req.body.пошта, req.body.позиції);
-      res.status(201).json({ id: з.id, сума: з.сума() });   // домен → HTTP
-    } catch (e) {
-      res.status(400).json({ помилка: (e as Error).message });
-    }
-  }
-}
-```
-```python
-# adapters/http.py ── ДРАЙВЕР-АДАПТЕР. Залежить від ПОРТУ, не від сервісу.
-from order.core import ОформленняЗамовлення
-
-
-class ЗамовленняHttp:
-    def __init__(self, застосунок: ОформленняЗамовлення):  # ← порт, не клас
-        self._застосунок = застосунок
-
-    async def post(self, req):
-        try:
-            з = await self._застосунок.оформити(req.json["пошта"], req.json["позиції"])
-            return {"id": з.id, "сума": з.сума()}, 201       # домен → HTTP
-        except ValueError as e:
-            return {"помилка": str(e)}, 400
-```
-```go
-// adapters/http.go ── ДРАЙВЕР-АДАПТЕР. Залежить від ПОРТУ, не від сервісу.
-package adapters
-
-import (
-    "encoding/json"
-    "net/http"
-
-    "example/order"
-)
-
-type ЗамовленняHttp struct {
-    Застосунок order.ОформленняЗамовлення // ← порт, не клас
-}
-
-func (h *ЗамовленняHttp) Post(w http.ResponseWriter, r *http.Request) {
-    var тіло struct {
-        Пошта   string          `json:"пошта"`
-        Позиції []order.Позиція `json:"позиції"`
-    }
-    json.NewDecoder(r.Body).Decode(&тіло)
-
-    з, err := h.Застосунок.Оформити(тіло.Пошта, тіло.Позиції)
-    if err != nil {
-        w.WriteHeader(400)
-        json.NewEncoder(w).Encode(map[string]string{"помилка": err.Error()})
-        return
-    }
-    w.WriteHeader(201)
-    json.NewEncoder(w).Encode(map[string]any{"id": з.ID, "сума": з.Сума()}) // домен → HTTP
-}
-```
+:::code proj-swap-adapters/ts/http.ts
+:::code proj-swap-adapters/py/http.py
+:::code proj-swap-adapters/go/http.go
 :::
 
 ### Драйвований адаптер №1: Postgres
@@ -304,92 +66,9 @@ func (h *ЗамовленняHttp) Post(w http.ResponseWriter, r *http.Request) 
 Тепер перша реалізація вихідного порту. **Лише тут** з'являється SQL. Адаптер перекладає обіцянки `зберегти`/`узяти` на конкретні запити:
 
 :::tabs
-```ts
-// adapters/pg.ts ── ДРАЙВОВАНИЙ АДАПТЕР. Реалізує ЗамовленняСховище через Postgres.
-import { ЗамовленняСховище, Замовлення } from "../order/core";
-
-export class PgСховище implements ЗамовленняСховище {
-  constructor(private db: PgPool) {}
-
-  async зберегти(з: Замовлення): Promise<void> {
-    await this.db.query(                       // ← SQL живе ТІЛЬКИ в цьому файлі
-      `INSERT INTO orders(id, email, positions, total)
-       VALUES ($1, $2, $3, $4)`,
-      [з.id, з.пошта, JSON.stringify(з.позиції), з.сума()],
-    );
-  }
-
-  async узяти(id: string): Promise<Замовлення | null> {
-    const r = await this.db.query("SELECT * FROM orders WHERE id = $1", [id]);
-    if (r.rows.length === 0) return null;
-    const рядок = r.rows[0];
-    return Замовлення.створити(рядок.id, рядок.email, JSON.parse(рядок.positions));
-  }
-}
-```
-```python
-# adapters/pg.py ── ДРАЙВОВАНИЙ АДАПТЕР. Реалізує ЗамовленняСховище через Postgres.
-import json
-from order.core import ЗамовленняСховище, Замовлення, Позиція
-
-
-class PgСховище(ЗамовленняСховище):
-    def __init__(self, pool):
-        self._pool = pool
-
-    async def зберегти(self, з: Замовлення) -> None:
-        await self._pool.execute(              # ← SQL живе ТІЛЬКИ в цьому файлі
-            """INSERT INTO orders(id, email, positions, total)
-               VALUES ($1, $2, $3, $4)""",
-            з.id, з.пошта, json.dumps([п.__dict__ for п in з.позиції]), з.сума(),
-        )
-
-    async def узяти(self, id: str) -> Замовлення | None:
-        рядок = await self._pool.fetchrow("SELECT * FROM orders WHERE id = $1", id)
-        if рядок is None:
-            return None
-        позиції = [Позиція(**п) for п in json.loads(рядок["positions"])]
-        return Замовлення.створити(рядок["id"], рядок["email"], позиції)
-```
-```go
-// adapters/pg.go ── ДРАЙВОВАНИЙ АДАПТЕР. Реалізує ЗамовленняСховище через Postgres.
-package adapters
-
-import (
-    "context"
-    "database/sql"
-    "encoding/json"
-
-    "example/order"
-    "github.com/jackc/pgx/v5/pgxpool"
-)
-
-type PgСховище struct{ DB *pgxpool.Pool }
-
-func (r *PgСховище) Зберегти(з order.Замовлення) error {
-    поз, _ := json.Marshal(з.Позиції)
-    _, err := r.DB.Exec(context.Background(), // ← SQL живе ТІЛЬКИ в цьому файлі
-        `INSERT INTO orders(id, email, positions, total) VALUES ($1,$2,$3,$4)`,
-        з.ID, з.Пошта, поз, з.Сума())
-    return err
-}
-
-func (r *PgСховище) Узяти(id string) (*order.Замовлення, error) {
-    var email, поз string
-    err := r.DB.QueryRow(context.Background(),
-        "SELECT email, positions FROM orders WHERE id=$1", id).Scan(&email, &поз)
-    if err == sql.ErrNoRows {
-        return nil, nil
-    }
-    if err != nil {
-        return nil, err
-    }
-    var позиції []order.Позиція
-    json.Unmarshal([]byte(поз), &позиції)
-    з, err := order.Створити(id, email, позиції)
-    return &з, err
-}
-```
+:::code proj-swap-adapters/ts/pg.ts
+:::code proj-swap-adapters/py/pg.py
+:::code proj-swap-adapters/go/pg.go
 :::
 
 ### Драйвований адаптер №2: пам'ять
@@ -397,72 +76,9 @@ func (r *PgСховище) Узяти(id string) (*order.Замовлення, e
 А ось друга реалізація **того самого** порту — на звичайній мапі в пам'яті. Її ядро не відрізнить від першої: ті самі два методи, та сама обіцянка. Ніякого SQL, ніякого з'єднання, ніякого стану поза процесом:
 
 :::tabs
-```ts
-// adapters/memory.ts ── ДРАЙВОВАНИЙ АДАПТЕР. Той самий порт, але в пам'яті.
-import { ЗамовленняСховище, Замовлення } from "../order/core";
-
-export class ПамятьСховище implements ЗамовленняСховище {
-  private дані = new Map<string, Замовлення>();
-
-  async зберегти(з: Замовлення): Promise<void> {
-    this.дані.set(з.id, з);            // усе «сховище» — одна мапа
-  }
-
-  async узяти(id: string): Promise<Замовлення | null> {
-    return this.дані.get(id) ?? null;
-  }
-}
-```
-```python
-# adapters/memory.py ── ДРАЙВОВАНИЙ АДАПТЕР. Той самий порт, але в пам'яті.
-from order.core import ЗамовленняСховище, Замовлення
-
-
-class ПамятьСховище(ЗамовленняСховище):
-    def __init__(self):
-        self._дані: dict[str, Замовлення] = {}
-
-    async def зберегти(self, з: Замовлення) -> None:
-        self._дані[з.id] = з           # усе «сховище» — один словник
-
-    async def узяти(self, id: str) -> Замовлення | None:
-        return self._дані.get(id)
-```
-```go
-// adapters/memory.go ── ДРАЙВОВАНИЙ АДАПТЕР. Той самий порт, але в пам'яті.
-package adapters
-
-import (
-    "sync"
-
-    "example/order"
-)
-
-type ПамятьСховище struct {
-    mu   sync.RWMutex
-    дані map[string]order.Замовлення
-}
-
-func НовеПамятьСховище() *ПамятьСховище {
-    return &ПамятьСховище{дані: map[string]order.Замовлення{}}
-}
-
-func (r *ПамятьСховище) Зберегти(з order.Замовлення) error {
-    r.mu.Lock()
-    defer r.mu.Unlock()
-    r.дані[з.ID] = з // усе «сховище» — одна мапа
-    return nil
-}
-
-func (r *ПамятьСховище) Узяти(id string) (*order.Замовлення, error) {
-    r.mu.RLock()
-    defer r.mu.RUnlock()
-    if з, ok := r.дані[id]; ok {
-        return &з, nil
-    }
-    return nil, nil
-}
-```
+:::code proj-swap-adapters/ts/memory.ts
+:::code proj-swap-adapters/py/memory.py
+:::code proj-swap-adapters/go/memory.go
 :::
 
 Ось воно, ядро всієї вправи: **два файли, `pg` і `memory`, реалізують один інтерфейс `ЗамовленняСховище`**. Для сервісу вони — та сама розетка. Що ми в неї встромимо, вирішується не тут, а в точці збірки, до якої ми зараз і дійдемо.
@@ -474,98 +90,17 @@ func (r *ПамятьСховище) Узяти(id string) (*order.Замовл�
 Тепер — місце, заради якого все затівалося. Точка збірки (англ. *composition root*; термін уживив Марк Симанн у книжці про впровадження залежностей) — єдина ділянка на самому краю програми, де вже можна знати всі конкретні імена. Тут обирають адаптери й **подають** їх ядру ззовні. Ось **прод**-збірка, з Postgres:
 
 :::tabs
-```ts
-// main.prod.ts ── ТОЧКА ЗБІРКИ (прод). ЄДИНЕ місце, де звучить слово "Postgres".
-import { randomUUID } from "crypto";
-import { ЗамовленняСервіс } from "./order/service";
-import { PgСховище } from "./adapters/pg";
-import { ЗамовленняHttp } from "./adapters/http";
-
-const db = new PgPool(process.env.DATABASE_URL);
-
-const сервіс = new ЗамовленняСервіс(new PgСховище(db), randomUUID); // ← база сюди
-const http = new ЗамовленняHttp(сервіс);                            // ← ядро сюди
-
-router.post("/orders", (req, res) => http.post(req, res));
-```
-```python
-# main_prod.py ── ТОЧКА ЗБІРКИ (прод). ЄДИНЕ місце, де звучить слово "Postgres".
-import os
-from uuid import uuid4
-from order.service import ЗамовленняСервіс
-from adapters.pg import PgСховище
-from adapters.http import ЗамовленняHttp
-
-db = await create_pool(os.environ["DATABASE_URL"])
-
-сервіс = ЗамовленняСервіс(PgСховище(db), lambda: str(uuid4()))   # ← база сюди
-http = ЗамовленняHttp(сервіс)                                    # ← ядро сюди
-
-app.add_route("/orders", http.post, methods=["POST"])
-```
-```go
-// main_prod.go ── ТОЧКА ЗБІРКИ (прод). ЄДИНЕ місце, де звучить слово "Postgres".
-package main
-
-func main() {
-    db, _ := pgxpool.New(ctx, os.Getenv("DATABASE_URL"))
-
-    сервіс := &order.ЗамовленняСервіс{
-        Сховище: &adapters.PgСховище{DB: db}, // ← база сюди
-        НID:     uuidFunc,
-    }
-    http := &adapters.ЗамовленняHttp{Застосунок: сервіс} // ← ядро сюди
-
-    mux := http2.NewServeMux()
-    mux.HandleFunc("POST /orders", http.Post)
-    http2.ListenAndServe(":8080", mux)
-}
-```
+:::code proj-swap-adapters/ts/main.prod.ts
+:::code proj-swap-adapters/py/main_prod.py
+:::code proj-swap-adapters/go/main_prod.go
 :::
 
 А ось **локальна** збірка — той самий застосунок, той самий HTTP, але сховище в пам'яті. Придивись, **що змінилося**:
 
 :::tabs
-```ts
-// main.local.ts ── ТОЧКА ЗБІРКИ (локально). Слова "Postgres" тут НЕМА зовсім.
-import { randomUUID } from "crypto";
-import { ЗамовленняСервіс } from "./order/service";
-import { ПамятьСховище } from "./adapters/memory";      // ← єдина інша строка імпорту
-import { ЗамовленняHttp } from "./adapters/http";
-
-const сервіс = new ЗамовленняСервіс(new ПамятьСховище(), randomUUID); // ← пам'ять сюди
-const http = new ЗамовленняHttp(сервіс);
-
-router.post("/orders", (req, res) => http.post(req, res));
-```
-```python
-# main_local.py ── ТОЧКА ЗБІРКИ (локально). Слова "Postgres" тут НЕМА зовсім.
-from uuid import uuid4
-from order.service import ЗамовленняСервіс
-from adapters.memory import ПамятьСховище        # ← єдиний інший імпорт
-from adapters.http import ЗамовленняHttp
-
-сервіс = ЗамовленняСервіс(ПамятьСховище(), lambda: str(uuid4()))   # ← пам'ять сюди
-http = ЗамовленняHttp(сервіс)
-
-app.add_route("/orders", http.post, methods=["POST"])
-```
-```go
-// main_local.go ── ТОЧКА ЗБІРКИ (локально). Слова "Postgres" тут НЕМА зовсім.
-package main
-
-func main() {
-    сервіс := &order.ЗамовленняСервіс{
-        Сховище: adapters.НовеПамятьСховище(), // ← пам'ять сюди
-        НID:     uuidFunc,
-    }
-    http := &adapters.ЗамовленняHttp{Застосунок: сервіс}
-
-    mux := http2.NewServeMux()
-    mux.HandleFunc("POST /orders", http.Post)
-    http2.ListenAndServe(":8080", mux)
-}
-```
+:::code proj-swap-adapters/ts/main.local.ts
+:::code proj-swap-adapters/py/main_local.py
+:::code proj-swap-adapters/go/main_local.go
 :::
 
 Порівняй дві збірки рядок у рядок. Змінилося **три речі**: імпорт `PgСховище` → `ПамятьСховище`, вираз `new PgСховище(db)` → `new ПамятьСховище()`, і зникло створення пулу `db`. І все. Тека `order/` — ядро, сервіс, порти — **побайтово та сама**. HTTP-адаптер — та сама. Правила оформлення — ті самі. Ми поміняли двигун сховища, не торкнувшись жодного правила. Це і є та обіцянка, з якої ми почали, тепер уже не на слайді, а в діффі.
@@ -575,73 +110,9 @@ func main() {
 Дві окремі точки збірки — це добре, коли світи справді різні (прод і розробка). Але часто хочеться **одного бінарника**, що вмикає той чи той адаптер за налаштуванням — змінною середовища, прапорцем, конфігом. Це не ускладнення, а той самий вибір, лише зроблений у рантаймі. Уся «розвилка» вміщається в один `if` **у точці збірки** — і ніде більше:
 
 :::tabs
-```ts
-// main.ts ── ОДНА збірка на всі середовища. Вибір адаптера — тут, і тільки тут.
-import { randomUUID } from "crypto";
-import { ЗамовленняСервіс } from "./order/service";
-import { ЗамовленняСховище } from "./order/core";
-import { PgСховище } from "./adapters/pg";
-import { ПамятьСховище } from "./adapters/memory";
-import { ЗамовленняHttp } from "./adapters/http";
-
-// ↓ ЄДИНА розвилка на весь застосунок
-function зібратиСховище(): ЗамовленняСховище {
-  if (process.env.STORE === "memory") return new ПамятьСховище();
-  return new PgСховище(new PgPool(process.env.DATABASE_URL));
-}
-
-const сервіс = new ЗамовленняСервіс(зібратиСховище(), randomUUID);
-const http = new ЗамовленняHttp(сервіс);
-router.post("/orders", (req, res) => http.post(req, res));
-// STORE=memory node main.js  → пам'ять
-// (без STORE)                → Postgres
-```
-```python
-# main.py ── ОДНА збірка на всі середовища. Вибір адаптера — тут, і тільки тут.
-import os
-from uuid import uuid4
-from order.service import ЗамовленняСервіс
-from order.core import ЗамовленняСховище
-from adapters.pg import PgСховище
-from adapters.memory import ПамятьСховище
-from adapters.http import ЗамовленняHttp
-
-
-# ↓ ЄДИНА розвилка на весь застосунок
-async def зібрати_сховище() -> ЗамовленняСховище:
-    if os.environ.get("STORE") == "memory":
-        return ПамятьСховище()
-    return PgСховище(await create_pool(os.environ["DATABASE_URL"]))
-
-
-сервіс = ЗамовленняСервіс(await зібрати_сховище(), lambda: str(uuid4()))
-http = ЗамовленняHttp(сервіс)
-app.add_route("/orders", http.post, methods=["POST"])
-# STORE=memory python main.py  → пам'ять
-# (без STORE)                  → Postgres
-```
-```go
-// main.go ── ОДНА збірка на всі середовища. Вибір адаптера — тут, і тільки тут.
-package main
-
-// ↓ ЄДИНА розвилка на весь застосунок
-func зібратиСховище() order.ЗамовленняСховище {
-    if os.Getenv("STORE") == "memory" {
-        return adapters.НовеПамятьСховище()
-    }
-    db, _ := pgxpool.New(ctx, os.Getenv("DATABASE_URL"))
-    return &adapters.PgСховище{DB: db}
-}
-
-func main() {
-    сервіс := &order.ЗамовленняСервіс{Сховище: зібратиСховище(), НID: uuidFunc}
-    http := &adapters.ЗамовленняHttp{Застосунок: сервіс}
-    mux := http2.NewServeMux()
-    mux.HandleFunc("POST /orders", http.Post)
-    http2.ListenAndServe(":8080", mux)
-    // STORE=memory ./app → пам'ять; без STORE → Postgres
-}
-```
+:::code proj-swap-adapters/ts/main.ts
+:::code proj-swap-adapters/py/main.py
+:::code proj-swap-adapters/go/main.go
 :::
 
 Тут варто зупинитися й назвати вголос те, що сталося, бо це серце всієї форми. Функція `зібратиСховище` повертає тип **порту** (`ЗамовленняСховище`), а не тип конкретного адаптера. Обидві гілки `if` віддають щось, що тримає обіцянку порту, — і з цієї миті решта програми більше не має до чого причепитися: сервіс отримує порт, працює з портом, про гілку `if` не чув. Уся змінність замкнена в одній функції на краю. Прибери її подумки — і застосунок стане строго Postgres-овим, знову ж таки без жодної правки ядра.
@@ -657,102 +128,9 @@ func main() {
 Лишилася найсмачніша частина, і вона природно виростає з усього попереднього. Ми щойно показали, що в порт можна встромити пам'ять замість бази. Але ж **тест** — це теж драйвер, рівноправний із HTTP: він так само гукає вхідний порт. Отже, у тесті ми робимо рівно те саме, що в локальній збірці, — подаємо ядру `ПамятьСховище`, — тільки замість HTTP-запиту гукаємо порт прямо. Ніякої особливої «тестової машинерії» не треба; тест — це просто ще одна точка збірки, зібрана під перевірку:
 
 :::tabs
-```ts
-// order.test.ts ── ТЕСТ — це драйвер. Збирає ядро з підробленим сховищем.
-import { ЗамовленняСервіс } from "./order/service";
-import { ПамятьСховище } from "./adapters/memory";   // ← той самий адаптер, що й локально
-
-test("оформлення зберігає замовлення й рахує суму", async () => {
-  // збірка «під тест»: пам'ять + детермінований id
-  let n = 0;
-  const сховище = new ПамятьСховище();
-  const сервіс = new ЗамовленняСервіс(сховище, () => String(++n));
-
-  const з = await сервіс.оформити("a@b.com", [
-    { товар: "книга", ціна: 200, кількість: 2 },
-  ]);
-
-  expect(з.id).toBe("1");                 // id передбачуваний — джерело підроблене
-  expect(з.сума()).toBe(400);             // правило суми спрацювало
-  expect(await сховище.узяти("1")).toEqual(з); // адаптер справді зберіг
-});
-
-test("порожнє замовлення відхиляється правилом", async () => {
-  const сервіс = new ЗамовленняСервіс(new ПамятьСховище(), () => "x");
-  await expect(сервіс.оформити("a@b.com", [])).rejects.toThrow("порожнє");
-});
-```
-```python
-# test_order.py ── ТЕСТ — це драйвер. Збирає ядро з підробленим сховищем.
-import pytest
-from order.service import ЗамовленняСервіс
-from order.core import Позиція
-from adapters.memory import ПамятьСховище   # ← той самий адаптер, що й локально
-
-
-@pytest.mark.asyncio
-async def test_оформлення_зберігає_і_рахує():
-    # збірка «під тест»: пам'ять + детермінований id
-    лічильник = iter("123456789")
-    сховище = ПамятьСховище()
-    сервіс = ЗамовленняСервіс(сховище, lambda: next(лічильник))
-
-    з = await сервіс.оформити("a@b.com", [Позиція("книга", 200, 2)])
-
-    assert з.id == "1"                       # id передбачуваний — джерело підроблене
-    assert з.сума() == 400                   # правило суми спрацювало
-    assert await сховище.узяти("1") == з     # адаптер справді зберіг
-
-
-@pytest.mark.asyncio
-async def test_порожнє_замовлення_відхиляється():
-    сервіс = ЗамовленняСервіс(ПамятьСховище(), lambda: "x")
-    with pytest.raises(ValueError, match="порожнє"):
-        await сервіс.оформити("a@b.com", [])
-```
-```go
-// order_test.go ── ТЕСТ — це драйвер. Збирає ядро з підробленим сховищем.
-package order_test
-
-import (
-    "strconv"
-    "testing"
-
-    "example/adapters"
-    "example/order"
-)
-
-func TestОформленняЗберігаєІРахує(t *testing.T) {
-    // збірка «під тест»: пам'ять + детермінований id
-    n := 0
-    сховище := adapters.НовеПамятьСховище()
-    сервіс := &order.ЗамовленняСервіс{
-        Сховище: сховище,
-        НID:     func() string { n++; return strconv.Itoa(n) },
-    }
-
-    з, err := сервіс.Оформити("a@b.com", []order.Позиція{{Товар: "книга", Ціна: 200, Кількість: 2}})
-    if err != nil {
-        t.Fatal(err)
-    }
-    if з.ID != "1" {
-        t.Errorf("id = %q, хотіли \"1\"", з.ID) // джерело підроблене
-    }
-    if з.Сума() != 400 {
-        t.Errorf("сума = %d, хотіли 400", з.Сума()) // правило суми
-    }
-    if збережене, _ := сховище.Узяти("1"); збережене == nil {
-        t.Error("адаптер не зберіг замовлення")
-    }
-}
-
-func TestПорожнєВідхиляється(t *testing.T) {
-    сервіс := &order.ЗамовленняСервіс{Сховище: adapters.НовеПамятьСховище(), НID: func() string { return "x" }}
-    if _, err := сервіс.Оформити("a@b.com", nil); err == nil {
-        t.Error("порожнє замовлення мало впасти")
-    }
-}
-```
+:::code proj-swap-adapters/ts/order.test.ts
+:::code proj-swap-adapters/py/test_order.py
+:::code proj-swap-adapters/go/order_test.go
 :::
 
 Придивись, чого в цьому тесті **нема**: піднятого сервера, тестової бази, `docker-compose`, чекання мережі, очищення таблиць між тестами. Кожен тест сам собі точка збірки: створив свіже `ПамятьСховище`, подав ядру, гукнув порт, перевірив. Стан ніде не тече між тестами, бо кожне сховище — нова мапа. Правило перевіряється голим, за мілісекунди. І — ключове — той самий `ПамятьСховище`, що робить тест швидким, робить і локальний запуск можливим без бази. **Одна реалізація порту служить і тестові, і розробці.** Це не збіг, а прямий наслідок того, що обидва — просто драйвери проти одного порту.
@@ -760,48 +138,9 @@ func TestПорожнєВідхиляється(t *testing.T) {
 Ба більше — той самий підроблений адаптер вміє відповідати й на питання, які базі ставити незручно. Хочеш перевірити, що станеться, коли сховище **впаде**? Дай тестові адаптер, що кидає помилку на `зберегти`, — і без жодної зламаної бази побачиш, чи коректно ядро проносить збій нагору:
 
 :::tabs
-```ts
-// Підробка, що імітує збій сховища — теж просто реалізація порту
-class ПадучеСховище implements ЗамовленняСховище {
-  async зберегти(): Promise<void> { throw new Error("база впала"); }
-  async узяти(): Promise<Замовлення | null> { return null; }
-}
-
-test("збій сховища проноситься нагору, а не глухне", async () => {
-  const сервіс = new ЗамовленняСервіс(new ПадучеСховище(), () => "1");
-  await expect(
-    сервіс.оформити("a@b.com", [{ товар: "x", ціна: 1, кількість: 1 }]),
-  ).rejects.toThrow("база впала");
-});
-```
-```python
-# Підробка, що імітує збій сховища — теж просто реалізація порту
-class ПадучеСховище(ЗамовленняСховище):
-    async def зберегти(self, з): raise RuntimeError("база впала")
-    async def узяти(self, id): return None
-
-
-@pytest.mark.asyncio
-async def test_збій_сховища_проноситься_нагору():
-    сервіс = ЗамовленняСервіс(ПадучеСховище(), lambda: "1")
-    with pytest.raises(RuntimeError, match="база впала"):
-        await сервіс.оформити("a@b.com", [Позиція("x", 1, 1)])
-```
-```go
-// Підробка, що імітує збій сховища — теж просто реалізація порту
-type ПадучеСховище struct{}
-
-func (ПадучеСховище) Зберегти(order.Замовлення) error   { return errors.New("база впала") }
-func (ПадучеСховище) Узяти(string) (*order.Замовлення, error) { return nil, nil }
-
-func TestЗбійПроноситьсяНагору(t *testing.T) {
-    сервіс := &order.ЗамовленняСервіс{Сховище: ПадучеСховище{}, НID: func() string { return "1" }}
-    _, err := сервіс.Оформити("a@b.com", []order.Позиція{{Товар: "x", Ціна: 1, Кількість: 1}})
-    if err == nil || err.Error() != "база впала" {
-        t.Errorf("хотіли \"база впала\", маємо %v", err)
-    }
-}
-```
+:::code proj-swap-adapters/ts/test-draiver-shcho.ts
+:::code proj-swap-adapters/py/test-draiver-shcho.py
+:::code proj-swap-adapters/go/test-draiver-shcho.go
 :::
 
 Спробуй-но змусити справжній Postgres впасти саме на другому виклику з п'яти — доведеться підробляти мережу або калічити сервер. А тут це три рядки, бо збій — це просто ще одна поведінка, яку легко вкласти в реалізацію порту. Порт, що дозволив підмінити базу на пам'ять, тим самим дозволив підмінити її на **будь-що**, що тримає форму, — і успіх, і навмисний провал.

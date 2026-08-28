@@ -19,40 +19,7 @@
 
 ## Стан і дії — звичайні значення
 
-```cpp
-#include <cstdio>
-#include <deque>
-#include <memory>
-#include <string>
-#include <variant>
-#include <vector>
-
-// ── Стан: усе, що застосунок пам'ятає між подіями ────────────────────────
-enum class Field { Usd, Eur };
-
-struct State {
-    Field       entered = Field::Usd;  // яке поле набрала людина
-    long long   amount  = 0;           // набране число в сотих (центах)
-    long long   rate    = 92;          // курс у сотих: 0.92 євро за долар
-    bool        pending = false;       // запит курсу вже в дорозі
-    std::string note;                  // рядок для людини
-};
-
-// ── Дії: описи того, що сталося. Самі нічого не роблять ──────────────────
-struct Typed      { Field field; long long amount; };
-struct RateAsked  { };
-struct RateCame   { long long rate; };
-struct RateFailed { std::string why; };
-
-using Action = std::variant<Typed, RateAsked, RateCame, RateFailed>;
-
-// ── Ефекти: описи того, що має зробити оболонка ──────────────────────────
-struct FetchRate { };
-struct Persist   { };
-struct Retry     { int after_ms; };
-
-using Effect = std::variant<FetchRate, Persist, Retry>;
-```
+:::code proj-tiny-store/cpp/stan-i-dii-zvychaini.cpp
 
 Дві дрібниці тут важать більше, ніж здається.
 
@@ -64,49 +31,7 @@ using Effect = std::variant<FetchRate, Persist, Retry>;
 
 ## Перехід — єдина функція, що народжує стан
 
-```cpp
-// Набір лямбд як один викликаний об'єкт — типовий супутник std::visit
-template <class... Fs> struct overload : Fs... { using Fs::operator()...; };
-template <class... Fs> overload(Fs...) -> overload<Fs...>;
-
-struct Step {
-    State               state;    // нова версія стану
-    std::vector<Effect> effects;  // що просимо зробити оболонку
-};
-
-Step update(const State& s, const Action& a) {
-    Step step{ s, {} };      // копія старого стану — її й правимо
-    State& n = step.state;
-
-    std::visit(overload{
-        [&](const Typed& t) {
-            n.entered = t.field;
-            n.amount  = t.amount;
-            n.note.clear();
-            step.effects.push_back(Persist{});
-        },
-        [&](const RateAsked&) {
-            if (n.pending) return;            // запит уже в дорозі, другий не потрібен
-            n.pending = true;
-            n.note    = "оновлюю курс…";
-            step.effects.push_back(FetchRate{});
-        },
-        [&](const RateCame& r) {
-            n.pending = false;
-            n.rate    = r.rate;
-            n.note.clear();
-            step.effects.push_back(Persist{});
-        },
-        [&](const RateFailed& f) {
-            n.pending = false;
-            n.note    = "курс не приїхав: " + f.why;
-            step.effects.push_back(Retry{ 3000 });
-        },
-    }, a);
-
-    return step;
-}
-```
+:::code proj-tiny-store/cpp/perekhid-iedyna-funktsiia.cpp
 
 Функція чиста, хоч усередині й видно присвоєння. [Чистота](root:sf-apps/pure-functions-side-effects) — це властивість щодо **зовнішнього світу**: результат залежить лише від аргументів, і поза функцією нічого не змінюється. Правка локальної копії `step.state` цьому не суперечить: копія народилася тут-таки й нікому, крім викликача, не належить. Плутати чистоту з відсутністю присвоєнь — поширена помилка, яка змушує писати нечитабельний код без жодного зиску.
 
@@ -114,22 +39,7 @@ Step update(const State& s, const Action& a) {
 
 ## Подання — теж функція
 
-```cpp
-struct Screen { long long usd, eur; std::string note; };
-
-static long long to_eur(long long cents, long long rate) {   // × rate/100
-    return (cents * rate + 50) / 100;
-}
-static long long to_usd(long long cents, long long rate) {   // ÷ rate/100
-    return (cents * 100 + rate / 2) / rate;
-}
-
-Screen view(const State& s) {
-    if (s.entered == Field::Usd)
-        return { s.amount, to_eur(s.amount, s.rate), s.note };
-    return { to_usd(s.amount, s.rate), s.amount, s.note };
-}
-```
+:::code proj-tiny-store/cpp/podannia-tezh-funktsiia.cpp
 
 У стані лежить **одне** число й позначка, у якому полі його набрали. Друге поле обчислюється щоразу наново й ніде не зберігається — тому розійтися їм ніде. Наберіть `1234.56` доларів: `to_eur(123456, 92) = (11357952 + 50) / 100 = 113580`, тобто `1135.80`. Набране число при цьому лишається рівно таким, як його набрали, скільки б разів картинку не перемальовували.
 
@@ -139,21 +49,7 @@ Screen view(const State& s) {
 
 Найкоротший спосіб склеїти все докупи виглядає так — і саме його пишуть першим:
 
-```cpp
-class NaiveStore {                        // ← так робити не треба
-public:
-    void dispatch(const Action& a) {
-        Step step = update(state_, a);
-        state_ = std::move(step.state);
-        io_.paint(view(state_));
-        for (const Effect& e : step.effects) perform(e);   // ← perform кличе dispatch
-    }
-private:
-    void perform(const Effect& e);
-    State state_;
-    Io&   io_;
-};
-```
+:::code proj-tiny-store/cpp/naivnyi-dvyhun-i-try.cpp
 
 Поки ефекти відповідають десь у майбутньому — усе працює. Ламається воно тієї миті, коли ефект відповідає **одразу**: кеш влучив, заглушка в тесті повертає готове, сервер відповів помилкою ще до виходу з функції. Тоді `perform` кличе `dispatch`, і другий `dispatch` починається, поки перший ще не скінчився. Це та сама [реентерабельність](root:sf-tasks/reentrancy) — повторний вхід у функцію, що вже виконується, — тільки без жодних потоків і переривань, самим лише синхронним зворотним викликом.
 
@@ -176,88 +72,8 @@ private:
 Виправлення коротке. Дія не обробляється на місці — вона стає в чергу, і рівно один цикл розбирає її:
 
 :::tabs
-```cpp
-class Store {
-public:
-    Store(State initial, Io& io) : state_(std::move(initial)), io_(io) {}
-
-    void dispatch(Action a) {
-        queue_.push_back(std::move(a));
-        if (running_) return;          // цикл уже крутиться — він забере й цю дію
-        running_ = true;
-
-        while (!queue_.empty()) {
-            Action cur = std::move(queue_.front());
-            queue_.pop_front();
-
-            log_.push_back(cur);                 // журнал: що прийшло і в якому порядку
-            Step step = update(state_, cur);     // єдине місце, де народжується стан
-            state_ = std::move(step.state);
-            io_.paint(view(state_));             // рівно один кадр на завершену версію
-
-            for (const Effect& e : step.effects) // dispatch звідси лише стає в чергу
-                perform(e);
-        }
-
-        running_ = false;
-    }
-
-    const State&               state() const { return state_; }
-    const std::vector<Action>& log()   const { return log_; }
-
-private:
-    void perform(const Effect& e) {
-        std::visit(overload{
-            [&](const FetchRate&) { io_.fetch_rate(*this); },
-            [&](const Persist&)   { io_.persist(state_); },
-            [&](const Retry& r)   { io_.retry_after(r.after_ms, *this); },
-        }, e);
-    }
-
-    State               state_;
-    std::deque<Action>  queue_;
-    std::vector<Action> log_;
-    bool                running_ = false;
-    Io&                 io_;
-};
-```
-```ts
-class Store {
-  private queue: Action[] = [];
-  private log: Action[] = [];
-  private running = false;
-
-  constructor(private state: State, private io: Io) {}
-
-  dispatch(a: Action): void {
-    this.queue.push(a);
-    if (this.running) return;          // цикл уже крутиться — він забере й цю дію
-    this.running = true;
-
-    while (this.queue.length > 0) {
-      const cur = this.queue.shift()!;
-
-      this.log.push(cur);                    // журнал: що прийшло і в якому порядку
-      const step = update(this.state, cur);  // єдине місце, де народжується стан
-      this.state = step.state;
-      this.io.paint(view(this.state));       // рівно один кадр на завершену версію
-
-      for (const e of step.effects)          // dispatch звідси лише стає в чергу
-        this.perform(e);
-    }
-
-    this.running = false;
-  }
-
-  private perform(e: Effect): void {
-    switch (e.kind) {
-      case "запит-курсу": this.io.fetchRate(this);              break;
-      case "зберегти":    this.io.persist(this.state);          break;
-      case "повторити":   this.io.retryAfter(e.afterMs, this);  break;
-    }
-  }
-}
-```
+:::code proj-tiny-store/cpp/cherha-peretvoryty.cpp
+:::code proj-tiny-store/ts/index.ts
 :::
 
 Уся пам'ять двигуна — три поля: стан, черга й прапорець «цикл уже крутиться». Пройдімося тим, що кожен рядок купує.
@@ -290,28 +106,7 @@ struct Io {
 
 Уся межа зі світом — чотири рядки. За ними: справжня оболонка робить запит і колись подає результат дією; заглушка в тесті подає його негайно. Другий випадок і є тим найгіршим, який ми щойно навчилися переживати:
 
-```cpp
-struct FakeIo : Io {
-    void paint(const Screen& sc) override {
-        std::printf("USD %lld.%02lld | EUR %lld.%02lld | %s\n",
-                    sc.usd / 100, sc.usd % 100,
-                    sc.eur / 100, sc.eur % 100, sc.note.c_str());
-    }
-    void persist(const State&) override { }
-    void fetch_rate(Store& st) override { st.dispatch(RateCame{ 94 }); }   // ← відповідь одразу
-    void retry_after(int, Store& st) override { st.dispatch(RateAsked{}); }
-};
-
-int main() {
-    FakeIo io;
-    Store  store(State{}, io);
-
-    store.dispatch(Typed{ Field::Usd, 123456 });   // набрано 1234.56
-    store.dispatch(RateAsked{});                   // натиснуто «оновити курс»
-
-    std::printf("дій у журналі: %zu\n", store.log().size());
-}
-```
+:::code proj-tiny-store/cpp/obolonka-efekt-tse-opys-a.cpp
 
 Вивід:
 
@@ -370,24 +165,7 @@ n дій у журналі, знімок кожні k дій
 
 **Копіювання стану коштує стільки, скільки він важить.** `Step step{ s, {} };` копіює стан цілком: кожна дія — `O(|State|)`. Поки стан — це п'ять полів, це ніщо. Щойно в ньому оселиться вектор на сто тисяч угод, кожне натискання клавіші копіюватиме сто тисяч угод. Ліки — не відмовлятися від копії, а зробити її дешевою: великі шматки тримати за спільним вказівником на **незмінне** значення.
 
-```cpp
-struct Deal       { long long amount; long long rate; };
-struct DealClosed { Deal deal; };                  // ще одна дія
-
-struct State {
-    Field     entered = Field::Usd;
-    long long amount  = 0, rate = 92;
-    std::shared_ptr<const std::vector<Deal>> deals  // великий шматок
-        = std::make_shared<const std::vector<Deal>>();
-};
-
-// гілка переходу, що додає угоду: клонуємо лише список, і лише тут
-[&](const DealClosed& d) {
-    auto next = std::make_shared<std::vector<Deal>>(*n.deals);
-    next->push_back(d.deal);
-    n.deals = std::move(next);
-}
-```
+:::code proj-tiny-store/cpp/skladnist-i-pastky.cpp
 
 ```
 без спільного використання

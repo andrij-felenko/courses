@@ -96,46 +96,8 @@
 Щоб програма не падала від випадкового сигналу таймера, кожен виклик доводиться огортати в явний цикл:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <errno.h>
-
-// Класичний патерн Unix: прикладний код бере на себе складність перезапуску
-ssize_t robust_read(int fd, void *buf, size_t count) {
-    ssize_t result;
-    do {
-        result = read(fd, buf, count);
-    } while (result == -1 && errno == EINTR);
-    return result;
-}
-```
-```cpp
-#include <unistd.h>
-#include <cerrno>
-#include <cstddef>
-#include <span>
-#include <expected>
-#include <system_error>
-
-// В ідіоматичному C++ шаблон бере на себе повтор за викликом ядра
-template <typename Fn, typename... Args>
-auto retry_syscall(Fn&& fn, Args&&... args) -> std::invoke_result_t<Fn, Args...> {
-    using Res = std::invoke_result_t<Fn, Args...>;
-    Res res;
-    do {
-        res = fn(std::forward<Args>(args)...);
-    } while (res == static_cast<Res>(-1) && errno == EINTR);
-    return res;
-}
-
-std::expected<std::size_t, std::error_code> robust_read(int fd, std::span<char> buf) {
-    ssize_t res = retry_syscall(::read, fd, buf.data(), buf.size());
-    if (res == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return static_cast<std::size_t>(res);
-}
-```
+:::code worse-is-better-d/c/main.c
+:::code worse-is-better-d/cpp/main.cpp
 :::
 
 Якщо розробник забуде написати цей цикл, програма працюватиме у 99.9% випадків на тестових стендах, але періодично даватиме збої у промисловій експлуатації під навантаженням. Складність була успішно виштовхнута з одного ядра в мільйони прикладних програм.

@@ -39,45 +39,7 @@
 
 А шосте питання — «як це все скласти докупи?» — і є презентер. Потел прямо каже, чим той є: класичним контролером зі Smalltalk, піднятим на рівень цілого застосунку. Презентер створює моделі, вибірки, команди, подання й інтерактори, зв'язує їх між собою й тримає ту логіку, що вирішує, чому й коли статися, — Потел порівнює його з регулювальником на перехресті або диригентом оркестру. Буквально це та частина програми, яку в старих підручниках звали `main` і [циклом подій](root:sf-tasks/event-loop) — з тією різницею, що успадковується вона з каркаса разом із запуском, виходом, меню й вікнами.
 
-```cpp
-// Основи MVP в Open Class: розробник успадковує кожну й перекриває методи.
-// (реконструкція за схемою класів зі статті 1996 року)
-
-class IMyModel : public IModel {                        // 1. що це за дані?
-public:
-    void  setData(const IData& d);
-    IData getData() const;
-private:
-    IData myData;
-};
-
-class IMySelection : public ISelection {                // 2. як указати частину даних?
-public:
-    void highlightSelection();
-};
-
-class IMyModelCommand : public ICommandOn<ISelection> { // 3. як я змінюю дані?
-public:
-    void doCommand();
-    void undoCommand();
-    void redoCommand();
-private:
-    IData myOldData;                                    // щоб було чим вернути назад
-};
-
-class IMyView : public IView {                          // 4. як я показую дані?
-public:
-    void drawContents();                                // малює те, що САМЕ взяло: getData()
-};
-
-// 5. інтерактори здебільшого не пишуть: беруть готовий IMenuInteractor
-//    і прив'язують пункт меню до команди — addMenuItemAndCommand()
-
-class IMyPresenter : public IPresenter {                // 6. як це все скласти докупи?
-public:
-    void createView();                                  // творить модель, вибірки, команди, подання
-};
-```
+:::code hist-mvp-birth/cpp/main.hpp
 
 ## Чому саме C++ і Java
 

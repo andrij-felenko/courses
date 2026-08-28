@@ -72,56 +72,9 @@ type Exporter interface {
 Далі **реєстр** — те місце, куди плагіни складають себе, а ядро потім там їх бере. Це серце рушія: ядро не створює плагіни (інакше знало б їхні імена), воно лише **перебирає те, що само зареєструвалося**. Реєстр — звичайний словник «розширення → плагін».
 
 :::tabs
-```ts
-class ExportRegistry {
-  private byExt = new Map<string, Exporter>();
-
-  register(e: Exporter): void {             // сюди плагін кладе себе
-    this.byExt.set(e.extension, e);
-  }
-
-  exportAs(ext: string, doc: Document): Uint8Array {
-    const e = this.byExt.get(ext);          // ядро бере плагін за ключем
-    if (!e) throw new Error(`немає плагіна для .${ext}`);
-    return e.export(doc);                    // і гукає через контракт
-  }
-}
-```
-```python
-class ExportRegistry:
-    def __init__(self) -> None:
-        self._by_ext: dict[str, Exporter] = {}
-
-    def register(self, e: Exporter) -> None:   # сюди плагін кладе себе
-        self._by_ext[e.extension] = e
-
-    def export_as(self, ext: str, doc: "Document") -> bytes:
-        e = self._by_ext.get(ext)              # ядро бере плагін за ключем
-        if e is None:
-            raise KeyError(f"немає плагіна для .{ext}")
-        return e.export(doc)                    # і гукає через контракт
-```
-```go
-type ExportRegistry struct {
-    byExt map[string]Exporter
-}
-
-func NewExportRegistry() *ExportRegistry {
-    return &ExportRegistry{byExt: map[string]Exporter{}}
-}
-
-func (r *ExportRegistry) Register(e Exporter) { // сюди плагін кладе себе
-    r.byExt[e.Extension()] = e
-}
-
-func (r *ExportRegistry) ExportAs(ext string, doc Document) ([]byte, error) {
-    e, ok := r.byExt[ext]                       // ядро бере плагін за ключем
-    if !ok {
-        return nil, fmt.Errorf("немає плагіна для .%s", ext)
-    }
-    return e.Export(doc), nil                    // і гукає через контракт
-}
-```
+:::code plugin-architecture-d/ts/index.ts
+:::code plugin-architecture-d/py/main.py
+:::code plugin-architecture-d/go/minimalnyi-plahinnyi.go
 :::
 
 Тепер **окремий плагін** — цілком незалежний файл, що знає тільки контракт, а не нутрощі ядра:
@@ -145,19 +98,7 @@ class MarkdownExporter:
         text = "\n\n".join(f"# {b.title}\n\n{b.body}" for b in doc.blocks)
         return text.encode("utf-8")
 ```
-```go
-// Плагін: реалізує контракт і більше нічого про ядро не знає.
-type MarkdownExporter struct{}
-
-func (MarkdownExporter) Extension() string { return "md" }
-func (MarkdownExporter) Export(doc Document) []byte {
-    var b strings.Builder
-    for _, bl := range doc.Blocks {
-        fmt.Fprintf(&b, "# %s\n\n%s\n\n", bl.Title, bl.Body)
-    }
-    return []byte(b.String())
-}
-```
+:::code plugin-architecture-d/go/minimalnyi-plahinnyi-2.go
 :::
 
 І, нарешті, **точка збірки** — єдине місце в програмі, де ще все дозволено знати. Тут плагіни знайомлять із реєстром, і лише тут згадуються їхні конкретні імена. Це той самий «зовнішній збирач» на верхівці застосунку, куди DIP зсуває всі рішення про конкретику:

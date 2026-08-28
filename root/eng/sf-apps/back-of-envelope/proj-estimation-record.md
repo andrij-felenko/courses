@@ -104,48 +104,8 @@
 Модель проста: **структура з припущеннями** (кожне поле — з коментарем-одиницею й походженням), **чиста функція розкладу**, що з припущень рахує число, і **функція вироку**, що порівнює з порогом і друкує бік. Тримаймо все на цілих, щоб не тягнути float у прошивку й не ловити його похибок; байти вкладаються в `uint64_t` без проблем.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdio.h>
-
-// ── Припущення оцінки — КОЖНЕ поле з одиницею й походженням ────────────
-// Це і є «записані припущення»: щоб перерахувати, міняють ТУТ один рядок.
-typedef struct {
-    uint64_t records;       // шт     — скільки записів в індексі
-    uint32_t key_bytes;     // Б      — розмір ключа (UUID/хеш за схемою)
-    uint32_t ptr_bytes;     // Б      — розмір покажчика на запис (64-біт)
-    uint32_t overhead_num;  // —      — накладні структури, чисельник…
-    uint32_t overhead_den;  // —      … і знаменник: ×(num/den), напр. ×2 = 2/1
-} IndexAssumptions;
-
-// ── Розклад: з припущень → число (у байтах). Чиста, без побічних дій. ──
-static uint64_t index_size_bytes(IndexAssumptions a) {
-    uint64_t per_entry = (uint64_t)a.key_bytes + a.ptr_bytes;   // Б на запис
-    uint64_t raw       = a.records * per_entry;                 // Б без накладних
-    // множимо ДО ділення, щоб не втратити точність на цілих:
-    return raw * a.overhead_num / a.overhead_den;               // Б з накладними
-}
-```
-```python
-from dataclasses import dataclass
-
-# ── Припущення оцінки — КОЖНЕ поле з одиницею й походженням ────────────
-# Це і є «записані припущення»: щоб перерахувати, міняють ТУТ один рядок.
-@dataclass
-class IndexAssumptions:
-    records: int        # шт  — скільки записів в індексі
-    key_bytes: int      # Б   — розмір ключа (UUID/хеш за схемою)
-    ptr_bytes: int      # Б   — розмір покажчика на запис (64-біт)
-    overhead_num: int   # —   — накладні структури, чисельник…
-    overhead_den: int   # —   … і знаменник: ×(num/den), напр. ×2 = 2/1
-
-# ── Розклад: з припущень → число (у байтах). Чиста, без побічних дій. ──
-def index_size_bytes(a: IndexAssumptions) -> int:
-    per_entry = a.key_bytes + a.ptr_bytes   # Б на запис
-    raw       = a.records * per_entry        # Б без накладних
-    # множимо ДО ділення, щоб не втратити точність на цілих (// — цілочисельне):
-    return raw * a.overhead_num // a.overhead_den   # Б з накладними
-```
+:::code proj-estimation-record/c/toi-samyi-zapys-iak-kod.c
+:::code proj-estimation-record/py/toi-samyi-zapys-iak-kod.py
 :::
 
 Порядок множення тут не косметика: `raw * num / den` дає правильне ціле, а `raw / den * num` — округлене вниз ще до множення, тобто занижене. У прикидці занижена пам'ять — небезпечна помилка (скажеш «влазить», а не влізе), тож множимо першим.
@@ -153,67 +113,13 @@ def index_size_bytes(a: IndexAssumptions) -> int:
 Далі — **вирок**. Він бере число, поріг і друкує бік з коефіцієнтом запасу. Запас корисно бачити: «влазить ×27» і «влазить ×1.1» — це дуже різні «влазить», і другий кричить «уточни або мій бік крихкий».
 
 :::tabs
-```c
-// ── Вирок: порівняти з порогом, надрукувати бік і запас ───────────────
-static void verdict(const char *what, uint64_t value, uint64_t threshold) {
-    if (value == 0) { printf("%s: оцінка 0 — щось не так у припущеннях\n", what); return; }
-    if (value <= threshold) {
-        // запас = у скільки разів поріг більший за оцінку (ціла частина)
-        uint64_t margin = threshold / value;
-        printf("%s: %llu <= поріг %llu  ->  ВЛАЗИТЬ (запас x%llu)\n",
-               what, (unsigned long long)value, (unsigned long long)threshold,
-               (unsigned long long)margin);
-    } else {
-        uint64_t over = value / threshold;
-        printf("%s: %llu >  поріг %llu  ->  НЕ ВЛАЗИТЬ (перевищення x%llu)\n",
-               what, (unsigned long long)value, (unsigned long long)threshold,
-               (unsigned long long)over);
-    }
-}
-```
-```python
-# ── Вирок: порівняти з порогом, надрукувати бік і запас ───────────────
-def verdict(what: str, value: int, threshold: int) -> None:
-    if value == 0:
-        print(f"{what}: оцінка 0 — щось не так у припущеннях")
-        return
-    if value <= threshold:
-        # запас = у скільки разів поріг більший за оцінку (ціла частина)
-        margin = threshold // value
-        print(f"{what}: {value} <= поріг {threshold}  ->  ВЛАЗИТЬ (запас x{margin})")
-    else:
-        over = value // threshold
-        print(f"{what}: {value} >  поріг {threshold}  ->  НЕ ВЛАЗИТЬ (перевищення x{over})")
-```
+:::code proj-estimation-record/c/toi-samyi-zapys-iak-kod-2.c
+:::code proj-estimation-record/py/toi-samyi-zapys-iak-kod-2.py
 :::
 
 Тепер зберімо **сам запис оцінки** — точно ті самі поля, що в текстовому бланку, лише виконувані:
 
-```c
-#define GiB (1024ULL * 1024 * 1024)     // 1 гігабайт у байтах
-
-int main(void) {
-    // ЗАПИС ОЦІНКИ: індекс на 50 млн записів у пам'ять?
-    IndexAssumptions a = {
-        .records      = 50000000ULL,    // шт — поточна БД, округлено вгору
-        .key_bytes    = 16,             // Б  — UUID/хеш за чинною схемою
-        .ptr_bytes    = 8,              // Б  — 64-бітна адреса
-        .overhead_num = 2,              // ×2 — грубо на службові поля…
-        .overhead_den = 1,              // …  = 2/1
-    };
-
-    uint64_t bytes = index_size_bytes(a);
-    printf("Оцінка індексу: %llu Б  (~%llu.%llu ГБ)\n",
-           (unsigned long long)bytes,
-           (unsigned long long)(bytes / GiB),
-           (unsigned long long)(bytes % GiB * 10 / GiB));   // один знак після коми
-
-    // Поріг залежить від машини — той самий запис, різні відповіді:
-    verdict("Сервер (64 ГБ)     ", bytes, 64 * GiB);
-    verdict("Вбудований (256 МБ)", bytes, 256ULL * 1024 * 1024);
-    return 0;
-}
-```
+:::code proj-estimation-record/c/toi-samyi-zapys-iak-kod-3.c
 
 Що надрукує ця програма:
 

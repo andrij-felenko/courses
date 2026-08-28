@@ -15,33 +15,8 @@
 Придивімось до звичайного обробника оплати. Він робить усе одразу:
 
 :::tabs
-```ts
-async function checkout(cartId: string): Promise<void> {
-  const cart = await db.loadCart(cartId);        // дія: читання
-  const rate = await config.taxRate();           // дія: читання
-
-  let total = 0;                                  // ↓ рішення переплетене з дією
-  for (const it of cart.items) total += it.price * it.qty;
-  total *= 1 + rate;
-  if (total > 1000) total *= 0.95;               // знижка за великий чек
-
-  await db.saveOrder(cartId, total);             // дія: запис
-  await mailer.sendReceipt(cart.email, total);   // дія: запис
-}
-```
-```py
-async def checkout(cart_id: str) -> None:
-    cart = await db.load_cart(cart_id)            # дія: читання
-    rate = await config.tax_rate()                # дія: читання
-
-    total = sum(it.price * it.qty for it in cart.items)   # ↓ рішення в дії
-    total *= 1 + rate
-    if total > 1000:                              # знижка за великий чек
-        total *= 0.95
-
-    await db.save_order(cart_id, total)           # дія: запис
-    await mailer.send_receipt(cart.email, total)  # дія: запис
-```
+:::code functional-core-imperative-shell/ts/dvi-pryrody-kodu-iaki.ts
+:::code functional-core-imperative-shell/py/dvi-pryrody-kodu-iaki.py
 :::
 
 Щоб перевірити єдине цікаве правило — «понад тисячу дають знижку 5 %» — тобі треба база (щоб було що завантажити), фальшива конфігурація (щоб узяти ставку), і перехоплений поштар (щоб не слати справжніх листів). Правило вміщається в один рядок, а риштування навколо нього — у двадцять. І це не випадковість цього коду, а закон: **рішення й дія мають протилежну природу, і поки вони в одній функції, дешева перевіряється дорого.**
@@ -67,57 +42,8 @@ async def checkout(cart_id: str) -> None:
 Той самий обробник, розчеплений:
 
 :::tabs
-```ts
-// ── ЯДРО: чисте, нічого не читає й не пише, лише рахує ──
-type Order = { total: number; discounted: boolean };
-
-function priceOrder(items: Item[], taxRate: number): Order {
-  let total = 0;
-  for (const it of items) total += it.price * it.qty;
-  total *= 1 + taxRate;
-  const discounted = total > 1000;
-  if (discounted) total *= 0.95;
-  return { total, discounted };
-}
-
-// ── ОБОЛОНКА: тонка, лише возить дані; жодного рішення ──
-async function checkout(cartId: string): Promise<void> {
-  const cart = await db.loadCart(cartId);          // принести
-  const rate = await config.taxRate();             // принести
-
-  const order = priceOrder(cart.items, rate);      // ← усе рішення тут, у ядрі
-
-  await db.saveOrder(cartId, order.total);         // винести
-  await mailer.sendReceipt(cart.email, order.total); // винести
-}
-```
-```py
-from dataclasses import dataclass
-
-# ── ЯДРО: чисте, нічого не читає й не пише, лише рахує ──
-@dataclass(frozen=True)
-class Order:
-    total: float
-    discounted: bool
-
-def price_order(items: list[Item], tax_rate: float) -> Order:
-    total = sum(it.price * it.qty for it in items)
-    total *= 1 + tax_rate
-    discounted = total > 1000
-    if discounted:
-        total *= 0.95
-    return Order(total=total, discounted=discounted)
-
-# ── ОБОЛОНКА: тонка, лише возить дані; жодного рішення ──
-async def checkout(cart_id: str) -> None:
-    cart = await db.load_cart(cart_id)              # принести
-    rate = await config.tax_rate()                  # принести
-
-    order = price_order(cart.items, rate)           # ← усе рішення тут, у ядрі
-
-    await db.save_order(cart_id, order.total)       # винести
-    await mailer.send_receipt(cart.email, order.total)  # винести
-```
+:::code functional-core-imperative-shell/ts/forma-iadro-vseredyni.ts
+:::code functional-core-imperative-shell/py/forma-iadro-vseredyni.py
 :::
 
 Логіка нікуди не поділася, і дія нікуди не поділася — але вони роз'їхалися. Уся математика чека тепер у `priceOrder`, і перевірити правило про знижку — це один рядок без бази й пошти:
@@ -148,48 +74,8 @@ assert price_order([Item(price=600, qty=2)], 0).discounted is True     # 1200 > 
 Порівняй два підходи до правила «новому клієнтові — вітальний лист і бонус 100 гривень»:
 
 :::tabs
-```ts
-// ── ЯДРО повертає ОПИС дій (дані), а не виконує їх ──
-type Effect =
-  | { kind: "email"; to: string; template: "welcome" }
-  | { kind: "credit"; account: string; amount: number };
-
-function onSignup(user: User): Effect[] {
-  const effects: Effect[] = [{ kind: "email", to: user.email, template: "welcome" }];
-  if (user.referred)                                     // рішення — тут, у ядрі
-    effects.push({ kind: "credit", account: user.id, amount: 100 });
-  return effects;                                        // просто дані, нічого не сталося
-}
-
-// ── ОБОЛОНКА виконує описи; сама нічого не вирішує ──
-async function runSignup(user: User): Promise<void> {
-  for (const e of onSignup(user)) {
-    if (e.kind === "email")  await mailer.send(e.to, e.template);
-    if (e.kind === "credit") await ledger.credit(e.account, e.amount);
-  }
-}
-```
-```py
-from dataclasses import dataclass
-
-# ── ЯДРО повертає ОПИС дій (дані), а не виконує їх ──
-@dataclass(frozen=True)
-class Email:  to: str; template: str
-@dataclass(frozen=True)
-class Credit: account: str; amount: int
-
-def on_signup(user: User) -> list:
-    effects = [Email(to=user.email, template="welcome")]
-    if user.referred:                                   # рішення — тут, у ядрі
-        effects.append(Credit(account=user.id, amount=100))
-    return effects                                      # просто дані, нічого не сталося
-
-# ── ОБОЛОНКА виконує описи; сама нічого не вирішує ──
-async def run_signup(user: User) -> None:
-    for e in on_signup(user):
-        if isinstance(e, Email):  await mailer.send(e.to, e.template)
-        if isinstance(e, Credit): await ledger.credit(e.account, e.amount)
-```
+:::code functional-core-imperative-shell/ts/khytryi-vypadok-koly.ts
+:::code functional-core-imperative-shell/py/khytryi-vypadok-koly.py
 :::
 
 Тепер найважче правило програми — «кому належить бонус» — перевіряється **без пошти й без бухгалтерії взагалі**, бо `onSignup` повертає лише список описів:

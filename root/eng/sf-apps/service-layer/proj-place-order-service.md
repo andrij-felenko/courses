@@ -47,151 +47,15 @@
 Спершу — самі порти. Це чисті інтерфейси, за якими сервіс не бачить жодних конкретних технологій:
 
 :::tabs
-```ts
-// Порти — усе, з чим сервіс говорить, є абстракцією (DIP).
-// Реалізації (Postgres, Stripe, SMTP) живуть деінде й підставляються ззовні.
-interface OrderRepository {
-  loadCart(cartId: CartId): Promise<Cart>;
-  save(order: Order): Promise<void>;
-}
-interface PaymentGateway {
-  // key — ключ ідемпотентності: шлюз сам не спише двічі за тим самим ключем
-  charge(amount: Money, card: CardToken, key: string): Promise<PaymentId>;
-}
-interface Mailer {
-  sendConfirmation(order: Order): Promise<void>;
-}
-// Журнал уже виконаних операцій — серце захисту від подвійного кліку
-interface IdempotencyStore {
-  find(key: string): Promise<OrderDto | null>;   // уже робили цей ключ?
-  remember(key: string, result: OrderDto): Promise<void>;
-}
-interface TransactionManager {
-  run<T>(work: () => Promise<T>): Promise<T>;     // BEGIN … COMMIT / ROLLBACK
-}
-
-// Вхідний намір і вихідна виписка — плаский DTO на межі, не голий домен
-interface PlaceOrderCommand {
-  readonly cartId: CartId;
-  readonly card: CardToken;
-  readonly idempotencyKey: string;   // згенерований КЛІЄНТОМ, не сервером
-}
-```
-```python
-from typing import Protocol, Optional
-
-# Порти — усе, з чим сервіс говорить, є абстракцією (DIP).
-# Реалізації (Postgres, Stripe, SMTP) живуть деінде й підставляються ззовні.
-class OrderRepository(Protocol):
-    def load_cart(self, cart_id: CartId) -> "Cart": ...
-    def save(self, order: "Order") -> None: ...
-
-class PaymentGateway(Protocol):
-    # key — ключ ідемпотентності: шлюз сам не спише двічі за тим самим ключем
-    def charge(self, amount: Money, card: CardToken, key: str) -> PaymentId: ...
-
-class Mailer(Protocol):
-    def send_confirmation(self, order: "Order") -> None: ...
-
-# Журнал уже виконаних операцій — серце захисту від подвійного кліку
-class IdempotencyStore(Protocol):
-    def find(self, key: str) -> Optional["OrderDto"]: ...   # уже робили цей ключ?
-    def remember(self, key: str, result: "OrderDto") -> None: ...
-
-class TransactionManager(Protocol):
-    def begin(self): ...        # контекст-менеджер: BEGIN … COMMIT / ROLLBACK
-
-
-# Вхідний намір і вихідна виписка — плаский DTO на межі, не голий домен
-@dataclass(frozen=True)
-class PlaceOrderCommand:
-    cart_id: CartId
-    card: CardToken
-    idempotency_key: str        # згенерований КЛІЄНТОМ, не сервером
-```
+:::code proj-place-order-service/ts/robochyi-kod-orkestratsiia.ts
+:::code proj-place-order-service/py/robochyi-kod-orkestratsiia.py
 :::
 
 А тепер сам сервіс. Прочитай тіло методу згори вниз — воно читається як сценарій людською мовою, і кожен рядок відповідає одному кроку схеми:
 
 :::tabs
-```ts
-class OrderService {
-  constructor(
-    private readonly orders: OrderRepository,
-    private readonly payments: PaymentGateway,
-    private readonly mailer: Mailer,
-    private readonly idempotency: IdempotencyStore,
-    private readonly tx: TransactionManager,
-  ) {}
-
-  async placeOrder(cmd: PlaceOrderCommand): Promise<OrderDto> {
-    // 0. Захист від подвійного кліку: уже робили цей ключ? Віддай старе.
-    const seen = await this.idempotency.find(cmd.idempotencyKey);
-    if (seen) return seen;                    // ← нічого не виконуємо вдруге
-
-    // 1..4 — усе, що має закріпитися РАЗОМ, усередині однієї транзакції
-    const dto = await this.tx.run(async () => {
-      const cart = await this.orders.loadCart(cmd.cartId);
-
-      // логіка ПРЕДМЕТА: рішення ухвалює домен, не сервіс
-      const order = cart.checkout();          // кине, якщо кошик порожній
-
-      // оплата — зі своїм ключем: якщо шлюз уже бачив ключ, він не спише вдруге
-      await this.payments.charge(order.total(), cmd.card, cmd.idempotencyKey);
-
-      await this.orders.save(order);          // запис у сховище
-      const result = OrderDto.from(order);    // назовні — DTO, не домен
-      await this.idempotency.remember(cmd.idempotencyKey, result);
-      return result;
-    });
-    // ↑ сюди ми дійшли, лише якщо tx.run закріпив усе (COMMIT). Помилка
-    //   всередині кинула б виняток, а run зробив би ROLLBACK — до цього рядка
-    //   виконання не дійшло б.
-
-    // 5. Лист — ПІСЛЯ коміту й ПОЗА транзакцією: його не можна відкотити.
-    //    Впаде пошта — замовлення вже надійно збережене, лист дошлемо окремо.
-    await this.mailer.sendConfirmation(dto.order);
-    return dto;
-  }
-}
-```
-```python
-class OrderService:
-    def __init__(self, orders, payments, mailer, idempotency, tx):
-        self._orders = orders
-        self._payments = payments
-        self._mailer = mailer
-        self._idempotency = idempotency
-        self._tx = tx
-
-    def place_order(self, cmd: PlaceOrderCommand) -> OrderDto:
-        # 0. Захист від подвійного кліку: уже робили цей ключ? Віддай старе.
-        seen = self._idempotency.find(cmd.idempotency_key)
-        if seen is not None:
-            return seen                        # ← нічого не виконуємо вдруге
-
-        # 1..4 — усе, що має закріпитися РАЗОМ, усередині однієї транзакції
-        with self._tx.begin():
-            cart = self._orders.load_cart(cmd.cart_id)
-
-            # логіка ПРЕДМЕТА: рішення ухвалює домен, не сервіс
-            order = cart.checkout()            # кине, якщо кошик порожній
-
-            # оплата — зі своїм ключем: якщо шлюз уже бачив ключ, не спише вдруге
-            self._payments.charge(order.total(), cmd.card, cmd.idempotency_key)
-
-            self._orders.save(order)           # запис у сховище
-            dto = OrderDto.from_order(order)   # назовні — DTO, не домен
-            self._idempotency.remember(cmd.idempotency_key, dto)
-        # ↑ вихід із with без винятку = COMMIT. Будь-який виняток усередині →
-        #   __exit__ робить ROLLBACK і проштовхує виняток далі — рядки нижче
-        #   у цьому разі не виконуються.
-
-        # 5. Лист — ПІСЛЯ коміту й ПОЗА транзакцією: його не можна відкотити.
-        #    Впаде пошта — замовлення вже надійно збережене, лист дошлемо окремо.
-        self._mailer.send_confirmation(dto.order)
-        return dto
-```
+:::code proj-place-order-service/ts/robochyi-kod-orkestratsiia-2.ts
+:::code proj-place-order-service/py/robochyi-kod-orkestratsiia-2.py
 :::
 
 Зверни увагу на форму методу — вона навмисна. Перевірка ідемпотентності стоїть **найпершою**, ще до транзакції: якщо ключ уже знайомий, ми виходимо миттєво, навіть не відкриваючи базу на запис. Далі йде транзакційний блок, у якому лежить рівно те, що має бути атомарним. І аж потім, поза блоком, — відправка листа. Три зони, три різні гарантії: «уже зроблено?», «зроби атомарно», «сповісти без гарантій атомарності».
@@ -201,42 +65,8 @@ class OrderService:
 Найчастіша помилка новачка — розкидати `begin`/`commit`/`rollback` руками по коду сервісу, ще й по кількох місцях. Тоді народжується щось таке (як **не** треба):
 
 :::tabs
-```ts
-// АНТИПРИКЛАД: ручні commit/rollback, розсипані по методу
-async placeOrder(cmd: PlaceOrderCommand): Promise<OrderDto> {
-  const conn = await db.connect();
-  await conn.query("BEGIN");
-  try {
-    const cart = await loadCart(conn, cmd.cartId);
-    const order = cart.checkout();
-    await charge(order.total(), cmd.card);   // а якщо кине ТУТ?
-    await save(conn, order);
-    await conn.query("COMMIT");              // легко забути на якійсь гілці
-  } catch (e) {
-    await conn.query("ROLLBACK");            // а якщо кине сам ROLLBACK?
-    throw e;
-  } finally {
-    conn.release();                          // а якщо забути це — витік з'єднань
-  }
-}
-```
-```python
-# АНТИПРИКЛАД: ручні commit/rollback, розсипані по методу
-def place_order(self, cmd):
-    conn = db.connect()
-    conn.execute("BEGIN")
-    try:
-        cart = load_cart(conn, cmd.cart_id)
-        order = cart.checkout()
-        charge(order.total(), cmd.card)      # а якщо кине ТУТ?
-        save(conn, order)
-        conn.execute("COMMIT")               # легко забути на якійсь гілці
-    except Exception:
-        conn.execute("ROLLBACK")             # а якщо кине сам ROLLBACK?
-        raise
-    finally:
-        conn.close()                         # забудеш це — витік з'єднань
-```
+:::code proj-place-order-service/ts/pastka-persha-de-same.ts
+:::code proj-place-order-service/py/pastka-persha-de-same.py
 :::
 
 Проблем тут одразу кілька. По-перше, `try/catch/finally` навколо кожної операції — це шум, який ховає сценарій: за трьома рівнями відступів уже не видно, що метод узагалі робить. По-друге, кожна нова гілка виходу (ранній `return`, ще один `if`) — це ще одне місце, де легко забути `COMMIT` або зайвий раз викликати `ROLLBACK`. По-третє, `charge()` тут **усередині** транзакції — і якщо оплата зависне на 30 секунд, з'єднання з базою всі ці 30 секунд тримає відкриту транзакцію, блокуючи рядки. Ручне керування транзакцією розповзається й гниє.
@@ -246,46 +76,8 @@ def place_order(self, cmd):
 Ось як така обгортка виглядає зсередини (це вже не сервіс, а інфраструктурна деталь — сервіс її лише вживає):
 
 :::tabs
-```ts
-class SqlTransactionManager implements TransactionManager {
-  constructor(private readonly pool: Pool) {}
-
-  async run<T>(work: () => Promise<T>): Promise<T> {
-    const conn = await this.pool.connect();
-    await conn.query("BEGIN");
-    try {
-      const result = await work();     // усі кроки сценарію — тут
-      await conn.query("COMMIT");      // дійшли без винятку → закріпити
-      return result;
-    } catch (e) {
-      await conn.query("ROLLBACK");    // будь-який збій → відкотити все
-      throw e;                         // і проштовхнути помилку далі
-    } finally {
-      conn.release();                  // з'єднання завжди повертається в пул
-    }
-  }
-}
-```
-```python
-from contextlib import contextmanager
-
-class SqlTransactionManager:
-    def __init__(self, pool):
-        self._pool = pool
-
-    @contextmanager
-    def begin(self):
-        conn = self._pool.connect()
-        conn.execute("BEGIN")
-        try:
-            yield conn                   # усі кроки сценарію — у тілі with
-            conn.execute("COMMIT")       # вийшли без винятку → закріпити
-        except Exception:
-            conn.execute("ROLLBACK")     # будь-який збій → відкотити все
-            raise                        # і проштовхнути помилку далі
-        finally:
-            conn.close()                 # з'єднання завжди звільняється
-```
+:::code proj-place-order-service/ts/pastka-persha-de-same-2.ts
+:::code proj-place-order-service/py/pastka-persha-de-same-2.py
 :::
 
 Тепер уся каша `try/catch/COMMIT/ROLLBACK` захована в одному місці й написана один раз. Сервіс її не бачить — він просто кладе свій сценарій усередину `run`/`begin` і покладається на контракт: «як вийду без помилки — закріпиться, як кину — відкотиться». Це і є **правильне місце для commit** — на межі одиниці роботи, у спільній обгортці, а не в тілі кожного сценарію.
@@ -349,20 +141,7 @@ ROLLBACK
 Ось як виглядає ця помилка (знову — **не** треба так):
 
 :::tabs
-```ts
-// АНТИПРИКЛАД: сервіс тримає стан поточної операції в полі
-class OrderService {
-  private currentOrder!: Order;          // ← спільне поле — біда під навантаженням
-
-  async placeOrder(cmd: PlaceOrderCommand): Promise<OrderDto> {
-    const cart = await this.orders.loadCart(cmd.cartId);
-    this.currentOrder = cart.checkout();  // запит B перезапише це поле…
-    await this.payments.charge(this.currentOrder.total(), cmd.card, cmd.idempotencyKey);
-    await this.orders.save(this.currentOrder);   // …і запит A збереже ЧУЖЕ замовлення
-    return OrderDto.from(this.currentOrder);
-  }
-}
-```
+:::code proj-place-order-service/ts/pastka-chetverta-chomu.ts
 ```python
 # АНТИПРИКЛАД: сервіс тримає стан поточної операції в полі
 class OrderService:
@@ -384,146 +163,8 @@ class OrderService:
 Спершу — підставні порти. Транзакція в тесті може бути «несправжня»: просто виконати роботу без справжнього BEGIN/COMMIT (нам-бо не потрібна база), але **чесно проштовхнути виняток**, щоб перевірити відкат:
 
 :::tabs
-```ts
-// Підставні порти — усе в пам'яті, жодної бази й жодних грошей
-class FakeRepo implements OrderRepository {
-  public saved: Order[] = [];
-  constructor(private readonly cart: Cart) {}
-  async loadCart() { return this.cart; }
-  async save(o: Order) { this.saved.push(o); }
-}
-class FakeGateway implements PaymentGateway {
-  public charges: { amount: Money; key: string }[] = [];
-  constructor(private readonly fail = false) {}
-  async charge(amount: Money, _card: CardToken, key: string) {
-    if (this.fail) throw new Error("оплата відхилена");
-    this.charges.push({ amount, key });
-    return "pay_1" as PaymentId;
-  }
-}
-class FakeMailer implements Mailer {
-  public sent = 0;
-  async sendConfirmation() { this.sent++; }
-}
-class MemIdempotency implements IdempotencyStore {
-  private map = new Map<string, OrderDto>();
-  async find(k: string) { return this.map.get(k) ?? null; }
-  async remember(k: string, r: OrderDto) { this.map.set(k, r); }
-}
-// «Прозора» транзакція: виконує роботу, але виняток чесно проштовхує
-class PassThroughTx implements TransactionManager {
-  async run<T>(work: () => Promise<T>): Promise<T> { return work(); }
-}
-
-// ── Тести ──
-test("успішне розміщення: оплата знята раз, замовлення збережене, лист надіслано", async () => {
-  const repo = new FakeRepo(cartWith(2, itemsWorth(500)));
-  const gw = new FakeGateway();
-  const mail = new FakeMailer();
-  const svc = new OrderService(repo, gw, mail, new MemIdempotency(), new PassThroughTx());
-
-  const dto = await svc.placeOrder({ cartId: "c1", card: "tok", idempotencyKey: "k-1" });
-
-  expect(repo.saved).toHaveLength(1);          // рівно одне замовлення
-  expect(gw.charges).toHaveLength(1);          // рівно одне списання
-  expect(mail.sent).toBe(1);                   // один лист
-  expect(dto.total).toBe(500);
-});
-
-test("подвійний клік: той самий ключ не створює друге замовлення", async () => {
-  const repo = new FakeRepo(cartWith(1, itemsWorth(100)));
-  const gw = new FakeGateway();
-  const svc = new OrderService(repo, gw, new FakeMailer(), new MemIdempotency(), new PassThroughTx());
-
-  const a = await svc.placeOrder({ cartId: "c1", card: "tok", idempotencyKey: "same" });
-  const b = await svc.placeOrder({ cartId: "c1", card: "tok", idempotencyKey: "same" });
-
-  expect(b).toEqual(a);                         // той самий результат
-  expect(repo.saved).toHaveLength(1);           // а НЕ два замовлення
-  expect(gw.charges).toHaveLength(1);           // і НЕ два списання
-});
-
-test("збій оплати: замовлення не зберігається (все відкотилось)", async () => {
-  const repo = new FakeRepo(cartWith(1, itemsWorth(100)));
-  const gw = new FakeGateway(/* fail */ true);
-  const svc = new OrderService(repo, gw, new FakeMailer(), new MemIdempotency(), new PassThroughTx());
-
-  await expect(
-    svc.placeOrder({ cartId: "c1", card: "tok", idempotencyKey: "k-3" }),
-  ).rejects.toThrow("оплата відхилена");
-  expect(repo.saved).toHaveLength(0);           // нічого не збережено
-});
-```
-```python
-# Підставні порти — усе в пам'яті, жодної бази й жодних грошей
-from contextlib import contextmanager
-
-class FakeRepo:
-    def __init__(self, cart):
-        self._cart = cart
-        self.saved = []
-    def load_cart(self, _cart_id): return self._cart
-    def save(self, o): self.saved.append(o)
-
-class FakeGateway:
-    def __init__(self, fail=False):
-        self.fail = fail
-        self.charges = []
-    def charge(self, amount, _card, key):
-        if self.fail:
-            raise RuntimeError("оплата відхилена")
-        self.charges.append((amount, key))
-        return "pay_1"
-
-class FakeMailer:
-    def __init__(self): self.sent = 0
-    def send_confirmation(self, _order): self.sent += 1
-
-class MemIdempotency:
-    def __init__(self): self._map = {}
-    def find(self, k): return self._map.get(k)
-    def remember(self, k, r): self._map[k] = r
-
-class PassThroughTx:                    # «прозора» транзакція: виняток проштовхує
-    @contextmanager
-    def begin(self):
-        yield                           # роботу виконуємо; при винятку він летить далі
-
-
-# ── Тести ──
-def test_happy_path():
-    repo = FakeRepo(cart_with(2, items_worth(500)))
-    gw, mail = FakeGateway(), FakeMailer()
-    svc = OrderService(repo, gw, mail, MemIdempotency(), PassThroughTx())
-
-    dto = svc.place_order(PlaceOrderCommand("c1", "tok", "k-1"))
-
-    assert len(repo.saved) == 1          # рівно одне замовлення
-    assert len(gw.charges) == 1          # рівно одне списання
-    assert mail.sent == 1                # один лист
-    assert dto.total == 500
-
-def test_double_click_is_idempotent():
-    repo = FakeRepo(cart_with(1, items_worth(100)))
-    gw = FakeGateway()
-    svc = OrderService(repo, gw, FakeMailer(), MemIdempotency(), PassThroughTx())
-
-    a = svc.place_order(PlaceOrderCommand("c1", "tok", "same"))
-    b = svc.place_order(PlaceOrderCommand("c1", "tok", "same"))
-
-    assert b == a                        # той самий результат
-    assert len(repo.saved) == 1          # а НЕ два замовлення
-    assert len(gw.charges) == 1          # і НЕ два списання
-
-def test_payment_failure_rolls_back():
-    repo = FakeRepo(cart_with(1, items_worth(100)))
-    gw = FakeGateway(fail=True)
-    svc = OrderService(repo, gw, FakeMailer(), MemIdempotency(), PassThroughTx())
-
-    with pytest.raises(RuntimeError, match="оплата відхилена"):
-        svc.place_order(PlaceOrderCommand("c1", "tok", "k-3"))
-    assert len(repo.saved) == 0          # нічого не збережено
-```
+:::code proj-place-order-service/ts/naismachnishe-test-bez.ts
+:::code proj-place-order-service/py/naismachnishe-test-bez.py
 :::
 
 Погляньмо, що ці три тести перевіряють — і чому вони можливі лише завдяки портам. Перший ловить **порядок і кількість**: одне замовлення, одне списання, один лист — не нуль і не два. Другий ловить **ідемпотентність**: два виклики з однаковим ключем дають один результат і жодного дубля роботи — ми буквально клацнули «Купити» двічі й переконались, що система стійка. Третій ловить **відкат**: коли оплата падає, замовлення не зберігається — виняток пролетів крізь прозору транзакцію, і `save` не дійшов до `saved`.

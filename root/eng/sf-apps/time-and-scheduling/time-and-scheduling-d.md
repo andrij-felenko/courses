@@ -698,244 +698,10 @@ index = (T_expires >> shift) & mask
 :::tabs
 
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <string.h>
-
-#define WHEEL_L0_BITS  8
-#define WHEEL_L0_SIZE  (1U << WHEEL_L0_BITS)
-#define WHEEL_L0_MASK  (WHEEL_L0_SIZE - 1)
-
-#define WHEEL_LVL_BITS 6
-#define WHEEL_LVL_SIZE (1U << WHEEL_LVL_BITS)
-#define WHEEL_LVL_MASK (WHEEL_LVL_SIZE - 1)
-
-typedef struct timer_entry timer_entry_t;
-typedef void (*timer_fn)(timer_entry_t *entry, void *arg);
-
-struct timer_entry {
-    uint64_t expires_tick;
-    timer_fn callback;
-    void *arg;
-    timer_entry_t *next;
-    timer_entry_t *prev;
-    int wheel;
-    int slot;
-    bool active;
-};
-
-typedef struct {
-    timer_entry_t *head;
-} wheel_bucket_t;
-
-typedef struct {
-    uint64_t current_tick;
-    wheel_bucket_t l0[WHEEL_L0_SIZE];
-    wheel_bucket_t l1[WHEEL_LVL_SIZE];
-    wheel_bucket_t l2[WHEEL_LVL_SIZE];
-    wheel_bucket_t l3[WHEEL_LVL_SIZE];
-    uint64_t l0_mask[WHEEL_L0_SIZE / 64];
-    uint64_t l1_mask;
-    uint64_t l2_mask;
-    uint64_t l3_mask;
-} htw_scheduler_t;
-
-void htw_init(htw_scheduler_t *s) {
-    memset(s, 0, sizeof(*s));
-}
-
-static void list_push(wheel_bucket_t *b, timer_entry_t *e) {
-    e->next = b->head;
-    e->prev = NULL;
-    if (b->head) b->head->prev = e;
-    b->head = e;
-}
-
-static void list_del(wheel_bucket_t *b, timer_entry_t *e) {
-    if (e->prev) e->prev->next = e->next;
-    else b->head = e->next;
-    if (e->next) e->next->prev = e->prev;
-    e->next = e->prev = NULL;
-}
-
-void htw_add(htw_scheduler_t *s, timer_entry_t *e, uint64_t expires, timer_fn cb, void *arg) {
-    e->expires_tick = expires;
-    e->callback = cb;
-    e->arg = arg;
-    e->active = true;
-
-    if (expires <= s->current_tick) {
-        int slot = (int)(s->current_tick & WHEEL_L0_MASK);
-        list_push(&s->l0[slot], e);
-        s->l0_mask[slot / 64] |= (1ULL << (slot % 64));
-        e->wheel = 0;
-        e->slot = slot;
-        return;
-    }
-
-    uint64_t delta = expires - s->current_tick;
-    if (delta < (1ULL << 8)) {
-        int slot = (int)(expires & WHEEL_L0_MASK);
-        list_push(&s->l0[slot], e);
-        s->l0_mask[slot / 64] |= (1ULL << (slot % 64));
-        e->wheel = 0; e->slot = slot;
-    } else if (delta < (1ULL << 14)) {
-        int slot = (int)((expires >> 8) & WHEEL_LVL_MASK);
-        list_push(&s->l1[slot], e);
-        s->l1_mask |= (1ULL << slot);
-        e->wheel = 1; e->slot = slot;
-    } else if (delta < (1ULL << 20)) {
-        int slot = (int)((expires >> 14) & WHEEL_LVL_MASK);
-        list_push(&s->l2[slot], e);
-        s->l2_mask |= (1ULL << slot);
-        e->wheel = 2; e->slot = slot;
-    } else {
-        int slot = (int)((expires >> 20) & WHEEL_LVL_MASK);
-        list_push(&s->l3[slot], e);
-        s->l3_mask |= (1ULL << slot);
-        e->wheel = 3; e->slot = slot;
-    }
-}
-
-void htw_cancel(htw_scheduler_t *s, timer_entry_t *e) {
-    if (!e->active) return;
-    if (e->wheel == 0) {
-        list_del(&s->l0[e->slot], e);
-        if (!s->l0[e->slot].head) s->l0_mask[e->slot / 64] &= ~(1ULL << (e->slot % 64));
-    } else if (e->wheel == 1) {
-        list_del(&s->l1[e->slot], e);
-        if (!s->l1[e->slot].head) s->l1_mask &= ~(1ULL << e->slot);
-    } else if (e->wheel == 2) {
-        list_del(&s->l2[e->slot], e);
-        if (!s->l2[e->slot].head) s->l2_mask &= ~(1ULL << e->slot);
-    } else if (e->wheel == 3) {
-        list_del(&s->l3[e->slot], e);
-        if (!s->l3[e->slot].head) s->l3_mask &= ~(1ULL << e->slot);
-    }
-    e->active = false;
-}
-```
+:::code time-and-scheduling-d/c/9-realizatsiia.c
 
 @tab C++
-```cpp
-#include <array>
-#include <cstdint>
-#include <functional>
-#include <concepts>
-#include <memory>
-#include <bit>
-
-namespace timing {
-
-constexpr size_t L0_BITS = 8;
-constexpr size_t L0_SIZE = 1U << L0_BITS;
-constexpr size_t L0_MASK = L0_SIZE - 1;
-
-constexpr size_t LVL_BITS = 6;
-constexpr size_t LVL_SIZE = 1U << LVL_BITS;
-constexpr size_t LVL_MASK = LVL_SIZE - 1;
-
-class TimerWheel {
-public:
-    struct TimerNode {
-        uint64_t expires_tick{0};
-        std::function<void()> callback;
-        TimerNode* next{nullptr};
-        TimerNode* prev{nullptr};
-        int wheel{-1};
-        int slot{-1};
-        bool active{false};
-    };
-
-    explicit TimerWheel(uint64_t start_tick = 0) : current_tick_(start_tick) {
-        l0_mask_.fill(0);
-    }
-
-    void add(TimerNode* node, uint64_t expires, std::function<void()> cb) {
-        node->expires_tick = expires;
-        node->callback = std::move(cb);
-        node->active = true;
-
-        if (expires <= current_tick_) {
-            int slot = static_cast<int>(current_tick_ & L0_MASK);
-            list_push(l0_[slot], node);
-            l0_mask_[slot / 64] |= (1ULL << (slot % 64));
-            node->wheel = 0; node->slot = slot;
-            return;
-        }
-
-        uint64_t delta = expires - current_tick_;
-        if (delta < (1ULL << 8)) {
-            int slot = static_cast<int>(expires & L0_MASK);
-            list_push(l0_[slot], node);
-            l0_mask_[slot / 64] |= (1ULL << (slot % 64));
-            node->wheel = 0; node->slot = slot;
-        } else if (delta < (1ULL << 14)) {
-            int slot = static_cast<int>((expires >> 8) & LVL_MASK);
-            list_push(l1_[slot], node);
-            l1_mask_ |= (1ULL << slot);
-            node->wheel = 1; node->slot = slot;
-        } else if (delta < (1ULL << 20)) {
-            int slot = static_cast<int>((expires >> 14) & LVL_MASK);
-            list_push(l2_[slot], node);
-            l2_mask_ |= (1ULL << slot);
-            node->wheel = 2; node->slot = slot;
-        } else {
-            int slot = static_cast<int>((expires >> 20) & LVL_MASK);
-            list_push(l3_[slot], node);
-            l3_mask_ |= (1ULL << slot);
-            node->wheel = 3; node->slot = slot;
-        }
-    }
-
-    void cancel(TimerNode* node) {
-        if (!node->active) return;
-        if (node->wheel == 0) {
-            list_del(l0_[node->slot], node);
-            if (!l0_[node->slot]) l0_mask_[node->slot / 64] &= ~(1ULL << (node->slot % 64));
-        } else if (node->wheel == 1) {
-            list_del(l1_[node->slot], node);
-            if (!l1_[node->slot]) l1_mask_ &= ~(1ULL << node->slot);
-        } else if (node->wheel == 2) {
-            list_del(l2_[node->slot], node);
-            if (!l2_[node->slot]) l2_mask_ &= ~(1ULL << node->slot);
-        } else if (node->wheel == 3) {
-            list_del(l3_[node->slot], node);
-            if (!l3_[node->slot]) l3_mask_ &= ~(1ULL << node->slot);
-        }
-        node->active = false;
-    }
-
-private:
-    static void list_push(TimerNode*& head, TimerNode* node) noexcept {
-        node->next = head;
-        node->prev = nullptr;
-        if (head) head->prev = node;
-        head = node;
-    }
-
-    static void list_del(TimerNode*& head, TimerNode* node) noexcept {
-        if (node->prev) node->prev->next = node->next;
-        else head = node->next;
-        if (node->next) node->next->prev = node->prev;
-        node->next = node->prev = nullptr;
-    }
-
-    uint64_t current_tick_{0};
-    std::array<TimerNode*, L0_SIZE> l0_{};
-    std::array<TimerNode*, LVL_SIZE> l1_{};
-    std::array<TimerNode*, LVL_SIZE> l2_{};
-    std::array<TimerNode*, LVL_SIZE> l3_{};
-    std::array<uint64_t, L0_SIZE / 64> l0_mask_{};
-    uint64_t l1_mask_{0};
-    uint64_t l2_mask_{0};
-    uint64_t l3_mask_{0};
-};
-
-} // namespace timing
-```
+:::code time-and-scheduling-d/cpp/9-realizatsiia.cpp
 :::
 
 ---
@@ -986,70 +752,10 @@ Max = 2^31 - 1 = 2 147 483 647
 :::tabs
 
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    int32_t year;
-    uint32_t month;
-    uint32_t day;
-} civil_date_t;
-
-/* Алгоритм Говарда Гіннанта: дні від 1970-01-01 -> Рік-Місяць-День без циклів */
-civil_date_t days_to_civil(int64_t z) {
-    z += 719468; /* Зсув епохи до 0000-03-01 */
-    const int64_t era = (z >= 0 ? z : z - 146096) / 146097;
-    const uint32_t doe = (uint32_t)(z - era * 146097);                 /* День в ері [0, 146096] */
-    const uint32_t yoe = (doe - doe / 1020 + doe / 1461 - doe / 146096) / 365; /* Рік в ері [0, 399] */
-    const int64_t y = (int64_t)yoe + era * 400;
-    const uint32_t doy = doe - (365 * yoe + yoe / 4 - yoe / 100);      /* День у році [0, 365] */
-    const uint32_t mp = (5 * doy + 2) / 153;                           /* [0, 11] */
-    const uint32_t d = doy - (153 * mp + 2) / 5 + 1;                  /* [1, 31] */
-    const uint32_t m = mp < 10 ? mp + 3 : mp - 9;                     /* [1, 12] */
-    
-    civil_date_t res;
-    res.year = (int32_t)(y + (m <= 2 ? 1 : 0));
-    res.month = m;
-    res.day = d;
-    return res;
-}
-```
+:::code time-and-scheduling-d/c/alhorytm-hovarda-hinnanta.c
 
 @tab C++
-```cpp
-#include <cstdint>
-#include <tuple>
-
-namespace timing {
-
-struct CivilDate {
-    int32_t year{0};
-    uint32_t month{0};
-    uint32_t day{0};
-};
-
-/* C++20 constexpr реалізація алгоритму Говарда Гіннанта */
-[[nodiscard]] constexpr CivilDate days_to_civil(int64_t z) noexcept {
-    z += 719468;
-    const int64_t era = (z >= 0 ? z : z - 146096) / 146097;
-    const auto doe = static_cast<uint32_t>(z - era * 146097);
-    const auto yoe = static_cast<uint32_t>((doe - doe / 1020 + doe / 1461 - doe / 146096) / 365);
-    const int64_t y = static_cast<int64_t>(yoe) + era * 400;
-    const auto doy = static_cast<uint32_t>(doe - (365 * yoe + yoe / 4 - yoe / 100));
-    const auto mp = static_cast<uint32_t>((5 * doy + 2) / 153);
-    const auto d = static_cast<uint32_t>(doy - (153 * mp + 2) / 5 + 1);
-    const auto m = static_cast<uint32_t>(mp < 10 ? mp + 3 : mp - 9);
-
-    return CivilDate{
-        .year = static_cast<int32_t>(y + (m <= 2 ? 1 : 0)),
-        .month = m,
-        .day = d
-    };
-}
-
-} // namespace timing
-```
+:::code time-and-scheduling-d/cpp/alhorytm-hovarda-hinnanta.hpp
 :::
 
 ---
@@ -1065,91 +771,10 @@ struct CivilDate {
 :::tabs
 
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-/* Швидкий парсер рядка YYYY-MM-DDTHH:MM:SSZ у секунди від Unix Epoch */
-bool parse_rfc3339_fast(const char *str, int64_t *out_epoch_sec) {
-    if (strlen(str) < 20) return false;
-    if (str[4] != '-' || str[7] != '-' || (str[10] != 'T' && str[10] != 't') ||
-        str[13] != ':' || str[16] != ':') {
-        return false;
-    }
-
-    int year = (str[0] - '0') * 1000 + (str[1] - '0') * 100 + 
-               (str[2] - '0') * 10 + (str[3] - '0');
-    int month = (str[5] - '0') * 10 + (str[6] - '0');
-    int day = (str[8] - '0') * 10 + (str[9] - '0');
-    int hour = (str[11] - '0') * 10 + (str[12] - '0');
-    int min = (str[14] - '0') * 10 + (str[15] - '0');
-    int sec = (str[17] - '0') * 10 + (str[18] - '0');
-
-    if (month < 1 || month > 12 || day < 1 || day > 31 ||
-        hour > 23 || min > 59 || sec > 60) {
-        return false;
-    }
-
-    int y = year - (month <= 2 ? 1 : 0);
-    int m = month <= 2 ? month + 9 : month - 3;
-    int era = (y >= 0 ? y : y - 399) / 400;
-    unsigned yoe = (unsigned)(y - era * 400);
-    unsigned doy = (153 * (unsigned)m + 2) / 5 + (unsigned)day - 1;
-    unsigned doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
-    int64_t days = (int64_t)era * 146097 + (int64_t)doe - 719468;
-
-    *out_epoch_sec = days * 86400LL + hour * 3600LL + min * 60LL + sec;
-    return true;
-}
-```
+:::code time-and-scheduling-d/c/11-shvydkyi-parsynh-iso.c
 
 @tab C++
-```cpp
-#include <string_view>
-#include <optional>
-#include <cstdint>
-
-namespace timing {
-
-/* Безпечний і швидкий розбір ISO-8601 / RFC 3339 у C++20 */
-[[nodiscard]] constexpr std::optional<int64_t> parse_rfc3339_fast(std::string_view str) noexcept {
-    if (str.size() < 20) return std::nullopt;
-    if (str[4] != '-' || str[7] != '-' || (str[10] != 'T' && str[10] != 't') ||
-        str[13] != ':' || str[16] != ':') {
-        return std::nullopt;
-    }
-
-    auto parse_2 = [&](size_t idx) -> int {
-        return (str[idx] - '0') * 10 + (str[idx + 1] - '0');
-    };
-
-    int year = (str[0] - '0') * 1000 + (str[1] - '0') * 100 + 
-               (str[2] - '0') * 10 + (str[3] - '0');
-    int month = parse_2(5);
-    int day = parse_2(8);
-    int hour = parse_2(11);
-    int min = parse_2(14);
-    int sec = parse_2(17);
-
-    if (month < 1 || month > 12 || day < 1 || day > 31 ||
-        hour > 23 || min > 59 || sec > 60) {
-        return std::nullopt;
-    }
-
-    int y = year - (month <= 2 ? 1 : 0);
-    int m = month <= 2 ? month + 9 : month - 3;
-    int era = (y >= 0 ? y : y - 399) / 400;
-    unsigned yoe = static_cast<unsigned>(y - era * 400);
-    unsigned doy = (153 * static_cast<unsigned>(m) + 2) / 5 + static_cast<unsigned>(day) - 1;
-    unsigned doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
-    int64_t days = static_cast<int64_t>(era) * 146097 + static_cast<int64_t>(doe) - 719468;
-
-    return days * 86400LL + hour * 3600LL + min * 60LL + sec;
-}
-
-} // namespace timing
-```
+:::code time-and-scheduling-d/cpp/11-shvydkyi-parsynh-iso.cpp
 :::
 
 ---
@@ -1186,19 +811,7 @@ T_overflow = 2^32 / 1000 с = 4 294 967 секунд ≈ 49.71 діб
 ```
 
 @tab C++
-```cpp
-/* Безпечне порівняння лічильників тіків у C++20: */
-template <std::integral T>
-[[nodiscard]] constexpr bool time_after(T a, T b) noexcept {
-    using SignedT = std::make_signed_t<T>;
-    return static_cast<SignedT>(b - a) < 0;
-}
-
-template <std::integral T>
-[[nodiscard]] constexpr bool time_before(T a, T b) noexcept {
-    return time_after(b, a);
-}
-```
+:::code time-and-scheduling-d/cpp/zminna-hz-ta-perepovnennia.cpp
 :::
 
 Завдяки властивостям знакового віднімання макрос `time_after(a, b)` повертає істину навіть тоді, коли `a` перейшло через нульову межу, доки різниця між ними не перевищує 2³¹ - 1 тактів (близько 24.8 діб).
@@ -1328,32 +941,10 @@ P_est = (I - K * H) * P_pred
 :::tabs
 
 @tab C
-```c
-struct pvclock_vcpu_time_info {
-    uint32_t version;
-    uint32_t pad0;
-    uint64_t tsc_timestamp;     /* Значення TSC хоста */
-    uint64_t system_time;       /* Відповідний наносекундний час хоста */
-    uint32_t tsc_to_system_mul; /* Коефіцієнт масштабування тактів */
-    int8_t   tsc_shift;         /* Зсув ділення */
-    uint8_t  flags;             /* Прапорці стабільності */
-    uint8_t  pad[2];
-};
-```
+:::code time-and-scheduling-d/c/paravirtualizovanyi.c
 
 @tab C++
-```cpp
-struct alignas(32) PvclockVcpuTimeInfo {
-    uint32_t version{0};
-    uint32_t pad0{0};
-    uint64_t tsc_timestamp{0};
-    uint64_t system_time{0};
-    uint32_t tsc_to_system_mul{0};
-    int8_t   tsc_shift{0};
-    uint8_t  flags{0};
-    std::array<uint8_t, 2> pad{};
-};
-```
+:::code time-and-scheduling-d/cpp/paravirtualizovanyi.cpp
 :::
 
 При поверненні віртуальної машини до виконання гостьове ядро читає `pvclock` і миттєво компенсує весь накопичений за час паузи інтервал без виклику розривних корекцій NTP step.
@@ -1446,23 +1037,7 @@ write(fd, &max_latency_us, sizeof(max_latency_us));
 ```
 
 @tab C++
-```cpp
-// RAII блокування переходів CPU в C-states
-class CpuDmaLatencyLock {
-public:
-    explicit CpuDmaLatencyLock(int32_t latency_us = 0) {
-        fd_ = ::open("/dev/cpu_dma_latency", O_RDWR | O_CLOEXEC);
-        if (fd_ >= 0) {
-            ::write(fd_, &latency_us, sizeof(latency_us));
-        }
-    }
-    ~CpuDmaLatencyLock() {
-        if (fd_ >= 0) ::close(fd_);
-    }
-private:
-    int fd_{-1};
-};
-```
+:::code time-and-scheduling-d/cpp/kompleksnyi-chek-lyst.cpp
 :::
 
 4. **Встановлення пріоритету реального часу та прив'язка до ядра:**
@@ -1470,32 +1045,10 @@ private:
 :::tabs
 
 @tab C
-```c
-/* Прив'язка до виділеного ізольованого ядра (C) */
-cpu_set_t cpuset;
-CPU_ZERO(&cpuset);
-CPU_SET(2, &cpuset);
-pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
-
-/* Встановлення політики SCHED_FIFO */
-struct sched_param param;
-param.sched_priority = 99; /* Найвищий пріоритет RT */
-sched_setscheduler(0, SCHED_FIFO, &param);
-```
+:::code time-and-scheduling-d/c/kompleksnyi-chek-lyst.h
 
 @tab C++
-```cpp
-/* Прив'язка потоку до виділеного ядра та RT-пріоритет (C++20) */
-void configure_realtime_thread(std::jthread& th, int core_id, int priority = 99) {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-    pthread_setaffinity_np(th.native_handle(), sizeof(cpu_set_t), &cpuset);
-
-    sched_param param{.sched_priority = priority};
-    pthread_setschedparam(th.native_handle(), SCHED_FIFO, &param);
-}
-```
+:::code time-and-scheduling-d/cpp/kompleksnyi-chek-lyst-2.cpp
 :::
 
 5. **Блокування пам'яті процесу в RAM (`mlockall`):**
@@ -1511,19 +1064,7 @@ if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0) {
 ```
 
 @tab C++
-```cpp
-// RAII блокування сторінок процесу в оперативній пам'яті
-struct MemoryLock {
-    MemoryLock() {
-        if (::mlockall(MCL_CURRENT | MCL_FUTURE) != 0) {
-            throw std::system_error(errno, std::generic_category(), "mlockall failed");
-        }
-    }
-    ~MemoryLock() {
-        ::munlockall();
-    }
-};
-```
+:::code time-and-scheduling-d/cpp/kompleksnyi-chek-lyst-3.cpp
 :::
 
 ---

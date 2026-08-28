@@ -38,60 +38,8 @@ Middleware  :  Handler → Handler        (бере обробник, верта
 Почнімо з типів і двох найпростіших шарів — логера й таймера, щоб побачити форму «до → делегація → після».
 
 :::tabs
-```go
-package main
-
-import (
-	"log"
-	"net/http"
-	"time"
-)
-
-// Обробник — це http.Handler (єдиний метод ServeHTTP(w, r)).
-// Middleware — обгортка: бере наступний обробник, вертає новий.
-type Middleware func(http.Handler) http.Handler
-
-// Logger: «до» — пишемо вхід; делегуємо; «після» — пишемо вихід.
-func Logger(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("→ %s %s", r.Method, r.URL.Path) // ДО делегації
-		next.ServeHTTP(w, r)                         // делегація глибше
-		log.Printf("← %s", r.URL.Path)               // ПІСЛЯ делегації
-	})
-}
-
-// Timer: «до» — засікли старт; делегуємо; «після» — зміряли тривалість.
-func Timer(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		next.ServeHTTP(w, r)
-		log.Printf("⏱ %s за %s", r.URL.Path, time.Since(start))
-	})
-}
-```
-```ts
-// Обробник — функція запит→відповідь; middleware — функція, що вертає обробник.
-type Req = { method: string; path: string; headers: Record<string, string> };
-type Res = { status: number; headers: Record<string, string>; body: string };
-type Handler = (req: Req) => Promise<Res>;
-type Middleware = (next: Handler) => Handler;
-
-// Logger: «до» — пишемо вхід; делегуємо; «після» — пишемо вихід.
-const logger: Middleware = (next) => async (req) => {
-  console.log(`→ ${req.method} ${req.path}`);       // ДО делегації
-  const res = await next(req);                       // делегація глибше
-  console.log(`← ${res.status} ${req.path}`);        // ПІСЛЯ делегації
-  return res;
-};
-
-// Timer: «до» — засікли старт; делегуємо; «після» — зміряли тривалість.
-const timer: Middleware = (next) => async (req) => {
-  const start = Date.now();
-  const res = await next(req);
-  console.log(`⏱ ${req.path} за ${Date.now() - start}ms`);
-  return res;
-};
-```
+:::code proj-middleware-pipeline/go/robochyi-stos-go-i.go
+:::code proj-middleware-pipeline/ts/robochyi-stos-go-i.ts
 :::
 
 Прочитай обидва повільно — вони кажуть одне. У Go middleware повертає `http.HandlerFunc` (це функція, підставлена під інтерфейс `http.Handler`), і всередині неї три рядки: лог до, `next.ServeHTTP(w, r)` як делегація, лог після. У TypeScript middleware — функція, що бере `next` і повертає `async (req) => {…}`; усередині так само: лог до, `await next(req)` як делегація, лог після, повертаємо відповідь. Різниця одна: Go нічого не повертає з `ServeHTTP`, він **пише** у `w`; TypeScript **повертає** `res`. Тому в Go «після» дивиться на те, що вже записали (і, як побачимо, це окрема морока), а в TypeScript «після» тримає відповідь у руках як звичайне значення.
@@ -99,213 +47,26 @@ const timer: Middleware = (next) => async (req) => {
 Тепер — два шари, що вміють **обірвати** ланцюг. Auth перевіряє право й на відмову кидає 401, **не покликавши `next`**: глибші шари запиту навіть не побачать. Cache на GET-запит зазирає у сховище: як там уже лежить відповідь — віддає її й теж **не кличе `next`**, а отже, дорогий похід у базу не стається.
 
 :::tabs
-```go
-// Auth: немає права → 401 і ВИХІД, next не викликаний (обрив ланцюга).
-func Auth(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Header.Get("Authorization") == "" {
-			http.Error(w, "unauthorized", http.StatusUnauthorized) // 401
-			return                                                 // ← next НЕ викликаний
-		}
-		next.ServeHTTP(w, r)
-	})
-}
-
-// Cache: на влученні віддаємо збережене й не йдемо глибше; на промаху —
-// делегуємо, перехоплюємо тіло й кладемо в сховище на майбутнє.
-func Cache(store map[string][]byte) Middleware {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if r.Method == http.MethodGet {
-				if body, ok := store[r.URL.Path]; ok {
-					w.Header().Set("X-Cache", "HIT")
-					w.Write(body) // ← віддали з кешу, next НЕ викликаний
-					return
-				}
-			}
-			cw := &capture{ResponseWriter: w, status: 200} // ловимо, що напише глибина
-			next.ServeHTTP(cw, r)
-			if r.Method == http.MethodGet && cw.status == 200 {
-				store[r.URL.Path] = cw.body.Bytes() // зберегли сире тіло
-			}
-		})
-	}
-}
-```
-```ts
-// Auth: немає права → 401 і ВИХІД, next не викликаний (обрив ланцюга).
-const auth: Middleware = (next) => async (req) => {
-  if (!req.headers["authorization"]) {
-    return { status: 401, headers: {}, body: "unauthorized" }; // ← next НЕ викликаний
-  }
-  return next(req);
-};
-
-// Cache: на влученні віддаємо збережене й не йдемо глибше; на промаху —
-// делегуємо й кладемо відповідь у сховище на майбутнє.
-function cache(store: Map<string, Res>): Middleware {
-  return (next) => async (req) => {
-    if (req.method === "GET") {
-      const hit = store.get(req.path);
-      if (hit) return { ...hit, headers: { ...hit.headers, "x-cache": "HIT" } }; // ← обрив
-    }
-    const res = await next(req);
-    if (req.method === "GET" && res.status === 200) store.set(req.path, res);     // зберегли
-    return res;
-  };
-}
-```
+:::code proj-middleware-pipeline/go/robochyi-stos-go-i-2.go
+:::code proj-middleware-pipeline/ts/robochyi-stos-go-i-2.ts
 :::
 
 Зверни увагу на дві дрібниці, у яких схована глибина. По-перше, `Cache` — це не просто middleware, а **фабрика middleware**: він бере `store` і **повертає** middleware. Так параметризують шар — кеш мусить звідкись узяти сховище, і ми віддаємо йому його ззовні, замість зашивати всередину. Той самий прийом придасться, коли шару треба секрет, ліміт чи годинник. По-друге, у Go-варіанті виринає `capture` — маленька обгортка над `ResponseWriter`. Вона потрібна, бо Go пише відповідь у `w`, і щоб кеш **побачив**, що саме записав діловий обробник (тіло й статус), доводиться підставити перехоплювач. У TypeScript цієї мороки немає: відповідь — це повернене значення, кеш його просто тримає. Ось той перехоплювач:
 
-```go
-import "bytes"
-
-// capture запам'ятовує статус і тіло, які глибші шари пишуть у відповідь,
-// і водночас пропускає їх далі в справжній ResponseWriter.
-type capture struct {
-	http.ResponseWriter
-	status int
-	body   bytes.Buffer
-}
-
-func (c *capture) WriteHeader(code int) {
-	c.status = code
-	c.ResponseWriter.WriteHeader(code)
-}
-
-func (c *capture) Write(b []byte) (int, error) {
-	c.body.Write(b)                 // запам'ятали копію тіла
-	return c.ResponseWriter.Write(b) // і пропустили назовні
-}
-```
+:::code proj-middleware-pipeline/go/robochyi-stos-go-i-3.go
 
 Лишилися два зовнішні шари — **Gzip**, що стискає тіло, і **Recover**, що ловить паніку й перетворює її на чесну 500 замість обірваного з'єднання. Recover тут неспроста найзовнішній: він мусить накрити **все**, що глибше, тож паніка з будь-якого шару або з обробника впіймається саме тут.
 
 :::tabs
-```go
-import (
-	"compress/gzip"
-	"strings"
-)
-
-// Gzip: якщо клієнт приймає стиснення — загортаємо тіло на льоту.
-type gzipWriter struct {
-	http.ResponseWriter
-	gz *gzip.Writer
-}
-
-func (g *gzipWriter) Write(b []byte) (int, error) { return g.gz.Write(b) }
-
-func Gzip(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
-			next.ServeHTTP(w, r) // клієнт не хоче gzip — не чіпаємо
-			return
-		}
-		w.Header().Set("Content-Encoding", "gzip")
-		gz := gzip.NewWriter(w)
-		defer gz.Close()
-		next.ServeHTTP(&gzipWriter{ResponseWriter: w, gz: gz}, r)
-	})
-}
-
-// Recover: НАЙЗОВНІШНІЙ — ловить паніку з будь-якого глибшого шару.
-func Recover(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Printf("паніка: %v", err)
-				http.Error(w, "internal error", http.StatusInternalServerError)
-			}
-		}()
-		next.ServeHTTP(w, r)
-	})
-}
-```
-```ts
-import { gzipSync } from "node:zlib";
-
-// Gzip: якщо клієнт приймає стиснення — стискаємо готове тіло.
-const gzip: Middleware = (next) => async (req) => {
-  const res = await next(req);
-  if (!(req.headers["accept-encoding"] ?? "").includes("gzip")) return res;
-  const packed = gzipSync(res.body); // стискаємо вже сформоване тіло
-  return {
-    ...res,
-    headers: { ...res.headers, "content-encoding": "gzip" },
-    body: packed.toString("base64"), // у справжньому коді — Buffer на дріт
-  };
-};
-
-// Recover: НАЙЗОВНІШНІЙ — ловить виняток із будь-якого глибшого шару.
-const recover: Middleware = (next) => async (req) => {
-  try {
-    return await next(req);
-  } catch (err) {
-    console.error("паніка:", err);
-    return { status: 500, headers: {}, body: "internal error" };
-  }
-};
-```
+:::code proj-middleware-pipeline/go/robochyi-stos-go-i-4.go
+:::code proj-middleware-pipeline/ts/robochyi-stos-go-i-3.ts
 :::
 
 І нарешті — **складання**. Треба з обробника й переліку шарів зібрати один обробник, у якому перший шар списку опиниться найзовнішнім, а останній — упритул до ділового обробника. Тонкість, на якій спотикаються: нанизувати треба **з середини назовні**, тобто йти списком **у зворотному порядку**.
 
 :::tabs
-```go
-// Chain: h — діловий обробник; mw — шари ЗЗОВНІ всередину.
-// Нанизуємо з кінця списку: останній шар лягає найглибше, перший — найзовні.
-func Chain(h http.Handler, mw ...Middleware) http.Handler {
-	for i := len(mw) - 1; i >= 0; i-- {
-		h = mw[i](h)
-	}
-	return h
-}
-
-func main() {
-	business := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("привіт зі справжнього обробника"))
-	})
-	store := map[string][]byte{}
-
-	app := Chain(business,
-		Recover, Logger, Timer, Auth, Gzip, Cache(store), // зовні → всередину
-	)
-	http.ListenAndServe(":8080", app)
-}
-```
-```ts
-import { createServer } from "node:http";
-
-// chain: reduceRight нанизує з кінця — останній шар найглибше, перший найзовні.
-function chain(handler: Handler, ...mw: Middleware[]): Handler {
-  return mw.reduceRight((next, m) => m(next), handler);
-}
-
-const business: Handler = async () => ({
-  status: 200,
-  headers: { "content-type": "text/plain" },
-  body: "привіт зі справжнього обробника",
-});
-const store = new Map<string, Res>();
-
-const app = chain(business,
-  recover, logger, timer, auth, gzip, cache(store), // зовні → всередину
-);
-
-createServer(async (nodeReq, nodeRes) => {
-  const req: Req = {
-    method: nodeReq.method ?? "GET",
-    path: nodeReq.url ?? "/",
-    headers: nodeReq.headers as Record<string, string>,
-  };
-  const res = await app(req);
-  nodeRes.writeHead(res.status, res.headers);
-  nodeRes.end(res.body);
-}).listen(8080);
-```
+:::code proj-middleware-pipeline/go/robochyi-stos-go-i-5.go
+:::code proj-middleware-pipeline/ts/robochyi-stos-go-i-4.ts
 :::
 
 > 🔧 **Навіщо це.** Уся вигода — у рядку `Chain(business, Recover, Logger, …)`. Щоб додати нову турботу (скажімо, обмеження частоти запитів), ти пишеш **ще одну функцію** й вставляєш її ім'я в список — і не відкриваєш жоден наявний шар та жоден обробник. Це [принцип відкритості-закритості](root:sf-apps/open-closed) дослівно: поведінка додається новим кодом збоку, старий лишається недоторканим. А ще стос **переставляється однією правкою порядку** й **різниться від маршруту до маршруту**: публічним ендпойнтам — без Auth, приватним — з Auth; у налагодженні — з докладним Logger, у проді — без нього. Один діловий обробник, різні обгортки під різні потреби.

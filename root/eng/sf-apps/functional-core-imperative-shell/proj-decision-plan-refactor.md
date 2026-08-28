@@ -9,47 +9,8 @@
 Нехай ми пишемо антифрод бекенду платіжної системи. Функція `handleTransaction` дістає рахунок, дивиться на транзакцію й вирішує долю кількох дій. Ось код, який ми успадкували, — він працює, і його бояться чіпати:
 
 :::tabs
-```ts
-// ── ДО: рішення й дія намертво сплетені ──
-async function handleTransaction(accountId: string, tx: Transaction): Promise<void> {
-  const acc = await db.loadAccount(accountId);        // дія: читання
-
-  // ── а тут, упереміш із діями, ховається все рішення ──
-  if (tx.amount > acc.dailyLimit) {
-    await db.flagTransaction(tx.id, "over-limit");     // дія: запис
-    await notifier.push(acc.userId, "Транзакцію відкладено на перевірку");
-  }
-
-  const newBalance = acc.balance - tx.amount;
-  if (newBalance < 0) {
-    await db.freezeAccount(accountId);                 // дія: запис
-    await notifier.push(acc.userId, "Рахунок заморожено: недостатньо коштів");
-  } else {
-    await db.setBalance(accountId, newBalance);        // дія: запис
-  }
-
-  await audit.log(`tx ${tx.id} on ${accountId}: amount=${tx.amount}`); // дія: запис
-}
-```
-```py
-# ── ДО: рішення й дія намертво сплетені ──
-async def handle_transaction(account_id: str, tx: Transaction) -> None:
-    acc = await db.load_account(account_id)             # дія: читання
-
-    # ── а тут, упереміш із діями, ховається все рішення ──
-    if tx.amount > acc.daily_limit:
-        await db.flag_transaction(tx.id, "over-limit")  # дія: запис
-        await notifier.push(acc.user_id, "Транзакцію відкладено на перевірку")
-
-    new_balance = acc.balance - tx.amount
-    if new_balance < 0:
-        await db.freeze_account(account_id)             # дія: запис
-        await notifier.push(acc.user_id, "Рахунок заморожено: недостатньо коштів")
-    else:
-        await db.set_balance(account_id, new_balance)   # дія: запис
-
-    await audit.log(f"tx {tx.id} on {account_id}: amount={tx.amount}")  # дія: запис
-```
+:::code proj-decision-plan-refactor/ts/zadacha-obrobnyk-shcho.ts
+:::code proj-decision-plan-refactor/py/zadacha-obrobnyk-shcho.py
 :::
 
 Придивись, що тут переплелося. Функція **вирішує** — «чи понад ліміт», «чи вистачає коштів», «що з цього випливає» — і в тих самих рядках **діє**: читає базу, пише прапорці, шле пуші, лишає лог. Рішення й дія не просто сусідять, вони **перемішані по рядках**: `if` стоїть, а всередині нього одразу `await db.flag…`. Це найгірший різновид сплетіння — не «спершу все порахували, потім усе зробили», а «вирішили дрібку, зробили дрібку, вирішили ще, зробили ще».
@@ -65,37 +26,8 @@ async def handle_transaction(account_id: str, tx: Transaction) -> None:
 Перше, що треба зробити, — назвати ефекти типами. Що взагалі вміє робити наш обробник зі світом? Позначити транзакцію, заморозити рахунок, виставити баланс, штовхнути пуш, записати в лог. П'ять видів дій — п'ять варіантів опису:
 
 :::tabs
-```ts
-// ── Ефект як дані: опис дії, а не сама дія ──
-type Effect =
-  | { kind: "flag";     txId: string; reason: string }
-  | { kind: "freeze";   accountId: string }
-  | { kind: "setBalance"; accountId: string; amount: number }
-  | { kind: "notify";   userId: string; message: string }
-  | { kind: "audit";    line: string };
-
-// План — просто список описів. Це чисті дані, у них нічого не «діється».
-type Plan = Effect[];
-```
-```py
-from dataclasses import dataclass
-
-# ── Ефект як дані: опис дії, а не сама дія ──
-@dataclass(frozen=True)
-class Flag:       tx_id: str; reason: str
-@dataclass(frozen=True)
-class Freeze:     account_id: str
-@dataclass(frozen=True)
-class SetBalance: account_id: str; amount: float
-@dataclass(frozen=True)
-class Notify:     user_id: str; message: str
-@dataclass(frozen=True)
-class Audit:      line: str
-
-# План — просто список описів. Це чисті дані, у них нічого не «діється».
-Effect = Flag | Freeze | SetBalance | Notify | Audit
-Plan = list[Effect]
-```
+:::code proj-decision-plan-refactor/ts/ideia-nekhai-iadro-poverne.ts
+:::code proj-decision-plan-refactor/py/ideia-nekhai-iadro-poverne.py
 :::
 
 Зверни увагу: у цих типах **немає жодного дієслова, що чіпає світ**. `Notify` не шле пуша — це просто запис «кому» і «що». `SetBalance` не пише в базу — це пара «рахунок» і «сума». Опис ефекту так само пасивний, як число чи рядок; його можна створити, покласти в список, порівняти, надрукувати — і при цьому нічого не станеться. Уся дія відкладена до того моменту, коли хтось **вирішить його виконати**. Саме ця відкладеність і робить план придатним для чистого ядра: скласти список намірів — операція без побічних ефектів, хоч самі наміри й описують ефекти.
@@ -105,100 +37,15 @@ Plan = list[Effect]
 Тепер розріжемо обробник по шву. Спершу — ядро. Воно бере **знімок** усього, що потрібно для рішення (рахунок і транзакцію — звичайні значення, які йому **принесли**), і повертає план. Жодного `db`, `notifier`, `audit`, жодного `await` — усередині ядра світу не існує.
 
 :::tabs
-```ts
-// ── ПІСЛЯ, ядро: чиста функція від даних до ПЛАНУ ──
-// Нічого не читає й не пише. Той самий вхід → той самий план, завжди.
-function decide(acc: Account, tx: Transaction): Plan {
-  const plan: Plan = [];
-
-  if (tx.amount > acc.dailyLimit) {
-    plan.push({ kind: "flag", txId: tx.id, reason: "over-limit" });
-    plan.push({ kind: "notify", userId: acc.userId,
-                message: "Транзакцію відкладено на перевірку" });
-  }
-
-  const newBalance = acc.balance - tx.amount;
-  if (newBalance < 0) {
-    plan.push({ kind: "freeze", accountId: acc.id });
-    plan.push({ kind: "notify", userId: acc.userId,
-                message: "Рахунок заморожено: недостатньо коштів" });
-  } else {
-    plan.push({ kind: "setBalance", accountId: acc.id, amount: newBalance });
-  }
-
-  plan.push({ kind: "audit", line: `tx ${tx.id} on ${acc.id}: amount=${tx.amount}` });
-  return plan;                     // просто дані — досі нічого не сталося
-}
-```
-```py
-# ── ПІСЛЯ, ядро: чиста функція від даних до ПЛАНУ ──
-# Нічого не читає й не пише. Той самий вхід → той самий план, завжди.
-def decide(acc: Account, tx: Transaction) -> Plan:
-    plan: Plan = []
-
-    if tx.amount > acc.daily_limit:
-        plan.append(Flag(tx_id=tx.id, reason="over-limit"))
-        plan.append(Notify(user_id=acc.user_id,
-                           message="Транзакцію відкладено на перевірку"))
-
-    new_balance = acc.balance - tx.amount
-    if new_balance < 0:
-        plan.append(Freeze(account_id=acc.id))
-        plan.append(Notify(user_id=acc.user_id,
-                           message="Рахунок заморожено: недостатньо коштів"))
-    else:
-        plan.append(SetBalance(account_id=acc.id, amount=new_balance))
-
-    plan.append(Audit(line=f"tx {tx.id} on {acc.id}: amount={tx.amount}"))
-    return plan                     # просто дані — досі нічого не сталося
-```
+:::code proj-decision-plan-refactor/ts/robochyi-kod-chyste-iadro.ts
+:::code proj-decision-plan-refactor/py/robochyi-kod-chyste-iadro.py
 :::
 
 Тепер оболонка. Вона розпадається на дві частини, і поділ цей не випадковий. Перша — **виконавець плану** (`runPlan`): бере список описів і для кожного робить справжню дію. Це єдине місце в усій програмі, де опис `notify` перетворюється на живий пуш, а `setBalance` — на запис у базу. Друга частина — тонка обгортка `handleTransaction`, що приносить дані, кличе ядро, віддає план виконавцеві.
 
 :::tabs
-```ts
-// ── ПІСЛЯ, оболонка (1): ВИКОНАВЕЦЬ плану ──
-// Єдине місце, де опис стає дією. Сам нічого не вирішує.
-async function runPlan(plan: Plan): Promise<void> {
-  for (const e of plan) {
-    switch (e.kind) {
-      case "flag":       await db.flagTransaction(e.txId, e.reason); break;
-      case "freeze":     await db.freezeAccount(e.accountId);        break;
-      case "setBalance": await db.setBalance(e.accountId, e.amount); break;
-      case "notify":     await notifier.push(e.userId, e.message);   break;
-      case "audit":      await audit.log(e.line);                    break;
-    }
-  }
-}
-
-// ── ПІСЛЯ, оболонка (2): тонка обгортка ──
-// Принести → вирішити (ядром) → виконати. Рішень тут нема.
-async function handleTransaction(accountId: string, tx: Transaction): Promise<void> {
-  const acc  = await db.loadAccount(accountId);   // принести
-  const plan = decide(acc, tx);                    // ← усе рішення тут, у ядрі
-  await runPlan(plan);                             // винести
-}
-```
-```py
-# ── ПІСЛЯ, оболонка (1): ВИКОНАВЕЦЬ плану ──
-# Єдине місце, де опис стає дією. Сам нічого не вирішує.
-async def run_plan(plan: Plan) -> None:
-    for e in plan:
-        match e:
-            case Flag(tx_id, reason):       await db.flag_transaction(tx_id, reason)
-            case Freeze(account_id):        await db.freeze_account(account_id)
-            case SetBalance(account_id, a): await db.set_balance(account_id, a)
-            case Notify(user_id, message):  await notifier.push(user_id, message)
-            case Audit(line):               await audit.log(line)
-
-# ── ПІСЛЯ, оболонка (2): тонка обгортка ──
-# Принести → вирішити (ядром) → виконати. Рішень тут нема.
-async def handle_transaction(account_id: str, tx: Transaction) -> None:
-    acc  = await db.load_account(account_id)    # принести
-    plan = decide(acc, tx)                       # ← усе рішення тут, у ядрі
-    await run_plan(plan)                         # винести
-```
+:::code proj-decision-plan-refactor/ts/robochyi-kod-chyste-iadro-2.ts
+:::code proj-decision-plan-refactor/py/robochyi-kod-chyste-iadro-2.py
 :::
 
 Подивись, що сталося зі структурою. Уся логіка — усі чотири `if/else` — переїхала в `decide`, де немає ні бази, ні пошти. Виконавець `runPlan` **не має жодного розгалуження бізнес-правил**: його `switch` — це не «вирішити, що робити», а «як виконати вже вирішене». Він тупий за побудовою: дай опис — виконаю, і байдуже, чому ядро цей опис додало. А `handleTransaction` стиснувся до трьох рядків, у яких нема де сховатися помилці.
@@ -214,55 +61,8 @@ async def handle_transaction(account_id: str, tx: Transaction) -> None:
 Ось де окупається вся робота, і різницю варто побачити поряд. Спершу — як виглядав чесний тест **до** рефакторингу. Щоб перевірити єдине правило «понад ліміт → позначити + сповістити», доводилося зібрати цілий стенд із підробок і потім ще й допитувати їх, чи покликали як слід:
 
 :::tabs
-```ts
-// ── ДО: тест мусить обставити всі дотики до світу ──
-test("over-limit flags and notifies", async () => {
-  // 1. підробка бази з потрібним рахунком і шпигунами на записах
-  const db = {
-    loadAccount: async () => ({ id: "a1", userId: "u1",
-                                balance: 500, dailyLimit: 100 }),
-    flagTransaction: jest.fn(),
-    freezeAccount:   jest.fn(),
-    setBalance:      jest.fn(),
-  };
-  // 2. підробка сповіщувача
-  const notifier = { push: jest.fn() };
-  // 3. підробка журналу
-  const audit = { log: jest.fn() };
-  // 4. підмінити глобальні залежності на підробки (DI або monkey-patch)
-  inject({ db, notifier, audit });
-
-  await handleTransaction("a1", { id: "t1", amount: 150 });
-
-  // 5. і тепер — допит шпигунів: покликали правильно?
-  expect(db.flagTransaction).toHaveBeenCalledWith("t1", "over-limit");
-  expect(notifier.push).toHaveBeenCalledWith("u1",
-    "Транзакцію відкладено на перевірку");
-});
-```
-```py
-# ── ДО: тест мусить обставити всі дотики до світу ──
-async def test_over_limit_flags_and_notifies():
-    # 1. підробка бази з потрібним рахунком і шпигунами на записах
-    db = Mock()
-    db.load_account = AsyncMock(return_value=Account(
-        id="a1", user_id="u1", balance=500, daily_limit=100))
-    db.flag_transaction = AsyncMock()
-    db.freeze_account   = AsyncMock()
-    db.set_balance      = AsyncMock()
-    # 2. підробка сповіщувача
-    notifier = Mock(); notifier.push = AsyncMock()
-    # 3. підробка журналу
-    audit = Mock(); audit.log = AsyncMock()
-    # 4. підмінити глобальні залежності на підробки
-    inject(db=db, notifier=notifier, audit=audit)
-
-    await handle_transaction("a1", Transaction(id="t1", amount=150))
-
-    # 5. і тепер — допит шпигунів: покликали правильно?
-    db.flag_transaction.assert_awaited_with("t1", "over-limit")
-    notifier.push.assert_awaited_with("u1", "Транзакцію відкладено на перевірку")
-```
+:::code proj-decision-plan-refactor/ts/testy-vid-kupy-mokiv-do.ts
+:::code proj-decision-plan-refactor/py/testy-vid-kupy-mokiv-do.py
 :::
 
 П'ять кроків, три підробки, чотири шпигуни (`jest.fn()` / `AsyncMock`) — і все це заради перевірки одного `if`. Гірше того, тест перевіряє не «що вирішено», а «що покликано»: він прив'язаний до того, **як саме** оболонка викликає базу, тож зміна сигнатури `flagTransaction` зламає тест, який мав би стерегти правило, а не проводку.
@@ -270,42 +70,8 @@ async def test_over_limit_flags_and_notifies():
 Тепер той самий випадок **після**. Ядро повертає план — просто список даних, — і тест на нього це звіряння списку: зібрав вхід, покликав `decide`, глянув, що в плані є потрібні описи. Ні бази, ні пошти, ні журналу, ні шпигунів:
 
 :::tabs
-```ts
-// ── ПІСЛЯ: тест ядра — звіряння списку описів. Нуль моків ──
-test("over-limit flags and notifies", () => {
-  const acc: Account = { id: "a1", userId: "u1", balance: 500, dailyLimit: 100 };
-  const plan = decide(acc, { id: "t1", amount: 150 });
-
-  expect(plan).toContainEqual({ kind: "flag", txId: "t1", reason: "over-limit" });
-  expect(plan).toContainEqual({ kind: "notify", userId: "u1",
-    message: "Транзакцію відкладено на перевірку" });
-});
-
-test("insufficient funds freezes, not sets balance", () => {
-  const acc: Account = { id: "a2", userId: "u2", balance: 100, dailyLimit: 9999 };
-  const plan = decide(acc, { id: "t2", amount: 150 });   // 100 − 150 < 0
-
-  expect(plan).toContainEqual({ kind: "freeze", accountId: "a2" });
-  expect(plan.some(e => e.kind === "setBalance")).toBe(false);  // балансу НЕ чіпає
-});
-```
-```py
-# ── ПІСЛЯ: тест ядра — звіряння списку описів. Нуль моків ──
-def test_over_limit_flags_and_notifies():
-    acc = Account(id="a1", user_id="u1", balance=500, daily_limit=100)
-    plan = decide(acc, Transaction(id="t1", amount=150))
-
-    assert Flag(tx_id="t1", reason="over-limit") in plan
-    assert Notify(user_id="u1",
-                  message="Транзакцію відкладено на перевірку") in plan
-
-def test_insufficient_funds_freezes_not_sets_balance():
-    acc = Account(id="a2", user_id="u2", balance=100, daily_limit=9999)
-    plan = decide(acc, Transaction(id="t2", amount=150))   # 100 − 150 < 0
-
-    assert Freeze(account_id="a2") in plan
-    assert not any(isinstance(e, SetBalance) for e in plan)  # балансу НЕ чіпає
-```
+:::code proj-decision-plan-refactor/ts/testy-vid-kupy-mokiv-do-2.ts
+:::code proj-decision-plan-refactor/py/testy-vid-kupy-mokiv-do-2.py
 :::
 
 Кожен тест — три рядки: збери вхід, поклич ядро, звір список. І зверни увагу на другий тест: перевірити, що чогось у плані **немає** (баланс не чіпаємо, коли морозимо рахунок), — тепер тривіально, бо план — це видимий список, у якому можна шукати відсутність. У версії «до» таку негативну перевірку («`setBalance` не має викликатися») пишуть через `expect(...).not.toHaveBeenCalled()` — знову крізь шпигуна, знову прив'язка до способу виклику. Тут же ти просто дивишся у список: є опис чи нема.
@@ -367,81 +133,8 @@ def test_insufficient_funds_freezes_not_sets_balance():
 Кожне рішення лишається окремою чистою функцією, що повертає план (або вирок). А оболонка зшиває їх, вставляючи дію між двома викликами ядра:
 
 :::tabs
-```ts
-// ── ДВА чистих рішення, кожне повертає план/вирок ──
-type Verdict =
-  | { ok: true;  amount: number }             // можна знімати стільки
-  | { ok: false; plan: Plan };                // не можна — ось що зробити
-
-// Рішення 1: чи взагалі дозволити зняття (чисте).
-function decideWithdraw(acc: Account, req: WithdrawReq): Verdict {
-  if (acc.frozen)
-    return { ok: false, plan: [{ kind: "notify", userId: acc.userId,
-                                 message: "Рахунок заморожено" }] };
-  if (req.amount > acc.balance)
-    return { ok: false, plan: [{ kind: "notify", userId: acc.userId,
-                                 message: "Недостатньо коштів" }] };
-  return { ok: true, amount: req.amount };
-}
-
-// Рішення 2: що робити ПІСЛЯ зняття, знаючи фактично списану суму (чисте).
-function afterWithdraw(acc: Account, requested: number, settled: number): Plan {
-  if (settled < requested)                    // банк списав менше, ніж просили
-    return [{ kind: "notify", userId: acc.userId,
-              message: `Списано частково: ${settled}` },
-            { kind: "audit", line: `partial withdraw ${acc.id}: ${settled}` }];
-  return [{ kind: "notify", userId: acc.userId, message: `Видано: ${settled}` },
-          { kind: "audit", line: `withdraw ${acc.id}: ${settled}` }];
-}
-
-// ── ОБОЛОНКА: чергує читання/дію з двома чистими рішеннями ──
-async function withdraw(accountId: string, req: WithdrawReq): Promise<void> {
-  const acc = await db.loadAccount(accountId);        // читати
-  const v = decideWithdraw(acc, req);                  // вирішити (1)
-  if (!v.ok) { await runPlan(v.plan); return; }        // діяти (відмова) і вийти
-
-  const settled = await bank.withdraw(accountId, v.amount);  // діяти + читати результат
-  const plan = afterWithdraw(acc, v.amount, settled);  // вирішити (2)
-  await runPlan(plan);                                 // діяти
-}
-```
-```py
-from dataclasses import dataclass
-
-# ── ДВА чистих рішення, кожне повертає план/вирок ──
-@dataclass(frozen=True)
-class Allow:  amount: float           # можна знімати стільки
-@dataclass(frozen=True)
-class Deny:   plan: Plan              # не можна — ось що зробити
-Verdict = Allow | Deny
-
-# Рішення 1: чи взагалі дозволити зняття (чисте).
-def decide_withdraw(acc: Account, req: WithdrawReq) -> Verdict:
-    if acc.frozen:
-        return Deny([Notify(user_id=acc.user_id, message="Рахунок заморожено")])
-    if req.amount > acc.balance:
-        return Deny([Notify(user_id=acc.user_id, message="Недостатньо коштів")])
-    return Allow(amount=req.amount)
-
-# Рішення 2: що робити ПІСЛЯ зняття, знаючи фактично списану суму (чисте).
-def after_withdraw(acc: Account, requested: float, settled: float) -> Plan:
-    if settled < requested:            # банк списав менше, ніж просили
-        return [Notify(user_id=acc.user_id, message=f"Списано частково: {settled}"),
-                Audit(line=f"partial withdraw {acc.id}: {settled}")]
-    return [Notify(user_id=acc.user_id, message=f"Видано: {settled}"),
-            Audit(line=f"withdraw {acc.id}: {settled}")]
-
-# ── ОБОЛОНКА: чергує читання/дію з двома чистими рішеннями ──
-async def withdraw(account_id: str, req: WithdrawReq) -> None:
-    acc = await db.load_account(account_id)             # читати
-    v = decide_withdraw(acc, req)                        # вирішити (1)
-    if isinstance(v, Deny):
-        await run_plan(v.plan); return                   # діяти (відмова) і вийти
-
-    settled = await bank.withdraw(account_id, v.amount)  # діяти + читати результат
-    plan = after_withdraw(acc, v.amount, settled)        # вирішити (2)
-    await run_plan(plan)                                 # діяти
-```
+:::code proj-decision-plan-refactor/ts/vazhkyi-vypadok-sendvich.ts
+:::code proj-decision-plan-refactor/py/vazhkyi-vypadok-sendvich.py
 :::
 
 ![Вертикальний стовпчик із шести смуг згори вниз: ЧИТАТИ (оболонка бере рахунок), ВИРІШИТИ (ядро: чи можна зняти), ДІЯТИ (оболонка знімає кошти), ЧИТАТИ (оболонка бере результат), ВИРІШИТИ (ядро: що робити далі), ДІЯТИ (оболонка шле звіт). Червоні смуги — оболонка, зелені — ядро; дві зелені смуги «ВИРІШИТИ» позначені збоку підписом «чисте ядро». Праворуч підпис «кожен шар ядра чистий окремо»](img/sandwich-layers.svg)
@@ -485,20 +178,7 @@ async function runStream(effects: Iterable<Effect>): Promise<void> {
   for (const e of effects) await execute(e);   // пам'ять — один опис за раз
 }
 ```
-```py
-from typing import Iterator
-
-# Ядро ВИДАЄ описи по одному — весь план не тримається в пам'яті.
-def decide_stream(rows: list[Row]) -> Iterator[Effect]:
-    for r in rows:
-        if r.valid:
-            yield Audit(line=f"import {r.id}")
-
-# Оболонка виконує кожен опис одразу, щойно ядро його видало.
-async def run_stream(effects: Iterator[Effect]) -> None:
-    for e in effects:
-        await execute(e)                       # пам'ять — один опис за раз
-```
+:::code proj-decision-plan-refactor/py/koly-plan-zavelykyi-dlia.py
 :::
 
 Генератор лишається чистим у важливому сенсі: він нічого не читає й не пише, лише **обчислює наступний опис** на вимогу. Тестується він так само списком — просто зібрав видане в масив (`[...decideStream(rows)]`) і звірив. Другий вихід — свідомо **пожертвувати** чистотою заради пам'яті й виконувати ефект просто в циклі. Це нормальний інженерний розмін, аби він був **свідомий**: ти знаєш, що втратив легкість тесту на цій ділянці, і йдеш на це заради конкретної вигоди, а не за звичкою.

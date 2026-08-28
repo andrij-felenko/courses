@@ -27,89 +27,13 @@
 Ось вузол, який дістався у спадок:
 
 :::tabs
-```ts
-class ReceiptBuilder {
-  build(order: Order, chargeId: string): string {
-    const t = Locator.get<TemplateStore>("templates");     // смик усередині дитини
-    return t.render("receipt", { order: order.id, charge: chargeId });
-  }
-}
-
-class OrderService {
-  checkout(order: Order): string {
-    const gateway = Locator.get<PaymentGateway>("gateway");   // смик 1
-    const clock = Locator.get<Clock>("clock");                // смик 2
-    const chargeId = gateway.charge(order.total());
-    const receipt = new ReceiptBuilder().build(order, chargeId);
-    this.audit(order, chargeId, clock);
-    return receipt;
-  }
-  private audit(order: Order, chargeId: string, clock: Clock): void {
-    Locator.get<AuditLog>("audit")                             // смик 3, у надрах
-      .write(`${clock.now()} order=${order.id} charge=${chargeId}`);
-  }
-}
-```
-```py
-class ReceiptBuilder:
-    def build(self, order, charge_id):
-        templates = Locator.get("templates")          # смик усередині дитини
-        return templates.render("receipt", order=order.id, charge=charge_id)
-
-
-class OrderService:
-    def checkout(self, order):
-        gateway = Locator.get("gateway")              # смик 1
-        clock = Locator.get("clock")                  # смик 2
-        charge_id = gateway.charge(order.total())
-        receipt = ReceiptBuilder().build(order, charge_id)
-        self._audit(order, charge_id, clock)
-        return receipt
-
-    def _audit(self, order, charge_id, clock):
-        log = Locator.get("audit")                    # смик 3, у надрах
-        log.write(f"{clock.now()} order={order.id} charge={charge_id}")
-```
+:::code proj-untangle-service-locator/ts/krok-1-ziasuvaty.ts
+:::code proj-untangle-service-locator/py/krok-1-ziasuvaty.py
 :::
 
 Читати такий клас очима — марна праця: у справжньому проєкті це не двадцять рядків, а двісті, і смик ховається в приватному методі, який кличе інший приватний метод. Але робота ця механічна, тож її робить [статичний аналіз](root:sf-release/static-analysis) — тридцять рядків на стандартному `ast`, без жодної бібліотеки:
 
-```py
-# pulls.py — інвентаризація смиків: хто з локатора що бере
-import ast, os, sys, collections
-
-def pulls_in(path):
-    """(клас, метод, ключ, рядок) для кожного Locator.get(...) у файлі."""
-    tree = ast.parse(open(path, encoding='utf-8').read(), path)
-    found = []
-    for cls in [n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]:
-        for fn in [n for n in ast.walk(cls) if isinstance(n, ast.FunctionDef)]:
-            for call in [n for n in ast.walk(fn) if isinstance(n, ast.Call)]:
-                f = call.func
-                if isinstance(f, ast.Attribute) and f.attr == 'get' \
-                   and isinstance(f.value, ast.Name) and f.value.id == 'Locator':
-                    arg = call.args[0] if call.args else None
-                    key = arg.value if isinstance(arg, ast.Constant) else '<ОБЧИСЛЕНИЙ>'
-                    found.append((cls.name, fn.name, key, call.lineno))
-    return found
-
-def scan(root):
-    out = collections.defaultdict(list)
-    for dirpath, _, files in os.walk(root):
-        for fname in files:
-            if fname.endswith('.py'):
-                p = os.path.join(dirpath, fname)
-                for cls, fn, key, ln in pulls_in(p):
-                    out[cls].append((fn, key, os.path.basename(p), ln))
-    return out
-
-if __name__ == '__main__':
-    sys.stdout.reconfigure(encoding='utf-8')          # щоб «→» не спіткнувся на консолі
-    for cls, rows in sorted(scan(sys.argv[1]).items()):
-        print(f"{cls}: справжній список залежностей = {sorted({k for _, k, _, _ in rows})}")
-        for fn, key, f, ln in rows:
-            print(f"    {f}:{ln}  {fn}()  →  '{key}'")
-```
+:::code proj-untangle-service-locator/py/pulls.py
 
 На нашому вузлі він друкує те, чого не видно в жодній сигнатурі:
 
@@ -133,43 +57,8 @@ ReceiptBuilder: справжній список залежностей = ['templ
 Розмикається воно неприємно, зате чесно: перший тест пишуть **з локатором**, а не проти нього. Ти тимчасово приймаєш правила гри — готуєш глобальний реєстр, підсовуєш підробки, викликаєш метод і записуєш у тест те, що він **насправді** робить сьогодні:
 
 :::tabs
-```ts
-function fill(): { gw: FakeGateway; log: FakeLog } {
-  const gw = new FakeGateway(), log = new FakeLog();
-  Locator.reset();
-  Locator.register("gateway", gw);
-  Locator.register("clock", new FakeClock());
-  Locator.register("audit", log);
-  Locator.register("templates", new TemplateStore());
-  return { gw, log };
-}
-
-test("checkout — зліпок сьогоднішньої поведінки", () => {
-  const { gw, log } = fill();
-  const receipt = new OrderService().checkout(new Order("A-1", 1999));
-  expect(receipt).toBe("[receipt] charge=ch_1 order=A-1");
-  expect(gw.charges).toEqual([1999]);
-  expect(log.lines).toEqual(["2026-07-16T10:00:00Z order=A-1 charge=ch_1"]);
-});
-```
-```py
-def fill():
-    gw, log = FakeGateway(), FakeLog()
-    Locator.reset()
-    Locator.register("gateway", gw)
-    Locator.register("clock", FakeClock())
-    Locator.register("audit", log)
-    Locator.register("templates", TemplateStore())
-    return gw, log
-
-
-def test_checkout_characterization():        # зліпок сьогоднішньої поведінки
-    gw, log = fill()
-    receipt = OrderService().checkout(Order("A-1", 1999))
-    assert receipt == "[receipt] charge=ch_1 order=A-1"
-    assert gw.charges == [1999]
-    assert log.lines == ["2026-07-16T10:00:00Z order=A-1 charge=ch_1"]
-```
+:::code proj-untangle-service-locator/ts/krok-2-sitka-bezpeky-test.ts
+:::code proj-untangle-service-locator/py/krok-2-sitka-bezpeky-test.py
 :::
 
 Це **тест-зліпок** (characterization test) — термін і прийом Майкла Фезерса з «Working Effectively with Legacy Code» (Prentice Hall, 2004; усталений факт). Суть у назві: він не описує, як має бути, — він знімає зліпок із того, як **є**, разом із дивацтвами й вадами. Якщо `checkout` сьогодні пише в журнал криво — записуй криво. Твоє завдання зараз не полагодити поведінку, а **прибити її цвяхом**, щоб під час переїзду смиків будь-яка зміна одразу закричала. Полагодиш потім, окремим комітом, коли клас уже буде під тестами.
@@ -181,35 +70,8 @@ def test_checkout_characterization():        # зліпок сьогоднішн
 Тепер перша справжня правка — і навмисно найдрібніша з можливих. Смики не чіпаємо по суті, а лише **зсуваємо в одне місце й один момент**: із тіл методів у конструктор.
 
 :::tabs
-```ts
-class OrderService {
-  private gateway = Locator.get<PaymentGateway>("gateway");
-  private clock = Locator.get<Clock>("clock");
-  private log = Locator.get<AuditLog>("audit");
-  private receipts = new ReceiptBuilder();
-
-  checkout(order: Order): string {
-    const chargeId = this.gateway.charge(order.total());
-    const receipt = this.receipts.build(order, chargeId);
-    this.log.write(`${this.clock.now()} order=${order.id} charge=${chargeId}`);
-    return receipt;
-  }
-}
-```
-```py
-class OrderService:
-    def __init__(self):
-        self._gateway = Locator.get("gateway")
-        self._clock = Locator.get("clock")
-        self._log = Locator.get("audit")
-        self._receipts = ReceiptBuilder()
-
-    def checkout(self, order):
-        charge_id = self._gateway.charge(order.total())
-        receipt = self._receipts.build(order, charge_id)
-        self._log.write(f"{self._clock.now()} order={order.id} charge={charge_id}")
-        return receipt
-```
+:::code proj-untangle-service-locator/ts/krok-3-zibraty-smyky.ts
+:::code proj-untangle-service-locator/py/krok-3-zibraty-smyky.py
 :::
 
 Зовні виграш ніби копійчаний: смиків стільки ж, глобал на місці, тест-зліпок зелений і навіть не помітив правки. Але вигода тут не в кількості, а в **геометрії**. По-перше, тепер усі залежності класу зібрані в одному вікні екрана — конструктор нарешті каже правду, хай і пошепки. По-друге — і це головне — смик тепер стається **раз, при народженні**, а не щоразу посеред виклику. А раз він відбувається в конструкторі, то це вже майже параметр: між `Locator.get("gateway")` у конструкторі й `gateway` у його сигнатурі лишився один крок.
@@ -221,54 +83,8 @@ class OrderService:
 Тепер найцікавіший хід усього рецепту. Конструктор має **почати приймати** залежності — але сорок місць, що кличуть `new OrderService()` без аргументів, мусять і далі працювати. Розв'язок — параметр із типовим значенням, у якому сидить старий смик:
 
 :::tabs
-```ts
-class ReceiptBuilder {
-  constructor(private templates: TemplateStore = Locator.get<TemplateStore>("templates")) {}
-
-  build(order: Order, chargeId: string): string {
-    return this.templates.render("receipt", { order: order.id, charge: chargeId });
-  }
-}
-
-class OrderService {
-  constructor(
-    private gateway: PaymentGateway = Locator.get<PaymentGateway>("gateway"),
-    private clock: Clock = Locator.get<Clock>("clock"),
-    private log: AuditLog = Locator.get<AuditLog>("audit"),
-    private receipts: ReceiptBuilder = new ReceiptBuilder(),
-  ) {}
-
-  checkout(order: Order): string {
-    const chargeId = this.gateway.charge(order.total());
-    const receipt = this.receipts.build(order, chargeId);
-    this.log.write(`${this.clock.now()} order=${order.id} charge=${chargeId}`);
-    return receipt;
-  }
-}
-```
-```py
-class ReceiptBuilder:
-    def __init__(self, templates=None):
-        # сентинел None, а НЕ typedefault=Locator.get(...) — чому, див. нижче
-        self._templates = templates if templates is not None else Locator.get("templates")
-
-    def build(self, order, charge_id):
-        return self._templates.render("receipt", order=order.id, charge=charge_id)
-
-
-class OrderService:
-    def __init__(self, gateway=None, clock=None, log=None, receipts=None):
-        self._gateway = gateway if gateway is not None else Locator.get("gateway")
-        self._clock = clock if clock is not None else Locator.get("clock")
-        self._log = log if log is not None else Locator.get("audit")
-        self._receipts = receipts if receipts is not None else ReceiptBuilder()
-
-    def checkout(self, order):
-        charge_id = self._gateway.charge(order.total())
-        receipt = self._receipts.build(order, charge_id)
-        self._log.write(f"{self._clock.now()} order={order.id} charge={charge_id}")
-        return receipt
-```
+:::code proj-untangle-service-locator/ts/krok-4-vidchynyty-dveri-ne.ts
+:::code proj-untangle-service-locator/py/krok-4-vidchynyty-dveri-ne.py
 :::
 
 Клас щойно роздвоївся, і це навмисне. Старий виклик `new OrderService()` живий — типове значення тихо смикне з глобала, як і раніше. Новий виклик `new OrderService(gw, clock, log, receipts)` уже подає все ззовні й глобала не торкається зовсім. Тобто **шов з'явився, а жоден із сорока викликів не зламався** — і саме тому правку можна злити сьогодні, а мігрувати виклики хоч місяць.
@@ -415,30 +231,7 @@ def main():
 
 Останній крок — і без нього все попереднє протухне за квартал. Смик повертається природним шляхом: новачок побачить `Locator` у сусідньому файлі, скопіює рядок — і клас знову бреше. Тому останній коміт вішає замок:
 
-```py
-# test_no_locator.py — смик дозволено ЛИШЕ у складальних файлах
-import ast, os, sys
-
-ALLOWED = {"main.py", "composition_root.py"}     # тільки тут вільно смикати
-
-def locator_users(root):
-    bad = []
-    for dirpath, _, files in os.walk(root):
-        for fname in files:
-            if not fname.endswith(".py") or fname in ALLOWED:
-                continue
-            path = os.path.join(dirpath, fname)
-            tree = ast.parse(open(path, encoding="utf-8").read(), path)
-            for n in ast.walk(tree):
-                if isinstance(n, ast.Attribute) and n.attr == "get" \
-                   and isinstance(n.value, ast.Name) and n.value.id == "Locator":
-                    bad.append(f"{fname}:{n.lineno}")
-    return bad
-
-def test_locator_lives_only_in_the_root():
-    bad = locator_users("app")
-    assert not bad, ("смик поза композиційним коренем: " + ", ".join(bad))
-```
+:::code proj-untangle-service-locator/py/test_no_locator.py
 
 На вихідному вузлі він, як і належить, лається:
 
@@ -522,19 +315,7 @@ Locator.get("gateway." + self.region)     # ключа "gateway.eu" в коді 
 
 Такий смик не знайде жоден пошук по тексту, бо шуканого рядка не існує до запуску. Отже, статичний список залежностей у загальному випадку **недосяжний** — і це, як не дивно, найточніший вирок локатору: якщо машина з повним доступом до коду не може перелічити залежності класу, то й людина, читаючи, не зможе. Ловиться це лише в русі — обгорткою-дротиною на самому `Locator.get`, яка перед поверненням служби пише в журнал ключ і місце виклику:
 
-```py
-seen = []
-_orig = Locator.get.__func__
-
-def traced(cls, key):
-    import traceback
-    fr = traceback.extract_stack()[-2]
-    seen.append((key, f"{fr.name}:{fr.lineno}"))
-    return _orig(cls, key)
-
-Locator.get = classmethod(traced)
-# → [('gateway.eu', 'pay:124'), ('gateway.us', 'pay:124')]
-```
+:::code proj-untangle-service-locator/py/skladnist-i-pastky.py
 
 Практика така: після переїзду **не видаляй локатор одразу**. Лиши його зареєстрованим, обвішаним дротиною, і потримай так у проді тиждень-два. Журнал скаже те, чого не знав жоден скан: хто ще смикає, звідки і як часто. Порожній журнал за два тижні живого навантаження — оце і є справжній дозвіл натиснути `Delete`, а не твоя впевненість, що ти все знайшов.
 
@@ -545,35 +326,8 @@ Locator.get = classmethod(traced)
 Наприкінці рецепту знайдеться клас, у якому смик не прибрати ніяк: його створює каркас, і подати туди нічого — конструктор диктує чужий код. Це не поразка, а межа, і рецепт має відповідь саме на неї.
 
 :::tabs
-```ts
-// Каркас створює ЦЕЙ клас сам — тут смикнути можна, бо іншого входу нема
-class CheckoutController {
-  private core = new OrderService(              // єдиний смик — на самій межі
-    Locator.get<PaymentGateway>("gateway"),
-    Locator.get<Clock>("clock"),
-    Locator.get<AuditLog>("audit"),
-    new ReceiptBuilder(Locator.get<TemplateStore>("templates")),
-  );
-
-  handle(req: Request): Response {
-    return ok(this.core.checkout(toOrder(req)));   // уся логіка — у чесному ядрі
-  }
-}
-```
-```py
-# Каркас створює ЦЕЙ клас сам — тут смикнути можна, бо іншого входу нема
-class CheckoutController:
-    def __init__(self):
-        self._core = OrderService(                 # єдиний смик — на самій межі
-            Locator.get("gateway"),
-            Locator.get("clock"),
-            Locator.get("audit"),
-            ReceiptBuilder(Locator.get("templates")),
-        )
-
-    def handle(self, req):
-        return ok(self._core.checkout(to_order(req)))   # уся логіка — у чесному ядрі
-```
+:::code proj-untangle-service-locator/ts/de-smyk-lyshaietsia-i-tse.ts
+:::code proj-untangle-service-locator/py/de-smyk-lyshaietsia-i-tse.py
 :::
 
 Контролер тут — тонкий перехідник: він смикає **один раз, на межі**, збирає чесне ядро й одразу віддає йому роботу. Усередині `OrderService` жодного локатора немає, тестується він конструктором, і про існування каркаса не знає. Мета рефакторингу, отже, не «нуль смиків» — мета в тому, щоб смик лишився **тільки там, де ти справді не порядкуєш створенням**, і щоб таких місць було рівно стільки, скільки чужий код тобі нав'язав: два-три перехідники на всю систему замість двохсот класів, кожен із власним чорним ходом. Саме ця межа й відрізняє доречний реєстр від [локатора служб](root:sf-apps/service-locator) як халепи — не сама наявність смику, а те, скільки коду він отруює.

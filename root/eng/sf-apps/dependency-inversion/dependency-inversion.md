@@ -35,126 +35,23 @@ B. Абстракції не мають залежати від деталей.
 Візьмімо той самий обробник платежу. Спершу — «як пишеться саме собою», з прямою залежністю ядра від деталі:
 
 :::tabs
-```cpp
-// Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
-#include "StripeHttpClient.h"          // деталь протекла у файл із логікою
-
-class PaymentService {
-    StripeHttpClient http_;            // ядро ТРИМАЄ конкретну деталь
-public:
-    void charge(const Order& o) {
-        auto body = buildStripeJson(o); // логіка знає формат саме Stripe
-        http_.post("https://api.stripe.com/charges", body);
-    }
-};
-```
-```python
-# Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
-from stripe_http_client import StripeHttpClient  # деталь протекла у модуль із логікою
-
-class PaymentService:
-    def __init__(self):
-        self._http = StripeHttpClient()           # ядро ТРИМАЄ конкретну деталь
-
-    def charge(self, order):
-        body = build_stripe_json(order)           # логіка знає формат саме Stripe
-        self._http.post("https://api.stripe.com/charges", body)
-```
-```go
-// Ядро прибите до конкретного HTTP-клієнта: стрілка «важливе → дрібне»
-import "example.com/stripe" // деталь протекла у пакет із логікою
-
-type PaymentService struct {
-    http stripe.HttpClient // ядро ТРИМАЄ конкретну деталь
-}
-
-func (s *PaymentService) Charge(o Order) {
-    body := buildStripeJSON(o) // логіка знає формат саме Stripe
-    s.http.Post("https://api.stripe.com/charges", body)
-}
-```
+:::code dependency-inversion/cpp/iak-tse-vyhliadaie-v-kodi.cpp
+:::code dependency-inversion/py/iak-tse-vyhliadaie-v-kodi.py
+:::code dependency-inversion/go/iak-tse-vyhliadaie-v-kodi.go
 :::
 
 Тут `PaymentService` неможливо ні зібрати без бібліотеки Stripe, ні перевірити без справжнього мережевого виклику, ні перевести на іншого провайдера без правки самого класу. Деталь оселилася в ядрі. Тепер поставимо між ними абстракцію мовою верхнього шару:
 
 :::tabs
-```cpp
-// Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
-struct PaymentGateway {
-    virtual ~PaymentGateway() = default;
-    virtual ChargeResult charge(const Money& amount, const Card& card) = 0;
-};
-
-// Ядро залежить ЛИШЕ від обіцянки — і не знає, хто її виконає
-class PaymentService {
-    PaymentGateway& gateway_;           // посилання на абстракцію
-public:
-    explicit PaymentService(PaymentGateway& g) : gateway_(g) {}
-
-    void charge(const Order& o) {
-        auto r = gateway_.charge(o.total(), o.card());
-        if (!r.ok) throw PaymentFailed(r.reason);
-    }
-};
-```
-```python
-from abc import ABC, abstractmethod
-
-# Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
-class PaymentGateway(ABC):
-    @abstractmethod
-    def charge(self, amount: Money, card: Card) -> ChargeResult: ...
-
-# Ядро залежить ЛИШЕ від обіцянки — і не знає, хто її виконає
-class PaymentService:
-    def __init__(self, gateway: PaymentGateway):
-        self._gateway = gateway         # посилання на абстракцію
-
-    def charge(self, order):
-        r = self._gateway.charge(order.total(), order.card())
-        if not r.ok:
-            raise PaymentFailed(r.reason)
-```
-```go
-// Абстракція говорить БІЗНЕС-мовою: «списати кошти», а не «зробити POST»
-type PaymentGateway interface {
-    Charge(amount Money, card Card) ChargeResult
-}
-
-// Ядро залежить ЛИШЕ від обіцянки — і не знає, хто її виконає
-type PaymentService struct {
-    gateway PaymentGateway // посилання на абстракцію
-}
-
-func NewPaymentService(g PaymentGateway) *PaymentService {
-    return &PaymentService{gateway: g}
-}
-
-func (s *PaymentService) Charge(o Order) error {
-    r := s.gateway.Charge(o.Total(), o.Card())
-    if !r.OK {
-        return PaymentFailed{r.Reason}
-    }
-    return nil
-}
-```
+:::code dependency-inversion/cpp/iak-tse-vyhliadaie-v-kodi-2.cpp
+:::code dependency-inversion/py/iak-tse-vyhliadaie-v-kodi-2.py
+:::code dependency-inversion/go/iak-tse-vyhliadaie-v-kodi-2.go
 :::
 
 Конкретний Stripe тепер живе **збоку** й реалізує обіцянку — стрілка від нього йде вгору, до `PaymentGateway`:
 
 :::tabs
-```cpp
-// Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
-class StripeGateway : public PaymentGateway {
-    StripeHttpClient http_;
-public:
-    ChargeResult charge(const Money& amount, const Card& card) override {
-        auto body = toStripeJson(amount, card);
-        auto resp = http_.post("https://api.stripe.com/charges", body);
-        return { resp.status == 200, resp.errorMessage() };
-    }
-};
-```
+:::code dependency-inversion/cpp/iak-tse-vyhliadaie-v-kodi.hpp
 ```python
 # Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
 class StripeGateway(PaymentGateway):
@@ -166,18 +63,7 @@ class StripeGateway(PaymentGateway):
         resp = self._http.post("https://api.stripe.com/charges", body)
         return ChargeResult(ok=resp.status == 200, reason=resp.error_message())
 ```
-```go
-// Деталь ПІДЛАШТОВУЄТЬСЯ під абстракцію верхнього шару
-type StripeGateway struct {
-    http stripe.HttpClient
-}
-
-func (g *StripeGateway) Charge(amount Money, card Card) ChargeResult {
-    body := toStripeJSON(amount, card)
-    resp := g.http.Post("https://api.stripe.com/charges", body)
-    return ChargeResult{OK: resp.Status == 200, Reason: resp.ErrorMessage()}
-}
-```
+:::code dependency-inversion/go/iak-tse-vyhliadaie-v-kodi-3.go
 :::
 
 Хто саме зшиває ядро з конкретною реалізацією? Не саме ядро — інакше воно знов би назвало деталь на ім'я. Це робить **зовнішній збирач**, у самій верхівці програми, де вже все дозволено знати:
@@ -208,46 +94,9 @@ func main() {
 Ось і вся механіка. Ядро згадує лише `PaymentGateway`. Слово «Stripe» стоїть рівно в одному місці — у точці збірки, найдальшій від бізнес-правил. Щоб у тесті перевірити логіку, туди ж подають підробку:
 
 :::tabs
-```cpp
-// Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
-struct FakeGateway : PaymentGateway {
-    Money lastAmount{};
-    ChargeResult charge(const Money& a, const Card&) override {
-        lastAmount = a;                   // просто запам'ятали, що просили
-        return { true, "" };              // і вдали успіх
-    }
-};
-
-// PaymentService payments(fake); charge(order);
-// перевіряємо: fake.lastAmount == order.total()  — за мілісекунди, без мережі
-```
-```python
-# Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
-class FakeGateway(PaymentGateway):
-    def __init__(self):
-        self.last_amount = None
-
-    def charge(self, amount: Money, card: Card) -> ChargeResult:
-        self.last_amount = amount         # просто запам'ятали, що просили
-        return ChargeResult(ok=True, reason="")  # і вдали успіх
-
-# PaymentService(fake).charge(order)
-# перевіряємо: fake.last_amount == order.total()  — за мілісекунди, без мережі
-```
-```go
-// Підробка замість мережі: тест ядра БЕЗ Stripe і без інтернету
-type FakeGateway struct {
-    lastAmount Money
-}
-
-func (g *FakeGateway) Charge(a Money, _ Card) ChargeResult {
-    g.lastAmount = a                      // просто запам'ятали, що просили
-    return ChargeResult{OK: true, Reason: ""} // і вдали успіх
-}
-
-// NewPaymentService(fake).Charge(order)
-// перевіряємо: fake.lastAmount == order.Total()  — за мілісекунди, без мережі
-```
+:::code dependency-inversion/cpp/iak-tse-vyhliadaie-v-kodi-3.cpp
+:::code dependency-inversion/py/iak-tse-vyhliadaie-v-kodi-3.py
+:::code dependency-inversion/go/iak-tse-vyhliadaie-v-kodi-4.go
 :::
 
 Те, що передавання залежності ззовні через конструктор має власну назву — **впровадження залежності (dependency injection)** — не збіг: це найпоширеніший спосіб *здійснити* інверсію на практиці. Тут легко сплутати два різні поняття, і плутають їх постійно.

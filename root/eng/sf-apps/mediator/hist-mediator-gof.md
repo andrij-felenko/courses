@@ -14,29 +14,7 @@
 
 Жива система була власна — Ерихова. Ще до книги **Еріх Ґамма (нім. *Erich Gamma*)** разом з **Андре Вайнандом (нім. *André Weinand*)** і **Рудольфом Марті (нім. *Rudolf Marty*)** побудував **ET++** — каркас застосунків мовою C++, розроблений в Цюрихському університеті й представлений на конференції OOPSLA 1988 року. ET++ керував діалогами через клас, названий буквально `DialogDirector`: абстрактну основу, чиї підкласи перевизначали `CreateWidgets()`, щоб зібрати віджети вікна, і `WidgetChanged(Widget*)`, щоб зреагувати, коли будь-який віджет змінився. Історична форма цього серця майже дослівно така:
 
-```cpp
-// ET++, кінець 1980-х: серце діалогу — абстрактний «директор»
-class DialogDirector {
-public:
-    virtual ~DialogDirector();
-    virtual void ShowDialog();
-    virtual void WidgetChanged(Widget*) = 0;   // віджет каже: «я змінився»
-protected:
-    virtual void CreateWidgets() = 0;          // підклас будує свої віджети
-};
-
-// конкретний директор шрифтового діалогу
-class FontDialogDirector : public DialogDirector {
-public:
-    void WidgetChanged(Widget*) override;      // уся логіка вікна — тут
-protected:
-    void CreateWidgets() override;
-private:
-    ListBox*    _fontList;                     // директор тримає своїх віджетів
-    EntryField* _fontName;
-    Button*     _ok;
-};
-```
+:::code hist-mediator-gof/cpp/main.hpp
 
 Придивись до `WidgetChanged(Widget*)` — це той самий `notify(відправник)` з іншим ім'ям: єдина ручка, за яку віджет смикає директора, кажучи «зі мною щось сталося». А `_fontList`, `_fontName`, `_ok` — це директор, що тримає своїх колег поіменно, як і належить конкретному посередникові. Іншими словами, повний кістяк патерна працював у робочому каркасі за роки до того, як його комусь спало на думку назвати.
 

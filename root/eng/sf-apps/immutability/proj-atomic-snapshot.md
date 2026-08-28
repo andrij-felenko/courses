@@ -30,93 +30,9 @@
 Ось той самий прийом ідіоматично трьома мовами. Приклад однаковий — жива таблиця маршрутів, — але кожна мова тримає незмінний знімок і атомарну комірку по-своєму:
 
 :::tabs
-```java
-import java.util.Map;
-import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicReference;
-
-public final class RoutingTable {
-    // ЄДИНА мінлива комірка: посилання на НЕЗМІННИЙ знімок
-    private final AtomicReference<Map<String, String>> ref =
-        new AtomicReference<>(Map.of());          // Map.of() — незмінна порожня мапа
-
-    // ЧИТАЧ: миттєвий незмінний знімок, без замка
-    public String route(String prefix) {
-        return ref.get().get(prefix);             // get() — один атомарний load, далі читаємо застиглу мапу
-    }
-
-    // ПИСАР: копіюй-зміни-CAS; при збігу — повтор із новим знімком
-    public void put(String prefix, String nextHop) {
-        Map<String, String> prev, next;
-        do {
-            prev = ref.get();                     // знімок, з якого будуємо
-            var draft = new HashMap<>(prev);      // мутабельна копія-чернетка
-            draft.put(prefix, nextHop);
-            next = Map.copyOf(draft);             // заморозити → новий незмінний знімок
-        } while (!ref.compareAndSet(prev, next)); // збіг (хтось устиг) → ще коло
-    }
-}
-```
-```cpp
-#include <atomic>
-#include <memory>
-#include <string>
-#include <unordered_map>
-
-class RoutingTable {
-    using Table = std::unordered_map<std::string, std::string>;
-    // комірка: атомарний shared_ptr на НЕЗМІННИЙ знімок (const Table)
-    std::atomic<std::shared_ptr<const Table>> ref{std::make_shared<const Table>()};
-
-public:
-    // ЧИТАЧ: shared_ptr тримає знімок живим, читаємо без замка
-    std::string route(const std::string& prefix) const {
-        std::shared_ptr<const Table> snap = ref.load();   // атомарний load + утримання знімка
-        auto it = snap->find(prefix);
-        return it == snap->end() ? std::string{} : it->second;
-    }
-
-    // ПИСАР: копіюй-зміни-CAS; при провалі prev оновлюється сам
-    void put(const std::string& prefix, const std::string& nextHop) {
-        std::shared_ptr<const Table> prev = ref.load();
-        std::shared_ptr<const Table> next;
-        do {
-            auto draft = std::make_shared<Table>(*prev);  // мутабельна копія знімка
-            (*draft)[prefix] = nextHop;
-            next = std::move(draft);                       // shared_ptr<Table> → shared_ptr<const Table>
-        } while (!ref.compare_exchange_weak(prev, next));  // збіг → prev = поточне, ще коло
-    }
-};
-```
-```rust
-use arc_swap::ArcSwap;
-use std::collections::HashMap;
-
-pub struct RoutingTable {
-    // комірка: ArcSwap над НЕЗМІННИМ знімком (Arc<HashMap> — ділимо, не міняємо)
-    cell: ArcSwap<HashMap<String, String>>,
-}
-
-impl RoutingTable {
-    pub fn new() -> Self {
-        Self { cell: ArcSwap::from_pointee(HashMap::new()) }
-    }
-
-    // ЧИТАЧ: майже безкоштовний знімок, без замка
-    pub fn route(&self, prefix: &str) -> Option<String> {
-        self.cell.load().get(prefix).cloned()
-    }
-
-    // ПИСАР: копіюй-зміни-CAS-повтор — arc-swap уже містить цей цикл під назвою rcu()
-    pub fn put(&self, prefix: &str, next_hop: &str) {
-        self.cell.rcu(|cur| {
-            let mut draft: HashMap<String, String> = cur.as_ref().clone();  // копія знімка
-            draft.insert(prefix.to_string(), next_hop.to_string());
-            draft                                                            // нова незмінна версія
-        });
-    }
-}
-```
+:::code proj-atomic-snapshot/java/main.java
+:::code proj-atomic-snapshot/cpp/main.cpp
+:::code proj-atomic-snapshot/rust/main.rs
 :::
 
 Три мови, той самий задум, різні руки. Java тримає незмінний знімок у `AtomicReference` і замикає незмінність на `Map.of`/`Map.copyOf` (незмінні мапи стандартної бібліотеки). C++ кладе `shared_ptr<const Table>` в `std::atomic` (спеціалізація з C++20): `const` у типі знімка — це і є заборона правити його з-під читача. Rust бере крейт `arc-swap` (автор — Міхал Ванер під ніком *vorner*), і його метод `rcu()` — це вже готовий цикл «прочитай-скопіюй-підміни-повтори»; назву він узяв прямо з ядрового прийому, до якого ми ще дійдемо. Спільне головне однакове скрізь: **читання — один атомарний зчит посилання, запис — новий цілий знімок замість правки на місці**.

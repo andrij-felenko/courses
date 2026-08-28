@@ -54,136 +54,16 @@
 
 **Крок 1.1. Правило маршруту й детермінований вибір напряму.**
 :::tabs
-```ts
-// Опис одного маршруту. Це і є той конфіг, який змінюють при переїзді.
-// Жодного рішення не зашито в код — усе тут, і все оборотне правкою полів.
-type Target = "legacy" | "service";
-
-interface RouteRule {
-  pattern: RegExp;    // які шляхи стосуються цієї можливості
-  target: Target;     // куди слати основний потік: старе чи нове
-  percent: number;    // 0..100 — яку частку пускати в нове (canary)
-  shadow: boolean;    // тіньово звіряти нове зі старим, не показуючи клієнту
-  serviceUrl: string; // база нового сервісу
-}
-
-// Детермінований хеш ключа в діапазон 0..99. Той самий ключ — той самий
-// бакет ЗАВЖДИ, тож клієнт не стрибає між старим і новим від запиту до запиту.
-function bucketOf(key: string): number {
-  // FNV-1a — простий, швидкий, добре розсіює; криптостійкість тут не потрібна.
-  let h = 0x811c9dc5;
-  for (let i = 0; i < key.length; i++) {
-    h ^= key.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);   // множення за модулем 2³² з переносом
-  }
-  return (h >>> 0) % 100;           // >>> 0 робить число беззнаковим
-}
-
-// Чи веде цей запит у НОВИЙ сервіс? Рішення = напрям × відсоток × стабільний бакет.
-function goesToService(rule: RouteRule, userKey: string): boolean {
-  if (rule.target !== "service") return false;      // напрям ще на старе
-  if (rule.percent >= 100) return true;             // усі
-  if (rule.percent <= 0) return false;              // ніхто
-  return bucketOf(userKey) < rule.percent;          // стабільна частка
-}
-```
-```python
-from dataclasses import dataclass
-import re
-
-# Опис одного маршруту. Це і є той конфіг, який змінюють при переїзді.
-# Жодного рішення не зашито в код — усе тут, і все оборотне правкою полів.
-@dataclass
-class RouteRule:
-    pattern: re.Pattern   # які шляхи стосуються цієї можливості
-    target: str           # "legacy" | "service" — куди основний потік
-    percent: int          # 0..100 — яку частку пускати в нове (canary)
-    shadow: bool          # тіньово звіряти нове зі старим, не показуючи клієнту
-    service_url: str      # база нового сервісу
-
-
-def bucket_of(key: str) -> int:
-    """Детермінований хеш ключа в діапазон 0..99. Той самий ключ — той самий
-    бакет ЗАВЖДИ, тож клієнт не стрибає між старим і новим від запиту до запиту."""
-    # FNV-1a — простий, швидкий, добре розсіює; криптостійкість тут не потрібна.
-    h = 0x811c9dc5
-    for ch in key.encode("utf-8"):
-        h ^= ch
-        h = (h * 0x01000193) & 0xFFFFFFFF   # множення за модулем 2³²
-    return h % 100
-
-
-def goes_to_service(rule: RouteRule, user_key: str) -> bool:
-    """Чи веде цей запит у НОВИЙ сервіс? = напрям × відсоток × стабільний бакет."""
-    if rule.target != "service":
-        return False                       # напрям ще на старе
-    if rule.percent >= 100:
-        return True                        # усі
-    if rule.percent <= 0:
-        return False                       # ніхто
-    return bucket_of(user_key) < rule.percent   # стабільна частка
-```
+:::code proj-strangler-routing/ts/krok-1-marshrutyzator.ts
+:::code proj-strangler-routing/py/krok-1-marshrutyzator.py
 :::
 
 Тепер сам перехоплювач: він знаходить правило для шляху, дістає стабільний ключ клієнта, і за `goesToService` вирішує напрям. Поки що без запису й без звірки — лише читання, щоб показати кістяк; звірку й запис доточимо наступними кроками рівно в позначені місця.
 
 **Крок 1.2. Перехоплювач: знайти правило, обрати напрям, віддати відповідь.**
 :::tabs
-```ts
-// Виклики в старе й нове — заглушки під реальний HTTP-клієнт вашого шлюзу.
-declare function callLegacy(req: Request): Promise<Response>;   // старий моноліт
-declare function callService(base: string, req: Request): Promise<Response>;
-
-// Стабільний ключ клієнта: беремо id користувача зі шляху /api/users/:id.
-// У житті це частіше id із токена автентифікації, а не з URL.
-function userKeyOf(path: string): string {
-  const m = path.match(/\/api\/users\/([^/]+)/);
-  return m ? m[1] : "anon";
-}
-
-async function intercept(rules: RouteRule[], req: Request): Promise<Response> {
-  const path = new URL(req.url).pathname;
-  const rule = rules.find(r => r.pattern.test(path));
-  if (!rule) return callLegacy(req);          // ніхто цей шлях не переносив
-
-  const key = userKeyOf(path);
-
-  if (goesToService(rule, key)) {
-    // основний потік цього клієнта — у новий сервіс
-    return callService(rule.serviceUrl, req);
-  }
-  // основний потік — у старе (тут згодом стане тіньова звірка для читань)
-  return callLegacy(req);
-}
-```
-```python
-import re
-
-# Виклики в старе й нове — заглушки під реальний HTTP-клієнт вашого шлюзу.
-#   call_legacy(req) -> Response            — старий моноліт
-#   call_service(base, req) -> Response     — новий сервіс
-
-def user_key_of(path: str) -> str:
-    """Стабільний ключ клієнта: id користувача зі шляху /api/users/:id.
-    У житті це частіше id із токена автентифікації, а не з URL."""
-    m = re.search(r"/api/users/([^/]+)", path)
-    return m.group(1) if m else "anon"
-
-
-async def intercept(rules: list[RouteRule], req) -> "Response":
-    path = req.path
-    rule = next((r for r in rules if r.pattern.search(path)), None)
-    if rule is None:
-        return await call_legacy(req)        # ніхто цей шлях не переносив
-
-    key = user_key_of(path)
-
-    if goes_to_service(rule, key):
-        # основний потік цього клієнта — у новий сервіс
-        return await call_service(rule.service_url, req)
-    # основний потік — у старе (тут згодом стане тіньова звірка для читань)
-    return await call_legacy(req)
-```
+:::code proj-strangler-routing/ts/krok-1-marshrutyzator-2.ts
+:::code proj-strangler-routing/py/krok-1-marshrutyzator-2.py
 :::
 
 Ось кістяк. Правила лежать у конфізі; на кроці 0 для профілю там `target: "legacy", percent: 0` — і перехоплювач прозорий, усе йде в моноліт. Щоб винести профіль у canary на 1%, міняємо в конфізі два поля: `target: "service", percent: 1`. Один цей рядок — і рівно кожен сотий (стабільно той самий) користувач обслуговується новим сервісом, решта незмінно старим. Відкат — вернути `target: "legacy", percent: 0`. Ніякого коду, ніякого викату.
@@ -200,96 +80,8 @@ async def intercept(rules: list[RouteRule], req) -> "Response":
 
 **Крок 2.1. Тіньова звірка читань: віддати старе, звірити нове, записати розбіжність.**
 :::tabs
-```ts
-interface Diff {
-  path: string;
-  status: "match" | "mismatch" | "error";
-  details?: string;
-}
-declare function recordDiff(d: Diff): void;   // → метрика/лог розбіжностей
-
-// Порівняння відповідей. НЕ «==»: у відповідях повно полів, що законно
-// різняться (timestamp генерації, порядок ключів, службові заголовки).
-// Звіряємо лише СУТЬ, нормалізувавши обидві. Тут — тіло як канонічний JSON.
-function bodiesEqual(a: unknown, b: unknown): boolean {
-  return canonical(a) === canonical(b);
-}
-function canonical(v: unknown): string {
-  if (v === null || typeof v !== "object") return JSON.stringify(v);
-  if (Array.isArray(v)) return "[" + v.map(canonical).join(",") + "]";
-  // ключі за абеткою — інакше {a,b} і {b,a} здались би різними
-  const keys = Object.keys(v as object).sort();
-  return "{" + keys.map(k => JSON.stringify(k) + ":" +
-              canonical((v as any)[k])).join(",") + "}";
-}
-
-// Читання з тінню. Клієнт ЗАВЖДИ отримує результат контролю (старе).
-async function readWithShadow(rule: RouteRule, req: Request): Promise<Response> {
-  const path = new URL(req.url).pathname;
-  const control = await callLegacy(req);           // старе — його й віддамо
-
-  if (rule.shadow) {
-    // кандидат виконуємо, але його падіння НЕ сміє зачепити клієнта
-    try {
-      const candidate = await callService(rule.serviceUrl, req);
-      const a = await control.clone().json();
-      const b = await candidate.clone().json();
-      recordDiff({ path,
-        status: bodiesEqual(a, b) ? "match" : "mismatch",
-        details: bodiesEqual(a, b) ? undefined
-               : `control=${JSON.stringify(a)} candidate=${JSON.stringify(b)}` });
-    } catch (e) {
-      // кандидат упав або відповів не-JSON — це теж цінний сигнал
-      recordDiff({ path, status: "error", details: String(e) });
-    }
-  }
-  return control;                                  // клієнтові — тільки старе
-}
-```
-```python
-from dataclasses import dataclass
-import json
-
-@dataclass
-class Diff:
-    path: str
-    status: str              # "match" | "mismatch" | "error"
-    details: str | None = None
-
-# record_diff(d: Diff) -> None   → метрика/лог розбіжностей
-
-def canonical(v) -> str:
-    """Канонічний вигляд значення: ключі за абеткою, стабільний порядок —
-    інакше {'a':1,'b':2} і {'b':2,'a':1} здалися б різними."""
-    return json.dumps(v, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False)
-
-def bodies_equal(a, b) -> bool:
-    # НЕ «==» по сирих відповідях: у них повно полів, що законно різняться
-    # (час генерації, порядок ключів). Звіряємо лише СУТЬ, нормалізувавши обидві.
-    return canonical(a) == canonical(b)
-
-
-async def read_with_shadow(rule: RouteRule, req) -> "Response":
-    """Читання з тінню. Клієнт ЗАВЖДИ отримує результат контролю (старе)."""
-    path = req.path
-    control = await call_legacy(req)            # старе — його й віддамо
-
-    if rule.shadow:
-        # кандидат виконуємо, але його падіння НЕ сміє зачепити клієнта
-        try:
-            candidate = await call_service(rule.service_url, req)
-            a = control.json()
-            b = candidate.json()
-            same = bodies_equal(a, b)
-            record_diff(Diff(path,
-                "match" if same else "mismatch",
-                None if same else f"control={a!r} candidate={b!r}"))
-        except Exception as e:
-            # кандидат упав або відповів не-JSON — це теж цінний сигнал
-            record_diff(Diff(path, "error", str(e)))
-    return control                              # клієнтові — тільки старе
-```
+:::code proj-strangler-routing/ts/krok-2-tinova-zvirka-novyi.ts
+:::code proj-strangler-routing/py/krok-2-tinova-zvirka-novyi.py
 :::
 
 Тут ховаються дві тонкощі, повз які легко проскочити. Перша: **клієнтові завжди йде контроль**, і падіння кандидата загорнуте в `try` — тінь не сміє зробити клієнтові гірше, ніж було до переїзду, бо весь її сенс у безпеці. Друга, важливіша: **порівнювати наївним «дорівнює» не можна**. Дві відповіді на той самий профіль майже завжди відрізняються дрібницями, які нікого не турбують — час генерації відповіді, порядок ключів у JSON, службові заголовки, округлення дробів. Якщо звіряти їх «в лоб», метрика розбіжностей загориться на кожному запиті шумом, і справжню розбіжність — «нове віддало стару адресу» — ти в тому шумі не побачиш. Тому обидві відповіді спершу **зводять до канонічного вигляду** (ключі за абеткою, викинуті службові поля) і лише тоді рівняють суть. Ця нормалізація — не дрібниця реалізації, а половина мистецтва тіньової звірки: замало нормалізуєш — тонеш у хибних тривогах; забагато — прогледиш справжню біду.
@@ -341,71 +133,8 @@ async def dual_write_naive(rule: RouteRule, req) -> "Response":
 
 **Крок 3.2. Правильний запис через outbox: одна транзакція + окремий ретранслятор.**
 :::tabs
-```ts
-// (виконується В МОНОЛІТІ або в шарі, що має транзакцію до старої БД)
-// Бізнес-запис і слід у outbox — ОДНА транзакція однієї бази: разом або ніяк.
-async function updateProfile(db: Db, id: string, patch: object): Promise<void> {
-  await db.transaction(async tx => {
-    await tx.query("UPDATE users SET data = data || $2 WHERE id = $1",
-                   [id, patch]);
-    // слід про зміну — В ТІЙ САМІЙ транзакції. Ось чому це НЕ подвійний запис:
-    // якщо UPDATE відкотиться, відкотиться й рядок ящика — атомарно.
-    await tx.query(
-      "INSERT INTO outbox(aggregate_id, payload, created_at, sent) " +
-      "VALUES ($1, $2, now(), false)", [id, JSON.stringify(patch)]);
-  });
-}
-
-// Окремий процес-ретранслятор. Крутиться сам собою, у своєму темпі.
-async function relayOnce(db: Db): Promise<void> {
-  const rows = await db.query(
-    "SELECT id, aggregate_id, payload FROM outbox " +
-    "WHERE sent = false ORDER BY id LIMIT 100");   // порядок за id — важливо
-  for (const row of rows) {
-    try {
-      await pushToProfilesService(row.aggregate_id, row.payload);  // у нову базу
-      // позначаємо обробленим ЛИШЕ після підтвердження від сервісу
-      await db.query("UPDATE outbox SET sent = true WHERE id = $1", [row.id]);
-    } catch {
-      // не вдалося — НЕ чіпаємо sent; наступний прохід повторить цей самий рядок.
-      // (доставка "щонайменше раз" — тому приймач має бути ідемпотентним, див. нижче)
-      break;   // не перестрибуємо через застряглий рядок, бо порядок важливий
-    }
-  }
-}
-```
-```python
-import json
-
-# (виконується В МОНОЛІТІ або в шарі, що має транзакцію до старої БД)
-async def update_profile(db, id: str, patch: dict) -> None:
-    """Бізнес-запис і слід у outbox — ОДНА транзакція однієї бази: разом або ніяк."""
-    async with db.transaction() as tx:
-        await tx.execute(
-            "UPDATE users SET data = data || %s WHERE id = %s", (patch, id))
-        # слід про зміну — В ТІЙ САМІЙ транзакції. Ось чому це НЕ подвійний запис:
-        # якщо UPDATE відкотиться, відкотиться й рядок ящика — атомарно.
-        await tx.execute(
-            "INSERT INTO outbox(aggregate_id, payload, created_at, sent) "
-            "VALUES (%s, %s, now(), false)", (id, json.dumps(patch)))
-
-
-async def relay_once(db) -> None:
-    """Окремий процес-ретранслятор. Крутиться сам собою, у своєму темпі."""
-    rows = await db.fetch(
-        "SELECT id, aggregate_id, payload FROM outbox "
-        "WHERE sent = false ORDER BY id LIMIT 100")   # порядок за id — важливо
-    for row in rows:
-        try:
-            await push_to_profiles_service(row["aggregate_id"], row["payload"])
-            # позначаємо обробленим ЛИШЕ після підтвердження від сервісу
-            await db.execute("UPDATE outbox SET sent = true WHERE id = %s",
-                             (row["id"],))
-        except Exception:
-            # не вдалося — НЕ чіпаємо sent; наступний прохід повторить рядок.
-            # (доставка "щонайменше раз" — приймач має бути ідемпотентним, див. нижче)
-            break   # не перестрибуємо через застряглий рядок, бо порядок важливий
-```
+:::code proj-strangler-routing/ts/pidkhid-a-odna-baza.ts
+:::code proj-strangler-routing/py/pidkhid-a-odna-baza.py
 :::
 
 Дві деталі роблять цей код правильним, а не просто робочим. По-перше, `sent` перемикається в `true` **лише після** підтвердження від сервісу — тож збій між «надіслали» і «позначили» призводить у найгіршому разі до **повторної** доставки, а не до **втраченої**. Це доставка «щонайменше раз» (англ. at-least-once): краще двічі, ніж нуль, бо повтор можна знешкодити, а втрату — ні. По-друге, з повтору випливає вимога до приймача: новий сервіс має бути **ідемпотентним** — застосувати ту саму зміну двічі має дати той самий стан, що й один раз. Найпростіше цього досягти, тягнучи разом із payload монотонну версію запису й ігноруючи в приймачі все, що не новіше за вже застосоване, — та сама ідея огорожі за номером, що й у надійному перемиканні на резерв.
@@ -426,51 +155,8 @@ async def relay_once(db) -> None:
 
 **Крок 4.1. Повний перехоплювач: читання з тінню, запис через власника.**
 :::tabs
-```ts
-async function intercept(rules: RouteRule[], req: Request): Promise<Response> {
-  const path = new URL(req.url).pathname;
-  const rule = rules.find(r => r.pattern.test(path));
-  if (!rule) return callLegacy(req);
-
-  const isWrite = req.method === "PUT" || req.method === "POST"
-               || req.method === "PATCH" || req.method === "DELETE";
-
-  if (isWrite) {
-    // запис іде туди, де ЗАРАЗ власник даних; друга база наздоганяє через outbox
-    // (напрям власності задає той самий rule.target — тож теж оборотний конфігом)
-    return rule.target === "service"
-      ? callService(rule.serviceUrl, req)   // власник — новий сервіс
-      : callLegacy(req);                    // власник — моноліт
-  }
-
-  // читання: стабільний canary + тіньова звірка
-  if (goesToService(rule, userKeyOf(path))) {
-    return callService(rule.serviceUrl, req);   // цей клієнт уже на новому
-  }
-  return readWithShadow(rule, req);             // старе клієнту, нове тіньово
-}
-```
-```python
-async def intercept(rules: list[RouteRule], req) -> "Response":
-    path = req.path
-    rule = next((r for r in rules if r.pattern.search(path)), None)
-    if rule is None:
-        return await call_legacy(req)
-
-    is_write = req.method in ("PUT", "POST", "PATCH", "DELETE")
-
-    if is_write:
-        # запис іде туди, де ЗАРАЗ власник даних; друга база наздоганяє outbox'ом
-        # (напрям власності задає той самий rule.target — теж оборотний конфігом)
-        if rule.target == "service":
-            return await call_service(rule.service_url, req)   # власник — сервіс
-        return await call_legacy(req)                          # власник — моноліт
-
-    # читання: стабільний canary + тіньова звірка
-    if goes_to_service(rule, user_key_of(path)):
-        return await call_service(rule.service_url, req)   # цей клієнт на новому
-    return await read_with_shadow(rule, req)               # старе клієнту, нове тінню
-```
+:::code proj-strangler-routing/ts/krok-4-skladannia-dokupy-i.ts
+:::code proj-strangler-routing/py/krok-4-skladannia-dokupy-i.py
 :::
 
 Уся послідовність переїзду профілю тепер читається як історія однієї структури `rule`, що повільно міняє поля: `shadow` вмикають, поки `target` ще `legacy` — і бачать розбіжності читань, не ризикуючи клієнтом; переконавшись, що тінь чиста, піднімають `percent` від 1 до 100 — і читання перетікають на нове стабільним струмком людей; аж тоді перемикають `target` на `service` — і власником даних, а отже й записом, стає новий сервіс, зі зворотним струмком у стару базу напоготові. Кожен із цих кроків — правка конфігу, і кожен оборотний тією самою правкою назад.

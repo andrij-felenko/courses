@@ -10,113 +10,15 @@
 
 Ось повна форма роздутого драйвера — не ескіз, а те, що реально скомпілюється й займе місце. Читай його як список рішень, кожне з яких колись здавалося розумним.
 
-```c
-// --- sensor.h: "гнучкий" драйвер під один реальний давач ---
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define MAX_DRIVERS   8      // "раптом буде вісім давачів"
-
-typedef struct {
-    const char *name;                       // ім'я для пошуку в реєстрі
-    int  (*read_raw)(void *ctx, int32_t *out);  // вказівник на функцію читання
-    void  *ctx;                             // контекст конкретного давача
-    float  offset_cal;      // калібрування зсуву — "раптом знадобиться"
-    float  scale_cal;       // калібрування масштабу — теж про запас
-    uint16_t sample_rate_hz;// налаштовна частота — "а раптом"
-    uint8_t  filter_order;  // порядок ковзного середнього — "на майбутнє"
-    bool     enable_crc;    // перевірка цілісності по шині — "про всяк"
-    int32_t  hist[8];       // буфер під фільтр — вісім відліків на кожен давач
-    uint8_t  hist_pos;      // курсор кільцевого буфера
-} sensor_driver_t;
-
-static sensor_driver_t g_drivers[MAX_DRIVERS];
-static uint8_t         g_driver_count;
-
-int   sensor_register(const sensor_driver_t *d);
-int   sensor_read_by_name(const char *name, float *celsius);
-void  sensor_set_calibration(const char *name, float off, float scale);
-void  sensor_set_filter(const char *name, uint8_t order);
-```
+:::code proj-taming-second-system/c/sensor.h
 
 І реалізація — теж повна, бо саме в ній ховається ціна:
 
-```c
-// --- sensor.c ---
-static sensor_driver_t *find(const char *name) {
-    for (uint8_t i = 0; i < g_driver_count; i++)          // лінійний пошук
-        if (strcmp(g_drivers[i].name, name) == 0)         // порівняння рядків
-            return &g_drivers[i];
-    return 0;
-}
-
-int sensor_register(const sensor_driver_t *d) {
-    if (g_driver_count >= MAX_DRIVERS) return -1;
-    g_drivers[g_driver_count++] = *d;                     // копія 40+ байтів
-    return 0;
-}
-
-void sensor_set_calibration(const char *name, float off, float scale) {
-    sensor_driver_t *d = find(name);
-    if (d) { d->offset_cal = off; d->scale_cal = scale; }
-}
-
-void sensor_set_filter(const char *name, uint8_t order) {
-    sensor_driver_t *d = find(name);
-    if (d && order <= 8) d->filter_order = order;
-}
-
-int sensor_read_by_name(const char *name, float *celsius) {
-    sensor_driver_t *d = find(name);                      // пошук на КОЖНЕ читання
-    if (!d) return -1;
-
-    int32_t raw;
-    if (d->read_raw(d->ctx, &raw) != 0) return -2;        // непрямий виклик
-
-    if (d->filter_order > 1) {                            // ковзне середнє
-        d->hist[d->hist_pos++ % 8] = raw;
-        int32_t sum = 0;
-        for (uint8_t i = 0; i < d->filter_order; i++)
-            sum += d->hist[i];
-        raw = sum / d->filter_order;
-    }
-    float t = (float)raw * 0.01f;                         // сирі 0.01 °C
-    t = t * d->scale_cal + d->offset_cal;                 // калібрування
-    *celsius = t;
-    return 0;
-}
-```
+:::code proj-taming-second-system/c/sensor.c
 
 І точка, де цим усім користуються — рівно один раз, під єдиний реальний давач:
 
-```c
-// --- main.c: як воно насправді викликається ---
-static int bmp280_read(void *ctx, int32_t *out) {
-    (void)ctx;
-    *out = bmp280_read_centi_celsius();   // сотні градуса від мікросхеми
-    return 0;
-}
-
-void app_init(void) {
-    sensor_driver_t d = {
-        .name = "bmp280",
-        .read_raw = bmp280_read,
-        .ctx = 0,
-        .offset_cal = 0.0f,
-        .scale_cal = 1.0f,          // калібрування = "нічого не робити"
-        .filter_order = 1,          // фільтр = "нічого не робити"
-        .enable_crc = false,
-    };
-    sensor_register(&d);
-}
-
-float read_temperature(void) {
-    float t;
-    sensor_read_by_name("bmp280", &t);   // пошук за рядком "bmp280"
-    return t;
-}
-```
+:::code proj-taming-second-system/c/main.c
 
 Придивись до ініціалізації: `scale_cal = 1.0f`, `offset_cal = 0.0f`, `filter_order = 1`. Це означає, що **вся** машинерія калібрування й фільтра на кожному читанні виконує тотожність — множить на одиницю, додає нуль, усереднює один відлік сам із собою. Реєстр має рівно один запис, а пошук за рядком `"bmp280"` щоразу проходить `strcmp` заради того, щоб знайти єдиний елемент. Гнучкість присутня в коді, у Flash і в RAM — і відсутня в роботі. Це і є друга система в чистому вигляді: [YAGNI](root:sf-apps/dry-kiss-yagni)-порушення, помножене на впевненість.
 
@@ -128,24 +30,7 @@ float read_temperature(void) {
 
 Щоб зафіксувати поведінку, треба відрізати драйвер від справжнього заліза — реальний давач у тесті ми не смикаємо. Замінимо `bmp280_read_centi_celsius` детермінованим джерелом: хай видає наперед відому послідовність сирих значень. Тоді на вхід — та сама послідовність, на виході — те саме число, і будь-яке відхилення після кроку рефакторингу одразу видно.
 
-```c
-// --- test_harness.c: детерміноване джерело замість давача ---
-static const int32_t FAKE[] = { 2510, 2515, 2500, 2530, 2495 };  // сотні °C
-static uint8_t fake_pos;
-
-int32_t bmp280_read_centi_celsius(void) {   // підміна на час тесту
-    return FAKE[fake_pos++ % 5];
-}
-
-int main(void) {
-    app_init();                              // реєструє "bmp280"
-    for (int i = 0; i < 5; i++) {
-        float t = read_temperature();
-        print_float("t", t);                 // друкуємо еталон
-    }
-    return 0;
-}
-```
+:::code proj-taming-second-system/c/test_harness.c
 
 Перший прогін дає, скажімо, такі рядки (числа умовні, важливий сам факт фіксації):
 
@@ -163,19 +48,7 @@ t = 24.95
 
 Почнемо з найдешевшого й найбезпечнішого: код, який на реальних даних не робить нічого. Калібрування зі `scale = 1`, `offset = 0` — це `t*1 + 0`, тобто `t`. Фільтр із `filter_order = 1` — це середнє одного значення, тобто саме значення. Приберемо обидва блоки з `sensor_read_by_name` і одразу проженемо тест.
 
-```c
-// Крок 1: викинуто гілки фільтра й калібрування (вони робили тотожність)
-int sensor_read_by_name(const char *name, float *celsius) {
-    sensor_driver_t *d = find(name);
-    if (!d) return -1;
-
-    int32_t raw;
-    if (d->read_raw(d->ctx, &raw) != 0) return -2;
-
-    *celsius = (float)raw * 0.01f;   // сирі сотні °C → градуси
-    return 0;
-}
-```
+:::code proj-taming-second-system/c/krok-1-prybraty-te-shcho.c
 
 Еталон зелений: ті самі п'ять чисел. Це доводить, що гілки калібрування й фільтра поведінки **не** тримали — на цих даних вони були порожні. А раз ми викинули їхнє **використання**, то поля `offset_cal`, `scale_cal`, `filter_order`, `hist[8]`, `hist_pos` більше ніхто не читає. І функції `sensor_set_calibration`, `sensor_set_filter` теж повисли в повітрі — їх ніхто не кличе. Компілятор із увімкненим `-ffunction-sections -Wl,--gc-sections` викине мертвий код сам, але **нам** треба прибрати його з вихідного тексту, бо ціна другої системи — не лише в байтах, а в очах, що це читають, і в руках, що це супроводжують.
 
@@ -194,20 +67,7 @@ typedef struct {
 
 Тепер придивімося до `find`. Він шукає в реєстрі рядок `"bmp280"`. Але в реєстрі рівно один запис, і ім'я, за яким шукають, — константа, вкладена в код виклику. Пошук, що завжди знаходить нульовий елемент за наперед відомим ключем, — це складна відповідь на питання, якого ніхто не ставив. Приберемо реєстр і пошук; хай `sensor_read` кличе єдиний давач прямо.
 
-```c
-// Крок 2: жодного реєстру, жодного strcmp — прямий виклик davача
-static int bmp280_read(int32_t *out) {
-    *out = bmp280_read_centi_celsius();
-    return 0;
-}
-
-int sensor_read(float *celsius) {
-    int32_t raw;
-    if (bmp280_read(&raw) != 0) return -2;
-    *celsius = (float)raw * 0.01f;
-    return 0;
-}
-```
+:::code proj-taming-second-system/c/krok-2-prybraty.c
 
 Точка виклику спрощується дзеркально — більше нема рядка `"bmp280"`, який треба пам'ятати й ні з чим не переплутати:
 
@@ -289,38 +149,11 @@ bmp280_read_centi_celsius()  → може вбудуватися (компіля
 
 Уяви, що продукт розрісся й тепер справді читає два давачі: той самий `bmp280` по I²C і термопару через підсилювач `max31855` по SPI. Тепер спільність — не вгадана, а **видима**: обидва повертають температуру, обидва можуть дати помилку читання, але роблять це по-різному. Ось тепер абстракція виправдана — і вона виходить чесною, бо стоїть на двох фактах.
 
-```c
-// Дві чесні функції спершу — кожна робить рівно своє
-static bool read_bmp280(float *celsius) {
-    int32_t raw = bmp280_read_centi_celsius();
-    *celsius = (float)raw * 0.01f;
-    return true;
-}
-
-static bool read_max31855(float *celsius) {
-    int32_t raw;
-    if (!max31855_read_raw(&raw)) return false;  // термопара сигналить обрив
-    *celsius = (float)raw * 0.25f;               // інша ціна молодшого біта
-    return true;
-}
-```
+:::code proj-taming-second-system/c/koly-spravdi-prykhodyt.c
 
 Придивись, чим вони насправді різняться: у `bmp280` ціна молодшого біта 0.01 °C і читання не дає збою, у `max31855` — 0.25 °C і читання **може** повідомити про обрив термопари. Оце і є справжні осі відмінності — і жодну з них не передбачила роздута перша спроба. Тепер, коли обидві функції перед очима, спільне видно точно: підпис `bool read(float *out)`, що повертає успіх і кладе градуси. Витягуємо рівно це — і нічого зверх.
 
-```c
-// Абстракція, ВИВЕДЕНА з двох реальних випадків, а не вгадана з одного
-typedef bool (*temp_read_fn)(float *celsius);
-
-// Один запис — одна функція. Жодних полів "про запас":
-// калібрування, фільтр, ім'я з'являться ЛИШЕ коли їх попросить реальний давач.
-static const temp_read_fn SENSORS[] = { read_bmp280, read_max31855 };
-#define SENSOR_COUNT (sizeof SENSORS / sizeof SENSORS[0])
-
-bool read_temperature_n(uint8_t idx, float *celsius) {
-    if (idx >= SENSOR_COUNT) return false;
-    return SENSORS[idx](celsius);
-}
-```
+:::code proj-taming-second-system/c/koly-spravdi-prykhodyt-2.c
 
 Порівняй це з роздутою версією, з якої ми починали. Обидві мають масив і виклик через вказівник — але різниця принципова. Тут масив містить **рівно два** записи під два **реальні** давачі; там — вісім комірок під давачі, яких нема. Тут запис — це один вказівник (4 байти) на функцію, що робить свою справу; там — 44 байти полів, більшість яких стоять у режимі «нічого не роби». Тут індекс — просте ціле `0`/`1`, відоме на етапі складання; там — рядок `"bmp280"`, який шукається `strcmp`-ом на кожне читання. Абстракція та сама на вигляд (таблиця функцій), але одна виросла з факту, друга — з гадки, і це видно в кожному байті.
 

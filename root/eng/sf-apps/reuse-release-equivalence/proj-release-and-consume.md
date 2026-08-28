@@ -80,20 +80,7 @@ def bump(v: str, kind: str) -> str:
     return f"{maj}.{min_}.{pat + 1}"
 # bump("2.1.1", "major") -> "3.0.0"
 ```
-```go
-func Bump(v, kind string) string {
-    var maj, min, pat int
-    fmt.Sscanf(v, "%d.%d.%d", &maj, &min, &pat)
-    switch kind {
-    case "major":
-        return fmt.Sprintf("%d.0.0", maj+1)      // скидає min і pat
-    case "minor":
-        return fmt.Sprintf("%d.%d.0", maj, min+1) // скидає pat
-    default:
-        return fmt.Sprintf("%d.%d.%d", maj, min, pat+1)
-    }
-}
-```
+:::code proj-release-and-consume/go/main.go
 :::
 
 Арифметика тут — найлегша частина. Важке — чесно вибрати сам `kind`. Підняти число вміє й машина; а от розпізнати, ламає ця зміна когось чи ні, здатна лише людина (або інструмент, що звіряє підписи API). Помилишся в класифікації — і жоден із цих рядків тебе не врятує.
@@ -174,22 +161,7 @@ require example.com/money/v2 v2.1.0
 
 Ось те саме розв'язання коротко — розкладка каре у вікно й вибір із того, що є на полиці:
 
-```python
-def caret_window(v):
-    maj, min_, pat = (int(x) for x in v.split("."))
-    if maj > 0:
-        return (maj, min_, pat), (maj + 1, 0, 0)      # >=v, <(maj+1).0.0
-    if min_ > 0:
-        return (maj, min_, pat), (maj, min_ + 1, 0)   # 0.x: стеля — наступний мінор
-    return (maj, min_, pat), (maj, min_, pat + 1)     # 0.0.x: кожна латка ламка
-
-def resolve(available, lo, hi):
-    ok = [v for v in available if lo <= v < hi]
-    return max(ok) if ok else None   # npm/Cargo: найвища; Go MVS узяв би min(ok)
-
-lo, hi = caret_window("2.1.0")
-print(resolve([(2, 1, 0), (2, 1, 1), (2, 2, 0), (3, 0, 0)], lo, hi))  # (2, 2, 0)
-```
+:::code proj-release-and-consume/py/main.py
 
 Кортежі в Python порівнюються порозрядно, тож `(2,1,0) <= v < (3,0,0)` — це рівно семантика каре. `3.0.0` відпадає як завелике, а з решти береться найбільше — `2.2.0`.
 

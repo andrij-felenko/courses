@@ -121,32 +121,8 @@ instance Monoid (Endo a) where
 Написана прямо, ця тотожність займає рядок. У TypeScript згортка справа вбудована й зветься `reduceRight`; у Python правої згортки в стандартній бібліотеці немає, тож ліву пускають по перевернутому списку — тобто роблять точно те, що робить цикл Django:
 
 :::tabs
-```ts
-type Handler = (req: Request) => Response;
-type Link    = (next: Handler) => Handler;
-
-// Конвеєрний підпис (req, next) — це та сама Link, лише з аргументами разом
-type Middleware = (req: Request, next: Handler) => Response;
-const flip = (mw: Middleware): Link => (next) => (req) => mw(req, next);
-
-function build(links: Link[], base: Handler): Handler {
-  return links.reduceRight((rest, link) => link(rest), base);
-}
-```
-```py
-from functools import reduce
-from typing import Callable
-
-Handler = Callable[[Request], Response]
-Link = Callable[[Handler], Handler]
-Middleware = Callable[[Request, Handler], Response]
-
-def flip(mw: Middleware) -> Link:
-    return lambda nxt: lambda req: mw(req, nxt)
-
-def build(links: list[Link], base: Handler) -> Handler:
-    return reduce(lambda rest, link: link(rest), reversed(links), base)
-```
+:::code math-chain-as-fold/ts/index.ts
+:::code math-chain-as-fold/py/main.py
 :::
 
 Тепер видно, навіщо в циклі Django стоїть `reversed`. Цикл накопичує зліва направо, а потрібна вкладеність — права. Щоб дістати праву згортку лівим накопичувачем, список обходять із хвоста. `reversed(settings.MIDDLEWARE)` — це не примха фреймворку й не деталь реалізації, це `foldr`, записаний засобами мови, де його немає.

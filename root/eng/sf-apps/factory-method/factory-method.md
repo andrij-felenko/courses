@@ -81,56 +81,8 @@ class OrderService:
 Візьмімо каркас, який веде діалог, але не знає наперед, з якими саме документами працює. Каркас уміє «відкрити», «зберегти», «закрити» — це спільна логіка. Але *що* саме створюється при «Новий документ» — таблиця, малюнок, текст — знає лише конкретний застосунок. GoF розв'язує це так: у каркасі є абстрактний метод `createDocument()`, а логіка «Нового» кличе його, не знаючи відповіді. Нащадок каркаса цей метод реалізує.
 
 :::tabs
-```ts
-abstract class Application {
-  // фабричний метод: КАРКАС не знає конкретного класу, лишає діру для нащадка
-  protected abstract createDocument(): Document;
-
-  newDocument(): Document {                 // спільна логіка каркаса
-    const doc = this.createDocument();      // ...кличе діру...
-    doc.open();
-    this.registerInRecent(doc);
-    return doc;
-  }
-  private registerInRecent(doc: Document) { /* ... */ }
-}
-
-class DrawingApp extends Application {
-  protected createDocument(): Document {    // нащадок ОБИРАЄ клас
-    return new DrawingDocument();
-  }
-}
-class SpreadsheetApp extends Application {
-  protected createDocument(): Document {
-    return new SpreadsheetDocument();
-  }
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class Application(ABC):
-    @abstractmethod
-    def create_document(self) -> "Document":   # фабричний метод: діра для нащадка
-        ...
-
-    def new_document(self) -> "Document":      # спільна логіка каркаса
-        doc = self.create_document()           # ...кличе діру...
-        doc.open()
-        self._register_in_recent(doc)
-        return doc
-
-    def _register_in_recent(self, doc: "Document") -> None:
-        ...
-
-class DrawingApp(Application):
-    def create_document(self) -> "Document":   # нащадок ОБИРАЄ клас
-        return DrawingDocument()
-
-class SpreadsheetApp(Application):
-    def create_document(self) -> "Document":
-        return SpreadsheetDocument()
-```
+:::code factory-method/ts/fabrychnyi-metod-pidklas.ts
+:::code factory-method/py/fabrychnyi-metod-pidklas.py
 :::
 
 Придивись до `newDocument()`. Це код каркаса, і він викликає `createDocument()`, **не маючи жодного уявлення**, який клас звідти вийде. У рантаймі виклик потрапить у той метод, який реалізував конкретний нащадок — це звичайне [динамічне зв'язування](root:sf-lang/polymorphism). Каркас пишуть один раз, і він працює з майбутніми документами, яких на момент його написання ще не існувало. Оце й є цінність: **базовий клас керує процесом, а нащадки постачають деталі**.
@@ -146,60 +98,8 @@ class SpreadsheetApp(Application):
 Один фабричний метод цього не гарантує. Він народжує **один** продукт. А нам треба народжувати **родину** продуктів так, щоб усі вони були з однієї теми. Ось для цього GoF і дає **абстрактну фабрику (англ. *Abstract Factory*)**: це об'єкт, чий інтерфейс оголошує create-метод на **кожен** вид продукту в родині, а кожна конкретна фабрика реалізує їх усі в одному стилі.
 
 :::tabs
-```ts
-interface UiFactory {              // абстрактна фабрика: метод на КОЖЕН вид продукту
-  createButton(): Button;
-  createCheckbox(): Checkbox;
-  createInput(): Input;
-}
-
-class DarkFactory implements UiFactory {   // уся родина — темна
-  createButton(): Button   { return new DarkButton(); }
-  createCheckbox(): Checkbox { return new DarkCheckbox(); }
-  createInput(): Input     { return new DarkInput(); }
-}
-class LightFactory implements UiFactory {  // уся родина — світла
-  createButton(): Button   { return new LightButton(); }
-  createCheckbox(): Checkbox { return new LightCheckbox(); }
-  createInput(): Input     { return new LightInput(); }
-}
-
-// клієнт бере ОДНУ фабрику й будує з неї весь екран — узгодженість гарантована
-function buildLoginForm(ui: UiFactory) {
-  const btn = ui.createButton();
-  const remember = ui.createCheckbox();
-  const login = ui.createInput();
-  // ... усе з однієї теми, змішати неможливо ...
-}
-```
-```py
-from abc import ABC, abstractmethod
-
-class UiFactory(ABC):                       # абстрактна фабрика: метод на КОЖЕН продукт
-    @abstractmethod
-    def create_button(self) -> "Button": ...
-    @abstractmethod
-    def create_checkbox(self) -> "Checkbox": ...
-    @abstractmethod
-    def create_input(self) -> "Input": ...
-
-class DarkFactory(UiFactory):               # уся родина — темна
-    def create_button(self):   return DarkButton()
-    def create_checkbox(self): return DarkCheckbox()
-    def create_input(self):    return DarkInput()
-
-class LightFactory(UiFactory):              # уся родина — світла
-    def create_button(self):   return LightButton()
-    def create_checkbox(self): return LightCheckbox()
-    def create_input(self):    return LightInput()
-
-# клієнт бере ОДНУ фабрику й будує з неї весь екран — узгодженість гарантована
-def build_login_form(ui: UiFactory) -> None:
-    btn = ui.create_button()
-    remember = ui.create_checkbox()
-    login = ui.create_input()
-    # ... усе з однієї теми, змішати неможливо ...
-```
+:::code factory-method/ts/abstraktna-fabryka-tsilyi.ts
+:::code factory-method/py/abstraktna-fabryka-tsilyi.py
 :::
 
 Дивись, як умова узгодженості впаяна в саму конструкцію. Клієнт `buildLoginForm` тримає **одну** фабрику й будує з неї весь екран. Він фізично не може взяти кнопку з темної, а поле зі світлої — у нього на руках лише одна фабрика, і вона віддає все з однієї родини. **Узгодженість гарантована не дисципліною програміста, а типами.** Це і є головна цінність абстрактної фабрики: вона робить неможливим змішування несумісного. А переключити всю тему разом — це одне місце: підставити іншу фабрику там, де вона створюється.

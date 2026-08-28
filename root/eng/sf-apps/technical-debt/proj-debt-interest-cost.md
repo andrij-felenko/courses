@@ -16,39 +16,7 @@
 
 Ось прошивка до листа виробника. Я навмисне не звів код у щось гарне — саме так борг і виглядає в житті: п'ять чесних функцій, кожна знає число сама.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// БОРГ: гранична напруга живе п'ятьма незалежними копіями.
-// Хто, дивлячись на будь-яку одну з них, знає, що інших рівно чотири?
-
-void charge_indicator(float v) {
-    if (v >= 4.20f) led_set(LED_FULL, ON);        // копія 1: індикатор
-}
-
-bool battery_protection(float v) {
-    if (v >= 4.20f) { charger_disable(); return true; }  // копія 2: захист
-    return false;
-}
-
-void battery_log(float v) {
-    if (v >= 4.20f) log_event(EVT_BATTERY_FULL);  // копія 3: лог
-}
-
-uint8_t battery_percent(float v) {
-    // лінійна шкала від 3.30 В (0%) до 4.20 В (100%)
-    if (v >= 4.20f) return 100;                    // копія 4: телеметрія
-    if (v <= 3.30f) return 0;
-    return (uint8_t)((v - 3.30f) / (4.20f - 3.30f) * 100.0f);  // копія 4-біс!
-}
-
-float calib_correction(float v) {
-    // ближче до стелі — інша поправка АЦП
-    if (v >= 4.20f) return CAL_HIGH;               // копія 5: калібрування
-    return CAL_LOW;
-}
-```
+:::code proj-debt-interest-cost/c/tilo-borhu-iak-vono-ie.c
 
 Зупинися на функції `battery_percent`. Число `4.20f` в ній стоїть **двічі** — раз як умова насичення, раз усередині формули шкали. Це вже показує підступність розмазаного знання: копії не тільки в різних функціях, вони заводяться навіть усередині однієї, бо те саме поняття («стеля напруги») природно спливає у двох ролях. Коли рахуватимеш «скільки правок», легко порахувати цю функцію за одну — і поправити лише перший `4.20f`, лишивши формулу зі старим знаменником. Лампа згасне на 4.15, а сто відсотків телеметрія покаже все одно на 4.20. Тихий розлад.
 
@@ -58,36 +26,7 @@ float calib_correction(float v) {
 
 Найдешевша форма для однієї величини — іменована константа:
 
-```c
-// ПОГАШЕНО: поріг — одна константа. Усі знавці питають її, копій нема.
-#define BATTERY_FULL_V   4.15f    // єдине джерело правди
-#define BATTERY_EMPTY_V  3.30f    // заразом і нижня межа шкали
-
-void charge_indicator(float v) {
-    if (v >= BATTERY_FULL_V) led_set(LED_FULL, ON);
-}
-
-bool battery_protection(float v) {
-    if (v >= BATTERY_FULL_V) { charger_disable(); return true; }
-    return false;
-}
-
-void battery_log(float v) {
-    if (v >= BATTERY_FULL_V) log_event(EVT_BATTERY_FULL);
-}
-
-uint8_t battery_percent(float v) {
-    if (v >= BATTERY_FULL_V) return 100;
-    if (v <= BATTERY_EMPTY_V) return 0;
-    return (uint8_t)((v - BATTERY_EMPTY_V)
-                     / (BATTERY_FULL_V - BATTERY_EMPTY_V) * 100.0f);
-}
-
-float calib_correction(float v) {
-    if (v >= BATTERY_FULL_V) return CAL_HIGH;
-    return CAL_LOW;
-}
-```
+:::code proj-debt-interest-cost/c/ideia-odne-dzherelo-pravdy.c
 
 Тепер лист від виробника — це рівно одна правка: `4.15f` → нове число в одному рядку `#define`. Формула шкали підтягнеться сама, бо вона більше не носить число, а бере його з тієї самої константи. Обидва входження в `battery_percent` тепер посилаються на одне джерело — розлад «перший поправив, формулу забув» став структурно неможливим.
 
@@ -132,18 +71,7 @@ p_знайти_всі(N) = q^N
 
 Наша прошивка шле стан батареї на пульт і пише його в лог. Уяви, що поле «напруга × заряд» пакується в один кадр телеметрії — напруга в мілівольтах як `uint16_t`, відсоток як `uint8_t`:
 
-```c
-// Відправник (модуль телеметрії): пакує кадр вручну.
-void telemetry_send_battery(float v) {
-    uint16_t mv = (uint16_t)(v * 1000.0f);   // 4.15 В -> 4150 мВ
-    uint8_t  pct = battery_percent(v);
-    uint8_t  frame[3];
-    frame[0] = (uint8_t)(mv >> 8);           // старший байт напруги
-    frame[1] = (uint8_t)(mv & 0xFF);         // молодший байт
-    frame[2] = pct;
-    radio_write(frame, 3);
-}
-```
+:::code proj-debt-interest-cost/c/zcheplennia-cherez-typ-i.c
 
 ```c
 // Приймач (на пульті, ІНШИЙ файл, можливо інша команда): розбирає кадр вручну.

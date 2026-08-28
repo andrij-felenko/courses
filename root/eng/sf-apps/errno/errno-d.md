@@ -160,75 +160,8 @@ if (fd == -1) {
 Розглянемо `strtol()`: рядок `"-1"` перетворюється на число `-1`. Рядок `"9223372036854775807"` перетворюється на `LONG_MAX`. Якщо ж число в рядку перевищує можливості `long`, функція також повертає `LONG_MAX` і виставляє `errno = ERANGE`. Оскільки `LONG_MAX` є одночасно і валідним числом, і маркером переповнення, єдиний спосіб розрізнити успіх і помилку — **примусово встановити `errno = 0` безпосередньо перед викликом**:
 
 :::tabs
-```c
-#include <errno.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-long parse_config_value(const char *str, int *out_ok) {
-    char *endptr = NULL;
-    errno = 0; /* ОБОВ'ЯЗКОВО: скидаємо стан перед викликом */
-
-    long val = strtol(str, &endptr, 10);
-
-    /* 1. Перевірка на переповнення / вихід за межі */
-    if (errno == ERANGE && (val == LONG_MAX || val == LONG_MIN)) {
-        if (out_ok) *out_ok = 0;
-        return 0;
-    }
-    /* 2. Перевірка на інші системні помилки */
-    if (errno != 0 && val == 0) {
-        if (out_ok) *out_ok = 0;
-        return 0;
-    }
-    /* 3. Перевірка: чи було прочитано хоча б одну цифру */
-    if (endptr == str) {
-        if (out_ok) *out_ok = 0;
-        return 0;
-    }
-
-    if (out_ok) *out_ok = 1;
-    return val;
-}
-```
-```cpp
-#include <cerrno>
-#include <climits>
-#include <cstdlib>
-#include <expected>
-#include <string_view>
-
-enum class ParseError {
-    NoDigits,
-    OutOfRange,
-    InvalidData
-};
-
-[[nodiscard]] std::expected<long, ParseError>
-parse_config_value(std::string_view s) noexcept {
-    if (s.empty()) {
-        return std::unexpected(ParseError::NoDigits);
-    }
-
-    char *endptr = nullptr;
-    errno = 0; // ОБОВ'ЯЗКОВО: скидаємо стан перед викликом
-
-    long val = std::strtol(s.data(), &endptr, 10);
-
-    if (errno == ERANGE) {
-        return std::unexpected(ParseError::OutOfRange);
-    }
-    if (errno != 0) {
-        return std::unexpected(ParseError::InvalidData);
-    }
-    if (endptr == s.data()) {
-        return std::unexpected(ParseError::NoDigits);
-    }
-
-    return val;
-}
-```
+:::code errno-d/c/pravylo-2-skydannia-errno.c
+:::code errno-d/cpp/pravylo-2-skydannia-errno.cpp
 :::
 
 ### Правило 3. Збереження `errno` перед будь-якими допоміжними викликами, логуванням та очищенням
@@ -240,35 +173,8 @@ parse_config_value(std::string_view s) noexcept {
 Канонічний шаблон захисту: **зберегти `errno` в локальну змінну першим рядком обробника збою**:
 
 :::tabs
-```c
-int fd = open(filename, O_RDONLY);
-if (fd == -1) {
-    int saved_errno = errno; /* Зберегли початкову причину */
-
-    /* Прибирання за собою: закриваємо тимчасові файли, якщо вони були */
-    if (temp_fd != -1) {
-        close(temp_fd); /* Цей виклик може перезаписати errno, але нам байдуже */
-    }
-
-    /* Логуємо саме збережений код */
-    fprintf(stderr, "Failed to open %s: %s\n", filename, strerror(saved_errno));
-    return -1;
-}
-```
-```cpp
-int fd = ::open(filename, O_RDONLY);
-if (fd == -1) {
-    int saved_errno = errno; // Фіксуємо початковий стан
-
-    if (temp_fd != -1) {
-        ::close(temp_fd); // Не боїмося перезапису errno
-    }
-
-    // Працюємо виключно зі збереженим кодом
-    log_error("Failed to open", filename, saved_errno);
-    return -1;
-}
-```
+:::code errno-d/c/pravylo-3-zberezhennia.c
+:::code errno-d/cpp/pravylo-3-zberezhennia.cpp
 :::
 
 Особливо суворо це правило діє в обробниках сигналів (англ. *signal handlers*): якщо обробник сигналу викликає будь-яку функцію, що може змінити `errno` (наприклад, асинхронно-безпечний запис у журнал через `write(2, msg, len)`), він **зобов'язаний** зберегти `errno` на вході та відновити його перед виходом:
@@ -452,44 +358,8 @@ if (fd == -1) {
 Портативний спосіб безпечного форматування, що працює в будь-якому оточенні:
 
 :::tabs
-```c
-void safe_format_error(int errnum, char *out_buf, size_t buflen) {
-    if (buflen == 0) return;
-    out_buf[0] = '\0';
-
-#if defined(_GNU_SOURCE) && !defined(__APPLE__) && !defined(__FreeBSD__)
-    /* GNU версія повертає вказівник */
-    char *res = strerror_r(errnum, out_buf, buflen);
-    if (res != out_buf) {
-        strncpy(out_buf, res, buflen - 1);
-        out_buf[buflen - 1] = '\0';
-    }
-#else
-    /* POSIX XSI версія повертає int */
-    if (strerror_r(errnum, out_buf, buflen) != 0) {
-        snprintf(out_buf, buflen, "Unknown error %d", errnum);
-    }
-#endif
-}
-```
-```cpp
-#include <cerrno>
-#include <cstring>
-#include <string>
-
-[[nodiscard]] std::string get_error_string(int errnum) {
-    char buf[256];
-#if defined(_GNU_SOURCE) && !defined(__APPLE__) && !defined(__FreeBSD__)
-    char *res = strerror_r(errnum, buf, sizeof(buf));
-    return std::string(res);
-#else
-    if (strerror_r(errnum, buf, sizeof(buf)) == 0) {
-        return std::string(buf);
-    }
-    return "Unknown error " + std::to_string(errnum);
-#endif
-}
-```
+:::code errno-d/c/versiia-2-gnu-spetsyfichna.c
+:::code errno-d/cpp/versiia-2-gnu-spetsyfichna.cpp
 :::
 
 ### 4. `strerror_l()` та об'єкти локалей POSIX.1-2008

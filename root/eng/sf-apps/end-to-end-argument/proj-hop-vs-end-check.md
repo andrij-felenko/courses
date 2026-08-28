@@ -20,37 +20,7 @@
 
 Беремо не вигадану суму, а ту, що працює в TCP, UDP та IP, — інтернет-контрольну суму з RFC 1071: додавання шістнадцятибітових слів в оберненому коді, де перенос повертається назад у молодший розряд.
 
-```cpp
-// stand.cpp — збірка: g++ -O2 -std=c++17 stand.cpp -o stand
-#include <cstdint>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <random>
-#include <utility>
-#include <vector>
-
-constexpr size_t PAYLOAD = 1024;                 // байтів даних у кадрі
-
-struct Frame {
-    uint8_t  data[PAYLOAD];
-    uint32_t len;
-    uint16_t sum;                                // ділянкова перевірка їде в кадрі
-};
-
-// Інтернет-контрольна сума (RFC 1071). Байти складаються парами
-// у 16-бітові слова, перенос повертається в молодший розряд.
-uint16_t checksum16(const uint8_t* p, size_t n) {
-    uint32_t s = 0;
-    for (size_t i = 0; i + 1 < n; i += 2)
-        s += (uint32_t(p[i]) << 8) | p[i + 1];
-    if (n & 1)
-        s += uint32_t(p[n - 1]) << 8;       // непарний хвіст — як старший байт
-    while (s >> 16)
-        s = (s & 0xFFFF) + (s >> 16);       // згортаємо перенос
-    return uint16_t(~s);
-}
-```
+:::code proj-hop-vs-end-check/cpp/stand.cpp
 
 Реалізацію варто відразу перевірити на прикладі з самого RFC: послідовність `00 01 f2 03 f4 f5 f6 f7` дає суму `ddf2`, тобто контрольну суму `220d`. Рядок `if (checksum16(vec, 8) != 0x220d) return 2;` на початку `main` рятує від годин полювання на «дивні» результати стенда, причина яких насправді в самій сумі.
 
@@ -76,18 +46,7 @@ wᵢ ≠ wⱼ  (різна парність)     →  |Δ| = 255·|bⱼ − bᵢ
 
 На кінцях потрібна функція з протилежною властивістю — чутлива до порядку й до кожного біта. Щоб стенд не тягнув залежностей, беремо FNV-1a на 64 біти: чотири рядки, кожен байт множить стан на просте число.
 
-```cpp
-// Наскрізна перевірка: геш потоку, який ведуть тільки два кінці.
-struct Fnv1a {
-    uint64_t h = 0xcbf29ce484222325ull;          // початковий стан FNV-1a 64
-    void feed(const uint8_t* p, size_t n) {
-        for (size_t i = 0; i < n; ++i) {
-            h ^= p[i];
-            h *= 0x100000001b3ull;               // просте число FNV
-        }
-    }
-};
-```
+:::code proj-hop-vs-end-check/cpp/naskrizna-perevirka-hesh.cpp
 
 Множення на кожному кроці й робить геш чутливим до порядку: переставлені байти дають інший стан, бо потрапляють у різну кількість наступних множень. Для стенда цього досить — випадкове псування він ловить із запасом. Для бойової системи ні: FNV не тримає удару супротивника, який **добирає** дані під потрібний геш, тож там на кінцях стоїть криптографічний геш ([криптографічний геш](root:sf-security/cryptographic-hash)). Різниця саме в цьому, а не в довжині значення.
 
@@ -95,41 +54,7 @@ struct Fnv1a {
 
 Ось увесь шлях кадру одним шматком. Найважливіше в ньому — три рядки поспіль усередині ретранслятора: перевірка вхідної суми, копіювання, обчислення вихідної суми. Псування стоїть між першим і третім.
 
-```cpp
-// Один прохід кадру через увесь ланцюг.
-// true  — ділянкова перевірка підняла тривогу, кадр піде наново;
-// false — кадр прийнято (можливо, зіпсованим).
-bool carry(Bench& b, const uint8_t* src, size_t n, uint8_t* dst) {
-    b.dirty = 0;
-
-    Frame f{};                                   // ── відправник
-    std::memcpy(f.data, src, n);
-    f.len = uint32_t(n);
-    f.sum = checksum16(f.data, n);               // сума народжується ТУТ
-
-    b.corrupt(b.wireA, f.data, n);               // ── дріт A → R
-
-    if (checksum16(f.data, f.len) != f.sum) {    // ── ретранслятор: перевірка ділянки
-        b.caught_hop += b.dirty;
-        return true;
-    }
-    Frame g{};
-    std::memcpy(g.data, f.data, f.len);          // копіювання всередині ретранслятора
-    b.corrupt(b.relay, g.data, f.len);           // ← псування МІЖ перевіркою й сумою
-    g.len = f.len;
-    g.sum = checksum16(g.data, g.len);           // сума рахується З ТОГО, ЩО ВИЙШЛО
-
-    b.corrupt(b.wireB, g.data, g.len);           // ── дріт R → B
-
-    if (checksum16(g.data, g.len) != g.sum) {    // ── отримувач: перевірка ділянки
-        b.caught_hop += b.dirty;
-        return true;
-    }
-    std::memcpy(dst, g.data, g.len);
-    b.missed_hop += b.dirty;                     // кадр прийнято — і, можливо, дарма
-    return false;
-}
-```
+:::code proj-hop-vs-end-check/cpp/retransliator-shcho.cpp
 
 Зверни увагу на облік. Псування зараховують у `caught_hop`, якщо кадр **відкинуто**, і в `missed_hop`, якщо кадр **прийнято**. Це і є чесне означення «непомічена помилка»: не «сума не збіглася десь колись», а «зіпсовані дані пройшли крізь усі ділянкові перевірки й лягли в буфер отримувача». Кадр, який відкинули, у стенді просто передають наново — інакше два геші розійшлися б через дірку в потоці, а не через псування.
 
@@ -137,82 +62,15 @@ bool carry(Bench& b, const uint8_t* src, size_t n, uint8_t* dst) {
 
 Псування рідкісні: одна подія на мільйон байтів. Кидати монету на кожен байт — це витратити 999 999 кидків намарно. Тому тягнемо одразу **довжину чистого проміжку** — скільки байтів пройде до наступної події. Це геометричний розподіл, той самий, з яким потім будемо звіряти вимір ([геометричний розподіл](root:math-probability/geometric-distribution)):
 
-```cpp
-// Джерело псувань на одній ділянці.
-struct Injector {
-    std::mt19937_64 rng;
-    std::geometric_distribution<long long> gap;   // чистий проміжок у байтах
-    long long countdown;
-
-    Injector(uint64_t seed, double rate) : rng(seed), gap(rate) { countdown = gap(rng); }
-
-    // Пропустити len байтів і скласти зсуви подій, що на них припали.
-    void advance(size_t len, std::vector<size_t>& hits) {
-        hits.clear();
-        size_t pos = 0;
-        while (countdown < (long long)(len - pos)) {
-            pos += (size_t)countdown;
-            hits.push_back(pos);
-            ++pos;                                // байт із подією спожито
-            countdown = gap(rng);
-        }
-        countdown -= (long long)(len - pos);      // решту проміжку несемо в наступний кадр
-    }
-};
-```
+:::code proj-hop-vs-end-check/cpp/inzhektor-heometrychnyi.cpp
 
 Лічильник переживає межі кадрів — тож частота псування прив'язана до байтів у дроті, а не до того, як ми нарізали кадри. Сам стенд тримає три такі джерела й перетворює подію на перестановку:
 
-```cpp
-struct Bench {
-    Injector wireA, relay, wireB;        // три незалежні джерела псування
-    std::mt19937_64 pick;                // вибір другого байта в парі
-    std::vector<size_t> hits;
-
-    uint64_t bytes = 0;                  // корисних байтів доставлено
-    uint64_t caught_hop = 0, missed_hop = 0, resent = 0;
-    size_t   dirty = 0;                  // реальних псувань у поточному кадрі
-
-    Bench(uint64_t seed, double rate)
-        : wireA(seed + 1, rate), relay(seed + 2, rate),
-          wireB(seed + 3, rate), pick(seed + 4) {}
-
-    void corrupt(Injector& src, uint8_t* d, size_t len) {
-        src.advance(len, hits);
-        std::uniform_int_distribution<size_t> pos(0, len - 1);
-        for (size_t i : hits) {
-            size_t j = pos(pick);
-            while (j == i) j = pos(pick);
-            if (d[i] == d[j]) continue;   // байти однакові — зміни не сталося
-            std::swap(d[i], d[j]);
-            ++dirty;
-        }
-    }
-};
-```
+:::code proj-hop-vs-end-check/cpp/inzhektor-heometrychnyi-2.cpp
 
 Головний цикл тримає два геші й ганяє потік:
 
-```cpp
-const double   rate = 1e-6;                       // псувань на байт на КОЖНІЙ ділянці
-const uint64_t size = 64ull << 20;                // 64 МіБ потоку
-
-Bench b(20260802, rate);
-std::mt19937_64 source(1);                        // «файл», який передаємо
-std::vector<uint8_t> in(PAYLOAD), out(PAYLOAD);
-Fnv1a tx, rx;
-
-while (b.bytes < size) {
-    for (size_t i = 0; i < PAYLOAD; ++i) in[i] = uint8_t(source());
-    tx.feed(in.data(), PAYLOAD);                  // кінець A — від того, що читає
-    while (carry(b, in.data(), PAYLOAD, out.data())) ++b.resent;
-    rx.feed(out.data(), PAYLOAD);                 // кінець B — від того, що дійшло
-    b.bytes += PAYLOAD;
-}
-std::printf("зловила ділянка %llu, пройшло далі %llu, геші %s\n",
-            (unsigned long long)b.caught_hop, (unsigned long long)b.missed_hop,
-            tx.h == rx.h ? "збіглися" : "РОЗІЙШЛИСЯ");
-```
+:::code proj-hop-vs-end-check/cpp/inzhektor-heometrychnyi-3.cpp
 
 ## Дві незалежні причини сліпоти
 
@@ -265,51 +123,11 @@ p = 10⁻⁶  →  q = 1.9912·10⁻⁶
 
 Режим виміру — це десять рядків поверх того самого стенда: кожен прогін бере власне зерно, женеться до першого пропуску й друкує пройдені байти.
 
-```cpp
-// Скільки байтів проходить до ПЕРШОГО псування, якого ділянкові
-// перевірки не побачили. Кожен прогін — незалежний потік.
-uint64_t bytes_to_first_miss(uint64_t seed, double rate) {
-    Bench b(seed, rate);
-    std::mt19937_64 source(seed ^ 0x9e3779b97f4a7c15ull);
-    std::vector<uint8_t> in(PAYLOAD), out(PAYLOAD);
-    for (;;) {
-        for (size_t i = 0; i < PAYLOAD; ++i) in[i] = uint8_t(source());
-        while (carry(b, in.data(), PAYLOAD, out.data())) {}
-        b.bytes += PAYLOAD;
-        if (b.missed_hop) return b.bytes;
-    }
-}
-```
+:::code proj-hop-vs-end-check/cpp/skilky-baitiv-do-pershoho.cpp
 
 Прогін і статистику зручно винести в окремий скрипт: стенд у режимі `--runs` друкує по числу на рядок і більше нічого.
 
-```python
-#!/usr/bin/env python3
-"""Проганяє стенд R разів і звіряє вимір з аналітичним очікуванням."""
-import math, statistics, subprocess
-
-RUNS, P, L = 2000, 1e-6, 1024
-
-out = subprocess.run(["./stand", "--runs", str(RUNS), repr(P)],
-                     capture_output=True, text=True, check=True).stdout
-xs = [int(v) for v in out.split()]
-
-mean, sd = statistics.fmean(xs), statistics.stdev(xs)
-se = sd / math.sqrt(len(xs))
-
-p_parity = (L // 2) ** 2 * 2 / (L * (L - 1))     # зсуви різної парності
-p_real = 255 / 256                               # байти в парі різні
-p_miss = 1 / 3 + 2 / 3 * (1 - p_parity)          # ділянкова перевірка сліпа
-q = 3 * P * p_real * p_miss
-
-print(f"прогонів      {len(xs):>12,}")
-print(f"середнє       {mean:>12,.0f}   теорія 1/q = {1 / q:,.0f}")
-print(f"95 % смуга    {mean - 1.96 * se:>12,.0f} .. {mean + 1.96 * se:,.0f}")
-print(f"σ             {sd:>12,.0f}   (у геометричного σ ≈ середнє)")
-print(f"медіана       {statistics.median(xs):>12,.0f}   теорія ln2/q = {math.log(2) / q:,.0f}")
-print(f"найкоротший   {min(xs):>12,}")
-print(f"найдовший     {max(xs):>12,}")
-```
+:::code proj-hop-vs-end-check/py/main.py
 
 ## Крок другий: довести перевірку до пластини
 
@@ -317,76 +135,17 @@ print(f"найдовший     {max(xs):>12,}")
 
 Довести перевірку до кінця — це рахувати геш не з того, що прийняли, а з того, що **прочиталося назад із файла**:
 
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-
-// Записати й дочекатися, поки дані справді підуть на носій.
-bool store(const char* path, const uint8_t* d, size_t n) {
-    int fd = ::open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0) return false;
-    for (size_t off = 0; off < n; ) {
-        ssize_t w = ::write(fd, d + off, n - off);
-        if (w <= 0) { ::close(fd); return false; }
-        off += size_t(w);
-    }
-    bool ok = (::fsync(fd) == 0);       // без цього дані ще в кеші сторінок
-    return (::close(fd) == 0) && ok;
-}
-
-// Геш ІЗ ФАЙЛА, а не з буфера, що лишився в пам'яті.
-uint64_t hash_stored(const char* path) {
-    int fd = ::open(path, O_RDONLY);
-    if (fd < 0) return 0;
-    ::posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED);   // спробувати викинути кеш
-    Fnv1a h;
-    std::vector<uint8_t> buf(1 << 16);
-    for (;;) {
-        ssize_t got = ::read(fd, buf.data(), buf.size());
-        if (got <= 0) break;
-        h.feed(buf.data(), size_t(got));
-    }
-    ::close(fd);
-    return h.h;
-}
-```
+:::code proj-hop-vs-end-check/cpp/krok-druhyi-dovesty.cpp
 
 Тут ховається пастка, через яку «перевірка з диска» часто виявляється перевіркою пам'яті. Читання одразу після запису найімовірніше віддасть ті самі сторінки з кеша, а не з носія, — і геш збіжиться навіть тоді, коли на пластині лежить сміття. `fsync` перед закриттям робить сторінки чистими (брудні сторінки ядро не викидає взагалі), а `POSIX_FADV_DONTNEED` після цього просить їх викинути — але це **порада, а не гарантія**. Надійніше читати через `O_DIRECT` із вирівняним буфером; на macOS те саме роблять через `fcntl(fd, F_NOCACHE, 1)`. Механіку кеша сторінок і того, що насправді обіцяє `fsync`, розібрано окремо: [кеш сторінок, fsync і довговічність запису](root:sys-unix/page-cache-durability).
 
 Тепер сама демонстрація. Псуємо файл уже після того, як мережа сказала «чисто», — переставляємо в ньому пару байтів однакової парності, тобто рівно те, до чого сліпа будь-яка сума:
 
-```cpp
-// Модель тихого псування на носії.
-bool rot(const char* path, off_t a, off_t b) {
-    int fd = ::open(path, O_RDWR);
-    if (fd < 0) return false;
-    uint8_t x = 0, y = 0;
-    ::pread(fd, &x, 1, a);
-    ::pread(fd, &y, 1, b);
-    ::pwrite(fd, &y, 1, a);
-    ::pwrite(fd, &x, 1, b);
-    ::fsync(fd);
-    ::close(fd);
-    return true;
-}
-```
+:::code proj-hop-vs-end-check/cpp/krok-druhyi-dovesty-2.cpp
 
 І дві перевірки поруч — та, що здається наскрізною, і та, що є:
 
-```cpp
-// sink — усе, що отримувач склав із прийнятих кадрів; tx — геш кінця A.
-store("copy.bin", sink.data(), sink.size());
-rot("copy.bin", 4096, 4098);                 // однакова парність — сумі байдуже
-
-Fnv1a from_buffer;
-from_buffer.feed(sink.data(), sink.size());
-const uint64_t from_disk = hash_stored("copy.bin");
-
-std::printf("геш із буфера %016llx  %s\n", (unsigned long long)from_buffer.h,
-            from_buffer.h == tx.h ? "збігся" : "РОЗБІЖНІСТЬ");
-std::printf("геш із файла  %016llx  %s\n", (unsigned long long)from_disk,
-            from_disk == tx.h ? "збігся" : "РОЗБІЖНІСТЬ");
-```
+:::code proj-hop-vs-end-check/cpp/krok-druhyi-dovesty.hpp
 
 Перший рядок каже «збігся». Другий — «розбіжність». Різниця між ними — один аргумент у виклику: гешувати те, що в пам'яті, чи те, що на диску. Цей аргумент і є межею того, за що перевірка відповідає.
 

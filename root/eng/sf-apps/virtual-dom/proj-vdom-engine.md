@@ -6,52 +6,11 @@
 
 Віртуальний вузол (VNode) — це проста структура даних у пам'яті JavaScript. Вона не містить методів чи прихованого стану, що робить її надзвичайно дешевою для створення, клонування та серіалізації.
 
-```ts
-export type VNodeChild = VNode | string | number | null | undefined | boolean;
-
-export interface VNodeProps {
-  key?: string | number;
-  className?: string;
-  style?: Record<string, string>;
-  onClick?: (e: MouseEvent) => void;
-  [key: string]: any;
-}
-
-export interface VNode {
-  tag: string;
-  props: VNodeProps;
-  children: VNodeChild[];
-  key?: string | number;
-  dom?: Node; // Пряме посилання на відповідний створений DOM-вузол
-}
-```
+:::code proj-vdom-engine/ts/1-model-danykh-ta-fabryka.ts
 
 Фабрична функція `h` (скорочення від *hyperscript* — вираз для створення гіпертексту) приймає назву тегу, об'єкт властивостей та довільну кількість дочірніх елементів. Вона автоматично розгортає вкладені масиви та відфільтровує булеві значення й порожні елементи (`null`, `undefined`), що суттєво спрощує використання умовного рендерингу у виразах на кшталт `{isOpen && h('div', null, 'Контент')}`.
 
-```ts
-/**
- * Фабрика віртуальних вузлів
- */
-export function h(
-  tag: string,
-  props: VNodeProps | null,
-  ...children: (VNodeChild | VNodeChild[])[]
-): VNode {
-  const flatChildren = children
-    .flat(Infinity)
-    .filter(
-      (c): c is VNode | string | number =>
-        c !== null && c !== undefined && c !== false && c !== true
-    );
-
-  return {
-    tag,
-    props: props || {},
-    children: flatChildren,
-    key: props?.key,
-  };
-}
-```
+:::code proj-vdom-engine/ts/1-model-danykh-ta-fabryka-2.ts
 
 ## 2. Первинне монтування віртуального вузла в DOM
 
@@ -63,36 +22,7 @@ export function h(
 3. **Збереження зворотного посилання:** посилання на створений DOM-елемент записується в поле `vnode.dom`. Це посилання є критично важливим, оскільки саме воно дозволяє наступним фазам дифінгу оновлювати вузол на місці без повторного пошуку через селектори `querySelector`.
 4. **Рекурсивне монтування дітей:** кожен дочірній елемент монтується та вставляється у батьківський вузол за допомогою `appendChild()`.
 
-```ts
-/**
- * Створення реального DOM-вузла на основі VNode
- */
-export function createElement(vnode: VNodeChild): Node {
-  // 1. Обробка текстових вузлів
-  if (typeof vnode === "string" || typeof vnode === "number") {
-    return document.createTextNode(String(vnode));
-  }
-
-  if (!vnode) {
-    return document.createTextNode("");
-  }
-
-  // 2. Створення HTML-елемента
-  const el = document.createElement(vnode.tag);
-  vnode.dom = el;
-
-  // 3. Застосування початкових властивостей
-  patchProps(el, {}, vnode.props);
-
-  // 4. Рекурсивне монтування дітей
-  for (const child of vnode.children) {
-    const childDom = createElement(child);
-    el.appendChild(childDom);
-  }
-
-  return el;
-}
-```
+:::code proj-vdom-engine/ts/2-pervynne-montuvannia.ts
 
 ## 3. Синхронізація властивостей та обробників подій
 
@@ -100,69 +30,7 @@ export function createElement(vnode: VNodeChild): Node {
 
 Особливу увагу приділено обробникам подій: якщо функція-слухач змінилася, старий обробник обов'язково відв'язується через `removeEventListener`, щоб уникнути витоків пам'яті та повторного виконання застарілих замикань на старий стан.
 
-```ts
-/**
- * Синхронізація властивостей між старим і новим набором
- */
-export function patchProps(
-  el: HTMLElement,
-  oldProps: VNodeProps,
-  newProps: VNodeProps
-): void {
-  // Фаза 1: Видалення властивостей, яких більше немає
-  for (const key of Object.keys(oldProps)) {
-    if (key === "key") continue;
-    if (!(key in newProps)) {
-      if (key.startsWith("on")) {
-        const eventName = key.slice(2).toLowerCase();
-        el.removeEventListener(eventName, oldProps[key]);
-      } else if (key === "className") {
-        el.removeAttribute("class");
-      } else if (key === "style") {
-        el.removeAttribute("style");
-      } else {
-        el.removeAttribute(key);
-      }
-    }
-  }
-
-  // Фаза 2: Додавання та оновлення нових властивостей
-  for (const [key, value] of Object.entries(newProps)) {
-    if (key === "key") continue;
-    const oldValue = oldProps[key];
-    if (oldValue === value) continue;
-
-    if (key.startsWith("on")) {
-      const eventName = key.slice(2).toLowerCase();
-      if (oldValue) el.removeEventListener(eventName, oldValue);
-      if (value) el.addEventListener(eventName, value);
-    } else if (key === "className") {
-      el.className = value || "";
-    } else if (key === "style" && typeof value === "object") {
-      // Очищення видалених CSS-властивостей всередині об'єкта style
-      if (typeof oldValue === "object" && oldValue !== null) {
-        for (const styleKey of Object.keys(oldValue)) {
-          if (!(styleKey in value)) {
-            (el.style as any)[styleKey] = "";
-          }
-        }
-      }
-      Object.assign(el.style, value);
-    } else if (typeof value === "boolean") {
-      // Обробка булевих атрибутів (disabled, checked тощо)
-      if (value) {
-        el.setAttribute(key, "");
-        (el as any)[key] = true;
-      } else {
-        el.removeAttribute(key);
-        (el as any)[key] = false;
-      }
-    } else {
-      el.setAttribute(key, String(value));
-    }
-  }
-}
-```
+:::code proj-vdom-engine/ts/3-synkhronizatsiia.ts
 
 ## 4. Алгоритм узгодження (Diffing & Patching)
 
@@ -175,80 +43,7 @@ export function patchProps(
 4. **Заміна піддерева (Евристика різних тегів):** якщо старий і новий вузли мають різні теги (наприклад, `<div>` замінено на `<section>`), алгоритм не спускається вглиб. Він створює новий DOM-вузол і підміняє старе піддерево через `parent.replaceChild(newDom, oldDom)`.
 5. **Точкове оновлення (Однакові теги):** посилання на реальний DOM-елемент копіюється зі старого VNode у новий (`newVNode.dom = oldVNode.dom`), після чого виконується дифінг властивостей (`patchProps`) та рекурсивне узгодження дітей (`patchChildren`).
 
-```ts
-/**
- * Головна функція узгодження двох вузлів
- */
-export function patch(
-  parent: Node,
-  newVNode: VNodeChild,
-  oldVNode?: VNodeChild,
-  index: number = 0
-): Node | undefined {
-  // 1. Монтування нового елемента
-  if (oldVNode === undefined || oldVNode === null) {
-    const newDom = createElement(newVNode);
-    parent.appendChild(newDom);
-    return newDom;
-  }
-
-  // 2. Демонтаж старого елемента
-  if (newVNode === undefined || newVNode === null) {
-    const oldDom = getDomNode(oldVNode, parent, index);
-    if (oldDom && oldDom.parentNode === parent) {
-      parent.removeChild(oldDom);
-    }
-    return undefined;
-  }
-
-  // 3. Порівняння текстових вузлів
-  if (
-    (typeof oldVNode === "string" || typeof oldVNode === "number") &&
-    (typeof newVNode === "string" || typeof newVNode === "number")
-  ) {
-    const oldDom = getDomNode(oldVNode, parent, index);
-    if (oldVNode !== newVNode && oldDom) {
-      oldDom.nodeValue = String(newVNode);
-    }
-    return oldDom;
-  }
-
-  // 4. Заміна піддерева при зміні типу або тегу
-  if (
-    typeof oldVNode !== typeof newVNode ||
-    (typeof oldVNode === "object" &&
-      typeof newVNode === "object" &&
-      oldVNode.tag !== newVNode.tag)
-  ) {
-    const oldDom = getDomNode(oldVNode, parent, index);
-    const newDom = createElement(newVNode);
-    if (oldDom && oldDom.parentNode === parent) {
-      parent.replaceChild(newDom, oldDom);
-    }
-    return newDom;
-  }
-
-  // 5. Оновлення існуючого елемента однакового типу
-  const oldVNodeObj = oldVNode as VNode;
-  const newVNodeObj = newVNode as VNode;
-  const dom = (newVNodeObj.dom = oldVNodeObj.dom as HTMLElement);
-
-  // Оновлення властивостей
-  patchProps(dom, oldVNodeObj.props, newVNodeObj.props);
-
-  // Рекурсивне узгодження списку дітей
-  patchChildren(dom, oldVNodeObj.children, newVNodeObj.children);
-
-  return dom;
-}
-
-function getDomNode(vnode: VNodeChild, parent: Node, index: number): Node | undefined {
-  if (typeof vnode === "object" && vnode !== null && vnode.dom) {
-    return vnode.dom;
-  }
-  return parent.childNodes[index];
-}
-```
+:::code proj-vdom-engine/ts/4-alhorytm-uzhodzhennia.ts
 
 ## 5. Узгодження списків дітей із підтримкою ключів
 
@@ -262,86 +57,7 @@ function getDomNode(vnode: VNodeChild, parent: Node, index: number): Node | unde
    - Якщо ключа немає у старій карті: це новий елемент, який монтується через `createElement()` та вставляється у потрібну позицію.
 3. **Очищення залишку:** усі вузли, що залишилися в `oldKeyMap` після завершення проходу, видаляються з реального DOM як більше не потрібні.
 
-```ts
-/**
- * Звіряння двох списків дітей
- */
-function patchChildren(
-  parent: HTMLElement,
-  oldChildren: VNodeChild[],
-  newChildren: VNodeChild[]
-): void {
-  const hasKeys = newChildren.some(
-    (c) => typeof c === "object" && c !== null && c.key !== undefined
-  );
-
-  // Простий поіндексний алгоритм для неключованих списків
-  if (!hasKeys) {
-    const commonLength = Math.min(oldChildren.length, newChildren.length);
-    for (let i = 0; i < commonLength; i++) {
-      patch(parent, newChildren[i], oldChildren[i], i);
-    }
-    if (newChildren.length > oldChildren.length) {
-      for (let i = commonLength; i < newChildren.length; i++) {
-        parent.appendChild(createElement(newChildren[i]));
-      }
-    } else if (oldChildren.length > newChildren.length) {
-      for (let i = oldChildren.length - 1; i >= commonLength; i--) {
-        const oldDom = getDomNode(oldChildren[i], parent, i);
-        if (oldDom && oldDom.parentNode === parent) {
-          parent.removeChild(oldDom);
-        }
-      }
-    }
-    return;
-  }
-
-  // Ключоване узгодження через хеш-таблицю
-  const oldKeyMap = new Map<string | number, { vnode: VNode; index: number }>();
-  oldChildren.forEach((child, index) => {
-    if (typeof child === "object" && child !== null && child.key !== undefined) {
-      oldKeyMap.set(child.key, { vnode: child, index });
-    }
-  });
-
-  let lastPlacedIndex = 0;
-
-  for (let i = 0; i < newChildren.length; i++) {
-    const newChild = newChildren[i];
-    if (typeof newChild !== "object" || newChild === null || newChild.key === undefined) {
-      continue;
-    }
-
-    const matched = oldKeyMap.get(newChild.key);
-
-    if (matched) {
-      // Збіг за ключем — оновлюємо вузол
-      patch(parent, newChild, matched.vnode, matched.index);
-      oldKeyMap.delete(newChild.key);
-
-      // Визначаємо, чи потрібно перемістити DOM-вузол
-      if (matched.index < lastPlacedIndex) {
-        const nextSibling = parent.childNodes[i] || null;
-        parent.insertBefore(newChild.dom!, nextSibling);
-      } else {
-        lastPlacedIndex = matched.index;
-      }
-    } else {
-      // Новий елемент — створюємо і вставляємо на поточну позицію
-      const newDom = createElement(newChild);
-      const nextSibling = parent.childNodes[i] || null;
-      parent.insertBefore(newDom, nextSibling);
-    }
-  }
-
-  // Видалення старих вузлів, які не увійшли до нового списку
-  for (const { vnode } of oldKeyMap.values()) {
-    if (vnode.dom && vnode.dom.parentNode === parent) {
-      parent.removeChild(vnode.dom);
-    }
-  }
-}
-```
+:::code proj-vdom-engine/ts/5-uzhodzhennia-spyskiv.ts
 
 ## 6. Пакетування оновлень через мікрозадачі (Batching Queue)
 
@@ -349,33 +65,7 @@ function patchChildren(
 
 Якщо компонент викликає зміну кількох полів стану підряд в одному обробнику події, рендеринг відбудеться рівно один раз у кінці поточного макротаска браузера.
 
-```ts
-type RenderCallback = () => void;
-
-class RenderScheduler {
-  private queue = new Set<RenderCallback>();
-  private isScheduled = false;
-
-  schedule(callback: RenderCallback): void {
-    this.queue.add(callback);
-
-    if (!this.isScheduled) {
-      this.isScheduled = true;
-      queueMicrotask(() => this.flush());
-    }
-  }
-
-  private flush(): void {
-    for (const callback of this.queue) {
-      callback();
-    }
-    this.queue.clear();
-    this.isScheduled = false;
-  }
-}
-
-export const scheduler = new RenderScheduler();
-```
+:::code proj-vdom-engine/ts/6-paketuvannia-onovlen.ts
 
 ## 7. Покрокове простеження узгодження (Tracing Walkthrough)
 
@@ -433,109 +123,6 @@ export const scheduler = new RenderScheduler();
 
 Нижче наведено робочий приклад інтеграції створеного рушія з реактивним компонентом списку завдань:
 
-```ts
-interface TodoItem {
-  id: number;
-  title: string;
-  completed: boolean;
-}
-
-class TodoApp {
-  private state: { todos: TodoItem[]; count: number } = {
-    todos: [
-      { id: 1, title: "Написати VDOM рушій", completed: true },
-      { id: 2, title: "Реалізувати алгоритм узгодження", completed: true },
-      { id: 3, title: "Оптимізувати роботу зі списками через key", completed: false },
-    ],
-    count: 0,
-  };
-
-  private vnode: VNode | null = null;
-  private container: HTMLElement;
-
-  constructor(container: HTMLElement) {
-    this.container = container;
-    this.render();
-  }
-
-  setState(updater: (prev: typeof this.state) => void): void {
-    updater(this.state);
-    scheduler.schedule(() => this.render());
-  }
-
-  private render(): void {
-    const newVNode = h(
-      "div",
-      { className: "todo-app" },
-      h("h1", null, "Список завдань (Оновлень: ", this.state.count, ")"),
-      h(
-        "div",
-        { className: "toolbar", style: { marginBottom: "15px" } },
-        h(
-          "button",
-          {
-            onClick: () => {
-              this.setState((s) => {
-                s.count++;
-                s.todos.reverse(); // Реверс порядку для перевірки key-переміщень
-              });
-            },
-          },
-          "Розвернути список"
-        ),
-        h(
-          "button",
-          {
-            onClick: () => {
-              this.setState((s) => {
-                s.count++;
-                s.todos.unshift({
-                  id: Date.now(),
-                  title: `Нове завдання #${s.todos.length + 1}`,
-                  completed: false,
-                });
-              });
-            },
-          },
-          "Додати на початок"
-        )
-      ),
-      h(
-        "ul",
-        { className: "todo-list" },
-        this.state.todos.map((todo) =>
-          h(
-            "li",
-            {
-              key: todo.id,
-              className: todo.completed ? "completed" : "",
-              style: { padding: "6px 0" },
-            },
-            h("input", {
-              type: "checkbox",
-              checked: todo.completed,
-              onClick: () => {
-                this.setState((s) => {
-                  s.count++;
-                  const item = s.todos.find((t) => t.id === todo.id);
-                  if (item) item.completed = !item.completed;
-                });
-              },
-            }),
-            h("span", { style: { marginLeft: "8px" } }, todo.title)
-          )
-        )
-      )
-    );
-
-    patch(this.container, newVNode, this.vnode);
-    this.vnode = newVNode;
-  }
-}
-
-// Запуск застосунку
-const root = document.getElementById("app")!;
-new TodoApp(root);
-```
+:::code proj-vdom-engine/ts/9-praktychnyi-pryklad.ts
 
 Завдяки збереженню посилання `vnode.dom` та зіставленню за `todo.id`, натискання кнопки «Розвернути список» не викликає повторного створення DOM-вузлів `<li>`: рушій виконує рівно необхідну кількість викликів `insertBefore` для перестановки елементів у новому порядку, зберігаючи внутрішній стан прапорців та активний фокус користувача.

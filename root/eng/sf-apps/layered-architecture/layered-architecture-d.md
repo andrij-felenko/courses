@@ -40,69 +40,8 @@
 Ось як ця розв'язка виглядає в коді. Домен оголошує, чого хоче; інфраструктура це реалізує; шар застосунку зшиває їх, не даючи домену знати про базу:
 
 :::tabs
-```python
-# ── ДОМЕН: правило + обіцянка сховища (жодного слова про SQL) ──
-from dataclasses import dataclass
-from typing import Protocol
-
-@dataclass
-class Order:
-    items: list[tuple[str, int, float]]  # назва, к-сть, ціна
-    def total(self) -> float:            # правило предметної області
-        return sum(qty * price for _, qty, price in self.items)
-
-class OrderRepo(Protocol):               # обіцянка, а не реалізація
-    def save(self, order: Order) -> int: ...
-
-# ── ІНФРАСТРУКТУРА: виконує обіцянку (залежить від домену, не навпаки) ──
-class SqlOrderRepo:
-    def __init__(self, conn): self.conn = conn
-    def save(self, order: Order) -> int:
-        return self.conn.execute("INSERT INTO orders(total) VALUES (?)",
-                                 (order.total(),)).lastrowid
-
-# ── ЗАСТОСУНОК: диригує кроками, дістає repo ззовні ──
-class PlaceOrder:
-    def __init__(self, repo: OrderRepo):  # бачить лише обіцянку
-        self.repo = repo
-    def run(self, order: Order) -> int:
-        if not order.items:
-            raise ValueError("порожнє замовлення")
-        return self.repo.save(order)
-```
-```ts
-// ── ДОМЕН: правило + обіцянка сховища (жодного слова про SQL) ──
-type Item = { name: string; qty: number; price: number };
-
-class Order {
-  constructor(readonly items: Item[]) {}
-  total(): number {                       // правило предметної області
-    return this.items.reduce((s, i) => s + i.qty * i.price, 0);
-  }
-}
-
-interface OrderRepo {                      // обіцянка, а не реалізація
-  save(order: Order): number;
-}
-
-// ── ІНФРАСТРУКТУРА: виконує обіцянку (залежить від домену, не навпаки) ──
-class SqlOrderRepo implements OrderRepo {
-  constructor(private conn: Conn) {}
-  save(order: Order): number {
-    return this.conn.exec(
-      "INSERT INTO orders(total) VALUES (?)", order.total()).lastId;
-  }
-}
-
-// ── ЗАСТОСУНОК: диригує кроками, дістає repo ззовні ──
-class PlaceOrder {
-  constructor(private repo: OrderRepo) {}  // бачить лише обіцянку
-  run(order: Order): number {
-    if (order.items.length === 0) throw new Error("порожнє замовлення");
-    return this.repo.save(order);
-  }
-}
-```
+:::code layered-architecture-d/py/main.py
+:::code layered-architecture-d/ts/index.ts
 :::
 
 Зверни увагу на головне: у `Order` немає ані `import` бази, ані рядка SQL. Правило `total()` можна перевірити тестом без жодної бази — саме тому, що воно на неї не дивиться. Ім'я `SqlOrderRepo` спливає лише **на самому вершечку**, де застосунок збирають докупи (це місце звуть [впровадженням залежностей](root:sf-apps/dependency-injection) — деталь дістають ззовні, а не творять усередині). Той самий поворот стрілки, доведений до цілого класу задач з підмінами бази, тонкощами транзакцій і кількома сховищами, розгорнуто окремою [проєктною вставкою](root:sf-apps/layered-architecture/proj-layered-refactor.md): вона бере заплутаний контролер, де все злиплося, і крок за кроком розтягує його на шари.

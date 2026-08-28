@@ -47,59 +47,8 @@
 Зберемо всі три лінзи в один невеликий інструмент. Основа — припущення як дані: кожне з нижнім кінцем, номіналом, верхнім кінцем і одиницею.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdint.h>
-#include <string.h>
-
-// припущення як дані: нижній кінець, номінал, верхній кінець і одиниця
-typedef struct { const char *name; double lo, nom, hi; const char *unit; } Factor;
-
-enum { DAU, SESSIONS, ACTIONS, REQ, PEAK_FRAC, NF };   // NF — скільки множників
-
-// ── модель: піковий трафік (запитів/с) як добуток припущень ──
-static double peak_rps(const double v[NF]) {
-    double daily = v[DAU] * v[SESSIONS] * v[ACTIONS] * v[REQ];   // запитів на добу
-    return daily * v[PEAK_FRAC] / 3600.0;                        // у пікову секунду
-}
-
-static const Factor FACTORS[NF] = {
-    { "DAU",       180000, 200000, 220000, "корист./добу" },
-    { "sessions",     2.5,    3.0,    3.5, "сеансів/корист." },
-    { "actions",       15,     20,     25, "дій/сеанс" },
-    { "req",            4,      4,      4, "запитів/дію" },
-    { "peak_frac",   0.05,   0.10,   0.30, "частка в пік. годину" },
-};
-#define THRESHOLD 2000.0    // запитів/с — стеля одного сервера
-```
-```python
-import random, bisect
-from dataclasses import dataclass
-
-@dataclass
-class Factor:
-    name: str
-    lo: float          # нижній кінець діапазону
-    nom: float         # найімовірніше (номінал)
-    hi: float          # верхній кінець
-    unit: str = ""
-
-# ── модель: піковий трафік (запитів/с) як добуток припущень ──
-def peak_rps(v):
-    daily = v["DAU"] * v["sessions"] * v["actions"] * v["req"]   # запитів на добу
-    return daily * v["peak_frac"] / 3600.0                        # у пікову секунду
-
-FACTORS = [
-    Factor("DAU",       180_000, 200_000, 220_000, "корист./добу"),
-    Factor("sessions",      2.5,     3.0,     3.5, "сеансів/корист."),
-    Factor("actions",        15,      20,      25, "дій/сеанс"),
-    Factor("req",             4,       4,       4, "запитів/дію"),
-    Factor("peak_frac",    0.05,    0.10,    0.30, "частка в пік. годину"),
-]
-THRESHOLD = 2000.0    # запитів/с — стеля одного сервера
-```
+:::code proj-sensitivity/c/robochyi-kod.c
+:::code proj-sensitivity/py/robochyi-kod.py
 :::
 
 Модель — **чиста функція** від набору значень: та сама `peak_rps` обслуговує всі чотири режими (точку, інтервал, Монте-Карло, торнадо), тож розклад описано один раз і не розсинхронізується між лінзами.
@@ -107,40 +56,8 @@ THRESHOLD = 2000.0    # запитів/с — стеля одного серве
 Перша й друга лінзи — точка й інтервал:
 
 :::tabs
-```c
-// заповнити вектор значень номіналами всіх множників
-static void nominal(double v[NF]) {
-    for (int i = 0; i < NF; i++) v[i] = FACTORS[i].nom;
-}
-
-// ── 1) точкова оцінка: усе на номіналі ──
-static double point(void) {
-    double v[NF]; nominal(v);
-    return peak_rps(v);
-}
-
-// ── 2) інтервал: добуток додатних діапазонів монотонний → досить кінців ──
-static void interval(double *lo, double *hi) {
-    double vlo[NF], vhi[NF];
-    for (int i = 0; i < NF; i++) { vlo[i] = FACTORS[i].lo; vhi[i] = FACTORS[i].hi; }
-    *lo = peak_rps(vlo);   // усі нижні кінці
-    *hi = peak_rps(vhi);   // усі верхні кінці
-}
-```
-```python
-def nominal(factors):
-    return {f.name: f.nom for f in factors}
-
-# ── 1) точкова оцінка: усе на номіналі ──
-def point(factors):
-    return peak_rps(nominal(factors))
-
-# ── 2) інтервал: добуток додатних діапазонів монотонний → досить кінців ──
-def interval(factors):
-    lo = peak_rps({f.name: f.lo for f in factors})   # усі нижні кінці
-    hi = peak_rps({f.name: f.hi for f in factors})   # усі верхні кінці
-    return lo, hi
-```
+:::code proj-sensitivity/c/robochyi-kod-2.c
+:::code proj-sensitivity/py/robochyi-kod-2.py
 :::
 
 Зверніть увагу, чому `interval` бере просто «всі lo» та «всі hi», не перебираючи 2⁵ кутів: коли функція монотонно зростає за кожним входом, найменше значення сидить у куті всіх мінімумів, найбільше — у куті всіх максимумів. Це працює саме тому, що модель — чистий добуток додатних чисел; ця зручність ламається, щойно той самий множник входить у формулу двічі (окрема пастка серед граблів наприкінці).
@@ -148,179 +65,22 @@ def interval(factors):
 Третя лінза — Монте-Карло. Тягнемо кожен множник із трикутного розподілу (він поважає номінал як найімовірніший, а кінці — як межі), багато разів:
 
 :::tabs
-```c
-// відтворюваний ГПВЧ (LCG) — щоб не залежати від системного rand(); seed=0 теж коректний
-static double rng_unit(uint64_t *st) {
-    *st = *st * 6364136223846793005ULL + 1442695040888963407ULL;
-    return (*st >> 11) * (1.0 / 9007199254740992.0);   // 53 біти → [0,1)
-}
-
-// трикутний розподіл: номінал — мода, кінці — межі
-static double triangular(double lo, double nom, double hi, uint64_t *st) {
-    double u = rng_unit(st);
-    double c = (nom - lo) / (hi - lo);
-    if (u < c) return lo + sqrt(u * (hi - lo) * (nom - lo));
-    return hi - sqrt((1.0 - u) * (hi - lo) * (hi - nom));
-}
-
-static double draw(const Factor *f, uint64_t *st) {
-    if (f->lo == f->hi) return f->nom;            // відоме точно → без розкиду
-    return triangular(f->lo, f->nom, f->hi, st);
-}
-
-static int cmp_asc(const void *a, const void *b) {
-    double x = *(const double *)a, y = *(const double *)b;
-    return (x > y) - (x < y);
-}
-
-// ── 3) Монте-Карло: тягнемо кожен множник багато разів і сортуємо ──
-static void monte_carlo(double *out, int n, uint64_t seed) {
-    uint64_t st = seed;                           // фіксований seed → відтворювано
-    for (int k = 0; k < n; k++) {
-        double v[NF];
-        for (int i = 0; i < NF; i++) v[i] = draw(&FACTORS[i], &st);
-        out[k] = peak_rps(v);
-    }
-    qsort(out, n, sizeof *out, cmp_asc);
-}
-
-static double pct(const double *s, int n, double p) {         // p-й перцентиль
-    int i = (int)(p / 100.0 * n);
-    return s[i < n ? i : n - 1];
-}
-
-static double frac_over(const double *s, int n, double thr) { // частка прогонів над порогом
-    int lo = 0, hi = n;                           // перший індекс, де s[i] > thr
-    while (lo < hi) { int m = (lo + hi) / 2; if (s[m] <= thr) lo = m + 1; else hi = m; }
-    return 1.0 - (double)lo / n;
-}
-```
-```python
-# ── 3) Монте-Карло: тягнемо кожен множник із трикутного розподілу ──
-def draw(f, rng):
-    if f.lo == f.hi:                          # відоме точно → без розкиду
-        return f.nom
-    return rng.triangular(f.lo, f.hi, f.nom)  # (low, high, mode)
-
-def monte_carlo(factors, n=100_000, seed=0):
-    rng = random.Random(seed)                 # фіксований seed → відтворювано
-    out = [peak_rps({f.name: draw(f, rng) for f in factors}) for _ in range(n)]
-    out.sort()
-    return out
-
-def pct(sorted_out, p):                       # p-й перцентиль із відсортованого
-    return sorted_out[min(len(sorted_out) - 1, int(p / 100 * len(sorted_out)))]
-
-def frac_over(sorted_out, thr):               # частка прогонів, що перейшли поріг
-    return 1.0 - bisect.bisect_right(sorted_out, thr) / len(sorted_out)
-```
+:::code proj-sensitivity/c/robochyi-kod-3.c
+:::code proj-sensitivity/py/robochyi-kod-3.py
 :::
 
 І торнадо: гойдаємо кожен множник поодинці, тримаючи решту на номіналі, міряємо розмах відповіді й сортуємо:
 
 :::tabs
-```c
-typedef struct { const char *name; double o_lo, o_hi, swing; } Bar;
-
-static int cmp_swing_desc(const void *a, const void *b) {     // спад за розмахом
-    double x = ((const Bar *)a)->swing, y = ((const Bar *)b)->swing;
-    return (x < y) - (x > y);
-}
-
-// ── 4) торнадо: гойдаємо один множник, решту тримаємо на номіналі ──
-static void tornado(Bar bars[NF]) {
-    for (int i = 0; i < NF; i++) {
-        double v[NF]; nominal(v);
-        v[i] = FACTORS[i].lo; double o_lo = peak_rps(v);
-        v[i] = FACTORS[i].hi; double o_hi = peak_rps(v);
-        bars[i] = (Bar){ FACTORS[i].name, o_lo, o_hi, fabs(o_hi - o_lo) };
-    }
-    qsort(bars, NF, sizeof *bars, cmp_swing_desc);   // найдовший розмах згори
-}
-```
-```python
-# ── 4) торнадо: гойдаємо один множник, решту тримаємо на номіналі ──
-def tornado(factors):
-    bars = []
-    for f in factors:
-        v_lo = nominal(factors); v_lo[f.name] = f.lo
-        v_hi = nominal(factors); v_hi[f.name] = f.hi
-        o_lo, o_hi = peak_rps(v_lo), peak_rps(v_hi)
-        bars.append((f.name, o_lo, o_hi, abs(o_hi - o_lo)))
-    bars.sort(key=lambda b: b[3], reverse=True)   # найдовший розмах згори
-    return bars
-```
+:::code proj-sensitivity/c/robochyi-kod-4.c
+:::code proj-sensitivity/py/robochyi-kod-4.py
 :::
 
 Лишилось зібрати звіт, що друкує всі три лінзи разом:
 
 :::tabs
-```c
-int main(void) {
-    double p = point();
-    double lo, hi; interval(&lo, &hi);
-
-    int n = 100000;
-    double *mc = malloc((size_t)n * sizeof *mc);
-    monte_carlo(mc, n, 0);
-
-    printf("поріг (1 сервер):     %.0f запитів/с\n", THRESHOLD);
-    printf("точкова (номінал):    %.0f запитів/с   (запас x%.2f)\n", p, THRESHOLD / p);
-    printf("інтервал (край-край): %.0f .. %.0f запитів/с\n", lo, hi);
-    const char *side = hi <= THRESHOLD ? "весь ЛІВОРУЧ порога"
-                     : lo >= THRESHOLD ? "весь ПРАВОРУЧ порога"
-                     : "НАКРИВАЄ поріг";
-    printf("  -> %s\n\n", side);
-
-    double sum = 0; for (int k = 0; k < n; k++) sum += mc[k];
-    printf("Монте-Карло (n=%d):\n", n);
-    printf("  P50=%.0f  P90=%.0f  P95=%.0f  середнє=%.0f\n",
-           pct(mc, n, 50), pct(mc, n, 90), pct(mc, n, 95), sum / n);
-    printf("  P(перевищить поріг) = %.0f%%\n\n", 100 * frac_over(mc, n, THRESHOLD));
-
-    Bar bars[NF]; tornado(bars);
-    double widest = 0;
-    for (int i = 0; i < NF; i++) if (bars[i].swing > widest) widest = bars[i].swing;
-    if (widest == 0) widest = 1.0;
-    printf("Торнадо (внесок у розкид):\n");
-    for (int i = 0; i < NF; i++) {
-        int len = (int)(bars[i].swing / widest * 36 + 0.5);
-        char bar[37]; memset(bar, '#', (size_t)len); bar[len] = '\0';
-        const char *mark = bars[i].o_lo < THRESHOLD && THRESHOLD < bars[i].o_hi
-                           ? "  <-- накриває поріг" : "";
-        printf("  %-10s %5.0f..%-5.0f |%-36s| Δ=%5.0f%s\n",
-               bars[i].name, bars[i].o_lo, bars[i].o_hi, bar, bars[i].swing, mark);
-    }
-    free(mc);
-    return 0;
-}
-```
-```python
-if __name__ == "__main__":
-    p = point(FACTORS)
-    lo, hi = interval(FACTORS)
-    mc = monte_carlo(FACTORS)
-
-    print(f"поріг (1 сервер):     {THRESHOLD:.0f} запитів/с")
-    print(f"точкова (номінал):    {p:.0f} запитів/с   (запас x{THRESHOLD/p:.2f})")
-    print(f"інтервал (край-край): {lo:.0f} .. {hi:.0f} запитів/с")
-    side = ("весь ЛІВОРУЧ порога" if hi <= THRESHOLD
-            else "весь ПРАВОРУЧ порога" if lo >= THRESHOLD
-            else "НАКРИВАЄ поріг")
-    print(f"  -> {side}\n")
-
-    print("Монте-Карло (n=100000):")
-    print(f"  P50={pct(mc,50):.0f}  P90={pct(mc,90):.0f}  P95={pct(mc,95):.0f}  "
-          f"середнє={sum(mc)/len(mc):.0f}")
-    print(f"  P(перевищить поріг) = {100*frac_over(mc, THRESHOLD):.0f}%\n")
-
-    print("Торнадо (внесок у розкид):")
-    widest = max(b[3] for b in tornado(FACTORS)) or 1.0
-    for name, o_lo, o_hi, sw in tornado(FACTORS):
-        bar = "#" * int(round(sw / widest * 36))
-        mark = "  <-- накриває поріг" if o_lo < THRESHOLD < o_hi else ""
-        print(f"  {name:10s} {o_lo:5.0f}..{o_hi:<5.0f} |{bar:36s}| Δ={sw:5.0f}{mark}")
-```
+:::code proj-sensitivity/c/robochyi-kod-5.c
+:::code proj-sensitivity/py/robochyi-kod-5.py
 :::
 
 Прогін друкує:
