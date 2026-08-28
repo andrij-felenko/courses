@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="870.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="450.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Динамічні навантаження на захват при маневруванні БПЛА</text>
+<rect x="30.0" y="60.0" width="420.0" height="390.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="240.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Просторовий баланс сил на вантажі</text>
+<rect x="160.0" y="110.0" width="30.0" height="70.0" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+<rect x="290.0" y="110.0" width="30.0" height="70.0" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+<rect x="190.0" y="95.0" width="100.0" height="20.0" rx="2" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+<text x="240.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Основа захвату</text>
+<rect x="190.0" y="130.0" width="100.0" height="110.0" rx="4" fill="#e2e8f0" stroke="#334155" stroke-width="1.8"/>
+<circle cx="240.0" cy="185.0" r="6.0" fill="#ef4444" stroke="#991b1b" stroke-width="1.5"/>
+<text x="240.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Центр мас m</text>
+<line x1="140.0" y1="150.0" x2="188.0" y2="150.0" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="148.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">F_grip</text>
+<line x1="340.0" y1="150.0" x2="292.0" y2="150.0" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="332.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">F_grip</text>
+<line x1="190.0" y1="170.0" x2="190.0" y2="130.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="175.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">F_f1</text>
+<line x1="290.0" y1="170.0" x2="290.0" y2="130.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="305.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">F_f2</text>
+<line x1="240.0" y1="185.0" x2="240.0" y2="255.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="250.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">m·g</text>
+<line x1="240.0" y1="185.0" x2="160.0" y2="220.0" stroke="#ea580c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="173.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="middle" font-weight="700">m·a_trans</text>
+<line x1="240.0" y1="185.0" x2="175.0" y2="275.0" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="195.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">F_dyn = m(g + a)</text>
+<path d="M 270,165 A 30 30 0 0 1 270,205" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="305.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">M_iner = I·ε</text>
+<rect x="45.0" y="305.0" width="390.0" height="130.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="240.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">УМОВА НЕПРОСЛИЗАННЯ ВАНТАЖУ:</text>
+<text x="240.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">F_grip ≥ (k_safe · m · √( (g + a_z)² + a_xy² )) / (n_fingers · μ)</text>
+<text x="240.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">M_friction = 2 · μ · F_grip · r_contact ≥ k_safe · M_iner</text>
+<text x="240.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">• a_trans: маневрені перевантаження дрона (до 2–4 g)</text>
+<text x="240.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">• μ: коефіцієнт тертя контакту (гума/метал: 0.5–0.8)</text>
+<text x="240.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">• k_safe: динамічний коефіцієнт запасу (2.0–3.0)</text>
+<rect x="465.0" y="60.0" width="405.0" height="390.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="667.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Вплив пари тертя та динамічного запасу</text>
+<rect x="480.0" y="105.0" width="375.0" height="140.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="667.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">ТИПОВІ КОЕФІЦІЄНТИ ТЕРТЯ СПОКОЮ (μ):</text>
+<text x="500.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Пара контакту (губка — вантаж)</text>
+<text x="835.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="end" font-weight="700">μ (сухий)</text>
+<line x1="495.0" y1="152.0" x2="840.0" y2="152.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="500.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Сталь по сталі (гладка)</text>
+<text x="835.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="end" font-weight="700">0.15 – 0.20</text>
+<text x="500.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Алюміній по алюмінію</text>
+<text x="835.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="end">0.25 – 0.35</text>
+<text x="500.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Поліуретан (TPU 95A) по металу</text>
+<text x="835.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="end" font-weight="700">0.45 – 0.60</text>
+<text x="500.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Силіконова гума (40A) по пластику</text>
+<text x="835.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="end" font-weight="700">0.70 – 0.90</text>
+<text x="500.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Насічка / мікрозубці (Form Closure)</text>
+<text x="835.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="end" font-weight="700">Формовий замок</text>
+<rect x="480.0" y="255.0" width="375.0" height="180.0" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="667.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">ВИМОГИ ДО КОЕФІЦІЄНТА ЗАПАСУ k_safe:</text>
+<text x="500.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">k_safe = 1.5 — Лабораторний стенд (плавний рух)</text>
+<text x="500.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">k_safe = 2.0 — Стандартний дрон при вітрі до 5 м/с</text>
+<text x="500.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="start" font-weight="700">k_safe = 3.0 — Агресивний пілотаж, ривки до 30 м/с²</text>
+<text x="500.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="start">k_safe = 4.0+ — Вологі/забруднені поверхні, лід</text>
+<line x1="495.0" y1="375.0" x2="840.0" y2="375.0" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="667.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">ВИСНОВОК: Гумові накладки знижують</text>
+<text x="667.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">необхідне зусилля мотора у 3–4 рази!</text>
+</svg>

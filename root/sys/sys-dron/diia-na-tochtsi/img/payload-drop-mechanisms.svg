@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Електромеханічні механізми скидання та контури апаратного підтвердження</text>
+<rect x="30.0" y="45.0" width="430.0" height="405.0" rx="8" fill="#fdfefe" stroke="#27ae60" stroke-width="2.0"/>
+<text x="245.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Сервозамок + Давач кінцевого положення</text>
+<rect x="60.0" y="110.0" width="110.0" height="75.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="115.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервопривід</text>
+<text x="115.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(PWM / CAN)</text>
+<line x1="170.0" y1="148.0" x2="260.0" y2="148.0" stroke="#333333" stroke-width="4.0"/>
+<text x="215.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ригель замка</text>
+<circle cx="275.0" cy="148.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="275.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SW</text>
+<text x="275.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Кінцевик відкрито</text>
+<rect x="200.0" y="175.0" width="90.0" height="55.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="245.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вантаж</text>
+<text x="245.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Вушко)</text>
+<line x1="245.0" y1="235.0" x2="245.0" y2="268.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="245.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Гравітаційне скидання</text>
+<text x="45.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. Команда відкриття PWM 1000 мкс -&gt; 2000 мкс</text>
+<text x="45.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. Запуск таймауту контролю руху (300 мс)</text>
+<text x="45.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Контакт кінцевика замикає пін GPIO на GND</text>
+<text x="45.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Підтвердження: статус STATUS_DROPPED</text>
+<text x="45.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. Якщо кінцевик не спрацював -&gt; RETRY / ALARM</text>
+<rect x="500.0" y="45.0" width="430.0" height="405.0" rx="8" fill="#fdfefe" stroke="#c0392b" stroke-width="2.0"/>
+<text x="715.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Соленоїдний скидач + Давач струму шунта</text>
+<rect x="530.0" y="110.0" width="110.0" height="75.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="585.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Котушка</text>
+<text x="585.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Соленоїда</text>
+<line x1="640.0" y1="148.0" x2="710.0" y2="148.0" stroke="#c0392b" stroke-width="5.0"/>
+<text x="675.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Сердечник</text>
+<rect x="730.0" y="120.0" width="80.0" height="40.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="770.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">MOSFET</text>
+<rect x="830.0" y="120.0" width="70.0" height="40.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="865.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шунт R_s</text>
+<rect x="530.0" y="205.0" width="370.0" height="80.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="545.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Профіль струму I(t):</text>
+<line x1="550.0" y1="268.0" x2="590.0" y2="268.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="590.0" y1="268.0" x2="610.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="610.0" y1="230.0" x2="650.0" y2="240.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="650.0" y1="240.0" x2="680.0" y2="226.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="680.0" y1="226.0" x2="690.0" y2="268.0" stroke="#333333" stroke-width="1.5"/>
+<text x="640.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Втягування (ΔI)</text>
+<text x="780.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I_peak: 4..8 А</text>
+<text x="780.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час: 40..80 мс</text>
+<text x="515.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. Короткий імпульс на затвор MOSFET (50 мс)</text>
+<text x="515.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. АЦП вимірює напругу падіння на шунті R_s</text>
+<text x="515.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Відсутність струму -&gt; обрив ланцюга / запобіжник</text>
+<text x="515.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Відсутність провалу індуктивності -&gt; клин сердечника</text>
+<text x="515.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. Захист від перегріву: апаратне обмеження тривалості</text>
+</svg>

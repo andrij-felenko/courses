@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 430" width="860" height="430">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="430.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="820.0" height="100.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="40.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Бортовий комп'ютер (Companion Computer, Linux / ROS 2) — Soft Real-Time (20–50 Гц)</text>
+<rect x="50.0" y="61.3" width="140.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Сенсори одометрії</tspan><tspan x="120.0" dy="14.3">(Stereo, LiDAR, VIO)</tspan></text>
+<line x1="195.0" y1="80.0" x2="235.0" y2="80.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="245.0" y="61.3" width="150.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="320.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">SLAM та навігація</tspan><tspan x="320.0" dy="14.3">(Локалізація карти)</tspan></text>
+<line x1="400.0" y1="80.0" x2="430.0" y2="80.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="442.5" y="61.3" width="165.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="525.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="525.0" dy="0.0">Планувальник шляху</tspan><tspan x="525.0" dy="14.3">(Trajectory Generation)</tspan></text>
+<line x1="610.0" y1="80.0" x2="640.0" y2="80.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="650.0" y="61.3" width="150.0" height="37.3" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="725.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="725.0" dy="0.0">Offboard-вузол</tspan><tspan x="725.0" dy="14.3">(Rate Matcher &amp; WD)</tspan></text>
+<rect x="180.0" y="150.0" width="500.0" height="36.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="430.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">UART (921.6k–3M baud) / Ethernet IP — MAVLink (#84) або Micro-XRCE-DDS</text>
+<line x1="750.0" y1="120.0" x2="750.0" y2="150.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="760.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="start" font-weight="700">Сетпоінти 20–50 Гц</text>
+<line x1="95.0" y1="150.0" x2="95.0" y2="120.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="90.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="end">Стан/Одометрія</text>
+<rect x="20.0" y="205.0" width="820.0" height="205.0" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+<text x="40.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="start" font-weight="700">Польотний контролер (FCU, RTOS NuttX / STM32H7) — Hard Real-Time (100–1000 Гц)</text>
+<rect x="45.0" y="249.3" width="150.0" height="37.3" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="120.0" y="264.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Приймач команд та</tspan><tspan x="120.0" dy="14.3">Watchdog (500 мс)</tspan></text>
+<line x1="120.0" y1="186.0" x2="120.0" y2="245.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="250.0" y="241.3" width="140.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="320.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">Контур позиції</tspan><tspan x="320.0" dy="14.3">(50–100 Гц, PID)</tspan></text>
+<line x1="200.0" y1="260.0" x2="245.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="437.5" y="241.3" width="145.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="510.0" dy="0.0">Контур орієнтації</tspan><tspan x="510.0" dy="14.3">(250–500 Гц, Quat)</tspan></text>
+<line x1="395.0" y1="260.0" x2="430.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="622.5" y="241.3" width="155.0" height="37.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Контур кутових шв.</tspan><tspan x="700.0" dy="14.3">(400–1000 Гц, Rates)</tspan></text>
+<line x1="585.0" y1="260.0" x2="615.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="110.0" y="331.4" width="230.0" height="37.3" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><text x="225.0" y="346.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Оцінка стану (EKF2, 100–250 Гц)</tspan><tspan x="225.0" dy="14.3">IMU + Барометр + GNSS/VIO</tspan></text>
+<line x1="345.0" y1="350.0" x2="430.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="435.0" y="331.4" width="210.0" height="37.3" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><text x="540.0" y="346.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Actuator Allocation &amp; Mixer</tspan><tspan x="540.0" dy="14.3">(DShot 600 / PWM 1–8 кГц)</tspan></text>
+<line x1="650.0" y1="350.0" x2="715.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="717.5" y="333.5" width="85.0" height="33.0" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/><text x="760.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="760.0" dy="0.0">ESC / Мотори</tspan><tspan x="760.0" dy="13.0">(Тяга)</tspan></text>
+<line x1="225.0" y1="320.0" x2="225.0" y2="290.0" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="290.0" x2="590.0" y2="325.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

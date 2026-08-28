@@ -37,6 +37,154 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-stick-override-detection.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-flight-mode-manager.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pilot-induced-oscillations",
+          "title": "Індуковані пілотом коливання (PIO): фазовий зрив, категорії за MIL-STD-1797 та алгоритми захисту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "math": [
+            {
+              "file": "math-mcruer-pilot-model.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "flight-envelope-protection",
+          "title": "Захист польотного конверта: апаратне обмеження кутів, перевантажень та запобігання звалюванню",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "input-shaping-and-rate-models",
+          "title": "Формування відгуку керування: нелінійні криві чутливості та моделі швидкостей (Rate Models)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "proj": [
+            {
+              "file": "proj-setpoint-smoothing.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "vtol-transition-controller",
+          "title": "Автомат переходу VTOL: стани, таймери, захист від просідання та аварійний підхват",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "deep-stall-landing",
+          "title": "Посадка методом глибокого звалювання (Deep Stall): надкритичні кути атаки, парашутування крила та автопілот звалювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thrust-linearization-and-tpa",
+          "title": "Компенсація нелінійності тяги: атенюація підсилення (TPA) та корекція за напругою АКБ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "total-energy-control-system-tecs",
+          "title": "Система керування повною енергією (TECS): узгоджене керування тягою й тангажем літака",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "airspeed-scaling-and-gain-scheduling",
+          "title": "Масштабування авторитету рулів за швидкісним напором: адаптивне підсилення та захист від флатеру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mass-drop-dynamics-and-compensation",
+          "title": "Динаміка скидання маси: стрибок тяги, зміщення центру ваги та алгоритми компенсації автопілота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dynamic-control-reallocation",
+          "title": "Відмовостійкий розподіл керування (FTCA): адаптивна реконфігурація матриці тяги та десатурація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "proj": [
+            {
+              "file": "proj-single-axis-spin-recovery.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "revers-tiahy-3d-polot",
+          "title": "Реверс тяги та 3D-політ: симетричні гвинти, нульовий перехід ESC і двонапрямлене мікшування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "differential-flatness",
+          "title": "Диференціальна плоскість мультироторів: пласкі виходи, алгебраїчне відновлення станів та генерація траєкторій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
           }
         }
@@ -143,6 +291,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "coordinated-turn-and-slip-compensation",
+          "title": "Координований розворот: усунення бокового ковзання, кут крену та компенсація кермом напрямку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -163,6 +321,28 @@
         {
           "slug": "actuator-allocation",
           "title": "Розподіл керування по приводах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pseudoinverse-mixer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-actuator-matrix-allocator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "esc-firmware-architecture",
+          "title": "Архітектура прошивок ESC: від BLHeli до AM32, конфігурація таймінгів і 4-Way Passthrough",
           "basic": {
             "status": "empty"
           },
@@ -205,8 +385,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-corner-geometry.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-s-curve-profile.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-trajectory-generator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vidkhylennia-vid-linii-shliakhu-cross-track",
@@ -215,8 +411,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cross-track-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crosstrack-pipeline.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "utrymannia-kursu-vysoty-i-pozytsii",
@@ -225,8 +433,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-heading-unwrap.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cascaded-autopilot.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "utrymannia-pozytsii-i-povernennia-na-liniiu",
@@ -235,12 +455,56 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-l1-guidance-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-l1-controller.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "viter-i-znos",
           "title": "Вітер і знос: чому апарат летить не туди, куди дивиться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-wind-triangle-solution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wind-estimator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vector-field-guidance-vfg-npfg",
+          "title": "Векторне поле наведення: від VFG до нелінійного NPFG у польотних стеках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stanley-steering-controller-ugv",
+          "title": "Регулятор Стенлі: керування переднім кермом ровера та колісних роботів",
           "basic": {
             "status": "empty"
           },

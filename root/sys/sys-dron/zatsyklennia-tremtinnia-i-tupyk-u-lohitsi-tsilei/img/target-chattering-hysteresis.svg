@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 532" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="532" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тремтіння логіки (Chattering) та фільтрація через гістерезис і Dwell-таймер</text>
+<rect x="40.0" y="55.0" width="395.0" height="415.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="237.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Наївний автомат: один поріг (Тремтіння)</text>
+<line x1="85.0" y1="240.0" x2="415.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="85.0" y1="240.0" x2="85.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Час t</text>
+<text x="75.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Сигнал S(t)</text>
+<line x1="85.0" y1="165.0" x2="405.0" y2="165.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="400.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Поріг S_th</text>
+<line x1="95.0" y1="220.0" x2="125.0" y2="200.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="125.0" y1="200.0" x2="155.0" y2="178.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="155.0" y1="178.0" x2="180.0" y2="153.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="180.0" y1="153.0" x2="200.0" y2="179.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="200.0" y1="179.0" x2="220.0" y2="150.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="220.0" y1="150.0" x2="240.0" y2="177.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="240.0" y1="177.0" x2="260.0" y2="149.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="260.0" y1="149.0" x2="280.0" y2="179.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="280.0" y1="179.0" x2="300.0" y2="155.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="300.0" y1="155.0" x2="325.0" y2="135.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="325.0" y1="135.0" x2="365.0" y2="120.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="365.0" y1="120.0" x2="395.0" y2="115.0" stroke="#475569" stroke-width="2.0"/>
+<rect x="170.0" y="145.0" width="145.0" height="40.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="242.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Шум сенсора ±3σ</text>
+<line x1="85.0" y1="355.0" x2="415.0" y2="355.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="85.0" y1="355.0" x2="85.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="75.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Цільовий стан</text>
+<text x="77.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">1: TRACK</text>
+<text x="77.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-weight="700">0: SEARCH</text>
+<line x1="85.0" y1="355.0" x2="180.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="180.0" y1="355.0" x2="180.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="180.0" y1="300.0" x2="200.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="200.0" y1="300.0" x2="200.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="200.0" y1="355.0" x2="220.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="220.0" y1="355.0" x2="220.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="220.0" y1="300.0" x2="240.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="240.0" y1="300.0" x2="240.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="240.0" y1="355.0" x2="260.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="260.0" y1="355.0" x2="260.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="260.0" y1="300.0" x2="280.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="280.0" y1="300.0" x2="280.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="280.0" y1="355.0" x2="300.0" y2="355.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="300.0" y1="355.0" x2="300.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="300.0" y1="300.0" x2="395.0" y2="300.0" stroke="#c0392b" stroke-width="2.5"/>
+<rect x="55.0" y="395.0" width="365.0" height="60.0" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="237.5" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Патологія: 15..30 перемикань/с (Chattering)</text>
+<text x="237.5" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перегрів сервоприводів підвісу, зрив планера,</text>
+<text x="237.5" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">стрибки струму живлення та розряд АКБ</text>
+<rect x="465.0" y="55.0" width="395.0" height="415.0" rx="8" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="662.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Захищений автомат: Гістерезис + Dwell (Норма)</text>
+<line x1="510.0" y1="240.0" x2="840.0" y2="240.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="240.0" x2="510.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="825.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Час t</text>
+<text x="500.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Сигнал S(t)</text>
+<line x1="510.0" y1="150.0" x2="830.0" y2="150.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="825.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">S_on (верхній)</text>
+<line x1="510.0" y1="185.0" x2="830.0" y2="185.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="825.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">S_off (нижній)</text>
+<rect x="510.0" y="150.0" width="320.0" height="35.0" rx="0" fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.0"/>
+<text x="620.0" y="178.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle" font-weight="700">Петля гістерезису ΔH ≥ 6σ</text>
+<line x1="520.0" y1="220.0" x2="550.0" y2="200.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="550.0" y1="200.0" x2="580.0" y2="178.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="580.0" y1="178.0" x2="605.0" y2="153.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="605.0" y1="153.0" x2="625.0" y2="179.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="625.0" y1="179.0" x2="645.0" y2="150.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="645.0" y1="150.0" x2="665.0" y2="177.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="665.0" y1="177.0" x2="685.0" y2="149.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="685.0" y1="149.0" x2="705.0" y2="179.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="705.0" y1="179.0" x2="725.0" y2="155.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="725.0" y1="155.0" x2="750.0" y2="135.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="750.0" y1="135.0" x2="790.0" y2="120.0" stroke="#475569" stroke-width="2.0"/>
+<line x1="790.0" y1="120.0" x2="820.0" y2="115.0" stroke="#475569" stroke-width="2.0"/>
+<circle cx="750.0" cy="135.0" r="4.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="750.0" y1="135.0" x2="750.0" y2="355.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="758.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Спрацювання S_on</text>
+<line x1="510.0" y1="355.0" x2="840.0" y2="355.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="355.0" x2="510.0" y2="275.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Цільовий стан</text>
+<text x="502.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">1: TRACK</text>
+<text x="502.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end" font-weight="700">0: SEARCH</text>
+<line x1="510.0" y1="355.0" x2="750.0" y2="355.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="750.0" y1="355.0" x2="750.0" y2="300.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="750.0" y1="300.0" x2="820.0" y2="300.0" stroke="#27ae60" stroke-width="2.5"/>
+<rect x="750.0" y="300.0" width="60.0" height="55.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="780.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">T_dwell</text>
+<rect x="480.0" y="395.0" width="365.0" height="60.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="662.5" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: 0 брязкоту, детермінований перехід</text>
+<text x="662.5" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шум у смузі ΔH не змінює стан автопілота,</text>
+<text x="662.5" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Dwell-таймер гарантує f_switch ≤ 1 / T_dwell</text>
+<rect x="40.0" y="480.0" width="820.0" height="32.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.0"/>
+<text x="450.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">Математичний критерій: смуга гістерезису ΔH = S_on − S_off &gt; 6σ_noise запобігає 99.7% хибних перемикань.</text>
+</svg>

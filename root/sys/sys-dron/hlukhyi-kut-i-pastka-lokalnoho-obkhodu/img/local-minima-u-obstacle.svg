@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="143.9" y="9.5" width="592.3" height="33.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="30.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Пастка локального мінімуму в U-подібній перешкоді та механізм зависання</tspan></text>
+<rect x="30.0" y="55.0" width="470.0" height="365.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="265.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторне поле сил всередині увігнутої перешкоди</text>
+<polygon points="100.0,115.0 140.0,115.0 140.0,245.0 390.0,245.0 390.0,115.0 430.0,115.0 430.0,280.0 100.0,280.0" fill="#94a3b8" stroke="#333333" stroke-width="2.0"/>
+<text x="265.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">U-подібна будівля / перешкода</text>
+<circle cx="265.0" cy="335.0" r="9.0" fill="#22c55e" stroke="#15803d" stroke-width="2.0"/>
+<circle cx="265.0" cy="335.0" r="3.5" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="265.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Ціль p_goal</text>
+<circle cx="265.0" cy="175.0" r="8.0" fill="#f97316" stroke="#c2410c" stroke-width="2.0"/>
+<circle cx="265.0" cy="175.0" r="3.0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="265.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c2410c" text-anchor="middle" font-weight="700">Дрон p(t)</text>
+<line x1="265.0" y1="183.0" x2="265.0" y2="230.0" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="300.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">F_att</text>
+<line x1="265.0" y1="167.0" x2="265.0" y2="127.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="293.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">F_rep,дно</text>
+<line x1="273.0" y1="175.0" x2="305.0" y2="175.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="310.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">F_rep,ліва</text>
+<line x1="257.0" y1="175.0" x2="225.0" y2="175.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="220.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">F_rep,права</text>
+<rect x="45.0" y="305.0" width="175.0" height="100.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/><text x="132.5" y="332.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="132.5" dy="0.0">Рівновага сил:</tspan><tspan x="132.5" dy="13.0">F_att + ∑ F_rep = 0</tspan><tspan x="132.5" dy="13.0">∇U(p) = 0, p ≠ p_goal</tspan><tspan x="132.5" dy="13.0">Швидкість v → 0</tspan><tspan x="132.5" dy="13.0">(Зависання у пастці)</tspan></text>
+<rect x="520.0" y="55.0" width="330.0" height="365.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="685.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка граничного циклу (Limit Cycle)</text>
+<rect x="545.0" y="98.0" width="280.0" height="160.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<line x1="575.0" y1="110.0" x2="575.0" y2="235.0" stroke="#333333" stroke-width="3.0"/>
+<line x1="795.0" y1="110.0" x2="795.0" y2="235.0" stroke="#333333" stroke-width="3.0"/>
+<line x1="575.0" y1="235.0" x2="795.0" y2="235.0" stroke="#333333" stroke-width="3.0"/>
+<text x="685.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Дно кишені</text>
+<line x1="685.0" y1="125.0" x2="635.0" y2="155.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="685.0" cy="125.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="635.0" y1="155.0" x2="735.0" y2="185.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="635.0" cy="155.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="735.0" y1="185.0" x2="635.0" y2="205.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="735.0" cy="185.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="635.0" y1="205.0" x2="725.0" y2="215.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="635.0" cy="205.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="725.0" y1="215.0" x2="685.0" y2="175.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="725.0" cy="215.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="685.0" y1="175.0" x2="645.0" y2="145.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="685.0" cy="175.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="645.0" y1="145.0" x2="685.0" y2="125.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,2"/>
+<circle cx="645.0" cy="145.0" r="2.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="685.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Коливальний цикл</text>
+<rect x="535.0" y="275.0" width="300.0" height="130.0" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/><text x="685.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Діагностика пастки на борту:</tspan><tspan x="685.0" dy="13.0">• Інтеграл наближення до цілі:</tspan><tspan x="685.0" dy="13.0">  ∫ v_prog dt &lt; 0.2 м за 3 с</tspan><tspan x="685.0" dy="13.0">• Радіус зміщення: R_disp &lt; 1.0 м</tspan><tspan x="685.0" dy="13.0">• Пройдений шлях: L_path &gt; 4.0 м</tspan><tspan x="685.0" dy="13.0">• Висновок: автопілот у глухому куті</tspan></text>
+</svg>

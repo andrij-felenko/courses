@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="340.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки, валідації та збереження параметрів</text>
+<rect x="30.0" y="55.0" width="160.0" height="100.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="110.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">MAVLink PARAM</text>
+<text x="110.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PARAM_SET packet</text>
+<text x="110.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">param_id: NAV_ACC_RAD</text>
+<text x="110.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">value: 3.5f (float32)</text>
+<line x1="190.0" y1="105.0" x2="230.0" y2="105.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="210.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">raw</text>
+<rect x="230.0" y="45.0" width="220.0" height="120.0" rx="6" fill="#fff8e1" stroke="#d97706" stroke-width="1.6"/>
+<text x="340.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Валідація та Sanity Check</text>
+<text x="340.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Range: min ≤ val ≤ max</text>
+<text x="340.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. State: Disarmed only?</text>
+<text x="340.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3. Semantic: ACC_RAD &lt; LOITER_RAD</text>
+<text x="340.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4. Enum / Bitmask validity</text>
+<line x1="450.0" y1="105.0" x2="490.0" y2="105.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Valid</text>
+<rect x="490.0" y="55.0" width="170.0" height="100.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.6"/>
+<text x="575.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">RAM Кеш Реєстру</text>
+<text x="575.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Thread-Safe Storage</text>
+<text x="575.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Atomic Handle Lookup</text>
+<text x="575.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оновлення за O(1)</text>
+<line x1="575.0" y1="155.0" x2="575.0" y2="205.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="620.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Dirty Flag / Save</text>
+<line x1="660.0" y1="105.0" x2="710.0" y2="105.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="685.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Notify</text>
+<rect x="710.0" y="55.0" width="125.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="772.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контури ТРЧ</text>
+<text x="772.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Navigator</text>
+<text x="772.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Attitude PID</text>
+<text x="772.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Failsafe Engine</text>
+<rect x="230.0" y="205.0" width="500.0" height="115.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="480.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двобуферне енергонезалежне сховище (Flash / FRAM)</text>
+<rect x="250.0" y="240.0" width="215.0" height="65.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="357.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Сектор A (Active, Seq=14)</text>
+<text x="357.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Magic | Ver | Records | CRC32</text>
+<text x="357.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Стан: Перевірено OK ✓</text>
+<rect x="495.0" y="240.0" width="215.0" height="65.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="602.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Сектор B (Standby / Backup)</text>
+<text x="602.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ready for next atomic commit</text>
+<text x="602.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Fallback при збої CRC32</text>
+<line x1="340.0" y1="165.0" x2="340.0" y2="180.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="340.0" y1="180.0" x2="110.0" y2="180.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="110.0" y1="180.0" x2="110.0" y2="155.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="225.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Invalid: NACK / Залишаємо старе</text>
+</svg>

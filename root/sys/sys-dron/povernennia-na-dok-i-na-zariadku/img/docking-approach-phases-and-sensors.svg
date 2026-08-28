@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="450.0" rx="6" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<rect x="30.0" y="40.0" width="780.0" height="95.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="45.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Фаза 1: Грубе наближення (RTK-GNSS / Moving Baseline)</text>
+<text x="45.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Діапазон: 1000 м → 15 м над платформою  |  Точність позиціювання: ±10–20 см</text>
+<text x="45.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Датчики: Дводіапазонний RTK-приймач (L1/L2), трансляція RTCM v3 поправок від базової станції дока</text>
+<circle cx="760.0" cy="85.0" r="22.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="760.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">RTK</text>
+<line x1="420.0" y1="137.0" x2="420.0" y2="152.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="155.0" width="780.0" height="105.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="45.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Фаза 2: Прецизійне візуальне та ІЧ наведення (AprilTag / IR-Beacon)</text>
+<text x="45.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Діапазон: 15 м → 0.5 м  |  Точність розрахунку положення: ±1–2 см, курсу Yaw: ±0.5°</text>
+<text x="45.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Вкладені маркери: Великий тег (висота 15–3 м) + Малий внутрішній тег (висота 3–0.5 м, без насичення)</text>
+<text x="45.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• ІЧ-маяк: Модульована піднесуча 38 кГц для виділення на тлі прямого сонячного засвічення</text>
+<circle cx="760.0" cy="205.0" r="22.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Vision</text>
+<line x1="420.0" y1="262.0" x2="420.0" y2="277.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="280.0" width="780.0" height="85.0" rx="5" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="45.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="700">Фаза 3: Механічне спрямування та фіксація (Mechanical Funnel &amp; Clamps)</text>
+<text x="45.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Діапазон: 0.5 м → торкання  |  Кінцева точність посадки: ±1.0 мм за осями X, Y, Yaw</text>
+<text x="45.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Механізми: Напрямні конуси/воронки, активні сервоприводні штанги позиціювання, затискачі шасі</text>
+<circle cx="760.0" cy="320.0" r="22.0" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="760.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Align</text>
+<line x1="420.0" y1="367.0" x2="420.0" y2="382.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="385.0" width="780.0" height="70.0" rx="5" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="45.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Фаза 4: Електричний контакт та замикання силового контуру</text>
+<text x="45.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Пружні позолочені контакти / концентричні кільця  |  Вимірювання R_контакту (&lt;40 мОм)</text>
+<circle cx="760.0" cy="420.0" r="22.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="760.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Charge</text>
+</svg>

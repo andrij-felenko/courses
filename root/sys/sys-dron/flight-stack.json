@@ -73,6 +73,16 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "micro-xrce-dds-client-agent-bridge",
+          "title": "Micro-XRCE-DDS: міст uORB та ROS 2 для польотного стека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -119,8 +129,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-setpoint-interfaces.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-offboard-node.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "closing-the-loop",
@@ -147,6 +169,26 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "control-multiplexer-topic-router",
+          "title": "Мультиплексор потоків керування: пріоритети, блокування та тайм-аути (Control Mux)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mavros-bridge-and-transforms",
+          "title": "Архітектура MAVROS: міст MAVLink–ROS 2, плагіни та перетворення координат ENU/NED",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -161,8 +203,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sitl-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-6dof-fdm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sitl-bridge.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "sitl-simulation",

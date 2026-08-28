@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр Тіку та обмін даними через Дошку Оголошень</text>
+<rect x="0.0" y="0.0" width="920.0" height="450.0" rx="0" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<rect x="15.0" y="15.0" width="420.0" height="420.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="225.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Конвеєр Тіку Дерева Поведінки (20–50 Гц)</text>
+<rect x="119.8" y="57.5" width="210.4" height="35.0" rx="6" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/><text x="225.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="225.0" dy="0.0">Польотний планувач (20–50 Гц)</tspan><tspan x="225.0" dy="13.0">Тік (Tick) від кореня до листків</tspan></text>
+<line x1="225.0" y1="100.0" x2="225.0" y2="130.0" stroke="#4338ca" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="235.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4338ca" text-anchor="start" font-weight="700">Tick()</text>
+<rect x="148.7" y="133.5" width="152.6" height="33.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="225.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="225.0" dy="0.0">Reactive Fallback (?)</tspan><tspan x="225.0" dy="13.0">Пріоритетна оцінка умов</tspan></text>
+<line x1="225.0" y1="172.0" x2="115.0" y2="210.0" stroke="#64748b" stroke-width="1.5"/>
+<line x1="225.0" y1="172.0" x2="335.0" y2="210.0" stroke="#64748b" stroke-width="1.5"/>
+<rect x="53.6" y="213.8" width="122.9" height="42.4" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.3"/><text x="115.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">Condition Node</tspan><tspan x="115.0" dy="11.7">(dist &lt; 3.0 м?)</tspan><tspan x="115.0" dy="11.7">Повертає: SUCCESS/FAIL</tspan></text>
+<rect x="286.4" y="213.8" width="97.2" height="42.4" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/><text x="335.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Action Node</tspan><tspan x="335.0" dy="11.7">[FlyToWaypoint]</tspan><tspan x="335.0" dy="11.7">Повертає: RUNNING</tspan></text>
+<line x1="115.0" y1="268.0" x2="115.0" y2="310.0" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="115.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">Статус: SUCCESS / FAIL
+(Миттєвий висновок)</text>
+<line x1="335.0" y1="268.0" x2="335.0" y2="310.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="335.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-weight="700">Статус: RUNNING
+(Тривала асинхронна дія)</text>
+<rect x="96.9" y="369.6" width="256.2" height="30.7" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/><text x="225.0" y="382.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">Реактивне переривання (Preemption):</tspan><tspan x="225.0" dy="11.7">Якщо умова змінилась -&gt; виклик Halt() для Action</tspan></text>
+<rect x="460.0" y="15.0" width="445.0" height="420.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="682.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Дошка Оголошень (Blackboard Hub)</text>
+<rect x="571.8" y="59.6" width="220.3" height="30.7" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.3"/><text x="682.0" y="72.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="682.0" dy="0.0">Сенсорний шар (EKF, LiDAR, Батарея, GNSS)</tspan><tspan x="682.0" dy="11.7">Запис телеметрії через атомарні порти</tspan></text>
+<line x1="682.0" y1="100.0" x2="682.0" y2="125.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="692.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Write: Стан дрона</text>
+<rect x="475.0" y="130.0" width="415.0" height="160.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+<rect x="475.0" y="130.0" width="415.0" height="25.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.0"/>
+<text x="682.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">Потокобезпечний K-V простір ключів Blackboard</text>
+<text x="490.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">drone/battery_voltage  : float  = 14.85 V</text>
+<text x="490.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">sensor/lidar_min_dist  : float  = 1.82 m</text>
+<text x="490.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">mission/current_wp_idx : uint16 = 4</text>
+<text x="490.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">nav/target_pos_ned     : vec3   = [120, 45, -30]</text>
+<text x="490.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">cmd/velocity_setpoint  : vec3   = [8.0, 0.0, 0.0]</text>
+<text x="490.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start">status/safety_override : bool   = false</text>
+<line x1="475.0" y1="192.0" x2="190.0" y2="235.0" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="305.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">Read Port (lidar_dist)</text>
+<line x1="475.0" y1="232.0" x2="415.0" y2="235.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-weight="700">Read Target</text>
+<line x1="415.0" y1="252.0" x2="475.0" y2="252.0" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">Write Setpoint</text>
+<line x1="682.0" y1="295.0" x2="682.0" y2="330.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="692.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Read Setpoints</text>
+<rect x="546.2" y="349.6" width="271.6" height="30.7" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.3"/><text x="682.0" y="362.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="682.0" dy="0.0">Контури керування польотом (PX4 / ArduPilot / ROS2)</tspan><tspan x="682.0" dy="11.7">Позиційний PID-регулятор -&gt; Розподіл тяги моторів</tspan></text>
+</svg>

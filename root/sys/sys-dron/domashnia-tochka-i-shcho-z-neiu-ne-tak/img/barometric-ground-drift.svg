@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 925.4 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="925.4" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="168.3" y="11.0" width="523.4" height="34.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="430.0" y="32.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Барометричний дрейф висоти та комплексування з далекоміром</tspan></text>
+<text x="430.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Тепловий розігрів сенсора та синоптичний дрейф зміщують віртуальну лінію 0 м</text>
+<line x1="60.0" y1="350.0" x2="800.0" y2="350.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="120.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Реальна поверхня землі (h = 0 м)</text>
+<line x1="60.0" y1="280.0" x2="800.0" y2="280.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="120.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Хибний рівень 0 м (нагрів корпусу на +25 °C, тиск зріс): дрон роззброюється у повітрі!</text>
+<line x1="60.0" y1="400.0" x2="800.0" y2="400.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="5,4"/>
+<text x="120.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Хибний рівень 0 м (синоптичне падіння тиску на -2 гПа): жорсткий удар об ґрунт без flare</text>
+<line x1="700.0" y1="90.0" x2="700.0" y2="195.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="715.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Маршове зниження: барометр + GNSS</text>
+<circle cx="700.0" cy="215.0" r="6.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="450.0" y1="215.0" x2="760.0" y2="215.0" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="460.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Поріг захоплення далекоміра (LiDAR AGL &lt; 15 м)</text>
+<polygon points="700,221 640,350 760,350" fill="#dcfce7" opacity="0.4" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="625.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">LiDAR AGL</text>
+<line x1="700.0" y1="226.0" x2="700.0" y2="345.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="765.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Точне вирівнювання (Flare)</text>
+<rect x="60.0" y="100.0" width="360.0" height="130.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="240.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура комплексування висоти</text>
+<text x="75.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Ешелон &gt; 20 м: Барометр (динаміка) + GNSS (тренд)</text>
+<text x="75.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">• Зона глісади &lt; 15 м: Активація далекоміра (LiDAR/Радар)</text>
+<text x="75.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Автовиправлення нуля: зсув барометра фіксується</text>
+<text x="75.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Детекція торкання: стрибок сили по осі Z + AGL &lt; 0.1 м</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархічний автомат місії: стани, події та охоронні умови</text>
+<rect x="20.0" y="50.0" width="565.0" height="435.0" rx="10" fill="#f8fafc" stroke="#2457d6" stroke-width="1.6"/>
+<text x="160.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">СУПЕРСТАН: OPERATIONAL</text>
+<circle cx="555.0" cy="72.0" r="12.0" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="555.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">H</text>
+<rect x="35.0" y="95.0" width="140.0" height="42.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/><text x="105.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="105.0" dy="0.0">IDLE</tspan><tspan x="105.0" dy="13.0">(очікування старту)</tspan></text>
+<rect x="35.0" y="185.0" width="140.0" height="48.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/><text x="105.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="105.0" dy="0.0">SEARCH</tspan><tspan x="105.0" dy="13.0">(пошуковий патерн)</tspan></text>
+<rect x="215.0" y="185.0" width="155.0" height="48.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/><text x="292.5" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="292.5" dy="0.0">ACQUIRE</tspan><tspan x="292.5" dy="13.0">(верифікація об'єкта)</tspan></text>
+<rect x="405.0" y="185.0" width="160.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/><text x="485.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">TRACK</tspan><tspan x="485.0" dy="13.0">(перехоплення/супровід)</tspan></text>
+<rect x="405.0" y="305.0" width="160.0" height="48.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/><text x="485.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">ENGAGE</tspan><tspan x="485.0" dy="13.0">(скид / дія на цілі)</tspan></text>
+<rect x="215.0" y="305.0" width="155.0" height="48.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="292.5" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="292.5" dy="0.0">VERIFY</tspan><tspan x="292.5" dy="13.0">(оцінка результату)</tspan></text>
+<circle cx="45.0" cy="116.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="105.0" y1="137.0" x2="105.0" y2="185.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="145.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[EV_START]</text>
+<line x1="175.0" y1="209.0" x2="215.0" y2="209.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="195.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">[CANDIDATE]</text>
+<line x1="370.0" y1="209.0" x2="405.0" y2="209.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="388.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">[CONFIRMED]</text>
+<line x1="240.0" y1="233.0" x2="150.0" y2="233.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="195.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[FALSE_ALARM]</text>
+<line x1="485.0" y1="233.0" x2="485.0" y2="305.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="540.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[IN_RANGE / Armed]</text>
+<line x1="440.0" y1="233.0" x2="140.0" y2="305.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[TARGET_LOST: t &gt; 3s]</text>
+<line x1="405.0" y1="329.0" x2="370.0" y2="329.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="388.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">[DONE]</text>
+<line x1="215.0" y1="329.0" x2="105.0" y2="233.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="140.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">[NEXT_TARGET]</text>
+<rect x="610.0" y="50.0" width="250.0" height="435.0" rx="10" fill="#fef2f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="735.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">СУПЕРСТАН: RECOVERY</text>
+<rect x="635.0" y="120.0" width="200.0" height="46.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/><text x="735.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">RTB (Return to Base)</tspan><tspan x="735.0" dy="13.0">(повернення на висоті)</tspan></text>
+<rect x="635.0" y="220.0" width="200.0" height="46.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="735.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">LOITER_HOME</tspan><tspan x="735.0" dy="13.0">(очікування над базою)</tspan></text>
+<rect x="635.0" y="320.0" width="200.0" height="46.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/><text x="735.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">AUTOLAND</tspan><tspan x="735.0" dy="13.0">(автопосадка з детекцією)</tspan></text>
+<rect x="635.0" y="415.0" width="200.0" height="44.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/><text x="735.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">ABORT / TERMINATION</tspan><tspan x="735.0" dy="13.0">(екстрене припинення)</tspan></text>
+<line x1="735.0" y1="166.0" x2="735.0" y2="220.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="785.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[HOME_REACHED]</text>
+<line x1="735.0" y1="266.0" x2="735.0" y2="320.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="785.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[TIMEOUT / CMD]</text>
+<line x1="585.0" y1="140.0" x2="635.0" y2="140.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[EV_BAT_LOW / Guard]</text>
+<line x1="585.0" y1="425.0" x2="635.0" y2="425.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="610.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">[EV_GEOFENCE_BREACH]</text>
+<rect x="20.0" y="495.0" width="840.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="440.0" y="514.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Групування в суперстани запобігає вибуху кількості переходів: загальні тригери Failsafe обробляються на рівні суперстану.</text>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 610" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="610" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія шарів витіснення (Subsumption) та арбітраж поведінок</text>
+<text x="135.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">СЕНСОРНІ ПОТОКИ</text>
+<text x="440.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">РІВНІ ПОВЕДІНОК (ПРОЦЕСИ)</text>
+<text x="730.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">АРБІТРАЖ І ШИНА ВИТІСНЕННЯ</text>
+<text x="925.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">УСТАВКИ Й АКТУАТОРИ</text>
+<line x1="40.0" y1="72.0" x2="1000.0" y2="72.0" stroke="#e5e7eb" stroke-width="1.2"/>
+<rect x="30.1" y="102.0" width="209.8" height="26.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="135.0" y="118.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Напруга батареї, Watchdog, RC Link</tspan></text>
+<line x1="239.9" y1="115.0" x2="290.0" y2="115.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="290.0" y="81.0" width="300.0" height="68.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="302.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Рівень 4 (Prio 100 — Найвищий)</text>
+<text x="302.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Аварійний захист (Failsafe)</text>
+<text x="302.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Motor fail, Low battery, Loss of link</text>
+<line x1="590.0" y1="115.0" x2="660.0" y2="115.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="190.0" width="200.0" height="26.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="135.0" y="206.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">LIDAR, Радар, ESDF карта, GNSS</tspan></text>
+<line x1="235.0" y1="203.0" x2="290.0" y2="203.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="290.0" y="169.0" width="300.0" height="68.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="302.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="start" font-weight="700">Рівень 3 (Prio 80)</text>
+<text x="302.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Реактивне уникнення (Avoidance)</text>
+<text x="302.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Emergency climb, Geofence breach</text>
+<line x1="590.0" y1="203.0" x2="660.0" y2="203.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="24.4" y="278.0" width="221.2" height="26.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="135.0" y="294.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Локальна сітка зайнятості, Далекомір</tspan></text>
+<line x1="245.6" y1="291.0" x2="290.0" y2="291.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="290.0" y="257.0" width="300.0" height="68.0" rx="5" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="302.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">Рівень 2 (Prio 60)</text>
+<text x="302.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Локальне перепланування (Local Plan)</text>
+<text x="302.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">DWA / TEB обхід, Terrain follow</text>
+<line x1="590.0" y1="291.0" x2="660.0" y2="291.0" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="366.0" width="200.0" height="26.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="135.0" y="382.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">План місії, GNSS траєкторія</tspan></text>
+<line x1="235.0" y1="379.0" x2="290.0" y2="379.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="290.0" y="345.0" width="300.0" height="68.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="302.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Рівень 1 (Prio 40)</text>
+<text x="302.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Місія та навігація (Mission)</text>
+<text x="302.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Waypoint cruise, Survey grid, Orbit</text>
+<line x1="590.0" y1="379.0" x2="660.0" y2="379.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="35.0" y="454.0" width="200.0" height="26.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="135.0" y="470.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">Поточний стан EKF [p, v, q]</tspan></text>
+<line x1="235.0" y1="467.0" x2="290.0" y2="467.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="290.0" y="433.0" width="300.0" height="68.0" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="302.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Рівень 0 (Prio 10 — Базовий)</text>
+<text x="302.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Базове утримання (Loiter / Idle)</text>
+<text x="302.0" y="486.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Position hold, Manual assist</text>
+<line x1="590.0" y1="467.0" x2="660.0" y2="467.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="660.0" y="85.0" width="140.0" height="445.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.8"/>
+<text x="730.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">АРБІТР</text>
+<text x="730.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВИТІСНЕННЯ</text>
+<line x1="675.0" y1="147.0" x2="785.0" y2="147.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="730.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Перевірка пріоритету</text>
+<text x="730.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Виклик halt()</text>
+<text x="730.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Збереження стану</text>
+<line x1="675.0" y1="225.0" x2="785.0" y2="225.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="730.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">БЕЗПОШТОВХОВИЙ</text>
+<text x="730.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">ЗГЛАДЖУВАЧ</text>
+<text x="730.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фільтр стрибків уставки</text>
+<text x="730.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обмеження ривка j_max</text>
+<text x="730.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Неперервність [p, v, a]</text>
+<line x1="675.0" y1="345.0" x2="785.0" y2="345.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="730.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина придушення:</text>
+<text x="730.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Inhibition Bus</text>
+<text x="730.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перехоплення каналів</text>
+<text x="730.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Roll / Pitch / Thrust</text>
+<line x1="800.0" y1="200.0" x2="855.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="380.0" x2="855.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="842.9" y="180.5" width="164.2" height="39.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/><text x="925.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="925.0" dy="0.0">Неперервні уставки</tspan><tspan x="925.0" dy="13.0">[p_sp, v_sp, a_sp, yaw_sp]</tspan></text>
+<rect x="850.0" y="360.5" width="150.0" height="39.0" rx="6" fill="#eef2f7" stroke="#27ae60" stroke-width="1.5"/><text x="925.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="925.0" dy="0.0">Контури кутів і тяги</tspan><tspan x="925.0" dy="13.0">Attitude Rate / Mixer</tspan></text>
+<line x1="925.0" y1="219.5" x2="925.0" y2="360.5" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="160.8" y="551.5" width="718.5" height="27.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="520.0" y="568.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Вищий рівень миттєво перериває нижчий через halt(), але уставки передаються через безпоштовховий фільтр</tspan></text>
+</svg>

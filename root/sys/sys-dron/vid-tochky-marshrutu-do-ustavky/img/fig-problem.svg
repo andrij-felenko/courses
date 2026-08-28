@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -25 770 465" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-25" width="770" height="465" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема прямолінійного прольоту точок та згладжування кута</text>
+<line x1="90.0" y1="360.0" x2="380.0" y2="100.0" stroke="#333333" stroke-width="2.0" stroke-dasharray="6 6"/>
+<line x1="380.0" y1="100.0" x2="670.0" y2="360.0" stroke="#333333" stroke-width="2.0" stroke-dasharray="6 6"/>
+<path d="M 90,360 Q 360,118 420,75 C 470,40 500,130 430,175 C 380,210 440,225 490,255 L 670,360" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4 4"/>
+<path d="M 90,360 L 280,210 Q 380,140 480,210 L 670,360" fill="none" stroke="#27ae60" stroke-width="3.2"/>
+<circle cx="380.0" cy="100.0" r="115.0" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4 4"/>
+<circle cx="90.0" cy="360.0" r="5.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<circle cx="380.0" cy="100.0" r="6.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<circle cx="670.0" cy="360.0" r="5.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="80.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">WP₁ (Старт)</text>
+<text x="380.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">WP₂ (Кут зламу)</text>
+<text x="650.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">WP₃ (Ціль)</text>
+<circle cx="280.0" cy="210.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="480.0" cy="210.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="266.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">Вхід у скруглення</text>
+<text x="494.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Вихід на відрізок</text>
+<text x="465.0" y="37.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-style="italic">R_acc (радіус досягнення)</text>
+<line x1="380.0" y1="100.0" x2="460.0" y2="30.0" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="481.8" y="65.2" width="156.4" height="59.6" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.2"/><text x="560.0" y="84.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Переліт (overshoot):</tspan><tspan x="560.0" dy="14.3">спроба тримати пряму</tspan><tspan x="560.0" dy="14.3">без гальмування</tspan></text>
+<rect x="91.3" y="75.2" width="197.3" height="59.6" rx="6" fill="#f2f9f4" stroke="#27ae60" stroke-width="1.2"/><text x="190.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">Згладжена траєкторія:</tspan><tspan x="190.0" dy="14.3">зрізання кута без зупинки,</tspan><tspan x="190.0" dy="14.3">обмежене прискорення</tspan></text>
+</svg>

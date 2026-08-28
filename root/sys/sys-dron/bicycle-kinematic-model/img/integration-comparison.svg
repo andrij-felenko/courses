@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 488.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="488.8" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння схем чисельного інтегрування кінематики</text>
+<path d="M 257.0 290.9 A 260 260 0 0 1 537.3 188.9" fill="none" stroke="#27ae60" stroke-width="4"/>
+<text x="407.2" y="214.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Істинна дуга (Exact Arc / RK4)</text>
+<line x1="257.0" y1="290.9" x2="439.2" y2="30.7" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,4"/>
+<circle cx="439.2" cy="30.7" r="6.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="453.2" y="42.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Метод Ейлера (1-й порядок)
+дрейф за межі повороту</text>
+<line x1="537.3" y1="188.9" x2="439.2" y2="30.7" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="476.3" y="99.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Помилка O(Δt)</text>
+<circle cx="257.0" cy="290.9" r="7.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="241.0" y="310.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">Стан (x_0, y_0, θ_0)</text>
+<circle cx="537.3" cy="188.9" r="7.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="537.3" y="168.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Точний стан (x_1, y_1, θ_1)</text>
+<rect x="60.2" y="55.4" width="319.5" height="89.3" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="74.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="220.0" dy="0.0">Прямий Ейлер (Forward Euler):</tspan><tspan x="220.0" dy="15.0">x_{k+1} = x_k + v·cos(θ_k)·Δt</tspan><tspan x="220.0" dy="15.0">y_{k+1} = y_k + v·sin(θ_k)·Δt</tspan><tspan x="220.0" dy="15.0">θ_{k+1} = θ_k + ω·Δt</tspan><tspan x="220.0" dy="15.0">Помилка накопичується на кожному кроці кривини</tspan></text>
+<rect x="589.7" y="55.4" width="260.5" height="89.3" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="74.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Інтегратор кругової дуги (Exact Arc):</tspan><tspan x="720.0" dy="15.0">Δθ = ω·Δt,  R = v / ω</tspan><tspan x="720.0" dy="15.0">Δx = R·(sin(θ + Δθ) − sin(θ))</tspan><tspan x="720.0" dy="15.0">Δy = R·(cos(θ) − cos(θ + Δθ))</tspan><tspan x="720.0" dy="15.0">Точний результат для постійних v та δ</tspan></text>
+<rect x="203.5" y="421.2" width="533.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="441.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">При великих кроках дискретизації Δt простий Ейлер 'вистрілює' по дотичній.</tspan><tspan x="470.0" dy="15.6">Інтеграція дугою або метод Рунге-Кутти (RK4) зберігають точність траєкторії</tspan></text>
+</svg>

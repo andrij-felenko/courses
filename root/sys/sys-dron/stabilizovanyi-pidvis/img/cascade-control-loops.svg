@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="310.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія трьох каскадних контурів керування віссю підвісу</text>
+<rect x="30.0" y="50.0" width="230.0" height="175.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="145.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Контур абсолютного кута</text>
+<text x="145.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Частота: 500 – 1000 Гц</text>
+<text x="145.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вхід: Цільовий кут (RC / MAVLink)</text>
+<text x="145.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок: IMU кут + Енкодер</text>
+<text x="145.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вихід: Цільова кутова швидкість ω_des</text>
+<text x="145.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P- або PI-регулятор положення</text>
+<line x1="260.0" y1="137.0" x2="310.0" y2="137.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ω_des</text>
+<rect x="315.0" y="50.0" width="250.0" height="175.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="440.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Контур кутової швидкості</text>
+<text x="440.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Частота: 1000 – 2000 Гц</text>
+<text x="440.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок: Гіроскоп камери ω_meas</text>
+<text x="440.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">PID з Anti-Windup + D-фільтр низьких частот</text>
+<text x="440.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вихід: Цільовий крутний момент / I_q_des</text>
+<text x="440.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Компенсація збурень рами в реальному часі</text>
+<line x1="565.0" y1="137.0" x2="615.0" y2="137.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="590.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_q_des</text>
+<rect x="620.0" y="50.0" width="230.0" height="175.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="735.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Внутрішній FOC / SVPWM</text>
+<text x="735.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Частота: 10 000 – 30 000 Гц</text>
+<text x="735.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок: Енкодер θ_e + Струми</text>
+<text x="735.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Парк, Кларк, генерація 3-фазного SVPWM</text>
+<text x="735.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вихід: Комутація ключів H-мостів</text>
+<text x="735.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прямий вплив на магнітне поле статора</text>
+<rect x="30.0" y="245.0" width="820.0" height="48.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="440.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ієрархія швидкостей: швидкий контур FOC ізолює зовнішні контури від нелінійностей індуктивності мотора,</text>
+<text x="440.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">а контур швидкості пригнічує вібрації до того, як вони спричинять помітне відхилення кута камери</text>
+</svg>

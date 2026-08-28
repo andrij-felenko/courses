@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" width="840" height="360">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="360.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="385.0" height="320.0" rx="8" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/>
+<text x="212.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9f1239" text-anchor="middle" font-weight="700">Керування лише позицією (Position Only)</text>
+<text x="212.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#be123c" text-anchor="middle">Сетпоінт 20 Гц без швидкості -&gt; Ривки PID на 100 Гц</text>
+<line x1="45.0" y1="140.0" x2="380.0" y2="140.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="45.0" y1="80.0" x2="45.0" y2="150.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="40.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">x</text>
+<text x="375.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">t</text>
+<line x1="45.0" y1="135.0" x2="105.0" y2="135.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="105.0" y1="135.0" x2="105.0" y2="115.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="105.0" y1="115.0" x2="175.0" y2="115.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="175.0" y1="115.0" x2="175.0" y2="95.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="175.0" y1="95.0" x2="245.0" y2="95.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="245.0" y1="95.0" x2="245.0" y2="80.0" stroke="#e11d48" stroke-width="2.0"/>
+<line x1="245.0" y1="80.0" x2="320.0" y2="80.0" stroke="#e11d48" stroke-width="2.0"/>
+<circle cx="105.0" cy="115.0" r="4.0" fill="#e11d48" stroke="#9f1239" stroke-width="1.0"/>
+<circle cx="175.0" cy="95.0" r="4.0" fill="#e11d48" stroke="#9f1239" stroke-width="1.0"/>
+<circle cx="245.0" cy="80.0" r="4.0" fill="#e11d48" stroke="#9f1239" stroke-width="1.0"/>
+<text x="212.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9f1239" text-anchor="middle">Дискретні стрибки позиції кожні 50 мс</text>
+<line x1="45.0" y1="250.0" x2="380.0" y2="250.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="45.0" y1="185.0" x2="45.0" y2="260.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="40.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">v, τ</text>
+<line x1="95.0" y1="250.0" x2="105.0" y2="200.0" stroke="#be123c" stroke-width="2.0"/>
+<line x1="105.0" y1="200.0" x2="115.0" y2="250.0" stroke="#be123c" stroke-width="2.0"/>
+<circle cx="105.0" cy="200.0" r="3.0" fill="#be123c" stroke="none" stroke-width="1.5"/>
+<line x1="165.0" y1="250.0" x2="175.0" y2="200.0" stroke="#be123c" stroke-width="2.0"/>
+<line x1="175.0" y1="200.0" x2="185.0" y2="250.0" stroke="#be123c" stroke-width="2.0"/>
+<circle cx="175.0" cy="200.0" r="3.0" fill="#be123c" stroke="none" stroke-width="1.5"/>
+<line x1="235.0" y1="250.0" x2="245.0" y2="200.0" stroke="#be123c" stroke-width="2.0"/>
+<line x1="245.0" y1="200.0" x2="255.0" y2="250.0" stroke="#be123c" stroke-width="2.0"/>
+<circle cx="245.0" cy="200.0" r="3.0" fill="#be123c" stroke="none" stroke-width="1.5"/>
+<text x="212.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9f1239" text-anchor="middle" font-weight="700">Сплески D-терма -&gt; вібрації моторів та перегрів ESC</text>
+<text x="212.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#881337" text-anchor="middle" font-style="italic">Постійне відставання через затримку інтегратора</text>
+<rect x="435.0" y="20.0" width="385.0" height="320.0" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="627.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">Комбінований Feed-Forward (Pos + Vel + Accel)</text>
+<text x="627.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Сетпоінт 20 Гц + вектор швидкості -&gt; Гладка інтеграція</text>
+<line x1="460.0" y1="140.0" x2="795.0" y2="140.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="460.0" y1="80.0" x2="460.0" y2="150.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="455.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">x</text>
+<text x="790.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">t</text>
+<path d="M 460 135 C 520 135, 540 115, 600 105 C 660 95, 700 80, 770 80" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+<circle cx="520.0" cy="125.0" r="4.0" fill="#16a34a" stroke="#14532d" stroke-width="1.0"/>
+<circle cx="600.0" cy="105.0" r="4.0" fill="#16a34a" stroke="#14532d" stroke-width="1.0"/>
+<circle cx="680.0" cy="88.0" r="4.0" fill="#16a34a" stroke="#14532d" stroke-width="1.0"/>
+<text x="627.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">Неперервна екстраполяція між точками 20 Гц</text>
+<line x1="460.0" y1="250.0" x2="795.0" y2="250.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="460.0" y1="185.0" x2="460.0" y2="260.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="455.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">v, τ</text>
+<path d="M 460 250 Q 550 205, 640 215 T 770 250" fill="none" stroke="#15803d" stroke-width="2"/>
+<text x="627.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Пряме введення швидкості (Feed-Forward Gain)</text>
+<text x="627.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-style="italic">Мінімальна помилка стеження, відсутність ударів по моторах</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="740.0" height="410.0" rx="8" fill="#ffffff" stroke="#e1e4e8" stroke-width="1.0"/>
+<rect x="91.3" y="23.0" width="577.4" height="24.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="380.0" y="39.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Архітектура подвійної буферизації (Double Buffering) для заміни хвоста місії</tspan></text>
+<rect x="25.0" y="65.0" width="295.0" height="345.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="172.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік зв'язку (MAVLink Ingestion)</text>
+<rect x="56.8" y="111.3" width="231.4" height="37.3" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/><text x="172.5" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="172.5" dy="0.0">Буфер очікування (Staging Buffer B)</tspan><tspan x="172.5" dy="14.3">(Запис нових точок W_k ... W_M')</tspan></text>
+<rect x="45.0" y="171.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="172.5" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">W_0..W_k-1 (Виконані/Спільні)</text>
+<rect x="45.0" y="207.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="172.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">W_k' (Нова активна точка)</text>
+<rect x="45.0" y="243.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="172.5" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">W_k+1' (Новий обхід перешкоди)</text>
+<rect x="45.0" y="279.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="172.5" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">W_k+2' (Точка злиття з планом)</text>
+<rect x="84.9" y="348.5" width="175.3" height="33.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="172.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="172.5" dy="0.0">Валідація: CRC, межі геозони,</tspan><tspan x="172.5" dy="13.0">висота рельєфу, зв'язність</tspan></text>
+<rect x="339.9" y="197.5" width="80.2" height="35.0" rx="6" fill="#fdf4ff" stroke="#c084fc" stroke-width="1.5"/><text x="380.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">SeqLock /</tspan><tspan x="380.0" dy="13.0">Atomic Swap</tspan></text>
+<line x1="325.0" y1="215.0" x2="332.0" y2="215.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="428.0" y1="215.0" x2="435.0" y2="215.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="440.0" y="65.0" width="295.0" height="345.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="587.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навігаційний контур (50-100 Hz)</text>
+<rect x="465.5" y="111.3" width="244.0" height="37.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="587.5" y="126.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="587.5" dy="0.0">Активний буфер (Active Buffer A)</tspan><tspan x="587.5" dy="14.3">(Виконується автопілотом прямо зараз)</tspan></text>
+<rect x="460.0" y="171.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="587.5" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">W_0..W_k-1 (Пройдені сегменти)</text>
+<rect x="460.0" y="207.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="587.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">W_k (Поточний вектор наведення)</text>
+<rect x="460.0" y="243.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="587.5" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">W_k+1 (Старий запланований шлях)</text>
+<rect x="460.0" y="279.0" width="255.0" height="28.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="587.5" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">W_k+2 (Старий сегмент)</text>
+<rect x="471.4" y="348.5" width="232.3" height="33.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="587.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="587.5" dy="0.0">Атомарне читання без блокування:</tspan><tspan x="587.5" dy="13.0">нульова затримка в контурі стабілізації</tspan></text>
+</svg>

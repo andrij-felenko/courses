@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просідання напруги під струмом та оцінка ЕРС (Open-Circuit Voltage)</text>
+<rect x="50.0" y="65.0" width="390.0" height="365.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="245.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еквівалентна схема комірки під навантаженням</text>
+<line x1="90.0" y1="145.0" x2="170.0" y2="145.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="170.0" y1="125.0" x2="170.0" y2="165.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="182.0" y1="133.0" x2="182.0" y2="157.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="176.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЕРС (U_ocv)</text>
+<line x1="182.0" y1="145.0" x2="240.0" y2="145.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="240.0" y="133.0" width="55.0" height="24.0" rx="3" fill="#fff" stroke="#333333" stroke-width="2.0"/>
+<text x="267.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_int</text>
+<text x="267.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Внутрішній опір</text>
+<line x1="295.0" y1="145.0" x2="390.0" y2="145.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="360.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Струм I (А)</text>
+<circle cx="390.0" cy="145.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<circle cx="390.0" cy="220.0" r="4.0" fill="#2457d6" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="220.0" x2="390.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="90.0" y1="145.0" x2="90.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<text x="245.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">U_measured = U_ocv − I · R_internal</text>
+<text x="245.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">U_ocv = U_measured + I · R_internal</text>
+<rect x="65.0" y="315.9" width="360.0" height="88.2" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/><text x="245.0" y="335.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Приклад маневру (6S LiPo, R_int = 10 мОм/банку):</tspan><tspan x="245.0" dy="14.3">• Струм зависання: 20 А  →  просідання 0.20 В/банку</tspan><tspan x="245.0" dy="14.3">• Ривок газу (Punch): 80 А →  просідання 0.80 В/банку</tspan><tspan x="245.0" dy="14.3">• Заряд 60% (3.80 В) при 80 А просідає до 3.00 В!</tspan><tspan x="245.0" dy="14.3">Без компенсації автопілот виконає хибний LAND.</tspan></text>
+<rect x="460.0" y="65.0" width="470.0" height="365.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="695.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка напруги під час маневру повного газу</text>
+<line x1="515.0" y1="295.0" x2="895.0" y2="295.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="515.0" y1="295.0" x2="515.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="875.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (с)</text>
+<text x="490.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">U (В)</text>
+<line x1="515.0" y1="245.0" x2="875.0" y2="245.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="583.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Поріг Land (3.40 В)</text>
+<line x1="515.0" y1="175.0" x2="615.0" y2="179.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="615.0" y1="179.0" x2="735.0" y2="187.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="735.0" y1="187.0" x2="865.0" y2="195.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="805.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оцінена ЕРС U_ocv</text>
+<line x1="515.0" y1="195.0" x2="605.0" y2="197.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="605.0" y1="197.0" x2="625.0" y2="270.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="625.0" y1="270.0" x2="705.0" y2="273.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="705.0" y1="273.0" x2="725.0" y2="209.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="725.0" y1="209.0" x2="865.0" y2="217.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="665.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Сира напруга U_meas</text>
+<rect x="620.0" y="245.0" width="90.0" height="30.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="665.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Хибний збій</text>
+<text x="665.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(без компенсації)</text>
+<text x="565.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Струм моторів:</text>
+<rect x="615.0" y="330.0" width="100.0" height="30.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="665.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Імпульс 80 А (маневр)</text>
+<text x="480.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компенсація напруги запобігає перериванню місії під час динамічних ривків тяги та зустрічного вітру</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Композиція геозон Keep-In (дозволені) та Keep-Out (заборонені) з AABB</text>
+<rect x="70.0" y="70.0" width="560.0" height="360.0" rx="6" fill="none" stroke="#a0aec0" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="220.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#718096" text-anchor="middle" font-weight="700">AABB Bounding Box (O(1) швидка відбраковка)</text>
+<polygon points="100,140 320,90 580,130 600,380 360,410 120,360" fill="#e6fffa" stroke="#27ae60" stroke-width="2.6"/>
+<text x="340.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Зона дозволеного польоту (Keep-In #1)</text>
+<polygon points="170,200 290,180 310,270 190,290" fill="#fff5f5" stroke="#c0392b" stroke-width="2.2"/>
+<text x="240.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Keep-Out (Заборона)</text>
+<text x="240.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Склад / Вежа зв'язку</text>
+<circle cx="460.0" cy="270.0" r="65.0" fill="#fff5f5" stroke="#c0392b" stroke-width="2.2"/>
+<text x="460.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Keep-Out Циліндр</text>
+<text x="460.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">R = 150 м, H = 0..100 м</text>
+<text x="460.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Охоронна зона</text>
+<circle cx="200.0" cy="360.0" r="6.0" fill="#3182ce" stroke="#1a365d" stroke-width="2.0"/>
+<text x="200.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b6cb0" text-anchor="middle" font-weight="700">Дрон (безпечна зона)</text>
+<line x1="200.0" y1="360.0" x2="280.0" y2="340.0" stroke="#3182ce" stroke-width="2.0" stroke-dasharray="5 4"/>
+<line x1="280.0" y1="340.0" x2="380.0" y2="360.0" stroke="#3182ce" stroke-width="2.0" stroke-dasharray="5 4"/>
+<line x1="380.0" y1="360.0" x2="480.0" y2="380.0" stroke="#3182ce" stroke-width="2.0" stroke-dasharray="5 4"/>
+<line x1="380.0" y1="360.0" x2="480.0" y2="380.0" stroke="#3182ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3182ce" text-anchor="middle">Планований маршрут</text>
+<rect x="660.0" y="70.0" width="290.0" height="175.0" rx="6" fill="#f7fafc" stroke="#1a1a1a" stroke-width="1.4"/><text x="805.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">Булева логіка перевірки</tspan><tspan x="805.0" dy="14.3">Положення P валідне тоді і лише тоді, коли:</tspan><tspan x="805.0" dy="14.3"></tspan><tspan x="805.0" dy="14.3">1. P ∈ ⋃ (Keep-In полігони)</tspan><tspan x="805.0" dy="14.3">   (якщо є хоча б одна зона впуску,</tspan><tspan x="805.0" dy="14.3">   апарат мусить бути всередині однієї)</tspan><tspan x="805.0" dy="14.3"></tspan><tspan x="805.0" dy="14.3">2. P ∉ ⋃ (Keep-Out полігони/кола)</tspan><tspan x="805.0" dy="14.3">   (апарат не повинен бути в ЖОДНІЙ</tspan><tspan x="805.0" dy="14.3">   із заборонених зон)</tspan></text>
+<rect x="660.0" y="260.0" width="290.0" height="170.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.4"/><text x="805.0" y="298.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">Дворівнева фільтрація на MCU</tspan><tspan x="805.0" dy="14.3">• Рівень 1: Оцінка AABB (2-4 порівняння).</tspan><tspan x="805.0" dy="14.3">  Якщо точка поза прямокутником межі,</tspan><tspan x="805.0" dy="14.3">  полігон відкидається миттєво (O(1)).</tspan><tspan x="805.0" dy="14.3"></tspan><tspan x="805.0" dy="14.3">• Рівень 2: Точний Ray-Casting (O(N))</tspan><tspan x="805.0" dy="14.3">  викликається лише для зон, AABB яких</tspan><tspan x="805.0" dy="14.3">  містить координати апарата.</tspan></text>
+</svg>

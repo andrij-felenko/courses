@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="410.0" rx="8" fill="#fcfdfe" stroke="#333333" stroke-width="1.2"/>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автокореляція та придушення відбитих сигналів: L1 C/A проти L5</text>
+<rect x="30.0" y="65.0" width="425.0" height="345.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="242.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="middle" font-weight="700">GPS L1 C/A: Чип 1.023 МГц (T_c = 293 м)</text>
+<line x1="60.0" y1="230.0" x2="420.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="242.0" y1="115.0" x2="242.0" y2="235.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="242.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 (Прямий)</text>
+<line x1="95.0" y1="230.0" x2="242.0" y2="125.0" stroke="#2563eb" stroke-width="2.0"/>
+<line x1="242.0" y1="125.0" x2="389.0" y2="230.0" stroke="#2563eb" stroke-width="2.0"/>
+<text x="140.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle">Прямий R(τ)</text>
+<line x1="110.0" y1="230.0" x2="257.0" y2="178.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="257.0" y1="178.0" x2="404.0" y2="230.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="340.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Відбитий (Multipath)</text>
+<circle cx="252.0" cy="120.0" r="5.0" fill="#dc2626" stroke="#333333" stroke-width="1.0"/>
+<line x1="252.0" y1="120.0" x2="252.0" y2="230.0" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="252.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Зсув піка: +12 м!</text>
+<rect x="45.0" y="265.0" width="395.0" height="130.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="55.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Тривалість чипа: T_c = 977.5 нс (293.05 м у просторі)</text>
+<text x="55.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start" font-weight="700">• Зона спотворення корелятора: до 1.5 чипа = 440 метрів!</text>
+<text x="55.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Будь-яке відбиття від будівель, землі чи крила дрона</text>
+<text x="55.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  у радіусі 400 м зсуває нуль дискримінатора стеження,</text>
+<text x="55.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start" font-weight="700">  створюючи псевдодалекомірну похибку від 5 до 30 метрів.</text>
+<text x="55.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Фільтри EKF інтерпретують це як реальний стрибок координат.</text>
+<rect x="485.0" y="65.0" width="425.0" height="345.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="697.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">GPS L5 / E5a: Чип 10.23 МГц (T_c = 29.3 м)</text>
+<line x1="515.0" y1="230.0" x2="875.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="697.0" y1="115.0" x2="697.0" y2="235.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="697.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0 (Прямий)</text>
+<line x1="682.0" y1="230.0" x2="697.0" y2="125.0" stroke="#16a34a" stroke-width="2.0"/>
+<line x1="697.0" y1="125.0" x2="712.0" y2="230.0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="697.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Гострий пік L5</text>
+<line x1="732.0" y1="230.0" x2="747.0" y2="178.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="747.0" y1="178.0" x2="762.0" y2="230.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="790.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Відбиття &gt; 44 м</text>
+<rect x="725.0" y="195.0" width="125.0" height="28.0" rx="3" fill="#dcfce7" stroke="#86efac" stroke-width="1.0"/>
+<text x="799.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Поза вікном раннього/пізнього!</text>
+<rect x="500.0" y="265.0" width="395.0" height="130.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="510.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Тривалість чипа: T_c = 97.75 нс (29.30 м у просторі)</text>
+<text x="510.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">• Зона чутливості до відбиттів: лише до 1.5 чипа = 44 метри!</text>
+<text x="510.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Будь-яке відбиття з затримкою понад 44 м падає поза робочу</text>
+<text x="510.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  зону раннього/пізнього стробів (Early-Late Tracking) і дає</text>
+<text x="510.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">  РІВНО 0 метрів систематичного зсуву кодової дальності.</text>
+<text x="510.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="start">• Максимальна похибка від близьких перевідбиттів обмежена &lt; 1.5–3 м.</text>
+</svg>

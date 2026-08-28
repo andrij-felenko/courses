@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="190.0" y="11.0" width="480.0" height="34.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/><text x="430.0" y="32.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Динамічна домашня точка (Moving Home / Follow-Me RTL)</tspan></text>
+<text x="430.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Екстраполяція швидкості бази та безпека при затримках і втратах телеметрії MAVLink</text>
+<rect x="60.0" y="280.0" width="140.0" height="70.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="130.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Судно / База t = 0</text>
+<text x="130.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Точка зльоту БПЛА</text>
+<line x1="205.0" y1="315.0" x2="595.0" y2="315.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Швидкість судна v_ship = 15 вузлів (~7.7 м/с)</text>
+<rect x="600.0" y="280.0" width="160.0" height="70.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="680.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Позиція бази t = 40 хв</text>
+<text x="680.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Зміщення ΔL = 18.5 км</text>
+<rect x="360.0" y="95.0" width="140.0" height="55.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="430.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">БПЛА на місії</text>
+<text x="430.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спрацював Failsafe / RTL</text>
+<line x1="390.0" y1="155.0" x2="150.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="210.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Хибний статичний RTL:</text>
+<text x="210.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">падіння у відкрите море</text>
+<line x1="470.0" y1="155.0" x2="660.0" y2="275.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Динамічний RTL:</text>
+<text x="610.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">наведення на рухомий док</text>
+<rect x="240.0" y="365.0" width="380.0" height="42.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="430.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MAVLink HOME_POSITION + Kalman/Alpha-Beta фільтр екстраполяції затримки</text>
+<text x="430.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Компенсація латентності каналу зв'язку (0.5–2.0 с) та курсового кута</text>
+</svg>

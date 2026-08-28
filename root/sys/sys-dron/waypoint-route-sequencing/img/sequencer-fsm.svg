@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="740.0" height="300.0" rx="8" fill="#ffffff" stroke="#e1e4e8" stroke-width="1.0"/>
+<rect x="37.8" y="68.2" width="84.4" height="43.6" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/><text x="80.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="80.0" dy="0.0">ST_IDLE</tspan><tspan x="80.0" dy="15.6">Очікування</tspan></text>
+<rect x="197.5" y="68.2" width="104.9" height="43.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="250.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">ST_NAVIGATING</tspan><tspan x="250.0" dy="15.6">Рух до W_k</tspan></text>
+<rect x="390.7" y="68.2" width="118.6" height="43.6" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/><text x="450.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">ST_LOITER_HOLD</tspan><tspan x="450.0" dy="15.6">Затримка t_hold</tspan></text>
+<rect x="590.7" y="68.2" width="118.6" height="43.6" rx="6" fill="#fdf2f8" stroke="#db2777" stroke-width="1.5"/><text x="650.0" y="86.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">ST_EXEC_ACTION</tspan><tspan x="650.0" dy="15.6">Дія (фото/скид)</tspan></text>
+<rect x="366.8" y="208.2" width="166.5" height="43.6" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">ST_ADVANCE_WP</tspan><tspan x="450.0" dy="15.6">seq++ / наступна точка</tspan></text>
+<rect x="80.4" y="208.2" width="139.1" height="43.6" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/><text x="150.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">ST_MISSION_DONE</tspan><tspan x="150.0" dy="15.6">Кінець місії / RTL</tspan></text>
+<line x1="130.0" y1="90.0" x2="185.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="158.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Старт</text>
+<line x1="315.0" y1="90.0" x2="375.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="345.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Досягнуто W_k</text>
+<line x1="525.0" y1="90.0" x2="575.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таймаут</text>
+<line x1="270.0" y1="125.0" x2="375.0" y2="215.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Плавний обліт</text>
+<line x1="650.0" y1="125.0" x2="520.0" y2="215.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Дію виконано</text>
+<line x1="430.0" y1="205.0" x2="275.0" y2="125.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">seq &lt; N</text>
+<line x1="370.0" y1="230.0" x2="235.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="300.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">seq == N</text>
+</svg>

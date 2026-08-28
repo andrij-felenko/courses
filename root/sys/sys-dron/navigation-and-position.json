@@ -17,7 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -27,8 +27,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-iono-free-combination.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "iakist-fiksu",
@@ -37,8 +43,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-dop-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ubx-quality-evaluator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "rtk-na-praktytsi",
@@ -47,12 +65,38 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "antena-gnss-i-ii-mistse-na-bortu",
           "title": "Антена GNSS і її місце на борту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-noise-floor-analyzer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "moving-base-rtk-relative-positioning",
+          "title": "Рухома база RTK: відносне позиціонування та супутниковий компас",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "galileo-osnma",
+          "title": "Криптографічна автентифікація навігаційних повідомлень Galileo OSNMA",
           "basic": {
             "status": "empty"
           },
@@ -73,7 +117,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -83,8 +127,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-residual-parity-vector.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gnss-spoofing-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vyiavlennia-hlushinnia-za-pokaznykamy-pryimacha",
@@ -93,7 +149,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -109,8 +165,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ins-error-propagation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-delayed-fusion-buffer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "mahnitni-spotvorennia-na-bortu",
@@ -119,12 +187,46 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ellipsoid-fit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mag-calibration.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "uwb-dalnist-po-nanosekundakh-dlia-pozytsionuvannia",
           "title": "UWB: дальність по наносекундах для позиціонування в приміщенні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ds-twr-clock-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uwb-driver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "synthetic-airspeed-estimation",
+          "title": "Оцінка повітряної швидкості без трубки Піто: синтетичний вітровий спостерігач та EKF",
           "basic": {
             "status": "empty"
           },

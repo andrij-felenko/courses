@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="870.0" height="430.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="30.0" y="35.0" width="405.0" height="395.0" rx="6" fill="#fff1f2" stroke="#fda4af" stroke-width="1.5"/>
+<text x="232.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#9f1239" text-anchor="middle" font-weight="700">ДЕФЕКТ: Земляна петля (Ground Loop)</text>
+<rect x="50.0" y="85.0" width="100.0" height="60.0" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1.2"/>
+<text x="100.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle" font-weight="700">PDB / Живлення</text>
+<text x="100.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e11d48" text-anchor="middle">Шумна PGND</text>
+<rect x="200.0" y="85.0" width="100.0" height="60.0" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1.2"/>
+<text x="250.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle" font-weight="700">FC (Політний)</text>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">OSD / Відеовхід</text>
+<rect x="315.0" y="205.0" width="100.0" height="60.0" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1.2"/>
+<text x="365.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle" font-weight="700">VTX (Відео)</text>
+<text x="365.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Потужний RF</text>
+<rect x="50.0" y="205.0" width="100.0" height="60.0" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1.2"/>
+<text x="100.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="middle" font-weight="700">Камера</text>
+<text x="100.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Чутливий сенсор</text>
+<line x1="150.0" y1="120.0" x2="200.0" y2="120.0" stroke="#dc2626" stroke-width="2.0"/>
+<text x="175.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">GND 1</text>
+<path d="M 100,145 L 100,180 L 365,180 L 365,205" fill="none" stroke="#dc2626" stroke-width="2"/>
+<text x="230.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">GND 2 (Силовий мінус VTX)</text>
+<line x1="300.0" y1="120.0" x2="365.0" y2="120.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="365.0" y1="120.0" x2="365.0" y2="205.0" stroke="#dc2626" stroke-width="2.0"/>
+<text x="335.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">Video GND</text>
+<line x1="100.0" y1="205.0" x2="100.0" y2="145.0" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3,2"/>
+<line x1="150.0" y1="235.0" x2="200.0" y2="135.0" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3,2"/>
+<rect x="170.0" y="275.0" width="240.0" height="135.0" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1.0"/>
+<text x="290.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">НАСЛІДОК ПЕТЛІ:</text>
+<text x="290.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">• Силовий зворотний струм ESC</text>
+<text x="290.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">  протікає по сигнальному Video GND</text>
+<text x="290.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">• Падіння напруги ΔV = I·R створює</text>
+<text x="290.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">  смуги на відео (Video Noise)</text>
+<text x="290.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">• Ризик збою SPI/I2C шин FC</text>
+<text x="290.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">  через стрибки потенціалу GND</text>
+<rect x="465.0" y="35.0" width="405.0" height="395.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="667.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#14532d" text-anchor="middle" font-weight="700">РІШЕННЯ: Зіркова топологія (Star Ground)</text>
+<circle cx="667.0" cy="210.0" r="18.0" fill="#16a34a" stroke="#14532d" stroke-width="2.0"/>
+<text x="667.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" font-weight="700">★</text>
+<text x="667.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Головна точка зірки (PDB Ground)</text>
+<rect x="485.0" y="90.0" width="95.0" height="55.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="532.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">ESC / Мотори</text>
+<text x="532.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Силова PGND</text>
+<rect x="755.0" y="90.0" width="95.0" height="55.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="802.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">FC (Логіка)</text>
+<text x="802.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle">Чиста DGND</text>
+<rect x="485.0" y="275.0" width="95.0" height="55.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="532.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Камера</text>
+<text x="532.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle">AGND від FC</text>
+<rect x="755.0" y="275.0" width="95.0" height="55.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.2"/>
+<text x="802.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">VTX (Відео)</text>
+<text x="802.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle">Фільтроване</text>
+<line x1="555.0" y1="145.0" x2="652.0" y2="200.0" stroke="#16a34a" stroke-width="2.5"/>
+<text x="585.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">Силовий зворот</text>
+<line x1="775.0" y1="145.0" x2="682.0" y2="200.0" stroke="#16a34a" stroke-width="2.0"/>
+<text x="745.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">Окремий BEC GND</text>
+<line x1="580.0" y1="290.0" x2="755.0" y2="130.0" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="670.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">Відео + AGND (без петлі)</text>
+<line x1="775.0" y1="275.0" x2="682.0" y2="220.0" stroke="#16a34a" stroke-width="2.0"/>
+<rect x="585.0" y="340.0" width="270.0" height="75.0" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.0"/>
+<text x="720.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">ПЕРЕВАГИ ТОПОЛОГІЇ ЗІРКИ:</text>
+<text x="720.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">• Струми моторів не зачіпають аналог</text>
+<text x="720.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">• Стабільний потенціал сенсорів і OSD</text>
+<text x="720.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle">• Відсутність замкнених контурів завад</text>
+</svg>

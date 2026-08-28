@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія навігації: сферична трилатерація (ToF) проти гіперболічної (TDoA)</text>
+<rect x="20.0" y="50.0" width="390.0" height="315.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="215.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трилатерація ToF (TWR: перетин сфер)</text>
+<text x="215.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кожен дрон опитує всі анкери: O(N_tags · N_anchors)</text>
+<circle cx="140.0" cy="180.0" r="75.2" fill="none" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="4,3"/>
+<circle cx="290.0" cy="180.0" r="75.2" fill="none" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="4,3"/>
+<circle cx="215.0" cy="245.0" r="60.0" fill="none" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="4,3"/>
+<line x1="140.0" y1="180.0" x2="215.0" y2="185.0" stroke="#0284c7" stroke-width="1.2"/>
+<line x1="290.0" y1="180.0" x2="215.0" y2="185.0" stroke="#0284c7" stroke-width="1.2"/>
+<line x1="215.0" y1="245.0" x2="215.0" y2="185.0" stroke="#0284c7" stroke-width="1.2"/>
+<rect x="128.0" y="168.0" width="24.0" height="24.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="140.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">A₁</text>
+<rect x="278.0" y="168.0" width="24.0" height="24.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="290.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">A₂</text>
+<rect x="203.0" y="233.0" width="24.0" height="24.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="215.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">A₃</text>
+<circle cx="215.0" cy="185.0" r="6.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="215.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Дрон (Tag)</text>
+<text x="215.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетин кіл: (x − xᵢ)² + (y − yᵢ)² = dᵢ²</text>
+<text x="215.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Обмежена місткість (до 5–15 дронів одночасно)</text>
+<rect x="430.0" y="50.0" width="390.0" height="315.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="625.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гіперболічна навігація (TDoA)</text>
+<text x="625.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Дрон лише блимає (Blink): необмежена кількість дронів</text>
+<polyline points="618.0,115 618.0,119 618.0,123 618.0,127 618.0,131 620.0,135 620.0,139 620.0,143 620.0,147 620.0,151 620.0,155 620.0,159 620.0,163 620.0,167 620.0,171 620.0,175 620.0,179 620.0,183 620.0,187 620.0,191 620.0,195 620.0,199 620.0,203 620.0,207 620.0,211 620.0,215 620.0,219 620.0,223 618.0,227 618.0,231 618.0,235 618.0,239 618.0,243 618.0,247 618.0,251 618.0,255 618.0,259 618.0,263 618.0,267 618.0,271 616.0,275 616.0,279 616.0,283 616.0,287 616.0,291" fill="none" stroke="#d97706" stroke-width="1.8"/>
+<polyline points="690.0,115 686.0,119 682.0,123 678.0,127 674.0,131 670.0,135 666.0,139 660.0,143 656.0,147 652.0,151 648.0,155 644.0,159 640.0,163 636.0,167 632.0,171 628.0,175 624.0,179 620.0,183 616.0,187 614.0,191 610.0,195 606.0,199 602.0,203 600.0,207 596.0,211 594.0,215 590.0,219 588.0,223 584.0,227 582.0,231 580.0,235 576.0,239 574.0,243 572.0,247 570.0,251 568.0,255 566.0,259 564.0,263 562.0,267 560.0,271 558.0,275 556.0,279 554.0,283 552.0,287 550.0,291" fill="none" stroke="#059669" stroke-width="1.8"/>
+<circle cx="620.0" cy="185.0" r="20" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+<circle cx="620.0" cy="185.0" r="40" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+<circle cx="620.0" cy="185.0" r="60" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+<rect x="523.0" y="168.0" width="24.0" height="24.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="535.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">A₁</text>
+<rect x="703.0" y="168.0" width="24.0" height="24.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="715.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">A₂</text>
+<rect x="613.0" y="233.0" width="24.0" height="24.0" rx="4" fill="#dcfce7" stroke="#059669" stroke-width="1.5"/>
+<text x="625.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">A₃</text>
+<circle cx="620.0" cy="185.0" r="6.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="620.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Дрон (Tag Blink)</text>
+<text x="625.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетин гіпербол: dᵢ − dⱼ = c · (tᵢ − tⱼ)</text>
+<text x="625.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Вимагає жорсткої наносекундної синхронізації анкерів</text>
+</svg>

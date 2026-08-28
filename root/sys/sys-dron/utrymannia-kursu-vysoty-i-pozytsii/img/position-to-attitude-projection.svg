@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трансляція похибки позиції NEU у нахили корпусу (Roll &amp; Pitch)</text>
+<rect x="25.0" y="65.0" width="200.0" height="215.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="125.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Позиція (Earth NEU)</text>
+<line x1="40.0" y1="100.0" x2="210.0" y2="100.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="125.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">e_North = r_N,tgt - r_N</text>
+<text x="125.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">e_East  = r_E,tgt - r_E</text>
+<text x="125.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P-контур позиції:</text>
+<text x="125.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">v_N,des = Kp_pos · e_North</text>
+<text x="125.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">v_E,des = Kp_pos · e_East</text>
+<text x="125.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Затиск: ||v_des|| ≤ V_max</text>
+<line x1="230.0" y1="170.0" x2="265.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="270.0" y="65.0" width="195.0" height="215.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="367.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Швидкість (PID)</text>
+<line x1="285.0" y1="100.0" x2="450.0" y2="100.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="367.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">e_vN = v_N,des - v_N,meas</text>
+<text x="367.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">e_vE = v_E,des - v_E,meas</text>
+<text x="367.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PID + інтеграл вітру:</text>
+<text x="367.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_N = PID(e_vN)</text>
+<text x="367.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_E = PID(e_vE)</text>
+<text x="367.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Вектор тяги в площині</text>
+<line x1="470.0" y1="170.0" x2="505.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="510.0" y="65.0" width="185.0" height="215.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="602.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ca8a04" text-anchor="middle" font-weight="700">3. Проекція на курс ψ</text>
+<line x1="525.0" y1="100.0" x2="680.0" y2="100.0" stroke="#fef08a" stroke-width="1.0"/>
+<text x="602.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Поворот на курс ψ:</text>
+<text x="602.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_fwd  = a_N·cos ψ + a_E·sin ψ</text>
+<text x="602.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_rgt  = -a_N·sin ψ + a_E·cos ψ</text>
+<text x="602.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Поздовжня та бічна</text>
+<text x="602.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">сили корпусу</text>
+<line x1="700.0" y1="170.0" x2="735.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="740.0" y="65.0" width="125.0" height="215.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="802.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Кути</text>
+<line x1="750.0" y1="100.0" x2="855.0" y2="100.0" stroke="#fecaca" stroke-width="1.0"/>
+<text x="802.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гравітація g</text>
+<text x="802.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Pitch (тангаж):</text>
+<text x="802.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">θ = atan2(a_fwd, g)</text>
+<text x="802.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Roll (крен):</text>
+<text x="802.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">φ = atan2(a_rgt, g)</text>
+<text x="802.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Затиск: ≤ 35°</text>
+</svg>

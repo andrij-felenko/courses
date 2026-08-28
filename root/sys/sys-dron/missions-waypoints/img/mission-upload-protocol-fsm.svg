@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="420.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="100.0" y="20.0" width="160.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="180.0" y="43.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">GCS (Наземна станція)</text>
+<line x1="180.0" y1="56.0" x2="180.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="600.0" y="20.0" width="160.0" height="36.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="680.0" y="43.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Autopilot (Борт FC)</text>
+<line x1="680.0" y1="56.0" x2="680.0" y2="395.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="90.0" x2="680.0" y2="90.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISSION_COUNT (count=N, type=MISSION)</text>
+<text x="710.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Буфер RAM очищено</text>
+<line x1="680.0" y1="135.0" x2="180.0" y2="135.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MISSION_REQUEST_INT (seq=0)</text>
+<line x1="180.0" y1="180.0" x2="680.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISSION_ITEM_INT (seq=0: TAKEOFF)</text>
+<line x1="680.0" y1="225.0" x2="450.0" y2="225.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="440.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">✗</text>
+<text x="430.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MISSION_REQUEST_INT (seq=1) [ВТРАЧЕНО В ЕФІРІ]</text>
+<rect x="660.0" y="240.0" width="160.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="740.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут 1500 мс → Retry #1</text>
+<line x1="680.0" y1="275.0" x2="180.0" y2="275.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MISSION_REQUEST_INT (seq=1: Повтор)</text>
+<line x1="180.0" y1="320.0" x2="680.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="430.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISSION_ITEM_INT (seq=1: WAYPOINT)</text>
+<rect x="660.0" y="335.0" width="175.0" height="30.0" rx="4" fill="#edf2f7" stroke="#333333" stroke-width="1.0"/>
+<text x="745.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запис у FRAM + CRC Verify</text>
+<line x1="680.0" y1="370.0" x2="180.0" y2="370.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="430.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">MISSION_ACK (type=MAV_MISSION_ACCEPTED = 0)</text>
+</svg>

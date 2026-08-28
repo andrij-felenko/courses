@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="360.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="260.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="150.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. NAV_WAYPOINT (#16)</text>
+<circle cx="50.0" cy="110.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WP0</text>
+<circle cx="150.0" cy="75.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<circle cx="150.0" cy="75.0" r="20.0" fill="none" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="150.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WP1 (R_acc)</text>
+<circle cx="240.0" cy="110.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<text x="240.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">WP2</text>
+<line x1="50.0" y1="110.0" x2="135.0" y2="80.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="165.0" y1="80.0" x2="240.0" y2="110.0" stroke="#333333" stroke-width="1.8"/>
+<text x="150.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пряма ламана, зупинка або зріз кута</text>
+<rect x="300.0" y="20.0" width="260.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. NAV_SPLINE_WAYPOINT (#82)</text>
+<circle cx="330.0" cy="120.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<circle cx="430.0" cy="70.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<circle cx="530.0" cy="120.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<path d="M 330 120 C 370 70, 390 70, 430 70 C 470 70, 490 70, 530 120" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<text x="430.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Cubic Hermite Spline</text>
+<text x="430.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Неперервна швидкість v &gt; 0 без гальмування</text>
+<rect x="580.0" y="20.0" width="260.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="710.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. NAV_LOITER_TIME (#19)</text>
+<circle cx="710.0" cy="90.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<circle cx="710.0" cy="90.0" r="32.0" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,2"/>
+<line x1="742.0" y1="90.0" x2="742.0" y2="98.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="710.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">R_orbit</text>
+<text x="710.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Таймер Hold Time після входу в сферу</text>
+<text x="710.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Або LOITER_TURNS (#18) N обертів</text>
+<rect x="140.0" y="190.0" width="280.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="280.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. NAV_TAKEOFF (#22)</text>
+<line x1="170.0" y1="300.0" x2="390.0" y2="300.0" stroke="#333333" stroke-width="2.0"/>
+<text x="200.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Земля (Alt=0)</text>
+<circle cx="180.0" cy="300.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<line x1="180.0" y1="300.0" x2="350.0" y2="245.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="350.0" cy="245.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<line x1="350.0" y1="245.0" x2="390.0" y2="245.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="370.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Target Alt Z</text>
+<text x="280.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Крива набору висоти до порогу Alt ± dZ</text>
+<rect x="440.0" y="190.0" width="280.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. NAV_LAND (#21)</text>
+<line x1="470.0" y1="300.0" x2="690.0" y2="300.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="480.0" cy="235.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<line x1="480.0" y1="235.0" x2="570.0" y2="275.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="525.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Швидкий спуск</text>
+<line x1="570.0" y1="275.0" x2="630.0" y2="300.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Flare 0.5 м/с</text>
+<circle cx="630.0" cy="300.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Touchdown детектор → Auto Disarm</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="360.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія параметризації автопілота: від констант до поведінки</text>
+<rect x="40.0" y="55.0" width="460.0" height="80.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.0"/>
+<text x="270.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень 3: Поведінкові та місійні параметри (Behavior)</text>
+<text x="270.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">NAV_ACC_RAD, NAV_LOITER_RAD, NAV_CRUISE_SPD, RTL_ALT, OBS_STOP_DIST</text>
+<text x="270.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Зміна: на льоту через MAVLink · Без перезавантаження · Ризик: локальний</text>
+<rect x="40.0" y="145.0" width="460.0" height="85.0" rx="6" fill="#fff8e1" stroke="#d97706" stroke-width="2.0"/>
+<text x="270.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">Рівень 2: Калібрувальні та апаратні параметри (Tuning)</text>
+<text x="270.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">PID коефіцієнти (MC_ROLL_P), офсети сенсорів (ACC_OFF_X), матриця інерції</text>
+<text x="270.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Зміна: на землі / Disarmed · Потребує валідації та перезапуску · Ризик: високий</text>
+<rect x="40.0" y="240.0" width="460.0" height="90.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="270.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Рівень 1: Жорстко зашиті інваріанти безпеки (Hard Limits)</text>
+<text x="270.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">MAX_TILT_ANGLE (60°), ESC_MAX_CURRENT, MIN_GYRO_RATE (1 kHz), NYQUIST_CUTOFF</text>
+<text x="270.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Зміна: ТІЛЬКИ перезбирання прошивки · constexpr / static_assert · Захист від аварії</text>
+<rect x="520.0" y="55.0" width="300.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="670.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доступ: Оператор місії / GCS</text>
+<text x="670.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сховище: Flash / FRAM / RAM кеш</text>
+<text x="670.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Валідація: Range Check + Semantic Rules</text>
+<rect x="520.0" y="145.0" width="300.0" height="85.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="670.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доступ: Інженер з налаштування</text>
+<text x="670.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сховище: Non-Volatile Flash / EEPROM</text>
+<text x="670.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">Валідація: Arming Checks + Hardware Sanity</text>
+<rect x="520.0" y="240.0" width="300.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="670.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Доступ: Архітектор коду (Hardcoded)</text>
+<text x="670.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сховище: ROM / Flash Text Segment (.rodata)</text>
+<text x="670.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Валідація: Compile-time static assertions</text>
+<line x1="500.0" y1="95.0" x2="520.0" y2="95.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="187.0" x2="520.0" y2="187.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="285.0" x2="520.0" y2="285.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

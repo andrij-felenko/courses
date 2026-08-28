@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="20.0" width="385.0" height="380.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="222.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#15803d" text-anchor="middle" font-weight="700">Оптимальна геометрія: Низький DOP (≈ 1.5)</text>
+<circle cx="222.0" cy="160.0" r="90.0" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<line x1="132.0" y1="160.0" x2="312.0" y2="160.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="222.0" y1="70.0" x2="222.0" y2="160.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="222.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дрон (приймач)</text>
+<circle cx="222.0" cy="160.0" r="4.0" fill="#1a1a1a" stroke="#333333" stroke-width="1.0"/>
+<circle cx="222.0" cy="80.0" r="7.0" fill="#2563eb" stroke="#333333" stroke-width="1.0"/>
+<text x="222.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Sat 1 (зеніт)</text>
+<line x1="222.0" y1="87.0" x2="222.0" y2="156.0" stroke="#2563eb" stroke-width="1.2"/>
+<circle cx="150.0" cy="140.0" r="7.0" fill="#2563eb" stroke="#333333" stroke-width="1.0"/>
+<text x="130.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Sat 2</text>
+<line x1="156.0" y1="142.0" x2="218.0" y2="158.0" stroke="#2563eb" stroke-width="1.2"/>
+<circle cx="294.0" cy="140.0" r="7.0" fill="#2563eb" stroke="#333333" stroke-width="1.0"/>
+<text x="314.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Sat 3</text>
+<line x1="288.0" y1="142.0" x2="226.0" y2="158.0" stroke="#2563eb" stroke-width="1.2"/>
+<circle cx="255.0" cy="120.0" r="7.0" fill="#2563eb" stroke="#333333" stroke-width="1.0"/>
+<text x="278.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Sat 4</text>
+<line x1="251.0" y1="124.0" x2="224.0" y2="157.0" stroke="#2563eb" stroke-width="1.2"/>
+<circle cx="222.0" cy="225.0" r="20.0" fill="#dcfce7" stroke="#16a34a" stroke-width="1.8"/>
+<text x="222.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">σ_pos</text>
+<text x="222.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Компактна сфера невизначеності</text>
+<rect x="45.0" y="280.0" width="355.0" height="105.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="55.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Широкий об'єм тетраедра ліній візування</text>
+<text x="55.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Рядки матриці G майже ортогональні</text>
+<text x="55.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• det(GᵀG) максимальний, (GᵀG)⁻¹ мінімальна</text>
+<text x="55.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">• Похибка дальності σ₀ множиться лише на 1.5</text>
+<rect x="445.0" y="20.0" width="385.0" height="380.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="637.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b91c1c" text-anchor="middle" font-weight="700">Погана геометрія: Високий DOP (&gt; 6.0)</text>
+<circle cx="637.0" cy="160.0" r="90.0" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<line x1="547.0" y1="160.0" x2="727.0" y2="160.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="637.0" y1="70.0" x2="637.0" y2="160.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="637.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дрон (приймач)</text>
+<circle cx="637.0" cy="160.0" r="4.0" fill="#1a1a1a" stroke="#333333" stroke-width="1.0"/>
+<circle cx="675.0" cy="85.0" r="7.0" fill="#ef4444" stroke="#333333" stroke-width="1.0"/>
+<circle cx="695.0" cy="95.0" r="7.0" fill="#ef4444" stroke="#333333" stroke-width="1.0"/>
+<circle cx="660.0" cy="105.0" r="7.0" fill="#ef4444" stroke="#333333" stroke-width="1.0"/>
+<circle cx="685.0" cy="115.0" r="7.0" fill="#ef4444" stroke="#333333" stroke-width="1.0"/>
+<text x="730.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Sat 1..4</text>
+<line x1="675.0" y1="92.0" x2="639.0" y2="156.0" stroke="#ef4444" stroke-width="1.2"/>
+<line x1="695.0" y1="102.0" x2="641.0" y2="156.0" stroke="#ef4444" stroke-width="1.2"/>
+<line x1="660.0" y1="112.0" x2="638.0" y2="156.0" stroke="#ef4444" stroke-width="1.2"/>
+<line x1="685.0" y1="122.0" x2="640.0" y2="156.0" stroke="#ef4444" stroke-width="1.2"/>
+<rect x="580.0" y="218.0" width="115.0" height="18.0" rx="9" fill="#fee2e2" stroke="#ef4444" stroke-width="1.8"/>
+<text x="637.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">σ_pos (витягнута)</text>
+<text x="637.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Еліпсоїд помилок роздутий у рази</text>
+<rect x="460.0" y="280.0" width="355.0" height="105.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="470.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Супутники згруповані в одному квадранті</text>
+<text x="470.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вектори візування майже лінійно залежні</text>
+<text x="470.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• det(GᵀG) → 0, обернена матриця прямує до ∞</text>
+<text x="470.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start" font-weight="700">• Похибка дальності роздувається до десятків метрів</text>
+</svg>

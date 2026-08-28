@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскад ескалації дій автопілота при зриві таймауту</text>
+<rect x="20.0" y="185.0" width="140.0" height="90.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/><text x="90.0" y="219.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">Сигнал таймауту</tspan><tspan x="90.0" dy="14.3">(Watchdog</tspan><tspan x="90.0" dy="14.3">Timeout Event)</tspan></text>
+<line x1="160.0" y1="205.0" x2="260.0" y2="130.0" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="175.0" y="130.0" width="75.0" height="24.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="212.5" y="145.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="212.5" dy="0.0">Спроби &lt; N</tspan></text>
+<rect x="260.0" y="67.5" width="170.0" height="95.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="345.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень 1: Retry &amp; Relax</text>
+<text x="345.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Розширення acceptance radius</text>
+<text x="345.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Зміна ракурсу камери</text>
+<text x="345.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перезапуск пошуку мітки</text>
+<line x1="160.0" y1="255.0" x2="260.0" y2="330.0" stroke="#475569" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="175.0" y="305.0" width="75.0" height="24.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="212.5" y="320.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="212.5" dy="0.0">Спроби = max</tspan></text>
+<rect x="260.0" y="297.5" width="170.0" height="95.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="345.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Рівень 2: Fallback</text>
+<text x="345.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Пропуск точки (Skip WP)</text>
+<text x="345.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перехід у Loiter / Hold</text>
+<text x="345.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Запасний майданчик (Alt LZ)</text>
+<rect x="512.5" y="165.0" width="165.0" height="130.0" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="1.8"/>
+<text x="595.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінка безпеки</text>
+<text x="595.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">та енергії</text>
+<text x="595.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чи вистачає заряду</text>
+<text x="595.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">на політ додому (RTL)?</text>
+<text x="595.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чи дійсний 3D-фікс?</text>
+<line x1="430.0" y1="130.0" x2="512.5" y2="200.0" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="330.0" x2="512.5" y2="260.0" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="677.5" y1="195.0" x2="765.0" y2="130.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="690.0" y="130.0" width="68.0" height="24.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="724.0" y="145.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="724.0" dy="0.0">Заряд OK</tspan></text>
+<rect x="765.0" y="80.0" width="180.0" height="80.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="855.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень 3A: Emergency RTL</text>
+<text x="855.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Повернення на безпечній висоті</text>
+<text x="855.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">за прямою траєкторією</text>
+<line x1="677.5" y1="265.0" x2="765.0" y2="330.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="685.0" y="305.0" width="75.0" height="24.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="722.5" y="320.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="722.5" dy="0.0">Дефіцит / збій</tspan></text>
+<rect x="765.0" y="300.0" width="180.0" height="80.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="855.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Рівень 3B: Emergency Land</text>
+<text x="855.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Вертикальне кероване зниження</text>
+<text x="855.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">на поточному місці</text>
+<rect x="45.0" y="415.0" width="890.0" height="45.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="490.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Детермінізм реакції: кожна гілка ескалації має гарантований кінцевий стан,</text>
+<text x="490.0" y="449.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">що виключає нескінченні цикли очікування та запобігає некерованому розряду батареї.</text>
+</svg>

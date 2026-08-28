@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="890.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="460.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Часовий детермінізм: Жорсткий (FC) проти М'якого (Companion) реального часу</text>
+<rect x="35.0" y="60.0" width="410.0" height="390.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="240.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">ЖОРСТКИЙ РЕАЛЬНИЙ ЧАС (Hard Real-Time: FC)</text>
+<text x="240.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">Строгий детермінізм, нульовий допуск до запізнень</text>
+<rect x="50.0" y="115.0" width="380.0" height="105.0" rx="4" fill="#ffffff" stroke="#4ade80" stroke-width="1.2"/>
+<text x="240.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">Контур кутової швидкості: T = 1.0 мс (1000 Гц)</text>
+<line x1="70.0" y1="175.0" x2="410.0" y2="175.0" stroke="#64748b" stroke-width="1.5"/>
+<line x1="70.0" y1="165.0" x2="70.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="240.0" y1="165.0" x2="240.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="410.0" y1="165.0" x2="410.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="70.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">0.0 мс</text>
+<text x="240.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">0.5 мс</text>
+<text x="410.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">1.0 мс (Дедлайн)</text>
+<rect x="70.0" y="160.0" width="120.0" height="16.0" rx="2" fill="#22c55e" stroke="#15803d" stroke-width="1.0"/>
+<text x="130.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle" font-weight="700">Обчислення: 0.35 мс</text>
+<rect x="190.0" y="160.0" width="220.0" height="16.0" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="300.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Запас часу: 0.65 мс</text>
+<rect x="50.0" y="230.0" width="380.0" height="205.0" rx="4" fill="#ffffff" stroke="#4ade80" stroke-width="1.2"/>
+<text x="240.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="middle" font-weight="700">ХАРАКТЕРИСТИКИ ТА НАСЛІДКИ ЗРИВУ:</text>
+<text x="65.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Джиттер виконання: менше 5 мікросекунд</text>
+<text x="65.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Найгірший час виконання (WCET) до 0.6 мс</text>
+<text x="65.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Апаратне виконання на Cortex-M7 (FPU, DMA)</text>
+<text x="65.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start">• Пропуск 1–2 тактів: деградація фази контуру</text>
+<text x="65.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="start" font-weight="700">• Пропуск понад 20 мс: розгойдування та зрив у штопор</text>
+<text x="65.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="start">• Поведінка при збої: апаратний Watchdog 250 мс</text>
+<text x="65.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="start" font-weight="700">• Статус: критично для виживання апарата</text>
+<text x="65.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">• Не залежить від стану та завантаження Linux</text>
+<rect x="475.0" y="60.0" width="410.0" height="390.0" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="680.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">М'ЯКИЙ РЕАЛЬНИЙ ЧАС (Soft Real-Time: SBC)</text>
+<text x="680.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">Важкі обчислення, середня пропускна здатність</text>
+<rect x="490.0" y="115.0" width="380.0" height="105.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="680.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Контур планування: T = 33.3 мс (30 Гц)</text>
+<line x1="510.0" y1="175.0" x2="850.0" y2="175.0" stroke="#64748b" stroke-width="1.5"/>
+<line x1="510.0" y1="165.0" x2="510.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="680.0" y1="165.0" x2="680.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="850.0" y1="165.0" x2="850.0" y2="185.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="510.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">0 мс</text>
+<text x="680.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">33 мс (Ціль)</text>
+<text x="850.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">100 мс (Затримка)</text>
+<rect x="510.0" y="160.0" width="230.0" height="16.0" rx="2" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.0"/>
+<text x="625.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="middle" font-weight="700">YOLOv8 + VIO + ROS 2: 25–45 мс</text>
+<rect x="740.0" y="160.0" width="110.0" height="16.0" rx="2" fill="#fed7aa" stroke="#f97316" stroke-width="1.0"/>
+<text x="795.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9a3412" text-anchor="middle">джиттер ОС: 10–60 мс</text>
+<rect x="490.0" y="230.0" width="380.0" height="205.0" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="680.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">ХАРАКТЕРИСТИКИ ТА НАСЛІДКИ ЗРИВУ:</text>
+<text x="505.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Джиттер виконання: 5–50 мілісекунд</text>
+<text x="505.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Затримка планувальника Linux, I/O затримки</text>
+<text x="505.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">• Виконання: Multi-core ARM Cortex-A + GPU / NPU</text>
+<text x="505.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start">• Затримка 50–100 мс: застаріла уставка траєкторії</text>
+<text x="505.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="start" font-weight="700">• Зависання понад 500 мс: FC переходить у Hold / Loiter</text>
+<text x="505.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="start">• Поведінка при падінні: FC тримає політ, SBC ребутиться</text>
+<text x="505.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e3a8a" text-anchor="start" font-weight="700">• Статус: розширення інтелекту, а не виживання</text>
+<text x="505.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">• Дозволяє безпечний збій без падіння апарата</text>
+</svg>

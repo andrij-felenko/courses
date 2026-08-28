@@ -17,8 +17,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mission-fsm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "derevo-povedinky",
@@ -27,8 +33,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-behavior-tree-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "priorytet-i-vytisnennia-povedinok",
@@ -37,8 +49,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-behavior-preemption-manager.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "taimaut-na-kozhnu-povedinku",
@@ -47,8 +65,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-behavior-watchdog.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zatsyklennia-tremtinnia-i-tupyk-u-lohitsi-tsilei",
@@ -57,12 +81,60 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-flapping-preventer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "parametry-povedinky",
           "title": "Параметри поведінки: що налаштовне, а що зашите",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-behavior-param-registry.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "supervisory-control-and-automation-levels",
+          "title": "Наглядове керування та таксономія Шерідана: від рефлекторного пілотування до стратегічного нагляду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "math": [
+            {
+              "file": "math-fan-out-and-neglect.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "swarm-coordination-and-consensus",
+          "title": "Координація рою БПЛА: розподіл завдань CBBA, формування строю та збіжність консенсусу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "takeover-request-and-minimum-risk-maneuver",
+          "title": "Протокол перехоплення керування (TOR) та маневр мінімального ризику (MRM)",
           "basic": {
             "status": "empty"
           },
@@ -83,8 +155,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-minkowski-sum.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c-obstacle-c.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "boustrophedon-coverage",
@@ -141,6 +225,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "minimum-snap-trajectory-generation",
+          "title": "Траєкторії мінімального ривка й снепу: поліноміальна QP-оптимізація руху безпілотника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -155,8 +249,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-occupancy-grid-updater.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tsina-klitynky",
@@ -165,8 +265,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-costmap-inflation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pereplanuvannia-na-khodu",
@@ -175,8 +281,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-kinodynamic-replanner.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "biudzhet-chasu-planuvalnyka",
@@ -185,8 +297,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-anytime-planner.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "hlukhyi-kut-i-pastka-lokalnoho-obkhodu",
@@ -195,12 +313,44 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-local-minima-escape.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "slipi-zony-i-khybne-halmuvannia",
           "title": "Сліпі зони й хибне гальмування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-obstacle-filter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-window-approach-local-planner",
+          "title": "Підхід динамічного вікна (DWA) та еластичні часові стрічки (TEB)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "euclidean-signed-distance-fields-esdf",
+          "title": "Знакові евклідові поля відстаней (ESDF): неперервні карти перешкод та градієнти траєкторій",
           "basic": {
             "status": "empty"
           },
@@ -231,8 +381,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-proportional-navigation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-target-tracker-kalman.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tsil-zahublena",

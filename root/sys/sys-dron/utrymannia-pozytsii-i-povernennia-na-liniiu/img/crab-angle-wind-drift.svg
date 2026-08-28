@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="60.0" y1="280.0" x2="780.0" y2="280.0" stroke="#27ae60" stroke-width="3.0" stroke-dasharray="8 4"/>
+<line x1="60.0" y1="280.0" x2="780.0" y2="280.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="150.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Бажана лінія шляху (шляховий курс χ)</text>
+<line x1="260.0" y1="280.0" x2="540.0" y2="166.9" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="382.0" y="209.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">V_a (повітряна швидкість, курс ψ)</text>
+<line x1="540.0" y1="166.9" x2="540.0" y2="280.0" stroke="#0284c7" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="558.0" y="223.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0284c7" text-anchor="start" font-weight="700">V_w (боковий вітер)</text>
+<line x1="260.0" y1="280.0" x2="540.0" y2="280.0" stroke="#27ae60" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="386.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">V_g = V_a + V_w (шляхова швидкість)</text>
+<path d="M 350.0 280.0 A 90.0 90.0 0 0 0 343.4 246.3" fill="none" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="366.0" y="259.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">β_w</text>
+<text x="381.7" y="279.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">(кут зносу / crab angle)</text>
+<circle cx="260.0" cy="280.0" r="7.0" fill="#ef4444" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="109.0" y="400.6" width="621.9" height="78.8" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="420.0" y="420.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Компенсація бокового вітру методом кута зносу (Crabbing):</tspan><tspan x="420.0" dy="15.6">• Ніс літака розвертається проти вітру на кут: β_w = arcsin(V_w_cross / V_a)</tspan><tspan x="420.0" dy="15.6">• Повна рівновага: V_g = V_a · cos(β_w) + V_w_along спрямована строго вздовж лінії шляху</tspan><tspan x="420.0" dy="15.6">• Інтегральний контур (ILOS / L1-integrator) оцінює β_w без прямого датчика вітру</tspan></text>
+</svg>

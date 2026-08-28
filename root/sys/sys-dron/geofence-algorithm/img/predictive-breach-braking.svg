@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічне прогнозування порушення: швидкість, затримка та гальмівний шлях</text>
+<line x1="760.0" y1="70.0" x2="760.0" y2="410.0" stroke="#c0392b" stroke-width="3.5"/>
+<text x="748.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Межа геозони (Hard Fence)</text>
+<line x1="690.0" y1="70.0" x2="690.0" y2="410.0" stroke="#d69e2e" stroke-width="2.0" stroke-dasharray="6 5"/>
+<rect x="690.0" y="70.0" width="70.0" height="340.0" rx="6" fill="#fefcbf" stroke="none" stroke-width="1.5"/>
+<text x="725.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7791f" text-anchor="middle" font-weight="700">Статичний запас</text>
+<circle cx="120.0" cy="240.0" r="7.0" fill="#3182ce" stroke="#1a365d" stroke-width="2.0"/>
+<text x="120.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b6cb0" text-anchor="middle" font-weight="700">Поточна позиція P</text>
+<text x="120.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b6cb0" text-anchor="middle">V = 18 м/с</text>
+<line x1="120.0" y1="240.0" x2="240.0" y2="240.0" stroke="#4299e1" stroke-width="3.0"/>
+<circle cx="240.0" cy="240.0" r="4.5" fill="#ffffff" stroke="#4299e1" stroke-width="2.0"/>
+<line x1="120.0" y1="240.0" x2="240.0" y2="240.0" stroke="#4299e1" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="180.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b6cb0" text-anchor="middle">d_react = V · t_delay</text>
+<text x="180.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(затримка EKF + фільтр)</text>
+<line x1="240.0" y1="240.0" x2="500.0" y2="240.0" stroke="#ed8936" stroke-width="3.0"/>
+<line x1="240.0" y1="240.0" x2="500.0" y2="240.0" stroke="#ed8936" stroke-width="2.5" marker-end="url(#arrow)"/>
+<circle cx="500.0" cy="240.0" r="5.0" fill="#dd6b20" stroke="#7b341e" stroke-width="2.0"/>
+<text x="370.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c05621" text-anchor="middle" font-weight="700">d_brake = V² / (2 · a_max)</text>
+<text x="370.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(гальмування з a_max)</text>
+<text x="500.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c05621" text-anchor="middle" font-weight="700">P_pred (зупинка)</text>
+<line x1="500.0" y1="240.0" x2="690.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<circle cx="690.0" cy="240.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="595.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Запас безпеки &gt; 0</text>
+<line x1="120.0" y1="310.0" x2="500.0" y2="310.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="120.0" y1="304.0" x2="120.0" y2="316.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="500.0" y1="304.0" x2="500.0" y2="316.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="310.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний динамічний дистанційний поріг D_stop = d_react + d_brake</text>
+<rect x="70.0" y="70.0" width="420.0" height="110.0" rx="6" fill="#f7fafc" stroke="#1a1a1a" stroke-width="1.4"/><text x="280.0" y="100.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">Кінематика попередження порушення</tspan><tspan x="280.0" dy="14.3">• Time-to-Breach (TTB) = dist_to_fence / V_perp</tspan><tspan x="280.0" dy="14.3">• Якщо TTB ≤ t_react + V_perp / a_max → аварійне гальмування!</tspan><tspan x="280.0" dy="14.3">• Без упередження апарат на швидкості 18 м/с пробиває</tspan><tspan x="280.0" dy="14.3">  статичну межу на 65+ метрів до повної зупинки.</tspan></text>
+</svg>

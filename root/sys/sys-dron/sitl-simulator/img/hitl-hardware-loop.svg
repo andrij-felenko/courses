@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стенд апаратного моделювання в контурі (HITL): фізичний контролер у віртуальному середовищі</text>
+<rect x="20.0" y="20.0" width="820.0" height="380.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне моделювання в контурі (Hardware-In-The-Loop — HITL)</text>
+<rect x="40.0" y="75.0" width="340.0" height="270.0" rx="10" fill="#eff5ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="210.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ХОСТОВИЙ ПК (СИМУЛЯТОР ФІЗИКИ)</text>
+<text x="210.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">JSBSim / Gazebo / X-Plane у реальному часі</text>
+<rect x="55.0" y="140.0" width="310.0" height="60.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="210.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Математична модель 6 DOF</text>
+<text x="210.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Розрахунок динаміки середовища й аеродинаміки</text>
+<rect x="55.0" y="210.0" width="310.0" height="55.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="210.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генератор сирих пакетів сенсорів</text>
+<text x="210.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Формування повідомлень HIL_SENSOR / MAVLink</text>
+<rect x="55.0" y="275.0" width="310.0" height="55.0" rx="6" fill="#fef8e7" stroke="#c28200" stroke-width="1.2"/>
+<text x="210.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#855800" text-anchor="middle" font-weight="700">Апаратний міст USB-UART / CAN</text>
+<text x="210.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">FTDI 3–12 Мбіт/с або CAN-адаптер</text>
+<rect x="480.0" y="75.0" width="340.0" height="270.0" rx="10" fill="#eaf8ed" stroke="#27ae60" stroke-width="2.0"/>
+<text x="650.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ФІЗИЧНИЙ ПОЛЬОТНИЙ КОНТРОЛЕР</text>
+<text x="650.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Реальна плата: STM32H7 / RTOS NuttX / ChibiOS</text>
+<rect x="495.0" y="140.0" width="310.0" height="55.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="650.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HIL-драйвери замість фізичних давачів</text>
+<text x="650.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Прийом пакетів через UART/USB DMA-буфери</text>
+<rect x="495.0" y="205.0" width="310.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="650.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реальний процесор і пам'ять MCU</text>
+<text x="650.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка таймінгів, переривань, завантаження CPU</text>
+<rect x="495.0" y="275.0" width="310.0" height="55.0" rx="6" fill="#fdeeed" stroke="#c0392b" stroke-width="1.2"/>
+<text x="650.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вихідні таймери ШІМ / DShot</text>
+<text x="650.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Апаратне формування сигналів керування моторами</text>
+<line x1="380.0" y1="235.0" x2="480.0" y2="235.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="385.0" y="220.0" width="90.0" height="26.0" rx="4" fill="#eff5ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="430.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Сенсори (UART)</text>
+<line x1="480.0" y1="300.0" x2="380.0" y2="300.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="385.0" y="285.0" width="90.0" height="26.0" rx="4" fill="#fdeeed" stroke="#c0392b" stroke-width="1.2"/>
+<text x="430.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Команди ШІМ</text>
+<rect x="40.0" y="365.0" width="780.0" height="26.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="430.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">HITL виявляє апаратні вузькі місця: переповнення стека, переривання DMA, затримки шини та реальні таймінги ОС</text>
+</svg>

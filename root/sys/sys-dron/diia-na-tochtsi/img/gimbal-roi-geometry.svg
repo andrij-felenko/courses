@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінематична схема розрахунку кутів підвісу для утримання точки інтересу (ROI)</text>
+<rect x="30.0" y="45.0" width="450.0" height="405.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний трикутник наведення (NED Frame)</text>
+<circle cx="120.0" cy="150.0" r="14.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="120.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">БПЛА</text>
+<text x="120.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">P_uav (X_u, Y_u, Z_u)</text>
+<line x1="120.0" y1="150.0" x2="150.0" y2="175.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="150.0" cy="175.0" r="6.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="185.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">r_mount</text>
+<circle cx="380.0" cy="360.0" r="12.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="380.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ROI</text>
+<text x="380.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P_target (X_t, Y_t, Z_t)</text>
+<line x1="150.0" y1="175.0" x2="370.0" y2="350.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="270.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вектор візування ΔP_ned</text>
+<line x1="150.0" y1="175.0" x2="380.0" y2="175.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="380.0" y1="175.0" x2="380.0" y2="360.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="280.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Горизонтальна дальність d_xy</text>
+<text x="390.0" y="267.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">ΔZ (Висота)</text>
+<text x="215.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Кут тангажу θ_pitch</text>
+<rect x="500.0" y="45.0" width="430.0" height="405.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="715.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трансформація та кінематика підвісу</text>
+<text x="520.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Вектор зміщення до цілі:</text>
+<rect x="520.0" y="120.0" width="390.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="715.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ΔP = P_target - (P_uav + R_b^ned · r_mount)</text>
+<text x="520.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Кут азимуту (Yaw у системі NED):</text>
+<rect x="520.0" y="184.0" width="390.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="715.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ψ_target = atan2(ΔY_ned, ΔX_ned)</text>
+<text x="520.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Кут нахилу (Pitch від горизонту):</text>
+<rect x="520.0" y="248.0" width="390.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="715.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">θ_target = atan2(-ΔZ_ned, √(ΔX² + ΔY²))</text>
+<text x="520.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Компенсація крену/курсу носія:</text>
+<rect x="520.0" y="312.0" width="390.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="715.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">q_gimbal_cmd = q_uav_inv ⊗ q_target_ned</text>
+<text x="520.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">5. Обмеження швидкості перекидання:</text>
+<rect x="520.0" y="376.0" width="390.0" height="32.0" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="715.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">dθ/dt &lt;= SlewRate_max (захист двигунів)</text>
+</svg>

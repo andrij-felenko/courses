@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тривимірний конвеєр моніторингу життєвого циклу поведінки</text>
+<text x="115.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерела метрик</text>
+<rect x="20.0" y="92.0" width="190.0" height="56.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/><text x="115.0" y="116.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">Монотонний таймер</tspan><tspan x="115.0" dy="14.3">(CLOCK_MONOTONIC)</tspan></text>
+<rect x="20.0" y="192.0" width="190.0" height="56.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="216.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">Оцінка EKF: позиція,</tspan><tspan x="115.0" dy="14.3">швидкість і коваріація</tspan></text>
+<rect x="20.0" y="292.0" width="190.0" height="56.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/><text x="115.0" y="316.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">Стан шини живлення:</tspan><tspan x="115.0" dy="14.3">напруга, струм і SoC</tspan></text>
+<text x="380.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні контролю таймауту</text>
+<line x1="210.0" y1="120.0" x2="240.0" y2="120.0" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="240.0" y="86.0" width="280.0" height="68.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="380.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Жорсткий таймаут (Hard Deadline)</text>
+<text x="380.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">t_elapsed &gt; T_hard_max</tspan><tspan x="380.0" dy="12.5">Примусовий аварійний вихід</tspan></text>
+<line x1="210.0" y1="220.0" x2="240.0" y2="220.0" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="240.0" y="186.0" width="280.0" height="68.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="380.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">М'який наглядач поступу (Progress Watchdog)</text>
+<text x="380.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">v_prog &lt; v_min або ΔP_cov &gt; σ_max</tspan><tspan x="380.0" dy="12.5">Виявлення буксування та стагнації</tspan></text>
+<line x1="210.0" y1="320.0" x2="240.0" y2="320.0" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="240.0" y="286.0" width="280.0" height="68.0" rx="6" fill="#fef9c3" stroke="#a16207" stroke-width="1.6"/>
+<text x="380.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a16207" text-anchor="middle" font-weight="700">Енергетичний ліміт (Energy Budget)</text>
+<text x="380.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">E_rem - E_RTL(d_home) ≤ E_reserve</tspan><tspan x="380.0" dy="12.5">Точка неповернення за зарядом</tspan></text>
+<text x="650.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Арбітр тривог</text>
+<rect x="565.0" y="85.0" width="170.0" height="270.0" rx="8" fill="#faf5ff" stroke="#7e22ce" stroke-width="1.8"/>
+<text x="650.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="middle" font-weight="700">Behavior</text>
+<text x="650.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="middle" font-weight="700">Watchdog Arbiter</text>
+<text x="650.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обчислення типу події:</text>
+<text x="650.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• TIME_EXPIRED</text>
+<text x="650.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">• STAGNATION</text>
+<text x="650.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">• SENSOR_DRIFT</text>
+<text x="650.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a16207" text-anchor="middle" font-weight="700">• LOW_ENERGY</text>
+<rect x="578.0" y="290.0" width="144.0" height="46.0" rx="4" fill="#ffffff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="650.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="middle" font-weight="700">Генерація сигналу</text>
+<text x="650.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">переривання поведінки</text>
+<line x1="520.0" y1="120.0" x2="565.0" y2="120.0" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="220.0" x2="565.0" y2="220.0" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="320.0" x2="565.0" y2="320.0" stroke="#7e22ce" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="220.0" x2="780.0" y2="220.0" stroke="#7e22ce" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="780.0" y="170.0" width="95.0" height="100.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/><text x="827.5" y="202.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="827.5" dy="0.0">Диспетчер</tspan><tspan x="827.5" dy="14.3">ескалації</tspan><tspan x="827.5" dy="14.3">(Escalation</tspan><tspan x="827.5" dy="14.3">Cascade)</tspan></text>
+<rect x="45.0" y="395.0" width="810.0" height="52.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="450.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип раннього відсікання: енергетичний таймаут або фіксація буксування</text>
+<text x="450.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">переривають завислу дію задовго до вичерпання повного жорсткого ліміту часу.</text>
+</svg>

@@ -63,6 +63,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "payload-drop-safety-and-interlocks",
+          "title": "Безпека корисного навантаження: апаратні інтерлоки, failsafe скиду та захист від випадкового розчеплення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -87,8 +97,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-geofence.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -113,12 +129,34 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-failsafe-prioritizer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dynamics-dependent-failsafe",
           "title": "Failsafe за динамікою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-dynamic-failsafe-controller.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "propulsion-fault-detection-isolation",
+          "title": "Детекція та ізоляція відмов приводу (FDI): від DShot eRPM до спостерігачів нев'язок моментів",
           "basic": {
             "status": "empty"
           },
@@ -183,8 +221,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-flight-termination-system.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vidmova-pryvodu",
@@ -193,12 +237,28 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-actuator-fault-tolerance.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "nyzka-batareia",
           "title": "Низька батарея: три пороги й що по кожному",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "sora-risk-assessment",
+          "title": "Оцінка ризиків SORA: класифікація GRC, ARC та інтеграція бар'єрів безпеки",
           "basic": {
             "status": "empty"
           },

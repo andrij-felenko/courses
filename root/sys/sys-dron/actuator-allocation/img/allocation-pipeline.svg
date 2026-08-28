@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 260" width="820" height="260">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="820.0" height="260.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="14.5" y="78.4" width="191.0" height="63.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Контури керування</tspan><tspan x="110.0" dy="15.6">(PID орієнтації й висоти)</tspan><tspan x="110.0" dy="15.6">τ = [F_z, M_x, M_y, M_z]ᵀ</tspan></text>
+<line x1="195.0" y1="110.0" x2="245.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="220.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">τ_des</text>
+<rect x="250.0" y="40.0" width="290.0" height="160.0" rx="8" fill="#edf2f7" stroke="#333333" stroke-width="1.8"/>
+<text x="395.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Control Allocation (Алокатор)</text>
+<text x="395.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Псевдообернена матриця: u_raw = B⁺ · τ</text>
+<line x1="395.0" y1="112.0" x2="395.0" y2="130.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="395.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Пріоритетна десатурація та межі</text>
+<text x="395.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">u = SaturationHandler(u_raw)</text>
+<line x1="540.0" y1="110.0" x2="595.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="567.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">u ∈ [0, 1]</text>
+<rect x="600.0" y="35.0" width="200.0" height="170.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="700.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні приводи</text>
+<text x="700.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ESC / Мотори 1..m (тяга F_i)</text>
+<text x="700.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Сервоприводи (рулі δ_i)</text>
+<text x="700.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Поворотні балки (векторизація)</text>
+<text x="410.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Віртуальне керування τ (сили/моменти) транслюється через геометрію рами B у фізичні сигнали u</text>
+</svg>

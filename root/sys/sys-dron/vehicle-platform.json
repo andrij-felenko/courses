@@ -37,8 +37,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-companion-bridge.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -97,6 +103,48 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bicycle-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bicycle-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "marine-steering-and-thrusters",
+          "title": "Суднові рулі, гвинтовий струмінь і підрулювачі: керування на малих швидкостях",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "marine-craft-dynamics-added-mass",
+          "title": "Динаміка човна: приєднана маса води й нелінійне гідродинамічне демпфування (модель Фоссена)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dynamic-bicycle-model",
+          "title": "Динамічна велосипедна модель: бічний відвід шин, магічна формула Пасейки та недостатня повертаність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
           }
         }
@@ -123,6 +171,28 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-vtol-transition-blending.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-unified-flight-mixer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fully-actuated-multirotors",
+          "title": "Повністю керовані мультиротори: нахилені ротори та 6-DOF вектор тяги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
           }
         }
@@ -139,8 +209,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-composite-beam-calc.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "rizba-pid-vibratsiieiu",
@@ -149,8 +225,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-junker-test.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bolt-mechanics.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "komponuvannia-bortu",
@@ -159,12 +247,44 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-inertia-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-harness-voltage-drop.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dzhhut-obtysk-i-rozvantazhennia-natiahu",
           "title": "Джгут, обтиск і розвантаження натягу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "teplovyi-rezhym-i-oholodzhennia-bortu",
+          "title": "Тепловий режим і охолодження борту: обдув гвинтами, радіатори та захист від тротлінгу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kolokatsiia-anten-i-rf-sumisnist",
+          "title": "Колокація антен і радіочастотна сумісність на борту БПЛА: просторове рознесення, кросполяризація та захист від десенсибілізації",
           "basic": {
             "status": "empty"
           },
@@ -185,8 +305,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pieper-solution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-manipulator-kinematics.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "robochyi-prostir-i-synhuliarnosti",
@@ -195,7 +327,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -205,12 +337,100 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-remote-center-compliance.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-contact-stability.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zakhvat-typy-syla-utrymannia",
           "title": "Захват: типи, сила, утримання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-wrench-closure-geometry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kinematychna-nadlyshkovist-manipuliatoriv",
+          "title": "Кінематична надлишковість та керування в нуль-просторі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dynamika-manipuliatora-ta-rnea",
+          "title": "Динаміка маніпулятора: рівняння руху та алгоритм Ньютона-Ейлера (RNEA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "planuvannia-traiektorii-manipuliatora",
+          "title": "Планування траєкторій маніпулятора: шарнірний та декартів простори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sposterihach-impulsu-i-detektuvannia-zitknen",
+          "title": "Спостерігач імпульсу та детектування зіткнень: безпека взаємодії без давача сили",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hibrydne-keruvannia-polozhenniam-i-syloiu",
+          "title": "Гібридне керування положенням і силою (Hybrid Position/Force Control)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "operatsiinyi-prostir-i-dynamika-khatiba",
+          "title": "Керування в операційному просторі та динаміка Хатіба (Operational Space Control)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "aerial-manipulation",
+          "title": "Літаюча маніпуляція: взаємодія дрона з середовищем, tilted-rotor та ефект стіни",
           "basic": {
             "status": "empty"
           },
@@ -231,12 +451,80 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-clarke-park-svpwm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-triaxial-foc-controller.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "parashut",
           "title": "Парашут: опір і швидкість спуску",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-descent-and-impact.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "uav-catapults-and-launch-rails",
+          "title": "Катапульти та пускові установки БПЛА: гумовий джгут, пневматична рейка та спускові механізми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "net-recovery-and-skyhook",
+          "title": "Вловлювання БПЛА в сітку та тросовий вилов: динаміка гальмування, навантаження на лонжерон і точне наведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "payload-release-mechanisms",
+          "title": "Механізми скиду вантажу: сервозамки, соленоїдні розмикачі та пірочеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "quick-release-mechanisms",
+          "title": "Швидкознімні замки корисного навантаження: ластівчин хвіст, байонет та кулачкові фіксатори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "uav-impact-attenuation-and-airbags",
+          "title": "Поглинання енергії удару при приземленні БПЛА: деформівні опори, пневматичні амортизатори та подушки (airbags)",
           "basic": {
             "status": "empty"
           },

@@ -17,8 +17,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ground-effect-thrust.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-takeoff-state-machine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "start-dlia-rovera-i-chovna",
@@ -27,8 +39,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-dock-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dock-exit.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "avtoposadka",
@@ -37,8 +61,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-ground-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "skasovana-posadka-i-druha-sproba",
@@ -47,8 +77,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-go-around-logic.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -63,8 +99,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mission-item-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mission-flash-storage.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "waypoint-route-sequencing",
@@ -73,8 +121,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-passing-plane.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "rally-points",
@@ -93,8 +147,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-roi-pointing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-payload-mission-executor.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pauza-zmina-i-prodovzhennia-misii-na-khodu",
@@ -103,8 +169,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-smooth-rejoin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-mission-c.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "end-to-end-mission",
@@ -121,6 +199,26 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "loiter-and-orbit-patterns",
+          "title": "Режими кружляння й орбіти (Loiter & Orbit): кругова навігація та компенсація вітрового зносу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "uav-flight-handover-protocol",
+          "title": "Хендовер БПЛА в польоті: передача керування між станціями LRE та MCE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -135,8 +233,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-rtl-state-machine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "domashnia-tochka-i-shcho-z-neiu-ne-tak",
@@ -145,8 +249,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-home-point-manager.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "dim-nedosiazhnyi",
@@ -155,8 +265,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-rally-point-selector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "povernennia-na-dok-i-na-zariadku",
@@ -165,8 +281,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-docking-controller.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -197,6 +319,16 @@
         {
           "slug": "stsenarii-vidmov-u-symuliatori",
           "title": "Сценарії відмов у симуляторі: обрив лінка, глушіння GNSS, мертвий мотор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flight-test-plan-and-procedures",
+          "title": "Програма та методика льотних випробувань: тестові карти, критерії зупинки KIO та матриця безпеки",
           "basic": {
             "status": "empty"
           },

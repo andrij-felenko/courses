@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="480.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Імпедансне керування: Похибка руху → Зусилля двигунів</text>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">робот формує імпеданс, підходить для двигунів прямого приводу та FOC з низьким тертям</text>
+<rect x="29.7" y="80.3" width="120.6" height="39.3" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="90.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">Бажана траєкторія</tspan><tspan x="90.0" dy="14.3">x_d(t), ẋ_d(t)</tspan></text>
+<line x1="165.0" y1="100.0" x2="205.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="215.0" cy="100.0" r="10.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="215.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Σ</text>
+<line x1="225.0" y1="100.0" x2="265.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="245.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">e, ė</text>
+<rect x="265.4" y="79.3" width="159.2" height="41.3" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="345.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="345.0" dy="0.0">Віртуальний імпеданс</tspan><tspan x="345.0" dy="14.3">M_d·ë + B_d·ė + K_d·e</tspan></text>
+<line x1="425.0" y1="100.0" x2="475.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="450.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">F_cmd</text>
+<rect x="468.0" y="79.3" width="153.9" height="41.3" rx="6" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.5"/><text x="545.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">Матриця Якобі</tspan><tspan x="545.0" dy="14.3">τ = Jᵀ(q)·F_cmd + g(q)</tspan></text>
+<line x1="615.0" y1="100.0" x2="665.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="640.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8b5cf6" text-anchor="middle" font-weight="700">τ_cmd</text>
+<rect x="680.0" y="79.3" width="110.0" height="41.3" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/><text x="735.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Механіка робота</tspan><tspan x="735.0" dy="14.3">і приводи (FOC)</tspan></text>
+<line x1="805.0" y1="100.0" x2="875.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="840.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">x, ẋ</text>
+<line x1="875.0" y1="100.0" x2="875.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="875.0" y1="155.0" x2="215.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="215.0" y1="155.0" x2="215.0" y2="115.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зворотний зв'язок енкодерів (пряма кінематика x = FK(q))</text>
+<line x1="40.0" y1="220.0" x2="920.0" y2="220.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="6,6"/>
+<text x="480.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адмітансне керування: Виміряна сила → Корекція траєкторії</text>
+<text x="480.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">робот формує адмітанс, підходить для промислових роботів із високоредукторними приводами</text>
+<rect x="45.0" y="320.4" width="129.9" height="39.3" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="110.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Датчик сили F/T</tspan><tspan x="110.0" dy="14.3">вимірювання F_ext</tspan></text>
+<line x1="185.0" y1="340.0" x2="225.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="205.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">F_ext</text>
+<rect x="184.2" y="319.4" width="261.5" height="41.3" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="315.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Адмітансний фільтр</tspan><tspan x="315.0" dy="14.3">Δẍ = M_d⁻¹(F_ext − B_d·Δẋ − K_d·Δx)</tspan></text>
+<line x1="425.0" y1="340.0" x2="475.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="450.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Δx_c</text>
+<circle cx="485.0" cy="340.0" r="10.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="485.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Σ</text>
+<rect x="438.2" y="416.5" width="93.5" height="23.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="485.0" y="431.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="485.0" dy="0.0">Бажана x_d(t)</tspan></text>
+<line x1="485.0" y1="403.0" x2="485.0" y2="355.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="340.0" x2="545.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="520.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">x_cmd</text>
+<rect x="571.2" y="319.4" width="147.7" height="41.3" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/><text x="645.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">Внутрішній позиційний</tspan><tspan x="645.0" dy="14.3">контур PID (жорсткий)</tspan></text>
+<line x1="745.0" y1="340.0" x2="790.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="768.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">q_cmd</text>
+<rect x="805.4" y="320.4" width="89.2" height="39.3" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/><text x="850.0" y="336.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Сервоприводи</tspan><tspan x="850.0" dy="14.3">маніпулятора</tspan></text>
+<line x1="850.0" y1="370.0" x2="850.0" y2="465.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="850.0" y1="465.0" x2="110.0" y2="465.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="110.0" y1="465.0" x2="110.0" y2="375.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="480.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Механічний контакт із середовищем породжує зовнішню силу F_ext</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="430.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура відмовостійкого керування приводами (FDI + Dynamic Allocation)</text>
+<rect x="11.1" y="77.2" width="197.8" height="55.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="94.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Контури керування</tspan><tspan x="110.0" dy="14.3">(PID положення/швидкості)</tspan><tspan x="110.0" dy="14.3">τ_des = [F_z, M_x, M_y, M_z]ᵀ</tspan></text>
+<line x1="195.0" y1="105.0" x2="255.0" y2="105.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="225.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">τ_des</text>
+<rect x="260.0" y="55.0" width="230.0" height="100.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="375.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний алокатор</text>
+<text x="375.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">u = B_deg⁺ · τ_des</text>
+<text x="375.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Реконфігурація матриці B</text>
+<text x="375.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">та пріоритетна десатурація</text>
+<line x1="495.0" y1="105.0" x2="565.0" y2="105.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="530.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">u ∈ [0, 1]</text>
+<rect x="570.0" y="55.0" width="280.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="710.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні приводи та планер</text>
+<text x="710.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ESC / Мотори 1..m + Сервоприводи</text>
+<text x="710.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Можлива відмова: обрив фази, клин серво,</text>
+<text x="710.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">зріз редуктора, втрата лопаті</text>
+<line x1="680.0" y1="158.0" x2="680.0" y2="218.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="695.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Тяга, моменти</text>
+<rect x="570.0" y="222.0" width="280.0" height="96.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="710.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сенсори та телеметрія</text>
+<text x="710.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• DShot Telemetry (eRPM, I_esc, T_esc)</text>
+<text x="710.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• IMU Гіроскопи (кутова швидкість ω)</text>
+<text x="710.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Інтегральні помилки PID (I-term)</text>
+<line x1="565.0" y1="270.0" x2="495.0" y2="270.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="530.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ω, RPM, e(t)</text>
+<rect x="140.0" y="210.0" width="350.0" height="120.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="315.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Детектування та ізоляція відмов (FDI)</text>
+<text x="315.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Спостерігач: r(t) = ω̇_meas - J⁻¹(τ_cmd - ω × Jω)</text>
+<text x="315.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. DShot eRPM / PWM неузгодженість (ΔRPM &gt; th)</text>
+<text x="315.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. Насичення інтегратора I-term при нульовому відгуку</text>
+<text x="315.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">4. Ізоляція відмови: індекс несправного привода k</text>
+<line x1="315.0" y1="205.0" x2="315.0" y2="160.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="330.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">Fault Mask (k)</text>
+<text x="440.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Контур замкнено: залишковий сигнал незв'язки r(t) та телеметрія ESC виявляють відмову k-го привода,</text>
+<text x="440.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">після чого алокатор миттєво обнуляє стовпець b_k у матриці B та перераховує псевдообернену матрицю B_deg⁺.</text>
+</svg>
