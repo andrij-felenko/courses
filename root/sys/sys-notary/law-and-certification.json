@@ -17,8 +17,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-doc-schema.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-notified-bodies.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-new-approach.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tdf-validator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "normatyvni-vymohy-do-bezpeky-kodu",
@@ -27,8 +51,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cvd-security-txt.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-cra-red-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-secure-update-verifier.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "remote-id",
@@ -37,12 +79,84 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-astm-f3411.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-remote-id-mandates.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-remote-id-transmitter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "chuzhi-reiestry-i-chlenstva",
           "title": "Чужі реєстри й членства: OUI для MAC, USB VID/PID, Bluetooth SIG, Wi-Fi Alliance",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-usb-descriptors-bluetooth-eir.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-registries-cost-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-standards-consortia.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mac-oui-parser.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "iso-13849-machinery-safety-categories",
+          "title": "Безпека машин за ISO 13849: категорії архітектури (Cat B..4) та рівні продуктивності PL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "collaborative-robot-safety-iso-15066",
+          "title": "Безпека колаборативних роботів: стандарти ISO 10218, ISO/TS 15066 та біомеханічні межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "utm-u-space",
+          "title": "UTM та U-Space: цифрова диспетчеризація та інтеграція БПЛА у спільне небо",
           "basic": {
             "status": "empty"
           },
@@ -63,8 +177,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-compliance-declarations.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-rohs-reach-materials.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-environmental-directives.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scip-bom-analyzer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "batareia-u-vyrobi",
@@ -73,8 +211,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-un383-test-summary.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-transport-regulations-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-lithium-transport-regulations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transport-mode-controller.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "eksportnyi-kontrol-i-podviine-pryznachennia",
@@ -277,6 +439,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "specific-absorption-rate",
+          "title": "Питоме поглинання випромінювання (SAR) та радіаційна безпека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     }

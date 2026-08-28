@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 960 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="960" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="475.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюг захищеного оновлення прошивки (EN 303 645 Cl. 5.3 та CRA Annex I)</text>
+<rect x="25.0" y="60.0" width="205.0" height="290.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="127.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Збирання та аудит</text>
+<line x1="35.0" y1="96.0" x2="220.0" y2="96.0" stroke="#333333" stroke-width="1.0"/>
+<text x="37.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Компіляція образу</text>
+<text x="37.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Генерація SBOM</text>
+<text x="37.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  (SPDX / CycloneDX)</text>
+<text x="37.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">SAST / DAST перевірка</text>
+<text x="37.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">CVE сканування коду</text>
+<text x="37.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Security Version (SVN)</text>
+<line x1="234.0" y1="205.0" x2="254.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="258.0" y="60.0" width="205.0" height="290.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="360.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. Криптографічний підпис</text>
+<line x1="268.0" y1="96.0" x2="453.0" y2="96.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="270.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">HSM / KMS середовище</text>
+<text x="270.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Таємний ключ (Private Key)</text>
+<text x="270.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Алгоритм: Ed25519 /</text>
+<text x="270.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  RSA-3072 / ECDSA P-256</text>
+<text x="270.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Підпис заголовка образу</text>
+<text x="270.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Фіксація метаданих версії</text>
+<line x1="467.0" y1="205.0" x2="487.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="491.0" y="60.0" width="210.0" height="290.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="596.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">3. Верифікація в чипі</text>
+<line x1="501.0" y1="96.0" x2="691.0" y2="96.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="503.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Відкритий ключ у eFuse / OTP</text>
+<text x="503.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Обчислення SHA-256 хешу</text>
+<text x="503.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Перевірка цифрового підпису</text>
+<text x="503.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Anti-Rollback контроль:</text>
+<text x="503.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  нова версія ≥ поточної</text>
+<text x="503.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Захист від пониження версії</text>
+<line x1="705.0" y1="205.0" x2="725.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="729.0" y="60.0" width="200.0" height="290.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="829.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">4. Атомарний запуск</text>
+<line x1="739.0" y1="96.0" x2="919.0" y2="96.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="741.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Dual-Bank (A/B Flash)</text>
+<text x="741.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Запис у неактивний слот</text>
+<text x="741.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Атомарна зміна вказівника</text>
+<text x="741.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пробний запуск (Trial Run)</text>
+<text x="741.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Watchdog самодіагностика</text>
+<text x="741.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Автоматичний відкат (Rollback)</text>
+</svg>
