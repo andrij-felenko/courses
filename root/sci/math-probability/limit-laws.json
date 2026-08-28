@@ -75,19 +75,24 @@
           "math": [
             {
               "file": "math-chernoff-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-chernoff-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-chernoff-bounds.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -109,19 +114,22 @@
           "math": [
             {
               "file": "math-bonferroni-proof.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-bonferroni-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bonferroni-bounds.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
