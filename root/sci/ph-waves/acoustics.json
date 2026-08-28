@@ -219,6 +219,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "lighthill-acoustic-analogy",
+          "title": "Аероакустична аналогія Лайтхілла та рівняння FW-H: монополі, диполі й квадруполі в рухомому середовищі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -233,12 +243,70 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-acoustic-levels.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-bel-decibel-telephony.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-decibel-conversions.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decibel-dsp.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "mikrofonnyi-masyv",
           "title": "Мікрофонний масив: напрям на джерело",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-array-geometry-spec.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-acoustic-arrays.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gcc-phat-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-microphone-array-locator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "psychoacoustics-auditory-alarms",
+          "title": "Психоакустика сигналів тривоги: тональні комплекси, маскування та стандарти ISO 7731 / IEC 60601-1-8",
           "basic": {
             "status": "empty"
           },
