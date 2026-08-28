@@ -82,22 +82,7 @@ text: QGroundControl.settingsManager.videoSettings.streamEnabled.rawValue
 
 Пріоритет джерел співвідношення сторін заданий явно й читається згори вниз:
 
-```cpp
-double VideoManager::aspectRatio() const
-{
-    // Живий розмір декодованого кадру важить найбільше
-    if (!_videoSize.isEmpty()) {
-        return static_cast<double>(_videoSize.width()) / _videoSize.height();
-    }
-    for (VideoReceiver *receiver : _videoReceivers) {          // далі — метадані камери
-        QGCVideoStreamInfo *pInfo = receiver->videoStreamInfo();
-        if (!receiver->isThermal() && pInfo && !pInfo->isThermal()) {
-            return pInfo->aspectRatio();
-        }
-    }
-    return _videoSettings->aspectRatio()->rawValue().toDouble();   // і аж потім налаштування
-}
-```
+:::code api-videomanager/cpp/vlastyvosti-dlia-qml.cpp
 
 Практичний наслідок: факт `aspectRatio` з таблиці налаштувань діє **тільки доти, доки не пішли кадри**. Щойно приймач доповів розмір, значення з налаштувань перестає впливати на картинку, хоч і лишається в полі.
 
@@ -393,29 +378,7 @@ Column {
 
 З C++ найтиповіша задача — не керувати підсистемою, а дізнатися, куди насправді пішов потік, і зреагувати на початок запису:
 
-```cpp
-void MyTool::attach()
-{
-    VideoManager *vm = VideoManager::instance();
-    VideoSettings *vs = SettingsManager::instance()->videoSettings();
-
-    // Порівнюємо з константою, а не з тим, що показано користувачеві
-    const QString source = vs->videoSource()->rawValue().toString();
-    if (source == VideoSettings::videoSourceUDPH264) {
-        qCDebug(MyLog) << "слухаємо" << QStringLiteral("udp://%1").arg(vs->udpUrl()->rawValue().toString());
-    }
-
-    // Ім'я файлу відоме лише тоді, коли приймач уже відкрив його
-    connect(vm, &VideoManager::recordingStarted, this, [](const QString &filename) {
-        qCDebug(MyLog) << "запис пішов у" << filename;
-    });
-
-    // Стеля сховища діє лише при ввімкненому прапорці — перевіряємо обидва факти
-    if (vs->enableStorageLimit()->rawValue().toBool()) {
-        qCDebug(MyLog) << "стеля" << vs->maxVideoSize()->rawValue().toUInt() << "МБ";
-    }
-}
-```
+:::code api-videomanager/cpp/minimalnyi-robochyi-vyklyk.cpp
 
 ---
 

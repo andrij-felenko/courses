@@ -186,18 +186,7 @@ const QString dtFormat("yyyy-MM-dd hh-mm-ss");
 
 Тепер випадок, заради якого весь цей танець із тимчасовим файлом і потрібен. Застосунок упав. Ніхто не викликав `_stopLogging`, ніхто нічого не переносив. Але файл **уже лежить на диску** — увесь, до останнього запису, що встиг долетіти до диска. Йому бракує тільки імені й місця. Тому наступний запуск починається з обходу теки тимчасових файлів:
 
-```cpp
-static const QString filter(QStringLiteral("*.%1").arg(_logFileExtension));
-const QFileInfoList fileInfoList = tempDir.entryInfoList(filterList, QDir::Files);
-
-for (const QFileInfo& fileInfo : fileInfoList) {
-    if (fileInfo.size() == 0) {
-        (void)QFile::remove(fileInfo.filePath());
-        continue;
-    }
-    _saveTelemetryLog(fileInfo.filePath());
-}
-```
+:::code telemetry-logging-d/cpp/main.cpp
 
 Кожен знайдений `.mavlink` — це недописаний лог із попереднього сеансу, і його зберігають так само, як зберегли б нормальний. Порожні прибирають одразу: вони лишилися від сеансів, де файл відкрили, але жодного кадру не дочекалися.
 

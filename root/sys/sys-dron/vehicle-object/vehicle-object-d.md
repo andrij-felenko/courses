@@ -37,26 +37,7 @@
 
 «Можливо» тут не випадкове слово. Heartbeat шле не лише автопілот. Його шле бортовий комп'ютер, підвіс камери, ретранслятор ADS-B, і навіть сама станція шле свій heartbeat у ефір. Якби `Vehicle` створювався на кожен новий sysid, на карті виникали б фантомні апарати. Тому перед створенням стоїть кілька фільтрів, і кожен відсіює свій різновид самозванця:
 
-```cpp
-// відповідає за апарат тільки перший автопілот; підвіс і камера мають свої compid
-if (componentId != MAV_COMP_ID_AUTOPILOT1) {
-    return;
-}
-
-switch (vehicleType) {
-case MAV_TYPE_GCS:                 // інша наземна станція в мережі
-case MAV_TYPE_ONBOARD_CONTROLLER:  // бортовий комп'ютер поруч з автопілотом
-case MAV_TYPE_GIMBAL:              // підвіс
-case MAV_TYPE_ADSB:                // приймач чужого трафіку
-    return;
-default:
-    break;
-}
-
-if (_ignoreVehicleIds.contains(vehicleId) || getVehicleById(vehicleId) || vehicleId == 0) {
-    return;
-}
-```
+:::code vehicle-object-d/cpp/khto-vyrishuie-shcho.cpp
 
 Останні три перевірки — про повторення й про сміття: sysid 0 у MAVLink означає «широкомовно, до всіх» і не може позначати конкретну систему; про вже відомий апарат нічого створювати не треба; а до чорного списку `_ignoreVehicleIds` потрапляють ті, від яких користувач свідомо відмовився. Окремо станція перевіряє, чи не збігається sysid апарата з її власним, і, якщо збігається, попереджає користувача: два учасники мережі з однаковим ідентифікатором — це гарантована плутанина в маршрутизації, яку годі помітити з симптомів.
 
@@ -88,19 +69,7 @@ if (_ignoreVehicleIds.contains(vehicleId) || getVehicleById(vehicleId) || vehicl
 
 На `messageReceived` підписаний **кожен** наявний `Vehicle`. Тому перше, що робить об'єкт, — відкидає чуже:
 
-```cpp
-void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t message)
-{
-    if (message.sysid != _systemID && message.sysid != 0) {
-        // виняток: RADIO_STATUS шле сам модем, у нього власний sysid,
-        // але стосується він каналу, яким користується цей апарат
-        if (!(message.msgid == MAVLINK_MSG_ID_RADIO_STATUS
-              && _vehicleLinkManager->containsLink(link))) {
-            return;
-        }
-    }
-    ...
-```
+:::code vehicle-object-d/cpp/shliakh-odnoho.cpp
 
 Фільтр за sysid — це і є розв'язання проблеми кількох апаратів: два `Vehicle` бачать той самий потік і кожен бере з нього своє. Виняток для `RADIO_STATUS` показує, що правило «за sysid» не абсолютне: телеметрійний модем — самостійний учасник мережі зі своїм ідентифікатором, а рівень сигналу, який він доповідає, належить каналу, а отже й апаратові на тому кінці каналу.
 
@@ -152,35 +121,7 @@ if (_compID == message.compid) {   // рахуємо тільки потік а�
 
 Ось як `GLOBAL_POSITION_INT` перетворюється на позицію апарата:
 
-```cpp
-void Vehicle::_handleGlobalPositionInt(mavlink_message_t& message)
-{
-    if (message.compid != _defaultComponentId) {
-        return;
-    }
-    mavlink_global_position_int_t globalPositionInt;
-    mavlink_msg_global_position_int_decode(&message, &globalPositionInt);
-
-    if (!_altitudeMessageAvailable) {                 // якщо є ALTITUDE — беремо звідти
-        _altitudeRelativeFact.setRawValue(globalPositionInt.relative_alt / 1000.0);
-        _altitudeAMSLFact.setRawValue(globalPositionInt.alt / 1000.0);
-    }
-
-    // ArduPilot шле кадри з нулями в широті й довготі навіть без сигналу GPS,
-    // щоб доправити самою лише відносну висоту
-    if (globalPositionInt.lat == 0 && globalPositionInt.lon == 0) {
-        return;
-    }
-
-    QGeoCoordinate newPosition(globalPositionInt.lat / 1E7,
-                               globalPositionInt.lon / 1E7,
-                               globalPositionInt.alt / 1000.0);
-    if (newPosition != _coordinate) {
-        _coordinate = newPosition;
-        emit coordinateChanged(_coordinate);
-    }
-}
-```
+:::code vehicle-object-d/cpp/dvi-dorohy-stanu.cpp
 
 Тут одразу видно кілька речей. Висоти лягають у **факти** — це числа, які показує індикатор і які треба вміти перевести в фути, округлити до потрібного знака й підписати. Координата ж лягає у звичайне поле й віддається сигналом — це не число для індикатора, а складена величина для карти, у якої немає ні одиниць, ні точності. Ось і все правило: **факт — коли значення показують як число, властивість — коли значенням користуються як цілим**.
 
@@ -285,22 +226,7 @@ if (apmFirmware()) {
 
 Тому ця частина зроблена окремою машиною станів — `InitialConnectStateMachine`. Стани йдуть один за одним: версія автопілота → стандартні режими → інформація про компоненти → параметри → місія → геозона → точки збору → готово. У кожного стану є **таймаут**, у деяких — **кількість повторів**, а в частини — **предикат пропуску**:
 
-```cpp
-_stateParameters = new SkippableAsyncState(
-    QStringLiteral("RequestParameters"), this,
-    [this]() {                                  // чи пропускати?
-        if (_shouldSkipForFlying()) {
-            if (vehicle()->px4Firmware()) {     // PX4 має дешеву звірку кешу за хешем
-                return false;
-            }
-            _lastSkipReason = QStringLiteral("(vehicle is flying)");
-            return true;
-        }
-        return false;
-    },
-    [this](SkippableAsyncState* state) { _requestParameters(state); },
-    ...
-```
+:::code vehicle-object-d/cpp/doroslishannia-chomu.cpp
 
 Перехід малюється однією лінією для обох випадків — і успіху, і пропуску:
 

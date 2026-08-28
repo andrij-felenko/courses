@@ -144,40 +144,8 @@ ID = (компонент << 24) | (молодша частина & 0x00FFFFFF)
 Молодші 24 біти протокол ніяк не обмежує: це просто число, і призначати його вільно кожному, хто пише свої метадані. У спільному просторі `common` бібліотеки `libevents` номери проставлені вручну й підряд — події калібрування там мають 1100, 1101, 1102, 1103. PX4 для власного простору обрав інший спосіб: рахувати номер із **імені** події 32-бітовим хешем FNV-1a і брати від нього молодші 24 біти. Обидва підходи законні; хеш просто знімає потребу вести реєстр номерів вручну.
 
 :::tabs
-```cpp
-// Так це рахує прошивка: constexpr — тобто ще при компіляції,
-// у двійковий образ потрапляє готова стала.
-#include <cstdint>
-
-constexpr uint32_t fnv1a32(const char *s, uint32_t h = 0x811c9dc5u)
-{
-    return *s ? fnv1a32(s + 1, (h ^ static_cast<uint8_t>(*s)) * 0x01000193u) : h;
-}
-
-constexpr uint32_t eventId(uint8_t component, const char *name)
-{
-    return (static_cast<uint32_t>(component) << 24) | (fnv1a32(name) & 0x00FFFFFFu);
-}
-
-static_assert(eventId(1, "commander_rtl") == 0x01352ce4u, "");
-```
-```python
-# Так це рахує скрипт, що складає метадані при збиранні прошивки,
-# і так само рахує будь-який інструмент, що читає бортовий журнал.
-def fnv1a32(name: str) -> int:
-    h = 0x811C9DC5
-    for ch in name:
-        h ^= ord(ch)
-        h = (h * 0x01000193) & 0xFFFFFFFF
-    return h
-
-
-def event_id(component: int, name: str) -> int:
-    return (component << 24) | (fnv1a32(name) & 0xFFFFFF)
-
-
-assert event_id(1, "commander_rtl") == 0x01352CE4
-```
+:::code api-events-messages/cpp/main.cpp
+:::code api-events-messages/py/main.py
 :::
 
 Множник `0x01000193` і початкове значення `0x811c9dc5` — це стандартні сталі 32-бітового FNV-1a; чому саме такі й чим FNV відрізняється від сусідів по класу — [некриптографічні хеш-функції](root:sf-algorithms/non-cryptographic-hash).
@@ -375,19 +343,7 @@ mavlink_msg_request_event_pack(
 
 Розбір заголовка події — усе, що потрібно, щоб вирішити долю кадру ще до звертання до метаданих:
 
-```c
-mavlink_event_t ev;
-mavlink_msg_event_decode(&msg, &ev);
-
-const uint8_t  ns_id    = (uint8_t)(ev.id >> 24);        /* простір імен у метаданих */
-const uint32_t sub_id   = ev.id & 0x00FFFFFFu;           /* ключ події, десятковий */
-const uint8_t  external = ev.log_levels & 0x0Fu;         /* рівень для людини */
-const uint8_t  internal = (uint8_t)(ev.log_levels >> 4); /* рівень для журналу */
-
-if (external >= 8) {
-    return;   /* Protocol або Disabled — показувати нічого */
-}
-```
+:::code api-events-messages/c/main.c
 
 Далі вступає нумерація, і тут важить рівно один рядок — той, що робить порівняння номерів стійким до обертання лічильника:
 

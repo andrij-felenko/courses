@@ -170,18 +170,7 @@ sudo systemctl mask --now ModemManager.service
 
 Тепер головне питання: як усе це пов'язати з кодом станції, який просто хоче відкрити порт? Найгірша відповідь — розкидати умови по `SerialLink`. QGroundControl робить інакше: **зберігає інтерфейс і підмінює реалізацію під ним**. У теці `src/Android/` живе `qtandroidserialport` — реалізація тих самих класів `QSerialPort`, тільки з іншим нутром, і міст до Java:
 
-```cpp
-namespace AndroidSerial {
-    constexpr const char *kJniUsbSerialManagerClassName =
-        "org/mavlink/qgroundcontrol/QGCUsbSerialManager";
-
-    QList<QSerialPortInfo> availableDevices();
-    int  open(const QString &portName, QSerialPortPrivate *classPtr);
-    QByteArray read(int deviceId, int length, int timeout);
-    int  write(int deviceId, const char *data, int length, int timeout, bool async);
-    bool setParameters(int deviceId, int baudRate, int dataBits, int stopBits, int parity);
-}
-```
+:::code platform-targets-d/cpp/main.hpp
 
 Кожна з цих функцій через [міст до чужої мови](root:sf-lang/foreign-function-interface) викликає метод Java-класу `QGCUsbSerialManager`, який уже й розмовляє з USB host API. З боку `SerialLink` не змінюється нічого: він як створював `QSerialPort` і кликав `write()`, так і кличе. Практичну механіку цього мосту — хто кого реєструє, у якому потоці працює зворотний виклик, що станеться, коли кабель висмикнули посеред запису — розібрано окремо в [коді мосту JNI](root:sys-dron/platform-targets/proj-android-serial-bridge.md).
 

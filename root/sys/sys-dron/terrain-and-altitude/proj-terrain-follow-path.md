@@ -41,22 +41,7 @@ enum CoordType {
 
 Перед будь-яким проходом потрібні висоти землі вздовж усього візерунка. Їх беруть одним запитом на весь елемент — усі галси зшивають у єдину ламану:
 
-```cpp
-// Append all transects into a single PolyPath query
-QList<QGeoCoordinate> transectPoints;
-for (const QList<CoordInfo_t>& transect: _transects) {
-    for (const CoordInfo_t& coordInfo: transect) {
-        transectPoints.append(coordInfo.coord);
-    }
-}
-
-if (transectPoints.count() > 1) {
-    _currentTerrainPolyPathQuery = new TerrainPolyPathQuery(true /* autoDelete */);
-    connect(_currentTerrainPolyPathQuery, &TerrainPolyPathQuery::terrainDataReceived,
-            this, &TransectStyleComplexItem::_polyPathTerrainData);
-    _currentTerrainPolyPathQuery->requestData(transectPoints);
-}
-```
+:::code proj-terrain-follow-path/cpp/zvidky-beretsia-profil.cpp
 
 Відповідь — список профілів, по одному на кожну послідовну пару точок зшитої ламаної:
 
@@ -76,24 +61,7 @@ struct TerrainPathHeightInfo {
 
 Усе, що відбувається далі, вкладено в один `switch` — і в ньому одразу видно, що три проходи потрібні тільки одному режиму:
 
-```cpp
-case QGroundControlQmlGlobal::AltitudeFrameRelative:
-case QGroundControlQmlGlobal::AltitudeFrameAbsolute:
-    // No additional work needed
-    return;
-case QGroundControlQmlGlobal::AltitudeFrameCalcAboveTerrain:
-    _buildFlightPathCoordInfoFromPathHeightInfoForCalcAboveTerrain();
-    _adjustForMaxRates();
-    _adjustForTolerance();
-    _minAMSLAltitude = qQNaN();
-    _maxAMSLAltitude = qQNaN();
-    for (const CoordInfo_t& coordInfo: _rgFlightPathCoordInfo) {
-        _minAMSLAltitude = std::fmin(_minAMSLAltitude, coordInfo.coord.altitude());
-        _maxAMSLAltitude = std::fmax(_maxAMSLAltitude, coordInfo.coord.altitude());
-    }
-    emit lastSequenceNumberChanged(lastSequenceNumber());
-    break;
-```
+:::code proj-terrain-follow-path/cpp/tochka-vkhodu.cpp
 
 Дрібниця, яку легко проминути: межі висот засівають значенням `qQNaN()`. Це працює, бо `std::fmin` і `std::fmax` за стандартом повертають не-NaN аргумент, коли другий NaN, — тобто NaN тут нейтральний елемент, а не отрута. Зі звичайним `<` така засівка мовчки зіпсувала б обидва числа. Якщо ж шлях виявився порожнім, обидві межі лишаються NaN, і це чесна відповідь «невідомо».
 
@@ -101,54 +69,7 @@ case QGroundControlQmlGlobal::AltitudeFrameCalcAboveTerrain:
 
 ## Прохід перший: насичення
 
-```cpp
-void TransectStyleComplexItem::_buildFlightPathCoordInfoFromPathHeightInfoForCalcAboveTerrain(void)
-{
-    double distanceToSurface = _cameraCalc.distanceToSurface()->rawValue().toDouble();
-
-    _rgFlightPathCoordInfo.clear();
-    int pathHeightIndex = 0;
-    for (int transectIndex=0; transectIndex<_transects.count(); transectIndex++) {
-        const QList<CoordInfo_t>& transect = _transects[transectIndex];
-
-        // Build flight path for transect
-        for (int transectCoordIndex=0; transectCoordIndex<transect.count() - 1; transectCoordIndex++) {
-            CoordInfo_t fromCoordInfo   = transect[transectCoordIndex];
-            CoordInfo_t toCoordInfo     = transect[transectCoordIndex+1];
-
-            const auto& pathHeightInfo = _rgPathHeightInfo[pathHeightIndex++];
-
-            fromCoordInfo.coord.setAltitude(distanceToSurface + pathHeightInfo.heights.first());
-            toCoordInfo.coord.setAltitude(distanceToSurface + pathHeightInfo.heights.last());
-
-            if (transectCoordIndex == 0) {
-                _rgFlightPathCoordInfo.append(fromCoordInfo);
-            }
-
-            // Add interstitial points at max resolution of our terrain data
-            int cHeights = pathHeightInfo.heights.count();
-
-            double azimuth  = fromCoordInfo.coord.azimuthTo(toCoordInfo.coord);
-            double distance = fromCoordInfo.coord.distanceTo(toCoordInfo.coord);
-
-            for (int interstitialIndex=1; interstitialIndex<cHeights - 1; interstitialIndex++) {
-                double interstitialTerrainHeight = pathHeightInfo.heights[interstitialIndex];
-                double percentTowardsTo = (1.0 / (cHeights - 1)) * interstitialIndex;
-
-                CoordInfo_t interstitialCoordInfo;
-                interstitialCoordInfo.coordType = CoordTypeInteriorTerrainAdded;
-                interstitialCoordInfo.coord     = fromCoordInfo.coord.atDistanceAndAzimuth(distance * percentTowardsTo, azimuth);
-                interstitialCoordInfo.coord.setAltitude(interstitialTerrainHeight + distanceToSurface);
-
-                _rgFlightPathCoordInfo.append(interstitialCoordInfo);
-            }
-
-            _rgFlightPathCoordInfo.append(toCoordInfo);
-        }
-        ...
-    }
-}
-```
+:::code proj-terrain-follow-path/cpp/prokhid-pershyi.cpp
 
 Читається просто, але в ньому три речі, кожна з яких важить.
 
@@ -174,69 +95,7 @@ if (transectIndex != _transects.count() - 1) {
 
 ## Прохід другий: обмеження вертикальних швидкостей
 
-```cpp
-void TransectStyleComplexItem::_adjustForMaxRates(void)
-{
-    double maxClimbRate     = _terrainAdjustMaxClimbRateFact.rawValue().toDouble();
-    double maxDescentRate   = _terrainAdjustMaxDescentRateFact.rawValue().toDouble();
-    double flightSpeed      = _vehicleSpeed;
-
-    if (qIsNaN(flightSpeed) || (maxClimbRate == 0 && maxDescentRate == 0)) {
-        if (qIsNaN(flightSpeed)) {
-            qWarning() << "TransectStyleComplexItem::_adjustForMaxRates called with flightSpeed = NaN";
-        }
-        return;
-    }
-    if (maxClimbRate <= 0 && maxDescentRate <= 0) {
-        return;
-    }
-
-    if (maxClimbRate > 0) {
-        bool climbRateAdjusted;
-        do {
-            climbRateAdjusted = false;
-            for (int i=0; i<_rgFlightPathCoordInfo.count() - 1; i++) {
-                QGeoCoordinate& fromCoord   = _rgFlightPathCoordInfo[i].coord;
-                QGeoCoordinate& toCoord     = _rgFlightPathCoordInfo[i+1].coord;
-
-                double altDifference    = toCoord.altitude() - fromCoord.altitude();
-                double distance         = fromCoord.distanceTo(toCoord);
-                double seconds          = distance / flightSpeed;
-                double climbRate        = altDifference / seconds;
-
-                if (climbRate > 0 && climbRate - maxClimbRate > 0.1) {
-                    double maxAltitudeDelta = maxClimbRate * seconds;
-                    fromCoord.setAltitude(toCoord.altitude() - maxAltitudeDelta);
-                    climbRateAdjusted = true;
-                }
-            }
-        } while (climbRateAdjusted);
-    }
-
-    if (maxDescentRate > 0) {
-        bool descentRateAdjusted;
-        maxDescentRate = -maxDescentRate;
-        do {
-            descentRateAdjusted = false;
-            for (int i=0; i<_rgFlightPathCoordInfo.count() - 1; i++) {
-                QGeoCoordinate& fromCoord   = _rgFlightPathCoordInfo[i].coord;
-                QGeoCoordinate& toCoord     = _rgFlightPathCoordInfo[i+1].coord;
-
-                double altDifference    = toCoord.altitude() - fromCoord.altitude();
-                double distance         = fromCoord.distanceTo(toCoord);
-                double seconds          = distance / flightSpeed;
-                double descentRate      = altDifference / seconds;
-
-                if (descentRate < 0 && descentRate - maxDescentRate < -0.1) {
-                    double maxAltitudeDelta = maxDescentRate * seconds;
-                    toCoord.setAltitude(fromCoord.altitude() + maxAltitudeDelta);
-                    descentRateAdjusted = true;
-                }
-            }
-        } while (descentRateAdjusted);
-    }
-}
-```
+:::code proj-terrain-follow-path/cpp/prokhid-druhyi-obmezhennia.cpp
 
 Час прольоту відрізка беруть із його довжини й шляхової швидкости: `seconds = distance / flightSpeed`. Сама швидкість приходить не з налаштувань елемента, а з накопиченого стану всього плану — `setMissionFlightStatus` кладе туди швидкість, з якою апарат підійде саме до цього місця маршруту, — і зберігається у файл плану окремим ключем, щоб при повторному відкритті шлях вийшов той самий, а не перерахований від нової швидкости.
 
@@ -266,31 +125,7 @@ void TransectStyleComplexItem::_adjustForMaxRates(void)
 
 ## Прохід третій: прорідження за допуском
 
-```cpp
-void TransectStyleComplexItem::_adjustForTolerance(void)
-{
-    QList<CoordInfo_t>  adjustedFlightPath;
-    double              tolerance           = _terrainAdjustToleranceFact.rawValue().toDouble();
-    CoordInfo_t&        lastCoordInfo       = _rgFlightPathCoordInfo.first();
-
-    adjustedFlightPath.append(lastCoordInfo);
-
-    int coordIndex = 1;
-    while (coordIndex < _rgFlightPathCoordInfo.count()) {
-        // Walk forward until we fall out of tolerence. When we fall out of tolerance add that point.
-        // We always add non-interstitial points no matter what.
-        const CoordInfo_t& nextCoordInfo = _rgFlightPathCoordInfo[coordIndex];
-        if (nextCoordInfo.coordType != CoordTypeInteriorTerrainAdded ||
-                qAbs(lastCoordInfo.coord.altitude() - nextCoordInfo.coord.altitude()) > tolerance) {
-            adjustedFlightPath.append(nextCoordInfo);
-            lastCoordInfo = nextCoordInfo;
-        }
-        coordIndex++;
-    }
-
-    _rgFlightPathCoordInfo = adjustedFlightPath;
-}
-```
+:::code proj-terrain-follow-path/cpp/prokhid-tretii.cpp
 
 Це жадібне прорідження з храповиком: тримають одну опорну точку й викидають усе, що відрізняється від неї за висотою не більш ніж на допуск; щойно різниця перевищила допуск, точку лишають, і вона сама стає новою опорою. Один прохід, без рекурсії, без пам'яті.
 

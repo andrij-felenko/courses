@@ -65,18 +65,7 @@ QList<SharedLinkInterfacePtr> _rgLinks;  // shared_ptr<LinkInterface>
 
 Зі спільним вказівником видалення зі списку — це лише **мінус одне посилання**. Об'єкт помре тоді й тільки тоді, коли його відпустить останній тримач. Тому в менеджера є метод із красномовним поясненням у коментарі: «якщо ти збираєшся тримати вказівник на з'єднання у своєму об'єкті — візьми його ось так»:
 
-```cpp
-SharedLinkInterfacePtr LinkManager::sharedLinkInterfacePointerForLink(const LinkInterface *link)
-{
-    QMutexLocker locker(&_linksMutex);
-    for (const SharedLinkInterfacePtr &sharedLink : _rgLinks) {
-        if (sharedLink.get() == link) {
-            return sharedLink;
-        }
-    }
-    return SharedLinkInterfacePtr(nullptr);   // уже від'єднане — це нормально
-}
-```
+:::code link-manager-d/cpp/khto-volodiie-zhyvym.cpp
 
 Зверніть увагу на повернення порожнього вказівника як на **штатний** результат, а не помилку. Якщо в черзі ще їхала подія про з'єднання, якого вже нема в списку, чесна відповідь — «нема», і кожен, хто питає, зобов'язаний її перевірити. Саме тому по всьому коду апарата видно однаковий візерунок: узяти спільний вказівник, переконатися, що він не порожній, і лише тоді слати.
 
@@ -86,19 +75,7 @@ SharedLinkInterfacePtr LinkManager::sharedLinkInterfacePointerForLink(const Link
 
 Спільний вказівник відповідає на питання «чи можна зараз звільнити пам'ять». Він не відповідає на інше питання: «чи має це з'єднання ще сенс». Це різні речі, і в `LinkInterface` для другого є окремий лічильник:
 
-```cpp
-void addVehicleReference() { ++_vehicleReferenceCount; }
-void removeVehicleReference();
-
-void LinkInterface::_connectionRemoved()
-{
-    if (_vehicleReferenceCount == 0) {
-        // апаратів на каналі не лишилося — можна рвати просто зараз
-        disconnect();
-    }
-    // інакше чекаємо: решта апаратів іще розмовляє
-}
-```
+:::code link-manager-d/cpp/druhyi-lichylnyk-skilky.cpp
 
 Через один фізичний канал може розмовляти кілька апаратів, і навпаки — один апарат може бути видний одразу кількома каналами (наприклад, коротким USB і довгим радіо як резервом). Коли апарат з'являється, він додає одиницю до лічильника свого каналу; коли зникає — віднімає. Щойно лічильник упав до нуля, канал сам себе роз'єднує: тримати відкритий порт, на якому ніхто не озивається, нема сенсу.
 
@@ -132,49 +109,7 @@ uint32_t _mavlinkChannelsUsedBitMask = 1;   // нульовий канал за�
 
 Тепер видно, що має статися при під'єднанні, і — головне — в якому порядку. Ось повний шлях, зведений до суті:
 
-```cpp
-bool LinkManager::createConnectedLink(SharedLinkConfigurationPtr &config)
-{
-    config->setSuppressAutoReconnect(false);
-
-    SharedLinkInterfacePtr link = nullptr;
-    switch (config->type()) {                       // 1. фабрика за типом опису
-    case LinkConfiguration::TypeSerial: link = std::make_shared<SerialLink>(config); break;
-    case LinkConfiguration::TypeUdp:    link = std::make_shared<UDPLink>(config);    break;
-    case LinkConfiguration::TypeTcp:    link = std::make_shared<TCPLink>(config);    break;
-    // ... Bluetooth, відтворення логу, тестовий канал
-    }
-    if (!link) { return false; }
-
-    if (!link->_allocateMavlinkChannel()) {         // 2. канал — ДО з'єднання
-        return false;
-    }
-
-    // 3. підписатися на сигнали, поки з'єднання ще не потекло
-    connect(link.get(), &LinkInterface::bytesReceived, MAVLinkProtocol::instance(), &MAVLinkProtocol::receiveBytes);
-    connect(link.get(), &LinkInterface::disconnected,  this, &LinkManager::_linkDisconnected);
-    // ... bytesSent, connected, communicationError
-
-    MAVLinkProtocol::instance()->resetMetadataForLink(link.get());
-
-    if (!link->_connect()) {                        // 4. спроба відкрити порт чи сокет
-        // повний відкат: відписатися, повернути канал, забути про з'єднання
-        disconnect(link.get(), &LinkInterface::bytesReceived, MAVLinkProtocol::instance(), &MAVLinkProtocol::receiveBytes);
-        disconnect(link.get(), &LinkInterface::disconnected,  this, &LinkManager::_linkDisconnected);
-        // ... решта підписок
-        link->_freeMavlinkChannel();
-        config->setLink(nullptr);
-        return false;
-    }
-
-    {                                               // 5. лише тепер — у список
-        QMutexLocker locker(&_linksMutex);
-        _rgLinks.append(link);
-    }
-    config->setLink(link);                          // 6. і зв'язати з описом
-    return true;
-}
-```
+:::code link-manager-d/cpp/narodzhennia-ziednannia.cpp
 
 Кожен крок стоїть на своєму місці не випадково.
 
@@ -196,29 +131,7 @@ bool LinkManager::createConnectedLink(SharedLinkConfigurationPtr &config)
 
 Помирає з'єднання не за командою, а за **фактом**: хтось смикнув кабель, сокет закрився, апарат вимкнувся, файл логу дограв до кінця. Тому шлях смерті починається не з виклику, а з сигналу `disconnected`, який з'єднання випускає саме:
 
-```cpp
-void LinkManager::_linkDisconnected()
-{
-    LinkInterface *const link = qobject_cast<LinkInterface*>(sender());
-    if (!link) { return; }
-
-    SharedLinkInterfacePtr linkToCleanup;
-    {
-        QMutexLocker locker(&_linksMutex);
-        for (auto it = _rgLinks.begin(); it != _rgLinks.end(); ++it) {
-            if (it->get() == link) {
-                linkToCleanup = *it;      // ⚠️ забрати копію ПЕРЕД видаленням зі списку
-                _rgLinks.erase(it);
-                break;
-            }
-        }
-    }
-    if (!linkToCleanup) { return; }       // уже прибрано — це не помилка
-
-    // ... відв'язати опис, відписатися від сигналів
-    link->_freeMavlinkChannel();
-}
-```
+:::code link-manager-d/cpp/smert-ziednannia.cpp
 
 Тут важлива саме та строчка, що виглядає зайвою: локальна копія спільного вказівника, зроблена **перед** видаленням елемента зі списку. Без неї список міг би тримати останнє посилання, `erase` знищив би об'єкт негайно — і решта методу працювала б із мертвим вказівником, включно зі звільненням каналу. Копія тримає об'єкт живим до кінця прибирання, а помирає він, коли з методу вийде остання локальна змінна.
 
@@ -300,18 +213,7 @@ bool linkActive() const {
 
 Останній шматок життєвого циклу — той, який найлегше зробити неправильно:
 
-```cpp
-void LinkManager::shutdown()
-{
-    setConnectionsSuspended(tr("Shutdown"));   // 1. заборонити нові з'єднання
-    disconnectAll();                           // 2. розірвати наявні
-
-    // 3. дочекатися, поки зникнуть усі апарати
-    while (MultiVehicleManager::instance()->vehicles()->count()) {
-        QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-    }
-}
-```
+:::code link-manager-d/cpp/vymknennia-zastosunku.cpp
 
 Заборона нових з'єднань іде **першою** — інакше секундний таймер автопідключення встиг би підняти назад щойно розірваний канал, і вихід перетворився б на перегони. Далі — розрив усіх каналів. А потім найцікавіше: замість того щоб одразу вийти, застосунок **крутить чергу подій**, доки не зникне останній апарат.
 

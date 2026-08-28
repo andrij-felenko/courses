@@ -86,19 +86,7 @@
 
 Розбір виглядає так — байт за байтом, без жодних припущень про межі порцій:
 
-```c
-const uint8_t chan = link->mavlinkChannel();
-
-for (int i = 0; i < data.size(); i++) {
-    mavlink_message_t message;
-    mavlink_status_t  status;
-    const uint8_t framing = mavlink_parse_char(chan, data[i], &message, &status);
-
-    if (framing == MAVLINK_FRAMING_OK) {
-        emit messageReceived(link, message);
-    }
-}
-```
+:::code app-composition-d/c/main.c
 
 Ключове тут — перший рядок. Стан автомата зберігається не в об'єкті, а в таблиці, проіндексованій **номером каналу**, і номер цей належить конкретному з'єднанню.
 

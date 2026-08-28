@@ -53,54 +53,8 @@
 **Безпечне пакування та вилучення значення параметра:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-
-// Безпечне пакування uint32_t у 4-байтове поле float через побітове копіювання
-float pack_param_uint32(uint32_t val) {
-    float container;
-    memcpy(&container, &val, sizeof(float));
-    return container;
-}
-
-// Вилучення uint32_t із контейнера float без втрати молодших бітів
-uint32_t unpack_param_uint32(float container) {
-    uint32_t val;
-    memcpy(&val, &container, sizeof(uint32_t));
-    return val;
-}
-
-// Безпечне копіювання імені параметра з гарантованим нульовим термінатором
-void safe_get_param_id(const char wire_id[16], char out_buf[17]) {
-    memcpy(out_buf, wire_id, 16);
-    out_buf[16] = '\0';
-}
-```
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <string_view>
-#include <array>
-#include <bit>
-
-// Безпечне пакування uint32_t у float через std::bit_cast (C++20)
-constexpr float pack_param_uint32(uint32_t val) noexcept {
-    return std::bit_cast<float>(val);
-}
-
-// Вилучення uint32_t із контейнера float без втрати бітів
-constexpr uint32_t unpack_param_uint32(float container) noexcept {
-    return std::bit_cast<uint32_t>(container);
-}
-
-// Безпечне отримання string_view для 16-байтового масиву без виходу за межі
-std::string_view safe_get_param_id(const std::array<char, 16>& wire_id) noexcept {
-    const size_t len = strnlen(wire_id.data(), wire_id.size());
-    return std::string_view(wire_id.data(), len);
-}
-```
+:::code mavlink-param-protocol-model-d/c/anatomiia-parametra.c
+:::code mavlink-param-protocol-model-d/cpp/anatomiia-parametra.hpp
 :::
 
 ---
@@ -193,72 +147,8 @@ std::string_view safe_get_param_id(const std::array<char, 16>& wire_id) noexcept
 **Формування та надсилання транзакції зміни параметра:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-// Макет структури повідомлення PARAM_SET для демонстрації
-typedef struct {
-    float   param_value;
-    uint8_t target_system;
-    uint8_t target_component;
-    char    param_id[16];
-    uint8_t param_type;
-} mav_param_set_msg_t;
-
-// Складання повідомлення PARAM_SET для встановлення максимальної швидкості
-mav_param_set_msg_t create_param_set_float(uint8_t sys_id,
-                                           uint8_t comp_id,
-                                           const char *name,
-                                           float val) {
-    mav_param_set_msg_t msg;
-    memset(&msg, 0, sizeof(msg));
-
-    msg.target_system = sys_id;
-    msg.target_component = comp_id;
-    msg.param_type = 9; // MAV_PARAM_TYPE_REAL32
-
-    // Побітове копіювання float у поле значення
-    memcpy(&msg.param_value, &val, sizeof(float));
-
-    // Безпечне копіювання імені з обмеженням 16 байтів
-    strncpy(msg.param_id, name, 16);
-
-    return msg;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <string_view>
-#include <array>
-#include <bit>
-
-struct ParamSetMessage {
-    float    param_value{0.0f};
-    uint8_t  target_system{1};
-    uint8_t  target_component{1};
-    std::array<char, 16> param_id{};
-    uint8_t  param_type{9}; // MAV_PARAM_TYPE_REAL32
-};
-
-// Складання типізованого повідомлення PARAM_SET
-ParamSetMessage create_param_set_float(uint8_t sys_id,
-                                       uint8_t comp_id,
-                                       std::string_view name,
-                                       float val) noexcept {
-    ParamSetMessage msg{};
-    msg.target_system = sys_id;
-    msg.target_component = comp_id;
-    msg.param_type = 9;
-    msg.param_value = val;
-
-    const size_t copy_len = std::min(name.size(), msg.param_id.size());
-    std::memcpy(msg.param_id.data(), name.data(), copy_len);
-
-    return msg;
-}
-```
+:::code mavlink-param-protocol-model-d/c/zmina-parametra-param-set.c
+:::code mavlink-param-protocol-model-d/cpp/zmina-parametra-param-set.hpp
 :::
 
 ---

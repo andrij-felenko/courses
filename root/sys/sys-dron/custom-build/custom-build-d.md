@@ -131,24 +131,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME}
 
 Ім'я застосунку доїжджає в код окремою макро-константою, і застосунок під час запуску робить із ним ось що:
 
-```cpp
-QString applicationName;
-if (_runningUnitTests || _simpleBootTest) {
-    // …ім'я з міткою тесту, щоб прогони не заважали один одному
-} else {
-#ifdef QGC_DAILY_BUILD
-    applicationName = QStringLiteral("%1 Daily").arg(QGC_APP_NAME);
-#else
-    applicationName = QGC_APP_NAME;
-#endif
-}
-
-setApplicationName(applicationName);
-setDesktopFileName(QGC_PACKAGE_NAME);
-setOrganizationName(QGC_ORG_NAME);
-setOrganizationDomain(QGC_ORG_DOMAIN);
-setApplicationVersion(QString(QGC_APP_VERSION_STR));
-```
+:::code custom-build-d/cpp/main.cpp
 
 Придивімося до гілки з «Daily». Навіщо щоденній збірці інше ім'я, якщо вона й так позначена версією? Бо ім'я застосунку разом з іменем організації визначає, **де лежить файл налаштувань**. Щоденна збірка, названа інакше, дістає власний файл і не псує налаштувань стабільної, установленої поруч. Тобто ім'я тут — не напис, а простір імен.
 

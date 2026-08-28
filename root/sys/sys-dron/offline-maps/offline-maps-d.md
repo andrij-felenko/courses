@@ -37,27 +37,7 @@
 
 Схема, яку станція створює при першому запуску, складається з чотирьох таблиць:
 
-```sql
-CREATE TABLE IF NOT EXISTS Tiles (
-    tileID INTEGER PRIMARY KEY NOT NULL, hash TEXT NOT NULL UNIQUE,
-    format TEXT NOT NULL, tile BLOB NULL, size INTEGER, type INTEGER,
-    date INTEGER DEFAULT 0)
-
-CREATE TABLE IF NOT EXISTS TileSets (
-    setID INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL UNIQUE, typeStr TEXT,
-    topleftLat REAL, topleftLon REAL, bottomRightLat REAL, bottomRightLon REAL,
-    minZoom INTEGER DEFAULT 3, maxZoom INTEGER DEFAULT 3, type INTEGER DEFAULT -1,
-    numTiles INTEGER DEFAULT 0, defaultSet INTEGER DEFAULT 0, date INTEGER DEFAULT 0)
-
-CREATE TABLE IF NOT EXISTS SetTiles (
-    setID INTEGER NOT NULL REFERENCES TileSets(setID) ON DELETE CASCADE,
-    tileID INTEGER NOT NULL REFERENCES Tiles(tileID) ON DELETE CASCADE)
-
-CREATE TABLE IF NOT EXISTS TilesDownload (
-    setID INTEGER NOT NULL REFERENCES TileSets(setID) ON DELETE CASCADE,
-    hash TEXT NOT NULL, type INTEGER, x INTEGER, y INTEGER, z INTEGER,
-    state INTEGER DEFAULT 0)
-```
+:::code offline-maps-d/sql/main.sql
 
 `Tiles` — самі картинки: одна клітинка, один рядок, картинка в полі `tile`. `TileSets` — замовлення: ім'я, прямокутник у градусах, діапазон рівнів, тип карти й лічильник клітинок. `TilesDownload` — черга того, що ще треба скачати.
 

@@ -118,48 +118,8 @@ MAVLink використовує механізм **CRC Extra** для забе�
 ```
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_REQUEST_LIST */
-typedef struct __mavlink_param_request_list_t {
-    uint8_t target_system;     /* ID системи-адресата */
-    uint8_t target_component;  /* ID компонента-адресата */
-} mavlink_param_request_list_t;
-
-/* Функція пакування повідомлення у буфер */
-int pack_param_request_list(uint8_t sys_id, uint8_t comp_id,
-                            uint8_t target_sys, uint8_t target_comp,
-                            uint8_t *buffer) {
-    mavlink_message_t msg;
-    mavlink_param_request_list_t payload;
-    payload.target_system = target_sys;
-    payload.target_component = target_comp;
-    mavlink_msg_param_request_list_encode(sys_id, comp_id, &msg, &payload);
-    return mavlink_msg_to_send_buffer(buffer, &msg);
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <array>
-
-/* C++ обгортка над повідомленням PARAM_REQUEST_LIST з ідіоматичним інтерфейсом */
-struct ParamRequestList {
-    uint8_t target_system{1};
-    uint8_t target_component{1};
-
-    [[nodiscard]] size_t encode(uint8_t sys_id, uint8_t comp_id,
-                                std::span<uint8_t> output_buffer) const {
-        mavlink_message_t msg;
-        mavlink_param_request_list_t payload{
-            .target_system = target_system,
-            .target_component = target_component
-        };
-        mavlink_msg_param_request_list_encode(sys_id, comp_id, &msg, &payload);
-        uint16_t len = mavlink_msg_to_send_buffer(output_buffer.data(), &msg);
-        return static_cast<size_t>(len);
-    }
-};
-```
+:::code api-param-messages/c/1-param-request-list-id-21.c
+:::code api-param-messages/cpp/1-param-request-list-id-21.hpp
 :::
 
 #### 2. PARAM_VALUE (ID #22)
@@ -186,59 +146,8 @@ struct ParamRequestList {
 3. **Квитування запису:** після обробки `PARAM_SET` автопілот розсилає `PARAM_VALUE` усім під'єднаним станціям. При цьому `param_index` містить реальний індекс зміненого параметра або `65535` (`UINT16_MAX`), якщо параметр не індексується динамічно.
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_VALUE */
-typedef struct __mavlink_param_value_t {
-    float    param_value;   /* 4 байти значення */
-    uint16_t param_count;   /* загальна кількість параметрів */
-    uint16_t param_index;   /* індекс поточного параметра */
-    char     param_id[16];  /* 16-байтний ідентифікатор */
-    uint8_t  param_type;    /* тип даних (MAV_PARAM_TYPE) */
-} mavlink_param_value_t;
-
-/* Безпечне копіювання ідентифікатора у нуль-термінований рядок */
-void extract_safe_param_id(const char wire_id[16], char out_str[17]) {
-    memcpy(out_str, wire_id, 16);
-    out_str[16] = '\0';
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <string>
-#include <array>
-#include <cstring>
-#include <bit>
-
-/* C++ структура з безпечною обробкою рядків та типізованим значенням */
-struct ParamValueMsg {
-    float raw_value{0.0f};
-    uint16_t count{0};
-    uint16_t index{0};
-    std::array<char, 16> id{};
-    uint8_t type{0};
-
-    [[nodiscard]] std::string_view name() const noexcept {
-        size_t len = 0;
-        while (len < id.size() && id[len] != '\0') {
-            ++len;
-        }
-        return std::string_view(id.data(), len);
-    }
-
-    [[nodiscard]] int32_t as_int32() const noexcept {
-        return std::bit_cast<int32_t>(raw_value);
-    }
-
-    [[nodiscard]] uint32_t as_uint32() const noexcept {
-        return std::bit_cast<uint32_t>(raw_value);
-    }
-
-    [[nodiscard]] float as_float() const noexcept {
-        return raw_value;
-    }
-};
-```
+:::code api-param-messages/c/2-param-value-id-22.c
+:::code api-param-messages/cpp/2-param-value-id-22.cpp
 :::
 
 #### 3. PARAM_REQUEST_READ (ID #20)
@@ -264,68 +173,8 @@ struct ParamValueMsg {
 * Якщо `param_index == -1`: автопілот виконує пошук за рядком `param_id`. Це операція з часовою складністю `O(N)`, яка вимагає побайтового порівняння рядків з усіма параметрами в пам'яті. Якщо параметр з такою назвою не знайдено, автопілот не генерує відповіді `PARAM_VALUE`, а наземна станція фіксує таймаут операції читання.
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_REQUEST_READ */
-typedef struct __mavlink_param_request_read_t {
-    int16_t param_index;      /* індекс або -1 */
-    uint8_t target_system;    /* ID системи */
-    uint8_t target_component; /* ID компонента */
-    char    param_id[16];     /* назва */
-} mavlink_param_request_read_t;
-
-/* Складання запиту за індексом */
-void make_read_by_index_request(mavlink_param_request_read_t *req,
-                                uint8_t target_sys, uint8_t target_comp,
-                                int16_t index) {
-    req->target_system = target_sys;
-    req->target_component = target_comp;
-    req->param_index = index;
-    memset(req->param_id, 0, 16);
-}
-
-/* Складання запиту за назвою */
-void make_read_by_name_request(mavlink_param_request_read_t *req,
-                               uint8_t target_sys, uint8_t target_comp,
-                               const char *name) {
-    req->target_system = target_sys;
-    req->target_component = target_comp;
-    req->param_index = -1;
-    strncpy(req->param_id, name, 16);
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <array>
-#include <algorithm>
-
-struct ParamRequestRead {
-    int16_t index{-1};
-    uint8_t target_system{1};
-    uint8_t target_component{1};
-    std::array<char, 16> id{};
-
-    static ParamRequestRead by_index(uint8_t sys, uint8_t comp, int16_t idx) noexcept {
-        ParamRequestRead req;
-        req.target_system = sys;
-        req.target_component = comp;
-        req.index = idx;
-        req.id.fill('\0');
-        return req;
-    }
-
-    static ParamRequestRead by_name(uint8_t sys, uint8_t comp, std::string_view name) noexcept {
-        ParamRequestRead req;
-        req.target_system = sys;
-        req.target_component = comp;
-        req.index = -1;
-        req.id.fill('\0');
-        size_t to_copy = std::min(name.size(), req.id.size());
-        std::copy_n(name.data(), to_copy, req.id.data());
-        return req;
-    }
-};
-```
+:::code api-param-messages/c/3-param-request-read-id-20.c
+:::code api-param-messages/cpp/3-param-request-read-id-20.hpp
 :::
 
 #### 4. PARAM_SET (ID #23)
@@ -353,66 +202,8 @@ struct ParamRequestRead {
 3. Запис у постійну Flash-пам'ять або EEPROM/FRAM зазвичай виконується синхронно або ставиться в чергу фонового запису.
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_SET */
-typedef struct __mavlink_param_set_t {
-    float   param_value;      /* нове значення */
-    uint8_t target_system;    /* ID цільової системи */
-    uint8_t target_component; /* ID цільового компонента */
-    char    param_id[16];     /* назва параметра */
-    uint8_t param_type;       /* тип значення */
-} mavlink_param_set_t;
-
-/* Пакування цілого значення uint32 у float поле PARAM_SET */
-void set_param_uint32(mavlink_param_set_t *set_msg,
-                      uint8_t target_sys, uint8_t target_comp,
-                      const char *name, uint32_t val) {
-    set_msg->target_system = target_sys;
-    set_msg->target_component = target_comp;
-    strncpy(set_msg->param_id, name, 16);
-    set_msg->param_type = MAV_PARAM_TYPE_UINT32;
-    memcpy(&set_msg->param_value, &val, sizeof(float));
-}
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <array>
-#include <algorithm>
-#include <bit>
-
-struct ParamSetMsg {
-    float raw_value{0.0f};
-    uint8_t target_system{1};
-    uint8_t target_component{1};
-    std::array<char, 16> id{};
-    uint8_t type{0};
-
-    static ParamSetMsg make_float(uint8_t sys, uint8_t comp,
-                                  std::string_view name, float val) noexcept {
-        ParamSetMsg msg;
-        msg.target_system = sys;
-        msg.target_component = comp;
-        msg.type = 9; /* MAV_PARAM_TYPE_REAL32 */
-        msg.raw_value = val;
-        msg.id.fill('\0');
-        std::copy_n(name.data(), std::min(name.size(), msg.id.size()), msg.id.data());
-        return msg;
-    }
-
-    static ParamSetMsg make_uint32(uint8_t sys, uint8_t comp,
-                                   std::string_view name, uint32_t val) noexcept {
-        ParamSetMsg msg;
-        msg.target_system = sys;
-        msg.target_component = comp;
-        msg.type = 5; /* MAV_PARAM_TYPE_UINT32 */
-        msg.raw_value = std::bit_cast<float>(val);
-        msg.id.fill('\0');
-        std::copy_n(name.data(), std::min(name.size(), msg.id.size()), msg.id.data());
-        return msg;
-    }
-};
-```
+:::code api-param-messages/c/4-param-set-id-23.c
+:::code api-param-messages/cpp/4-param-set-id-23.hpp
 :::
 
 ---
@@ -462,67 +253,8 @@ struct ParamSetMsg {
 ```
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_EXT_VALUE */
-typedef struct __mavlink_param_ext_value_t {
-    uint16_t param_count;     /* загальна кількість */
-    uint16_t param_index;     /* числовий індекс */
-    char     param_id[16];    /* 16-байтна назва */
-    char     param_value[128];/* 128-байтний буфер даних */
-    uint8_t  param_type;      /* MAV_PARAM_TYPE */
-} mavlink_param_ext_value_t;
-
-/* Вичитування 64-бітного беззнакового цілого з розширеного буфера */
-uint64_t get_ext_param_uint64(const mavlink_param_ext_value_t *msg) {
-    uint64_t val = 0;
-    memcpy(&val, msg->param_value, sizeof(uint64_t));
-    return val;
-}
-
-/* Вичитування 64-бітного float подвійної точності */
-double get_ext_param_real64(const mavlink_param_ext_value_t *msg) {
-    double val = 0.0;
-    memcpy(&val, msg->param_value, sizeof(double));
-    return val;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <cstring>
-#include <span>
-#include <string_view>
-
-struct ParamExtValueMsg {
-    uint16_t count{0};
-    uint16_t index{0};
-    std::array<char, 16> id{};
-    std::array<uint8_t, 128> raw_data{};
-    uint8_t type{0};
-
-    [[nodiscard]] uint64_t as_uint64() const noexcept {
-        uint64_t val = 0;
-        std::memcpy(&val, raw_data.data(), sizeof(uint64_t));
-        return val;
-    }
-
-    [[nodiscard]] int64_t as_int64() const noexcept {
-        int64_t val = 0;
-        std::memcpy(&val, raw_data.data(), sizeof(int64_t));
-        return val;
-    }
-
-    [[nodiscard]] double as_double() const noexcept {
-        double val = 0.0;
-        std::memcpy(&val, raw_data.data(), sizeof(double));
-        return val;
-    }
-
-    [[nodiscard]] std::span<const uint8_t> as_custom_blob() const noexcept {
-        return std::span<const uint8_t>(raw_data.data(), raw_data.size());
-    }
-};
-```
+:::code api-param-messages/c/3-param-ext-value-id-322.c
+:::code api-param-messages/cpp/3-param-ext-value-id-322.hpp
 :::
 
 #### 4. PARAM_EXT_REQUEST_READ (ID #320)
@@ -569,43 +301,8 @@ struct ParamExtValueMsg {
 ```
 
 :::tabs
-```c
-/* Бінарна структура повідомлення PARAM_EXT_ACK */
-typedef struct __mavlink_param_ext_ack_t {
-    char    param_id[16];     /* назва параметра */
-    char    param_value[128]; /* підтверджене значення */
-    uint8_t param_type;       /* MAV_PARAM_TYPE */
-    uint8_t param_result;     /* результат операції (PARAM_ACK) */
-} mavlink_param_ext_ack_t;
-
-/* Перевірка успішності запису розширеного параметра */
-bool is_ext_param_write_successful(const mavlink_param_ext_ack_t *ack) {
-    return (ack->param_result == 0); /* 0 == PARAM_ACK_ACCEPTED */
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <string_view>
-
-enum class ParamAckResult : uint8_t {
-    Accepted = 0,
-    ValueUnsupported = 1,
-    Failed = 2,
-    InProgress = 3
-};
-
-struct ParamExtAckMsg {
-    std::array<char, 16> id{};
-    std::array<uint8_t, 128> value{};
-    uint8_t type{0};
-    ParamAckResult result{ParamAckResult::Failed};
-
-    [[nodiscard]] bool is_accepted() const noexcept {
-        return result == ParamAckResult::Accepted;
-    }
-};
-```
+:::code api-param-messages/c/6-param-ext-ack-id-324.c
+:::code api-param-messages/cpp/6-param-ext-ack-id-324.cpp
 :::
 
 ---
@@ -639,61 +336,8 @@ struct ParamExtAckMsg {
 Щоб зберегти цілісність даних, протокол MAVLink вимагає **побітового копіювання** (transposition / bit-cast): 4 байти цілого числа записуються в пам'ять поля `float` без будь-якої арифметичної зміни бітів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-/* Безпечне пакування uint32 у float контейнер */
-float pack_uint32_to_mavlink_float(uint32_t val) {
-    float f;
-    memcpy(&f, &val, sizeof(float));
-    return f;
-}
-
-/* Безпечне розпакування float контейнера у uint32 */
-uint32_t unpack_mavlink_float_to_uint32(float f) {
-    uint32_t val;
-    memcpy(&val, &f, sizeof(uint32_t));
-    return val;
-}
-
-/* Безпечне розпакування float контейнера у int32 */
-int32_t unpack_mavlink_float_to_int32(float f) {
-    int32_t val;
-    memcpy(&val, &f, sizeof(int32_t));
-    return val;
-}
-```
-```cpp
-#include <cstdint>
-#include <bit>
-#include <concepts>
-
-/* Сучасна ідіоматична C++20 реалізація через std::bit_cast (constexpr та zero-cost) */
-
-template <std::integral T>
-[[nodiscard]] constexpr float pack_integral_to_mavlink_float(T val) noexcept {
-    static_assert(sizeof(T) <= sizeof(float), "Тип перевищує 32 біти контейнера");
-    if constexpr (sizeof(T) == sizeof(float)) {
-        return std::bit_cast<float>(val);
-    } else {
-        /* Для типів < 4 байтів вирівнюємо в uint32_t перед копіюванням */
-        uint32_t wider = static_cast<uint32_t>(val);
-        return std::bit_cast<float>(wider);
-    }
-}
-
-template <std::integral T>
-[[nodiscard]] constexpr T unpack_mavlink_float_to_integral(float f) noexcept {
-    static_assert(sizeof(T) <= sizeof(float), "Тип перевищує 32 біти контейнера");
-    if constexpr (sizeof(T) == sizeof(float)) {
-        return std::bit_cast<T>(f);
-    } else {
-        uint32_t wider = std::bit_cast<uint32_t>(f);
-        return static_cast<T>(wider);
-    }
-}
-```
+:::code api-param-messages/c/detalnyi-analiz-pobitovoho.c
+:::code api-param-messages/cpp/detalnyi-analiz-pobitovoho.cpp
 :::
 
 ---

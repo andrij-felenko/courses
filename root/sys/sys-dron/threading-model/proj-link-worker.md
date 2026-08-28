@@ -27,32 +27,7 @@
 
 ## Що перетинає межу
 
-```cpp
-// LinkTypes.h — усе, що бачать обидві нитки
-#pragma once
-
-#include <QByteArray>
-#include <QMetaType>
-#include <atomic>
-#include <chrono>
-#include <memory>
-
-// Монотонний час у наносекундах. steady_clock у C++ — один на весь процес
-// і ніколи не йде назад, тож мітку, поставлену в одній нитці,
-// можна законно відняти в іншій.
-inline qint64 monoNs()
-{
-    using namespace std::chrono;
-    return duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
-}
-
-// Пачка байтів разом із міткою миті, коли її прочитали з сокета.
-struct Chunk {
-    QByteArray bytes;
-    qint64     stampNs = 0;
-};
-Q_DECLARE_METATYPE(Chunk)
-```
+:::code proj-link-worker/cpp/shcho-peretynaie-mezhu.hpp
 
 Мітка часу подорожує **разом із байтами**, і це не оздоба. Час, який пачка пролежала в черзі, можна виміряти лише як різницю двох моментів у двох різних нитках; той бік, що приймає, сам по собі не знає, коли байти прийшли з дроту. Тому мітка ставиться там, де читання, і їде далі як частина вантажу.
 
@@ -64,27 +39,7 @@ Q_DECLARE_METATYPE(Chunk)
 
 Отже, лічильники — це та єдина пам'ять, яку обидві нитки бачать разом:
 
-```cpp
-// LinkTypes.h, продовження
-struct LinkStats {
-    std::atomic<qint64> emitted        {0};   // пише робітник: скільки пачок випущено
-    std::atomic<qint64> delivered      {0};   // пише головна: скільки прийнято
-    std::atomic<qint64> datagrams      {0};   // пише робітник
-    std::atomic<qint64> bytesIn        {0};   // пише робітник
-    std::atomic<qint64> residenceLastNs{0};   // пише головна
-    std::atomic<qint64> residenceMaxNs {0};   // пише головна
-
-    // Читати саме в цьому порядку: спершу delivered, потім emitted.
-    qint64 inFlight() const
-    {
-        const qint64 d = delivered.load(std::memory_order_relaxed);
-        const qint64 e = emitted.load(std::memory_order_relaxed);
-        return e - d;
-    }
-};
-
-using LinkStatsPtr = std::shared_ptr<LinkStats>;
-```
+:::code proj-link-worker/cpp/spilnyi-blok-lichylnykiv.hpp
 
 Два рішення в цих рядках варті пояснення.
 
@@ -100,115 +55,17 @@ using LinkStatsPtr = std::shared_ptr<LinkStats>;
 
 ## Робітник: усе, що вміє чекати
 
-```cpp
-// LinkWorker.h
-#pragma once
-#include "LinkTypes.h"
-#include <QObject>
-#include <QHostAddress>
-
-class QUdpSocket;
-
-class LinkWorker : public QObject
-{
-    Q_OBJECT
-public:
-    LinkWorker(quint16 localPort, LinkStatsPtr stats, QObject *parent = nullptr);
-
-public slots:
-    void openSocket();                      // під'єднаний до сигналу «нитка почалася»
-    void closeSocket();
-    void writeData(const QByteArray &data);
-
-signals:
-    void chunkReceived(const Chunk &chunk);
-    void opened(quint16 port);
-    void failed(const QString &reason);
-
-private slots:
-    void _onReadyRead();
-
-private:
-    const quint16      _localPort;
-    const LinkStatsPtr _stats;
-    QUdpSocket        *_socket   = nullptr;
-    QHostAddress       _peerAddr;
-    quint16            _peerPort = 0;
-};
-```
+:::code proj-link-worker/cpp/robitnyk-use-shcho-vmiie.hpp
 
 Реалізація. Зверніть увагу на порожній конструктор — це не недоробка, а половина всієї конструкції:
 
-```cpp
-// LinkWorker.cpp
-#include "LinkWorker.h"
-#include <QUdpSocket>
-#include <QNetworkDatagram>
-#include <QThread>
-
-LinkWorker::LinkWorker(quint16 localPort, LinkStatsPtr stats, QObject *parent)
-    : QObject(parent)
-    , _localPort(localPort)
-    , _stats(std::move(stats))
-{
-    // Жодного ресурсу: тут ми ще в головній нитці.
-}
-
-void LinkWorker::openSocket()
-{
-    Q_ASSERT(QThread::currentThread() == thread());   // уже своя нитка
-
-    _socket = new QUdpSocket(this);
-    connect(_socket, &QUdpSocket::readyRead, this, &LinkWorker::_onReadyRead);
-
-    if (!_socket->bind(QHostAddress::AnyIPv4, _localPort,
-                       QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint)) {
-        emit failed(_socket->errorString());
-        return;
-    }
-    emit opened(_socket->localPort());
-}
-
-void LinkWorker::closeSocket()
-{
-    if (!_socket) return;
-    _socket->close();
-    delete _socket;
-    _socket = nullptr;
-}
-```
+:::code proj-link-worker/cpp/LinkWorker.cpp
 
 `Q_ASSERT` тут не декорація, а найдешевший спосіб зловити найпоширенішу помилку в цьому коді. `thread()` — це нитка, до якої **приписаний** об'єкт; `QThread::currentThread()` — нитка, у якій ми зараз **виконуємось**. Якби `openSocket` покликали напряму з головної нитки замість того, щоб дати сигналові про старт покликати його самому, перевірка спрацювала б одразу, а не через тиждень — падінням при від'єднанні кабелю.
 
 Читання:
 
-```cpp
-void LinkWorker::_onReadyRead()
-{
-    const qint64 stamp = monoNs();
-    QByteArray burst;
-
-    while (_socket->hasPendingDatagrams()) {
-        const QNetworkDatagram dg = _socket->receiveDatagram();
-        if (dg.data().isEmpty()) continue;
-
-        _peerAddr = dg.senderAddress();
-        _peerPort = dg.senderPort();
-
-        if (burst.isEmpty())
-            burst = dg.data();          // типовий випадок: одна датаграма, копії нема
-        else
-            burst.append(dg.data());
-
-        _stats->datagrams.fetch_add(1, std::memory_order_relaxed);
-    }
-    if (burst.isEmpty()) return;
-
-    _stats->bytesIn.fetch_add(burst.size(), std::memory_order_relaxed);
-    _stats->emitted.fetch_add(1, std::memory_order_relaxed);
-    emit chunkReceived(Chunk{ burst, stamp });
-}
-```
+:::code proj-link-worker/cpp/robitnyk-use-shcho-vmiie.cpp
 
 Цикл `while` обов'язковий, і не з міркувань економії. Сигнал про готові дані Qt випускає **тоді, коли прийшли нові** дані, а не тоді, коли в буфері щось лишилося: в документації прямо сказано не випускати його лише через те, що в буферах ще є непрочитане. Обробник, який забирає одну датаграму й виходить, лишає решту в буфері ядра до наступного пакета — і черга наростає зовні застосунку, там, де її не видно жодним лічильником, аж поки буфер ядра не переповниться й датаграми не почнуть тихо зникати. Симптом виходить особливо підступний: лічильник втрат росте, а радіоканал бездоганний.
 
@@ -226,83 +83,17 @@ void LinkWorker::writeData(const QByteArray &data)
 
 ## Обгортка: усе, що має сенс
 
-```cpp
-// DemoLink.h
-#pragma once
-#include "LinkTypes.h"
-#include <QObject>
-
-class LinkWorker;
-class QThread;
-
-class DemoLink : public QObject
-{
-    Q_OBJECT
-public:
-    explicit DemoLink(quint16 localPort, QObject *parent = nullptr);
-    ~DemoLink() override;
-
-    void send(const QByteArray &data);            // кликати з головної нитки
-    LinkStats &stats() { return *_stats; }
-
-signals:
-    void bytesReceived(const QByteArray &data);
-
-private:
-    void _onChunk(const Chunk &chunk);
-
-    LinkStatsPtr _stats = std::make_shared<LinkStats>();
-    LinkWorker  *_worker = nullptr;
-    QThread     *_thread = nullptr;
-};
-```
+:::code proj-link-worker/cpp/obhortka-use-shcho-maie.hpp
 
 Конструктор — п'ять рядків, і кожен відповідає за окрему помилку, якої тепер не буде:
 
-```cpp
-// DemoLink.cpp
-#include "DemoLink.h"
-#include "LinkWorker.h"
-#include <QThread>
-
-static constexpr int kShutdownMs = 2000;
-
-DemoLink::DemoLink(quint16 localPort, QObject *parent)
-    : QObject(parent)
-    , _worker(new LinkWorker(localPort, _stats))   // БЕЗ батька — інакше не переселиться
-    , _thread(new QThread(this))                   // сам об'єкт нитки живе тут
-{
-    qRegisterMetaType<Chunk>();
-
-    _worker->moveToThread(_thread);
-
-    connect(_thread, &QThread::started,  _worker, &LinkWorker::openSocket);
-    connect(_thread, &QThread::finished, _worker, &QObject::deleteLater);
-
-    connect(_worker, &LinkWorker::chunkReceived,
-            this,    &DemoLink::_onChunk, Qt::QueuedConnection);
-
-    _thread->start();
-}
-```
+:::code proj-link-worker/cpp/obhortka-use-shcho-maie-2.hpp
 
 Пара `_worker` без батька / `_thread` з батьком спершу виглядає непослідовно, а насправді інакше не буває. Робітник батька мати не може, бо переселення об'єкта з батьком заборонене. Об'єкт нитки, навпаки, лишається жити в тій нитці, де його створили, — він **не** переїжджає в нитку, яку сам запускає, — тож звичайне батьківство для нього цілком доречне.
 
 Обробник у головній нитці закриває обидва виміри черги:
 
-```cpp
-void DemoLink::_onChunk(const Chunk &chunk)
-{
-    const qint64 residence = monoNs() - chunk.stampNs;
-
-    _stats->delivered.fetch_add(1, std::memory_order_relaxed);
-    _stats->residenceLastNs.store(residence, std::memory_order_relaxed);
-    if (residence > _stats->residenceMaxNs.load(std::memory_order_relaxed))
-        _stats->residenceMaxNs.store(residence, std::memory_order_relaxed);
-
-    emit bytesReceived(chunk.bytes);
-}
-```
+:::code proj-link-worker/cpp/obhortka-use-shcho-maie.cpp
 
 Читання-порівняння-запис максимуму тут не потребує ані замка, ані обміну-порівняння: у цей лічильник пише **лише** головна нитка, а всі інші його тільки читають. Пише один — і найгірше, що загрожує читачеві, це побачити значення, застаріле на мить.
 
@@ -331,22 +122,7 @@ QMetaObject::invokeMethod(_worker, [w = _worker, data] { w->writeData(data); },
 
 *Кожен крок робить безпечним наступний; переставлені місцями, вони перетворюються на падіння або на зайнятий назавжди порт.*
 
-```cpp
-DemoLink::~DemoLink()
-{
-    // 1. Закрити ресурс і ДОЧЕКАТИСЯ: далі об'єкти вже гинуть.
-    QMetaObject::invokeMethod(_worker, "closeSocket", Qt::BlockingQueuedConnection);
-
-    // 2. Попросити цикл подій робітника вийти.
-    _thread->quit();
-
-    // 3. Дочекатися, поки нитка справді стане.
-    if (!_thread->wait(kShutdownMs))
-        qCritical("канал: робітник не зупинився за %d мс", kShutdownMs);
-
-    // _worker знищить себе сам, у своїй нитці; _thread — як дитина цього об'єкта.
-}
-```
+:::code proj-link-worker/cpp/zhortannia-piat-krokiv-u.cpp
 
 Останній коментар вимагає доказу, бо ланцюг тут не очевидний. Сигнал «нитка завершилася» випускається **з тієї нитки, що завершується**, а тип з'єднання Qt обирає в мить випуску, порівнюючи нитку відправника з припискою отримувача. Отримувач — робітник, приписаний саме до цієї нитки, отже виклик буде прямим, і `deleteLater()` спрацює всередині робочої нитки. Цикл подій там уже вийшов, тож відкладене знищення нікуди не поїде — і саме на цей випадок документація Qt дає окрему обіцянку: об'єкт, який живе в нитці без запущеного циклу подій, буде знищений, коли нитка завершиться. Тобто робітник гине рівно там, де народився його сокет, і рівно тоді, коли в тій нитці вже точно нічого не виконується.
 
@@ -358,45 +134,7 @@ DemoLink::~DemoLink()
 
 Довжини черги подій Qt назовні не показує (метод, який щось таке обіцяв, у Qt 6 прибрали як внутрішню деталь), зате диспетчер подій випускає два сигнали: «прокинувся» — коли цикл повернувся з очікування, і «зараз заблокуюся» — коли він знову збирається чекати. Проміжок між ними і є один суцільний прогін циклу: усе, що він виконав, не перериваючись і не віддаючи керування системі.
 
-```cpp
-// LoopProbe.h — міряє головну нитку зсередини головної нитки
-#pragma once
-#include "LinkTypes.h"
-#include <QObject>
-#include <QAbstractEventDispatcher>
-#include <algorithm>
-
-class LoopProbe : public QObject
-{
-    Q_OBJECT
-public:
-    explicit LoopProbe(QObject *parent = nullptr) : QObject(parent)
-    {
-        auto *disp = QAbstractEventDispatcher::instance();   // диспетчер ЦІЄЇ нитки
-        Q_ASSERT(disp);                        // існує лише після QCoreApplication
-        connect(disp, &QAbstractEventDispatcher::awake,
-                this, &LoopProbe::_onAwake);
-        connect(disp, &QAbstractEventDispatcher::aboutToBlock,
-                this, &LoopProbe::_onAboutToBlock);
-    }
-
-    qint64 longestBusyNs() const { return _maxBusyNs; }
-    void   reset()               { _maxBusyNs = 0; }
-
-private:
-    void _onAwake() { _awakeNs = monoNs(); }
-
-    void _onAboutToBlock()
-    {
-        if (_awakeNs == 0) return;
-        _maxBusyNs = std::max(_maxBusyNs, monoNs() - _awakeNs);
-        _awakeNs = 0;
-    }
-
-    qint64 _awakeNs   = 0;
-    qint64 _maxBusyNs = 0;
-};
-```
+:::code proj-link-worker/cpp/druhyi-prylad-chy-ne-stala.hpp
 
 Жодного атомарного лічильника тут нема — і це не недогляд, а видима вигода моделі: обидва обробники, і читач результату, виконуються в одній нитці, тому синхронізувати нема чого. Порівняйте з попереднім блоком, де кожне поле мусило бути атомарним: різницю створює не складність коду, а те, скільки ниток його бачать.
 
@@ -410,23 +148,7 @@ private:
 
 Звіт раз на секунду:
 
-```cpp
-DemoLink  link(14550);
-LoopProbe probe;
-
-QTimer report;
-QObject::connect(&report, &QTimer::timeout, [&] {
-    LinkStats &s = link.stats();
-    qInfo("у черзі %lld · час у черзі %.1f мс · найдовший прогін %.1f мс · датаграм %lld",
-          s.inFlight(),
-          s.residenceMaxNs.load(std::memory_order_relaxed) / 1e6,
-          probe.longestBusyNs() / 1e6,
-          s.datagrams.load(std::memory_order_relaxed));
-    s.residenceMaxNs.store(0, std::memory_order_relaxed);
-    probe.reset();
-});
-report.start(1000);
-```
+:::code proj-link-worker/cpp/iak-chytaty-try-chysla.hpp
 
 Джерело трафіку, щоб було що читати:
 

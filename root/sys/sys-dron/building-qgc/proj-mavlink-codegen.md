@@ -25,37 +25,11 @@
 
 Збірка QGroundControl не викликає генератор сама: вона додає репозиторій MAVLink як підпроєкт, а той у власному `CMakeLists.txt` робить ось що (це справжній код апстриму, скорочений):
 
-```cmake
-add_custom_command(OUTPUT ${EXAMPLE_HEADER}
-    COMMAND ${Python_EXECUTABLE}
-        -m pip install -r pymavlink/requirements.txt --upgrade
-           -t ${CMAKE_CURRENT_BINARY_DIR}/pip-dependencies/
-    COMMAND ${CMAKE_COMMAND} -E env
-        "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/pip-dependencies/" ${Python_EXECUTABLE}
-        -m pymavlink.tools.mavgen
-        --lang=C
-        --wire-protocol=${MAVLINK_VERSION}
-        --output ${CMAKE_CURRENT_BINARY_DIR}/include/mavlink/
-        message_definitions/v1.0/${MAVLINK_DIALECT}.xml
-    DEPENDS message_definitions/v1.0/${MAVLINK_DIALECT}.xml
-    COMMENT "Generating C and C++11 headers")
-```
+:::code proj-mavlink-codegen/cmake/CMakeLists.txt
 
 Прибравши обгортку CMake, дістаємо голу команду. Її можна виконати в порожній теці:
 
-```bash
-python3 -m venv .venv-mavgen
-. .venv-mavgen/bin/activate
-pip install pymavlink
-
-git clone https://github.com/mavlink/mavlink.git
-cd mavlink
-
-PYTHONHASHSEED=0 python -m pymavlink.tools.mavgen \
-    --lang=C --wire-protocol=2.0 \
-    --output=/tmp/mavlink-headers \
-    message_definitions/v1.0/all.xml
-```
+:::code proj-mavlink-codegen/sh/main.sh
 
 `all.xml` — той діалект, який станція бере за замовчуванням (`QGC_MAVLINK_DIALECT` дорівнює `all`): він через ланцюг `<include>` тягне за собою `common`, `minimal`, `standard`, `development`, `ardupilotmega` й решту, тож на виході буде дерево для кожного з них.
 
@@ -123,35 +97,7 @@ m.ordered_fields.extend(m.fields[sort_end:])
 
 І функцію, яка з окремих аргументів робить корисне навантаження:
 
-```c
-static inline uint16_t mavlink_msg_heartbeat_pack(
-        uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-        uint8_t type, uint8_t autopilot, uint8_t base_mode,
-        uint32_t custom_mode, uint8_t system_status)
-{
-#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    char buf[MAVLINK_MSG_ID_HEARTBEAT_LEN];
-    _mav_put_uint32_t(buf, 0, custom_mode);
-    _mav_put_uint8_t(buf, 4, type);
-    _mav_put_uint8_t(buf, 5, autopilot);
-    _mav_put_uint8_t(buf, 6, base_mode);
-    _mav_put_uint8_t(buf, 7, system_status);
-    _mav_put_uint8_t(buf, 8, 3);
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_HEARTBEAT_LEN);
-#else
-    mavlink_heartbeat_t packet;
-    packet.custom_mode = custom_mode;
-    /* … решта полів … */
-    packet.mavlink_version = 3;
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_HEARTBEAT_LEN);
-#endif
-    msg->msgid = MAVLINK_MSG_ID_HEARTBEAT;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_HEARTBEAT_MIN_LEN,
-                                    MAVLINK_MSG_ID_HEARTBEAT_LEN,
-                                    MAVLINK_MSG_ID_HEARTBEAT_CRC);
-}
-```
+:::code proj-mavlink-codegen/c/main.c
 
 Дві гілки роблять те саме різною ціною. На машині з потрібним порядком байтів і дозволеним невирівняним доступом структуру просто копіюють у буфер одним `memcpy`. В усіх інших випадках кожне поле кладуть окремо за явним зміщенням, а `_mav_put_uint32_t` дорогою переставляє байти. Зміщення 0, 4, 5, 6, 7, 8 — це та сама відсортована розкладка, тільки виписана числами.
 
@@ -176,19 +122,7 @@ static inline void mavlink_msg_heartbeat_decode(const mavlink_message_t* msg,
 
 Звідки взялася п'ятдесятка в `MAVLINK_MSG_ID_HEARTBEAT_CRC`? Це не контрольна сума даних — дані ще не існують у момент генерації. Це контрольна сума **опису** повідомлення:
 
-```python
-def message_checksum(msg):
-    crc = x25crc()
-    crc.accumulate_str(msg.name + ' ')
-    crc_end = msg.base_fields()
-    for i in range(crc_end):
-        f = msg.ordered_fields[i]
-        crc.accumulate_str(f.type + ' ')
-        crc.accumulate_str(f.name + ' ')
-        if f.array_length:
-            crc.accumulate([f.array_length])
-    return (crc.crc & 0xFF) ^ (crc.crc >> 8)
-```
+:::code proj-mavlink-codegen/py/main.py
 
 Порахуймо самі.
 

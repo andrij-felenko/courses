@@ -139,37 +139,8 @@ ULog є повністю потоковим форматом, який скла�
 Самоописність у DataFlash забезпечується спеціальним системним повідомленням **`FMT`** (Type `0x80` = 128), яке має жорстко зафіксовану довжину 89 байтів (включно з 3 байтами преамбули):
 
 :::tabs
-```c
-// C99 / C11
-struct __attribute__((packed)) DataFlash_FMT {
-    uint8_t  head1;        // 0xA3
-    uint8_t  head2;        // 0x95
-    uint8_t  msg_type;     // 0x80 (FMT)
-    uint8_t  type;         // Числовий ID типу, який описується цим FMT (1..255)
-    uint8_t  length;       // Повна довжина майбутніх повідомлень цього типу в байтах
-    char     name[4];      // 4-символьна назва структури ("ATT\0", "GPS\0", "IMU\0")
-    char     format[16];   // Рядок символьних кодів типів полів ("Qffff", "Qcccc")
-    char     columns[64];  // Назви полів через кому ("TimeUS,Roll,Pitch,Yaw,ErrRP")
-};
-```
-```cpp
-// C++20
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct DataFlash_FMT {
-    uint8_t  head1{0xA3};
-    uint8_t  head2{0x95};
-    uint8_t  msg_type{0x80};
-    uint8_t  type{0};
-    uint8_t  length{0};
-    std::array<char, 4>  name{};
-    std::array<char, 16> format{};
-    std::array<char, 64> columns{};
-};
-#pragma pack(pop)
-```
+:::code flight-log-formats-d/c/main.c
+:::code flight-log-formats-d/cpp/main.cpp
 :::
 
 Символьні специфікатори типів у полі `format`:

@@ -58,18 +58,7 @@ COMMAND_LONG (або COMMAND_INT)
 
 У станції це один виклик — черга, повтори й очікування пари «підтвердження + повідомлення» сховані всередині:
 
-```cpp
-// VehicleTypes.h
-typedef void (*RequestMessageResultHandler)(void* resultHandlerData,
-                                            MAV_RESULT commandResult,
-                                            RequestMessageResultHandlerFailureCode_t failureCode,
-                                            const mavlink_message_t& message);
-
-// Vehicle.h
-void requestMessage(RequestMessageResultHandler resultHandler, void* resultHandlerData,
-                    int compId, int messageId,
-                    float param1 = 0.0f, ..., float param5 = 0.0f);
-```
+:::code api-component-metadata/cpp/try-povidomlennia.hpp
 
 | Код невдачі | Що сталося |
 |---|---|
@@ -181,30 +170,7 @@ bool RequestMetaDataTypeStateMachine::_uriIsMAVLinkFTP(const QString& uri)
 
 PX4 рахує його так (генератор `generate_crc.py` у збірці прошивки):
 
-```python
-def create_table():
-    a = []
-    for i in range(256):
-        k = i
-        for j in range(8):
-            if k & 1:
-                k ^= 0x1db710640
-            k >>= 1
-        a.append(k)
-    return a
-
-def crc_update(buf, crc_table, crc):
-    for k in buf:
-        crc = (crc >> 8) ^ crc_table[(crc & 0xff) ^ k]
-    return crc
-
-crc_table = create_table()
-
-file_crc = 0                                   # ← початкове значення НУЛЬ
-for line in open(filename, "rb"):
-    file_crc = crc_update(line, crc_table, file_crc)
-                                               # ← фінального інвертування НЕМАЄ
-```
+:::code api-component-metadata/py/main.py
 
 Поліном `0x1db710640` — це звичайний CRC-32 (той самий, що в zip, PNG і gzip) у 33-бітному записі: після зсуву він дає знайоме `0xEDB88320`. Відрізняються дві дрібниці, і обидві критичні.
 
@@ -247,26 +213,7 @@ typedef void (*RequestAllCompleteFn)(void* requestAllCompleteFnData);
 
 **Найкоротший робочий виклик: дізнатися, чи є опис, і взяти метадані параметра**
 
-```cpp
-ComponentInformationManager* mgr = vehicle->compInfoManager();
-
-// смужка поступу
-connect(mgr, &ComponentInformationManager::progressUpdate,
-        this, [](float p) { /* 0.0 … 1.0 */ });
-
-CompInfoParam* param = mgr->compInfoParam(MAV_COMP_ID_AUTOPILOT1);
-if (param->available()) {                     // адреса опису відома
-    FactMetaData* md = param->factMetaDataForName("MPC_XY_P",
-                                                  FactMetaData::valueTypeFloat);
-    // md->rawUnits(), md->shortDescription(), md->rawMin(), md->rawMax()
-}
-
-// що апарат узагалі обіцяв описати
-CompInfoGeneral* general = mgr->compInfoGeneral(MAV_COMP_ID_AUTOPILOT1);
-if (general && general->isMetaDataTypeSupported(COMP_METADATA_TYPE_ACTUATORS)) {
-    // сторінку налаштування двигунів показувати можна
-}
-```
+:::code api-component-metadata/cpp/menedzher-stantsii.cpp
 
 `available()` каже **лише про адресу**, а не про завантажений файл: він істинний, щойно з покажчика взято непорожній `uri`, і лишається істинним, коли завантаження провалилося. Щоб дізнатися, чи опис справді є, дивляться на результат розбору — у випадку параметрів це те, чи `factMetaDataForName()` повертає щось, крім порожніх метаданих.
 

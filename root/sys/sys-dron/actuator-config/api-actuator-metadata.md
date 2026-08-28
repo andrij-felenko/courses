@@ -225,22 +225,7 @@ MAVLink має власний, значно бідніший перелік `ACT
 
 Прошивка розбирає поле так (`Commander::handleCommandActuatorTest`):
 
-```cpp
-if (actuator_test.function < 1000) {
-    const int first_motor_function = 1;    // з MAVLink ACTUATOR_OUTPUT_FUNCTION
-    const int first_servo_function = 33;
-
-    if (function >= first_motor_function && function < first_motor_function + MAX_NUM_MOTORS) {        // 1…12
-        function = function - first_motor_function + FUNCTION_MOTOR1;                                  // → 101…112
-    } else if (function >= first_servo_function && function < first_servo_function + MAX_NUM_SERVOS) { // 33…47
-        function = function - first_servo_function + FUNCTION_SERVO1;                                  // → 201…215
-    } else {
-        return VEHICLE_CMD_RESULT_UNSUPPORTED;
-    }
-} else {
-    actuator_test.function -= 1000;
-}
-```
+:::code api-actuator-metadata/cpp/dvi-numeratsii-v-odnomu.cpp
 
 **Умова: канал несе `Motor 1`, тобто параметр функції дорівнює 101.**
 
@@ -446,20 +431,7 @@ _watchdogTimer.setSingleShot(false);
 
 **Найкоротший робочий виклик**
 
-```cpp
-// покрутити Motor 1 (функція PX4 = 101) на 30 % тяги протягом секунди
-vehicle->sendMavCommand(MAV_COMP_ID_AUTOPILOT1, MAV_CMD_ACTUATOR_TEST,
-                        true,          // showError
-                        0.3f,          // param1: значення
-                        1.0f,          // param2: термін, с
-                        0, 0,
-                        1000 + 101,    // param5: функція зі зсувом
-                        0, 0);
-
-// відпустити
-vehicle->sendMavCommand(MAV_COMP_ID_AUTOPILOT1, MAV_CMD_ACTUATOR_TEST,
-                        true, NAN, 0.0f, 0, 0, 1000 + 101, 0, 0);
-```
+:::code api-actuator-metadata/cpp/mav-cmd-actuator-test-310.hpp
 
 ## `MAV_CMD_CONFIGURE_ACTUATOR` — 311
 

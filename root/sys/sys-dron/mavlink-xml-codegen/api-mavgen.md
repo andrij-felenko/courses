@@ -195,36 +195,13 @@ uint16_t mavlink_msg_attitude_pack(
 
 Ще трійця з'являється лише тоді, коли ви визначили `MAVLINK_USE_CONVENIENCE_FUNCTIONS` і надали бібліотеці спосіб виштовхнути байти в лінію:
 
-```c
-void mavlink_msg_attitude_send(mavlink_channel_t chan,
-        uint32_t time_boot_ms, float roll, float pitch, float yaw,
-        float rollspeed, float pitchspeed, float yawspeed);
-
-void mavlink_msg_attitude_send_struct(mavlink_channel_t chan,
-        const mavlink_attitude_t* attitude);
-
-void mavlink_msg_attitude_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan,
-        uint32_t time_boot_ms, float roll, float pitch, float yaw,
-        float rollspeed, float pitchspeed, float yawspeed);
-```
+:::code api-mavgen/c/funktsii-zapysu.h
 
 Третя тут — не примха. `_send` кладе кадр на стек; `_send_buf` бере під це чужий буфер (звичайно — приймальний буфер того самого каналу) і тим економить сотні байтів стека, чого на мікроконтролері часом досить, щоб задача взагалі жила. Її генерують лише для повідомлень, які влазять у `MAVLINK_MAX_PAYLOAD_LEN` (255 байтів).
 
 ### Функції читання
 
-```c
-/* По одному читачеві на кожне поле: дістає значення просто з корисних даних. */
-uint32_t mavlink_msg_attitude_get_time_boot_ms(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_roll(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_pitch(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_yaw(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_rollspeed(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_pitchspeed(const mavlink_message_t* msg);
-float    mavlink_msg_attitude_get_yawspeed(const mavlink_message_t* msg);
-
-/* Розкласти все повідомлення в структуру. */
-void mavlink_msg_attitude_decode(const mavlink_message_t* msg, mavlink_attitude_t* attitude);
-```
+:::code api-mavgen/c/funktsii-chytannia.h
 
 Для поля-масиву читач має інший вигляд: він приймає буфер і повертає кількість скопійованих елементів — скажімо, `uint16_t mavlink_msg_<name>_get_<field>(const mavlink_message_t* msg, float* <field>)`.
 
@@ -236,23 +213,7 @@ void mavlink_msg_attitude_decode(const mavlink_message_t* msg, mavlink_attitude_
 
 Найважливіше в заголовку діалекту — таблиця, що дозволяє розбирачеві перевірити суму, ще не знаючи, що всередині кадру.
 
-```c
-typedef struct __mavlink_msg_entry {
-    uint32_t msgid;
-    uint8_t  crc_extra;
-    uint8_t  min_msg_len;          /* довжина базової частини */
-    uint8_t  max_msg_len;          /* повна довжина з розширеннями */
-    uint8_t  flags;                /* MAV_MSG_ENTRY_FLAG_* */
-    uint8_t  target_system_ofs;    /* зміщення поля-адресата; чи воно є — каже flags */
-    uint8_t  target_component_ofs;
-} mavlink_msg_entry_t;
-
-/* У common.h: суцільний список, упорядкований за визначником. */
-#define MAVLINK_MESSAGE_CRCS {{0, 50, 9, 9, 0, 0, 0}, \
-                              {1, 124, 31, 43, 0, 0, 0}, \
-                              {2, 137, 12, 12, 0, 0, 0}, \
-                              /* … */ {30, 39, 28, 28, 0, 0, 0}, /* … */}
-```
+:::code api-mavgen/c/spilni-tablytsi-dialektu.c
 
 Прапорці `flags` кажуть, чи має повідомлення адресата: `MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM` = 1, `MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT` = 2. Разом зі зміщеннями це дає ретрансляторові змогу вирішити, куди слати кадр, **не розпаковуючи його** — прочитати один байт за відомим зміщенням.
 
@@ -271,22 +232,7 @@ typedef struct __mavlink_msg_entry {
 
 Сам кадр у пам'яті виглядає так — це не структура з дроту, а робоче подання, у якому корисні дані вирівняні на вісім байтів:
 
-```c
-typedef struct __mavlink_message {
-    uint16_t checksum;
-    uint8_t  magic;              /* 0xFD для MAVLink 2, 0xFE для MAVLink 1 */
-    uint8_t  len;                /* довжина корисних даних, можливо обрізаних */
-    uint8_t  incompat_flags;
-    uint8_t  compat_flags;
-    uint8_t  seq;
-    uint8_t  sysid;
-    uint8_t  compid;
-    uint32_t msgid:24;           /* 24 біти, як на дроті */
-    uint64_t payload64[(MAVLINK_MAX_PAYLOAD_LEN + MAVLINK_NUM_CHECKSUM_BYTES + 7) / 8];
-    uint8_t  ck[2];
-    uint8_t  signature[MAVLINK_SIGNATURE_BLOCK_LEN];  /* 13 байтів */
-} mavlink_message_t;
-```
+:::code api-mavgen/c/spilni-tablytsi-dialektu-2.c
 
 Тип поля `payload64` обраний саме як `uint64_t` заради вирівнювання — щоб доступ до `double` усередині корисних даних не був невирівняним. Дістатися до байтів можна макросом `_MAV_PAYLOAD(msg)`. Що означають поля заголовка й звідки взялися 13 байтів підпису — [пакет MAVLink](root:sys-dron/mavlink-packet) і [криптографічний підпис MAVLink 2](root:sys-dron/mavlink-v2-signing).
 
@@ -311,35 +257,7 @@ typedef struct __mavlink_message {
 
 Виклик з `--lang=Python` дає **один модуль**, у якому лежить усе: константи, переліки, класи повідомлень і клас `MAVLink` — сам кодек, що збирає й розбирає кадри.
 
-```python
-MAVLINK_MSG_ID_ATTITUDE = 30
-
-class MAVLink_attitude_message(MAVLink_message):
-    id = MAVLINK_MSG_ID_ATTITUDE
-    msgname = "ATTITUDE"
-    fieldnames = ["time_boot_ms", "roll", "pitch", "yaw",
-                  "rollspeed", "pitchspeed", "yawspeed"]
-    ordered_fieldnames = ["time_boot_ms", "roll", "pitch", "yaw",
-                          "rollspeed", "pitchspeed", "yawspeed"]
-    fieldtypes = ["uint32_t", "float", "float", "float", "float", "float", "float"]
-    fieldunits_by_name = {"time_boot_ms": "ms", "roll": "rad", "pitch": "rad",
-                          "yaw": "rad", "rollspeed": "rad/s",
-                          "pitchspeed": "rad/s", "yawspeed": "rad/s"}
-    orders = [0, 1, 2, 3, 4, 5, 6]
-    lengths = [1, 1, 1, 1, 1, 1, 1]
-    array_lengths = [0, 0, 0, 0, 0, 0, 0]
-    crc_extra = 39
-    unpacker = struct.Struct("<Iffffff")
-    instance_field = None
-    instance_offset = -1
-
-# наприкінці модуля — відповідність визначника класові (запис на кожне повідомлення)
-mavlink_map = {
-    MAVLINK_MSG_ID_HEARTBEAT: MAVLink_heartbeat_message,
-    MAVLINK_MSG_ID_SYS_STATUS: MAVLink_sys_status_message,
-    MAVLINK_MSG_ID_ATTITUDE: MAVLink_attitude_message,
-}
-```
+:::code api-mavgen/py/ekvivalent-u-pymavlink.py
 
 Ключова пара — `fieldnames` і `ordered_fieldnames`. Перший список іде в **порядку XML** (у ньому конструктор приймає аргументи, у ньому ж їх бачить прикладний код), другий — у **дротовому**. Масив `orders` каже, як переставити одне в друге; `lengths` і `array_lengths` описують поля-масиви. Коли `mavlink_map` знаходить клас за визначником, розбирач розпаковує байти через `unpacker`, а тоді переставляє значення за `orders` — і лише після цього створює об'єкт.
 
@@ -349,18 +267,7 @@ mavlink_map = {
 
 Методи відправлення живуть у класі `MAVLink` — по два на кожне повідомлення:
 
-```python
-def attitude_encode(self, time_boot_ms, roll, pitch, yaw,
-                    rollspeed, pitchspeed, yawspeed):
-    return MAVLink_attitude_message(time_boot_ms, roll, pitch, yaw,
-                                    rollspeed, pitchspeed, yawspeed)
-
-def attitude_send(self, time_boot_ms, roll, pitch, yaw,
-                  rollspeed, pitchspeed, yawspeed, force_mavlink1=False):
-    self.send(self.attitude_encode(time_boot_ms, roll, pitch, yaw,
-                                   rollspeed, pitchspeed, yawspeed),
-              force_mavlink1=force_mavlink1)
-```
+:::code api-mavgen/py/ekvivalent-u-pymavlink-2.py
 
 Тобто `<name>_encode` збирає об'єкт, `<name>_send` збирає й одразу відправляє. Відповідність до C прямолінійна: `attitude_encode` ↔ `mavlink_msg_attitude_pack`, `attitude_send` ↔ `mavlink_msg_attitude_send`.
 
@@ -382,26 +289,7 @@ master.mav.attitude_send(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
 Згенерований код — похідний продукт, і місце йому в теці збірки, а не в сховищі поруч із рукописним. Виклик оформлюють [власною командою збірки](root:sys-bsystem/custom-commands) з явними залежностями від XML, щоб генерація повторювалася сама, коли опис змінився:
 
-```cmake
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
-
-set(MAVLINK_XML ${CMAKE_SOURCE_DIR}/modules/mavlink/message_definitions/v1.0/common.xml)
-set(MAVLINK_OUT ${CMAKE_BINARY_DIR}/generated/mavlink)
-
-add_custom_command(
-    OUTPUT  ${MAVLINK_OUT}/common/mavlink.h
-    COMMAND ${Python3_EXECUTABLE} -m pymavlink.tools.mavgen
-            --lang=C --wire-protocol=2.0
-            --output=${MAVLINK_OUT} ${MAVLINK_XML}
-    DEPENDS ${MAVLINK_XML}
-    COMMENT "mavgen: C-кодек із common.xml")
-
-add_custom_target(mavlink_headers DEPENDS ${MAVLINK_OUT}/common/mavlink.h)
-
-add_library(mavlink INTERFACE)
-add_dependencies(mavlink mavlink_headers)
-target_include_directories(mavlink INTERFACE ${MAVLINK_OUT})
-```
+:::code api-mavgen/cmake/CMakeLists.txt
 
 Ціль — інтерфейсна, бо компілювати нічого: бібліотека складається з самих заголовків (додавати залежності до `INTERFACE`-бібліотеки CMake дозволяє з версії 3.3). Файл-свідок у `OUTPUT` — це `common/mavlink.h`; перелічувати всі згенеровані заголовки не потрібно й шкідливо, бо їхній список залежить від опису.
 

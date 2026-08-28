@@ -12,19 +12,7 @@
 
 Відповідь на питання «що цей апарат уміє» — одна бітова маска, а не десяток окремих методів:
 
-```cpp
-/// Set of optional capabilites which firmware may support
-enum FirmwareCapabilities {
-    SetFlightModeCapability =   1 << 0,   ///< метод setFlightMode підтримано
-    PauseVehicleCapability =    1 << 1,   ///< апарат уміє зупинитися на місці
-    GuidedModeCapability =      1 << 2,   ///< апарат приймає команди керованого режиму
-    OrbitModeCapability =       1 << 3,   ///< апарат уміє облітати точку по колу
-    TakeoffVehicleCapability =  1 << 4,   ///< апарат уміє злітати
-    ROIModeCapability =         1 << 5,   ///< точка інтересу — і в польоті, і в плані
-    ChangeHeadingCapability =   1 << 6,   ///< апарат уміє змінити курс на місці
-    GuidedTakeoffCapability =   1 << 7,   ///< зліт саме з керованого режиму
-};
-```
+:::code api-firmware-plugin/cpp/enum-firmwarecapabilities.cpp
 
 | Біт | Значення | Що вмикає в інтерфейсі |
 |---|---|---|
@@ -47,25 +35,7 @@ virtual bool isCapable(const Vehicle* /*vehicle*/, FirmwareCapabilities /*capabi
 
 Один рядок таблиці режимів. Два конструктори — старий, лише з `custom_mode`, і повний, зі стандартним номером і прапорцями класу апарата:
 
-```cpp
-struct FirmwareFlightMode
-{
-    FirmwareFlightMode(const QString &mName, uint32_t cMode,
-                       bool cbs = false, bool adv = false);
-
-    FirmwareFlightMode(const QString &mName, uint8_t sMode, uint32_t cMode,
-                       bool cbs = false, bool adv = false,
-                       bool fWing = false, bool mRotor = true);
-
-    QString  mode_name    = "Unknown";
-    uint8_t  standard_mode = 0;
-    uint32_t custom_mode  = UINT32_MAX;
-    bool     canBeSet     = false;
-    bool     advanced     = false;
-    bool     fixedWing    = false;
-    bool     multiRotor   = true;
-};
-```
+:::code api-firmware-plugin/cpp/struct-firmwareflightmode.hpp
 
 | Поле | Типово | Що означає |
 |---|---|---|
@@ -98,36 +68,13 @@ typedef QMap<int, remapParamNameMinorVersionRemapMap_t>   remapParamNameMajorVer
 
 Типи класів оголошено не переліком, а цілим:
 
-```cpp
-// src/MAVLink/QGCMAVLinkTypes.h
-struct QGCMAVLinkTypes {
-    typedef int FirmwareClass_t;
-    typedef int VehicleClass_t;
-    static constexpr VehicleClass_t VehicleClassGeneric = 0;   // = MAV_TYPE_GENERIC
-    static constexpr uint8_t maxRcChannels = 18;
-};
-
-// src/MAVLink/QGCMAVLink.h
-class QGCMAVLink : public QObject, public QGCMAVLinkTypes { … };
-```
+:::code api-firmware-plugin/cpp/klas-proshyvky-i-klas.cpp
 
 Звідси дві речі, які плутають. По-перше, `QGCMAVLink::VehicleClass_t` і `QGCMAVLinkTypes::VehicleClass_t` — **той самий тип**: `QGCMAVLink` успадковує `QGCMAVLinkTypes` відкрито, тож у коді трапляються обидві кваліфікації, і це не дві різні сутності. По-друге, `int` замість `enum` тут навмисний: власна збірка може завести свій клас прошивки з новим числом, не правлячи апстримовий перелік.
 
 Самі константи — це **представники** класу, тобто конкретні значення MAVLink, узяті за позначку всієї групи:
 
-```cpp
-static constexpr const FirmwareClass_t FirmwareClassPX4       = MAV_AUTOPILOT_PX4;            // 12
-static constexpr const FirmwareClass_t FirmwareClassArduPilot = MAV_AUTOPILOT_ARDUPILOTMEGA;  // 3
-static constexpr const FirmwareClass_t FirmwareClassGeneric   = MAV_AUTOPILOT_GENERIC;        // 0
-
-static constexpr const VehicleClass_t VehicleClassFixedWing  = MAV_TYPE_FIXED_WING;                 // 1
-static constexpr const VehicleClass_t VehicleClassMultiRotor = MAV_TYPE_QUADROTOR;                  // 2
-static constexpr const VehicleClass_t VehicleClassAirship    = MAV_TYPE_AIRSHIP;                    // 7
-static constexpr const VehicleClass_t VehicleClassRoverBoat  = MAV_TYPE_GROUND_ROVER;               // 10
-static constexpr const VehicleClass_t VehicleClassSub        = MAV_TYPE_SUBMARINE;                  // 12
-static constexpr const VehicleClass_t VehicleClassVTOL       = MAV_TYPE_VTOL_TAILSITTER_QUADROTOR;  // 20
-static constexpr const VehicleClass_t VehicleClassSpacecraft = MAV_TYPE_SPACECRAFT_ORBITER;         // 45
-```
+:::code api-firmware-plugin/cpp/klas-proshyvky-i-klas-2.cpp
 
 Обидва поля, з яких усе починається, приїжджають у [HEARTBEAT](root:sys-dron/mavlink-heartbeat) — періодичному повідомленні, яким апарат оголошує тип автопілота й тип планера. Згортання роблять дві статичні функції:
 
@@ -159,21 +106,7 @@ static VehicleClass_t  vehicleClass(MAV_TYPE mavType);
 
 Перелік супутніх предикатів — усі вони лише звіряють результат `vehicleClass()`:
 
-```cpp
-static bool isMultiRotor (MAV_TYPE mavType);
-static bool isFixedWing  (MAV_TYPE mavType);
-static bool isVTOL       (MAV_TYPE mavType);
-static bool isRoverBoat  (MAV_TYPE mavType);   // ⚠ не isRover
-static bool isSub        (MAV_TYPE mavType);
-static bool isAirship    (MAV_TYPE mavType);
-static bool isPX4FirmwareClass       (MAV_AUTOPILOT autopilot);
-static bool isArduPilotFirmwareClass (MAV_AUTOPILOT autopilot);
-static bool isGenericFirmwareClass   (MAV_AUTOPILOT autopilot);
-static QList<FirmwareClass_t> allFirmwareClasses();
-static QList<VehicleClass_t>  allVehicleClasses(void);
-static QString firmwareClassToString(FirmwareClass_t firmwareClass);
-static QString vehicleClassToUserVisibleString(VehicleClass_t vehicleClass);
-```
+:::code api-firmware-plugin/cpp/klas-proshyvky-i-klas.hpp
 
 Тут захована пастка, помітна лише під час роботи: `allVehicleClasses()` повертає **шість** класів — `FixedWing`, `RoverBoat`, `Sub`, `MultiRotor`, `VTOL`, `Generic`. Дирижабля й орбітального апарата в цьому списку немає, хоча `vehicleClass()` їх розрізняє. Тож фабрика, яка покладається на типову реалізацію `supportedVehicleClasses()`, дирижабль не обслуговуватиме — його треба дописувати руками.
 
@@ -193,20 +126,7 @@ static QString vehicleClassToUserVisibleString(VehicleClass_t vehicleClass);
 
 Окремо — **ролі**: сім методів, кожен відповідає на питання «як у цій прошивці зветься режим для такої-от потреби». Усі типово віддають порожній рядок:
 
-```cpp
-virtual QString pauseFlightMode()           const { return QString(); }
-virtual QString missionFlightMode()         const { return QString(); }
-virtual QString rtlFlightMode()             const { return QString(); }
-virtual QString smartRTLFlightMode()        const { return QString(); }
-virtual QString landFlightMode()            const { return QString(); }
-virtual QString takeOffFlightMode()         const { return QString(); }
-virtual QString motorDetectionFlightMode()  const { return QString(); }
-virtual QString stabilizedFlightMode()      const { return QString(); }
-virtual QString takeControlFlightMode()     const { return QString(); }
-virtual QString gotoFlightMode()            const { return QString(); }
-virtual QString followFlightMode()          const { return QString(); }
-virtual bool    supportsSmartRTL()          const { return false;     }
-```
+:::code api-firmware-plugin/cpp/rezhymy-polotu.cpp
 
 Порожній рядок означає «такої ролі в цій прошивці немає», і застосунок мовчки не пропонує відповідну дію. Помилки не буде — буде відсутня кнопка.
 
@@ -232,20 +152,7 @@ protected:
 
 Усе, що виражається реченням «попросити апарат зробити X». Базовий клас на кожну з цих дій показує користувачеві повідомлення «Guided mode not supported by Vehicle» — типова поведінка не порожня й не аварійна, вона **пояснює відмову**.
 
-```cpp
-virtual void pauseVehicle(Vehicle *vehicle) const;
-virtual void startTakeoff(Vehicle *vehicle) const;
-virtual void startMission(Vehicle *vehicle) const;
-virtual void guidedModeRTL(Vehicle *vehicle, bool smartRTL) const;
-virtual void guidedModeLand(Vehicle *vehicle) const;
-virtual void guidedModeTakeoff(Vehicle *vehicle, double takeoffAltRel) const;
-virtual void guidedModeChangeHeading(Vehicle *vehicle, const QGeoCoordinate &headingCoord) const;
-virtual void guidedModeChangeAltitude(Vehicle *vehicle, double altitudeChange, bool pauseVehicle);
-virtual void guidedModeChangeGroundSpeedMetersSecond(Vehicle *vehicle, double groundspeed) const;
-virtual void guidedModeChangeEquivalentAirspeedMetersSecond(Vehicle *vehicle, double airspeed_equiv) const;
-virtual bool guidedModeGotoLocation(Vehicle *vehicle, const QGeoCoordinate &gotoCoord,
-                                    double forwardFlightLoiterRadius = 0.0) const;
-```
+:::code api-firmware-plugin/cpp/kerovani-dii.cpp
 
 Дві сигнатури тут вибиваються з ряду, і обидва відхилення змістовні. `guidedModeGotoLocation()` єдина повертає `bool` — координата може бути неприйнятною (наприклад, поза геозоною), і про це треба сказати одразу, до надсилання. `guidedModeChangeAltitude()` єдина **не `const`**: зміна висоти веде за собою перехід у режим утримання, тобто плагін тут чіпає стан.
 
@@ -301,20 +208,7 @@ virtual QString offlineEditingParamFile(Vehicle*) const { return QString(); }
 
 Метадані параметрів і звірка версії:
 
-```cpp
-ParameterMetaData *loadParameterMetaData(const Vehicle *vehicle);   // НЕ віртуальний — готовий збирач
-void cacheParameterMetaDataFile(const QString &metaDataFile);
-
-protected:
-    virtual ParameterMetaData *_createParameterMetaData() { return nullptr; }
-    virtual QString _internalParameterMetaDataFile(const Vehicle*) const { return QString(); }
-    QString         _cachedParameterMetaDataFile(const Vehicle *vehicle) const;
-    virtual QString _getLatestVersionFileUrl(Vehicle*) const { return QString(); }
-    virtual QString _versionRegex() const { return QString(); }
-    virtual void    _versionFileDownloadFinished(const QString &remoteFile, const QString &localFile,
-                                                 const Vehicle *vehicle) const;
-    virtual MAV_AUTOPILOT _autopilotType() const { return MAV_AUTOPILOT_GENERIC; }
-```
+:::code api-firmware-plugin/cpp/initsializatsiia-versiia.cpp
 
 Перевизначати треба два постачальники — `_createParameterMetaData()` і `_internalParameterMetaDataFile()`, — а не сам `loadParameterMetaData()`: він уже вміє вибрати між завантаженим кешем і вбудованим файлом. Що з цими описами робить далі станція — у [менеджері параметрів](root:sys-dron/parameter-manager) і [фактовій системі](root:sys-dron/fact-system).
 
@@ -399,32 +293,7 @@ virtual QString missionCommandOverrides(QGCMAVLinkTypes::VehicleClass_t vehicleC
 
 Плагін спільний для всіх апаратів свого класу й тому не має полів під конкретний борт. Те, що треба запам'ятати саме про цей апарат, живе в окремому об'єкті:
 
-```cpp
-class FirmwarePluginInstanceData : public QObject
-{
-    Q_OBJECT
-public:
-    using QObject::QObject;
-
-    enum class CommandSupportedResult : uint8_t {
-        SUPPORTED   = 23,
-        UNSUPPORTED = 24,
-        UNKNOWN     = 25,
-    };
-
-    /// true, якщо будь-яка версія прошивки колись підтримувала cmd —
-    /// щоб не витрачати зайвий обмін із автопілотом на розвідку
-    virtual CommandSupportedResult anyVersionSupportsCommand(MAV_CMD /*cmd*/) const
-        { return CommandSupportedResult::UNKNOWN; }
-
-    void setCommandSupported(MAV_CMD cmd, CommandSupportedResult status)
-        { MAV_CMD_supported[cmd] = status; }
-    CommandSupportedResult getCommandSupported(MAV_CMD cmd) const;
-
-private:
-    QMap<MAV_CMD, CommandSupportedResult> MAV_CMD_supported;
-};
-```
+:::code api-firmware-plugin/cpp/firmwareplugininstancedata.cpp
 
 Логіка читання — двошарова, і порядок шарів важить:
 
@@ -470,33 +339,7 @@ if (!instanceData) {
 
 ## Контракт реєстрації
 
-```cpp
-class FirmwarePluginFactory : public QObject
-{
-    Q_OBJECT
-public:
-    explicit FirmwarePluginFactory(QObject *parent = nullptr);   // ← сам себе реєструє
-    virtual ~FirmwarePluginFactory();
-
-    virtual FirmwarePlugin *firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType,
-                                                       MAV_TYPE vehicleType) = 0;
-    virtual QList<QGCMAVLink::FirmwareClass_t> supportedFirmwareClasses() const = 0;
-    virtual QList<QGCMAVLink::VehicleClass_t>  supportedVehicleClasses() const
-        { return QGCMAVLink::allVehicleClasses(); }
-};
-
-class FirmwarePluginFactoryRegister : public QObject
-{
-    Q_OBJECT
-public:
-    static FirmwarePluginFactoryRegister *instance();            // Q_GLOBAL_STATIC усередині
-    void registerPluginFactory(FirmwarePluginFactory *pluginFactory)
-        { _factoryList.append(pluginFactory); }
-    QList<FirmwarePluginFactory*> pluginFactories() const { return _factoryList; }
-private:
-    QList<FirmwarePluginFactory*> _factoryList;
-};
-```
+:::code api-firmware-plugin/cpp/kontrakt-reiestratsii.cpp
 
 | Член | Обов'язковість | Примітка |
 |---|---|---|
@@ -524,35 +367,7 @@ private:
 
 Найкоротший код, після якого станція справді почне звертатися до власного плагіна:
 
-```cpp
-// MyFirmwarePluginFactory.h
-class MyFirmwarePluginFactory : public FirmwarePluginFactory
-{
-    Q_OBJECT
-public:
-    explicit MyFirmwarePluginFactory(QObject *parent = nullptr)
-        : FirmwarePluginFactory(parent) {}        // реєстрація — у базовому конструкторі
-
-    QList<QGCMAVLink::FirmwareClass_t> supportedFirmwareClasses() const override
-        { return { QGCMAVLink::FirmwareClassPX4 }; }
-
-    QList<QGCMAVLink::VehicleClass_t> supportedVehicleClasses() const override
-        { return { QGCMAVLink::VehicleClassMultiRotor }; }
-
-    FirmwarePlugin *firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType,
-                                               MAV_TYPE vehicleType) override
-    {
-        if (autopilotType != MAV_AUTOPILOT_PX4) { return nullptr; }
-        if (QGCMAVLink::vehicleClass(vehicleType) != QGCMAVLink::VehicleClassMultiRotor) {
-            return nullptr;
-        }
-        if (!_pluginInstance) { _pluginInstance = new MyFirmwarePlugin(this); }
-        return _pluginInstance;                   // ОДИН примірник на всі апарати класу
-    }
-private:
-    MyFirmwarePlugin *_pluginInstance = nullptr;
-};
-```
+:::code api-firmware-plugin/cpp/minimalna-robocha.cpp
 
 ```cpp
 // MyFirmwarePluginFactory.cc — об'єкт файлової області, створюється до main()

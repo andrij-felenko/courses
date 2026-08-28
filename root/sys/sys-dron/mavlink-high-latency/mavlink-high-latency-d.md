@@ -184,52 +184,8 @@ B_speed = (uint8_t)(fminf(Speed_mps · 5.0, 255.0))
 Команда передається в стандартному кадрі `COMMAND_LONG` (`MSG ID 76`):
 
 :::tabs
-```c
-#include <mavlink.h>
-
-void send_control_high_latency_command(uint8_t target_sys, uint8_t target_comp, bool enable) {
-    mavlink_message_t msg;
-    mavlink_command_long_t cmd = {0};
-
-    cmd.target_system    = target_sys;
-    cmd.target_component = target_comp;
-    cmd.command          = MAV_CMD_CONTROL_HIGH_LATENCY; // Команда #2600
-    cmd.confirmation     = 0;
-    cmd.param1           = enable ? 1.0f : 0.0f;        // 1.0 = Увімкнути HLP, 0.0 = Вимкнути
-    cmd.param2           = 0.0f;                         // Резерв
-    cmd.param3           = 0.0f;
-    cmd.param4           = 0.0f;
-    cmd.param5           = 0.0f;
-    cmd.param6           = 0.0f;
-    cmd.param7           = 0.0f;
-
-    mavlink_msg_command_long_encode(255, 190, &msg, &cmd);
-    // Відправка пакета в активний канал зв'язку
-}
-```
-```cpp
-#include <mavlink.h>
-#include <array>
-#include <span>
-#include <cstdint>
-
-class HighLatencyController {
-public:
-    static mavlink_message_t createControlCommand(uint8_t target_sys, uint8_t target_comp, bool enable) noexcept {
-        mavlink_message_t msg{};
-        mavlink_command_long_t cmd{};
-
-        cmd.target_system    = target_sys;
-        cmd.target_component = target_comp;
-        cmd.command          = MAV_CMD_CONTROL_HIGH_LATENCY;
-        cmd.confirmation     = 0;
-        cmd.param1           = enable ? 1.0f : 0.0f;
-
-        mavlink_msg_command_long_encode(255, 190, &msg, &cmd);
-        return msg;
-    }
-};
-```
+:::code mavlink-high-latency-d/c/keruvannia-protokolom-mav.c
+:::code mavlink-high-latency-d/cpp/keruvannia-protokolom-mav.cpp
 :::
 
 Автопілот, отримавши команду з `param1 = 1.0f`:
@@ -273,112 +229,8 @@ K_comp = 2000 / 3.85 ≈ 519.5 : 1
 Розглянемо повний цикл: бортовий модуль формує структуру `HIGH_LATENCY2`, кодує її у вихідний буфер MAVLink v2 та передає через інтерфейс супутникового моста.
 
 :::tabs
-```c
-#include <mavlink.h>
-#include <stdio.h>
-#include <math.h>
-
-void generate_and_send_high_latency(uint8_t system_id, uint8_t component_id) {
-    mavlink_message_t msg;
-    mavlink_high_latency2_t hl = {0};
-
-    // 1. Заповнення системних полів
-    hl.timestamp = 3600000; // 1 година польоту (мс)
-    hl.type = MAV_TYPE_FIXED_WING;
-    hl.autopilot = MAV_AUTOPILOT_PX4;
-    hl.custom_mode = 3; // AUTO.MISSION
-
-    // 2. Глобальні координати (Одеса: 46.482526° N, 30.723309° E)
-    hl.latitude = (int32_t)round(46.482526 * 1e7);
-    hl.longitude = (int32_t)round(30.723309 * 1e7);
-
-    // 3. Навігаційні параметри
-    hl.altitude = 450;        // 450 метрів AMSL
-    hl.target_altitude = 500; // Ціль: 500 метрів
-    hl.heading = (uint8_t)(round(124.0 / 2.0)); // Курс 124° -> значення 62
-    hl.target_heading = (uint8_t)(round(130.0 / 2.0));
-    hl.target_distance = (uint16_t)round(2450.0 / 10.0); // 2450 м -> 245 декаметрів
-    hl.wp_num = 14;
-
-    // 4. Швидкості та тяга
-    hl.throttle = 65; // 65% газу
-    hl.airspeed = (uint8_t)round(22.4 * 5.0);    // 22.4 м/с -> 112
-    hl.airspeed_sp = (uint8_t)round(22.0 * 5.0); // 22.0 м/с -> 110
-    hl.groundspeed = (uint8_t)round(24.8 * 5.0); // 24.8 м/с -> 124
-    hl.climb_rate = (int8_t)round(1.2 * 10.0);   // +1.2 м/с -> 12 дм/с
-
-    // 5. Живлення та сенсори
-    hl.battery = 78; // 78% заряду
-    hl.current_battery = (int16_t)round(18.5 * 10.0); // 18.5 А -> 185
-    hl.temperature = 42;     // 42 °C всередині фюзеляжу
-    hl.temperature_air = 14; // 14 °C за бортом
-
-    // 6. Діагностична маска (все справно, GPS 3D Fix)
-    hl.failure_flags = 0; // Немає відмов
-    hl.failsafe = 0;
-
-    // Кодування кадру MSG ID 235
-    mavlink_msg_high_latency2_encode(system_id, component_id, &msg, &hl);
-
-    // Пакування у двійковий масив для відправки в UART супутникового модема
-    uint8_t send_buf[MAVLINK_MAX_PACKET_LEN];
-    uint16_t bytes_to_send = mavlink_msg_to_send_buffer(send_buf, &msg);
-
-    // bytes_to_send = 10 (Header) + 65 (Payload) + 2 (CRC) = 77 байтів
-    printf("Сформовано кадр HIGH_LATENCY2. Розмір: %u байтів\n", bytes_to_send);
-}
-```
-```cpp
-#include <mavlink.h>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <array>
-
-class HighLatencyTelemetryProvider {
-public:
-    static std::vector<uint8_t> buildPacket(uint8_t sys_id, uint8_t comp_id) {
-        mavlink_message_t msg{};
-        mavlink_high_latency2_t hl{};
-
-        hl.timestamp = 3600000;
-        hl.type = MAV_TYPE_FIXED_WING;
-        hl.autopilot = MAV_AUTOPILOT_PX4;
-        hl.custom_mode = 3;
-
-        hl.latitude = static_cast<int32_t>(std::round(46.482526 * 1e7));
-        hl.longitude = static_cast<int32_t>(std::round(30.723309 * 1e7));
-
-        hl.altitude = 450;
-        hl.target_altitude = 500;
-        hl.heading = static_cast<uint8_t>(std::round(124.0 / 2.0));
-        hl.target_heading = static_cast<uint8_t>(std::round(130.0 / 2.0));
-        hl.target_distance = static_cast<uint16_t>(std::round(2450.0 / 10.0));
-        hl.wp_num = 14;
-
-        hl.throttle = 65;
-        hl.airspeed = static_cast<uint8_t>(std::round(22.4 * 5.0));
-        hl.airspeed_sp = static_cast<uint8_t>(std::round(22.0 * 5.0));
-        hl.groundspeed = static_cast<uint8_t>(std::round(24.8 * 5.0));
-        hl.climb_rate = static_cast<int8_t>(std::round(1.2 * 10.0));
-
-        hl.battery = 78;
-        hl.current_battery = static_cast<int16_t>(std::round(18.5 * 10.0));
-        hl.temperature = 42;
-        hl.temperature_air = 14;
-        hl.failure_flags = 0;
-        hl.failsafe = 0;
-
-        mavlink_msg_high_latency2_encode(sys_id, comp_id, &msg, &hl);
-
-        std::vector<uint8_t> buffer(MAVLINK_MAX_PACKET_LEN);
-        const uint16_t len = mavlink_msg_to_send_buffer(buffer.data(), &msg);
-        buffer.resize(len);
-
-        return buffer;
-    }
-};
-```
+:::code mavlink-high-latency-d/c/rozrakhunkovyi-pryklad.c
+:::code mavlink-high-latency-d/cpp/rozrakhunkovyi-pryklad.cpp
 :::
 
 ### Внутрішня архітектура польотного стеку: механізм агрегації uORB у PX4
@@ -420,33 +272,7 @@ public:
 
 Для перевірки генерації повідомлення та вмісту агрегованих полів виконується команда моніторингу топіків:
 
-```bash
-# Перегляд публікації топіка high_latency2 в консолі NSH
-nsh> uorb top high_latency2
-
-# Виведення детального вмісту останнього сформованого кадру
-nsh> listener high_latency2
-
-TOPIC: high_latency2
- high_latency2_s
-    timestamp: 3600124500 (0.0200s ago)
-    latitude: 464825246 (46.4825246 deg)
-    longitude: 307233021 (30.7233021 deg)
-    custom_mode: 3 (AUTO_MISSION)
-    altitude: 450 m
-    target_altitude: 500 m
-    target_distance: 245 (2450 m)
-    wp_num: 14
-    failure_flags: 0 (0x0000 - ALL OK)
-    heading: 62 (124 deg)
-    target_heading: 65 (130 deg)
-    throttle: 65 %
-    airspeed: 112 (22.4 m/s)
-    groundspeed: 124 (24.8 m/s)
-    battery: 78 %
-    current_battery: 185 (18.5 A)
-    temperature: 42 deg C
-```
+:::code mavlink-high-latency-d/sh/main.sh
 
 Для примусового тестування супутникового каналу на землі без відключення основного радіомодема можна надіслати команду керування безпосередньо з командного рядка:
 

@@ -45,37 +45,8 @@
 **Умова.** З приймача прийшов байт прапорців SBUS `flags = 0x10`. Що це означає для польотного контролера й що він має зробити?
 
 :::tabs
-```cpp
-// SBUS: байт 23 кадру містить прапорці стану
-#define SBUS_FLAG_FRAME_LOST  (1u << 5)   // 0x20: окремий кадр загублено
-#define SBUS_FLAG_FAILSAFE    (1u << 4)   // 0x10: приймач у режимі failsafe
-
-// повертає true, якщо контролер мусить вмикати польотний failsafe
-bool rc_link_lost(uint8_t flags) {
-    if (flags & SBUS_FLAG_FAILSAFE)   return true;   // явна втрата зв'язку
-    if (flags & SBUS_FLAG_FRAME_LOST) return false;  // один поганий кадр — ще не втрата
-    return false;                                    // усе гаразд
-}
-
-// flags = 0x10:
-//   0x10 & SBUS_FLAG_FAILSAFE  = 0x10 → істина  → rc_link_lost() == true
-//   → контролер запускає свою дію failsafe (RTL / посадку)
-```
-```python
-# SBUS: байт 23 кадру містить прапорці стану
-SBUS_FLAG_FRAME_LOST = 1 << 5   # 0x20: окремий кадр загублено
-SBUS_FLAG_FAILSAFE   = 1 << 4   # 0x10: приймач у режимі failsafe
-
-# повертає True, якщо контролер мусить вмикати польотний failsafe
-def rc_link_lost(flags: int) -> bool:
-    if flags & SBUS_FLAG_FAILSAFE:   return True    # явна втрата зв'язку
-    if flags & SBUS_FLAG_FRAME_LOST: return False   # один поганий кадр — ще не втрата
-    return False                                    # усе гаразд
-
-# flags = 0x10:
-#   0x10 & SBUS_FLAG_FAILSAFE  = 0x10 → істина  → rc_link_lost() == True
-#   → контролер запускає свою дію failsafe (RTL / посадку)
-```
+:::code rc-failsafe-modes-d/cpp/main.cpp
+:::code rc-failsafe-modes-d/py/main.py
 :::
 
 Різниця між двома прапорцями — саме та, що й між «завадою» і «втратою». Одинокий `frame lost` — це проковтнутий кадр, яких у польоті чимало; на нього не реагують, бо наступний кадр прийде за мілісекунди. А `failsafe` виставляється, **лише** коли приймач втратив зв'язок надовго, — і оце вже сигнал до дії. Мудрий контролер розрізняє ці два стани й не панікує від кожного шуму. Той, хто плутає їх, або сіпається на кожен збій, або, навпаки, пізно помічає реальну втрату.

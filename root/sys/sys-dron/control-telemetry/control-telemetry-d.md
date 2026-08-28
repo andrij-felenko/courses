@@ -36,31 +36,8 @@ void rc_failsafe_tick(uint32_t now_ms) {
 // приймач: щойно прийшов валідний кадр керування — оновлюємо мітку часу
 void on_rc_frame_valid(uint32_t now_ms) { g_last_rc_frame_ms = now_ms; }
 ```
-```py
-RC_TIMEOUT_MS = 500   # 0.5 с без валідного кадру = втрата
-
-# викликається з основного циклу польотного контролера (~раз на такт)
-def rc_failsafe_tick(now_ms):
-    if now_ms - g_last_rc_frame_ms > RC_TIMEOUT_MS:
-        enter_failsafe(FS_RTL)            # повернення додому (RTL)
-
-# приймач: щойно прийшов валідний кадр керування — оновлюємо мітку часу
-def on_rc_frame_valid(now_ms):
-    global g_last_rc_frame_ms
-    g_last_rc_frame_ms = now_ms
-```
-```js
-const RC_TIMEOUT_MS = 500;   // 0.5 с без валідного кадру = втрата
-
-// викликається з основного циклу польотного контролера (~раз на такт)
-function rcFailsafeTick(nowMs) {
-    if (nowMs - gLastRcFrameMs > RC_TIMEOUT_MS) {
-        enterFailsafe(FS_RTL);            // повернення додому (RTL)
-    }
-}
-// приймач: щойно прийшов валідний кадр керування — оновлюємо мітку часу
-function onRcFrameValid(nowMs) { gLastRcFrameMs = nowMs; }
-```
+:::code control-telemetry-d/py/main.py
+:::code control-telemetry-d/js/index.js
 :::
 
 Поріг беруть із запасом над періодом кадрів: за 50 пакетів/с кадр приходить кожні 20 мс, тож 500 мс — це десятки пропущених кадрів поспіль, справжня втрата, а не одна завада. Зробиш поріг надто малим — апарат сахатиметься в failsafe від кожного шуму; надто великим — пізно помітить реальну втрату.

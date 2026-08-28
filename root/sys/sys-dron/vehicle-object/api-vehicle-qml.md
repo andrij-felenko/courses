@@ -264,31 +264,7 @@ void Vehicle::sendCommand(int compId, int command, bool showError, double param1
 
 З C++ доступний ширший набір:
 
-```cpp
-void sendMavCommand(int compId, MAV_CMD command, bool showError,
-                    float param1 = 0.0f, …, float param7 = 0.0f);
-
-void sendMavCommandDelayed(int compId, MAV_CMD command, bool showError, int milliseconds,
-                           float param1 = 0.0f, …);
-
-void sendMavCommandInt(int compId, MAV_CMD command, MAV_FRAME frame, bool showError,
-                       float param1, float param2, float param3, float param4,
-                       double param5, double param6, float param7);
-
-void sendMavCommandWithHandler(const MavCmdAckHandlerInfo_t *ackHandlerInfo,
-                               int compId, MAV_CMD command,
-                               float param1 = 0.0f, …);
-
-void sendMavCommandIntWithHandler(const MavCmdAckHandlerInfo_t *ackHandlerInfo,
-                                  int compId, MAV_CMD command, MAV_FRAME frame,
-                                  float param1 = 0.0f, …, double param5 = 0.0f, double param6 = 0.0f,
-                                  float param7 = 0.0f);
-
-void sendMavCommandWithLambdaFallback(std::function<void()> lambda, int compId, MAV_CMD command,
-                                      bool showError, float param1 = 0.0f, …);
-void sendMavCommandIntWithLambdaFallback(std::function<void()> lambda, int compId, MAV_CMD command,
-                                         MAV_FRAME frame, bool showError, float param1 = 0.0f, …);
-```
+:::code api-vehicle-qml/cpp/metody-keruvannia-komandy.hpp
 
 Різниця між парами `…Command` і `…CommandInt` — у п'ятому й шостому параметрі: у цілочисловій формі вони `double` і призначені для координат, які `float` спотворив би на десятки сантиметрів.
 
@@ -306,27 +282,7 @@ case MAV_RESULT_UNSUPPORTED:
 
 Відповідь на команду приходить у зворотному виклику:
 
-```cpp
-typedef enum {
-    MavCmdResultCommandResultOnly,          // у commandResult повна відповідь про успіх або відмову
-    MavCmdResultFailureNoResponseToCommand, // апарат не відповів узагалі
-    MavCmdResultFailureDuplicateCommand,    // така сама команда вже чекає на відповідь
-} MavCmdResultFailureCode_t;
-
-typedef void (*MavCmdResultHandler)(void *resultHandlerData, int compId,
-                                    const mavlink_command_ack_t &ack,
-                                    MavCmdResultFailureCode_t failureCode);
-
-typedef void (*MavCmdProgressHandler)(void *progressHandlerData, int compId,
-                                      const mavlink_command_ack_t &ack);
-
-typedef struct MavCmdAckHandlerInfo_s {
-    MavCmdResultHandler   resultHandler;        // nullptr — обробника немає
-    void                 *resultHandlerData;
-    MavCmdProgressHandler progressHandler;      // ловить MAV_RESULT_IN_PROGRESS
-    void                 *progressHandlerData;
-} MavCmdAckHandlerInfo_t;
-```
+:::code api-vehicle-qml/cpp/metody-keruvannia-komandy-2.hpp
 
 Черга команд повторює втрачені сама, і її числа варто знати:
 
@@ -340,19 +296,7 @@ typedef struct MavCmdAckHandlerInfo_s {
 
 Окремо стоїть запит одного повідомлення:
 
-```cpp
-void requestMessage(RequestMessageResultHandler resultHandler, void *resultHandlerData,
-                    int compId, int messageId,
-                    float param1 = 0.0f, …, float param5 = 0.0f);
-
-typedef enum {
-    RequestMessageNoFailure,
-    RequestMessageFailureCommandError,
-    RequestMessageFailureCommandNotAcked,
-    RequestMessageFailureMessageNotReceived,   // підтвердили, але повідомлення не надіслали
-    RequestMessageFailureDuplicate,
-} RequestMessageResultHandlerFailureCode_t;
-```
+:::code api-vehicle-qml/cpp/metody-keruvannia-komandy.cpp
 
 Розділення двох останніх кодів — не педантизм: апарат цілком може підтвердити `MAV_CMD_REQUEST_MESSAGE` і не надіслати нічого, і це інша поломка, ніж мовчання на саму команду.
 
@@ -433,21 +377,7 @@ Q_INVOKABLE void forceArm();
 
 Тіло обох — одна команда:
 
-```cpp
-void Vehicle::setArmed(bool armed, bool showError)
-{
-    // саме COMMAND_LONG:MAV_CMD_COMPONENT_ARM_DISARM — його підтримує більше польотних стеків
-    sendMavCommand(_defaultComponentId, MAV_CMD_COMPONENT_ARM_DISARM, showError,
-                   armed ? 1.0f : 0.0f);
-}
-
-void Vehicle::forceArm()
-{
-    sendMavCommand(_defaultComponentId, MAV_CMD_COMPONENT_ARM_DISARM, true,
-                   1.0f,     // зброїти
-                   2989);    // домовлене число «попри перевірки»
-}
-```
+:::code api-vehicle-qml/cpp/zbroiennia-i-rezhym-polotu.cpp
 
 Число `2989` — не помилка й не випадковість: це домовлений у MAVLink магічний параметр, який просить автопілот обійти передпольотні перевірки. Через це `forceArm` навмисно не має форми без показу помилок.
 
@@ -455,23 +385,7 @@ void Vehicle::forceArm()
 
 Те саме з режимом:
 
-```cpp
-void Vehicle::setFlightMode(const QString &flightMode)
-{
-    uint8_t base_mode; uint32_t custom_mode;
-    if (setFlightModeCustom(flightMode, &base_mode, &custom_mode)) {
-        …
-        if (_firmwarePlugin->MAV_CMD_DO_SET_MODE_is_supported()) {
-            sendMavCommand(defaultComponentId(), MAV_CMD_DO_SET_MODE, true,
-                           MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, custom_mode);
-        } else {
-            // запасна дорога для прошивок без DO_SET_MODE — старе повідомлення SET_MODE
-            mavlink_msg_set_mode_pack_chan(…, id(), newBaseMode, custom_mode);
-            sendMessageOnLinkThreadSafe(sharedLink.get(), msg);
-        }
-    }
-}
-```
+:::code api-vehicle-qml/cpp/zbroiennia-i-rezhym-polotu-2.cpp
 
 Рядок режиму мусить бути одним із `flightModes`; невідому назву `setFlightModeCustom` відкине, і в журнал ляже попередження — жодного винятку й жодної відповіді назовні не буде.
 
@@ -550,35 +464,7 @@ Column {
 
 З C++ — команда з власним обробником відповіді, бо саме тут найлегше помилитися з часом життя даних:
 
-```cpp
-struct RebootContext { QPointer<MyWidget> owner; };
-
-static void rebootResultHandler(void *data, int compId,
-                                const mavlink_command_ack_t &ack,
-                                Vehicle::MavCmdResultFailureCode_t failureCode)
-{
-    auto *ctx = static_cast<RebootContext*>(data);
-    if (failureCode == Vehicle::MavCmdResultCommandResultOnly && ack.result == MAV_RESULT_ACCEPTED) {
-        qCDebug(MyLog) << "апарат прийняв перезавантаження";
-    } else {
-        qCWarning(MyLog) << "відмова:" << MavCommandQueue::failureCodeToString(failureCode);
-    }
-    delete ctx;                       // обробник викликається рівно один раз
-}
-
-void MyWidget::reboot(Vehicle *vehicle)
-{
-    auto *ctx = new RebootContext{ this };
-    Vehicle::MavCmdAckHandlerInfo_t handlerInfo = {};
-    handlerInfo.resultHandler     = rebootResultHandler;
-    handlerInfo.resultHandlerData = ctx;
-
-    vehicle->sendMavCommandWithHandler(&handlerInfo,
-                                       vehicle->defaultComponentId(),
-                                       MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
-                                       1.0f);   // param1: перезавантажити автопілот
-}
-```
+:::code api-vehicle-qml/cpp/minimalnyi-robochyi-vyklyk.cpp
 
 Три речі випливають просто з типів. Обробник — звичайний вказівник на функцію, а не лямбда з захватом, тож увесь контекст їде в `void*`. Структуру `MavCmdAckHandlerInfo_t` передають **вказівником на локальну змінну**, і черга копіює її вміст собі — після повернення з виклику вона більше не потрібна. І `showError` у формі з обробником немає взагалі: якщо ви взяли відповідь на себе, вікно з помилкою станція не покаже.
 

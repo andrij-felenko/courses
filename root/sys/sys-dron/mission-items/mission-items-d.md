@@ -42,25 +42,7 @@ MISSION_ITEM_INT
 
 Тільки дві з семи комірок мають фіксовану роль, і то за домовленістю, а не за протоколом: `param5` і `param6` віддані під широту й довготу, `param7` — під висоту, коли команда взагалі стосується місця в просторі. У повідомленні `MISSION_ITEM_INT` перші дві з них навіть виведені в окремі поля `x` та `y` цілого типу. Ось як застосунок пакує запис перед відправленням:
 
-```cpp
-mavlink_msg_mission_item_int_pack_chan(
-    MAVLinkProtocol::instance()->getSystemId(),
-    MAVLinkProtocol::getComponentId(),
-    sharedLink->mavlinkChannel(),
-    &messageOut,
-    _vehicle->id(),                 // кому: система апарата
-    MAV_COMP_ID_AUTOPILOT1,         // кому: компонент-автопілот
-    missionRequestSeq,              // seq — номер, який попросив борт
-    item->frame(),
-    item->command(),
-    missionRequestSeq == 0,         // current: лише нульовий елемент
-    item->autoContinue(),
-    item->param1(), item->param2(), item->param3(), item->param4(),
-    item->frame() == MAV_FRAME_MISSION ? item->param5() : item->param5() * 1e7,
-    item->frame() == MAV_FRAME_MISSION ? item->param6() : item->param6() * 1e7,
-    item->param7(),
-    _planType);
-```
+:::code mission-items-d/cpp/sim-chysel-bez-imen.cpp
 
 Два тернарні вирази посередині — це і є вся «геодезія» протоколу. Широта й довгота всередині застосунку зберігаються звичайними градусами з дробовою частиною, а в ефір ідуть цілими числами, помноженими на 10⁷: 47.3977419° стає 473977419. Виняток — система відліку `MAV_FRAME_MISSION`, яка означає «ця команда взагалі не про місце»; тоді `param5` і `param6` — просто числа, і множити їх було б безглуздо.
 
@@ -140,18 +122,7 @@ mavlink_msg_mission_item_int_pack_chan(
 
 У коді це кілька рядків, які варто побачити, бо вони пояснюють семантику накладання точніше за будь-який опис:
 
-```cpp
-for (const MAV_CMD command: cmdList->commandIds()) {
-    MissionCommandUIInfo *const uiInfo = cmdList->getUIInfo(command);
-    if (uiInfo) {
-        if (collapsedTree.contains(command)) {
-            collapsedTree[command]->_overrideInfo(uiInfo);   // команда вже є — перекриваємо ключі
-        } else {
-            collapsedTree[command] = new MissionCommandUIInfo(*uiInfo);  // команда нова — беремо цілком
-        }
-    }
-}
-```
+:::code mission-items-d/cpp/chomu-slovnyk-ne-odyn.cpp
 
 Шари накладаються в порядку зростання конкретності: спільний для всіх → спільний для прошивки з урахуванням типу апарата → специфічний для прошивки → специфічний для прошивки й типу разом. Наслідок — файли конкретних прошивок короткі: щоб змінити для літака підпис одного параметра, не треба переписувати весь опис команди, достатньо назвати цей один ключ. Файли-накладки постачає не сам `MissionCommandTree`, а [плагін прошивки](root:sys-dron/firmware-plugin) — той самий об'єкт, який ховає від решти застосунку різницю між автопілотами.
 

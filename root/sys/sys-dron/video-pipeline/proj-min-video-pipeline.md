@@ -27,55 +27,7 @@ udpsrc ─ rtpjitterbuffer ─ rtph264depay ─ h264parse ─ tee ┬─ queue �
 
 ## Хребет
 
-```c
-#include <gst/gst.h>
-
-typedef struct {
-    GstElement *pipeline, *tee;
-    GstElement *view_q, *view_valve, *decode, *convert, *view_sink;
-    GstElement *rec_q, *rec_valve, *rec_sink;   /* rec_sink живе лише під час запису */
-    gboolean    rec_closing;                    /* чекаємо підтвердження про закриття файлу */
-    guint       rec_deadline;
-    GMainLoop  *loop;
-} App;
-
-static gboolean build_backbone(App *a)
-{
-    a->pipeline = gst_pipeline_new("video");
-
-    GstElement *src   = gst_element_factory_make("udpsrc",          "src");
-    GstElement *jbuf  = gst_element_factory_make("rtpjitterbuffer", "jbuf");
-    GstElement *depay = gst_element_factory_make("rtph264depay",    "depay");
-    GstElement *parse = gst_element_factory_make("h264parse",       "parse");
-    a->tee            = gst_element_factory_make("tee",             "tee");
-
-    if (!a->pipeline || !src || !jbuf || !depay || !parse || !a->tee)
-        return FALSE;
-
-    /* Потік про себе нічого не каже: у чистому UDP немає опису сесії,
-       тож відповідність «тип навантаження → кодек» задаємо руками. */
-    GstCaps *caps = gst_caps_from_string(
-        "application/x-rtp, media=(string)video, clock-rate=(int)90000, "
-        "encoding-name=(string)H264, payload=(int)96");
-    g_object_set(src, "port", 5600, "caps", caps, NULL);
-    gst_caps_unref(caps);                 /* g_object_set узяв власне посилання */
-
-    g_object_set(jbuf, "latency",         80,     /* мс запасу — єдина навмисна затримка */
-                       "do-lost",         TRUE,   /* сказати декодерові про дірку */
-                       "drop-on-latency", TRUE,   /* спізнілий пакет не тримає потік */
-                       NULL);
-
-    /* Ми приєднуємось до потоку, який уже йде: набори параметрів мають
-       повторюватись на кожному ключовому кадрі, інакше чекати вічно. */
-    g_object_set(parse, "config-interval", -1, NULL);
-
-    /* Поки жодну гілку не під'єднано, трійникові немає куди штовхати. */
-    g_object_set(a->tee, "allow-not-linked", TRUE, NULL);
-
-    gst_bin_add_many(GST_BIN(a->pipeline), src, jbuf, depay, parse, a->tee, NULL);
-    return gst_element_link_many(src, jbuf, depay, parse, a->tee, NULL);
-}
-```
+:::code proj-min-video-pipeline/c/khrebet.c
 
 Один рядок тут вартий окремої уваги — `gst_bin_add_many`. Створений елемент має *плавуче* посилання, і додавання в контейнер його привласнює: з цієї миті елемент належить конвеєрові, і звільняти його самотужки не можна. Наприкінці програми буде рівно один `gst_object_unref` — на весь конвеєр. Це загальне правило [підрахунку посилань](root:sf-lang/reference-counting): володіє той, хто взяв посилання, а хто отримав його «на подивитися» — не звільняє. Порушення в обидва боки караються однаково: зайвий `unref` дає падіння в чужій нитці, забутий — тихий витік на кожен перезапуск.
 
@@ -83,71 +35,13 @@ static gboolean build_backbone(App *a)
 
 У трійника немає готових виходів. Він має шаблон `src_%u`, і кожен вихід треба **запитати** — саме тому кількість гілок не обмежена наперед.
 
-```c
-static gboolean link_to_tee(App *a, GstElement *branch, GstPad **keep)
-{
-    GstPad *tee_pad = gst_element_request_pad_simple(a->tee, "src_%u");
-    GstPad *in      = gst_element_get_static_pad(branch, "sink");
-
-    const GstPadLinkReturn ret = gst_pad_link(tee_pad, in);
-    gst_object_unref(in);                 /* get_static_pad віддає посилання */
-
-    if (ret != GST_PAD_LINK_OK) {
-        gst_element_release_request_pad(a->tee, tee_pad);
-        gst_object_unref(tee_pad);
-        return FALSE;
-    }
-    if (keep) *keep = tee_pad;            /* пад лишається на нас */
-    else      gst_object_unref(tee_pad);
-    return TRUE;
-}
-```
+:::code proj-min-video-pipeline/c/hilka-chipliaietsia-do.c
 
 Запитаний пад — власність того, хто його запитав: спершу `gst_element_release_request_pad()`, аж потім `gst_object_unref()`. Пад, який отримали через `gst_element_get_static_pad()`, лише звільняють. Різниця між запитаними, статичними й тими, що з'являються самі, — тема [падів і з'єднань](root:sys-media/pads-and-linking): статичний пад існує від народження елемента, запитаний створюють на вимогу, а «іноді-пад» елемент виставляє сам, коли розбереться, що всередині потоку.
 
 ## Гілка показу: пад, якого ще немає
 
-```c
-static void on_decode_pad(GstElement *dec, GstPad *pad, gpointer user)
-{
-    App *a = user;
-    GstPad *in = gst_element_get_static_pad(a->convert, "sink");
-    if (!gst_pad_is_linked(in))
-        gst_pad_link(pad, in);
-    gst_object_unref(in);
-}
-
-static gboolean add_view_branch(App *a)
-{
-    a->view_q     = gst_element_factory_make("queue",         "view_q");
-    a->view_valve = gst_element_factory_make("valve",         "view_v");
-    a->decode     = gst_element_factory_make("decodebin3",    "dec");
-    a->convert    = gst_element_factory_make("videoconvert",  "conv");
-    a->view_sink  = gst_element_factory_make("autovideosink", "view_sink");
-
-    /* Свіжість дорожча за плавність: два буфери, найстаріший — за борт. */
-    g_object_set(a->view_q, "max-size-buffers", 2,
-                            "max-size-bytes",   0,
-                            "max-size-time",    (guint64) 0,
-                            "leaky",            2,   /* downstream: викидаємо старе */
-                            NULL);
-
-    g_object_set(a->view_valve, "drop",  FALSE, NULL);  /* показ одразу ввімкнено */
-    g_object_set(a->view_sink,  "sync",  FALSE, NULL);  /* не тримати кадр до мітки часу */
-
-    gst_bin_add_many(GST_BIN(a->pipeline), a->view_q, a->view_valve,
-                     a->decode, a->convert, a->view_sink, NULL);
-
-    if (!gst_element_link_many(a->view_q, a->view_valve, a->decode, NULL)) return FALSE;
-    if (!gst_element_link(a->convert, a->view_sink))                       return FALSE;
-
-    /* Вихідного пада в декодера ще немає — він з'явиться, коли той
-       розбереться з форматом. Тому лінкуємо не тут, а в обробнику. */
-    g_signal_connect(a->decode, "pad-added", G_CALLBACK(on_decode_pad), a);
-
-    return link_to_tee(a, a->view_q, NULL);
-}
-```
+:::code proj-min-video-pipeline/c/hilka-pokazu-pad-iakoho.c
 
 `sync = FALSE` — не оптимізація, а зміна призначення. Звичайний стік тримає кадр до моменту, вказаного в мітці часу; так відтворюють фільм, де важлива рівність темпу. Живий потік цінний іншим: кадр показують одразу, як його декодовано, бо застарілий кадр не потрібен узагалі. Ціна чесна — темп стає нерівним рівно настільки, наскільки нерівний канал.
 
@@ -157,46 +51,7 @@ static gboolean add_view_branch(App *a)
 
 Постійна частина — черга й клапан. Пакувальник створюють на кожен запис.
 
-```c
-static gboolean add_rec_branch(App *a)
-{
-    a->rec_q     = gst_element_factory_make("queue", "rec_q");
-    a->rec_valve = gst_element_factory_make("valve", "rec_v");
-
-    /* У файл мусить лягти все: черга НЕ протікає, обмежена лише часом. */
-    g_object_set(a->rec_q, "leaky",            0,
-                           "max-size-buffers", 0,
-                           "max-size-bytes",   0,
-                           "max-size-time",    (guint64) 3 * GST_SECOND,
-                           NULL);
-    g_object_set(a->rec_valve, "drop", TRUE, NULL);     /* запис поки вимкнено */
-
-    gst_bin_add_many(GST_BIN(a->pipeline), a->rec_q, a->rec_valve, NULL);
-    if (!gst_element_link(a->rec_q, a->rec_valve)) return FALSE;
-
-    return link_to_tee(a, a->rec_q, NULL);
-}
-
-static void start_recording(App *a)
-{
-    if (a->rec_sink || a->rec_closing) return;      /* уже пишемо або ще закриваємо */
-
-    a->rec_sink = gst_element_factory_make("splitmuxsink", "rec_sink");
-    g_object_set(a->rec_sink, "location",      "flight-%05d.mp4",
-                              "max-size-time", (guint64) 60 * GST_SECOND,
-                              NULL);
-
-    gst_bin_add(GST_BIN(a->pipeline), a->rec_sink);
-    gst_element_link(a->rec_valve, a->rec_sink);    /* пад "video" запитається сам */
-
-    /* Конвеєр уже грає, а новий елемент народився в стані NULL. */
-    gst_element_sync_state_with_parent(a->rec_sink);
-
-    /* Клапан відкриваємо ОСТАННІМ — інакше перші буфери прилетять
-       у ще не готовий пакувальник. */
-    g_object_set(a->rec_valve, "drop", FALSE, NULL);
-}
-```
+:::code proj-min-video-pipeline/c/hilka-zapysu-pakuvalnyk.c
 
 Порядок останніх трьох дій — не смак, а вимога. Новий елемент завжди народжується в стані `NULL`, і `gst_bin_add()` його не піднімає; дані, що потраплять у такий елемент, повернуть назад помилку «не під'єднано», а помилка потоку йде вгору через трійник і кладе **весь** конвеєр — разом із показом. `gst_element_sync_state_with_parent()` підтягує новачка до стану конвеєра; про те, чому стани змінюються саме знизу вгору й чому цей виклик не можна забути, — [стани й життєвий цикл](root:sys-media/states-lifecycle).
 
@@ -214,56 +69,7 @@ static void start_recording(App *a)
 
 *Подія кінця потоку йде не в конвеєр і навіть не в гілку, а прямо в пад пакувальника — повз закритий клапан, який її б проковтнув.*
 
-```c
-static void finish_stop_recording(App *a);
-
-static gboolean on_rec_deadline(gpointer user)
-{
-    App *a = user;
-    g_printerr("пакувальник мовчить 3 с — знімаємо силою, файл може бути битий\n");
-    a->rec_deadline = 0;
-    finish_stop_recording(a);
-    return G_SOURCE_REMOVE;
-}
-
-static void stop_recording(App *a)
-{
-    if (!a->rec_sink || a->rec_closing) return;
-
-    /* 1 · клапан: нові кадри в гілку більше не заходять */
-    g_object_set(a->rec_valve, "drop", TRUE, NULL);
-
-    /* 2 · від'єднати пакувальник від решти гілки */
-    GstPad *src  = gst_element_get_static_pad(a->rec_valve, "src");
-    GstPad *sink = gst_pad_get_peer(src);        /* запитаний пад "video" пакувальника */
-    gst_pad_unlink(src, sink);
-    gst_object_unref(src);
-
-    /* 3 · подія кінця потоку — ПРЯМО в пад пакувальника.
-           Через клапан вона б не пройшла: закритий клапан їсть і події. */
-    a->rec_closing = TRUE;
-    if (!gst_pad_send_event(sink, gst_event_new_eos()))
-        g_printerr("подія кінця потоку не дійшла\n");
-    gst_object_unref(sink);
-
-    /* 4 · чекаємо підтвердження — але не вічно */
-    a->rec_deadline = g_timeout_add_seconds(3, on_rec_deadline, a);
-}
-
-/* 5 · прибирання. Викликається з головної нитки, коли файл уже закрито. */
-static void finish_stop_recording(App *a)
-{
-    if (!a->rec_closing) return;
-    a->rec_closing = FALSE;
-
-    if (a->rec_deadline) { g_source_remove(a->rec_deadline); a->rec_deadline = 0; }
-
-    gst_element_set_state(a->rec_sink, GST_STATE_NULL);
-    gst_element_get_state(a->rec_sink, NULL, NULL, GST_CLOCK_TIME_NONE);
-    gst_bin_remove(GST_BIN(a->pipeline), a->rec_sink);   /* контейнер віддає посилання */
-    a->rec_sink = NULL;
-}
-```
+:::code proj-min-video-pipeline/c/zupynyty-zapys-tak-shchob.c
 
 Третій крок — це те, на чому спотикаються всі. Природний порив — надіслати подію кінця потоку конвеєрові: `gst_element_send_event(pipeline, gst_event_new_eos())`. Це працює рівно один раз і кладе все: подія розійдеться в обидві гілки, стік показу теж її отримає й перестане брати кадри. Оператор натиснув «зупинити запис» — і втратив картинку.
 
@@ -273,34 +79,7 @@ static void finish_stop_recording(App *a)
 
 Четвертий крок ловить підтвердження. Дописавши індекс і закривши файл, `splitmuxsink` кладе на шину повідомлення від елемента з назвою `splitmuxsink-fragment-closed` — усередині нього ім'я файлу, номер фрагмента, тривалість. Саме його треба чекати: подія `GST_MESSAGE_EOS` не прийде, бо конвеєр надсилає її лише тоді, коли **всі** стоки дійшли до кінця, а стік показу працює далі.
 
-```c
-static gboolean on_bus(GstBus *bus, GstMessage *msg, gpointer user)
-{
-    App *a = user;
-
-    switch (GST_MESSAGE_TYPE(msg)) {
-    case GST_MESSAGE_ELEMENT: {
-        const GstStructure *s = gst_message_get_structure(msg);
-        if (a->rec_closing && s &&
-            gst_structure_has_name(s, "splitmuxsink-fragment-closed")) {
-            g_print("файл закрито: %s\n", gst_structure_get_string(s, "location"));
-            finish_stop_recording(a);
-        }
-        break;
-    }
-    case GST_MESSAGE_ERROR: {
-        GError *err = NULL; gchar *dbg = NULL;
-        gst_message_parse_error(msg, &err, &dbg);
-        g_printerr("помилка від %s: %s\n", GST_OBJECT_NAME(msg->src), err->message);
-        g_clear_error(&err); g_free(dbg);
-        g_main_loop_quit(a->loop);
-        break;
-    }
-    default: break;
-    }
-    return TRUE;         /* лишаємось на шині */
-}
-```
+:::code proj-min-video-pipeline/c/zupynyty-zapys-tak-shchob-2.c
 
 Помилки приходять сюди ж, і це не примха реалізації. Виклик, що запустив конвеєр, повернувся успішно ще секунду тому — розірваній згодом сесії немає кому повернути код. Тому все, що стається в чужих нитках, надходить окремим каналом; як шина влаштована й чому повідомлення виловлюють, а не ловлять винятками, — [шина повідомлень](root:sys-media/bus-and-messages).
 
@@ -308,39 +87,7 @@ static gboolean on_bus(GstBus *bus, GstMessage *msg, gpointer user)
 
 ## Головна функція
 
-```c
-static gboolean once_start(gpointer u) { start_recording(u); return G_SOURCE_REMOVE; }
-static gboolean once_stop (gpointer u) { stop_recording(u);  return G_SOURCE_REMOVE; }
-
-int main(int argc, char **argv)
-{
-    gst_init(&argc, &argv);
-
-    App a = { 0 };
-    a.loop = g_main_loop_new(NULL, FALSE);
-
-    if (!build_backbone(&a) || !add_view_branch(&a) || !add_rec_branch(&a)) {
-        g_printerr("граф не зібрався\n");
-        return 1;
-    }
-
-    GstBus *bus = gst_element_get_bus(a.pipeline);
-    gst_bus_add_watch(bus, on_bus, &a);
-    gst_object_unref(bus);
-
-    gst_element_set_state(a.pipeline, GST_STATE_PLAYING);
-
-    g_timeout_add_seconds( 5, once_start, &a);   /* демонстрація: пишемо з 5-ї */
-    g_timeout_add_seconds(20, once_stop,  &a);   /* ... до 20-ї секунди */
-
-    g_main_loop_run(a.loop);
-
-    gst_element_set_state(a.pipeline, GST_STATE_NULL);
-    gst_object_unref(a.pipeline);                /* єдиний unref, потрібний тут */
-    g_main_loop_unref(a.loop);
-    return 0;
-}
-```
+:::code proj-min-video-pipeline/c/holovna-funktsiia.c
 
 ## Скільки це коштує
 

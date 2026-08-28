@@ -68,29 +68,7 @@
 
 ## Крок 2. Клас групи: тридцять рядків, з них двадцять — макроси
 
-```cpp
-#pragma once
-
-#include <QtQmlIntegration/QtQmlIntegration>
-#include "SettingsGroup.h"
-
-class PayloadSettings : public SettingsGroup
-{
-    Q_OBJECT
-    QML_ELEMENT
-    QML_UNCREATABLE("")
-
-public:
-    PayloadSettings(QObject *parent = nullptr);
-
-    DEFINE_SETTING_NAME_GROUP()
-
-    DEFINE_SETTINGFACT(triggerInterval)
-    DEFINE_SETTINGFACT(payloadProfile)
-    DEFINE_SETTINGFACT(autoStart)
-    DEFINE_SETTINGFACT(dumpDirectory)
-};
-```
+:::code proj-settings-group/cpp/krok-2-klas-hrupy.hpp
 
 Тіла в класі немає взагалі — усе згенерують макроси. `DEFINE_SETTING_NAME_GROUP()` додає два статичні рядки, `name` і `settingsGroup`; вони й будуть тими двома іменами, про які йшлося. `DEFINE_SETTINGFACT(triggerInterval)` розгортається приблизно в таке:
 
@@ -108,29 +86,7 @@ public:
 
 ## Крок 3. Ліниві факти й місце, куди чіпляти реакцію
 
-```cpp
-#include "PayloadSettings.h"
-
-DECLARE_SETTINGGROUP(Payload, "PayloadPlanner")
-{
-    // тіло конструктора: сюди йде лише те, чого не описати в JSON —
-    // наприклад, перелік, що залежить від наявного обладнання
-}
-
-DECLARE_SETTINGSFACT(PayloadSettings, triggerInterval)
-DECLARE_SETTINGSFACT(PayloadSettings, autoStart)
-DECLARE_SETTINGSFACT(PayloadSettings, dumpDirectory)
-
-DECLARE_SETTINGSFACT_NO_FUNC(PayloadSettings, payloadProfile)
-{
-    if (!_payloadProfileFact) {
-        _payloadProfileFact = _createSettingsFact(payloadProfileName);
-        connect(_payloadProfileFact, &Fact::rawValueChanged,
-                this, &PayloadSettings::_profileChanged);
-    }
-    return _payloadProfileFact;
-}
-```
+:::code proj-settings-group/cpp/krok-3-linyvi-fakty-i.cpp
 
 `DECLARE_SETTINGGROUP(Payload, "PayloadPlanner")` — це водночас визначення двох статичних рядків і **заголовок конструктора**, тіло якого ви дописуєте у фігурних дужках одразу за макросом. Конструктор бази при цьому вже зробив головне: прочитав `:/json/Payload.SettingsGroup.json` і склав із нього відображення «ім'я → метадані».
 
@@ -200,33 +156,7 @@ void SettingsManager::init()
 
 ## Крок 5. Читання й запис із C++
 
-```cpp
-#include "SettingsManager.h"
-#include "PayloadSettings.h"
-
-void PayloadPlanner::start()
-{
-    PayloadSettings *payload = SettingsManager::instance()->payloadSettings();
-
-    const double interval = payload->triggerInterval()->rawValue().toDouble();
-    const uint32_t profile = payload->payloadProfile()->rawValue().toUInt();
-
-    if (payload->autoStart()->rawValue().toBool()) {
-        _beginCapture(profile, interval);
-    }
-
-    connect(payload->triggerInterval(), &Fact::rawValueChanged,
-            this, [this](const QVariant &value) {
-        _retimeCapture(value.toDouble());
-    });
-}
-
-void PayloadPlanner::setDumpDirectory(const QString &path)
-{
-    // запис на диск відбувається тут-таки, окремої дії «зберегти» немає
-    SettingsManager::instance()->payloadSettings()->dumpDirectory()->setRawValue(path);
-}
-```
+:::code proj-settings-group/cpp/krok-5-chytannia-i-zapys.cpp
 
 Два зауваження, які варті окремої уваги.
 
@@ -275,25 +205,7 @@ ColumnLayout {
 
 **Перелік у пронумерованих ключах треба чистити перед записом.** Якщо ваша підсистема зберігає не одну величину, а список — скажімо, кілька профілів навантаження, — плоске сховище «ключ — значення» саме по собі списків не має, і список розкладають на `Profile0`, `Profile1`, … з лічильником. Ключі, які колись з'явилися, самі не зникають, тож запис **мусить** починатися з видалення всієї гілки:
 
-```cpp
-void PayloadPlanner::saveProfiles(const QList<PayloadProfile> &profiles)
-{
-    QSettings settings;
-
-    settings.remove(kProfilesRoot);          // без цього лишиться хвіст
-    settings.beginGroup(kProfilesRoot);
-    settings.setValue("count", profiles.count());
-
-    for (int i = 0; i < profiles.count(); i++) {
-        settings.beginGroup(QStringLiteral("Profile%1").arg(i));
-        settings.setValue("name",     profiles[i].name);
-        settings.setValue("interval", profiles[i].interval);
-        settings.endGroup();
-    }
-
-    settings.endGroup();
-}
-```
+:::code proj-settings-group/cpp/pastky.cpp
 
 Приберіть перший рядок — і при переході з трьох профілів на два у файлі лишиться `Profile2\name` з видаленого. Читання за лічильником його не помітить, але будь-який обхід гілки — помітить, і в списку з'явиться привид. Саме так станція зберігає конфігурації каналів: секцію спершу вичищають цілком, а потім пишуть наново, пропускаючи створені автоматично. Альтернатива — записувати список через `beginWriteArray()`, який робить це прибирання сам; вибирайте одну форму й тримайтеся її, бо на диску вони виглядають по-різному.
 

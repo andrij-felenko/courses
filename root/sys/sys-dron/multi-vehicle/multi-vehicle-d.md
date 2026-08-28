@@ -64,20 +64,7 @@
 
 Розбирач пакетів оголошує кожне розібране повідомлення одним сигналом, і на цей сигнал підписані **всі** об'єкти апаратів одразу. Кожен отримує кожне повідомлення й сам вирішує, чи його це.
 
-```cpp
-void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t message)
-{
-    if (message.sysid != _systemID && message.sysid != 0) {
-        // We allow RADIO_STATUS messages which come from a link the vehicle is using to pass through and be handled
-        if (!(message.msgid == MAVLINK_MSG_ID_RADIO_STATUS && _vehicleLinkManager->containsLink(link))) {
-            return;
-        }
-    }
-
-    // We give the link manager first whack since it it reponsible for adding new links
-    _vehicleLinkManager->mavlinkMessageReceived(link, message);
-    ...
-```
+:::code multi-vehicle-d/cpp/rozsylka-vsim-i-filtr-na.cpp
 
 Три рядки умови варті уваги кожен. Збіг номера — головний критерій. Нуль пропускають, бо це широкомовна адреса: повідомлення, адресоване всім, стосується й цього апарата. А виняток для `RADIO_STATUS` — плата за фізику: [наземний радіомодем](root:cat-hw-connect/fpv-telemetry-ground) доповідає про якість радіоканалу від **свого** імені, зі своїм номером системи, і за загальним правилом його доповідь відкинув би кожен апарат. Але рівень сигналу описує канал, на якому висить конкретний борт, тому повідомлення пропускають туди, чий канал збігся.
 
@@ -139,26 +126,7 @@ N = 50:  доставок = 50 · (50 · 100) = 250000 /с
 
 Перемикання цього вказівника виявляється найтоншим місцем усієї конструкції, і виглядає воно дивно, аж поки не зрозумієш причину:
 
-```cpp
-void MultiVehicleManager::setActiveVehicle(Vehicle *vehicle)
-{
-    if (vehicle != _activeVehicle) {
-        if (_activeVehicle) {
-            // The sequence of signals is very important in order to not leave Qml elements connected
-            // to a non-existent vehicle.
-
-            // First we must signal that there is no active vehicle available. This will disconnect
-            // any existing ui from the currently active vehicle.
-            _setActiveVehicleAvailable(false);
-            _setParameterReadyVehicleAvailable(false);
-        }
-
-        QTimer::singleShot(20, this, [this, vehicle]() {
-            _setActiveVehiclePhase2(vehicle);
-        });
-    }
-}
-```
+:::code multi-vehicle-d/cpp/aktyvnyi-aparat-iedynyi.cpp
 
 Чому не можна просто присвоїти новий вказівник? Тому що декларативний інтерфейс тримає живі посилання не лише на сам об'єкт апарата, а й на його підоб'єкти — на менеджер параметрів, на менеджер каналів, на факти телеметрії. Елементи екрана самі підписані на їхні сигнали. Присвоїти новий вказівник одним рухом означає перерахувати всі ці прив'язки в той момент, коли частина з них ще дивиться на старий об'єкт.
 

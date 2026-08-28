@@ -148,28 +148,7 @@ QHash<QString, QVector<QPointF>> fieldSamples;
 
 Ось серце цього перетворення — на вхід іде видимий діапазон і ширина графіка в пікселях, на вихід — не більш ніж чотири точки на колонку:
 
-```cpp
-auto columnOf = [&](double x) -> int {
-    return static_cast<int>((x - minX) / range * pixelWidth);
-};
-
-for (qsizetype i = 0; i < sliceCount; ++i) {
-    const QPointF &p = *(sliceBegin + i);
-    const int col = std::clamp(columnOf(p.x()), 0, pixelWidth - 1);
-    if (col != curCol) {
-        flush();                    // віддати першу, мін, макс, останню попередньої колонки
-        curCol   = col;
-        firstIdx = i;
-        minIdx   = i;
-        maxIdx   = i;
-    } else {
-        if (p.y() < (sliceBegin + minIdx)->y()) minIdx = i;
-        if (p.y() > (sliceBegin + maxIdx)->y()) maxIdx = i;
-    }
-    lastIdx = i;
-}
-flush();
-```
+:::code log-viewer-d/cpp/main.cpp
 
 Зверніть увагу на два наслідки, які видно прямо з коду.
 

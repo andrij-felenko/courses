@@ -192,24 +192,7 @@ void commPortsChanged();
 
 Крім властивостей, опис має набір методів, доступних лише з C++ — на них стоїть уся логіка перепідключення:
 
-```cpp
-bool isForwarding() const;             void setForwarding(bool forwarding = true);
-bool suppressAutoReconnect() const;    void setSuppressAutoReconnect(bool suppress);
-bool autoConnectStarted() const;       void setAutoConnectStarted(bool started);
-
-bool reconnectReady() const;           // чи минула витримка після невдалої спроби
-void noteReconnectAttempt();           // зафіксувати невдачу — витримка подвоїться
-void resetReconnectBackoff();          // явне під'єднання скидає лічильник
-void noteConnected();                  void noteDisconnected();
-
-virtual void copyFrom(const LinkConfiguration *source);
-virtual LinkType type() const = 0;
-virtual void loadSettings(QSettings &settings, const QString &root) = 0;
-virtual void saveSettings(QSettings &settings, const QString &root) const = 0;
-
-static LinkConfiguration *createSettings(int type, const QString &name);
-static LinkConfiguration *duplicateSettings(const LinkConfiguration *source);
-```
+:::code api-linkmanager/cpp/kontrakt-linkconfiguration.hpp
 
 Три булеві прапорці — `suppressAutoReconnect`, `autoConnectStarted` і `dynamic` — разом визначають, чи чіпатиме цей опис секундний прохід автопідключення. Перший означає «розрив був волею людини, не збоєм», другий — «цей опис уже запускали в цьому сеансі», третій — «опис вигадала станція, зберігати його не треба». Перелік `LinkType` — `TypeSerial`, `TypeUdp`, `TypeTcp`, `TypeBluetooth`, `TypeMock`, `TypeLogReplay`, `TypeLast` — задає і порядок рядків у `linkTypeStrings`, і те, який клас з'єднання народиться з опису.
 
@@ -238,26 +221,7 @@ static LinkConfiguration *duplicateSettings(const LinkConfiguration *source);
 
 Найчастіша операція коду підсистеми — пройтися по живих каналах і щось відправити. Ось вона цілком, із усіма перевірками, які контракт вимагає:
 
-```cpp
-void broadcastGcsHeartbeat(uint8_t sysid, uint8_t compid)
-{
-    // links() віддає КОПІЮ списку; спільні вказівники в ній тримають
-    // з'єднання живими доти, доки жива сама копія
-    for (const SharedLinkInterfacePtr &link : LinkManager::instance()->links()) {
-        if (!link->isConnected() || !link->mavlinkChannelIsSet()) {
-            continue;                  // ще не з'єдналося або номера каналу нема
-        }
-
-        mavlink_message_t msg;
-        mavlink_msg_heartbeat_pack_chan(
-            sysid, compid, link->mavlinkChannel(), &msg,
-            MAV_TYPE_GCS, MAV_AUTOPILOT_INVALID,
-            MAV_MODE_MANUAL_ARMED, 0, MAV_STATE_ACTIVE);
-
-        link->sendMessageThreadSafe(msg);   // єдина точка відправки
-    }
-}
-```
+:::code api-linkmanager/cpp/minimalnyi-robochyi-vyklyk.cpp
 
 Три речі тут не прикраса. Перевірка `mavlinkChannelIsSet()` потрібна тому, що номер видається окремим кроком і між створенням об'єкта та видачею є вузьке вікно. Номер каналу йде в саму функцію пакування (`_pack_chan`), бо порядковий номер повідомлення веде **стан каналу**, а не відправник — послати той самий `msg` у два канали означає збити нумерацію обом. І цикл ходить копією списку: цього досить, щоб з'єднання не померло під ногами, навіть якщо інший потік саме цієї миті прибирає його з менеджера.
 

@@ -346,37 +346,8 @@ constexpr uint8_t  MSG_CRC_PAYLOAD_SPECTRAL_STATUS = 185;
 2. **Двійкова структура даних:**
 
 :::tabs
-```c
-/* Згенерована запакована структура C */
-MAVPACKED(
-typedef struct __mavlink_payload_spectral_status_t {
-    uint32_t time_boot_ms;        /*< [ms] Час роботи */
-    float integration_time_ms;   /*< [ms] Час інтегрування */
-    float sensor_temperature;    /*< [degC] Температура */
-    uint16_t spectral_irradiance;/*< [mW/m^2] Освітленість */
-    uint8_t filter_mode;         /*< Активний фільтр */
-    uint8_t status_flags;        /*< Прапорці */
-    uint32_t calibration_crc;    /*< [ext] Контрольна сума калібрування */
-    uint8_t gain_level;          /*< [ext] Підсилення */
-}) mavlink_payload_spectral_status_t;
-```
-```cpp
-// Згенерована типізована структура C++
-namespace mavlink::custom::msg {
-
-struct alignas(8) PAYLOAD_SPECTRAL_STATUS {
-    uint32_t time_boot_ms;
-    float integration_time_ms;
-    float sensor_temperature;
-    uint16_t spectral_irradiance;
-    uint8_t filter_mode;
-    uint8_t status_flags;
-    uint32_t calibration_crc;
-    uint8_t gain_level;
-};
-
-} // namespace mavlink::custom::msg
-```
+:::code api-dialect-xml-schema/c/main.c
+:::code api-dialect-xml-schema/cpp/main.cpp
 :::
 
 3. **Функції серіалізації та декодування:**
@@ -393,26 +364,7 @@ struct alignas(8) PAYLOAD_SPECTRAL_STATUS {
 #### Модель даних у Rust (`mavlink-rust`)
 Генератор Rust створює суворо типізований перелік повідомлень та структури з автоматичною підтримкою серіалізації через `bincode`:
 
-```rust
-#[derive(Clone, Debug, PartialEq)]
-pub struct PayloadSpectralStatusData {
-    pub time_boot_ms: u32,
-    pub integration_time_ms: f32,
-    pub sensor_temperature: f32,
-    pub spectral_irradiance: u16,
-    pub filter_mode: u8,
-    pub status_flags: u8,
-    pub calibration_crc: u32,
-    pub gain_level: u8,
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub enum MavMessage {
-    Heartbeat(HeartbeatData),
-    PayloadSpectralStatus(PayloadSpectralStatusData),
-    // Решта повідомлень діалекту...
-}
-```
+:::code api-dialect-xml-schema/rust/main.rs
 
 Обробка вхідного потоку в Rust виконується через безпечний патерн-матчинг, що унеможливлює некоректний доступ до пам'яті:
 
@@ -428,22 +380,7 @@ match message {
 #### Модель даних у Go (`gomavlib`)
 Для мови Go бібліотека `gomavlib` генерує структури зі спеціальними тегами полів, що керують порядком сортування та серіалізацією:
 
-```go
-type MessagePayloadSpectralStatus struct {
-    TimeBootMs         uint32  `mavlink:"0"`
-    IntegrationTimeMs  float32 `mavlink:"4"`
-    SensorTemperature  float32 `mavlink:"8"`
-    SpectralIrradiance uint16  `mavlink:"12"`
-    FilterMode         uint8   `mavlink:"14"`
-    StatusFlags        uint8   `mavlink:"15"`
-    CalibrationCrc     uint32  `mavlink:"16,extension"`
-    GainLevel          uint8   `mavlink:"20,extension"`
-}
-
-func (m *MessagePayloadSpectralStatus) GetID() uint32 {
-    return 42010
-}
-```
+:::code api-dialect-xml-schema/go/main.go
 
 ---
 
@@ -514,60 +451,7 @@ xmllint --noout --schema mavlink_schema.xsd my_custom_dialect.xml
 
 Перед передачею XML-файлу до генератора `mavgen` у конвеєрах CI/CD виконується статична верифікація схеми. Нижче наведено базовий скрипт валідації на Python, що перевіряє унікальність ідентифікаторів повідомлень, діапазони Message ID та відсутність циклічних посилань:
 
-```python
-import xml.etree.ElementTree as ET
-import os
-import sys
-
-def validate_dialect(xml_path, seen_ids=None, visited_files=None):
-    if seen_ids is None:
-        seen_ids = {}
-    if visited_files is None:
-        visited_files = set()
-
-    real_path = os.path.abspath(xml_path)
-    if real_path in visited_files:
-        return seen_ids
-    visited_files.add(real_path)
-
-    tree = ET.parse(real_path)
-    root = tree.getroot()
-
-    if root.tag != 'mavlink':
-        raise ValueError(f"Кореневий тег повинен бути <mavlink>, знайдено <{root.tag}>")
-
-    base_dir = os.path.dirname(real_path)
-    for inc in root.findall('include'):
-        inc_path = os.path.join(base_dir, inc.text.strip())
-        validate_dialect(inc_path, seen_ids, visited_files)
-
-    messages = root.find('messages')
-    if messages is not None:
-        for msg in messages.findall('message'):
-            msg_id = int(msg.attrib['id'])
-            msg_name = msg.attrib['name']
-
-            if msg_id in seen_ids:
-                prev_name, prev_file = seen_ids[msg_id]
-                raise ValueError(
-                    f"Колізія Message ID {msg_id}: повідомлення '{msg_name}' у {os.path.basename(real_path)} "
-                    f"конфліктує з '{prev_name}' у {os.path.basename(prev_file)}"
-                )
-            seen_ids[msg_id] = (msg_name, real_path)
-
-    return seen_ids
-
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Використання: python validate_dialect.py <path_to_dialect.xml>")
-        sys.exit(1)
-    try:
-        all_messages = validate_dialect(sys.argv[1])
-        print(f"Успішно перевірено: знайдено {len(all_messages)} унікальних повідомлень.")
-    except Exception as e:
-        print(f"ПОМИЛКА ВАЛІДАЦІЇ: {e}", file=sys.stderr)
-        sys.exit(1)
-```
+:::code api-dialect-xml-schema/py/main.py
 
 ---
 

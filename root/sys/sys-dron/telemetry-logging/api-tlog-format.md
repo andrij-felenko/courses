@@ -61,28 +61,7 @@
 
 Звідси єдина правильна процедура «скільки читати далі»:
 
-```c
-/* Довжина запису, що починається на початку буфера buf довжиною avail байтів.
-   Повертає 0, якщо байтів ще не вистачає або на місці магії щось інше. */
-size_t tlog_record_len(const uint8_t *buf, size_t avail)
-{
-    if (avail < 10) return 0;                 /* 8 мітки + магія + довжина */
-
-    const uint8_t magic = buf[8];
-    const uint8_t len   = buf[9];             /* довжина навантаження */
-
-    if (magic == 0xFE) {                      /* MAVLink 1 */
-        return 8 + 6 + (size_t)len + 2;
-    }
-    if (magic != 0xFD) return 0;              /* це не початок кадру */
-
-    if (avail < 11) return 0;                 /* потрібен ще байт прапорців */
-    const uint8_t incompat = buf[10];
-    const size_t  sig = (incompat & 0x01) ? 13 : 0;   /* MAVLINK_IFLAG_SIGNED */
-
-    return 8 + 10 + (size_t)len + 2 + sig;
-}
-```
+:::code api-tlog-format/c/main.c
 
 Функція навмисно не звіряє контрольної суми: її завдання — сказати, де закінчується поточний запис. Чи кадр цілий, вирішує вже [розбирач](root:com-protocol/stream-parser), і саме він потрібен, коли `tlog_record_len` натрапила на байт, що не є магією.
 
@@ -194,18 +173,7 @@ size_t tlog_record_len(const uint8_t *buf, size_t avail)
 
 Мінімальний робочий прохід файлом — вісім рядків:
 
-```python
-from pymavlink import mavutil
-
-log = mavutil.mavlink_connection("2026-08-02 12-00-00.tlog")
-while True:
-    msg = log.recv_match(blocking=False)
-    if msg is None:                      # кінець файлу
-        break
-    if msg.get_type() == "BAD_DATA":     # ресинхронізація після сміття
-        continue
-    print(f"{msg._timestamp:.3f}  {msg.get_srcSystem():3d}/{msg.get_srcComponent():<3d}  {msg.get_type()}")
-```
+:::code api-tlog-format/py/main.py
 
 Два рядки тут — це весь контракт у мініатюрі. `BAD_DATA` доводиться пропускати вручну, бо байти, що не склалися в кадр, читач віддає як окремий псевдотип, а не викидає. А `msg.get_srcSystem()` у виводі стоїть тому, що без нього неможливо сказати, у який бік летів кадр.
 

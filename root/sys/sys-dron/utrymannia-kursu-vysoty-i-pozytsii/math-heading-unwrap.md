@@ -60,32 +60,8 @@ e = atan2(sin(Δψ), cos(Δψ))
 Стандартна бібліотечна функція взяття залишку від ділення чисел із плаваючою комою `fmodf(x, y)` у мовах C/C++ повертає значення з тим самим знаком, що й ділене `x` (наприклад, `fmodf(-1.0f, 6.28f) == -1.0f`). Через це пряме використання `fmod` для кутів вимагає фазового зсуву шкали:
 
 :::tabs
-```c
-#include <math.h>
-
-float wrap_pi_fmod(float angle) {
-    const float two_pi = 2.0f * (float)M_PI;
-    // Зсуваємо діапазон [-π, π] у [0, 2π)
-    float a = fmodf(angle + (float)M_PI, two_pi);
-    if (a < 0.0f) {
-        a += two_pi; // корекція від'ємного залишку
-    }
-    return a - (float)M_PI;
-}
-```
-```cpp
-#include <cmath>
-#include <numbers>
-
-[[nodiscard]] constexpr float wrap_pi_fmod(float angle) noexcept {
-    constexpr float kTwoPi = 2.0f * std::numbers::pi_v<float>;
-    float a = std::fmod(angle + std::numbers::pi_v<float>, kTwoPi);
-    if (a < 0.0f) {
-        a += kTwoPi;
-    }
-    return a - std::numbers::pi_v<float>;
-}
-```
+:::code math-heading-unwrap/c/2-modulna-aryfmetyka-z.c
+:::code math-heading-unwrap/cpp/2-modulna-aryfmetyka-z.cpp
 :::
 
 Алгоритм виконує зсув на `+π`, зводить значення за модулем `2π` у додатний напівінтервал `[0, 2π)`, після чого повертає нуль координат назад відніманням `π`. Метод працює в 5–8 разів швидше за тригонометричний і підходить для будь-яких вхідних кутів.
@@ -129,36 +105,8 @@ float wrap_pi_fast(float angle) {
 У цій системі обчислення найкоротшої різниці не вимагає жодних математичних функцій, умов або констант:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <math.h>
-
-float calc_heading_error_bam(float target_rad, float meas_rad) {
-    uint16_t target_bam = (uint16_t)(target_rad * (32768.0f / (float)M_PI));
-    uint16_t meas_bam   = (uint16_t)(meas_rad   * (32768.0f / (float)M_PI));
-
-    // Апаратне переповнення беззнакового регістра реалізує операцію за модулем 2¹⁶:
-    int16_t diff_bam = (int16_t)(target_bam - meas_bam);
-
-    // Перетворення назад у плаваючу кому:
-    return (float)diff_bam * ((float)M_PI / 32768.0f);
-}
-```
-```cpp
-#include <cstdint>
-#include <numbers>
-
-[[nodiscard]] constexpr float calc_heading_error_bam(float target_rad, float meas_rad) noexcept {
-    constexpr float kRadToBam = 32768.0f / std::numbers::pi_v<float>;
-    constexpr float kBamToRad = std::numbers::pi_v<float> / 32768.0f;
-
-    const auto target_bam = static_cast<uint16_t>(target_rad * kRadToBam);
-    const auto meas_bam   = static_cast<uint16_t>(meas_rad * kRadToBam);
-
-    const auto diff_bam = static_cast<int16_t>(target_bam - meas_bam);
-    return static_cast<float>(diff_bam) * kBamToRad;
-}
-```
+:::code math-heading-unwrap/c/4-tsilochyselna-dviikova.c
+:::code math-heading-unwrap/cpp/4-tsilochyselna-dviikova.hpp
 :::
 
 Переповнення беззнакового регістра процесора природно замикає топологію кільця. Інтерпретація результату як знакового числа `int16_t` автоматично перетворює відрізок `[0 .. 65535]` у симетричний інтервал `[-32768 .. +32767]`, тобто в `[-180°, +180°]`. Це найшвидший із можливих методів: на рівні асемблера він компілюється в одну інструкцію віднімання `SUB`.
@@ -187,32 +135,8 @@ q_err = q_target ⊗ q_meas⁻¹
 Якщо скалярна частина добутку виявилася від'ємною (`q_err.w < 0`), це свідчить про те, що алгоритм обрав «довгий» шлях обертання (кутовий поворот `θ > 180°`). Для вибору найкоротшої геодезичної траєкторії на тривимірній сфері виконують інверсію знака всього кватерніона:
 
 :::tabs
-```c
-typedef struct { float w, x, y, z; } Quaternion;
-
-void quat_shortest_arc(Quaternion *q_err) {
-    if (q_err->w < 0.0f) {
-        q_err->w = -q_err->w;
-        q_err->x = -q_err->x;
-        q_err->y = -q_err->y;
-        q_err->z = -q_err->z;
-    }
-}
-```
-```cpp
-struct Quaternion {
-    float w{1.0f}, x{0.0f}, y{0.0f}, z{0.0f};
-
-    void ensure_shortest_arc() noexcept {
-        if (w < 0.0f) {
-            w = -w;
-            x = -x;
-            y = -y;
-            z = -z;
-        }
-    }
-};
-```
+:::code math-heading-unwrap/c/kvaternionnyi-vymir.c
+:::code math-heading-unwrap/cpp/kvaternionnyi-vymir.cpp
 :::
 
 Ця операція гарантує, що кут просторового довороту `θ = 2 · arccos(q_err.w)` не перевищує `180°`, повністю усуваючи просторове розкручування апарата по всіх трьох осях одночасно.

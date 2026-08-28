@@ -90,87 +90,7 @@ set(msg_files
 
 Тепер заголовок. Модуль успадковується від трьох різних речей, і кожне спадкування дає одну здатність.
 
-```cpp
-// src/modules/loop_watch/LoopWatch.hpp
-#pragma once
-
-#include <px4_platform_common/atomic.h>
-#include <px4_platform_common/defines.h>
-#include <px4_platform_common/module.h>
-#include <px4_platform_common/module_params.h>
-#include <px4_platform_common/posix.h>
-#include <px4_platform_common/px4_work_queue/ScheduledWorkItem.hpp>
-
-#include <drivers/drv_hrt.h>
-#include <lib/perf/perf_counter.h>
-
-#include <uORB/Publication.hpp>
-#include <uORB/Subscription.hpp>
-#include <uORB/SubscriptionCallback.hpp>
-#include <uORB/topics/loop_health.h>
-#include <uORB/topics/parameter_update.h>
-#include <uORB/topics/vehicle_angular_velocity.h>
-#include <uORB/topics/vehicle_status.h>
-
-using namespace time_literals;
-
-class LoopWatch : public ModuleBase<LoopWatch>, public ModuleParams, public px4::ScheduledWorkItem
-{
-public:
-	LoopWatch();
-	~LoopWatch() override;
-
-	/** @see ModuleBase */
-	static int task_spawn(int argc, char *argv[]);
-	static int custom_command(int argc, char *argv[]);
-	static int print_usage(const char *reason = nullptr);
-
-	bool init();
-	int print_status() override;
-
-private:
-	void Run() override;
-	void publishHealth(hrt_abstime now);
-	void resetWindow(hrt_abstime now);
-
-	static constexpr uint32_t WINDOW_US   = 1000000;      // вікно спостереження — 1 с
-	static constexpr uint32_t BACKSTOP_US = 2 * WINDOW_US; // запобіжник, якщо публікації спиняться
-
-	// Публікації
-	uORB::Publication<loop_health_s> _loop_health_pub{ORB_ID(loop_health)};
-
-	// Підписки
-	uORB::SubscriptionCallbackWorkItem _angular_velocity_sub{this, ORB_ID(vehicle_angular_velocity)};
-	uORB::SubscriptionInterval         _parameter_update_sub{ORB_ID(parameter_update), 1_s};
-	uORB::Subscription                 _vehicle_status_sub{ORB_ID(vehicle_status)};
-
-	// Лічильники продуктивності
-	perf_counter_t _cycle_perf{perf_alloc(PC_ELAPSED, MODULE_NAME": cycle")};
-	perf_counter_t _interval_perf{perf_alloc(PC_INTERVAL, MODULE_NAME": interval")};
-	perf_counter_t _gap_perf{perf_alloc(PC_COUNT, MODULE_NAME": generation gap")};
-
-	// Накопичувачі вікна
-	hrt_abstime _last_run{0};
-	hrt_abstime _window_start{0};
-	unsigned    _last_generation{0};
-	bool        _primed{false};
-
-	uint64_t _interval_sum{0};
-	uint32_t _interval_max{0};
-	uint32_t _sample_age_max{0};
-	uint32_t _wakeups{0};
-	uint32_t _gaps{0};
-	uint32_t _missed{0};
-	bool     _armed{false};
-
-	px4::atomic<bool> _reset_request{false};
-
-	DEFINE_PARAMETERS(
-		(ParamInt<px4::params::LW_INT_MAX>) _param_lw_int_max,
-		(ParamInt<px4::params::LW_AGE_MAX>) _param_lw_age_max
-	)
-};
-```
+:::code proj-uorb-module/cpp/LoopWatch.hpp
 
 `ModuleBase<LoopWatch>` — це консольне життя: `start`, `stop`, `status`, зберігання єдиного примірника, `should_exit()`. Шаблонний параметр — власне ім'я класу: базі треба знати тип, щоб її статичні методи повертали правильний покажчик.
 
@@ -184,41 +104,7 @@ private:
 
 ## Оживлення: конструктор і init()
 
-```cpp
-// src/modules/loop_watch/LoopWatch.cpp
-#include "LoopWatch.hpp"
-
-#include <cstring>
-
-LoopWatch::LoopWatch() :
-	ModuleParams(nullptr),
-	ScheduledWorkItem(MODULE_NAME, px4::wq_configurations::rate_ctrl)
-{
-}
-
-LoopWatch::~LoopWatch()
-{
-	perf_free(_cycle_perf);
-	perf_free(_interval_perf);
-	perf_free(_gap_perf);
-}
-
-bool LoopWatch::init()
-{
-	// прокидатися на кожній публікації vehicle_angular_velocity
-	if (!_angular_velocity_sub.registerCallback()) {
-		PX4_ERR("callback registration failed");
-		return false;
-	}
-
-	resetWindow(hrt_absolute_time());
-
-	// перше спрацювання запобіжника: якщо публікацій не буде взагалі,
-	// нас має розбудити хоч щось — інакше ми мовчатимемо вічно
-	ScheduleDelayed(BACKSTOP_US);
-	return true;
-}
-```
+:::code proj-uorb-module/cpp/LoopWatch.cpp
 
 Два рядки конструктора вирішують долю модуля. `MODULE_NAME` — рядок, який складач підставляє з поля `MAIN` у `CMakeLists.txt`; він же стане іменем робочого елемента у виводі діагностики. `px4::wq_configurations::rate_ctrl` — вибір черги, а отже й пріоритету: у сучасних гілках і стек, і пріоритет цієї черги задаються символами `CONFIG_WQ_RATE_CTRL_STACKSIZE` та `CONFIG_WQ_RATE_CTRL_PRIORITY` у налаштуванні збірки.
 
@@ -228,81 +114,7 @@ bool LoopWatch::init()
 
 Ось тіло, заради якого все затівалося.
 
-```cpp
-void LoopWatch::Run()
-{
-	if (should_exit()) {
-		_angular_velocity_sub.unregisterCallback();
-		ScheduleClear();      // зняти відкладений виклик, бо об'єкт зараз помре
-		exit_and_cleanup();
-		return;
-	}
-
-	perf_begin(_cycle_perf);
-	perf_count(_interval_perf);
-
-	const hrt_abstime now = hrt_absolute_time();
-
-	if (_reset_request.load()) {
-		_reset_request.store(false);
-		resetWindow(now);
-	}
-
-	// параметри: підписка сама обмежує себе однією перевіркою на секунду
-	if (_parameter_update_sub.updated()) {
-		parameter_update_s pupdate;
-		_parameter_update_sub.copy(&pupdate);   // прибрати позначку оновлення
-		updateParams();                         // перечитати LW_INT_MAX і LW_AGE_MAX
-	}
-
-	vehicle_status_s status;
-
-	if (_vehicle_status_sub.update(&status)) {
-		_armed = (status.arming_state == vehicle_status_s::ARMING_STATE_ARMED);
-	}
-
-	vehicle_angular_velocity_s av;
-
-	if (_angular_velocity_sub.update(&av)) {
-		const unsigned generation = _angular_velocity_sub.get_last_generation();
-
-		if (_primed) {
-			// у здоровому випадку покоління зростає рівно на одиницю
-			const unsigned step = generation - _last_generation;
-
-			if (step > 1) {
-				_gaps++;
-				_missed += step - 1;
-				perf_count(_gap_perf);
-			}
-
-			const uint32_t interval = now - _last_run;
-			_interval_sum += interval;
-			_wakeups++;
-
-			if (interval > _interval_max) {
-				_interval_max = interval;
-			}
-		}
-
-		const uint32_t age = now - av.timestamp_sample;
-
-		if (age > _sample_age_max) {
-			_sample_age_max = age;
-		}
-
-		_last_generation = generation;
-		_last_run = now;
-		_primed = true;
-	}
-
-	if (now - _window_start >= WINDOW_US) {
-		publishHealth(now);
-	}
-
-	perf_end(_cycle_perf);
-}
-```
+:::code proj-uorb-module/cpp/run-try-lichylnyky-i-odyn.cpp
 
 Порядок дій тут не довільний.
 
@@ -318,51 +130,7 @@ void LoopWatch::Run()
 
 ## Підсумок вікна
 
-```cpp
-void LoopWatch::resetWindow(hrt_abstime now)
-{
-	_interval_sum = 0;
-	_interval_max = 0;
-	_sample_age_max = 0;
-	_wakeups = 0;
-	_gaps = 0;
-	_missed = 0;
-	_window_start = now;
-}
-
-void LoopWatch::publishHealth(hrt_abstime now)
-{
-	loop_health_s health{};
-
-	health.interval_mean_us  = (_wakeups > 0) ? (uint32_t)(_interval_sum / _wakeups) : 0;
-	health.interval_max_us   = _interval_max;
-	health.sample_age_max_us = _sample_age_max;
-	health.wakeups = _wakeups;
-	health.gaps    = _gaps;
-	health.missed  = _missed;
-	health.armed   = _armed;
-
-	const uint32_t int_limit = (uint32_t)_param_lw_int_max.get();
-	const uint32_t age_limit = (uint32_t)_param_lw_age_max.get();
-
-	if (_wakeups == 0) {
-		health.state = loop_health_s::STATE_BROKEN;   // за ціле вікно жодної вибірки
-
-	} else if ((_interval_max > int_limit) || (_sample_age_max > age_limit) || (_missed > 0)) {
-		health.state = loop_health_s::STATE_DEGRADED;
-
-	} else {
-		health.state = loop_health_s::STATE_OK;
-	}
-
-	health.timestamp_sample = _last_run;            // на чому побудовано оцінку
-	health.timestamp = hrt_absolute_time();         // коли її поклали на шину
-	_loop_health_pub.publish(health);
-
-	resetWindow(now);
-	ScheduleDelayed(BACKSTOP_US);   // переставити запобіжник на наступні дві секунди
-}
-```
+:::code proj-uorb-module/cpp/pidsumok-vikna.cpp
 
 Запобіжник — головна нетривіальна ідея всієї конструкції, і причина в ній суто причинна. Сторож будиться від того, що спостерігає. Якщо спостережуване спиниться — драйвер гіроскопа помре, шина SPI відвалиться, черга застрягне, — сторожа більше ніхто не розбудить, і він **замовкне саме тоді, коли має закричати**. Мовчазний сторож нічим не кращий за відсутнього.
 
@@ -376,90 +144,7 @@ void LoopWatch::publishHealth(hrt_abstime now)
 
 Три статичні методи — це весь інтерфейс модуля до `nsh`.
 
-```cpp
-int LoopWatch::task_spawn(int argc, char *argv[])
-{
-	LoopWatch *instance = new LoopWatch();
-
-	if (instance) {
-		_object.store(instance);
-		_task_id = task_id_is_work_queue;   // «власного потоку немає, я на черзі»
-
-		if (instance->init()) {
-			return PX4_OK;
-		}
-
-	} else {
-		PX4_ERR("alloc failed");
-	}
-
-	delete instance;
-	_object.store(nullptr);
-	_task_id = -1;
-
-	return PX4_ERROR;
-}
-
-int LoopWatch::print_status()
-{
-	PX4_INFO("mean %u us, worst %u us, oldest sample %u us, gaps %u, missed %u",
-		 (unsigned)(_wakeups ? _interval_sum / _wakeups : 0),
-		 (unsigned)_interval_max, (unsigned)_sample_age_max,
-		 (unsigned)_gaps, (unsigned)_missed);
-	perf_print_counter(_cycle_perf);
-	perf_print_counter(_interval_perf);
-	perf_print_counter(_gap_perf);
-	return 0;
-}
-
-int LoopWatch::custom_command(int argc, char *argv[])
-{
-	if (!is_running()) {
-		PX4_ERR("not running");
-		return 1;
-	}
-
-	if (argc > 0 && !strcmp(argv[0], "reset")) {
-		get_instance()->_reset_request.store(true);   // прохання, а не дія
-		return 0;
-	}
-
-	return print_usage("unknown command");
-}
-
-int LoopWatch::print_usage(const char *reason)
-{
-	if (reason) {
-		PX4_WARN("%s\n", reason);
-	}
-
-	PRINT_MODULE_DESCRIPTION(
-		R"DESCR_STR(
-### Description
-Watches the fast control loop from the consumer side. Runs on wq:rate_ctrl and is
-scheduled by vehicle_angular_velocity publications, so its numbers are the numbers
-the rate controller sees: wake-up interval, sample age and missed generations.
-Publishes loop_health once per second.
-
-### Examples
-$ loop_watch start
-$ loop_watch status
-$ loop_watch reset
-)DESCR_STR");
-
-	PRINT_MODULE_USAGE_NAME("loop_watch", "system");
-	PRINT_MODULE_USAGE_COMMAND("start");
-	PRINT_MODULE_USAGE_COMMAND_DESCR("reset", "Clear the accumulated window");
-	PRINT_MODULE_USAGE_DEFAULT_COMMANDS();
-
-	return 0;
-}
-
-extern "C" __EXPORT int loop_watch_main(int argc, char *argv[])
-{
-	return LoopWatch::main(argc, argv);
-}
-```
+:::code proj-uorb-module/cpp/konsol-task-spawn-custom.cpp
 
 `_task_id = task_id_is_work_queue` — не формальність, а зізнання: «власного потоку я не маю». База за цим значенням розуміє, що зупиняти модуль треба не вбиванням задачі, а прапорцем `should_exit()`, який `Run()` побачить наступного разу.
 
@@ -473,20 +158,7 @@ extern "C" __EXPORT int loop_watch_main(int argc, char *argv[])
 
 Складання PX4 стоїть на [CMake](root:sys-bsystem/cmake-language), а модуль оголошується однією функцією — власною функцією PX4, а не стандартною командою CMake:
 
-```cmake
-# src/modules/loop_watch/CMakeLists.txt
-px4_add_module(
-	MODULE modules__loop_watch
-	MAIN loop_watch
-	SRCS
-		LoopWatch.cpp
-		LoopWatch.hpp
-	MODULE_CONFIG
-		params.yaml
-	DEPENDS
-		px4_work_queue
-	)
-```
+:::code proj-uorb-module/cmake/CMakeLists.txt
 
 `MODULE` — унікальне ім'я цілі всередині прошивки, за домовленістю це шлях із подвійними підкресленнями. `MAIN` — ім'я консольної команди; воно ж підставляється в `MODULE_NAME`, тож усі наші лічильники продуктивності автоматично назвуться `loop_watch: cycle` і подібно. `MODULE_CONFIG` вказує на файл параметрів, `DEPENDS` — на бібліотеки, без яких код не злінкується.
 

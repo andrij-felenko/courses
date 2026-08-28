@@ -27,37 +27,8 @@
 **Оголошення структур повідомлення у C та C++:**
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Оголошення структури кадру EVENT (MAVLink v2 ID 410)
-#pragma pack(push, 1)
-typedef struct {
-    uint32_t id;                    // 32-бітний ідентифікатор події
-    uint32_t event_time_boot_ms;    // Часова мітка від старту (мс)
-    uint16_t sequence;              // Порядковий номер у черзі
-    uint8_t  destination_component; // Цільовий вузол (0 = broadcast)
-    uint8_t  destination_system;    // Цільова система (0 = broadcast)
-    uint8_t  log_levels;            // Бітова маска рівнів важливості
-    uint8_t  arguments[40];         // Двійковий буфер аргументів
-} mavlink_event_t;
-#pragma pack(pop)
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-// Ідіоматична типізована структура кадру EVENT
-struct alignas(1) MavlinkEventMessage {
-    uint32_t              id{0};
-    uint32_t              eventTimeBootMs{0};
-    uint16_t              sequence{0};
-    uint8_t               destinationComponent{0};
-    uint8_t               destinationSystem{0};
-    uint8_t               logLevels{0};
-    std::array<uint8_t, 40> arguments{};
-};
-```
+:::code api-events-protocol/c/1-event-id-410.c
+:::code api-events-protocol/cpp/1-event-id-410.cpp
 :::
 
 #### 2. CURRENT_EVENT_SEQUENCE (ID 411) — Періодичний стан послідовності
@@ -161,40 +132,8 @@ struct alignas(1) MavlinkCurrentEventSequenceMessage {
 **Операції пакування та вилучення рівнів серйозності:**
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Пакування внутрішнього та зовнішнього рівнів у 1 байт log_levels
-uint8_t pack_log_levels(uint8_t internal_level, uint8_t external_severity) {
-    return (uint8_t)(((internal_level & 0x0F) << 4) | (external_severity & 0x0F));
-}
-
-// Вилучення внутрішнього рівня (для запису на SD-карту)
-uint8_t get_internal_log_level(uint8_t log_levels) {
-    return (uint8_t)((log_levels >> 4) & 0x0F);
-}
-
-// Вилучення зовнішнього рівня серйозності (для відображення на GCS)
-uint8_t get_external_severity(uint8_t log_levels) {
-    return (uint8_t)(log_levels & 0x0F);
-}
-```
-```cpp
-#include <cstdint>
-
-// Типобезпечні обгортки для роботи з log_levels (C++20)
-constexpr uint8_t packLogLevels(uint8_t internalLevel, uint8_t externalSeverity) noexcept {
-    return static_cast<uint8_t>(((internalLevel & 0x0F) << 4) | (externalSeverity & 0x0F));
-}
-
-constexpr uint8_t getInternalLogLevel(uint8_t logLevels) noexcept {
-    return static_cast<uint8_t>((logLevels >> 4) & 0x0F);
-}
-
-constexpr uint8_t getExternalSeverity(uint8_t logLevels) noexcept {
-    return static_cast<uint8_t>(logLevels & 0x0F);
-}
-```
+:::code api-events-protocol/c/bitove-koduvannia-polia.c
+:::code api-events-protocol/cpp/bitove-koduvannia-polia.hpp
 :::
 
 #### Рівні серйозності `MAV_SEVERITY` (Syslog RFC 5424)

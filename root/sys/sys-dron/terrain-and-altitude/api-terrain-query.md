@@ -38,35 +38,7 @@ signals:
 
 **Найкоротший робочий виклик: висота під однією точкою**
 
-```cpp
-// у класі-замовнику
-QPointer<TerrainAtCoordinateQuery> _query;
-
-void MyItem::_requestTerrain()
-{
-    // 1. Попередній запит НЕ видаляємо — лише відчіпляємо його від себе.
-    if (_query) {
-        disconnect(_query, &TerrainAtCoordinateQuery::terrainDataReceived,
-                   this,   &MyItem::_terrainDataReceived);
-        _query = nullptr;
-    }
-
-    // 2. autoDelete = true: об'єкт знищить себе сам після того, як просигналить.
-    _query = new TerrainAtCoordinateQuery(true /* autoDelete */);
-    connect(_query, &TerrainAtCoordinateQuery::terrainDataReceived,
-            this,   &MyItem::_terrainDataReceived);
-
-    // 3. Запит завжди списком — навіть коли координата одна.
-    _query->requestData({ _coordinate });
-}
-
-void MyItem::_terrainDataReceived(bool success, QList<double> heights)
-{
-    _terrainAltitude = (success && !heights.isEmpty()) ? heights[0] : qQNaN();
-    _query = nullptr;                  // об'єкт уже приречений на deleteLater()
-    emit terrainAltitudeChanged(_terrainAltitude);
-}
-```
+:::code api-terrain-query/cpp/spilna-forma-vsikh.cpp
 
 Перевірка `!heights.isEmpty()` тут не перестраховка. Успіх і кількість — дві незалежні речі: батчер ріже спільну відповідь підсписками наперед відомої довжини, і якщо сервер повернув коротший список, ніж сумарно замовили, останній замовник дістане `success == true` з порожнім або урізаним зрізом. Кількість значень перевіряйте самі.
 
@@ -89,20 +61,7 @@ void MyItem::_terrainDataReceived(bool success, QList<double> heights)
 
 ## `TerrainAtCoordinateQuery` — висоти в точках
 
-```cpp
-explicit TerrainAtCoordinateQuery(bool autoDelete, QObject *parent = nullptr);
-
-void requestData(const QList<QGeoCoordinate> &coordinates);
-
-static bool getAltitudesForCoordinates(const QList<QGeoCoordinate> &coordinates,
-                                       QList<double> &altitudes,
-                                       bool &error);
-
-void signalTerrainData(bool success, const QList<double> &heights);
-
-signals:
-    void terrainDataReceived(bool success, const QList<double> &heights);
-```
+:::code api-terrain-query/cpp/terrainatcoordinatequery.hpp
 
 `requestData()` з порожнім списком нічого не робить і нічого не сигналить — тиша замість відмови. Далі запит іде не в мережу, а в чергу батчера.
 
@@ -195,20 +154,7 @@ signals:
 
 ## `TerrainAreaQuery` — килим висот над прямокутником
 
-```cpp
-explicit TerrainAreaQuery(bool autoDelete, QObject *parent = nullptr);
-void requestData(const QGeoCoordinate &swCoord, const QGeoCoordinate &neCoord);
-
-struct CarpetHeightInfo_t {
-    double                minHeight;
-    double                maxHeight;
-    QList<QList<double>>  carpet;
-};
-
-signals:
-    void terrainDataReceived(bool success,
-                             const TerrainAreaQuery::CarpetHeightInfo_t &carpetHeightInfo);
-```
+:::code api-terrain-query/cpp/terrainareaquery-kylym.hpp
 
 Прямокутник задається двома протилежними кутами — південно-західним і північно-східним. Сітка килима не задається зовсім: вона береться з кроку даних.
 
@@ -278,18 +224,7 @@ for (const SentRequestInfo_t &sentRequestInfo: _sentRequests) {
 
 Другий сінглтон, спільна підлога під усіма запитами.
 
-```cpp
-static TerrainTileManager *instance();
-
-bool getAltitudesForCoordinates(const QList<QGeoCoordinate> &coordinates,
-                                QList<double> &altitudes, bool &error);
-
-void addCoordinateQuery(TerrainQueryInterface *iface, const QList<QGeoCoordinate> &coordinates);
-void addPathQuery      (TerrainQueryInterface *iface, const QGeoCoordinate &startPoint,
-                                                      const QGeoCoordinate &endPoint);
-void addCarpetQuery    (TerrainQueryInterface *iface, const QGeoCoordinate &swCoord,
-                                                      const QGeoCoordinate &neCoord, bool statsOnly);
-```
+:::code api-terrain-query/cpp/terraintilemanager-plytky.hpp
 
 Кожен `add…Query()` спершу пробує відповісти з кешу тим самим `getAltitudesForCoordinates()`. Вийшло — сигнал іде негайно, ще з виклику. Не вийшло — запит стає в чергу `_requestQueue` разом зі своїм режимом (`QueryModeCoordinates`, `QueryModePath`, `QueryModeCarpet`) і чекає плитки.
 

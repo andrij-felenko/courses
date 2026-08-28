@@ -71,75 +71,8 @@
 Складімо все докупи. Серце керування орієнтацією — функція, що викликається **рівномірно** з апаратного таймера (скажімо, 500 разів на секунду), читає три кути з IMU, проганяє три ПІД і віддає три команди в мікшер. Ось її кістяк на реальному C для квадрокоптера:
 
 :::tabs
-```c
-// Стан трьох ПІД живе МІЖ викликами (накопичений інтеграл і попередній кут).
-typedef struct { float kp, ki, kd; float integ, prev_meas; } PID;
-
-// Один такт одного ПІД: похибка -> команда осі. dt — фактичний крок (с).
-static float pid_step(PID *c, float target, float meas, float dt) {
-    float e      = target - meas;                 // похибка кута
-    c->integ    += e * dt;                        // I: накопичуємо площу похибки
-    c->integ     = clampf(c->integ, -I_MAX, I_MAX); // антивіндап (інакше дикий переліт)
-    float deriv  = -(meas - c->prev_meas) / dt;   // D від ВИМІРУ (без ривка на зміні завдання)
-    c->prev_meas = meas;
-    return c->kp * e + c->ki * c->integ + c->kd * deriv; // P + I + D = команда осі
-}
-
-// Три ОКРЕМІ контури — по одному на вісь. Викликати РІВНОМІРНО з таймера.
-void attitude_step(const float meas[3], const float target[3],
-                   float throttle, float dt, float motor[4]) {
-    // 1) три незалежні ПІД: кожен бачить ЛИШЕ свою вісь
-    float roll  = pid_step(&pid_roll,  target[0], meas[0], dt);
-    float pitch = pid_step(&pid_pitch, target[1], meas[1], dt);
-    float yaw   = pid_step(&pid_yaw,   target[2], meas[2], dt);
-
-    // 2) МІКШЕР: три команди + база -> тяга кожного мотора (знаки = геометрія рами)
-    motor[0] = throttle - roll - pitch - yaw;   // M1 спереду-справа
-    motor[1] = throttle - roll + pitch + yaw;   // M2 ззаду-справа
-    motor[2] = throttle + roll + pitch - yaw;   // M3 ззаду-зліва
-    motor[3] = throttle + roll - pitch + yaw;   // M4 спереду-зліва
-
-    // 3) затиск у фізичні межі ESC (мотор не вміє менше 0 чи більше за повну тягу)
-    for (int i = 0; i < 4; i++)
-        motor[i] = clampf(motor[i], MOTOR_MIN, MOTOR_MAX);
-}
-```
-```python
-# Стан трьох ПІД живе МІЖ викликами (накопичений інтеграл і попередній кут).
-class PID:
-    def __init__(self, kp, ki, kd):
-        self.kp, self.ki, self.kd = kp, ki, kd
-        self.integ = 0.0
-        self.prev_meas = 0.0
-
-    # Один такт одного ПІД: похибка -> команда осі. dt — фактичний крок (с).
-    def step(self, target, meas, dt):
-        e = target - meas                              # похибка кута
-        self.integ += e * dt                           # I: накопичуємо площу похибки
-        self.integ = clamp(self.integ, -I_MAX, I_MAX)  # антивіндап (інакше дикий переліт)
-        deriv = -(meas - self.prev_meas) / dt          # D від ВИМІРУ (без ривка на зміні завдання)
-        self.prev_meas = meas
-        return self.kp * e + self.ki * self.integ + self.kd * deriv  # P + I + D = команда осі
-
-
-# Три ОКРЕМІ контури — по одному на вісь. Викликати РІВНОМІРНО з таймера.
-def attitude_step(meas, target, throttle, dt):
-    # 1) три незалежні ПІД: кожен бачить ЛИШЕ свою вісь
-    roll  = pid_roll.step(target[0],  meas[0], dt)
-    pitch = pid_pitch.step(target[1], meas[1], dt)
-    yaw   = pid_yaw.step(target[2],   meas[2], dt)
-
-    # 2) МІКШЕР: три команди + база -> тяга кожного мотора (знаки = геометрія рами)
-    motor = [
-        throttle - roll - pitch - yaw,   # M1 спереду-справа
-        throttle - roll + pitch + yaw,   # M2 ззаду-справа
-        throttle + roll + pitch - yaw,   # M3 ззаду-зліва
-        throttle + roll - pitch + yaw,   # M4 спереду-зліва
-    ]
-
-    # 3) затиск у фізичні межі ESC (мотор не вміє менше 0 чи більше за повну тягу)
-    return [clamp(m, MOTOR_MIN, MOTOR_MAX) for m in motor]
-```
+:::code roll-pitch-yaw-control-d/c/main.c
+:::code roll-pitch-yaw-control-d/py/main.py
 :::
 
 Зверніть увагу на три речі, у яких і ховається працездатність. По-перше, три виклики `pid_step` **нічого не знають один про одного** — це і є три незалежні контури; зв'язок осей виникає не тут, а нижче, у спільному мікшері. По-друге, кожен ПІД тримає **стан** (`integ`, `prev_meas`) між викликами — забути про це означає щоразу починати інтеграл з нуля, і регулятор не працюватиме. По-третє, після мікшера тяги **обов'язково затискаємо**: мікс легко дає від'ємне число чи більше за максимум, а мотор фізично не вміє ні того, ні іншого — без затиску команда осей спотвориться саме в момент різкого маневру, коли точність найпотрібніша.

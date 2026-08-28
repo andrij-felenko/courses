@@ -102,19 +102,7 @@ typedef struct __mavlink_msg_entry {
 
 `CRC_EXTRA` — це байт, у якому згорнуто весь опис повідомлення. Рахують його так:
 
-```python
-def message_checksum(msg):
-    crc = x25crc()
-    crc.accumulate_str(msg.name + ' ')
-    crc_end = msg.base_fields()
-    for i in range(crc_end):
-        f = msg.ordered_fields[i]
-        crc.accumulate_str(f.type + ' ')
-        crc.accumulate_str(f.name + ' ')
-        if f.array_length:
-            crc.accumulate([f.array_length])
-    return (crc.crc & 0xFF) ^ (crc.crc >> 8)
-```
+:::code custom-mavlink-messages-d/py/main.py
 
 Читається це просто: у суму йдуть **назва повідомлення**, а далі — **тип та ім'я кожного поля** в тому самому порядку, у якому поля лежать у кадрі, плюс довжина, якщо поле масив. Опис і коментарі не йдуть — на них можна правити скільки завгодно. Шістнадцять біт згортаються в один байт складанням половин за модулем два, тож у відбитка є природна межа: різні описи збігаються приблизно в одному випадку з двохсот п'ятдесяти шести. Докладне обчислення відбитка для наведеного повідомлення, разом із цією ймовірністю збігу й тим, що з неї випливає, — у [математиці CRC_EXTRA](root:sys-dron/custom-mavlink-messages/math-crc-extra.md).
 
@@ -252,19 +240,7 @@ virtual bool mavlinkMessage(Vehicle *vehicle, LinkInterface *link,
 
 Повернене значення — дозвіл рухатися далі: `false` зупиняє звичайну обробку цього кадру, `true` пропускає. Своє повідомлення тут обробляють так:
 
-```cpp
-bool CustomPlugin::mavlinkMessage(Vehicle *vehicle, LinkInterface *link,
-                                  const mavlink_message_t &message)
-{
-    if (message.msgid == MAVLINK_MSG_ID_PERIMETER_BEACON_STATUS) {
-        mavlink_perimeter_beacon_status_t beacon{};
-        mavlink_msg_perimeter_beacon_status_decode(&message, &beacon);
-        _beaconGroup->update(beacon);
-        return false;
-    }
-    return QGCCorePlugin::mavlinkMessage(vehicle, link, message);
-}
-```
+:::code custom-mavlink-messages-d/cpp/kadr-rozibrano-i-teper.cpp
 
 Файлів апстриму тут не змінено жодного — саме тому це основний спосіб для вендорської збірки.
 
@@ -280,27 +256,7 @@ bool CustomPlugin::mavlinkMessage(Vehicle *vehicle, LinkInterface *link,
 
 Відправка коротша, бо в ній немає невизначености. Кадр треба скласти **в слоті того каналу**, яким він піде: звідти кодувальник візьме номер послідовності вихідного потоку й прапорець версії.
 
-```cpp
-void CustomPlugin::sendBeaconMode(Vehicle *vehicle, uint8_t mode, float radius_m)
-{
-    WeakLinkInterfacePtr weakLink = vehicle->vehicleLinkManager()->primaryLink();
-    if (weakLink.expired()) {
-        return;
-    }
-    SharedLinkInterfacePtr sharedLink = weakLink.lock();
-
-    mavlink_message_t message{};
-    mavlink_msg_perimeter_beacon_cmd_pack_chan(
-        MAVLinkProtocol::instance()->getSystemId(),   // хто шле: станція
-        MAVLinkProtocol::getComponentId(),
-        sharedLink->mavlinkChannel(),                 // слот стану кодувальника
-        &message,
-        vehicle->id(), vehicle->compId(),             // кому: target_system, target_component
-        mode, radius_m);
-
-    vehicle->sendMessageOnLinkThreadSafe(sharedLink.get(), message);
-}
-```
+:::code custom-mavlink-messages-d/cpp/zvorotnyi-bik-vidpravyty.cpp
 
 Два місця тут не косметичні. По-перше, `primaryLink()` віддає **слабке** посилання: основний канал апарата може зникнути між двома рядками, і перевірка на це — не перестраховка. По-друге, назва методу відправки закінчується на `ThreadSafe` тому, що виклик приходить із нитки інтерфейсу, а запис у канал живе в іншій нитці; метод сам переносить кадр туди, куди треба. Обходити його прямим записом у канал не можна — [модель потоків станції](root:sys-dron/threading-model) цього не пробачає.
 

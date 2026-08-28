@@ -46,56 +46,8 @@
 **Побітове пакування та розпакування параметра у буфер MAVLink:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-
-// Пакування цілого числа uint32_t у 4-байтове поле param_value без втрати бітів
-float pack_uint32_param(uint32_t val) {
-    float param_container;
-    memcpy(&param_container, &val, sizeof(float));
-    return param_container;
-}
-
-// Розпакування значення param_value відповідно до переданого типу MAV_PARAM_TYPE
-bool unpack_param_to_uint32(float raw_value, uint8_t param_type, uint32_t *out_val) {
-    if (param_type == 5 /* MAV_PARAM_TYPE_UINT32 */) {
-        memcpy(out_val, &raw_value, sizeof(uint32_t));
-        return true;
-    } else if (param_type == 1 /* MAV_PARAM_TYPE_UINT8 */) {
-        uint8_t temp;
-        memcpy(&temp, &raw_value, sizeof(uint8_t));
-        *out_val = temp;
-        return true;
-    }
-    return false;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <bit>
-#include <optional>
-
-// Пакування цілого числа uint32_t через C++20 std::bit_cast
-constexpr float pack_uint32_param(uint32_t val) noexcept {
-    return std::bit_cast<float>(val);
-}
-
-// Безпечне типоване розпакування значення без перетворення через мантису
-std::optional<uint32_t> unpack_param_to_uint32(float raw_value, uint8_t param_type) noexcept {
-    if (param_type == 5 /* MAV_PARAM_TYPE_UINT32 */) {
-        return std::bit_cast<uint32_t>(raw_value);
-    }
-    if (param_type == 1 /* MAV_PARAM_TYPE_UINT8 */) {
-        uint8_t temp{};
-        std::memcpy(&temp, &raw_value, sizeof(uint8_t));
-        return static_cast<uint32_t>(temp);
-    }
-    return std::nullopt;
-}
-```
+:::code mavlink-param-tuning-and-diagnostics-d/c/anatomiia-parametra.c
+:::code mavlink-param-tuning-and-diagnostics-d/cpp/anatomiia-parametra.cpp
 :::
 
 Повний технічний реєстр бінарних повідомлень, числових кодів `MAV_PARAM_TYPE`, прапорців можливостей та правил вирівнювання наведено у вставці [Повідомлення та типи протоколу параметрів MAVLink](root:sys-dron/mavlink-param-tuning-and-diagnostics/api-param-messages.md).
@@ -163,59 +115,8 @@ std::optional<uint32_t> unpack_param_to_uint32(float raw_value, uint8_t param_ty
 **Базова логіка клієнтського обробника підтвердження запису:**
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-
-typedef struct {
-    char param_id[17];
-    float expected_value;
-    uint8_t param_type;
-    uint32_t send_timestamp_ms;
-    uint8_t retry_count;
-    bool is_pending;
-} param_write_transaction_t;
-
-// Перевірка надходження ехо-відповіді PARAM_VALUE
-bool verify_param_ack(param_write_transaction_t *tx, const char *recv_id, float recv_val) {
-    if (!tx->is_pending) return false;
-    
-    // Порівняння ідентифікаторів
-    if (strncmp(tx->param_id, recv_id, 16) == 0) {
-        // Успішне підтвердження — транзакцію закрито
-        tx->is_pending = false;
-        return true;
-    }
-    return false;
-}
-```
-```cpp
-#include <string_view>
-#include <cstdint>
-#include <optional>
-#include <chrono>
-
-struct ParamWriteTransaction {
-    char param_id[17]{};
-    float expected_value{0.0f};
-    uint8_t param_type{0};
-    std::chrono::steady_clock::time_point send_time;
-    uint8_t retry_count{0};
-    bool is_pending{false};
-
-    [[nodiscard]] bool verify_ack(std::string_view recv_id, float recv_val) noexcept {
-        if (!is_pending) return false;
-        
-        std::string_view current_id(param_id);
-        if (current_id == recv_id) {
-            is_pending = false;
-            return true;
-        }
-        return false;
-    }
-};
-```
+:::code mavlink-param-tuning-and-diagnostics-d/c/tranzaktsiinyi-zapys-ta.c
+:::code mavlink-param-tuning-and-diagnostics-d/cpp/tranzaktsiinyi-zapys-ta.cpp
 :::
 
 ---

@@ -128,26 +128,7 @@ void CompInfoEvents::setJson(const QString& metadataJsonFileName)
 
 Рішення просте й чесне: тримати їх у черзі.
 
-```cpp
-void EventHandler::Impl::gotEvent(const mavlink_event_t &event)
-{
-    if (!parser.hasDefinitions()) {
-        if (pendingEvents.size() > 50) {   // стеля, до якої в нормі не доходить
-            pendingEvents.clear();
-        }
-        pendingEvents.push_back(event);
-        return;
-    }
-
-    std::unique_ptr<events::parser::ParsedEvent> parsed_event =
-        parser.parse(events::EventType(event));
-    if (parsed_event == nullptr) {
-        qCWarning(EventHandlerLog) << "Got Event w/o known metadata: ID:" << event.id;
-        return;
-    }
-    ...
-}
-```
+:::code events-interface-d/cpp/nime-chyslo-ozhyvliaie.cpp
 
 Коли файл нарешті завантажено, `setMetadata` заливає його в розбирач і прокручує чергу з початку — так, ніби події щойно прийшли. А якщо метадані так і не доїхали, черга росте до п'ятдесяти й скидається: показати ці події все одно нічим, а пам'ять тримати нема сенсу.
 
@@ -197,20 +178,7 @@ parser.formatters().escape = [](const std::string &str) {
 
 Сама ж логіка живе не в QGroundControl, а в бібліотеці `libevents`, спільній для борту й землі; станція підключає її як підмодуль і дає їй чотири зворотні виклики (надіслати запит, віддати розібрану подію, увімкнути таймер, повідомити про втрату). Серце цієї логіки — порівняння двох номерів:
 
-```cpp
-SequenceComparison compareSequence(uint16_t expected_sequence,
-                                   uint16_t incoming_sequence)
-{
-    if (expected_sequence == incoming_sequence) {
-        return SequenceComparison::equal;
-    }
-    const uint16_t diff = incoming_sequence - expected_sequence;
-    if (diff > UINT16_MAX / 2) {
-        return SequenceComparison::older;
-    }
-    return SequenceComparison::newer;
-}
-```
+:::code events-interface-d/cpp/vtrachena-podiia-tse-ne.cpp
 
 Тут працює властивість беззнакової арифметики: різниця двох 16-бітових чисел сама по собі циклічна. Якщо вона менша за півкола (32767) — прийшло новіше; більша — старіше. Тому перехід 65534 → 65535 → 0 → 1 обробляється тими самими двома рядками, що й 41 → 42.
 
@@ -273,18 +241,7 @@ auto error_cb = [this](int num_events_lost) {
 
 Розподіл у QGroundControl виглядає рівно так, як описано:
 
-```cpp
-// перевірки готовності мають свій екран, а не стрічку повідомлень
-if (event->group() == "health" || event->group() == "arming_check") {
-    return;
-}
-if (event->group() == "calibration") {
-    return;
-}
-if (event->group() != "default" || severity == -1) {
-    return;
-}
-```
+:::code events-interface-d/cpp/hrupy-odyn-kanal-pid-rizni.cpp
 
 Те, що пройшло крізь усі відсіювання, стає парою «повідомлення + опис» і йде сигналом до `Vehicle`, а далі — у той самий обробник текстових повідомлень, куди потрапляють і старі `STATUSTEXT`. Обидва шляхи сходяться в одній стрічці — пілот не мусить знати, яким із них прийшов рядок.
 

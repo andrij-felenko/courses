@@ -82,110 +82,19 @@ disc ≥ 0   → два корені: t = (−b ± √disc) / (2a)
 
 Pure pursuit має **пам'ять** між тактами: шлях, індекс поточного відрізка (щоб не шукати ціль з початку щоразу) і незмінні параметри тіла. Складімо це в одну структуру. Точку тримаємо простою парою координат:
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
-
-typedef struct { float x, y; } vec2;   /* точка/вектор у світі [м] */
-
-typedef struct {
-    /* шлях: масив вершин ламаної у світових координатах */
-    const vec2 *path;      /* вказівник на точки (не володіє пам'яттю)   */
-    int         n;         /* кількість вершин (відрізків — n-1)          */
-    int         seg;       /* індекс поточного відрізка (пам'ять між тактами) */
-
-    /* налаштування тіла й керма */
-    float k_look;          /* коеф. випередження [с]: L = k_look · v      */
-    float L_min;           /* нижня межа випередження [м]                 */
-    float wheelbase;       /* колісна база [м] (для велосипедної моделі)  */
-    float delta_max;       /* механічна межа кута керма [рад]             */
-    float goal_tol;        /* поріг «доїхав до кінця» [м]                 */
-
-    bool  finished;        /* прапорець: кінець шляху досягнуто           */
-} pursuit_t;
-```
+:::code proj-pursuit-c/c/stan-i-nalashtuvannia.c
 
 Ініціалізація приймає шлях і параметри, ставить поточний відрізок на нульовий:
 
-```c
-void pursuit_init(pursuit_t *pp, const vec2 *path, int n,
-                  float k_look, float L_min, float wheelbase,
-                  float delta_max, float goal_tol)
-{
-    pp->path      = path;
-    pp->n         = n;
-    pp->seg       = 0;          /* починаємо з першого відрізка */
-    pp->k_look    = k_look;
-    pp->L_min     = L_min;
-    pp->wheelbase = wheelbase;
-    pp->delta_max = delta_max;
-    pp->goal_tol  = goal_tol;
-    pp->finished  = false;
-}
-```
+:::code proj-pursuit-c/c/stan-i-nalashtuvannia-2.c
 
 ### Перетин кола з одним відрізком
 
 Винесімо серце в окрему функцію: дано апарат `c`, радіус `L` і відрізок `A→B` — повернути параметр `t` цілі (більший корінь у `[0,1]`) або сигнал «немає». Повертатимемо `bool` успіху, а сам `t` — через вказівник:
 
 :::tabs
-```c
-/* Перетин кола (центр c, радіус L) з відрізком A→B.
- * Якщо є корінь ПОПЕРЕДУ (більший) у межах [0,1] — кладе його в *t_out,
- * повертає true. Інакше false (перетину на цьому відрізку немає). */
-static bool seg_circle_hit(vec2 c, float L, vec2 A, vec2 B, float *t_out)
-{
-    float dx = B.x - A.x,  dy = B.y - A.y;     /* d = B − A */
-    float fx = A.x - c.x,  fy = A.y - c.y;     /* f = A − c */
-
-    float a = dx * dx + dy * dy;               /* a = d·d   */
-    float b = 2.0f * (fx * dx + fy * dy);      /* b = 2 f·d */
-    float cc = fx * fx + fy * fy - L * L;      /* c = f·f − L² */
-
-    if (a < 1e-9f) return false;               /* вироджений (нульовий) відрізок */
-
-    float disc = b * b - 4.0f * a * cc;
-    if (disc < 0.0f) return false;             /* коло не дістає відрізка (дірка) */
-
-    float sq = sqrtf(disc);
-    float t2 = (-b + sq) / (2.0f * a);         /* БІЛЬШИЙ корінь — попереду за рухом */
-
-    if (t2 >= 0.0f && t2 <= 1.0f) {            /* і лежить у межах відрізка? */
-        *t_out = t2;
-        return true;
-    }
-    return false;                              /* попереднього перетину на відрізку нема */
-}
-```
-```python
-import math
-
-# Перетин кола (центр c, радіус L) з відрізком A→B.
-# Якщо є корінь ПОПЕРЕДУ (більший) у межах [0,1] — повертає його,
-# інакше None (перетину на цьому відрізку немає).
-def seg_circle_hit(c, L, A, B):
-    dx, dy = B[0] - A[0], B[1] - A[1]          # d = B − A
-    fx, fy = A[0] - c[0], A[1] - c[1]          # f = A − c
-
-    a = dx * dx + dy * dy                       # a = d·d
-    b = 2.0 * (fx * dx + fy * dy)               # b = 2 f·d
-    cc = fx * fx + fy * fy - L * L              # c = f·f − L²
-
-    if a < 1e-9:
-        return None                             # вироджений (нульовий) відрізок
-
-    disc = b * b - 4.0 * a * cc
-    if disc < 0.0:
-        return None                             # коло не дістає відрізка (дірка)
-
-    sq = math.sqrt(disc)
-    t2 = (-b + sq) / (2.0 * a)                  # БІЛЬШИЙ корінь — попереду за рухом
-
-    if 0.0 <= t2 <= 1.0:                         # і лежить у межах відрізка?
-        return t2
-    return None                                 # попереднього перетину на відрізку нема
-```
+:::code proj-pursuit-c/c/peretyn-kola-z-odnym.c
+:::code proj-pursuit-c/py/peretyn-kola-z-odnym.py
 :::
 
 Зверніть увагу: ми навіть не рахуємо менший корінь `t1` — він нам не потрібен, бо ціль завжди попереду. Одне обчислення квадратного кореня, кілька множень — дешево.
@@ -197,77 +106,15 @@ def seg_circle_hit(c, L, A, B):
 Для порятунку з дірки потрібна проєкція апарата на відрізок — найближча до нього точка лінії. Це теж коротка геометрія: проєктуємо вектор `апарат→A` на напрям відрізка, затискаємо параметр у `[0,1]` (щоб не вилетіти за кінці):
 
 :::tabs
-```c
-/* Найближча точка відрізка A→B до точки c (проєкція, затиснута в [0,1]). */
-static vec2 seg_closest(vec2 c, vec2 A, vec2 B)
-{
-    float dx = B.x - A.x,  dy = B.y - A.y;
-    float len2 = dx * dx + dy * dy;
-    if (len2 < 1e-9f) return A;                /* вироджений відрізок → сам A */
-
-    float t = ((c.x - A.x) * dx + (c.y - A.y) * dy) / len2;
-    if (t < 0.0f) t = 0.0f;                    /* до початку — тримаємось A */
-    if (t > 1.0f) t = 1.0f;                    /* за кінець — тримаємось B */
-
-    vec2 p = { A.x + t * dx, A.y + t * dy };
-    return p;
-}
-```
-```python
-# Найближча точка відрізка A→B до точки c (проєкція, затиснута в [0,1]).
-def seg_closest(c, A, B):
-    dx, dy = B[0] - A[0], B[1] - A[1]
-    len2 = dx * dx + dy * dy
-    if len2 < 1e-9:
-        return A                                # вироджений відрізок → сам A
-
-    t = ((c[0] - A[0]) * dx + (c[1] - A[1]) * dy) / len2
-    if t < 0.0:
-        t = 0.0                                 # до початку — тримаємось A
-    if t > 1.0:
-        t = 1.0                                 # за кінець — тримаємось B
-
-    return (A[0] + t * dx, A[1] + t * dy)
-```
+:::code proj-pursuit-c/c/naiblyzhcha-tochka.c
+:::code proj-pursuit-c/py/naiblyzhcha-tochka.py
 :::
 
 ### Пошук цілі: пройти відрізки, обробити кінець і дірку
 
 Тепер головний пошук. Ідемо від поточного відрізка `seg` уперед; перший відрізок із перетином попереду дає ціль, і ми **зсуваємо** `seg` на нього (наступного такту почнемо звідси). Якщо жоден відрізок не дав перетину — розрізняємо два випадки: якщо апарат уже біля останньої вершини, це **кінець шляху**; інакше це **дірка**, і ціллю стає найближча точка лінії.
 
-```c
-/* Знайти ціль-точку цього такту. Кладе її у *goal, повертає true, поки їдемо.
- * false — коли шлях завершено (апарат у межах goal_tol від останньої вершини). */
-static bool pursuit_find_goal(pursuit_t *pp, vec2 c, float L, vec2 *goal)
-{
-    int last = pp->n - 1;
-
-    /* 1) шукаємо перетин попереду, від поточного відрізка й далі */
-    for (int i = pp->seg; i < last; ++i) {
-        float t;
-        if (seg_circle_hit(c, L, pp->path[i], pp->path[i + 1], &t)) {
-            pp->seg = i;                       /* запам'ятали відрізок цілі */
-            vec2 A = pp->path[i], B = pp->path[i + 1];
-            goal->x = A.x + t * (B.x - A.x);
-            goal->y = A.y + t * (B.y - A.y);
-            return true;
-        }
-    }
-
-    /* 2) перетину нема. Чи ми вже біля кінця шляху? */
-    vec2 end = pp->path[last];
-    float ex = end.x - c.x, ey = end.y - c.y;
-    if (ex * ex + ey * ey <= pp->goal_tol * pp->goal_tol) {
-        pp->finished = true;
-        return false;                          /* доїхали — зупиняємось */
-    }
-
-    /* 3) не кінець, але перетину нема → ДІРКА: тягнемось до найближчої точки лінії */
-    vec2 A = pp->path[pp->seg], B = pp->path[pp->seg + 1];
-    *goal = seg_closest(c, A, B);
-    return true;
-}
-```
+:::code proj-pursuit-c/c/poshuk-tsili-proity.c
 
 Тонкість у пункті 2: коли перетину не знайдено, це може означати або що апарат **обігнав** останню точку (шлях закінчився), або що він **відстав** від лінії (дірка). Розрізняємо їх відстанню до фінальної вершини: близько — кінець; далеко — дірка. Без цієї перевірки апарат або спинявся б передчасно посеред дірки, або наздоганяв би вже пройдений кінець.
 
@@ -276,80 +123,8 @@ static bool pursuit_find_goal(pursuit_t *pp, vec2 c, float L, vec2 *goal)
 Лишилося зшити все докупи. Функція такту бере позу апарата (позиція + курс) і швидкість, повертає готовий кут керма:
 
 :::tabs
-```c
-/* Один такт pure pursuit. Вхід: позиція (px,py), курс theta [рад], швидкість v.
- * Вихід: кут керма delta [рад]. Коли шлях завершено — ставить pp->finished
- * і повертає 0 (кермо прямо). */
-float pursuit_step(pursuit_t *pp, float px, float py, float theta, float v)
-{
-    if (pp->finished) return 0.0f;
-
-    /* 1) випередження, пропорційне швидкості, з нижньою межею */
-    float L = pp->k_look * v;
-    if (L < pp->L_min) L = pp->L_min;
-
-    /* 2) знайти ціль-точку */
-    vec2 c = { px, py };
-    vec2 goal;
-    if (!pursuit_find_goal(pp, c, L, &goal)) {
-        return 0.0f;                           /* шлях завершено */
-    }
-
-    /* 3) бічний зсув цілі в системі апарата (поворот на −theta) */
-    float dx = goal.x - px;
-    float dy = goal.y - py;
-    float s = sinf(theta), co = cosf(theta);
-    float x_lat = -s * dx + co * dy;           /* бічна координата цілі */
-
-    /* 4) кривина дуги pure pursuit; L беремо як фактичну відстань до цілі */
-    float Lx = dx, Ly = dy;
-    float Lreal = sqrtf(Lx * Lx + Ly * Ly);    /* справжня відстань апарат→ціль */
-    if (Lreal < 1e-3f) return 0.0f;            /* ціль злилась з апаратом — прямо */
-    float kappa = 2.0f * x_lat / (Lreal * Lreal);
-
-    /* 5) переклад у кут керма (велосипедна модель) + затиск межами */
-    float delta = atanf(pp->wheelbase * kappa);
-    if (delta >  pp->delta_max) delta =  pp->delta_max;
-    if (delta < -pp->delta_max) delta = -pp->delta_max;
-
-    return delta;
-}
-```
-```python
-import math
-
-# Один такт pure pursuit. Вхід: позиція (px,py), курс theta [рад], швидкість v.
-# Вихід: кут керма delta [рад]. Коли шлях завершено — ставить pp.finished
-# і повертає 0 (кермо прямо).
-def pursuit_step(pp, px, py, theta, v):
-    if pp.finished:
-        return 0.0
-
-    # 1) випередження, пропорційне швидкості, з нижньою межею
-    L = max(pp.k_look * v, pp.L_min)
-
-    # 2) знайти ціль-точку
-    c = (px, py)
-    goal = pursuit_find_goal(pp, c, L)
-    if goal is None:
-        return 0.0                              # шлях завершено
-
-    # 3) бічний зсув цілі в системі апарата (поворот на −theta)
-    dx = goal[0] - px
-    dy = goal[1] - py
-    s, co = math.sin(theta), math.cos(theta)
-    x_lat = -s * dx + co * dy                   # бічна координата цілі
-
-    # 4) кривина дуги pure pursuit; L беремо як фактичну відстань до цілі
-    l_real = math.hypot(dx, dy)                 # справжня відстань апарат→ціль
-    if l_real < 1e-3:
-        return 0.0                              # ціль злилась з апаратом — прямо
-    kappa = 2.0 * x_lat / (l_real * l_real)
-
-    # 5) переклад у кут керма (велосипедна модель) + затиск межами
-    delta = math.atan(pp.wheelbase * kappa)
-    return max(-pp.delta_max, min(pp.delta_max, delta))
-```
+:::code proj-pursuit-c/c/holovnyi-krok-vid-pozytsii.c
+:::code proj-pursuit-c/py/holovnyi-krok-vid-pozytsii.py
 :::
 
 Один нюанс варто підкреслити. У формулі `κ = 2x/L²` знаменник — це **квадрат відстані до цілі**, а вона рівно тоді дорівнює `L`, коли ціль знайдено перетином кола (там `|апарат − ціль| = L` за побудовою). Але в **дірці** ціль — це проєкція, і вона ближча за `L`; тоді підставляти в знаменник задане `L` було б неправильно — вийшла б занижена кривина, і апарат ліниво повертав би там, де треба різко. Тому в коді ми беремо `Lreal` — **фактичну** відстань до цілі, — а не параметр `L`. У звичайному режимі `Lreal == L` (з точністю до заокруглення), а в дірці `Lreal < L`, і кривина чесно виходить крутішою — апарат енергійніше тягнеться назад на лінію. Це маленька, але важлива правка: вона робить обробку дірки не просто «не падати», а справді коригувати.
@@ -360,35 +135,7 @@ def pursuit_step(pp, px, py, theta, v):
 
 Формула `δ = atan(wheelbase·κ)` — для тіла з поворотними колесами (машина, ровер із кермом), де діє [велосипедна модель](root:sys-dron/bicycle-kinematic-model): два колеса на осі завдовжки `wheelbase`, і кривина прямо дає кут відхилення керма. Але гусеничний чи двоколісний робот керма не має — він завертає **різницею швидкостей боків**. Для нього останній крок інший: кривина задає **кутову швидкість** повороту `ω = v·κ`, а її вже розводять на швидкості лівого й правого боку. Уся геометрія до кривини — та сама; змінюється лише переклад у команду приводу:
 
-```c
-/* Замість кута керма — цільова кутова швидкість для диференціального тіла.
- * Далі ці v та omega розкладають на швидкості боків (див. керування ровером). */
-typedef struct { float v, omega; } twist_t;
-
-twist_t pursuit_step_diff(pursuit_t *pp, float px, float py,
-                          float theta, float v)
-{
-    twist_t out = { 0.0f, 0.0f };
-    if (pp->finished) return out;
-
-    float L = pp->k_look * v;
-    if (L < pp->L_min) L = pp->L_min;
-
-    vec2 c = { px, py }, goal;
-    if (!pursuit_find_goal(pp, c, L, &goal)) return out;   /* v=omega=0 */
-
-    float dx = goal.x - px, dy = goal.y - py;
-    float s = sinf(theta), co = cosf(theta);
-    float x_lat = -s * dx + co * dy;
-    float Lreal = sqrtf(dx * dx + dy * dy);
-    if (Lreal < 1e-3f) { out.v = v; return out; }
-
-    float kappa = 2.0f * x_lat / (Lreal * Lreal);
-    out.v     = v;                             /* лінійна швидкість — від контуру швидкості */
-    out.omega = v * kappa;                     /* кутова швидкість повороту */
-    return out;
-}
-```
+:::code proj-pursuit-c/c/tilo-bez-kerma.c
 
 Розклад `v` і `ω` на швидкості лівого й правого боку — це вже задача [керування ровером](root:sys-dron/rover-steering); pure pursuit віддає однакову кривину, а нижчий шар вибирає, чи це кут керма, чи різниця бортів. Одна геометрія — багато тіл.
 

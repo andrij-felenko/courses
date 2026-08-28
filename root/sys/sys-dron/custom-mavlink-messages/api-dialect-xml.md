@@ -157,59 +157,13 @@ python -m pymavlink.tools.mavgen --lang=C --wire-protocol=2.0 \
 
 Структура повторює **порядок у кадрі**, а не порядок в описі:
 
-```c
-MAVPACKED(
-typedef struct __mavlink_perimeter_beacon_status_t {
-    uint64_t time_usec;         // зсув 0
-    float    range_m;           // зсув 8
-    uint16_t beacon_id;         // зсув 12
-    uint8_t  quality;           // зсув 14
-    uint8_t  target_system;     // зсув 15
-    uint8_t  target_component;  // зсув 16
-    float    bearing_deg;       // зсув 17 — розширення
-}) mavlink_perimeter_beacon_status_t;
-```
+:::code api-dialect-xml/c/zaholovok-odnoho.c
 
 Обгортка `MAVPACKED(…)` з'являється не завжди — генератор додає її, лише коли хоч одне поле лягло на зсув, не кратний своєму розміру. У прикладі це саме так: `bearing_deg` — чотирибайтове поле на зсуві 17. Причина в тому, що поля-розширення **не сортують**, тож вирівнювання, яке сортування давало для базової частини, на них не поширюється. Наслідок для компілятора описано в [пакуванні бінарного протоколу](root:com-protocol/wire-format-packing): пакована структура забороняє йому вставляти дірки, але й позбавляє права читати поле одним вирівняним доступом.
 
 Тепер — контракт функцій. Він виглядає одноманітно, і одна деталь у ньому регулярно коштує години налагодження:
 
-```c
-// Скласти кадр. Аргументи полів ідуть у порядку ОПИСУ, не кадру.
-uint16_t mavlink_msg_perimeter_beacon_status_pack(
-        uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-        uint16_t beacon_id, float range_m, uint8_t quality, uint64_t time_usec,
-        uint8_t target_system, uint8_t target_component, float bearing_deg);
-
-// Те саме, але номер послідовності береться зі стану каналу chan.
-uint16_t mavlink_msg_perimeter_beacon_status_pack_chan(
-        uint8_t system_id, uint8_t component_id, uint8_t chan,
-        mavlink_message_t *msg, /* ...ті самі поля... */);
-
-// Те саме, але стан кодувальника передано явно, без глобальної таблиці каналів.
-uint16_t mavlink_msg_perimeter_beacon_status_pack_status(
-        uint8_t system_id, uint8_t component_id, mavlink_status_t *_status,
-        mavlink_message_t *msg, /* ...ті самі поля... */);
-
-// Три обгортки, що беруть готову структуру замість переліку полів.
-uint16_t mavlink_msg_perimeter_beacon_status_encode(
-        uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-        const mavlink_perimeter_beacon_status_t *st);
-uint16_t mavlink_msg_perimeter_beacon_status_encode_chan(
-        uint8_t system_id, uint8_t component_id, uint8_t chan,
-        mavlink_message_t *msg, const mavlink_perimeter_beacon_status_t *st);
-uint16_t mavlink_msg_perimeter_beacon_status_encode_status(
-        uint8_t system_id, uint8_t component_id, mavlink_status_t *_status,
-        mavlink_message_t *msg, const mavlink_perimeter_beacon_status_t *st);
-
-// Розібрати кадр у структуру. Нічого не повертає — кадр уже перевірено сумою.
-void mavlink_msg_perimeter_beacon_status_decode(
-        const mavlink_message_t *msg, mavlink_perimeter_beacon_status_t *st);
-
-// Геттер на кожне поле — читає просто з навантаження, без розбору цілого.
-uint64_t mavlink_msg_perimeter_beacon_status_get_time_usec(const mavlink_message_t *msg);
-float    mavlink_msg_perimeter_beacon_status_get_bearing_deg(const mavlink_message_t *msg);
-```
+:::code api-dialect-xml/c/zaholovok-odnoho.h
 
 Деталь, що коштує години: **аргументи полів у `_pack` ідуть у порядку опису, а члени структури — у порядку кадру**. Генератор будує список аргументів із вихідного переліку полів і лише окремо сортує їх для розкладання в байти. Тому переставити місцями `<field>` в XML — це змінити не лише `CRC_EXTRA`, а й порядок аргументів усіх викликів у вашому коді; компілятор мовчатиме там, де сусідні поля однотипні.
 
@@ -239,23 +193,7 @@ uint16_t mavlink_msg_param_set_get_param_id(const mavlink_message_t *msg, char *
 
 **`MAVLINK_MESSAGE_INFO` — описи полів.** Масив збирається лише в заголовку кореневого XML і потрапляє у збірку, тільки якщо визначено `MAVLINK_USE_MESSAGE_INFO`. Структури такі:
 
-```c
-typedef struct __mavlink_field_info {
-    const char            *name;
-    const char            *print_format;
-    mavlink_message_type_t type;
-    unsigned int           array_length;
-    unsigned int           wire_offset;
-    unsigned int           structure_offset;
-} mavlink_field_info_t;
-
-typedef struct __mavlink_message_info {
-    uint32_t             msgid;
-    const char          *name;
-    unsigned             num_fields;
-    mavlink_field_info_t fields[MAVLINK_MAX_FIELDS];
-} mavlink_message_info_t;
-```
+:::code api-dialect-xml/c/dvi-tablytsi-rivnia.c
 
 | Поле | Чим заповнює `mavgen` |
 |---|---|
@@ -282,35 +220,7 @@ const mavlink_message_info_t  *mavlink_get_message_info_by_name(const char *name
 
 Складання й розбирання того самого повідомлення, без жодної інфраструктури:
 
-```c
-#include <mavlink.h>
-
-/* Скласти кадр у буфер. Повертає кількість записаних байтів. */
-uint16_t build(uint8_t *buf, uint8_t chan)
-{
-    mavlink_message_t msg = {0};
-    mavlink_msg_perimeter_beacon_status_pack_chan(
-        255, MAV_COMP_ID_MISSIONPLANNER, chan, &msg,
-        7,            /* beacon_id        — порядок ОПИСУ */
-        12.5f,        /* range_m                          */
-        88,           /* quality                          */
-        1712345678ULL,/* time_usec                        */
-        1, 1,         /* target_system, target_component  */
-        137.0f);      /* bearing_deg — розширення         */
-    return mavlink_msg_to_send_buffer(buf, &msg);
-}
-
-/* Розібрати вже прийнятий кадр. */
-void consume(const mavlink_message_t *msg)
-{
-    if (msg->msgid != MAVLINK_MSG_ID_PERIMETER_BEACON_STATUS) {
-        return;
-    }
-    mavlink_perimeter_beacon_status_t st = {0};
-    mavlink_msg_perimeter_beacon_status_decode(msg, &st);
-    /* st.bearing_deg == 0.0f, якщо відправник зібраний без цього розширення */
-}
-```
+:::code api-dialect-xml/c/minimalnyi-robochyi-vyklyk.c
 
 Коментар у другій функції — про єдину пастку цього контракту. `_decode` спершу **забиває всю структуру нулями** й лише потім копіює стільки байтів, скільки їх у кадрі насправді прийшло. Тож поле-розширення, якого в кадрі не було, читається як нуль — рівно так само, як читався б надісланий нуль. Відрізнити ці два випадки з коду неможливо, і саме тому нуль у полі-розширенні мусить означати те саме, що й відсутність поля.
 

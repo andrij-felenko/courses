@@ -38,18 +38,7 @@ _latest — номер, до якого включно все вже доста�
 
 Правильна відповідь спирається на властивість беззнакової арифметики: різниця двох `uint16_t` сама по собі циклічна й дає відстань за колом.
 
-```cpp
-enum class Cmp { older, equal, newer };
-
-static Cmp compare(uint16_t expected, uint16_t incoming)
-{
-    if (expected == incoming) {
-        return Cmp::equal;
-    }
-    const uint16_t diff = static_cast<uint16_t>(incoming - expected);
-    return diff > UINT16_MAX / 2 ? Cmp::older : Cmp::newer;
-}
-```
+:::code proj-event-receiver/cpp/chomu-vidnimannia-a-ne.cpp
 
 Геометрично це виглядає так: усі 65536 номерів лежать на колі, очікуваний стоїть угорі, і півколо праворуч від нього — майбутнє, півколо ліворуч — минуле.
 
@@ -67,60 +56,7 @@ static Cmp compare(uint16_t expected, uint16_t incoming)
 
 Приймач нічого не знає про застосунок, у якому живе: він спілкується зі світом рівно через чотири зворотні виклики, які йому дають при народженні.
 
-```cpp
-#include <common/mavlink.h>
-
-#include <cstdint>
-#include <cstdio>
-#include <functional>
-#include <utility>
-
-#define RX_TRACE(...) printf(__VA_ARGS__)      // слід виконання; у бібліотеці — порожній
-
-class EventReceiver
-{
-public:
-    struct Callbacks {
-        std::function<void(const mavlink_request_event_t &)> send_request;
-        std::function<void(int timeout_ms)>                  timer;    // <0 — вимкнути
-        std::function<void(const mavlink_event_t &)>         deliver;
-        std::function<void(int num_lost)>                    lost;
-    };
-
-    struct Stats { unsigned requests, duplicates, lost_total, reboots; };
-
-    EventReceiver(Callbacks cb, uint8_t our_sysid, uint8_t our_compid,
-                  uint8_t sysid, uint8_t compid)
-        : _cb(std::move(cb)),
-          _our_sysid(our_sysid), _our_compid(our_compid),
-          _sysid(sysid), _compid(compid) {}
-
-    void processMessage(const mavlink_message_t &msg)
-    {
-        if (msg.sysid != _sysid || msg.compid != _compid) {
-            return;                     // цей примірник обслуговує один компонент
-        }
-        switch (msg.msgid) {
-        case MAVLINK_MSG_ID_EVENT:                  onEvent(msg);   break;
-        case MAVLINK_MSG_ID_CURRENT_EVENT_SEQUENCE: onCurrent(msg); break;
-        case MAVLINK_MSG_ID_RESPONSE_EVENT_ERROR:   onError(msg);   break;
-        default: break;
-        }
-    }
-
-    Stats stats() const { return { _requests, _duplicates, _lost_total, _reboots }; }
-
-    /* onTimeout() — тут же, у тілі класу; його показано разом із request()  */
-
-private:
-    /* Cmp і compare() — з попереднього блоку; onEvent, onCurrent, onError,
-       request, checkReboot — теж члени цього ж класу                       */
-
-    const Callbacks _cb;
-    unsigned _requests{0}, _duplicates{0}, _lost_total{0}, _reboots{0};
-    /* решта стану — нижче */
-};
-```
+:::code proj-event-receiver/cpp/karkas.cpp
 
 Далі всі методи й поля живуть у цьому ж тілі класу, тож `compare` видно з `onEvent` незалежно від порядку рядків.
 
@@ -154,52 +90,7 @@ uint8_t  _sysid, _compid;           // джерело
 
 ## Три гілки
 
-```cpp
-void onEvent(const mavlink_message_t &msg)
-{
-    mavlink_event_t ev;
-    mavlink_msg_event_decode(&msg, &ev);
-
-    checkReboot(ev.event_time_boot_ms);
-
-    if (!_has_sequence) {               // перша подія від цього компонента
-        _has_sequence = true;
-        _latest = static_cast<uint16_t>(ev.sequence - 1);
-    }
-
-    switch (compare(static_cast<uint16_t>(_latest + 1), ev.sequence)) {
-    case Cmp::older:                    // дублікат: інваріант його вже покриває
-        RX_TRACE("  дублікат seq=%u\n", unsigned(ev.sequence));
-        ++_duplicates;
-        return;                         // таймер НЕ чіпаємо
-    case Cmp::newer:                    // між _latest і ev.sequence зяє діра
-        RX_TRACE("  пропуск: чекали %u, прийшла %u\n",
-                 unsigned(uint16_t(_latest + 1)), unsigned(ev.sequence));
-        request(static_cast<uint16_t>(_latest + 1));
-        return;                         // саму подію викидаємо
-    case Cmp::equal:
-        break;
-    }
-
-    _latest       = ev.sequence;
-    _last_boot_ms = ev.event_time_boot_ms;
-    _cb.timer(-1);                      // очікуване прийшло — таймер більше не потрібен
-
-    if (_has_current && compare(_latest, _latest_current) == Cmp::newer) {
-        request(static_cast<uint16_t>(_latest + 1));   // борт попереду — просимо далі
-    }
-
-    if (ev.destination_system != _our_sysid && ev.destination_system != 0) {
-        return;
-    }
-    if (ev.destination_component != _our_compid &&
-        ev.destination_component != MAV_COMP_ID_ALL) {
-        return;
-    }
-
-    _cb.deliver(ev);
-}
-```
+:::code proj-event-receiver/cpp/try-hilky.cpp
 
 Чотири місця в цьому методі виглядають довільними, а насправді кожне вимушене.
 
@@ -213,26 +104,7 @@ void onEvent(const mavlink_message_t &msg)
 
 ## Запит і таймер
 
-```cpp
-void request(uint16_t sequence)
-{
-    mavlink_request_event_t req{};
-    req.target_system    = _sysid;
-    req.target_component = _compid;
-    req.first_sequence   = sequence;
-    req.last_sequence    = sequence;
-
-    ++_requests;
-    _cb.send_request(req);
-    _cb.timer(100);      // не прийшло за 100 мс — попросимо ще раз
-}
-
-void onTimeout()
-{
-    RX_TRACE("  таймер: повторюємо запит\n");
-    request(static_cast<uint16_t>(_latest + 1));
-}
-```
+:::code proj-event-receiver/cpp/zapyt-i-taimer.cpp
 
 Повідомлення дозволяє просити діапазон, але ми завжди просимо рівно один номер: `first_sequence == last_sequence`. Причина в тому, що приймач і без діапазону вибирає серію на повній швидкості — кожна прийнята подія одразу тягне наступну, — а от помилитися з діапазоном легко: борт відповідає **окремим повідомленням на кожен номер**, тож запит на тисячу номерів — це тисяча пакетів у вузькому каналі за одне прохання.
 
@@ -242,28 +114,7 @@ void onTimeout()
 
 Буфер на борту вміщає двадцять подій — це звичайний [кільцевий буфер](root:sf-algorithms/ring-buffer), у якому нове витісняє найстаріше. Якщо станція мовчала довше, ніж двадцять подій, запитане вже витіснено, і борт відповідає повідомленням про помилку з полем `sequence_oldest_available`.
 
-```cpp
-void onError(const mavlink_message_t &msg)
-{
-    mavlink_response_event_error_t err;
-    mavlink_msg_response_event_error_decode(&msg, &err);
-
-    if (err.target_system != _our_sysid || err.target_component != _our_compid) {
-        return;                         // відповідь не нам
-    }
-    if (compare(static_cast<uint16_t>(_latest + 1), err.sequence) != Cmp::equal) {
-        return;                         // відповідь не на той номер, якого ми чекаємо
-    }
-
-    const uint16_t num_lost =
-        static_cast<uint16_t>(err.sequence_oldest_available - _latest - 1);
-    _lost_total += num_lost;
-    _cb.lost(num_lost);
-
-    _latest = static_cast<uint16_t>(err.sequence_oldest_available - 1);
-    request(static_cast<uint16_t>(_latest + 1));
-}
-```
+:::code proj-event-receiver/cpp/koly-vidnovyty-nichoho.cpp
 
 Дві перевірки на початку — не формальність. Друга особливо: за той час, поки відповідь ішла каналом, потрібна подія могла надійти іншим шляхом, і тоді `_latest` уже посунувся. Прийняти застарілу відповідь означало б відкинути `_latest` назад і почати все спочатку — приймач просив би вже прийняте по колу.
 
@@ -289,49 +140,13 @@ num_lost = uint16_t(2 − 65531 − 1) = uint16_t(2 − 65532)
 
 Основний сигнал — прапорець у широкомовному повідомленні:
 
-```cpp
-void onCurrent(const mavlink_message_t &msg)
-{
-    mavlink_current_event_sequence_t cur;
-    mavlink_msg_current_event_sequence_decode(&msg, &cur);
-
-    if (cur.flags & MAV_EVENT_CURRENT_SEQUENCE_FLAGS_RESET) {
-        _has_sequence = false;
-        ++_reboots;
-    }
-    if (!_has_sequence) {
-        _has_sequence = true;
-        _latest = cur.sequence;     // не sequence − 1: цієї події ми не бачили й не побачимо
-    }
-
-    if (compare(_latest, cur.sequence) == Cmp::newer) {
-        request(static_cast<uint16_t>(_latest + 1));
-    }
-
-    _has_current    = true;
-    _latest_current = cur.sequence;
-}
-```
+:::code proj-event-receiver/cpp/perezavantazhennia-bortu.cpp
 
 Асиметрія з подією варта окремого слова. Подія ініціалізує стан як `sequence - 1`, бо вона сама мусить бути прийнята. Широкомовне повідомлення ініціалізує як `sequence`, бо воно не є подією: подія з таким номером уже пролетіла повз нас, і просити її нема сенсу — ми щойно ввімкнулися, і все, що було до цієї миті, нас не стосується. Помилка на одиницю тут дала б зайвий запит при кожному з'єднанні.
 
 Але прапорець їде в пакеті, а пакет губиться. Тому поруч стоїть страхувальник, що дивиться на час від увімкнення в самій події:
 
-```cpp
-void checkReboot(uint32_t boot_ms)
-{
-    if (_last_boot_ms == 0) {
-        _last_boot_ms = boot_ms;
-    }
-    if (boot_ms + 10000 < _last_boot_ms && _last_boot_ms < UINT32_MAX - 60000) {
-        RX_TRACE("  перезавантаження борту за часом (%u << %u)\n",
-                 unsigned(boot_ms), unsigned(_last_boot_ms));
-        _has_sequence = false;
-        _has_current  = false;
-        ++_reboots;
-    }
-}
-```
+:::code proj-event-receiver/cpp/perezavantazhennia-bortu-2.cpp
 
 Обидві межі в цій умові — про конкретні хибні спрацювання, і жодна не є магічним числом.
 
@@ -343,127 +158,7 @@ void checkReboot(uint32_t boot_ms)
 
 Чотири зворотні виклики — це чотири шви, і саме вони роблять приймач перевірним без каналу й без апарата: замість реальних дій підставляємо [дублери-шпигуни](root:sf-release/test-doubles), що лише записують факт виклику. Час теж стає керованим — таймер підмінено пустушкою, а його спрацювання стенд викликає рукою в потрібну мить. Повідомлення складаємо тією ж бібліотекою, якою їх складав би борт.
 
-```cpp
-/* збірка:
-     git clone https://github.com/mavlink/c_library_v2
-     c++ -std=c++17 -O2 -Wall -I c_library_v2 receiver.cpp -o receiver   */
-
-namespace {
-
-struct Log { unsigned delivered{}, requests{}, lost{}; } g;
-
-mavlink_message_t packEvent(uint8_t sysid, uint8_t compid,
-                            uint16_t sequence, uint32_t boot_ms)
-{
-    mavlink_event_t ev{};
-    ev.id                    = 0x01352ce4;      // будь-яка подія з метаданих
-    ev.event_time_boot_ms    = boot_ms;
-    ev.sequence              = sequence;
-    ev.log_levels            = 0x62;            // зовнішній Critical, внутрішній Info
-    ev.destination_system    = 0;               // широкомовно
-    ev.destination_component = MAV_COMP_ID_ALL;
-
-    mavlink_message_t msg;
-    mavlink_msg_event_encode(sysid, compid, &msg, &ev);
-    return msg;
-}
-
-mavlink_message_t packCurrent(uint8_t sysid, uint8_t compid,
-                              uint16_t sequence, uint8_t flags)
-{
-    mavlink_current_event_sequence_t cur{};
-    cur.sequence = sequence;
-    cur.flags    = flags;
-
-    mavlink_message_t msg;
-    mavlink_msg_current_event_sequence_encode(sysid, compid, &msg, &cur);
-    return msg;
-}
-
-mavlink_message_t packError(uint8_t sysid, uint8_t compid, uint16_t sequence,
-                            uint16_t oldest, uint8_t our_sysid, uint8_t our_compid)
-{
-    mavlink_response_event_error_t err{};
-    err.target_system             = our_sysid;
-    err.target_component          = our_compid;
-    err.sequence                  = sequence;
-    err.sequence_oldest_available = oldest;
-    err.reason                    = MAV_EVENT_ERROR_REASON_UNAVAILABLE;
-
-    mavlink_message_t msg;
-    mavlink_msg_response_event_error_encode(sysid, compid, &msg, &err);
-    return msg;
-}
-
-}  // namespace
-
-int main()
-{
-    constexpr uint8_t kOurSys = 255, kOurComp = MAV_COMP_ID_MISSIONPLANNER;
-    constexpr uint8_t kSys    = 1,   kComp    = MAV_COMP_ID_AUTOPILOT1;
-
-    EventReceiver::Callbacks cb;
-    cb.send_request = [](const mavlink_request_event_t &req) {
-        ++g.requests;
-        printf("  запит %u\n", unsigned(req.first_sequence));
-    };
-    cb.timer   = [](int /*ms*/) {};                 // час у стенді рухає onTimeout() рукою
-    cb.deliver = [](const mavlink_event_t &ev) {
-        ++g.delivered;
-        printf("  прийнято seq=%u\n", unsigned(ev.sequence));
-    };
-    cb.lost = [](int n) {
-        g.lost += unsigned(n);
-        printf("  втрачено безповоротно %d\n", n);
-    };
-
-    EventReceiver rx(cb, kOurSys, kOurComp, kSys, kComp);
-
-    // 1–2. звичайний хід. Борт стартує з 65535 − 10, тож перша подія — 65526
-    rx.processMessage(packEvent(kSys, kComp, 65526, 30100));
-    rx.processMessage(packEvent(kSys, kComp, 65527, 30250));
-
-    // 3. подія «наперед»: 65528 і 65529 не долетіли
-    rx.processMessage(packEvent(kSys, kComp, 65530, 30800));
-
-    // 4. широкомовний номер підтверджує, що борт уже на 65530
-    rx.processMessage(packCurrent(kSys, kComp, 65530, 0));
-
-    // 5–7. борт віддає пропущене; кожна прийнята подія одразу тягне наступну
-    rx.processMessage(packEvent(kSys, kComp, 65528, 30500));
-    rx.processMessage(packEvent(kSys, kComp, 65529, 30640));
-    rx.processMessage(packEvent(kSys, kComp, 65530, 30800));
-
-    // 8. лічильник підходить до межі
-    rx.processMessage(packEvent(kSys, kComp, 65531, 31200));
-
-    // 9. новий пропуск — цього разу такий, що переживе обертання
-    rx.processMessage(packEvent(kSys, kComp, 65534, 41000));
-
-    // 10. відповіді немає: спрацював таймер
-    rx.onTimeout();
-
-    // 11. борт: цього вже немає, найстаріше доступне — 2 (номер уже за нулем)
-    rx.processMessage(packError(kSys, kComp, 65532, 2, kOurSys, kOurComp));
-
-    // 12. продовжуємо з найстарішого доступного
-    rx.processMessage(packEvent(kSys, kComp, 2, 44300));
-
-    // 13. запізніла копія події 1 — тепер це дублікат
-    rx.processMessage(packEvent(kSys, kComp, 1, 44100));
-
-    // 14. борт перезавантажився, а повідомлення з прапорцем RESET ми проґавили
-    rx.processMessage(packEvent(kSys, kComp, 65526, 1200));
-
-    const auto st = rx.stats();
-    printf("\nдоставлено      %u\n", g.delivered);
-    printf("запитів         %u\n", g.requests);
-    printf("дублікатів      %u\n", st.duplicates);
-    printf("втрачено        %u\n", g.lost);
-    printf("перезавантажень %u\n", st.reboots);
-    return 0;
-}
-```
+:::code proj-event-receiver/cpp/receiver.cpp
 
 Друк:
 

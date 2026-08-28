@@ -81,58 +81,8 @@ q_err = q_d ⊗ q⁻¹
 **Приклад: момент довороту з похибки-кватерніона.** Апарат нахилений, ціль — рівний горизонт; порахуймо векторну частину похибки й момент по одній осі.
 
 :::tabs
-```c
-typedef struct { float w, x, y, z; } quat;
-
-// q_err = q_d ⊗ q_meas⁻¹  (обидва одиничні)
-quat quat_error(quat qd, quat qm) {
-    quat qi = { qm.w, -qm.x, -qm.y, -qm.z };   // обернений = спряжений
-    quat e;
-    e.w = qd.w*qi.w - qd.x*qi.x - qd.y*qi.y - qd.z*qi.z;
-    e.x = qd.w*qi.x + qd.x*qi.w + qd.y*qi.z - qd.z*qi.y;
-    e.y = qd.w*qi.y - qd.x*qi.z + qd.y*qi.w + qd.z*qi.x;
-    e.z = qd.w*qi.z + qd.x*qi.y - qd.y*qi.x + qd.z*qi.w;
-    return e;
-}
-
-// момент по трьох осях: PD за векторною частиною + демпфування по ω
-void attitude_torque(quat qd, quat qm, const float w[3],
-                     float Kp, float Kd, float tau[3]) {
-    quat e = quat_error(qd, qm);
-    if (e.w < 0.0f) {           // короткий шлях: не крутити «навколо світу»
-        e.x = -e.x; e.y = -e.y; e.z = -e.z;
-    }
-    tau[0] = -Kp*e.x - Kd*w[0];
-    tau[1] = -Kp*e.y - Kd*w[1];
-    tau[2] = -Kp*e.z - Kd*w[2];
-}
-```
-```python
-# кватерніон — четвірка (w, x, y, z)
-
-def quat_error(qd, qm):
-    """q_err = q_d ⊗ q_meas⁻¹  (обидва одиничні)"""
-    qi = (qm[0], -qm[1], -qm[2], -qm[3])   # обернений = спряжений
-    aw, ax, ay, az = qd
-    bw, bx, by, bz = qi
-    return (
-        aw*bw - ax*bx - ay*by - az*bz,
-        aw*bx + ax*bw + ay*bz - az*by,
-        aw*by - ax*bz + ay*bw + az*bx,
-        aw*bz + ax*by - ay*bx + az*bw,
-    )
-
-def attitude_torque(qd, qm, w, Kp, Kd):
-    """момент по трьох осях: PD за векторною частиною + демпфування по ω"""
-    ew, ex, ey, ez = quat_error(qd, qm)
-    if ew < 0.0:           # короткий шлях: не крутити «навколо світу»
-        ex, ey, ez = -ex, -ey, -ez
-    return (
-        -Kp*ex - Kd*w[0],
-        -Kp*ey - Kd*w[1],
-        -Kp*ez - Kd*w[2],
-    )
-```
+:::code quaternion-attitude-control-d/c/main.c
+:::code quaternion-attitude-control-d/py/main.py
 :::
 
 Нехай похибка вийшла невеликою: `e = (0.996, 0.00, 0.087, 0.00)` — це поворот на ≈10° навколо осі y (нахил уперед). Тоді при `Kp = 4.0` момент по осі y:

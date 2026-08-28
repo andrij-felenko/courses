@@ -40,56 +40,7 @@
 
 Тридцять два слова по 64 біти. Три операції: підняти біт, знайти перший нуль від позиції, знайти першу одиницю від позиції.
 
-```cpp
-#include <algorithm>
-#include <array>
-#include <bit>
-#include <cstdint>
-
-constexpr uint32_t kChunk  = 90;                        // байтів у одному LOG_DATA
-constexpr uint32_t kBins   = 2048;                      // кошиків у вікні
-constexpr uint64_t kWindow = uint64_t(kChunk) * kBins;  // 184 320 Б
-
-class Bits {
-public:
-    void clear() { w_.fill(0ull); }
-    void set(uint32_t i)        { w_[i >> 6] |= 1ull << (i & 63); }
-    bool test(uint32_t i) const { return (w_[i >> 6] >> (i & 63) & 1ull) != 0; }
-
-    // перший нуль у [from, bins); bins, якщо нулів немає
-    uint32_t firstZero(uint32_t from, uint32_t bins) const {
-        for (uint32_t k = from >> 6; k * 64 < bins; ++k) {
-            uint64_t free = ~w_[k];
-            const uint32_t base = k * 64;
-            if (base < from) free &= ~0ull << (from - base);      // лівий край
-            const uint32_t width = std::min(64u, bins - base);
-            if (width < 64)  free &= (1ull << width) - 1;         // хвіст поза вікном
-            if (free) return base + uint32_t(std::countr_zero(free));
-        }
-        return bins;
-    }
-
-    // перша одиниця у [from, bins); bins, якщо одиниць далі немає
-    uint32_t firstOne(uint32_t from, uint32_t bins) const {
-        for (uint32_t k = from >> 6; k * 64 < bins; ++k) {
-            uint64_t v = w_[k];
-            const uint32_t base = k * 64;
-            if (base < from) v &= ~0ull << (from - base);
-            if (v) return std::min(bins, base + uint32_t(std::countr_zero(v)));
-        }
-        return bins;
-    }
-
-    uint32_t countZeros(uint32_t from, uint32_t to) const {
-        uint32_t n = 0;
-        for (uint32_t i = from; i < to; ++i) if (!test(i)) ++n;
-        return n;
-    }
-
-private:
-    std::array<uint64_t, kBins / 64> w_{};
-};
-```
+:::code proj-log-downloader/cpp/tablytsia-vikna.cpp
 
 Обидва пошуки йдуть по словах, а не по бітах: слово, у якому всі біти підняті, після інверсії дорівнює нулю й проскакується однією перевіркою, а в непорожньому слові позицію дає [пошук крайнього одиничного біта](root:sf-algorithms/bit-scan-clz-ctz) — `std::countr_zero`, одна процесорна інструкція замість циклу на 64 кроки. Прохід по цілому вікну — тридцять два слова, десятки наносекунд.
 
@@ -99,40 +50,7 @@ private:
 
 Пакети лягають не по черзі, а кожен за своїм зсувом, тож файл треба спершу розтягнути на повну довжину, а потім писати в довільні його місця.
 
-```cpp
-#include <cerrno>
-#include <cstdio>
-#include <fcntl.h>
-#include <unistd.h>
-
-class LogFile {
-public:
-    bool open(const char* path, uint64_t size) {
-        fd_ = ::open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        if (fd_ < 0) return false;
-        return ::ftruncate(fd_, off_t(size)) == 0;   // розтягуємо наперед
-    }
-
-    bool writeAt(uint64_t ofs, const uint8_t* p, uint32_t n) {
-        while (n) {
-            const ssize_t k = ::pwrite(fd_, p, n, off_t(ofs));
-            if (k < 0) { if (errno == EINTR) continue; return false; }
-            p += k;  n -= uint32_t(k);  ofs += uint64_t(k);
-        }
-        return true;
-    }
-
-    bool finish(uint64_t realSize) {
-        bool ok = (::ftruncate(fd_, off_t(realSize)) == 0);
-        ok = (::fsync(fd_) == 0) && ok;              // один раз, наприкінці
-        ::close(fd_);  fd_ = -1;
-        return ok;
-    }
-
-private:
-    int fd_ = -1;
-};
-```
+:::code proj-log-downloader/cpp/fail-u-iakyi-pyshut.cpp
 
 `pwrite` замість пари «перемотати — записати» — це один системний виклик замість двох і, що важливіше, жодного спільного стану: у дескриптора є власна позиція, і два потоки, які по черзі роблять `seek` і `write`, рано чи пізно запишуть один одному в чуже місце. `pwrite` позиції не чіпає взагалі, зсув їде аргументом. Цикл навколо нього — не педантизм: короткий запис і переривання сигналом [обірвуть виклик](root:sys-unix/eintr-and-restart) на півслові, повернувши менше байтів, ніж просили, і мовчки втрачений хвіст пакета проявиться лише тоді, коли файл спробують прочитати. На Windows тому самому відповідає `WriteFile` зі структурою `OVERLAPPED`, у якій зсув задається полем, а не станом дескриптора.
 
@@ -142,76 +60,7 @@ private:
 
 Стан — це номер відкритого вікна, його таблиця, межі щойно запитаного прогону й два лічильники часу.
 
-```cpp
-using Ms = uint64_t;                     // монотонний час у мілісекундах
-
-constexpr Ms       kIdle     = 500;      // тиша, після якої вважаємо чергу обірваною
-constexpr Ms       kIdleMax  = 3000;     // стеля очікування
-constexpr uint32_t kRetryCap = 20;       // безплідних спроб поспіль до відмови
-constexpr uint32_t kMerge    = 8;        // прийнятих кошиків, які дешевше перепросити
-
-struct Transport {
-    virtual ~Transport() = default;
-    virtual void requestData(uint16_t id, uint32_t ofs, uint32_t count) = 0;
-    virtual void requestEnd() = 0;
-};
-
-struct Stats {
-    uint64_t written = 0, dup = 0, stale = 0, unaligned = 0, foreign = 0, malformed = 0;
-    uint64_t requests = 0, repeats = 0;
-};
-
-class Downloader {
-public:
-    enum class State { Running, Done, Failed };
-
-    Downloader(Transport& tx, LogFile& out, uint16_t id, uint64_t declared)
-        : tx_(tx), out_(out), id_(id), size_(declared) {}
-
-    State        state() const { return state_; }
-    uint64_t     size()  const { return size_;  }
-    const Stats& stats() const { return stat_;  }
-
-    void start(Ms now) {
-        now_ = lastData_ = now;
-        window_ = 0;  bins_ = binsIn(0);  table_.clear();
-        requestGap();
-    }
-
-    void onLogData(uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data, Ms now);
-    void onTick(Ms now);
-
-private:
-    void requestGap();
-    void shrinkTo(uint64_t realEnd);
-    void finish(uint64_t realSize, State how) {
-        state_ = how;
-        tx_.requestEnd();                // звільняємо бортовий логер
-        out_.finish(realSize);
-    }
-    uint32_t binsIn(uint64_t win) const {
-        const uint64_t n = (size_ - win * kWindow + kChunk - 1) / kChunk;
-        return uint32_t(n < kBins ? n : kBins);
-    }
-    uint64_t goodPrefix() const {        // скільки байтів з початку файлу справді суцільні
-        const uint64_t p = window_ * kWindow + uint64_t(table_.firstZero(0, bins_)) * kChunk;
-        return p < size_ ? p : size_;
-    }
-
-    Transport& tx_;
-    LogFile&   out_;
-    uint16_t   id_;
-    uint64_t   size_;                    // оголошений, а далі — уточнений
-    uint64_t   window_ = 0;
-    uint32_t   bins_ = 0;
-    Bits       table_;
-    uint32_t   reqStart_ = 0, reqEnd_ = 0, pending_ = 0;
-    uint32_t   retries_ = 0;
-    Ms         now_ = 0, lastData_ = 0;
-    State      state_ = State::Running;
-    Stats      stat_;
-};
-```
+:::code proj-log-downloader/cpp/avtomat-zavantazhennia.cpp
 
 `pending_` — це кількість кошиків, яких ще бракує в щойно запитаному прогоні. Тільки заради нього ми запам'ятовуємо межі `reqStart_`/`reqEnd_`, і навіщо — стане видно за два розділи.
 
@@ -219,39 +68,7 @@ private:
 
 Порядок перевірок тут не косметичний: кожна наступна має сенс лише тоді, коли попередня пройшла.
 
-```cpp
-void Downloader::onLogData(uint16_t id, uint32_t ofs, uint8_t count,
-                           const uint8_t* data, Ms now)
-{
-    now_ = now;
-    if (state_ != State::Running) return;
-    if (id != id_)      { ++stat_.foreign;   return; }   // відповідь про інший запис
-    if (ofs % kChunk)   { ++stat_.unaligned; return; }   // зсув не з нашої сітки
-    if (count > kChunk) { ++stat_.malformed; return; }   // поле зіпсоване
-
-    if (count == 0) {                                    // за цим зсувом уже нічого немає
-        shrinkTo(ofs);
-        requestGap();
-        return;
-    }
-    if (count < kChunk) shrinkTo(uint64_t(ofs) + count); // короткий пакет буває лише в кінці
-
-    const uint64_t win = uint64_t(ofs) / kWindow;
-    if (win != window_) { ++stat_.stale; return; }       // чуже вікно
-    const uint32_t bin = uint32_t((uint64_t(ofs) - window_ * kWindow) / kChunk);
-    if (bin >= bins_)   { ++stat_.stale; return; }       // за кінцем цього вікна
-
-    lastData_ = now_;                                    // черга йде — навіть якщо це дублікат
-    if (table_.test(bin)) { ++stat_.dup; return; }
-    if (!out_.writeAt(ofs, data, count)) { finish(goodPrefix(), State::Failed); return; }
-
-    table_.set(bin);
-    ++stat_.written;
-    retries_ = 0;                                        // поступ є
-    if (bin >= reqStart_ && bin < reqEnd_ && --pending_ == 0)
-        requestGap();                                    // прогін добито
-}
-```
+:::code proj-log-downloader/cpp/pryiom-paketa.cpp
 
 Перевірка кратності 90 виглядає надлишковою, поки не згадати, що зсув у пакеті не звірений ні з чим: він приходить таким, яким його поставив відправник, а відправників на лінії буває більше за одного. Кошика для некратного зсуву в таблиці немає, і покласти такий пакет «десь поруч» означало б записати правдоподібне сміття в середину файлу.
 
@@ -263,42 +80,7 @@ void Downloader::onLogData(uint16_t id, uint32_t ofs, uint8_t count,
 
 Одна функція робить три різні речі — відкриває нове вікно, латає дірку й завершує роботу, — і робить їх однаково, бо всі три є відповіддю на те саме питання «де в таблиці перший нуль».
 
-```cpp
-void Downloader::requestGap()
-{
-    if (state_ != State::Running) return;
-    if (window_ * kWindow >= size_) { finish(size_, State::Done); return; }
-
-    uint32_t start = table_.firstZero(0, bins_);
-    if (start == bins_) {                          // у вікні жодної дірки
-        ++window_;
-        if (window_ * kWindow >= size_) { finish(size_, State::Done); return; }
-        table_.clear();
-        bins_ = binsIn(window_);
-        reqStart_ = reqEnd_ = pending_ = 0;
-        retries_ = 0;
-        requestGap();                              // нове вікно просимо цілком
-        return;
-    }
-
-    uint32_t end = table_.firstOne(start, bins_);
-    for (;;) {                                     // зливаємо близькі дірки
-        const uint32_t next = table_.firstZero(end, bins_);
-        if (next >= bins_ || next - end > kMerge) break;
-        end = table_.firstOne(next, bins_);
-    }
-
-    const uint64_t ofs = window_ * kWindow + uint64_t(start) * kChunk;
-    uint64_t cnt = uint64_t(end - start) * kChunk;
-    if (ofs + cnt > size_) cnt = size_ - ofs;      // не просимо за кінцем файлу
-
-    reqStart_ = start;  reqEnd_ = end;
-    pending_  = table_.countZeros(start, end);
-    lastData_ = now_;                              // тишу рахуємо від моменту запиту
-    ++stat_.requests;
-    tx_.requestData(id_, uint32_t(ofs), uint32_t(cnt));
-}
-```
+:::code proj-log-downloader/cpp/z-dirky-narodzhuietsia.cpp
 
 Свіже вікно — це таблиця з самих нулів, у якій перший нуль стоїть на нулі, а наступна одиниця не знаходиться зовсім, тобто прогін дорівнює всьому вікну. Тож перший запит нового вікна автоматично виходить на всі 184 320 байтів, і жодного окремого коду для «відкрити вікно» писати не треба.
 
@@ -324,24 +106,7 @@ void Downloader::requestGap()
 
 Просити повторно можна тільки за одним сигналом — тишею. Її і слухає єдина зовнішня функція, яку хтось мусить кликати періодично.
 
-```cpp
-void Downloader::onTick(Ms now)
-{
-    now_ = now;
-    if (state_ != State::Running) return;
-
-    const Ms wait = std::min<Ms>(kIdle * (retries_ + 1), kIdleMax);
-    if (now_ - lastData_ < wait) return;                        // черга ще йде
-
-    if (retries_ >= kRetryCap) {                                // канал мовчить остаточно
-        finish(goodPrefix(), State::Failed);
-        return;
-    }
-    ++retries_;
-    ++stat_.repeats;
-    requestGap();
-}
-```
+:::code proj-log-downloader/cpp/taimer-skhodynka-i-stelia.cpp
 
 Половина секунди тут не з голови: на повному каналі пакети йдуть кожні дев'ятнадцять мілісекунд, тож 500 мс — це двадцять шість пропущених пакетів поспіль, тобто вже не пауза, а обрив. Знизу поріг обмежений затримкою ланки: чекати менше, ніж повний оберт, означає перепитувати те, що ще летить, — і в каналі, який і так ледве тягне, з'явиться другий такий самий потік. Він витіснить перший, втрати зростуть, таймер спрацює ще раз, і ланка задушить сама себе; це той випадок, коли [неправильно налаштовані повтори](root:sf-distributed/retries-backoff) шкодять більше за саму втрату.
 
@@ -351,18 +116,7 @@ void Downloader::onTick(Ms now)
 
 Останній шматок автомата — уточнення розміру.
 
-```cpp
-void Downloader::shrinkTo(uint64_t realEnd)
-{
-    if (realEnd >= size_) return;                    // оголошений розмір не збільшуємо
-    size_ = realEnd;
-    if (window_ * kWindow >= size_) return;
-    bins_ = binsIn(window_);                         // хвостове вікно стало коротшим
-    if (reqStart_ > bins_) reqStart_ = bins_;
-    if (reqEnd_   > bins_) reqEnd_   = bins_;
-    pending_ = table_.countZeros(reqStart_, reqEnd_);
-}
-```
+:::code proj-log-downloader/cpp/taimer-skhodynka-i-stelia-2.cpp
 
 Він потрібен тому, що розмір із переліку записів документація описує дослівно як такий, що **може бути приблизним**. Оголошений розмір придатний рівно на одне — розтягнути файл наперед із запасом. Критерієм завершення він бути не може: якщо апарат назвав більше, ніж має, останні кошики не заповняться ніколи. Правду каже сам потік даних: пакет із `count` меншим за 90 буває лише на хвості файлу, а пакет із `count == 0` прямо означає «за цим зсувом немає нічого». Обидва випадки дають точний кінець, і після нього таблиця відкритого вікна вкорочується, а прогін, який ми встигли попросити, підрізається по новому краю.
 
@@ -374,63 +128,7 @@ void Downloader::shrinkTo(uint64_t realEnd)
 
 Код, що ловить рідкісні збіги втрат і перестановок, неможливо налагодити на справжньому апараті: помилка трапляється раз на кілька тисяч пакетів і не відтворюється. Тому джерело підробляється — з керованим відсотком втрат, керованим безладом і одним і тим самим результатом на тому самому зерні генератора. Це та сама думка, що й у [симуляторі в контурі](root:sys-dron/sitl-simulator), тільки в мініатюрі: замінити залізо моделлю рівно там, де від заліза потрібна одна властивість — псувати потік.
 
-```cpp
-#include <cstdlib>
-#include <cstring>
-#include <deque>
-#include <random>
-#include <vector>
-
-class FakeVehicle final : public Transport {
-public:
-    FakeVehicle(std::vector<uint8_t> log, uint32_t seed,
-                double loss, double reorder, double skew)
-        : log_(std::move(log)), rng_(seed), loss_(loss), reorder_(reorder), skew_(skew) {}
-
-    uint64_t declaredSize() const { return log_.size() + 1234; }   // «розмір приблизний»
-
-    void requestData(uint16_t id, uint32_t ofs, uint32_t count) override {
-        // черга навмисне НЕ чиститься: пакети попереднього запиту ще летять
-        for (uint32_t p = 0; p < count; p += kChunk) {
-            Packet pk{};
-            pk.id  = id;
-            pk.ofs = ofs + p;
-            if (pk.ofs >= log_.size()) { air_.push_back(pk); break; }   // count == 0
-            const uint32_t left = uint32_t(log_.size() - pk.ofs);
-            pk.count = uint8_t(left < kChunk ? left : kChunk);
-            std::memcpy(pk.data, log_.data() + pk.ofs, pk.count);
-            air_.push_back(pk);
-        }
-    }
-
-    void requestEnd() override { air_.clear(); }
-
-    bool pump(Downloader& dl, Ms now) {                 // один «квант ефіру»
-        if (air_.empty()) return false;
-        Packet pk = air_.front();
-        air_.pop_front();
-        if (chance(loss_)) return true;                 // згинув у радіо
-        if (chance(reorder_) && !air_.empty()) {        // прийде пізніше за сусідів
-            const size_t k = 1 + rng_() % std::min<size_t>(8, air_.size());
-            air_.insert(air_.begin() + k, pk);
-            return true;
-        }
-        if (chance(skew_)) pk.ofs += 1;                 // збитий зсув
-        dl.onLogData(pk.id, pk.ofs, pk.count, pk.data, now);
-        return true;
-    }
-
-private:
-    struct Packet { uint16_t id = 0; uint32_t ofs = 0; uint8_t count = 0; uint8_t data[kChunk]; };
-    bool chance(double p) { return dist_(rng_) < p; }
-
-    std::vector<uint8_t> log_;
-    std::deque<Packet>   air_;
-    std::mt19937         rng_;
-    std::uniform_real_distribution<double> dist_{0.0, 1.0};
-    double loss_, reorder_, skew_;
-};
-```
+:::code proj-log-downloader/cpp/aparat-iakoho-nemaie.cpp
 
 Три рядки тут коштують більше, ніж здаються.
 
@@ -442,49 +140,7 @@ private:
 
 ## Прогін
 
-```cpp
-int main(int argc, char** argv)
-{
-    const uint32_t seed = (argc > 1) ? uint32_t(std::strtoul(argv[1], nullptr, 10)) : 1u;
-    const double   loss = (argc > 2) ? std::strtod(argv[2], nullptr) : 0.05;
-
-    std::vector<uint8_t> log(3u << 20);              // 3 МіБ «бортового файлу»
-    std::mt19937 filler(0xC0FFEE);
-    for (uint8_t& b : log) b = uint8_t(filler());
-
-    FakeVehicle veh(log, seed, loss, /*перестановки*/ 0.03, /*збитий зсув*/ 0.001);
-    LogFile out;
-    if (!out.open("log_7.ulg", veh.declaredSize())) { std::perror("open"); return 1; }
-
-    Downloader dl(veh, out, /*id*/ 7, veh.declaredSize());
-    Ms now = 0;
-    dl.start(now);
-    while (dl.state() == Downloader::State::Running && now < 3600u * 1000u) {
-        now += 19;                                   // кадр 109 Б на 57600 бод
-        veh.pump(dl, now);
-        dl.onTick(now);
-    }
-
-    const Stats& s = dl.stats();
-    std::printf("зерно %u, втрати %.0f%%, модельний час %llu с, стан: %s\n",
-                seed, loss * 100, (unsigned long long)(now / 1000),
-                dl.state() == Downloader::State::Done ? "готово" : "здалися");
-    std::printf("кошиків %llu, дублікатів %llu, чужих вікон %llu, збитих зсувів %llu\n",
-                (unsigned long long)s.written, (unsigned long long)s.dup,
-                (unsigned long long)s.stale,   (unsigned long long)s.unaligned);
-    std::printf("запитів %llu, з них за таймером %llu\n",
-                (unsigned long long)s.requests, (unsigned long long)s.repeats);
-
-    std::vector<uint8_t> back(dl.size());
-    FILE* f = std::fopen("log_7.ulg", "rb");
-    const size_t got = std::fread(back.data(), 1, back.size(), f);
-    std::fclose(f);
-    std::printf("файл %zu Б, збіг із джерелом: %s\n", got,
-                (got == log.size() && std::memcmp(back.data(), log.data(), got) == 0)
-                    ? "побайтовий" : "РОЗБІЖНІСТЬ");
-    return 0;
-}
-```
+:::code proj-log-downloader/cpp/prohin.cpp
 
 ```
 g++ -std=c++20 -O2 -Wall -Wextra downloader.cpp -o downloader

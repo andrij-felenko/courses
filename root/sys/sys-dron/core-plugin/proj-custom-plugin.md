@@ -71,37 +71,7 @@ set(QGC_ORG_DOMAIN "skylark.example"  CACHE STRING "Org Domain" FORCE)
 
 ## Крок 2. Що тека каже збірці про себе
 
-```cmake
-# custom/CMakeLists.txt — усе, що апстримова збірка про нас дізнається
-
-# 1. Три імені, на яких тримається підміна класу.
-set(CUSTOM_DEFINITIONS
-    QGC_CUSTOM_BUILD
-    CUSTOMHEADER="CustomPlugin.h"
-    CUSTOMCLASS=CustomPlugin
-    CACHE INTERNAL "" FORCE
-)
-
-# 2. Наші файли — їх компілюють разом із застосунком, одним модулем.
-set(CUSTOM_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
-    CACHE INTERNAL "" FORCE
-)
-
-# 3. Де препроцесор шукатиме CustomPlugin.h, дійшовши до #include CUSTOMHEADER.
-set(CUSTOM_INCLUDE_DIRECTORIES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    CACHE INTERNAL "" FORCE
-)
-
-# 4. Модулі Qt, потрібні саме нашому кодові понад ті, що апстрим шукає й так.
-set(CUSTOM_QT_COMPONENTS Core Qml CACHE INTERNAL "" FORCE)
-
-# 5. Наш ресурсний файл — у хвіст списку ресурсів застосунку.
-set(QGC_RESOURCES ${QGC_RESOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/custom.qrc
-    CACHE STRING "Paths to .qrc Resources" FORCE)
-```
+:::code proj-custom-plugin/cmake/CMakeLists.txt
 
 Жоден із цих п'яти блоків нічого не робить сам. Вони лише кладуть значення в кеш, а забирає їх апстримовий `src/CMakeLists.txt`:
 
@@ -135,66 +105,7 @@ CUSTOMHEADER="CustomPlugin.h"
 
 ## Крок 3. Заголовок
 
-```cpp
-// custom/src/CustomPlugin.h
-#pragma once
-
-#include <QtQml/QQmlAbstractUrlInterceptor>
-
-#include "QGCCorePlugin.h"
-#include "QGCOptions.h"
-#include "QGCPalette.h"
-
-class CustomPlugin;
-
-/// Прапорці: що показувати й що дозволяти саме в нашому продукті.
-class CustomOptions : public QGCOptions
-{
-    Q_OBJECT
-public:
-    explicit CustomOptions(CustomPlugin *plugin, QObject *parent = nullptr);
-
-    // Прошивку оновлює лише той, хто свідомо ввімкнув розширений режим.
-    bool showFirmwareUpgrade() const final;
-
-    // Апарат приїжджає відкаліброваним — майстри покупцеві ні до чого.
-    bool showSensorCalibrationCompass() const final { return false; }
-    bool showSensorCalibrationLevel()   const final { return false; }
-
-private:
-    CustomPlugin *_plugin = nullptr;
-};
-
-/// Перехоплювач адрес: підмінює файл ресурсу, не чіпаючи місць виклику.
-class CustomOverrideInterceptor : public QQmlAbstractUrlInterceptor
-{
-public:
-    QUrl intercept(const QUrl &url,
-                   QQmlAbstractUrlInterceptor::DataType type) final;
-};
-
-class CustomPlugin : public QGCCorePlugin
-{
-    Q_OBJECT
-public:
-    explicit CustomPlugin(QObject *parent = nullptr);
-    ~CustomPlugin() override;
-
-    /// ⚠️ Обов'язковий: саме сюди веде CUSTOMCLASS::instance() в апстримі.
-    static CustomPlugin *instance();
-
-    void init() final;
-
-    QGCOptions *options() final;
-    void paletteOverride(const QString &colorName,
-                         QGCPalette::PaletteColorInfo_t &colorInfo) final;
-    QQmlApplicationEngine *createQmlApplicationEngine(QObject *parent) final;
-
-private:
-    CustomOptions *_options = nullptr;
-    CustomOverrideInterceptor *_interceptor = nullptr;
-};
-```
+:::code proj-custom-plugin/cpp/krok-3-zaholovok.hpp
 
 Три речі варті окремого погляду.
 
@@ -206,109 +117,7 @@ private:
 
 ## Крок 4. Реалізація
 
-```cpp
-// custom/src/CustomPlugin.cc
-#include "CustomPlugin.h"
-
-#include <QtCore/QApplicationStatic>
-#include <QtCore/QFile>
-#include <QtQml/QQmlApplicationEngine>
-
-// ── Прапорці ─────────────────────────────────────────────────────────────
-
-CustomOptions::CustomOptions(CustomPlugin *plugin, QObject *parent)
-    : QGCOptions(parent)
-    , _plugin(plugin)
-{
-}
-
-bool CustomOptions::showFirmwareUpgrade() const
-{
-    return _plugin->showAdvancedUI();
-}
-
-// ── Перехоплювач адрес ───────────────────────────────────────────────────
-
-QUrl CustomOverrideInterceptor::intercept(const QUrl &url,
-                                          QQmlAbstractUrlInterceptor::DataType type)
-{
-    Q_UNUSED(type)
-
-    if (url.scheme() != QStringLiteral("qrc")) {
-        return url;                       // файли з диска нас не обходять
-    }
-
-    const QString overridePath = QStringLiteral("/Custom") + url.path();
-    if (!QFile::exists(QStringLiteral(":") + overridePath)) {
-        return url;                       // копії немає — хай іде стандартний
-    }
-
-    QUrl overridden(url);
-    overridden.setPath(overridePath);
-    return overridden;
-}
-
-// ── Саме розширення ──────────────────────────────────────────────────────
-
-Q_APPLICATION_STATIC(CustomPlugin, _customPluginInstance);
-
-CustomPlugin *CustomPlugin::instance()
-{
-    return _customPluginInstance();
-}
-
-CustomPlugin::CustomPlugin(QObject *parent)
-    : QGCCorePlugin(parent)
-{
-    // Порожньо навмисно: див. нижче про момент виклику.
-}
-
-CustomPlugin::~CustomPlugin()
-{
-    delete _interceptor;                  // власника в нього немає
-}
-
-void CustomPlugin::init()
-{
-    QGCCorePlugin::init();
-    // Тут — усе, що потребує піднятих підсистем застосунку.
-}
-
-QGCOptions *CustomPlugin::options()
-{
-    if (!_options) {
-        _options = new CustomOptions(this, this);
-    }
-    return _options;
-}
-
-void CustomPlugin::paletteOverride(const QString &colorName,
-                                   QGCPalette::PaletteColorInfo_t &colorInfo)
-{
-    if (colorName == QStringLiteral("window")) {
-        colorInfo[QGCPalette::Dark][QGCPalette::ColorGroupEnabled]   = QColor("#12161f");
-        colorInfo[QGCPalette::Dark][QGCPalette::ColorGroupDisabled]  = QColor("#12161f");
-        colorInfo[QGCPalette::Light][QGCPalette::ColorGroupEnabled]  = QColor("#f4f6fa");
-        colorInfo[QGCPalette::Light][QGCPalette::ColorGroupDisabled] = QColor("#f4f6fa");
-    } else if (colorName == QStringLiteral("primaryButton")) {
-        colorInfo[QGCPalette::Dark][QGCPalette::ColorGroupEnabled]   = QColor("#2f7d5b");
-        colorInfo[QGCPalette::Dark][QGCPalette::ColorGroupDisabled]  = QColor("#41514a");
-        colorInfo[QGCPalette::Light][QGCPalette::ColorGroupEnabled]  = QColor("#2f7d5b");
-        colorInfo[QGCPalette::Light][QGCPalette::ColorGroupDisabled] = QColor("#9fb3aa");
-    }
-    // Решта кольорів лишається типовою — метод просто нічого не пише.
-}
-
-QQmlApplicationEngine *CustomPlugin::createQmlApplicationEngine(QObject *parent)
-{
-    QQmlApplicationEngine *const engine =
-        QGCCorePlugin::createQmlApplicationEngine(parent);
-
-    _interceptor = new CustomOverrideInterceptor();
-    engine->addUrlInterceptor(_interceptor);   // до завантаження першого екрана
-    return engine;
-}
-```
+:::code proj-custom-plugin/cpp/krok-4-realizatsiia.cpp
 
 `Q_APPLICATION_STATIC` — макрос Qt, що заводить функцію, яка створює об'єкт при першому виклику й знищує його разом із об'єктом застосунку. Так виходить [єдиний примірник із відкладеним створенням](root:sf-apps/singleton), без гонитви на старті й без порядку знищення глобальних об'єктів, який у C++ не визначений.
 
@@ -405,29 +214,7 @@ cmake --build build
 
 Власні складені елементи місії заводяться двома методами: один віддає список назв, другий збирає елемент за назвою. Компілятор не звіряє їх між собою ніяк — це два незалежні шматки коду, зв'язані лише рядком. Розбіжність в один символ означає, що пункт у меню плану є, а натискання на нього не створює нічого.
 
-```cpp
-// Одне джерело правди для обох методів — і назва живе в одному місці
-static constexpr char kPerimeterScan[] = "PerimeterScan";
-
-QVariantList CustomPlugin::complexMissionItemNames(Vehicle *vehicle)
-{
-    QVariantList names = QGCCorePlugin::complexMissionItemNames(vehicle);
-    names.append(QString::fromLatin1(kPerimeterScan));
-    return names;
-}
-
-ComplexMissionItem *CustomPlugin::createComplexMissionItem(
-        const QString &complexItemType, PlanMasterController *masterController,
-        bool flyView, const QString &kmlOrShpFile)
-{
-    if (complexItemType == QLatin1String(kPerimeterScan)) {
-        return new PerimeterScanItem(masterController, flyView, kmlOrShpFile);
-    }
-    // ⚠️ Без цього рядка зникнуть ВСІ штатні патерни зйомки
-    return QGCCorePlugin::createComplexMissionItem(
-        complexItemType, masterController, flyView, kmlOrShpFile);
-}
-```
+:::code proj-custom-plugin/cpp/spysok-i-fabryka.cpp
 
 Другі граблі тут — остання строчка. Обидва методи спершу питають базовий клас і лише потім додають своє; хто про це забув, той разом зі своїм елементом викинув із застосунку полігон, коридор і решту штатних [елементів місії](root:sys-dron/mission-items), причому нічого не зламавши формально.
 
@@ -463,24 +250,7 @@ bool CustomPlugin::mavlinkMessage(Vehicle *vehicle, LinkInterface *link,
 
 Дешева сторожа проти першого випадку — перевірити на старті, що апстримові оригінали наших підмін ще існують:
 
-```cpp
-void CustomPlugin::init()
-{
-    QGCCorePlugin::init();
-
-    // Ті самі шляхи, під які підроблені псевдоніми в custom.qrc
-    static constexpr const char *kOverridden[] = {
-        "/qmlimages/PaperPlane.svg",
-        "/qml/QGroundControl/FlyView/FlyViewCustomLayer.qml",
-    };
-
-    for (const char *path : kOverridden) {
-        if (!QFile::exists(QStringLiteral(":") + QLatin1String(path))) {
-            qWarning() << "Підміна мертва: апстрим більше не має" << path;
-        }
-    }
-}
-```
+:::code proj-custom-plugin/cpp/pereimenuvannia-v-apstrymi.cpp
 
 Це кілька рядків, які перетворюють мовчазну втрату поведінки на видиме попередження в журналі при першому ж запуску після оновлення. Проти другого випадку — переписаного змісту — коду не існує: єдиний захист тут у тому, щоб підміняти якнайменше файлів і читати зміни апстриму саме в них.
 

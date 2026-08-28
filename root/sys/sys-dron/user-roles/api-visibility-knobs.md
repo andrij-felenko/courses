@@ -120,21 +120,7 @@ virtual QColor toolbarBackgroundDark()  const { return QColorConstants::Black; }
 
 Об'єкт політних опцій не реєструється ніде окремо: застосунок бере той, який віддав `flyViewOptions()`. Тому підміна робиться не в самому `QGCFlyViewOptions`, а на поверх вище — у своєму `QGCOptions`:
 
-```cpp
-class CustomFlyViewOptions : public QGCFlyViewOptions
-{
-    Q_OBJECT
-
-public:
-    explicit CustomFlyViewOptions(CustomOptions *options, QObject *parent = nullptr);
-
-    bool showInstrumentPanel() const final { return false; }   // у збірці своя панель приладів
-    bool showMultiVehicleList() const final { return false; }
-};
-
-// у CustomOptions:
-QGCFlyViewOptions *flyViewOptions() const final { return _flyViewOptions; }
-```
+:::code api-visibility-knobs/cpp/iak-pidstavyty-svoi.cpp
 
 Дві дрібниці, на яких спотикаються.
 
@@ -153,36 +139,7 @@ QGCFlyViewOptions *flyViewOptions() const final { return _flyViewOptions; }
 
 Друга половина правила стосується `NOTIFY`-перемикачів, і вона теж не очевидна: **базовий клас не випромінює жодного з цих сигналів**. Увесь `QGCOptions.cc` — це два конструктори, два деструктори й дві категорії журналу; слова `emit` там немає жодного разу. Якщо твій геттер залежить від стану, випромінити сигнал — твій обов'язок. Апстримний `custom-example` показує обидві половини разом:
 
-```cpp
-class CustomOptions : public QGCOptions
-{
-    Q_OBJECT
-
-public:
-    explicit CustomOptions(CustomPlugin *plugin, QObject *parent = nullptr);
-
-    // showFirmwareUpgrade оголошено з NOTIFY — його МОЖНА в'язати до стану
-    bool showFirmwareUpgrade() const final { return _plugin->showAdvancedUI(); }
-
-private:
-    QGCCorePlugin *_plugin = nullptr;
-};
-
-CustomPlugin::CustomPlugin(QObject *parent)
-    : QGCCorePlugin(parent)
-    , _options(new CustomOptions(this, this))
-{
-    _showAdvancedUI = false;   // збірка стартує БЕЗ поглибленого шару
-    (void) connect(this, &QGCCorePlugin::showAdvancedUIChanged,
-                   this, &CustomPlugin::_advancedChanged);
-}
-
-void CustomPlugin::_advancedChanged(bool changed)
-{
-    // базовий QGCOptions цього не зробить за тебе
-    emit _options->showFirmwareUpgradeChanged(changed);
-}
-```
+:::code api-visibility-knobs/cpp/constant-chy-notify.cpp
 
 Зверни увагу, звідки саме йде `emit`: сигнал належить об'єктові опцій, а випромінює його розширення — тобто чужий клас. Компілятор це пропускає, бо `signals:` розкривається в `public:`, і апстрим цим користується. Охайніша альтернатива, якщо не хочеш смикати чужі сигнали ззовні, — тримати слот у самих похідних опціях і підписувати на зміну вже його.
 
@@ -190,21 +147,7 @@ void CustomPlugin::_advancedChanged(bool changed)
 
 ### showAdvancedUI
 
-```cpp
-Q_PROPERTY(bool showAdvancedUI READ showAdvancedUI WRITE _setShowAdvancedUI NOTIFY showAdvancedUIChanged)
-
-public:
-    bool showAdvancedUI() const { return _showAdvancedUI; }
-
-signals:
-    void showAdvancedUIChanged(bool showAdvancedUI);
-
-protected:
-    bool _showAdvancedUI = true;
-
-private:
-    void _setShowAdvancedUI(bool show);
-```
+:::code api-visibility-knobs/cpp/showadvancedui.hpp
 
 ```cpp
 void QGCCorePlugin::_setShowAdvancedUI(bool show)
@@ -280,21 +223,7 @@ virtual void adjustSettingMetaData(const QString &settingsGroup, FactMetaData &m
 
 Аргумент `userVisible` — вхідно-вихідний: приходить із чинним значенням, і чіпати його треба лише тоді, коли справді хочеш його змінити. Зміст його не «сховати»: **`false` означає «прибрати з інтерфейсу й лишити діяти значення за замовчуванням»**. Тобто налаштування не просто зникає з очей — воно ще й примусово повертається до типового, хоч би що там колись зберіг користувач у попередній збірці. Разом із `setRawDefaultValue()` це дає пришпилювання: величина фіксується на потрібному числі й більше не редагується ніким.
 
-```cpp
-void CustomPlugin::adjustSettingMetaData(const QString &settingsGroup,
-                                         FactMetaData &metaData, bool &userVisible)
-{
-    QGCCorePlugin::adjustSettingMetaData(settingsGroup, metaData, userVisible);  // не з'їдай базові правки
-
-    if (settingsGroup == AppSettings::settingsGroup) {
-        if (metaData.name() == AppSettings::offlineEditingFirmwareClassName) {
-            metaData.setRawDefaultValue(QGCMAVLink::FirmwareClassPX4);
-            userVisible = false;   // клас прошивки в цій збірці один і назавжди
-            return;
-        }
-    }
-}
-```
+:::code api-visibility-knobs/cpp/adjustsettingmetadata.cpp
 
 Перший рядок тут не ввічливість. Базова реалізація сама щось править, і майже все, що вона править, — платформне. На Android вона ховає налаштування тривимірного оглядача (`Viewer3DSettings::enabled`) — а отже, за щойно описаним правилом, ще й примусово його вимикає: відмальовка 3D на тамтешніх драйверах ненадійна. На Android та iOS ставить `false` типовим для збереження телеметрії. Типову палітру — «в приміщенні» чи «надворі» — теж вибирає за платформою. Пропустиш виклик базової — тихо втратиш усе це, і збірка почне поводитись інакше рівно там, де ти цього не планував.
 

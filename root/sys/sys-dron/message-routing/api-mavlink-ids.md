@@ -152,46 +152,8 @@ static constexpr uint8_t kMaxCompId = MAV_COMPONENT_ENUM_END - 1;
 Команда «зброїтись», у якій усі чотири адреси видно явно. Вихідні дані ті самі: станція 255/190 наказує автопілотові апарата 1.
 
 :::tabs
-```c
-/* Бік прошивки: пакування кадру бібліотекою MAVLink C.
-   Перші два аргументи — ХТО шле, наступні два — КОМУ. */
-mavlink_message_t msg;
-
-mavlink_msg_command_long_pack(
-    255,                                /* sysid            — наш номер системи   */
-    MAV_COMP_ID_MISSIONPLANNER,         /* compid           — наш номер компонента = 190 */
-    &msg,
-    1,                                  /* target_system    — апарат номер 1      */
-    MAV_COMP_ID_AUTOPILOT1,             /* target_component — його автопілот = 1  */
-    MAV_CMD_COMPONENT_ARM_DISARM,       /* команда 400                            */
-    0,                                  /* confirmation                           */
-    1.0f,                               /* param1: 1 — зброїти, 0 — розброїти     */
-    0, 0, 0, 0, 0, 0);
-
-uint8_t buf[MAVLINK_MAX_PACKET_LEN];
-const uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
-port_write(buf, len);
-```
-```python
-# Бік землі: pymavlink. Номери ставимо явно — на замовчування покладатися не можна:
-# source_system=255 збігається з номером QGroundControl, а source_component=0 узагалі недійсний.
-from pymavlink import mavutil
-
-link = mavutil.mavlink_connection(
-    'udpin:0.0.0.0:14550',
-    source_system=254,                       # друга станція: 255 уже зайнято
-    source_component=mavutil.mavlink.MAV_COMP_ID_MISSIONPLANNER)   # 190
-
-link.wait_heartbeat()                        # звідси беруться адреси апарата
-print(link.target_system, link.target_component)
-
-link.mav.command_long_send(
-    link.target_system,                      # target_system
-    mavutil.mavlink.MAV_COMP_ID_AUTOPILOT1,  # target_component = 1
-    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-    0,                                       # confirmation
-    1, 0, 0, 0, 0, 0, 0)                     # param1 = 1 — зброїти
-```
+:::code api-mavlink-ids/c/main.h
+:::code api-mavlink-ids/py/main.py
 :::
 
 `wait_heartbeat()` у другому прикладі робить те саме, що станція при першому знайомстві: чекає на перший `HEARTBEAT` і запам'ятовує пару чисел із його заголовка як адресу співрозмовника. Тому цей рядок і є найкоротшою перевіркою всієї роздачі номерів — якщо надрукована пара не та, на яку ви розраховували, шукати причину треба до того, як полетить перша команда.

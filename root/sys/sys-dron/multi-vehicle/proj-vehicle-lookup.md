@@ -72,159 +72,17 @@ int main() { printf("%zu\n", sizeof(mavlink_message_t)); }   // 296 на 64-бі
 
 Спершу повідомлення тієї самої ваги й апарат із тим самим фільтром на вході:
 
-```cpp
-// dispatch-bench.cpp — c++17
-//   g++ -O2 -std=c++17 dispatch-bench.cpp -o dispatch-bench
-#include <array>
-#include <chrono>
-#include <cstdint>
-#include <cstdio>
-#include <utility>
-#include <vector>
-
-constexpr uint32_t MSG_HEARTBEAT    = 0;
-constexpr uint32_t MSG_RADIO_STATUS = 109;
-
-// Розкладка поле-в-поле збігається з mavlink_message_t — отже, і вага.
-struct Message {
-    uint16_t checksum;
-    uint8_t  magic, len, incompat_flags, compat_flags, seq, sysid, compid;
-    uint32_t msgid : 24;
-    uint64_t payload64[(255 + 2 + 7) / 8];
-    uint8_t  ck[2];
-    uint8_t  signature[13];
-};
-static_assert(sizeof(Message) == 296, "розкладка розійшлася з mavlink_message_t");
-
-struct Vehicle {
-    int         sysid              = 0;
-    int         defaultComponentId = 1;      // MAV_COMP_ID_AUTOPILOT1
-    const void *link               = nullptr;
-    uint64_t    accepted           = 0;
-
-    bool usesLink(const void *l) const { return l == link; }
-
-    void onMessage(const void *l, const Message &m) {
-        // Перший рівень: чи взагалі мій номер системи.
-        if (m.sysid != sysid && m.sysid != 0) {
-            if (!(m.msgid == MSG_RADIO_STATUS && usesLink(l))) {
-                return;
-            }
-        }
-        // Другий рівень: чи це автопілот, а не підвіс під тим самим номером.
-        // У застосунку ця перевірка стоїть у кожному обробнику окремо.
-        if (m.compid != defaultComponentId) {
-            return;
-        }
-        accepted += m.len;                   // «робота» замість справжнього тіла
-    }
-};
-```
+:::code proj-vehicle-lookup/cpp/dispatch-bench.cpp
 
 Тепер найтонше місце всієї вимірювальної затії. Якщо викликати `onMessage` прямо, компілятор із `-O2` вбудує її в цикл, побачить, що з 296 байтів читаються три, і **викине копію разом із рештою структури** — а ми якраз копію й міряємо. У застосунку викинути її нікому: виклик іде через збережений вказівник, і компілятор у момент компіляції не знає, куди саме. Відтворімо це чесно — списком пар «одержувач + функція», тобто рівно тим, що тримає всередині себе будь-який диспетчер сигналів:
 
-```cpp
-using SlotByValue = void (*)(Vehicle *, const void *, Message);
-using SlotByRef   = void (*)(Vehicle *, const void *, const Message &);
-
-// Різниця між цими двома функціями — один символ «&» у параметрі.
-void slotByValue(Vehicle *v, const void *l, Message m)         { v->onMessage(l, m); }
-void slotByRef  (Vehicle *v, const void *l, const Message &m)  { v->onMessage(l, m); }
-
-// ── Схема 1: віддати всім, хай кожен фільтрує сам ────────────────────────
-struct FanoutBus {
-    std::vector<std::pair<Vehicle *, SlotByValue>> byValue;
-    std::vector<std::pair<Vehicle *, SlotByRef>>   byRef;
-
-    void subscribe(Vehicle *v) {
-        byValue.emplace_back(v, &slotByValue);
-        byRef.emplace_back(v, &slotByRef);
-    }
-    void deliverByValue(const void *l, const Message &m) {
-        for (const auto &c : byValue) { c.second(c.first, l, m); }   // копія кожному
-    }
-    void deliverByRef(const void *l, const Message &m) {
-        for (const auto &c : byRef) { c.second(c.first, l, m); }     // копій нема
-    }
-};
-
-// ── Схема 2: таблиця «номер системи → об'єкт» ─────────────────────────────
-struct TableBus {
-    std::array<Vehicle *, 256> bySysid{};    // 256 · 8 Б = 2 КБ, лізе в перший рівень кешу
-    std::vector<Vehicle *>     all;          // для того, що адресоване не одному
-
-    void add(Vehicle *v) { bySysid[v->sysid] = v; all.push_back(v); }
-
-    void remove(Vehicle *v) {
-        if (bySysid[v->sysid] == v) { bySysid[v->sysid] = nullptr; }
-        for (size_t i = 0; i < all.size(); ++i) {
-            if (all[i] == v) { all.erase(all.begin() + i); break; }
-        }
-    }
-
-    void deliver(const void *l, const Message &m) {
-        if (m.sysid == 0) {                              // джерело не назвало себе
-            for (Vehicle *v : all) { v->onMessage(l, m); }
-            return;
-        }
-        if (m.msgid == MSG_RADIO_STATUS) {               // доповідь модема про канал
-            for (Vehicle *v : all) {
-                if (v->usesLink(l)) { v->onMessage(l, m); }
-            }
-            return;
-        }
-        if (Vehicle *v = bySysid[m.sysid]) { v->onMessage(l, m); }
-    }
-};
-```
+:::code proj-vehicle-lookup/cpp/obydvi-skhemy-robochym.cpp
 
 Зверніть увагу на розмір таблиці: **256 комірок і жодної більше**. Номер системи — один байт, тобто ключ уже є індексом, і краще за пряме індексування тут не зробить ніщо. [Хеш-таблиця](root:sf-algorithms/hash-table) розв'язує задачу «ключів багато, простір ключів величезний, треба стиснути його в компактний масив» — тут стискати нема чого: досконала геш-функція для однобайтового ключа є, і це тотожність. Два кілобайти вказівників — це [таблиця прямого доступу](root:sf-algorithms/lookup-table), яка вміщається в [перший рівень кешу](root:hw-arch/cache) цілком і не має ні колізій, ні перебору ланцюжків, ні перебудови при зростанні.
 
 І прогін:
 
-```cpp
-template <class Dispatch>
-double nsPerMessage(Dispatch dispatch, const std::vector<Message> &stream, int rounds) {
-    using clock = std::chrono::steady_clock;
-    const auto t0 = clock::now();
-    for (int r = 0; r < rounds; ++r) {
-        for (const Message &m : stream) { dispatch(m); }
-    }
-    const double ns = std::chrono::duration<double, std::nano>(clock::now() - t0).count();
-    return ns / (double(rounds) * double(stream.size()));
-}
-
-int main() {
-    static const int radioLink = 0;          // один канал на всіх, як наземний модем
-    const void *link = &radioLink;
-
-    for (int N : {1, 2, 5, 10, 20, 50}) {
-        std::vector<Vehicle> vehicles(size_t(N));
-        FanoutBus fan;
-        TableBus  tab;
-        for (int i = 0; i < N; ++i) {
-            vehicles[size_t(i)].sysid = i + 1;
-            vehicles[size_t(i)].link  = link;
-            fan.subscribe(&vehicles[size_t(i)]);
-            tab.add(&vehicles[size_t(i)]);
-        }
-
-        std::vector<Message> stream(1024);   // потік від усіх N апаратів упереміш
-        for (size_t i = 0; i < stream.size(); ++i) {
-            stream[i].sysid  = uint8_t(1 + int(i) % N);
-            stream[i].compid = 1;
-            stream[i].msgid  = MSG_HEARTBEAT;
-            stream[i].len    = 9;
-        }
-
-        const double a = nsPerMessage([&](const Message &m) { fan.deliverByValue(link, m); }, stream, 4000);
-        const double b = nsPerMessage([&](const Message &m) { fan.deliverByRef  (link, m); }, stream, 4000);
-        const double c = nsPerMessage([&](const Message &m) { tab.deliver       (link, m); }, stream, 4000);
-        printf("N=%3d   всім, копія %7.1f нс   всім, посилання %7.1f нс   таблиця %6.1f нс\n",
-               N, a, b, c);
-    }
-}
-```
+:::code proj-vehicle-lookup/cpp/obydvi-skhemy-robochym-2.cpp
 
 Числа тут навмисно не наведені: вони належать вашій машині, вашому компілятору й вашому рівню оптимізації, а не статті. Наведена **форма** результату, і саме за нею перевіряють, чи вимір узагалі відбувся. Перша колонка мусить рости приблизно лінійно з N; друга — теж лінійно, але з помітно меншим нахилом; третя — стояти майже на місці. Якщо перші дві колонки збіглися, копію все-таки викинули: збирайте без міжмодульної оптимізації або гляньте на асемблер. Якщо третя колонка теж поповзла вгору — ви міряєте не диспетчер, а обхід масиву `stream`, і його треба зменшити, щоб він лишався в кеші. Про те, як не наміряти власного вимірювального приладу, — у [профілюванні](root:sf-release/profiling).
 

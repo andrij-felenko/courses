@@ -179,45 +179,8 @@ python -m pymavlink.tools.mavgen \
 Одне й те саме повідомлення в кодеках двох мов виглядає по-різному на вигляд і однаково по суті:
 
 :::tabs
-```c
-/* Згенеровано з common.xml — руками не правити. */
-typedef struct __mavlink_attitude_t {
-    uint32_t time_boot_ms;   /* зміщення 0 — 4-байтове поле попереду */
-    float roll;              /* 4  */
-    float pitch;             /* 8  */
-    float yaw;               /* 12 */
-    float rollspeed;         /* 16 */
-    float pitchspeed;        /* 20 */
-    float yawspeed;          /* 24 */
-} mavlink_attitude_t;        /* усього 28 байтів */
-
-#define MAVLINK_MSG_ID_ATTITUDE_CRC 39
-
-/* Пакування у кадр: заповнює msg і рахує CRC разом із CRC_EXTRA. */
-uint16_t mavlink_msg_attitude_pack(uint8_t sysid, uint8_t compid,
-                                   mavlink_message_t *msg,
-                                   uint32_t time_boot_ms,
-                                   float roll, float pitch, float yaw,
-                                   float rollspeed, float pitchspeed, float yawspeed);
-
-/* Розпакування: розкладає корисні дані отриманого кадру по полях. */
-void mavlink_msg_attitude_decode(const mavlink_message_t *msg,
-                                 mavlink_attitude_t *attitude);
-```
-```python
-# Згенеровано з common.xml — руками не правити.
-class MAVLink_attitude_message(MAVLink_message):
-    id = 30
-    name = 'ATTITUDE'
-    # порядок полів — дротовий, той самий, що в C-структурі
-    fieldnames = ['time_boot_ms', 'roll', 'pitch', 'yaw',
-                  'rollspeed', 'pitchspeed', 'yawspeed']
-    format = '<Iffffff'          # рядок пакування: I = uint32, f = float, < = little-endian
-    crc_extra = 39
-
-    def __init__(self, time_boot_ms, roll, pitch, yaw,
-                 rollspeed, pitchspeed, yawspeed): ...
-```
+:::code mavlink-xml-codegen-d/c/main.h
+:::code mavlink-xml-codegen-d/py/main.py
 :::
 
 Обидва кодеки виводять з опису те саме: порядок полів, довжину корисних даних, число 30 і відбиток 39. У C це стало щільною структурою й набором функцій, у Python — класом із рядком формату для стандартного пакувальника; байти на дроті виходять однакові.

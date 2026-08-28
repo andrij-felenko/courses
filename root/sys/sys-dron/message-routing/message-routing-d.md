@@ -87,19 +87,7 @@ typedef struct __mavlink_msg_entry {
 
 Читання адресата з довільного кадру виглядає так:
 
-```c
-uint8_t target_sys = 0, target_comp = 0;   // 0 — «широкомовно»
-const mavlink_msg_entry_t *e = mavlink_get_msg_entry(msg->msgid);
-
-if (e) {
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM) {
-        target_sys = _MAV_PAYLOAD(msg)[e->target_system_ofs];
-    }
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT) {
-        target_comp = _MAV_PAYLOAD(msg)[e->target_component_ofs];
-    }
-}
-```
+:::code message-routing-d/c/main.c
 
 Незнайомий номер повідомлення дає `e == NULL` — і кадр лишається з адресою «нулі», тобто широкомовним. Це свідомо безпечна відмова: невідоме розсилається всім, а не губиться. Як на цій основі будується справжній маршрутизатор — з таблицею «кого й на якому каналі я вже чув» і захистом від петель — розібрано [окремо, з робочим кодом](root:sys-dron/message-routing/proj-router-dispatch.md).
 
@@ -230,23 +218,7 @@ static int getComponentId() { return MAV_COMP_ID_MISSIONPLANNER; }
 
 Іноді трафік потрібен ще комусь: другій станції, скрипту на pymavlink, симулятору. У QGroundControl для цього є перемикач «Enable MAVLink forwarding» (вимкнений за замовчуванням) і поле з адресою вузла. Ось увесь механізм:
 
-```cpp
-void MAVLinkProtocol::_forward(const mavlink_message_t& message)
-{
-    if (message.msgid == MAVLINK_MSG_ID_SETUP_SIGNING) {
-        return;
-    }
-    if (!SettingsManager::instance()->mavlinkSettings()->forwardMavlink()->rawValue().toBool()) {
-        return;
-    }
-    SharedLinkInterfacePtr forwardingLink = LinkManager::instance()->mavlinkForwardingLink();
-    if (!forwardingLink) {
-        return;
-    }
-    const QByteArray bytes = MAVLinkSigning::serializeUnsignedCopy(message);
-    (void)forwardingLink->writeBytesThreadSafe(bytes.constData(), bytes.size());
-}
-```
+:::code message-routing-d/cpp/main.cpp
 
 Прочитаймо, чого тут **немає**. Немає звернення до таблиці зсувів — адресат кадру не цікавить нікого. Немає таблиці «кого я чув на якому каналі». Немає вибору каналу: канал рівно один. Немає зворотного шляху — те, що прилетить від вузла-одержувача, станція ігнорує.
 

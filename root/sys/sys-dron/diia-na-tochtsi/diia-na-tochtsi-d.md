@@ -167,21 +167,7 @@ typedef enum {
     SOLENOID_ERR_OVERCURRENT_SHORT   // коротке замикання (струм понад поріг)
 } solenoid_status_t;
 ```
-```cpp
-#include <cstdint>
-
-namespace drone::payload {
-
-// Класифікація результату спрацьовування соленоїда за профілем струму
-enum class SolenoidStatus : uint8_t {
-    Released = 0,        // успішний скид (виявлено індуктивний провал)
-    OpenCircuit,         // обрив ланцюга (струм відсутній)
-    MechanicalJam,       // заклинювання сердечника (провал відсутній)
-    OvercurrentShort     // коротке замикання (струм понад поріг)
-};
-
-} // namespace drone::payload
-```
+:::code diia-na-tochtsi-d/cpp/diahnostyka-solenoida-za.cpp
 :::
 
 ---
@@ -223,111 +209,8 @@ enum class SolenoidStatus : uint8_t {
 Нижче наведено інтерфейсні структури та диспетчер дій місії мовами C та C++.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Типи дій корисного навантаження в польотному плані
-typedef enum {
-    PAYLOAD_ACTION_NONE = 0,
-    PAYLOAD_ACTION_TRIGGER_SHUTTER,
-    PAYLOAD_ACTION_SET_DISTANCE_TRIGGER,
-    PAYLOAD_ACTION_SET_ROI,
-    PAYLOAD_ACTION_CLEAR_ROI,
-    PAYLOAD_ACTION_RELEASE_CARGO
-} payload_action_type_t;
-
-// Параметри команди на точці
-typedef struct {
-    payload_action_type_t type;
-    union {
-        struct {
-            float distance_interval_m;
-        } cam_dist;
-        struct {
-            double latitude;
-            double longitude;
-            float altitude_m;
-        } roi;
-        struct {
-            uint16_t release_timeout_ms;
-            uint8_t  retry_limit;
-        } drop;
-    } params;
-} mission_payload_cmd_t;
-
-// Стан виконання поточної дії
-typedef enum {
-    ACTION_STATUS_IDLE = 0,
-    ACTION_STATUS_RUNNING,
-    ACTION_STATUS_COMPLETED,
-    ACTION_STATUS_FAILED
-} action_status_t;
-
-// Публічні виклики інтерфейсу
-void payload_subsystem_init(void);
-action_status_t payload_dispatch_cmd(const mission_payload_cmd_t *cmd);
-void payload_subsystem_tick_50hz(void);
-```
-```cpp
-#include <cstdint>
-#include <variant>
-#include <optional>
-#include <expected>
-
-namespace drone::payload {
-
-// Типи дій корисного навантаження
-enum class ActionStatus : uint8_t {
-    Idle = 0,
-    Running,
-    Completed,
-    Failed
-};
-
-enum class ActionError : uint8_t {
-    InvalidParameter,
-    HardwareFault,
-    Timeout,
-    Busy
-};
-
-struct CameraDistanceConfig {
-    float distance_interval_m{0.0f};
-};
-
-struct RoiTargetLocation {
-    double latitude{0.0};
-    double longitude{0.0};
-    float altitude_m{0.0f};
-};
-
-struct CargoReleaseConfig {
-    uint16_t release_timeout_ms{400};
-    uint8_t  retry_limit{3};
-};
-
-struct ShutterPulseCommand {};
-struct ClearRoiCommand {};
-
-using MissionPayloadAction = std::variant<
-    ShutterPulseCommand,
-    CameraDistanceConfig,
-    RoiTargetLocation,
-    ClearRoiCommand,
-    CargoReleaseConfig
->;
-
-class IPayloadSubsystem {
-public:
-    virtual ~IPayloadSubsystem() = default;
-    virtual std::expected<void, ActionError> executeAction(const MissionPayloadAction& action) = 0;
-    virtual ActionStatus getActionStatus() const noexcept = 0;
-    virtual void processPeriodic50Hz() noexcept = 0;
-};
-
-} // namespace drone::payload
-```
+:::code diia-na-tochtsi-d/c/stdint.h
+:::code diia-na-tochtsi-d/cpp/arkhitektura-ta-prohramna.cpp
 :::
 
 Повний проект із робочою логікою автоматів станів, фільтрацією брязкоту кінцевика, математикою наведення та обробкою кільцевого буфера подій міститься у [виконавчому модулі підсистеми навантаження](root:sys-dron/diia-na-tochtsi/proj-payload-mission-executor.md).

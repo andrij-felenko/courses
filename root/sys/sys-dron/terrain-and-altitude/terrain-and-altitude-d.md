@@ -77,23 +77,7 @@ enum AltitudeFrame {
 
 Так і зроблено. Елемент місії тримає окремий факт `altitude` — це рівно те, що бачить і редагує користувач, у вибраному режимі. І тримає `param7` — сире поле протоколу. Коли режим не потребує перерахунку, вони збігаються. Коли потребує, зв'язок такий:
 
-```cpp
-void SimpleMissionItem::_terrainAltChanged(void)
-{
-    if (_altitudeFrame == AltitudeFrameCalcAboveTerrain || _altitudeFrame == AltitudeFrameTerrain) {
-        if (qIsNaN(terrainAltitude())) {
-            // NaN — ознака того, що рельєф ще не приїхав
-            if (_altitudeFrame == AltitudeFrameCalcAboveTerrain) {
-                _missionItem._param7Fact.setRawValue(qQNaN());
-            }
-            _amslAltAboveTerrainFact.setRawValue(qQNaN());
-        } else {
-            double newAboveTerrain = terrainAltitude() + _altitudeFact.rawValue().toDouble();
-            ...
-        }
-    }
-}
-```
+:::code terrain-and-altitude-d/cpp/dvi-vysoty-v-odnomu.cpp
 
 Тут видно три речі одразу.
 
@@ -122,18 +106,7 @@ return terrainReady ? ReadyForSave : NotReadyForSaveTerrain;
 
 **Ступінь другий — злиття запитів у пачки.** Запити від усіх елементів плану сходяться в один спільний накопичувач. Той тримає таймер на 500 мілісекунд і, коли той спрацьовує, склеює всі накопичені координати в одне звернення — щонайбільше 50 координат за раз:
 
-```cpp
-while (!_requestQueue.isEmpty()) {
-    const QueuedRequestInfo_t requestInfo = _requestQueue.dequeue();
-    const SentRequestInfo_t sentRequestInfo = { requestInfo.terrainAtCoordinateQuery,
-                                                requestInfo.coordinates.count() };
-    _sentRequests.append(sentRequestInfo);
-    coords += requestInfo.coordinates;
-    if (coords.count() > 50) {
-        break;
-    }
-}
-```
+:::code terrain-and-altitude-d/cpp/zvidky-stantsiia-bere.cpp
 
 Разом із координатами накопичувач запам'ятовує, **скільки** координат прислав кожен замовник. Відповідь приходить одним пласким списком висот — і розрізається назад по тих самих довжинах, кожному своя частина. Це класичне [злиття запитів](root:sf-distributed/request-coalescing): план на сотню елементів дає два звернення до мережі замість сотні. Поки попередня пачка ще не повернулася, таймер просто перезапускається, тож відкритим одночасно лишається не більш ніж одне звернення.
 

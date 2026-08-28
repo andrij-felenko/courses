@@ -10,148 +10,23 @@
 
 Домен заданий намертво: код живе в прошивці або в бортовому демоні, працює на кожному байті лінії й не має права ні на алокації, ні на несподівані затримки. Це C.
 
-```c
-#include <mavlink.h>          /* c_library_v2, зібрана з XML-опису діалекту мережі */
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define NCHAN         3       /* 0 — UART, 1 — USB, 2 — UDP.                     */
-                              /* MAVLINK_COMM_NUM_BUFFERS мусить бути ≥ NCHAN:   */
-                              /* у кожного каналу свій стан збирання кадру.      */
-#define ROUTE_MAX     24
-#define ROUTE_TTL_MS  30000u  /* чому саме стільки — наприкінці */
-
-typedef struct {
-    uint8_t  sysid, compid;   /* адреса вузла — пара, не одне число */
-    uint8_t  chan;            /* канал, на якому його чули          */
-    uint32_t seen_ms;         /* коли чули востаннє                 */
-} route_t;
-
-static route_t routes[ROUTE_MAX];
-static uint8_t route_n;
-
-/* Єдина зовнішня залежність усього моста. */
-extern void chan_write(uint8_t chan, const uint8_t *buf, uint16_t len);
-
-static bool fresh(const route_t *r, uint32_t now)
-{
-    return (uint32_t)(now - r->seen_ms) <= ROUTE_TTL_MS;
-}
-```
+:::code proj-mavlink-router/c/tablytsia-pochutoho.c
 
 Вік запису рахуємо **відніманням у беззнаковій арифметиці**, а не порівнянням `now > seen_ms + TTL`. Різниця не косметична: перша форма правильно переживає обертання лічильника мілісекунд, друга на ньому ламається й оголошує всю таблицю свіжою рівно тоді, коли апарат уже кілька тижнів у повітрі.
 
 Ключ запису — трійка, а не пара. Той самий вузол цілком законно чути на кількох каналах одразу, коли до нього ведуть два шляхи; тоді пересилати треба в обидва, і кожен шлях мусить мати свій рядок.
 
-```c
-static void route_learn(uint8_t sysid, uint8_t compid, uint8_t chan, uint32_t now)
-{
-    if (sysid == 0 || compid == 0)      /* нуль не буває адресою відправника */
-        return;
-
-    uint8_t  victim = 0;
-    uint32_t oldest = 0;
-
-    for (uint8_t i = 0; i < route_n; i++) {
-        route_t *r = &routes[i];
-        if (r->sysid == sysid && r->compid == compid && r->chan == chan) {
-            r->seen_ms = now;           /* знайомий вузол на знайомому каналі */
-            return;
-        }
-        uint32_t age = now - r->seen_ms;
-        if (age >= oldest) { oldest = age; victim = i; }
-    }
-
-    if (route_n < ROUTE_MAX)                         /* є вільне місце        */
-        routes[route_n++] = (route_t){ sysid, compid, chan, now };
-    else if (oldest > ROUTE_TTL_MS)                  /* витісняємо лиш протухле */
-        routes[victim]   = (route_t){ sysid, compid, chan, now };
-    /* інакше таблиця повна живими вузлами — новачка не запам'ятовуємо */
-}
-```
+:::code proj-mavlink-router/c/tablytsia-pochutoho-2.c
 
 ### Куди віддавати
 
 Рішення зручно виражати бітовою маскою каналів: її легко скласти з дозволів і так само легко відняти від неї заборони.
 
-```c
-/* Канали, де чули названу ціль. tcomp = 0 — будь-який вузол системи tsys. */
-static uint8_t target_mask(uint8_t tsys, uint8_t tcomp, uint32_t now)
-{
-    if (tsys == 0)                              /* оголошення — потенційно всім */
-        return (uint8_t)((1u << NCHAN) - 1u);
-
-    uint8_t mask = 0;
-    for (uint8_t i = 0; i < route_n; i++) {
-        const route_t *r = &routes[i];
-        if (!fresh(r, now))              continue;
-        if (r->sysid != tsys)            continue;
-        if (tcomp && r->compid != tcomp) continue;
-        mask |= (uint8_t)(1u << r->chan);
-    }
-    return mask;                                /* 0 — пари не чули ніде: мовчимо */
-}
-
-/* Канали, на яких ми вже чули самого відправника цього пакета. */
-static uint8_t source_mask(uint8_t sysid, uint8_t compid, uint32_t now)
-{
-    uint8_t mask = 0;
-    for (uint8_t i = 0; i < route_n; i++) {
-        const route_t *r = &routes[i];
-        if (fresh(r, now) && r->sysid == sysid && r->compid == compid)
-            mask |= (uint8_t)(1u << r->chan);
-    }
-    return mask;
-}
-```
+:::code proj-mavlink-router/c/kudy-viddavaty.c
 
 ### Гарячий шлях
 
-```c
-/* Кому призначено пакет. Зсуви полів target_* бере генератор з XML-опису. */
-static void packet_target(const mavlink_message_t *m, uint8_t *tsys, uint8_t *tcomp)
-{
-    const mavlink_msg_entry_t *e = mavlink_get_msg_entry(m->msgid);
-
-    *tsys = *tcomp = 0;                  /* немає адресата → оголошення для всіх */
-    if (!e) return;
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM)
-        *tsys  = _MAV_PAYLOAD(m)[e->target_system_ofs];
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT)
-        *tcomp = _MAV_PAYLOAD(m)[e->target_component_ofs];
-}
-
-/* now — монотонний час у мілісекундах; from — номер каналу, звідки байти. */
-void router_feed(uint8_t from, const uint8_t *in, size_t n, uint32_t now)
-{
-    mavlink_message_t msg;
-    mavlink_status_t  st;
-
-    for (size_t i = 0; i < n; i++) {
-        /* from служить і номером каналу парсера: стан збирання в кожного свій */
-        if (!mavlink_parse_char(from, in[i], &msg, &st))
-            continue;                            /* кадр ще не зібрано або битий */
-
-        route_learn(msg.sysid, msg.compid, from, now);
-
-        uint8_t tsys, tcomp;
-        packet_target(&msg, &tsys, &tcomp);
-
-        uint8_t mask = target_mask(tsys, tcomp, now);
-        mask &= (uint8_t)~(1u << from);                            /* не назад   */
-        mask &= (uint8_t)~source_mask(msg.sysid, msg.compid, now); /* і не в коло */
-        if (!mask) continue;
-
-        uint8_t  out[MAVLINK_MAX_PACKET_LEN];
-        uint16_t len = mavlink_msg_to_send_buffer(out, &msg);
-
-        for (uint8_t c = 0; c < NCHAN; c++)
-            if (mask & (1u << c))
-                chan_write(c, out, len);
-    }
-}
-```
+:::code proj-mavlink-router/c/hariachyi-shliakh.c
 
 Кадр пересилаємо **як є**: не перепідписуємо, не перенумеровуємо `seq`, не чіпаємо жодного байта корисних даних. `mavlink_msg_to_send_buffer` збирає той самий кадр, включно з блоком підпису, якщо [пакет підписаний](root:sys-dron/mavlink-v2-signing) — а міст, який змінив би бодай байт, зробив би підпис недійсним і сам себе перетворив на порушника.
 

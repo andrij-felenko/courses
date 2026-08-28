@@ -135,18 +135,7 @@ QGroundControl знімає це питання, а не розв'язує: ро
 
 Канал видається з бітової маски зайнятих:
 
-```cpp
-uint8_t LinkManager::allocateMavlinkChannel()
-{
-    for (uint8_t ch = 0; ch < MAVLINK_COMM_NUM_BUFFERS; ch++) {
-        if (_mavlinkChannelsUsedBitMask & (1 << ch)) continue;
-        mavlink_reset_channel_status(ch);
-        _mavlinkChannelsUsedBitMask |= (1 << ch);
-        return ch;
-    }
-    return invalidMavlinkChannel();
-}
-```
+:::code threading-model-d/cpp/main.cpp
 
 Тут немає ані замка, ані атомарної операції над маскою — і це не недогляд. Канали видаються й повертаються тільки при створенні та закритті з'єднань, а ці події відбуваються виключно в головній нитці. Модель ниток тут працює як доказ коректности: якщо стан один раз оголошено власністю однієї нитки, синхронізація навколо нього стає зайвою.
 

@@ -42,104 +42,15 @@
 
 Усе, що вирішує компілятор і що не має права залежати від QML, живе тут. Клас можливостей додає собі власну властивість, якої в апстримному `QGCOptions` немає:
 
-```cpp
-// CustomPlugin.h — власна збірка «Sparrow»
-class CustomOptions : public QGCOptions
-{
-    Q_OBJECT
-    /// Ворота 1. CONSTANT тут чесний: значення вирішує компілятор,
-    /// і за життя застосунку воно змінитися не може.
-    Q_PROPERTY(bool showServiceActions READ showServiceActions CONSTANT)
-
-public:
-    explicit CustomOptions(CustomPlugin *plugin, QObject *parent = nullptr);
-
-    bool showServiceActions() const { return kServiceBuild; }
-
-    // Взірець із апстримного custom-example: сторінка прошивання — теж лише для експерта.
-    bool showFirmwareUpgrade() const final { return _plugin->showAdvancedUI(); }
-
-private:
-    // target_compile_definitions(Sparrow PRIVATE SPARROW_SERVICE_BUILD)
-#ifdef SPARROW_SERVICE_BUILD
-    static constexpr bool kServiceBuild = true;
-#else
-    static constexpr bool kServiceBuild = false;
-#endif
-
-    QGCCorePlugin *_plugin = nullptr;
-};
-```
+:::code proj-role-gated-control/cpp/kod-storona-c.cpp
 
 `CONSTANT` у цьому оголошенні — не недбалість, а точне твердження. Властивість, оголошена так, читається рушієм QML один раз при побудові елемента й більше ніколи; для величини, яку вирішив компілятор, це рівно те, що треба. Якби `showServiceActions()` колись почав залежати від чогось змінного — від того самого поглибленого режиму, наприклад, — `CONSTANT` довелося б замінити на `NOTIFY` разом із сигналом, інакше елемент застиг би в стані, який був на старті, і жодного попередження ніде не з'явилося б.
 
 Далі — саме розширення. Дві речі в конструкторі й одна публічна дія:
 
-```cpp
-// CustomPlugin.h
-class CustomPlugin : public QGCCorePlugin
-{
-    Q_OBJECT
+:::code proj-role-gated-control/cpp/kod-storona-c.hpp
 
-public:
-    explicit CustomPlugin(QObject *parent = nullptr);
-
-    QGCOptions *options() final { return _options; }
-
-    /// Сервісна дія. Порожній рядок — надіслано; непорожній — причина відмови.
-    Q_INVOKABLE QString resetParametersToFactory();
-
-private slots:
-    void _advancedChanged(bool advanced);
-
-private:
-    CustomOptions *_options = nullptr;
-};
-```
-
-```cpp
-// CustomPlugin.cc
-CustomPlugin::CustomPlugin(QObject *parent)
-    : QGCCorePlugin(parent)
-    , _options(new CustomOptions(this, this))
-{
-    // Ворота 2 стартують ЗАЧИНЕНИМИ. Базовий клас ініціалізує це поле в true.
-    _showAdvancedUI = false;
-    (void) connect(this, &QGCCorePlugin::showAdvancedUIChanged,
-                   this, &CustomPlugin::_advancedChanged);
-}
-
-QString CustomPlugin::resetParametersToFactory()
-{
-    // Ті самі ворота ще раз — там, де їх не обійде ні помилка в QML, ні чужий виклик.
-    if (!_options->showServiceActions()) {
-        return tr("Ця збірка не має сервісних дій.");
-    }
-    if (!showAdvancedUI()) {
-        return tr("Потрібен поглиблений режим.");
-    }
-
-    Vehicle *vehicle = MultiVehicleManager::instance()->activeVehicle();
-    if (!vehicle) {
-        return tr("Апарат не під'єднаний.");
-    }
-    if (vehicle->armed()) {
-        return tr("Апарат зброєний — спершу роззбройте його.");
-    }
-
-    vehicle->sendCommand(vehicle->defaultComponentId(),
-                         MAV_CMD_PREFLIGHT_STORAGE,
-                         true,   // showError: відмову від борту застосунок покаже сам
-                         2);     // PREFLIGHT_STORAGE_PARAMETER_ACTION: PARAM_RESET_FACTORY_DEFAULT
-    return QString();
-}
-
-void CustomPlugin::_advancedChanged(bool advanced)
-{
-    // Базовий QGCOptions власних сигналів не випромінює — це обов'язок похідного класу.
-    emit _options->showFirmwareUpgradeChanged(advanced);
-}
-```
+:::code proj-role-gated-control/cpp/kod-storona-c-2.cpp
 
 Рядок `_showAdvancedUI = false` — це не дрібниця налаштування, а те, завдяки чому другі ворота взагалі існують. Поле в базовому класі захищене саме для цього: похідний клас присвоює його прямо в конструкторі, без сигналу, бо інтерфейсу в той момент ще немає й повідомляти нема кого.
 

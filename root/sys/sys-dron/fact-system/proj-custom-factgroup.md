@@ -61,44 +61,7 @@ set(QGC_MAVLINK_DIALECT  "fuelcell"                                CACHE STRING 
 
 Група — це звичайний нащадок `FactGroup`. Усе, що в ньому є: факти полями, читачі до них і обробник повідомлення.
 
-```cpp
-// custom/src/FuelCellFactGroup.h
-#pragma once
-
-#include "FactGroup.h"
-#include "QGCMAVLink.h"
-
-class FuelCellFactGroup : public FactGroup
-{
-    Q_OBJECT
-    Q_PROPERTY(Fact *pressure    READ pressure    CONSTANT)
-    Q_PROPERTY(Fact *temperature READ temperature CONSTANT)
-    Q_PROPERTY(Fact *power       READ power       CONSTANT)
-    Q_PROPERTY(Fact *remaining   READ remaining   CONSTANT)
-    Q_PROPERTY(Fact *state       READ state       CONSTANT)
-    Q_PROPERTY(Fact *faults      READ faults      CONSTANT)
-
-public:
-    explicit FuelCellFactGroup(QObject *parent = nullptr);
-
-    Fact *pressure()    { return &_pressureFact;    }
-    Fact *temperature() { return &_temperatureFact; }
-    Fact *power()       { return &_powerFact;       }
-    Fact *remaining()   { return &_remainingFact;   }
-    Fact *state()       { return &_stateFact;       }
-    Fact *faults()      { return &_faultsFact;      }
-
-    void handleMessage(Vehicle *vehicle, const mavlink_message_t &message) override;
-
-private:
-    Fact _pressureFact    = Fact(0, QStringLiteral("pressure"),    FactMetaData::valueTypeDouble);
-    Fact _temperatureFact = Fact(0, QStringLiteral("temperature"), FactMetaData::valueTypeDouble);
-    Fact _powerFact       = Fact(0, QStringLiteral("power"),       FactMetaData::valueTypeDouble);
-    Fact _remainingFact   = Fact(0, QStringLiteral("remaining"),   FactMetaData::valueTypeDouble);
-    Fact _stateFact       = Fact(0, QStringLiteral("state"),       FactMetaData::valueTypeUint8);
-    Fact _faultsFact      = Fact(0, QStringLiteral("faults"),      FactMetaData::valueTypeUint32);
-};
-```
+:::code proj-custom-factgroup/cpp/krok-2-klas-hrupy.hpp
 
 Три деталі варті погляду, бо кожна з них — вибір, а не обряд.
 
@@ -110,51 +73,7 @@ private:
 
 ## Крок 3. Обробник
 
-```cpp
-// custom/src/FuelCellFactGroup.cc
-#include "FuelCellFactGroup.h"
-
-FuelCellFactGroup::FuelCellFactGroup(QObject *parent)
-    : FactGroup(1000, QStringLiteral(":/custom/json/FuelCellFact.json"), parent)
-{
-    _addFact(&_pressureFact);
-    _addFact(&_temperatureFact);
-    _addFact(&_powerFact);
-    _addFact(&_remainingFact);
-    _addFact(&_stateFact);
-    _addFact(&_faultsFact);
-
-    // Доки модуль не озвався, показувати нема чого — і це не нуль.
-    _pressureFact.setRawValue(qQNaN());
-    _temperatureFact.setRawValue(qQNaN());
-    _powerFact.setRawValue(qQNaN());
-    _remainingFact.setRawValue(qQNaN());
-}
-
-void FuelCellFactGroup::handleMessage(Vehicle *vehicle, const mavlink_message_t &message)
-{
-    Q_UNUSED(vehicle)
-
-    if (message.msgid != MAVLINK_MSG_ID_FUELCELL_STATUS) {
-        return;
-    }
-
-    mavlink_fuelcell_status_t fuelCell{};
-    mavlink_msg_fuelcell_status_decode(&message, &fuelCell);
-
-    _pressureFact.setRawValue(
-        (fuelCell.pressure == UINT16_MAX) ? qQNaN() : (fuelCell.pressure / 100.0));
-    _temperatureFact.setRawValue(
-        (fuelCell.temperature == INT16_MAX) ? qQNaN() : (fuelCell.temperature / 100.0));
-    _powerFact.setRawValue(fuelCell.power / 10.0);
-    _remainingFact.setRawValue(
-        (fuelCell.capacity_remaining == UINT8_MAX) ? qQNaN() : fuelCell.capacity_remaining);
-    _stateFact.setRawValue(fuelCell.state);
-    _faultsFact.setRawValue(fuelCell.faults);
-
-    _setTelemetryAvailable(true);
-}
-```
+:::code proj-custom-factgroup/cpp/krok-3-obrobnyk.cpp
 
 Обробник викликається на **кожне** повідомлення, яке дійшло до цього апарата, а не лише на наше, — тому першим рядком стоїть відсіювання за номером, і воно має бути дешевим. Порівняння цілого числа таким і є.
 
@@ -285,29 +204,7 @@ virtual QMap<QString, FactGroup*> *factGroups() { return nullptr; }
 
 Наша реалізація — нащадок штатного плагіна з одним полем і однією мапою, у якій один запис:
 
-```cpp
-// custom/src/CustomFirmwarePlugin.h
-class CustomFirmwarePlugin : public PX4FirmwarePlugin
-{
-    Q_OBJECT
-public:
-    explicit CustomFirmwarePlugin(QObject *parent = nullptr);
-
-    QMap<QString, FactGroup*> *factGroups() final { return &_factGroups; }
-
-private:
-    FuelCellFactGroup         _fuelCellFactGroup;
-    QMap<QString, FactGroup*> _factGroups;
-};
-
-// custom/src/CustomFirmwarePlugin.cc
-CustomFirmwarePlugin::CustomFirmwarePlugin(QObject *parent)
-    : PX4FirmwarePlugin(parent)
-    , _fuelCellFactGroup(this)
-{
-    _factGroups.insert(QStringLiteral("fuelcell"), &_fuelCellFactGroup);
-}
-```
+:::code proj-custom-factgroup/cpp/krok-6-reiestratsiia.cpp
 
 Щоб застосунок узагалі побачив цей плагін, потрібна ще фабрика — нащадок `FirmwarePluginFactory`, оголошений статичним об'єктом у нашій теці; його конструктор сам вписує фабрику в реєстр, а `firmwarePluginForAutopilot()` віддає єдиний примірник плагіна.
 

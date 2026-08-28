@@ -51,78 +51,9 @@ custom/
 
 Фабрика — це десяток рядків, у яких найважливіше те, чого в них немає.
 
-```cpp
-// SokilFirmwarePluginFactory.h
-#include "FirmwarePluginFactory.h"
+:::code proj-custom-firmware-plugin/cpp/fabryka-obiekt-iakoho.cpp
 
-class SokilFirmwarePluginFactory : public FirmwarePluginFactory
-{
-    Q_OBJECT
-
-public:
-    explicit SokilFirmwarePluginFactory(QObject *parent = nullptr);
-
-    QList<QGCMAVLink::FirmwareClass_t> supportedFirmwareClasses() const final;
-    QList<QGCMAVLink::VehicleClass_t>  supportedVehicleClasses() const final;
-    FirmwarePlugin *firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType,
-                                               MAV_TYPE vehicleType) final;
-
-private:
-    FirmwarePlugin *_copterPluginInstance = nullptr;
-    FirmwarePlugin *_roverPluginInstance  = nullptr;
-};
-```
-
-```cpp
-// SokilFirmwarePluginFactory.cc
-#include "SokilFirmwarePluginFactory.h"
-#include "SokilFirmwarePlugin.h"
-#include "SokilMAVLink.h"
-
-// Глобальний об'єкт: створюється до main(), і саме його конструктор
-// вписує фабрику в реєстр. Нікого іншого викликати не треба.
-SokilFirmwarePluginFactory SokilFirmwarePluginFactory_instance(nullptr);
-
-SokilFirmwarePluginFactory::SokilFirmwarePluginFactory(QObject *parent)
-    : FirmwarePluginFactory(parent)
-{
-    // Порожньо. Свідомо.
-}
-
-QList<QGCMAVLink::FirmwareClass_t> SokilFirmwarePluginFactory::supportedFirmwareClasses() const
-{
-    return { static_cast<QGCMAVLink::FirmwareClass_t>(MAV_AUTOPILOT_SOKIL) };
-}
-
-QList<QGCMAVLink::VehicleClass_t> SokilFirmwarePluginFactory::supportedVehicleClasses() const
-{
-    return { QGCMAVLink::VehicleClassMultiRotor, QGCMAVLink::VehicleClassRoverBoat };
-}
-
-FirmwarePlugin *SokilFirmwarePluginFactory::firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType,
-                                                                      MAV_TYPE vehicleType)
-{
-    if (autopilotType != MAV_AUTOPILOT_SOKIL) {
-        return nullptr;                    // не наш апарат — хай іде до загального плагіна
-    }
-
-    switch (vehicleType) {
-    case MAV_TYPE_QUADROTOR:
-    case MAV_TYPE_HEXAROTOR:
-        if (!_copterPluginInstance) {
-            _copterPluginInstance = new SokilCopterFirmwarePlugin(this);
-        }
-        return _copterPluginInstance;
-    case MAV_TYPE_GROUND_ROVER:
-        if (!_roverPluginInstance) {
-            _roverPluginInstance = new SokilRoverFirmwarePlugin(this);
-        }
-        return _roverPluginInstance;
-    default:
-        return nullptr;
-    }
-}
-```
+:::code proj-custom-firmware-plugin/cpp/fabryka-obiekt-iakoho-2.cpp
 
 Реєстрація тримається на тому, що конструктор базової фабрики робить її сам:
 
@@ -172,82 +103,13 @@ custom_mode          = 0x00000106
 
 Ось звідки та сама тиша, з якої почалася задача. Таблицю пишемо на чисті номери, а маскування додаємо перевизначенням:
 
-```cpp
-// SokilFirmwarePlugin.cc
-enum SokilMode : uint32_t {
-    ModeManual = 0, ModeStabilize = 1, ModeAltitude = 2, ModePosition = 3,
-    ModeGuided = 4, ModeMission = 5, ModeReturn = 6, ModeLand = 7,
-    ModeTakeoff = 8, ModeFailsafe = 9, ModeAcro = 10,
-};
-
-SokilCopterFirmwarePlugin::SokilCopterFirmwarePlugin(QObject *parent)
-    : SokilFirmwarePlugin(parent)
-{
-    //                    ім'я           номер          canBeSet  advanced
-    FlightModeList modes = {
-        { "Manual",       ModeManual,    true,  false },
-        { "Stabilize",    ModeStabilize, true,  false },
-        { "Altitude",     ModeAltitude,  true,  false },
-        { "Position",     ModePosition,  true,  false },
-        { "Guided",       ModeGuided,    true,  false },
-        { "Mission",      ModeMission,   true,  false },
-        { "Return",       ModeReturn,    true,  false },
-        { "Land",         ModeLand,      true,  false },
-        { "Takeoff",      ModeTakeoff,   false, false },   // входить сама за командою зльоту
-        { "Failsafe",     ModeFailsafe,  false, false },   // тільки показ
-        { "Acro",         ModeAcro,      true,  true  },   // за перемикачем «розширено»
-    };
-
-    updateAvailableFlightModes(modes);   // заповнює _flightModeList і _modeEnumToString
-}
-```
+:::code proj-custom-firmware-plugin/cpp/tablytsia-rezhymiv-i-dva.cpp
 
 Дві колонки прапорців роблять таблицю відповіддю на два різні питання одразу. `canBeSet == false` означає «показати можна, вибрати не можна»: у `Takeoff` апарат заходить сам за командою зльоту, і пункт у списку був би пасткою; `Failsafe` вмикає прошивка, і вибирати його вручну безглуздо. `advanced` ховає режим за перемикачем розширеного інтерфейсу — акробатичний `Acro` не має лежати поруч зі звичайними режимами для пілота, який робить перший виліт.
 
 Далі — три перевизначення, і всі три короткі.
 
-```cpp
-QString SokilFirmwarePlugin::flightMode(uint8_t base_mode, uint32_t custom_mode) const
-{
-    // Причину переходу в імені режиму не показуємо — вона їде окремим індикатором.
-    return FirmwarePlugin::flightMode(base_mode, custom_mode & 0xFF);
-}
-
-bool SokilFirmwarePlugin::setFlightMode(const QString &flightMode,
-                                        uint8_t *base_mode, uint32_t *custom_mode) const
-{
-    for (const FirmwareFlightMode &mode : _flightModeList) {
-        if (mode.mode_name != flightMode) {
-            continue;
-        }
-        if (!mode.canBeSet) {
-            qCWarning(SokilLog) << "режим не можна вибрати вручну:" << flightMode;
-            return false;
-        }
-        *base_mode   = MAV_MODE_FLAG_CUSTOM_MODE_ENABLED;
-        *custom_mode = mode.custom_mode;   // причина нульова: перехід ініціює пілот
-        return true;
-    }
-
-    qCWarning(SokilLog) << "невідомий режим:" << flightMode;
-    return false;
-}
-
-QStringList SokilFirmwarePlugin::flightModes(Vehicle *vehicle) const
-{
-    QStringList list;
-    for (const FirmwareFlightMode &mode : _flightModeList) {
-        if (!mode.canBeSet) {
-            continue;
-        }
-        if ((vehicle->multiRotor() && !mode.multiRotor) || (vehicle->fixedWing() && !mode.fixedWing)) {
-            continue;
-        }
-        list << mode.mode_name;
-    }
-    return list;
-}
-```
+:::code proj-custom-firmware-plugin/cpp/tablytsia-rezhymiv-i-dva-2.cpp
 
 Ім'я режиму тут працює не як напис, а як **ключ**: у той бік станція шукає його в мапі, у цей — порівнює з полем таблиці. Тому воно мусить бути однією й тією самою сталою в обох напрямках. Загорнути його в `tr()` в одному місці й порівняти з літералом в іншому — зламати переклад назад, причому лише для тих користувачів, у яких увімкнена не англійська мова. Показ і ключ — різні речі, і перекладу підлягає лише перший.
 
@@ -268,20 +130,7 @@ QString guidedFlightMode()      const                { return QStringLiteral("Gu
 
 Станція мусить знати про вміння апарата **до** першої команди, бо інтерфейс малюється раніше за політ. Відповідь дає одна бітова маска:
 
-```cpp
-bool SokilFirmwarePlugin::isCapable(const Vehicle *vehicle, FirmwareCapabilities capabilities) const
-{
-    int available = SetFlightModeCapability | GuidedModeCapability | PauseVehicleCapability;
-
-    if (vehicle->multiRotor()) {
-        available |= TakeoffVehicleCapability | GuidedTakeoffCapability | ChangeHeadingCapability;
-    }
-    // OrbitModeCapability і ROIModeCapability Sokil не має: підвісу немає,
-    // а політ по колу не реалізовано в прошивці.
-
-    return (capabilities & available) == capabilities;
-}
-```
+:::code proj-custom-firmware-plugin/cpp/maska-vmin-pidmnozhyna-a.cpp
 
 Останній рядок виглядає як дрібниця, а насправді визначає зміст усього методу. Питання завжди складене: інтерфейс питає не «чи вміє апарат зліт», а «чи вміє апарат і керований режим, **і** зліт». Тому відповідь має бути перевіркою **підмножини**: усе, про що спитали, є серед того, що ми вміємо. Написати замість цього `return capabilities & available;` — типова помилка, і вона тиха: вираз стане істиною, щойно збігся хоч один біт. Кнопка керованого зльоту з'явиться на ровері, бо ровер уміє `SetFlightMode`, а `GuidedTakeoff` у тому самому запиті просто загубиться.
 
@@ -298,65 +147,13 @@ bool SokilFirmwarePlugin::isCapable(const Vehicle *vehicle, FirmwareCapabilities
 
 Далі йде єдине місце, де плагін пишеться не таблицею, а руками. Sokil приймає команду зльоту тільки в керованому режимі й тільки коли мотори вже крутяться — як ArduPilot; але висоту в сьомому параметрі чекає **абсолютну**, від рівня моря, — як PX4. Послідовність не збігається з жодною наявною, тож її треба скласти.
 
-```cpp
-void SokilFirmwarePlugin::guidedModeTakeoff(Vehicle *vehicle, double takeoffAltRel) const
-{
-    // 1. Чи не відмовився цей борт від команди раніше.
-    const auto *data = qobject_cast<SokilFirmwarePluginInstanceData*>(vehicle->firmwarePluginInstanceData());
-    if (data && data->getCommandSupported(MAV_CMD_NAV_TAKEOFF)
-                == FirmwarePluginInstanceData::CommandSupportedResult::UNSUPPORTED) {
-        QGC::showAppMessage(tr("Прошивка цього апарата не приймає команду зльоту."));
-        return;
-    }
-
-    // 2. Sokil чекає висоту від рівня моря — переводимо, поки знаємо, де стоїмо.
-    const double vehicleAltitudeAMSL = vehicle->altitudeAMSL()->rawValue().toDouble();
-    if (qIsNaN(vehicleAltitudeAMSL)) {
-        QGC::showAppMessage(tr("Зліт неможливий: висота апарата невідома."));
-        return;
-    }
-    const double takeoffAltAMSL = takeoffAltRel + vehicleAltitudeAMSL;
-
-    // 3. Режим — до вмикання моторів: у решті режимів Sokil ігнорує команду зльоту.
-    if (!_setFlightModeAndValidate(vehicle, guidedFlightMode())) {
-        QGC::showAppMessage(tr("Зліт неможливий: апарат не перейшов у режим Guided."));
-        return;
-    }
-
-    // 4. Мотори — до команди: без них зліт буде відхилено.
-    if (!_armVehicleAndValidate(vehicle)) {
-        QGC::showAppMessage(tr("Зліт неможливий: не вдалося ввімкнути мотори."));
-        return;
-    }
-
-    // 5. І аж тепер сама команда.
-    vehicle->sendMavCommand(vehicle->defaultComponentId(),
-                            MAV_CMD_NAV_TAKEOFF,
-                            true,                                    // показати відмову користувачеві
-                            NAN,                                     // тангаж не задаємо
-                            NAN, NAN, NAN,                           // не використовуються
-                            NAN, NAN,                                // широта й довгота — «де стоїмо»
-                            static_cast<float>(takeoffAltAMSL));
-}
-```
+:::code proj-custom-firmware-plugin/cpp/odna-kerovana-diia-zlit.cpp
 
 Порядок кроків тут не стилістичний вибір, а те саме знання про діалект, тільки виражене послідовністю. Переставити третій і четвертий місцями — і апарат увімкне мотори в `Stabilize`, тобто віддасть керування пілотові й буде стояти на землі з розкрученими гвинтами, поки станція чекає зльоту.
 
 Крок перший — той самий персональний стан, який не можна тримати в спільному плагіні. `FirmwarePluginInstanceData` живе поруч із `Vehicle`, створюється при ініціалізації апарата й гине разом із ним:
 
-```cpp
-// SokilFirmwarePluginInstanceData.h
-class SokilFirmwarePluginInstanceData : public FirmwarePluginInstanceData
-{
-    Q_OBJECT
-public:
-    explicit SokilFirmwarePluginInstanceData(QObject *parent = nullptr)
-        : FirmwarePluginInstanceData(parent) {}
-
-    QTime lastStreamRequestTime;    // коли востаннє просили частоти
-    uint32_t firmwareBuild = 0;     // збірка, що приїхала в AUTOPILOT_VERSION
-};
-```
+:::code proj-custom-firmware-plugin/cpp/odna-kerovana-diia-zlit-2.cpp
 
 Спокуса покласти ці два поля прямо в `SokilFirmwarePlugin` виглядає нездоланною — це ж «дані про наш автопілот». Ціна виявиться на другому апараті: плагін один на всі борти, тож `firmwareBuild` другого перезапише перший, і станція вирішить, що на старому дроні стоїть нова прошивка. Помилка не впаде — вона просто ввімкне команду, якої той борт не знає.
 
@@ -364,40 +161,7 @@ public:
 
 Sokil, як і ArduPilot, мовчить, поки його не попросять: без явного запиту він шле лише HEARTBEAT. Тому весь потік телеметрії замовляється тут, один раз за життя об'єкта `Vehicle`.
 
-```cpp
-void SokilFirmwarePlugin::initializeVehicle(Vehicle *vehicle)
-{
-    if (vehicle->isOfflineEditingVehicle()) {
-        return;                                 // апарата немає — просити нема кого
-    }
-
-    auto *data = qobject_cast<SokilFirmwarePluginInstanceData*>(vehicle->firmwarePluginInstanceData());
-    if (!data) {
-        data = new SokilFirmwarePluginInstanceData(vehicle);
-        vehicle->setFirmwarePluginInstanceData(data);   // Vehicle бере об'єкт собі в діти
-    }
-    data->lastStreamRequestTime = QTime::currentTime();
-
-    struct StreamRequest { uint32_t msgId; int hz; };
-    static constexpr StreamRequest rgRequests[] = {
-        { MAVLINK_MSG_ID_ATTITUDE,              10 },   // горизонт має бути плавним
-        { MAVLINK_MSG_ID_GLOBAL_POSITION_INT,    5 },   // мітка на мапі
-        { MAVLINK_MSG_ID_VFR_HUD,                5 },
-        { MAVLINK_MSG_ID_SYS_STATUS,             2 },   // батарея, датчики
-        { MAVLINK_MSG_ID_GPS_RAW_INT,            2 },
-        { MAVLINK_MSG_ID_HOME_POSITION,          1 },
-        { MAVLINK_MSG_ID_EXTENDED_SYS_STATE,     1 },   // без нього не працює переривання посадки
-    };
-
-    for (const StreamRequest &request : rgRequests) {
-        vehicle->sendMavCommand(vehicle->defaultComponentId(),
-                                MAV_CMD_SET_MESSAGE_INTERVAL,
-                                false,                                     // мовчки: старі збірки команди не знають
-                                static_cast<float>(request.msgId),
-                                static_cast<float>(1000000 / request.hz)); // інтервал у мікросекундах
-    }
-}
-```
+:::code proj-custom-firmware-plugin/cpp/myt-pidiednannia.cpp
 
 Третій аргумент `false` тут змістовний: команду `MAV_CMD_SET_MESSAGE_INTERVAL` розуміють не всі збірки прошивки, і апарат, який відповів «не підтримую», не має влаштовувати користувачеві сім вікон із помилками при кожному під'єднанні. Про це станція мовчки запам'ятає в `FirmwarePluginInstanceData` і більше не питатиме.
 
@@ -421,18 +185,7 @@ void SokilFirmwarePlugin::initializeVehicle(Vehicle *vehicle)
 
 Механіка теки `custom/` вже налагоджена для ядрового розширення, тож наш внесок у неї — один блок:
 
-```cmake
-# custom/CMakeLists.txt
-list(APPEND CUSTOM_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilFirmwarePluginFactory.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilFirmwarePluginFactory.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilFirmwarePlugin.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilFirmwarePlugin.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilFirmwarePluginInstanceData.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/SokilMAVLink.h
-)
-set(CUSTOM_SOURCES ${CUSTOM_SOURCES} CACHE INTERNAL "" FORCE)
-```
+:::code proj-custom-firmware-plugin/cmake/CMakeLists.txt
 
 Забирає це апстрим сам, у своєму звичному рядку:
 
@@ -475,24 +228,7 @@ _armVehicleAndValidate:     1 спроба × 15 перевірок × 100 мс 
 
 Друга пастка стосується вихідного гачка на потоці повідомлень. Sokil ігнорує команди, у яких `target_component` не дорівнює одиниці, тож їх доводиться правити перед відправленням:
 
-```cpp
-void SokilFirmwarePlugin::adjustOutgoingMavlinkMessageThreadSafe(Vehicle *vehicle,
-                                                                 LinkInterface *outgoingLink,
-                                                                 mavlink_message_t *message)
-{
-    if (message->msgid != MAVLINK_MSG_ID_COMMAND_LONG) {
-        return;
-    }
-
-    mavlink_command_long_t cmd{};
-    mavlink_msg_command_long_decode(message, &cmd);
-    if (cmd.target_component == MAV_COMP_ID_ALL) {
-        cmd.target_component = MAV_COMP_ID_AUTOPILOT1;
-        mavlink_msg_command_long_encode_chan(message->sysid, message->compid,
-                                             outgoingLink->mavlinkChannel(), message, &cmd);
-    }
-}
-```
+:::code proj-custom-firmware-plugin/cpp/tsina-skilky-tse-blokuie-i.cpp
 
 Суфікс `ThreadSafe` в імені — не побажання, а опис місця виклику: метод виконується в потоці каналу. І тут накладаються дві обставини, кожна з яких сама по собі нешкідлива. Плагін **спільний** для всіх апаратів своєї пари «прошивка × клас», а каналів у станції кілька, і кожен має власний потік. Отже, у цей метод можуть одночасно зайти два потоки на одному й тому самому об'єкті. Тіло вище безпечне лише тому, що не торкається жодного поля плагіна: усе, з чим воно працює, — аргументи й локальні змінні. Додати сюди нешкідливий на вигляд лічильник `++_adjustedCount` означає завести [перегони даних](root:sf-tasks/thread-safety) з тихою, невідтворюваною поведінкою.
 

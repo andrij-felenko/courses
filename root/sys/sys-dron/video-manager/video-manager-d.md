@@ -51,18 +51,7 @@ VideoReceiver *receiver = QGCCorePlugin::instance()->createVideoReceiver(this);
 
 Перші п'ять — це **правила побудови адреси**. Користувач окремо задає мережеву частину (поле «UDP URL», типове значення `0.0.0.0:5600`), а тип джерела вирішує, яку схему до неї приклеїти:
 
-```cpp
-const QString source = _videoSettings->videoSource()->rawValue().toString();
-if (source == VideoSettings::videoSourceUDPH264) {
-    settingsChanged |= _updateVideoUri(receiver, QStringLiteral("udp://%1").arg(_videoSettings->udpUrl()->rawValue().toString()));
-} else if (source == VideoSettings::videoSourceUDPH265) {
-    settingsChanged |= _updateVideoUri(receiver, QStringLiteral("udp265://%1").arg(_videoSettings->udpUrl()->rawValue().toString()));
-} else if (source == VideoSettings::videoSourceMPEGTS) {
-    settingsChanged |= _updateVideoUri(receiver, QStringLiteral("mpegts://%1").arg(_videoSettings->udpUrl()->rawValue().toString()));
-} else if (source == VideoSettings::videoSourceRTSP) {
-    settingsChanged |= _updateVideoUri(receiver, _videoSettings->rtspUrl()->rawValue().toString());
-}
-```
+:::code video-manager-d/cpp/zvidky-beretsia-adresa.cpp
 
 Схеми `udp265://` і `mpegts://` не існують у жодному стандарті — це власна мова застосунку. Друга з них означає, що всередині UDP їде не голий RTP, а [транспортний потік MPEG](root:com-protocol/mpeg-ts) — формат, у якому кадри вже нарізані на дрібні пакети зі своїми заголовками й таблицями, тож розбирати його треба інакше. Причина проста: чистий [RTP поверх UDP](root:com-protocol/rtp-rtcp) не несе в собі опису того, що всередині. У RTSP клієнт спершу отримує опис сеансу й з нього дізнається кодек; у голому UDP-потоці такого опису нема, тому хтось мусить сказати приймачеві, як цей потік розбирати. Цим «кимось» є користувач, а схема адреси — спосіб передати його вибір далі одним рядком.
 
@@ -85,22 +74,7 @@ bool VideoManager::hasVideo() const
 
 Менеджер камер апарата загортає це повідомлення в об'єкт `QGCVideoStreamInfo` і віддає його менеджеру відео, а той перекладає поля протоколу у свою внутрішню мову:
 
-```cpp
-switch (pInfo->type()) {
-case VIDEO_STREAM_TYPE_RTSP:
-    source = VideoSettings::videoSourceRTSP;
-    url = pInfo->uri();
-    break;
-case VIDEO_STREAM_TYPE_RTPUDP:
-    if (pInfo->encoding() == VIDEO_STREAM_ENCODING_H265) {
-        source = VideoSettings::videoSourceUDPH265;
-        url = pInfo->uri().contains("udp265://") ? pInfo->uri() : QStringLiteral("udp265://0.0.0.0:%1").arg(pInfo->uri());
-    } else {
-        source = VideoSettings::videoSourceUDPH264;
-        url = pInfo->uri().contains("udp://") ? pInfo->uri() : QStringLiteral("udp://0.0.0.0:%1").arg(pInfo->uri());
-    }
-    break;
-```
+:::code video-manager-d/cpp/koly-adresu-dyktuie-aparat.cpp
 
 Тернарний оператор усередині — не прикраса, а поступка реальності. Стандарт дозволяє камері покласти в поле адреси або повний рядок, або самий лише номер порту, і зустрічаються обидва варіанти. Станція приймає обидва: якщо схеми в рядку нема, вона добудовує її сама, підставляючи `0.0.0.0` — «слухати на всіх інтерфейсах».
 
@@ -428,19 +402,7 @@ GstStructure *muxerProps = gst_structure_new("properties",
 
 Дев'ять польотів — і диск під зав'язку. На мобільній платформі, де стеля типово 2048 МБ, стелю виберуть менш ніж за два. Тому й існує прибирання, і воно теж просте до брутальности:
 
-```cpp
-uint64_t total = 0;
-for (const QFileInfo &video : std::as_const(vidList)) {
-    total += video.size();
-}
-
-const uint64_t maxSize = SettingsManager::instance()->videoSettings()->maxVideoSize()->rawValue().toUInt() * qPow(1024, 2);
-while ((total >= maxSize) && !vidList.isEmpty()) {
-    const QFileInfo info = vidList.takeLast();
-    total -= info.size();
-    (void) QFile::remove(info.filePath());
-}
-```
+:::code video-manager-d/cpp/skilky-mistsia-tse-zidaie.cpp
 
 Список відсортовано за часом, тож `takeLast()` бере найстарший файл. І тут варто назвати межу чесно: прибирання відбувається **один раз, перед початком запису**, і рахує лише те, що вже лежить на диску. Поточний запис у підсумок не входить і зупинити його стеля не може. Отже, стеля обмежує не «скільки місця займуть записи», а «скільки їх було на момент старту» — а розмір диска треба мати з запасом на один політ понад стелю. Ще одна деталь того ж штибу: фільтр за іменами ловить лише три відомі розширення, тому чужі файли в тій самій теці підсумок ігнорує — і не видаляє.
 

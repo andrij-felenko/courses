@@ -18,65 +18,15 @@
 
 Спершу — **контракт**. Це фрагмент у дусі справжнього `libraries/AP_HAL/UARTDriver.h`: жодного тіла, самі обіцянки. Будь-який послідовний порт у ArduPilot мусить уміти оце:
 
-```cpp
-// AP_HAL: чистий інтерфейс — що ВМІЄ будь-який послідовний порт.
-// Жодної реалізації; самі суто віртуальні методи (= 0).
-namespace AP_HAL {
-class UARTDriver {
-public:
-    virtual void     begin(uint32_t baud) = 0;   // відкрити порт на швидкості
-    virtual size_t   write(uint8_t b)      = 0;   // надіслати один байт
-    virtual int16_t  read()                = 0;   // прийняти байт (−1 якщо порожньо)
-    virtual uint32_t available()           = 0;   // скільки байтів чекає
-    virtual ~UARTDriver() {}                       // віртуальний деструктор — обов'язково
-};
-}
-```
+:::code proj-hal-backend/cpp/kod.cpp
 
 Тепер **бекенд** під конкретну плату. На STM32 (бекенд ChibiOS) тіла методів торкаються заліза — пишуть у регістр периферії. Деталі регістрів тут спрощено, важлива форма: клас **успадковує** інтерфейс і дає кожному методу тіло:
 
-```cpp
-// Бекенд ChibiOS: те саме «обличчя», але тіла говорять із залізом STM32.
-class UARTDriver_ChibiOS : public AP_HAL::UARTDriver {
-    SerialDriver *sd;                 // дескриптор периферії UART плати
-public:
-    UARTDriver_ChibiOS(SerialDriver *s) : sd(s) {}
-
-    void begin(uint32_t baud) override {
-        sdStart(sd, baud);            // налаштувати швидкість на залізі
-    }
-    size_t write(uint8_t b) override {
-        return sdPut(sd, b);          // байт → апаратний регістр передавання
-    }
-    int16_t read() override {
-        return sdGetTimeout(sd, 0);   // байт з апаратного буфера прийому
-    }
-    uint32_t available() override {
-        return sdBytesPending(sd);
-    }
-};
-```
+:::code proj-hal-backend/cpp/kod-2.cpp
 
 Бекенд для **симулятора** (SITL) має той самий інтерфейс, але «залізо» в нього — звичайний сокет. Верхній код **не побачить різниці**:
 
-```cpp
-// Бекенд SITL: те саме обличчя, але байти течуть у мережеву трубу, не в регістр.
-class UARTDriver_SITL : public AP_HAL::UARTDriver {
-    int fd;                           // сокет до моделі апарата
-public:
-    UARTDriver_SITL(int socket) : fd(socket) {}
-
-    void begin(uint32_t) override {}              // швидкість для сокета не потрібна
-    size_t write(uint8_t b) override {
-        return ::send(fd, &b, 1, 0);              // байт → сокет
-    }
-    int16_t read() override {
-        uint8_t b;
-        return (::recv(fd, &b, 1, MSG_DONTWAIT) == 1) ? b : -1;
-    }
-    uint32_t available() override { /* опитати сокет */ return 0; }
-};
-```
+:::code proj-hal-backend/cpp/kod-3.cpp
 
 А ось **верхній код** — той, що пише MAVLink чи читає GNSS. Він знає **лише** інтерфейс і нічого — про плату. Той самий об'єктний файл лягає і в прошивку, і в симулятор:
 

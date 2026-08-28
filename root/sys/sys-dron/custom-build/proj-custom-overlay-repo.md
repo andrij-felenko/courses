@@ -121,49 +121,7 @@ cmake -E copy_directory custom upstream/qgroundcontrol/custom
 
 Скрипт, що робить обидва варіанти й прибирає за собою:
 
-```bash
-#!/usr/bin/env bash
-# scripts/overlay.sh [link|copy|auto] — покласти custom/ усередину дерева апстриму
-set -euo pipefail
-
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC="$ROOT/upstream/qgroundcontrol"
-DST="$SRC/custom"
-MODE="${1:-${QGC_OVERLAY_MODE:-auto}}"
-
-if [ ! -f "$SRC/CMakeLists.txt" ]; then
-    echo "Підмодуль не витягнуто: git submodule update --init --recursive" >&2
-    exit 1
-fi
-
-# 1. Хай git усередині підмодуля не рахує нашу теку за сміття в дереві.
-#    У підмодуля .git — файл-указівник, тому справжній каталог питаємо в git.
-GITDIR="$(git -C "$SRC" rev-parse --absolute-git-dir)"
-mkdir -p "$GITDIR/info"
-grep -qxF '/custom/' "$GITDIR/info/exclude" 2>/dev/null \
-    || echo '/custom/' >> "$GITDIR/info/exclude"
-
-# 2. Прибрати попереднє накладання, яким би воно не було.
-#    Перевірка на посилання мусить іти першою: для посилання на теку -d теж істинне.
-if [ -L "$DST" ]; then
-    rm -f "$DST"
-elif [ -d "$DST" ]; then
-    rm -rf "$DST"
-fi
-
-# 3. Покласти нове.
-if [ "$MODE" = auto ]; then
-    if [ -n "${CI:-}" ]; then MODE=copy; else MODE=link; fi
-fi
-
-case "$MODE" in
-    link) ln -s ../../custom "$DST" ;;
-    copy) cmake -E copy_directory "$ROOT/custom" "$DST" ;;
-    *)    echo "Невідомий режим: $MODE (link|copy|auto)" >&2; exit 2 ;;
-esac
-
-echo "Накладку покладено ($MODE): $DST"
-```
+:::code proj-custom-overlay-repo/sh/overlay.sh
 
 Два місця тут варті окремої уваги. Порядок перевірок `-L` перед `-d` не косметичний: для посилання на існуючу теку істинні обидві, і `rm -rf` по посиланню вичистить **вашу** теку через нього. І рядок про `info/exclude`: без нього `git status` у підмодулі назавжди показує невідстежену теку, а `git submodule status` у верхньому репозиторії позначає підмодуль брудним — тобто найкорисніший сигнал «хтось поліз у чужі файли» тоне в шумі й перестає працювати.
 
@@ -171,42 +129,7 @@ echo "Накладку покладено ($MODE): $DST"
 
 Переставити вказівник — один рядок. Решта скрипта існує тому, що переставлений вказівник сам по собі нічого не розповідає.
 
-```bash
-#!/usr/bin/env bash
-# scripts/bump-upstream.sh v5.0.8 — перевести підмодуль на тег і показати, що змінилося
-set -euo pipefail
-
-TAG="${1:?вкажіть тег апстриму, напр. v5.0.8}"
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC="$ROOT/upstream/qgroundcontrol"
-
-OLD="$(git -C "$SRC" rev-parse HEAD)"
-
-git -C "$SRC" fetch --tags --force origin
-git -C "$SRC" checkout --detach "refs/tags/$TAG"
-git -C "$SRC" submodule update --init --recursive
-
-NEW="$(git -C "$SRC" rev-parse HEAD)"
-if [ "$OLD" = "$NEW" ]; then echo "Уже на $TAG"; exit 0; fi
-
-echo "== Що змінилося в точках, за які ми чіпляємось =="
-# Розбиття на слова тут навмисне: у переліку шляхів пробілів немає.
-WATCH="$(grep -vE '^[[:space:]]*(#|$)' "$ROOT/upstream-watch.txt" | tr '\n' ' ')"
-git -C "$SRC" diff --stat "$OLD..$NEW" -- $WATCH
-
-echo
-echo "== Свіжий знімок чинних ручок збірки =="
-rm -rf "$ROOT/build"                       # кеш переживає зникнення змінних — а нам треба, щоб не переживав
-cmake -S "$SRC" -B "$ROOT/build" -DQGC_CUSTOM_DIR=custom -DCMAKE_BUILD_TYPE=Release >/dev/null
-cmake -N -LA "$ROOT/build" | grep '^QGC_' \
-    | sed "s#$ROOT#@ROOT@#g" | sort > "$ROOT/options.now"
-diff "$ROOT/options.snapshot" "$ROOT/options.now" || true
-
-git -C "$ROOT" add upstream/qgroundcontrol
-echo
-echo "Вказівник переставлено й підготовлено до коміту. Перегляньте різницю знімка вище,"
-echo "оновіть options.snapshot свідомо — і лише тоді комітьте."
-```
+:::code proj-custom-overlay-repo/sh/bump-upstream.sh
 
 Скрипт навмисно не комітить сам. Різниця знімка ручок — це і є текст, який людина мусить прочитати; автоматичний коміт перетворив би його на журнальний шум, який ніхто не відкриває.
 
@@ -326,19 +249,7 @@ set_source_files_properties(${CUSTOM_SOURCES}
 
 **Зникла змінна, яку ви перевизначаєте.** `set(X … CACHE … FORCE)` на змінну, якої апстрим більше не оголошує, не є помилкою: CMake створить нову кешовану змінну, яку ніхто не читає. Ваше перевизначення далі «працює» — у порожнечу. Обгортка перетворює це на зупинку конфігурації:
 
-```cmake
-# custom/cmake/CustomOverrides.cmake
-function(qgc_override name type value)
-    if(NOT DEFINED CACHE{${name}})
-        message(FATAL_ERROR "Апстрим більше не оголошує ${name}: перевизначення повисло")
-    endif()
-    set(${name} "${value}" CACHE ${type} "custom build override" FORCE)
-endfunction()
-
-qgc_override(QGC_APP_NAME       STRING "Custom-QGroundControl")
-qgc_override(QGC_PACKAGE_NAME   STRING "com.example.gcs")
-qgc_override(QGC_SETTINGS_VERSION STRING "1")
-```
+:::code proj-custom-overlay-repo/cmake/CustomOverrides.cmake
 
 Перевірка спирається на те, що типові значення апстриму лягли в кеш **до** вашого файлу. На повторно вжитій теці збірки старий запис лишається в кеші й перевірка пройде хибно — тому видалення теки збірки у скрипті оновлення й ця обгортка працюють лише в парі.
 
@@ -348,18 +259,7 @@ qgc_override(QGC_SETTINGS_VERSION STRING "1")
 
 **Апстрим перейменував файл, який ви підміняєте.** Підміна за іменем тримається на збігу рядків: ім'я розійшлося — підміна просто перестає застосовуватися, і користувач бачить стандартний екран. Перевірка — стверджувати наявність кожного апстримового файлу, на який ви розраховуєте:
 
-```cmake
-# custom/CMakeLists.txt
-set(CUSTOM_SHADOWED
-    src/UI/toolbar/MainToolBar.qml
-    src/UI/preferences/GeneralSettings.qml
-)
-foreach(f IN LISTS CUSTOM_SHADOWED)
-    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/${f}")
-        message(FATAL_ERROR "Апстрим більше не має ${f}: наша підміна нікуди не діє")
-    endif()
-endforeach()
-```
+:::code proj-custom-overlay-repo/cmake/tykhi-ti-dlia-iakykh.cmake
 
 **З'явилася нова опція з типовим значенням «увімкнено».** У вашому продукті виникає функція, якої ви не замовляли, не бачили й не випробовували. Перевірка — та сама різниця знімків, що й у скрипті оновлення; у CI вона стоїть окремим кроком і валить прогін:
 

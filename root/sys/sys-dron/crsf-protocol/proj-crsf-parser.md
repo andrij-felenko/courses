@@ -47,214 +47,22 @@
 Почнемо з фундаменту — CRC8. CRSF бере **CRC8 за поліномом DVB-S2** (`0xD5`): восьмибітний [циклічний надлишковий код](root:com-modulation/crc), що одним байтом накладних ловить і поодинокі перевернуті біти, і короткі пачки помилок. Порахуємо його таблично — це швидше за побітове прокручування в гарячому шляху приймача, а таблицю будуємо раз при старті:
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <string.h>
-
-// ── CRC8/DVB-S2, поліном 0xD5 ────────────────────────────────────────────────
-// Таблиця на 256 входів; будуємо один раз, далі кожен байт — одна вибірка.
-static uint8_t crc8_table[256];
-
-void crsf_crc8_init(void) {
-    for (int i = 0; i < 256; ++i) {
-        uint8_t crc = (uint8_t)i;
-        for (int b = 0; b < 8; ++b)
-            crc = (crc & 0x80) ? (uint8_t)((crc << 1) ^ 0xD5)
-                               : (uint8_t)(crc << 1);
-        crc8_table[i] = crc;
-    }
-}
-
-static inline uint8_t crsf_crc8(const uint8_t *ptr, uint8_t len) {
-    uint8_t crc = 0;
-    for (uint8_t i = 0; i < len; ++i)
-        crc = crc8_table[crc ^ ptr[i]];
-    return crc;
-}
-```
-```python
-# ── CRC8/DVB-S2, поліном 0xD5 ────────────────────────────────────────────────
-# Таблиця на 256 входів; будуємо один раз, далі кожен байт — одна вибірка.
-def _build_crc8_table():
-    table = []
-    for i in range(256):
-        crc = i
-        for _ in range(8):
-            crc = ((crc << 1) ^ 0xD5) & 0xFF if crc & 0x80 else (crc << 1) & 0xFF
-        table.append(crc)
-    return table
-
-_CRC8_TABLE = _build_crc8_table()
-
-def crsf_crc8(data):
-    crc = 0
-    for byte in data:
-        crc = _CRC8_TABLE[crc ^ byte]
-    return crc
-```
+:::code proj-crsf-parser/cpp/robochyi-kod-pobaitovyi.cpp
+:::code proj-crsf-parser/py/robochyi-kod-pobaitovyi.py
 :::
 
 Тепер серце — сам автомат. Він оформлений як об'єкт зі станом (структура `CrsfParser`), у який ми **згодовуємо байти по одному** через `crsf_parser_push`. Функція нічого не читає з UART сама: це зроблено навмисно, щоб автомат не залежав від конкретного драйвера. Ти береш байти з `read()` як завгодно й проштовхуєш їх; коли назбирався цілий валідний кадр, автомат кличе твій обробник.
 
 :::tabs
-```cpp
-// ── Константи протоколу ──────────────────────────────────────────────────────
-#define CRSF_SYNC_BYTE   0xC8   // байт-старт (він же адреса польотного контролера)
-#define CRSF_LEN_MIN     2      // мінімум поля довжини: тип(1) + CRC(1)
-#define CRSF_LEN_MAX     62     // максимум: кадр 64 − старт(1) − довжина(1)
-#define CRSF_FRAME_MAX   64     // повний кадр разом зі стартом і CRC
-
-// Типи кадрів, які розбираємо
-#define CRSF_TYPE_LINK_STATISTICS   0x14
-#define CRSF_TYPE_RC_CHANNELS_PACKED 0x16
-
-// ── Стани автомата ───────────────────────────────────────────────────────────
-typedef enum {
-    ST_SYNC = 0,   // шукаємо байт-старт 0xC8
-    ST_LEN,        // читаємо й перевіряємо поле довжини
-    ST_BODY        // добираємо тип + дані + CRC
-} CrsfState;
-
-typedef struct {
-    CrsfState state;
-    uint8_t   buf[CRSF_FRAME_MAX]; // сюди складаємо кадр (без байта-старту)
-    uint8_t   need;   // скільки байтів має бути в тілі (== поле довжини)
-    uint8_t   got;    // скільки байтів тіла вже назбирали
-} CrsfParser;
-
-void crsf_parser_reset(CrsfParser *p) {
-    p->state = ST_SYNC;
-    p->need = 0;
-    p->got  = 0;
-}
-```
-```python
-from enum import IntEnum
-
-# ── Константи протоколу ──────────────────────────────────────────────────────
-CRSF_SYNC_BYTE   = 0xC8   # байт-старт (він же адреса польотного контролера)
-CRSF_LEN_MIN     = 2      # мінімум поля довжини: тип(1) + CRC(1)
-CRSF_LEN_MAX     = 62     # максимум: кадр 64 − старт(1) − довжина(1)
-CRSF_FRAME_MAX   = 64     # повний кадр разом зі стартом і CRC
-
-# Типи кадрів, які розбираємо
-CRSF_TYPE_LINK_STATISTICS    = 0x14
-CRSF_TYPE_RC_CHANNELS_PACKED = 0x16
-
-# ── Стани автомата ───────────────────────────────────────────────────────────
-class CrsfState(IntEnum):
-    ST_SYNC = 0   # шукаємо байт-старт 0xC8
-    ST_LEN  = 1   # читаємо й перевіряємо поле довжини
-    ST_BODY = 2   # добираємо тип + дані + CRC
-
-class CrsfParser:
-    def __init__(self):
-        self.buf = bytearray(CRSF_FRAME_MAX)  # сюди складаємо кадр (без байта-старту)
-        self.reset()
-
-    def reset(self):
-        self.state = CrsfState.ST_SYNC
-        self.need = 0   # скільки байтів має бути в тілі (== поле довжини)
-        self.got  = 0   # скільки байтів тіла вже назбирали
-```
+:::code proj-crsf-parser/cpp/robochyi-kod-pobaitovyi-2.cpp
+:::code proj-crsf-parser/py/robochyi-kod-pobaitovyi-2.py
 :::
 
 А ось і логіка переходів — по одному байту:
 
 :::tabs
-```cpp
-// Прототип обробника готового кадру (визначимо нижче)
-static void crsf_dispatch(const uint8_t *frame, uint8_t len);
-
-// Проштовхнути ОДИН байт із UART. Викликає crsf_dispatch, коли кадр цілий.
-void crsf_parser_push(CrsfParser *p, uint8_t byte) {
-    switch (p->state) {
-
-    case ST_SYNC:
-        // Викидаємо все, крім старту. Це і є (ре)синхронізація.
-        if (byte == CRSF_SYNC_BYTE)
-            p->state = ST_LEN;
-        break;
-
-    case ST_LEN:
-        // Перша перевірка: довжина мусить бути в діапазоні.
-        if (byte < CRSF_LEN_MIN || byte > CRSF_LEN_MAX) {
-            // Це не довжина, а сміття → назад у пошук старту.
-            // Тонкість: якщо цей байт САМ є 0xC8, він міг бути справжнім
-            // стартом. Тому не просто ST_SYNC, а обробимо його як старт:
-            p->state = (byte == CRSF_SYNC_BYTE) ? ST_LEN : ST_SYNC;
-            break;
-        }
-        p->buf[0] = byte;   // збережемо довжину в буфер (стане в пригоді)
-        p->need   = byte;   // стільки байтів тіла ще прийде
-        p->got    = 0;
-        p->state  = ST_BODY;
-        break;
-
-    case ST_BODY:
-        // Добираємо тіло. buf[0] — довжина, buf[1..] — тип+дані+CRC.
-        p->buf[1 + p->got] = byte;
-        p->got++;
-        if (p->got < p->need)
-            break;   // кадр іще не повний — чекаємо наступних байтів
-
-        // Кадр повний. Перевіряємо CRC над типом+даними (без самого CRC).
-        {
-            const uint8_t *type_and_payload = &p->buf[1];      // з типу
-            uint8_t crc_len  = (uint8_t)(p->need - 1);          // тип+дані
-            uint8_t crc_calc = crsf_crc8(type_and_payload, crc_len);
-            uint8_t crc_recv = p->buf[1 + p->need - 1];         // останній байт
-
-            if (crc_calc == crc_recv) {
-                // Цілий кадр! Віддаємо тіло (тип+дані+CRC) диспетчеру.
-                crsf_dispatch(&p->buf[1], p->need);
-            }
-            // І збіг, і промах ведуть в один бік: новий кадр з чистого аркуша.
-            crsf_parser_reset(p);
-        }
-        break;
-    }
-}
-```
-```python
-    # Проштовхнути ОДИН байт із UART. Кличе self.dispatch, коли кадр цілий.
-    def push(self, byte):
-        if self.state == CrsfState.ST_SYNC:
-            # Викидаємо все, крім старту. Це і є (ре)синхронізація.
-            if byte == CRSF_SYNC_BYTE:
-                self.state = CrsfState.ST_LEN
-
-        elif self.state == CrsfState.ST_LEN:
-            # Перша перевірка: довжина мусить бути в діапазоні.
-            if byte < CRSF_LEN_MIN or byte > CRSF_LEN_MAX:
-                # Це не довжина, а сміття → назад у пошук старту.
-                # Тонкість: якщо цей байт САМ є 0xC8, він міг бути справжнім
-                # стартом. Тому не просто ST_SYNC, а обробимо його як старт:
-                self.state = CrsfState.ST_LEN if byte == CRSF_SYNC_BYTE else CrsfState.ST_SYNC
-                return
-            self.buf[0] = byte   # збережемо довжину в буфер (стане в пригоді)
-            self.need   = byte   # стільки байтів тіла ще прийде
-            self.got    = 0
-            self.state  = CrsfState.ST_BODY
-
-        elif self.state == CrsfState.ST_BODY:
-            # Добираємо тіло. buf[0] — довжина, buf[1..] — тип+дані+CRC.
-            self.buf[1 + self.got] = byte
-            self.got += 1
-            if self.got < self.need:
-                return   # кадр іще не повний — чекаємо наступних байтів
-
-            # Кадр повний. Перевіряємо CRC над типом+даними (без самого CRC).
-            type_and_payload = self.buf[1:1 + self.need - 1]   # тип+дані
-            crc_calc = crsf_crc8(type_and_payload)
-            crc_recv = self.buf[1 + self.need - 1]             # останній байт
-
-            if crc_calc == crc_recv:
-                # Цілий кадр! Віддаємо тіло (тип+дані+CRC) диспетчеру.
-                self.dispatch(self.buf[1:1 + self.need])
-            # І збіг, і промах ведуть в один бік: новий кадр з чистого аркуша.
-            self.reset()
-```
+:::code proj-crsf-parser/cpp/robochyi-kod-pobaitovyi-3.cpp
+:::code proj-crsf-parser/py/robochyi-kod-pobaitovyi-3.py
 :::
 
 Зверни увагу на найпідступніший рядок — обробку поганої довжини в `ST_LEN`. Наївне «повернутись у `ST_SYNC`» тут має діру: якщо байт, що прийшов на місце довжини, сам дорівнює `0xC8`, то це, найімовірніше, **справжній старт наступного кадру**, а не сміття. Просто скинувши в `ST_SYNC`, ми б викинули цей байт — і почали шукати старт із **наступного**, загубивши валідний кадр. Тому ми не викидаємо `0xC8`, а лишаємось у `ST_LEN`, ніби щойно його прийняли за старт. Дрібниця на один рядок — а без неї парсер втрачає по кадру щоразу, коли сміття закінчується байтом-стартом.
@@ -262,35 +70,8 @@ void crsf_parser_push(CrsfParser *p, uint8_t byte) {
 Тепер обгортка, що зчитує UART і годує автомат. Вона нехитра саме тому, що вся складність — в автоматі:
 
 :::tabs
-```cpp
-// Приклад інтеграції: у циклі прошивки чи в перерві по прийому UART.
-// uart_read(dst, maxn) повертає, скільки байтів реально прочитано (0…maxn).
-static CrsfParser g_parser;
-
-void crsf_service(void) {
-    uint8_t chunk[64];
-    int n = uart_read(chunk, sizeof(chunk));   // порція довільного розміру
-    for (int i = 0; i < n; ++i)
-        crsf_parser_push(&g_parser, chunk[i]); // згодовуємо по байту
-}
-
-void crsf_init(void) {
-    crsf_crc8_init();
-    crsf_parser_reset(&g_parser);
-}
-```
-```python
-# Приклад інтеграції: читаємо з послідовного порту й годуємо автомат.
-# port.read(maxn) повертає порцію довільного розміру (може бути й порожня).
-def crsf_service(parser, port):
-    chunk = port.read(64)          # порція довільного розміру
-    for byte in chunk:
-        parser.push(byte)          # згодовуємо по байту
-
-# Таблиця CRC8 будується при імпорті модуля, тож окремої ініціалізації
-# не треба — досить створити парсер:
-g_parser = CrsfParser()
-```
+:::code proj-crsf-parser/cpp/robochyi-kod-pobaitovyi-4.cpp
+:::code proj-crsf-parser/py/robochyi-kod-pobaitovyi-4.py
 :::
 
 Оце і весь каркас. Байти приходять як завгодно — по одному, пачками, з розривами кадрів посередині; автомат байдужий до порцій, бо тримає стан між викликами. Лишилось те, заради чого все й затівалось: розібрати вміст цілого кадру.
@@ -300,65 +81,8 @@ g_parser = CrsfParser()
 Коли автомат зібрав цілий кадр і CRC зійшовся, він кличе `crsf_dispatch` із покажчиком на тіло (`тип + дані + CRC`) і його довжиною. Диспетчер дивиться на **тип** — перший байт тіла — і скеровує решту в потрібний розбірник:
 
 :::tabs
-```cpp
-// Розпаковані канали й статистика — назовні, для логіки керування/OSD.
-static uint16_t g_channels[16];
-static struct {
-    uint8_t up_rssi1, up_rssi2, up_lq;
-    int8_t  up_snr;
-    uint8_t ant, rf_mode, up_power;
-    uint8_t dn_rssi, dn_lq;
-    int8_t  dn_snr;
-} g_link;
-
-static void crsf_unpack_channels(const uint8_t *payload); // нижче
-static void crsf_parse_link(const uint8_t *payload);      // нижче
-
-// frame = { тип, дані..., CRC }; len = поле довжини (тип+дані+CRC).
-static void crsf_dispatch(const uint8_t *frame, uint8_t len) {
-    uint8_t type = frame[0];
-    const uint8_t *payload = &frame[1];        // одразу після типу
-    uint8_t payload_len = (uint8_t)(len - 2);  // мінус тип, мінус CRC
-
-    switch (type) {
-    case CRSF_TYPE_RC_CHANNELS_PACKED:
-        // Рівно 16×11 біт = 22 байти. Інша довжина — не наш кадр, ігноруємо.
-        if (payload_len == 22)
-            crsf_unpack_channels(payload);
-        break;
-
-    case CRSF_TYPE_LINK_STATISTICS:
-        if (payload_len == 10)
-            crsf_parse_link(payload);
-        break;
-
-    default:
-        // GPS (0x02), батарея (0x08), режим польоту… — тут не розбираємо.
-        break;
-    }
-}
-```
-```python
-    # Розпаковані канали й статистика тримаємо на самому парсері (self):
-    #   self.channels — список із 16 каналів; self.link — dict зі статистикою.
-    #   (ініціалізуються в __init__: self.channels = [0]*16; self.link = {})
-
-    # frame = bytes(тип, дані..., CRC); len == len(frame) (тип+дані+CRC).
-    def dispatch(self, frame):
-        type_    = frame[0]
-        payload  = frame[1:-1]          # одразу після типу, без CRC
-
-        if type_ == CRSF_TYPE_RC_CHANNELS_PACKED:
-            # Рівно 16×11 біт = 22 байти. Інша довжина — не наш кадр, ігноруємо.
-            if len(payload) == 22:
-                self.unpack_channels(payload)
-
-        elif type_ == CRSF_TYPE_LINK_STATISTICS:
-            if len(payload) == 10:
-                self.parse_link(payload)
-
-        # else: GPS (0x02), батарея (0x08), режим польоту… — тут не розбираємо.
-```
+:::code proj-crsf-parser/cpp/dyspetcher-i-rozpakovka.cpp
+:::code proj-crsf-parser/py/dyspetcher-i-rozpakovka.py
 :::
 
 Друга перевірка довжини всередині диспетчера — не зайва параноя, а страховка. CRC уже підтвердив, що кадр не спотворений у дорозі, але він **не гарантує**, що ти правильно вгадав його тип: інша прошивка могла надіслати кадр `0x16` нестандартної довжини, або тип збігся випадково. Перш ніж читати 22 байти каналів, переконайся, що їх справді 22, — інакше розпакування прочитає за межами даних.
@@ -366,40 +90,8 @@ static void crsf_dispatch(const uint8_t *frame, uint8_t len) {
 Тепер розпаковка каналів. Шістнадцять чисел по 11 бітів набиті впритул у 22 байти, порядком little-endian (молодші біти — вперед). Тримаємо «конвеєр бітів» у 32-бітному акумуляторі: доливаємо байти зверху, зчерпуємо готові 11-бітні канали знизу:
 
 :::tabs
-```cpp
-// 22 байти → 16 каналів по 11 біт, little-endian.
-static void crsf_unpack_channels(const uint8_t *p) {
-    uint32_t acc = 0;   // накопичувач бітів
-    uint8_t  bits = 0;  // скільки валідних бітів зараз в acc
-    uint8_t  ch = 0;    // індекс каналу
-    for (uint8_t i = 0; i < 22 && ch < 16; ++i) {
-        acc |= (uint32_t)p[i] << bits;   // доливаємо байт зверху
-        bits += 8;
-        while (bits >= 11 && ch < 16) {  // зчерпуємо всі готові канали
-            g_channels[ch++] = (uint16_t)(acc & 0x7FF); // нижні 11 біт
-            acc >>= 11;
-            bits -= 11;
-        }
-    }
-}
-```
-```python
-    # 22 байти → 16 каналів по 11 біт, little-endian.
-    def unpack_channels(self, p):
-        acc  = 0   # накопичувач бітів
-        bits = 0   # скільки валідних бітів зараз в acc
-        ch   = 0   # індекс каналу
-        for i in range(22):
-            if ch >= 16:
-                break
-            acc |= p[i] << bits          # доливаємо байт зверху
-            bits += 8
-            while bits >= 11 and ch < 16:   # зчерпуємо всі готові канали
-                self.channels[ch] = acc & 0x7FF   # нижні 11 біт
-                ch += 1
-                acc >>= 11
-                bits -= 11
-```
+:::code proj-crsf-parser/cpp/dyspetcher-i-rozpakovka-2.cpp
+:::code proj-crsf-parser/py/dyspetcher-i-rozpakovka-2.py
 :::
 
 Тонкість акумулятора — скільки каналів «дозріває» за один долитий байт. Кожен байт додає 8 бітів, а канал забирає 11. Оскільки 8 менше за 11, один байт **не може** доповнити більш ніж один канал: перед доливанням в акумуляторі завжди менше за 11 бітів (усе готове ми вже зчерпали), а до 10 залишкових плюс 8 долитих — це щонайбільше 18, тоді як на два канали треба 22. Тобто саме для CRSF цей `while` прокручується не більш як раз на байт, і `if` дав би тут ідентичний результат. Чому ж усе-таки `while`? Бо це чесний запис наміру «зчерпати все, що дозріло», і він лишається правильним незалежно від розкладки. Щойно поле стане вужчим за крок доливання (інша упаковка, ширше читання) — один шматок доповнить одразу два поля, і `if` тихо лишив би друге застряглим. `while` не спирається на збіг «8 менше за 11», коштує рівно стільки ж — тому це та звичка, яку варто мати з першого рядка.
@@ -439,42 +131,8 @@ i=1: acc |= 0x03 << 8 = 0x000003E8,  bits = 16
 Нарешті — статистика лінка, тип `0x14`, рівно 10 байтів у строгому порядку. Тут розпакування тривіальне (усі поля — по одному байту), важливий лише **правильний порядок і знаковість**: RSSI й LQ — беззнакові байти, а SNR — знаковий (`int8_t`), бо відношення сигнал/шум буває від'ємним, коли сигнал тоне в шумі:
 
 :::tabs
-```cpp
-// 10 байтів статистики лінка у фіксованому порядку (специфікація CRSF).
-static void crsf_parse_link(const uint8_t *p) {
-    g_link.up_rssi1 = p[0];           // висхідний RSSI, антена 1 (−дБм)
-    g_link.up_rssi2 = p[1];           // висхідний RSSI, антена 2 (−дБм)
-    g_link.up_lq    = p[2];           // висхідна якість лінка (%)
-    g_link.up_snr   = (int8_t)p[3];   // висхідний SNR (дБ, ЗНАКОВИЙ!)
-    g_link.ant      = p[4];           // активна антена (0 / 1)
-    g_link.rf_mode  = p[5];           // радіорежим (профіль швидкості)
-    g_link.up_power = p[6];           // потужність передавача (enum)
-    g_link.dn_rssi  = p[7];           // низхідний RSSI (−дБм)
-    g_link.dn_lq    = p[8];           // низхідна якість лінка (%)
-    g_link.dn_snr   = (int8_t)p[9];   // низхідний SNR (дБ, ЗНАКОВИЙ!)
-}
-```
-```python
-    # 10 байтів статистики лінка у фіксованому порядку (специфікація CRSF).
-    @staticmethod
-    def _s8(v):
-        # байт → знаковий int8 (250 → −6)
-        return v - 256 if v >= 128 else v
-
-    def parse_link(self, p):
-        self.link = {
-            "up_rssi1": p[0],            # висхідний RSSI, антена 1 (−дБм)
-            "up_rssi2": p[1],            # висхідний RSSI, антена 2 (−дБм)
-            "up_lq":    p[2],            # висхідна якість лінка (%)
-            "up_snr":   self._s8(p[3]),  # висхідний SNR (дБ, ЗНАКОВИЙ!)
-            "ant":      p[4],            # активна антена (0 / 1)
-            "rf_mode":  p[5],            # радіорежим (профіль швидкості)
-            "up_power": p[6],            # потужність передавача (enum)
-            "dn_rssi":  p[7],            # низхідний RSSI (−дБм)
-            "dn_lq":    p[8],            # низхідна якість лінка (%)
-            "dn_snr":   self._s8(p[9]),  # низхідний SNR (дБ, ЗНАКОВИЙ!)
-        }
-```
+:::code proj-crsf-parser/cpp/dyspetcher-i-rozpakovka-3.cpp
+:::code proj-crsf-parser/py/dyspetcher-i-rozpakovka-3.py
 :::
 
 Значення RSSI приходить **як додатне число, що означає від'ємні дБм**: байт `92` — це −92 дБм. Це компактна умовність (сила сигналу завжди від'ємна, тож знак не шлють), і про неї легко забути, вивівши на екран безглузде «+92». А переплутати знаковість SNR — значить показати пілотові `250 дБ` замість чесних `−6 дБ` у мить, коли лінк уже тоне. Обидві дрібниці коштують хвилини в коді й годин у полі, якщо їх проґавити.
@@ -506,36 +164,8 @@ static void crsf_parse_link(const uint8_t *p) {
 Є ще один запобіжник, який додають бойові прошивки поверх нашого каркаса, — **скид за тишею на лінії**. Якщо між байтами минуло більше, ніж триває найдовший кадр (для 64 байтів на 420 000 бод це близько 1.75 мс), логічно вважати, що почався новий кадр, і скинути автомат у `ST_SYNC` навіть посеред `ST_BODY`. Це страхує від рідкісного випадку, коли зіпсована довжина влізла в діапазон, а решти байтів для добору кадру так і не прийшло: без таймауту автомат чекав би їх вічно, тримаючи недобраний «кадр». Реалізується просто — засікаємо час приходу першого байта кадру й порівнюємо на кожному наступному:
 
 :::tabs
-```cpp
-// Додатковий запобіжник: скид парсера за тишею на лінії.
-// micros() — монотонний час у мкс. Кличемо разом із crsf_parser_push.
-#define CRSF_FRAME_TIMEOUT_US 1750u   // трохи більше за час 64 Б на 420k
-
-void crsf_parser_push_timed(CrsfParser *p, uint8_t byte, uint32_t now_us) {
-    static uint32_t frame_start_us = 0;
-    if (p->state != ST_SYNC &&
-        (uint32_t)(now_us - frame_start_us) > CRSF_FRAME_TIMEOUT_US) {
-        crsf_parser_reset(p);   // задовга пауза → кинути недобраний кадр
-    }
-    if (p->state == ST_SYNC)
-        frame_start_us = now_us;    // засікаємо початок нового кадру
-    crsf_parser_push(p, byte);
-}
-```
-```python
-# Додатковий запобіжник: скид парсера за тишею на лінії.
-# now_us — монотонний час у мкс. Кличемо замість push().
-# (self.frame_start_us ініціалізуємо нулем у __init__)
-CRSF_FRAME_TIMEOUT_US = 1750   # трохи більше за час 64 Б на 420k
-
-def push_timed(parser, byte, now_us):
-    if (parser.state != CrsfState.ST_SYNC and
-            ((now_us - parser.frame_start_us) & 0xFFFFFFFF) > CRSF_FRAME_TIMEOUT_US):
-        parser.reset()          # задовга пауза → кинути недобраний кадр
-    if parser.state == CrsfState.ST_SYNC:
-        parser.frame_start_us = now_us    # засікаємо початок нового кадру
-    parser.push(byte)
-```
+:::code proj-crsf-parser/cpp/hranychni-vypadky-de.cpp
+:::code proj-crsf-parser/py/hranychni-vypadky-de.py
 :::
 
 Порівняння через беззнакову різницю `now_us − frame_start_us` — навмисне: воно коректно переживає переповнення 32-бітного лічильника мікросекунд (а він переповнюється кожні ~71 хвилину), бо в беззнаковій арифметиці різниця лишається правильною й через «обгортання» нуля. Записати `now_us > frame_start_us + TIMEOUT` було б помилкою, що раз на годину дає хибне спрацювання.

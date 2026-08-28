@@ -253,21 +253,7 @@ struct __attribute__((packed)) DataFlash_FMT_Payload {
     char     columns[64];   // Назви полів через кому ("TimeUS,Roll,Pitch,Yaw,ErrRP", доповнений нулями)
 };
 ```
-```cpp
-// C++20
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct DataFlash_FMT_Payload {
-    uint8_t  type{0};
-    uint8_t  length{0};
-    std::array<char, 4>  name{};
-    std::array<char, 16> format{};
-    std::array<char, 64> columns{};
-};
-#pragma pack(pop)
-```
+:::code api-ulog-dataflash-specs/cpp/povidomlennia-opysu-skhemy.cpp
 :::
 
 #### Повідомлення одиниць вимірювання `FMTU` (Type `0x2A` = 42)
@@ -283,20 +269,7 @@ struct __attribute__((packed)) DataFlash_FMTU_Payload {
     char     mults[16];     // Масив символьних кодів множників для кожного поля
 };
 ```
-```cpp
-// C++20
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct DataFlash_FMTU_Payload {
-    uint64_t time_us{0};
-    uint8_t  type{0};
-    std::array<char, 16> units{};
-    std::array<char, 16> mults{};
-};
-#pragma pack(pop)
-```
+:::code api-ulog-dataflash-specs/cpp/povidomlennia-odynyts.cpp
 :::
 
 Символьні коди одиниць вимірювання `units`:
@@ -409,19 +382,7 @@ struct __attribute__((packed)) DataFlash_PARM_Payload {
     float    value;         // Значення параметра (IEEE 754 float32)
 };
 ```
-```cpp
-// C++20
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct DataFlash_PARM_Payload {
-    uint64_t time_us{0};
-    std::array<char, 16> name{};
-    float    value{0.0f};
-};
-#pragma pack(pop)
-```
+:::code api-ulog-dataflash-specs/cpp/povidomlennia-systemnykh.cpp
 :::
 
 #### Повідомлення текстового журналу `MSG` (Type `0x82` = 130)
@@ -434,18 +395,7 @@ struct __attribute__((packed)) DataFlash_MSG_Payload {
     char     message[50];   // Рядок ASCII/UTF-8 тексту з доповненням нулями
 };
 ```
-```cpp
-// C++20
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct DataFlash_MSG_Payload {
-    uint64_t time_us{0};
-    std::array<char, 50> message{};
-};
-#pragma pack(pop)
-```
+:::code api-ulog-dataflash-specs/cpp/povidomlennia-tekstovoho.cpp
 :::
 
 ---

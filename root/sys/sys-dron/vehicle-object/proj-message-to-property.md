@@ -41,54 +41,7 @@ QGroundControl про це повідомлення не знає нічого. 
 
 ## Крок 1. Заголовок групи
 
-```cpp
-// src/Vehicle/FactGroups/VehicleWinchFactGroup.h
-#pragma once
-
-#include "FactGroup.h"
-
-class VehicleWinchFactGroup : public FactGroup
-{
-    Q_OBJECT
-    Q_PROPERTY(Fact *lineLength READ lineLength CONSTANT)
-    Q_PROPERTY(Fact *speed      READ speed      CONSTANT)
-    Q_PROPERTY(Fact *tension    READ tension    CONSTANT)
-    Q_PROPERTY(Fact *voltage    READ voltage    CONSTANT)
-    Q_PROPERTY(Fact *current    READ current    CONSTANT)
-    Q_PROPERTY(Fact *motorTemp  READ motorTemp  CONSTANT)
-    Q_PROPERTY(bool  moving     READ moving     NOTIFY movingChanged)
-
-public:
-    explicit VehicleWinchFactGroup(QObject *parent = nullptr);
-
-    Fact *lineLength() { return &_lineLengthFact; }
-    Fact *speed()      { return &_speedFact; }
-    Fact *tension()    { return &_tensionFact; }
-    Fact *voltage()    { return &_voltageFact; }
-    Fact *current()    { return &_currentFact; }
-    Fact *motorTemp()  { return &_motorTempFact; }
-
-    bool moving() const { return _moving; }
-
-    // Перевизначення FactGroup
-    void handleMessage(Vehicle *vehicle, const mavlink_message_t &message) final;
-
-signals:
-    void movingChanged(bool moving);
-
-private:
-    void _handleWinchStatus(const mavlink_message_t &message);
-
-    Fact _lineLengthFact = Fact(0, QStringLiteral("lineLength"), FactMetaData::valueTypeDouble);
-    Fact _speedFact      = Fact(0, QStringLiteral("speed"),      FactMetaData::valueTypeDouble);
-    Fact _tensionFact    = Fact(0, QStringLiteral("tension"),    FactMetaData::valueTypeDouble);
-    Fact _voltageFact    = Fact(0, QStringLiteral("voltage"),    FactMetaData::valueTypeDouble);
-    Fact _currentFact    = Fact(0, QStringLiteral("current"),    FactMetaData::valueTypeDouble);
-    Fact _motorTempFact  = Fact(0, QStringLiteral("motorTemp"),  FactMetaData::valueTypeDouble);
-
-    bool _moving = false;
-};
-```
+:::code proj-message-to-property/cpp/krok-1-zaholovok-hrupy.hpp
 
 Чотири дрібниці тут варті окремого погляду.
 
@@ -164,70 +117,7 @@ private:
 
 ## Крок 3. Реалізація
 
-```cpp
-// src/Vehicle/FactGroups/VehicleWinchFactGroup.cc
-#include "VehicleWinchFactGroup.h"
-#include "Vehicle.h"
-
-#include <QtCore/QtMath>
-#include <cstdint>
-
-VehicleWinchFactGroup::VehicleWinchFactGroup(QObject *parent)
-    : FactGroup(1000, QStringLiteral(":/json/Vehicle/WinchFact.json"), parent)
-{
-    _addFact(&_lineLengthFact);
-    _addFact(&_speedFact);
-    _addFact(&_tensionFact);
-    _addFact(&_voltageFact);
-    _addFact(&_currentFact);
-    _addFact(&_motorTempFact);
-
-    // «Даних ще немає» — це не нуль. NaN станція покаже прочерком.
-    for (Fact *fact : { &_lineLengthFact, &_speedFact, &_tensionFact,
-                        &_voltageFact, &_currentFact, &_motorTempFact }) {
-        fact->setRawValue(qQNaN());
-    }
-}
-
-void VehicleWinchFactGroup::handleMessage(Vehicle *vehicle, const mavlink_message_t &message)
-{
-    Q_UNUSED(vehicle);
-
-    switch (message.msgid) {
-    case MAVLINK_MSG_ID_WINCH_STATUS:
-        _handleWinchStatus(message);
-        break;
-    default:
-        break;
-    }
-}
-
-void VehicleWinchFactGroup::_handleWinchStatus(const mavlink_message_t &message)
-{
-    mavlink_winch_status_t winch{};
-    mavlink_msg_winch_status_decode(&message, &winch);
-
-    // NaN у полі означає «борт не знає» — кладемо його як є, не підміняючи нулем
-    lineLength()->setRawValue(winch.line_length);
-    speed()->setRawValue(winch.speed);
-    tension()->setRawValue(winch.tension);
-    voltage()->setRawValue(winch.voltage);
-    current()->setRawValue(winch.current);
-
-    // у цілого поля свій знак незнання — переводимо його в той самий NaN
-    motorTemp()->setRawValue(winch.temperature == INT16_MAX
-                                 ? qQNaN()
-                                 : static_cast<double>(winch.temperature));
-
-    const bool moving = (winch.status & MAV_WINCH_STATUS_MOVING) != 0;
-    if (moving != _moving) {
-        _moving = moving;
-        emit movingChanged(_moving);
-    }
-
-    _setTelemetryAvailable(true);
-}
-```
+:::code proj-message-to-property/cpp/krok-3-realizatsiia.cpp
 
 Конструктор робить рівно три речі. Кличе базовий із періодом і шляхом до метаданих — і саме там, усередині базового, JSON читається й розкладається в карту «ім'я → метадані». Реєструє факти: `_addFact` бере ім'я з самого факту, шукає в тій карті запис під цим іменем і, якщо знаходить, приліплює його. І кладе в кожен факт `NaN`.
 
@@ -241,26 +131,7 @@ void VehicleWinchFactGroup::_handleWinchStatus(const mavlink_message_t &message)
 
 ## Крок 4. Збірка й ресурси
 
-```cmake
-# src/Vehicle/FactGroups/CMakeLists.txt
-
-target_sources(${CMAKE_PROJECT_NAME}
-    PRIVATE
-        ...
-        VehicleWinchFactGroup.cc
-        VehicleWinchFactGroup.h
-)
-
-set(JSON_FILES
-    ...
-    WinchFact.json
-)
-
-qt_add_resources(${CMAKE_PROJECT_NAME} json_vehicle_fact_group
-    PREFIX "/json/Vehicle"
-    FILES ${JSON_FILES}
-)
-```
+:::code proj-message-to-property/cmake/CMakeLists.txt
 
 Записів два, і вони незалежні. Перший додає код до збірки. Другий вшиває JSON у бінарник — саме вшиває, а не залишає файлом на диску: `qt_add_resources` бере перелічені файли й перетворює їх на масиви байтів усередині виконуваного файлу, доступні за шляхом із двокрапкою. Шлях складається з префікса й імені файлу:
 
@@ -435,20 +306,7 @@ _vehicle->setMessageRate(_vehicle->defaultComponentId(),
 
 Той самий кінцевий вигляд, але через інший шов і лише для одного факту. `_addFact` шукає метадані за іменем, узятим із самого факту, і не знайшовши — тихо кладе факт у карту без них:
 
-```cpp
-void FactGroup::_addFact(Fact *fact, const QString &name)
-{
-    if (_nameToFactMap.contains(name)) {
-        qCWarning(FactGroupLog) << "Duplicate Fact" << name;
-        return;
-    }
-    fact->setSendValueChangedSignals(_updateRateMSecs == 0);
-    if (_nameToFactMetaDataMap.contains(name)) {
-        fact->setMetaData(_nameToFactMetaDataMap[name], true);
-    }
-    _nameToFactMap[name] = fact;
-    ...
-```
+:::code proj-message-to-property/cpp/imia-faktu-i-kliuch-name.cpp
 
 Зверніть увагу: у `if` немає гілки `else`. Дублікат імені попередження дає, а відсутність метаданих — ні. Тому `"name": "linelength"` замість `"lineLength"` не залишає в журналі нічого; єдиний слід — значення без одиниць.
 

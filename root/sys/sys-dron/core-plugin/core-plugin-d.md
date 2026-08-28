@@ -45,21 +45,7 @@ if (QGCCorePlugin::instance()->options()->showFirmwareUpgrade()) {
 
 Механізм — підстановка імені на етапі збірки:
 
-```cpp
-// src/API/QGCCorePlugin.cc
-#ifndef QGC_CUSTOM_BUILD
-Q_APPLICATION_STATIC(QGCCorePlugin, _qgcCorePluginInstance);
-#endif
-
-QGCCorePlugin *QGCCorePlugin::instance()
-{
-#ifndef QGC_CUSTOM_BUILD
-    return _qgcCorePluginInstance();
-#else
-    return CUSTOMCLASS::instance();
-#endif
-}
-```
+:::code core-plugin-d/cpp/zvidky-beretsia-potribnyi.cpp
 
 `CUSTOMCLASS` — не тип. Це макрос, якого в апстримі ніде не визначено: препроцесор підставляє замість нього ім'я реального класу, і лише після підстановки компілятор бачить осмислений код. Визначення приходить збоку, зі збірки виробника:
 
@@ -110,22 +96,7 @@ endif()
 
 Головне тут — що прапорець **не константа, а функція**, і може дивитися на стан. Це дає механізм, на якому тримається вся комерційна логіка станції:
 
-```cpp
-class CustomOptions : public QGCOptions
-{
-public:
-    explicit CustomOptions(CustomPlugin *plugin, QObject *parent = nullptr);
-
-    // Прошивку оновлює лише той, хто свідомо ввімкнув розширений режим
-    bool showFirmwareUpgrade() const final { return _plugin->showAdvancedUI(); }
-
-    QGCFlyViewOptions *flyViewOptions() final { return _flyViewOptions; }
-
-private:
-    CustomPlugin *_plugin = nullptr;
-    CustomFlyViewOptions *_flyViewOptions = nullptr;
-};
-```
+:::code core-plugin-d/cpp/praporets-hotova-vidpovid.cpp
 
 Власна збірка завжди стартує у звичайному режимі. Розширений вмикається навмисним жестом у самому інтерфейсі — кількома швидкими натисканнями на кнопку польотного вигляду, — і перед вмиканням застосунок показує застереження, текст якого віддає те саме розширення методом `showAdvancedUIMessage()`. Виходить, що один бінарник — це два продукти: замкнена станція для покупця й повний інструмент для сервісного інженера, причому межа між ними описана не збіркою, а значенням одного прапорця.
 

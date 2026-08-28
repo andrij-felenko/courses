@@ -34,18 +34,7 @@
 
 Обидві осі перед вибором звужують. У MAVLink близько двох десятків значень `MAV_AUTOPILOT` і майже сорок значень `MAV_TYPE`; тримати сорок плагінів немає сенсу, бо реальних відмінностей значно менше. Тому станція спершу згортає обидва переліки у власні класи:
 
-```cpp
-QGCMAVLink::FirmwareClass_t QGCMAVLink::firmwareClass(MAV_AUTOPILOT autopilot)
-{
-    if (isPX4FirmwareClass(autopilot)) {
-        return FirmwareClassPX4;
-    } else if (isArduPilotFirmwareClass(autopilot)) {
-        return FirmwareClassArduPilot;
-    } else {
-        return FirmwareClassGeneric;
-    }
-}
-```
+:::code firmware-plugin-d/cpp/dvi-osi-za-iakymy.cpp
 
 Так само `vehicleClass()` зводить `MAV_TYPE` до жменьки класів: квадро-, гекса-, окто-, три-, співвісний і гелікоптер — усе це один `VehicleClassMultiRotor`; усі шість різновидів VTOL — один `VehicleClassVTOL`; наземний ровер і надводний човен — один `VehicleClassRoverBoat`. Згортання не косметичне: воно фіксує рівень, на якому поведінка справді збігається. Гексакоптер і октокоптер відрізняються числом моторів, але не жодним рішенням станції — тож ділити їх нічого.
 
@@ -69,28 +58,7 @@ _firmwarePlugin = FirmwarePluginManager::instance()
 
 Виробник дрона тримає власну збірку станції й може мати власний автопілот, про який апстрим нічого не знає. Якби вибір плагіна був `switch`-ем усередині апстримового файлу, виробникові довелося б правити цей файл — і платити за правку на кожному оновленні. Тому вибір побудовано на **реєстрі**, у який кожна фабрика записується сама:
 
-```cpp
-class FirmwarePluginFactory : public QObject
-{
-public:
-    virtual FirmwarePlugin *firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType,
-                                                       MAV_TYPE vehicleType) = 0;
-    virtual QList<QGCMAVLink::FirmwareClass_t> supportedFirmwareClasses() const = 0;
-    virtual QList<QGCMAVLink::VehicleClass_t> supportedVehicleClasses() const
-        { return QGCMAVLink::allVehicleClasses(); }
-};
-
-class FirmwarePluginFactoryRegister : public QObject
-{
-public:
-    static FirmwarePluginFactoryRegister *instance();
-    void registerPluginFactory(FirmwarePluginFactory *pluginFactory)
-        { _factoryList.append(pluginFactory); }
-    QList<FirmwarePluginFactory*> pluginFactories() const { return _factoryList; }
-private:
-    QList<FirmwarePluginFactory*> _factoryList;
-};
-```
+:::code firmware-plugin-d/cpp/reiestr-fabryk-zamist.cpp
 
 Запис у реєстр робить конструктор базової фабрики, а сама фабрика оголошена глобальним об'єктом:
 
@@ -105,30 +73,7 @@ APMFirmwarePluginFactory APMFirmwarePluginFactory_instance(nullptr);
 
 Далі менеджер шукає фабрику, чий список підтримуваних класів містить потрібний, і просить у неї плагін під конкретну пару. Фабрика ArduPilot розбирає другу вісь сама:
 
-```cpp
-FirmwarePlugin *APMFirmwarePluginFactory::firmwarePluginForAutopilot(
-        MAV_AUTOPILOT autopilotType, MAV_TYPE vehicleType)
-{
-    if (autopilotType != MAV_AUTOPILOT_ARDUPILOTMEGA) {
-        return nullptr;
-    }
-    switch (vehicleType) {
-    case MAV_TYPE_QUADROTOR:
-    case MAV_TYPE_HEXAROTOR:
-    case MAV_TYPE_OCTOROTOR:
-    case MAV_TYPE_TRICOPTER:
-    case MAV_TYPE_COAXIAL:
-    case MAV_TYPE_HELICOPTER:
-        if (!_arduCopterPluginInstance) {
-            _arduCopterPluginInstance = new ArduCopterFirmwarePlugin(this);
-        }
-        return _arduCopterPluginInstance;
-    // …ArduPlane, ArduRover, ArduSub
-    default:
-        return nullptr;
-    }
-}
-```
+:::code firmware-plugin-d/cpp/reiestr-fabryk-zamist-2.cpp
 
 Коли жодна фабрика не підійшла, менеджер віддає `GenericFirmwarePlugin` — базовий клас майже без перевизначень. Це чесна реалізація [порожнього об'єкта](root:sf-apps/null-object): застосунок працює, показує телеметрію, читає параметри, але кнопки керування польотом лишаються неактивними, бо базовий `isCapable()` повертає `false` на будь-яке питання, а базовий `setFlightMode()` пише в журнал «not supported» і повертає `false`. Невідомий автопілот дає обмежену станцію, а не порожній екран і не падіння, — і це важливіше, ніж здається: у полі краще бачити висоту й напругу батареї з чужого апарата, ніж не бачити нічого.
 
@@ -157,19 +102,7 @@ virtual void initializeVehicle(Vehicle *vehicle);
 
 Відповідь — покласти на апарат. У станції є окремий клас під цю потребу:
 
-```cpp
-class FirmwarePluginInstanceData : public QObject
-{
-public:
-    enum class CommandSupportedResult : uint8_t { SUPPORTED = 23, UNSUPPORTED = 24, UNKNOWN = 25 };
-
-    void setCommandSupported(MAV_CMD cmd, CommandSupportedResult status)
-        { MAV_CMD_supported[cmd] = status; }
-    CommandSupportedResult getCommandSupported(MAV_CMD cmd) const;
-private:
-    QMap<MAV_CMD, CommandSupportedResult> MAV_CMD_supported;
-};
-```
+:::code firmware-plugin-d/cpp/odyn-obiekt-na-bahato.cpp
 
 Плагін створює такий об'єкт при ініціалізації апарата й віддає його `Vehicle`, а той бере його собі в діти:
 
@@ -197,18 +130,7 @@ virtual bool setFlightMode(const QString &flightMode,
 
 Словник тримається таблицею, елемент якої описує один режим:
 
-```cpp
-struct FirmwareFlightMode
-{
-    QString  mode_name    = "Unknown";
-    uint8_t  standard_mode = 0;
-    uint32_t custom_mode  = UINT32_MAX;
-    bool     canBeSet     = false;
-    bool     advanced     = false;
-    bool     fixedWing    = false;
-    bool     multiRotor   = true;
-};
-```
+:::code firmware-plugin-d/cpp/naiprostisha-riznytsia.cpp
 
 Поле `canBeSet` окреме від самої наявності режиму, і це змістовна відмінність. PX4 має режим `Takeoff`, у якому апарат перебуває під час автоматичного зльоту; показати цей напис у рядку стану треба, а дати пілотові вибрати його зі списку — ні, бо перехід у нього робиться командою зльоту, а не вибором режиму. Тож таблиця відповідає на два різні питання одразу: «як це називається» і «чи можна це вибрати». Поле `advanced` ховає режим за перемикачем розширеного інтерфейсу — акробатичний `Acro` чи `SystemID` не мають лежати поруч зі звичайними режимами для пілота, що робить перший виліт.
 
@@ -260,20 +182,7 @@ return false;
 
 Знання видає той самий плагін, а форма відповіді — бітова маска:
 
-```cpp
-enum FirmwareCapabilities {
-    SetFlightModeCapability =   1 << 0,
-    PauseVehicleCapability =    1 << 1,
-    GuidedModeCapability =      1 << 2,
-    OrbitModeCapability =       1 << 3,
-    TakeoffVehicleCapability =  1 << 4,
-    ROIModeCapability =         1 << 5,
-    ChangeHeadingCapability =   1 << 6,
-    GuidedTakeoffCapability =   1 << 7,
-};
-
-virtual bool isCapable(const Vehicle *vehicle, FirmwareCapabilities capabilities) const;
-```
+:::code firmware-plugin-d/cpp/riznytsia-v-tomu-shcho.cpp
 
 Маска, а не окремі методи, — бо питання завжди складене: «чи вміє цей апарат і керований режим, і зліт». Реалізація PX4 будує відповідь із класу апарата: базовий набір є в усіх, наведення на точку інтересу й зміна курсу — тільки в мультикоптера й VTOL, зліт із місця — у мультикоптера, VTOL і літака, але не в ровера.
 
@@ -360,19 +269,7 @@ virtual const remapParamNameMajorVersionMap_t &paramNameRemapMajorVersionMap() c
 
 Останній приклад того самого роду — набір команд місії. Список того, що можна покласти в план, у прошивок різний, і в межах прошивки різний за класом апарата: `MAV_CMD_NAV_VTOL_TAKEOFF` осмислений для VTOL і безглуздий для ровера. Плагін віддає шлях до файлу з описом:
 
-```cpp
-QString APMFirmwarePlugin::missionCommandOverrides(QGCMAVLink::VehicleClass_t vehicleClass) const
-{
-    switch (vehicleClass) {
-    case QGCMAVLink::VehicleClassGeneric:    return QStringLiteral(":/json/APM-MavCmdInfoCommon.json");
-    case QGCMAVLink::VehicleClassMultiRotor: return QStringLiteral(":/json/APM-MavCmdInfoMultiRotor.json");
-    case QGCMAVLink::VehicleClassFixedWing:  return QStringLiteral(":/json/APM-MavCmdInfoFixedWing.json");
-    case QGCMAVLink::VehicleClassVTOL:       return QStringLiteral(":/json/APM-MavCmdInfoVTOL.json");
-    case QGCMAVLink::VehicleClassSub:        return QStringLiteral(":/json/APM-MavCmdInfoSub.json");
-    case QGCMAVLink::VehicleClassRoverBoat:  return QStringLiteral(":/json/APM-MavCmdInfoRover.json");
-    }
-}
-```
+:::code firmware-plugin-d/cpp/riznytsia-shcho.cpp
 
 Слово «overrides» в імені не випадкове: це не повний перелік, а **накладка**. Дерево команд збирається чотирма шарами — спільний для всіх, шар класу апарата, шар прошивки, шар пари «прошивка + клас апарата», — і кожен наступний править окремі властивості попереднього, а не заміняє його цілком. Так опис команди «летіти до точки» пишеться один раз, а ArduCopter лише уточнює в ньому назву параметра затримки.
 

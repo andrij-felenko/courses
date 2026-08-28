@@ -118,18 +118,7 @@ if ((_logEntriesModel->count() == 0) && (num_logs > 0)) {
 
 Кожен біт таблиці означає «кошик із таким номером усередині цього вікна прийнято». Прийшов пакет — станція рахує, до якого вікна й до якого кошика він належить, і піднімає біт:
 
-```cpp
-if ((ofs % MAVLINK_MSG_LOG_DATA_FIELD_DATA_LEN) != 0) {
-    return;                       // зсув не кратний 90 — пакет не з нашої розкладки
-}
-const uint32_t chunk = ofs / OnboardLogDownloadData::kChunkSize;
-if (chunk != _downloadData->current_chunk) {
-    return;                       // пакет із чужого вікна
-}
-const uint16_t bin = (ofs - (chunk * OnboardLogDownloadData::kChunkSize))
-                     / MAVLINK_MSG_LOG_DATA_FIELD_DATA_LEN;
-_downloadData->chunk_table.setBit(bin);
-```
+:::code vehicle-logs-d/cpp/main.cpp
 
 Дві перевірки перед підняттям біта — це два різні захисти. Перша ловить пакет, зсув якого не лягає в сітку по 90 байтів: у таблиці для нього немає кошика, і мовчки покласти його кудись означало б зіпсувати файл. Друга відкидає пакети чужого вікна — здебільшого це запізнілі відповіді на вже закритий запит.
 

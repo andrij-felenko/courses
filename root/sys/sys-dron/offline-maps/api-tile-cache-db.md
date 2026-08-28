@@ -69,22 +69,7 @@ CREATE TABLE IF NOT EXISTS Tiles (
 
 ## `TileSets` — замовлення
 
-```sql
-CREATE TABLE IF NOT EXISTS TileSets (
-    setID          INTEGER PRIMARY KEY NOT NULL,
-    name           TEXT NOT NULL UNIQUE,
-    typeStr        TEXT,
-    topleftLat     REAL DEFAULT 0.0,
-    topleftLon     REAL DEFAULT 0.0,
-    bottomRightLat REAL DEFAULT 0.0,
-    bottomRightLon REAL DEFAULT 0.0,
-    minZoom        INTEGER DEFAULT 3,
-    maxZoom        INTEGER DEFAULT 3,
-    type           INTEGER DEFAULT -1,
-    numTiles       INTEGER DEFAULT 0,
-    defaultSet     INTEGER DEFAULT 0,
-    date           INTEGER DEFAULT 0)
-```
+:::code api-tile-cache-db/sql/tilesets-zamovlennia.sql
 
 | Стовпець | Тип | Типове | Що означає |
 |----------|-----|--------|------------|
@@ -301,18 +286,7 @@ sqlite3 -readonly ~/.cache/QGroundControl/QGroundControl/QGCMapCache/qgcMapCache
 
 **Скільки тайлів і байтів у кожному наборі.** Загальний огляд: заплановано, реально є, скільки місця займає.
 
-```sql
-SELECT ts.setID, ts.name, ts.defaultSet, ts.typeStr,
-       ts.minZoom || '–' || ts.maxZoom          AS zoom,
-       ts.numTiles                              AS planned,
-       COUNT(t.tileID)                          AS have,
-       COALESCE(SUM(t.size), 0) / 1048576.0     AS MiB
-FROM TileSets ts
-LEFT JOIN SetTiles st ON st.setID = ts.setID
-LEFT JOIN Tiles    t  ON t.tileID = st.tileID
-GROUP BY ts.setID
-ORDER BY MiB DESC;
-```
+:::code api-tile-cache-db/sql/zapyty-dlia-ohliadu.sql
 
 Сума стовпця `MiB` може вийти **більшою** за фізичний розмір бази, і це не помилка: клітинку зі смуги перекриття двох наборів кожен із них рахує собі. Ще одна розбіжність — навмисна в самому застосунку: для типового набору він показує в списку не його власну суму, а загальний підсумок по всій таблиці `Tiles`, тому саме для цього рядка число з інтерфейсу й число з запиту вище не збігатимуться.
 

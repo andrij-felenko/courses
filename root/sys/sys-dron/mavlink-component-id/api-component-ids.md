@@ -130,22 +130,7 @@ ArduPilot окремого параметра для `compid` не має — а
 
 Кодек, зібраний із XML-опису, носить таблицю записів — по одному на кожен відомий йому номер повідомлення. Саме звідти беруть і довжини, і додаток до контрольної суми, і зсуви полів адресата:
 
-```c
-typedef struct __mavlink_msg_entry {
-    uint32_t msgid;
-    uint8_t  crc_extra;
-    uint8_t  min_msg_len;           /* без розширень MAVLink 2 */
-    uint8_t  max_msg_len;           /* з розширеннями         */
-    uint8_t  flags;                 /* MAV_MSG_ENTRY_FLAG_*   */
-    uint8_t  target_system_ofs;     /* зсув у корисних даних, або 0 */
-    uint8_t  target_component_ofs;  /* зсув у корисних даних, або 0 */
-} mavlink_msg_entry_t;
-
-#define MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM     1
-#define MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT  2
-
-const mavlink_msg_entry_t *mavlink_get_msg_entry(uint32_t msgid);
-```
+:::code api-component-ids/c/iak-distaty-adresata-z.c
 
 Прапорці тут не надмірність. Зсув `0` — цілком законне значення: у `CHANGE_OPERATOR_CONTROL` усі поля однобайтові, порядок оголошення зберігається, і `target_system` справді лежить першим байтом корисних даних. Тому «є поле» й «зсув дорівнює нулю» мусять бути різними питаннями, і відповідає на перше саме `flags`.
 
@@ -166,34 +151,7 @@ const mavlink_msg_entry_t *mavlink_get_msg_entry(uint32_t msgid);
 
 Найпростіший спосіб перевірити свою збірку — надрукувати кілька записів і подивитися, що в них насправді:
 
-```c
-#include <mavlink.h>
-#include <stdio.h>
-
-static void show(uint32_t msgid, const char *name)
-{
-    const mavlink_msg_entry_t *e = mavlink_get_msg_entry(msgid);
-    if (!e) { printf("%-14s немає в таблиці цього діалекту\n", name); return; }
-
-    printf("%-14s len %2u…%2u  crc_extra %3u  ",
-           name, e->min_msg_len, e->max_msg_len, e->crc_extra);
-
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM)
-        printf("target_system@%u ", e->target_system_ofs);
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT)
-        printf("target_component@%u", e->target_component_ofs);
-    if (!e->flags)
-        printf("адресата немає");
-    putchar('\n');
-}
-
-int main(void)
-{
-    show(MAVLINK_MSG_ID_COMMAND_LONG, "COMMAND_LONG");
-    show(MAVLINK_MSG_ID_ATTITUDE,     "ATTITUDE");
-    return 0;
-}
-```
+:::code api-component-ids/c/iak-distaty-adresata-z-2.c
 
 ```
 COMMAND_LONG   len 33…33  crc_extra 152  target_system@30 target_component@31

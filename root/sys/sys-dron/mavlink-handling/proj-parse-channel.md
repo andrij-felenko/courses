@@ -19,31 +19,7 @@
 
 Документація радить очевидне: годувати байти функції `mavlink_parse_char` і чекати на одиницю. Функція справді робить те, що обіцяє інтерфейс [інкрементного розбирача](root:com-protocol/stream-parser) — тримає стан між викликами й приймає потік побайтово. Але подивімося, що вона повертає насправді:
 
-```c
-MAVLINK_HELPER uint8_t mavlink_parse_char(uint8_t chan, uint8_t c,
-                                          mavlink_message_t* r_message,
-                                          mavlink_status_t* r_mavlink_status)
-{
-    uint8_t msg_received = mavlink_frame_char(chan, c, r_message, r_mavlink_status);
-    if (msg_received == MAVLINK_FRAMING_BAD_CRC ||
-        msg_received == MAVLINK_FRAMING_BAD_SIGNATURE) {
-        // we got a bad CRC. Treat as a parse failure
-        mavlink_message_t* rxmsg = mavlink_get_channel_buffer(chan);
-        mavlink_status_t* status = mavlink_get_channel_status(chan);
-        _mav_parse_error(status);
-        status->msg_received = MAVLINK_FRAMING_INCOMPLETE;
-        status->parse_state = MAVLINK_PARSE_STATE_IDLE;
-        if (c == MAVLINK_STX)
-        {
-            status->parse_state = MAVLINK_PARSE_STATE_GOT_STX;
-            rxmsg->len = 0;
-            mavlink_start_checksum(rxmsg);
-        }
-        return 0;
-    }
-    return msg_received;
-}
-```
+:::code proj-parse-channel/c/chomu-zvychnyi-tsykl-ne.c
 
 Два з чотирьох вердиктів вона перетворює на нуль. Лічильник `BAD_CRC` за таким циклом завжди лишиться порожнім — не тому, що лінія чиста, а тому, що погані кадри порахувати нічим. Її власна документація каже про це прямо: «returns 0 if no message could be decoded or bad CRC».
 
@@ -91,52 +67,7 @@ if (status->msg_received == MAVLINK_FRAMING_OK)
 
 Перший аргумент `mavlink_frame_char` — не з'єднання, а індекс у глобальних масивах бібліотеки. Тому облік ведемо руками, бітовою маскою:
 
-```c
-/* збірка:
-     git clone https://github.com/mavlink/c_library_v2
-     cc -std=c11 -O2 -Wall -I c_library_v2 rxdemo.c -o rxdemo            */
-
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <common/mavlink.h>
-
-#define RX_NO_CHANNEL 0xFFu
-
-static uint32_t g_channel_mask;
-
-static uint8_t channel_take(void)
-{
-    for (uint8_t chan = 0; chan < MAVLINK_COMM_NUM_BUFFERS; ++chan) {
-        if (g_channel_mask & (1u << chan)) {
-            continue;
-        }
-
-        mavlink_reset_channel_status(chan);   /* скидає ЛИШЕ фазу автомата */
-
-        mavlink_status_t *st = mavlink_get_channel_status(chan);
-        st->flags                   = 0;      /* версія входу й виходу     */
-        st->signing                 = NULL;   /* ключ попереднього з'єднання */
-        st->signing_streams         = NULL;
-        st->current_tx_seq          = 0;
-        st->packet_rx_success_count = 0;
-
-        g_channel_mask |= (1u << chan);
-        return chan;
-    }
-    return RX_NO_CHANNEL;   /* слотів більше немає */
-}
-
-static void channel_give(uint8_t chan)
-{
-    if (chan >= MAVLINK_COMM_NUM_BUFFERS) {
-        return;
-    }
-    mavlink_reset_channel_status(chan);
-    g_channel_mask &= ~(1u << chan);
-}
-```
+:::code proj-parse-channel/c/rxdemo.c
 
 Чотири присвоєння після `mavlink_reset_channel_status` — не перестраховка. Ця функція робить рівно одну дію: `status->parse_state = MAVLINK_PARSE_STATE_IDLE`. Прапорці версії, лічильник вихідних номерів і — найнебезпечніше — покажчик на структуру [підпису](root:sys-dron/mavlink-v2-signing) (ключ і мітки часу, якими автентифікують кадри) лишаються від попереднього з'єднання. Слот, який колись обслуговував підписаний канал, віддасть новому з'єднанню покажчик на давно звільнену пам'ять.
 
@@ -146,90 +77,19 @@ static void channel_give(uint8_t chan)
 
 Усе, що приймач пам'ятає понад те, що пам'ятає бібліотека:
 
-```c
-#define RX_MAX_SENDERS 16
-
-typedef struct {
-    uint8_t sysid;
-    uint8_t compid;
-    uint8_t last_seq;
-} sender_t;
-
-typedef struct {
-    uint8_t  chan;
-    uint32_t verdict[4];        /* індекс = значення mavlink_framing_t */
-    uint64_t whole;             /* цілих кадрів                        */
-    uint64_t lost;              /* дірок у нумерації                   */
-    uint32_t alien;             /* «погана сума», що насправді чужий msgid */
-    sender_t sender[RX_MAX_SENDERS];
-    unsigned senders;
-} rx_t;
-```
+:::code proj-parse-channel/c/stan-pryimacha.c
 
 Масив `verdict` індексується самим вердиктом — значення `mavlink_framing_t` це рівно 0…3, тож жодного `switch` для підрахунку не треба.
 
 ## Ресинк після битого кадру
 
-```c
-static void rx_resync(rx_t *rx, uint8_t c)
-{
-    mavlink_status_t  *st    = mavlink_get_channel_status(rx->chan);
-    mavlink_message_t *rxmsg = mavlink_get_channel_buffer(rx->chan);
-
-    st->msg_received = MAVLINK_FRAMING_INCOMPLETE;
-    st->parse_state  = MAVLINK_PARSE_STATE_IDLE;
-
-    /* байт, на якому кадр завалився, сам може бути стартом наступного */
-    if (c == MAVLINK_STX || c == MAVLINK_STX_MAVLINK1) {
-        st->parse_state = MAVLINK_PARSE_STATE_GOT_STX;
-        rxmsg->magic    = c;
-        rxmsg->len      = 0;
-
-        if (c == MAVLINK_STX_MAVLINK1) {
-            st->flags |=  MAVLINK_STATUS_FLAG_IN_MAVLINK1;
-        } else {
-            st->flags &= ~MAVLINK_STATUS_FLAG_IN_MAVLINK1;
-        }
-        mavlink_start_checksum(rxmsg);
-    }
-}
-```
+:::code proj-parse-channel/c/resynk-pislia-bytoho-kadru.c
 
 Порівняно з бібліотечним ресинком тут з'явилися три рядки: `magic`, прапорець версії й впізнавання старого стартового байта. Кожен закриває свій випадок — і жоден не з'явився б, якби вердикт `BAD_CRC` не був видимий.
 
 ## Облік дірок у нумерації
 
-```c
-static void rx_account(rx_t *rx, const mavlink_message_t *msg)
-{
-    sender_t *s = NULL;
-    for (unsigned i = 0; i < rx->senders; ++i) {
-        if (rx->sender[i].sysid == msg->sysid && rx->sender[i].compid == msg->compid) {
-            s = &rx->sender[i];
-            break;
-        }
-    }
-
-    if (s == NULL) {                        /* перша зустріч — це не втрата */
-        if (rx->senders == RX_MAX_SENDERS) {
-            return;
-        }
-        s = &rx->sender[rx->senders++];
-        s->sysid    = msg->sysid;
-        s->compid   = msg->compid;
-        s->last_seq = msg->seq;
-        return;
-    }
-
-    if (msg->seq == s->last_seq) {          /* дубль: два маршрути до станції */
-        return;
-    }
-
-    const uint8_t expected = (uint8_t)(s->last_seq + 1);
-    rx->lost   += (uint8_t)(msg->seq - expected);
-    s->last_seq = msg->seq;
-}
-```
+:::code proj-parse-channel/c/oblik-dirok-u-numeratsii.c
 
 Три рядки тут виглядають простішими, ніж вони є.
 
@@ -253,40 +113,7 @@ lost    += (uint8_t)(1 − 255) = (uint8_t)(−254) = 2
 
 ## Цикл по байтах
 
-```c
-static void rx_feed(rx_t *rx, const uint8_t *chunk, size_t n)
-{
-    for (size_t i = 0; i < n; ++i) {
-        mavlink_message_t msg;
-        mavlink_status_t  st;
-
-        const uint8_t framing = mavlink_frame_char(rx->chan, chunk[i], &msg, &st);
-        rx->verdict[framing]++;
-
-        switch (framing) {
-        case MAVLINK_FRAMING_OK:
-            rx->whole++;
-            rx_account(rx, &msg);
-            break;
-
-        case MAVLINK_FRAMING_BAD_CRC:
-            /* msgid уже розібрано, тож можна відрізнити шум від чужого діалекту */
-            if (mavlink_get_msg_entry(msg.msgid) == NULL) {
-                rx->alien++;
-            }
-            rx_resync(rx, chunk[i]);
-            break;
-
-        case MAVLINK_FRAMING_BAD_SIGNATURE:
-            rx_resync(rx, chunk[i]);
-            break;
-
-        default:                       /* MAVLINK_FRAMING_INCOMPLETE */
-            break;
-        }
-    }
-}
-```
+:::code proj-parse-channel/c/tsykl-po-baitakh.c
 
 Гілка `BAD_CRC` варта окремого слова. Контрольна сума MAVLink рахується не лише по байтах кадру: у неї домішується `CRC_EXTRA` — байт, обчислений з опису самого повідомлення. Розбирач бере цей байт із таблиці, згенерованої при збірці; для невідомого номера запису немає, і кадр іде тим самим шляхом, що й пошкоджений. Але заголовок на той момент уже розібрано, і `msg.msgid` заповнено — отже, повторний пошук у тій самій таблиці відрізняє «шум в ефірі» від «повідомлення, якого немає в моїй збірці». Ознака евристична: у справді зіпсованому кадрі байти номера теж можуть випадково скластися у відомий номер. Але сотня однакових невідомих номерів у лічильнику — це вже не збіг, а діагноз.
 
@@ -294,130 +121,11 @@ static void rx_feed(rx_t *rx, const uint8_t *chunk, size_t n)
 
 Щоб числа на виході можна було перевірити руками, потік складаємо самі — з кадрів, зібраних тією ж бібліотекою.
 
-```c
-static uint16_t frame_heartbeat(uint8_t *out, uint8_t chan, uint8_t sysid, uint8_t compid)
-{
-    mavlink_message_t msg;
-    mavlink_msg_heartbeat_pack_chan(sysid, compid, chan, &msg,
-                                    MAV_TYPE_QUADROTOR, MAV_AUTOPILOT_PX4,
-                                    MAV_MODE_FLAG_SAFETY_ARMED, 0, MAV_STATE_ACTIVE);
-    return mavlink_msg_to_send_buffer(out, &msg);
-}
-
-/* кадр із номером повідомлення, якого немає в жодному діалекті */
-static size_t frame_alien(uint8_t *out)
-{
-    out[0] = MAVLINK_STX;   /* 0xFD                       */
-    out[1] = 4;             /* довжина навантаження       */
-    out[2] = 0;             /* прапорці несумісності      */
-    out[3] = 0;             /* прапорці сумісності        */
-    out[4] = 7;             /* номер послідовності        */
-    out[5] = 1;             /* система                    */
-    out[6] = 42;            /* компонент                  */
-    out[7] = 0xF0;          /* msgid, молодший байт       */
-    out[8] = 0xFF;
-    out[9] = 0xFF;          /* msgid = 0xFFFFF0           */
-    out[10] = 1; out[11] = 2; out[12] = 3; out[13] = 4;
-    out[14] = 0x00;         /* суми, якої розбирач однаково не перевірить */
-    out[15] = 0x00;
-    return 16;
-}
-```
+:::code proj-parse-channel/c/stend-rvani-portsii.c
 
 Кодувальник теж бере слот каналу — з нього він читає лічильник вихідних номерів. Тому автопілот і камера в стенді дістають **різні** передавальні слоти: інакше два незалежні відправники нумерували б повідомлення з одного лічильника, і жодних дірок у нумерації не було б видно.
 
-```c
-static mavlink_signing_t         g_signing;
-static mavlink_signing_streams_t g_streams;
-
-static void channel_require_signature(uint8_t chan, const uint8_t key[32])
-{
-    memcpy(g_signing.secret_key, key, 32);
-    g_signing.link_id                  = 0;
-    g_signing.flags                    = MAVLINK_SIGNING_FLAG_SIGN_OUTGOING;
-    g_signing.accept_unsigned_callback = NULL;   /* нічого непідписаного не пускати */
-
-    mavlink_status_t *st = mavlink_get_channel_status(chan);
-    st->signing         = &g_signing;
-    st->signing_streams = &g_streams;
-}
-
-int main(void)
-{
-    const uint8_t tx_auto = channel_take();
-    const uint8_t tx_cam  = channel_take();
-    const uint8_t rx_chan = channel_take();
-
-    if (tx_auto == RX_NO_CHANNEL || tx_cam == RX_NO_CHANNEL || rx_chan == RX_NO_CHANNEL) {
-        fprintf(stderr, "слотів немає: MAVLINK_COMM_NUM_BUFFERS = %d\n",
-                MAVLINK_COMM_NUM_BUFFERS);
-        return 1;
-    }
-
-    rx_t rx;
-    memset(&rx, 0, sizeof rx);
-    rx.chan = rx_chan;
-
-    /* шість кадрів автопілота (seq 0…5) і один кадр камери (seq 0) */
-    uint8_t  air[6][MAVLINK_MAX_PACKET_LEN];
-    uint16_t air_len[6];
-    for (int i = 0; i < 6; ++i) {
-        air_len[i] = frame_heartbeat(air[i], tx_auto, 1, MAV_COMP_ID_AUTOPILOT1);
-    }
-    uint8_t        cam[MAVLINK_MAX_PACKET_LEN];
-    const uint16_t cam_len = frame_heartbeat(cam, tx_cam, 1, MAV_COMP_ID_CAMERA);
-
-    /* 1. сміття на старті: жоден байт не є стартовим */
-    static const uint8_t junk[3] = { 0x00, 0xA5, 0x37 };
-    rx_feed(&rx, junk, sizeof junk);
-
-    /* 2. перші 8 байтів кадру — решта прийде наступним читанням */
-    rx_feed(&rx, air[0], 8);
-
-    /* 3. хвіст першого кадру + цілий кадр seq 3 + початок кадру камери */
-    uint8_t chunk3[64];
-    size_t  n3 = 0;
-    memcpy(chunk3 + n3, air[0] + 8, air_len[0] - 8); n3 += air_len[0] - 8;
-    memcpy(chunk3 + n3, air[3], air_len[3]);         n3 += air_len[3];
-    memcpy(chunk3 + n3, cam, 5);                     n3 += 5;
-    rx_feed(&rx, chunk3, n3);
-
-    /* 4. хвіст кадру камери + кадр із затертою контрольною сумою */
-    uint8_t broken[MAVLINK_MAX_PACKET_LEN];
-    memcpy(broken, air[4], air_len[4]);
-    broken[air_len[4] - 2] = 0x00;
-    broken[air_len[4] - 1] = 0x00;
-
-    uint8_t chunk4[64];
-    size_t  n4 = 0;
-    memcpy(chunk4 + n4, cam + 5, cam_len - 5); n4 += cam_len - 5;
-    memcpy(chunk4 + n4, broken, air_len[4]);   n4 += air_len[4];
-    rx_feed(&rx, chunk4, n4);
-
-    /* 5. кадр із повідомленням, якого немає в діалекті збірки */
-    uint8_t alien[16];
-    rx_feed(&rx, alien, frame_alien(alien));
-
-    /* 6. вмикаємо підпис — і той самий цілий кадр стає «поганим підписом» */
-    static const uint8_t key[32] = { 0 };
-    channel_require_signature(rx.chan, key);
-    rx_feed(&rx, air[5], air_len[5]);
-
-    printf("INCOMPLETE      %u\n", rx.verdict[MAVLINK_FRAMING_INCOMPLETE]);
-    printf("OK              %u\n", rx.verdict[MAVLINK_FRAMING_OK]);
-    printf("BAD_CRC         %u\n", rx.verdict[MAVLINK_FRAMING_BAD_CRC]);
-    printf("BAD_SIGNATURE   %u\n", rx.verdict[MAVLINK_FRAMING_BAD_SIGNATURE]);
-    printf("цілих кадрів    %llu\n", (unsigned long long)rx.whole);
-    printf("дірок у номерах %llu\n", (unsigned long long)rx.lost);
-    printf("чужий діалект   %u\n", rx.alien);
-    printf("відправників    %u\n", rx.senders);
-
-    channel_give(tx_auto);
-    channel_give(tx_cam);
-    channel_give(rx_chan);
-    return 0;
-}
-```
+:::code proj-parse-channel/c/stend-rvani-portsii-2.c
 
 Два місця в стенді зроблено навмисно, і обидва варті пояснення.
 

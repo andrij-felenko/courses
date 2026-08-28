@@ -23,58 +23,7 @@
 
 ## `MapProvider`: публічний зріз
 
-```cpp
-class MapProvider
-{
-public:
-    enum MapStyle { NoMap = 0, StreetMap, SatelliteMapDay, SatelliteMapNight,
-                    TerrainMap, HybridMap, TransitMap, GrayStreetMap,
-                    PedestrianMap, CarNavigationMap, CycleMap, CustomMap = 100 };
-
-    MapProvider(const QString &mapName, const QString &referrer, const QString &imageFormat,
-                quint32 averageSize = QGC_AVERAGE_TILE_SIZE, MapStyle mapStyle = CustomMap);
-    virtual ~MapProvider();
-
-    QUrl    getTileURL(int x, int y, int zoom) const;
-    QString getImageFormat(QByteArrayView image) const;
-
-    quint32        getAverageSize() const { return _averageSize; }
-    MapStyle       getMapStyle()    const { return _mapStyle; }
-    const QString &getMapName()     const { return _mapName; }
-    int            getMapId()       const { return _mapId; }
-    const QString &getReferrer()    const { return _referrer; }
-
-    virtual QByteArray getToken() const { return QByteArray(); }
-
-    virtual int    long2tileX(double lon, int z) const;
-    virtual int    lat2tileY(double lat, int z) const;
-    virtual double tileX2long(int x, int z) const;
-    virtual double tileY2lat(int y, int z) const;
-
-    virtual bool isElevationProvider() const { return false; }
-    virtual bool isBingProvider()      const { return false; }
-
-    virtual QGCTileSet getTileCount(int zoom, double topleftLon, double topleftLat,
-                                    double bottomRightLon, double bottomRightLat) const;
-
-protected:
-    QString _tileXYToQuadKey(int tileX, int tileY, int levelOfDetail) const;
-    int     _getServerNum(int x, int y, int max) const;
-
-    virtual QString _getURL(int x, int y, int zoom) const = 0;
-
-    const QString  _mapName;
-    const QString  _referrer;
-    const QString  _imageFormat;
-    const quint32  _averageSize;
-    const MapStyle _mapStyle;
-    const QString  _language;
-    const int      _mapId;
-
-private:
-    static int _mapIdIndex;
-};
-```
+:::code api-map-provider/cpp/mapprovider-publichnyi.hpp
 
 Клас не успадковує `QObject` і не має сигналів: провайдер — це незмінна купка сталих плюс одна функція. Усі поля оголошені `const`, тож після конструктора нічого не міняється, і той самий об'єкт безпечно читають різні нитки. Живуть провайдери під `std::shared_ptr<const MapProvider>`, для якого в `QGCMapUrlEngine.h` заведено скорочення `SharedMapProvider` (і `SharedElevationProvider` для висот).
 
@@ -154,18 +103,7 @@ QString MapProvider::getImageFormat(QByteArrayView image) const
 
 ### Геометрія: сітка Web Mercator
 
-```cpp
-int MapProvider::long2tileX(double lon, int z) const
-{
-    return static_cast<int>(floor((lon + 180.0) / 360.0 * pow(2.0, z)));
-}
-
-int MapProvider::lat2tileY(double lat, int z) const
-{
-    return static_cast<int>(floor((1.0 - log(tan(lat * M_PI / 180.0)
-                                 + 1.0 / cos(lat * M_PI / 180.0)) / M_PI) / 2.0 * pow(2.0, z)));
-}
-```
+:::code api-map-provider/cpp/heometriia-sitka-web.hpp
 
 У звичних позначеннях, з `n = 2ᶻ`:
 
@@ -181,18 +119,7 @@ y = ⌊ n · (1 − ln(tan φ + sec φ) / π) / 2 ⌋
 
 ### `getTileCount` і `QGCTileSet`
 
-```cpp
-struct QGCTileSet
-{
-    QGCTileSet &operator+=(const QGCTileSet &other);   // додає tileCount і tileSize
-    void clear();
-
-    int     tileX0 = 0,  tileX1 = 0;
-    int     tileY0 = 0,  tileY1 = 0;
-    quint64 tileCount = 0;
-    quint64 tileSize  = 0;
-};
-```
+:::code api-map-provider/cpp/gettilecount-i-qgctileset.cpp
 
 | Поле | Що містить після базового `getTileCount` |
 |---|---|
@@ -223,22 +150,7 @@ virtual QString _getURL(int x, int y, int zoom) const = 0;
 
 Найкоротший робочий приклад — вуличні тайли OpenStreetMap:
 
-```cpp
-class OpenStreetMapProvider : public MapProvider
-{
-public:
-    OpenStreetMapProvider()
-        : MapProvider(QStringLiteral("Street Map"),
-                      QStringLiteral("https://www.openstreetmap.org"),
-                      QStringLiteral("png"),
-                      QGC_AVERAGE_TILE_SIZE,
-                      MapProvider::StreetMap) {}
-private:
-    QString _getURL(int x, int y, int zoom) const final { return _mapUrl.arg(zoom).arg(x).arg(y); }
-
-    const QString _mapUrl = QStringLiteral("http://tile.openstreetmap.org/%1/%2/%3.png");
-};
-```
+:::code api-map-provider/cpp/shcho-zoboviazanyi-daty.cpp
 
 Порядок підстановки в шаблон — не формальність: кожна служба розклала ті самі три числа по-своєму, і помилка тут дає не збій, а тайл з іншого місця світу.
 
@@ -260,20 +172,7 @@ private:
 
 ### `_tileXYToQuadKey` — адресація Bing
 
-```cpp
-QString MapProvider::_tileXYToQuadKey(int tileX, int tileY, int levelOfDetail) const
-{
-    QString quadKey;
-    for (int i = levelOfDetail; i > 0; i--) {
-        char digit = '0';
-        const int mask = 1 << (i - 1);
-        if ((tileX & mask) != 0) { digit++; }
-        if ((tileY & mask) != 0) { digit += 2; }
-        quadKey.append(digit);
-    }
-    return quadKey;
-}
-```
+:::code api-map-provider/cpp/tilexytoquadkey.cpp
 
 Цифра на кожному рівні — це `біт x + 2 · біт y`, тобто номер чверті. Довжина рядка дорівнює рівню масштабу.
 
@@ -325,19 +224,7 @@ x = 153298 → 330074 % 4 = 2                           →  mt2
 
 **Шлях 1 — заголовком.** Провайдер перевизначає `getToken()`, а добувач тайлів вставляє відповідь у запит:
 
-```cpp
-// EsriMapProvider.cpp
-QByteArray EsriMapProvider::getToken() const
-{
-    return SettingsManager::instance()->appSettings()->esriToken()->rawValue().toString().toUtf8();
-}
-
-// QGeoTileFetcherQGC.cpp
-const QByteArray token = mapProvider->getToken();
-if (!token.isEmpty()) {
-    request.setRawHeader(QByteArrayLiteral("User-Token"), token);
-}
-```
+:::code api-map-provider/cpp/EsriMapProvider.cpp
 
 Заголовок називається `User-Token`; порожня відповідь означає «заголовка не буде».
 
@@ -357,44 +244,7 @@ if (!token.isEmpty()) {
 
 Клас без стану, без конструктора й без примірників — самі статичні функції над одним статичним списком.
 
-```cpp
-class UrlFactory
-{
-public:
-    static QString getImageFormat(QStringView type, QByteArrayView image);
-    static QString getImageFormat(int qtMapId,      QByteArrayView image);
-
-    static QUrl getTileURL(QStringView type, int x, int y, int zoom);
-    static QUrl getTileURL(int qtMapId,      int x, int y, int zoom);
-
-    static quint32 averageSizeForType(QStringView type);
-    static bool    isElevation(int qtMapId);
-
-    static int long2tileX(QStringView mapType, double lon, int z);
-    static int lat2tileY(QStringView mapType, double lat, int z);
-
-    static QGCTileSet getTileCount(int zoom, double topleftLon, double topleftLat,
-                                   double bottomRightLon, double bottomRightLat,
-                                   QStringView mapType);
-
-    static const QList<SharedMapProvider> &getProviders();
-    static QStringList getProviderTypes();
-    static QStringList getElevationProviderTypes();
-
-    static int     getQtMapIdFromProviderType(QStringView type);
-    static QString getProviderTypeFromQtMapId(int qtMapId);
-    static SharedMapProvider getMapProviderFromQtMapId(int qtMapId);
-    static SharedMapProvider getMapProviderFromProviderType(QStringView type);
-
-    static int     hashFromProviderType(QStringView type);
-    static QString providerTypeFromHash(int hash);
-    static QString tileHashToType(QStringView tileHash);
-    static QString getTileHash(QStringView type, int x, int y, int z);
-
-private:
-    static const QList<SharedMapProvider> _providers;
-};
-```
+:::code api-map-provider/cpp/urlfactory-statychnyi.hpp
 
 Усі пошуки — лінійний перебір списку зі звіркою рядка або числа; жодних мап і жодного кешування. Відповідь при невдачі скрізь тиха, і саме її треба знати напам'ять:
 
@@ -417,18 +267,7 @@ private:
 
 ### Ключ тайла: `%010d%08d%08d%03d`
 
-```cpp
-QString UrlFactory::getTileHash(QStringView type, int x, int y, int z)
-{
-    const int hash = hashFromProviderType(type);
-    return QString::asprintf("%010d%08d%08d%03d", hash, x, y, z);
-}
-
-QString UrlFactory::tileHashToType(QStringView tileHash)
-{
-    return providerTypeFromHash(tileHash.mid(0, 10).toInt());
-}
-```
+:::code api-map-provider/cpp/kliuch-taila-010d-08d-08d.cpp
 
 | Поле | Позиції | Ширина | Джерело |
 |---|---|---|---|
@@ -533,18 +372,7 @@ url.replace(zoomRegExp, QString::number(zoom));
 
 ### Як реєстр стає списком типів карти
 
-```cpp
-for (const SharedMapProvider &provider : UrlFactory::getProviders()) {
-    mapList.append(QGeoMapType(static_cast<QGeoMapType::MapStyle>(provider->getMapStyle()),
-                               provider->getMapName(),      // назва
-                               provider->getMapName(),      // опис — той самий рядок
-                               false, false,
-                               provider->getMapId(),        // mapId фреймворку = _mapId
-                               QByteArrayLiteral("QGroundControl"),
-                               cameraCapabilities()));
-}
-setSupportedMapTypes(mapList);
-```
+:::code api-map-provider/cpp/iak-reiestr-staie-spyskom.cpp
 
 Звідси видно замикання кола: `mapId`, з яким фреймворк потім приходить по кожен тайл (`spec.mapId()`), — це той самий лічильник із конструктора провайдера, і той самий номер у перших десяти цифрах ключа.
 
@@ -552,19 +380,7 @@ setSupportedMapTypes(mapList);
 
 ## `ElevationProvider`: провайдер, у якого немає пікселів
 
-```cpp
-class ElevationProvider : public MapProvider
-{
-protected:
-    ElevationProvider(const QString &mapName, const QString &referrer, const QString &imageFormat,
-                      quint32 averageSize, MapProvider::MapStyle mapType)
-        : MapProvider(mapName, referrer, imageFormat, averageSize, mapType) {}
-
-public:
-    bool isElevationProvider() const final { return true; }
-    virtual QByteArray serialize(const QByteArray &image) const = 0;
-};
-```
+:::code api-map-provider/cpp/elevationprovider.cpp
 
 Проміжний клас додає до контракту рівно дві речі: закріплює `isElevationProvider()` як `true` без права перевизначення й вимагає другу чисту віртуальну — `serialize`. Конструктор `protected`, тож самостійно `ElevationProvider` не створюється.
 
@@ -575,47 +391,11 @@ public:
 
 Єдина реалізація — `CopernicusElevationProvider`:
 
-```cpp
-class CopernicusElevationProvider : public ElevationProvider
-{
-public:
-    CopernicusElevationProvider()
-        : ElevationProvider(kProviderKey, kProviderURL, QStringLiteral("bin"),
-                            kAvgElevSize, MapProvider::TerrainMap) {}
-
-    int long2tileX(double lon, int z) const final;
-    int lat2tileY(double lat, int z) const final;
-    QGCTileSet getTileCount(int zoom, double topleftLon, double topleftLat,
-                            double bottomRightLon, double bottomRightLat) const final;
-    QByteArray serialize(const QByteArray &image) const final;
-
-    static constexpr const char *kProviderKey    = "Copernicus";
-    static constexpr const char *kProviderNotice = "© Airbus Defence and Space GmbH";
-    static constexpr const char *kProviderURL    = "https://terrain-ce.suite.auterion.com";
-    static constexpr quint32     kAvgElevSize    = 2786;
-
-private:
-    QString _getURL(int x, int y, int zoom) const final;
-
-    const QString _mapUrl = QString(kProviderURL) + QStringLiteral("/api/v1/carpet?points=%1,%2,%3,%4");
-};
-```
+:::code api-map-provider/cpp/elevationprovider-2.cpp
 
 ### Градусна сітка замість меркаторської
 
-```cpp
-int CopernicusElevationProvider::long2tileX(double lon, int z) const
-{
-    Q_UNUSED(z)
-    return static_cast<int>(floor((lon + 180.0) / TerrainTileCopernicus::kTileSizeDegrees));
-}
-
-int CopernicusElevationProvider::lat2tileY(double lat, int z) const
-{
-    Q_UNUSED(z)
-    return static_cast<int>(floor((lat + 90.0) / TerrainTileCopernicus::kTileSizeDegrees));
-}
-```
+:::code api-map-provider/cpp/hradusna-sitka-zamist.hpp
 
 | Стала (`TerrainTileCopernicus`) | Значення | Що означає |
 |---|---|---|
@@ -675,23 +455,7 @@ QByteArray CopernicusElevationProvider::serialize(const QByteArray &image) const
 
 **1. Клас.** Достатньо заголовка — реалізація вміщується в рядок:
 
-```cpp
-// MyOrthoMapProvider.h
-class MyOrthoMapProvider : public MapProvider
-{
-public:
-    MyOrthoMapProvider()
-        : MapProvider(QStringLiteral("Ortho Rescue"),          // ім'я → налаштування й ключ
-                      QStringLiteral("https://gis.example.org"),
-                      QStringLiteral("jpg"),
-                      42000,                                    // виміряний середній тайл
-                      MapProvider::SatelliteMapDay) {}
-private:
-    QString _getURL(int x, int y, int zoom) const final { return _mapUrl.arg(zoom).arg(x).arg(y); }
-
-    const QString _mapUrl = QStringLiteral("https://gis.example.org/tiles/%1/%2/%3.jpg");
-};
-```
+:::code api-map-provider/cpp/minimalne-dodavannia.cpp
 
 **2. Вмикання.** Додати `#include` у `QGCMapUrlEngine.cpp`.
 

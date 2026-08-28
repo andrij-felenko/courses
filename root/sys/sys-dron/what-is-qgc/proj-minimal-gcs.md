@@ -30,51 +30,8 @@
 Спершу канал. Він відкривається один раз, і далі з нього читають до кінця роботи.
 
 :::tabs
-```c
-/* Збірка: cc gcs.c -o gcs -I ./mavlink            (заголовки mavgen — самі лише .h) */
-#include <mavlink/common/mavlink.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-
-#define GCS_SYSID  255                     /* так себе називають наземні станції */
-#define GCS_COMPID MAV_COMP_ID_MISSIONPLANNER
-
-static uint64_t now_ms(void) {                /* монотонний час: годинник системи може стрибнути */
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-}
-
-static int open_udp(uint16_t port) {
-    int fd = socket(AF_INET, SOCK_DGRAM, 0);
-    struct sockaddr_in me = { .sin_family = AF_INET,
-                              .sin_addr.s_addr = htonl(INADDR_ANY),
-                              .sin_port = htons(port) };
-    bind(fd, (struct sockaddr *)&me, sizeof me);
-
-    /* Читання з таймаутом: цикл мусить прокидатися, навіть коли борт мовчить,
-       інакше нема кому ні повторити команду, ні оновити рядок на екрані. */
-    struct timeval tv = { .tv_sec = 0, .tv_usec = 200000 };   /* 200 мс */
-    setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
-    return fd;
-}
-```
-```python
-#!/usr/bin/env python3
-"""Мінімальна наземна станція: слухає MAVLink, показує стан, шле одну команду."""
-import time
-from pymavlink import mavutil
-
-mav = mavutil.mavlink                      # згенерований словник повідомлень і сталих
-AUTOPILOT = mav.MAV_COMP_ID_AUTOPILOT1
-
-# 'udpin:' — ми чекаємо, поки борт (чи симулятор) сам почне слати сюди.
-# Для дротового з'єднання рядок інший: '/dev/ttyACM0' плюс baud=57600.
-link = mavutil.mavlink_connection('udpin:0.0.0.0:14550', source_system=255)
-```
+:::code proj-minimal-gcs/c/gcs.c
+:::code proj-minimal-gcs/py/kod.py
 :::
 
 Дротове з'єднання міняє в цій програмі рівно один шматок — той, що відкриває канал. У C замість сокета буде `open("/dev/ttyACM0", O_RDWR | O_NOCTTY)`, далі `termios`: сирий режим (щоб драйвер не чіпав байти, які випадково збіглися з керівними символами), швидкість — типово 57600 для радіомодема й 115200 для USB-кабелю, а роль `SO_RCVTIMEO` беруть на себе поля `VMIN = 0` і `VTIME = 2`: «віддай, що назбиралося, але не чекай довше двох десятих секунди». У Python зміниться лише рядок з'єднання. Увесь інший код — і розбір, і цикл — лишається без жодної правки, і це не збіг: парсер їсть байти, а звідки вони взялися, його не обходить.
@@ -82,174 +39,15 @@ link = mavutil.mavlink_connection('udpin:0.0.0.0:14550', source_system=255)
 Далі — розбір. Тут між версіями найбільша різниця: у C ми самі згодовуємо парсерові кожен байт і самі розкодовуємо повідомлення в структуру, у Python бібліотека вже віддає готовий об'єкт із названими полями. Спільним лишається головне — `switch` (чи ланцюжок `if`) по номеру повідомлення, який оновлює знімок стану.
 
 :::tabs
-```c
-/* Останній відомий стан: кожне поле оновлюється своїм повідомленням,
-   у своєму темпі, незалежно від решти. */
-struct snapshot {
-    int      seen;                /* чи прийшло бодай одне серцебиття    */
-    uint8_t  sysid, compid;       /* хто саме до нас говорить            */
-    int      armed;
-    uint32_t custom_mode;         /* число; назва режиму залежить від стеку */
-    float    volts;               /* В   */
-    int8_t   battery_pct;         /* %, −1 якщо борт не знає */
-    double   lat, lon;            /* °   */
-    float    alt_rel;             /* м над точкою зльоту */
-};
-
-/* Повертає result із COMMAND_ACK на нашу команду або −1, якщо це не вона. */
-static int apply(const mavlink_message_t *m, struct snapshot *s) {
-    switch (m->msgid) {
-    case MAVLINK_MSG_ID_HEARTBEAT: {
-        if (m->compid != MAV_COMP_ID_AUTOPILOT1)
-            break;                /* камери й підвіси теж б'ють серцем */
-        mavlink_heartbeat_t hb;
-        mavlink_msg_heartbeat_decode(m, &hb);
-        s->seen  = 1;
-        s->sysid = m->sysid;  s->compid = m->compid;
-        s->armed = (hb.base_mode & MAV_MODE_FLAG_SAFETY_ARMED) != 0;
-        s->custom_mode = hb.custom_mode;
-        break;
-    }
-    case MAVLINK_MSG_ID_SYS_STATUS: {
-        mavlink_sys_status_t st;
-        mavlink_msg_sys_status_decode(m, &st);
-        s->volts       = st.voltage_battery / 1000.0f;   /* мВ → В */
-        s->battery_pct = st.battery_remaining;
-        break;
-    }
-    case MAVLINK_MSG_ID_GLOBAL_POSITION_INT: {
-        mavlink_global_position_int_t p;
-        mavlink_msg_global_position_int_decode(m, &p);
-        s->lat = p.lat / 1e7;  s->lon = p.lon / 1e7;      /* degE7 → ° */
-        s->alt_rel = p.relative_alt / 1000.0f;            /* мм → м   */
-        break;
-    }
-    case MAVLINK_MSG_ID_COMMAND_ACK: {
-        mavlink_command_ack_t a;
-        mavlink_msg_command_ack_decode(m, &a);
-        if (a.command == MAV_CMD_SET_MESSAGE_INTERVAL) return a.result;
-        break;
-    }
-    default: break;               /* решту потоку свідомо не чіпаємо */
-    }
-    return -1;
-}
-```
-```python
-state = {'mode': '?', 'armed': False, 'volts': None, 'pct': None,
-         'lat': None, 'lon': None, 'alt': None}
-
-def apply(msg, st):
-    """Оновити знімок. Повертає result із COMMAND_ACK на нашу команду або None."""
-    kind = msg.get_type()
-    if kind == 'HEARTBEAT':
-        if msg.get_srcComponent() != AUTOPILOT:
-            return None                      # камери й підвіси теж б'ють серцем
-        st['mode']  = mavutil.mode_string_v10(msg)   # своя таблиця назв на кожен стек
-        st['armed'] = bool(msg.base_mode & mav.MAV_MODE_FLAG_SAFETY_ARMED)
-    elif kind == 'SYS_STATUS':
-        st['volts'] = msg.voltage_battery / 1000     # мВ → В
-        st['pct']   = msg.battery_remaining          # −1, якщо борт не знає
-    elif kind == 'GLOBAL_POSITION_INT':
-        st['lat'] = msg.lat / 1e7                    # degE7 → °
-        st['lon'] = msg.lon / 1e7
-        st['alt'] = msg.relative_alt / 1000          # мм → м
-    elif kind == 'COMMAND_ACK' and msg.command == mav.MAV_CMD_SET_MESSAGE_INTERVAL:
-        return msg.result
-    return None
-```
+:::code proj-minimal-gcs/c/kod.c
+:::code proj-minimal-gcs/py/kod-2.py
 :::
 
 Лишився цикл: читати, оновлювати, раз на секунду друкувати й — доки нема підтвердження — щосекунди повторювати команду. Зверни увагу, що команду не можна надіслати одразу: доки не прийшло перше серцебиття, ми не знаємо `sysid` апарата, а без адресата `COMMAND_LONG` нікуди слати.
 
 :::tabs
-```c
-int main(void) {
-    int fd = open_udp(14550);
-    struct sockaddr_in peer; socklen_t peer_len = 0;   /* звідки почули — туди й шлемо */
-    struct snapshot s = { 0 };
-    int ack = -1, tries = 0;
-    uint64_t next_try = 0, last_print = 0;
-    uint8_t buf[2048];
-
-    for (;;) {
-        struct sockaddr_in from; socklen_t from_len = sizeof from;
-        ssize_t n = recvfrom(fd, buf, sizeof buf, 0,
-                             (struct sockaddr *)&from, &from_len);
-
-        for (ssize_t i = 0; i < n; i++) {              /* n < 0 на таймауті — цикл не виконається */
-            mavlink_message_t msg;  mavlink_status_t st;
-            if (mavlink_parse_char(MAVLINK_COMM_0, buf[i], &msg, &st)) {
-                if (!peer_len) { peer = from; peer_len = from_len; }
-                int r = apply(&msg, &s);
-                if (r >= 0) ack = r;
-            }
-        }
-
-        uint64_t t = now_ms();
-        if (s.seen && ack < 0 && tries < 5 && t >= next_try) {
-            mavlink_message_t out;
-            mavlink_msg_command_long_pack(
-                GCS_SYSID, GCS_COMPID, &out,
-                s.sysid, s.compid,
-                MAV_CMD_SET_MESSAGE_INTERVAL,
-                tries,                                  /* confirmation: 0, 1, 2, … */
-                MAVLINK_MSG_ID_GLOBAL_POSITION_INT,     /* param1: який потік       */
-                500000,                                 /* param2: період, мкс → 2 Гц */
-                0, 0, 0, 0, 0);
-            uint8_t out_buf[MAVLINK_MAX_PACKET_LEN];
-            uint16_t len = mavlink_msg_to_send_buffer(out_buf, &out);
-            sendto(fd, out_buf, len, 0, (struct sockaddr *)&peer, peer_len);
-            tries++;  next_try = t + 1000;
-        }
-
-        if (s.seen && t - last_print >= 1000) {
-            last_print = t;
-            printf("sys %u  %s  режим %u  %.1f В  %d%%  %.6f %.6f  %.1f м  ack=%d\n",
-                   s.sysid, s.armed ? "ЗБРОЄНО" : "роззброєно", s.custom_mode,
-                   s.volts, s.battery_pct, s.lat, s.lon, s.alt_rel, ack);
-        }
-    }
-}
-```
-```python
-print('чекаю на серцебиття…')
-link.wait_heartbeat()                      # звідси відомі target_system і target_component
-print(f'апарат sysid={link.target_system}')
-
-ack, tries, next_try, last_print = None, 0, 0.0, 0.0
-
-while True:
-    msg = link.recv_match(blocking=True, timeout=0.2)
-    if msg is not None:
-        result = apply(msg, state)
-        if result is not None:
-            ack = result
-
-    now = time.monotonic()
-    if ack is None and tries < 5 and now >= next_try:
-        link.mav.command_long_send(
-            link.target_system, AUTOPILOT,
-            mav.MAV_CMD_SET_MESSAGE_INTERVAL,
-            tries,                                   # confirmation: 0, 1, 2, …
-            mav.MAVLINK_MSG_ID_GLOBAL_POSITION_INT,  # param1: який потік
-            500_000,                                 # param2: період, мкс → 2 Гц
-            0, 0, 0, 0, 0)
-        tries += 1
-        next_try = now + 1.0
-
-    if now - last_print >= 1.0:
-        last_print = now
-        print('{mode:>10}  {arm}  {volts}  {pct}  {lat} {lon}  {alt}  ack={ack}'.format(
-            mode=state['mode'],
-            arm='ЗБРОЄНО' if state['armed'] else 'роззброєно',
-            volts=f"{state['volts']:.1f} В" if state['volts'] is not None else '—',
-            pct=f"{state['pct']}%" if state['pct'] is not None else '—',
-            lat=f"{state['lat']:.6f}" if state['lat'] is not None else '—',
-            lon=f"{state['lon']:.6f}" if state['lon'] is not None else '—',
-            alt=f"{state['alt']:.1f} м" if state['alt'] is not None else '—',
-            ack=ack))
-```
+:::code proj-minimal-gcs/c/kod-2.c
+:::code proj-minimal-gcs/py/kod-3.py
 :::
 
 Python-версія — трохи більше за шістдесят рядків, C-версія — приблизно вдвічі довша, бо в ній видно розбір і пакування. Обидві дають той самий рядок у консолі, що оновлюється щосекунди й показує живий апарат.

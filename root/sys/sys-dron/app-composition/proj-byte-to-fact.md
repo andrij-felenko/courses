@@ -26,42 +26,7 @@
 
 Конверт беремо справжній — заголовок MAVLink v1: байт початку `0xFE`, довжина, номер по порядку, номер системи, номер компонента, номер повідомлення, корисне навантаження, два байти контрольної суми. Сама сума — CRC-16/MCRF4XX, той самий, що в MAVLink: рахується від байта довжини до кінця навантаження, початкове значення `0xFFFF`, фінального XOR немає. Набір повідомлень — навмисно іграшковий: серцебиття й висота. Про справжній конверт із усіма його полями є окрема розмова в темі [«Пакет MAVLink»](root:sys-dron/mavlink-packet); про те, чому такий поліном ловить і поодинокі помилки, і пачки, — у темі [«CRC»](root:com-modulation/crc).
 
-```cpp
-// збірка: g++ -std=c++17 -O2 byte_to_fact.cpp -o byte_to_fact
-#include <cstdint>
-#include <cstdio>
-#include <cstddef>
-#include <functional>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
-
-constexpr uint8_t STX            = 0xFE;   // початок кадру
-constexpr uint8_t COMP_AUTOPILOT = 1;
-constexpr uint8_t MSG_HEARTBEAT  = 0;
-constexpr uint8_t MSG_ALT        = 33;     // урізаний родич GLOBAL_POSITION_INT
-
-// CRC-16/MCRF4XX: дзеркальний поліном 0x1021, старт 0xFFFF, без фінального XOR.
-inline void crc_step(uint8_t b, uint16_t &crc) {
-    uint8_t t = static_cast<uint8_t>(b ^ (crc & 0xFF));
-    t = static_cast<uint8_t>(t ^ (t << 4));
-    crc = static_cast<uint16_t>((crc >> 8) ^ (t << 8) ^ (t << 3) ^ (t >> 4));
-}
-
-// Зібрати кадр — потрібно лише для того, щоб було чим годувати розбирач.
-std::vector<uint8_t> pack(uint8_t seq, uint8_t sys, uint8_t comp, uint8_t msg,
-                          const std::vector<uint8_t> &payload) {
-    std::vector<uint8_t> f{STX, static_cast<uint8_t>(payload.size()), seq, sys, comp, msg};
-    f.insert(f.end(), payload.begin(), payload.end());
-
-    uint16_t crc = 0xFFFF;
-    for (size_t i = 1; i < f.size(); ++i) crc_step(f[i], crc);   // усе, крім STX
-    f.push_back(static_cast<uint8_t>(crc & 0xFF));
-    f.push_back(static_cast<uint8_t>(crc >> 8));
-    return f;
-}
-```
+:::code proj-byte-to-fact/cpp/byte_to_fact.cpp
 
 Однієї деталі справжнього MAVLink тут свідомо немає: там у суму домішується ще й байт `CRC_EXTRA`, порахований з опису самого повідомлення. Завдяки йому сторона, у якої опис повідомлення інакший, не просто прочитає поля криво, а взагалі не збере кадр — розбіжність вилазить на контрольній сумі, а не в даних.
 
@@ -69,46 +34,7 @@ std::vector<uint8_t> pack(uint8_t seq, uint8_t sys, uint8_t comp, uint8_t msg,
 
 Розбирач приймає по одному байту й повертає `true` лише тоді, коли кадр зійшовся цілком. Уся його пам'ять — у структурі `Parser`, і саме тому таких структур буде стільки, скільки джерел.
 
-```cpp
-struct Frame { uint8_t seq, sys, comp, msg, len; uint8_t payload[255]; };
-
-struct Parser {                       // ОДИН такий на кожне джерело байтів
-    enum Stage { WaitStx, Len, Seq, Sys, Comp, Msg, Payload, CrcLo, CrcHi };
-    Stage    stage = WaitStx;
-    Frame    f{};
-    uint8_t  idx = 0;
-    uint16_t crc = 0, crc_rx = 0;
-    uint32_t good = 0, bad = 0;       // лічильники для демонстрації
-};
-
-bool feed(Parser &p, uint8_t b, Frame &out) {
-    switch (p.stage) {
-    case Parser::WaitStx:
-        if (b == STX) { p.crc = 0xFFFF; p.stage = Parser::Len; }
-        return false;
-    case Parser::Len:  p.f.len  = b; crc_step(b, p.crc); p.idx = 0; p.stage = Parser::Seq;  return false;
-    case Parser::Seq:  p.f.seq  = b; crc_step(b, p.crc); p.stage = Parser::Sys;  return false;
-    case Parser::Sys:  p.f.sys  = b; crc_step(b, p.crc); p.stage = Parser::Comp; return false;
-    case Parser::Comp: p.f.comp = b; crc_step(b, p.crc); p.stage = Parser::Msg;  return false;
-    case Parser::Msg:  p.f.msg  = b; crc_step(b, p.crc);
-                       p.stage = p.f.len ? Parser::Payload : Parser::CrcLo;      return false;
-    case Parser::Payload:
-        p.f.payload[p.idx++] = b; crc_step(b, p.crc);
-        if (p.idx == p.f.len) p.stage = Parser::CrcLo;
-        return false;
-    case Parser::CrcLo:
-        p.crc_rx = b; p.stage = Parser::CrcHi;
-        return false;
-    case Parser::CrcHi:
-        p.crc_rx = static_cast<uint16_t>(p.crc_rx | (b << 8));
-        p.stage  = Parser::WaitStx;
-        if (p.crc_rx == p.crc) { out = p.f; ++p.good; return true; }
-        ++p.bad;                       // сума не зійшлася — кадру не було
-        return false;
-    }
-    return false;
-}
-```
+:::code proj-byte-to-fact/cpp/avtomat-iakomu-baiduzhe-de.cpp
 
 Тут немає жодного припущення про те, як байти згруповані. Прийшло три байти — автомат просунувся на три кроки; прийшла тисяча — на тисячу. Розрив посеред кадру нічого не коштує, бо весь недобудований кадр лежить у `Parser` і чекає продовження скільки завгодно довго.
 
@@ -118,29 +44,7 @@ bool feed(Parser &p, uint8_t b, Frame &out) {
 
 Найдрібніша деталь конвеєра — шина сповіщень, на яку спирається факт. Це мікроскопічний цикл подій: подія кладеться в чергу, а розсилаються всі накопичені разом наприкінці такту.
 
-```cpp
-// Стискання подій: ключ — той, хто повідомляє. Якщо його подія вже в черзі,
-// нова ЗАМІЩАЄ стару, а не стає позаду неї.
-class Bus {
-public:
-    void post(const void *who, std::function<void()> fn) {
-        for (auto &e : _q)
-            if (e.who == who) { e.fn = std::move(fn); ++_merged; return; }
-        _q.push_back({who, std::move(fn)});
-    }
-    void drain() {                          // кінець такту: розсилаємо накопичене
-        std::vector<Ev> batch;
-        batch.swap(_q);                     // те, що обробники напостять зараз, поїде наступним тактом
-        for (auto &e : batch) { e.fn(); ++_delivered; }
-    }
-    uint32_t merged() const    { return _merged; }
-    uint32_t delivered() const { return _delivered; }
-private:
-    struct Ev { const void *who; std::function<void()> fn; };
-    std::vector<Ev> _q;
-    uint32_t _merged = 0, _delivered = 0;
-};
-```
+:::code proj-byte-to-fact/cpp/cherha-u-iakii-nova-podiia.cpp
 
 `batch.swap(_q)` — не косметика. Обробник має право під час розсилки поставити нову подію; якщо розсилати просто з `_q`, така подія потрапить у той самий прохід, і два обробники, що штовхають один одного, зациклять такт. Після обміну все нове їде наступним тактом: коштує це однієї затримки, рятує від зациклення.
 
@@ -148,45 +52,7 @@ private:
 
 Факт — це число разом із усім, що про нього треба знати, щоб показати людині. Метадані спільні на всі однакові факти; сире значення — власне в кожного.
 
-```cpp
-struct Unit { const char *name; double perBase; };  // скільки базових одиниць в одній показаній
-
-struct FactMeta {
-    const char *name;       // назва для людини
-    double      rawToBase;  // «сирі одиниці → базові»: мм → м це 0.001
-    int         decimals;   // скільки знаків показувати
-};
-
-class Fact {
-public:
-    Fact(const FactMeta &m, Bus &bus) : _m(m), _bus(bus) {}
-
-    void setRaw(int32_t raw) {           // рівно те, що приїхало в кадрі
-        ++calls;
-        if (raw == _raw) return;         // те саме число — новини немає
-        _raw = raw;
-        ++changes;
-        _bus.post(this, [this] { if (onChanged) onChanged(*this); });
-    }
-
-    int32_t raw() const { return _raw; }
-    double cooked(const Unit &u) const { return _raw * _m.rawToBase / u.perBase; }
-
-    std::string display(const Unit &u) const {
-        char buf[64];
-        std::snprintf(buf, sizeof buf, "%.*f %s", _m.decimals, cooked(u), u.name);
-        return buf;
-    }
-    const char *name() const { return _m.name; }
-
-    std::function<void(Fact &)> onChanged;
-    uint32_t calls = 0, changes = 0;     // лічильники лише для демонстрації
-private:
-    const FactMeta &_m;
-    Bus            &_bus;
-    int32_t         _raw = 0;
-};
-```
+:::code proj-byte-to-fact/cpp/znachennia-z-pasportom.cpp
 
 `setRaw` не кличе нікого напряму — він **стає в чергу**. Це і є [спостерігач](root:sf-apps/observer) із затримкою на такт: той, хто змінює значення, не знає ні скільки в нього глядачів, ні коли вони прокинуться.
 
@@ -194,137 +60,13 @@ private:
 
 ### Апарат і маршрут
 
-```cpp
-int32_t le32(const uint8_t *p) {          // у дроті молодший байт перший
-    uint32_t u = uint32_t(p[0]) | uint32_t(p[1]) << 8 |
-                 uint32_t(p[2]) << 16 | uint32_t(p[3]) << 24;
-    return static_cast<int32_t>(u);
-}
-
-const FactMeta ALT_META{"висота", 0.001, 1};   // сире — цілі міліметри зі знаком
-
-struct Vehicle {
-    Vehicle(uint8_t id, Bus &bus) : sysid(id), altitude(ALT_META, bus) {}
-
-    void handle(const Frame &f) {
-        switch (f.msg) {
-        case MSG_ALT:
-            if (f.len >= 4) altitude.setRaw(le32(f.payload));  // мм лишаються мм
-            break;
-        case MSG_HEARTBEAT:
-            if (f.len >= 1) armed = (f.payload[0] & 0x80) != 0;
-            break;
-        default: break;                    // решту потоку свідомо не чіпаємо
-        }
-    }
-    uint8_t sysid;
-    bool    armed = false;
-    Fact    altitude;
-};
-
-class Router {
-public:
-    explicit Router(Bus &bus) : _bus(bus) {}
-
-    Vehicle *route(const Frame &f) {
-        if (f.sys == 0) return nullptr;                        // службова адреса
-        for (auto &v : _vehicles) if (v->sysid == f.sys) return v.get();
-        // новий апарат заводить лише серцебиття автопілота: камера теж б'є серцем
-        if (f.msg != MSG_HEARTBEAT || f.comp != COMP_AUTOPILOT) return nullptr;
-        _vehicles.push_back(std::make_unique<Vehicle>(f.sys, _bus));
-        Vehicle &v = *_vehicles.back();
-        if (onNewVehicle) onNewVehicle(v);
-        return &v;
-    }
-    const std::vector<std::unique_ptr<Vehicle>> &vehicles() const { return _vehicles; }
-    std::function<void(Vehicle &)> onNewVehicle;
-private:
-    Bus &_bus;
-    // unique_ptr, а не Vehicle за значенням: посилання на апарат мусить пережити
-    // зростання вектора, а всередині Fact ще й лежить лямбда з [this]
-    std::vector<std::unique_ptr<Vehicle>> _vehicles;
-};
-```
+:::code proj-byte-to-fact/cpp/aparat-i-marshrut.cpp
 
 Порядок перевірок у `route` неочевидний, але кожна лінія в ньому зароблена. Нульовий номер системи — службовий, апаратом він не буває. Уже знайомий номер повертає наявний об'єкт, хай яке це повідомлення. І лише нове серцебиття **від компонента-автопілота** заводить новий апарат: підвіс і камера теж шлють серцебиття, і якби апарат заводило будь-яке з них, один дрон з'явився б у списку тричі.
 
 ### Складання й три сцени
 
-```cpp
-Unit g_shown{"фт", 0.3048};             // що обрав користувач; у станції це налаштування
-
-void feed_bytes(Parser &p, Router &r, const uint8_t *b, size_t n) {
-    Frame f;
-    for (size_t i = 0; i < n; ++i)
-        if (feed(p, b[i], f))
-            if (Vehicle *v = r.route(f)) v->handle(f);
-}
-
-void feed_chunk(Parser &p, Router &r, const std::vector<uint8_t> &d) {
-    feed_bytes(p, r, d.data(), d.size());
-}
-
-std::vector<uint8_t> alt_mm(int32_t mm) {
-    uint32_t u = static_cast<uint32_t>(mm);
-    return {uint8_t(u), uint8_t(u >> 8), uint8_t(u >> 16), uint8_t(u >> 24)};
-}
-
-int main() {
-    Bus    bus;
-    Router router(bus);
-    Parser link[2];                     // ← стан розбору на КОЖНЕ джерело
-
-    router.onNewVehicle = [](Vehicle &v) {
-        v.altitude.onChanged = [&v](Fact &f) {
-            std::printf("  екран: апарат %u   %s %s\n", unsigned(v.sysid),
-                        f.name(), f.display(g_shown).c_str());
-        };
-    };
-
-    const auto hbA  = pack(0, 1, COMP_AUTOPILOT, MSG_HEARTBEAT, {0x80});
-    const auto altA = pack(1, 1, COMP_AUTOPILOT, MSG_ALT, alt_mm(42300));
-    const auto hbB  = pack(0, 2, COMP_AUTOPILOT, MSG_HEARTBEAT, {0x00});
-    const auto altB = pack(1, 2, COMP_AUTOPILOT, MSG_ALT, alt_mm(15000));
-
-    // порції рвуться посеред кадру, а джерела чергуються — як воно й буває
-    std::printf("акт 1 — два джерела, свій стан на кожне\n");
-    feed_chunk(link[0], router, hbA);
-    feed_chunk(link[1], router, hbB);
-    feed_bytes(link[0], router, altA.data(), 6);                    // півкадру A
-    feed_chunk(link[1], router, altB);                              // увесь кадр B
-    feed_bytes(link[0], router, altA.data() + 6, altA.size() - 6);  // решта A
-    bus.drain();
-    std::printf("  апаратів: %zu   цілих кадрів: %u + %u\n",
-                router.vehicles().size(), link[0].good, link[1].good);
-
-    std::printf("акт 2 — ТІ САМІ байти в ОДИН спільний стан\n");
-    Parser shared;
-    Frame  f;
-    int    got = 0;
-    for (size_t i = 0; i < 6; ++i)            got += feed(shared, altA[i], f);  // півкадру A
-    for (uint8_t b : altB)                    got += feed(shared, b, f);        // увесь кадр B
-    for (size_t i = 6; i < altA.size(); ++i)  got += feed(shared, altA[i], f);  // решта A
-    std::printf("  цілих кадрів: %d   зіпсованих: %u\n", got, shared.bad);
-
-    std::printf("акт 3 — 50 кадрів висоти за один такт\n");
-    Fact &alt = router.vehicles()[0]->altitude;
-    const uint32_t c0 = alt.calls, ch0 = alt.changes;
-    const uint32_t m0 = bus.merged(), d0 = bus.delivered();
-    for (int i = 0; i < 50; ++i)
-        feed_chunk(link[0], router,
-                   pack(uint8_t(i), 1, COMP_AUTOPILOT, MSG_ALT, alt_mm(42300 + i * 10)));
-    std::printf("  setRaw: %u   справжніх змін: %u   злито в черзі: %u\n",
-                alt.calls - c0, alt.changes - ch0, bus.merged() - m0);
-    bus.drain();
-    std::printf("  сповіщень за такт: %u\n", bus.delivered() - d0);
-
-    g_shown = Unit{"м", 1.0};           // користувач перемкнув одиниці
-    std::printf("одиниці змінено — жодного нового байта з борту\n");
-    for (const auto &v : router.vehicles())
-        std::printf("  апарат %u   %s\n", unsigned(v->sysid),
-                    v->altitude.display(g_shown).c_str());
-}
-```
+:::code proj-byte-to-fact/cpp/skladannia-i-try-stseny.cpp
 
 Вивід:
 
@@ -431,23 +173,7 @@ int main() {
 
 Тому команда — не виклик, а маленький автомат із таймером. Сама посилка тут за дужками: вона така сама, як `pack` вище, тільки з номером команди й полем `confirmation` у навантаженні.
 
-```cpp
-struct Pending {
-    uint16_t cmd;                 // яку команду чекаємо підтвердити
-    uint8_t  tries    = 0;        // воно ж поле confirmation у кадрі
-    uint64_t deadline = 0;        // коли вважати, що відповіді вже не буде
-    bool     acked    = false;
-    bool     failed   = false;
-};
-
-void tick(Pending &p, uint64_t now_ms) {
-    if (p.acked || p.failed || now_ms < p.deadline) return;
-    if (p.tries >= 3) { p.failed = true; return; }   // стільки ж дає QGroundControl
-    send_command(p.cmd, p.tries);                    // confirmation = номер спроби
-    ++p.tries;
-    p.deadline = now_ms + 1000;                      // мс
-}
-```
+:::code proj-byte-to-fact/cpp/pastka-na-zvorotnomu-khodi.cpp
 
 Поле `confirmation` тут не формальність. Стандарт MAVLink описує його саме як лічильник повторів: перша посилка йде з нулем, кожен наступний повтор збільшує його на одиницю, і борт із цього числа бачить, що команда та сама, а не нова. Потреба в такому лічильнику береться з простої несиметричності: загубитися може не лише команда, а й **підтвердження на неї**. У другому випадку борт уже все виконав, а станція про це не знає й шле ще раз.
 

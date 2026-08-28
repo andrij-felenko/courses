@@ -140,45 +140,7 @@ static inline bool orb_sub_valid(orb_sub_t handle) { return handle >= 0; }
 
 ### Мінімальний робочий виклик
 
-```c
-#include <uORB/uORB.h>
-#include <uORB/topics/vehicle_attitude.h>
-#include <drivers/drv_hrt.h>
-
-/* ── видавець ─────────────────────────────────────────── */
-struct vehicle_attitude_s att = {0};        /* {0} обов'язково: сміття в невживаних полях поїде на шину */
-att.timestamp_sample = hrt_absolute_time();
-att.q[0] = 1.0f;
-att.timestamp = hrt_absolute_time();
-
-orb_advert_t pub = orb_advertise(ORB_ID(vehicle_attitude), &att);
-if (pub == NULL) {
-    return PX4_ERROR;                        /* тема не оголосилася — далі публікувати нікуди */
-}
-
-att.timestamp = hrt_absolute_time();         /* далі — щоразу свіжа позначка */
-orb_publish(ORB_ID(vehicle_attitude), pub, &att);
-
-/* ── передплатник ─────────────────────────────────────── */
-orb_sub_t sub = orb_subscribe(ORB_ID(vehicle_attitude));
-if (!orb_sub_valid(sub)) {
-    return PX4_ERROR;
-}
-orb_set_interval(sub, 10);                   /* не частіше ніж раз на 10 МІЛІсекунд */
-
-px4_pollfd_struct_t fds[1];
-fds[0].fd = sub;
-fds[0].events = POLLIN;
-
-if (px4_poll(fds, 1, 100) > 0) {             /* тайм-аут теж у мілісекундах */
-    struct vehicle_attitude_s in;
-    orb_copy(ORB_ID(vehicle_attitude), sub, &in);
-    const hrt_abstime age = hrt_absolute_time() - in.timestamp_sample;
-    /* age — вік виміру, а не час прийому; саме на ньому будують компенсацію запізнення */
-}
-
-orb_unsubscribe(sub);
-```
+:::code api-uorb/c/main.c
 
 ## C++-обгортки
 
@@ -205,48 +167,7 @@ orb_unsubscribe(sub);
 
 **`copy()` і `update()` — не синоніми.** Обидва посувають власне покоління передплатника, але `update(&dst)` копіює **тільки якщо є нове**, а `copy(&dst)` копіює завжди — навіть якщо це те саме значення, що ти вже читав. Для контуру керування правильний майже завжди `update()`; `copy()` доречний, коли треба просто дізнатися поточний стан.
 
-```cpp
-#include <uORB/Publication.hpp>
-#include <uORB/Subscription.hpp>
-#include <uORB/SubscriptionCallback.hpp>
-#include <uORB/topics/parameter_update.h>
-#include <uORB/topics/vehicle_angular_velocity.h>
-#include <uORB/topics/vehicle_torque_setpoint.h>
-
-class RateLoop : public px4::WorkItem
-{
-public:
-    // registerCallback() кличуть у init(), а НЕ в конструкторі: об'єкт має бути
-    // добудований, інакше вузол теми покличе Run() у недобудований модуль.
-    bool init() { return _gyro_sub.registerCallback(); }
-
-private:
-    void Run() override
-    {
-        vehicle_angular_velocity_s gyro;
-
-        if (!_gyro_sub.update(&gyro)) {
-            return;                            // прокинулися не через нашу тему
-        }
-
-        if (_param_sub.updated()) {            // не частіше ніж раз на секунду
-            parameter_update_s dummy;
-            _param_sub.copy(&dummy);
-            updateParams();
-        }
-
-        vehicle_torque_setpoint_s torque{};    // фігурні дужки — обнулення padding
-        torque.timestamp_sample = gyro.timestamp_sample;   // вік ВИМІРУ тягнемо далі
-        // …тут рахують ПІД…
-        torque.timestamp = hrt_absolute_time();
-        _torque_pub.publish(torque);
-    }
-
-    uORB::SubscriptionCallbackWorkItem _gyro_sub{this, ORB_ID(vehicle_angular_velocity)};
-    uORB::SubscriptionInterval         _param_sub{ORB_ID(parameter_update), 1_s};
-    uORB::Publication<vehicle_torque_setpoint_s> _torque_pub{ORB_ID(vehicle_torque_setpoint)};
-};
-```
+:::code api-uorb/cpp/main.cpp
 
 Ланцюжок `timestamp_sample` у цьому фрагменті — не косметика. Публікуючи наслідок чужого виміру, ти зобов'язаний перенести його `timestamp_sample` як є: тільки так споживач за три кроки далі знатиме справжній вік даних, а не час останнього перекладання.
 

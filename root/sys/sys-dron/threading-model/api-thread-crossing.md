@@ -142,23 +142,7 @@ vehicle->sendJoystickDataThreadSafe(roll, pitch, yaw, throttle,
 
 Суфікс `ThreadSafe` в назвах QGroundControl означає не «всередині є замок», а «метод сам перекладе роботу в потрібну нитку».
 
-```cpp
-// src/Comms/LinkInterface.h
-void writeBytesThreadSafe(const char *bytes, int length);
-void sendMessageThreadSafe(mavlink_message_t &message);
-
-// src/Vehicle/Vehicle.h
-bool sendMessageOnLinkThreadSafe(LinkInterface *link, mavlink_message_t message);
-void sendJoystickDataThreadSafe(float roll, float pitch, float yaw, float thrust,
-                                quint16 buttons, quint16 buttons2,
-                                float pitchExtension, float rollExtension,
-                                float aux1, float aux2, float aux3,
-                                float aux4, float aux5, float aux6);
-void sendJoystickAuxRcOverrideThreadSafe(
-        const std::array<uint16_t, kAuxRcOverrideChannelCount> &channelValues,
-        const std::array<bool, kAuxRcOverrideChannelCount> &channelEnabled,
-        bool useRcOverride);
-```
+:::code api-thread-crossing/cpp/metody-bezpechni-dlia.hpp
 
 | Виклик | Що робить під капотом | Повертає | Обмеження |
 | --- | --- | --- | --- |
@@ -172,24 +156,7 @@ void sendJoystickAuxRcOverrideThreadSafe(
 
 Реалізація тут коротка настільки, що варта повного цитування:
 
-```cpp
-void LinkInterface::writeBytesThreadSafe(const char *bytes, int length)
-{
-    const QByteArray data(bytes, length);
-    (void) QMetaObject::invokeMethod(this, "_writeBytes", Qt::AutoConnection, data);
-}
-
-void LinkInterface::sendMessageThreadSafe(mavlink_message_t &message)
-{
-    if (_signingController) {
-        (void) _signingController->signOutgoing(message);
-    }
-
-    uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
-    const int len = mavlink_msg_to_send_buffer(buffer, &message);
-    writeBytesThreadSafe(reinterpret_cast<const char *>(buffer), len);
-}
-```
+:::code api-thread-crossing/cpp/metody-bezpechni-dlia.cpp
 
 `Qt::AutoConnection` тут не випадкова: виклик із головної нитки виконається **негайно й без черги** (адже `LinkInterface` живе в головній), а виклик із чужої — стане подією. Одна назва методу, дві різні ціни залежно від того, хто кличе.
 
@@ -251,46 +218,7 @@ QMetaObject::invokeMethod: Unable to invoke methods with return values in queued
 
 Повний кістяк переходу через межу — п'ять обов'язкових елементів і жодного зайвого:
 
-```cpp
-class Worker : public QObject          // 1. звичайний QObject, НЕ нащадок QThread
-{
-    Q_OBJECT
-public slots:
-    void open()                        // 2. ресурс відкривається тут, уже в новій нитці
-    {
-        _dev = new QSerialPort(this);
-        connect(_dev, &QIODevice::readyRead, this, [this] {
-            emit dataReceived(_dev->readAll());   // 3. назовні йдуть ЛИШЕ байти
-        });
-        _dev->open(QIODevice::ReadWrite);
-    }
-    void write(const QByteArray &data) { if (_dev) _dev->write(data); }
-    void close()                       { if (_dev) _dev->close(); }
-signals:
-    void dataReceived(const QByteArray &data);
-private:
-    QSerialPort *_dev = nullptr;
-};
-
-// власник живе в головній нитці
-_thread = new QThread(this);
-_worker = new Worker;                              // без батька — інакше не переселити
-_worker->moveToThread(_thread);
-connect(_thread, &QThread::started,  _worker, &Worker::open);
-connect(_thread, &QThread::finished, _worker, &QObject::deleteLater);
-connect(_worker, &Worker::dataReceived,
-        this,    &Owner::_onData, Qt::QueuedConnection);   // 4. явно чергове
-_thread->start();
-
-// у бік пристрою — теж через чергу
-QMetaObject::invokeMethod(_worker, "write", Qt::QueuedConnection,
-                          Q_ARG(QByteArray, data));
-
-// згортання: єдиний законний блокувальний перехід
-QMetaObject::invokeMethod(_worker, "close", Qt::BlockingQueuedConnection);  // 5.
-_thread->quit();
-_thread->wait(3000);
-```
+:::code api-thread-crossing/cpp/minimalnyi-robochyi.cpp
 
 П'ятий крок блокувальний не з ліні: одразу після нього об'єкти власника знищуються, і ресурс мусить бути вже закритим. Правило, якого дотримується весь застосунок, звучить так: блокувальні переходи допустимі лише при згортанні й лише в один бік — від власника до робітника, ніколи назустріч.
 

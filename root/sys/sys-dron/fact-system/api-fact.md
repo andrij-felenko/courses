@@ -90,32 +90,7 @@
 
 ## Методи факту
 
-```cpp
-// читання й перетворення
-Q_INVOKABLE QString  validate(const QString &cookedValue, bool convertOnly);
-Q_INVOKABLE QVariant clamp(const QString &cookedValue);
-Q_INVOKABLE QVariant rawToCooked(const QVariant &rawValue) const;
-QString              rawValueStringFullPrecision() const;
-
-// запис
-void setRawValue(const QVariant &value);        // від логіки застосунку
-void setCookedValue(const QVariant &value);     // від людини, у показаних одиницях
-void containerSetRawValue(const QVariant &value); // від апарата
-void forceSetRawValue(const QVariant &value);   // повз перевірку «те саме значення»
-void setEnumIndex(int index);
-void setEnumStringValue(const QString &value);
-
-// опис
-void          setMetaData(FactMetaData *metaData, bool setDefaultFromMetaData = false);
-FactMetaData *metaData();
-void          setEnumInfo(const QStringList &strings, const QVariantList &values);
-
-// темп сповіщень
-void setSendValueChangedSignals(bool sendValueChangedSignals);
-bool deferredValueChangeSignal() const;
-void sendDeferredValueChangedSignal();
-void clearDeferredValueChangeSignal();
-```
+:::code api-fact/cpp/metody-faktu.hpp
 
 | Метод | Що повертає / робить |
 | --- | --- |
@@ -329,21 +304,7 @@ explicit FactGroup(int updateRateMsecs,
 
 Перший аргумент конструктора — період у мілісекундах, з яким таймер групи випускає накопичені сповіщення для екрана; нуль означає «негайно». Другий — шлях до файлу опису в ресурсах збірки:
 
-```cpp
-VehicleGPSFactGroup::VehicleGPSFactGroup(QObject *parent)
-    : FactGroup(1000, ":/json/Vehicle/GPSFact.json", parent)
-{
-    _addFact(&_latFact);
-    _addFact(&_lonFact);
-    _addFact(&_hdopFact);
-    _addFact(&_lockFact);
-    _addFact(&_countFact);
-
-    _latFact.setRawValue(std::numeric_limits<float>::quiet_NaN());
-    _hdopFact.setRawValue(std::numeric_limits<float>::quiet_NaN());
-    _lockFact.setRawValue(0);
-}
-```
+:::code api-fact/cpp/factgroup.cpp
 
 Початкове «не число» тут не косметика: доки повідомлення не прийшло, показник має малювати прочерк, а не нуль, який виглядав би як справжня координата.
 

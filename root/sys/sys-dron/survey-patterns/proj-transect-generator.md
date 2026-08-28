@@ -26,45 +26,7 @@
 
 ### Точка, поворот, рамка
 
-```cpp
-// збірка: g++ -std=c++17 -O2 transects.cpp -o transects
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <utility>
-#include <vector>
-
-struct Vec2     { double x{}; double y{}; };            // x — на північ, y — на схід, метри
-struct Transect { Vec2 a{}; Vec2 b{}; };                // галс: початок і кінець
-struct Box      { double xLo{}, xHi{}, yLo{}, yHi{}; };
-
-using Polygon = std::vector<Vec2>;
-
-constexpr int    kMaxTransects = 1000;                  // стеля кількості галсів
-constexpr double kMinLength    = 1e-6;                  // коротше — це дотик, а не галс
-constexpr double kDegToRad     = 0.017453292519943295;  // π / 180
-
-Vec2 rotate(const Vec2 &p, const Vec2 &c, double rad) {
-    const double dx = p.x - c.x, dy = p.y - c.y;
-    const double s = std::sin(rad), k = std::cos(rad);
-    return { c.x + dx * k - dy * s, c.y + dx * s + dy * k };
-}
-
-Box bounds(const Polygon &poly) {
-    Box b{ poly[0].x, poly[0].x, poly[0].y, poly[0].y };
-    for (const Vec2 &p : poly) {
-        b.xLo = std::min(b.xLo, p.x);  b.xHi = std::max(b.xHi, p.x);
-        b.yLo = std::min(b.yLo, p.y);  b.yHi = std::max(b.yHi, p.y);
-    }
-    return b;
-}
-
-double clampAngle90(double deg) {
-    while (deg >  90.0) deg -= 180.0;
-    while (deg < -90.0) deg += 180.0;
-    return deg;
-}
-```
+:::code proj-transect-generator/cpp/transects.cpp
 
 Обмеження кута діапазоном `−90…90` виглядає косметикою, але воно змінює не набір ліній, а їхній **порядок**. Кути `α` і `α + 180°` дають ту саму сітку прямих — а от розгортка йде по ній у протилежні боки, тож перший галс стає останнім. Користувач, який поставив вхід у лівий нижній кут, отримав би його в правому верхньому, нічого для цього не зробивши. Перевіряється це в один рядок: кут `210°` після обмеження стає `30°`, і обидва дають той самий вивід. Цикл `while` замість одного віднімання потрібен лише для того, щоб функція не залежала від того, у якому діапазоні їй дали число.
 
@@ -80,22 +42,7 @@ double clampAngle90(double deg) {
 
 ### Перетин рівня з контуром
 
-```cpp
-// Усі x, у яких контур перетинає горизонталь y = yLine, за зростанням.
-std::vector<double> crossings(const Polygon &poly, double yLine) {
-    std::vector<double> xs;
-    const size_t n = poly.size();
-    for (size_t i = 0; i < n; ++i) {
-        const Vec2 &p = poly[i];
-        const Vec2 &q = poly[(i + 1) % n];
-        if ((p.y > yLine) == (q.y > yLine)) continue;   // сторона не переходить рівень
-        const double t = (yLine - p.y) / (q.y - p.y);   // знаменник тут не нуль
-        xs.push_back(p.x + t * (q.x - p.x));
-    }
-    std::sort(xs.begin(), xs.end());
-    return xs;
-}
-```
+:::code proj-transect-generator/cpp/peretyn-rivnia-z-konturom.cpp
 
 Умова `(p.y > yLine) == (q.y > yLine)` виглядає як звичайна перевірка «по різні боки», але вона напівзамкнена: кінець, що лежить **точно** на рівні, зараховується до нижніх. Це не дрібниця, і ламається все саме там, де рівень проходить рівно крізь вершину. Строга перевірка на різні знаки, `(p.y − y)·(q.y − y) < 0`, дає в цьому місці нуль замість добутку від'ємного числа — і жодна з двох сторін не зараховується, хоча контур рівень таки перетнув. Нестрога, з `≤`, кидається в протилежну крайність: вершину рахують обидві суміжні сторони, виходить двійка замість одиниці, та ще й горизонтальна сторона проходить у ділення на нуль.
 
@@ -107,42 +54,7 @@ std::vector<double> crossings(const Polygon &poly, double yLine) {
 
 ### Розгортка
 
-```cpp
-std::vector<Transect> sweep(const Polygon &rotated, const Vec2 &centre,
-                            double step, bool pairRule) {
-    const Box b = bounds(rotated);
-    const double diagonal = std::hypot(b.xHi - b.xLo, b.yHi - b.yLo);
-    if (!(diagonal > 0.0)) return {};                   // усі вершини злилися в точку
-
-    if (!(step > diagonal / kMaxTransects))              // ловить 0, від'ємне і NaN
-        step = diagonal / kMaxTransects;
-
-    const long kLo = static_cast<long>(std::ceil ((b.yLo - centre.y) / step - 0.5));
-    const long kHi = static_cast<long>(std::floor((b.yHi - centre.y) / step - 0.5));
-
-    std::vector<Transect> out;
-    for (long k = kLo; k <= kHi; ++k) {
-        const double yLine = centre.y + (static_cast<double>(k) + 0.5) * step;
-        const std::vector<double> xs = crossings(rotated, yLine);
-        if (xs.size() < 2) continue;
-
-        if (pairRule) {
-            for (size_t i = 0; i + 1 < xs.size(); i += 2)
-                if (xs[i + 1] - xs[i] > kMinLength)
-                    out.push_back({ { xs[i], yLine }, { xs[i + 1], yLine } });
-        } else if (xs.back() - xs.front() > kMinLength) {
-            out.push_back({ { xs.front(), yLine }, { xs.back(), yLine } });
-        }
-    }
-
-    if (out.empty()) {                                   // крок ширший за всю фігуру
-        const std::vector<double> xs = crossings(rotated, centre.y);
-        if (xs.size() >= 2 && xs.back() - xs.front() > kMinLength)
-            out.push_back({ { xs.front(), centre.y }, { xs.back(), centre.y } });
-    }
-    return out;
-}
-```
+:::code proj-transect-generator/cpp/rozhortka.cpp
 
 Тут три рішення варті окремої розмови.
 
@@ -156,40 +68,7 @@ std::vector<Transect> sweep(const Polygon &rotated, const Vec2 &centre,
 
 ### Назад у вихідну систему, напрямок, змійка, вхід
 
-```cpp
-enum class Entry { BottomLeft, BottomRight, TopLeft, TopRight };
-
-void alignDirections(std::vector<Transect> &t) {
-    if (t.empty()) return;
-    const double fx = t.front().b.x - t.front().a.x;
-    const double fy = t.front().b.y - t.front().a.y;
-    for (Transect &s : t)
-        if ((s.b.x - s.a.x) * fx + (s.b.y - s.a.y) * fy < 0.0) std::swap(s.a, s.b);
-}
-
-void setEntry(std::vector<Transect> &t, Entry e) {
-    const bool flipAlong  = (e == Entry::BottomRight || e == Entry::TopRight);
-    const bool flipAcross = (e == Entry::TopLeft     || e == Entry::TopRight);
-    if (flipAlong)  for (Transect &s : t) std::swap(s.a, s.b);
-    if (flipAcross) std::reverse(t.begin(), t.end());
-}
-
-void makeSnake(std::vector<Transect> &t) {
-    for (size_t i = 1; i < t.size(); i += 2) std::swap(t[i].a, t[i].b);
-}
-
-void extendEnds(std::vector<Transect> &t, double turnaround) {
-    if (!(turnaround > 0.0)) return;
-    for (Transect &s : t) {
-        const double dx = s.b.x - s.a.x, dy = s.b.y - s.a.y;
-        const double len = std::hypot(dx, dy);
-        if (!(len > 0.0)) continue;
-        const double ux = dx / len * turnaround, uy = dy / len * turnaround;
-        s.a = { s.a.x - ux, s.a.y - uy };
-        s.b = { s.b.x + ux, s.b.y + uy };
-    }
-}
-```
+:::code proj-transect-generator/cpp/nazad-u-vykhidnu-systemu.cpp
 
 `alignDirections` розвертає всі галси в один бік — і в нашій програмі вона не робить нічого, бо перетини вже відсортовані й кожен галс уже дивиться в бік зростання `x`. Функція лишається як **записаний інваріант**: вона коштує один скалярний добуток на галс і падає в очі тому, хто колись прибере сортування. Спосіб вирівнювання теж вибрано не навмання: знак скалярного добутку з першим галсом не має шва на межі `0°/360°`, який має порівняння кутів.
 
@@ -207,77 +86,13 @@ void extendEnds(std::vector<Transect> &t, double turnaround) {
 
 ### Складання
 
-```cpp
-std::vector<Transect> buildTransects(const Polygon &field, double angleDeg, double step,
-                                     double turnaround, Entry entry, bool pairRule) {
-    if (field.size() < 3) return {};
-
-    const Box  fb = bounds(field);
-    const Vec2 centre{ (fb.xLo + fb.xHi) / 2.0, (fb.yLo + fb.yHi) / 2.0 };
-    const double alpha = clampAngle90(angleDeg) * kDegToRad;
-
-    Polygon rotated;
-    rotated.reserve(field.size());
-    for (const Vec2 &p : field) rotated.push_back(rotate(p, centre, -alpha));
-
-    std::vector<Transect> t = sweep(rotated, centre, step, pairRule);
-    for (Transect &s : t) {
-        s.a = rotate(s.a, centre, alpha);
-        s.b = rotate(s.b, centre, alpha);
-    }
-
-    alignDirections(t);
-    setEntry(t, entry);          // порядок важить: вхід — до змійки
-    makeSnake(t);
-    extendEnds(t, turnaround);
-    return t;
-}
-
-double routeLength(const std::vector<Transect> &t) {
-    double total = 0.0;
-    for (size_t i = 0; i < t.size(); ++i) {
-        total += std::hypot(t[i].b.x - t[i].a.x, t[i].b.y - t[i].a.y);
-        if (i > 0) total += std::hypot(t[i].a.x - t[i - 1].b.x, t[i].a.y - t[i - 1].b.y);
-    }
-    return total;
-}
-```
+:::code proj-transect-generator/cpp/skladannia.cpp
 
 Кожна вершина повертається **один раз із вихідних координат**, а не покроково від попередньої. Це не стиль, а точність: у нарощуваному повороті похибка накопичується від точки до точки, у прямому — ні.
 
 ### Що друкує програма
 
-```cpp
-int main() {
-    const Polygon field{ {0.0, 0.0}, {50.0, 240.0}, {225.0, 275.0}, {275.0, 50.0}, {145.0, -50.0} };
-    const double angle = 30.0, step = 26.44, turn = 30.0;
-
-    const std::vector<Transect> bare = buildTransects(field, angle, step, 0.0,  Entry::BottomLeft, false);
-    const std::vector<Transect> full = buildTransects(field, angle, step, turn, Entry::BottomLeft, false);
-
-    double covered = 0.0;
-    for (const Transect &s : bare) covered += std::hypot(s.b.x - s.a.x, s.b.y - s.a.y);
-
-    std::printf("поле %zu вершин, кут %.1f, крок %.2f м, розворот %.1f м\n",
-                field.size(), angle, step, turn);
-    std::printf("галсів %zu, покриття %.2f м, маршрут %.2f м\n\n",
-                bare.size(), covered, routeLength(full));
-
-    for (size_t i = 0; i < bare.size(); ++i)
-        std::printf("  %2zu  %7.2f м   (%8.2f,%8.2f) -> (%8.2f,%8.2f)\n", i,
-                    std::hypot(bare[i].b.x - bare[i].a.x, bare[i].b.y - bare[i].a.y),
-                    bare[i].a.x, bare[i].a.y, bare[i].b.x, bare[i].b.y);
-
-    const char *corner[] = { "лівий нижній", "правий нижній", "лівий верхній", "правий верхній" };
-    for (int e = 0; e < 4; ++e) {
-        const std::vector<Transect> v =
-            buildTransects(field, angle, step, turn, static_cast<Entry>(e), false);
-        std::printf("\nвхід %s: (%.2f, %.2f)", corner[e], v.front().a.x, v.front().a.y);
-    }
-    std::printf("\n");
-    return 0;
-}
-```
+:::code proj-transect-generator/cpp/shcho-drukuie-prohrama.cpp
 
 ```
 поле 5 вершин, кут 30.0, крок 26.44 м, розворот 30.0 м
@@ -328,22 +143,7 @@ y =  99.66   x = 0.00, 80.00, 120.00, 200.00
 
 Правило пар читає ту саму четвірку інакше: `0–80` усередині, `80–120` зовні, `120–200` усередині. Дописуємо в `main` десяток рядків, які проганяють обидва правила по одній фігурі:
 
-```cpp
-    const Polygon bay{ {0.0, 0.0}, {200.0, 0.0}, {200.0, 120.0}, {120.0, 120.0},
-                       {120.0, 30.0}, {80.0, 30.0}, {80.0, 120.0}, {0.0, 120.0} };
-
-    for (int pass = 0; pass < 2; ++pass) {
-        const bool pairRule = (pass == 1);
-        const std::vector<Transect> t = buildTransects(bay, 0.0, step, 0.0,  Entry::BottomLeft, pairRule);
-        const std::vector<Transect> r = buildTransects(bay, 0.0, step, turn, Entry::BottomLeft, pairRule);
-
-        double len = 0.0;
-        for (const Transect &s : t) len += std::hypot(s.b.x - s.a.x, s.b.y - s.a.y);
-
-        std::printf("%s: галсів %zu, покриття %.2f м, маршрут %.2f м\n",
-                    pairRule ? "пари по черзі" : "дві найдальші", t.size(), len, routeLength(r));
-    }
-```
+:::code proj-transect-generator/cpp/pastka-nevypukloho-konturu.cpp
 
 ```
 дві найдальші: галсів 4, покриття 800.00 м, маршрут 1119.32 м

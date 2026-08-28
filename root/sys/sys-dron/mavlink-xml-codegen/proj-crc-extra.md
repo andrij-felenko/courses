@@ -24,43 +24,8 @@
 Прямо з цього опису пишеться найпростіша реалізація. Вісім кроків на байт, жодної таблиці, жодної магії — саме такий вигляд алгоритм має в підручнику.
 
 :::tabs
-```python
-POLY = 0x8408          # дзеркальне подання твірного многочлена 0x1021
-INIT = 0xFFFF
-
-def crc16_bitwise(data, crc=INIT):
-    """CRC-16/MCRF4XX побітно: вісім кроків на кожен байт."""
-    for byte in data:
-        crc ^= byte                       # байт заходить у молодші вісім бітів
-        for _ in range(8):
-            if crc & 1:                   # вилітлий біт = 1 → домішуємо многочлен
-                crc = (crc >> 1) ^ POLY
-            else:
-                crc >>= 1
-    return crc
-```
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-#define CRC_POLY 0x8408u   /* дзеркальне подання твірного многочлена 0x1021 */
-#define CRC_INIT 0xFFFFu
-
-/* CRC-16/MCRF4XX побітно: вісім кроків на кожен байт. */
-uint16_t crc16_bitwise(const uint8_t *data, size_t len, uint16_t crc)
-{
-    for (size_t i = 0; i < len; i++) {
-        crc ^= data[i];                        /* байт — у молодші вісім бітів */
-        for (int bit = 0; bit < 8; bit++) {
-            if (crc & 1u)                      /* вилітлий біт = 1 */
-                crc = (uint16_t)((crc >> 1) ^ CRC_POLY);
-            else
-                crc = (uint16_t)(crc >> 1);
-        }
-    }
-    return crc;
-}
-```
+:::code proj-crc-extra/py/kontrolna-suma-odyn.py
+:::code proj-crc-extra/c/kontrolna-suma-odyn.c
 :::
 
 У самій бібліотеці MAVLink цієї петлі немає. Там стоїть чотирирядкова функція без жодного циклу — і це не інший алгоритм, а той самий, тільки згорнутий алгебраїчно. Ключ ось у чому: усе, що вісім кроків роблять із регістром, залежить лише від молодшого байта регістра, складеного за модулем два з байтом даних; старша половина просто з'їжджає вниз на вісім позицій. Отже, вісім умовних зсувів можна порахувати наперед як функцію одного байта — а для конкретного многочлена 0x8408 ця функція виявляється настільки простою, що записується трьома зсувами.
@@ -78,24 +43,7 @@ static inline void crc_accumulate(uint8_t data, uint16_t *crc_accum)
 
 Третій спосіб — [таблиця замін](root:sf-algorithms/lookup-table): наперед пораховані результати замість обчислення на місці, класичний обмін пам'яті на час. Для CRC таблиця має 256 записів по два байти — по одному на кожне можливе значення байта, що входить, — і крок стає одним індексуванням та одним XOR.
 
-```python
-def build_table():
-    """256 записів — результат тих самих восьми кроків для кожного байта."""
-    table = []
-    for byte in range(256):
-        c = byte
-        for _ in range(8):
-            c = (c >> 1) ^ POLY if c & 1 else c >> 1
-        table.append(c)
-    return table
-
-CRC_TABLE = build_table()
-
-def crc16_table(data, crc=INIT):
-    for byte in data:
-        crc = (crc >> 8) ^ CRC_TABLE[(crc ^ byte) & 0xFF]
-    return crc
-```
+:::code proj-crc-extra/py/kontrolna-suma-odyn-2.py
 
 Варто помітити, що таблицю будує та сама побітова петля. Джерело правди лишається одне: якщо колись знадобиться інший многочлен, правити треба один рядок, а не 256 констант, переписаних із чужої статті.
 
@@ -125,71 +73,7 @@ CRC-16/MCRF4XX("123456789") = 0x6F91      ← опублікована конт�
 
 Розбір XML робимо стандартним `ElementTree` — тут вистачить простого обходу дерева елементів з атрибутами, без просторів імен і схем ([XML: дерево елементів](root:sf-data/xml-markup)).
 
-```python
-# -*- coding: utf-8 -*-
-"""CRC_EXTRA з опису MAVLink. Лише стандартна бібліотека."""
-import sys
-import xml.etree.ElementTree as ET
-
-# розмір ОДНОГО елемента типу — саме він є ключем сортування
-ELEM_SIZE = {
-    'char': 1, 'int8_t': 1, 'uint8_t': 1,
-    'int16_t': 2, 'uint16_t': 2,
-    'int32_t': 4, 'uint32_t': 4, 'float': 4,
-    'int64_t': 8, 'uint64_t': 8, 'double': 8,
-}
-
-class Field:
-    def __init__(self, type_attr, name):
-        t, self.count = type_attr, 0
-        if t == 'uint8_t_mavlink_version':     # псевдотип: на дроті це просто байт
-            t = 'uint8_t'
-        i = t.find('[')
-        if i != -1:                            # масив: char[50] → char + count 50
-            self.count = int(t[i + 1:-1])
-            t = t[:i]
-            if t == 'array':                   # застарілий псевдотип зі старих описів
-                t = 'int8_t'
-        self.type, self.name = t, name
-        self.elem = ELEM_SIZE[t]
-
-def read_message(msg_el):
-    """Базові поля повідомлення — усе до тега <extensions/>."""
-    base, after_tag = [], False
-    for el in msg_el:
-        if el.tag == 'extensions':
-            after_tag = True
-        elif el.tag == 'field' and not after_tag:
-            base.append(Field(el.get('type'), el.get('name')))
-    return base
-
-def wire_order(fields):
-    """Більші типи вперед; рівні лишаються в порядку XML — sorted стійкий."""
-    return sorted(fields, key=lambda f: f.elem, reverse=True)
-
-def signature(name, base):
-    """Той самий рядок, який хешує генератор. Пробіл — після КОЖНОГО слова."""
-    buf = bytearray((name + ' ').encode('ascii'))
-    for f in wire_order(base):
-        buf += (f.type + ' ').encode('ascii')
-        buf += (f.name + ' ').encode('ascii')
-        if f.count:
-            buf.append(f.count)                # сирий байт, не десятковий запис
-    return buf
-
-def crc_extra(name, base):
-    crc = crc16_bitwise(signature(name, base))
-    return (crc & 0xFF) ^ (crc >> 8)           # згортання двох байтів в один
-
-def scan(path):
-    root = ET.parse(path).getroot()
-    return {m.get('name'): (int(m.get('id')), crc_extra(m.get('name'), read_message(m)))
-            for m in root.iter('message')}
-
-if __name__ == '__main__':
-    for name, (mid, extra) in sorted(scan(sys.argv[1]).items(), key=lambda kv: kv[1][0]):
-        print('%-14s id=%-5d CRC_EXTRA=%d' % (name, mid, extra))
-```
+:::code proj-crc-extra/py/riadok-iakyi-my-kheshuiemo.py
 
 Згортання в останньому рядку `crc_extra` — це третя частина задачі, і вона в один вираз: два байти шістнадцятибітної суми складають за модулем два, `(crc & 0xFF) ^ (crc >> 8)`. Обидва байти рівноправно впливають на результат, тож правка опису, яка зачепила лише старший байт суми, однаково змінить відбиток.
 
@@ -257,28 +141,7 @@ SYS_STATUS:  358 байтів, три uint32_t попереду, дев'ять �
 
 На борту ця сама сума працює з іншого боку: не рахує відбиток, а споживає його. [Кадр MAVLink 2](root:sys-dron/mavlink-packet) складається з початкового байта 0xFD, дев'ятибайтового заголовка з довжиною, лічильником, адресами й тризначним визначником повідомлення, корисних даних і двобайтової контрольної суми в хвості. У суму входить усе, крім самого 0xFD, — і останнім у неї домішується `CRC_EXTRA`.
 
-```c
-#include <stdbool.h>
-
-#define MAVLINK_STX_V2   0xFDu
-#define MAVLINK_V2_HDR   10u   /* 0xFD + дев'ять байтів заголовка */
-
-/* Чи цілий отриманий кадр. crc_extra беруть із згенерованої таблиці за визначником. */
-bool frame_ok(const uint8_t *frame, uint8_t payload_len, uint8_t crc_extra)
-{
-    uint16_t crc = CRC_INIT;
-
-    /* усе, крім початкового байта: заголовок і корисні дані */
-    for (size_t i = 1; i < MAVLINK_V2_HDR + (size_t)payload_len; i++)
-        crc_accumulate(frame[i], &crc);
-
-    crc_accumulate(crc_extra, &crc);       /* ← відбиток опису домішується останнім */
-
-    const uint8_t *tail = frame + MAVLINK_V2_HDR + payload_len;
-    uint16_t received = (uint16_t)tail[0] | (uint16_t)((uint16_t)tail[1] << 8);
-    return received == crc;
-}
-```
+:::code proj-crc-extra/c/toi-samyi-bait-u.c
 
 Байт відбитка в ефір не летить — його лише домішують у підрахунок з обох боків. Тому одна-єдина перевірка ловить дві різні біди: спотворений у радіоканалі байт і сторону з іншим описом. І тому ж діагностика така проста: якщо `frame_ok` повертає хибу на кожному кадрі одного типу повідомлення й на жодному іншому, справа не в ефірі, а в `crc_extra`.
 

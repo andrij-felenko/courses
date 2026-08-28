@@ -44,23 +44,7 @@ for (uint8_t byte : data) {
 
 Тому станція веде облік слотів руками — бітовою маскою зайнятих:
 
-```cpp
-uint8_t LinkManager::allocateMavlinkChannel()
-{
-    for (uint8_t mavlinkChannel = 0; mavlinkChannel < MAVLINK_COMM_NUM_BUFFERS; mavlinkChannel++) {
-        if (_mavlinkChannelsUsedBitMask & (1 << mavlinkChannel)) {
-            continue;
-        }
-
-        mavlink_reset_channel_status(mavlinkChannel);
-        mavlink_status_t* const mavlinkStatus = mavlink_get_channel_status(mavlinkChannel);
-        mavlinkStatus->flags |= MAVLINK_STATUS_FLAG_OUT_MAVLINK1;
-        _mavlinkChannelsUsedBitMask |= (1 << mavlinkChannel);
-        return mavlinkChannel;
-    }
-    return invalidMavlinkChannel();
-}
-```
+:::code mavlink-handling-d/cpp/kanal-tse-slot-stanu-a-ne.cpp
 
 Скидання стану перед видачею — не гігієна, а необхідність: слот міг лишитися після попереднього з'єднання з половиною кадру всередині, і перший же байт нового каналу продовжив би чужий кадр.
 
@@ -140,19 +124,7 @@ if ((rxmsg->incompat_flags & ~MAVLINK_IFLAG_MASK) != 0) {
 
 Версію кадру видно з першого ж байта: `0xFE` — це версія 1, `0xFD` — версія 2. Один автомат розбирає обидві й позначає прапорцем, що саме він щойно зібрав:
 
-```c
-if (c == MAVLINK_STX)
-{
-    status->parse_state = MAVLINK_PARSE_STATE_GOT_STX;
-    rxmsg->magic = c;
-    status->flags &= ~MAVLINK_STATUS_FLAG_IN_MAVLINK1;
-} else if (c == MAVLINK_STX_MAVLINK1)
-{
-    status->parse_state = MAVLINK_PARSE_STATE_GOT_STX;
-    rxmsg->magic = c;
-    status->flags |= MAVLINK_STATUS_FLAG_IN_MAVLINK1;
-}
-```
+:::code mavlink-handling-d/c/main.c
 
 Прапорець `IN_MAVLINK1` — це не налаштування, а **звіт про останній кадр**: він перевстановлюється на кожному стартовому байті. Тому в одному каналі версії можуть чергуватися, і це нормальний стан, а не помилка.
 
@@ -199,23 +171,7 @@ if (isV1 && (message.msgid != MAVLINK_MSG_ID_HEARTBEAT) &&
 
 Повідомити людину про старий апарат теж виявилося непросто. Прошивки ArduPilot стартують у версії 1 і піднімаються до версії 2 лише після того, як отримають кадр версії 2 від станції, — отже, перші секунди будь-якого нормального з'єднання виглядають як «апарат говорить застарілим протоколом». Попередження, видане одразу, було б хибним щоразу. Тому воно відкладене:
 
-```cpp
-void LinkInterface::reportMavlinkV1Traffic()
-{
-    if (_mavlinkV1TrafficReported || _mavlinkV2TrafficSeen) {
-        return;
-    }
-
-    if (!_mavlinkV1FirstSeenTimer.isValid()) {
-        _mavlinkV1FirstSeenTimer.start();
-    }
-    if (_mavlinkV1FirstSeenTimer.elapsed() < _mavlinkV1TrafficGraceMsecs) {
-        return;
-    }
-    _mavlinkV1TrafficReported = true;
-    ...
-}
-```
+:::code mavlink-handling-d/cpp/kadr-versii-1-sohodni.cpp
 
 Пільговий час — десять секунд за замовчуванням; якщо за цей час у каналі з'явився хоч один кадр версії 2, попередження не з'явиться ніколи. Інакше оператор отримує повідомлення, яке прямо називає канал і те, що з ним робити.
 
@@ -227,28 +183,7 @@ void LinkInterface::reportMavlinkV1Traffic()
 
 Кадр, що пройшов усі перевірки, спершу потрапляє в лічильники. Їхнє завдання — не діагностика протоколу, а оцінка **якости радіоканалу**, і роблять її з єдиного доступного джерела: дірок у нумерації.
 
-```cpp
-uint8_t& lastSeq = _lastIndex[mavlinkChannel][message.sysid][message.compid];
-
-const QPair<uint8_t, uint8_t> key(message.sysid, message.compid);
-uint8_t expectedSeq;
-if (!_firstMessageSeen[mavlinkChannel].contains(key)) {
-    _firstMessageSeen[mavlinkChannel].insert(key);
-    expectedSeq = message.seq;
-} else if (message.seq == lastSeq) {
-    return;
-} else {
-    expectedSeq = lastSeq + 1;
-}
-
-uint64_t lostMessages;
-if (message.seq >= expectedSeq) {
-    lostMessages = message.seq - expectedSeq;
-} else {
-    lostMessages = static_cast<uint64_t>(message.seq) + 256ULL - expectedSeq;
-}
-_totalLossCounter[mavlinkChannel] += lostMessages;
-```
+:::code mavlink-handling-d/cpp/skilky-z-efiru-ne-doletilo.cpp
 
 Кожен рядок тут закриває конкретну діру.
 
@@ -293,18 +228,7 @@ _runningLossPercent[mavlinkChannel] = (currentLossPercent + _runningLossPercent[
 
 Кадр із неправильним підписом бібліотека відрізняє від кадру з поганою сумою окремим вердиктом — і станція навмисно **не викидає його одразу**:
 
-```cpp
-if (framing == MAVLINK_FRAMING_OK || framing == MAVLINK_FRAMING_BAD_SIGNATURE) {
-    if (SigningController* const sigCtrl = link->signing()) {
-        if (sigCtrl->processFrame(framing == MAVLINK_FRAMING_OK, message)) {
-            resetSequenceTracking(link);
-        }
-    }
-}
-if (framing != MAVLINK_FRAMING_OK) {
-    continue;
-}
-```
+:::code mavlink-handling-d/cpp/pidpys-i-chomu-istoriiu.cpp
 
 Причина в тому, що підписаний трафік із нерозпізнаним ключем — це не обов'язково атака, а найчастіше просто ще не підібраний ключ. Контролер підпису бачить такі кадри, щоб автоматично впізнати серед відомих ключів потрібний; сам кадр далі все одно не йде — наступні три рядки його відкидають. Механіку самого підпису — ключ, мітку часу, ідентифікатор каналу — описує [MAVLink v2 і підпис](root:sys-dron/mavlink-v2-signing).
 

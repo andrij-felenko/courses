@@ -50,35 +50,8 @@ struct MavlinkSigningContext {
 Для надійного захисту від атак повтору приймач зобов'язаний зберігати останній прийнятий валідний таймстемп для кожного активного передавача. Оскільки в одній мережі MAVLink можуть одночасно працювати кілька фізичних апаратів (різні `sysid`), кілька бортових пристроїв (різні `compid`) та кілька інтерфейсів зв'язку (різні `link_id`), стан відстежується окремо для кожного унікального триплета адрес.
 
 :::tabs
-```c
-#define MAVLINK_MAX_SIGNING_STREAMS 16
-
-typedef struct __mavlink_signing_stream {
-    uint8_t  link_id;       // Ідентифікатор лінку відправника (0..255)
-    uint8_t  sysid;         // Системний ID апарата відправника (1..255)
-    uint8_t  compid;        // ID компонента відправника (1..255)
-    uint64_t timestamp;     // Останній прийнятий валідний таймстемп (48 біт)
-} mavlink_signing_stream_t;
-
-typedef struct __mavlink_signing_streams {
-    uint16_t num_signing_streams; // Поточна кількість зайнятих слотів
-    mavlink_signing_stream_t stream[MAVLINK_MAX_SIGNING_STREAMS]; // Масив активних слотів
-} mavlink_signing_streams_t;
-```
-```cpp
-struct MavlinkSigningStream {
-    uint8_t  link_id{0};    // Ідентифікатор лінку відправника (0..255)
-    uint8_t  sysid{0};      // Системний ID апарата відправника (1..255)
-    uint8_t  compid{0};     // ID компонента відправника (1..255)
-    uint64_t timestamp{0};  // Останній прийнятий валідний таймстемп (48 біт)
-};
-
-struct MavlinkSigningStreams {
-    static constexpr size_t kMaxStreams = 16;
-    uint16_t num_signing_streams{0};
-    std::array<MavlinkSigningStream, kMaxStreams> stream{};
-};
-```
+:::code api-signing-structures/c/tablytsia-vidstezhennia.c
+:::code api-signing-structures/cpp/tablytsia-vidstezhennia.cpp
 :::
 
 За замовчуванням константа `MAVLINK_MAX_SIGNING_STREAMS` встановлена у значення 16. Це означає, що один вузол може одночасно підтримувати до 16 незалежних безпечних каналів зв'язку без ризику переповнення таблиці.
@@ -98,44 +71,8 @@ struct MavlinkSigningStreams {
 Оскільки мова C не має вбудованого примітивного типу розміром 48 бітів, бібліотека MAVLink реалізує пакування та розпакування поля `timestamp` через побайтові макроси `_mav_put_uint48_t` та `_mav_get_uint48_t`. Вони гарантують порядок байтів little-endian (молодший байт за меншою адресою) незалежно від порядку байтів хостового процесора:
 
 :::tabs
-```c
-// Запис 48-бітного числа в буфер (little-endian)
-static inline void _mav_put_uint48_t(uint8_t *buf, uint64_t val) {
-    buf[0] = (uint8_t)(val >> 0);
-    buf[1] = (uint8_t)(val >> 8);
-    buf[2] = (uint8_t)(val >> 16);
-    buf[3] = (uint8_t)(val >> 24);
-    buf[4] = (uint8_t)(val >> 32);
-    buf[5] = (uint8_t)(val >> 40);
-}
-
-// Читання 48-бітного числа з буфера (little-endian)
-static inline uint64_t _mav_get_uint48_t(const uint8_t *buf) {
-    return ((uint64_t)buf[0])       |
-           (((uint64_t)buf[1]) << 8)  |
-           (((uint64_t)buf[2]) << 16) |
-           (((uint64_t)buf[3]) << 24) |
-           (((uint64_t)buf[4]) << 32) |
-           (((uint64_t)buf[5]) << 40);
-}
-```
-```cpp
-// Запис 48-бітного числа в буфер (little-endian)
-constexpr void packUint48(std::span<uint8_t, 6> buf, uint64_t val) noexcept {
-    for (size_t i = 0; i < 6; ++i) {
-        buf[i] = static_cast<uint8_t>((val >> (i * 8)) & 0xFF);
-    }
-}
-
-// Читання 48-бітного числа з буфера (little-endian)
-[[nodiscard]] constexpr uint64_t unpackUint48(std::span<const uint8_t, 6> buf) noexcept {
-    uint64_t res = 0;
-    for (size_t i = 0; i < 6; ++i) {
-        res |= (static_cast<uint64_t>(buf[i]) << (i * 8));
-    }
-    return res;
-}
-```
+:::code api-signing-structures/c/nyzkorivneve-pakuvannia-48.c
+:::code api-signing-structures/cpp/nyzkorivneve-pakuvannia-48.cpp
 :::
 
 Використання побайтового зсуву виключає проблеми невирівняного доступу (`unaligned memory fault`), які часто виникають при спробах прямого кастування покажчиків типу `*(uint64_t*)buf` на ядрах ARM Cortex-M0/M3.
@@ -220,53 +157,8 @@ using AcceptUnsignedCallback = bool(*)(const mavlink_status_t* status, uint32_t 
 Типова інженерна реалізація колбека будується за принципом «білого списку» (whitelist):
 
 :::tabs
-```c
-static bool signing_whitelist_filter(const mavlink_status_t *status, uint32_t msgid) {
-    (void)status;
-    switch (msgid) {
-        // Дозволена інформаційна телеметрія:
-        case MAVLINK_MSG_ID_HEARTBEAT:            // Серцебиття системи (ID 0)
-        case MAVLINK_MSG_ID_SYS_STATUS:           // Стан батареї та сенсорів (ID 1)
-        case MAVLINK_MSG_ID_SYSTEM_TIME:          // Час системи (ID 2)
-        case MAVLINK_MSG_ID_ATTITUDE:             // Просторова орієнтація (ID 30)
-        case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:  // Координати GPS (ID 33)
-        case MAVLINK_MSG_ID_VFR_HUD:              // Приладова швидкість і висота (ID 74)
-            return true;
-
-        // Заборонено без підпису (усі критичні накази):
-        case MAVLINK_MSG_ID_COMMAND_LONG:         // Керуючі команди (ID 76)
-        case MAVLINK_MSG_ID_COMMAND_INT:          // Координатні команди (ID 75)
-        case MAVLINK_MSG_ID_MISSION_ITEM_INT:     // Точки польотного завдання (ID 73)
-        case MAVLINK_MSG_ID_PARAM_SET:            // Зміна параметрів конфігурації (ID 23)
-        case MAVLINK_MSG_ID_SET_MODE:             // Зміна режиму польоту (ID 11)
-        default:
-            return false;
-    }
-}
-```
-```cpp
-[[nodiscard]] constexpr bool isMessageAllowedUnsigned(uint32_t msgid) noexcept {
-    switch (msgid) {
-        // Дозволена інформаційна телеметрія:
-        case MAVLINK_MSG_ID_HEARTBEAT:            // Серцебиття системи (ID 0)
-        case MAVLINK_MSG_ID_SYS_STATUS:           // Стан батареї та сенсорів (ID 1)
-        case MAVLINK_MSG_ID_SYSTEM_TIME:          // Час системи (ID 2)
-        case MAVLINK_MSG_ID_ATTITUDE:             // Просторова орієнтація (ID 30)
-        case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:  // Координати GPS (ID 33)
-        case MAVLINK_MSG_ID_VFR_HUD:              // Приладова швидкість і висота (ID 74)
-            return true;
-
-        // Заборонено без підпису (усі критичні накази):
-        case MAVLINK_MSG_ID_COMMAND_LONG:         // Керуючі команди (ID 76)
-        case MAVLINK_MSG_ID_COMMAND_INT:          // Координатні команди (ID 75)
-        case MAVLINK_MSG_ID_MISSION_ITEM_INT:     // Точки польотного завдання (ID 73)
-        case MAVLINK_MSG_ID_PARAM_SET:            // Зміна параметрів конфігурації (ID 23)
-        case MAVLINK_MSG_ID_SET_MODE:             // Зміна режиму польоту (ID 11)
-        default:
-            return false;
-    }
-}
-```
+:::code api-signing-structures/c/kolbek-filtratsii.c
+:::code api-signing-structures/cpp/kolbek-filtratsii.cpp
 :::
 
 Такий підхід дозволяє стороннім спостерігачам або допоміжним моніторам бачити координати й телеметрію дрона, повністю блокуючи будь-які спроби несанкціонованого втручання в керування апаратом.
@@ -298,128 +190,8 @@ MAVLink_Timestamp = (Unix_Microseconds - 1420070400000000ULL) / 10
 Нижче наведено робочий приклад повної ініціалізації та конфігурації підсистеми підпису мовами C та ідіоматичною C++:
 
 :::tabs
-```c
-#include <mavlink.h>
-#include <string.h>
-#include <time.h>
-#include <stdbool.h>
-
-static mavlink_signing_t g_signing_channel0;
-static mavlink_signing_streams_t g_signing_streams_channel0;
-
-// Функція безпечної конвертації POSIX часу в таймстемп MAVLink
-static uint64_t get_system_mavlink_timestamp(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_REALTIME, &ts);
-    uint64_t unix_us = (uint64_t)ts.tv_sec * 1000000ULL + (uint64_t)(ts.tv_nsec / 1000);
-    uint64_t epoch_us = 1420070400000000ULL; // 2015-01-01 00:00:00 GMT
-    
-    if (unix_us < epoch_us) {
-        return 1; // Захист від некоректного системного годинника
-    }
-    return (unix_us - epoch_us) / 10ULL;
-}
-
-// Колбек фільтрації непідписаного трафіку
-static bool signing_filter_cb(const mavlink_status_t *status, uint32_t msgid) {
-    (void)status;
-    // Дозволяємо без підпису лише відкриту базову телеметрію
-    if (msgid == MAVLINK_MSG_ID_HEARTBEAT || 
-        msgid == MAVLINK_MSG_ID_ATTITUDE ||
-        msgid == MAVLINK_MSG_ID_GLOBAL_POSITION_INT) {
-        return true;
-    }
-    return false; // Усі команди вимагають валідного підпису
-}
-
-void setup_mavlink_signing_interface(uint8_t channel, const uint8_t raw_key[32], uint8_t link_id) {
-    memset(&g_signing_channel0, 0, sizeof(g_signing_channel0));
-    memset(&g_signing_streams_channel0, 0, sizeof(g_signing_streams_channel0));
-
-    g_signing_channel0.flags = MAVLINK_SIGNING_FLAG_SIGN_OUTGOING;
-    g_signing_channel0.link_id = link_id;
-    g_signing_channel0.timestamp = get_system_mavlink_timestamp();
-    memcpy(g_signing_channel0.secret_key, raw_key, 32);
-    g_signing_channel0.streams = &g_signing_streams_channel0;
-    g_signing_channel0.accept_unsigned_callback = signing_filter_cb;
-
-    // Прив'язка до внутрішнього стану бібліотеки MAVLink
-    mavlink_status_t *status = mavlink_get_channel_status(channel);
-    status->signing = &g_signing_channel0;
-    status->signing_streams = &g_signing_streams_channel0;
-}
-```
-```cpp
-#include <mavlink.h>
-#include <array>
-#include <span>
-#include <chrono>
-#include <cstdint>
-#include <algorithm>
-
-class MavlinkSigningContext {
-public:
-    using SecretKey = std::array<uint8_t, 32>;
-
-    MavlinkSigningContext(uint8_t channel_idx, const SecretKey& key, uint8_t link_id)
-        : channel_(channel_idx) {
-        signing_ = {};
-        streams_ = {};
-
-        signing_.flags = MAVLINK_SIGNING_FLAG_SIGN_OUTGOING;
-        signing_.link_id = link_id;
-        signing_.timestamp = calculateCurrentMavlinkTimestamp();
-        std::copy(key.begin(), key.end(), signing_.secret_key);
-        signing_.streams = &streams_;
-        signing_.accept_unsigned_callback = &MavlinkSigningContext::onFilterUnsigned;
-
-        auto* status = mavlink_get_channel_status(channel_);
-        status->signing = &signing_;
-        status->signing_streams = &streams_;
-    }
-
-    void stepMonotonicTime() noexcept {
-        const uint64_t now_ts = calculateCurrentMavlinkTimestamp();
-        if (now_ts > signing_.timestamp) {
-            signing_.timestamp = now_ts;
-        } else {
-            ++signing_.timestamp; // Гарантія суворої монотонності
-        }
-    }
-
-    [[nodiscard]] uint8_t linkId() const noexcept { return signing_.link_id; }
-    [[nodiscard]] uint64_t currentTimestamp() const noexcept { return signing_.timestamp; }
-
-private:
-    static bool onFilterUnsigned(const mavlink_status_t*, uint32_t msgid) noexcept {
-        switch (msgid) {
-            case MAVLINK_MSG_ID_HEARTBEAT:
-            case MAVLINK_MSG_ID_ATTITUDE:
-            case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
-            case MAVLINK_MSG_ID_SYS_STATUS:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    static uint64_t calculateCurrentMavlinkTimestamp() noexcept {
-        using namespace std::chrono;
-        const auto now = system_clock::now();
-        const auto us = duration_cast<microseconds>(now.time_since_epoch()).count();
-        constexpr int64_t kMavlinkEpochUs = 1420070400000000LL; // 2015-01-01 GMT
-        
-        if (us <= kMavlinkEpochUs) {
-            return 1ULL;
-        }
-        return static_cast<uint64_t>((us - kMavlinkEpochUs) / 10);
-    }
-
-    uint8_t channel_;
-    mavlink_signing_t signing_{};
-    mavlink_signing_streams_t streams_{};
-};
-```
+:::code api-signing-structures/c/pryklady-konfihuratsii-ta.c
+:::code api-signing-structures/cpp/pryklady-konfihuratsii-ta.cpp
 :::
 
 ### Інтеграція з польотними стеками ArduPilot, PX4 та наземними станціями

@@ -38,30 +38,7 @@
 Найпростіша форма передпольотної перевірки — **функція, що повертає вирок «можна / не можна» разом із причиною відмови**. Не булеве `true/false` (воно не скаже оператору, *чому* не можна), а код або повідомлення про перший непройдений пункт. Розгляньмо старт місії на дроні: перед тим, як [зброїти](root:sys-dron/arming-checks) мотори, прошивка проганяє набір умов.
 
 **Передпольотна перевірка перед зброєнням дрона:**
-```c
-// Повертаємо код першої НЕпройденої умови, або PREFLIGHT_OK.
-// Порядок пунктів — від найдешевшого й найважливішого до решти.
-preflight_result_t preflight_check(const vehicle_state_t *v) {
-    if (v == NULL)                    return PF_INTERNAL_ERR;
-
-    // 1. Живлення: сідати в повітрі — найгірший сценарій.
-    if (v->battery_mv < BATT_MIN_MV)  return PF_LOW_BATTERY;
-
-    // 2. Навігація: без фіксу GPS немає утримання позиції.
-    if (v->gps_sats < GPS_MIN_SATS)   return PF_NO_GPS_FIX;
-
-    // 3. Орієнтація: несходимий компас = політ у випадковий бік.
-    if (!v->compass_calibrated)       return PF_COMPASS_UNCAL;
-
-    // 4. Зв'язок: без каналу з оператором злітати не можна.
-    if (!v->rc_link_ok)               return PF_NO_RC_LINK;
-
-    // 5. Стан датчиків орієнтації.
-    if (!v->imu_healthy)              return PF_IMU_FAULT;
-
-    return PF_OK;   // усі пункти зелені — лише тепер дозволяємо зброїти
-}
-```
+:::code preflight-checklists-d/c/iak-tse-vyhliadaie-v-kodi.c
 
 Кілька рішень тут не випадкові, і кожне варте уваги.
 
@@ -92,21 +69,7 @@ preflight_result_t preflight_check(const vehicle_state_t *v) {
 Розв'язок — **чеклист, що залежить від наміру**: набір умов збирається під конкретний режим, у який система переходить.
 
 **Передпольотна перевірка з урахуванням режиму:**
-```c
-preflight_result_t preflight_for_mode(const vehicle_state_t *v, flight_mode_t mode) {
-    // Спільне ядро — те, без чого не злетиш у ЖОДНОМУ режимі.
-    if (v->battery_mv < BATT_MIN_MV)  return PF_LOW_BATTERY;
-    if (!v->rc_link_ok)               return PF_NO_RC_LINK;
-    if (!v->imu_healthy)              return PF_IMU_FAULT;
-
-    // Додаткові умови — лише для режимів, що спираються на позицію.
-    if (mode_needs_position(mode)) {
-        if (v->gps_sats < GPS_MIN_SATS)  return PF_NO_GPS_FIX;
-        if (!v->compass_calibrated)      return PF_COMPASS_UNCAL;
-    }
-    return PF_OK;
-}
-```
+:::code preflight-checklists-d/c/dynamichnyi-cheklyst-rizni.c
 
 Тут з'являється **спільне ядро** — умови, потрібні завжди (живлення, зв'язок, справність давачів орієнтації), — і **умовна частина**, що додається лише для режимів, які того вимагають. Так чеклист не забороняє безпечного й не пропускає небезпечного: він рівно настільки суворий, наскільки суворою робить його задача. Це відрізняє продуманий передпольотний контроль від тупої стіни, що каже «ні» на все підряд.
 

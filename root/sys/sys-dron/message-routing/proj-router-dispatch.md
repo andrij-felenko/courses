@@ -36,18 +36,7 @@
 
 Перша спокуса — узяти `mavlink_parse_char` з бібліотеки: він уже вміє збирати кадри з байтів і перевіряти контрольну суму. Спокусі варто піддатися рівно до того моменту, як подивитися, що він робить із незнайомим номером повідомлення:
 
-```c
-case MAVLINK_PARSE_STATE_GOT_PAYLOAD: {
-    const mavlink_msg_entry_t *e = mavlink_get_msg_entry(rxmsg->msgid);
-    if (e == NULL) {
-        // Message not found in CRC_EXTRA table.
-        status->parse_state = MAVLINK_PARSE_STATE_GOT_BAD_CRC1;
-        rxmsg->ck[0] = c;
-    } else {
-        …
-    }
-}
-```
+:::code proj-router-dispatch/c/chomu-shtatnyi-rozbyrach.c
 
 Контрольна сума MAVLink рахується не лише з байтів кадру, а й з додаткового байта `crc_extra`, що залежить від складу повідомлення. Для незнайомого номера цього байта нема — отже, перевірити суму нічим. Бібліотека виходить із становища найпростіше: оголошує суму хибною. Кадр не дійде до застосунку взагалі, і жодного сліду, крім лічильника помилок, по ньому не лишиться.
 
@@ -59,107 +48,7 @@ case MAVLINK_PARSE_STATE_GOT_PAYLOAD: {
 
 Обрамлення — це задача «де в потоці байтів починається й закінчується повідомлення», і в MAVLink вона розв'язується так само, як у більшості двійкових протоколів поверх байтового потоку: стартовий байт, поле довжини, а далі рахунок. Загальний устрій цієї задачі й типові пастки — у темі [кадрування повідомлень у потоці TCP](root:com-protocol/tcp-message-framing).
 
-```c
-/* mavrouter.c — мінімальний маршрутизатор MAVLink.
-   cc -O2 -Wall mavrouter.c -I/usr/include/mavlink -o mavrouter          */
-#include <common/mavlink.h>      /* заради mavlink_get_msg_entry і зсувів */
-#include <poll.h>
-#include <string.h>
-#include <time.h>
-#include <unistd.h>
-#include <stdbool.h>
-
-#pragma pack(push, 1)
-struct mav2_hdr {
-    uint8_t magic;           /* 0xFD                                     */
-    uint8_t payload_len;
-    uint8_t incompat_flags;  /* біт 0 — кадр підписаний                  */
-    uint8_t compat_flags;
-    uint8_t seq;
-    uint8_t sysid;           /* ВІДПРАВНИК, а не одержувач               */
-    uint8_t compid;
-    uint8_t msgid[3];        /* 24 біти, молодшим байтом уперед          */
-};
-struct mav1_hdr {
-    uint8_t magic;           /* 0xFE                                     */
-    uint8_t payload_len;
-    uint8_t seq;
-    uint8_t sysid;
-    uint8_t compid;
-    uint8_t msgid;
-};
-#pragma pack(pop)
-
-/* Усе, що маршрутизаторові треба знати про кадр. */
-struct frame {
-    const uint8_t *bytes;        /* початок кадру в буфері прийому       */
-    uint16_t       len;          /* повна довжина кадру, з підписом      */
-    uint32_t       msgid;
-    uint8_t        src_sys, src_comp;
-    int16_t        tgt_sys, tgt_comp;  /* −1 — полів адресата немає      */
-};
-
-static void frame_targets(const uint8_t *payload, uint8_t len, struct frame *f);
-
-/* Розбирає ОБРАМЛЕННЯ першого кадру в буфері.
-   Повертає, скільки байтів з початку буфера вже не потрібні;
-   виставляє *got, якщо кадр зібрався повністю.                          */
-static size_t frame_scan(const uint8_t *buf, size_t n, struct frame *f, bool *got)
-{
-    *got = false;
-
-    size_t i = 0;
-    while (i < n && buf[i] != MAVLINK_STX && buf[i] != MAVLINK_STX_MAVLINK1) {
-        i++;                       /* сміття до стартового байта         */
-    }
-    if (i == n) {
-        return n;                  /* самé сміття — буфер можна спорожнити */
-    }
-
-    const uint8_t *p     = buf + i;
-    const size_t   avail = n - i;
-    size_t  hdr_len, total;
-    uint8_t payload_len;
-
-    if (p[0] == MAVLINK_STX) {                          /* MAVLink v2    */
-        if (avail < sizeof(struct mav2_hdr)) {
-            return i;                                   /* дочитати      */
-        }
-        const struct mav2_hdr *h = (const struct mav2_hdr *)p;
-        hdr_len     = sizeof(*h);
-        payload_len = h->payload_len;
-        total = hdr_len + payload_len + 2
-              + ((h->incompat_flags & MAVLINK_IFLAG_SIGNED)
-                     ? MAVLINK_SIGNATURE_BLOCK_LEN : 0);
-        f->msgid = (uint32_t)h->msgid[0]
-                 | ((uint32_t)h->msgid[1] << 8)
-                 | ((uint32_t)h->msgid[2] << 16);
-        f->src_sys  = h->sysid;
-        f->src_comp = h->compid;
-    } else {                                            /* MAVLink v1    */
-        if (avail < sizeof(struct mav1_hdr)) {
-            return i;
-        }
-        const struct mav1_hdr *h = (const struct mav1_hdr *)p;
-        hdr_len     = sizeof(*h);
-        payload_len = h->payload_len;
-        total       = hdr_len + payload_len + 2;
-        f->msgid    = h->msgid;
-        f->src_sys  = h->sysid;
-        f->src_comp = h->compid;
-    }
-
-    if (avail < total) {
-        return i;                  /* кадр ще не дочитано                */
-    }
-
-    f->bytes = p;
-    f->len   = (uint16_t)total;
-    frame_targets(p + hdr_len, payload_len, f);
-    *got = true;
-    return i + total;
-}
-```
+:::code proj-router-dispatch/c/mavrouter.c
 
 Дві дрібниці тут не дрібниці.
 
@@ -171,28 +60,7 @@ static size_t frame_scan(const uint8_t *buf, size_t n, struct frame *f, bool *go
 
 Тепер найцікавіше — прочитати «кому», не знаючи, що це за повідомлення.
 
-```c
-/* Дістає адресу одержувача, НЕ розбираючи повідомлення. */
-static void frame_targets(const uint8_t *payload, uint8_t len, struct frame *f)
-{
-    f->tgt_sys = f->tgt_comp = -1;    /* у цього повідомлення полів адресата немає */
-
-    const mavlink_msg_entry_t *e = mavlink_get_msg_entry(f->msgid);
-    if (!e) {
-        return;      /* незнайоме повідомлення: адресата не знаємо — отже, «всім» */
-    }
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_SYSTEM) {
-        f->tgt_sys = (e->target_system_ofs < len)
-                   ? payload[e->target_system_ofs]
-                   : 0;              /* поле обрізане при відправленні → нуль */
-    }
-    if (e->flags & MAV_MSG_ENTRY_FLAG_HAVE_TARGET_COMPONENT) {
-        f->tgt_comp = (e->target_component_ofs < len)
-                    ? payload[e->target_component_ofs]
-                    : 0;
-    }
-}
-```
+:::code proj-router-dispatch/c/krok-2-adresat-za-zsuvom.c
 
 Порівняння `ofs < len` виглядає як звичайна перевірка меж, а насправді це змістовна гілка. MAVLink другої версії **обрізає з тіла кінцеві нульові байти**: якщо в `COMMAND_LONG` останні поля нульові, вони в дріт не поїдуть узагалі, і в кадрі буде не тридцять три байти тіла, а, скажімо, двадцять. Коли зсув адресата випадає за цю обрізану довжину, це не збій, а рівно навпаки — це означає, що байт був нульовий і тому зник. Нуль і треба підставити.
 
@@ -206,74 +74,7 @@ static void frame_targets(const uint8_t *payload, uint8_t len, struct frame *f)
 
 Правило протоколу тут просте, і воно взяте з офіційного опису маршрутизації: адресний кадр можна пересилати в канал лише тоді, коли на цьому каналі вже чули адресата. Пам'ять про почуте й є вся «мережева карта» маршрутизатора.
 
-```c
-#define SEEN_MAX     32
-#define SEEN_TTL_MS  30000u        /* запис живе 30 с після останнього кадру */
-#define RX_MAX       (2 * MAVLINK_MAX_PACKET_LEN)
-
-struct seen {
-    uint8_t  sys, comp;
-    uint32_t last_ms;
-};
-
-struct channel {
-    int          fd;
-    const char  *name;
-    struct seen  seen[SEEN_MAX];
-    uint8_t      n_seen;
-    uint8_t      rx[RX_MAX];       /* удвічі більший за найдовший кадр:    */
-    size_t       rx_len;           /* «повний буфер без кадру» неможливий  */
-};
-
-static uint32_t now_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (uint32_t)(ts.tv_sec * 1000u + ts.tv_nsec / 1000000u);
-}
-
-/* Почули пару на цьому каналі — записати або освіжити. */
-static void chan_learn(struct channel *c, uint8_t sys, uint8_t comp, uint32_t now)
-{
-    if (sys == 0) {
-        return;        /* системи 0 не існує: адресувати їй кадр неможливо */
-    }
-    for (uint8_t i = 0; i < c->n_seen; i++) {
-        if (c->seen[i].sys == sys && c->seen[i].comp == comp) {
-            c->seen[i].last_ms = now;
-            return;
-        }
-    }
-    if (c->n_seen < SEEN_MAX) {
-        c->seen[c->n_seen++] = (struct seen){ sys, comp, now };
-        return;
-    }
-    uint8_t oldest = 0;                          /* таблиця повна —       */
-    for (uint8_t i = 1; i < SEEN_MAX; i++) {     /* витісняємо найдавніший */
-        if ((int32_t)(c->seen[i].last_ms - c->seen[oldest].last_ms) < 0) {
-            oldest = i;
-        }
-    }
-    c->seen[oldest] = (struct seen){ sys, comp, now };
-}
-
-/* Чи чули на каналі цю систему? comp < 0 — «будь-який її компонент». */
-static bool chan_heard(const struct channel *c, uint8_t sys, int16_t comp, uint32_t now)
-{
-    for (uint8_t i = 0; i < c->n_seen; i++) {
-        if (now - c->seen[i].last_ms > SEEN_TTL_MS) {
-            continue;                            /* запис протух           */
-        }
-        if (c->seen[i].sys != sys) {
-            continue;
-        }
-        if (comp < 0 || c->seen[i].comp == (uint8_t)comp) {
-            return true;
-        }
-    }
-    return false;
-}
-```
+:::code proj-router-dispatch/c/krok-3-tablytsia.c
 
 Час тут скрізь монотонний і тридцятидвобітний, тобто переповнюється приблизно раз на сорок дев'ять діб. Це не недогляд: різниця беззнакових чисел через переповнення проходить правильно, тож `now - last_ms` дає справжній вік запису навіть на межі. Порівняння двох міток одна з одною доводиться писати інакше — через знакову різницю `(int32_t)(a - b) < 0`, — бо «більше» для кільцевого лічильника не має сенсу. Чому для тривалостей беруть саме монотонний годинник, а не настінний, розібрано в темі [монотонний проти настінного часу](root:sf-apps/monotonic-vs-wall-time): настінний перескакує від синхронізації, і запис у таблиці міг би миттєво «протухнути» на годину вперед.
 
@@ -285,26 +86,7 @@ static bool chan_heard(const struct channel *c, uint8_t sys, int16_t comp, uint3
 
 Тепер усе зібрано, і рішення вміщається в п'ять перевірок поспіль.
 
-```c
-/* Чи слати кадр f, що прийшов з каналу in, у канал out. */
-static bool should_forward(const struct frame *f, const struct channel *in,
-                           const struct channel *out, uint32_t now)
-{
-    if (out == in) {
-        return false;                 /* назад у той самий дріт — ніколи  */
-    }
-    if (chan_heard(out, f->src_sys, f->src_comp, now)) {
-        return false;                 /* джерело чути з того боку:        */
-    }                                 /* кадр там уже є — інакше петля    */
-    if (f->tgt_sys <= 0) {
-        return true;                  /* −1 або 0 — широкомовний кадр     */
-    }
-    if (f->tgt_comp > 0) {
-        return chan_heard(out, (uint8_t)f->tgt_sys, f->tgt_comp, now);
-    }
-    return chan_heard(out, (uint8_t)f->tgt_sys, -1, now);
-}
-```
+:::code proj-router-dispatch/c/krok-4-rishennia.c
 
 Перші дві перевірки — про петлі, три наступні — про лавину.
 
@@ -312,34 +94,7 @@ static bool should_forward(const struct frame *f, const struct channel *in,
 
 Тепер друга половина роботи вузла — узяти кадр собі. Бортовий комп'ютер не лише пересилає: він і сам учасник мережі. Номер системи в нього той самий, що в автопілота, бо вони обидва — залізо одного апарата; різняться вони номером компонента, і для бортового комп'ютера він зарезервований — 191.
 
-```c
-#define MY_SYS   1
-#define MY_COMP  MAV_COMP_ID_ONBOARD_COMPUTER   /* 191 */
-
-static bool is_for_me(const struct frame *f)
-{
-    if (f->tgt_sys > 0 && f->tgt_sys != MY_SYS) {
-        return false;
-    }
-    if (f->tgt_comp > 0 && f->tgt_comp != MY_COMP) {
-        return false;
-    }
-    return true;                     /* широкомовне теж моє              */
-}
-
-static void route(const struct frame *f, struct channel *in,
-                  struct channel *ch, int n, uint32_t now)
-{
-    for (int i = 0; i < n; i++) {
-        if (should_forward(f, in, &ch[i], now)) {
-            (void)write(ch[i].fd, f->bytes, f->len);   /* СИРІ байти      */
-        }
-    }
-    if (is_for_me(f)) {
-        local_handle(f);      /* ось тут кадр уже можна й треба розбирати */
-    }
-}
-```
+:::code proj-router-dispatch/c/krok-4-rishennia-2.c
 
 Рядок `write(ch[i].fd, f->bytes, f->len)` — головний у всьому маршрутизаторі. У канал їдуть **ті самі байти, що прийшли**: без перебирання, без нової контрольної суми, без нового порядкового номера. Чому інакше не можна — у розділі про пастки.
 
@@ -353,59 +108,7 @@ static void route(const struct frame *f, struct channel *in,
 
 Лишилося з'єднати все з реальними дротами.
 
-```c
-int main(void)
-{
-    struct channel ch[] = {
-        { .fd = open_serial("/dev/ttyAMA0", 921600), .name = "автопілот" },
-        { .fd = open_udp("0.0.0.0", 14550),          .name = "станція"   },
-        { .fd = open_tcp(5760),                      .name = "логер"     },
-    };
-    const int n = (int)(sizeof(ch) / sizeof(ch[0]));
-
-    for (;;) {
-        struct pollfd pfd[3];
-        for (int i = 0; i < n; i++) {
-            pfd[i] = (struct pollfd){ .fd = ch[i].fd, .events = POLLIN };
-        }
-        if (poll(pfd, n, 100) <= 0) {
-            continue;
-        }
-        const uint32_t now = now_ms();
-
-        for (int i = 0; i < n; i++) {
-            if (!(pfd[i].revents & POLLIN)) {
-                continue;
-            }
-            struct channel *c = &ch[i];
-
-            ssize_t got = read(c->fd, c->rx + c->rx_len, sizeof(c->rx) - c->rx_len);
-            if (got <= 0) {
-                continue;
-            }
-            c->rx_len += (size_t)got;
-
-            for (;;) {
-                struct frame f;
-                bool ok;
-                size_t used = frame_scan(c->rx, c->rx_len, &f, &ok);
-                if (ok) {
-                    chan_learn(c, f.src_sys, f.src_comp, now);
-                    route(&f, c, ch, n, now);
-                }
-                if (used == 0) {
-                    break;                    /* треба дочитати           */
-                }
-                c->rx_len -= used;
-                memmove(c->rx, c->rx + used, c->rx_len);
-                if (!ok) {
-                    break;
-                }
-            }
-        }
-    }
-}
-```
+:::code proj-router-dispatch/c/krok-5-tsykl.c
 
 Чотири імені тут лишилися без тіла, і всі чотири — нецікава сантехніка: `open_serial` виставляє швидкість і сирий режим порту, `open_udp` прив'язує сокет до порту, `open_tcp` чекає на клієнта й повертає вже прийняте з'єднання, `local_handle` віддає кадр застосунковій частині бортового комп'ютера — і ось там його вже розбирають звичайним `mavlink_msg_*_decode`, бо там він свій і зрозумілий.
 

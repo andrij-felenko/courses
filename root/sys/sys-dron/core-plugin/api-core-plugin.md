@@ -86,18 +86,7 @@ virtual QString showAdvancedUIMessage() const;
 
 Форма аргументів двох найтонших місць:
 
-```cpp
-// QGCPalette.h — що саме прилітає в paletteOverride
-typedef QColor PaletteColorInfo_t[cMaxTheme][cMaxColorGroup];
-//                                 Light|Dark   Disabled|Enabled
-
-// QGCPalette.cc, макрос DECLARE_QGC_COLOR, спрощено до суті:
-PaletteColorInfo_t colorInfo = { { QColor(lightDisabled), QColor(lightEnabled) },
-                                 { QColor(darkDisabled),  QColor(darkEnabled)  } };
-QGCCorePlugin::instance()->paletteOverride(#name, colorInfo);   // тут можна переписати будь-яку клітинку
-_colorInfoMap[Light][ColorGroupEnabled][#name] = colorInfo[Light][ColorGroupEnabled];
-// …далі всі чотири клітинки лягають у мапу палітри
-```
+:::code api-core-plugin/cpp/vyhliad-rushii-vikno.cpp
 
 Отже, `paletteOverride` дістає масив 2×2 **до** того, як він осів у палітрі, і міняє потрібні клітинки на місці; ім'я кольору — це рядок із першого аргументу макросу (`window`, `text`, `buttonHighlight`, `colorRed`, `brandingBlue` тощо).
 
@@ -174,21 +163,7 @@ if (!QGCCorePlugin::instance()->mavlinkMessage(this, link, message)) {
 
 ## План місії: JSON-гачки, елементи, майстри
 
-```cpp
-virtual void preSaveToJson         (PlanMasterController *pController, QJsonObject &json)        { }
-virtual void preSaveToMissionJson  (PlanMasterController *pController, QJsonObject &missionJson) { }
-virtual void postSaveToMissionJson (PlanMasterController *pController, QJsonObject &missionJson) { }
-virtual void postSaveToJson        (PlanMasterController *pController, QJsonObject &json)        { }
-virtual void preLoadFromJson       (PlanMasterController *pController, QJsonObject &json)        { }
-virtual void postLoadFromJson      (PlanMasterController *pController, QJsonObject &json)        { }
-
-virtual QVariantList complexMissionItemNames(Vehicle *vehicle);
-virtual ComplexMissionItem *createComplexMissionItem(const QString &complexItemType,
-                                                     PlanMasterController *masterController,
-                                                     bool flyView,
-                                                     const QString &kmlOrShpFile = QString());
-virtual QList<PlanCreator *> planCreators(PlanMasterController *planMasterController);
-```
+:::code api-core-plugin/cpp/plan-misii-json-hachky.cpp
 
 Порядок гачків у `PlanMasterController` — саме такий, і він важить, бо між парою «pre» і «post» об'єкт JSON встигає наповнитися штатними ключами:
 
@@ -235,21 +210,7 @@ Q_INVOKABLE QVariantList firstRunPromptsToShow();       // НЕ віртуаль
 
 `firstRunPromptsToShow()` навмисно **не віртуальний** — це готова логіка, яка складає два списки й віднімає показане:
 
-```cpp
-QVariantList QGCCorePlugin::firstRunPromptsToShow()
-{
-    QList<int> rgIdsToShow;
-    rgIdsToShow.append(firstRunPromptStdIds());
-    rgIdsToShow.append(firstRunPromptCustomIds());
-
-    const QList<int> rgAlreadyShownIds = AppSettings::firstRunPromptsIdsVariantToList(
-        SettingsManager::instance()->appSettings()->firstRunPromptIdsShown()->rawValue());
-    for (int idToRemove: rgAlreadyShownIds) {
-        (void) rgIdsToShow.removeOne(idToRemove);
-    }
-    …
-}
-```
+:::code api-core-plugin/cpp/pidkazky-pershoho-zapusku.cpp
 
 Перевизначати треба два постачальники списків і мапу «ідентифікатор → QML-файл», а не сам збирач. Пам'ять про показане живе в налаштуванні `firstRunPromptIdsShown`.
 
@@ -280,21 +241,7 @@ virtual QString stableDownloadLocation() const { return QStringLiteral("qgroundc
 
 ## Стан, сигнали, константи
 
-```cpp
-bool showTouchAreas() const { return _showTouchAreas; }   // читання — публічне
-bool showAdvancedUI() const { return _showAdvancedUI; }   // запис — приватний, лише через Q_PROPERTY із QML
-
-signals:
-    void showTouchAreasChanged(bool showTouchAreas);
-    void showAdvancedUIChanged(bool showAdvancedUI);
-
-protected:
-    bool _showTouchAreas = false;
-    bool _showAdvancedUI = true;      // ⚠ в апстримі розширений режим УВІМКНЕНО
-
-static constexpr int kInitialSetupPromptId          = 3;
-static constexpr int kFirstRunPromptIdsFirstCustomId = 10000;
-```
+:::code api-core-plugin/cpp/stan-syhnaly-konstanty.hpp
 
 | Константа | Значення | Що означає |
 |---|---|---|
@@ -394,77 +341,13 @@ visible: QGroundControl.corePlugin.options.flyView.showMapScale && …
 
 Найкоротший клас, який уже щось міняє й нічого не ламає, — з `custom-example`:
 
-```cpp
-// CustomPlugin.h
-class CustomFlyViewOptions : public QGCFlyViewOptions
-{
-    Q_OBJECT
-public:
-    explicit CustomFlyViewOptions(CustomOptions *options, QObject *parent = nullptr);
-protected:
-    bool showInstrumentPanel() const final { return false; }
-    bool showMultiVehicleList() const final { return false; }
-};
+:::code api-core-plugin/cpp/minimalne-roboche.hpp
 
-class CustomOptions : public QGCOptions
-{
-    Q_OBJECT
-public:
-    explicit CustomOptions(CustomPlugin *plugin, QObject *parent = nullptr);
-    // прапорець дивиться на стан, а не на константу
-    bool showFirmwareUpgrade() const final { return _plugin->showAdvancedUI(); }
-    const QGCFlyViewOptions *flyViewOptions() const final { return _flyViewOptions; }
-private:
-    CustomPlugin        *_plugin        = nullptr;
-    CustomFlyViewOptions *_flyViewOptions = nullptr;
-};
-
-class CustomPlugin : public QGCCorePlugin
-{
-    Q_OBJECT
-public:
-    explicit CustomPlugin(QObject *parent = nullptr);
-    static QGCCorePlugin *instance();          // обов'язково: саме це кличе CUSTOMCLASS::instance()
-    QGCOptions *options() final { return _options; }
-private:
-    CustomOptions *_options = nullptr;
-};
-```
-
-```cpp
-// CustomPlugin.cc
-Q_APPLICATION_STATIC(CustomPlugin, _customPluginInstance);
-
-QGCCorePlugin *CustomPlugin::instance() { return _customPluginInstance(); }
-
-CustomPlugin::CustomPlugin(QObject *parent)
-    : QGCCorePlugin(parent)
-    , _options(new CustomOptions(this, this))
-{
-    _showAdvancedUI = false;     // без цього рядка збірка лишиться «розширеною»
-    (void) connect(this, &QGCCorePlugin::showAdvancedUIChanged,
-                   this, &CustomPlugin::_advancedChanged);
-}
-```
+:::code api-core-plugin/cpp/minimalne-roboche.cpp
 
 Підміна QML-ресурсів вимагає лише одного перевизначення й обов'язкового прибирання за собою:
 
-```cpp
-QQmlApplicationEngine *CustomPlugin::createQmlApplicationEngine(QObject *parent)
-{
-    _qmlEngine = QGCCorePlugin::createQmlApplicationEngine(parent);   // спершу базовий!
-    _qmlEngine->addImportPath("qrc:/qml/Custom/Widgets");
-    _selector = new CustomOverrideInterceptor();
-    _qmlEngine->addUrlInterceptor(_selector);
-    return _qmlEngine;
-}
-
-void CustomPlugin::cleanup()
-{
-    if (_qmlEngine) { _qmlEngine->removeUrlInterceptor(_selector); }
-    delete _selector;
-}
-```
+:::code api-core-plugin/cpp/minimalne-roboche-2.cpp
 
 Три правила видно просто з коду: базову реалізацію викликають першою й доробляють її результат; перехоплювач адрес ставлять до завантаження першого екрана; знятий у `cleanup()` перехоплювач — не формальність, бо рушій переживає розширення.
 
@@ -476,18 +359,7 @@ void CustomPlugin::cleanup()
 
 **Крок 1 — виявлення теки.** Кореневий `CMakeLists.txt`:
 
-```cmake
-if(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/${QGC_CUSTOM_DIR}")
-    message(STATUS "QGC: Custom build directory detected: ${QGC_CUSTOM_DIR}")
-    set(QGC_CUSTOM_BUILD ON)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/${QGC_CUSTOM_DIR}/cmake")
-    include(CustomOverrides)
-endif()
-…
-if(QGC_CUSTOM_BUILD)
-    add_subdirectory("${QGC_CUSTOM_DIR}")
-endif()
-```
+:::code api-core-plugin/cmake/CMakeLists.txt
 
 | Змінна | Де задана | Типово | Роль |
 |---|---|---|---|
@@ -525,25 +397,7 @@ set(CUSTOM_DEFINITIONS
 | `CUSTOMHEADER` | рядок із лапками | `#include CUSTOMHEADER` у `QGCCorePlugin.cc` |
 | `CUSTOMCLASS` | голе ім'я класу | `return CUSTOMCLASS::instance();` у `QGCCorePlugin::instance()` |
 
-```cpp
-// src/API/QGCCorePlugin.cc — після підстановки препроцесора
-#ifdef QGC_CUSTOM_BUILD
-#include CUSTOMHEADER
-#endif
-
-#ifndef QGC_CUSTOM_BUILD
-Q_APPLICATION_STATIC(QGCCorePlugin, _qgcCorePluginInstance);
-#endif
-
-QGCCorePlugin *QGCCorePlugin::instance()
-{
-#ifndef QGC_CUSTOM_BUILD
-    return _qgcCorePluginInstance();
-#else
-    return CUSTOMCLASS::instance();
-#endif
-}
-```
+:::code api-core-plugin/cpp/zminni-zbirky.cpp
 
 Приписка `CACHE INTERNAL "" FORCE` тут не оздоба, а необхідність: тека виробника і тека `src` — різні каталоги збірки, і звичайна змінна з однієї в другу не долетить. Кеш робить її глобальною, `FORCE` перезаписує значення на кожному переналаштуванні, `INTERNAL` ховає її з очей у графічному налаштовувачі. Механіка кешу — в [кеші та опціях CMake](root:sys-bsystem/cache-and-options); загальні кроки складання — у [збірці застосунку](root:sys-dron/building-qgc), а що з цього виходить як продукт — у [власній збірці](root:sys-dron/custom-build).
 

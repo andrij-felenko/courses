@@ -43,19 +43,7 @@ set(QGC_APP_NAME "QGroundControl" CACHE STRING "Application name")
 
 Сім із восьми полів доїжджають у C++ не через параметри компілятора, а через згенерований заголовок: `src/qgc_version.h.in` — шаблон, у якому `@VAR@` замінюються на значення змінних CMake під час конфігурації.
 
-```cpp
-// src/qgc_version.h.in — цілком
-#pragma once
-
-#define QGC_APP_NAME "@QGC_APP_NAME@"
-#define QGC_ORG_NAME "@QGC_ORG_NAME@"
-#define QGC_ORG_DOMAIN "@QGC_ORG_DOMAIN@"
-#define QGC_APP_VERSION_STR "@QGC_APP_VERSION_STR@"
-#define QGC_APP_DATE "@QGC_APP_DATE@"
-#define QGC_APP_DESCRIPTION "@QGC_APP_DESCRIPTION@"
-#define QGC_PACKAGE_NAME "@QGC_PACKAGE_NAME@"
-#define QGC_SETTINGS_VERSION @QGC_SETTINGS_VERSION@
-```
+:::code api-custom-overrides/cpp/main.hpp
 
 Механізм такої підстановки — у [шаблонах `configure_file`](root:sys-bsystem/configure-file-templates): CMake читає файл-шаблон, замінює позначки на значення змінних і кладе результат у теку збірки; далі це звичайний заголовок. Звідси два практичні наслідки. Перший: рядкові поля обгорнуті лапками **в шаблоні**, тож у самому значенні лапок бути не повинно. Другий: `QGC_SETTINGS_VERSION` підставляється голим — покладете туди `"9"` або `9.1`, і зламається компіляція, а не конфігурація, тобто помилка спливе далеко від місця, де ви її зробили. Що це число робить із файлом налаштувань під час запуску — у [збереженні налаштувань](root:sys-dron/settings-persistence): станція звіряє його зі збереженим і при незбігу чистить файл повністю.
 
@@ -63,23 +51,7 @@ set(QGC_APP_NAME "QGroundControl" CACHE STRING "Application name")
 
 `QGC_APP_VERSION` виглядає як ручка — воно ж стоїть у оголошенні проєкту, — але в `cmake/CustomOptions.cmake` його немає. Його обчислює модуль `cmake/modules/Git.cmake`, і робить це **після** файлу виробника, звичайним `set()` без `CACHE`:
 
-```cmake
-execute_process(
-    COMMAND ${GIT_EXECUTABLE} describe --always --tags --abbrev=0
-    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-    OUTPUT_VARIABLE QGC_APP_VERSION
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    ERROR_QUIET
-)
-string(REGEX REPLACE "^v" "" QGC_APP_VERSION_CLEAN "${QGC_APP_VERSION}")
-if(QGC_APP_VERSION_CLEAN MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)")
-    set(QGC_APP_VERSION "${QGC_APP_VERSION_CLEAN}")
-    …
-else()
-    message(WARNING "QGC: Could not parse semantic version from Git tag: …")
-    set(QGC_APP_VERSION "0.0.0")
-endif()
-```
+:::code api-custom-overrides/cmake/versiia-iedyne-pole.cmake
 
 | Величина | Звідки береться | Куди доїжджає |
 |---|---|---|
@@ -256,40 +228,6 @@ set(QML_IMPORT_PATH ${_paths} CACHE STRING "Additional QML import paths" FORCE)
 
 Найкоротший `custom/cmake/CustomOverrides.cmake`, який дає окремий продукт із власною ідентичністю, власним простором налаштувань і одним польотним стеком:
 
-```cmake
-# --- ідентичність ---
-set(QGC_APP_NAME         "Acme GCS"        CACHE STRING "Application name" FORCE)
-set(QGC_ORG_NAME         "Acme Robotics"   CACHE STRING "Organization name" FORCE)
-set(QGC_ORG_DOMAIN       "acme.example"    CACHE STRING "Organization domain" FORCE)
-set(QGC_PACKAGE_NAME     "com.acme.gcs"    CACHE STRING "Package identifier" FORCE)
-set(QGC_APP_DESCRIPTION  "Acme ground control station" CACHE STRING "Application description" FORCE)
-set(QGC_APP_COPYRIGHT    "Copyright (c) 2026 Acme Robotics" CACHE STRING "Copyright notice" FORCE)
-set(QGC_SETTINGS_VERSION "1"               CACHE STRING "Settings schema version" FORCE)
-
-# похідні ідентифікатори — окремими рядками, бо їхні типові значення вже обчислені
-set(QGC_MACOS_BUNDLE_ID       "com.acme.gcs" CACHE STRING "macOS bundle identifier" FORCE)
-set(QGC_ANDROID_PACKAGE_NAME  "com.acme.gcs" CACHE STRING "Android package identifier" FORCE)
-
-# --- набір функцій ---
-set(QGC_DISABLE_APM_MAVLINK        ON CACHE BOOL "Disable ArduPilot MAVLink dialect" FORCE)
-set(QGC_DISABLE_APM_PLUGIN         ON CACHE BOOL "Disable ArduPilot plugin" FORCE)
-set(QGC_DISABLE_APM_PLUGIN_FACTORY ON CACHE BOOL "Disable ArduPilot plugin factory" FORCE)
-set(QGC_DISABLE_PX4_PLUGIN_FACTORY ON CACHE BOOL "Disable PX4 plugin factory" FORCE)
-set(QGC_STABLE_BUILD               ON CACHE BOOL "Stable release build" FORCE)
-
-# --- значки: тільки те, що справді поклали ---
-foreach(_pair
-        "QGC_MACOS_ICON_PATH|res/icons/acme.icns"
-        "QGC_APPIMAGE_ICON_SCALABLE_PATH|res/icons/acme.svg"
-        "QGC_WINDOWS_ICON_PATH|deploy/windows/acme.ico")
-    string(REPLACE "|" ";" _pair "${_pair}")
-    list(GET _pair 0 _var)
-    list(GET _pair 1 _rel)
-    set(_abs "${CMAKE_SOURCE_DIR}/${QGC_CUSTOM_DIR}/${_rel}")
-    if(EXISTS "${_abs}")
-        set(${_var} "${_abs}" CACHE FILEPATH "custom ${_var}" FORCE)
-    endif()
-endforeach()
-```
+:::code api-custom-overrides/cmake/minimalnyi-robochyi-fail.cmake
 
 Вісім рядків ідентичності, чотири рядки набору функцій, цикл на значки — і повний перелік того, за чим доведеться стежити при кожному оновленні апстриму, уміщається в один екран. Це й є одиниця виміру вартості власної збірки.

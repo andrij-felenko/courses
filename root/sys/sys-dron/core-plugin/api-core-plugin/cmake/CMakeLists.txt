@@ -1,0 +1,10 @@
+if(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/${QGC_CUSTOM_DIR}")
+    message(STATUS "QGC: Custom build directory detected: ${QGC_CUSTOM_DIR}")
+    set(QGC_CUSTOM_BUILD ON)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/${QGC_CUSTOM_DIR}/cmake")
+    include(CustomOverrides)
+endif()
+…
+if(QGC_CUSTOM_BUILD)
+    add_subdirectory("${QGC_CUSTOM_DIR}")
+endif()

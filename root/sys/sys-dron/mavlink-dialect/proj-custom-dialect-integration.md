@@ -92,24 +92,7 @@
 
 Для перетворення XML-опису у двійкові кодеки використовується утиліта `mavgen` із пакета `pymavlink`. Запустимо генерацію для C-заголовків та модуля Python:
 
-```bash
-# Встановлення офіційних інструментів генерації
-pip install pymavlink future
-
-# Генерація C/C++ header-only бібліотеки для мікроконтролера
-python -m pymavlink.tools.mavgen \
-    --lang=C \
-    --wire-protocol=2.0 \
-    --output=generated/c_mavlink \
-    smart_multispectral.xml
-
-# Генерація модуля Python для тестового стенда
-python -m pymavlink.tools.mavgen \
-    --lang=Python \
-    --wire-protocol=2.0 \
-    --output=generated/python/smart_multispectral.py \
-    smart_multispectral.xml
-```
+:::code proj-custom-dialect-integration/sh/main.sh
 
 У результаті роботи генератора в каталозі `generated/c_mavlink/smart_multispectral/` буде створено повний набір C-заголовків. Ключовим файлом є `mavlink_msg_multispectral_survey_status.h`, де оголошено константи довжини, макроси упаковки та структуру даних `mavlink_multispectral_survey_status_t`.
 
@@ -120,102 +103,8 @@ python -m pymavlink.tools.mavgen \
 Модуль сенсора опитує аналого-цифрові канали через DMA, заповнює службові поля, викликає функцію упаковки повідомлення та ініціює передачу байтового масиву в апаратний UART.
 
 :::tabs
-```c
-/* transmitter_c.c — Реалізація відправника чистою мовою C */
-#include <stdint.h>
-#include <string.h>
-#include "smart_multispectral/mavlink.h"
-
-#define SENSOR_SYSID  1      /* System ID нашого безпілотного апарата */
-#define SENSOR_COMPID 100    /* Component ID корисного навантаження (MAV_COMP_ID_PAYLOAD) */
-
-/* Зовнішня низькорівнева функція передачі буфера через UART DMA */
-extern void uart_dma_transmit(const uint8_t *data, uint16_t length);
-
-void send_multispectral_telemetry(uint32_t boot_time_ms, float temp_c,
-                                  const uint16_t channels[4], uint8_t filter,
-                                  uint32_t photo_count, uint8_t sd_pct)
-{
-    mavlink_message_t msg;
-    uint8_t tx_buffer[MAVLINK_MAX_PACKET_LEN];
-
-    /* Пакування структури повідомлення з урахуванням полів розширення */
-    mavlink_msg_multispectral_survey_status_pack(
-        SENSOR_SYSID,
-        SENSOR_COMPID,
-        &msg,
-        boot_time_ms,
-        temp_c,
-        channels,
-        filter,
-        0x01,         /* Прапорець: калібрування сенсора валідне */
-        photo_count,  /* Поле розширення: лічильник знімків */
-        sd_pct        /* Поле розширення: відсоток заповнення карти пам'яті */
-    );
-
-    /* Серіалізація кадру в плоский бінарний буфер (з відтинанням кінцевих нулів) */
-    uint16_t len = mavlink_msg_to_send_buffer(tx_buffer, &msg);
-
-    /* Відправка готового кадру в апаратний UART */
-    uart_dma_transmit(tx_buffer, len);
-}
-```
-```cpp
-// transmitter_cpp.hpp — Ідіоматична обгортка мовою C++
-#pragma once
-#include <array>
-#include <cstdint>
-#include <span>
-#include "smart_multispectral/mavlink.h"
-
-class MultispectralTransmitter {
-public:
-    enum class FilterMode : uint8_t {
-        Off = 0,
-        FourChannel = 1,
-        CustomBand = 2
-    };
-
-    struct SensorTelemetry {
-        uint32_t time_boot_ms;
-        float temperature_c;
-        std::array<uint16_t, 4> raw_channels;
-        FilterMode filter;
-        uint8_t status_flags;
-        uint32_t frame_counter;
-        uint8_t sd_storage_pct;
-    };
-
-    MultispectralTransmitter(uint8_t sys_id, uint8_t comp_id)
-        : sys_id_(sys_id), comp_id_(comp_id) {}
-
-    template <typename TransmitFn>
-    void send_telemetry(const SensorTelemetry& data, TransmitFn&& transmit_fn) {
-        mavlink_message_t msg;
-        std::array<uint8_t, MAVLINK_MAX_PACKET_LEN> buffer;
-
-        mavlink_msg_multispectral_survey_status_pack(
-            sys_id_,
-            comp_id_,
-            &msg,
-            data.time_boot_ms,
-            data.temperature_c,
-            data.raw_channels.data(),
-            static_cast<uint8_t>(data.filter),
-            data.status_flags,
-            data.frame_counter,
-            data.sd_storage_pct
-        );
-
-        const uint16_t len = mavlink_msg_to_send_buffer(buffer.data(), &msg);
-        transmit_fn(std::span<const uint8_t>(buffer.data(), len));
-    }
-
-private:
-    uint8_t sys_id_;
-    uint8_t comp_id_;
-};
-```
+:::code proj-custom-dialect-integration/c/transmitter_c.c
+:::code proj-custom-dialect-integration/cpp/transmitter_cpp.hpp
 :::
 
 #### Пояснення відмінностей реалізацій C та C++
@@ -229,140 +118,8 @@ private:
 Приймач повинен безперервно зчитувати потік байтів з кільцевого буфера UART, виділяти валідні кадри MAVLink 2, перевіряти контрольну суму та адресувати вхідні команди `COMMAND_LONG` відповідному обробнику апаратного затвора.
 
 :::tabs
-```c
-/* receiver_c.c — Побайтовий парсер та диспетчер команд на C */
-#include <stdint.h>
-#include "smart_multispectral/mavlink.h"
-
-#define SENSOR_SYSID  1
-#define SENSOR_COMPID 100
-
-extern void uart_send_bytes(const uint8_t *data, uint16_t length);
-extern void trigger_hardware_capture(uint32_t exposure_ms, uint8_t filter);
-
-static void handle_command_long(const mavlink_message_t *msg)
-{
-    mavlink_command_long_t cmd;
-    mavlink_msg_command_long_decode(msg, &cmd);
-
-    /* Перевіряємо адресність: команда призначена нашому модулю? */
-    if (cmd.target_system != SENSOR_SYSID && cmd.target_system != 0) return;
-    if (cmd.target_component != SENSOR_COMPID && cmd.target_component != 0) return;
-
-    uint8_t result = MAV_RESULT_UNSUPPORTED;
-
-    if (cmd.command == 42050 /* MAV_CMD_DO_TRIGGER_SPECTRAL_CAPTURE */) {
-        uint32_t exposure_ms = (uint32_t)cmd.param1;
-        uint8_t filter_mode = (uint8_t)cmd.param2;
-
-        /* Запуск апаратного процесу зйомки */
-        trigger_hardware_capture(exposure_ms, filter_mode);
-        result = MAV_RESULT_ACCEPTED;
-    }
-
-    /* Надсилаємо підтвердження виконання команди (COMMAND_ACK) */
-    mavlink_message_t ack_msg;
-    uint8_t tx_buf[MAVLINK_MAX_PACKET_LEN];
-
-    mavlink_msg_command_ack_pack(
-        SENSOR_SYSID,
-        SENSOR_COMPID,
-        &ack_msg,
-        cmd.command,
-        result,
-        0,     /* progress */
-        0,     /* result_param2 */
-        msg->sysid,
-        msg->compid
-    );
-
-    uint16_t len = mavlink_msg_to_send_buffer(tx_buf, &ack_msg);
-    uart_send_bytes(tx_buf, len);
-}
-
-void process_incoming_byte(uint8_t byte)
-{
-    mavlink_message_t msg;
-    mavlink_status_t status;
-
-    /* Побайтовий скінченний автомат розбору кадру MAVLink */
-    if (mavlink_parse_char(MAVLINK_COMM_0, byte, &msg, &status)) {
-        switch (msg.msgid) {
-            case MAVLINK_MSG_ID_COMMAND_LONG:
-                handle_command_long(&msg);
-                break;
-            default:
-                break;
-        }
-    }
-}
-```
-```cpp
-// receiver_cpp.hpp — Ідіоматичний обробник та диспетчер на C++
-#pragma once
-#include <functional>
-#include <span>
-#include <array>
-#include "smart_multispectral/mavlink.h"
-
-class MavlinkCommandDispatcher {
-public:
-    using CaptureCallback = std::function<bool(uint32_t exposure_ms, uint8_t filter_mode)>;
-
-    MavlinkCommandDispatcher(uint8_t sys_id, uint8_t comp_id)
-        : sys_id_(sys_id), comp_id_(comp_id) {}
-
-    void set_capture_handler(CaptureCallback handler) {
-        capture_handler_ = std::move(handler);
-    }
-
-    template <typename TransmitFn>
-    void feed_byte(uint8_t byte, TransmitFn&& transmit_fn) {
-        mavlink_message_t msg;
-        mavlink_status_t status;
-
-        if (mavlink_parse_char(MAVLINK_COMM_0, byte, &msg, &status)) {
-            dispatch_message(msg, transmit_fn);
-        }
-    }
-
-private:
-    template <typename TransmitFn>
-    void dispatch_message(const mavlink_message_t& msg, TransmitFn&& transmit_fn) {
-        if (msg.msgid == MAVLINK_MSG_ID_COMMAND_LONG) {
-            mavlink_command_long_t cmd;
-            mavlink_msg_command_long_decode(&msg, &cmd);
-
-            if (cmd.target_system != sys_id_ && cmd.target_system != 0) return;
-            if (cmd.target_component != comp_id_ && cmd.target_component != 0) return;
-
-            uint8_t result = MAV_RESULT_UNSUPPORTED;
-            if (cmd.command == 42050 && capture_handler_) {
-                const bool ok = capture_handler_(
-                    static_cast<uint32_t>(cmd.param1),
-                    static_cast<uint8_t>(cmd.param2)
-                );
-                result = ok ? MAV_RESULT_ACCEPTED : MAV_RESULT_FAILED;
-            }
-
-            mavlink_message_t ack_msg;
-            std::array<uint8_t, MAVLINK_MAX_PACKET_LEN> buffer;
-            mavlink_msg_command_ack_pack(
-                sys_id_, comp_id_, &ack_msg,
-                cmd.command, result, 0, 0,
-                msg.sysid, msg.compid
-            );
-
-            const uint16_t len = mavlink_msg_to_send_buffer(buffer.data(), &ack_msg);
-            transmit_fn(std::span<const uint8_t>(buffer.data(), len));
-        }
-    }
-
-    uint8_t sys_id_;
-    uint8_t comp_id_;
-    CaptureCallback capture_handler_;
-};
-```
+:::code proj-custom-dialect-integration/c/receiver_c.c
+:::code proj-custom-dialect-integration/cpp/receiver_cpp.hpp
 :::
 
 ---
@@ -391,64 +148,7 @@ private:
 
 Для тестування розробленого модуля підключимо мікроконтролер через USB-UART перехідник до комп'ютера та запустимо автоматизований скрипт на базі згенерованого модуля `pymavlink`:
 
-```python
-#!/usr/bin/env python3
-"""
-test_payload_client.py — Клієнт перевірки кастомного діалекту MAVLink.
-Підключається до UART-порту сенсора, слухає телеметрію та надсилає команди.
-"""
-import time
-import sys
-from pymavlink import mavutil
-
-# Імпортуємо згенерований модуль діалекту
-import smart_multispectral as custom_mavlink
-
-def main():
-    port = sys.argv[1] if len(sys.argv) > 1 else '/dev/ttyUSB0'
-    baud = 115200
-
-    print(f"Підключення до сенсора на {port} зі швидкістю {baud} бод...")
-    # Створюємо MAVLink з'єднання із зазначенням нашого діалекту
-    master = mavutil.mavlink_connection(port, baud=baud, dialect="smart_multispectral")
-    master.wait_heartbeat(timeout=5)
-
-    print("З'єднання встановлено. Очікування кастомної телеметрії #42001...")
-
-    # Чекаємо 3 телеметричні повідомлення
-    for _ in range(3):
-        msg = master.recv_match(type='MULTISPECTRAL_SURVEY_STATUS', blocking=True, timeout=3)
-        if msg:
-            print(f"[ТЕЛЕМЕТРІЯ] Час: {msg.time_boot_ms} мс | "
-                  f"Темп: {msg.sensor_temperature:.2f} °C | "
-                  f"Канали: {msg.raw_channels} | "
-                  f"Фото: {getattr(msg, 'frame_counter', 0)} | "
-                  f"SD: {getattr(msg, 'sd_storage_pct', 0)}%")
-        else:
-            print("Попередження: таймаут очікування телеметрії!")
-
-    print("\nНадсилання команди запуску зйомки MAV_CMD_DO_TRIGGER_SPECTRAL_CAPTURE (#42050)...")
-    master.mav.command_long_send(
-        1,                  # target_system (БПЛА)
-        100,                # target_component (Мультиспектральний модуль)
-        42050,              # command
-        0,                  # confirmation
-        75.0,               # param1: експозиція 75 мс
-        1.0,                # param2: 4-канальний режим
-        1.0,                # param3: 1 кадр
-        0, 0, 0, 0          # param4..7: зарезервовано
-    )
-
-    # Очікування відповіді COMMAND_ACK
-    ack = master.recv_match(type='COMMAND_ACK', blocking=True, timeout=3)
-    if ack and ack.command == 42050:
-        print(f"Отримано підтвердження COMMAND_ACK: результат = {ack.result} (0 = ACCEPTED)")
-    else:
-        print("Помилка: не отримано підтвердження команди!")
-
-if __name__ == '__main__':
-    main()
-```
+:::code proj-custom-dialect-integration/py/test_payload_client.py
 
 ---
 
@@ -499,40 +199,7 @@ if __name__ == '__main__':
 
 Для польових випробувань та швидкого налагодження бортових систем розробники часто використовують модульний термінал керування `MAVProxy`. Створимо власний плагін `mavproxy_multispectral.py`, який додає зручні консольні команди для оператора:
 
-```python
-"""
-mavproxy_multispectral.py — Розширення консолі MAVProxy для спектральної камери.
-"""
-from MAVProxy.modules.lib import mp_module
-
-class MultispectralModule(mp_module.MPModule):
-    def __init__(self, mpstate):
-        super(MultispectralModule, self).__init__(mpstate, "multispectral", "Підтримка спектральної камери")
-        self.add_command('spectral', self.cmd_spectral, "Команди спектрального сенсора", ['trigger', 'status'])
-
-    def cmd_spectral(self, args):
-        if len(args) < 1:
-            print("Використання: spectral trigger <exposure_ms> <filter_id>")
-            return
-
-        if args[0] == 'trigger':
-            exp = float(args[1]) if len(args) > 1 else 50.0
-            flt = float(args[2]) if len(args) > 2 else 1.0
-            print(f"Відправка команди зйомки: експозиція {exp} мс, фільтр {flt}")
-            self.master.mav.command_long_send(
-                self.settings.target_system,
-                100,  # Component ID
-                42050, 0, exp, flt, 1.0, 0, 0, 0, 0
-            )
-
-    def mavlink_packet(self, msg):
-        if msg.get_type() == 'MULTISPECTRAL_SURVEY_STATUS':
-            # Логування кастомної телеметрії у фоновому режимі
-            self.console.writeln(f"[СЕНСОР] T={msg.sensor_temperature:.1f}C NIR={msg.raw_channels[3]}", bg='black')
-
-def init(mpstate):
-    return MultispectralModule(mpstate)
-```
+:::code proj-custom-dialect-integration/py/mavproxy_multispectral.py
 
 Оператор завантажує модуль у терміналі командою `module load multispectral` і може керувати сенсором простою командою `spectral trigger 100 1` безпосередньо під час польоту.
 
@@ -542,53 +209,7 @@ def init(mpstate):
 
 Для верифікації надійності зв'язку в умовах радіозавад використовується тест ін'єкції штучних помилок. Скрипт емулює пошкодження випадкових бітів у кадрі та перевіряє, чи коректно парсер MAVLink відсіює спотворені пакети:
 
-```python
-"""
-stress_test_crc.py — Стрес-тест стійкості до спотворення бітів у каналі зв'язку.
-"""
-import random
-from pymavlink import mavutil
-import smart_multispectral as custom_mavlink
-
-def run_bitflip_test(iterations=1000):
-    mav = custom_mavlink.MAVLink(None, srcSystem=1, srcComponent=100)
-    rejected_corrupted = 0
-    passed_clean = 0
-
-    for i in range(iterations):
-        # Генеруємо чистий тестовий пакет
-        msg = mav.multispectral_survey_status_encode(
-            time_boot_ms=i * 100,
-            sensor_temperature=24.5,
-            raw_channels=[1000, 2000, 3000, 4000],
-            filter_mode=1,
-            status_flags=0x01,
-            frame_counter=i,
-            sd_storage_pct=45
-        )
-        wire_data = bytearray(msg.pack(mav))
-
-        # Спотворюємо один випадковий біт у середині корисного навантаження
-        corrupt_idx = random.randint(10, len(wire_data) - 3)
-        wire_data[corrupt_idx] ^= (1 << random.randint(0, 7))
-
-        # Передаємо пошкоджений буфер парсеру
-        test_parser = custom_mavlink.MAVLink(None)
-        parsed = None
-        for b in wire_data:
-            m = test_parser.parse_char(bytes([b]))
-            if m is not None:
-                parsed = m
-
-        if parsed is None:
-            rejected_corrupted += 1
-
-    print(f"Тест завершено: перевірено {iterations} спотворених пакетів.")
-    print(f"Відсіяно контрольною сумою CRC-16/CRC_EXTRA: {rejected_corrupted} з {iterations} (100.0%)")
-
-if __name__ == '__main__':
-    run_bitflip_test(1000)
-```
+:::code proj-custom-dialect-integration/py/stress_test_crc.py
 
 Завдяки суворому поєднанню CRC-16 та байта `CRC_EXTRA` жоден спотворений кадр не приймається диспетчером, що гарантує цілісність даних польотної телеметрії.
 

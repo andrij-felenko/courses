@@ -154,19 +154,7 @@ for (unsigned int i = 0; i < msgInfo->num_fields; ++i) {
 
 Вендорська збірка бачить увесь трафік апарата в одному методі [ядрового розширення](root:sys-dron/core-plugin) — і саме там наше повідомлення перетворюється зі структури байтів на структуру полів:
 
-```cpp
-// custom/src/CustomPlugin.cc
-bool CustomPlugin::mavlinkMessage(Vehicle *vehicle, LinkInterface *link,
-                                  const mavlink_message_t &message)
-{
-    if (message.msgid == MAVLINK_MSG_ID_PERIMETER_BEACON_STATUS) {
-        mavlink_perimeter_beacon_status_t status{};
-        mavlink_msg_perimeter_beacon_status_decode(&message, &status);
-        _beacon.update(status);
-    }
-    return QGCCorePlugin::mavlinkMessage(vehicle, link, message);
-}
-```
+:::code proj-custom-message/cpp/krok-4-rozbir-u-hachku.cpp
 
 Три речі в цих семи рядках варті слова.
 
@@ -189,70 +177,9 @@ if (!QGCCorePlugin::instance()->mavlinkMessage(this, link, message)) {
 
 Розібрана структура — ще не те, що вміє показати екран. Величина стає показною, коли вона [факт](root:sys-dron/fact-system): іменований об'єкт зі значенням, сигналом про зміну й окремо доданими метаданими — підписом, одиницями, кількістю знаків. Факти складають у групу, група володіє ними й вирішує, як часто турбувати екран.
 
-```cpp
-// custom/src/PerimeterFactGroup.h
-#pragma once
+:::code proj-custom-message/cpp/krok-5-hrupa-faktiv-chyslo.hpp
 
-#include "FactGroup.h"
-#include "MAVLinkLib.h"
-
-class Vehicle;
-
-class PerimeterFactGroup : public FactGroup
-{
-    Q_OBJECT
-    Q_PROPERTY(Fact *number  READ number  CONSTANT)
-    Q_PROPERTY(Fact *range   READ range   CONSTANT)
-    Q_PROPERTY(Fact *quality READ quality CONSTANT)
-
-public:
-    explicit PerimeterFactGroup(QObject *parent = nullptr);
-
-    Fact *number()  { return &_numberFact;  }
-    Fact *range()   { return &_rangeFact;   }
-    Fact *quality() { return &_qualityFact; }
-
-    void update(const mavlink_perimeter_beacon_status_t &status);
-
-    Q_INVOKABLE void setMode(Vehicle *vehicle, int mode, double radiusM);
-    Q_INVOKABLE void requestRate(Vehicle *vehicle, int hz);
-
-private:
-    Fact _numberFact  = Fact(0, QStringLiteral("number"),  FactMetaData::valueTypeUint16);
-    Fact _rangeFact   = Fact(0, QStringLiteral("range"),   FactMetaData::valueTypeDouble);
-    Fact _qualityFact = Fact(0, QStringLiteral("quality"), FactMetaData::valueTypeDouble);
-};
-```
-
-```cpp
-// custom/src/PerimeterFactGroup.cc
-#include "PerimeterFactGroup.h"
-
-#include "CustomPlugin.h"   // звідси Q_DECLARE_LOGGING_CATEGORY(CustomLog)
-#include "MAVLinkProtocol.h"
-#include "Vehicle.h"
-#include "VehicleLinkManager.h"
-
-PerimeterFactGroup::PerimeterFactGroup(QObject *parent)
-    : FactGroup(500, QStringLiteral(":/custom/json/PerimeterFact.json"), parent)
-{
-    _addFact(&_numberFact);
-    _addFact(&_rangeFact);
-    _addFact(&_qualityFact);
-
-    // Доки апарат не озвався, показувати нема чого — і це не нуль.
-    _rangeFact.setRawValue(qQNaN());
-    _qualityFact.setRawValue(qQNaN());
-}
-
-void PerimeterFactGroup::update(const mavlink_perimeter_beacon_status_t &status)
-{
-    _numberFact.setRawValue(status.beacon_id);
-    _rangeFact.setRawValue(status.range_m);
-    _qualityFact.setRawValue(status.quality);
-    _setTelemetryAvailable(true);
-}
-```
+:::code proj-custom-message/cpp/krok-5-hrupa-faktiv-chyslo.cpp
 
 Число 500 у конструкторі — період сповіщень у мілісекундах. Значення оновлюється на кожен кадр, а екран дізнається про зміни двічі на секунду; для відстані, що змінюється зі швидкістю апарата, цього досить, і зайвих перемальовувань не буде.
 
@@ -277,22 +204,7 @@ void PerimeterFactGroup::update(const mavlink_perimeter_beacon_status_t &status)
 
 Лишилося дати групі ім'я, за яким її знайде опис екрана. Реєстрація робиться один раз, у методі ініціалізації розширення — він виконується раніше, ніж застосунок створює рушій опису інтерфейсу, тож на момент читання QML ім'я вже існує:
 
-```cpp
-// custom/src/CustomPlugin.cc
-#include <QtQml/QQmlEngine>
-
-#include "MultiVehicleManager.h"
-
-void CustomPlugin::init()
-{
-    QGCCorePlugin::init();
-
-    qmlRegisterSingletonInstance("Custom.Beacon", 1, 0, "Beacon", &_beacon);
-
-    (void) connect(MultiVehicleManager::instance(), &MultiVehicleManager::vehicleAdded,
-                   this, [this](Vehicle *vehicle) { _beacon.requestRate(vehicle, 2); });
-}
-```
+:::code proj-custom-message/cpp/krok-5-hrupa-faktiv-chyslo-2.cpp
 
 Група — звичайне поле розширення (`PerimeterFactGroup _beacon;`), а не об'єкт у купі, і це навмисно: одинак, зареєстрований для опису інтерфейсу, мусить пережити рушій, який на нього посилається, а розширення живе стільки ж, скільки застосунок.
 
@@ -336,34 +248,7 @@ Item {
 
 Відправка коротша за приймання, бо в ній немає невизначености — але два місця в ній не косметичні:
 
-```cpp
-void PerimeterFactGroup::setMode(Vehicle *vehicle, int mode, double radiusM)
-{
-    if (!vehicle) {
-        return;
-    }
-
-    SharedLinkInterfacePtr link = vehicle->vehicleLinkManager()->primaryLink().lock();
-    if (!link) {
-        qCWarning(CustomLog) << "Периметр: основного каналу немає";
-        return;
-    }
-
-    mavlink_message_t message{};
-    mavlink_msg_perimeter_beacon_cmd_pack_chan(
-        MAVLinkProtocol::instance()->getSystemId(),   // хто шле: станція
-        MAVLinkProtocol::getComponentId(),
-        link->mavlinkChannel(),                       // слот стану кодувальника
-        &message,
-        vehicle->id(), vehicle->compId(),             // кому: target_system, target_component
-        static_cast<uint8_t>(mode),
-        static_cast<float>(radiusM));
-
-    if (!vehicle->sendMessageOnLinkThreadSafe(link.get(), message)) {
-        qCWarning(CustomLog) << "Периметр: канал зник між перевіркою й відправкою";
-    }
-}
-```
+:::code proj-custom-message/cpp/krok-7-knopka-skladaie.cpp
 
 **Канал беруть слабким посиланням і одразу замикають.** Основний канал апарата може зникнути будь-коли — радіо втратило зв'язок, кабель висмикнули, — і слабке посилання саме про це й каже: перевірка тут не перестраховка, а єдиний спосіб не звернутися до знищеного об'єкта.
 

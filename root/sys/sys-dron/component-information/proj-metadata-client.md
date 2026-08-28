@@ -48,102 +48,13 @@
 
 Спершу з'єднання й запит одного повідомлення.
 
-```python
-#!/usr/bin/env python3
-"""paramdoc.py — опис одного параметра, витягнутий з борту протоколом метаданих."""
-import json, lzma, os, struct, sys, time, zlib
-from urllib.request import urlopen
-from pymavlink import mavutil
-
-mav       = mavutil.mavlink
-AUTOPILOT = mav.MAV_COMP_ID_AUTOPILOT1          # метадані віддає лише автопілот
-CACHE_DIR = os.path.join(os.path.expanduser('~'), '.cache', 'compinfo')
-
-
-def request_message(link, msg_id, msg_name, timeout=5.0):
-    """Попросити одне повідомлення. Повертає повідомлення або None."""
-    link.mav.command_long_send(
-        link.target_system, AUTOPILOT,
-        mav.MAV_CMD_REQUEST_MESSAGE, 0,          # confirmation
-        msg_id, 0, 0, 0, 0, 0, 0)                # param1 — номер повідомлення
-
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        # Чекаємо на обидві відповіді разом: порядок між ними не визначений.
-        m = link.recv_match(type=[msg_name, 'COMMAND_ACK'],
-                            blocking=True, timeout=0.3)
-        if m is None:
-            continue
-        if m.get_type() == msg_name:
-            return m
-        if m.command == mav.MAV_CMD_REQUEST_MESSAGE and \
-           m.result != mav.MAV_RESULT_ACCEPTED:
-            return None                          # «не вмію» — досиджувати нема чого
-    return None
-
-
-def cstr(field):
-    """char[100] на дроті: хвіст добитий нулями, рядок обривається на першому."""
-    if isinstance(field, (bytes, bytearray)):
-        field = field.decode('utf-8', 'replace')
-    return field.split('\x00', 1)[0].strip()
-```
+:::code proj-metadata-client/py/paramdoc.py
 
 Далі — CRC і ім'я запису в кеші. Це та частина, яку найчастіше переносять в інші програми, тож ось вона двома мовами: на Python — щоб бачити, як скасувати обидва інвертування бібліотечної функції одним рядком, і на C++ — щоб бачити, звідки ці інвертування взагалі беруться.
 
 :::tabs
-```python
-def metadata_crc32(data):
-    """CRC32 метаданих: поліном як у zip, але регістр стартує з нуля
-    й наприкінці не інвертується. zlib робить обидва інвертування —
-    обидва тут і скасовуються, звідси два 0xFFFFFFFF."""
-    return zlib.crc32(data, 0xFFFFFFFF) ^ 0xFFFFFFFF
-
-
-def cache_tag(meta_type, crc, translation=False):
-    """Ім'я запису в кеші: CRC, вид опису, ознака перекладу — і більше нічого."""
-    return '%08x_%02i_%i' % (crc, meta_type, int(translation))
-```
-```cpp
-#include <cstdint>
-#include <cstdio>
-#include <cstddef>
-#include <string>
-
-// Таблиця відображеного полінома CRC-32 — та сама, що в zip і PNG.
-static const uint32_t *crcTable()
-{
-    static uint32_t table[256];
-    static bool built = false;
-    if (!built) {
-        for (uint32_t i = 0; i < 256; ++i) {
-            uint32_t k = i;
-            for (int j = 0; j < 8; ++j)
-                k = (k & 1u) ? ((k >> 1) ^ 0xEDB88320u) : (k >> 1);
-            table[i] = k;
-        }
-        built = true;
-    }
-    return table;
-}
-
-uint32_t metadataCrc32(const uint8_t *data, size_t len)
-{
-    const uint32_t *table = crcTable();
-    uint32_t crc = 0;                    // zip почав би з 0xFFFFFFFF
-    for (size_t i = 0; i < len; ++i)
-        crc = (crc >> 8) ^ table[(crc & 0xFFu) ^ data[i]];
-    return crc;                          // zip завершив би ^ 0xFFFFFFFF
-}
-
-std::string cacheTag(int metaType, uint32_t crc, bool translation)
-{
-    char buf[32];
-    std::snprintf(buf, sizeof buf, "%08x_%02i_%i",
-                  static_cast<unsigned>(crc), metaType, translation ? 1 : 0);
-    return buf;
-}
-```
+:::code proj-metadata-client/py/kod.py
+:::code proj-metadata-client/cpp/main.cpp
 :::
 
 Два коментарі в C++-версії позначають усю різницю. На однакових байтах вона виглядає так:
@@ -160,231 +71,27 @@ CRC-32 метаданих    (регістр 0, без фінального xor)
 
 Кеш — тека з файлами, названими за тегом. Відсутній тег означає «CRC не приїхав», і тоді кеш просто вимикається:
 
-```python
-def cache_load(tag):
-    if tag is None:                                  # немає CRC — немає імені
-        return None
-    path = os.path.join(CACHE_DIR, tag)
-    if os.path.exists(path):
-        with open(path, 'rb') as fh:
-            return fh.read()
-    return None
-
-
-def cache_store(tag, data):
-    if tag is None:                                  # свідомо не кешуємо
-        return
-    os.makedirs(CACHE_DIR, exist_ok=True)
-    with open(os.path.join(CACHE_DIR, tag), 'wb') as fh:
-        fh.write(data)
-```
+:::code proj-metadata-client/py/kod-2.py
 
 Тепер читання з борту. Заголовок MAVFTP — дванадцять байтів у полі `payload` завдовжки 251; решта 239 і є корисні дані.
 
-```python
-FTP_HDR = struct.Struct('<HBBBBBBI')   # seq, session, opcode, size,
-                                       # req_opcode, burst_complete, pad, offset
-FTP_MAX = 239                          # 251 − 12
-
-OP_TERMINATE, OP_OPEN_RO, OP_BURST = 1, 4, 15
-OP_ACK, OP_NAK = 128, 129
-ERR_EOF = 6
-
-
-def ftp_send(link, seq, session, opcode, offset=0, size=0, data=b''):
-    payload = FTP_HDR.pack(seq & 0xFFFF, session, opcode, size,
-                           0, 0, 0, offset) + data
-    payload += b'\x00' * (251 - len(payload))        # поле фіксованої довжини
-    link.mav.file_transfer_protocol_send(0, link.target_system, AUTOPILOT,
-                                         bytearray(payload))
-
-
-def ftp_recv(link, want_op, timeout=2.0):
-    """Відповідь саме на операцію want_op. Чуже й застаріле — у смітник."""
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        m = link.recv_match(type='FILE_TRANSFER_PROTOCOL',
-                            blocking=True, timeout=0.3)
-        if m is None:
-            continue
-        raw = bytes(m.payload)
-        seq, session, opcode, size, req_op, burst_done, _pad, offset = \
-            FTP_HDR.unpack_from(raw)
-        if req_op != want_op:                        # відгомін давнішого запиту
-            continue
-        return opcode, size, offset, raw[12:12 + size], burst_done
-    return None
-```
+:::code proj-metadata-client/py/kod-3.py
 
 Поле `req_opcode` у відповіді повторює код операції, на яку вона відповідає, і без цієї перевірки програма розвалюється не одразу: перше завантаження минеться добре, а на другому в чергу приїде запізніла відповідь на закриття сесії з першого — з нульовим розміром замість розміру файлу.
 
 Саме завантаження — цикл із трьома виходами: файл зібрано, борт мовчить надто довго, темп надто повільний. Останній вихід і є той сторож, без якого програма чекатиме хвилину замість того, щоб за секунду взяти той самий файл із мережі.
 
-```python
-def too_slow(elapsed, progress, budget=40.0):
-    """Прогноз повного часу за поточним темпом перевищує бюджет?"""
-    if progress <= 0.0:
-        return False
-    return elapsed > 10.0 and progress < 0.5 and elapsed / progress > budget
-
-
-def ftp_download(link, path, seq=0):
-    """Прочитати файл із борту потоковим читанням. Повертає байти або None."""
-    name = path.encode('utf-8')
-    ftp_send(link, seq, 0, OP_OPEN_RO, size=len(name), data=name)
-    reply = ftp_recv(link, OP_OPEN_RO, timeout=3.0)
-    if reply is None or reply[0] != OP_ACK:
-        return None
-    total = struct.unpack('<I', reply[3])[0] if reply[1] == 4 else 0
-    if total == 0:
-        return None
-
-    buf, seen, have = bytearray(total), {}, 0
-    started = time.monotonic()
-    seq += 2
-    ftp_send(link, seq, 0, OP_BURST, offset=have, size=FTP_MAX)
-    last_packet = time.monotonic()
-
-    try:
-        while have < total:
-            reply = ftp_recv(link, OP_BURST, timeout=0.5)
-            now = time.monotonic()
-
-            if reply is not None and reply[0] == OP_ACK:
-                _, size, offset, data, burst_done = reply
-                buf[offset:offset + size] = data
-                seen[offset] = size
-                while have in seen:                  # зсунути позначку суцільного
-                    have += seen[have]
-                last_packet = now
-                if burst_done and have < total:      # борт завершив пачку раніше
-                    seq += 2
-                    ftp_send(link, seq, 0, OP_BURST, offset=have, size=FTP_MAX)
-                continue
-
-            if reply is not None and reply[0] == OP_NAK:
-                if reply[3][:1] == bytes([ERR_EOF]):
-                    break                            # кінець файлу
-                return None
-
-            if too_slow(now - started, have / total):
-                return None                          # хай спрацює запасна адреса
-            if now - last_packet > 2.0:              # пачка загубилася — просити ще
-                seq += 2
-                ftp_send(link, seq, 0, OP_BURST, offset=have, size=FTP_MAX)
-                last_packet = now
-    finally:
-        ftp_send(link, seq + 2, 0, OP_TERMINATE)     # сесій на борту лічені штуки
-
-    return bytes(buf[:have]) if have >= total else None
-```
+:::code proj-metadata-client/py/kod-4.py
 
 Лишилося звести докупи вибір джерела, розпакування й розбір. Схему беремо з адреси, а не з налаштувань, і розпаковуємо за магічними байтами, а не за розширенням:
 
-```python
-XZ_MAGIC = b'\xfd7zXZ\x00'
-
-
-def fetch(link, uri):
-    """Завантажити файл за адресою — з борту або з мережі."""
-    if uri.startswith('mftp://'):
-        return ftp_download(link, '/' + uri[len('mftp://'):].lstrip('/'))
-    if uri.startswith(('http://', 'https://')):
-        try:
-            return urlopen(uri, timeout=30).read()
-        except Exception as exc:
-            print('мережа:', exc, file=sys.stderr)
-            return None
-    return None
-
-
-def fetch_cached(link, meta_type, sources):
-    """Джерела по черзі, для кожного: кеш → завантаження.
-    CRC у кожного джерела свій, тож і тег кешу свій."""
-    for uri, crc in sources:
-        if not uri:
-            continue
-        tag = None if crc is None else cache_tag(meta_type, crc)
-        hit = cache_load(tag)
-        if hit is not None:
-            return maybe_decompress(hit)
-        raw = fetch(link, uri)
-        if raw:
-            cache_store(tag, raw)                    # кешуємо СТИСНЕНИЙ оригінал
-            return maybe_decompress(raw)
-    return None
-
-
-def maybe_decompress(data):
-    """Стиснення пізнається за вмістом: у самій адресі його може бути не видно."""
-    return lzma.decompress(data) if data.startswith(XZ_MAGIC) else data
-
-
-def sources_for(general, meta_type):
-    """Пари «адреса, CRC» одного виду опису: спершу головна, потім запасна."""
-    for entry in general.get('metadataTypes', []):
-        if entry.get('type') == meta_type:
-            return [(entry.get('uri', ''),         entry.get('fileCrc')),
-                    (entry.get('uriFallback', ''), entry.get('fileCrcFallback'))]
-    return None
-```
+:::code proj-metadata-client/py/kod-5.py
 
 Запасна адреса має власний ключ `fileCrcFallback`, і в PX4 його зазвичай немає: там за обома адресами лежить той самий файл тієї самої збірки. Але покладатися на це не варто — джерела різні, тому й тег кешу в кожного свій, а відсутність ключа просто вимикає кеш для цього джерела.
 
 І головна частина — дев'ять кроків задачі, вишикувані в рядок:
 
-```python
-def describe(p):
-    out = ['%s  (%s)' % (p['name'], p.get('type', '?')),
-           '  підпис   : %s' % p.get('shortDesc', '—')]
-    if p.get('units'):
-        out.append('  одиниці  : %s' % p['units'])
-    if 'min' in p or 'max' in p:
-        out.append('  межі     : %s … %s' % (p.get('min', '−∞'), p.get('max', '+∞')))
-    if 'default' in p:
-        out.append('  усталене : %s' % p['default'])
-    if p.get('group'):
-        out.append('  група    : %s' % p['group'])
-    if p.get('rebootRequired'):
-        out.append('  ! потрібне перезавантаження')
-    for v in p.get('values', []):
-        out.append('    %s = %s' % (v['value'], v['description']))
-    return '\n'.join(out)
-
-
-def main(device, wanted):
-    link = mavutil.mavlink_connection(device, source_system=255)
-    link.wait_heartbeat()                            # звідси відомий target_system
-
-    meta = request_message(link, 397, 'COMPONENT_METADATA')
-    if meta is None:
-        sys.exit('апарат не віддав COMPONENT_METADATA')
-
-    # 0 — COMP_METADATA_TYPE_GENERAL; запасної адреси в покажчика немає за задумом
-    general_raw = fetch_cached(link, 0, [(cstr(meta.uri), meta.file_crc)])
-    if general_raw is None:
-        sys.exit('не вдалося взяти файл-покажчик')
-    general = json.loads(general_raw)
-
-    sources = sources_for(general, 1)                # 1 — COMP_METADATA_TYPE_PARAMETER
-    if sources is None:
-        sys.exit('апарат не описує своїх параметрів')
-
-    params_raw = fetch_cached(link, 1, sources)
-    if params_raw is None:
-        sys.exit('не вдалося взяти описи параметрів')
-
-    for p in json.loads(params_raw).get('parameters', []):
-        if p.get('name') == wanted:
-            print(describe(p))
-            return
-    print('немає такого параметра:', wanted)
-
-
-if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'udpin:0.0.0.0:14550',
-         sys.argv[2] if len(sys.argv) > 2 else 'MPC_XY_P')
-```
+:::code proj-metadata-client/py/kod-6.py
 
 На апараті з PX4 це друкує приблизно таке:
 

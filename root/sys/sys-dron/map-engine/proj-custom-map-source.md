@@ -23,18 +23,7 @@ https://tiles.skylark.example/ortho/{z}/{x}/{y}.jpg
 
 У списку провайдерів станції наприкінці стоїть об'єкт `CustomURLMapProvider`, і весь він — ось цей метод:
 
-```cpp
-QString CustomURLMapProvider::_getURL(int x, int y, int zoom) const
-{
-    QString url = SettingsManager::instance()->appSettings()
-        ->customURL()->rawValue().toString();
-    (void) url.replace("{x}", QString::number(x));
-    (void) url.replace("{y}", QString::number(y));
-    static const QRegularExpression zoomRegExp("\\{(z|zoom)\\}");
-    (void) url.replace(zoomRegExp, QString::number(zoom));
-    return url;
-}
-```
+:::code proj-custom-map-source/cpp/shliakh-pershyi-shablon-u.hpp
 
 Оператор вписує шаблон у налаштуваннях застосунку, вибирає в списку карт джерело `CustomURL` типу `Custom` — і тайли їдуть. Підстановка робиться щоразу заново, тож шаблон можна змінити й побачити результат без перезапуску.
 
@@ -80,39 +69,7 @@ MapProvider(const QString &mapName, const QString &referrer,
 
 ### Заголовок
 
-```cpp
-// src/QtLocationPlugin/Providers/SkyOrthoMapProvider.h
-#pragma once
-
-#include "MapProvider.h"
-
-/// Ортофотоплани власного сервера: сітка XYZ, jpeg, токен окремим заголовком.
-class SkyOrthoMapProvider : public MapProvider
-{
-public:
-    SkyOrthoMapProvider()
-        : MapProvider(QStringLiteral("SkyOrtho Aerial"),            // «джерело тип»
-                      QStringLiteral("https://tiles.skylark.example"),
-                      QStringLiteral("jpg"),
-                      41000,                                        // виміряний тайл
-                      MapProvider::SatelliteMapDay) {}
-
-    QByteArray getToken() const final;
-
-    QGCTileSet getTileCount(int zoom,
-                            double topleftLon, double topleftLat,
-                            double bottomRightLon, double bottomRightLat) const final;
-
-private:
-    QString _getURL(int x, int y, int zoom) const final;
-
-    static constexpr int kMinZoom = 10;
-    static constexpr int kMaxZoom = 19;
-
-    const QString _mapUrl = QStringLiteral(
-        "https://tiles.skylark.example/ortho/%1/%2/%3.jpg");
-};
-```
+:::code proj-custom-map-source/cpp/zaholovok.hpp
 
 Кожен аргумент конструктора має наслідок, який видно не тут, а за десять екранів звідси.
 
@@ -126,38 +83,7 @@ private:
 
 ### Реалізація
 
-```cpp
-// src/QtLocationPlugin/Providers/SkyOrthoMapProvider.cpp
-#include "SkyOrthoMapProvider.h"
-
-#include "SettingsManager.h"
-#include "SkyOrthoSettings.h"
-
-QString SkyOrthoMapProvider::_getURL(int x, int y, int zoom) const
-{
-    if ((zoom < kMinZoom) || (zoom > kMaxZoom)) {
-        return QString();          // порожньо = «не проси»; наслідки — у граблях
-    }
-    return _mapUrl.arg(zoom).arg(x).arg(y);
-}
-
-QByteArray SkyOrthoMapProvider::getToken() const
-{
-    return SettingsManager::instance()->skyOrthoSettings()
-        ->apiKey()->rawValue().toString().toUtf8();
-}
-
-QGCTileSet SkyOrthoMapProvider::getTileCount(int zoom,
-                                             double topleftLon, double topleftLat,
-                                             double bottomRightLon, double bottomRightLat) const
-{
-    if ((zoom < kMinZoom) || (zoom > kMaxZoom)) {
-        return QGCTileSet();       // нуль клітинок, нуль байтів
-    }
-    return MapProvider::getTileCount(zoom, topleftLon, topleftLat,
-                                     bottomRightLon, bottomRightLat);
-}
-```
+:::code proj-custom-map-source/cpp/SkyOrthoMapProvider.cpp
 
 `_getURL` — єдиний обов'язковий метод, і в ньому немає нічого, крім складання рядка. Перевірка рівнів на початку робить те, чого в базовому класі немає взагалі: у `MapProvider` немає ані поля мінімального, ані поля максимального рівня, тому обмежити джерело можна лише відмовою складати адресу.
 
@@ -194,21 +120,7 @@ QGCTileSet SkyOrthoMapProvider::getTileCount(int zoom,
 
 Складання запиту виглядає так (це апстримовий код, наші методи в ньому позначено):
 
-```cpp
-request.setUrl(mapProvider->getTileURL(x, y, zoom));       // → наш _getURL
-request.setTransferTimeout(10000);
-request.setRawHeader("Accept", "*/*");
-request.setHeader(QNetworkRequest::UserAgentHeader, s_userAgent);
-
-const QByteArray referrer = mapProvider->getReferrer().toUtf8();
-if (!referrer.isEmpty()) {
-    request.setRawHeader("Referer", referrer);             // → наш конструктор
-}
-const QByteArray token = mapProvider->getToken();
-if (!token.isEmpty()) {
-    request.setRawHeader("User-Token", token);             // → наш getToken
-}
-```
+:::code proj-custom-map-source/cpp/shcho-stantsiia-zrobyt-iz.cpp
 
 І одразу за цим — рядок, довкола якого обертається половина подальшого:
 
@@ -314,28 +226,7 @@ set.tileSize = getAverageSize() * set.tileCount;
 
 Виміряти справжнє середнє нескладно, і робити це треба на робочому рівні й на характерній місцевості: jpeg над однорідною водою чи снігом важить утричі менше, ніж над лісом чи забудовою.
 
-```python
-# average_tile.py — виміряти середній тайл свого сервера на робочому рівні
-import random, statistics, urllib.request
-
-TEMPLATE = "https://tiles.skylark.example/ortho/{z}/{x}/{y}.jpg"
-TOKEN    = "ce9f4a2b18"
-Z        = 18
-X0, X1   = 153280, 153320      # прямокутник типової ділянки в номерах клітинок
-Y0, Y1   = 88370,  88400
-
-sizes = []
-for _ in range(100):
-    x, y = random.randint(X0, X1), random.randint(Y0, Y1)
-    req = urllib.request.Request(TEMPLATE.format(z=Z, x=x, y=y),
-                                 headers={"User-Token": TOKEN})
-    with urllib.request.urlopen(req) as r:
-        if r.status == 200:
-            sizes.append(len(r.read()))
-
-print("середнє", round(statistics.mean(sizes)))
-print("медіана", round(statistics.median(sizes)))
-```
+:::code proj-custom-map-source/py/average_tile.py
 
 Якщо середнє помітно більше за медіану — оцінку тягне вгору жменя важких клітинок. Брати все одно треба середнє: станція рахує суму, а не типовий випадок.
 

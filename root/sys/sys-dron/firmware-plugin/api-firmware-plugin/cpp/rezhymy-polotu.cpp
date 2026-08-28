@@ -1,0 +1,12 @@
+virtual QString pauseFlightMode()           const { return QString(); }
+virtual QString missionFlightMode()         const { return QString(); }
+virtual QString rtlFlightMode()             const { return QString(); }
+virtual QString smartRTLFlightMode()        const { return QString(); }
+virtual QString landFlightMode()            const { return QString(); }
+virtual QString takeOffFlightMode()         const { return QString(); }
+virtual QString motorDetectionFlightMode()  const { return QString(); }
+virtual QString stabilizedFlightMode()      const { return QString(); }
+virtual QString takeControlFlightMode()     const { return QString(); }
+virtual QString gotoFlightMode()            const { return QString(); }
+virtual QString followFlightMode()          const { return QString(); }
+virtual bool    supportsSmartRTL()          const { return false;     }

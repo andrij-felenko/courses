@@ -173,53 +173,8 @@ P(колізії) ≈ N² / (2 · 2³²) = (10 000)² / (2 · 4 294 967 296) ≈
 Специфікація вимагає використовувати побайтове копіювання `memcpy` у мові C або стандартизоване побітове відображення `std::bit_cast` у мові C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-// Безпечне пакування аргументів події: uint8_t (сенсор) + float (відхилення)
-void pack_event_args(uint8_t *dest_buf, uint8_t sensor_id, float deviation) {
-    // Зсув 0: запис 1 байта
-    dest_buf[0] = sensor_id;
-    // Зсув 1: копіювання 4 байтів float у форматі little-endian
-    memcpy(&dest_buf[1], &deviation, sizeof(float));
-}
-
-// Безпечне розпакування аргументів із сирого буфера
-void unpack_event_args(const uint8_t *src_buf, uint8_t *out_sensor_id, float *out_deviation) {
-    *out_sensor_id = src_buf[0];
-    memcpy(out_deviation, &src_buf[1], sizeof(float));
-}
-```
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <span>
-#include <bit>
-
-// Безпечне пакування аргументів події в буфер за допомогою std::span (C++20)
-void pack_event_args(std::span<uint8_t> dest_buf, uint8_t sensor_id, float deviation) noexcept {
-    if (dest_buf.size() >= sizeof(uint8_t) + sizeof(float)) {
-        dest_buf[0] = sensor_id;
-        std::memcpy(dest_buf.data() + 1, &deviation, sizeof(float));
-    }
-}
-
-// Безпечне розпакування аргументів із двійкового буфера
-struct CompassCalArgs {
-    uint8_t sensor_id{0};
-    float   deviation{0.0f};
-};
-
-CompassCalArgs unpack_event_args(std::span<const uint8_t> src_buf) noexcept {
-    CompassCalArgs args{};
-    if (src_buf.size() >= sizeof(uint8_t) + sizeof(float)) {
-        args.sensor_id = src_buf[0];
-        std::memcpy(&args.deviation, src_buf.data() + 1, sizeof(float));
-    }
-    return args;
-}
-```
+:::code mavlink-events-protocol-d/c/main.c
+:::code mavlink-events-protocol-d/cpp/bezpeka-dviikovoho-dostupu.cpp
 :::
 
 ---
@@ -324,21 +279,7 @@ CompassCalArgs unpack_event_args(std::span<const uint8_t> src_buf) noexcept {
    * Кодує кадр `EVENT` (#410) у вихідний кільцевий буфер DMA інтерфейсу UART телеметрії.
 4. **Контроль завад та пріоритезація:** Якщо радіолінія перевантажена навігаційними пакетами `ATTITUDE` та `GLOBAL_POSITION_INT`, модуль `mavlink` надає повідомленням `EVENT` із серйозністю `CRITICAL` та `ERROR` найвищий пріоритет черги відправлення (High Priority Queue).
 
-```cpp
-#include <libevents/events.h>
-
-// Типобезпечна публікація події у вихідному коді модуля автопілота
-void CompassChecker::checkConsistency(uint8_t instance, float currentDeviation) {
-    if (currentDeviation > MaxAllowedDeviationDeg) {
-        events::send<uint8_t, float>(
-            events::ID("sensors_compass_cal_failed"),
-            events::Log::Error,
-            instance,
-            currentDeviation
-        );
-    }
-}
-```
+:::code mavlink-events-protocol-d/cpp/vnutrishnii-konveier.cpp
 
 Під час збирання проєкту генератор на базі Python аналізує макроси `events::send` у вихідному коді прошивки, верифікує типи аргументів, генерує бінарні константи хешів `event_id` та компілює стиснений файл `events.json.xz`.
 

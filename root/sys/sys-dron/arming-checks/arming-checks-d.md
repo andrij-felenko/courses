@@ -82,34 +82,8 @@
 Погляньмо на кістяк arming-логіки. Стан armed — одна змінна, і найважливіша її властивість у тім, що вихід газу читає її **першою**, до будь-якої іншої логіки:
 
 :::tabs
-```cpp
-static bool armed = false;   // за замовчуванням DISARMED — безпечно
-
-// Найнижча ланка: розрахунок сигналу на кожен двигун.
-// Хоч би що порахувала логіка керування — у disarmed виходить нуль.
-void motors_output(uint16_t thr[NUM_MOTORS]) {
-    if (!armed) {
-        for (int i = 0; i < NUM_MOTORS; i++)
-            esc_write(i, THROTTLE_MIN);   // мертвий вихід, крапка
-        return;
-    }
-    for (int i = 0; i < NUM_MOTORS; i++)
-        esc_write(i, thr[i]);             // сюди доходимо ЛИШЕ коли armed
-}
-```
-```python
-armed = False   # за замовчуванням DISARMED — безпечно
-
-# Найнижча ланка: розрахунок сигналу на кожен двигун.
-# Хоч би що порахувала логіка керування — у disarmed виходить нуль.
-def motors_output(thr):
-    if not armed:
-        for i in range(NUM_MOTORS):
-            esc_write(i, THROTTLE_MIN)   # мертвий вихід, крапка
-        return
-    for i in range(NUM_MOTORS):
-        esc_write(i, thr[i])             # сюди доходимо ЛИШЕ коли armed
-```
+:::code arming-checks-d/cpp/iak-tse-vyhliadaie-v.cpp
+:::code arming-checks-d/py/iak-tse-vyhliadaie-v.py
 :::
 
 Порядок тут не випадковий: перевірка `armed` стоїть **перед** циклом виводу, тож у disarmed жоден шлях виконання не може подати на двигун ненульове значення. Це і є програмна половина найнижчого заслону.
@@ -117,113 +91,15 @@ def motors_output(thr):
 Тепер самі перевірки. Природний спосіб — таблиця незалежних перевірок, кожна повертає «пройдено» або короткий рядок причини:
 
 :::tabs
-```cpp
-typedef struct {
-    const char *name;
-    bool (*check)(char *reason, size_t n);   // true = ОК; інакше пише причину
-    bool mandatory;                          // чи можна вимкнути
-} PreArmCheck;
-
-static bool chk_gps(char *reason, size_t n) {
-    if (gps_fix_type() < GPS_FIX_3D || gps_num_sats() < 6) {
-        snprintf(reason, n, "GPS: 3D fix required");
-        return false;
-    }
-    return true;
-}
-
-static bool chk_battery(char *reason, size_t n) {
-    if (battery_voltage() < arm_min_voltage()) {
-        snprintf(reason, n, "Battery below arming voltage");
-        return false;
-    }
-    return true;
-}
-// ... chk_gyro_calibrated, chk_ekf_ready, chk_rc_alive, chk_safety_switch ...
-
-static const PreArmCheck CHECKS[] = {
-    { "GYRO",   chk_gyro_calibrated, true  },
-    { "EKF",    chk_ekf_ready,       true  },
-    { "GPS",    chk_gps,             false },   // можна вимкнути для польоту без GPS
-    { "RC",     chk_rc_alive,        true  },
-    { "BATT",   chk_battery,         true  },
-    { "SAFETY", chk_safety_switch,   true  },
-};
-```
-```python
-from dataclasses import dataclass
-from typing import Callable
-
-@dataclass(frozen=True)
-class PreArmCheck:
-    name: str
-    check: Callable[[], str | None]   # None = ОК; інакше рядок причини
-    mandatory: bool                   # чи можна вимкнути
-
-def chk_gps():
-    if gps_fix_type() < GPS_FIX_3D or gps_num_sats() < 6:
-        return "GPS: 3D fix required"
-    return None
-
-def chk_battery():
-    if battery_voltage() < arm_min_voltage():
-        return "Battery below arming voltage"
-    return None
-# ... chk_gyro_calibrated, chk_ekf_ready, chk_rc_alive, chk_safety_switch ...
-
-CHECKS = [
-    PreArmCheck("GYRO",   chk_gyro_calibrated, True),
-    PreArmCheck("EKF",    chk_ekf_ready,       True),
-    PreArmCheck("GPS",    chk_gps,             False),   # можна вимкнути для польоту без GPS
-    PreArmCheck("RC",     chk_rc_alive,        True),
-    PreArmCheck("BATT",   chk_battery,         True),
-    PreArmCheck("SAFETY", chk_safety_switch,   True),
-]
-```
+:::code arming-checks-d/cpp/iak-tse-vyhliadaie-v-2.cpp
+:::code arming-checks-d/py/iak-tse-vyhliadaie-v-2.py
 :::
 
 І сам крок arming — логічне «І» всіх увімкнених перевірок, який зупиняється на **першій** невдачі й повідомляє її:
 
 :::tabs
-```cpp
-// bit i у arming_check_mask == 1 → перевірку CHECKS[i] увімкнено.
-bool try_arm(uint32_t arming_check_mask) {
-    if (!arm_command_present())              // немає свідомої команди — не арматимемо
-        return false;
-
-    char reason[50];
-    for (int i = 0; i < (int)(sizeof(CHECKS) / sizeof(CHECKS[0])); i++) {
-        bool enabled = CHECKS[i].mandatory ||       // обов'язкову НЕ обійти бітом
-                       (arming_check_mask & (1u << i));
-        if (enabled && !CHECKS[i].check(reason, sizeof(reason))) {
-            gcs_send_text("PreArm: %s", reason);     // сказати ЧОМУ не пускає
-            return false;                            // перша ж причина — і стоп
-        }
-    }
-    armed = true;                            // усі пройшли → ворота відчинено
-    gcs_send_text("Armed");
-    return true;
-}
-```
-```python
-# bit i у arming_check_mask == 1 → перевірку CHECKS[i] увімкнено.
-def try_arm(arming_check_mask):
-    global armed
-    if not arm_command_present():            # немає свідомої команди — не арматимемо
-        return False
-
-    for i, chk in enumerate(CHECKS):
-        # обов'язкову НЕ обійти бітом
-        enabled = chk.mandatory or bool(arming_check_mask & (1 << i))
-        if enabled:
-            reason = chk.check()
-            if reason is not None:
-                gcs_send_text(f"PreArm: {reason}")   # сказати ЧОМУ не пускає
-                return False                         # перша ж причина — і стоп
-    armed = True                             # усі пройшли → ворота відчинено
-    gcs_send_text("Armed")
-    return True
-```
+:::code arming-checks-d/cpp/iak-tse-vyhliadaie-v-3.cpp
+:::code arming-checks-d/py/iak-tse-vyhliadaie-v-3.py
 :::
 
 **Умова: оператор дав команду arm, але батарея просіла до 10.4 В при порозі 10.6 В.**

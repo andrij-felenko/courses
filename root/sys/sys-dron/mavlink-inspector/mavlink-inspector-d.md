@@ -156,19 +156,7 @@ if (_message.msgid == MAVLINK_MSG_ID_SYSTEM_TIME && element < 0) {
 
 Звідси й правило, записане в оновленні прямим текстом:
 
-```cpp
-void QGCMAVLinkMessage::update(const mavlink_message_t &message)
-{
-    _count++;
-    _message = message;
-
-    if (_selected || _fieldSelected) {
-        // Don't update field info unless selected to reduce perf hit of message processing
-        _updateFields();
-    }
-    emit countChanged();
-}
-```
+:::code mavlink-inspector-d/cpp/main.cpp
 
 Кадр завжди робить дві дешеві речі: збільшує лічильник і **заміщає збережену копію повідомлення**. Розкладання ж відбувається лише за двох умов — рядок розгорнутий на екрані або хоч одне його поле винесено на графік.
 

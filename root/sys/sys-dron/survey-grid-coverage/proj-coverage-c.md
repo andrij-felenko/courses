@@ -8,23 +8,7 @@
 
 Крім вершин, функції треба ще чотири числа: кут, під яким лягають галси (його дає окремий крок — пошук найменшої ширини фігури), крок між сусідніми галсами `d`, найменший радіус розвороту апарата `R` і подовження кінців `ext`. Виходить масив точок.
 
-```c
-#include <math.h>
-#include <stdio.h>
-
-/* Точка в місцевій пласкій системі, метри. */
-typedef struct { double x, y; } Pt;
-
-/* Один галс у системі галсів: горизонтальний відрізок [x0, x1] на висоті y. */
-typedef struct { double y, x0, x1; int cell; } Seg;
-
-#define MAX_V    256    /* вершин полігона                                  */
-#define MAX_CUT   64    /* перетинів однієї січної з контуром               */
-#define MAX_SEG  512    /* галсів у плані                                   */
-#define EPS     1e-9    /* «нуль» у частках смуги, не в метрах              */
-#define Y_TOL   1e-6    /* ближче за мікрон до вершини — вважаємо «в неї»   */
-#define Y_STEP  1e-5    /* на стільки зсуваємо січну, щоб зійти з вершини   */
-```
+:::code proj-coverage-c/c/shcho-prykhodyt-i-shcho.c
 
 Мова тут не з примхи. Ця функція живе там, де живе автопілот: у прошивці польотного контролера або в бортовому комп'ютері поруч із ним, часто без операційної системи й без динамічного розподілу пам'яті. Тому — жодного `malloc`: буфери дає той, хто викликає, а межі стоять у `#define` і чесно перевіряються. На мікроконтролері ці масиви оголошують статичними, бо шістнадцять кілобайтів на стеку там ніхто не дасть.
 
@@ -44,43 +28,7 @@ typedef struct { double y, x0, x1; int cell; } Seg;
 
 Найдрібніша цеглинка — перетини однієї січної з контуром. Проходимо всі сторони, для кожної питаємо, чи перетинає її пряма `y = const`, і якщо так — рахуємо `x`:
 
-```c
-static Pt rot(Pt p, double c, double s)
-{
-    Pt q;
-    q.x = p.x * c - p.y * s;
-    q.y = p.x * s + p.y * c;
-    return q;
-}
-
-/* Перетини січної y = const із контуром. Повертає їхню кількість або −1. */
-static int cuts_at(const Pt *P, int n, double y, double *xs, int cap)
-{
-    int i, c = 0;
-    for (i = 0; i < n; i++) {
-        Pt a = P[i], b = P[(i + 1) % n];
-        /* Напівінтервал [a.y, b.y): нижній кінець сторони «свій», верхній — ні.
-           Горизонтальна сторона (a.y == b.y) дає порожній інтервал і випадає
-           сама — ділення на нуль нижче стає неможливим. */
-        if (!((a.y <= y && y < b.y) || (b.y <= y && y < a.y)))
-            continue;
-        if (c >= cap) return -1;
-        xs[c++] = a.x + (y - a.y) * (b.x - a.x) / (b.y - a.y);
-    }
-    return c;
-}
-
-static void isort(double *a, int n)
-{
-    int i, j;
-    for (i = 1; i < n; i++) {
-        double v = a[i];
-        for (j = i - 1; j >= 0 && a[j] > v; j--)
-            a[j + 1] = a[j];
-        a[j + 1] = v;
-    }
-}
-```
+:::code proj-coverage-c/c/rozsichennia-peretyny-i.c
 
 Відсортувавши перетини за `x`, беремо проміжки **через один**: від першого до другого, від третього до четвертого. Це те саме правило парності, за яким перевіряють [належність точки багатокутнику](root:sf-algorithms/point-in-polygon), тільки застосоване не до однієї точки, а до цілої прямої відразу: рухаючись уздовж січної, ми щоразу на перетині або входимо у фігуру, або виходимо з неї, і всередині ми саме на непарних проміжках.
 
@@ -123,83 +71,13 @@ V — верх «шпиля» (обидва сусіди нижче):   обид
 
 Виправлення напрошується просте й правильне: **не пускати січну на рівень жодної вершини взагалі**. Зсув на десять мікронів фізично не значить нічого — це на п'ять порядків менше за точність, з якою апарат тримає лінію, — зате знімає геть усі виродження разом.
 
-```c
-/* Зсунути січну з рівня будь-якої вершини. Кроків не більше, ніж вершин:
-   кожен крок віддаляє y від того рівня, на який він щойно натрапив. */
-static double clear_of_vertices(double y, const Pt *P, int n)
-{
-    int pass, i, hit;
-    for (pass = 0; pass <= n; pass++) {
-        hit = 0;
-        for (i = 0; i < n; i++)
-            if (fabs(P[i].y - y) < Y_TOL) { hit = 1; break; }
-        if (!hit) break;
-        y += Y_STEP;
-    }
-    return y;
-}
-```
+:::code proj-coverage-c/c/sichna-ne-smiie-liahty-na.c
 
 Правило напівінтервалу після цього не зайве — воно лишається другою лінією оборони й, головне, саме воно рятує від сторони, що лежить **уздовж** січної. Якби умова була замкнена з обох боків (`min ≤ y ≤ max`), горизонтальна сторона проходила б перевірку, а наступний рядок ділив би на `b.y − a.y = 0`. З напівінтервалом вона просто не потрапляє в перебір, і її кінці правильно обробляють сусідні сторони.
 
 ## Збирання галсів і комірок
 
-```c
-int coverage_segments(const Pt *world, int n, double ang, double d,
-                      double minlen, Seg *segs, int cap)
-{
-    Pt P[MAX_V];
-    double xs[MAX_CUT], a0[MAX_CUT / 2], a1[MAX_CUT / 2];
-    double c, s, lo, hi, H, step, y;
-    int i, j, m, cnt, kept, ns = 0, base = 0, freecell = 0, prev = -1;
-
-    if (n < 3 || n > MAX_V || d <= 0.0) return -1;
-
-    /* 1. У систему галсів: поворот на −ang робить січні горизонтальними. */
-    c = cos(ang); s = sin(ang);
-    for (i = 0; i < n; i++) P[i] = rot(world[i], c, -s);
-
-    lo = hi = P[0].y;
-    for (i = 1; i < n; i++) {
-        if (P[i].y < lo) lo = P[i].y;
-        if (P[i].y > hi) hi = P[i].y;
-    }
-    H = hi - lo;
-
-    /* 2. Скільки смуг завширшки d накриють висоту H. Мінус EPS — щоб при H,
-          кратній d, шум останнього знака не додав зайвої порожньої смуги. */
-    m = (int)ceil(H / d - EPS);
-    if (m < 1) m = 1;
-    step = H / m;          /* трохи менше за d: лінії лягають по центрах смуг */
-
-    for (i = 0; i < m; i++) {
-        y = clear_of_vertices(lo + (i + 0.5) * step, P, n);
-        cnt = cuts_at(P, n, y, xs, MAX_CUT);
-        if (cnt < 0) return -1;
-        isort(xs, cnt);
-
-        /* 3. Правило парності: усередині фігури лежать проміжки через один. */
-        kept = 0;
-        for (j = 0; j + 1 < cnt; j += 2)
-            if (xs[j + 1] - xs[j] >= minlen) {
-                a0[kept] = xs[j]; a1[kept] = xs[j + 1]; kept++;
-            }
-
-        /* Поки кількість шматків не міняється, j-й шматок кожної лінії — це
-           та сама комірка. Зміна кількості означає критичну вершину: там
-           комірки закінчуються й починаються нові. */
-        if (kept != prev) { base = freecell; freecell += kept; prev = kept; }
-
-        for (j = 0; j < kept; j++) {
-            if (ns >= cap) return -1;
-            segs[ns].y = y;  segs[ns].x0 = a0[j];  segs[ns].x1 = a1[j];
-            segs[ns].cell = base + j;
-            ns++;
-        }
-    }
-    return ns;
-}
-```
+:::code proj-coverage-c/c/zbyrannia-halsiv-i-komirok.c
 
 Два місця тут варті погляду.
 
@@ -209,65 +87,7 @@ int coverage_segments(const Pt *world, int n, double ang, double d,
 
 ## Порядок обходу й подовжені кінці
 
-```c
-int coverage_route(const Seg *segs, int nseg, double ang, double d, double R,
-                   double ext, Pt *out, int cap, double *worst_turn)
-{
-    int order[MAX_SEG], idx[MAX_SEG];
-    int i, r, t, k, cl, last, cnt, ncell = 0, no = 0, np = 0;
-    double c, s, cur = 0.0, worst = 1e30;
-
-    if (nseg <= 0 || nseg > MAX_SEG || d <= 0.0) return -1;
-
-    /* 4. Пропуск: розворот діаметром k·d має вмістити коло радіуса R. */
-    k = (int)ceil(2.0 * R / d - EPS);
-    if (k < 1) k = 1;
-
-    for (i = 0; i < nseg; i++)
-        if (segs[i].cell >= ncell) ncell = segs[i].cell + 1;
-
-    for (cl = 0; cl < ncell; cl++) {
-        cnt = 0;
-        for (i = 0; i < nseg; i++)              /* уже за зростанням y */
-            if (segs[i].cell == cl) idx[cnt++] = i;
-        /* Пасаж r бере лінії r, r+k, r+2k…; напрямок пасажів чергується. */
-        for (r = 0; r < k && r < cnt; r++) {
-            if (r % 2 == 0) {
-                for (i = r; i < cnt; i += k) order[no++] = idx[i];
-            } else {
-                last = r;
-                while (last + k < cnt) last += k;
-                for (i = last; i >= 0; i -= k) order[no++] = idx[i];
-            }
-        }
-    }
-
-    /* Найвужчий розворот усередині комірки. Якщо в жодній комірці немає двох
-       ліній, лишається 1e30: розвертатися тут просто ніде. */
-    for (t = 1; t < no; t++) {
-        const Seg *a = &segs[order[t - 1]], *b = &segs[order[t]];
-        double gap = fabs(b->y - a->y);
-        if (a->cell == b->cell && gap < worst) worst = gap;
-    }
-    if (worst_turn) *worst_turn = worst;
-
-    /* 5. Кінці подовжуємо, точки повертаємо назад у місцеву систему. */
-    c = cos(ang); s = sin(ang);
-    for (t = 0; t < no; t++) {
-        const Seg *g = &segs[order[t]];
-        Pt A, B, tmp;
-        A.x = g->x0 - ext;  A.y = g->y;
-        B.x = g->x1 + ext;  B.y = g->y;
-        /* Обидва кінці на одній лінії, тож ближчий — той, чий x ближчий. */
-        if (t > 0 && fabs(B.x - cur) < fabs(A.x - cur)) { tmp = A; A = B; B = tmp; }
-        if (np + 2 > cap) return -1;
-        out[np++] = rot(A, c, s);
-        out[np++] = rot(B, c, s);
-        cur = B.x;
-    }
-    return np;
-}
-```
+:::code proj-coverage-c/c/poriadok-obkhodu-i.c
 
 Пропуск `k = ⌈2R/d⌉` бере комірку не поспіль, а пасажами: пасаж нуль іде лініями 0, k, 2k… знизу вгору, пасаж один вертається лініями 1, 1+k, 1+2k… згори вниз, і так `k` разів. Кожен розворот усередині пасажу має діаметр `k·d ≥ 2R` — саме те, що апарат уміє.
 
@@ -279,41 +99,7 @@ int coverage_route(const Seg *segs, int nseg, double ang, double d, double R,
 
 Полігон навмисне такий, щоб зачепити все складне разом: він невипуклий, має прямокутну виїмку, його кути дірки лежать на одній висоті, а сама висота фігури кратна кроку.
 
-```c
-int main(void)
-{
-    static const Pt field[] = {
-        {  16,  12 }, { 272, 204 }, { 128, 396 }, {  48, 336 },
-        { 108, 256 }, {  12, 184 }, { -48, 264 }, { -128, 204 }
-    };
-    const int    n   = (int)(sizeof field / sizeof field[0]);
-    const double ang = atan2(0.6, 0.8);   /* 36.87°, дає крок «напрямок»   */
-    const double d   = 40.0;              /* крок між галсами, м           */
-    const double R   = 30.0;              /* мінімальний радіус розвороту  */
-    const double ext = 25.0;              /* подовження кінців, м          */
-
-    Seg segs[MAX_SEG];
-    Pt  route[2 * MAX_SEG];
-    double worst = 0.0;
-    int nseg, np, i;
-
-    nseg = coverage_segments(field, n, ang, d, d, segs, MAX_SEG);
-    if (nseg < 0) { printf("полігон не вмістився\n"); return 1; }
-    np = coverage_route(segs, nseg, ang, d, R, ext, route, 2 * MAX_SEG, &worst);
-    if (np < 0) { printf("маршрут не вмістився\n"); return 1; }
-
-    printf("галсів %d, точок %d, k = %d, найвужчий розворот %.1f м (треба %.1f)\n",
-           nseg, np, (int)ceil(2.0 * R / d - EPS), worst, 2.0 * R);
-    printf("  #  комірка         y        x0        x1   довжина\n");
-    for (i = 0; i < nseg; i++)
-        printf("%3d  %7d  %8.1f  %8.1f  %8.1f  %8.1f\n", i, segs[i].cell,
-               segs[i].y, segs[i].x0, segs[i].x1, segs[i].x1 - segs[i].x0);
-    printf("маршрут, метри місцевої системи:\n");
-    for (i = 0; i < np; i++)
-        printf("%3d  %9.1f  %9.1f\n", i, route[i].x, route[i].y);
-    return 0;
-}
-```
+:::code proj-coverage-c/c/prohin.c
 
 Вивід:
 

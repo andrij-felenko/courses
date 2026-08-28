@@ -22,24 +22,7 @@
 
 **Ідентичність об'єкта** — не вказівник, а **токен**. Це рішення найменш очевидне, тому варте окремої уваги. Спокуса тут проста: передати Java-боку `reinterpret_cast<jlong>(this)` і в зворотному виклику перетворити назад. Спокуса й смертельна: Java кличе назад із власного потоку, а `QSerialPort` тим часом міг бути знищений — наприклад, оператор роз'єднався за пів секунди до того, як прийшла остання пачка байтів. Зворотний виклик зі старим вказівником — це звертання до звільненої пам'яті, яке нічим не відрізнити від правильного. Тому C++ віддає Java **випадкове 64-бітне число** й тримає власну таблицю «токен → об'єкт»:
 
-```cpp
-static QReadWriteLock s_ptrLock;
-static QHash<jlong, QSerialPortPrivate*> s_tokenToPtr;
-static QHash<QSerialPortPrivate*, jlong> s_ptrToToken;
-
-void registerPointer(QSerialPortPrivate* ptr)
-{
-    QWriteLocker locker(&s_ptrLock);
-
-    jlong token;
-    do {
-        token = static_cast<jlong>(QRandomGenerator::global()->generate64());
-    } while (token == 0 || s_tokenToPtr.contains(token));
-
-    s_tokenToPtr.insert(token, ptr);
-    s_ptrToToken.insert(ptr, token);
-}
-```
+:::code proj-android-serial-bridge/cpp/ideia-dvi-tablytsi-i-odyn.cpp
 
 Різниця в тому, що токен можна **знецінити**. Закриття порту прибирає пару з обох таблиць; пізній зворотний виклик із тим самим числом просто не знаходить нічого й тихо виходить, записавши рядок у журнал. Замок тут читально-записний, бо читають таблицю набагато частіше, ніж пишуть: механіка того, чому одночасний доступ до спільної структури взагалі потребує замка, розібрана в темі про [перегони даних і замки](root:sf-tasks/data-races-locks) — коротко: без нього два потоки можуть побачити хеш-таблицю в середині перебудови.
 
@@ -61,29 +44,7 @@ private static native void nativeDeviceNewData(final long classPtr, final byte[]
 
 C++-бік зв'язує їх зі своїми функціями в момент завантаження бібліотеки. Точка входу — `JNI_OnLoad`, яку віртуальна машина кличе сама, щойно `System.loadLibrary` підвантажив `.so`:
 
-```cpp
-void AndroidSerial::setNativeMethods()
-{
-    const JNINativeMethod javaMethods[]{
-        {"nativeDeviceHasDisconnected", "(J)V",  reinterpret_cast<void*>(jniDeviceHasDisconnected)},
-        {"nativeDeviceNewData",         "(J[B)V", reinterpret_cast<void*>(jniDeviceNewData)},
-        {"nativeDeviceException",       "(JLjava/lang/String;)V",
-                                                  reinterpret_cast<void*>(jniDeviceException)},
-    };
-
-    QJniEnvironment env;
-    if (!env.registerNativeMethods(kJniUsbSerialManagerClassName,
-                                   javaMethods, std::size(javaMethods))) {
-        qCWarning(AndroidSerialLog) << "Failed to register native methods";
-        return;
-    }
-
-    if (!getSerialManagerClass()) {          // тут-таки кешують клас і всі jmethodID
-        qCWarning(AndroidSerialLog) << "Failed to cache JNI method IDs";
-        return;
-    }
-}
-```
+:::code proj-android-serial-bridge/cpp/reiestratsiia-iak-try.cpp
 
 Середній рядок кожного запису — **дескриптор підпису**, і читати його треба зліва направо: у дужках типи аргументів, після дужок — тип результату. `J` — 64-бітне ціле, `[B` — масив байтів, `V` — «нічого не повертає», а посилальні типи пишуться повним іменем класу з крапкою з комою на кінці. Тож `(J[B)V` означає «приймає `long` і `byte[]`, не повертає нічого» — рівно те, що оголошено в Java.
 
@@ -95,27 +56,7 @@ void AndroidSerial::setNativeMethods()
 
 Другий напрямок — виклики вниз. Кожній функції простору імен `AndroidSerial` відповідає рівно один статичний метод Java, і вся відповідність зведена в одну таблицю:
 
-```cpp
-const MethodDef defs[] = {
-    {&s_methods.availableDevicesInfo, "availableDevicesInfo", "()[Ljava/lang/String;"},
-    {&s_methods.open,                 "open",                 "(Ljava/lang/String;J)I"},
-    {&s_methods.close,                "close",                "(I)Z"},
-    {&s_methods.read,                 "read",                 "(III)[B"},
-    {&s_methods.write,                "write",                "(I[BII)I"},
-    {&s_methods.writeAsync,           "writeAsync",           "(I[BI)I"},
-    {&s_methods.setParameters,        "setParameters",        "(IIIII)Z"},
-    // …ще півтора десятка: лінії керування, потік, буфери
-};
-
-for (const auto& def : defs) {
-    *def.target = env->GetStaticMethodID(javaClass, def.name, def.sig);
-    if (!*def.target) {
-        qCWarning(AndroidSerialLog) << "Failed to cache method:" << def.name << def.sig;
-        (void)QJniEnvironment::checkAndClearExceptions(env);
-        return false;
-    }
-}
-```
+:::code proj-android-serial-bridge/cpp/vidpovidnist-bokiv.cpp
 
 Наслідок практичний: **розбіжність двох боків виявляється один раз, під час старту, і вся одразу**. Перейменували `write` у Java — при першому ж під'єднанні в журналі буде точний рядок із іменем і підписом, а не падіння всередині польоту.
 
@@ -125,56 +66,13 @@ for (const auto& def : defs) {
 
 Тепер найцікавіше з боку Java. `open()` бере ім'я пристрою, знаходить драйвер, дістає в системи з'єднання й відкриває порт:
 
-```java
-private static boolean openDriver(final UsbSerialPort port, final UsbDevice device,
-                                  final int deviceId, final long classPtr) {
-    if (port.isOpen()) {
-        return true;
-    }
-
-    UsbDeviceConnection connection = usbManager.openDevice(device);
-    if (connection == null) {
-        QGCLogger.w(TAG, "No Usb Device Connection");
-        emitDeviceException(classPtr, "No USB device connection for device: " + device.getDeviceName());
-        return false;
-    }
-
-    try {
-        port.open(connection);
-    } catch (final IOException ex) {
-        emitDeviceException(classPtr, "Error opening driver: " + ex.getMessage());
-        connection.close();
-        return false;
-    }
-
-    UsbDeviceResources resources = deviceResourcesMap.get(deviceId);
-    if (resources != null) {
-        resources.fileDescriptor = connection.getFileDescriptor();
-    }
-    return true;
-}
-```
+:::code proj-android-serial-bridge/java/java-bik-vidkryttia.java
 
 Уся суть Android-моделі стиснута в один рядок: `usbManager.openDevice(device)` повертає `null`, якщо дозволу немає. Не кидає виняток, не питає нічого, не чекає — просто `null`. Дескриптор файла, який далі кладуть у `resources.fileDescriptor`, з'являється лише після цього моменту: він існує, його навіть можна дістати з C++, але **одержала його система, а не застосунок**, і саме тому шлях мусив пройти через Java.
 
 Далі відкритому порту дають читальний конвеєр. `SerialInputOutputManager` із бібліотеки `usb-serial-for-android` заводить власний потік, який безперервно вибирає байти з кінцевої точки USB і віддає їх слухачеві:
 
-```java
-QGCSerialListener listener = new QGCSerialListener(classPtr);
-SerialInputOutputManager ioManager = new SerialInputOutputManager(port, listener);
-
-int readBufferSize = READ_BUF_SIZE;
-final UsbEndpoint readEndpoint = port.getReadEndpoint();
-if (readEndpoint != null) {
-    readBufferSize = Math.max(readEndpoint.getMaxPacketSize(), READ_BUF_SIZE);
-}
-ioManager.setReadBufferSize(readBufferSize);
-
-ioManager.setReadTimeout(0);
-ioManager.setReadQueue(2);
-ioManager.setWriteTimeout(0);
-ioManager.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
-```
+:::code proj-android-serial-bridge/java/java-bik-vidkryttia-2.java
 
 Пріоритет потоку тут не випадковий. `THREAD_PRIORITY_URGENT_AUDIO` — це той самий рівень, який Android дає звуковим конвеєрам, де запізнення чути вухом. Телеметрія в польоті має ту саму властивість: пачка байтів, що спізнилася на 200 мс, — це індикатор, який бреше про висоту.
 
@@ -199,24 +97,7 @@ private static void setupUsbPermissionIntent(Context context) {
 
 Відповідь ловить приймач:
 
-```java
-private static void handleUsbPermission(final Intent intent) {
-    UsbDevice device = getUsbDevice(intent);
-    if (device == null) {
-        return;
-    }
-    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-        addOrUpdateDevice(device);                       // дозволили — заводимо драйвер
-    } else {
-        for (final Integer resourceId : findResourceIdsForPhysicalDevice(device.getDeviceId())) {
-            final UsbDeviceResources resources = deviceResourcesMap.get(resourceId);
-            if (resources != null) {
-                emitDeviceException(resources.classPtr, "USB Permission Denied");
-            }
-        }
-    }
-}
-```
+:::code proj-android-serial-bridge/java/dozvil-iakyi-vysyt.java
 
 Тепер головне питання: **що робити, поки діалог висить?** Відповідь станції — нічого не робити й нічого не блокувати. Пристрій потрапляє у список `availableDevicesInfo()` тільки через `addDriver`, а той викликається лише після позитивної відповіді. Тобто до натискання «дозволити» порту в переліку **просто немає**, і код станції не має чого відкривати. Жодного очікування, жодного тайм-ауту, жодного заблокованого потоку — просто список, який поповнюється пізніше.
 
@@ -228,104 +109,17 @@ private static void handleUsbPermission(final Intent intent) {
 
 Байти приходять у слухача, у потоці бібліотеки:
 
-```java
-@Override
-public void onNewData(final byte[] data) {
-    if (data == null || data.length == 0) {
-        return;
-    }
-    if (data.length <= MAX_NATIVE_CALLBACK_DATA_BYTES) {   // 16 КіБ
-        emitDeviceNewData(classPtr, data);
-        return;
-    }
-    int offset = 0;
-    while (offset < data.length) {
-        final int end = Math.min(offset + MAX_NATIVE_CALLBACK_DATA_BYTES, data.length);
-        emitDeviceNewData(classPtr, Arrays.copyOfRange(data, offset, end));
-        offset = end;
-    }
-}
-```
+:::code proj-android-serial-bridge/java/shliakh-baita-vhoru-z.java
 
 `emitDeviceNewData` кличе `nativeDeviceNewData(token, data)` — і виконання опиняється в C++, **усе ще в потоці Java**. Оце й є ключ до решти:
 
-```cpp
-static void jniDeviceNewData(JNIEnv* env, jobject, jlong token, jbyteArray data)
-{
-    const jsize len = env->GetArrayLength(data);
-    const jsize cappedLen = qMin<jsize>(len, static_cast<jsize>(MAX_READ_SIZE));
-
-    QByteArray payload(cappedLen, Qt::Uninitialized);
-    env->GetByteArrayRegion(data, 0, cappedLen, reinterpret_cast<jbyte*>(payload.data()));
-    if (QJniEnvironment::checkAndClearExceptions(env)) {
-        return;
-    }
-
-    QReadLocker locker(&s_ptrLock);
-    QSerialPortPrivate* const p = s_tokenToPtr.value(token, nullptr);
-    if (!p) {
-        qCWarning(AndroidSerialLog) << "stale token, object already destroyed";
-        return;
-    }
-    p->newDataArrived(payload.constData(), payload.size());
-}
-```
+:::code proj-android-serial-bridge/cpp/shliakh-baita-vhoru-z.cpp
 
 Замок тримають **протягом усього передавання**, а не лише під час пошуку. Інакше між «знайшли вказівник» і «скористалися ним» встигне пройти закриття порту в іншому потоці — і токен урятував би від нічого.
 
 А `newDataArrived` не має права торкатися буферів `QIODevice`: вони належать потоку, у якому живе `QSerialPort`, і це не той потік, що зараз виконується. Тому байти лягають у власний буфер під мутексом, а сам сигнал відкладають:
 
-```cpp
-void QSerialPortPrivate::newDataArrived(const char* bytes, int length)
-{
-    qint64 droppedBytes = 0;
-
-    QMutexLocker locker(&_readMutex);
-    int bytesToRead = length;
-    if (readBufferMaxSize) {                       // переповнення відсікають ТУТ
-        const qint64 totalBuffered = _pendingSizeLocked()
-                                   + _bufferBytesEstimate.load(std::memory_order_relaxed);
-        const qint64 headroom = readBufferMaxSize - totalBuffered;
-        if (bytesToRead > headroom) {
-            bytesToRead = static_cast<int>(qMax(qint64(0), headroom));
-            droppedBytes = static_cast<qint64>(length - bytesToRead);
-        }
-    }
-
-    if (bytesToRead > 0) {
-        _pendingData.append(bytes, bytesToRead);
-        _readWaitCondition.wakeAll();
-    }
-    locker.unlock();
-
-    if (droppedBytes > 0) {
-        qCWarning(AndroidSerialPortLog) << "Read buffer full, dropping" << droppedBytes << "bytes";
-    }
-    if (bytesToRead <= 0) {
-        return;
-    }
-
-    _scheduleReadyRead();
-}
-
-void QSerialPortPrivate::_scheduleReadyRead()
-{
-    Q_Q(QSerialPort);
-    if (!_readyReadPending.exchange(true)) {          // ← вся суть в одному рядку
-        QPointer<QSerialPort> guard(q);
-        QMetaObject::invokeMethod(q, [this, guard]() {
-            if (!guard || !guard->isOpen()) { _readyReadPending.store(false); return; }
-            QMutexLocker locker(&_readMutex);
-            _drainPendingDataLocked();                 // злив у буфер QIODevice
-            const bool more = (_pendingSizeLocked() > 0);
-            _readyReadPending.store(false);
-            locker.unlock();
-            emit guard->readyRead();
-            if (more) { _scheduleReadyRead(); }
-        }, Qt::QueuedConnection);
-    }
-}
-```
+:::code proj-android-serial-bridge/cpp/shliakh-baita-vhoru-z-2.cpp
 
 Атомарний обмін у `_readyReadPending` розв'язує задачу, яка інакше з'їдає станцію живцем. Радіомодем на 57 600 бод сипле десятки дрібних пачок за час одного оберту циклу подій; без прапорця кожна з них поставила б у чергу власну лямбду, і потік-власник займався б винятково розбором черги. З прапорцем **одна відкладена дія обслуговує всю пачку, скільки б викликів не прийшло**, а якщо під час зливання надійшло ще — наприкінці ставлять рівно одну наступну. Механіка самої черги — у темі про [цикл подій](root:sf-tasks/event-loop): відкладений виклик означає, що лямбду покладено в чергу потоку-власника й виконано, коли той дійде до неї.
 
@@ -339,38 +133,7 @@ void QSerialPortPrivate::_scheduleReadyRead()
 
 Приєднанням і займається `QJniEnvironment`: його конструктор приєднує поточний потік до віртуальної машини й видає дійсний `JNIEnv*`. Тому в кожній функції мосту вона створюється **на місці**, а не береться з поля:
 
-```cpp
-int write(int deviceId, const char* data, int length, int timeout, bool async)
-{
-    JniContext ctx;                     // всередині — QJniEnvironment, тобто приєднання
-    if (!getContext(ctx, "write")) {
-        return -1;
-    }
-
-    AndroidInterface::JniLocalRef<jbyteArray> jarray(
-        ctx.env.jniEnv(), ctx.env->NewByteArray(static_cast<jsize>(length)));
-    ctx.env->SetByteArrayRegion(jarray.get(), 0, static_cast<jsize>(length),
-                                reinterpret_cast<const jbyte*>(data));
-    if (ctx.env.checkAndClearExceptions()) {
-        return -1;
-    }
-
-    jint result;
-    if (async) {
-        result = ctx.env->CallStaticIntMethod(ctx.cls, s_methods.writeAsync,
-                                              static_cast<jint>(deviceId), jarray.get(),
-                                              static_cast<jint>(timeout));
-    } else {
-        result = ctx.env->CallStaticIntMethod(ctx.cls, s_methods.write,
-                                              static_cast<jint>(deviceId), jarray.get(),
-                                              static_cast<jint>(length), static_cast<jint>(timeout));
-    }
-    if (ctx.env.checkAndClearExceptions()) {
-        return -1;
-    }
-    return static_cast<int>(result);
-}
-```
+:::code proj-android-serial-bridge/cpp/navishcho-pryiednuvaty.cpp
 
 Тут-таки видно другу пастку, через яку падають нативні бібліотеки Android. `NewByteArray` повертає **локальне посилання**, і в звичайному нативному методі воно звільнилося б само — при поверненні у Java. Але потік лінка у Java не повертається ніколи: він приєднався й далі просто працює. Локальні посилання в такому потоці накопичуються, і таблиця в ART жорстко обмежена **512 записами** — переповнення валить процес із записом `JNI ERROR (app bug): local reference table overflow (max=512)`. Тому кожне локальне посилання загорнуте в `JniLocalRef` — крихітну обгортку, яка кличе `DeleteLocalRef` у деструкторі.
 
@@ -392,19 +155,7 @@ public void onRunError(Exception e) {
 }
 ```
 
-```cpp
-static void jniDeviceException(JNIEnv*, jobject, jlong token, jstring message)
-{
-    const QString exceptionMessage = QJniObject(message).toString();
-    // …пошук за токеном, потім перехід у потік-власник…
-    p->exceptionArrived(exceptionMessage);
-}
-
-void QSerialPortPrivate::exceptionArrived(const QString& ex)
-{
-    setError(QSerialPortErrorInfo(QSerialPort::UnknownError, ex));
-}
-```
+:::code proj-android-serial-bridge/cpp/iak-java-vyniatok-staie.cpp
 
 Наслідок цікавий і практичний: `QSerialPort::errorString()` на Android **дослівно несе текст із Java**. Коли в журналі станції видно «Runner stopped: …» або «USB Permission Denied» — це не переклад і не інтерпретація, це рядок, складений за півтори мови звідси. Ціна такого рішення — код помилки лишається `UnknownError`, бо жодного розумного відображення винятків Java на перелік `QSerialPort::SerialPortError` не існує; уся конкретика живе в тексті.
 
@@ -418,47 +169,13 @@ void QSerialPortPrivate::exceptionArrived(const QString& ex)
 
 *Третє, і головне.* Система розсилає широкомовне повідомлення про від'єднання:
 
-```java
-private static void handleUsbDeviceDetached(final Intent intent) {
-    UsbDevice device = getUsbDevice(intent);
-    if (device == null) {
-        return;
-    }
-    for (final Integer resourceId : findResourceIdsForPhysicalDevice(device.getDeviceId())) {
-        final UsbDeviceResources resources = deviceResourcesMap.get(resourceId);
-        if (resources == null) {
-            continue;
-        }
-        final long classPtr = resources.classPtr;   // ← знімають ДО close()
-        close(resourceId);
-        emitDeviceHasDisconnected(classPtr);
-    }
-}
-```
+:::code proj-android-serial-bridge/java/kabel-vysmyknuly-posered.java
 
 Порядок двох рядків тут не косметичний: `close()` прибирає запис із таблиці ресурсів, тож токен беруть **до** нього, інакше повідомляти було б нікому.
 
 А на боці C++ цей зворотний виклик мусить дійти до потоку, де живе порт, — і робить це не звичайним відкладеним викликом, а блокувальним:
 
-```cpp
-template <typename Functor>
-static bool dispatchToPortObject(QSerialPort* serialPort, Functor&& func, const char* context)
-{
-    QThread* const targetThread = serialPort->thread();
-    if (targetThread == QThread::currentThread()) {
-        std::forward<Functor>(func)();               // уже там, кличемо прямо
-        return true;
-    }
-    if (targetThread && targetThread->eventDispatcher()) {
-        // Блокувальний перехід: JNI-виклик не повернеться у Java,
-        // доки порт справді не закрито в потоці-власнику.
-        return QMetaObject::invokeMethod(serialPort, std::forward<Functor>(func),
-                                         Qt::BlockingQueuedConnection);
-    }
-    std::forward<Functor>(func)();                   // потік без циклу подій — запасний шлях
-    return true;
-}
-```
+:::code proj-android-serial-bridge/cpp/kabel-vysmyknuly-posered.cpp
 
 Різниця з приходом даних принципова. Дані можна віддати відкладено — вони нікуди не подінуться. Від'єднання відкладати **не можна**: щойно нативна функція повернеться, Java піде прибирати свої ресурси далі, а C++ ще вважатиме порт відкритим і може спробувати щось у нього записати. `BlockingQueuedConnection` тримає Java-потік, доки `port->close()` справді не відпрацював у потоці-власнику. Ціна — короткий блок читального потоку Java; вигода — неможливість стану, у якому два боки мають різну думку про те, чи порт живий.
 

@@ -17,12 +17,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-hal-backend.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -44,13 +46,15 @@
           "proj": [
             {
               "file": "proj-uorb-module.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-uorb.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -112,7 +116,8 @@
           "proj": [
             {
               "file": "proj-param-protocol.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -135,13 +140,16 @@
           "api": [
             {
               "file": "api-setpoint-interfaces.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "proj": [
             {
               "file": "proj-offboard-node.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -163,12 +171,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-mavlink-setpoints.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -206,24 +217,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-sitl-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-6dof-fdm.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-sitl-bridge.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -234,7 +251,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
