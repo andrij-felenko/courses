@@ -87,103 +87,15 @@ void delay_broken() noexcept {
 Для коректного доступу до периферії покажчики на апаратні регістри завжди оголошуються як покажчики на `volatile`-дані:
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define UART_SR_REG  (*(volatile uint32_t *)0x40013800UL)
-#define UART_DR_REG  (*(volatile uint32_t *)0x40013804UL)
-#define RXNE_FLAG    (1U << 5)
-
-uint8_t uart_receive_byte_direct(void) {
-    // Компілятор змушений щоразу читати реальну шину заліза
-    while (!(UART_SR_REG & RXNE_FLAG)) {
-        // Очікування надходження байта
-    }
-    // Читання DR скидає прапорець RXNE на рівні кремнію
-    return (uint8_t)(UART_DR_REG & 0xFFU);
-}
-```
-```cpp
-#include <cstdint>
-
-inline volatile uint32_t& UART_SR_REF = *reinterpret_cast<volatile uint32_t*>(0x40013800UL);
-inline volatile uint32_t& UART_DR_REF = *reinterpret_cast<volatile uint32_t*>(0x40013804UL);
-inline constexpr uint32_t RXNE_FLAG   = 1U << 5;
-
-uint8_t uart_receive_byte_direct() noexcept {
-    while (!(UART_SR_REF & RXNE_FLAG)) {
-        // Очікування прапорця
-    }
-    return static_cast<uint8_t>(UART_DR_REF & 0xFFU);
-}
-```
+:::code c-for-firmware-d/c/modyfikator-volatile-ta.c
+:::code c-for-firmware-d/cpp/modyfikator-volatile-ta.cpp
 :::
 
 У виробничих бібліотеках керування мікроконтролерами (наприклад, CMSIS для мікроконтролерів на базі ядер ARM Cortex-M) апаратні блоки оформлюють у вигляді C-структур, де кожне поле позначене модифікатором `volatile`:
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Опис апаратного блоку UART через структуру
-typedef struct {
-    volatile uint32_t SR;    // 0x00: Регістр статусу
-    volatile uint32_t DR;    // 0x04: Регістр даних
-    volatile uint32_t BRR;   // 0x08: Регістр швидкості (Baud Rate)
-    volatile uint32_t CR1;   // 0x0C: Регістр керування 1
-    volatile uint32_t CR2;   // 0x10: Регістр керування 2
-    volatile uint32_t CR3;   // 0x14: Регістр керування 3
-} UART_Regs;
-
-#define UART1_BASE (0x40013800UL)
-#define UART1      ((UART_Regs *)UART1_BASE)
-
-void uart_send_byte(UART_Regs *uart, uint8_t byte) {
-    // Опитування біта передавача TXE (Transmit Data Register Empty)
-    while (!(uart->SR & (1U << 7))) {
-        // Очікування звільнення вихідного буфера
-    }
-    uart->DR = byte;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-// Ідіоматичний C++ доступ до апаратної периферії через типізовані структури
-struct UartRegs {
-    volatile uint32_t sr;
-    volatile uint32_t dr;
-    volatile uint32_t brr;
-    volatile uint32_t cr1;
-    volatile uint32_t cr2;
-    volatile uint32_t cr3;
-};
-
-inline auto uart1 = reinterpret_cast<UartRegs*>(0x40013800UL);
-
-class UartDriver {
-public:
-    constexpr explicit UartDriver(UartRegs* regs) noexcept : regs_(regs) {}
-
-    void send_byte(uint8_t byte) noexcept {
-        constexpr uint32_t txe_bit = 1U << 7;
-        while (!(regs_->sr & txe_bit)) {
-            // Очікування звільнення вихідного буфера
-        }
-        regs_->dr = byte;
-    }
-
-    void write(std::span<const uint8_t> data) noexcept {
-        for (uint8_t byte : data) {
-            send_byte(byte);
-        }
-    }
-
-private:
-    UartRegs* regs_;
-};
-```
+:::code c-for-firmware-d/c/modyfikator-volatile-ta-2.c
+:::code c-for-firmware-d/cpp/modyfikator-volatile-ta-2.cpp
 :::
 
 Існує критично важлива межа, де `volatile` перестає діяти: **`volatile` не забезпечує атомарності доступу і не є бар'єром конвеєра пам'яті**.
@@ -338,36 +250,8 @@ void led_on_naive() noexcept {
 2. **Біт-Бендінг (Bit-Banding):** Механізм апаратного відображення пам'яті в Cortex-M3/M4, де кожен окремий біт пам'яті SRAM або периферії відображається на окреме 32-бітне слово в спеціальній області пам'яті. Звичайний запис `1` або `0` за цією адресою апаратно модифікує рівно один біт на шині без блокування переривань.
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define GPIOA_BSRR (*(volatile uint32_t *)0x40010810UL)
-
-void led_on_atomic(void) {
-    // Атомарне встановлення 5-го піна (1 такт запису, відсутність RMW)
-    GPIOA_BSRR = (1U << 5);
-}
-
-void led_off_atomic(void) {
-    // Атомарне скидання 5-го піна (запис у старшу половину регістра)
-    GPIOA_BSRR = (1U << (5 + 16));
-}
-```
-```cpp
-#include <cstdint>
-
-inline volatile uint32_t& GPIOA_BSRR_REF = *reinterpret_cast<volatile uint32_t*>(0x40010810UL);
-
-void led_on_atomic() noexcept {
-    // Атомарне увімкнення без ризику спотворення стану інших виводів
-    GPIOA_BSRR_REF = (1U << 5);
-}
-
-void led_off_atomic() noexcept {
-    // Атомарне вимкнення
-    GPIOA_BSRR_REF = (1U << (5 + 16));
-}
-```
+:::code c-for-firmware-d/c/atomarnyi-dostup-ta.c
+:::code c-for-firmware-d/cpp/atomarnyi-dostup-ta.hpp
 :::
 
 ### Правила MISRA C для безпечного коду прошивки
@@ -429,121 +313,8 @@ void led_off_atomic() noexcept {
 Для роботи з кільцевим буфером у реальних прошивках використовують модульний інтерфейс, описаний у [довіднику інтерфейсу кільцевого буфера](root:embedded-ultra/c-for-firmware/api-ring-buffer.md). Нижче наведено повну безпечну реалізацію мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-// Розмір буфера телеметрії — рівно ступінь двійки
-#define TELEMETRY_BUF_SIZE 256U
-#define TELEMETRY_BUF_MASK (TELEMETRY_BUF_SIZE - 1U)
-
-// Перевірка на етапі компіляції (C11)
-_Static_assert((TELEMETRY_BUF_SIZE & TELEMETRY_BUF_MASK) == 0, 
-               "Розмір буфера мусить бути ступенем двійки!");
-
-typedef struct {
-    uint8_t buffer[TELEMETRY_BUF_SIZE];
-    volatile uint16_t head; // Змінюється лише перериванням (Producer)
-    volatile uint16_t tail; // Змінюється лише головним циклом (Consumer)
-} RingBuffer;
-
-void ring_buffer_init(RingBuffer *rb) {
-    rb->head = 0;
-    rb->tail = 0;
-}
-
-bool ring_buffer_is_empty(const RingBuffer *rb) {
-    return rb->head == rb->tail;
-}
-
-bool ring_buffer_is_full(const RingBuffer *rb) {
-    return ((rb->head + 1U) & TELEMETRY_BUF_MASK) == rb->tail;
-}
-
-uint16_t ring_buffer_available(const RingBuffer *rb) {
-    return (uint16_t)((rb->head - rb->tail) & TELEMETRY_BUF_MASK);
-}
-
-bool ring_buffer_put(RingBuffer *rb, uint8_t byte) {
-    uint16_t next_head = (uint16_t)((rb->head + 1U) & TELEMETRY_BUF_MASK);
-    if (next_head == rb->tail) {
-        return false; // Буфер переповнено, байт відкинуто
-    }
-    rb->buffer[rb->head] = byte;
-    rb->head = next_head; // Атомарне оновлення покажчика
-    return true;
-}
-
-bool ring_buffer_get(RingBuffer *rb, uint8_t *byte) {
-    if (rb->head == rb->tail) {
-        return false; // Буфер порожній
-    }
-    *byte = rb->buffer[rb->tail];
-    rb->tail = (uint16_t)((rb->tail + 1U) & TELEMETRY_BUF_MASK);
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <optional>
-#include <array>
-
-// Ідіоматичний безпечний C++20 шаблонний кільцевий буфер без динамічної пам'яті
-template <typename T, size_t Capacity>
-class StaticRingBuffer {
-    static_assert((Capacity > 0) && ((Capacity & (Capacity - 1)) == 0),
-                  "Розмір кільцевого буфера має бути ступенем двійки!");
-public:
-    constexpr StaticRingBuffer() noexcept : head_(0), tail_(0) {}
-
-    [[nodiscard]] bool empty() const noexcept {
-        return head_ == tail_;
-    }
-
-    [[nodiscard]] bool full() const noexcept {
-        return ((head_ + 1U) & mask_) == tail_;
-    }
-
-    [[nodiscard]] size_t size() const noexcept {
-        return (head_ - tail_) & mask_;
-    }
-
-    [[nodiscard]] constexpr size_t capacity() const noexcept {
-        return Capacity - 1U; // Одна комірка зарезервована під розрізнення full/empty
-    }
-
-    bool push(const T& item) noexcept {
-        const size_t next_head = (head_ + 1U) & mask_;
-        if (next_head == tail_) {
-            return false; // Переповнення
-        }
-        buffer_[head_] = item;
-        head_ = next_head;
-        return true;
-    }
-
-    std::optional<T> pop() noexcept {
-        if (empty()) {
-            return std::nullopt;
-        }
-        T item = buffer_[tail_];
-        tail_ = (tail_ + 1U) & mask_;
-        return item;
-    }
-
-private:
-    static constexpr size_t mask_ = Capacity - 1U;
-    std::array<T, Capacity> buffer_{};
-    volatile size_t head_{0};
-    volatile size_t tail_{0};
-};
-
-// Екземпляр для прийому байтів телеметрії
-inline StaticRingBuffer<uint8_t, 256> telemetry_rb;
-```
+:::code c-for-firmware-d/c/arkhitektura-statychnoho.c
+:::code c-for-firmware-d/cpp/arkhitektura-statychnoho.cpp
 :::
 
 Повний приклад обробки та перевірки цілісності кадрів телеметрії з цим буфером дивіться у [практикумі з прийому пакетів телеметрії](root:embedded-ultra/c-for-firmware/proj-telemetry-ring-buffer.md).
@@ -564,18 +335,7 @@ inline StaticRingBuffer<uint8_t, 256> telemetry_rb;
 Процесори ARM вимагають вирівнювання адрес: 32-бітне число `uint32_t` повинно лежати за адресою, кратною 4 (наприклад, `0x20000000`, `0x20000004`), а 16-бітне — за адресою, кратною 2. Якщо розташувати поля в структурі недбало:
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Помилкова структура з неконтрольованими байтами вирівнювання
-struct BadTelemetryHeader {
-    uint8_t  node_id;      // 1 байт (зсув 0)
-    // Компілятор додає 3 байти padding!
-    uint32_t timestamp_ms; // 4 байти (зсув 4)
-    uint16_t payload_len;  // 2 байти (зсув 8)
-    // Компілятор додає 2 байти padding наприкінці!
-}; // Підсумковий розмір: 12 байтів замість очікуваних 7 байтів!
-```
+:::code c-for-firmware-d/c/vyrivniuvannia-pamiati-ta.c
 ```cpp
 #include <cstdint>
 
@@ -593,33 +353,8 @@ struct BadTelemetryHeaderCpp {
 Для мережевих протоколів та пакетів телеметрії використовують директиву щільного пакування без вирівнювання:
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Структура без порожніх байтів вирівнювання
-typedef struct __attribute__((packed)) {
-    uint8_t  node_id;      // 1 байт
-    uint32_t timestamp_ms; // 4 байти
-    uint16_t packet_seq;   // 2 байти
-    uint16_t crc16;        // 2 байти
-} TelemetryPacketHeader;
-
-_Static_assert(sizeof(TelemetryPacketHeader) == 9, "Розмір заголовка має бути рівно 9 байтів!");
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-// Щільно упакований C++ заголовок пакета телеметрії
-struct [[gnu::packed]] TelemetryPacketHeader {
-    uint8_t  node_id;
-    uint32_t timestamp_ms;
-    uint16_t packet_seq;
-    uint16_t crc16;
-};
-
-static_assert(sizeof(TelemetryPacketHeader) == 9, "Розмір заголовка має бути рівно 9 байтів!");
-```
+:::code c-for-firmware-d/c/vyrivniuvannia-pamiati-ta-2.c
+:::code c-for-firmware-d/cpp/vyrivniuvannia-pamiati-ta.cpp
 :::
 
 Утім, треба пам'ятати про ціну пакування: на ядрах ARM Cortex-M0 спроба прочитати 32-бітне поле `timestamp_ms` через розіменування покажчика `uint32_t *` за непарною адресою викличе апаратну аварію `UsageFault` (невирівняний доступ). На таких ядрах доступ до непарних полів виконують побайтово або через копіювання `memcpy()`.
