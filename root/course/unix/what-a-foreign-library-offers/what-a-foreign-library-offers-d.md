@@ -110,18 +110,7 @@ namespace compression::zstd {
 Якщо C++ програма підключає заголовок C-бібліотеки без спеціального блоку, компілятор шукатиме спаплюжене ім'я `_Z8compressPKci` і лінкер видасть `undefined reference`. Щоб бібліотеку можна було прозоро викликати і з C, і з C++, заголовки містять блок:
 
 :::tabs
-```c
-#if defined (__cplusplus)
-extern "C" {
-#endif
-
-/* Оголошення функцій C API без викривлення імен */
-size_t ZSTD_compress(void* dst, size_t dstCapacity, const void* src, size_t srcSize, int compressionLevel);
-
-#if defined (__cplusplus)
-}
-#endif
-```
+:::code what-a-foreign-library-offers-d/c/2-blok-zviazuvannia-extern.c
 ```cpp
 // У C++ обгортці функції групуються у простори імен,
 // захищаючи глобальну область видимості від конфліктів
@@ -150,23 +139,7 @@ typedef struct ZSTD_CCtx_s ZSTD_CCtx;
 ZSTD_CCtx* ZSTD_createCCtx(void);
 size_t ZSTD_freeCCtx(ZSTD_CCtx* cctx);
 ```
-```cpp
-// C++ API: Інкапсуляція у клас із патерном Pimpl та розумним покажчиком
-#include <memory>
-
-namespace compression {
-    class CompressionContext {
-    public:
-        CompressionContext();
-        ~CompressionContext();
-        CompressionContext(CompressionContext&&) noexcept;
-        CompressionContext& operator=(CompressionContext&&) noexcept;
-    private:
-        struct Impl;
-        std::unique_ptr<Impl> impl_;
-    };
-}
-```
+:::code what-a-foreign-library-offers-d/cpp/3-neprozori-pokazhchyky.hpp
 :::
 
 Непрозорі покажчики є фундаментальною інженерною практикою проектування системних бібліотек. Вони дозволяють змінювати, розширювати та перевпорядковувати поля внутрішньої структури без перекомпіляції клієнтських програм і без порушення розміщення даних у пам'яті.
@@ -209,94 +182,8 @@ namespace compression::version {
 Нижче наведено практичний приклад роботи з контекстом компресії бібліотеки: ліворуч — класичний підхід мовою C із ручним керуванням пам'яттю, праворуч — ідіоматичний C++20 із застосуванням ідіоми RAII та розумних покажчиків:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <zstd.h>
-
-int compress_payload(const void* src, size_t src_size, void** out_buf, size_t* out_size) {
-    /* Створення непрозорого контексту бібліотеки */
-    ZSTD_CCtx* cctx = ZSTD_createCCtx();
-    if (!cctx) {
-        fprintf(stderr, "Помилка виділення контексту ZSTD\n");
-        return -1;
-    }
-
-    /* Оцінка максимального розміру буфера стиснення */
-    size_t const max_dst_size = ZSTD_compressBound(src_size);
-    void* const dst = malloc(max_dst_size);
-    if (!dst) {
-        ZSTD_freeCCtx(cctx);
-        return -1;
-    }
-
-    /* Виконання стиснення з рівнем 3 */
-    size_t const compressed_size = ZSTD_compressCCtx(cctx, dst, max_dst_size, src, src_size, 3);
-    
-    /* Перевірка коду повернення на наявність помилки */
-    if (ZSTD_isError(compressed_size)) {
-        fprintf(stderr, "Помилка стиснення: %s\n", ZSTD_getErrorName(compressed_size));
-        free(dst);
-        ZSTD_freeCCtx(cctx);
-        return -1;
-    }
-
-    /* Звільнення ресурсів бібліотеки */
-    ZSTD_freeCCtx(cctx);
-
-    *out_buf = dst;
-    *out_size = compressed_size;
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-#include <memory>
-#include <expected>
-#include <string_view>
-#include <zstd.h>
-
-struct ZstdContextDeleter {
-    void operator()(ZSTD_CCtx* ctx) const noexcept {
-        if (ctx) {
-            ZSTD_freeCCtx(ctx);
-        }
-    }
-};
-
-using ScopedZstdCCtx = std::unique_ptr<ZSTD_CCtx, ZstdContextDeleter>;
-
-std::expected<std::vector<uint8_t>, std::string_view> 
-compress_payload(std::span<const uint8_t> input_data, int compression_level = 3) {
-    // Безпечне керування контекстом через RAII
-    ScopedZstdCCtx cctx(ZSTD_createCCtx());
-    if (!cctx) {
-        return std::unexpected("Не вдалося створити контекст ZSTD");
-    }
-
-    size_t const max_dst_size = ZSTD_compressBound(input_data.size());
-    std::vector<uint8_t> output_buffer(max_dst_size);
-
-    size_t const compressed_size = ZSTD_compressCCtx(
-        cctx.get(),
-        output_buffer.data(),
-        output_buffer.size(),
-        input_data.data(),
-        input_data.size(),
-        compression_level
-    );
-
-    if (ZSTD_isError(compressed_size)) {
-        return std::unexpected(ZSTD_getErrorName(compressed_size));
-    }
-
-    output_buffer.resize(compressed_size);
-    return output_buffer;
-}
-```
+:::code what-a-foreign-library-offers-d/c/5-atrybuty-kompiliatora-ta.c
+:::code what-a-foreign-library-offers-d/cpp/5-atrybuty-kompiliatora-ta.cpp
 :::
 
 ---
@@ -618,66 +505,8 @@ $ man 3 EVP_Q_digest
 Пишемо мінімальний перевірочний виклик, який підтверджує повну працездатність усього ланцюжка:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <openssl/evp.h>
-
-int main(void) {
-    const char message[] = "Unix library contract verification";
-    unsigned char digest[EVP_MAX_MD_SIZE];
-    size_t digest_len = 0;
-
-    int ok = EVP_Q_digest(NULL, "SHA256", NULL, message, strlen(message), digest, &digest_len);
-    if (!ok) {
-        fprintf(stderr, "Помилка обчислення хешу SHA-256\n");
-        return 1;
-    }
-
-    printf("SHA-256: ");
-    for (size_t i = 0; i < digest_len; i++) {
-        printf("%02x", digest[i]);
-    }
-    printf("\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <string_view>
-#include <array>
-#include <span>
-#include <openssl/evp.h>
-
-int main() {
-    constexpr std::string_view message = "Unix library contract verification";
-    std::array<uint8_t, EVP_MAX_MD_SIZE> digest{};
-    size_t digest_len = 0;
-
-    int const ok = EVP_Q_digest(
-        nullptr,
-        "SHA256",
-        nullptr,
-        message.data(),
-        message.size(),
-        digest.data(),
-        &digest_len
-    );
-
-    if (!ok) {
-        std::cerr << "Помилка обчислення хешу SHA-256\n";
-        return 1;
-    }
-
-    std::cout << "SHA-256: ";
-    for (uint8_t byte : std::span(digest.data(), digest_len)) {
-        std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(byte);
-    }
-    std::cout << '\n';
-    return 0;
-}
-```
+:::code what-a-foreign-library-offers-d/c/krok-6-napysannia.c
+:::code what-a-foreign-library-offers-d/cpp/krok-6-napysannia.cpp
 :::
 
 Компіляція та запуск із передачею прапорців від `pkg-config`:

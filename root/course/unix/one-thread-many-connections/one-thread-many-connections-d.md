@@ -103,32 +103,8 @@ int client_fd = ::accept4(listen_fd, reinterpret_cast<sockaddr*>(&addr), &len, S
 Отримавши неблокуючий ввід-вивід, недосвідчений розробник може спробувати організувати обслуговування масиву дескрипторів у простому нескінченному циклі:
 
 :::tabs
-```c
-/* НАЇВНИЙ АНТИПАТЕРН: активне опитування в циклі (Busy Polling) */
-while (running) {
-    for (int i = 0; i < num_clients; ++i) {
-        ssize_t n = read(client_fds[i], buf, sizeof(buf));
-        if (n > 0) {
-            handle_data(client_fds[i], buf, n);
-        } else if (n == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
-            continue; /* Даних немає — переходимо до наступного */
-        }
-    }
-}
-```
-```cpp
-// НАЇВНИЙ АНТИПАТЕРН: активне опитування в циклі (Busy Polling)
-while (running) {
-    for (int fd : client_fds) {
-        ssize_t n = ::read(fd, buf.data(), buf.size());
-        if (n > 0) {
-            handle_data(fd, std::span(buf.data(), static_cast<size_t>(n)));
-        } else if (n == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
-            continue; // Даних немає — переходимо до наступного
-        }
-    }
-}
-```
+:::code one-thread-many-connections-d/c/pastka-aktyvnoho.c
+:::code one-thread-many-connections-d/cpp/pastka-aktyvnoho.cpp
 :::
 
 Цей підхід перетворює процесор на електричний обігрівач. Якщо всі 10 000 клієнтів мовчать, єдиний потік виконуватиме мільйони порожніх системних викликів `read()` на секунду, завантажуючи ядро процесора на 100% і марнуючи гігавати енергії на постійний перехід межі простору користувача та ядра. Навіть найшвидший системний виклик у Linux коштує від 50 до 100 наносекунд; помножте це на 10 000 сокетів — і повний прохід порожнього масиву триватиме близько 1 мілісекунди, спалюючи процесорні ресурси вщент.
@@ -266,40 +242,8 @@ for (const auto& pfd : fds) {
 2. **Вичитування до `EAGAIN`:** Читання даних після отримання події завжди повинно виконуватися у суворому циклі до моменту, поки системний виклик не поверне `-1` з `errno == EAGAIN`:
 
 :::tabs
-```c
-while (1) {
-    ssize_t count = read(fd, buf, sizeof(buf));
-    if (count > 0) {
-        process_data(buf, count);
-    } else if (count == -1) {
-        if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            break; /* Усі наявні дані вичитано повністю! */
-        }
-        handle_error(fd);
-        break;
-    } else if (count == 0) {
-        close_connection(fd); /* Клієнт закрив з'єднання */
-        break;
-    }
-}
-```
-```cpp
-while (true) {
-    ssize_t count = ::read(fd, buf.data(), buf.size());
-    if (count > 0) {
-        process_data(std::span(buf.data(), static_cast<size_t>(count)));
-    } else if (count == -1) {
-        if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            break; // Усі наявні дані вичитано повністю!
-        }
-        handle_error(fd);
-        break;
-    } else if (count == 0) {
-        close_connection(fd); // Клієнт закрив з'єднання
-        break;
-    }
-}
-```
+:::code one-thread-many-connections-d/c/zalizni-pravyla-roboty-z.c
+:::code one-thread-many-connections-d/cpp/zalizni-pravyla-roboty-z.cpp
 :::
 
 3. **Запобігання голодуванню (Starvation):** Якщо один «жадібний» клієнт неперервно шле велетенський потік даних на гігабітній швидкості, цикл `while` читання до `EAGAIN` може монополізувати потік сервера на кілька секунд, блокуючи обслуговування інших 9999 клієнтів. Промислові сервери обмежують кількість зчитаних байтів за одну ітерацію (наприклад, не більше 64 КБ), після чого переносять дескриптор у кінець черги обробки.

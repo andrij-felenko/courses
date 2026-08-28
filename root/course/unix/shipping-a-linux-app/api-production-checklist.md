@@ -40,125 +40,8 @@
 Використання офіційної бібліотеки `libsystemd` вимагає динамічного лінкування з `libsystemd.so` або підтягування важких залежностей. Нижче наведено повністю автономну, безпечну реалізацію протоколу, яка працює на будь-якому ядрі Linux із бібліотеками glibc або musl:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <errno.h>
-#include <stddef.h>
-
-/* Автономна відправка рядка стану в systemd через Unix-сокет */
-int standalone_sd_notify(const char *state) {
-    if (!state || !*state) {
-        return 0;
-    }
-
-    const char *socket_path = getenv("NOTIFY_SOCKET");
-    if (!socket_path) {
-        return 0; /* Процес запущено не під керуванням systemd */
-    }
-
-    struct sockaddr_un addr;
-    memset(&addr, 0, sizeof(addr));
-    addr.sun_family = AF_UNIX;
-
-    size_t path_len = strlen(socket_path);
-    if (path_len >= sizeof(addr.sun_path)) {
-        errno = ENAMETOOLONG;
-        return -1;
-    }
-
-    /* Підтримка абстрактних сокетів Linux (починаються з символу @) */
-    if (socket_path[0] == '@') {
-        addr.sun_path[0] = '\0';
-        memcpy(&addr.sun_path[1], &socket_path[1], path_len - 1);
-    } else {
-        memcpy(addr.sun_path, socket_path, path_len);
-    }
-
-    int fd = socket(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-    if (fd < 0) {
-        return -1;
-    }
-
-    socklen_t addr_len = offsetof(struct sockaddr_un, sun_path) + path_len;
-    ssize_t written = sendto(fd, state, strlen(state), MSG_NOSIGNAL,
-                             (struct sockaddr *)&addr, addr_len);
-
-    int saved_errno = errno;
-    close(fd);
-
-    if (written < 0) {
-        errno = saved_errno;
-        return -1;
-    }
-
-    return 1;
-}
-```
-```cpp
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <unistd.h>
-#include <cstdlib>
-#include <cstring>
-#include <cstddef>
-#include <string_view>
-#include <expected>
-#include <system_error>
-
-// Автономна відправка сповіщення в systemd засобами стандарту C++23
-[[nodiscard]] std::expected<bool, std::error_code> standalone_sd_notify(std::string_view state) noexcept {
-    if (state.empty()) {
-        return false;
-    }
-
-    const char* socket_path = std::getenv("NOTIFY_SOCKET");
-    if (!socket_path) {
-        return false; // Службу запущено поза менеджером systemd
-    }
-
-    struct sockaddr_un addr{};
-    addr.sun_family = AF_UNIX;
-
-    const size_t path_len = std::strlen(socket_path);
-    if (path_len >= sizeof(addr.sun_path)) {
-        return std::unexpected(std::make_error_code(std::errc::filename_too_long));
-    }
-
-    // Обробка абстрактних сокетів Linux
-    if (socket_path[0] == '@') {
-        addr.sun_path[0] = '\0';
-        std::memcpy(&addr.sun_path[1], &socket_path[1], path_len - 1);
-    } else {
-        std::memcpy(addr.sun_path, socket_path, path_len);
-    }
-
-    const int fd = ::socket(AF_UNIX, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    const auto addr_len = static_cast<socklen_t>(offsetof(struct sockaddr_un, sun_path) + path_len);
-    const ssize_t written = ::sendto(fd, state.data(), state.size(), MSG_NOSIGNAL,
-                                     reinterpret_cast<struct sockaddr*>(&addr), addr_len);
-
-    const int saved_errno = errno;
-    ::close(fd);
-
-    if (written < 0) {
-        return std::unexpected(std::error_code(saved_errno, std::generic_category()));
-    }
-
-    return true;
-}
-```
+:::code api-production-checklist/c/1-3-realizatsiia-kliienta.c
+:::code api-production-checklist/cpp/1-3-realizatsiia-kliienta.cpp
 :::
 
 ---
@@ -283,80 +166,8 @@ WantedBy=multi-user.target
 Нижче наведено алгоритм визначення шляху до файлу конфігурації:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <limits.h>
-
-/* Отримання абсолютного шляху до файлу конфігурації програми */
-int get_app_config_path(const char *app_name, char *out_path, size_t out_size) {
-    if (!app_name || !out_path || out_size == 0) {
-        return -1;
-    }
-
-    /* Якщо процес запущено від root або як системну службу — дивимось у /etc */
-    if (geteuid() == 0) {
-        int written = snprintf(out_path, out_size, "/etc/%s/config.toml", app_name);
-        return (written > 0 && (size_t)written < out_size) ? 0 : -1;
-    }
-
-    /* Для звичайного користувача перевіряємо XDG_CONFIG_HOME */
-    const char *xdg_config = getenv("XDG_CONFIG_HOME");
-    if (xdg_config && *xdg_config) {
-        int written = snprintf(out_path, out_size, "%s/%s/config.toml", xdg_config, app_name);
-        return (written > 0 && (size_t)written < out_size) ? 0 : -1;
-    }
-
-    /* Резервний варіант: $HOME/.config */
-    const char *home = getenv("HOME");
-    if (!home || !*home) {
-        return -1;
-    }
-
-    int written = snprintf(out_path, out_size, "%s/.config/%s/config.toml", home, app_name);
-    return (written > 0 && (size_t)written < out_size) ? 0 : -1;
-}
-```
-```cpp
-#include <string>
-#include <string_view>
-#include <filesystem>
-#include <cstdlib>
-#include <unistd.h>
-#include <expected>
-#include <system_error>
-
-namespace fs = std::filesystem;
-
-// Отримання шляху до конфігурації засобами std::filesystem (C++23)
-[[nodiscard]] std::expected<fs::path, std::error_code> get_app_config_path(std::string_view app_name) noexcept {
-    if (app_name.empty()) {
-        return std::unexpected(std::make_error_code(std::errc::invalid_argument));
-    }
-
-    // Системні служби або root використовують ієрархію /etc
-    if (::geteuid() == 0) {
-        return fs::path("/etc") / app_name / "config.toml";
-    }
-
-    // Перевірка наявності змінної XDG_CONFIG_HOME
-    const char* xdg_config = std::getenv("XDG_CONFIG_HOME");
-    if (xdg_config && *xdg_config != '\0') {
-        return fs::path(xdg_config) / app_name / "config.toml";
-    }
-
-    // Резервне значення $HOME/.config
-    const char* home = std::getenv("HOME");
-    if (!home || *home == '\0') {
-        return std::unexpected(std::make_error_code(std::errc::no_such_file_or_directory));
-    }
-
-    return fs::path(home) / ".config" / app_name / "config.toml";
-}
-```
+:::code api-production-checklist/c/3-2-alhorytm-bezpechnoho.c
+:::code api-production-checklist/cpp/3-2-alhorytm-bezpechnoho.cpp
 :::
 
 ---
@@ -386,70 +197,8 @@ namespace fs = std::filesystem;
 Для запобігання падінню необхідно застосовувати комплексну стратегію захисту:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <signal.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdio.h>
-
-/* Безпечна відправка даних у мережевий сокет */
-ssize_t safe_socket_send(int fd, const void *buf, size_t len) {
-    /* Передаємо прапорець MSG_NOSIGNAL, який забороняє генерацію SIGPIPE */
-    ssize_t res = send(fd, buf, len, MSG_NOSIGNAL);
-    if (res < 0) {
-        if (errno == EPIPE || errno == ECONNRESET) {
-            /* Клієнт розірвав з'єднання — фіксуємо подію та закриваємо сокет */
-            fprintf(stderr, "<4>Клієнт достроково розірвав TCP-з'єднання\n");
-        }
-    }
-    return res;
-}
-
-/* Ініціалізація глобального ігнорування SIGPIPE */
-void init_signal_protection(void) {
-    struct sigaction sa;
-    sa.sa_handler = SIG_IGN;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGPIPE, &sa, NULL);
-}
-```
-```cpp
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <csignal>
-#include <unistd.h>
-#include <cstddef>
-#include <expected>
-#include <system_error>
-#include <iostream>
-#include <span>
-
-// Безпечна передача даних через сокет засобами C++23
-[[nodiscard]] std::expected<size_t, std::error_code> safe_socket_send(int fd, std::span<const char> data) noexcept {
-    const ssize_t res = ::send(fd, data.data(), data.size(), MSG_NOSIGNAL);
-    if (res < 0) {
-        const int err = errno;
-        if (err == EPIPE || err == ECONNRESET) {
-            std::cerr << "<4>Клієнт достроково закрив TCP-з'єднання\n";
-        }
-        return std::unexpected(std::error_code(err, std::generic_category()));
-    }
-    return static_cast<size_t>(res);
-}
-
-// Встановлення ігнорування SIGPIPE на рівні процесу
-void init_signal_protection() noexcept {
-    struct sigaction sa{};
-    sa.sa_handler = SIG_IGN;
-    ::sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    ::sigaction(SIGPIPE, &sa, nullptr);
-}
-```
+:::code api-production-checklist/c/4-2-bezpechna-robota-z.c
+:::code api-production-checklist/cpp/4-2-bezpechna-robota-z.cpp
 :::
 
 ---
@@ -476,33 +225,8 @@ void init_signal_protection() noexcept {
 Приклад запису повідомлень у стандартні потоки виводу:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-
-/* Друк структурованих повідомлень у stdout з префіксами для journald */
-void log_service_events(const char *db_name, int port) {
-    fprintf(stdout, "<6>Ініціалізація мережевого сервера на порту %d успішна\n", port);
-    fprintf(stderr, "<3>Помилка відкриття файлу бази даних '%s': %s\n", 
-            db_name, strerror(ENOENT));
-    fflush(stdout);
-    fflush(stderr);
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <format>
-
-// Друк логів для journald мовою C++23
-void log_service_events(std::string_view db_name, int port) {
-    std::cout << std::format("<6>Ініціалізація мережевого сервера на порту {} успішна\n", port);
-    std::cerr << std::format("<3>Помилка відкриття файлу бази даних '{}': файл не знайдено\n", db_name);
-    std::cout.flush();
-    std::cerr.flush();
-}
-```
+:::code api-production-checklist/c/5-1-prefiksy-rivniv.c
+:::code api-production-checklist/cpp/5-1-prefiksy-rivniv.cpp
 :::
 
 #### 5.2. Структурований формат Native Journald API

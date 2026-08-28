@@ -97,22 +97,7 @@ ssize_t tee(int fd_in, int fd_out, size_t len, unsigned int flags);
 
 Векторний ввід-вивід (Scatter-Gather I/O) дозволяє зчитувати дані у кілька розрізнених буферів пам'яті або відправляти дані з кількох буферів за один атомарний системний виклик, гарантуючи збереження порядку та цілісності передачі.
 
-```c
-#include <sys/uio.h>
-
-struct iovec {
-    void  *iov_base;    /* Початкова адреса буфера в пам'яті */
-    size_t iov_len;     /* Довжина буфера в байтах */
-};
-
-ssize_t readv(int fd, const struct iovec *iov, int iovcnt);
-ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
-
-ssize_t preadv2(int fd, const struct iovec *iov, int iovcnt,
-                off_t offset, int flags);
-ssize_t pwritev2(int fd, const struct iovec *iov, int iovcnt,
-                 off_t offset, int flags);
-```
+:::code api-io-cost-primitives/c/uio.h
 
 ### Обмеження ядра на розмір масиву `iovec`
 
@@ -138,35 +123,11 @@ ssize_t pwritev2(int fd, const struct iovec *iov, int iovcnt,
 
 ### Первинні системні виклики ядра
 
-```c
-#include <linux/io_uring.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-int io_uring_setup(u32 entries, struct io_uring_params *p);
-int io_uring_enter(unsigned int fd, unsigned int to_submit,
-                   unsigned int min_complete, unsigned int flags,
-                   sigset_t *sig);
-int io_uring_register(unsigned int fd, unsigned int opcode,
-                      void *arg, unsigned int nr_args);
-```
+:::code api-io-cost-primitives/c/io_uring.h
 
 ### Структура параметрів ініціалізації `struct io_uring_params`
 
-```c
-struct io_uring_params {
-    __u32 sq_entries;         /* Розмір черги надсилання (повертає ядро) */
-    __u32 cq_entries;         /* Розмір черги завершення (зазвичай 2 * sq_entries) */
-    __u32 flags;              /* Прапорці конфігурації рушія (IORING_SETUP_*) */
-    __u32 sq_thread_cpu;      /* Номер процесорного ядра для потоку SQPOLL */
-    __u32 sq_thread_idle;     /* Час простою потоку ядра в мс до засинання */
-    __u32 features;           /* Бітова маска підтримуваних функцій ядра */
-    __u32 wq_fd;              /* Дескриптор існуючого екземпляра для об'єднання пулу */
-    __u32 resv[3];            /* Зарезервовані поля */
-    struct io_sqring_offsets sq_off; /* Зміщення полів SQ для виклику mmap */
-    struct io_cqring_offsets cq_off; /* Зміщення полів CQ для виклику mmap */
-};
-```
+:::code api-io-cost-primitives/c/struktura-parametriv.c
 
 ### Основні прапорці налаштування `io_uring_setup`
 
@@ -184,38 +145,7 @@ struct io_uring_params {
 
 Кожен елемент SQE має фіксований розмір 64 байти та описує окрему операцію вводу-виводу:
 
-```c
-struct io_uring_sqe {
-    __u8   opcode;        /* Код операції (IORING_OP_*) */
-    __u8   flags;         /* Прапорці поведінки операції (IOSQE_*) */
-    __u16  ioprio;        /* Пріоритет вводу-виводу (IOPRIO_PRIO_VALUE) */
-    __s32  fd;            /* Файловий дескриптор або індекс фіксованого файлу */
-    union {
-        __u64  off;       /* Зміщення у файлі (offset) */
-        __u64  addr2;     /* Додаткова адреса для операцій типу splice */
-    };
-    union {
-        __u64  addr;      /* Покажчик на буфер або масив struct iovec */
-        __u64  splice_off_in;
-    };
-    __u32  len;           /* Довжина буфера або кількість векторів iovec */
-    union {
-        __kernel_rwf_t  rw_flags;     /* Прапорці RWF_* для читання/запису */
-        __u32           fsync_flags;  /* Прапорці IORING_FSYNC_* */
-        __u16           buf_index;    /* Індекс зареєстрованого буфера */
-        __u16           buf_group;    /* Група автоматично виділених буферів */
-    };
-    __u64  user_data;     /* 64-бітний ідентифікатор запиту користувача */
-    union {
-        struct {
-            __u16  buf_index;  /* Індекс буфера */
-            __u16  personality;/* Ідентифікатор прав доступу credentials */
-            __s32  splice_fd_in;
-        };
-        __u8   pad2[24];  /* Доповнення структури до 64 байтів */
-    };
-};
-```
+:::code api-io-cost-primitives/c/element-cherhy-nadsylannia.c
 
 ### Найважливіші коди операцій `opcode` (IORING_OP_*)
 
@@ -309,38 +239,7 @@ int ret = io_uring_register(ring_fd, IORING_REGISTER_BUFFERS, iov, 4);
 
 ### Ключові функції життєвого циклу `liburing`
 
-```c
-#include <liburing.h>
-
-/* Ініціалізація та знищення кільця */
-int io_uring_queue_init(unsigned entries, struct io_uring *ring, unsigned flags);
-void io_uring_queue_exit(struct io_uring *ring);
-
-/* Отримання вільного слота в SQ */
-struct io_uring_sqe *io_uring_get_sqe(struct io_uring *ring);
-
-/* Підготовка операцій (хелпери ініціалізації полів SQE) */
-void io_uring_prep_readv(struct io_uring_sqe *sqe, int fd,
-                         const struct iovec *iovecs, unsigned nr_vecs, off_t offset);
-void io_uring_prep_writev(struct io_uring_sqe *sqe, int fd,
-                          const struct iovec *iovecs, unsigned nr_vecs, off_t offset);
-void io_uring_prep_send(struct io_uring_sqe *sqe, int sockfd,
-                        const void *buf, size_t len, int flags);
-void io_uring_prep_recv(struct io_uring_sqe *sqe, int sockfd,
-                        void *buf, size_t len, int flags);
-void io_uring_prep_splice(struct io_uring_sqe *sqe, int fd_in, int64_t off_in,
-                          int fd_out, int64_t off_out, unsigned int nbytes,
-                          unsigned int splice_flags);
-
-/* Відправка завдань ядру */
-int io_uring_submit(struct io_uring *ring);
-int io_uring_submit_and_wait(struct io_uring *ring, unsigned wait_nr);
-
-/* Обробка результатів CQE */
-int io_uring_peek_cqe(struct io_uring *ring, struct io_uring_cqe **cqe_ptr);
-int io_uring_wait_cqe(struct io_uring *ring, struct io_uring_cqe **cqe_ptr);
-void io_uring_cqe_seen(struct io_uring *ring, struct io_uring_cqe *cqe);
-```
+:::code api-io-cost-primitives/c/liburing.h
 
 ### Правила роботи з CQE у циклі подій
 

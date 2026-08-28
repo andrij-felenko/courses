@@ -217,38 +217,8 @@ std::filesystem::rename("/etc/app/config.json.tmp", "/etc/app/config.json");
 **Правильний протокол гарантованого збереження:**
 
 :::tabs
-```c
-/* 1. Запис та скидання вмісту файлу */
-int fd = open("/etc/app/config.json.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-write(fd, data, len);
-fsync(fd);
-close(fd);
-
-/* 2. Атомарне перейменування */
-rename("/etc/app/config.json.tmp", "/etc/app/config.json");
-
-/* 3. Обов'язкова синхронізація дескриптора батьківського каталогу! */
-int dir_fd = open("/etc/app", O_RDONLY | O_DIRECTORY);
-fsync(dir_fd);
-close(dir_fd);
-```
-```cpp
-// 1. Запис і скидання вмісту файлу через RAII-дескриптор
-{
-    UniqueFd fd(::open("/etc/app/config.json.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644));
-    ::write(fd.get(), data.data(), data.size());
-    ::fsync(fd.get());
-}
-
-// 2. Атомарне перейменування у цільове ім'я
-std::filesystem::rename("/etc/app/config.json.tmp", "/etc/app/config.json");
-
-// 3. Обов'язкова синхронізація дескриптора батьківського каталогу
-{
-    UniqueFd dir_fd(::open("/etc/app", O_RDONLY | O_DIRECTORY));
-    ::fsync(dir_fd.get());
-}
-```
+:::code when-write-is-really-written-d/c/main.h
+:::code when-write-is-really-written-d/cpp/main.hpp
 :::
 
 ### 4. Пастки віртуалізації та хмарних дисків
@@ -280,22 +250,7 @@ std::filesystem::rename("/etc/app/config.json.tmp", "/etc/app/config.json");
 
 ### 1. Перевірка режиму кешу накопичувача через `sysfs` та утиліти
 
-```bash
-# Перевірка режиму кешу запису блокового пристрою
-cat /sys/block/nvme0n1/queue/write_cache
-# Вивід: "write back" (є летючий кеш) або "write through" (кеш вимкнено/наскрізний)
-
-# Перевірка апаратної підтримки FUA (Force Unit Access)
-cat /sys/block/nvme0n1/queue/fua
-# Вивід: 1 (підтримується апаратно) або 0 (емулюється через FLUSH)
-
-# Перевірка стану летючого кешу NVMe через nvme-cli (Feature 0x06)
-sudo nvme get-feature /dev/nvme0 -f 0x06
-# get-feature:0x06 (Volatile Write Cache), Current value:0x00000001 (кеш увімкнено)
-
-# Перевірка кешу SATA дисків через smartctl
-sudo smartctl -g wcache /dev/sda
-```
+:::code when-write-is-really-written-d/sh/main.sh
 
 ### 2. Трасування системних викликів і блокових бар'єрів
 

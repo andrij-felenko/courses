@@ -62,101 +62,8 @@
 Вихідний код програми використовує `config.h` для адаптації під можливості операційної системи через умовну компіляцію. Розглянемо приклад створення неблокуючого дескриптора файлу: якщо система підтримує сучасний атомарний прапорець `O_NONBLOCK | O_CLOEXEC` у системному виклику `open()`, код використовує його напряму; інакше він робить додатковий виклик `fcntl()`.
 
 :::tabs
-```c
-/* io_stream.c — C-реалізація з умовною компіляцією на базі config.h */
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-
-int open_nonblocking_stream(const char *path) {
-#if defined(HAVE_O_NONBLOCK) && defined(O_CLOEXEC)
-    /* Сучасне ядро Linux: відкриття з прапорцями за один системний виклик */
-    int fd = open(path, O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-    if (fd < 0) {
-        return -1;
-    }
-    return fd;
-#else
-    /* Застарілі POSIX-системи: fallback через два системні виклики */
-    int fd = open(path, O_RDONLY);
-    if (fd < 0) {
-        return -1;
-    }
-    int flags = fcntl(fd, F_GETFL, 0);
-    if (flags == -1 || fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-#endif
-}
-```
-```cpp
-// io_stream.cpp — Ідіоматична C++ реалізація з RAII та std::expected
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <string_view>
-#include <system_error>
-#include <expected>
-#include <fcntl.h>
-#include <unistd.h>
-
-class UniqueFd {
-    int fd_{-1};
-public:
-    explicit UniqueFd(int fd) noexcept : fd_{fd} {}
-    ~UniqueFd() noexcept {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-    UniqueFd(const UniqueFd&) = delete;
-    UniqueFd& operator=(const UniqueFd&) = delete;
-    UniqueFd(UniqueFd&& other) noexcept : fd_{other.fd_} {
-        other.fd_ = -1;
-    }
-    UniqueFd& operator=(UniqueFd&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) {
-                ::close(fd_);
-            }
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
-};
-
-std::expected<UniqueFd, std::error_code> open_nonblocking_stream(std::string_view path) {
-#if defined(HAVE_O_NONBLOCK) && defined(O_CLOEXEC)
-    int fd = ::open(path.data(), O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return UniqueFd{fd};
-#else
-    int fd = ::open(path.data(), O_RDONLY);
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    UniqueFd ufd{fd};
-    int flags = ::fcntl(ufd.get(), F_GETFL, 0);
-    if (flags == -1 || ::fcntl(ufd.get(), F_SETFL, flags | O_NONBLOCK) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return ufd;
-#endif
-}
-```
+:::code build-from-source-d/c/io_stream.c
+:::code build-from-source-d/cpp/io_stream.cpp
 :::
 
 #### Керування опціями конфігурації
@@ -254,19 +161,7 @@ CMake не компілює файли безпосередньо. Це гене
 
 Головний принцип роботи з CMake — **суворе відокремлення каталогу збірки від вихідного коду (*Out-of-source build*)**. Збирання проєкту безпосередньо у каталозі з джерельними кодами є застарілою антипрактикою, оскільки призводить до засмічення репозиторію тимчасовими файлами.
 
-```bash
-# 1. Конфігурація та генерація дерева збірки у теці build/
-cmake -B build -S . \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/opt/mytool \
-    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-# 2. Компіляція проєкту
-cmake --build build -j $(nproc)
-
-# 3. Інсталяція зібраних артефактів
-cmake --install build
-```
+:::code build-from-source-d/sh/3-1-heneratsiia-ta-zbirka.sh
 
 - Параметр `-B build` вказує каталог, куди записуватимуться всі артефакти збірки.
 - Параметр `-S .` вказує шлях до кореня вихідного коду (де знаходиться файл `CMakeLists.txt`).
@@ -290,22 +185,7 @@ Meson створено як відповідь на надмірну склад�
 
 Як низькорівневий рушій виконання Meson за замовчуванням використовує **Ninja** — утиліту збірки, спроєктовану розробниками Google Chrome для досягнення максимальної швидкості інкрементальної компіляції. На відміну від `make`, Ninja не займається складними обчисленнями чи перевіркою системних умов під час виконання: вона отримує повністю розгорнутий плоский граф компіляції `build.ninja` і виконує його паралельно з мінімальним споживанням системних ресурсів.
 
-```bash
-# 1. Конфігурація середовища збірки
-meson setup build \
-    --buildtype=release \
-    --prefix=/opt/mytool \
-    -Dstrip=true
-
-# 2. Компіляція через Ninja (автоматично використовує всі ядра CPU)
-ninja -C build
-
-# 3. Запуск автоматичних тестів проєкту
-meson test -C build
-
-# 4. Встановлення артефактів
-meson install -C build
-```
+:::code build-from-source-d/sh/3-2-vysokoproduktyvnyi.sh
 
 Ninja за замовчуванням задіює всі доступні ядра процесора, тому передавати прапорець `-j` вручну зазвичай не потрібно.
 
@@ -381,19 +261,7 @@ Libs: -L${libdir} -lssl -lcrypto
 
 Коли система збірки виконує перевірку, вона викликає утиліту `pkg-config` із відповідними запитами:
 
-```bash
-# Отримання прапорців препроцесора (шляхи пошуку заголовків):
-$ pkg-config --cflags openssl
--I/usr/include
-
-# Отримання прапорців лінкера (шляхи до бібліотек та прапорці зв'язування):
-$ pkg-config --libs openssl
--lssl -lcrypto
-
-# Перевірка версії бібліотеки:
-$ pkg-config --modversion openssl
-3.0.13
-```
+:::code build-from-source-d/sh/4-2-iak-vlashtovanyi.sh
 
 #### Тонкощі статичного лінкування: `Requires.private` та `Libs.private`
 

@@ -29,19 +29,7 @@
 
 Хоча перші три аргументи для `write` збігаються (`%rdi`, `%rsi`, `%rdx`), четвертий аргумент для викликів із чотирма й більше параметрами (наприклад `mmap` чи `readv`) компілятор кладе в `%rcx`, тоді як ядро чекає його в `%r10`. Головна дія обгортки — завантажити в регістр `%eax` число `1` — унікальний числовий номер системного виклику `SYS_write` на архітектурі x86-64.
 
-```asm
-; Асемблерний фрагмент обгортки __libc_write у glibc:
-        mov     $1, %eax        ; номер системного виклику SYS_write
-        syscall                 ; апаратний стрибок у кільце 0 (Ring 0)
-        cmp     $-4095, %rax    ; перевірка, чи результат є кодом помилки
-        jae     .L_error        ; якщо %rax in [-4095..-1], переходимо на обробку errno
-        ret                     ; повернення успіху (кількість записаних байтів у %rax)
-.L_error:
-        neg     %eax            ; перетворення від'ємного числа на додатний код
-        mov     %eax, %fs:__errno_location ; запис у пам'ять потоку (TLS)
-        mov     $-1, %rax       ; функція C повертає -1
-        ret
-```
+:::code tracing-one-call-d/asm/main.s
 
 Коли процесор доходить до інструкції `syscall`, простір користувача завершує свою роботу. Усі подальші інструкції виконуватимуться з найвищими апаратними привілеями.
 
@@ -115,27 +103,7 @@ struct files_struct {
 
 Функція `ksys_write` звертається до цієї таблиці за допомогою допоміжної функції `fdget_pos(fd)` (або `fget_light`). Процес пошуку структури відкритого файлу `struct file` відбувається за алгоритмом:
 
-```c
-/* Логіка перетворення fd -> struct file (спрощено) */
-struct fd fdget_pos(int fd)
-{
-    struct files_struct *files = current->files;
-    struct file *file = NULL;
-
-    if (fd < files->fdt->max_fds)
-        file = files->fdt->fd[fd]; /* для fd=1 беремо елемент із індексом 1 */
-
-    if (!file)
-        return (struct fd){ NULL, 0 };
-
-    /* Якщо файловий дескриптор використовується кількома потоками,
-     * блокуємо f_pos_lock для запобігання гонитви за позицію у файлі */
-    if (file->f_mode & FMODE_ATOMIC_POS)
-        mutex_lock(&file->f_pos_lock);
-
-    return (struct fd){ file, flags };
-}
-```
+:::code tracing-one-call-d/c/riven-2-vid-deskryptora-do.c
 
 Якщо дескриптор `1` не відкритий (наприклад, процес закрив `stdout` і не перевизначив його), функція `fdget_pos` повертає нульовий покажчик, і системний виклик негайно завершується з помилкою `-EBADF` (англ. *Bad File Descriptor* — недійсний файловий дескриптор), навіть не доходячи до VFS.
 
@@ -349,54 +317,8 @@ if (signal_pending(current))
 Ось чому надійний прикладний код ніколи не сподівається на запис усього буфера за один виклик, а огортає `write()` у цикл перезапису залишку:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <errno.h>
-
-ssize_t write_all(int fd, const void *buf, size_t count)
-{
-    size_t written = 0;
-    const char *ptr = (const char *)buf;
-
-    while (written < count) {
-        ssize_t res = write(fd, ptr + written, count - written);
-        if (res < 0) {
-            if (errno == EINTR)
-                continue; /* Переривання сигналом: повторюємо спробу */
-            return -1;    /* Справжня помилка: повертаємо невдачу */
-        }
-        if (res == 0)
-            break;        /* Неможливо записати далі */
-        written += (size_t)res;
-    }
-    return (ssize_t)written;
-}
-```
-```cpp
-#include <unistd.h>
-#include <cerrno>
-#include <span>
-#include <system_error>
-#include <expected>
-
-std::expected<size_t, std::error_code> write_all(int fd, std::span<const char> data)
-{
-    size_t written = 0;
-
-    while (written < data.size()) {
-        ssize_t res = ::write(fd, data.data() + written, data.size() - written);
-        if (res < 0) {
-            if (errno == EINTR)
-                continue; /* Переривання сигналом: повторюємо спробу */
-            return std::unexpected(std::error_code(errno, std::generic_category()));
-        }
-        if (res == 0)
-            break;
-        written += static_cast<size_t>(res);
-    }
-    return written;
-}
-```
+:::code tracing-one-call-d/c/shcho-vidbuvaietsia-u.c
+:::code tracing-one-call-d/cpp/main.cpp
 :::
 
 > 🔧 **Навіщо це.** Розуміння наскрізного шляху системного виклику — головний інструмент діагностики високонавантажених серверів і складних аварій. Коли утиліта `strace` показує, що `write()` повертає `EFAULT`, ви одразу знаєте: помилка виникла не в момент передачі аргументів, а на рівні `copy_from_user` всередині ядра через збій адреси. Коли трасування показує затримку у `write()`, ви знаєте, де шукати причину: у блокуванні `f_pos_lock` між потоками, у переповненні буфера TTY або в скиданні брудних сторінок Page Cache на повільний диск.

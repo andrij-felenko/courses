@@ -87,27 +87,7 @@ typedef struct variable {
     int context;             /* Рівень вкладеності / контекст функції */
 } SHELL_VAR;
 ```
-```cpp
-#include <string>
-#include <cstdint>
-
-namespace shell {
-// Концептуальне представлення змінної оболонки на C++
-struct ShellVariable {
-    enum Flags : uint32_t {
-        None = 0,
-        Exported = 1 << 0,
-        ReadOnly = 1 << 1,
-        Integer  = 1 << 2,
-        Array    = 1 << 3
-    };
-
-    std::string name;
-    std::string value;
-    uint32_t attributes{None};
-};
-}
-```
+:::code variable-did-not-reach-the-program-d/cpp/lokalni-zminni-obolonky.cpp
 :::
 
 Коли користувач вводить у командному рядку просте присвоєння:
@@ -137,22 +117,7 @@ if (var->attributes & att_exported) {
     /* Локальна змінна: повністю ігноруємо! Вона НЕ потрапляє до масиву envp */
 }
 ```
-```cpp
-#include <vector>
-#include <string>
-#include <format>
-
-// Фільтрація експортованих змінних на C++
-std::vector<std::string> build_export_environment(const std::vector<shell::ShellVariable>& var_table) {
-    std::vector<std::string> envp_strings;
-    for (const auto& var : var_table) {
-        if (var.attributes & shell::ShellVariable::Exported) {
-            envp_strings.push_back(std::format("{}={}", var.name, var.value));
-        }
-    }
-    return envp_strings;
-}
-```
+:::code variable-did-not-reach-the-program-d/cpp/lokalni-zminni-obolonky-2.cpp
 :::
 
 3. Оскільки змінна `DATABASE_URL` не мала встановленого біта `att_exported`, вона **пропускається** і не потрапляє до сформованого масиву `export_env`.
@@ -466,122 +431,8 @@ $2 = {"PATH=/usr/bin:/bin", "USER=alex", "HOME=/home/alex", "LANG=uk_UA.UTF-8", 
 Нижче наведено порівняння реалізації захищеного запуску мовами C та сучасного C++ (C++23):
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-int main(void) {
-    /* Встановлюємо локальну змінну процесу */
-    if (setenv("SERVICE_PORT", "9090", 1) != 0) {
-        perror("setenv");
-        return EXIT_FAILURE;
-    }
-
-    /* Формуємо явний білий список envp для дочірнього процесу */
-    char *child_env[] = {
-        "PATH=/usr/bin:/bin",
-        "SERVICE_PORT=9090",
-        "DATABASE_URL=postgres://db.internal:5432/app",
-        NULL /* Обов'язковий завершальний нульовий покажчик */
-    };
-
-    char *child_argv[] = { "printenv", NULL };
-
-    pid_t pid = fork();
-    if (pid == 0) {
-        /* Дочірній процес: виконуємо execve з власним масивом envp */
-        execve("/usr/bin/printenv", child_argv, child_env);
-        perror("execve");
-        _exit(127);
-    }
-
-    waitpid(pid, NULL, 0);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <format>
-#include <expected>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <cstring>
-
-namespace sys {
-
-[[nodiscard]] std::expected<int, std::string>
-run_with_custom_env(const std::string& path,
-                    const std::vector<std::string>& args,
-                    const std::vector<std::pair<std::string, std::string>>& env_map) {
-    // Формуємо рядки KEY=VALUE
-    std::vector<std::string> env_strings;
-    env_strings.reserve(env_map.size());
-    for (const auto& [k, v] : env_map) {
-        env_strings.push_back(std::format("{}={}", k, v));
-    }
-
-    // Формуємо масив покажчиків envp
-    std::vector<char*> raw_envp;
-    raw_envp.reserve(env_strings.size() + 1);
-    for (auto& s : env_strings) {
-        raw_envp.push_back(s.data());
-    }
-    raw_envp.push_back(nullptr);
-
-    // Формуємо масив покажчиків argv
-    std::vector<char*> raw_argv;
-    raw_argv.reserve(args.size() + 2);
-    std::string exec_path = path;
-    raw_argv.push_back(exec_path.data());
-    for (const auto& arg : args) {
-        raw_argv.push_back(const_cast<char*>(arg.c_str()));
-    }
-    raw_argv.push_back(nullptr);
-
-    pid_t pid = ::fork();
-    if (pid < 0) {
-        return std::unexpected(std::format("fork() failed: {}", std::strerror(errno)));
-    }
-
-    if (pid == 0) {
-        ::execve(exec_path.c_str(), raw_argv.data(), raw_envp.data());
-        std::cerr << std::format("execve failed: {}\n", std::strerror(errno));
-        ::_exit(127);
-    }
-
-    int status = 0;
-    if (::waitpid(pid, &status, 0) < 0) {
-        return std::unexpected(std::format("waitpid() failed: {}", std::strerror(errno)));
-    }
-
-    if (WIFEXITED(status)) {
-        return WEXITSTATUS(status);
-    }
-    return std::unexpected("Process terminated abnormally");
-}
-
-} // namespace sys
-
-int main() {
-    auto res = sys::run_with_custom_env("/usr/bin/printenv", {}, {
-        {"PATH", "/usr/bin:/bin"},
-        {"SERVICE_PORT", "9090"},
-        {"DATABASE_URL", "postgres://db.internal:5432/app"}
-    });
-
-    if (!res) {
-        std::cerr << "Error: " << res.error() << '\n';
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code variable-did-not-reach-the-program-d/c/main.c
+:::code variable-did-not-reach-the-program-d/cpp/prohramne-keruvannia.cpp
 :::
 
 Повну інженерну реалізацію системного лаунчера, який інспектує `/proc` у реальному часі та фільтрує небезпечні змінні, наведено у вставці [практичний інспектор середовища та лаунчер процесів](root:unix/variable-did-not-reach-the-program/proj-env-inspector.md).

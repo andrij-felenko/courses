@@ -328,33 +328,8 @@ Snap розроблений компанією Canonical і орієнтован
 Використання типу служби `Type=notify` у поєднанні з протоколом `sd_notify` вирішує цю задачу:
 
 :::tabs
-```c
-#include <systemd/sd-daemon.h>
-
-/* Повідомляємо systemd, що порт відкрито і сервіс готовий до роботи */
-void notify_systemd_ready(void) {
-    sd_notify(0, "READY=1\nSTATUS=Сервер обробляє клієнтські запити");
-}
-
-/* Періодичне надсилання сигналів сторожовому таймеру (Watchdog) */
-void notify_systemd_watchdog(void) {
-    sd_notify(0, "WATCHDOG=1");
-}
-```
-```cpp
-#include <systemd/sd-daemon.h>
-#include <string_view>
-
-// Сповіщення менеджера systemd засобами C++
-void notify_systemd_ready() noexcept {
-    ::sd_notify(0, "READY=1\nSTATUS=C++ Сервер готовий до роботи");
-}
-
-// Надсилання пульсу працездатності сторожовому таймеру
-void notify_systemd_watchdog() noexcept {
-    ::sd_notify(0, "WATCHDOG=1");
-}
-```
+:::code shipping-a-linux-app-d/c/main.c
+:::code shipping-a-linux-app-d/cpp/main.hpp
 :::
 
 Якщо служба зависне у нескінченному блокуючому циклі або взаємному блокуванні (*deadlock*) і перестане надсилати сигнал `WATCHDOG=1` протягом інтервалу `WatchdogSec`, `systemd` автоматично перезапустить аварійний процес.

@@ -31,18 +31,7 @@
 
 У ядрі Linux кожен процес описується структурою `task_struct`. Серед численних полів цієї структури міститься вказівник на структуру проксі просторів імен `struct nsproxy *nsproxy`. Ця структура містить вказівники на конкретні примірники підсистем ізоляції:
 
-```c
-struct nsproxy {
-    atomic_t count;
-    struct uts_namespace  *uts_ns;
-    struct ipc_namespace  *ipc_ns;
-    struct mnt_namespace  *mnt_ns;
-    struct pid_namespace  *pid_ns_for_children;
-    struct net            *net_ns;
-    struct time_namespace *time_ns;
-    struct cgroup_namespace *cgroup_ns;
-};
-```
+:::code container-from-primitives-d/c/1-rozmezhuvannia-prostoru.c
 
 Коли процес народжується через системний виклик `fork()`, він за замовчуванням успадковує той самий вказівник `nsproxy`, що й батьківський процес, поділяючи з ним усі глобальні таблиці ядра. Проте якщо викликати `clone()` зі спеціальними прапорцями `CLONE_NEW*`, ядро виділяє для нового процесу свіжі структури просторів імен.
 
@@ -156,22 +145,7 @@ uts    -> 'uts:[4026531838]'
 Існує класичний спосіб втечі з `chroot`, доступний будь-якому процесу з правами `root`:
 
 :::tabs
-```c
-/* Відкриваємо дескриптор на поточний робочий каталог до обмеження */
-int fd = open(".", O_RDONLY);
-
-/* Замикаємо процес у підкаталозі */
-chroot("/tmp/jail");
-
-/* Використовуємо відкритий дескриптор для виходу за межі кореня */
-fchdir(fd);
-
-/* Піднімаємося вгору по дереву хоста */
-for (int i = 0; i < 50; i++) {
-    chdir("..");
-}
-chroot(".");
-```
+:::code container-from-primitives-d/c/chomu-chroot-ie-diriavym.c
 ```cpp
 // C++ еквівалент демонстрації втечі з chroot
 int fd = open(".", O_RDONLY);
@@ -346,29 +320,7 @@ full avg10=0.00 avg60=0.00 avg300=0.00 total=0
 
 Після цього процес завантажує BPF-байткод, який перевіряє номер системного виклику за чорним або білим списком:
 
-```c
-struct sock_filter filter[] = {
-    /* Перевірка архітектури процесора */
-    BPF_STMT(BPF_LD | BPF_W | BPF_ABS, (offsetof(struct seccomp_data, arch))),
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, AUDIT_ARCH_X86_64, 1, 0),
-    BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL_PROCESS),
-
-    /* Завантаження номера виклику */
-    BPF_STMT(BPF_LD | BPF_W | BPF_ABS, (offsetof(struct seccomp_data, nr))),
-
-    /* Блокування небезпечних викликів */
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_reboot, 4, 0),
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_kexec_load, 3, 0),
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_init_module, 2, 0),
-    BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_swapon, 1, 0),
-
-    /* Дозволити всі інші системні виклики */
-    BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
-
-    /* Заблоковані виклики повертають помилку EPERM */
-    BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ERRNO | (EPERM & 0xffff))
-};
-```
+:::code container-from-primitives-d/c/filtratsiia-vyklykiv.c
 
 Коли програма всередині контейнера намагається виконати виклик `reboot()`, ядро зупиняє обробку виклику ще до виконання коду драйвера і миттєво повертає застосунку стандартну помилку `EPERM` (*Operation not permitted*).
 

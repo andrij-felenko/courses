@@ -72,36 +72,9 @@ ptrace: Operation not permitted.
 
 :::tabs
 @tab C
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/prctl.h>
-
-void enable_debugging_access(void) {
-    // Дозволяємо будь-якому процесу з тим самим UID підключатися через ptrace
-    if (prctl(PR_SET_PTRACER, PR_SET_PTRACER_ANY, 0, 0, 0) == -1) {
-        perror("Помилка налаштування PR_SET_PTRACER");
-    } else {
-        printf("Процес (PID: %d) відкритий для підключення GDB\n", getpid());
-    }
-}
-```
+:::code live-debug-session-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <system_error>
-#include <unistd.h>
-#include <sys/prctl.h>
-
-void enable_debugging_access() {
-    // Дозволяємо будь-якому процесу з тим самим UID підключатися через ptrace
-    if (prctl(PR_SET_PTRACER, PR_SET_PTRACER_ANY, 0, 0, 0) == -1) {
-        throw std::system_error(errno, std::generic_category(), "Помилка налаштування PR_SET_PTRACER");
-    }
-    std::cout << "Процес (PID: " << getpid() << ") відкритий для підключення GDB\n";
-}
-```
+:::code live-debug-session-d/cpp/main.cpp
 :::
 
 У виробничих середовищах із контейнеризацією (Docker, Kubernetes) процеси всередині контейнера за замовчуванням позбавлені привілею `CAP_SYS_PTRACE`. Спроба виконати `gdb -p` всередині контейнера завершиться помилкою `Operation not permitted`, навіть під користувачем `root`. Для ввімкнення можливості діагностики контейнер слід запускати з прапорцем `--cap-add=SYS_PTRACE` або підключатися з хостової системи, де адміністратор має повні права над просторами імен.

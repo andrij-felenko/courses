@@ -168,23 +168,7 @@ grub rescue> normal
 
 #### Діагностика в консолі BusyBox
 
-```bash
-# 1. Перевірка очікуваного ядром UUID
-cat /proc/cmdline
-
-# 2. Перегляд реальних UUID виявлених дисків
-blkid
-
-# 3. Перевірка наявності блокових пристроїв у ядрі
-cat /proc/partitions
-
-# 4. Якщо диск зашифрований LUKS — ручне відкриття контейнера
-cryptsetup luksOpen /dev/nvme0n1p3 cryptroot
-
-# 5. Якщо використовується LVM — сканування та активація томів
-lvm vgscan
-lvm vgchange -ay
-```
+:::code machine-will-not-boot-d/sh/diahnostyka-v-konsoli.sh
 
 Якщо кореневий розділ вдалося знайти або вручну розблокувати, адміністратор монтує його в точку `/root` (для Debian/Ubuntu) або `/sysroot` (для RHEL) і виходить з оболонки командою `exit`. Ядро підхоплює змонтований корінь і продовжує штатне завантаження.
 
@@ -230,26 +214,7 @@ lvm vgchange -ay
 
 #### Алгоритм виправлення на місці
 
-```bash
-# 1. Локалізація причини збою в системному журналі
-journalctl -xb | grep -iE "mount|failed|timed out"
-
-# 2. Визначення збійного юніта
-systemctl --failed
-
-# 3. Переведення кореневого розділу в режим читання-запису (Read-Write)
-mount -o remount,rw /
-
-# 4. Редагування файлу /etc/fstab
-# Необхідно або виправити помилковий UUID, або додати опцію nofail:
-# UUID=xxxx-xxxx /data ext4 defaults,nofail,x-systemd.device-timeout=5s 0 2
-
-# 5. Перезавантаження конфігурації генераторів systemd
-systemctl daemon-reload
-
-# 6. Продовження нормального завантаження без перезавантаження ОС
-systemctl default
-```
+:::code machine-will-not-boot-d/sh/alhorytm-vypravlennia-na.sh
 
 ---
 
@@ -261,23 +226,7 @@ systemctl default
 
 ### Відновлення багаторівневих сховищ
 
-```bash
-# 1. Виявлення фізичних накопичувачів
-lsblk -f
-
-# 2. Збирання програмного RAID (якщо використовується mdadm)
-mdadm --assemble --scan
-
-# 3. Відкриття зашифрованих томів LUKS
-cryptsetup luksOpen /dev/nvme0n1p3 cryptroot
-
-# 4. Активація логічних томів LVM
-vgscan
-vgchange -ay
-
-# 5. Перевірка цілісності кореневої ФС перед монтуванням
-e2fsck -f /dev/mapper/vg0-root
-```
+:::code machine-will-not-boot-d/sh/vidnovlennia.sh
 
 Якщо використовується файлова система XFS із пошкодженим транзакційним журналом, перевірка виконується утилітою `xfs_repair`. У критичних випадках, коли журнал пошкоджено невідновно, прапорець `-L` очищає журнал, дозволяючи змонтувати розділ ціною втрати останніх незафіксованих транзакцій:
 
@@ -320,20 +269,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 3. **`devtmpfs` (`/dev`):** Містить спеціальні файли символьних і блокових пристроїв (`/dev/nvme*`, `/dev/null`, `/dev/urandom`, вузли псевдотерміналів `/dev/pts`).
 4. **`tmpfs` (`/run`):** Зберігає динамічний стан системних підсистем простору користувача: базу виявлених пристроїв `udev` (`/run/udev`), сокети блокування LVM та стан `cryptsetup`.
 
-```bash
-# Монтування procfs
-mount -t proc proc /mnt/proc
-
-# Рекурсивне зв'язування sysfs, devtmpfs та run
-mount --rbind /sys /mnt/sys
-mount --make-rslave /mnt/sys
-
-mount --rbind /dev /mnt/dev
-mount --make-rslave /mnt/dev
-
-mount --rbind /run /mnt/run
-mount --make-rslave /mnt/run
-```
+:::code machine-will-not-boot-d/sh/krok-2-montuvannia-psevdo.sh
 
 ### Механізм розповсюдження монтування та необхідність `--make-rslave`
 
@@ -421,20 +357,7 @@ mkinitcpio -P
 
 Якщо було пошкоджено файли завантажувача в розділі ESP або скинуто енергонезалежну пам'ять материнської плати, виконують повне перевстановлення GRUB:
 
-```bash
-# 1. Перевірка доступності змінних UEFI
-ls -la /sys/firmware/efi/efivars
-
-# 2. Встановлення двійкових файлів завантажувача у розділ ESP та оновлення NVRAM
-grub-install --target=x86_64-efi \
-             --efi-directory=/boot/efi \
-             --bootloader-id=GRUB \
-             --recheck
-
-# 3. Створення нового конфігураційного файлу меню завантаження
-update-grub                              # для Debian / Ubuntu
-grub-mkconfig -o /boot/grub/grub.cfg     # для RHEL / Arch Linux
-```
+:::code machine-will-not-boot-d/sh/3-perevstanovlennia.sh
 
 Перевірити статус завантажувальних записів у пам'яті NVRAM материнської плати можна командою `efibootmgr`:
 
@@ -521,23 +444,7 @@ dnf reinstall -y kernel-core kernel-modules
 
 Послідовність безпечного завершення сеансу:
 
-```bash
-# 1. Вихід із середовища chroot
-exit
-
-# 2. Рекурсивне розмонтування всіх змонтованих ресурсів
-umount -R /mnt
-
-# 3. Скидання всіх кешів запису ядра на фізичні накопичувачі
-sync
-
-# 4. Деактивація груп томів LVM та закриття криптоконтейнерів
-vgchange -an
-cryptsetup luksClose cryptroot
-
-# 5. Штатний перезапуск системи
-reboot
-```
+:::code machine-will-not-boot-d/sh/vykhid-iz-seredovyshcha.sh
 
 ---
 

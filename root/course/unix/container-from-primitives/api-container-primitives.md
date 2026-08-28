@@ -8,18 +8,7 @@
 
 #### 1.1. Створення процесу з новими просторами: `clone` та `clone3`
 
-```c
-#define _GNU_SOURCE
-#include <sched.h>
-
-int clone(int (*fn)(void *), void *stack, int flags, void *arg, ...
-          /* pid_t *parent_tid, void *tls, pid_t *child_tid */);
-
-#include <linux/sched.h>
-#include <sys/syscall.h>
-
-long syscall(SYS_clone3, struct clone_args *cl_args, size_t size);
-```
+:::code api-container-primitives/c/sched.h
 
 | Прапорець | Числове значення | Ізольований ресурс ядра | Вимоги до привілеїв |
 | :--- | :--- | :--- | :--- |
@@ -36,21 +25,7 @@ long syscall(SYS_clone3, struct clone_args *cl_args, size_t size);
 
 У системному виклику `clone3` конфігурація передається через структуру:
 
-```c
-struct clone_args {
-    __aligned_u64 flags;        /* Прапорці CLONE_* */
-    __aligned_u64 pidfd;        /* Вказівник для повернення файлового дескриптора процесу */
-    __aligned_u64 child_tid;    /* Вказівник на TID у дочірній пам'яті */
-    __aligned_u64 parent_tid;   /* Вказівник на TID у батьківській пам'яті */
-    __aligned_u64 exit_signal;  /* Сигнал завершення (SIGCHLD) */
-    __aligned_u64 stack;        /* Початок пам'яті стека */
-    __aligned_u64 stack_size;   /* Розмір виділеного стека */
-    __aligned_u64 tls;          /* Вказівник на сегмент Thread-Local Storage */
-    __aligned_u64 set_tid;      /* Масив бажаних PID у вкладених просторах */
-    __aligned_u64 set_tid_size; /* Кількість елементів у set_tid */
-    __aligned_u64 cgroup;       /* Файловий дескриптор цільової cgroup v2 */
-};
-```
+:::code api-container-primitives/c/1-1-stvorennia-protsesu-z.c
 
 Типові коди помилок `clone` / `clone3`:
 * `EPERM`: Викликаючий процес не має `CAP_SYS_ADMIN` у поточному просторі користувача для зазначеного прапорця.
@@ -296,19 +271,7 @@ int seccomp(unsigned int operation, unsigned int flags, void *args);
 
 Структури опису BPF-програми:
 
-```c
-struct sock_filter {
-    __u16 code;   /* Код інструкції cBPF (клас, розмір, режим адресації) */
-    __u8  jt;     /* Зсув переходу при істинній умові (jump true) */
-    __u8  jf;     /* Зсув переходу при хибній умові (jump false) */
-    __u32 k;      /* Багатоцільове поле (константа, зсув або значення для порівняння) */
-};
-
-struct sock_fprog {
-    unsigned short len;            /* Кількість інструкцій у масиві filter */
-    struct sock_filter *filter;    /* Вказівник на масив BPF-інструкцій */
-};
-```
+:::code api-container-primitives/c/5-2-systemnyi-vyklyk.c
 
 Дані, що передаються BPF-фільтру ядром під час кожного системного виклику (`struct seccomp_data`):
 
@@ -363,24 +326,7 @@ echo "0 100000 65536" > /proc/[pid]/uid_map
 
 Мережева ізоляція нового `netns` вимагає встановлення зв'язку між ізольованим стеком і мережею хоста. Це реалізується через пару віртуальних інтерфейсів (*veth pair*) за допомогою системних сокетів `NETLINK_ROUTE` або утиліти `ip link`:
 
-```bash
-# 1. Створення пари віртуальних кабелів
-ip link add veth-host type veth peer name veth-guest
-
-# 2. Переміщення кінця кабелю veth-guest у простір імен цільового процесу PID
-ip link set veth-guest netns <PID>
-
-# 3. Прив'язка veth-host до хостового мосту br0
-ip link set veth-host master br0
-ip link set veth-host up
-
-# 4. Налаштування інтерфейсу всередині простору імен контейнера
-ip netns exec <ім'я_простору> ip addr add 10.0.0.2/24 dev veth-guest
-ip netns exec <ім'я_простору> ip link set veth-guest name eth0
-ip netns exec <ім'я_простору> ip link set eth0 up
-ip netns exec <ім'я_простору> ip link set lo up
-ip netns exec <ім'я_простору> ip route add default via 10.0.0.1
-```
+:::code api-container-primitives/sh/main.sh
 
 ---
 

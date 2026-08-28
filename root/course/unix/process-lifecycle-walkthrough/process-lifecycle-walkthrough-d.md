@@ -172,44 +172,8 @@ fork / clone3
 Єдино правильний шаблон обробки сигналу `SIGCHLD` полягає у виклику `waitpid` у неблокувальному циклі з прапорцем `WNOHANG`:
 
 :::tabs
-```c
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <errno.h>
-
-static void sigchld_handler(int sig) {
-    (void)sig;
-    int saved_errno = errno; /* обробник сигналу зобов'язаний зберегти errno */
-    pid_t pid;
-    int status;
-
-    /* Вичищаємо ВСІХ дітей, що встигли завершитися до цього моменту */
-    while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-        /* Обробка результату pid і status */
-    }
-
-    errno = saved_errno;
-}
-```
-```cpp
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <csignal>
-#include <cerrno>
-
-extern "C" void sigchld_handler(int sig) noexcept {
-    const int saved_errno = errno;
-    int status = 0;
-
-    // Збираємо коди виходу всіх готових дочірніх процесів без блокування
-    while (::waitpid(-1, &status, WNOHANG) > 0) {
-        // Конкретна реакція на завершення процесу
-    }
-
-    errno = saved_errno;
-}
-```
+:::code process-lifecycle-walkthrough-d/c/pastka-zlyttia-syhnaliv.c
+:::code process-lifecycle-walkthrough-d/cpp/pastka-zlyttia-syhnaliv.cpp
 :::
 
 ## Фаза 5: Прибирання — waitpid та функція release_task
@@ -248,33 +212,8 @@ waitpid() у батька
 Якщо батьківському процесу взагалі не потрібні результати роботи дітей і він не бажає займатися викликами `waitpid`, він може явно наказати ядру прибирати дітей автоматично:
 
 :::tabs
-```c
-#include <signal.h>
-#include <stddef.h>
-
-void disable_zombies(void) {
-    struct sigaction sa;
-    sa.sa_handler = SIG_IGN;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_NOCLDWAIT; /* ядро автоматично знищує зомбі, не турбуючи батька */
-    sigaction(SIGCHLD, &sa, NULL);
-}
-```
-```cpp
-#include <csignal>
-#include <cstddef>
-#include <system_error>
-
-void disable_zombies() {
-    struct sigaction sa{};
-    sa.sa_handler = SIG_IGN;
-    ::sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_NOCLDWAIT; // автоматичне прибирання зомбі ядром
-    if (::sigaction(SIGCHLD, &sa, nullptr) == -1) {
-        throw std::system_error(errno, std::generic_category(), "sigaction failed");
-    }
-}
-```
+:::code process-lifecycle-walkthrough-d/c/avtomatychne-prybyrannia.c
+:::code process-lifecycle-walkthrough-d/cpp/avtomatychne-prybyrannia.cpp
 :::
 
 Коли для сигналу `SIGCHLD` встановлено прапорець `SA_NOCLDWAIT` або дію `SIG_IGN`, функція `exit_notify()` під час завершення дитини одразу встановлює стан `EXIT_DEAD` і негайно викликає `release_task()`, оминаючи стан `EXIT_ZOMBIE`. Дитина зникає миттєво.
@@ -304,31 +243,8 @@ void disable_zombies() {
 Починаючи з версії Linux 3.4, будь-який процес-наглядач може викликати команду оголошення субрепером:
 
 :::tabs
-```c
-#include <sys/prctl.h>
-#include <stdio.h>
-
-int make_subreaper(void) {
-    /* Оголошуємо поточний процес прибирачем усіх сиріт у своєму піддереві */
-    if (prctl(PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0) == -1) {
-        perror("prctl PR_SET_CHILD_SUBREAPER");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <sys/prctl.h>
-#include <system_error>
-#include <cerrno>
-
-void make_subreaper() {
-    // Оголошуємо поточний процес субрепером у піддереві нащадків
-    if (::prctl(PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0) == -1) {
-        throw std::system_error(errno, std::generic_category(), "prctl PR_SET_CHILD_SUBREAPER failed");
-    }
-}
-```
+:::code process-lifecycle-walkthrough-d/c/navishcho-potribni.c
+:::code process-lifecycle-walkthrough-d/cpp/navishcho-potribni.cpp
 :::
 
 Після цього всі процеси, запущені в його піддереві, у разі осиротіння будуть перепідпорядковуватися саме цьому наглядачеві, а не PID 1. Саме так працює `systemd --user` та контейнерні рушії: вони ізолюють життєвий цикл процесів усередині своєї сесії.
@@ -354,139 +270,8 @@ void make_subreaper() {
 Щоб побачити всі фази життєвого циклу на практиці, реалізуємо надійний процес-супервізор. Він демонструє коректне створення процесу через `fork`, моніторинг його стану, перехоплення смерті через `waitid` та запобігання витоку зомбі.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <string.h>
-#include <errno.h>
-
-int main(void) {
-    printf("[Батько PID %d] Запуск життєвого циклу процесу...\n", getpid());
-
-    pid_t pid = fork();
-
-    if (pid < 0) {
-        perror("fork помилка");
-        return EXIT_FAILURE;
-    }
-
-    if (pid == 0) {
-        /* Фаза 1 і 2: Дитина народилася й виконує роботу */
-        printf("  [Дитина PID %d] Я народилася! Мій батько PPID = %d\n", getpid(), getppid());
-        printf("  [Дитина PID %d] Працюю (стан TASK_RUNNING)...\n", getpid());
-        usleep(100000); /* 100 мс активності */
-
-        printf("  [Дитина PID %d] Засинаю в TASK_INTERRUPTIBLE на 1 секунду...\n", getpid());
-        sleep(1);
-
-        printf("  [Дитина PID %d] Завершуюся через exit(42)...\n", getpid());
-        exit(42); /* Фаза 3: Перехід у do_exit() */
-    }
-
-    /* Батьківський процес */
-    printf("[Батько PID %d] Дитину створено з PID %d. Чекаю 2 секунди...\n", getpid(), pid);
-    sleep(2); /* Дитина вже завершилася й чекає у стані EXIT_ZOMBIE (Фаза 4) */
-
-    printf("[Батько PID %d] Викликаю waitid() для збирання статусу (Фаза 5)...\n", getpid());
-
-    siginfo_t info;
-    memset(&info, 0, sizeof(info));
-
-    /* Використовуємо waitid для отримання детальної структури siginfo_t */
-    if (waitid(P_PID, (id_t)pid, &info, WEXITED) == -1) {
-        perror("waitid помилка");
-        return EXIT_FAILURE;
-    }
-
-    if (info.si_code == CLD_EXITED) {
-        printf("[Батько PID %d] Дитина PID %d успішно прибрана! Код виходу = %d\n",
-               getpid(), info.si_pid, info.si_status);
-    } else if (info.si_code == CLD_KILLED || info.si_code == CLD_DUMPED) {
-        printf("[Батько PID %d] Дитина PID %d загинула від сигналу %d\n",
-               getpid(), info.si_pid, info.si_status);
-    }
-
-    printf("[Батько PID %d] task_struct знищено, PID %d вивільнено. Роботу завершено.\n",
-           getpid(), pid);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <iostream>
-#include <format>
-#include <chrono>
-#include <thread>
-#include <system_error>
-#include <cstring>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-
-class ProcessSupervisor {
-public:
-    static void run_lifecycle_demo() {
-        std::cout << std::format("[Батько PID {}] Запуск життєвого циклу процесу...\n", ::getpid());
-
-        const pid_t pid = ::fork();
-
-        if (pid < 0) {
-            throw std::system_error(errno, std::generic_category(), "Помилка виклику fork");
-        }
-
-        if (pid == 0) {
-            // Дитина: Фаза 1 і 2
-            std::cout << std::format("  [Дитина PID {}] Я народилася! Батько PPID = {}\n",
-                                     ::getpid(), ::getppid());
-            std::cout << std::format("  [Дитина PID {}] Працюю (TASK_RUNNING)...\n", ::getpid());
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-            std::cout << std::format("  [Дитина PID {}] Сон (TASK_INTERRUPTIBLE)...\n", ::getpid());
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-
-            std::cout << std::format("  [Дитина PID {}] Завершення exit(42)...\n", ::getpid());
-            std::_Exit(42); // Фаза 3: вхід у do_exit()
-        }
-
-        // Батьківський процес
-        std::cout << std::format("[Батько PID {}] Дитину створено: PID {}. Чекаю 2 с...\n",
-                                 ::getpid(), pid);
-        std::this_thread::sleep_for(std::chrono::seconds(2)); // Дитина стає зомбі (Фаза 4)
-
-        std::cout << std::format("[Батько PID {}] Прибирання через waitid() (Фаза 5)...\n",
-                                 ::getpid());
-
-        siginfo_t info{};
-        if (::waitid(P_PID, static_cast<id_t>(pid), &info, WEXITED) == -1) {
-            throw std::system_error(errno, std::generic_category(), "Помилка виклику waitid");
-        }
-
-        if (info.si_code == CLD_EXITED) {
-            std::cout << std::format("[Батько PID {}] Дитина PID {} прибрана. Код виходу = {}\n",
-                                     ::getpid(), info.si_pid, info.si_status);
-        } else {
-            std::cout << std::format("[Батько PID {}] Дитина PID {} завершилася сигналом {}\n",
-                                     ::getpid(), info.si_pid, info.si_status);
-        }
-
-        std::cout << std::format("[Батько PID {}] Ресурси вивільнено, завершення.\n", ::getpid());
-    }
-};
-
-int main() {
-    try {
-        ProcessSupervisor::run_lifecycle_demo();
-        return 0;
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка супервізора: " << ex.what() << '\n';
-        return 1;
-    }
-}
-```
+:::code process-lifecycle-walkthrough-d/c/praktykum-sposterezhennia.c
+:::code process-lifecycle-walkthrough-d/cpp/praktykum-sposterezhennia.cpp
 :::
 
 ### Спостереження за життєвим циклом через трасувальні точки ядра
@@ -500,24 +285,7 @@ int main() {
 
 Однорядковий скрипт `bpftrace` дозволяє наочно простежити повний життєвий шлях процесу від першого до останнього такту:
 
-```bash
-sudo bpftrace -e '
-tracepoint:sched:sched_process_fork {
-    printf("[FORK] Батько %s (%d) породив дитину %s (%d)\n",
-           args->parent_comm, args->parent_pid, args->child_comm, args->child_pid);
-}
-tracepoint:sched:sched_process_exec {
-    printf("[EXEC] Процес %d запустив файл %s\n", pid, args->filename);
-}
-tracepoint:sched:sched_process_exit {
-    printf("[EXIT] Процес %s (%d) завершується (код %d)\n",
-           comm, pid, curtask->exit_code >> 8);
-}
-tracepoint:sched:sched_process_free {
-    printf("[FREE] Дескриптор task_struct процесу %d остаточно знищено (reaped)\n",
-           args->pid);
-}'
-```
+:::code process-lifecycle-walkthrough-d/sh/main.sh
 
 ## Діагностичний чекліст: пошук аномалій життєвого циклу
 

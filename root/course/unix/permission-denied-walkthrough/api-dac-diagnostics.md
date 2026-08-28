@@ -16,28 +16,7 @@
 
 Нижче наведено основні поля структури `cred`:
 
-```c
-struct cred {
-    atomic_t        usage;
-    kuid_t          uid;            /* Реальний ідентифікатор користувача (ruid) */
-    kgid_t          gid;            /* Реальний ідентифікатор групи (rgid) */
-    kuid_t          suid;           /* Збережений ідентифікатор користувача (suid) */
-    kgid_t          sgid;           /* Збережений ідентифікатор групи (sgid) */
-    kuid_t          euid;           /* Ефективний ідентифікатор користувача (euid) */
-    kgid_t          egid;           /* Ефективний ідентифікатор групи (egid) */
-    kuid_t          fsuid;          /* Ідентифікатор користувача для файлової системи (fsuid) */
-    kgid_t          fsgid;          /* Ідентифікатор групи для файлової системи (fsgid) */
-    unsigned        securebits;     /* Прапорці фіксації привілеїв (SECURE_* прапорці) */
-    kernel_cap_t    cap_inheritable;/* Capabilities, що успадковуються через execve */
-    kernel_cap_t    cap_permitted;  /* Дозволені capabilities (максимальний набір) */
-    kernel_cap_t    cap_effective;  /* Активні capabilities, що перевіряються ядром */
-    kernel_cap_t    cap_bset;       /* Обмежувальний набір (bounding set) */
-    kernel_cap_t    cap_ambient;    /* Амбієнтні capabilities для не-привілейованих бінарників */
-    struct group_info *group_info;  /* Масив додаткових числових GID (Supplementary Groups) */
-    struct user_struct *user;       /* Статистика споживання ресурсів користувачем */
-    struct user_namespace *user_ns; /* Простір імен користувачів (User Namespace) */
-};
-```
+:::code api-dac-diagnostics/c/struktura-oblikovykh.c
 
 Поля `kuid_t` та `kgid_t` є спеціальними безпечними типами ядра (структурами з одним числовим полем `val`), що запобігають випадковому прямому змішуванню внутрішніх ідентифікаторів просторів імен з числовими значеннями простору користувача.
 
@@ -45,18 +24,7 @@ struct cred {
 
 Об'єкт `struct inode` (файл `<linux/fs.h>`) представляє метадані файлу на рівні VFS:
 
-```c
-struct inode {
-    umode_t         i_mode;         /* Тип файлу (4 біти) + Права доступу (12 бітів) */
-    kuid_t          i_uid;          /* Числовий UID власника об'єкта */
-    kgid_t          i_gid;          /* Числовий GID групи об'єкта */
-    const struct inode_operations *i_op; /* Таблиця методів inode (зокрема i_op->permission) */
-    struct super_block *i_sb;       /* Вказівник на суперблок файлової системи */
-    unsigned long   i_flags;        /* Системні прапорці файлу (S_IMMUTABLE, S_APPEND тощо) */
-    atomic_t        i_count;        /* Лічильник посилань на структуру в пам'яті */
-    unsigned int    i_nlink;        /* Кількість жорстких посилань на диску */
-};
-```
+:::code api-dac-diagnostics/c/struktura-failovoho-vuzla.c
 
 Поле `i_mode` кодує як формат об'єкта (звичайний файл `S_IFREG`, каталог `S_IFDIR`, сокет `S_IFSOCK`, символьне посилання `S_IFLNK`), так і дванадцять бітів прав: три спеціальні біти (`S_ISUID`, `S_ISGID`, `S_ISVTX`) та дев'ять бітів матриці `rwx` (`S_IRWXU`, `S_IRWXG`, `S_IRWXO`).
 
@@ -132,19 +100,7 @@ int may_delete(struct mnt_idmap *idmap, struct inode *dir, struct dentry *victim
 
 Починаючи з версії Linux 5.6, підсистема VFS підтримує системний виклик `openat2()`, який дозволяє процесу жорстко контролювати правила обходу шляхів для захисту від атак гонитви (TOCTOU) та підміни каталогів.
 
-```c
-#include <fcntl.h>
-#include <linux/openat2.h>
-#include <sys/syscall.h>
-
-struct open_how {
-    __u64 flags;        /* Прапорці відкриття (O_RDONLY, O_CREAT, O_CLOEXEC тощо) */
-    __u64 mode;         /* Права створення файлу (0644) */
-    __u64 resolve;      /* Прапорці поведінки розбору шляху (RESOLVE_*) */
-};
-
-int openat2(int dirfd, const char *pathname, struct open_how *how, size_t size);
-```
+:::code api-dac-diagnostics/c/3-suchasnyi-interfeis.c
 
 ### Прапорці керування розбором шляху (`how->resolve`)
 
@@ -297,149 +253,8 @@ int setfsuid(uid_t fsuid);
 Нижче наведено закінчений програмний приклад, який отримує всі ідентифікатори активного процесу та виконує перевірку прав доступу до вказаного файлу за моделлю ефективних привілеїв (`AT_EACCESS`).
 
 :::tabs
-```c
-/* dac_inspect.c — Діагностика ідентичності та перевірка прав доступу на C */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-void print_credentials(void) {
-    uid_t ruid, euid, suid;
-    gid_t rgid, egid, sgid;
-
-    if (getresuid(&ruid, &euid, &suid) != 0 || getresgid(&rgid, &egid, &sgid) != 0) {
-        perror("getresuid/getresgid");
-        return;
-    }
-
-    int ngroups = getgroups(0, NULL);
-    gid_t *groups = NULL;
-    if (ngroups > 0) {
-        groups = malloc(sizeof(gid_t) * ngroups);
-        if (groups && getgroups(ngroups, groups) < 0) {
-            free(groups);
-            groups = NULL;
-            ngroups = 0;
-        }
-    }
-
-    printf("Ідентичність процесу [PID %d]:\n", getpid());
-    printf("  UID: real=%u, effective=%u, saved=%u\n", ruid, euid, suid);
-    printf("  GID: real=%u, effective=%u, saved=%u\n", rgid, egid, sgid);
-    printf("  Додаткові групи (%d): ", ngroups);
-    for (int i = 0; i < ngroups; ++i) {
-        printf("%u ", groups[i]);
-    }
-    printf("\n");
-    free(groups);
-}
-
-int check_access_effective(const char *path, int mode) {
-    if (faccessat(AT_FDCWD, path, mode, AT_EACCESS) == 0) {
-        return 0;
-    }
-    return errno;
-}
-
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        fprintf(stderr, "Використання: %s <шлях_до_файлу>\n", argv[0]);
-        return 1;
-    }
-
-    print_credentials();
-
-    const char *target = argv[1];
-    printf("\nПеревірка доступу до '%s' (faccessat з AT_EACCESS):\n", target);
-
-    int err_r = check_access_effective(target, R_OK);
-    int err_w = check_access_effective(target, W_OK);
-    int err_x = check_access_effective(target, X_OK);
-
-    printf("  Читання (R_OK):   %s\n", err_r == 0 ? "ДОЗВОЛЕНО" : strerror(err_r));
-    printf("  Запис (W_OK):     %s\n", err_w == 0 ? "ДОЗВОЛЕНО" : strerror(err_w));
-    printf("  Виконання (X_OK): %s\n", err_x == 0 ? "ДОЗВОЛЕНО" : strerror(err_x));
-
-    return 0;
-}
-```
-```cpp
-// dac_inspect.cpp — Діагностика ідентичності та перевірка прав доступу на C++20
-#include <iostream>
-#include <vector>
-#include <string>
-#include <string_view>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-
-struct Credentials {
-    uid_t ruid{}, euid{}, suid{};
-    gid_t rgid{}, egid{}, sgid{};
-    std::vector<gid_t> groups;
-};
-
-Credentials get_current_credentials() {
-    Credentials cred;
-    if (getresuid(&cred.ruid, &cred.euid, &cred.suid) != 0 ||
-        getresgid(&cred.rgid, &cred.egid, &cred.sgid) != 0) {
-        throw std::system_error(errno, std::generic_category(), "Не вдалося отримати UID/GID");
-    }
-
-    int count = getgroups(0, nullptr);
-    if (count > 0) {
-        cred.groups.resize(count);
-        if (getgroups(count, cred.groups.data()) < 0) {
-            cred.groups.clear();
-        }
-    }
-    return cred;
-}
-
-std::string check_permission(std::string_view path, int mode) {
-    if (faccessat(AT_FDCWD, path.data(), mode, AT_EACCESS) == 0) {
-        return "ДОЗВОЛЕНО";
-    }
-    return std::generic_category().message(errno);
-}
-
-int main(int argc, char** argv) {
-    if (argc < 2) {
-        std::cerr << "Використання: " << argv[0] << " <шлях_до_файлу>\n";
-        return 1;
-    }
-
-    try {
-        const auto cred = get_current_credentials();
-        std::cout << "Ідентичність процесу [PID " << getpid() << "]:\n"
-                  << "  UID: real=" << cred.ruid << ", effective=" << cred.euid << ", saved=" << cred.suid << "\n"
-                  << "  GID: real=" << cred.rgid << ", effective=" << cred.egid << ", saved=" << cred.sgid << "\n"
-                  << "  Додаткові групи (" << cred.groups.size() << "): ";
-        for (gid_t g : cred.groups) {
-            std::cout << g << " ";
-        }
-        std::cout << "\n\n";
-
-        const std::string target = argv[1];
-        std::cout << "Перевірка доступу до '" << target << "':\n"
-                  << "  Читання (R_OK):   " << check_permission(target, R_OK) << "\n"
-                  << "  Запис (W_OK):     " << check_permission(target, W_OK) << "\n"
-                  << "  Виконання (X_OK): " << check_permission(target, X_OK) << "\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << "\n";
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code api-dac-diagnostics/c/dac_inspect.c
+:::code api-dac-diagnostics/cpp/dac_inspect.cpp
 :::
 
 ---

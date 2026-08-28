@@ -125,43 +125,8 @@ mov byte ptr [0x7f9a1000], 0x42
 Коли серверна програма виділяє великий хеш-масив на 10 ГіБ за допомогою `malloc()`, системна бібліотека робить анонімний виклик `mmap()`:
 
 :::tabs
-```c
-#include <sys/mman.h>
-#include <stdio.h>
-
-int main(void) {
-    size_t size = 10ULL * 1024 * 1024 * 1024; // 10 ГіБ
-    char *buf = mmap(NULL, size, PROT_READ | PROT_WRITE,
-                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (buf == MAP_FAILED) {
-        perror("mmap");
-        return 1;
-    }
-    // Фізичної пам'яті виділено: 0 байтів
-    buf[0] = 'A'; // Тут виникає #PF: виділяється рівно 4 КіБ
-    return 0;
-}
-```
-```cpp
-#include <sys/mman.h>
-#include <iostream>
-#include <system_error>
-#include <cstddef>
-
-int main() {
-    constexpr std::size_t size = 10ULL * 1024 * 1024 * 1024; // 10 ГіБ
-    void* ptr = ::mmap(nullptr, size, PROT_READ | PROT_WRITE,
-                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (ptr == MAP_FAILED) {
-        throw std::system_error(errno, std::generic_category(), "mmap failed");
-    }
-    auto* buf = static_cast<volatile char*>(ptr);
-    // Фізичної пам'яті виділено: 0 байтів
-    buf[0] = 'A'; // Тут виникає #PF: виділяється рівно 4 КіБ
-    ::munmap(ptr, size);
-    return 0;
-}
-```
+:::code memory-illusion-d/c/main.c
+:::code memory-illusion-d/cpp/main.cpp
 :::
 
 У цій програмі віртуальний розмір процесу (VSZ) миттєво зростає на 10 ГіБ, проте його резидентний розмір (RSS) залишається нульовим. Якщо за весь час роботи програма запише дані лише в 1000 розкиданих елементів масиву, фізична пам'ять машини зменшиться лише на 4 МіБ (1000 сторінок по 4 КіБ).
@@ -256,19 +221,7 @@ Address          Perm   Offset Device   Inode    Size    Rss    Pss  Shared_Clea
 
 Системний профілювальник `perf` дозволяє відстежити інтенсивність сторінкових збоїв та промахів TLB безпосередньо за апаратними лічильниками процесора:
 
-```sh
-$ perf stat -e faults,minor-faults,major-faults,dTLB-loads,dTLB-load-misses ./my_app
-
- Performance counter stats for './my_app':
-
-            12,450      faults
-            12,448      minor-faults
-                 2      major-faults
-     1,420,551,102      dTLB-loads
-           210,440      dTLB-load-misses          #    0.01% of all TLB accesses
-
-       0.412891230 seconds time elapsed
-```
+:::code memory-illusion-d/sh/main.sh
 
 Якщо відсоток `dTLB-load-misses` перевищує 2–5%, це свідчить про високу фрагментацію доступу до пам'яті: процесор витрачає значну частину тактових циклів на обхід таблиць сторінок. Головним ліками в такому випадку є перехід на великі сторінки розміром 2 МіБ або 1 ГіБ (*Huge Pages*).
 

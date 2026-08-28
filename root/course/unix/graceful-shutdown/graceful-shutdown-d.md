@@ -86,72 +86,8 @@
 Найпростіший підхід полягає у встановленні атомарної змінної всередині обробника сигналу:
 
 :::tabs
-```c
-#include <signal.h>
-#include <unistd.h>
-#include <sys/epoll.h>
-
-static volatile sig_atomic_t g_terminate = 0;
-
-static void signal_handler(int signo) {
-    (void)signo;
-    g_terminate = 1;
-}
-
-int run_server(int epfd) {
-    struct sigaction sa;
-    sa.sa_handler = signal_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGTERM, &sa, NULL);
-
-    struct epoll_event events[64];
-    while (!g_terminate) {
-        /* УВАГА: Пастка блокуючого сну! */
-        int nfds = epoll_wait(epfd, events, 64, -1);
-        if (nfds == -1) {
-            /* Якщо прапорець SA_RESTART не встановлено, epoll_wait переривається з EINTR */
-            continue;
-        }
-        /* Обробка вводу-виводу */
-    }
-    return 0;
-}
-```
-```cpp
-#include <csignal>
-#include <atomic>
-#include <unistd.h>
-#include <sys/epoll.h>
-#include <array>
-
-namespace {
-std::atomic<bool> g_terminate{false};
-
-void signal_handler(int signo) noexcept {
-    (void)signo;
-    g_terminate.store(true, std::memory_order_relaxed);
-}
-} // namespace
-
-int run_server(int epfd) {
-    struct sigaction sa{};
-    sa.sa_handler = signal_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    ::sigaction(SIGTERM, &sa, nullptr);
-
-    std::array<epoll_event, 64> events{};
-    while (!g_terminate.load(std::memory_order_relaxed)) {
-        int nfds = ::epoll_wait(epfd, events.data(), static_cast<int>(events.size()), -1);
-        if (nfds == -1) {
-            continue;
-        }
-        /* Обробка вводу-виводу */
-    }
-    return 0;
-}
-```
+:::code graceful-shutdown-d/c/patern-1-atomarnyi.c
+:::code graceful-shutdown-d/cpp/patern-1-atomarnyi.cpp
 :::
 
 Цей патерн містить приховану та небезпечну ваду — **пастку блокуючого сну** (англ. *sleep trap* або стан гонитви перевірки та очікування):
@@ -206,86 +142,8 @@ int run_server(int epfd) {
 Єдиним надійним підходом у багатопотокових архітектурах є **кооперативне скасування**:
 
 :::tabs
-```c
-#include <pthread.h>
-#include <stdatomic.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <stdio.h>
-
-typedef struct {
-    pthread_t thread;
-    atomic_bool running;
-    pthread_mutex_t mutex;
-    pthread_cond_t cond;
-} worker_t;
-
-void* worker_func(void *arg) {
-    worker_t *w = (worker_t*)arg;
-    while (atomic_load(&w->running)) {
-        pthread_mutex_lock(&w->mutex);
-        /* Очікування задачі з можливістю пробудження при зупинці */
-        pthread_cond_wait(&w->cond, &w->mutex);
-        pthread_mutex_unlock(&w->mutex);
-
-        if (!atomic_load(&w->running)) break;
-        /* Виконання задачі */
-    }
-    printf("[WORKER] Потік завершив роботу коректно\n");
-    return NULL;
-}
-
-void stop_worker(worker_t *w) {
-    atomic_store(&w->running, false);
-    pthread_mutex_lock(&w->mutex);
-    pthread_cond_broadcast(&w->cond); /* Пробудження потоку для виходу */
-    pthread_mutex_unlock(&w->mutex);
-    pthread_join(w->thread, NULL);     /* Очікування завершення */
-}
-```
-```cpp
-#include <thread>
-#include <stop_token>
-#include <iostream>
-#include <chrono>
-#include <condition_variable>
-#include <mutex>
-
-class WorkerTask {
-public:
-    WorkerTask() {
-        thread_ = std::jthread([this](std::stop_token st) {
-            run(st);
-        });
-    }
-
-    void request_stop() {
-        thread_.request_stop();
-        cv_.notify_all(); // Пробудження від сну
-    }
-
-private:
-    void run(std::stop_token st) {
-        std::stop_callback sc(st, [this]() {
-            cv_.notify_all();
-        });
-
-        while (!st.stop_requested()) {
-            std::unique_lock lock(mutex_);
-            cv_.wait(lock, [&st]() {
-                return st.stop_requested();
-            });
-
-            if (st.stop_requested()) break;
-        }
-        std::cout << "[CPP-WORKER] Потік штатно зупинився через stop_token\n";
-    }
-
-    std::mutex mutex_;
-    std::condition_variable cv_;
-    std::jthread thread_; // Автоматично викликає request_stop() та join() у деструкторі
-};
-```
+:::code graceful-shutdown-d/c/bahatopotokovi-servery.c
+:::code graceful-shutdown-d/cpp/bahatopotokovi-servery.cpp
 :::
 
 У сучасному C++20 клас `std::jthread` разом із концепцією `std::stop_token` забезпечує автоматичне та безпечне кооперативне скасування: деструктор `std::jthread` автоматично виставляє запит на зупинку та очікує завершення потоку, унеможливлюючи витоки ресурсів.

@@ -107,53 +107,8 @@ Restart=on-failure
 Знак мінуса `-/etc/default/mediaapp` вказує менеджерові systemd не вважати помилкою відсутність цього файлу на диску під час старту.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-void audit_environment(void) {
-    const char *path = getenv("PATH");
-    const char *home = getenv("HOME");
-    const char *user = getenv("USER");
-
-    printf("[ENV AUDIT]\n");
-    printf("  PATH: %s\n", path ? path : "(NOT SET - CRITICAL)");
-    printf("  HOME: %s\n", home ? home : "(NOT SET - FALLBACK TO /)");
-    printf("  USER: %s\n", user ? user : "(NOT SET)");
-
-    if (!home) {
-        /* Безпечний фолбек: не падати на розіменуванні NULL */
-        setenv("HOME", "/tmp", 1);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <cstdlib>
-#include <string_view>
-#include <filesystem>
-
-void audit_environment() {
-    const char* path_raw = std::getenv("PATH");
-    const char* home_raw = std::getenv("HOME");
-    const char* user_raw = std::getenv("USER");
-
-    std::string_view path = path_raw ? path_raw : "(NOT SET - CRITICAL)";
-    std::string_view home = home_raw ? home_raw : "(NOT SET - FALLBACK TO /)";
-    std::string_view user = user_raw ? user_raw : "(NOT SET)";
-
-    std::cout << "[ENV AUDIT]\n"
-              << "  PATH: " << path << "\n"
-              << "  HOME: " << home << "\n"
-              << "  USER: " << user << "\n";
-
-    if (!home_raw) {
-        setenv("HOME", "/tmp", 1);
-    }
-}
-```
+:::code works-in-terminal-not-as-service-d/c/inzhenerne-keruvannia.c
+:::code works-in-terminal-not-as-service-d/cpp/inzhenerne-keruvannia.cpp
 :::
 
 ## Шар 2: Робочий каталог (CWD) і пастка відносних шляхів
@@ -196,49 +151,8 @@ ExecStart=/opt/analytics-service/bin/analytics-engine
 На рівні коду надійні програми не покладаються на `cwd`, а обчислюють абсолютний шлях до власних ресурсів відносно розташування самого виконуваного бінарника через спеціальне посилання віртуальної файлової системи `/proc/self/exe`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <limits.h>
-#include <libgen.h>
-#include <string.h>
-
-int get_executable_dir(char *out_path, size_t max_len) {
-    char exe_path[PATH_MAX];
-    ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
-    if (len == -1) {
-        return -1;
-    }
-    exe_path[len] = '\0';
-
-    char *dir = dirname(exe_path);
-    if (strlen(dir) >= max_len) {
-        return -1;
-    }
-    strncpy(out_path, dir, max_len - 1);
-    out_path[max_len - 1] = '\0';
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <filesystem>
-#include <system_error>
-
-namespace fs = std::filesystem;
-
-fs::path get_executable_directory() {
-    std::error_code ec;
-    fs::path exe_path = fs::canonical("/proc/self/exe", ec);
-    if (ec) {
-        // Фолбек на поточний робочий каталог у разі помилки читання /proc
-        return fs::current_path();
-    }
-    return exe_path.parent_path();
-}
-```
+:::code works-in-terminal-not-as-service-d/c/inzhenerne-vyrishennia.c
+:::code works-in-terminal-not-as-service-d/cpp/inzhenerne-vyrishennia.cpp
 :::
 
 ## Шар 3: Фізика стандартних потоків вводу/виводу та термінала
@@ -288,48 +202,8 @@ fs::path get_executable_directory() {
 3. **На рівні unit-файлу:** директиви `StandardOutput=journal` та `StandardError=journal`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-void setup_service_stdio(void) {
-    /* Перевіряємо, чи ми працюємо не в інтерактивному терміналі */
-    if (!isatty(fileno(stdout))) {
-        /* Примусово вмикаємо рядкову буферизацію для stdout */
-        setvbuf(stdout, NULL, _IOLBF, 0);
-    }
-    
-    /* stderr завжди має бути небуферизованим */
-    setvbuf(stderr, NULL, _IONBF, 0);
-
-    /* Закриваємо або перенаправляємо stdin у разі потреби */
-    if (!isatty(fileno(stdin))) {
-        freopen("/dev/null", "r", stdin);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <cstdio>
-#include <unistd.h>
-
-void setup_service_stdio() {
-    // Вимикаємо синхронізацію C++ iostream зі стандартними C-буферами для швидкості
-    std::ios_base::sync_with_stdio(false);
-
-    if (!isatty(fileno(stdout))) {
-        // Вмикаємо рядковий режим буферизації для потоку C
-        setvbuf(stdout, nullptr, _IOLBF, 0);
-    }
-    
-    setvbuf(stderr, nullptr, _IONBF, 0);
-
-    if (!isatty(fileno(stdin))) {
-        std::freopen("/dev/null", "r", stdin);
-    }
-}
-```
+:::code works-in-terminal-not-as-service-d/c/inzhenerne-keruvannia-2.c
+:::code works-in-terminal-not-as-service-d/cpp/inzhenerne-keruvannia-2.cpp
 :::
 
 ## Шар 4: Обмеження безпеки, простори назв та пісочниця
@@ -388,22 +262,7 @@ systemd-run --user --pipe --wait -p WorkingDirectory=/tmp env
 
 Якщо служба вже запущена і поводиться некоректно, повний стан її робочого оточення можна перевірити через віртуальну файлову систему `/proc`:
 
-```bash
-# Отримання PID служби
-PID=$(systemctl show --property MainPID --value myapp.service)
-
-# Перевірка реальних змінних оточення процесу
-xargs -0 -L1 echo < /proc/$PID/environ
-
-# Перевірка поточного робочого каталогу (CWD)
-ls -ld /proc/$PID/cwd
-
-# Перевірка відкритих файлових дескрипторів та точок перенаправлення
-ls -l /proc/$PID/fd/
-
-# Перевірка встановлених лімітів ресурсів
-cat /proc/$PID/limits
-```
+:::code works-in-terminal-not-as-service-d/sh/main.sh
 
 Крім того, поведінку процесу під час старту можна простежити за допомогою утиліти `strace`:
 ```bash
@@ -417,110 +276,8 @@ strace -f -e trace=openat,execve,ioctl,write,setvbuf -p $PID
 Для автономного тестування програми перед її пакуванням у службу доцільно впровадити внутрішній режим діагностичного аудиту:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/resource.h>
-#include <sys/stat.h>
-
-void perform_full_system_audit(void) {
-    printf("=== ДІАГНОСТИКА СЕРЕДОВИЩА ПРОЦЕСУ ===\n");
-
-    /* 1. Перевірка TTY */
-    int tty_in = isatty(fileno(stdin));
-    int tty_out = isatty(fileno(stdout));
-    printf("[TTY] stdin: %s, stdout: %s\n",
-           tty_in ? "TTY (interactive)" : "PIPE/SOCKET (service)",
-           tty_out ? "TTY (_IOLBF)" : "PIPE/SOCKET (_IOFBF)");
-
-    /* 2. Перевірка CWD */
-    char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd))) {
-        printf("[CWD] Поточний каталог: %s\n", cwd);
-        if (cwd[0] == '/' && cwd[1] == '\0') {
-            printf("  [УВАГА] Процес запущено в корені /! Відносні шляхи будуть хибними.\n");
-        }
-    }
-
-    /* 3. Перевірка критичних змінних */
-    printf("[ENV] PATH: %s\n", getenv("PATH") ? getenv("PATH") : "(NULL)");
-    printf("[ENV] HOME: %s\n", getenv("HOME") ? getenv("HOME") : "(NULL)");
-
-    /* 4. Ліміти дескрипторів */
-    struct rlimit rl;
-    if (getrlimit(RLIMIT_NOFILE, &rl) == 0) {
-        printf("[LIMITS] NOFILE soft: %lu, hard: %lu\n",
-               (unsigned long)rl.rlim_cur, (unsigned long)rl.rlim_max);
-    }
-
-    /* 5. Тестовий запис у /tmp */
-    FILE *tmp_test = fopen("/tmp/.audit_service_probe", "w");
-    if (tmp_test) {
-        printf("[FS] Запис у /tmp: УСПІХ\n");
-        fclose(tmp_test);
-        unlink("/tmp/.audit_service_probe");
-    } else {
-        perror("[FS] Помилка запису у /tmp");
-    }
-    printf("=========================================\n");
-}
-```
-```cpp
-#include <iostream>
-#include <cstdlib>
-#include <filesystem>
-#include <unistd.h>
-#include <sys/resource.h>
-#include <fstream>
-
-namespace fs = std::filesystem;
-
-void perform_full_system_audit() {
-    std::cout << "=== ДІАГНОСТИКА СЕРЕДОВИЩА ПРОЦЕСУ ===\n";
-
-    // 1. Перевірка TTY
-    bool tty_in = isatty(fileno(stdin));
-    bool tty_out = isatty(fileno(stdout));
-    std::cout << "[TTY] stdin: " << (tty_in ? "TTY (interactive)" : "PIPE/SOCKET (service)")
-              << ", stdout: " << (tty_out ? "TTY (_IOLBF)" : "PIPE/SOCKET (_IOFBF)") << "\n";
-
-    // 2. Перевірка CWD
-    std::error_code ec;
-    fs::path cwd = fs::current_path(ec);
-    if (!ec) {
-        std::cout << "[CWD] Поточний каталог: " << cwd.string() << "\n";
-        if (cwd == "/") {
-            std::cout << "  [УВАГА] Процес запущено в корені /! Відносні шляхи будуть хибними.\n";
-        }
-    }
-
-    // 3. Перевірка критичних змінних
-    const char* path = std::getenv("PATH");
-    const char* home = std::getenv("HOME");
-    std::cout << "[ENV] PATH: " << (path ? path : "(NULL)") << "\n"
-              << "[ENV] HOME: " << (home ? home : "(NULL)") << "\n";
-
-    // 4. Ліміти дескрипторів
-    struct rlimit rl{};
-    if (getrlimit(RLIMIT_NOFILE, &rl) == 0) {
-        std::cout << "[LIMITS] NOFILE soft: " << rl.rlim_cur
-                  << ", hard: " << rl.rlim_max << "\n";
-    }
-
-    // 5. Тестовий запис у /tmp
-    std::ofstream tmp_test("/tmp/.audit_service_probe");
-    if (tmp_test.is_open()) {
-        std::cout << "[FS] Запис у /tmp: УСПІХ\n";
-        tmp_test.close();
-        std::filesystem::remove("/tmp/.audit_service_probe");
-    } else {
-        std::cout << "[FS] Помилка запису у /tmp (можливо увімкнено ProtectSystem/PrivateTmp)\n";
-    }
-    std::cout << "=========================================\n";
-}
-```
+:::code works-in-terminal-not-as-service-d/c/kompleksna-utylita-audytu.c
+:::code works-in-terminal-not-as-service-d/cpp/kompleksna-utylita-audytu.cpp
 :::
 
 ### Еталонна конфігурація виробничої служби

@@ -135,18 +135,7 @@ pid_t tcgetpgrp(int fd);
 
 У просторі ядра Linux канал описується структурою даних `struct pipe_inode_info`, визначеною в заголовку `include/linux/pipe_fs_i.h`. Вона керує кільцевим масивом сторінок:
 
-```c
-struct pipe_inode_info {
-    wait_queue_head_t rd_wait;   // черга очікування читачів
-    wait_queue_head_t wr_wait;   // черга очікування записувачів
-    unsigned int      head;      // індекс наступного запису в кільці
-    unsigned int      tail;      // індекс наступного зчитування з кільця
-    unsigned int      ring_size; // загальна кількість сторінок у кільці
-    unsigned int      readers;   // кількість відкритих дескрипторів читання
-    unsigned int      writers;   // кількість відкритих дескрипторів запису
-    struct pipe_buffer *bufs;    // масив дескрипторів сторінок пам'яті
-};
-```
+:::code api-pipeline-primitives/c/5-vnutrishnia-struktura.c
 
 ### Керування розміром буфера через fcntl
 
@@ -214,21 +203,7 @@ int waitid(idtype_t idtype, id_t id, siginfo_t *infop, int options);
 
 ### Макроси розпакування статусу wstatus
 
-```c
-// Перевірка нормального завершення програми через exit() або return із main():
-WIFEXITED(wstatus)    // повертає true, якщо процес вийшов штатно
-WEXITSTATUS(wstatus)  // повертає молодші 8 бітів коду виходу (діапазон 0..255)
-
-// Перевірка завершення програми внаслідок отримання сигналу:
-WIFSIGNALED(wstatus)  // повертає true, якщо процес було вбито необробленим сигналом
-WTERMSIG(wstatus)     // номер сигналу, що спричинив загибель (SIGPIPE=13, SIGINT=2)
-WCOREDUMP(wstatus)    // повертає true, якщо ядро створило файл дампу пам'яті
-
-// Перевірка зупинки або відновлення процесу (керування завданнями):
-WIFSTOPPED(wstatus)   // повертає true, якщо процес зупинено сигналом
-WSTOPSIG(wstatus)     // номер сигналу, який спричинив зупинку
-WIFCONTINUED(wstatus) // повертає true, якщо процес продовжив роботу
-```
+:::code api-pipeline-primitives/c/makrosy-rozpakuvannia.c
 
 ## 7. Сигнал розриву каналу: SIGPIPE та помилка EPIPE
 
@@ -276,20 +251,7 @@ int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
 
 Сучасний стандарт POSIX надає альтернативу ланцюжку `fork + dup2 + exec` у вигляді декларативного інтерфейсу `posix_spawn()`, що використовує об'єкти дій над дескрипторами:
 
-```c
-#include <spawn.h>
-
-int posix_spawn_file_actions_init(posix_spawn_file_actions_t *file_actions);
-int posix_spawn_file_actions_destroy(posix_spawn_file_actions_t *file_actions);
-
-int posix_spawn_file_actions_adddup2(posix_spawn_file_actions_t *file_actions,
-                                     int oldfd, int newfd);
-int posix_spawn_file_actions_addclose(posix_spawn_file_actions_t *file_actions,
-                                      int fd);
-
-int posix_spawnattr_setpgroup(posix_spawnattr_t *attr, pid_t pgroup);
-int posix_spawnattr_setflags(posix_spawnattr_t *attr, short flags);
-```
+:::code api-pipeline-primitives/c/spawn.h
 
 ### Прапорці spawnattr для конвеєрів
 

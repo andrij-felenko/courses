@@ -64,18 +64,23 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "api": [
             {
               "file": "api-posix-spawn.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-process-launcher.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -95,7 +100,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         }
       ]
@@ -128,12 +134,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "api": [
             {
               "file": "api-file-operations.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         }
@@ -179,7 +188,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
@@ -190,7 +200,8 @@
           "proj": [
             {
               "file": "proj-graceful-server.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -232,13 +243,15 @@
           "api": [
             {
               "file": "api-memory-metrics-map.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-memory-diagnostics.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -288,12 +301,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-fault-probe.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -401,7 +417,8 @@
           "proj": [
             {
               "file": "proj-latency-breakdown.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

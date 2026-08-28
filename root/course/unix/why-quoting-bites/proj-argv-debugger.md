@@ -42,108 +42,8 @@
 Утиліта `argv-dump` замінює собою цільову команду для перевірки того, що саме оболонка передала процесу після всіх фаз розкриття й видалення лапок. Вона виводить кожен аргумент у трьох вимірах: індекс, байтова довжина та шістнадцяткове представлення кожного символу.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-/* Вивід байтового дампа рядка у шістнадцятковому та текстовому вигляді */
-static void dump_hex_string(const char *str, size_t len) {
-    printf("    [hex] ");
-    for (size_t i = 0; i < len; i++) {
-        unsigned char c = (unsigned char)str[i];
-        printf("%02x ", c);
-    }
-    printf("\n    [asc] ");
-    for (size_t i = 0; i < len; i++) {
-        unsigned char c = (unsigned char)str[i];
-        if (isprint(c)) {
-            printf(" %c ", c);
-        } else if (c == '\n') {
-            printf("\\n ");
-        } else if (c == '\t') {
-            printf("\\t ");
-        } else if (c == ' ') {
-            printf("·  ");
-        } else {
-            printf("?? ");
-        }
-    }
-    printf("\n");
-}
-
-int main(int argc, char *argv[]) {
-    printf("==================== ARGV DUMP ====================\n");
-    printf("Кількість аргументів (argc): %d\n", argc);
-    printf("---------------------------------------------------\n");
-
-    for (int i = 0; i < argc; i++) {
-        size_t len = strlen(argv[i]);
-        printf("argv[%2d] (довжина: %3zu б) : \"%s\"\n", i, len, argv[i]);
-        dump_hex_string(argv[i], len);
-    }
-
-    printf("===================================================\n");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <vector>
-#include <iomanip>
-#include <span>
-#include <cctype>
-
-class ArgvInspector {
-public:
-    /* Статичний метод для повного форматованого аналізу аргументів */
-    static void print_dump(std::span<char*> args) {
-        std::cout << "==================== ARGV DUMP ====================\n";
-        std::cout << "Кількість аргументів (argc): " << args.size() << "\n";
-        std::cout << "---------------------------------------------------\n";
-
-        for (std::size_t i = 0; i < args.size(); ++i) {
-            std::string_view sv(args[i]);
-            std::cout << "argv[" << std::setw(2) << i << "] (довжина: "
-                      << std::setw(3) << sv.size() << " б) : \"" << sv << "\"\n";
-            dump_bytes(sv);
-        }
-        std::cout << "===================================================\n";
-    }
-
-private:
-    static void dump_bytes(std::string_view sv) {
-        std::cout << "    [hex] ";
-        for (unsigned char c : sv) {
-            std::cout << std::hex << std::setw(2) << std::setfill('0')
-                      << static_cast<int>(c) << " " << std::dec << std::setfill(' ');
-        }
-        std::cout << "\n    [asc] ";
-        for (unsigned char c : sv) {
-            if (std::isprint(c)) {
-                std::cout << " " << static_cast<char>(c) << " ";
-            } else if (c == '\n') {
-                std::cout << "\\n ";
-            } else if (c == '\t') {
-                std::cout << "\\t ";
-            } else if (c == ' ') {
-                std::cout << "·  ";
-            } else {
-                std::cout << "?? ";
-            }
-        }
-        std::cout << "\n";
-    }
-};
-
-int main(int argc, char *argv[]) {
-    std::span<char*> args(argv, static_cast<std::size_t>(argc));
-    ArgvInspector::print_dump(args);
-    return 0;
-}
-```
+:::code proj-argv-debugger/c/realizatsiia-inspektora.c
+:::code proj-argv-debugger/cpp/realizatsiia-inspektora.cpp
 :::
 
 ## Прозоре перехоплення через LD_PRELOAD
@@ -153,71 +53,8 @@ int main(int argc, char *argv[]) {
 Динамічний завантажувач Linux (`ld.so`) при виявленні змінної середовища `LD_PRELOAD` завантажує зазначену бібліотеку раніше за системну `libc.so`. Коли будь-який процес у дереві виконання викликає функцію `execve`, керування передається нашому перехоплювачу. Перехоплювач роздруковує параметри у потік діагностики `stderr` і викликає оригінальну функцію ядра через покажчик, отриманий від `dlsym(RTLD_NEXT, "execve")`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <dlfcn.h>
-#include <unistd.h>
-#include <string.h>
-
-typedef int (*real_execve_t)(const char *filename, char *const argv[], char *const envp[]);
-
-/* Перехоплення системного виклику execve у просторі користувача */
-int execve(const char *filename, char *const argv[], char *const envp[]) {
-    real_execve_t original_execve = (real_execve_t)dlsym(RTLD_NEXT, "execve");
-    if (!original_execve) {
-        fprintf(stderr, "[libargv_trace] dlsym помилка: %s\n", dlerror());
-        _exit(1);
-    }
-
-    fprintf(stderr, "\n[EXECVE INTERCEPT] Запуск програми: %s\n", filename);
-    if (argv) {
-        int i = 0;
-        while (argv[i] != NULL) {
-            fprintf(stderr, "  -> argv[%2d] = \"%s\" (байтів: %zu)\n", i, argv[i], strlen(argv[i]));
-            i++;
-        }
-    }
-    fprintf(stderr, "[EXECVE INTERCEPT] ----------------------------------------\n\n");
-
-    return original_execve(filename, argv, envp);
-}
-```
-```cpp
-#define _GNU_SOURCE
-#include <iostream>
-#include <string_view>
-#include <dlfcn.h>
-#include <unistd.h>
-#include <cstring>
-
-extern "C" {
-
-using ExecveSignature = int (*)(const char*, char* const[], char* const[]);
-
-/* C++ обгортка перехоплювача execve */
-int execve(const char* filename, char* const argv[], char* const envp[]) {
-    auto original_execve = reinterpret_cast<ExecveSignature>(dlsym(RTLD_NEXT, "execve"));
-    if (!original_execve) {
-        std::cerr << "[libargv_trace] dlsym failure: " << dlerror() << '\n';
-        _exit(1);
-    }
-
-    std::cerr << "\n[EXECVE INTERCEPT] Запуск програми: " << filename << '\n';
-    if (argv) {
-        for (int i = 0; argv[i] != nullptr; ++i) {
-            std::string_view arg(argv[i]);
-            std::cerr << "  -> argv[" << i << "] = \"" << arg << "\" (байтів: " << arg.size() << ")\n";
-        }
-    }
-    std::cerr << "[EXECVE INTERCEPT] ----------------------------------------\n\n";
-
-    return original_execve(filename, argv, envp);
-}
-
-} // extern "C"
-```
+:::code proj-argv-debugger/c/prozore-perekhoplennia.c
+:::code proj-argv-debugger/cpp/prozore-perekhoplennia.cpp
 :::
 
 ## Механізм динамічного перехоплення символів
@@ -242,41 +79,7 @@ gcc -O2 -Wall -Wextra -fPIC -shared libargv_trace.c -o libargv_trace.so -ldl
 
 Створимо змінну зі складним ім'ям файлу, що містить пробіли, і порівняємо запуск утиліти `argv-dump` без лапок та з лапками:
 
-```bash
-$ FILE="system report 2026.pdf"
-
-# Помилковий виклик без подвійних лапок
-$ ./argv-dump $FILE
-==================== ARGV DUMP ====================
-Кількість аргументів (argc): 4
----------------------------------------------------
-argv[ 0] (довжина:   11 б) : "./argv-dump"
-    [hex] 2e 2f 61 72 67 76 2d 64 75 6d 70 
-    [asc]  .  /  a  r  g  v  -  d  u  m  p 
-argv[ 1] (довжина:    6 б) : "system"
-    [hex] 73 79 73 74 65 6d 
-    [asc]  s  y  s  t  e  m 
-argv[ 2] (довжина:    6 б) : "report"
-    [hex] 72 65 70 6f 72 74 
-    [asc]  r  e  p  o  r  t 
-argv[ 3] (довжина:    8 б) : "2026.pdf"
-    [hex] 32 30 32 36 2e 70 64 66 
-    [asc]  2  0  2  6  .  p  d  f 
-===================================================
-
-# Коректний виклик у подвійних лапках
-$ ./argv-dump "$FILE"
-==================== ARGV DUMP ====================
-Кількість аргументів (argc): 2
----------------------------------------------------
-argv[ 0] (довжина:   11 б) : "./argv-dump"
-    [hex] 2e 2f 61 72 67 76 2d 64 75 6d 70 
-    [asc]  .  /  a  r  g  v  -  d  u  m  p 
-argv[ 1] (довжина:   22 б) : "system report 2026.pdf"
-    [hex] 73 79 73 74 65 6d 20 72 65 70 6f 72 74 20 32 30 32 36 2e 70 64 66 
-    [asc]  s  y  s  t  e  m  ·   r  e  p  o  r  t  ·   2  0  2  6  .  p  d  f 
-===================================================
-```
+:::code proj-argv-debugger/sh/stsenarii-1-doslidzhennia.sh
 
 Інспектор наочно демонструє, що в першому випадку програма отримала 3 окремі параметри замість одного (байти `0x20` стали межею розбиття на фазі Word Splitting), а в другому випадку пробіли `0x20` збереглися всередині єдиного вектора `argv[1]`.
 
@@ -284,26 +87,7 @@ argv[ 1] (довжина:   22 б) : "system report 2026.pdf"
 
 Напишемо тестовий скрипт `wrapper_test.sh`, який делегує аргументи:
 
-```bash
-#!/usr/bin/env bash
-
-forward_star_unquoted() { ./argv-dump $*; }
-forward_star_quoted()   { ./argv-dump "$*"; }
-forward_at_unquoted()   { ./argv-dump $@; }
-forward_at_quoted()     { ./argv-dump "$@"; }
-
-echo "=== ТЕСТ 1: forward_star_unquoted ==="
-forward_star_unquoted "alpha beta" "gamma"
-
-echo "=== ТЕСТ 2: forward_star_quoted ==="
-forward_star_quoted "alpha beta" "gamma"
-
-echo "=== ТЕСТ 3: forward_at_unquoted ==="
-forward_at_unquoted "alpha beta" "gamma"
-
-echo "=== ТЕСТ 4: forward_at_quoted ==="
-forward_at_quoted "alpha beta" "gamma"
-```
+:::code proj-argv-debugger/sh/stsenarii-2-diahnostyka.sh
 
 Запуск скрипту виводить вичерпний результат:
 - `forward_star_unquoted`: `argc = 4` (`"alpha"`, `"beta"`, `"gamma"`). Початкові межі розбито, аргумент 1 розірвано.

@@ -137,51 +137,8 @@ iov[1] ──► [ Дані 64 KiB     ] ──┼──► writev(fd, iov, 2)
 Ядро Linux обробляє масив векторів за один системний виклик за допомогою внутрішнього ітератора `iov_iter`. Підсистема VFS обходить вказані буфери в пам'яті користувача і послідовно монтує їх у структуру мережевого пакета `sk_buff` без створення проміжних копій у просторі користувача.
 
 :::tabs
-```c
-#include <sys/uio.h>
-#include <unistd.h>
-#include <stdint.h>
-
-struct PacketHeader {
-    uint32_t magic;
-    uint32_t length;
-    uint64_t sequence;
-};
-
-ssize_t send_packet(int sock_fd, const struct PacketHeader *hdr, 
-                    const void *payload, size_t payload_len) {
-    struct iovec iov[2];
-    iov[0].iov_base = (void *)hdr;
-    iov[0].iov_len = sizeof(struct PacketHeader);
-    iov[1].iov_base = (void *)payload;
-    iov[1].iov_len = payload_len;
-
-    return writev(sock_fd, iov, 2);
-}
-```
-```cpp
-#include <sys/uio.h>
-#include <unistd.h>
-#include <array>
-#include <span>
-#include <cstdint>
-
-struct PacketHeader {
-    std::uint32_t magic;
-    std::uint32_t length;
-    std::uint64_t sequence;
-};
-
-ssize_t send_packet_cpp(int sock_fd, const PacketHeader& hdr, 
-                        std::span<const std::byte> payload) {
-    std::array<struct iovec, 2> iov{{
-        { .iov_base = const_cast<PacketHeader*>(&hdr), .iov_len = sizeof(PacketHeader) },
-        { .iov_base = const_cast<std::byte*>(payload.data()), .iov_len = payload.size() }
-    }};
-
-    return ::writev(sock_fd, iov.data(), static_cast<int>(iov.size()));
-}
-```
+:::code io-cost-model-d/c/main.c
+:::code io-cost-model-d/cpp/main.cpp
 :::
 
 Використання `writev` гарантує атомарність передачі: дані заголовка та тіла записуються в мережевий буфер неподільно, запобігаючи перемішуванню фрагментів від різних потоків, і об'єднуються в єдиний мережевий кадр Ethernet.

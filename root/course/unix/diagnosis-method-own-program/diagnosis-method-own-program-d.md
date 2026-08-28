@@ -137,19 +137,7 @@ cat /proc/sys/kernel/core_pattern
 
 Для взаємодії з архівом аварій використовується утиліта `coredumpctl`:
 
-```bash
-# Перегляд списку всіх зареєстрованих аварій у системі
-coredumpctl list
-
-# Перегляд детального паспорта аварії конкретного процесу
-coredumpctl info 18492
-
-# Вилучення стисненого дампу пам'яті у звичайний ELF-файл
-coredumpctl dump 18492 -o /tmp/crash_18492.core
-
-# Прямий запуск відлагоджувача GDB над збереженим дампом
-coredumpctl gdb 18492
-```
+:::code diagnosis-method-own-program-d/sh/main.sh
 
 Команда `coredumpctl gdb` автоматично знаходить бінарний файл, розпаковує core dump у тимчасову пам'ять і запускає сесію GDB, готову до інспекції.
 
@@ -383,39 +371,9 @@ Valgrind працює за принципом повної програмної 
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-
-void process_data(int flag) {
-    int uninitialized_value;
-    if (flag) {
-        uninitialized_value = 100;
-    }
-    /* Якщо flag == 0, V-біти змінної uninitialized_value дорівнюють нулю */
-    if (uninitialized_value > 50) {
-        printf("Condition met\n");
-    }
-}
-```
+:::code diagnosis-method-own-program-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-
-namespace diagnostic_demo {
-
-void process_data(bool flag) {
-    int uninitialized_value;
-    if (flag) {
-        uninitialized_value = 100;
-    }
-    /* При flag == false змінна містить сміття, V-біти дорівнюють 0 */
-    if (uninitialized_value > 50) {
-        std::cout << "Condition met\n";
-    }
-}
-
-} // namespace diagnostic_demo
-```
+:::code diagnosis-method-own-program-d/cpp/main.cpp
 :::
 
 Valgrind дозволяє копіювати неініціалізовані байти між регістрами та пам'яттю без помилок (переносячи нульові V-біти разом із даними). Проте щойно неініціалізоване значення впливає на потік виконання (умовний перехід `if`) або передається в системний виклик, Memcheck негайно друкує попередження:

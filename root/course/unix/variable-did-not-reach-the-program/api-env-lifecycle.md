@@ -18,21 +18,7 @@
 
 int execve(const char *pathname, char *const argv[], char *const envp[]);
 ```
-```cpp
-#include <unistd.h>
-#include <string_view>
-#include <span>
-#include <vector>
-
-namespace sys {
-// C++23 типізована обгортка для прямого виклику execve
-inline int exec_raw(std::string_view path,
-                    std::span<char* const> argv,
-                    std::span<char* const> envp) noexcept {
-    return ::execve(path.data(), argv.data(), envp.data());
-}
-}
-```
+:::code api-env-lifecycle/cpp/systemnyi-vyklyk-execve.cpp
 :::
 
 - **Параметр `pathname`**: абсолютний або відносний шлях до бінарного файлу ELF чи текстового скрипту із шебангом `#!`.
@@ -59,21 +45,7 @@ inline int exec_raw(std::string_view path,
 int execveat(int dirfd, const char *pathname,
              char *const argv[], char *const envp[], int flags);
 ```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <string_view>
-#include <span>
-
-namespace sys {
-inline int exec_at(int dirfd, std::string_view path,
-                   std::span<char* const> argv,
-                   std::span<char* const> envp,
-                   int flags = 0) noexcept {
-    return ::execveat(dirfd, path.data(), argv.data(), envp.data(), flags);
-}
-}
-```
+:::code api-env-lifecycle/cpp/systemnyi-vyklyk-execveat.cpp
 :::
 
 - **Параметр `dirfd`**: відкритий дескриптор каталогу або спеціальне значення `AT_FDCWD` (поточний робочий каталог).
@@ -94,20 +66,7 @@ inline int exec_at(int dirfd, std::string_view path,
 char *getenv(const char *name);
 char *secure_getenv(const char *name); /* GNU-розширення */
 ```
-```cpp
-#include <cstdlib>
-#include <string_view>
-#include <optional>
-
-namespace sys {
-[[nodiscard]] inline std::optional<std::string_view> get_env_var(std::string_view name) noexcept {
-    if (const char* val = std::getenv(name.data())) {
-        return std::string_view(val);
-    }
-    return std::nullopt;
-}
-}
-```
+:::code api-env-lifecycle/cpp/chytannia-zminnykh-getenv.cpp
 :::
 
 - **Призначення `getenv`**: виконує лінійний пошук у масиві покажчиків `environ` рядка, початок якого збігається з `name` і супроводжується символом `=`. Повертає покажчик на перший байт значення після знака `=` або `NULL`, якщо змінну не знайдено.
@@ -123,22 +82,7 @@ namespace sys {
 int setenv(const char *name, const char *value, int overwrite);
 int putenv(char *string);
 ```
-```cpp
-#include <cstdlib>
-#include <string>
-#include <expected>
-#include <system_error>
-
-namespace sys {
-[[nodiscard]] inline std::expected<void, std::error_code>
-set_env_var(const std::string& name, const std::string& value, bool overwrite = true) noexcept {
-    if (::setenv(name.c_str(), value.c_str(), overwrite ? 1 : 0) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-}
-```
+:::code api-env-lifecycle/cpp/zapys-ta-zmina-zminnykh.cpp
 :::
 
 - **Функція `setenv` (рекомендований POSIX-інтерфейс)**:
@@ -159,26 +103,7 @@ set_env_var(const std::string& name, const std::string& value, bool overwrite = 
 int unsetenv(const char *name);
 int clearenv(void); /* POSIX.1-2024 / Linux glibc */
 ```
-```cpp
-#include <cstdlib>
-#include <string_view>
-#include <expected>
-#include <system_error>
-
-namespace sys {
-[[nodiscard]] inline std::expected<void, std::error_code>
-unset_env_var(std::string_view name) noexcept {
-    if (::unsetenv(name.data()) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-inline void clear_all_env() noexcept {
-    ::clearenv();
-}
-}
-```
+:::code api-env-lifecycle/cpp/vydalennia-ta-povne.cpp
 :::
 
 - **Функція `unsetenv`**: видаляє всі входження змінної `name` з масиву `environ`, зміщуючи наступні покажчики масиву вліво. Якщо змінної немає, виклик завершується успішно (`0`).

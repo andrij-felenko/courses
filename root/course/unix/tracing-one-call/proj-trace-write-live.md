@@ -17,105 +17,8 @@
 Створимо програму, яка вміє спрямовувати 6 байтів `"HELLO\n"` як у стандартний вивід (`STDOUT_FILENO`), так і у відкритий на диску файл.
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-
-int main(void)
-{
-    const char msg[] = "HELLO\n";
-    pid_t pid = getpid();
-
-    printf("PID тестового процесу: %d\n", pid);
-    printf("Натисніть Enter для запису в TTY (stdout)...\n");
-    getchar();
-
-    /* 1. Запис у термінал (псевдоконсоль) */
-    ssize_t ret_tty = write(STDOUT_FILENO, msg, sizeof(msg) - 1);
-    if (ret_tty < 0) {
-        perror("write tty");
-        return 1;
-    }
-
-    printf("Натисніть Enter для запису у файл на диску (/tmp/trace_test.txt)...\n");
-    getchar();
-
-    /* 2. Запис у звичайний файл на диску */
-    int fd_file = open("/tmp/trace_test.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd_file < 0) {
-        perror("open file");
-        return 1;
-    }
-
-    ssize_t ret_file = write(fd_file, msg, sizeof(msg) - 1);
-    if (ret_file < 0) {
-        perror("write file");
-        close(fd_file);
-        return 1;
-    }
-
-    close(fd_file);
-    printf("Запис завершено успішно (TTY: %zd Б, Диск: %zd Б).\n", ret_tty, ret_file);
-    return 0;
-}
-```
-```cpp
-#include <unistd.h>
-#include <fcntl.h>
-#include <iostream>
-#include <string_view>
-#include <system_error>
-
-class FileDescriptor {
-    int fd_{-1};
-public:
-    explicit FileDescriptor(int fd) : fd_(fd) {}
-    ~FileDescriptor() { if (fd_ >= 0) ::close(fd_); }
-    int get() const noexcept { return fd_; }
-    bool valid() const noexcept { return fd_ >= 0; }
-};
-
-int main()
-{
-    constexpr std::string_view msg = "HELLO\n";
-    pid_t pid = getpid();
-
-    std::cout << "PID тестового процесу: " << pid << '\n';
-    std::cout << "Натисніть Enter для запису в TTY (stdout)...\n";
-    std::cin.get();
-
-    /* 1. Запис у термінал (псевдоконсоль) */
-    ssize_t ret_tty = ::write(STDOUT_FILENO, msg.data(), msg.size());
-    if (ret_tty < 0) {
-        auto ec = std::error_code(errno, std::generic_category());
-        std::cerr << "Помилка запису в TTY: " << ec.message() << '\n';
-        return 1;
-    }
-
-    std::cout << "Натисніть Enter для запису у файл на диску (/tmp/trace_test.txt)...\n";
-    std::cin.get();
-
-    /* 2. Запис у звичайний файл на диску */
-    FileDescriptor file(::open("/tmp/trace_test.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644));
-    if (!file.valid()) {
-        auto ec = std::error_code(errno, std::generic_category());
-        std::cerr << "Помилка відкриття файлу: " << ec.message() << '\n';
-        return 1;
-    }
-
-    ssize_t ret_file = ::write(file.get(), msg.data(), msg.size());
-    if (ret_file < 0) {
-        auto ec = std::error_code(errno, std::generic_category());
-        std::cerr << "Помилка запису у файл: " << ec.message() << '\n';
-        return 1;
-    }
-
-    std::cout << "Запис завершено успішно (TTY: " << ret_tty << " Б, Диск: " << ret_file << " Б).\n";
-    return 0;
-}
-```
+:::code proj-trace-write-live/c/testova-prohrama.c
+:::code proj-trace-write-live/cpp/main.cpp
 :::
 
 Збережемо цей код як `trace_target.c` і скомпілюємо за допомогою GCC:
@@ -148,30 +51,7 @@ gcc -O2 -Wall trace_target.c -o trace_target
 
 Виконаємо налаштування від імені суперкористувача (`root`):
 
-```bash
-# Переходимо в каталог керування трасуванням
-cd /sys/kernel/tracing
-
-# 1. Тимчасово вимикаємо запис для безпечної конфігурації
-echo 0 > tracing_on
-echo nop > current_tracer
-echo > trace
-
-# 2. Встановлюємо плагін графа функцій
-echo function_graph > current_tracer
-
-# 3. Вказуємо кореневу функцію, від якої будувати дерево викликів
-echo ksys_write > set_graph_function
-
-# 4. Обмежуємо глибину дерева (щоб зосередитися на ключових підсистемах)
-echo 6 > max_graph_depth
-
-# 5. Вказуємо PID нашої запущеної програми (наприклад, 4128)
-echo 4128 > set_ftrace_pid
-
-# 6. Вмикаємо запис траси
-echo 1 > tracing_on
-```
+:::code proj-trace-write-live/sh/main.sh
 
 Тепер повертаємося у вікно з нашою програмою `trace_target` і натискаємо `Enter` для виконання першого запису (у TTY).
 
@@ -450,20 +330,7 @@ mov    %rsp, %rbp
 
 Всередині `ksys_write()` ядро викликає функцію `fdget_pos()`. Якщо дескриптор відкритий на файл, який підтримує позиціонування (звичайний файл на диску), `fdget_pos()` захоплює внутрішній м'ютекс файлу `file->f_pos_lock`:
 
-```c
-/* Спрощена логіка fdget_pos у ядрі */
-static inline struct fd fdget_pos(int fd)
-{
-    struct fd f = fdget(fd);
-    if (f.file && (f.file->f_mode & FMODE_ATOMIC_POS)) {
-        if (file_count(f.file) > 1) {
-            mutex_lock(&f.file->f_pos_lock);
-            f.flags |= FDPUT_POS_UNLOCK;
-        }
-    }
-    return f;
-}
-```
+:::code proj-trace-write-live/c/prostezhennia.c
 
 Це блокування гарантує, що кожен виклик `write()` повністю завершить оновлення `file->f_pos` перед тим, як наступний потік отримає доступ до запису.
 
@@ -545,51 +412,7 @@ write(1, (void *)0x1234, 6);
 
 Для регулярного моніторингу затримок системних викликів або інтеграції у тести продуктивності можна написати скрипт на Python із використанням бібліотеки `bcc` (BPF Compiler Collection). Він компілює eBPF-програму на льоту, завантажує її в ядро та виводить гістограму затримок виклику `write()`:
 
-```python
-#!/usr/bin/env python3
-"""Автоматизоване вимірювання затримок write() через BCC."""
-
-from bcc import BPF
-import time
-
-bpf_code = """
-#include <uapi/linux/ptrace.h>
-
-BPF_HASH(start, u32);
-BPF_HISTOGRAM(dist);
-
-int trace_sys_enter_write(struct tracepoint__syscalls__sys_enter_write *args) {
-    u32 pid = bpf_get_current_pid_tgid() >> 32;
-    u64 ts = bpf_ktime_get_ns();
-    start.update(&pid, &ts);
-    return 0;
-}
-
-int trace_sys_exit_write(struct tracepoint__syscalls__sys_exit_write *args) {
-    u32 pid = bpf_get_current_pid_tgid() >> 32;
-    u64 *tsp = start.lookup(&pid);
-    if (tsp != 0) {
-        u64 delta = bpf_ktime_get_ns() - *tsp;
-        dist.increment(bpf_log2l(delta / 1000)); // затримка в мікросекундах (log2)
-        start.delete(&pid);
-    }
-    return 0;
-}
-"""
-
-b = BPF(text=bpf_code)
-b.attach_tracepoint(tp="syscalls:sys_enter_write", fn_name="trace_sys_enter_write")
-b.attach_tracepoint(tp="syscalls:sys_exit_write", fn_name="trace_sys_exit_write")
-
-print("Збір статистики затримок write() (натисніть Ctrl+C для виводу)...")
-try:
-    time.sleep(5)
-except KeyboardInterrupt:
-    pass
-
-print("\nРозподіл затримок write() (мікросекунди, log2 масштаб):")
-b["dist"].print_log2_hist("мкс")
-```
+:::code proj-trace-write-live/py/main.py
 
 Такий скрипт перехоплює всі виклики `write()` у системі з мікроскопічним оверхедом (кілька десятків наносекунд на подію) і виводить наочний розподіл часу виконання, дозволяючи виявити поодинокі «хвости» затримок (tail latency), викликані блокуваннями пам'яті чи дискового вводу-виводу.
 

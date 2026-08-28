@@ -136,85 +136,9 @@ mount -o noexec,nosuid,nodev /dev/sdb1 /tmp
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[]) {
-    // Вектор аргументів: нульовим елементом має бути ім'я програми
-    char *script_args[] = {
-        "/usr/local/bin/backup-tool.sh",
-        "--source", "/var/www/data",
-        "--dest", "/var/backups",
-        NULL
-    };
-
-    // Масив змінних середовища для нового процесу
-    char *custom_env[] = {
-        "PATH=/usr/bin:/bin:/usr/local/bin",
-        "LOG_LEVEL=DEBUG",
-        NULL
-    };
-
-    printf("Виклик execve для запуску сценарію...\n");
-    // Якщо execve успішний, поточний процес заміщується новим образом
-    if (execve(script_args[0], script_args, custom_env) == -1) {
-        perror("Помилка execve");
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-}
-```
+:::code from-history-line-to-script-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unistd.h>
-#include <system_error>
-
-int main() {
-    const std::string script_path = "/usr/local/bin/backup-tool.sh";
-    
-    // Формування масиву аргументів за стандартом POSIX
-    std::vector<std::string> args = {
-        script_path,
-        "--source", "/var/www/data",
-        "--dest", "/var/backups"
-    };
-
-    std::vector<std::string> env_vars = {
-        "PATH=/usr/bin:/bin:/usr/local/bin",
-        "LOG_LEVEL=DEBUG"
-    };
-
-    // Підготовка масивів покажчиків char* для C-інтерфейсу execve
-    std::vector<char*> c_args;
-    c_args.reserve(args.size() + 1);
-    for (auto& arg : args) {
-        c_args.push_back(arg.data());
-    }
-    c_args.push_back(nullptr);
-
-    std::vector<char*> c_env;
-    c_env.reserve(env_vars.size() + 1);
-    for (auto& env : env_vars) {
-        c_env.push_back(env.data());
-    }
-    c_env.push_back(nullptr);
-
-    std::cout << "Виклик execve для запуску сценарію...\n";
-    if (execve(c_args[0], c_args.data(), c_env.data()) == -1) {
-        auto ec = std::error_code(errno, std::generic_category());
-        std::cerr << "Помилка execve: " << ec.message() << '\n';
-        return ec.value();
-    }
-
-    return 0;
-}
-```
+:::code from-history-line-to-script-d/cpp/main.cpp
 :::
 
 ### Способи виконання: прямий запуск, sourcing та підоболонка
@@ -229,23 +153,7 @@ int main() {
 
 Надійний сценарій ніколи не використовує жорстко зашиті всередині коду шляхи. Усі вхідні дані мають передаватися через позиційні аргументи або змінні середовища з обов'язковою системною перевіркою їхньої коректності.
 
-```bash
-# Визначення абсолютної директорії розташування самого скрипта
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
-
-# Перевірка мінімальної кількості обов'язкових аргументів
-if [[ $# -lt 2 ]]; then
-    printf 'Помилка: недостатньо параметрів.\n' >&2
-    printf 'Використання: %s <вихідний_каталог> <каталог_призначення> [термін_днів]\n' "${SCRIPT_NAME}" >&2
-    exit 2
-fi
-
-# Присвоєння аргументів із перевіркою та значеннями за замовчуванням
-readonly SOURCE_DIR="${1}"
-readonly DEST_DIR="${2}"
-readonly RETENTION_DAYS="${3:-7}" # Якщо 3-й аргумент не передано, беремо 7
-```
+:::code from-history-line-to-script-d/sh/parametryzatsiia-ta.sh
 
 Конструкція `readonly` фіксує значення змінної в таблиці символів оболонки: будь-яка спроба випадково модифікувати або очистити цю змінну нижче за текстом сценарію викличе синтаксичну помилку та негайне переривання процесу.
 
@@ -261,20 +169,7 @@ readonly RETENTION_DAYS="${3:-7}" # Якщо 3-й аргумент не пере
 
 Для гнучкого керування параметрами використовують вбудовану команду `getopts`. На відміну від зовнішньої утиліти `getopt`, `getopts` є частиною стандарту POSIX, працює безпосередньо в пам'яті інтерпретатора і коректно обробляє аргументи, що містять пробіли:
 
-```bash
-while getopts ":s:d:k:vh" opt; do
-    case "${opt}" in
-        s) SOURCE_DIR="${OPTARG}" ;;
-        d) DEST_DIR="${OPTARG}" ;;
-        k) RETENTION_DAYS="${OPTARG}" ;;
-        v) VERBOSE=1 ;;
-        h) usage; exit 0 ;;
-        \?) printf 'Невідомий прапорець: -%s\n' "${OPTARG}" >&2; exit 2 ;;
-        :)  printf 'Опція -%s вимагає аргументу.\n' "${OPTARG}" >&2; exit 2 ;;
-    esac
-done
-shift $((OPTIND - 1)) # Зсуває оброблені прапорці, залишаючи лише залишок позиційних аргументів
-```
+:::code from-history-line-to-script-d/sh/rozbir-praportsiv.sh
 
 ### Різниця між "$@", $* та незалапкованим $@
 
@@ -406,30 +301,7 @@ readonly TMP_DIR="$(mktemp -d -t my_script.XXXXXX)"
 
 Команда `trap` реєструє обробник подій переривання процесу:
 
-```bash
-declare -a BACKGROUND_PIDS=()
-
-cleanup() {
-    local exit_code=$?
-    # Вимикаємо пастку для запобігання рекурсивним викликам
-    trap - EXIT INT TERM HUP
-
-    # Завершення фонових воркерів, щоб вони не перетворилися на зомбі
-    if [[ ${#BACKGROUND_PIDS[@]} -gt 0 ]]; then
-        kill -TERM "${BACKGROUND_PIDS[@]}" 2>/dev/null || true
-        wait "${BACKGROUND_PIDS[@]}" 2>/dev/null || true
-    fi
-
-    if [[ -d "${TMP_DIR:-}" ]]; then
-        rm -rf "${TMP_DIR}"
-    fi
-
-    exit "${exit_code}"
-}
-
-# Реєстрація єдиної точки виходу
-trap cleanup EXIT INT TERM HUP
-```
+:::code from-history-line-to-script-d/sh/harantovane-prybyrannia.sh
 
 Псевдосигнал `EXIT` (код 0) спрацьовує **завжди**:
 * При плановому завершенні скрипта;
@@ -530,21 +402,7 @@ export PS4='+ ${BASH_SOURCE[0]}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}(): } '
 
 Для складних сценаріїв із багатьма вкладеними функціями неоціненним інструментом є автоматичний друк трасування стека (*stack trace*) у момент падіння за допомогою пастки `ERR`:
 
-```bash
-set -E # Дозволяє функціям успадковувати trap ERR
-
-print_stacktrace() {
-    local exit_code=$?
-    printf '[FATAL] Скрипт впав на рядку %s із кодом %s\n' "${1}" "${exit_code}" >&2
-    printf 'Стек викликів:\n' >&2
-    local frame=0
-    while caller ${frame}; do
-        ((frame++))
-    done >&2
-}
-
-trap 'print_stacktrace ${LINENO}' ERR
-```
+:::code from-history-line-to-script-d/sh/druk-steka-vyklykiv-pry.sh
 
 ### Статичний аналіз коду через ShellCheck
 

@@ -79,76 +79,8 @@
 Тому в сучасному Linux-програмуванні необхідно використовувати виключно системні виклики `setresuid()` та `setresgid()`, явно передаючи цільовий ідентифікатор у всі три позиції:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <grp.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-/* Безпечне незворотне скидання прав демона */
-int drop_privileges_permanently(uid_t target_uid, gid_t target_gid) {
-    /* 1. Скидаємо всі додаткові групи суперкористувача */
-    if (setgroups(0, NULL) != 0) {
-        perror("setgroups(0, NULL)");
-        return -1;
-    }
-
-    /* 2. Атомарно встановлюємо Real, Effective та Saved GID */
-    if (setresgid(target_gid, target_gid, target_gid) != 0) {
-        perror("setresgid");
-        return -1;
-    }
-
-    /* 3. Атомарно встановлюємо Real, Effective та Saved UID */
-    if (setresuid(target_uid, target_uid, target_uid) != 0) {
-        perror("setresuid");
-        return -1;
-    }
-
-    /* 4. Перевірка: переконуємося, що повернення до root неможливе */
-    if (setresuid(-1, 0, -1) == 0) {
-        fprintf(stderr, "КРИТИЧНА ПОМИЛКА: вдалося відновити root UID!\n");
-        abort();
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <unistd.h>
-#include <grp.h>
-#include <expected>
-#include <system_error>
-#include <iostream>
-#include <cstdlib>
-
-// Безпечне незворотне скидання прав демона мовою C++
-[[nodiscard]] std::expected<void, std::error_code> drop_privileges_permanently(uid_t target_uid, gid_t target_gid) noexcept {
-    // 1. Очищення додаткових груп
-    if (::setgroups(0, nullptr) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    // 2. Встановлення Real, Effective, Saved GID
-    if (::setresgid(target_gid, target_gid, target_gid) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    // 3. Встановлення Real, Effective, Saved UID
-    if (::setresuid(target_uid, target_uid, target_uid) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    // 4. Верифікація неможливості підвищення прав
-    if (::setresuid(-1, 0, -1) == 0) {
-        std::cerr << "КРИТИЧНА ПОМИЛКА: збережений root UID не скинуто!\n";
-        std::abort();
-    }
-
-    return {};
-}
-```
+:::code least-privilege-in-practice-d/c/2-2-zastarilyi-setuid.c
+:::code least-privilege-in-practice-d/cpp/2-2-zastarilyi-setuid.cpp
 :::
 
 ---
@@ -371,55 +303,8 @@ Landlock вирішує фундаментальну проблему Seccomp-BP
 Landlock працює за накопичувальним принципом: процес створює набір правил (*ruleset*), додає туди дескриптори дозволених каталогів (наприклад, право на читання `/usr/share/mydaemon` та запис у `/tmp/mydaemon_run`), після чого активує обмеження викликом `landlock_restrict_self()`.
 
 :::tabs
-```c
-#include <linux/landlock.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* Створення правил Landlock: дозволяємо лише читання вказаного каталогу */
-struct landlock_ruleset_attr attr = {
-    .handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_READ_DIR,
-};
-int ruleset_fd = syscall(__NR_landlock_create_ruleset, &attr, sizeof(attr), 0);
-
-/* Активація самообмеження процесу */
-prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-syscall(__NR_landlock_restrict_self, ruleset_fd, 0);
-close(ruleset_fd);
-```
-```cpp
-#include <linux/landlock.h>
-#include <sys/prctl.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-
-// Активація обмежень Landlock мовою C++
-[[nodiscard]] inline std::expected<void, std::error_code> enable_landlock_read_only() noexcept {
-    landlock_ruleset_attr attr{
-        .handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_READ_DIR,
-    };
-    int ruleset_fd = static_cast<int>(::syscall(__NR_landlock_create_ruleset, &attr, sizeof(attr), 0));
-    if (ruleset_fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    if (::prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) != 0) {
-        ::close(ruleset_fd);
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    if (::syscall(__NR_landlock_restrict_self, ruleset_fd, 0) != 0) {
-        ::close(ruleset_fd);
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-
-    ::close(ruleset_fd);
-    return {};
-}
-```
+:::code least-privilege-in-practice-d/c/landlock.h
+:::code least-privilege-in-practice-d/cpp/6-prostorova-izoliatsiia.cpp
 :::
 
 Після активації обмежень ядро блокує будь-які спроби відкрити файли за межами дозволеного дерева VFS. Правила Landlock автоматично успадковуються всіма дочірніми потоками та процесами, і їх неможливо послабити чи вимкнути назад.

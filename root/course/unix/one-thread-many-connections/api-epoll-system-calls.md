@@ -112,21 +112,7 @@ int epoll_pwait2(int epfd, struct epoll_event *events, int maxevents,
 
 Структура `struct epoll_event` передається у виклики `epoll_ctl()` для налаштування спостереження та заповнюється ядром під час виклику `epoll_wait()`.
 
-```c
-#include <stdint.h>
-
-typedef union epoll_data {
-    void        *ptr;      /* Покажчик на структуру користувацького контексту / сесії */
-    int          fd;       /* Файловий дескриптор */
-    uint32_t     u32;      /* 32-розрядне число */
-    uint64_t     u64;      /* 64-розрядне число (ідентифікатор, таймстемп тощо) */
-} epoll_data_t;
-
-struct epoll_event {
-    uint32_t      events;  /* Бітова маска подій epoll (вхідні / вихідні / прапорці) */
-    epoll_data_t  data;    /* Користувацькі дані, що повертаються без змін */
-};
-```
+:::code api-epoll-system-calls/c/struktura-podii-struct.c
 
 > ⚠️ **Важлива особливість об'єднання `epoll_data_t`:** Поле `data` є об'єднанням (`union`). Програма може використовувати лише **одне** з полів одночасно. Якщо ви записуєте `event.data.ptr = &session;`, поле `event.data.fd` буде перезаписане значенням покажчика. У промислових подієвих циклах у `event.data.ptr` зберігають покажчик на структуру об'єкта підключення (яка вже всередині себе містить дескриптор `fd`, буфери прийому/передачі та стан протокольного автомата).
 
@@ -136,30 +122,7 @@ struct epoll_event {
 
 Щоб розуміти швидкодію та поведінку `epoll` під час високих навантажень, важливо знати, як саме він представлений у просторі ядра:
 
-```c
-/* Концептуальна схема ключових структур ядра (fs/eventpoll.c) */
-
-struct eventpoll {
-    struct mutex            mtx;          /* М'ютекс для операцій epoll_ctl */
-    rwlock_t                lock;         /* Блокування для списку готових подій */
-    wait_queue_head_t       wq;           /* Черга очікування для epoll_wait() */
-    wait_queue_head_t       poll_wait;    /* Черга очікування, якщо сам epoll вкладений в інший epoll */
-    struct list_head        rdllist;      /* Двозв'язний список готових дескрипторів */
-    struct rb_root_cached   rbr;          /* Червоно-чорне дерево зареєстрованих дескрипторів */
-    struct epitem          *ovflist;      /* Тимчасовий список переповнення при копіюванні в userspace */
-    struct user_struct     *user;         /* Облік ліміту max_user_watches для UID */
-    struct file            *file;         /* Опис файлу самого екземпляра epoll */
-};
-
-struct epitem {
-    struct rb_node          rb;           /* Вузол червоно-чорного дерева */
-    struct list_head        rdllink;      /* Елемент двозв'язного списку rdllist */
-    struct epoll_filefd     ffd;          /* Пара: struct file* та номер fd */
-    struct eventpoll       *ep;           /* Покажчик на батьківський екземпляр eventpoll */
-    struct epoll_event      event;        /* Поточна маска подій та дані користувача */
-    struct list_head        pwqlist;      /* Список точок очікування в чергах драйверів */
-};
-```
+:::code api-epoll-system-calls/c/eventpoll.c
 
 ### Механіка асинхронного сповіщення:
 1. Під час виклику `epoll_ctl(EPOLL_CTL_ADD)` ядро виділяє структуру `struct epitem` зі спеціального кешу алокатора SLAB (`epitem_cache`);

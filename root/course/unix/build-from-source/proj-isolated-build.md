@@ -55,21 +55,7 @@ cd libuv-v1.48.0
 
 Ми конфігуруємо бібліотеку `libuv` із префіксом `/opt/netbridge`, щоб згенерований файл `libuv.pc` містив правильні шляхи пошуку заголовків і бібліотек. Однак фактичне встановлення виконуємо у тимчасовий каталог інсталяції за допомогою змінної `DESTDIR`:
 
-```bash
-# 1. Генерація конфігурації
-./autogen.sh
-./configure \
-    --prefix=/opt/netbridge \
-    --enable-shared \
-    --disable-static \
-    CFLAGS="-O3 -march=native -fPIC"
-
-# 2. Паралельна компіляція з використанням усіх ядер процесора
-make -j$(nproc)
-
-# 3. Інсталяція у проміжний каталог stage замість кореня системи
-make install DESTDIR=/tmp/build-workspace/stage
-```
+:::code proj-isolated-build/sh/autogen.sh
 
 Після виконання цієї команди структура `/tmp/build-workspace/stage/opt/netbridge` містить скомпільовані файли `.so`, заголовки `.h` та файл метаданих `libuv.pc` у каталозі `lib/pkgconfig`. Зверніть увагу: ми не чіпали реальний системний каталог `/opt/netbridge` — усі артефакти розміщені виключно у пісочниці `stage`.
 
@@ -80,112 +66,8 @@ make install DESTDIR=/tmp/build-workspace/stage
 Створюємо вихідний код нашого мережевого демона. Програма ініціалізує цикл подій `libuv`, реєструє асинхронний таймер і демонструє практичне використання стороннього API.
 
 :::tabs
-```c
-/* netbridge.c — C-реалізація з прямим викликом libuv API */
-#include <stdio.h>
-#include <stdlib.h>
-#include <uv.h>
-
-static void timer_callback(uv_timer_t *handle) {
-    int64_t uptime = uv_now(handle->loop);
-    printf("[netbridge] Сервіс працює стабільно. Поточний час циклу: %ld мс\n", (long)uptime);
-    /* Зупиняємо таймер після першого спрацьовування для чистого виходу */
-    uv_timer_stop(handle);
-    uv_stop(handle->loop);
-}
-
-int main(int argc, char **argv) {
-    printf("[netbridge] Ініціалізація демона...\n");
-    uv_loop_t *loop = uv_default_loop();
-    if (!loop) {
-        fprintf(stderr, "Помилка: не вдалося створити uv_loop\n");
-        return EXIT_FAILURE;
-    }
-
-    uv_timer_t timer_req;
-    int status = uv_timer_init(loop, &timer_req);
-    if (status < 0) {
-        fprintf(stderr, "Помилка ініціалізації таймера: %s\n", uv_strerror(status));
-        return EXIT_FAILURE;
-    }
-
-    /* Запуск таймера: спрацювати через 100 мс */
-    uv_timer_start(&timer_req, timer_callback, 100, 0);
-
-    /* Запуск основного циклу обробки подій */
-    uv_run(loop, UV_RUN_DEFAULT);
-    uv_loop_close(loop);
-
-    printf("[netbridge] Роботу успішно завершено.\n");
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// netbridge.cpp — Ідіоматична C++ реалізація з RAII-обгорткою над uv_loop
-#include <iostream>
-#include <memory>
-#include <expected>
-#include <system_error>
-#include <uv.h>
-
-class UvLoopRunner {
-    uv_loop_t* loop_{nullptr};
-public:
-    UvLoopRunner() : loop_(uv_default_loop()) {}
-    ~UvLoopRunner() noexcept {
-        if (loop_) {
-            uv_loop_close(loop_);
-        }
-    }
-    UvLoopRunner(const UvLoopRunner&) = delete;
-    UvLoopRunner& operator=(const UvLoopRunner&) = delete;
-    UvLoopRunner(UvLoopRunner&& other) noexcept : loop_(other.loop_) {
-        other.loop_ = nullptr;
-    }
-    UvLoopRunner& operator=(UvLoopRunner&& other) noexcept {
-        if (this != &other) {
-            if (loop_) uv_loop_close(loop_);
-            loop_ = other.loop_;
-            other.loop_ = nullptr;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] uv_loop_t* get() const noexcept { return loop_; }
-    void run() const noexcept {
-        if (loop_) {
-            uv_run(loop_, UV_RUN_DEFAULT);
-        }
-    }
-};
-
-static void timer_callback(uv_timer_t* handle) {
-    auto uptime = uv_now(handle->loop);
-    std::cout << "[netbridge-cpp] Сервіс працює. Час: " << uptime << " мс\n";
-    uv_timer_stop(handle);
-    uv_stop(handle->loop);
-}
-
-int main() {
-    std::cout << "[netbridge-cpp] Ініціалізація C++ сервісу...\n";
-    UvLoopRunner runner;
-    if (!runner.get()) {
-        std::cerr << "Не вдалося отримати системний loop\n";
-        return 1;
-    }
-
-    uv_timer_t timer;
-    if (int err = uv_timer_init(runner.get(), &timer); err < 0) {
-        std::cerr << "Помилка таймера: " << uv_strerror(err) << "\n";
-        return 1;
-    }
-
-    uv_timer_start(&timer, timer_callback, 100, 0);
-    runner.run();
-    std::cout << "[netbridge-cpp] Завершення.\n";
-    return 0;
-}
-```
+:::code proj-isolated-build/c/netbridge.c
+:::code proj-isolated-build/cpp/netbridge.cpp
 :::
 
 ---
@@ -196,28 +78,7 @@ int main() {
 
 Зв'язування з нашою щойно зібраною залежністю здійснюється через експорт змінної `PKG_CONFIG_PATH`, яка перенаправляє `pkg-config` до створеного у `stage` каталогу:
 
-```bash
-cd /tmp/build-workspace/sources
-
-# Спрямовуємо pkg-config на метадані у проміжному каталозі
-export PKG_CONFIG_PATH="/tmp/build-workspace/stage/opt/netbridge/lib/pkgconfig"
-
-# Перевірка: чи знаходить pkg-config нашу версію libuv
-pkg-config --modversion libuv
-# Повинно вивести: 1.48.0
-
-# Компіляція та лінкування з прапорцем RUNPATH
-gcc -O3 -Wall \
-    $(pkg-config --cflags libuv) \
-    netbridge.c \
-    $(pkg-config --libs libuv) \
-    -Wl,-rpath,'$ORIGIN/../lib' \
-    -Wl,--enable-new-dtags \
-    -o netbridge
-
-# Перевірка заголовків скомпільованого ELF бінарника
-readelf -d netbridge | grep -E '(RUNPATH|NEEDED)'
-```
+:::code proj-isolated-build/sh/5-krok-4-skladannia.sh
 
 Вивід команди `readelf` підтверджує правильність структури залежностей:
 
@@ -235,43 +96,7 @@ readelf -d netbridge | grep -E '(RUNPATH|NEEDED)'
 
 Копіюємо скомпільований бінарник та допоміжні системні конфігураційні файли у дерево `stage`:
 
-```bash
-# Створення цільових каталогів
-mkdir -p /tmp/build-workspace/stage/opt/netbridge/{bin,etc}
-mkdir -p /tmp/build-workspace/stage/etc/systemd/system
-
-# Розміщення виконуваного файлу
-cp netbridge /tmp/build-workspace/stage/opt/netbridge/bin/
-chmod 755 /tmp/build-workspace/stage/opt/netbridge/bin/netbridge
-
-# Створення файлу конфігурації
-cat << 'EOF' > /tmp/build-workspace/stage/opt/netbridge/etc/netbridge.conf
-# Конфігурація сервісу netbridge
-PORT=8080
-WORKERS=4
-LOG_LEVEL=info
-EOF
-
-# Створення systemd сервіс-юніта
-cat << 'EOF' > /tmp/build-workspace/stage/etc/systemd/system/netbridge.service
-[Unit]
-Description=NetBridge Custom Network Gateway
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/opt/netbridge/bin/netbridge
-Restart=on-failure
-User=nobody
-Group=nogroup
-ProtectSystem=strict
-ProtectHome=yes
-PrivateTmp=yes
-
-[Install]
-WantedBy=multi-user.target
-EOF
-```
+:::code proj-isolated-build/sh/6-krok-5-formuvannia.sh
 
 ---
 
@@ -281,25 +106,7 @@ EOF
 
 Вона пакує вміст каталогу `stage`, зберігаючи всі права доступу до файлів, власників та символічні посилання.
 
-```bash
-cd /tmp/build-workspace
-
-# Генерація нативного DEB-пакунка
-fpm -s dir -t deb \
-    -n netbridge \
-    -v 1.0.0 \
-    --iteration 1 \
-    --architecture x86_64 \
-    --maintainer "DevOps Team <admin@example.com>" \
-    --description "NetBridge High Performance Network Service" \
-    --after-install - << 'EOF'
-#!/bin/sh
-systemctl daemon-reload
-echo "[netbridge] Пакунок успішно встановлено в /opt/netbridge"
-EOF \
-    -C /tmp/build-workspace/stage \
-    .
-```
+:::code proj-isolated-build/sh/7-krok-6-heneratsiia.sh
 
 Якщо цільовою платформою є Red Hat Enterprise Linux, Rocky Linux або Fedora, генерація RPM виконується однією зміною цільового прапорця: `-t rpm`.
 

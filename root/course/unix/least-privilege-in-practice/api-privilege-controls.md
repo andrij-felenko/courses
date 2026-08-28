@@ -57,19 +57,7 @@ if (::setresuid(target_uid, target_uid, target_uid) != 0) {
 Додаткові групи процесу зберігаються в динамічному масиві `struct group_info`. Навіть якщо процес успішно змінив свій основний UID та GID на непривілейовані, він продовжує володіти всіма додатковими групами, успадкованими від батьківського процесу (наприклад, групами з привілейованим доступом `wheel`, `sudo`, `docker`, `disk` або `adm`).
 
 :::tabs
-```c
-/* 1. Повне очищення списку додаткових груп */
-if (setgroups(0, NULL) != 0) {
-    perror("FATAL: setgroups(0, NULL) failed");
-    abort();
-}
-
-/* 2. АБО завантаження груп виділеного облікового запису з бази /etc/group */
-if (initgroups("daemon_user", target_gid) != 0) {
-    perror("FATAL: initgroups failed");
-    abort();
-}
-```
+:::code api-privilege-controls/c/1-2-ochyshchennia-ta.c
 ```cpp
 // 1. Повне очищення списку додаткових груп
 if (::setgroups(0, nullptr) != 0) {
@@ -268,44 +256,11 @@ int landlock_restrict_self(int ruleset_fd, __u32 flags);
 
 У моделі розподілу привілеїв (*Privilege Separation*) привілейований процес відкриває захищений ресурс (наприклад, файл приватного ключа сертифіката або мережевий сокет порту 80) і передає відкритий файловий дескриптор непривілейованому воркеру через локальний Unix Domain сокет (`AF_UNIX`).
 
-```c
-#include <sys/socket.h>
-#include <sys/un.h>
-
-struct msghdr {
-    void         *msg_name;       /* Адреса сокета (NULL для підключених потокових сокетів) */
-    socklen_t     msg_namelen;    /* Розмір адреси */
-    struct iovec *msg_iov;        /* Масив буферів корисних даних */
-    size_t        msg_iovlen;     /* Кількість буферів у масиві msg_iov */
-    void         *msg_control;    /* Буфер допоміжних службових повідомлень */
-    size_t        msg_controllen; /* Розмір буфера msg_control */
-    int           msg_flags;      /* Прапорці отриманого повідомлення */
-};
-
-struct cmsghdr {
-    size_t cmsg_len;   /* Розмір службового блоку разом із заголовком */
-    int    cmsg_level; /* SOL_SOCKET */
-    int    cmsg_type;  /* SCM_RIGHTS */
-    /* unsigned char cmsg_data[] — масив дескрипторів слідує безпосередньо за структурою */
-};
-```
+:::code api-privilege-controls/c/6-protokol-peredachi.c
 
 ### 6.1. Макроси маніпуляції допоміжними даними `cmsghdr`
 
-```c
-/* Повертає вказівник на перший заголовок cmsghdr у структурі msghdr */
-struct cmsghdr *CMSG_FIRSTHDR(struct msghdr *msgh);
-
-/* Повертає вказівник на наступний cmsghdr або NULL, якщо досягнуто кінця буфера */
-struct cmsghdr *CMSG_NXTHDR(struct msghdr *msgh, struct cmsghdr *cmsg);
-
-/* Повертає вказівник на перший байт корисних даних дескрипторів */
-unsigned char *CMSG_DATA(struct cmsghdr *cmsg);
-
-/* Обчислює сумарний розмір буфера з урахуванням вирівнювання пам'яті ядра */
-size_t CMSG_SPACE(size_t length);
-size_t CMSG_LEN(size_t length);
-```
+:::code api-privilege-controls/c/6-1-makrosy-manipuliatsii.h
 
 #### Механізм дублювання дескрипторів у ядрі:
 Під час виклику `sendmsg()` ядро перевіряє переданий дескриптор у таблиці дескрипторів відправника, збільшує лічильник посилань на відповідну структуру `struct file` у VFS і розміщує посилання у черзі сокета. Коли процес-отримувач виконує виклик `recvmsg()`, ядро виділяє новий найменший вільний номер дескриптора в таблиці отримувача та прив'язує його до тієї самої структури `struct file`. Номери дескрипторів у відправника та отримувача можуть відрізнятися (наприклад, дескриптор `3` у майстра може стати дескриптором `7` у воркера), але вони вказують на один і той самий відкритий файл або сокет.

@@ -47,48 +47,8 @@
 Нижче наведено приклад коду, що демонструє, як процес системної утиліти або власної оболонки перевіряє наявність ознаки login shell та підключення до інтерактивного термінала через системні виклики POSIX.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-int main(int argc, char *argv[]) {
-    // 1. Перевірка наявності дефіса на початку argv[0]
-    int is_login = (argc > 0 && argv[0] != NULL && argv[0][0] == '-');
-
-    // 2. Перевірка підключення стандартного потоку вводу до TTY
-    int is_interactive = isatty(STDIN_FILENO);
-
-    printf("Ідентифікація оболонки:\n");
-    printf("  argv[0]         = %s\n", (argc > 0 && argv[0]) ? argv[0] : "(null)");
-    printf("  Login Shell     = %s\n", is_login ? "ТАК (ініціалізація сеансу)" : "НІ (вторинний процес)");
-    printf("  Interactive     = %s\n", is_interactive ? "ТАК (підключено до термінала)" : "НІ (виконання скрипта)");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <unistd.h>
-
-int main(int argc, char *argv[]) {
-    // 1. Перевірка наявності дефіса на початку argv[0]
-    const bool is_login = (argc > 0 && argv[0] != nullptr && argv[0][0] == '-');
-
-    // 2. Перевірка підключення стандартного потоку вводу до TTY
-    const bool is_interactive = (isatty(STDIN_FILENO) == 1);
-
-    const std::string_view arg0 = (argc > 0 && argv[0] != nullptr) ? argv[0] : "(null)";
-
-    std::cout << "Ідентифікація оболонки:\n";
-    std::cout << "  argv[0]         = " << arg0 << "\n";
-    std::cout << "  Login Shell     = " << (is_login ? "ТАК (ініціалізація сеансу)" : "НІ (вторинний процес)") << "\n";
-    std::cout << "  Interactive     = " << (is_interactive ? "ТАК (підключено до термінала)" : "НІ (виконання скрипта)") << "\n";
-
-    return 0;
-}
-```
+:::code make-the-shell-your-own-d/c/main.c
+:::code make-the-shell-your-own-d/cpp/main.cpp
 :::
 
 ### Послідовність зчитування конфігураційних файлів Bash
@@ -166,26 +126,7 @@ int main(int argc, char *argv[]) {
 
 Щоб унеможливити втрату даних, необхідно змінити логіку роботи з дисковим файлом та збільшити ліміти збереження в `~/.bashrc`:
 
-```bash
-# 1. Збільшення розміру буфера пам'яті та дискового файлу
-export HISTSIZE=50000
-export HISTFILESIZE=100000
-
-# 2. Перемикання з режиму перезапису на режим дописування (O_APPEND)
-shopt -s histappend
-
-# 3. Багаторядкові команди зберігаються як один запис історії
-shopt -s cmdhist
-
-# 4. Фіксація часових міток виконання (РРРР-ММ-ДД ГГ:ХХ:СС)
-export HISTTIMEFORMAT="%F %T "
-
-# 5. Керування дублікатами та чутливими даними
-export HISTCONTROL="ignoreboth:erasedups"
-
-# 6. Ігнорування тривіальних та навігаційних команд
-export HISTIGNORE="ls:ll:la:cd:pwd:exit:history:clear:bg:fg"
-```
+:::code make-the-shell-your-own-d/sh/nalashtuvannia-nadiinoho.sh
 
 Розберемо значення ключових прапорців:
 - `shopt -s histappend` змушує процес оболонки відкривати файл із прапорцем ядра `O_APPEND`. Нові записи дописуються в кінець файлу, не знищуючи чужі дані.
@@ -372,41 +313,7 @@ PS1="\[\033[32m\]\u@\h\[\033[0m\]:\[\033[34m\]\w\[\033[0m\]\$ "
 
 Для комфортної щоденної розробки рекомендується використовувати дворядкову структуру промпта. Перший рядок містить повну інформацію про оточення (час, хост, повний шлях та гілку Git), а власне ввід команди починається з нового рядка біля лівого краю. Це залишає максимальний горизонтальний простір для довгих команд.
 
-```bash
-# ~/.config/bash/30-prompt.bash
-
-_git_branch() {
-    local ref
-    ref=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
-    if [ -n "$ref" ]; then
-        local dirty=""
-        # Перевірка наявності не зафіксованих змін
-        [ -n "$(git status --porcelain 2>/dev/null)" ] && dirty="*"
-        printf " \[\033[35m\](%s%s)\[\033[0m\]" "$ref" "$dirty"
-    fi
-}
-
-_build_prompt() {
-    local exit_code="$?"
-    local prompt_color="\[\033[32m\]"
-    local exit_str=""
-
-    # Якщо попередня команда завершилась із помилкою — показуємо код
-    if [ "$exit_code" -ne 0 ]; then
-        exit_str="\[\033[31m\][✘ $exit_code]\[\033[0m\] "
-    fi
-
-    # Виділення користувача root червоним кольором
-    [ "$EUID" -eq 0 ] && prompt_color="\[\033[31m\]"
-
-    # OSC 0 для оновлення заголовка вікна термінала
-    local title_seq="\[\033]0;\u@\h: \w\007\]"
-
-    PS1="${title_seq}${exit_str}${prompt_color}\u@\h\[\033[0m\]:\[\033[34m\]\w\[\033[0m\]$(_git_branch)\n\\$ "
-}
-
-PROMPT_COMMAND="_build_prompt; ${PROMPT_COMMAND:-}"
-```
+:::code make-the-shell-your-own-d/sh/dvoriadkovyi-prompt-iz-git.sh
 
 ### Сучасні скомпільовані генератори промптів (Starship)
 
@@ -474,41 +381,7 @@ alias mv='mv -iv'
 
 Нижче наведено перевірені часом функції для прискорення повсякденної навігації:
 
-```bash
-# Швидкий підйом на N рівнів вгору по дереву каталогів: up 3 -> cd ../../..
-up() {
-    local levels="${1:-1}"
-    local target=""
-    for (( i=0; i<levels; i++ )); do
-        target="../$target"
-    done
-    cd "$target" || return 1
-}
-
-# Універсальний розпакувальник архівів за їхнім магічним розширенням
-extract() {
-    if [ -f "$1" ]; then
-        case "$1" in
-            *.tar.bz2)   tar xjf "$1"     ;;
-            *.tar.gz)    tar xzf "$1"     ;;
-            *.tar.xz)    tar xJf "$1"     ;;
-            *.bz2)       bunzip2 "$1"     ;;
-            *.rar)       unrar x "$1"     ;;
-            *.gz)        gunzip "$1"      ;;
-            *.tar)       tar xf "$1"      ;;
-            *.tbz2)      tar xjf "$1"     ;;
-            *.tgz)       tar xzf "$1"     ;;
-            *.zip)       unzip "$1"       ;;
-            *.Z)         uncompress "$1"  ;;
-            *.7z)        7z x "$1"        ;;
-            *)           echo "Невідомий формат архіву '$1'" >&2; return 1 ;;
-        esac
-    else
-        echo "'$1' не є дійсним файлом" >&2
-        return 1
-    fi
-}
-```
+:::code make-the-shell-your-own-d/sh/rozumni-dopomizhni.sh
 
 ### Модернізація інструментів термінала
 
@@ -543,28 +416,7 @@ extract() {
 
 Головний файл `~/.bashrc` перетворюється на компактний та надійний завантажувач:
 
-```bash
-# ~/.bashrc — Легковага точка входу
-
-# Якщо сеанс не інтерактивний — виходимо
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
-DOTFILES_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/bash"
-
-# Завантаження модулів у числовому порядку
-if [ -d "$DOTFILES_DIR" ]; then
-    for mod in "$DOTFILES_DIR"/[0-9][0-9]-*.bash; do
-        [ -r "$mod" ] && . "$mod"
-    done
-    unset mod
-fi
-
-# Підключення локальних налаштувань за наявності
-[ -r "$DOTFILES_DIR/99-local.bash" ] && . "$DOTFILES_DIR/99-local.bash"
-```
+:::code make-the-shell-your-own-d/sh/struktura-katalohu-config.sh
 
 Повний працюючий стартовий каркас усіх модулів, готовий до розгортання в один клік, розібрано в практичній проєктній вставці [практикум модульної конфігурації dotfiles](root:unix/make-the-shell-your-own/proj-modular-dotfiles.md).
 
@@ -575,20 +427,7 @@ fi
 Найбільш надійний та елегантний спосіб версіонування — **голий репозиторій Git (`Git Bare Repository`)** безпосередньо в домашньому каталозі.
 
 1. **Ініціалізація сховища на робочій машині:**
-   ```bash
-   # Створення голого репозиторію в прихованому каталозі
-   git init --bare "$HOME/.dotfiles"
-
-   # Створення зручного аліаса для керування
-   alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-   # Критично: приховування сторонніх невідстежуваних файлів з домашнього каталогу
-   dotfiles config --local status.showUntrackedFiles no
-
-   # Додавання конфігурацій і створення першого коміту
-   dotfiles add ~/.bashrc ~/.config/bash/ ~/.inputrc
-   dotfiles commit -m "feat: модульна структура dotfiles"
-   ```
+   :::code make-the-shell-your-own-d/sh/keruvannia.sh
 
 2. **Розгортання на новому сервері за кілька секунд:**
    ```bash

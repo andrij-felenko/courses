@@ -32,33 +32,8 @@
 Створює новий сеанс у ядрі операційної системи.
 
 :::tabs
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-
-pid_t create_isolated_session(void) {
-    pid_t sid = setsid();
-    if (sid < 0) {
-        perror("setsid");
-        return -1;
-    }
-    return sid;
-}
-```
-```cpp
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-
-std::expected<pid_t, std::error_code> create_isolated_session() noexcept {
-    const pid_t sid = ::setsid();
-    if (sid < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return sid;
-}
-```
+:::code api-hangup-mechanics/c/systemnyi-vyklyk-setsid.c
+:::code api-hangup-mechanics/cpp/systemnyi-vyklyk-setsid.cpp
 :::
 
 * **Призначення**: створює новий сеанс, якщо викликаючий процес не є лідером групи процесів (`PID != PGID`).
@@ -70,19 +45,7 @@ std::expected<pid_t, std::error_code> create_isolated_session() noexcept {
 Встановлює ідентифікатор групи процесів для зазначеної задачі.
 
 :::tabs
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-
-int assign_process_group(pid_t pid, pid_t pgid) {
-    if (setpgid(pid, pgid) < 0) {
-        perror("setpgid");
-        return -1;
-    }
-    return 0;
-}
-```
+:::code api-hangup-mechanics/c/systemnyi-vyklyk-setpgid.c
 ```cpp
 #include <unistd.h>
 #include <system_error>
@@ -104,19 +67,7 @@ std::error_code assign_process_group(pid_t pid, pid_t pgid) noexcept {
 Передають або запитують групу процесів переднього плану для керівного термінала.
 
 :::tabs
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-
-int set_foreground_group(int fd, pid_t pgrp) {
-    if (tcsetpgrp(fd, pgrp) < 0) {
-        perror("tcsetpgrp");
-        return -1;
-    }
-    return 0;
-}
-```
+:::code api-hangup-mechanics/c/systemni-vyklyky-tcsetpgrp.c
 ```cpp
 #include <unistd.h>
 #include <system_error>
@@ -151,42 +102,8 @@ std::error_code set_foreground_group(int fd, pid_t pgrp) noexcept {
 Конфігурація термінальної дисципліни описується структурою `struct termios`:
 
 :::tabs
-```c
-#include <termios.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int enable_hangup_on_close(int fd) {
-    struct termios tty;
-    if (tcgetattr(fd, &tty) < 0) {
-        perror("tcgetattr");
-        return -1;
-    }
-    tty.c_cflag |= HUPCL; /* Hangup on last close */
-    if (tcsetattr(fd, TCSANOW, &tty) < 0) {
-        perror("tcsetattr");
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <termios.h>
-#include <unistd.h>
-#include <system_error>
-
-std::error_code enable_hangup_on_close(int fd) noexcept {
-    termios tty{};
-    if (::tcgetattr(fd, &tty) < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-    tty.c_cflag |= HUPCL;
-    if (::tcsetattr(fd, TCSANOW, &tty) < 0) {
-        return std::error_code(errno, std::generic_category());
-    }
-    return {};
-}
-```
+:::code api-hangup-mechanics/c/praportsi-termios-ta.c
+:::code api-hangup-mechanics/cpp/praportsi-termios-ta.cpp
 :::
 
 * **`HUPCL` (Hangup on close)**: бітовий прапорець у полі `c_cflag`. Якщо його активовано, драйвер термінала генерує апаратний розрив зв'язку (скидання ліній DTR/RTS) або програмний виклик `tty_vhangup()`, коли останній процес закриває файловий дескриптор пристрою.

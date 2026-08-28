@@ -290,18 +290,7 @@ $CMD
 
 Правильний спосіб передачі складних команд із аргументами — використання **масивів (arrays)** у Bash/Zsh або позиційних параметрів у POSIX `sh`:
 
-```bash
-# Правильно: масив зберігає кожен елемент як окремий елемент argv[]
-CMD_ARGS=(
-    curl
-    -H "Content-Type: application/json"
-    -H "Authorization: Bearer $TOKEN"
-    "https://api.example.com/v1/data"
-)
-
-# Виклик розгортає масив зі збереженням меж:
-"${CMD_ARGS[@]}"
-```
+:::code why-quoting-bites-d/sh/main.sh
 
 Як створити утиліту для перехоплення та побайтового дослідження масиву `argv[]`, показано в практичному проєкті: [інспектора аргументів та перехоплювача системних викликів](root:unix/why-quoting-bites/proj-argv-debugger.md).
 
@@ -449,69 +438,8 @@ eval "process_file $USER_INPUT"
 Правильний підхід на рівні системного програмування полягає у прямому використанні сімейства викликів `execve(2)` / `execvp(3)` без виклику проміжної оболонки:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-/* Безпечний запуск процесу без участі оболонки */
-int safe_run_command(const char *file, const char *arg1, const char *arg2) {
-    pid_t pid = fork();
-    if (pid < 0) {
-        return -1;
-    }
-    if (pid == 0) {
-        /* Дочірній процес: пряма передача масиву покажчиків */
-        char *const argv[] = {(char *)file, (char *)arg1, (char *)arg2, NULL};
-        execvp(file, argv);
-        _exit(127);
-    }
-
-    int status = 0;
-    waitpid(pid, &status, 0);
-    return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <span>
-
-/* Безпечна RAII-обгортка запуску дочірнього процесу у C++ */
-class SafeProcessLauncher {
-public:
-    static int execute(std::string_view program, std::span<const std::string> arguments) {
-        pid_t pid = fork();
-        if (pid < 0) {
-            throw std::runtime_error("Не вдалося виконати fork()");
-        }
-        if (pid == 0) {
-            std::vector<char*> argv;
-            argv.reserve(arguments.size() + 2);
-            
-            std::string prog_str(program);
-            argv.push_back(prog_str.data());
-            
-            std::vector<std::string> args_storage(arguments.begin(), arguments.end());
-            for (auto& arg : args_storage) {
-                argv.push_back(arg.data());
-            }
-            argv.push_back(nullptr);
-
-            execvp(prog_str.c_str(), argv.data());
-            _exit(127);
-        }
-
-        int status = 0;
-        waitpid(pid, &status, 0);
-        return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-    }
-};
-```
+:::code why-quoting-bites-d/c/main.c
+:::code why-quoting-bites-d/cpp/main.cpp
 :::
 
 ## Інструментальне спостереження: як побачити справжній argv[]

@@ -47,72 +47,9 @@
 
 :::tabs
 @tab:c
-```c
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
-
-/* Імітація алгоритму перевірки прав VFS ядра Linux */
-int check_dac_permission(uid_t current_fsuid, gid_t current_fsgid,
-                         uid_t inode_uid, gid_t inode_gid,
-                         mode_t inode_mode, int requested_mask)
-{
-    /* 1. Якщо процес є власником інода, перевіряються біти власника (0700) */
-    if (current_fsuid == inode_uid) {
-        if ((inode_mode & (requested_mask << 6)) == (requested_mask << 6))
-            return 0;
-        return -EACCES;
-    }
-
-    /* 2. Якщо процес входить до групи інода, перевіряються біти групи (0070) */
-    if (current_fsgid == inode_gid) {
-        if ((inode_mode & (requested_mask << 3)) == (requested_mask << 3))
-            return 0;
-        return -EACCES;
-    }
-
-    /* 3. Для всіх інших користувачів перевіряються біти others (0007) */
-    if ((inode_mode & requested_mask) == (mode_t)requested_mask)
-        return 0;
-
-    return -EACCES;
-}
-```
+:::code container-does-not-work-d/c/main.c
 @tab:cpp
-```cpp
-#include <cstdint>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <cerrno>
-
-// Ідіоматична C++ реалізація алгоритму перевірки прав VFS
-enum class AccessMode : uint32_t {
-    Read = 4,
-    Write = 2,
-    Execute = 1
-};
-
-[[nodiscard]] constexpr int check_dac_permission(
-    uid_t current_fsuid, gid_t current_fsgid,
-    uid_t inode_uid, gid_t inode_gid,
-    mode_t inode_mode, AccessMode requested) noexcept
-{
-    const auto req = static_cast<uint32_t>(requested);
-
-    // 1. Перевірка прав власника
-    if (current_fsuid == inode_uid) {
-        return ((inode_mode >> 6) & req) == req ? 0 : -EACCES;
-    }
-
-    // 2. Перевірка прав групи
-    if (current_fsgid == inode_gid) {
-        return ((inode_mode >> 3) & req) == req ? 0 : -EACCES;
-    }
-
-    // 3. Перевірка прав сторонніх користувачів
-    return (inode_mode & req) == req ? 0 : -EACCES;
-}
-```
+:::code container-does-not-work-d/cpp/main.cpp
 :::
 
 Коли процес викликає `open("/app/data/file.txt", O_RDWR)`, VFS витягує з інода файлової системи два поля: `inode->i_uid` (числовий ідентифікатор власника, записаний у структурі інода на Ext4 чи XFS) та `inode->i_mode` (бітова маска прав доступу `rwxrwxrwx`). Потім ядро порівнює `inode->i_uid` з поточним ідентифікатором процесу `current_fsuid()` (файловий UID структури `struct cred`, що належить `task_struct`).

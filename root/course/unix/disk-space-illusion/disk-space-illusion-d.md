@@ -207,71 +207,8 @@ $ truncate -s 0 /proc/28411/fd/3
 Нижче продемонстровано системний підхід до прямого обнулення або вивільнення блоків через дескриптор.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
-
-int release_open_file_space(pid_t pid, int target_fd) {
-    char proc_path[64];
-    snprintf(proc_path, sizeof(proc_path), "/proc/%d/fd/%d", pid, target_fd);
-
-    /* Відкриваємо дескриптор файлу через procfs */
-    int fd = open(proc_path, O_WRONLY);
-    if (fd < 0) {
-        perror("Не вдалося відкрити procfs дескриптор");
-        return -1;
-    }
-
-    /* Метод 1: Скидання розміру до 0 */
-    if (ftruncate(fd, 0) != 0) {
-        perror("Помилка ftruncate");
-        close(fd);
-        return -1;
-    }
-
-    /* Метод 2 (альтернатива для сумісних ФС): деалокація блоків через fallocate */
-    #ifdef FALLOC_FL_PUNCH_HOLE
-    fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0, 1024 * 1024 * 1024);
-    #endif
-
-    close(fd);
-    return 0;
-}
-```
-```cpp
-#include <filesystem>
-#include <fstream>
-#include <string>
-#include <system_error>
-#include <unistd.h>
-#include <fcntl.h>
-
-namespace fs = std::filesystem;
-
-class OpenSpaceRescuer {
-public:
-    static std::error_code truncate_deleted_fd(pid_t pid, int target_fd) noexcept {
-        const std::string proc_path = "/proc/" + std::to_string(pid) + "/fd/" + std::to_string(target_fd);
-
-        int fd = ::open(proc_path.c_str(), O_WRONLY);
-        if (fd < 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        if (::ftruncate(fd, 0) != 0) {
-            const int err = errno;
-            ::close(fd);
-            return std::error_code(err, std::generic_category());
-        }
-
-        ::close(fd);
-        return {};
-    }
-};
-```
+:::code disk-space-illusion-d/c/main.c
+:::code disk-space-illusion-d/cpp/main.cpp
 :::
 
 ## 4. Вичерпання таблиці інодів (`df -i`): невидима катастрофа
@@ -373,24 +310,7 @@ $ mount /dev/sdb1 /mnt/storage
 
 Щоб отримати доступ до прихованих під точкою монтування даних без розмонтування робочого диска (який може прямо зараз використовуватися активними клієнтами), застосовують механізм прив'язного монтування (*bind mount*) самого кореня системи:
 
-```bash
-# 1. Створюємо тимчасову точку доступу
-# mkdir /mnt/inspect_root
-
-# 2. Виконуємо bind mount кореневої файлової системи
-# mount --bind / /mnt/inspect_root
-
-# 3. Скануємо вміст каталогу БЕЗ накладених монтувань
-# du -sh /mnt/inspect_root/mnt/storage
-60G    /mnt/inspect_root/mnt/storage
-
-# 4. Видаляємо прихований файл
-# rm /mnt/inspect_root/mnt/storage/backup.tar
-
-# 5. Прибираємо тимчасове монтування
-# umount /mnt/inspect_root
-# rmdir /mnt/inspect_root
-```
+:::code disk-space-illusion-d/sh/main.sh
 
 Після видалення прихованого файлу через прив'язне монтування блоки на кореневому розділі негайно вивільняються, і розбіжність між `df` та `du` зникає.
 

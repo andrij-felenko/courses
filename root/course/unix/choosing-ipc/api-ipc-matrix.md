@@ -67,45 +67,8 @@
    * Параметри черги повідомлень конфігуруються за допомогою структури `struct mq_attr`. Будь-який читач зобов'язаний виділити буфер розміром щонайменше `mq_msgsize`, інакше виклик `mq_receive()` миттєво повертає помилку `EMSGSIZE`.
 
 :::tabs
-```c
-#include <mqueue.h>
-#include <stdio.h>
-#include <fcntl.h>
-
-void configure_queue(void) {
-    struct mq_attr attr;
-    attr.mq_flags = 0;             /* Блокуючий режим */
-    attr.mq_maxmsg = 10;           /* Максимум 10 повідомлень у черзі */
-    attr.mq_msgsize = 2048;        /* Максимальний розмір одного повідомлення */
-    attr.mq_curmsgs = 0;
-
-    mqd_t mq = mq_open("/telemetry_q", O_CREAT | O_RDWR, 0600, &attr);
-    if (mq == (mqd_t)-1) {
-        perror("mq_open");
-        return;
-    }
-    mq_close(mq);
-}
-```
-```cpp
-#include <mqueue.h>
-#include <iostream>
-#include <fcntl.h>
-#include <system_error>
-
-void configure_queue() {
-    struct mq_attr attr{};
-    attr.mq_flags = 0;
-    attr.mq_maxmsg = 10;
-    attr.mq_msgsize = 2048;
-
-    mqd_t mq = ::mq_open("/telemetry_q", O_CREAT | O_RDWR, 0600, &attr);
-    if (mq == (mqd_t)-1) {
-        throw std::system_error(errno, std::generic_category(), "mq_open failed");
-    }
-    ::mq_close(mq);
-}
-```
+:::code api-ipc-matrix/c/atomarnist-ta-pravyla.c
+:::code api-ipc-matrix/cpp/atomarnist-ta-pravyla.cpp
 :::
 
 ## Повний життєвий цикл спільної пам'яті POSIX
@@ -166,32 +129,8 @@ void configure_queue() {
 При використанні крайового спрацьовування (`EPOLLET` — Edge-Triggered) обробник зобов'язаний вичитувати дані у циклі до отримання помилки `EAGAIN` або `EWOULDBLOCK`. Якщо вичитати лише частину даних і вийти з обробника, `epoll_wait()` більше не прокинеться для цього дескриптора, доки в сокет не надійдуть нові байти від партнера, що призведе до зависання обробки запиту.
 
 :::tabs
-```c
-#include <sys/epoll.h>
-#include <string.h>
-
-int register_socket_in_epoll(int epoll_fd, int sock_fd) {
-    struct epoll_event ev;
-    memset(&ev, 0, sizeof(ev));
-    ev.events = EPOLLIN | EPOLLRDHUP | EPOLLET; /* Готовність читання + контроль закриття */
-    ev.data.fd = sock_fd;
-    return epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sock_fd, &ev);
-}
-```
-```cpp
-#include <sys/epoll.h>
-#include <system_error>
-#include <cerrno>
-
-void register_socket_in_epoll(int epoll_fd, int sock_fd) {
-    struct epoll_event ev{};
-    ev.events = EPOLLIN | EPOLLRDHUP | EPOLLET;
-    ev.data.fd = sock_fd;
-    if (::epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sock_fd, &ev) < 0) {
-        throw std::system_error(errno, std::generic_category(), "epoll_ctl failed");
-    }
-}
-```
+:::code api-ipc-matrix/c/reiestratsiia-soketa-v.c
+:::code api-ipc-matrix/cpp/reiestratsiia-soketa-v.cpp
 :::
 
 ## Інтерфейси автентифікації та передачі привілеїв
@@ -210,39 +149,8 @@ void register_socket_in_epoll(int epoll_fd, int sock_fd) {
 У сучасних версіях Linux (починаючи з ядра 6.5) опція `SO_PEERPIDFD` дозволяє отримати дескриптор `pidfd` віддаленого процесу. Це усуває стан гонитви перепризначення ідентифікаторів (PID Recycling Race): якщо клієнт завершився, а його числовий PID був повторно виданий ядром іншій програмі, дескриптор `pidfd` продовжує надійно вказувати саме на оригінальний екземпляр процесу.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <stdio.h>
-
-int verify_peer_identity(int client_sock_fd, uid_t expected_uid) {
-    struct ucred cred;
-    socklen_t len = sizeof(struct ucred);
-    if (getsockopt(client_sock_fd, SOL_SOCKET, SO_PEERCRED, &cred, &len) == -1) {
-        perror("getsockopt(SO_PEERCRED)");
-        return -1;
-    }
-    printf("[Автентифікація] Клієнт: PID=%d, UID=%d, GID=%d\n", cred.pid, cred.uid, cred.gid);
-    return (cred.uid == expected_uid || cred.uid == 0) ? 0 : -1;
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <iostream>
-#include <expected>
-#include <string_view>
-
-std::expected<struct ucred, std::string_view> get_peer_credentials(int client_sock_fd) {
-    struct ucred cred{};
-    socklen_t len = sizeof(cred);
-    if (::getsockopt(client_sock_fd, SOL_SOCKET, SO_PEERCRED, &cred, &len) == -1) {
-        return std::unexpected("failed to retrieve SO_PEERCRED");
-    }
-    return cred;
-}
-```
+:::code api-ipc-matrix/c/1-veryfikatsiia-oblikovykh.c
+:::code api-ipc-matrix/cpp/1-veryfikatsiia-oblikovykh.cpp
 :::
 
 ### 2. Передача файлових дескрипторів: SCM_RIGHTS
@@ -257,71 +165,8 @@ std::expected<struct ucred, std::string_view> get_peer_credentials(int client_so
 * `CMSG_DATA(cmsg_ptr)`: повертає покажчик на масив дескрипторів `(int*)`.
 
 :::tabs
-```c
-#include <sys/socket.h>
-#include <string.h>
-#include <unistd.h>
-
-int send_single_fd(int socket_fd, int fd_to_send) {
-    struct msghdr msg;
-    struct iovec iov[1];
-    char dummy = 'F'; /* Потрібно надіслати хоча б 1 байт корисних даних */
-    char cmsg_buf[CMSG_SPACE(sizeof(int))];
-
-    memset(&msg, 0, sizeof(msg));
-    memset(cmsg_buf, 0, sizeof(cmsg_buf));
-
-    iov[0].iov_base = &dummy;
-    iov[0].iov_len = 1;
-    msg.msg_iov = iov;
-    msg.msg_iovlen = 1;
-
-    msg.msg_control = cmsg_buf;
-    msg.msg_controllen = sizeof(cmsg_buf);
-
-    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_SOCKET;
-    cmsg->cmsg_type = SCM_RIGHTS;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-
-    *((int*)CMSG_DATA(cmsg)) = fd_to_send;
-
-    return (sendmsg(socket_fd, &msg, 0) >= 0) ? 0 : -1;
-}
-```
-```cpp
-#include <sys/socket.h>
-#include <cstring>
-#include <expected>
-#include <string_view>
-
-std::expected<void, std::string_view> send_single_fd(int socket_fd, int fd_to_send) {
-    struct msghdr msg{};
-    struct iovec iov[1]{};
-    char dummy = 'F';
-    char cmsg_buf[CMSG_SPACE(sizeof(int))]{};
-
-    iov[0].iov_base = &dummy;
-    iov[0].iov_len = 1;
-    msg.msg_iov = iov;
-    msg.msg_iovlen = 1;
-
-    msg.msg_control = cmsg_buf;
-    msg.msg_controllen = sizeof(cmsg_buf);
-
-    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-    cmsg->cmsg_level = SOL_SOCKET;
-    cmsg->cmsg_type = SCM_RIGHTS;
-    cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-
-    *reinterpret_cast<int*>(CMSG_DATA(cmsg)) = fd_to_send;
-
-    if (::sendmsg(socket_fd, &msg, 0) < 0) {
-        return std::unexpected("sendmsg SCM_RIGHTS failed");
-    }
-    return {};
-}
-```
+:::code api-ipc-matrix/c/2-peredacha-failovykh.c
+:::code api-ipc-matrix/cpp/2-peredacha-failovykh.cpp
 :::
 
 ## Безпека та захист спільної пам'яті: запечатування memfd
@@ -347,55 +192,8 @@ std::expected<void, std::string_view> send_single_fd(int socket_fd, int fd_to_se
 3. Якщо буфер призначений виключно для читання, перевіряється наявність печатки `F_SEAL_WRITE`. Це гарантує, що дані не будуть перезаписані іншим процесом під час їх парсингу або аналітичної обробки.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <linux/fcntl.h>
-
-int create_sealed_buffer(size_t size) {
-    int fd = memfd_create("secure_shm", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-    if (fd < 0) return -1;
-
-    if (ftruncate(fd, size) < 0) {
-        close(fd);
-        return -1;
-    }
-
-    /* Накладання печаток незмінності розміру та структури */
-    if (fcntl(fd, F_ADD_SEALS, F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_SEAL) < 0) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-}
-```
-```cpp
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <linux/fcntl.h>
-#include <system_error>
-
-int create_sealed_buffer(size_t size) {
-    int fd = ::memfd_create("secure_shm", MFD_CLOEXEC | MFD_ALLOW_SEALING);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "memfd_create failed");
-    }
-
-    if (::ftruncate(fd, size) < 0) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "ftruncate failed");
-    }
-
-    if (::fcntl(fd, F_ADD_SEALS, F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_SEAL) < 0) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "fcntl F_ADD_SEALS failed");
-    }
-    return fd;
-}
-```
+:::code api-ipc-matrix/c/poriadok-perevirky.c
+:::code api-ipc-matrix/cpp/poriadok-perevirky.cpp
 :::
 
 ## Семантика відмов, сигналів та кодів помилок
@@ -418,41 +216,6 @@ int create_sealed_buffer(size_t size) {
 Якщо процес, який отримав код `EOWNERDEAD`, розблокує м'ютекс через `pthread_mutex_unlock()` без попереднього виклику `pthread_mutex_consistent()`, стан м'ютекса назавжди позначається як `ENOTRECOVERABLE`. Будь-які наступні спроби виклику `pthread_mutex_lock()` для цього об'єкта будуть негайно завершуватися помилкою `ENOTRECOVERABLE`, запобігаючи використанню пошкоджених структур пам'яті.
 
 :::tabs
-```c
-#include <pthread.h>
-#include <errno.h>
-#include <stdio.h>
-
-int lock_robust_mutex(pthread_mutex_t *mutex, void *shm_state) {
-    int rc = pthread_mutex_lock(mutex);
-    if (rc == EOWNERDEAD) {
-        printf("[Відновлення] Попередній процес загинув! Відновлення цілісності...\n");
-        /* Відновлення інваріантів спільного буфера */
-        pthread_mutex_consistent(mutex);
-        return 0;
-    } else if (rc == ENOTRECOVERABLE) {
-        fprintf(stderr, "[Помилка] Спільний стан пошкоджено незворотно!\n");
-        return -1;
-    }
-    return rc;
-}
-```
-```cpp
-#include <pthread.h>
-#include <system_error>
-#include <cerrno>
-#include <iostream>
-
-void lock_robust_mutex(pthread_mutex_t* mutex) {
-    int rc = ::pthread_mutex_lock(mutex);
-    if (rc == EOWNERDEAD) {
-        std::cerr << "[C++ Відновлення] Попередній процес загинув! Відновлення стану..." << std::endl;
-        ::pthread_mutex_consistent(mutex);
-    } else if (rc == ENOTRECOVERABLE) {
-        throw std::system_error(rc, std::generic_category(), "shared state is unrecoverable");
-    } else if (rc != 0) {
-        throw std::system_error(rc, std::generic_category(), "pthread_mutex_lock failed");
-    }
-}
-```
+:::code api-ipc-matrix/c/obrobka-avarii-u-spilnii.c
+:::code api-ipc-matrix/cpp/obrobka-avarii-u-spilnii.cpp
 :::

@@ -230,54 +230,9 @@ strace -p 24108 -f -T -tt -s 128
 
 :::tabs
 @tab C
-```c
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int configure_socket_timeouts(int sockfd, int timeout_seconds) {
-    struct timeval tv;
-    tv.tv_sec = timeout_seconds;
-    tv.tv_usec = 0;
-
-    // Встановлюємо таймаут на операції читання
-    if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
-        perror("Помилка налаштування SO_RCVTIMEO");
-        return -1;
-    }
-
-    // Встановлюємо таймаут на операції запису
-    if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0) {
-        perror("Помилка налаштування SO_SNDTIMEO");
-        return -1;
-    }
-
-    return 0;
-}
-```
+:::code what-is-the-process-waiting-for-d/c/typovi-pastky-blokuiuchoho.c
 @tab C++
-```cpp
-#include <sys/socket.h>
-#include <sys/time.h>
-#include <chrono>
-#include <system_error>
-#include <unistd.h>
-
-void configure_socket_timeouts(int sockfd, std::chrono::seconds timeout) {
-    struct timeval tv{};
-    tv.tv_sec = timeout.count();
-    tv.tv_usec = 0;
-
-    if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка встановлення SO_RCVTIMEO");
-    }
-
-    if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка встановлення SO_SNDTIMEO");
-    }
-}
-```
+:::code what-is-the-process-waiting-for-d/cpp/typovi-pastky-blokuiuchoho.cpp
 :::
 
 ## 4. Внутрішні блокування та взаємні блокування (Deadlocks)
@@ -308,62 +263,9 @@ void configure_socket_timeouts(int sockfd, std::chrono::seconds timeout) {
 
 :::tabs
 @tab C
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <unistd.h>
-
-pthread_mutex_t mutex_a = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t mutex_b = PTHREAD_MUTEX_INITIALIZER;
-
-void* worker_1(void* arg) {
-    (void)arg;
-    pthread_mutex_lock(&mutex_a);
-    sleep(1); // Симуляція проміжної роботи
-    pthread_mutex_lock(&mutex_b); // Зависає в очікуванні mutex_b
-
-    pthread_mutex_unlock(&mutex_b);
-    pthread_mutex_unlock(&mutex_a);
-    return NULL;
-}
-
-void* worker_2(void* arg) {
-    (void)arg;
-    pthread_mutex_lock(&mutex_b);
-    sleep(1); // Симуляція проміжної роботи
-    pthread_mutex_lock(&mutex_a); // Зависає в очікуванні mutex_a
-
-    pthread_mutex_unlock(&mutex_a);
-    pthread_mutex_unlock(&mutex_b);
-    return NULL;
-}
-```
+:::code what-is-the-process-waiting-for-d/c/klasychnyi-dedlok-abba.c
 @tab C++
-```cpp
-#include <mutex>
-#include <thread>
-#include <chrono>
-
-std::mutex mutex_a;
-std::mutex mutex_b;
-
-void safe_worker_1() {
-    // std::lock атомарно захоплює довільну кількість м'ютексів
-    // за алгоритмом запобігання дедлокам без прив'язки до порядку
-    std::unique_lock<std::mutex> lock_a(mutex_a, std::defer_lock);
-    std::unique_lock<std::mutex> lock_b(mutex_b, std::defer_lock);
-    std::lock(lock_a, lock_b);
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-}
-
-void safe_worker_2() {
-    // В C++17 доступний std::scoped_lock із RAII
-    std::scoped_lock lock(mutex_b, mutex_a);
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-}
-```
+:::code what-is-the-process-waiting-for-d/cpp/klasychnyi-dedlok-abba.cpp
 :::
 
 ### Інспекція дедлоку через GDB

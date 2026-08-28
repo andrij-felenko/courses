@@ -44,7 +44,8 @@
           "proj": [
             {
               "file": "proj-mechanism-vs-policy.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -60,19 +61,23 @@
           "api": [
             {
               "file": "api-environment-probes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "comp": [
             {
               "file": "comp-execution-environments.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-system-authenticity-check.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -110,12 +115,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-trace-write-live.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -188,7 +195,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
@@ -199,7 +207,8 @@
           "hist": [
             {
               "file": "hist-which-broken-legacy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -214,12 +223,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-portable-posix-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
@@ -231,7 +242,8 @@
           "proj": [
             {
               "file": "proj-cross-platform-scripting.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -242,7 +254,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         }
       ]

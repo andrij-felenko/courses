@@ -223,57 +223,8 @@
 Для вирішення цієї проблеми стандарт POSIX вимагає конфігурації **робастних м'ютексів** (`PTHREAD_MUTEX_ROBUST`):
 
 :::tabs
-```c
-/* Налаштування робастного м'ютекса у спільній пам'яті */
-pthread_mutexattr_t attr;
-pthread_mutexattr_init(&attr);
-pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
-pthread_mutexattr_setrobust(&attr, PTHREAD_MUTEX_ROBUST);
-
-pthread_mutex_t *mutex = (pthread_mutex_t*)shm_ptr;
-pthread_mutex_init(mutex, &attr);
-pthread_mutexattr_destroy(&attr);
-
-/* Захоплення з обробкою аварії партнера */
-int rc = pthread_mutex_lock(mutex);
-if (rc == EOWNERDEAD) {
-    /* Попередній власник загинув усередині критичної секції! */
-    /* 1. Відновлюємо інваріанти даних (наприклад, очищаємо напівзаписаний елемент) */
-    repair_inconsistent_data(shm_ptr);
-    
-    /* 2. Фіксуємо узгодженість м'ютекса */
-    pthread_mutex_consistent(mutex);
-}
-/* Продовжуємо роботу у критичній секції */
-do_critical_work(shm_ptr);
-pthread_mutex_unlock(mutex);
-```
-```cpp
-#include <pthread.h>
-#include <system_error>
-#include <cerrno>
-
-class RobustProcessMutex {
-    pthread_mutex_t* mutex_{nullptr};
-public:
-    explicit RobustProcessMutex(pthread_mutex_t* m) noexcept : mutex_(m) {}
-
-    void lock_and_repair(auto&& repair_fn) {
-        int rc = pthread_mutex_lock(mutex_);
-        if (rc == EOWNERDEAD) {
-            // Попередній процес аварійно загинув
-            repair_fn();
-            pthread_mutex_consistent(mutex_);
-        } else if (rc != 0) {
-            throw std::system_error(rc, std::generic_category(), "pthread_mutex_lock failed");
-        }
-    }
-
-    void unlock() noexcept {
-        pthread_mutex_unlock(mutex_);
-    }
-};
-```
+:::code choosing-ipc-d/c/main.c
+:::code choosing-ipc-d/cpp/main.cpp
 :::
 
 ## Реальні архітектури міжпроцесної взаємодії у великих проектах

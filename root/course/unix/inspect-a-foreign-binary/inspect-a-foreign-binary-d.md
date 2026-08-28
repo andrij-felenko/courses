@@ -158,29 +158,7 @@ $ readelf -d sensor-agent | grep -E 'RPATH|RUNPATH'
 
 Початок файлу містить структуру розміром 64 байти, яку зчитує команда `readelf -h`:
 
-```bash
-$ readelf -h sensor-agent
-ELF Header:
-  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
-  Class:                             ELF64
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              DYN (Position-Independent Executable file)
-  Machine:                           Advanced Micro Devices X86-64
-  Version:                           0x1
-  Entry point address:               0x1080
-  Start of program headers:          64 (bytes into file)
-  Start of section headers:          14832 (bytes into file)
-  Flags:                             0x0
-  Size of this header:               64 (bytes)
-  Size of program headers:           56 (bytes)
-  Number of program headers:         11
-  Size of section headers:           64 (bytes)
-  Number of section headers:         29
-  Section header string table index: 28
-```
+:::code inspect-a-foreign-binary-d/sh/holovnyi-zaholovok-elf.sh
 
 Ключові поля:
 * `Entry point address (0x1080)`: віртуальна адреса точки входу `_start`, на яку процесор стрибає після завантаження програми в пам'ять.
@@ -191,26 +169,7 @@ ELF Header:
 
 Таблиця заголовків програми зчитується командою `readelf -l`:
 
-```bash
-$ readelf -l -W sensor-agent
-
-Elf file type is DYN (Position-Independent Executable file)
-Entry point 0x1080
-There are 11 program headers, starting at offset 64
-
-Program Headers:
-  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
-  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x000268 0x000268 R   0x8
-  INTERP         0x0002a8 0x0002a8 0x0002a8 0x00001c 0x00001c R   0x1
-      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
-  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x000600 0x000600 R   0x1000
-  LOAD           0x001000 0x0000000000001000 0x0000000000001000 0x000450 0x000450 R E 0x1000
-  LOAD           0x002000 0x0000000000002000 0x0000000000002000 0x000180 0x000180 R   0x1000
-  LOAD           0x002e00 0x0000000000003e00 0x0000000000003e00 0x000240 0x000280 RW  0x1000
-  DYNAMIC        0x002e10 0x0000000000003e10 0x0000000000003e10 0x0001e0 0x0001e0 RW  0x8
-  GNU_RELRO      0x002e00 0x0000000000003e00 0x0000000000003e00 0x000200 0x000200 R   0x1
-  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10
-```
+:::code inspect-a-foreign-binary-d/sh/sehmenty-prohramy-program.sh
 
 Кожен сегмент типу `PT_LOAD` описує неперервний блок байтів, який відображається у пам'ять:
 * **Сегмент коду (Прапорці `R E`):** містить машинні інструкції. Доступний для читання та виконання, але закритий для запису (`PROT_READ | PROT_EXEC`). Спроба змінити байти в цьому сегменті під час виконання викличе апаратне переривання процесора `#GP` або `#PF` і сигнал `SIGSEGV`.
@@ -269,19 +228,7 @@ $ readelf -S -W sensor-agent
 
 Команда `readelf -s --dyn-syms` розкриває всі зовнішні функції, які бінарник викликає з системних бібліотек:
 
-```bash
-$ readelf -s --dyn-syms -W sensor-agent
-
-Symbol table '.dynsym' contains 18 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND socket@GLIBC_2.2.5
-     2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND connect@GLIBC_2.2.5
-     3: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND sendto@GLIBC_2.2.5
-     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND EVP_EncryptInit_ex@OPENSSL_3.0.0
-     5: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND ptrace@GLIBC_2.2.5
-     6: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND unlink@GLIBC_2.2.5
-```
+:::code inspect-a-foreign-binary-d/sh/chytannia-dynamichnoho.sh
 
 Аналіз значень у стовпчику `Ndx`:
 * **`UND` (*Undefined*):** символ не реалізований у цьому файлі, а імпортується з зовнішньої бібліотеки.
@@ -372,34 +319,7 @@ $ strings -a -n 8 -t x sensor-agent
 
 Комбінація `strings` із регулярними виразами `grep` дозволяє швидко отримати ключові конфігураційні параметри чужого бінарника:
 
-```bash
-# 1. Пошук мережевих адрес керуючих серверів (C2 / API endpoints):
-$ strings -a -n 8 sensor-agent | grep -Ei 'https?://|tcp://|wss?://|[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+'
-https://telemetry.internal-cloud.net/v2/metrics
-https://backup-sink.storage.io/auth
-192.168.10.45:8443
-
-# 2. Пошук шляхів файлової системи Linux:
-$ strings -a -n 6 sensor-agent | grep -E '^/(etc|var|tmp|proc|sys|dev|usr)/'
-/etc/sensor-agent/config.yaml
-/var/log/sensor-agent.log
-/tmp/.agent-lock
-/proc/sys/kernel/random/uuid
-
-# 3. Пошук ключів командного рядка та змінних оточення:
-$ strings -a -n 4 sensor-agent | grep -E '^\-\-[a-zA-Z0-9_-]+|^[A-Z0-9_]{4,}='
---config
---daemon
---verbose
---dry-run
-AUTH_TOKEN=
-LOG_LEVEL=
-
-# 4. Пошук шляхів до вихідного коду розробника (Artifacts of build environment):
-$ strings -a -n 8 sensor-agent | grep -Ei '\.(c|cpp|cc|go|rs|h):[0-9]+'
-/home/builder/work/sensor-agent/src/network/client.cpp:142
-/home/builder/work/sensor-agent/src/crypto/aes_engine.c:58
-```
+:::code inspect-a-foreign-binary-d/sh/poshuk-artefaktiv-za.sh
 
 Останній приклад особливо показовий: макроси логування (такі як `__FILE__` та `__LINE__` у C/C++ або механізми паніки в Go/Rust) зберігають повні абсолютні шляхи до файлів вихідного коду машини збірки всередині рядків секції `.rodata`. Це дозволяє відновити структуру модулів програми та імена оригінальних сирцевих файлів навіть у повністю вичищеному (`stripped`) бінарнику.
 

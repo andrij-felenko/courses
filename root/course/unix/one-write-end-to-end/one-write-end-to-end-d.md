@@ -47,61 +47,9 @@
 
 :::tabs
 @tab C
-```c
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-
-void demo_write_mechanics(void) {
-    /* 1. Рівень stdio: байти осідають у буфері процесу */
-    FILE *fp = fopen("app.log", "w");
-    if (fp) {
-        fputs("Рядок у stdio буфері\n", fp);
-        fflush(fp); /* Явний виклик POSIX write() */
-        fclose(fp);
-    }
-
-    /* 2. Прямий POSIX виклик: оминає stdio, йде в ядро */
-    int fd = open("app.log", O_WRONLY | O_APPEND);
-    if (fd >= 0) {
-        const char msg[] = "Прямий системний виклик\n";
-        ssize_t ret = write(fd, msg, sizeof(msg) - 1);
-        (void)ret;
-        close(fd);
-    }
-}
-```
+:::code one-write-end-to-end-d/c/riven-1-prostir.c
 @tab C++
-```cpp
-#include <array>
-#include <cstddef>
-#include <fcntl.h>
-#include <fstream>
-#include <print>
-#include <string_view>
-#include <system_error>
-#include <unistd.h>
-
-void demo_write_mechanics() {
-    /* 1. Рівень std::ofstream: буферизація через std::filebuf */
-    {
-        std::ofstream stream("app.log", std::ios::out | std::ios::app);
-        if (stream.is_open()) {
-            stream << "Рядок у буфері C++ stream\n";
-            stream.flush(); /* Форсує виклик write() */
-        }
-    }
-
-    /* 2. Прямий POSIX виклик: оминає бібліотечні потоки */
-    int fd = ::open("app.log", O_WRONLY | O_APPEND);
-    if (fd >= 0) {
-        constexpr std::string_view msg = "Прямий системний виклик\n";
-        const ssize_t ret = ::write(fd, msg.data(), msg.size());
-        (void)ret;
-        ::close(fd);
-    }
-}
-```
+:::code one-write-end-to-end-d/cpp/riven-1-prostir.cpp
 :::
 
 ### Апаратний бар'єр: інструкція syscall та зміна контексту
@@ -455,54 +403,9 @@ NVMe Команди контролеру:
 
 :::tabs
 @tab C
-```c
-#include <fcntl.h>
-#include <unistd.h>
-
-int persist_critical_data(int fd, const void *buf, size_t len) {
-    /* 1. Запис у Page Cache */
-    ssize_t w = write(fd, buf, len);
-    if (w < 0 || (size_t)w != len) {
-        return -1;
-    }
-
-    /* 2. Примусове виштовхування крізь усі 7 рівнів до NAND Flash */
-    if (fdatasync(fd) < 0) {
-        return -1;
-    }
-
-    return 0;
-}
-```
+:::code one-write-end-to-end-d/c/riznytsia-mizh-fsync-ta.c
 @tab C++
-```cpp
-#include <cstddef>
-#include <expected>
-#include <span>
-#include <system_error>
-#include <unistd.h>
-
-enum class StorageError {
-    WriteFailed,
-    SyncFailed
-};
-
-[[nodiscard]] std::expected<void, StorageError>
-persist_critical_data(int fd, std::span<const std::byte> data) noexcept {
-    /* 1. Запис у Page Cache */
-    const ssize_t written = ::write(fd, data.data(), data.size());
-    if (written < 0 || static_cast<size_t>(written) != data.size()) {
-        return std::unexpected(StorageError::WriteFailed);
-    }
-
-    /* 2. Примусове виштовхування крізь усі 7 рівнів до NAND Flash */
-    if (::fdatasync(fd) < 0) {
-        return std::unexpected(StorageError::SyncFailed);
-    }
-
-    return {};
-}
-```
+:::code one-write-end-to-end-d/cpp/riznytsia-mizh-fsync-ta.cpp
 :::
 
 ### Команди контролера: FLUSH та FUA

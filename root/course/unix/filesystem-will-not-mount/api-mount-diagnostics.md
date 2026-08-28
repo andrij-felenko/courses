@@ -18,71 +18,8 @@
 Класичний інтерфейс приймає п'ять параметрів, що визначають джерело, ціль, тип драйвера, бітову маску поведінки та специфічні параметри драйвера.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/mount.h>
-
-/* Виклик класичного mount(2) у стилі C */
-int mount_filesystem_classic(const char *source, const char *target, const char *fstype) {
-    unsigned long flags = MS_RDONLY | MS_NODEV | MS_NOSUID | MS_NOEXEC;
-    const char *data_opts = "errors=remount-ro,data=ordered";
-
-    if (mount(source, target, fstype, flags, data_opts) < 0) {
-        fprintf(stderr, "Помилка mount(2) для %s на %s: %s (errno=%d)\n",
-                source, target, strerror(errno), errno);
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <expected>
-#include <system_error>
-#include <format>
-#include <sys/mount.h>
-
-/* Ідіоматична обгортка mount(2) на C++23 */
-enum class MountError {
-    PermissionDenied,
-    DeviceBusy,
-    InvalidSuperblock,
-    UnknownFilesystem,
-    TargetNotFound,
-    SystemFailure
-};
-
-[[nodiscard]] std::expected<void, std::pair<MountError, std::string>>
-mountFilesystem(std::string_view source, std::string_view target, std::string_view fstype) {
-    constexpr unsigned long flags = MS_RDONLY | MS_NODEV | MS_NOSUID | MS_NOEXEC;
-    constexpr std::string_view dataOpts = "errors=remount-ro,data=ordered";
-
-    if (::mount(source.data(), target.data(), fstype.data(), flags, dataOpts.data()) < 0) {
-        const int err = errno;
-        MountError category = MountError::SystemFailure;
-
-        switch (err) {
-            case EPERM:
-            case EACCES: category = MountError::PermissionDenied; break;
-            case EBUSY:  category = MountError::DeviceBusy; break;
-            case EINVAL: category = MountError::InvalidSuperblock; break;
-            case ENODEV: category = MountError::UnknownFilesystem; break;
-            case ENOENT: category = MountError::TargetNotFound; break;
-            default:     category = MountError::SystemFailure; break;
-        }
-
-        return std::unexpected(std::make_pair(
-            category,
-            std::format("Збій монтування '{}' на '{}': {} (errno={})",
-                        source, target, std::generic_category().message(err), err)
-        ));
-    }
-    return {};
-}
-```
+:::code api-mount-diagnostics/c/syhnatury-ta-vyklyk.c
+:::code api-mount-diagnostics/cpp/syhnatury-ta-vyklyk.cpp
 :::
 
 #### Бітові прапорці `mountflags`
@@ -117,134 +54,8 @@ mountFilesystem(std::string_view source, std::string_view target, std::string_vi
 Сучасний Mount API базується на роботі з анонімними дескрипторами контексту файлової системи. Це дозволяє поетапно конфігурувати параметри драйвера, ізолюючи процес налаштування від глобального дерева VFS.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <fcntl.h>
-
-/* Визначення номерів системних викликів, якщо вони відсутні в старих версіях libc */
-#ifndef __NR_fsopen
-#define __NR_fsopen 430
-#define __NR_fsconfig 431
-#define __NR_fsmount 432
-#define __NR_move_mount 429
-#endif
-
-#define FSCONFIG_SET_STRING 1
-#define FSCONFIG_SET_FLAG   0
-#define FSCONFIG_CMD_CREATE 6
-
-int mount_via_new_api(const char *source, const char *target, const char *fstype) {
-    /* 1. Створення контексту файлової системи */
-    int fs_fd = syscall(__NR_fsopen, fstype, 0);
-    if (fs_fd < 0) {
-        perror("fsopen");
-        return -1;
-    }
-
-    /* 2. Поетапне передавання параметрів конфігурації */
-    syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING, "source", source, 0);
-    syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_FLAG, "ro", NULL, 0);
-    syscall(__NR_fsconfig, fs_fd, FSCONFIG_SET_STRING, "errors", "remount-ro", 0);
-
-    /* 3. Команда ядру зчитати суперблок та ініціалізувати інстанс ФС */
-    if (syscall(__NR_fsconfig, fs_fd, FSCONFIG_CMD_CREATE, NULL, NULL, 0) < 0) {
-        perror("fsconfig(CREATE)");
-        close(fs_fd);
-        return -1;
-    }
-
-    /* 4. Матеріалізація суперблоку та отримання дескриптора дерева */
-    int mnt_fd = syscall(__NR_fsmount, fs_fd, 0, 0);
-    close(fs_fd);
-    if (mnt_fd < 0) {
-        perror("fsmount");
-        return -1;
-    }
-
-    /* 5. Атомарне прикріплення дерева монтування до цільового каталогу */
-    if (syscall(__NR_move_mount, mnt_fd, "", AT_FDCWD, target, 0x00000004 /* MOVE_MOUNT_F_EMPTY_PATH */) < 0) {
-        perror("move_mount");
-        close(mnt_fd);
-        return -1;
-    }
-
-    close(mnt_fd);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <expected>
-#include <format>
-#include <system_error>
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <fcntl.h>
-
-#ifndef __NR_fsopen
-#define __NR_fsopen 430
-#define __NR_fsconfig 431
-#define __NR_fsmount 432
-#define __NR_move_mount 429
-#endif
-
-class ScopedDescriptor {
-    int fd_ = -1;
-public:
-    explicit ScopedDescriptor(int fd) noexcept : fd_(fd) {}
-    ~ScopedDescriptor() noexcept { if (fd_ >= 0) ::close(fd_); }
-    ScopedDescriptor(const ScopedDescriptor&) = delete;
-    ScopedDescriptor& operator=(const ScopedDescriptor&) = delete;
-    ScopedDescriptor(ScopedDescriptor&& other) noexcept : fd_(other.fd_) { other.fd_ = -1; }
-    ScopedDescriptor& operator=(ScopedDescriptor&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-    [[nodiscard]] int get() const noexcept { return fd_; }
-    [[nodiscard]] bool valid() const noexcept { return fd_ >= 0; }
-    int release() noexcept { int tmp = fd_; fd_ = -1; return tmp; }
-};
-
-[[nodiscard]] std::expected<void, std::string>
-mountViaModernApi(std::string_view source, std::string_view target, std::string_view fstype) {
-    /* 1. fsopen */
-    ScopedDescriptor fsContext(static_cast<int>(::syscall(__NR_fsopen, fstype.data(), 0)));
-    if (!fsContext.valid()) {
-        return std::unexpected(std::format("Збій fsopen('{}'): {}", fstype, std::generic_category().message(errno)));
-    }
-
-    /* 2. fsconfig налаштування джерела */
-    if (::syscall(__NR_fsconfig, fsContext.get(), 1 /* FSCONFIG_SET_STRING */, "source", source.data(), 0) < 0) {
-        return std::unexpected(std::format("Збій конфігурації source: {}", std::generic_category().message(errno)));
-    }
-
-    /* 3. fsconfig валідація суперблоку */
-    if (::syscall(__NR_fsconfig, fsContext.get(), 6 /* FSCONFIG_CMD_CREATE */, nullptr, nullptr, 0) < 0) {
-        return std::unexpected(std::format("Збій створення суперблоку: {}", std::generic_category().message(errno)));
-    }
-
-    /* 4. fsmount */
-    ScopedDescriptor mntTree(static_cast<int>(::syscall(__NR_fsmount, fsContext.get(), 0, 0)));
-    if (!mntTree.valid()) {
-        return std::unexpected(std::format("Збій fsmount: {}", std::generic_category().message(errno)));
-    }
-
-    /* 5. move_mount */
-    if (::syscall(__NR_move_mount, mntTree.get(), "", AT_FDCWD, target.data(), 0x00000004) < 0) {
-        return std::unexpected(std::format("Збій move_mount на '{}': {}", target, std::generic_category().message(errno)));
-    }
-
-    return {};
-}
-```
+:::code api-mount-diagnostics/c/prohramnyi-interfeis.c
+:::code api-mount-diagnostics/cpp/prohramnyi-interfeis.cpp
 :::
 
 ## Повна матриця системних помилок ядра (`errno`)
@@ -376,21 +187,7 @@ mountViaModernApi(std::string_view source, std::string_view target, std::string_
 
 Для точної локалізації ексклюзивних блокувань ядра використовуються псевдофайлові інтерфейси:
 
-```bash
-# Перегляд списку зареєстрованих VFS-типів ядра
-cat /proc/filesystems
-
-# Виявлення процесів, що блокують точку монтування
-fuser -vm /mnt/point
-lsof +f -- /mnt/point
-
-# Перевірка холдерів (холдер утримує пристрій через bd_open_exclusive)
-# Якщо каталог містить записи, пристрій зайнятий LVM, dm-crypt або md-масивом:
-ls -l /sys/class/block/<dev_name>/holders/
-
-# Перевірка підлеглих пристроїв (slaves):
-ls -l /sys/class/block/<dev_name>/slaves/
-```
+:::code api-mount-diagnostics/sh/main.sh
 
 Кожна структура в `/proc/self/mountinfo` містить вичерпний зліпок точки монтування:
 

@@ -307,22 +307,7 @@ UUID=a1b2c3d4-e5f6-7890-abcd-112233445566 /data ext4 defaults,nofail,x-systemd.d
 
 Якщо сервер зупинився в аварійному режимі `emergency.target`, послідовність дій адміністратора виглядає так:
 
-```bash
-# 1. Перегляд повідомлень системного журналу для локалізації збійного юніта
-journalctl -xb | grep -iE "mount|failed|timed out"
-
-# 2. Перегляд списку юнітів, що завершилися з помилкою
-systemctl --failed
-
-# 3. Визначення реальних UUID наявних блокових пристроїв
-blkid
-
-# 4. Перевірка синтаксису /etc/fstab та відповідності UUID
-cat /etc/fstab
-
-# 5. Тестовий запуск генератора systemd у тимчасовий каталог
-/lib/systemd/system-generators/systemd-fstab-generator /tmp/test-generator/
-```
+:::code filesystem-will-not-mount-d/sh/alhorytm-diahnostyky-ta.sh
 
 Після виправлення помилкового UUID або додавання параметра `nofail` у файлі `/etc/fstab` виконують перезавантаження конфігурації генераторів:
 
@@ -376,28 +361,7 @@ umount /dev/sdb1
 
 Покроковий алгоритм безпечного ремонту:
 
-```bash
-# 1. Переведення фізичного пристрою в режим Read-Only на рівні блокового шару
-blockdev --setro /dev/sdb1
-
-# 2. Отримання точного розміру пристрою в секторах (по 512 байтів)
-SIZE=$(blockdev --getsz /dev/sdb1)
-
-# 3. Створення тимчасового файлу для збереження змін (наприклад, у tmpfs RAM-диску)
-truncate -s 10G /tmp/overlay.img
-LOOP_DEV=$(losetup --find --show /tmp/overlay.img)
-
-# 4. Створення віртуального блокового пристрою COW через dmsetup
-# Синтаксис таблиці: 0 <сектори> snapshot <базовий_пристрій> <cow_пристрій> <персистентність> <chunk_size>
-echo "0 $SIZE snapshot /dev/sdb1 $LOOP_DEV P 8" | dmsetup create repair-snap
-
-# 5. Тепер /dev/mapper/repair-snap є повною копією диска, відкритою для запису!
-# Виконуємо відновлення на віртуальному пристрої:
-e2fsck -f -y /dev/mapper/repair-snap
-
-# 6. Перевіряємо результат: чи монтується відновлений образ
-mount /dev/mapper/repair-snap /mnt/test
-```
+:::code filesystem-will-not-mount-d/sh/stvorennia-virtualnoho.sh
 
 Якщо процедура відновлення на віртуальному пристрої `repair-snap` пройшла успішно й дані вдалося прочитати, зміни можна накатити на фізичний носій або зняти копію файлів. Якщо ж утиліта ремонту остаточно зруйнувала структури, віртуальний шар видаляється командою `dmsetup remove repair-snap`, залишаючи оригінальний фізичний диск `/dev/sdb1` у початковому незайманому стані.
 

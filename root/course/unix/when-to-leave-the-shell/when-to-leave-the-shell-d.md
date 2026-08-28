@@ -111,49 +111,8 @@ eval "git checkout $BRANCH_NAME"
 У мовах зі статичною або строгою типізацією (Python, Go, C++) виклики зовнішніх процесів здійснюються передачею фіксованого вектора рядків `argv[]` безпосередньо системному виклику ядра, де пробіли чи спецсимволи ніколи не інтерпретуються як синтаксичні роздільники:
 
 :::tabs
-```c
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdio.h>
-
-/* Безпечний запуск процесу в C без участі оболонки */
-int safe_exec_c(const char *branch) {
-    pid_t pid = fork();
-    if (pid == 0) {
-        /* Масив argv передається безпосередньо ядру: спецсимволи не інтерпретуються */
-        char *const argv[] = {"git", "checkout", (char *)branch, NULL};
-        execvp("git", argv);
-        _exit(127);
-    }
-    int status;
-    waitpid(pid, &status, 0);
-    return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-}
-```
-```cpp
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string>
-#include <vector>
-#include <span>
-#include <system_error>
-
-/* Безпечний запуск процесу в ідіоматичному C++20 */
-int safe_exec_cpp(const std::string& branch) {
-    pid_t pid = fork();
-    if (pid == 0) {
-        std::vector<const char*> argv = {"git", "checkout", branch.c_str(), nullptr};
-        execvp("git", const_cast<char* const*>(argv.data()));
-        _exit(127);
-    }
-    if (pid < 0) {
-        throw std::system_error(errno, std::generic_category(), "fork failed");
-    }
-    int status = 0;
-    waitpid(pid, &status, 0);
-    return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-}
-```
+:::code when-to-leave-the-shell-d/c/main.c
+:::code when-to-leave-the-shell-d/cpp/main.cpp
 :::
 
 ### 3. Продуктивність: ціна створення процесу fork() + exec()
@@ -220,20 +179,7 @@ IP=$(cat response.json | grep '"ip":' | sed 's/.*"ip": *"//;s/".*//')
 
 У мовах загального призначення розбір JSON виконується нативними серіалізаторами з перевіркою схеми та миттєвим перетворенням у типізовані структури в пам'яті:
 
-```python
-import json
-from dataclasses import dataclass
-
-@dataclass
-class ServerConfig:
-    host: str
-    port: int
-    enabled: bool
-
-# Надійний парсинг із суворою перевіркою типів
-data = json.loads(payload_str)
-config = ServerConfig(host=data["host"], port=int(data["port"]), enabled=bool(data["enabled"]))
-```
+:::code when-to-leave-the-shell-d/py/main.py
 
 ### 5. Обробка помилок, керованість і тестування
 

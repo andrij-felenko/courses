@@ -248,47 +248,8 @@ libc.so.6: version 'GLIBC_2.34' not found (required by ./telemetry-agent)
 Ініціалізація локалі в C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <locale.h>
-
-int init_runtime_locale(void) {
-    /* Спроба ініціалізувати локаль із середовища */
-    if (setlocale(LC_ALL, "") == NULL) {
-        /* Fallback на безпечну UTF-8 локаль за замовчуванням */
-        if (setlocale(LC_ALL, "C.UTF-8") == NULL) {
-            setlocale(LC_ALL, "C");
-        }
-    }
-    /* Примусова фіксація крапки як десяткового роздільника для парсингу даних */
-    setlocale(LC_NUMERIC, "C");
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <locale>
-#include <clocale>
-
-void init_runtime_locale() {
-    // Спроба встановити глобальну локаль C++ з оточення
-    try {
-        std::locale::global(std::locale(""));
-        std::cin.imbue(std::locale());
-        std::cout.imbue(std::locale());
-    } catch (const std::runtime_error &) {
-        // Fallback на безпечну локаль C.UTF-8 або класичну C
-        try {
-            std::locale::global(std::locale("C.UTF-8"));
-        } catch (...) {
-            std::locale::global(std::locale::classic());
-        }
-    }
-    // Фіксація числового форматування C для надійного парсингу float/double
-    std::setlocale(LC_NUMERIC, "C");
-}
-```
+:::code why-it-runs-here-not-there-d/c/main.c
+:::code why-it-runs-here-not-there-d/cpp/main.cpp
 :::
 
 ### Пастка шляху пошуку утиліт (`PATH`), лімітів ресурсів та дескрипторів

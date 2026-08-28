@@ -163,40 +163,8 @@ cp /proc/1042/fd/3 /recovered/orders.log.recovered
 Властивість збереження інода при відкритому дескрипторі активно використовується у системному програмуванні для створення захищених тимчасових буферів:
 
 :::tabs
-```c
-/* Створення гарантовано безпечного тимчасового файлу */
-int fd = open("/tmp/scratchpad.tmp", O_RDWR | O_CREAT | O_EXCL, 0600);
-if (fd >= 0) {
-    /* Негайне видалення імені з каталогу! */
-    unlink("/tmp/scratchpad.tmp");
-    
-    /* Продовжуємо читати й писати в fd */
-    write(fd, "secret data", 11);
-    
-    /* При падінні процесу або SIGKILL файл зникне автоматично */
-    close(fd);
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <unistd.h>
-#include <fcntl.h>
-
-void use_anonymous_temp_file() {
-    int fd = ::open("/tmp/scratchpad.tmp", O_RDWR | O_CREAT | O_EXCL, 0600);
-    if (fd < 0) return;
-
-    // Негайний розрив зв'язку з каталогом
-    ::unlink("/tmp/scratchpad.tmp");
-
-    std::string_view data = "secret data";
-    ::write(fd, data.data(), data.size());
-
-    // Файл гарантовано зникне після закриття дескриптора
-    ::close(fd);
-}
-```
+:::code name-is-not-the-file-d/c/main.c
+:::code name-is-not-the-file-d/cpp/patern-anonimnykh.cpp
 :::
 
 Після виклику `unlink()` жоден інший користувач чи процес не зможе знайти цей файл у каталозі `/tmp`, відкрити його чи підглянути дані. Коли процес завершиться (навіть через аварійний сигнал `SIGKILL`), ядро автоматично виконає `close()` усіх дескрипторів, і всі дискові блоки буфера миттєво повернуться системі без ризику засмічення диска сміттям.
@@ -230,20 +198,7 @@ int fd = open("/etc/app/config.json", O_WRONLY | O_TRUNC);
 write(fd, new_config, len);
 close(fd);
 ```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <string_view>
-
-// Небезпечний прямий перезапис: обнуляє інод перед записом
-void unsafe_overwrite(std::string_view new_config) {
-    int fd = ::open("/etc/app/config.json", O_WRONLY | O_TRUNC);
-    if (fd >= 0) {
-        ::write(fd, new_config.data(), new_config.size());
-        ::close(fd);
-    }
-}
-```
+:::code name-is-not-the-file-d/cpp/atomarne-pereimenuvannia.cpp
 :::
 
 Такий підхід породжує три критичні вразливості:
