@@ -51,69 +51,9 @@ i2cdetect -y 1
 
 :::tabs
 == C (Linux i2c-dev)
-```c
-// sw6106_probe.c — прочитати керувальний регістр SW6106 по I²C.
-// Збірка:  gcc -O2 -o sw6106_probe sw6106_probe.c
-// Запуск:  ./sw6106_probe            (потрібні права на /dev/i2c-1)
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <linux/i2c-dev.h>
-
-#define SW6106_ADDR  0x3C   // 7-бітна адреса (саме 7-бітна — див. блок нижче)
-#define SW6106_REG   0xB0   // єдиний керувальний регістр із datasheet
-
-int main(void) {
-    int fd = open("/dev/i2c-1", O_RDWR);
-    if (fd < 0) { perror("open /dev/i2c-1"); return 1; }
-
-    // ioctl бере САМЕ 7-бітну адресу; ядро само зсуне її й додасть біт R/W
-    if (ioctl(fd, I2C_SLAVE, SW6106_ADDR) < 0) {
-        perror("ioctl I2C_SLAVE"); close(fd); return 1;
-    }
-
-    // записати номер регістра, потім прочитати його байт (SMBus read-byte-data)
-    unsigned char reg = SW6106_REG, val = 0;
-    if (write(fd, &reg, 1) != 1) {          // виставити «покажчик» на 0xB0
-        fprintf(stderr, "write reg: %s\n", strerror(errno));
-        fprintf(stderr, "  порожньо у i2cdetect? LED4/I2C не на землі.\n");
-        close(fd); return 1;
-    }
-    if (read(fd, &val, 1) != 1) {           // прочитати вміст 0xB0
-        fprintf(stderr, "read val: %s\n", strerror(errno));
-        close(fd); return 1;
-    }
-
-    printf("SW6106 reg 0xB0 = 0x%02X\n", val);
-    printf("Це керувальне значення, НЕ відсоток заряду.\n");
-    close(fd);
-    return 0;
-}
-```
+:::code api-i2c-fuel/c/sw6106_probe.c
 == Python (smbus2)
-```python
-# sw6106_probe.py — та сама перевірка, коротко.
-#   pip install smbus2   (або: apt install python3-smbus)
-from smbus2 import SMBus
-
-BUS      = 1       # /dev/i2c-1 — гребінка Pi
-SW6106   = 0x3C    # 7-бітна адреса; бібліотека сама зсуне її
-REG      = 0xB0    # керувальний регістр із datasheet
-
-try:
-    with SMBus(BUS) as bus:
-        val = bus.read_byte_data(SW6106, REG)
-        print(f"SW6106 reg 0xB0 = 0x{val:02X}")
-        print("Це керувальне значення, НЕ відсоток заряду.")
-except OSError as e:
-    # errno 121 == Remote I/O error: пристрій не відповів
-    print(f"Немає відповіді (errno {e.errno}).")
-    print("Спершу перевір i2cdetect -y 1: чи є 3c у сітці?")
-    print("Порожньо → LED4/I2C не притягнуто до землі на цій платі.")
-```
+:::code api-i2c-fuel/py/sw6106_probe.py
 :::
 
 Зверни увагу на послідовність «записати номер регістра → прочитати байт». Це стандартна для I²C схема доступу до регістра (у SMBus-термінах — `read-byte-data`): спершу транзакцією запису ти кажеш «мене цікавить регістр 0xB0», потім транзакцією читання забираєш його вміст. У бібліотеці `smbus2` це один виклик `read_byte_data(addr, reg)`, у C — явні `write` тоді `read`.
@@ -160,130 +100,15 @@ INA219, типова адреса 0x40
 
 Спершу — сирий доступ до INA219 на C через `i2c-dev`, бо це знову прямий регістр пристрою (домашня мова для `/dev/i2c-*`). Bus-voltage регістр повертає 16 біт big-endian, значущі — старші 13; тому прочитане слово зсувають праворуч на 3 і множать на крок 4 мВ:
 
-```c
-// ina219_volt.c — прочитати напругу елемента з INA219 (адреса 0x40).
-// Збірка:  gcc -O2 -o ina219_volt ina219_volt.c
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <linux/i2c-dev.h>
-
-#define INA219_ADDR   0x40   // 7-бітна; div by 2, якщо десь бачиш 0x80
-#define REG_BUSVOLT   0x02
-
-int main(void) {
-    int fd = open("/dev/i2c-1", O_RDWR);
-    if (fd < 0) { perror("open"); return 1; }
-    if (ioctl(fd, I2C_SLAVE, INA219_ADDR) < 0) { perror("addr"); return 1; }
-
-    unsigned char reg = REG_BUSVOLT, buf[2];
-    write(fd, &reg, 1);          // навести покажчик на регістр напруги
-    if (read(fd, buf, 2) != 2) { perror("read"); return 1; }
-
-    // 16 біт big-endian; значущі — старші 13 → зсув на 3; крок 4 мВ
-    int raw = (buf[0] << 8) | buf[1];
-    double volts = (raw >> 3) * 0.004;   // 4 мВ на одиницю
-    printf("Напруга елемента: %.3f В\n", volts);
-    close(fd);
-    return 0;
-}
-```
+:::code api-i2c-fuel/c/ina219_volt.c
 
 Тепер — власне мета: з напруги зробити **відсоток**, який кладеться в логіку вимкнення. Тут доречніша не C, а мова прикладного шару — розрахунок і моніторинг у сервісі Pi зазвичай пишуть на Python (домінантна мова для такого glue), і поряд TypeScript (типовий вибір для сервісного демона на Node). Обидві читають напругу з паливоміра й перекладають її в грубий відсоток за кривою розряду літію:
 
 :::tabs
 == Python
-```python
-# battery_percent.py — напруга елемента → грубий відсоток → рішення вимкнутись.
-#   pip install smbus2
-from smbus2 import SMBus
-
-INA219 = 0x40        # адреса паливоміра (7-біт)
-REG_V  = 0x02        # Bus Voltage
-
-def read_voltage(bus):
-    raw = bus.read_word_data(INA219, REG_V)     # word: байти переставлено
-    raw = ((raw << 8) | (raw >> 8)) & 0xFFFF    # → big-endian
-    return (raw >> 3) * 0.004                    # значущі 13 біт · 4 мВ
-
-# Груба крива розряду одного літієвого елемента (напруга під легким
-# навантаженням → відсоток). Не лінійна: літій довго тримає ~3.7 В,
-# а наприкінці напруга падає стрімко. Точні числа — під СВІЙ елемент.
-CURVE = [
-    (4.20, 100), (4.10, 90), (4.00, 80), (3.90, 65),
-    (3.80, 50),  (3.70, 40), (3.60, 25), (3.50, 15),
-    (3.40, 8),   (3.30, 3),  (3.00, 0),
-]
-
-def voltage_to_percent(v):
-    if v >= CURVE[0][0]:  return 100
-    if v <= CURVE[-1][0]: return 0
-    for (v_hi, p_hi), (v_lo, p_lo) in zip(CURVE, CURVE[1:]):
-        if v_lo <= v <= v_hi:                    # лінійна інтерполяція в сегменті
-            k = (v - v_lo) / (v_hi - v_lo)
-            return round(p_lo + k * (p_hi - p_lo))
-    return 0
-
-SHUTDOWN_AT = 10   # відсоток, на якому пора гасити систему коректно
-
-with SMBus(1) as bus:
-    v = read_voltage(bus)
-    pct = voltage_to_percent(v)
-    print(f"{v:.3f} В  →  ~{pct}%")
-    if pct <= SHUTDOWN_AT:
-        print("Низький заряд — коректне вимкнення.")
-        # import os, subprocess
-        # subprocess.run(["sudo", "shutdown", "-h", "now"])
-```
+:::code api-i2c-fuel/py/battery_percent.py
 == TypeScript (Node)
-```typescript
-// battery_percent.ts — те саме для сервісного демона на Node.
-//   npm i i2c-bus     (bindings до /dev/i2c-*)
-import { openSync } from "i2c-bus";
-
-const INA219 = 0x40; // 7-бітна адреса паливоміра
-const REG_V  = 0x02; // Bus Voltage
-
-function readVoltage(): number {
-  const bus = openSync(1); // /dev/i2c-1
-  const raw = bus.readWordSync(INA219, REG_V);
-  bus.closeSync();
-  const be = ((raw << 8) | (raw >> 8)) & 0xffff; // → big-endian
-  return (be >> 3) * 0.004;                        // 13 біт · 4 мВ
-}
-
-// Та сама груба крива розряду літію (напруга → відсоток).
-const CURVE: [number, number][] = [
-  [4.2, 100], [4.1, 90], [4.0, 80], [3.9, 65],
-  [3.8, 50],  [3.7, 40], [3.6, 25], [3.5, 15],
-  [3.4, 8],   [3.3, 3],  [3.0, 0],
-];
-
-function voltageToPercent(v: number): number {
-  if (v >= CURVE[0][0]) return 100;
-  if (v <= CURVE[CURVE.length - 1][0]) return 0;
-  for (let i = 0; i < CURVE.length - 1; i++) {
-    const [vHi, pHi] = CURVE[i];
-    const [vLo, pLo] = CURVE[i + 1];
-    if (v >= vLo && v <= vHi) {
-      const k = (v - vLo) / (vHi - vLo); // інтерполяція в сегменті
-      return Math.round(pLo + k * (pHi - pLo));
-    }
-  }
-  return 0;
-}
-
-const SHUTDOWN_AT = 10;
-const v = readVoltage();
-const pct = voltageToPercent(v);
-console.log(`${v.toFixed(3)} В  →  ~${pct}%`);
-if (pct <= SHUTDOWN_AT) {
-  console.log("Низький заряд — коректне вимкнення.");
-  // import { execSync } from "child_process";
-  // execSync("sudo shutdown -h now");
-}
-```
+:::code api-i2c-fuel/ts/battery_percent.ts
 :::
 
 Тут варто чесно сказати про межі методу. **Відсоток із напруги — грубий**, і ось чому. Літій під навантаженням «просідає»: під струмом та сама напруга відповідає вищому справжньому заряду, ніж у спокої (внутрішній опір з'їдає частину напруги). Крива не лінійна: у широкому «плато» біля 3.6–3.9 В напруга майже стоїть, поки заряд повзе від 30% до 70% — саме тут відсоток із напруги найгрубіший. Тому такий перерахунок добрий для **порогових рішень** («менше 10% — гасимо систему»), але поганий для точної шкали «показати користувачу 73%».
