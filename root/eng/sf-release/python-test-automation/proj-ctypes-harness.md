@@ -26,107 +26,7 @@ Python нічого цього не знає. Динамічний об'єкт �
 
 ## Крок 1. Бібліотека на C
 
-```c
-/* ringbuf.c — кільцевий буфер байтів. Повний буфер витісняє найстаріший. */
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <stddef.h>
-
-#ifdef _WIN32
-#  define RB_API __declspec(dllexport)
-#else
-#  define RB_API __attribute__((visibility("default")))
-#endif
-
-struct rb {
-    uint8_t *data;       /* сховище на cap байтів                  */
-    size_t   cap;        /* місткість, завжди > 0                  */
-    size_t   head;       /* куди покласти наступний байт           */
-    size_t   tail;       /* звідки взяти найстаріший               */
-    size_t   len;        /* скільки байтів усередині зараз         */
-    uint8_t  owns_data;  /* чи звільняти сховище в rb_destroy      */
-    uint8_t  overrun;    /* чи витісняли хоч раз найстаріший байт  */
-};
-
-RB_API struct rb *rb_create(size_t cap)
-{
-    if (cap == 0) return NULL;
-    struct rb *b = calloc(1, sizeof *b);
-    if (!b) return NULL;
-    b->data = malloc(cap);
-    if (!b->data) { free(b); return NULL; }
-    b->cap = cap;
-    b->owns_data = 1;
-    return b;
-}
-
-/* Варіант для прошивки: сховище дає викликач, malloc не потрібен. */
-RB_API void rb_init(struct rb *b, uint8_t *storage, size_t cap)
-{
-    memset(b, 0, sizeof *b);
-    b->data = storage;
-    b->cap  = cap;
-}
-
-RB_API struct rb *rb_create_static(uint8_t *storage, size_t cap)
-{
-    if (!storage || cap == 0) return NULL;
-    struct rb *b = calloc(1, sizeof *b);
-    if (!b) return NULL;
-    rb_init(b, storage, cap);
-    return b;
-}
-
-RB_API void rb_destroy(struct rb *b)
-{
-    if (!b) return;
-    if (b->owns_data) free(b->data);
-    free(b);
-}
-
-/* Повертає 1, якщо найстаріший байт довелося витіснити, інакше 0. */
-RB_API int rb_push(struct rb *b, uint8_t v)
-{
-    int displaced = 0;
-    b->data[b->head] = v;
-    b->head = (b->head + 1) % b->cap;
-    if (b->len < b->cap) {
-        b->len++;
-    } else {
-        b->overrun = 1;
-        displaced = 1;
-    }
-    return displaced;
-}
-
-/* Повертає 0 і кладе байт за адресою out; -1, якщо буфер порожній. */
-RB_API int rb_pop(struct rb *b, uint8_t *out)
-{
-    if (b->len == 0) return -1;
-    *out = b->data[b->tail];
-    b->tail = (b->tail + 1) % b->cap;
-    b->len--;
-    return 0;
-}
-
-RB_API size_t rb_len(const struct rb *b) { return b->len; }
-
-/* Самоопис розкладки — щоб обв'язка могла звірити своє уявлення з дійсністю. */
-RB_API size_t rb_sizeof(void) { return sizeof(struct rb); }
-
-RB_API size_t rb_offset(const char *field)
-{
-    if (!strcmp(field, "data"))      return offsetof(struct rb, data);
-    if (!strcmp(field, "cap"))       return offsetof(struct rb, cap);
-    if (!strcmp(field, "head"))      return offsetof(struct rb, head);
-    if (!strcmp(field, "tail"))      return offsetof(struct rb, tail);
-    if (!strcmp(field, "len"))       return offsetof(struct rb, len);
-    if (!strcmp(field, "owns_data")) return offsetof(struct rb, owns_data);
-    if (!strcmp(field, "overrun"))   return offsetof(struct rb, overrun);
-    return (size_t)-1;
-}
-```
+:::code proj-ctypes-harness/c/ringbuf.c
 
 Дві останні функції варто пояснити окремо, бо вони не про кільцевий буфер, а про стикування. `rb_sizeof` і `rb_offset` — це **самоопис**: бібліотека сама розповідає, скільки місця займає її структура й на якому зсуві лежить кожне поле. Наступний крок покаже, навіщо це рятує; коштує воно два десятки рядків і жодного байта в прошивці, якщо не збирати їх у релізну збірку.
 
@@ -154,49 +54,7 @@ LD_PRELOAD=$(cc -print-file-name=libasan.so) python -m pytest -k ringbuf
 
 Тепер — той самий прототип, переписаний мовою `ctypes`. Це найважливіший файл усього стенду, і в ньому не можна пропустити жодного рядка.
 
-```py
-# ringbuf_ffi.py — єдине місце, де описано домовленість із libringbuf
-import ctypes, os, sys
-
-u8   = ctypes.c_uint8
-u8p  = ctypes.POINTER(ctypes.c_uint8)
-size = ctypes.c_size_t
-
-
-class RB(ctypes.Structure):
-    """Дзеркало struct rb. Порядок і типи полів мусять збігатися точно."""
-    _fields_ = [
-        ("data",      u8p),
-        ("cap",       size),
-        ("head",      size),
-        ("tail",      size),
-        ("len",       size),
-        ("owns_data", u8),
-        ("overrun",   u8),
-    ]
-
-
-RBp = ctypes.POINTER(RB)
-
-
-def _libname():
-    if sys.platform == "win32":  return "ringbuf.dll"
-    if sys.platform == "darwin": return "libringbuf.dylib"
-    return "libringbuf.so"
-
-
-lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), _libname()))
-
-lib.rb_create.argtypes        = [size];        lib.rb_create.restype        = RBp
-lib.rb_create_static.argtypes = [u8p, size];   lib.rb_create_static.restype = RBp
-lib.rb_init.argtypes          = [RBp, u8p, size]; lib.rb_init.restype       = None
-lib.rb_destroy.argtypes       = [RBp];         lib.rb_destroy.restype       = None
-lib.rb_push.argtypes          = [RBp, u8];     lib.rb_push.restype          = ctypes.c_int
-lib.rb_pop.argtypes           = [RBp, u8p];    lib.rb_pop.restype           = ctypes.c_int
-lib.rb_len.argtypes           = [RBp];         lib.rb_len.restype           = size
-lib.rb_sizeof.argtypes        = [];            lib.rb_sizeof.restype        = size
-lib.rb_offset.argtypes        = [ctypes.c_char_p]; lib.rb_offset.restype    = size
-```
+:::code proj-ctypes-harness/py/ringbuf_ffi.py
 
 Три рішення в цьому файлі зроблено свідомо, і кожне варте пояснення.
 
@@ -285,21 +143,7 @@ sizeof          48                   32                   48
 
 Обидві біди ловить один і той самий десяток рядків, який запускається один раз при імпорті обв'язки:
 
-```py
-def check_layout():
-    """Звірити уявлення обв'язки про структуру з тим, що каже сам C-код."""
-    want, got = lib.rb_sizeof(), ctypes.sizeof(RB)
-    if got != want:
-        raise AssertionError(f"sizeof(struct rb): C каже {want}, ctypes рахує {got}")
-    for name, _ in RB._fields_:
-        want = lib.rb_offset(name.encode("ascii"))
-        got  = getattr(RB, name).offset
-        if got != want:
-            raise AssertionError(f"зсув поля {name}: C каже {want}, ctypes рахує {got}")
-
-
-check_layout()
-```
+:::code proj-ctypes-harness/py/krok-3-zvirka-rozkladky.py
 
 Дескриптор поля в `ctypes` знає свій зсув (`getattr(RB, "len").offset`) — саме тому звірку можна написати циклом, не перелічуючи поля вдруге. Помилка тут падає в момент імпорту, з іменем поля й двома числами, і читається за секунду. Без неї та сама помилка падає через півгодини прогону десь у чужому тесті.
 
@@ -320,39 +164,7 @@ rb = lib.rb_create_static((ctypes.c_uint8 * 256)(), 256)   # ⚠ міна
 
 Обгортка робить власника явним:
 
-```py
-class RingBuffer:
-    """Дескриптор C-буфера плюс усе, що C-код тримає за адресою."""
-
-    def __init__(self, cap, storage=None):
-        self._storage = storage          # ← живе рівно стільки, скільки живе _h
-        if storage is None:
-            self._h = lib.rb_create(cap)
-        else:
-            self._h = lib.rb_create_static(storage, cap)
-        if not self._h:                  # NULL-покажчик у ctypes хибний
-            raise MemoryError("бібліотека повернула NULL замість буфера")
-        self._out = u8()                 # один буфер під результат pop на весь час життя
-
-    def push(self, value):
-        """True, якщо найстаріший байт витіснено."""
-        return lib.rb_push(self._h, value) == 1
-
-    def pop(self):
-        """Байт або None, якщо буфер порожній."""
-        if lib.rb_pop(self._h, ctypes.byref(self._out)) != 0:
-            return None
-        return self._out.value
-
-    def __len__(self):
-        return lib.rb_len(self._h)
-
-    def close(self):
-        if self._h:
-            lib.rb_destroy(self._h)
-            self._h = None
-        self._storage = None
-```
+:::code proj-ctypes-harness/py/krok-4-obhortka-shcho.py
 
 Три дрібниці тут значущі. `self._storage` — це і є той живий власник; поле не використовується ніде більше, і саме тому його регулярно «прибирають» під час чищення коду, після чого набір починає падати раз на сто прогонів. `if not self._h` працює тому, що NULL-покажчик у `ctypes` хибний як булеве значення. `self._out` створено раз: `ctypes.byref` не подовжує життя об'єкта, тож передавати туди свіжий `u8()` прямо у виразі можна (він живий до кінця виклику), але один буфер на весь час життя дешевший — на мільйон читань це мільйон об'єктів, яких не довелося створити й прибрати.
 
@@ -364,41 +176,7 @@ class RingBuffer:
 
 Спершу — простий прогін без жодних бібліотек, щоб було видно механіку:
 
-```py
-# ringbuf_model.py — еталон, звірка й звуження
-import random
-from collections import deque
-from ringbuf_ffi import RingBuffer
-
-
-def replay(ops, cap):
-    """Прогнати послідовність через C і через модель.
-    None — збіглося; інакше (вид розбіжності, пояснення)."""
-    rb, model = RingBuffer(cap), deque(maxlen=cap)
-    try:
-        for op in ops:
-            if op[0] == "push":
-                was_full  = len(model) == cap
-                displaced = rb.push(op[1])
-                model.append(op[1])
-                if displaced != was_full:
-                    return ("push", f"C каже displaced={displaced}, модель — {was_full}")
-            else:
-                got  = rb.pop()
-                want = model.popleft() if model else None
-                if got != want:
-                    return ("pop", f"C дало {got}, модель — {want}")
-            if len(rb) != len(model):
-                return ("len", f"C дало {len(rb)}, модель — {len(model)}")
-    finally:
-        rb.close()
-    return None
-
-
-def random_ops(rng, n):
-    return [("push", rng.randrange(256)) if rng.random() < 0.6 else ("pop",)
-            for _ in range(n)]
-```
+:::code proj-ctypes-harness/py/ringbuf_model.py
 
 Три твердження перевіряються одночасно: що читається той самий байт, що прапорець витіснення каже правду й що довжина збігається після кожної операції. Останнє окремо цінне — довжина розходиться раніше за вміст і вказує ближче до причини.
 
@@ -415,19 +193,7 @@ $ python -m ringbuf_model --seed 20260801 --cap 2 --n 200
 
 Звуження — механічна процедура: викидати шматки послідовності, поки падіння лишається падінням. Найпростіша її форма — жадібне видалення по одній операції:
 
-```py
-def shrink(ops, cap, kind):
-    """Жадібно викидати операції, поки лишається ТА САМА розбіжність."""
-    i = 0
-    while i < len(ops):
-        shorter = ops[:i] + ops[i + 1:]
-        found = replay(shorter, cap)
-        if found and found[0] == kind:
-            ops = shorter          # без цієї операції теж падає — вона зайва
-        else:
-            i += 1
-    return ops
-```
+:::code proj-ctypes-harness/py/krok-6-zvuzhenyi.py
 
 Умова `found[0] == kind` тут не про акуратність, а про коректність. Звужувач, який перевіряє лише «падає чи ні», уміє **сповзти** на іншу помилку: викинув операцію, послідовність почала падати з іншої причини, і на виході ви маєте мінімальний приклад не того дефекту, який шукали.
 
@@ -475,47 +241,7 @@ cap = 2:  push 0 · push 0 · push 1 · pop  →  C дало 1, модель —
 
 Ту саму роботу — породження, звуження, збереження насіння — бібліотеки [тестування властивостями](root:sf-release/property-based-testing) роблять готовою й значно розумніше: вони звужують і значення, і місткість, і зберігають знайдені контрприклади між прогонами. У формі станової машини ця перевірка виглядає так:
 
-```py
-from collections import deque
-from hypothesis import strategies as st
-from hypothesis.stateful import RuleBasedStateMachine, rule, initialize, invariant, precondition
-from ringbuf_ffi import RingBuffer
-
-
-class RingBufferMatchesDeque(RuleBasedStateMachine):
-    rb = None
-
-    @initialize(cap=st.integers(min_value=1, max_value=8))
-    def make(self, cap):
-        self.cap   = cap
-        self.rb    = RingBuffer(cap)
-        self.model = deque(maxlen=cap)
-
-    @rule(v=st.integers(min_value=0, max_value=255))
-    def push(self, v):
-        was_full  = len(self.model) == self.cap
-        displaced = self.rb.push(v)
-        self.model.append(v)
-        assert displaced == was_full, f"push: C каже {displaced}, модель — {was_full}"
-
-    @rule()
-    def pop(self):
-        got  = self.rb.pop()
-        want = self.model.popleft() if self.model else None
-        assert got == want, f"pop: C дало {got}, модель — {want}"
-
-    @precondition(lambda self: self.rb is not None)
-    @invariant()
-    def length_matches(self):
-        assert len(self.rb) == len(self.model)
-
-    def teardown(self):
-        if self.rb:
-            self.rb.close()
-
-
-TestRingBuffer = RingBufferMatchesDeque.TestCase
-```
+:::code proj-ctypes-harness/py/krok-6-zvuzhenyi-2.py
 
 Звіт про падіння — готовий сценарій відтворення, з місткістю, звуженою до двійки, і значеннями, звуженими до нулів:
 
@@ -536,61 +262,7 @@ AssertionError: pop: C дало 1, модель — 0
 
 Захист один — виконувати ризиковану частину в окремому [процесі](root:sf-os/process-vs-thread) і читати те, що від нього лишилося. Ключ у тому, що дитина мусить розповісти про свій план **до того**, як почне його виконувати:
 
-```py
-# ringbuf_campaign.py — ризиковані прогони живуть у власному процесі
-import multiprocessing as mp, random, signal, sys
-from ringbuf_model import replay, shrink, random_ops
-
-
-def _campaign(tx, seed, cap, n):
-    """Дитина. Спершу каже, що збирається робити, — потім робить."""
-    tx.send(("план", {"seed": seed, "cap": cap, "n": n}))
-    ops = random_ops(random.Random(seed), n)
-    found = replay(ops, cap)
-    if found is None:
-        tx.send(("гаразд", None))
-    else:
-        kind, why = found
-        tx.send(("розбіжність", {"чому": why, "приклад": shrink(ops, cap, kind)}))
-
-
-def explain_exit(code):
-    if code < 0:                                   # POSIX: убито сигналом
-        try:    name = signal.Signals(-code).name
-        except ValueError: name = "?"
-        return f"убито сигналом {name} ({-code})"
-    if sys.platform == "win32" and code > 0x7FFFFFFF:
-        return f"аварійний статус 0x{code:08X}"
-    return f"завершено з кодом {code}"
-
-
-def run_campaign(seed, cap=8, n=20000, timeout=120.0):
-    ctx = mp.get_context("spawn")       # чистий процес, нічого не успадковано
-    rx, tx = ctx.Pipe(duplex=False)
-    p = ctx.Process(target=_campaign, args=(tx, seed, cap, n))
-    p.start()
-    tx.close()                          # інакше rx ніколи не побачить кінця потоку
-
-    said = []
-    while True:
-        if not rx.poll(timeout):
-            p.kill(); p.join()
-            raise TimeoutError(f"дитина мовчить {timeout} с; останнє: {said[-1:]}")
-        try:
-            said.append(rx.recv())
-        except EOFError:
-            break
-    p.join()
-
-    if p.exitcode != 0:
-        raise AssertionError(
-            f"C-бібліотека вбила процес: {explain_exit(p.exitcode)}\n"
-            f"останнє, що дитина встигла сказати: {said[-1] if said else '—'}\n"
-            f"відтворити: python -c \"from ringbuf_campaign import run_campaign;"
-            f" run_campaign({seed}, {cap}, {n})\"")
-    kind, payload = said[-1]
-    assert kind != "розбіжність", f"{payload['чому']}\nконтрприклад: {payload['приклад']}"
-```
+:::code proj-ctypes-harness/py/ringbuf_campaign.py
 
 Що робить кожна неочевидна дрібниця. `get_context("spawn")` бере чистий процес замість форка: форк успадкував би стан бібліотеки, вже завантаженої в батька, і зіпсована пам'ять поїхала б у дитину разом із ним. `tx.close()` у батька обов'язковий — поки в батька відкрито передавальний кінець труби, читач ніколи не отримає кінця потоку й `rx.poll` чекатиме вічно. Від'ємний код завершення на POSIX означає сигнал, і `-11` — це `SIGSEGV`; на Windows сигналів немає, там процес завершується статусом, і порушення доступу дає `0xC0000005`.
 

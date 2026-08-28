@@ -28,7 +28,8 @@
           "math": [
             {
               "file": "math-three-way-merge.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -56,18 +57,21 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-backport-workflow.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "comp": [
             {
               "file": "comp-branching-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -79,7 +83,9 @@
           "proj": [
             {
               "file": "proj-backport-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -90,30 +96,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-downstream-patch-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "comp": [
             {
               "file": "comp-downstream-integration-patterns.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-fork-divergence-lessons.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-rebase-sync-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -170,30 +182,37 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-dco-git-hooks.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-dco-vs-cla.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-sco-v-ibm-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-dco-verifier-bot.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -210,7 +229,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -220,12 +240,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-fagan-inspection-tracker.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

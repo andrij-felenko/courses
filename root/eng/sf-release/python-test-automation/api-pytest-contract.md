@@ -138,18 +138,7 @@ pytest tests/ \
 
 Правильна форма перевіряє на **нуль**, а не на одиницю:
 
-```bash
-set -o pipefail
-pytest tests/ --junitxml=reports/junit.xml
-rc=$?
-
-case "$rc" in
-  0) echo "усі перевірки пройшли" ;;
-  1) echo "є падіння — не пускати";                       exit 1 ;;
-  5) echo "жоден тест не зібрано: вибірка порожня";        exit 1 ;;
-  *) echo "прогін не відбувся (код $rc) — не пускати";     exit 1 ;;
-esac
-```
+:::code api-pytest-contract/sh/main.sh
 
 Окремо варто знати межу цього механізму: якщо агент убиває процес власним таймаутом, каркас коду не повертає взагалі — оболонка бачить `128 + номер сигналу` (звідси знайомі `137` для `SIGKILL` і `143` для `SIGTERM`). Загальні правила поводження з цим числом описані в темі про [код виходу як інтерфейс програми](root:sys-unix/exit-status).
 
@@ -301,30 +290,7 @@ filterwarnings =
 
 Робочий приклад — три гачки в одному кореневому `conftest.py`, які разом дають набору власний прапорець і чесну поведінку на машині без заліза:
 
-```py
-# conftest.py у корені набору
-import pytest
-
-
-def pytest_addoption(parser):
-    parser.addoption("--dev", action="store", default=None,
-                     help="послідовний порт плати, напр. /dev/ttyUSB0")
-    parser.addoption("--allow-empty", action="store_true", default=False,
-                     help="порожня вибірка не є приводом валити прогін")
-
-
-def pytest_configure(config):
-    config.addinivalue_line("markers", "hardware: потребує підключеної плати")
-
-
-def pytest_collection_modifyitems(session, config, items):
-    if config.getoption("--dev"):
-        return
-    skip = pytest.mark.skip(reason="плату не вказано: запустіть із --dev=/dev/ttyUSB0")
-    for item in items:
-        if "hardware" in item.keywords:
-            item.add_marker(skip)
-```
+:::code api-pytest-contract/py/conftest.py
 
 Тут видно межу між двома схожими діями. `add_marker(skip)` лишає вузол у наборі — він з'явиться у звіті як пропущений, тобто його видно й полічено. Якби замість цього ми викинули вузли з `items`, вони зникли б безслідно, а набір без жодного залізного тесту повернув би код `5`.
 
@@ -344,17 +310,6 @@ def pytest_runtest_makereport(item, call):
 
 І тепер прибирання може дивитися на результат:
 
-```py
-@pytest.fixture
-def device(port, request):
-    reset(port)
-    wait_ready(port, timeout=3.0)
-    yield Device(port)
-
-    report = request.node.stash.get(phase_report_key, {})
-    failed = ("call" not in report) or report["call"].failed
-    if failed:
-        dump_logs(port, request.node.nodeid)   # артефакт лише там, де він потрібен
-```
+:::code api-pytest-contract/py/hachky.py
 
 Ключ `"call"` **відсутній**, якщо тест не дійшов до тіла — підготовка впала або вузол пропустили; тому перевірка починається саме з наявності ключа, а не зі `.failed`. Практична вигода пряма: журнали, дампи й знімки збираються лише для впалих вузлів, іменуються ідентифікатором вузла — і червоний прогін у конвеєрі віддає інженерові рівно два рядки: ім'я, яке відтворює падіння, і файл, який пояснює його причину.

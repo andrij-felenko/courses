@@ -227,34 +227,7 @@ exit_criteria:
 
 ### Синтаксис та опис команд
 
-```bash
-# 1. Валідація метаданих Pull Request на відповідність фазі Code Freeze
-rc-arbiter validate-pr \
-  --policy .ci/release-gate.yaml \
-  --pr-metadata pr-1042.json \
-  --diff patch.diff
-
-# 2. Оцінка розмірів секцій скомпільованого бінарника за мапою лінкера
-rc-arbiter evaluate-budgets \
-  --policy .ci/release-gate.yaml \
-  --map-file build/firmware.map \
-  --elf-file build/firmware.elf
-
-# 3. Комплексна верифікація звітів тестування та генерація маніфесту
-rc-arbiter verify-candidate \
-  --policy .ci/release-gate.yaml \
-  --hil-report test-results/hil-summary.json \
-  --soak-report test-results/soak-72h.json \
-  --artifact build/firmware.bin \
-  --out-manifest build/rc-manifest.json
-
-# 4. Промоція кандидата у фінальний Golden Master через криптографічний HSM-модуль
-rc-arbiter promote-to-ga \
-  --manifest build/rc-manifest.json \
-  --hsm-slot 1 \
-  --key-alias "prod-firmware-signing-2026" \
-  --output-package dist/firmware-v2.4.0-GA.tar.gz
-```
+:::code api-freeze-and-rc-policy/sh/main.sh
 
 ### Коди завершення процесу (CLI Exit Codes)
 
@@ -277,19 +250,7 @@ rc-arbiter promote-to-ga \
 
 ### Обов'язкові прапорці компіляції та лінкування
 
-```makefile
-# Видалення абсолютних шляхів файлової системи хоста з налагоджувальних секцій DWARF
-CFLAGS += -ffile-prefix-map=$(WORKSPACE_DIR)=.
-CFLAGS += -fmacro-prefix-map=$(WORKSPACE_DIR)=.
-CFLAGS += -fdebug-prefix-map=$(WORKSPACE_DIR)=.
-
-# Заборона використання недетермінованих макросів часу та дати
-CFLAGS += -Werror=date-time
-
-# Фіксація порядку секцій лінкером для усунення випадкових перестановок
-LDFLAGS += -Wl,--sort-section=alignment
-LDFLAGS += -Wl,--build-id=none
-```
+:::code api-freeze-and-rc-policy/make/Makefile
 
 ### Нормалізація середовища виконання
 

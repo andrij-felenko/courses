@@ -19,45 +19,7 @@ enum class UplinkResult { Sent, Congested, Broken };
 
 Обидва шви записуються одним текстом. Уся хитрість у тому, що `Transport` тут — параметр шаблону, а параметром шаблону можна зробити й абстрактну базу.
 
-```cpp
-#include <algorithm>
-#include <cstddef>
-#include <cstdint>
-#include <span>
-
-struct ITransport {                                   // шов ПЕРШИЙ: інтерфейс
-  virtual ~ITransport() = default;
-  virtual SendStatus  send(std::span<const std::uint8_t> chunk) = 0;
-  virtual std::size_t mtu() const = 0;
-};
-
-template <class Transport>                            // шов ДРУГИЙ: параметр типу
-class Uplink {
- public:
-  explicit Uplink(Transport& t, unsigned max_retries = 3)
-      : t_(t), max_retries_(max_retries) {}
-
-  UplinkResult sendFrame(std::span<const std::uint8_t> frame) {
-    const std::size_t mtu = t_.mtu();
-    for (std::size_t off = 0; off < frame.size(); ) {
-      const std::size_t n = std::min(mtu, frame.size() - off);
-      unsigned tries = 0;
-      for (;;) {
-        const SendStatus st = t_.send(frame.subspan(off, n));
-        if (st == SendStatus::Ok)          break;
-        if (st == SendStatus::Fatal)       return UplinkResult::Broken;
-        if (++tries > max_retries_)        return UplinkResult::Congested;
-      }
-      off += n;
-    }
-    return UplinkResult::Sent;
-  }
-
- private:
-  Transport& t_;
-  unsigned   max_retries_;
-};
-```
+:::code proj-cpp-doubles/cpp/dva-shvy-na-odnomu-vuzli.cpp
 
 Тепер найцікавіше. `Uplink<ITransport>` — це динамічний шов: поле `ITransport& t_`, кожен `t_.send(...)` іде через таблицю віртуальних методів, а підмінити транспорт можна в рантаймі, читаючи конфіг. `Uplink<UdpTransport>` — статичний шов: поле `UdpTransport& t_`, виклики прямі, компілятор бачить тіло. Один текст, дві принципово різні програми; **шаблонний шов ширший, бо динамічний є його окремим випадком**. Механіку самої таблиці розбирає [таблиця віртуальних методів C++](root:sf-devices/virtual-dispatch-cpp), а те, у що перетворюється шаблон під час інстанціювання, — [абстракції без витрат](root:sf-lang/zero-cost-abstractions).
 
@@ -73,59 +35,13 @@ class Uplink {
 
 Найпростіший дубль нічого не робить — він **віддає** те, що ти в нього вклав. Ось він під динамічний шов.
 
-```cpp
-#include <vector>
-
-struct StubTransport final : ITransport {             // під шов через ITransport
-  std::vector<SendStatus> script;      // по одній відповіді на виклик
-  std::size_t             next = 0;
-  std::size_t             mtu_ = 64;
-
-  SendStatus send(std::span<const std::uint8_t>) override {
-    return next < script.size() ? script[next++] : SendStatus::Ok;
-  }
-  std::size_t mtu() const override { return mtu_; }
-};
-
-TEST(UplinkVirtual, GivesUpAfterRetryBudget) {
-  StubTransport t;
-  t.script = {SendStatus::WouldBlock, SendStatus::WouldBlock,
-              SendStatus::WouldBlock, SendStatus::WouldBlock};
-
-  Uplink<ITransport> up(t, /*max_retries=*/3);
-  const std::vector<std::uint8_t> frame(10, 0x55);
-
-  EXPECT_EQ(up.sendFrame(frame), UplinkResult::Congested);
-}
-```
+:::code proj-cpp-doubles/cpp/zahlushka-zahotovanyi.cpp
 
 Чотири відмови — рівно на один більше за бюджет: перші три лишають вузлові право на повтор, четверта переповнює лічильник. Це і є **точка керування**: тест диктує непрямий вхід і потрапляє в гілку, до якої на живому сокеті не дійти.
 
 Той самий дубль під статичний шов коротший рівно на успадкування:
 
-```cpp
-struct StubTransport {                                // жодної бази, жодного virtual
-  std::vector<SendStatus> script;
-  std::size_t             next = 0;
-  std::size_t             mtu_ = 64;
-
-  SendStatus send(std::span<const std::uint8_t>) {
-    return next < script.size() ? script[next++] : SendStatus::Ok;
-  }
-  std::size_t mtu() const { return mtu_; }
-};
-
-TEST(UplinkStatic, GivesUpAfterRetryBudget) {
-  StubTransport t;
-  t.script = {SendStatus::WouldBlock, SendStatus::WouldBlock,
-              SendStatus::WouldBlock, SendStatus::WouldBlock};
-
-  Uplink up(t, /*max_retries=*/3);                    // виведення: Uplink<StubTransport>
-  const std::vector<std::uint8_t> frame(10, 0x55);
-
-  EXPECT_EQ(up.sendFrame(frame), UplinkResult::Congested);
-}
-```
+:::code proj-cpp-doubles/cpp/zahlushka-zahotovanyi-2.cpp
 
 Тут ховається перша пастка, і вона тиха. `Uplink up(t, 3)` вивів `Uplink<StubTransport>` — статичний шов. Якщо в бою збирається `Uplink<ITransport>`, а тест написав `Uplink up(t, 3)` із дублем-нащадком `ITransport`, то тест прогнав **інше інстанціювання**, ніж прод: ті самі рядки, інший машинний код, інші рішення оптимізатора. Тому в тесті на динамічний шов тип пишуть **явно**: `Uplink<ITransport> up(t, 3)`.
 
@@ -133,37 +49,7 @@ TEST(UplinkStatic, GivesUpAfterRetryBudget) {
 
 Заглушка віддає заготоване. Фейк — **робить**: у ньому є справжня логіка, тільки на спрощеній основі. Транспорт у пам'яті з обмеженою чергою відмовляє не за сценарієм, а тому, що черга справді заповнилася.
 
-```cpp
-#include <deque>
-
-class FakeTransport {
- public:
-  FakeTransport(std::size_t mtu, std::size_t capacity)
-      : mtu_(mtu), capacity_(capacity) {}
-
-  // ── поверхня контракту: рівно те, що бачить Uplink ──
-  std::size_t mtu() const { return mtu_; }
-
-  SendStatus send(std::span<const std::uint8_t> chunk) {
-    if (chunk.size() > mtu_)            return SendStatus::Fatal;
-    if (queue_.size() >= capacity_)     return SendStatus::WouldBlock;
-    queue_.emplace_back(chunk.begin(), chunk.end());
-    return SendStatus::Ok;
-  }
-
-  // ── вікно тесту: цього в контракті НЕМАЄ ──
-  std::size_t queued() const { return queue_.size(); }
-  std::vector<std::uint8_t> drainOne() {
-    auto front = std::move(queue_.front());
-    queue_.pop_front();
-    return front;
-  }
-
- private:
-  std::size_t mtu_, capacity_;
-  std::deque<std::vector<std::uint8_t>> queue_;
-};
-```
+:::code proj-cpp-doubles/cpp/feik-cherha-shcho-spravdi.cpp
 
 Розділення всередині фейка не косметичне. Верхні два методи — це контракт транспорту, і саме їх бачить `Uplink`. Нижні два існують лише для тесту: вони не входять у `ITransport`, і жоден виробничий код їх не покличе. Коли фейк підставляють під динамічний шов, ця межа проводиться сама собою — тонким перехідником, який виставляє назовні тільки контракт:
 
@@ -181,37 +67,7 @@ class AsITransport final : public ITransport {        // один фейк — �
 
 Тепер перевірка, заради якої фейк і потрібен, — та, де важить **стан**, що осів:
 
-```cpp
-#include <numeric>
-
-TEST(UplinkStatic, DeliversWholeFrameInPieces) {
-  FakeTransport t(/*mtu=*/8, /*capacity=*/16);
-  Uplink up(t);
-
-  std::vector<std::uint8_t> frame(20);
-  std::iota(frame.begin(), frame.end(), std::uint8_t{1});
-
-  ASSERT_EQ(up.sendFrame(frame), UplinkResult::Sent);
-  ASSERT_EQ(t.queued(), 3u);                          // 8 + 8 + 4
-
-  std::vector<std::uint8_t> glued;
-  while (t.queued() > 0) {
-    const auto part = t.drainOne();
-    glued.insert(glued.end(), part.begin(), part.end());
-  }
-  EXPECT_EQ(glued, frame);          // головна вимога: склеєне назад = вихідне
-}
-
-TEST(UplinkStatic, ReportsCongestionWhenNobodyDrains) {
-  FakeTransport t(/*mtu=*/64, /*capacity=*/2);
-  Uplink up(t, /*max_retries=*/3);
-
-  const std::vector<std::uint8_t> frame(64 * 5, 0x11);   // п'ять шматків у чергу на два
-
-  EXPECT_EQ(up.sendFrame(frame), UplinkResult::Congested);
-  EXPECT_EQ(t.queued(), 2u);        // прийнято рівно стільки, скільки влізло
-}
-```
+:::code proj-cpp-doubles/cpp/feik-cherha-shcho-spravdi-2.cpp
 
 Другий тест — приклад того, чого заглушка не дала б без ручного сценарію: затор виник **сам**, із взаємодії розміру кадру, MTU й ємності черги. Саме тому фейк дорожчий за заглушку: у ньому є логіка, отже, є й помилки. Фейк — це виробничий код, який просто живе в теці тестів.
 
@@ -219,40 +75,7 @@ TEST(UplinkStatic, ReportsCongestionWhenNobodyDrains) {
 
 Фейк показує стан. Але вимога «повтор шле той самий шматок» — не про стан: у черзі осяде однакове хоч так, хоч так, бо відбитий шматок туди й не потрапив. Це вимога про **взаємодію**, і побачити її можна лише журналом викликів.
 
-```cpp
-class SpyTransport {
- public:
-  struct Call { std::vector<std::uint8_t> chunk; SendStatus answered; };
-
-  std::vector<Call>       calls;
-  std::vector<SendStatus> script;      // шпигун уміє й заглушати
-  std::size_t             mtu_ = 8;
-
-  std::size_t mtu() const { return mtu_; }
-
-  SendStatus send(std::span<const std::uint8_t> chunk) {
-    const SendStatus st =
-        calls.size() < script.size() ? script[calls.size()] : SendStatus::Ok;
-    calls.push_back({{chunk.begin(), chunk.end()}, st});
-    return st;
-  }
-};
-
-TEST(UplinkStatic, RetryResendsTheSameChunk) {
-  SpyTransport t;
-  t.script = {SendStatus::WouldBlock};      // перша спроба відбита, далі все гаразд
-
-  std::vector<std::uint8_t> frame(12);
-  std::iota(frame.begin(), frame.end(), std::uint8_t{1});
-
-  Uplink up(t);
-  ASSERT_EQ(up.sendFrame(frame), UplinkResult::Sent);
-
-  ASSERT_GE(t.calls.size(), 2u);
-  EXPECT_EQ(t.calls[0].chunk, t.calls[1].chunk)
-      << "після WouldBlock вузол з'їхав уперед і загубив шматок";
-}
-```
+:::code proj-cpp-doubles/cpp/shpyhun-zhurnal-vyklykiv-i.cpp
 
 Зверни увагу, чого тут **не** перевіряють. Не «`send` покликано рівно тричі» — кількість викликів залежить від бюджету повторів, а бюджет ніхто нікому не обіцяв. Перевіряють властивість, яку обіцяє контракт: повтор — це повтор **того самого**. Заміни `max_retries` з трьох на п'ять — тест і далі правдивий; заміни його на очікування точної кількості викликів — і тест почне падати від зміни конфіга, не спіймавши жодної помилки.
 
@@ -262,40 +85,7 @@ TEST(UplinkStatic, RetryResendsTheSameChunk) {
 
 Усе дотепер писалося руками. Мок відрізняється тим, що очікування задають **до** дії, а вирок дубль виносить **сам**. У C++ це майже завжди GoogleMock — бібліотека, що вийшла окремим проєктом 2008 року й 2016-го злилася з GoogleTest в один репозиторій (випуск 1.8.0), відколи їх випускають разом.
 
-```cpp
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
-using ::testing::_;
-using ::testing::AnyNumber;
-using ::testing::AtLeast;
-using ::testing::ElementsAre;
-using ::testing::NiceMock;
-using ::testing::Return;
-using ::testing::SizeIs;
-
-class MockTransport : public ITransport {
- public:
-  MOCK_METHOD(SendStatus,  send, (std::span<const std::uint8_t> chunk), (override));
-  MOCK_METHOD(std::size_t, mtu,  (), (const, override));
-};
-
-TEST(UplinkVirtual, RetriesUntilTheQueueFrees) {
-  NiceMock<MockTransport> t;
-  ON_CALL(t, mtu()).WillByDefault(Return(std::size_t{64}));
-
-  EXPECT_CALL(t, send(SizeIs(16)))
-      .Times(3)
-      .WillOnce(Return(SendStatus::WouldBlock))
-      .WillOnce(Return(SendStatus::WouldBlock))
-      .WillOnce(Return(SendStatus::Ok));
-
-  Uplink<ITransport> up(t, /*max_retries=*/3);
-  const std::vector<std::uint8_t> frame(16, 0x7E);
-
-  EXPECT_EQ(up.sendFrame(frame), UplinkResult::Sent);
-}
-```
+:::code proj-cpp-doubles/cpp/mok-googlemock.cpp
 
 `MOCK_METHOD` бере чотири частини: тип результату, ім'я, дужки з параметрами і — четвертими дужками — специфікатори (`const`, `override`, `noexcept`). Тіло він генерує сам: перехоплює виклик, звіряє аргументи з матчерами, обирає дію.
 
@@ -356,49 +146,7 @@ TEST(UplinkVirtual, RetriesUntilTheQueueFrees) {
 
 У C++ для цього є типо-параметризований набір GoogleTest: тіло тесту пишеться один раз, а інстанціюють його для списку типів. Спершу фабрика, бо різні транспорти будуються по-різному:
 
-```cpp
-// transport_contract.h — набір, який компілюється для будь-якої реалізації
-template <class T> struct TransportFactory;   // спеціалізуй під кожну реалізацію
-
-template <class T>
-class TransportContract : public testing::Test {};
-
-TYPED_TEST_SUITE_P(TransportContract);
-
-TYPED_TEST_P(TransportContract, MtuIsPositive) {
-  auto t = TransportFactory<TypeParam>::make();
-  EXPECT_GT(t->mtu(), 0u);
-}
-
-TYPED_TEST_P(TransportContract, AcceptsChunkOfExactlyMtu) {
-  auto t = TransportFactory<TypeParam>::make();
-  const std::vector<std::uint8_t> chunk(t->mtu(), 0xA5);
-  EXPECT_EQ(t->send(chunk), SendStatus::Ok);
-}
-
-TYPED_TEST_P(TransportContract, RejectsChunkLargerThanMtu) {
-  auto t = TransportFactory<TypeParam>::make();
-  const std::vector<std::uint8_t> big(t->mtu() + 1, 0xA5);
-  EXPECT_EQ(t->send(big), SendStatus::Fatal);
-}
-
-TYPED_TEST_P(TransportContract, EventuallyRefusesWhenNobodyDrains) {
-  auto t = TransportFactory<TypeParam>::make();
-  const std::vector<std::uint8_t> chunk(t->mtu(), 0xA5);
-
-  bool refused = false;
-  for (int i = 0; i < 100000 && !refused; ++i) {
-    const SendStatus st = t->send(chunk);
-    ASSERT_NE(st, SendStatus::Fatal) << "зламався замість того, щоб відмовити, на i=" << i;
-    refused = (st == SendStatus::WouldBlock);
-  }
-  EXPECT_TRUE(refused) << "приймає без кінця — вузол ніколи не побачить затору";
-}
-
-REGISTER_TYPED_TEST_SUITE_P(TransportContract,
-                            MtuIsPositive, AcceptsChunkOfExactlyMtu,
-                            RejectsChunkLargerThanMtu, EventuallyRefusesWhenNobodyDrains);
-```
+:::code proj-cpp-doubles/cpp/odyn-kontraktnyi-nabir-na.cpp
 
 Тіла торкаються **тільки поверхні контракту** — `mtu()` і `send()`. Ні `queued()`, ні `drainOne()` тут немає, і саме тому цей текст компілюється для будь-якої реалізації, зокрема для тієї, що ходить у мережу. Тепер два інстанціювання — і хай вони живуть у різних цілях збірки:
 
@@ -413,39 +161,7 @@ INSTANTIATE_TYPED_TEST_SUITE_P(Fake, TransportContract,
                                ::testing::Types<FakeTransport>);
 ```
 
-```cpp
-// contract_udp_test.cpp — повільна смуга, нічний прогін
-class UdpLoopbackTransport {
- public:
-  UdpLoopbackTransport(std::size_t mtu, int fd) : mtu_(mtu), fd_(fd) {}
-  UdpLoopbackTransport(const UdpLoopbackTransport&) = delete;   // дескриптор не копіюють
-  ~UdpLoopbackTransport() { ::close(fd_); }
-
-  std::size_t mtu() const { return mtu_; }
-
-  SendStatus send(std::span<const std::uint8_t> chunk) {
-    if (chunk.size() > mtu_) return SendStatus::Fatal;        // ТЕ САМЕ правило, що у фейка
-    const ssize_t n = ::send(fd_, chunk.data(), chunk.size(), MSG_DONTWAIT);
-    if (n == static_cast<ssize_t>(chunk.size()))              return SendStatus::Ok;
-    if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))   return SendStatus::WouldBlock;
-    return SendStatus::Fatal;
-  }
-
- private:
-  std::size_t mtu_;
-  int         fd_;
-};
-
-template <> struct TransportFactory<UdpLoopbackTransport> {
-  static std::unique_ptr<UdpLoopbackTransport> make() {
-    // сокет під'єднано на 127.0.0.1, SO_SNDBUF навмисно малий,
-    // щоб буфер відправлення переповнювався за розумний час
-    return std::make_unique<UdpLoopbackTransport>(64, makeLoopbackSocket(/*sndbuf=*/2048));
-  }
-};
-INSTANTIATE_TYPED_TEST_SUITE_P(UdpLoopback, TransportContract,
-                               ::testing::Types<UdpLoopbackTransport>);
-```
+:::code proj-cpp-doubles/cpp/contract_udp_test.cpp
 
 Тепер видно, чим цей набір заробляє свій хліб. Твердження `RejectsChunkLargerThanMtu` мусить бути правдою й для сокета — а сам собою сокет його не тримає: він радо віддасть завелику датаграму на фрагментацію IP. Хтось мусить правило виконати, і контрактний набір змушує **вирішити хто**: перевірку розміру доводиться поставити в адаптер, тим самим рядком, що й у фейку. До того, як контракт записали, це рішення просто не існувало — була непроговорена розбіжність між дублем і бойовим кодом, яка колись вилізла б аварією. Про сам жанр таких наборів — [контрактні тести](root:sf-release/contract-testing); підстава ж, чому дубль узагалі можна ставити замість справжнього, — [поведінкова підтипізація](root:sf-lang/behavioral-subtyping).
 

@@ -16,24 +16,7 @@
 
 Гарний розбирач починається не з коду, а з типу даних, у якому граматика вже видно оком. Версія має рівно чотири значущі частини — три числа ядра й, можливо, набір ідентифікаторів передвипуску. Метадані збірки в структурі не тримаємо взагалі: специфікація прямо каже, що **у старшинстві вони не беруть участі**, тож зберігати їх, щоб потім не забути проігнорувати, — тільки напрошуватися на помилку. Чого немає в структурі, того неможливо випадково врахувати.
 
-```c
-#include <ctype.h>
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-#define SEMVER_MAX_IDS 16          // стелі з головою вистачає на будь-який реальний передвипуск
-
-typedef enum { SEMVER_OK = 0, SEMVER_EINVAL = -1 } semver_err;
-
-typedef struct {
-    unsigned long major, minor, patch;
-    int  pre_count;                // 0 → це готовий випуск, без передвипуску
-    char pre[SEMVER_MAX_IDS][64];  // ідентифікатори передвипуску; числові теж тримаємо ТЕКСТОМ
-    // метадані збірки навмисно не зберігаємо: на старшинство не впливають
-} semver_t;
-```
+:::code proj-semver-compare/c/ideia-struktura-shcho.c
 
 Одне рішення тут варте окремого слова: числові ідентифікатори передвипуску (`beta.**2**`) ми тримаємо **рядком**, а не переганяємо в число під час розбору. Це не лінь — це передбачливість, і чому саме, стане видно, коли дійдемо до їхнього порівняння: специфікація не кладе стелі на розмір числового ідентифікатора, тож будь-яке фіксоване ціле рано чи пізно на ньому переллється.
 
@@ -41,62 +24,7 @@ typedef struct {
 
 Розбір — це послідовне зрізання хвостів. Рядок збудований так, що кожна необов'язкова частина відділена власним знаком-роздільником, і ці знаки не плутаються між собою: спершу з кінця відрізаємо метадані збірки за `+`, тоді передвипуск за `-`, а що лишилось — то ядро з трьох чисел. Порядок різання важливий: `+` завжди стоїть **після** `-` у граматиці, тож відрізавши метадані першими, ми прибираємо з розгляду єдине місце, де дефіс міг би завести в оману.
 
-```c
-// Ціле без провідних нулів ("0" — можна, "01" — ні); заразом ловить переповнення.
-static semver_err parse_u(const char *p, char **end, unsigned long *out) {
-    if (!isdigit((unsigned char)*p))                 return SEMVER_EINVAL;
-    if (p[0] == '0' && isdigit((unsigned char)p[1])) return SEMVER_EINVAL;  // провідний нуль
-    errno = 0;
-    *out = strtoul(p, end, 10);
-    return errno == ERANGE ? SEMVER_EINVAL : SEMVER_OK;
-}
-
-semver_err semver_parse(const char *s, semver_t *v) {
-    char buf[256];
-    if (!s || strlen(s) >= sizeof buf) return SEMVER_EINVAL;
-    strcpy(buf, s);                     // працюємо з КОПІЄЮ: розбір псує рядок роздільниками
-    memset(v, 0, sizeof *v);
-
-    // 1. Відрізати метадані збірки за першим '+' — у старшинстві їх немає.
-    char *plus = strchr(buf, '+');
-    if (plus) *plus = '\0';
-
-    // 2. Відділити передвипуск за першим '-'. Ядро — самі цифри й крапки,
-    //    тож найперший '-' у рядку — це саме межа ядра й передвипуску.
-    char *pre  = NULL;
-    char *dash = strchr(buf, '-');
-    if (dash) { *dash = '\0'; pre = dash + 1; }
-
-    // 3. Ядро: рівно три числа через крапку, і нічого зайвого після латки.
-    char *p = buf, *end;
-    if (parse_u(p, &end, &v->major) || *end != '.') return SEMVER_EINVAL;
-    p = end + 1;
-    if (parse_u(p, &end, &v->minor) || *end != '.') return SEMVER_EINVAL;
-    p = end + 1;
-    if (parse_u(p, &end, &v->patch) || *end != '\0') return SEMVER_EINVAL;
-
-    // 4. Передвипуск: ідентифікатори через '.'.
-    while (pre) {
-        char *dot = strchr(pre, '.');
-        if (dot) *dot = '\0';
-        size_t len = strlen(pre);
-        if (len == 0 || len >= sizeof v->pre[0]) return SEMVER_EINVAL;  // порожній чи задовгий
-        if (v->pre_count == SEMVER_MAX_IDS)       return SEMVER_EINVAL;
-
-        // числовий ідентифікатор не сміє мати провідний нуль — інакше
-        // порівняння за довжиною (нижче) брехало б: "007" виглядало б більшим за "7".
-        bool digits = true;
-        for (const char *c = pre; *c; ++c)
-            if (!isdigit((unsigned char)*c)) { digits = false; break; }
-        if (digits && pre[0] == '0' && len > 1) return SEMVER_EINVAL;
-
-        strcpy(v->pre[v->pre_count++], pre);
-        if (!dot) break;
-        pre = dot + 1;
-    }
-    return SEMVER_OK;
-}
-```
+:::code proj-semver-compare/c/rozbir-rozrizaty-riadok-za.c
 
 Тут варто назвати три свідомі рішення. Перше — ми копіюємо рядок у власний буфер `buf` і псуємо саме копію: розбір **записує** нулі-термінатори на місце роздільників, і робити це з рядком, що прийшов ззовні, було б грубою помилкою (той рядок може бути літералом у пам'яті лише для читання чи спільним із рештою програми). Друге — `parse_u` відхиляє провідні нулі (`01`) не з педантизму, а тому, що специфікація їх забороняє, і наша ж перевірка потім спирається на цю заборону. Третє — `errno == ERANGE` після `strtoul` ловить число, що не влазить у `unsigned long`: розбір, який тихо приймає `99999999999999999999.0.0` за якесь обрізане значення, — це розбір, що бреше.
 
@@ -132,67 +60,8 @@ int cmp_core(const semver_t *a, const semver_t *b) {
 Ось це серце двома мовами. Ліворуч — C, якою складено всю програму; праворуч — Rust, де сума-тип `Ordering` та ітератори дають ту саму логіку в іншій формі, і корисно побачити, як мова змінює обриси однакового алгоритму. Правила ті самі; різняться лише слова, якими їх записано.
 
 :::tabs
-```c
-static bool all_digits(const char *s) {
-    for (; *s; ++s) if (!isdigit((unsigned char)*s)) return false;
-    return true;                         // порожніх ідентифікаторів тут не буває — відсіяв розбір
-}
-
-// Одна пара ідентифікаторів передвипуску: правила 11.4.1–11.4.3 специфікації.
-static int cmp_id(const char *a, const char *b) {
-    bool na = all_digits(a), nb = all_digits(b);
-    if (na && nb) {                      // обидва числові — ЧИСЛАМИ, а не рядками
-        size_t la = strlen(a), lb = strlen(b);
-        if (la != lb) return (la > lb) - (la < lb);  // без провідних нулів довший = більший
-        return strcmp(a, b);             // рівні завдовжки — лексичне дасть саме числовий порядок
-    }
-    if (na != nb) return na ? -1 : +1;   // числовий ЗАВЖДИ нижчий за буквений
-    return strcmp(a, b);                 // обидва буквені — лексично, в ASCII-порядку
-}
-
-// Передвипуски двох версій з РІВНИМ ядром: правила 11.2 і 11.4.
-int cmp_prerelease(const semver_t *a, const semver_t *b) {
-    if (a->pre_count == 0 && b->pre_count == 0) return 0;   // обидва готові — рівні
-    if (a->pre_count == 0) return +1;    // готовий випуск старший за передвипуск
-    if (b->pre_count == 0) return -1;
-
-    int n = a->pre_count < b->pre_count ? a->pre_count : b->pre_count;
-    for (int i = 0; i < n; ++i) {
-        int c = cmp_id(a->pre[i], b->pre[i]);
-        if (c) return c;                 // перша ж відмінність вирішує все
-    }
-    // спільний префікс рівний — довший набір ідентифікаторів старший
-    return (a->pre_count > b->pre_count) - (a->pre_count < b->pre_count);
-}
-```
-```rust
-use std::cmp::Ordering;
-
-// Одна пара ідентифікаторів передвипуску: правила 11.4.1–11.4.3 специфікації.
-fn cmp_id(a: &str, b: &str) -> Ordering {
-    let num = |s: &str| s.bytes().all(|c| c.is_ascii_digit());
-    match (num(a), num(b)) {
-        // обидва числові: без провідних нулів довший = більший, за рівної довжини — лексично.
-        (true, true)   => a.len().cmp(&b.len()).then_with(|| a.cmp(b)),
-        (true, false)  => Ordering::Less,     // числовий ЗАВЖДИ нижчий за буквений
-        (false, true)  => Ordering::Greater,
-        (false, false) => a.cmp(b),           // обидва буквені — лексично, в ASCII-порядку
-    }
-}
-
-// Передвипуски двох версій з РІВНИМ ядром: правила 11.2 і 11.4.
-fn cmp_prerelease(a: &[&str], b: &[&str]) -> Ordering {
-    match (a.is_empty(), b.is_empty()) {
-        (true, true)   => Ordering::Equal,     // обидва готові — рівні
-        (true, false)  => Ordering::Greater,   // готовий випуск старший за передвипуск
-        (false, true)  => Ordering::Less,
-        (false, false) => a.iter().copied().zip(b.iter().copied())
-            .map(|(x, y)| cmp_id(x, y))
-            .find(|o| o.is_ne())               // перша ж відмінність вирішує все
-            .unwrap_or_else(|| a.len().cmp(&b.len())),  // рівний префікс → довший набір старший
-    }
-}
-```
+:::code proj-semver-compare/c/sertse-starshynstvo.c
+:::code proj-semver-compare/rust/main.rs
 :::
 
 ![Дерево рішень порівняння передвипусків: угорі два крайні правила (готовий випуск старший за передвипуск; за рівного префікса довший набір старший), посередині три колонки для порівняння пари ідентифікаторів — обидва числові порівнюють числами, змішану пару вирішує на користь буквеного, буквену пару лексично; внизу нагадування, що метадані збірки в старшинстві не беруть участі](img/prerelease-rules.svg)
@@ -219,44 +88,7 @@ int semver_compare(const semver_t *a, const semver_t *b) {
 
 Найкраща перевірка порівнювача версій уже написана за нас — це канонічний ланцюг зростання зі [специфікації SemVer 2.0.0](https://semver.org/), де кожна наступна версія строго старша за попередню. Якщо наш код проходить весь ланцюг, він реалізує саме ті правила, а не схожі на них.
 
-```c
-#include <assert.h>
-#include <stdio.h>
-
-static int cmp_str(const char *a, const char *b) {
-    semver_t va, vb;
-    assert(semver_parse(a, &va) == SEMVER_OK);
-    assert(semver_parse(b, &vb) == SEMVER_OK);
-    return semver_compare(&va, &vb);
-}
-
-int main(void) {
-    // Числами, не рядками — класична пастка саморобних порівнянь:
-    assert(cmp_str("1.2.0", "1.10.0") < 0);          // 2 < 10 як числа
-    assert(cmp_str("1.10.0", "1.2.0") > 0);
-
-    // Канонічний ланцюг зростання зі специфікації — кожен строго менший за наступний:
-    const char *chain[] = {
-        "1.0.0-alpha", "1.0.0-alpha.1", "1.0.0-alpha.beta",
-        "1.0.0-beta",  "1.0.0-beta.2",  "1.0.0-beta.11",
-        "1.0.0-rc.1",  "1.0.0",
-    };
-    for (int i = 0; i + 1 < (int)(sizeof chain / sizeof *chain); ++i)
-        assert(cmp_str(chain[i], chain[i + 1]) < 0);
-
-    // Окремо — три місця, де саморобні порівнювачі найчастіше брешуть:
-    assert(cmp_str("1.0.0-beta.2",  "1.0.0-beta.11")   < 0);  // числове: 2 < 11, не "11" < "2"
-    assert(cmp_str("1.0.0-alpha.1", "1.0.0-alpha.beta") < 0);  // числовий нижчий за буквений
-    assert(cmp_str("1.0.0-rc.1",    "1.0.0")            < 0);  // передвипуск нижчий за випуск
-
-    // Метадані збірки ігноруються — це та сама версія за старшинством:
-    assert(cmp_str("1.0.0+build.9", "1.0.0+build.5")       == 0);
-    assert(cmp_str("1.0.0+exp.sha.5114f85", "1.0.0")       == 0);
-
-    puts("усі перевірки пройдено");
-    return 0;
-}
-```
+:::code proj-semver-compare/c/perevirka-lantsiuh.c
 
 Кожен `assert` тут — це одне з правил, зафіксоване як виконуваний факт. Ланцюг перевіряє їх у зчепленні; окремі рядки під ним б'ють точково по трьох найпопулярніших помилках. Разом вони кажуть: реалізація не просто «схожа на SemVer», а робить рівно те, що написано в специфікації.
 

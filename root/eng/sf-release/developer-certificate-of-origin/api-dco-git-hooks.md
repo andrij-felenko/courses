@@ -54,67 +54,12 @@ Reviewed-by: Сергій Ткаченко <sergiy.tkachenko@review.org>
 ### 1. Хук автопідпису: `.git/hooks/prepare-commit-msg`
 Цей скрипт виконується безпосередньо перед відкриттям текстового редактора коміту й автоматично додає коректний рядок `Signed-off-by:` на основі поточної конфігурації `user.name` та `user.email`:
 
-```sh
-#!/bin/sh
-# .git/hooks/prepare-commit-msg
-# Автоматичне додавання Signed-off-by трейлера, якщо його ще немає
-
-COMMIT_MSG_FILE="$1"
-COMMIT_SOURCE="$2"
-
-# Не модифікуємо автоматичні повідомлення злиттів (merge) або squash-комітів
-if [ "$COMMIT_SOURCE" = "merge" ] || [ "$COMMIT_SOURCE" = "squash" ]; then
-    exit 0
-fi
-
-NAME=$(git config user.name)
-EMAIL=$(git config user.email)
-
-if [ -z "$NAME" ] || [ -z "$EMAIL" ]; then
-    echo "ПОМИЛКА: git config user.name або user.email не налаштовано!" >&2
-    exit 1
-fi
-
-SOB_LINE="Signed-off-by: $NAME <$EMAIL>"
-
-# Перевіряємо, чи підпис уже присутній у файлі
-if ! grep -qs "^$SOB_LINE" "$COMMIT_MSG_FILE"; then
-    # Додаємо порожній рядок і трейлер у кінець повідомлення
-    printf "\n%s\n" "$SOB_LINE" >> "$COMMIT_MSG_FILE"
-fi
-```
+:::code api-dco-git-hooks/sh/1-khuk-avtopidpysu-git.sh
 
 ### 2. Хук суворої валідації: `.git/hooks/commit-msg`
 Цей хук є захисним шлюзом на боці клієнта: якщо автор випадково видалив підпис або адреса електронної пошти розходиться з глобальними налаштуваннями, хук повертає код завершення `exit 1` і скасовує створення коміту:
 
-```sh
-#!/bin/sh
-# .git/hooks/commit-msg
-# Сувора валідація наявності DCO підпису перед створенням об'єкта коміту
-
-MSG_FILE="$1"
-AUTHOR_EMAIL=$(git config user.email)
-
-# Шукаємо валідний рядок Signed-off-by за стандартом RFC 5322
-SOB_REGEX="^Signed-off-by: .+ <[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}>$"
-
-if ! grep -Eqs "$SOB_REGEX" "$MSG_FILE"; then
-    echo "================================================================" >&2
-    echo "ПОМИЛКА КОМПЛАЄНСУ DCO: Повідомлення коміту не містить підпису!" >&2
-    echo "Будь ласка, використовуйте прапорець: git commit -s" >&2
-    echo "Очікуваний формат: Signed-off-by: Ім'я Прізвище <email@domain>" >&2
-    echo "================================================================" >&2
-    exit 1
-fi
-
-# Перевіряємо збіг пошти автора з поштою у знайденому підписі
-if ! grep -qs "<$AUTHOR_EMAIL>" "$MSG_FILE"; then
-    echo "ПОМИЛКА: Email у Signed-off-by не збігається з git config user.email ($AUTHOR_EMAIL)!" >&2
-    exit 1
-fi
-
-exit 0
-```
+:::code api-dco-git-hooks/sh/2-khuk-suvoroi-validatsii.sh
 
 ### 3. Глобальний шаблон для автоматичного розгортання хуків
 Щоб кожен розробник команди автоматично отримував налаштовані хуки під час клонування будь-якого нового репозиторію, налаштовують глобальний каталог шаблонів Git:

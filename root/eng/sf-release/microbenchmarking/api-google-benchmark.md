@@ -6,30 +6,7 @@
 
 Будь-який мікробенчмарк у системі реєструється як вільна функція (або метод класу-фікстури), що приймає посилання на об'єкт `benchmark::State`. Цей об'єкт керує процесом вимірювання, відліком часу та передачею вхідних параметрів:
 
-```cpp
-#include <benchmark/benchmark.h>
-#include <vector>
-#include <numeric>
-
-static void BM_VectorAccumulate(benchmark::State& state) {
-    const auto size = static_cast<std::size_t>(state.range(0));
-    std::vector<int> data(size, 42);
-
-    // Головний вимірювальний цикл: бібліотека автоматично підбирає
-    // кількість проходів для досягнення стабільного часу заміру
-    for (auto _ : state) {
-        int sum = std::accumulate(data.begin(), data.end(), 0);
-        benchmark::DoNotOptimize(sum);
-    }
-
-    // Реєстрація метрик оброблених даних
-    state.SetBytesProcessed(static_cast<int64_t>(state.iterations()) *
-                            static_cast<int64_t>(size * sizeof(int)));
-    state.SetItemsProcessed(static_cast<int64_t>(state.iterations()) *
-                            static_cast<int64_t>(size));
-}
-BENCHMARK(BM_VectorAccumulate)->Range(64, 1 << 16);
-```
+:::code api-google-benchmark/cpp/anatomiia-testovoi.cpp
 
 Під час запуску бібліотека виконує кілька фаз калібрування. Вона запускає цикл `for (auto _ : state)` зі зростаючою кількістю ітерацій (1, 10, 100, 1000...), доки сумарний час роботи не досягне значення, встановленого параметром `MinTime` (за замовчуванням 0.5 секунди). Час, витрачений на підготовку масиву `data` поза межами циклу `for (auto _ : state)`, не враховується у підсумковий результат.
 
@@ -72,27 +49,7 @@ benchmark::ClobberMemory();
 
 Google Benchmark підтримує гнучку систему конфігурації вхідних параметрів за допомогою ланцюжкових викликів (Fluent Interface):
 
-```cpp
-// 1. Поодинокі аргументи або фіксовані списки розмірів
-BENCHMARK(BM_Sort)->Arg(100)->Arg(1000)->Arg(10000);
-BENCHMARK(BM_MatrixMul)->Args({32, 32})->Args({64, 64});
-
-// 2. Геометрична шкала: від 8 до 8192 з множником 8 (8, 64, 512, 4096)
-BENCHMARK(BM_Lookup)->RangeMultiplier(8)->Range(8, 8192);
-
-// 3. Декартовий добуток діапазонів (2D/3D матриця параметрів)
-BENCHMARK(BM_Transform)->ArgsProduct({
-    benchmark::CreateRange(8, 512, 8),
-    {1, 2, 4, 8} // кількість потоків або каналів
-});
-
-// 4. Налаштування тривалості, повторів та статистичної агрегації
-BENCHMARK(BM_NetworkSend)
-    ->MinTime(1.5)                 // Мінімальний час прогону (1.5 секунди)
-    ->Repetitions(10)              // 10 незалежних прогонів для статистики
-    ->ReportAggregatesOnly(true)   // Виводити лише Mean/Median/StdDev
-    ->DisplayAggregatesOnly(true);
-```
+:::code api-google-benchmark/cpp/deklaratyvna.hpp
 
 ## Внутрішній таймінг: CPU Time проти Real Time (Wall-clock)
 
@@ -107,39 +64,14 @@ BENCHMARK(BM_NetworkSend)
 ### Багатопотоковий бенчмаркінг
 Бібліотека підтримує паралельне тестування багатопотокових структур даних. При вказанні методу `->Threads(N)` або `->ThreadRange(min, max)` бібліотека автоматично створює відповідну кількість робочих потоків ОС і синхронізує їхній одночасний старт за допомогою внутрішнього бар'єра синхронізації:
 
-```cpp
-static void BM_ConcurrentQueue(benchmark::State& state) {
-    static LockFreeQueue queue;
-    for (auto _ : state) {
-        if (state.thread_index() == 0) {
-            queue.push(42);
-        } else {
-            queue.pop();
-        }
-    }
-}
-BENCHMARK(BM_ConcurrentQueue)->ThreadRange(1, 16)->UseRealTime();
-```
+:::code api-google-benchmark/cpp/bahatopotokovyi.cpp
 
 Кожен потік виконує власну копію функції бенчмарку, маючи доступ до свого ідентифікатора через `state.thread_index()`. Вимірювальний час завершується лише тоді, коли всі паралельні потоки повністю завершать призначену кількість ітерацій.
 
 ### Автоматичний розрахунок складності (Big-O)
 Google Benchmark вміє автоматично перевіряти теоретичну асимптотичну складність алгоритму. Для цього в циклі передається розмір задачі `state.SetComplexityN(n)`, а при реєстрації вказується очікуваний клас складності:
 
-```cpp
-static void BM_BinarySearch(benchmark::State& state) {
-    const auto n = state.range(0);
-    std::vector<int> v(n);
-    std::iota(v.begin(), v.end(), 0);
-
-    for (auto _ : state) {
-        bool found = std::binary_search(v.begin(), v.end(), n / 2);
-        benchmark::DoNotOptimize(found);
-    }
-    state.SetComplexityN(n);
-}
-BENCHMARK(BM_BinarySearch)->Range(64, 1 << 20)->Complexity(benchmark::oLogN);
-```
+:::code api-google-benchmark/cpp/avtomatychnyi-rozrakhunok.cpp
 
 Під час аналізу результатів бібліотека виконує регресійну апроксимацію методом найменших квадратів, підбираючи коефіцієнти для обраної моделі (`o1`, `oN`, `oLogN`, `oNLogN`, `oN_Square`, `oAuto`), та виводить коефіцієнт кореляції та константу нахилу кривої.
 

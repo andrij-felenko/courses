@@ -39,34 +39,7 @@ std::string priority(int s, int o, int d) {   // так НЕ треба
 
 Три класи — це весь словник інструмента на виході, тож заведімо його одразу:
 
-```cpp
-#include <array>
-#include <cstddef>
-#include <map>
-#include <optional>
-#include <string>
-#include <tuple>
-#include <vector>
-#include <algorithm>
-#include <stdexcept>
-#include <iostream>
-#include <iomanip>
-
-enum class AP {       // Пріоритет дій: три класи, і жодних градацій більше.
-    Low = 1,          // ризик прийнятний; записати обґрунтування
-    Medium = 2,       // розглянути й задокументувати рішення
-    High = 3,         // діяти обов'язково
-};
-
-const char* name(AP ap) {
-    switch (ap) {
-        case AP::Low:    return "LOW";
-        case AP::Medium: return "MEDIUM";
-        case AP::High:   return "HIGH";
-    }
-    return "?";
-}
-```
+:::code proj-fmea-rpn/cpp/ideia-polityka-tse-dani-a.cpp
 
 Числа — лише щоб працювало порівняння `<` (тяжчий клас — більший). Це **ранг, а не бал**, і `enum class` тримає цю різницю тілом: він порівнюється, але **не перетворюється на `int` сам собою**, тож випадково додати чи усереднити пріоритети не вийде — компілятор вимагатиме явного приведення, а воно тут як сигнал тривоги. Три класи — і це не бідність виходу, а чесність: вхідні ранги не витримують тоншого поділу, тож обіцяти його означало б брехати впевненіше, ніж дозволяють дані.
 
@@ -78,85 +51,7 @@ const char* name(AP ap) {
 
 Почнімо з входу, бо тут найлегше зіпсувати все ще до сортування. Шкала — це не діапазон «від 1 до 10», а перелік **описаних кошиків**, і оцінити означає назвати кошик, а не набрати цифру.
 
-```cpp
-struct Bucket { int rank; std::string key; std::string desc; };
-
-class Scale {
-public:
-    Scale(std::string name, std::initializer_list<Bucket> buckets)
-        : name_(std::move(name)) {
-        for (const auto& b : buckets) {
-            rank_[b.key]  = b.rank;
-            desc_[b.rank] = b.desc;
-        }
-        std::string missing;
-        for (int r = 1; r <= 10; ++r)
-            if (!desc_.count(r))
-                missing += (missing.empty() ? "" : ", ") + std::to_string(r);
-        if (!missing.empty())
-            throw std::invalid_argument(
-                "шкала «" + name_ + "»: не описано кошики " + missing);
-    }
-
-    int operator()(const std::string& key) const {   // ім'я кошика → ранг
-        auto it = rank_.find(key);
-        if (it == rank_.end()) {
-            std::string have;                          // std::map віддає імена по порядку
-            for (const auto& kv : rank_)
-                have += (have.empty() ? "" : ", ") + kv.first;
-            throw std::out_of_range(
-                "шкала «" + name_ + "»: немає кошика «" + key + "»; є " + have);
-        }
-        return it->second;
-    }
-
-    const std::string& desc(int rank) const { return desc_.at(rank); }
-
-private:
-    std::string name_;
-    std::map<std::string, int> rank_;
-    std::map<int, std::string> desc_;
-};
-
-const Scale SEVERITY("тяжкість", {
-    {10, "шкода",       "шкода здоров'ю або безпеці"},
-    {9,  "закон",       "порушення норм і приписів"},
-    {8,  "втрата-осн",  "втрата основної функції"},
-    {7,  "гірше-осн",   "основна функція працює гірше"},
-    {6,  "втрата-друг", "втрата другорядної функції"},
-    {5,  "гірше-друг",  "другорядна функція працює гірше"},
-    {4,  "прикро",      "дуже неприємний вигляд, звук чи поведінка"},
-    {3,  "помітно",     "помітна вада; більшість помічає"},
-    {2,  "ледь",        "ледь помітна вада; помічають уважні"},
-    {1,  "жодного",     "наслідку не видно"},
-});
-
-const Scale OCCURRENCE("частота", {
-    {10, "1:10",    "≈ 100 на тисячу"},
-    {9,  "1:20",    "50 на тисячу"},
-    {8,  "1:50",    "20 на тисячу"},
-    {7,  "1:100",   "10 на тисячу"},
-    {6,  "1:500",   "2 на тисячу"},
-    {5,  "1:2000",  "0.5 на тисячу"},
-    {4,  "1:10к",   "0.1 на тисячу"},
-    {3,  "1:100к",  "0.01 на тисячу"},
-    {2,  "1:1млн",  "≤ 0.001 на тисячу"},
-    {1,  "усунено", "причину усунено запобіжним контролем"},
-});
-
-const Scale DETECTION("виявність", {
-    {10, "немає",     "контролю немає або він не здатен виявити"},
-    {9,  "майже-ні",  "виявить хіба випадково"},
-    {8,  "вибірково", "рідкісна ручна вибіркова перевірка"},
-    {7,  "непрямо",   "непрямий контроль, уже після події"},
-    {6,  "ручний",    "ручна перевірка кожного випадку"},
-    {5,  "після",     "автоматичний контроль, але вже після наслідку"},
-    {4,  "наступний", "автоматичний контроль на наступному кроці"},
-    {3,  "на-місці",  "автоматичний контроль на місці, до наслідку"},
-    {2,  "блокує",    "автоматичний контроль, що не пропускає далі"},
-    {1,  "неможливо", "вид відмови неможливий за конструкцією"},
-});
-```
+:::code proj-fmea-rpn/cpp/shkala-chyslo-pokhidne-vid.cpp
 
 Придивіться, що тут сталося насправді. Оцінити тяжкість тепер **неможливо, не назвавши кошик**: `SEVERITY("закон")` дає 9, а спроба просто підставити 9 не проходить крізь інтерфейс. Суперечка команди зміщується з «дев'ять чи вісім?» — питання, на яке немає чесної відповіді, — на «це порушення приписів чи втрата основної функції?», питання про систему, на яке відповідь є. Число з'являється в кінці й саме, як побічний продукт домовленості.
 
@@ -168,90 +63,13 @@ const Scale DETECTION("виявність", {
 
 Тепер серце інструмента. Політика лежить літералом, де кожен рядок — це смуга тяжкості з набором клітин за смугами частоти, а чотири літери в клітині — значення за смугами виявності.
 
-```cpp
-struct Band  { int lo, hi; };
-struct OCell { Band o; std::string letters; };   // O-смуга → 4 літери за D-смугами
-struct SRow  { Band s; std::vector<OCell> row; }; // S-смуга → рядок O-смуг
-
-constexpr std::array<Band, 4> D_BANDS{{ {7, 10}, {5, 6}, {2, 4}, {1, 1} }};
-
-const std::vector<SRow> AP_POLICY = {
-  // S-смуга        O-смуга: клітини за D-смугами   7–10        5–6         2–4         1
-  {{9, 10}, {{{8, 10}, "HHHH"}, {{6, 7}, "HHHH"}, {{4, 5}, "HHHH"}, {{2, 3}, "HHHM"}, {{1, 1}, "MMLL"}}},
-  {{7,  8}, {{{8, 10}, "HHHH"}, {{6, 7}, "HHHM"}, {{4, 5}, "HMMM"}, {{2, 3}, "MMLL"}, {{1, 1}, "LLLL"}}},
-  {{4,  6}, {{{8, 10}, "HHMM"}, {{6, 7}, "MMML"}, {{4, 5}, "MLLL"}, {{2, 3}, "LLLL"}, {{1, 1}, "LLLL"}}},
-  {{2,  3}, {{{8, 10}, "MMLL"}, {{6, 7}, "LLLL"}, {{4, 5}, "LLLL"}, {{2, 3}, "LLLL"}, {{1, 1}, "LLLL"}}},
-  {{1,  1}, {{{8, 10}, "LLLL"}, {{6, 7}, "LLLL"}, {{4, 5}, "LLLL"}, {{2, 3}, "LLLL"}, {{1, 1}, "LLLL"}}},
-};
-```
+:::code proj-fmea-rpn/cpp/tablytsia-kub.cpp
 
 Цю таблицю можна прочитати очима за хвилину, і головне видно одразу: **верхній рядок майже суцільно H, нижній суцільно L**. Тяжкість вирішує спочатку — не як побажання, а як властивість даних.
 
 Далі — розгортання смуг у куб на 1000 клітин:
 
-```cpp
-constexpr int idx(int s, int o, int d) { return (s - 1) * 100 + (o - 1) * 10 + (d - 1); }
-
-AP letter(char c) {
-    switch (c) {
-        case 'H': return AP::High;
-        case 'M': return AP::Medium;
-        case 'L': return AP::Low;
-    }
-    throw std::invalid_argument(std::string("невідома літера політики: ") + c);
-}
-
-// Розгорнути смуги в 1000 клітин — і заразом довести, що таблиця ПОВНА
-// (кожне (S,O,D) вкрито) і НЕСУПЕРЕЧЛИВА (жодне не вкрито двічі).
-std::array<AP, 1000> compile_policy(const std::vector<SRow>& policy) {
-    std::array<std::optional<AP>, 1000> cube{};   // усі клітини порожні
-    for (const auto& sr : policy) {
-        for (const auto& oc : sr.row) {
-            if (oc.letters.size() != D_BANDS.size())
-                throw std::invalid_argument(
-                    "S=" + std::to_string(sr.s.lo) + "-" + std::to_string(sr.s.hi) +
-                    " O=" + std::to_string(oc.o.lo) + "-" + std::to_string(oc.o.hi) +
-                    ": " + std::to_string(oc.letters.size()) + " клітин замість " +
-                    std::to_string(D_BANDS.size()));
-            for (std::size_t k = 0; k < D_BANDS.size(); ++k) {
-                const Band db = D_BANDS[k];
-                const AP ap = letter(oc.letters[k]);
-                for (int s = sr.s.lo; s <= sr.s.hi; ++s)
-                  for (int o = oc.o.lo; o <= oc.o.hi; ++o)
-                    for (int d = db.lo; d <= db.hi; ++d) {
-                        auto& slot = cube[idx(s, o, d)];
-                        if (slot)
-                            throw std::invalid_argument(
-                                "смуги перекриваються на S=" + std::to_string(s) +
-                                " O=" + std::to_string(o) + " D=" + std::to_string(d));
-                        slot = ap;
-                    }
-            }
-        }
-    }
-    std::vector<std::array<int, 3>> holes;
-    for (int s = 1; s <= 10; ++s)
-      for (int o = 1; o <= 10; ++o)
-        for (int d = 1; d <= 10; ++d)
-            if (!cube[idx(s, o, d)]) holes.push_back({s, o, d});
-    if (!holes.empty()) {
-        const auto& h = holes.front();
-        throw std::invalid_argument(
-            "таблиця неповна: " + std::to_string(holes.size()) +
-            " клітин без пріоритету, перша з них (" + std::to_string(h[0]) + ", " +
-            std::to_string(h[1]) + ", " + std::to_string(h[2]) + ")");
-    }
-    std::array<AP, 1000> out{};
-    for (std::size_t i = 0; i < out.size(); ++i) out[i] = *cube[i];
-    return out;
-}
-
-const std::array<AP, 1000> AP_CUBE = compile_policy(AP_POLICY);
-
-AP action_priority(int s, int o, int d) {   // Пошук, а не формула: одне індексування, O(1).
-    return AP_CUBE[idx(s, o, d)];            // Нічого не множимо.
-}
-```
+:::code proj-fmea-rpn/cpp/tablytsia-kub-2.cpp
 
 П'ять вкладених циклів виглядають страшнувато, але вони пробігають рівно один раз на старті програми й дають дещо цінніше за швидкість: **доказ**. Перевірка `if (slot)` перед записом ловить смуги, що налізли одна на одну, — а це найтиповіша помилка при перенесенні таблиці з паперу, і в ланцюзі `if` вона взагалі не помилка, там просто мовчки виграє перша гілка. Збір `holes` ловить протилежне — забуту смугу. Разом вони кажуть: **функція визначена на всій області й однозначна**. Не «здається, ми все вкрили», а перевірено, всі 1000 клітин.
 
@@ -261,30 +79,7 @@ AP action_priority(int s, int o, int d) {   // Пошук, а не формул�
 
 Це властивість, яку можна сформулювати точно. Погіршення будь-якої з трьох осей — тяжкість вища, причина частіша, виявність гірша — не сміє **знижувати** пріоритет. Якщо десь знижує, у таблиці помилка, і не важливо, звідки вона взялася.
 
-```cpp
-// Здоровий глузд: погіршення БУДЬ-ЯКОЇ осі не сміє знизити пріоритет.
-std::vector<std::string> check_monotone(const std::array<AP, 1000>& cube) {
-    std::vector<std::string> bad;
-    for (int s = 1; s <= 10; ++s)
-      for (int o = 1; o <= 10; ++o)
-        for (int d = 1; d <= 10; ++d) {
-            const AP here = cube[idx(s, o, d)];
-            struct Step { const char* axis; int s, o, d; };
-            const Step steps[3] = {{"S", s + 1, o, d}, {"O", s, o + 1, d}, {"D", s, o, d + 1}};
-            for (const Step& st : steps) {
-                if (st.s > 10 || st.o > 10 || st.d > 10) continue;
-                const AP there = cube[idx(st.s, st.o, st.d)];
-                if (there < here)                        // enum class порівнюється, не додається
-                    bad.push_back(
-                        std::string(st.axis) + "↑: (" + std::to_string(s) + "," +
-                        std::to_string(o) + "," + std::to_string(d) + ")=" + name(here) +
-                        " → (" + std::to_string(st.s) + "," + std::to_string(st.o) + "," +
-                        std::to_string(st.d) + ")=" + name(there));
-            }
-        }
-    return bad;
-}
-```
+:::code proj-fmea-rpn/cpp/perevirka-iakoi-ne-buvaie.cpp
 
 На нашій таблиці:
 
@@ -322,75 +117,7 @@ compile_policy кидає: таблиця неповна: 60 клітин без
 
 Тепер сам рядок реєстру — і ключ, яким його сортують. Тут уся вага інструмента, тож типи варто зробити такими, щоб дурниця не проходила крізь них мовчки.
 
-```cpp
-struct Rating {
-    int s, o, d;
-    Rating(int s_, int o_, int d_) : s(s_), o(o_), d(d_) {
-        auto guard = [](const char* nm, int v) {
-            if (v < 1 || v > 10)
-                throw std::invalid_argument(
-                    std::string(nm) + "=" + std::to_string(v) + ": ранг поза 1…10");
-        };
-        guard("S", s); guard("O", o); guard("D", d);
-    }
-    int rpn() const { return s * o * d; }   // для звітів і легасі; у ключ черги НЕ пускаємо
-    AP  ap()  const { return action_priority(s, o, d); }
-};
-
-struct Entry {
-    std::string id;
-    std::string item;      // вузол
-    std::string function;  // що вузол має робити
-    std::string mode;      // вид відмови: як саме не виконав
-    std::string cause;     // причина: чому
-    std::string effect;    // наслідок: що відчула система
-    std::string control;   // чим ловимо це зараз
-    Rating before;
-    std::string action;
-    std::optional<Rating> after;
-
-    Rating current() const { return after ? *after : before; }
-
-    // Захід знижує частоту або виявність. Тяжкість — лише зміною конструкції:
-    // наслідок не м'якшає від того, що ми додали перевірку.
-    Entry& plan(std::string act, Rating aft, bool design_change = false) {
-        if (aft.s < before.s && !design_change)
-            throw std::invalid_argument(
-                id + ": тяжкість " + std::to_string(before.s) + " → " +
-                std::to_string(aft.s) + " без зміни конструкції. Наслідок «" +
-                effect + "» лишився той самий — тяжкість не падає від того, "
-                "що ми додали перевірку.");
-        action = std::move(act);
-        after = aft;
-        return *this;
-    }
-};
-
-using Key = std::tuple<int, int, int, int, std::string>;
-
-// Лексикографічно: пріоритет → тяжкість → частота → виявність → id.
-// Жодного добутку. id наприкінці — щоб порядок був відтворюваний.
-Key priority_key(const Entry& e, bool before = false) {
-    const Rating r = before ? e.before : e.current();
-    return { -static_cast<int>(r.ap()), -r.s, -r.o, -r.d, e.id };
-}
-
-std::vector<Entry> by_priority(std::vector<Entry> rows, bool before = false) {
-    std::sort(rows.begin(), rows.end(), [&](const Entry& a, const Entry& b) {
-        return priority_key(a, before) < priority_key(b, before);   // O(n log n)
-    });
-    return rows;
-}
-
-std::vector<Entry> by_rpn(std::vector<Entry> rows, bool before = false) {
-    // Як роблять зазвичай. Тут — лише щоб було з чим порівняти.
-    std::sort(rows.begin(), rows.end(), [&](const Entry& a, const Entry& b) {
-        return (before ? a.before : a.current()).rpn()
-             > (before ? b.before : b.current()).rpn();
-    });
-    return rows;
-}
-```
+:::code proj-fmea-rpn/cpp/zapys-i-cherha.cpp
 
 Ключ черги — усе, заради чого писався інструмент, тож розберімо його по кістках.
 
@@ -406,54 +133,7 @@ std::vector<Entry> by_rpn(std::vector<Entry> rows, bool before = false) {
 
 Заведімо три рядки — той самий вузол оплати інтернет-крамниці — і подивімось на дві черги поряд.
 
-```cpp
-void show(const std::string& title, const std::vector<Entry>& rows, bool before) {
-    std::cout << "\n" << title << "\n";
-    std::cout << std::left << std::setw(3) << "#" << std::setw(7) << "id"
-              << std::right << std::setw(3) << "S" << std::setw(3) << "O"
-              << std::setw(3) << "D" << std::setw(6) << "RPN" << std::setw(7) << "AP"
-              << "  вид відмови\n";
-    int i = 1;
-    for (const Entry& e : rows) {
-        const Rating r = before ? e.before : e.current();
-        std::cout << std::left << std::setw(3) << i++ << std::setw(7) << e.id
-                  << std::right << std::setw(3) << r.s << std::setw(3) << r.o
-                  << std::setw(3) << r.d << std::setw(6) << r.rpn()
-                  << std::setw(7) << name(r.ap()) << "  " << e.mode << "\n";
-    }
-}
-
-int main() {
-    std::vector<Entry> reg = {
-        {.id = "P-01", .item = "шлюз оплати",
-         .function = "провести платіж і повернути відповідь",
-         .mode = "відповідь не прийшла за таймаут",
-         .cause = "шлюз перевантажений у пікові години",
-         .effect = "замовлення не оформлено, продаж утрачено",
-         .control = "сплеск помилок видно на панелі",
-         .before = Rating(SEVERITY("втрата-друг"), OCCURRENCE("1:2000"),
-                          DETECTION("на-місці"))},
-        {.id = "P-02", .item = "списання коштів",
-         .function = "списати суму замовлення рівно один раз",
-         .mode = "суму списано двічі",
-         .cause = "клієнт повторив запит, ключа ідемпотентності немає",
-         .effect = "з клієнта взято вдвічі; повернення, скарга, втрата довіри",
-         .control = "дізнаємось, лише коли клієнт поскаржиться",
-         .before = Rating(SEVERITY("закон"), OCCURRENCE("1:1млн"),
-                          DETECTION("вибірково"))},
-        {.id = "P-03", .item = "вітрина товару",
-         .function = "показувати чинну ціну",
-         .mode = "показано стару ціну з кешу",
-         .cause = "кеш цін не скинуто після переоцінки",
-         .effect = "продаж нижче собівартості, втрата маржі",
-         .control = "жодного: помітно тільки на квартальній звірці",
-         .before = Rating(SEVERITY("прикро"), OCCURRENCE("1:500"),
-                          DETECTION("немає"))},
-    };
-
-    show("ЧЕРГА ЗА ГОЛИМ RPN:",      by_rpn(reg, /*before=*/true), /*before=*/true);
-    show("ЧЕРГА ЗА ПРІОРИТЕТОМ ДІЙ:", by_priority(reg, true), true);
-```
+:::code proj-fmea-rpn/cpp/prohin.cpp
 
 ```
 ЧЕРГА ЗА ГОЛИМ RPN:
@@ -480,37 +160,7 @@ int main() {
 
 Тепер найцінніша частина реєстру — та, заради якої він живий документ, а не звіт. Призначмо заходи на верхні рядки черги й переоцінімо ті самі три осі наново.
 
-```cpp
-    auto find = [&](const std::string& id) -> Entry& {
-        for (Entry& e : reg) if (e.id == id) return e;
-        throw std::out_of_range("немає рядка " + id);
-    };
-    find("P-02").plan("ключ ідемпотентності на платіж + нічна звірка з банком",
-                      Rating(SEVERITY("закон"), OCCURRENCE("усунено"),
-                             DETECTION("на-місці")));
-    find("P-03").plan("скидати кеш подією переоцінки + монітор розбіжності ціни",
-                      Rating(SEVERITY("прикро"), OCCURRENCE("1:10к"),
-                             DETECTION("на-місці")));
-
-    show("ПІСЛЯ ЗАХОДІВ:", by_priority(reg, /*before=*/false), /*before=*/false);
-    std::cout << "\n";
-    for (const Entry& e : by_priority(reg, /*before=*/true)) {
-        if (!e.after) {
-            std::cout << e.id << ": " << std::left << std::setw(7) << name(e.before.ap())
-                      << "→ дій не заплановано, ризик прийнято свідомо\n";
-            continue;
-        }
-        std::cout << e.id << ": " << std::left << std::setw(7) << name(e.before.ap())
-                  << "→ " << std::setw(7) << name(e.after->ap())
-                  << "RPN " << std::right << std::setw(3) << e.before.rpn() << " → "
-                  << std::left << std::setw(3) << e.after->rpn()
-                  << "  S " << e.before.s << "→" << e.after->s
-                  << "   O " << e.before.o << "→" << e.after->o
-                  << "   D " << e.before.d << "→" << e.after->d << "\n";
-    }
-    return 0;
-}
-```
+:::code proj-fmea-rpn/cpp/kolonka-pislia.cpp
 
 ```
 ПІСЛЯ ЗАХОДІВ:

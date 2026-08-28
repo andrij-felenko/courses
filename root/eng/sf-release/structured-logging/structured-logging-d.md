@@ -439,25 +439,7 @@ std::atomic<LogLevel> active_level_{LogLevel::Info};
 
 Реальна виробнича DDL-схема таблиці логів у ClickHouse:
 
-```sql
-CREATE TABLE telemetry.logs
-(
-    timestamp DateTime64(6, 'UTC') CODEC(DoubleDelta, ZSTD(1)),
-    service_name LowCardinality(String) CODEC(ZSTD(1)),
-    environment LowCardinality(String) CODEC(ZSTD(1)),
-    severity_number UInt8 CODEC(ZSTD(1)),
-    severity_text LowCardinality(String) CODEC(ZSTD(1)),
-    body String CODEC(ZSTD(3)),
-    trace_id FixedString(32) CODEC(ZSTD(1)),
-    span_id FixedString(16) CODEC(ZSTD(1)),
-    attributes Map(String, String) CODEC(ZSTD(1)),
-    INDEX idx_trace trace_id TYPE bloom_filter(0.01) GRANULARITY 1
-)
-ENGINE = MergeTree()
-PARTITION BY toYYYYMM(timestamp)
-PRIMARY KEY (service_name, severity_number, timestamp)
-ORDER BY (service_name, severity_number, timestamp, trace_id);
-```
+:::code structured-logging-d/sql/main.sql
 
 Така організація забезпечує миттєву фільтрацію за часовими діапазонами та рівнями помилок, а фільтр Блума по `trace_id` дозволяє знайти всі логи конкретного розподіленого запиту за лічені мілісекунди серед мільярдів записів.
 
@@ -488,22 +470,7 @@ ORDER BY (service_name, severity_number, timestamp, trace_id);
 
 Типовий юніт-тест перевіряє наявність обов'язкових полів та відсутність неструктурованих конкатенацій:
 
-```cpp
-TEST(OrderServiceTest, EmitsStructuredLogOnPaymentFailure) {
-    MemoryLogSink sink;
-    OrderService service(sink);
-
-    service.ProcessOrder(OrderParams{.id = 19482, .should_fail = true});
-
-    ASSERT_EQ(sink.Events().size(), 1);
-    const auto& log = sink.Events()[0];
-
-    EXPECT_EQ(log.Get("msg"), "payment_failed");
-    EXPECT_EQ(log.Get("order_id"), 19482);
-    EXPECT_TRUE(log.Has("trace_id"));
-    EXPECT_EQ(log.Get("level"), "ERROR");
-}
-```
+:::code structured-logging-d/cpp/main.cpp
 
 У великих репозиторіях статичні аналізатори коду (лінтери) забороняють використання сирого `printf` або строкової конкатенації всередині викликів логера, гарантуючи чистоту та стандартизацію схеми на рівні компіляції.
 

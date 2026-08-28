@@ -83,50 +83,8 @@ bool save_config(std::string_view filepath, std::chrono::milliseconds timeout);
 Виникла потреба передавати рівень стиснення та режим синхронізації з диском. Замість прямої зміни сигнатури постачальник реалізує **фазу розширення**: створює розширену структуру параметрів та нову функцію, а стару перетворює на тонкий перехідний адаптер (англ. *shim* — компенсатор, прокладка):
 
 :::tabs
-```c
-/* Фаза розширення (Expand): додано нову структуру і нову функцію */
-typedef struct {
-    const char* filepath;
-    int timeout_ms;
-    int compression_level; /* Нове поле */
-    bool sync_to_disk;     /* Нове поле */
-} config_options_t;
-
-/* Новий цільовий метод */
-int config_save_ex(const config_options_t* opts);
-
-/* Старий метод перетворюється на адаптер (Shim), що викликає новий */
-int config_save(const char* filepath, int timeout_ms) {
-    config_options_t opts;
-    opts.filepath = filepath;
-    opts.timeout_ms = timeout_ms;
-    opts.compression_level = 0; // Безпечне значення за замовчуванням
-    opts.sync_to_disk = true;
-    return config_save_ex(&opts);
-}
-```
-```cpp
-// Фаза розширення (Expand): перевантаження або структура опцій
-struct ConfigOptions {
-    std::string_view filepath;
-    std::chrono::milliseconds timeout{1000};
-    int compression_level{0};
-    bool sync_to_disk{true};
-};
-
-// Новий розширений інтерфейс
-bool save_config(ConfigOptions const& opts);
-
-// Старий інтерфейс як адаптер над новим
-inline bool save_config(std::string_view filepath, std::chrono::milliseconds timeout) {
-    return save_config(ConfigOptions{
-        .filepath = filepath,
-        .timeout = timeout,
-        .compression_level = 0,
-        .sync_to_disk = true
-    });
-}
-```
+:::code expand-contract-d/c/main.c
+:::code expand-contract-d/cpp/main.cpp
 :::
 
 Такий підхід забезпечує **сумісність на рівні вихідного коду** (англ. *API compatibility*): старі виклики збираються без жодних змін, а нові клієнти одразу використовують розширені можливості.

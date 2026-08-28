@@ -117,25 +117,7 @@ E       AssertionError: assert 'PONG\r' == 'PONG'
 
 Розв'язок міняє напрямок: не тест бере готове оточення, а **оголошує, що йому потрібно**, а каркас будує потрібне на вимогу. Кожен ресурс стає названою функцією — фікстурою (лат. *fixus* — «закріплений»; у стендовій справі так називають оснастку, що утримує виріб). Тест перелічує потрібні ресурси іменами своїх параметрів, каркас зіставляє імена з фікстурами, будує їх у правильному порядку й прибирає у зворотному:
 
-```py
-# conftest.py — фікстури, видимі всім тестам цієї теки й нижче
-import pytest
-from serial import Serial
-
-@pytest.fixture(scope="session")
-def port(request):
-    dev = request.config.getoption("--dev")          # напр. /dev/ttyUSB0
-    s = Serial(dev, baudrate=115200, timeout=0.2)
-    yield s                                          # усе після yield — прибирання
-    s.close()
-
-@pytest.fixture
-def device(port):                                    # залежить від фікстури port
-    reset(port)                                      # кожен тест — з відомого стану
-    wait_ready(port, timeout=3.0)
-    yield Device(port)
-    dump_logs(port)                                  # виконається й після падіння
-```
+:::code python-test-automation-d/py/conftest.py
 
 ```py
 def test_ping_answers_in_time(device):
@@ -199,19 +181,7 @@ lib.rb_push.restype   = ctypes.c_int
 
 **Очікування наосліп.** `sleep(0.2)` — це ставка на швидкість машини. На ноутбуці розробника вистачає, у переповненому CI-агенті — ні. Правильна форма очікування питає систему про стан, а не годинник про час:
 
-```py
-import time
-
-def wait_until(predicate, timeout, poll=0.01):
-    deadline = time.monotonic() + timeout
-    while True:
-        value = predicate()
-        if value:
-            return value
-        if time.monotonic() >= deadline:
-            raise TimeoutError(f"умова не настала за {timeout} с")
-        time.sleep(poll)
-```
+:::code python-test-automation-d/py/determinizm-abo-chomu-test.py
 
 Тут важливі дві дрібниці. Годинник — монотонний, бо системний час може стрибнути назад від синхронізації, і тоді очікування зависне або обірветься зарано. І перевірка умови стоїть **до** першої паузи: якщо система вже готова, тест не платить нічого. Ще краще, коли система сама повідомляє про подію — тоді очікування стає читанням із черги, а не опитуванням.
 

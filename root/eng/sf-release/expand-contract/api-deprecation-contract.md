@@ -102,64 +102,8 @@ message UserResponse {
 У мовах зі статичною типізацією використовуються спеціалізовані мовні атрибути та прагми. У стандарті C++14 та новіших версіях застосовується уніфікований атрибут `[[deprecated("пояснення")]]`. У мові C стандарт C23 закріпив аналогічний синтаксис, тоді як у C99/C11 застосовуються розширення компіляторів GCC, Clang та MSVC.
 
 :::tabs
-```c
-/* c_deprecation.h — Застарівання для C99/C11/C23 */
-#ifndef C_DEPRECATION_H
-#define C_DEPRECATION_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
-#  define API_DEPRECATED(msg) [[deprecated(msg)]]
-#elif defined(__GNUC__) || defined(__clang__)
-#  define API_DEPRECATED(msg) __attribute__((deprecated(msg)))
-#elif defined(_MSC_VER)
-#  define API_DEPRECATED(msg) __declspec(deprecated(msg))
-#else
-#  define API_DEPRECATED(msg)
-#endif
-
-typedef struct {
-    const char* user_id;
-    const char* tenant_id;
-    unsigned int flags;
-} user_options_t;
-
-/* Застаріла функція: компілятор видасть warning при її виклику */
-API_DEPRECATED("legacy_get_user is deprecated. Migrate to user_store_find before v3.0 release.")
-int legacy_get_user(const char* id, char* out_buf, size_t buf_len);
-
-/* Новий розширений контракт */
-int user_store_find(const user_options_t* opts, char* out_buf, size_t buf_len);
-
-#endif /* C_DEPRECATION_H */
-```
-```cpp
-// cpp_deprecation.hpp — Застарівання для C++14/C++17/C++20
-#pragma once
-
-#include <string>
-#include <string_view>
-#include <optional>
-#include <cstdint>
-
-struct UserOptions {
-    std::string_view user_id;
-    std::string_view tenant_id{"tenant_default"};
-    uint32_t flags{0};
-};
-
-class [[deprecated("UserStore v1 is deprecated. Migrate to TenantUserStore.")]] LegacyUserStore {
-public:
-    // Застарілий метод з обов'язковим текстовим поясненням і версією видалення
-    [[deprecated("Use find_user(UserOptions const&) instead. Removal scheduled for v3.0.0.")]]
-    std::optional<std::string> get_user_by_id(std::string_view id);
-
-    // Новий метод розширеного контракту
-    std::optional<std::string> find_user(UserOptions const& options);
-};
-```
+:::code api-deprecation-contract/c/c_deprecation.h
+:::code api-deprecation-contract/cpp/cpp_deprecation.hpp
 :::
 
 У середовищі Go контракт застарівання встановлюється конвенцією форматованого коментаря, що починається з префікса `// Deprecated:`. Утиліти статичного аналізу `go vet` та мовний сервер `gopls` розпізнають цю конструкцію та підсвічують виклик закресленим шрифтом у редакторі коду.

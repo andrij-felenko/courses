@@ -94,28 +94,7 @@ interface EvaluationDetails<T> {
 
 ### Сигнатури методів клієнта
 
-```typescript
-interface Client {
-  // Булеві прапорці (увімкнено / вимкнено)
-  getBooleanValue(flagKey: string, defaultValue: boolean, context?: EvaluationContext): Promise<boolean>;
-  getBooleanDetails(flagKey: string, defaultValue: boolean, context?: EvaluationContext): Promise<EvaluationDetails<boolean>>;
-
-  // Рядкові прапорці (вибір варіанта, ключа API або текстового повідомлення)
-  getStringValue(flagKey: string, defaultValue: string, context?: EvaluationContext): Promise<string>;
-  getStringDetails(flagKey: string, defaultValue: string, context?: EvaluationContext): Promise<EvaluationDetails<string>>;
-
-  // Числові прапорці (таймаути, ліміти черг, порогові значення)
-  getNumberValue(flagKey: string, defaultValue: number, context?: EvaluationContext): Promise<number>;
-  getNumberDetails(flagKey: string, defaultValue: number, context?: EvaluationContext): Promise<EvaluationDetails<number>>;
-
-  // Структуровані об'єктні прапорці (конфігураційні JSON-схеми, словники)
-  getObjectValue<T extends object>(flagKey: string, defaultValue: T, context?: EvaluationContext): Promise<T>;
-  getObjectDetails<T extends object>(flagKey: string, defaultValue: T, context?: EvaluationContext): Promise<EvaluationDetails<T>>;
-
-  // Управління хуками на рівні екземпляра клієнта
-  addHooks(...hooks: Hook[]): void;
-}
-```
+:::code api-openfeature-contract/ts/syhnatury-metodiv-kliienta.ts
 
 ## 5. Контракт провайдера (Feature Provider API)
 
@@ -123,23 +102,7 @@ interface Client {
 
 ### Життєвий цикл та методи резолюції
 
-```typescript
-interface FeatureProvider {
-  readonly metadata: { name: string };
-  readonly hooks?: Hook[];
-
-  // Події життєвого циклу провайдера
-  initialize?(context?: EvaluationContext): Promise<void>;
-  shutdown?(): Promise<void>;
-  onContextChange?(oldContext: EvaluationContext, newContext: EvaluationContext): Promise<void>;
-
-  // Обов'язкові внутрішні методи резолюції типів
-  resolveBooleanEvaluation(flagKey: string, defaultValue: boolean, context: EvaluationContext): Promise<ResolutionDetails<boolean>>;
-  resolveStringEvaluation(flagKey: string, defaultValue: string, context: EvaluationContext): Promise<ResolutionDetails<string>>;
-  resolveNumberEvaluation(flagKey: string, defaultValue: number, context: EvaluationContext): Promise<ResolutionDetails<number>>;
-  resolveObjectEvaluation<T extends object>(flagKey: string, defaultValue: T, context: EvaluationContext): Promise<ResolutionDetails<T>>;
-}
-```
+:::code api-openfeature-contract/ts/zhyttievyi-tsykl-ta-metody.ts
 
 ### Події стану провайдера (Provider Events)
 Провайдер емітує стандартні події життєвого циклу через механізм підписки, інформуючи клієнтів про зміни в інфраструктурі:
@@ -171,21 +134,7 @@ interface FeatureProvider {
 ```
 
 ### Сигнатура інтерфейсу Hook
-```typescript
-interface Hook {
-  // Виконується ДО резолюції: може додати контекстні атрибути
-  before?(hookContext: HookContext, hints?: HookHints): Promise<EvaluationContext | void>;
-
-  // Виконується після успішної резолюції
-  after?(hookContext: HookContext, details: EvaluationDetails<any>, hints?: HookHints): Promise<void>;
-
-  // Виконується у разі виникнення помилки або викидання винятку
-  error?(hookContext: HookContext, error: Error, hints?: HookHints): Promise<void>;
-
-  // Виконується завжди (як блок finally)
-  finally?(hookContext: HookContext, hints?: HookHints): Promise<void>;
-}
-```
+:::code api-openfeature-contract/ts/syhnatura-interfeisu-hook.ts
 
 ## 7. Семантичні конвенції OpenTelemetry для прапорців функцій
 
@@ -213,43 +162,6 @@ interface Hook {
 
 Нижче наведено практичний приклад ініціалізації стандарту OpenFeature, реєстрації власного провайдера та хука метрик і виконання безпечного обчислення в бізнес-сервісі:
 
-```typescript
-import { OpenFeature, Hook, HookContext, EvaluationDetails } from "@openfeature/server-sdk";
-import { MyInMemoryProvider } from "./my-in-memory-provider";
-
-// 1. Створюємо хук для логування A/B-експозицій
-class ExposureLoggingHook implements Hook {
-  after(hookContext: HookContext, details: EvaluationDetails<any>) {
-    if (details.reason === "SPLIT") {
-      console.log(`[Telemetry] User "${hookContext.context.targetingKey}" assigned to variant "${details.variant}" for flag "${details.flagKey}"`);
-    }
-  }
-}
-
-// 2. Реєструємо глобального провайдера та хуки на рівні платформи
-await OpenFeature.setProviderAndWait(new MyInMemoryProvider());
-OpenFeature.addHooks(new ExposureLoggingHook());
-
-// 3. Отримуємо типізованого клієнта для платіжного сервісу
-const client = OpenFeature.getClient("billing-service");
-
-// 4. Обчислюємо прапорець під час обробки транзакції
-async function processCheckout(userId: string, country: string, amount: number) {
-  const context = {
-    targetingKey: userId,
-    country: country,
-    cartAmount: amount
-  };
-
-  // Виклик ніколи не кидає винятків: при збої повертається false
-  const useStripeV2 = await client.getBooleanValue("payment-gateway-v2", false, context);
-
-  if (useStripeV2) {
-    return executeStripeV2Checkout(amount);
-  } else {
-    return executeLegacyCheckout(amount);
-  }
-}
-```
+:::code api-openfeature-contract/ts/9-povnyi-pryklad.ts
 
 Стандартизований інтерфейс OpenFeature гарантує повну незалежність бізнес-логіки від особливостей інфраструктури розповсюдження прапорців, забезпечуючи переносимість, чистоту архітектури та високу надійність кодової бази.

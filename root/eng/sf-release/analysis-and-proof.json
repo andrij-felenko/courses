@@ -14,7 +14,8 @@
           "slug": "static-analysis",
           "title": "Статичний аналіз",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -92,10 +93,12 @@
           "slug": "design-by-contract",
           "title": "Проєктування за контрактом",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -105,7 +108,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -163,13 +167,15 @@
           "math": [
             {
               "file": "math-rpn-ordinal.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-fmea-rpn.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -191,13 +197,15 @@
           "math": [
             {
               "file": "math-sharp-p-hardness.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-fault-tree-eval.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -221,10 +229,12 @@
           "slug": "profiling",
           "title": "Профілювання",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -234,30 +244,37 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-google-benchmark.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-synthetic-benchmarks.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-latency-distribution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-custom-microbenchmark.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

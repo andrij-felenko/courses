@@ -62,43 +62,9 @@
 
 :::tabs
 == C
-```c
-#include <stdbool.h>
-
-bool is_feature_enabled(const char *flag_key, const void *user_context);
-void execute_payment_v2(void *tx);
-void execute_legacy_payment(void *tx);
-
-void process_transaction(void *tx, const void *user_context) {
-    if (is_feature_enabled("new_payment_v2", user_context)) {
-        execute_payment_v2(tx);
-    } else {
-        execute_legacy_payment(tx);
-    }
-}
-```
+:::code ci-cd-d/c/main.c
 == C++
-```cpp
-#include <string_view>
-#include <memory>
-
-class FeatureFlagService {
-public:
-    virtual ~FeatureFlagService() = default;
-    [[nodiscard]] virtual bool is_enabled(std::string_view flag_key, 
-                                          const UserContext& context) const noexcept = 0;
-};
-
-void process_transaction(Transaction& tx, 
-                         const UserContext& context, 
-                         const FeatureFlagService& flags) {
-    if (flags.is_enabled("new_payment_v2", context)) {
-        execute_payment_v2(tx);
-    } else {
-        execute_legacy_payment(tx);
-    }
-}
-```
+:::code ci-cd-d/cpp/main.cpp
 :::
 
 Це розділяє поняття **розгортання** (англ. *deployment* — фізична присутність бінарного коду на серверах) та **релізу** (англ. *release* — активація бізнес-логіки для користувачів). Команда може тестувати новий функціонал на внутрішніх користувачах у продакшені задовго до публічного запуску, уникаючи довгоживучих гілок.

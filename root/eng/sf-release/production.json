@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -29,13 +30,15 @@
           "proj": [
             {
               "file": "proj-zero-alloc-logger.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-structured-log-schema.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -47,7 +50,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
@@ -64,13 +68,15 @@
           "proj": [
             {
               "file": "proj-metrics-collector.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-openmetrics-exposition.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -98,13 +104,15 @@
           "proj": [
             {
               "file": "proj-context-propagator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-w3c-trace-context.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }
@@ -169,13 +177,15 @@
           "math": [
             {
               "file": "math-burn-rate-and-windows.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-slo-burn-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -198,19 +208,23 @@
           "math": [
             {
               "file": "math-multi-window-burn-rate.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-alert-evaluation-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-alertmanager-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -281,7 +295,8 @@
           "proj": [
             {
               "file": "proj-incident-orchestrator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -313,13 +328,15 @@
           "hist": [
             {
               "file": "hist-blameless-culture.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-incident-timeline-builder.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -353,7 +370,8 @@
           "proj": [
             {
               "file": "proj-chaos-injector.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -381,19 +399,23 @@
           "math": [
             {
               "file": "math-rpo-rto-and-cost.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-pitr-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-dr-runbook-and-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }

@@ -56,21 +56,7 @@ static inline void do_not_optimize(uint64_t val) {
     asm volatile("" : : "r,m"(val) : "memory");
 }
 ```
-```cpp
-/* Ідіоматичний оптимізаційний бар'єр на C++ */
-namespace bench {
-
-template <typename T>
-inline void do_not_optimize(T&& val) {
-    #if defined(__clang__)
-    asm volatile("" : "+r,m"(val) : : "memory");
-    #else
-    asm volatile("" : : "g"(val) : "memory");
-    #endif
-}
-
-} // namespace bench
-```
+:::code microbenchmarking-d/cpp/bariery-kompiliatora.cpp
 :::
 
 Конструкція розшифровується так:
@@ -130,52 +116,8 @@ echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
 Проте на процесорах з позачерговим виконанням інструкція `RDTSC` не є бар'єром конвеєра: процесор може виконати читання таймера раніше або пізніше за досліджуваний код. Щоб зафіксувати точні межі, застосовують **серіалізацію інструкцій** (Instruction Serialization, від лат. *series* — ряд, послідовність) за допомогою бар'єра `LFENCE`:
 
 :::tabs
-```c
-/* Читання серіалізованого лічильника тактів на C */
-static inline uint64_t rdtsc_start(void) {
-    uint32_t cycles_high, cycles_low;
-    asm volatile("lfence\n\t"
-                 "rdtsc\n\t"
-                 : "=a"(cycles_low), "=d"(cycles_high));
-    return ((uint64_t)cycles_high << 32) | cycles_low;
-}
-
-static inline uint64_t rdtsc_end(void) {
-    uint32_t cycles_high, cycles_low;
-    asm volatile("rdtscp\n\t"
-                 "lfence\n\t"
-                 : "=a"(cycles_low), "=d"(cycles_high)
-                 :
-                 : "rcx");
-    return ((uint64_t)cycles_high << 32) | cycles_low;
-}
-```
-```cpp
-/* Читання серіалізованого лічильника тактів на C++ */
-#include <cstdint>
-
-namespace bench {
-
-inline std::uint64_t rdtsc_start() noexcept {
-    std::uint32_t cycles_high = 0, cycles_low = 0;
-    asm volatile("lfence\n\t"
-                 "rdtsc\n\t"
-                 : "=a"(cycles_low), "=d"(cycles_high));
-    return (static_cast<std::uint64_t>(cycles_high) << 32) | cycles_low;
-}
-
-inline std::uint64_t rdtsc_end() noexcept {
-    std::uint32_t cycles_high = 0, cycles_low = 0;
-    asm volatile("rdtscp\n\t"
-                 "lfence\n\t"
-                 : "=a"(cycles_low), "=d"(cycles_high)
-                 :
-                 : "rcx");
-    return (static_cast<std::uint64_t>(cycles_high) << 32) | cycles_low;
-}
-
-} // namespace bench
-```
+:::code microbenchmarking-d/c/taimery-vysokoi-tochnosti.c
+:::code microbenchmarking-d/cpp/taimery-vysokoi-tochnosti.hpp
 :::
 
 Інструкція `LFENCE` гарантує, що всі попередні інструкції завершили виконання до читання `RDTSC`, а `RDTSCP` чекає завершення всіх інструкцій усередині вимірюваного блоку.
@@ -225,169 +167,8 @@ t_effective
 Нижче наведено закінчений приклад мікробенчмарку для порівняння двох методів підрахунку встановлених бітів (Population Count): наївного побітового зсуву та апаратної інструкції `popcnt`.
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sched.h>
-
-static inline void do_not_optimize(uint64_t v) {
-    __asm__ volatile("" : : "r,m"(v) : "memory");
-}
-
-static inline uint64_t get_time_ns(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-    return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-}
-
-/* Метод 1: Наївний побітовий прохід */
-static uint64_t popcount_naive(uint64_t x) {
-    uint64_t count = 0;
-    while (x) {
-        count += (x & 1ULL);
-        x >>= 1ULL;
-    }
-    return count;
-}
-
-/* Метод 2: Вбудована апаратна інструкція CPU (POPCNT) */
-static uint64_t popcount_builtin(uint64_t x) {
-    return (uint64_t)__builtin_popcountll(x);
-}
-
-typedef uint64_t (*PopcountFn)(uint64_t);
-
-static double benchmark_popcount(PopcountFn fn, const uint64_t *data, size_t size, size_t iters) {
-    // Фаза прогріву
-    for (size_t i = 0; i < size; ++i) {
-        uint64_t res = fn(data[i]);
-        do_not_optimize(res);
-    }
-
-    uint64_t t0 = get_time_ns();
-    for (size_t it = 0; it < iters; ++it) {
-        for (size_t i = 0; i < size; ++i) {
-            uint64_t res = fn(data[i]);
-            do_not_optimize(res);
-        }
-    }
-    uint64_t dt = get_time_ns() - t0;
-    return (double)dt / (double)(size * iters);
-}
-
-int main(void) {
-    // Фіксація потоку на ядрі 0 для усунення міграції
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(0, &cpuset);
-    sched_setaffinity(0, sizeof(cpu_set_t), &cpuset);
-
-    const size_t N = 1024;
-    uint64_t test_data[N];
-    for (size_t i = 0; i < N; ++i) {
-        test_data[i] = ((uint64_t)rand() << 32) | (uint64_t)rand();
-    }
-
-    double t_naive = benchmark_popcount(popcount_naive, test_data, N, 10000);
-    double t_builtin = benchmark_popcount(popcount_builtin, test_data, N, 10000);
-
-    printf("popcount_naive:   %.3f нс / операція\n", t_naive);
-    printf("popcount_builtin: %.3f нс / операція\n", t_builtin);
-    printf("Прискорення:      %.2fx\n", t_naive / t_builtin);
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <random>
-#include <chrono>
-#include <cstdint>
-#include <bit>
-#include <iomanip>
-#include <pthread.h>
-
-namespace bench {
-
-template <typename T>
-inline void do_not_optimize(T&& val) {
-    #if defined(__clang__)
-    asm volatile("" : "+r,m"(val) : : "memory");
-    #else
-    asm volatile("" : : "g"(val) : "memory");
-    #endif
-}
-
-inline bool pin_to_core(int core_id) noexcept {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-    return pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) == 0;
-}
-
-} // namespace bench
-
-// Метод 1: Наївний побітовий прохід
-uint64_t popcount_naive(uint64_t x) noexcept {
-    uint64_t count = 0;
-    while (x) {
-        count += (x & 1ULL);
-        x >>= 1ULL;
-    }
-    return count;
-}
-
-// Метод 2: Стандартний C++20 std::popcount (апаратна інструкція POPCNT)
-uint64_t popcount_std(uint64_t x) noexcept {
-    return static_cast<uint64_t>(std::popcount(x));
-}
-
-template <typename Func>
-double measure(Func&& fn, const std::vector<uint64_t>& data, std::size_t iters) {
-    using clock = std::chrono::high_resolution_clock;
-
-    // Фаза прогріву
-    for (const auto val : data) {
-        auto res = fn(val);
-        bench::do_not_optimize(res);
-    }
-
-    const auto t0 = clock::now();
-    for (std::size_t it = 0; it < iters; ++it) {
-        for (const auto val : data) {
-            auto res = fn(val);
-            bench::do_not_optimize(res);
-        }
-    }
-    const auto dt = std::chrono::duration_cast<std::chrono::nanoseconds>(clock::now() - t0);
-    return static_cast<double>(dt.count()) / static_cast<double>(data.size() * iters);
-}
-
-int main() {
-    bench::pin_to_core(0);
-
-    constexpr std::size_t N = 1024;
-    std::mt19937_64 rng(1337);
-    std::vector<uint64_t> test_data(N);
-    for (auto& item : test_data) {
-        item = rng();
-    }
-
-    const double t_naive = measure(popcount_naive, test_data, 10000);
-    const double t_std = measure(popcount_std, test_data, 10000);
-
-    std::cout << std::fixed << std::setprecision(3);
-    std::cout << "popcount_naive: " << t_naive << " нс / операція\n";
-    std::cout << "popcount_std:   " << t_std << " нс / операція\n";
-    std::cout << "Прискорення:    " << (t_naive / t_std) << "x\n";
-
-    return 0;
-}
-```
+:::code microbenchmarking-d/c/praktychnyi-pryklad.c
+:::code microbenchmarking-d/cpp/praktychnyi-pryklad.cpp
 :::
 
 ## Інженерна дисципліна та чекліст надійного бенчмарку

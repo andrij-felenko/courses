@@ -18,62 +18,13 @@
 
 Заголовок описує тільки обіцянку. Місткість винесена в макрос, який тестова збірка може підмінити, — інакше до межі заповнення довелося б добиратися двома сотнями викликів замість чотирьох.
 
-```c
-/* rb.h — обіцянка назовні, і більше нічого */
-#ifndef RB_H
-#define RB_H
-
-#include <stdbool.h>
-#include <stddef.h>
-
-#ifndef RB_CAP
-#  define RB_CAP 256u          /* у прошивці 256; тестова збірка ставить своє */
-#endif
-_Static_assert((RB_CAP & (RB_CAP - 1u)) == 0u, "RB_CAP має бути степенем двійки");
-
-typedef struct {
-    int    data[RB_CAP];
-    size_t head;               /* куди писати наступний  */
-    size_t tail;               /* звідки читати наступний */
-    size_t count;              /* скільки лежить зараз    */
-} rb_t;
-
-void   rb_init (rb_t *r);
-bool   rb_push (rb_t *r, int x);        /* false — повний, вміст не змінено */
-bool   rb_pop  (rb_t *r, int *out);     /* false — порожній, *out не чіпано */
-size_t rb_count(const rb_t *r);
-
-#endif
-```
+:::code proj-unit-test-c/c/rb.h
 
 Перевірка `_Static_assert` тут не прикраса: далі індекс братимуть маскою, а маска працює лише для степеня двійки. Помилку такого роду [ловлять на етапі компіляції](root:sf-lang/static-assert), бо в рантаймі вона просто мовчки дасть неправильну адресу.
 
 Реалізація — двадцять рядків, які написав хтось із команди й на які ніхто не дивився пильно:
 
-```c
-/* rb.c */
-#include "rb.h"
-
-void rb_init(rb_t *r) { r->head = 0; r->tail = 0; r->count = 0; }
-
-bool rb_push(rb_t *r, int x) {
-    if (r->count > RB_CAP) return false;
-    r->data[r->head] = x;
-    r->head = (r->head + 1u) % RB_CAP;
-    r->count++;
-    return true;
-}
-
-bool rb_pop(rb_t *r, int *out) {
-    if (r->count == 0u) return false;
-    *out = r->data[r->tail];
-    r->tail = (r->tail + 1u) % RB_CAP;
-    r->count--;
-    return true;
-}
-
-size_t rb_count(const rb_t *r) { return r->count; }
-```
+:::code proj-unit-test-c/c/rb.c
 
 Помилка тут є, і вона одна. Шукати її очима — не наше завдання: нехай її назве прогін.
 
@@ -91,164 +42,13 @@ size_t rb_count(const rb_t *r) { return r->count; }
 
 Ось заголовок каркаса цілком.
 
-```c
-/* tinytest.h — увесь каркас: одна структура, три макроси, один прогін */
-#ifndef TINYTEST_H
-#define TINYTEST_H
-
-#include <setjmp.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-
-typedef void (*tt_fn)(void);
-
-typedef struct {
-    const char *promise;       /* обіцянка людською мовою — вона піде у звіт */
-    tt_fn       body;
-} tt_case;
-
-extern jmp_buf     tt_abort;
-extern const char *tt_file;
-extern int         tt_line;
-extern char        tt_msg[192];
-
-_Noreturn void tt_fail(const char *file, int line);
-
-#define CHECK(cond)                                                        \
-    do {                                                                   \
-        if (!(cond)) {                                                     \
-            snprintf(tt_msg, sizeof tt_msg, "CHECK(%s)", #cond);           \
-            tt_fail(__FILE__, __LINE__);                                   \
-        }                                                                  \
-    } while (0)
-
-#define CHECK_EQ_INT(actual, expected)                                     \
-    do {                                                                   \
-        long tt_a = (long)(actual), tt_e = (long)(expected);               \
-        if (tt_a != tt_e) {                                                \
-            snprintf(tt_msg, sizeof tt_msg,                                \
-                     "%s: маємо %ld, чекали %ld  (%s)",                    \
-                     #actual, tt_a, tt_e, #expected);                      \
-            tt_fail(__FILE__, __LINE__);                                   \
-        }                                                                  \
-    } while (0)
-
-int tt_run(const tt_case *cases, size_t n, uint32_t seed);
-
-#endif
-```
+:::code proj-unit-test-c/c/tinytest.h
 
 Два макроси замість одного — не надмірність, а прямий наслідок того, чим каркас володіє. `CHECK` бачить лише **текст** умови: він може надрукувати `CHECK(x == 10)`, але не те, чим `x` виявився насправді. `CHECK_EQ_INT` бере обидві сторони окремо й тому друкує значення — а це різниця між звітом, після якого треба лізти в налагоджувач, і звітом, після якого все зрозуміло з першого погляду.
 
 Тіло каркаса.
 
-```c
-/* tinytest.c */
-#include "tinytest.h"
-#include <stdlib.h>
-
-#if defined(_WIN32)
-#  include <windows.h>
-static double now_us(void) {
-    static LARGE_INTEGER f;
-    LARGE_INTEGER t;
-    if (f.QuadPart == 0) QueryPerformanceFrequency(&f);
-    QueryPerformanceCounter(&t);
-    return (double)t.QuadPart * 1e6 / (double)f.QuadPart;
-}
-#else
-#  include <time.h>
-static double now_us(void) {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (double)ts.tv_sec * 1e6 + (double)ts.tv_nsec / 1e3;
-}
-#endif
-
-jmp_buf     tt_abort;
-const char *tt_file;
-int         tt_line;
-char        tt_msg[192];
-
-_Noreturn void tt_fail(const char *file, int line) {
-    tt_file = file;
-    tt_line = line;
-    longjmp(tt_abort, 1);
-}
-
-/* Власний генератор, а не rand(): те саме зерно мусить давати той самий
-   порядок на будь-якій машині, інакше «відтвори падіння» не працює. */
-static uint32_t rnd(uint32_t *s) {
-    uint32_t x = *s;
-    x ^= x << 13;
-    x ^= x >> 17;
-    x ^= x << 5;
-    return *s = x;
-}
-
-/* Єдине місце з setjmp — і воно навмисно крихітне: тут немає жодної
-   локальної змінної, яка міняється між стрибком і поверненням, тож
-   питання «чи вціліло її значення» просто не виникає. */
-static int run_one(const tt_case *c, double *us) {
-    double t0 = now_us();
-    int    bad;
-    if (setjmp(tt_abort) == 0) { c->body(); bad = 0; }
-    else                       {            bad = 1; }
-    *us = now_us() - t0;
-    return bad;
-}
-
-/* printf рахує байти, а не літери: кирилична літера — два байти, тож
-   "%-44s" пустив би стовпчики врозтіч. Рахуємо початки літер самі. */
-static void print_padded(const char *s, int width) {
-    const unsigned char *p = (const unsigned char *)s;
-    int chars = 0;
-    fputs(s, stdout);
-    for (; *p; p++)
-        if ((*p & 0xC0) != 0x80) chars++;
-    for (; chars < width; chars++) putchar(' ');
-}
-
-int tt_run(const tt_case *cases, size_t n, uint32_t seed) {
-    size_t *order = malloc(n * sizeof *order);
-    size_t  i, k, failed = 0;
-    double  total = 0.0;
-
-    if (order == NULL) return 2;
-    for (i = 0; i < n; i++) order[i] = i;
-
-    if (seed != 0) {                          /* перемішування Фішера — Єйтса */
-        uint32_t s = seed;
-        for (i = n; i > 1; i--) {
-            size_t j = (size_t)(rnd(&s) % (uint32_t)i);
-            size_t t = order[i - 1];
-            order[i - 1] = order[j];
-            order[j] = t;
-        }
-    }
-
-    for (k = 0; k < n; k++) {
-        const tt_case *c = &cases[order[k]];
-        double us;
-        int    bad = run_one(c, &us);
-
-        fputs(bad ? "[FAIL] " : "[ OK ] ", stdout);
-        print_padded(c->promise, 44);
-        printf("%7.1f мкс\n", us);
-        if (bad) {
-            printf("        %s:%d: %s\n", tt_file, tt_line, tt_msg);
-            failed++;
-        }
-        total += us;
-    }
-
-    printf("\n%zu тестів, %zu провалів, %.1f мкс усього, %.2f мкс на тест\n",
-           n, failed, total, total / (double)n);
-    free(order);
-    return failed != 0;                       /* код виходу побачить складач */
-}
-```
+:::code proj-unit-test-c/c/tinytest.c
 
 ![Ланцюг каркаса: таблиця тестів, свіжий буфер на стеку, засічка часу, setjmp, виклик тіла; далі розвилка на «дійшов до кінця» і «CHECK хибний», а від провалу пунктиром — повернення longjmp у точку setjmp](img/harness-anatomy.svg)
 
@@ -260,92 +60,7 @@ int tt_run(const tt_case *cases, size_t n, uint32_t seed) {
 
 Тепер найголовніше: кожна обіцянка з розділу «Задача» стає одним тестом, і жоден тест не заглядає всередину структури.
 
-```c
-/* rb_test.c */
-#include "tinytest.h"
-#include "rb.h"
-#include <stdlib.h>
-#include <string.h>
-
-static void new_buffer_is_empty(void) {
-    rb_t rb; rb_init(&rb);
-    int  x = -1;
-    CHECK_EQ_INT(rb_count(&rb), 0);
-    CHECK(rb_pop(&rb, &x) == false);
-    CHECK_EQ_INT(x, -1);                       /* відмова нічого не пише */
-}
-
-static void fifo_order(void) {
-    rb_t rb; rb_init(&rb);
-    int  x = 0;
-    CHECK(rb_push(&rb, 10));
-    CHECK(rb_push(&rb, 20));
-    CHECK(rb_push(&rb, 30));
-    CHECK(rb_pop(&rb, &x));  CHECK_EQ_INT(x, 10);
-    CHECK(rb_pop(&rb, &x));  CHECK_EQ_INT(x, 20);
-    CHECK(rb_pop(&rb, &x));  CHECK_EQ_INT(x, 30);
-    CHECK_EQ_INT(rb_count(&rb), 0);
-}
-
-static void holds_exactly_cap(void) {
-    rb_t rb; rb_init(&rb);
-    for (int i = 0; i < (int)RB_CAP; i++)
-        CHECK(rb_push(&rb, i));
-    CHECK_EQ_INT(rb_count(&rb), RB_CAP);
-}
-
-static void push_on_full_is_rejected(void) {
-    rb_t rb; rb_init(&rb);
-    for (int i = 0; i < (int)RB_CAP; i++) rb_push(&rb, i);
-    CHECK(rb_push(&rb, 99) == false);
-    CHECK_EQ_INT(rb_count(&rb), RB_CAP);
-}
-
-static void rejected_push_keeps_contents(void) {
-    rb_t rb; rb_init(&rb);
-    int  x = 0;
-    for (int i = 0; i < (int)RB_CAP; i++) rb_push(&rb, 10 * (i + 1));
-    rb_push(&rb, 99);                          /* мусить бути відкинутий */
-    for (int i = 0; i < (int)RB_CAP; i++) {
-        CHECK(rb_pop(&rb, &x));
-        CHECK_EQ_INT(x, 10 * (i + 1));
-    }
-    CHECK(rb_pop(&rb, &x) == false);
-}
-
-static void pop_on_empty_writes_nothing(void) {
-    rb_t rb; rb_init(&rb);
-    int  x = 777;
-    CHECK(rb_pop(&rb, &x) == false);
-    CHECK_EQ_INT(x, 777);
-}
-
-static void pop_frees_a_slot(void) {
-    rb_t rb; rb_init(&rb);
-    int  x = 0;
-    for (int i = 0; i < (int)RB_CAP; i++) rb_push(&rb, i);
-    CHECK(rb_pop(&rb, &x));  CHECK_EQ_INT(x, 0);
-    CHECK(rb_push(&rb, 42));                   /* місце звільнилося */
-    CHECK_EQ_INT(rb_count(&rb), RB_CAP);
-}
-
-static const tt_case CASES[] = {
-    { "новий буфер порожній",             new_buffer_is_empty },
-    { "віддає в порядку надходження",     fifo_order },
-    { "вміщає рівно RB_CAP елементів",    holds_exactly_cap },
-    { "push у повний буфер відмовляє",    push_on_full_is_rejected },
-    { "відмова не псує вмісту",           rejected_push_keeps_contents },
-    { "pop із порожнього нічого не пише", pop_on_empty_writes_nothing },
-    { "після pop звільняється місце",     pop_frees_a_slot },
-};
-
-int main(int argc, char **argv) {
-    uint32_t seed = 0;                         /* 0 — не перемішувати */
-    if (argc == 3 && strcmp(argv[1], "--shuffle") == 0)
-        seed = (uint32_t)strtoul(argv[2], NULL, 10);
-    return tt_run(CASES, sizeof CASES / sizeof CASES[0], seed);
-}
-```
+:::code proj-unit-test-c/c/rb_test.c
 
 Зверніть увагу на дві дрібниці, які насправді не дрібниці. Перша: `rb_t rb;` — звичайна змінна в тілі функції, і цього досить, щоб кожен тест дістав власний буфер. Друга: жоден тест не пише `rb.head` чи `rb.count` — вони питають `rb_count()`. Ціна цієї стриманості з'ясується згодом.
 
@@ -516,51 +231,11 @@ size_t rb_dropped(const rb_t *r) { return r->dropped; }
 
 Другий тест виглядає навіть ретельнішим за решту — він перевіряє, що індекси після загортання стали правильні:
 
-```c
-/* ТАК РОБИТИ НЕ ТРЕБА */
-static void internals_after_wraparound(void) {
-    rb_t rb; rb_init(&rb);
-    int i, x;
-    for (i = 0; i < (int)RB_CAP; i++) rb_push(&rb, i);
-    for (i = 0; i < (int)RB_CAP; i++) rb_pop(&rb, &x);
-    rb_push(&rb, 7);
-    rb_push(&rb, 8);
-    CHECK_EQ_INT(rb.head,  2);
-    CHECK_EQ_INT(rb.tail,  0);
-    CHECK_EQ_INT(rb.count, 2);
-}
-```
+:::code proj-unit-test-c/c/test-shcho-trymaietsia-za.c
 
 Він зелений. Він навіть правильний. А тепер до буфера доходять руки з іншого боку: лічильники за модулем заважають зробити доступ без замка, і структуру переписують на монотонні лічильники — ті, що ніколи не загортаються, а зайнятість дають різницею.
 
-```c
-typedef struct {
-    int      data[RB_CAP];
-    uint32_t written;                      /* скільки всього покладено */
-    uint32_t read;                         /* скільки всього забрано  */
-    uint32_t dropped;
-} rb_t;
-
-#define RB_IDX(pos) ((size_t)((pos) & (RB_CAP - 1u)))
-
-void rb_init(rb_t *r) { r->written = 0; r->read = 0; r->dropped = 0; }
-
-bool rb_push(rb_t *r, int x) {
-    if (r->written - r->read >= RB_CAP) { r->dropped++; return false; }
-    r->data[RB_IDX(r->written)] = x;
-    r->written++;
-    return true;
-}
-
-bool rb_pop(rb_t *r, int *out) {
-    if (r->written == r->read) return false;
-    *out = r->data[RB_IDX(r->read)];
-    r->read++;
-    return true;
-}
-
-size_t rb_count(const rb_t *r) { return (size_t)(r->written - r->read); }
-```
+:::code proj-unit-test-c/c/test-shcho-trymaietsia-za-2.c
 
 Різниця `written − read` рахується в беззнакових числах, тому лишається правильною навіть у мить, коли лічильник перевалює через свою стелю; чому саме — з інваріантами й доведенням — розібрано в [індексній арифметиці кільця](root:sf-algorithms/ring-buffer/math-ring-buffer-indexing.md).
 
@@ -613,21 +288,7 @@ static void average_of_four_samples(void) {
 
 Отже, потрібне порівняння з допуском:
 
-```c
-#include <math.h>                          /* fabs */
-
-#define CHECK_NEAR(actual, expected, tol)                                  \
-    do {                                                                   \
-        double tt_a = (actual), tt_e = (expected), tt_t = (tol);           \
-        double tt_d = fabs(tt_a - tt_e);                                   \
-        if (!(tt_d <= tt_t)) {                                             \
-            snprintf(tt_msg, sizeof tt_msg,                                \
-                     "%s: маємо %.17g, чекали %.17g (±%g), розбіг %g",     \
-                     #actual, tt_a, tt_e, tt_t, tt_d);                     \
-            tt_fail(__FILE__, __LINE__);                                   \
-        }                                                                  \
-    } while (0)
-```
+:::code proj-unit-test-c/c/zvirka-chysel-iz-rukhomoiu.c
 
 Умова записана як `!(tt_d <= tt_t)`, а не `tt_d > tt_t`, і це не примха. Якщо в обчисленні народився `NaN`, усі порівняння з ним хибні: `tt_d > tt_t` дасть «неправда» і тест зеленітиме на числі, якого не існує. Заперечення переставляє відповідь у правильний бік — `NaN` провалює перевірку, як і має.
 
@@ -659,110 +320,13 @@ CHECK_NEAR(rb_avg_pa(&rb, 0.1), 101325.7, 1e-6);
 Мовні механізми C++ забирають на себе рівно ті три місця, де в C доводилося працювати руками: реєстрацію, свіжий стан і вихід із провалу.
 
 :::tabs
-```c
-/* C: свіжий стан — змінна на стеку, помирає сама */
-static void push_on_full_is_rejected(void) {
-    rb_t rb; rb_init(&rb);
-    for (int i = 0; i < (int)RB_CAP; i++) rb_push(&rb, i);
-    CHECK(rb_push(&rb, 99) == false);
-    CHECK_EQ_INT(rb_count(&rb), RB_CAP);
-}
-
-/* реєстрація — масив, який пишуть руками, після всіх тіл */
-static const tt_case CASES[] = {
-    { "новий буфер порожній",          new_buffer_is_empty },
-    { "push у повний буфер відмовляє", push_on_full_is_rejected },
-};
-
-/* вихід із провалу — нелокальний перехід */
-_Noreturn void tt_fail(const char *file, int line) {
-    tt_file = file; tt_line = line;
-    longjmp(tt_abort, 1);
-}
-```
-```cpp
-// C++: реєстрація — статичний об'єкт, що сам себе вписує в список
-struct TestCase { const char *promise; void (*body)(); };
-
-inline std::vector<TestCase> &registry() {
-    static std::vector<TestCase> r;   // народжується при першому зверненні
-    return r;                         // — а не в невизначену мить старту
-}
-
-struct Registrar {
-    Registrar(const char *promise, void (*body)()) {
-        registry().push_back({promise, body});
-    }
-};
-
-#define TEST(ident, promise)                          \
-    static void ident();                              \
-    static const Registrar reg_##ident{promise, ident}; \
-    static void ident()
-
-// обстава (англ. fixture — оснастка): свіжий стан у конструкторі,
-// прибирання — у деструкторі, і тест про це не думає
-struct Ring {
-    rb_t rb;
-    Ring()  { rb_init(&rb); }
-    ~Ring() { /* тут звільняли б файл, сокет, пам'ять */ }
-};
-
-TEST(push_on_full_is_rejected, "push у повний буфер відмовляє") {
-    Ring f;
-    for (int i = 0; i < static_cast<int>(RB_CAP); ++i) rb_push(&f.rb, i);
-    CHECK(rb_push(&f.rb, 99) == false);
-    CHECK(rb_count(&f.rb) == RB_CAP);
-}
-
-// вихід із провалу — виняток: він розкручує стек і кличе ~Ring()
-struct CheckFailed { const char *file; int line; std::string what; };
-
-#define CHECK(cond) \
-    do { if (!(cond)) throw CheckFailed{__FILE__, __LINE__, #cond}; } while (0)
-```
+:::code proj-unit-test-c/c/toi-samyi-karkas-na-c.c
+:::code proj-unit-test-c/cpp/toi-samyi-karkas-na-c.cpp
 :::
 
 Прогін виглядає так само, тільки замість `setjmp` стоїть `try`:
 
-```cpp
-inline int runAll(std::uint32_t seed) {
-    auto &cases = registry();
-    if (seed) std::shuffle(cases.begin(), cases.end(), std::mt19937{seed});
-
-    std::size_t failed = 0;
-    double      total  = 0.0;
-
-    for (const auto &c : cases) {
-        using clock = std::chrono::steady_clock;   // монотонний за означенням
-        CheckFailed fail{nullptr, 0, {}};
-        bool   bad = false;
-        double us  = 0.0;
-
-        const auto t0 = clock::now();
-        try {
-            c.body();
-            us = std::chrono::duration<double, std::micro>(clock::now() - t0).count();
-        } catch (const CheckFailed &e) {
-            us = std::chrono::duration<double, std::micro>(clock::now() - t0).count();
-            bad = true; fail = e;                  // копію робимо ПІСЛЯ засічки
-        }
-
-        std::fputs(bad ? "[FAIL] " : "[ OK ] ", stdout);
-        printPadded(c.promise, 44);
-        std::printf("%7.1f мкс\n", us);
-        if (bad) {
-            std::printf("        %s:%d: CHECK(%s)\n",
-                        fail.file, fail.line, fail.what.c_str());
-            ++failed;
-        }
-        total += us;
-    }
-    std::printf("\n%zu тестів, %zu провалів, %.1f мкс усього, %.2f мкс на тест\n",
-                cases.size(), failed, total, total / static_cast<double>(cases.size()));
-    return failed != 0;
-}
-```
+:::code proj-unit-test-c/cpp/toi-samyi-karkas-na-c-2.cpp
 
 Три різниці варті того, щоб їх назвати.
 

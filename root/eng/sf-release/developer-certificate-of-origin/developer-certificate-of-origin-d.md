@@ -278,19 +278,7 @@ pick 8f3a1b2 fix(net): add bounds check for udp packet header
 
 Після збереження та закриття файлу Git зупиняється на першому проблемному коміті:
 
-```sh
-# 2. Додаємо підпис до першого коміту, не змінюючи опис
-git commit --amend -s --no-edit
-
-# 3. Продовжуємо rebase до другого коміту
-git rebase --continue
-
-# 4. Виправляємо підпис у другому коміті, щоб він збігався з автором
-git commit --amend -s --no-edit
-
-# 5. Завершуємо rebase
-git rebase --continue
-```
+:::code developer-certificate-of-origin-d/sh/main.sh
 
 **Швидкий однорядковий спосіб виправлення всієї гілки:**  
 Якщо гілка містить десятки комітів, їх можна підписати автоматично за одну команду:

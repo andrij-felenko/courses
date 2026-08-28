@@ -29,118 +29,8 @@ assert(nodes[0] == "node-alpha");
 Нижче наведено повну реалізацію безпечного реєстру вузлів на C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <stdint.h>
-
-#define MAX_NODES 16
-#define NAME_LEN  32
-
-typedef struct {
-    char     name[NAME_LEN];
-    int      load_percent;
-    uint32_t node_id;
-} ClusterNode;
-
-typedef struct {
-    ClusterNode nodes[MAX_NODES];
-    size_t      count;
-    unsigned int rng_seed;
-    int         defensive_mode; /* 1 = тасувати неспецифікований порядок */
-} NodeRegistry;
-
-void registry_init(NodeRegistry *reg, int defensive_mode, unsigned int seed) {
-    if (!reg) return;
-    reg->count = 0;
-    reg->rng_seed = seed ? seed : (unsigned int)time(NULL);
-    reg->defensive_mode = defensive_mode;
-}
-
-int registry_add(NodeRegistry *reg, const char *name, int load, uint32_t id) {
-    if (!reg || !name) return -1;
-    if (reg->count >= MAX_NODES) return -1;
-
-    strncpy(reg->nodes[reg->count].name, name, NAME_LEN - 1);
-    reg->nodes[reg->count].name[NAME_LEN - 1] = '\0';
-    reg->nodes[reg->count].load_percent = load;
-    reg->nodes[reg->count].node_id = id;
-    reg->count++;
-    return 0;
-}
-
-/* Отримання вузлів із захисним перемішуванням (Fisher-Yates) */
-size_t registry_get_active(NodeRegistry *reg, ClusterNode *out_buf, size_t max_out) {
-    if (!reg || !out_buf || max_out == 0) return 0;
-
-    size_t n = (reg->count < max_out) ? reg->count : max_out;
-    for (size_t i = 0; i < n; i++) {
-        out_buf[i] = reg->nodes[i];
-    }
-
-    /* Якщо увімкнено захисний режим і в списку більше одного елемента,
-       виконуємо тасування Фішера — Єйтса для дедетермінізації */
-    if (reg->defensive_mode && n > 1) {
-        for (size_t i = n - 1; i > 0; i--) {
-            size_t j = (size_t)(rand_r(&reg->rng_seed) % (i + 1));
-            ClusterNode tmp = out_buf[i];
-            out_buf[i] = out_buf[j];
-            out_buf[j] = tmp;
-        }
-    }
-    return n;
-}
-```
-```cpp
-#include <algorithm>
-#include <chrono>
-#include <cstdint>
-#include <random>
-#include <span>
-#include <string>
-#include <string_view>
-#include <vector>
-
-struct ClusterNode {
-    std::string name;
-    int         load_percent{0};
-    uint32_t    node_id{0};
-};
-
-class NodeRegistry {
-public:
-    explicit NodeRegistry(bool defensive_mode = true, uint32_t custom_seed = 0)
-        : defensive_mode_{defensive_mode},
-          rng_{custom_seed != 0 ? custom_seed : static_cast<std::mt19937::result_type>(
-              std::chrono::steady_clock::now().time_since_epoch().count())} {}
-
-    bool add_node(std::string_view name, int load, uint32_t id) {
-        nodes_.push_back(ClusterNode{std::string(name), load, id});
-        return true;
-    }
-
-    /* Повертає знімок вузлів. Якщо увімкнено захисний режим,
-       порядок свідомо тасується для унеможливлення неявного зв'язування */
-    [[nodiscard]] std::vector<ClusterNode> get_active_nodes() {
-        std::vector<ClusterNode> snapshot = nodes_;
-        if (defensive_mode_ && snapshot.size() > 1) {
-            std::shuffle(snapshot.begin(), snapshot.end(), rng_);
-        }
-        return snapshot;
-    }
-
-    [[nodiscard]] size_t size() const noexcept {
-        return nodes_.size();
-    }
-
-private:
-    std::vector<ClusterNode> nodes_;
-    bool                     defensive_mode_{true};
-    std::mt19937             rng_;
-};
-```
+:::code proj-defensive-randomization/c/arkhitekturne-rishennia.c
+:::code proj-defensive-randomization/cpp/arkhitekturne-rishennia.cpp
 :::
 
 ## Захисний часовий шар: фаззинг затримок (Latency Jitter)
@@ -161,32 +51,7 @@ void defensive_latency_jitter(unsigned int *seed, int min_ms, int max_ms) {
     usleep((useconds_t)delay_ms * 1000);
 }
 ```
-```cpp
-#include <chrono>
-#include <random>
-#include <thread>
-
-/* Введення штучного мікросекундного джиттеру в C++ */
-class LatencyJitterFilter {
-public:
-    LatencyJitterFilter(std::chrono::milliseconds min_delay,
-                        std::chrono::milliseconds max_delay)
-        : min_delay_{min_delay}, max_delay_{max_delay},
-          dist_{static_cast<double>(min_delay.count()), static_cast<double>(max_delay.count())},
-          rng_{std::random_device{}()} {}
-
-    void inject_delay() {
-        auto ms = static_cast<int64_t>(dist_(rng_));
-        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-    }
-
-private:
-    std::chrono::milliseconds min_delay_;
-    std::chrono::milliseconds max_delay_;
-    std::uniform_real_distribution<double> dist_;
-    std::mt19937 rng_;
-};
-```
+:::code proj-defensive-randomization/cpp/zakhysnyi-chasovyi-shar.cpp
 :::
 
 ## Стійкий клієнт проти крихкого клієнта
@@ -194,48 +59,8 @@ private:
 Розглянемо, як поводяться два різні клієнтські застосунки під час взаємодії з рандомізованим інтерфейсом:
 
 :::tabs
-```c
-/* Клієнтська логіка на C */
-int compare_nodes_by_id(const void *a, const void *b) {
-    const ClusterNode *na = (const ClusterNode *)a;
-    const ClusterNode *nb = (const ClusterNode *)b;
-    if (na->node_id < nb->node_id) return -1;
-    if (na->node_id > nb->node_id) return 1;
-    return 0;
-}
-
-void robust_client_process(NodeRegistry *reg) {
-    ClusterNode received[MAX_NODES];
-    size_t count = registry_get_active(reg, received, MAX_NODES);
-
-    /* СТІЙКИЙ ПІДХІД: клієнт не покладається на порядок з API,
-       а явно сортує отримані дані перед обробкою за стабільним ключем */
-    qsort(received, count, sizeof(ClusterNode), compare_nodes_by_id);
-
-    for (size_t i = 0; i < count; i++) {
-        /* Детермінована обробка: received[0] завжди має мінімальний ID */
-    }
-}
-```
-```cpp
-/* Клієнтська логіка на C++ */
-#include <algorithm>
-#include <iostream>
-
-void robust_client_process(NodeRegistry& registry) {
-    std::vector<ClusterNode> nodes = registry.get_active_nodes();
-
-    /* СТІЙКИЙ ПІДХІД: якщо клієнту потрібен детермінований порядок,
-       він явно сортує колекцію за ідентифікатором або назвою */
-    std::sort(nodes.begin(), nodes.end(), [](const auto& a, const auto& b) {
-        return a.node_id < b.node_id;
-    });
-
-    for (const auto& node : nodes) {
-        // Гарантована детермінована обробка незалежно від поведінки API
-    }
-}
-```
+:::code proj-defensive-randomization/c/stiikyi-kliient-proty.c
+:::code proj-defensive-randomization/cpp/stiikyi-kliient-proty.cpp
 :::
 
 ## Покроковий розбір поведінки та виявлення дефектів

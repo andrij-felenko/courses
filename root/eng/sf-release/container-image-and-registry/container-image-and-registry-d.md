@@ -306,63 +306,8 @@ mount -t overlay overlay -o lowerdir=/layers/L3:/layers/L2:/layers/L1:/layers/L0
 Нижче наведено системний фрагмент коду, який демонструє формування параметрів монтування ядра Linux на мовах C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mount.h>
-#include <errno.h>
-
-/* Формування рядка опцій та системний виклик mount(2) для OverlayFS */
-int mount_container_rootfs(const char *lower_layers, const char *upper, 
-                           const char *work, const char *target) {
-    char options[2048];
-    snprintf(options, sizeof(options), "lowerdir=%s,upperdir=%s,workdir=%s",
-             lower_layers, upper, work);
-
-    /* Системний виклик ядра mount */
-    if (mount("overlay", target, "overlay", 0, options) != 0) {
-        fprintf(stderr, "Помилка монтування rootfs (%s): %s\n", target, strerror(errno));
-        return -1;
-    }
-
-    printf("Rootfs успішно змонтовано у %s\n", target);
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <sys/mount.h>
-#include <cerrno>
-#include <cstring>
-#include <stdexcept>
-#include <filesystem>
-
-namespace fs = std::filesystem;
-
-class ContainerRootfsManager {
-public:
-    static void mount_rootfs(std::string_view lower_layers,
-                             const fs::path& upper_dir,
-                             const fs::path& work_dir,
-                             const fs::path& target_merged) {
-        std::string options = "lowerdir=" + std::string(lower_layers) +
-                              ",upperdir=" + upper_dir.string() +
-                              ",workdir=" + work_dir.string();
-
-        fs::create_directories(target_merged);
-
-        if (::mount("overlay", target_merged.c_str(), "overlay", 0, options.c_str()) != 0) {
-            throw std::runtime_error("Системна помилка mount OverlayFS: " + 
-                                     std::string(std::strerror(errno)));
-        }
-
-        std::cout << "[OK] OverlayFS rootfs змонтовано у " << target_merged << "\n";
-    }
-};
-```
+:::code container-image-and-registry-d/c/main.c
+:::code container-image-and-registry-d/cpp/main.cpp
 :::
 
 ---

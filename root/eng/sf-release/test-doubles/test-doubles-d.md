@@ -75,43 +75,8 @@
 **Реєстрація користувача: пошта має бути унікальною.** Одиниця питає сховище, чи пошта вільна, і якщо вільна — зберігає. Фейк-сховище на звичайній мапі поводиться слухняно; справжня таблиця має обмеження унікальності й на повторний запис кидає помилку.
 
 :::tabs
-```ts
-interface Users {
-  findByEmail(email: string): Promise<User | undefined>;
-  save(user: User): Promise<void>;     // справжня база: кидає UniqueViolation
-}
-
-class InMemoryUsers implements Users {             // ФЕЙК
-  private readonly rows = new Map<string, User>();
-  async findByEmail(email: string) { return this.rows.get(email); }
-  async save(user: User) { this.rows.set(user.email, user); }   // тихо перезапише
-}
-
-async function register(email: string, users: Users): Promise<User> {
-  if (await users.findByEmail(email)) throw new EmailTaken(email);
-  const user = { id: newId(), email };
-  await users.save(user);              // між перевіркою і записом — вікно
-  return user;
-}
-```
-```py
-class InMemoryUsers:                                  # ФЕЙК
-    def __init__(self) -> None:
-        self._rows: dict[str, User] = {}
-
-    async def find_by_email(self, email: str) -> "User | None":
-        return self._rows.get(email)
-
-    async def save(self, user: User) -> None:
-        self._rows[user.email] = user                 # тихо перезапише
-
-async def register(email: str, users: Users) -> User:
-    if await users.find_by_email(email):
-        raise EmailTaken(email)
-    user = User(id=new_id(), email=email)
-    await users.save(user)                            # між перевіркою і записом — вікно
-    return user
-```
+:::code test-doubles-d/ts/index.ts
+:::code test-doubles-d/py/main.py
 :::
 
 Тест зелений: перший виклик реєструє, другий кидає `EmailTaken`. У бою два запити приходять майже одночасно, обидва встигають дочекатися відповіді «пошта вільна» ще до того, як перший дійшов до `save`, — і другий дістає `UniqueViolation`, якої код не ловить, бо в тестах її ніколи не бувало. Помилка не в одиниці й не в тесті: **фейк не змоделював обмеження**, а разом із ним і цілу гілку поведінки. Зазор вірності проліг рівно там, де дубль виявився поблажливішим за справжнього.

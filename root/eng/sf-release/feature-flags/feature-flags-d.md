@@ -128,93 +128,14 @@ bucket = MurmurHash3(flagKey + ":" + userId) mod 100
 Правильний підхід спирається на [інверсію залежностей](root:sf-apps/dependency-inversion) та [branch by abstraction](root:sf-apps/branch-by-abstraction): прапорець повинен жити виключно на **архітектурних швах** системи (на рівні фабрики, точки збирання Composition Root або декоратора).
 
 ### Поганий дизайн: розмазування прапорця по бізнес-коду
-```ts
-// ПОГАНО: прапорець просочився всередину бізнес-сервісу та повторюється в багатьох методах
-class OrderProcessor {
-  processOrder(order: Order, user: User) {
-    if (this.flags.isEnabled("new-payment-v2", user)) {
-      this.stripeV2.charge(order.amount);
-    } else {
-      this.legacyBank.process(order.amount);
-    }
-  }
-
-  refundOrder(order: Order, user: User) {
-    if (this.flags.isEnabled("new-payment-v2", user)) {
-      this.stripeV2.refund(order.amount);
-    } else {
-      this.legacyBank.refund(order.amount);
-    }
-  }
-}
-```
+:::code feature-flags-d/ts/pohanyi-dyzain.ts
 
 ### Гарний дизайн: інкапсуляція вибору за швом
 Створюється єдиний інтерфейс `PaymentGateway`. Вибір реалізації інкапсулюється у фабриці або динамічному маршрутизаторі, а бізнес-сервіс взагалі не знає про існування прапорця:
 
 :::tabs
-```cpp
-// ГАРНО: Бізнес-сервіс працює з чистим інтерфейсом
-class PaymentGateway {
-public:
-    virtual ~PaymentGateway() = default;
-    virtual void charge(double amount) = 0;
-    virtual void refund(double amount) = 0;
-};
-
-// Маршрутизатор за прапорцем як єдина точка ухвалення рішення
-class FeatureFlaggedPaymentGateway : public PaymentGateway {
-public:
-    FeatureFlaggedPaymentGateway(
-        std::shared_ptr<PaymentGateway> legacy_gw,
-        std::shared_ptr<PaymentGateway> modern_gw,
-        std::shared_ptr<FlagEngine> flags,
-        EvaluationContext ctx
-    ) : legacy_(legacy_gw), modern_(modern_gw), flags_(flags), ctx_(ctx) {}
-
-    void charge(double amount) override {
-        get_active()->charge(amount);
-    }
-
-    void refund(double amount) override {
-        get_active()->refund(amount);
-    }
-
-private:
-    PaymentGateway* get_active() {
-        return flags_->evaluate("payment-gateway-v2", ctx_).value ? modern_.get() : legacy_.get();
-    }
-
-    std::shared_ptr<PaymentGateway> legacy_;
-    std::shared_ptr<PaymentGateway> modern_;
-    std::shared_ptr<FlagEngine> flags_;
-    EvaluationContext ctx_;
-};
-```
-```ts
-// ГАРНО: Бізнес-сервіс не знає про прапорці
-interface PaymentGateway {
-  charge(amount: number): Promise<void>;
-  refund(amount: number): Promise<void>;
-}
-
-class FeatureFlaggedPaymentGateway implements PaymentGateway {
-  constructor(
-    private legacy: PaymentGateway,
-    private modern: PaymentGateway,
-    private flags: FlagEngine,
-    private context: EvaluationContext
-  ) {}
-
-  private get active(): PaymentGateway {
-    const enabled = this.flags.evaluate("payment-gateway-v2", this.context).value;
-    return enabled ? this.modern : this.legacy;
-  }
-
-  charge(amount: number) { return this.active.charge(amount); }
-  refund(amount: number) { return this.active.refund(amount); }
-}
-```
+:::code feature-flags-d/cpp/harnyi-dyzain.cpp
+:::code feature-flags-d/ts/harnyi-dyzain.ts
 :::
 
 Коли нова реалізація повністю визріє, інженер видаляє клас `FeatureFlaggedPaymentGateway` і напряму підключає `modern` у точці збирання застосунку. Бізнес-клас `OrderProcessor` не змінюється взагалі.
@@ -318,18 +239,7 @@ class FeatureFlaggedPaymentGateway implements PaymentGateway {
 Впровадження прапорців ускладнює процес автоматизованого тестування. Щоб забезпечити надійність, застосовують трирівневу стратегію перевірки:
 
 1. **Параметризовані модульні тести (Unit Tests):** кожен модуль, поведінка якого залежить від прапорця, тестується двічі — з прапорцем у стані `true` та `false`:
-   ```cpp
-   // Приклад параметризованого тесту Google Test у C++
-   class PaymentGatewayTest : public ::testing::TestWithParam<bool> {};
-
-   TEST_P(PaymentGatewayTest, ProcessesCorrectlyInBothModes) {
-       bool flag_state = GetParam();
-       auto engine = create_mock_engine("payment-v2", flag_state);
-       OrderProcessor processor(engine);
-       EXPECT_TRUE(processor.checkout(100.0));
-   }
-   INSTANTIATE_TEST_SUITE_P(FlagStates, PaymentGatewayTest, ::testing::Values(true, false));
-   ```
+   :::code feature-flags-d/cpp/testuvannia-system-iz.cpp
 2. **Інтеграційні тести в CI/CD:** автоматизовані тести збірки за замовчуванням ганяються проти **поточного бойового стану прапорців у проді**, а також проти майбутнього стану (де всі активні релізні прапорці активовані на 100%).
 3. **Перевірка на відсутність мертвого коду:** після видалення прапорця запускається аналіз покриття коду (Code Coverage) для перевірки, що стара гілка дійсно видалена і не залишає недосяжних інструкцій.
 
