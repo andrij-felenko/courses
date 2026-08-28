@@ -17,12 +17,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-bitbang.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -43,12 +45,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-pinmux-validator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -59,12 +63,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-key-matrix.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -107,12 +113,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-driver-framework-core.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -123,7 +131,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -134,13 +143,15 @@
           "proj": [
             {
               "file": "proj-register-struct.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-cmsis-core.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -191,12 +202,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-bus-transaction-layer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -207,12 +220,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-init-sequence-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -220,15 +235,18 @@
           "slug": "opytuvannia-pereryvannia-chy-dma-u-draiveri",
           "title": "Опитування, переривання чи DMA у драйвері",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-io-throughput-benchmark.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -236,15 +254,18 @@
           "slug": "taimauty-pomylky-i-povtorna-initsializatsiia-chypa",
           "title": "Таймаути, помилки й повторна ініціалізація чипа",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-bus-recovery-controller.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -258,17 +279,20 @@
           "slug": "esp32-usb",
           "title": "USB в ESP32",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
           "slug": "tinyusb-device",
           "title": "TinyUSB: пристрій",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
             "status": "done"
@@ -294,10 +318,12 @@
           "slug": "web-server-mcu",
           "title": "Веб-сервер на МК",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         }
       ]
@@ -313,18 +339,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-lvgl-porting.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-double-buffer-dma.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

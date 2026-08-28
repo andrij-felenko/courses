@@ -30,54 +30,8 @@
 Нижче наведено базову реалізацію системного перенаправлення `_write()` для набору інструментів GCC/Newlib.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Оголошення апаратних функцій конкретного чіпа */
-extern void uart_send_byte_blocking(uint8_t ch);
-extern void itm_send_byte(uint8_t ch);
-
-/* Перевизначення системного виклику newlib libc */
-int _write(int fd, const char *buf, int len) {
-    /* Дескриптори 1 (stdout) та 2 (stderr) спрямовуємо в апаратний порт */
-    if (fd == 1 || fd == 2) {
-        for (int i = 0; i < len; ++i) {
-            /* Автоматична заміна \n на послідовність \r\n для терміналів */
-            if (buf[i] == '\n') {
-                uart_send_byte_blocking((uint8_t)'\r');
-            }
-            uart_send_byte_blocking((uint8_t)buf[i]);
-        }
-        return len;
-    }
-    return -1;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <string_view>
-
-extern "C" void uart_send_byte_blocking(uint8_t ch);
-extern "C" void itm_send_byte(uint8_t ch);
-
-/* C++ обгортка над системним викликом із використанням std::span */
-extern "C" int _write(int fd, const char *buf, int len) {
-    if ((fd == 1 || fd == 2) && buf != nullptr && len > 0) {
-        std::span<const char> data(buf, static_cast<size_t>(len));
-        for (const char ch : data) {
-            if (ch == '\n') {
-                uart_send_byte_blocking(static_cast<uint8_t>('\r'));
-            }
-            uart_send_byte_blocking(static_cast<uint8_t>(ch));
-        }
-        return len;
-    }
-    return -1;
-}
-```
+:::code printf-na-prystroi-d/c/vid-vyklyku-printf-do.c
+:::code printf-na-prystroi-d/cpp/vid-vyklyku-printf-do.cpp
 :::
 
 > 🔧 **Навіщо це.** Перевизначення `_write()` дозволяє використовувати стандартні функції `printf()`, `puts()`, `putchar()` або `std::cout` без зміни коду застосунку: перемикання з фізичного UART на налагоджувальний інтерфейс SWD змінює рівно один файл ініціалізації системи введення-виведення.
@@ -94,57 +48,8 @@ extern "C" int _write(int fd, const char *buf, int len) {
 - Вимагає підключеного апаратного налагоджувача (J-Link, ST-Link v3, CMSIS-DAP v2), здатного декодувати манчестерське кодування або UART-подібний протокол виводу SWO.
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Базові адреси CMSIS для прямого запису в регістр ITM Stimulus Port 0 */
-#define ITM_PORT0_U8  (*(volatile uint8_t*)0xE0000000UL)
-#define ITM_PORT0_U32 (*(volatile uint32_t*)0xE0000000UL)
-#define ITM_TER       (*(volatile uint32_t*)0xE0000E00UL)
-#define ITM_TCR       (*(volatile uint32_t*)0xE0000E80UL)
-#define DEMCR         (*(volatile uint32_t*)0xE000EDFCUL)
-
-void itm_send_char_fast(uint8_t ch) {
-    /* Перевіряємо, чи увімкнено модуль трасування налагоджувачем */
-    if ((DEMCR & (1UL << 24)) && (ITM_TCR & (1UL << 0)) && (ITM_TER & (1UL << 0))) {
-        /* Очікуємо готовності апаратного FIFO буфера порту 0 */
-        while (ITM_PORT0_U32 == 0UL) {
-            /* Пауза у разі заповнення апаратного буфера */
-        }
-        ITM_PORT0_U8 = ch;
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-namespace itm_trace {
-    inline volatile uint8_t& port0_u8() noexcept {
-        return *reinterpret_cast<volatile uint8_t*>(0xE0000000UL);
-    }
-    inline volatile uint32_t& port0_u32() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE0000000UL);
-    }
-    inline volatile uint32_t& ter() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE0000E00UL);
-    }
-    inline volatile uint32_t& tcr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE0000E80UL);
-    }
-    inline volatile uint32_t& demcr() noexcept {
-        return *reinterpret_cast<volatile uint32_t*>(0xE000EDFCUL);
-    }
-
-    inline void send_char(uint8_t ch) noexcept {
-        if ((demcr() & (1UL << 24)) && (tcr() & (1UL << 0)) && (ter() & (1UL << 0))) {
-            while (port0_u32() == 0UL) {
-                // Очікування готовності апаратного FIFO
-            }
-            port0_u8() = ch;
-        }
-    }
-}
-```
+:::code printf-na-prystroi-d/c/fizychni-kanaly-dostavky.c
+:::code printf-na-prystroi-d/cpp/fizychni-kanaly-dostavky.cpp
 :::
 
 Для перегляду SWO-виводу через утиліту OpenOCD та командний рядок GDB достатньо сконфігурувати частоту виводу трасування:
@@ -268,112 +173,8 @@ Baud_real = 84 000 000 / (16 · 5.6875)
 Нижче наведено алгоритм компактного безстекового перетворення цілого числа в рядок (`utoa_fast`) та приклад реалізації мініатюрного засобу форматування:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdarg.h>
-
-/* Швидке перетворення беззнакового цілого в рядок без виклику libc */
-static size_t fast_utoa(uint32_t val, char *buf) {
-    char temp[11];
-    size_t i = 0;
-    
-    if (val == 0) {
-        buf[0] = '0';
-        return 1;
-    }
-    
-    while (val > 0) {
-        temp[i++] = (char)('0' + (val % 10U));
-        val /= 10U;
-    }
-    
-    /* Розвертаємо символи у вихідний буфер */
-    for (size_t j = 0; j < i; ++j) {
-        buf[j] = temp[i - 1U - j];
-    }
-    return i;
-}
-
-/* Приклад легковажного форматування без залежностей від malloc та float */
-int mini_snprintf(char *out, size_t max_len, const char *fmt, ...) {
-    if (max_len == 0 || out == NULL || fmt == NULL) {
-        return 0;
-    }
-    
-    va_list args;
-    va_start(args, fmt);
-    
-    size_t written = 0;
-    while (*fmt != '\0' && written + 1 < max_len) {
-        if (*fmt == '%' && *(fmt + 1) != '\0') {
-            fmt++;
-            if (*fmt == 'u') {
-                uint32_t u = va_arg(args, uint32_t);
-                char num_buf[11];
-                size_t num_len = fast_utoa(u, num_buf);
-                for (size_t k = 0; k < num_len && (written + 1 < max_len); ++k) {
-                    out[written++] = num_buf[k];
-                }
-            } else if (*fmt == 's') {
-                const char *s = va_arg(args, const char*);
-                if (s == NULL) s = "(null)";
-                while (*s != '\0' && written + 1 < max_len) {
-                    out[written++] = *s++;
-                }
-            } else if (*fmt == '%') {
-                out[written++] = '%';
-            }
-        } else {
-            out[written++] = *fmt;
-        }
-        fmt++;
-    }
-    
-    out[written] = '\0';
-    va_end(args);
-    return (int)written;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <string_view>
-#include <span>
-#include <array>
-
-class MiniFormatter {
-public:
-    static size_t format_u32(uint32_t val, std::span<char> dest) noexcept {
-        if (dest.empty()) return 0;
-        if (val == 0) {
-            dest[0] = '0';
-            return 1;
-        }
-
-        std::array<char, 11> temp{};
-        size_t digits = 0;
-        while (val > 0 && digits < temp.size()) {
-            temp[digits++] = static_cast<char>('0' + (val % 10U));
-            val /= 10U;
-        }
-
-        const size_t count = (digits < dest.size()) ? digits : dest.size();
-        for (size_t i = 0; i < count; ++i) {
-            dest[i] = temp[digits - 1U - i];
-        }
-        return count;
-    }
-
-    static size_t append_str(std::string_view sv, std::span<char> dest) noexcept {
-        const size_t count = (sv.size() < dest.size()) ? sv.size() : dest.size();
-        for (size_t i = 0; i < count; ++i) {
-            dest[i] = sv[i];
-        }
-        return count;
-    }
-};
-```
+:::code printf-na-prystroi-d/c/lehkovazhni-alternatyvy.c
+:::code printf-na-prystroi-d/cpp/lehkovazhni-alternatyvy.cpp
 :::
 
 ## Неблокуюче логування: кільцевий буфер та UART DMA
@@ -398,46 +199,8 @@ public:
 RTT не використовує жодної периферії зв'язку мікроконтролера (ні UART, ні USB, ні SPI). Замість цього в пам'яті SRAM виділяється керуюча структура `SEGGER_RTT_CB` (Control Block):
 
 :::tabs
-```c
-typedef struct {
-    char*        sName;             /* Назва каналу (наприклад, "Terminal") */
-    char*        pBuffer;           /* Вказівник на масив буфера в SRAM */
-    unsigned int SizeOfBuffer;      /* Розмір буфера в байтах */
-    unsigned int WrOff;             /* Зсув запису (пише MCU) */
-    unsigned int RdOff;             /* Зсув читання (пише Host) */
-    unsigned int Flags;             /* Режим: SKIP / TRIM / BLOCK */
-} SEGGER_RTT_BUFFER;
-
-typedef struct {
-    char              acID[16];          /* Сигнатурний рядок "SEGGER RTT" */
-    int               MaxNumUpBuffers;   /* Кількість каналів виводу MCU -> Host */
-    int               MaxNumDownBuffers; /* Кількість каналів вводу Host -> MCU */
-    SEGGER_RTT_BUFFER aUp[3];            /* Канали передачі */
-    SEGGER_RTT_BUFFER aDown[3];          /* Канали прийому */
-} SEGGER_RTT_CB;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-
-struct alignas(4) SeggerRttBuffer {
-    const char*  sName{nullptr};
-    char*        pBuffer{nullptr};
-    unsigned int sizeOfBuffer{0};
-    unsigned int wrOff{0};
-    unsigned int rdOff{0};
-    unsigned int flags{0};
-};
-
-struct alignas(4) SeggerRttControlBlock {
-    char acID[16]{"SEGGER RTT"};
-    int maxNumUpBuffers{3};
-    int maxNumDownBuffers{3};
-    std::array<SeggerRttBuffer, 3> aUp{};
-    std::array<SeggerRttBuffer, 3> aDown{};
-};
-```
+:::code printf-na-prystroi-d/c/arkhitektura-deskryptora.c
+:::code printf-na-prystroi-d/cpp/arkhitektura-deskryptora.cpp
 :::
 
 Кожен канал описується структурою кільцевого буфера:

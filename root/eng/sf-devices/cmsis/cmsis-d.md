@@ -44,19 +44,7 @@ CMSIS — відповідь ARM на обидві проблеми одразу
 
 CMSIS-заголовок виробника робить розумніше. Він оголошує `struct`, поля якого стоять рівно за зміщеннями регістрів, а тоді визначає базу як покажчик на цю структуру:
 
-```c
-typedef struct {
-    volatile uint32_t MODER;    // 0x00  режим виводів
-    volatile uint32_t OTYPER;   // 0x04
-    volatile uint32_t OSPEEDR;  // 0x08
-    volatile uint32_t PUPDR;    // 0x0C
-    volatile uint32_t IDR;      // 0x10  вхідні дані
-    volatile uint32_t ODR;      // 0x14  вихідні дані
-    volatile uint32_t BSRR;     // 0x18  атомарний set/reset
-} GPIO_TypeDef;
-
-#define GPIOA  ((GPIO_TypeDef*) 0x40020000)
-```
+:::code cmsis-d/c/main.c
 
 Тепер `GPIOA->BSRR` — це поле за зміщенням 0x18 від бази `0x4002_0000`; адресу компілятор порахує сам. Доступ став типованим і названим: замість магічного числа — `GPIOA->MODER`, з автодоповненням і перевіркою типів.
 

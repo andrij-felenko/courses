@@ -58,51 +58,8 @@
 Щоб гарантувати неподільність операцій переходу станів, драйвер використовує **вкладені критичні секції (Nested Critical Sections)** на основі системного регістра `PRIMASK`:
 
 :::tabs
-```c
-/* Безпечна критична секція зі збереженням попереднього стану переривань */
-typedef uint32_t critical_section_t;
-
-static inline critical_section_t enter_critical_section(void) {
-    critical_section_t primask = __get_PRIMASK();
-    __disable_irq();
-    return primask;
-}
-
-static inline void exit_critical_section(critical_section_t primask) {
-    __set_PRIMASK(primask);
-}
-
-driver_status_t i2c_try_lock_state(i2c_handle_t* handle) {
-    critical_section_t cs = enter_critical_section();
-    if (handle->state != I2C_STATE_IDLE) {
-        exit_critical_section(cs);
-        return DRIVER_STATUS_BUSY;
-    }
-    handle->state = I2C_STATE_BUSY_TX;
-    exit_critical_section(cs);
-    return DRIVER_STATUS_OK;
-}
-```
-```cpp
-namespace driver {
-
-class CriticalSectionGuard {
-public:
-    CriticalSectionGuard() noexcept : primask_(__get_PRIMASK()) {
-        __disable_irq();
-    }
-    ~CriticalSectionGuard() noexcept {
-        __set_PRIMASK(primask_);
-    }
-    CriticalSectionGuard(const CriticalSectionGuard&) = delete;
-    CriticalSectionGuard& operator=(const CriticalSectionGuard&) = delete;
-
-private:
-    uint32_t primask_;
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/reentrabelnist-ta-atomarni.c
+:::code driver-pattern-d/cpp/reentrabelnist-ta-atomarni.cpp
 :::
 
 Такий механізм запобігає стану гонитви (Race Condition), не блокуючи роботу планувальника RTOS на довший час, ніж потрібно для виконання двох-трьох машинних інструкцій запису в пам'ять.
@@ -141,146 +98,15 @@ private:
 7. **Лічильники діагностики та телеметрії (Telemetry Stats)**: Кількість успішних байтів, помилок підтвердження NACK, таймаутів, зафіксованих збоїв шини.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-/* Публічний статус виконання операцій драйвера */
-typedef enum {
-    DRIVER_STATUS_OK = 0,
-    DRIVER_STATUS_BUSY,
-    DRIVER_STATUS_TIMEOUT,
-    DRIVER_STATUS_NACK,
-    DRIVER_STATUS_BUS_ERROR,
-    DRIVER_STATUS_INVALID_PARAM
-} driver_status_t;
-
-/* Незмінна конфігурація апаратного інтерфейсу */
-typedef struct {
-    uint32_t clock_speed_hz;
-    uint16_t timeout_ms;
-    uint8_t sda_pin;
-    uint8_t scl_pin;
-    bool enable_dma;
-} i2c_config_t;
-
-/* Внутрішній стан машини транзакцій */
-typedef enum {
-    I2C_STATE_UNINITIALIZED = 0,
-    I2C_STATE_IDLE,
-    I2C_STATE_BUSY_TX,
-    I2C_STATE_BUSY_RX,
-    I2C_STATE_ERROR
-} i2c_state_t;
-
-/* Повна структура дескриптора екземпляра драйвера */
-typedef struct i2c_handle_s {
-    void* reg_base;                 /* Базова адреса регістрів периферії (I2C_TypeDef*) */
-    i2c_config_t config;            /* Копія або посилання на конфігурацію */
-    volatile i2c_state_t state;     /* Поточний стан драйвера */
-    const uint8_t* tx_buffer;       /* Буфер передачі */
-    volatile size_t tx_remaining;   /* Кількість байтів, що залишилося передати */
-    uint8_t* rx_buffer;             /* Буфер прийому */
-    volatile size_t rx_remaining;   /* Кількість байтів, що залишилося прийняти */
-    uint32_t errors_count;          /* Лічильник зафіксованих апаратних збоїв */
-} i2c_handle_t;
-
-/* Ініціалізація конкретного екземпляра драйвера */
-driver_status_t i2c_init(i2c_handle_t* handle, void* reg_base, const i2c_config_t* config);
-
-/* Блокуюча синхронна транзакція запису */
-driver_status_t i2c_master_write(i2c_handle_t* handle, uint8_t dev_addr,
-                                 const uint8_t* data, size_t len);
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <expected>
-
-namespace driver {
-
-enum class Status : uint8_t {
-    Ok = 0,
-    Busy,
-    Timeout,
-    Nack,
-    BusError,
-    InvalidParam
-};
-
-struct I2cConfig {
-    uint32_t clock_speed_hz{100'000};
-    uint16_t timeout_ms{50};
-    uint8_t sda_pin{0};
-    uint8_t scl_pin{0};
-    bool enable_dma{false};
-};
-
-enum class I2cState : uint8_t {
-    Uninitialized = 0,
-    Idle,
-    BusyTx,
-    BusyRx,
-    Error
-};
-
-class I2cDriver {
-public:
-    explicit I2cDriver(std::uintptr_t reg_base, const I2cConfig& config) noexcept
-        : reg_base_(reg_base), config_(config), state_(I2cState::Uninitialized) {}
-
-    [[nodiscard]] Status init() noexcept;
-    
-    [[nodiscard]] std::expected<size_t, Status> master_write(
-        uint8_t dev_addr,
-        std::span<const uint8_t> data) noexcept;
-
-    [[nodiscard]] I2cState state() const noexcept { return state_; }
-    [[nodiscard]] uint32_t error_count() const noexcept { return errors_count_; }
-
-private:
-    std::uintptr_t reg_base_;
-    I2cConfig config_;
-    volatile I2cState state_;
-    std::span<const uint8_t> tx_view_{};
-    std::span<uint8_t> rx_view_{};
-    uint32_t errors_count_{0};
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/stdint.h
+:::code driver-pattern-d/cpp/posharovyi-rozpodil-poliv.cpp
 :::
 
 Така схема дозволяє створити в коді програми стільки екземплярів `i2c_handle_t` або `I2cDriver`, скільки фізичних контролерів встановлено на кристалі:
 
 :::tabs
-```c
-static i2c_handle_t g_i2c1_handle;
-static i2c_handle_t g_i2c2_handle;
-
-void app_init(void) {
-    i2c_config_t cfg_fast = { .clock_speed_hz = 400000, .timeout_ms = 20, .sda_pin = 7, .scl_pin = 6 };
-    i2c_config_t cfg_std  = { .clock_speed_hz = 100000, .timeout_ms = 50, .sda_pin = 9, .scl_pin = 8 };
-
-    i2c_init(&g_i2c1_handle, (void*)0x40005400, &cfg_fast); /* I2C1 base */
-    i2c_init(&g_i2c2_handle, (void*)0x40005800, &cfg_std);  /* I2C2 base */
-}
-```
-```cpp
-namespace {
-    driver::I2cDriver g_i2c1{0x40005400, {.clock_speed_hz = 400'000, .timeout_ms = 20, .sda_pin = 7, .scl_pin = 6}};
-    driver::I2cDriver g_i2c2{0x40005800, {.clock_speed_hz = 100'000, .timeout_ms = 50, .sda_pin = 9, .scl_pin = 8}};
-}
-
-void app_init() {
-    auto res1 = g_i2c1.init();
-    auto res2 = g_i2c2.init();
-    (void)res1;
-    (void)res2;
-}
-```
+:::code driver-pattern-d/c/posharovyi-rozpodil-poliv.c
+:::code driver-pattern-d/cpp/posharovyi-rozpodil-poliv-2.cpp
 :::
 
 Тепер логіка передачі даних стала універсальною. Функція нічого не знає про те, з яким саме портом вона працює, доки не отримає покажчик на дескриптор.
@@ -298,120 +124,15 @@ void app_init() {
 У публічному заголовку `i2c_driver.h` оголошують лише неповний тип структури (forward declaration) та псевдонім покажчика на неї:
 
 :::tabs
-```c
-/* i2c_driver.h - Публічний файл інтерфейсу C99 */
-#ifndef I2C_DRIVER_H
-#define I2C_DRIVER_H
-
-#include <stdint.h>
-#include <stddef.h>
-
-typedef struct i2c_driver_context_s i2c_driver_t; /* Неповний тип */
-typedef i2c_driver_t* i2c_handle_t;               /* Непрозорий дескриптор */
-
-typedef struct {
-    uint32_t clock_speed_hz;
-    uint16_t timeout_ms;
-} i2c_user_config_t;
-
-/* Публічні операції */
-i2c_handle_t i2c_create_instance(uint8_t port_index, const i2c_user_config_t* config);
-int i2c_transfer(i2c_handle_t handle, uint8_t addr, const uint8_t* tx, size_t tx_len, uint8_t* rx, size_t rx_len);
-
-#endif
-```
-```cpp
-/* i2c_driver.hpp - Публічний інтерфейс PIMPL на C++20 */
-#ifndef I2C_DRIVER_HPP
-#define I2C_DRIVER_HPP
-
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <memory>
-#include <expected>
-
-namespace driver {
-
-enum class Status : uint8_t;
-struct I2cConfig;
-
-class I2cPort {
-public:
-    explicit I2cPort(uint8_t port_index, const I2cConfig& config) noexcept;
-    ~I2cPort() noexcept;
-
-    [[nodiscard]] Status init() noexcept;
-    [[nodiscard]] std::expected<size_t, Status> transfer(
-        uint8_t addr,
-        std::span<const uint8_t> tx,
-        std::span<uint8_t> rx) noexcept;
-
-private:
-    struct Impl;
-    Impl* pimpl_; // Непрозорий покажчик на приватну структуру
-};
-
-} // namespace driver
-
-#endif
-```
+:::code driver-pattern-d/c/i2c_driver.h
+:::code driver-pattern-d/cpp/i2c_driver.hpp
 :::
 
 Повне визначення структури переноситься виключно у файл реалізації:
 
 :::tabs
-```c
-/* i2c_driver.c - Приватний файл реалізації C99 */
-#include "i2c_driver.h"
-
-struct i2c_driver_context_s {
-    uintptr_t hw_base;
-    uint32_t clock_hz;
-    uint16_t timeout;
-    volatile uint32_t state;
-    volatile size_t bytes_transferred;
-    /* Будь-які внутрішні змінні невидимі ззовні */
-};
-
-static struct i2c_driver_context_s s_instances[2]; /* Фіксований статичний пул */
-
-i2c_handle_t i2c_create_instance(uint8_t port_index, const i2c_user_config_t* config) {
-    if (port_index >= 2 || config == NULL) return NULL;
-    struct i2c_driver_context_s* inst = &s_instances[port_index];
-    inst->hw_base = (port_index == 0) ? 0x40005400 : 0x40005800;
-    inst->clock_hz = config->clock_speed_hz;
-    inst->timeout = config->timeout_ms;
-    inst->state = 0;
-    return inst;
-}
-```
-```cpp
-/* i2c_driver.cpp - Приватний файл реалізації C++20 */
-#include "i2c_driver.hpp"
-
-namespace driver {
-
-struct I2cPort::Impl {
-    std::uintptr_t hw_base{0};
-    uint32_t clock_hz{100'000};
-    uint16_t timeout{50};
-    volatile uint32_t state{0};
-};
-
-static I2cPort::Impl s_cpp_instances[2];
-
-I2cPort::I2cPort(uint8_t port_index, const I2cConfig& config) noexcept {
-    if (port_index < 2) {
-        pimpl_ = &s_cpp_instances[port_index];
-        pimpl_->hw_base = (port_index == 0) ? 0x40005400 : 0x40005800;
-    }
-}
-
-I2cPort::~I2cPort() noexcept = default;
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/i2c_driver.c
+:::code driver-pattern-d/cpp/i2c_driver.cpp
 :::
 
 При такому підході клієнтський код взагалі не може звернутися до `handle->hw_base` — компілятор видасть помилку `dereferencing pointer to incomplete type`. Жодна зміна внутрішніх полів у `i2c_driver.c` не впливає на бінарний або синтаксичний контракт публічного заголовка.
@@ -490,43 +211,8 @@ namespace driver {
 Тому **залізне правило блокуючого драйвера**: кожен цикл опитування прапорця апаратного регістра мусить мати жорсткий таймаут:
 
 :::tabs
-```c
-/* Безпечне очікування прапорця з дедлайном */
-static driver_status_t wait_flag_timeout(volatile uint32_t* reg, uint32_t flag,
-                                         bool wait_for_set, uint32_t timeout_cycles) {
-    while (timeout_cycles > 0) {
-        bool is_set = (*reg & flag) != 0;
-        if (is_set == wait_for_set) {
-            return DRIVER_STATUS_OK;
-        }
-        timeout_cycles--;
-        __NOP(); /* Запобігає агресивній оптимізації доступу до шини */
-    }
-    return DRIVER_STATUS_TIMEOUT;
-}
-```
-```cpp
-namespace driver {
-
-template <typename RegT>
-[[nodiscard]] inline Status wait_flag_timeout(
-    const volatile RegT* reg,
-    RegT flag,
-    bool wait_for_set,
-    uint32_t timeout_cycles) noexcept {
-    while (timeout_cycles > 0) {
-        const bool is_set = (*reg & flag) != 0;
-        if (is_set == wait_for_set) {
-            return Status::Ok;
-        }
-        --timeout_cycles;
-        asm volatile("nop");
-    }
-    return Status::Timeout;
-}
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/1-blokuiuchyi-rezhym.c
+:::code driver-pattern-d/cpp/1-blokuiuchyi-rezhym.cpp
 :::
 
 Для детермінованих вимірювань таймауту в мікросекундах замість умовних ітерацій циклу використовують апаратний лічильник тактів процесора **DWT Cycle Counter** (Data Watchpoint and Trace):
@@ -652,36 +338,8 @@ using BadCallback = void (*)(Status status);
 Правильна сигнатура зворотного виклику **завжди** приймає дескриптор драйвера, статус виконання та вказівник на дані користувача (`void* user_data` або `closure context`):
 
 :::tabs
-```c
-/* Зворотний виклик із повним контекстом */
-typedef void (*i2c_callback_t)(i2c_handle_t* handle,
-                               driver_status_t status,
-                               size_t bytes_transferred,
-                               void* user_data);
-
-/* Реєстрація або передача в асинхронний виклик */
-driver_status_t i2c_master_transfer_async(i2c_handle_t* handle,
-                                          uint8_t dev_addr,
-                                          const uint8_t* tx_data, size_t tx_len,
-                                          uint8_t* rx_data, size_t rx_len,
-                                          i2c_callback_t callback,
-                                          void* user_data);
-```
-```cpp
-#include <functional>
-
-namespace driver {
-
-struct TransferResult {
-    Status status;
-    size_t bytes_transferred;
-};
-
-/* C++20 варіант: статичний функціональний об'єкт або покажчик на вільну функцію */
-using DriverCallback = void (*)(I2cDriver& driver, TransferResult result, void* user_data);
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/anatomiia-zvorotnoho.h
+:::code driver-pattern-d/cpp/anatomiia-zvorotnoho.cpp
 :::
 
 Покажчик `user_data` дозволяє прив'язати до виклику будь-яку прикладну структуру, наприклад екземпляр драйвера датчика чи дескриптор задачі FreeRTOS.
@@ -706,75 +364,8 @@ using DriverCallback = void (*)(I2cDriver& driver, TransferResult result, void* 
 Сама бізнес-логіка (парсинг пакетів протоколу, валідація контрольних сум CRC, математична фільтрація) виконується у звичайній фоновій задачі операційної системи (Thread Context).
 
 :::tabs
-```c
-/* Односпрямований неблокуючий кільцевий буфер (Single Producer Single Consumer) */
-#define RING_BUFFER_SIZE 128
-
-typedef struct {
-    uint8_t buffer[RING_BUFFER_SIZE];
-    volatile size_t head; /* Змінюється виробником (наприклад, ISR) */
-    volatile size_t tail; /* Змінюється споживачем (фоновою задачею) */
-} ring_buffer_t;
-
-static inline bool ring_buffer_push(ring_buffer_t* rb, uint8_t byte) {
-    size_t next_head = (rb->head + 1) % RING_BUFFER_SIZE;
-    if (next_head == rb->tail) {
-        return false; /* Переповнення буфера (Overflow) */
-    }
-    rb->buffer[rb->head] = byte;
-    rb->head = next_head;
-    return true;
-}
-
-static inline bool ring_buffer_pop(ring_buffer_t* rb, uint8_t* byte) {
-    if (rb->head == rb->tail) {
-        return false; /* Буфер порожній */
-    }
-    *byte = rb->buffer[rb->tail];
-    rb->tail = (rb->tail + 1) % RING_BUFFER_SIZE;
-    return true;
-}
-```
-```cpp
-#include <array>
-#include <atomic>
-#include <optional>
-
-namespace driver {
-
-template <typename T, size_t Capacity>
-class SpscRingBuffer {
-    static_assert((Capacity & (Capacity - 1)) == 0, "Capacity must be a power of 2");
-public:
-    bool push(T item) noexcept {
-        const size_t current_head = head_.load(std::memory_order_relaxed);
-        const size_t next_head = (current_head + 1) & (Capacity - 1);
-        if (next_head == tail_.load(std::memory_order_acquire)) {
-            return false; // Повний
-        }
-        buffer_[current_head] = item;
-        head_.store(next_head, std::memory_order_release);
-        return true;
-    }
-
-    std::optional<T> pop() noexcept {
-        const size_t current_tail = tail_.load(std::memory_order_relaxed);
-        if (current_tail == head_.load(std::memory_order_acquire)) {
-            return std::nullopt; // Порожній
-        }
-        T item = buffer_[current_tail];
-        tail_.store((current_tail + 1) & (Capacity - 1), std::memory_order_release);
-        return item;
-    }
-
-private:
-    std::array<T, Capacity> buffer_{};
-    std::atomic<size_t> head_{0};
-    std::atomic<size_t> tail_{0};
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/perekhid-vid-isr-do.c
+:::code driver-pattern-d/cpp/perekhid-vid-isr-do.cpp
 :::
 
 ## Шаблон черги транзакцій (Transaction Queue Pattern)
@@ -787,19 +378,7 @@ private:
 
 1. Клієнт формує структуру транзакції `i2c_transaction_t`:
 :::tabs
-```c
-/* Структура дескриптора транзакції на C99 */
-typedef struct i2c_transaction_s {
-    uint8_t dev_addr;
-    const uint8_t* tx_data;
-    size_t tx_len;
-    uint8_t* rx_data;
-    size_t rx_len;
-    i2c_callback_t callback;
-    void* user_data;
-    bool hold_bus; /* Прапорець Repeated Start */
-} i2c_transaction_t;
-```
+:::code driver-pattern-d/c/shablon-cherhy-tranzaktsii.c
 ```cpp
 /* Структура дескриптора транзакції на C++20 */
 struct Transaction {
@@ -841,77 +420,8 @@ struct Transaction {
 У мові C абстракція реалізується через структуру покажчиків на функції (по суті, ручну віртуальну таблицю інтерфейсу):
 
 :::tabs
-```c
-/* Узагальнений інтерфейс зв'язку з шиною */
-typedef struct bus_interface_s {
-    void* user_ctx; /* Покажчик на дескриптор шини (наприклад, i2c_handle_t*) */
-    driver_status_t (*write_reg)(void* ctx, uint8_t dev_addr, uint8_t reg_addr,
-                                 const uint8_t* data, size_t len);
-    driver_status_t (*read_reg)(void* ctx, uint8_t dev_addr, uint8_t reg_addr,
-                                uint8_t* data, size_t len);
-} bus_interface_t;
-
-/* Драйвер датчика знає лише про шинний інтерфейс */
-typedef struct {
-    bus_interface_t bus;
-    uint8_t dev_addr;
-    int32_t last_temperature;
-} sensor_driver_t;
-
-driver_status_t sensor_init(sensor_driver_t* sensor, bus_interface_t bus, uint8_t dev_addr) {
-    if (sensor == NULL || bus.read_reg == NULL || bus.write_reg == NULL) {
-        return DRIVER_STATUS_INVALID_PARAM;
-    }
-    sensor->bus = bus;
-    sensor->dev_addr = dev_addr;
-
-    /* Читання Chip ID через абстрактну шину */
-    uint8_t chip_id = 0;
-    driver_status_t st = sensor->bus.read_reg(sensor->bus.user_ctx, sensor->dev_addr, 0xD0, &chip_id, 1);
-    if (st != DRIVER_STATUS_OK || chip_id != 0x58) {
-        return DRIVER_STATUS_BUS_ERROR;
-    }
-    return DRIVER_STATUS_OK;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <expected>
-
-namespace driver {
-
-/* Концепт апаратної шини для статичного поліморфізму */
-template <typename T>
-concept BusDevice = requires(T bus, uint8_t dev_addr, uint8_t reg_addr,
-                             std::span<const uint8_t> tx, std::span<uint8_t> rx) {
-    { bus.write_reg(dev_addr, reg_addr, tx) } -> std::same_as<Status>;
-    { bus.read_reg(dev_addr, reg_addr, rx) }  -> std::same_as<Status>;
-};
-
-/* Драйвер датчика параметризований типом шини на етапі компіляції */
-template <BusDevice TBus>
-class Bmp280Sensor {
-public:
-    explicit Bmp280Sensor(TBus& bus, uint8_t dev_addr) noexcept
-        : bus_(bus), dev_addr_(dev_addr) {}
-
-    [[nodiscard]] Status init() noexcept {
-        uint8_t chip_id{0};
-        auto rx_span = std::span<uint8_t, 1>(&chip_id, 1);
-        if (auto st = bus_.read_reg(dev_addr_, 0xD0, rx_span); st != Status::Ok) {
-            return st;
-        }
-        return (chip_id == 0x58) ? Status::Ok : Status::BusError;
-    }
-
-private:
-    TBus& bus_;
-    uint8_t dev_addr_;
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/realizatsiia-na-c99.c
+:::code driver-pattern-d/cpp/realizatsiia-na-c99.cpp
 :::
 
 ## C++20: Статичний поліморфізм без віртуальних таблиць (Zero-Cost Abstractions)
@@ -948,57 +458,8 @@ public:
 За допомогою ключових слів `concept` та `requires` ми декларуємо контракт шини. Компілятор перевіряє наявність потрібних методів під час збирання проєкту:
 
 :::tabs
-```c
-/* Адаптер I2C до структури bus_interface_t на C99 */
-static driver_status_t i2c_adapter_write(void* ctx, uint8_t dev_addr, uint8_t reg_addr,
-                                         const uint8_t* data, size_t len) {
-    i2c_handle_t* i2c = (i2c_handle_t*)ctx;
-    /* Формування буфера [reg_addr, data...] та виклик i2c_master_write */
-    uint8_t pkt[33];
-    if (len > 32) return DRIVER_STATUS_INVALID_PARAM;
-    pkt[0] = reg_addr;
-    for (size_t i = 0; i < len; ++i) pkt[i + 1] = data[i];
-    return i2c_master_write(i2c, dev_addr, pkt, len + 1);
-}
-```
-```cpp
-#include <concepts>
-#include <span>
-#include <cstdint>
-
-namespace driver {
-
-/* Адаптер I2C на C++20 без єдиного віртуального виклику */
-class I2cBusAdapter {
-public:
-    explicit I2cBusAdapter(I2cDriver& driver) noexcept : driver_(driver) {}
-
-    Status write_reg(uint8_t dev_addr, uint8_t reg_addr, std::span<const uint8_t> data) noexcept {
-        uint8_t buffer[33];
-        if (data.size() > 32) return Status::InvalidParam;
-        buffer[0] = reg_addr;
-        for (size_t i = 0; i < data.size(); ++i) {
-            buffer[i + 1] = data[i];
-        }
-        auto res = driver_.master_write(dev_addr, std::span<const uint8_t>(buffer, data.size() + 1));
-        return res.has_value() ? Status::Ok : res.error();
-    }
-
-    Status read_reg(uint8_t dev_addr, uint8_t reg_addr, std::span<uint8_t> data) noexcept {
-        // Логіка читання регістра
-        (void)dev_addr; (void)reg_addr; (void)data;
-        return Status::Ok;
-    }
-
-private:
-    I2cDriver& driver_;
-};
-
-// Перевірка відповідності концепту під час компіляції
-static_assert(BusDevice<I2cBusAdapter>, "I2cBusAdapter must satisfy BusDevice concept");
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/rishennia-c-20-kontsepty.c
+:::code driver-pattern-d/cpp/rishennia-c-20-kontsepty.cpp
 :::
 
 Оскільки тип шини відомий компілятору під час компіляції `Bmp280Sensor<I2cBusAdapter>`, компілятор GCC/Clang повністю розгортає виклики, інлайнить метод `write_reg` безпосередньо в код сенсора і перетворює виклик на прямі інструкції запису в апаратні регістри:
@@ -1025,39 +486,7 @@ static inline driver_status_t send_with_crc(packet_sender_ops_t* ops, void* ctx,
     return ops->send_frame(ctx, d, l);
 }
 ```
-```cpp
-#include <cstdint>
-#include <span>
-
-namespace driver {
-
-template <typename Derived>
-class PacketDriverBase {
-public:
-    Status send_with_checksum(std::span<const uint8_t> payload) noexcept {
-        uint8_t crc = calculate_crc(payload);
-        // Статичне приведення this до похідного класу без virtual
-        return static_cast<Derived*>(this)->send_raw_packet(payload, crc);
-    }
-
-private:
-    uint8_t calculate_crc(std::span<const uint8_t> data) noexcept {
-        uint8_t sum = 0;
-        for (auto b : data) sum ^= b;
-        return sum;
-    }
-};
-
-class SpiPacketDriver : public PacketDriverBase<SpiPacketDriver> {
-public:
-    Status send_raw_packet(std::span<const uint8_t> data, uint8_t crc) noexcept {
-        (void)data; (void)crc;
-        return Status::Ok;
-    }
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/cpp/shablon-crtp-iak.hpp
 :::
 
 ## Обробка апаратних помилок і відновлення шини (Bus Recovery)
@@ -1082,68 +511,8 @@ public:
 5. Повернути виводи GPIO у режим альтернативної функції (Alternate Function) та знову увімкнути апаратний блок I2C.
 
 :::tabs
-```c
-/* Процедура відновлення заблокованої шини I2C */
-void i2c_bus_recover_gpio(uint8_t scl_pin, uint8_t sda_pin) {
-    /* 1. Налаштування пінів як Open-Drain GPIO */
-    gpio_set_mode(scl_pin, GPIO_MODE_OUTPUT_OD);
-    gpio_set_mode(sda_pin, GPIO_MODE_INPUT);
-
-    /* 2. Генерація 9 тактів SCL для виштовхування байта зі slave */
-    for (int i = 0; i < 9; i++) {
-        if (gpio_get_level(sda_pin) == 1) {
-            break; /* Slave відпустив лінію SDA */
-        }
-        gpio_set_level(scl_pin, 0);
-        delay_us(5);
-        gpio_set_level(scl_pin, 1);
-        delay_us(5);
-    }
-
-    /* 3. Генерація умови STOP вручну */
-    gpio_set_mode(sda_pin, GPIO_MODE_OUTPUT_OD);
-    gpio_set_level(sda_pin, 0);
-    delay_us(5);
-    gpio_set_level(scl_pin, 1);
-    delay_us(5);
-    gpio_set_level(sda_pin, 1);
-    delay_us(5);
-}
-```
-```cpp
-namespace driver {
-
-struct GpioPinView {
-    uint8_t pin;
-    void set_mode_od() const noexcept;
-    void set_mode_in() const noexcept;
-    void write(bool level) const noexcept;
-    [[nodiscard]] bool read() const noexcept;
-};
-
-inline void recover_i2c_bus(GpioPinView scl, GpioPinView sda) noexcept {
-    scl.set_mode_od();
-    sda.set_mode_in();
-
-    for (int i = 0; i < 9; ++i) {
-        if (sda.read()) {
-            break; // Лінію звільнено
-        }
-        scl.write(false);
-        // Затримка 5 мкс
-        asm volatile("nop");
-        scl.write(true);
-        asm volatile("nop");
-    }
-
-    sda.set_mode_od();
-    sda.write(false);
-    scl.write(true);
-    sda.write(true);
-}
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/alhorytm-prymusovoho.c
+:::code driver-pattern-d/cpp/alhorytm-prymusovoho.cpp
 :::
 
 ### Повторні спроби (Retry Pattern) та експоненційний бекоф
@@ -1190,55 +559,8 @@ xSemaphoreGive(handle->bus_mutex);
 Коли задача ініціює асинхронну передачу через DMA, вона не повинна витрачати ресурси CPU на опитування прапорця завершення. Замість цього задача переходить у стан сну (Blocked State):
 
 :::tabs
-```c
-/* Блокуюча обгортка над асинхронним DMA-рушієм за допомогою сповіщень задачі */
-driver_status_t i2c_transfer_rtos_sync(i2c_handle_t* handle, uint8_t addr,
-                                       const uint8_t* tx, size_t len) {
-    xSemaphoreTake(handle->bus_mutex, portMAX_DELAY);
-
-    handle->calling_task = xTaskGetCurrentTaskHandle();
-    driver_status_t st = i2c_master_transfer_async(handle, addr, tx, len, NULL, 0, NULL, NULL);
-    if (st == DRIVER_STATUS_OK) {
-        /* Задача засинає і віддає CPU іншим потокам */
-        uint32_t notify_val = 0;
-        if (xTaskNotifyWait(0, ULONG_MAX, &notify_val, pdMS_TO_TICKS(handle->config.timeout_ms)) == pdTRUE) {
-            st = (driver_status_t)notify_val;
-        } else {
-            st = DRIVER_STATUS_TIMEOUT;
-        }
-    }
-
-    xSemaphoreGive(handle->bus_mutex);
-    return st;
-}
-```
-```cpp
-namespace driver {
-
-struct TaskNotifier {
-    void* task_handle;
-    void notify_from_isr(Status status) const noexcept;
-    [[nodiscard]] Status wait(uint32_t timeout_ms) const noexcept;
-};
-
-// RAII блокування м'ютекса шини
-class BusLock {
-public:
-    explicit BusLock(void* mutex) noexcept : mutex_(mutex) {
-        // xSemaphoreTake(mutex_, portMAX_DELAY);
-    }
-    ~BusLock() noexcept {
-        // xSemaphoreGive(mutex_);
-    }
-    BusLock(const BusLock&) = delete;
-    BusLock& operator=(const BusLock&) = delete;
-
-private:
-    void* mutex_;
-};
-
-} // namespace driver
-```
+:::code driver-pattern-d/c/2-ochikuvannia.c
+:::code driver-pattern-d/cpp/2-ochikuvannia.cpp
 :::
 
 У момент виникнення переривання DMA `Transfer Complete` обробник ISR викликає `vTaskNotifyGiveFromISR(handle->calling_task, &xHigherPriorityTaskWoken)`, що миттєво повертає задачу у стан готовності (Ready). Процесор взагалі не витрачає жодного такту на порожнє очікування.
@@ -1250,67 +572,8 @@ private:
 Коли драйвер прив'язаний до дескриптора `i2c_handle_t`, поле `reg_base` може вказувати не на фізичну адресу кристала `0x40005400`, а на звичайну структуру-імітатор (Mock Registers) в оперативній пам'яті тестового процесу:
 
 :::tabs
-```c
-/* Тестовий стенд на хості (Host Unit Test) */
-typedef struct {
-    uint32_t CR1;
-    uint32_t CR2;
-    uint32_t OAR1;
-    uint32_t OAR2;
-    uint32_t DR;
-    uint32_t SR1;
-    uint32_t SR2;
-} mock_i2c_regs_t;
-
-static mock_i2c_regs_t s_mock_regs;
-static i2c_handle_t s_test_handle;
-
-void test_i2c_nack_recovery(void) {
-    /* 1. Ініціалізація драйвера з покажчиком на мок-регістри */
-    i2c_config_t cfg = { .clock_speed_hz = 100000, .timeout_ms = 10 };
-    i2c_init(&s_test_handle, &s_mock_regs, &cfg);
-
-    /* 2. Емуляція відповіді NACK від slave-пристрою */
-    s_mock_regs.SR1 = (1 << 10); /* Встановлення біта AF (Acknowledge Failure) */
-
-    /* 3. Перевірка реакції драйвера */
-    uint8_t dummy_data[2] = {0x01, 0x02};
-    driver_status_t res = i2c_master_write(&s_test_handle, 0x50, dummy_data, 2);
-
-    /* Драйвер повинен коректно повернути NACK, скинути біт помилки і перейти в стан IDLE */
-    // assert(res == DRIVER_STATUS_NACK);
-    // assert(s_test_handle.state == I2C_STATE_IDLE);
-}
-```
-```cpp
-namespace driver::test {
-
-struct MockI2cRegs {
-    uint32_t CR1{0};
-    uint32_t CR2{0};
-    uint32_t DR{0};
-    uint32_t SR1{0};
-    uint32_t SR2{0};
-};
-
-inline void run_mock_test() noexcept {
-    MockI2cRegs mock_hardware{};
-    I2cConfig cfg{.clock_speed_hz = 100'000, .timeout_ms = 10};
-    
-    // Передаємо адресу мок-структури як uintptr_t
-    I2cDriver driver{reinterpret_cast<std::uintptr_t>(&mock_hardware), cfg};
-    auto init_st = driver.init();
-    (void)init_st;
-
-    // Симулюємо апаратний NACK
-    mock_hardware.SR1 = (1 << 10);
-    uint8_t data[2] = {0xAA, 0xBB};
-    auto res = driver.master_write(0x3C, data);
-    (void)res;
-}
-
-} // namespace driver::test
-```
+:::code driver-pattern-d/c/modulne-testuvannia.c
+:::code driver-pattern-d/cpp/modulne-testuvannia.hpp
 :::
 
 Такий підхід дозволяє перевірити всі крайові випадки (таймаути, колізії, переповнення буферів, асинхронні переривання) в автоматизованому пайплайні CI/CD за частки секунди до прошивки коду в реальне залізо.

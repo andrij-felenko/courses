@@ -24,66 +24,15 @@
 Спершу найочевидніший варіант — через обгортку середовища (в Arduino це `digitalWrite`, в ESP-IDF — `gpio_set_level`, у STM32 HAL — `HAL_GPIO_WritePin`), щоб видно було логіку:
 
 :::tabs
-```arduino
-#define PIN_DATA  23
-#define PIN_CLK   18
-
-void send_byte_slow(uint8_t b) {        // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        digitalWrite(PIN_DATA, (b >> i) & 1);  // виставити поточний біт
-        digitalWrite(PIN_CLK, HIGH);           // наростальний фронт — приймач читає
-        digitalWrite(PIN_CLK, LOW);
-    }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-
-#define PIN_DATA  GPIO_NUM_23
-#define PIN_CLK   GPIO_NUM_18
-
-void send_byte_slow(uint8_t b) {        // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        gpio_set_level(PIN_DATA, (b >> i) & 1);  // виставити поточний біт
-        gpio_set_level(PIN_CLK, 1);              // наростальний фронт — приймач читає
-        gpio_set_level(PIN_CLK, 0);
-    }
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-#define PORT      GPIOB
-#define PIN_DATA  GPIO_PIN_5
-#define PIN_CLK   GPIO_PIN_6
-
-void send_byte_slow(uint8_t b) {        // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        HAL_GPIO_WritePin(PORT, PIN_DATA,        // виставити поточний біт
-                          ((b >> i) & 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(PORT, PIN_CLK, GPIO_PIN_SET);   // фронт — приймач читає
-        HAL_GPIO_WritePin(PORT, PIN_CLK, GPIO_PIN_RESET);
-    }
-}
-```
+:::code proj-bitbang/c/arduino/main.ino
+:::code proj-bitbang/c/esp-idf/robochyi-kod-peredavannia.c
+:::code proj-bitbang/c/stm32/main.c
 :::
 
 Логіка правильна, але кожен виклик обгортки — близько мікросекунди, тож на один біт іде три виклики (≈3 мкс), а на байт — під 25 мкс. Це повільно. Той самий алгоритм на прямих регістрах: маска `(1<<n)` і атомарний регістр установки/скидання — на ESP32 це пара `W1TS`/`W1TC`, на STM32 — один `BSRR`, де молодша половина слова ставить біт, а старша скидає:
 
 :::tabs
-```esp-idf
-const uint32_t M_DATA = (1u << PIN_DATA);
-const uint32_t M_CLK  = (1u << PIN_CLK);
-
-void send_byte_fast(uint8_t b) {        // старший біт першим
-    for (int i = 7; i >= 0; i--) {
-        if ((b >> i) & 1) GPIO.out_w1ts = M_DATA;   // біт = 1 → set
-        else              GPIO.out_w1tc = M_DATA;   // біт = 0 → clear
-        GPIO.out_w1ts = M_CLK;          // фронт такту вгору
-        GPIO.out_w1tc = M_CLK;          // і вниз
-    }
-}
-```
+:::code proj-bitbang/c/esp-idf/robochyi-kod-peredavannia-2.c
 ```stm32-ll
 // GPIO_PIN_5 / GPIO_PIN_6 — це вже готові маски (1<<5) і (1<<6)
 
@@ -104,18 +53,7 @@ void send_byte_fast(uint8_t b) {        // старший біт першим
 
 Для прийому байта міняємо ролі: самі женемо такт, а DATA не виставляємо, а **читаємо** — зсувом і маскою з регістра входу (на ESP32 він зветься `GPIO_IN`, на STM32 — `IDR`):
 
-```esp-idf
-uint8_t recv_byte(void) {
-    uint8_t b = 0;
-    for (int i = 7; i >= 0; i--) {
-        GPIO.out_w1ts = M_CLK;                 // підняли такт
-        uint32_t bit = (GPIO.in >> PIN_DATA) & 1u;  // читаємо рівень DATA
-        b |= (uint8_t)(bit << i);              // вкладаємо біт на своє місце
-        GPIO.out_w1tc = M_CLK;                 // опустили такт
-    }
-    return b;
-}
-```
+:::code proj-bitbang/c/esp-idf/pryiom-dzerkalno.c
 
 Тонкощів додає **момент зчитування**. Тут ми читаємо DATA одразу після підняття CLK, бо передавач виставив дані ще до фронту й тримає їх стабільними. У строгіших протоколах приймач навмисне відбирає рівень не на самому фронті, а **посередині біта** — коли лінія вже точно усталилася, подалі від моменту перемикання, де можливі викиди й перехідні стани. Це той самий мотив, що й скрізь у цифровій техніці: читати тоді, коли сигнал гарантовано стабільний. Складніші протоколи (старт/стоп-умови I²C, точні тайминги WS2812) — це той самий принцип, лише з акуратнішими паузами між діями.
 

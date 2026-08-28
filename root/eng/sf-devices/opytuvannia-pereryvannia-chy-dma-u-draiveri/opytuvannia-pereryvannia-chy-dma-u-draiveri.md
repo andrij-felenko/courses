@@ -41,59 +41,8 @@
 Обов'язковою вимогою до виробничого коду опитування є наявність захисту від апаратних збоїв за допомогою лічильника тактів DWT або системного таймера SysTick.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    volatile uint32_t SR;
-    volatile uint32_t DR;
-} SimpleUart_t;
-
-#define UART_SR_TXE (1u << 7)
-
-bool Uart_PollSendByte(SimpleUart_t *uart, uint8_t byte, uint32_t timeout_ticks) {
-    volatile uint32_t *DWT_CYCCNT = (volatile uint32_t *)0xE0001004;
-    uint32_t start = *DWT_CYCCNT;
-
-    while (!(uart->SR & UART_SR_TXE)) {
-        if ((*DWT_CYCCNT - start) >= timeout_ticks) {
-            return false; // Таймаут: периферія не відповідає
-        }
-    }
-    uart->DR = byte;
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <expected>
-
-struct SimpleUart {
-    volatile uint32_t SR;
-    volatile uint32_t DR;
-};
-
-inline constexpr uint32_t UART_SR_TXE = (1u << 7);
-
-enum class UartError { Timeout };
-
-class SimplePollingUart {
-public:
-    [[nodiscard]] static std::expected<void, UartError> send_byte(SimpleUart* uart, uint8_t byte, uint32_t timeout_ticks) noexcept {
-        auto* dwt_cyccnt = reinterpret_cast<volatile uint32_t*>(0xE0001004);
-        const uint32_t start = *dwt_cyccnt;
-
-        while (!(uart->SR & UART_SR_TXE)) {
-            if ((*dwt_cyccnt - start) >= timeout_ticks) {
-                return std::unexpected(UartError::Timeout);
-            }
-        }
-        uart->DR = byte;
-        return {};
-    }
-};
-```
+:::code opytuvannia-pereryvannia-chy-dma-u-draiveri/c/1-synkhronne-opytuvannia.c
+:::code opytuvannia-pereryvannia-chy-dma-u-draiveri/cpp/1-synkhronne-opytuvannia.cpp
 :::
 
 ---
@@ -107,56 +56,8 @@ public:
 Для ізоляції апаратного обробника від тривалих операцій парсингу даних використовують безблокуючий кільцевий буфер (Lock-Free SPSC FIFO) розміром $2^N$ байтів:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define FIFO_SIZE 128
-#define FIFO_MASK (FIFO_SIZE - 1)
-
-typedef struct {
-    uint8_t buffer[FIFO_SIZE];
-    volatile uint32_t head;
-    volatile uint32_t tail;
-} FastFifo_t;
-
-bool FastFifo_Put(FastFifo_t *f, uint8_t byte) {
-    uint32_t h = f->head;
-    if (((h + 1) & FIFO_MASK) == (f->tail & FIFO_MASK)) return false;
-    f->buffer[h & FIFO_MASK] = byte;
-    __asm volatile ("dmb" ::: "memory");
-    f->head = h + 1;
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <atomic>
-
-template <size_t SizePowerOfTwo>
-class FastLockFreeFifo {
-    static constexpr size_t Mask = SizePowerOfTwo - 1;
-
-private:
-    std::array<uint8_t, SizePowerOfTwo> buffer_{};
-    alignas(4) std::atomic<size_t> head_{0};
-    alignas(4) std::atomic<size_t> tail_{0};
-
-public:
-    constexpr FastLockFreeFifo() noexcept = default;
-
-    [[nodiscard]] bool put(uint8_t byte) noexcept {
-        const size_t h = head_.load(std::memory_order_relaxed);
-        const size_t t = tail_.load(std::memory_order_acquire);
-        if ((h - t) >= SizePowerOfTwo) return false;
-        buffer_[h & Mask] = byte;
-        head_.store(h + 1, std::memory_order_release);
-        return true;
-    }
-};
-```
+:::code opytuvannia-pereryvannia-chy-dma-u-draiveri/c/2-aparatni-pereryvannia.c
+:::code opytuvannia-pereryvannia-chy-dma-u-draiveri/cpp/2-aparatni-pereryvannia.hpp
 :::
 
 Переривання ідеально підходять для асинхронних команд довжиною від 4 до 64 байтів. На потоках понад 100 кБ/с висока частота IRQ перевантажує процесор, спричиняючи деградацію продуктивності та витісняючи прикладні завдання.

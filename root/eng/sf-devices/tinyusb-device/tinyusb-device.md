@@ -83,77 +83,15 @@ TinyUSB треба знати наперед, які класи вмикати �
 
 **Крок 1. Дескриптор пристрою** — анкета верхнього рівня. Її TinyUSB запитає першою:
 
-```c
-#include "tusb.h"
-
-/* Device Descriptor: хто ми загалом */
-static const tusb_desc_device_t desc_device = {
-    .bLength            = sizeof(tusb_desc_device_t),
-    .bDescriptorType    = TUSB_DESC_DEVICE,
-    .bcdUSB             = 0x0200,        /* USB 2.0 */
-    .bDeviceClass       = TUSB_CLASS_MISC,       /* композит-сумісний клас */
-    .bDeviceSubClass    = MISC_SUBCLASS_COMMON,
-    .bDeviceProtocol    = MISC_PROTOCOL_IAD,
-    .bMaxPacketSize0    = 64,            /* розмір пакета EP0 */
-    .idVendor           = 0xCafe,        /* VID (тестовий) */
-    .idProduct          = 0x4001,        /* PID */
-    .bcdDevice          = 0x0100,        /* версія пристрою 1.0 */
-    .iManufacturer      = 0x01,          /* індекси рядкових описів */
-    .iProduct           = 0x02,
-    .iSerialNumber      = 0x03,
-    .bNumConfigurations = 0x01,
-};
-
-/* TinyUSB кличе цей колбек, коли хост просить Device Descriptor */
-uint8_t const *tud_descriptor_device_cb(void) {
-    return (uint8_t const *) &desc_device;
-}
-```
+:::code tinyusb-device/c/robochyi-pryklad-cdc.c
 
 **Крок 2. Дескриптор конфігурації** — список інтерфейсів. Для CDC їх два (керування + дані), і TinyUSB складає їх одним готовим макросом `TUD_CDC_DESCRIPTOR`:
 
-```c
-enum { ITF_NUM_CDC = 0, ITF_NUM_CDC_DATA, ITF_NUM_TOTAL };
-
-#define EPNUM_CDC_NOTIF  0x81   /* IN-точка сповіщень (адреса з бітом IN) */
-#define EPNUM_CDC_OUT    0x02   /* OUT: дані від хоста */
-#define EPNUM_CDC_IN     0x82   /* IN: дані до хоста */
-
-#define CONFIG_TOTAL_LEN  (TUD_CONFIG_DESC_LEN + TUD_CDC_DESC_LEN)
-
-static const uint8_t desc_configuration[] = {
-    /* конфіг: к-сть інтерфейсів, номер, рядок, атрибути, струм (мА) */
-    TUD_CONFIG_DESCRIPTOR(1, ITF_NUM_TOTAL, 0, CONFIG_TOTAL_LEN, 0x00, 100),
-    /* один CDC: номер інтерфейсу, рядок, EP сповіщень і його розмір,
-       пара EP даних (OUT/IN) і розмір пакета 64 байти */
-    TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8,
-                       EPNUM_CDC_OUT, EPNUM_CDC_IN, 64),
-};
-
-uint8_t const *tud_descriptor_configuration_cb(uint8_t index) {
-    (void) index;
-    return desc_configuration;
-}
-```
+:::code tinyusb-device/c/robochyi-pryklad-cdc-2.c
 
 **Крок 3. Колбек даних** — серце логіки. TinyUSB кличе `tud_cdc_rx_cb()`, щойно від хоста прийшли байти; ми їх читаємо й одразу пишемо назад:
 
-```c
-/* Прийшли байти по CDC — відлунюємо їх назад до хоста */
-void tud_cdc_rx_cb(uint8_t itf) {
-    uint8_t buf[64];
-    uint32_t count = tud_cdc_n_read(itf, buf, sizeof(buf));  /* прочитати */
-    tud_cdc_n_write(itf, buf, count);                        /* записати назад */
-    tud_cdc_n_write_flush(itf);                              /* проштовхнути */
-}
-
-int main(void) {
-    tusb_init();                 /* підняти стек */
-    while (1) {
-        tud_task();              /* насос: тут і викличеться rx_cb */
-    }
-}
-```
+:::code tinyusb-device/c/robochyi-pryklad-cdc-3.c
 
 Розберімо, що сталося. У `tusb_config.h` ми ввімкнули `CFG_TUD_CDC = 1`. Дескриптори описали пристрій як один CDC-інтерфейс із трьома кінцевими точками. При під'єднанні TinyUSB сам провів енумерацію, віддавши хосту наші дескриптори через колбеки `tud_descriptor_*_cb`; ОС упізнала CDC і підняла COM-порт. Далі щоразу, коли в порт щось пишуть, стек у `tud_task()` кличе наш `tud_cdc_rx_cb`, і пристрій відлунює дані. Жодного регістра USB-блоку ми не торкнулись — і цей самий код збереться під ESP32-S3, Pico чи STM32 без єдиної зміни.
 

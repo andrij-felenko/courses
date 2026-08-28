@@ -16,38 +16,8 @@
 Розглянемо найпоширенішу структуру наївного коду вбудованих систем — безпосередній переклад правил «умова → дія» (англ. *Condition-Action Rules*):
 
 :::tabs
-```c
-#include <stdbool.h>
-
-void relay_set_power(bool enable);
-
-void temperature_control_step(float current_temperature) {
-    const float THRESHOLD = 25.0f;
-
-    if (current_temperature < THRESHOLD) {
-        relay_set_power(true);   /* Увімкнути нагрів */
-    } else {
-        relay_set_power(false);  /* Вимкнути нагрів */
-    }
-}
-```
-```cpp
-namespace embedded::naive {
-
-void SetRelayPower(bool enable) noexcept;
-
-void TemperatureControlStep(float current_temperature) noexcept {
-    constexpr float Threshold = 25.0f;
-
-    if (current_temperature < Threshold) {
-        SetRelayPower(true);   // Увімкнути нагрів
-    } else {
-        SetRelayPower(false);  // Вимкнути нагрів
-    }
-}
-
-} // namespace embedded::naive
-```
+:::code umova-diia-i-chomu-prystrii-klatsaie-d/c/anatomiia-avarii-pastka.c
+:::code umova-diia-i-chomu-prystrii-klatsaie-d/cpp/anatomiia-avarii-pastka.cpp
 :::
 
 Математично ця функція є безпам'ятним відображенням: її вихід у момент часу `k` повністю визначається виключно вхідним значенням `x[k]`. Вона не знає, що відбувалося на кроці `k-1`, був нагрівач щойно увімкнений чи вимкнений, і в якому фізичному напрямку рухається процес.
@@ -219,93 +189,8 @@ T_low  = SP - (Δ / 2)
 Повний код бібліотеки з підтримкою цілочисельної арифметики фіксованої крапки та розширеними стратегіями ініціалізації наведено у [бібліотеці порогових предикатів з гістерезисом](root:sf-devices/umova-diia-i-chomu-prystrii-klatsaie/proj-threshold-predicate.md).
 
 :::tabs
-```c
-#include <stdbool.h>
-
-/* Конфігурація: незмінні параметри меж */
-typedef struct {
-    float low_threshold;   /* Поріг вимкнення */
-    float high_threshold;  /* Поріг увімкнення */
-} hysteresis_config_t;
-
-/* Стан: мутабельна пам'ять автомата */
-typedef struct {
-    bool current_output;   /* Поточний логічний рівень (1 / 0) */
-    bool is_initialized;   /* Прапорець першого проходу */
-} hysteresis_state_t;
-
-/**
- * @brief Обчислення нового стану за поточним вимірюванням
- */
-bool hysteresis_step(const hysteresis_config_t *cfg, 
-                     hysteresis_state_t *state, 
-                     float input_value) {
-    if (!state->is_initialized) {
-        /* Холодний старт: увімкнено лише якщо строго вище верхньої межі */
-        state->current_output = (input_value >= cfg->high_threshold);
-        state->is_initialized = true;
-        return state->current_output;
-    }
-
-    if (state->current_output) {
-        /* Зараз увімкнено: вимикаємо лише при спаді нижче low_threshold */
-        if (input_value <= cfg->low_threshold) {
-            state->current_output = false;
-        }
-    } else {
-        /* Зараз вимкнено: вмикаємо лише при підйомі вище high_threshold */
-        if (input_value >= cfg->high_threshold) {
-            state->current_output = true;
-        }
-    }
-
-    return state->current_output;
-}
-```
-```cpp
-#include <concepts>
-
-namespace embedded::control {
-
-template <typename T>
-requires std::floating_point<T> || std::integral<T>
-class HysteresisPredicate {
-public:
-    constexpr HysteresisPredicate(T low_threshold, T high_threshold) noexcept
-        : low_(low_threshold), high_(high_threshold) {}
-
-    [[nodiscard]] constexpr bool Update(T input_value) noexcept {
-        if (!initialized_) {
-            state_ = (input_value >= high_);
-            initialized_ = true;
-            return state_;
-        }
-
-        if (state_) {
-            if (input_value <= low_) {
-                state_ = false;
-            }
-        } else {
-            if (input_value >= high_) {
-                state_ = true;
-            }
-        }
-
-        return state_;
-    }
-
-    [[nodiscard]] constexpr bool GetState() const noexcept { return state_; }
-    constexpr void Reset() noexcept { state_ = false; initialized_ = false; }
-
-private:
-    T low_{};
-    T high_{};
-    bool state_{false};
-    bool initialized_{false};
-};
-
-} // namespace embedded::control
-```
+:::code umova-diia-i-chomu-prystrii-klatsaie-d/c/prohramnyi-modul.c
+:::code umova-diia-i-chomu-prystrii-klatsaie-d/cpp/prohramnyi-modul.cpp
 :::
 
 ## Інженерний підсумок

@@ -79,63 +79,8 @@
 - Завантажувач після кожного апаратного скидання зчитує обидва сектори, перевіряє їхні контрольні суми CRC32 і приймає за істину той запис, який є цілісним та має найбільше значення лічильника послідовності.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define BOOT_METADATA_MAGIC 0x544F4F42UL /* ASCII "BOOT" */
-
-typedef enum {
-    OTA_SLOT_STATE_EMPTY          = 0xFF, /* Слот стертий або не містить валідного образу */
-    OTA_SLOT_STATE_UNVALIDATED    = 0x01, /* Новий образ записано, очікує пробного запуску */
-    OTA_SLOT_STATE_VALID          = 0x02, /* Прошивку підтверджено застосунком як робочу */
-    OTA_SLOT_STATE_MARKED_BAD     = 0x03  /* Прошивка зазнала краху під час випробування */
-} ota_slot_state_t;
-
-typedef struct {
-    uint32_t magic;               /* Магічний маркер валідності структури (0x544F4F42) */
-    uint32_t sequence_number;     /* Монотонний лічильник транзакцій */
-    uint8_t  active_slot;         /* Ідентифікатор активного слота: 0 = Slot_A, 1 = Slot_B */
-    uint8_t  slot_state;          /* Поточний стан активного слота (ota_slot_state_t) */
-    uint8_t  boot_attempts_left;  /* Залишок дозволених спроб запуску */
-    uint8_t  max_boot_attempts;   /* Початковий ліміт спроб (типово 3) */
-    uint32_t image_version;       /* Числовий монотонний номер версії образу */
-    uint32_t image_crc;           /* Контрольна сума всього тіла прошивки */
-    uint32_t header_crc;          /* Контрольна сума CRC32 структури метаданих */
-} __attribute__((packed)) boot_metadata_t;
-```
-```cpp
-#include <cstdint>
-
-namespace bootloader {
-
-enum class SlotId : uint8_t {
-    SlotA = 0,
-    SlotB = 1,
-    None  = 0xFF
-};
-
-enum class SlotState : uint8_t {
-    Empty        = 0xFF,
-    Unvalidated  = 0x01,
-    Valid        = 0x02,
-    MarkedBad    = 0x03
-};
-
-struct [[gnu::packed]] BootMetadata {
-    uint32_t  magic{0x544F4F42UL};
-    uint32_t  sequenceNumber{0};
-    SlotId    activeSlot{SlotId::SlotA};
-    SlotState slotState{SlotState::Empty};
-    uint8_t   bootAttemptsLeft{0};
-    uint8_t   maxBootAttempts{3};
-    uint32_t  imageVersion{0};
-    uint32_t  imageCrc{0};
-    uint32_t  headerCrc{0};
-};
-
-} // namespace bootloader
-```
+:::code ota-rollback-d/c/enerhonezalezhni-metadani.c
+:::code ota-rollback-d/cpp/enerhonezalezhni-metadani.cpp
 :::
 
 Якщо під час стирання чи запису одного з секторів напруга живлення раптово зникає, його контрольна сума CRC32 після повторного увімкнення не зійдеться. Завантажувач зафіксує апаратну помилку цілісності, відкине зіпсований сектор і прозоро продовжить роботу, спираючись на попередній валідний стан із другого сектора.
@@ -269,44 +214,8 @@ for (auto& icpr : NVIC->ICPR) {
 Додатково в таблицю векторів нового образу вбудовуються хуки перехоплення апаратних винятків (`HardFault_Handler`, `MemManage_Handler`, `BusFault_Handler`, `UsageFault_Handler`). Якщо процесор стикається з критичною помилкою до підтвердження прошивки, обробник збою негайно викликає `NVIC_SystemReset()`, форсуючи швидкий відкат без тривалого очікування повного таймауту watchdog:
 
 :::tabs
-```c
-/* Обробник аварійних збоїв прошивки у режимі випробування на C99 */
-void HardFault_Handler(void) {
-    /* Вимикаємо переривання для запобігання каскадним збоям */
-    __disable_irq();
-    
-    /* Збереження діагностичного дампу регістрів у безпечну область RAM (.noinit) */
-    extern void save_crash_dump(void);
-    save_crash_dump();
-    
-    /* Негайне системне скидання мікроконтролера */
-    NVIC_SystemReset();
-    
-    while (1) {
-        /* Очікування спрацювання сигналу скидання */
-    }
-}
-```
-```cpp
-// Обробник аварійних збоїв прошивки у режимі випробування на C++20
-#include <cstdint>
-
-extern "C" void HardFault_Handler() noexcept {
-    // Вимикаємо переривання для запобігання каскадним збоям
-    __disable_irq();
-
-    // Збереження діагностичного дампу регістрів у безпечну область RAM
-    extern void save_crash_dump() noexcept;
-    save_crash_dump();
-
-    // Негайне системне скидання мікроконтролера
-    NVIC_SystemReset();
-
-    while (true) {
-        // Очікування спрацювання сигналу скидання
-    }
-}
-```
+:::code ota-rollback-d/c/storozhovyi-taimer.c
+:::code ota-rollback-d/cpp/storozhovyi-taimer.cpp
 :::
 
 ### Збереження діагностичного контексту (Crash Dump Retention)
@@ -332,44 +241,8 @@ extern "C" void HardFault_Handler() noexcept {
 У цю область записується діагностична структура аварійного дампу (*Crash Dump Header*):
 
 :::tabs
-```c
-typedef struct {
-    uint32_t magic;            /* Маркер наявності аварійного дампу (0xDEADBEEF) */
-    uint32_t reset_reason;     /* Причина скидання з регістрів RCC->CSR */
-    uint32_t fault_cfsr;       /* Configurable Fault Status Register (SCB->CFSR) */
-    uint32_t fault_hfsr;       /* HardFault Status Register (SCB->HFSR) */
-    uint32_t fault_mmfar;      /* MemManage Fault Address Register (SCB->MMFAR) */
-    uint32_t fault_bfar;       /* BusFault Address Register (SCB->BFAR) */
-    uint32_t stacked_r0;       /* Значення регістрів на момент виникнення винятку */
-    uint32_t stacked_r1;
-    uint32_t stacked_r2;
-    uint32_t stacked_r3;
-    uint32_t stacked_r12;
-    uint32_t stacked_lr;       /* Link Register (адреса виклику) */
-    uint32_t stacked_pc;       /* Program Counter (адреса збійної інструкції) */
-    uint32_t stacked_psr;      /* Program Status Register */
-    uint32_t crc32;            /* Контрольна сума дампу */
-} __attribute__((packed)) crash_dump_t;
-```
-```cpp
-struct [[gnu::packed]] CrashDumpContext {
-    uint32_t magic{0xDEADBEEFUL};
-    uint32_t resetReason{0};
-    uint32_t faultCfsr{0};
-    uint32_t faultHfsr{0};
-    uint32_t faultMmfar{0};
-    uint32_t faultBfar{0};
-    uint32_t stackedR0{0};
-    uint32_t stackedR1{0};
-    uint32_t stackedR2{0};
-    uint32_t stackedR3{0};
-    uint32_t stackedR12{0};
-    uint32_t stackedLr{0};
-    uint32_t stackedPc{0};
-    uint32_t stackedPsr{0};
-    uint32_t crc32{0};
-};
-```
+:::code ota-rollback-d/c/zberezhennia.c
+:::code ota-rollback-d/cpp/zberezhennia.cpp
 :::
 
 Коли стара прошивка прокидається після виконання процедури автоматичного відкату, вона зчитує діагностичну секцію `.noinit`, перевіряє її CRC32 і, виявивши свіжий дамп аварії нового образу, формує звіт про помилку. Цей звіт надсилається на сервер моніторингу разом із точним значенням `PC` збійної інструкції. Розробникам достатньо співставити адресу `PC` із файлом символів компіляції (`.elf` / `.map`), щоб за лічені хвилини знайти точний рядок вихідного коду C/C++, на якому спіткнулося оновлення.
@@ -395,42 +268,8 @@ struct [[gnu::packed]] CrashDumpContext {
 Заголовок образу має фіксований розмір 32 байти і строго визначену структуру:
 
 :::tabs
-```c
-struct image_header {
-    uint32_t ih_magic;             /* Магічне число MCUboot (0x96f3b83d) */
-    uint32_t ih_load_addr;         /* Базова адреса завантаження (якщо XIP, то 0) */
-    uint16_t ih_hdr_size;          /* Розмір заголовка (типово 0x20 = 32 байти) */
-    uint16_t ih_protect_tlv_size;  /* Розмір області захищених дескрипторів TLV */
-    uint32_t ih_img_size;          /* Точний розмір тіла прошивки без заголовка та TLV */
-    uint32_t ih_flags;             /* Бітові прапорці (зашифрований образ, RAM load) */
-    struct {
-        uint8_t  iv_major;
-        uint8_t  iv_minor;
-        uint16_t iv_revision;
-        uint32_t iv_build_num;
-    } ih_ver;                      /* Семантична версія образу (SemVer) */
-    uint32_t _pad1;
-};
-```
-```cpp
-struct [[gnu::packed]] ImageVersion {
-    uint8_t  major{0};
-    uint8_t  minor{0};
-    uint16_t revision{0};
-    uint32_t buildNum{0};
-};
-
-struct [[gnu::packed]] ImageHeader {
-    uint32_t     magic{0x96F3B83DUL};
-    uint32_t     loadAddr{0};
-    uint16_t     hdrSize{32};
-    uint16_t     protectTlvSize{0};
-    uint32_t     imgSize{0};
-    uint32_t     flags{0};
-    ImageVersion version{};
-    uint32_t     reserved{0};
-};
-```
+:::code ota-rollback-d/c/anatomiia-konteineriv.c
+:::code ota-rollback-d/cpp/anatomiia-konteineriv.cpp
 :::
 
 
@@ -533,34 +372,8 @@ P = u₁ · G + u₂ · Q_A  [скалярне множення точок ел�
 Для захисту від апаратних атак збою напруги (*Fault Injection Voltage Glitching*), коли зловмисник коротким імпульсом просідання живлення намагається пропустити інструкцію перевірки результату `BNE`, криптографічні підпрограми завантажувача проектуються з **подвійними надлишковими перевірками**:
 
 :::tabs
-```c
-/* Безпечна перевірка статусу підпису, стійка до атак ін'єкції збоїв на C99 */
-volatile uint32_t check1 = crypto_verify_signature(hash, sig, pubkey);
-volatile uint32_t check2 = crypto_verify_signature(hash, sig, pubkey);
-
-if ((check1 == CRYPTO_SUCCESS) && (check2 == CRYPTO_SUCCESS)) {
-    /* Додатковий контроль через бітову маску */
-    if ((check1 ^ check2) == 0x00000000UL) {
-        boot_candidate_image();
-    }
-}
-/* Будь-який збій ініціює аварійне блокування */
-system_security_lockdown();
-```
-```cpp
-// Безпечна перевірка статусу підпису, стійка до атак ін'єкції збоїв на C++20
-volatile auto check1 = crypto::verifySignature(hash, sig, pubkey);
-volatile auto check2 = crypto::verifySignature(hash, sig, pubkey);
-
-if ((check1 == crypto::Status::Success) && (check2 == crypto::Status::Success)) {
-    // Додатковий контроль через бітову маску
-    if ((static_cast<uint32_t>(check1) ^ static_cast<uint32_t>(check2)) == 0) {
-        bootCandidateImage();
-    }
-}
-// Будь-який збій ініціює аварійне блокування
-systemSecurityLockdown();
-```
+:::code ota-rollback-d/c/kryptohrafichna-matematyka.c
+:::code ota-rollback-d/cpp/kryptohrafichna-matematyka.cpp
 :::
 
 
@@ -644,337 +457,8 @@ P_brick_rollback = p_f × p_r = 0.02 × 0.0001 = 2 × 10⁻⁶  [ймовірн�
 #### Модуль управління станом завантажувача на C99
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define BOOT_MAGIC_VALUE       0x424F4F54UL /* "BOOT" */
-#define MAX_BOOT_RETRIES       3
-#define FLASH_SECTOR_SIZE      4096
-
-typedef enum {
-    SLOT_A = 0,
-    SLOT_B = 1,
-    SLOT_NONE = 0xFF
-} slot_id_t;
-
-typedef enum {
-    STATE_EMPTY         = 0xFF,
-    STATE_PENDING_TEST  = 0x01,
-    STATE_CONFIRMED_OK  = 0x02,
-    STATE_MARKED_FAILED = 0x03
-} slot_status_t;
-
-typedef struct {
-    uint32_t magic;
-    uint32_t sequence;
-    uint8_t  active_slot;
-    uint8_t  status;
-    uint8_t  retries_left;
-    uint8_t  reserved;
-    uint32_t crc32;
-} __attribute__((packed)) boot_record_t;
-
-/* Програмний розрахунок CRC32 (IEEE 802.3) */
-static uint32_t calculate_crc32(const uint8_t *data, size_t length) {
-    uint32_t crc = 0xFFFFFFFFUL;
-    for (size_t i = 0; i < length; ++i) {
-        crc ^= data[i];
-        for (uint8_t j = 0; j < 8; ++j) {
-            crc = (crc >> 1) ^ (0xEDB88320UL & (-(crc & 1)));
-        }
-    }
-    return ~crc;
-}
-
-/* Емуляція апаратного читання/запису секторів Flash */
-extern bool flash_read(uint32_t address, void *dest, size_t size);
-extern bool flash_erase_sector(uint32_t sector_address);
-extern bool flash_write(uint32_t address, const void *src, size_t size);
-
-#define SECTOR_0_ADDR 0x08008000UL
-#define SECTOR_1_ADDR 0x08009000UL
-
-/* Перевірка цілісності запису метаданих */
-static bool is_record_valid(const boot_record_t *rec) {
-    if (rec->magic != BOOT_MAGIC_VALUE) return false;
-    uint32_t expected_crc = calculate_crc32((const uint8_t *)rec, sizeof(boot_record_t) - sizeof(uint32_t));
-    return rec->crc32 == expected_crc;
-}
-
-/* Запис нового стану в енергонезалежну пам'ять із чергуванням секторів */
-bool boot_metadata_write(const boot_record_t *new_rec) {
-    boot_record_t rec0, rec1;
-    flash_read(SECTOR_0_ADDR, &rec0, sizeof(boot_record_t));
-    flash_read(SECTOR_1_ADDR, &rec1, sizeof(boot_record_t));
-
-    bool valid0 = is_record_valid(&rec0);
-    bool valid1 = is_record_valid(&rec1);
-
-    uint32_t target_addr = SECTOR_0_ADDR;
-    uint32_t next_seq = 1;
-
-    if (valid0 && valid1) {
-        if (rec0.sequence >= rec1.sequence) {
-            target_addr = SECTOR_1_ADDR;
-            next_seq = rec0.sequence + 1;
-        } else {
-            target_addr = SECTOR_0_ADDR;
-            next_seq = rec1.sequence + 1;
-        }
-    } else if (valid0) {
-        target_addr = SECTOR_1_ADDR;
-        next_seq = rec0.sequence + 1;
-    } else if (valid1) {
-        target_addr = SECTOR_0_ADDR;
-        next_seq = rec1.sequence + 1;
-    }
-
-    boot_record_t to_write = *new_rec;
-    to_write.magic = BOOT_MAGIC_VALUE;
-    to_write.sequence = next_seq;
-    to_write.crc32 = calculate_crc32((const uint8_t *)&to_write, sizeof(boot_record_t) - sizeof(uint32_t));
-
-    if (!flash_erase_sector(target_addr)) return false;
-    return flash_write(target_addr, &to_write, sizeof(boot_record_t));
-}
-
-/* Вибір слота та обслуговування лічильника спроб під час старту завантажувача */
-slot_id_t bootloader_select_slot_and_serve_wdt(void) {
-    boot_record_t rec0, rec1;
-    flash_read(SECTOR_0_ADDR, &rec0, sizeof(boot_record_t));
-    flash_read(SECTOR_1_ADDR, &rec1, sizeof(boot_record_t));
-
-    bool valid0 = is_record_valid(&rec0);
-    bool valid1 = is_record_valid(&rec1);
-
-    boot_record_t active_rec;
-    if (valid0 && valid1) {
-        active_rec = (rec0.sequence >= rec1.sequence) ? rec0 : rec1;
-    } else if (valid0) {
-        active_rec = rec0;
-    } else if (valid1) {
-        active_rec = rec1;
-    } else {
-        /* Обидва сектори метаданих недійсні: аварійне відновлення на SLOT_A */
-        active_rec.magic = BOOT_MAGIC_VALUE;
-        active_rec.sequence = 1;
-        active_rec.active_slot = (uint8_t)SLOT_A;
-        active_rec.status = (uint8_t)STATE_CONFIRMED_OK;
-        active_rec.retries_left = 0;
-        boot_metadata_write(&active_rec);
-        return SLOT_A;
-    }
-
-    /* Обробка випробувального режиму */
-    if (active_rec.status == STATE_PENDING_TEST) {
-        if (active_rec.retries_left > 0) {
-            /* Зменшуємо лічильник спроб та перезаписуємо метадані */
-            active_rec.retries_left--;
-            boot_metadata_write(&active_rec);
-            return (slot_id_t)active_rec.active_slot;
-        } else {
-            /* Спроби вичерпано: фіксуємо відкат на протилежний слот */
-            active_rec.status = (uint8_t)STATE_MARKED_FAILED;
-            slot_id_t fallback_slot = (active_rec.active_slot == SLOT_A) ? SLOT_B : SLOT_A;
-            active_rec.active_slot = (uint8_t)fallback_slot;
-            active_rec.status = (uint8_t)STATE_CONFIRMED_OK;
-            active_rec.retries_left = 0;
-            boot_metadata_write(&active_rec);
-            return fallback_slot;
-        }
-    }
-
-    if (active_rec.status == STATE_CONFIRMED_OK) {
-        return (slot_id_t)active_rec.active_slot;
-    }
-
-    /* Якщо активний слот помічено як збійний, форсуємо перемикання */
-    slot_id_t safe_slot = (active_rec.active_slot == SLOT_A) ? SLOT_B : SLOT_A;
-    active_rec.active_slot = (uint8_t)safe_slot;
-    active_rec.status = (uint8_t)STATE_CONFIRMED_OK;
-    boot_metadata_write(&active_rec);
-    return safe_slot;
-}
-```
-```cpp
-// Модуль управління станом завантажувача на C++20
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <array>
-#include <expected>
-#include <algorithm>
-
-namespace bootloader {
-
-inline constexpr uint32_t MagicValue = 0x424F4F54UL; // "BOOT"
-inline constexpr uint8_t MaxBootRetries = 3;
-
-enum class SlotId : uint8_t {
-    SlotA = 0,
-    SlotB = 1,
-    None  = 0xFF
-};
-
-enum class SlotStatus : uint8_t {
-    Empty        = 0xFF,
-    PendingTest  = 0x01,
-    ConfirmedOk  = 0x02,
-    MarkedFailed = 0x03
-};
-
-struct [[gnu::packed]] BootRecord {
-    uint32_t   magic{MagicValue};
-    uint32_t   sequence{0};
-    SlotId     activeSlot{SlotId::SlotA};
-    SlotStatus status{SlotStatus::Empty};
-    uint8_t    retriesLeft{0};
-    uint8_t    reserved{0};
-    uint32_t   crc32{0};
-};
-
-enum class FlashError {
-    ReadFailed,
-    EraseFailed,
-    WriteFailed,
-    CorruptedRecord
-};
-
-// Константний розрахунок CRC32
-[[nodiscard]] constexpr uint32_t calculate_crc32(std::span<const uint8_t> data) noexcept {
-    uint32_t crc = 0xFFFFFFFFUL;
-    for (uint8_t byte : data) {
-        crc ^= byte;
-        for (uint8_t j = 0; j < 8; ++j) {
-            crc = (crc >> 1) ^ (0xEDB88320UL & (-(crc & 1)));
-        }
-    }
-    return ~crc;
-}
-
-// Абстракція доступу до апаратної Flash-пам'яті
-class IFlashDriver {
-public:
-    virtual ~IFlashDriver() = default;
-    [[nodiscard]] virtual bool read(uint32_t address, std::span<uint8_t> dest) noexcept = 0;
-    [[nodiscard]] virtual bool erase_sector(uint32_t sector_address) noexcept = 0;
-    [[nodiscard]] virtual bool write(uint32_t address, std::span<const uint8_t> src) noexcept = 0;
-};
-
-class MetadataManager {
-public:
-    static constexpr uint32_t Sector0Addr = 0x08008000UL;
-    static constexpr uint32_t Sector1Addr = 0x08009000UL;
-
-    explicit MetadataManager(IFlashDriver& flash) noexcept : m_flash(flash) {}
-
-    [[nodiscard]] bool isValid(const BootRecord& rec) const noexcept {
-        if (rec.magic != MagicValue) return false;
-        auto span_data = std::span<const uint8_t>(reinterpret_cast<const uint8_t*>(&rec), sizeof(BootRecord) - sizeof(uint32_t));
-        return rec.crc32 == calculate_crc32(span_data);
-    }
-
-    [[nodiscard]] std::expected<void, FlashError> writeRecord(BootRecord new_rec) noexcept {
-        BootRecord rec0{}, rec1{};
-        m_flash.read(Sector0Addr, {reinterpret_cast<uint8_t*>(&rec0), sizeof(BootRecord)});
-        m_flash.read(Sector1Addr, {reinterpret_cast<uint8_t*>(&rec1), sizeof(BootRecord)});
-
-        const bool valid0 = isValid(rec0);
-        const bool valid1 = isValid(rec1);
-
-        uint32_t target_addr = Sector0Addr;
-        uint32_t next_seq = 1;
-
-        if (valid0 && valid1) {
-            if (rec0.sequence >= rec1.sequence) {
-                target_addr = Sector1Addr;
-                next_seq = rec0.sequence + 1;
-            } else {
-                target_addr = Sector0Addr;
-                next_seq = rec1.sequence + 1;
-            }
-        } else if (valid0) {
-            target_addr = Sector1Addr;
-            next_seq = rec0.sequence + 1;
-        } else if (valid1) {
-            target_addr = Sector0Addr;
-            next_seq = rec1.sequence + 1;
-        }
-
-        new_rec.magic = MagicValue;
-        new_rec.sequence = next_seq;
-        auto span_to_calc = std::span<const uint8_t>(reinterpret_cast<const uint8_t*>(&new_rec), sizeof(BootRecord) - sizeof(uint32_t));
-        new_rec.crc32 = calculate_crc32(span_to_calc);
-
-        if (!m_flash.erase_sector(target_addr)) return std::unexpected(FlashError::EraseFailed);
-        if (!m_flash.write(target_addr, {reinterpret_cast<const uint8_t*>(&new_rec), sizeof(BootRecord)})) {
-            return std::unexpected(FlashError::WriteFailed);
-        }
-
-        return {};
-    }
-
-    [[nodiscard]] SlotId selectBootSlot() noexcept {
-        BootRecord rec0{}, rec1{};
-        m_flash.read(Sector0Addr, {reinterpret_cast<uint8_t*>(&rec0), sizeof(BootRecord)});
-        m_flash.read(Sector1Addr, {reinterpret_cast<uint8_t*>(&rec1), sizeof(BootRecord)});
-
-        const bool valid0 = isValid(rec0);
-        const bool valid1 = isValid(rec1);
-
-        BootRecord active{};
-        if (valid0 && valid1) {
-            active = (rec0.sequence >= rec1.sequence) ? rec0 : rec1;
-        } else if (valid0) {
-            active = rec0;
-        } else if (valid1) {
-            active = rec1;
-        } else {
-            // Аварійна ініціалізація
-            active.magic = MagicValue;
-            active.sequence = 1;
-            active.activeSlot = SlotId::SlotA;
-            active.status = SlotStatus::ConfirmedOk;
-            active.retriesLeft = 0;
-            (void)writeRecord(active);
-            return SlotId::SlotA;
-        }
-
-        if (active.status == SlotStatus::PendingTest) {
-            if (active.retriesLeft > 0) {
-                active.retriesLeft--;
-                (void)writeRecord(active);
-                return active.activeSlot;
-            } else {
-                active.status = SlotStatus::MarkedFailed;
-                const auto fallback = (active.activeSlot == SlotId::SlotA) ? SlotId::SlotB : SlotId::SlotA;
-                active.activeSlot = fallback;
-                active.status = SlotStatus::ConfirmedOk;
-                active.retriesLeft = 0;
-                (void)writeRecord(active);
-                return fallback;
-            }
-        }
-
-        if (active.status == SlotStatus::ConfirmedOk) {
-            return active.activeSlot;
-        }
-
-        const auto safeSlot = (active.activeSlot == SlotId::SlotA) ? SlotId::SlotB : SlotId::SlotA;
-        active.activeSlot = safeSlot;
-        active.status = SlotStatus::ConfirmedOk;
-        (void)writeRecord(active);
-        return safeSlot;
-    }
-
-private:
-    IFlashDriver& m_flash;
-};
-
-} // namespace bootloader
-```
+:::code ota-rollback-d/c/modul-upravlinnia-stanom.c
+:::code ota-rollback-d/cpp/modul-upravlinnia-stanom.cpp
 :::
 
 #### Модуль підтвердження прошивки з боку застосунку
@@ -982,83 +466,8 @@ private:
 Коли застосунок успішно завершив діагностику `POST`, він викликає прикладний API-модуль валідації:
 
 :::tabs
-```c
-/* Прикладний виклик підтвердження прошивки після самотестування на C99 */
-bool ota_confirm_running_image(void) {
-    boot_record_t rec0, rec1;
-    flash_read(SECTOR_0_ADDR, &rec0, sizeof(boot_record_t));
-    flash_read(SECTOR_1_ADDR, &rec1, sizeof(boot_record_t));
-
-    bool valid0 = is_record_valid(&rec0);
-    bool valid1 = is_record_valid(&rec1);
-
-    boot_record_t current;
-    if (valid0 && valid1) {
-        current = (rec0.sequence >= rec1.sequence) ? rec0 : rec1;
-    } else if (valid0) {
-        current = rec0;
-    } else if (valid1) {
-        current = rec1;
-    } else {
-        return false;
-    }
-
-    /* Якщо ми стартували у випробувальному стані, закріплюємо успіх */
-    if (current.status == STATE_PENDING_TEST) {
-        current.status = (uint8_t)STATE_CONFIRMED_OK;
-        current.retries_left = 0;
-        return boot_metadata_write(&current);
-    }
-
-    return true;
-}
-```
-```cpp
-// Прикладний виклик підтвердження прошивки на C++20
-#include <expected>
-
-namespace bootloader {
-
-class ApplicationOtaClient {
-public:
-    explicit ApplicationOtaClient(MetadataManager& mgr, IFlashDriver& flash) noexcept
-        : m_mgr(mgr), m_flash(flash) {}
-
-    [[nodiscard]] std::expected<void, FlashError> confirmRunningImage() noexcept {
-        BootRecord rec0{}, rec1{};
-        m_flash.read(MetadataManager::Sector0Addr, {reinterpret_cast<uint8_t*>(&rec0), sizeof(BootRecord)});
-        m_flash.read(MetadataManager::Sector1Addr, {reinterpret_cast<uint8_t*>(&rec1), sizeof(BootRecord)});
-
-        const bool valid0 = m_mgr.isValid(rec0);
-        const bool valid1 = m_mgr.isValid(rec1);
-
-        BootRecord current{};
-        if (valid0 && valid1) {
-            current = (rec0.sequence >= rec1.sequence) ? rec0 : rec1;
-        } else if (valid0) {
-            current = rec0;
-        } else if (valid1) {
-            current = rec1;
-        } else {
-            return std::unexpected(FlashError::CorruptedRecord);
-        }
-
-        if (current.status == SlotStatus::PendingTest) {
-            current.status = SlotStatus::ConfirmedOk;
-            current.retriesLeft = 0;
-            return m_mgr.writeRecord(current);
-        }
-
-        return {};
-    }
-
-private:
-    MetadataManager& m_mgr;
-    IFlashDriver&    m_flash;
-};
-
-} // namespace bootloader
-```
+:::code ota-rollback-d/c/modul-pidtverdzhennia.c
+:::code ota-rollback-d/cpp/modul-pidtverdzhennia.cpp
 :::
 
 ### Крайові випадки та нетривіальні сценарії експлуатації
@@ -1135,32 +544,8 @@ struct [[gnu::packed]] EspOtaSelectEntry {
 У мікроконтролерах i.MX RT процесор за замовчуванням виконує код безпосередньо із зовнішньої мікросхеми Octal/Quad SPI Flash через інтерфейс FlexSPI з використанням таблиці конфігураційних команд LUT (*Look-Up Table*). Щоб завантажувач ROM міг розпізнати образ, на початку кожного слота розміщується заголовок **IVT** (*Image Vector Table*):
 
 :::tabs
-```c
-typedef struct {
-    uint32_t header;           /* Тег заголовка IVT (0x402000D1) */
-    uint32_t entry;            /* Адреса точки входу Reset_Handler */
-    uint32_t reserved1;
-    uint32_t dcd;              /* Вказівник на таблицю конфігурації периферії DCD */
-    uint32_t boot_data;        /* Вказівник на структуру Boot Data (розмір та адреса) */
-    uint32_t self;             /* Абсолютна адреса самої структури IVT */
-    uint32_t csf;              /* Вказівник на файл команд безпеки CSF (підписи, сертифікати) */
-    uint32_t reserved2;
-} ivt_t;
-```
-```cpp
-#include <cstdint>
-
-struct [[gnu::packed]] ImageVectorTable {
-    uint32_t header{0x402000D1UL};
-    uint32_t entry{0};
-    uint32_t reserved1{0};
-    uint32_t dcd{0};
-    uint32_t bootData{0};
-    uint32_t self{0};
-    uint32_t csf{0};
-    uint32_t reserved2{0};
-};
-```
+:::code ota-rollback-d/c/arkhitektura-onovlennia.c
+:::code ota-rollback-d/cpp/arkhitektura-onovlennia.cpp
 :::
 
 

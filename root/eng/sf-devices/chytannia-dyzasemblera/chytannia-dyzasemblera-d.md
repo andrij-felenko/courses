@@ -189,48 +189,8 @@ ADDLE R2, R2, #1     @ Виконується, якщо R0 <= 10
 Доступ до апаратних регістрів мікроконтролера здійснюється через відображення пам'яті (Memory-Mapped I/O).
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define GPIOA_BASE  0x40020000UL
-#define GPIOA_ODR   (*(volatile uint32_t*)(GPIOA_BASE + 0x14))
-#define GPIOA_BSRR  (*(volatile uint32_t*)(GPIOA_BASE + 0x18))
-
-void toggle_pin_odr(void) {
-    GPIOA_ODR |= (1UL << 5);
-}
-
-void set_pin_bsrr(void) {
-    GPIOA_BSRR = (1UL << 5);
-}
-```
-```cpp
-#include <cstdint>
-
-namespace hardware {
-
-struct GpioPort {
-    volatile uint32_t moder;
-    volatile uint32_t otyper;
-    volatile uint32_t ospeedr;
-    volatile uint32_t pupdr;
-    volatile uint32_t idr;
-    volatile uint32_t odr;
-    volatile uint32_t bsrr;
-};
-
-inline auto& gpioa = *reinterpret_cast<GpioPort*>(0x40020000UL);
-
-void toggle_pin_odr() {
-    gpioa.odr |= (1UL << 5);
-}
-
-void set_pin_bsrr() {
-    gpioa.bsrr = (1UL << 5);
-}
-
-} // namespace hardware
-```
+:::code chytannia-dyzasemblera-d/c/patern-1-rozimenuvannia.c
+:::code chytannia-dyzasemblera-d/cpp/patern-1-rozimenuvannia.cpp
 :::
 
 Погляньмо на дизасемблерний лістинг обох функцій під оптимізацією `-O2`:
@@ -265,39 +225,8 @@ set_pin_bsrr:
 3. **Таблиця переходів (Jump Table)** з константним часом O(1) за допомогою інструкції `TBB` або `TBH` (для щільних діапазонів, наприклад `case 0..5`).
 
 :::tabs
-```c
-#include <stdint.h>
-
-void handle_packet(uint8_t cmd) {
-    switch (cmd) {
-        case 0:  process_ping(); break;
-        case 1:  process_data(); break;
-        case 2:  process_ack();  break;
-        case 3:  process_reset(); break;
-        default: process_error(); break;
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-enum class Command : uint8_t {
-    Ping  = 0,
-    Data  = 1,
-    Ack   = 2,
-    Reset = 3
-};
-
-void handle_packet(Command cmd) {
-    switch (cmd) {
-        case Command::Ping:  process_ping(); break;
-        case Command::Data:  process_data(); break;
-        case Command::Ack:   process_ack();  break;
-        case Command::Reset: process_reset(); break;
-        default:             process_error(); break;
-    }
-}
-```
+:::code chytannia-dyzasemblera-d/c/patern-2-rozhaluzhennia.c
+:::code chytannia-dyzasemblera-d/cpp/patern-2-rozhaluzhennia.cpp
 :::
 
 Дизасемблерний лістинг для Cortex-M3/M4 під `-O2`:
@@ -336,40 +265,8 @@ handle_packet:
 Поліморфізм у C++ реалізується через таблицю віртуальних методів (`vtable`). Погляньмо на реальний машинний код поліморфного виклику драйвера.
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef struct StreamDriver {
-    const struct StreamDriverOps* ops;
-    uint32_t buffer_size;
-} StreamDriver;
-
-typedef struct StreamDriverOps {
-    void (*destructor)(StreamDriver* self);
-    void (*write)(StreamDriver* self, uint8_t byte);
-    uint8_t (*read)(StreamDriver* self);
-} StreamDriverOps;
-
-void send_byte(StreamDriver* dev, uint8_t b) {
-    dev->ops->write(dev, b);
-}
-```
-```cpp
-#include <cstdint>
-
-class StreamDriver {
-public:
-    virtual ~StreamDriver() = default;
-    virtual void write(uint8_t byte) = 0;
-    virtual uint8_t read() = 0;
-protected:
-    uint32_t buffer_size_{};
-};
-
-void send_byte(StreamDriver* dev, uint8_t b) {
-    dev->write(b);
-}
-```
+:::code chytannia-dyzasemblera-d/c/patern-3-vyklyky.c
+:::code chytannia-dyzasemblera-d/cpp/patern-3-vyklyky.cpp
 :::
 
 Лістинг дизасемблера для функції `send_byte`:
@@ -442,30 +339,8 @@ wait_for_hse_bad:
 Зворотний бік медалі — безконтрольне розставляння `volatile` на локальні змінні або змінні-акумулятори у швидких циклах фільтрації сигналів (DSP) чи обчислення контрольних сум CRC.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-uint32_t checksum_bad(const uint8_t* data, size_t len) {
-    volatile uint32_t sum = 0; // ПОМИЛКА: volatile для локальної змінної!
-    for (size_t i = 0; i < len; ++i) {
-        sum += data[i];
-    }
-    return sum;
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-uint32_t checksum_bad(std::span<const uint8_t> data) {
-    volatile uint32_t sum = 0; // ПОМИЛКА: volatile для локальної змінної!
-    for (uint8_t byte : data) {
-        sum += byte;
-    }
-    return sum;
-}
-```
+:::code chytannia-dyzasemblera-d/c/pastka-2-zaivyi-volatile-u.c
+:::code chytannia-dyzasemblera-d/cpp/pastka-2-zaivyi-volatile-u.cpp
 :::
 
 Ось у що перетворюється тіло циклу в асемблері:

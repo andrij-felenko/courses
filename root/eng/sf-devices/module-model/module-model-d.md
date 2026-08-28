@@ -63,46 +63,8 @@ bool reed_is_closed(void);   /* true = магніт поруч */
 ```
 
 :::tabs
-```c
-/* reed.c — реалізація: деталі сховано (information hiding) */
-#include "reed.h"
-#include "driver/gpio.h"          /* GPIO ESP-IDF */
-
-#define REED_PIN   GPIO_NUM_4     /* до якого піна припаяно — деталь модуля */
-static const int ACTIVE_LEVEL = 0; /* геркон active-low: 0 = замкнено */
-
-/* static → символ не видно поза цим файлом: інкапсуляція */
-static int read_raw(void) {
-    return gpio_get_level(REED_PIN);
-}
-
-void reed_init(void) {
-    gpio_set_direction(REED_PIN, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(REED_PIN, GPIO_PULLUP_ONLY);  /* підтяжка тримає HIGH */
-}
-
-bool reed_is_closed(void) {
-    return read_raw() == ACTIVE_LEVEL;   /* ховаємо «0 vs 1» від світу */
-}
-```
-```micropython
-# reed.py — модуль давача: деталі сховано за іменем модуля
-from machine import Pin
-
-_REED_PIN = 4          # до якого піна припаяно — деталь модуля
-_ACTIVE_LEVEL = 0      # геркон active-low: 0 = замкнено
-
-# _pin з підкресленням → приватна деталь модуля: інкапсуляція
-# підтяжка тримає HIGH, поки давач не замкне лінію в LOW
-_pin = Pin(_REED_PIN, Pin.IN, Pin.PULL_UP)
-
-def reed_init():
-    # ніжку вже налаштовано вище, при імпорті модуля
-    pass
-
-def reed_is_closed():
-    return _pin.value() == _ACTIVE_LEVEL   # ховаємо «0 vs 1» від світу
-```
+:::code module-model-d/c/reed.c
+:::code module-model-d/py/micropython/reed.py
 :::
 
 Уся програма тепер знає про давач рівно дві речі — `reed_init()` і `reed_is_closed()`:
@@ -141,31 +103,8 @@ if reed_is_closed():             # двері відчинено?
 Для прикладу пройдімо чотири питання для типового PIR-модуля руху. **Живлення:** багато PIR-плат живляться від 3.3–5 В і вже мають на борту стабілізатор та вихід 3.3-вольтової логіки — звіряємо з описом. **Напрям:** вихід активний, модуль сам жене HIGH при русі → підтяжка **не** потрібна. **Логіка:** active-high — спокій LOW, рух дає HIGH. **Захист:** вихід 3.3 В → під'єднуємо прямо, без зсуву. Драйвер виходить дзеркальний до геркона — той самий вузький інтерфейс, лише активний рівень тепер `1`, а підтяжку не вмикаємо:
 
 :::tabs
-```c
-/* pir.c — той самий взірець, інші деталі всередині */
-#define PIR_PIN   GPIO_NUM_5
-static const int ACTIVE_LEVEL = 1;     /* PIR active-high: 1 = рух */
-
-void pir_init(void) {
-    gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);   /* без підтяжки: жене сам */
-}
-bool pir_motion(void) {
-    return gpio_get_level(PIR_PIN) == ACTIVE_LEVEL;
-}
-```
-```micropython
-# pir.py — той самий взірець, інші деталі всередині
-_PIR_PIN = 5
-_ACTIVE_LEVEL = 1     # PIR active-high: 1 = рух
-
-_pin = Pin(_PIR_PIN, Pin.IN)   # без підтяжки: жене сам
-
-def pir_init():
-    pass
-
-def pir_motion():
-    return _pin.value() == _ACTIVE_LEVEL
-```
+:::code module-model-d/c/pir.c
+:::code module-model-d/py/micropython/pir.py
 :::
 
 Помітно, що проти геркона змінилися лише **відповіді** на ті самі чотири питання — два рядки всередині `.c`, — а інтерфейс і форма модуля ті самі. У цьому й уся практична цінність чотирьох питань: вони однакові для будь-якого модуля, і код навколо них теж лягає в однакову форму.

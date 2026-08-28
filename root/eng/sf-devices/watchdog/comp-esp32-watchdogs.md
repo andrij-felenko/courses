@@ -52,24 +52,7 @@ TWDT у типовому ESP-IDF-проєкті вже активний: idle-з
 
 **Ось мінімальний приклад: підписуємо задачу під TWDT і чесно її годуємо.**
 
-```c
-#include "esp_task_wdt.h"
-
-void app_main(void) {
-    esp_task_wdt_config_t wdt = {
-        .timeout_ms     = 5000,                   // 5 с на оберт
-        .idle_core_mask = (1 << 0) | (1 << 1),   // обидва idle
-        .trigger_panic  = true,                   // протух → паніка + reset
-    };
-    esp_task_wdt_init(&wdt);      // або reconfigure, якщо вже live
-    esp_task_wdt_add(NULL);       // стерегти ЦЮ задачу
-
-    for (;;) {
-        do_work();                // завис тут — до reset не дійде
-        esp_task_wdt_reset();     // доказ поступу → годуємо
-    }
-}
-```
+:::code comp-esp32-watchdogs/c/main.c
 
 `reset` стоїть *після* `do_work()` — це і є [годівля як доказ поступу](root:sf-devices/watchdog). `timeout_ms` має перевищувати найдовший чесний оберт вашого коду. Важливий нюанс версій: у ESP-IDF v5+ `esp_task_wdt_init` приймає структуру `esp_task_wdt_config_t`; якщо TWDT уже запущений системою — потрібен `esp_task_wdt_reconfigure`. Старий підпис `esp_task_wdt_init(timeout_ms, panic)` (IDF v4 і раніше) не скомпілюється в новому SDK — реальна пастка для тих, хто копіює приклади з інтернету.
 

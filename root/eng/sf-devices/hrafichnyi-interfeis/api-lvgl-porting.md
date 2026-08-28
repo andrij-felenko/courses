@@ -13,59 +13,8 @@
 Дескриптор пам'яті `lv_disp_draw_buf_t` та структура драйвера `lv_disp_drv_t` визначають конфігурацію конвеєра:
 
 :::tabs
-```c
-/* Структура дескриптора буферів рендерингу */
-typedef struct {
-    void *buf1;              /* Покажчик на перший буфер рендерингу */
-    void *buf2;              /* Покажчик на другий буфер (NULL для одинарного режиму) */
-    void *buf_act;           /* Покажчик на буфер, який зараз заповнює CPU */
-    uint32_t size;           /* Розмір буфера в кількості пікселів */
-    lv_area_t area;          /* Координати поточної області відрисовки */
-    int rendering_in_prog;   /* Прапорець активного процесу малювання */
-} lv_disp_draw_buf_t;
-
-/* Головна структура конфігурації драйвера дисплея */
-typedef struct _lv_disp_drv_t {
-    lv_coord_t hor_res;          /* Горизонтальна роздільна здатність у пікселях */
-    lv_coord_t ver_res;          /* Вертикальна роздільна здатність у пікселях */
-    lv_coord_t physical_hor_res; /* Фізична ширина матриці (для апаратного масштабування) */
-    lv_coord_t physical_ver_res; /* Фізична висота матриці */
-    lv_coord_t offset_x;         /* Зсув вікна по осі X (для екранів із несиметричним контролером) */
-    lv_coord_t offset_y;         /* Зсув вікна по осі Y */
-
-    lv_disp_draw_buf_t *draw_buf;/* Покажчик на зв'язаний дескриптор буферів */
-
-    /* Зворотні виклики (Callbacks) */
-    void (*flush_cb)(struct _lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_t *color_p);
-    void (*rounder_cb)(struct _lv_disp_drv_t *disp_drv, lv_area_t *area);
-    void (*set_px_cb)(struct _lv_disp_drv_t *disp_drv, uint8_t *buf, lv_coord_t buf_w,
-                      lv_coord_t x, lv_coord_t y, lv_color_t color, lv_opa_t opa);
-    void (*clean_dcache_cb)(struct _lv_disp_drv_t *disp_drv);
-
-    /* Апаратні прапорці поведінки */
-    uint32_t direct_mode : 1;    /* Рендеринг безпосередньо у повний подвійний фреймбуфер */
-    uint32_t full_refresh : 1;   /* Примусове повне перемальовування всього екрана */
-
-    void *user_data;             /* Довільний контекст користувача (покажчик на C++ об'єкт драйвера) */
-} lv_disp_drv_t;
-```
-```cpp
-namespace embedded::lvgl {
-
-struct DisplayConfiguration {
-    int16_t horizontalResolution{320};
-    int16_t verticalResolution{240};
-    int16_t physicalWidth{320};
-    int16_t physicalHeight{240};
-    int16_t offsetX{0};
-    int16_t offsetY{0};
-    bool directMode{false};
-    bool fullRefresh{false};
-    void* userData{nullptr};
-};
-
-} // namespace embedded::lvgl
-```
+:::code api-lvgl-porting/c/struktury-konfihuratsii.h
+:::code api-lvgl-porting/cpp/struktury-konfihuratsii.cpp
 :::
 
 ### Специфікація та інваріанти функцій зворотного виклику
@@ -104,56 +53,8 @@ struct DisplayConfiguration {
 У версії LVGL v9 інтерфейс реєстрації дисплея спрощено та уніфіковано в об'єктно-орієнтований дескриптор `lv_display_t`:
 
 :::tabs
-```c
-/* Створення та налаштування дисплея в LVGL v9 */
-lv_display_t *disp = lv_display_create(320, 240);
-
-/* Встановлення буферів рендерингу та режиму */
-lv_display_set_buffers(disp, buf1, buf2, sizeof(buf1), LV_DISPLAY_RENDER_MODE_PARTIAL);
-
-/* Прив'язка функції скидання */
-lv_display_set_flush_cb(disp, my_flush_cb_v9);
-
-/* Сигнатура зворотного виклику v9 */
-void my_flush_cb_v9(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
-{
-    /* Запуск передачі даних */
-    my_lcd_send_dma(area, px_map);
-
-    /* Інформування рушія */
-    lv_display_flush_ready(disp);
-}
-```
-```cpp
-namespace embedded::lvgl::v9 {
-
-class Display {
-public:
-    Display(int32_t width, int32_t height) noexcept
-        : handle_(lv_display_create(width, height))
-    {
-        lv_display_set_user_data(handle_, this);
-    }
-
-    void setBuffers(void* buf1, void* buf2, size_t sizeInBytes) noexcept
-    {
-        lv_display_set_buffers(handle_, buf1, buf2, sizeInBytes, 
-                               LV_DISPLAY_RENDER_MODE_PARTIAL);
-    }
-
-    void setFlushCallback(lv_display_flush_cb_t callback) noexcept
-    {
-        lv_display_set_flush_cb(handle_, callback);
-    }
-
-    lv_display_t* getHandle() const noexcept { return handle_; }
-
-private:
-    lv_display_t* handle_{nullptr};
-};
-
-} // namespace embedded::lvgl::v9
-```
+:::code api-lvgl-porting/c/evoliutsiia-kontraktu.c
+:::code api-lvgl-porting/cpp/evoliutsiia-kontraktu.cpp
 :::
 
 ### Керування декількома дисплеями (Multi-Display Support)
@@ -172,62 +73,8 @@ LVGL дозволяє підключати до одного мікроконт�
 ### Структури конфігурації
 
 :::tabs
-```c
-/* Типи пристроїв введення */
-typedef enum {
-    LV_INDEV_TYPE_NONE,     /* Не визначено */
-    LV_INDEV_TYPE_POINTER,  /* Сенсорна панель, миша або тачпад (координати X, Y + натискання) */
-    LV_INDEV_TYPE_KEYPAD,   /* Клавіатура (коди символів і навігаційні клавіші) */
-    LV_INDEV_TYPE_BUTTON,   /* Фізичні кнопки, апаратно прив'язані до екранних точок */
-    LV_INDEV_TYPE_ENCODER   /* Інкрементальний поворотний енкодер (+1 / -1 + клік) */
-} lv_indev_type_t;
-
-/* Фізичні стани пристрою */
-typedef enum {
-    LV_INDEV_STATE_RELEASED = 0,
-    LV_INDEV_STATE_PRESSED  = 1
-} lv_indev_state_t;
-
-/* Структура передачі даних введення */
-typedef struct {
-    lv_point_t point;            /* Поточні координати {x, y} для типу POINTER */
-    uint32_t key;                /* Код клавіші для типу KEYPAD / ENCODER */
-    uint32_t btn_id;             /* Номер кнопки для типу BUTTON */
-    int16_t enc_diff;            /* Відносний кут обертання енкодера (+1 / -1) */
-    lv_indev_state_t state;      /* Стан: натиснуто (PRESSED) або відпущено (RELEASED) */
-    bool continue_reading;       /* true, якщо в апаратному буфері є ще накопичені координати */
-} lv_indev_data_t;
-
-/* Дескриптор драйвера пристрою введення */
-typedef struct _lv_indev_drv_t {
-    lv_indev_type_t type;        /* Тип пристрою введення */
-    void (*read_cb)(struct _lv_indev_drv_t *indev_drv, lv_indev_data_t *data);
-    void *user_data;             /* Користувацький контекст */
-    lv_disp_t *disp;             /* Дисплей, до якого прив'язаний пристрій */
-    lv_timer_t *read_timer;      /* Системний таймер періодичного опитування */
-    uint16_t long_press_time;    /* Час утримання до генерації події LONG_PRESSED (мс) */
-    uint16_t long_press_repeat_time; /* Період генерації повторних подій LONG_PRESSED_REPEAT (мс) */
-    uint16_t scroll_limit;       /* Мінімальний поріг зсуву в пікселях для старту скролінгу */
-} lv_indev_drv_t;
-```
-```cpp
-namespace embedded::lvgl {
-
-enum class InputDeviceType {
-    None    = LV_INDEV_TYPE_NONE,
-    Pointer = LV_INDEV_TYPE_POINTER,
-    Keypad  = LV_INDEV_TYPE_KEYPAD,
-    Button  = LV_INDEV_TYPE_BUTTON,
-    Encoder = LV_INDEV_TYPE_ENCODER
-};
-
-enum class InputState {
-    Released = LV_INDEV_STATE_RELEASED,
-    Pressed  = LV_INDEV_STATE_PRESSED
-};
-
-} // namespace embedded::lvgl
-```
+:::code api-lvgl-porting/c/struktury-konfihuratsii.c
+:::code api-lvgl-porting/cpp/struktury-konfihuratsii-2.cpp
 :::
 
 ### Специфікація функції `read_cb`

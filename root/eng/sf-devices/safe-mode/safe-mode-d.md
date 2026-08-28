@@ -64,55 +64,7 @@ Safe mode не плутають із [деградацією з гідністю
 
 Дві частини однієї логіки. Перша — функція безпечного стану: її викликають **до всього іншого** при будь-якій критичній помилці. Друга — гейт на старті: якщо лічильник патологічних збоїв перейшов поріг, пристрій не повторює звичайний пуск, а піднімається в safe mode.
 
-```c
-#include "driver/ledc.h"
-#include "driver/gpio.h"
-#include "esp_system.h"
-#include "esp_log.h"
-static const char *TAG = "safe";
-
-#define GPIO_HEATER_RELAY  GPIO_NUM_5    // active HIGH: HIGH = гріє
-#define GPIO_VALVE_CLOSE   GPIO_NUM_18   // active HIGH: HIGH = закрити н/з клапан
-#define GPIO_FAULT_LED     GPIO_NUM_19   // active HIGH: індикатор аварії
-#define MOTOR_LEDC_CHANNEL LEDC_CHANNEL_0
-
-#define FAULT_THRESHOLD    5             // патологічних збоїв за "вікно"
-
-// Лічильник у RTC-пам'яті: переживає reset, але не повне знеструмлення.
-RTC_NOINIT_ATTR static uint32_t s_fault_cnt;
-
-// 1) Безпечний стан — найперша дія при будь-якій критичній помилці.
-void enter_safe_state(void) {
-    ESP_LOGE(TAG, "ENTER SAFE STATE");                 // лог — ПІСЛЯ гасіння
-
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, MOTOR_LEDC_CHANNEL, 0);  // мотор: duty 0
-    ledc_update_duty(LEDC_LOW_SPEED_MODE, MOTOR_LEDC_CHANNEL);
-    ledc_stop(LEDC_LOW_SPEED_MODE, MOTOR_LEDC_CHANNEL, 0);      // idle level = 0
-
-    gpio_set_level(GPIO_HEATER_RELAY, 0);   // нагрівач: реле розімкнуто
-    gpio_set_level(GPIO_VALVE_CLOSE, 1);    // н/з клапан: закрити
-    gpio_set_level(GPIO_FAULT_LED, 1);      // індикатор аварії
-    // Wi-Fi/BLE стек НЕ зупиняємо — він потрібен для діагностики й OTA.
-}
-
-// 2) На старті: вирішити, чи піднімати safe mode, чи нормальний режим.
-void startup(void) {
-    enter_safe_state();                     // виходи безпечні ще до рішення
-
-    esp_reset_reason_t r = esp_reset_reason();
-    if (r == ESP_RST_POWERON) s_fault_cnt = 0;          // людина увімкнула — чисто
-    else if (r == ESP_RST_PANIC || r == ESP_RST_TASK_WDT)
-        s_fault_cnt++;                                  // патологічний збій — рахувати
-
-    if (s_fault_cnt >= FAULT_THRESHOLD) {
-        ESP_LOGE(TAG, "fault loop (cnt=%lu) -> SAFE MODE", s_fault_cnt);
-        start_minimal_services();           // лише зв'язок + OTA + індикація
-        return;                             // основну функцію НЕ запускаємо
-    }
-
-    start_full_application();               // звичайний режим
-}
-```
+:::code safe-mode-d/c/main.c
 
 Покроково на конкретних числах: пристрій падає в паніку п'ять разів поспіль. Лічильник `s_fault_cnt` росте `1 → 2 → 3 → 4 → 5`; кожен пуск, поки він нижче порога, ще пробує звичайний режим — і знову падає. На шостому старті `esp_reset_reason()` повертає `ESP_RST_PANIC`, лічильник стає рівним порогу `5`, і замість `start_full_application()` виконується `start_minimal_services()`. Цикл смерті розірвано: пристрій більше не повторює фатальний пуск, а висить у safe mode зі світним індикатором і відкритим каналом оновлення й чекає на нову прошивку. Лічильник скине лише чисте `ESP_RST_POWERON` — коли людина вимкне й увімкне живлення.
 

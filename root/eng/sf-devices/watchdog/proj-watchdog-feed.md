@@ -24,58 +24,11 @@ Watchdog скидає пристрій, якщо його не «нагодув�
 
 Суть — маленький модуль-«реєстр»: задачі відмічаються, збирач звіряє строки й годує лише за повного збору. Ось мінімальна, але цілком робоча реалізація для ESP-IDF/Arduino-ESP32:
 
-```c
-#include "esp_task_wdt.h"
-#include "esp_timer.h"          // esp_timer_get_time() — мікросекунди від старту
-#include <stdint.h>
-#include <stdbool.h>
-
-#define TASK_COUNT 3
-
-// останній успішний оберт кожної задачі (мс) і її дозволений строк (мс)
-static volatile uint32_t last_ok[TASK_COUNT];
-static const    uint32_t deadline_ms[TASK_COUNT] = { 200, 2000, 300000 };
-
-static inline uint32_t now_ms(void) {
-    return (uint32_t)(esp_timer_get_time() / 1000);   // мкс → мс
-}
-
-// кожна задача кличе це, завершивши УСПІШНИЙ оберт:
-void checkpoint(int task_id) {
-    last_ok[task_id] = now_ms();
-}
-
-// збирач: годуємо watchdog ЛИШЕ якщо всі задачі свіжі
-void watchdog_collect(void) {
-    uint32_t t = now_ms();
-    for (int i = 0; i < TASK_COUNT; i++) {
-        if (t - last_ok[i] > deadline_ms[i]) {
-            return;                  // ця задача протухла → НЕ годуємо
-        }
-    }
-    esp_task_wdt_reset();            // усі свіжі → доказ поступу → годуємо
-}
-```
+:::code proj-watchdog-feed/c/robochyi-c-chekpointy-i.c
 
 Збирач ставлять у задачу, яку стереже watchdog (її підписують через `esp_task_wdt_add(NULL)`), і кличуть раз на оберт. Кожна прикладна задача наприкінці свого успішного циклу викликає `checkpoint(i)`:
 
-```c
-void sensor_task(void *arg) {           // швидка задача, строк 200 мс
-    for (;;) {
-        read_sensor();
-        checkpoint(0);                  // відмітились «я жива»
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-
-void watchdog_task(void *arg) {         // збирач + єдина підписана під TWDT
-    esp_task_wdt_add(NULL);
-    for (;;) {
-        watchdog_collect();
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
+:::code proj-watchdog-feed/c/robochyi-c-chekpointy-i-2.c
 
 Один тонкий момент — **переповнення** лічильника. `now_ms()` росте і колись «обернеться» через ≈49.7 доби (межа `uint32_t`). Віднімання `t - last_ok[i]` в беззнаковій арифметиці переповнення переживає коректно: різниця лишається правильною, поки реальний проміжок менший за період обертання. Саме тому ми зберігаємо мітки в `uint32_t` і **віднімаємо**, а не порівнюємо абсолютні значення — інакше раз на 50 діб ловили б хибний скид.
 

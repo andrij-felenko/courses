@@ -21,24 +21,7 @@ ESP32 має два процесорні ядра, і задачу можна з
 
 **Перевірка розміщення:**
 
-```c
-// Задача-зонд: надрукує своє ядро щосекунди
-void probe(void *arg) {
-    for (;;) {
-        Serial.printf("probe runs on core %d\n", xPortGetCoreID());
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-
-void setup() {
-    Serial.begin(115200);
-    // setup() сама друкує своє ядро — зазвичай 1
-    Serial.printf("setup on core %d\n", xPortGetCoreID());
-
-    // probe закріплена на Ядрі 0
-    xTaskCreatePinnedToCore(probe, "probe", 2048, NULL, 1, NULL, 0);
-}
-```
+:::code comp-dual-core/c/iak-prochytaty-i-zadaty-na.c
 
 У моніторі ви побачите `setup on core 1` і `probe runs on core 0` — простий, незаперечний доказ реального поділу. Варто мати на увазі, що `portNUM_PROCESSORS` дорівнює 2 на класичному ESP32 і ESP32-S3, але 1 на [одноядерних S2/C3/C6](root:embedded/esp32-family) — тому код із жорстко вписаним номером ядра 1 там або падатиме, або цей аргумент ігноруватиметься.
 
@@ -48,23 +31,7 @@ void setup() {
 
 **Закріплення задачі й перевірка:**
 
-```c
-void taskCtrl(void *p) {
-    // перший рядок — підтвердження розміщення
-    Serial.printf("ctrl runs on core %d\n", xPortGetCoreID());
-    for (;;) {
-        // критичний крок: керування, генерація сигналу, тайм-критичне опитування
-        vTaskDelay(1);  // завжди поступатися, щоб IDLE встигала годувати watchdog
-    }
-}
-
-void setup() {
-    Serial.begin(115200);
-    // xTaskCreatePinnedToCore(fn, name, stack_bytes, param, prio, handle, coreID)
-    // stack — у байтах на ESP32 (не у словах, як у класичному FreeRTOS)
-    xTaskCreatePinnedToCore(taskCtrl, "ctrl", 4096, NULL, 2, NULL, 1);
-}
-```
+:::code comp-dual-core/c/pershyi-bait-svidomo.c
 
 У моніторі виводиться `ctrl runs on core 1` — прив'язка підтверджена. Якщо помилитися в останньому аргументі (наприклад, написати `0`), побачите це одразу: `ctrl runs on core 0`. Без `xPortGetCoreID()` ви б просто вірили, що задача там, де треба.
 

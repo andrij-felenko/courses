@@ -168,57 +168,9 @@ constexpr int32_t unpackSigned20(std::span<const uint8_t, 3> raw) noexcept {
 
 :::tabs
 == C99 (Розклинювання GPIO)
-```c
-void bsp_i2c_bus_recover(void) {
-    /* 1. Перемикання пінів I2C (SCL, SDA) у режим програмного GPIO Open-Drain */
-    gpio_set_mode(PIN_SCL, GPIO_OUTPUT_OD);
-    gpio_set_mode(PIN_SDA, GPIO_OUTPUT_OD);
-    gpio_set_high(PIN_SDA);
-
-    /* 2. Генерація 9 імпульсів тактування SCL з перевіркою звільнення SDA */
-    for (uint8_t i = 0; i < 9; ++i) {
-        gpio_set_low(PIN_SCL);
-        delay_us(5);
-        gpio_set_high(PIN_SCL);
-        delay_us(5);
-
-        /* Якщо чип відпустив SDA, він знову бачить шину */
-        if (gpio_read(PIN_SDA) == 1) {
-            break;
-        }
-    }
-
-    /* 3. Генерація апаратного сигналу STOP: SDA переходить з Low в High при High SCL */
-    gpio_set_low(PIN_SDA);
-    delay_us(5);
-    gpio_set_high(PIN_SCL);
-    delay_us(5);
-    gpio_set_high(PIN_SDA);
-    delay_us(5);
-
-    /* 4. Повернення пінів периферійному контролеру I2C */
-    gpio_set_alternate_function(PIN_SCL, AF_I2C);
-    gpio_set_alternate_function(PIN_SDA, AF_I2C);
-}
-```
+:::code proj-sensor-driver-pipeline/c/8-aparatne-rozklyniuvannia.c
 == C++20 (RAII відновлення шини)
-```cpp
-template <typename GpioDriver>
-void recoverI2cBus(GpioDriver& gpio) noexcept {
-    gpio.setOpenDrain();
-    gpio.setSdaHigh();
-
-    for (uint8_t i = 0; i < 9; ++i) {
-        gpio.toggleSclPulse();
-        if (gpio.readSda()) {
-            break;
-        }
-    }
-
-    gpio.generateStopCondition();
-    gpio.restorePeripheralMode();
-}
-```
+:::code proj-sensor-driver-pipeline/cpp/8-aparatne-rozklyniuvannia.cpp
 :::
 
 Цей автомат гарантує, що сенсор отримає до 9 тактів SCL, завершить передачу поточного байта, сприйме високий рівень SDA як сигнал `NACK` від майстра і перейде у стан спокою після отримання умови `STOP`.
@@ -231,18 +183,7 @@ void recoverI2cBus(GpioDriver& gpio) noexcept {
 
 :::tabs
 == C99 (Табличний CRC-8)
-```c
-uint8_t bmp280_calc_crc8_dallas(const uint8_t *data, size_t len) {
-    uint8_t crc = 0x00U;
-    if (data == NULL) {
-        return 0x00U;
-    }
-    for (size_t i = 0; i < len; ++i) {
-        crc = crc8_table[crc ^ data[i]];
-    }
-    return crc;
-}
-```
+:::code proj-sensor-driver-pipeline/c/driver_bmp280.c
 == C++20 (Constexpr CRC-8)
 ```cpp
 constexpr uint8_t calculateCrc8(std::span<const uint8_t> data) noexcept {
@@ -267,74 +208,9 @@ constexpr uint8_t calculateCrc8(std::span<const uint8_t> data) noexcept {
 
 :::tabs
 == C99 (SPSC буфер)
-```c
-#define SENSOR_QUEUE_SIZE 16U /* Розмір повинен бути ступенем двійки */
-
-typedef struct {
-    bmp280_sample_t buffer[SENSOR_QUEUE_SIZE];
-    volatile uint32_t head; /* Індекс запису (змінюється тільки Producer ISR) */
-    volatile uint32_t tail; /* Індекс читання (змінюється тільки Consumer Task) */
-} sensor_spsc_queue_t;
-
-static inline bool spsc_push(sensor_spsc_queue_t *q, const bmp280_sample_t *sample) {
-    uint32_t current_head = q->head;
-    uint32_t next_head = (current_head + 1U) & (SENSOR_QUEUE_SIZE - 1U);
-
-    if (next_head == q->tail) {
-        return false; /* Буфер переповнений (Overflow) */
-    }
-
-    q->buffer[current_head] = *sample;
-    __DMB(); /* Data Memory Barrier: гарантує завершення запису даних до оновлення head */
-    q->head = next_head;
-    return true;
-}
-
-static inline bool spsc_pop(sensor_spsc_queue_t *q, bmp280_sample_t *out_sample) {
-    uint32_t current_tail = q->tail;
-
-    if (current_tail == q->head) {
-        return false; /* Буфер порожній */
-    }
-
-    *out_sample = q->buffer[current_tail];
-    __DMB(); /* Бар'єр пам'яті */
-    q->tail = (current_tail + 1U) & (SENSOR_QUEUE_SIZE - 1U);
-    return true;
-}
-```
+:::code proj-sensor-driver-pipeline/c/10-orhanizatsiia-lock-free.c
 == C++20 (Атомарний SPSC клас)
-```cpp
-template <typename T, size_t Size>
-requires ((Size & (Size - 1)) == 0)
-class SpscQueue {
-public:
-    bool push(const T& sample) noexcept {
-        const size_t currentHead = head_.load(std::memory_order_relaxed);
-        const size_t nextHead = (currentHead + 1) & (Size - 1);
-        if (nextHead == tail_.load(std::memory_order_acquire)) {
-            return false;
-        }
-        buffer_[currentHead] = sample;
-        head_.store(nextHead, std::memory_order_release);
-        return true;
-    }
-
-    std::optional<T> pop() noexcept {
-        const size_t currentTail = tail_.load(std::memory_order_relaxed);
-        if (currentTail == head_.load(std::memory_order_acquire)) {
-            return std::nullopt;
-        }
-        T item = buffer_[currentTail];
-        tail_.store((currentTail + 1) & (Size - 1), std::memory_order_release);
-        return item;
-    }
-private:
-    std::array<T, Size> buffer_{};
-    std::atomic<size_t> head_{0};
-    std::atomic<size_t> tail_{0};
-};
-```
+:::code proj-sensor-driver-pipeline/cpp/10-orhanizatsiia-lock-free.cpp
 :::
 
 Ключові архітектурні принципи SPSC буфера:
@@ -350,65 +226,9 @@ private:
 
 :::tabs
 == C99 (FreeRTOS Task Notification)
-```c
-static TaskHandle_t g_sensor_task_handle = NULL;
-
-void bmp280_dma_complete_isr_hook(bmp280_handle_t *dev) {
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-    /* Виклик внутрішнього обробника компенсації */
-    bmp280_dma_complete_callback(dev);
-
-    /* Пряме сповіщення задачі обробки без використання об'єктів семафорів */
-    if (g_sensor_task_handle != NULL) {
-        vTaskNotifyGiveFromISR(g_sensor_task_handle, &xHigherPriorityTaskWoken);
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    }
-}
-
-void vSensorProcessingTask(void *pvParameters) {
-    bmp280_handle_t *dev = (bmp280_handle_t*)pvParameters;
-    g_sensor_task_handle = xTaskGetCurrentTaskHandle();
-
-    for (;;) {
-        /* Запуск неблокуючого зчитування через DMA */
-        bmp280_start_read_async_dma(dev);
-
-        /* Задача засинає і не споживає такти CPU, очікуючи сповіщення від DMA ISR */
-        uint32_t notification_value = ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(100));
-
-        if (notification_value > 0) {
-            /* Дані успішно оновлені в пам'яті */
-            bmp280_sample_t sample = dev->last_sample;
-            process_barometer_fusion(&sample);
-        } else {
-            /* Таймаут DMA трансферу: збій шини або обрив зв'язку */
-            bmp280_recover_bus(dev);
-        }
-
-        vTaskDelay(pdMS_TO_TICKS(20)); /* Період опитування 50 Гц */
-    }
-}
-```
+:::code proj-sensor-driver-pipeline/c/11-intehratsiia-draivera-u.c
 == C++20 (Асинхронний координуючий потік)
-```cpp
-template <BusDevice BusImpl>
-void runSensorWorker(Bmp280Driver<BusImpl>& driver, std::binary_semaphore& dmaReadySignal) {
-    while (true) {
-        driver.startReadDma();
-
-        if (dmaReadySignal.try_acquire_for(std::chrono::milliseconds(100))) {
-            if (auto sample = driver.readSynchronous(); sample.has_value()) {
-                processBarometerFusion(*sample);
-            }
-        } else {
-            driver.recoverBus();
-        }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
-}
-```
+:::code proj-sensor-driver-pipeline/cpp/11-intehratsiia-draivera-u.cpp
 :::
 
 Цей патерн забезпечує:
@@ -479,58 +299,9 @@ h = 44330.0 · (1.0 - (P / P₀)^(1.0 / 5.255))
 
 :::tabs
 == C99 (Комплементарний фільтр)
-```c
-typedef struct {
-    float altitude_est;     /* Оцінена висота (м) */
-    float velocity_est;     /* Оцінена вертикальна швидкість (м/с) */
-    float accel_bias;       /* Оцінене зміщення нуля акселерометра */
-    float kp;               /* Коефіцієнт корекції позиції */
-    float ki;               /* Коефіцієнт корекції зміщення акселерометра */
-} altimeter_fusion_t;
-
-void altimeter_fusion_update(altimeter_fusion_t *f, float baro_alt, float accel_z_world, float dt) {
-    /* 1. Апріорна екстраполяція за показами акселерометра */
-    float accel_corrected = accel_z_world - f->accel_bias;
-    f->altitude_est += f->velocity_est * dt + 0.5f * accel_corrected * dt * dt;
-    f->velocity_est += accel_corrected * dt;
-
-    /* 2. Розрахунок нев'язки з барометричним виміром */
-    float error = baro_alt - f->altitude_est;
-
-    /* 3. Апостеріорна корекція стану фільтра */
-    f->altitude_est += error * f->kp * dt;
-    f->velocity_est += error * f->ki * dt;
-    f->accel_bias   -= error * (f->ki * 0.1f) * dt;
-}
-```
+:::code proj-sensor-driver-pipeline/c/15-prohramne.c
 == C++20 (Клас комплементарного фільтра)
-```cpp
-class AltitudeComplementaryFilter {
-public:
-    constexpr AltitudeComplementaryFilter(float kp, float ki) noexcept : kp_(kp), ki_(ki) {}
-
-    void update(units::Pascals press, float accelZ, float dt) noexcept {
-        const float baroAlt = 44330.0f * (1.0f - std::pow(press.value() / 101325.0f, 1.0f / 5.255f));
-        const float accelCorrected = accelZ - accelBias_;
-        altitude_ += velocity_ * dt + 0.5f * accelCorrected * dt * dt;
-        velocity_ += accelCorrected * dt;
-
-        const float error = baroAlt - altitude_;
-        altitude_ += error * kp_ * dt;
-        velocity_ += error * ki_ * dt;
-        accelBias_ -= error * (ki_ * 0.1f) * dt;
-    }
-
-    [[nodiscard]] float altitudeMeters() const noexcept { return altitude_; }
-    [[nodiscard]] float velocityMps() const noexcept { return velocity_; }
-private:
-    float altitude_{0.0f};
-    float velocity_{0.0f};
-    float accelBias_{0.0f};
-    float kp_{1.5f};
-    float ki_{0.8f};
-};
-```
+:::code proj-sensor-driver-pipeline/cpp/15-prohramne.cpp
 :::
 
 Цей алгоритм забезпечує реакцію варіометра затримкою менше 5 мілісекунд при повному пригніченні аналогового шуму барометра.
@@ -575,24 +346,7 @@ private:
 
 У C++20 версії драйвера всі магічні числа та безрозмірні значення `float` замінені на строго типізовані класи фізичних величин `Pascals` та `Celsius`:
 
-```cpp
-using namespace sf::devices::units::literals;
-
-auto sample = driver.readSynchronous();
-if (sample.has_value()) {
-    units::Pascals press = sample->pressure;
-    units::Celsius temp  = sample->temperature;
-
-    // Зручне перетворення у похідні одиниці без помилок масштабу
-    float hpa = press.hectopascals(); // гектопаскалі
-    float k   = temp.kelvin();        // Кельвіни
-
-    // Безпечне порівняння з користувацькими літералами
-    if (press < 950.0_hPa) {
-        triggerLowPressureAlarm();
-    }
-}
-```
+:::code proj-sensor-driver-pipeline/cpp/20-c-20-realizatsiia.cpp
 
 Компілятор гарантує на етапі збірки (Zero-overhead Type Safety), що розробник не зможе випадково додати тиск до температури або передати значення в барах у функцію, яка очікує Паскалі.
 

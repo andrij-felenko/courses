@@ -14,52 +14,7 @@
 
 Зберемо це в коді. Кожна підсистема реєструє себе один раз і далі лише оновлює свій статус; агрегатор у будь-яку мить зводить їх у режим пристрою.
 
-```c
-#include "esp_log.h"
-static const char *TAG = "health";
-
-typedef enum { SUB_OK = 0, SUB_DEGRADED = 1, SUB_FAILED = 2 } sub_status_t;
-typedef enum { DEV_HEALTHY = 0, DEV_DEGRADED = 1, DEV_SAFE = 2 } dev_mode_t;
-
-typedef struct {
-    const char  *name;       // ім'я для логів і телеметрії
-    bool         critical;   // критична (true) чи деградовна (false)
-    sub_status_t status;     // поточний голос підсистеми
-} subsystem_t;
-
-#define MAX_SUBS 16
-static subsystem_t s_subs[MAX_SUBS];
-static int s_sub_count = 0;
-
-// Реєстрація під час старту: повертає дескриптор-індекс
-int health_register(const char *name, bool critical) {
-    int id = s_sub_count++;
-    s_subs[id] = (subsystem_t){ .name = name, .critical = critical, .status = SUB_OK };
-    return id;
-}
-
-// Підсистема оновлює свій голос (з будь-якої задачі)
-void health_set(int id, sub_status_t st) {
-    if (s_subs[id].status != st) {
-        ESP_LOGW(TAG, "%s: %d -> %d", s_subs[id].name, s_subs[id].status, st);
-    }
-    s_subs[id].status = st;
-}
-
-// Зведення: найгірший голос із урахуванням ваги вирішує режим
-dev_mode_t health_aggregate(void) {
-    dev_mode_t mode = DEV_HEALTHY;
-    for (int i = 0; i < s_sub_count; i++) {
-        subsystem_t *s = &s_subs[i];
-        if (s->status == SUB_OK) continue;   // здорова підсистема режим не чіпає
-
-        // Є проблема. Наскільки вона тяжка — вирішує НЕ її різновид, а вага:
-        if (s->critical) return DEV_SAFE;    // будь-яка проблема критичної → безпечний стан, далі не дивимось
-        if (mode < DEV_DEGRADED) mode = DEV_DEGRADED;  // проблема деградовної → щонайбільше деградований режим
-    }
-    return mode;
-}
-```
+:::code proj-health-aggregator/c/reiestr-pidsystem-i.c
 
 Зверни увагу на два рішення в цьому циклі. Перше — **вага бере гору над різновидом проблеми**: код не питає, підсистема `DEGRADED` чи `FAILED`, він питає, чи вона критична. Деградований давач полум'я не безпечніший за повністю відмовлений — запасному числу безпеко-критичної функції довіряти не можна, тож будь-яка її проблема веде в безпечний стан. Саме тому критична гілка спрацьовує на будь-який не-`OK`, а не лише на `FAILED`. Друге — ранній `return DEV_SAFE`: щойно трапилася критична підсистема з будь-якою проблемою, шукати далі нема сенсу, бо гіршого за «безпечний стан» режиму немає, і він уже визначений. Це не оптимізація заради швидкості, а точне відображення логіки «найслабша ланка»: одного критичного збою досить.
 
@@ -69,34 +24,7 @@ dev_mode_t health_aggregate(void) {
 
 Агрегатор сам по собі лише обчислює число. Користь з'являється, коли головний цикл щотакту питає режим і **діє** відповідно до нього — і, звісно, робить новий режим видимим.
 
-```c
-void apply_device_mode(void) {
-    static dev_mode_t s_prev = DEV_HEALTHY;
-    dev_mode_t mode = health_aggregate();
-
-    if (mode != s_prev) {
-        // Перехід режиму — завжди в лог і телеметрію (деградація видима)
-        const char *names[] = { "HEALTHY", "DEGRADED", "SAFE" };
-        ESP_LOGW(TAG, "device mode: %s -> %s", names[s_prev], names[mode]);
-        mqtt_publish("status/device", names[mode]);
-        s_prev = mode;
-    }
-
-    switch (mode) {
-        case DEV_HEALTHY:
-            gpio_set_level(GPIO_FAULT_LED, 0);
-            break;
-        case DEV_DEGRADED:
-            gpio_set_level(GPIO_FAULT_LED, 1);   // постійне світло — увага
-            actuators_limit_power(70);           // обережніше, але працюємо
-            break;
-        case DEV_SAFE:
-            actuators_all_off();                 // знеструмити виконавчі органи
-            enter_safe_state();                  // зупинка — далі лише людина
-            break;
-    }
-}
-```
+:::code proj-health-aggregator/c/zviazaty-rezhym-iz.c
 
 Тут видно, навіщо взагалі був потрібен єдиний режим: уся складність розкладання відмов на категорії зводиться до трьох гілок поведінки. Здоровий — гасимо індикатор і працюємо на повну. Деградований — світимо аварійним світлодіодом і свідомо тиснемо на потужність актуаторів, щоб обмежити шкоду від можливої похибки. Безпечний — рубаємо виконавчі органи й передаємо керування людині.
 

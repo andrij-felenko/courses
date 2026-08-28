@@ -7,50 +7,8 @@
 Заголовок розміщується на початку двійкового файлу прошивки за нульовим зміщенням і має фіксований розмір 32 байти. Усі багатобайтові цілі числа закодовані в порядку від молодшого до старшого байта (Little-Endian).
 
 :::tabs
-```c
-struct image_version {
-    uint8_t  iv_major;        /* Старший номер версії */
-    uint8_t  iv_minor;        /* Молодший номер версії */
-    uint16_t iv_revision;     /* Номер ревізії */
-    uint32_t iv_build_num;    /* Номер збірки */
-};
-
-struct image_header {
-    uint32_t ih_magic;             /* Магічне число образу (0x96f3b83d) */
-    uint32_t ih_load_addr;         /* Адреса завантаження в RAM (0 для XIP) */
-    uint16_t ih_hdr_size;          /* Фізичний розмір заголовка та вирівнювання коду */
-    uint16_t ih_protect_tlv_size;  /* Сумарний розмір захищеної зони TLV */
-    uint32_t ih_img_size;          /* Розмір виконуваного двійкового коду програми */
-    uint32_t ih_flags;             /* Бітова маска властивостей та режимів образу */
-    struct image_version ih_ver;   /* 8-байтна семантична версія прошивки */
-    uint32_t _pad1;                /* Резервне поле для вирівнювання 32 байтів */
-};
-```
-```cpp
-#include <cstdint>
-
-namespace mcuboot {
-
-struct ImageVersion {
-    uint8_t  major{0};
-    uint8_t  minor{0};
-    uint16_t revision{0};
-    uint32_t build_num{0};
-};
-
-struct alignas(4) ImageHeader {
-    uint32_t magic{0};
-    uint32_t load_addr{0};
-    uint16_t hdr_size{0};
-    uint16_t protect_tlv_size{0};
-    uint32_t img_size{0};
-    uint32_t flags{0};
-    ImageVersion ver{};
-    uint32_t reserved{0};
-};
-
-} // namespace mcuboot
-```
+:::code api-mcuboot-format/c/main.c
+:::code api-mcuboot-format/cpp/dviikovyi-zaholovok-obrazu.cpp
 :::
 
 #### Поля, адресне вирівнювання та перевірка меж
@@ -80,27 +38,7 @@ struct alignas(4) ImageHeader {
 #define IMAGE_F_ENCRYPTED_EC256    0x00000040U /* Тіло зашифровано ECIES-P256 */
 #define IMAGE_F_ENCRYPTED_X25519   0x00000080U /* Тіло зашифровано ECIES-X25519 */
 ```
-```cpp
-#include <cstdint>
-
-namespace mcuboot {
-
-enum class ImageFlags : uint32_t {
-    None             = 0,
-    EncryptedAes128  = 0x00000004U,
-    EncryptedAes256  = 0x00000008U,
-    NonBootable      = 0x00000010U,
-    RamLoad          = 0x00000020U,
-    EncryptedEc256   = 0x00000040U,
-    EncryptedX25519  = 0x00000080U
-};
-
-[[nodiscard]] constexpr bool has_flag(uint32_t mask, ImageFlags flag) noexcept {
-    return (mask & static_cast<uint32_t>(flag)) != 0;
-}
-
-} // namespace mcuboot
-```
+:::code api-mcuboot-format/cpp/bitovi-praportsi.cpp
 :::
 
 | Прапорець | Значення біта | Опис механізму |
@@ -128,23 +66,7 @@ struct image_tlv {
     uint16_t it_len;     /* Довжина поля значення (Value) у байтах */
 };
 ```
-```cpp
-#include <cstdint>
-
-namespace mcuboot {
-
-struct alignas(2) TlvInfo {
-    uint16_t magic{0};
-    uint16_t total_len{0};
-};
-
-struct alignas(2) TlvItem {
-    uint16_t type{0};
-    uint16_t len{0};
-};
-
-} // namespace mcuboot
-```
+:::code api-mcuboot-format/cpp/struktury-deskryptoriv.cpp
 :::
 
 Стандарт розрізняє дві принципово різні зони розміщення метаданих:
@@ -229,30 +151,7 @@ int boot_set_pending(int permanent);
 /* Отримати інформацію про тип очікуваного перемикання */
 int boot_swap_type(void);
 ```
-```cpp
-#include <expected>
-#include <cstdint>
-
-namespace mcuboot {
-
-enum class SwapType : uint8_t {
-    None   = 1,
-    Test   = 2,
-    Perm   = 3,
-    Revert = 4,
-    Fail   = 5,
-    Panic  = 6
-};
-
-class BootManager {
-public:
-    [[nodiscard]] static std::expected<void, int> mark_confirmed() noexcept;
-    [[nodiscard]] static std::expected<void, int> request_upgrade(bool permanent) noexcept;
-    [[nodiscard]] static SwapType current_swap_type() noexcept;
-};
-
-} // namespace mcuboot
-```
+:::code api-mcuboot-format/cpp/prohramnyi-interfeis.cpp
 :::
 
 Функція `boot_set_pending(int permanent)` викликається фоновим демоном оновлення після успішного завантаження нового образу у Slot 1. Якщо аргумент `permanent` дорівнює нулю, завантажувач на наступному старті виконає пробний запуск (`TESTING`). Якщо передати одиницю, завантажувач одразу закріпить новий образ без права відкату.
@@ -272,33 +171,5 @@ enum boot_swap_type {
     BOOT_SWAP_TYPE_PANIC    = 6  /* Фатальний апаратний збій, блокування завантаження */
 };
 ```
-```cpp
-#include <cstdint>
-#include <string_view>
-
-namespace mcuboot {
-
-enum class SwapState : uint8_t {
-    None   = 1,
-    Test   = 2,
-    Perm   = 3,
-    Revert = 4,
-    Fail   = 5,
-    Panic  = 6
-};
-
-[[nodiscard]] constexpr std::string_view to_string(SwapState state) noexcept {
-    switch (state) {
-        case SwapState::None:   return "NONE";
-        case SwapState::Test:   return "TEST";
-        case SwapState::Perm:   return "PERM";
-        case SwapState::Revert: return "REVERT";
-        case SwapState::Fail:   return "FAIL";
-        case SwapState::Panic:  return "PANIC";
-    }
-    return "UNKNOWN";
-}
-
-} // namespace mcuboot
-```
+:::code api-mcuboot-format/cpp/kody-typiv-peremykannia.cpp
 :::

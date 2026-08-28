@@ -30,127 +30,15 @@
 
 Структура лічильника з вартовим і CRC у `RTC_NOINIT`:
 
-```c
-#include "esp_system.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include "esp_crc.h"
-#include "nvs.h"
-#include "nvs_flash.h"
-
-#define RTC_MAGIC        0xB007C0DEu   // вартовий структури в RTC
-#define BURST_WINDOW_S   30            // збої ближче 30 с — одна серія
-#define FAULT_THRESHOLD  5             // щільних рестартів → ескалація
-
-static const char *TAG = "reboot";
-
-typedef struct {
-    uint32_t magic;        // RTC_MAGIC, якщо структура жива
-    uint32_t fail_cnt;     // патологічних рестартів у поточній серії
-    uint32_t last_uptime;  // скільки секунд прожив перед попереднім збоєм
-    uint32_t crc;          // CRC32 над попередніми полями
-} boot_state_t;
-
-RTC_NOINIT_ATTR static boot_state_t s_bs;
-
-// CRC над усіма полями, крім самого crc (останні 4 байти структури)
-static uint32_t bs_crc(const boot_state_t *b) {
-    return esp_crc32_le(0, (const uint8_t *)b, sizeof(*b) - sizeof(b->crc));
-}
-
-static bool bs_valid(const boot_state_t *b) {
-    return b->magic == RTC_MAGIC && b->crc == bs_crc(b);
-}
-
-static void bs_commit(boot_state_t *b) {   // перерахувати CRC після зміни полів
-    b->magic = RTC_MAGIC;
-    b->crc = bs_crc(b);
-}
-```
+:::code proj-robust-counter/c/robochyi-kod.c
 
 Стани ескалації — окремий перелік; його чинне значення тримаємо в NVS, бо воно мусить пережити знеструмлення:
 
-```c
-typedef enum {
-    ESC_NORMAL = 0,     // усе гаразд
-    ESC_SAFE_MODE,      // зайшли в safe mode
-    ESC_CONFIG_ROLLED,  // конфіг уже відкочено
-    ESC_FW_ROLLED,      // прошивку вже відкочено — далі тільки кликати на поміч
-} esc_level_t;
-
-static esc_level_t esc_load(void) {
-    nvs_handle_t h;
-    uint8_t v = ESC_NORMAL;
-    if (nvs_open("reboot", NVS_READONLY, &h) == ESP_OK) {
-        nvs_get_u8(h, "esc", &v);     // нема ключа → лишається ESC_NORMAL
-        nvs_close(h);
-    }
-    return (esc_level_t)v;
-}
-
-static void esc_store(esc_level_t level) {   // ТІЛЬКИ в мить переходу — щадимо Flash
-    nvs_handle_t h;
-    if (nvs_open("reboot", NVS_READWRITE, &h) == ESP_OK) {
-        nvs_set_u8(h, "esc", (uint8_t)level);
-        nvs_commit(h);
-        nvs_close(h);
-    }
-}
-```
+:::code proj-robust-counter/c/robochyi-kod-2.c
 
 Перевірка на старті зводить усе докупи: оживити структуру, врахувати причину reset, оцінити щільність за `last_uptime`, тоді вирішити крок:
 
-```c
-void startup_check(void) {
-    esp_reset_reason_t reason = esp_reset_reason();
-
-    // 1. Структура зіпсута (System Reset / нова плата / збій біта)? Почати з нуля.
-    if (!bs_valid(&s_bs) || reason == ESP_RST_POWERON) {
-        s_bs.fail_cnt = 0;
-        s_bs.last_uptime = 0;
-        bs_commit(&s_bs);
-    }
-
-    bool pathological = (reason == ESP_RST_TASK_WDT ||
-                         reason == ESP_RST_INT_WDT  ||
-                         reason == ESP_RST_PANIC);
-
-    if (pathological) {
-        // 2. Щільність: попередній збій стався після короткого життя?
-        //    last_uptime малий → пристрій ледь піднявся й упав → щільна серія.
-        if (s_bs.last_uptime <= BURST_WINDOW_S) {
-            s_bs.fail_cnt++;                 // та сама серія росте
-        } else {
-            s_bs.fail_cnt = 1;              // попереднє застаріло — нова серія
-        }
-        ESP_LOGW(TAG, "fault (%d), burst_cnt=%u", reason, s_bs.fail_cnt);
-        bs_commit(&s_bs);
-    }
-
-    // 3. Поріг щільної серії перейдено — лізти драбиною, спираючись на NVS-журнал.
-    if (s_bs.fail_cnt >= FAULT_THRESHOLD) {
-        esc_level_t level = esc_load();      // що ми вже пробували?
-        switch (level) {
-            case ESC_NORMAL:
-                esc_store(ESC_CONFIG_ROLLED);
-                config_rollback();           // спершу відкотити конфіг
-                break;
-            case ESC_CONFIG_ROLLED:
-                esc_store(ESC_FW_ROLLED);
-                esp_ota_mark_app_invalid_rollback_and_reboot();  // тоді прошивку
-                break;
-            default:
-                break;                       // усе вичерпано — лишаємось у safe mode
-        }
-        enter_safe_mode();
-        return;
-    }
-
-    // 4. Нормальний старт: завести таймер стабільності.
-    start_stability_timer();
-    // ... звичайна ініціалізація
-}
-```
+:::code proj-robust-counter/c/robochyi-kod-3.c
 
 Таймер стабільності тепер робить дві справи: обнуляє серію **і** знімає журнал ескалації — пристрій довів, що живий, тож наступну біду слід зустрічати з чистого аркуша:
 

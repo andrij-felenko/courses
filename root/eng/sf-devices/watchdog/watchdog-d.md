@@ -73,65 +73,9 @@ Watchdog — не єдина така сітка безпеки в чипі. П�
 **Підписати головний цикл під сторожа й чесно годувати його (найдовша чесна ітерація — близько 1.2 с).** Дії скрізь ті самі: увімкнути сторожа з таймаутом, підписати під нього робочий контекст і годувати в кінці циклу — різняться лише імена.
 
 :::tabs
-```arduino
-#include "esp_task_wdt.h"
-
-#define WDT_TIMEOUT_S 5          // таймаут сторожа, секунди
-
-void setup() {
-  esp_task_wdt_init(WDT_TIMEOUT_S, true);  // увімкнути: 5 с, true → reset
-  esp_task_wdt_add(NULL);                  // стерегти ЦЮ задачу (loopTask)
-}
-
-void loop() {
-  doWork();                 // якщо завис ТУТ — до годівлі не дійде
-  esp_task_wdt_reset();     // дійшли здоровими → скидаємо лічильник
-}
-```
-```esp-idf
-#include "esp_task_wdt.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define WDT_TIMEOUT_MS 5000      // таймаут сторожа, мілісекунди
-
-static void work_task(void *arg) {
-    esp_task_wdt_add(NULL);              // стерегти ЦЮ задачу
-    for (;;) {
-        do_work();                       // якщо завис ТУТ — до годівлі не дійде
-        esp_task_wdt_reset();            // дійшли здоровими → скидаємо лічильник
-        vTaskDelay(pdMS_TO_TICKS(10));   // віддати час іншим задачам
-    }
-}
-
-void app_main(void) {
-    esp_task_wdt_config_t cfg = {
-        .timeout_ms = WDT_TIMEOUT_MS, .idle_core_mask = 0, .trigger_panic = true,
-    };
-    ESP_ERROR_CHECK(esp_task_wdt_reconfigure(&cfg));  // TWDT уже ввімкнено в menuconfig
-    xTaskCreate(work_task, "work", 4096, NULL, 5, NULL);
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-IWDG_HandleTypeDef hiwdg;    // незалежний сторож від власного LSI-генератора
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-
-  hiwdg.Instance       = IWDG;
-  hiwdg.Init.Prescaler = IWDG_PRESCALER_128;  // LSI ≈ 32 кГц / 128 ≈ 250 тактів/с
-  hiwdg.Init.Reload    = 1250;                // 1250 / 250 = 5 с таймауту
-  HAL_IWDG_Init(&hiwdg);                      // Init одразу ЗАПУСКАЄ сторожа
-
-  for (;;) {
-    DoWork();                    // якщо завис ТУТ — до годівлі не дійде
-    HAL_IWDG_Refresh(&hiwdg);    // дійшли здоровими → скидаємо лічильник
-  }
-}
-```
+:::code watchdog-d/c/arduino/main.ino
+:::code watchdog-d/c/esp-idf/main.c
+:::code watchdog-d/c/stm32/main.c
 :::
 
 Таймаут тут — компроміс, і його видно з чисел:

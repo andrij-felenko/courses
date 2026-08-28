@@ -27,39 +27,8 @@
 Якщо прошивка реалізує наївне безпам'ятне опитування:
 
 :::tabs
-```c
-#include <stdbool.h>
-#include <stdint.h>
-
-/* Наївна реакція на сирий вхід без фільтрації */
-void process_conveyor_sensor_naive(bool raw_pin_level, uint32_t *item_counter) {
-    static bool prev_level = false;
-
-    /* Реакція на кожен перепад 0 -> 1 */
-    if (raw_pin_level && !prev_level) {
-        (*item_counter)++;
-    }
-    prev_level = raw_pin_level;
-}
-```
-```cpp
-#include <cstdint>
-
-namespace embedded::naive {
-
-// Наївна реакція на сирий вхід без фільтрації
-void ProcessConveyorSensorNaive(bool raw_pin_level, uint32_t &item_counter) noexcept {
-    static bool prev_level = false;
-
-    // Реакція на кожен перепад 0 -> 1
-    if (raw_pin_level && !prev_level) {
-        ++item_counter;
-    }
-    prev_level = raw_pin_level;
-}
-
-} // namespace embedded::naive
-```
+:::code n-z-m-i-histerezys-na-podiiakh-d/c/anatomiia-briazkotu-podii.c
+:::code n-z-m-i-histerezys-na-podiiakh-d/cpp/anatomiia-briazkotu-podii.cpp
 :::
 
 Цей код перетворює кожну мікросекундну заваду на валідну бізнес-подію системи. Якщо на датчик наведеться пакет із 20 імпульсів брязкоту, лічильник зросте на 20 за мілісекунду. Для захисту потрібен фільтр, який вимагає статистичного підтвердження сигналу в часі.
@@ -456,134 +425,8 @@ Cout = (A ∧ B) ∨ (Cin ∧ (A ⊕ B))
 Нижче наведено паралельний фільтр 32 каналів на C та C++.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define CHANNELS_COUNT 32
-#define WINDOW_SIZE_M  8
-
-/* Стан паралельного векторного фільтра на 32 канали */
-typedef struct {
-    uint32_t slices[WINDOW_SIZE_M]; /* Кільцевий буфер бітових зрізів */
-    uint8_t  write_index;           /* Індекс запису нового зрізу */
-    uint32_t output_mask;           /* 32 відфільтровані вихідні біти */
-} vector_filter32_t;
-
-void vector_filter32_init(vector_filter32_t *vf, uint32_t initial_levels) {
-    for (int i = 0; i < WINDOW_SIZE_M; i++) {
-        vf->slices[i] = initial_levels;
-    }
-    vf->write_index = 0;
-    vf->output_mask = initial_levels;
-}
-
-/**
- * @brief Паралельне оновлення 32 дискретних каналів за фіксований час O(1)
- * Поріг активації N_on = 6 (бітове представлення: 1 1 0_2)
- * Поріг деактивації N_off = 2 (бітове представлення: 0 1 0_2)
- */
-uint32_t vector_filter32_step(vector_filter32_t *vf, uint32_t raw_inputs_32) {
-    /* Запис нового зрізу в кільцевий буфер */
-    vf->slices[vf->write_index] = raw_inputs_32;
-    vf->write_index = (vf->write_index + 1) % WINDOW_SIZE_M;
-
-    /* Вертикальне 3-бітове додавання 8 зрізів за допомогою побітових суматорів */
-    uint32_t s0 = 0, s1 = 0, s2 = 0;
-
-    for (int i = 0; i < WINDOW_SIZE_M; i++) {
-        uint32_t a = vf->slices[i];
-        
-        /* Додавання до 3-бітового акумулятора (s2:s1:s0) */
-        uint32_t carry0 = s0 & a;
-        s0 ^= a;
-
-        uint32_t carry1 = s1 & carry0;
-        s1 ^= carry0;
-
-        s2 ^= carry1;
-    }
-
-    /* 
-     * Тепер для кожного з 32 каналів сума одиниць дорівнює:
-     * Count[i] = (s2[i] << 2) | (s1[i] << 1) | s0[i]  (значення від 0 до 8)
-     * 
-     * Логіка гістерезису:
-     * Умова ввімкнення (Count >= 6): (s2 & s1)
-     * Умова вимкнення  (Count <= 2): (~s2 & ~s1) | (~s2 & ~s0)
-     */
-    uint32_t set_condition   = s2 & s1;
-    uint32_t reset_condition = (~s2 & ~s1) | (~s2 & ~s0);
-
-    /* Оновлення станів без розгалужень */
-    vf->output_mask = (vf->output_mask | set_condition) & ~reset_condition;
-
-    return vf->output_mask;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace embedded::filter {
-
-/**
- * @brief Векторний 32-канальний паралельний фільтр N-з-M на C++20
- */
-class VectorFilter32Channels final {
-public:
-    static constexpr std::size_t WindowSize = 8;
-
-    constexpr explicit VectorFilter32Channels(uint32_t initial_state = 0) noexcept
-        : output_mask_(initial_state) {
-        slices_.fill(initial_state);
-    }
-
-    /**
-     * @brief Паралельний крок фільтрації для всіх 32 входів одночасно
-     * @param raw_inputs Стан 32 пінів у єдиному машинному слові
-     * @return 32 відфільтровані вихідні біти
-     */
-    [[nodiscard]] uint32_t Update(uint32_t raw_inputs) noexcept {
-        slices_[write_index_] = raw_inputs;
-        write_index_ = (write_index_ + 1) % WindowSize;
-
-        uint32_t s0 = 0;
-        uint32_t s1 = 0;
-        uint32_t s2 = 0;
-
-        // Розгортання паралельного біт-слайс суматора
-        for (uint32_t slice : slices_) {
-            const uint32_t carry0 = s0 & slice;
-            s0 ^= slice;
-
-            const uint32_t carry1 = s1 & carry0;
-            s1 ^= carry0;
-
-            s2 ^= carry1;
-        }
-
-        // Паралельні умови гістерезису: N_on >= 6 (s2 & s1), N_off <= 2
-        const uint32_t set_mask   = s2 & s1;
-        const uint32_t reset_mask = (~s2 & ~s1) | (~s2 & ~s0);
-
-        output_mask_ = (output_mask_ | set_mask) & ~reset_mask;
-        return output_mask_;
-    }
-
-    [[nodiscard]] uint32_t GetStates() const noexcept {
-        return output_mask_;
-    }
-
-private:
-    std::array<uint32_t, WindowSize> slices_{};
-    std::size_t                      write_index_{0};
-    uint32_t                         output_mask_{0};
-};
-
-} // namespace embedded::filter
-```
+:::code n-z-m-i-histerezys-na-podiiakh-d/c/pryntsyp-vertykalnoho.c
+:::code n-z-m-i-histerezys-na-podiiakh-d/cpp/pryntsyp-vertykalnoho.cpp
 :::
 
 Цей підхід дозволяє обробляти 32 промислові дискретні канали всього за ~25 машинних інструкцій процесора, забезпечуючи нульовий джиттер та стабільне виконання в жорсткому реальному часі.

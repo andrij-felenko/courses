@@ -23,45 +23,8 @@
 Виходить компактно й масштабовано:
 
 :::tabs
-```cpp
-struct Task {
-  unsigned long period;   // як часто (мс)
-  unsigned long last;     // коли востаннє
-  void (*run)();          // що робити
-};
-
-Task tasks[] = {
-  { 500,  0, toggleLed   },   // блимати
-  { 100,  0, readSensor  },   // опитати давач
-  { 1000, 0, updateLcd   },   // оновити екран
-};
-
-void loop() {
-  unsigned long now = millis();
-  for (Task &t : tasks)
-    if (now - t.last >= t.period) {
-      t.last += t.period;
-      t.run();              // запускаємо дозрілу задачу
-    }
-}
-```
-```micropython
-import time
-
-# кожна задача — [період (мс), мітка «востаннє», що робити]
-tasks = [
-    [500,  0, toggle_led],   # блимати
-    [100,  0, read_sensor],  # опитати давач
-    [1000, 0, update_lcd],   # оновити екран
-]
-
-while True:
-    now = time.ticks_ms()
-    for t in tasks:
-        if time.ticks_diff(now, t[1]) >= t[0]:
-            t[1] = time.ticks_add(t[1], t[0])
-            t[2]()               # запускаємо дозрілу задачу
-```
+:::code periodic-scheduling-d/cpp/main.cpp
+:::code periodic-scheduling-d/py/micropython/main.py
 :::
 
 Усього кілька рядків — а перед нами справжній, хай і простий, планувальник: він веде скільки завгодно періодичних задач, кожну в своєму ритмі, без `delay`, без дублювання. Саме так влаштовано чимало реальних прошивок.

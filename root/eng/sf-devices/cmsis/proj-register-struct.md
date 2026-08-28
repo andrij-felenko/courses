@@ -6,29 +6,7 @@
 
 Периферія мікроконтролера лежить у тому самому адресному просторі, що й пам'ять ([регістри, відображені в пам'ять](root:hw-arch/memory-mapped-io)): у регістра є адреса, і запис за цією адресою — це і є команда залізу. Отже, найкоротший робочий код — просто покажчик на потрібне число:
 
-```c
-#include <stdint.h>
-
-#define RCC_AHB1ENR   (*(volatile uint32_t *) 0x40023830u)  /* тактування шини AHB1 */
-#define GPIOA_MODER   (*(volatile uint32_t *) 0x40020000u)  /* режим виводів порту A */
-#define GPIOA_BSRR    (*(volatile uint32_t *) 0x40020018u)  /* атомарний set/reset   */
-#define GPIOC_IDR     (*(volatile uint32_t *) 0x40020810u)  /* вхідні дані порту C   */
-
-int main(void)
-{
-    RCC_AHB1ENR |= (1u << 0) | (1u << 2);   /* увімкнути такт GPIOA і GPIOC */
-
-    GPIOA_MODER &= ~(3u << (5 * 2));        /* очистити двобітове поле MODER5 */
-    GPIOA_MODER |=  (1u << (5 * 2));        /* 01 = цифровий вихід            */
-
-    GPIOA_BSRR = (1u << 5);                 /* підняти PA5 */
-
-    uint32_t pc13 = (GPIOC_IDR >> 13) & 1u; /* прочитати PC13 */
-    (void) pc13;
-
-    for (;;) { }
-}
-```
+:::code proj-register-struct/c/krok-0-holyi-pokazhchyk.c
 
 Це не псевдокод — воно збереться і працюватиме. Звідки взялися числа:
 
@@ -50,47 +28,11 @@ RCC_AHB1ENR = 0x4002_3800 + 0x30 = 0x4002_3830
 
 Регістри порту йдуть у пам'яті суцільним блоком з фіксованим кроком, а порти відрізняються лише базою. Це рівно та форма, яку описує `struct`: набір полів із відомими зміщеннями, накладений на будь-яку адресу.
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    volatile uint32_t MODER;    /* 0x00  режим кожного виводу, 2 біти на вивід */
-    volatile uint32_t OTYPER;   /* 0x04  push-pull / відкритий стік            */
-    volatile uint32_t OSPEEDR;  /* 0x08  швидкість фронту                      */
-    volatile uint32_t PUPDR;    /* 0x0C  підтяжки                              */
-    volatile uint32_t IDR;      /* 0x10  вхідні дані (тільки читання)          */
-    volatile uint32_t ODR;      /* 0x14  вихідні дані                          */
-    volatile uint32_t BSRR;     /* 0x18  атомарний set/reset                   */
-    volatile uint32_t LCKR;     /* 0x1C  замок конфігурації                    */
-    volatile uint32_t AFR[2];   /* 0x20–0x24  альтернативні функції            */
-} GPIO_TypeDef;
-
-#define GPIOA  ((GPIO_TypeDef *) 0x40020000u)
-#define GPIOB  ((GPIO_TypeDef *) 0x40020400u)
-#define GPIOC  ((GPIO_TypeDef *) 0x40020800u)
-```
+:::code proj-register-struct/c/krok-1-odna-struktura-na.c
 
 Тепер порт — звичайне значення типу `GPIO_TypeDef *`, і функція нарешті пишеться:
 
-```c
-void gpio_set_output(GPIO_TypeDef *port, unsigned pin)
-{
-    port->MODER &= ~(3u << (pin * 2));
-    port->MODER |=  (1u << (pin * 2));
-}
-
-void gpio_write(GPIO_TypeDef *port, unsigned pin, bool on)
-{
-    port->BSRR = on ? (1u << pin)          /* молодша половина — звести  */
-                    : (1u << (pin + 16));  /* старша половина — скинути  */
-}
-
-bool gpio_read(const GPIO_TypeDef *port, unsigned pin)
-{
-    return (port->IDR >> pin) & 1u;
-}
-```
+:::code proj-register-struct/c/krok-1-odna-struktura-na-2.c
 
 Двадцять макросів звелися до однієї структури й трьох баз, а замість магічного `0x40020818` у коді стоїть `GPIOC->BSRR`, яке компілятор перевірить за типом і доповнить у редакторі. Платити за це не доводиться нічим: зміщення поля відоме на етапі компіляції й запікається просто в команду доступу — `str r1, [r0, #24]`. Ніякого додавання під час виконання, ніякого зайвого регістра. Структура — це форма запису, а не шар коду.
 
@@ -130,23 +72,7 @@ CMSIS іде на крок далі за голе `volatile` і типізує �
 
 Ось справжній шматок карти RCC у STM32F407: після `AHB3RSTR` за зміщенням 0x18 наступний живий регістр `APB1RSTR` починається аж із 0x20, а 0x1C зарезервовано; далі знову двослівна діра на 0x28–0x2C, і лише тоді, з 0x30, — `AHB1ENR`, регістр увімкнення тактування шини AHB1. Заголовок ST виписує ці діри полями-заглушками явно:
 
-```c
-typedef struct {
-    __IO uint32_t CR;            /* 0x00 */
-    __IO uint32_t PLLCFGR;       /* 0x04 */
-    __IO uint32_t CFGR;          /* 0x08 */
-    __IO uint32_t CIR;           /* 0x0C */
-    __IO uint32_t AHB1RSTR;      /* 0x10 */
-    __IO uint32_t AHB2RSTR;      /* 0x14 */
-    __IO uint32_t AHB3RSTR;      /* 0x18 */
-    uint32_t      RESERVED0;     /* 0x1C — зарезервовано */
-    __IO uint32_t APB1RSTR;      /* 0x20 */
-    __IO uint32_t APB2RSTR;      /* 0x24 */
-    uint32_t      RESERVED1[2];  /* 0x28–0x2C — зарезервовано */
-    __IO uint32_t AHB1ENR;       /* 0x30 */
-    /* … */
-} RCC_TypeDef;
-```
+:::code proj-register-struct/c/pastka-druha-rozkladka.c
 
 Заглушки навмисно **без** `volatile`: до них ніхто не звертається, вони існують лише щоб зайняти місце. Тепер уяви, що їх не написали — «навіщо оголошувати те, чого немає».
 
@@ -271,74 +197,7 @@ static inline void rcc_ahb1_enable(uint32_t mask)
 
 Складене докупи, з усіма перевірками, воно займає менше екрана:
 
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include "cmsis_gcc.h"   /* __disable_irq / __get_PRIMASK / __set_PRIMASK */
-
-typedef struct {
-    volatile uint32_t MODER, OTYPER, OSPEEDR, PUPDR;
-    volatile uint32_t IDR;                /* лише читання за призначенням */
-    volatile uint32_t ODR, BSRR, LCKR;
-    volatile uint32_t AFR[2];
-} GPIO_TypeDef;
-
-_Static_assert(offsetof(GPIO_TypeDef, IDR)  == 0x10, "GPIO: IDR зсунуто");
-_Static_assert(offsetof(GPIO_TypeDef, BSRR) == 0x18, "GPIO: BSRR зсунуто");
-_Static_assert(sizeof(GPIO_TypeDef)         == 0x28, "GPIO: розмір блоку не той");
-
-typedef struct {
-    volatile uint32_t CR, PLLCFGR, CFGR, CIR;
-    volatile uint32_t AHB1RSTR, AHB2RSTR, AHB3RSTR;
-    uint32_t          RESERVED0;          /* 0x1C */
-    volatile uint32_t APB1RSTR, APB2RSTR;
-    uint32_t          RESERVED1[2];       /* 0x28–0x2C */
-    volatile uint32_t AHB1ENR;            /* 0x30 */
-} RCC_TypeDef;
-
-_Static_assert(offsetof(RCC_TypeDef, AHB1ENR) == 0x30, "RCC: AHB1ENR зсунуто");
-
-#define GPIOA  ((GPIO_TypeDef *) 0x40020000u)
-#define GPIOC  ((GPIO_TypeDef *) 0x40020800u)
-#define RCC    ((RCC_TypeDef  *) 0x40023800u)
-
-#define MODE_OUTPUT  1u
-
-static inline void rcc_ahb1_enable(uint32_t mask)
-{
-    RCC->AHB1ENR |= mask;
-    (void) RCC->AHB1ENR;                  /* читання-назад замість «двох тактів» */
-}
-
-static void gpio_mode(GPIO_TypeDef *port, unsigned pin, uint32_t mode)
-{
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();                                    /* MODER не має атомарного дублера */
-    port->MODER = (port->MODER & ~(3u << (pin * 2))) | (mode << (pin * 2));
-    __set_PRIMASK(primask);
-}
-
-static inline void gpio_write(GPIO_TypeDef *port, unsigned pin, bool on)
-{
-    port->BSRR = on ? (1u << pin) : (1u << (pin + 16));  /* одна транзакція */
-}
-
-static inline bool gpio_read(const GPIO_TypeDef *port, unsigned pin)
-{
-    return (port->IDR >> pin) & 1u;
-}
-
-int main(void)
-{
-    rcc_ahb1_enable((1u << 0) | (1u << 2));   /* такт GPIOA і GPIOC + читання-назад */
-    gpio_mode(GPIOA, 5, MODE_OUTPUT);
-
-    for (;;) {
-        gpio_write(GPIOA, 5, gpio_read(GPIOC, 13));
-    }
-}
-```
+:::code proj-register-struct/c/modul-tsilkom.c
 
 Від версії з голими покажчиками цей код відрізняється не обсягом, а тим, що всі перелічені способи зламатися тут або унеможливлені (`volatile`, `_Static_assert`, `BSRR`, читання-назад), або зведені до одного видимого місця (критична секція навколо `MODER`). У бойовому проєкті обидві структури беруть готовими з device-заголовка виробника, а не оголошують заново — тут вони виписані повністю лише щоб кожна перевірка була на очах.
 

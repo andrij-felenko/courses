@@ -34,69 +34,8 @@ scan():
 Перекладімо ідею в робочий C для ESP-IDF. Рядки — виходи, стовпці — входи з підтяжкою; активувати рядок означає притягнути його до нуля, решту лишити «відпущеними» (вхід із високим імпедансом), щоб вони не заважали. Стан зчитуємо в бітову маску — по біту на клавішу:
 
 :::tabs
-```cpp
-#include "driver/gpio.h"
-
-#define ROWS 4
-#define COLS 4
-static const int row_pin[ROWS] = { 12, 13, 14, 27 };
-static const int col_pin[COLS] = { 16, 17, 18, 19 };
-
-void matrix_init(void) {
-    for (int c = 0; c < COLS; c++) {
-        gpio_set_direction(col_pin[c], GPIO_MODE_INPUT);
-        gpio_set_pull_mode(col_pin[c], GPIO_PULLUP_ONLY);  /* спокій = HIGH */
-    }
-    for (int r = 0; r < ROWS; r++)                          /* рядки поки «відпущені» */
-        gpio_set_direction(row_pin[r], GPIO_MODE_INPUT);
-}
-
-/* повертає 16 бітів: біт (r*COLS + c) = 1, якщо клавішу натиснуто */
-uint16_t matrix_scan(void) {
-    uint16_t keys = 0;
-    for (int r = 0; r < ROWS; r++) {
-        gpio_set_direction(row_pin[r], GPIO_MODE_OUTPUT);   /* активуємо рядок */
-        gpio_set_level(row_pin[r], 0);                      /* притягуємо до нуля */
-        esp_rom_delay_us(5);                                /* дати лінії осісти */
-
-        for (int c = 0; c < COLS; c++)
-            if (gpio_get_level(col_pin[c]) == 0)            /* стовпець упав → натиск */
-                keys |= (uint16_t)(1u << (r * COLS + c));
-
-        gpio_set_direction(row_pin[r], GPIO_MODE_INPUT);    /* «відпускаємо» рядок */
-    }
-    return keys;
-}
-```
-```micropython
-from machine import Pin
-import time
-
-ROWS = 4
-COLS = 4
-row_gpio = (12, 13, 14, 27)
-col_gpio = (16, 17, 18, 19)
-
-# стовпці — входи з підтяжкою (спокій = HIGH)
-cols = [Pin(g, Pin.IN, Pin.PULL_UP) for g in col_gpio]
-# рядки поки «відпущені» — просто входи
-rows = [Pin(g, Pin.IN) for g in row_gpio]
-
-def matrix_scan():
-    # повертає 16 бітів: біт (r*COLS + c) = 1, якщо клавішу натиснуто
-    keys = 0
-    for r in range(ROWS):
-        rows[r].init(Pin.OUT)          # активуємо рядок
-        rows[r].value(0)               # притягуємо до нуля
-        time.sleep_us(5)               # дати лінії осісти
-
-        for c in range(COLS):
-            if cols[c].value() == 0:   # стовпець упав → натиск
-                keys |= 1 << (r * COLS + c)
-
-        rows[r].init(Pin.IN)           # «відпускаємо» рядок
-    return keys
-```
+:::code proj-key-matrix/cpp/main.cpp
+:::code proj-key-matrix/py/micropython/main.py
 :::
 
 Дрібниця, на якій спотикаються: між «активувати рядок» і «читати стовпці» треба **коротка пауза** (тут `esp_rom_delay_us(5)`). Лінія зі своєю ємністю не падає в нуль миттєво; прочитаєш надто рано — побачиш стару напругу й пропустиш натиск. І ще: неактивні рядки лишаємо саме **входом** (відпущеними), а не виходом у HIGH — інакше натиснута клавіша з'єднає рядок-нуль із рядком-одиницею навпряму, і це коротке замикання через ніжки.

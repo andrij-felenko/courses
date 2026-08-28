@@ -60,51 +60,13 @@
 
 **Умова: у нас у руках уже є буфер із новим образом; залити його в запасний слот і перемкнутися на нього.**
 
-```c
-#include "esp_ota_ops.h"
-
-esp_err_t install_image(const uint8_t *image, size_t len) {
-    // 1. Беремо ПАСИВНИЙ слот — ніколи не той, з якого виконуємось зараз.
-    const esp_partition_t *slot = esp_ota_get_next_update_partition(NULL);
-
-    // 2. Готуємо слот і пишемо образ (у житті — шматками з мережі).
-    esp_ota_handle_t h = 0;
-    esp_err_t err = esp_ota_begin(slot, len, &h);   // стирає пасивний слот
-    if (err != ESP_OK) return err;
-    err = esp_ota_write(h, image, len);             // робочий слот недоторканий
-    if (err != ESP_OK) { esp_ota_abort(h); return err; }
-
-    // 3. esp_ota_end перевіряє цілість образу (а при secure boot — і підпис).
-    err = esp_ota_end(h);                           // битий образ далі не пройде
-    if (err != ESP_OK) return err;
-
-    // 4. Аж ТЕПЕР — атомарний перемикач otadata на новий слот.
-    return esp_ota_set_boot_partition(slot);        // стан слота → "новий"
-}
-```
+:::code ota-slots-d/c/iak-tse-vyhliadaie-v-kodi.c
 
 Уся вага — у порядку кроків. Слот вибирає `esp_ota_get_next_update_partition()` — він **завжди** повертає пасивний слот, тож робочий випадково не зачепиш. Запис іде в нього, а перевірку цілості робить `esp_ota_end()`: до цього місця нічого не закріплено, і обрив на будь-якому ранньому кроці лишає робочий слот цілим. І лише `esp_ota_set_boot_partition()` чіпає otadata — це і є той самий один короткий крок, після якого завантаження піде з нового слота.
 
 Тепер друга половина угоди — підтвердження після першого старту. Цей код виконується **вже з нового образу**, коли він піднявся:
 
-```c
-#include "esp_ota_ops.h"
-
-void confirm_or_rollback(void) {
-    const esp_partition_t *run = esp_ota_get_running_partition();
-    esp_ota_img_states_t st;
-    esp_ota_get_state_partition(run, &st);
-
-    // Образ стартує у стані PENDING_VERIFY — він «на випробуванні».
-    if (st == ESP_OTA_IMG_PENDING_VERIFY) {
-        if (self_test_ok()) {                          // мережа є, датчики живі?
-            esp_ota_mark_app_valid_cancel_rollback();  // «я справний» → закріпити
-        } else {
-            esp_ota_mark_app_invalid_rollback_and_reboot(); // «зі мною біда» → відкат
-        }
-    }
-}
-```
+:::code ota-slots-d/c/iak-tse-vyhliadaie-v-kodi-2.c
 
 Свіжий образ завантажувач позначає станом `ESP_OTA_IMG_NEW`, а на першому старті переводить у `ESP_OTA_IMG_PENDING_VERIFY` — «на випробуванні». Виклик `esp_ota_mark_app_valid_cancel_rollback()` — це і є явне «я справний», що закріплює образ назавжди. Якщо ж замість нього викликати `esp_ota_mark_app_invalid_rollback_and_reboot()` (або просто впасти, так і не підтвердившись), завантажувач на наступному старті побачить непідтверджений образ, позначить його `ESP_OTA_IMG_ABORTED` і повернеться на старий слот. Забути перший виклик — типова й болісна пастка: прошивка чудова, а пристрій уперто відкочується, бо так і не почув знаку, що вона приземлилася вдало.
 

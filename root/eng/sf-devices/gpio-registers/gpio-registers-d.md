@@ -88,69 +88,9 @@
 **Умова: GPIO2/4/5 — виходи; перемкнути один, запалити три синхронно, погасити один атомарно.**
 
 :::tabs
-```arduino
-// 1) напрям: зробити GPIO2, GPIO4, GPIO5 виходами (DIR = GPIO_ENABLE на ESP32)
-const uint32_t pins = (1u << 2) | (1u << 4) | (1u << 5);   // 0b0011_0100 = 0x34
-GPIO.enable_w1ts = pins;          // атомарно підняти біти напряму → три виходи
-
-// 2) перемкнути лише GPIO2 (toggle через OUT)
-GPIO.out ^= (1u << 2);            // прямо, ~наносекунди
-// для порівняння — те саме обгорткою:
-// digitalWrite(2, !digitalRead(2));  // зручно, але ~2 мкс
-
-// 3) запалити всі три СИНХРОННО (в одну мить)
-GPIO.out_w1ts = pins;             // 0x34 → GPIO2,4,5 = HIGH однією дією
-
-// 4) погасити ЛИШЕ GPIO4, не торкаючись інших (атомарно)
-GPIO.out_w1tc = (1u << 4);        // скинути біт 4 через W1TC
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "soc/gpio_struct.h"      // та сама структура GPIO, лише без Arduino
-
-#define PINS ((1u << 2) | (1u << 4) | (1u << 5))   // 0b0011_0100 = 0x34
-
-// 1) напрям: драйвер сам підніме потрібні біти GPIO_ENABLE
-gpio_config_t cfg = {
-    .pin_bit_mask = (1ULL << 2) | (1ULL << 4) | (1ULL << 5),
-    .mode = GPIO_MODE_OUTPUT,
-    .pull_up_en = GPIO_PULLUP_DISABLE, .pull_down_en = GPIO_PULLDOWN_DISABLE,
-    .intr_type = GPIO_INTR_DISABLE,
-};
-ESP_ERROR_CHECK(gpio_config(&cfg));   // esp_err_t: помилку не ковтаємо
-
-// 2) перемкнути лише GPIO2 (toggle через OUT)
-GPIO.out ^= (1u << 2);            // прямо, ~наносекунди
-// для порівняння — те саме обгорткою:
-// gpio_set_level(GPIO_NUM_2, !gpio_get_level(GPIO_NUM_2));   // ~мікросекунда
-
-// 3) запалити всі три СИНХРОННО (в одну мить)
-GPIO.out_w1ts = PINS;             // 0x34 → GPIO2,4,5 = HIGH однією дією
-
-// 4) погасити ЛИШЕ GPIO4, не торкаючись інших (атомарно)
-GPIO.out_w1tc = (1u << 4);        // скинути біт 4 через W1TC
-```
-```stm32
-#include "stm32f4xx.h"            // CMSIS: тут регістри — це і є API
-
-#define PINS ((1u << 2) | (1u << 4) | (1u << 5))   // PA2, PA4, PA5
-
-// 1) напрям: подати такт на порт A, тоді поле MODER = 01 (вихід) на кожну ніжку
-RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-GPIOA->MODER &= ~((3u << (2*2)) | (3u << (4*2)) | (3u << (5*2)));  // прочистити поля
-GPIOA->MODER |=  ((1u << (2*2)) | (1u << (4*2)) | (1u << (5*2)));  // 01 = вихід
-
-// 2) перемкнути лише PA2 (toggle через ODR — регістр виходу)
-GPIOA->ODR ^= (1u << 2);          // прямо, ~наносекунди
-// для порівняння — те саме обгорткою:
-// HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_2);   // зручно, але виклик функції
-
-// 3) запалити всі три СИНХРОННО (в одну мить)
-GPIOA->BSRR = PINS;               // молодша половина BSRR — це W1TS
-
-// 4) погасити ЛИШЕ PA4, не торкаючись інших (атомарно)
-GPIOA->BSRR = (1u << (4 + 16));   // старша половина BSRR — це W1TC
-```
+:::code gpio-registers-d/c/arduino/main.ino
+:::code gpio-registers-d/c/esp-idf/main.c
+:::code gpio-registers-d/c/stm32/main.c
 :::
 
 Розберемо маску `pins` по кроках, щоб видно було, звідки число:

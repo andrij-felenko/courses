@@ -217,50 +217,9 @@ ADC_P = (0x70 << 12) | (0x00 << 4) | (0x00 >> 4) = 0x070000 = 458752 одини�
 
 :::tabs
 == C99 (MISRA-C сумісна ізоляція)
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-typedef enum {
-    BUS_STATUS_OK = 0,
-    BUS_STATUS_ERROR_TIMEOUT,
-    BUS_STATUS_ERROR_NACK,
-    BUS_STATUS_ERROR_BUS_LOCKED
-} bus_status_t;
-
-/* Інтерфейс апаратного зв'язку з шиною */
-typedef struct {
-    uint8_t dev_addr;
-    bus_status_t (*read)(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
-    bus_status_t (*write)(uint8_t dev_addr, uint8_t reg_addr, const uint8_t *data, uint16_t len);
-    bus_status_t (*read_dma)(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
-    void         (*delay_ms)(uint32_t ms);
-    void         (*bus_recover)(void);
-} bus_interface_t;
-```
+:::code draiver-chypa-d/c/stdint.h
 == C++20 (Нуль-витратний концепт без vtable)
-```cpp
-#include <cstdint>
-#include <span>
-#include <concepts>
-
-enum class BusError : uint8_t {
-    None = 0,
-    Timeout,
-    Nack,
-    BusLocked
-};
-
-template <typename T>
-concept BusDevice = requires(T bus, uint8_t addr, uint8_t reg, std::span<uint8_t> rx, std::span<const uint8_t> tx) {
-    { bus.read(addr, reg, rx) } -> std::same_as<BusError>;
-    { bus.write(addr, reg, tx) } -> std::same_as<BusError>;
-    { bus.readDma(addr, reg, rx) } -> std::same_as<BusError>;
-    { bus.delayMs(uint32_t{}) } -> std::same_as<void>;
-    { bus.busRecover() } -> std::same_as<void>;
-};
-```
+:::code draiver-chypa-d/cpp/4-tranzaktsiina.cpp
 :::
 
 Така архітектура дозволяє передавати в драйвер будь-яку реалізацію шини: апаратний I2C, апаратний SPI, програмний Bit-Banging I2C або тестовий програмний мок-емулятор `MockBus` для запусків у середовищі GoogleTest чи Catch2.
@@ -274,18 +233,7 @@ concept BusDevice = requires(T bus, uint8_t addr, uint8_t reg, std::span<uint8_t
 
 :::tabs
 == C99 (Дескриптори екземплярів)
-```c
-bmp280_handle_t baro_primary;
-bmp280_handle_t baro_secondary;
-
-/* Ініціалізація першого сенсора на адресі 0x76 */
-bus_if_1.dev_addr = 0x76U;
-bmp280_init(&baro_primary, &bus_if_1);
-
-/* Ініціалізація другого сенсора на адресі 0x77 */
-bus_if_2.dev_addr = 0x77U;
-bmp280_init(&baro_secondary, &bus_if_2);
-```
+:::code draiver-chypa-d/c/bahatoekzempliarnist.h
 == C++20 (Об'єкти екземплярів)
 ```cpp
 Bmp280Driver<HardwareI2cBus> baroPrimary(bus1, 0x76);
@@ -358,22 +306,7 @@ constexpr int16_t unpackInt16Le(std::span<const uint8_t, 2> buf) noexcept {
 
 :::tabs
 == C99 (MISRA знакове розширення 20 біт)
-```c
-int32_t unpack_signed_20bit_be(const uint8_t *raw_3bytes) {
-    /* 1. Беззнакове збирання 20 бітів Big-Endian */
-    uint32_t u20 = (((uint32_t)raw_3bytes[0]) << 12) |
-                   (((uint32_t)raw_3bytes[1]) << 4)  |
-                   (((uint32_t)raw_3bytes[2]) >> 4);
-
-    /* 2. Зсув 20-бітного значення у найстарші розряди 32-бітного слова */
-    uint32_t shifted = u20 << 12;
-
-    /* 3. Арифметичний зсув знакового типу розмножує 31-й біт на старші 12 розрядів */
-    int32_t signed_result = ((int32_t)shifted) >> 12;
-
-    return signed_result;
-}
-```
+:::code draiver-chypa-d/c/bezpechne-znakove.c
 == C++20 (Constexpr знакове розширення)
 ```cpp
 constexpr int32_t unpackSigned20BitBe(std::span<const uint8_t, 3> raw) noexcept {
@@ -423,21 +356,7 @@ dig_P2...dig_P9 (int16_t)                            - матриця темпе
 
 :::tabs
 == C99 (Валідація коефіцієнтів)
-```c
-bmp280_status_t bmp280_validate_calibration(const bmp280_calib_data_t *calib) {
-    if (calib == NULL) {
-        return BMP280_ERR_NULL_PTR;
-    }
-    /* Коефіцієнти dig_T1 та dig_P1 є дільниками у формулах і не можуть бути 0 або 0xFFFF */
-    if ((calib->dig_T1 == 0x0000U) || (calib->dig_T1 == 0xFFFFU)) {
-        return BMP280_ERR_CRC_MISMATCH;
-    }
-    if ((calib->dig_P1 == 0x0000U) || (calib->dig_P1 == 0xFFFFU)) {
-        return BMP280_ERR_CRC_MISMATCH;
-    }
-    return BMP280_OK;
-}
-```
+:::code draiver-chypa-d/c/zakhyst-vid-poshkodzhenykh.c
 == C++20 (Валідація коефіцієнтів)
 ```cpp
 constexpr bool isCalibrationValid(const CalibrationData& calib) noexcept {
@@ -493,102 +412,9 @@ P_final = P_scaled + (dig_P9 · (P_scaled >> 13)² >> 25) + (dig_P8 · P_scaled 
 
 :::tabs
 == C99 (Fixed-Point Q24.8 розрахунок)
-```c
-bmp280_status_t bmp280_compensate(bmp280_handle_t *dev, const uint8_t *raw_6b, bmp280_sample_t *out_sample) {
-    if ((dev == NULL) || (raw_6b == NULL) || (out_sample == NULL)) {
-        return BMP280_ERR_NULL_PTR;
-    }
-
-    /* 1. Розпаковка 20-бітних кодів АЦП */
-    int32_t adc_P = (int32_t)((((uint32_t)raw_6b[0]) << 12) |
-                             (((uint32_t)raw_6b[1]) << 4)  |
-                             (((uint32_t)raw_6b[2]) >> 4));
-
-    int32_t adc_T = (int32_t)((((uint32_t)raw_6b[3]) << 12) |
-                             (((uint32_t)raw_6b[4]) << 4)  |
-                             (((uint32_t)raw_6b[5]) >> 4));
-
-    /* 2. Температурна компенсація (32 біти) */
-    int32_t var1_T = ((((adc_T >> 3) - ((int32_t)dev->calib.dig_T1 << 1))) * ((int32_t)dev->calib.dig_T2)) >> 11;
-    int32_t var2_T = (((((adc_T >> 4) - ((int32_t)dev->calib.dig_T1)) *
-                       ((adc_T >> 4) - ((int32_t)dev->calib.dig_T1))) >> 12) *
-                      ((int32_t)dev->calib.dig_T3)) >> 14;
-
-    dev->t_fine = var1_T + var2_T;
-    out_sample->temperature_centidegrees = (dev->t_fine * 5 + 128) >> 8;
-
-    /* 3. Компенсація тиску на 64-бітних цілих (захист від переповнення) */
-    int64_t var1_P = ((int64_t)dev->t_fine) - 128000;
-    int64_t var2_P = var1_P * var1_P * (int64_t)dev->calib.dig_P6;
-    var2_P = var2_P + ((var1_P * (int64_t)dev->calib.dig_P5) << 17);
-    var2_P = var2_P + (((int64_t)dev->calib.dig_P4) << 35);
-    var1_P = ((var1_P * var1_P * (int64_t)dev->calib.dig_P3) >> 8) +
-             ((var1_P * (int64_t)dev->calib.dig_P2) << 12);
-    var1_P = (((((int64_t)1) << 47) + var1_P)) * ((int64_t)dev->calib.dig_P1) >> 33;
-
-    if (var1_P == 0) {
-        out_sample->pressure_pascals = 0;
-        out_sample->valid = false;
-        return BMP280_ERR_OVERFLOW;
-    }
-
-    int64_t p = 1048576 - adc_P;
-    p = (((p << 31) - var2_P) * 3125) / var1_P;
-    var1_P = (((int64_t)dev->calib.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
-    var2_P = (((int64_t)dev->calib.dig_P8) * p) >> 19;
-
-    p = ((p + var1_P + var2_P) >> 8) + (((int64_t)dev->calib.dig_P7) << 4);
-
-    out_sample->pressure_q24_8 = (uint32_t)p;
-    out_sample->pressure_pascals = (uint32_t)(p >> 8);
-    out_sample->valid = true;
-
-    return BMP280_OK;
-}
-```
+:::code draiver-chypa-d/c/8-tsilochyselna.c
 == C++20 (Типобезпечна компенсація)
-```cpp
-std::optional<SensorSample> Bmp280Driver<BusImpl>::compensate(std::span<const uint8_t, 6> raw) noexcept {
-    const int32_t adcP = (static_cast<uint32_t>(raw[0]) << 12) |
-                         (static_cast<uint32_t>(raw[1]) << 4)  |
-                         (static_cast<uint32_t>(raw[2]) >> 4);
-
-    const int32_t adcT = (static_cast<uint32_t>(raw[3]) << 12) |
-                         (static_cast<uint32_t>(raw[4]) << 4)  |
-                         (static_cast<uint32_t>(raw[5]) >> 4);
-
-    const int32_t var1T = ((((adcT >> 3) - (static_cast<int32_t>(calib_.dig_T1) << 1))) * static_cast<int32_t>(calib_.dig_T2)) >> 11;
-    const int32_t var2T = (((((adcT >> 4) - static_cast<int32_t>(calib_.dig_T1)) *
-                             ((adcT >> 4) - static_cast<int32_t>(calib_.dig_T1))) >> 12) *
-                           static_cast<int32_t>(calib_.dig_T3)) >> 14;
-
-    tFine_ = var1T + var2T;
-    const float tempC = static_cast<float>((tFine_ * 5 + 128) >> 8) / 100.0f;
-
-    int64_t var1P = static_cast<int64_t>(tFine_) - 128000;
-    int64_t var2P = var1P * var1P * static_cast<int64_t>(calib_.dig_P6);
-    var2P = var2P + ((var1P * static_cast<int64_t>(calib_.dig_P5)) << 17);
-    var2P = var2P + (static_cast<int64_t>(calib_.dig_P4) << 35);
-    var1P = ((var1P * var1P * static_cast<int64_t>(calib_.dig_P3)) >> 8) +
-            ((var1P * static_cast<int64_t>(calib_.dig_P2)) << 12);
-    var1P = (((static_cast<int64_t>(1) << 47) + var1P)) * static_cast<int64_t>(calib_.dig_P1) >> 33;
-
-    if (var1P == 0) return std::nullopt;
-
-    int64_t p = 1048576 - adcP;
-    p = (((p << 31) - var2P) * 3125) / var1P;
-    var1P = (static_cast<int64_t>(calib_.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
-    var2P = (static_cast<int64_t>(calib_.dig_P8) * p) >> 19;
-    p = ((p + var1P + var2P) >> 8) + (static_cast<int64_t>(calib_.dig_P7) << 4);
-
-    return SensorSample{
-        .temperature = units::Celsius(tempC),
-        .pressure = units::Pascals(static_cast<float>(p) / 256.0f),
-        .timestampUs = 0,
-        .isValid = true
-    };
-}
-```
+:::code draiver-chypa-d/cpp/8-tsilochyselna.hpp
 :::
 
 ## 9. Конвертація у фізичні величини SI та перевірка достовірності
@@ -910,19 +736,7 @@ constexpr auto decodeSht4x(uint16_t rawT, uint16_t rawRh) noexcept {
 
 :::tabs
 == C99 (FreeRTOS м'ютекс)
-```c
-/* Створення м'ютекса з підтримкою Priority Inheritance */
-SemaphoreHandle_t g_i2c_bus_mutex = xSemaphoreCreateMutex();
-
-void sensor_thread_safe_read(bmp280_handle_t *dev, bmp280_sample_t *out) {
-    /* Захоплення м'ютекса: якщо задачу високого пріоритету заблоковано, 
-       пріоритет утримувача м'ютекса тимчасово піднімається до максимального */
-    if (xSemaphoreTake(g_i2c_bus_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {
-        bmp280_read_sync(dev, out);
-        xSemaphoreGive(g_i2c_bus_mutex);
-    }
-}
-```
+:::code draiver-chypa-d/c/vyrishennia-protokol.c
 == C++20 (RAII блокування з timeout)
 ```cpp
 template <BusDevice BusImpl>
@@ -1012,34 +826,9 @@ private:
 
 :::tabs
 == C (Канали підсистеми Linux IIO)
-```c
-static const struct iio_chan_spec bmp280_channels[] = {
-    {
-        .type = IIO_PRESSURE,
-        .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-                              BIT(IIO_CHAN_INFO_SCALE) |
-                              BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-    },
-    {
-        .type = IIO_TEMP,
-        .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-                              BIT(IIO_CHAN_INFO_SCALE),
-    },
-};
-```
+:::code draiver-chypa-d/c/draiver-u-prostori-iadra.c
 == C++20 (Опис дескриптора каналів)
-```cpp
-struct ChannelDescriptor {
-    enum class Type { Pressure, Temperature };
-    Type type;
-    uint32_t infoMask;
-};
-
-inline constexpr std::array bmp280Channels = {
-    ChannelDescriptor{ ChannelDescriptor::Type::Pressure, 0x07 },
-    ChannelDescriptor{ ChannelDescriptor::Type::Temperature, 0x03 }
-};
-```
+:::code draiver-chypa-d/cpp/draiver-u-prostori-iadra.cpp
 :::
 
 Після завантаження драйвера операційна система експортує файлові вузли у віртуальну файлову систему `sysfs`:

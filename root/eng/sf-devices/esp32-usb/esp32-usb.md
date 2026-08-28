@@ -60,23 +60,7 @@ USB-Serial-JTAG легко сприйняти як «менший OTG», та н
 
 Один ESP32-S3 DevKit, один USB-кабель. Залізо незмінне; змінюється тільки конфігурація стека:
 
-```c
-/* Варіант 1: CDC (COM-порт для логів) */
-/* tusb_config.h: CFG_TUD_CDC = 1, CFG_TUD_HID = 0, CFG_TUD_MSC = 0 */
-tud_cdc_write_str("Hello from CDC!\r\n");
-tud_cdc_write_flush();
-
-/* Варіант 2: HID-клавіатура — надіслати натискання 'A' */
-/* CFG_TUD_HID = 1 */
-uint8_t keycode[6] = { HID_KEY_A, 0, 0, 0, 0, 0 };
-tud_hid_keyboard_report(REPORT_ID_KEYBOARD, 0 /*modifier*/, keycode);
-tud_task();                                       /* обробити USB-події */
-tud_hid_keyboard_report(REPORT_ID_KEYBOARD, 0, NULL);  /* відпустити клавішу */
-
-/* Варіант 3: MSC (флешка з SD-карткою) */
-/* CFG_TUD_MSC = 1 */
-/* реалізувати tud_msc_read10_cb() / tud_msc_write10_cb() → SD через SPI */
-```
+:::code esp32-usb/c/tusb_config.h
 
 ![Незмінне залізо в центрі, від нього три стрілки до ролей CDC, HID, MSC — різниця лише в одному рядку tusb_config.h](img/one-cable-three-roles.svg)
 

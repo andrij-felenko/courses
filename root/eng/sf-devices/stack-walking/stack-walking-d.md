@@ -47,19 +47,7 @@
 
 Класичний спосіб розмотування спирається на жорсткий інваріант: кожен стековий кадр містить у собі покажчик на кадр викликаючої функції. Для цього компілятор додає на початку кожної функції стандартизований **пролог** (англ. *prologue* — від грец. *prologos* — передмова), а перед виходом — **епілог** (англ. *epilogue* — від грец. *epilogos* — післямова):
 
-```asm
-# Стандартний пролог функції (x86-64)
-push %rbp             # 1. Зберегти покажчик кадру викликаючої функції на стек
-mov  %rsp, %rbp       # 2. Зробити поточну верхівку стека новою базою кадру
-sub  $0x40, %rsp      # 3. Виділити 64 байти під локальні змінні
-
-# ... тіло функції ...
-
-# Стандартний епілог функції (x86-64)
-mov  %rbp, %rsp       # 1. Звільнити пам'ять локальних змінних
-pop  %rbp             # 2. Відновити покажчик кадру викликаючої функції
-ret                   # 3. Зняти зі стека адресу повернення й стрибнути
-```
+:::code stack-walking-d/asm/main.s
 
 У результаті виконання цього прологу на стеку утворюється односпрямований зв'язний список:
 - регістр `RBP` вказує на поточну комірку пам'яті на стеку;
@@ -253,55 +241,8 @@ SFrame відкидає складну віртуальну машину DWARF �
 Для збору адрес у середовищі користувача застосовують стандартні виклики `backtrace()` або власні асинхронно-сигнально-безпечні функції:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <execinfo.h>
-#include <unistd.h>
-
-void capture_backtrace(void) {
-    void* callstack[32];
-    int frames = backtrace(callstack, 32);
-    char** symbols = backtrace_symbols(callstack, frames);
-
-    if (symbols != NULL) {
-        for (int i = 0; i < frames; ++i) {
-            printf("  [%02d] %s\n", i, symbols[i]);
-        }
-        free(symbols);
-    }
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <memory>
-#include <string_view>
-#include <execinfo.h>
-
-namespace diagnostic {
-
-class BacktraceCapture {
-public:
-    static void print_trace() {
-        std::vector<void*> callstack(32);
-        const int frames = ::backtrace(callstack.data(), static_cast<int>(callstack.size()));
-        
-        std::unique_ptr<char*, decltype(&::free)> symbols(
-            ::backtrace_symbols(callstack.data(), frames),
-            &::free
-        );
-
-        if (symbols) {
-            for (int i = 0; i < frames; ++i) {
-                std::cout << "  [" << i << "] " << std::string_view(symbols.get()[i]) << '\n';
-            }
-        }
-    }
-};
-
-} // namespace diagnostic
-```
+:::code stack-walking-d/c/main.c
+:::code stack-walking-d/cpp/main.cpp
 :::
 
 #### Етап 2: Офлайн-символізація через addr2line та Build ID

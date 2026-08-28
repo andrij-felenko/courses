@@ -38,81 +38,8 @@
 Ось мінімальне колесо на чистому C. Кожен слот — однозв'язний список таймерів; поле `rounds` лічить повні кола колеса, які ще треба перечекати, перш ніж таймер спрацює.
 
 :::tabs
-```cpp
-#define WHEEL_SIZE 256          // степінь двійки → mod = маска
-
-typedef struct Timer {
-  uint32_t rounds;              // скільки повних кіл ще чекати
-  void (*cb)(void*);            // що зробити, коли настане час
-  void *arg;
-  struct Timer *next;           // наступний у тому ж слоті
-} Timer;
-
-static Timer *wheel[WHEEL_SIZE];
-static uint32_t cursor;          // «стрілка» — поточний слот
-
-// запланувати подію через delta тіків
-void schedule(Timer *t, uint32_t delta) {
-  uint32_t slot = (cursor + delta) & (WHEEL_SIZE - 1);
-  t->rounds = delta / WHEEL_SIZE;     // повних обертів колеса
-  t->next = wheel[slot];              // вставляємо в голову списку слота — O(1)
-  wheel[slot] = t;
-}
-
-// викликати рівно раз на тік (з обробника системного тіку)
-void tick(void) {
-  cursor = (cursor + 1) & (WHEEL_SIZE - 1);
-  Timer **pp = &wheel[cursor];        // ідемо лише по ОДНОМУ слоту
-  while (*pp) {
-    Timer *t = *pp;
-    if (t->rounds == 0) {
-      *pp = t->next;                   // знімаємо зі слота
-      t->cb(t->arg);                   // час настав — запускаємо
-    } else {
-      t->rounds--;                     // ще одне коло перечекати
-      pp = &t->next;
-    }
-  }
-}
-```
-```py
-WHEEL_SIZE = 256                 # степінь двійки → mod = маска
-
-class Timer:
-    def __init__(self, cb, arg):
-        self.rounds = 0          # скільки повних кіл ще чекати
-        self.cb = cb             # що зробити, коли настане час
-        self.arg = arg
-        self.next = None         # наступний у тому ж слоті
-
-wheel = [None] * WHEEL_SIZE
-cursor = 0                       # «стрілка» — поточний слот
-
-# запланувати подію через delta тіків
-def schedule(t, delta):
-    slot = (cursor + delta) & (WHEEL_SIZE - 1)
-    t.rounds = delta // WHEEL_SIZE   # повних обертів колеса
-    t.next = wheel[slot]             # вставляємо в голову списку слота — O(1)
-    wheel[slot] = t
-
-# викликати рівно раз на тік (з обробника системного тіку)
-def tick():
-    global cursor
-    cursor = (cursor + 1) & (WHEEL_SIZE - 1)
-    prev, t = None, wheel[cursor]    # ідемо лише по ОДНОМУ слоту
-    while t:
-        if t.rounds == 0:
-            nxt = t.next             # знімаємо зі слота
-            if prev is None:
-                wheel[cursor] = nxt
-            else:
-                prev.next = nxt
-            t.cb(t.arg)              # час настав — запускаємо
-            t = nxt
-        else:
-            t.rounds -= 1            # ще одне коло перечекати
-            prev, t = t, t.next
-```
+:::code proj-timer-wheel/cpp/main.cpp
+:::code proj-timer-wheel/py/main.py
 :::
 
 `WHEEL_SIZE` — степінь двійки, тож дороге `mod` стає дешевою бітовою маскою `& (WHEEL_SIZE - 1)`, а ділення `delta / WHEEL_SIZE` — зсувом. `tick()` чіпає рівно один слот, а не весь масив; `schedule()` лише вставляє в голову списку — обидва дешеві.

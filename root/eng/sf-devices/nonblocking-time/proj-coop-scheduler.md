@@ -18,57 +18,8 @@
 Ось та сама таблиця в коді. Рядок — це структура з трьох полів: **що** виконати (покажчик на функцію), **як часто** (період) і **коли робили востаннє** (мітка). `loop()` пробігає масив і для кожного рядка ставить те саме питання, що й неблокуючий патерн для однієї дії, — «now − last ≥ період?».
 
 :::tabs
-```cpp
-// задачі-функції визначені деінде у скетчі
-void blink();
-void readSensor();
-void sendData();
-void updateScreen();
-
-typedef void (*TaskFn)();          // покажчик на функцію задачі
-
-struct Task {
-  TaskFn        run;               // що виконати
-  unsigned long period;            // період, мс
-  unsigned long last;              // мітка останнього запуску
-};
-
-Task tasks[] = {
-  { blink,        500,   0 },
-  { readSensor,   1000,  0 },
-  { sendData,     10000, 0 },
-  { updateScreen, 100,   0 },
-};
-const size_t TASK_COUNT = sizeof(tasks) / sizeof(tasks[0]);
-
-void loop() {
-  unsigned long now = millis();
-  for (size_t i = 0; i < TASK_COUNT; i++) {
-    if (now - tasks[i].last >= tasks[i].period) {
-      tasks[i].run();                     // задача виконується до кінця
-      tasks[i].last += tasks[i].period;   // рівна сітка, а не = now
-    }
-  }
-}
-```
-```micropython
-import time
-
-# кожна задача — [функція, період_мс, остання_мітка]
-tasks = [
-    [blink,         500,   0],
-    [read_sensor,   1000,  0],
-    [send_data,     10000, 0],
-    [update_screen, 100,   0],
-]
-
-while True:
-    now = time.ticks_ms()
-    for t in tasks:
-        if time.ticks_diff(now, t[2]) >= t[1]:
-            t[0]()                              # задача виконується до кінця
-            t[2] = time.ticks_add(t[2], t[1])   # рівна сітка, а не = now
-```
+:::code proj-coop-scheduler/cpp/main.cpp
+:::code proj-coop-scheduler/py/micropython/main.py
 :::
 
 Покажчик на функцію (`TaskFn` у C++, сам об'єкт функції в Python) — це та ланка, що дає скласти **дії** в таблицю: у першому полі лежить не код, а те, **що** запустити. Тому додати нову задачу — це **один рядок** у масиві, а не нова жменя розкиданих змінних; уся механіка часу зосереджена в єдиному циклі.
