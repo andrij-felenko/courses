@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три фази оживлення плати (Bring-up Sequence)</text>
+<rect x="30.0" y="60.0" width="240.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="30.0" y="60.0" width="240.0" height="38.0" rx="8" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="150.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 0: Холодні перевірки</text>
+<text x="44.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Огляд під мікроскопом</text>
+<text x="44.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Спайки ніжок (solder bridges)</text>
+<text x="44.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Орієнтація ключа Pin 1</text>
+<text x="44.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Полярність діодів і танталу</text>
+<text x="44.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Опір рейок живлення до GND</text>
+<text x="44.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Тест діодним падінням (ESD)</text>
+<line x1="274.0" y1="180.0" x2="306.0" y2="180.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="290.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">R_GND &gt; 100 Ω</text>
+<rect x="300.0" y="60.0" width="240.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="300.0" y="60.0" width="240.0" height="38.0" rx="8" fill="#fef3c7" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Перше живлення</text>
+<text x="314.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• БЖ з лімітом струму (50–100 мА)</text>
+<text x="314.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Контроль режиму CC / CV</text>
+<text x="314.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Осцилограма рейок LDO / DC-DC</text>
+<text x="314.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Відсутність дзвону та пульсацій</text>
+<text x="314.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Черговість рейок (Sequencing)</text>
+<text x="314.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Тепловізор або тест спиртом</text>
+<line x1="544.0" y1="180.0" x2="576.0" y2="180.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="560.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Напруги OK</text>
+<rect x="570.0" y="60.0" width="240.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="570.0" y="60.0" width="240.0" height="38.0" rx="8" fill="#dcfce7" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 2: Пульс MCU і SWD</text>
+<text x="584.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Рівень лінії ресету (NRST &gt; 2.8V)</text>
+<text x="584.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Стан конфігурації BOOT0 / BOOT1</text>
+<text x="584.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Напруга внутрішнього ядра VCAP</text>
+<text x="584.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Тактування кварцу (щуп 10x / MCO)</text>
+<text x="584.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Лінії SWDIO / SWCLK / VREF</text>
+<text x="584.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Контакт відлагоджувача з ядром</text>
+<rect x="30.0" y="312.0" width="780.0" height="44.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="420.0" y="330.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Головне правило безпечного запуску: жоден наступний крок не виконується,</tspan><tspan x="420.0" dy="15.0">доки попередній не підтверджено прямим вимірюванням.</tspan></text>
+</svg>

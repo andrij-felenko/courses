@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="50.0" y1="330.0" x2="790.0" y2="330.0" stroke="#475569" stroke-width="2.0"/>
+<rect x="50.0" y="330.0" width="740.0" height="25.0" rx="6" fill="#f8fafc" stroke="none" stroke-width="1.5"/>
+<circle cx="680.0" cy="330.0" r="8.0" fill="#ef4444" stroke="#b91c1c" stroke-width="2.0"/>
+<circle cx="680.0" cy="330.0" r="16" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="680.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Ціль P_target</text>
+<rect x="130.0" y="85.0" width="60.0" height="26.0" rx="4" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+<text x="160.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0c4a6e" text-anchor="middle" font-weight="700">БПЛА</text>
+<line x1="190.0" y1="98.0" x2="245.0" y2="98.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="218.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">V_носія</text>
+<line x1="380.0" y1="70.0" x2="380.0" y2="330.0" stroke="#eab308" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="380.0" cy="100.0" r="7.0" fill="#fef08a" stroke="#ca8a04" stroke-width="2.0"/>
+<text x="380.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a16207" text-anchor="middle" font-weight="700">Точка скиду P_release</text>
+<path d="M 380.0 100.0 L 406.9 102.8 L 432.0 106.4 L 455.4 111.0 L 477.2 116.6 L 497.6 123.0 L 516.6 130.4 L 534.2 138.6 L 550.7 147.8 L 566.1 158.0 L 580.5 169.0 L 593.8 181.0 L 606.3 193.8 L 617.9 207.6 L 628.7 222.4 L 638.9 238.0 L 648.3 254.6 L 657.1 272.0 L 665.2 290.4 L 672.9 309.8 L 680.0 330.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="380.0" y1="315.0" x2="680.0" y2="315.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="430.0" y1="315.0" x2="380.0" y2="315.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="315.0" x2="680.0" y2="315.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Балістичний винос Δ_drop(V, h, W)</text>
+<line x1="160.0" y1="135.0" x2="380.0" y2="135.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="195.0" y1="135.0" x2="160.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="345.0" y1="135.0" x2="380.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="270.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">D_ttr = V_x · TTR</text>
+<line x1="335.0" y1="155.0" x2="380.0" y2="155.0" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="357.5" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle">Δx_лаг = V_x · Δt_замок</text>
+<rect x="480.0" y="35.0" width="330.0" height="95.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="645.0" y="64.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">Алгоритм CCRP:</tspan><tspan x="645.0" dy="14.3">1. Прогноз інтегратора: Δ_drop = f(V_now, h, W)</tspan><tspan x="645.0" dy="14.3">2. P_release = P_target − Δ_drop − V·Δt_actuator</tspan><tspan x="645.0" dy="14.3">3. Скид, коли |P_now − P_release| ≤ ε_gate</tspan></text>
+</svg>

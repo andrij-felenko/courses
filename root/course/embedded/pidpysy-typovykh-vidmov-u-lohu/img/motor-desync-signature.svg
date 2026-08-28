@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -10 995 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-35" y="-10" width="995" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Підпис десинхронізації в логу: зрив eRPM, сплеск D-терма і переворот</text>
+<rect x="90.0" y="80.0" width="480.0" height="75.0" rx="3" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<line x1="258.0" y1="80.0" x2="258.0" y2="155.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="117.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Кутова швидкість, °/s</text>
+<text x="98.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">gyroADC vs Setpoint</text>
+<text x="562.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">gyroADC (Roll)</text>
+<text x="459.2" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end">Setpoint</text>
+<rect x="90.0" y="173.0" width="480.0" height="75.0" rx="3" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<line x1="258.0" y1="173.0" x2="258.0" y2="248.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="210.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Вихід регулятора</text>
+<text x="98.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">PID D-term / P-term</text>
+<text x="562.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end">axisP</text>
+<text x="517.5" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">axisD</text>
+<rect x="90.0" y="266.0" width="480.0" height="75.0" rx="3" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<line x1="258.0" y1="266.0" x2="258.0" y2="341.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="303.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Команда на ESC</text>
+<text x="98.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Motor Output [0..100%]</text>
+<text x="562.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">motor[0..2]</text>
+<text x="483.3" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">motor[3] (збійний)</text>
+<rect x="90.0" y="359.0" width="480.0" height="75.0" rx="3" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<line x1="258.0" y1="359.0" x2="258.0" y2="434.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="80.0" y="396.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Оберти мотора, тис/хв</text>
+<text x="98.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">eRPM (DShot Telemetry)</text>
+<text x="562.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end">eRPM[3] (відрив лопаті)</text>
+<text x="414.9" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">eRPM[3] (десинх)</text>
+<text x="258.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_0: зрив комутації</text>
+<text x="570.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Час (t), мс →</text>
+<line x1="90.0" y1="117.5" x2="570.0" y2="117.5" stroke="#27ae60" stroke-width="1.8"/>
+<path d="M 90.0 117.5 L 258.0 117.5 L 258.0 117.5 L 264.2 117.5 L 270.5 117.6 L 276.7 117.6 L 283.0 117.7 L 289.2 117.8 L 295.4 118.0 L 301.7 118.2 L 307.9 118.4 L 314.2 118.6 L 320.4 118.8 L 326.6 119.1 L 332.9 119.4 L 339.1 119.8 L 345.4 120.1 L 351.6 120.5 L 357.8 121.0 L 364.1 121.4 L 370.3 121.9 L 376.6 122.4 L 382.8 122.9 L 389.0 123.5 L 395.3 124.0 L 401.5 124.6 L 407.8 125.3 L 414.0 125.9 L 420.2 126.6 L 426.5 127.3 L 432.7 128.1 L 439.0 128.9 L 445.2 129.7 L 451.4 130.5 L 457.7 131.3 L 463.9 132.2 L 470.2 133.1 L 476.4 134.0 L 482.6 135.0 L 488.9 136.0 L 495.1 137.0 L 501.4 138.0 L 507.6 139.1 L 513.8 140.2 L 520.1 141.3 L 526.3 142.5 L 532.6 143.6 L 538.8 144.8 L 545.0 146.1 L 551.3 147.3 L 557.5 148.6 L 563.8 149.9" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<path d="M 90.0 210.5 L 253.0 210.5 L 266.0 179.0 L 298.0 233.0 L 570.0 236.8" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="90.0" y1="311.0" x2="258.0" y2="311.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="258.0" y1="311.0" x2="268.0" y2="274.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="268.0" y1="274.0" x2="570.0" y2="274.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="268.0" y1="333.0" x2="570.0" y2="333.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="90.0" y1="392.8" x2="258.0" y2="392.8" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="258.0" y1="392.8" x2="278.0" y2="428.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="278.0" y1="428.0" x2="570.0" y2="428.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="258.0" y1="392.8" x2="283.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4 3"/>
+<line x1="283.0" y1="365.0" x2="570.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4 3"/>
+<text x="770.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діагностичне розрізнення</text>
+<rect x="630.0" y="108.8" width="280.0" height="102.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="770.0" y="128.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">ДЕCИНХРОНІЗАЦІЯ ESC:</tspan><tspan x="770.0" dy="14.3">• eRPM миттєво падає до 0</tspan><tspan x="770.0" dy="14.3">• Струм мотора спадає або шумить</tspan><tspan x="770.0" dy="14.3">• D-терм б'є в стелю</tspan><tspan x="770.0" dy="14.3">• Мотор 100%, тяги немає</tspan><tspan x="770.0" dy="14.3">Причина: тривале розмагнічування (demag)</tspan></text>
+<rect x="630.0" y="253.8" width="280.0" height="102.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="770.0" y="273.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">ВІДРИВ ЛОПАТІ ГВИНТА:</tspan><tspan x="770.0" dy="14.3">• eRPM підскакує в 1.5–2 рази</tspan><tspan x="770.0" dy="14.3">  (знято навантаження з вала)</tspan><tspan x="770.0" dy="14.3">• Струм падає до холостого</tspan><tspan x="770.0" dy="14.3">• Колосальна вібрація на 1x RPM</tspan><tspan x="770.0" dy="14.3">Причина: механічне руйнування</tspan></text>
+<rect x="630.0" y="385.1" width="280.0" height="69.9" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/><text x="770.0" y="402.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Лікування десинхрону в BLHeli / AM32:</tspan><tspan x="770.0" dy="14.3">• Підняти Demag Compensation (Low → High)</tspan><tspan x="770.0" dy="14.3">• Збільшити Motor Timing (15° → 22.5°)</tspan><tspan x="770.0" dy="14.3">• Знизити різкість D-term або rampup power</tspan></text>
+</svg>

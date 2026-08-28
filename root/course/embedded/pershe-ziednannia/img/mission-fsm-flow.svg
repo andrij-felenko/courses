@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзакційний протокол обміну місією з гарантованим підтвердженням</text>
+<rect x="80.0" y="65.0" width="200.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="180.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Наземна станція (GCS)</text>
+<line x1="180.0" y1="101.0" x2="180.0" y2="485.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="660.0" y="65.0" width="200.0" height="36.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.8"/>
+<text x="760.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Автопілот (Борт)</text>
+<line x1="760.0" y1="101.0" x2="760.0" y2="485.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="130.0" x2="760.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. MISSION_REQUEST_LIST (#43) [mission_type = MAV_MISSION_TYPE_MISSION]</text>
+<line x1="760.0" y1="175.0" x2="180.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. MISSION_COUNT (#44) [count = N, наприклад 3 елементи]</text>
+<rect x="140.0" y="205.0" width="660.0" height="195.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="150.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">ТРАНЗАКЦІЙНИЙ ЦИКЛ (покрокова вичитка точок i = 0 .. N-1)</text>
+<line x1="180.0" y1="245.0" x2="760.0" y2="245.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">MISSION_REQUEST_INT (#51) [seq = 0]</text>
+<line x1="760.0" y1="280.0" x2="180.0" y2="280.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">MISSION_ITEM_INT (#73) [seq = 0, TAKEOFF, lat/lon/alt]</text>
+<line x1="180.0" y1="325.0" x2="760.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">MISSION_REQUEST_INT (#51) [seq = 1]</text>
+<line x1="760.0" y1="360.0" x2="180.0" y2="360.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">MISSION_ITEM_INT (#73) [seq = 1, WAYPOINT, lat/lon/alt]</text>
+<line x1="180.0" y1="430.0" x2="760.0" y2="430.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3. MISSION_ACK (#47) [type = MAV_MISSION_ACCEPTED (0)]</text>
+<rect x="220.0" y="455.0" width="500.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Транзакцію успішно закрито: план завантажено повністю й узгоджено</text>
+</svg>

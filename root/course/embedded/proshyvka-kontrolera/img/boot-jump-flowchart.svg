@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм безпечного переходу завантажувача</text>
+<text x="480.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність безпечного стрибка (Bootloader → Application)</text>
+<rect x="200.0" y="65.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="215.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">1. Вимкнення переривань</text>
+<text x="215.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">__disable_irq();</text>
+<text x="745.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Блокування асинхронних подій під час переходу</text>
+<line x1="480.0" y1="117.0" x2="480.0" y2="127.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="127.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="215.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">2. Зупинка таймерів і периферії</text>
+<text x="215.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">SysTick-&gt;CTRL = 0; RCC деініціалізація</text>
+<text x="745.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Скидання тактування всіх шин (AHB/APB)</text>
+<line x1="480.0" y1="179.0" x2="480.0" y2="189.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="189.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="215.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">3. Очищення кешів та MPU (Cortex-M7)</text>
+<text x="215.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">SCB_DisableDCache(); SCB_DisableICache();</text>
+<text x="745.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Запобігання колізіям узгодженості пам'яті</text>
+<line x1="480.0" y1="241.0" x2="480.0" y2="251.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="251.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="215.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">4. Очищення черги NVIC</text>
+<text x="215.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">NVIC-&gt;ICER[i] = 0xFFFFFFFF;</text>
+<text x="745.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">NVIC-&gt;ICPR[i] = 0xFFFFFFFF; (скидання прапорців)</text>
+<line x1="480.0" y1="303.0" x2="480.0" y2="313.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="313.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="215.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">5. Валідація стека додатка</text>
+<text x="215.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">MSP = *(uint32_t*)APP_ADDR;</text>
+<text x="745.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Перевірка: чи лежить MSP у межах діапазону RAM</text>
+<line x1="480.0" y1="365.0" x2="480.0" y2="375.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="375.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="215.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">6. Релокація векторної таблиці</text>
+<text x="215.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">SCB-&gt;VTOR = APP_ADDR;</text>
+<text x="745.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Перенаправлення обробників переривань на прошивку</text>
+<line x1="480.0" y1="427.0" x2="480.0" y2="437.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="200.0" y="437.0" width="560.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="215.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">7. Встановлення MSP і стрибок</text>
+<text x="215.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">__set_MSP(MSP);</text>
+<text x="745.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Jump to ((void(*)(void))*(APP_ADDR + 4))();</text>
+<rect x="760.0" y="293.0" width="140.0" height="95.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="830.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка валідації?</text>
+<text x="830.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">MSP некоректний</text>
+<text x="830.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">→ Вхід у аварійний</text>
+<text x="830.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">DFU завантажувач</text>
+<line x1="760.0" y1="338.0" x2="760.0" y2="338.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4 3"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="400.0" rx="8" fill="#fafafc" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="30.0" y="35.0" width="370.0" height="360.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="215.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Хмарозалежний виріб (Cloud-Tethered)</text>
+<rect x="50.0" y="95.0" width="330.0" height="55.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Хмарний бекенд / Пропрієтарний сервер</text>
+<text x="215.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TLS Endpoint, пропрієтарний протокол</text>
+<line x1="215.0" y1="150.0" x2="215.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="215.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">WAN Інтернет</text>
+<rect x="50.0" y="185.0" width="330.0" height="80.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="215.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер: Тонкий клієнт</text>
+<text x="215.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вся логіка на сервері, локального API немає</text>
+<text x="215.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Опитування хмари (Long Polling / WebSockets)</text>
+<line x1="215.0" y1="265.0" x2="215.0" y2="295.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="295.0" width="330.0" height="45.0" rx="4" fill="#edf2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="215.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна частина: Реле / Давачі</text>
+<rect x="50.0" y="350.0" width="330.0" height="35.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="215.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Вимкнення серверів -&gt; ПРИСТРІЙ ПЕРЕТВОРЮЄТЬСЯ НА ЦЕГЛИНУ</text>
+<rect x="430.0" y="35.0" width="380.0" height="360.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Автономна архітектура (Local-First)</text>
+<rect x="450.0" y="95.0" width="340.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="620.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Локальні клієнти (Home Assistant, Додаток)</text>
+<text x="620.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">mDNS / Local MQTT / HTTP REST / BLE GATT</text>
+<line x1="620.0" y1="150.0" x2="620.0" y2="185.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="620.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Локальна мережа (LAN / BLE)</text>
+<rect x="450.0" y="185.0" width="340.0" height="90.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="620.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер: Автономна система</text>
+<text x="620.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Внутрішній автомат станів + розклад у Flash</text>
+<text x="620.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Локальний диспетчер відкритих протоколів</text>
+<text x="620.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Хмарний міст (опціональний шар поверх LAN)</text>
+<line x1="620.0" y1="275.0" x2="620.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="450.0" y="300.0" width="340.0" height="40.0" rx="4" fill="#edf2f7" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="620.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна частина: Реле / Давачі</text>
+<rect x="450.0" y="350.0" width="340.0" height="35.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.4"/>
+<text x="620.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Вимкнення серверів -&gt; ПОВНА РОБОТОЗДАТНІСТЬ БЕЗ ЗМІН</text>
+</svg>

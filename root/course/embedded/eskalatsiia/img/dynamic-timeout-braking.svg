@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="60.0" y1="120.0" x2="880.0" y2="120.0" stroke="#333333" stroke-width="3.0"/>
+<rect x="60.0" y="95.0" width="60.0" height="50.0" rx="6" fill="#2563eb" stroke="#1e40af" stroke-width="2.0"/>
+<text x="90.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Борт</text>
+<text x="90.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V = 8.0 м/с</text>
+<line x1="125.0" y1="120.0" x2="175.0" y2="120.0" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="810.0" y="85.0" width="70.0" height="70.0" rx="8" fill="#dc2626" stroke="#991b1b" stroke-width="2.0"/>
+<text x="845.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Бар'єр</text>
+<text x="845.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Перешкода</text>
+<line x1="120.0" y1="160.0" x2="810.0" y2="160.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="120.0" y1="153.0" x2="120.0" y2="167.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="810.0" y1="153.0" x2="810.0" y2="167.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="465.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дистанція виявлення: D_obs = 40.0 м</text>
+<rect x="120.0" y="220.0" width="280.0" height="60.0" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="260.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">ВІКНО РЕАКЦІЇ (D_react = 18 м)</text>
+<text x="260.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle">T_deadline = D_react / V = 2.25 с</text>
+<rect x="410.0" y="220.0" width="260.0" height="60.0" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="540.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">ГАЛЬМІВНИЙ ШЛЯХ (D_brake = 16 м)</text>
+<text x="540.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle">a_max = 2.0 м/с² (фізична межа гальм)</text>
+<rect x="680.0" y="220.0" width="130.0" height="60.0" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="745.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">ЗАПАС (6 м)</text>
+<text x="745.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle">Буфер D_margin</text>
+<rect x="60.0" y="315.0" width="820.0" height="75.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="470.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула розрахунку жорсткого дедлайну ескалації:</text>
+<text x="470.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">T_deadline = (D_obs - D_brake - D_margin) / V_curr - t_sensor_lag</text>
+</svg>

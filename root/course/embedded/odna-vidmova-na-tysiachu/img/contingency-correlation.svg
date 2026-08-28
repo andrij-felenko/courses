@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12.2 -10 892.2 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-12.2" y="-10" width="892.2" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця спряженості 2x2 та ізоляція дефектної партії</text>
+<rect x="40.0" y="65.0" width="400.0" height="335.0" rx="8" fill="#f4f6f8" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="240.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">Матриця 2×2 (Contingency Table)</text>
+<text x="212.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Відмова (RMA)</text>
+<text x="337.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Справні (OK)</text>
+<text x="95.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">Підозріла партія
+(Vendor B / DC2134)</text>
+<text x="95.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">Інші партії
+(Vendor A / інші DC)</text>
+<rect x="150.0" y="130.0" width="125.0" height="60.0" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<text x="212.5" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#dc2626" text-anchor="middle" font-weight="700">a = 18</text>
+<text x="212.5" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Збій + Дефектний лот</text>
+<rect x="281.0" y="130.0" width="125.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="343.5" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">b = 982</text>
+<text x="343.5" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Справні в лоті (Σ = 1000)</text>
+<rect x="150.0" y="196.0" width="125.0" height="60.0" rx="4" fill="#fff5f5" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="212.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">c = 2</text>
+<text x="212.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фоновий збій</text>
+<rect x="281.0" y="196.0" width="125.0" height="60.0" rx="4" fill="#f0fdf4" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="343.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">d = 18 998</text>
+<text x="343.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Справні (Σ = 19 000)</text>
+<text x="240.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Частота збоїв у підозрілій партії: 18 / 1000 = 1.80%</text>
+<text x="240.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Частота збоїв у решті партій: 2 / 19 000 = 0.01%</text>
+<text x="240.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Відносний ризик (Relative Risk) = 1.80% / 0.01% = 171.0×</text>
+<text x="240.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">Точний тест Фішера: p = 1.4 × 10⁻¹⁹ (випадковість виключена)</text>
+<rect x="460.0" y="65.0" width="380.0" height="335.0" rx="8" fill="#f4f6f8" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="650.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="700">Інженерне рішення та ізоляція</text>
+<rect x="475.0" y="113.0" width="350.0" height="105.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="485.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">Без кореляції за генеалогією (Повна паніка)</text>
+<text x="485.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• «Усі 20 000 плат під загрозою»</text>
+<text x="485.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Загальний відклик партії ($350 000 збитків)</text>
+<text x="485.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Інженери безпорадно шукають «баг у софті»</text>
+<text x="485.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Репутаційний крах бренду</text>
+<rect x="475.0" y="230.0" width="350.0" height="120.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.4"/>
+<text x="485.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">З точним кореляційним аналізом (Хірургічний карантин)</text>
+<text x="485.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Винна одна котушка MLCC (Reel #8921, DC2134)</text>
+<text x="485.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Вражено лише 1 000 серійних номерів (SN 14000..14999)</text>
+<text x="485.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Карантин на складах для невідвантажених 600 шт.</text>
+<text x="485.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Адресна сервісна заміна лише 400 пристроїв у клієнтів</text>
+<text x="485.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Загальні витрати скорочено в 20 разів!</text>
+</svg>

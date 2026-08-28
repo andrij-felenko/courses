@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трикутник швидкостей та кут зносу (Crab Angle)</text>
+<rect x="30.0" y="50.0" width="400.0" height="345.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторний трикутник навігації</text>
+<line x1="80.0" y1="320.0" x2="360.0" y2="200.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="80.0" y1="320.0" x2="360.0" y2="200.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="320.0" x2="200.0" y2="120.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="80.0" y1="320.0" x2="200.0" y2="120.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="120.0" x2="360.0" y2="200.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="200.0" y1="120.0" x2="360.0" y2="200.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="120.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">v_air (повітряна)</text>
+<text x="285.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">w (вітер)</text>
+<text x="250.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">v_ground (шляхова)</text>
+<text x="125.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">β (знос)</text>
+<rect x="450.0" y="50.0" width="400.0" height="345.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="650.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шляхова швидкість vs Зустрічний вітер</text>
+<line x1="500.0" y1="340.0" x2="830.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="500.0" y1="340.0" x2="500.0" y2="100.0" stroke="#333333" stroke-width="1.5"/>
+<text x="825.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">w (м/с)</text>
+<text x="485.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">v_g</text>
+<line x1="500.0" y1="140.0" x2="760.0" y2="340.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="500.0" y1="273.0" x2="760.0" y2="273.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="575.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">Поріг v_min = 5 м/с</text>
+<rect x="760.0" y="110.0" width="60.0" height="230.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="790.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Неповер-
+нення
+w ≥ v_air</text>
+<text x="500.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="630.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">w = 10</text>
+<text x="760.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">w = v_air</text>
+</svg>

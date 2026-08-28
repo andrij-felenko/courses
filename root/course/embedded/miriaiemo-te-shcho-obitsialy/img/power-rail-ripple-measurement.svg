@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Методика вимірювання пульсацій та шуму шин живлення</text>
+<text x="470.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Методика вимірювання пульсацій та шуму шин живлення (Ripple &amp; Noise)</text>
+<rect x="30.0" y="50.0" width="425.0" height="370.0" rx="6" fill="#fdfefe" stroke="#c0392b" stroke-width="1.5"/>
+<text x="242.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">НЕПРАВИЛЬНО: Земляний дріт («крокодил»)</text>
+<rect x="50.0" y="95.0" width="385.0" height="125.0" rx="4" fill="#fff5f5" stroke="#f5c6cb" stroke-width="1.2"/>
+<text x="65.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Щуп осцилографа з довгим земляним дротом (12 см)</text>
+<text x="65.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Довгий дріт утворює індуктивну петлю-антену</text>
+<text x="65.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">2. Ловить магнітне поле перемикання котушки DC-DC (B-field)</text>
+<text x="65.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Власна паразитна індуктивність L_loop ≈ 100..150 нГн</text>
+<text x="65.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Покази осцилографа: V_pp = 180..300 мВ (Хибний шум)</text>
+<rect x="50.0" y="235.0" width="385.0" height="165.0" rx="4" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/>
+<line x1="50.0" y1="317.0" x2="435.0" y2="317.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="4,4"/>
+<path d="M 60 317 Q 80 317 100 317 L 105 250 L 110 370 L 115 280 L 120 335 L 125 317 L 220 317 L 225 250 L 230 370 L 235 280 L 240 335 L 245 317 L 340 317 L 345 250 L 350 370 L 355 280 L 360 335 L 365 317 L 425 317" fill="none" stroke="#e74c3c" stroke-width="1.8"/>
+<text x="242.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f1948a" text-anchor="middle" font-weight="700">Хибний дзвін від наведень на петлю щупа</text>
+<text x="242.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Показано 220 мВ замість реальних 15 мВ</text>
+<rect x="485.0" y="50.0" width="425.0" height="370.0" rx="6" fill="#fdfefe" stroke="#27ae60" stroke-width="1.5"/>
+<text x="697.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: Коротка земляна пружинка (Ground Spring)</text>
+<rect x="505.0" y="95.0" width="385.0" height="125.0" rx="4" fill="#f4fcf6" stroke="#c3e6cb" stroke-width="1.2"/>
+<text x="520.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Знятий пластиковий ковпачок + коаксіальна пружина</text>
+<text x="520.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Контакт безпосередньо на виводах вихідного MLCC</text>
+<text x="520.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">2. Площа контуру прямує до нуля (L_loop &lt; 2 нГн)</text>
+<text x="520.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Увімкнено апаратний фільтр смуги 20 МГц (BW Limit)</text>
+<text x="520.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Покази осцилографа: V_pp = 12..18 мВ (Істинна пульсація)</text>
+<rect x="505.0" y="235.0" width="385.0" height="165.0" rx="4" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/>
+<line x1="505.0" y1="317.0" x2="890.0" y2="317.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="4,4"/>
+<path d="M 515 317 L 545 305 L 575 329 L 605 305 L 635 329 L 665 305 L 695 329 L 725 305 L 755 329 L 785 305 L 815 329 L 845 305 L 875 329" fill="none" stroke="#2ecc71" stroke-width="2"/>
+<text x="697.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#a9dfbf" text-anchor="middle" font-weight="700">Істинна фундаментальна пульсація DC-DC (500 кГц)</text>
+<text x="697.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Реальний розмах пульсацій: 14 мВ (Норма ТЗ &lt; 30 мВ)</text>
+<text x="470.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Довгий земляний провід спотворює вимірювання в 10–20 разів через електромагнітне наведення</text>
+</svg>

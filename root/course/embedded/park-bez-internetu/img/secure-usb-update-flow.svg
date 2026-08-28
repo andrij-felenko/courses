@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр безпечного USB-оновлення: поетапна валідація та зворотний аудит</text>
+<rect x="25.0" y="55.0" width="200.0" height="360.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="125.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">USB-накопичувач</text>
+<rect x="40.0" y="100.0" width="170.0" height="70.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="125.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Криптопакет .upkg</tspan><tspan x="125.0" dy="13.7">Заголовок + Маніфест</tspan><tspan x="125.0" dy="13.7">+ Підпис Ed25519</tspan></text>
+<rect x="40.0" y="185.0" width="170.0" height="80.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="125.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="125.0" dy="0.0">Тіло прошивки</tspan><tspan x="125.0" dy="13.7">Чанки по 4 КБ</tspan><tspan x="125.0" dy="13.7">+ Хеш-дерево Меркла</tspan></text>
+<rect x="40.0" y="280.0" width="170.0" height="115.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="125.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="125.0" dy="0.0">Каталог /AUDIT_LOGS/</tspan><tspan x="125.0" dy="13.7">← Квитанція успіху</tspan><tspan x="125.0" dy="13.7">← Зліпок стану (Dump)</tspan><tspan x="125.0" dy="13.7">← Підпис пристрою</tspan></text>
+<rect x="265.0" y="55.0" width="340.0" height="360.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="435.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Контролер пристрою (MCU)</text>
+<rect x="285.0" y="100.0" width="300.0" height="45.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="435.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="435.0" dy="0.0">1. Перевірка Target_ID та Monotonic Counter</tspan><tspan x="435.0" dy="13.0">(Захист від підміни заліза та Rollback-атак)</tspan></text>
+<rect x="285.0" y="155.0" width="300.0" height="45.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="435.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="435.0" dy="0.0">2. Валідація цифрового підпису заголовка</tspan><tspan x="435.0" dy="13.0">(Публічний ключ випалено в eFuse / Boot ROM)</tspan></text>
+<rect x="285.0" y="210.0" width="300.0" height="50.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="435.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="435.0" dy="0.0">3. Потоковий запис чанків у неактивний Slot B</tspan><tspan x="435.0" dy="13.0">(Перевірка SHA-256 кожного чанка на льоту)</tspan></text>
+<rect x="285.0" y="270.0" width="300.0" height="45.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="435.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="435.0" dy="0.0">4. Підсумковий SHA-256 цілого образу Slot B</tspan><tspan x="435.0" dy="13.0">та перемикання прапорця завантажувача</tspan></text>
+<rect x="285.0" y="325.0" width="300.0" height="75.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="435.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="435.0" dy="0.0">5. Пробний старт Watchdog-контрольований:</tspan><tspan x="435.0" dy="12.3">Підтвердження стабільності → оновлення eFuse,</tspan><tspan x="435.0" dy="12.3">генерація криптографічної квитанції на USB</tspan></text>
+<rect x="645.0" y="55.0" width="230.0" height="360.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="760.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash-пам'ять пристрою</text>
+<rect x="665.0" y="100.0" width="190.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="760.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="760.0" dy="0.0">Bootloader + eFuse</tspan><tspan x="760.0" dy="13.7">Корінь довіри, ключі,</tspan><tspan x="760.0" dy="13.7">лічильник версій</tspan></text>
+<rect x="665.0" y="175.0" width="190.0" height="95.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="760.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="760.0" dy="0.0">Слот A (Поточна ОС v1.2)</tspan><tspan x="760.0" dy="13.7">Активна прошивка,</tspan><tspan x="760.0" dy="13.7">працює під час прошивки</tspan></text>
+<rect x="665.0" y="285.0" width="190.0" height="115.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="760.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="760.0" dy="0.0">Слот B (Нова ОС v1.3)</tspan><tspan x="760.0" dy="13.0">Сюди стрімиться образ;</tspan><tspan x="760.0" dy="13.0">у разі збою живлення</tspan><tspan x="760.0" dy="13.0">Слот A лишається цілим!</tspan></text>
+<line x1="225.0" y1="135.0" x2="285.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="585.0" y1="235.0" x2="665.0" y2="235.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="365.0" x2="225.0" y2="365.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурний стек: OTA-пристрій проти незмінного виробу</text>
+<text x="470.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння архітектурного стеку та ресурсних витрат</text>
+<rect x="40.0" y="60.0" width="410.0" height="320.0" rx="10" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="245.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Пристрій з підтримкою OTA</text>
+<rect x="56.0" y="115.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#e0b4b0" stroke-width="1.2"/>
+<text x="245.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховище: Dual-bank A/B Flash (2× обсяг)</text>
+<text x="245.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Резервний слот, мапа розділів, scratch-сектор</text>
+<rect x="56.0" y="165.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#e0b4b0" stroke-width="1.2"/>
+<text x="245.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завантажувач: криптографія й відкат</text>
+<text x="245.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ECDSA/RSA підпис, хешування, лічильники версій</text>
+<rect x="56.0" y="215.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#e0b4b0" stroke-width="1.2"/>
+<text x="245.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережевий стек і транспорт OTA</text>
+<text x="245.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">TLS, MQTT/HTTPS-клієнт, протокол поблочного завантаження</text>
+<rect x="56.0" y="265.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#e0b4b0" stroke-width="1.2"/>
+<text x="245.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Менеджер збоїв і відновлення</text>
+<text x="245.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль живлення під час запису, watchdog оновлення</text>
+<rect x="56.0" y="315.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#e0b4b0" stroke-width="1.2"/>
+<text x="245.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прикладний код виробу</text>
+<text x="245.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Основна функціональність із залежністю від стану OTA</text>
+<rect x="490.0" y="60.0" width="410.0" height="320.0" rx="10" fill="#edf7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="695.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Незмінний монолітний виріб</text>
+<rect x="506.0" y="115.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#b9deb9" stroke-width="1.2"/>
+<text x="695.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховище: Одинарний Flash / OTP / ROM</text>
+<text x="695.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Мінімальний обсяг під монолітний образ</text>
+<rect x="506.0" y="165.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#b9deb9" stroke-width="1.2"/>
+<text x="695.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завантажувач: Прямий апаратний старт</text>
+<text x="695.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старт із нульового вектора, відсутність гілок OTA</text>
+<rect x="506.0" y="215.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#b9deb9" stroke-width="1.2"/>
+<text x="695.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний захист: eFuse / WP# / RDP Level 2</text>
+<text x="695.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Апаратна заборона модифікації та зневадження</text>
+<rect x="506.0" y="265.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#b9deb9" stroke-width="1.2"/>
+<text x="695.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний сторож (Watchdog)</text>
+<text x="695.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Суворий апаратний таймер без стану оновлення</text>
+<rect x="506.0" y="315.0" width="378.0" height="44.0" rx="6" fill="#ffffff" stroke="#b9deb9" stroke-width="1.2"/>
+<text x="695.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прикладний код виробу</text>
+<text x="695.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Детермінована логіка без зовнішніх мережевих хуків</text>
+<rect x="40.0" y="395.0" width="860.0" height="58.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="147.5" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash-пам'ять</text>
+<text x="147.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">256–1024 КБ (OTA)</text>
+<text x="147.5" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">16–64 КБ (Monolith)</text>
+<line x1="255.0" y1="402.0" x2="255.0" y2="446.0" stroke="#d0d5dd" stroke-width="1.0"/>
+<text x="362.5" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час запуску</text>
+<text x="362.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">100–500 мс (валідація)</text>
+<text x="362.5" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">&lt; 1 мс (прямий XIP)</text>
+<line x1="470.0" y1="402.0" x2="470.0" y2="446.0" stroke="#d0d5dd" stroke-width="1.0"/>
+<text x="577.5" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поверхня атаки</text>
+<text x="577.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Велика (радіо/стек/ключі)</text>
+<text x="577.5" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Нульова (немає порту оновлення)</text>
+<line x1="685.0" y1="402.0" x2="685.0" y2="446.0" stroke="#d0d5dd" stroke-width="1.0"/>
+<text x="792.5" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автономність</text>
+<text x="792.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">3–5 років (радіо-вікна)</text>
+<text x="792.5" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">10–15 років (Li-SOCl2)</text>
+</svg>

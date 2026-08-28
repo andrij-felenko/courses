@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Детермінований конвеєр збірки для гарантії побітового збігу прошивки</text>
+<rect x="30.0" y="90.0" width="200.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="130.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВХІДНІ АРТЕФАКТИ</text>
+<line x1="45.0" y1="130.0" x2="215.0" y2="130.0" stroke="#333333" stroke-width="1.0"/>
+<text x="45.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Git комміт / субмодулі</text>
+<text x="45.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Заморожений toolchain</text>
+<text x="45.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Образ контейнера (OCI)</text>
+<text x="45.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Фіксований sysroot / RTOS</text>
+<text x="45.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Скрипти збірки (CMake)</text>
+<line x1="235.0" y1="210.0" x2="275.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="60.0" width="360.0" height="300.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="460.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">БАР'ЄРИ ДЕТЕРМІНІЗМУ (ISO / IEC)</text>
+<line x1="300.0" y1="105.0" x2="620.0" y2="105.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="295.0" y="125.0" width="330.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="305.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">SOURCE_DATE_EPOCH</text>
+<text x="305.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Фіксація часу замість __DATE__ / __TIME__</text>
+<rect x="295.0" y="171.0" width="330.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="305.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">-fdebug-prefix-map</text>
+<text x="305.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Очищення абсолютних шляхів хоста в DWARF</text>
+<rect x="295.0" y="217.0" width="330.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="305.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">LC_ALL=C, TZ=UTC</text>
+<text x="305.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Усунення впливу мови та часового поясу</text>
+<rect x="295.0" y="263.0" width="330.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="305.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Стабільне сортування</text>
+<text x="305.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Детермінований порядок лінкування об'єктів</text>
+<rect x="295.0" y="309.0" width="330.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="305.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Фіксовані прапорці</text>
+<text x="305.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Заборона -O3 без фіксації версії компілятора</text>
+<line x1="645.0" y1="210.0" x2="685.0" y2="210.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="690.0" y="90.0" width="240.0" height="240.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="810.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">РЕЗУЛЬТАТ ЗБІРКИ</text>
+<line x1="705.0" y1="130.0" x2="915.0" y2="130.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="705.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Збірка 2026 року:</text>
+<text x="705.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">SHA-256: e3b0c442...a5c1</text>
+<text x="705.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="705.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Збірка 2038 року (з архіву):</text>
+<text x="705.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">SHA-256: e3b0c442...a5c1</text>
+<text x="705.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="705.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">✓ 100% ЗБІГ БІТ-У-БІТ</text>
+<text x="705.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">✓ Не потрібна ресертифікація</text>
+</svg>

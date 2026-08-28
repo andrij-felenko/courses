@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мертва зона: розрив першого роду проти плавного ремасштабування</text>
+<text x="200.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Наївне відсікання (зі стрибком)</text>
+<text x="200.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">if (|x| &amp;lt; db) y = 0; else y = x;</text>
+<line x1="60.0" y1="240.0" x2="340.0" y2="240.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="380.0" x2="200.0" y2="100.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="348.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Вхід x</text>
+<text x="200.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вихід y</text>
+<rect x="165.0" y="120.0" width="70.0" height="240.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<line x1="165.0" y1="234.0" x2="165.0" y2="246.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="235.0" y1="234.0" x2="235.0" y2="246.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="158.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">-db</text>
+<text x="235.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">+db</text>
+<line x1="75.0" y1="365.0" x2="165.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="165.0" y1="240.0" x2="235.0" y2="240.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="235.0" y1="205.0" x2="325.0" y2="115.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="235.0" y1="240.0" x2="235.0" y2="205.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="165.0" y1="240.0" x2="165.0" y2="275.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="235.0" cy="240.0" r="3.5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="235.0" cy="205.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="222.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Стрибок!</text>
+<text x="620.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Плавне масштабування (C⁰ неперервне)</text>
+<text x="620.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">y = sgn(x) · (|x| - db) / (1 - db)</text>
+<line x1="480.0" y1="240.0" x2="760.0" y2="240.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="380.0" x2="620.0" y2="100.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="768.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Вхід x</text>
+<text x="620.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вихід y</text>
+<rect x="585.0" y="120.0" width="70.0" height="240.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<line x1="585.0" y1="234.0" x2="585.0" y2="246.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="655.0" y1="234.0" x2="655.0" y2="246.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="585.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">-db</text>
+<text x="655.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">+db</text>
+<line x1="495.0" y1="365.0" x2="585.0" y2="240.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="585.0" y1="240.0" x2="655.0" y2="240.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="655.0" y1="240.0" x2="745.0" y2="115.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="655.0" cy="240.0" r="3.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="585.0" cy="240.0" r="3.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="663.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Плавний нуль</text>
+<rect x="80.0" y="375.0" width="680.0" height="32.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="420.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Плавне масштабування виключає ривок моторів у момент виходу стіка з мертвої зони</text>
+</svg>

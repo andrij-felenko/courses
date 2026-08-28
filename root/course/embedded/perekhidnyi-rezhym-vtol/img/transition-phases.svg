@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка прямого переходу VTOL (Forward Transition)</text>
+<rect x="60.0" y="55.0" width="230.0" height="420.0" rx="4" fill="#f9fbfe" stroke="#d0d7de" stroke-width="1.0"/>
+<rect x="290.0" y="55.0" width="280.0" height="420.0" rx="4" fill="#fefdf5" stroke="#e1d88a" stroke-width="1.0"/>
+<rect x="570.0" y="55.0" width="210.0" height="420.0" rx="4" fill="#f6fcf8" stroke="#c3e6cb" stroke-width="1.0"/>
+<text x="175.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: Розгін (Hover / Accel)</text>
+<text x="430.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b08800" text-anchor="middle" font-weight="700">Фаза 2: Змішана тяга (Blending)</text>
+<text x="675.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 3: Літак (Fixed-Wing)</text>
+<line x1="60.0" y1="95.0" x2="780.0" y2="95.0" stroke="#8c959f" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="60.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0 м/с</text>
+<text x="290.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">V_blend_start (6 м/с)</text>
+<text x="470.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V_stall (13 м/с)</text>
+<text x="570.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">V_trans (16 м/с)</text>
+<text x="780.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">V_cruise (22 м/с)</text>
+<line x1="290.0" y1="95.0" x2="290.0" y2="460.0" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="470.0" y1="95.0" x2="470.0" y2="460.0" stroke="#f8d7da" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="570.0" y1="95.0" x2="570.0" y2="460.0" stroke="#c3e6cb" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="75.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Підйомна сила та тяга</text>
+<line x1="80.0" y1="270.0" x2="770.0" y2="270.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="80.0" y1="160.0" x2="770.0" y2="160.0" stroke="#8c959f" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="75.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100% m·g</text>
+<text x="75.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0 N</text>
+<polyline points="60.0,160.0 75.0,160.0 90.0,160.0 105.0,160.0 120.0,160.0 135.0,160.0 150.0,160.0 165.0,160.0 180.0,160.0 195.0,160.0 210.0,160.0 225.0,160.0 240.0,160.0 255.0,160.0 270.0,160.0 285.0,160.0 300.0,160.1 315.0,160.9 330.0,162.2 345.0,164.2 360.0,166.9 375.0,170.1 390.0,174.0 405.0,178.6 420.0,183.7 435.0,189.5 450.0,195.9 465.0,203.0 480.0,210.7 495.0,219.0 510.0,227.9 525.0,237.5 540.0,247.7 555.0,258.5 570.0,270.0 780.0,270.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<polyline points="60.0,270.0 75.0,269.9 90.0,269.8 105.0,269.5 120.0,269.1 135.0,268.6 150.0,267.9 165.0,267.2 180.0,266.3 195.0,265.4 210.0,264.3 225.0,263.1 240.0,261.7 255.0,260.3 270.0,258.8 285.0,257.1 300.0,254.7 315.0,251.7 330.0,248.4 345.0,244.9 360.0,241.1 375.0,237.0 390.0,232.7 405.0,228.1 420.0,223.3 435.0,218.1 450.0,212.7 465.0,207.1 480.0,201.2 495.0,195.0 510.0,188.5 525.0,181.8 540.0,174.8 555.0,167.5 570.0,160.0 585.0,160.0 600.0,160.0 615.0,160.0 630.0,160.0 645.0,160.0 660.0,160.0 675.0,160.0 690.0,160.0 705.0,160.0 720.0,160.0 735.0,160.0 750.0,160.0 765.0,160.0 780.0,160.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="180.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Тяга роторів (T_v)</text>
+<text x="650.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Підйомна сила крила (L)</text>
+<text x="450.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">L + T_v ≈ m·g (баланс ваги)</text>
+<text x="75.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Маршовий двигун і ваговий коефіцієнт (Blending)</text>
+<line x1="80.0" y1="430.0" x2="770.0" y2="430.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="80.0" y1="330.0" x2="770.0" y2="330.0" stroke="#8c959f" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="75.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100%</text>
+<text x="75.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0%</text>
+<polyline points="60.0,430.0 120.0,330.0 570.0,330.0 620.0,365.0 780.0,365.0" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+<text x="180.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тяга штовхача (Pusher)</text>
+<polyline points="60.0,430.0 290.0,430.0 570.0,330.0 780.0,330.0" fill="none" stroke="#2c3e50" stroke-width="2.5"/>
+<text x="460.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2c3e50" text-anchor="middle" font-weight="700">Авторитет елеронів B(v)</text>
+<rect x="60.0" y="480.0" width="720.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Критична умова успішного переходу: повне вимкнення підйомних роторів лише після V_ias &gt; V_trans</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема автоскидання: як DTR/RTS керують завантажувачем</text>
+<rect x="40.0" y="80.0" width="150.0" height="50.0" rx="6" fill="#eef3ff" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="101.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">USB-UART міст</tspan><tspan x="115.0" dy="14.3">(CP2102 / CH340)</tspan></text>
+<text x="115.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">DTR (Data Terminal Ready)</text>
+<text x="115.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RTS (Request To Send)</text>
+<rect x="230.0" y="60.0" width="280.0" height="210.0" rx="8" fill="#fdf6e3" stroke="#b8860b" stroke-width="1.5"/>
+<text x="370.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Схема автоскидання (Auto-Program)</text>
+<rect x="250.0" y="110.0" width="110.0" height="45.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/><text x="305.0" y="123.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="305.0" dy="0.0">Q1 (NPN)</tspan><tspan x="305.0" dy="12.3">База: RTS</tspan><tspan x="305.0" dy="12.3">Колектор: EN</tspan></text>
+<rect x="380.0" y="110.0" width="110.0" height="45.0" rx="6" fill="#ffffff" stroke="#b8860b" stroke-width="1.2"/><text x="435.0" y="123.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="435.0" dy="0.0">Q2 (NPN)</tspan><tspan x="435.0" dy="12.3">База: DTR</tspan><tspan x="435.0" dy="12.3">Колектор: IO0</tspan></text>
+<rect x="250.0" y="170.0" width="240.0" height="85.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="370.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Стани керування:</text>
+<text x="370.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DTR=1, RTS=0 → EN=0, IO0=1 (Скидання)</text>
+<text x="370.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">DTR=0, RTS=1 → EN=1, IO0=0 (Вхід у бут)</text>
+<text x="370.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">DTR=1, RTS=1 → EN=1, IO0=1 (Робочий хід)</text>
+<line x1="190.0" y1="130.0" x2="250.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="210.0" x2="250.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="550.0" y="60.0" width="230.0" height="210.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="665.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Мікроконтролер (ESP32)</text>
+<rect x="570.0" y="110.0" width="190.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="665.0" y="129.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">EN / NRST (Скидання)</tspan><tspan x="665.0" dy="12.3">підтягнуто до VDD через 10 кОм</tspan></text>
+<rect x="570.0" y="175.0" width="190.0" height="45.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="665.0" y="194.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">GPIO0 / BOOT0 (Режим)</tspan><tspan x="665.0" dy="12.3">0: ROM Bootloader, 1: Flash</tspan></text>
+<line x1="510.0" y1="132.0" x2="570.0" y2="132.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="197.0" x2="570.0" y2="197.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="410.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">На власній платі цієї схеми немає: прошивка вимагає кнопок або стенду з голками</text>
+</svg>

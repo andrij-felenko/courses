@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="470.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Витік апаратних деталей проти абстрактного контракту BSP</text>
+<rect x="30.0" y="45.0" width="375.0" height="405.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="217.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Антипатерн: Прямий витік заліза в логіку</text>
+<text x="45.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Застосунок знає номер піна:</text>
+<rect x="45.0" y="117.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="55.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);</text>
+<text x="45.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Застосунок знає адресу шини I2C:</text>
+<rect x="45.0" y="197.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="55.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">i2c_master_write_to_device(I2C_NUM_0, 0x68, reg, 2);</text>
+<text x="45.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Застосунок рахує резистори дільника:</text>
+<rect x="45.0" y="277.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="55.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">v_bat = (adc_raw * 3300 / 4095) * (100 + 47) / 47;</text>
+<text x="45.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Застосунок керує ключем живлення:</text>
+<rect x="45.0" y="357.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="55.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, 0); // PMOS on</text>
+<text x="55.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="start">HAL_Delay(15); // Очікування ємностей</text>
+<text x="217.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зміна трасування чи ревізії плати руйнує весь проєкт</text>
+<rect x="435.0" y="45.0" width="375.0" height="405.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="622.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Ідіоматичний підхід: Контракт межі BSP</text>
+<text x="450.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Семантичний намір керування індикатором:</text>
+<rect x="450.0" y="117.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="460.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="start">board_status_led_set(BOARD_LED_ID_SYSTEM, BOARD_LED_WARN);</text>
+<text x="450.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Отримання фізичних одиниць без адреси:</text>
+<rect x="450.0" y="197.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="460.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="start">board_read_inertial_data(&amp;imu_accel_raw, &amp;imu_gyro_dps);</text>
+<text x="450.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Готова напруга живлення в мілівольтах:</text>
+<rect x="450.0" y="277.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="460.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="start">uint16_t bat_mv = 0;</text>
+<text x="460.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="start">board_get_battery_voltage_mv(&amp;bat_mv);</text>
+<text x="450.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Безпечне ввімкнення домену з таймінгом:</text>
+<rect x="450.0" y="357.0" width="345.0" height="46.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="460.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="start">board_power_sensors(true); // BSP контролює PMOS і delay</text>
+<text x="622.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Бізнес-логіка стабільна, 100% переносима та готова до тестів</text>
+</svg>

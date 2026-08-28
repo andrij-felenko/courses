@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крихкість правил: ізольовані евристики катастрофічно ламаються при накладанні факторів</text>
+<rect x="40.0" y="60.0" width="380.0" height="320.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="230.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Номінальний 1D-сценарій (на стенді)</text>
+<line x1="80.0" y1="180.0" x2="380.0" y2="180.0" stroke="#cbd5e1" stroke-width="2.0" stroke-dasharray="4,4"/>
+<rect x="280.0" y="140.0" width="30.0" height="80.0" rx="4" fill="#fecaca" stroke="#c0392b" stroke-width="1.5"/>
+<text x="295.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Стіна</text>
+<path d="M 100 180 L 220 180 Q 260 120 330 120 L 380 120" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="100.0" cy="180.0" r="6.0" fill="#27ae60" stroke="#ffffff" stroke-width="2.0"/>
+<text x="100.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старт</text>
+<rect x="70.0" y="240.0" width="320.0" height="110.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="85.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Одне правило діє ізольовано:</text>
+<text x="85.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Батарея 100% (немає обмеження тяги)</text>
+<text x="85.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Вітер 0 м/с (немає бокового зносу)</text>
+<text x="85.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Результат: маневр обходу успішний</text>
+<rect x="460.0" y="60.0" width="380.0" height="320.0" rx="8" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Реальне поле: накладання збурень</text>
+<line x1="500.0" y1="180.0" x2="800.0" y2="180.0" stroke="#cbd5e1" stroke-width="2.0" stroke-dasharray="4,4"/>
+<rect x="700.0" y="140.0" width="30.0" height="80.0" rx="4" fill="#fecaca" stroke="#c0392b" stroke-width="1.5"/>
+<text x="715.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Стіна</text>
+<line x1="640.0" y1="115.0" x2="640.0" y2="155.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Боковий вітер 12 м/с</text>
+<path d="M 520 180 L 630 180 Q 660 160 700 170" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="700.0" cy="170.0" r="7.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="682.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ЗІТКНЕННЯ</text>
+<rect x="490.0" y="240.0" width="320.0" height="110.0" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1.0"/>
+<text x="505.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Конфлікт 3 дискретних правил:</text>
+<text x="505.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Rule_Обхід: повернути вліво</text>
+<text x="505.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Rule_Економія: обмежити струм до 40%</text>
+<text x="505.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">3. Вітер зносить апарат швидше за поворот</text>
+</svg>

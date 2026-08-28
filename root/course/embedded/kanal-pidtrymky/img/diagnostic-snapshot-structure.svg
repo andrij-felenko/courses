@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія діагностичного знімка (Support Bundle / Crash Snapshot)</text>
+<rect x="30.0" y="52.0" width="880.0" height="85.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="45.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">1. Заголовок пакета та цифрова ідентифікація (Header &amp; System ID — 64 байти)</text>
+<line x1="30.0" y1="84.0" x2="910.0" y2="84.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="45.0" y="92.0" width="200.0" height="36.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="55.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Magic / Версія</text>
+<text x="55.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">0x4442554E ('DBUN') v2</text>
+<rect x="260.0" y="92.0" width="200.0" height="36.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="270.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">S/N та HW Rev</text>
+<text x="270.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">GW500-2026-0042 / Rev C</text>
+<rect x="475.0" y="92.0" width="200.0" height="36.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="485.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Хеш прошивки</text>
+<text x="485.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Git: 7f89bc2 (Release)</text>
+<rect x="690.0" y="92.0" width="200.0" height="36.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="700.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Uptime / Reset Reason</text>
+<text x="700.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">42d 18h / 0x08 (Watchdog)</text>
+<rect x="30.0" y="150.0" width="280.0" height="185.0" rx="8" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<rect x="30.0" y="150.0" width="280.0" height="32.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="170.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">2. Аварійний стан ядра (Fault Context)</text>
+<text x="42.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Регістри Cortex-M:</text>
+<text x="42.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">CFSR, HFSR, MMFAR, BFAR</text>
+<text x="42.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Стек-фрейм винятку:</text>
+<text x="42.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">PC, LR, SP, R0-R3, R12, xPSR</text>
+<text x="42.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Task Control Block:</text>
+<text x="42.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">ID активної таски, ліміт стека</text>
+<text x="42.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Адреса виклику:</text>
+<text x="42.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">addr2line -&gt; drivers/i2c_bus.c:142</text>
+<rect x="330.0" y="150.0" width="280.0" height="185.0" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="1.4"/>
+<rect x="330.0" y="150.0" width="280.0" height="32.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="470.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">3. Живлення та середовище (Telemetry)</text>
+<text x="342.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Шини вхідної напруги:</text>
+<text x="342.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Vin = 23.8V, V33 = 3.29V</text>
+<text x="342.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Стан резервної батареї:</text>
+<text x="342.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Vbat = 3.92V, SoC = 88%</text>
+<text x="342.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Температурний профіль:</text>
+<text x="342.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">MCU = +48°C, Плата = +39°C</text>
+<text x="342.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Лічильники живлення:</text>
+<text x="342.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Brownout: 0, Power cycles: 14</text>
+<rect x="630.0" y="150.0" width="280.0" height="185.0" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.4"/>
+<rect x="630.0" y="150.0" width="280.0" height="32.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="770.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">4. Здоров'я периферії та шин</text>
+<text x="642.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">I2C / SPI помилки:</text>
+<text x="642.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">I2C NACK: 3, SPI Timeout: 0</text>
+<text x="642.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">RS-485 / CAN лічильники:</text>
+<text x="642.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">CAN Bus-Off: 0, CRC Err: 12</text>
+<text x="642.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Флеш-пам'ять / NVS:</text>
+<text x="642.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Flash Bad Blocks: 0, NVS: 42% free</text>
+<text x="642.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start" font-weight="700">Радіоканал / Мережа:</text>
+<text x="642.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">RSSI: -74 dBm, Reconnects: 2</text>
+<rect x="30.0" y="350.0" width="880.0" height="100.0" rx="8" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="45.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">5. Кільцевий буфер подій у FRAM/Flash та цілісність (Circular Event Log + CRC32)</text>
+<text x="45.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">[T-180s] SYS: Network link established (LTE Cat-M1)</text>
+<text x="45.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start">[T-45s] SENS: Pressure sensor BMP390 read timeout (I2C1)</text>
+<text x="45.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start">[T-2s] WDT: Task 'telemetry_tx' blocked for 5000ms</text>
+<text x="45.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start">[T-0s] FAULT: HardFault raised, saving crash snapshot to Flash</text>
+<text x="890.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="end" font-weight="700">Контрольна сума всього пакета: CRC32 / SHA-256</text>
+</svg>

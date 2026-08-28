@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -10 840 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-80" y="-10" width="840" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінка сили за струмом: вплив сухого тертя та мертвої зони редуктора</text>
+<line x1="60.0" y1="240.0" x2="700.0" y2="240.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="130.0" y1="390.0" x2="130.0" y2="75.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Зовнішній момент на валу τ_ext  →</text>
+<text x="32" y="157.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" transform="rotate(-90 32 157.5)">Струм двигуна I_q  →</text>
+<rect x="55.0" y="95.0" width="150.0" height="275.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.75" rx="4"/>
+<text x="130.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зона нечутливості (сухе тертя Кулона)</text>
+<text x="130.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">струм не реагує на слабкий контакт</text>
+<line x1="-20.0" y1="340.0" x2="280.0" y2="140.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="285.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ідеал без тертя: I = τ / (N · K_t)</text>
+<polyline points="-70.00,390.00 55.00,285.00 55.00,240.00 205.00,240.00 205.00,195.00 330.00,90.00" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+<text x="310.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Реальний відгук струму</text>
+<rect x="550.0" y="310.0" width="180.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="640.0" y="329.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Редуктор N:1</tspan><tspan x="640.0" dy="14.3">Тертя росте з N</tspan><tspan x="640.0" dy="14.3">Інерція росте як N²</tspan></text>
+</svg>

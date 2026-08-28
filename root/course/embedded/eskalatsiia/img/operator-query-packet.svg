@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="30.0" width="900.0" height="50.0" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="start" font-weight="700">ПАКЕТ ЗАПИТУ ЕСКАЛАЦІЇ: ESCALATION_QUERY (Розмір &lt;= 480 байтів)</text>
+<text x="900.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="end">Канал: Телеметрія / MAVLink payload</text>
+<rect x="20.0" y="100.0" width="190.0" height="210.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="115.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Секція 1: Заголовок і тригер</text>
+<line x1="28.0" y1="134.0" x2="202.0" y2="134.0" stroke="#2563eb" stroke-width="1.0"/>
+<text x="32.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="32.0" dy="0.0">• ID запиту: 0x8A4F</tspan><tspan x="32.0" dy="14.9">• Код причини: PATH_BLOCKED</tspan><tspan x="32.0" dy="14.9">• Рівень тривоги: WARNING</tspan><tspan x="32.0" dy="14.9">• Часова мітка: 142.850 с</tspan><tspan x="32.0" dy="14.9">• Динамічний дедлайн: 3.2 с</tspan></text>
+<rect x="223.0" y="100.0" width="220.0" height="210.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+<text x="333.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">Секція 2: Візуальний ROI</text>
+<line x1="231.0" y1="134.0" x2="435.0" y2="134.0" stroke="#059669" stroke-width="1.0"/>
+<text x="235.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="235.0" dy="0.0">• Кроп камери: 256x256 px</tspan><tspan x="235.0" dy="14.9">• Формат: JPEG Q=45 (280 B)</tspan><tspan x="235.0" dy="14.9">• Bounding Box детекції</tspan><tspan x="235.0" dy="14.9">• Вектор руху цілі (Vx, Vy)</tspan><tspan x="235.0" dy="14.9">• Клас: UNKNOWN_OBSTACLE</tspan></text>
+<rect x="456.0" y="100.0" width="220.0" height="210.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="566.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">Секція 3: Геопростір</text>
+<line x1="464.0" y1="134.0" x2="668.0" y2="134.0" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="468.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="468.0" dy="0.0">• Координати: (X, Y, Z)</tspan><tspan x="468.0" dy="14.9">• Поточна швидкість: 4.8 м/с</tspan><tspan x="468.0" dy="14.9">• Зріз сітки вартостей 10x10 м</tspan><tspan x="468.0" dy="14.9">• Поточний вейпойнт: #14</tspan><tspan x="468.0" dy="14.9">• Запас батареї: 64% (18 хв)</tspan></text>
+<rect x="689.0" y="100.0" width="230.0" height="210.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="804.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Секція 4: Варіанти дій</text>
+<line x1="697.0" y1="134.0" x2="911.0" y2="134.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="701.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="701.0" dy="0.0">• A: Об'їзд ліворуч (+15 м)</tspan><tspan x="701.0" dy="14.9">• B: Об'їзд праворуч (+60 м)</tspan><tspan x="701.0" dy="14.9">• C: Скасувати сегмент</tspan><tspan x="701.0" dy="14.9">• D: Аварійне зависання</tspan><tspan x="701.0" dy="14.9">(Оператор обирає 1 байт!)</tspan></text>
+<rect x="20.0" y="330.0" width="900.0" height="85.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="40.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">ВІДПОВІДЬ ОПЕРАТОРА (ESCALATION_RESPONSE):</text>
+<text x="40.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"><tspan x="40.0" dy="0.0">• query_id (2 байти) + selected_option (1 байт) + auth_token (4 байти) = 7 байтів корисного навантаження.</tspan><tspan x="40.0" dy="15.0">• Оператор не формує складну траєкторію вручну — він обирає одне з прорахованих безпечних рішень одним кліком.</tspan></text>
+</svg>

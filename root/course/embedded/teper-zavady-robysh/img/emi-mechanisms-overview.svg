@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шляхи поширення завад: кондуктивні та випромінювані</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">завада виникає всередині схеми і виходить назовні через спільні дроти (кондуктивно) або через ефір (випромінюванням)</text>
+<rect x="50.0" y="80.0" width="400.0" height="360.0" rx="8" fill="#fcfcfd" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">КОНДУКТИВНІ ЗАВАДИ (150 кГц – 30 МГц)</text>
+<text x="250.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">поширення провідниками, шинами живлення та кабелями</text>
+<rect x="80.0" y="155.0" width="110.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="135.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Джерело шуму</text>
+<text x="135.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DC-DC, ШІМ)</text>
+<line x1="190.0" y1="175.0" x2="390.0" y2="175.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="410.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">V+</text>
+<line x1="190.0" y1="210.0" x2="390.0" y2="210.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">GND</text>
+<line x1="230.0" y1="165.0" x2="290.0" y2="165.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="220.0" x2="230.0" y2="220.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Диференціальний шум (I_DM)</text>
+<text x="260.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">струм тече по V+ і повертається по GND</text>
+<line x1="230.0" y1="285.0" x2="310.0" y2="285.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="310.0" x2="310.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="260.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Синфазний шум (I_CM)</text>
+<text x="260.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">тече в один бік по обох провідниках</text>
+<text x="260.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">замикається через ємність до шасі / землі</text>
+<rect x="70.0" y="375.0" width="360.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="250.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лікування: LC-фільтри (DM) +</text>
+<text x="250.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">синфазний дросель (CMC) та Y-конденсатори (CM)</text>
+<rect x="490.0" y="80.0" width="400.0" height="360.0" rx="8" fill="#fcfcfd" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ВИПРОМІНЮВАНІ ЗАВАДИ (30 МГц – ГГц)</text>
+<text x="690.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">поширення електромагнітними хвилями в ефір</text>
+<rect x="520.0" y="155.0" width="150.0" height="80.0" rx="6" fill="#f6ecd6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="595.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">Магнітна рамка</text>
+<text x="595.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">петля з великим di/dt</text>
+<text x="595.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">випромінює H-поле</text>
+<path d="M 685,175 A 20,20 0 0 1 685,215" fill="none" stroke="#b9770e" stroke-width="1.5" stroke-dasharray="3,3"/>
+<path d="M 685,159 A 36,36 0 0 1 685,231" fill="none" stroke="#b9770e" stroke-width="1.5" stroke-dasharray="3,3"/>
+<path d="M 685,143 A 52,52 0 0 1 685,247" fill="none" stroke="#b9770e" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="765.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">H-поле ~ f² · A · I</text>
+<rect x="520.0" y="265.0" width="150.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="595.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Електричний диполь</text>
+<text x="595.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">провідник з високим dv/dt</text>
+<text x="595.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">випромінює E-поле</text>
+<path d="M 685,285 A 20,20 0 0 1 685,325" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M 685,269 A 36,36 0 0 1 685,341" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M 685,253 A 52,52 0 0 1 685,357" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<text x="765.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">E-поле ~ f · L · I_cm</text>
+<rect x="510.0" y="375.0" width="360.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="690.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Лікування: мінімізація площі петлі (A) +</text>
+<text x="690.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">суцільна земля, ферити на кабелях, екранування</text>
+</svg>

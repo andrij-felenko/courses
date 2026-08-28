@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія винятку HardFault та розпакування стану процесора</text>
+<rect x="20.0" y="56.0" width="210.0" height="285.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="125.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Регістр LR (EXC_RETURN)</text>
+<rect x="30.0" y="92.0" width="190.0" height="36.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="125.0" y="114.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">0xFFFFFFFD / 0xFFFFFFF9</text>
+<text x="32.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Біт 2 (SPSEL) визначає стек:</text>
+<text x="32.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">• Біт 2 = 1 → Стек задачі PSP</text>
+<text x="32.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• Біт 2 = 0 → Головний стек MSP</text>
+<rect x="30.0" y="221.0" width="190.0" height="105.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="125.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">В RTOS аварія зазвичай</text>
+<text x="125.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">стається в потоці задачі,</text>
+<text x="125.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">тому дані кадру лежать</text>
+<text x="125.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">у PSP, а не в MSP.</text>
+<rect x="244.0" y="56.0" width="240.0" height="285.0" rx="6" fill="#fff7e6" stroke="#c0392b" stroke-width="1.8"/>
+<text x="364.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Апаратний кадр (вказівник SP)</text>
+<rect x="254.0" y="96.0" width="220.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="260.0" y="119.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">xPSR</text>
+<text x="470.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Статус процесора, Thumb</text>
+<rect x="254.0" y="142.0" width="220.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="260.0" y="165.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">PC (R15)</text>
+<text x="470.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Адреса інструкції збою</text>
+<rect x="254.0" y="188.0" width="220.0" height="38.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="260.0" y="211.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">LR (R14)</text>
+<text x="470.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Адреса повернення виклику</text>
+<rect x="254.0" y="234.0" width="220.0" height="38.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="260.0" y="257.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">R12</text>
+<text x="470.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Внутрішній регістр IP</text>
+<rect x="254.0" y="280.0" width="220.0" height="38.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="260.0" y="303.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">R3..R0</text>
+<text x="470.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Аргументи та проміжні дані</text>
+<rect x="498.0" y="56.0" width="302.0" height="285.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="649.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Регістри несправностей SCB</text>
+<rect x="508.0" y="96.0" width="282.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="516.0" y="116.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#27ae60" font-weight="700">HFSR</text>
+<text x="782.0" y="116.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10" fill="#6b7280" text-anchor="end">0xE000ED2C</text>
+<text x="516.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">HardFault: FORCED, VECTTBL</text>
+<rect x="508.0" y="154.0" width="282.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="516.0" y="174.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#27ae60" font-weight="700">CFSR</text>
+<text x="782.0" y="174.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10" fill="#6b7280" text-anchor="end">0xE000ED28</text>
+<text x="516.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">UFSR (DIVBYZERO) + BFSR + MMFSR</text>
+<rect x="508.0" y="212.0" width="282.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="516.0" y="232.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#27ae60" font-weight="700">MMFAR</text>
+<text x="782.0" y="232.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10" fill="#6b7280" text-anchor="end">0xE000ED34</text>
+<text x="516.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Точна адреса порушення захисту MPU</text>
+<rect x="508.0" y="270.0" width="282.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="516.0" y="290.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="11" fill="#27ae60" font-weight="700">BFAR</text>
+<text x="782.0" y="290.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10" fill="#6b7280" text-anchor="end">0xE000ED38</text>
+<text x="516.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Точна адреса апаратної помилки шини</text>
+<text x="410.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комбінація PC + CFSR + BFAR/MMFAR точно вказує рядок коду та невалідну адресу звернення</text>
+<text x="410.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Дані видобуваються за лічені мікросекунди без використання динамічної пам'яті чи блокуючих драйверів</text>
+</svg>

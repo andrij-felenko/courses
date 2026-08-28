@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний інтерфейс SWD: з'єднання відлагоджувача з мікроконтролером</text>
+<rect x="30.0" y="50.0" width="270.0" height="450.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="165.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратний відлагоджувач</text>
+<text x="165.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(J-Link / ST-Link / DAPLink)</text>
+<rect x="45.0" y="115.0" width="240.0" height="65.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="165.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема вимірювання Vref</text>
+<text x="165.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">АЦП / компаратор напруги</text>
+<rect x="45.0" y="190.0" width="240.0" height="175.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="165.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфери логічних рівнів</text>
+<text x="165.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Level Shifter (1.65 В – 5.0 В)</text>
+<text x="165.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SWCLK драйвер (вихід)</text>
+<text x="165.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SWDIO трансивер (напівдуплекс)</text>
+<text x="165.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">nRESET відкритий колектор</text>
+<text x="165.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Підтяжка SWDIO: 100 кОм до Vref</text>
+<rect x="45.0" y="375.0" width="240.0" height="95.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="165.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB-контролер / Фірмвар</text>
+<text x="165.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CMSIS-DAP / Segger протокол</text>
+<text x="165.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зв'язок з ПК через USB CDC/HID</text>
+<rect x="660.0" y="50.0" width="270.0" height="450.0" rx="8" fill="#f8fafc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="795.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Мікроконтролер (Target MCU)</text>
+<text x="795.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Власна плата розробника</text>
+<rect x="675.0" y="115.0" width="240.0" height="75.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="795.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина живлення VDD (3.3 В)</text>
+<text x="795.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Живить периферію та I/O</text>
+<text x="795.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Блокувальні керамічні 100 нФ</text>
+<rect x="675.0" y="200.0" width="240.0" height="160.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="795.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ARM CoreSight Debug Port</text>
+<text x="795.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SW-DP / AHB-AP інтерфейс</text>
+<text x="795.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Внутрішній pull-down SWCLK</text>
+<text x="795.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Внутрішній pull-up SWDIO</text>
+<text x="795.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">NRST фільтр (100 нФ на GND)</text>
+<text x="795.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">BOOT0 притягнутий до GND</text>
+<rect x="675.0" y="370.0" width="240.0" height="100.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="795.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цифрове ядро (1.2 В) + LDO</text>
+<text x="795.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Піни VCAP1 / VCAP2</text>
+<text x="795.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Конденсатори 2.2 мкФ Low-ESR</text>
+<line x1="300.0" y1="145.0" x2="660.0" y2="145.0" stroke="#c0392b" stroke-width="2.0"/>
+<circle cx="300.0" cy="145.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="660.0" cy="145.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="330.0" y="125.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="480.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VTref / Vtarget (опора) →</text>
+<text x="480.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опорна напруга плати для буферів</text>
+<line x1="300.0" y1="225.0" x2="660.0" y2="225.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="300.0" cy="225.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="660.0" cy="225.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="330.0" y="205.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="480.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SWCLK (тактування 1–10 МГц) →</text>
+<text x="480.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовний резистор Rs 22–47 Ом</text>
+<line x1="300.0" y1="290.0" x2="660.0" y2="290.0" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="300.0" cy="290.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="660.0" cy="290.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="330.0" y="270.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="480.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SWDIO (двонаправлені дані) ↔</text>
+<text x="480.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовний резистор Rs 22–47 Ом</text>
+<line x1="300.0" y1="355.0" x2="660.0" y2="355.0" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="300.0" cy="355.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="660.0" cy="355.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="330.0" y="335.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">nRESET (апаратне скидання) →</text>
+<text x="480.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Open-drain лінія скидання ядра</text>
+<line x1="300.0" y1="430.0" x2="660.0" y2="430.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="300.0" cy="430.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="660.0" cy="430.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<rect x="330.0" y="410.0" width="300.0" height="40.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">GND (спільна земля) —</text>
+<text x="480.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обов'язковий зворотний шлях струму</text>
+</svg>

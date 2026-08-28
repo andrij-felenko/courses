@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектральний розподіл ЕМС: завади провідності, випромінювання та ліміти</text>
+<line x1="60.0" y1="110.0" x2="900.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="890.0" y1="110.0" x2="920.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="925.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Частота f</text>
+<line x1="60.0" y1="104.0" x2="60.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="60.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">9 кГц</text>
+<line x1="210.0" y1="104.0" x2="210.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="210.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">150 кГц</text>
+<line x1="400.0" y1="104.0" x2="400.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="400.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">30 МГц</text>
+<line x1="650.0" y1="104.0" x2="650.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="650.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">1 ГГц</text>
+<line x1="880.0" y1="104.0" x2="880.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="880.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">6 ГГц</text>
+<rect x="210.0" y="48.0" width="190.0" height="44.0" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="305.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Завади провідності</text>
+<text x="305.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">150 кГц – 30 МГц (LISN)</text>
+<rect x="400.0" y="48.0" width="480.0" height="44.0" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4"/>
+<text x="640.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Випромінювані завади в просторі</text>
+<text x="640.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">30 МГц – 6 ГГц (Безвідлунна камера)</text>
+<rect x="50.0" y="160.0" width="415.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">Завади провідності (Conducted Emissions)</text>
+<line x1="65.0" y1="188.0" x2="445.0" y2="188.0" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="65.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Метод: вимірювання струмів через мережу LISN (50 Ом / 50 мкГн)</text>
+<text x="65.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Джерела: ШІМ ключів DC-DC (100–500 кГц) та випрямлячів</text>
+<text x="65.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Ліміти EN 55032: Class B (46–66 дБмкВ), Class A (+10 дБ послаблення)</text>
+<text x="65.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Лікування: синфазні дроселі, X/Y конденсатори, П-фільтри</text>
+<rect x="495.0" y="160.0" width="415.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="510.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">Випромінювані завади (Radiated Emissions)</text>
+<line x1="510.0" y1="188.0" x2="890.0" y2="188.0" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="510.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Метод: вимірювальна антена на відстані 3 м або 10 м у SAC</text>
+<text x="510.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Джерела: тактові генератори (24/48 МГц), шлейфи, швидкісні шини</text>
+<text x="510.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Ліміти EN 55032: Class B (30–37 дБмкВ/м), Class A (40–47 дБмкВ/м)</text>
+<text x="510.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start">• Лікування: суцільний шар GND, феритові намистини, екранування</text>
+<rect x="50.0" y="315.0" width="860.0" height="135.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="start" font-weight="700">Критерії стійкості до завад (Immunity Performance Criteria за EN 55035 / EN 61000-6-2):</text>
+<rect x="65.0" y="353.0" width="266.0" height="82.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.0"/>
+<text x="75.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start" font-weight="700">Критерій A: Нормальна робота</text>
+<text x="75.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Прилад працює без збоїв і втрати даних під ч</text>
+<text x="75.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">ас дії завади (ESD 4 кВ, RF 3..10 В/м)</text>
+<rect x="347.0" y="353.0" width="266.0" height="82.0" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.0"/>
+<text x="357.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">Критерій B: Самовідновлення</text>
+<text x="357.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Тимчасове погіршення параметрів під час зава</text>
+<text x="357.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">ди з автоматичним відновленням без людини</text>
+<rect x="629.0" y="353.0" width="266.0" height="82.0" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.0"/>
+<text x="639.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">Критерій C: Втручання оператора</text>
+<text x="639.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Зависання або скидання, яке вимагає ручного </text>
+<text x="639.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">перезапуску живлення користувачем</text>
+</svg>

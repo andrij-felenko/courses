@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комбінаторний простір входів (2^N) та перевірка інваріантів безпеки</text>
+<rect x="40.0" y="55.0" width="380.0" height="275.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="230.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця рішень дискретних входів</text>
+<rect x="48.0" y="93.0" width="364.0" height="24.0" rx="3" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="75.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень_L</text>
+<text x="135.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівень_H</text>
+<text x="195.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тиск_OK</text>
+<text x="255.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Помпа</text>
+<text x="315.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клапан</text>
+<text x="380.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статус інваріанта</text>
+<rect x="48.0" y="123.0" width="364.0" height="26.0" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.0"/>
+<text x="75.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="135.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="195.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="255.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="315.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="380.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Норма (порожній)</text>
+<rect x="48.0" y="153.0" width="364.0" height="26.0" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.0"/>
+<text x="75.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="195.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="255.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="315.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="380.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Норма (наповнення)</text>
+<rect x="48.0" y="183.0" width="364.0" height="26.0" rx="3" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.0"/>
+<text x="75.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="135.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="195.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="255.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="315.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="380.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Норма (повний)</text>
+<rect x="48.0" y="213.0" width="364.0" height="26.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="75.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="135.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="195.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">X</text>
+<text x="255.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="315.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ФІЗИЧНИЙ ПАРАДОКС</text>
+<rect x="48.0" y="243.0" width="364.0" height="26.0" rx="3" fill="#fef6e7" stroke="#d97706" stroke-width="1.0"/>
+<text x="75.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="135.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="195.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="255.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="315.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="380.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">СУПЕРЕЧНІСТЬ ПРАВИЛ</text>
+<rect x="48.0" y="273.0" width="364.0" height="26.0" rx="3" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="75.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="135.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="195.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1</text>
+<text x="255.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">?</text>
+<text x="315.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">?</text>
+<text x="380.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7e22ce" text-anchor="middle" font-weight="700">DEADLOCK (нема дії)</text>
+<rect x="450.0" y="55.0" width="330.0" height="275.0" rx="6" fill="#fafafa" stroke="#333333" stroke-width="1.5"/>
+<text x="615.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крайові точки аналогових входів</text>
+<line x1="500.0" y1="300.0" x2="500.0" y2="105.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="500.0" y1="115.0" x2="500.0" y2="100.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="515.0" y="120.0" width="250.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="650.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">&gt; 120 °C (Аварійний перегрів)</text>
+<line x1="495.0" y1="135.0" x2="515.0" y2="135.0" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="515.0" y="150.0" width="250.0" height="46.0" rx="4" fill="#fef6e7" stroke="#d97706" stroke-width="1.2"/>
+<text x="650.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">95..120 °C (Гістерезис вимкнення)</text>
+<line x1="495.0" y1="175.0" x2="515.0" y2="175.0" stroke="#d97706" stroke-width="1.2"/>
+<rect x="515.0" y="200.0" width="250.0" height="46.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="650.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">60..95 °C (Робочий діапазон)</text>
+<line x1="495.0" y1="225.0" x2="515.0" y2="225.0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="515.0" y="250.0" width="250.0" height="36.0" rx="4" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="650.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">&lt; 60 °C (Поріг увімкнення нагріву)</text>
+<line x1="495.0" y1="270.0" x2="515.0" y2="270.0" stroke="#2457d6" stroke-width="1.2"/>
+<text x="615.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Спецзначення: NaN, Open-Loop, Rate Spike (dT/dt &gt; 50 °C/s)</text>
+</svg>

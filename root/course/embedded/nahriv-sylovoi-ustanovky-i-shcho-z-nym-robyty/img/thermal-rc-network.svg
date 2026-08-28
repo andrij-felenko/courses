@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еквівалентна багатоланкова теплова RC-модель (Motor &amp; ESC Thermal Model)</text>
+<text x="70.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Мотор:</text>
+<circle cx="140.0" cy="130.0" r="22.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P_cu</text>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Втрати міді</text>
+<line x1="162.0" y1="130.0" x2="240.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="240.0" cy="130.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="240.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T_wind</text>
+<line x1="240.0" y1="130.0" x2="240.0" y2="175.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="199.1" y="179.7" width="81.8" height="30.7" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="192.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">C_th_wind</tspan><tspan x="240.0" dy="11.7">(Ємність міді)</tspan></text>
+<rect x="299.4" y="114.6" width="61.3" height="30.7" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="330.0" y="127.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">R_th_wi</tspan><tspan x="330.0" dy="11.7">(Ізоляція)</tspan></text>
+<line x1="240.0" y1="130.0" x2="290.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="370.0" y1="130.0" x2="430.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="430.0" cy="130.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="430.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">T_iron</text>
+<line x1="430.0" y1="130.0" x2="430.0" y2="175.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="386.5" y="179.7" width="86.9" height="30.7" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="192.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">C_th_iron</tspan><tspan x="430.0" dy="11.7">(Ємність сталі)</tspan></text>
+<rect x="496.8" y="114.6" width="66.4" height="30.7" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="530.0" y="127.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">R_th_ia</tspan><tspan x="530.0" dy="11.7">(Конвекція)</tspan></text>
+<line x1="430.0" y1="130.0" x2="490.0" y2="130.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="570.0" y1="130.0" x2="640.0" y2="130.0" stroke="#27ae60" stroke-width="1.8"/>
+<circle cx="640.0" cy="130.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="640.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">T_amb</text>
+<text x="640.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довкілля</text>
+<line x1="50.0" y1="240.0" x2="830.0" y2="240.0" stroke="#e0e4e8" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="70.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">ESC MOSFET:</text>
+<circle cx="140.0" cy="320.0" r="22.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">P_mos</text>
+<text x="140.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P_cond + P_sw</text>
+<line x1="162.0" y1="320.0" x2="250.0" y2="320.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="250.0" cy="320.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="250.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T_j (Кристал)</text>
+<line x1="250.0" y1="320.0" x2="250.0" y2="365.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="211.7" y="369.6" width="76.7" height="30.7" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="250.0" y="382.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">C_th_j</tspan><tspan x="250.0" dy="11.7">(Кристал ~мс)</tspan></text>
+<rect x="314.0" y="304.6" width="92.1" height="30.7" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="360.0" y="317.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">R_th_jc</tspan><tspan x="360.0" dy="11.7">(Кристал-Корпус)</tspan></text>
+<line x1="250.0" y1="320.0" x2="310.0" y2="320.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="410.0" y1="320.0" x2="480.0" y2="320.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="480.0" cy="320.0" r="4.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="480.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="middle" font-weight="700">T_heatsink</text>
+<line x1="480.0" y1="320.0" x2="480.0" y2="365.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="426.3" y="369.6" width="107.5" height="30.7" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="480.0" y="382.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">C_th_hs</tspan><tspan x="480.0" dy="11.7">(Радіатор ~секунди)</tspan></text>
+<rect x="538.8" y="304.6" width="102.3" height="30.7" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="590.0" y="317.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">R_th_sa</tspan><tspan x="590.0" dy="11.7">(Радіатор-Повітря)</tspan></text>
+<line x1="480.0" y1="320.0" x2="530.0" y2="320.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="650.0" y1="320.0" x2="720.0" y2="320.0" stroke="#27ae60" stroke-width="1.8"/>
+<circle cx="720.0" cy="320.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="720.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">T_amb</text>
+<text x="720.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довкілля</text>
+<text x="440.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Мала стала часу кристала (мілісекунди) вимагає миттєвого відведення тепла у велику теплоємність радіатора</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири стовпи пост-продажних експлуатаційних витрат (OpEx)</text>
+<rect x="30.0" y="60.0" width="370.0" height="185.0" rx="8" fill="#f8fafc" stroke="#0284c7" stroke-width="1.5"/>
+<text x="215.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="middle" font-weight="700">1. Зв'язок і радіотрафік (Connectivity)</text>
+<text x="215.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Оплата за мегабайти / сесії у стільникових мережах</text>
+<text x="215.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Оверхед протоколів (TLS handshake, MQTT, TCP ACK)</text>
+<text x="215.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Квантування трафіку (округлення до 1 або 10 КБ на сесію)</text>
+<text x="215.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Енергетична ціна ретрансмісій при слабкому сигналі</text>
+<text x="215.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">Важіль: Deadband-фільтрація, бінарний формат, батчинг</text>
+<rect x="440.0" y="60.0" width="370.0" height="185.0" rx="8" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="625.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6d28d9" text-anchor="middle" font-weight="700">2. Хмарна обробка та сховище (Cloud Ingestion)</text>
+<text x="625.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Оплата брокера за кількість прийнятих повідомлень</text>
+<text x="625.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• IOPS та ресурси читання/запису Time-series БД</text>
+<text x="625.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Вартість зберігання гігабайтів сирих нестиснутих логів</text>
+<text x="625.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Обчислювальні витрати бекенду на розбір JSON</text>
+<text x="625.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle" font-weight="700">Важіль: Багаторівневе сховище (Hot -&gt; Cold), S3 Parquet</text>
+<rect x="30.0" y="265.0" width="370.0" height="185.0" rx="8" fill="#f8fafc" stroke="#ea580c" stroke-width="1.5"/>
+<text x="215.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c2410c" text-anchor="middle" font-weight="700">3. Сервісні звернення (Customer Support)</text>
+<text x="215.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Час роботи операторів L1 та інженерів ескалації L2/L3</text>
+<text x="215.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Хибні скарги через незрозумілу поведінку інтерфейсу</text>
+<text x="215.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Відсутність віддаленого діагностичного знімка стану</text>
+<text x="215.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Спроби повторної конфігурації заблокованих вузлів</text>
+<text x="215.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">Важіль: Автодіагностика, однозначні статус-коди</text>
+<rect x="440.0" y="265.0" width="370.0" height="185.0" rx="8" fill="#f8fafc" stroke="#c0392b" stroke-width="1.5"/>
+<text x="625.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Гарантія, RMA та польовий ремонт (Field RMA)</text>
+<text x="625.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Логістика доставки дефектного вузла в сервісний центр</text>
+<text x="625.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Час техніка на стендову перевірку та дефектовку</text>
+<text x="625.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Витрати на випадки «Дефекту не виявлено» (NDF ~30-40%)</text>
+<text x="625.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Фізичний знос: електроліти, реле, флеш-пам'ять</text>
+<text x="625.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Важіль: Самотестування на борту, предиктивний моніторинг</text>
+</svg>

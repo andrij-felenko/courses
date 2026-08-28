@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 903.6 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="903.6" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="860.0" height="480.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виробничий ланцюжок апаратної ітерації друкованої плати (PCB Cycle)</text>
+<rect x="25.0" y="65.0" width="150.0" height="115.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="100.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">1. CAD Експорт</text>
+<line x1="35.0" y1="97.0" x2="165.0" y2="97.0" stroke="#0284c7" stroke-width="1.0"/>
+<text x="100.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Gerber X2, BOM,</tspan><tspan x="100.0" dy="13.5">CPL Pick &amp; Place,</tspan><tspan x="100.0" dy="13.5">Netlist, DRC</tspan></text>
+<line x1="177.0" y1="122.5" x2="197.0" y2="122.5" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="199.0" y="65.0" width="150.0" height="115.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="274.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">2. DFM / CAM</text>
+<line x1="209.0" y1="97.0" x2="339.0" y2="97.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="274.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="274.0" dy="0.0">Перевірка зазорів,</tspan><tspan x="274.0" dy="13.5">паяльної маски,</tspan><tspan x="274.0" dy="13.5">інженерні EQ</tspan></text>
+<line x1="351.0" y1="122.5" x2="371.0" y2="122.5" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="373.0" y="65.0" width="150.0" height="115.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="448.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">3. PCB Фабрикація</text>
+<line x1="383.0" y1="97.0" x2="513.0" y2="97.0" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="448.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="448.0" dy="0.0">Травлення міді, свердління,</tspan><tspan x="448.0" dy="13.5">металізація PTH, маска,</tspan><tspan x="448.0" dy="13.5">фінішне покриття (ENIG)</tspan></text>
+<line x1="525.0" y1="122.5" x2="545.0" y2="122.5" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="547.0" y="65.0" width="150.0" height="115.0" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1.8"/>
+<text x="622.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">4. SMT Монтаж</text>
+<line x1="557.0" y1="97.0" x2="687.0" y2="97.0" stroke="#059669" stroke-width="1.0"/>
+<text x="622.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="622.0" dy="0.0">Трафарет, паяльна паста,</tspan><tspan x="622.0" dy="13.5">Pick-and-Place автомат,</tspan><tspan x="622.0" dy="13.5">оплавлення в печі, AOI</tspan></text>
+<line x1="699.0" y1="122.5" x2="719.0" y2="122.5" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="721.0" y="65.0" width="150.0" height="115.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.8"/>
+<text x="796.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">5. Bring-up</text>
+<line x1="731.0" y1="97.0" x2="861.0" y2="97.0" stroke="#2563eb" stroke-width="1.0"/>
+<text x="796.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="796.0" dy="0.0">Опір ліній живлення,</tspan><tspan x="796.0" dy="13.5">перше ввімкнення, JTAG,</tspan><tspan x="796.0" dy="13.5">перевірка периферії</tspan></text>
+<rect x="660.0" y="245.0" width="190.0" height="100.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="755.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">УСПІХ (Плата працює)</text>
+<text x="755.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="755.0" dy="0.0">Розробка прошивки,</tspan><tspan x="755.0" dy="13.5">інтеграційні тести,</tspan><tspan x="755.0" dy="13.5">підготовка до серії</tspan></text>
+<line x1="796.0" y1="182.0" x2="755.0" y2="243.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="808.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Тести пройдено</text>
+<rect x="25.0" y="245.0" width="590.0" height="100.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2.0"/>
+<text x="320.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">КРИТИЧНА АПАРАТНА ПОМИЛКА (Неправильний футпрінт, замикання у внутрішніх шарах)</text>
+<text x="320.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">• Затримка проєкту: 14–28 днів (перевиправлення CAD, очікування нової ревізії Rev B)</tspan><tspan x="320.0" dy="12.8">• Фінансові втрати: списання зіпсованих компонентів, повторна оплата підготовки SMT, доставка</tspan><tspan x="320.0" dy="12.8">• Простій команди: розробники прошивки заблоковані через відсутність робочого заліза</tspan></text>
+<line x1="741.0" y1="182.0" x2="741.0" y2="210.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="741.0" y1="210.0" x2="565.0" y2="210.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="565.0" y1="210.0" x2="565.0" y2="243.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="555.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="end" font-weight="700">Критичний дефект</text>
+<line x1="105.0" y1="245.0" x2="105.0" y2="210.0" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="105.0" y1="210.0" x2="100.0" y2="210.0" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="100.0" y1="210.0" x2="100.0" y2="182.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="115.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start" font-weight="700">Перевипуск ревізії (+2..4 тижні)</text>
+<rect x="25.0" y="375.0" width="825.0" height="95.0" rx="6" fill="#eff6ff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="437.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Альтернатива: Лабораторна «хірургія» (Різання доріжок + Перемички + Dead-Bug)</text>
+<text x="437.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="437.0" dy="0.0">Дозволяє відновити базові функції за 1–4 години та продовжити розробку вбудованого ПЗ,</tspan><tspan x="437.0" dy="13.5">поки виправлена ревізія друкується й монтується у фоновому режимі.</tspan></text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 931.5 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="931.5" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізика насичення індуктивності та збій живлення цифрового ядра</text>
+<rect x="40.0" y="50.0" width="380.0" height="300.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крива насичення індуктивності L(I)</text>
+<line x1="80.0" y1="310.0" x2="390.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="390.0" y1="310.0" x2="405.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Струм I (мА)</text>
+<line x1="80.0" y1="310.0" x2="80.0" y2="100.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="100.0" x2="80.0" y2="85.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="65.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">L (мкГн)</text>
+<line x1="80.0" y1="140.0" x2="240.0" y2="140.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="240.0" y1="140.0" x2="370.0" y2="220.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="240.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Правильна котушка (Isat = 1.2 А)</text>
+<line x1="80.0" y1="140.0" x2="160.0" y2="145.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+<line x1="160.0" y1="145.0" x2="220.0" y2="300.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+<text x="160.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Невдала заміна (Isat = 200 мА)</text>
+<line x1="180.0" y1="100.0" x2="180.0" y2="310.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="180.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">I_peak навантаження</text>
+<rect x="460.0" y="50.0" width="410.0" height="300.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="665.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки насичення сердечника</text>
+<text x="490.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Струм через внутрішній ключ:</text>
+<line x1="500.0" y1="160.0" x2="600.0" y2="160.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="500.0" y1="160.0" x2="540.0" y2="130.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="540.0" y1="130.0" x2="540.0" y2="160.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Норма (ΔI помірний)</text>
+<line x1="640.0" y1="160.0" x2="740.0" y2="160.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="640.0" y1="160.0" x2="665.0" y2="145.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="665.0" y1="145.0" x2="680.0" y2="95.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="680.0" y1="95.0" x2="680.0" y2="160.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">НАСИЧЕННЯ (di/dt = V/L → ∞)</text>
+<text x="490.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Напруга живлення ядра VCORE (1.2 В):</text>
+<line x1="500.0" y1="240.0" x2="830.0" y2="240.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="660.0" y1="240.0" x2="680.0" y2="290.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="680.0" y1="290.0" x2="710.0" y2="290.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="710.0" y1="290.0" x2="730.0" y2="240.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="500.0" y1="265.0" x2="830.0" y2="265.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="835.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">V_min (HardFault)</text>
+<text x="700.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Просідання нижче порогу POR/BOR → аварійне перезавантаження</text>
+<rect x="125.8" y="362.9" width="648.4" height="44.1" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="381.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Коли струм перевищує Isat, індуктивність L падає до нуля. Котушка перетворюється на звичайний дріт,</tspan><tspan x="450.0" dy="13.7">викликаючи перегрів ключа ШІМ, провал напруги ядра VCORE і спонтанні падіння мікроконтролера в HardFault.</tspan></text>
+</svg>

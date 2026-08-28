@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комплексування навігації ровера та алгоритм виявлення пробуксовки коліс</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="470.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навігація ровера: злиття одометрії та захист від пробуксовки</text>
+<text x="470.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">багатопроменевий GNSS у місті проти колісних енкодерів та перевірка через IMU</text>
+<rect x="40.0" y="76.0" width="860.0" height="110.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.4"/>
+<text x="60.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">МІСЬКИЙ КАНЬЙОН ТА ПЕРЕШКОДИ (Multipath &amp; Shadowing)</text>
+<rect x="60.0" y="112.0" width="240.0" height="60.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="180.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">GNSS (Супутники)</text>
+<text x="180.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стрибки позиції ±15 м від стін</text>
+<rect x="350.0" y="112.0" width="240.0" height="60.0" rx="6" fill="#fffbf0" stroke="#d98a00" stroke-width="1.2"/>
+<text x="470.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="700">Енкодери коліс</text>
+<text x="470.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Точні кроки, але брешуть при буксуванні</text>
+<rect x="640.0" y="112.0" width="240.0" height="60.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="760.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">IMU (Акселерометр/Гіроскоп)</text>
+<text x="760.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Швидкий відгук, дрейф інтеграла</text>
+<rect x="40.0" y="206.0" width="860.0" height="234.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="470.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">МЕХАНІЗМ ДЕТЕКЦІЇ ПРОБУКСОВКИ (WHEEL SLIP DETECTION)</text>
+<rect x="60.0" y="256.0" width="220.0" height="70.0" rx="6" fill="#fffbf0" stroke="#d98a00" stroke-width="1.4"/>
+<text x="170.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="700">Диференціал коліс</text>
+<text x="170.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">a_wheel = d(V_wheel)/dt</text>
+<text x="170.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ω_wheel = (Vr − Vl) / B</text>
+<rect x="60.0" y="346.0" width="220.0" height="70.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/>
+<text x="170.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Датчики IMU</text>
+<text x="170.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">a_imu = Accel_X (поздовжнє)</text>
+<text x="170.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ω_imu = Gyro_Z (курс)</text>
+<line x1="280.0" y1="291.0" x2="340.0" y2="326.0" stroke="#d98a00" stroke-width="2.0" marker-end="url(#arrB)" stroke-linecap="round"/>
+<line x1="280.0" y1="381.0" x2="340.0" y2="346.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrG)" stroke-linecap="round"/>
+<rect x="345.0" y="301.0" width="200.0" height="70.0" rx="8" fill="#f4f4f5" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="445.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">КОМПАРАТОР</text>
+<text x="445.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">|a_wheel − a_imu| &gt; ε</text>
+<text x="445.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">або |ω_wheel − ω_imu| &gt; δ</text>
+<line x1="545.0" y1="336.0" x2="605.0" y2="336.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrR)" stroke-linecap="round"/>
+<rect x="610.0" y="266.0" width="270.0" height="140.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.6"/>
+<text x="745.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">РЕАКЦІЯ АВТОПІЛОТА</text>
+<text x="624.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Зменшити вагу одометрії в EKF</text>
+<text x="624.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Перехід на інерційне ведення</text>
+<text x="624.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Обмеження крутного моменту</text>
+<text x="624.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Якщо V_wheel &gt; 0, а a_imu = 0</text>
+<text x="624.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">   → статус STUCK (застрягання)</text>
+<text x="470.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Істинний рух підтверджується лише тоді, коли енкодери узгоджені з акселерометром та гіроскопом. Розбіжність сигналізує про пробуксовку або лід.</text>
+</svg>

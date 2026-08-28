@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт формування D-складової та каскад фільтрації шуму</text>
+<text x="470.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Диференціювання множить амплітуду шуму на частоту: фільтри мають прибрати піки вібрацій без фазової затримки</text>
+<rect x="33.0" y="100.0" width="154.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+<text x="110.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сирий гіроскоп</text>
+<text x="110.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">IMU SPI (8 кГц)</text>
+<line x1="43.0" y1="158.0" x2="177.0" y2="158.0" stroke="#1a1a1a" stroke-width="1" stroke-opacity="0.3"/>
+<text x="110.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сигнал руху (0–30 Гц) +</text>
+<text x="110.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">шум гвинтів (150–400 Гц)</text>
+<line x1="187.0" y1="165.0" x2="213.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="213.0" y="100.0" width="154.0" height="130.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2"/>
+<text x="290.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний Notch</text>
+<text x="290.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">RPM / FFT Tracking</text>
+<line x1="223.0" y1="158.0" x2="357.0" y2="158.0" stroke="#27ae60" stroke-width="1" stroke-opacity="0.3"/>
+<text x="290.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вирізає вузькі піки обертання моторів</text>
+<text x="290.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Q ≈ 4–8)</text>
+<line x1="367.0" y1="165.0" x2="393.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="393.0" y="100.0" width="154.0" height="130.0" rx="8" fill="#e8f4f8" stroke="#2457d6" stroke-width="2"/>
+<text x="470.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фільтр НЧ (LPF)</text>
+<text x="470.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">PT1 / Bi-quad (100 Гц)</text>
+<line x1="403.0" y1="158.0" x2="537.0" y2="158.0" stroke="#2457d6" stroke-width="1" stroke-opacity="0.3"/>
+<text x="470.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пригнічує залишковий високочастотний</text>
+<text x="470.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">спектр</text>
+<line x1="547.0" y1="165.0" x2="573.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="573.0" y="100.0" width="154.0" height="130.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="2"/>
+<text x="650.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Диференціатор</text>
+<text x="650.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d4ac0d" text-anchor="middle" font-weight="700">d(Gyro)/dt · K_d</text>
+<line x1="583.0" y1="158.0" x2="717.0" y2="158.0" stroke="#d4ac0d" stroke-width="1" stroke-opacity="0.3"/>
+<text x="650.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Обчислення демпфувального моменту</text>
+<text x="650.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">за виміром</text>
+<line x1="727.0" y1="165.0" x2="753.0" y2="165.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="753.0" y="100.0" width="154.0" height="130.0" rx="8" fill="#fdedec" stroke="#c0392b" stroke-width="2"/>
+<text x="830.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихід D-терма</text>
+<text x="830.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">У мікшер моторів</text>
+<line x1="763.0" y1="158.0" x2="897.0" y2="158.0" stroke="#c0392b" stroke-width="1" stroke-opacity="0.3"/>
+<text x="830.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Чисте гальмування без мікротремтіння</text>
+<text x="830.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та перегріву</text>
+<rect x="33.0" y="270" width="424.0" height="120" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Спектр D-складової БЕЗ достатньої фільтрації</text>
+<polyline points="53.0,370 113.0,360 173.0,355 233.0,305 263.0,362 333.0,310 363.0,365 437.0,368" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="233.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пік вібрації мотора (250 Гц)</text>
+<text x="245.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідок: гарячі мотори (&gt; 80°C), тремтіння, просідання АКБ</text>
+<rect x="483.0" y="270" width="424.0" height="120" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Спектр D-складової З динамічним фільтром (RPM Notch + PT1)</text>
+<polyline points="503.0,370 563.0,360 623.0,362 683.0,366 713.0,367 783.0,369 887.0,370" fill="none" stroke="#27ae60" stroke-width="2"/>
+<text x="683.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Режектор вирізав гармоніку</text>
+<text x="695.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: холодні мотори, чіткий відгук, збереження фази</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура доменів живлення та стани енергоспоживання</text>
+<rect x="20.0" y="55.0" width="460.0" height="405.0" rx="8" fill="#fdfefe" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="250.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна ізоляція доменів живлення</text>
+<rect x="38.0" y="100.0" width="424.0" height="52.0" rx="6" fill="#fffbf5" stroke="#e67e22" stroke-width="1.5"/>
+<text x="250.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Li-Ion Акумулятор (3.0 – 4.2 V)</text>
+<text x="250.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1S 18650 (3500 mAh) / Контролер TP4056 USB-C</text>
+<rect x="38.0" y="164.0" width="424.0" height="110.0" rx="6" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="250.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ДОМЕН 1: ЗАВЖДИ УВІМКНЕНИЙ (Always-On 3.3V)</text>
+<text x="250.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Low-Iq LDO регулятор (Iq = 55 µA)</text>
+<text x="250.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• MCU RTC та контролер пробудження (Wakeup GPIO)</text>
+<text x="250.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Кнопка ввімкнення / Power Latch схема</text>
+<text x="250.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Струм у режимі очікування (Deep Sleep): 12–15 µA</text>
+<rect x="38.0" y="286.0" width="424.0" height="155.0" rx="6" fill="#fdf7f6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ДОМЕН 2: КОМУТОВАНИЙ (Switched 3.3V Domain)</text>
+<text x="250.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ключ розриву живлення: P-MOSFET (AO3401 / TPS22918)</text>
+<text x="250.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• 2x Стіки Холла (AG01 Mini) — економія 15 мА</text>
+<text x="250.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Графічний дисплей OLED/IPS — економія 10–35 мА</text>
+<text x="250.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Радіотрансивер SX1280 (RF VDD) — економія 10–95 мА</text>
+<text x="250.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Резистивний дільник напруги Vbat (N-MOS затвор)</text>
+<rect x="505.0" y="55.0" width="475.0" height="405.0" rx="8" fill="#f8f9fb" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="742.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режими роботи та профіль споживання</text>
+<rect x="520.0" y="100.0" width="445.0" height="78.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="535.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Глибокий сон (Deep Sleep)</text>
+<text x="950.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">12–15 µA</text>
+<text x="535.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Вимкнено все, крім RTC та кнопки ввімкнення.</text>
+<text x="535.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Саморозряд акумулятора швидший за споживання.</text>
+<text x="535.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Автономність: &gt; 10 років без підзарядки.</text>
+<rect x="520.0" y="186.0" width="445.0" height="78.0" rx="6" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.2"/>
+<text x="535.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="start" font-weight="700">Очікування / Пауза (Standby)</text>
+<text x="950.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="end" font-weight="700">6–8 мА</text>
+<text x="535.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">MCU на 80 MHz, дисплей приглушено до 10%,</text>
+<text x="535.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">радіо в Warm-Sleep (періодичний пінг 10 Гц),</text>
+<text x="535.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">стіки на низькій частоті опитування (50 Гц).</text>
+<rect x="520.0" y="272.0" width="445.0" height="78.0" rx="6" fill="#fef9e7" stroke="#e67e22" stroke-width="1.2"/>
+<text x="535.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start" font-weight="700">Активне керування (1 kHz Active)</text>
+<text x="950.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="end" font-weight="700">26–32 мА</text>
+<text x="535.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Повний 1 кГц TDD цикл, дисплей 100% яскравості,</text>
+<text x="535.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">SX1280 чергує TX (+12 dBm), RX та Warm-Sleep.</text>
+<text x="535.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Автономність від 1S 3500 mAh: ~110–135 годин.</text>
+<rect x="520.0" y="358.0" width="445.0" height="78.0" rx="6" fill="#fdebd0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="535.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Піковий сплеск (Burst TX + Haptic)</text>
+<text x="950.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">110–140 мА</text>
+<text x="535.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Максимальна потужність TX (+20 dBm з PA)</text>
+<text x="535.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">+ вібромоторчик тактильної тривоги (ERM).</text>
+<text x="535.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Тривалість: короткі імпульси по 50–200 мс.</text>
+</svg>

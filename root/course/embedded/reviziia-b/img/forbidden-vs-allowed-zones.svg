@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 413.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="413.6" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта втручання в Rev B: заборонені та дозволені зони змін</text>
+<rect x="25.0" y="55.0" width="390.0" height="305.0" rx="8" fill="#fff5f5" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="25.0" y="55.0" width="390.0" height="36.0" rx="8" fill="#dc2626" stroke="#dc2626" stroke-width="1.0"/>
+<text x="220.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">⛔ СУВОРО ЗАБОРОНЕНО РУХАТИ (Locked)</text>
+<text x="40.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">ВЧ/НВЧ тракт і антени (RF 2.4/5.8 ГГц):</text>
+<text x="46.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Узгоджувальні кола (П-фільтри), мікрополоски 50 Ом</text>
+<text x="46.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Keep-out зони навколо чіп-антен або PCB-пачів</text>
+<text x="40.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">Силові імпульсні контури (DC-DC Switches):</text>
+<text x="46.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Гаряча петля Cin → MOSFET → Діод → GND</text>
+<text x="46.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Вузол комутації SW (мінімальна площа міді для EMI)</text>
+<text x="40.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">Швидкісні диференційні пари та шини:</text>
+<text x="46.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• USB High-Speed, Ethernet MII, MIPI, DDR пам'ять</text>
+<text x="46.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Кварцовий резонатор і його обв'язка (навантажувальні C)</text>
+<text x="40.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="start" font-weight="700">Механічний конверт і база чіпів:</text>
+<text x="46.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Координати кріпильних отворів і контур плати</text>
+<text x="46.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Заміна базового МК на іншу родину без гострої потреби</text>
+<rect x="445.0" y="55.0" width="390.0" height="305.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="445.0" y="55.0" width="390.0" height="36.0" rx="8" fill="#16a34a" stroke="#16a34a" stroke-width="1.0"/>
+<text x="640.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">✅ ОБОВ'ЯЗКОВО ТА ДОЗВОЛЕНО (Allowed/Required)</text>
+<text x="460.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="start" font-weight="700">Виправлення дефектів з Errata:</text>
+<text x="466.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Інвертовані виводи RX/TX, переплутані піни RESET/BOOT</text>
+<text x="466.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Додавання відсутніх підтяжок I2C, захисних діодів TVS</text>
+<text x="460.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="start" font-weight="700">Оптимізація футпрінтів під монтаж (DFM):</text>
+<text x="466.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Подовження контактних майданчиків QFN для паяльника</text>
+<text x="466.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Термобар'єри (Thermal Relief) для рівномірного прогріву</text>
+<text x="466.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Збільшення зазорів під паяльну маску між виводами 0.5 мм</text>
+<text x="460.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="start" font-weight="700">Уніфікація BOM та оптимізація фідерів:</text>
+<text x="466.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Зведення номіналів резисторів (4.7к + 5.1к → 10к)</text>
+<text x="466.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Заміна компонентів з довгим строком доставки на AVL</text>
+<text x="460.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="start" font-weight="700">Контрольні точки та ідентифікація:</text>
+<text x="466.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Додавання тестових майданчиків (TP) під голчастий адаптер</text>
+<text x="466.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">• Апаратний дільник або strapping-піни Board ID</text>
+<line x1="40.0" y1="375.0" x2="820.0" y2="375.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="430.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">Якщо перевірений вузол працює без завад у Rev A — будь-яке його перетрасування в Rev B є ризиком</text>
+</svg>

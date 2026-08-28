@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="385.0" height="370.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="20.0" width="385.0" height="44.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="212.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">АВТОМАТИЗАЦІЯ (ПРАВИЛО)</text>
+<rect x="40.0" y="85.0" width="140.0" height="48.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="110.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний вектор X</text>
+<line x1="180.0" y1="109.0" x2="230.0" y2="109.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="230.0" y="85.0" width="155.0" height="48.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="307.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">f(x) -&gt; y</text>
+<text x="307.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">(FSM / Таблиця)</text>
+<line x1="307.0" y1="133.0" x2="307.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="175.0" width="345.0" height="195.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="212.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• 100% статична верифікація</text>
+<text x="212.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Фіксований час WCET &lt;= T_max</text>
+<text x="212.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Рішення ухвалене інженером наперед</text>
+<text x="212.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Відсутність прихованого стану</text>
+<text x="212.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Детермінований граф переходів</text>
+<rect x="435.0" y="20.0" width="385.0" height="370.0" rx="6" fill="#fdfbf7" stroke="#333333" stroke-width="1.5"/>
+<rect x="435.0" y="20.0" width="385.0" height="44.0" rx="6" fill="#fef3c7" stroke="#333333" stroke-width="1.5"/>
+<text x="627.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">АВТОНОМІЯ (ОПТИМІЗАЦІЯ)</text>
+<rect x="455.0" y="85.0" width="140.0" height="48.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="525.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Неповні дані X</text>
+<line x1="595.0" y1="109.0" x2="645.0" y2="109.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="645.0" y="85.0" width="155.0" height="48.0" rx="4" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="722.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">min J(u)</text>
+<text x="722.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">(Пошук плану)</text>
+<line x1="722.0" y1="133.0" x2="722.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="455.0" y="175.0" width="345.0" height="195.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="627.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Генерація власних субцілей</text>
+<text x="627.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Варіативний час пошуку (евристика)</text>
+<text x="627.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Ризик локальних мінімумів</text>
+<text x="627.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Чутливість до шуму середовища</text>
+<text x="627.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Стохастичний простір станів</text>
+</svg>

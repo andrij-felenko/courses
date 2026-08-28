@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат перехоплення керування</text>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат станів системи перехоплення керування</text>
+<rect x="40.0" y="75.0" width="210.0" height="110.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="145.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">STATE_AUTO_NAV</text>
+<text x="145.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автономний політ (α = 0.0)</text>
+<text x="145.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Керує навігаційний контур</text>
+<text x="145.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Відстеження колії / місії</text>
+<rect x="325.0" y="75.0" width="210.0" height="110.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="430.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">STATE_OVERRIDE_IN</text>
+<text x="430.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наростання втручання</text>
+<text x="430.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• 0.0 &lt; α &lt; 1.0 (Ramp up)</text>
+<text x="430.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Заморозка I-терму автопілота</text>
+<rect x="610.0" y="75.0" width="210.0" height="110.0" rx="8" fill="#fbecec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="715.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">STATE_MANUAL_HOLD</text>
+<text x="715.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний ручний контроль (α = 1.0)</text>
+<text x="715.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Прямий відгук на стіки</text>
+<text x="715.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Стабілізований / кутовий контур</text>
+<rect x="610.0" y="265.0" width="210.0" height="110.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="2.0"/>
+<text x="715.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">STATE_HANDBACK_WAIT</text>
+<text x="715.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Очікування центровки стіків</text>
+<text x="715.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Стіки в Deadband (&lt; 12%)</text>
+<text x="715.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Таймер T_hold рахує 1.5 с</text>
+<rect x="325.0" y="265.0" width="210.0" height="110.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="430.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">STATE_BLENDING_OUT</text>
+<text x="430.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повернення авторитету</text>
+<text x="430.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• 1.0 &gt; α &gt; 0.0 (Ramp down)</text>
+<text x="430.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Синхронізація уставки Setpoint</text>
+<line x1="254.0" y1="130.0" x2="321.0" y2="130.0" stroke="#8a6d1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="287.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d1a" text-anchor="middle" font-weight="700">|stick| &gt; 12%</text>
+<line x1="539.0" y1="130.0" x2="606.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="572.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">α = 1.0</text>
+<line x1="715.0" y1="189.0" x2="715.0" y2="261.0" stroke="#8a6d1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="770.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d1a" text-anchor="middle" font-weight="700">|stick| &lt; 12%</text>
+<line x1="640.0" y1="261.0" x2="640.0" y2="189.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="622.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Стік &gt; 12%</text>
+<line x1="606.0" y1="320.0" x2="539.0" y2="320.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="572.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t ≥ T_hold</text>
+<line x1="321.0" y1="320.0" x2="145.0" y2="189.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="205.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">α = 0.0 (Auto OK)</text>
+<rect x="40.0" y="400.0" width="780.0" height="28.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат гарантує нерозривність керування: жодна комбінація дій не залишає приводи без командного сигналу</text>
+</svg>

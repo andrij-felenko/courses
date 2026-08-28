@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 491.76" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="491.76" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка LGPL: ПК із динамічним завантаженням проти монолітного MCU</text>
+<rect x="30.0" y="55.0" width="780.0" height="165.0" rx="6" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#196f3d" text-anchor="start" font-weight="700">ПК / Linux із віртуальною пам'яттю (MMU) — Динамічне лінкування (.so / .dll)</text>
+<rect x="50.0" y="98.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="150.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">closed_app (двійковий)</text>
+<text x="150.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Закритий код користувача</text>
+<line x1="255.0" y1="123.0" x2="315.0" y2="123.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">dlopen()</text>
+<rect x="320.0" y="98.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="420.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a3ea1" text-anchor="middle" font-weight="700">libdsp.so (LGPLv3)</text>
+<text x="420.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Динамічна бібліотека</text>
+<rect x="540.0" y="98.0" width="250.0" height="105.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="665.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">Відповідність ліцензії:</text>
+<text x="665.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Користувач може замінити</text>
+<text x="665.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">файл libdsp.so на власний.</text>
+<text x="665.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">Закритий код лишається закритим.</text>
+<text x="665.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимогу LGPL §4(d) виконано.</text>
+<text x="50.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Операційна система розділяє адреси: бібліотека підвантажується під час запуску окремо.</text>
+<text x="50.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Перекомпіляція застосунку не потрібна, вихідники власного коду закриті.</text>
+<rect x="30.0" y="235.0" width="780.0" height="205.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="50.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78281f" text-anchor="start" font-weight="700">Мікроконтролер без MMU (ARM Cortex-M) — Статичне монолітне лінкування</text>
+<rect x="50.0" y="278.0" width="350.0" height="145.0" rx="4" fill="#ffffff" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="225.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d6608" text-anchor="middle" font-weight="700">Варіант А: Роздача .o об'єктних файлів</text>
+<text x="225.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виробник зобов'язаний надати покупцю:</text>
+<text x="225.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle">• Усі пропрієтарні main.o, foc.o</text>
+<text x="225.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Скрипт лінкера link.ld + Makefile</text>
+<text x="225.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Інструкцію з перезбирання образу</text>
+<text x="225.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78281f" text-anchor="middle" font-weight="700">Розкриває імена символів, структури й логіку!</text>
+<rect x="430.0" y="278.0" width="360.0" height="145.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="610.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#196f3d" text-anchor="middle" font-weight="700">Варіант Б: Інженерне рішення (Чистий стек)</text>
+<text x="610.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Повна відмова від LGPL у статичному образі:</text>
+<text x="610.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">• Заміна на Apache-2.0 / MIT / BSD</text>
+<text x="610.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Використання CMSIS-DSP або mbedTLS</text>
+<text x="610.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Або комерційна ліцензія від автора</text>
+<text x="610.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#196f3d" text-anchor="middle" font-weight="700">Нульовий ризик витоку коду чи вимог перелінку!</text>
+<text x="420.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">У прошивках мікроконтролерів LGPL практично еквівалентний зобов'язанням розкриття двійкових модулів</text>
+</svg>

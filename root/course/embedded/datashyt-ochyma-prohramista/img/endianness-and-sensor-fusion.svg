@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="460.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трансформація: від двох 8-бітних регістрів до фізичної величини у SI</text>
+<rect x="30.0" y="65.0" width="230.0" height="220.0" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+<rect x="30.0" y="65.0" width="230.0" height="30.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="145.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700">1. Сирі регістри чипа</text>
+<rect x="45.0" y="110.0" width="200.0" height="38.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="145.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT_X_L (Addr: 0x28)</text>
+<text x="145.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Молодший байт [7:0] = 0x5C</text>
+<rect x="45.0" y="160.0" width="200.0" height="38.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="145.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT_X_H (Addr: 0x29)</text>
+<text x="145.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Старший байт [15:8] = 0xFE</text>
+<text x="145.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Зчитування: Burst Read</text>
+<text x="145.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">BDU = 1 блокує оновлення</text>
+<text x="145.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">поки не вичитано обидва байти</text>
+<line x1="265.0" y1="175.0" x2="305.0" y2="175.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="310.0" y="65.0" width="250.0" height="220.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="310.0" y="65.0" width="250.0" height="30.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="435.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6d28d9" text-anchor="middle" font-weight="700">2. Склеювання Little-Endian</text>
+<rect x="325.0" y="110.0" width="220.0" height="50.0" rx="4" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="1.0"/>
+<text x="435.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">int16_t raw_x = (int16_t)</text>
+<text x="435.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">((high &lt;&lt; 8) | low);</text>
+<text x="435.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Результат: 0xFE5C</text>
+<text x="435.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Старший біт (біт 15) = 1</text>
+<text x="435.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Число від'ємне (доповняльний код)</text>
+<text x="435.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Десяткове raw_x = -420 LSB</text>
+<line x1="565.0" y1="175.0" x2="605.0" y2="175.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="65.0" width="200.0" height="220.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+<rect x="610.0" y="65.0" width="200.0" height="30.0" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1.2"/>
+<text x="710.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#047857" text-anchor="middle" font-weight="700">3. Фізичне значення (SI)</text>
+<text x="710.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Full Scale: ±2g</text>
+<text x="710.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Чутливість (Sensitivity):</text>
+<text x="710.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="middle" font-weight="700">S = 0.061 мг/LSB</text>
+<rect x="622.0" y="175.0" width="176.0" height="45.0" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.0"/>
+<text x="710.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">a_x = raw_x · S · 9.80665</text>
+<text x="710.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">a_x = -0.251 м/с²</text>
+<text x="710.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Значення готове для</text>
+<text x="710.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">фільтрації та одометрії</text>
+<rect x="30.0" y="305.0" width="780.0" height="150.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка вирівнювання розрядності: 12-бітні та 14-бітні давачі</text>
+<text x="45.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Left-justified (вирівняно ліворуч): 12 біт лежать у бітах [15:4], молодші [3:0] — нулі. Зсув: raw = (raw_16 &gt;&gt; 4).</text>
+<text x="45.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Right-justified (вирівняно праворуч): 12 біт лежать у [11:0]. Увага: пряме приведення до int16_t НЕ розширить знак!</text>
+<text x="45.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Правильне знакове розширення (Sign Extension): if (raw &amp; 0x0800) raw |= 0xF000; або арифм. зсув (int16_t)(raw &lt;&lt; 4) &gt;&gt; 4.</text>
+<text x="45.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Звіряйте таблицю бітової структури (Bit Alignment) у даташиті перед написанням математики драйвера.</text>
+</svg>

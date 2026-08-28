@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 390" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f141c; }
+      .card { fill: #161b22; stroke: #30363d; stroke-width: 1.5px; rx: 8px; }
+      .card-warn { fill: #1c1516; stroke: #f85149; stroke-width: 1.5px; rx: 8px; }
+      .card-ok { fill: #121d17; stroke: #2ea043; stroke-width: 1.5px; rx: 8px; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 700; fill: #e6edf3; }
+      .text { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #e6edf3; }
+      .text-dim { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #8b949e; }
+      .text-bold { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #e6edf3; }
+      .val-ok { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #3fb950; }
+      .val-warn { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #f85149; }
+      .val-blue { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #58a6ff; }
+      .val-amber { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #d29922; }
+      .arrow { stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f85149" />
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#d29922" />
+    </marker>
+  </defs>
+
+  <rect width="820" height="390" class="bg" />
+
+  <!-- Top Global Wind Banner -->
+  <rect x="25" y="15" width="770" height="42" class="card" />
+  <text x="45" y="41" class="title">Постійний фоновий вітер у зоні місії:</text>
+  <text x="310" y="41" class="val-amber">V_wind = 10 м/с (попутно до цілі, зустрічно на поверненні)</text>
+  <line x1="700" y1="36" x2="765" y2="36" stroke="#d29922" class="arrow" marker-end="url(#arr-amber)" />
+
+  <!-- Left Card: Outbound (Політ туди з попутним вітром) -->
+  <rect x="25" y="70" width="375" height="305" class="card-ok" />
+  <text x="45" y="98" class="title" fill="#3fb950">1. Політ до цілі (попутний вітер)</text>
+
+  <!-- Vector Diagram Outbound -->
+  <text x="45" y="128" class="text-dim">Повітряна швидкість V_air:</text>
+  <line x1="45" y1="142" x2="165" y2="142" stroke="#58a6ff" class="arrow" marker-end="url(#arr-blue)" />
+  <text x="175" y="146" class="val-blue">15 м/с</text>
+
+  <text x="45" y="172" class="text-dim">Попутний вітер V_wind:</text>
+  <line x1="45" y1="186" x2="125" y2="186" stroke="#d29922" class="arrow" marker-end="url(#arr-amber)" />
+  <text x="135" y="190" class="val-amber">+10 м/с</text>
+
+  <text x="45" y="216" class="text-dim">Шляхова швидкість V_ground = V_air + V_wind:</text>
+  <line x1="45" y1="230" x2="245" y2="230" stroke="#3fb950" class="arrow" marker-end="url(#arr-green)" />
+  <text x="255" y="234" class="val-ok">25 м/с (90 км/год)</text>
+
+  <!-- Metrics Outbound -->
+  <rect x="40" y="252" width="345" height="110" fill="#0f141c" stroke="#233527" stroke-width="1px" rx="6px" />
+  <text x="55" y="274" class="text">Дистанція польоту до цілі:</text>
+  <text x="235" y="274" class="text-bold">10 000 м (10 км)</text>
+  <text x="55" y="296" class="text">Час польоту до цілі:</text>
+  <text x="235" y="296" class="val-ok">400 с (6 хв 40 с)</text>
+  <text x="55" y="318" class="text">Витрата енергії:</text>
+  <text x="235" y="318" class="val-ok">56 Вт·год (22% запасу)</text>
+  <text x="55" y="342" class="text-dim">Потужність у крейсері: 140 Вт</text>
+
+  <!-- Right Card: Return (Повернення проти зустрічного вітру) -->
+  <rect x="420" y="70" width="375" height="305" class="card-warn" />
+  <text x="440" y="98" class="title" fill="#f85149">2. Повернення на базу (зустрічний вітер)</text>
+
+  <!-- Vector Diagram Return -->
+  <text x="440" y="128" class="text-dim">Повітряна швидкість V_air:</text>
+  <line x1="440" y1="142" x2="560" y2="142" stroke="#58a6ff" class="arrow" marker-end="url(#arr-blue)" />
+  <text x="570" y="146" class="val-blue">15 м/с</text>
+
+  <text x="440" y="172" class="text-dim">Зустрічний вітер V_wind (гальмує):</text>
+  <line x1="520" y1="186" x2="440" y2="186" stroke="#d29922" class="arrow" marker-end="url(#arr-amber)" />
+  <text x="535" y="190" class="val-amber">-10 м/с</text>
+
+  <text x="440" y="216" class="text-dim">Шляхова швидкість V_ground = V_air - V_wind:</text>
+  <line x1="440" y1="230" x2="480" y2="230" stroke="#f85149" class="arrow" marker-end="url(#arr-red)" />
+  <text x="490" y="234" class="val-warn">5 м/с (18 км/год! 5x повільніше)</text>
+
+  <!-- Metrics Return -->
+  <rect x="435" y="252" width="345" height="110" fill="#0f141c" stroke="#3b1f22" stroke-width="1px" rx="6px" />
+  <text x="450" y="274" class="text">Дистанція повернення:</text>
+  <text x="630" y="274" class="text-bold">10 000 м (10 км)</text>
+  <text x="450" y="296" class="text">Час повернення на базу:</text>
+  <text x="630" y="296" class="val-warn">2000 с (33 хв 20 с!)</text>
+  <text x="450" y="318" class="text">Потрібна енергія E_ret:</text>
+  <text x="630" y="318" class="val-warn">178 Вт·год (71% запасу!)</text>
+  <text x="450" y="342" class="text-dim">Потужність у крейсері: 320 Вт (тяга проти опору)</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура безпечного віддаленого діагностичного рушія</text>
+<rect x="18.0" y="56.0" width="170.0" height="240.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="103.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Командний канал</text>
+<text x="103.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">MQTT / CoAP / Shell</text>
+<text x="30.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• MQTT RPC запит</text>
+<text x="30.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• LwM2M Execute</text>
+<text x="30.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підпис команди HMAC</text>
+<text x="30.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перевірка Nonce</text>
+<line x1="190.0" y1="156.0" x2="206.0" y2="156.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="208.0" y="56.0" width="334.0" height="240.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="375.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діагностичний диспетчер</text>
+<text x="375.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Асинхронний фоновий потік</text>
+<rect x="218.0" y="114.0" width="314.0" height="50.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="226.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Рубіж 1: Тайм-аут (Execution Deadline)</text>
+<text x="226.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Примусове переривання завислого драйвера через 1500 мс</text>
+<rect x="218.0" y="170.0" width="314.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="226.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Рубіж 2: Сторож (Watchdog Safe)</text>
+<text x="226.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Скидання апаратного WDT без блокування основного циклу</text>
+<rect x="218.0" y="226.0" width="314.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="226.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Рубіж 3: Неінвазивність (Read-Only)</text>
+<text x="226.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Заборона впливу на виконавчі реле, помпи та мотори</text>
+<line x1="544.0" y1="156.0" x2="558.0" y2="156.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="56.0" width="242.0" height="240.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="681.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Діагностичні зонди</text>
+<text x="681.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Безпечні процедури</text>
+<rect x="570.0" y="114.0" width="222.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="576.0" y="130.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10.5" fill="#27ae60" font-weight="700">diag_ping(host)</text>
+<text x="576.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Перевірка IP-зв'язку</text>
+<rect x="570.0" y="156.0" width="222.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="576.0" y="172.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10.5" fill="#27ae60" font-weight="700">diag_i2c_scan(bus)</text>
+<text x="576.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Пошук відмов шин / ліній</text>
+<rect x="570.0" y="198.0" width="222.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="576.0" y="214.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10.5" fill="#27ae60" font-weight="700">diag_self_test()</text>
+<text x="576.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">POST / CRC Flash / Живлення</text>
+<rect x="570.0" y="240.0" width="222.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="576.0" y="256.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="10.5" fill="#27ae60" font-weight="700">diag_mem_stats()</text>
+<text x="576.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Купа / Буфери LwIP</text>
+<text x="410.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Діагностичні запити ізолюються у фоновому конвеєрі, захищеному жорсткими часовими лімітами</text>
+<text x="410.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Збій у тестовій процедурі (наприклад, зависання I2C) не призводить до краху всього пристрою</text>
+</svg>

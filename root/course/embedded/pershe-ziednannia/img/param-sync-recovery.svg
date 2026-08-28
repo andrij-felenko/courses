@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відновлення пропущених параметрів за бітовою маскою індексів</text>
+<rect x="40.0" y="60.0" width="240.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Наземна станція (GCS)</text>
+<text x="160.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шле PARAM_REQUEST_LIST (#21)</text>
+<line x1="280.0" y1="85.0" x2="620.0" y2="85.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PARAM_REQUEST_LIST (sys=1, comp=1)</text>
+<rect x="620.0" y="60.0" width="280.0" height="50.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Автопілот (Pixhawk / ArduPilot)</text>
+<text x="760.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Відповідає потоком: param_count = 8</text>
+<text x="470.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік відповідей PARAM_VALUE (індекси 0 .. 7)</text>
+<rect x="30.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="81.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="81.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 0 (OK)</text>
+<text x="81.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RC1_MIN</text>
+<rect x="141.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="192.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="192.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 1 (OK)</text>
+<text x="192.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RC1_MAX</text>
+<rect x="252.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="303.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАВАДА</text>
+<text x="303.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">idx = 2 (CRC)</text>
+<text x="303.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Втрачено</text>
+<rect x="363.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="414.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="414.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 3 (OK)</text>
+<text x="414.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">BATT_CAPACITY</text>
+<rect x="474.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="525.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="525.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 4 (OK)</text>
+<text x="525.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTL_ALT</text>
+<rect x="585.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="636.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАВАДА</text>
+<text x="636.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">idx = 5 (CRC)</text>
+<text x="636.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Втрачено</text>
+<rect x="696.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="747.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="747.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 6 (OK)</text>
+<text x="747.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MOT_SPIN_ARM</text>
+<rect x="807.0" y="170.0" width="102.0" height="65.0" rx="4" fill="#eef8f2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="858.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PARAM_VALUE</text>
+<text x="858.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">idx = 7 (OK)</text>
+<text x="858.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">INS_GYR_CAL</text>
+<rect x="30.0" y="280.0" width="880.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="140.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бітова маска в GCS:</text>
+<text x="540.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">[ 1 | 1 | 0 | 1 | 1 | 0 | 1 | 1 ]  →  Дірки на позиціях 2 та 5 (отримано 6/8)</text>
+<rect x="30.0" y="355.0" width="420.0" height="80.0" rx="6" fill="#fef5ec" stroke="#d35400" stroke-width="1.5"/>
+<text x="240.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">1. Адресний дозапит пропущеного індексу 2</text>
+<text x="240.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GCS → PARAM_REQUEST_READ (param_index=2)</text>
+<text x="240.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Автопілот → PARAM_VALUE (WPNAV_SPEED, idx=2)</text>
+<rect x="490.0" y="355.0" width="420.0" height="80.0" rx="6" fill="#fef5ec" stroke="#d35400" stroke-width="1.5"/>
+<text x="700.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">2. Адресний дозапит пропущеного індексу 5</text>
+<text x="700.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GCS → PARAM_REQUEST_READ (param_index=5)</text>
+<text x="700.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Автопілот → PARAM_VALUE (FS_THR_VALUE, idx=5)</text>
+</svg>

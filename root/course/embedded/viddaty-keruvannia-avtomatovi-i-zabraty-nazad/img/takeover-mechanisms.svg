@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 451" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="451" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми перехоплення керування</text>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми перехоплення керування: тумблер режимів проти Stick Stirring</text>
+<rect x="25.0" y="55.0" width="390.0" height="340.0" rx="10" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="220.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратний тумблер (Mode Switch)</text>
+<text x="220.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Дискретне перемикання через окремий RC-канал</text>
+<rect x="45.0" y="120.0" width="350.0" height="52.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="220.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трьохпозиційний перемикач пульта</text>
+<text x="220.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CH5: Pos 1 (Auto) → Pos 2/3 (Manual)</text>
+<line x1="220.0" y1="173.0" x2="220.0" y2="193.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="45.0" y="195.0" width="350.0" height="52.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="220.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декодер RC-сигналу та фільтр антибрязкоту</text>
+<text x="220.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Гістерезис PWM 1000…2000 мкс (Δ &gt; 50 мкс)</text>
+<line x1="220.0" y1="248.0" x2="220.0" y2="268.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="45.0" y="270.0" width="350.0" height="105.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="220.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Властивості тумблерного перехоплення:</text>
+<text x="55.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">✓ 100% явний намір оператора</text>
+<text x="55.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">✓ Повне апаратне відключення автоматики</text>
+<text x="55.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">✗ Затримка реакції людини: 0.8…1.5 с на пошук</text>
+<rect x="445.0" y="55.0" width="390.0" height="340.0" rx="10" fill="#fff6e0" stroke="#caa24a" stroke-width="1.8"/>
+<text x="640.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8a6d1a" text-anchor="middle" font-weight="700">Перевизначення стіками (Stick Stirring)</text>
+<text x="640.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Автоматичне виявлення відхилення ручок керування</text>
+<rect x="465.0" y="120.0" width="350.0" height="52.0" rx="6" fill="#ffffff" stroke="#caa24a" stroke-width="1.2"/>
+<text x="640.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рух стіків пілота (Roll, Pitch, Yaw, Throttle)</text>
+<text x="640.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Інстинктивна дія оператора при загрозі</text>
+<line x1="640.0" y1="173.0" x2="640.0" y2="193.0" stroke="#8a6d1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="465.0" y="195.0" width="350.0" height="52.0" rx="6" fill="#ffffff" stroke="#caa24a" stroke-width="1.2"/>
+<text x="640.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Детектор мертвої зони (|Δstick| &gt; 10…15%)</text>
+<text x="640.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від люфту пружин і тремтіння рук</text>
+<line x1="640.0" y1="248.0" x2="640.0" y2="268.0" stroke="#8a6d1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="465.0" y="270.0" width="350.0" height="105.0" rx="6" fill="#ffffff" stroke="#caa24a" stroke-width="1.2"/>
+<text x="640.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="middle" font-weight="700">Властивості перехоплення стіками:</text>
+<text x="475.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">✓ Миттєва реакція: 100…200 мс (без пошуку тумблера)</text>
+<text x="475.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">✓ Підтримка Fly-Through (підрулювання на курсі)</text>
+<text x="475.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d1a" text-anchor="start" font-weight="700">✗ Потребує таймера центровки для повернення в авто</text>
+<rect x="25.0" y="403.0" width="810.0" height="28.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Надійний автопілот комбінує обидва: стіки дають миттєвий тактичний маневр, тумблер — жорсткий вихід з авторежиму</text>
+</svg>

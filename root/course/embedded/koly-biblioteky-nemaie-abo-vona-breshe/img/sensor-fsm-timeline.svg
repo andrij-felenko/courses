@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="360.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма неблокуючого опитування (FSM + DRDY / Таймер)</text>
+<rect x="30.0" y="60.0" width="150.0" height="70.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="105.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">STATE_TRIGGER</text>
+<text x="105.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I2C: Start Measure</text>
+<text x="105.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU: 4 мкс</text>
+<line x1="180.0" y1="95.0" x2="220.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="220.0" y="60.0" width="220.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="330.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">STATE_AWAIT_CONVERSION</text>
+<text x="330.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Очікування 20 мс (DRDY або таймер)</text>
+<text x="330.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">CPU: 0% (вільний для інших задач)</text>
+<line x1="440.0" y1="95.0" x2="480.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="480.0" y="60.0" width="160.0" height="70.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="560.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">STATE_READ_RAW</text>
+<text x="560.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I2C Read / DMA Burst</text>
+<text x="560.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CPU: 6 мкс (старт DMA)</text>
+<line x1="640.0" y1="95.0" x2="680.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="680.0" y="60.0" width="130.0" height="70.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="745.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">STATE_PROCESS</text>
+<text x="745.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CRC + Math SI</text>
+<text x="745.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">CPU: 12 мкс</text>
+<line x1="745.0" y1="130.0" x2="745.0" y2="155.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="745.0" y1="155.0" x2="105.0" y2="155.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="105.0" y1="155.0" x2="105.0" y2="130.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="425.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Повернення в IDLE або наступний цикл опитування</text>
+<rect x="30.0" y="185.0" width="780.0" height="150.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="120.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завантаження процесора (CPU Time)</text>
+<line x1="60.0" y1="300.0" x2="780.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="770.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час t</text>
+<line x1="60.0" y1="300.0" x2="60.0" y2="220.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="50.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100%</text>
+<text x="50.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0%</text>
+<rect x="95.0" y="235.0" width="20.0" height="65.0" rx="6" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="105.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">4 мкс</text>
+<line x1="115.0" y1="300.0" x2="550.0" y2="300.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="330.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Інтервал перетворення сенсора (20 мс) — CPU вільний на 100%</text>
+<rect x="550.0" y="235.0" width="20.0" height="65.0" rx="6" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="560.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">6 мкс</text>
+<rect x="735.0" y="230.0" width="20.0" height="70.0" rx="6" fill="#27ae60" stroke="none" stroke-width="1.5"/>
+<text x="745.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">12 мкс</text>
+</svg>

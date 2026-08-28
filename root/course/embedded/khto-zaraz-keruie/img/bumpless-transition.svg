@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння ударного та безударного перемикання джерел керування</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перемикання джерел: ступінчастий удар проти безударного зшивання (Slew Rate)</text>
+<rect x="40.0" y="60.0" width="410.0" height="300.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">БЕЗ ЗШИВАННЯ: Ступінчастий удар</text>
+<line x1="80.0" y1="310.0" x2="420.0" y2="310.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="80.0" y1="310.0" x2="80.0" y2="110.0" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">час t</text>
+<text x="75.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">u(t)</text>
+<line x1="80.0" y1="240.0" x2="230.0" y2="240.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="155.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Джерело 1 (Offboard: 30%)</text>
+<line x1="230.0" y1="240.0" x2="230.0" y2="140.0" stroke="#c0392b" stroke-width="2.4" stroke-dasharray="4 3"/>
+<line x1="245.0" y1="235.0" x2="245.0" y2="145.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrR)" stroke-linecap="round"/>
+<text x="255.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Стрибок Δu = 50%</text>
+<text x="255.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">(за 1 такт, 2.5 мс)</text>
+<line x1="230.0" y1="140.0" x2="410.0" y2="140.0" stroke="#d98a00" stroke-width="2.2"/>
+<text x="330.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle">Джерело 2 (RC: 80%)</text>
+<rect x="60.0" y="325.0" width="370.0" height="25.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="245.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Наслідок: піковий момент, зрив ПІД-інтегратора, удар по моторах</tspan></text>
+<rect x="490.0" y="60.0" width="410.0" height="300.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗУДАРНЕ ЗШИВАННЯ: Slew-Rate лімітер</text>
+<line x1="530.0" y1="310.0" x2="870.0" y2="310.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="530.0" y1="310.0" x2="530.0" y2="110.0" stroke="#333333" stroke-width="1.2"/>
+<text x="870.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">час t</text>
+<text x="525.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">u(t)</text>
+<line x1="530.0" y1="240.0" x2="650.0" y2="240.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="590.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Джерело 1 (30%)</text>
+<line x1="650.0" y1="240.0" x2="750.0" y2="140.0" stroke="#27ae60" stroke-width="2.8"/>
+<text x="710.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Керований нахил</text>
+<text x="710.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">du/dt ≤ max_rate</text>
+<line x1="650.0" y1="140.0" x2="750.0" y2="140.0" stroke="#d98a00" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="750.0" y1="140.0" x2="860.0" y2="140.0" stroke="#d98a00" stroke-width="2.2"/>
+<text x="800.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle">Джерело 2 (80%)</text>
+<line x1="650.0" y1="310.0" x2="650.0" y2="240.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="750.0" y1="310.0" x2="750.0" y2="140.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="650.0" y1="290.0" x2="750.0" y2="290.0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="700.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">t_ramp (150–300 мс)</text>
+<rect x="510.0" y="325.0" width="370.0" height="25.0" rx="8" fill="#eafaef" stroke="#27ae60" stroke-width="1.7"/><text x="695.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Наслідок: плавна динаміка, відсутність струмових піків, керованість</tspan></text>
+<text x="470.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Безударний фільтр затискає похідну уставки: внутрішній контур сприймає зміну як плавний маневр, а не аварійний стрибок.</text>
+</svg>

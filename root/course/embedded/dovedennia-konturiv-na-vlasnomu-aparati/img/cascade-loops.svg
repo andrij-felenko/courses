@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія каскадних контурів керування дрона</text>
+<text x="470.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Налаштування виконують суворо зсередини назовні: від найшвидшого контуру до найповільнішого</text>
+<rect x="41.0" y="85.0" width="195.0" height="175.0" rx="8" fill="#e8f4f8" stroke="#2457d6" stroke-width="2"/>
+<text x="138.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Позиція (Position)</text>
+<text x="138.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Частота: 20–50 Гц</text>
+<text x="138.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Смуга: ~0.5–1 Гц</text>
+<line x1="53.0" y1="165.0" x2="224.0" y2="165.0" stroke="#2457d6" stroke-width="1" stroke-opacity="0.3"/>
+<text x="138.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">P-регулятор</text>
+<text x="138.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вхід: Цільова точка (X, Y, Z)</text>
+<text x="138.5" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вихід: Цільова швидкість (V_x, V_y, V_z)</text>
+<line x1="236.0" y1="172.5" x2="262.0" y2="172.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="262.0" y="85.0" width="195.0" height="175.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="2"/>
+<text x="359.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Швидкість (Velocity)</text>
+<text x="359.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Частота: 50–100 Гц</text>
+<text x="359.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Смуга: ~2–4 Гц</text>
+<line x1="274.0" y1="165.0" x2="445.0" y2="165.0" stroke="#27ae60" stroke-width="1" stroke-opacity="0.3"/>
+<text x="359.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PID-регулятор</text>
+<text x="359.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вхід: Помилка швидкості (ΔV)</text>
+<text x="359.5" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вихід: Цільовий кут і тяга (θ_des, T)</text>
+<line x1="457.0" y1="172.5" x2="483.0" y2="172.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="483.0" y="85.0" width="195.0" height="175.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="2"/>
+<text x="580.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кут (Attitude Angle)</text>
+<text x="580.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d4ac0d" text-anchor="middle" font-weight="700">Частота: 250–500 Гц</text>
+<text x="580.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Смуга: ~5–10 Гц</text>
+<line x1="495.0" y1="165.0" x2="666.0" y2="165.0" stroke="#d4ac0d" stroke-width="1" stroke-opacity="0.3"/>
+<text x="580.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">P / PI-регулятор</text>
+<text x="580.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вхід: Помилка орієнтації (Δθ)</text>
+<text x="580.5" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вихід: Цільова кутова швидкість (ω_des)</text>
+<line x1="678.0" y1="172.5" x2="704.0" y2="172.5" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="704.0" y="85.0" width="195.0" height="175.0" rx="8" fill="#fdedec" stroke="#c0392b" stroke-width="2"/>
+<text x="801.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кутова швидкість (Rate)</text>
+<text x="801.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Частота: 1000–8000 Гц</text>
+<text x="801.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Смуга: ~30–60 Гц</text>
+<line x1="716.0" y1="165.0" x2="887.0" y2="165.0" stroke="#c0392b" stroke-width="1" stroke-opacity="0.3"/>
+<text x="801.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PID + D-Term Filter</text>
+<text x="801.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вхід: Помилка гіроскопа (Δω)</text>
+<text x="801.5" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вихід: Командний момент (Torque)</text>
+<line x1="801.5" y1="260.0" x2="801.5" y2="295.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="704.0" y="295.0" width="195.0" height="95" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="801.5" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікшер та ESC</text>
+<text x="801.5" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">DShot600 / DShot300</text>
+<text x="801.5" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4× БК-мотори + гвинти</text>
+<rect x="41.0" y="295.0" width="637.0" height="95" rx="8" fill="#fcfdfe" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="359.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Порядок практичного доведення контурів (зсередини назовні):</text>
+<text x="359.5" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Rate PID (Кутова швидкість)  ➔  2. Angle P (Кутове положення)</text>
+<text x="359.5" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Velocity PID (Лінійна швидкість)  ➔  4. Position P (Координати)</text>
+<rect x="41.0" y="435.0" width="858.0" height="50" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="470.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зворотний зв'язок давачів на автопілот</text>
+<text x="470.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Гіроскоп 8 кГц (Rate) · Акселерометр/EKF (Angle) · Оптичний потік/GNSS (Velocity) · GNSS/RTK (Position)</text>
+<line x1="801.5" y1="390.0" x2="801.5" y2="435.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="138.5" y1="435.0" x2="138.5" y2="390.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="359.5" y1="435.0" x2="359.5" y2="390.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="580.5" y1="435.0" x2="580.5" y2="390.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл релізу: від Git-тегу до цільового парку пристроїв</text>
+<rect x="25.0" y="100.0" width="130.0" height="170.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="90.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. ФІКСАЦІЯ</text>
+<text x="90.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Git tag v1.4.0</text>
+<text x="90.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Заморозка коду</text>
+<text x="90.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Формування</text>
+<text x="90.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Changelog</text>
+<rect x="190.0" y="100.0" width="130.0" height="170.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="255.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. ЗБІРКА</text>
+<text x="255.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Герметичний CI</text>
+<text x="255.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Крос-компіляція</text>
+<text x="255.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Генерація .elf/.bin</text>
+<text x="255.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Збереження .map</text>
+<rect x="355.0" y="100.0" width="130.0" height="170.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.8"/>
+<text x="420.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d1a" text-anchor="middle" font-weight="700">3. ВАЛІДАЦІЯ</text>
+<text x="420.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">HIL-тести на платі</text>
+<text x="420.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Sizecheck пам'яті</text>
+<text x="420.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Статичний аналіз</text>
+<text x="420.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Звіт сумісності</text>
+<rect x="520.0" y="100.0" width="130.0" height="170.0" rx="8" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="585.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c3483" text-anchor="middle" font-weight="700">4. ПІДПИСАННЯ</text>
+<text x="585.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Маніфест (паспорт)</text>
+<text x="585.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">HSM підпис Ed25519</text>
+<text x="585.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Anti-rollback індекс</text>
+<text x="585.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Пакет .bundle</text>
+<rect x="685.0" y="100.0" width="130.0" height="170.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="750.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5. РОЗГОРТАННЯ</text>
+<text x="750.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Canary парк (1%)</text>
+<text x="750.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Бета-тестування</text>
+<text x="750.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Масовий OTA випуск</text>
+<text x="750.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Моніторинг збоїв</text>
+<line x1="155.0" y1="185.0" x2="190.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="185.0" x2="355.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="185.0" x2="520.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="185.0" x2="685.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="25.0" y="290.0" width="790.0" height="46.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Критерій воротаря:</text>
+<text x="170.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Провал будь-якого тесту або розбіжність гешу негайно зупиняє публікацію релізу</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Замкнений інженерний цикл: перетворення аварійного логу на гарантію ненападу</text>
+<rect x="25.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="92.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Інцидент</text>
+<text x="92.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="92.5" dy="0.0">Фізична аварія,</tspan><tspan x="92.5" dy="13.0">збір уламків,</tspan><tspan x="92.5" dy="13.0">вилучення карток пам'яті</tspan></text>
+<line x1="162.0" y1="135.0" x2="174.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="176.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#eaf3ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="243.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Синхронізація</text>
+<text x="243.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="243.5" dy="0.0">Зведення ULog, ROS bag</tspan><tspan x="243.5" dy="13.0">та MAVLink tlog</tspan><tspan x="243.5" dy="13.0">на спільну шкалу часу</tspan></text>
+<line x1="313.0" y1="135.0" x2="325.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="327.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.6"/>
+<text x="394.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Аналіз 5 Чому</text>
+<text x="394.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="394.5" dy="0.0">Пошук першопричини:</tspan><tspan x="394.5" dy="13.0">від симптому до прогалини</tspan><tspan x="394.5" dy="13.0">в чеклісті чи коді</tspan></text>
+<line x1="464.0" y1="135.0" x2="476.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="478.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#f7faf7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="545.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Log Replay / EKF</text>
+<text x="545.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="545.5" dy="0.0">Прогін сирих IMU/GPS</tspan><tspan x="545.5" dy="13.0">даних через виправлені</tspan><tspan x="545.5" dy="13.0">алгоритми оцінки</tspan></text>
+<line x1="615.0" y1="135.0" x2="627.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="629.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="696.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. SITL/HIL Тест</text>
+<text x="696.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="696.5" dy="0.0">Відтворення аварійного</tspan><tspan x="696.5" dy="13.0">сценарію в симуляторі</tspan><tspan x="696.5" dy="13.0">з інжекцією відмов</tspan></text>
+<line x1="766.0" y1="135.0" x2="778.0" y2="135.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="780.0" y="80.0" width="135.0" height="110.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="847.5" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">6. CI Регресія</text>
+<text x="847.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="847.5" dy="0.0">Автоматичний гейт у CI:</tspan><tspan x="847.5" dy="13.0">блокування збірки при</tspan><tspan x="847.5" dy="13.0">повторенні помилки</tspan></text>
+<rect x="60.0" y="245.0" width="820.0" height="135.0" rx="8" fill="#fcfcfc" stroke="#27ae60" stroke-width="1.4"/>
+<text x="470.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Чому розбір вважається завершеним лише після створення тесту</text>
+<text x="85.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Справжнє виправлення</text>
+<text x="275.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Зафіксовано не лише заміну деталі, а зміну в коді чи передполітному регламенті.</text>
+<text x="85.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Недопущення рецидиву</text>
+<text x="275.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Автоматичний симуляційний тест проганяє точно такий самий збій на кожному коміті.</text>
+<text x="85.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Культура без винних</text>
+<text x="275.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Шукаємо системну слабкість у процесі перевірки, а не «хто винен у поломці».</text>
+</svg>

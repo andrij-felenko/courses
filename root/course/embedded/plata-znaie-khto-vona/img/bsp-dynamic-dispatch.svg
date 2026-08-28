@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 983 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="983" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура єдиної прошивки: динамічна диспетчеризація драйверів за Board ID</text>
+<rect x="25.0" y="55.0" width="170.0" height="135.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="110.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">Етап 1: Старт</text>
+<line x1="35.0" y1="87.0" x2="185.0" y2="87.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="110.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Power-On Reset</text>
+<text x="110.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Мінімальна ініціалізація ядра</text>
+<text x="110.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Тактування системної шини</text>
+<line x1="198.0" y1="122.5" x2="214.0" y2="122.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="217.0" y="55.0" width="170.0" height="135.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="302.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Етап 2: Зчитування ID</text>
+<line x1="227.0" y1="87.0" x2="377.0" y2="87.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="302.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Опитування ADC дільника</text>
+<text x="302.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">АБО зчитування GPIO strapping</text>
+<text x="302.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">АБО читання eFuse/EEPROM</text>
+<line x1="390.0" y1="122.5" x2="406.0" y2="122.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="409.0" y="55.0" width="170.0" height="135.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+<text x="494.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Етап 3: Селектор плати</text>
+<line x1="419.0" y1="87.0" x2="569.0" y2="87.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="494.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Пошук ревізії в таблиці дескрипторів</text>
+<text x="494.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка CRC метаданих</text>
+<text x="494.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Fallback на safe-mode при помилці</text>
+<line x1="582.0" y1="122.5" x2="598.0" y2="122.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="601.0" y="55.0" width="170.0" height="135.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="686.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Етап 4: Диспетчеризація</text>
+<line x1="611.0" y1="87.0" x2="761.0" y2="87.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="686.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Конфігурація Pinmux під плату</text>
+<text x="686.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Реєстрація таблиць драйверів (VMT)</text>
+<text x="686.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прив'язка калібрувальних коефіцієнтів</text>
+<line x1="774.0" y1="122.5" x2="790.0" y2="122.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="793.0" y="55.0" width="170.0" height="135.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="878.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Етап 5: Застосунок</text>
+<line x1="803.0" y1="87.0" x2="953.0" y2="87.0" stroke="#7c3aed" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="878.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Запуск бізнес-логіки та RTOS</text>
+<text x="878.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Уніфіковані виклики через HAL</text>
+<text x="878.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Нуль знань про залізо в додатку</text>
+<rect x="25.0" y="215.0" width="430.0" height="235.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="240.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Таблиця дескрипторів плат (Flash const)</text>
+<rect x="45.0" y="255.0" width="390.0" height="50.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="240.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Board_Rev_A (ID=0x01): SPI1 (PA5..PA7), IMU=BMI270</text>
+<text x="240.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Calib: Accel_Gain=1.002, Display_Type=ST7789</text>
+<rect x="45.0" y="315.0" width="390.0" height="50.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="240.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Board_Rev_B (ID=0x02): SPI2 (PB13..PB15), IMU=LSM6DSO</text>
+<text x="240.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Calib: Accel_Gain=0.994, Display_Type=ILI9341</text>
+<rect x="45.0" y="375.0" width="390.0" height="55.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="240.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Board_Rev_C (ID=0x03): SPI1 (PA5..PA7), IMU=ICM42688</text>
+<text x="240.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Calib: Accel_Gain=1.015, Display_Type=ST7789V3</text>
+<line x1="455.0" y1="332.0" x2="505.0" y2="332.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="480.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Bind</text>
+<rect x="505.0" y="215.0" width="430.0" height="235.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="720.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Уніфікований інтерфейс драйвера (HAL / C++ Interface)</text>
+<rect x="525.0" y="255.0" width="390.0" height="40.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="720.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">imu_driver_t -&gt; read_gyro(), read_accel(), self_test()</text>
+<rect x="525.0" y="305.0" width="390.0" height="40.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="720.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">display_driver_t -&gt; draw_pixel(), fill_rect(), flush()</text>
+<rect x="525.0" y="355.0" width="390.0" height="75.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="720.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат для прикладного коду:</text>
+<text x="720.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">g_imu-&gt;read_accel(&amp;data); // Працює на всіх трьох платах</text>
+<text x="720.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Бінарник прошивки єдиний для всього парку пристроїв</text>
+</svg>

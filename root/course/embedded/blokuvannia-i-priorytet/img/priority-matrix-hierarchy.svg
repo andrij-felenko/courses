@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія пріоритетів та станова селекція</text>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархічна матриця авторитетів (Priority Layers) та маскування правил</text>
+<rect x="50.0" y="65.0" width="460.0" height="62.0" rx="6" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="65.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">РІВЕНЬ 0: SAFETY / EMERGENCY</text>
+<text x="65.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">E-Stop, Пожежний шлейф, Струмове відсікання, SIL-контур</text>
+<text x="65.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Безумовне скидання в аварійний безпечний стан (Fail-Safe)</text>
+<rect x="50.0" y="137.0" width="460.0" height="62.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.6"/>
+<text x="65.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d1a" text-anchor="start" font-weight="700">РІВЕНЬ 1: EQUIPMENT PROTECTION</text>
+<text x="65.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Термозахист двигуна, Давач сухого ходу помпи, Граничний тиск</text>
+<text x="65.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Захист заліза від руйнування: блокування небезпечних дій</text>
+<rect x="50.0" y="209.0" width="460.0" height="62.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="65.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">РІВЕНЬ 2: OPERATOR MANUAL OVERRIDE</text>
+<text x="65.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Фізичні кнопки пульта, Локальний щит, Сервісний режим наладки</text>
+<text x="65.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Пряме втручання людини з пріоритетом над автоматикою</text>
+<rect x="50.0" y="281.0" width="460.0" height="62.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="65.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">РІВЕНЬ 3: AUTOMATION &amp; OPTIMIZATION</text>
+<text x="65.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">PID-контури клімату, Сценарії за розкладом, Енергозбереження</text>
+<text x="65.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Штатні алгоритми; поступаються всім вищим рівням</text>
+<line x1="30.0" y1="70.0" x2="30.0" y2="335.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="25.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ПРІОРИТЕТ</text>
+<rect x="530.0" y="65.0" width="300.0" height="278.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="680.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця маскування правил</text>
+<text x="680.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Динамічний дозвіл за станом системи</text>
+<rect x="540.0" y="120.0" width="280.0" height="46.0" rx="5" fill="#fbecec" stroke="#c0392b" stroke-width="1.0"/>
+<text x="550.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">EMERGENCY</text>
+<text x="550.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">L0 дозволено | L1..L3 ЗАМАСКОВАНО</text>
+<rect x="540.0" y="172.0" width="280.0" height="46.0" rx="5" fill="#fff6e0" stroke="#caa24a" stroke-width="1.0"/>
+<text x="550.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="start" font-weight="700">FAULT_TRIP</text>
+<text x="550.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">L0, L1 дозволено | L2..L3 ЗАМАСКОВАНО</text>
+<rect x="540.0" y="224.0" width="280.0" height="46.0" rx="5" fill="#e9eefb" stroke="#2457d6" stroke-width="1.0"/>
+<text x="550.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">MANUAL_SERVICE</text>
+<text x="550.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">L0..L2 дозволено | L3 (Авто) ЗАМАСКОВАНО</text>
+<rect x="540.0" y="276.0" width="280.0" height="46.0" rx="5" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0"/>
+<text x="550.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">AUTO_NORMAL</text>
+<text x="550.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">L0..L3 дозволено | Всі правила активні</text>
+<rect x="30.0" y="360.0" width="800.0" height="65.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм State Gating: коли система переходить у стан аварії або сервісу,</text>
+<text x="430.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">правила автоматизації блокуються до виконання, а не просто 'програють' на виході арбітра.</text>
+<text x="430.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Це усуває накопичення похибок інтеграторів (Anti-Windup) та черги застарілих команд.</text>
+</svg>

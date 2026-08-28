@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="160.0" y1="220.0" x2="720.0" y2="220.0" stroke="#34495e" stroke-width="6.0"/>
+<rect x="140.0" y="190.0" width="40.0" height="30.0" rx="3" fill="#7f8c8d" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="700.0" y="190.0" width="40.0" height="30.0" rx="3" fill="#7f8c8d" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="100.0" y1="190.0" x2="220.0" y2="190.0" stroke="#2980b9" stroke-width="3.0"/>
+<line x1="660.0" y1="190.0" x2="780.0" y2="190.0" stroke="#2980b9" stroke-width="3.0"/>
+<line x1="440.0" y1="80.0" x2="440.0" y2="380.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="440.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CoT: Геометричний центр тяги</text>
+<line x1="360.0" y1="130.0" x2="360.0" y2="380.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,4"/>
+<circle cx="360.0" cy="220.0" r="10.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="360.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CG: Центр мас
+(зміщений вперед)</text>
+<line x1="360.0" y1="310.0" x2="440.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="385.0" y1="310.0" x2="360.0" y2="310.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="415.0" y1="310.0" x2="440.0" y2="310.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="400.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Зсув Δx = 22 мм</text>
+<line x1="160.0" y1="185.0" x2="160.0" y2="90.0" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="160.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">T_front = 72%
+(перегрів, насичення)</text>
+<line x1="720.0" y1="185.0" x2="720.0" y2="145.0" stroke="#2980b9" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="720.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">T_rear = 28%
+(недовикористаний)</text>
+<rect x="60.0" y="365.0" width="760.0" height="75.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="440.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки статичного перекосу центру тяжіння (CG ≠ CoT):</text>
+<text x="440.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Постійний компенсаційний момент I-терму в ПІД-регуляторі • Втрата запасу тяги на маневр тангажу</text>
+<text x="440.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Асиметричний розряд і температурний перекіс ключів ESC • Зниження загального ККД системи на 12–18%</text>
+</svg>

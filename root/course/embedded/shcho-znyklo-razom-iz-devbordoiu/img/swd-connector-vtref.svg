@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інтерфейс SWD: чому чотирьох ліній замало</text>
+<rect x="40.0" y="40.0" width="200.0" height="280.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="140.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Зовнішній зонд</text>
+<text x="140.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(ST-Link V3 / J-Link)</text>
+<rect x="55.0" y="120.0" width="170.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="140.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Двонапрямні транслятори</tspan><tspan x="140.0" dy="13.0">рівнів (Level Shifter)</tspan></text>
+<rect x="55.0" y="190.0" width="170.0" height="50.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="140.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Генератор SWD такту</tspan><tspan x="140.0" dy="13.0">та логіка скидання</tspan></text>
+<text x="140.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Живиться від хоста (5V USB)</text>
+<rect x="580.0" y="40.0" width="200.0" height="280.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Цільовий МК на платі</text>
+<text x="680.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Живлення VDD (1.8V ... 3.3V)</text>
+<rect x="595.0" y="120.0" width="170.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="680.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">SWD периферія ядра</tspan><tspan x="680.0" dy="13.0">(Cortex-M DP / AP)</tspan></text>
+<rect x="595.0" y="190.0" width="170.0" height="50.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="680.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Апаратне скидання</tspan><tspan x="680.0" dy="13.0">(NRST з RC-ланцюжком)</tspan></text>
+<text x="680.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автономне живлення</text>
+<line x1="240.0" y1="100.0" x2="580.0" y2="100.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="410.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VTref (Target VDD)</text>
+<text x="410.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опора транслятора: без неї зонд видає 0V або палить МК</text>
+<line x1="240.0" y1="150.0" x2="580.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="410.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SWCLK</text>
+<text x="410.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактовий сигнал (з резистором 22-47 Ом від дзвіну)</text>
+<line x1="240.0" y1="200.0" x2="580.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="410.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SWDIO</text>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Двонапрямні дані (критична ємність траси)</text>
+<line x1="240.0" y1="250.0" x2="580.0" y2="250.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="410.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">nRESET</text>
+<text x="410.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Апаратне скидання (Connect Under Reset при аварії)</text>
+<line x1="240.0" y1="300.0" x2="580.0" y2="300.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="410.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<text x="410.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спільна земля (обов'язковий зворотний шлях струму)</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 851 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="851" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="430.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1f2328" text-anchor="middle" font-weight="700">АРХІТЕКТУРА ШАРІВ GUI: НЕЗМІННЕ ЗАКРІПЛЕННЯ СТАТУС-БАРУ</text>
+<text x="420.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#656d76" text-anchor="middle">Ієрархія Z-order: критичний шар заблокований поверх будь-яких діалогів та вікон</text>
+<rect x="25.0" y="72.0" width="645.0" height="65.0" rx="6" fill="#f0f8ff" stroke="#0969da" stroke-width="1.8"/>
+<text x="40.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0969da" text-anchor="start" font-weight="700">ШАР 0: ФОН ТА ПЕРВИННИЙ КОНТЕНТ (Background / Primary Plane)</text>
+<text x="40.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f2328" text-anchor="start">Відеопотік з FPV-камери (1080p60) • Векторна карта рельєфу • Штучний горизонт PFD</text>
+<rect x="685.0" y="72.0" width="130.0" height="65.0" rx="6" fill="#f0f8ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="750.0" y="108.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0969da" text-anchor="middle" font-weight="700">Z = 0 (Нижній шар)</text>
+<rect x="25.0" y="147.0" width="645.0" height="65.0" rx="6" fill="#f6f8fa" stroke="#57606a" stroke-width="1.8"/>
+<text x="40.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#57606a" text-anchor="start" font-weight="700">ШАР 1: РОБОЧІ ВІДЖЕТИ ТА ІНСТРУМЕНТИ (Work Widgets / Tools)</text>
+<text x="40.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f2328" text-anchor="start">Таблиця точок місії • Графіки телеметрії • Панелі налаштування PID-регуляторів</text>
+<rect x="685.0" y="147.0" width="130.0" height="65.0" rx="6" fill="#f6f8fa" stroke="#57606a" stroke-width="1.5"/>
+<text x="750.0" y="183.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#57606a" text-anchor="middle" font-weight="700">Z = 10 (Робочий простір)</text>
+<rect x="25.0" y="222.0" width="645.0" height="65.0" rx="6" fill="#fff8c5" stroke="#9a6700" stroke-width="1.8"/>
+<text x="40.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a6700" text-anchor="start" font-weight="700">ШАР 2: МОДАЛЬНІ ВІКНА ТА ДІАЛОГИ (Modal Dialogs / Popups)</text>
+<text x="40.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f2328" text-anchor="start">Спливаючі підтвердження («Slide to Arm») • Повідомлення про калібрування • Меню конфігурації</text>
+<rect x="685.0" y="222.0" width="130.0" height="65.0" rx="6" fill="#fff8c5" stroke="#9a6700" stroke-width="1.5"/>
+<text x="750.0" y="258.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a6700" text-anchor="middle" font-weight="700">Z = 50 (Спливаючі вікна)</text>
+<rect x="25.0" y="297.0" width="645.0" height="75.0" rx="6" fill="#ffebe9" stroke="#cf222e" stroke-width="1.8"/>
+<text x="40.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#cf222e" text-anchor="start" font-weight="700">ШАР 3: НЕПЕРЕКРИВНИЙ ОВЕРЛЕЙ (LOCKED TOP OVERLAY STATUS BAR)</text>
+<text x="40.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1f2328" text-anchor="start">Критичний статусний бар • Анонсатор режимів • Індикатори батареї та зв'язку • Постійна сітка</text>
+<rect x="685.0" y="297.0" width="130.0" height="75.0" rx="6" fill="#ffebe9" stroke="#cf222e" stroke-width="1.5"/>
+<text x="750.0" y="338.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#cf222e" text-anchor="middle" font-weight="700">Z = 100 (Абсолютний пріоритет)</text>
+<line x1="675.0" y1="355.0" x2="675.0" y2="95.0" stroke="#656d76" stroke-width="2.0" stroke-dasharray="4,4"/>
+<line x1="675.0" y1="130.0" x2="675.0" y2="85.0" stroke="#cf222e" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="675.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#cf222e" text-anchor="middle" font-weight="700">Z-ORDER RENDER</text>
+<rect x="25.0" y="390.0" width="790.0" height="32.0" rx="4" fill="#24292f" stroke="#1f2328" stroke-width="1.0"/>
+<text x="420.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Заборона оклюзії: модальне вікно затемнює шар 1 і 0, але НІКОЛИ не накриває шар 3</text>
+</svg>

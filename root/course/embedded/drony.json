@@ -53,8 +53,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-density-altitude.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -89,8 +95,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-battery-scaling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-weight-budget-calc.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zapas-tiahy-i-shcho-vin-kupuie",
@@ -99,7 +117,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -109,8 +127,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-sub250-kinetic-impact.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sub250-mass-optimizer.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -151,8 +181,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-thrust-rig.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-devices/dshot-protocol",
@@ -169,8 +205,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-eddy-hysteresis-loss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermal-throttle.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "ph-mechanics/shum-hvynta",
@@ -213,8 +261,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-dynamic-balancing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-in-situ-balancer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "ph-mechanics/material-fatigue",
@@ -239,8 +299,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-impact-mechanics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crash-detection.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -283,7 +355,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -293,8 +365,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-biot-savart-wire-loop.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-compass-mot-calibration.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-sensing/power-monitor",
@@ -363,8 +447,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-resource-mapping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resource-solver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "proshyvka-kontrolera",
@@ -373,8 +469,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-bootloader-contract.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-flight-stacks-internals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dfu-jump-bootloader.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/params-gcs",
@@ -437,8 +551,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-companion-bridge.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-notary/remote-id",
@@ -469,7 +589,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -483,7 +603,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -517,8 +637,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ferschee-ellipsoid-fit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mag-cal-solver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "stend-bez-hvyntiv",
@@ -527,8 +659,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-arming-disable-flags.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arming-flags-decoder.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/arming-checks",
@@ -553,8 +697,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-pid-step-analyzer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-analog/notch-filter",
@@ -585,7 +735,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -617,8 +767,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-damper-resonance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mounting-mechanics.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zsuv-tsentru-vahy-i-rukhoma-masa",
@@ -627,8 +789,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-sloshing-pendulum.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zhyvlennia-i-kanal-danykh-navantazhennia",
@@ -637,8 +805,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-payload-mavlink-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "ph-mechanics/projectile-motion",
@@ -651,8 +825,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-drop-ballistics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ballistic-calculator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/parashut",
@@ -709,8 +895,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-catapult-kinematics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-takeoff-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "ph-mechanics/vtol-transition",
@@ -723,8 +921,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-transition-forces.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -773,8 +977,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-rover-gearboxes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wheel-torque.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drive-selection.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/boat-underwater",
@@ -795,8 +1017,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-dew-point-desiccant.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vacuum-decay-tester.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -811,8 +1045,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-impedance-control.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-admittance-controller.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/kinematyka-manipuliatora",
@@ -849,7 +1095,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -863,8 +1109,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-zmp-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zmp-guard.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "bezpeka-bilia-mashyny-shcho-diie-syloiu",
@@ -873,8 +1131,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-drive-safety-functions.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-contact-biomechanics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safety-watchdog.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

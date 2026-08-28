@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбіжність розподілів (Data Drift) та аугментація сенсорів</text>
+<rect x="40.0" y="55.0" width="380.0" height="345.0" rx="7" fill="#fffaf5" stroke="#e67e22" stroke-width="1.5"/>
+<text x="230.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Чому лабораторна модель відмовляє в полі</text>
+<circle cx="150.0" cy="160.0" r="48.0" fill="#e8f4fc" stroke="#2457d6" stroke-width="1.6"/>
+<text x="150.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Лабораторія</text>
+<text x="150.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">+22°C, новий стенд</text>
+<line x1="202.0" y1="160.0" x2="252.0" y2="160.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="227.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Дрейф</text>
+<circle cx="310.0" cy="160.0" r="54.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="310.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Реальне поле</text>
+<text x="310.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">-15°C..+55°C, знос</text>
+<text x="55.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="55.0" dy="0.0">1. Температурний дрейф: зміщення нуля (offset)</tspan><tspan x="55.0" dy="13.5">   та чутливості кремнієвих MEMS / АЦП</tspan><tspan x="55.0" dy="13.5">2. Механічний знос: люфти валу, ослаблення</tspan><tspan x="55.0" dy="13.5">   кріплень, зміна резонансних частот</tspan><tspan x="55.0" dy="13.5">3. Електричні завади: ШІМ моторів, просадка АКБ</tspan></text>
+<rect x="55.0" y="340.0" width="350.0" height="45.0" rx="6" fill="#fef5ee" stroke="#e67e22" stroke-width="1.5"/><text x="230.0" y="359.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">Наслідок: вхідний вектор виходить за межі</tspan><tspan x="230.0" dy="13.0">навченого простору → хибні спрацювання</tspan></text>
+<rect x="450.0" y="55.0" width="390.0" height="345.0" rx="7" fill="#f2faf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Аугментація часових рядів сенсорів</text>
+<rect x="465.0" y="100.0" width="360.0" height="48.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="475.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Дрожання (Jittering)</text>
+<text x="475.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Додавання гаусового шуму та поодиноких сплесків</text>
+<rect x="465.0" y="158.0" width="360.0" height="48.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="475.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Масштабування (Scaling)</text>
+<text x="475.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Множення амплітуди на випадковий фактор [0.85 .. 1.15]</text>
+<rect x="465.0" y="216.0" width="360.0" height="48.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.3"/>
+<text x="475.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Часовий зсув (Warping)</text>
+<text x="475.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Локальне розтягування/стискання за шкалою часу</text>
+<rect x="465.0" y="274.0" width="360.0" height="48.0" rx="5" fill="#ffffff" stroke="#8e44ad" stroke-width="1.3"/>
+<text x="475.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start" font-weight="700">Дрейф зміщення (Offset Drift)</text>
+<text x="475.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Штучне лінійне зміщення нуля датчика за температурою</text>
+<rect x="465.0" y="340.0" width="360.0" height="45.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="645.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: розширена область генералізації</text>
+<text x="645.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Модель покриває весь діапазон польових температур і вібрацій</text>
+</svg>

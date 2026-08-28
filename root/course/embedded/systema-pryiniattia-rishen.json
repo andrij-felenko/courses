@@ -43,8 +43,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-goal-dispatcher.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/sense-decide-act-loop",
@@ -73,8 +79,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-control-arbiter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-control-arbiter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-signal/bumpless-transfer",
@@ -99,8 +117,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-subsumption-and-expert-systems.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safety-supervisor.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -155,7 +185,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -193,8 +223,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mission-vm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/survey-patterns",
@@ -227,7 +263,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -245,7 +281,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -289,8 +325,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-return-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pnr-and-wind.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-return-budget.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/nyzka-batareia",
@@ -311,8 +365,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ground-effect-thrust.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-landing-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/povernennia-na-dok-i-na-zariadku",
@@ -343,8 +409,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-failsafe-params.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-failsafe-arbiter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/failure-priorities",
@@ -451,8 +529,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-safety-arbitration.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/slipi-zony-i-khybne-halmuvannia",
@@ -519,8 +603,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mavlink-setpoints.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-offboard-setpoints.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zbii-bortovoho-kompiutera",
@@ -529,8 +625,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-fcu-failsafe-params.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heartbeat-watchdog.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "svoia-lohika-bez-avtopilota",
@@ -539,8 +647,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-goal-dispatcher.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deterministic-fsm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/parametry-povedinky",
@@ -623,8 +749,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sensor-logger.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-ml/data-augmentation",
@@ -813,8 +945,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pinhole-and-interaction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-visual-servoing-controller.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "posadka-i-dok-za-markerom",
@@ -823,8 +967,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-landing-setpoint.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/suprovid-tsili",
@@ -847,8 +997,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-decision-filter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-ml/metryky-iakosti-modeli",
@@ -881,8 +1037,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-obstacle-verifier.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vidkat-na-pravylo-koly-model-movchyt-abo-maryt",
@@ -891,8 +1053,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fallback-arbiter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-release/parallel-run",
@@ -905,8 +1073,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-eskalatsiia-fsm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-ml/distribution-shift",
@@ -961,8 +1135,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-admission-ladder.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pershyi-avtonomnyi-vylit",
@@ -971,8 +1151,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-preflight-checker.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-release/postmortems",
@@ -985,8 +1171,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-crash-analyzer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/end-to-end-mission",

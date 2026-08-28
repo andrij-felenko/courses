@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура каналів технічної підтримки та маршрутизації інцидентів</text>
+<rect x="25.0" y="55.0" width="270.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="160.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">1. Канали входу та джерела</text>
+<rect x="40.0" y="95.0" width="240.0" height="68.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="52.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">Автоматична телеметрія</text>
+<text x="52.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Crash Dump через MQTT/HTTPS</text>
+<text x="52.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Формат: Support Bundle + HW Rev</text>
+<rect x="40.0" y="177.0" width="240.0" height="68.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="52.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">Локальний сервісний порт</text>
+<text x="52.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">USB CDC / UART дамп через CLI</text>
+<text x="52.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Формат: Support Bundle + HW Rev</text>
+<rect x="40.0" y="259.0" width="240.0" height="68.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="52.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Клієнтський веб-портал</text>
+<text x="52.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Форма з обов'язковим S/N та логом</text>
+<text x="52.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Формат: Support Bundle + HW Rev</text>
+<rect x="40.0" y="341.0" width="240.0" height="68.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="52.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">QR-код аварійного стану</text>
+<text x="52.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Сканування з екрана / консолі</text>
+<text x="52.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">Формат: Support Bundle + HW Rev</text>
+<rect x="335.0" y="55.0" width="270.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="470.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">2. Серверний тріаж і валідація</text>
+<rect x="350.0" y="95.0" width="240.0" height="68.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="362.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="start" font-weight="700">Парсер Support Bundle</text>
+<text x="362.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Перевірка Magic, CRC32, структури</text>
+<text x="362.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">Автоматичне збагачення контекстом</text>
+<rect x="350.0" y="177.0" width="240.0" height="68.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="362.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="start" font-weight="700">Звірка з паспортом виробу</text>
+<text x="362.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Перевірка S/N, партії, OTP-ключів</text>
+<text x="362.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">Автоматичне збагачення контекстом</text>
+<rect x="350.0" y="259.0" width="240.0" height="68.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="362.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="start" font-weight="700">Символізація та аналіз</text>
+<text x="362.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">addr2line / ELF за git-хешем білда</text>
+<text x="362.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">Автоматичне збагачення контекстом</text>
+<rect x="350.0" y="341.0" width="240.0" height="68.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="362.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="start" font-weight="700">Класифікація критичності</text>
+<text x="362.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Присвоєння Sev-1..Sev-4 за матрицею</text>
+<text x="362.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start">Автоматичне збагачення контекстом</text>
+<rect x="645.0" y="55.0" width="270.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<text x="780.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">3. Рівні інженерної ескалації</text>
+<rect x="660.0" y="95.0" width="240.0" height="68.0" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.2"/>
+<text x="672.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">L1: Service Desk</text>
+<text x="672.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Чек-лист живлення, гарантія, KB</text>
+<text x="672.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">SLA: регламентований час реакції</text>
+<rect x="660.0" y="177.0" width="240.0" height="68.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="672.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">L2: Field Applications</text>
+<text x="672.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Аналіз логів, стенд з тією ж HW Rev</text>
+<text x="672.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">SLA: регламентований час реакції</text>
+<rect x="660.0" y="259.0" width="240.0" height="68.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="672.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">L3: Embedded Firmware</text>
+<text x="672.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Аналіз FreeRTOS, патч, OTA-реліз</text>
+<text x="672.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">SLA: регламентований час реакції</text>
+<rect x="660.0" y="341.0" width="240.0" height="68.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="672.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">L4: Hardware R&amp;D / RMA</text>
+<text x="672.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Лабораторний аналіз плати, 8D звіт</text>
+<text x="672.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start">SLA: регламентований час реакції</text>
+<line x1="295.0" y1="130.0" x2="335.0" y2="130.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="212.0" x2="335.0" y2="212.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="294.0" x2="335.0" y2="294.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="376.0" x2="335.0" y2="376.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="130.0" x2="645.0" y2="130.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="212.0" x2="645.0" y2="212.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="294.0" x2="645.0" y2="294.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="376.0" x2="645.0" y2="376.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

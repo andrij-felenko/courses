@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритмічне дерево відмов: від симптому живлення до виявлення несправного елемента</text>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритмічне дерево пошуку несправності (Fault Tree Analysis)</text>
+<rect x="365.0" y="45.0" width="210.0" height="56.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="470.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Симптом: Прилад не стартує</text>
+<text x="470.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">LED Status: 3 спалахи (ERR_PWR)</text>
+<line x1="470.0" y1="101.0" x2="470.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.0" y="135.0" width="230.0" height="58.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 1: Виміряти TP_VIN</text>
+<text x="470.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Очікувано: 24.0 V DC (допуск ±10%)</text>
+<line x1="385.0" y1="193.0" x2="172.5" y2="230.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="175.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">U &lt; 21.6 V або 0 V</text>
+<rect x="40.0" y="230.0" width="265.0" height="90.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="172.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Несправність первинного кола</text>
+<text x="172.5" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Перевірити запобіжник F1 на обрив</text>
+<text x="172.5" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Перевірити пробій TVS діода D1</text>
+<text x="172.5" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3. Опір TP_VIN-GND: якщо &lt; 5 Ом — заміна D1</text>
+<line x1="555.0" y1="193.0" x2="675.0" y2="230.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">U_in = 24V OK</text>
+<rect x="540.0" y="230.0" width="270.0" height="65.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="675.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 2: Виміряти напругу на TP_3V3</text>
+<text x="675.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Очікувано: 3.30 V ± 0.05 V</text>
+<text x="675.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle">Опір у знеструмленому стані: R &gt; 100 Ом</text>
+<line x1="590.0" y1="295.0" x2="517.5" y2="345.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">R &lt; 2 Ом (КЗ)</text>
+<rect x="390.0" y="345.0" width="255.0" height="95.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="517.5" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Коротке замикання шини 3.3V</text>
+<text x="517.5" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Подати 1.0V / 1A з ЛБЖ, пошук тепловізором</text>
+<text x="517.5" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Пробитий керамічний MLCC (C12, C18)</text>
+<text x="517.5" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3. Або пробій кристала MCU -&gt; FRU Swap</text>
+<line x1="760.0" y1="295.0" x2="797.5" y2="345.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="765.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">3.3V в нормі</text>
+<rect x="670.0" y="345.0" width="255.0" height="95.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="797.5" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Живлення OK -&gt; Логічний збій</text>
+<text x="797.5" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. Підключити SWD: перевірити TP_NRST</text>
+<text x="797.5" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. Зчитати регістри HardFault через CLI</text>
+<text x="797.5" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3. Відновити образ через DFU/ISP режим</text>
+</svg>

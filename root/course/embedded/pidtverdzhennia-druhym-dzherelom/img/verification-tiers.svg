@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трирівнева ієрархія валідації гіпотез нейромережі</text>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трирівнева ієрархія валідації гіпотез нейромережі</text>
+<rect x="25.0" y="55.0" width="205.0" height="330.0" rx="8" fill="#e9eefb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="127.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Джерело гіпотези</text>
+<text x="127.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Нейромережевий детектор</text>
+<rect x="40.0" y="122.0" width="175.0" height="75.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="127.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихід детектора:</text>
+<text x="127.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Bounding box (u, v, w, h)</text>
+<text x="127.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Клас: «Людина»</text>
+<rect x="40.0" y="207.0" width="175.0" height="75.0" rx="5" fill="#fff6e0" stroke="#caa24a" stroke-width="1.2"/>
+<text x="127.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="middle" font-weight="700">Впевненість (Score):</text>
+<text x="127.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">P(class) = 0.96</text>
+<text x="127.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Статистична оцінка</text>
+<rect x="40.0" y="292.0" width="175.0" height="75.0" rx="5" fill="#fbecec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="127.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вразливість:</text>
+<text x="127.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Відблиски, текстури,</text>
+<text x="127.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">галюцинації фону</text>
+<line x1="230.0" y1="220.0" x2="255.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="260.0" y="55.0" width="440.0" height="100.0" rx="7" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="275.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">РІВЕНЬ 1: Сенсорний крос-чекінг</text>
+<text x="275.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Зіставлення з ToF / лідаром / радаром / ультразвуком</text>
+<text x="275.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Перевірка відбиття сигналу у конусі виявленого об'єкта</text>
+<text x="275.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Захист від малюнків, тіней та відблисків сонця</text>
+<line x1="700.0" y1="105.0" x2="725.0" y2="105.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="260.0" y="165.0" width="440.0" height="100.0" rx="7" fill="#fff6e0" stroke="#caa24a" stroke-width="1.6"/>
+<text x="275.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d1a" text-anchor="start" font-weight="700">РІВЕНЬ 2: Геометричні інваріанти</text>
+<text x="275.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Проєкційна модель камери та зв'язок розміру з дистанцією</text>
+<text x="275.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Перевірка: h_px = (f_px · H_real) / Z (кутовий розмір)</text>
+<text x="275.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Захист від неможливих масштабувань (2 м у 5 px на 3 м)</text>
+<line x1="700.0" y1="215.0" x2="725.0" y2="215.0" stroke="#caa24a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="260.0" y="275.0" width="440.0" height="100.0" rx="7" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="275.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">РІВЕНЬ 3: Кінематичні обмеження</text>
+<text x="275.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Закони Ньютона та еліпсоїд допустимого переміщення (Строб)</text>
+<text x="275.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Перевірка: |v| ≤ v_max, |a| ≤ a_max між кадрами</text>
+<text x="275.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Захист від миттєвої появи та стрибків трекера</text>
+<line x1="700.0" y1="325.0" x2="725.0" y2="325.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="730.0" y="55.0" width="125.0" height="330.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="792.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Арбітраж</text>
+<text x="792.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">рішення</text>
+<rect x="740.0" y="135.0" width="105.0" height="55.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="792.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ПІДТВЕРДЖЕНО</text>
+<text x="792.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дія автопілота</text>
+<rect x="740.0" y="205.0" width="105.0" height="65.0" rx="4" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="792.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8a6d1a" text-anchor="middle" font-weight="700">СУМНІВ</text>
+<text x="792.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Сповільнення,</text>
+<text x="792.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">набір кадрів</text>
+<rect x="740.0" y="285.0" width="105.0" height="55.0" rx="4" fill="#fbecec" stroke="#c0392b" stroke-width="1.4"/>
+<text x="792.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ВІДХИЛЕНО</text>
+<text x="792.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Галюцинація ML</text>
+<text x="440.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель машинного навчання лише генерує гіпотезу, а фізичні інваріанти виносять остаточний вердикт</text>
+</svg>

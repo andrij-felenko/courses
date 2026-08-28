@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема криптографічної атестації та відсікання клонованих пристроїв на бекенді</text>
+<rect x="8.8" y="52.0" width="202.4" height="56.0" rx="6" fill="#f0faf4" stroke="#27ae60" stroke-width="1.4"/><text x="110.0" y="70.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="110.0" dy="0.0">Оригінальний пристрій</tspan><tspan x="110.0" dy="13.0">Унікальний ключ у Secure Element</tspan><tspan x="110.0" dy="13.0">Валідний ланцюг сертифікатів</tspan></text>
+<rect x="8.8" y="212.0" width="202.4" height="56.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.4"/><text x="110.0" y="230.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="110.0" dy="0.0">Клонований пристрій</tspan><tspan x="110.0" dy="13.0">Скопійований спільний ключ / MAC</tspan><tspan x="110.0" dy="13.0">Дублікат сертифіката чи ID</tspan></text>
+<rect x="270.0" y="30.0" width="220.0" height="280.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хмарний шлюз автентифікації</text>
+<rect x="285.0" y="80.0" width="190.0" height="48.0" rx="4" fill="#ffffff" stroke="#b0bec5" stroke-width="1.0"/>
+<text x="380.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Перевірка mTLS</text>
+<text x="380.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сертифікат у довіреному CA?</text>
+<rect x="285.0" y="145.0" width="190.0" height="52.0" rx="4" fill="#ffffff" stroke="#b0bec5" stroke-width="1.0"/>
+<text x="380.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Крипточелендж</text>
+<text x="380.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Підпис випадкового nonce</text>
+<text x="380.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">захищеним ключем</text>
+<rect x="285.0" y="215.0" width="190.0" height="52.0" rx="4" fill="#ffffff" stroke="#b0bec5" stroke-width="1.0"/>
+<text x="380.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Аналіз аномалій</text>
+<text x="380.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Колізії UUID, географія IP,</text>
+<text x="380.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">частота сесій та запитів</text>
+<line x1="202.0" y1="80.0" x2="268.0" y2="80.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="235.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">mTLS</text>
+<line x1="202.0" y1="240.0" x2="268.0" y2="240.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="235.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Запит</text>
+<rect x="530.0" y="45.5" width="200.0" height="69.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.4"/><text x="630.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="630.0" dy="0.0">Повний доступ до сервісів</tspan><tspan x="630.0" dy="13.0">• Хмарні обчислення та сховище</tspan><tspan x="630.0" dy="13.0">• Оновлення прошивки (OTA)</tspan><tspan x="630.0" dy="13.0">• Гарантійна підтримка</tspan></text>
+<line x1="492.0" y1="80.0" x2="528.0" y2="80.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="520.2" y="205.5" width="219.5" height="69.0" rx="6" fill="#fff2f2" stroke="#c0392b" stroke-width="1.4"/><text x="630.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="630.0" dy="0.0">Керована деградація / бан</tspan><tspan x="630.0" dy="13.0">• Базовий режим без аналітики</tspan><tspan x="630.0" dy="13.0">• Повідомлення про неоригінальність</tspan><tspan x="630.0" dy="13.0">• Відхилення від хмарних функцій</tspan></text>
+<line x1="492.0" y1="240.0" x2="528.0" y2="240.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

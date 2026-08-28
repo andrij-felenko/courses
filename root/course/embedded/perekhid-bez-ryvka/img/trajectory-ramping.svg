@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перехід до нового завдання: стрибок проти згладжування (Ramping)</text>
+<rect x="60.0" y="65.0" width="360.0" height="330.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.4"/>
+<text x="240.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Без ремпінгу: стрибок завдання (Step)</text>
+<line x1="90.0" y1="350.0" x2="400.0" y2="350.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="400.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t</text>
+<line x1="95.0" y1="330.0" x2="160.0" y2="330.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4 4"/>
+<line x1="160.0" y1="330.0" x2="160.0" y2="140.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4 4"/>
+<line x1="160.0" y1="140.0" x2="395.0" y2="140.0" stroke="#6b7280" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="345.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ціль (Target)</text>
+<line x1="95.0" y1="330.0" x2="160.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<path d="M 160.0 330.0 C 190.0 110.0, 240.0 110.0, 290.0 140.0 C 330.0 160.0, 370.0 140.0, 395.0 140.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="215.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Переліт і перевантаження</text>
+<rect x="460.0" y="65.0" width="360.0" height="330.0" rx="8" fill="#f9fcf9" stroke="#27ae60" stroke-width="1.4"/>
+<text x="640.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Із ремпінгом: Slew Rate / S-Curve Trajectory</text>
+<line x1="490.0" y1="350.0" x2="800.0" y2="350.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="800.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t</text>
+<line x1="495.0" y1="330.0" x2="540.0" y2="330.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<path d="M 540.0 330.0 C 590.0 335.0, 650.0 145.0, 700.0 140.0" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-dasharray="4 4"/>
+<line x1="700.0" y1="140.0" x2="795.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="725.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Setpoint(t) згладжене</text>
+<line x1="495.0" y1="330.0" x2="540.0" y2="330.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<path d="M 540.0 330.0 C 600.0 340.0, 660.0 150.0, 715.0 140.0 L 795.0 140.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="602.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Плавний вихід без коливань</text>
+<rect x="480.0" y="290.0" width="320.0" height="48.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="640.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d(Setpoint)/dt ≤ Rate_max</text>
+<text x="640.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обмежувач швидкості наростання (Slew Limiter)</text>
+<text x="440.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Ремпінг розтягує перехід у часі, усуваючи удар по приводу та механіці</text>
+</svg>

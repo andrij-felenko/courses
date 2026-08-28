@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три рівні локальної перевірки здоров'я сенсорного сигналу</text>
+<rect x="40.0" y="60.0" width="250.0" height="320.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="165.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Фізичні межі (Plausibility)</text>
+<rect x="60.0" y="110.0" width="210.0" height="120.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="60.0" y1="130.0" x2="270.0" y2="130.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="60.0" y1="210.0" x2="270.0" y2="210.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="265.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">Vdd (3.3 В / КЗ)</text>
+<text x="265.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">GND (0 В / Обрив)</text>
+<rect x="60.0" y="145.0" width="210.0" height="50.0" rx="2" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="165.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Допустимий робочий коридор</text>
+<rect x="47.3" y="231.1" width="235.5" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="165.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Відсікання електричних крайнощів:</tspan><tspan x="165.0" dy="13.7">0 В (обрив сенсора при pull-down)</tspan><tspan x="165.0" dy="13.7">3.3 В (закорочення на шину живлення)</tspan></text>
+<rect x="80.2" y="306.1" width="169.6" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="165.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">Фізична неможливість:</tspan><tspan x="165.0" dy="13.7">Вологість &gt; 100% або &lt; 0%</tspan><tspan x="165.0" dy="13.7">Тиск у кімнаті &lt; 300 гПа</tspan></text>
+<rect x="315.0" y="60.0" width="250.0" height="320.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="440.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Градієнтний ліміт (dY/dt)</text>
+<rect x="335.0" y="110.0" width="210.0" height="120.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="345.0" y1="200.0" x2="410.0" y2="175.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="380.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Фізична інерція</text>
+<line x1="410.0" y1="175.0" x2="415.0" y2="125.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="415.0" y1="125.0" x2="490.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="475.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">Стрибок: |ΔY/Δt| &gt; ліміт</text>
+<rect x="322.3" y="231.1" width="235.5" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="440.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Теплоємність і гідравліка:</tspan><tspan x="440.0" dy="13.7">Температура 100 кг бойлера</tspan><tspan x="440.0" dy="13.7">не може стрибнути на +30 °C за 10 мс</tspan></text>
+<rect x="325.3" y="306.1" width="229.5" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="440.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Діагностика збою:</tspan><tspan x="440.0" dy="13.7">Імпульсна завада, тріщина на платі,</tspan><tspan x="440.0" dy="13.7">збій фрейму АЦП без CRC</tspan></text>
+<rect x="590.0" y="60.0" width="250.0" height="320.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="715.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Дисперсія та шум (σ²)</text>
+<rect x="610.0" y="110.0" width="210.0" height="120.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="620.0" y1="150.0" x2="635.0" y2="145.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="635.0" y1="145.0" x2="650.0" y2="154.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="650.0" y1="154.0" x2="665.0" y2="147.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="665.0" y1="147.0" x2="680.0" y2="152.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Живий шум (σ² &gt; 0)</text>
+<line x1="680.0" y1="152.0" x2="700.0" y2="185.0" stroke="#d35400" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="700.0" y1="185.0" x2="805.0" y2="185.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="760.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Зависання (σ² = 0.000)</text>
+<rect x="603.3" y="231.1" width="223.5" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="715.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Природний термічний шум:</tspan><tspan x="715.0" dy="13.7">Фізичний сенсор завжди коливається</tspan><tspan x="715.0" dy="13.7">на рівні молодших бітів (LSB)</tspan></text>
+<rect x="591.3" y="306.1" width="247.4" height="57.8" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="715.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Zero-Variance критерій:</tspan><tspan x="715.0" dy="13.7">Дисперсія = 0 на вікні 100 відліків</tspan><tspan x="715.0" dy="13.7">= мертвий кристал або застряглий буфер</tspan></text>
+<rect x="48.1" y="394.5" width="783.8" height="31.0" rx="6" fill="#fff" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="413.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Комплексний фільтр перевіряє не лише поточне число, а й динаміку, швидкість зміни та статистичний спектр сигналу</tspan></text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як дроти та шлейфи стають антенами: синфазний струм</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">падіння напруги на паразитному імпедансі землі плати виштовхує високочастотний струм на підключений кабель</text>
+<rect x="70.0" y="110.0" width="330.0" height="280.0" rx="10" fill="#fcfcfd" stroke="#333333" stroke-width="2.0"/>
+<text x="90.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">ПЛАТА (PCB)</text>
+<rect x="90.0" y="310.0" width="290.0" height="45.0" rx="4" fill="#f6ecd6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="105.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="start" font-weight="700">Опорна земля (GND plane)</text>
+<rect x="110.0" y="170.0" width="110.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="165.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Швидкий чіп</text>
+<text x="165.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">di/dt імпульси</text>
+<line x1="165.0" y1="230.0" x2="165.0" y2="305.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="175.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">i(t)</text>
+<circle cx="165.0" cy="332.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<circle cx="360.0" cy="332.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="175.0" y1="375.0" x2="350.0" y2="375.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="230.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">V_cm = L_gnd · (di/dt) (шум землі)</text>
+<rect x="400.0" y="270.0" width="22.0" height="70.0" rx="3" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<text x="411.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">Порт</text>
+<line x1="422.0" y1="290.0" x2="842.0" y2="290.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="422.0" y1="320.0" x2="842.0" y2="320.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="632.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кабель живлення / шлейф датчиків (~1 м)</text>
+<line x1="452.0" y1="305.0" x2="522.0" y2="305.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="542.0" y1="305.0" x2="612.0" y2="305.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="532.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Синфазний струм I_cm (достатньо 5–10 мкА!)</text>
+<path d="M 692,265 A 25,25 0 0 1 742,290" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<path d="M 692,245 A 45,45 0 0 1 782,290" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<path d="M 692,225 A 65,65 0 0 1 822,290" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<text x="732.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Випромінювання E-поля</text>
+<text x="732.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(кабель діє як диполь)</text>
+<rect x="70.0" y="420.0" width="800.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="470.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Платі не треба бути великою: довгий зовнішній кабель стає ефективною антеною замість неї</text>
+</svg>

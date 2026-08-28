@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="460.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл апаратного дефекту: від Errata Sheet до коду драйвера</text>
+<rect x="25.0" y="65.0" width="180.0" height="260.0" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="25.0" y="65.0" width="180.0" height="32.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="115.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Крок 1: Апаратний баг</text>
+<text x="37.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Кремній містить дефект</text>
+<text x="37.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">проєктування логіки:</text>
+<text x="37.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• I2C автомат зависає</text>
+<text x="37.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">при втраті такту SCL.</text>
+<text x="37.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• DMA пропускає</text>
+<text x="37.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">останній байт у burst.</text>
+<text x="37.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Помилковий тригер</text>
+<text x="37.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">переривання у сні.</text>
+<rect x="225.0" y="65.0" width="180.0" height="260.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<rect x="225.0" y="65.0" width="180.0" height="32.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="315.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Крок 2: Errata Sheet</text>
+<text x="237.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виробник публікує опис:</text>
+<text x="237.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Bug ID: ES-042.</text>
+<text x="237.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Уражені ревізії:</text>
+<text x="237.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Silicon Rev A, Rev B.</text>
+<text x="237.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Умови виникнення.</text>
+<text x="237.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Офіційний програмний</text>
+<text x="237.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">обхідний шлях</text>
+<text x="237.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(Workaround).</text>
+<rect x="425.0" y="65.0" width="185.0" height="260.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="425.0" y="65.0" width="185.0" height="32.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="517.5" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Крок 3: Probe &amp; Revision ID</text>
+<text x="437.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Драйвер перевіряє залізо:</text>
+<text x="437.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Зчитує WHO_AM_I.</text>
+<text x="437.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Зчитує REV_ID чипа.</text>
+<text x="437.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Фіксує номер партії.</text>
+<text x="437.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Якщо ревізія з багом —</text>
+<text x="437.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">активує прапорець</text>
+<text x="437.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">need_workaround у</text>
+<text x="437.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">структурі дескриптора.</text>
+<rect x="630.0" y="65.0" width="185.0" height="260.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+<rect x="630.0" y="65.0" width="185.0" height="32.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.2"/>
+<text x="722.5" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">Крок 4: Обхідний код</text>
+<text x="642.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виконання в рантаймі:</text>
+<text x="642.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Генерація 9 тактів SCL</text>
+<text x="642.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">при старті для розблоку.</text>
+<text x="642.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Dummy Read перед DMA.</text>
+<text x="642.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Додаткова затримка</text>
+<text x="642.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">t_recovery між кадрами.</text>
+<text x="642.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Захист від гонок</text>
+<text x="642.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">статусних регістрів.</text>
+<line x1="207.0" y1="195.0" x2="223.0" y2="195.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="407.0" y1="195.0" x2="423.0" y2="195.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="612.0" y1="195.0" x2="628.0" y2="195.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="25.0" y="345.0" width="790.0" height="110.0" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+<text x="420.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Золоте правило розробника драйверів:</text>
+<text x="45.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Ніколи не починайте писати код драйвера без вивчення Errata Sheet для вашої ревізії чипа.</text>
+<text x="45.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Якщо чип поводиться не за даташитом (пропускає переривання або зависає) — перевірте розділ помилок перед переписуванням коду.</text>
+<text x="45.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">3. Оформлюйте всі workarounds окремими коментованими функціями з посиланням на номер пункту Errata виробника.</text>
+</svg>

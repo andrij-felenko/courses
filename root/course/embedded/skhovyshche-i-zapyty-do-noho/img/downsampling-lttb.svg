@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -10 1010 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-50" y="-10" width="1010" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проріджування для графіків: просте середнє (AVG) проти LTTB</text>
+<rect x="30.0" y="50.0" width="435.0" height="190.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/><text x="247.5" y="149.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="247.5" dy="0.0"></tspan></text>
+<text x="50.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Сирий сигнал (10 000 точок): аварійний сплеск температури</text>
+<line x1="50.0" y1="195.0" x2="440.0" y2="195.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<line x1="50.0" y1="85.0" x2="50.0" y2="195.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<polyline points="50.0,175.0 80.0,174.0 110.0,176.0 140.0,174.0 170.0,175.0 200.0,174.0 220.0,175.0 235.0,170.0 240.0,95.0 245.0,170.0 260.0,175.0 290.0,174.0 320.0,176.0 350.0,175.0 380.0,174.0 410.0,175.0 440.0,175.0" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="240.0" cy="95.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="240.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пік: 85 °C (тривав 5 с)</text>
+<text x="55.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">20 °C</text>
+<rect x="30.0" y="255.0" width="435.0" height="215.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.2"/><text x="247.5" y="367.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="247.5" dy="0.0"></tspan></text>
+<text x="50.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Наївне середнє за бакетами (Bucket AVG): ПІК ЗРІЗАНО!</text>
+<line x1="50.0" y1="400.0" x2="440.0" y2="400.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<line x1="50.0" y1="290.0" x2="50.0" y2="400.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<polyline points="50.0,380.0 115.0,380.0 180.0,380.0 245.0,365.0 310.0,380.0 375.0,380.0 440.0,380.0" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+<circle cx="50.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="115.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="180.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="245.0" cy="365.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="310.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="375.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="440.0" cy="380.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="245.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Середнє бакета: лише 25.4 °C</text>
+<text x="245.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Катастрофа: аварійний перегрів розчинився в середньому,
+інженер бачить плаский нормальний графік і пропускає збій.</text>
+<rect x="485.0" y="50.0" width="445.0" height="420.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/><text x="707.5" y="264.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="707.5" dy="0.0"></tspan></text>
+<text x="505.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">3. Алгоритм LTTB (Largest Triangle Three Buckets)</text>
+<line x1="505.0" y1="235.0" x2="895.0" y2="235.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<line x1="505.0" y1="115.0" x2="505.0" y2="235.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<polyline points="505.0,215.0 570.0,215.0 635.0,215.0 700.0,125.0 765.0,215.0 830.0,215.0 895.0,215.0" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<circle cx="505.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="570.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="635.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="700.0" cy="125.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="765.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="830.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="895.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="700.0" cy="125.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="700.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">LTTB зафіксував пік: 85.0 °C!</text>
+<rect x="497.5" y="264.5" width="415.0" height="91.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/><text x="705.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="705.0" dy="0.0">Принцип роботи LTTB:</tspan><tspan x="705.0" dy="13.0">1. Діапазон ділиться на K бакетів за кількістю пікселів екрана.</tspan><tspan x="705.0" dy="13.0">2. Для кожного бакета вибирається точка, яка утворює трикутник</tspan><tspan x="705.0" dy="13.0">   найбільшої площі з вибраною точкою попереднього бакета</tspan><tspan x="705.0" dy="13.0">   та середньою точкою наступного.</tspan><tspan x="705.0" dy="13.0">3. Результат: екстремуми та форма зберігаються ідеально.</tspan></text>
+<rect x="497.5" y="391.0" width="415.0" height="48.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/><text x="705.0" y="405.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700"><tspan x="705.0" dy="0.0">Висновок для дашбордів:</tspan><tspan x="705.0" dy="13.0">Для 1200 px екрана LTTB зменшує 1 000 000 сирих точок</tspan><tspan x="705.0" dy="13.0">до 1200 точок за 15 мс без втрати жодного піку чи аномалії.</tspan></text>
+</svg>

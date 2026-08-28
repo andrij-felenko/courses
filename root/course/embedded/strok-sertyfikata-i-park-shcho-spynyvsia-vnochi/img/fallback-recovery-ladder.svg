@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="80.0" y="50.0" width="700.0" height="65.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="100.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Рівень 1: Штатний захищений канал (Primary mTLS)</text>
+<text x="100.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Основний сертифікат пристрою (Slot A) + Робочий Root CA. Автоматична ротація за таймером (EST/ACME).</text>
+<rect x="80.0" y="130.0" width="700.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="100.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Рівень 2: Резервний довірчий якір (Dual Root Trust Store)</text>
+<text x="100.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вбудований запасний Root CA (Slot B). Якщо основний CA скомпрометовано або прострочено, TLS перемикається на резервний.</text>
+<rect x="80.0" y="210.0" width="700.0" height="65.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+<text x="100.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="start" font-weight="700">Рівень 3: Виділений аварійний Bootstrap-канал</text>
+<text x="100.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Незмінний заводський сертифікат (IDevID у Secure Element) + Окремий ізольований Bootstrap CA для перевипуску ключів.</text>
+<rect x="80.0" y="290.0" width="700.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="100.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Рівень 4: Позасмугове відновлення довіри (Emergency Offline Signature)</text>
+<text x="100.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Криптографічний пакет оновлення, підписаний кореневим Master Key розробника + Монотонний лічильник захисту від відкату (Rollback Protection).</text>
+<line x1="45.0" y1="60.0" x2="45.0" y2="340.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="45.0" y1="330.0" x2="45.0" y2="355.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="30.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="30.0" dy="0.0">Е</tspan><tspan x="30.0" dy="13.0">С</tspan><tspan x="30.0" dy="13.0">К</tspan><tspan x="30.0" dy="13.0">А</tspan><tspan x="30.0" dy="13.0">Л</tspan><tspan x="30.0" dy="13.0">А</tspan><tspan x="30.0" dy="13.0">Ц</tspan><tspan x="30.0" dy="13.0">І</tspan><tspan x="30.0" dy="13.0">Я</tspan></text>
+</svg>

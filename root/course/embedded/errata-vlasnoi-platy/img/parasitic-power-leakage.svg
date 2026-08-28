@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм паразитного живлення через захисні ESD-діоди та процедура ізоляції шини</text>
+<rect x="30.0" y="50.0" width="430.0" height="360.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="245.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка: Скидання лише піна живлення VDD</text>
+<rect x="50.0" y="110.0" width="110.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">МК</text>
+<text x="105.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">VDD_PIN=0V</text>
+<text x="105.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SDA = 3.3V</text>
+<text x="105.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">SCL = 3.3V</text>
+<rect x="320.0" y="110.0" width="120.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Датчик</text>
+<text x="380.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">V_int ≈ 2.6V!</text>
+<text x="380.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ESD Diode</text>
+<text x="380.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">FSM завис</text>
+<line x1="160.0" y1="165.0" x2="320.0" y2="165.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="240.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Живлення знято (0 В)</text>
+<line x1="160.0" y1="215.0" x2="320.0" y2="215.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="210.0" y1="215.0" x2="270.0" y2="215.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="215.0" x2="350.0" y2="180.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="350.0" y1="180.0" x2="365.0" y2="172.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="240.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Струм паразитної підживки</text>
+<rect x="81.4" y="337.4" width="327.2" height="45.3" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="356.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Струм через захисний діод живить внутрішню схему.</tspan><tspan x="245.0" dy="14.3">Напруга не падає до 0 В — чип не скидається!</tspan></text>
+<rect x="500.0" y="50.0" width="430.0" height="360.0" rx="8" fill="#eefaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="715.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Правильно: Ізоляція шини в High-Z + скидання</text>
+<rect x="520.0" y="110.0" width="110.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="575.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">МК</text>
+<text x="575.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">VDD_PIN=0V</text>
+<text x="575.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SDA: High-Z</text>
+<text x="575.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SCL: High-Z</text>
+<rect x="790.0" y="110.0" width="120.0" height="200.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="850.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Датчик</text>
+<text x="850.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">V_int = 0.0V</text>
+<text x="850.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Струм = 0 мкА</text>
+<text x="850.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Повний POR</text>
+<line x1="630.0" y1="165.0" x2="790.0" y2="165.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="710.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">VDD = 0 В</text>
+<line x1="630.0" y1="215.0" x2="790.0" y2="215.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="710.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Шина знеструмлена (High-Z)</text>
+<line x1="630.0" y1="275.0" x2="790.0" y2="275.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="548.2" y="337.4" width="333.5" height="45.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="715.0" y="356.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Шляхи витоку відсутні, конденсатори розряджаються.</tspan><tspan x="715.0" dy="14.3">Після подачі живлення відбувається апаратний POR.</tspan></text>
+<rect x="125.9" y="421.8" width="708.3" height="46.5" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="441.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Перед знеструмленням VDD усі сигнальні лінії обов'язково переводяться в режим High-Z (вхід без підтяжки).</tspan><tspan x="480.0" dy="15.0">Інакше внутрішня логіка датчика живиться «з чорного ходу» через власні захисні ESD-діоди.</tspan></text>
+</svg>

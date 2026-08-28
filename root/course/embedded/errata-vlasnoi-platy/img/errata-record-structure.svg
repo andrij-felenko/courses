@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура інженерного запису Hardware Errata Sheet</text>
+<rect x="40.0" y="90.0" width="168.0" height="240.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="124.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Ідентифікатор (ID)</text>
+<line x1="50.0" y1="128.0" x2="198.0" y2="128.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="124.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ERR-HW-003</text>
+<text x="124.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Плати: Rev 1.0</text>
+<text x="124.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Критичність: High</text>
+<line x1="211.0" y1="210.0" x2="222.0" y2="210.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="224.0" y="90.0" width="168.0" height="240.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="308.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Симптом (Symptom)</text>
+<line x1="234.0" y1="128.0" x2="382.0" y2="128.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="308.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шина I2C блокується;</text>
+<text x="308.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">лінія SDA притиснута</text>
+<text x="308.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">до 0 В намертво</text>
+<line x1="395.0" y1="210.0" x2="406.0" y2="210.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="408.0" y="90.0" width="168.0" height="240.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="492.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">3. Першопричина (RCA)</text>
+<line x1="418.0" y1="128.0" x2="566.0" y2="128.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="492.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Збій FSM датчика при</text>
+<text x="492.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">просіданні напруги;</text>
+<text x="492.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">back-power через діод</text>
+<line x1="579.0" y1="210.0" x2="590.0" y2="210.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="592.0" y="90.0" width="168.0" height="240.0" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="676.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Обхід (Workaround)</text>
+<line x1="602.0" y1="128.0" x2="750.0" y2="128.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="676.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ізоляція шини (High-Z)</text>
+<text x="676.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">та вимикання GPIO VDD</text>
+<text x="676.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">на 25 мс у прошивці</text>
+<line x1="763.0" y1="210.0" x2="774.0" y2="210.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="776.0" y="90.0" width="168.0" height="240.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="860.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Фіксація в Rev B</text>
+<line x1="786.0" y1="128.0" x2="934.0" y2="128.0" stroke="#1a1a1a" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="860.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Додати виділений LDO</text>
+<text x="860.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">з лінією EN та апаратні</text>
+<text x="860.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">підтяжки 4.7 кОм</text>
+<rect x="165.6" y="371.2" width="628.8" height="47.6" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="391.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Кожен запис зв'язує фізичний симптом із першопричиною, дає негайний обхід для живої плати</tspan><tspan x="480.0" dy="15.6">та формує однозначне технічне завдання для трасування наступної ревізії.</tspan></text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="340.0" rx="8" fill="#fafafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири фази міграції парку через перехідну прошивку (Bridge Firmware)</text>
+<rect x="40.0" y="80.0" width="175.0" height="240.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="127.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Старий парк</text>
+<rect x="50.0" y="135.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="127.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпис: Ключ A</text>
+<rect x="50.0" y="195.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="127.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Довіра в ROM: Ключ A</text>
+<rect x="50.0" y="255.0" width="155.0" height="50.0" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="127.5" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нормальна робота парку</text>
+<line x1="217.0" y1="200.0" x2="233.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="235.0" y="80.0" width="175.0" height="240.0" rx="6" fill="#fffaf0" stroke="#b7791f" stroke-width="1.5"/>
+<text x="322.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7791f" text-anchor="middle" font-weight="700">Фаза 2: Місток (Bridge)</text>
+<rect x="245.0" y="135.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="322.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпис: Ключ A</text>
+<rect x="245.0" y="195.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="322.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Містить: Публічний Ключ B</text>
+<rect x="245.0" y="255.0" width="155.0" height="50.0" rx="3" fill="#ffffff" stroke="#b7791f" stroke-width="1.0"/>
+<text x="322.5" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b7791f" text-anchor="middle" font-weight="700">Встановлює Bootloader v2</text>
+<line x1="412.0" y1="200.0" x2="428.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="430.0" y="80.0" width="175.0" height="240.0" rx="6" fill="#ebf8ff" stroke="#2b6cb0" stroke-width="1.5"/>
+<text x="517.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b6cb0" text-anchor="middle" font-weight="700">Фаза 3: Перемикання</text>
+<rect x="440.0" y="135.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="517.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оновлення Flash</text>
+<rect x="440.0" y="195.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="517.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Запис Key B у сховище</text>
+<rect x="440.0" y="255.0" width="155.0" height="50.0" rx="3" fill="#ffffff" stroke="#2b6cb0" stroke-width="1.0"/>
+<text x="517.5" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2b6cb0" text-anchor="middle" font-weight="700">Активація нового довіреного кореня</text>
+<line x1="607.0" y1="200.0" x2="623.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="625.0" y="80.0" width="175.0" height="240.0" rx="6" fill="#f0fff4" stroke="#c0392b" stroke-width="1.5"/>
+<text x="712.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 4: Новий стан</text>
+<rect x="635.0" y="135.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="712.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпис: Ключ B</text>
+<rect x="635.0" y="195.0" width="155.0" height="45.0" rx="3" fill="#edf2f7" stroke="#6b7280" stroke-width="0.8"/>
+<text x="712.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Довіра: Ключ B</text>
+<rect x="635.0" y="255.0" width="155.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="712.5" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Ключ A виведено з обігу</text>
+</svg>

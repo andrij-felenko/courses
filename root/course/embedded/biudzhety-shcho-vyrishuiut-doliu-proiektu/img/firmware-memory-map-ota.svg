@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл бюджету Flash та RAM</text>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл бюджету пам'яті: Dual-Bank Flash та динамічна RAM</text>
+<text x="150.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash-пам'ять (1024 КБ)</text>
+<rect x="35.0" y="80.0" width="230.0" height="40.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="150.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Bootloader (32 КБ)</text>
+<text x="150.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Незмінний сектор запуску, перевірка RSA/SHA</text>
+<rect x="35.0" y="130.0" width="230.0" height="115.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="150.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Slot A / Active Firmware (448 КБ)</text>
+<text x="150.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Робоча прошивка (.text, .rodata, .data)</text>
+<rect x="35.0" y="255.0" width="230.0" height="115.0" rx="5" fill="#fef9e7" stroke="#e67e22" stroke-width="1.6"/>
+<text x="150.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Slot B / OTA Staging (448 КБ)</text>
+<text x="150.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Буфер завантаження нової версії прошивки</text>
+<rect x="35.0" y="380.0" width="230.0" height="45.0" rx="5" fill="#f4ecf8" stroke="#8a5fb0" stroke-width="1.6"/>
+<text x="150.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">NVS / Storage (96 КБ)</text>
+<text x="150.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Калібрування, ключі, логи LittleFS</text>
+<line x1="275.0" y1="140.0" x2="295.0" y2="140.0" stroke="#e67e22" stroke-width="1.6"/>
+<line x1="295.0" y1="140.0" x2="295.0" y2="360.0" stroke="#e67e22" stroke-width="1.6"/>
+<line x1="295.0" y1="360.0" x2="275.0" y2="360.0" stroke="#e67e22" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="295.9" y="228.7" width="168.2" height="32.7" rx="6" fill="#ffffff" stroke="#e67e22" stroke-width="1.4"/><text x="380.0" y="242.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Вимога Dual-Bank OTA:</tspan><tspan x="380.0" dy="11.7">активна прошивка ≤ 45% Flash</tspan></text>
+<text x="630.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оперативна пам'ять RAM (256 КБ)</text>
+<rect x="515.0" y="80.0" width="230.0" height="50.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="630.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичні дані (48 КБ)</text>
+<text x="630.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Змінні .data, нульові .bss, глобальні таблиці</text>
+<rect x="515.0" y="140.0" width="230.0" height="70.0" rx="5" fill="#fef9e7" stroke="#e67e22" stroke-width="1.6"/>
+<text x="630.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буфери мережі / DMA (64 КБ)</text>
+<text x="630.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Wi-Fi / BLE пакети, дескриптори шин SPI/UART</text>
+<rect x="515.0" y="220.0" width="230.0" height="85.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="630.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стеки задач RTOS (80 КБ)</text>
+<text x="630.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Task stacks + запас на переривання ISR</text>
+<rect x="515.0" y="315.0" width="230.0" height="65.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="630.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Куча (Heap) та запас (64 КБ)</text>
+<text x="630.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Динамічне виділення, захист від OOM</text>
+<line x1="755.0" y1="230.0" x2="775.0" y2="230.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="775.0" y1="230.0" x2="775.0" y2="370.0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="775.0" y1="370.0" x2="755.0" y2="370.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="783.2" y="283.6" width="123.6" height="32.7" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/><text x="845.0" y="297.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="845.0" dy="0.0">Ризик Stack Overflow</tspan><tspan x="845.0" dy="11.7">та вичерпання Heap</tspan></text>
+<text x="460.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Надійне бездротове оновлення (OTA) вимагає резервування щонайменше 50% доступного Flash</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схеми підключення світлодіода: Active High (Source) проти Active Low (Sink)</text>
+<rect x="40.0" y="65.0" width="415.0" height="395.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<text x="247.5" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Active High: Витікаючий струм (Source)</text>
+<text x="247.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Логічна «1» (3.3 В) запалює світлодіод</text>
+<rect x="65.0" y="130.0" width="140.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="135.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO Push-Pull</text>
+<rect x="85.0" y="170.0" width="100.0" height="35.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="135.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PMOS (ВКЛ)</text>
+<text x="135.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">до VDD (+3.3V)</text>
+<rect x="85.0" y="230.0" width="100.0" height="35.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="135.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">NMOS (ВИМК)</text>
+<text x="135.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">до GND (0V)</text>
+<line x1="185.0" y1="187.0" x2="240.0" y2="187.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="215.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PIN</text>
+<rect x="240.0" y="167.0" width="70.0" height="40.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="275.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">LED (D1)</text>
+<text x="275.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">VF ≈ 2.0V</text>
+<line x1="310.0" y1="187.0" x2="335.0" y2="187.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="335.0" y="172.0" width="65.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="367.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R = 330 Ω</text>
+<line x1="400.0" y1="187.0" x2="425.0" y2="187.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="425.0" y1="177.0" x2="425.0" y2="197.0" stroke="#333333" stroke-width="2.5"/>
+<text x="425.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">GND</text>
+<line x1="210.0" y1="220.0" x2="380.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="295.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Струм I_source = (3.3V - 2.0V) / 330Ω ≈ 4.0 мА</text>
+<text x="65.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Пряма логіка в коді:</text>
+<text x="65.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1 = LED ON, 0 = LED OFF — інтуїтивно зрозуміло.</text>
+<text x="65.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Стан при скиданні (Reset):</text>
+<text x="65.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пін у Hi-Z (вхід). Світлодіод надійно згаслий.</text>
+<text x="65.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Струмове навантаження:</text>
+<text x="65.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Струм береться з шини живлення VDD мікроконтролера.</text>
+<rect x="485.0" y="65.0" width="415.0" height="395.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="692.5" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Active Low: Втікаючий струм (Sink)</text>
+<text x="692.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Логічний «0» (0 В) запалює світлодіод</text>
+<line x1="520.0" y1="187.0" x2="545.0" y2="187.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="520.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">+3.3V / +5V</text>
+<rect x="545.0" y="172.0" width="65.0" height="30.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="577.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">R = 330 Ω</text>
+<line x1="610.0" y1="187.0" x2="635.0" y2="187.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="635.0" y="167.0" width="70.0" height="40.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="670.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">LED (D1)</text>
+<text x="670.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Анод -&gt; Катод</text>
+<line x1="705.0" y1="187.0" x2="750.0" y2="187.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="727.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">PIN</text>
+<rect x="750.0" y="130.0" width="125.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="812.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO Драйвер</text>
+<rect x="760.0" y="170.0" width="105.0" height="35.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="812.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PMOS (ВИМК)</text>
+<text x="812.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">до VDD</text>
+<rect x="760.0" y="230.0" width="105.0" height="35.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="812.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">NMOS (ВКЛ -&gt; 0V)</text>
+<text x="812.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">притягує до GND</text>
+<line x1="545.0" y1="220.0" x2="750.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="650.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Струм I_sink втікає в пін МК до шини GND</text>
+<text x="510.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Інверсна логіка в коді:</text>
+<text x="510.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0 = LED ON, 1 = LED OFF — треба пам'ятати при написанні.</text>
+<text x="510.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Більша навантажувальна здатність:</text>
+<text x="510.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">NMOS-транзистори зазвичай мають менший опір RDS(on).</text>
+<text x="510.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Сумісність із Open-Drain:</text>
+<text x="510.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Дозволяє живити світлодіод від +5 В через 5V-tolerant пін.</text>
+</svg>

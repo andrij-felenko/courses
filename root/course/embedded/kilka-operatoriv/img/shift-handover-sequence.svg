@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безпечна 4-фазна процедура передачі зміни (Safe Shift Handover)</text>
+<rect x="30.0" y="50.0" width="180.0" height="45.0" rx="6" fill="#edf7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="120.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пульт #1: Здавач</text>
+<text x="120.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Поточний Master (ID: 255)</text>
+<rect x="330.0" y="50.0" width="180.0" height="45.0" rx="6" fill="#fdf7e7" stroke="#d98324" stroke-width="1.8"/>
+<text x="420.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d98324" text-anchor="middle" font-weight="700">Бортовий арбітр</text>
+<text x="420.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автопілот апарата</text>
+<rect x="630.0" y="50.0" width="180.0" height="45.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="720.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Пульт #2: Приймач</text>
+<text x="720.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Змінний пілот (ID: 254)</text>
+<line x1="120.0" y1="95.0" x2="120.0" y2="430.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="420.0" y1="95.0" x2="420.0" y2="305.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="420.0" y1="355.0" x2="420.0" y2="430.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="720.0" y1="95.0" x2="720.0" y2="210.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="720.0" y1="275.0" x2="720.0" y2="430.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="30.0" y="108.0" width="180.0" height="24.0" rx="4" fill="#edf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="120.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Клік «Передати зміну»</text>
+<line x1="120.0" y1="135.0" x2="420.0" y2="135.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HANDOVER_REQUEST(Target: GCS #254)</text>
+<line x1="420.0" y1="155.0" x2="720.0" y2="155.0" stroke="#d98324" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HANDOVER_OFFER(From: GCS #255)</text>
+<rect x="630.0" y="183.0" width="180.0" height="24.0" rx="4" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="720.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">2. Звірка стіків у нейтраль</text>
+<rect x="620.0" y="215.0" width="200.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/><text x="720.0" y="231.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Інтерфейс показує цільові стіки:</tspan><tspan x="720.0" dy="11.7">• Газ: вирівняти на 52%</tspan><tspan x="720.0" dy="11.7">• Крен/Тангаж: у мертву зону (±3%)</tspan></text>
+<line x1="720.0" y1="285.0" x2="420.0" y2="285.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HANDOVER_ACCEPT(Sticks: Neutral/Matched)</text>
+<rect x="310.0" y="307.0" width="220.0" height="45.0" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="420.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3. АТОМАРНИЙ СВІТЧ ТОКЕНА</text>
+<text x="420.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Active Pilot = GCS #254 (0 мс стрибок)</text>
+<line x1="420.0" y1="390.0" x2="120.0" y2="390.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">HANDOVER_COMPLETED (Role: Read-Only)</text>
+<line x1="420.0" y1="410.0" x2="720.0" y2="410.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HANDOVER_COMPLETED (Role: Active Master)</text>
+</svg>

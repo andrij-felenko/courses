@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат повторних спроб і таймаутів (Retry/Timeout FSM)</text>
+<rect x="20.0" y="85.0" width="140.0" height="70.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="90.0" y="110.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="90.0" dy="0.0">IDLE</tspan><tspan x="90.0" dy="13.0">(Очікування команди)</tspan><tspan x="90.0" dy="13.0">UI: доступний</tspan></text>
+<line x1="160.0" y1="120.0" x2="275.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="218.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наказ UI</text>
+<text x="218.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">conf=0, T_timer</text>
+<rect x="280.0" y="85.0" width="170.0" height="70.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="365.0" y="109.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">WAITING_ACK</tspan><tspan x="365.0" dy="14.3">Таймер 1000 мс активний</tspan><tspan x="365.0" dy="14.3">UI: заблоковано</tspan></text>
+<line x1="450.0" y1="105.0" x2="545.0" y2="105.0" stroke="#f39c12" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="498.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f39c12" text-anchor="middle" font-weight="700">ACK(IN_PROGRESS)</text>
+<rect x="550.0" y="75.0" width="180.0" height="65.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="640.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">IN_PROGRESS</tspan><tspan x="640.0" dy="14.3">(Калібрування/формат)</tspan><tspan x="640.0" dy="14.3">Скинути таймер, прогрес %</tspan></text>
+<line x1="730.0" y1="105.0" x2="765.0" y2="105.0" stroke="#f39c12" stroke-width="1.5"/>
+<line x1="765.0" y1="105.0" x2="765.0" y2="60.0" stroke="#f39c12" stroke-width="1.5"/>
+<line x1="765.0" y1="60.0" x2="640.0" y2="60.0" stroke="#f39c12" stroke-width="1.5"/>
+<line x1="640.0" y1="60.0" x2="640.0" y2="73.0" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="700.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">оновлення progress</text>
+<line x1="450.0" y1="130.0" x2="545.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="515.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ACK(ACCEPTED)</text>
+<rect x="550.0" y="200.0" width="180.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="218.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">SUCCESS (Термінальний)</tspan><tspan x="640.0" dy="15.6">Дію підтверджено!</tspan><tspan x="640.0" dy="15.6">UI: розблокувати</tspan></text>
+<line x1="640.0" y1="140.0" x2="640.0" y2="195.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="685.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ACK(ACCEPTED)</text>
+<line x1="430.0" y1="155.0" x2="545.0" y2="340.0" stroke="#e74c3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="460.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle" font-weight="700">ACK(DENIED /
+FAILED / UNSUPPORTED)</text>
+<rect x="550.0" y="320.0" width="195.0" height="70.0" rx="6" fill="#fdedec" stroke="#e74c3c" stroke-width="1.5"/><text x="647.5" y="345.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="647.5" dy="0.0">REJECTED (Термінальний)</tspan><tspan x="647.5" dy="13.0">Борт відхилив наказ!</tspan><tspan x="647.5" dy="13.0">Повторів НЕ робити, UI: помилка</tspan></text>
+<line x1="335.0" y1="155.0" x2="335.0" y2="275.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут
+retries &lt; 3</text>
+<rect x="270.0" y="280.0" width="190.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="365.0" y="303.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="365.0" dy="0.0">RETRYING</tspan><tspan x="365.0" dy="15.6">confirmation++, retries++</tspan><tspan x="365.0" dy="15.6">Повторна відправка кадру</tspan></text>
+<line x1="395.0" y1="280.0" x2="395.0" y2="160.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="445.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Кадр надіслано
+Старт таймера</text>
+<line x1="270.0" y1="315.0" x2="175.0" y2="315.0" stroke="#e74c3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="220.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle" font-weight="700">retries ≥ 3</text>
+<rect x="20.0" y="280.0" width="150.0" height="70.0" rx="6" fill="#fdedec" stroke="#e74c3c" stroke-width="1.5"/><text x="95.0" y="297.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">TIMEOUT_FAIL</tspan><tspan x="95.0" dy="14.3">(Термінальний)</tspan><tspan x="95.0" dy="14.3">Канал втрачено!</tspan><tspan x="95.0" dy="14.3">UI: збій доставки</tspan></text>
+<rect x="20.0" y="420.0" width="800.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="420.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Головне правило автомату: при відхиленні (DENIED) повтори ЗАБОРОНЕНІ — це свідома відмова борту.</text>
+<text x="420.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повтори робляться ТІЛЬКИ при тиші (таймаут), а поле confirmation сигналізує борту про повтор спроби.</text>
+</svg>

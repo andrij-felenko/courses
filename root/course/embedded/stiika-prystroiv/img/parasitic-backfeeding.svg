@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм паразитного підживлення крізь ESD-діоди</text>
+<text x="400.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка паразитного живлення (Backfeeding) крізь ESD-діоди</text>
+<rect x="40.0" y="70.0" width="220.0" height="310.0" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.8"/>
+<text x="150.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост / Програматор</text>
+<rect x="55.0" y="115.0" width="190.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/><text x="150.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">USB-UART / ST-Link</tspan><tspan x="150.0" dy="14.3">Живлення 3.3 В АКТИВНЕ</tspan></text>
+<rect x="55.0" y="180.0" width="190.0" height="35.0" rx="6" fill="#fef3c7" stroke="#c0392b" stroke-width="1.2"/><text x="150.0" y="201.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">UART TX = 3.3 В (High)</tspan></text>
+<rect x="55.0" y="230.0" width="190.0" height="35.0" rx="6" fill="#fef3c7" stroke="#c0392b" stroke-width="1.2"/><text x="150.0" y="251.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">SWDIO / SWCLK = 3.3 В</tspan></text>
+<rect x="55.0" y="320.0" width="190.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/><text x="150.0" y="341.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Спільна земля (GND)</tspan></text>
+<rect x="460.0" y="70.0" width="300.0" height="310.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="610.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Знеструмлена плата (DUT)</text>
+<rect x="480.0" y="115.0" width="260.0" height="35.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/><text x="610.0" y="136.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Реле живлення VCC: РОЗІМКНУТО</tspan></text>
+<rect x="480.0" y="165.0" width="260.0" height="195.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="610.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний буфер GPIO чипа</text>
+<line x1="520.0" y1="215.0" x2="590.0" y2="215.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="590.0" y1="215.0" x2="590.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="575.0" y="230.0" width="30.0" height="20.0" rx="6" fill="#fde68a" stroke="#c0392b" stroke-width="1.4"/>
+<text x="590.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">▲ ESD</text>
+<line x1="590.0" y1="250.0" x2="590.0" y2="275.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="550.0" y1="275.0" x2="720.0" y2="275.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="635.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Внутрішня VDD ≈ 2.7–3.0 В !</text>
+<text x="635.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">(Чип у стані 'зомбі'/не вимикається)</text>
+<text x="635.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро зависає, Flash не скидається</text>
+<line x1="245.0" y1="198.0" x2="480.0" y2="215.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Струм витоку (10-50 мА)</text>
+<line x1="245.0" y1="248.0" x2="480.0" y2="248.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="350.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">SWD Pull-Up струм</text>
+<line x1="245.0" y1="338.0" x2="480.0" y2="338.0" stroke="#333333" stroke-width="2.0"/>
+<text x="350.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">GND (Спільна)</text>
+<rect x="40.0" y="395.0" width="720.0" height="35.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/>
+<text x="400.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Рішення: Буфери з функцією Ioff (SN74LVC1T45) або переведення ліній програматора в Hi-Z при Power-Off</text>
+</svg>

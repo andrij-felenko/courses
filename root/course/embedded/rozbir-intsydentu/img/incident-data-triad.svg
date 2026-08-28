@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тріада джерел даних розслідування: три горизонти спостереження на спільній осі часу</text>
+<rect x="25.0" y="65.0" width="610.0" height="105.0" rx="8" fill="#eaf3ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="41.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Польотний контролер (FC)</text>
+<text x="245.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">—  ULog / DataFlash (50–400 Гц)</text>
+<text x="41.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• IMU: прискорення, кутові швидкості, кліпінг</text>
+<text x="41.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• EKF: нев'язки (innovations), дисперсії, прапорці</text>
+<text x="335.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Керування: DesRoll/Pitch vs Roll/Pitch, PWM/DShot</text>
+<text x="335.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Живлення: напруга шини, струм, просадки</text>
+<rect x="25.0" y="185.0" width="610.0" height="105.0" rx="8" fill="#f7faf7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="41.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Бортовий комп'ютер (SBC)</text>
+<text x="245.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">—  systemd / ROS 2 bag (1–50 Гц)</text>
+<text x="41.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Система: journalctl, dmesg, падіння 5V, OOM</text>
+<text x="41.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Навігація: топіки /cmd_vel, /scan лідара, хмара точок</text>
+<text x="335.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Планувальник: стан місії, черги подій, затримка IPC</text>
+<text x="335.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ресурси: завантаження ядер CPU, сплески пам'яті</text>
+<rect x="25.0" y="305.0" width="610.0" height="105.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="41.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Наземна станція (GCS)</text>
+<text x="245.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">—  MAVLink tlog / Radio (1–10 Гц)</text>
+<text x="41.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Радіолінк: RSSI, remrssi, втрата пакетів, шум ефіру</text>
+<text x="41.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Команди: MISSION_ITEM, підтвердження (ACK/NACK)</text>
+<text x="335.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Дії оператора: зміна режимів, ручне втручання</text>
+<text x="335.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Повний запис телеметрії з погляду оператора</text>
+<rect x="660.0" y="65.0" width="255.0" height="345.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="787.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація шкали</text>
+<text x="787.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Прив'язка до єдиного T₀</text>
+<rect x="672.0" y="135.0" width="231.0" height="54.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="682.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. GPS Time</text>
+<text x="682.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start"><tspan x="682.0" dy="0.0">Супутниковий UTC-час</tspan><tspan x="682.0" dy="12.0">як абсолютний якір</tspan></text>
+<rect x="672.0" y="200.0" width="231.0" height="54.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="682.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. TIMESYNC</text>
+<text x="682.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start"><tspan x="682.0" dy="0.0">MAVLink RTT-компенсація</tspan><tspan x="682.0" dy="12.0">зсуву годинника FC ↔ SBC</tspan></text>
+<rect x="672.0" y="265.0" width="231.0" height="54.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="682.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Boot TimeUS</text>
+<text x="682.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start"><tspan x="682.0" dy="0.0">Монотонний мікросекундний</tspan><tspan x="682.0" dy="12.0">таймер контролера</tspan></text>
+<rect x="672.0" y="330.0" width="231.0" height="54.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="682.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">4. Вікно аварії</text>
+<text x="682.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start"><tspan x="682.0" dy="0.0">Точний збіг мілісекунд</tspan><tspan x="682.0" dy="12.0">на всіх трьох потоках</tspan></text>
+<text x="470.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Жоден журнал окремо не дає повної картини: FC бачить фізику, SBC — рішення, GCS — наміри оператора</text>
+</svg>

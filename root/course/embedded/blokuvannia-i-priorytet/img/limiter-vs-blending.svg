@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії вибору найжорсткішого обмеження та злиття</text>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії злиття для неперервних сигналів: Worst-Case Limiter проти Blending</text>
+<rect x="30.0" y="55.0" width="385.0" height="330.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="222.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Worst-Case Limiter (High/Low Selector)</text>
+<text x="222.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Принцип пріоритетного відсікання безпечних меж</text>
+<rect x="45.0" y="113.0" width="355.0" height="85.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="222.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Auctioneering Control (Вибір максимуму/мінімуму):</text>
+<text x="50.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Охолодження: u_out = max(u_temp, u_humidity, u_co2)</text>
+<text x="50.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Нагрів: u_out = min(u_pid_comfort, u_thermal_limit)</text>
+<text x="50.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">• Жодне оптимізаційне правило не перевищить ліміт безпеки</text>
+<rect x="45.0" y="208.0" width="355.0" height="80.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="222.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Діапазонний обмежувач (Safe Clamping):</text>
+<text x="50.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">u_final = clamp(u_requested, u_safe_min, u_safe_max)</text>
+<text x="50.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Гарантує фізично безпечний робочий діапазон</text>
+<text x="50.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Не порушує стійкість системи керування</text>
+<rect x="45.0" y="298.0" width="355.0" height="70.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="222.5" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ПЕРЕВАГА ДЛЯ БЕЗПЕКИ:</text>
+<text x="222.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Абсолютна детермінованість і захист обладнання.</text>
+<text x="222.5" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Критичне правило отримує 100% авторитету.</text>
+<rect x="445.0" y="55.0" width="385.0" height="330.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.8"/>
+<text x="637.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8a6d1a" text-anchor="middle" font-weight="700">Weighted Blending (Зважене усереднення)</text>
+<text x="637.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Компроміс між некритичними цілями оптимізації</text>
+<rect x="460.0" y="113.0" width="355.0" height="85.0" rx="5" fill="#ffffff" stroke="#caa24a" stroke-width="1.0"/>
+<text x="637.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="middle" font-weight="700">Математична модель змішування:</text>
+<text x="637.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">u_out = w1 · u_comfort + w2 · u_energy + w3 · u_noise</text>
+<text x="637.5" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">де w1 + w2 + w3 = 1.0 (динамічні вагові коефіцієнти)</text>
+<text x="637.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Працює ТІЛЬКИ в межах безпечної зони!</text>
+<rect x="460.0" y="208.0" width="355.0" height="80.0" rx="5" fill="#fbecec" stroke="#c0392b" stroke-width="1.0"/>
+<text x="637.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">СМЕРТЕЛЬНА ПОМИЛКА: Усереднення з аварією</text>
+<text x="465.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Правило 1 (Авто): 100% потужності котла</text>
+<text x="465.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Правило 2 (Аварія): 0% (Перегрів води 105 °C)</text>
+<text x="465.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Середнє (0 + 100)/2 = 50% → ВИБУХ КОТЛА!</text>
+<rect x="460.0" y="298.0" width="355.0" height="70.0" rx="5" fill="#ffffff" stroke="#caa24a" stroke-width="1.0"/>
+<text x="637.5" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a6d1a" text-anchor="middle" font-weight="700">ПРАВИЛО ЗАСТОСУВАННЯ:</text>
+<text x="637.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Усереднення дозволене лише між комфортними цілями.</text>
+<text x="637.5" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Безпека ніколи не бере участі в усередненні!</text>
+<rect x="30.0" y="395.0" width="800.0" height="30.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="430.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Золоте правило арбітражу: Жорсткий вибір для безпеки й захисту, лінійне злиття — лише для комфорту.</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний каскад захисту вводу живлення друкованої плати</text>
+<rect x="30.0" y="45.0" width="880.0" height="320.0" rx="8" fill="#fdfcf7" stroke="#d1d5db" stroke-width="1.5"/>
+<rect x="45.0" y="120.0" width="80.0" height="120.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="85.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">БРУДНИЙ</text>
+<text x="85.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВХІД</text>
+<text x="85.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12–24 В</text>
+<text x="85.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Surge, ±)</text>
+<line x1="125.0" y1="180.0" x2="155.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="155.0" y="130.0" width="110.0" height="100.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. PPTC</text>
+<text x="210.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Polyfuse</text>
+<text x="210.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">I_hold = 1.1 A</text>
+<text x="210.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Захист від КЗ</text>
+<line x1="265.0" y1="180.0" x2="295.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="295.0" y="130.0" width="110.0" height="100.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="350.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. TVS Діод</text>
+<text x="350.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">SMAJ / SMCJ</text>
+<text x="350.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зрізання піків</text>
+<text x="350.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ESD / сплески</text>
+<line x1="405.0" y1="180.0" x2="435.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="435.0" y="130.0" width="125.0" height="100.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="497.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. P-MOSFET</text>
+<text x="497.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Ідеальний діод</text>
+<text x="497.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Rds = 15 мОм</text>
+<text x="497.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Від переполюсовки</text>
+<line x1="560.0" y1="180.0" x2="590.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="590.0" y="130.0" width="120.0" height="100.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="650.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. LC / π-фільтр</text>
+<text x="650.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Дросель + C</text>
+<text x="650.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ферит + MLCC</text>
+<text x="650.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">EMI / шум DC-DC</text>
+<line x1="710.0" y1="180.0" x2="745.0" y2="180.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="745.0" y="120.0" width="145.0" height="120.0" rx="6" fill="#edfdf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="817.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ЧИСТА ШИНА</text>
+<text x="817.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">VCC_Clean</text>
+<text x="817.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">до DC-DC / LDO</text>
+<text x="817.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Безпечно для МК</text>
+<rect x="60.0" y="260.0" width="820.0" height="80.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="470.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність реагування каскаду на різні загрози:</text>
+<text x="470.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• ESD / Наносекундні сплески: миттєво зрізаються TVS-діодом (&lt; 1 нс).</text>
+<text x="470.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">• Переполюсовка: P-MOSFET миттєво закривається (Vgs = 0 В). Надструм: PPTC розігрівається й блокує коло.</text>
+<rect x="66.7" y="371.8" width="806.6" height="46.5" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="391.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Повний каскад вхідного захисту поєднує часові діапазони: швидкі імпульси гасяться TVS (&lt; 1 нс), зворотна полярність</tspan><tspan x="470.0" dy="15.0">блокується польовим транзистором (&lt; 100 нс), а тривале перевантаження та струм КЗ зупиняє самовідновний запобіжник PPTC.</tspan></text>
+</svg>

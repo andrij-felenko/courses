@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр цифрового сигналу: гармоніки та частота зламу f_knee</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">енергія гармонік спадає як -20 дБ/дек, а після частоти зламу f_knee = 1 / (π · t_r) — як -40 дБ/дек; крутий фронт тягне завади в гігагерци</text>
+<line x1="90.0" y1="380.0" x2="870.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="90.0" y1="380.0" x2="90.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="480.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частота (логарифмічна шкала), Гц</text>
+<text x="45.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11.5" fill="#1a1a1a" font-weight="700" text-anchor="middle" transform="rotate(-90 45.0 235.0)">Амплітуда гармонік, дБ</text>
+<line x1="170.0" y1="380.0" x2="170.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="170.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">f₀ (10 МГц)</text>
+<line x1="310.0" y1="380.0" x2="310.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="310.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1/(π·t_w)</text>
+<line x1="510.0" y1="380.0" x2="510.0" y2="386.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">f_knee (3 нс)</text>
+<line x1="770.0" y1="380.0" x2="770.0" y2="386.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="770.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">f_knee (0.3 нс)</text>
+<line x1="170.0" y1="380.0" x2="170.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="198.0" y1="380.0" x2="198.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="226.0" y1="380.0" x2="226.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="254.0" y1="380.0" x2="254.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="282.0" y1="380.0" x2="282.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="310.0" y1="380.0" x2="310.0" y2="140.0" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="342.0" y1="380.0" x2="342.0" y2="154.4" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="374.0" y1="380.0" x2="374.0" y2="168.8" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="406.0" y1="380.0" x2="406.0" y2="183.2" stroke="#d0d5dd" stroke-width="1.5"/>
+<line x1="438.0" y1="380.0" x2="438.0" y2="197.6" stroke="#d0d5dd" stroke-width="1.5"/>
+<polyline points="110.0,140.0 310.0,140.0 510.0,230.0 830.0,365.0" fill="none" stroke="#27ae60" stroke-width="3"/>
+<text x="540.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Повільний фронт (3 нс): спад -40 дБ/дек</text>
+<polyline points="110.0,140.0 310.0,140.0 510.0,230.0 770.0,330.0 860.0,370.0" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4"/>
+<text x="620.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Крутий фронт (0.3 нс): шумить до ГГц</text>
+<line x1="720.0" y1="335.0" x2="720.0" y2="285.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="735.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Різниця 20–30 дБ!</text>
+<text x="250.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">поличка (f &lt; f₁)</text>
+<text x="420.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спад -20 дБ/дек (1/f)</text>
+<text x="640.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">спад -40 дБ/дек (1/f²)</text>
+</svg>

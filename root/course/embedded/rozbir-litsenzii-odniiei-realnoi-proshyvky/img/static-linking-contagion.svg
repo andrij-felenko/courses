@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичне лінкування в MCU: каскадний ефект копілефту та блоб-пастка</text>
+<text x="140.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідні файли (.o / .a)</text>
+<rect x="30.0" y="78.0" width="220.0" height="52.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">main.o, control_foc.o</text>
+<text x="140.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Власний закритий код (IP)</text>
+<rect x="30.0" y="140.0" width="220.0" height="52.0" rx="5" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="140.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#196f3d" text-anchor="middle" font-weight="700">freertos.a, lwip.a</text>
+<text x="140.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пермісивний код (MIT / BSD)</text>
+<rect x="30.0" y="202.0" width="220.0" height="52.0" rx="5" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="140.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d6608" text-anchor="middle" font-weight="700">libphy_wifi.a (блоб)</text>
+<text x="140.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">EULA: заборона декомпіляції</text>
+<rect x="30.0" y="264.0" width="220.0" height="52.0" rx="5" fill="#f9ebea" stroke="#e74c3c" stroke-width="2.0"/>
+<text x="140.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">gpl_algorithm.o</text>
+<text x="140.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">Копілефт: ліцензія GPLv3</text>
+<line x1="255.0" y1="104.0" x2="315.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="255.0" y1="166.0" x2="315.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="255.0" y1="228.0" x2="315.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="255.0" y1="290.0" x2="315.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="130.0" width="170.0" height="130.0" rx="6" fill="#edf2fa" stroke="#2457d6" stroke-width="2.0"/>
+<text x="405.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a3ea1" text-anchor="middle" font-weight="700">arm-none-eabi-ld</text>
+<text x="405.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Об'єднання символів</text>
+<text x="405.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">в єдиний простір</text>
+<text x="405.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Flash: .text, .data</text>
+<text x="405.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a3ea1" text-anchor="middle" font-weight="700">Єдиний похідний твір</text>
+<line x1="495.0" y1="195.0" x2="545.0" y2="195.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="685.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Юридичні наслідки лінкування</text>
+<rect x="550.0" y="78.0" width="265.0" height="105.0" rx="5" fill="#fdebd0" stroke="#d35400" stroke-width="1.5"/>
+<text x="682.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e3200" text-anchor="middle" font-weight="700">1. Каскадна вимога GPLv3</text>
+<text x="682.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Весь монолітний образ firmware.elf</text>
+<text x="682.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">стає похідним твором: вимога</text>
+<text x="682.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">відкрити весь FOC/бізнес-код</text>
+<rect x="550.0" y="195.0" width="265.0" height="125.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="682.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78281f" text-anchor="middle" font-weight="700">2. Парадокс мертвого зашморгу</text>
+<text x="682.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">GPLv3 §10 забороняє будь-які</text>
+<text x="682.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">додаткові обмеження.</text>
+<text x="682.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">EULA блоба забороняє публікацію.</text>
+<text x="682.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">ВИПУСК ОБРАЗУ НЕЗАКОННИЙ</text>
+<rect x="30.0" y="360.0" width="785.0" height="62.0" rx="5" fill="#f8f9fa" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="420.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Висновок для комерційної прошивки: жоден GPL-модуль не може бути статично злінкований</text>
+<text x="420.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">із закритими бінарними блобами або пропрієтарним кодом в одному адресному просторі Flash.</text>
+</svg>

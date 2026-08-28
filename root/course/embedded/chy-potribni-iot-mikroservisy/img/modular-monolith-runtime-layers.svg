@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура модульного IoT-моноліту: нульовий наклад і строгі межі</text>
+<rect x="24.0" y="55.0" width="792.0" height="395.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="2.2"/>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">ЄДИНИЙ СИСТЕМНИЙ ПРОЦЕС (MODULAR MONOLITH RUNTIME / OS PROCESS)</text>
+<text x="420.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спільний адресний простір, нульове копіювання, міжпотоковий Lock-free Ring Buffer</text>
+<rect x="40.0" y="122.0" width="175.0" height="155.0" rx="5" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="127.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Мережевий шлюз</text>
+<text x="127.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Ingestion Core)</text>
+<text x="127.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">epoll / io_uring / TLS</text>
+<text x="127.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">100k+ відкритих з'єднань</text>
+<text x="127.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Парсинг бінарного кадру</text>
+<rect x="235.0" y="122.0" width="175.0" height="155.0" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="322.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">Стан пристроїв</text>
+<text x="322.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Device Twin)</text>
+<text x="322.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Concurrent Hash Map</text>
+<text x="322.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Атомарне оновлення метрик</text>
+<text x="322.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Інваріанти режимів роботи</text>
+<rect x="430.0" y="122.0" width="175.0" height="155.0" rx="5" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="517.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Рушій правил</text>
+<text x="517.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Rules Engine)</text>
+<text x="517.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Порогові тригери й алерти</text>
+<text x="517.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Локальна фільтрація подій</text>
+<text x="517.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Генерація зворотних дій</text>
+<rect x="625.0" y="122.0" width="175.0" height="155.0" rx="5" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+<text x="712.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Пакетний запис</text>
+<text x="712.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(TSDB Batcher)</text>
+<text x="712.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Акумуляція мікробатчів</text>
+<text x="712.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Буфер запису по 1000 точок</text>
+<text x="712.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Скидання на NVMe / SSD</text>
+<rect x="40.0" y="298.0" width="760.0" height="52.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="420.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">ВНУТРІШНЯ БЕЗБЛОКУВАЛЬНА ШИНА ПОДІЙ (LOCK-FREE IN-MEMORY RING BUFFER / DISRUPTOR)</text>
+<text x="420.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Передача std::shared_ptr / Arc без копіювання даних (Zero-Copy Pointers) | Затримка &lt; 100 ns</text>
+<line x1="127.0" y1="277.0" x2="127.0" y2="298.0" stroke="#2563eb" stroke-width="1.8"/>
+<line x1="127.0" y1="285.0" x2="127.0" y2="298.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="322.0" y1="298.0" x2="322.0" y2="277.0" stroke="#7c3aed" stroke-width="1.8"/>
+<line x1="322.0" y1="290.0" x2="322.0" y2="277.0" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="517.0" y1="298.0" x2="517.0" y2="277.0" stroke="#d97706" stroke-width="1.8"/>
+<line x1="517.0" y1="290.0" x2="517.0" y2="277.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="712.0" y1="298.0" x2="712.0" y2="277.0" stroke="#059669" stroke-width="1.8"/>
+<line x1="712.0" y1="290.0" x2="712.0" y2="277.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="368.0" width="760.0" height="65.0" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="1.4"/>
+<text x="420.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">ЄДИНА ТРАНЗАКЦІЙНА БАЗА ДАНИХ (PostgreSQL + TimescaleDB / ClickHouse)</text>
+<text x="420.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Атомарні ACID-транзакції: одночасне оновлення Device Shadow, запис аудиту та черга вихідних команд без розподілених саг</text>
+<text x="420.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Модульний моноліт поєднує строгість доменних інтерфейсів із максимальною швидкістю спільної пам'яті</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія та шари внутрішньої моделі світу бортового комп'ютера</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker><marker id="arrO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d98a00"/></marker></defs>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Від сирих тривимірних вимірів до двовимірних карт вартості для планування</text>
+<rect x="30.0" y="75.0" width="275.0" height="380.0" rx="10" fill="#f6f8fe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="167.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. 3D ОКТОДЕРЕВО (OctoMap)</text>
+<text x="167.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Імовірнісна об'ємна сітка</text>
+<rect x="50.0" y="140.0" width="235.0" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="60.0" y="150.0" width="105.0" height="42.0" rx="4" fill="#e8eeff" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="170.0" y="150.0" width="105.0" height="42.0" rx="4" fill="#e8eeff" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="60.0" y="198.0" width="105.0" height="42.0" rx="4" fill="#e8eeff" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="170.0" y="198.0" width="105.0" height="42.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="112.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">вільно</text>
+<text x="222.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">невідомо</text>
+<text x="112.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">вільно</text>
+<text x="222.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">зайнято</text>
+<text x="167.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="167.0" dy="0.0">• Рекурсивний поділ на 8 октантів</tspan><tspan x="167.0" dy="15.9">• Log-odds фільтрація шуму</tspan><tspan x="167.0" dy="15.9">• Стиснення порожніх зон</tspan><tspan x="167.0" dy="15.9">• Повна 3D-навігація дронів</tspan></text>
+<rect x="330.0" y="75.0" width="280.0" height="380.0" rx="10" fill="#fbf8f3" stroke="#d98a00" stroke-width="1.5"/>
+<text x="470.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="middle" font-weight="700">2. 2.5D КАРТА РЕЛЬЄФУ (DEM)</text>
+<text x="470.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Матриця висот та ухилів поверхні</text>
+<rect x="350.0" y="140.0" width="240.0" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="360.0" y="148.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="393.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12.4 м</text>
+<rect x="432.0" y="148.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="465.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12.8 м</text>
+<rect x="504.0" y="148.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="537.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">15.2 м</text>
+<rect x="360.0" y="182.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="393.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12.5 м</text>
+<rect x="432.0" y="182.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="465.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">13.1 м</text>
+<rect x="504.0" y="182.0" width="66.0" height="28.0" rx="3" fill="#fadbd8" stroke="#333333" stroke-width="0.8"/>
+<text x="537.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">18.6 м</text>
+<rect x="360.0" y="216.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="393.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">12.6 м</text>
+<rect x="432.0" y="216.0" width="66.0" height="28.0" rx="3" fill="#fdf3e7" stroke="#333333" stroke-width="0.8"/>
+<text x="465.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">14.0 м</text>
+<rect x="504.0" y="216.0" width="66.0" height="28.0" rx="3" fill="#fadbd8" stroke="#333333" stroke-width="0.8"/>
+<text x="537.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">22.1 м</text>
+<text x="470.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">• Сітка висот із дисперсією</tspan><tspan x="470.0" dy="15.9">• Градієнти схилів (крутизна)</tspan><tspan x="470.0" dy="15.9">• Прохідність наземних шасі</tspan><tspan x="470.0" dy="15.9">• Огинання рельєфу для БПЛА</tspan></text>
+<rect x="635.0" y="75.0" width="275.0" height="380.0" rx="10" fill="#f6fcf8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="772.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. КАРТА ВАРТОСТЕЙ (Costmap)</text>
+<text x="772.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інфляція безпеки та ціна клітинок</text>
+<rect x="655.0" y="140.0" width="235.0" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<circle cx="772.0" cy="195.0" r="44.0" fill="#ebfbee" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="772.0" cy="195.0" r="28.0" fill="#fef5e7" stroke="#d98a00" stroke-width="1.0"/>
+<circle cx="772.0" cy="195.0" r="14.0" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="772.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Стіна</text>
+<text x="772.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">буфер безпеки</text>
+<text x="772.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="772.0" dy="0.0">• Роздмухування перешкод</tspan><tspan x="772.0" dy="15.9">• Габарити робота в карті</tspan><tspan x="772.0" dy="15.9">• Планування точки в просторі</tspan><tspan x="772.0" dy="15.9">• Штрафні вартості біля стін</tspan></text>
+</svg>

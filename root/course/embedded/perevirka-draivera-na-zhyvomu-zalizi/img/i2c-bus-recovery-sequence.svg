@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм відновлення шини I2C при зависанні</text>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна послідовність відновлення шини I2C при зависанні веденого (Bus Lockup)</text>
+<rect x="40.0" y="65.0" width="260.0" height="385.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="170.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Стан Bus Lockup</text>
+<text x="170.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ведений утримує лінію SDA = 0</text>
+<line x1="55.0" y1="150.0" x2="285.0" y2="150.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="75.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="left">SCL (Master)</text>
+<line x1="55.0" y1="160.0" x2="285.0" y2="160.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="55.0" y1="210.0" x2="285.0" y2="210.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="75.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="left">SDA (Slave)</text>
+<line x1="55.0" y1="230.0" x2="285.0" y2="230.0" stroke="#c0392b" stroke-width="2.2"/>
+<rect x="55.0" y="255.0" width="230.0" height="180.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="170.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Причина зависання:</text>
+<text x="65.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">• Збій живлення під час читання</text>
+<text x="65.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">• МК перезавантажився посеред байта</text>
+<text x="65.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">• Ведений очікує ще такти SCL</text>
+<text x="65.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">• Апаратний I2C контролер МК</text>
+<text x="65.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">  блокується, бо шина зайнята</text>
+<text x="65.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">• Нескінченний цикл while(!Ready)</text>
+<rect x="340.0" y="65.0" width="260.0" height="385.0" rx="6" fill="#fef9e7" stroke="#e67e22" stroke-width="1.8"/>
+<text x="470.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">2. Процедура 9 тактів SCL</text>
+<text x="470.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перемикання SCL у режим GPIO OD</text>
+<text x="355.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="left">SCL (GPIO Output)</text>
+<line x1="355.0" y1="165.0" x2="365.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="365.0" y1="165.0" x2="365.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="365.0" y1="150.0" x2="375.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="375.0" y1="150.0" x2="375.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="379.0" y1="165.0" x2="389.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="389.0" y1="165.0" x2="389.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="389.0" y1="150.0" x2="399.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="399.0" y1="150.0" x2="399.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="403.0" y1="165.0" x2="413.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="413.0" y1="165.0" x2="413.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="413.0" y1="150.0" x2="423.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="423.0" y1="150.0" x2="423.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="427.0" y1="165.0" x2="437.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="437.0" y1="165.0" x2="437.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="437.0" y1="150.0" x2="447.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="447.0" y1="150.0" x2="447.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="451.0" y1="165.0" x2="461.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="461.0" y1="165.0" x2="461.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="461.0" y1="150.0" x2="471.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="471.0" y1="150.0" x2="471.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="475.0" y1="165.0" x2="485.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="485.0" y1="165.0" x2="485.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="485.0" y1="150.0" x2="495.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="495.0" y1="150.0" x2="495.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="499.0" y1="165.0" x2="509.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="509.0" y1="165.0" x2="509.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="509.0" y1="150.0" x2="519.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="519.0" y1="150.0" x2="519.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="523.0" y1="165.0" x2="533.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="533.0" y1="165.0" x2="533.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="533.0" y1="150.0" x2="543.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="543.0" y1="150.0" x2="543.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="547.0" y1="165.0" x2="557.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="557.0" y1="165.0" x2="557.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="557.0" y1="150.0" x2="567.0" y2="150.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="567.0" y1="150.0" x2="567.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<line x1="571.0" y1="165.0" x2="586.0" y2="165.0" stroke="#e67e22" stroke-width="1.8"/>
+<text x="355.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="left">SDA (Sensor)</text>
+<line x1="355.0" y1="230.0" x2="485.0" y2="230.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="485.0" y1="230.0" x2="500.0" y2="215.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="500.0" y1="215.0" x2="585.0" y2="215.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="540.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SDA звільнено!</text>
+<rect x="355.0" y="255.0" width="230.0" height="180.0" rx="4" fill="#ffffff" stroke="#e67e22" stroke-width="1.2"/>
+<text x="470.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм прочищення:</text>
+<text x="365.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">1. Деініціалізація периферії I2C</text>
+<text x="365.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">2. SCL/SDA переходять у GPIO OD</text>
+<text x="365.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">3. Генерація до 9 тактів SCL (100 кГц)</text>
+<text x="365.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">4. Опитування SDA після кожного такту</text>
+<text x="365.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">5. Формування STOP: SDA 0 → 1 при SCL=1</text>
+<text x="365.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">6. Повернення пінів у режим I2C</text>
+<rect x="640.0" y="65.0" width="260.0" height="385.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="770.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Відновлення стану</text>
+<text x="770.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Переініціалізація регістрів сенсора</text>
+<rect x="655.0" y="140.0" width="230.0" height="295.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="770.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дії драйвера після розблокування:</text>
+<text x="665.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">1. Читання Device ID / WHO_AM_I</text>
+<text x="665.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">2. Порівняння з еталонним сигнатурним</text>
+<text x="665.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">   значенням (наприклад, 0x68 / 0x42)</text>
+<text x="665.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">3. Програмне скидання чипа (Soft Reset)</text>
+<text x="665.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">4. Завантаження конфігурації:</text>
+<text x="665.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">   - Діапазони вимірювання (Full Scale)</text>
+<text x="665.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">   - Частота вибірок (ODR / BW)</text>
+<text x="665.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">   - Пороги FIFO та переривання</text>
+<text x="665.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">5. Очищення буферів драйвера</text>
+<text x="665.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="left">6. Повернення статусу ERR_RECOVERED</text>
+<line x1="300.0" y1="250.0" x2="340.0" y2="250.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="250.0" x2="640.0" y2="250.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Апаратна генерація 9 тактів SCL виводить внутрішній автомат веденого чипа зі стану очікування біта даних</text>
+</svg>

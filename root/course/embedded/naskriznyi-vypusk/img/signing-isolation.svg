@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізоляція ключів підпису: раннер передає хеш, HSM повертає підпис</text>
+<rect x="50.0" y="70.0" width="360.0" height="330.0" rx="8" fill="#fdfbf7" stroke="#d97706" stroke-width="1.8"/>
+<text x="230.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Недовірена зона: CI Runner</text>
+<text x="230.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">• Збирає артефакти з git-коду</tspan><tspan x="230.0" dy="15.4">• Має доступ до публічних ключів</tspan><tspan x="230.0" dy="15.4">• НЕ МІСТИТЬ приватного ключа</tspan><tspan x="230.0" dy="15.4">• Рахує лише SHA-256 хеш образу</tspan></text>
+<rect x="80.0" y="220.0" width="300.0" height="60.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="230.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зібраний binary.bin</text>
+<text x="230.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SHA-256: d41d8cd98f00b204...</text>
+<rect x="80.0" y="300.0" width="300.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="230.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запит на підпис (OIDC токен)</text>
+<text x="230.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Payload: { digest, tag, commit }</text>
+<rect x="530.0" y="70.0" width="360.0" height="330.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="1.8"/>
+<text x="710.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Довірена зона: HSM / KMS / Cosign</text>
+<text x="710.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">• Приватний ключ у крипточипі</tspan><tspan x="710.0" dy="15.4">• Ключ ніколи не експортується</tspan><tspan x="710.0" dy="15.4">• Перевірка прав (OIDC/RBAC)</tspan><tspan x="710.0" dy="15.4">• Підпис накладається на хеш</tspan></text>
+<rect x="560.0" y="220.0" width="300.0" height="60.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="710.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Приватний ключ (Ed25519 / RSA)</text>
+<text x="710.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захищений апаратний анклав</text>
+<rect x="560.0" y="300.0" width="300.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="710.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Цифровий підпис (Signature)</text>
+<text x="710.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повертається 64-байтний підпис</text>
+<line x1="470.0" y1="80.0" x2="470.0" y2="390.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="470.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">МЕЖА ДОВІРИ</text>
+<line x1="400.0" y1="325.0" x2="540.0" y2="325.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1. Лише хеш + OIDC →</text>
+<line x1="540.0" y1="365.0" x2="400.0" y2="365.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">← 2. Підпис (без ключа)</text>
+</svg>

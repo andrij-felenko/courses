@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тактування при першому запуску: внутрішній RC (HSI) проти зовнішнього кварцу (HSE)</text>
+<rect x="40.0" y="65.0" width="410.0" height="390.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="245.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Внутрішній генератор HSI / FIRC (16 МГц)</text>
+<text x="245.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Працює одразу після скидання (Reset за замовчуванням)</text>
+<rect x="65.0" y="130.0" width="360.0" height="135.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="245.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">КРЕМНІЄВИЙ КРИСТАЛ МІКРОКОНТРОЛЕРА</text>
+<rect x="85.0" y="170.0" width="140.0" height="75.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="155.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Інтегрований</text>
+<text x="155.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">RC-генератор</text>
+<text x="155.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">16 МГц ±1%</text>
+<line x1="225.0" y1="207.0" x2="275.0" y2="207.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="275.0" y="180.0" width="125.0" height="55.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="337.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SYSCLK Mux</text>
+<text x="337.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро процесора</text>
+<text x="70.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Нуль зовнішніх деталей:</text>
+<text x="70.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Не залежить від пайки обв'язки на платі.</text>
+<text x="70.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Миттєвий запуск:</text>
+<text x="70.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Готовий до тактування за лічені мікросекунди.</text>
+<text x="70.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Неможливо зависнути:</text>
+<text x="70.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Не блокує шину в очікуванні біта готовності.</text>
+<text x="70.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Діагностична опора:</text>
+<text x="70.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Якщо прошивка не блимає — це код або живлення.</text>
+<rect x="490.0" y="65.0" width="410.0" height="390.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="695.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Зовнішній кварц HSE + PLL (8–168 МГц)</text>
+<text x="695.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Потребує робочої аналогової обв'язки та налаштування</text>
+<rect x="515.0" y="130.0" width="360.0" height="135.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<rect x="530.0" y="160.0" width="95.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="577.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Кварц XTAL</text>
+<text x="577.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CL1, CL2, флюс</text>
+<line x1="625.0" y1="175.0" x2="665.0" y2="175.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="625.0" y1="190.0" x2="665.0" y2="190.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="645.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">OSC</text>
+<rect x="665.0" y="160.0" width="80.0" height="45.0" rx="4" fill="#fff" stroke="#333333" stroke-width="1.2"/>
+<text x="705.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генератор</text>
+<text x="705.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пірса</text>
+<line x1="745.0" y1="182.0" x2="775.0" y2="182.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="775.0" y="160.0" width="85.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="817.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Блок PLL</text>
+<text x="817.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Flash Latency</text>
+<text x="695.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зависання в циклі: while(!(RCC-&gt;CR &amp; RCC_CR_HSERDY));</text>
+<text x="520.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Непропай або мікротріщина:</text>
+<text x="520.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Кварц не генерує коливання — чип зависає наглухо.</text>
+<text x="520.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Помилка номіналу ємностей:</text>
+<text x="520.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Неправильні CL1/CL2 зривають генерацію або зміщують частоту.</text>
+<text x="520.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Паразитний опір флюсу:</text>
+<text x="520.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Залишки флюсу шунтують високоомний вхід генератора.</text>
+<text x="520.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Помилка дільників PLL:</text>
+<text x="520.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Перевищення частоти шини призводить до HardFault ядра.</text>
+</svg>

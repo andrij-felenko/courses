@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шість фаз наскрізного конвеєра: від тегу до сховища релізів</text>
+<rect x="50.0" y="90.0" width="260.0" height="140.0" rx="8" fill="#eef4fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="180.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Тригер і версія</text>
+<line x1="62.0" y1="126.0" x2="298.0" y2="126.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="180.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">git tag -s v2.4.0</tspan><tspan x="180.0" dy="14.3">перевірка підпису тегу</tspan><tspan x="180.0" dy="14.3">семантичний парсинг</tspan></text>
+<rect x="350.0" y="90.0" width="260.0" height="140.0" rx="8" fill="#fdf6ed" stroke="#b86200" stroke-width="2.0"/>
+<text x="480.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b86200" text-anchor="middle" font-weight="700">2. Герметична збірка</text>
+<line x1="362.0" y1="126.0" x2="598.0" y2="126.0" stroke="#b86200" stroke-width="1.0"/>
+<text x="480.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">SOURCE_DATE_EPOCH</tspan><tspan x="480.0" dy="14.3">крос-матриця плати</tspan><tspan x="480.0" dy="14.3">ворота Flash / RAM</tspan></text>
+<rect x="650.0" y="90.0" width="260.0" height="140.0" rx="8" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="780.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Піраміда тестів</text>
+<line x1="662.0" y1="126.0" x2="898.0" y2="126.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="780.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Unit (хост, симуляція)</tspan><tspan x="780.0" dy="14.3">Емуляція чипа (QEMU)</tspan><tspan x="780.0" dy="14.3">Дим на залізі (HIL)</tspan></text>
+<rect x="650.0" y="280.0" width="260.0" height="140.0" rx="8" fill="#fdf0ed" stroke="#c0392b" stroke-width="2.0"/>
+<text x="780.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Ізольований підпис</text>
+<line x1="662.0" y1="316.0" x2="898.0" y2="316.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="780.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">Геш SHA-256 -&gt; HSM</tspan><tspan x="780.0" dy="14.3">ECDSA / Ed25519</tspan><tspan x="780.0" dy="14.3">Вшивання заголовка</tspan></text>
+<rect x="350.0" y="280.0" width="260.0" height="140.0" rx="8" fill="#f6eefb" stroke="#7b2cbf" stroke-width="2.0"/>
+<text x="480.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b2cbf" text-anchor="middle" font-weight="700">5. Генерація SBOM</text>
+<line x1="362.0" y1="316.0" x2="598.0" y2="316.0" stroke="#7b2cbf" stroke-width="1.0"/>
+<text x="480.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">CycloneDX / SPDX</tspan><tspan x="480.0" dy="14.3">Облік бібліотек і HAL</tspan><tspan x="480.0" dy="14.3">Атестація SLSA</tspan></text>
+<rect x="50.0" y="280.0" width="260.0" height="140.0" rx="8" fill="#eef9f9" stroke="#007788" stroke-width="2.0"/>
+<text x="180.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#007788" text-anchor="middle" font-weight="700">6. Атомний реліз</text>
+<line x1="62.0" y1="316.0" x2="298.0" y2="316.0" stroke="#007788" stroke-width="1.0"/>
+<text x="180.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Маніфест + метадані</tspan><tspan x="180.0" dy="14.3">Пакет оновлення</tspan><tspan x="180.0" dy="14.3">Публікація в сховище</tspan></text>
+<line x1="314.0" y1="160.0" x2="344.0" y2="160.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="614.0" y1="160.0" x2="644.0" y2="160.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="234.0" x2="780.0" y2="274.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="646.0" y1="350.0" x2="616.0" y2="350.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="346.0" y1="350.0" x2="316.0" y2="350.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="330.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">G1</text>
+<text x="630.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">G2</text>
+<text x="796.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">G3</text>
+<text x="630.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">G4</text>
+<text x="330.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">G5</text>
+<text x="480.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Провал будь-яких воріт (G1–G5) негайно блокує конвеєр і скасовує публікацію</text>
+</svg>

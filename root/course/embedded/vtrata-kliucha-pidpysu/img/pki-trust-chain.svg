@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="340.0" rx="8" fill="#fafafc" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="40.0" y="60.0" width="220.0" height="260.0" rx="6" fill="#fffaf0" stroke="#d69e2e" stroke-width="1.6"/>
+<text x="150.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b7791f" text-anchor="middle" font-weight="700">Кореневий CA (Root)</text>
+<rect x="55.0" y="115.0" width="190.0" height="50.0" rx="3" fill="#ffffff" stroke="#d69e2e" stroke-width="1.0"/>
+<text x="150.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Root Private Key</text>
+<text x="150.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Офлайн HSM / Сейф (Шамір)</text>
+<rect x="55.0" y="180.0" width="190.0" height="55.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="150.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Root Certificate (X.509)</text>
+<text x="150.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Хеш зашитий в eFuse</text>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Термін дії: 15–20 років</text>
+<rect x="310.0" y="60.0" width="230.0" height="260.0" rx="6" fill="#ebf8ff" stroke="#3182ce" stroke-width="1.6"/>
+<text x="425.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2b6cb0" text-anchor="middle" font-weight="700">Проміжний CA (Sub-CA)</text>
+<rect x="325.0" y="115.0" width="200.0" height="50.0" rx="3" fill="#ffffff" stroke="#3182ce" stroke-width="1.0"/>
+<text x="425.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Intermediate Key</text>
+<text x="425.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Захищене внутрішнє сховище</text>
+<rect x="325.0" y="180.0" width="200.0" height="55.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="425.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Intermediate Cert</text>
+<text x="425.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2b6cb0" text-anchor="middle" font-weight="700">Підписаний Root CA</text>
+<text x="425.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Ротація: кожні 2–3 роки</text>
+<rect x="590.0" y="60.0" width="210.0" height="260.0" rx="6" fill="#f0fff4" stroke="#c0392b" stroke-width="1.6"/>
+<text x="695.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Релізний ключ (CI/CD)</text>
+<rect x="605.0" y="115.0" width="180.0" height="50.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="695.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Release Signing Key</text>
+<text x="695.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Мережевий HSM / Build CI</text>
+<rect x="605.0" y="180.0" width="180.0" height="55.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="695.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Release Certificate</text>
+<text x="695.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Підписаний Sub-CA</text>
+<text x="695.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Ротація: кожні 6–12 місяців</text>
+<line x1="260.0" y1="140.0" x2="310.0" y2="140.0" stroke="#d69e2e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b7791f" text-anchor="middle" font-weight="700">видає</text>
+<line x1="540.0" y1="140.0" x2="590.0" y2="140.0" stroke="#3182ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="565.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2b6cb0" text-anchor="middle" font-weight="700">видає</text>
+</svg>

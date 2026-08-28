@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="50.0" y1="60.0" x2="770.0" y2="60.0" stroke="#333333" stroke-width="2.0"/>
+<text x="770.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Час (t)</text>
+<rect x="50.0" y="95.0" width="230.0" height="90.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="165.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Команда в чергу</text>
+<text x="165.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Оператор надсилає команду</text>
+<text x="165.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Mailbox: {cmd_id, TTL=300s}</text>
+<rect x="50.0" y="220.0" width="320.0" height="110.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Вузол у режимі Deep Sleep</text>
+<text x="210.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Радіо знеструмлене, струм ≈ 10 мкА</text>
+<text x="210.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Прямий пуш неможливий</text>
+<rect x="400.0" y="220.0" width="370.0" height="110.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="585.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Сесія активності (вікно 500 мс)</text>
+<text x="585.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. Uplink + Poll Mailbox</text>
+<text x="585.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. Отримання команди з черги</text>
+<text x="585.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Перевірка TTL → Виконання → Сон</text>
+<line x1="165.0" y1="185.0" x2="165.0" y2="220.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="175.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">Осідає в Mailbox</text>
+<line x1="370.0" y1="275.0" x2="400.0" y2="275.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="385.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пробудження</text>
+<line x1="280.0" y1="140.0" x2="480.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Видача команди з черги</text>
+<rect x="550.0" y="95.0" width="220.0" height="90.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="660.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від застарілих дій</text>
+<text x="660.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Якщо час сну &gt; TTL:</text>
+<text x="660.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Статус: EXPIRED (без виконання)</text>
+</svg>

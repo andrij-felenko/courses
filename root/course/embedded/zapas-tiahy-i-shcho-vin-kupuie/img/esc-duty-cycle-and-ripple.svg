@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив надлишкового TWR на режим роботи ESC і пульсації струму</text>
+<rect x="50.0" y="55.0" width="370.0" height="20.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="235.0" y="68.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="235.0" dy="0.0">Надлишковий TWR = 8.0 (Duty cycle D ≈ 12%)</tspan></text>
+<rect x="50.0" y="85.0" width="370.0" height="130.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<line x1="50.0" y1="150.0" x2="420.0" y2="150.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="150.0" y1="85.0" x2="150.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="250.0" y1="85.0" x2="250.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="350.0" y1="85.0" x2="350.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<rect x="70.0" y="105.0" width="12.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="150.0" y="105.0" width="12.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="230.0" y="105.0" width="12.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="310.0" y="105.0" width="12.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="110.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Короткі піки струму I_pk</text>
+<text x="235.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Низький Duty Cycle: високі комутаційні втрати MOSFET</text>
+<rect x="50.0" y="225.0" width="370.0" height="110.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="235.0" y="257.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Пастки надлишкового TWR при висінні:</tspan><tspan x="235.0" dy="13.0">• Високий пульсуючий струм I_ripple = I_motor · √(D·(1-D))</tspan><tspan x="235.0" dy="13.0">• Нагрів електролітичних конденсаторів через ESR</tspan><tspan x="235.0" dy="13.0">• Нелінійність тяги на низьких обертах (важко тримати висоту)</tspan><tspan x="235.0" dy="13.0">• Комутаційні перешкоди (EMI) на лініях датчиків IMU</tspan></text>
+<rect x="470.0" y="55.0" width="370.0" height="20.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="655.0" y="68.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="655.0" dy="0.0">Оптимальний TWR = 2.5 (Duty cycle D ≈ 45%)</tspan></text>
+<rect x="470.0" y="85.0" width="370.0" height="130.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<line x1="470.0" y1="150.0" x2="840.0" y2="150.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="570.0" y1="85.0" x2="570.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="670.0" y1="85.0" x2="670.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<line x1="770.0" y1="85.0" x2="770.0" y2="215.0" stroke="#edf2f7" stroke-width="1.0"/>
+<rect x="490.0" y="105.0" width="36.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="570.0" y="105.0" width="36.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="650.0" y="105.0" width="36.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="730.0" y="105.0" width="36.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Збалансований струм</text>
+<text x="655.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Оптимальний Duty Cycle: високий ККД силового каскаду</text>
+<rect x="470.0" y="225.0" width="370.0" height="110.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="655.0" y="257.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">Переваги узгодженого TWR:</tspan><tspan x="655.0" dy="13.0">• Силова частина працює в зоні високого ККД силових ключів</tspan><tspan x="655.0" dy="13.0">• Мінімальне теплове навантаження на ключі ESC</tspan><tspan x="655.0" dy="13.0">• Лінійний відгук обертів на зміну сигналу керування</tspan><tspan x="655.0" dy="13.0">• Чиста силова шина без критичних імпульсних викидів</tspan></text>
+</svg>

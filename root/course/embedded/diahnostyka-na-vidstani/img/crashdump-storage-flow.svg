@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл аварійного дампу: від фаталу до хмари</text>
+<rect x="21.0" y="56.0" width="168.0" height="210.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="105.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. HardFault ISR</text>
+<text x="105.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-style="italic">Захоплення стану</text>
+<line x1="31.0" y1="112.0" x2="179.0" y2="112.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3 2"/>
+<text x="31.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Зчитування PSP/MSP</text>
+<text x="31.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Запис у .noinit RAM</text>
+<text x="31.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Фіксація Magic Word</text>
+<text x="31.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Час: &lt; 40 мкс</text>
+<line x1="191.0" y1="156.0" x2="209.0" y2="156.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="211.0" y="56.0" width="168.0" height="210.0" rx="6" fill="#f3f4f6" stroke="#333333" stroke-width="1.8"/>
+<text x="295.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Soft / WDT Reset</text>
+<text x="295.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-style="italic">Безпечне скидання</text>
+<line x1="221.0" y1="112.0" x2="369.0" y2="112.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="3 2"/>
+<text x="221.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• NVIC_SystemReset()</text>
+<text x="221.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Живлення не зникає</text>
+<text x="221.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• RAM зберігає байти</text>
+<text x="221.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Рестарт CPU</text>
+<line x1="381.0" y1="156.0" x2="399.0" y2="156.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="401.0" y="56.0" width="168.0" height="210.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="485.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Bootloader / App</text>
+<text x="485.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">Валідація пам'яті</text>
+<line x1="411.0" y1="112.0" x2="559.0" y2="112.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3 2"/>
+<text x="411.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перевірка Magic Word</text>
+<text x="411.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Розрахунок CRC32</text>
+<text x="411.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перенесення у Flash</text>
+<text x="411.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Очищення прапорця</text>
+<line x1="571.0" y1="156.0" x2="589.0" y2="156.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="591.0" y="56.0" width="168.0" height="210.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="675.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Cloud Telemetry</text>
+<text x="675.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Віддалене вивантаження</text>
+<line x1="601.0" y1="112.0" x2="749.0" y2="112.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 2"/>
+<text x="601.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підключення до мережі</text>
+<text x="601.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Відправка по MQTT/CoAP</text>
+<text x="601.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Декодування з .elf</text>
+<text x="601.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Локалізація багу</text>
+<text x="390.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Пам'ять .noinit витримує програмний рестарт і дозволяє не писати у повільну Flash у момент збою</text>
+<text x="390.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Валідація заголовка та CRC32 запобігає розбору випадкового сміття після холодного ввімкнення</text>
+</svg>

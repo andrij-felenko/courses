@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність виконання операцій церемонії ключів</text>
+<rect x="40.0" y="60.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="155.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Завантаження</text>
+<text x="155.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Live OS з DVD-R, перевірка хешу середовища</text>
+<rect x="305.0" y="60.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="420.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Ініціалізація</text>
+<text x="420.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний TRNG HSM, збір ентропії</text>
+<rect x="570.0" y="60.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="685.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Генерація пари</text>
+<text x="685.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Створення Root CA (приватний + відкритий)</text>
+<rect x="570.0" y="180.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<text x="685.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4. Розщеплення</text>
+<text x="685.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Shamir Secret Sharing на n сейф-пакетів</text>
+<rect x="305.0" y="180.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="420.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">5. Підпис релізу</text>
+<text x="420.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Створення сертифіката Intermediate CA</text>
+<rect x="40.0" y="180.0" width="230.0" height="72.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="155.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">6. Фіксація хешів</text>
+<text x="155.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Свідки звіряють SHA-256 та підписують акт</text>
+<line x1="272.0" y1="96.0" x2="303.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="537.0" y1="96.0" x2="568.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="685.0" y1="134.0" x2="685.0" y2="178.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="568.0" y1="216.0" x2="537.0" y2="216.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="303.0" y1="216.0" x2="272.0" y2="216.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="280.0" width="760.0" height="94.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="420.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихідні артефакти церемонії (Artifacts Transcript)</text>
+<rect x="56.0" y="316.0" width="236.0" height="46.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="174.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відкритий Root CA</text>
+<text x="174.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Публікується у репозиторій та зашивається в eFuse</text>
+<rect x="304.0" y="316.0" width="236.0" height="46.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="422.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сейф-пакети часток</text>
+<text x="422.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запечатуються у сховища під підпис</text>
+<rect x="552.0" y="316.0" width="236.0" height="46.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="670.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підписаний протокол</text>
+<text x="670.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Паперовий журнал із контрольною сумою SHA-256</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптографічний контроль випуску: від квоти замовника до активації</text>
+<rect x="24.0" y="60.0" width="230.0" height="280.0" rx="6" fill="#eef2f7" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="139.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">СЕРВЕР OEM (ROOT CA)</text>
+<text x="139.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Власник кореневого ключа</text>
+<rect x="34.0" y="120.0" width="210.0" height="110.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="139.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Виробничий квиток (Ticket):</text>
+<text x="42.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Batch ID: #B-2026-08</text>
+<text x="42.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• Ліміт квоти: N = 10 200</text>
+<text x="42.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Термін: 2026-09-01</text>
+<text x="42.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• Підпис: Sign_OEM(Data)</text>
+<rect x="34.0" y="244.0" width="210.0" height="72.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="139.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Реєстр активацій (Ledger):</text>
+<text x="139.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">База дозволених серійників</text>
+<text x="139.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">та відбитків сертифікатів</text>
+<line x1="254.0" y1="175.0" x2="292.0" y2="175.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="273.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Квиток</text>
+<rect x="294.0" y="60.0" width="252.0" height="280.0" rx="6" fill="#fff9eb" stroke="#b07a35" stroke-width="1.8"/>
+<text x="420.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b07a35" text-anchor="middle" font-weight="700">ЗАВОДСЬКИЙ HSM / ДЖИГ</text>
+<text x="420.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний контроль квоти</text>
+<rect x="304.0" y="120.0" width="232.0" height="84.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="420.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Монотонний лічильник:</text>
+<text x="420.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залишок = Counter − 1</text>
+<text x="420.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">При Counter = 0 → БЛОКУВАННЯ</text>
+<rect x="304.0" y="216.0" width="232.0" height="100.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="420.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Операція на один виріб:</text>
+<text x="310.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Зчитати UID чипа й PubKey</text>
+<text x="310.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">2. Списати 1 одиницю квоти</text>
+<text x="310.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">3. Підписати сертифікат пристрою</text>
+<line x1="546.0" y1="175.0" x2="584.0" y2="175.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="565.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Cert + Key</text>
+<line x1="294.0" y1="280.0" x2="260.0" y2="280.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="274.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Звіт аудиту (Log)</text>
+<rect x="586.0" y="60.0" width="230.0" height="280.0" rx="6" fill="#f0faf2" stroke="#27ae60" stroke-width="1.6"/>
+<text x="701.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ГОТОВИЙ ПРИСТРІЙ (DUT)</text>
+<text x="701.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Авторизований екземпляр</text>
+<rect x="596.0" y="120.0" width="210.0" height="84.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.3"/>
+<text x="701.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний сейф чипа:</text>
+<text x="604.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Приватний ключ (eFuse / SE)</text>
+<text x="604.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підписаний сертифікат</text>
+<text x="604.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• Пропалені eFuse захисту</text>
+<rect x="596.0" y="216.0" width="210.0" height="100.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.3"/>
+<text x="701.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Перший вихід у хмару (mTLS):</text>
+<text x="701.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Доказ володіння ключем</text>
+<text x="701.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Звірка з реєстром Ledger</text>
+<text x="701.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Клон без квитка = ВІДХИЛЕНО</text>
+<rect x="24.0" y="354.0" width="792.0" height="26.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/><text x="420.0" y="370.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Без підписаного квитка HSM не видасть сертифікат; без сертифіката пристрій не пустять у хмару.</tspan></text>
+</svg>

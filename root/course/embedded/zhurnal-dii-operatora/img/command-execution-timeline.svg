@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 919.7 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="919.7" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія проходження команди: від відправки оператором до фіксації в аудиті</text>
+<rect x="20.0" y="52.5" width="160.0" height="95.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="20.0" y="52.5" width="160.0" height="28.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="100.0" y="71.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. Формування GCS</text>
+<text x="100.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Оператор тисне Disarm</text>
+<text x="100.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Додається мітка UTC</text>
+<text x="100.0" y="132.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Підпис Ed25519 / ID</text>
+<rect x="220.0" y="52.5" width="160.0" height="95.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="220.0" y="52.5" width="160.0" height="28.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="300.0" y="71.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. Радіолінк</text>
+<text x="300.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MAVLink / COBS пакет</text>
+<text x="300.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Телеметричний канал</text>
+<text x="300.0" y="132.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Передача через UART</text>
+<rect x="420.0" y="52.5" width="160.0" height="95.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="420.0" y="52.5" width="160.0" height="28.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="500.0" y="71.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. Бортовий аудит</text>
+<text x="500.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис у журнал (PENDING)</text>
+<text x="500.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Розрахунок SHA-256</text>
+<text x="500.0" y="132.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Атомарний запис у Flash</text>
+<rect x="620.0" y="52.5" width="160.0" height="95.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="620.0" y="52.5" width="160.0" height="28.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="700.0" y="71.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4. Виконання</text>
+<text x="700.0" y="98.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перевірка інтерлоків</text>
+<text x="700.0" y="115.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вимкнення ШІМ двигунів</text>
+<text x="700.0" y="132.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис ACK (SUCCESS)</text>
+<line x1="180.0" y1="100.0" x2="220.0" y2="100.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="100.0" x2="420.0" y2="100.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="580.0" y1="100.0" x2="620.0" y2="100.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="50.0" y1="200.0" x2="850.0" y2="200.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="850.0" y1="200.0" x2="865.0" y2="200.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="870.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start" font-weight="700">Час t</text>
+<line x1="100.0" y1="192.0" x2="100.0" y2="208.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="100.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">T0 = 0 мс</text>
+<text x="100.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Клік у QGroundControl</text>
+<line x1="300.0" y1="192.0" x2="300.0" y2="208.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="300.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">T1 = +35 мс</text>
+<text x="300.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прийом RF-модулем</text>
+<line x1="500.0" y1="192.0" x2="500.0" y2="208.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="500.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">T2 = +38 мс</text>
+<text x="500.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Аудит-лог заблоковано</text>
+<line x1="700.0" y1="192.0" x2="700.0" y2="208.0" stroke="#64748b" stroke-width="2.0"/>
+<text x="700.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">T3 = +40 мс</text>
+<text x="700.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Двигуни зупинено</text>
+<text x="450.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f766e" text-anchor="middle" font-weight="700">Фіксація команди в енергонезалежному журналі відбувається ДО фізичного виконання виконавчими механізмами</text>
+</svg>

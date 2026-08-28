@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Податок мікросервісів у потоці IoT телеметрії (The Microservices Tax)</text>
+<rect x="36.0" y="65.0" width="120.0" height="72.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="96.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ingest Gateway</text>
+<text x="96.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">TCP/TLS термінація</text>
+<rect x="198.0" y="65.0" width="120.0" height="72.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="258.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Auth Service</text>
+<text x="258.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка токена</text>
+<rect x="360.0" y="65.0" width="120.0" height="72.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="420.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Device Registry</text>
+<text x="420.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пошук Device Twin</text>
+<rect x="522.0" y="65.0" width="120.0" height="72.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="582.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rules Engine</text>
+<text x="582.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка тригерів</text>
+<rect x="684.0" y="65.0" width="120.0" height="72.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="744.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">TSDB Ingest</text>
+<text x="744.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис часових рядів</text>
+<line x1="156.0" y1="101.0" x2="198.0" y2="101.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="190.0" y1="101.0" x2="198.0" y2="101.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="177.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">gRPC</text>
+<text x="177.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">+1.5ms</text>
+<line x1="318.0" y1="101.0" x2="360.0" y2="101.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="352.0" y1="101.0" x2="360.0" y2="101.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="339.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">gRPC</text>
+<text x="339.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">+1.5ms</text>
+<line x1="480.0" y1="101.0" x2="522.0" y2="101.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="514.0" y1="101.0" x2="522.0" y2="101.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="501.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">gRPC</text>
+<text x="501.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">+1.5ms</text>
+<line x1="642.0" y1="101.0" x2="684.0" y2="101.0" stroke="#dc2626" stroke-width="1.8"/>
+<line x1="676.0" y1="101.0" x2="684.0" y2="101.0" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="663.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">gRPC</text>
+<text x="663.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">+1.5ms</text>
+<rect x="36.0" y="165.0" width="768.0" height="175.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="420.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">АНАТОМІЯ НАКЛАДНИХ ВИТРАТ НА ОДНОМУ МІЖСЕРВІСНОМУ СТРИБКУ (HOP)</text>
+<rect x="56.0" y="212.0" width="168.0" height="105.0" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.1"/>
+<text x="140.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Маршалінг Proto/JSON</text>
+<text x="140.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Серіалізація структури C++/Go</text>
+<text x="140.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">в байти. Виділення пам'яті</text>
+<text x="140.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">в купі (heap).</text>
+<rect x="244.0" y="212.0" width="168.0" height="105.0" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.1"/>
+<text x="328.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро ОС та сокети</text>
+<text x="328.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Копіювання буфера у</text>
+<text x="328.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ядро, стек TCP/IP, перемикання</text>
+<text x="328.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">контексту процесів.</text>
+<rect x="432.0" y="212.0" width="168.0" height="105.0" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.1"/>
+<text x="516.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережевий RTT</text>
+<text x="516.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фізична затримка передачі</text>
+<text x="516.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">через віртуальний міст Kubernetes</text>
+<text x="516.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Overlay.</text>
+<rect x="620.0" y="212.0" width="168.0" height="105.0" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.1"/>
+<text x="704.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Демаршалінг сервісу</text>
+<text x="704.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Парсинг байтів у</text>
+<text x="704.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">нові об'єкти мови. Навантаження</text>
+<text x="704.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">на Garbage Collector.</text>
+<rect x="36.0" y="360.0" width="370.0" height="90.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+<text x="221.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">ЛАНЦЮЖОК ІЗ 5 МІКРОСЕРВІСІВ</text>
+<text x="221.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Загальна затримка: 6.0 – 12.0 мс на пакет</text>
+<text x="221.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">• 80% CPU витрачається на сокети і серіалізацію</text>
+<rect x="434.0" y="360.0" width="370.0" height="90.0" rx="5" fill="#ecfdf5" stroke="#059669" stroke-width="1.4"/>
+<text x="619.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">МОДУЛЬНИЙ МОНОЛІТ (IN-MEMORY)</text>
+<text x="619.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Загальна затримка: 50 – 150 наносекунд на подію</text>
+<text x="619.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">• 95% CPU витрачається на корисну бізнес-логіку</text>
+<text x="420.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Заміна внутрішньопроцесної передачі покажчиків на мережевий RPC призводить до падіння продуктивності в 10-50 разів</text>
+</svg>

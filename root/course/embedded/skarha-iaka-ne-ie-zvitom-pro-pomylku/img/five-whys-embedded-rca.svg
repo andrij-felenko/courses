@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналіз кореневої причини (5 Whys) у вбудованій системі</text>
+<rect x="30.0" y="65.0" width="780.0" height="60.0" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+<rect x="38.0" y="73.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<text x="125.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Симптом (Скарга)</text>
+<text x="125.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Що бачить користувач?</text>
+<text x="228.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">«Пристрій зависає раз на 24 години і припиняє передавати телеметрію»</text>
+<line x1="420.0" y1="125.0" x2="420.0" y2="138.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="140.0" width="780.0" height="60.0" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.8"/>
+<rect x="38.0" y="148.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="125.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Чому №1 (Скидання)</text>
+<text x="125.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Чому пристрій перестав відповідати?</text>
+<text x="228.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Сторожовий таймер (IWDG) перезавантажив MCU через блокування головного циклу</text>
+<line x1="420.0" y1="200.0" x2="420.0" y2="213.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="215.0" width="780.0" height="60.0" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8"/>
+<rect x="38.0" y="223.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+<text x="125.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">Чому №2 (Блокування)</text>
+<text x="125.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Чому головний цикл заблокувався?</text>
+<text x="228.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Драйвер датчика температури/вологості завис у циклі очікування біта RXNE на шині I2C</text>
+<line x1="420.0" y1="275.0" x2="420.0" y2="288.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="290.0" width="780.0" height="60.0" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.8"/>
+<rect x="38.0" y="298.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+<text x="125.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="middle" font-weight="700">Чому №3 (Апаратна лінія)</text>
+<text x="125.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Чому лінія шини I2C не відповіла?</text>
+<text x="228.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Лінія SDA залишилась затиснутою в '0' зовнішнім сенсором через скидання сенсора при передачі</text>
+<line x1="420.0" y1="350.0" x2="420.0" y2="363.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="365.0" width="780.0" height="60.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.8"/>
+<rect x="38.0" y="373.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="125.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">Чому №4 (Просадка й таймінг)</text>
+<text x="125.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Чому сенсор збився, а MCU не відновив шину?</text>
+<text x="228.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Імпульс радіомодуля просадив лінію VDD_SENS, а в драйвері не було 9-SCL процедури розблокування</text>
+<line x1="420.0" y1="425.0" x2="420.0" y2="438.0" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="440.0" width="780.0" height="60.0" rx="6" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.8"/>
+<rect x="38.0" y="448.0" width="175.0" height="44.0" rx="4" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<text x="125.0" y="464.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="middle" font-weight="700">Чому №5 (Коренева причина)</text>
+<text x="125.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">У чому фундаментальна причина відмови?</text>
+<text x="228.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">У ревізії B радіо і датчики об'єднали на один LDO без запасу ємності, а драйвер не мав таймаутів</text>
+</svg>

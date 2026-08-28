@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сліпота локальних евристик: пастка локального мінімуму та брязкіт перемикань</text>
+<rect x="40.0" y="60.0" width="380.0" height="320.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="230.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка локального мінімуму (U-кишеня)</text>
+<rect x="170.0" y="140.0" width="20.0" height="140.0" rx="3" fill="#cbd5e1" stroke="#333333" stroke-width="1.5"/>
+<rect x="170.0" y="260.0" width="140.0" height="20.0" rx="3" fill="#cbd5e1" stroke="#333333" stroke-width="1.5"/>
+<rect x="290.0" y="140.0" width="20.0" height="140.0" rx="3" fill="#cbd5e1" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Увігнута перешкода</text>
+<circle cx="240.0" cy="120.0" r="10.0" fill="#dcfce7" stroke="#27ae60" stroke-width="2.0"/>
+<text x="240.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">★</text>
+<text x="240.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ціль</text>
+<path d="M 240 350 L 240 220" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4,3"/>
+<circle cx="240.0" cy="220.0" r="8.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="240.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Тупик: Fatt + Frep = 0</text>
+<rect x="60.0" y="310.0" width="340.0" height="55.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="70.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Реактивна евристика (Potential Field):</text>
+<text x="70.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Притягання до цілі врівноважується відштовхуванням стін</text>
+<rect x="460.0" y="60.0" width="380.0" height="320.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="650.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Брязкіт (Chattering) між двома правилами</text>
+<rect x="500.0" y="130.0" width="300.0" height="20.0" rx="2" fill="#cbd5e1" stroke="#333333" stroke-width="1.0"/>
+<rect x="500.0" y="270.0" width="300.0" height="20.0" rx="2" fill="#cbd5e1" stroke="#333333" stroke-width="1.0"/>
+<text x="650.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ліва межа / геозона</text>
+<text x="650.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Права перешкода</text>
+<path d="M 520 210 L 570 160 L 620 255 L 670 160 L 720 255 L 770 210" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="570.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Rule: Вправо!</text>
+<text x="620.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Rule: Вліво!</text>
+<rect x="480.0" y="310.0" width="340.0" height="55.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="490.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Граничний цикл перемикання (20–50 Гц):</text>
+<text x="490.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Перегрів сервоприводів, струмовий удар, втрата курсу</text>
+</svg>

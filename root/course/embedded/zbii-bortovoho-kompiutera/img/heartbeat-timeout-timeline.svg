@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 973.5 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="973.5" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова шкала спрацювання failsafe при відмові бортового комп'ютера</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="480.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія таймаутів: відмова SBC → зрив Offboard → реакція автопілота</text>
+<text x="480.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">два незалежні лічильники часу: швидкий таймаут уставки (контур руху) і повільний таймаут зв'язку (безпека)</text>
+<line x1="80.0" y1="230.0" x2="900.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="895.0" y1="230.0" x2="910.0" y2="230.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="915.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">t (час)</text>
+<line x1="260.0" y1="90.0" x2="260.0" y2="430.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5 4"/>
+<rect x="185.0" y="95.0" width="150.0" height="44.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="260.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">МОМЕНТ ЗБОЮ SBC</text>
+<text x="260.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">t = 0 (паніка / зависання)</text>
+<rect x="80.0" y="160.0" width="175.0" height="52.0" rx="8" fill="#eafaef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="170.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">РЕЖИМ OFFBOARD</text>
+<text x="170.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Потік уставок 20-50 Гц + Heartbeat 1 Гц</text>
+<line x1="450.0" y1="150.0" x2="450.0" y2="430.0" stroke="#d98a00" stroke-width="1.6" stroke-dasharray="4 3"/>
+<circle cx="450.0" cy="230.0" r="6.0" fill="#d98a00" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="450.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="700">t = 250–500 мс</text>
+<rect x="365.0" y="270.0" width="170.0" height="68.0" rx="8" fill="#fff5e6" stroke="#d98a00" stroke-width="1.5"/>
+<text x="450.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle" font-weight="700">Offboard Loss Failsafe</text>
+<text x="450.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Таймаут уставки вичерпано</text>
+<text x="450.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle" font-weight="700">FCU → HOLD / LOITER</text>
+<rect x="455.0" y="160.0" width="250.0" height="52.0" rx="8" fill="#fff5e6" stroke="#d98a00" stroke-width="1.5"/>
+<text x="580.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="700">УТРИМАННЯ ПОЗИЦІЇ (HOLD)</text>
+<text x="580.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дрон зупиняє рух, зависає по GNSS/IMU</text>
+<line x1="710.0" y1="150.0" x2="710.0" y2="430.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<circle cx="710.0" cy="230.0" r="6.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="710.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t = 1.5–3.0 с</text>
+<rect x="625.0" y="270.0" width="170.0" height="68.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="710.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Companion Lost Failsafe</text>
+<text x="710.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">HEARTBEAT не отримано</text>
+<text x="710.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FCU → RTL / LAND</text>
+<rect x="715.0" y="160.0" width="180.0" height="52.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="795.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">АВТОНОМНЕ ПОВЕРНЕННЯ (RTL)</text>
+<text x="795.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Набір висоти безпеки й політ на старт</text>
+<line x1="260.0" y1="410.0" x2="450.0" y2="410.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="355.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="middle" font-weight="700">250-500 мс</text>
+<line x1="260.0" y1="425.0" x2="710.0" y2="425.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="485.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1.5–3.0 с (MAVLink Heartbeat Timeout)</text>
+<text x="480.0" y="495.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Дворівневий відкат запобігає ривкам: спочатку плавна зупинка (Hold), і лише якщо комп'ютер не очуняв — повернення додому (RTL).</text>
+</svg>

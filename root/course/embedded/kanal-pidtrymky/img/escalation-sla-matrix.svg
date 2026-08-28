@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця рівнів критичності (Severity), регламенти SLA та контур RMA</text>
+<rect x="25.0" y="52.0" width="570.0" height="400.0" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.6"/>
+<rect x="25.0" y="52.0" width="570.0" height="36.0" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+<text x="310.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Матриця критичності інцидентів та гарантований час SLA</text>
+<rect x="38.0" y="98.0" width="544.0" height="78.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="50.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">Sev-1: Критичний (Critical)</text>
+<text x="50.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Повна відмова системи, ризик життю / майну, простій об'єкта</text>
+<text x="50.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Перша реакція (FRT): &lt; 1 год</text>
+<text x="340.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start" font-weight="700">Тимчасове / повне усунення: &lt; 4 год</text>
+<rect x="38.0" y="184.0" width="544.0" height="78.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="50.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Sev-2: Високий (Major)</text>
+<text x="50.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Втрата ключової функції без аварійної зупинки, немає обходу</text>
+<text x="50.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Перша реакція (FRT): &lt; 2 год</text>
+<text x="340.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">Тимчасове / повне усунення: &lt; 12 год</text>
+<rect x="38.0" y="270.0" width="544.0" height="78.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="50.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">Sev-3: Середній (Minor)</text>
+<text x="50.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Частковий збій, деградація продуктивності, є обхідний шлях</text>
+<text x="50.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Перша реакція (FRT): &lt; 8 год</text>
+<text x="340.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start" font-weight="700">Тимчасове / повне усунення: &lt; 48 год</text>
+<rect x="38.0" y="356.0" width="544.0" height="78.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="50.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start" font-weight="700">Sev-4: Низький (Cosmetic)</text>
+<text x="50.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="start">Запитання, документація, косметичні дефекти інтерфейсу</text>
+<text x="50.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start" font-weight="700">Перша реакція (FRT): &lt; 24 год</text>
+<text x="340.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="start" font-weight="700">Тимчасове / повне усунення: Sprint release</text>
+<rect x="615.0" y="52.0" width="300.0" height="400.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+<rect x="615.0" y="52.0" width="300.0" height="36.0" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="765.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">Контур повернення заліза (RMA Flow)</text>
+<rect x="628.0" y="98.0" width="274.0" height="62.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">1. Верифікація дефекту</text>
+<text x="640.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">L2/L3 підтверджують апаратну несправність за дампом</text>
+<text x="640.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="start">Регламентний термін: 5–10 робочих днів</text>
+<rect x="628.0" y="168.0" width="274.0" height="62.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">2. Видача номера RMA</text>
+<text x="640.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Клієнт отримує RMA ID та транспортну накладну</text>
+<text x="640.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="start">Регламентний термін: 5–10 робочих днів</text>
+<rect x="628.0" y="238.0" width="274.0" height="62.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">3. Карантин і первинний тест</text>
+<text x="640.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Вхідний ESD-контроль, перевірка живлення на стенді</text>
+<text x="640.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="start">Регламентний термін: 5–10 робочих днів</text>
+<rect x="628.0" y="308.0" width="274.0" height="62.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">4. Лабораторний аналіз R&amp;D</text>
+<text x="640.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Рентген BGA, тепловізор, мікроскопія дефектів</text>
+<text x="640.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="start">Регламентний термін: 5–10 робочих днів</text>
+<rect x="628.0" y="378.0" width="274.0" height="62.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">5. Звіт 8D / Заміна виробу</text>
+<text x="640.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="start">Відправка заміни та внесення змін у BOM / прошивку</text>
+<text x="640.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="start">Регламентний термін: 5–10 робочих днів</text>
+</svg>

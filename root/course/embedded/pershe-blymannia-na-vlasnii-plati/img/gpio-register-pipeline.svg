@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр прямого доступу до регістрів GPIO (на прикладі ARM Cortex-M)</text>
+<rect x="40.0" y="75.0" width="200.0" height="360.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="140.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. Тактування порту</text>
+<text x="140.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Регістр RCC_AHBxENR</text>
+<rect x="55.0" y="140.0" width="170.0" height="95.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="140.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Біт GPIOCEN = 1</text>
+<text x="140.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Подає такт від шини</text>
+<text x="140.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">AHB на блок логіки</text>
+<text x="140.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">порту GPIO</text>
+<rect x="55.0" y="250.0" width="170.0" height="155.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="65.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Чому це критично:</text>
+<text x="65.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="65.0" dy="0.0">За замовчуванням тактування</tspan><tspan x="65.0" dy="13.5">всіх портів ВИМКНЕНО для</tspan><tspan x="65.0" dy="13.5">економії енергії.</tspan><tspan x="65.0" dy="13.5">Спроба запису в регістри</tspan><tspan x="65.0" dy="13.5">без такту викликає BusFault</tspan><tspan x="65.0" dy="13.5">або операція ігнорується.</tspan></text>
+<line x1="240.0" y1="187.0" x2="275.0" y2="187.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="275.0" y="75.0" width="200.0" height="360.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="375.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2. Конфігурація піна</text>
+<text x="375.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Регістри MODER / OTYPER</text>
+<rect x="290.0" y="140.0" width="170.0" height="115.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="375.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">GPIOx_MODER</text>
+<text x="375.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">00: Вхід (Input/Hi-Z)</text>
+<text x="375.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">01: Вихід (Output GP)</text>
+<text x="375.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">10: Альтернативна AF</text>
+<text x="375.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">11: Аналоговий режим</text>
+<rect x="290.0" y="270.0" width="170.0" height="135.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="300.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Додаткові регістри:</text>
+<text x="300.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="300.0" dy="0.0">OTYPER: Push-Pull (0)</tspan><tspan x="300.0" dy="13.5">або Open-Drain (1).</tspan><tspan x="300.0" dy="13.5">OSPEEDR: Low Speed (00)</tspan><tspan x="300.0" dy="13.5">— зменшує завади на шині</tspan><tspan x="300.0" dy="13.5">живлення при перемиканні.</tspan></text>
+<line x1="475.0" y1="197.0" x2="510.0" y2="197.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="510.0" y="75.0" width="200.0" height="360.0" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="610.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">3. Атомарне перемикання</text>
+<text x="610.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Регістр BSRR (Set / Reset)</text>
+<rect x="525.0" y="140.0" width="170.0" height="115.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="610.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BSRR[31:16] - Скидання (0)</text>
+<text x="610.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Запис '1' -&gt; Вихід = 0</text>
+<text x="610.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">BSRR[15:0] - Встановлення (1)</text>
+<text x="610.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Запис '1' -&gt; Вихід = 1</text>
+<text x="610.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис '0' -&gt; Немає дії</text>
+<rect x="525.0" y="270.0" width="170.0" height="135.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="535.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">Чому BSRR, а не ODR:</text>
+<text x="535.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="535.0" dy="0.0">ODR |= (1&lt;&lt;pin) робить</tspan><tspan x="535.0" dy="13.5">Read-Modify-Write (3 такти).</tspan><tspan x="535.0" dy="13.5">Переривання може змінити</tspan><tspan x="535.0" dy="13.5">інший пін під час RMW.</tspan><tspan x="535.0" dy="13.5">BSRR змінює пін за 1 такт</tspan><tspan x="535.0" dy="13.5">без конфліктів шини.</tspan></text>
+<line x1="710.0" y1="205.0" x2="745.0" y2="205.0" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="745.0" y="75.0" width="160.0" height="360.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="825.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">4. Фізичний пін</text>
+<text x="825.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Драйвер виводу</text>
+<rect x="760.0" y="150.0" width="130.0" height="75.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="825.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Push-Pull</text>
+<text x="825.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Каскад FETs</text>
+<line x1="825.0" y1="225.0" x2="825.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="770.0" y="260.0" width="110.0" height="45.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="825.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAD / PIN (QFP/BGA)</text>
+<line x1="825.0" y1="305.0" x2="825.0" y2="340.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="765.0" y="340.0" width="120.0" height="55.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="825.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Світлодіод D1</text>
+<text x="825.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Блимання 1 Гц</text>
+</svg>

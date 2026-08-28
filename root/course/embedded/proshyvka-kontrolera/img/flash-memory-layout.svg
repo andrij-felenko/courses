@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80.08 -10 1040.08 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-80.08" y="-10" width="1040.08" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія Flash пам'яті польотного контролера</text>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Карта Flash-пам'яті польотного контролера (STM32 Cortex-M)</text>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">0x0800 0000</text>
+<rect x="320.0" y="65.0" width="360.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="500.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Stage 2 Bootloader (16-32 КБ)</text>
+<text x="500.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">USB DFU протокол, перевірка хешу, відкат</text>
+<text x="120.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">0x0800 8000 / 0x0801 0000</text>
+<rect x="320.0" y="140.0" width="360.0" height="50.0" rx="6" fill="#edf2fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="500.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Векторна таблиця додатка (VTOR)</text>
+<text x="500.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Initial MSP + Reset_Handler + таблиця IRQ</text>
+<text x="120.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">0x0801 0400</text>
+<rect x="320.0" y="205.0" width="360.0" height="110.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="500.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Основний розділ прошивки (Application)</text>
+<text x="500.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Секції коду .text, констант .rodata та ініціалізаторів .data</text>
+<text x="500.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Betaflight / ArduPilot / PX4 виконуваний бінарник (512 КБ – 1.8 МБ)</text>
+<text x="120.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Останній сектор (кінцева адреса)</text>
+<rect x="320.0" y="330.0" width="360.0" height="65.0" rx="6" fill="#fff8e7" stroke="#d48806" stroke-width="1.8"/>
+<text x="500.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b37400" text-anchor="middle" font-weight="700">Сховище параметрів (EEPROM Emulation / LittleFS)</text>
+<text x="500.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Два сектори (Page A / Page B) для зносостійкості та атомарності</text>
+<rect x="730.0" y="65.0" width="190.0" height="180.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="825.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">System ROM (ST)</text>
+<text x="825.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0x1FFF 0000</text>
+<text x="825.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фабричний DFU</text>
+<text x="825.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зашитий на заводі</text>
+<text x="825.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Неможливо стерти</text>
+<text x="825.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Активація: Boot0 = 1</text>
+<text x="825.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">або збій Stage 2</text>
+<line x1="730.0" y1="145.0" x2="680.0" y2="95.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="700.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Резервний шлях</text>
+<text x="480.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Розподіл Flash захищає системний завантажувач від перезапису й ізолює параметри від коду прошивки.</text>
+</svg>

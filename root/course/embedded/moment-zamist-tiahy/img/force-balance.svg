@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Баланс сил і крутного моменту колеса на схилі</text>
+<line x1="60.0" y1="380.0" x2="690.0" y2="150.0" stroke="#6b7280" stroke-width="2.5"/>
+<line x1="60.0" y1="380.0" x2="690.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="140.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">кут схилу θ</text>
+<circle cx="404.0" cy="185.0" r="85.0" fill="#f0f4f8" stroke="#333333" stroke-width="2.5"/>
+<circle cx="404.0" cy="185.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="404.0" cy="185.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<line x1="404.0" y1="185.0" x2="325.0" y2="156.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="359.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700" font-style="italic">r</text>
+<path d="M 376 171 A 32 32 0 1 1 422 159" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="446.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">T_колеса</text>
+<line x1="375.0" y1="265.0" x2="497.0" y2="221.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="507.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">F_тяга = T / r</text>
+<line x1="375.0" y1="265.0" x2="310.0" y2="289.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="295.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle">F_rr (опір коченню)</text>
+<line x1="404.0" y1="185.0" x2="320.0" y2="215.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">F_схил = m·g·sin(θ)</text>
+<line x1="404.0" y1="185.0" x2="358.0" y2="177.0" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="313.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle">F_розгін = m·a</text>
+<line x1="404.0" y1="185.0" x2="404.0" y2="285.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="412.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">W = m·g</text>
+<line x1="375.0" y1="265.0" x2="348.0" y2="190.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="333.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">N = m·g·cos(θ)</text>
+<rect x="140.0" y="395.0" width="480.0" height="52.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="418.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Рівновага тяги:  F_тяга ≥ F_rr + F_схил + F_розгін  =&gt;  T_колеса = F_тяга · r_колеса</tspan><tspan x="380.0" dy="11.7">Межа зчеплення:   T_макс ≤ μ · N · r_колеса  (інакше колесо буксує)</tspan></text>
+</svg>

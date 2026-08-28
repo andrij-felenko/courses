@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="450.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема трьох годинників: дрейф генераторів і затримка каналу</text>
+<rect x="25.0" y="60.0" width="790.0" height="185.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="40.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Фізична розбіжність автономних генераторів (без корекції)</text>
+<rect x="40.0" y="102.0" width="160.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="120.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Бортовий МК (PX4)</text>
+<text x="120.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Кварц 16 МГц (+30 ppm)</text>
+<line x1="210.0" y1="120.0" x2="770.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="780.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">t_board</text>
+<circle cx="260.0" cy="120.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="260.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">100.000 с</text>
+<circle cx="680.0" cy="120.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">100.054 с (+54 мс)</text>
+<rect x="40.0" y="148.0" width="160.0" height="36.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Станція (QGC)</text>
+<text x="120.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">x86 RTC (-15 ppm)</text>
+<line x1="210.0" y1="166.0" x2="770.0" y2="166.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="780.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">t_gcs</text>
+<circle cx="260.0" cy="166.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="260.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">100.000 с</text>
+<circle cx="640.0" cy="166.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="640.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">99.973 с (-27 мс)</text>
+<rect x="40.0" y="194.0" width="160.0" height="36.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="120.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Відеокамера (H.264)</text>
+<text x="120.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SoC кварц (+50 ppm)</text>
+<line x1="210.0" y1="212.0" x2="770.0" y2="212.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="780.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">t_cam</text>
+<circle cx="260.0" cy="212.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="260.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">100.000 с</text>
+<circle cx="720.0" cy="212.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="720.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">100.090 с (+90 мс)</text>
+<rect x="25.0" y="260.0" width="790.0" height="190.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="40.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Ілюзія послідовності подій у разі запису «за часом отримання»</text>
+<rect x="40.0" y="298.0" width="225.0" height="138.0" rx="5" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="152.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фізична подія: Удар</text>
+<text x="152.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">t_real = 100.000 с</text>
+<text x="50.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Акселерометр: сплеск 18g</text>
+<text x="50.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">• Запис у ULog: 100.054 с</text>
+<text x="50.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Збережено локально на SD</text>
+<text x="50.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  із міткою бортового таймера</text>
+<rect x="285.0" y="298.0" width="245.0" height="138.0" rx="5" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="407.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Лог телеметрії станції</text>
+<text x="407.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">t_gcs_recv = 100.220 с</text>
+<text x="295.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Затримка радіоканалу: 120 мс</text>
+<text x="295.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Джитер буфера: 50 мс</text>
+<text x="295.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">• Похибка дрейфу GCS: -27 мс</text>
+<text x="295.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">→ Зсув у лозі: +220 мс!</text>
+<rect x="550.0" y="298.0" width="250.0" height="138.0" rx="5" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="675.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Відеопотік на екрані</text>
+<text x="675.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">t_disp = 100.350 с</text>
+<text x="560.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Експозиція + ISP: 33 мс</text>
+<text x="560.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• H.264 кодування: 45 мс</text>
+<text x="560.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• RTSP/RTP буфер: 200 мс</text>
+<text x="560.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">→ Кадр відстає на 350 мс!</text>
+</svg>

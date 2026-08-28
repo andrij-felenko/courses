@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програмне загартування логіки проти збійних атак (Fault Injection)</text>
+<rect x="30.0" y="60.0" width="360.0" height="390.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="210.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вразлива лінійна перевірка</text>
+<rect x="50.0" y="120.0" width="220.0" height="42.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">bool ok = verify_signature();</text>
+<rect x="50.0" y="195.0" width="220.0" height="42.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">if (ok == true) {</text>
+<rect x="50.0" y="270.0" width="220.0" height="42.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">    boot_application();</text>
+<rect x="50.0" y="345.0" width="220.0" height="42.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">} else { panic(); }</text>
+<line x1="160.0" y1="162.0" x2="160.0" y2="195.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="237.0" x2="160.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="312.0" x2="160.0" y2="345.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="200.0" width="100.0" height="105.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="330.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратний глітч</text>
+<text x="330.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Пропуск CBZ / BNE</text>
+<text x="330.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">або заміна опкоду</text>
+<line x1="280.0" y1="215.0" x2="270.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Один імпульс напруги пропускає перевірку</text>
+<rect x="450.0" y="60.0" width="360.0" height="390.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="630.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Загартована дуальна перевірка</text>
+<rect x="470.0" y="115.0" width="320.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">uint32_t s1 = verify_stage_1();</text>
+<rect x="470.0" y="175.0" width="320.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">random_delay(); // Джитер тактування</text>
+<rect x="470.0" y="235.0" width="320.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">uint32_t s2 = verify_stage_2();</text>
+<rect x="470.0" y="295.0" width="320.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">if ((s1 == 0x5AA5) &amp;&amp; (s2 == 0xA55A)) {</text>
+<rect x="470.0" y="355.0" width="320.0" height="38.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="630.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">    boot_application();</text>
+<line x1="630.0" y1="153.0" x2="630.0" y2="175.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="213.0" x2="630.0" y2="235.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="273.0" x2="630.0" y2="295.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="333.0" x2="630.0" y2="355.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="630.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Багатобітові константи + перевірка інваріанта</text>
+</svg>

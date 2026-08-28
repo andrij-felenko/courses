@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий енергонезалежний буфер аудиту на Flash-пам'яті (Flash Ring Buffer)</text>
+<rect x="40.0" y="70.0" width="180.0" height="220.0" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2.0"/>
+<rect x="40.0" y="70.0" width="180.0" height="32.0" rx="8" fill="#64748b" stroke="#64748b" stroke-width="1.0"/>
+<text x="130.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Сектор #0</text>
+<text x="130.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="700">FULL / COMMITTED</text>
+<text x="130.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Записи #001..#032</text>
+<text x="130.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хеш сектора валідний</text>
+<text x="130.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Захищено від запису</text>
+<rect x="50.0" y="225.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="130.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слоти 128Б (32 на 4KB)</text>
+<text x="130.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">128B Page Program</text>
+<rect x="250.0" y="70.0" width="180.0" height="220.0" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2.0"/>
+<rect x="250.0" y="70.0" width="180.0" height="32.0" rx="8" fill="#64748b" stroke="#64748b" stroke-width="1.0"/>
+<text x="340.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Сектор #1</text>
+<text x="340.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-weight="700">FULL / COMMITTED</text>
+<text x="340.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Записи #033..#064</text>
+<text x="340.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Хеш сектора валідний</text>
+<text x="340.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Захищено від запису</text>
+<rect x="260.0" y="225.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="340.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слоти 128Б (32 на 4KB)</text>
+<text x="340.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">128B Page Program</text>
+<rect x="460.0" y="70.0" width="195.0" height="220.0" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.0"/>
+<rect x="460.0" y="70.0" width="195.0" height="32.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="557.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Сектор #2 (АКТИВНИЙ)</text>
+<text x="557.5" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3b82f6" text-anchor="middle" font-weight="700">ACTIVE WRITING (HEAD)</text>
+<text x="557.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Записи #065..#082</text>
+<text x="557.5" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Наступний слот: Слот #83</text>
+<text x="557.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вільні сторінки: 0xFF...</text>
+<rect x="470.0" y="225.0" width="175.0" height="50.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="557.5" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слоти 128Б (32 на 4KB)</text>
+<text x="557.5" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">128B Page Program</text>
+<rect x="680.0" y="70.0" width="180.0" height="220.0" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2.0"/>
+<rect x="680.0" y="70.0" width="180.0" height="32.0" rx="8" fill="#22c55e" stroke="#22c55e" stroke-width="1.0"/>
+<text x="770.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Сектор #3 (ХВІСТ)</text>
+<text x="770.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#22c55e" text-anchor="middle" font-weight="700">ERASED (0xFF) / TAIL</text>
+<text x="770.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Стерто до 0xFF</text>
+<text x="770.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Готовий під ротацію</text>
+<text x="770.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Покажчик TAIL</text>
+<rect x="690.0" y="225.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="770.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Слоти 128Б (32 на 4KB)</text>
+<text x="770.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">128B Page Program</text>
+<rect x="470.0" y="305.0" width="175.0" height="30.0" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="557.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">HEAD Pointer: Сектор #2, Слот #83</text>
+<line x1="557.0" y1="305.0" x2="557.0" y2="292.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="685.0" y="305.0" width="170.0" height="30.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="770.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">TAIL Pointer: Сектор #3</text>
+<line x1="770.0" y1="305.0" x2="770.0" y2="292.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="450.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">При переповненні TAIL-сектор стирається (ERASE 4KB), стаючи новим чистим буфером для запису</text>
+</svg>

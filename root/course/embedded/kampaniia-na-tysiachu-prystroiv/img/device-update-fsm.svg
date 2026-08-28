@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат стану прошивки: завантаження, випробувальний термін і відкат</text>
+<rect x="60.0" y="100.0" width="140.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="130.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="130.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">Очікування перевірки</tspan><tspan x="130.0" dy="11.9">Періодичний поллінг</tspan></text>
+<rect x="260.0" y="100.0" width="140.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="330.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">COHORT_WAIT</text>
+<text x="330.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Рандомізована затримка</tspan><tspan x="330.0" dy="11.9">t = Uniform(0, T_max)</tspan></text>
+<rect x="460.0" y="100.0" width="140.0" height="75.0" rx="6" fill="#fdf6ed" stroke="#b86200" stroke-width="2.0"/>
+<text x="530.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b86200" text-anchor="middle" font-weight="700">DOWNLOADING</text>
+<text x="530.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="530.0" dy="0.0">Посекційне завантаження</tspan><tspan x="530.0" dy="11.9">Перевірка SHA-256 / Ed25519</tspan></text>
+<rect x="660.0" y="100.0" width="140.0" height="75.0" rx="6" fill="#f6eefb" stroke="#7b2cbf" stroke-width="2.0"/>
+<text x="730.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7b2cbf" text-anchor="middle" font-weight="700">FLASH_STAGED</text>
+<text x="730.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">Запис у неактивний Bank B</tspan><tspan x="730.0" dy="11.9">Встановлення boot-прапорця</tspan></text>
+<rect x="860.0" y="100.0" width="80.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="900.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">REBOOT</text>
+<text x="900.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="900.0" dy="0.0">Перезапуск у</tspan><tspan x="900.0" dy="11.9">новий образ</tspan></text>
+<line x1="200.0" y1="137.0" x2="256.0" y2="137.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="137.0" x2="456.0" y2="137.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="137.0" x2="656.0" y2="137.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="800.0" y1="137.0" x2="856.0" y2="137.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="660.0" y="270.0" width="180.0" height="85.0" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="2.0"/>
+<text x="750.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">TESTING_HEALTH</text>
+<text x="750.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Канарковий період (напр. 30 хв)</tspan><tspan x="750.0" dy="11.9">Самодіагностика сенсорів</tspan><tspan x="750.0" dy="11.9">Успішний зв'язок із сервером</tspan></text>
+<line x1="900.0" y1="175.0" x2="760.0" y2="266.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="340.0" y="270.0" width="160.0" height="85.0" rx="6" fill="#eef7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">COMMITTED</text>
+<text x="420.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Фіксація Bank B постійним</tspan><tspan x="420.0" dy="11.9">Скидання лічильника спроб</tspan><tspan x="420.0" dy="11.9">Звіт про успіх на бекенд</tspan></text>
+<line x1="660.0" y1="312.0" x2="504.0" y2="312.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="582.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Тести пройдено</text>
+<line x1="340.0" y1="312.0" x2="130.0" y2="179.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Готовий до нових задач</text>
+<rect x="480.0" y="390.0" width="200.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="580.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ROLLBACK_BANK_A</text>
+<text x="580.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Апаратний WDT / Panic Hook</tspan><tspan x="580.0" dy="11.9">Повернення на старий образ</tspan><tspan x="580.0" dy="11.9">Звіт про збій (Crash Report)</tspan></text>
+<line x1="750.0" y1="355.0" x2="684.0" y2="400.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="745.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Збій / WDT reset</text>
+<line x1="480.0" y1="430.0" x2="90.0" y2="179.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="240.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Блокування оновлення до нового релізу</text>
+</svg>

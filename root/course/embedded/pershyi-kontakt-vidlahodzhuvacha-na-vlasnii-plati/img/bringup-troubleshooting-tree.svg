@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево пошуку несправностей при відмові першого контакту відлагоджувача</text>
+<rect x="310.0" y="40.0" width="320.0" height="40.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="470.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Cannot connect to target / Target not found</text>
+<line x1="470.0" y1="80.0" x2="200.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="80.0" y="120.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="200.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Напруга VDD та VTref</text>
+<text x="200.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вольтметром на пінах чіпа: 3.3 В?</text>
+<line x1="140.0" y1="180.0" x2="140.0" y2="220.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="45.0" y="220.0" width="190.0" height="50.0" rx="4" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="140.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ні (0 В або &lt;3.0 В)</text>
+<text x="140.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">КЗ, LDO вимкнено, обрив</text>
+<line x1="470.0" y1="80.0" x2="470.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="350.0" y="120.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="470.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Напруга ядра на VCAP</text>
+<text x="470.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вольтметром на VCAP: 1.2 В?</text>
+<line x1="470.0" y1="180.0" x2="470.0" y2="220.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="220.0" width="200.0" height="50.0" rx="4" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ні (0 В або шум)</text>
+<text x="470.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Забули 2.2 мкФ VCAP кераміку</text>
+<line x1="470.0" y1="80.0" x2="740.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="620.0" y="120.0" width="240.0" height="60.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="740.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Рівні на NRST та BOOT0</text>
+<text x="740.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">NRST = 3.3 В, BOOT0 = 0 В (GND)?</text>
+<line x1="740.0" y1="180.0" x2="740.0" y2="220.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="645.0" y="220.0" width="190.0" height="50.0" rx="4" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="740.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ні (NRST=0 або BOOT0=1)</text>
+<text x="740.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Залип reset, висить BOOT0</text>
+<line x1="260.0" y1="180.0" x2="260.0" y2="310.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="260.0" y1="310.0" x2="470.0" y2="310.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="590.0" y1="180.0" x2="590.0" y2="310.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="860.0" y1="180.0" x2="860.0" y2="310.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="590.0" y1="310.0" x2="860.0" y2="310.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="470.0" y1="310.0" x2="470.0" y2="340.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="340.0" width="380.0" height="65.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="470.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратні напруги в нормі! Програмний крок:</text>
+<text x="470.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Увімкнути режим «Connect under Reset»</text>
+<line x1="380.0" y1="405.0" x2="250.0" y2="445.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="90.0" y="445.0" width="320.0" height="85.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="250.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Успішне підключення!</text>
+<text x="250.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Причина: попередня прошивка спала</text>
+<text x="250.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">або ремапила піни SWDIO/SWCLK</text>
+<line x1="560.0" y1="405.0" x2="690.0" y2="445.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="445.0" width="320.0" height="85.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="690.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка читання Flash (MEM-AP error)</text>
+<text x="690.0" y="488.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Причина: активний захист RDP Level 1</text>
+<text x="690.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рішення: RDP Unlock / Mass Erase через CLI</text>
+</svg>

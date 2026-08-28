@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність апаратного замикання виробу на заводі</text>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Етапи остаточної апаратної фіксації виробу на заводському стенді</text>
+<rect x="40.0" y="65.0" width="158.0" height="175.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<circle cx="64.0" cy="89.0" r="12.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="64.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="127.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прошивання</text>
+<line x1="52.0" y1="113.0" x2="186.0" y2="113.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="119.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="119.0" dy="0.0">Запис образу в Flash</tspan><tspan x="119.0" dy="13.5">через SWD/JTAG;</tspan><tspan x="119.0" dy="13.5">верифікація CRC32/SHA</tspan></text>
+<line x1="200.0" y1="152.5" x2="216.0" y2="152.5" stroke="#333333" stroke-width="1.8"/>
+<text x="210.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<rect x="220.0" y="65.0" width="158.0" height="175.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<circle cx="244.0" cy="89.0" r="12.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="244.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<text x="307.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Калібрування</text>
+<line x1="232.0" y1="113.0" x2="366.0" y2="113.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="299.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="299.0" dy="0.0">Запис коефіцієнтів у</tspan><tspan x="299.0" dy="13.5">виділений OTP-сектор;</tspan><tspan x="299.0" dy="13.5">контрольний самотест</tspan></text>
+<line x1="380.0" y1="152.5" x2="396.0" y2="152.5" stroke="#333333" stroke-width="1.8"/>
+<text x="390.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<rect x="400.0" y="65.0" width="158.0" height="175.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<circle cx="424.0" cy="89.0" r="12.0" fill="#333333" stroke="#333333" stroke-width="1.0"/>
+<text x="424.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="487.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захист Flash</text>
+<line x1="412.0" y1="113.0" x2="546.0" y2="113.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="479.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="479.0" dy="0.0">Активація Write-Protect</tspan><tspan x="479.0" dy="13.5">для всіх секторів коду</tspan><tspan x="479.0" dy="13.5">(Option Bytes)</tspan></text>
+<line x1="560.0" y1="152.5" x2="576.0" y2="152.5" stroke="#333333" stroke-width="1.8"/>
+<text x="570.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<rect x="580.0" y="65.0" width="158.0" height="175.0" rx="8" fill="#fdf0ed" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="604.0" cy="89.0" r="12.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="604.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<text x="667.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Перепалювання</text>
+<line x1="592.0" y1="113.0" x2="726.0" y2="113.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="659.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="659.0" dy="0.0">Пропалювання eFuse / RDP Level 2;</tspan><tspan x="659.0" dy="13.5">незворотне відключення</tspan><tspan x="659.0" dy="13.5">інтерфейсу зневадження</tspan></text>
+<line x1="740.0" y1="152.5" x2="756.0" y2="152.5" stroke="#333333" stroke-width="1.8"/>
+<text x="750.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#333333" text-anchor="middle" font-weight="700">→</text>
+<rect x="760.0" y="65.0" width="158.0" height="175.0" rx="8" fill="#edf7ee" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="784.0" cy="89.0" r="12.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="784.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">5</text>
+<text x="847.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Автономний старт</text>
+<line x1="772.0" y1="113.0" x2="906.0" y2="113.0" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="839.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="839.0" dy="0.0">Холодний ребут;</tspan><tspan x="839.0" dy="13.5">перевірка роботи без</tspan><tspan x="839.0" dy="13.5">підключеного джига</tspan></text>
+<rect x="40.0" y="260.0" width="860.0" height="105.0" rx="8" fill="#fff8e7" stroke="#d48800" stroke-width="1.5"/>
+<text x="60.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b36b00" text-anchor="start" font-weight="700">⚠️ Точка неповернення: перехід у стан RDP Level 2 (eFuse)</text>
+<text x="60.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="60.0" dy="0.0">Після перепалювання апаратних фьюзів або переведення Option Bytes у стан Level 2 кристал переходить у стан остаточного замкнення.</tspan><tspan x="60.0" dy="14.2">Шина зневадження SWD/JTAG фізично відключається логікою кристала. Повернення в режим розробки або повторне зчитування прошивки</tspan><tspan x="60.0" dy="14.2">неможливе навіть за наявності фізичного доступу до виводів мікроконтролера.</tspan></text>
+</svg>

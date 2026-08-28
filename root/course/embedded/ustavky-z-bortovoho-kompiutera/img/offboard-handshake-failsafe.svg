@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="60.0" y1="400.0" x2="880.0" y2="400.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="850.0" y1="400.0" x2="890.0" y2="400.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="890.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Час t</text>
+<rect x="80.0" y="60.0" width="160.0" height="300.0" rx="6" fill="#eff6ff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="160.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Передстартовий потік</text>
+<text x="160.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SBC шле уставки (f ≥ 2 Гц)</text>
+<text x="160.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тривалість &gt; 500 мс</text>
+<text x="160.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Контролер у стані Hold/Manual</text>
+<rect x="260.0" y="60.0" width="180.0" height="300.0" rx="6" fill="#f0fdf4" stroke="#6b7280" stroke-width="1.2"/>
+<text x="350.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Запит і перехід</text>
+<text x="350.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SBC шле MAV_CMD_SET_MODE</text>
+<text x="350.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FCU перевіряє потік та EKF</text>
+<text x="350.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Режим переходить в OFFBOARD</text>
+<rect x="460.0" y="60.0" width="220.0" height="300.0" rx="6" fill="#faf5ff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="570.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Штатне ведення</text>
+<text x="570.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Безперервний потік 20–50 Гц</text>
+<text x="570.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Позиція / швидкість / кути</text>
+<text x="570.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Регулятори тримають уставку</text>
+<rect x="700.0" y="60.0" width="180.0" height="300.0" rx="6" fill="#fef2f2" stroke="#6b7280" stroke-width="1.2"/>
+<text x="790.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Обрив і Failsafe</text>
+<text x="790.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Потік перервано на &gt; 500 мс</text>
+<text x="790.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FCU спрацьовує таймаут</text>
+<text x="790.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автоматичний відкат у Hold/Land</text>
+<line x1="100.0" y1="220.0" x2="100.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="130.0" y1="220.0" x2="130.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="220.0" x2="160.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="220.0" x2="190.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="220.0" x2="220.0" y2="270.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="160.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Потік уставок (2–10 Гц)</text>
+<text x="160.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Offboard НЕ активний</text>
+<line x1="310.0" y1="200.0" x2="390.0" y2="200.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="350.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DO_SET_MODE(OFFBOARD)</text>
+<circle cx="390.0" cy="250.0" r="16.0" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="390.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">OK</text>
+<text x="350.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Підтвердження переходу</text>
+<line x1="480.0" y1="210.0" x2="480.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="210.0" x2="510.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="540.0" y1="210.0" x2="540.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="210.0" x2="570.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="210.0" x2="600.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="210.0" x2="630.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="210.0" x2="660.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="570.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стабільний потік уставок 20–50 Гц</text>
+<text x="570.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">FCU слідує за командами SBC</text>
+<line x1="710.0" y1="210.0" x2="750.0" y2="250.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="710.0" y1="250.0" x2="750.0" y2="210.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="790.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Обрив потоку!</text>
+<text x="790.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Δt &gt; COM_OF_LOSS_T (0.5 с)</text>
+<rect x="714.2" y="262.9" width="151.7" height="44.1" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="790.0" y="281.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">АВАРІЙНИЙ ВІДСПАТ</tspan><tspan x="790.0" dy="13.7">Режим AUTO_HOLD / LAND</tspan></text>
+<circle cx="80.0" cy="400.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 0</text>
+<circle cx="260.0" cy="400.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="260.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">t = 0.5 с</text>
+<circle cx="700.0" cy="400.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Збій SBC</text>
+<circle cx="760.0" cy="400.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="760.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+0.5 с</text>
+</svg>

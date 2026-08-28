@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 497.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="497.7" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Референсна схема як інженерний контракт із кремнієвим кристалом</text>
+<rect x="290.0" y="45.0" width="340.0" height="390.0" rx="10" fill="#fdfefe" stroke="#333333" stroke-width="2.0"/>
+<rect x="305.0" y="60.0" width="310.0" height="360.0" rx="8" fill="#edf2f7" stroke="#6b7280" stroke-width="1.2"/>
+<text x="460.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кремнієвий кристал МК (Silicon Die)</text>
+<text x="460.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Внутрішня архітектура підігнана під номінали</text>
+<rect x="320.0" y="120.0" width="280.0" height="50.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="460.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Внутрішній DC-DC / LDO (VCORE)</text>
+<text x="460.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ШІМ 1.2 В, стабільний лише при точному L та C</text>
+<rect x="320.0" y="180.0" width="280.0" height="50.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="460.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Генератор Пірса (HSE / LSE)</text>
+<text x="460.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Інвертор з фіксованою крутизною gm</text>
+<rect x="320.0" y="240.0" width="280.0" height="50.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="460.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Аналоговий домен (PLL / ADC)</text>
+<text x="460.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чутливий до пульсацій живлення (PSRR)</text>
+<rect x="320.0" y="300.0" width="280.0" height="48.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="460.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тригер Шмітта NRST / BOOT-семплер</text>
+<text x="460.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фіксація логічного стану в момент скидання</text>
+<rect x="320.0" y="358.0" width="280.0" height="50.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="460.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цифрове ядро та I/O кільце (VDD/VSS)</text>
+<text x="460.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Імпульсні струми перемикання di/dt &gt; 10^8 A/s</text>
+<rect x="30.0" y="45.0" width="225.0" height="185.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="142.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Фільтрація живлення</text>
+<text x="142.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">VDDA, VREF+, VCORE L/C</text>
+<text x="142.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Феритова бусина (FB)</text>
+<text x="142.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Кераміка 100 nF + 1 uF + 10 uF</text>
+<text x="142.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Котушка з запасом по Isat</text>
+<text x="142.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вимога: Z(ω) &lt; 0.1 Ом на ВЧ</text>
+<line x1="255.0" y1="145.0" x2="288.0" y2="145.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="255.0" y1="260.0" x2="288.0" y2="260.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="250.0" width="225.0" height="185.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="142.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Розподілена розв'язка</text>
+<text x="142.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Decoupling біля кожної пари</text>
+<text x="142.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• 100 nF біля кожного VDD</text>
+<text x="142.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Мінімальна петля монтажу</text>
+<text x="142.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Запобігання Ground Bounce</text>
+<text x="142.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вимога: L_trace &lt; 1 нГн</text>
+<line x1="255.0" y1="380.0" x2="288.0" y2="380.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="665.0" y="45.0" width="225.0" height="185.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="777.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Обв'язка кварцу</text>
+<text x="777.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">HSE (8–25 МГц) / LSE (32 кГц)</text>
+<text x="777.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Розрахунок CL1, CL2 (pF)</text>
+<text x="777.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Врахування C_stray (2–5 pF)</text>
+<text x="777.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Демпфуючий резистор Rd</text>
+<text x="777.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Вимога: Gain Margin ≥ 5</text>
+<line x1="665.0" y1="200.0" x2="632.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="665.0" y="250.0" width="225.0" height="185.0" rx="8" fill="#fff7ed" stroke="#c0392b" stroke-width="1.5"/>
+<text x="777.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Скидання та BOOT-піни</text>
+<text x="777.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">NRST, BOOT0, BOOT1</text>
+<text x="777.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• RC-фільтр від завад</text>
+<text x="777.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Діод швидкого розряду</text>
+<text x="777.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Жорсткі підтяжки BOOT</text>
+<text x="777.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вимога: захист від плавання</text>
+<line x1="665.0" y1="325.0" x2="632.0" y2="325.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="139.6" y="432.4" width="640.7" height="45.3" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="451.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Референсна схема — це єдиний набір граничних умов, за яких гарантовано паспортні характеристики ІС.</tspan><tspan x="460.0" dy="14.3">Будь-яка самовільна зміна ламає внутрішні зворотні зв'язки та стабільність кремнієвого кристала.</tspan></text>
+</svg>

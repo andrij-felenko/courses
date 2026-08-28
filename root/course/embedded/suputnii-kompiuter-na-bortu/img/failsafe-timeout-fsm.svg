@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="120.0" width="210.0" height="140.0" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2.0"/>
+<text x="135.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#065f46" text-anchor="middle" font-weight="700">OFFBOARD / GUIDED</text>
+<text x="135.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Штатне виконання уставок</text>
+<text x="135.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Потік команд: &gt; 2–5 Гц</text>
+<text x="135.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таймер Watchdog = 0 мс</text>
+<text x="135.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle" font-style="italic">Керування: Linux Companion</text>
+<line x1="70.0" y1="120.0" x2="70.0" y2="75.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="75.0" x2="200.0" y2="75.0" stroke="#059669" stroke-width="1.4"/>
+<line x1="200.0" y1="75.0" x2="200.0" y2="120.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="135.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">Прийом уставки → Скидання таймера</text>
+<line x1="240.0" y1="170.0" x2="310.0" y2="170.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="242.0" y="130.0" width="66.0" height="32.0" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.0"/>
+<text x="275.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">t &gt; 500 мс</text>
+<text x="275.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">Нема уставки</text>
+<rect x="310.0" y="120.0" width="220.0" height="140.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="420.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">HOLD / LOITER</text>
+<text x="420.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Утримання позиції на місці</text>
+<text x="420.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Очікування відновлення зв'язку</text>
+<text x="420.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Таймер Failsafe: 0.5 … 3.0 с</text>
+<text x="420.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-style="italic">Керування: Автономний EKF FC</text>
+<line x1="310.0" y1="220.0" x2="240.0" y2="220.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="275.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">Відновлення</text>
+<text x="275.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">потоку команд</text>
+<line x1="530.0" y1="170.0" x2="600.0" y2="170.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="534.0" y="130.0" width="62.0" height="32.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.0"/>
+<text x="565.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle" font-weight="700">t &gt; 3000 мс</text>
+<text x="565.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle">Повний збій</text>
+<rect x="600.0" y="120.0" width="210.0" height="140.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2.0"/>
+<text x="705.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">FAILSAFE: RTL / LAND</text>
+<text x="705.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Автономне повернення додому</text>
+<text x="705.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">або негайна керована посадка</text>
+<text x="705.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Ігнорування команд Companion</text>
+<text x="705.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="middle" font-style="italic">Керування: Бортовий навігатор FC</text>
+<rect x="30.0" y="295.0" width="780.0" height="80.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="420.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">ЗОЛОТЕ ПРАВИЛО БЕЗПЕКИ АВІОНІКИ: «COMPANION IS UNTRUSTED»</text>
+<text x="420.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Польотний контролер ставиться до Linux як до джерела зовнішніх порад, а не до життєво необхідного вузла.</text>
+<text x="420.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-style="italic">Будь-яке зависання, Kernel Panic чи перевантаження Linux не призводить до втрати стійкості та падіння дрона.</text>
+</svg>

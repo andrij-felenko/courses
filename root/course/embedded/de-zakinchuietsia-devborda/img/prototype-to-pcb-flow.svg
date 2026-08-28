@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="790.0" height="230.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гейти готовності прототипу до переходу на власну друковану плату (PCB)</text>
+<rect x="35.0" y="75.0" width="160.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="115.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Функціональний PoC</text>
+<line x1="45.0" y1="110.0" x2="185.0" y2="110.0" stroke="#333333" stroke-width="0.8"/>
+<text x="115.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="115.0" dy="0.0">Перевірка алгоритму</tspan><tspan x="115.0" dy="13.5">та сумісності чипів</tspan><tspan x="115.0" dy="13.5">на девборді</tspan></text>
+<line x1="198.0" y1="125.0" x2="227.0" y2="125.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="230.0" y="75.0" width="160.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="310.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Фіксація пінів</text>
+<line x1="240.0" y1="110.0" x2="380.0" y2="110.0" stroke="#333333" stroke-width="0.8"/>
+<text x="310.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="310.0" dy="0.0">Розподіл апаратних</tspan><tspan x="310.0" dy="13.5">функцій (DMA, Timers,</tspan><tspan x="310.0" dy="13.5">UART/SPI без конфліктів)</tspan></text>
+<line x1="393.0" y1="125.0" x2="422.0" y2="125.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="425.0" y="75.0" width="160.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="505.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Аудит живлення</text>
+<line x1="435.0" y1="110.0" x2="575.0" y2="110.0" stroke="#333333" stroke-width="0.8"/>
+<text x="505.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="505.0" dy="0.0">Вимір пікових струмів,</tspan><tspan x="505.0" dy="13.5">вибір джерела,</tspan><tspan x="505.0" dy="13.5">бюджет сну</tspan></text>
+<line x1="588.0" y1="125.0" x2="617.0" y2="125.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="620.0" y="75.0" width="160.0" height="100.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Схемотехніка PCB</text>
+<line x1="630.0" y1="110.0" x2="770.0" y2="110.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="700.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="700.0" dy="0.0">Додавання TVS-захисту,</tspan><tspan x="700.0" dy="13.5">фільтрів живлення,</tspan><tspan x="700.0" dy="13.5">правильних LDO</tspan></text>
+<rect x="35.0" y="190.0" width="750.0" height="40.0" rx="4" fill="#fdfefe" stroke="#d5d8dc" stroke-width="1.0"/>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Правило: переходити до трасування PCB лише тоді, коли всі 4 гейти закриті без невизначеностей.</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="460.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порозрядна розкладка 8-байтового діагностичного кадру</text>
+<rect x="30.0" y="60.0" width="780.0" height="78.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="45.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Байт 0: Прапорці статусу та код перезавантаження</text>
+<rect x="45.0" y="88.0" width="275.2" height="42.0" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<text x="182.6" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Reset Cause [7:5]</text>
+<text x="182.6" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0:POR, 1:WDT, 2:BOR, 3:Soft, 4:HardFault, 5:Pin</text>
+<rect x="326.2" y="88.0" width="87.8" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="370.1" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">LowBatt [4]</text>
+<text x="370.1" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1: V &lt; 3.0V</text>
+<rect x="420.0" y="88.0" width="87.8" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="463.9" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RadioRetry [3]</text>
+<text x="463.9" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1: PER &gt; 15%</text>
+<rect x="513.8" y="88.0" width="87.8" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="557.6" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FlashErr [2]</text>
+<text x="557.6" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1: I/O Fail</text>
+<rect x="607.5" y="88.0" width="87.8" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="651.4" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SensErr [1]</text>
+<text x="651.4" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1: I2C NACK</text>
+<rect x="701.2" y="88.0" width="87.8" height="42.0" rx="4" fill="#f3e8fd" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="745.1" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Tamper [0]</text>
+<text x="745.1" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1: Злам</text>
+<rect x="30.0" y="160.0" width="780.0" height="78.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="45.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Байт 1–2: Напруга під навантаженням та просадка (Sag)</text>
+<rect x="45.0" y="188.0" width="369.0" height="42.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="229.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">V_batt [15:8] (8 бітів)</text>
+<text x="229.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Діапазон 2000..4550 мВ з кроком 10 мВ (uint8_t)</text>
+<rect x="420.0" y="188.0" width="369.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="604.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ΔV_sag [7:0] (8 бітів)</text>
+<text x="604.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Просадка 0..510 мВ з кроком 2 мВ (R_int = ΔV / I_tx)</text>
+<rect x="30.0" y="260.0" width="780.0" height="78.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="45.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Байт 3–4: Якість зв'язку та пам'ять RTOS</text>
+<rect x="45.0" y="288.0" width="369.0" height="42.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="229.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">RSSI &amp; SNR [15:8] (8 бітів)</text>
+<text x="229.5" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">RSSI: -120..-57 dBm (6b) + SNR: -10..+5 dB (2b)</text>
+<rect x="420.0" y="288.0" width="369.0" height="42.0" rx="4" fill="#f3e8fd" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="604.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Min Free Heap [7:0] (8 бітів)</text>
+<text x="604.5" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Вільна купа: 0..64 КБ із квантом 256 байтів</text>
+<rect x="30.0" y="360.0" width="780.0" height="78.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="45.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Байт 5–7: Температура кристала та аптайм</text>
+<rect x="45.0" y="388.0" width="244.0" height="42.0" rx="4" fill="#ffedd5" stroke="#c2410c" stroke-width="1.2"/>
+<text x="167.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">MCU Temp [23:16] (8 бітів)</text>
+<text x="167.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Температура: -40..+87 °C зі зміщенням +40 (uint8_t)</text>
+<rect x="295.0" y="388.0" width="494.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2"/>
+<text x="542.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Uptime Delta [15:0] (16 бітів)</text>
+<text x="542.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дельта годин від базової епохи або інтервалів (0..65535 год)</text>
+</svg>

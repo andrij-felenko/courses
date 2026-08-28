@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема комутатора живлення слота з Soft-Start та захистом</text>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комутатор живлення слота: P-MOSFET ключ, плавний пуск та моніторинг</text>
+<rect x="30.0" y="60.0" width="440.0" height="315.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="250.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна схема комутації High-Side</text>
+<rect x="45.0" y="110.0" width="90.0" height="35.0" rx="6" fill="#fef3c7" stroke="#c0392b" stroke-width="1.4"/><text x="90.0" y="124.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">V_MAIN</tspan><tspan x="90.0" dy="11.7">+5 В / +12 В</tspan></text>
+<rect x="160.0" y="105.0" width="150.0" height="90.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<text x="235.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">P-MOSFET (AO3401 / IRF7404)</text>
+<text x="235.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_gate (100 нФ) + R_gate (100 кОм)</text>
+<text x="235.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Керує dV/dt (Soft-Start ≈ 5 мс)</text>
+<text x="235.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">N-FET драйвер затвора</text>
+<line x1="135.0" y1="128.0" x2="160.0" y2="128.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="335.0" y="110.0" width="110.0" height="45.0" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.4"/><text x="390.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">INA219 Шунт</tspan><tspan x="390.0" dy="13.0">(0.05 Ом, I2C)</tspan><tspan x="390.0" dy="13.0">Вимір I &amp; V</tspan></text>
+<line x1="310.0" y1="128.0" x2="335.0" y2="128.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="70.0" y="220.0" width="120.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/><text x="130.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">GPIO_PWR_EN</tspan><tspan x="130.0" dy="13.0">(Від MCU стійки)</tspan></text>
+<line x1="190.0" y1="238.0" x2="235.0" y2="195.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="155.0" x2="390.0" y2="220.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="325.0" y="220.0" width="130.0" height="45.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.6"/><text x="390.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Вихід VCC_DUT</tspan><tspan x="390.0" dy="14.3">До плати зразка</tspan><tspan x="390.0" dy="14.3">(Керований пуск)</tspan></text>
+<rect x="160.0" y="285.0" width="270.0" height="60.0" rx="6" fill="#fffbeb" stroke="#c0392b" stroke-width="1.2"/><text x="295.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="295.0" dy="0.0">Захисний каскад на виході:</tspan><tspan x="295.0" dy="11.7">- TVS-діод (SMAJ5.0A) проти індуктивних викидів</tspan><tspan x="295.0" dy="11.7">- Самовідновний запобіжник eFuse / PTC (2 А)</tspan></text>
+<rect x="490.0" y="60.0" width="300.0" height="315.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.6"/>
+<text x="640.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Осцилограма вхідного струму I_in</text>
+<line x1="520.0" y1="320.0" x2="760.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="520.0" y1="320.0" x2="520.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<text x="765.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">t</text>
+<text x="515.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">I (A)</text>
+<line x1="520.0" y1="320.0" x2="530.0" y2="320.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="530.0" y1="320.0" x2="535.0" y2="135.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="535.0" y1="135.0" x2="545.0" y2="300.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="545.0" y1="300.0" x2="620.0" y2="305.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="600.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Без Soft-Start: I_pk = 30 А !</text>
+<text x="600.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">(Іскріння реле, провал шини 12 В)</text>
+<line x1="520.0" y1="320.0" x2="540.0" y2="320.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="540.0" y1="320.0" x2="570.0" y2="275.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="570.0" y1="275.0" x2="620.0" y2="280.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="620.0" y1="280.0" x2="740.0" y2="305.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="640.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">З Soft-Start RC: I_pk &lt; 1.5 А</text>
+<text x="640.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">(Плавний заряд ємностей DUT)</text>
+<text x="410.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Soft-start захищає контакти комутаторів від ерозії та усуває просідання напруги на сусідніх слотах</text>
+</svg>

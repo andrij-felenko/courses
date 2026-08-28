@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="360.0" height="440.0" rx="8" fill="#f8fafc" stroke="#2563eb" stroke-width="2.0"/>
+<rect x="20.0" y="20.0" width="360.0" height="44.0" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.0"/>
+<text x="200.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">ПОЛЬОТНИЙ КОНТРОЛЕР (Hard Real-Time)</text>
+<text x="200.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle" font-style="italic">STM32H7 / NuttX / FreeRTOS (джиттер &lt; 2 мкс)</text>
+<rect x="35.0" y="95.0" width="330.0" height="48.0" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="200.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Опитування IMU (SPI @ 8 кГц)</text>
+<text x="200.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратне DMA, гіроскоп, акселерометр</text>
+<rect x="35.0" y="150.0" width="330.0" height="48.0" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="200.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оцінювач стану EKF3 (400 Гц)</text>
+<text x="200.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кватерніон орієнтації, позиція, швидкість</text>
+<rect x="35.0" y="205.0" width="330.0" height="48.0" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="200.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контури кутової швидкості PID (1–2 кГц)</text>
+<text x="200.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розрахунок моментів Roll, Pitch, Yaw</text>
+<rect x="35.0" y="260.0" width="330.0" height="48.0" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="200.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генерація DShot600 (1 кГц)</text>
+<text x="200.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ШІМ/DShot імпульси безпосередньо на ESC</text>
+<rect x="35.0" y="315.0" width="330.0" height="48.0" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="200.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аварійний Failsafe &amp; RC-приймач</text>
+<text x="200.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний монітор зв'язку, автопосадка</text>
+<rect x="35.0" y="370.0" width="330.0" height="75.0" rx="5" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+<text x="200.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">КРИТИЧНІСТЬ: АБСОЛЮТНА</text>
+<text x="200.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Затримка &gt; 5 мс → зрив контуру стабілізації</text>
+<text x="200.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">та миттєве падіння апарата</text>
+<rect x="460.0" y="20.0" width="360.0" height="440.0" rx="8" fill="#f8fafc" stroke="#059669" stroke-width="2.0"/>
+<rect x="460.0" y="20.0" width="360.0" height="44.0" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="2.0"/>
+<text x="640.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#065f46" text-anchor="middle" font-weight="700">СУПУТНІЙ КОМП'ЮТЕР (Soft Real-Time)</text>
+<text x="640.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-style="italic">Raspberry Pi CM4 / Jetson Orin / Linux OS</text>
+<rect x="475.0" y="95.0" width="330.0" height="48.0" rx="5" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="640.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Візуальна одометрія / VIO (30–60 Гц)</text>
+<text x="640.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стереокамера, оптичний потік, SLAM</text>
+<rect x="475.0" y="150.0" width="330.0" height="48.0" rx="5" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="640.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Нейромережі та Computer Vision (15–30 Гц)</text>
+<text x="640.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">YOLO, детекція об'єктів, трекінг цілі</text>
+<rect x="475.0" y="205.0" width="330.0" height="48.0" rx="5" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="640.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Планування траєкторій (10–20 Гц)</text>
+<text x="640.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Обхід перешкод, B-spline генерація шляху</text>
+<rect x="475.0" y="260.0" width="330.0" height="48.0" rx="5" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="640.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зв'язок 4G/5G, VPN, хмарна телеметрія</text>
+<text x="640.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">QMI/MBIM модеми, стрімінг H.264/H.265</text>
+<rect x="475.0" y="315.0" width="330.0" height="48.0" rx="5" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+<text x="640.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек ROS 2 / DDS мікросервіси</text>
+<text x="640.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Високорівнева логіка місії та ройова взаємодія</text>
+<rect x="475.0" y="370.0" width="330.0" height="75.0" rx="5" fill="#fefce8" stroke="#fde047" stroke-width="1.2"/>
+<text x="640.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">КРИТИЧНІСТЬ: ВТОРИННА (ДОЗВОЛЕНО ЗБІЙ)</text>
+<text x="640.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#713f12" text-anchor="middle">Затримка &gt; 50 мс через CFS/Swap не фатальна:</text>
+<text x="640.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#713f12" text-anchor="middle">контролер переходить у Loiter / Return-to-Home</text>
+<rect x="388.0" y="160.0" width="64.0" height="150.0" rx="4" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+<text x="420.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle" font-weight="700">МІСТОК</text>
+<text x="420.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">UART</text>
+<text x="420.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">921.6k / 3M</text>
+<text x="420.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CTS/RTS</text>
+<text x="420.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">або</text>
+<text x="420.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Ethernet</text>
+<text x="420.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle">MAVLink/ROS</text>
+<line x1="380.0" y1="190.0" x2="390.0" y2="190.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="190.0" x2="460.0" y2="190.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="260.0" x2="450.0" y2="260.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="260.0" x2="380.0" y2="260.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

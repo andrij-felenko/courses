@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 391.76" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="391.76" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматизований конвеєр ліцензійного аудиту та генерації SBOM у CI/CD</text>
+<rect x="25.0" y="65.0" width="140.0" height="135.0" rx="6" fill="#edf2fa" stroke="#2457d6" stroke-width="1.8"/>
+<text x="95.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a3ea1" text-anchor="middle" font-weight="700">1. Джерела</text>
+<text x="95.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вихідний код,</text>
+<text x="95.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">підмодулі Git,</text>
+<text x="95.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SPDX-теги</text>
+<line x1="167.0" y1="132.5" x2="185.0" y2="132.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="187.0" y="65.0" width="140.0" height="135.0" rx="6" fill="#f4f6f7" stroke="#7f8c8d" stroke-width="1.8"/>
+<text x="257.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#34495e" text-anchor="middle" font-weight="700">2. Збірка</text>
+<text x="257.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Компіляція й</text>
+<text x="257.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">лінкування</text>
+<text x="257.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">firmware.elf</text>
+<line x1="329.0" y1="132.5" x2="347.0" y2="132.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="349.0" y="65.0" width="140.0" height="135.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="419.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d6608" text-anchor="middle" font-weight="700">3. Аудит мапи</text>
+<text x="419.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Аналіз .map файлу</text>
+<text x="419.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">та arm-none-eabi-nm:</text>
+<text x="419.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">хто увійшов у Flash</text>
+<line x1="491.0" y1="132.5" x2="509.0" y2="132.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="511.0" y="65.0" width="140.0" height="135.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="581.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78281f" text-anchor="middle" font-weight="700">4. Шлюз правил</text>
+<text x="581.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перевірка матриці:</text>
+<text x="581.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">блокування GPLv3</text>
+<text x="581.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">і нечистих ліцензій</text>
+<line x1="653.0" y1="132.5" x2="671.0" y2="132.5" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="673.0" y="65.0" width="140.0" height="135.0" rx="6" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.8"/>
+<text x="743.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#196f3d" text-anchor="middle" font-weight="700">5. Артефакти</text>
+<text x="743.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Генерація SBOM</text>
+<text x="743.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(CycloneDX JSON)</text>
+<text x="743.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">та NOTICE.txt</text>
+<rect x="25.0" y="225.0" width="790.0" height="115.0" rx="6" fill="#fcfcfc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="45.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#196f3d" text-anchor="start" font-weight="700">Обов'язкові артефакти юридично чистого релізу прошивки:</text>
+<text x="45.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• sbom-firmware.cdx.json / spdx.json — машинночитний паспорт компонентів (хеші, ліцензії, версії, CPE/PURL).</text>
+<text x="45.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• THIRD_PARTY_NOTICES.txt — повний зведений текст ліцензій (MIT, BSD, Apache-2.0) для інструкції або веб-сервера.</text>
+<text x="45.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• flash_license_table.bin — вбудована таблиця атрибуції у службовій секції Flash для виводу через CLI-консоль.</text>
+<text x="420.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Конвеєр автоматично ламає збірку в CI, якщо розробник підключив несумісну копілефтну бібліотеку</text>
+</svg>

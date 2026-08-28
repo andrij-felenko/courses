@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два потоки даних монтажу: де виникає фатальна розбіжність</text>
+<rect x="50.0" y="70.0" width="340.0" height="160.0" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="220.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">BOM (Відомість матеріалів)</text>
+<text x="220.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Відповідає на питання: «ЩО ЗАКУПИТИ ТА ВСТАНОВИТИ»</text>
+<line x1="64.0" y1="126.0" x2="376.0" y2="126.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="66.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• D1: 1N4148WS (Діод SOD-323)</text>
+<text x="66.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• U3: STM32G030F6P6 (TSSOP-20)</text>
+<text x="66.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• R12: 10k 0402 1% [DNP / Не монтувати]</text>
+<text x="66.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• C5: 100nF 0402 16V X7R</text>
+<rect x="450.0" y="70.0" width="340.0" height="160.0" rx="6" fill="#f3faf5" stroke="#27ae60" stroke-width="1.6"/>
+<text x="620.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Pick-and-Place (CPL / Centroid)</text>
+<text x="620.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Відповідає на питання: «ДЕ Й ЯК РОЗМІСТИТИ НА ПЛАТІ»</text>
+<line x1="464.0" y1="126.0" x2="776.0" y2="126.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="466.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• D1: X=14.25, Y=22.80, Rot=180.0°, Top</text>
+<text x="466.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• U3: X=45.10, Y=30.00, Rot=90.0°, Top</text>
+<text x="466.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• R12: (присутній у файлі з кутом 0°)</text>
+<text x="466.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• C5: X=48.20, Y=32.50, Rot=0.0°, Top</text>
+<rect x="50.0" y="252.0" width="740.0" height="84.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="420.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">КРИТИЧНІ МІСЦЯ РОЗБІЖНОСТІ (Автоматичний брак під час монтажу)</text>
+<text x="70.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Поворот 0° у CAD проти стрічки живильника: діод запаяно катодом навпаки (180° mismatch).</text>
+<text x="70.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Відсутність синхронізації DNP: PnP автомат шукає котушку для R12 або змонтує непотрібний резистор.</text>
+<line x1="220.0" y1="234.0" x2="220.0" y2="248.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="234.0" x2="620.0" y2="248.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="352.0" width="740.0" height="36.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/><text x="420.0" y="373.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Рішення: автоматична перехресна валідація BOM і CPL скриптом до відправки + складальне креслення з чіткими мітками полярності.</tspan></text>
+</svg>

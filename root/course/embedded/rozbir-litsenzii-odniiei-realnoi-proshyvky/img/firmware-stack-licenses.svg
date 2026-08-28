@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія прошивки польотного контролера: 7 шарів і ліцензійні режими</text>
+<rect x="20.0" y="58.0" width="800.0" height="58.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="36.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#78281f" text-anchor="start" font-weight="700">Шар 6: Застосунок</text>
+<text x="36.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Місія дрона, бізнес-логіка, протокол телеметрії</text>
+<rect x="518.0" y="70.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="663.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">Власна комерційна (All Rights Reserved)</text>
+<rect x="20.0" y="123.0" width="800.0" height="58.0" rx="5" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="36.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#512e5f" text-anchor="start" font-weight="700">Шар 5: Керування й DSP</text>
+<text x="36.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Власний алгоритм FOC двигунів + CMSIS-DSP + Madgwick AHRS</text>
+<rect x="518.0" y="135.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="663.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#512e5f" text-anchor="middle" font-weight="700">Власна закрита / Apache-2.0 / MIT</text>
+<rect x="20.0" y="188.0" width="800.0" height="58.0" rx="5" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="36.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#196f3d" text-anchor="start" font-weight="700">Шар 4: Мережа й сервіси</text>
+<text x="36.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Стек lwIP + криптографія mbedTLS + ФС FatFS + TinyUSB</text>
+<rect x="518.0" y="200.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="663.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">BSD-3-Clause / Apache-2.0 / ChaN / MIT</text>
+<rect x="20.0" y="253.0" width="800.0" height="58.0" rx="5" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="36.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#196f3d" text-anchor="start" font-weight="700">Шар 3: ОСРЧ (Kernel)</text>
+<text x="36.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">FreeRTOS Kernel (планувальник задач, семафори, черги)</text>
+<rect x="518.0" y="265.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="663.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">MIT License (Amazon FreeRTOS)</text>
+<rect x="20.0" y="318.0" width="800.0" height="58.0" rx="5" fill="#eaf5ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="36.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#196f3d" text-anchor="start" font-weight="700">Шар 2: HAL та драйвери</text>
+<text x="36.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">ARM CMSIS Core + STM32Cube HAL периферії (UART/SPI/DMA)</text>
+<rect x="518.0" y="330.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="663.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#196f3d" text-anchor="middle" font-weight="700">Apache-2.0 / BSD-3-Clause (ST SLA0048)</text>
+<rect x="20.0" y="383.0" width="800.0" height="58.0" rx="5" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="36.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d6608" text-anchor="start" font-weight="700">Шар 1: Закритий блоб</text>
+<text x="36.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Бінарний радіомодуль Wi-Fi/BLE (libphy.a, libcoexist.a)</text>
+<rect x="518.0" y="395.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#d4ac0d" stroke-width="1.2"/>
+<text x="663.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle" font-weight="700">Пропрієтарна EULA чипмейкера (без коду)</text>
+<rect x="20.0" y="448.0" width="800.0" height="58.0" rx="5" fill="#f4f6f7" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="36.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#34495e" text-anchor="start" font-weight="700">Шар 0: Кремнієвий ROM</text>
+<text x="36.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Масковий апаратний завантажувач чипа (незмінний у Flash)</text>
+<rect x="518.0" y="460.0" width="290.0" height="34.0" rx="4" fill="#ffffff" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="663.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#34495e" text-anchor="middle" font-weight="700">Апаратна власність виробника кремнію</text>
+<text x="420.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Усі шари збираються лінкером в один монолітний бінарник: ліцензійні вимоги діють одночасно</text>
+</svg>

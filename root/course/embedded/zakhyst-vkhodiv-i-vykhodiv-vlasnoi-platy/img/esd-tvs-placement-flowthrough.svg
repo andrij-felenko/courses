@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розміщення TVS-діодів: трасування швидкісних ліній та шлях розряду</text>
+<rect x="30.0" y="45.0" width="410.0" height="320.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="235.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ПОГАНО: TVS далеко, довгі відводи (stubs)</text>
+<rect x="50.0" y="110.0" width="65.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="82.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB</text>
+<text x="82.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Port</text>
+<rect x="340.0" y="110.0" width="80.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU /</text>
+<text x="380.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PHY</text>
+<line x1="115.0" y1="145.0" x2="340.0" y2="145.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="115.0" y1="195.0" x2="340.0" y2="195.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="220.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">D+ (швидкісний сигнал)</text>
+<text x="220.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">D−</text>
+<line x1="240.0" y1="145.0" x2="240.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<line x1="260.0" y1="195.0" x2="260.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<rect x="220.0" y="260.0" width="60.0" height="50.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TVS</text>
+<text x="250.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Array</text>
+<line x1="250.0" y1="310.0" x2="250.0" y2="340.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="235.0" y1="340.0" x2="265.0" y2="340.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="240.0" y1="345.0" x2="260.0" y2="345.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="245.0" y1="350.0" x2="255.0" y2="350.0" stroke="#333333" stroke-width="1.0"/>
+<text x="300.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">L_stub ≈ 5–10 нГн</text>
+<text x="300.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">V_peak = L · (di/dt)</text>
+<rect x="39.5" y="312.9" width="391.1" height="44.1" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="235.0" y="331.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">Імпульс ESD (di/dt = 30 А / 1 нс) створює сплеск у сотні вольт</tspan><tspan x="235.0" dy="13.7">на індуктивності відводів і пробиває кристал MCU.</tspan></text>
+<rect x="480.0" y="45.0" width="410.0" height="320.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="685.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ДОБРЕ: TVS на роз'ємі, Flow-Through монтаж</text>
+<rect x="500.0" y="110.0" width="65.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="532.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">USB</text>
+<text x="532.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Port</text>
+<rect x="590.0" y="125.0" width="60.0" height="90.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="620.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">TVS</text>
+<text x="620.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">&lt; 0.5 pF</text>
+<line x1="620.0" y1="215.0" x2="620.0" y2="255.0" stroke="#27ae60" stroke-width="3.0"/>
+<circle cx="620.0" cy="265.0" r="8.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="655.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">GND via</text>
+<rect x="790.0" y="110.0" width="80.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="830.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">MCU /</text>
+<text x="830.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PHY</text>
+<line x1="565.0" y1="145.0" x2="590.0" y2="145.0" stroke="#27ae60" stroke-width="3.0"/>
+<line x1="650.0" y1="145.0" x2="790.0" y2="145.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="565.0" y1="195.0" x2="590.0" y2="195.0" stroke="#27ae60" stroke-width="3.0"/>
+<line x1="650.0" y1="195.0" x2="790.0" y2="195.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="720.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Чистий сигнал D+</text>
+<text x="720.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">D−</text>
+<text x="620.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">0 мм відвід (Flow-through)</text>
+<rect x="507.4" y="312.9" width="355.2" height="44.1" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="685.0" y="331.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Розряд скидається в землю ще на вході в плату.</tspan><tspan x="685.0" dy="13.7">Відсутність відводів виключає індуктивний викид напруги.</tspan></text>
+<rect x="86.2" y="376.8" width="747.6" height="46.5" rx="6" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/><text x="460.0" y="396.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Золоте правило ESD-захисту: TVS-збірка монтується впритул до пінів роз'єму. Траса сигналу проходить прямо крізь</tspan><tspan x="460.0" dy="15.0">майданчики компонента без Т-подібних відводів (stubs), а вивід GND з'єднується з полігоном мінімальною петлею.</tspan></text>
+</svg>

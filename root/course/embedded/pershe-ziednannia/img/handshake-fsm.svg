@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поетапний конвеєр первинного рукостискання GCS та автопілота</text>
+<rect x="32.0" y="100.0" width="164.0" height="210.0" rx="8" fill="#eef8f2" stroke="#27ae60" stroke-width="2.0"/>
+<text x="114.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. Виявлення серцебиття</text>
+<line x1="42.0" y1="140.0" x2="186.0" y2="140.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="114.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="114.0" dy="0.0">HEARTBEAT (#0)</tspan><tspan x="114.0" dy="13.5">sysid, compid, MAV_TYPE,</tspan><tspan x="114.0" dy="13.5">MAV_AUTOPILOT, base_mode</tspan></text>
+<line x1="198.0" y1="205.0" x2="212.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="214.0" y="100.0" width="164.0" height="210.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="296.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. Вичитка параметрів</text>
+<line x1="224.0" y1="140.0" x2="368.0" y2="140.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="296.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="296.0" dy="0.0">PARAM_REQUEST_LIST (#21)</tspan><tspan x="296.0" dy="13.5">потік PARAM_VALUE (#22)</tspan><tspan x="296.0" dy="13.5">дозапит пропущених індексів</tspan></text>
+<line x1="380.0" y1="205.0" x2="394.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="396.0" y="100.0" width="164.0" height="210.0" rx="8" fill="#f5eef8" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="478.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">3. Налаштування потоків</text>
+<line x1="406.0" y1="140.0" x2="550.0" y2="140.0" stroke="#8e44ad" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="478.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="478.0" dy="0.0">MAV_CMD_SET_MESSAGE_INTERVAL</tspan><tspan x="478.0" dy="13.5">ATTITUDE (20 Гц), POS (5 Гц),</tspan><tspan x="478.0" dy="13.5">SYS_STATUS (1 Гц), BATTERY (1 Гц)</tspan></text>
+<line x1="562.0" y1="205.0" x2="576.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="578.0" y="100.0" width="164.0" height="210.0" rx="8" fill="#fef5ec" stroke="#d35400" stroke-width="2.0"/>
+<text x="660.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">4. Синхронізація місії</text>
+<line x1="588.0" y1="140.0" x2="732.0" y2="140.0" stroke="#d35400" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="660.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="660.0" dy="0.0">MISSION_REQUEST_LIST (#43)</tspan><tspan x="660.0" dy="13.5">MISSION_COUNT (#44) → ITEMS (#73)</tspan><tspan x="660.0" dy="13.5">фінал: MISSION_ACK (#47)</tspan></text>
+<line x1="744.0" y1="205.0" x2="758.0" y2="205.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="760.0" y="100.0" width="164.0" height="210.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="842.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. Робочий стан (READY)</text>
+<line x1="770.0" y1="140.0" x2="914.0" y2="140.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="842.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="842.0" dy="0.0">Фоновий HEARTBEAT (1 Гц)</tspan><tspan x="842.0" dy="13.5">контроль таймаутів лінка (3 с)</tspan><tspan x="842.0" dy="13.5">відображення телеметрії</tspan></text>
+<rect x="32.0" y="350.0" width="876.0" height="90.0" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="470.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захисні механізми кожного ступеня конвеєра</text>
+<text x="470.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="470.0" dy="0.0">• Немає HEARTBEAT &gt; 3.5 с → перехід у LINK_LOST, скидання готовності оператора</tspan><tspan x="470.0" dy="13.5">• Втрата окремих пакетів параметрів/місії → виявлення дірок у бітовій масці та дозапит за індексом</tspan><tspan x="470.0" dy="13.5">• Перевищення ліміту повторів (5 спроб) → сповіщення про помилку ініціалізації без блокування UI</tspan></text>
+</svg>

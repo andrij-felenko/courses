@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна топологія шин і периферії польотного контролера (STM32)</text>
+<rect x="280.0" y="60.0" width="380.0" height="480.0" rx="12" fill="#f8fafc" stroke="#6b7280" stroke-width="1.8"/>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер STM32 (F4 / F7 / H7)</text>
+<rect x="305.0" y="102.0" width="330.0" height="70.0" rx="6" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="470.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cortex-M Core + DMA Controller + NVIC</text>
+<text x="470.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Внутрішня шинна матриця (AHB / APB1 / APB2)</text>
+<rect x="300.0" y="190.0" width="340.0" height="52.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/>
+<text x="315.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">SPI1 / SPI4</text>
+<text x="315.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Високошвидкісні шини (до 42 МГц)</text>
+<rect x="300.0" y="260.0" width="340.0" height="52.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/>
+<text x="315.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">SPI2 / SPI3</text>
+<text x="315.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Допоміжні шини пам'яті та OSD</text>
+<rect x="300.0" y="330.0" width="340.0" height="52.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+<text x="315.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">I2C1 / I2C2</text>
+<text x="315.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Шина повільних сенсорів (400 кГц)</text>
+<rect x="300.0" y="400.0" width="340.0" height="52.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.3"/>
+<text x="315.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="start" font-weight="700">UART1..UART8</text>
+<text x="315.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Послідовні порти зв'язку</text>
+<rect x="300.0" y="470.0" width="340.0" height="52.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+<text x="315.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">TIM1..TIM8</text>
+<text x="315.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Апаратні таймери (PWM / DShot)</text>
+<rect x="25.0" y="130.0" width="225.0" height="52.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/>
+<text x="35.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">Головний IMU</text>
+<text x="35.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">ICM-42688-P / BMI270 (8 кГц)</text>
+<line x1="250.0" y1="156.0" x2="300.0" y2="156.0" stroke="#0284c7" stroke-width="1.5"/>
+<rect x="25.0" y="200.0" width="225.0" height="52.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/>
+<text x="35.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">Резервний IMU / Flash</text>
+<text x="35.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">W25Q128 Flash / OSD MAX7456</text>
+<line x1="250.0" y1="226.0" x2="300.0" y2="226.0" stroke="#0284c7" stroke-width="1.5"/>
+<rect x="25.0" y="270.0" width="225.0" height="52.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+<text x="35.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Магнітометр + Барометр</text>
+<text x="35.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">IST8310 + DPS310 (I2C)</text>
+<line x1="250.0" y1="296.0" x2="300.0" y2="296.0" stroke="#d97706" stroke-width="1.5"/>
+<rect x="25.0" y="340.0" width="225.0" height="52.0" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.3"/>
+<text x="35.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">DroneCAN Вузол</text>
+<text x="35.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">CAN Transceiver / 1 Мбіт/с</text>
+<line x1="250.0" y1="366.0" x2="300.0" y2="366.0" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="690.0" y="130.0" width="225.0" height="52.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.3"/>
+<text x="700.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="start" font-weight="700">RC-приймач (CRSF / ELRS)</text>
+<text x="700.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">UART1 / 420–921 кбод</text>
+<line x1="640.0" y1="156.0" x2="690.0" y2="156.0" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="690.0" y="200.0" width="225.0" height="52.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.3"/>
+<text x="700.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="start" font-weight="700">GNSS Модуль + GPS</text>
+<text x="700.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">UART3 / 115.2–921.6 кбод</text>
+<line x1="640.0" y1="226.0" x2="690.0" y2="226.0" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="690.0" y="270.0" width="225.0" height="52.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.3"/>
+<text x="700.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="start" font-weight="700">Цифровий VTX / OSD</text>
+<text x="700.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">UART6 / MSP DisplayPort</text>
+<line x1="640.0" y1="296.0" x2="690.0" y2="296.0" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="690.0" y="340.0" width="225.0" height="52.0" rx="6" fill="#f3e8ff" stroke="#9333ea" stroke-width="1.3"/>
+<text x="700.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="start" font-weight="700">ESC Телеметрія</text>
+<text x="700.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">UART4 / Напівдуплекс</text>
+<line x1="640.0" y1="366.0" x2="690.0" y2="366.0" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="690.0" y="410.0" width="225.0" height="52.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+<text x="700.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">Мотори 1..4 (DShot)</text>
+<text x="700.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">TIM1 / DMA Burst DShot600</text>
+<line x1="640.0" y1="436.0" x2="690.0" y2="436.0" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="690.0" y="480.0" width="225.0" height="52.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+<text x="700.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="start" font-weight="700">LED Strip / Buzzer</text>
+<text x="700.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">TIM3 / PWM / WS2812B</text>
+<line x1="640.0" y1="506.0" x2="690.0" y2="506.0" stroke="#16a34a" stroke-width="1.5"/>
+</svg>

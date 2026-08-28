@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат безпечного арбітражу та обробки MANUAL_CONTROL на борті</text>
+<rect x="115.0" y="88.4" width="170.0" height="63.2" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="200.0" y="108.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">RC_ACTIVE</tspan><tspan x="200.0" dy="15.6">Прямий RC-лінк</tspan><tspan x="200.0" dy="15.6">(Найвищий пріоритет)</tspan></text>
+<rect x="539.6" y="88.4" width="220.9" height="63.2" rx="6" fill="#eaf2fc" stroke="#2457d6" stroke-width="1.5"/><text x="650.0" y="108.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">GCS_MANUAL_ACTIVE</tspan><tspan x="650.0" dy="15.6">Прийом MANUAL_CONTROL #69</tspan><tspan x="650.0" dy="15.6">(Пакет свіжий: dt &lt; 200 мс)</tspan></text>
+<rect x="528.4" y="278.4" width="243.2" height="63.2" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/><text x="650.0" y="298.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">STICK_DEGRADE</tspan><tspan x="650.0" dy="15.6">Лаг пакета (200..1000 мс)</tspan><tspan x="650.0" dy="15.6">Нейтралізація осей + Утримання</tspan></text>
+<rect x="89.6" y="278.4" width="220.9" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="298.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">HARD_FAILSAFE</tspan><tspan x="200.0" dy="15.6">Повна втрата (dt &gt; 1000 мс)</tspan><tspan x="200.0" dy="15.6">Перехід у RTL / Land / Hold</tspan></text>
+<line x1="285.0" y1="110.0" x2="545.0" y2="110.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="425.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RC у нулі + GCS активний</text>
+<line x1="545.0" y1="135.0" x2="285.0" y2="135.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="425.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рух стіка RC (ПЕРЕХОПЛЕННЯ)</text>
+<line x1="650.0" y1="155.0" x2="650.0" y2="275.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">dt &gt; 200 мс
+(лаг / зависання)</text>
+<line x1="610.0" y1="275.0" x2="610.0" y2="155.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="602.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end">dt &lt; 50 мс
+(відновлення)</text>
+<line x1="540.0" y1="310.0" x2="295.0" y2="310.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="425.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">dt &gt; 1000 мс (немає пакетів)</text>
+<line x1="200.0" y1="275.0" x2="200.0" y2="155.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="190.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end">Команда з RC</text>
+<rect x="23.5" y="429.5" width="893.0" height="31.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="448.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Принцип безпеки: GCS ніколи не може заблокувати апаратний RC; при зависанні софту станції осі скидаються в нуль до включення RTL</tspan></text>
+</svg>

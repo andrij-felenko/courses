@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Утримання точки на воді: орієнтація носа за течією та гістерезис мертвої зони</text>
+<defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2457d6"/></marker><marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#27ae60"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/></marker></defs>
+<text x="470.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Утримання позиції на воді (Virtual Anchor) без перегріву моторів</text>
+<text x="470.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">орієнтація носа проти панівної сили, зона мертвого ходу (deadband) та імпульсна тяга</text>
+<circle cx="280.0" cy="265.0" r="150.0" fill="#fef2f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="280.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зовнішній радіус R_outer (активне повернення)</text>
+<circle cx="280.0" cy="265.0" r="75.0" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="280.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Мертва зона R_inner (мотори ВИМК)</text>
+<circle cx="280.0" cy="265.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="288.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Ціль (Waypoint)</text>
+<line x1="100.0" y1="125.0" x2="100.0" y2="345.0" stroke="#2457d6" stroke-width="2.6" marker-end="url(#arrB)" stroke-linecap="round"/>
+<text x="100.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Сумарний вектор</text>
+<text x="100.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">течії й вітру (F_env)</text>
+<path d="M 295 268 Q 309 294 307 320 L 283 320 L 283 320 Q 281 294 295 268 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="295.0" cy="300.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="295.0" y1="266.0" x2="295.0" y2="232.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrG)" stroke-linecap="round"/>
+<text x="303.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Імпульс тяги</text>
+<line x1="295.0" y1="322.0" x2="295.0" y2="350.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrB)" stroke-linecap="round"/>
+<text x="303.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">вільний дрейф</text>
+<rect x="570.0" y="86.0" width="340.0" height="180.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.4"/>
+<text x="740.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✗ НАЇВНИЙ ПІД-РЕГУЛЯТОР</text>
+<text x="586.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Мотори вмикаються на кожне коливання ±5 см</text>
+<text x="586.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Постійна зміна напрямку гвинтів (реверс)</text>
+<text x="586.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Струмове навантаження &gt; 80% часу</text>
+<text x="586.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Результат: перегрів ESC і розряд АКБ за 15 хв</text>
+<rect x="570.0" y="280.0" width="340.0" height="180.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/>
+<text x="740.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">✓ ДВОЗОННИЙ ВІРТУАЛЬНИЙ ЯКІР</text>
+<text x="586.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 1. Курс фіксується суворо назустріч течії</text>
+<text x="586.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 2. У зоні R_inner мотори вимкнені (дрейф)</text>
+<text x="586.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 3. На межі R_outer — імпульс тяги 3..5 с</text>
+<text x="586.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 4. Шпаруватість (duty cycle) &lt; 20% часу</text>
+<text x="586.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Результат: робота годинами без перегріву</text>
+<text x="470.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Ключовий принцип віртуального якоря: мінімізувати опір носом проти течії й використовувати дрейф у мертвій зоні замість постійного гудіння моторами.</text>
+</svg>

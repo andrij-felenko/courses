@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія пакета випуску: образ, криптографічний маніфест і SBOM</text>
+<rect x="40.0" y="60.0" width="860.0" height="410.0" rx="10" fill="#fafbfc" stroke="#333333" stroke-width="2.0"/>
+<text x="60.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Пакет релізу: release-v2.4.0-bundle.tar.gz (або підписаний OTA-контейнер)</text>
+<rect x="70.0" y="105.0" width="340.0" height="345.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="240.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Двійковий образ (firmware.bin)</text>
+<rect x="80.0" y="141.0" width="320.0" height="62.0" rx="4" fill="#eaf0fd" stroke="#6b7280" stroke-width="1.0"/>
+<text x="88.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Заголовок Secure Boot (128 B)</text>
+<text x="88.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start"><tspan x="88.0" dy="0.0">Magic 0x53424F54, версія v2.4.0,</tspan><tspan x="88.0" dy="10.8">anti-rollback counter, прапорці</tspan></text>
+<rect x="80.0" y="211.0" width="320.0" height="48.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.0"/>
+<text x="88.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Таблиця векторів переривань (1 KB)</text>
+<text x="88.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start"><tspan x="88.0" dy="0.0">Початковий SP, Reset_Handler, ISR</tspan></text>
+<rect x="80.0" y="267.0" width="320.0" height="80.0" rx="4" fill="#f9fbfd" stroke="#6b7280" stroke-width="1.0"/>
+<text x="88.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Тіло прошивки (.text, .rodata, .data)</text>
+<text x="88.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start"><tspan x="88.0" dy="0.0">Машинний код застосунку Cortex-M,</tspan><tspan x="88.0" dy="10.8">константи, ініціалізовані змінні</tspan></text>
+<rect x="80.0" y="355.0" width="320.0" height="54.0" rx="4" fill="#fdecea" stroke="#6b7280" stroke-width="1.0"/>
+<text x="88.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Криптографічний підпис (64 B)</text>
+<text x="88.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start"><tspan x="88.0" dy="0.0">ECDSA (secp256r1) / Ed25519</tspan><tspan x="88.0" dy="10.8">підпис гешу образу завантажувачем</tspan></text>
+<rect x="450.0" y="105.0" width="420.0" height="160.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="660.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Криптографічний маніфест (manifest.json)</text>
+<text x="468.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="468.0" dy="0.0">• product_id, target_hw: [&quot;rev_B&quot;, &quot;rev_C&quot;]</tspan><tspan x="468.0" dy="13.5">• version: 2.4.0, min_secure_version: 3 (anti-rollback)</tspan><tspan x="468.0" dy="13.5">• sha256_digest: a7f8c9... (хеш двійкового образу)</tspan><tspan x="468.0" dy="13.5">• signature: base64 (підпис маніфесту ключем релізу)</tspan></text>
+<rect x="450.0" y="285.0" width="420.0" height="165.0" rx="6" fill="#ffffff" stroke="#7b2cbf" stroke-width="1.8"/>
+<text x="660.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7b2cbf" text-anchor="middle" font-weight="700">SBOM (CycloneDX) та SLSA атестація</text>
+<text x="468.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="468.0" dy="0.0">• Перелік компонентів (FreeRTOS v10.5.1, mbedTLS v3.4.0)</tspan><tspan x="468.0" dy="13.5">• Хеш закріпленого тулчейну (arm-none-eabi-gcc 13.2.rel1)</tspan><tspan x="468.0" dy="13.5">• SLSA Provenance: посилання на коміт, конвеєр і раннер</tspan></text>
+</svg>

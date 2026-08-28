@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="25.0" y="25.0" width="790.0" height="340.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="175.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Зовнішній світ: фізичне середовище польоту</text>
+<rect x="50.0" y="70.0" width="460.0" height="275.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="180.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1. Просторовий домен (3D Geofence)</text>
+<text x="180.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Радіус: ≤ 1200 м, Висота: 20–120 м AGL</text>
+<rect x="70.0" y="135.0" width="420.0" height="195.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="200.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#3b82f6" text-anchor="middle" font-weight="700">2. Сенсорні та погодні межі (ODD)</text>
+<text x="200.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вітер: ≤ 10 м/с, Освітленість: ≥ 150 люкс</text>
+<text x="200.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Похибка EKF: інновації давачів &lt; 2.0σ</text>
+<rect x="90.0" y="220.0" width="380.0" height="95.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="2.2"/>
+<text x="280.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. ЗОНА ПОВНОЇ АВТОНОМІЇ (Bounded)</text>
+<text x="280.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Самостійне прийняття рішень та політ без втручання</text>
+<rect x="535.0" y="70.0" width="260.0" height="275.0" rx="8" fill="#fff1f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="665.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Захисний арбітр (Safety Arbiter)</text>
+<line x1="550.0" y1="108.0" x2="780.0" y2="108.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="550.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Вихід за геозону:</text>
+<text x="550.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">↳ Повернення на базу (RTH)</text>
+<text x="550.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Пориви вітру &gt; 12 м/с:</text>
+<text x="550.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">↳ Зниження / Зависання</text>
+<text x="550.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Обрив зв'язку &gt; 3 с:</text>
+<text x="550.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">↳ Детермінована програма</text>
+<text x="550.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Деградація сенсорів:</text>
+<text x="550.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">↳ Аварійна посадка (Land)</text>
+<line x1="490.0" y1="175.0" x2="535.0" y2="175.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="512.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">порушення</text>
+<line x1="470.0" y1="265.0" x2="535.0" y2="265.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="502.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">відмова</text>
+</svg>

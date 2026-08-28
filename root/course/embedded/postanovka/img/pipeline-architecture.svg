@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний конвеєр IoT: розподіл обов'язків від вузла до панелі</text>
+<rect x="20.0" y="80.0" width="145.0" height="190.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="92.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ВУЗОЛ (Node)</text>
+<line x1="30.0" y1="118.0" x2="155.0" y2="118.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="32.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вимірювання давача</text>
+<text x="32.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Локальний буфер</text>
+<text x="32.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Керування сном</text>
+<text x="32.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• LoRa / NB-IoT / 485</text>
+<line x1="169.0" y1="175.0" x2="186.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="190.0" y="80.0" width="145.0" height="190.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="262.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ШЛЮЗ (Gateway)</text>
+<line x1="200.0" y1="118.0" x2="325.0" y2="118.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="202.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Концентратор радіо</text>
+<text x="202.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Міст у TCP/IP</text>
+<text x="202.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Офлайн-черга</text>
+<text x="202.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• TLS-клієнт</text>
+<line x1="339.0" y1="175.0" x2="356.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.0" y="80.0" width="145.0" height="190.0" rx="6" fill="#fff7e6" stroke="#b8860b" stroke-width="2.0"/>
+<text x="432.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">БРОКЕР (Broker)</text>
+<line x1="370.0" y1="118.0" x2="495.0" y2="118.0" stroke="#b8860b" stroke-width="1.0"/>
+<text x="372.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Декупулювання</text>
+<text x="372.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Маршрутизація тем</text>
+<text x="372.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Сесії та LWT</text>
+<text x="372.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Черги доставки</text>
+<line x1="509.0" y1="175.0" x2="526.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="530.0" y="80.0" width="145.0" height="190.0" rx="6" fill="#f3e8fd" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="602.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">СЛУЖБА (Service)</text>
+<line x1="540.0" y1="118.0" x2="665.0" y2="118.0" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="542.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Дедуплікація</text>
+<text x="542.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Валідація пакетів</text>
+<text x="542.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Правила й алерти</text>
+<text x="542.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Декодування одиниць</text>
+<line x1="679.0" y1="175.0" x2="696.0" y2="175.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="80.0" width="145.0" height="190.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="772.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">СХОВИЩЕ + UI</text>
+<line x1="710.0" y1="118.0" x2="835.0" y2="118.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="712.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• TSDB (телеметрія)</text>
+<text x="712.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• PostgreSQL (метадані)</text>
+<text x="712.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• REST / WebSocket</text>
+<text x="712.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Панель оператора</text>
+<rect x="20.0" y="290.0" width="315.0" height="65.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="177.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПОЛЬОВИЙ КРАЙ (Field Edge)</text>
+<text x="177.5" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Нестабільний зв'язок · жорсткий енергобюджет</text>
+<rect x="360.0" y="290.0" width="485.0" height="65.0" rx="4" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="602.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ХМАРНЕ / СЕРВЕРНЕ ЯДРО (Cloud &amp; Core)</text>
+<text x="602.5" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Постійне живлення · масштабованість · збереження історії</text>
+</svg>

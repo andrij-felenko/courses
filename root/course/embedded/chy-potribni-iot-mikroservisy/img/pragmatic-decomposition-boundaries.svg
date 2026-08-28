@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прагматична декомпозиція: точкове винесення важких та ризикованих компонентів</text>
+<rect x="235.0" y="65.0" width="370.0" height="350.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+<text x="420.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">ОСНОВНИЙ МОНОЛІТ (CORE RUNTIME)</text>
+<text x="420.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Критичний шлях телеметрії (Hot Path)</text>
+<rect x="250.0" y="135.0" width="340.0" height="54.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="420.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ingestion &amp; Connection Pool</text>
+<text x="420.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стійкий пул TCP/TLS сокетів</text>
+<rect x="250.0" y="200.0" width="340.0" height="54.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="420.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Device State &amp; Digital Twin</text>
+<text x="420.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оперативний стан у RAM</text>
+<rect x="250.0" y="265.0" width="340.0" height="54.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="420.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ACID Database &amp; Batcher</text>
+<text x="420.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пакетний запис у TimescaleDB</text>
+<rect x="250.0" y="330.0" width="340.0" height="54.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="420.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Downlink Command Queue</text>
+<text x="420.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль доставки та тайм-аути</text>
+<rect x="24.0" y="110.0" width="180.0" height="260.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<text x="114.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">ІЗОЛЬОВАНІ АДАПТЕРИ</text>
+<text x="114.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Unsafe / Sandboxes)</text>
+<rect x="34.0" y="175.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.1"/>
+<text x="114.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Legacy Modbus</text>
+<text x="114.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Нестабільні парсери</text>
+<rect x="34.0" y="233.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.1"/>
+<text x="114.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Custom Decoders</text>
+<text x="114.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C-бібліотеки вендорів</text>
+<rect x="34.0" y="291.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.1"/>
+<text x="114.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Raw UDP Telemetry</text>
+<text x="114.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ризик Segfault / витоків</text>
+<rect x="636.0" y="110.0" width="180.0" height="260.0" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.6"/>
+<text x="726.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">ВАЖКІ АНАЛІТИЧНІ ВОРКЕРИ</text>
+<text x="726.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(GPU / ML / Workers)</text>
+<rect x="646.0" y="175.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.1"/>
+<text x="726.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Computer Vision</text>
+<text x="726.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GPU-ноди розпізнавання</text>
+<rect x="646.0" y="233.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.1"/>
+<text x="726.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">ML Anomaly Detectors</text>
+<text x="726.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PyTorch / ONNX воркери</text>
+<rect x="646.0" y="291.0" width="160.0" height="50.0" rx="4" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.1"/>
+<text x="726.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">PDF / CSV Reports</text>
+<text x="726.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Генерація важких звітів</text>
+<line x1="204.0" y1="240.0" x2="235.0" y2="240.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="227.0" y1="240.0" x2="235.0" y2="240.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="219.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">IPC</text>
+<line x1="605.0" y1="240.0" x2="636.0" y2="240.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="628.0" y1="240.0" x2="636.0" y2="240.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="620.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">NATS</text>
+<text x="420.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Винесенню підлягають лише компоненти з ризиком аварії або відмінним профілем споживання ресурсів (GPU/CPU)</text>
+</svg>
