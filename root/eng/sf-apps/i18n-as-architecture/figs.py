@@ -193,12 +193,164 @@ def fig_format_pipeline():
                   title="Форму обирають правила локалі, а не код")
 
 
+def fig_resource_compilation():
+    """Компіляція ресурсів інтернаціоналізації: від джерел до двійкового блобу у Flash."""
+    W, H = 960, 470
+    F = []
+
+    # ── 1. Вхідні джерела (ліворуч)
+    F.append(text(140, 42, "Вихідні текстові джерела", size=14, bold=True))
+    F.append(fitbox(20, 60, 240, 78, "Каталоги перекладів\n(.po / .json / ICU .txt)\nmsgid / msgstr · контексти", size=12, fill=FILL))
+    F.append(fitbox(20, 154, 240, 78, "Дані локалей CLDR\n(XML / JSON cldr-core)\nправила множини · формати", size=12, fill=FILL))
+    F.append(fitbox(20, 248, 240, 78, "Конфігурація збірки\n(список цільових мов,\nобмеження Flash / RAM)", size=12, fill=FILL))
+
+    # ── 2. Офлайн-компілятор (посередині)
+    cx, cy, cw, ch = 310, 60, 290, 266
+    F.append(rect(cx, cy, cw, ch, fill=AMBER_FILL, stroke=FIELD, sw=2.0))
+    F.append(text(cx + cw / 2, cy + 28, "Офлайн-пакувальник ресурсів", size=14, bold=True))
+    F.append(text(cx + cw / 2, cy + 46, "(i18n-compiler / msgfmt)", size=11, color=MUTED, italic=True))
+
+    steps = [
+        "1. Перевірка плейсхолдерів {0}, {name}",
+        "2. Хешування ключів (MurmurHash3 / FNV-1a)",
+        "3. Компіляція множин у байткод VM",
+        "4. Дедуплікація однакових рядків UTF-8",
+        "5. Вирівнювання адрес під 4-байтне XIP"
+    ]
+    sy = cy + 64
+    for st in steps:
+        F.append(fitbox(cx + 12, sy, cw - 24, 32, st, size=11, fill=BG, stroke=MUTED, sw=1.0))
+        sy += 38
+
+    # Стрілки від джерел до компілятора
+    F.append(arrow(260, 99, 310, 99, color=LINE, sw=1.6))
+    F.append(arrow(260, 193, 310, 193, color=LINE, sw=1.6))
+    F.append(arrow(260, 287, 310, 287, color=LINE, sw=1.6))
+
+    # ── 3. Двійковий блоб у Flash (праворуч)
+    bx, by, bw, bh = 650, 60, 290, 266
+    F.append(rect(bx, by, bw, bh, fill=BLUE_FILL, stroke=NEG, sw=2.0))
+    F.append(text(bx + bw / 2, by + 28, "Двійковий образ у Flash (.bin / .mo)", size=14, bold=True))
+
+    blob_sections = [
+        ("Заголовок (Magic: 0x4931384E, версія, зміщення)", GREEN_FILL),
+        ("Таблиця локалей (ID, прапорці, оффсети множин)", BG),
+        ("Хеш-індекс ключів (відсортовані хеші → оффсети)", BG),
+        ("Пул байткоду правил множини (CLDR bytecode)", BG),
+        ("Пул рядків UTF-8 (вирівняні null-terminated)", GREEN_FILL)
+    ]
+    bly = by + 44
+    for bname, bfill in blob_sections:
+        F.append(fitbox(bx + 12, bly, bw - 24, 36, bname, size=11, fill=bfill, stroke=NEG, sw=1.2))
+        bly += 42
+
+    # Стрілка від компілятора до образу
+    F.append(arrow(cx + cw, 193, bx, 193, color=LINE, sw=2.0))
+
+    # ── Нижня зона: виконання під час роботи (Runtime Zero-RAM Copy)
+    rx, ry, rw, rh = 20, 360, 920, 85
+    F.append(rect(rx, ry, rw, rh, fill=GREEN_FILL, stroke=FIELD, sw=2.2))
+    F.append(text(rx + 24, ry + 28, "Виконання у вбудованій системі (XIP / Zero-RAM Copy)", size=14, anchor="start", bold=True))
+    F.append(mtext(rx + 24, ry + 52, [
+        "• Образ відображається безпосередньо в адресний простір мікроконтролера (Memory Mapped Flash / ROM).",
+        "• Пошук рядка за хешем виконується бінарним пошуком O(log N) прямо у Flash без виділення купи (heap: 0 B).",
+        "• Форматувальник підставляє аргументи у статичний буфер на стеку — нуль динамічних алокацій."
+    ], size=11, color=INK, anchor="start", lh=1.4))
+
+    # Стрілка від Flash образу до Runtime
+    F.append(arrow(bx + bw / 2, by + bh, bx + bw / 2, ry, color=FIELD, sw=2.2))
+
+    return render(os.path.join(IMG, "i18n-resource-compilation.svg"), W, H, *F,
+                  title="Компіляція ресурсів інтернаціоналізації для Flash")
+
+
+def fig_font_atlas():
+    """Розкладка шрифтового атласу та дескрипторів символів у Flash і RAM."""
+    W, H = 960, 460
+    F = []
+
+    # ── Лівий блок: Структура шрифту у Flash (ROM)
+    fx, fy, fw, fh = 20, 40, 440, 390
+    F.append(rect(fx, fy, fw, fh, fill=FILL, stroke=LINE, sw=1.8))
+    F.append(text(fx + fw / 2, fy + 26, "Шрифтовий ресурс у Flash пам'яті (ROM)", size=14, bold=True))
+
+    sections = [
+        (fy + 44, 52, "Заголовок шрифту (Font Header)\nMagic · Ascent · Descent · LineGap · BPP (1/2/4/8) · GlyphCount", BLUE_FILL),
+        (fy + 104, 56, "Таблиця індексу кодових точок (Codepoint Map)\nUnicode Range / Sorted Codepoint Array → Glyph Index", GREEN_FILL),
+        (fy + 168, 70, "Таблиця дескрипторів гліфів (Glyph Metrics Table)\nstruct { uint8_t w, h; int8_t off_x, off_y, adv_x; uint32_t bmp_off; }\nЗсуви, розміри бітмапу та крок курсора (Advance X)", AMBER_FILL),
+        (fy + 246, 70, "Таблиця парного кернінгу (Kerning Pairs Table)\nstruct { uint16_t left, right; int8_t adjust_x; }\nОпціональні поправки між парами символів (напр. 'AV', 'To')", BG),
+        (fy + 324, 54, "Пул растрових бітмапів / SDF атлас (Bitmap Stream)\nЩільно упаковані біти 1-bpp (монохром) або 4/8-bpp (згладжування)", GREEN_FILL)
+    ]
+
+    for sy, sh, label, fill in sections:
+        F.append(fitbox(fx + 12, sy, fw - 24, sh, label, size=11, fill=fill, stroke=LINE, sw=1.2))
+
+    # ── Правий блок: Геометрія гліфа та рендеринг у фреймбуфер
+    rx, ry, rw, rh = 500, 40, 440, 390
+    F.append(rect(rx, ry, rw, rh, fill=FILL, stroke=LINE, sw=1.8))
+    F.append(text(rx + rw / 2, ry + 26, "Геометрія гліфа та відмалювання в Display RAM", size=14, bold=True))
+
+    # Схема метрик гліфа
+    mx, my, mw, mh = rx + 30, ry + 50, 380, 200
+    F.append(rect(mx, my, mw, mh, fill=BG, stroke=MUTED, sw=1.0, rx=4))
+
+    # Базова лінія та допоміжні лінії
+    base_y = my + 130
+    ascent_y = my + 35
+    descent_y = my + 175
+    F.append(line(mx + 20, base_y, mx + mw - 20, base_y, color=NEG, sw=1.8, dash="4 3"))
+    F.append(text(mx + mw - 15, base_y + 4, "Baseline", size=10, color=NEG, anchor="start", italic=True))
+
+    F.append(line(mx + 20, ascent_y, mx + mw - 20, ascent_y, color=MUTED, sw=1.2, dash="3 3"))
+    F.append(text(mx + mw - 15, ascent_y + 4, "Ascent", size=10, color=MUTED, anchor="start", italic=True))
+
+    F.append(line(mx + 20, descent_y, mx + mw - 20, descent_y, color=MUTED, sw=1.2, dash="3 3"))
+    F.append(text(mx + mw - 15, descent_y + 4, "Descent", size=10, color=MUTED, anchor="start", italic=True))
+
+    # Рамка самого гліфа (Bounding Box)
+    gx, gy, gw, gh = mx + 90, ascent_y + 20, 110, 105
+    F.append(rect(gx, gy, gw, gh, fill=BLUE_FILL, stroke=FIELD, sw=2.0))
+    F.append(text(gx + gw / 2, gy + gh / 2 + 16, "A", size=64, color=INK, bold=True))
+
+    # Позначення метрик
+    # Bearing X (відступ зліва)
+    F.append(line(mx + 50, my + 20, mx + 50, descent_y + 10, color=POS, sw=1.5))
+    F.append(arrow(mx + 50, gy + 30, gx, gy + 30, color=POS, sw=1.5))
+    F.append(text(mx + 70, gy + 22, "Bearing X", size=10, color=POS))
+
+    # Advance X
+    adv_x = mx + 240
+    F.append(line(adv_x, my + 20, adv_x, descent_y + 10, color=POS, sw=1.5))
+    F.append(arrow(mx + 50, my + 20, adv_x, my + 20, color=POS, sw=1.5))
+    F.append(text((mx + 50 + adv_x) / 2, my + 14, "Advance Width (крок курсора)", size=11, color=POS, bold=True))
+
+    # Опис взаємодії
+    F.append(fitbox(rx + 12, ry + 265, rw - 24, 110,
+                    "Алгоритм виводу рядка (Display Blit Pipeline):\n"
+                    "1. Декодування UTF-8 кодової точки → бінарний пошук у Codepoint Map.\n"
+                    "2. Зчитування дескриптора з Flash (w, h, off_x, off_y, adv_x).\n"
+                    "3. Попіксельне накладання бітів з Flash Bitmap Stream у Framebuffer.\n"
+                    "4. Зсув курсора: cursor_x += (adv_x + kerning_adjust).",
+                    size=11, fill=AMBER_FILL, stroke=FIELD, sw=1.5))
+
+    # Стрілка між Flash дескриптором і рендером
+    F.append(arrow(fx + fw, fy + 200, rx, ry + 150, color=FIELD, sw=2.2))
+
+    return render(os.path.join(IMG, "font-atlas-memory-layout.svg"), W, H, *F,
+                  title="Розкладка шрифтового атласу та метрик у Flash")
+
+
 if __name__ == "__main__":
     p1 = fig_boundary()
     p2 = fig_plurals()
     p3 = fig_hist_timeline()
     p4 = fig_format_pipeline()
+    p5 = fig_resource_compilation()
+    p6 = fig_font_atlas()
     print("written:", p1)
     print("written:", p2)
     print("written:", p3)
     print("written:", p4)
+    print("written:", p5)
+    print("written:", p6)
+

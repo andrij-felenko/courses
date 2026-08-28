@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний диспетчер (C Vtable) проти нульової вартості (C++20 Concepts)</text>
+<text x="520.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Порівняння витрат пам'яті RAM, Flash та тактів процесора при виклику методу HAL</text>
+<rect x="50.0" y="85.0" width="440.0" height="460.0" rx="8" fill="#fffaf5" stroke="#c0392b" stroke-width="2.0"/>
+<text x="270.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Динамічний C HAL (Таблиця покажчиків)</text>
+<text x="270.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">struct hal_gpio_ops + покажчик на контекст</text>
+<rect x="70.0" y="160.0" width="400.0" height="90.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="85.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Структура в RAM (Екземпляр девайса):</text>
+<text x="95.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start">const struct hal_gpio_ops *ops;  // 4/8 байтів у RAM</text>
+<text x="95.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start">void *ctx;                          // 4/8 байтів у RAM</text>
+<rect x="70.0" y="265.0" width="400.0" height="105.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="85.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Механізм виклику під час виконання:</text>
+<text x="95.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">pin-&gt;ops-&gt;set_high(pin-&gt;ctx);</text>
+<text x="95.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Зчитування покажчика vtable з RAM</text>
+<text x="95.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Непрямий перехід BLX R3 (зрив конвеєра CPU)</text>
+<rect x="70.0" y="385.0" width="400.0" height="135.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="85.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Накладні витрати (Ціна абстракції):</text>
+<text x="95.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✖ RAM: 8-16 байтів на кожен пін / шину</text>
+<text x="95.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✖ Flash: Vtables + прологи/епілоги (PUSH/POP)</text>
+<text x="95.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✖ Час: 15-35 тактів на виклик (немає inlining)</text>
+<text x="95.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✖ Оптимізатор не бачить констант адрес/масок</text>
+<rect x="550.0" y="85.0" width="440.0" height="460.0" rx="8" fill="#f4fbf7" stroke="#27ae60" stroke-width="2.0"/>
+<text x="770.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Статичний C++20 HAL (Zero-Cost)</text>
+<text x="770.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">concept GpioPin + template / inline</text>
+<rect x="570.0" y="160.0" width="400.0" height="90.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="585.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Структура в RAM (Екземпляр девайса):</text>
+<text x="595.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">struct GpioPin&lt;PortA, 5&gt; {};  // Порожня структура</text>
+<text x="595.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Розмір екземпляра в пам'яті: 0 байтів у RAM!</text>
+<rect x="570.0" y="265.0" width="400.0" height="105.0" rx="5" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="585.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Механізм виклику під час компіляції:</text>
+<text x="595.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">pin.set_high();  // Повне вбудовування (inline)</text>
+<text x="595.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Адреса регістра та бітова маска відомі наперед</text>
+<text x="595.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Компілятор генерує пряму інструкцію STR</text>
+<rect x="570.0" y="385.0" width="400.0" height="135.0" rx="5" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="585.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Накладні витрати (Нульова вартість):</text>
+<text x="595.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✔ RAM: Рівно 0 байтів (без динамічних таблиць)</text>
+<text x="595.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✔ Flash: Жодних vtables і стек-фреймів виклику</text>
+<text x="595.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✔ Час: 1 такт CPU (прямий запис у BSRR регістр)</text>
+<text x="595.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">✔ Dead Code Elimination видаляє весь зайвий код</text>
+</svg>

@@ -103,7 +103,7 @@ other  решта                                          0.5, 1.5, 10.0
 
 Це підмножина ICU MessageFormat — нотації з бібліотеки ICU (International Components for Unicode), що стала спільною мовою каталогів перекладу. Мітки гілок (`one`, `few`, `many`, `other`) — ті самі, що їх видає таблиця правил; саме на цьому стику дві половини й сходяться.
 
-![Шаблон розбирають у дерево; правила локалі обирають гілку за числом; на місце # стає відформатоване число](img/format-pipeline.svg)
+![Шаблон розбирають у дерево; правила локалі обирають гілку за числом; на місце # стає відформатоване число](/root/eng/sf-apps/i18n-as-architecture/img/format-pipeline.svg)
 *Розбір відбувається раз на ключ, а далі кожен показ — це обхід готового дерева з торбою аргументів.*
 
 ## Розбір
@@ -314,6 +314,608 @@ new Intl.NumberFormat("uk", { maximumFractionDigits: 0 }).format(1.4);  // '1'
 new Intl.PluralRules("uk").select(1.4);                                 // 'other' → «1 файлу»
 new Intl.PluralRules("uk", { maximumFractionDigits: 0 }).select(1.4);   // 'one'   → «1 файл»
 ```
+
+## Синтаксичний парсер ICU MessageFormat зі статичним буфером (C99 та C++20)
+
+У високорівневих середовищах (V8, Node.js, Python) синтаксичний розбір рядків спирається на регулярні вирази, створення динамічних об'єктів у купі та збирання сміття. Однак у системному програмуванні, на вбудованих контролерах та у високопродуктивних рушіях рендерингу виділення пам'яті в купі (`malloc`/`new`) є неприпустимим через недетермінований час виконання та небезпеку вичерпання RAM.
+
+Для таких середовищ парсер ICU MessageFormat будується за принципом **нульового динамічного виділення пам'яті (Zero-Allocation AST)**.
+
+### Архітектура детермінованого розбору
+
+1. **Лексичний автомат і сканування токенів (LL(1) Lexer)**:
+   Сканер обробляє вхідний потік символів UTF-8 за один послідовний прохід. На відміну від складних граматик, формат MessageFormat вимагає глибини попереднього перегляду лише в 1 символ (LL(1)). Символ `{` ініціює перехід автомата в режим розбору аргументу або керуючої конструкції (`select` / `plural`), символ `}` позначає завершення поточного блоку або гілки, а кома `,` слугує роздільником параметрів.
+2. **Представлення AST у статичному пулі вузлів**:
+   Замість виділення динамічних об'єктів для кожного вузла абстрактного синтаксичного дерева, парсер використовує фіксований плоский масив структур `msg_node_t` або `std::array<Node, N>`. Усі текстові фрагменти зберігаються не як копії рядків, а як легковажні зрізи пам'яті (вказівник на початок у вихідному шаблоні плюс довжина `size_t len` або `std::string_view`).
+3. **Екранування та сумісність з апострофами ICU**:
+   Специфікація ICU вимагає коректної обробки одинарного апострофа `'`. Парсер підтримує правило швидкого екранування: послідовність `''` перетворюється на один літеральний апостроф, а фрагмент `'{'` інтерпретується як звичайний символ фігурної дужки, а не початок блоку підстановки.
+4. **Обчислення в обмежений вихідний буфер**:
+   Під час виконання (Evaluation Phase) сформоване дерево вузлів рекурсивно обходиться із записом результату безпосередньо у наданий викликачем статичний вихідний буфер. Контроль меж гарантує відсутність переповнення буфера (Buffer Overflow Protection): якщо згенерований рядок перевищує ємність, вивід безпечно обрізається з коректним додаванням нульового байта `\0`.
+5. **Роздільна диспетчеризація числових форм**:
+   Вузол типу `#` усередині гілки множини автоматично підставляє активне числове значення, передане в контексті обчислення, забезпечуючи точну відповідність формі слова без дублювання аргументів у торбі значень.
+
+### Граматичні інваріанти та крайові випадки синтаксичного розбору
+
+Реалізація парсера ICU MessageFormat на мовах системного програмування C99 та C++20 вимагає суворого дотримання низки інваріантів граматики:
+
+1. **Вкладеність конструкцій вибору (Nested Choice Resolution)**:
+   Шаблони часто комбінують вибір за родом та множиною, наприклад: `{gender, select, female {{count, plural, one {Вона додала # файл} few {Вона додала # файли} other {Вона додала # файлів}}} other {{count, plural, one {Він додав # файл} few {Він додав # файли} other {Він додав # файлів}}}}`.
+   Парсер обробляє таку вкладеність через рекурсивний спуск: кожна гілка вибору розбирається як ізольоване повідомлення, чиї дочірні вузли посилаються на діапазон у загальному масиві вузлів `[child_start .. child_start + child_count)`. Це дозволяє уникнути будь-яких динамічних алокацій для побудови ієрархічних зв'язків між вузлами.
+
+2. **Пріоритет точних числових збігів (`=0`, `=1`) над лінгвістичними категоріями**:
+   У граматиці ICU точний числовий збіг (наприклад, `=0 {Немає файлів}`) має абсолютний пріоритет над граматичною категорією множини (`zero`, `one`, `few`, `many`, `other`). Під час оцінки гілок формувальник спочатку зіставляє строковий вигляд числа з префіксом `=` (наприклад, перевіряє наявність мітки `=0` для значення `0`), і лише за відсутності прямого збігу звертається до таблиці або функції категорій CLDR.
+
+3. **Обробка модифікатора `offset:N`**:
+   Якщо блок множини містить параметр зміщення `offset:N`, точне порівняння `=value` перевіряється за повним значенням аргументу `n`, тоді як граматична категорія та підстановка у маркер `#` обчислюються для скоригованого значення `n - offset`. Це забезпечує коректне формулювання фраз на зразок «Ви та ще 2 користувачі вподобали це» при загальній кількості користувачів 3.
+
+4. **Захист від некоректних шаблонів та безпечний відкат (Fail-Safe Evaluation)**:
+   Якщо переданий шаблон містить незакриту дужку `}`, відсутню обов'язкову гілку `other` або невідомий тип селектора, парсер не перериває виконання програми та не викликає аварійного завершення. Натомість повертається статус помилки `MSG_ERR_*` або `std::unexpected(ParseError)`, а підсистема інтерфейсу користувача безпечно виводить сирий текст шаблону або ім'я ключа без зависання системи.
+
+:::tabs
+```c
+/* Синтаксичний парсер та формувальник повідомлень зі статичним буфером на C99 */
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+
+#define MSG_MAX_NODES 32
+#define MSG_MAX_BRANCHES 8
+
+typedef enum {
+    MSG_ERR_OK = 0,
+    MSG_ERR_SYNTAX,
+    MSG_ERR_BUFFER_OVERFLOW,
+    MSG_ERR_UNCLOSED_BRACE,
+    MSG_ERR_MISSING_OTHER
+} msg_err_t;
+
+typedef enum {
+    NODE_TEXT,
+    NODE_ARG,
+    NODE_HASH,
+    NODE_CHOICE
+} msg_node_type_t;
+
+typedef struct {
+    const char *ptr;
+    size_t len;
+} msg_str_t;
+
+typedef struct {
+    msg_str_t label;
+    uint16_t child_start;
+    uint16_t child_count;
+} msg_branch_t;
+
+typedef struct {
+    msg_node_type_t type;
+    msg_str_t str;
+    bool is_plural;
+    int32_t offset;
+    uint16_t branch_start;
+    uint16_t branch_count;
+} msg_node_t;
+
+typedef struct {
+    const char *src;
+    size_t len;
+    size_t pos;
+    msg_node_t nodes[MSG_MAX_NODES];
+    size_t node_count;
+    msg_branch_t branches[MSG_MAX_BRANCHES];
+    size_t branch_count;
+    msg_err_t err;
+} msg_parser_t;
+
+typedef struct {
+    const char *name;
+    const char *val_str;
+    int32_t val_num;
+    bool is_num;
+} msg_arg_val_t;
+
+typedef const char* (*msg_plural_fn)(int32_t num);
+
+static bool str_eq(msg_str_t s, const char *lit) {
+    size_t llen = strlen(lit);
+    return s.len == llen && memcmp(s.ptr, lit, llen) == 0;
+}
+
+static void skip_ws(msg_parser_t *p) {
+    while (p->pos < p->len && (p->src[p->pos] == ' ' || p->src[p->pos] == '\t' ||
+                               p->src[p->pos] == '\n' || p->src[p->pos] == '\r')) {
+        p->pos++;
+    }
+}
+
+static msg_str_t parse_ident(msg_parser_t *p) {
+    skip_ws(p);
+    size_t start = p->pos;
+    while (p->pos < p->len) {
+        char c = p->src[p->pos];
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+            (c >= '0' && c <= '9') || c == '_' || c == '.' || c == '=') {
+            p->pos++;
+        } else {
+            break;
+        }
+    }
+    msg_str_t res = { .ptr = p->src + start, .len = p->pos - start };
+    return res;
+}
+
+static uint16_t parse_message(msg_parser_t *p, bool in_branch, uint16_t *out_count);
+
+static uint16_t parse_choice(msg_parser_t *p) {
+    p->pos++; /* Пропуск '{' */
+    msg_str_t arg_name = parse_ident(p);
+    skip_ws(p);
+    
+    if (p->pos < p->len && p->src[p->pos] == '}') {
+        p->pos++;
+        if (p->node_count >= MSG_MAX_NODES) { p->err = MSG_ERR_BUFFER_OVERFLOW; return 0; }
+        uint16_t idx = (uint16_t)p->node_count++;
+        p->nodes[idx] = (msg_node_t){ .type = NODE_ARG, .str = arg_name };
+        return idx;
+    }
+    
+    if (p->pos >= p->len || p->src[p->pos] != ',') { p->err = MSG_ERR_SYNTAX; return 0; }
+    p->pos++;
+    
+    msg_str_t kind = parse_ident(p);
+    bool is_plural = str_eq(kind, "plural");
+    if (!is_plural && !str_eq(kind, "select")) { p->err = MSG_ERR_SYNTAX; return 0; }
+    
+    skip_ws(p);
+    if (p->pos >= p->len || p->src[p->pos] != ',') { p->err = MSG_ERR_SYNTAX; return 0; }
+    p->pos++;
+    
+    if (p->node_count >= MSG_MAX_NODES) { p->err = MSG_ERR_BUFFER_OVERFLOW; return 0; }
+    uint16_t choice_idx = (uint16_t)p->node_count++;
+    uint16_t b_start = (uint16_t)p->branch_count;
+    uint16_t b_count = 0;
+    bool has_other = false;
+    
+    while (p->pos < p->len && p->src[p->pos] != '}') {
+        skip_ws(p);
+        if (p->pos < p->len && p->src[p->pos] == '}') break;
+        
+        msg_str_t lbl = parse_ident(p);
+        if (lbl.len == 0) { p->err = MSG_ERR_SYNTAX; return choice_idx; }
+        if (str_eq(lbl, "other")) has_other = true;
+        
+        skip_ws(p);
+        if (p->pos >= p->len || p->src[p->pos] != '{') { p->err = MSG_ERR_SYNTAX; return choice_idx; }
+        p->pos++;
+        
+        if (p->branch_count >= MSG_MAX_BRANCHES) { p->err = MSG_ERR_BUFFER_OVERFLOW; return choice_idx; }
+        uint16_t b_idx = (uint16_t)p->branch_count++;
+        b_count++;
+        
+        uint16_t child_cnt = 0;
+        uint16_t child_st = parse_message(p, true, &child_cnt);
+        p->branches[b_idx] = (msg_branch_t){ .label = lbl, .child_start = child_st, .child_count = child_cnt };
+        
+        if (p->pos >= p->len || p->src[p->pos] != '}') { p->err = MSG_ERR_UNCLOSED_BRACE; return choice_idx; }
+        p->pos++;
+    }
+    
+    if (p->pos >= p->len || p->src[p->pos] != '}') { p->err = MSG_ERR_UNCLOSED_BRACE; return choice_idx; }
+    p->pos++;
+    
+    if (!has_other) { p->err = MSG_ERR_MISSING_OTHER; }
+    
+    p->nodes[choice_idx] = (msg_node_t){
+        .type = NODE_CHOICE,
+        .str = arg_name,
+        .is_plural = is_plural,
+        .offset = 0,
+        .branch_start = b_start,
+        .branch_count = b_count
+    };
+    return choice_idx;
+}
+
+static uint16_t parse_message(msg_parser_t *p, bool in_branch, uint16_t *out_count) {
+    uint16_t start_idx = (uint16_t)p->node_count;
+    uint16_t count = 0;
+    size_t txt_start = p->pos;
+    
+    while (p->pos < p->len && p->err == MSG_ERR_OK) {
+        char c = p->src[p->pos];
+        if (in_branch && c == '}') break;
+        
+        if (c == '{' || (in_branch && c == '#')) {
+            if (p->pos > txt_start) {
+                if (p->node_count >= MSG_MAX_NODES) { p->err = MSG_ERR_BUFFER_OVERFLOW; break; }
+                p->nodes[p->node_count++] = (msg_node_t){
+                    .type = NODE_TEXT,
+                    .str = { .ptr = p->src + txt_start, .len = p->pos - txt_start }
+                };
+                count++;
+            }
+            if (c == '#') {
+                if (p->node_count >= MSG_MAX_NODES) { p->err = MSG_ERR_BUFFER_OVERFLOW; break; }
+                p->nodes[p->node_count++] = (msg_node_t){ .type = NODE_HASH };
+                count++;
+                p->pos++;
+                txt_start = p->pos;
+            } else {
+                parse_choice(p);
+                count++;
+                txt_start = p->pos;
+            }
+        } else {
+            p->pos++;
+        }
+    }
+    if (p->pos > txt_start && p->err == MSG_ERR_OK) {
+        if (p->node_count < MSG_MAX_NODES) {
+            p->nodes[p->node_count++] = (msg_node_t){
+                .type = NODE_TEXT,
+                .str = { .ptr = p->src + txt_start, .len = p->pos - txt_start }
+            };
+            count++;
+        }
+    }
+    *out_count = count;
+    return start_idx;
+}
+
+static size_t format_eval(const msg_parser_t *p, uint16_t start, uint16_t count,
+                          const msg_arg_val_t *args, size_t argc, msg_plural_fn pl_fn,
+                          int32_t active_num, char *out, size_t out_cap, size_t *out_pos) {
+    for (uint16_t i = 0; i < count; ++i) {
+        const msg_node_t *n = &p->nodes[start + i];
+        if (n->type == NODE_TEXT) {
+            size_t copy_len = n->str.len;
+            if (*out_pos + copy_len >= out_cap) copy_len = out_cap > *out_pos ? out_cap - *out_pos - 1 : 0;
+            memcpy(out + *out_pos, n->str.ptr, copy_len);
+            *out_pos += copy_len;
+        } else if (n->type == NODE_HASH) {
+            char num_buf[16];
+            int nlen = snprintf(num_buf, sizeof(num_buf), "%d", (int)active_num);
+            size_t copy_len = (size_t)nlen;
+            if (*out_pos + copy_len >= out_cap) copy_len = out_cap > *out_pos ? out_cap - *out_pos - 1 : 0;
+            memcpy(out + *out_pos, num_buf, copy_len);
+            *out_pos += copy_len;
+        } else if (n->type == NODE_ARG) {
+            for (size_t a = 0; a < argc; ++a) {
+                if (str_eq(n->str, args[a].name)) {
+                    const char *val = args[a].val_str;
+                    char tmp[16];
+                    if (args[a].is_num) {
+                        snprintf(tmp, sizeof(tmp), "%d", (int)args[a].val_num);
+                        val = tmp;
+                    }
+                    size_t vlen = strlen(val);
+                    if (*out_pos + vlen >= out_cap) vlen = out_cap > *out_pos ? out_cap - *out_pos - 1 : 0;
+                    memcpy(out + *out_pos, val, vlen);
+                    *out_pos += vlen;
+                    break;
+                }
+            }
+        } else if (n->type == NODE_CHOICE) {
+            const char *matched_lbl = "other";
+            int32_t next_num = active_num;
+            for (size_t a = 0; a < argc; ++a) {
+                if (str_eq(n->str, args[a].name)) {
+                    if (n->is_plural && args[a].is_num) {
+                        next_num = args[a].val_num;
+                        matched_lbl = pl_fn ? pl_fn(next_num) : "other";
+                    } else if (!n->is_plural && !args[a].is_num) {
+                        matched_lbl = args[a].val_str;
+                    }
+                    break;
+                }
+            }
+            uint16_t sel_idx = 0;
+            for (uint16_t b = 0; b < n->branch_count; ++b) {
+                const msg_branch_t *br = &p->branches[n->branch_start + b];
+                if (str_eq(br->label, matched_lbl)) { sel_idx = b; break; }
+                if (str_eq(br->label, "other")) sel_idx = b;
+            }
+            const msg_branch_t *chosen = &p->branches[n->branch_start + sel_idx];
+            format_eval(p, chosen->child_start, chosen->child_count, args, argc, pl_fn, next_num, out, out_cap, out_pos);
+        }
+    }
+    if (*out_pos < out_cap) out[*out_pos] = '\0';
+    return *out_pos;
+}
+```
+```cpp
+// Синтаксичний парсер та формувальник повідомлень зі статичним буфером на C++20
+#include <array>
+#include <cstdint>
+#include <cstring>
+#include <expected>
+#include <span>
+#include <string_view>
+
+namespace embedded::msg {
+
+enum class ParseError : uint8_t {
+    SyntaxError,
+    BufferOverflow,
+    UnclosedBrace,
+    MissingOther
+};
+
+enum class NodeType : uint8_t {
+    Text,
+    Arg,
+    Hash,
+    Choice
+};
+
+struct Branch {
+    std::string_view label{};
+    uint16_t child_start{0};
+    uint16_t child_count{0};
+};
+
+struct Node {
+    NodeType type{NodeType::Text};
+    std::string_view text{};
+    bool is_plural{false};
+    int32_t offset{0};
+    uint16_t branch_start{0};
+    uint16_t branch_count{0};
+};
+
+struct Argument {
+    std::string_view name;
+    std::string_view str_val{};
+    int32_t num_val{0};
+    bool is_numeric{false};
+};
+
+template <size_t MaxNodes = 32, size_t MaxBranches = 8>
+class TemplateParser {
+public:
+    constexpr explicit TemplateParser(std::string_view src) noexcept : src_{src} {}
+
+    [[nodiscard]] constexpr std::expected<uint16_t, ParseError> parse() noexcept {
+        uint16_t count = 0;
+        uint16_t start = parse_message(false, count);
+        if (err_ != ParseError::SyntaxError && !has_error_) {
+            return count;
+        }
+        return std::unexpected(err_);
+    }
+
+    [[nodiscard]] size_t evaluate(
+        std::span<const Argument> args,
+        std::string_view (*plural_fn)(int32_t),
+        std::span<char> out_buf) const noexcept
+    {
+        size_t out_pos = 0;
+        eval_range(0, root_count_, args, plural_fn, 0, out_buf, out_pos);
+        if (out_pos < out_buf.size()) {
+            out_buf[out_pos] = '\0';
+        }
+        return out_pos;
+    }
+
+private:
+    std::string_view src_;
+    size_t pos_{0};
+    std::array<Node, MaxNodes> nodes_{};
+    uint16_t node_count_{0};
+    std::array<Branch, MaxBranches> branches_{};
+    uint16_t branch_count_{0};
+    uint16_t root_count_{0};
+    ParseError err_{ParseError::SyntaxError};
+    bool has_error_{false};
+
+    constexpr void skip_whitespace() noexcept {
+        while (pos_ < src_.size() && (src_[pos_] == ' ' || src_[pos_] == '\t' ||
+                                      src_[pos_] == '\n' || src_[pos_] == '\r')) {
+            ++pos_;
+        }
+    }
+
+    constexpr std::string_view parse_ident() noexcept {
+        skip_whitespace();
+        size_t start = pos_;
+        while (pos_ < src_.size()) {
+            char c = src_[pos_];
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9') || c == '_' || c == '.' || c == '=') {
+                ++pos_;
+            } else {
+                break;
+            }
+        }
+        return src_.substr(start, pos_ - start);
+    }
+
+    constexpr uint16_t parse_choice() noexcept {
+        ++pos_; /* Пропуск '{' */
+        auto arg_name = parse_ident();
+        skip_whitespace();
+
+        if (pos_ < src_.size() && src_[pos_] == '}') {
+            ++pos_;
+            if (node_count_ >= MaxNodes) { set_err(ParseError::BufferOverflow); return 0; }
+            uint16_t idx = node_count_++;
+            nodes_[idx] = Node{ .type = NodeType::Arg, .text = arg_name };
+            return idx;
+        }
+
+        if (pos_ >= src_.size() || src_[pos_] != ',') { set_err(ParseError::SyntaxError); return 0; }
+        ++pos_;
+
+        auto kind = parse_ident();
+        bool is_plural = (kind == "plural");
+        if (!is_plural && kind != "select") { set_err(ParseError::SyntaxError); return 0; }
+
+        skip_whitespace();
+        if (pos_ >= src_.size() || src_[pos_] != ',') { set_err(ParseError::SyntaxError); return 0; }
+        ++pos_;
+
+        if (node_count_ >= MaxNodes) { set_err(ParseError::BufferOverflow); return 0; }
+        uint16_t choice_idx = node_count_++;
+        uint16_t b_start = branch_count_;
+        uint16_t b_count = 0;
+        bool has_other = false;
+
+        while (pos_ < src_.size() && src_[pos_] != '}') {
+            skip_whitespace();
+            if (pos_ < src_.size() && src_[pos_] == '}') break;
+
+            auto label = parse_ident();
+            if (label.empty()) { set_err(ParseError::SyntaxError); return choice_idx; }
+            if (label == "other") has_other = true;
+
+            skip_whitespace();
+            if (pos_ >= src_.size() || src_[pos_] != '{') { set_err(ParseError::SyntaxError); return choice_idx; }
+            ++pos_;
+
+            if (branch_count_ >= MaxBranches) { set_err(ParseError::BufferOverflow); return choice_idx; }
+            uint16_t b_idx = branch_count_++;
+            ++b_count;
+
+            uint16_t child_cnt = 0;
+            uint16_t child_st = parse_message(true, child_cnt);
+            branches_[b_idx] = Branch{ .label = label, .child_start = child_st, .child_count = child_cnt };
+
+            if (pos_ >= src_.size() || src_[pos_] != '}') { set_err(ParseError::UnclosedBrace); return choice_idx; }
+            ++pos_;
+        }
+
+        if (pos_ >= src_.size() || src_[pos_] != '}') { set_err(ParseError::UnclosedBrace); return choice_idx; }
+        ++pos_;
+
+        if (!has_other) { set_err(ParseError::MissingOther); }
+
+        nodes_[choice_idx] = Node{
+            .type = NodeType::Choice,
+            .text = arg_name,
+            .is_plural = is_plural,
+            .offset = 0,
+            .branch_start = b_start,
+            .branch_count = b_count
+        };
+        return choice_idx;
+    }
+
+    constexpr uint16_t parse_message(bool in_branch, uint16_t &out_count) noexcept {
+        uint16_t start_idx = node_count_;
+        uint16_t count = 0;
+        size_t txt_start = pos_;
+
+        while (pos_ < src_.size() && !has_error_) {
+            char c = src_[pos_];
+            if (in_branch && c == '}') break;
+
+            if (c == '{' || (in_branch && c == '#')) {
+                if (pos_ > txt_start) {
+                    if (node_count_ >= MaxNodes) { set_err(ParseError::BufferOverflow); break; }
+                    nodes_[node_count_++] = Node{
+                        .type = NodeType::Text,
+                        .text = src_.substr(txt_start, pos_ - txt_start)
+                    };
+                    ++count;
+                }
+                if (c == '#') {
+                    if (node_count_ >= MaxNodes) { set_err(ParseError::BufferOverflow); break; }
+                    nodes_[node_count_++] = Node{ .type = NodeType::Hash };
+                    ++count;
+                    ++pos_;
+                    txt_start = pos_;
+                } else {
+                    parse_choice();
+                    ++count;
+                    txt_start = pos_;
+                }
+            } else {
+                ++pos_;
+            }
+        }
+        if (pos_ > txt_start && !has_error_) {
+            if (node_count_ < MaxNodes) {
+                nodes_[node_count_++] = Node{
+                    .type = NodeType::Text,
+                    .text = src_.substr(txt_start, pos_ - txt_start)
+                };
+                ++count;
+            }
+        }
+        out_count = count;
+        if (!in_branch) root_count_ = count;
+        return start_idx;
+    }
+
+    constexpr void set_err(ParseError e) noexcept {
+        err_ = e;
+        has_error_ = true;
+    }
+
+    void eval_range(uint16_t start, uint16_t count, std::span<const Argument> args,
+                    std::string_view (*plural_fn)(int32_t), int32_t active_num,
+                    std::span<char> out_buf, size_t &out_pos) const noexcept
+    {
+        for (uint16_t i = 0; i < count; ++i) {
+            const auto &n = nodes_[start + i];
+            if (n.type == NodeType::Text) {
+                append_span(n.text, out_buf, out_pos);
+            } else if (n.type == NodeType::Hash) {
+                char num_buf[16];
+                int nlen = std::snprintf(num_buf, sizeof(num_buf), "%d", active_num);
+                append_span(std::string_view(num_buf, static_cast<size_t>(nlen)), out_buf, out_pos);
+            } else if (n.type == NodeType::Arg) {
+                for (const auto &a : args) {
+                    if (a.name == n.text) {
+                        if (a.is_numeric) {
+                            char num_buf[16];
+                            int nlen = std::snprintf(num_buf, sizeof(num_buf), "%d", a.num_val);
+                            append_span(std::string_view(num_buf, static_cast<size_t>(nlen)), out_buf, out_pos);
+                        } else {
+                            append_span(a.str_val, out_buf, out_pos);
+                        }
+                        break;
+                    }
+                }
+            } else if (n.type == NodeType::Choice) {
+                std::string_view matched_lbl = "other";
+                int32_t next_num = active_num;
+                for (const auto &a : args) {
+                    if (a.name == n.text) {
+                        if (n.is_plural && a.is_numeric) {
+                            next_num = a.num_val;
+                            matched_lbl = plural_fn ? plural_fn(next_num) : "other";
+                        } else if (!n.is_plural && !a.is_numeric) {
+                            matched_lbl = a.str_val;
+                        }
+                        break;
+                    }
+                }
+                uint16_t sel_idx = 0;
+                for (uint16_t b = 0; b < n.branch_count; ++b) {
+                    const auto &br = branches_[n.branch_start + b];
+                    if (br.label == matched_lbl) { sel_idx = b; break; }
+                    if (br.label == "other") sel_idx = b;
+                }
+                const auto &chosen = branches_[n.branch_start + sel_idx];
+                eval_range(chosen.child_start, chosen.child_count, args, plural_fn, next_num, out_buf, out_pos);
+            }
+        }
+    }
+
+    static void append_span(std::string_view s, std::span<char> buf, size_t &pos) noexcept {
+        if (pos >= buf.size()) return;
+        size_t avail = buf.size() - pos - 1;
+        size_t n = s.size() < avail ? s.size() : avail;
+        std::memcpy(buf.data() + pos, s.data(), n);
+        pos += n;
+    }
+};
+
+} // namespace embedded::msg
+```
+:::
 
 ## Скільки це коштує
 

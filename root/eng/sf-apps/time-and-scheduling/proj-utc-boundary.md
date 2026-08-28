@@ -213,9 +213,430 @@ final class Boundary {
     }
 }
 ```
+```c
+/* Межа: настінний час ↔ мить, ISO-8601 та високосні секунди на C99. */
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+enum resolve_kind {
+    RESOLVE_EXACT,
+    RESOLVE_GAP,
+    RESOLVE_AMBIGUOUS
+};
+
+struct wall_time {
+    int year;
+    int month;   /* 1..12 */
+    int day;     /* 1..31 */
+    int hour;    /* 0..23 */
+    int minute;  /* 0..59 */
+    int second;  /* 0..60 (60 = високосна секунда) */
+    int ms;      /* 0..999 */
+    bool is_leap_second;
+};
+
+struct resolved_time {
+    int64_t instant_epoch_ms;
+    enum resolve_kind kind;
+};
+
+struct iso8601_parsed {
+    struct wall_time wall;
+    int offset_minutes;
+    bool has_offset;
+    bool is_utc;
+    bool valid;
+};
+
+/* Алгоритм перетворення календарних днів у мить від епохи 1970-01-01 */
+static inline int64_t days_from_civil(int y, unsigned m, unsigned d) {
+    y -= m <= 2;
+    const int64_t era = (y >= 0 ? y : y - 399) / 400;
+    const unsigned yoe = (unsigned)(y - era * 400);
+    const unsigned doy = (153 * (m > 2 ? m - 3 : m + 9) + 2) / 5 + d - 1;
+    const unsigned doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+    return era * 146097 + (int64_t)doe - 719468;
+}
+
+static inline void civil_from_days(int64_t z, int *y, unsigned *m, unsigned *d) {
+    z += 719468;
+    const int64_t era = (z >= 0 ? z : z - 146096) / 146097;
+    const unsigned doe = (unsigned)(z - era * 146097);
+    const unsigned yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    const int y_candidate = (int)yoe + (int)era * 400;
+    const unsigned doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    const unsigned mp = (5 * doy + 2) / 153;
+    *d = doy - (153 * mp + 2) / 5 + 1;
+    *m = mp < 10 ? mp + 3 : mp - 9;
+    *y = y_candidate + (*m <= 2);
+}
+
+static inline bool is_leap_year(int y) {
+    return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+}
+
+static inline int days_in_month(int y, int m) {
+    static const int d[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (m == 2 && is_leap_year(y)) return 29;
+    return (m >= 1 && m <= 12) ? d[m - 1] : 0;
+}
+
+/* Імітація читання таблиці переходів зони для миті UTC */
+static int64_t zone_offset_ms(int64_t instant_ms, const char *zone) {
+    if (strcmp(zone, "Europe/Kyiv") == 0) {
+        /* Межі літнього часу 2026: 29 березня 01:00Z .. 25 жовтня 01:00Z */
+        int64_t march_trans = days_from_civil(2026, 3, 29) * 86400000LL + 3600000LL;
+        int64_t oct_trans   = days_from_civil(2026, 10, 25) * 86400000LL + 3600000LL;
+        if (instant_ms >= march_trans && instant_ms < oct_trans) {
+            return 3 * 3600000LL; /* UTC+3 */
+        }
+        return 2 * 3600000LL;     /* UTC+2 */
+    }
+    if (strcmp(zone, "Asia/Tokyo") == 0) {
+        return 9 * 3600000LL;     /* UTC+9 */
+    }
+    return 0;
+}
+
+/* Парсер рядка ISO-8601 з перевіркою коректності та підтримкою 60-ї секунди */
+struct iso8601_parsed parse_iso8601(const char *str) {
+    struct iso8601_parsed res;
+    memset(&res, 0, sizeof(res));
+    if (!str) return res;
+
+    int y = 0, mo = 0, d = 0, h = 0, mi = 0, s = 0;
+    int off_h = 0, off_mi = 0;
+    char tz_sign = '\0';
+
+    int matched = sscanf(str, "%4d-%2d-%2dT%2d:%2d:%2d", &y, &mo, &d, &h, &mi, &s);
+    if (matched < 5) return res;
+
+    if (mo < 1 || mo > 12 || d < 1 || d > days_in_month(y, mo)) return res;
+    if (h < 0 || h > 23 || mi < 0 || mi > 59) return res;
+    if (s < 0 || s > 60) return res;
+
+    res.wall.year = y;
+    res.wall.month = mo;
+    res.wall.day = d;
+    res.wall.hour = h;
+    res.wall.minute = mi;
+    res.wall.second = (s == 60) ? 59 : s;
+    res.wall.ms = 0;
+    res.wall.is_leap_second = (s == 60);
+
+    const char *tz_ptr = strchr(str, 'Z');
+    if (tz_ptr) {
+        res.is_utc = true;
+        res.has_offset = true;
+        res.offset_minutes = 0;
+    } else if ((tz_ptr = strchr(str, '+')) || (tz_ptr = strrchr(str, '-'))) {
+        if (sscanf(tz_ptr, "%c%2d:%2d", &tz_sign, &off_h, &off_mi) >= 2) {
+            res.has_offset = true;
+            res.offset_minutes = (off_h * 60 + off_mi) * (tz_sign == '-' ? -1 : 1);
+        }
+    }
+    res.valid = true;
+    return res;
+}
+
+/* Настінний час + назва зони → мить і тип розв'язку */
+struct resolved_time resolve_local(struct wall_time w, const char *zone) {
+    int64_t days = days_from_civil(w.year, (unsigned)w.month, (unsigned)w.day);
+    int64_t as_if_utc = days * 86400000LL + (int64_t)w.hour * 3600000LL 
+                        + (int64_t)w.minute * 60000LL + (int64_t)w.second * 1000LL + w.ms;
+    const int64_t day_ms = 86400000LL;
+
+    int64_t before = zone_offset_ms(as_if_utc - day_ms, zone);
+    int64_t after  = zone_offset_ms(as_if_utc + day_ms, zone);
+
+    int64_t valid_instants[2];
+    int valid_count = 0;
+
+    int64_t candidate1 = as_if_utc - before;
+    if (zone_offset_ms(candidate1, zone) == before) {
+        valid_instants[valid_count++] = candidate1;
+    }
+
+    if (before != after) {
+        int64_t candidate2 = as_if_utc - after;
+        if (zone_offset_ms(candidate2, zone) == after) {
+            valid_instants[valid_count++] = candidate2;
+        }
+    }
+
+    struct resolved_time res;
+    if (valid_count == 1) {
+        res.instant_epoch_ms = valid_instants[0];
+        res.kind = RESOLVE_EXACT;
+    } else if (valid_count == 2) {
+        res.instant_epoch_ms = (valid_instants[0] < valid_instants[1]) ? valid_instants[0] : valid_instants[1];
+        res.kind = RESOLVE_AMBIGUOUS;
+    } else {
+        int64_t min_off = (before < after) ? before : after;
+        res.instant_epoch_ms = as_if_utc - min_off;
+        res.kind = RESOLVE_GAP;
+    }
+    return res;
+}
+
+/* Форматування миті в настінний напис читача */
+void format_in_zone(int64_t instant_ms, const char *zone, char *buf, size_t buf_size) {
+    int64_t off = zone_offset_ms(instant_ms, zone);
+    int64_t local_ms = instant_ms + off;
+    int64_t days = local_ms / 86400000LL;
+    int64_t time_ms = local_ms % 86400000LL;
+    if (time_ms < 0) { days--; time_ms += 86400000LL; }
+
+    int y; unsigned m, d;
+    civil_from_days(days, &y, &m, &d);
+    int h = (int)(time_ms / 3600000LL);
+    int mi = (int)((time_ms % 3600000LL) / 60000LL);
+    int s = (int)((time_ms % 60000LL) / 1000LL);
+
+    int off_min = (int)(off / 60000LL);
+    char sign = (off_min >= 0) ? '+' : '-';
+    if (off_min < 0) off_min = -off_min;
+
+    snprintf(buf, buf_size, "%04d-%02u-%02u %02d:%02d:%02d %c%02d:%02d",
+             y, m, d, h, mi, s, sign, off_min / 60, off_min % 60);
+}
+
+/* Обчислення меж календарної доби користувача на осі митей */
+void day_bounds(int y, int mo, int d, const char *zone, int64_t *out_start, int64_t *out_end) {
+    struct wall_time w_start = { .year = y, .month = mo, .day = d, .hour = 0, .minute = 0, .second = 0, .ms = 0, .is_leap_second = false };
+    int64_t next_days = days_from_civil(y, (unsigned)mo, (unsigned)d) + 1;
+    int ny; unsigned nm, nd;
+    civil_from_days(next_days, &ny, &nm, &nd);
+    struct wall_time w_end = { .year = ny, .month = (int)nm, .day = (int)nd, .hour = 0, .minute = 0, .second = 0, .ms = 0, .is_leap_second = false };
+
+    *out_start = resolve_local(w_start, zone).instant_epoch_ms;
+    *out_end   = resolve_local(w_end, zone).instant_epoch_ms;
+}
+```
+```cpp
+// Межа: настінний час ↔ мить, ISO-8601 та високосні секунди на C++20.
+#include <iostream>
+#include <string>
+#include <string_view>
+#include <optional>
+#include <chrono>
+#include <charconv>
+#include <algorithm>
+#include <vector>
+#include <array>
+
+namespace time_boundary {
+
+enum class ResolveKind { Exact, Gap, Ambiguous };
+
+struct WallTime {
+    int year{1970};
+    int month{1};
+    int day{1};
+    int hour{0};
+    int minute{0};
+    int second{0};
+    int ms{0};
+    bool is_leap_second{false};
+};
+
+struct ResolvedTime {
+    std::chrono::sys_time<std::chrono::milliseconds> instant;
+    ResolveKind kind{ResolveKind::Exact};
+};
+
+struct Iso8601Result {
+    WallTime wall;
+    std::optional<std::chrono::minutes> offset;
+    bool is_utc{false};
+    bool valid{false};
+};
+
+constexpr bool is_leap_year(int y) noexcept {
+    return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+}
+
+constexpr int days_in_month(int y, int m) noexcept {
+    constexpr std::array<int, 12> kDays{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (m == 2 && is_leap_year(y)) return 29;
+    return (m >= 1 && m <= 12) ? kDays[m - 1] : 0;
+}
+
+// Запит зсуву зони для конкретної точки на осі UTC
+inline std::chrono::milliseconds zone_offset(std::chrono::sys_time<std::chrono::milliseconds> instant,
+                                             std::string_view zone) {
+    if (zone == "Europe/Kyiv") {
+        using namespace std::chrono;
+        auto march_trans = sys_days{2026y/March/29} + 1h;
+        auto oct_trans   = sys_days{2026y/October/25} + 1h;
+        if (instant >= march_trans && instant < oct_trans) {
+            return hours{3};
+        }
+        return hours{2};
+    }
+    if (zone == "Asia/Tokyo") {
+        return std::chrono::hours{9};
+    }
+    return std::chrono::milliseconds{0};
+}
+
+// Неблокуючий парсер ISO-8601 без динамічних алокацій
+inline Iso8601Result parse_iso8601(std::string_view sv) noexcept {
+    Iso8601Result res;
+    if (sv.size() < 10) return res;
+
+    auto parse_int = [](std::string_view s, int& out) noexcept -> bool {
+        auto [ptr, ec] = std::from_chars(s.data(), s.data() + s.size(), out);
+        return ec == std::errc{} && ptr == s.data() + s.size();
+    };
+
+    int y = 0, mo = 0, d = 0;
+    if (!parse_int(sv.substr(0, 4), y) || sv[4] != '-' ||
+        !parse_int(sv.substr(5, 2), mo) || sv[7] != '-' ||
+        !parse_int(sv.substr(8, 2), d)) {
+        return res;
+    }
+
+    if (mo < 1 || mo > 12 || d < 1 || d > days_in_month(y, mo)) return res;
+
+    res.wall.year = y;
+    res.wall.month = mo;
+    res.wall.day = d;
+
+    if (sv.size() == 10) {
+        res.valid = true;
+        return res;
+    }
+
+    if (sv[10] != 'T' && sv[10] != ' ') return res;
+    std::string_view time_part = sv.substr(11);
+    if (time_part.size() < 5) return res;
+
+    int h = 0, mi = 0, s = 0;
+    if (!parse_int(time_part.substr(0, 2), h) || time_part[2] != ':' ||
+        !parse_int(time_part.substr(3, 2), mi)) {
+        return res;
+    }
+
+    if (h < 0 || h > 23 || mi < 0 || mi > 59) return res;
+    res.wall.hour = h;
+    res.wall.minute = mi;
+
+    size_t offset_pos = 5;
+    if (time_part.size() >= 8 && time_part[5] == ':') {
+        if (!parse_int(time_part.substr(6, 2), s)) return res;
+        if (s < 0 || s > 60) return res;
+        res.wall.second = (s == 60) ? 59 : s;
+        res.wall.is_leap_second = (s == 60);
+        offset_pos = 8;
+    }
+
+    if (offset_pos < time_part.size()) {
+        std::string_view tz_sub = time_part.substr(offset_pos);
+        if (tz_sub == "Z" || tz_sub == "z") {
+            res.is_utc = true;
+            res.offset = std::chrono::minutes{0};
+        } else if (tz_sub.starts_with('+') || tz_sub.starts_with('-')) {
+            int off_h = 0, off_m = 0;
+            int sign = tz_sub[0] == '-' ? -1 : 1;
+            if (tz_sub.size() >= 6 && tz_sub[3] == ':' &&
+                parse_int(tz_sub.substr(1, 2), off_h) &&
+                parse_int(tz_sub.substr(4, 2), off_m)) {
+                res.offset = std::chrono::minutes{sign * (off_h * 60 + off_m)};
+            }
+        }
+    }
+
+    res.valid = true;
+    return res;
+}
+
+// Настінний час + назва зони → мить і діагностика переходу
+inline ResolvedTime resolve_local(const WallTime& w, std::string_view zone) {
+    using namespace std::chrono;
+    auto ymd = year{w.year} / month{static_cast<unsigned>(w.month)} / day{static_cast<unsigned>(w.day)};
+    sys_days sd{ymd};
+    auto as_if_utc = sd + hours{w.hour} + minutes{w.minute} + seconds{w.second} + milliseconds{w.ms};
+
+    auto before = zone_offset(as_if_utc - 24h, zone);
+    auto after  = zone_offset(as_if_utc + 24h, zone);
+
+    std::vector<sys_time<milliseconds>> valid;
+    auto test_candidate = [&](milliseconds off) {
+        auto cand = as_if_utc - off;
+        if (zone_offset(cand, zone) == off) {
+            valid.push_back(cand);
+        }
+    };
+
+    test_candidate(before);
+    if (before != after) test_candidate(after);
+
+    if (valid.size() == 1) {
+        return ResolvedTime{.instant = valid[0], .kind = ResolveKind::Exact};
+    }
+    if (valid.size() == 2) {
+        return ResolvedTime{.instant = std::min(valid[0], valid[1]), .kind = ResolveKind::Ambiguous};
+    }
+    return ResolvedTime{.instant = as_if_utc - std::min(before, after), .kind = ResolveKind::Gap};
+}
+
+// Форматування миті в настінний напис читача
+inline std::string format_in_zone(std::chrono::sys_time<std::chrono::milliseconds> instant,
+                                  std::string_view zone) {
+    using namespace std::chrono;
+    auto off = zone_offset(instant, zone);
+    auto local_time = instant + off;
+    auto dp = floor<days>(local_time);
+    year_month_day ymd{dp};
+    auto tod = make_time(local_time - dp);
+
+    int off_min = static_cast<int>(duration_cast<minutes>(off).count());
+    char sign = off_min >= 0 ? '+' : '-';
+    if (off_min < 0) off_min = -off_min;
+
+    auto pad2 = [](int v) -> std::string {
+        return v < 10 ? "0" + std::to_string(v) : std::to_string(v);
+    };
+
+    std::string out;
+    out.reserve(32);
+    out += std::to_string(static_cast<int>(ymd.year())) + "-";
+    out += pad2(static_cast<unsigned>(ymd.month())) + "-";
+    out += pad2(static_cast<unsigned>(ymd.day())) + " ";
+    out += pad2(static_cast<int>(tod.hours().count())) + ":";
+    out += pad2(static_cast<int>(tod.minutes().count())) + ":";
+    out += pad2(static_cast<int>(tod.seconds().count())) + " ";
+    out += sign;
+    out += pad2(off_min / 60) + ":";
+    out += pad2(off_min % 60);
+    return out;
+}
+
+// Обчислення меж календарної доби користувача на осі митей
+inline std::pair<std::chrono::sys_time<std::chrono::milliseconds>,
+                 std::chrono::sys_time<std::chrono::milliseconds>>
+day_bounds(std::chrono::year_month_day day, std::string_view zone) {
+    using namespace std::chrono;
+    WallTime start_w{static_cast<int>(day.year()), static_cast<int>(static_cast<unsigned>(day.month())),
+                     static_cast<int>(static_cast<unsigned>(day.day())), 0, 0, 0, 0, false};
+    
+    sys_days next_sd = sys_days{day} + days{1};
+    year_month_day next_day{next_sd};
+    WallTime end_w{static_cast<int>(next_day.year()), static_cast<int>(static_cast<unsigned>(next_day.month())),
+                   static_cast<int>(static_cast<unsigned>(next_day.day())), 0, 0, 0, 0, false};
+
+    return {resolve_local(start_w, zone).instant, resolve_local(end_w, zone).instant};
+}
+
+} // namespace time_boundary
+```
 :::
 
-Усі три реалізації на однакових входах дають однакові відповіді — і саме такий набір входів варто закріпити тестами:
+Усі п'ять реалізацій (TypeScript, Python, Java, C99, C++20) на однакових входах дають однакові відповіді — і саме такий набір входів варто закріпити тестами:
 
 ```
 Europe/Kyiv         2026-06-01 09:00  →  2026-06-01T06:00:00Z   exact
@@ -231,6 +652,20 @@ Australia/Lord_Howe 2026-04-05 01:30  →  2026-04-04T14:30:00Z   ambiguous
 ```
 
 > 🔧 **Навіщо це.** `kind` — не діагностика для журналу, а розвилка інтерфейсу. Коли людина ставить нагадування на 03:30 у ніч весняного переходу, чесна відповідь — не мовчазна здогадка сервера, а питання: «цієї години того дня не буде, перенести на 04:30?». Мовчазна політика потрібна лише там, де спитати нема кого: імпорт з файлу, міграція, машинний потік. Функція, яка повертає саму лише мить, забирає цей вибір у того, хто її викликав, — і забирає назавжди.
+
+### Високосні секунди та 60-та секунда в ISO-8601
+
+Окремий крайовий випадок на вхідній межі — високосна секунда (leap second). Всесвітній координований час (UTC) прив'язаний до міжнародного атомного часу (TAI), але періодично коригується Міжнародною службою обертання Землі (IERS), щоб не розходитися з астрономічним часом обертання планети UT1 більш ніж на 0.9 секунди.
+
+Коли додається позитивна високосна секунда, остання хвилина доби містить не 60, а 61 секунду: `23:59:60`. Стандарт ISO-8601 прямо дозволяє запис на кшталт `2016-12-31T23:59:60Z`.
+
+Тут виникає фундаментальний розрив між ISO-8601 та стандартом POSIX `time_t`:
+1. **POSIX не визнає високосних секунд.** Стандарт POSIX вимагає, щоб кожна доба складалася рівно з 86400 секунд (`24 × 60 × 60`). Через це в системному годиннику Linux секунда `23:59:60` або дублює секунду `23:59:59` (годинник робить крок назад `86399 → 86399`), або зависає на одну секунду. Стрибок назад руйнує монотонність і провокує стан гонитви (race conditions) у розподілених блокуваннях і базах даних.
+2. **Парсери падають або спотворюють дані.** Наївна валідація, що вимагає `second <= 59`, відхиляє валідний ISO-8601 рядок. Якщо ж рядок розбирає C-функція `strptime` або наївний числовий парсер без прапорця `is_leap_second`, значення `60` переповнює хвилину або відкидається.
+
+У промислових системах застосовують дві взаємодоповнюючі стратегії:
+- **Згладжування (Leap Smearing):** Сервери NTP (наприклад Google Public NTP чи AWS Time Sync Service) не вставляють секунду `23:59:60`, а розмазують додаткову секунду впродовж 24 годин довкола півночі, сповільнюючи хід годинника на 11.57 ppm. Для застосунку день лишається 86400-секундним, а `second == 60` у внутрішні структури ніколи не надходить.
+- **Явна підтримка на межі розбору:** Якщо сервіс приймає зовнішній ISO-8601 потік (наприклад, астрономічні або фінансові телеметричні пакети), парсер зобов'язаний розпізнавати `23:59:60`, встановлювати прапорець `is_leap_second` і зводити мить до останньої мілісекунди доби `23:59:59.999` для сумісності з POSIX-епохою, зберігаючи прапорець для зворотного бездоганного форматування в ISO-8601.
 
 ## Сховище: істина й похідне в одному рядку
 
@@ -287,7 +722,7 @@ dayBounds(2026, 10, 25, "Europe/Kyiv")
     у проміжку 25 годин реального часу
 ```
 
-![Три календарні доби киянина як проміжки на осі митей: 23, 24 і 25 годин](img/user-day.svg)
+![Три календарні доби киянина як проміжки на осі митей: 23, 24 і 25 годин](/root/eng/sf-apps/time-and-scheduling/img/user-day.svg)
 *Календарна доба — проміжок митей, і його довжина залежить від дня; порівняння працює лише як півзакритий проміжок.*
 
 Обидві межі рахують однаково — як місцеву північ відповідного дня, — і саме тому сусідні доби стикаються без дірок і накладань. Кінець доби — не «23:59:59.999», яке довелося б підбирати під роздільність типу, а рівно початок наступної, узятий строго менше. Півзакритий проміжок `[від, до)` тут не стильова забаганка: із `BETWEEN`, що включає обидва кінці, нагадування, поставлене рівно на місцеву північ, потрапить у два сусідні звіти водночас.

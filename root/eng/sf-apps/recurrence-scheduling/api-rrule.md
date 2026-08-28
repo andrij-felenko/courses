@@ -134,7 +134,7 @@ bysplist    = setposday   *("," setposday)    ; setposday   = yeardaynum
 
 Це головна семантика всієї граматики, і саме її найчастіше розуміють навпаки. `FREQ` разом з `INTERVAL` дають потік «початків періодів»: щосекунди, щогодини, щомісяця, щороку. Далі кожне `BY…`-поле робить із цим потоком одну з двох речей — або **обмежує** його (просіює наявні миті), або **розмножує** (з однієї миті робить кілька). Що саме — залежить не від поля, а від пари «поле + `FREQ`».
 
-![Те саме поле BYMONTHDAY=15,30 під FREQ=DAILY просіює 31 мить до двох, а під FREQ=MONTHLY розмножує одну мить у дві](img/rrule-limit-expand.svg)
+![Те саме поле BYMONTHDAY=15,30 під FREQ=DAILY просіює 31 мить до двох, а під FREQ=MONTHLY розмножує одну мить у дві](/root/eng/sf-apps/recurrence-scheduling/img/rrule-limit-expand.svg)
 
 *Роль поля визначає частота: під `DAILY` воно сито, під `MONTHLY` — множник.*
 
@@ -168,7 +168,7 @@ BYMONTH → BYWEEKNO → BYYEARDAY → BYMONTHDAY → BYDAY
         → BYHOUR → BYMINUTE → BYSECOND → BYSETPOS
 ```
 
-![Дев'ять BY-полів застосовуються у фіксованому порядку: спершу п'ять, що звужують дату, потім три, що звужують час доби, і насамкінець BYSETPOS](img/rrule-by-order.svg)
+![Дев'ять BY-полів застосовуються у фіксованому порядку: спершу п'ять, що звужують дату, потім три, що звужують час доби, і насамкінець BYSETPOS](/root/eng/sf-apps/recurrence-scheduling/img/rrule-by-order.svg)
 
 *Спершу поля дати, потім поля часу доби, останнім — `BYSETPOS`, який вибирає з уже готового набору.*
 
@@ -359,3 +359,795 @@ rule.count()                       # скільки всього (скінчен
 - **`rrule` (TS) повертає `Date` з нульовим зсувом.** Бібліотека працює з «плаваючими» значеннями: повернуті об'єкти виглядають як UTC, але читати їх треба як настінний час потрібного поясу. Переведення в справжню мить — твоя робота, навіть коли ти передав `tzid`.
 - **`dateutil` (Python) віддає такі самі `datetime`, які отримав.** Дав наївний `dtstart` — дістанеш наївні дати; хочеш зонованих — сам додай `tzinfo` й сам зважай на переходи.
 - **Ні `RSCALE`, ні `SKIP` не підтримує жодна з двох.** У переліку опцій `rrule` і в сигнатурі `dateutil.rrule` цих полів немає — тобто підтягування неіснуючих дат доведеться робити самому, поверх бібліотеки.
+
+## Еталонний розбирач, валідатор та генератор (C99 / C++20)
+
+У високонавантажених сервісах обробки розкладів, системних демонах та шлюзах календарної синхронізації протоколів CalDAV текстовий рядок `RRULE` розбирають один раз — під час валідації запиту або збереження в базу даних. Зберігати правило у вигляді неперевіреного рядка небезпечно: помилка в синтаксисі чи суперечливі поля (наприклад, одночасна присутність `UNTIL` та `COUNT` або порядковий номер дня тижня при тижневій частоті) проявляться лише під час спроби обчислення чергової дати через тижні або місяці.
+
+Системний інтерфейс розбору `RRULE` вирішує три взаємопов'язані задачі:
+1. **Лексичний та синтаксичний аналіз рядка:** сканування пар `КЛЮЧ=ЗНАЧЕННЯ`, розбиття списків значень через кому та виділення числових параметрів без динамічного виділення пам'яті (`zero-heap allocation`).
+2. **Семантична валідація за стандартом RFC 5545:** перевірка обов'язковості поля `FREQ`, заборона конфліктуючих полів (`COUNT` разом із `UNTIL`), контроль допустимих діапазонів числових значень (знакові місячні дні від `-31` до `+31` без нуля, місяці від `1` до `12`, позиції `BYSETPOS` від `-366` до `+366`) та перевірка взаємної сумісності полів (`BYSETPOS` вимагає наявності хоча б одного іншого правила `BY...`, `BYMONTHDAY` заборонено при `FREQ=WEEKLY`).
+3. **Канонічна серіалізація назад у рядок:** генерація нормалізованого тексту правила у фіксованому порядку полів для стабільного хешування, індексування та передачі через мережеві протоколи.
+
+### Діагностика помилок розбору
+
+Помилки розбору кодуються строго типізованим переліком статусів. Це дозволяє викликаючому коду точно локалізувати причину відхилення правила та повернути інформативне повідомлення клієнту API:
+
+| Код помилки | Опис причини відхилення правила |
+|---|---|
+| `ERR_EMPTY_INPUT` | Вхідний рядок порожній або містить лише пробільні символи |
+| `ERR_MISSING_FREQ` | Поле `FREQ` відсутнє в рядку (порушення розділу 3.3.10 RFC 5545) |
+| `ERR_FREQ_NOT_FIRST` | Поле `FREQ` стоїть не першим у списку частин правила |
+| `ERR_DUPLICATE_PART` | Одне й те саме поле зустрілося в рядку більше одного разу |
+| `ERR_MUTUAL_UNTIL_COUNT` | Правило містить одночасно і `UNTIL`, і `COUNT` |
+| `ERR_INVALID_INTERVAL` | Значення `INTERVAL` дорівнює нулю або є від'ємним |
+| `ERR_INVALID_COUNT` | Значення `COUNT` дорівнює нулю |
+| `ERR_INVALID_UNTIL` | Некоректний формат дати/часу `UNTIL` або відсутність суфікса `Z` |
+| `ERR_INVALID_BYMONTH` | Номер місяця в `BYMONTH` виходить за межі `1..12` |
+| `ERR_INVALID_BYMONTHDAY` | Значення `BYMONTHDAY` дорівнює 0 або виходить за межі `-31..31` |
+| `ERR_INVALID_BYDAY` | Невідома назва дня тижня або некоректний числовий префікс |
+| `ERR_INVALID_BYSETPOS` | Позиція `BYSETPOS` дорівнює 0 або виходить за межі `-366..366` |
+| `ERR_BYSETPOS_WITHOUT_BY` | Поле `BYSETPOS` задано без жодного іншого фільтра `BY...` |
+| `ERR_BYMONTHDAY_ON_WEEKLY` | Поле `BYMONTHDAY` неприпустиме при частоті `FREQ=WEEKLY` |
+| `ERR_ORDINAL_BYDAY_INVALID` | Порядковий номер у `BYDAY` дозволений лише для `MONTHLY` та `YEARLY` |
+| `ERR_BUFFER_TOO_SMALL` | Розмір вихідного буфера недостатній для серіалізації правила |
+
+:::tabs
+```c
+/* ============================================================================
+ * rrule_spec.h & rrule_spec.c — еталонний C99 парсер, валідатор та генератор
+ * ========================================================================== */
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <ctype.h>
+
+typedef enum {
+    RRULE_OK = 0,
+    RRULE_ERR_EMPTY_INPUT,
+    RRULE_ERR_INVALID_SYNTAX,
+    RRULE_ERR_MISSING_FREQ,
+    RRULE_ERR_FREQ_NOT_FIRST,
+    RRULE_ERR_DUPLICATE_PART,
+    RRULE_ERR_MUTUAL_UNTIL_COUNT,
+    RRULE_ERR_INVALID_INTERVAL,
+    RRULE_ERR_INVALID_COUNT,
+    RRULE_ERR_INVALID_UNTIL,
+    RRULE_ERR_INVALID_BYMONTH,
+    RRULE_ERR_INVALID_BYMONTHDAY,
+    RRULE_ERR_INVALID_BYDAY,
+    RRULE_ERR_INVALID_BYSETPOS,
+    RRULE_ERR_INVALID_WKST,
+    RRULE_ERR_BYSETPOS_WITHOUT_BY,
+    RRULE_ERR_BYMONTHDAY_ON_WEEKLY,
+    RRULE_ERR_ORDINAL_BYDAY_INVALID,
+    RRULE_ERR_BUFFER_TOO_SMALL
+} rrule_status_t;
+
+typedef enum {
+    FREQ_UNSET = 0,
+    FREQ_SECONDLY,
+    FREQ_MINUTELY,
+    FREQ_HOURLY,
+    FREQ_DAILY,
+    FREQ_WEEKLY,
+    FREQ_MONTHLY,
+    FREQ_YEARLY
+} rrule_freq_t;
+
+typedef struct {
+    int8_t ord;   /* 0 = будь-який, +1..+53, -53..-1 */
+    uint8_t wday; /* 0 = SU, 1 = MO, 2 = TU, 3 = WE, 4 = TH, 5 = FR, 6 = SA */
+} rrule_wday_spec_t;
+
+typedef struct {
+    rrule_freq_t freq;
+    uint32_t interval;
+    uint32_t count;
+    bool has_count;
+    char until_str[32];
+    bool has_until;
+    uint16_t bymonth_mask;        /* Біти 1..12 */
+    uint32_t bymonthday_pos_mask; /* Біти 1..31 */
+    uint32_t bymonthday_neg_mask; /* Біти 1..31 для -1..-31 */
+    rrule_wday_spec_t byday[16];
+    uint8_t byday_count;
+    int16_t bysetpos[16];
+    uint8_t bysetpos_count;
+    uint8_t wkst;                 /* 0 = SU..6 = SA, усталено 1 (MO) */
+} rrule_spec_t;
+
+static const char* kFreqNames[] = {
+    "", "SECONDLY", "MINUTELY", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"
+};
+
+static const char* kWdayNames[] = {
+    "SU", "MO", "TU", "WE", "TH", "FR", "SA"
+};
+
+static inline int parse_wday_code(const char *s, size_t len) {
+    if (len < 2) return -1;
+    for (int i = 0; i < 7; i++) {
+        if (strncmp(s, kWdayNames[i], 2) == 0) return i;
+    }
+    return -1;
+}
+
+static rrule_status_t parse_integer(const char *s, const char *end, int32_t *out) {
+    if (s >= end) return RRULE_ERR_INVALID_SYNTAX;
+    bool neg = false;
+    if (*s == '-') { neg = true; s++; }
+    else if (*s == '+') { s++; }
+    if (s >= end || !isdigit((unsigned char)*s)) return RRULE_ERR_INVALID_SYNTAX;
+    int64_t v = 0;
+    while (s < end && isdigit((unsigned char)*s)) {
+        v = v * 10 + (*s - '0');
+        if (v > 1000000) return RRULE_ERR_INVALID_SYNTAX;
+        s++;
+    }
+    if (s != end) return RRULE_ERR_INVALID_SYNTAX;
+    *out = (int32_t)(neg ? -v : v);
+    return RRULE_OK;
+}
+
+rrule_status_t rrule_spec_validate(const rrule_spec_t *spec) {
+    if (spec->freq == FREQ_UNSET) return RRULE_ERR_MISSING_FREQ;
+    if (spec->has_count && spec->has_until) return RRULE_ERR_MUTUAL_UNTIL_COUNT;
+    if (spec->interval == 0) return RRULE_ERR_INVALID_INTERVAL;
+    if (spec->has_count && spec->count == 0) return RRULE_ERR_INVALID_COUNT;
+
+    if (spec->has_until) {
+        size_t ulen = strlen(spec->until_str);
+        if (ulen < 8) return RRULE_ERR_INVALID_UNTIL;
+        if (ulen > 8 && spec->until_str[ulen - 1] != 'Z') {
+            return RRULE_ERR_INVALID_UNTIL; /* UTC дата-час мусить мати Z */
+        }
+    }
+
+    if (spec->freq == FREQ_WEEKLY && (spec->bymonthday_pos_mask || spec->bymonthday_neg_mask)) {
+        return RRULE_ERR_BYMONTHDAY_ON_WEEKLY;
+    }
+
+    if (spec->bysetpos_count > 0) {
+        bool has_by = (spec->bymonth_mask != 0) ||
+                      (spec->bymonthday_pos_mask != 0) ||
+                      (spec->bymonthday_neg_mask != 0) ||
+                      (spec->byday_count != 0);
+        if (!has_by) return RRULE_ERR_BYSETPOS_WITHOUT_BY;
+    }
+
+    for (uint8_t i = 0; i < spec->byday_count; i++) {
+        if (spec->byday[i].ord != 0) {
+            if (spec->freq != FREQ_MONTHLY && spec->freq != FREQ_YEARLY) {
+                return RRULE_ERR_ORDINAL_BYDAY_INVALID;
+            }
+        }
+    }
+
+    return RRULE_OK;
+}
+
+rrule_status_t rrule_spec_parse(const char *str, rrule_spec_t *out) {
+    if (!str || !*str) return RRULE_ERR_EMPTY_INPUT;
+    memset(out, 0, sizeof(*out));
+    out->interval = 1;
+    out->wkst = 1; /* Понеділок за замовчуванням */
+
+    const char *p = str;
+    if (strncmp(p, "RRULE:", 6) == 0) p += 6;
+
+    bool is_first_part = true;
+    uint32_t seen_parts_mask = 0;
+
+    while (*p) {
+        const char *semicolon = strchr(p, ';');
+        const char *part_end = semicolon ? semicolon : p + strlen(p);
+        const char *equals = memchr(p, '=', (size_t)(part_end - p));
+        if (!equals) return RRULE_ERR_INVALID_SYNTAX;
+
+        size_t key_len = (size_t)(equals - p);
+        const char *val = equals + 1;
+        size_t val_len = (size_t)(part_end - val);
+        if (val_len == 0) return RRULE_ERR_INVALID_SYNTAX;
+
+        if (key_len == 4 && strncmp(p, "FREQ", 4) == 0) {
+            if (!is_first_part) return RRULE_ERR_FREQ_NOT_FIRST;
+            if (seen_parts_mask & (1 << 0)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 0);
+
+            for (int i = 1; i <= 7; i++) {
+                if (strlen(kFreqNames[i]) == val_len && strncmp(val, kFreqNames[i], val_len) == 0) {
+                    out->freq = (rrule_freq_t)i;
+                    break;
+                }
+            }
+            if (out->freq == FREQ_UNSET) return RRULE_ERR_INVALID_SYNTAX;
+        } else if (key_len == 8 && strncmp(p, "INTERVAL", 8) == 0) {
+            if (seen_parts_mask & (1 << 1)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 1);
+            int32_t iv = 0;
+            if (parse_integer(val, part_end, &iv) != RRULE_OK || iv <= 0) {
+                return RRULE_ERR_INVALID_INTERVAL;
+            }
+            out->interval = (uint32_t)iv;
+        } else if (key_len == 5 && strncmp(p, "COUNT", 5) == 0) {
+            if (seen_parts_mask & (1 << 2)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 2);
+            int32_t cnt = 0;
+            if (parse_integer(val, part_end, &cnt) != RRULE_OK || cnt <= 0) {
+                return RRULE_ERR_INVALID_COUNT;
+            }
+            out->count = (uint32_t)cnt;
+            out->has_count = true;
+        } else if (key_len == 5 && strncmp(p, "UNTIL", 5) == 0) {
+            if (seen_parts_mask & (1 << 3)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 3);
+            if (val_len >= sizeof(out->until_str)) return RRULE_ERR_INVALID_UNTIL;
+            memcpy(out->until_str, val, val_len);
+            out->until_str[val_len] = '\0';
+            out->has_until = true;
+        } else if (key_len == 7 && strncmp(p, "BYMONTH", 7) == 0) {
+            if (seen_parts_mask & (1 << 4)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 4);
+            const char *item = val;
+            while (item < part_end) {
+                const char *comma = memchr(item, ',', (size_t)(part_end - item));
+                const char *item_end = comma ? comma : part_end;
+                int32_t m = 0;
+                if (parse_integer(item, item_end, &m) != RRULE_OK || m < 1 || m > 12) {
+                    return RRULE_ERR_INVALID_BYMONTH;
+                }
+                out->bymonth_mask |= (1 << m);
+                item = item_end + (comma ? 1 : 0);
+            }
+        } else if (key_len == 10 && strncmp(p, "BYMONTHDAY", 10) == 0) {
+            if (seen_parts_mask & (1 << 5)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 5);
+            const char *item = val;
+            while (item < part_end) {
+                const char *comma = memchr(item, ',', (size_t)(part_end - item));
+                const char *item_end = comma ? comma : part_end;
+                int32_t md = 0;
+                if (parse_integer(item, item_end, &md) != RRULE_OK || md == 0 || md < -31 || md > 31) {
+                    return RRULE_ERR_INVALID_BYMONTHDAY;
+                }
+                if (md > 0) out->bymonthday_pos_mask |= (1U << md);
+                else out->bymonthday_neg_mask |= (1U << (-md));
+                item = item_end + (comma ? 1 : 0);
+            }
+        } else if (key_len == 5 && strncmp(p, "BYDAY", 5) == 0) {
+            if (seen_parts_mask & (1 << 6)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 6);
+            const char *item = val;
+            while (item < part_end) {
+                const char *comma = memchr(item, ',', (size_t)(part_end - item));
+                const char *item_end = comma ? comma : part_end;
+                if (out->byday_count >= 16) return RRULE_ERR_INVALID_BYDAY;
+
+                int8_t ord = 0;
+                const char *wptr = item;
+                if (item_end - item > 2) {
+                    int32_t ord_val = 0;
+                    if (parse_integer(item, item_end - 2, &ord_val) != RRULE_OK || ord_val < -53 || ord_val > 53 || ord_val == 0) {
+                        return RRULE_ERR_INVALID_BYDAY;
+                    }
+                    ord = (int8_t)ord_val;
+                    wptr = item_end - 2;
+                }
+                int wd = parse_wday_code(wptr, (size_t)(item_end - wptr));
+                if (wd < 0) return RRULE_ERR_INVALID_BYDAY;
+                out->byday[out->byday_count].ord = ord;
+                out->byday[out->byday_count].wday = (uint8_t)wd;
+                out->byday_count++;
+                item = item_end + (comma ? 1 : 0);
+            }
+        } else if (key_len == 8 && strncmp(p, "BYSETPOS", 8) == 0) {
+            if (seen_parts_mask & (1 << 7)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 7);
+            const char *item = val;
+            while (item < part_end) {
+                const char *comma = memchr(item, ',', (size_t)(part_end - item));
+                const char *item_end = comma ? comma : part_end;
+                if (out->bysetpos_count >= 16) return RRULE_ERR_INVALID_BYSETPOS;
+                int32_t sp = 0;
+                if (parse_integer(item, item_end, &sp) != RRULE_OK || sp == 0 || sp < -366 || sp > 366) {
+                    return RRULE_ERR_INVALID_BYSETPOS;
+                }
+                out->bysetpos[out->bysetpos_count++] = (int16_t)sp;
+                item = item_end + (comma ? 1 : 0);
+            }
+        } else if (key_len == 4 && strncmp(p, "WKST", 4) == 0) {
+            if (seen_parts_mask & (1 << 8)) return RRULE_ERR_DUPLICATE_PART;
+            seen_parts_mask |= (1 << 8);
+            int wd = parse_wday_code(val, val_len);
+            if (wd < 0) return RRULE_ERR_INVALID_WKST;
+            out->wkst = (uint8_t)wd;
+        }
+
+        is_first_part = false;
+        p = semicolon ? semicolon + 1 : part_end;
+    }
+
+    return rrule_spec_validate(out);
+}
+
+int rrule_spec_to_string(const rrule_spec_t *spec, char *buf, size_t buf_size) {
+    if (!spec || !buf || buf_size == 0) return -1;
+    if (spec->freq == FREQ_UNSET) return -1;
+
+    size_t off = 0;
+    int written = snprintf(buf + off, buf_size - off, "FREQ=%s", kFreqNames[spec->freq]);
+    if (written < 0 || (size_t)written >= buf_size - off) return -1;
+    off += (size_t)written;
+
+    if (spec->interval > 1) {
+        written = snprintf(buf + off, buf_size - off, ";INTERVAL=%u", spec->interval);
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+    }
+    if (spec->has_count) {
+        written = snprintf(buf + off, buf_size - off, ";COUNT=%u", spec->count);
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+    } else if (spec->has_until) {
+        written = snprintf(buf + off, buf_size - off, ";UNTIL=%s", spec->until_str);
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+    }
+    if (spec->bymonth_mask != 0) {
+        written = snprintf(buf + off, buf_size - off, ";BYMONTH=");
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+        bool first = true;
+        for (int m = 1; m <= 12; m++) {
+            if (spec->bymonth_mask & (1 << m)) {
+                written = snprintf(buf + off, buf_size - off, "%s%d", first ? "" : ",", m);
+                if (written < 0 || (size_t)written >= buf_size - off) return -1;
+                off += (size_t)written;
+                first = false;
+            }
+        }
+    }
+    if (spec->bymonthday_pos_mask != 0 || spec->bymonthday_neg_mask != 0) {
+        written = snprintf(buf + off, buf_size - off, ";BYMONTHDAY=");
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+        bool first = true;
+        for (int d = 1; d <= 31; d++) {
+            if (spec->bymonthday_pos_mask & (1U << d)) {
+                written = snprintf(buf + off, buf_size - off, "%s%d", first ? "" : ",", d);
+                if (written < 0 || (size_t)written >= buf_size - off) return -1;
+                off += (size_t)written;
+                first = false;
+            }
+        }
+        for (int d = 1; d <= 31; d++) {
+            if (spec->bymonthday_neg_mask & (1U << d)) {
+                written = snprintf(buf + off, buf_size - off, "%s-%d", first ? "" : ",", d);
+                if (written < 0 || (size_t)written >= buf_size - off) return -1;
+                off += (size_t)written;
+                first = false;
+            }
+        }
+    }
+    if (spec->byday_count > 0) {
+        written = snprintf(buf + off, buf_size - off, ";BYDAY=");
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+        for (uint8_t i = 0; i < spec->byday_count; i++) {
+            if (spec->byday[i].ord != 0) {
+                written = snprintf(buf + off, buf_size - off, "%s%d%s",
+                                   i == 0 ? "" : ",", spec->byday[i].ord, kWdayNames[spec->byday[i].wday]);
+            } else {
+                written = snprintf(buf + off, buf_size - off, "%s%s",
+                                   i == 0 ? "" : ",", kWdayNames[spec->byday[i].wday]);
+            }
+            if (written < 0 || (size_t)written >= buf_size - off) return -1;
+            off += (size_t)written;
+        }
+    }
+    if (spec->bysetpos_count > 0) {
+        written = snprintf(buf + off, buf_size - off, ";BYSETPOS=");
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+        for (uint8_t i = 0; i < spec->bysetpos_count; i++) {
+            written = snprintf(buf + off, buf_size - off, "%s%d",
+                               i == 0 ? "" : ",", spec->bysetpos[i]);
+            if (written < 0 || (size_t)written >= buf_size - off) return -1;
+            off += (size_t)written;
+        }
+    }
+    if (spec->wkst != 1) {
+        written = snprintf(buf + off, buf_size - off, ";WKST=%s", kWdayNames[spec->wkst]);
+        if (written < 0 || (size_t)written >= buf_size - off) return -1;
+        off += (size_t)written;
+    }
+
+    return (int)off;
+}
+```
+```cpp
+// ============================================================================
+// rrule_spec.hpp — еталонний C++20 парсер, валідатор та генератор RRULE
+// ============================================================================
+#include <string>
+#include <string_view>
+#include <array>
+#include <vector>
+#include <optional>
+#include <expected>
+#include <cstdint>
+#include <algorithm>
+#include <charconv>
+#include <format>
+#include <sstream>
+
+namespace rrule_api {
+
+enum class Freq : uint8_t {
+    Unset = 0, Secondly, Minutely, Hourly, Daily, Weekly, Monthly, Yearly
+};
+
+enum class Weekday : uint8_t {
+    SU = 0, MO = 1, TU = 2, WE = 3, TH = 4, FR = 5, SA = 6
+};
+
+enum class ErrorCode {
+    EmptyInput,
+    InvalidSyntax,
+    MissingFreq,
+    FreqNotFirst,
+    DuplicatePart,
+    MutualUntilCount,
+    InvalidInterval,
+    InvalidCount,
+    InvalidUntil,
+    InvalidByMonth,
+    InvalidByMonthDay,
+    InvalidByDay,
+    InvalidBySetPos,
+    InvalidWkst,
+    BySetPosWithoutBy,
+    ByMonthDayOnWeekly,
+    OrdinalByDayInvalidFreq,
+    BufferTooSmall
+};
+
+struct WeekdayNum {
+    int8_t ord{0}; // 0 = кожен, +1..+53, -53..-1
+    Weekday wday{Weekday::MO};
+};
+
+struct RuleSpec {
+    Freq freq{Freq::Unset};
+    uint32_t interval{1};
+    std::optional<uint32_t> count{std::nullopt};
+    std::optional<std::string> until{std::nullopt};
+    uint16_t bymonth_mask{0};
+    uint32_t bymonthday_pos_mask{0};
+    uint32_t bymonthday_neg_mask{0};
+    std::vector<WeekdayNum> byday{};
+    std::vector<int16_t> bysetpos{};
+    Weekday wkst{Weekday::MO};
+
+    [[nodiscard]] constexpr bool has_by_filters() const noexcept {
+        return (bymonth_mask != 0) || (bymonthday_pos_mask != 0) ||
+               (bymonthday_neg_mask != 0) || (!byday.empty());
+    }
+};
+
+class RRuleParser {
+public:
+    static constexpr std::string_view freq_to_string(Freq f) noexcept {
+        switch (f) {
+            case Freq::Secondly: return "SECONDLY";
+            case Freq::Minutely: return "MINUTELY";
+            case Freq::Hourly:   return "HOURLY";
+            case Freq::Daily:    return "DAILY";
+            case Freq::Weekly:   return "WEEKLY";
+            case Freq::Monthly:  return "MONTHLY";
+            case Freq::Yearly:   return "YEARLY";
+            default:             return "";
+        }
+    }
+
+    static constexpr std::string_view wday_to_string(Weekday w) noexcept {
+        switch (w) {
+            case Weekday::SU: return "SU";
+            case Weekday::MO: return "MO";
+            case Weekday::TU: return "TU";
+            case Weekday::WE: return "WE";
+            case Weekday::TH: return "TH";
+            case Weekday::FR: return "FR";
+            case Weekday::SA: return "SA";
+        }
+        return "MO";
+    }
+
+    static constexpr std::optional<Weekday> parse_wday(std::string_view sv) noexcept {
+        if (sv == "SU") return Weekday::SU;
+        if (sv == "MO") return Weekday::MO;
+        if (sv == "TU") return Weekday::TU;
+        if (sv == "WE") return Weekday::WE;
+        if (sv == "TH") return Weekday::TH;
+        if (sv == "FR") return Weekday::FR;
+        if (sv == "SA") return Weekday::SA;
+        return std::nullopt;
+    }
+
+    static std::expected<RuleSpec, ErrorCode> parse(std::string_view input) noexcept {
+        if (input.empty()) return std::unexpected(ErrorCode::EmptyInput);
+        if (input.starts_with("RRULE:")) input.remove_prefix(6);
+
+        RuleSpec spec{};
+        bool is_first = true;
+        uint32_t seen_mask = 0;
+
+        while (!input.empty()) {
+            size_t semi = input.find(';');
+            std::string_view part = (semi == std::string_view::npos) ? input : input.substr(0, semi);
+            input = (semi == std::string_view::npos) ? std::string_view{} : input.substr(semi + 1);
+
+            size_t eq = part.find('=');
+            if (eq == std::string_view::npos) return std::unexpected(ErrorCode::InvalidSyntax);
+            std::string_view key = part.substr(0, eq);
+            std::string_view val = part.substr(eq + 1);
+            if (val.empty()) return std::unexpected(ErrorCode::InvalidSyntax);
+
+            if (key == "FREQ") {
+                if (!is_first) return std::unexpected(ErrorCode::FreqNotFirst);
+                if (seen_mask & (1 << 0)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 0);
+
+                if (val == "SECONDLY") spec.freq = Freq::Secondly;
+                else if (val == "MINUTELY") spec.freq = Freq::Minutely;
+                else if (val == "HOURLY") spec.freq = Freq::Hourly;
+                else if (val == "DAILY") spec.freq = Freq::Daily;
+                else if (val == "WEEKLY") spec.freq = Freq::Weekly;
+                else if (val == "MONTHLY") spec.freq = Freq::Monthly;
+                else if (val == "YEARLY") spec.freq = Freq::Yearly;
+                else return std::unexpected(ErrorCode::InvalidSyntax);
+            } else if (key == "INTERVAL") {
+                if (seen_mask & (1 << 1)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 1);
+                uint32_t iv = 0;
+                auto [p, ec] = std::from_chars(val.data(), val.data() + val.size(), iv);
+                if (ec != std::errc{} || p != val.data() + val.size() || iv == 0) {
+                    return std::unexpected(ErrorCode::InvalidInterval);
+                }
+                spec.interval = iv;
+            } else if (key == "COUNT") {
+                if (seen_mask & (1 << 2)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 2);
+                uint32_t cnt = 0;
+                auto [p, ec] = std::from_chars(val.data(), val.data() + val.size(), cnt);
+                if (ec != std::errc{} || p != val.data() + val.size() || cnt == 0) {
+                    return std::unexpected(ErrorCode::InvalidCount);
+                }
+                spec.count = cnt;
+            } else if (key == "UNTIL") {
+                if (seen_mask & (1 << 3)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 3);
+                if (val.size() < 8) return std::unexpected(ErrorCode::InvalidUntil);
+                if (val.size() > 8 && !val.ends_with('Z')) return std::unexpected(ErrorCode::InvalidUntil);
+                spec.until = std::string(val);
+            } else if (key == "BYMONTH") {
+                if (seen_mask & (1 << 4)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 4);
+                std::string_view remaining = val;
+                while (!remaining.empty()) {
+                    size_t comma = remaining.find(',');
+                    std::string_view token = (comma == std::string_view::npos) ? remaining : remaining.substr(0, comma);
+                    remaining = (comma == std::string_view::npos) ? std::string_view{} : remaining.substr(comma + 1);
+
+                    int m = 0;
+                    auto [p, ec] = std::from_chars(token.data(), token.data() + token.size(), m);
+                    if (ec != std::errc{} || p != token.data() + token.size() || m < 1 || m > 12) {
+                        return std::unexpected(ErrorCode::InvalidByMonth);
+                    }
+                    spec.bymonth_mask |= (1 << m);
+                }
+            } else if (key == "BYMONTHDAY") {
+                if (seen_mask & (1 << 5)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 5);
+                std::string_view remaining = val;
+                while (!remaining.empty()) {
+                    size_t comma = remaining.find(',');
+                    std::string_view token = (comma == std::string_view::npos) ? remaining : remaining.substr(0, comma);
+                    remaining = (comma == std::string_view::npos) ? std::string_view{} : remaining.substr(comma + 1);
+
+                    int md = 0;
+                    auto [p, ec] = std::from_chars(token.data(), token.data() + token.size(), md);
+                    if (ec != std::errc{} || p != token.data() + token.size() || md == 0 || md < -31 || md > 31) {
+                        return std::unexpected(ErrorCode::InvalidByMonthDay);
+                    }
+                    if (md > 0) spec.bymonthday_pos_mask |= (1U << md);
+                    else spec.bymonthday_neg_mask |= (1U << (-md));
+                }
+            } else if (key == "BYDAY") {
+                if (seen_mask & (1 << 6)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 6);
+                std::string_view remaining = val;
+                while (!remaining.empty()) {
+                    size_t comma = remaining.find(',');
+                    std::string_view token = (comma == std::string_view::npos) ? remaining : remaining.substr(0, comma);
+                    remaining = (comma == std::string_view::npos) ? std::string_view{} : remaining.substr(comma + 1);
+
+                    int8_t ord = 0;
+                    std::string_view wstr = token;
+                    if (token.size() > 2) {
+                        int ord_val = 0;
+                        auto [p, ec] = std::from_chars(token.data(), token.data() + token.size() - 2, ord_val);
+                        if (ec != std::errc{} || p != token.data() + token.size() - 2 || ord_val < -53 || ord_val > 53 || ord_val == 0) {
+                            return std::unexpected(ErrorCode::InvalidByDay);
+                        }
+                        ord = static_cast<int8_t>(ord_val);
+                        wstr = token.substr(token.size() - 2);
+                    }
+                    auto wd_opt = parse_wday(wstr);
+                    if (!wd_opt) return std::unexpected(ErrorCode::InvalidByDay);
+                    spec.byday.push_back(WeekdayNum{ord, *wd_opt});
+                }
+            } else if (key == "BYSETPOS") {
+                if (seen_mask & (1 << 7)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 7);
+                std::string_view remaining = val;
+                while (!remaining.empty()) {
+                    size_t comma = remaining.find(',');
+                    std::string_view token = (comma == std::string_view::npos) ? remaining : remaining.substr(0, comma);
+                    remaining = (comma == std::string_view::npos) ? std::string_view{} : remaining.substr(comma + 1);
+
+                    int sp = 0;
+                    auto [p, ec] = std::from_chars(token.data(), token.data() + token.size(), sp);
+                    if (ec != std::errc{} || p != token.data() + token.size() || sp == 0 || sp < -366 || sp > 366) {
+                        return std::unexpected(ErrorCode::InvalidBySetPos);
+                    }
+                    spec.bysetpos.push_back(static_cast<int16_t>(sp));
+                }
+            } else if (key == "WKST") {
+                if (seen_mask & (1 << 8)) return std::unexpected(ErrorCode::DuplicatePart);
+                seen_mask |= (1 << 8);
+                auto wd_opt = parse_wday(val);
+                if (!wd_opt) return std::unexpected(ErrorCode::InvalidWkst);
+                spec.wkst = *wd_opt;
+            }
+
+            is_first = false;
+        }
+
+        return validate(spec);
+    }
+
+    static std::expected<RuleSpec, ErrorCode> validate(const RuleSpec& spec) noexcept {
+        if (spec.freq == Freq::Unset) return std::unexpected(ErrorCode::MissingFreq);
+        if (spec.count.has_value() && spec.until.has_value()) return std::unexpected(ErrorCode::MutualUntilCount);
+        if (spec.interval == 0) return std::unexpected(ErrorCode::InvalidInterval);
+
+        if (spec.freq == Freq::Weekly && (spec.bymonthday_pos_mask || spec.bymonthday_neg_mask)) {
+            return std::unexpected(ErrorCode::ByMonthDayOnWeekly);
+        }
+
+        if (!spec.bysetpos.empty() && !spec.has_by_filters()) {
+            return std::unexpected(ErrorCode::BySetPosWithoutBy);
+        }
+
+        for (const auto& d : spec.byday) {
+            if (d.ord != 0 && spec.freq != Freq::Monthly && spec.freq != Freq::Yearly) {
+                return std::unexpected(ErrorCode::OrdinalByDayInvalidFreq);
+            }
+        }
+
+        return spec;
+    }
+
+    static std::string to_string(const RuleSpec& spec) {
+        std::ostringstream ss;
+        ss << "FREQ=" << freq_to_string(spec.freq);
+
+        if (spec.interval > 1) ss << ";INTERVAL=" << spec.interval;
+        if (spec.count.has_value()) ss << ";COUNT=" << *spec.count;
+        else if (spec.until.has_value()) ss << ";UNTIL=" << *spec.until;
+
+        if (spec.bymonth_mask != 0) {
+            ss << ";BYMONTH=";
+            bool first = true;
+            for (int m = 1; m <= 12; ++m) {
+                if (spec.bymonth_mask & (1 << m)) {
+                    if (!first) ss << ',';
+                    ss << m;
+                    first = false;
+                }
+            }
+        }
+
+        if (spec.bymonthday_pos_mask || spec.bymonthday_neg_mask) {
+            ss << ";BYMONTHDAY=";
+            bool first = true;
+            for (int d = 1; d <= 31; ++d) {
+                if (spec.bymonthday_pos_mask & (1U << d)) {
+                    if (!first) ss << ',';
+                    ss << d;
+                    first = false;
+                }
+            }
+            for (int d = 1; d <= 31; ++d) {
+                if (spec.bymonthday_neg_mask & (1U << d)) {
+                    if (!first) ss << ',';
+                    ss << '-' << d;
+                    first = false;
+                }
+            }
+        }
+
+        if (!spec.byday.empty()) {
+            ss << ";BYDAY=";
+            for (size_t i = 0; i < spec.byday.size(); ++i) {
+                if (i > 0) ss << ',';
+                if (spec.byday[i].ord != 0) ss << static_cast<int>(spec.byday[i].ord);
+                ss << wday_to_string(spec.byday[i].wday);
+            }
+        }
+
+        if (!spec.bysetpos.empty()) {
+            ss << ";BYSETPOS=";
+            for (size_t i = 0; i < spec.bysetpos.size(); ++i) {
+                if (i > 0) ss << ',';
+                ss << spec.bysetpos[i];
+            }
+        }
+
+        if (spec.wkst != Weekday::MO) {
+            ss << ";WKST=" << wday_to_string(spec.wkst);
+        }
+
+        return ss.str();
+    }
+};
+
+} // namespace rrule_api
+```
+:::
+
+### Архітектурні висновки для надійних систем
+
+Розбір рекурентних правил за наведеною схемою гарантує три критичні властивості:
+- **Передбачуваність пам'яті:** структура `rrule_spec_t` займає менше ніж 80 байтів на стеку та не викликає системний менеджер пам'яті під час аналізу рядків.
+- **Невразливість до атак виснаження ресурсів (ReDoS/DoS):** синтаксичний автомат проходить вхідний рядок строго за один лінійний прохід `O(N)` без регулярних виразів та бектрекінгу.
+- **Суворе дотримання семантики RFC 5545:** валідатор усуває невизначені стани календаря ще на етапі вхідного шлюзу API, не допускаючи збереження недійсних або неоднозначних комбінацій параметрів.
+
+## Простеження розбору складного правила: крок за кроком
+
+Розглянемо повне проходження вхідного рядка через автомат розбору та валідації на прикладі складного комбінованого правила:
+
+`RRULE:FREQ=MONTHLY;INTERVAL=2;BYDAY=1MO,-1FR;BYMONTHDAY=10,11,12,13,14,15;BYSETPOS=1,-1;UNTIL=20271231T235959Z`
+
+1. **Сканування префікса та першого поля:** Лексер перевіряє префікс `RRULE:` і зсуває покажчик на початок першої пари ключ-значення. Першим токеном зчитується `FREQ=MONTHLY`. Прапорець першого поля скидається, а значення частоти записується в поле структури `freq = FREQ_MONTHLY`.
+2. **Розбір кроку `INTERVAL=2`:** Парсер виділяє ключ `INTERVAL`, перевіряє відсутність повторення поля через бітову маску `seen_mask` та конвертує число `2`. Перевірка `iv > 0` проходить успішно.
+3. **Обробка складеного поля `BYDAY=1MO,-1FR`:**
+   - Перший елемент списку `1MO` має довжину 3 символи. Автомат відтинає останні 2 символи `MO` (понеділок, індекс 1), а префікс `+1` парсить як знакову позицію `ord = +1` (перший понеділок).
+   - Другий елемент списку `-1FR` розбивається на токен `FR` (п'ятниця, індекс 5) та знаковий префікс `ord = -1` (остання п'ятниця).
+   - Обидва елементи додаються до масиву `byday` структури.
+4. **Розбір списку чисел місяця `BYMONTHDAY=10,11,12,13,14,15`:** Автомат ітерує по значеннях, розділених комами, перевіряє діапазон кожного числа (`1 <= md <= 31`) та встановлює біти з 10-го по 15-й у бітовій масці `bymonthday_pos_mask`.
+5. **Розбір відбору `BYSETPOS=1,-1`:** Значення `+1` (перший елемент відфільтрованого набору) та `-1` (останній елемент) записуються до масиву `bysetpos`.
+6. **Перевірка межі `UNTIL=20271231T235959Z`:** Рядок перевіряється на наявність кінцевого символу `Z` (ознака абсолютного часу UTC). Прапорець `has_until` встановлюється в `true`.
+7. **Фінальна семантична валідація:**
+   - `FREQ` присутній та валідний (успіх).
+   - `has_count` (`false`) та `has_until` (`true`) не конфліктують (успіх).
+   - Для частоти `MONTHLY` наявність `BYMONTHDAY` є дозволеною (успіх).
+   - `BYSETPOS` спирається на наявні фільтри `BYDAY` та `BYMONTHDAY` (успіх).
+   - Порядкові префікси `+1MO` та `-1FR` використовуються разом із `FREQ=MONTHLY`, що дозволено стандартом (успіх).
+
+На виході з валідатора система отримує повністю перевірену двійкову структуру, готову до швидкого виконання розгортачем або збереження в базу даних.
+
+## Збереження та індексація у сховищах CalDAV
+
+У виробничих серверах календарів (наприклад, SabreDAV, Radicale, Apple Calendar Server) рекурентні події не розгортаються наперед у нескінченні таблиці окремих записів бази даних. Замість цього застосовується дворівнева схема зберігання:
+
+1. **Майстер-компонент (Master VEVENT):** Зберігає повний рядок `DTSTART`, `RRULE`, `RDATE` та `EXDATE` у нормалізованому текстовому або двійковому форматі. У таблиці створюється унікальний індекс за ідентифікатором події `UID`.
+2. **Індекс часових меж (Bounding Box Index):** Під час збереження правила парсер витягує часові межі активності розкладу:
+   - Мінімальний час `min_time` = абсолютне значення `DTSTART` в UTC.
+   - Максимальний час `max_time` = значення `UNTIL` в UTC або спеціальний маркер `+INFINITY` (якщо правило нескінченне).
+3. **Обробка виняткових екземплярів (Exception Overrides):** Якщо користувач переносить або редагує окреме входження серії (наприклад, скасовує мітинг 15 березня), сервер зберігає окремий запис із властивістю `RECURRENCE-ID:20260315T090000Z`. Під час запиту діапазону дат розгортач спочатку генерує базовий набір за `RRULE`, викидає дати, що містяться в списку `EXDATE`, та замінює відповідні екземпляри даними зі знайдених перекриттів `RECURRENCE-ID`.
+
+Такий підхід забезпечує виконання календарних вибірок `CALDAV:calendar-query` за логарифмічний час `O(log N)` за допомогою стандартних B-Tree або GiST-індексів бази даних, усуваючи необхідність збереження мільйонів порожніх рядків у дисковому сховищі.

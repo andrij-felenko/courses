@@ -157,7 +157,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "hist": [
             {
@@ -355,7 +356,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 4
           },
           "math": [
             {
@@ -424,21 +426,25 @@
           "slug": "time-and-scheduling",
           "title": "Прикладний час",
           "basic": {
-            "status": "done"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "empty"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-time-standards.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-utc-boundary.md",
-              "status": "done"
+              "status": "recheck"
+            },
+            {
+              "file": "proj-time-sync-scheduler.md",
+              "status": "recheck"
             }
           ]
         },
@@ -449,7 +455,8 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3
           },
           "hist": [
             {
@@ -468,33 +475,37 @@
           "slug": "recurrence-scheduling",
           "title": "Рекурентність і календарна математика",
           "basic": {
-            "status": "done"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "empty"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-tzdata.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-calendar.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-expander.md",
-              "status": "done"
+              "status": "recheck"
+            },
+            {
+              "file": "proj-rrule-cron-engine.md",
+              "status": "recheck"
             }
           ],
           "api": [
             {
               "file": "api-rrule.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         }

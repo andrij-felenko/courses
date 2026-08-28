@@ -545,7 +545,6 @@ def clamp_vs_skip():
     b, _, _ = box_at(885, 132, "P(N): день місяця = 31", size=13, bold=True,
                      fill=FILL, stroke=MUTED, min_w=250)
     p.append(b)
-    p.append(line(636, 225, 1140, 225, color=MUTED, sw=1.4))
     marks = [(680, "31.01", True), (760, "лютий", False), (840, "31.03", True),
              (920, "квітень", False), (1000, "31.05", True)]
     for x, lab, hit in marks:
@@ -563,6 +562,132 @@ def clamp_vs_skip():
     render(os.path.join(IMG, "clamp-vs-skip.svg"), W, H, *p)
 
 
+# ── Фігура (detailed): часові переходи DST — прогалина та накладання ────────
+def rrule_dst_shift_timeline():
+    W, H = 1180, 560
+    p = []
+    p.append(text(W / 2, 34, "Крайові випадки літнього часу: прогалина (gap) та дублювання (overlap)",
+                  size=18, bold=True))
+
+    # ── Блок 1: Весняний перехід (прогалина, Gap) ──
+    y1 = 80
+    p.append(rect(40, y1, W - 80, 205, fill=FILL, stroke=MUTED, sw=1.2, rx=6))
+    p.append(text(60, y1 + 28, "1. Весна: прогалина (03:00 → 04:00 у Києві) — часу 03:30 фізично немає на годиннику",
+                  size=14, bold=True, color=POS, anchor="start"))
+
+    yw1 = y1 + 80
+    # настінна вісь: два сегменти обабіч прогалини
+    p.append(line(80, yw1, 270, yw1, color=MUTED, sw=1.4))
+    p.append(line(490, yw1, W - 80, yw1, color=MUTED, sw=1.4))
+    p.append(text(60, yw1 - 14, "настінний час", size=12, bold=True, anchor="start"))
+
+    # позначки часу
+    p.append(circle(160, yw1, 5, fill=BG, stroke=INK, sw=1.6))
+    p.append(text(160, yw1 + 24, "02:00", size=12))
+
+    # червона зона прогалини
+    p.append(rect(270, yw1 - 20, 220, 40, fill="#fdecea", stroke=POS, sw=1.8, rx=4))
+    p.append(text(380, yw1 + 6, "ПРОГАЛИНА (03:00–03:59)", size=12, bold=True, color=POS))
+    p.append(text(380, yw1 - 28, "ціль: 03:30 (не існує!)", size=12, bold=True, color=POS))
+
+    p.append(circle(580, yw1, 5, fill=BG, stroke=FIELD, sw=1.6))
+    p.append(text(580, yw1 + 24, "04:00 EEST", size=12, bold=True, color=FIELD))
+
+    p.append(circle(780, yw1, 5, fill=BG, stroke=INK, sw=1.6))
+    p.append(text(780, yw1 + 24, "05:00", size=12))
+
+    # стрілки рішень
+    p.append(arrow(380, yw1 + 22, 570, yw1 + 10, color=FIELD, sw=1.8))
+    p.append(text(480, yw1 + 42, "стратегія A: підтягнути до 04:00", size=11, bold=True, color=FIELD))
+
+    p.append(line(380, yw1 - 22, 480, y1 + 155, color=MUTED, sw=1.4, dash="4 4"))
+    p.append(text(540, y1 + 175, "стратегія B: пропустити запуск доби", size=11, color=MUTED, anchor="start"))
+
+    # ── Блок 2: Осінній перехід (дублювання, Overlap) ──
+    y2 = 310
+    p.append(rect(40, y2, W - 80, 215, fill=FILL, stroke=MUTED, sw=1.2, rx=6))
+    p.append(text(60, y2 + 28, "2. Осінь: дублювання (04:00 → 03:00 у Києві) — час 03:30 настає ДВІЧІ в різний UTC",
+                  size=14, bold=True, color=NEG, anchor="start"))
+
+    yw2 = y2 + 95
+    p.append(line(80, yw2, W - 80, yw2, color=MUTED, sw=1.4))
+    p.append(text(60, yw2 - 32, "фізична вісь UTC", size=12, bold=True, anchor="start"))
+
+    # перша поява (fold=0)
+    p.append(circle(300, yw2, 7, fill="#eaf0fd", stroke=NEG, sw=2))
+    p.append(text(300, yw2 - 30, "03:30 (fold=0)", size=12, bold=True, color=NEG))
+    p.append(text(300, yw2 - 14, "UTC+3 (літній час)", size=11, color=MUTED))
+    p.append(text(300, yw2 + 24, "00:30 UTC", size=13, bold=True, color=INK))
+
+    # точка переведення годинника
+    p.append(line(520, y2 + 50, 520, y2 + 180, color=POS, sw=1.5, dash="4 4"))
+    p.append(text(520, y2 + 65, "переведення 04:00 → 03:00", size=11, bold=True, color=POS))
+
+    # друга поява (fold=1)
+    p.append(circle(740, yw2, 7, fill="#eaf7ef", stroke=FIELD, sw=2))
+    p.append(text(740, yw2 - 30, "03:30 (fold=1)", size=12, bold=True, color=FIELD))
+    p.append(text(740, yw2 - 14, "UTC+2 (стандартний)", size=11, color=MUTED))
+    p.append(text(740, yw2 + 24, "01:30 UTC (+60 хв пізніше)", size=13, bold=True, color=INK))
+
+    p.append(text(W / 2, y2 + 195,
+                  "Розв'язання неоднозначності: явний прапорець fold (0 — перший раз, 1 — повторний) + ключ ідемпотентності",
+                  size=12, italic=True, color=MUTED))
+
+    render(os.path.join(IMG, "rrule-dst-shift-timeline.svg"), W, H, *p)
+
+
+# ── Фігура (detailed): конвеєр оцінки CRON через бітові маски ───────────────
+def cron_evaluation_pipeline():
+    W, H = 1180, 480
+    p = []
+    p.append(text(W / 2, 34, "Конвеєр бітової фільтрації та обчислення CRON", size=18, bold=True))
+
+    # 1. Вхідний вираз
+    b1, w1, h1 = box_at(160, 110, "Вираз CRON\n30 2 1,15 * 1-5\n(хв год день міс день_тиж)",
+                        size=13, bold=True, fill="#eaf0fd", stroke=NEG, sw=2, min_w=220)
+    p.append(b1)
+
+    # 2. П'ять бітових масок uint64_t
+    b2, w2, h2 = box_at(520, 110,
+                        "Бітові маски (uint64_t):\n• min_mask: біт 30 (0x40000000)\n• hour_mask: біт 2 (0x00000004)\n• dom_mask: біти 1, 15 (0x8002)\n• mon_mask: біти 1..12 (0x1FFE)\n• dow_mask: біти 1..5 (Пн-Пт, 0x3E)",
+                        size=12, bold=True, fill=BG, stroke=INK, sw=1.8, min_w=360)
+    p.append(b2)
+
+    p.append(arrow(160 + w1, 110, 520 - w2, 110, sw=1.8))
+    p.append(text((160 + w1 + 520 - w2) / 2, 90, "парсинг", size=11, color=MUTED))
+
+    # 3. Селектор DOM / DOW (POSIX OR)
+    b3, w3, h3 = box_at(950, 110,
+                        "Логіка дня:\nDOM & DOW не *\n→ операція OR (POSIX)\n(1-е АБО 15-е АБО Пн..Пт)",
+                        size=12, bold=True, fill="#fdecea", stroke=POS, sw=1.8, min_w=240)
+    p.append(b3)
+    p.append(arrow(520 + w2, 110, 950 - w3, 110, sw=1.8))
+
+    # 4. Швидкий пошук через bit-scan (ctz)
+    yc = 290
+    b4, w4, h4 = box_at(380, yc,
+                        "Пошук наступного збігу:\nСтрибок через __builtin_ctzll(mask & ~mask_passed)\nO(1) операція замість покрокового перебору секунд",
+                        size=13, bold=True, fill="#eaf7ef", stroke=FIELD, sw=2, min_w=480)
+    p.append(b4)
+
+    # стрілка вниз від масок до обчислювача
+    p.append(arrow(520, 110 + h2, 380 + 100, yc - h4, sw=1.8))
+
+    # 5. Результат: абсолютна мить
+    b5, w5, h5 = box_at(920, yc,
+                        "Цільова мить:\n2026-09-01 02:30:00\nЛокалізація в Europe/Kyiv\n→ 23:30:00 UTC",
+                        size=13, bold=True, fill="#eaf0fd", stroke=NEG, sw=2, min_w=280)
+    p.append(b5)
+    p.append(arrow(380 + w4, yc, 920 - w5, yc, color=FIELD, sw=2))
+    p.append(text((380 + w4 + 920 - w5) / 2, yc - 18, "пряма генерація", size=11, bold=True, color=FIELD))
+
+    p.append(text(W / 2, 430,
+                  "Бітовий вектор дозволяє перевірити відповідність будь-якої дати за 5 операцій побітового AND",
+                  size=13, italic=True, color=MUTED))
+
+    render(os.path.join(IMG, "cron-evaluation-pipeline.svg"), W, H, *p)
+
+
 if __name__ == "__main__":
     two_clocks_dst()
     rule_expand()
@@ -576,4 +701,7 @@ if __name__ == "__main__":
     calendar_march_shift()
     leap_approx_ladder()
     clamp_vs_skip()
+    rrule_dst_shift_timeline()
+    cron_evaluation_pipeline()
     print("figures written to", IMG)
+

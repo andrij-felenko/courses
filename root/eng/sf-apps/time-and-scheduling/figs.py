@@ -14,20 +14,17 @@ def fig_two_axes():
     W, H = 820, 320
     frags = []
 
-    # горизонтальна вісь миттєвостей
     axis_y = 238
     frags.append(line(60, axis_y, 748, axis_y, color=INK, sw=2.2))
     frags.append(arrow(748, axis_y, 772, axis_y, color=INK, sw=2.2))
     frags.append(text(66, axis_y + 30, "вісь миттєвостей (UTC)", size=13,
                       color=MUTED, anchor="start", italic=True))
 
-    # одна виділена мить
     dot_x = 410
     frags.append(line(dot_x, axis_y, dot_x, axis_y - 12, color=POS, sw=2))
     frags.append(circle(dot_x, axis_y, 7, fill=POS, stroke=POS, sw=2))
     frags.append(text(dot_x, axis_y + 30, "08:00 UTC", size=15, color=POS, bold=True))
 
-    # три настінні прочитання тієї самої миті
     reads = [
         (170, "Лондон  +1", "09:00"),
         (410, "Київ  +3",   "11:00"),
@@ -38,7 +35,6 @@ def fig_two_axes():
         body, bw, bh = textbox(bx, box_cy, city + "\n" + hhmm, size=15,
                                pad=12, min_w=120, bold=False)
         frags.append(body)
-        # стрілка від миті до низу рамки
         frags.append(arrow(dot_x, axis_y - 14, bx, box_cy + bh / 2 + 4,
                            color=LINE, sw=1.6))
 
@@ -51,7 +47,6 @@ def fig_three_clocks():
     W, H = 860, 306
     frags = []
 
-    # заголовки колонок
     frags.append(text(150, 58, "питання", size=13, color=MUTED, italic=True))
     frags.append(text(435, 58, "механізм", size=13, color=MUTED, italic=True))
     frags.append(text(715, 58, "правило", size=13, color=MUTED, italic=True))
@@ -126,15 +121,13 @@ def fig_utc_scales():
     frags = []
 
     x0, x1 = 100, 640
-    y0 = 88            # рівень TAI (нуль розбіжності)
-    span = 182.0       # повне відставання UT1 на правому краї
+    y0 = 88
+    span = 182.0
     steps = 27
     step_px = span / steps
 
-    # TAI — пряма
     frags.append(line(x0, y0, x1 + 8, y0, color=INK, sw=2.4))
 
-    # UT1 — плавна крива з нерівним ходом
     def ut1(t):
         return y0 + span * (0.90 * t ** 1.10 + 0.10 * t
                             + 0.012 * math.sin(2 * math.pi * 2.2 * t))
@@ -144,7 +137,6 @@ def fig_utc_scales():
     for (ax, ay), (bx, by) in zip(pts, pts[1:]):
         frags.append(line(ax, ay, bx, by, color=NEG, sw=2.0))
 
-    # UTC — сходинки по цілій секунді
     lvl, sx = 0, x0
     for px, py in pts:
         k = int((py - y0) // step_px)
@@ -156,13 +148,11 @@ def fig_utc_scales():
             lvl, sx = k, px
     frags.append(line(sx, y0 + lvl * step_px, x1, y0 + lvl * step_px, color=POS, sw=2.2))
 
-    # підписи осей
     frags.append(text(92, y0 + 5, "0", size=12, color=MUTED, anchor="end"))
     frags.append(text(92, y0 + span + 5, "−27 с", size=12, color=MUTED, anchor="end"))
     frags.append(text(x0, 302, "1972", size=12, color=MUTED))
     frags.append(text(x1, 302, "2016", size=12, color=MUTED))
 
-    # легенда
     legend = [
         (110, "TAI\nрівний атомний лік", INK),
         (185, "UTC\nтікає як TAI,\nстрибає цілою секундою", POS),
@@ -184,8 +174,8 @@ def fig_user_day():
     frags.append(text(W / 2, 54, "півзакритий проміжок митей:   [ від … до )",
                       size=13, color=MUTED, italic=True))
 
-    X0 = 148            # ліва межа смуг
-    HW = 21.0           # пікселів на годину
+    X0 = 148
+    HW = 21.0
     BH = 32
     rows = [
         ("29 бер 2026", 23, "03:00 не існувало", "#eaf0fd", NEG,
@@ -217,14 +207,152 @@ def fig_user_day():
                   title="Доба користувача на осі митей")
 
 
+def fig_monotonic_vs_wall_clock():
+    """Порівняння поведінки CLOCK_REALTIME та CLOCK_MONOTONIC у часі."""
+    W, H = 880, 420
+    frags = []
+
+    frags.append(text(W / 2, 36, "Поведінка стінного та монотонного годинників при збуреннях",
+                      size=16, color=INK, bold=True))
+
+    y_rt_base = 150
+    frags.append(text(50, y_rt_base - 50, "CLOCK_REALTIME (стінний час): стрибки, зміщення та розриви",
+                      size=13, color=POS, anchor="start", bold=True))
+    
+    frags.append(line(50, y_rt_base, 830, y_rt_base, color=MUTED, sw=1.2))
+    
+    frags.append(line(70, 175, 250, 115, color=POS, sw=2.4))
+    frags.append(circle(250, 115, 4, fill=POS, stroke=POS))
+    
+    frags.append(line(250, 115, 250, 155, color=POS, sw=1.8, dash="4,4"))
+    frags.append(arrow(250, 115, 250, 150, color=POS, sw=1.8))
+    frags.append(circle(250, 155, 4, fill=BG, stroke=POS, sw=2))
+    
+    frags.append(line(250, 155, 500, 75, color=POS, sw=2.4))
+    frags.append(circle(500, 75, 4, fill=POS, stroke=POS))
+    
+    frags.append(line(500, 75, 500, 45, color=POS, sw=1.8, dash="4,4"))
+    frags.append(arrow(500, 75, 500, 50, color=POS, sw=1.8))
+    frags.append(circle(500, 45, 4, fill=BG, stroke=POS, sw=2))
+    
+    frags.append(line(500, 45, 780, 20, color=POS, sw=2.4))
+
+    b1, _, _ = textbox(250, 75, "NTP step\n(стрибок назад −500мс)", size=11, pad=6,
+                       fill="#fff5f5", stroke=POS, color=POS)
+    frags.append(b1)
+    
+    b2, _, _ = textbox(500, 115, "DST / settimeofday\n(стрибок уперед +1год)", size=11, pad=6,
+                       fill="#fff5f5", stroke=POS, color=POS)
+    frags.append(b2)
+    
+    b3, _, _ = textbox(720, 150, "Пастка: t2 − t1 < 0\n(від'ємна тривалість!)", size=11, pad=6,
+                       fill="#fff0f0", stroke=POS, color=POS, bold=True)
+    frags.append(b3)
+
+    frags.append(line(50, 225, 830, 225, color="#e0e0e0", sw=1.5, dash="6,6"))
+
+    y_mono_base = 350
+    frags.append(text(50, y_mono_base - 90, "CLOCK_MONOTONIC (інтервальний час): строго не спадає, без розривів",
+                      size=13, color=FIELD, anchor="start", bold=True))
+    
+    frags.append(line(50, y_mono_base, 830, y_mono_base, color=MUTED, sw=1.2))
+    
+    frags.append(line(70, 360, 780, 260, color=FIELD, sw=2.8))
+    frags.append(arrow(770, 261.5, 785, 259, color=FIELD, sw=2.8))
+    
+    t1_x, t1_y = 200, 343
+    t2_x, t2_y = 600, 286
+    frags.append(circle(t1_x, t1_y, 5, fill=FIELD, stroke=FIELD))
+    frags.append(circle(t2_x, t2_y, 5, fill=FIELD, stroke=FIELD))
+    frags.append(line(t1_x, t1_y, t1_x, y_mono_base + 12, color=FIELD, sw=1.2, dash="3,3"))
+    frags.append(line(t2_x, t2_y, t2_x, y_mono_base + 12, color=FIELD, sw=1.2, dash="3,3"))
+    frags.append(text(t1_x, y_mono_base + 24, "t1 (старт)", size=12, color=INK, bold=True))
+    frags.append(text(t2_x, y_mono_base + 24, "t2 (кінець)", size=12, color=INK, bold=True))
+    
+    frags.append(line(t1_x, y_mono_base + 38, t2_x, y_mono_base + 38, color=FIELD, sw=1.6))
+    frags.append(arrow(t1_x + 15, y_mono_base + 38, t1_x, y_mono_base + 38, color=FIELD, sw=1.6))
+    frags.append(arrow(t2_x - 15, y_mono_base + 38, t2_x, y_mono_base + 38, color=FIELD, sw=1.6))
+    frags.append(text((t1_x + t2_x) / 2, y_mono_base + 54, "Δt = t2 − t1 > 0 завжди гарантовано",
+                      size=12, color=FIELD, bold=True))
+
+    mb1, _, _ = textbox(380, 260, "Плавне коригування частоти (NTP slew)\nбез стрибків і без повернення назад",
+                        size=11, pad=8, fill="#f0fff4", stroke=FIELD, color=FIELD)
+    frags.append(mb1)
+
+    return render(os.path.join(IMG, "monotonic-vs-wall-clock.svg"), W, H, *frags,
+                  title="Монотонний проти стінного годинника")
+
+
+def fig_ntp_slew_vs_step():
+    """Коригування часу NTP: стрибок (step) проти плавного затягування (slew)."""
+    W, H = 880, 360
+    frags = []
+
+    frags.append(text(W / 2, 34, "Підлаштування часу NTP: стрибок (Step) проти затягування (Slew)",
+                      size=16, color=INK, bold=True))
+
+    col1_cx = 240
+    frags.append(text(col1_cx, 70, "Стрибок (Step: settimeofday)", size=14, color=POS, bold=True))
+    
+    s_x0, s_y0 = 60, 260
+    frags.append(line(s_x0, s_y0, 420, s_y0, color=MUTED, sw=1.2))
+    frags.append(line(s_x0, s_y0, s_x0, 100, color=MUTED, sw=1.2))
+    frags.append(text(420, s_y0 + 20, "час (t)", size=11, color=MUTED))
+    frags.append(text(s_x0 - 10, 100, "показ", size=11, color=MUTED, anchor="end"))
+    
+    frags.append(line(s_x0, 240, 400, 120, color=MUTED, sw=1.4, dash="4,4"))
+    
+    frags.append(line(s_x0, 260, 220, 166, color=POS, sw=2.2))
+    frags.append(circle(220, 166, 4, fill=POS, stroke=POS))
+    frags.append(line(220, 166, 220, 134, color=POS, sw=2.0, dash="3,3"))
+    frags.append(arrow(220, 166, 220, 138, color=POS, sw=2.0))
+    frags.append(circle(220, 134, 4, fill=BG, stroke=POS, sw=2))
+    frags.append(line(220, 134, 400, 80, color=POS, sw=2.2))
+    
+    sb, _, _ = textbox(col1_cx, 305, "Миттєвий розрив шкали\nПорушує монотонність та ламає таймери",
+                       size=11, pad=6, fill="#fff5f5", stroke=POS, color=POS)
+    frags.append(sb)
+
+    frags.append(line(450, 60, 450, 330, color="#dddddd", sw=1.5))
+
+    col2_cx = 660
+    frags.append(text(col2_cx, 70, "Затягування (Slew: adjtime / PLL)", size=14, color=FIELD, bold=True))
+    
+    w_x0, w_y0 = 480, 260
+    frags.append(line(w_x0, w_y0, 840, w_y0, color=MUTED, sw=1.2))
+    frags.append(line(w_x0, w_y0, w_x0, 100, color=MUTED, sw=1.2))
+    frags.append(text(840, w_y0 + 20, "час (t)", size=11, color=MUTED))
+    frags.append(text(w_x0 - 10, 100, "показ", size=11, color=MUTED, anchor="end"))
+    
+    frags.append(line(w_x0, 240, 820, 120, color=MUTED, sw=1.4, dash="4,4"))
+    
+    frags.append(line(w_x0, 260, 580, 193, color=FIELD, sw=2.2))
+    frags.append(line(580, 193, 720, 115, color=FIELD, sw=2.4))
+    frags.append(line(720, 115, 820, 82, color=FIELD, sw=2.2))
+    
+    frags.append(circle(580, 193, 3, fill=FIELD, stroke=FIELD))
+    frags.append(circle(720, 115, 3, fill=FIELD, stroke=FIELD))
+    
+    wb, _, _ = textbox(col2_cx, 305, "Зміна темпу ходу (до ±500 PPM)\nШкала неперервна, порядок подій збережено",
+                       size=11, pad=6, fill="#f0fff4", stroke=FIELD, color=FIELD)
+    frags.append(wb)
+
+    return render(os.path.join(IMG, "ntp-slew-vs-step.svg"), W, H, *frags,
+                  title="NTP Slew проти Step")
+
+
 if __name__ == "__main__":
     p1 = fig_two_axes()
     p2 = fig_three_clocks()
     p3 = fig_time_chain()
     p4 = fig_utc_scales()
     p5 = fig_user_day()
+    p6 = fig_monotonic_vs_wall_clock()
+    p7 = fig_ntp_slew_vs_step()
     print("written:", p1)
     print("written:", p2)
     print("written:", p3)
     print("written:", p4)
     print("written:", p5)
+    print("written:", p6)
+    print("written:", p7)

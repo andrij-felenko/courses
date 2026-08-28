@@ -31,7 +31,7 @@
 
 Це й означає «розгорнути»: не крок до наступної дати, а повний перебір одного періоду — і аж тоді перехід до наступного.
 
-![Один період розгортача: усі 31 день березня 2026 → 22 робочі дні за BYDAY → BYSETPOS=−1 бере 31.03 → локалізація в 15:00 UTC](img/period-funnel.svg)
+![Один період розгортача: усі 31 день березня 2026 → 22 робочі дні за BYDAY → BYSETPOS=−1 бере 31.03 → локалізація в 15:00 UTC](/root/eng/sf-apps/recurrence-scheduling/img/period-funnel.svg)
 
 *Відбір за порядковим номером неможливо зробити, дивлячись на одну дату: третій крок працює лише з готовим набором усього періоду.*
 
@@ -45,24 +45,27 @@
 ```python
 # -*- coding: utf-8 -*-
 """Розгортання рекурентного правила: календарна половина."""
-from dataclasses import dataclass
-from datetime import date, datetime, timedelta
+from dataclasses import dataclass, field
+from datetime import date, datetime, timedelta, time
 from calendar import monthrange
 
 
 @dataclass(frozen=True)
 class Rule:
-    freq: str                       # DAILY | WEEKLY | MONTHLY | YEARLY
+    freq: str                         # DAILY | WEEKLY | MONTHLY | YEARLY
     interval: int = 1
-    by_month: tuple = ()            # 1..12
-    by_monthday: tuple = ()         # 1..31 і -1..-31 (рахує з кінця місяця)
-    by_day: tuple = ()              # ((номер|None, день тижня), …); «-1FR» → (-1, 4)
-    by_setpos: tuple = ()           # відбір у межах ОДНОГО періоду
+    by_month: tuple = ()              # 1..12
+    by_monthday: tuple = ()           # 1..31 і -1..-31 (рахує з кінця місяця)
+    by_day: tuple = ()                # ((номер|None, день тижня), …); «-1FR» → (-1, 4)
+    by_setpos: tuple = ()             # відбір у межах ОДНОГО періоду
     count: int | None = None
-    until: datetime | None = None   # мить в UTC, включно
+    until: datetime | None = None     # мить в UTC, включно
+    exdates: set = field(default_factory=set)  # множина дат-винятків (EXDATE)
+    workday_only: bool = False        # вимагати лише робочі дні (пн-пт)
+    shift_weekend: str = "NONE"       # "NONE" | "FORWARD" (до пн) | "BACKWARD" (до пт)
 
 
-def period_dates(rule, start, i):
+def period_dates(rule: Rule, start: datetime, i: int) -> list[date]:
     """Дати i-го періоду. i рахується від періоду ПОЧАТКУ, а не від
     останнього спрацювання — саме це тримає крок INTERVAL на місці."""
     k = i * rule.interval
@@ -81,11 +84,11 @@ def period_dates(rule, start, i):
     raise ValueError("невідома частота: " + rule.freq)
 
 
-def _month_dates(y, m):
+def _month_dates(y: int, m: int) -> list[date]:
     return [date(y, m, j) for j in range(1, monthrange(y, m)[1] + 1)]
 
 
-def matches(rule, d, dates):
+def matches(rule: Rule, d: date, dates: list[date]) -> bool:
     """Чи справджують уточнення саме цю дату. dates — увесь період:
     без нього не порахувати «остання п'ятниця»."""
     if rule.by_month and d.month not in rule.by_month:
@@ -108,7 +111,23 @@ def matches(rule, d, dates):
     return True
 
 
-def candidates(rule, start, i):
+def apply_weekend_shift(d: date, mode: str) -> date:
+    """Зсув дати, якщо вона припадає на суботу або неділю."""
+    wd = d.weekday()
+    if wd == 5:  # Субота
+        if mode == "FORWARD":
+            return d + timedelta(days=2)  # Понеділок
+        if mode == "BACKWARD":
+            return d - timedelta(days=1)  # П'ятниця
+    elif wd == 6:  # Неділя
+        if mode == "FORWARD":
+            return d + timedelta(days=1)  # Понеділок
+        if mode == "BACKWARD":
+            return d - timedelta(days=2)  # П'ятниця
+    return d
+
+
+def candidates(rule: Rule, start: datetime, i: int) -> tuple[date, list[datetime]]:
     """Упорядкований набір настінних міток i-го періоду після всіх уточнень."""
     dates = period_dates(rule, start, i)
     kept = [d for d in dates if matches(rule, d, dates)]
@@ -116,12 +135,20 @@ def candidates(rule, start, i):
         n = len(kept)
         idx = sorted({(p - 1 if p > 0 else n + p) for p in rule.by_setpos})
         kept = [kept[j] for j in idx if 0 <= j < n]
+    
+    # Застосування бізнес-правил вихідних днів
+    if rule.shift_weekend != "NONE":
+        kept = [apply_weekend_shift(d, rule.shift_weekend) for d in kept]
+    elif rule.workday_only:
+        kept = [d for d in kept if d.weekday() < 5]
+
     tod = start.time()
     return dates[0], [datetime.combine(d, tod) for d in kept]
 ```
 ```ts
 // Розгортання рекурентного правила: календарна половина.
 type Freq = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+type WeekendShift = "NONE" | "FORWARD" | "BACKWARD";
 
 interface Rule {
   freq: Freq;
@@ -132,6 +159,9 @@ interface Rule {
   bySetPos?: number[];                   // відбір у межах ОДНОГО періоду
   count?: number;
   until?: number;                        // мить в UTC, мс, включно
+  exdates?: Set<number>;                 // миті-винятки в UTC
+  workdayOnly?: boolean;                 // лише понеділок-п'ятниця
+  shiftWeekend?: WeekendShift;           // зсув вихідних днів
 }
 
 const DAY = 86_400_000;
@@ -143,6 +173,18 @@ const dayOf = (wall: number) => { const d = new Date(wall);
   return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); };
 const monthDates = (y: number, m: number) =>
   Array.from({ length: daysIn(y, m) }, (_, j) => civil(y, m, j + 1));
+
+function shiftWeekendDay(c: number, mode: WeekendShift): number {
+  const w = dow(c);
+  if (w === 5) { // Субота
+    if (mode === "FORWARD") return c + 2 * DAY;
+    if (mode === "BACKWARD") return c - 1 * DAY;
+  } else if (w === 6) { // Неділя
+    if (mode === "FORWARD") return c + 1 * DAY;
+    if (mode === "BACKWARD") return c - 2 * DAY;
+  }
+  return c;
+}
 
 // i рахується від періоду ПОЧАТКУ, а не від останнього спрацювання —
 // саме це тримає крок INTERVAL на місці, коли період випадає.
@@ -201,6 +243,13 @@ function candidates(r: Rule, start: number, i: number): [number, number[]] {
       .sort((a, b) => a - b);
     kept = idx.filter((j) => j >= 0 && j < n).map((j) => kept[j]);
   }
+
+  if (r.shiftWeekend && r.shiftWeekend !== "NONE") {
+    kept = kept.map((c) => shiftWeekendDay(c, r.shiftWeekend!));
+  } else if (r.workdayOnly) {
+    kept = kept.filter((c) => dow(c) < 5);
+  }
+
   const tod = start - dayOf(start);
   return [dates[0], kept.map((c) => c + tod)];
 }
@@ -226,29 +275,54 @@ from datetime import timezone
 from zoneinfo import ZoneInfo
 
 
-def to_instant(local, tz):
-    """None, якщо такого місцевого часу не існує (весняний стрибок).
-    fold=0 для двозначного часу — беремо ПЕРШЕ з двох проходжень."""
+def to_instant(local: datetime, tz: ZoneInfo, disambiguate: str = "compatible") -> datetime | None:
+    """Перетворює настінний час у зоновану мить UTC.
+    Підтримує режими обробки часових аномалій (весняна прогалина, осінній дубль)."""
     aware = local.replace(tzinfo=tz)
-    if aware.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) != local:
+    # Перевірка обертанням: чи існує такий настінний час без спотворення
+    roundtrip = aware.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None)
+    if roundtrip == local:
+        return aware.astimezone(timezone.utc)
+
+    # Якщо час потрапив у весняну прогалину (DST Spring Forward)
+    if disambiguate == "compatible" or disambiguate == "forward":
+        # Зсуваємо вперед на 1 годину до найближчого дійсного часу
+        shifted = local + timedelta(hours=1)
+        shifted_aware = shifted.replace(tzinfo=tz)
+        if shifted_aware.astimezone(timezone.utc).astimezone(tz).replace(tzinfo=None) == shifted:
+            return shifted_aware.astimezone(timezone.utc)
+    elif disambiguate == "reject":
         return None
-    return aware.astimezone(timezone.utc)
+
+    return None
 
 
-def expand(rule, start_local, tzid, after, limit, horizon_years=10):
+def expand(rule: Rule, start_local: datetime, tzid: str, after: datetime,
+           limit: int, horizon_years: int = 10, disambiguate: str = "compatible") -> list[datetime]:
+    """Головний генератор наступних спрацювань із фільтрацією винятків та DST."""
     tz = ZoneInfo(tzid)
-    start_utc = to_instant(start_local, tz)
+    start_utc = to_instant(start_local, tz, disambiguate)
+    if start_utc is None:
+        start_utc = start_local.replace(tzinfo=timezone.utc)
+
     horizon = date(after.year + horizon_years, 12, 31)   # запобіжник від вічного циклу
-    out, seen, i = [], 0, 0
+    out: list[datetime] = []
+    seen, i = 0, 0
+
     while len(out) < limit:
         first, marks = candidates(rule, start_local, i)
         if first > horizon:
             break
         i += 1
         for local in marks:
-            inst = to_instant(local, tz)
+            inst = to_instant(local, tz, disambiguate)
             if inst is None or inst < start_utc:
-                continue                                 # неіснуючі НЕ рахуємо
+                continue                                 # неіснуючі або попередні не беремо
+
+            # Фільтрація дат винятків EXDATE
+            if inst in rule.exdates:
+                continue
+
             seen += 1
             if rule.count is not None and seen > rule.count:
                 return out
@@ -259,6 +333,27 @@ def expand(rule, start_local, tzid, after, limit, horizon_years=10):
                 if len(out) == limit:
                     return out
     return out
+
+
+def demo_suite():
+    """Тестова валідація типових сценаріїв розгортача."""
+    # 1. Щомісяця остання п'ятниця
+    rule_last_fri = Rule(freq="MONTHLY", by_day=((-1, 4),), count=5)
+    start = datetime(2026, 1, 1, 9, 0)
+    res1 = expand(rule_last_fri, start, "Europe/Kyiv", after=start, limit=5)
+    assert len(res1) == 5, "Має бути рівно 5 останніх п'ятниць"
+
+    # 2. Зсув вихідних днів до понеділка з винятком EXDATE
+    ex_date = datetime(2026, 3, 16, 7, 0, tzinfo=timezone.utc)
+    rule_billing = Rule(freq="MONTHLY", by_monthday=(15,), shift_weekend="FORWARD", exdates={ex_date})
+    res2 = expand(rule_billing, datetime(2026, 1, 15, 9, 0), "Europe/Kyiv", after=start, limit=4)
+    assert ex_date not in res2, "Виняток EXDATE не повинен потрапити у видачу"
+
+    # 3. Весняний стрибок через прогалину 03:30 (Київ, 29 березня 2026)
+    rule_daily = Rule(freq="DAILY", count=5)
+    res3 = expand(rule_daily, datetime(2026, 3, 27, 3, 30), "Europe/Kyiv", after=datetime(2026, 3, 27, 0, 0), limit=5)
+    assert len(res3) == 5, "Має згенерувати 5 послідовних дійсних митей"
+    return res1, res2, res3
 ```
 ```ts
 // Друга половина: локалізація й головний цикл.
@@ -281,19 +376,26 @@ function offsetMs(tz: string, instant: number): number {
 
 /** null, якщо такого місцевого часу не існує (весняний стрибок).
  *  Двозначний час (осінній відкат) → ПЕРШЕ з двох проходжень. */
-function toInstant(tz: string, wall: number): number | null {
+function toInstant(tz: string, wall: number, disambiguate = "compatible"): number | null {
   const before = offsetMs(tz, wall - 26 * 3600_000);     // завідомо до переходу
   const after = offsetMs(tz, wall + 26 * 3600_000);      // завідомо після
   for (const off of before >= after ? [before, after] : [after, before]) {
     const inst = wall - off;
     if (inst + offsetMs(tz, inst) === wall) return inst; // обертання зійшлося
   }
+  if (disambiguate === "compatible" || disambiguate === "forward") {
+    // Зсув на 1 годину вперед при потраплянні в прогалину
+    const shiftedWall = wall + 3600_000;
+    const off = offsetMs(tz, shiftedWall - 3600_000);
+    const inst = shiftedWall - off;
+    if (inst + offsetMs(tz, inst) === shiftedWall) return inst;
+  }
   return null;
 }
 
 function expand(r: Rule, startWall: number, tz: string, after: number,
-                limit: number, horizonYears = 10): number[] {
-  const startUtc = toInstant(tz, startWall)!;
+                limit: number, horizonYears = 10, disambiguate = "compatible"): number[] {
+  const startUtc = toInstant(tz, startWall, disambiguate) ?? startWall;
   // запобіжник від вічного циклу на правилі, що не справджується ніколи
   const horizon = Date.UTC(new Date(after).getUTCFullYear() + horizonYears, 11, 31);
   const out: number[] = [];
@@ -302,8 +404,12 @@ function expand(r: Rule, startWall: number, tz: string, after: number,
     const [first, marks] = candidates(r, startWall, i);
     if (first > horizon) break;
     for (const wall of marks) {
-      const inst = toInstant(tz, wall);
+      const inst = toInstant(tz, wall, disambiguate);
       if (inst === null || inst < startUtc) continue;    // неіснуючі НЕ рахуємо
+
+      // Фільтрація винятків EXDATE
+      if (r.exdates && r.exdates.has(inst)) continue;
+
       if (r.count !== undefined && ++seen > r.count) return out;
       if (r.until !== undefined && inst > r.until) return out;
       if (inst > after) {                                // строго після — не включно
@@ -314,8 +420,40 @@ function expand(r: Rule, startWall: number, tz: string, after: number,
   }
   return out;
 }
+
+function runDemoSuite(): { lastFridays: number[]; billing: number[]; dstLeap: number[] } {
+  // 1. Щомісяця остання п'ятниця
+  const ruleLastFri: Rule = { freq: "MONTHLY", byDay: [[-1, 4]], count: 5 };
+  const start = Date.UTC(2026, 0, 1, 9, 0);
+  const lastFridays = expand(ruleLastFri, start, "Europe/Kyiv", start, 5);
+  if (lastFridays.length !== 5) throw new Error("Має бути 5 дат");
+
+  // 2. Зсув вихідних днів до понеділка з винятком EXDATE
+  const exDate = Date.UTC(2026, 2, 16, 7, 0); // 16 березня 2026
+  const ruleBilling: Rule = {
+    freq: "MONTHLY", byMonthDay: [15], shiftWeekend: "FORWARD",
+    exdates: new Set([exDate]),
+  };
+  const billing = expand(ruleBilling, Date.UTC(2026, 0, 15, 9, 0), "Europe/Kyiv", start, 4);
+  if (billing.includes(exDate)) throw new Error("EXDATE не відфільтровано");
+
+  // 3. Весняний стрибок через прогалину 03:30
+  const ruleDaily: Rule = { freq: "DAILY", count: 5 };
+  const dstLeap = expand(ruleDaily, Date.UTC(2026, 2, 27, 3, 30), "Europe/Kyiv", Date.UTC(2026, 2, 27, 0, 0), 5);
+  if (dstLeap.length !== 5) throw new Error("Невірна кількість дат при переході");
+
+  return { lastFridays, billing, dstLeap };
+}
 ```
 :::
+
+## Винятки EXDATE, робочі календарі та виробнича інтеграція
+
+У корпоративних системах планування задач (фінансовий білінг, нарахування заробітної плати, випуск звітів) рекурентне правило рідко працює у вакуумі. До нього висуваються дві додаткові вимоги:
+1. **Виключення окремих дат через `EXDATE`:** Коли зустріч скасовано на конкретний день або регулярний платіж вручну пропущено, відповідна мить додається до списку `EXDATE`. Порівняння `EXDATE` обов'язково здійснюється на осі абсолютного часу UTC після локалізації. Якщо порівнювати лише дату й час у настінному календарі, переведення годинника або зміна поясу призведе до того, що виняток не спрацює і задача виконається повторно.
+2. **Зсув вихідних днів (`Business Day Shifting`):** Якщо щомісячний білінг призначено на 15-те число, а воно припадає на неділю, банківський шлюз вимагає перенесення або вперед (на понеділок, 16-те), або назад (на п'ятницю, 13-те). Зсув застосовується на етапі відбору кандидатів періоду **до** перетворення в миті UTC. Це гарантує, що час доби (наприклад, 09:00) зберігається для зміщеної робочої дати, а подальша локалізація враховує часовий пояс саме нового дня.
+
+Згідно зі специфікацією RFC 5545, виключення через `EXDATE` не відновлює лічильник `COUNT`: якщо правило має обмеження `COUNT=10`, а один із екземплярів викинуто через `EXDATE`, клієнт отримає рівно 9 виконаних задач. Це запобігає нескінченному зсуву завершення контракту чи серії зустрічей.
 
 Головний цикл вартий повільного прочитання, бо в ньому чотири різні лічильники, і кожен рахує своє. `i` — номер періоду від початку. `seen` — скільки спрацювань уже вийшло **від початку ряду**, а не від запитаної миті: без цього неможливо чесно порахувати `COUNT`. `out` — те, що вже пішло у відповідь. `horizon` — межа, за якою шукати припиняємо взагалі.
 
@@ -371,7 +509,7 @@ FREQ=MONTHLY;BYDAY=-1FR                          (остання п'ятниця
 
 Дві послідовності розходяться після першого ж пропуску і більше ніколи не сходяться: зсув фази на місяць лишається назавжди. Помітять це не наступного дня, а за пів року, коли квартальний звіт піде не тоді.
 
-![Дві доріжки того самого правила: якір на періоді пропускає квітень і лишається на сітці, якір на попередньому спрацюванні з'їжджає на місяць назавжди](img/interval-anchor.svg)
+![Дві доріжки того самого правила: якір на періоді пропускає квітень і лишається на сітці, якір на попередньому спрацюванні з'їжджає на місяць назавжди](/root/eng/sf-apps/recurrence-scheduling/img/interval-anchor.svg)
 
 *Порожній період не повинен нічого зсувати: сітку задає правило, а не те, що вдалося видати минулого разу.*
 
