@@ -36,18 +36,7 @@ typedef enum {
     BROWNIAN_MODE_ACTIVE_SWIMMER = 3  /* Активний броунівський рух */
 } BrownianSimMode;
 ```
-```cpp
-namespace brownian {
-
-enum class SimMode {
-    ExactLangevin = 0, // Повне рівняння Ланжевена
-    Overdamped     = 1, // Перевизначений режим без інерції
-    Rotational     = 2, // Обертальна дифузія
-    ActiveSwimmer  = 3  // Активний мікроплавець
-};
-
-} // namespace brownian
-```
+:::code api-simulation-lib/cpp/rezhymy-symuliatsii.cpp
 :::
 
 У режимі `BROWNIAN_MODE_EXACT_LANGEVIN` бібліотека повністю інтегрує стохастичну систему для швидкості та координат, що дає змогу бачити балістичний режим на коротких часах. У режимі `BROWNIAN_MODE_OVERDAMPED` обчислення прискорюються в кілька разів, оскільки крок розраховується безпосередньо для координат, що ідеально підходить для моделювання повільної макроскопічної дифузії.
@@ -57,50 +46,8 @@ enum class SimMode {
 Конфігураційні типи задають параметри системи для C та C++ інтерфейсів:
 
 :::tabs
-```c
-typedef struct {
-    double temperature;        /* Абсолютна температура середовища, К (> 0) */
-    double viscosity;          /* Динамічна в'язкість рідини, Па·с (> 0) */
-    double particle_radius;    /* Гідродинамічний радіус частинки, м (> 0) */
-    double particle_mass;      /* Маса частинки, кг (> 0) */
-    double active_velocity;    /* Швидкість власного руху для активних частинок, м/с */
-    double dt;                 /* Часовий крок інтегрування, с (> 0) */
-    size_t trajectory_steps;   /* Загальна кількість кроків у кожній траєкторії */
-    size_t ensemble_size;      /* Кількість частинок в ансамблі */
-    unsigned int random_seed;  /* Базове зерно генератора випадкових чисел */
-    BrownianSimMode mode;      /* Фізичний режим моделювання */
-    int dimension;             /* Просторова розмірність: 1, 2 або 3 */
-} BrownianConfig;
-```
-```cpp
-namespace brownian {
-
-struct Config {
-    double temperature{300.0};       // К
-    double viscosity{1.002e-3};      // Па·с
-    double particle_radius{1.0e-6};  // м
-    double particle_mass{4.189e-15}; // кг
-    double active_velocity{0.0};     // м/с
-    double dt{1.0e-7};               // с
-    std::size_t trajectory_steps{1000};
-    std::size_t ensemble_size{500};
-    unsigned int random_seed{0};
-    SimMode mode{SimMode::ExactLangevin};
-    int dimension{2};
-
-    [[nodiscard]] double calculate_gamma() const noexcept {
-        constexpr double pi = 3.14159265358979323846;
-        return 6.0 * pi * viscosity * particle_radius;
-    }
-
-    [[nodiscard]] double calculate_theoretical_D() const noexcept {
-        constexpr double kB = 1.380649e-23;
-        return (kB * temperature) / calculate_gamma();
-    }
-};
-
-} // namespace brownian
-```
+:::code api-simulation-lib/c/konfihuratsiina-struktura.c
+:::code api-simulation-lib/cpp/konfihuratsiina-struktura.cpp
 :::
 
 Перед початком обчислень симулятор виконує перевірку полів конфігурації. Якщо передано від'ємне значення температури, нульовий крок по часу або невизначену розмірність, симуляція переривається з відповідним кодом помилки або винятком `std::invalid_argument`.
@@ -135,32 +82,8 @@ struct State {
 Після виконання симуляції або завантаження експериментальних траєкторій модуль статистичного аналізу формує структуру результатів:
 
 :::tabs
-```c
-typedef struct {
-    double *time_lags;          /* Масив часових затримок τ, с */
-    double *msd_values;         /* Обчислені значення MSD <Δr²(τ)>, м² */
-    double *std_errors;         /* Стандартні помилки MSD */
-    size_t num_lags;            /* Кількість порахованих часових затримок */
-    double estimated_D;         /* Оцінений коефіцієнт дифузії D, м²/с */
-    double r_squared;           /* Якість лінійної апроксимації (R²) */
-    double anomalous_exponent;  /* Показник аномальності α (<r²> ~ τ^α) */
-    int status_code;            /* Код стану або помилки обчислень */
-} BrownianMsdResult;
-```
-```cpp
-namespace brownian {
-
-struct MsdAnalysis {
-    std::vector<double> time_lags;
-    std::vector<double> msd_values;
-    std::vector<double> std_errors;
-    double estimated_D{0.0};
-    double r_squared{0.0};
-    double anomalous_exponent{1.0};
-};
-
-} // namespace brownian
-```
+:::code api-simulation-lib/c/struktura-analizu-msd.c
+:::code api-simulation-lib/cpp/struktura-analizu-msd.cpp
 :::
 
 Значення показника аномальності `anomalous_exponent` дозволяє автоматично класифікувати тип руху: якщо `α ≈ 1.0`, спостерігається нормальна броунівська дифузія; якщо `α < 0.9`, має місце субдифузія (повільний рух у пористому середовищі або гель-матриці); якщо `α > 1.1`, спостерігається супердифузія або активний спрямований транспорт.
@@ -187,105 +110,8 @@ struct MsdAnalysis {
 Нижче наведено повні контракти публічних інтерфейсів `brownian_sim.h` та `brownian_sim.hpp`:
 
 :::tabs
-```c
-#ifndef BROWNIAN_SIM_H
-#define BROWNIAN_SIM_H
-
-#include <stddef.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
- * @brief Заповнює структуру конфігурації стандартними фізичними параметрами (вода, 300K, 1 мкм).
- * @param config Вказівник на структуру конфігурації.
- * @return BROWNIAN_SUCCESS або BROWNIAN_ERR_NULL_POINTER.
- */
-int brownian_config_default(BrownianConfig *config);
-
-/**
- * @brief Обчислює теоретичний коефіцієнт дифузії Стокса—Ейнштейна.
- * @param temperature_k Температура термостату, К.
- * @param viscosity_pas Динамічна в'язкість рідини, Па·с.
- * @param radius_m Гідродинамічний радіус частинки, м.
- * @param out_diff_coeff Вказівник на змінну для запису результату (м²/с).
- * @return BROWNIAN_SUCCESS або BROWNIAN_ERR_INVALID_PARAM.
- */
-int brownian_calculate_theoretical_D(double temperature_k,
-                                     double viscosity_pas,
-                                     double radius_m,
-                                     double *out_diff_coeff);
-
-/**
- * @brief Запускає симуляцію ансамблю броунівських частинок.
- * @param config Вказівник на параметри конфігурації.
- * @param out_states Виділений буфер для зберігання станів.
- * @return BROWNIAN_SUCCESS або відповідний код помилки.
- */
-int brownian_simulate_ensemble(const BrownianConfig *config,
-                               BrownianState *out_states);
-
-/**
- * @brief Обчислює ансамблевий MSD та виконує лінійний аналіз дифузії.
- * @param config Параметри симуляції.
- * @param states Буфер згенерованих станів.
- * @param out_result Структура результату.
- * @return BROWNIAN_SUCCESS або код помилки.
- */
-int brownian_analyze_msd(const BrownianConfig *config,
-                         const BrownianState *states,
-                         BrownianMsdResult *out_result);
-
-/**
- * @brief Звільняє динамічну пам'ять, виділену всередині структури BrownianMsdResult.
- * @param result Вказівник на структуру результату.
- */
-void brownian_free_msd_result(BrownianMsdResult *result);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* BROWNIAN_SIM_H */
-```
-```cpp
-#ifndef BROWNIAN_SIM_HPP
-#define BROWNIAN_SIM_HPP
-
-#include <vector>
-#include <array>
-#include <memory>
-#include <optional>
-#include <cstddef>
-#include <stdexcept>
-
-namespace brownian {
-
-class Simulator {
-public:
-    explicit Simulator(Config config) : config_(std::move(config)) {}
-
-    ~Simulator() = default;
-
-    Simulator(const Simulator&) = delete;
-    Simulator& operator=(const Simulator&) = delete;
-    Simulator(Simulator&&) noexcept = default;
-    Simulator& operator=(Simulator&&) noexcept = default;
-
-    [[nodiscard]] std::vector<std::vector<State>> run_ensemble();
-    [[nodiscard]] MsdAnalysis analyze(const std::vector<std::vector<State>>& trajectories) const;
-
-    [[nodiscard]] const Config& config() const noexcept { return config_; }
-
-private:
-    Config config_;
-};
-
-} // namespace brownian
-
-#endif // BROWNIAN_SIM_HPP
-```
+:::code api-simulation-lib/c/4-zaholovochni-faily-ta.h
+:::code api-simulation-lib/cpp/4-zaholovochni-faily-ta.hpp
 :::
 
 ---
@@ -305,18 +131,7 @@ typedef enum {
     BROWNIAN_BOUND_ABSORB    = 3  /* Поглинаюча поверхня */
 } BrownianBoundaryType;
 ```
-```cpp
-namespace brownian {
-
-enum class BoundaryType {
-    Unbounded = 0,
-    Reflect   = 1,
-    Periodic  = 2,
-    Absorb    = 3
-};
-
-} // namespace brownian
-```
+:::code api-simulation-lib/cpp/typy-hranychnykh-umov.cpp
 :::
 
 #### Стрімінговий накопичувач пам'яті (`BrownianStreamAccumulator` / `brownian::StreamAccumulator`)
@@ -324,36 +139,8 @@ enum class BoundaryType {
 Коли кількість частинок в ансамблі вимірюється мільйонами або довжина траєкторії сягає мільярдів кроків, збереження всіх станів у RAM є неможливим. Для цього призначено стрімінговий накопичувач, який оновлює значення MSD безпосередньо «на льоту»:
 
 :::tabs
-```c
-typedef struct {
-    double *msd_sum;      /* Масив накопичених сум квадрата зсуву */
-    size_t *sample_count; /* Масив кількості відліків */
-    size_t num_lags;      /* Кількість проміжків часу */
-} BrownianStreamAccumulator;
-
-int brownian_stream_init(BrownianStreamAccumulator *acc, size_t num_lags);
-int brownian_stream_push_step(BrownianStreamAccumulator *acc, size_t lag, double dx, double dy, double dz);
-int brownian_stream_finalize(const BrownianStreamAccumulator *acc, BrownianMsdResult *out_result);
-void brownian_stream_free(BrownianStreamAccumulator *acc);
-```
-```cpp
-namespace brownian {
-
-class StreamAccumulator {
-public:
-    explicit StreamAccumulator(std::size_t num_lags);
-    ~StreamAccumulator() = default;
-
-    void push_step(std::size_t lag, double dx, double dy, double dz = 0.0);
-    [[nodiscard]] MsdAnalysis finalize() const;
-
-private:
-    std::vector<double> msd_sum_;
-    std::vector<std::size_t> sample_count_;
-};
-
-} // namespace brownian
-```
+:::code api-simulation-lib/c/striminhovyi-nakopychuvach.h
+:::code api-simulation-lib/cpp/striminhovyi-nakopychuvach.hpp
 :::
 
 #### Експорт даних та серіалізація у CSV / JSON

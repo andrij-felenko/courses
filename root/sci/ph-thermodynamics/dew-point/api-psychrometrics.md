@@ -34,20 +34,7 @@ typedef struct {
     double vapor_press_kpa;     /* Поточний парціальний тиск водяної пари, кПа */
 } psychro_result_t;
 ```
-```cpp
-namespace physics::thermal {
-
-struct PsychroResult {
-    double air_temp_c;          // Вхідна температура повітря, °C
-    double rel_humidity_pct;    // Вхідна відносна вологість, %
-    double dew_point_c;         // Обчислена температура точки роси, °C
-    double frost_point_c;       // Обчислена температура точки інею, °C
-    double sat_vapor_press_kpa; // Тиск насиченої водяної пари, кПа
-    double vapor_press_kpa;     // Поточний парціальний тиск водяної пари, кПа
-};
-
-} // namespace physics::thermal
-```
+:::code api-psychrometrics/cpp/1-2-struktura-rezultatu.cpp
 :::
 
 ### 1.3 Структура контролера (`anti_cond_controller_t` / `AntiCondensationController`)
@@ -62,22 +49,7 @@ typedef struct {
     bool heater_active;       /* Поточний прапорець стану нагрівача (true = ON) */
 } anti_cond_controller_t;
 ```
-```cpp
-namespace physics::thermal {
-
-class AntiCondensationController {
-public:
-    explicit AntiCondensationController(double margin_on_c = 2.0, double margin_off_c = 4.0);
-    bool update(double surface_temp_c, double dew_point_c) noexcept;
-    [[nodiscard]] bool is_heater_active() const noexcept;
-private:
-    double margin_on_;
-    double margin_off_;
-    bool heater_state_;
-};
-
-} // namespace physics::thermal
-```
+:::code api-psychrometrics/cpp/1-3-struktura-kontrolera.cpp
 :::
 
 ## 2. Сигнатури функцій API
@@ -96,19 +68,7 @@ psychro_error_t psychro_calculate(
     psychro_result_t *res
 );
 ```
-```cpp
-namespace physics::thermal {
-
-class Psychrometrics {
-public:
-    [[nodiscard]] static std::optional<PsychroResult> compute(
-        double temp_c,
-        double rh_pct
-    ) noexcept;
-};
-
-} // namespace physics::thermal
-```
+:::code api-psychrometrics/cpp/2-1-psychro-calculate.cpp
 :::
 
 - **Параметри:**

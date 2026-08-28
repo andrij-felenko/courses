@@ -63,21 +63,7 @@ typedef struct {
 } pf_config_t;
 ```
 === C++
-```cpp
-namespace phasefield {
-
-struct SolverConfig {
-    std::size_t nx{128};
-    std::size_t ny{128};
-    double dx{1.0};
-    double dt{0.01};
-    double kappa{1.0};
-    double mobility{1.0};
-    bool use_openmp{true};
-};
-
-} // namespace phasefield
-```
+:::code api-phase-field-lib/cpp/detalnyi-analiz-struktury.cpp
 :::
 
 #### Структура статистики `pf_solver_stats_t`
@@ -95,18 +81,7 @@ typedef struct {
 } pf_solver_stats_t;
 ```
 === C++
-```cpp
-namespace phasefield {
-
-struct SolverStats {
-    std::uint64_t total_steps{0};
-    double total_free_energy{0.0};
-    double max_c_change{0.0};
-    double execution_time_ms{0.0};
-};
-
-} // namespace phasefield
-```
+:::code api-phase-field-lib/cpp/struktura-statystyky-pf.cpp
 :::
 
 ---
@@ -222,113 +197,7 @@ int pf_compute_free_energy(const pf_grid_2d_t* grid, double* out_energy);
 
 Нижче наведено повний вихідний код заголовочного файла `phase_field_lib.h`, який містить C ABI декларування та об'єктно-орієнтований C++20 клас `PhaseFieldSolver2D`.
 
-```cpp
-#ifndef PHASE_FIELD_LIB_H
-#define PHASE_FIELD_LIB_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef enum {
-    PF_SUCCESS = 0,
-    PF_ERR_INVALID_ARG = -1,
-    PF_ERR_OUT_OF_MEMORY = -2,
-    PF_ERR_UNSTABLE_TIMESTEP = -3,
-    PF_ERR_DIVERGENCE = -4
-} pf_error_t;
-
-typedef struct pf_grid_2d pf_grid_2d_t;
-
-typedef struct {
-    size_t nx;
-    size_t ny;
-    double dx;
-    double dt;
-    double kappa;
-    double mobility;
-    int use_openmp;
-} pf_config_t;
-
-pf_error_t pf_grid_create(pf_grid_2d_t** grid, const pf_config_t* config);
-pf_error_t pf_grid_destroy(pf_grid_2d_t* grid);
-pf_error_t pf_init_uniform_with_noise(pf_grid_2d_t* grid, double c_mean, double noise_amp);
-pf_error_t pf_step_explicit(pf_grid_2d_t* grid);
-pf_error_t pf_compute_free_energy(const pf_grid_2d_t* grid, double* out_energy);
-const double* pf_get_concentration_ptr(const pf_grid_2d_t* grid);
-
-#ifdef __cplusplus
-}
-#endif
-
-#ifdef __cplusplus
-#include <vector>
-#include <span>
-#include <memory>
-#include <stdexcept>
-#include <string>
-
-namespace phasefield {
-
-class PhaseFieldSolver2D {
-public:
-    explicit PhaseFieldSolver2D(const pf_config_t& config) {
-        pf_grid_2d_t* raw_grid = nullptr;
-        pf_error_t err = pf_grid_create(&raw_grid, &config);
-        if (err != PF_SUCCESS) {
-            throw std::runtime_error("Не вдалося створити сітку фазового поля. Код: " + std::to_string(err));
-        }
-        grid_.reset(raw_grid);
-    }
-
-    void initialize_uniform(double c_mean = 0.0, double noise_amp = 0.1) {
-        pf_error_t err = pf_init_uniform_with_noise(grid_.get(), c_mean, noise_amp);
-        if (err != PF_SUCCESS) {
-            throw std::runtime_error("Помилка ініціалізації поля концентрації.");
-        }
-    }
-
-    void step() {
-        pf_error_t err = pf_step_explicit(grid_.get());
-        if (err != PF_SUCCESS) {
-            throw std::runtime_error("Помилка виконання часового кроку симуляції.");
-        }
-    }
-
-    [[nodiscard]] double get_free_energy() const {
-        double energy = 0.0;
-        pf_error_t err = pf_compute_free_energy(grid_.get(), &energy);
-        if (err != PF_SUCCESS) {
-            throw std::runtime_error("Помилка розрахунку вільної енергії.");
-        }
-        return energy;
-    }
-
-    [[nodiscard]] std::span<const double> get_concentration_span(size_t& out_nx, size_t& out_ny) const {
-        const double* ptr = pf_get_concentration_ptr(grid_.get());
-        return std::span<const double>(ptr, 128 * 128);
-    }
-
-private:
-    struct GridDeleter {
-        void operator()(pf_grid_2d_t* ptr) const noexcept {
-            if (ptr) {
-                pf_grid_destroy(ptr);
-            }
-        }
-    };
-
-    std::unique_ptr<pf_grid_2d_t, GridDeleter> grid_;
-};
-
-} // namespace phasefield
-#endif // __cplusplus
-
-#endif // PHASE_FIELD_LIB_H
-```
+:::code api-phase-field-lib/cpp/3-zaholovok-interfeisu-ta.hpp
 
 ---
 
@@ -366,39 +235,7 @@ private:
 
 Завдяки чистому Си-інтерфейсу C ABI, бібліотека легко підключається у високорівневі мови програмування без компенсаційних втрат швидкості. Для Python інтеграція виконується за допомогою модуля `ctypes`:
 
-```python
-import ctypes
-import numpy as np
-
-# Завантаження скомпільованої динамічної бібліотеки (.so на Linux або .dll на Windows)
-lib = ctypes.CDLL("./libphasefield.so")
-
-class PFConfig(ctypes.Structure):
-    _fields_ = [
-        ("nx", ctypes.c_size_t),
-        ("ny", ctypes.c_size_t),
-        ("dx", ctypes.c_double),
-        ("dt", ctypes.c_double),
-        ("kappa", ctypes.c_double),
-        ("mobility", ctypes.c_double),
-        ("use_openmp", ctypes.c_int)
-    ]
-
-# Специфікація типів аргументів та повернутих значень
-lib.pf_grid_create.argtypes = [ctypes.POINTER(ctypes.c_void_p), ctypes.POINTER(PFConfig)]
-lib.pf_grid_create.restype = ctypes.c_int
-
-lib.pf_step_explicit.argtypes = [ctypes.c_void_p]
-lib.pf_step_explicit.restype = ctypes.c_int
-
-# Створення об'єкта та запуск 1000 кроків симуляції
-cfg = PFConfig(nx=256, ny=256, dx=1.0, dt=0.02, kappa=1.0, mobility=1.0, use_openmp=1)
-grid_ptr = ctypes.c_void_p()
-lib.pf_grid_create(ctypes.byref(grid_ptr), ctypes.byref(cfg))
-
-for step in range(1000):
-    lib.pf_step_explicit(grid_ptr)
-```
+:::code api-phase-field-lib/py/main.py
 
 #### 3. Поглиблений аналіз помилок та обробка виключень
 

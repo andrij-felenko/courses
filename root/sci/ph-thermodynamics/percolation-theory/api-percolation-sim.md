@@ -21,31 +21,7 @@
 
 Перелічення `LatticeTopology` задає геометричну симетрію системи та відповідне координаційне число `z`. Залежно від вибору топології обчислювальний рушій автоматично налаштовує зсуви індексів сусідніх вузлів під час обходу ґратки.
 
-```cpp
-// Геометрична топологія дискретної ґратки
-enum class LatticeTopology : uint8_t {
-    SQUARE_2D        = 0, // 2D квадратна ґратка (координаційне число z = 4)
-    TRIANGULAR_2D    = 1, // 2D трикутна ґратка (z = 6)
-    HONEYCOMB_2D     = 2, // 2D стільникова / гексагональна ґратка (z = 3)
-    CUBIC_3D         = 3, // 3D проста кубічна ґратка (z = 6)
-    BCC_3D           = 4, // 3D об'ємно-центрована кубічна ґратка (z = 8)
-    FCC_3D           = 5, // 3D гранецентрована кубічна ґратка (z = 12)
-    BETHE_TREE       = 6  // Дерево Келі / Решітка Беті (z задається у config)
-};
-
-// Режим визначення перколаційних елементів
-enum class PercolationMode : uint8_t {
-    SITE_PERCOLATION = 0, // Узлова перколація (випадковий стан вузлів)
-    BOND_PERCOLATION = 1  // Зв'язкова перколація (випадковий стан ребер)
-};
-
-// Граничні умови симуляційного об'єму
-enum class BoundaryCondition : uint8_t {
-    FREE_BOUNDARIES     = 0, // Вільні/відкриті межі (ізольований об'єм)
-    PERIODIC_BOUNDARIES = 1, // Періодичні межі (тороїдальна топологія)
-    CYLINDRICAL_X       = 2  // Періодичні по X, вільні по Y та Z
-};
-```
+:::code api-percolation-sim/cpp/geometry-topology-flags.cpp
 
 ---
 
@@ -57,24 +33,7 @@ enum class BoundaryCondition : uint8_t {
 
 Основна структура налаштування окремого обчислювального експерименту. Вона визначає просторові розміри ґратки, ймовірність заповнення `p`, зародиш генератора випадкових чисел та необхідність проведення додаткових трудомістких обчислень (таких як виділення струмопровідного кістяка чи оцінка фрактальної розмірності методом покриття квадратними сітками).
 
-```cpp
-struct PercolationConfig {
-    uint32_t dim_x {100};            // Розмір ґратки вздовж осі X
-    uint32_t dim_y {100};            // Розмір ґратки вздовж осі Y
-    uint32_t dim_z {1};              // Розмір ґратки вздовж осі Z (1 для 2D)
-    
-    LatticeTopology topology {LatticeTopology::SQUARE_2D};
-    PercolationMode mode {PercolationMode::SITE_PERCOLATION};
-    BoundaryCondition boundary {BoundaryCondition::FREE_BOUNDARIES};
-    
-    double p_occupancy {0.5};        // Ймовірність відкриття вузла/зв'язку (p)
-    uint64_t random_seed {0};        // Зародиш ГПСЧ (0 - випадковий системний запуск)
-    uint32_t bethe_z {3};            // Координаційне число (лише для BETHE_TREE)
-    
-    bool compute_backbone {false};   // Обчислювати кістяк (backbone) кластера
-    bool compute_fractal_dim {false};// Оцінювати фрактальну розмірність
-};
-```
+:::code api-percolation-sim/cpp/percolationconfig.cpp
 
 ### MonteCarloSweepConfig
 
@@ -107,24 +66,7 @@ struct MonteCarloSweepConfig {
 - `mean_cluster_size_chi`: Середній розмір скінченного кластера `χ(p)`.
 - `has_spanning_x / y / z`: Булеві прапорці наявності зв'язаного містка від початкової до кінцевої грані по відповідній осі.
 
-```cpp
-struct ClusterAnalysisResult {
-    double occupied_fraction;        // Фактична частка відкритих вузлів
-    uint32_t total_clusters;         // Загальна кількість кластерів
-    uint32_t max_cluster_size;       // Розмір найбільшого кластера (вузлів)
-    double p_infinite;               // Потужність протікаючого кластера P_∞(p)
-    double mean_cluster_size_chi;    // Середній розмір скінченного кластера χ(p)
-    
-    bool has_spanning_x;             // Наявність протікання по осі X
-    bool has_spanning_y;             // Наявність протікання по осі Y
-    bool has_spanning_z;             // Наявність протікання по осі Z
-    
-    uint32_t backbone_site_count;    // Кількість вузлів, що ведуть струм (Backbone)
-    double estimated_fractal_dim;    // Оцінка фрактальної розмірності d_f
-    
-    std::vector<uint32_t> cluster_size_distribution; // Масив n_s(p)
-};
-```
+:::code api-percolation-sim/cpp/clusteranalysisresult.cpp
 
 ### PercolationStatus (Коди помилок та відповідей)
 
@@ -147,51 +89,7 @@ enum class PercolationStatus : int32_t {
 
 Клас `PercolationEngine` надає об'єктно-орієнтовану обгортку для керування пам'яттю ґратки та запуску алгоритмів маркування. Об'єкт не підлягає копіюванню для запобігання дублюванню гігабайтних масивів у пам'яті.
 
-```cpp
-namespace percolate {
-
-class PercolationEngine {
-public:
-    // Конструктор: ініціалізація структури ґратки та буферів
-    explicit PercolationEngine(const PercolationConfig& config);
-    ~PercolationEngine();
-
-    // Заборона копіювання (RAII управління ресурсами)
-    PercolationEngine(const PercolationEngine&) = delete;
-    PercolationEngine& operator=(const PercolationEngine&) = delete;
-
-    // Скидання стану ґратки та згенерованого шуму
-    PercolationStatus reset();
-
-    // Генерація випадкового стану ґратки для заданого p
-    PercolationStatus generate_lattice(double p_override = -1.0);
-
-    // Запуск алгоритму Гошена — Копельмана та обчислення статистики
-    PercolationStatus analyze(ClusterAnalysisResult& out_result);
-
-    // Експорт карти кластерів у двовимірний масив (або файл)
-    PercolationStatus export_cluster_map(int32_t* out_buffer, size_t buffer_size) const;
-
-    // Експорт структури у форматі VTK для візуалізації в ParaView
-    PercolationStatus export_vtk(const std::string& filename) const;
-};
-
-// Запуск паралельного сканування Монте-Карло для пошуку критичного порогу p_c
-PercolationStatus run_monte_carlo_sweep(
-    const PercolationConfig& base_config,
-    const MonteCarloSweepConfig& sweep_config,
-    std::vector<ClusterAnalysisResult>& out_sweep_data
-);
-
-// Оцінка критичного порогу p_c методом бісекції
-double estimate_critical_threshold(
-    PercolationConfig base_config,
-    double tolerance = 1e-4,
-    uint32_t mc_samples = 5000
-);
-
-} // namespace percolate
-```
+:::code api-percolation-sim/cpp/4-publichnyi-api.hpp
 
 ---
 
@@ -199,47 +97,7 @@ double estimate_critical_threshold(
 
 Нижче наведено приклад інтеграції бібліотеки у користувацьку обчислювальну програму для вимірювання кривої `P_∞(p)`. Програма створює конфігураційний об'єкт, ініціалізує рушій та проводить серію експериментів із перевіркою кодів повернення `PercolationStatus`.
 
-```cpp
-#include <iostream>
-#include <iomanip>
-#include "percolate/percolation_engine.hpp"
-
-int main() {
-    using namespace percolate;
-
-    PercolationConfig config;
-    config.dim_x = 500;
-    config.dim_y = 500;
-    config.topology = LatticeTopology::SQUARE_2D;
-    config.mode = PercolationMode::SITE_PERCOLATION;
-    config.boundary = BoundaryCondition::PERIODIC_BOUNDARIES;
-
-    PercolationEngine engine(config);
-
-    std::cout << std::fixed << std::setprecision(5);
-    std::cout << "p\t\tP_inf\t\tchi\t\tSpanning\n";
-
-    for (double p = 0.50; p <= 0.70; p += 0.02) {
-        if (engine.generate_lattice(p) != PercolationStatus::PERC_SUCCESS) {
-            std::cerr << "Помилка генерації ґратки для p = " << p << std::endl;
-            continue;
-        }
-        
-        ClusterAnalysisResult result;
-        PercolationStatus status = engine.analyze(result);
-        if (status == PercolationStatus::PERC_SUCCESS) {
-            std::cout << p << "\t" 
-                      << result.p_infinite << "\t" 
-                      << result.mean_cluster_size_chi << "\t" 
-                      << (result.has_spanning_x ? "YES" : "NO") << "\n";
-        } else {
-            std::cerr << "Помилка аналізу кластерів: " << static_cast<int>(status) << std::endl;
-        }
-    }
-
-    return 0;
-}
-```
+:::code api-percolation-sim/cpp/5-instruktsiia-z.cpp
 
 ---
 
