@@ -40,68 +40,8 @@ set_property(TARGET my_standalone_tool PROPERTY
 Наведений нижче шаблон реалізує безпечну схему макросів для чистих C та C++ бібліотек.
 
 :::tabs
-```c
-/* mylib_export.h — версія для мови C */
-#ifndef MYLIB_EXPORT_H
-#define MYLIB_EXPORT_H
-
-#if defined(MYLIB_STATIC_DEFINE)
-    /* Для статичної бібліотеки атрибути експорту не потрібні */
-    #define MYLIB_API
-    #define MYLIB_LOCAL
-#else
-    #if defined(_WIN32) || defined(__CYGWIN__)
-        #if defined(MYLIB_EXPORTS)
-            /* Збірка DLL під Windows: експортуємо символи у EAT */
-            #define MYLIB_API __declspec(dllexport)
-        #else
-            /* Споживання DLL під Windows: імпортуємо символи через IAT */
-            #define MYLIB_API __declspec(dllimport)
-        #endif
-        #define MYLIB_LOCAL
-    #else
-        #if defined(__GNUC__) && __GNUC__ >= 4
-            #define MYLIB_API   __attribute__((visibility("default")))
-            #define MYLIB_LOCAL __attribute__((visibility("hidden")))
-        #else
-            #define MYLIB_API
-            #define MYLIB_LOCAL
-        #endif
-    #endif
-#endif
-
-#endif /* MYLIB_EXPORT_H */
-```
-```cpp
-// mylib_export.hpp — ідіоматична версія для C++
-#ifndef MYLIB_EXPORT_HPP
-#define MYLIB_EXPORT_HPP
-
-#if defined(MYLIB_STATIC_DEFINE)
-    // Статичне компонування: символи лінкуються безпосередньо
-    #define MYLIB_API
-    #define MYLIB_LOCAL
-#else
-    #if defined(_WIN32) || defined(__CYGWIN__)
-        #if defined(MYLIB_EXPORTS)
-            #define MYLIB_API __declspec(dllexport)
-        #else
-            #define MYLIB_API __declspec(dllimport)
-        #endif
-        #define MYLIB_LOCAL
-    #else
-        #if defined(__GNUC__) && __GNUC__ >= 4
-            #define MYLIB_API   [[gnu::visibility("default")]]
-            #define MYLIB_LOCAL [[gnu::visibility("hidden")]]
-        #else
-            #define MYLIB_API
-            #define MYLIB_LOCAL
-        #endif
-    #endif
-#endif
-
-#endif // MYLIB_EXPORT_HPP
-```
+:::code api-windows-toolchain-matrix/c/mylib_export.h
+:::code api-windows-toolchain-matrix/cpp/mylib_export.hpp
 :::
 
 ## Автоматичний експорт символів та файли визначення модулів (`.def`)
@@ -167,62 +107,8 @@ add_executable(my_application
 Щоб термінал інтерпретував байти як послідовності UTF-8, програма повинна викликати системні функції `SetConsoleOutputCP(CP_UTF8)` для виводу та `SetConsoleCP(CP_UTF8)` для вводу. У середовищі C++ для гарантованого повернення стану термінала до початкових значень при виході з програми використовують патерн RAII.
 
 :::tabs
-```c
-/* console_utf8.c — налаштування консолі в C */
-#include <windows.h>
-#include <stdio.h>
-
-int init_console_utf8(void) {
-    /* Встановлюємо кодову сторінку виводу та вводу консолі в UTF-8 (CP 65001) */
-    if (!SetConsoleOutputCP(CP_UTF8) || !SetConsoleCP(CP_UTF8)) {
-        return 0;
-    }
-    return 1;
-}
-
-int main(void) {
-    if (!init_console_utf8()) {
-        fprintf(stderr, "Помилка конфігурації консолі UTF-8\n");
-    }
-    printf("Тестовий вивід Unicode: Привіт, світе! 🚀\n");
-    return 0;
-}
-```
-```cpp
-// console_utf8.cpp — RAII-обгортка ініціалізації консолі в C++
-#include <windows.h>
-#include <iostream>
-
-class ConsoleUtf8Guard {
-public:
-    ConsoleUtf8Guard() 
-        : old_out_cp_(GetConsoleOutputCP()), 
-          old_in_cp_(GetConsoleCP()) 
-    {
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
-    }
-
-    ~ConsoleUtf8Guard() noexcept {
-        // Відновлюємо попередні кодові сторінки термінала
-        SetConsoleOutputCP(old_out_cp_);
-        SetConsoleCP(old_in_cp_);
-    }
-
-    ConsoleUtf8Guard(const ConsoleUtf8Guard&) = delete;
-    ConsoleUtf8Guard& operator=(const ConsoleUtf8Guard&) = delete;
-
-private:
-    UINT old_out_cp_;
-    UINT old_in_cp_;
-};
-
-int main() {
-    const ConsoleUtf8Guard console_guard;
-    std::cout << "Тестовий вивід Unicode: Привіт, світе! 🚀\n";
-    return 0;
-}
-```
+:::code api-windows-toolchain-matrix/c/console_utf8.c
+:::code api-windows-toolchain-matrix/cpp/console_utf8.cpp
 :::
 
 ## Зведення типових кодів помилок та діагностики

@@ -169,63 +169,8 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 ### 7.1. Тулчейн для Embedded Linux (AArch64)
 
-```cmake
-# toolchain-aarch64-linux-gnu.cmake
-cmake_minimum_required(VERSION 3.20)
-
-# Ідентифікація платформи
-set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSTEM_PROCESSOR aarch64)
-
-# Префікс інструментів тулчейна
-set(TOOLCHAIN_PREFIX "/opt/toolchains/aarch64-linux-gnu/bin/aarch64-linux-gnu-")
-set(CMAKE_C_COMPILER   "${TOOLCHAIN_PREFIX}gcc")
-set(CMAKE_CXX_COMPILER "${TOOLCHAIN_PREFIX}g++")
-set(CMAKE_ASM_COMPILER "${TOOLCHAIN_PREFIX}gcc")
-
-set(CMAKE_AR     "${TOOLCHAIN_PREFIX}ar"     CACHE FILEPATH "Archiver")
-set(CMAKE_RANLIB "${TOOLCHAIN_PREFIX}ranlib" CACHE FILEPATH "Ranlib")
-set(CMAKE_STRIP  "${TOOLCHAIN_PREFIX}strip"  CACHE FILEPATH "Strip")
-
-# Системний корінь цільової ОС
-set(CMAKE_SYSROOT "/opt/sysroots/aarch64-buildroot-linux-gnu")
-set(CMAKE_FIND_ROOT_PATH "${CMAKE_SYSROOT}")
-
-# Ізоляція пошуку
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-
-# Емулятор для прогону тестів CTest
-set(CMAKE_CROSSCOMPILING_EMULATOR "qemu-aarch64" "-L" "${CMAKE_SYSROOT}")
-```
+:::code api-toolchain-variables/cmake/toolchain-aarch64-linux-gnu.cmake
 
 ### 7.2. Тулчейн для крос-компіляції під Windows через MinGW-w64
 
-```cmake
-# toolchain-x86_64-w64-mingw32.cmake
-cmake_minimum_required(VERSION 3.20)
-
-# Ідентифікація платформи Windows
-set(CMAKE_SYSTEM_NAME Windows)
-set(CMAKE_SYSTEM_PROCESSOR x86_64)
-
-# Префікс інструментів MinGW
-set(TOOLCHAIN_PREFIX "x86_64-w64-mingw32-")
-set(CMAKE_C_COMPILER   "${TOOLCHAIN_PREFIX}gcc")
-set(CMAKE_CXX_COMPILER "${TOOLCHAIN_PREFIX}g++")
-set(CMAKE_RC_COMPILER  "${TOOLCHAIN_PREFIX}windres")
-
-# Каталог розташування заголовків та бібліотек MinGW
-set(CMAKE_FIND_ROOT_PATH "/usr/x86_64-w64-mingw32")
-
-# Маршрутизація пошуку
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-
-# Емулятор для виконання Windows-тестів на Linux
-set(CMAKE_CROSSCOMPILING_EMULATOR "wine64")
-```
+:::code api-toolchain-variables/cmake/toolchain-x86_64-w64-mingw32.cmake

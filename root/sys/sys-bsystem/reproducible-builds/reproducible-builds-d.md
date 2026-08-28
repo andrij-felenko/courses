@@ -122,65 +122,14 @@ void log_module_info(void) {
     printf("Compiled from source: %s\n", __FILE__);
 }
 ```
-```cpp
-// Недетерміністичний підхід: використання макросів часу та системних шляхів
-#include <iostream>
-#include <source_location>
-
-void log_module_info() {
-    // Порушення 1: фіксація часу компіляції
-    std::cout << "Build timestamp: " << __DATE__ << " " << __TIME__ << "\n";
-    // Порушення 2: витік структури каталогів хоста
-    const auto location = std::source_location::current();
-    std::cout << "Compiled from source: " << location.file_name() << "\n";
-}
-```
+:::code reproducible-builds-d/cpp/deterministychne.cpp
 :::
 
 Щоб код залишався детерміністичним, метадані про версію та ідентифікатор релізу передають ззовні через детерміністичні змінні збірки, а інформацію про файли обмежують відносними модулями:
 
 :::tabs
-```c
-/* Детерміністичний підхід: використання канонічних констант версії */
-#include <stdio.h>
-
-#ifndef PROJECT_VERSION_STRING
-#define PROJECT_VERSION_STRING "1.0.0-release"
-#endif
-
-#ifndef MODULE_NAME
-#define MODULE_NAME "core_engine"
-#endif
-
-void log_module_info(void) {
-    /* Детерміністично: версія фіксується системою контролю версій */
-    printf("Software Version: %s\n", PROJECT_VERSION_STRING);
-    /* Детерміністично: використовується логічне ім'я модуля замість шляху файлу */
-    printf("Module: %s\n", MODULE_NAME);
-}
-```
-```cpp
-// Детерміністичний підхід: використання канонічних констант версії
-#include <iostream>
-#include <string_view>
-
-#ifndef PROJECT_VERSION_STRING
-#define PROJECT_VERSION_STRING "1.0.0-release"
-#endif
-
-#ifndef MODULE_NAME
-#define MODULE_NAME "core_engine"
-#endif
-
-void log_module_info() noexcept {
-    // Детерміністично: версія фіксується системою контролю версій
-    constexpr std::string_view version = PROJECT_VERSION_STRING;
-    // Детерміністично: використовується логічне ім'я модуля замість шляху файлу
-    constexpr std::string_view module = MODULE_NAME;
-    std::cout << "Software Version: " << version << "\n";
-    std::cout << "Module: " << module << "\n";
-}
-```
+:::code reproducible-builds-d/c/main.c
+:::code reproducible-builds-d/cpp/deterministychne-2.cpp
 :::
 
 ## Специфіка відтворюваності в C++, Rust та Go

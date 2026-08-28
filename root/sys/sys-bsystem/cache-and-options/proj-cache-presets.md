@@ -50,113 +50,7 @@ mediasync/
 
 Кореневий файл описує інтерфейс проєкту. Нижче наведено детальний текст сценарію з детальними коментарями щодо кожного кроку конфігурації:
 
-```cmake
-cmake_minimum_required(VERSION 3.24)
-project(mediasync VERSION 2.4.0 LANGUAGES C CXX)
-
-# Встановлення обов'язкових стандартів мов програмування
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Підключення вбудованих та власних модулів розширення
-include(CMakeDependentOption)
-include(FeatureSummary)
-include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/ConfigValidation.cmake")
-
-# ── 1. Оголошення базових прапорців конфігурації ──────────────────────────────
-option(MEDIASYNC_BUILD_TOOLS "Збирати утиліти командного рядка та діагностики" ON)
-option(MEDIASYNC_ENABLE_TESTS "Збирати модульні та інтеграційні тести" ON)
-option(MEDIASYNC_ENABLE_LOGGING "Увімкнути детальне журналювання подій" ON)
-
-# ── 2. Рядкові переліки з випадаючими списками (STRINGS) ───────────────────────
-set(MEDIASYNC_NETWORK_BACKEND "QUIC" CACHE STRING "Мережевий протокол передачі потоків")
-set_property(CACHE MEDIASYNC_NETWORK_BACKEND PROPERTY STRINGS "QUIC" "TCP" "UNIX_SOCKET")
-
-set(MEDIASYNC_LOG_LEVEL "INFO" CACHE STRING "Мінімальний рівень деталізації журналювання")
-set_property(CACHE MEDIASYNC_LOG_LEVEL PROPERTY STRINGS "DEBUG" "INFO" "WARN" "ERROR")
-
-# ── 3. Інтроспекція системи та пошук зовнішніх залежностей ─────────────────────
-find_package(Threads REQUIRED)
-
-# Пошук бібліотеки апаратного кодування VA-API (лише для цільової платформи Linux)
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    find_package(PkgConfig QUIET)
-    if(PkgConfig_FOUND)
-        pkg_check_modules(LIBVA QUIET libva)
-    endif()
-endif()
-
-# Пошук фреймворку Qt6 для компіляції графічного інтерфейсу моніторингу
-find_package(Qt6 QUIET COMPONENTS Core Widgets)
-
-# ── 4. Декларація залежних опцій (CMakeDependentOption) ───────────────────────
-# Апаратне прискорення через VA-API доступне лише на Linux і за наявності libva
-cmake_dependent_option(
-    MEDIASYNC_USE_VAAPI
-    "Використовувати апаратне прискорення кодування через VA-API" ON
-    "CMAKE_SYSTEM_NAME STREQUAL \"Linux\";LIBVA_FOUND" OFF
-)
-
-# Графічний монітор синхронізації активний лише якщо увімкнено утиліти і знайдено Qt6
-cmake_dependent_option(
-    MEDIASYNC_BUILD_GUI_MONITOR
-    "Збирати графічний монітор синхронізації на базі Qt6" ON
-    "MEDIASYNC_BUILD_TOOLS;Qt6_FOUND" OFF
-)
-
-# ── 5. Налаштування просунутих інженерних параметрів (ADVANCED) ───────────────
-set(MEDIASYNC_RING_BUFFER_CAPACITY 65536 CACHE STRING "Розмір кільцевого буфера кадрів (у байтах)")
-set(MEDIASYNC_METRICS_PORT 9090 CACHE STRING "Порт експорту телеметрії Prometheus")
-
-mark_as_advanced(
-    MEDIASYNC_RING_BUFFER_CAPACITY
-    MEDIASYNC_METRICS_PORT
-    LIBVA_INCLUDE_DIRS
-    LIBVA_LIBRARIES
-)
-
-# ── 6. Валідація кешу перед створенням цілей збірки ────────────────────────────
-mediasync_validate_cache_configuration()
-
-# ── 7. Генерація заголовка конфігурації ────────────────────────────────────────
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/include/mediasync_config.h"
-    @ONLY
-)
-
-# ── 8. Створення цілей збірки та налаштування властивостей ────────────────────
-add_library(mediasync_core
-    src/mediasync.c
-    src/mediasync.cpp
-)
-
-target_include_directories(mediasync_core
-    PUBLIC
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
-        "$<INSTALL_INTERFACE:include>"
-)
-
-target_link_libraries(mediasync_core
-    PUBLIC
-        Threads::Threads
-)
-
-if(MEDIASYNC_USE_VAAPI)
-    target_include_directories(mediasync_core PRIVATE ${LIBVA_INCLUDE_DIRS})
-    target_link_libraries(mediasync_core PRIVATE ${LIBVA_LIBRARIES})
-endif()
-
-# Генерація підсумкового звіту про стан усіх модулів
-feature_summary(
-    WHAT ALL 
-    INCLUDE_QUIET_PACKAGES 
-    DESCRIPTION "=== Підсумковий звіт конфігурації mediasync ==="
-)
-```
+:::code proj-cache-presets/cmake/3-proiektuvannia.cmake
 
 ---
 
@@ -171,44 +65,7 @@ feature_summary(
 2. Перевірка числових діапазонів для запобігання переповненню пам'яті або виділенню буферів нульового розміру.
 3. Перевірка логічної сумісності активованих компонентів.
 
-```cmake
-function(mediasync_validate_cache_configuration)
-    # 1. Валідація вибору мережевого транспорту
-    get_property(allowed_backends CACHE MEDIASYNC_NETWORK_BACKEND PROPERTY STRINGS)
-    if(NOT MEDIASYNC_NETWORK_BACKEND IN_LIST allowed_backends)
-        message(FATAL_ERROR 
-            "ПОМИЛКА КОНФІГУРАЦІЇ: нечинне значення MEDIASYNC_NETWORK_BACKEND='${MEDIASYNC_NETWORK_BACKEND}'.\n"
-            "Дозволені варіанти: ${allowed_backends}\n"
-            "Зверніть увагу, що значення чутливі до регістру символів.")
-    endif()
-
-    # 2. Валідація рівня журналювання
-    get_property(allowed_levels CACHE MEDIASYNC_LOG_LEVEL PROPERTY STRINGS)
-    if(NOT MEDIASYNC_LOG_LEVEL IN_LIST allowed_levels)
-        message(FATAL_ERROR 
-            "ПОМИЛКА КОНФІГУРАЦІЇ: нечинне значення MEDIASYNC_LOG_LEVEL='${MEDIASYNC_LOG_LEVEL}'.\n"
-            "Дозволені варіанти: ${allowed_levels}")
-    endif()
-
-    # 3. Перевірка числового діапазону для розміру кільцевого буфера
-    # Буфер не може бути меншим за розмір одного мережевого MTU (1024 байти)
-    # та більшим за 10 мегабайтів для запобігання вичерпанню RAM
-    if(MEDIASYNC_RING_BUFFER_CAPACITY LESS 1024 OR MEDIASYNC_RING_BUFFER_CAPACITY GREATER 10485760)
-        message(FATAL_ERROR 
-            "ПОМИЛКА КОНФІГУРАЦІЇ: MEDIASYNC_RING_BUFFER_CAPACITY встановлено у ${MEDIASYNC_RING_BUFFER_CAPACITY}.\n"
-            "Допустимий діапазон становить від 1024 до 10485760 байтів (1 КБ – 10 МБ).")
-    endif()
-
-    # 4. Перевірка мережевого порту метрик
-    if(MEDIASYNC_METRICS_PORT LESS 1024 OR MEDIASYNC_METRICS_PORT GREATER 65535)
-        message(FATAL_ERROR 
-            "ПОМИЛКА КОНФІГУРАЦІЇ: MEDIASYNC_METRICS_PORT (${MEDIASYNC_METRICS_PORT}) "
-            "має бути непривілейованим портом у діапазоні 1024–65535.")
-    endif()
-
-    message(STATUS "[mediasync] Усі параметри кешу пройшли успішну валідацію.")
-endfunction()
-```
+:::code proj-cache-presets/cmake/4-lohika-validatsii.cmake
 
 ---
 
@@ -251,120 +108,8 @@ endfunction()
 Згенерований заголовок підключається до вихідних файлів бібліотеки. Нижче наведено приклад взаємодії коду з параметрами конфігурації: мовою C показано пряму роботу зі структурами та ручним керуванням пам'яттю, а мовою C++20 — ідіоматичний підхід з використанням незмінних типів (`std::string_view`), строгих переліків та концепції RAII (Resource Acquisition Is Initialization).
 
 :::tabs
-```c
-/* src/mediasync.c — чиста реалізація мовою C11 */
-#include "mediasync_config.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    size_t buffer_capacity;
-    char network_backend[32];
-    int vaapi_enabled;
-    int metrics_port;
-} MediaSyncCore;
-
-MediaSyncCore* mediasync_create_instance(void) {
-    MediaSyncCore* core = (MediaSyncCore*)malloc(sizeof(MediaSyncCore));
-    if (!core) {
-        return NULL;
-    }
-
-    core->buffer_capacity = MEDIASYNC_BUFFER_SIZE;
-    core->metrics_port = MEDIASYNC_DEFAULT_PORT;
-    
-    strncpy(core->network_backend, MEDIASYNC_NETWORK_BACKEND, sizeof(core->network_backend) - 1);
-    core->network_backend[sizeof(core->network_backend) - 1] = '\0';
-
-#ifdef MEDIASYNC_USE_VAAPI
-    core->vaapi_enabled = 1;
-#else
-    core->vaapi_enabled = 0;
-#endif
-
-#ifdef MEDIASYNC_ENABLE_LOGGING
-    printf("[mediasync-C] Ініціалізація v%s | Бекенд: %s | Буфер: %zu байт | VA-API: %s\n",
-           MEDIASYNC_VERSION_STRING,
-           core->network_backend,
-           core->buffer_capacity,
-           core->vaapi_enabled ? "АКТИВНО" : "ВИМКНЕНО");
-#endif
-
-    return core;
-}
-
-void mediasync_destroy_instance(MediaSyncCore* core) {
-    if (core) {
-        free(core);
-    }
-}
-```
-```cpp
-// src/mediasync.cpp — ідіоматична реалізація мовою C++20
-#include "mediasync_config.h"
-#include <iostream>
-#include <memory>
-#include <string_view>
-#include <concepts>
-#include <span>
-
-namespace mediasync {
-
-enum class TransportProtocol {
-    Quic,
-    Tcp,
-    UnixSocket
-};
-
-[[nodiscard]] constexpr TransportProtocol parse_backend_string(std::string_view name) noexcept {
-    if (name == "TCP") return TransportProtocol::Tcp;
-    if (name == "UNIX_SOCKET") return TransportProtocol::UnixSocket;
-    return TransportProtocol::Quic;
-}
-
-struct EngineSettings {
-    std::size_t buffer_capacity{MEDIASYNC_BUFFER_SIZE};
-    int metrics_port{MEDIASYNC_DEFAULT_PORT};
-    std::string_view backend_raw{MEDIASYNC_NETWORK_BACKEND};
-    TransportProtocol protocol{parse_backend_string(MEDIASYNC_NETWORK_BACKEND)};
-    bool vaapi_active{
-#ifdef MEDIASYNC_USE_VAAPI
-        true
-#else
-        false
-#endif
-    };
-};
-
-class MediaSyncPipeline {
-public:
-    explicit MediaSyncPipeline(EngineSettings settings = {}) 
-        : settings_{settings} {
-#ifdef MEDIASYNC_ENABLE_LOGGING
-        std::cout << "[mediasync-C++] Ініціалізація ядра v" << MEDIASYNC_VERSION_STRING
-                  << "\n  • Мережевий бекенд : " << settings_.backend_raw
-                  << "\n  • Ємність буфера   : " << settings_.buffer_capacity << " байтів"
-                  << "\n  • Порт телеметрії  : " << settings_.metrics_port
-                  << "\n  • Апаратний кодек  : " << (settings_.vaapi_active ? "VA-API (активовано)" : "Програмний")
-                  << std::endl;
-#endif
-    }
-
-    [[nodiscard]] std::string_view backend_name() const noexcept {
-        return settings_.backend_raw;
-    }
-
-    [[nodiscard]] bool is_hardware_accelerated() const noexcept {
-        return settings_.vaapi_active;
-    }
-
-private:
-    EngineSettings settings_;
-};
-
-} // namespace mediasync
-```
+:::code proj-cache-presets/c/mediasync.c
+:::code proj-cache-presets/cpp/mediasync.cpp
 :::
 
 ---
@@ -377,45 +122,13 @@ private:
 
 Цей сценарій фіксує всі параметри продуктивної оптимізованої збірки для сервера неперервної інтеграції на базі компілятора Clang. Зверніть увагу на використання ключового слова `FORCE`: воно гарантує, що значення скрипта перекриють будь-які системні налаштування середовища.
 
-```cmake
-# Фіксація компіляторів для відтворюваності оточення
-set(CMAKE_C_COMPILER "clang" CACHE FILEPATH "Компілятор C для серверів CI" FORCE)
-set(CMAKE_CXX_COMPILER "clang++" CACHE FILEPATH "Компілятор C++ для серверів CI" FORCE)
-
-# Фіксація типу збірки та оптимізацій
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Оптимізована продуктивна збірка" FORCE)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "Експорт компіляційної бази" FORCE)
-
-# Конфігурація модулів проєкту
-set(MEDIASYNC_BUILD_TOOLS ON CACHE BOOL "Збирати утиліти" FORCE)
-set(MEDIASYNC_ENABLE_TESTS ON CACHE BOOL "Збирати модульні тести" FORCE)
-set(MEDIASYNC_ENABLE_LOGGING ON CACHE BOOL "Журналювання увімкнено" FORCE)
-set(MEDIASYNC_LOG_LEVEL "INFO" CACHE STRING "Рівень журналювання" FORCE)
-set(MEDIASYNC_NETWORK_BACKEND "QUIC" CACHE STRING "Протокол за замовчуванням" FORCE)
-set(MEDIASYNC_RING_BUFFER_CAPACITY 262144 CACHE STRING "Буфер 256 КБ для високошвидкісних каналів" FORCE)
-```
+:::code proj-cache-presets/cmake/profil-servisnoi-zbirky.cmake
 
 ### Профіль локального налагодження із санітайзерами: cmake/profiles/dev-debug-asan.cmake
 
 Цей профіль призначений для розробників, які проводять динамічний аналіз пам'яті на локальних комп'ютерах. Він вмикає символи налагодження, знижує оптимізацію до рівня `-O1` для збереження читабельності стек-трейсів та додає компіляторні прапорці AddressSanitizer і UndefinedBehaviorSanitizer:
 
-```cmake
-# Базовий налагоджувальний режим
-set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Налагоджувальна збірка" FORCE)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "Експорт бази компіляції для інтеграції з clangd" FORCE)
-
-# Ін'єкція прапорців динамічних санітайзерів пам'яті
-set(CMAKE_C_FLAGS_DEBUG "-g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer" CACHE STRING "Прапорці C для ASan" FORCE)
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer" CACHE STRING "Прапорці C++ для ASan" FORCE)
-
-# Налаштування модулів для локальної розробки
-set(MEDIASYNC_BUILD_TOOLS ON CACHE BOOL "Збирати утиліти тестування" FORCE)
-set(MEDIASYNC_ENABLE_TESTS ON CACHE BOOL "Збирати тестовий набір" FORCE)
-set(MEDIASYNC_ENABLE_LOGGING ON CACHE BOOL "Детальне журналювання" FORCE)
-set(MEDIASYNC_LOG_LEVEL "DEBUG" CACHE STRING "Максимальна деталізація подій" FORCE)
-set(MEDIASYNC_NETWORK_BACKEND "UNIX_SOCKET" CACHE STRING "Локальний транспорт сокетів" FORCE)
-set(MEDIASYNC_RING_BUFFER_CAPACITY 4096 CACHE STRING "Мінімальний буфер для провокування швидкого переповнення в тестах" FORCE)
-```
+:::code proj-cache-presets/cmake/profil-lokalnoho.cmake
 
 ---
 

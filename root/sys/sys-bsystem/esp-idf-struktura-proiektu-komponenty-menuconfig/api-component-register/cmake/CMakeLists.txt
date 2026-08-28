@@ -1,0 +1,16 @@
+idf_component_register(
+    [SRCS src1.c src2.cpp ...]
+    [SRC_DIRS "dir1" "dir2" ...]
+    [EXCLUDE_SRCS "dir1/unused.c" ...]
+    [INCLUDE_DIRS "include" ...]
+    [PRIV_INCLUDE_DIRS "private_include" ...]
+    [REQUIRES comp1 comp2 ...]
+    [PRIV_REQUIRES comp3 comp4 ...]
+    [LDFRAGMENTS "linker.lf" ...]
+    [REQUIRED_IDF_TARGETS esp32 esp32s3 esp32c3 ...]
+    [EMBED_FILES "cert.pem" ...]
+    [EMBED_TXTFILES "page.html" ...]
+    [KCONFIG "Kconfig" ...]
+    [KCONFIG_PROJBUILD "Kconfig.projbuild" ...]
+    [WHOLE_ARCHIVE]
+)

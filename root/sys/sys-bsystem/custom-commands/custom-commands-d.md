@@ -108,37 +108,7 @@ add_custom_target(run_linter
 
 Щоб CMake вбудував згенеровані файли у процес компіляції програми чи бібліотеки, ці файли мають бути передані цілі через команду `target_sources()`.
 
-```cmake
-# 1. Оголошення файлів результату генерації
-set(GEN_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
-set(GEN_SRC "${GEN_DIR}/protocol.cpp")
-set(GEN_HDR "${GEN_DIR}/protocol.hpp")
-
-# 2. Правило створення файлів
-add_custom_command(
-    OUTPUT "${GEN_SRC}" "${GEN_HDR}"
-    COMMAND dsl_compiler --in "${CMAKE_CURRENT_SOURCE_DIR}/protocol.dsl"
-                         --out-dir "${GEN_DIR}"
-    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/protocol.dsl"
-    VERBATIM
-)
-
-# 3. Створення цільової бібліотеки
-add_library(protocol_lib)
-
-# 4. Приєднання згенерованих файлів до цілі
-target_sources(protocol_lib
-    PRIVATE
-        "${GEN_SRC}"
-        "${GEN_HDR}"
-)
-
-# 5. Надання доступу до згенерованих заголовків
-target_include_directories(protocol_lib
-    PUBLIC
-        "$<BUILD_INTERFACE:${GEN_DIR}>"
-)
-```
+:::code custom-commands-d/cmake/pravylne-pidkliuchennia.cmake
 
 ### Властивість джерела GENERATED
 
@@ -172,18 +142,7 @@ target_include_directories(protocol_lib
 
 Надійність кастомних команд у продакшн-системах залежить від точного налаштування їхніх параметрів.
 
-```cmake
-add_custom_command(
-    OUTPUT "${OUT_FILE}"
-    COMMAND "${TOOL_EXE}" --flag "$<TARGET_PROPERTY:my_target,COMPILE_DEFINITIONS>"
-    DEPENDS "${INPUT_FILE}" generator_target
-    BYPRODUCTS "${LOG_FILE}"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-    COMMENT "Створення ${OUT_FILE}"
-    VERBATIM
-    COMMAND_EXPAND_LISTS
-)
-```
+:::code custom-commands-d/cmake/anatomiia-add-custom.cmake
 
 ### Залежності від файлів проти залежностей від цілей у DEPENDS
 
@@ -272,19 +231,7 @@ generated/protocol.cpp: dsl/api.dsl dsl/types/base.dsl dsl/network/socket.dsl ds
 
 У CMake цей файл реєструється ключовим словом `DEPFILE`:
 
-```cmake
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/protocol.cpp"
-    COMMAND dsl_compiler --input "${CMAKE_CURRENT_SOURCE_DIR}/dsl/api.dsl"
-                         --output "${CMAKE_CURRENT_BINARY_DIR}/protocol.cpp"
-                         --depfile "${CMAKE_CURRENT_BINARY_DIR}/protocol.cpp.d"
-    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/dsl/api.dsl"
-    DEPFILE "${CMAKE_CURRENT_BINARY_DIR}/protocol.cpp.d"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-    COMMENT "Компіляція схеми api.dsl з відстеженням імпортів"
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/iak-pratsiuie-mekhanizm.cmake
 
 Послідовність роботи:
 1. **Перший запуск**: Ninja запускає `dsl_compiler`. Генератор створює `protocol.cpp` і записує `protocol.cpp.d`.
@@ -313,27 +260,7 @@ add_custom_command(
 
 Пакетна генерація (Batch Processing) об'єднує всі входи в одну команду:
 
-```cmake
-file(GLOB_RECURSE PROTO_FILES "proto/*.proto")
-
-set(GEN_SOURCES "")
-set(GEN_HEADERS "")
-foreach(p IN LISTS PROTO_FILES)
-    cmake_path(GET p STEM name)
-    list(APPEND GEN_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/gen/${name}.pb.cc")
-    list(APPEND GEN_HEADERS "${CMAKE_CURRENT_BINARY_DIR}/gen/${name}.pb.h")
-endforeach()
-
-add_custom_command(
-    OUTPUT ${GEN_SOURCES} ${GEN_HEADERS}
-    COMMAND protoc --cpp_out="${CMAKE_CURRENT_BINARY_DIR}/gen"
-                   -I "${CMAKE_CURRENT_SOURCE_DIR}/proto"
-                   ${PROTO_FILES}
-    DEPENDS ${PROTO_FILES}
-    COMMENT "Пакетна генерація протоколів через protoc"
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/vyklyk-utylity-po-odnomu.cmake
 
 Такий підхід викликає утиліту `protoc` рівно один раз для всіх файлів, що скорочує час генерації з десятків секунд до частки секунди. Проте слід пам'ятати про компроміс: при зміні одного файлу `protoc` перегенерує всі файли списку.
 
@@ -343,18 +270,7 @@ add_custom_command(
 
 CMake дозволяє налаштувати іменовані пули обмеження паралелізму Ninja через глобальну властивість `JOB_POOLS`:
 
-```cmake
-# Встановлення максимальної кількості одночасних важких операцій
-set_property(GLOBAL PROPERTY JOB_POOLS heavy_pool=2)
-
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/huge_model.cpp"
-    COMMAND heavy_generator "${INPUT_DATA}"
-    DEPENDS "${INPUT_DATA}"
-    JOB_POOL heavy_pool
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/obmezhennia-navantazhennia.cmake
 
 Ninja запускатиме звичайні завдання компіляції C++ на всіх доступних ядрах, але для правил із пулу `heavy_pool` ніколи не запустить більше двох підпроцесів одночасно.
 
@@ -370,24 +286,7 @@ Ninja запускатиме звичайні завдання компіляц�
 
 Для вирішення цієї проблеми застосовують комбінацію команди `file(GENERATE)` та файлів відповідей (Response Files):
 
-```cmake
-# 1. Формування файлу відповідей на етапі генерації CMake
-set(RSP_FILE "${CMAKE_CURRENT_BINARY_DIR}/tool_args.rsp")
-
-file(GENERATE
-    OUTPUT "${RSP_FILE}"
-    CONTENT "$<JOIN:$<TARGET_PROPERTY:my_lib,INCLUDE_DIRECTORIES>,\n>"
-)
-
-# 2. Передача файлу відповідей утиліті через синтаксис @file
-add_custom_command(
-    OUTPUT "${GEN_DIR}/bundle.cpp"
-    COMMAND tool_packer "@${RSP_FILE}" --out "${GEN_DIR}/bundle.cpp"
-    DEPENDS "${RSP_FILE}" "${INPUT_ASSETS}"
-    COMMENT "Пакування ресурсів через файл відповідей"
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/dovhi-komandni-riadky-ta.cmake
 
 Команда `file(GENERATE)` записує обчислені генераторні вирази у файл на диску під час фази генерації CMake. Утиліта `tool_packer` зчитує аргументи з файлу `@tool_args.rsp` порядково, повністю усуваючи будь-які обмеження на довжину командного рядка операційної системи.
 
@@ -430,24 +329,7 @@ add_custom_command(
 
 Інструмент генерації збирається окремо під робочу станцію або встановлюється у системі як пакет. У крос-збірці він знаходиться через `find_program()` або імпортується:
 
-```cmake
-if(CMAKE_CROSSCOMPILING)
-    find_program(HOST_TABLE_GEN table_gen REQUIRED)
-    add_executable(table_gen IMPORTED GLOBAL)
-    set_target_properties(table_gen PROPERTIES
-        IMPORTED_LOCATION "${HOST_TABLE_GEN}"
-    )
-else()
-    add_executable(table_gen tools/table_gen.cpp)
-endif()
-
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/sin_tables.c"
-    COMMAND table_gen "${CMAKE_CURRENT_BINARY_DIR}/sin_tables.c"
-    DEPENDS table_gen
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/stratehiia-1-poperedno.cmake
 
 #### Стратегія 2: Двоетапна збірка через ExternalProject (Superbuild)
 
@@ -459,35 +341,7 @@ add_custom_command(
 
 Під час фази конфігурації цільового проєкту CMake автоматично викликає нативну збірку утиліти в ізольованому каталозі:
 
-```cmake
-if(CMAKE_CROSSCOMPILING AND NOT TARGET host_table_gen)
-    set(HOST_BUILD_DIR "${CMAKE_BINARY_DIR}/host-tools")
-    
-    # Виклик конфігурації хостового бінарника рідним компілятором
-    execute_process(
-        COMMAND "${CMAKE_COMMAND}" -S "${CMAKE_CURRENT_SOURCE_DIR}/tools"
-                                   -B "${HOST_BUILD_DIR}"
-        RESULT_VARIABLE res
-    )
-    if(res)
-        message(FATAL_ERROR "Помилка конфігурації хостових інструментів")
-    endif()
-
-    # Збірка інструмента під хост
-    execute_process(
-        COMMAND "${CMAKE_COMMAND}" --build "${HOST_BUILD_DIR}" --target table_gen
-        RESULT_VARIABLE res
-    )
-    if(res)
-        message(FATAL_ERROR "Помилка компіляції хостового table_gen")
-    endif()
-
-    add_executable(table_gen IMPORTED GLOBAL)
-    set_target_properties(table_gen PROPERTIES
-        IMPORTED_LOCATION "${HOST_BUILD_DIR}/table_gen${CMAKE_EXECUTABLE_SUFFIX}"
-    )
-endif()
-```
+:::code custom-commands-d/cmake/stratehiia-3-avtomatychnyi.cmake
 
 #### Стратегія 4: Використання CMAKE_CROSSCOMPILING_EMULATOR
 
@@ -569,38 +423,12 @@ add_custom_command(
 #### 1. Створення прошивки мікроконтролера (.bin / .hex)
 Після складання ELF-файлу його потрібно перетворити на «чистий» двійковий образ пам'яті:
 
-```cmake
-add_executable(firmware src/main.cpp)
-
-add_custom_command(
-    TARGET firmware
-    POST_BUILD
-    COMMAND arm-none-eabi-objcopy -O binary
-            "$<TARGET_FILE:firmware>"
-            "$<TARGET_FILE_DIR:firmware>/firmware.bin"
-    COMMAND arm-none-eabi-size "$<TARGET_FILE:firmware>"
-    COMMENT "Створення двійкового образу firmware.bin та аналіз розміру пам'яті"
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/1-stvorennia-proshyvky.cmake
 
 #### 2. Копіювання динамічних бібліотек (.dll) поруч із .exe у Windows
 У Windows операційна система шукає `.dll` файли в каталозі запуску виконуваного файлу:
 
-```cmake
-add_executable(game_client src/main.cpp)
-target_link_libraries(game_client PRIVATE SDL2::SDL2)
-
-add_custom_command(
-    TARGET game_client
-    POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
-            "$<TARGET_FILE:SDL2::SDL2>"
-            "$<TARGET_FILE_DIR:game_client>"
-    COMMENT "Копіювання SDL2.dll до каталогу запуску"
-    VERBATIM
-)
-```
+:::code custom-commands-d/cmake/2-kopiiuvannia.cmake
 
 Утиліта `${CMAKE_COMMAND} -E copy_if_different` — це вбудований міжплатформний помічник CMake, який копіює файл лише тоді, коли його зміст відрізняється, захищаючи мітку часу цільового каталогу.
 

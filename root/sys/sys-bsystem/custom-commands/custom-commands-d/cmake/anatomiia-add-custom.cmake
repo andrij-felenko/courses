@@ -1,0 +1,10 @@
+add_custom_command(
+    OUTPUT "${OUT_FILE}"
+    COMMAND "${TOOL_EXE}" --flag "$<TARGET_PROPERTY:my_target,COMPILE_DEFINITIONS>"
+    DEPENDS "${INPUT_FILE}" generator_target
+    BYPRODUCTS "${LOG_FILE}"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMENT "Створення ${OUT_FILE}"
+    VERBATIM
+    COMMAND_EXPAND_LISTS
+)

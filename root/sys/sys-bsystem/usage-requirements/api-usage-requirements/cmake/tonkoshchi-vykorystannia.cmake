@@ -1,0 +1,13 @@
+target_compile_options(neural_network
+    PRIVATE
+        $<$<CXX_COMPILER_ID:GNU,Clang>:
+            -Wall
+            -Wextra
+            -Wpedantic
+            -march=native
+        >
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /W4
+            /permissive-
+        >
+)

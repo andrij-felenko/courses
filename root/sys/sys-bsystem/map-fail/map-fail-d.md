@@ -41,37 +41,8 @@ collect2: error: ld returned 1 exit status
 У проєктах на базі CMake або Make ці прапорці задають у секції прапорців компонування цільового виконуваного файлу:
 
 :::tabs
-```cmake
-# CMakeLists.txt (C та C++)
-add_executable(firmware.elf
-    src/main.c
-    src/sensors.c
-    src/startup_stm32f401xe.s
-)
-
-target_link_options(firmware.elf PRIVATE
-    -T${CMAKE_CURRENT_SOURCE_DIR}/linker/STM32F401RETx_FLASH.ld
-    -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/firmware.map
-    -Wl,--cref
-    -Wl,--gc-sections
-    -Wl,--print-memory-usage
-)
-```
-```makefile
-# Makefile
-CC      := arm-none-eabi-gcc
-CXX     := arm-none-eabi-g++
-LDSCRIPT := linker/STM32F401RETx_FLASH.ld
-
-LDFLAGS := -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
-LDFLAGS += -T$(LDSCRIPT)
-LDFLAGS += -Wl,-Map=$(BUILD_DIR)/firmware.map,--cref
-LDFLAGS += -Wl,--gc-sections
-LDFLAGS += -Wl,--print-memory-usage
-
-$(BUILD_DIR)/firmware.elf: $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) -o $@
-```
+:::code map-fail-d/cmake/CMakeLists.txt
+:::code map-fail-d/make/Makefile
 :::
 
 Прапорець `--print-memory-usage` виводить у консоль зручну таблицю, яка сигналізує про вичерпання ресурсів ще до аварійного збою:
@@ -267,88 +238,8 @@ g_sensor_data                  build/sensors/telemetry.o
 Нижче наведено порівняння легкого форматування телеметрії без використання `printf` та динамічної пам'яті:
 
 :::tabs
-```c
-// C99: Компактне форматування числа з фіксованою комою
-#include <stdint.h>
-#include <stddef.h>
-
-// Форматує число виду 12345 (значення 123.45) у рядок без використання float і printf
-// Займає всього ~120 байтів Flash замість 20+ КБ
-size_t format_fixed_point(char *out, size_t max_len, int32_t val, uint8_t decimals) {
-    char temp[16];
-    size_t idx = 0;
-    int is_neg = 0;
-
-    if (val < 0) {
-        is_neg = 1;
-        val = -val;
-    }
-
-    // Запис дробової та цілої частин у зворотному порядку
-    uint8_t dec_count = 0;
-    do {
-        if (decimals > 0 && dec_count == decimals) {
-            temp[idx++] = '.';
-        }
-        temp[idx++] = (char)('0' + (val % 10));
-        val /= 10;
-        dec_count++;
-    } while (val > 0 || dec_count <= decimals);
-
-    if (is_neg) {
-        temp[idx++] = '-';
-    }
-
-    if (idx >= max_len) {
-        return 0; // Переповнення буфера
-    }
-
-    // Реверс рядка у вихідний буфер
-    for (size_t i = 0; i < idx; ++i) {
-        out[i] = temp[idx - 1 - i];
-    }
-    out[idx] = '\0';
-    return idx;
-}
-```
-```cpp
-// C++20: Типобезпечне форматування без динамічної пам'яті та RTTI
-#include <cstdint>
-#include <cstddef>
-#include <string_view>
-#include <span>
-#include <charconv>
-
-// Компактний буфер фіксованого розміру (розміщується на стеку)
-template <std::size_t N>
-class FixedStringBuffer {
-public:
-    constexpr FixedStringBuffer() = default;
-
-    bool append(std::string_view sv) noexcept {
-        if (len_ + sv.size() >= N) return false;
-        for (char c : sv) data_[len_++] = c;
-        data_[len_] = '\0';
-        return true;
-    }
-
-    bool append_int(std::integral auto val) noexcept {
-        auto [ptr, ec] = std::to_chars(data_ + len_, data_ + N - 1, val);
-        if (ec != std::errc()) return false;
-        len_ = static_cast<std::size_t>(ptr - data_);
-        data_[len_] = '\0';
-        return true;
-    }
-
-    [[nodiscard]] std::string_view view() const noexcept {
-        return std::string_view(data_, len_);
-    }
-
-private:
-    char data_[N]{};
-    std::size_t len_{0};
-};
-```
+:::code map-fail-d/c/main.c
+:::code map-fail-d/cpp/pastka-1-vykorystannia.hpp
 :::
 
 ### Пастка 2: C++ RTTI, обробка винятків та віртуальні таблиці
@@ -417,22 +308,7 @@ uint64_t time_ms = current_time_us / 1000ULL; // Непомітне 64-бітн�
 uint32_t current_time_ms = get_system_ticks_32();
 uint32_t time_sec = current_time_ms / 1000U;  // Апаратна інструкція sdiv/udiv (1 такт)
 ```
-```cpp
-// C++20: Типобезпечні інтервали часу з std::chrono без важкої емуляції
-#include <cstdint>
-#include <chrono>
-
-using namespace std::chrono_literals;
-
-// 32-бітний інтервал часу без 64-бітної емуляції
-using mcu_ticks_t = std::chrono::duration<uint32_t, std::milli>;
-
-void process_timer(mcu_ticks_t now) noexcept {
-    // std::chrono::duration_cast оптимізується компілятором в одну машинну команду
-    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(now);
-    (void)seconds;
-}
-```
+:::code map-fail-d/cpp/pastka-4-nevydyma-64-bitna.cpp
 :::
 
 Компілятор не може виконати цю операцію однією апаратною командою і генерує виклик допоміжної функції з бібліотеки `libgcc.a`: `__aeabi_uldivmod` або `__udivmoddi4`. Ця підпрограма разом із залежностями додає до секції `.text` від 1.5 до 3 КБ коду. Якщо тайм-аут можна вирахувати в межах 32 біт (`uint32_t`), заміна типу миттєво прибирає важку бібліотечну функцію.

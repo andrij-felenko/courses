@@ -1,0 +1,17 @@
+add_custom_command(
+    OUTPUT output1 [output2 ...]
+    COMMAND command1 [ARGS] [args1...]
+    [COMMAND command2 [ARGS] [args2...]]
+    [MAIN_DEPENDENCY depend]
+    [DEPENDS [depends...]]
+    [BYPRODUCTS [files...]]
+    [IMPLICIT_DEPENDS <lang1> <file1> [<lang2> <file2>...]]
+    [WORKING_DIRECTORY dir]
+    [COMMENT comment]
+    [DEPFILE depfile]
+    [JOB_POOL pool]
+    [VERBATIM]
+    [APPEND]
+    [USES_TERMINAL]
+    [COMMAND_EXPAND_LISTS]
+)

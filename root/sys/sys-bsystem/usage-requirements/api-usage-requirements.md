@@ -139,21 +139,7 @@ target_compile_options(<ціль> [BEFORE]
 * **Префікс `SHELL:`** — якщо прапорець вимагає збереження пробілів або складається з кількох нерозривних слів (наприклад, `-framework Metal` на macOS чи `/clang:-O3` у MSVC), його слід загортати у вираз `SHELL:...`, інакше CMake розділить елементи на окремі екрановані аргументи.
 * Команда призначена для прапорців трансляції файлів. Для налаштування стандарту мови слід використовувати `target_compile_features`, а для позиційно-незалежного коду — властивість `POSITION_INDEPENDENT_CODE`, оскільки ручне додавання прапорців на зразок `-std=c++20` чи `-fPIC` через `target_compile_options` порушує кросплатформну сумісність.
 
-```cmake
-target_compile_options(neural_network
-    PRIVATE
-        $<$<CXX_COMPILER_ID:GNU,Clang>:
-            -Wall
-            -Wextra
-            -Wpedantic
-            -march=native
-        >
-        $<$<CXX_COMPILER_ID:MSVC>:
-            /W4
-            /permissive-
-        >
-)
-```
+:::code api-usage-requirements/cmake/tonkoshchi-vykorystannia.cmake
 
 ---
 
@@ -203,21 +189,7 @@ target_compile_features(modern_containers INTERFACE cxx_std_20)
 
 Додає файли вихідного коду до цілі або реєструє структуровані набори заголовків і модулів (`FILE_SET`).
 
-```cmake
-# Класичний синтаксис (додавання вихідних файлів)
-target_sources(<ціль>
-    <INTERFACE|PUBLIC|PRIVATE> [файл1...]
-    [<INTERFACE|PUBLIC|PRIVATE> [файл2...] ...]
-)
-
-# Сучасний синтаксис структурованих наборів файлів (CMake 3.23+)
-target_sources(<ціль>
-    <INTERFACE|PUBLIC|PRIVATE>
-    [FILE_SET <ім'я_набору> [TYPE <HEADERS|CXX_MODULES>]
-     [BASE_DIRS <каталог_бази1...>]
-     [FILES <файл1...>]]
-)
-```
+:::code api-usage-requirements/cmake/5-target-sources.cmake
 
 #### Переваги використання FILE_SET HEADERS
 
@@ -226,19 +198,7 @@ target_sources(<ціль>
 * Надає середовищам розробки (IDE) повну інформацію про ієрархію заголовних файлів бібліотеки.
 * Дозволяє надійно підтримувати компіляцію інтерфейсів модулів C++20 (`TYPE CXX_MODULES`).
 
-```cmake
-target_sources(geometry_lib
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS include
-        FILES
-            include/geometry/point.hpp
-            include/geometry/vector.hpp
-    PRIVATE
-        src/point.cpp
-        src/vector.cpp
-)
-```
+:::code api-usage-requirements/cmake/perevahy-vykorystannia.cmake
 
 ---
 
@@ -417,19 +377,7 @@ set_target_properties(hal_driver PROPERTIES
 
 Для читання параметрів цілей під час конфігурації застосовується команда `get_target_property`:
 
-```cmake
-# Отримання списку внутрішніх каталогів включення
-get_target_property(local_dirs my_target INCLUDE_DIRECTORIES)
-message(STATUS "Власні каталоги: ${local_dirs}")
-
-# Отримання списку експортних вимог включення
-get_target_property(iface_dirs my_target INTERFACE_INCLUDE_DIRECTORIES)
-message(STATUS "Експортні каталоги: ${iface_dirs}")
-
-# Отримання списку прямих залежностей
-get_target_property(link_list my_target LINK_LIBRARIES)
-message(STATUS "Залежності лінкування: ${link_list}")
-```
+:::code api-usage-requirements/cmake/prohramne-inspektuvannia-v.cmake
 
 Якщо властивість не була задана на цілі, команда повертає спеціальне значення `<змінна>-NOTFOUND`, яке в умовних виразах `if()` оцінюється як хиба (`FALSE`).
 

@@ -8,24 +8,7 @@
 
 ## Повна сигнатура макроса
 
-```cmake
-idf_component_register(
-    [SRCS src1.c src2.cpp ...]
-    [SRC_DIRS "dir1" "dir2" ...]
-    [EXCLUDE_SRCS "dir1/unused.c" ...]
-    [INCLUDE_DIRS "include" ...]
-    [PRIV_INCLUDE_DIRS "private_include" ...]
-    [REQUIRES comp1 comp2 ...]
-    [PRIV_REQUIRES comp3 comp4 ...]
-    [LDFRAGMENTS "linker.lf" ...]
-    [REQUIRED_IDF_TARGETS esp32 esp32s3 esp32c3 ...]
-    [EMBED_FILES "cert.pem" ...]
-    [EMBED_TXTFILES "page.html" ...]
-    [KCONFIG "Kconfig" ...]
-    [KCONFIG_PROJBUILD "Kconfig.projbuild" ...]
-    [WHOLE_ARCHIVE]
-)
-```
+:::code api-component-register/cmake/CMakeLists.txt
 
 ---
 
@@ -93,40 +76,8 @@ ESP-IDF використовує модель об'єктно-орієнтова
   Аналогічно до `EMBED_FILES`, але генерує додатковий нульовий байт завершення (`\0`) у пам'яті після кінця файлу. Це дозволяє безпечно трактувати ресурс як null-terminated рядок C без необхідності попереднього копіювання в оперативну пам'ять чи ручного додавання нуль-термінатора.
 
 :::tabs
-```c
-/* Доступ до вбудованого ресурсу (C) */
-#include <stdio.h>
-#include <stdint.h>
-#include "esp_log.h"
-
-extern const uint8_t cert_pem_start[] asm("_binary_server_root_cert_pem_start");
-extern const uint8_t cert_pem_end[]   asm("_binary_server_root_cert_pem_end");
-
-void display_certificate_info(void) {
-    const size_t size = (size_t)(cert_pem_end - cert_pem_start);
-    printf("Розмір вбудованого сертифіката: %u байтів\n", (unsigned int)size);
-}
-```
-```cpp
-// Доступ до вбудованого ресурсу з використанням std::span та std::string_view (C++)
-#include <iostream>
-#include <span>
-#include <string_view>
-#include <cstdint>
-
-extern "C" {
-    extern const uint8_t _binary_server_root_cert_pem_start[];
-    extern const uint8_t _binary_server_root_cert_pem_end[];
-}
-
-void display_certificate_info() {
-    const auto* start = reinterpret_cast<const char*>(_binary_server_root_cert_pem_start);
-    const auto* end = reinterpret_cast<const char*>(_binary_server_root_cert_pem_end);
-    const std::string_view cert_view(start, static_cast<size_t>(end - start));
-
-    std::cout << "Вбудований сертифікат (C++ span): " << cert_view.size() << " байтів\n";
-}
-```
+:::code api-component-register/c/main.c
+:::code api-component-register/cpp/main.cpp
 :::
 
 ---

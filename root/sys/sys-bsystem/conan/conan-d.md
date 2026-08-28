@@ -50,110 +50,7 @@ Conan 2.x розділяє поняття «як зібрати бібліоте
 
 Структура типового промислового рецепта для C++-бібліотеки, що використовує CMake, містить декларативні поля метаданих та реалізації ключових методів життєвого циклу:
 
-```python
-from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
-from conan.tools.files import get, copy
-from conan.errors import ConanInvalidConfiguration
-import os
-
-class NetworkEngineConan(ConanFile):
-    name = "network_engine"
-    version = "2.4.1"
-    package_type = "library"
-    license = "Apache-2.0"
-    author = "Infra Team <infra@company.internal>"
-    url = "https://github.com/company/network_engine"
-    description = "Асинхронний мережевий рушій на базі epoll/kqueue/IOCP"
-    topics = ("networking", "async", "sockets")
-
-    # Комбінаторна матриця бінарної сумісності
-    settings = "os", "arch", "compiler", "build_type"
-    
-    # Опції збірки конкретного пакета
-    options = {
-        "shared": [True, False],
-        "fPIC": [True, False],
-        "with_ssl": [True, False],
-    }
-    default_options = {
-        "shared": False,
-        "fPIC": True,
-        "with_ssl": True,
-    }
-
-    def config_options(self):
-        """Коригування опцій залежно від операційної системи до розрахунку графа."""
-        if self.settings.os == "Windows":
-            # На платформі Windows весь код позиційно-незалежний, прапорець fPIC відсутній
-            self.options.rm_safe("fPIC")
-
-    def configure(self):
-        """Коригування взаємозв'язків між опціями."""
-        if self.options.shared:
-            # Для динамічних бібліотек на POSIX прапорець fPIC обов'язковий
-            self.options.rm_safe("fPIC")
-
-    def validate(self):
-        """Перевірка обмежень платформи та версій інструментів."""
-        if self.settings.compiler.get_safe("cppstd"):
-            if int(str(self.settings.compiler.cppstd)) < 20:
-                raise ConanInvalidConfiguration("network_engine вимагає підтримки стандарту C++20 або новішого")
-
-    def layout(self):
-        """Декларація стандартної структури каталогів."""
-        cmake_layout(self)
-
-    def requirements(self):
-        """Оголошення бібліотечних залежностей цільової платформи."""
-        self.requires("fmt/10.2.1", transitive_headers=True)
-        if self.options.with_ssl:
-            self.requires("openssl/3.2.0", transitive_headers=True, transitive_libs=True)
-
-    def build_requirements(self):
-        """Оголошення інструментів середовища збірки та генераторів коду."""
-        self.tool_requires("cmake/[>=3.25]")
-        self.tool_requires("ninja/1.11.1")
-
-    def source(self):
-        """Завантаження вихідного коду (виконується один раз для рецепта)."""
-        get(self, 
-            url=f"https://github.com/company/network_engine/archive/v{self.version}.tar.gz",
-            sha256="7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b",
-            strip_root=True)
-
-    def generate(self):
-        """Генерація інтеграційних файлів для системи збірки (CMakeToolchain/CMakeDeps)."""
-        tc = CMakeToolchain(self)
-        tc.variables["ENABLE_SSL_SUPPORT"] = self.options.with_ssl
-        tc.generate()
-
-        deps = CMakeDeps(self)
-        deps.generate()
-
-    def build(self):
-        """Виклик процесу конфігурації та компіляції."""
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-
-    def package(self):
-        """Копіювання зібраних бінарників та заголовків у каталог package_folder."""
-        cmake = CMake(self)
-        cmake.install()
-        copy(self, "LICENSE*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-
-    def package_info(self):
-        """Опис контракту бібліотеки для генераторів споживачів."""
-        self.cpp_info.libs = ["network_engine"]
-        self.cpp_info.set_property("cmake_file_name", "network_engine")
-        self.cpp_info.set_property("cmake_target_name", "network_engine::network_engine")
-        
-        if self.settings.os in ["Linux", "FreeBSD"]:
-            self.cpp_info.system_libs = ["pthread", "dl", "m"]
-        elif self.settings.os == "Windows":
-            self.cpp_info.system_libs = ["ws2_32", "crypt32"]
-```
+:::code conan-d/py/main.py
 
 Повний довідник методів, полів об'єкта `self.cpp_info` та службових утиліт маніпуляції файлами наведено у вставці [Методи та інтерфейси ConanFile](root:sys-bsystem/conan/api-conanfile-methods.md).
 
@@ -315,22 +212,7 @@ def package_id(self):
 
 Клас `CMakeToolchain` створює файл `conan_toolchain.cmake` у каталозі збірки. Цей файл є стандартним файлом тулчейна CMake ([CMake Toolchain File](root:sys-bsystem/cmake-toolchain-file)) і містить точну трансляцію налаштувань профілю Conan у внутрішні змінні CMake:
 
-```cmake
-# Фрагмент згенерованого conan_toolchain.cmake
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
-
-# Налаштування C++ ABI для GCC
-set(CMAKE_CXX_FLAGS_INIT "${CMAKE_CXX_FLAGS_INIT} -D_GLIBCXX_USE_CXX11_ABI=1")
-
-# Налаштування рантайму MSVC на Windows
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-
-# Додавання каталогу генераторів до шляхів пошуку find_package
-list(PREPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}")
-```
+:::code conan-d/cmake/conan_toolchain.cmake
 
 ### 2. Генератор CMakeDeps
 
@@ -359,25 +241,7 @@ cmake --build --preset conan-release
 
 Файл `CMakeLists.txt` споживача залишається ідеально чистим:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(ImageProcessor LANGUAGES CXX)
-
-# Стандартні виклики пошуку пакетів Modern CMake
-find_package(OpenSSL REQUIRED)
-find_package(fmt REQUIRED)
-find_package(zlib REQUIRED)
-
-add_executable(image_processor src/main.cpp)
-
-# Лінкування через безпечні імпортовані простори імен
-target_link_libraries(image_processor PRIVATE
-    OpenSSL::SSL
-    OpenSSL::Crypto
-    fmt::fmt
-    ZLIB::ZLIB
-)
-```
+:::code conan-d/cmake/3-avtomatyzatsiia-cherez.cmake
 
 ## Віддалені сховища, JFrog Artifactory та версіонування
 

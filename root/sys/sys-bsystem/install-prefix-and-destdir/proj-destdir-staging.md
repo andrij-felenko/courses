@@ -23,141 +23,21 @@ calcapp/
 
 У кореневому `CMakeLists.txt` налаштовано стандартизовані шляхи через модуль `GNUInstallDirs`, задано динамічний пошук бібліотек через `$ORIGIN` у властивості `INSTALL_RPATH` та визначено правила встановлення для всіх компонентів:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(CalcApp VERSION 1.0.0 LANGUAGES CXX)
-
-# Встановлюємо сучасний стандарт C++
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Підключаємо стандартні конвенції розміщення каталогів
-include(GNUInstallDirs)
-
-# 1. Спільна динамічна бібліотека обчислень
-add_library(calc SHARED src/math_ops.cpp)
-target_include_directories(calc PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-set_target_properties(calc PROPERTIES
-    VERSION ${PROJECT_VERSION}
-    SOVERSION 1
-)
-
-# 2. Виконуваний файл консольного клієнта
-add_executable(calc_cli src/main.cpp)
-target_link_libraries(calc_cli PRIVATE calc)
-
-# Передаємо цільовий абсолютний шлях до ресурсів у константи компілятора
-target_compile_definitions(calc_cli PRIVATE
-    APP_DATADIR="${CMAKE_INSTALL_FULL_DATADIR}/calcapp"
-)
-
-# 3. Налаштування RPATH для встановленого двійкового файлу
-# Використовуємо $ORIGIN для відносного пошуку lib/ відносно bin/
-set_target_properties(calc_cli PROPERTIES
-    INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}"
-    BUILD_WITH_INSTALL_RPATH FALSE
-)
-
-# 4. Правила встановлення цілей та заголовків
-install(TARGETS calc calc_cli
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-
-install(DIRECTORY include/calc
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(FILES assets/operations.json
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/calcapp
-)
-```
+:::code proj-destdir-staging/cmake/CMakeLists.txt
 
 ## 2. Реалізація компонентів програми
 
 Бібліотека надає інтерфейс обчислень:
 
-```cpp
-// include/calc/math_ops.h
-#pragma once
-
-#if defined(_WIN32)
-  #if defined(calc_EXPORTS)
-    #define CALC_API __declspec(dllexport)
-  #else
-    #define CALC_API __declspec(dllimport)
-  #endif
-#else
-  #define CALC_API __attribute__((visibility("default")))
-#endif
-
-extern "C" {
-    CALC_API int calc_add(int a, int b);
-    CALC_API int calc_mul(int a, int b);
-}
-```
+:::code proj-destdir-staging/cpp/2-realizatsiia-komponentiv.hpp
 
 Виконуваний файл завантажує статичні ресурси за вшитим скомпільованим шляхом `APP_DATADIR`:
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "calc/math_ops.h"
-
-#ifndef APP_DATADIR
-#define APP_DATADIR "/usr/local/share/calcapp"
-#endif
-
-int main(int argc, char* argv[]) {
-    char asset_path[512];
-    snprintf(asset_path, sizeof(asset_path), "%s/operations.json", APP_DATADIR);
-
-    FILE* f = fopen(asset_path, "r");
-    if (!f) {
-        fprintf(stderr, "Помилка: не знайдено файл конфігурації: %s\n", asset_path);
-        return 1;
-    }
-    printf("Конфігурацію завантажено з: %s\n", asset_path);
-    fclose(f);
-
-    printf("Розрахунок: 12 + 30 = %d\n", calc_add(12, 30));
-    return 0;
-}
-```
+:::code proj-destdir-staging/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <fstream>
-#include <filesystem>
-#include <string>
-#include "calc/math_ops.h"
-
-#ifndef APP_DATADIR
-#define APP_DATADIR "/usr/local/share/calcapp"
-#endif
-
-int main(int argc, char* argv[]) {
-    namespace fs = std::filesystem;
-    const fs::path asset_path = fs::path(APP_DATADIR) / "operations.json";
-
-    std::ifstream file(asset_path);
-    if (!file.is_open()) {
-        std::cerr << "Помилка: не знайдено файл конфігурації за шляхом: " 
-                  << asset_path << '\n';
-        return 1;
-    }
-
-    std::cout << "Конфігурацію успішно завантажено з: " << asset_path << '\n';
-    std::cout << "Розрахунок: 12 + 30 = " << calc_add(12, 30) << '\n';
-    return 0;
-}
-```
+:::code proj-destdir-staging/cpp/2-realizatsiia-komponentiv.cpp
 :::
 
 ## 3. Сценарій складання, валідації та пакування
@@ -171,111 +51,7 @@ int main(int argc, char* argv[]) {
 6. Глибоке сканування рядкових літералів секції `.rodata` утилітою `strings` для підтвердження того, що константи ресурсів зашиті відносно цільового префікса, а не тимчасового середовища збірки.
 7. Нормалізація прав доступу згідно зі стандартами FHS (каталоги й бінарники 0755, дані 0644) та формування кінцевого двійкового архіву tar.gz із закріпленням власника `root:root` (UID 0, GID 0).
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-PROJECT_ROOT="$(pwd)"
-BUILD_DIR="${PROJECT_ROOT}/build"
-STAGING_DIR="${PROJECT_ROOT}/staging_root"
-DIST_DIR="${PROJECT_ROOT}/dist"
-TARGET_PREFIX="/usr"
-PKG_NAME="calcapp-1.0.0-linux-x86_64"
-
-echo "=== 1. Очищення робочих просторів ==="
-rm -rf "${BUILD_DIR}" "${STAGING_DIR}" "${DIST_DIR}"
-mkdir -p "${STAGING_DIR}" "${DIST_DIR}"
-
-echo "=== 2. Конфігурація проєкту для цільового префікса ${TARGET_PREFIX} ==="
-cmake -S "${PROJECT_ROOT}" -B "${BUILD_DIR}" \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_PREFIX="${TARGET_PREFIX}" \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_LOCALSTATEDIR=/var
-
-echo "=== 3. Компіляція вихідного коду ==="
-cmake --build "${BUILD_DIR}" --parallel "$(nproc)"
-
-echo "=== 4. Ізольоване встановлення у Staging Root (DESTDIR) ==="
-# Викликаємо cmake --install із передачею DESTDIR
-DESTDIR="${STAGING_DIR}" cmake --install "${BUILD_DIR}"
-
-echo "=== 5. Відокремлення налагоджувальних символів (Split Debug) ==="
-BIN_FILE="${STAGING_DIR}${TARGET_PREFIX}/bin/calc_cli"
-LIB_FILE="${STAGING_DIR}${TARGET_PREFIX}/lib/libcalc.so.1.0.0"
-DEBUG_DIR="${STAGING_DIR}${TARGET_PREFIX}/lib/debug"
-mkdir -p "${DEBUG_DIR}"
-
-# Обробка виконуваного файлу
-objcopy --only-keep-debug "${BIN_FILE}" "${DEBUG_DIR}/calc_cli.debug"
-strip --strip-unneeded "${BIN_FILE}"
-objcopy --add-gnu-debuglink="${DEBUG_DIR}/calc_cli.debug" "${BIN_FILE}"
-
-# Обробка спільної бібліотеки
-objcopy --only-keep-debug "${LIB_FILE}" "${DEBUG_DIR}/libcalc.so.debug"
-strip --strip-unneeded "${LIB_FILE}"
-objcopy --add-gnu-debuglink="${DEBUG_DIR}/libcalc.so.debug" "${LIB_FILE}"
-
-echo "=== 6. Автоматизована валідація артефактів у Staging ==="
-
-# Перевірка 1: Фізична присутність файлів
-test -f "${BIN_FILE}" || { echo "ПОМИЛКА: calc_cli відсутній!"; exit 1; }
-test -f "${LIB_FILE}" || { echo "ПОМИЛКА: libcalc.so відсутня!"; exit 1; }
-test -f "${STAGING_DIR}${TARGET_PREFIX}/share/calcapp/operations.json" || \
-    { echo "ПОМИЛКА: operations.json відсутній!"; exit 1; }
-
-# Перевірка 2: Контроль RUNPATH у бінарнику через readelf
-echo "--- Перевірка RUNPATH у виконуваному файлі ---"
-RUNPATH_ENTRY=$(readelf -d "${BIN_FILE}" | grep -E '(RUNPATH|RPATH)' || true)
-echo "Знайдено: ${RUNPATH_ENTRY}"
-
-# Перевіряємо, чи містить бінарник очікуваний відносний шлях
-if ! echo "${RUNPATH_ENTRY}" | grep -q '\$ORIGIN/../lib'; then
-    echo "ПОМИЛКА: RUNPATH не містить \$ORIGIN/../lib!"
-    exit 1
-fi
-
-# Сувора перевірка: чи не потрапив шлях staging у заголовок ELF
-if echo "${RUNPATH_ENTRY}" | grep -q "${STAGING_DIR}"; then
-    echo "КРИТИЧНИЙ ДЕФЕКТ: Шлях Staging (${STAGING_DIR}) витік у заголовок ELF!"
-    exit 1
-fi
-
-# Перевірка 3: Сканування скомпільованих констант утилітою strings
-echo "--- Сканування зашитих рядків у секції .rodata ---"
-if strings "${BIN_FILE}" | grep -q "${STAGING_DIR}"; then
-    echo "КРИТИЧНИЙ ДЕФЕКТ: Тимчасовий каталог збірки зашитий у двійковий код!"
-    exit 1
-fi
-
-if strings "${BIN_FILE}" | grep -q "${TARGET_PREFIX}/share/calcapp"; then
-    echo "OK: Вшитий шлях відповідає цільовому префіксу (${TARGET_PREFIX}/share/calcapp)"
-else
-    echo "ПОМИЛКА: Цільовий префікс відсутній у бінарнику!"
-    exit 1
-fi
-
-echo "=== 7. Нормалізація прав доступу та створення пакетного архіву ==="
-# Встановлюємо стандартні права FHS: 0755 для каталогів та бінарників, 0644 для даних
-find "${STAGING_DIR}" -type d -exec chmod 0755 {} +
-find "${STAGING_DIR}${TARGET_PREFIX}/bin" -type f -exec chmod 0755 {} +
-find "${STAGING_DIR}${TARGET_PREFIX}/lib" -type f -name "*.so*" -exec chmod 0755 {} +
-find "${STAGING_DIR}${TARGET_PREFIX}/share" -type f -exec chmod 0644 {} +
-find "${STAGING_DIR}${TARGET_PREFIX}/include" -type f -exec chmod 0644 {} +
-
-# Формуємо стиснений tarball із закріпленням власника root:root (UID=0, GID=0)
-tar --create --gzip --verbose \
-    --owner=0 --group=0 --numeric-owner \
-    --directory="${STAGING_DIR}" \
-    --file="${DIST_DIR}/${PKG_NAME}.tar.gz" .
-
-# Генеруємо контрольну суму SHA-256 для верифікації дистрибутива
-(cd "${DIST_DIR}" && sha256sum "${PKG_NAME}.tar.gz" > "${PKG_NAME}.tar.gz.sha256")
-
-echo "=== Пакування успішно завершено ==="
-echo "Пакет: ${DIST_DIR}/${PKG_NAME}.tar.gz"
-cat "${DIST_DIR}/${PKG_NAME}.tar.gz.sha256"
-```
+:::code proj-destdir-staging/sh/main.sh
 
 ## Механізм розділення налагоджувальних символів (Split DWARF)
 

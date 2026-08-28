@@ -49,20 +49,7 @@ export SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH:-1700000000}
 
 Шляхи до файлів проникають у бінарний артефакт через три незалежні канали: макрос препроцесора `__FILE__`, системний макрос перевірки тверджень `assert()` та секції налагоджувального формату DWARF (`.debug_info`, `.debug_line`).
 
-```sh
-# Універсальне правило заміни префіксів (GCC >= 8, Clang >= 10)
--ffile-prefix-map=/home/builder/workspace/myproject=.
--ffile-prefix-map=$PWD=.
-
-# Спеціалізована заміна префіксів для налагоджувальних секцій DWARF
--fdebug-prefix-map=/home/builder/workspace/myproject=/usr/src/debug
-
-# Спеціалізована заміна префіксів для макросів препроцесора (__FILE__, __BASE_FILE__)
--fmacro-prefix-map=/home/builder/workspace/myproject=.
-
-# Заміна шляхів у файлах профілювання gcov (.gcno, .gcda)
--fprofile-prefix-map=/home/builder/workspace/myproject=.
-```
+:::code api-repro-flags/sh/mekhanizm-zaminy-prefiksiv.sh
 
 Принцип роботи прапорця полягає у лексичній заміні рядка на стадії розбору шляхів: якщо абсолютний шлях до файлу починається з рядка `OLD`, ця префіксна частина замінюється на рядок `NEW`.
 
@@ -303,41 +290,7 @@ reprotest --variations=all 'cmake --build build' build/app
 
 Перед запуском будь-якої детерміністичної збірки середовище виконання процесу повинно бути очищене за допомогою такого базового скрипта:
 
-```sh
-#!/usr/bin/env bash
-set -euo pipefail
-
-# 1. Примусове встановлення канонічної локалі для передбачуваного сортування рядків
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
-export LC_COLLATE=C
-
-# 2. Фіксація часового поясу в нульовий меридіан
-export TZ=UTC
-
-# 3. Нормалізація маски створення файлів
-umask 0022
-
-# 4. Встановлення фіксованого часу коміту для компіляторів та архіваторів
-export SOURCE_DATE_EPOCH=$(git log -1 --format=%ct 2>/dev/null || echo 1700000000)
-
-# 5. Примусовий детермінізм для GNU binutils
-export ZERO_AR_DATE=1
-
-# 6. Очищення шляхів пошуку бінарних файлів від локальних каталогів користувача
-export PATH="/usr/bin:/bin:/usr/local/bin"
-
-# 7. Видалення небезпечних змінних середовища
-unset LD_PRELOAD
-unset LD_LIBRARY_PATH
-unset C_INCLUDE_PATH
-unset CPLUS_INCLUDE_PATH
-unset TMPDIR
-
-# 8. Запуск збірки
-cmake --preset release
-cmake --build --preset release
-```
+:::code api-repro-flags/sh/povnyi-skrypt-sanityzatsii.sh
 
 ## Інтеграція в CMakeLists.txt та Meson
 
@@ -345,35 +298,7 @@ cmake --build --preset release
 
 ### Приклад для CMakeLists.txt
 
-```cmake
-# Перевірка та конфігурація компіляторів GCC і Clang
-if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-    # Перетворення абсолютних шляхів на відносні
-    add_compile_options(
-        -ffile-prefix-map=${CMAKE_SOURCE_DIR}=.
-        -ffile-prefix-map=${CMAKE_BINARY_DIR}=.
-        -fno-ident
-        -gno-record-gcc-switches
-    )
-    # Детерміністичний Build ID для компонувальника
-    add_link_options("-Wl,--build-id=sha1")
-endif()
-
-# Налаштування для середовища MSVC на Windows
-if(MSVC)
-    add_compile_options(/experimental:deterministic "/pathmap:${CMAKE_SOURCE_DIR}=.")
-    add_link_options(/Brepro "/PDBALTPATH:%_PDB%")
-endif()
-
-# Детерміністичний виклик архіватора статичних бібліотек
-set(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> Dqc <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_C_ARCHIVE_APPEND "<CMAKE_AR> Dq  <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -D <TARGET>")
-
-set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Dqc <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_CXX_ARCHIVE_APPEND "<CMAKE_AR> Dq  <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -D <TARGET>")
-```
+:::code api-repro-flags/cmake/CMakeLists.txt
 
 ### Приклад для Meson (meson.build)
 

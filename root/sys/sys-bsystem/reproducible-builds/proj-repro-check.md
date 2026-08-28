@@ -53,82 +53,15 @@ namespace calc {
 Реалізація математичного ядра бібліотеки містить діагностичні макроси, які за замовчуванням фіксують стан системи хоста:
 
 :::tabs
-```c
-/* calc.c */
-#include "calc.h"
-#include <stdio.h>
-
-int calculate_checksum(const char *data, int length) {
-    int sum = 0;
-    for (int i = 0; i < length; ++i) {
-        sum = (sum * 31) + (unsigned char)data[i];
-    }
-    return sum;
-}
-
-void print_build_banner(void) {
-    /* Пастка 1: використання часу компіляції */
-    printf("Calc Engine Build Date: %s %s\n", __DATE__, __TIME__);
-    /* Пастка 2: використання абсолютного шляху до файлу */
-    printf("Compiled from source: %s\n", __FILE__);
-}
-```
-```cpp
-// calc.cpp
-#include "calc.hpp"
-#include <iostream>
-
-namespace calc {
-    int calculate_checksum(std::string_view data) noexcept {
-        int sum = 0;
-        for (unsigned char ch : data) {
-            sum = (sum * 31) + ch;
-        }
-        return sum;
-    }
-
-    void print_build_banner() noexcept {
-        // Пастка 1: використання часу компіляції
-        std::cout << "Calc Engine Build Date: " << __DATE__ << " " << __TIME__ << "\n";
-        // Пастка 2: використання абсолютного шляху до файлу
-        std::cout << "Compiled from source: " << __FILE__ << "\n";
-    }
-}
-```
+:::code proj-repro-check/c/calc.c
+:::code proj-repro-check/cpp/calc.cpp
 :::
 
 Головна програма, що викликає функції обчислення та друкує контрольні суми:
 
 :::tabs
-```c
-/* main.c */
-#include "calc.h"
-#include <stdio.h>
-
-int main(void) {
-    print_build_banner();
-    const char msg[] = "Reproducible Builds Test";
-    int res = calculate_checksum(msg, sizeof(msg) - 1);
-    printf("Checksum result: 0x%08X\n", res);
-    return 0;
-}
-```
-```cpp
-// main.cpp
-#include "calc.hpp"
-#include <iostream>
-#include <iomanip>
-
-int main() {
-    calc::print_build_banner();
-    constexpr std::string_view msg = "Reproducible Builds Test";
-    const int res = calc::calculate_checksum(msg);
-    std::cout << "Checksum result: 0x"
-              << std::hex << std::uppercase << std::setfill('0') << std::setw(8)
-              << res << "\n";
-    return 0;
-}
-```
+:::code proj-repro-check/c/main.c
+:::code proj-repro-check/cpp/main.cpp
 :::
 
 ## Пастка генерації вихідного коду: недетермінізм хешування
@@ -137,27 +70,7 @@ int main() {
 
 Розгляньмо типовий генератор таблиці пошуку помилок:
 
-```python
-# generate_errors.py (Недетерміністичний скрипт генерації)
-import sys
-
-errors = {
-    "ERR_NOT_FOUND": 404,
-    "ERR_ACCESS_DENIED": 403,
-    "ERR_TIMEOUT": 408,
-    "ERR_INTERNAL": 500,
-    "ERR_BAD_GATEWAY": 502
-}
-
-with open("src/error_table.c", "w", encoding="utf-8") as f:
-    f.write('/* Згенеровано автоматично */\n')
-    f.write('#include "calc.h"\n\n')
-    f.write('const char* error_names[] = {\n')
-    # Пастка: ітерація по словнику без явного сортування ключів
-    for name in errors:
-        f.write(f'    "{name}",\n')
-    f.write('};\n')
-```
+:::code proj-repro-check/py/generate_errors.py
 
 Починаючи з Python 3.3, алгоритм хешування рядків SipHash використовує випадкову сіль (англ. *random seed*) для захисту від атак типу Denial of Service. Це означає, що при кожному окремому запуску інтерпретатора Python порядок ключів у словнику `errors` випадково змінюється.
 
@@ -169,27 +82,7 @@ with open("src/error_table.c", "w", encoding="utf-8") as f:
 1. Завжди явно сортувати ключі та списки перед серіалізацією у вихідний код C/C++ за допомогою функції `sorted()`.
 2. Встановлювати змінну середовища `PYTHONHASHSEED=0` під час запуску інтерпретатора.
 
-```python
-# generate_errors.py (Детерміністичний скрипт генерації)
-import sys
-
-errors = {
-    "ERR_NOT_FOUND": 404,
-    "ERR_ACCESS_DENIED": 403,
-    "ERR_TIMEOUT": 408,
-    "ERR_INTERNAL": 500,
-    "ERR_BAD_GATEWAY": 502
-}
-
-with open("src/error_table.c", "w", encoding="utf-8") as f:
-    f.write('/* Згенеровано автоматично (детерміністично) */\n')
-    f.write('#include "calc.h"\n\n')
-    f.write('const char* error_names[] = {\n')
-    # Сортування ключів за абеткою гарантує однаковий порядок рядків
-    for name in sorted(errors.keys()):
-        f.write(f'    "{name}",\n')
-    f.write('};\n')
-```
+:::code proj-repro-check/py/generate_errors-2.py
 
 ## Тестування з випадковим порядком файлів: disorderfs
 
@@ -215,30 +108,7 @@ fusermount -u /tmp/overlay_src
 
 Скрипт збірки, написаний без дотримання правил детермінізму, компілює файли з абсолютними шляхами, не нормалізує середовище та формує архіви у стандартному режимі:
 
-```makefile
-# Недетерміністичний Makefile
-CC ?= gcc
-CFLAGS ?= -O2 -g -Wall
-
-SRCS = $(wildcard src/*.c)
-OBJS = $(SRCS:.c=.o)
-
-all: bin/app
-
-lib/libcalc.a: src/calc.o
-	@mkdir -p lib
-	ar rcs $@ $^
-
-bin/app: src/main.o lib/libcalc.a
-	@mkdir -p bin
-	$(CC) $(CFLAGS) -o $@ src/main.o -Llib -lcalc
-
-src/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean:
-	rm -rf src/*.o lib bin
-```
+:::code proj-repro-check/make/Makefile
 
 У цьому файлі присутні чотири критичні проблеми, які роблять бінарну відтворюваність неможливою:
 
@@ -259,58 +129,7 @@ clean:
 4. **Локаль та правила сортування**. Перша збірка використовує `LC_ALL=en_US.UTF-8`, друга — `LC_ALL=C.UTF-8`. Це дає змогу виявити залежність від порядку сортування символів у скриптах обробки.
 5. **Маска створення файлів (umask)**. Встановлюються значення `0022` та `0002` відповідно, щоб перевірити, чи впливають права доступу хоста на байти артефакту.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORK_A="/tmp/repro_env_alpha"
-WORK_B="/tmp/repro_env_beta_other_path"
-
-echo "=== 1. Ініціалізація ізольованих робочих середовищ ==="
-rm -rf "$WORK_A" "$WORK_B"
-mkdir -p "$WORK_A" "$WORK_B"
-
-cp -r "$ROOT_DIR"/src "$ROOT_DIR"/Makefile "$WORK_A"/
-cp -r "$ROOT_DIR"/src "$ROOT_DIR"/Makefile "$WORK_B"/
-
-echo "=== 2. Запуск збірки 1 (Еталонне середовище Альфа) ==="
-(
-    cd "$WORK_A"
-    export TZ="UTC+5"
-    export LC_ALL="en_US.UTF-8"
-    export umask=0022
-    make clean
-    make
-)
-
-echo "=== 3. Внесення мутацій та запуск збірки 2 (Середовище Бета) ==="
-(
-    cd "$WORK_B"
-    export TZ="Asia/Tokyo"
-    export LC_ALL="C.UTF-8"
-    export umask=0002
-    sleep 2
-    make clean
-    make
-)
-
-echo "=== 4. Порівняння криптографічних контрольних сум ==="
-HASH_A=$(sha256sum "$WORK_A/bin/app" | awk '{print $1}')
-HASH_B=$(sha256sum "$WORK_B/bin/app" | awk '{print $1}')
-
-echo "SHA256 (Альфа): $HASH_A"
-echo "SHA256 (Бета):  $HASH_B"
-
-if [ "$HASH_A" = "$HASH_B" ]; then
-    echo "УСПІХ: Отримано 100% побайтово ідентичний бінарний артефакт!"
-    exit 0
-else
-    echo "ВІДХИЛЕННЯ: Артефакти різняться. Запуск діагностики розбіжностей..."
-    diffoscope "$WORK_A/bin/app" "$WORK_B/bin/app" || true
-    exit 1
-fi
-```
+:::code proj-repro-check/sh/avtomatyzovanyi-stend.sh
 
 ## Покрокова діагностика розбіжностей низькорівневими утилітами
 
@@ -433,106 +252,7 @@ dwarfdump /tmp/repro_env_alpha/bin/app | grep -E "DW_AT_name|DW_AT_comp_dir"
 
 Для інтеграції в автоматичні конвеєри тестування CI/CD корисно мати легкорейковий скрипт, який не вимагає важких зовнішніх залежностей і здатний швидко вказати, які саме секції бінарного файлу ELF не збігаються:
 
-```python
-#!/usr/bin/env python3
-"""Посекційний аналізатор двійкових розходжень файлів ELF."""
-import sys
-import hashlib
-import struct
-
-def parse_elf_sections(filepath):
-    """Витягує назви, зміщення та розміри всіх секцій ELF."""
-    with open(filepath, "rb") as f:
-        data = f.read()
-
-    # Перевірка магічного числа ELF (\x7fELF)
-    if data[:4] != b"\x7fELF":
-        raise ValueError(f"{filepath} не є файлом формату ELF")
-
-    is_64bit = data[4] == 2
-    endian = "<" if data[5] == 1 else ">"
-
-    if is_64bit:
-        e_shoff = struct.unpack_from(f"{endian}Q", data, 40)[0]
-        e_shentsize = struct.unpack_from(f"{endian}H", data, 58)[0]
-        e_shnum = struct.unpack_from(f"{endian}H", data, 60)[0]
-        e_shstrndx = struct.unpack_from(f"{endian}H", data, 62)[0]
-    else:
-        e_shoff = struct.unpack_from(f"{endian}I", data, 32)[0]
-        e_shentsize = struct.unpack_from(f"{endian}H", data, 46)[0]
-        e_shnum = struct.unpack_from(f"{endian}H", data, 48)[0]
-        e_shstrndx = struct.unpack_from(f"{endian}H", data, 50)[0]
-
-    # Зчитування таблиці заголовків рядків назв секцій
-    strtab_offset = e_shoff + e_shstrndx * e_shentsize
-    if is_64bit:
-        sh_offset = struct.unpack_from(f"{endian}Q", data, strtab_offset + 24)[0]
-        sh_size = struct.unpack_from(f"{endian}Q", data, strtab_offset + 32)[0]
-    else:
-        sh_offset = struct.unpack_from(f"{endian}I", data, strtab_offset + 16)[0]
-        sh_size = struct.unpack_from(f"{endian}I", data, strtab_offset + 20)[0]
-
-    strtab = data[sh_offset : sh_offset + sh_size]
-
-    sections = {}
-    for i in range(e_shnum):
-        entry_offset = e_shoff + i * e_shentsize
-        if is_64bit:
-            sh_name = struct.unpack_from(f"{endian}I", data, entry_offset)[0]
-            sh_type = struct.unpack_from(f"{endian}I", data, entry_offset + 4)[0]
-            sec_offset = struct.unpack_from(f"{endian}Q", data, entry_offset + 24)[0]
-            sec_size = struct.unpack_from(f"{endian}Q", data, entry_offset + 32)[0]
-        else:
-            sh_name = struct.unpack_from(f"{endian}I", data, entry_offset)[0]
-            sh_type = struct.unpack_from(f"{endian}I", data, entry_offset + 4)[0]
-            sec_offset = struct.unpack_from(f"{endian}I", data, entry_offset + 16)[0]
-            sec_size = struct.unpack_from(f"{endian}I", data, entry_offset + 20)[0]
-
-        # SHT_NOBITS (наприклад, .bss) не має фізичного тіла у файлі
-        if sh_type == 8 or sec_size == 0:
-            continue
-
-        name_end = strtab.find(b"\x00", sh_name)
-        name = strtab[sh_name:name_end].decode("ascii", errors="replace")
-        sec_bytes = data[sec_offset : sec_offset + sec_size]
-        sec_hash = hashlib.sha256(sec_bytes).hexdigest()
-        sections[name] = {"hash": sec_hash, "size": sec_size, "bytes": sec_bytes}
-
-    return sections
-
-def compare_binaries(file_a, file_b):
-    sec_a = parse_elf_sections(file_a)
-    sec_b = parse_elf_sections(file_b)
-
-    all_names = sorted(set(sec_a.keys()) | set(sec_b.keys()))
-    diff_found = False
-
-    print(f"{'Секція':<25} | {'Розмір A':<10} | {'Розмір B':<10} | {'Статус':<15}")
-    print("-" * 68)
-
-    for name in all_names:
-        if name not in sec_a:
-            print(f"{name:<25} | {'-':<10} | {sec_b[name]['size']:<10} | ВІДСУТНЯ В A")
-            diff_found = True
-        elif name not in sec_b:
-            print(f"{name:<25} | {sec_a[name]['size']:<10} | {'-':<10} | ВІДСУТНЯ В B")
-            diff_found = True
-        elif sec_a[name]["hash"] != sec_b[name]["hash"]:
-            print(f"{name:<25} | {sec_a[name]['size']:<10} | {sec_b[name]['size']:<10} | РОЗБІЖНІСТЬ")
-            diff_found = True
-        else:
-            print(f"{name:<25} | {sec_a[name]['size']:<10} | {sec_b[name]['size']:<10} | ІДЕНТИЧНО")
-
-    return not diff_found
-
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print(f"Використання: {sys.argv[0]} <binary_A> <binary_B>")
-        sys.exit(1)
-
-    ok = compare_binaries(sys.argv[1], sys.argv[2])
-    sys.exit(0 if ok else 1)
-```
+:::code proj-repro-check/py/avtomatyzovanyi-python.py
 
 Цей скрипт читає бінарний файл за специфікацією ELF, парсить таблицю секцій, обчислює криптографічний геш SHA-256 для кожної окремої секції та виводить таблицю порівняння. Це дає змогу миттєво визначити, чи проблема локалізована у секції констант `.rodata`, коду `.text` чи налагоджувальних таблицях `.debug_*`.
 
@@ -540,26 +260,7 @@ if __name__ == "__main__":
 
 Окрім налаштування прапорців компіляції, промислові стенди тестування використовують механізм просторів назв Linux (Namespaces) для створення стерильних пісочниць. Утиліта Bubblewrap (`bwrap`) дає змогу звичайному не-root користувачу створити ізольоване середовище:
 
-```bash
-#!/usr/bin/env bash
-# Запуск компіляції всередині стерильної пісочниці Bubblewrap
-bwrap \
-    --ro-bind /usr /usr \
-    --ro-bind /lib /lib \
-    --ro-bind /lib64 /lib64 \
-    --ro-bind /bin /bin \
-    --proc /proc \
-    --dev /dev \
-    --tmpfs /tmp \
-    --bind "$PWD" /build \
-    --chdir /build \
-    --unshare-all \
-    --hostname reproducible \
-    --setenv LC_ALL C.UTF-8 \
-    --setenv TZ UTC \
-    --setenv SOURCE_DATE_EPOCH 1700000000 \
-    make clean all
-```
+:::code proj-repro-check/sh/izoliatsiia-seredovyshcha.sh
 
 Параметри пісочниці забезпечують максимальний рівень герметичності:
 - `--unshare-all` — ізолює всі системні простори назв (мережу, процеси, імена хостів, IPC та точки монтування).
@@ -571,55 +272,11 @@ bwrap \
 
 Сучасні C++-проєкти найчастіше використовують генератор CMake у поєднанні зі швидким рушієм Ninja. Наведемо повноцінну детерміністичну конфігурацію `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(ReproducibleApp LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 20)
-
-# 1. Автоматична детекція та застосування прапорців для GCC і Clang
-if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-    add_compile_options(
-        -ffile-prefix-map=${CMAKE_SOURCE_DIR}=.
-        -ffile-prefix-map=${CMAKE_BINARY_DIR}=.
-        -fno-ident
-        -gno-record-gcc-switches
-    )
-    add_link_options("-Wl,--build-id=sha1")
-endif()
-
-# 2. Детерміністичний режим для бібліотечного архіватора
-set(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> Dqc <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_C_ARCHIVE_APPEND "<CMAKE_AR> Dq  <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -D <TARGET>")
-
-set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Dqc <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_CXX_ARCHIVE_APPEND "<CMAKE_AR> Dq  <TARGET> <LINK_FLAGS> <OBJECTS>")
-set(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -D <TARGET>")
-
-# 3. Визначення статичної бібліотеки
-add_library(calc STATIC src/calc.c)
-
-# 4. Визначення виконуваного файлу
-add_executable(app src/main.c)
-target_link_libraries(app PRIVATE calc)
-```
+:::code proj-repro-check/cmake/CMakeLists.txt
 
 Запуск збірки через Ninja:
 
-```sh
-# Налаштування конфігурації у двох різних каталогах
-cmake -B build_alpha -G Ninja -DCMAKE_BUILD_TYPE=Release
-cmake -B build_beta_path -G Ninja -DCMAKE_BUILD_TYPE=Release
-
-# Компіляція артефактів
-cmake --build build_alpha
-cmake --build build_beta_path
-
-# Порівняння результатів
-sha256sum build_alpha/app build_beta_path/app
-```
+:::code proj-repro-check/sh/alternatyvna.sh
 
 ## Діагностика відтворюваності бінарних файлів Windows (PE / PDB)
 
@@ -685,47 +342,7 @@ jobs:
 5. Забезпечимо детерміністичне сортування списку вхідних файлів за допомогою функції `$(sort ...)`.
 6. Додамо прапорець лінкера `-Wl,--build-id=sha1` для формування детерміністичного ідентифікатора збірки.
 
-```makefile
-# Детерміністичний, повністю відтворюваний Makefile
-CC ?= gcc
-AR ?= ar
-
-# 1. Фіксація часової позначки останнього коміту
-SOURCE_DATE_EPOCH ?= $(shell git log -1 --format=%ct 2>/dev/null || echo 1700000000)
-export SOURCE_DATE_EPOCH
-
-# 2. Нормалізація шляхів та усунення сторонніх метаданих
-CFLAGS ?= -O2 -g -Wall \
-          -ffile-prefix-map=$(CURDIR)=. \
-          -fno-ident \
-          -gno-record-gcc-switches
-
-# 3. Детерміністичний ідентифікатор складання
-LDFLAGS ?= -Wl,--build-id=sha1
-
-# 4. Детерміністичне алфавітне сортування списку файлів
-SRCS = $(sort $(wildcard src/*.c))
-OBJS = $(SRCS:.c=.o)
-
-.PHONY: all clean
-
-all: bin/app
-
-lib/libcalc.a: src/calc.o
-	@mkdir -p lib
-	# 5. Використання прапорця 'D' (deterministic mode)
-	$(AR) Drcs $@ $^
-
-bin/app: src/main.o lib/libcalc.a
-	@mkdir -p bin
-	$(CC) $(CFLAGS) -o $@ src/main.o -Llib -lcalc $(LDFLAGS)
-
-src/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean:
-	rm -rf src/*.o lib bin
-```
+:::code proj-repro-check/make/vypravlennia-pochatkovoho-2.mk
 
 ## Фінальний прогін верифікації та перевірка результату
 

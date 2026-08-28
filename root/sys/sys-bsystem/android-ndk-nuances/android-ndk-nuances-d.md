@@ -109,52 +109,9 @@ llvm-readelf -l libapp.so | grep -A 2 LOAD
 
 :::tabs
 @tab C
-```c
-#include <sys/epoll.h>
-#include <sys/random.h>
-#include <unistd.h>
-#include <errno.h>
-
-/* Системні оголошення Bionic libc у заголовках NDK */
-int epoll_create(int size);
-int epoll_create1(int flags) __INTRODUCED_IN(21);
-ssize_t getrandom(void *buf, size_t buflen, unsigned int flags) __INTRODUCED_IN(28);
-
-/* Безпечний виклик системного API */
-int initialize_event_loop(void) {
-    /* Якщо __ANDROID_API__ < 21, epoll_create1 буде заблоковано на етапі збірки */
-    int fd = epoll_create1(EPOLL_CLOEXEC);
-    if (fd < 0) {
-        return -errno;
-    }
-    return fd;
-}
-```
+:::code android-ndk-nuances-d/c/makros-android-api-ta.c
 @tab C++
-```cpp
-#include <sys/epoll.h>
-#include <sys/random.h>
-#include <unistd.h>
-#include <span>
-#include <system_error>
-
-namespace sys {
-[[nodiscard]] inline int initialize_event_loop() {
-    int fd = ::epoll_create1(EPOLL_CLOEXEC);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "epoll_create1 failed");
-    }
-    return fd;
-}
-
-inline void fill_secure_random(std::span<std::byte> buffer) {
-    ssize_t res = ::getrandom(buffer.data(), buffer.size_bytes(), 0);
-    if (res < 0) {
-        throw std::system_error(errno, std::generic_category(), "getrandom failed");
-    }
-}
-} // namespace sys
-```
+:::code android-ndk-nuances-d/cpp/makros-android-api-ta.cpp
 :::
 
 Якщо проект налаштовано на `minSdkVersion = 19`, компілятор зустрічає виклик `getrandom()` і перевіряє умову: оскільки поточний рівень `__ANDROID_API__ (19) < 28`, символ оголошується недоступним. Якщо розробник спробує обійти компілятор через власне попереднє оголошення сигнатури, збій станеться на етапі лінкування.
@@ -237,25 +194,7 @@ $ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake
 
 ### Як AGP налаштовує збірку під капотом
 Коли Gradle виконує таску збірки нативного коду (наприклад, `:app:configureCMakeDebug[arm64-v8a]`), він запускає CMake із чітко сформованим набором аргументів:
-```bash
-cmake \
-  -H/workspace/app/src/main/cpp \
-  -DCMAKE_SYSTEM_NAME=Android \
-  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-  -DCMAKE_SYSTEM_VERSION=29 \
-  -DANDROID_PLATFORM=android-29 \
-  -DANDROID_ABI=arm64-v8a \
-  -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
-  -DANDROID_NDK=/opt/android-sdk/ndk/27.0.12077973 \
-  -DCMAKE_ANDROID_NDK=/opt/android-sdk/ndk/27.0.12077973 \
-  -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake \
-  -DCMAKE_MAKE_PROGRAM=/opt/android-sdk/cmake/3.22.1/bin/ninja \
-  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/workspace/app/build/intermediates/cxx/Debug/obj/arm64-v8a \
-  -DCMAKE_BUILD_TYPE=Debug \
-  -DANDROID_STL=c++_shared \
-  -B/workspace/app/.cxx/Debug/arm64-v8a \
-  -GNinja
-```
+:::code android-ndk-nuances-d/sh/main.sh
 
 ### Пакування у APK/AAB та атрибут `extractNativeLibs`
 Після компіляції генератор Ninja розміщує скомпільовані файли `lib*.so` у вихідному каталозі, звідки AGP копіює їх у структуру каталогу пакування:
@@ -292,137 +231,9 @@ app.apk/
 
 :::tabs
 @tab C
-```c
-#include <jni.h>
-#include <android/log.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define LOG_TAG "NativeEngine"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-
-JNIEXPORT jstring JNICALL
-Java_com_example_app_NativeBridge_processPayload(
-    JNIEnv *env,
-    jobject thiz,
-    jstring input_str)
-{
-    if (input_str == NULL) {
-        LOGE("Отримано нульовий покажчик на рядок з Java");
-        return NULL;
-    }
-
-    const char *native_chars = (*env)->GetStringUTFChars(env, input_str, NULL);
-    if (native_chars == NULL) {
-        LOGE("Помилка виділення пам'яті під UTF-8 рядок");
-        return NULL;
-    }
-
-    size_t len = strlen(native_chars);
-    LOGI("Обробка корисного навантаження довжиною %zu байтів", len);
-
-    char *buffer = (char *)malloc(len + 32);
-    if (buffer == NULL) {
-        (*env)->ReleaseStringUTFChars(env, input_str, native_chars);
-        LOGE("Не вдалося виділити буфер обробки");
-        return NULL;
-    }
-
-    strcpy(buffer, "Android NDK Output: ");
-    strcat(buffer, native_chars);
-
-    jstring result = (*env)->NewStringUTF(env, buffer);
-
-    free(buffer);
-    (*env)->ReleaseStringUTFChars(env, input_str, native_chars);
-
-    return result;
-}
-```
+:::code android-ndk-nuances-d/c/6-pryklad-orhanizatsii-jni.c
 @tab C++
-```cpp
-#include <jni.h>
-#include <android/log.h>
-#include <string>
-#include <string_view>
-#include <memory>
-#include <stdexcept>
-
-namespace {
-constexpr std::string_view kLogTag = "NativeEngine";
-
-template <typename... Args>
-void log_info(std::string_view fmt_str, Args&&... args) {
-    std::string msg = (sizeof...(args) == 0) 
-        ? std::string(fmt_str) 
-        : std::string(fmt_str);
-    __android_log_print(ANDROID_LOG_INFO, kLogTag.data(), "%s", msg.c_str());
-}
-
-template <typename... Args>
-void log_error(std::string_view fmt_str, Args&&... args) {
-    __android_log_print(ANDROID_LOG_ERROR, kLogTag.data(), "%s", fmt_str.data());
-}
-
-// RAII-обгортка для гарантованого звільнення JNI UTF рядків
-class ScopedUtfChars {
-public:
-    ScopedUtfChars(JNIEnv* env, jstring jstr)
-        : env_(env), jstr_(jstr), chars_(env->GetStringUTFChars(jstr, nullptr)) {}
-
-    ~ScopedUtfChars() {
-        if (chars_ != nullptr) {
-            env_->ReleaseStringUTFChars(jstr_, chars_);
-        }
-    }
-
-    ScopedUtfChars(const ScopedUtfChars&) = delete;
-    ScopedUtfChars& operator=(const ScopedUtfChars&) = delete;
-
-    [[nodiscard]] const char* get() const noexcept { return chars_; }
-    [[nodiscard]] std::string_view view() const noexcept {
-        return chars_ ? std::string_view(chars_) : std::string_view{};
-    }
-
-private:
-    JNIEnv* env_;
-    jstring jstr_;
-    const char* chars_;
-};
-} // namespace
-
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_app_NativeBridge_processPayload(
-    JNIEnv* env,
-    jobject /* thiz */,
-    jstring input_str) noexcept
-{
-    if (input_str == nullptr) {
-        log_error("Отримано нульовий покажчик на рядок з Java");
-        return nullptr;
-    }
-
-    ScopedUtfChars utf_input(env, input_str);
-    if (utf_input.get() == nullptr) {
-        log_error("Помилка отримання символів UTF-8");
-        return nullptr;
-    }
-
-    try {
-        std::string_view payload = utf_input.view();
-        log_info("Обробка корисного навантаження у безпечному контексті C++");
-
-        std::string processed = "Android NDK Output: ";
-        processed.append(payload);
-
-        return env->NewStringUTF(processed.c_str());
-    } catch (const std::exception& ex) {
-        log_error(ex.what());
-        return nullptr;
-    }
-}
-```
+:::code android-ndk-nuances-d/cpp/6-pryklad-orhanizatsii-jni.cpp
 :::
 
 ### Інспекція та діагностика зібраних `.so` бібліотек

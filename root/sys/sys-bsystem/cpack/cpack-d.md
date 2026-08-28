@@ -91,33 +91,7 @@ cpack -G "DEB;TGZ"
 
 CPack вирішує цю проблему за допомогою компонентного пакування (*Component-Based Packaging*). Кожне правило інсталяції у `CMakeLists.txt` маркується назвою відповідного логічного компонента через параметр `COMPONENT`:
 
-```cmake
-# 1. Компонент виконання: бінарники та динамічні бібліотеки
-install(TARGETS myapp mylib
-    EXPORT MyAppTargets
-    RUNTIME DESTINATION bin COMPONENT Runtime
-    LIBRARY DESTINATION lib COMPONENT Runtime
-    ARCHIVE DESTINATION lib COMPONENT Development
-    NAMELINK_COMPONENT Development
-)
-
-# 2. Компонент розробника: заголовки та метадані експорту цілей
-install(DIRECTORY include/
-    DESTINATION include
-    COMPONENT Development
-)
-install(EXPORT MyAppTargets
-    NAMESPACE MyApp::
-    DESTINATION lib/cmake/MyApp
-    COMPONENT Development
-)
-
-# 3. Компонент документації: man-сторінки та HTML-довідка
-install(DIRECTORY doc/html/
-    DESTINATION share/doc/myapp
-    COMPONENT Documentation
-)
-```
+:::code cpack-d/cmake/komponentne-pakuvannia.cmake
 
 > 🔧 **Навіщо це:** Розподіл цілей через `NAMELINK_COMPONENT Development` та призначення типів артефактів (`RUNTIME`, `LIBRARY`, `ARCHIVE`) розв'язує фундаментальну відмінність між операційними системами. У Windows динамічні бібліотеки `.dll` завантажуються за тими самими правилами, що й виконувані файли `.exe`, тому потрапляють у категорію `RUNTIME` (каталог `bin`). Натомість супровідні імпортні бібліотеки `.lib` потрапляють у `ARCHIVE` (каталог `lib`) і потрібні лише для розробки. У Linux реальна версіована бібліотека `libmylib.so.1.2.0` є `LIBRARY`, а символічне посилання без версії `libmylib.so` — це `NAMELINK`, який спрямовується у компонент `Development`.
 
@@ -125,40 +99,7 @@ install(DIRECTORY doc/html/
 
 Для керування тим, як компоненти відображаються у графічних інсталяторах та упаковуються в системні пакети, використовується модуль `include(CPackComponent)`:
 
-```cmake
-include(CPack)
-include(CPackComponent)
-
-# Опис компонента Runtime
-cpack_add_component(Runtime
-    DISPLAY_NAME "Основні програми та бібліотеки"
-    DESCRIPTION "Необхідні файли для роботи сервісу."
-    REQUIRED
-)
-
-# Опис компонента Development
-cpack_add_component(Development
-    DISPLAY_NAME "SDK для розробників"
-    DESCRIPTION "Заголовочні файли та конфігурації CMake."
-    DEPENDS Runtime
-    GROUP SDK
-)
-
-# Опис компонента Documentation
-cpack_add_component(Documentation
-    DISPLAY_NAME "Документація API"
-    DESCRIPTION "Повні посібники користувача та довідка з функцій."
-    DISABLED
-    GROUP SDK
-)
-
-# Опис групи компонентів
-cpack_add_component_group(SDK
-    DISPLAY_NAME "Розширення та розробка"
-    DESCRIPTION "Додаткові пакети для програмістів."
-    EXPANDED
-)
-```
+:::code cpack-d/cmake/deklaratsiia-vlastyvostei.cmake
 
 Функція `cpack_add_component` приймає параметри поведінки:
 - `REQUIRED` — забороняє користувачеві вимикати компонент в інсталяторах з графічним інтерфейсом.
@@ -188,24 +129,7 @@ cpack_add_component_group(SDK
 2. Встановлення файлу експорту цілей `install(EXPORT MyAppTargets FILE MyAppTargets.cmake DESTINATION lib/cmake/MyApp COMPONENT Development)`.
 3. Генерація файлів версії та головного конфігураційного файлу пакета через `CMakePackageConfigHelpers`:
 
-```cmake
-include(CMakePackageConfigHelpers)
-
-# Створення файлу версії
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/MyAppConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
-
-# Встановлення допоміжних файлів конфігурації у компонент Development
-install(FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/MyAppConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/MyAppConfigVersion.cmake"
-    DESTINATION lib/cmake/MyApp
-    COMPONENT Development
-)
-```
+:::code cpack-d/cmake/tranzytyvni-zalezhnosti-ta.cmake
 
 Якщо ваша бібліотека сама залежить від інших сторонніх бібліотек (наприклад, OpenSSL або Boost), головний файл `MyAppConfig.cmake` повинен містити виклики макросу `find_dependency(OpenSSL REQUIRED)`. Одночасно з цим у конфігурації CPack для генераторів DEB та RPM необхідно оголосити відповідні пакетні залежності:
 
@@ -225,19 +149,7 @@ set(CPACK_RPM_DEVELOPMENT_PACKAGE_REQUIRES "telemetry-runtime = ${CPACK_PACKAGE_
 
 Базові змінні ідентифікації визначають паспортні дані дистрибутива — офіційну назву програми, розробника, контактну інформацію супровідника та версію. Ці відомості автоматично формують службові поля метаданих для всіх обраних генераторів пакетів (DEB, RPM, WiX, NSIS тощо) та відображаються системними менеджерами й майстрами інсталяції.
 
-```cmake
-set(CPACK_PACKAGE_NAME "telemetry-engine")
-set(CPACK_PACKAGE_VENDOR "Acme Telemetry Labs")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "High-throughput metrics aggregation engine")
-set(CPACK_PACKAGE_HOMEPAGE_URL "https://telemetry.example.com")
-set(CPACK_PACKAGE_CONTACT "ops@telemetry.example.com")
-set(CPACK_PACKAGE_LICENSE "Apache-2.0")
-
-# Керування версіями (якщо не задано, береться з project(VERSION))
-set(CPACK_PACKAGE_VERSION_MAJOR "2")
-set(CPACK_PACKAGE_VERSION_MINOR "4")
-set(CPACK_PACKAGE_VERSION_PATCH "0")
-```
+:::code cpack-d/cmake/zahalni-metadani-produktu.cmake
 
 ### Префікс інсталяції: `CPACK_PACKAGING_INSTALL_PREFIX`
 
@@ -278,24 +190,7 @@ CPACK_<VARIABLE>                          [Глобальне базове зн�
 2. `control.tar.xz` — архів метаданих пакета, куди входять файл `control` (назва, залежності, опис), перелік контрольних сум `md5sums`, а також скрипти життєвого циклу інсталятора.
 3. `data.tar.xz` — стиснений архів файлової системи, файли з якого розгортаються безпосередньо в корінь операційної системи.
 
-```cmake
-# Активація покомпонентного створення пакетів DEB
-set(CPACK_DEB_COMPONENT_INSTALL ON)
-
-# Метадані пакета
-set(CPACK_DEBIAN_PACKAGE_SECTION "net")
-set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Infrastructure Team <infra@example.com>")
-
-# Автоматичне виявлення бібліотечних залежностей
-set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-
-# Явні системні залежності
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl3 (>= 3.0.0), zlib1g")
-
-# Зв'язок компонентів у DEB: dev-пакет залежить від runtime-пакета
-set(CPACK_COMPONENT_DEVELOPMENT_DEPENDS "Runtime")
-```
+:::code cpack-d/cmake/henerator-paketiv-deb-pid.cmake
 
 ### Автоматичний розрахунок залежностей (`CPACK_DEBIAN_PACKAGE_SHLIBDEPS`)
 
@@ -324,25 +219,7 @@ set(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS_POLICY ">=")
 
 Генератор `RPM` автоматично синтезує файл специфікації `.spec` у каталозі `_CPack_Packages/...` і викликає системний компілятор пакетів `rpmbuild -bb`.
 
-```cmake
-# Активація покомпонентного режиму для RPM
-set(CPACK_RPM_COMPONENT_INSTALL ON)
-
-# Обов'язкові поля для RPM
-set(CPACK_RPM_PACKAGE_LICENSE "Apache-2.0")
-set(CPACK_RPM_PACKAGE_GROUP "Applications/System")
-set(CPACK_RPM_PACKAGE_RELEASE "1%{?dist}")
-
-# Автоматичне сканування Provides/Requires
-set(CPACK_RPM_PACKAGE_AUTOREQ YES)
-set(CPACK_RPM_PACKAGE_AUTOPROV YES)
-
-# Ручні залежності
-set(CPACK_RPM_PACKAGE_REQUIRES "openssl-libs >= 3.0.0, systemd")
-
-# Включення релокабельності
-set(CPACK_RPM_PACKAGE_RELOCATABLE ON)
-```
+:::code cpack-d/cmake/henerator-paketiv-rpm-pid.cmake
 
 ### Анатомія згенерованого `.spec`-файлу
 
@@ -383,27 +260,7 @@ set(CPACK_DEBIAN_RUNTIME_PACKAGE_CONTROL_EXTRA
 
 Типовий скрипт `postinst` для реєстрації системного демона та оновлення динамічних бібліотек:
 
-```bash
-#!/bin/sh
-set -e
-
-case "$1" in
-    configure)
-        # 1. Оновлення системного кешу динамічних бібліотек
-        if [ -x "$(command -v ldconfig)" ]; then
-            ldconfig
-        fi
-
-        # 2. Перезавантаження конфігурації та запуск сервісу systemd
-        if [ -d /run/systemd/system ]; then
-            systemctl --system daemon-reload >/dev/null 2>&1 || true
-            systemctl enable --now telemetryd.service >/dev/null 2>&1 || true
-        fi
-        ;;
-esac
-
-exit 0
-```
+:::code cpack-d/sh/intehratsiia-skryptiv.sh
 
 У генераторі RPM аналогічні дії задаються через змінні:
 - `CPACK_RPM_PRE_INSTALL_SCRIPT_FILE` — виконується перед встановленням файлів (`%pre`).
@@ -490,27 +347,7 @@ set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/res/setup_dmg.a
 
 CPack генерує окремий файл конфігурації `CPackSourceConfig.cmake`, що використовує регулярні вирази для відсікання зайвих даних:
 
-```cmake
-# Формати архівів сирців
-set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-src")
-
-# Перелік регулярних виразів файлів для виключення
-set(CPACK_SOURCE_IGNORE_FILES
-    "/build/"
-    "/\\\\.git/"
-    "/\\\\.cache/"
-    "/\\\\.vscode/"
-    "/\\\\.idea/"
-    "\\\\.o$"
-    "\\\\.a$"
-    "\\\\.so$"
-    "\\\\.dylib$"
-    "\\\\.dll$"
-    "_CPack_Packages/"
-    "CPack.*\\\\.cmake$"
-)
-```
+:::code cpack-d/cmake/pakuvannia-vykhidnoho-kodu.cmake
 
 Створення архіву сирців здійснюється запуском команди:
 
@@ -584,15 +421,4 @@ cpack -V --debug
 
 Для аналізу вмісту згенерованих файлів без їхнього встановлення у систему застосовують стандартні системні утиліти:
 
-```bash
-# Перевірка вмісту DEB
-dpkg-deb -c package.deb
-dpkg-deb -I package.deb # Перегляд полів control
-
-# Перевірка вмісту RPM
-rpm -qpl package.rpm
-rpm -qp --scripts package.rpm # Перегляд скриптів %pre/%post
-
-# Перевірка вмісту архіву
-tar -ztvf package.tar.gz
-```
+:::code cpack-d/sh/5-inspektsiia-ta.sh

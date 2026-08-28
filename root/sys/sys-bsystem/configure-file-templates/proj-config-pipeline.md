@@ -33,63 +33,7 @@ diagnostics-app/
 
 Ми вилучаємо три ключові параметри: скорочений SHA-1 геш поточного коміту (7 символів), поточну робочу гілку (або стан `HEAD` при від'єднаному покажчику) та ознаку наявності незакомічених локальних модифікацій (брудне робоче дерево, *dirty working tree*).
 
-```cmake
-# cmake/GetGitRevision.cmake
-# Модуль безпечного вилучення інформації про Git-ревізію
-
-find_package(Git QUIET)
-
-# Резервні значення на випадок збірки поза репозиторієм або без встановленого Git
-set(DIAG_GIT_HASH "unknown")
-set(DIAG_GIT_BRANCH "unknown")
-set(DIAG_GIT_DIRTY_FLAG 0)
-
-if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-    # 1. Отримання 7-символьного скороченого SHA-1 поточного коміту
-    execute_process(
-        COMMAND "${GIT_EXECUTABLE}" rev-parse --short=7 HEAD
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        OUTPUT_VARIABLE _git_hash_out
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_QUIET
-        RESULT_VARIABLE _git_hash_res
-    )
-    if(_git_hash_res EQUAL 0 AND NOT "${_git_hash_out}" STREQUAL "")
-        set(DIAG_GIT_HASH "${_git_hash_out}")
-    endif()
-
-    # 2. Отримання імені поточної гілки (або HEAD у разі detached state)
-    execute_process(
-        COMMAND "${GIT_EXECUTABLE}" rev-parse --abbrev-ref HEAD
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        OUTPUT_VARIABLE _git_branch_out
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_QUIET
-        RESULT_VARIABLE _git_branch_res
-    )
-    if(_git_branch_res EQUAL 0 AND NOT "${_git_branch_out}" STREQUAL "")
-        set(DIAG_GIT_BRANCH "${_git_branch_out}")
-    endif()
-
-    # 3. Перевірка статусу робочого дерева на наявність незакомічених змін
-    execute_process(
-        COMMAND "${GIT_EXECUTABLE}" status --porcelain
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        OUTPUT_VARIABLE _git_status_out
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_QUIET
-        RESULT_VARIABLE _git_status_res
-    )
-    if(_git_status_res EQUAL 0 AND NOT "${_git_status_out}" STREQUAL "")
-        # Якщо вивід не порожній, у дереві є змінені або додані файли
-        set(DIAG_GIT_DIRTY_FLAG 1)
-    endif()
-else()
-    # Якщо Git відсутній або папки .git немає (наприклад, збірка з tar.gz)
-    set(DIAG_GIT_HASH "release-tarball")
-    set(DIAG_GIT_BRANCH "release")
-endif()
-```
+:::code proj-config-pipeline/cmake/GetGitRevision.cmake
 
 ## Крок 2. Проєктування шаблонів заголовків
 
@@ -121,37 +65,7 @@ endif()
 
 Цей заголовок демонструє сучасний ідіоматичний підхід у мові C++: повну відмову від нетипізованих макросів на користь константних виразів часу компіляції (`inline constexpr`), суворої типізації `std::uint32_t` та незмінних рядкових представлень `std::string_view`. Усі змінні CMake обрамлені маркерами `@VAR@`, а виклик `configure_file` захищений опцією `@ONLY`.
 
-```cpp
-// include/diag/version.hpp.in — шаблон типізованих метаданих версії C++
-#pragma once
-
-#include <cstdint>
-#include <string_view>
-
-namespace diag::version {
-
-// Текстова назва проєкту, отримана з директиви project(...)
-inline constexpr std::string_view project_name{"@PROJECT_NAME@"};
-
-// Повний семантичний рядок версії (наприклад "2.4.1")
-inline constexpr std::string_view version_string{"@PROJECT_VERSION@"};
-
-// Коротка ревізія коміту Git
-inline constexpr std::string_view git_commit_hash{"@DIAG_GIT_HASH@"};
-
-// Ім'я активної гілки Git
-inline constexpr std::string_view git_branch{"@DIAG_GIT_BRANCH@"};
-
-// Числові складові версії для програмного порівняння в if constexpr
-inline constexpr std::uint32_t major{@PROJECT_VERSION_MAJOR@};
-inline constexpr std::uint32_t minor{@PROJECT_VERSION_MINOR@};
-inline constexpr std::uint32_t patch{@PROJECT_VERSION_PATCH@};
-
-// Ознака того, що бінарний файл зібрано з модифікованого робочого дерева
-inline constexpr bool is_dirty_tree{@DIAG_GIT_DIRTY_FLAG@};
-
-} // namespace diag::version
-```
+:::code proj-config-pipeline/cpp/version.hpp
 
 ## Крок 3. Головний сценарій збірки (CMakeLists.txt)
 
@@ -159,136 +73,15 @@ inline constexpr bool is_dirty_tree{@DIAG_GIT_DIRTY_FLAG@};
 
 Зверніть особливу увагу на використання генераторних виразів `$<BUILD_INTERFACE:...>` та `$<INSTALL_INTERFACE:...>`. Під час розробки всередині репозиторію компілятор шукатиме згенеровані файли у каталозі збірки `build/generated/include`. Проте після інсталяції бібліотеки в систему командою `cmake --install` ці шляхи будуть замінені на стандартний відносний каталог `include`, що гарантує переносність експортованих пакетів.
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(DiagnosticsTool VERSION 2.4.1 LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Оголошення опцій користувача, які потрапляють у кеш збірки
-option(DIAG_ENABLE_ZSTD "Увімкнути підтримку стиснення Zstandard" ON)
-option(DIAG_ENABLE_TRACING "Увімкнути детальне діагностичне трасування" OFF)
-option(DIAG_ENABLE_AVX512 "Активація апаратних інструкцій AVX-512" OFF)
-
-set(DIAG_BUFFER_SIZE 8192 CACHE STRING "Розмір внутрішнього буфера журналів")
-
-# Підключення модуля вилучення даних Git
-include(cmake/GetGitRevision.cmake)
-
-# Визначення шляху до ізольованого каталогу згенерованих заголовків
-set(GENERATED_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated/include")
-
-# Генерація файлу препроцесорних директив (config.h)
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/diag/config.h.in"
-    "${GENERATED_INCLUDE_DIR}/diag/config.h"
-    @ONLY
-)
-
-# Генерація файлу типізованих констант C++ (version.hpp)
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/diag/version.hpp.in"
-    "${GENERATED_INCLUDE_DIR}/diag/version.hpp"
-    @ONLY
-)
-
-# Створення бібліотеки ядра
-add_library(diag_core STATIC)
-
-# Експорт шляхів до заголовків через генераторні вирази вимог вжитку
-target_include_directories(diag_core PUBLIC
-    $<BUILD_INTERFACE:${GENERATED_INCLUDE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-)
-
-# Створення демонстраційних утиліт на C та C++
-add_executable(diag_cli_c src/main.c)
-target_link_libraries(diag_cli_c PRIVATE diag_core)
-
-add_executable(diag_cli_cpp src/main.cpp)
-target_link_libraries(diag_cli_cpp PRIVATE diag_core)
-```
+:::code proj-config-pipeline/cmake/krok-3-holovnyi-stsenarii.cmake
 
 ## Крок 4. Реалізація клієнтських програм
 
 Клієнтський код демонструє два принципово різних підходи до споживання згенерованих даних: класичний C11 на базі `#if` та сучасний C++20 на базі `if constexpr` і `std::string_view`.
 
 :::tabs
-```c
-/* src/main.c — реалізація утиліти на чистій мові C11 */
-#include <stdio.h>
-#include <stdint.h>
-#include "diag/config.h"
-
-int main(void) {
-    printf("========================================\n");
-    printf("Діагностична утиліта ядра (C11 клієнт)\n");
-    printf("========================================\n");
-    printf("Розмір виділеного буфера: %d байтів\n", (int)DIAG_BUFFER_SIZE);
-
-#if DIAG_ENABLE_ZSTD
-    printf("Підсистема стиснення: модуль Zstandard [УВІМКНЕНО]\n");
-#else
-    printf("Підсистема стиснення: raw stream [ВИМКНЕНО]\n");
-#endif
-
-#if DIAG_ENABLE_TRACING
-    printf("Мережеве трасування: розширений журнал [АКТИВНИЙ]\n");
-#else
-    printf("Мережеве трасування: вимкнено для економії CPU\n");
-#endif
-
-#if DIAG_ENABLE_AVX512
-    printf("Векторні операції: векторні регістри ZMM 512-біт\n");
-#else
-    printf("Векторні операції: базовий набір SSE/AVX2\n");
-#endif
-
-    return 0;
-}
-```
-```cpp
-// src/main.cpp — сучасна реалізація утиліти на мові C++20
-#include <iostream>
-#include <span>
-#include <vector>
-#include "diag/config.h"
-#include "diag/version.hpp"
-
-int main() {
-    std::cout << "========================================\n";
-    std::cout << diag::version::project_name << " (C++20 клієнт)\n";
-    std::cout << "========================================\n";
-    std::cout << "Версія продукту: " << diag::version::version_string
-              << " (компоненти: " << diag::version::major << "."
-              << diag::version::minor << "." << diag::version::patch << ")\n";
-    std::cout << "Git ревізія:     " << diag::version::git_commit_hash
-              << " [гілка: " << diag::version::git_branch << "]";
-
-    if constexpr (diag::version::is_dirty_tree) {
-        std::cout << " [УВАГА: незакомічені локальні зміни!]";
-    }
-    std::cout << "\n----------------------------------------\n";
-
-    // Безпечне розгалуження часу компіляції за допомогою if constexpr
-    if constexpr (DIAG_ENABLE_ZSTD) {
-        std::cout << "Стиснення даних: Zstandard скомпільовано в бінарний файл\n";
-    } else {
-        std::cout << "Стиснення даних: пряма передача без пакування\n";
-    }
-
-    if constexpr (DIAG_ENABLE_TRACING) {
-        std::cout << "Діагностика: активовано високоточні лічильники подій\n";
-    }
-
-    std::cout << "Розмір внутрішнього буфера: " << DIAG_BUFFER_SIZE << " байтів\n";
-    return 0;
-}
-```
+:::code proj-config-pipeline/c/main.c
+:::code proj-config-pipeline/cpp/main.cpp
 :::
 
 ## Аналіз поведінки та верифікація збірки

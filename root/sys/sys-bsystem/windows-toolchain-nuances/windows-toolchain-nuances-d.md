@@ -236,97 +236,8 @@ inline constexpr std::size_t kMaxPathLimit = 260;
 Нижче наведено практичну реалізацію функції безпечного відкриття файлів за довгими шляхами мовами C та C++.
 
 :::tabs
-```c
-/* win32_longpath.c — безпечне відкриття файлу за довгим шляхом у C */
-#include <windows.h>
-#include <stdio.h>
-#include <wchar.h>
-
-HANDLE open_file_extended(const wchar_t* path, DWORD access_mode) {
-    wchar_t extended_buffer[32768];
-    const wchar_t* final_path = path;
-
-    /* Якщо шлях довгий (> 240) і ще не має префікса \\?\ — додаємо його */
-    if (wcslen(path) > 240 && wcsncmp(path, L"\\\\?\\", 4) != 0) {
-        /* Обробка мережевих UNC шляхів: \\server\share -> \\?\UNC\server\share */
-        if (wcsncmp(path, L"\\\\", 2) == 0) {
-            swprintf(extended_buffer, 32768, L"\\\\?\\UNC\\%ls", path + 2);
-        } else {
-            swprintf(extended_buffer, 32768, L"\\\\?\\%ls", path);
-        }
-        final_path = extended_buffer;
-    }
-
-    return CreateFileW(
-        final_path,
-        access_mode,
-        FILE_SHARE_READ,
-        NULL,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL
-    );
-}
-```
-```cpp
-// win32_longpath.cpp — безпечне відкриття файлу в C++ з std::filesystem
-#include <windows.h>
-#include <filesystem>
-#include <iostream>
-#include <string>
-
-class UniqueHandle {
-public:
-    explicit UniqueHandle(HANDLE h = INVALID_HANDLE_VALUE) noexcept : handle_(h) {}
-    ~UniqueHandle() noexcept {
-        if (handle_ != INVALID_HANDLE_VALUE && handle_ != nullptr) {
-            CloseHandle(handle_);
-        }
-    }
-
-    UniqueHandle(const UniqueHandle&) = delete;
-    UniqueHandle& operator=(const UniqueHandle&) = delete;
-
-    UniqueHandle(UniqueHandle&& other) noexcept : handle_(other.handle_) {
-        other.handle_ = INVALID_HANDLE_VALUE;
-    }
-
-    UniqueHandle& operator=(UniqueHandle&& other) noexcept {
-        if (this != &other) {
-            if (handle_ != INVALID_HANDLE_VALUE && handle_ != nullptr) {
-                CloseHandle(handle_);
-            }
-            handle_ = other.handle_;
-            other.handle_ = INVALID_HANDLE_VALUE;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] HANDLE get() const noexcept { return handle_; }
-    [[nodiscard]] bool is_valid() const noexcept { return handle_ != INVALID_HANDLE_VALUE; }
-
-private:
-    HANDLE handle_;
-};
-
-UniqueHandle open_file_modern(const std::filesystem::path& file_path, DWORD access_mode) {
-    // std::filesystem під MSVC самостійно нормалізує та додає префікс \\?\ 
-    // для абсолютних шляхів, якщо це необхідно
-    const std::wstring native_path = file_path.wstring();
-
-    HANDLE h = CreateFileW(
-        native_path.c_str(),
-        access_mode,
-        FILE_SHARE_READ,
-        nullptr,
-        OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL,
-        nullptr
-    );
-
-    return UniqueHandle(h);
-}
-```
+:::code windows-toolchain-nuances-d/c/win32_longpath.c
+:::code windows-toolchain-nuances-d/cpp/win32_longpath.cpp
 :::
 
 ## Кодування символів та вивід у консоль: прапорець `/utf-8`
@@ -395,60 +306,8 @@ SetConsoleCP(CP_UTF8);
 Нижче наведено демонстраційний приклад коректної ініціалізації та виводу повідомлень різними мовами під Windows.
 
 :::tabs
-```c
-/* utf8_demo.c — коректний вивід UTF-8 у консоль Windows мовою C */
-#include <windows.h>
-#include <stdio.h>
-
-int main(void) {
-    UINT old_cp = GetConsoleOutputCP();
-
-    /* Встановлюємо активну сторінку виводу консолі в UTF-8 (65001) */
-    SetConsoleOutputCP(CP_UTF8);
-
-    /* Рядок скомпільовано з прапорцем /utf-8 */
-    printf("Український текст: Вітання зі світу системної збірки!\n");
-    printf("Спеціальні символи Unicode: ⚡ 🚀 🔧 [OK]\n");
-
-    /* Відновлюємо початкову сторінку перед завершенням */
-    SetConsoleOutputCP(old_cp);
-    return 0;
-}
-```
-```cpp
-// utf8_demo.cpp — коректний вивід UTF-8 у консоль Windows мовою C++
-#include <windows.h>
-#include <iostream>
-#include <string_view>
-
-class ScopedConsoleEncoding {
-public:
-    explicit ScopedConsoleEncoding(UINT target_cp = CP_UTF8) noexcept
-        : previous_cp_(GetConsoleOutputCP()) {
-        SetConsoleOutputCP(target_cp);
-    }
-
-    ~ScopedConsoleEncoding() noexcept {
-        SetConsoleOutputCP(previous_cp_);
-    }
-
-    ScopedConsoleEncoding(const ScopedConsoleEncoding&) = delete;
-    ScopedConsoleEncoding& operator=(const ScopedConsoleEncoding&) = delete;
-
-private:
-    UINT previous_cp_;
-};
-
-int main() {
-    const ScopedConsoleEncoding encoding_guard;
-
-    constexpr std::string_view message = "Український текст: Вітання зі світу системної збірки!";
-    constexpr std::string_view symbols = "Спеціальні символи Unicode: ⚡ 🚀 🔧 [OK]";
-
-    std::cout << message << "\n" << symbols << std::endl;
-    return 0;
-}
-```
+:::code windows-toolchain-nuances-d/c/utf8_demo.c
+:::code windows-toolchain-nuances-d/cpp/utf8_demo.cpp
 :::
 
 ## Зведення стратегій побудови міжплатформенної збірки

@@ -151,96 +151,8 @@ SECTIONS
 3. Для програм на C++ — викликати функцію ініціалізації середовища `__libc_init_array()`, яка по черзі виконує покажчики на конструктори глобальних і статичних об'єктів із секції `.init_array`.
 
 :::tabs
-```c
-#include <stdint.h>
-
-extern uint32_t _sidata; /* Початок образу .data у Flash (LMA) */
-extern uint32_t _sdata;  /* Початок .data в RAM (VMA) */
-extern uint32_t _edata;  /* Кінець .data в RAM (VMA) */
-extern uint32_t _sbss;   /* Початок .bss в RAM (VMA) */
-extern uint32_t _ebss;   /* Кінець .bss в RAM (VMA) */
-
-extern void SystemInit(void);
-extern void __libc_init_array(void);
-extern int main(void);
-
-void Reset_Handler(void) {
-    uint32_t *src = &_sidata;
-    uint32_t *dst = &_sdata;
-
-    /* Копіювання початкових значень .data з Flash у RAM */
-    while (dst < &_edata) {
-        *dst++ = *src++;
-    }
-
-    /* Обнулення секції .bss */
-    dst = &_sbss;
-    while (dst < &_ebss) {
-        *dst++ = 0U;
-    }
-
-    /* Ініціалізація тактування та базових шин */
-    SystemInit();
-
-    /* Виклик глобальних конструкторів середовища C/C++ */
-    __libc_init_array();
-
-    /* Перехід до основної логіки */
-    main();
-
-    /* Нескінченна пастка на випадок виходу з main */
-    while (1) {
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <algorithm>
-#include <span>
-
-extern "C" {
-    extern std::uint32_t _sidata;
-    extern std::uint32_t _sdata;
-    extern std::uint32_t _edata;
-    extern std::uint32_t _sbss;
-    extern std::uint32_t _ebss;
-
-    void SystemInit() noexcept;
-    void __libc_init_array() noexcept;
-    int main();
-}
-
-namespace {
-
-inline void copy_initialized_data() noexcept {
-    const auto* src = &_sidata;
-    auto* dst = &_sdata;
-    const std::size_t count = static_cast<std::size_t>(&_edata - &_sdata);
-    std::copy_n(src, count, dst);
-}
-
-inline void zero_uninitialized_bss() noexcept {
-    auto* dst = &_sbss;
-    const std::size_t count = static_cast<std::size_t>(&_ebss - &_sbss);
-    std::fill_n(dst, count, 0U);
-}
-
-} // namespace
-
-extern "C" void Reset_Handler() noexcept {
-    copy_initialized_data();
-    zero_uninitialized_bss();
-
-    SystemInit();
-    __libc_init_array();
-
-    main();
-
-    while (true) {
-        // Пастка на випадок повернення
-    }
-}
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/startap-initsializatsiia.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/startap-initsializatsiia.cpp
 :::
 
 Якщо стартап-код буде скомпільовано без точної відповідності символам компонувальника або якщо розміри секцій не будуть кратними розміру слова (4 байти), цикл копіювання пошкодить перші змінні в пам'яті ще до того, як процесор виконає перший рядок функції `main()`.
@@ -300,84 +212,8 @@ SECTIONS
 Для розміщення змінних або функцій у кастомних секціях у вихідному коді застосовують атрибути компілятора GCC / Clang:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define ETH_RX_BUFFER_SIZE 1536
-#define ETH_RX_BUF_COUNT   4
-
-/* Розміщення буферів у виділеній секції .dma_buffer з вирівнюванням на 32 байти */
-__attribute__((section(".dma_buffer"), aligned(32)))
-static uint8_t eth_rx_buffers[ETH_RX_BUF_COUNT][ETH_RX_BUFFER_SIZE];
-
-/* Дескриптор кільцевого буфера DMA */
-typedef struct {
-    volatile uint32_t status;
-    volatile uint32_t control;
-    volatile uint32_t buffer_addr;
-    volatile uint32_t next_desc;
-} DmaDescriptor_t;
-
-__attribute__((section(".dma_buffer"), aligned(32)))
-static DmaDescriptor_t dma_rx_ring[ETH_RX_BUF_COUNT];
-
-/* Змінна, що зберігає код перезавантаження між рестартами ядра */
-__attribute__((section(".noinit")))
-static uint32_t reset_reason_magic;
-
-/* Функція, що виконується з надшвидкої пам'яті ITCM */
-__attribute__((section(".ram_code"), noinline))
-float Fast_Inverse_Sqrt(float x) {
-    float xhalf = 0.5f * x;
-    union { float f; uint32_t i; } conv = { .f = x };
-    conv.i = 0x5f3759df - (conv.i >> 1);
-    conv.f *= (1.5f - (xhalf * conv.f * conv.f));
-    return conv.f;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-#include <bit>
-
-namespace drivers {
-
-inline constexpr std::size_t eth_rx_buffer_size = 1536;
-inline constexpr std::size_t eth_rx_buf_count = 4;
-
-struct alignas(32) DmaDescriptor {
-    volatile std::uint32_t status{0};
-    volatile std::uint32_t control{0};
-    volatile std::uint32_t buffer_addr{0};
-    volatile std::uint32_t next_desc{0};
-};
-
-// Буфери DMA у спеціалізованому домені RAM_D2
-alignas(32) [[gnu::section(".dma_buffer")]]
-static std::array<std::array<std::uint8_t, eth_rx_buffer_size>, eth_rx_buf_count> eth_rx_buffers;
-
-alignas(32) [[gnu::section(".dma_buffer")]]
-static std::array<DmaDescriptor, eth_rx_buf_count> dma_rx_ring;
-
-// Змінна без ініціалізації для передачі стану через Reset
-[[gnu::section(".noinit")]]
-static std::uint32_t reset_reason_magic;
-
-// Швидка математична функція в ITCM RAM
-[[gnu::section(".ram_code"), gnu::noinline]]
-float fast_inverse_sqrt(float x) noexcept {
-    const float xhalf = 0.5f * x;
-    std::uint32_t i = std::bit_cast<std::uint32_t>(x);
-    i = 0x5f3759dfU - (i >> 1);
-    float result = std::bit_cast<float>(i);
-    result *= (1.5f - (xhalf * result * result));
-    return result;
-}
-
-} // namespace drivers
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/oholoshennia-ta.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/oholoshennia-ta.hpp
 :::
 
 Для секції `.ram_code` стартап-код доповнюється ще одним циклом копіювання, який переносить байти машинного коду з адреси `_siram_code` у Flash за адресою `_sram_code` у пам'ять `ITCM_RAM` перед стартом `main()`.
@@ -421,78 +257,8 @@ float fast_inverse_sqrt(float x) noexcept {
 Через MPU весь домен пам'яті `RAM_D2` (адреса `0x30000000`) конфігурується як звичайна некешована пам'ять (*Normal Non-Cacheable*):
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Регістри блоку MPU для архітектури ARMv7-M (Cortex-M7) */
-#define MPU_TYPE_REG  (*(volatile uint32_t*)0xE000ED90)
-#define MPU_CTRL_REG  (*(volatile uint32_t*)0xE000ED94)
-#define MPU_RNR_REG   (*(volatile uint32_t*)0xE000ED98)
-#define MPU_RBAR_REG  (*(volatile uint32_t*)0xE000ED9C)
-#define MPU_RASR_REG  (*(volatile uint32_t*)0xE000EDA0)
-
-void MPU_Configure_NonCacheable_D2(void) {
-    /* Тимчасове вимкнення MPU */
-    MPU_CTRL_REG = 0;
-
-    /* Вибір слота регіону MPU № 0 */
-    MPU_RNR_REG = 0;
-    
-    /* Базова адреса регіону: 0x30000000 (RAM_D2) */
-    MPU_RBAR_REG = 0x30000000;
-
-    /*
-     * Налаштування бітів RASR (Region Attribute and Size Register):
-     * XN = 1 (заборона виконання коду в буферах даних)
-     * AP = 011 (повний доступ ядра на читання та запис)
-     * TEX = 001, C = 0, B = 0 (Normal Non-Cacheable, Non-Shareable)
-     * SIZE = 0x12 (розмір 2^(18+1) = 512 КБ, що покриває 288 КБ RAM_D2)
-     * ENABLE = 1
-     */
-    MPU_RASR_REG = (1UL << 28) | (3UL << 24) | (1UL << 19) | (18UL << 1) | 1UL;
-
-    /* Увімкнення MPU з збереженням фонової карти адрес (PRIVDEFENA) */
-    MPU_CTRL_REG = (1UL << 2) | (1UL << 0);
-
-    /* Бар'єри пам'яті для синхронізації конфігурації */
-    __builtin_arm_dsb(15);
-    __builtin_arm_isb(15);
-}
-```
-```cpp
-#include <cstdint>
-
-namespace mpu {
-
-struct HardwareMpu {
-    volatile std::uint32_t type;
-    volatile std::uint32_t ctrl;
-    volatile std::uint32_t rnr;
-    volatile std::uint32_t rbar;
-    volatile std::uint32_t rasr;
-};
-
-inline auto& hardware_mpu = *reinterpret_cast<HardwareMpu*>(0xE000ED90);
-
-void setup_non_cacheable_d2_region() noexcept {
-    hardware_mpu.ctrl = 0; // Вимкнути MPU перед модифікацією
-
-    hardware_mpu.rnr = 0;             // Регіон № 0
-    hardware_mpu.rbar = 0x30000000U;  // Базова адреса RAM_D2
-
-    // XN=1, AP=RW (3), Non-cacheable (TEX=1, C=0, B=0), Size=512KB (18), Enable=1
-    constexpr std::uint32_t rasr_config = 
-        (1U << 28) | (3U << 24) | (1U << 19) | (18U << 1) | 1U;
-    hardware_mpu.rasr = rasr_config;
-
-    // Увімкнути MPU з бітом PRIVDEFENA (фонова адресація для решти Flash/RAM)
-    hardware_mpu.ctrl = (1U << 2) | (1U << 0);
-
-    asm volatile("dsb 0xf\nisb 0xf" ::: "memory");
-}
-
-} // namespace mpu
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/zakhyst-na-rivni-skrypta.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/zakhyst-na-rivni-skrypta.hpp
 :::
 
 Після активації цього регіону MPU процесорні звернення до секції `.dma_buffer` проходять повз D-Cache, гарантуючи повну апаратну когерентність між ядром та DMA без додаткових інструкцій скидання.
@@ -554,34 +320,8 @@ SECTIONS
 У багатьох застарілих прикладах `_sbrk` реалізовано без жодної перевірки меж:
 
 :::tabs
-```c
-/* НАЇВНА І НЕБЕЗПЕЧНА РЕАЛІЗАЦІЯ — НЕ ВИКОРИСТОВУВАТИ */
-void* _sbrk_unsafe(ptrdiff_t incr) {
-    extern char end; /* Символ кінця .bss зі скрипта компонувальника */
-    static char *heap_end = NULL;
-    char *prev_heap_end;
-
-    if (heap_end == NULL) {
-        heap_end = &end;
-    }
-    prev_heap_end = heap_end;
-    heap_end += incr;
-    return (void*)prev_heap_end;
-}
-```
-```cpp
-// НАЇВНА І НЕБЕЗПЕЧНА РЕАЛІЗАЦІЯ — НЕ ВИКОРИСТОВУВАТИ
-extern "C" {
-    extern char end;
-
-    void* _sbrk_unsafe_cpp(std::ptrdiff_t incr) noexcept {
-        static char* heap_end = &end;
-        char* prev_heap_end = heap_end;
-        heap_end += incr;
-        return prev_heap_end;
-    }
-}
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/zakhyst-vid-fatalnoho.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/zakhyst-vid-fatalnoho.cpp
 :::
 
 Така реалізація є джерелом фатальних збоїв. Коли купа переповнюється, `heap_end` перетинає межу активного стека. Наступний виклик `malloc` повертає адресу всередині стекових кадрів, і запис у виділений буфер затирає локальні змінні та адреси повернення функцій у стеку, викликаючи невідтворюваний HardFault.
@@ -595,107 +335,8 @@ extern "C" {
 Якщо пам'ять вичерпана, функція встановлює код помилки `errno = ENOMEM` і повертає значення `(void*)-1`:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <errno.h>
-
-#undef errno
-extern int errno;
-
-/* Символи зі скрипта компонувальника */
-extern uint8_t end;
-extern uint8_t _estack;
-extern uint32_t _Min_Stack_Size;
-
-/* Читання поточного значення апаратного покажчика стека (MSP) */
-static inline uint32_t read_current_msp(void) {
-    uint32_t result;
-    __asm volatile("mrs %0, msp" : "=r"(result));
-    return result;
-}
-
-void* _sbrk(ptrdiff_t incr) {
-    static uint8_t *heap_end = NULL;
-    uint8_t *prev_heap_end;
-
-    if (heap_end == NULL) {
-        heap_end = &end;
-    }
-
-    prev_heap_end = heap_end;
-    uint8_t *next_heap_end = heap_end + incr;
-
-    /* Зчитування поточного динамічного стека */
-    uint32_t current_sp = read_current_msp();
-
-    /* Розрахунок статичної межі безпеки під стек */
-    uint8_t *stack_boundary = (uint8_t*)(&_estack) - (uint32_t)(&_Min_Stack_Size);
-
-    /* 
-     * Перевірка двох умов:
-     * 1. Чи не наздогнала купа поточний активний стек SP
-     * 2. Чи не зайшла купа в гарантований резерв стека переривань
-     */
-    if ((next_heap_end > (uint8_t*)current_sp) || (next_heap_end > stack_boundary)) {
-        errno = ENOMEM;
-        return (void*)-1;
-    }
-
-    heap_end = next_heap_end;
-    return (void*)prev_heap_end;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <cerrno>
-
-extern "C" {
-    extern std::uint8_t end;
-    extern std::uint8_t _estack;
-    extern std::uint32_t _Min_Stack_Size;
-
-    void* _sbrk(std::ptrdiff_t incr) noexcept;
-}
-
-namespace sys {
-
-[[nodiscard]] inline std::uintptr_t read_current_msp() noexcept {
-    std::uintptr_t sp_value;
-    asm volatile("mrs %0, msp" : "=r"(sp_value));
-    return sp_value;
-}
-
-class CollisionSafeHeap {
-public:
-    static void* allocate(std::ptrdiff_t incr) noexcept {
-        static std::uint8_t* heap_end = &end;
-
-        auto* prev_heap_end = heap_end;
-        auto* next_heap_end = heap_end + incr;
-
-        const auto active_sp = read_current_msp();
-        const auto* stack_boundary = &_estack - reinterpret_cast<std::uintptr_t>(&_Min_Stack_Size);
-
-        // Перевірка обох бар'єрів
-        if ((next_heap_end > reinterpret_cast<const std::uint8_t*>(active_sp)) || 
-            (next_heap_end > stack_boundary)) {
-            errno = ENOMEM;
-            return reinterpret_cast<void*>(-1);
-        }
-
-        heap_end = next_heap_end;
-        return prev_heap_end;
-    }
-};
-
-} // namespace sys
-
-extern "C" void* _sbrk(std::ptrdiff_t incr) noexcept {
-    return sys::CollisionSafeHeap::allocate(incr);
-}
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/nadiina-realizatsiia-sbrk.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/nadiina-realizatsiia-sbrk.cpp
 :::
 
 ### Патерни детермінованого виділення пам'яті в C++
@@ -705,70 +346,8 @@ extern "C" void* _sbrk(std::ptrdiff_t incr) noexcept {
 У сучасному C++17 для уникнення фрагментації застосовують поліморфні ресурси пам'яті (*PMR — Polymorphic Memory Resources*). Буфер виділяється всередині спеціалізованої секції пам'яті (наприклад, у `RAM_D2`), а контейнери `std::pmr::vector` працюють виключно всередині локального монотонного алокатора:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Фіксований статичний пул блоків у кастомній секції */
-#define BLOCK_SIZE_BYTES  64
-#define TOTAL_BLOCKS_NUM  32
-
-__attribute__((section(".dma_buffer"), aligned(4)))
-static uint8_t block_memory_pool[TOTAL_BLOCKS_NUM][BLOCK_SIZE_BYTES];
-static uint32_t block_allocation_mask = 0;
-
-void* FixedPool_Allocate(void) {
-    for (uint32_t i = 0; i < TOTAL_BLOCKS_NUM; ++i) {
-        if (!(block_allocation_mask & (1UL << i))) {
-            block_allocation_mask |= (1UL << i);
-            return (void*)&block_memory_pool[i][0];
-        }
-    }
-    return NULL; /* Пам'ять у пулі вичерпана */
-}
-
-void FixedPool_Free(void *ptr) {
-    if (ptr == NULL) return;
-    ptrdiff_t offset = (uint8_t*)ptr - &block_memory_pool[0][0];
-    uint32_t index = (uint32_t)(offset / BLOCK_SIZE_BYTES);
-    if (index < TOTAL_BLOCKS_NUM) {
-        block_allocation_mask &= ~(1UL << index);
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <memory_resource>
-#include <vector>
-
-namespace memory {
-
-// Фіксований буфер у спеціалізованому домені RAM_D2
-alignas(32) [[gnu::section(".dma_buffer")]]
-static std::array<std::byte, 16384> telemetry_dma_pool;
-
-void process_sensor_packet() {
-    // Монотонний алокатор, що працює виключно всередині масиву telemetry_dma_pool
-    std::pmr::monotonic_buffer_resource pool_resource(
-        telemetry_dma_pool.data(),
-        telemetry_dma_pool.size(),
-        std::pmr::null_memory_resource() // Заборона звернення до глобальної купи
-    );
-
-    // Вектор гарантовано розміщується у виділеному домені RAM_D2
-    std::pmr::vector<std::uint32_t> packet_data(&pool_resource);
-    packet_data.reserve(512);
-
-    for (std::uint32_t i = 0; i < 256; ++i) {
-        packet_data.push_back(i * 15U);
-    }
-
-    // При виході з функції вся пам'ять звільняється миттєвим скиданням покажчика
-}
-
-} // namespace memory
-```
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/c/paterny-determinovanoho.c
+:::code svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah-d/cpp/paterny-determinovanoho.cpp
 :::
 
 ## Контрольний інженерний чекліст валідації компонування

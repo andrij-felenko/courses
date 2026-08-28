@@ -43,19 +43,7 @@
 
 Утиліта `git submodule` є стандартним інструментом командного рядка для керування життєвим циклом вкладених репозиторіїв.
 
-```bash
-git submodule [--quiet] [--cached]
-git submodule add [-b <branch>] [-f|--force] [--name <name>] [--reference <repo>] [--depth <depth>] [--] <repository> [<path>]
-git submodule init [--] [<path>...]
-git submodule deinit [-f|--force] (--all|[--] <path>...)
-git submodule update [--init] [--remote] [-N|--no-fetch] [--merge|--rebase] [--recursive] [--depth <depth>] [--] [<path>...]
-git submodule set-branch (-b <branch>|-d|--default) [--] <path>
-git submodule set-url [--] <path> <newurl>
-git submodule sync [--recursive] [--] [<path>...]
-git submodule status [--cached] [--recursive] [--] [<path>...]
-git submodule foreach [--recursive] <command>
-git submodule absorbgitdirs [--] [<path>...]
-```
+:::code api-submodule-subtree-commands/sh/2-komandy-interfeisu-git.sh
 
 ### Детальний розбір підкоманд
 
@@ -132,22 +120,7 @@ git submodule foreach --recursive 'git checkout -b feature-upgrade'
 
 Утиліта Git не має окремої команди `git submodule remove`. Коректне та повне видалення підмодуля з репозиторію вимагає виконання суворої 5-крокової послідовності:
 
-```bash
-# Крок 1. Деініціалізація підмодуля (очищення .git/config та робочих файлів)
-git submodule deinit -f third_party/fmt
-
-# Крок 2. Видалення запису з індексу Git та файлу .gitmodules
-git rm -f third_party/fmt
-
-# Крок 3. Видалення фізичного сховища об'єктів підмодуля (запобігає засміченню .git)
-rm -rf .git/modules/third_party/fmt
-
-# Крок 4. Фіксація змін у батьківському репозиторії
-git commit -m "Remove fmt submodule from third_party"
-
-# Крок 5. Перевірка відсутності залишкових записів
-git status
-```
+:::code api-submodule-subtree-commands/sh/3-protsedura-povnoho.sh
 
 ---
 

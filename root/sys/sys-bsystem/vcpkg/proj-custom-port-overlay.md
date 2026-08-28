@@ -69,53 +69,7 @@ telemetry_service/
 
 Скрипт `custom-ports/fast_telemetry/portfile.cmake` виконує повний життєвий цикл: завантаження вихідного коду, перевірку цілісності за криптографічним хешем SHA-512, накладання латок, запуск генератора CMake, компіляцію для Release і Debug, перенесення файлів експорту та очищення дублікатів.
 
-```cmake
-# 1. Завантаження вихідного коду з репозиторію GitHub із перевіркою SHA-512
-vcpkg_from_github(
-    OUT_SOURCE_PATH SOURCE_PATH
-    REPO example-org/fast-telemetry
-    REF "v${VERSION}"
-    SHA512 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-    HEAD_REF main
-    PATCHES
-        patches/0001-fix-arm-affinity.patch
-)
-
-# 2. Перевірка обраних опцій (features)
-vcpkg_check_features(
-    OUT_FEATURE_OPTIONS FEATURE_OPTIONS
-    FEATURES
-        compression ENABLE_ZLIB_COMPRESSION
-)
-
-# 3. Конфігурація системи збірки CMake через хелпери vcpkg
-vcpkg_cmake_configure(
-    SOURCE_PATH "${SOURCE_PATH}"
-    OPTIONS
-        -DFAST_TELEMETRY_BUILD_TESTS=OFF
-        -DFAST_TELEMETRY_BUILD_EXAMPLES=OFF
-        ${FEATURE_OPTIONS}
-)
-
-# 4. Компіляція та встановлення в буфер packages/fast-telemetry_<triplet>/
-vcpkg_cmake_install()
-
-# 5. Нормалізація структури CMake-конфігурацій
-# Переносить fast-telemetryConfig.cmake з lib/cmake/ у share/fast-telemetry/
-vcpkg_cmake_config_fixup(
-    PACKAGE_NAME fast-telemetry
-    CONFIG_PATH lib/cmake/fast-telemetry
-)
-
-# 6. Очищення дубльованих файлів заголовків у налагоджувальній конфігурації
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
-
-# 7. Збереження ліцензійного файлу (обов'язкова вимога vcpkg)
-vcpkg_install_copyright(
-    FILE_LIST "${SOURCE_PATH}/LICENSE"
-)
-```
+:::code proj-custom-port-overlay/cmake/krok-2-rozrobka-skrypta.cmake
 
 Кожен крок скрипта відповідає за суворий інваріант: `vcpkg_from_github` гарантує незмінність вхідного коду, `vcpkg_cmake_config_fixup` усуває некоректні відносні шляхи в конфігураційних файлах, а видалення `debug/include` унеможливлює розбіжності в оголошеннях структур між різними конфігураціями.
 
@@ -140,19 +94,7 @@ vcpkg_install_copyright(
 
 Створимо файл `custom-triplets/arm64-linux-embedded.cmake`, який задає налаштування для крос-компіляції під цільову плату на базі ARM Cortex-A53. Цей тріплет налаштовує статичне лінкування бібліотек, що спрощує розгортання прошивки на цільовому пристрої:
 
-```cmake
-set(VCPKG_TARGET_ARCHITECTURE arm64)
-set(VCPKG_CRT_LINKAGE dynamic)
-set(VCPKG_LIBRARY_LINKAGE static)
-set(VCPKG_CMAKE_SYSTEM_NAME Linux)
-
-# Підключення зовнішнього тулчейна компілятора
-set(VCPKG_CHAINLOAD_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/../../cmake/toolchains/aarch64-linux-gnu.cmake")
-
-# Оптимізаційні прапорці збірки
-set(VCPKG_C_FLAGS "-O3 -march=armv8-a+crc -pipe")
-set(VCPKG_CXX_FLAGS "-O3 -march=armv8-a+crc -pipe -fno-rtti")
-```
+:::code proj-custom-port-overlay/cmake/krok-3-nalashtuvannia.cmake
 
 Використання `VCPKG_CHAINLOAD_TOOLCHAIN_FILE` дозволяє зберегти всі стандартні механізми vcpkg (пошук пакетів, генерація шляхів `CMAKE_PREFIX_PATH`), передаючи контроль над вибором компіляторів `aarch64-linux-gnu-gcc` та шляхів до системного кореня (sysroot) зовнішньому тулчейну.
 
@@ -199,85 +141,18 @@ set(VCPKG_CXX_FLAGS "-O3 -march=armv8-a+crc -pipe -fno-rtti")
 
 Файл `CMakeLists.txt` сервісу підключає залежності через звичайні імпортовані цілі, оскільки vcpkg повністю нормалізував конфігураційні файли:
 
-```cmake
-cmake_minimum_required(VERSION 3.24)
-project(telemetry_service CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(fast-telemetry CONFIG REQUIRED)
-find_package(fmt CONFIG REQUIRED)
-
-add_executable(telemetry_service src/main.cpp)
-target_link_libraries(telemetry_service PRIVATE fast-telemetry::fast-telemetry fmt::fmt)
-```
+:::code proj-custom-port-overlay/cmake/krok-5-skladannia.cmake
 
 Реалізація інтерфейсу споживача мовами C та C++ демонструє роботу зі створеними структурами даних:
 
 :::tabs
-```c
-/* src/telemetry_c_api.h */
-#ifndef TELEMETRY_C_API_H
-#define TELEMETRY_C_API_H
-
-#include <stdint.h>
-
-struct TelemetryRecord {
-    uint64_t timestamp_ns;
-    uint32_t sensor_id;
-    double metric_value;
-};
-
-int dispatch_telemetry_c(const struct TelemetryRecord *rec);
-
-#endif
-```
-```cpp
-// src/telemetry_consumer.hpp
-#pragma once
-#include <cstdint>
-#include <span>
-#include <string_view>
-
-namespace telemetry {
-    struct Record {
-        std::uint64_t timestamp_ns{0};
-        std::uint32_t sensor_id{0};
-        double metric_value{0.0};
-    };
-
-    [[nodiscard]] bool dispatch_records(std::span<const Record> batch) noexcept;
-}
-```
+:::code proj-custom-port-overlay/c/telemetry_c_api.h
+:::code proj-custom-port-overlay/cpp/telemetry_consumer.hpp
 :::
 
 Основна програма використовує безпечні C++ ідіоми:
 
-```cpp
-// src/main.cpp
-#include "telemetry_consumer.hpp"
-#include <fmt/core.h>
-#include <vector>
-#include <chrono>
-
-int main() {
-    std::vector<telemetry::Record> batch{
-        {1700000000000ULL, 101, 23.85},
-        {1700000001000ULL, 102, 101.32}
-    };
-
-    fmt::print("Ініціалізація відправлення {} записів телеметрії...\n", batch.size());
-    
-    if (telemetry::dispatch_records(batch)) {
-        fmt::print("Телеметрію успішно передано до агрегатора fast-telemetry.\n");
-        return 0;
-    }
-
-    fmt::print(stderr, "Помилка передавання кадру телеметрії!\n");
-    return 1;
-}
-```
+:::code proj-custom-port-overlay/cpp/main.cpp
 
 ## Крок 6. Запуск і перевірка збірки
 

@@ -51,18 +51,7 @@ bad_rule:
 
 Правильний підхід вимагає або об'єднання команд в один рядок оболонки через логічне `&&` чи крапку з комою, або використання спеціальної директиви `.ONESHELL`:
 
-```make
-# Варіант 1: об'єднання в один рядок оболонки через \
-good_rule:
-	cd src && gcc -c main.c
-
-# Варіант 2: багаторядкова конструкція в одній оболонці
-script_rule:
-	for f in *.c; do \
-		echo "Compiling $$f"; \
-		gcc -c "$$f"; \
-	done
-```
+:::code make-d/make/Makefile
 
 Зверніть увагу на подвійний знак долара `$$f`: одинарний `$f` утиліта `make` спробує розгорнути як власну внутрішню змінну ще до запуску оболонки. Подвійний `$$` екранує символ і передає командній оболонці справжній `$f`.
 
@@ -451,19 +440,7 @@ subdirs:
 
 Замість запуску нових процесів `make`, проект використовує **один кореневий Makefile**, який включає фрагменти правил із підкаталогів за допомогою директиви `include`:
 
-```make
-# Головний Makefile
-all: bin/app
-
-# Включення фрагментів описів модулів
-include lib/module.mk
-include src/module.mk
-
-# Лінкування єдиного кінцевого бінарника
-bin/app: $(LIB_OBJS) $(SRC_OBJS)
-	@mkdir -p $(@D)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
-```
+:::code make-d/make/alternatyva-nerekursyvnyi-2.mk
 
 У файлі `lib/module.mk` правила описуються відносно кореневого каталогу:
 
@@ -487,82 +464,7 @@ build/lib/%.o: lib/%.c
 
 ### Шаблон сучасного виробничого Makefile
 
-```make
-# ==============================================================================
-# Сучасний ідіоматичний Makefile для C/C++ проекту з автоматичними dep-файлами
-# ==============================================================================
-
-# 1. Налаштування оболонки та керуючих параметрів Make
-SHELL := /bin/sh
-.ONESHELL:
-.DELETE_ON_ERROR:
-export LC_ALL := C
-
-# 2. Визначення тулчейну та стандартних прапорців
-CC       ?= gcc
-CXX      ?= g++
-CPPFLAGS := -Iinclude -MMD -MP
-CFLAGS   := -std=c11 -O2 -Wall -Wextra -pedantic -g
-CXXFLAGS := -std=c++20 -O2 -Wall -Wextra -g
-LDFLAGS  := 
-LDLIBS   := -lm
-
-# 3. Структура каталогів проекту
-SRC_DIR   := src
-INC_DIR   := include
-BUILD_DIR := build
-BIN_DIR   := bin
-TARGET    := $(BIN_DIR)/app
-
-# 4. Пошук джерел та генерація списків об'єктів
-C_SRCS    := $(wildcard $(SRC_DIR)/*.c)
-CPP_SRCS  := $(wildcard $(SRC_DIR)/*.cpp)
-
-C_OBJS    := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(C_SRCS))
-CPP_OBJS  := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(CPP_SRCS))
-ALL_OBJS  := $(C_OBJS) $(CPP_OBJS)
-
-# Список файлів залежностей (.d), які компілятор згенерує поруч із .o
-DEPS      := $(ALL_OBJS:.o=.d)
-
-# 5. Головні цілі
-.PHONY: all clean test info
-
-all: $(TARGET)
-
-# Лінкування фінального виконуваного бінарного файлу
-$(TARGET): $(ALL_OBJS) | $(BIN_DIR)
-	$(if $(CPP_SRCS),$(CXX),$(CC)) $(LDFLAGS) $^ $(LDLIBS) -o $@
-	@echo "✓ Проект успішно зібрано: $@"
-
-# Шаблонне правило для вихідних файлів на C
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-# Шаблонне правило для вихідних файлів на C++
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
-
-# Створення вихідних каталогів як order-only пререквізитів
-$(BUILD_DIR) $(BIN_DIR):
-	@mkdir -p $@
-
-# 6. Очищення скомпільованих файлів
-clean:
-	@rm -rf $(BUILD_DIR) $(BIN_DIR)
-	@echo "✓ Каталоги збірки очищено."
-
-# 7. Діагностична інформація
-info:
-	@echo "Вихідні файли C:   $(C_SRCS)"
-	@echo "Вихідні файли C++: $(CPP_SRCS)"
-	@echo "Об'єктні файли:    $(ALL_OBJS)"
-	@echo "Файли залежностей: $(DEPS)"
-
-# 8. Підключення згенерованих компілятором файлів залежностей .d
-# Префікс '-' ігнорує відсутність файлів під час першої збірки
--include $(DEPS)
-```
+:::code make-d/make/shablon-suchasnoho-2.mk
 
 ### Як працює автоматичне відстеження заголовків через `-MMD -MP`
 
@@ -583,48 +485,8 @@ info:
 Погляньмо на реалізацію обчислювального модуля та точки входу, для яких призначено наведений вище Makefile:
 
 :::tabs
-```c
-/* src/calc.c — обчислювальний модуль мовою C */
-#include <stdio.h>
-
-long long compute_factorial(int n) {
-    if (n <= 1) return 1;
-    long long result = 1;
-    for (int i = 2; i <= n; ++i) {
-        result *= i;
-    }
-    return result;
-}
-
-int main(void) {
-    int val = 10;
-    printf("Факторіал %d = %lld\n", val, compute_factorial(val));
-    return 0;
-}
-```
-```cpp
-// src/calc.cpp — обчислювальний модуль ідіоматичною мовою C++
-#include <iostream>
-#include <numeric>
-#include <vector>
-#include <ranges>
-
-constexpr long long compute_factorial(int n) noexcept {
-    if (n <= 1) return 1;
-    long long result = 1;
-    for (int i = 2; i <= n; ++i) {
-        result *= i;
-    }
-    return result;
-}
-
-int main() {
-    constexpr int val = 10;
-    std::cout << "Факторіал " << val << " = " 
-              << compute_factorial(val) << '\n';
-    return 0;
-}
-```
+:::code make-d/c/calc.c
+:::code make-d/cpp/calc.cpp
 :::
 
 ---

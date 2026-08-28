@@ -147,21 +147,7 @@ if("${A}" STREQUAL "")   # до CMP0054 — істина (!), тепер — х�
 
 `ZIP_LISTS` іде до кінця **найдовшого** списку; коротші добігають і далі віддають порожні значення. Іменування змінних у ньому має дві форми:
 
-```cmake
-set(NAMES  alice bob carol)
-set(PORTS  8080  8081)
-
-foreach(name port IN ZIP_LISTS NAMES PORTS)
-  message(STATUS "${name} → ${port}")
-endforeach()
-# -- alice → 8080
-# -- bob → 8081
-# -- carol →              ← PORTS вичерпався, значення порожнє
-
-foreach(x IN ZIP_LISTS NAMES PORTS)   # одне ім'я — CMake сам додасть суфікси
-  message(STATUS "${x_0} → ${x_1}")
-endforeach()
-```
+:::code api-if-and-lists/cmake/formy-foreach.cmake
 
 З CMake 3.21 політика `CMP0124` замикає змінну циклу в самому циклі: якщо до `foreach()` такої змінної не було, після `endforeach()` її знову немає. Раніше вона витікала назовні з останнім значенням — і код, який на це спирався, у нових проєктах ламається.
 
@@ -386,18 +372,7 @@ endfunction()
 
 Створює: `<префікс>_<прапорець>` = `TRUE`/`FALSE` · `<префікс>_<ключ>` зі значенням (не визначена, якщо ключа не було) · `<префікс>_UNPARSED_ARGUMENTS` — усе нерозпізнане · `<префікс>_KEYWORDS_MISSING_VALUES` — ключі, після яких значення не дали (з 3.15).
 
-```cmake
-function(add_plugin name)
-  cmake_parse_arguments(PARSE_ARGV 1 P "SHARED" "OUTPUT_DIR" "SOURCES;DEPENDS")
-  if(P_UNPARSED_ARGUMENTS)
-    message(FATAL_ERROR "add_plugin: зайві аргументи — ${P_UNPARSED_ARGUMENTS}")
-  endif()
-  if(NOT P_SOURCES)
-    message(FATAL_ERROR "add_plugin(${name}): не задано SOURCES")
-  endif()
-  # P_SHARED — TRUE/FALSE, P_OUTPUT_DIR — рядок, P_SOURCES і P_DEPENDS — списки
-endfunction()
-```
+:::code api-if-and-lists/cmake/cmake-parse-arguments.cmake
 
 ---
 

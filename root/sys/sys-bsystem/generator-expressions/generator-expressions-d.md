@@ -340,32 +340,7 @@ target_include_directories(core PUBLIC
 
 Створимо ціль `project_warnings`, яка автоматично налаштовує суворі попередження для компіляторів GCC, Clang та MSVC, враховуючи стандарти та типи збірки:
 
-```cmake
-add_library(project_warnings INTERFACE)
-
-target_compile_options(project_warnings INTERFACE
-    # Прапорці для компіляторів сімейства Clang та GCC
-    $<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wconversion
-        -Wshadow
-        -Wnon-virtual-dtor
-        $<$<CONFIG:Debug>:-Og -g3>
-        $<$<CONFIG:Release>:-O3>
-    >
-    # Прапорці для компілятора Microsoft Visual C++
-    $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:
-        /W4
-        /permissive-
-        /w14242 # Попередження про неявне звуження типів
-        /w14254
-        $<$<CONFIG:Debug>:/Od /Zi>
-        $<$<CONFIG:Release>:/O2>
-    >
-)
-```
+:::code generator-expressions-d/cmake/zadacha-2-kros.cmake
 
 Тепер будь-яка ціль проєкту підключає ці налаштування одним викликом:
 
@@ -418,34 +393,7 @@ add_custom_command(
 
 Вираз `$<TARGET_FILE:...>` вирішує всі три проблеми одночасно:
 
-```cmake
-# Створення цілі-інструмента
-add_executable(schema_compiler tools/schema_compiler.cpp)
-
-# Генерація файлу за допомогою скомпільованого інструмента
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/generated_schema.cpp"
-           "${CMAKE_CURRENT_BINARY_DIR}/generated_schema.h"
-    COMMAND $<TARGET_FILE:schema_compiler>
-            --input "${CMAKE_CURRENT_SOURCE_DIR}/schema.json"
-            --out-source "${CMAKE_CURRENT_BINARY_DIR}/generated_schema.cpp"
-            --out-header "${CMAKE_CURRENT_BINARY_DIR}/generated_schema.h"
-    DEPENDS schema_compiler "${CMAKE_CURRENT_SOURCE_DIR}/schema.json"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-    COMMENT "Генерація коду моделі даних через schema_compiler"
-    VERBATIM
-)
-
-# Основна програма, що споживає згенерований код
-add_executable(app
-    src/main.cpp
-    "${CMAKE_CURRENT_BINARY_DIR}/generated_schema.cpp"
-)
-
-target_include_directories(app PRIVATE
-    "${CMAKE_CURRENT_BINARY_DIR}"
-)
-```
+:::code generator-expressions-d/cmake/zadacha-3-kodoheneratsiia.cmake
 
 ![Конвеєр кодогенерації з використанням TARGET_FILE у кастомній команді](img/custom-command-target-file.svg)
 
@@ -459,36 +407,8 @@ target_include_directories(app PRIVATE
 Вихідні файли інструмента та програми можуть бути написані як на C, так і на C++:
 
 :::tabs
-```c
-/* tools/schema_compiler.c */
-#include <stdio.h>
-
-int main(int argc, char* argv[]) {
-    if (argc < 5) return 1;
-    FILE* f = fopen(argv[4], "w");
-    if (!f) return 1;
-    fprintf(f, "/* Автоматично згенерований C-файл */\n");
-    fprintf(f, "const char* get_schema_version(void) { return \"1.0.0\"; }\n");
-    fclose(f);
-    return 0;
-}
-```
-```cpp
-// tools/schema_compiler.cpp
-#include <iostream>
-#include <fstream>
-#include <string_view>
-
-int main(int argc, char* argv[]) {
-    if (argc < 5) return 1;
-    std::ofstream out(argv[4]);
-    if (!out) return 1;
-    out << "// Автоматично згенерований C++-файл\n";
-    out << "#include <string_view>\n";
-    out << "std::string_view getSchemaVersion() noexcept { return \"1.0.0\"; }\n";
-    return 0;
-}
-```
+:::code generator-expressions-d/c/schema_compiler.c
+:::code generator-expressions-d/cpp/schema_compiler.cpp
 :::
 
 ## Пастки, синтаксичні конфлікти та налагодження
@@ -551,18 +471,7 @@ target_link_options(app PRIVATE
 
 Команда `file(GENERATE ...)` — єдина файлова команда CMake, яка виконується на фазі генерації і повністю розгортає всі вказані генераторні вирази окремо для кожної цільової конфігурації:
 
-```cmake
-file(GENERATE
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/genex_diag_$<CONFIG>.txt"
-    CONTENT "Активна конфігурація: $<CONFIG>
-Платформа: $<PLATFORM_ID>
-Компілятор CXX: $<CXX_COMPILER_ID> версії $<CXX_COMPILER_VERSION>
-Файл артефакту core: $<TARGET_FILE:core>
-Прапорці компіляції: $<TARGET_PROPERTY:core,COMPILE_OPTIONS>
-Каталоги включення: $<TARGET_PROPERTY:core,INCLUDE_DIRECTORIES>
-"
-)
-```
+:::code generator-expressions-d/cmake/1-heneratsiia.cmake
 
 Після генерації у каталозі збірки з'являться окремі файли `genex_diag_Debug.txt` та `genex_diag_Release.txt`, де можна побачити точний кінцевий вигляд усіх розгорнутих рядків.
 

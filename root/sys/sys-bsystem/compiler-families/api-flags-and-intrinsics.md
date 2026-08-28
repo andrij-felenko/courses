@@ -93,50 +93,8 @@
 Головна небезпека функцій підрахунку нулів у GCC та Clang полягає в тому, що `__builtin_clz(0)` та `__builtin_ctz(0)` призводять до невизначеної поведінки (undefined behavior). Це пов'язано з тим, що інструкції x86 `bsr` (Bit Scan Reverse) та `bsf` (Bit Scan Forward) не змінюють цільовий регістр, якщо вхідне число дорівнює нулю. На противагу їм, інтринсики MSVC `_BitScanReverse` та `_BitScanForward` повертають логічний результат (знайдено біт чи ні), записуючи індекс через покажчик, що захищає розробника від непередбачуваних помилок. Починаючи зі стандарту C++20, стандартний заголовок `<bit>` повністю усуває цю проблему, надаючи безпечні та повністю оптимізовані функції для всіх компіляторів.
 
 :::tabs
-```c
-#include <stdint.h>
-
-#if defined(_MSC_VER) && !defined(__clang__)
-#include <intrin.h>
-
-static inline uint32_t count_leading_zeros32(uint32_t x) {
-    if (x == 0) return 32;
-    unsigned long index;
-    _BitScanReverse(&index, x);
-    return 31 - index;
-}
-
-static inline uint32_t popcount32(uint32_t x) {
-    return __popcnt(x);
-}
-
-#else
-
-static inline uint32_t count_leading_zeros32(uint32_t x) {
-    if (x == 0) return 32;
-    return (uint32_t)__builtin_clz(x);
-}
-
-static inline uint32_t popcount32(uint32_t x) {
-    return (uint32_t)__builtin_popcount(x);
-}
-
-#endif
-```
-```cpp
-#include <cstdint>
-#include <bit>
-
-// Починаючи з C++20 стандартна бібліотека <bit> повністю
-// абстрагує апаратні інтринсики процесора для всіх компіляторів.
-constexpr std::uint32_t count_leading_zeros32(std::uint32_t x) noexcept {
-    return static_cast<std::uint32_t>(std::countl_zero(x));
-}
-
-constexpr std::uint32_t popcount32(std::uint32_t x) noexcept {
-    return static_cast<std::uint32_t>(std::popcount(x));
-}
-```
+:::code api-flags-and-intrinsics/c/main.c
+:::code api-flags-and-intrinsics/cpp/main.hpp
 :::
 
 ## Таблиця низькорівневих бітових та математичних еквівалентів

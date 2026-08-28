@@ -46,112 +46,9 @@ ninja: error: 'bin/table_generator': cannot execute binary file: Exec format err
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
-static uint32_t generate_crc32_entry(uint32_t byte, uint32_t polynomial) {
-    uint32_t crc = byte;
-    for (int bit = 0; bit < 8; ++bit) {
-        if (crc & 1U) {
-            crc = (crc >> 1U) ^ polynomial;
-        } else {
-            crc = crc >> 1U;
-        }
-    }
-    return crc;
-}
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Використання: %s <шлях_до_вихідного_файлу>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    FILE *out = fopen(argv[1], "w");
-    if (!out) {
-        perror("Не вдалося відкрити вихідний файл для запису");
-        return EXIT_FAILURE;
-    }
-
-    const uint32_t polynomial = 0xEDB88320U; // Стандартний поліном IEEE 802.3
-
-    fprintf(out, "/* Автоматично згенеровано утилітою table_gen на хості. Не редагувати! */\n");
-    fprintf(out, "#include <stdint.h>\n\n");
-    fprintf(out, "const uint32_t g_crc32_lookup[256] = {\n");
-
-    for (uint32_t i = 0; i < 256; ++i) {
-        uint32_t entry = generate_crc32_entry(i, polynomial);
-        fprintf(out, "    0x%08XU%s%s", entry, (i < 255) ? "," : "", (i % 8 == 7) ? "\n" : " ");
-    }
-
-    fprintf(out, "};\n");
-    fclose(out);
-    return EXIT_SUCCESS;
-}
-```
+:::code proj-dual-toolchain-codegen/c/1-vykhidnyi-kod.c
 @tab C++
-```cpp
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <array>
-#include <cstdint>
-#include <string_view>
-#include <span>
-
-namespace {
-
-constexpr uint32_t generate_crc32_entry(uint32_t byte_val, uint32_t polynomial) noexcept {
-    uint32_t crc = byte_val;
-    for (int bit = 0; bit < 8; ++bit) {
-        crc = (crc & 1U) ? ((crc >> 1U) ^ polynomial) : (crc >> 1U);
-    }
-    return crc;
-}
-
-constexpr auto make_crc_table(uint32_t polynomial) noexcept {
-    std::array<uint32_t, 256> table{};
-    for (uint32_t i = 0; i < 256; ++i) {
-        table[i] = generate_crc32_entry(i, polynomial);
-    }
-    return table;
-}
-
-} // namespace
-
-int main(int argc, char* argv[]) {
-    const std::span<char*> args(argv, static_cast<size_t>(argc));
-    if (args.size() < 2) {
-        std::cerr << "Використання: " << args[0] << " <шлях_до_вихідного_файлу>\n";
-        return 1;
-    }
-
-    std::ofstream out(args[1], std::ios::trunc);
-    if (!out.is_open()) {
-        std::cerr << "Помилка відкриття файлу для запису: " << args[1] << '\n';
-        return 1;
-    }
-
-    constexpr uint32_t ieee_poly = 0xEDB88320U;
-    constexpr auto table = make_crc_table(ieee_poly);
-
-    out << "/* Автоматично згенеровано утилітою table_gen на хості. Не редагувати! */\n";
-    out << "#include <stdint.h>\n\n";
-    out << "extern const uint32_t g_crc32_lookup[256] = {\n";
-
-    for (size_t i = 0; i < table.size(); ++i) {
-        if (i % 8 == 0) out << "    ";
-        out << "0x" << std::hex << std::uppercase << std::setfill('0') << std::setw(8) << table[i] << "U";
-        if (i + 1 < table.size()) out << ", ";
-        if (i % 8 == 7) out << '\n';
-    }
-
-    out << "};\n";
-    return 0;
-}
-```
+:::code proj-dual-toolchain-codegen/cpp/1-vykhidnyi-kod.cpp
 :::
 
 ---
@@ -162,65 +59,9 @@ int main(int argc, char* argv[]) {
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stddef.h>
-
-extern const uint32_t g_crc32_lookup[256];
-
-uint32_t calculate_buffer_crc32(const uint8_t *data, size_t length) {
-    uint32_t crc = 0xFFFFFFFFU;
-    for (size_t i = 0; i < length; ++i) {
-        uint8_t table_index = (uint8_t)((crc ^ data[i]) & 0xFFU);
-        crc = (crc >> 8U) ^ g_crc32_lookup[table_index];
-    }
-    return crc ^ 0xFFFFFFFFU;
-}
-
-int main(void) {
-    const uint8_t payload[] = "Firmware telemetry packet payload";
-    uint32_t checksum = calculate_buffer_crc32(payload, sizeof(payload) - 1);
-    printf("Обчислена контрольна сума CRC-32: 0x%08X\n", checksum);
-    return 0;
-}
-```
+:::code proj-dual-toolchain-codegen/c/2-vykhidnyi-kod-tsilovoho.c
 @tab C++
-```cpp
-#include <iostream>
-#include <iomanip>
-#include <cstdint>
-#include <span>
-#include <string_view>
-
-extern "C" const uint32_t g_crc32_lookup[256];
-
-namespace telemetry {
-
-[[nodiscard]] uint32_t calculate_crc32(std::span<const uint8_t> data) noexcept {
-    uint32_t crc = 0xFFFFFFFFU;
-    for (const uint8_t byte_val : data) {
-        const uint8_t table_idx = static_cast<uint8_t>((crc ^ byte_val) & 0xFFU);
-        crc = (crc >> 8U) ^ g_crc32_lookup[table_idx];
-    }
-    return crc ^ 0xFFFFFFFFU;
-}
-
-} // namespace telemetry
-
-int main() {
-    constexpr std::string_view msg = "Firmware telemetry packet payload";
-    const std::span<const uint8_t> payload_bytes{
-        reinterpret_cast<const uint8_t*>(msg.data()), msg.size()
-    };
-
-    const uint32_t checksum = telemetry::calculate_crc32(payload_bytes);
-    std::cout << "Обчислена контрольна сума CRC-32: 0x"
-              << std::hex << std::uppercase << std::setfill('0') << std::setw(8)
-              << checksum << '\n';
-    return 0;
-}
-```
+:::code proj-dual-toolchain-codegen/cpp/2-vykhidnyi-kod-tsilovoho.cpp
 :::
 
 ---
@@ -245,82 +86,13 @@ cross_dual_toolchain/
 
 Цей сценарій нічого не знає про крос-компіляцію й завжди конфігурується з нативними компіляторами хоста:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(HostTools LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_executable(table_gen table_gen.cpp)
-
-# Встановлюємо виконуваний файл у каталог bin
-install(TARGETS table_gen DESTINATION bin)
-```
+:::code proj-dual-toolchain-codegen/cmake/vkladenyi-host-tools.cmake
 
 ### Головний кореневий `CMakeLists.txt`
 
 Головний сценарій перевіряє значення змінної `CMAKE_CROSSCOMPILING`. Якщо активна крос-компіляція, він використовує `ExternalProject_Add` для автономного виклику CMake під нативний хост зі скиданням файлу тулчейна (`-DCMAKE_TOOLCHAIN_FILE=`):
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(FirmwareProject LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
-set(GENERATED_CRC_SRC "${GENERATED_DIR}/crc32_table.cpp")
-file(MAKE_DIRECTORY "${GENERATED_DIR}")
-
-if(CMAKE_CROSSCOMPILING)
-    # Крос-компіляція: збираємо автономний нативний підпроєкт для хоста
-    include(ExternalProject)
-
-    set(HOST_TOOLS_DIR "${CMAKE_CURRENT_BINARY_DIR}/host_tools-build")
-    set(HOST_TABLE_GEN_EXE "${HOST_TOOLS_DIR}/bin/table_gen")
-
-    ExternalProject_Add(host_tools_subproject
-        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/host_tools"
-        BINARY_DIR "${HOST_TOOLS_DIR}"
-        INSTALL_DIR "${HOST_TOOLS_DIR}"
-        CMAKE_ARGS
-            -DCMAKE_INSTALL_PREFIX=${HOST_TOOLS_DIR}
-            # Критично: скидаємо файл тулчейна для нативного складання хостом
-            -DCMAKE_TOOLCHAIN_FILE=
-            -DCMAKE_BUILD_TYPE=Release
-        BUILD_BYPRODUCTS "${HOST_TABLE_GEN_EXE}"
-    )
-
-    # Оголошуємо імпортовану виконувану ціль
-    add_executable(generator_tool IMPORTED GLOBAL)
-    set_target_properties(generator_tool PROPERTIES
-        IMPORTED_LOCATION "${HOST_TABLE_GEN_EXE}"
-    )
-    add_dependencies(generator_tool host_tools_subproject)
-else()
-    # Нативна збірка (хост і ціль однакові): збираємо напряму
-    add_subdirectory(host_tools)
-    add_executable(generator_tool ALIAS table_gen)
-endif()
-
-# Команда запуску хостового генератора
-add_custom_command(
-    OUTPUT "${GENERATED_CRC_SRC}"
-    COMMAND generator_tool "${GENERATED_CRC_SRC}"
-    DEPENDS generator_tool
-    COMMENT "Генерація CRC-32 таблиці нативною утилітою хоста..."
-    VERBATIM
-)
-
-# Цільовий бінарник прошивки під цільову архітектуру
-add_executable(firmware_app
-    src/main.cpp
-    "${GENERATED_CRC_SRC}"
-)
-
-target_include_directories(firmware_app PRIVATE "${GENERATED_DIR}")
-```
+:::code proj-dual-toolchain-codegen/cmake/holovnyi-korenevyi.cmake
 
 ---
 

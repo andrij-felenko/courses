@@ -144,55 +144,8 @@ set_target_properties(PNG::PNG PROPERTIES
 Погляньмо, як використання імпортованої цілі виглядає в реальному вихідному коді програми:
 
 :::tabs
-```c
-/* src/main.c */
-#include <png.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    printf("Версія libpng у системі: %s\n", PNG_LIBPNG_VER_STRING);
-    png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!png_ptr) {
-        fprintf(stderr, "Не вдалося ініціалізувати структуру png_struct\n");
-        return EXIT_FAILURE;
-    }
-    printf("Структуру libpng успішно створено.\n");
-    png_destroy_read_struct(&png_ptr, NULL, NULL);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// src/main.cpp
-#include <png.h>
-#include <iostream>
-#include <memory>
-#include <string_view>
-
-struct PngReadDeleter {
-    void operator()(png_structp ptr) const noexcept {
-        if (ptr) {
-            png_destroy_read_struct(&ptr, nullptr, nullptr);
-        }
-    }
-};
-
-using SafePngHandle = std::unique_ptr<png_struct, PngReadDeleter>;
-
-int main() {
-    std::cout << "Версія libpng у системі: " 
-              << std::string_view(PNG_LIBPNG_VER_STRING) << "\n";
-              
-    SafePngHandle png_ptr(png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr));
-    if (!png_ptr) {
-        std::cerr << "Не вдалося ініціалізувати структуру png_struct\n";
-        return 1;
-    }
-    
-    std::cout << "Структуру libpng успішно створено та захищено через RAII.\n";
-    return 0;
-}
-```
+:::code find-package-d/c/main.c
+:::code find-package-d/cpp/main.cpp
 :::
 
 ## Драбина пріоритетів: де і в якому порядку CMake шукає пакети
@@ -456,54 +409,7 @@ find_package(MyLib REQUIRED)
 
 Канонічний сценарій `FindMyLib.cmake` будується за стандартизованою схемою з шести послідовних кроків:
 
-```cmake
-# cmake/FindMyLib.cmake
-include(FindPackageHandleStandardArgs)
-
-# 1. Пошук заголовків
-find_path(MyLib_INCLUDE_DIR
-    NAMES mylib/mylib.h
-    PATH_SUFFIXES include
-)
-
-# 2. Пошук компільованої бібліотеки
-find_library(MyLib_LIBRARY
-    NAMES mylib libmylib
-    PATH_SUFFIXES lib lib64
-)
-
-# 3. Видобування версії із заголовка (опціонально)
-if(MyLib_INCLUDE_DIR AND EXISTS "${MyLib_INCLUDE_DIR}/mylib/mylib.h")
-    file(STRINGS "${MyLib_INCLUDE_DIR}/mylib/mylib.h" _ver_line
-         REGEX "^#define[ \t]+MYLIB_VERSION[ \t]+\"[^\"]+\"")
-    string(REGEX MATCH "\"([^\"]+)\"" _ "${_ver_line}")
-    set(MyLib_VERSION "${CMAKE_MATCH_1}")
-    unset(_ver_line)
-endif()
-
-# 4. Стандартизована перевірка знайдених змінних
-find_package_handle_standard_args(MyLib
-    REQUIRED_VARS MyLib_LIBRARY MyLib_INCLUDE_DIR
-    VERSION_VAR MyLib_VERSION
-)
-
-# 5. Створення імпортованої цілі
-if(MyLib_FOUND AND NOT TARGET MyLib::MyLib)
-    add_library(MyLib::MyLib UNKNOWN IMPORTED)
-    set_target_properties(MyLib::MyLib PROPERTIES
-        IMPORTED_LOCATION "${MyLib_LIBRARY}"
-        INTERFACE_INCLUDE_DIRECTORIES "${MyLib_INCLUDE_DIR}"
-    )
-endif()
-
-# 6. Забезпечення зворотної сумісності для старих проєктів
-if(MyLib_FOUND)
-    set(MyLib_INCLUDE_DIRS "${MyLib_INCLUDE_DIR}")
-    set(MyLib_LIBRARIES "${MyLib_LIBRARY}")
-endif()
-
-mark_as_advanced(MyLib_INCLUDE_DIR MyLib_LIBRARY)
-```
+:::code find-package-d/cmake/FindMyLib.cmake
 
 Головним елементом тут є макрос `find_package_handle_standard_args()`. Він автоматично перевіряє змінні зі списку `REQUIRED_VARS`, порівнює знайдений рядок версії `MyLib_VERSION` із запитом користувача, встановлює результуючу змінну `MyLib_FOUND` та виводить у термінал стандартне повідомлення:
 

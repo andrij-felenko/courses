@@ -105,18 +105,7 @@ add_subdirectory(third_party/fmt SYSTEM)
 
 Команда `ExternalProject_Add` створює відокремлений конвеєр завантаження та збірки зовнішньої програми, що складається з послідовних кроків: Download → Update → Patch → Configure → Build → Install. Проте архітектура `ExternalProject` має фундаментальне обмеження: **усі ці кроки виконуються під час фази збірки (build time)**, коли працює утиліта компіляції (`ninja` або `make`), а не під час фази конфігурації CMake.
 
-```cmake
-# Історичний підхід через ExternalProject_Add
-include(ExternalProject)
-
-ExternalProject_Add(fmt_external
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG        10.2.0
-    PREFIX         ${CMAKE_BINARY_DIR}/external/fmt
-    CMAKE_ARGS     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-                   -DFMT_TEST:BOOL=OFF
-)
-```
+:::code fetchcontent-subprojects-d/cmake/evoliutsiinyi-hlukhyi-kut.cmake
 
 Коли інтерпретатор CMake виконує цей блок у `CMakeLists.txt`, він не завантажує репозиторій і не відкриває його файли. Він лише реєструє в моделі спеціальну дію — `add_custom_target(fmt_external)`. Ціль самої бібліотеки `fmt` у пам'яті CMake **не існує**.
 
@@ -139,33 +128,7 @@ ExternalProject_Add(fmt_external
 
 Модель `FetchContent` розділена на два чітких кроки: **декларацію** та **матеріалізацію**.
 
-```cmake
-include(FetchContent)
-
-# 1. Декларація: де взяти код та якої версії (не виконує мережевих запитів)
-FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG        10.2.1
-    GIT_SHALLOW    TRUE
-)
-
-FetchContent_Declare(
-    nlohmann_json
-    URL            https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
-    URL_HASH       SHA256=d6c65393116c3e981177ee7c99e917a226f74a056c703b4188b4eb14b5186b51
-)
-
-# 2. Матеріалізація: завантаження, підготовка та виклик add_subdirectory()
-FetchContent_MakeAvailable(fmt nlohmann_json)
-
-# 3. Використання: прямий зв'язок із рідними цілями бібліотек
-add_executable(telemetry_daemon src/main.cpp)
-target_link_libraries(telemetry_daemon PRIVATE
-    fmt::fmt
-    nlohmann_json::nlohmann_json
-)
-```
+:::code fetchcontent-subprojects-d/cmake/modul-fetchcontent.cmake
 
 ### Що відбувається під капотом FetchContent_MakeAvailable
 
@@ -291,24 +254,7 @@ cmake -B build -DFETCHCONTENT_SOURCE_DIR_FMT=/home/developer/projects/fmt-fork
 
 Якщо в кореневому `CMakeLists.txt` вашого головного проєкту на самому початку записано:
 
-```cmake
-# Кореневий CMakeLists.txt проєкту my_app
-include(FetchContent)
-
-# Головний проєкт явно фіксує єдину узгоджену версію spdlog для ВСІХ підпроєктів
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog.git
-    GIT_TAG        v1.13.0
-)
-
-# Оголошуємо модулі проєкту
-FetchContent_Declare(audio_engine   GIT_REPOSITORY ... GIT_TAG v2.0)
-FetchContent_Declare(network_client GIT_REPOSITORY ... GIT_TAG v1.5)
-
-# Активація
-FetchContent_MakeAvailable(spdlog audio_engine network_client)
-```
+:::code fetchcontent-subprojects-d/cmake/pravylo-pershoi.cmake
 
 Коли CMake почне виконувати `CMakeLists.txt` підпроєкту `audio_engine` і натрапить там на виклик `FetchContent_Declare(spdlog GIT_TAG v1.11.0)`, він побачить, що залежність із назвою `spdlog` уже зареєстрована в системі. Вторинна декларація буде мовчки проігнорована. Усе дерево проєкту використовуватиме версію `v1.13.0`, призначену кореневим файлом.
 
@@ -401,197 +347,23 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "")
 
 ### Файл конфігурації збірки CMakeLists.txt
 
-```cmake
-cmake_minimum_required(VERSION 3.24)
-project(telemetry_service LANGUAGES C CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
-# Глобальне вимкнення оновлень для швидкості повторних конфігурацій
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "" FORCE)
-
-include(FetchContent)
-
-# 1. Ізоляція опцій підпроєктів: вимикаємо зайві компоненти до завантаження
-set(FMT_TEST OFF CACHE BOOL "Disable fmt tests" FORCE)
-set(FMT_DOC OFF CACHE BOOL "Disable fmt docs" FORCE)
-set(FMT_INSTALL OFF CACHE BOOL "Disable fmt install targets" FORCE)
-
-set(JSON_BuildTests OFF CACHE BOOL "Disable nlohmann_json tests" FORCE)
-set(JSON_Install OFF CACHE BOOL "Disable nlohmann_json install" FORCE)
-
-# 2. Декларація залежностей із фіксацією хешів SHA-256 та перенаправленням на find_package
-FetchContent_Declare(
-    fmt
-    URL                https://github.com/fmtlib/fmt/archive/refs/tags/10.2.1.tar.gz
-    URL_HASH           SHA256=312e4997a80e220502f2558fb3b3797b9aeded05dce4018204b3b47172327145
-    FIND_PACKAGE_ARGS  10.2 CONFIG
-)
-
-FetchContent_Declare(
-    nlohmann_json
-    URL                https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.tar.gz
-    URL_HASH           SHA256=0d8eed583a45371694f4c9a4891158229c1598f804fc921e51381283c7ce353c
-    FIND_PACKAGE_ARGS  3.11 CONFIG
-)
-
-# 3. Активація підпроєктів (автоматично викликає add_subdirectory з EXCLUDE_FROM_ALL)
-FetchContent_MakeAvailable(fmt nlohmann_json)
-
-# 4. Оголошення головного виконуваного файлу
-add_executable(telemetry_service
-    src/main.cpp
-    src/collector.cpp
-)
-
-# 5. Налаштування найсуворіших попереджень для власного коду
-if(MSVC)
-    target_compile_options(telemetry_service PRIVATE /W4 /WX /permissive-)
-else()
-    target_compile_options(telemetry_service PRIVATE -Wall -Wextra -Wpedantic -Werror)
-endif()
-
-# 6. Лінкування з цілями підпроєктів: заголовки імпортуються як системні
-target_link_libraries(telemetry_service PRIVATE
-    fmt::fmt
-    nlohmann_json::nlohmann_json
-)
-```
+:::code fetchcontent-subprojects-d/cmake/fail-konfihuratsii-zbirky.cmake
 
 ### Вихідний код програми
 
 :::tabs
-```cpp
-// src/collector.hpp
-#pragma once
-#include <string>
-#include <string_view>
-#include <cstdint>
-
-struct TelemetryRecord {
-    std::string sensor_id;
-    double temperature;
-    uint32_t pressure_hpa;
-    uint64_t timestamp_ms;
-};
-
-std::string format_telemetry_report(const TelemetryRecord& rec);
-std::string serialize_to_json(const TelemetryRecord& rec);
-```
-```c
-/* src/collector.h — C-інтерфейс утиліти для сумісності з низькорівневими модулями */
-#ifndef COLLECTOR_H
-#define COLLECTOR_H
-
-#include <stdint.h>
-
-struct CTelemetryRecord {
-    const char* sensor_id;
-    double temperature;
-    uint32_t pressure_hpa;
-    uint64_t timestamp_ms;
-};
-
-#endif /* COLLECTOR_H */
-```
+:::code fetchcontent-subprojects-d/cpp/collector.hpp
+:::code fetchcontent-subprojects-d/c/collector.h
 :::
 
 :::tabs
-```cpp
-// src/collector.cpp
-#include "collector.hpp"
-#include <fmt/format.h>
-#include <fmt/chrono.h>
-#include <nlohmann/json.hpp>
-#include <chrono>
-
-std::string format_telemetry_report(const TelemetryRecord& rec) {
-    const auto tp = std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds>(
-        std::chrono::milliseconds(rec.timestamp_ms)
-    );
-
-    // Використання форматування fmt: чисто, швидко, без ризику виходу за межі буфера
-    return fmt::format("[{:%Y-%m-%d %H:%M:%S}] Sensor '{}': Temp = {:.2f} °C, Pressure = {} hPa",
-                       tp, rec.sensor_id, rec.temperature, rec.pressure_hpa);
-}
-
-std::string serialize_to_json(const TelemetryRecord& rec) {
-    nlohmann::json j;
-    j["sensor_id"] = rec.sensor_id;
-    j["metrics"] = {
-        {"temperature_c", rec.temperature},
-        {"pressure_hpa", rec.pressure_hpa}
-    };
-    j["timestamp"] = rec.timestamp_ms;
-    return j.dump(2);
-}
-```
-```c
-/* src/collector_legacy.c — C-реалізація форматування для базового тестового стенду */
-#include "collector.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-char* format_c_telemetry_report(const struct CTelemetryRecord* rec) {
-    char* buffer = (char*)malloc(256);
-    if (!buffer) return NULL;
-    snprintf(buffer, 256, "[Timestamp: %llu] Sensor '%s': Temp = %.2f C, Pressure = %u hPa",
-             (unsigned long long)rec->timestamp_ms, rec->sensor_id, rec->temperature, rec->pressure_hpa);
-    return buffer;
-}
-```
+:::code fetchcontent-subprojects-d/cpp/collector.cpp
+:::code fetchcontent-subprojects-d/c/collector_legacy.c
 :::
 
 :::tabs
-```cpp
-// src/main.cpp
-#include "collector.hpp"
-#include <iostream>
-
-int main() {
-    TelemetryRecord sample{
-        .sensor_id = "ENV-PROBE-04",
-        .temperature = 23.85,
-        .pressure_hpa = 1013,
-        .timestamp_ms = 1724000000000ULL
-    };
-
-    std::cout << "--- Текстовий звіт ---\n";
-    std::cout << format_telemetry_report(sample) << "\n\n";
-
-    std::cout << "--- JSON payload ---\n";
-    std::cout << serialize_to_json(sample) << "\n";
-
-    return 0;
-}
-```
-```c
-/* src/main_c.c — точка входу для чистого C-тесту */
-#include "collector.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    struct CTelemetryRecord sample = {
-        .sensor_id = "ENV-PROBE-04",
-        .temperature = 23.85,
-        .pressure_hpa = 1013,
-        .timestamp_ms = 1724000000000ULL
-    };
-
-    char* report = format_c_telemetry_report(&sample);
-    if (report) {
-        printf("--- C звіт ---\n%s\n", report);
-        free(report);
-    }
-    return 0;
-}
-```
+:::code fetchcontent-subprojects-d/cpp/main.cpp
+:::code fetchcontent-subprojects-d/c/main_c.c
 :::
 
 ### Корисні інженерні правила під час використання FetchContent

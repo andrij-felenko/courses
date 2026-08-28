@@ -72,67 +72,9 @@
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <libintl.h>
-#include <locale.h>
-
-#ifndef APP_DATADIR
-#define APP_DATADIR "/usr/local/share/myapp"
-#endif
-
-#ifndef APP_LOCALEDIR
-#define APP_LOCALEDIR "/usr/local/share/locale"
-#endif
-
-void init_resources(void) {
-    setlocale(LC_ALL, "");
-    bindtextdomain("myapp", APP_LOCALEDIR);
-    textdomain("myapp");
-
-    char config_path[512];
-    snprintf(config_path, sizeof(config_path), "%s/config.default.json", APP_DATADIR);
-    
-    FILE* f = fopen(config_path, "r");
-    if (!f) {
-        perror("Не вдалося відкрити базову конфігурацію");
-    } else {
-        fclose(f);
-    }
-}
-```
+:::code install-prefix-and-destdir-d/c/1-vshyti-shliakhy-do.c
 @tab C++
-```cpp
-#include <iostream>
-#include <filesystem>
-#include <fstream>
-#include <libintl.h>
-#include <locale.h>
-
-#ifndef APP_DATADIR
-#define APP_DATADIR "/usr/local/share/myapp"
-#endif
-
-#ifndef APP_LOCALEDIR
-#define APP_LOCALEDIR "/usr/local/share/locale"
-#endif
-
-void init_resources() {
-    namespace fs = std::filesystem;
-
-    std::setlocale(LC_ALL, "");
-    bindtextdomain("myapp", APP_LOCALEDIR);
-    textdomain("myapp");
-
-    const fs::path config_path = fs::path(APP_DATADIR) / "config.default.json";
-    
-    std::ifstream file(config_path);
-    if (!file.is_open()) {
-        std::cerr << "Не вдалося відкрити базову конфігурацію за шляхом: " 
-                  << config_path << '\n';
-    }
-}
-```
+:::code install-prefix-and-destdir-d/cpp/1-vshyti-shliakhy-do.cpp
 :::
 
 Якщо під час конфігурації було встановлено префікс `/usr/local`, макрос `APP_DATADIR` перетвориться на жорсткий рядковий літерал `"/usr/local/share/myapp"`, розміщений у секції констант `.rodata` виконуваного файлу. Якщо згодом цей файл просто перемістити в каталог `/opt/myapp/bin`, програма продовжить шукати свої ресурси за старою адресою в `/usr/local/share/myapp` і завершиться аварійно через відсутність файлів.
@@ -263,25 +205,7 @@ include(GNUInstallDirs)
 
 Під час оголошення правил `install()` слід завжди використовувати **відносні** змінні `GNUInstallDirs`:
 
-```cmake
-# Встановлення двійкових цілей
-install(TARGETS myapp mylib
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-# Встановлення публічних заголовків
-install(DIRECTORY include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-# Встановлення статичних ресурсів
-install(DIRECTORY assets/
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/myapp
-)
-```
+:::code install-prefix-and-destdir-d/cmake/CMakeLists.txt
 
 Чому важливо вказувати саме відносні шляхи (`${CMAKE_INSTALL_BINDIR}`, тобто `bin`), а не абсолютні (`/usr/local/bin`)?
 Коли в `DESTINATION` передано відносний шлях, CMake автоматично приєднує його до префікса `CMAKE_INSTALL_PREFIX`. Це дозволяє користувачеві під час конфігурації або інсталяції вільно змінювати префікс без модифікації коду `CMakeLists.txt`. Якщо ж у `DESTINATION` передано абсолютний шлях, проєкт втрачає гнучкість і прив'язується до єдиного фіксованого місця у файловій системі.
@@ -290,19 +214,7 @@ install(DIRECTORY assets/
 
 Сучасний CMake дозволяє виконувати фазу інсталяції безпосередньо через уніфікований інтерфейс командного рядка:
 
-```bash
-# 1. Звичайна інсталяція в сконфігурований CMAKE_INSTALL_PREFIX (за замовчуванням /usr/local)
-cmake --install build
-
-# 2. Інсталяція з тимчасовою зміною префікса без перекомпіляції
-cmake --install build --prefix /opt/myapp
-
-# 3. Інсталяція з очищенням налагоджувальних символів (strip)
-cmake --install build --prefix /usr --strip
-
-# 4. Інсталяція в ізольований каталог пакувальника через змінну DESTDIR
-DESTDIR=/tmp/staging-pkg cmake --install build
-```
+:::code install-prefix-and-destdir-d/sh/3-komandnyi-riadok.sh
 
 CMake перевіряє наявність змінної середовища `DESTDIR` під час виконання згенерованого сценарію `cmake_install.cmake`. Якщо змінна встановлена, CMake додає її значення перед кожним шляхом запису файлу.
 
@@ -372,19 +284,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 
 Перевірити та відредагувати зашитий RPATH у вже скомпільованому ELF-файлі можна за допомогою системних утиліт:
 
-```bash
-# 1. Перегляд динамічної секції ELF через readelf
-readelf -d /path/to/myapp | grep -E '(RPATH|RUNPATH)'
-
-# 2. Перегляд за допомогою утиліти objdump
-objdump -p /path/to/myapp | grep -E '(RPATH|RUNPATH)'
-
-# 3. Швидка заміна RPATH без перекомпільовування за допомогою patchelf
-patchelf --set-rpath '$ORIGIN/../lib' /path/to/myapp
-
-# 4. Повне очищення RPATH перед публікацією в системний репозиторій
-patchelf --remove-rpath /path/to/myapp
-```
+:::code install-prefix-and-destdir-d/sh/instrumenty-diahnostyky-ta.sh
 
 ## Динамічний пошук ресурсів без жорстких шляхів часу компіляції
 
@@ -404,54 +304,9 @@ patchelf --remove-rpath /path/to/myapp
 
 :::tabs
 @tab C
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <libgen.h>
-
-int get_app_datadir(char* buffer, size_t max_len) {
-    char exe_path[1024];
-    ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
-    if (len == -1) {
-        /* Fallback до скомпільованого префікса за замовчуванням */
-        snprintf(buffer, max_len, "/usr/local/share/myapp");
-        return 0;
-    }
-    exe_path[len] = '\0';
-
-    /* Отримуємо каталог бінарника (наприклад /opt/myapp/bin) */
-    char* dir = dirname(exe_path);
-    /* Формуємо відносний шлях до ресурсів /opt/myapp/share/myapp */
-    snprintf(buffer, max_len, "%s/../share/myapp", dir);
-    return 1;
-}
-```
+:::code install-prefix-and-destdir-d/c/krosplatformne.c
 @tab C++
-```cpp
-#include <iostream>
-#include <filesystem>
-#include <string>
-#include <unistd.h>
-
-namespace fs = std::filesystem;
-
-fs::path get_app_datadir() {
-    char exe_path[1024];
-    ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
-    if (len == -1) {
-        // Fallback до зашитого префікса за замовчуванням
-        return fs::path("/usr/local/share/myapp");
-    }
-    exe_path[len] = '\0';
-
-    // Отримуємо каталог виконуваного файлу і будуємо шлях до share/
-    fs::path bin_dir = fs::path(exe_path).parent_path();
-    return bin_dir.parent_path() / "share" / "myapp";
-}
-```
+:::code install-prefix-and-destdir-d/cpp/krosplatformne.cpp
 :::
 
 Такий комбінований підхід забезпечує найвищий рівень гнучкості: якщо програма встановлена стандартно через системний пакетний менеджер, вона знаходить ресурси за скомпільованим FHS-шляхом; якщо ж користувач запустив розпакований архів у довільному каталозі, динамічне обчислення шляху запобігає падінню.

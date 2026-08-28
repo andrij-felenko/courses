@@ -67,23 +67,7 @@ project(my_iot_project)
 
 Компонент заявляє про себе системі через власний локальний файл `CMakeLists.txt`, викликаючи макрос `idf_component_register`:
 
-```cmake
-# components/sensor_hub/CMakeLists.txt
-idf_component_register(
-    SRCS 
-        "sensor_hub.c"
-        "sensor_filter.c"
-    INCLUDE_DIRS 
-        "include"
-    PRIV_INCLUDE_DIRS 
-        "private_headers"
-    REQUIRES 
-        esp_timer
-    PRIV_REQUIRES 
-        driver
-        nvs_flash
-)
-```
+:::code esp-idf-struktura-proiektu-komponenty-menuconfig-d/cmake/CMakeLists.txt
 
 Система збірки ESP-IDF працює у дві чітко розмежовані фази розгортання CMake:
 
@@ -222,95 +206,8 @@ CONFIG_APP_WIFI_SSID="Production_Gateway"
 Нижче наведено ідіоматичні приклади ініціалізації системного модуля на мовах C та C++ з використанням згенерованих макросів конфігурації:
 
 :::tabs
-```c
-/* main/app_main.c (C) */
-#include <stdio.h>
-#include <stdbool.h>
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "sdkconfig.h"
-
-static const char *TAG = "main";
-
-typedef struct {
-    const char *ssid;
-    uint16_t port;
-    bool power_save;
-} app_config_t;
-
-void app_main(void) {
-    const app_config_t config = {
-        .ssid = CONFIG_APP_WIFI_SSID,
-        .port = (uint16_t)CONFIG_APP_TELEMETRY_PORT,
-#if CONFIG_APP_ENABLE_POWER_SAVE
-        .power_save = true,
-#else
-        .power_save = false,
-#endif
-    };
-
-    ESP_LOGI(TAG, "Ініціалізація системи...");
-    ESP_LOGI(TAG, "SSID: %s, Порт: %u, Енергозбереження: %s",
-             config.ssid, config.port, config.power_save ? "УВІМКНЕНО" : "ВИМКНЕНО");
-
-    while (true) {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
-```cpp
-// main/main.cpp (C++)
-#include <iostream>
-#include <string_view>
-#include <cstdint>
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "sdkconfig.h"
-
-namespace app {
-
-struct Configuration {
-    std::string_view ssid{CONFIG_APP_WIFI_SSID};
-    uint16_t port{static_cast<uint16_t>(CONFIG_APP_TELEMETRY_PORT)};
-    
-    static constexpr bool is_power_save_enabled() noexcept {
-#if CONFIG_APP_ENABLE_POWER_SAVE
-        return true;
-#else
-        return false;
-#endif
-    }
-};
-
-class SystemController {
-public:
-    explicit SystemController(const Configuration& config) : config_(config) {}
-
-    void run() const {
-        std::cout << "[C++ Node] Ініціалізація точки зв'язку: " << config_.ssid
-                  << ", порт: " << config_.port 
-                  << ", режим сну: " << (Configuration::is_power_save_enabled() ? "ТАК" : "НІ")
-                  << std::endl;
-    }
-
-private:
-    Configuration config_;
-};
-
-} // namespace app
-
-extern "C" void app_main(void) {
-    const app::Configuration conf{};
-    const app::SystemController controller{conf};
-    controller.run();
-
-    while (true) {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
-```
+:::code esp-idf-struktura-proiektu-komponenty-menuconfig-d/c/app_main.c
+:::code esp-idf-struktura-proiektu-komponenty-menuconfig-d/cpp/main.cpp
 :::
 
 ---
@@ -436,18 +333,7 @@ idf.py merge-bin -o build/factory_firmware.bin
 
 Приклад конфігурації кроку збірки у headless-середовищі:
 
-```bash
-# 1. Завантаження системного оточення тулчейну ESP-IDF
-. $IDF_PATH/export.sh
-
-# 2. Встановлення цільового чипа без відкриття діалогів
-idf.py set-target esp32s3
-
-# 3. Збірка прошивки з перевіркою попереджень як помилок
-idf.py -B build_ci \
-       -DSDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.ci" \
-       build
-```
+:::code esp-idf-struktura-proiektu-komponenty-menuconfig-d/sh/export.sh
 
 Ключові принципи надійної CI/CD автоматизації для ESP-IDF:
 1. **Видалення локального `sdkconfig` перед стартом:** Це гарантує, що конфігурація збирається виключно з версіонованих у Git файлів `sdkconfig.defaults`.

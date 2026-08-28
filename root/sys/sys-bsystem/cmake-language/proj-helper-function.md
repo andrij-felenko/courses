@@ -6,22 +6,7 @@
 
 Мінімальний, але чесний опис однієї бібліотеки в сучасному CMake виглядає так:
 
-```cmake
-add_library(core src/core.cpp src/detail.cpp)
-add_library(proj::core ALIAS core)
-target_sources(core PUBLIC
-  FILE_SET HEADERS BASE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include"
-  FILES include/proj/core.hpp)
-target_link_libraries(core PUBLIC fmt::fmt)
-target_link_libraries(core PRIVATE Threads::Threads)
-target_compile_features(core PUBLIC cxx_std_20)
-set_target_properties(core PROPERTIES OUTPUT_NAME "proj_core" POSITION_INDEPENDENT_CODE ON)
-install(TARGETS core EXPORT projTargets
-  ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-  FILE_SET HEADERS DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-```
+:::code proj-helper-function/cmake/shcho-same-bolyt.cmake
 
 У проєкті з десятьма бібліотеками це десять таких блоків. Проблема не в тому, що їх багато, — а в тому, що вони **майже** однакові. Хтось забуде псевдонім `proj::`, хтось пропустить `POSITION_INDEPENDENT_CODE`, у восьмій бібліотеці `OUTPUT_NAME` виявиться без префікса. Кожне таке розходження проявиться не одразу, а через півроку в чужій збірці, і шукати його доведеться очима, порівнюючи десять файлів між собою.
 
@@ -69,106 +54,13 @@ myproj/
 
 Корінь підключає модуль і спускається в підкаталоги:
 
-```cmake
-cmake_minimum_required(VERSION 3.23)
-project(proj CXX)
-
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(ProjectLibrary)
-
-add_subdirectory(libs/core)
-add_subdirectory(apps/tool)
-
-get_property(all_libs GLOBAL PROPERTY PROJ_LIBRARIES)
-message(STATUS "бібліотек у проєкті: ${all_libs}")
-```
+:::code proj-helper-function/cmake/proiekt-na-iakomu-tse.cmake
 
 Версія 3.23 тут не з обережності, а по ділу: саме в ній `target_sources` навчився `FILE_SET HEADERS`, а `install(TARGETS)` — ставити такий набір заголовків. Без цього довелося б окремо писати `target_include_directories` з двома різними шляхами для збірки й для встановлення і окремий `install(FILES)` — три місця замість одного ([install і export](root:sys-bsystem/install-and-export) розбирають, чому їх узагалі три).
 
 ## Функція повністю
 
-```cmake
-# cmake/ProjectLibrary.cmake
-include_guard(GLOBAL)
-include(GNUInstallDirs)
-
-function(add_project_library)
-  set(options     NO_INSTALL)
-  set(oneValue    NAME OUT_TARGET)
-  set(multiValue  SOURCES PUBLIC_HEADERS PUBLIC_DEPS PRIVATE_DEPS)
-  cmake_parse_arguments(PARSE_ARGV 0 ARG "${options}" "${oneValue}" "${multiValue}")
-
-  # ── 1. Скарги на виклик ───────────────────────────────────────────────
-  if(DEFINED ARG_UNPARSED_ARGUMENTS)
-    string(JOIN ", " known ${options} ${oneValue} ${multiValue})
-    message(FATAL_ERROR
-      "add_project_library: не розпізнано «${ARG_UNPARSED_ARGUMENTS}».\n"
-      "  Відомі ключові слова: ${known}")
-  endif()
-
-  if(DEFINED ARG_KEYWORDS_MISSING_VALUES)
-    message(FATAL_ERROR
-      "add_project_library: після «${ARG_KEYWORDS_MISSING_VALUES}» не вказано жодного значення.")
-  endif()
-
-  if(NOT DEFINED ARG_NAME)
-    message(FATAL_ERROR "add_project_library: обов'язковий аргумент NAME <ім'я бібліотеки>.")
-  endif()
-
-  if(NOT DEFINED ARG_SOURCES)
-    message(FATAL_ERROR "add_project_library(${ARG_NAME}): обов'язковий аргумент SOURCES <файли…>.")
-  endif()
-
-  if(TARGET "${ARG_NAME}")
-    message(FATAL_ERROR "add_project_library: ціль «${ARG_NAME}» уже існує.")
-  endif()
-
-  # ── 2. Ціль ───────────────────────────────────────────────────────────
-  set(target "${ARG_NAME}")
-  add_library("${target}" ${ARG_SOURCES})
-  add_library("proj::${target}" ALIAS "${target}")
-
-  target_compile_features("${target}" PUBLIC cxx_std_20)
-  set_target_properties("${target}" PROPERTIES
-    OUTPUT_NAME              "proj_${target}"
-    POSITION_INDEPENDENT_CODE ON)
-
-  if(DEFINED ARG_PUBLIC_HEADERS)
-    target_sources("${target}" PUBLIC
-      FILE_SET HEADERS
-      BASE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include"
-      FILES ${ARG_PUBLIC_HEADERS})
-  endif()
-
-  foreach(dep IN LISTS ARG_PUBLIC_DEPS)
-    target_link_libraries("${target}" PUBLIC "${dep}")
-  endforeach()
-
-  foreach(dep IN LISTS ARG_PRIVATE_DEPS)
-    target_link_libraries("${target}" PRIVATE "${dep}")
-  endforeach()
-
-  # ── 3. Встановлення ───────────────────────────────────────────────────
-  if(NOT ARG_NO_INSTALL)
-    set(headerArgs "")
-    if(DEFINED ARG_PUBLIC_HEADERS)
-      set(headerArgs FILE_SET HEADERS DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-    endif()
-    install(TARGETS "${target}" EXPORT projTargets
-      ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-      LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-      RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-      ${headerArgs})
-  endif()
-
-  # ── 4. Результат ──────────────────────────────────────────────────────
-  set_property(GLOBAL APPEND PROPERTY PROJ_LIBRARIES "proj::${target}")
-
-  if(DEFINED ARG_OUT_TARGET)
-    set("${ARG_OUT_TARGET}" "proj::${target}" PARENT_SCOPE)
-  endif()
-endfunction()
-```
+:::code proj-helper-function/cmake/ProjectLibrary.cmake
 
 Виклик у `libs/core/CMakeLists.txt`:
 
@@ -214,20 +106,7 @@ cmake_parse_arguments(PARSE_ARGV 0 ARG "${options}" "${oneValue}" "${multiValue}
 
 Порахуймо це руками:
 
-```cmake
-function(via_argn)
-  cmake_parse_arguments(A "" "TEXT" "" ${ARGN})
-  message(STATUS "ARGN:       TEXT=[${A_TEXT}]  решта=[${A_UNPARSED_ARGUMENTS}]")
-endfunction()
-
-function(via_argv)
-  cmake_parse_arguments(PARSE_ARGV 0 B "" "TEXT" "")
-  message(STATUS "PARSE_ARGV: TEXT=[${B_TEXT}]  решта=[${B_UNPARSED_ARGUMENTS}]")
-endfunction()
-
-via_argn(TEXT "a;b")
-via_argv(TEXT "a;b")
-```
+:::code proj-helper-function/cmake/chomu-parse-argv-a-ne-argn.cmake
 
 ```
 -- ARGN:       TEXT=[a]  решта=[b]
@@ -292,18 +171,7 @@ endif()
 
 З CMake 3.25 з'явився акуратніший спосіб на випадок, коли винести треба кілька змінних або коли частина обчислень має лишитися прихованою:
 
-```cmake
-function(compute_paths)
-  block(PROPAGATE inc_dir lib_dir)
-    set(root "${CMAKE_CURRENT_SOURCE_DIR}/dist")   # службова, назовні не поїде
-    set(inc_dir "${root}/include")
-    set(lib_dir "${root}/lib")
-  endblock()
-  # тут inc_dir і lib_dir уже є, root — немає
-  set(inc_dir "${inc_dir}" PARENT_SCOPE)
-  set(lib_dir "${lib_dir}" PARENT_SCOPE)
-endfunction()
-```
+:::code proj-helper-function/cmake/iak-povernuty-rezultat.cmake
 
 `block(PROPAGATE …)` виносить перелічені змінні на один рівень назовні — з блока в тіло функції — і водночас прибирає все службове. Тоді ж `return()` дістав опцію `PROPAGATE`, яка робить те саме на виході з функції, проскакуючи всі вкладені блоки:
 

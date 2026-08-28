@@ -296,38 +296,7 @@ aarch64-linux-gnu-gcc --sysroot=/opt/sysroots/aarch64-linux-gnu \
 
 Нижче наведено виробничий файл тулчейна для крос-компіляції під 64-бітний ARM Linux (AArch64) із використанням крос-GCC та ізольованого sysroot:
 
-```cmake
-# toolchain-aarch64-linux-gnu.cmake
-# Цільова операційна система та архітектура
-set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSTEM_PROCESSOR aarch64)
-
-# Визначення цільового тріплета
-set(TARGET_TRIPLE aarch64-linux-gnu)
-
-# Шлях до кореневої файлової системи цільової платформи
-set(TARGET_SYSROOT "/opt/sysroots/aarch64-linux-gnu")
-set(CMAKE_SYSROOT "${TARGET_SYSROOT}")
-
-# Встановлення крос-компіляторів
-set(CMAKE_C_COMPILER   "${TARGET_TRIPLE}-gcc")
-set(CMAKE_CXX_COMPILER "${TARGET_TRIPLE}-g++")
-set(CMAKE_ASM_COMPILER "${TARGET_TRIPLE}-gcc")
-
-# Додаткові шляхи пошуку префіксів (наприклад, сторонні залежності)
-list(APPEND CMAKE_PREFIX_PATH "${TARGET_SYSROOT}/usr/local")
-
-# Налаштування політик пошуку
-set(CMAKE_FIND_ROOT_PATH "${TARGET_SYSROOT}")
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-
-# Додаткові прапорці лінкера для безпечного пошуку транзитивних бібліотек
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-Wl,-rpath-link,${TARGET_SYSROOT}/usr/lib/${TARGET_TRIPLE} -Wl,-rpath-link,${TARGET_SYSROOT}/lib/${TARGET_TRIPLE}")
-set(CMAKE_SHARED_LINKER_FLAGS_INIT "-Wl,-rpath-link,${TARGET_SYSROOT}/usr/lib/${TARGET_TRIPLE} -Wl,-rpath-link,${TARGET_SYSROOT}/lib/${TARGET_TRIPLE}")
-```
+:::code target-triple-sysroot-d/cmake/toolchain-aarch64-linux-gnu.cmake
 
 Запуск конфігурації проекту з цим файлом:
 
@@ -348,43 +317,13 @@ cmake --build build-arm64 --parallel
 
 Для платформ, які працюють під керуванням дистрибутивів Debian або Ubuntu, чистий sysroot збирається безпосередньо з офіційних дзеркал пакетів без наявності фізичного пристрою. Оскільки пакети призначені для чужої архітектури, процес розбивається на дві стадії:
 
-```bash
-# 1. Завантаження базових deb-пакетів для AArch64 (перша стадія)
-sudo debootstrap --arch=arm64 --foreign bookworm /opt/sysroots/debian-arm64 http://deb.debian.org/debian
-
-# 2. Копіювання статичного емулятора QEMU user mode всередину sysroot
-sudo cp /usr/bin/qemu-aarch64-static /opt/sysroots/debian-arm64/usr/bin/
-
-# 3. Виконання другої стадії розгортання всередині емульованого chroot
-sudo chroot /opt/sysroots/debian-arm64 /debootstrap/debootstrap --second-stage
-
-# 4. Установка необхідних -dev пакетів заголовків та бібліотек
-sudo chroot /opt/sysroots/debian-arm64 apt-get update
-sudo chroot /opt/sysroots/debian-arm64 apt-get install -y \
-    build-essential libssl-dev zlib1g-dev libsqlite3-dev
-
-# 5. Видалення емулятора після завершення підготовки
-sudo rm /opt/sysroots/debian-arm64/usr/bin/qemu-aarch64-static
-```
+:::code target-triple-sysroot-d/sh/1-heneratsiia-za.sh
 
 ### 2. Вивантаження з реального цільового пристрою (Target Extraction)
 
 Якщо проект розробляється під готовий образ плати з пропрієтарними драйверами (наприклад, плати з SoC Allwinner, Rockchip або NVIDIA Jetson), найпростішим способом є пряма синхронізація кореневої файлової системи з працюючого пристрою через мережу за допомогою утиліти `rsync`:
 
-```bash
-# Синхронізація файлової системи плати з локальним каталогом sysroot
-mkdir -p /opt/sysroots/target-board
-rsync -avz --delete \
-    --exclude='/proc/*' \
-    --exclude='/sys/*' \
-    --exclude='/dev/*' \
-    --exclude='/run/*' \
-    --exclude='/tmp/*' \
-    --exclude='/mnt/*' \
-    --exclude='/media/*' \
-    --exclude='/home/*' \
-    root@192.168.1.100:/ /opt/sysroots/target-board/
-```
+:::code target-triple-sysroot-d/sh/2-vyvantazhennia-z.sh
 
 ### 3. Автоматизована санація символічних посилань
 
@@ -400,37 +339,7 @@ symlinks -cr /opt/sysroots/target-board
 
 Альтернативою є скрипт нормалізації symlinks на мові Python, який обходить дерево каталогів, перевіряє ціль кожного символічного посилання і, якщо воно є абсолютним, обчислює відносний шлях від каталогу розміщення посилання до файлу всередині sysroot:
 
-```python
-#!/usr/bin/env python3
-import os, sys
-
-def sanitize_sysroot_links(sysroot_dir):
-    sysroot_dir = os.path.abspath(sysroot_dir)
-    fixed_count = 0
-    
-    for root, dirs, files in os.walk(sysroot_dir):
-        for name in files + dirs:
-            full_path = os.path.join(root, name)
-            if os.path.islink(full_path):
-                target = os.readlink(full_path)
-                # Якщо посилання починається з '/', воно абсолютне
-                if target.startswith('/'):
-                    # Обчислюємо новий абсолютний шлях усередині sysroot
-                    new_target_abs = os.path.join(sysroot_dir, target.lstrip('/'))
-                    # Обчислюємо відносний шлях від поточного каталогу
-                    rel_target = os.path.relpath(new_target_abs, start=root)
-                    os.unlink(full_path)
-                    os.symlink(rel_target, full_path)
-                    fixed_count += 1
-                    
-    print(f"Санація завершена: виправлено {fixed_count} абсолютних symlink.")
-
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Використання: python3 sanitize_sysroot.py <каталог_sysroot>")
-        sys.exit(1)
-    sanitize_sysroot_links(sys.argv[1])
-```
+:::code target-triple-sysroot-d/py/main.py
 
 ### 4. Генерація SDK у Buildroot та Yocto Project
 
@@ -486,86 +395,8 @@ set(PKG_CONFIG_EXECUTABLE "${TARGET_TRIPLE}-pkg-config" CACHE FILEPATH "Крос
 Нижче наведено приклад діагностичної програми, яка перевіряє конфігурацію архітектури та параметри системних типів у режимі компіляції та виконання:
 
 :::tabs
-```c
-/* diagnostic.c - перевірка цільової архітектури та розмірів типів */
-#include <stdio.h>
-#include <stdint.h>
-#include <sys/types.h>
-
-int main(void) {
-    printf("=== ДІАГНОСТИКА ЦІЛЬОВОЇ ПЛАТФОРМИ ===\n");
-
-#if defined(__x86_64__) || defined(_M_X64)
-    printf("Архітектура CPU: x86_64 (64-bit AMD/Intel)\n");
-#elif defined(__aarch64__)
-    printf("Архітектура CPU: AArch64 (64-bit ARMv8-A)\n");
-#elif defined(__arm__)
-    printf("Архітектура CPU: ARM (32-bit)\n");
-#elif defined(__riscv)
-    printf("Архітектура CPU: RISC-V (%d-bit)\n", __riscv_xlen);
-#else
-    printf("Архітектура CPU: Невідома цільова архітектура\n");
-#endif
-
-#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-    printf("Порядок байтів: Little-Endian\n");
-#elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-    printf("Порядок байтів: Big-Endian\n");
-#endif
-
-    printf("Розмір void*:   %zu байтів\n", sizeof(void*));
-    printf("Розмір long:    %zu байтів\n", sizeof(long));
-    printf("Розмір time_t:  %zu байтів\n", sizeof(time_t));
-    printf("Розмір off_t:   %zu байтів\n", sizeof(off_t));
-
-    return 0;
-}
-```
-```cpp
-// diagnostic.cpp - перевірка цільової архітектури та розмірів типів
-#include <iostream>
-#include <string_view>
-#include <cstdint>
-#include <sys/types.h>
-
-namespace target_info {
-    constexpr std::string_view get_arch_name() noexcept {
-#if defined(__x86_64__) || defined(_M_X64)
-        return "x86_64 (64-bit AMD/Intel)";
-#elif defined(__aarch64__)
-        return "AArch64 (64-bit ARMv8-A)";
-#elif defined(__arm__)
-        return "ARM (32-bit)";
-#elif defined(__riscv)
-        return "RISC-V";
-#else
-        return "Невідома цільова архітектура";
-#endif
-    }
-
-    constexpr std::string_view get_endianness() noexcept {
-#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-        return "Little-Endian";
-#elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-        return "Big-Endian";
-#else
-        return "Невідомий порядок байтів";
-#endif
-    }
-}
-
-int main() {
-    std::cout << "=== ДІАГНОСТИКА ЦІЛЬОВОЇ ПЛАТФОРМИ ===\n";
-    std::cout << "Архітектура CPU: " << target_info::get_arch_name() << "\n";
-    std::cout << "Порядок байтів:  " << target_info::get_endianness() << "\n";
-    std::cout << "Розмір void*:    " << sizeof(void*) << " байтів\n";
-    std::cout << "Розмір long:     " << sizeof(long) << " байтів\n";
-    std::cout << "Розмір time_t:   " << sizeof(time_t) << " байтів\n";
-    std::cout << "Розмір off_t:    " << sizeof(off_t) << " байтів\n";
-
-    return 0;
-}
-```
+:::code target-triple-sysroot-d/c/diagnostic.c
+:::code target-triple-sysroot-d/cpp/diagnostic.cpp
 :::
 
 Якщо виконати компіляцію на хості за допомогою крос-компілятора `aarch64-linux-gnu-gcc` з коректним `--sysroot`, отриманий бінарник виведе розміри типів та архітектуру цільового процесора AArch64 (64-бітні покажчики, little-endian), підтверджуючи відповідність генерованого коду цільовій системі.

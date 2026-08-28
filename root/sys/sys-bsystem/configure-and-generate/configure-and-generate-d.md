@@ -283,62 +283,8 @@ clang++ -I/project/include -I/project/build/generated/include -c /project/src/ma
 Розгляньмо, як приклад коду на C та C++ використовує згенерований на фазі конфігурації заголовок `config.h` для адаптації до можливостей платформи:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include "config.h"
-
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-void* allocate_page_aligned(size_t size) {
-    void* ptr = NULL;
-#if defined(HAVE_POSIX_MEMALIGN)
-    if (posix_memalign(&ptr, 4096, size) != 0) {
-        return NULL;
-    }
-#elif defined(HAVE_ALIGNED_ALLOC)
-    ptr = aligned_alloc(4096, size);
-#else
-    ptr = malloc(size);
-#endif
-    return ptr;
-}
-```
-```cpp
-#include <iostream>
-#include <memory>
-#include <span>
-#include <cstdlib>
-#include "config.h"
-
-#if __has_include(<unistd.h>)
-#include <unistd.h>
-#endif
-
-struct AlignedDeleter {
-    void operator()(void* ptr) const noexcept {
-        std::free(ptr);
-    }
-};
-
-template <typename T>
-std::unique_ptr<T[], AlignedDeleter> make_aligned_buffer(std::size_t count) {
-    std::size_t bytes = count * sizeof(T);
-    void* raw_ptr = nullptr;
-#if defined(HAVE_POSIX_MEMALIGN)
-    if (posix_memalign(&raw_ptr, 4096, bytes) != 0) {
-        return nullptr;
-    }
-#elif defined(HAVE_ALIGNED_ALLOC)
-    raw_ptr = std::aligned_alloc(4096, bytes);
-#else
-    raw_ptr = std::malloc(bytes);
-#endif
-    return std::unique_ptr<T[], AlignedDeleter>(static_cast<T*>(raw_ptr));
-}
-```
+:::code configure-and-generate-d/c/main.c
+:::code configure-and-generate-d/cpp/main.cpp
 :::
 
 ### Пастка затінення файлів (Shadowing Trap)

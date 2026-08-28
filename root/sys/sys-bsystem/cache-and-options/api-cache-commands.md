@@ -264,20 +264,7 @@ endblock()
 
 Під час інтеграції зовнішніх репозиторіїв через модуль `ExternalProject` батьківський кеш не переноситься у дочірній процес автоматично, оскільки дочірній проєкт збирається в повністю ізольованому власному каталозі зі своїм незалежним файлом `CMakeCache.txt`. Для явної трансляції налаштувань використовують секцію `CMAKE_CACHE_ARGS`:
 
-```cmake
-include(ExternalProject)
-
-ExternalProject_Add(
-    thirdparty_zlib
-    GIT_REPOSITORY https://github.com/madler/zlib.git
-    GIT_TAG        v1.3.1
-    CMAKE_CACHE_ARGS
-        -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-        -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
-        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}/thirdparty/install
-        -DZLIB_BUILD_EXAMPLES:BOOL=OFF
-)
-```
+:::code api-cache-commands/cmake/6-peredacha-keshovanykh.cmake
 
 Кожен рядок у `CMAKE_CACHE_ARGS` транслюється у відповідний аргумент `-D` для внутрішнього запуску CMake, створюючи правильні типи та значення в ізольованому дочірньому кеші.
 
@@ -300,22 +287,7 @@ $CACHE{VARIABLE_NAME}
 $ENV{ENVIRONMENT_VARIABLE_NAME}
 ```
 
-```cmake
-set(OPTIMIZATION_LEVEL "-O3" CACHE STRING "Рівень оптимізації")
-
-function(build_target)
-    # Створюємо локальну змінну з таким самим ім'ям
-    set(OPTIMIZATION_LEVEL "-O0")
-    
-    # Звичайне розіменування: повертає локальне значення "-O0"
-    message(STATUS "Локальний рівень: ${OPTIMIZATION_LEVEL}")
-    
-    # Пряме звернення до кешу: повертає глобальне значення "-O3"
-    message(STATUS "Глобальний рівень кешу: $CACHE{OPTIMIZATION_LEVEL}")
-endfunction()
-
-build_target()
-```
+:::code api-cache-commands/cmake/7-syntaksys-rozimenuvannia.cmake
 
 ---
 

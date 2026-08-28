@@ -6,22 +6,7 @@
 
 Команда `install(TARGETS)` реєструє правила копіювання двійкових артефактів цілей у дерево інсталяції та прив'язує їх до іменованих наборів експорту.
 
-```cmake
-install(TARGETS <target>... [EXPORT <export-name>]
-        [RUNTIME_DEPENDENCIES <args>...]
-        [<artifact-type>
-         [DESTINATION <dir>]
-         [PERMISSIONS <permissions>...]
-         [CONFIGURATIONS [Debug|Release|...]]
-         [COMPONENT <component>]
-         [NAMELINK_COMPONENT <component>]
-         [OPTIONAL] [EXCLUDE_FROM_ALL]
-         [NAMELINK_ONLY|NAMELINK_SKIP]
-        ]...
-        [INCLUDES DESTINATION [<dir> ...]]
-        [FILE_SET <set-name> [DESTINATION <dir>] ...]
-)
-```
+:::code api-install-export/cmake/komanda-install-targets.cmake
 
 ### Типи двійкових артефактів
 
@@ -55,18 +40,7 @@ install(TARGETS <target>... [EXPORT <export-name>]
 
 Команда `install(EXPORT)` генерує і встановлює файл сценарію CMake, який відновлює структуру імпортованих цілей (Imported Targets) для зареєстрованого набору експорту.
 
-```cmake
-install(EXPORT <export-name>
-        [DESTINATION <dir>]
-        [NAMESPACE <namespace::>]
-        [FILE <filename.cmake>]
-        [PERMISSIONS <permissions>...]
-        [CONFIGURATIONS <config>...]
-        [COMPONENT <component>]
-        [EXPORT_LINK_INTERFACE_LIBRARIES]
-        [CXX_MODULES_DIRECTORY <directory>]
-)
-```
+:::code api-install-export/cmake/komanda-install-export.cmake
 
 ### Параметри команди
 
@@ -86,30 +60,7 @@ install(EXPORT <export-name>
 
 Для копіювання документації, ліцензійних угод та каталогів заголовків використовуються команди `install(FILES)` та `install(DIRECTORY)`:
 
-```cmake
-# Встановлення окремих файлів
-install(FILES <file>...
-        DESTINATION <dir>
-        [PERMISSIONS <permissions>...]
-        [CONFIGURATIONS <config>...]
-        [COMPONENT <component>]
-        [RENAME <new-name>]
-        [OPTIONAL]
-)
-
-# Встановлення структури каталогів
-install(DIRECTORY <dir>...
-        DESTINATION <dir>
-        [FILE_PERMISSIONS <permissions>...]
-        [DIRECTORY_PERMISSIONS <permissions>...]
-        [USE_SOURCE_PERMISSIONS]
-        [CONFIGURATIONS <config>...]
-        [COMPONENT <component>]
-        [FILES_MATCHING]
-        [PATTERN <pattern> | REGEX <regex>]
-        [EXCLUDE] [PERMISSIONS <permissions>...]
-)
-```
+:::code api-install-export/cmake/instaliatsiia-failiv-ta.cmake
 
 ### Нюанс завершального слеша в install(DIRECTORY)
 
@@ -123,23 +74,7 @@ install(DIRECTORY <dir>...
 
 Команди сімейства `export()` генерують файл імпортованих цілей безпосередньо для дерева збірки (Build Tree), без потреби виконувати команду інсталяції.
 
-```cmake
-# Експорт списку конкретних цілей
-export(TARGETS <target>...
-       [NAMESPACE <namespace::>]
-       [APPEND]
-       FILE <filename.cmake>
-       [EXPORT_LINK_INTERFACE_LIBRARIES]
-       [CXX_MODULES_DIRECTORY <directory>]
-)
-
-# Експорт за назвою експортного набору
-export(EXPORT <export-name>
-       [NAMESPACE <namespace::>]
-       [FILE <filename.cmake>]
-       [CXX_MODULES_DIRECTORY <directory>]
-)
-```
+:::code api-install-export/cmake/komandy-export-targets-ta.cmake
 
 - `FILE <filename.cmake>` — обов'язковий шлях до вихідного файла (зазвичай у каталозі збірки `${CMAKE_CURRENT_BINARY_DIR}/MyLibTargets.cmake`).
 - `APPEND` — дописує нові цілі в кінець наявного файла експорту замість його перезапису.

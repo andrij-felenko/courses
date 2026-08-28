@@ -291,28 +291,7 @@ vcpkg підтримує чотири формати запису версій:
 
 Сучасний CMake оперує концепцією імпортованих цілей із просторами імен (`Namespace::Target`). vcpkg вимагає використання конфігураційного режиму пошуку (`CONFIG`):
 
-```cmake
-cmake_minimum_required(VERSION 3.24)
-project(NetworkService CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Пошук пакетів у дереві vcpkg_installed
-find_package(fmt CONFIG REQUIRED)
-find_package(nlohmann_json CONFIG REQUIRED)
-find_package(OpenSSL REQUIRED)
-
-add_executable(server src/main.cpp)
-
-# Транзитивне зв'язування прапорців та каталогів заголовків
-target_link_libraries(server PRIVATE
-    fmt::fmt
-    nlohmann_json::nlohmann_json
-    OpenSSL::SSL
-    OpenSSL::Crypto
-)
-```
+:::code vcpkg-d/cmake/CMakeLists.txt
 
 Кожна імпортована ціль (`fmt::fmt`, `nlohmann_json::nlohmann_json`) автоматично містить усі публічні вимоги використання (`INTERFACE_INCLUDE_DIRECTORIES`, `INTERFACE_COMPILE_DEFINITIONS`, `INTERFACE_LINK_LIBRARIES`), позбавляючи розробника потреби вручну налаштовувати `include_directories()` чи `${OPENSSL_LIBRARIES}`.
 
@@ -353,19 +332,7 @@ vcpkg усуває цю проблему за допомогою механіз�
 
 Конфігурація джерел кешу передається через змінну оточення `VCPKG_BINARY_SOURCES`:
 
-```bash
-# 1. Локальний файловий кеш на спільному мережевому диску
-export VCPKG_BINARY_SOURCES="clear;files,/mnt/shared/vcpkg-cache,readwrite"
-
-# 2. Кеш GitHub Actions у хмарі
-export VCPKG_BINARY_SOURCES="clear;gha,readwrite"
-
-# 3. Віддалений HTTP/REST сервер або корпоративний Nexus/Artifactory
-export VCPKG_BINARY_SOURCES="clear;http,https://artifacts.company.internal/vcpkg/{name}/{version}/{sha}.zip,readwrite"
-
-# 4. Репозиторій пакетів NuGet
-export VCPKG_BINARY_SOURCES="clear;nuget,https://pkgs.dev.azure.com/org/_packaging/feed/nuget/v3/index.json,readwrite"
-```
+:::code vcpkg-d/sh/main.sh
 
 ### Кешування вихідних ресурсів (Asset Caching)
 

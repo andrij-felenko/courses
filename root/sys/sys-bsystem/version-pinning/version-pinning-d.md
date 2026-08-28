@@ -84,20 +84,7 @@ struct UserSession {
 void init_session(struct UserSession* s);
 int validate_session(const struct UserSession* s);
 ```
-```cpp
-// Версія v1.0.0: auth_session.hpp
-#include <cstdint>
-#include <string_view>
-#include <array>
-
-struct UserSession {
-    uint32_t user_id;
-    std::array<char, 32> token;
-};
-
-void init_session(UserSession* s);
-[[nodiscard]] bool validate_session(const UserSession* s);
-```
+:::code version-pinning-d/cpp/auth_session.hpp
 :::
 
 У версії `v1.0.1` розробник бібліотеки вирішив виправити помилку обліку прав і додав логічний прапорець:
@@ -114,20 +101,7 @@ struct UserSession {
 void init_session(struct UserSession* s);
 int validate_session(const struct UserSession* s);
 ```
-```cpp
-// Версія v1.0.1 (PATCH!): auth_session.hpp
-#include <cstdint>
-#include <array>
-
-struct UserSession {
-    uint32_t user_id;
-    std::array<char, 32> token;
-    bool is_admin; /* Додано нове поле для багфіксу */
-};
-
-void init_session(UserSession* s);
-[[nodiscard]] bool validate_session(const UserSession* s);
-```
+:::code version-pinning-d/cpp/auth_session-2.hpp
 :::
 
 З точки зору вихідного коду (API) зміна є бездоганною: сигнатури функцій `init_session` та `validate_session` не змінилися. Автор публікує реліз як сумісний `PATCH` `1.0.1`.
@@ -336,23 +310,7 @@ cargo build --locked
 
 ### Команди суворої валідації для CI/CD
 
-```bash
-# 1. Rust Cargo
-# Перериває роботу з кодом помилки, якщо Cargo.lock відсутній або вимагає оновлення
-cargo build --locked
-
-# 2. Node.js / npm
-# Видаляє node_modules, встановлює суворо за package-lock.json і падає, якщо замок розходиться з package.json
-npm ci
-
-# 3. pnpm / yarn
-pnpm install --frozen-lockfile
-yarn install --immutable
-
-# 4. Conan 2.0
-# Забороняє додавати нові вузли чи змінювати ревізії у conan.lock
-conan install . --lockfile=conan.lock --lockfile-partial=False
-```
+:::code version-pinning-d/sh/main.sh
 
 ### Еталонний конфігураційний сценарій для GitHub Actions
 

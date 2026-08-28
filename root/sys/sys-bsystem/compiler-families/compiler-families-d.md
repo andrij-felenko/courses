@@ -142,35 +142,8 @@ cl.exe @objects.rsp /Fe:app.exe
 3. **Стандарт C++20** нарешті уніфікував рішення через спеціальний функціональний макрос `__VA_OPT__(,)`:
 
 :::tabs
-```c
-#include <stdio.h>
-
-// Сумісний C-макрос із розширенням GNU/Clang
-#if defined(__GNUC__) || defined(__clang__)
-#define LOG_MSG(fmt, ...) printf("[LOG] " fmt "\n", ##__VA_ARGS__)
-#elif defined(_MSC_VER)
-#define LOG_MSG(fmt, ...) printf("[LOG] " fmt "\n", __VA_ARGS__)
-#endif
-
-void run_c_demo(void) {
-    LOG_MSG("System initialized");
-    LOG_MSG("Values: %d, %d", 10, 20);
-}
-```
-```cpp
-#include <iostream>
-#include <format>
-#include <string_view>
-
-// Стандартний C++20 підхід з використанням __VA_OPT__ та std::format
-#define LOG_MSG_CPP(fmt_str, ...) \
-    std::cout << std::format("[LOG] " fmt_str "\n" __VA_OPT__(,) __VA_ARGS__)
-
-void run_cpp_demo() {
-    LOG_MSG_CPP("System initialized");
-    LOG_MSG_CPP("Values: {}, {}", 10, 20);
-}
-```
+:::code compiler-families-d/c/main.c
+:::code compiler-families-d/cpp/main.cpp
 :::
 
 ### Визначення унікальності файлу в `#pragma once`
@@ -345,48 +318,12 @@ set(CMAKE_CXX_FLAGS "-O3 -Wall -std=c++20")
 
 Сучасний CMake (Modern CMake) пропонує уніфіковані цільові властивості (Target Properties), які автоматично транслюються у правильні ключі конкретного тулчейна:
 
-```cmake
-add_library(core_engine STATIC src/engine.cpp)
-
-# 1. Керування стандартом (додасть -std=c++20 або /std:c++20)
-target_compile_features(core_engine PUBLIC cxx_std_20)
-set_target_properties(core_engine PROPERTIES
-    CXX_EXTENSIONS OFF  # вимкне gnu++ розширення на користь чистого ISO C++
-)
-
-# 2. Керування видимістю (додасть -fvisibility=hidden на GCC/Clang)
-set_target_properties(core_engine PROPERTIES
-    CXX_VISIBILITY_PRESET hidden
-    VISIBILITY_INLINES_HIDDEN ON
-)
-
-# 3. Попередження як помилки (додасть -Werror або /WX)
-set_target_properties(core_engine PROPERTIES
-    COMPILE_WARNING_AS_ERROR ON
-)
-```
+:::code compiler-families-d/cmake/tsilovi-vlastyvosti-proty.cmake
 
 ### Генераторні вирази для тонкого налаштування
 
 Коли необхідно передати специфічний прапорець, якого немає у стандартних властивостях CMake, використовують генераторні вирази `$<COMPILE_LANG_AND_ID:...>`:
 
-```cmake
-target_compile_options(core_engine PRIVATE
-    # Набір попереджень для GCC та Clang
-    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wconversion
-    >
-    # Набір попереджень для MSVC та clang-cl
-    $<$<CXX_COMPILER_ID:MSVC>:
-        /W4
-        /permissive-
-        /Zc:__cplusplus
-        /Zc:preprocessor
-    >
-)
-```
+:::code compiler-families-d/cmake/heneratorni-vyrazy-dlia.cmake
 
 Розуміння архітектурних розбіжностей між GCC, Clang та MSVC дозволяє створювати архітектуру проєкту, яка не залежить від примх конкретного компілятора, забезпечує безшовну збірку на будь-якій операційній системі та захищає бінарні модулі від прихованих пасток несумісності двійкових інтерфейсів.

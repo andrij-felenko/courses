@@ -1,0 +1,11 @@
+set(CPACK_PACKAGE_NAME "telemetry-engine")
+set(CPACK_PACKAGE_VENDOR "Acme Telemetry Labs")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "High-throughput metrics aggregation engine")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://telemetry.example.com")
+set(CPACK_PACKAGE_CONTACT "ops@telemetry.example.com")
+set(CPACK_PACKAGE_LICENSE "Apache-2.0")
+
+# Керування версіями (якщо не задано, береться з project(VERSION))
+set(CPACK_PACKAGE_VERSION_MAJOR "2")
+set(CPACK_PACKAGE_VERSION_MINOR "4")
+set(CPACK_PACKAGE_VERSION_PATCH "0")

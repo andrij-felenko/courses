@@ -40,32 +40,7 @@ find_package(<PackageName> [MODULE] [<version>] [EXACT] [QUIET] [REQUIRED]
 
 Повна форма вимикає пошук файлів `Find<PackageName>.cmake` і дозволяє детально керувати списком назв конфігураційних файлів, префіксами, суфіксами та вибірково вимикати окремі групи системних шляхів:
 
-```cmake
-find_package(<PackageName> [version] [EXACT] [QUIET]
-             [REQUIRED] [[COMPONENTS] components...]
-             [OPTIONAL_COMPONENTS components...]
-             [CONFIG|NO_MODULE]
-             [GLOBAL]
-             [NO_POLICY_SCOPE]
-             [BYPASS_PROVIDER]
-             [NAMES name1 [name2 ...]]
-             [CONFIGS config1 [config2 ...]]
-             [HINTS path1 [path2 ...]]
-             [PATHS path1 [path2 ...]]
-             [REGISTRY_VIEW (64|32|64_32|32_64|HOST|TARGET|BOTH)]
-             [PATH_SUFFIXES suffix1 [suffix2 ...]]
-             [NO_DEFAULT_PATH]
-             [NO_PACKAGE_ROOT_PATH]
-             [NO_CMAKE_PATH]
-             [NO_CMAKE_ENVIRONMENT_PATH]
-             [NO_SYSTEM_ENVIRONMENT_PATH]
-             [NO_CMAKE_PACKAGE_REGISTRY]
-             [NO_CMAKE_SYSTEM_PATH]
-             [NO_CMAKE_SYSTEM_PACKAGE_REGISTRY]
-             [CMAKE_FIND_ROOT_PATH_BOTH |
-              ONLY_CMAKE_FIND_ROOT_PATH |
-              NO_CMAKE_FIND_ROOT_PATH])
-```
+:::code api-find-package/cmake/1-3-povna-syhnatura.cmake
 
 ---
 
@@ -257,19 +232,7 @@ find_library(<VAR>
 
 ### 6.1. Сигнатура find_package_handle_standard_args
 
-```cmake
-include(FindPackageHandleStandardArgs)
-
-find_package_handle_standard_args(<PackageName>
-    (DEFAULT_MSG | "Користувацьке повідомлення про помилку")
-    REQUIRED_VARS <var1> [<var2>...]
-    [VERSION_VAR <version_var>]
-    [HANDLE_VERSION_RANGE]
-    [HANDLE_COMPONENTS]
-    [CONFIG_MODE]
-    [NAME_MISMATCHED]
-    [REASON_FAILURE_MESSAGE <reason_var>])
-```
+:::code api-find-package/cmake/6-1-syhnatura-find-package.cmake
 
 ### 6.2. Параметри макросу
 
@@ -454,19 +417,7 @@ CMake підтримує механізм автоматичного виявл�
 
 Починаючи з версії CMake 3.24, у мові з'явився механізм перехоплення викликів `find_package()` за допомогою постачальників залежностей:
 
-```cmake
-# Реєстрація постачальника залежностей (викликається у файлі тулчейна)
-cmake_language(SET_DEPENDENCY_PROVIDER my_custom_provider
-               SUPPORTED_METHODS FIND_PACKAGE)
-
-function(my_custom_provider method package_name)
-    if(method STREQUAL "FIND_PACKAGE")
-        message(STATUS "Перехоплено пошук пакета: ${package_name}")
-        # Тут можна автоматично завантажити джерела через FetchContent
-        # або підтягнути бінарні пакети через зовнішній менеджер
-    endif()
-endfunction()
-```
+:::code api-find-package/cmake/13-perekhoplennia-poshuku.cmake
 
 Якщо під час виклику `find_package()` передано прапорець `BYPASS_PROVIDER`, зареєстрований постачальник ігнорується, і CMake виконує стандартний алгоритм пошуку у файловій системі.
 

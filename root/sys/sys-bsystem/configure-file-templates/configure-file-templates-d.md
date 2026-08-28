@@ -60,19 +60,7 @@ configure_file(
 
 Уявімо фрагмент шаблона C++ заголовка без суворого обмеження синтаксису:
 
-```cpp
-// template.hpp.in (ПОМИЛКОВИЙ ПІДХІД БЕЗ @ONLY)
-#pragma once
-#include <string_view>
-
-namespace app {
-    inline constexpr std::string_view version = "@PROJECT_VERSION@";
-
-    // Уявімо макрос чи коментар, де зустрічається синтаксис ${...}
-    // або регулярний вираз для перевірки параметрів:
-    // static constexpr auto pattern = R"(${USER_ID:[0-9]+})";
-}
-```
+:::code configure-file-templates-d/cpp/template.hpp
 
 Коли CMake бачить послідовність `${USER_ID:[0-9]+}`, він сприймає її як власну змінну. Оскільки змінної з таким дивним ім'ям у пам'яті CMake немає, він підставляє замість неї **порожній рядок**. Код C++ тихо спотворюється:
 
@@ -181,32 +169,8 @@ void init_subsystem() {
 Ця різниця докорінно змінює спосіб написання умов у вихідному коді:
 
 :::tabs
-```c
-/* C-код із директивою #if */
-#include "app/config.h"
-
-int compress_payload(const uint8_t* src, size_t len, uint8_t* dst) {
-#if HAVE_ZSTD
-    return zstd_compress(src, len, dst);
-#else
-    return raw_copy(src, len, dst);
-#endif
-}
-```
-```cpp
-// C++20 код із виразом if constexpr
-#include <cstdint>
-#include <span>
-#include "app/config.h"
-
-auto compress_payload(std::span<const std::uint8_t> src, std::span<std::uint8_t> dst) {
-    if constexpr (HAVE_ZSTD) {
-        return zstd_compress(src, dst);
-    } else {
-        return raw_copy(src, dst);
-    }
-}
-```
+:::code configure-file-templates-d/c/main.c
+:::code configure-file-templates-d/cpp/2-dyrektyva-cmakedefine01.cpp
 :::
 
 Чому `#cmakedefine01` настільки перевершує звичайний `#cmakedefine`?
@@ -284,18 +248,7 @@ configure_file(
 
 Щоб ціль знала, де шукати згенерований заголовок під час збірки і де його шукатимуть зовнішні споживачі після встановлення (через команду `install`), використовують генераторні вирази вимог вжитку:
 
-```cmake
-add_library(my_lib STATIC src/core.cpp)
-
-target_include_directories(my_lib PUBLIC
-    # Під час власної збірки проєкту: згенеровані заголовки з каталогу збірки
-    $<BUILD_INTERFACE:${GENERATED_DIR}/include>
-    # Під час власної збірки: звичайні публічні заголовки з дерева джерел
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    # Після встановлення в систему через CMake install:
-    $<INSTALL_INTERFACE:include>
-)
-```
+:::code configure-file-templates-d/cmake/pidkliuchennia-do-tsili.cmake
 
 Завдяки цьому ціль `my_lib` експортує правильні шляхи як для локальної компіляції всередині дерева проєкту, так і для віддачі назовні через пакети [find_package](root:sys-bsystem/find-package).
 
@@ -389,19 +342,7 @@ Cflags: -I${includedir}
 
 Під час генерації зверніть увагу: ми використовуємо синтаксис `@..._..._@` для змінних CMake (`@CMAKE_INSTALL_PREFIX@`, `@PROJECT_VERSION@`), тоді як змінні на зразок `${prefix}` та `${libdir}` залишаються незмінними завдяки прапорцю `@ONLY`, щоб утиліта `pkg-config` могла коректно розкривати їх під час запуску в системі.
 
-```cmake
-# Генерація файлу для pkg-config
-include(GNUInstallDirs)
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/libdiag.pc.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/libdiag.pc"
-    @ONLY
-)
-
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libdiag.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
-)
-```
+:::code configure-file-templates-d/cmake/1-heneratsiia-failiv-pkg.cmake
 
 ### 2. Генерація юніт-файлів systemd та desktop-ярликів
 

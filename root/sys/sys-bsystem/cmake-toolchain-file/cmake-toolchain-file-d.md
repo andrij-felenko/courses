@@ -181,22 +181,7 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 
 Файл тулчейна вказує CMake шляхи до бінарних файлів компілятора:
 
-```cmake
-# Визначення префікса або абсолютного шляху
-set(TOOLCHAIN_PREFIX "/opt/toolchains/aarch64-linux-gnu/bin/aarch64-linux-gnu-")
-
-# Обов'язкове призначення компіляторів
-set(CMAKE_C_COMPILER   "${TOOLCHAIN_PREFIX}gcc")
-set(CMAKE_CXX_COMPILER "${TOOLCHAIN_PREFIX}g++")
-set(CMAKE_ASM_COMPILER "${TOOLCHAIN_PREFIX}gcc")
-
-# Допоміжні бінарні утиліти (archiver, ranlib, strip, objcopy)
-set(CMAKE_AR           "${TOOLCHAIN_PREFIX}ar" CACHE FILEPATH "Archiver")
-set(CMAKE_RANLIB       "${TOOLCHAIN_PREFIX}ranlib" CACHE FILEPATH "Ranlib")
-set(CMAKE_STRIP        "${TOOLCHAIN_PREFIX}strip" CACHE FILEPATH "Strip")
-set(CMAKE_OBJCOPY      "${TOOLCHAIN_PREFIX}objcopy" CACHE FILEPATH "Objcopy")
-set(CMAKE_OBJDUMP      "${TOOLCHAIN_PREFIX}objdump" CACHE FILEPATH "Objdump")
-```
+:::code cmake-toolchain-file-d/cmake/pryznachennia.cmake
 
 Якщо інструменти знаходяться у системній змінній середовища `PATH`, у змінних можна вказувати лише імена двійкових файлів (наприклад `arm-none-eabi-gcc`). Проте у промислових середовищах рекомендується використовувати або явні шляхи, або формувати їх відносно змінної середовища (наприклад `$ENV{SDK_PATH}`).
 
@@ -357,24 +342,7 @@ output/host/share/buildroot/toolchainfile.cmake
 
 Цей файл генерується автоматично і містить динамічно обчислені шляхи:
 
-```cmake
-# Автоматично згенерований Buildroot тулчейн (фрагмент)
-string(REGEX REPLACE "/+" "/" REL_CACHED_PATH "${CMAKE_CURRENT_LIST_DIR}/../../..")
-get_filename_component(HOST_DIR "${REL_CACHED_PATH}" ABSOLUTE)
-
-set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSTEM_PROCESSOR aarch64)
-
-set(CMAKE_C_COMPILER   "${HOST_DIR}/bin/aarch64-linux-gcc")
-set(CMAKE_CXX_COMPILER "${HOST_DIR}/bin/aarch64-linux-g++")
-
-set(CMAKE_SYSROOT "${HOST_DIR}/aarch64-buildroot-linux-gnu/sysroot")
-set(CMAKE_FIND_ROOT_PATH "${CMAKE_SYSROOT}")
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-```
+:::code cmake-toolchain-file-d/cmake/pidkhid-buildroot.cmake
 
 Розробнику достатньо передати цей файл у виклику CMake:
 

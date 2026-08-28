@@ -52,23 +52,7 @@ endif()
 
 Головне правило безпечного пошуку: ніколи не шукати загальний каталог `include` чи абстрактний файл із поширеним ім'ям на зразок `codec.h` або `types.h`. Якщо в системі встановлено кілька різних мультимедійних бібліотек, CMake може випадково знайти чужий файл із таким самим іменем і підставити хибний каталог. Тому ми шукаємо відносний шлях із префіксом підкаталогу: `fastcodec/fastcodec.h`.
 
-```cmake
-# 1. Пошук кореневого каталогу включення заголовків
-find_path(FastCodec_INCLUDE_DIR
-    NAMES
-        fastcodec/fastcodec.h
-    HINTS
-        ${PC_FastCodec_INCLUDE_DIRS}
-        ${FastCodec_ROOT}
-        ENV FastCodec_ROOT
-        ${FASTCODEC_ROOT}
-        ENV FASTCODEC_ROOT
-    PATH_SUFFIXES
-        include
-        include/fastcodec
-    DOC "Каталог із заголовковими файлами бібліотеки FastCodec"
-)
-```
+:::code proj-find-module/cmake/3-krok-2-poshuk-katalohiv.cmake
 
 Розберемо деталі роботи цієї команди:
 - Результат записується в кеш-змінну `FastCodec_INCLUDE_DIR`. Якщо файл фізично розташований за шляхом `/opt/custom/include/fastcodec/fastcodec.h`, а пошук здійснювався за `NAMES fastcodec/fastcodec.h`, значенням змінної стане базовий каталог `/opt/custom/include`. Завдяки цьому директива `#include <fastcodec/fastcodec.h>` у коді користувача знайде файл без додаткових модифікацій.
@@ -101,29 +85,7 @@ find_path(FastCodec_INCLUDE_DIR
 
 Для вилучення значень із цих макроозначень використовуємо регулярні вирази:
 
-```cmake
-if(FastCodec_INCLUDE_DIR AND EXISTS "${FastCodec_INCLUDE_DIR}/fastcodec/fastcodec.h")
-    # Зчитуємо лише рядки, що містять макроси версії, не завантажуючи весь файл
-    file(STRINGS "${FastCodec_INCLUDE_DIR}/fastcodec/fastcodec.h" _fastcodec_version_lines
-         REGEX "^#define[ \t]+FASTCODEC_VERSION_(MAJOR|MINOR|PATCH)[ \t]+[0-9]+")
-
-    # Витягуємо окремі компоненти версії
-    string(REGEX MATCH "FASTCODEC_VERSION_MAJOR[ \t]+([0-9]+)" _ "${_fastcodec_version_lines}")
-    set(FastCodec_VERSION_MAJOR "${CMAKE_MATCH_1}")
-
-    string(REGEX MATCH "FASTCODEC_VERSION_MINOR[ \t]+([0-9]+)" _ "${_fastcodec_version_lines}")
-    set(FastCodec_VERSION_MINOR "${CMAKE_MATCH_1}")
-
-    string(REGEX MATCH "FASTCODEC_VERSION_PATCH[ \t]+([0-9]+)" _ "${_fastcodec_version_lines}")
-    set(FastCodec_VERSION_PATCH "${CMAKE_MATCH_1}")
-
-    if(FastCodec_VERSION_MAJOR AND FastCodec_VERSION_MINOR AND FastCodec_VERSION_PATCH)
-        set(FastCodec_VERSION "${FastCodec_VERSION_MAJOR}.${FastCodec_VERSION_MINOR}.${FastCodec_VERSION_PATCH}")
-    endif()
-
-    unset(_fastcodec_version_lines)
-endif()
-```
+:::code proj-find-module/cmake/4-krok-3-vydobuvannia-ta.cmake
 
 Цей алгоритм працює миттєво під час стадії конфігурації, не створює тимчасових файлів на диску та підтримує будь-які цільові архітектури (включно з ARM, RISC-V та мікроконтролерами).
 
@@ -137,18 +99,7 @@ endif()
 
 Якщо користувач встановив опцію `FastCodec_USE_STATIC_LIBS = ON`, модуль повинен тимчасово обмежити пошук розширеннями статичних архівів (`.a` на Unix, `.lib` на Windows):
 
-```cmake
-# Зберігаємо поточний стан суфіксів пошуку бібліотек
-set(_fastcodec_orig_suffixes ${CMAKE_FIND_LIBRARY_SUFFIXES})
-
-if(FastCodec_USE_STATIC_LIBS)
-    if(WIN32)
-        set(CMAKE_FIND_LIBRARY_SUFFIXES .lib .a)
-    else()
-        set(CMAKE_FIND_LIBRARY_SUFFIXES .a)
-    endif()
-endif()
-```
+:::code proj-find-module/cmake/5-1-keruvannia-sufiksamy.cmake
 
 ### 5.2. Врахування мультиархітектурних каталогів
 
@@ -176,48 +127,7 @@ endif()
 
 Тому модуль пошуку повинен окремо шукати оптимізовану та налагоджувальну версії:
 
-```cmake
-# Пошук оптимізованої (Release) версії бібліотеки
-find_library(FastCodec_LIBRARY_RELEASE
-    NAMES
-        fastcodec
-        libfastcodec
-    HINTS
-        ${PC_FastCodec_LIBRARY_DIRS}
-        ${FastCodec_ROOT}
-        ENV FastCodec_ROOT
-    PATH_SUFFIXES
-        ${_fastcodec_path_suffixes}
-        bin
-    DOC "Шлях до Release бібліотеки FastCodec"
-)
-
-# Пошук налагоджувальної (Debug) версії (зазвичай має суфікс d або _d)
-find_library(FastCodec_LIBRARY_DEBUG
-    NAMES
-        fastcodecd
-        fastcodec_d
-        libfastcodecd
-        libfastcodec_d
-    HINTS
-        ${PC_FastCodec_LIBRARY_DIRS}
-        ${FastCodec_ROOT}
-        ENV FastCodec_ROOT
-    PATH_SUFFIXES
-        ${_fastcodec_path_suffixes}
-        bin
-    DOC "Шлях до Debug бібліотеки FastCodec"
-)
-
-# Відновлюємо оригінальні суфікси після пошуку
-set(CMAKE_FIND_LIBRARY_SUFFIXES ${_fastcodec_orig_suffixes})
-unset(_fastcodec_orig_suffixes)
-unset(_fastcodec_path_suffixes)
-
-# Допоміжний макрос для об'єднання конфігурацій
-include(SelectLibraryConfigurations)
-select_library_configurations(FastCodec)
-```
+:::code proj-find-module/cmake/5-4-poshuk-konfihuratsii.cmake
 
 Макрос `select_library_configurations(FastCodec)` працює наступним чином:
 - Якщо знайдено обидва файли (`FastCodec_LIBRARY_RELEASE` і `FastCodec_LIBRARY_DEBUG`), він створює список `FastCodec_LIBRARIES` спеціального формату: `optimized;<шлях_до_release>;debug;<шлях_до_debug>`.
@@ -232,25 +142,7 @@ select_library_configurations(FastCodec)
 
 Коли споживач викликає `find_package(FastCodec COMPONENTS PARALLEL)`, CMake передає список запитаних модулів у змінну `FastCodec_FIND_COMPONENTS`. Модуль пошуку повинен перевірити кожен компонент окремо та зафіксувати його статус у змінній `FastCodec_<Component>_FOUND`:
 
-```cmake
-set(FastCodec_PARALLEL_FOUND FALSE)
-
-if("PARALLEL" IN_LIST FastCodec_FIND_COMPONENTS)
-    # Перевіряємо заголовок на наявність прапорця активації багатопотоковості
-    if(FastCodec_INCLUDE_DIR AND EXISTS "${FastCodec_INCLUDE_DIR}/fastcodec/fastcodec_features.h")
-        file(STRINGS "${FastCodec_INCLUDE_DIR}/fastcodec/fastcodec_features.h" _has_parallel
-             REGEX "^#define[ \t]+FASTCODEC_HAS_PARALLEL[ \t]+1")
-        if(_has_parallel)
-            # Компонент вимагає системної бібліотеки потоків
-            find_package(Threads QUIET)
-            if(Threads_FOUND)
-                set(FastCodec_PARALLEL_FOUND TRUE)
-            endif()
-        endif()
-        unset(_has_parallel)
-    endif()
-endif()
-```
+:::code proj-find-module/cmake/6-krok-5-obrobka.cmake
 
 Якщо компонент виявився відсутнім, а користувач вказав його в секції `COMPONENTS` (як обов'язковий), макрос стандартизованої валідації автоматично визнає весь пакет не знайденим.
 
@@ -260,18 +152,7 @@ endif()
 
 Після збору всіх шляхів, номерів версій та стану компонентів ми передаємо керування стандартному макросу `FindPackageHandleStandardArgs`:
 
-```cmake
-include(FindPackageHandleStandardArgs)
-
-find_package_handle_standard_args(FastCodec
-    REQUIRED_VARS
-        FastCodec_LIBRARY
-        FastCodec_INCLUDE_DIR
-    VERSION_VAR
-        FastCodec_VERSION
-    HANDLE_COMPONENTS
-)
-```
+:::code proj-find-module/cmake/7-krok-6-standartyzovana.cmake
 
 Цей макрос позбавляє автора сценарію від необхідності вручну писати громіздкі перевірки умов `if(FastCodec_INCLUDE_DIR AND FastCodec_LIBRARY)` та формувати діагностичні повідомлення. Він автоматично виконує такі задачі:
 1. Перевіряє, що всі змінні зі списку `REQUIRED_VARS` містять коректні шляхи (не є порожніми і не містять маркер `-NOTFOUND`).
@@ -287,68 +168,7 @@ find_package_handle_standard_args(FastCodec
 
 Кульмінація написання модуля — створення цілі `FastCodec::FastCodec`. Саме вона перетворює сторонню бібліотеку на повноцінний об'єкт Modern CMake, який інкапсулює шляхи заголовків, бінарні файли для кожної конфігурації, вимоги стандарту мови та транзитивні прапорці:
 
-```cmake
-if(FastCodec_FOUND AND NOT TARGET FastCodec::FastCodec)
-    # Створюємо імпортовану ціль із типом UNKNOWN
-    add_library(FastCodec::FastCodec UNKNOWN IMPORTED)
-
-    # Прив'язуємо каталог заголовків як інтерфейсну вимогу
-    set_target_properties(FastCodec::FastCodec PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES "${FastCodec_INCLUDE_DIR}"
-    )
-
-    # Прив'язуємо Release бінарний файл, якщо він є
-    if(FastCodec_LIBRARY_RELEASE)
-        set_property(TARGET FastCodec::FastCodec APPEND PROPERTY
-            IMPORTED_CONFIGURATIONS RELEASE)
-        set_target_properties(FastCodec::FastCodec PROPERTIES
-            IMPORTED_LOCATION_RELEASE "${FastCodec_LIBRARY_RELEASE}"
-        )
-    endif()
-
-    # Прив'язуємо Debug бінарний файл, якщо він є
-    if(FastCodec_LIBRARY_DEBUG)
-        set_property(TARGET FastCodec::FastCodec APPEND PROPERTY
-            IMPORTED_CONFIGURATIONS DEBUG)
-        set_target_properties(FastCodec::FastCodec PROPERTIES
-            IMPORTED_LOCATION_DEBUG "${FastCodec_LIBRARY_DEBUG}"
-        )
-    endif()
-
-    # Якщо немає явного поділу на конфігурації, використовуємо загальну локацію
-    if(NOT FastCodec_LIBRARY_RELEASE AND NOT FastCodec_LIBRARY_DEBUG)
-        set_target_properties(FastCodec::FastCodec PROPERTIES
-            IMPORTED_LOCATION "${FastCodec_LIBRARY}"
-        )
-    endif()
-
-    # Якщо знайдено динамічну бібліотеку на Windows, задаємо імпортну бібліотеку
-    if(WIN32 AND FastCodec_LIBRARY MATCHES "\\.lib$")
-        # Шукаємо відповідний DLL файл поруч або у bin
-        get_filename_component(_lib_dir "${FastCodec_LIBRARY}" DIRECTORY)
-        find_file(FastCodec_DLL
-            NAMES fastcodec.dll
-            HINTS "${_lib_dir}/../bin" "${_lib_dir}"
-        )
-        if(FastCodec_DLL)
-            set_target_properties(FastCodec::FastCodec PROPERTIES
-                IMPORTED_IMPLIB "${FastCodec_LIBRARY}"
-                IMPORTED_LOCATION "${FastCodec_DLL}"
-            )
-        endif()
-    endif()
-
-    # Якщо активовано компонент багатопотоковості, додаємо транзитивну залежність
-    if(FastCodec_PARALLEL_FOUND)
-        set_property(TARGET FastCodec::FastCodec APPEND PROPERTY
-            INTERFACE_LINK_LIBRARIES Threads::Threads
-        )
-        set_property(TARGET FastCodec::FastCodec APPEND PROPERTY
-            INTERFACE_COMPILE_DEFINITIONS FASTCODEC_PARALLEL_ENABLED=1
-        )
-    endif()
-endif()
-```
+:::code proj-find-module/cmake/8-krok-7-stvorennia.cmake
 
 Чому ми обираємо тип `UNKNOWN IMPORTED`? Тому що на етапі конфігурації ми не знаємо напевне, чи є знайдений файл `.a` статичною бібліотекою, чи імпортним описом спільного об'єкта. Тип `UNKNOWN` дозволяє CMake відкласти точне визначення формату до моменту лінкування конкретної цільової платформи.
 
@@ -358,19 +178,7 @@ endif()
 
 Якщо бібліотека має кілька незалежних модулів (наприклад, окрему утиліту командного рядка чи криптографічний модуль `FastCodec::Crypto`), найкращою практикою є створення окремих імпортованих цілей для кожного компонента з точними зв'язками між ними:
 
-```cmake
-# Створення цілі окремого компонента FastCodec::Parallel
-if(FastCodec_PARALLEL_FOUND AND NOT TARGET FastCodec::Parallel)
-    add_library(FastCodec::Parallel INTERFACE IMPORTED)
-    target_link_libraries(FastCodec::Parallel INTERFACE 
-        FastCodec::FastCodec 
-        Threads::Threads
-    )
-    target_compile_definitions(FastCodec::Parallel INTERFACE 
-        FASTCODEC_PARALLEL_ENABLED=1
-    )
-endif()
-```
+:::code proj-find-module/cmake/9-krok-8-modulnyi-podil-na.cmake
 
 Такий підхід дає змогу споживачу обирати мінімальний набір залежностей: лінкування з `FastCodec::FastCodec` дає лише базове ядро без залежності від потоків, тоді як лінкування з `FastCodec::Parallel` автоматично підтягує і ядро, і системні потоки.
 
@@ -380,21 +188,7 @@ endif()
 
 Для підтримки старих підпроєктів, які ще не перейшли на роботу з цілями, ми дублюємо шляхи в традиційні змінні та приховуємо технічні змінні кешу:
 
-```cmake
-if(FastCodec_FOUND)
-    set(FastCodec_INCLUDE_DIRS "${FastCodec_INCLUDE_DIR}")
-    set(FastCodec_LIBRARIES "${FastCodec_LIBRARY}")
-endif()
-
-# Приховуємо внутрішні змінні в графічних інтерфейсах ccmake / cmake-gui
-mark_as_advanced(
-    FastCodec_INCLUDE_DIR
-    FastCodec_LIBRARY
-    FastCodec_LIBRARY_RELEASE
-    FastCodec_LIBRARY_DEBUG
-    FastCodec_DLL
-)
-```
+:::code proj-find-module/cmake/10-krok-9-zabezpechennia.cmake
 
 Команда `mark_as_advanced()` переводить змінні в категорію розширених налаштувань, запобігаючи візуальному захаращенню списку опцій проєкту.
 
@@ -404,92 +198,13 @@ mark_as_advanced(
 
 Щоб підключити створений модуль до збірки, ми розміщуємо його в каталозі `cmake/` нашого проєкту та додаємо цей каталог до списку `CMAKE_MODULE_PATH` у головному файлі `CMakeLists.txt`:
 
-```cmake
-# CMakeLists.txt
-cmake_minimum_required(VERSION 3.20)
-project(ImageCompressor LANGUAGES C CXX)
-
-# Додаємо локальний каталог модулів до пошуку
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-# Знаходимо нашу бібліотеку
-find_package(FastCodec 2.0 REQUIRED COMPONENTS PARALLEL)
-
-# Створюємо ціль програми
-add_executable(compress_tool src/main.cpp)
-
-# Лінкуємо імпортовану ціль — заголовки, бібліотеки та макроси приходять автоматично
-target_link_libraries(compress_tool PRIVATE FastCodec::FastCodec)
-```
+:::code proj-find-module/cmake/11-perevirka-roboty.cmake
 
 Споживчий код може використовувати як мову C, так і ідіоматичний C++ з автоматичним керуванням ресурсами (RAII):
 
 :::tabs
-```c
-/* src/main.c */
-#include <fastcodec/fastcodec.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    printf("FastCodec C client, version %s\n", FASTCODEC_VERSION_STRING);
-    
-    fastcodec_config_t config;
-    fastcodec_get_default_config(&config);
-    
-    fastcodec_ctx_t* ctx = fastcodec_create_context(&config);
-    if (!ctx) {
-        fprintf(stderr, "Помилка ініціалізації контексту стиснення\n");
-        return EXIT_FAILURE;
-    }
-    
-    printf("Контекст стиснення успішно створено.\n");
-    fastcodec_free_context(ctx);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// src/main.cpp
-#include <fastcodec/fastcodec.h>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string_view>
-
-struct FastCodecDeleter {
-    void operator()(fastcodec_ctx_t* ctx) const noexcept {
-        if (ctx) {
-            fastcodec_free_context(ctx);
-        }
-    }
-};
-
-using SafeContext = std::unique_ptr<fastcodec_ctx_t, FastCodecDeleter>;
-
-SafeContext make_codec_context() {
-    fastcodec_config_t config;
-    fastcodec_get_default_config(&config);
-    
-    fastcodec_ctx_t* raw = fastcodec_create_context(&config);
-    if (!raw) {
-        throw std::runtime_error("Не вдалося виділити ресурси для FastCodec");
-    }
-    return SafeContext(raw);
-}
-
-int main() {
-    std::cout << "FastCodec C++ client, version " 
-              << std::string_view(FASTCODEC_VERSION_STRING) << "\n";
-    try {
-        auto ctx = make_codec_context();
-        std::cout << "Контекст стиснення успішно ініціалізовано через RAII.\n";
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << "\n";
-        return 1;
-    }
-    return 0;
-}
-```
+:::code proj-find-module/c/main.c
+:::code proj-find-module/cpp/main.cpp
 :::
 
 ---
@@ -512,19 +227,7 @@ find_package(FastCodec 2.0 REQUIRED)
 
 Щоб переконатися, що створений модуль `FindFastCodec.cmake` не зламається при зміні версій CMake чи на нових операційних системах, рекомендується додати автоматичний тест конфігурації у тестовий набір проєкту:
 
-```cmake
-# tests/CMakeLists.txt
-enable_testing()
-
-# Тест перевіряє, що виклик find_package успішно проходить у чистому середовищі
-add_test(
-    NAME test_find_fastcodec
-    COMMAND ${CMAKE_COMMAND}
-        -D CMAKE_MODULE_PATH=${CMAKE_CURRENT_SOURCE_DIR}/../cmake
-        -D FastCodec_ROOT=${TEST_FASTCODEC_PREFIX}
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/test_find_fastcodec_script.cmake
-)
-```
+:::code proj-find-module/cmake/13-avtomatyzovane.cmake
 
 Сценарій `test_find_fastcodec_script.cmake` містить лише виклик `find_package(FastCodec 2.0 REQUIRED)` та перевірку `if(NOT TARGET FastCodec::FastCodec) message(FATAL_ERROR ...)`. Запуск `ctest --output-on-failure` підтверджує працездатність модуля на етапі безперервної інтеграції (CI).
 

@@ -74,23 +74,7 @@ add_executable(my_app ${SOURCES})
 
 Єдиним надійним інженерним стандартом є **явний перелік файлів** у кожній цілі. У великих проєктах файли групують або додають за допомогою `target_sources()` та сучасного механізму наборів файлів (`FILE_SET`), введеного в CMake 3.23:
 
-```cmake
-# ✅ Канонічний Modern CMake: явний контроль складу цілі
-add_library(crypto_core STATIC)
-
-target_sources(crypto_core
-    PRIVATE
-        src/aes.cpp
-        src/sha256.cpp
-        src/internal_keys.h
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS include
-        FILES
-            include/crypto/aes.h
-            include/crypto/sha256.h
-)
-```
+:::code cmake-antipatterns-d/cmake/kanonichne-rishennia.cmake
 
 Явний список джерел фіксує точний склад бібліотеки у системі контролю версій Git, унеможливлює випадкове потрапляння тимчасових файлів у збірку та забезпечує максимальну швидкість [інкрементальної збірки](root:sys-bsystem/incremental-build).
 
@@ -132,33 +116,7 @@ add_subdirectory(tests)
 
 Усі вимоги до збірки мають бути прив'язані виключно до цілей із явним зазначенням області видимості (`PRIVATE`, `PUBLIC`, `INTERFACE`):
 
-```cmake
-# ✅ Канонічний Modern CMake: ізоляція через властивості цілі
-add_library(network_engine STATIC
-    src/socket.cpp
-    src/packet.cpp
-)
-
-target_include_directories(network_engine
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/internal
-)
-
-target_compile_definitions(network_engine
-    PRIVATE
-        INTERNAL_BUFFER_SIZE=4096
-    PUBLIC
-        NET_ENGINE_ACTIVE=1
-)
-
-target_link_libraries(network_engine
-    PUBLIC
-        Threads::Threads
-)
-```
+:::code cmake-antipatterns-d/cmake/kanonichne-rishennia-2.cmake
 
 Коли інша ціль лінкує `network_engine`:
 ```cmake

@@ -101,22 +101,7 @@ install(TARGETS mylib_core mylib_utils
 
 Починаючи з версії CMake 3.23, введено стандартний механізм наборів файлів **`FILE_SET`**:
 
-```cmake
-# Сучасний стиль CMake 3.23+ із використанням FILE_SET
-add_library(mylib_core src/core.cpp)
-
-target_sources(mylib_core
-    PUBLIC
-        FILE_SET HEADERS
-        BASE_DIRS include
-        FILES include/mylib/core.hpp include/mylib/export.hpp
-)
-
-install(TARGETS mylib_core
-    EXPORT MyLibTargets
-    FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-```
+:::code install-and-export-d/cmake/suchasni-nabory-failiv.cmake
 
 Переваги `FILE_SET`:
 1. Автоматичне налаштування `INTERFACE_INCLUDE_DIRECTORIES`: базовий каталог `BASE_DIRS` автоматично стає каталогом включення як для дерева джерел, так і для дерева інсталяції.
@@ -157,18 +142,7 @@ install(EXPORT MyLibTargets
 
 Якщо заглянути всередину створеного файла `MyLibTargets.cmake`, можна побачити код, який CMake створив автоматично:
 
-```cmake
-# Фрагмент згенерованого MyLibTargets.cmake
-add_library(MyLib::mylib_core SHARED IMPORTED)
-
-set_target_properties(MyLib::mylib_core PROPERTIES
-  INTERFACE_COMPILE_FEATURES "cxx_std_20"
-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-)
-
-# Підключення конфігураційного файла для конкретного типу збірки (Release/Debug)
-include("${CMAKE_CURRENT_LIST_DIR}/MyLibTargets-release.cmake")
-```
+:::code install-and-export-d/cmake/MyLibTargets.cmake
 
 А у допоміжному файлі `MyLibTargets-release.cmake` записується фізичне розташування бінарного файла на диску:
 
@@ -275,20 +249,7 @@ write_basic_package_version_file(
 
 Для створення релокованого файла `MyLibConfig.cmake` створюють шаблон із розширенням `.cmake.in` (зазвичай у каталозі `cmake/MyLibConfig.cmake.in`):
 
-```cmake
-# cmake/MyLibConfig.cmake.in
-@PACKAGE_INIT@
-
-# Підключення транзитивних залежностей (якщо є)
-include(CMakeFindDependencyMacro)
-# find_dependency(ZLIB 1.2 REQUIRED)
-
-# Підключення згенерованого експортного набору цілей
-include("${CMAKE_CURRENT_LIST_DIR}/MyLibTargets.cmake")
-
-# Перевірка наявності запитаних компонентів
-check_required_components(MyLib)
-```
+:::code install-and-export-d/cmake/MyLibConfig.cmake
 
 А в головному `CMakeLists.txt` викликають функцію `configure_package_config_file()`:
 
@@ -307,27 +268,7 @@ configure_package_config_file(
 Тому що звичайна функція `configure_file()` підставила б абсолютні шляхи замість змінних, що зруйнувало б переміщуваність. Функція `configure_package_config_file()` аналізує глибину каталогу `INSTALL_DESTINATION` і генерує макрос `@PACKAGE_INIT@`.
 
 У згенерованому файлі макрос `@PACKAGE_INIT@` розгортається в такий захисний механізм:
-```cmake
-# Фрагмент розгорнутого @PACKAGE_INIT@ у MyLibConfig.cmake
-get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
-
-macro(set_and_check _var _file)
-  set(${_var} "${_file}")
-  if(NOT EXISTS "${_file}")
-    message(FATAL_ERROR "File or directory ${_file} referenced by variable ${_var} does not exist !")
-  endif()
-endmacro()
-
-macro(check_required_components _NAME)
-  foreach(comp ${${_NAME}_FIND_COMPONENTS})
-    if(NOT ${_NAME}_${comp}_FOUND)
-      if(${_NAME}_FIND_REQUIRED_${comp})
-        set(${_NAME}_FOUND FALSE)
-      endif()
-    endif()
-  endforeach()
-endmacro()
-```
+:::code install-and-export-d/cmake/MyLibConfig-2.cmake
 
 Якщо у шаблоні ви звертаєтеся до шляхів через макрос `@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@`, CMake автоматично замінить його на безпечний відносний вираз `"${PACKAGE_PREFIX_DIR}/include"`.
 
@@ -410,39 +351,7 @@ find_package(Hyperion 2.0 REQUIRED COMPONENTS Core Network OPTIONAL_COMPONENTS G
    ```
 2. **Обробка запиту в `Config.cmake.in`:** файл конфігурації перевіряє, які саме компоненти були запрошені споживачем через змінну `${PACKAGE_FIND_COMPONENTS}`:
 
-```cmake
-# Шаблон HyperionConfig.cmake.in із підтримкою компонентів
-@PACKAGE_INIT@
-
-include(CMakeFindDependencyMacro)
-
-# Список усіх підтримуваних компонентів бібліотеки
-set(_supported_components Core Network Gui)
-
-# Якщо споживач не вказав COMPONENTS, вважаємо всі компоненти обов'язковими
-if(NOT Hyperion_FIND_COMPONENTS)
-    set(Hyperion_FIND_COMPONENTS ${_supported_components})
-endif()
-
-# Послідовне підключення запрошених компонентів
-foreach(_comp ${Hyperion_FIND_COMPONENTS})
-    if(_comp IN_LIST _supported_components)
-        set(_target_file "${CMAKE_CURRENT_LIST_DIR}/Hyperion${_comp}Targets.cmake")
-        if(EXISTS "${_target_file}")
-            include("${_target_file}")
-            set(Hyperion_${_comp}_FOUND TRUE)
-        else()
-            set(Hyperion_${_comp}_FOUND FALSE)
-        endif()
-    else()
-        set(Hyperion_${_comp}_FOUND FALSE)
-        set(Hyperion_NOT_FOUND_MESSAGE "Невідомий компонент Hyperion: ${_comp}")
-    endif()
-endforeach()
-
-# Перевірка наявності всіх REQUIRED компонентів
-check_required_components(Hyperion)
-```
+:::code install-and-export-d/cmake/HyperionConfig.cmake
 
 Завдяки макросу `check_required_components(Hyperion)`, якщо споживач зазначив обов'язковий компонент `COMPONENTS Gui REQUIRED`, а відповідний модуль не було зібрано чи встановлено, конфігурація зупиниться зі зрозумілим повідомленням про помилку.
 
@@ -482,28 +391,7 @@ generate_export_header(mylib_core
 
 Починаючи з версії CMake 3.28, стандартизовано підтримку C++20 модулів за допомогою спеціального набору файлів `FILE_SET TYPE CXX_MODULES`:
 
-```cmake
-# Оголошення бібліотеки з C++20 модулем
-add_library(mylib_modern)
-target_sources(mylib_modern
-    PUBLIC
-        FILE_SET CXX_MODULES
-        BASE_DIRS src
-        FILES src/core_module.cppm
-)
-
-install(TARGETS mylib_modern
-    EXPORT MyLibModernTargets
-    FILE_SET CXX_MODULES DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MyLibModern/modules
-)
-
-install(EXPORT MyLibModernTargets
-    FILE MyLibModernTargets.cmake
-    NAMESPACE MyLib::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MyLibModern
-    CXX_MODULES_DIRECTORY modules
-)
-```
+:::code install-and-export-d/cmake/eksport-c-20-moduliv-cxx.cmake
 
 На відміну від звичайних заголовків, двійковий інтерфейс модуля (BMI — Binary Module Interface) жорстко прив'язаний до версії та прапорців компілятора, тому він не може поширюватися у вигляді скомпільованого двійкового файлу. Замість цього CMake встановлює вихідні файли модулів (`.cppm`) та генерує спеціальні метадані у каталозі `CXX_MODULES_DIRECTORY`. Коли клієнтський проєкт виконує інструкцію `import MyLib.Core;`, система збірки споживача автоматично компілює модуль бібліотеки власним компілятором із поточними прапорцями збірки.
 
@@ -543,30 +431,7 @@ configure_package_config_file(
 
 Розподіл встановлюваних файлів за компонентами за допомогою параметра `COMPONENT` дозволяє генераторам CPack автоматично розбивати проєкт на окремі дистрибутивні пакети:
 
-```cmake
-# Розподіл артефактів за компонентами
-install(TARGETS data_engine
-    EXPORT DataEngineTargets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT runtime
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT devel
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(EXPORT DataEngineTargets
-    FILE DataEngineTargets.cmake
-    NAMESPACE DataEngine::
-    DESTINATION ${DATAENGINE_CONFIG_DIR}
-    COMPONENT devel
-)
-
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfigVersion.cmake"
-    DESTINATION ${DATAENGINE_CONFIG_DIR}
-    COMPONENT devel
-)
-```
+:::code install-and-export-d/cmake/vzaiemodiia-z-systemnymy.cmake
 
 Під час запуску CPack створює окремий пакет `data-engine-runtime.deb`, який містить лише двійкові бібліотеки `.so`, та пакет `data-engine-devel.deb`, який містить заголовки, файли конфігурації та файли експорту цілей.
 
@@ -605,67 +470,7 @@ endif()
 
 Зведемо всі розглянуті правила у цілісний, еталонний виробничий блок `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(DataEngine VERSION 2.1.0 LANGUAGES CXX)
-
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
-
-# 1. Оголошення цілі бібліотеки
-add_library(data_engine src/engine.cpp)
-add_library(DataEngine::engine ALIAS data_engine)
-
-target_compile_features(data_engine PUBLIC cxx_std_20)
-
-target_include_directories(data_engine
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-# 2. Інсталяція двійкових артефактів та заголовків
-install(TARGETS data_engine
-    EXPORT DataEngineTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-install(DIRECTORY include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    FILES_MATCHING PATTERN "*.hpp"
-)
-
-# 3. Експорт набору цілей
-set(DATAENGINE_CONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/DataEngine")
-
-install(EXPORT DataEngineTargets
-    FILE DataEngineTargets.cmake
-    NAMESPACE DataEngine::
-    DESTINATION ${DATAENGINE_CONFIG_DIR}
-)
-
-# 4. Генерація та встановлення файлів конфігурації
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
-
-configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/DataEngineConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfig.cmake"
-    INSTALL_DESTINATION ${DATAENGINE_CONFIG_DIR}
-)
-
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/DataEngineConfigVersion.cmake"
-    DESTINATION ${DATAENGINE_CONFIG_DIR}
-)
-```
+:::code install-and-export-d/cmake/povnyi-zrazok-ta-typovi.cmake
 
 Повний наскрізний приклад із вихідним кодом на C++, шаблоном конфігурації, інсталяцією у тимчасовий каталог та проєктом-споживачем наведено в окремій практичній роботі: [повний практичний проєкт створення та споживання пакета](root:sys-bsystem/install-and-export/proj-complete-package.md).
 

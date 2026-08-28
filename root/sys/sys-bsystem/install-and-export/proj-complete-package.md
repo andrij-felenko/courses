@@ -51,25 +51,7 @@ hyperion-project/
 
 Для коректного складання динамічної бібліотеки (`SHARED`) у Windows компілятор MSVC вимагає явного позначення символів ключовим словом `__declspec(dllexport)` під час компіляції самої бібліотеки та `__declspec(dllimport)` під час її підключення у клієнтському коді. Натомість у Linux (GCC/Clang) використовується атрибут видимості `__attribute__((visibility("default")))`.
 
-```cpp
-#pragma once
-
-#if defined(_WIN32) || defined(__CYGWIN__)
-  #if defined(HYPERION_STATIC_DEFINE)
-    #define HYPERION_API
-  #elif defined(hyperion_core_EXPORTS)
-    #define HYPERION_API __declspec(dllexport)
-  #else
-    #define HYPERION_API __declspec(dllimport)
-  #endif
-#else
-  #if defined(__GNUC__) && __GNUC__ >= 4
-    #define HYPERION_API __attribute__((visibility("default")))
-  #else
-    #define HYPERION_API
-  #endif
-#endif
-```
+:::code proj-complete-package/cpp/1-zaholovkovyi-fail.hpp
 
 Зверніть увагу на макрос `hyperion_core_EXPORTS`: CMake автоматично визначає цей макрос під час збірки цілі `hyperion_core` як спільної бібліотеки (`SHARED`). Коли цей самий заголовок включається споживачем, макрос відсутній, і `HYPERION_API` автоматично перемикається на `__declspec(dllimport)`.
 
@@ -77,78 +59,17 @@ hyperion-project/
 
 Клас `Engine` інкапсулює внутрішній стан та надає метод для обчислення некриптографічного хешу FNV-1a над довільним рядковим буфером:
 
-```cpp
-#pragma once
-
-#include <string>
-#include <string_view>
-#include <cstdint>
-#include "hyperion/export.hpp"
-
-namespace hyperion {
-
-class HYPERION_API Engine {
-public:
-    explicit Engine(std::string name);
-    
-    [[nodiscard]] std::string_view name() const noexcept;
-    [[nodiscard]] uint32_t compute_hash(std::string_view payload) const noexcept;
-
-private:
-    std::string name_;
-};
-
-} // namespace hyperion
-```
+:::code proj-complete-package/cpp/2-publichnyi-zaholovok.hpp
 
 ### 3. Реалізація ядра `src/core.cpp`
 
-```cpp
-#include "hyperion/core.hpp"
-
-namespace hyperion {
-
-Engine::Engine(std::string name)
-    : name_(std::move(name)) {}
-
-std::string_view Engine::name() const noexcept {
-    return name_;
-}
-
-uint32_t Engine::compute_hash(std::string_view payload) const noexcept {
-    // Алгоритм 32-бітного хешування FNV-1a
-    uint32_t hash = 2166136261u;
-    for (char c : payload) {
-        hash ^= static_cast<uint8_t>(c);
-        hash *= 16777619u;
-    }
-    return hash;
-}
-
-} // namespace hyperion
-```
+:::code proj-complete-package/cpp/3-realizatsiia-iadra-src.cpp
 
 ### 4. Заголовочний модуль `include/hyperion/math.hpp`
 
 Модуль реалізує шаблон підсумовування елементів вектора, обмежуючи типи даних за допомогою концептів мови C++20:
 
-```cpp
-#pragma once
-
-#include <concepts>
-#include <span>
-#include <numeric>
-
-namespace hyperion::math {
-
-template <typename T>
-requires std::floating_point<T> || std::integral<T>
-[[nodiscard]] constexpr T accumulate_span(std::span<const T> values) noexcept {
-    return std::accumulate(values.begin(), values.end(), T{0});
-}
-
-} // namespace hyperion::math
-```
+:::code proj-complete-package/cpp/4-zaholovochnyi-modul.hpp
 
 ---
 
@@ -156,18 +77,7 @@ requires std::floating_point<T> || std::integral<T>
 
 Файл конфігурації виконується під час виклику `find_package(Hyperion CONFIG)` у клієнтському проєкті. Шаблон містить мінімальний захисний код:
 
-```cmake
-@PACKAGE_INIT@
-
-# Підключення допоміжного макроса пошуку транзитивних залежностей
-include(CMakeFindDependencyMacro)
-
-# Підключення згенерованого файла імпортованих цілей
-include("${CMAKE_CURRENT_LIST_DIR}/HyperionTargets.cmake")
-
-# Перевірка наявності всіх обов'язкових компонентів
-check_required_components(Hyperion)
-```
+:::code proj-complete-package/cmake/shablon-konfihuratsii.cmake
 
 Макрос `@PACKAGE_INIT@` генерує код для визначення відносного кореня інсталяції `PACKAGE_PREFIX_DIR`. Макрос `check_required_components(Hyperion)` гарантує, що якщо споживач передав список компонентів `COMPONENTS core math`, конфігурація перевірить їхню доступність.
 
@@ -177,112 +87,7 @@ check_required_components(Hyperion)
 
 Сценарій `CMakeLists.txt` реалізує повний життєвий цикл збірки, тестування, експорту цілей та генерації пакетних метаданих:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(Hyperion
-    VERSION 1.2.0
-    DESCRIPTION "Виробнича модульна бібліотека телеметрії та обчислень"
-    LANGUAGES CXX
-)
-
-# Задання обов'язкового стандарту C++20 для всіх цілей
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Підключення стандартних допоміжних модулів
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
-
-# Опція типу бібліотеки: за замовчуванням динамічна збірка
-option(BUILD_SHARED_LIBS "Збирати спільні (shared) бібліотеки" ON)
-
-# -----------------------------------------------------------------------------
-# 1. Оголошення цілі Hyperion::core (скомпільована частина)
-# -----------------------------------------------------------------------------
-add_library(hyperion_core src/core.cpp)
-
-# Створення локального псевдоніма для однакового синтаксису в тестах
-add_library(Hyperion::core ALIAS hyperion_core)
-
-# Розділення шляхів включення для дерева джерел та дерева інсталяції
-target_include_directories(hyperion_core
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_compile_features(hyperion_core PUBLIC cxx_std_20)
-
-# Якщо бібліотека збирається як статична, транслюємо макрос споживачам
-if(NOT BUILD_SHARED_LIBS)
-    target_compile_definitions(hyperion_core PUBLIC HYPERION_STATIC_DEFINE)
-endif()
-
-# -----------------------------------------------------------------------------
-# 2. Оголошення цілі Hyperion::math (заголовочна частина)
-# -----------------------------------------------------------------------------
-add_library(hyperion_math INTERFACE)
-add_library(Hyperion::math ALIAS hyperion_math)
-
-target_include_directories(hyperion_math
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_compile_features(hyperion_math INTERFACE cxx_std_20)
-
-# -----------------------------------------------------------------------------
-# 3. Правила інсталяції двійкових артефактів та заголовків
-# -----------------------------------------------------------------------------
-install(TARGETS hyperion_core hyperion_math
-    EXPORT HyperionTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-# Встановлення структури публічних файлів заголовків
-install(DIRECTORY include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    FILES_MATCHING PATTERN "*.hpp"
-)
-
-# -----------------------------------------------------------------------------
-# 4. Генерація файла імпортованих цілей HyperionTargets.cmake
-# -----------------------------------------------------------------------------
-set(HYPERION_CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/Hyperion")
-
-install(EXPORT HyperionTargets
-    FILE HyperionTargets.cmake
-    NAMESPACE Hyperion::
-    DESTINATION ${HYPERION_CONFIG_INSTALL_DIR}
-)
-
-# -----------------------------------------------------------------------------
-# 5. Генерація файлів конфігурації пакета та перевірки версій
-# -----------------------------------------------------------------------------
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/HyperionConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
-
-configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/HyperionConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/HyperionConfig.cmake"
-    INSTALL_DESTINATION ${HYPERION_CONFIG_INSTALL_DIR}
-)
-
-# Інсталяція конфігураційних файлів поруч із HyperionTargets.cmake
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/HyperionConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/HyperionConfigVersion.cmake"
-    DESTINATION ${HYPERION_CONFIG_INSTALL_DIR}
-)
-```
+:::code proj-complete-package/cmake/holovnyi-stsenarii-zbirky.cmake
 
 Зверніть увагу на реєстрацію псевдонімів `add_library(Hyperion::core ALIAS hyperion_core)`. Це дозволяє писати модульні тести та приклади всередині самого репозиторію точно так само, як це робитиме зовнішній споживач: лінкуючись із `Hyperion::core`, а не з внутрішнім іменем `hyperion_core`. Блок `if(NOT BUILD_SHARED_LIBS)` гарантує, що у статичному режимі макрос `HYPERION_STATIC_DEFINE` транзитивно передається через властивість `INTERFACE_COMPILE_DEFINITIONS` усім споживачам.
 
@@ -292,18 +97,7 @@ install(FILES
 
 Виконаємо конфігурацію, компіляцію та інсталяцію бібліотеки у тимчасовий каталог `/tmp/hyperion-dist`:
 
-```bash
-# 1. Конфігурація проєкту в режимі Release із зазначенням префікса інсталяції
-cmake -B build -S . \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/tmp/hyperion-dist
-
-# 2. Компіляція двійкових артефактів
-cmake --build build --config Release
-
-# 3. Виконання інсталяції артефактів у заданий префікс
-cmake --install build
-```
+:::code proj-complete-package/sh/zbirka-ta-instaliatsiia-v.sh
 
 ### Анатомія створеного каталогу інсталяції
 
@@ -340,52 +134,13 @@ cmake --install build
 
 ### Файл опису збірки `examples/consumer_app/CMakeLists.txt`
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(ConsumerApp LANGUAGES CXX)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Пошук встановленої бібліотеки в режимі конфігурації
-find_package(Hyperion 1.2 REQUIRED CONFIG)
-
-add_executable(consumer_app main.cpp)
-
-# Лінкування з імпортованими цілями простору імен Hyperion::
-target_link_libraries(consumer_app
-    PRIVATE
-        Hyperion::core
-        Hyperion::math
-)
-```
+:::code proj-complete-package/cmake/fail-opysu-zbirky-examples.cmake
 
 ### Вихідний код клієнта `examples/consumer_app/main.cpp`
 
 Клієнтський код використовує обидва компоненти: скомпільований клас `Engine` та шаблонну заголовочну функцію `accumulate_span`:
 
-```cpp
-#include <iostream>
-#include <array>
-#include <hyperion/core.hpp>
-#include <hyperion/math.hpp>
-
-int main() {
-    hyperion::Engine engine("TelemetryAlpha");
-    
-    constexpr std::array<double, 4> metrics = {10.5, 20.25, 5.75, 3.5};
-    double total = hyperion::math::accumulate_span<double>(metrics);
-    
-    std::string payload = "SensorData:Total=" + std::to_string(total);
-    uint32_t checksum = engine.compute_hash(payload);
-    
-    std::cout << "Engine: " << engine.name() << "\n";
-    std::cout << "Metrics sum: " << total << "\n";
-    std::cout << "Payload hash: 0x" << std::hex << checksum << std::dec << "\n";
-    
-    return 0;
-}
-```
+:::code proj-complete-package/cpp/vykhidnyi-kod-kliienta.cpp
 
 ---
 
@@ -393,18 +148,7 @@ int main() {
 
 Сконфігуруємо та запустимо програму споживача, передавши шлях до префікса інсталяції через змінну `CMAKE_PREFIX_PATH`:
 
-```bash
-# 1. Конфігурація споживача
-cmake -B build-consumer -S examples/consumer_app \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_PREFIX_PATH=/tmp/hyperion-dist
-
-# 2. Збірка виконуваного файла
-cmake --build build-consumer
-
-# 3. Запуск зібраної програми
-./build-consumer/consumer_app
-```
+:::code proj-complete-package/sh/kompiliatsiia-spozhyvacha.sh
 
 Результат виконання програми:
 ```text
@@ -419,20 +163,7 @@ Payload hash: 0x6e7b1a2f
 
 Виконаємо переміщення:
 
-```bash
-# Перемістимо каталог інсталяції в абсолютно інший каталог
-mv /tmp/hyperion-dist /tmp/hyperion-relocated
-
-# Сконфігуруємо споживача з новим шляхом (використовуючи --fresh для скидання кешу)
-cmake -B build-consumer-relocated -S examples/consumer_app \
-    --fresh \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_PREFIX_PATH=/tmp/hyperion-relocated
-
-# Зберемо та запустимо програму
-cmake --build build-consumer-relocated
-./build-consumer-relocated/consumer_app
-```
+:::code proj-complete-package/sh/demonstratsiia.sh
 
 Збірка та запуск виконуються бездоганно. Це на практиці доводить, що система динамічного обчислення `_IMPORT_PREFIX` у згенерованому `HyperionTargets.cmake` та макрос `@PACKAGE_INIT@` у `HyperionConfig.cmake` повністю ізолюють пакет від структури файлової системи машини збірки.
 

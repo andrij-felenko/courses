@@ -1,0 +1,10 @@
+function(add_plugin name)
+  cmake_parse_arguments(PARSE_ARGV 1 P "SHARED" "OUTPUT_DIR" "SOURCES;DEPENDS")
+  if(P_UNPARSED_ARGUMENTS)
+    message(FATAL_ERROR "add_plugin: зайві аргументи — ${P_UNPARSED_ARGUMENTS}")
+  endif()
+  if(NOT P_SOURCES)
+    message(FATAL_ERROR "add_plugin(${name}): не задано SOURCES")
+  endif()
+  # P_SHARED — TRUE/FALSE, P_OUTPUT_DIR — рядок, P_SOURCES і P_DEPENDS — списки
+endfunction()

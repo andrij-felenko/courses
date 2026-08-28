@@ -67,23 +67,7 @@
 
 ## Команди читання й запису
 
-```cmake
-set_target_properties(<ціль>... PROPERTIES <влас1> <знач1> [<влас2> <знач2>]...)
-
-set_property(TARGET <ціль>...
-             [APPEND] [APPEND_STRING]
-             PROPERTY <влас> [<знач>...])
-
-get_target_property(<змінна> <ціль> <влас>)
-
-get_property(<змінна> TARGET <ціль>
-             PROPERTY <влас>
-             [SET | DEFINED | BRIEF_DOCS | FULL_DOCS])
-
-define_property(TARGET PROPERTY <влас> [INHERITED]
-                [BRIEF_DOCS <текст>...] [FULL_DOCS <текст>...]
-                [INITIALIZE_FROM_VARIABLE <змінна>])
-```
+:::code api-target-properties/cmake/komandy-chytannia-i-zapysu.cmake
 
 `set_target_properties` бере кілька цілей і кілька пар «властивість — значення» одразу, але завжди **замінює** попереднє значення. `set_property` бере одну властивість, зате вміє дописувати: `APPEND` додає елемент до списку (порожні значення пропускає), `APPEND_STRING` доклеює текст до наявного рядка, не перетворюючи його на список. Псевдонім (`ALIAS`) не приймає жодна з двох — на псевдоніми властивості лише читають.
 
@@ -128,26 +112,4 @@ add_library(img img.cpp)              # MYAPP_LAYER цілі img = core
 
 ## Мінімальний повний опис цілі
 
-```cmake
-add_library(img img.cpp resize.cpp)
-add_library(img::img ALIAS img)
-
-target_include_directories(img PUBLIC include PRIVATE src)
-target_compile_definitions(img PUBLIC IMG_SIMD)
-target_compile_features(img PUBLIC cxx_std_17)
-target_link_libraries(img PRIVATE Threads::Threads)
-set_property(TARGET img APPEND PROPERTY COMPILE_OPTIONS -Wall -Wextra)
-
-set_target_properties(img PROPERTIES
-    OUTPUT_NAME imgcore
-    VERSION 1.4.2
-    SOVERSION 1
-    POSITION_INDEPENDENT_CODE ON
-    EXPORT_NAME img
-    FOLDER "libs")
-
-get_target_property(kind img TYPE)
-get_property(pic_set TARGET img PROPERTY POSITION_INDEPENDENT_CODE SET)
-message(STATUS "${kind}, PIC задано явно: ${pic_set}")
-# -- STATIC_LIBRARY, PIC задано явно: 1
-```
+:::code api-target-properties/cmake/minimalnyi-povnyi-opys.cmake

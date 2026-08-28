@@ -63,58 +63,7 @@
 
 Файл `conanfile.py` є повноцінним класом на мові Python, успадкованим від `conan.ConanFile`. Він визначає повний життєвий цикл пакета від опису графа до конфігурації компіляції.
 
-```python
-from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
-from conan.tools.files import copy
-
-class TelemetryEngineConan(ConanFile):
-    name = "network-telemetry-engine"
-    version = "2.4.1"
-    package_type = "application"
-
-    # Параметри конфігурації двійкового середовища
-    settings = "os", "arch", "compiler", "build_type"
-    
-    # Користувацькі опції та значення за замовчуванням
-    options = {
-        "shared": [True, False],
-        "fPIC": [True, False],
-        "with_ssl": [True, False]
-    }
-    default_options = {
-        "shared": False,
-        "fPIC": True,
-        "with_ssl": True
-    }
-
-    def config_options(self):
-        # На платформі Windows позиційно-незалежний код не має сенсу
-        if self.settings.os == "Windows":
-            self.options.rm_safe("fPIC")
-
-    def layout(self):
-        # Стандартизована структура каталогів для збірки CMake
-        cmake_layout(self)
-
-    def requirements(self):
-        # Оголошення прямих бібліотечних залежностей
-        self.requires("fmt/10.1.1")
-        if self.options.with_ssl:
-            self.requires("openssl/3.1.4", transitive_headers=True)
-
-    def build_requirements(self):
-        # Інструменти, необхідні виключно на етапі збірки на машині-хості
-        self.tool_requires("cmake/3.28.1")
-        self.tool_requires("ninja/1.11.1")
-
-    def generate(self):
-        # Генерація файлів інтеграції для системи збірки
-        tc = CMakeToolchain(self)
-        tc.generate()
-        deps = CMakeDeps(self)
-        deps.generate()
-```
+:::code api-dependency-graph-contract/py/main.py
 
 #### Семантика методів життєвого циклу рецепта Conan
 
@@ -172,18 +121,7 @@ CXXFLAGS=-O3 -march=native -Wall
 
 Триплет vcpkg є сценарієм на мові CMake, який розташовується у каталозі `triplets/` або `triplets/community/` і визначає глобальні змінні цільового середовища:
 
-```cmake
-# x64-linux-custom.cmake
-set(VCPKG_TARGET_ARCHITECTURE x64)
-set(VCPKG_CRT_LINKAGE dynamic)
-set(VCPKG_LIBRARY_LINKAGE static)
-set(VCPKG_CMAKE_SYSTEM_NAME Linux)
-set(VCPKG_BUILD_TYPE release)
-
-# Додаткові прапорці компілятора для захисту пам'яті
-set(VCPKG_C_FLAGS "-fstack-protector-strong -D_FORTIFY_SOURCE=2")
-set(VCPKG_CXX_FLAGS "-fstack-protector-strong -D_FORTIFY_SOURCE=2")
-```
+:::code api-dependency-graph-contract/cmake/x64-linux-custom.cmake
 
 #### Ключові змінні триплета vcpkg
 
@@ -200,18 +138,7 @@ set(VCPKG_CXX_FLAGS "-fstack-protector-strong -D_FORTIFY_SOURCE=2")
 
 Усі створені цілі реєструються як глобальні імпортовані цілі (`add_library(Package::Target UNKNOWN IMPORTED GLOBAL)`). Вони інкапсулюють повний набір властивостей використання:
 
-```cmake
-# Приклад згенерованого файлу fmt-targets-release.cmake
-add_library(fmt::fmt STATIC IMPORTED GLOBAL)
-
-set_target_properties(fmt::fmt PROPERTIES
-    IMPORTED_LOCATION_RELEASE "/home/user/.conan2/p/pkg_4a91c78e3b1290ff/p/lib/libfmt.a"
-    INTERFACE_INCLUDE_DIRECTORIES "/home/user/.conan2/p/pkg_4a91c78e3b1290ff/p/include"
-    INTERFACE_COMPILE_DEFINITIONS "FMT_SHARED=0"
-    INTERFACE_COMPILE_FEATURES "cxx_std_17"
-    INTERFACE_LINK_LIBRARIES "m"
-)
-```
+:::code api-dependency-graph-contract/cmake/fmt-targets-release.cmake
 
 ### Специфікація властивостей цілей CMake
 

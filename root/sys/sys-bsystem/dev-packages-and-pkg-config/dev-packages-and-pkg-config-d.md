@@ -345,27 +345,7 @@ CMake має власний вбудований механізм пошуку [
 
 Сучасний стандарт роботи з `FindPkgConfig` вимагає використання прапорця `IMPORTED_TARGET`:
 
-```cmake
-# CMakeLists.txt
-cmake_minimum_required(VERSION 3.16)
-project(ImageProcessor LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 20)
-
-# Завантаження модуля пошуку pkg-config
-find_package(PkgConfig REQUIRED)
-
-# Пошук бібліотеки libpng версії не менше 1.6
-# Прапорець IMPORTED_TARGET створює повноцінну імпортовану ціль PkgConfig::PNG
-pkg_check_modules(PNG REQUIRED IMPORTED_TARGET libpng>=1.6)
-
-# Створення виконуваного файлу
-add_executable(img_proc src/main.c)
-
-# Прив'язка залежності через імпортовану ціль
-target_link_libraries(img_proc PRIVATE PkgConfig::PNG)
-```
+:::code dev-packages-and-pkg-config-d/cmake/CMakeLists.txt
 
 Використання імпортованої цілі `PkgConfig::PNG` дає принципові переваги:
 - Вона інкапсулює шляхи до заголовків у властивості `INTERFACE_INCLUDE_DIRECTORIES`.
@@ -404,123 +384,15 @@ Meson самостійно перевіряє `PKG_CONFIG_PATH`, коректн�
 
 У традиційних сценаріях `Makefile` прапорці підставляються через функцію виклику оболонки `$(shell ...)`:
 
-```makefile
-# Makefile
-CC ?= gcc
-CFLAGS ?= -Wall -Wextra -O2
-PKG_CONFIG ?= pkg-config
-
-# Отримуємо прапорці від pkg-config
-PNG_CFLAGS := $(shell $(PKG_CONFIG) --cflags libpng)
-PNG_LIBS := $(shell $(PKG_CONFIG) --libs libpng)
-
-CFLAGS += $(PNG_CFLAGS)
-LDLIBS += $(PNG_LIBS)
-
-img_proc: src/main.o
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
-
-src/main.o: src/main.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean:
-	rm -f src/*.o img_proc
-```
+:::code dev-packages-and-pkg-config-d/make/Makefile
 
 ### Приклад програми: використання знайденого API
 
 Погляньмо, як виглядає реальний вихідний код програми, що споживає системне C API бібліотеки `libpng` та безпечну C++ обгортку:
 
 :::tabs
-```c
-/* src/main.c */
-#include <png.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    /* Отримання версії бібліотеки через публічне C API */
-    const char* header_ver = PNG_LIBPNG_VER_STRING;
-    const char* runtime_ver = png_get_header_version(NULL);
-
-    printf("Версія заголовків libpng: %s\n", header_ver);
-    printf("Версія бінарного runtime: %s\n", runtime_ver);
-
-    /* Ініціалізація внутрішньої структури читання PNG */
-    png_structp png_ptr = png_create_read_struct(
-        PNG_LIBPNG_VER_STRING, NULL, NULL, NULL
-    );
-
-    if (!png_ptr) {
-        fprintf(stderr, "Помилка: не вдалося виділити пам'ять під png_struct\n");
-        return EXIT_FAILURE;
-    }
-
-    png_infop info_ptr = png_create_info_struct(png_ptr);
-    if (!info_ptr) {
-        fprintf(stderr, "Помилка: не вдалося виділити пам'ять під png_info\n");
-        png_destroy_read_struct(&png_ptr, NULL, NULL);
-        return EXIT_FAILURE;
-    }
-
-    printf("Структури libpng успішно ініціалізовано.\n");
-
-    /* Звільнення виділених системних ресурсів */
-    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// src/main.cpp
-#include <png.h>
-#include <iostream>
-#include <memory>
-#include <string_view>
-#include <expected>
-
-// RAII обгортка для автоматичного контролю життєвого циклу ресурсів libpng
-struct PngContext {
-    png_structp png_ptr{nullptr};
-    png_infop info_ptr{nullptr};
-
-    PngContext() {
-        png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
-        if (png_ptr) {
-            info_ptr = png_create_info_struct(png_ptr);
-        }
-    }
-
-    ~PngContext() {
-        if (png_ptr) {
-            png_destroy_read_struct(&png_ptr, info_ptr ? &info_ptr : nullptr, nullptr);
-        }
-    }
-
-    // Забороняємо копіювання ресурсу
-    PngContext(const PngContext&) = delete;
-    PngContext& operator=(const PngContext&) = delete;
-
-    [[nodiscard]] bool is_valid() const noexcept {
-        return png_ptr != nullptr && info_ptr != nullptr;
-    }
-};
-
-int main() {
-    std::cout << "Версія заголовків libpng: " 
-              << std::string_view(PNG_LIBPNG_VER_STRING) << "\n";
-    std::cout << "Версія бінарного runtime: " 
-              << std::string_view(png_get_header_version(nullptr)) << "\n";
-
-    PngContext ctx;
-    if (!ctx.is_valid()) {
-        std::cerr << "Помилка: не вдалося ініціалізувати контекст libpng через RAII\n";
-        return 1;
-    }
-
-    std::cout << "Структури libpng успішно ініціалізовано та захищено через RAII.\n";
-    return 0;
-}
-```
+:::code dev-packages-and-pkg-config-d/c/main.c
+:::code dev-packages-and-pkg-config-d/cpp/main.cpp
 :::
 
 ## Типові помилки діагностики та способи їх усунення

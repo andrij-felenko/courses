@@ -66,21 +66,7 @@ set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
 
 Оголошує метадані та правила поведінки для окремого компонента, ім'я якого фігурує у правилах `install(... COMPONENT <ім'я>)`.
 
-```cmake
-cpack_add_component(
-    <ComponentName>
-    [DISPLAY_NAME <name>]
-    [DESCRIPTION <text>]
-    [HIDDEN]
-    [REQUIRED]
-    [DISABLED]
-    [GROUP <groupName>]
-    [DEPENDS <comp1> <comp2> ...]
-    [INSTALL_TYPES <type1> <type2> ...]
-    [DOWNLOADED]
-    [ARCHIVE_FILE <filename>]
-)
-```
+:::code api-cpack-variables/cmake/CMakeLists.txt
 
 - `DISPLAY_NAME` — текстовий заголовок компонента, який відображається у дереві вибору графічних інсталяторів (NSIS, WiX).
 - `DESCRIPTION` — докладний опис функціональності компонента, що виводиться у спливаючих підказках або інформаційних панелях майстра інсталяції.

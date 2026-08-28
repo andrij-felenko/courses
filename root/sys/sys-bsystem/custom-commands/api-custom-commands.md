@@ -8,25 +8,7 @@
 
 Ця форма команди створює файловий вузол у графі залежностей. Вона не є окремою іменованою ціллю; це низькорівневе декларативне правило, яке вказує системі збірки, як із набору вхідних файлів або цілей отримати один чи кілька вихідних дискових файлів.
 
-```cmake
-add_custom_command(
-    OUTPUT output1 [output2 ...]
-    COMMAND command1 [ARGS] [args1...]
-    [COMMAND command2 [ARGS] [args2...]]
-    [MAIN_DEPENDENCY depend]
-    [DEPENDS [depends...]]
-    [BYPRODUCTS [files...]]
-    [IMPLICIT_DEPENDS <lang1> <file1> [<lang2> <file2>...]]
-    [WORKING_DIRECTORY dir]
-    [COMMENT comment]
-    [DEPFILE depfile]
-    [JOB_POOL pool]
-    [VERBATIM]
-    [APPEND]
-    [USES_TERMINAL]
-    [COMMAND_EXPAND_LISTS]
-)
-```
+:::code api-custom-commands/cmake/1-heneratsiia-failiv-add.cmake
 
 ### Детальний опис параметрів
 
@@ -80,20 +62,7 @@ Ninja вимагає, щоб усі файли, які з'являються н�
 
 Ця сигнатура прив'язує команду до життєвого циклу вже наявної цілі. Вона не створює нових файлових вузлів у дереві залежностей і спрацьовує на фіксованих фазах компіляції цієї цілі.
 
-```cmake
-add_custom_command(
-    TARGET target
-    PRE_BUILD | PRE_LINK | POST_BUILD
-    COMMAND command1 [ARGS] [args1...]
-    [COMMAND command2 [ARGS] [args2...]]
-    [BYPRODUCTS [files...]]
-    [WORKING_DIRECTORY dir]
-    [COMMENT comment]
-    [VERBATIM]
-    [USES_TERMINAL]
-    [COMMAND_EXPAND_LISTS]
-)
-```
+:::code api-custom-commands/cmake/2-khuky-tsilei-add-custom.cmake
 
 ### Стадії прив'язки
 
@@ -116,21 +85,7 @@ add_custom_command(
 
 Створює іменовану службову ціль найвищого рівня. Така ціль не виробляє дискового артефакту з тим самим іменем, тому вважається завжди застарілою і виконує свої команди при кожному запуску.
 
-```cmake
-add_custom_target(
-    Name [ALL]
-    [COMMAND command1 [ARGS] [args1...]]
-    [COMMAND command2 [ARGS] [args2...]]
-    [DEPENDS depend1 [depend2 ...]]
-    [BYPRODUCTS [files...]]
-    [WORKING_DIRECTORY dir]
-    [COMMENT comment]
-    [VERBATIM]
-    [USES_TERMINAL]
-    [COMMAND_EXPAND_LISTS]
-    [SOURCES src1 [src2...]]
-)
-```
+:::code api-custom-commands/cmake/3-fiktyvni-tsili-add.cmake
 
 ### Параметри add_custom_target
 

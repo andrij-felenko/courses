@@ -51,73 +51,11 @@
 
 Бібліотеці `image_processor` для внутрішньої роботи потрібні допоміжні алгоритми з каталогу `src/simd_internal/` та стороння бібліотека розпакування `libpng`, до якої звертаються виключно файли реалізації `png_loader.cpp`. Відкритий заголовок `include/image.h` оперує виключно власним типом `ImageBuffer` і не містить жодного входження `#include <png.h>`.
 
-```cmake
-add_library(image_processor STATIC
-    src/image.cpp
-    src/png_loader.cpp
-    src/simd_internal/sse_kernels.cpp
-)
-
-# Каталог із закритими заголовками бачить лише сама бібліотека
-target_include_directories(image_processor PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/simd_internal
-)
-
-# Прапорець компілятора діє лише на файли image.cpp, png_loader.cpp тощо
-target_compile_options(image_processor PRIVATE
-    -Werror=uninitialized
-)
-
-# libpng лінкується всередину, але її заголовки не експортуються назовні
-target_link_libraries(image_processor PRIVATE
-    PNG::PNG
-)
-```
+:::code usage-requirements-d/cmake/riven-private-detali.cmake
 
 :::tabs
-```c
-/* include/image.h — чистий публічний інтерфейс (C) */
-#ifndef IMAGE_H
-#define IMAGE_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-typedef struct {
-    uint32_t width;
-    uint32_t height;
-    uint8_t* pixels;
-} ImageBuffer;
-
-ImageBuffer* image_create(uint32_t w, uint32_t h);
-void image_free(ImageBuffer* img);
-int image_load_from_file(const char* path, ImageBuffer* out_img);
-
-#endif
-```
-```cpp
-// include/image.hpp — чистий публічний інтерфейс (C++)
-#pragma once
-#include <vector>
-#include <cstdint>
-#include <string_view>
-#include <expected>
-
-namespace img {
-
-struct ImageBuffer {
-    uint32_t width{0};
-    uint32_t height{0};
-    std::vector<uint8_t> pixels;
-};
-
-class Processor {
-public:
-    static std::expected<ImageBuffer, std::string> load_from_file(std::string_view path);
-};
-
-} // namespace img
-```
+:::code usage-requirements-d/c/image.h
+:::code usage-requirements-d/cpp/image.hpp
 :::
 
 Чому тут критично використати саме `PRIVATE`: якщо позначити `PNG::PNG` або `-Werror=uninitialized` як `PUBLIC`, будь-який зовнішній застосунок, який підключить `image_processor`, буде примусово скомпільований із прапорцем зупинки на неініціалізованих змінних і отримає каталог заголовків `libpng` у свій шлях пошуку `#include`. Це створює паразитний зв'язок (англ. *accidental coupling*): сторонній код може випадково скомпілюватися з заголовком `png.h`, навіть не підозрюючи, що бере його не з системного пакета, а транзитивно через бібліотеку обробки зображень.
@@ -127,51 +65,13 @@ public:
 Тепер припустимо, що публічний заголовок `include/image.hpp` містить метод, який повертає об'єкт матриці перетворення, визначений у бібліотеці `linear_math`:
 
 :::tabs
-```c
-/* include/image_transform.h — тип Matrix3x3 є частиною API (C) */
-#ifndef IMAGE_TRANSFORM_H
-#define IMAGE_TRANSFORM_H
-
-#include "image.h"
-#include <math/matrix3x3.h>
-
-void image_apply_transform(ImageBuffer* img, const Matrix3x3* matrix);
-
-#endif
-```
-```cpp
-// include/image_transform.hpp — тип Matrix3x3 є частиною API (C++)
-#pragma once
-#include "image.hpp"
-#include <math/matrix3x3.hpp>
-
-namespace img {
-
-void apply_transform(ImageBuffer& img, const math::Matrix3x3& matrix);
-
-} // namespace img
-```
+:::code usage-requirements-d/c/image_transform.h
+:::code usage-requirements-d/cpp/image_transform.hpp
 :::
 
 Тепер клієнт бібліотеки `image_processor` не зможе навіть скомпілювати рядок `#include <image_transform.hpp>`, якщо йому недоступні заголовки з `linear_math`. Більше того, обидва модулі мусять мати спільний макрос `-DIMG_COLOR_DEPTH_16BIT`, який змінює розмір полів структури `ImageBuffer`.
 
-```cmake
-# Публічні заголовки потрібні і файлам реалізації, і споживачам
-target_include_directories(image_processor PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-)
-
-# Макрос змінює ABI структури ImageBuffer — він має бути ідентичним скрізь
-target_compile_definitions(image_processor PUBLIC
-    IMG_COLOR_DEPTH_16BIT=1
-)
-
-# Оскільки тип Matrix3x3 присутній у відкритому заголовку, залежність має бути PUBLIC
-target_link_libraries(image_processor PUBLIC
-    linear_math
-)
-```
+:::code usage-requirements-d/cmake/riven-public-publichnyi.cmake
 
 Завдяки `PUBLIC` відбуваються дві паралельні дії:
 1. Під час збірки файлу `src/image.cpp` компілятор отримує прапорці `-I.../include`, `-DIMG_COLOR_DEPTH_16BIT=1` та шляхи до заголовків `linear_math`.
@@ -183,21 +83,7 @@ target_link_libraries(image_processor PUBLIC
 
 Класичний приклад — бібліотека, що складається виключно із заголовків (англ. *header-only library*), або ціль-конфігурація, яка слугує носієм стандарту мови:
 
-```cmake
-# Створення інтерфейсної бібліотеки (не збирає жодного .o/.obj файлу)
-add_library(fast_json INTERFACE)
-
-# Споживач отримує шлях до заголовків
-target_include_directories(fast_json INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-)
-
-# Споживач зобов'язаний збиратися у режимі C++20 або новішому
-target_compile_features(fast_json INTERFACE
-    cxx_std_20
-)
-```
+:::code usage-requirements-d/cmake/riven-interface-chysti.cmake
 
 Спроба викликати `target_include_directories(fast_json PRIVATE ...)` для інтерфейсної цілі спричинить фатальну помилку конфігурації CMake:
 ```
@@ -268,18 +154,7 @@ CMake Error at CMakeLists.txt:10 (target_include_directories):
 
 Замість жорсткого прописування прапорців на зразок `-std=c++20` чи `/std:c++latest`, які специфічні для конкретного компілятора і ламають кросплатформність, розробник описує мінімальну вимогу до мови:
 
-```cmake
-# Бібліотека template_helpers використовує концептуальні обмеження C++20 у відкритих заголовках
-add_library(template_helpers INTERFACE)
-target_compile_features(template_helpers INTERFACE cxx_std_20)
-
-# Бібліотека legacy_engine використовує можливості C++17 у власних .cpp файлах
-add_library(legacy_engine STATIC engine.cpp)
-target_compile_features(legacy_engine PRIVATE cxx_std_17)
-
-# Підключаємо template_helpers до legacy_engine
-target_link_libraries(legacy_engine PUBLIC template_helpers)
-```
+:::code usage-requirements-d/cmake/vymohy-do-standartu-movy.cmake
 
 Що відбувається під час генерації для `legacy_engine`:
 * Власна вимога `legacy_engine` — щонайменше `cxx_std_17`.
@@ -314,23 +189,7 @@ target_include_directories(legacy_vendor_sdk SYSTEM INTERFACE
 
 Починаючи з версії CMake 3.16, вимоги вжитку охоплюють механізм попередньої компіляції заголовків (PCH — англ. *Precompiled Headers*). Команда `target_precompile_headers` повністю інтегрована в модель рівнів видимості:
 
-```cmake
-add_library(core_framework STATIC core.cpp utils.cpp)
-
-# Внутрішній PCH прискорює лише збірку файлів самої бібліотеки
-target_precompile_headers(core_framework PRIVATE
-    <vector>
-    <string>
-    <memory>
-    "src/internal_pch.h"
-)
-
-# Публічний PCH примусово підключається до кожного споживача
-target_precompile_headers(core_framework PUBLIC
-    <algorithm>
-    <chrono>
-)
-```
+:::code usage-requirements-d/cmake/poperedno-skompilovani.cmake
 
 Розподіл дій за рівнями:
 * **`PRIVATE`**: заголовок додається у властивість `PRECOMPILE_HEADERS`. Компілятор збирає бінарний файл заголовка (`.gch` або `.pch`) і автоматично додає його через прапорець включення (`-include` або `/Yu`) лише під час компіляції вихідних файлів `core_framework`.
@@ -413,23 +272,7 @@ target_link_libraries(renderer PRIVATE math_engine)
 
 CMake містить вбудований механізм валідації сумісності вимог вжитку: властивості `COMPATIBLE_INTERFACE_BOOL` та `COMPATIBLE_INTERFACE_STRING`.
 
-```cmake
-add_library(driver_legacy STATIC legacy.cpp)
-set_target_properties(driver_legacy PROPERTIES
-    INTERFACE_USE_64BIT_ADDR "OFF"
-    COMPATIBLE_INTERFACE_BOOL USE_64BIT_ADDR
-)
-
-add_library(driver_modern STATIC modern.cpp)
-set_target_properties(driver_modern PROPERTIES
-    INTERFACE_USE_64BIT_ADDR "ON"
-    COMPATIBLE_INTERFACE_BOOL USE_64BIT_ADDR
-)
-
-add_executable(controller main.cpp)
-# ПОМИЛКА під час генерації: несумісні вимоги інтерфейсу!
-target_link_libraries(controller PRIVATE driver_legacy driver_modern)
-```
+:::code usage-requirements-d/cmake/perevirka-nesumisnosti-v.cmake
 
 Коли ціль `controller` намагається злінкувати обидві бібліотеки, генератор CMake аналізує граф вимог і виявляє конфлікт у значенні логічної властивості `USE_64BIT_ADDR`. Процес генерації миттєво зупиняється зі звітом:
 ```
@@ -453,30 +296,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Werror")
 
 Правильне вирішення — створити інтерфейсну ціль із набором прапорців і підключати її лише до власних модулів:
 
-```cmake
-add_library(project_warnings INTERFACE)
-
-target_compile_options(project_warnings INTERFACE
-    $<$<CXX_COMPILER_ID:GNU,Clang>:
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wconversion
-        -Wshadow
-    >
-    $<$<CXX_COMPILER_ID:MSVC>:
-        /W4
-        /permissive-
-    >
-)
-
-# Застосовуємо прапорці лише до власних цілей
-add_library(core_engine STATIC engine.cpp)
-target_link_libraries(core_engine PRIVATE project_warnings)
-
-add_executable(game_server main.cpp)
-target_link_libraries(game_server PRIVATE project_warnings)
-```
+:::code usage-requirements-d/cmake/interfeisni-biblioteky-iak.cmake
 
 ![Структура та поширення вимог інтерфейсної бібліотеки](img/header-only-interface.svg)
 *Інтерфейсна ціль існує в графі збірки як самостійний вузол і безпечно роздає свої вимоги підключеним споживачам.*

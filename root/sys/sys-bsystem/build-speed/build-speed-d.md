@@ -228,70 +228,8 @@ clang++ -c unity_physics_0.cpp -o unity_physics_0.o
 Однак об'єднання кількох просторів імен та областей видимості в один файл створює підступні пастки, до яких звичайний код часто не готовий. Розгляньмо типові проблеми та методи їх подолання:
 
 :::tabs
-```c
-/* Проблема: static змінні та макроси з однаковими іменами у двох .c файлах */
-
-/* file_a.c */
-#define BUFFER_SIZE 1024
-static int internal_counter = 0;
-
-void process_a(void) {
-    internal_counter += BUFFER_SIZE;
-}
-
-/* file_b.c */
-#define BUFFER_SIZE 4096   /* Помилка: перевизначення макросу під час Unity збірки */
-static int internal_counter = 0; /* Помилка: колізія імені з file_a.c */
-
-void process_b(void) {
-    internal_counter += BUFFER_SIZE;
-}
-
-/* Рішення для C: скасування макросів (#undef) та унікальні імена для static символів */
-/* file_a.c (виправлено) */
-#define BUFFER_SIZE_A 1024
-static int counter_a = 0;
-
-void process_a(void) {
-    counter_a += BUFFER_SIZE_A;
-}
-#undef BUFFER_SIZE_A
-```
-```cpp
-// Проблема: конфлікт анонімних просторів імен та локальних макросів у C++
-
-// file_a.cpp
-#define LOG_TAG "Physics"
-namespace {
-    struct State { float mass; };
-    void reset(State& s) { s.mass = 0.0f; }
-}
-
-void update_physics() {
-    State st{1.0f};
-    reset(st);
-}
-
-// file_b.cpp
-#define LOG_TAG "Renderer" // Попередження/помилка препроцесора: LOG_TAG вже існує
-namespace {
-    struct State { int texture_id; }; // Помилка: переозначення структури State
-    void reset(State& s) { s.texture_id = -1; } // Помилка: переозначення функції
-}
-
-// Рішення для C++: іменовані внутрішні простори імен, RAII та прибирання макросів
-// file_a.cpp (виправлено)
-namespace engine::physics::detail {
-    struct State { float mass; };
-    inline void reset(State& s) noexcept { s.mass = 0.0f; }
-}
-
-void update_physics() {
-    using namespace engine::physics::detail;
-    State st{1.0f};
-    reset(st);
-}
-```
+:::code build-speed-d/c/file_a.c
+:::code build-speed-d/cpp/file_a.cpp
 :::
 
 Щоб налагоджувач під час зупинки на точці показував правильні файли та номери рядків, генератори Unity збірок вставляють між джерелами спеціальні директиви препроцесора `#line 1 "src/physics.cpp"`. Це гарантує, що налагоджувальні символи DWARF будуть посилатися на оригінальні джерела, а не на тимчасовий unity-файл.

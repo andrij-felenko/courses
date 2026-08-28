@@ -103,55 +103,9 @@
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdint.h>
-
-void process_packet_header(const uint8_t *buffer) {
-    // Помилка: припущення про Little-Endian у пам'яті
-    uint32_t raw_id = *(const uint32_t *)buffer;
-
-    // Надійна перевірка та конвертація з Big-Endian (Network Byte Order)
-    #if defined(__GNUC__) || defined(__clang__)
-    uint32_t id_le = __builtin_bswap32(raw_id);
-    #else
-    uint32_t id_le = ((raw_id >> 24) & 0xFF) |
-                     ((raw_id >> 8)  & 0xFF00) |
-                     ((raw_id << 8)  & 0xFF0000) |
-                     ((raw_id << 24) & 0xFF000000);
-    #endif
-
-    (void)id_le;
-}
-```
+:::code cross-compilation-d/c/2-poriadok-roztashuvannia.c
 @tab C++
-```cpp
-#include <iostream>
-#include <bit>
-#include <cstdint>
-#include <span>
-#include <concepts>
-
-namespace net {
-
-[[nodiscard]] constexpr uint32_t decode_be32(std::span<const uint8_t, 4> bytes) noexcept {
-    if constexpr (std::endian::native == std::endian::little) {
-        uint32_t val = (static_cast<uint32_t>(bytes[0]) << 24) |
-                       (static_cast<uint32_t>(bytes[1]) << 16) |
-                       (static_cast<uint32_t>(bytes[2]) << 8)  |
-                       (static_cast<uint32_t>(bytes[3]));
-        return val;
-    } else {
-        uint32_t val = (static_cast<uint32_t>(bytes[3]) << 24) |
-                       (static_cast<uint32_t>(bytes[2]) << 16) |
-                       (static_cast<uint32_t>(bytes[1]) << 8)  |
-                       (static_cast<uint32_t>(bytes[0]));
-        return val;
-    }
-}
-
-} // namespace net
-```
+:::code cross-compilation-d/cpp/2-poriadok-roztashuvannia.cpp
 :::
 
 У сучасному стандарті C++20 механізм `std::endian::native` дозволяє компілятору виконувати оптимізацію порядку байтів ще на етапі компіляції (`constexpr`), повністю усуваючи накладні витрати часу виконання.
@@ -243,39 +197,9 @@ struct NetworkPacket {
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stddef.h>
-#include <stdint.h>
-
-struct NetworkPacket {
-    uint32_t header;
-    uint64_t payload;
-    uint16_t footer;
-};
-
-// Захист на етапі компіляції від неочікуваного вирівнювання
-_Static_assert(sizeof(struct NetworkPacket) == 24, "Розмір структури не відповідає стандарту ARM AAPCS!");
-_Static_assert(offsetof(struct NetworkPacket, payload) == 8, "Зміщення поля payload порушено!");
-```
+:::code cross-compilation-d/c/stdio.h
 @tab C++
-```cpp
-#include <iostream>
-#include <cstddef>
-#include <cstdint>
-#include <type_traits>
-
-struct alignas(8) NetworkPacket {
-    uint32_t header;
-    uint64_t payload;
-    uint16_t footer;
-};
-
-static_assert(std::is_standard_layout_v<NetworkPacket>, "Структура повинна мати Standard Layout!");
-static_assert(sizeof(NetworkPacket) == 24, "Розмір NetworkPacket має бути рівно 24 байти!");
-static_assert(offsetof(NetworkPacket, payload) == 8, "Зміщення payload повинно дорівнювати 8!");
-static_assert(alignof(NetworkPacket) == 8, "Вирівнювання NetworkPacket має дорівнювати 8!");
-```
+:::code cross-compilation-d/cpp/demonstratsiia.hpp
 :::
 
 Використання атрибута `__attribute__((packed))` ліквідує всі проміжні байти паддінгу, стискаючи розмір структури до `4 + 8 + 2 = 14 байтів`. Проте на архітектурах без апаратної підтримки непарного доступу до пам'яті (деякі версії ARM Cortex-M0/M1) звернення до полів такої упакованої структури змушує компілятор генерувати побайтове зчитування за допомогою логічних зсувів і масок, що суттєво роздуває розмір бінарника та знижує швидкість доступу.
@@ -377,24 +301,7 @@ exec /usr/bin/pkg-config "$@"
 
 Розглянемо типовий наївний фрагмент `CMakeLists.txt`:
 
-```cmake
-# Помилковий наївний підхід при крос-компіляції
-cmake_minimum_required(VERSION 3.20)
-project(MyEmbeddedDevice C CXX)
-
-# Допоміжна утиліта для генерації хеш-таблиці
-add_executable(generate_lookup_tables tools/table_generator.c)
-
-# Генерація файлу під час компіляції
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/lookup_table.c"
-    COMMAND generate_lookup_tables -o "${CMAKE_CURRENT_BINARY_DIR}/lookup_table.c"
-    DEPENDS generate_lookup_tables
-)
-
-# Цільова прошивка
-add_executable(firmware main.c "${CMAKE_CURRENT_BINARY_DIR}/lookup_table.c")
-```
+:::code cross-compilation-d/cmake/mekhanika-pomylky.cmake
 
 Якщо цей проєкт конфігурується з файлом тулчейна для ARM64 (`-DCMAKE_TOOLCHAIN_FILE=arm64.cmake`), змінна `CMAKE_CROSSCOMPILING` встановлюється в `TRUE`. Команда `add_executable(generate_lookup_tables ...)` використовує цільовий крос-компілятор `aarch64-linux-gnu-gcc`.
 
@@ -469,24 +376,7 @@ cat /proc/sys/fs/binfmt_misc/qemu-aarch64
 
 CMake підтримує стандартний механізм запуску тестів через емулятор за допомогою властивості `CROSSCOMPILING_EMULATOR`:
 
-```cmake
-# У файлі тулчейна або CMakeLists.txt
-if(CMAKE_CROSSCOMPILING)
-    find_program(QEMU_ARM_EMULATOR NAMES qemu-aarch64-static qemu-aarch64)
-    if(QEMU_ARM_EMULATOR)
-        # Вказуємо шлях до цільового sysroot для пошуку динамічних бібліотек .so
-        set(CMAKE_CROSSCOMPILING_EMULATOR
-            "${QEMU_ARM_EMULATOR}"
-            "-L" "${CMAKE_SYSROOT}"
-        )
-    endif()
-endif()
-
-# Оголошення тесту в CMake
-enable_testing()
-add_executable(unit_tests tests/test_main.cpp)
-add_test(NAME CoreAlgorithmTests COMMAND unit_tests)
-```
+:::code cross-compilation-d/cmake/intehratsiia-z-cmake-ta.cmake
 
 Тепер команда `ctest` на хості x86_64 автоматично запустить кожен цільовий ARM бінарник через QEMU, збере вивід та коди повернення так, ніби тести виконувалися нативно.
 

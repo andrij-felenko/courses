@@ -15,66 +15,8 @@
 У файлі заголовків оголошуємо структури точок та функції обчислення. Для мови C надаємо класичний процедурний інтерфейс з обов'язковим блоком `extern "C"`, а для C++ — сучасний строго типізований інтерфейс у просторі імен із типами `std::span` та `std::expected`.
 
 :::tabs
-```c
-/* include/geomcalc.h */
-#ifndef GEOMCALC_H
-#define GEOMCALC_H
-
-#include <stddef.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    double x;
-    double y;
-} geom_point_t;
-
-/* Обчислює площу трикутника за координатами вершин */
-double geom_triangle_area(geom_point_t a, geom_point_t b, geom_point_t c);
-
-/* Генерує стиснений бінарний звіт про геометрію (використовує zlib) */
-int geom_export_compressed_report(const geom_point_t* points, size_t count, 
-                                  unsigned char* out_buf, size_t* out_size);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* GEOMCALC_H */
-```
-```cpp
-// include/geomcalc.hpp
-#pragma once
-
-#include <cstddef>
-#include <span>
-#include <vector>
-#include <expected>
-
-namespace geom {
-
-struct Point {
-    double x{0.0};
-    double y{0.0};
-};
-
-enum class ExportError {
-    BufferTooSmall,
-    CompressionFailed,
-    EmptyInput
-};
-
-// Обчислює площу трикутника за трьома точками
-double triangle_area(Point a, Point b, Point c) noexcept;
-
-// Генерує стиснений бінарний звіт
-std::expected<std::vector<unsigned char>, ExportError> 
-export_compressed_report(std::span<const Point> points);
-
-} // namespace geom
-```
+:::code proj-pc-authoring/c/geomcalc.h
+:::code proj-pc-authoring/cpp/geomcalc.hpp
 :::
 
 ### Реалізація: src/geomcalc.c / src/geomcalc.cpp
@@ -82,75 +24,8 @@ export_compressed_report(std::span<const Point> points);
 У файлах реалізації виконуємо математичні обчислення через `fabs()` з `<math.h>` та здійснюємо виклик функції `compress()` із бібліотеки `zlib`. Функція розраховує необхідний розмір буфера стиснення за допомогою `compressBound()` і перевіряє коди завершення алгоритму Deflate.
 
 :::tabs
-```c
-/* src/geomcalc.c */
-#include "geomcalc.h"
-#include <math.h>
-#include <zlib.h>
-#include <stdlib.h>
-#include <string.h>
-
-double geom_triangle_area(geom_point_t a, geom_point_t b, geom_point_t c) {
-    /* Формула Гауса для площі багатокутника з використанням fabs з math.h */
-    double area = 0.5 * fabs(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
-    return area;
-}
-
-int geom_export_compressed_report(const geom_point_t* points, size_t count, 
-                                  unsigned char* out_buf, size_t* out_size) {
-    if (!points || count == 0 || !out_buf || !out_size) {
-        return -1;
-    }
-    
-    size_t raw_bytes = count * sizeof(geom_point_t);
-    uLongf dest_len = (uLongf)(*out_size);
-    
-    int z_res = compress(out_buf, &dest_len, (const Bytef*)points, (uLong)raw_bytes);
-    if (z_res != Z_OK) {
-        return -2;
-    }
-    
-    *out_size = (size_t)dest_len;
-    return 0;
-}
-```
-```cpp
-// src/geomcalc.cpp
-#include "geomcalc.hpp"
-#include <cmath>
-#include <zlib.h>
-
-namespace geom {
-
-double triangle_area(Point a, Point b, Point c) noexcept {
-    return 0.5 * std::abs(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
-}
-
-std::expected<std::vector<unsigned char>, ExportError> 
-export_compressed_report(std::span<const Point> points) {
-    if (points.empty()) {
-        return std::unexpected(ExportError::EmptyInput);
-    }
-
-    const size_t raw_bytes = points.size_bytes();
-    uLongf max_dest_len = compressBound(static_cast<uLong>(raw_bytes));
-    std::vector<unsigned char> compressed(max_dest_len);
-
-    uLongf actual_len = max_dest_len;
-    int z_res = compress(compressed.data(), &actual_len, 
-                         reinterpret_cast<const Bytef*>(points.data()), 
-                         static_cast<uLong>(raw_bytes));
-                         
-    if (z_res != Z_OK) {
-        return std::unexpected(ExportError::CompressionFailed);
-    }
-
-    compressed.resize(actual_len);
-    return compressed;
-}
-
-} // namespace geom
-```
+:::code proj-pc-authoring/c/geomcalc.c
+:::code proj-pc-authoring/cpp/geomcalc.cpp
 :::
 
 ## 2. Шаблон файла geomcalc.pc.in
@@ -184,57 +59,7 @@ Cflags: -I${includedir}
 
 Команда `configure_file()` підставляє реальні шляхи інсталяції в шаблон `.pc.in` з прапорцем `@ONLY`, щоб випадково не пошкодити змінні вигляду `${prefix}`.
 
-```cmake
-# CMakeLists.txt
-cmake_minimum_required(VERSION 3.16)
-project(geomcalc VERSION 1.2.0 LANGUAGES C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 23)
-
-include(GNUInstallDirs)
-
-# Пошук внутрішньої залежності zlib
-find_package(ZLIB REQUIRED)
-
-# Створення бібліотеки (підтримує збірку як SHARED, так і STATIC через BUILD_SHARED_LIBS)
-add_library(geomcalc
-    src/geomcalc.c
-    src/geomcalc.cpp
-)
-
-target_include_directories(geomcalc PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-target_link_libraries(geomcalc PRIVATE
-    ZLIB::ZLIB
-    m # Підключення libm для Unix
-)
-
-# Генерація файлу метаданих geomcalc.pc
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/geomcalc.pc.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/geomcalc.pc"
-    @ONLY
-)
-
-# Правила інсталяції бінарних файлів та заголовків
-install(TARGETS geomcalc
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-
-install(FILES include/geomcalc.h include/geomcalc.hpp
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-
-# Інсталяція згенерованого .pc файлу в каталог pkgconfig
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/geomcalc.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
-)
-```
+:::code proj-pc-authoring/cmake/CMakeLists.txt
 
 ## 4. Генерація метаданих через Meson
 
@@ -332,108 +157,18 @@ $ pkg-config --static --libs geomcalc
 Створимо тестову клієнтську програму `client`, яка викликає обидві функції бібліотеки: обчислює площу трикутника та формує стиснений бінарний звіт.
 
 :::tabs
-```c
-/* client.c */
-#include <geomcalc.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void) {
-    geom_point_t p1 = {0.0, 0.0};
-    geom_point_t p2 = {4.0, 0.0};
-    geom_point_t p3 = {0.0, 3.0};
-    
-    double area = geom_triangle_area(p1, p2, p3);
-    printf("Обчислена площа трикутника: %.2f (очікується 6.00)\n", area);
-    
-    geom_point_t pts[3] = {p1, p2, p3};
-    unsigned char compressed[128];
-    size_t comp_size = sizeof(compressed);
-    
-    if (geom_export_compressed_report(pts, 3, compressed, &comp_size) == 0) {
-        printf("Звіт успішно стиснуто до %zu байтів.\n", comp_size);
-    }
-    
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-// client.cpp
-#include <geomcalc.hpp>
-#include <iostream>
-#include <vector>
-
-int main() {
-    geom::Point p1{0.0, 0.0};
-    geom::Point p2{4.0, 0.0};
-    geom::Point p3{0.0, 3.0};
-
-    double area = geom::triangle_area(p1, p2, p3);
-    std::cout << "Обчислена площа трикутника: " << area << " (очікується 6.00)\n";
-
-    std::vector<geom::Point> pts{p1, p2, p3};
-    auto report = geom::export_compressed_report(pts);
-
-    if (report.has_value()) {
-        std::cout << "Звіт успішно стиснуто через zlib до " 
-                  << report->size() << " байтів.\n";
-    } else {
-        std::cerr << "Помилка стиснення звіту.\n";
-        return 1;
-    }
-
-    return 0;
-}
-```
+:::code proj-pc-authoring/c/client.c
+:::code proj-pc-authoring/cpp/client.cpp
 :::
 
 ### Складання через Makefile споживача
 
 Напишемо `Makefile`, який демонструє збірку як динамічного клієнта, так і повністю автономного статичного бінарника:
 
-```makefile
-# Makefile споживача
-CC ?= gcc
-CFLAGS ?= -Wall -Wextra -O2
-PKG_CONFIG ?= pkg-config
-
-# Динамічні прапорці
-DYN_CFLAGS := $(shell $(PKG_CONFIG) --cflags geomcalc)
-DYN_LIBS   := $(shell $(PKG_CONFIG) --libs geomcalc)
-DYN_RPATH  := -Wl,-rpath,$(shell $(PKG_CONFIG) --variable=libdir geomcalc)
-
-# Статичні прапорці
-STATIC_CFLAGS := $(shell $(PKG_CONFIG) --static --cflags geomcalc)
-STATIC_LIBS   := $(shell $(PKG_CONFIG) --static --libs geomcalc)
-
-all: client client_static
-
-# Збірка динамічного клієнта
-client: client.c
-	$(CC) $(CFLAGS) $(DYN_CFLAGS) $< $(DYN_RPATH) $(DYN_LIBS) -o $@
-
-# Збірка повністю статичного бінарника
-client_static: client.c
-	$(CC) -static $(CFLAGS) $(STATIC_CFLAGS) $< $(STATIC_LIBS) -o $@
-
-clean:
-	rm -f client client_static
-```
+:::code proj-pc-authoring/make/Makefile
 
 Запустимо компіляцію програми:
-```bash
-$ make
-gcc -Wall -Wextra -O2 -I/tmp/opt/geomcalc/include client.c -Wl,-rpath,/tmp/opt/geomcalc/lib -L/tmp/opt/geomcalc/lib -lgeomcalc -o client
-gcc -static -Wall -Wextra -O2 -I/tmp/opt/geomcalc/include client.c -L/tmp/opt/geomcalc/lib -lgeomcalc -lz -lm -o client_static
-
-$ ./client
-Обчислена площа трикутника: 6.00 (очікується 6.00)
-Звіт успішно стиснуто до 26 байтів.
-
-$ ./client_static
-Обчислена площа трикутника: 6.00 (очікується 6.00)
-Звіт успішно стиснуто до 26 байтів.
-```
+:::code proj-pc-authoring/sh/main.sh
 
 Перевіримо створені бінарники системною утилітою `file` та `ldd`:
 ```bash

@@ -16,53 +16,8 @@
 Публічний заголовок визначає структуру знімка метрик та сигнатури функцій збору й форматування.
 
 :::tabs
-```c
-#ifndef TELEMETRY_METRICS_H
-#define TELEMETRY_METRICS_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    uint64_t uptime_seconds;
-    uint64_t memory_used_bytes;
-    double cpu_load_percent;
-} telemetry_snapshot_t;
-
-int telemetry_collect_metrics(telemetry_snapshot_t* out_snapshot);
-void telemetry_format_json(const telemetry_snapshot_t* snapshot, char* buffer, size_t max_len);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* TELEMETRY_METRICS_H */
-```
-```cpp
-#pragma once
-
-#include <cstddef>
-#include <cstdint>
-#include <string>
-#include <string_view>
-
-namespace telemetry {
-
-struct Snapshot {
-    std::uint64_t uptime_seconds{0};
-    std::uint64_t memory_used_bytes{0};
-    double cpu_load_percent{0.0};
-};
-
-bool collect_metrics(Snapshot& out_snapshot);
-std::string format_json(const Snapshot& snapshot);
-
-} // namespace telemetry
-```
+:::code proj-component-packaging/c/zaholovochnyi-fail.h
+:::code proj-component-packaging/cpp/zaholovochnyi-fail.hpp
 :::
 
 ### Реалізація бібліотеки (`src/metrics.c` / `src/metrics.cpp`)
@@ -70,80 +25,8 @@ std::string format_json(const Snapshot& snapshot);
 Реалізація бібліотеки розраховує час безперервної роботи процесу від моменту першого виклику та формує серіалізований рядок JSON. Нижче наведено варіанти реалізації мовами C та сучасним C++ (C++20).
 
 :::tabs
-```c
-#include "telemetry/metrics.h"
-#include <stdio.h>
-#include <time.h>
-
-static uint64_t g_start_time = 0;
-
-int telemetry_collect_metrics(telemetry_snapshot_t* out_snapshot) {
-    if (!out_snapshot) {
-        return -1;
-    }
-    if (g_start_time == 0) {
-        g_start_time = (uint64_t)time(NULL);
-    }
-
-    out_snapshot->uptime_seconds = (uint64_t)time(NULL) - g_start_time;
-    out_snapshot->memory_used_bytes = 1048576 * 42; // Фіксоване тестове значення
-    out_snapshot->cpu_load_percent = 12.5;
-
-    return 0;
-}
-
-void telemetry_format_json(const telemetry_snapshot_t* snapshot, char* buffer, size_t max_len) {
-    if (!snapshot || !buffer || max_len == 0) {
-        return;
-    }
-    snprintf(buffer, max_len,
-             "{\"uptime\": %llu, \"memory_bytes\": %llu, \"cpu_load\": %.2f}\n",
-             (unsigned long long)snapshot->uptime_seconds,
-             (unsigned long long)snapshot->memory_used_bytes,
-             snapshot->cpu_load_percent);
-}
-```
-```cpp
-#include "telemetry/metrics.h"
-#include <chrono>
-#include <format>
-#include <string_view>
-#include <cstring>
-
-namespace {
-    const auto g_start_time = std::chrono::steady_clock::now();
-}
-
-extern "C" int telemetry_collect_metrics(telemetry_snapshot_t* out_snapshot) {
-    if (!out_snapshot) {
-        return -1;
-    }
-
-    const auto now = std::chrono::steady_clock::now();
-    const auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - g_start_time).count();
-
-    out_snapshot->uptime_seconds = static_cast<uint64_t>(elapsed);
-    out_snapshot->memory_used_bytes = 1048576ULL * 42ULL;
-    out_snapshot->cpu_load_percent = 12.5;
-
-    return 0;
-}
-
-extern "C" void telemetry_format_json(const telemetry_snapshot_t* snapshot, char* buffer, size_t max_len) {
-    if (!snapshot || !buffer || max_len == 0) {
-        return;
-    }
-    const std::string json = std::format(
-        "{{\"uptime\": {}, \"memory_bytes\": {}, \"cpu_load\": {:.2f}}}\n",
-        snapshot->uptime_seconds,
-        snapshot->memory_used_bytes,
-        snapshot->cpu_load_percent
-    );
-    const size_t copy_len = (json.size() < max_len - 1) ? json.size() : max_len - 1;
-    std::memcpy(buffer, json.data(), copy_len);
-    buffer[copy_len] = '\0';
-}
-```
+:::code proj-component-packaging/c/realizatsiia-biblioteky.c
+:::code proj-component-packaging/cpp/realizatsiia-biblioteky.cpp
 :::
 
 ### Виконуваний демон (`src/daemon.c` / `src/daemon.cpp`)
@@ -151,48 +34,8 @@ extern "C" void telemetry_format_json(const telemetry_snapshot_t* snapshot, char
 Демон запускається як системна служба, ініціалізує буфери пам'яті, опитує бібліотеку метрик і передає результати у стандартний потік виводу (який перехоплюється журналом `systemd-journald`).
 
 :::tabs
-```c
-#include "telemetry/metrics.h"
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    printf("Starting Telemetry Daemon v1.4.2...\n");
-    telemetry_snapshot_t snapshot;
-    char buffer[256];
-
-    for (int i = 0; i < 3; ++i) {
-        if (telemetry_collect_metrics(&snapshot) == 0) {
-            telemetry_format_json(&snapshot, buffer, sizeof(buffer));
-            fputs(buffer, stdout);
-        }
-        sleep(1);
-    }
-    return 0;
-}
-```
-```cpp
-#include "telemetry/metrics.h"
-#include <iostream>
-#include <thread>
-#include <chrono>
-#include <array>
-
-int main() {
-    std::cout << "Starting Telemetry Daemon v1.4.2...\n";
-    telemetry_snapshot_t snapshot{};
-    std::array<char, 256> buffer{};
-
-    for (int i = 0; i < 3; ++i) {
-        if (telemetry_collect_metrics(&snapshot) == 0) {
-            telemetry_format_json(&snapshot, buffer.data(), buffer.size());
-            std::cout << buffer.data();
-        }
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-    return 0;
-}
-```
+:::code proj-component-packaging/c/vykonuvanyi-demon-src.c
+:::code proj-component-packaging/cpp/vykonuvanyi-demon-src.cpp
 :::
 
 ## 2. Системна інтеграція та сценарії життєвого циклу
@@ -224,22 +67,7 @@ WantedBy=multi-user.target
 
 Для забезпечення ідемпотентності скрипт перевіряє наявність сокета `systemd` у `/run/systemd/system`. Якщо пакунок встановлюється всередині контейнера Docker чи ізольованого середовища `chroot`, де демон `systemd` не запущений як PID 1, скрипт не аварійно перериває інсталяцію, а тихо завершує роботу.
 
-```bash
-#!/bin/sh
-set -e
-
-# 1. Оновлення кешу завантажувача динамічних бібліотек
-if [ -x "$(command -v ldconfig)" ]; then
-    ldconfig
-fi
-
-# 2. Оновлення конфігурації systemd, якщо сервіс встановлюється у працюючій системі
-if [ -d /run/systemd/system ]; then
-    systemctl --system daemon-reload >/dev/null 2>&1 || true
-fi
-
-exit 0
-```
+:::code proj-component-packaging/sh/stsenarii-postinstaliatsii.sh
 
 ## 3. Повна конфігурація `CMakeLists.txt`
 
@@ -247,136 +75,13 @@ exit 0
 
 Зверніть увагу на використання генераторних виразів `$<BUILD_INTERFACE:...>` та `$<INSTALL_INTERFACE:...>` у команді `target_include_directories`. Це гарантує, що під час локальної збірки компілятор шукатиме заголовки у вихідному каталозі `include/`, а при експорті цілей для сторонніх проєктів у згенерований `TelemetryTargets.cmake` буде записано правильний відносний шлях `${_IMPORT_PREFIX}/include`.
 
-```cmake
-cmake_minimum_required(VERSION 3.22)
-project(telemetry
-    VERSION 1.4.2
-    DESCRIPTION "High-performance telemetry aggregation service"
-    HOMEPAGE_URL "https://github.com/example/telemetry"
-    LANGUAGES C CXX
-)
-
-include(GNUInstallDirs)
-
-# ── 1. Збірка спільної динамічної бібліотеки ─────────────────────────────────
-add_library(telemetry_lib SHARED
-    src/metrics.c
-)
-set_target_properties(telemetry_lib PROPERTIES
-    OUTPUT_NAME "telemetry"
-    SOVERSION 1
-    VERSION 1.4.2
-)
-target_include_directories(telemetry_lib PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-# ── 2. Збірка демона ──────────────────────────────────────────────────────────
-add_executable(telemetryd src/daemon.c)
-target_link_libraries(telemetryd PRIVATE telemetry_lib)
-
-# ── 3. Правила інсталяції з розподілом за компонентами ────────────────────────
-
-# Компонент Runtime: бінарник демона та версіонована бібліотека
-install(TARGETS telemetryd telemetry_lib
-    EXPORT TelemetryTargets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Runtime
-    NAMELINK_COMPONENT Development
-)
-
-# Системний юніт systemd також належить компоненту Runtime
-install(FILES packaging/telemetryd.service
-    DESTINATION /lib/systemd/system
-    COMPONENT Runtime
-)
-
-# Компонент Development: публічні заголовки
-install(DIRECTORY include/
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    COMPONENT Development
-)
-
-# Експорт цілей CMake для зовнішніх розробників (find_package(Telemetry))
-install(EXPORT TelemetryTargets
-    NAMESPACE Telemetry::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Telemetry
-    COMPONENT Development
-)
-
-# Компонент Documentation: документація
-install(FILES README.md
-    DESTINATION ${CMAKE_INSTALL_DOCDIR}
-    COMPONENT Documentation
-)
-
-# ── 4. Налаштування CPack ────────────────────────────────────────────────────
-set(CPACK_PACKAGE_NAME "telemetry")
-set(CPACK_PACKAGE_VENDOR "Acme Telemetry Systems")
-set(CPACK_PACKAGE_CONTACT "ops@telemetry.example.com")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Lightweight system telemetry daemon")
-set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
-
-# Активація покомпонентної генерації для DEB та RPM
-set(CPACK_DEBIAN_COMPONENT_INSTALL ON)
-set(CPACK_RPM_COMPONENT_INSTALL ON)
-
-# Специфікація DEB генератора
-set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
-set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON) # Автоматичний аналіз DT_NEEDED через dpkg-shlibdeps
-set(CPACK_DEBIAN_RUNTIME_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/packaging/postinst.sh")
-set(CPACK_COMPONENT_DEVELOPMENT_DEPENDS "Runtime") # Пакет dev залежить від runtime
-
-# Специфікація RPM генератора
-set(CPACK_RPM_PACKAGE_LICENSE "Apache-2.0")
-set(CPACK_RPM_PACKAGE_GROUP "Applications/System")
-set(CPACK_RPM_PACKAGE_AUTOREQ YES)
-set(CPACK_RPM_RUNTIME_POST_INSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/packaging/postinst.sh")
-
-# Підключення модуля CPack
-include(CPack)
-include(CPackComponent)
-
-# Декларація метаданих компонентів для графічних інсталяторів
-cpack_add_component(Runtime
-    DISPLAY_NAME "Telemetry Service & Daemon"
-    DESCRIPTION "Contains the executable daemon, shared library, and systemd service"
-    REQUIRED
-)
-
-cpack_add_component(Development
-    DISPLAY_NAME "C/C++ SDK & CMake Configs"
-    DESCRIPTION "Header files and CMake target exports for building applications"
-    DEPENDS Runtime
-)
-
-cpack_add_component(Documentation
-    DISPLAY_NAME "User Documentation"
-    DESCRIPTION "Manuals and quick-start guides"
-    DISABLED
-)
-```
+:::code proj-component-packaging/cmake/CMakeLists.txt
 
 ## 4. Збірка проєкту та створення пакетів
 
 Процес збірки та пакування здійснюється у два етапи: спочатку CMake збирає бінарники у каталозі `build/`, після чого утиліта `cpack` монтує дерево інсталяції та викликає відповідні бекенди генераторів.
 
-```bash
-# Крок 1. Конфігурація та компіляція
-cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
-cmake --build build
-
-# Крок 2. Генерація пакетів Debian (DEB)
-cd build
-cpack -G DEB
-
-# Крок 3. Генерація пакетів Red Hat (RPM)
-cpack -G RPM
-
-# Крок 4. Генерація автономного архіву (TGZ)
-cpack -G TGZ
-```
+:::code proj-component-packaging/sh/4-zbirka-proiektu-ta.sh
 
 ## 5. Інспекція та верифікація згенерованих пакетів
 

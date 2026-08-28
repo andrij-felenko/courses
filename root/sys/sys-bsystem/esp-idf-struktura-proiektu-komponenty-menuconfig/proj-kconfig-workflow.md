@@ -86,18 +86,7 @@ endmenu
 
 Файл `components/sensor_driver/CMakeLists.txt` викликає макрос системи збірки, вказуючи вихідні файли, публічний каталог заголовків та приватні системні залежності:
 
-```cmake
-idf_component_register(
-    SRCS
-        "src/sensor_driver.c"
-    INCLUDE_DIRS
-        "include"
-    PRIV_REQUIRES
-        driver
-        esp_timer
-        freertos
-)
-```
+:::code proj-kconfig-workflow/cmake/CMakeLists.txt
 
 Зверніть увагу: ми використовуємо `PRIV_REQUIRES` для системних бібліотек `driver` та `freertos`. Це означає, що компонент `main`, підключаючи наш заголовок `sensor_driver.h`, не отримуватиме прихованого доступу до сирих регістрів периферії I2C. Якщо коду в `main` колись знадобиться безпосередня робота з I2C, він буде змушений задекларувати цю залежність явно у власному `CMakeLists.txt`. Такий підхід запобігає «невидимим» транзитивним включенням і гарантує строгу модульність системи.
 
@@ -108,251 +97,15 @@ idf_component_register(
 Заголовок `include/sensor_driver.h` оголошує чистий C-інтерфейс із захистом простору імен та строгою типізацією кодів помилок `esp_err_t`. Додатково надається C++ обгортка `include/sensor_driver.hpp`, яка інкапсулює життєвий цикл ресурсу та обробку станів:
 
 :::tabs
-```c
-/* include/sensor_driver.h (C) */
-#pragma once
-
-#include <stdint.h>
-#include <stdbool.h>
-#include "esp_err.h"
-#include "sdkconfig.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct {
-    float temperature_celsius;
-    float humidity_percent;
-    uint32_t timestamp_ms;
-} sensor_reading_t;
-
-/**
- * @brief Ініціалізація шини I2C, створення м'ютекса та калібрування сенсора.
- * @return ESP_OK у разі успіху або відповідний код помилки esp_err_t.
- */
-esp_err_t sensor_driver_init(void);
-
-/**
- * @brief Потокобезпечне зчитування фізичних параметрів із сенсора.
- * @param[out] out_reading Вказівник на структуру для збереження результату.
- */
-esp_err_t sensor_driver_read(sensor_reading_t *out_reading);
-
-/**
- * @brief Зупинка роботи, видалення драйвера I2C та вивільнення пам'яті.
- */
-esp_err_t sensor_driver_deinit(void);
-
-#ifdef __cplusplus
-}
-#endif
-```
-```cpp
-// include/sensor_driver.hpp (C++ RAII Wrapper)
-#pragma once
-
-#include <expected>
-#include <string_view>
-#include <chrono>
-#include "sensor_driver.h"
-
-namespace sensors {
-
-class EnvironmentSensor {
-public:
-    EnvironmentSensor() {
-        const esp_err_t err = sensor_driver_init();
-        is_initialized_ = (err == ESP_OK);
-    }
-
-    ~EnvironmentSensor() {
-        if (is_initialized_) {
-            sensor_driver_deinit();
-        }
-    }
-
-    // Заборона копіювання апаратного ресурсу
-    EnvironmentSensor(const EnvironmentSensor&) = delete;
-    EnvironmentSensor& operator=(const EnvironmentSensor&) = delete;
-
-    // Підтримка переміщення (move semantics)
-    EnvironmentSensor(EnvironmentSensor&& other) noexcept
-        : is_initialized_(other.is_initialized_) {
-        other.is_initialized_ = false;
-    }
-
-    EnvironmentSensor& operator=(EnvironmentSensor&& other) noexcept {
-        if (this != &other) {
-            if (is_initialized_) {
-                sensor_driver_deinit();
-            }
-            is_initialized_ = other.is_initialized_;
-            other.is_initialized_ = false;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] std::expected<sensor_reading_t, esp_err_t> read() const {
-        if (!is_initialized_) {
-            return std::unexpected(ESP_ERR_INVALID_STATE);
-        }
-        sensor_reading_t data{};
-        const esp_err_t err = sensor_driver_read(&data);
-        if (err != ESP_OK) {
-            return std::unexpected(err);
-        }
-        return data;
-    }
-
-    [[nodiscard]] bool is_ready() const noexcept {
-        return is_initialized_;
-    }
-
-private:
-    bool is_initialized_{false};
-};
-
-} // namespace sensors
-```
+:::code proj-kconfig-workflow/c/sensor_driver.h
+:::code proj-kconfig-workflow/cpp/sensor_driver.hpp
 :::
 
 Реалізація драйвера в `src/sensor_driver.c` використовує згенеровані через Kconfig макроси `CONFIG_SENSOR_*` і гарантує потокобезпеку за допомогою м'ютекса FreeRTOS:
 
 :::tabs
-```c
-/* src/sensor_driver.c (C) */
-#include "sensor_driver.h"
-#include "sdkconfig.h"
-#include "esp_log.h"
-#include "esp_timer.h"
-#include "driver/i2c.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-
-static const char *TAG = "sensor_driver";
-static bool s_is_init = false;
-static SemaphoreHandle_t s_lock = NULL;
-
-esp_err_t sensor_driver_init(void) {
-    if (s_is_init) {
-        return ESP_OK;
-    }
-
-    s_lock = xSemaphoreCreateMutex();
-    if (!s_lock) {
-        return ESP_ERR_NO_MEM;
-    }
-
-    i2c_config_t conf = {
-        .mode = I2C_MODE_MASTER,
-        .sda_io_num = CONFIG_SENSOR_I2C_SDA_PIN,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE,
-        .scl_io_num = CONFIG_SENSOR_I2C_SCL_PIN,
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = CONFIG_SENSOR_I2C_FREQ_HZ,
-    };
-
-    esp_err_t err = i2c_param_config(CONFIG_SENSOR_I2C_PORT, &conf);
-    if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Помилка конфігурації I2C: %s", esp_err_to_name(err));
-        vSemaphoreDelete(s_lock);
-        s_lock = NULL;
-        return err;
-    }
-
-    err = i2c_driver_install(CONFIG_SENSOR_I2C_PORT, conf.mode, 0, 0, 0);
-    if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Помилка встановлення драйвера I2C: %s", esp_err_to_name(err));
-        vSemaphoreDelete(s_lock);
-        s_lock = NULL;
-        return err;
-    }
-
-    s_is_init = true;
-    ESP_LOGI(TAG, "Драйвер ініціалізовано: Port=%d, SDA=%d, SCL=%d, Частота=%d Гц",
-             CONFIG_SENSOR_I2C_PORT, CONFIG_SENSOR_I2C_SDA_PIN, 
-             CONFIG_SENSOR_I2C_SCL_PIN, CONFIG_SENSOR_I2C_FREQ_HZ);
-    return ESP_OK;
-}
-
-esp_err_t sensor_driver_read(sensor_reading_t *out_reading) {
-    if (!s_is_init || !out_reading) {
-        return ESP_ERR_INVALID_STATE;
-    }
-
-    if (xSemaphoreTake(s_lock, pdMS_TO_TICKS(100)) != pdTRUE) {
-        return ESP_ERR_TIMEOUT;
-    }
-
-    /* Моделювання вичитування даних через транзакцію I2C */
-    out_reading->temperature_celsius = 24.2f;
-    out_reading->humidity_percent = 52.5f;
-    out_reading->timestamp_ms = (uint32_t)(esp_timer_get_time() / 1000ULL);
-
-#if CONFIG_SENSOR_ENABLE_AVERAGING
-    ESP_LOGD(TAG, "Ковзне середнє за %d зразками застосовано", CONFIG_SENSOR_SAMPLE_COUNT);
-#endif
-
-    xSemaphoreGive(s_lock);
-    return ESP_OK;
-}
-
-esp_err_t sensor_driver_deinit(void) {
-    if (!s_is_init) {
-        return ESP_OK;
-    }
-
-    if (xSemaphoreTake(s_lock, pdMS_TO_TICKS(500)) == pdTRUE) {
-        i2c_driver_delete(CONFIG_SENSOR_I2C_PORT);
-        s_is_init = false;
-        xSemaphoreGive(s_lock);
-        vSemaphoreDelete(s_lock);
-        s_lock = NULL;
-        ESP_LOGI(TAG, "Драйвер сенсора успішно деініціалізовано.");
-        return ESP_OK;
-    }
-
-    return ESP_ERR_TIMEOUT;
-}
-```
-```cpp
-// Приклад споживання в main/main.cpp (C++)
-#include <iostream>
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "sensor_driver.hpp"
-
-static const char *TAG = "main_app";
-
-extern "C" void app_main(void) {
-    ESP_LOGI(TAG, "Запуск C++ вузла моніторингу...");
-
-    // Створення RAII-екземпляра сенсора
-    sensors::EnvironmentSensor sensor;
-
-    if (!sensor.is_ready()) {
-        ESP_LOGE(TAG, "Помилка: не вдалося ініціалізувати апаратний сенсор");
-        return;
-    }
-
-    for (int i = 0; i < 3; ++i) {
-        auto result = sensor.read();
-        if (result.has_value()) {
-            const auto& data = result.value();
-            std::cout << "[Вимір #" << (i + 1) << " | " << data.timestamp_ms << " мс] "
-                      << "Температура: " << data.temperature_celsius << " °C, "
-                      << "Вологість: " << data.humidity_percent << " %\n";
-        } else {
-            ESP_LOGW(TAG, "Збій опитування датчика, помилка: %d", result.error());
-        }
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-
-    ESP_LOGI(TAG, "Завершення сесії: деініціалізація відбудеться автоматично через деструктор RAII.");
-}
-```
+:::code proj-kconfig-workflow/c/sensor_driver.c
+:::code proj-kconfig-workflow/cpp/main.cpp
 :::
 
 ---
@@ -362,35 +115,8 @@ extern "C" void app_main(void) {
 ESP-IDF має вбудовану систему модульного тестування на базі фреймворку Unity. Якщо всередині каталогу компонента створити підкаталог `test/` із власним файлом `CMakeLists.txt` та вихідними кодами тестів, система збірки автоматично виявляє тестові кейси під час складання спеціального застосунку юніт-тестів:
 
 :::tabs
-```c
-/* components/sensor_driver/test/test_sensor_driver.c (C) */
-#include "unity.h"
-#include "sensor_driver.h"
-
-TEST_CASE("sensor_driver ініціалізація та деініціалізація", "[sensor]") {
-    TEST_ASSERT_EQUAL(ESP_OK, sensor_driver_init());
-    TEST_ASSERT_EQUAL(ESP_OK, sensor_driver_deinit());
-}
-
-TEST_CASE("sensor_driver зчитування даних без ініціалізації повертає помилку", "[sensor]") {
-    sensor_reading_t reading;
-    TEST_ASSERT_EQUAL(ESP_ERR_INVALID_STATE, sensor_driver_read(&reading));
-}
-```
-```cpp
-// components/sensor_driver/test/test_sensor_driver.cpp (C++)
-#include "unity.h"
-#include "sensor_driver.hpp"
-
-TEST_CASE("EnvironmentSensor RAII життєвий цикл та зчитування", "[sensor][cpp]") {
-    sensors::EnvironmentSensor sensor;
-    TEST_ASSERT_TRUE(sensor.is_ready());
-
-    const auto result = sensor.read();
-    TEST_ASSERT_TRUE(result.has_value());
-    TEST_ASSERT_FLOAT_WITHIN(50.0f, 25.0f, result.value().temperature_celsius);
-}
-```
+:::code proj-kconfig-workflow/c/test_sensor_driver.c
+:::code proj-kconfig-workflow/cpp/test_sensor_driver.cpp
 :::
 
 Для запуску тестів у середовищі розробки ESP-IDF використовується команда збірки тестового таргету або спеціальний допоміжний тестовий проєкт `$IDF_PATH/tools/unit-test-app`. Тестовий раннер компілює всі знайдені в дереві компонентів тестові сценарії, прошиває їх у пристрій і виводить інтерактивне меню вибору тестів через послідовний порт UART. Це дозволяє ізольовано верифікувати логіку кожного драйвера, перевіряти роботу крайових випадків та відловлювати витоки динамічної пам'яті за допомогою макросів `TEST_ASSERT` без необхідності запуску всієї громіздкої прошивки пристрою.

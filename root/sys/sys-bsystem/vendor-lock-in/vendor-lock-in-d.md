@@ -65,32 +65,8 @@
 У IAR C/C++ Compiler (`iccarm`) для цього використовуються власні ключові слова:
 
 :::tabs
-```c
-/* Діалект IAR C: ключові слова та прагми */
-__ramfunc void Flash_EraseSector(uint32_t address);
-
-#pragma location = 0x20000000
-uint32_t SharedBuffer[256];
-
-__packed struct TelemetryPacket {
-    uint8_t  id;
-    uint32_t timestamp;
-};
-```
-```cpp
-// Діалект IAR C++: ключові слова та прагми
-#include <cstdint>
-
-__ramfunc void Flash_EraseSector(std::uint32_t address) noexcept;
-
-#pragma location = 0x20000000
-std::uint32_t SharedBuffer[256];
-
-__packed struct TelemetryPacket {
-    std::uint8_t  id;
-    std::uint32_t timestamp;
-};
-```
+:::code vendor-lock-in-d/c/vendor-spetsyfichni.c
+:::code vendor-lock-in-d/cpp/vendor-spetsyfichni.cpp
 :::
 
 У Keil Arm Compiler 5 (`armcc`) той самий задум записується інакше:
@@ -107,50 +83,14 @@ __packed struct TelemetryPacket {
     uint32_t timestamp;
 };
 ```
-```cpp
-// Діалект Keil ArmCC (Arm Compiler 5, C++)
-#include <cstdint>
-
-__attribute__((section("ram_functions"))) void Flash_EraseSector(std::uint32_t address) noexcept;
-
-uint32_t SharedBuffer[256] __attribute__((at(0x20000000)));
-
-__packed struct TelemetryPacket {
-    std::uint8_t  id;
-    std::uint32_t timestamp;
-};
-```
+:::code vendor-lock-in-d/cpp/vendor-spetsyfichni-2.cpp
 :::
 
 У стандартному відкритому компіляторі GCC (`arm-none-eabi-gcc`) чи Clang специфікатори `__ramfunc`, `__packed` перед ключовим словом `struct` або `#pragma location` викличуть синтаксичну помилку компіляції. GCC вимагає стандартизованого використання GNU-атрибутів:
 
 :::tabs
-```c
-/* Діалект GCC / Clang (C) */
-__attribute__((section(".ramfunc"), noinline)) void Flash_EraseSector(uint32_t address);
-
-/* Розміщення за конкретною адресою робиться через секцію лінкера */
-__attribute__((section(".shared_ram"))) uint32_t SharedBuffer[256];
-
-struct __attribute__((packed)) TelemetryPacket {
-    uint8_t  id;
-    uint32_t timestamp;
-};
-```
-```cpp
-// Діалект GCC / Clang (C++)
-#include <cstdint>
-
-[[gnu::section(".ramfunc"), gnu::noinline]] void Flash_EraseSector(std::uint32_t address) noexcept;
-
-/* Розміщення за конкретною адресою робиться через секцію лінкера */
-[[gnu::section(".shared_ram")]] std::uint32_t SharedBuffer[256];
-
-struct [[gnu::packed]] TelemetryPacket {
-    std::uint8_t  id;
-    std::uint32_t timestamp;
-};
-```
+:::code vendor-lock-in-d/c/vendor-spetsyfichni-2.c
+:::code vendor-lock-in-d/cpp/vendor-spetsyfichni-3.cpp
 :::
 
 Якщо в проєкті на 50 000 рядків коду вендорні ключові слова розкидані безпосередньо по тілу функцій і заголовках драйверів, зміна компілятора перетворюється на виснажливе ручне виправлення сотень помилок.
@@ -269,102 +209,8 @@ CMake відокремлює опис дерева вихідних кодів �
 Поглянемо, як виглядає уніфікація коду на практиці:
 
 :::tabs
-```c
-/* inc/sensor_service.h — Приклад ізольованого драйвера мовою C */
-#ifndef SENSOR_SERVICE_H
-#define SENSOR_SERVICE_H
-
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Використовуємо уніфікований макрос упакування структур замість вендорних прагм */
-#if defined(__GNUC__) || defined(__clang__)
-    #define PORT_PACKED struct __attribute__((packed))
-    #define PORT_RAM_SECTION __attribute__((section(".ramfunc"), noinline))
-#elif defined(__ICCARM__)
-    #define PORT_PACKED __packed struct
-    #define PORT_RAM_SECTION __ramfunc
-#else
-    #define PORT_PACKED struct
-    #define PORT_RAM_SECTION
-#endif
-
-PORT_PACKED SensorDataPacket {
-    uint32_t timestamp_ms;
-    int16_t  temperature_raw;
-    uint16_t crc16;
-};
-
-/* Абстрактний інтерфейс апаратного порту передачі даних (контракт) */
-typedef struct {
-    bool (*write_bytes)(const uint8_t *data, uint16_t length);
-    void (*delay_ms)(uint32_t ms);
-} I2CBusPort;
-
-/* Функція сервісу: не містить жодного виклику регістрів конкретного МК */
-PORT_RAM_SECTION
-bool sensor_service_read_packet(const I2CBusPort *bus, struct SensorDataPacket *out_packet);
-
-#endif /* SENSOR_SERVICE_H */
-```
-```cpp
-// inc/sensor_service.hpp — Ідіоматичний ізольований драйвер мовою C++
-#ifndef SENSOR_SERVICE_HPP
-#define SENSOR_SERVICE_HPP
-
-#include <cstdint>
-#include <span>
-#include <expected>
-
-namespace drivers::sensors {
-
-#if defined(__GNUC__) || defined(__clang__)
-    #define PORT_PACKED_STRUCT struct [[gnu::packed]]
-    #define PORT_RAM_FUNC      [[gnu::section(".ramfunc"), gnu::noinline]]
-#elif defined(__ICCARM__)
-    #define PORT_PACKED_STRUCT __packed struct
-    #define PORT_RAM_FUNC      __ramfunc
-#else
-    #define PORT_PACKED_STRUCT struct
-    #define PORT_RAM_FUNC
-#endif
-
-PORT_PACKED_STRUCT SensorDataPacket {
-    std::uint32_t timestamp_ms;
-    std::int16_t  temperature_raw;
-    std::uint16_t crc16;
-};
-
-enum class BusError : std::uint8_t {
-    Timeout,
-    ArbitrationLost,
-    NackReceived
-};
-
-// Контракт шини: чистий інтерфейс без прив'язки до вендорного HAL
-class II2CBus {
-public:
-    virtual ~II2CBus() = default;
-    virtual std::expected<void, BusError> write(std::span<const std::uint8_t> data) noexcept = 0;
-    virtual void delay_ms(std::uint32_t ms) noexcept = 0;
-};
-
-// Сервіс обробки датчика: повністю ізольований для модульного тестування
-class SensorService {
-public:
-    explicit SensorService(II2CBus& bus) noexcept : bus_(bus) {}
-
-    PORT_RAM_FUNC
-    std::expected<SensorDataPacket, BusError> read_packet() noexcept;
-
-private:
-    II2CBus& bus_;
-};
-
-} // namespace drivers::sensors
-
-#endif // SENSOR_SERVICE_HPP
-```
+:::code vendor-lock-in-d/c/sensor_service.h
+:::code vendor-lock-in-d/cpp/sensor_service.hpp
 :::
 
 Завдяки такій побудові `SensorService` можна тестувати на комп'ютері розробника в середовищі Linux або macOS за допомогою фреймворків GoogleTest або Catch2, передавши замість реального заліза тестовий подвійний об'єкт (*Mock*). Це повністю виключає необхідність тримати плату на столі для перевірки математики та алгоритмів.

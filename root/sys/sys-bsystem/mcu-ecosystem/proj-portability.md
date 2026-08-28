@@ -32,20 +32,7 @@
 
 На Arduino-рівні доступні архітектурні макроси: `ARDUINO_ARCH_ESP32`, `ARDUINO_ARCH_AVR`, `ARDUINO_ARCH_RP2040`, `ARDUINO_ARCH_STM32`; на рівні чипа: `ESP32`, `__AVR__`, `__arm__`. У ESP-IDF (через `sdkconfig.h`): `CONFIG_IDF_TARGET_ESP32`, `CONFIG_IDF_TARGET_ESP32S3`, `CONFIG_IDF_TARGET_ESP32C3`; архітектура — `__XTENSA__` проти `__riscv`; факт збірки в IDF — `ESP_PLATFORM`. Важливий нюанс: архітектурний макрос (`ARDUINO_ARCH_*` або `__AVR__`) надійніший за макрос конкретної плати — не треба перераховувати десятки різних плат; достатньо перевірити архітектуру.
 
-```c
-// Діагностика: яка платформа йде у збірку?
-#if defined(ARDUINO_ARCH_ESP32)
-  #pragma message("Target: ESP32 (Arduino core)")
-#elif defined(__AVR__)
-  #pragma message("Target: AVR (bare-metal or Arduino AVR)")
-#elif defined(ARDUINO_ARCH_STM32)
-  #pragma message("Target: STM32 (Arduino_STM32 core)")
-#elif defined(ESP_PLATFORM)
-  #pragma message("Target: ESP32 (ESP-IDF)")
-#else
-  #error "Непідтримувана платформа — додайте гілку HAL для цього чипа!"
-#endif
-```
+:::code proj-portability/c/krok-1-iak-kod-diznaietsia.c
 
 Цей самий каскад `#if` — і є перемикачем, яким нижче виберемо реалізацію HAL. Зверніть увагу на обов'язковий `#else #error`: без нього нова, ще не портована платформа мовчки збереться з порожніми функціями.
 
@@ -53,32 +40,7 @@
 
 Контракт не знає про жоден чип — лише оголошення. Прикладна логіка інклудить тільки його і ніколи не бачить ані `Arduino.h`, ані IDF-заголовків.
 
-```c
-// hal.h — єдиний заголовок, що бачить прикладна логіка
-#pragma once
-#include <stdint.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// Записати логічний рівень у ніжку
-void hal_gpio_write(uint8_t pin, bool on);
-
-// Надіслати рядок у UART (нуль-термінований)
-void hal_uart_puts(const char* s);
-
-// Призупинити виконання на ms мілісекунд
-void hal_delay_ms(uint32_t ms);
-
-// Повернути кількість мілісекунд від старту
-uint32_t hal_millis(void);
-
-#ifdef __cplusplus
-}
-#endif
-```
+:::code proj-portability/c/hal.h
 
 Жодного `#include <Arduino.h>` чи IDF-заголовка тут нема. Лише обіцянки — чотири функції, однакові для всіх цільових чипів.
 
@@ -86,118 +48,13 @@ uint32_t hal_millis(void);
 
 Є два способи рознести реалізації. Перший — один `hal.cpp` із `#if`-гілками всередині кожної функції: зручно при двох чипах, але швидко перетворюється на нечитабельний клубок. Другий — окремі файли `hal_esp32.cpp`, `hal_avr.cpp`, `hal_stm32.cpp`, де кожен цілком огорнутий своїм `#if defined(...)` на початку: масштабованіший і рекомендований патерн. Нижче — саме він.
 
-```cpp
-// ─── hal_esp32.cpp ─────────────────────────────────────────────────────────
-#if defined(ARDUINO_ARCH_ESP32)
-
-#include "hal.h"
-#include <Arduino.h>   // лише тут, не в прикладному коді
-
-void hal_gpio_write(uint8_t pin, bool on) {
-    digitalWrite(pin, on ? HIGH : LOW);
-}
-
-void hal_uart_puts(const char* s) {
-    Serial.print(s);
-}
-
-void hal_delay_ms(uint32_t ms) {
-    delay(ms);
-}
-
-uint32_t hal_millis(void) {
-    return millis();
-}
-
-#endif // ARDUINO_ARCH_ESP32
-
-
-// ─── hal_avr.cpp ───────────────────────────────────────────────────────────
-// «Голий» AVR — не Arduino, прямий регістровий доступ до портів.
-// Для стислості показана лише hal_gpio_write; решта — аналогічно.
-#if defined(__AVR__)
-
-#include "hal.h"
-#include <avr/io.h>
-#include <util/delay.h>
-extern volatile uint32_t timer0_millis;  // з вбудованого ISR таймера
-
-// УВАГА: hal_init() мусить виконати DDRB |= (1<<pin), щоб пін був виходом.
-void hal_gpio_write(uint8_t pin, bool on) {
-    if (on)  PORTB |=  (1 << pin);  // встановити біт
-    else     PORTB &= ~(1 << pin);  // скинути біт
-}
-
-void hal_uart_puts(const char* s) {
-    while (*s) {
-        while (!(UCSR0A & (1 << UDRE0)));  // чекати, поки буфер вільний
-        UDR0 = (uint8_t)(*s++);
-    }
-}
-
-void hal_delay_ms(uint32_t ms) {
-    while (ms--) _delay_ms(1);
-}
-
-uint32_t hal_millis(void) {
-    return timer0_millis;
-}
-
-#endif // __AVR__
-
-
-// ─── hal_stm32.cpp ─────────────────────────────────────────────────────────
-#if defined(ARDUINO_ARCH_STM32)
-
-#include "hal.h"
-#include <Arduino.h>
-
-void hal_gpio_write(uint8_t pin, bool on) {
-    digitalWrite(pin, on ? HIGH : LOW);
-}
-
-void hal_uart_puts(const char* s) {
-    Serial.print(s);
-}
-
-void hal_delay_ms(uint32_t ms) {
-    delay(ms);
-}
-
-uint32_t hal_millis(void) {
-    return millis();
-}
-
-#endif // ARDUINO_ARCH_STM32
-
-
-// ─── #else: не допустити тихої збірки для непідтримуваного чипа ─────────────
-#if !defined(ARDUINO_ARCH_ESP32) && !defined(__AVR__) && !defined(ARDUINO_ARCH_STM32)
-  #error "hal: невідома цільова платформа — реалізуйте HAL для цього чипа!"
-#endif
-```
+:::code proj-portability/cpp/hal_esp32.cpp
 
 Зверніть: для ESP32 і STM32 (обидва на Arduino-core) реалізація майже ідентична — `digitalWrite`, `Serial.print`, `delay`, `millis`. Але для «голого» AVR `hal_gpio_write` звертається напряму до регістра `PORTB` і маски `(1<<pin)` — той самий контракт, нутрощі радикально різні. Саме це й ілюструє ціну абстракції: контракт один, а що за ним — диктує залізо аж до прямого [регістрового доступу](root:sf-devices/gpio-registers).
 
 Тепер — прикладний код, що **не змінюється** між чипами:
 
-```cpp
-// app.cpp — прикладна логіка; не інклудить Arduino.h, IDF, avr/io.h
-#include "hal.h"
-
-#define LED_PIN 2   // номер ніжки: оголошено у board_config.h або тут
-
-void app_main(void) {
-    hal_gpio_write(LED_PIN, false);   // старт — LED вимкнено
-    for (;;) {
-        hal_gpio_write(LED_PIN, true);
-        hal_delay_ms(200);
-        hal_gpio_write(LED_PIN, false);
-        hal_delay_ms(200);
-        hal_uart_puts("tick\n");
-    }
-}
-```
+:::code proj-portability/cpp/app.cpp
 
 Цей файл компілюється байт-у-байт однаково під усі три чипи — препроцесор бачить лише `#include "hal.h"` і більше нічого. Саме в цьому й суть: логіка написана раз, а мінімальна зміна при переносі — це новий `hal_новийчип.cpp` і оновлені `hal_init()` / `board_config.h`.
 

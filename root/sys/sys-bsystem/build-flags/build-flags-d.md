@@ -90,32 +90,8 @@
 Погляньмо, як компілятор трансформує цикл підсумовування масиву під різними прапорцями.
 
 :::tabs
-```c
-#include <stddef.h>
-
-long long sum_array(const int *data, size_t size, int factor) {
-    long long total = 0;
-    for (size_t i = 0; i < size; ++i) {
-        // Множення на незмінний factor всередині циклу
-        total += (long long)data[i] * factor;
-    }
-    return total;
-}
-```
-```cpp
-#include <cstddef>
-#include <span>
-#include <numeric>
-
-long long sum_array(std::span<const int> data, int factor) {
-    long long total = 0;
-    for (const int value : data) {
-        // Множення на незмінний factor всередині циклу
-        total += static_cast<long long>(value) * factor;
-    }
-    return total;
-}
-```
+:::code build-flags-d/c/main.c
+:::code build-flags-d/cpp/main.cpp
 :::
 
 Під прапорцем `-O0` на архітектурі x86-64 компілятор на кожній ітерації зчитує `i`, `data`, `factor` та `total` зі стека, виконує множення `imul`, додає результат, записує `total` назад у стек, інкрементує `i` у стеку та виконує порівняння.

@@ -45,56 +45,13 @@
 
 Ці методи викликаються найпершими, ще до того, як Conan почне аналізувати налаштування платформи та розраховувати залежності. Вони дозволяють динамічно зчитувати номер версії з тегів системи контролю версій Git або службових файлів репозиторію.
 
-```python
-def set_name(self):
-    """Динамічне визначення імені пакета перед побудовою графа."""
-    self.name = "distributed_telemetry"
-
-def set_version(self):
-    """Динамічне зчитування версії з файлу версії або системних змінних."""
-    from conan.tools.files import load
-    import os
-    version_file = os.path.join(self.recipe_folder, "version.txt")
-    if os.path.exists(version_file):
-        self.version = load(self, version_file).strip()
-    else:
-        self.version = "0.1.0-dev"
-```
+:::code api-conanfile-methods/py/1-metody-dynamichnoi.py
 
 ### 2. Методи конфігурації, опцій та валідації
 
 Методи цієї групи відповідають за узгодження комбінаторної матриці параметрів. Вони видаляють непідтримувані опції, налаштовують значення за замовчуванням залежно від платформи та перевіряють мінімальні вимоги до компілятора.
 
-```python
-def config_options(self):
-    """Коригування доступності опцій до побудови графа."""
-    # На операційній системі Windows код завжди позиційно-незалежний, прапорець fPIC не має сенсу
-    if self.settings.os == "Windows":
-        self.options.rm_safe("fPIC")
-
-def configure(self):
-    """Встановлення взаємозв'язків між опціями та видалення зайвих налаштувань."""
-    if self.options.get_safe("shared"):
-        # Для динамічних бібліотек на Linux прапорець fPIC є обов'язковим
-        self.options.rm_safe("fPIC")
-    
-    # Якщо бібліотека є чистою реалізацією на мові C, налаштування стандартної бібліотеки C++ не потрібне
-    if self.package_type == "shared-library":
-        self.settings.rm_safe("compiler.libcxx")
-
-def validate(self):
-    """Перевірка сумісності конфігурації. Викликається для кожного вузла графа."""
-    from conan.errors import ConanInvalidConfiguration
-    from conan.tools.scm import Version
-
-    # Заборона збірки застарілими компіляторами
-    if self.settings.compiler == "gcc" and Version(self.settings.compiler.version) < "11":
-        raise ConanInvalidConfiguration("Цей пакет вимагає компілятор GCC 11 або новіший для підтримки концептів C++20")
-    
-    # Перевірка конфліктних комбінацій опцій
-    if self.settings.os == "Windows" and self.options.get_safe("shared") and self.settings.compiler.get_safe("runtime") == "MT":
-        raise ConanInvalidConfiguration("Динамічна бібліотека на Windows не може використовувати статичний рантайм /MT")
-```
+:::code api-conanfile-methods/py/2-metody-konfihuratsii.py
 
 ### 3. Метод структурування каталогів (layout)
 
@@ -120,144 +77,35 @@ def layout(self):
 
 У Conan 2.x усі залежності суворо розділені за контекстами виконання: цільові бібліотеки (Host Context) та інструменти середовища компіляції (Build Context).
 
-```python
-def requirements(self):
-    """Оголошення бібліотек, які лінкуються у фінальний продукт (Host Context)."""
-    # transitive_headers=True означає, що публічні заголовки цього пакета містять #include <fmt/core.h>
-    self.requires("fmt/10.2.1", transitive_headers=True)
-    
-    # transitive_libs=True передає лінкеру вимогу лінкувати openssl усім кінцевим споживачам
-    self.requires("openssl/3.2.0", transitive_headers=True, transitive_libs=True)
-
-    if self.options.get_safe("with_compression", True):
-        self.requires("zlib/1.3.1")
-
-def build_requirements(self):
-    """Оголошення інструментів, що мають виконуватися на хост-машині збірки (Build Context)."""
-    # Системи збірки та компілятори
-    self.tool_requires("cmake/[>=3.25]")
-    self.tool_requires("ninja/1.11.1")
-    
-    # Генератори коду (виконуються на хості збірки)
-    self.tool_requires("protobuf/3.21.12")
-    
-    # Фреймворки модульного тестування (не потрапляють у граф кінцевих користувачів)
-    self.test_requires("gtest/1.14.0")
-```
+:::code api-conanfile-methods/py/4-oholoshennia.py
 
 ### 5. Завантаження вихідного коду (source)
 
 Метод `source()` завантажує вихідний код із зовнішніх джерел. Він викликається рівно один раз для кожної нової ревізії рецепта, а завантажені файли зберігаються в каталозі джерел локального кешу і залишаються доступними для всіх наступних бінарних збірок під різні платформи.
 
-```python
-def source(self):
-    """Отримання офіційного архіву вихідних текстів або клонування репозиторію."""
-    from conan.tools.files import get, patch
-    
-    get(self,
-        url=f"https://github.com/example/libnetwork/archive/v{self.version}.tar.gz",
-        sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        strip_root=True)
-    
-    # Застосування виправлень за потреби
-    if os.path.exists("patches/fix-arm-build.patch"):
-        patch(self, patch_file="patches/fix-arm-build.patch")
-```
+:::code api-conanfile-methods/py/5-zavantazhennia.py
 
 ### 6. Генерація інтеграційних конфігурацій (generate)
 
 Метод `generate()` запускається безпосередньо перед початком компіляції. Його завдання — створити файли опису оточення для конкретної системи збірки споживача або бібліотеки.
 
-```python
-def generate(self):
-    """Створення файлів CMakeToolchain, CMakeDeps та змінних середовища."""
-    from conan.tools.cmake import CMakeToolchain, CMakeDeps
-    from conan.tools.env import VirtualBuildEnv, VirtualRunEnv
-
-    # Створення conan_toolchain.cmake із точними прапорцями компілятора
-    tc = CMakeToolchain(self)
-    tc.variables["BUILD_TESTS"] = False
-    tc.variables["ENABLE_CUSTOM_ALLOCATOR"] = True
-    tc.generate()
-
-    # Створення <Pkg>Config.cmake файлів для всіх знайдених requirements
-    deps = CMakeDeps(self)
-    deps.generate()
-
-    # Експорт змінних середовища для запуску інструментів з tool_requires (наприклад, protoc)
-    build_env = VirtualBuildEnv(self)
-    build_env.generate()
-```
+:::code api-conanfile-methods/py/6-heneratsiia.py
 
 ### 7. Компіляція та пакування артефактів (build та package)
 
-```python
-def build(self):
-    """Конфігурація та компіляція бібліотеки через виклики системи збірки."""
-    from conan.tools.cmake import CMake
-    cmake = CMake(self)
-    cmake.configure()
-    cmake.build()
-
-def package(self):
-    """Копіювання зібраних заголовків, бібліотек та ліцензій у package_folder."""
-    from conan.tools.cmake import CMake
-    from conan.tools.files import copy
-    import os
-
-    cmake = CMake(self)
-    cmake.install()
-    
-    # Обов'язкове ліцензійне очищення: збереження юридичних умов ліцензії в пакеті
-    copy(self, "LICENSE*", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-```
+:::code api-conanfile-methods/py/7-kompiliatsiia-ta.py
 
 ### 8. Опис контракту для споживачів (package_info)
 
 Метод `package_info()` є єдиним джерелом правди про те, як зовнішні споживачі мають компонувати скомпільовану бібліотеку. Інформація, записана в об'єкт `self.cpp_info`, транслюється генераторами `CMakeDeps` або `PkgConfigDeps` у цілі CMake (`target_link_libraries`) чи файли `.pc`.
 
-```python
-def package_info(self):
-    """Оголошення експортованих бібліотек, прапорців та CMake-цілей."""
-    self.cpp_info.libs = ["network_core", "network_crypto"]
-    self.cpp_info.includedirs = ["include"]
-    self.cpp_info.libdirs = ["lib"]
-    self.cpp_info.defines = ["NETWORK_ENGINE_STATIC=1"]
-    
-    # Канонічне ім'я файлу конфігурації: find_package(NetworkEngine CONFIG REQUIRED)
-    self.cpp_info.set_property("cmake_file_name", "NetworkEngine")
-    
-    # Канонічне ім'я імпортованої цілі: NetworkEngine::NetworkEngine
-    self.cpp_info.set_property("cmake_target_name", "NetworkEngine::NetworkEngine")
-
-    # Системні бібліотеки цільової операційної системи
-    if self.settings.os in ["Linux", "FreeBSD"]:
-        self.cpp_info.system_libs = ["pthread", "dl", "rt", "m"]
-    elif self.settings.os == "Windows":
-        self.cpp_info.system_libs = ["ws2_32", "crypt32", "secur32"]
-    elif self.settings.os == "Macos":
-        self.cpp_info.frameworks = ["CoreFoundation", "Security"]
-```
+:::code api-conanfile-methods/py/8-opys-kontraktu-dlia.py
 
 ## Архітектура компонентів у self.cpp_info
 
 Якщо бібліотека складається з декількох модулів, які можуть використовуватися окремо (наприклад, як бібліотека OpenSSL надає `OpenSSL::Crypto` та `OpenSSL::SSL`, або як Boost розбитий на десятки підбібліотек), Conan 2.x надає механізм компонентів:
 
-```python
-def package_info(self):
-    self.cpp_info.set_property("cmake_file_name", "OpenSSL")
-
-    # Компонент криптографії
-    self.cpp_info.components["crypto"].libs = ["crypto"]
-    self.cpp_info.components["crypto"].set_property("cmake_target_name", "OpenSSL::Crypto")
-    if self.settings.os in ["Linux", "FreeBSD"]:
-        self.cpp_info.components["crypto"].system_libs = ["dl", "pthread"]
-
-    # Компонент SSL, що залежить від внутрішнього компонента crypto
-    self.cpp_info.components["ssl"].libs = ["ssl"]
-    self.cpp_info.components["ssl"].requires = ["crypto"]
-    self.cpp_info.components["ssl"].set_property("cmake_target_name", "OpenSSL::SSL")
-```
+:::code api-conanfile-methods/py/arkhitektura-komponentiv-u.py
 
 Генератор `CMakeDeps` автоматично транслює компоненти в окремі імпортовані цілі CMake із правильними зв'язками між ними, дозволяючи споживачу лінкувати тільки необхідну частину бібліотеки без затягування зайвих залежностей.
 

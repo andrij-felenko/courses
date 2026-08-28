@@ -37,166 +37,19 @@ build_flags =
 
 Сценарій виконується перед обробкою першого вихідного файлу. Через системну функцію `Import("env")` скрипт імпортує активний контекст цільового середовища:
 
-```python
-# scripts/generate_version.py
-import subprocess
-import os
-from datetime import datetime
-
-# Отримання середовища SCons з контексту PlatformIO
-Import("env")
-
-def get_git_revision():
-    """Витягування короткого хешу та стану репозиторію."""
-    try:
-        commit = subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"],
-            cwd=env.get("PROJECT_DIR")
-        ).strip().decode("utf-8")
-        
-        # Перевірка наявності незакомічених змін у робочому дереві
-        status = subprocess.check_output(
-            ["git", "status", "--porcelain"],
-            cwd=env.get("PROJECT_DIR")
-        ).strip().decode("utf-8")
-        
-        dirty_flag = "-dirty" if len(status) > 0 else ""
-        return f"{commit}{dirty_flag}"
-    except Exception:
-        return "v1.0.0-release"
-
-def generate_header():
-    """Створення C/C++ заголовка з метаданими збірки."""
-    project_dir = env.get("PROJECT_DIR")
-    include_dir = os.path.join(project_dir, "include")
-    os.makedirs(include_dir, exist_ok=True)
-    
-    header_path = os.path.join(include_dir, "generated_version.h")
-    git_hash = get_git_revision()
-    build_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
-    env_name = env.get("PIOENV", "unknown_env")
-    mcu = env.get("BOARD_MCU", "unknown_mcu")
-    
-    content = f"""#pragma once
-// Цей файл згенеровано автоматично скриптом scripts/generate_version.py.
-// Будь-які ручні правки буде перезаписано під час наступної збірки.
-
-#define BUILD_GIT_HASH "{git_hash}"
-#define BUILD_TIMESTAMP "{build_time}"
-#define BUILD_ENVIRONMENT "{env_name}"
-#define BUILD_TARGET_MCU "{mcu}"
-"""
-    
-    # Критична перевірка: запобігаємо зміні mtime, якщо зміст не змінився
-    if os.path.exists(header_path):
-        with open(header_path, "r", encoding="utf-8") as f:
-            if f.read() == content:
-                return
-                
-    with open(header_path, "w", encoding="utf-8") as f:
-        f.write(content)
-    print(f"[PRE-BUILD] Оновлено файл заголовка: {header_path} (git: {git_hash})")
-
-# Запуск генерації метаданих
-generate_header()
-```
+:::code proj-extra-script/py/generate_version.py
 
 ### 2. Модуль динамічної підміни скрипта компонувальника
 
 У багатьох сценаріях системний скрипт лінкера, що постачається разом із пакетом платформи (`framework-stm32cubef4`), не передбачає спеціальних секцій для безпосереднього доступу контролерів DMA (Direct Memory Access) без кешування. Скрипт `scripts/inject_custom_ld.py` перевіряє наявність власного скрипта лінкера в проєкті та підміняє змінну `LDSCRIPT_PATH` в об'єкті середовища SCons:
 
-```python
-# scripts/inject_custom_ld.py
-import os
-
-Import("env")
-
-def inject_linker_script():
-    project_dir = env.get("PROJECT_DIR")
-    custom_ld = os.path.join(project_dir, "ldscripts", "stm32f401_dma_custom.ld")
-    
-    if os.path.exists(custom_ld):
-        print(f"[PRE-BUILD] Застосування кастомного скрипта лінкера: {custom_ld}")
-        # Перевизначення шляху до LD-скрипта в об'єкті SCons
-        env.Replace(LDSCRIPT_PATH=custom_ld)
-        # Додавання прапорця для виводу детальної мапи розподілу пам'яті
-        env.Append(LINKFLAGS=["-Wl,--print-memory-usage"])
-    else:
-        print("[PRE-BUILD] Використовується стандартний скрипт лінкера з SDK.")
-
-inject_linker_script()
-```
+:::code proj-extra-script/py/inject_custom_ld.py
 
 ### 3. Модуль розрахунку CRC32 та аналізу секцій (Post-build)
 
 Сценарій пост-обробки реєструє обробник через `env.AddPostAction()`, прив'язуючись до генерації двійкового образу `$BUILD_DIR/${PROGNAME}.bin`. Він також викликає системну утиліту крос-тулчейну `size` для валідації сумарного обсягу пам'яті:
 
-```python
-# scripts/post_build_toolchain.py
-import struct
-import zlib
-import subprocess
-import os
-
-Import("env")
-
-def compute_checksum_crc32(file_path):
-    """Розрахунок стандартного 32-бітного полінома CRC32."""
-    crc = 0
-    with open(file_path, "rb") as f:
-        while chunk := f.read(65536):
-            crc = zlib.crc32(chunk, crc)
-    return crc & 0xFFFFFFFF
-
-def analyze_memory_footprint(elf_path):
-    """Запуск size для зчитування секцій .text, .data та .bss."""
-    try:
-        # Витягуємо точний шлях до утиліти size із середовища SCons
-        size_tool = env.subst("$SIZE")
-        if not size_tool:
-            size_tool = "arm-none-eabi-size"
-            
-        output = subprocess.check_output([size_tool, elf_path]).decode("utf-8")
-        lines = output.strip().split("\n")
-        if len(lines) >= 2:
-            print("[POST-BUILD] Карта пам'яті ELF:")
-            print(f"  {lines[0]}")
-            print(f"  {lines[1]}")
-    except Exception as err:
-        print(f"[POST-BUILD WARNING] Не вдалося викликати size: {err}")
-
-def process_firmware_binary(source, target, env):
-    """Пост-процесинг: ін'єкція CRC32 у кінець образу та вивід параметрів."""
-    # target[0] є SCons Node об'єктом цільового бінарного файлу
-    bin_path = str(target[0])
-    elf_path = bin_path.replace(".bin", ".elf")
-    
-    if not os.path.exists(bin_path):
-        print(f"[POST-BUILD ERROR] Бінарний файл не знайдено: {bin_path}")
-        return
-
-    if os.path.exists(elf_path):
-        analyze_memory_footprint(elf_path)
-
-    original_size = os.path.getsize(bin_path)
-    crc_value = compute_checksum_crc32(bin_path)
-    
-    # Дописуємо 4 байти контрольної суми у форматі Little-Endian
-    with open(bin_path, "ab") as f:
-        f.write(struct.pack("<I", crc_value))
-        
-    final_size = os.path.getsize(bin_path)
-    
-    print("\n" + "=" * 64)
-    print(f"[POST-BUILD] Успішна обробка образу: {os.path.basename(bin_path)}")
-    print(f"  Початковий розмір Flash: {original_size} байтів")
-    print(f"  Розрахована CRC32:       0x{crc_value:08X}")
-    print(f"  Фінальний розмір (+4B):  {final_size} байтів")
-    print("=" * 64 + "\n")
-
-# Реєстрація пост-хука над генерацією фінального двійкового образу
-env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", process_firmware_binary)
-```
+:::code proj-extra-script/py/post_build_toolchain.py
 
 ---
 
@@ -217,23 +70,7 @@ env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", process_firmware_binary)
 
 Окрім перехоплення стандартних етапів компіляції, SCons дозволяє додавати утилітарні команди безпосередньо у CLI PlatformIO за допомогою методу `env.AddCustomTarget()`. Наприклад, можна автоматизувати генерацію зашифрованого пакета оновлення (OTA Package) командою `pio run -t package_ota`:
 
-```python
-def build_ota_package(target, source, env):
-    bin_file = env.subst("$BUILD_DIR/${PROGNAME}.bin")
-    ota_output = os.path.join(env.get("PROJECT_DIR"), "releases", "firmware_ota.bin")
-    os.makedirs(os.path.dirname(ota_output), exist_ok=True)
-    
-    print(f"[CUSTOM TARGET] Пакування OTA-образу: {bin_file} -> {ota_output}")
-    # Тут можна виконати виклик утиліт шифрування AES або підпису криптографічним ключем RSA/ECDSA
-
-env.AddCustomTarget(
-    name="package_ota",
-    dependencies=["$BUILD_DIR/${PROGNAME}.bin"],
-    actions=[build_ota_package],
-    title="Генерація підписаного OTA-пакета",
-    description="Створює зашифрований образ прошивки для бездротового оновлення"
-)
-```
+:::code proj-extra-script/py/reiestratsiia-vlasnykh.py
 
 ---
 

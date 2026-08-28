@@ -209,23 +209,7 @@ Package_ID = SHA1(
 
 Завдяки генераторам вихідний файл `CMakeLists.txt` вашого проєкту залишається на 100% чистим і не містить жодного слова про конкретний менеджер пакетів (ні `conan`, ні `vcpkg`):
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(ImageProcessingService LANGUAGES CXX)
-
-# Стандартний пошук конфігурації, згенерованої менеджером
-find_package(fmt CONFIG REQUIRED)
-find_package(PNG CONFIG REQUIRED)
-
-add_executable(image_processor src/main.cpp src/filter.cpp)
-
-# Імпортовані цілі самостійно передають усі шляхи, бібліотеки та дефайни
-target_link_libraries(image_processor
-    PRIVATE
-        fmt::fmt
-        PNG::PNG
-)
-```
+:::code dependency-manager-model-d/cmake/CMakeLists.txt
 
 Повний опис структур, схем маніфестів `vcpkg.json`, `conanfile.py` та властивостей згенерованих цілей наведено у довідці: [специфікацію контрактів маніфестів і генераторів](root:sys-bsystem/dependency-manager-model/api-dependency-graph-contract.md).
 

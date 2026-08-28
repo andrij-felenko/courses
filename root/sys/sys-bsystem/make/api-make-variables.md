@@ -190,123 +190,19 @@ build/%.o: src/$$(patsubst build/%,%,$$*).c
 
 Ці функції працюють зі списками слів, розділених пробілами, що є основною формою представлення даних у Make:
 
-```make
-# 1. Заміна підрядка: $(subst from,to,text)
-SRC_FIX := $(subst bad,good,src/bad_module.c)
-# Значення: src/good_module.c
-
-# 2. Заміна за шаблоном: $(patsubst pattern,replacement,text)
-OBJS := $(patsubst src/%.c,build/%.o,src/main.c src/net.c)
-# Значення: build/main.o build/net.o
-
-# Короткий еквівалент patsubst через substitution reference:
-OBJS_SHORT := $(SRCS:src/%.c=build/%.o)
-
-# 3. Видалення зайвих початкових, кінцевих і повторюваних пробілів: $(strip string)
-CLEAN_FLAGS := $(strip   -O2    -Wall    -g   )
-# Значення: -O2 -Wall -g
-
-# 4. Пошук входження підрядка: $(findstring find,in)
-HAS_DEBUG := $(findstring DEBUG,$(CFLAGS))
-# Якщо підрядок знайдено, повертає його значення, інакше — порожній рядок
-
-# 5. Фільтрація елементів списку за шаблоном: $(filter pattern...,text)
-HEADERS := $(filter %.h %.hpp,$(ALL_PROJECT_FILES))
-
-# 6. Виключення елементів списку за шаблоном: $(filter-out pattern...,text)
-NON_TEST_SRCS := $(filter-out %_test.c %_bench.c,$(ALL_C_SRCS))
-
-# 7. Лексикографічне сортування зі знищенням дублікатів: $(sort list)
-UNIQUE_INCLUDE_DIRS := $(sort $(dir $(ALL_OBJS)))
-
-# 8. Вибір конкретного слова або підрахунок слів:
-FIRST_WORD := $(firstword $(SRCS))
-LAST_WORD  := $(lastword $(SRCS))
-NTH_WORD   := $(word 2,$(SRCS))
-WORD_COUNT := $(words $(SRCS))
-```
+:::code api-make-variables/make/Makefile
 
 ### Функції маніпуляції шляхами та файловою системою
 
 Шляхові функції спрощують конструювання ієрархій вихідних каталогів та генерацію ключів компілятора:
 
-```make
-# 1. Виділення частини каталогу зі збереженням слеша: $(dir names...)
-DIRS := $(dir src/core/engine.c include/config.h top.c)
-# Значення: src/core/ include/ ./
-
-# 2. Виділення імені файлу без каталогу: $(notdir names...)
-FILES := $(notdir src/core/engine.c include/config.h)
-# Значення: engine.c config.h
-
-# 3. Виділення суфікса (розширення): $(suffix names...)
-EXTENSIONS := $(suffix src/main.c src/util.cpp include/types.h)
-# Значення: .c .cpp .h
-
-# 4. Виділення базового імені без суфікса: $(basename names...)
-BASE_NAMES := $(basename src/main.c include/types.h)
-# Значення: src/main include/types
-
-# 5. Додавання префікса або суфікса до кожного елемента списку:
-INC_FLAGS := $(addprefix -I,include /opt/sdk/include)
-# Значення: -Iinclude -I/opt/sdk/include
-
-OBJ_LIST := $(addsuffix .o,main util network)
-# Значення: main.o util.o network.o
-
-# 6. Читання реальної файлової системи за маскою (globbing): $(wildcard pattern...)
-FOUND_SOURCES := $(wildcard src/*.c src/drivers/*.c)
-
-# 7. Обчислення абсолютних та канонічних шляхів:
-ABS_PATH := $(abspath ../common/include)
-# Розгортає відносні точки без перевірки існування файлу
-
-REAL_PATH := $(realpath /etc/os-release)
-# Розгортає всі символічні посилання та повертає канонічний шлях
-```
+:::code api-make-variables/make/funktsii-manipuliatsii-2.mk
 
 ### Умовні оператори, цикли та системне оточення
 
 GNU Make надає виразні засоби метапрограмування для генерації блоків правил та взаємодії з операційною системою:
 
-```make
-# 1. Умовна функція: $(if condition,then-part[,else-part])
-# Умова вважається істинною, якщо після розгортання вона містить хоча б один непорожній символ
-OUTPUT_DIR := $(if $(DEBUG),build/debug,build/release)
-
-# 2. Логічні комбінатори: $(or a,b,c), $(and a,b)
-TARGET_ARCH := $(or $(ARCH),$(TARGET_CPU),x86_64)
-
-# 3. Цикл обходу списку зі створенням локальної змінної: $(foreach var,list,text)
-INCLUDE_FLAGS := $(foreach dir,$(INCLUDE_DIRS),-I$(dir))
-
-# 4. Виклик команди операційної системи у фазі читання: $(shell command)
-# Команда виконується один раз під час підстановки; символи \n замінюються на пробіли
-GIT_REVISION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "release")
-PKG_LIBS     := $(shell pkg-config --libs libpng)
-
-# 5. Генерація діагностичних повідомлень у вивід збірки:
-$(info [INFO] Збірка бінарного файлу для цілі $(TARGET_ARCH))
-$(warning [WARN] Змінна OPTIMIZATION_LEVEL не задана, використовується -O2)
-# $(error [FATAL] Не знайдено сумісний компілятор C++) — негайно перериває роботу Make
-
-# 6. Інспекція походження змінної: $(origin variable_name)
-# Повертає: 'undefined', 'default', 'environment', 'file', 'command line', 'override', 'automatic'
-IS_OVERRIDDEN := $(filter command line,$(origin CFLAGS))
-
-# 7. Інспекція типу присвоєння: $(flavor variable_name)
-# Повертає: 'undefined', 'recursive' (для =), 'simple' (для := та ::=)
-VAR_KIND := $(flavor CFLAGS)
-
-# 8. Динамічна оцінка та ін'єкція правил у граф: $(eval text)
-# Дозволяє генерувати правила збірки на льоту всередині циклів foreach
-define GENERATE_RULE
-build/$(1).o: src/$(1).c
-	$$(CC) $$(CFLAGS) -c $$< -o $$@
-endef
-
-$(foreach mod,engine parser lexer,$(eval $(call GENERATE_RULE,$(mod))))
-```
+:::code api-make-variables/make/umovni-operatory-tsykly-ta-2.mk
 
 ---
 

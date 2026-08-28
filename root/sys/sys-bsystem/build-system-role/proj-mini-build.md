@@ -41,108 +41,13 @@ app: util.o main.o
 
 Рядок без відступу — заголовок правила: вихід, двокрапка, входи. Рядок із відступом — команда. Три підстановки: `$out` — вихід, `$in` — **перший** вхід, `$ins` — усі входи через пропуск. Підстановки тут не для зручності. Ім'я виходу мусить бути змінною, бо команду ми виконуватимемо не одразу у вихід, а в тимчасовий файл поруч — інакше обірвана посеред роботи збірка лишила б напівфайл під правильним іменем.
 
-```cpp
-// mb.cpp — мінімальна система збірки на ключах із вмісту.
-//   збірка: c++ -std=c++20 -O2 -pthread mb.cpp -o mb
-//   запуск: ./mb [-j N] [build.rules]
-#include <algorithm>
-#include <atomic>
-#include <condition_variable>
-#include <cstdint>
-#include <cstdio>
-#include <filesystem>
-#include <fstream>
-#include <mutex>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <string_view>
-#include <thread>
-#include <unordered_map>
-#include <vector>
-
-namespace fs = std::filesystem;
-
-struct Rule {                       // локальний факт: що виходить, із чого, чим
-    std::string out;
-    std::vector<std::string> ins;
-    std::string cmd;                // у команді живуть $out, $in, $ins
-};
-
-static std::string trim(const std::string& s) {
-    const char* sp = " \t\r";
-    auto b = s.find_first_not_of(sp);
-    if (b == std::string::npos) return {};
-    return s.substr(b, s.find_last_not_of(sp) - b + 1);
-}
-
-static std::vector<Rule> parseRules(const fs::path& path) {
-    std::ifstream f(path);
-    if (!f) throw std::runtime_error("не відкрити " + path.string());
-    std::vector<Rule> rules;
-    std::string line;
-    for (int no = 1; std::getline(f, line); ++no) {
-        std::string body = trim(line);
-        if (body.empty() || body[0] == '#') continue;
-        if (line[0] == ' ' || line[0] == '\t') {              // з відступом — команда
-            if (rules.empty() || !rules.back().cmd.empty())
-                throw std::runtime_error("рядок " + std::to_string(no) + ": команда не на місці");
-            rules.back().cmd = body;
-            continue;
-        }
-        auto colon = body.find(':');
-        if (colon == std::string::npos)
-            throw std::runtime_error("рядок " + std::to_string(no) + ": нема двокрапки");
-        Rule r;
-        r.out = trim(body.substr(0, colon));
-        if (r.out.empty()) throw std::runtime_error("рядок " + std::to_string(no) + ": порожній вихід");
-        std::istringstream is(body.substr(colon + 1));
-        for (std::string w; is >> w;) r.ins.push_back(w);
-        rules.push_back(std::move(r));
-    }
-    for (const auto& r : rules)
-        if (r.cmd.empty()) throw std::runtime_error("правило «" + r.out + "» без команди");
-    return rules;
-}
-
-static std::string expand(const Rule& r, const std::string& out) {
-    std::string all;
-    for (const auto& i : r.ins) { if (!all.empty()) all += ' '; all += i; }
-    std::string s;
-    for (size_t i = 0; i < r.cmd.size();) {
-        if (!r.cmd.compare(i, 4, "$out"))      { s += out; i += 4; }
-        else if (!r.cmd.compare(i, 4, "$ins")) { s += all; i += 4; }
-        else if (!r.cmd.compare(i, 3, "$in"))  { s += r.ins.empty() ? std::string() : r.ins[0]; i += 3; }
-        else                                   { s += r.cmd[i]; ++i; }
-    }
-    return s;
-}
-```
+:::code proj-mini-build/cpp/mb.cpp
 
 Порядок перевірок в `expand` не випадковий: `$ins` мусить перевірятися раніше за `$in`, інакше довша підстановка не спрацює ніколи. Коротша збіглася б першою, `$ins` розібралося б як `$in` плюс літера `s`, і в команду замість усіх входів пішов би перший із приліпленою літерою. Це дрібниця, але з тих, які ловляться не компілятором, а зіпсованою збіркою через тиждень.
 
 ## Геш: п'ять рядків, у яких сховані два рішення
 
-```cpp
-struct Fnv {                        // FNV-1a, 64 біти: xor байтом, потім множення
-    uint64_t h = 14695981039346656037ull;
-    void feed(const void* p, size_t n) {
-        auto b = static_cast<const unsigned char*>(p);
-        for (size_t i = 0; i < n; ++i) { h ^= b[i]; h *= 1099511628211ull; }
-    }
-    void feed(std::string_view s) { feed(s.data(), s.size()); }
-    void sep() { feed("\x1e", 1); }      // межа поля: щоб «ab»+«c» ≠ «a»+«bc»
-};
-
-static bool hashFile(const fs::path& p, Fnv& h) {
-    std::ifstream f(p, std::ios::binary);
-    if (!f) return false;
-    char buf[1 << 16];
-    while (f.read(buf, sizeof buf) || f.gcount())
-        h.feed(buf, static_cast<size_t>(f.gcount()));
-    return true;
-}
-```
+:::code proj-mini-build/cpp/hesh-piat-riadkiv-u-iakykh.cpp
 
 Це FNV-1a — [некриптографічна гешфункція](root:sf-algorithms/non-cryptographic-hash) з дуже точною історією: основу надіслали Гленн Фаулер і Фонг Во як зауваження рецензентів до комітету IEEE POSIX P1003.2 у 1991 році, а в наступному колі голосування Лендон Керт Нолл її поліпшив; звідси й назва Fowler/Noll/Vo. Варіант «1a» відрізняється від первісного лише порядком двох дій — спершу `xor`, потім множення, — і цим рівномірніше розмазує вплив кожного байта.
 
@@ -170,22 +75,7 @@ FNV-1a стоїть тут через свої п'ять рядків, а не �
 
 ## Ключ задачі
 
-```cpp
-// Ключ — геш усього, від чого залежить результат.
-// 0 означає «ключа немає»: якийсь вхід не читається, отже про актуальність не йдеться.
-static uint64_t taskKey(const Rule& r) {
-    Fnv h;
-    h.feed("mb/1");            h.sep();   // версія схеми ключа
-    h.feed(r.out);             h.sep();
-    h.feed(expand(r, r.out));  h.sep();   // команда з підставленим СПРАВЖНІМ виходом
-    for (const auto& in : r.ins) {
-        h.feed(in);            h.sep();
-        if (!hashFile(in, h)) return 0;
-        h.sep();
-    }
-    return h.h ? h.h : 1;                 // нуль бережемо під «немає»
-}
-```
+:::code proj-mini-build/cpp/kliuch-zadachi.cpp
 
 Чотирнадцять рядків, у яких лежить уся правильність інкрементальної збірки. Варто прочитати їх як список обіцянок: результат залежить від імені виходу, від розгорнутого рядка команди, від імен усіх входів і від вмісту всіх входів — і ні від чого більше. Кожен рядок тут — це стверджувальне речення про світ, і кожне з них може виявитися неправдою; з розбору того, які саме, складено пастки наприкінці.
 
@@ -195,37 +85,7 @@ static uint64_t taskKey(const Rule& r) {
 
 ## Граф і три кольори
 
-```cpp
-struct Node {
-    Rule rule;
-    std::vector<int> ins;    // входи, які теж хтось будує
-    std::vector<int> outs;   // хто чекає на цю вершину
-    int pending = 0;         // скільки входів іще не готові
-};
-
-static std::vector<Node> buildGraph(std::vector<Rule> rules) {
-    std::vector<Node> g(rules.size());
-    std::unordered_map<std::string, int> byOut;
-    for (size_t i = 0; i < rules.size(); ++i) {
-        if (!byOut.emplace(rules[i].out, (int)i).second)
-            throw std::runtime_error("два правила на один вихід: " + rules[i].out);
-        g[i].rule = std::move(rules[i]);
-    }
-    for (int v = 0; v < (int)g.size(); ++v)
-        for (const auto& in : g[v].rule.ins) {
-            auto it = byOut.find(in);
-            if (it == byOut.end()) {                 // лист: файл просто мусить існувати
-                if (!fs::exists(in))
-                    throw std::runtime_error("нема ні файлу, ні правила: " + in);
-                continue;
-            }
-            g[v].ins.push_back(it->second);
-            g[it->second].outs.push_back(v);
-            ++g[v].pending;
-        }
-    return g;
-}
-```
+:::code proj-mini-build/cpp/hraf-i-try-kolory.cpp
 
 Граф ніхто не оголошував — він виріс із покажчика `byOut`. Кожен вхід питає покажчик про своє ім'я: якщо хтось таке робить, з'являється ребро; якщо ніхто, це вихідний файл із репозиторію, і від нього ми вимагаємо лише існувати. Заборона двох правил на один вихід — не примха: два різні способи зробити один файл означають, що результат залежить від того, хто встиг першим, а тоді про ключі можна забути.
 
@@ -235,34 +95,7 @@ static std::vector<Node> buildGraph(std::vector<Rule> rules) {
 
 *Сіра — це «зараз на моєму шляху»; чорна — «уже перевірена, звідти циклу нема». Різниця між цими двома станами — вся різниця між правильною перевіркою і хибним спрацюванням на спільній залежності.*
 
-```cpp
-// Три кольори: 0 — не заходили, 1 — на стеку, 2 — закрита.
-// Ребро у вершину кольору 1 веде назад у власну гілку — це і є цикл.
-static void checkAcyclic(const std::vector<Node>& g) {
-    std::vector<int> color(g.size(), 0), path;   // path — поточна гілка, для повідомлення
-    struct Frame { int v; size_t i; };
-    std::vector<Frame> st;
-    for (int s = 0; s < (int)g.size(); ++s) {
-        if (color[s]) continue;
-        color[s] = 1; path.push_back(s); st.push_back({s, 0});
-        while (!st.empty()) {
-            int v = st.back().v;
-            if (st.back().i < g[v].ins.size()) {
-                int u = g[v].ins[st.back().i++];
-                if (color[u] == 1) {                       // ← цикл
-                    std::string msg;
-                    auto it = std::find(path.begin(), path.end(), u);
-                    for (; it != path.end(); ++it) msg += g[*it].rule.out + " → ";
-                    throw std::runtime_error("цикл у правилах: " + msg + g[u].rule.out);
-                }
-                if (!color[u]) { color[u] = 1; path.push_back(u); st.push_back({u, 0}); }
-            } else {
-                color[v] = 2; path.pop_back(); st.pop_back();
-            }
-        }
-    }
-}
-```
+:::code proj-mini-build/cpp/hraf-i-try-kolory-2.cpp
 
 Обхід тут навмисно розгорнутий у власний стек замість рекурсії. У [пошуку в глибину](root:sf-algorithms/depth-first-search) рекурсія природніша й коротша, але глибина тут — це довжина ланцюга залежностей, а вона в реальних деревах доходить до тисяч; стек викликів такого не любить, і падіння виглядало б як загадковий збій замість повідомлення про цикл.
 
@@ -272,28 +105,7 @@ static void checkAcyclic(const std::vector<Node>& g) {
 
 ## Журнал: те, що переживає прогін
 
-```cpp
-struct Stamp { uint64_t key = 0, art = 0; };   // ключ задачі й геш артефакту
-
-static std::unordered_map<std::string, Stamp> loadLog(const fs::path& p) {
-    std::unordered_map<std::string, Stamp> log;
-    std::ifstream f(p);
-    std::string line;
-    while (std::getline(f, line)) {
-        std::istringstream is(line);
-        Stamp s; std::string out;
-        if (!(is >> std::hex >> s.key >> s.art)) continue;   // зіпсований рядок — пропустити
-        is >> std::ws;
-        if (std::getline(is, out) && !out.empty()) log[out] = s;
-    }
-    return log;
-}
-
-static void saveLog(const fs::path& p, const std::unordered_map<std::string, Stamp>& log) {
-    std::ofstream f(p, std::ios::trunc);
-    for (const auto& [out, s] : log) f << std::hex << s.key << ' ' << s.art << ' ' << out << '\n';
-}
-```
+:::code proj-mini-build/cpp/zhurnal-te-shcho.cpp
 
 Три числа на рядок: ключ задачі, геш артефакту, ім'я виходу. Цього досить, бо рішення «запускати чи ні» ставиться не до файлової системи, а до нашого власного минулого: **чи робили ми вже цю саму роботу і чи лежить її результат на місці**. Час зміни файлу в цій схемі не питається жодного разу — ані у входів, ані у виходів.
 
@@ -305,52 +117,7 @@ static void saveLog(const fs::path& p, const std::unordered_map<std::string, Sta
 
 *Уся розвилка — в одному порівнянні ключів; гілка «так» і є ранньою відсічкою, і в ній немає жодного рядка коду.*
 
-```cpp
-// Виконати задачу, якщо ключ розійшовся з журнальним.
-// Повертає true, якщо артефакт СТАВ ІНШИМ (це лише для звіту).
-static bool runNode(const Node& n, std::unordered_map<std::string, Stamp>& log,
-                    std::mutex& mx, std::atomic<bool>& failed) {
-    const Rule& r = n.rule;
-    const uint64_t key = taskKey(r);
-    Stamp prev;
-    {   std::lock_guard<std::mutex> lk(mx);
-        if (auto it = log.find(r.out); it != log.end()) prev = it->second; }
-
-    if (key && key == prev.key && fs::exists(r.out)) {
-        std::printf("—  %s\n", r.out.c_str());          // ключ той самий: робити нічого
-        return false;
-    }
-
-    const std::string tmp = r.out + ".mb-tmp";          // ПОРУЧ із виходом, у тій самій теці
-    const std::string cmd = expand(r, tmp);
-    std::printf("▸  %s\n", cmd.c_str());
-    std::error_code ec;
-    fs::remove(tmp, ec);
-
-    if (std::system(cmd.c_str()) != 0) {
-        fs::remove(tmp, ec);                            // недописаного не лишаємо
-        std::fprintf(stderr, "провал: %s\n", r.out.c_str());
-        failed = true;
-        return false;
-    }
-    Fnv art;
-    if (!hashFile(tmp, art)) {
-        std::fprintf(stderr, "команда не створила %s\n", tmp.c_str());
-        failed = true;
-        return false;
-    }
-    fs::rename(tmp, r.out, ec);                         // одна неподільна дія
-    if (ec) {
-        std::fprintf(stderr, "не перейменувати %s: %s\n", tmp.c_str(), ec.message().c_str());
-        failed = true;
-        return false;
-    }
-    std::lock_guard<std::mutex> lk(mx);
-    const bool changed = (art.h != prev.art);
-    log[r.out] = Stamp{key, art.h};
-    return changed;
-}
-```
+:::code proj-mini-build/cpp/odna-zadacha-tsilkom.cpp
 
 Команда ніколи не пише туди, куди дивиться наступний прогін. Вона пише в `out.mb-tmp`, і тільки коли завершилася нулем і файл справді з'явився, ми переставляємо ім'я. Перейменування в межах однієї файлової системи POSIX вимагає виконувати неподільно: якщо цільове ім'я вже існує, воно лишається видимим протягом усієї операції й указує або на старий файл, або на новий — стану «ні на що» не буває. Тому обірвана посеред роботи збірка не може лишити після себе напівфайл: або старий артефакт цілий, або новий цілий.
 
@@ -360,61 +127,7 @@ static bool runNode(const Node& n, std::unordered_map<std::string, Stamp>& log,
 
 ## Пул, який бере тільки готове
 
-```cpp
-static bool build(std::vector<Node>& g, const fs::path& logPath, unsigned jobs) {
-    auto log = loadLog(logPath);
-    std::mutex mx;                        // стереже чергу, лічильники й журнал
-    std::condition_variable cv;
-    std::vector<int> ready;
-    int left = (int)g.size();
-    std::atomic<bool> failed{false};
-
-    for (int v = 0; v < (int)g.size(); ++v)
-        if (g[v].pending == 0) ready.push_back(v);
-
-    auto worker = [&] {
-        for (;;) {
-            int v;
-            {   std::unique_lock<std::mutex> lk(mx);
-                cv.wait(lk, [&] { return !ready.empty() || left == 0 || failed.load(); });
-                if (failed.load() || ready.empty()) return;
-                v = ready.back(); ready.pop_back(); }
-
-            runNode(g[v], log, mx, failed);             // єдине місце, де довго
-
-            {   std::lock_guard<std::mutex> lk(mx);
-                --left;
-                for (int u : g[v].outs)
-                    if (--g[u].pending == 0) ready.push_back(u); }
-            cv.notify_all();
-        }
-    };
-    std::vector<std::thread> pool;
-    for (unsigned i = 0; i < jobs; ++i) pool.emplace_back(worker);
-    for (auto& t : pool) t.join();
-    saveLog(logPath, log);
-    return !failed.load() && left == 0;
-}
-
-int main(int argc, char** argv) {
-    std::string rulesPath = "build.rules";
-    unsigned jobs = std::thread::hardware_concurrency();
-    if (!jobs) jobs = 4;
-    for (int i = 1; i < argc; ++i) {
-        std::string a = argv[i];
-        if (a == "-j" && i + 1 < argc) jobs = (unsigned)std::stoul(argv[++i]);
-        else rulesPath = a;
-    }
-    try {
-        auto g = buildGraph(parseRules(rulesPath));
-        checkAcyclic(g);
-        return build(g, rulesPath + ".log", jobs) ? 0 : 1;
-    } catch (const std::exception& e) {
-        std::fprintf(stderr, "mb: %s\n", e.what());
-        return 2;
-    }
-}
-```
+:::code proj-mini-build/cpp/pul-iakyi-bere-tilky.cpp
 
 Тут немає топологічного сортування як окремого кроку, і це не спрощення. Лічильник `pending` — це кількість входів вершини, які ще хтось будує; вершина потрапляє в чергу рівно тоді, коли він дійшов нуля. Порядок, у якому робітники розбирають чергу, довільний і щоразу інший — але жоден із цих порядків не порушує стрілок графа, бо вершина фізично не може опинитися в черзі раніше за свої входи. Топологічний порядок тут не обчислюють; його дотримуються.
 

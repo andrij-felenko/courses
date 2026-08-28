@@ -95,18 +95,7 @@ add_test(NAME <ім'я_тесту>
 
 Оскільки точні шляхи до бінарних файлів і плагінів стають відомими лише на етапі генерації білд-файлів, команда `add_test` повноцінно підтримує [генераторні вирази](root:sys-bsystem/generator-expressions).
 
-```cmake
-add_executable(parser_test tests/test_parser.cpp)
-target_link_libraries(parser_test PRIVATE core_engine)
-
-add_test(NAME verify_json_parser
-    COMMAND parser_test
-            --input "$<TARGET_PROPERTY:core_engine,SOURCE_DIR>/testdata/valid.json"
-            --schema "$<TARGET_FILE:schema_validator>"
-            --log-level "$<IF:$<CONFIG:Debug>,verbose,error>"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-)
-```
+:::code ctest-d/cmake/heneratorni-vyrazy-v.cmake
 
 Вираз `$<TARGET_FILE:schema_validator>` повертає точний шлях до готового виконуваного файлу допоміжної цілі, а `$<CONFIG:Debug>` дозволяє динамічно змінювати прапорці деталізації логування залежно від поточної конфігурації.
 
@@ -142,18 +131,7 @@ set_tests_properties(verify_json_parser PROPERTIES
 
 Коли перевіряється реакція програми на критичні помилки (наприклад, виклик `abort()` при виявленні пошкодження пам'яті або передача невалідного аргументу командного рядка), успіхом є саме аварійне завершення:
 
-```cmake
-add_executable(crash_test tests/test_assertion_failure.cpp)
-
-add_test(NAME expect_out_of_bounds_crash
-    COMMAND crash_test --trigger-assert
-)
-
-set_tests_properties(expect_out_of_bounds_crash PROPERTIES
-    WILL_FAIL TRUE
-    TIMEOUT 5.0
-)
-```
+:::code ctest-d/cmake/nehatyvne-testuvannia-will.cmake
 
 Якщо прапорець `WILL_FAIL` встановлено у `TRUE`, CTest інвертує логіку: якщо процес повернув код, відмінний від нуля, або впав за сигналом — тест вважається пройденим (*Passed*). Якщо ж процес штатно завершився з кодом `0`, CTest фіксує помилку.
 
@@ -235,36 +213,7 @@ set_tests_properties(check_crypto_provider PROPERTIES
 
 Розглянемо практичну конфігурацію:
 
-```cmake
-# 1. Тест підготовки: створення БД та наповнення таблиць
-add_test(NAME setup_test_database
-    COMMAND test_db_manager --create-database "temp_test_db"
-)
-set_tests_properties(setup_test_database PROPERTIES
-    FIXTURES_SETUP "DatabaseFixture"
-    TIMEOUT 20.0
-)
-
-# 2. Робочі тести, які читають і модифікують базу
-add_test(NAME test_user_authentication
-    COMMAND auth_service_test --db "temp_test_db"
-)
-add_test(NAME test_order_processing
-    COMMAND order_service_test --db "temp_test_db"
-)
-set_tests_properties(test_user_authentication test_order_processing PROPERTIES
-    FIXTURES_REQUIRED "DatabaseFixture"
-    TIMEOUT 10.0
-)
-
-# 3. Тест очищення: видалення файлів бази та зупинка демона
-add_test(NAME cleanup_test_database
-    COMMAND test_db_manager --drop-database "temp_test_db"
-)
-set_tests_properties(cleanup_test_database PROPERTIES
-    FIXTURES_CLEANUP "DatabaseFixture"
-)
-```
+:::code ctest-d/cmake/deklaratyvni-fikstury.cmake
 
 Ця декларативна модель надає три фундаментальні гарантії:
 
@@ -356,23 +305,7 @@ set_tests_properties(test_server_v1 test_server_v2 PROPERTIES
 
 У CMake 3.10 з'явилася функція нового покоління — `gtest_discover_tests()`:
 
-```cmake
-find_package(GTest REQUIRED)
-include(GoogleTest)
-
-add_executable(math_tests tests/test_math.cpp)
-target_link_libraries(math_tests PRIVATE GTest::gtest_main)
-
-# Динамічне виявлення тестів
-gtest_discover_tests(math_tests
-    EXTRA_ARGS "--custom_flag"
-    PROPERTIES
-        TIMEOUT 10.0
-        LABELS "unit;math"
-    DISCOVERY_TIMEOUT 30
-    TEST_PREFIX "MathCore."
-)
-```
+:::code ctest-d/cmake/googletest-evoliutsiia-vid.cmake
 
 ![Реєстрація тестів GoogleTest у CMake](img/test-discovery-mechanism.svg)
 
@@ -391,19 +324,7 @@ gtest_discover_tests(math_tests
 
 Аналогічний механізм реалізовано у фреймворку Catch2 через модуль `Catch`:
 
-```cmake
-find_package(Catch2 3 REQUIRED)
-include(Catch)
-
-add_executable(network_tests tests/test_network.cpp)
-target_link_libraries(network_tests PRIVATE Catch2::Catch2WithMain)
-
-catch_discover_tests(network_tests
-    PROPERTIES
-        TIMEOUT 15.0
-        LABELS "network"
-)
-```
+:::code ctest-d/cmake/catch2-catch-discover.cmake
 
 Кожен блок `TEST_CASE` реєструється як окрема одиниця CTest.
 
