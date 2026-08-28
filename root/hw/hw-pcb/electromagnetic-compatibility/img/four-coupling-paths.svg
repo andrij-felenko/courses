@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чотири фізичні шляхи електромагнітного зв'язку</text>
+<rect x="20.0" y="45.0" width="360.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Кондуктивний (спільний імпеданс)</text>
+<line x1="60.0" y1="95.0" x2="170.0" y2="95.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="55.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">Агресор</text>
+<line x1="60.0" y1="125.0" x2="170.0" y2="125.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="55.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="end">Жертва</text>
+<rect x="170.0" y="100.0" width="120.0" height="20.0" rx="6" fill="#e8ecf1" stroke="#778899" stroke-width="1.5"/>
+<text x="230.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Z_спільне (R + jwL)</text>
+<line x1="90.0" y1="87.0" x2="150.0" y2="87.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="120.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">I_агресора</text>
+<text x="200.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ΔV_землі = I_агресора · Z_спільне</text>
+<text x="200.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зворотний струм спотворює опорний нуль жертви</text>
+<rect x="400.0" y="45.0" width="360.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Ємнісний (електричне поле E)</text>
+<line x1="440.0" y1="95.0" x2="720.0" y2="95.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="435.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">V1(t)</text>
+<line x1="440.0" y1="140.0" x2="720.0" y2="140.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="435.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">V2(t)</text>
+<line x1="580.0" y1="95.0" x2="580.0" y2="112.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="568.0" y1="112.0" x2="592.0" y2="112.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="568.0" y1="122.0" x2="592.0" y2="122.0" stroke="#6b7280" stroke-width="2.0"/>
+<line x1="580.0" y1="122.0" x2="580.0" y2="140.0" stroke="#6b7280" stroke-width="1.5"/>
+<text x="605.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">C_M</text>
+<text x="580.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">i_наведення = C_M · (dV1 / dt)</text>
+<text x="580.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Швидкий перепад напруги впорскує струм у сусідню лінію</text>
+<rect x="20.0" y="210.0" width="360.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Індуктивний (магнітне поле B)</text>
+<rect x="60.0" y="255.0" width="100.0" height="45.0" rx="4" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="90.0" y1="255.0" x2="130.0" y2="255.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="110.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Контур 1 (I1)</text>
+<circle cx="200" cy="278" r="14" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="200.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Φ</text>
+<rect x="240.0" y="255.0" width="100.0" height="45.0" rx="4" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<text x="290.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Контур 2</text>
+<text x="200.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">V_наведення = - M · (dI1 / dt)</text>
+<text x="200.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Змінний магнітний потік прошиває контур жертви</text>
+<rect x="400.0" y="210.0" width="360.0" height="150.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Випромінювальний (дальнє поле EM)</text>
+<line x1="460.0" y1="255.0" x2="460.0" y2="305.0" stroke="#c0392b" stroke-width="3.0"/>
+<text x="460.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Кабель / петля</text>
+<path d="M 490 250 A 30 30 0 0 1 490 310" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<path d="M 490 225 A 55 55 0 0 1 490 335" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<path d="M 490 200 A 80 80 0 0 1 490 360" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<text x="560.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">E, H (Z0 = 377 Ω)</text>
+<line x1="700.0" y1="255.0" x2="700.0" y2="305.0" stroke="#2457d6" stroke-width="3.0"/>
+<text x="700.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Провідник-жертва</text>
+<text x="580.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">E_field ∝ (f · I_CM · L) / r</text>
+<text x="580.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Хвиля у вільному просторі діє на великих відстанях</text>
+</svg>

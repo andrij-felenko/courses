@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тепловий баланс силового провідника на друкованій платі</text>
+<rect x="40.0" y="56.0" width="450.0" height="360.0" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="265.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розріз 4-шарової плати: шляхи розсіювання тепла</text>
+<rect x="55.0" y="94.0" width="420.0" height="50.0" rx="4" fill="#f0f7ff" stroke="#d0e2ff" stroke-width="1.0"/>
+<text x="68.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Навколишнє повітря (Tamb = 25 °C)</text>
+<line x1="120.0" y1="176.0" x2="120.0" y2="124.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="130.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">q_conv (конвекція)</text>
+<line x1="270.0" y1="176.0" x2="270.0" y2="124.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="start" font-weight="700">q_rad (випромінювання)</text>
+<rect x="55.0" y="194.0" width="40.0" height="8.0" rx="1" fill="#27ae60" stroke="#1e8449" stroke-width="0.8"/>
+<rect x="265.0" y="194.0" width="210.0" height="8.0" rx="1" fill="#27ae60" stroke="#1e8449" stroke-width="0.8"/>
+<text x="370.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="start">Паяльна маска (ε ≈ 0.9)</text>
+<rect x="95.0" y="182.0" width="170.0" height="20.0" rx="2" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
+<text x="180.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Силова доріжка (I²·R)</text>
+<rect x="55.0" y="202.0" width="420.0" height="48.0" rx="1" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="465.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">FR-4 (k ≈ 0.25 Вт/(м·К))</text>
+<rect x="95.0" y="250.0" width="170.0" height="16.0" rx="2" fill="#b9770e" stroke="#7e5109" stroke-width="1.2"/>
+<text x="180.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Внутрішній шар (затиснений)</text>
+<rect x="55.0" y="266.0" width="420.0" height="42.0" rx="1" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="65.0" y="308.0" width="400.0" height="12.0" rx="1" fill="#2980b9" stroke="#1f618d" stroke-width="1.0"/>
+<text x="75.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="start" font-weight="700">Шар GND (тепловий розподільник)</text>
+<rect x="55.0" y="320.0" width="420.0" height="40.0" rx="1" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="95.0" y="360.0" width="210.0" height="18.0" rx="2" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<text x="200.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Нижній полігон міді</text>
+<rect x="55.0" y="378.0" width="40.0" height="6.0" rx="1" fill="#27ae60" stroke="#1e8449" stroke-width="0.8"/>
+<rect x="305.0" y="378.0" width="170.0" height="6.0" rx="1" fill="#27ae60" stroke="#1e8449" stroke-width="0.8"/>
+<line x1="180.0" y1="204.0" x2="180.0" y2="246.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="268.0" x2="180.0" y2="304.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="280.0" y1="322.0" x2="280.0" y2="356.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="285.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">q_cond</text>
+<line x1="200.0" y1="382.0" x2="200.0" y2="428.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="212.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Нижня конвекція</text>
+<rect x="510.0" y="56.0" width="290.0" height="360.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="655.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичні параметри розсіювання</text>
+<text x="524.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Джерело тепла:</text>
+<text x="786.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">P = I² · R(T)  [Дж/с]</text>
+<text x="524.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Опір міді росте:</text>
+<text x="786.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">R(T) = R₀·(1 + α·ΔT)</text>
+<text x="524.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Темп. коеф. α:</text>
+<text x="786.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">+0.00393  (1/°C)</text>
+<text x="524.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Конвекція повітря:</text>
+<text x="786.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">h ≈ 10–15 Вт/(м²·К)</text>
+<text x="524.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Теплопровідність FR-4:</text>
+<text x="786.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">k ≈ 0.25 Вт/(м·К)</text>
+<text x="524.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Теплопровідність Cu:</text>
+<text x="786.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">k ≈ 385 Вт/(м·К)</text>
+<rect x="522.0" y="301.0" width="266.0" height="96.0" rx="4" fill="#eef6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="655.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Зовнішній vs Внутрішній шар:</text>
+<text x="655.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зовнішній шар охолоджується повітрям.</text>
+<text x="655.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Внутрішній затиснений у теплоізоляторі FR-4.</text>
+<text x="655.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Без площин поруч: струм ×0.5 (IPC-2152)!</text>
+</svg>

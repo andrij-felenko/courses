@@ -119,12 +119,44 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-coating-specs.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "klas-zakhystu",
           "title": "Клас захисту IP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sealing-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rozrakhunok-oring-ushchilnennia",
+          "title": "Розрахунок ущільнень O-Ring за ISO 3601: стиснення, заповнення паза та екструзія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pcb-shock-and-vibration",
+          "title": "Механічні напруження друкованих плат: динамічний удар, прогин текстоліту, зріз BGA та розтріскування MLCC",
           "basic": {
             "status": "empty"
           },
@@ -169,6 +201,16 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "kabelni-vvody-i-hermoprokhodky",
+          "title": "Кабельні вводи, сальники та гермопроходки: стандарти EN 62444 й капілярний барєр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -193,7 +235,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]

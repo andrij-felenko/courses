@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будова перехідного отвору та силова матриця (Stitching Vias)</text>
+<rect x="40.0" y="56.0" width="360.0" height="345.0" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="220.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія циліндричної гільзи via</text>
+<rect x="85.0" y="111.0" width="270.0" height="16.0" rx="3" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
+<text x="75.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Top Pad</text>
+<rect x="85.0" y="127.0" width="75.0" height="140.0" rx="0" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.0"/>
+<rect x="270.0" y="127.0" width="85.0" height="140.0" rx="0" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="312.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">FR-4 h=1.6 мм</text>
+<rect x="160.0" y="111.0" width="22.0" height="172.0" rx="0" fill="#e67e22" stroke="#b9770e" stroke-width="1.2"/>
+<rect x="248.0" y="111.0" width="22.0" height="172.0" rx="0" fill="#e67e22" stroke="#b9770e" stroke-width="1.2"/>
+<rect x="182.0" y="111.0" width="66.0" height="172.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="215.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Порожнина</text>
+<rect x="85.0" y="267.0" width="270.0" height="16.0" rx="3" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
+<text x="75.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Bottom Pad</text>
+<line x1="160.0" y1="101.0" x2="270.0" y2="101.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="215.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">d_drill = 0.3–0.5 мм</text>
+<line x1="115.0" y1="161.0" x2="158.0" y2="161.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="103.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">t_wall ≈ 20–25 мкм</text>
+<rect x="54.0" y="301.0" width="332.0" height="86.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="220.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Площа перерізу стінки: A ≈ π · d_hole · t_wall</text>
+<text x="220.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Опір 1 via (d=0.3 мм, h=1.6 мм): R ≈ 1.2–1.5 мОм</text>
+<text x="220.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Допустимий струм (ΔT=20°C): I_max ≈ 1.5–2.0 А</text>
+<rect x="420.0" y="56.0" width="380.0" height="345.0" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="610.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця перехідних отворів під струм 15–20 А</text>
+<rect x="445.0" y="104.0" width="330.0" height="92.0" rx="4" fill="#fdebd0" stroke="#e67e22" stroke-width="1.4"/>
+<text x="455.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="start" font-weight="700">Шина живлення (Top Copper Pour)</text>
+<circle cx="515.0" cy="148.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="515.0" cy="148.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="515.0" cy="148.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="575.0" cy="148.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="575.0" cy="148.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="575.0" cy="148.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="635.0" cy="148.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="635.0" cy="148.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="635.0" cy="148.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="695.0" cy="148.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="695.0" cy="148.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="695.0" cy="148.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="515.0" cy="180.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="515.0" cy="180.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="515.0" cy="180.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="575.0" cy="180.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="575.0" cy="180.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="575.0" cy="180.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="635.0" cy="180.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="635.0" cy="180.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="635.0" cy="180.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<circle cx="695.0" cy="180.0" r="11.0" fill="#d35400" stroke="#a04000" stroke-width="1.2"/>
+<circle cx="695.0" cy="180.0" r="7.0" fill="#fdfefe" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="695.0" cy="180.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<line x1="455.0" y1="161.0" x2="492.0" y2="161.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="455.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">I = 16 A</text>
+<text x="610.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Струм ділиться порівну: I_via = I_total / N = 16 А / 8 = 2 А</text>
+<line x1="515.0" y1="194.0" x2="575.0" y2="194.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="545.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">pitch p ≥ 2–3·d</text>
+<rect x="436.0" y="236.0" width="348.0" height="148.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="448.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Правила силової матриці (Array Rules):</text>
+<text x="448.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Паралельний опір: R_eq = R_via / N (8 via → 0.18 мОм)</text>
+<text x="448.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Паразитна індуктивність падає в N разів (L_eq = L / N)</text>
+<text x="448.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">3. Теплове взаємопроникнення: крок ≥ 1.0–1.5 мм</text>
+<text x="448.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">4. Розміщувати впритул до виводів конденсаторів/ключів</text>
+<text x="448.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">5. Струмовий запас: розраховувати на N - 1 отвір</text>
+</svg>

@@ -79,8 +79,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-clearance-tables.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -185,8 +191,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-via-resistance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-trace-calc.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "thermal-vias",
@@ -195,8 +213,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-vippo-specs.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thermal-resistance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermal-via-array.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }
