@@ -57,42 +57,8 @@
 > ⚙️ **Worked-приклад: IoU двох рамок і крок NMS.** Рамка — `{x, y, w, h}` (ліво, верх, ширина, висота, у пікселях). Рахуємо перекриття двох знахідок і вирішуємо, чи це дублікат.
 
 :::tabs
-```cpp
-#include <algorithm>
-
-struct Box { int x, y, w, h; float score; };
-
-float iou(const Box &a, const Box &b) {
-    int x1 = std::max(a.x, b.x);                    // ліва межа перетину
-    int y1 = std::max(a.y, b.y);                    // верхня
-    int x2 = std::min(a.x + a.w, b.x + b.w);        // права
-    int y2 = std::min(a.y + a.h, b.y + b.h);        // нижня
-    int iw = x2 - x1, ih = y2 - y1;
-    if (iw <= 0 || ih <= 0) return 0.0f;            // не перетинаються
-    float inter = static_cast<float>(iw) * ih;
-    float uni   = static_cast<float>(a.w) * a.h + static_cast<float>(b.w) * b.h - inter;
-    return inter / uni;
-}
-```
-```python
-from dataclasses import dataclass
-
-@dataclass
-class Box:
-    x: int; y: int; w: int; h: int; score: float
-
-def iou(a: Box, b: Box) -> float:
-    x1 = max(a.x, b.x)                       # ліва межа перетину
-    y1 = max(a.y, b.y)                       # верхня
-    x2 = min(a.x + a.w, b.x + b.w)           # права
-    y2 = min(a.y + a.h, b.y + b.h)           # нижня
-    iw, ih = x2 - x1, y2 - y1
-    if iw <= 0 or ih <= 0:
-        return 0.0                           # не перетинаються
-    inter = iw * ih
-    uni   = a.w * a.h + b.w * b.h - inter
-    return inter / uni
-```
+:::code object-detection/cpp/main.cpp
+:::code object-detection/py/main.py
 :::
 
 Хай детектор м'яча видав дві рамки: `A = {100, 100, 50, 50, score 0.92}` і `B = {110, 108, 50, 50, score 0.81}`.

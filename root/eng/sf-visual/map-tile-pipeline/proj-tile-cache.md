@@ -31,76 +31,7 @@
 
 Адреса — не трійка, а четвірка. П'ятий байт її ключа несе `variant`: джерело (супутник чи схема), стиль, щільність пікселів, мова підписів. Забути його — це не «дрібна неточність», а кеш, який на екрані подвійної щільности назавжди віддає картинку звичайної.
 
-```cpp
-#include <algorithm>
-#include <atomic>
-#include <cassert>
-#include <chrono>
-#include <cmath>
-#include <condition_variable>
-#include <cstdint>
-#include <cstdlib>
-#include <deque>
-#include <memory>
-#include <mutex>
-#include <queue>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
-// Адреса тайла. variant — усе, що робить два тайли з тими самими z/x/y
-// різними картинками: джерело, стиль, щільність, мова підписів.
-struct TileId {
-    int32_t  z = 0;
-    int32_t  x = 0;
-    int32_t  y = 0;
-    uint32_t variant = 0;
-
-    // Сітки вкладені, тому предок — це зсув, а не пошук.
-    constexpr TileId parent() const noexcept {
-        return TileId{ z - 1, x >> 1, y >> 1, variant };
-    }
-    constexpr TileId ancestor(int32_t up) const noexcept {
-        return TileId{ z - up, x >> up, y >> up, variant };
-    }
-    // Який із чотирьох квадрантів предка займає цей тайл: 0…3.
-    // Саме це число каже, яку чверть предка розтягувати на місце діри.
-    constexpr int quadrant() const noexcept {
-        return int(((y & 1) << 1) | (x & 1));
-    }
-    // Уся адреса в одному 64-бітному числі: z 6 біт, x і y по 24, variant 10.
-    // Межі: z ≤ 24 (звідси x, y < 2²⁴) і variant < 1024 — з запасом
-    // на будь-яку карту, яку віддає тайл-сервер.
-    constexpr uint64_t key() const noexcept {
-        return (uint64_t(uint32_t(z)) << 58)
-             | (uint64_t(uint32_t(x)) << 34)
-             | (uint64_t(uint32_t(y)) << 10)
-             |  uint64_t(variant & 0x3FFu);
-    }
-};
-
-constexpr bool operator==(const TileId& a, const TileId& b) noexcept {
-    return a.key() == b.key();
-}
-
-// Карта замикається по довготі: тайл «за правим краєм світу» — це тайл
-// біля лівого. Нормалізують ДО створення TileId: від'ємний x дав би
-// і неправильний зсув у parent(), і чужий ключ у кеші.
-constexpr int32_t wrapX(int32_t x, int32_t z) noexcept {
-    const int32_t n = int32_t(1) << z;
-    return ((x % n) + n) % n;
-}
-
-struct TileHash {
-    size_t operator()(const TileId& t) const noexcept {
-        uint64_t k = t.key();                        // фіналізатор splitmix64
-        k ^= k >> 30;  k *= 0xbf58476d1ce4e5b9ull;
-        k ^= k >> 27;  k *= 0x94d049bb133111ebull;
-        k ^= k >> 31;
-        return size_t(k);
-    }
-};
-```
+:::code proj-tile-cache/cpp/adresa-use-shcho-mozhna.hpp
 
 Три деталі варті пояснення.
 
@@ -114,36 +45,7 @@ struct TileHash {
 
 Порядок витіснення задає одна функція. На вхід їй ідуть адреса й **поточне** вікно; на виході — число, де більше означає цінніше.
 
-```cpp
-struct Viewport {
-    int32_t  zoom = 0;              // цілий рівень, який малюють цього кадру
-    double   cx = 0, cy = 0;        // центр екрана в тайлових координатах цього рівня
-    double   halfW = 1, halfH = 1;  // піврозміри екрана в тих самих одиницях
-    uint32_t variant = 0;
-    uint64_t generation = 0;        // росте на КОЖНУ зміну положення чи масштабу
-};
-
-// Квадрат нормованої відстані від центра екрана: 1.0 — приблизно край екрана.
-// ldexp множить на 2ᵏ точно й без ділень, тому переведення тайла рівня t.z
-// в одиниці рівня vp.zoom — це правка порядку числа, а не арифметика.
-inline double dist2(const TileId& t, const Viewport& vp) noexcept {
-    const int    shift = vp.zoom - t.z;
-    const double tx = std::ldexp(t.x + 0.5, shift);
-    const double ty = std::ldexp(t.y + 0.5, shift);
-    const double dx = (tx - vp.cx) / vp.halfW;
-    const double dy = (ty - vp.cy) / vp.halfH;
-    return dx * dx + dy * dy;
-}
-
-// Цінність для КЕША: більше — цінніше; витісняємо найменш цінне.
-inline double cacheValue(const TileId& t, const Viewport& vp) noexcept {
-    if (t.variant != vp.variant) return -1e300;   // чужий стиль чи щільність — геть першим
-    const int dl = std::abs(vp.zoom - t.z);
-    double v = -2.0 * dl - dist2(t, vp);
-    if (t.z < vp.zoom) v += 2.0;                  // предки закривають діри — тримаємо
-    return v;
-}
-```
+:::code proj-tile-cache/cpp/tsinnist-taila-chomu-ii-ne.hpp
 
 Дві сталі — `2.0` за рівень і `+2.0` предкам — не з естетики. Вони калібрують один порядок, який видно в числах:
 
@@ -166,101 +68,7 @@ inline double cacheValue(const TileId& t, const Viewport& vp) noexcept {
 
 ## Кеш, обмежений байтами
 
-```cpp
-struct Raster {
-    int32_t width = 0, height = 0, bytesPerPixel = 4;
-    std::vector<uint8_t> pixels;
-    // Скільки пам'яті РЕАЛЬНО зайнято, а не скільки мало б бути.
-    size_t footprint() const noexcept { return pixels.capacity(); }
-};
-
-using RasterPtr = std::shared_ptr<const Raster>;
-
-class TileCache {
-public:
-    explicit TileCache(size_t budgetBytes) : budget_(budgetBytes) {}
-
-    // Влучання віддає ВОЛОДІННЯ. Покажчик у нутрощі кеша віддавати не можна:
-    // до наступного кадру запис переїде на інше місце або зникне зовсім.
-    RasterPtr find(const TileId& id) const {
-        const auto it = index_.find(id);
-        return it == index_.end() ? RasterPtr{} : entries_[it->second].raster;
-    }
-
-    void insert(const TileId& id, RasterPtr raster) {
-        const size_t bytes = raster->footprint() + kEntryOverhead;
-        const auto [it, fresh] = index_.emplace(id, entries_.size());
-        if (!fresh) {
-            Entry& old = entries_[it->second];
-            bytes_ -= old.bytes;            // ← спершу відняти старе, і лише потім додати
-            old.raster = std::move(raster);
-            old.bytes  = bytes;
-            bytes_ += bytes;
-            return;
-        }
-        entries_.push_back(Entry{ id, std::move(raster), bytes });
-        bytes_ += bytes;
-    }
-
-    void erase(const TileId& id) {
-        const auto it = index_.find(id);
-        if (it == index_.end()) return;
-        const size_t i = it->second;
-        bytes_ -= entries_[i].bytes;
-        index_.erase(it);                   // ітератор далі не потрібен — знімаємо його першим
-        const size_t last = entries_.size() - 1;
-        if (i != last) {                    // дірку в масиві затикаємо останнім елементом
-            entries_[i] = std::move(entries_[last]);
-            index_.find(entries_[i].id)->second = i;   // переставленому — новий індекс
-        }
-        entries_.pop_back();
-    }
-
-    size_t bytes() const noexcept { return bytes_; }
-
-    // Один прохід до НИЖНЬОЇ межі. Кличуть у потоці малювання й лише коли перебір.
-    void trim(const Viewport& vp) {
-        if (bytes_ <= budget_) return;
-        const size_t target = size_t(double(budget_) * kLowWater);
-
-        order_.resize(entries_.size());
-        value_.resize(entries_.size());
-        for (size_t i = 0; i < entries_.size(); ++i) {
-            order_[i] = uint32_t(i);
-            value_[i] = cacheValue(entries_[i].id, vp);
-        }
-        std::sort(order_.begin(), order_.end(),
-                  [this](uint32_t a, uint32_t b) { return value_[a] < value_[b]; });
-
-        // Спершу зібрати АДРЕСИ, і тільки потім видаляти: erase() переставляє
-        // елементи вектора, і збережені індекси після першого ж видалення брешуть.
-        victims_.clear();
-        size_t freed = 0;
-        for (const uint32_t i : order_) {
-            if (bytes_ - freed <= target) break;
-            freed += entries_[i].bytes;
-            victims_.push_back(entries_[i].id);
-        }
-        for (const TileId& id : victims_) erase(id);
-    }
-
-private:
-    struct Entry { TileId id; RasterPtr raster; size_t bytes; };
-
-    // Entry + вузол хеш-таблиці + блок керування shared_ptr + заголовок алокатора.
-    static constexpr size_t kEntryOverhead = 128;
-    static constexpr double kLowWater      = 0.85;
-
-    std::vector<Entry> entries_;
-    std::unordered_map<TileId, size_t, TileHash> index_;
-    size_t bytes_ = 0;
-    size_t budget_;
-
-    std::vector<uint32_t> order_;    // робочі буфери trim — щоб він не алокував
-    std::vector<double>   value_;
-    std::vector<TileId>   victims_;
-};
-```
+:::code proj-tile-cache/cpp/kesh-obmezhenyi-baitamy.cpp
 
 Записи лежать у щільному векторі, а хеш-таблиця тримає лише індекси. Це дає локальність під час `trim`: прохід по цінності читає суміжну пам'ять, а не гуляє по вузлах таблиці. Платня за щільність — видалення через перестановку останнього елемента на місце вилученого, і саме через неї `find` не сміє віддавати `const Raster*`: до наступного кадру цей запис може виявитися зовсім іншим тайлом.
 
@@ -274,141 +82,13 @@ private:
 
 Ключ пріоритету — трійка, яку порівнюють лексикографічно.
 
-```cpp
-struct Request {
-    TileId   id;
-    uint64_t generation = 0;
-    int32_t  levelDelta = 0;
-    double   d2 = 0.0;
-};
-
-// Раніше йде той, у кого свіже покоління; далі — свій рівень; далі — центр.
-inline bool better(const Request& a, const Request& b) noexcept {
-    if (a.generation != b.generation) return a.generation > b.generation;
-    if (a.levelDelta != b.levelDelta) return a.levelDelta < b.levelDelta;
-    return a.d2 < b.d2;
-}
-// std::priority_queue кладе наверх «найбільший за Compare»,
-// тому Compare мусить означати саме «гірший».
-struct Worse {
-    bool operator()(const Request& a, const Request& b) const noexcept {
-        return better(b, a);
-    }
-};
-```
+:::code proj-tile-cache/cpp/kupa-zapytiv-shcho-zhyve.cpp
 
 Відстань бережуть **у квадраті**: корінь не змінює порядку, а коштує на кожному порівнянні всередині [купи](root:sf-algorithms/priority-queue-adt).
 
 Тепер головне рішення планувальника. Коли карта зрушила, все, що чекає в купі, описує вже не той екран. Замість того щоб переоцінювати тисячі записів, купу **викидають цілком** — і той самий кадр за мікросекунду складе потребу наново й покладе актуальні запити з правильними ключами.
 
-```cpp
-class TileScheduler {
-public:
-    struct Flight {
-        explicit Flight(uint64_t g) : startGeneration(g) {}
-        uint64_t            startGeneration;
-        std::atomic<bool>   abort{false};
-        std::atomic<size_t> bytesReceived{0};
-    };
-    using FlightPtr = std::shared_ptr<Flight>;
-
-    explicit TileScheduler(size_t maxInFlight) : maxInFlight_(maxInFlight) {}
-
-    // ── Потік малювання ───────────────────────────────────────────────────
-    // Нове покоління: усе, що чекало, більше не описує екран. Гуртом за борт.
-    void newGeneration(uint64_t g) {
-        {
-            std::lock_guard<std::mutex> lock(m_);
-            generation_ = g;
-            heap_ = Heap{};        // у std::priority_queue немає clear()
-            pending_.clear();      // те, що ще потрібне, цей же кадр покладе знову
-        }
-        cv_.notify_all();
-    }
-
-    void request(const TileId& id, const Viewport& vp) {
-        {
-            std::lock_guard<std::mutex> lock(m_);
-            if (vp.generation != generation_) return;   // кадр спізнився — його потреба не наша
-            if (inFlight_.count(id)) return;            // уже летить — мовчки приєдналися
-            if (!pending_.insert(id).second) return;    // уже в купі цього покоління
-            heap_.push(Request{ id, vp.generation,
-                                std::abs(vp.zoom - id.z), dist2(id, vp) });
-        }
-        cv_.notify_one();
-    }
-
-    // ── Фонові потоки ─────────────────────────────────────────────────────
-    // Блокується, доки не з'явиться робота або доки не скажуть спинитися.
-    bool take(Request& out, FlightPtr& flight) {
-        std::unique_lock<std::mutex> lock(m_);
-        for (;;) {
-            if (!heap_.empty() && inFlight_.size() < maxInFlight_) {
-                const Request r = heap_.top();
-                heap_.pop();
-                pending_.erase(r.id);
-                assert(r.generation == generation_);   // купу чистять на зміні покоління
-                flight = std::make_shared<Flight>(r.generation);
-                inFlight_.emplace(r.id, flight);
-                out = r;
-                return true;
-            }
-            if (stop_) return false;
-            cv_.wait(lock);
-        }
-    }
-
-    // Стирання запису про політ — робота ДЕСТРУКТОРА, а не щасливого шляху.
-    class FlightGuard {
-    public:
-        FlightGuard(TileScheduler& s, TileId id) : s_(s), id_(id) {}
-        ~FlightGuard() { s_.retire(id_); }
-        FlightGuard(const FlightGuard&) = delete;
-        FlightGuard& operator=(const FlightGuard&) = delete;
-    private:
-        TileScheduler& s_;
-        TileId id_;
-    };
-
-    void retire(const TileId& id) {
-        {
-            std::lock_guard<std::mutex> lock(m_);
-            inFlight_.erase(id);
-        }
-        cv_.notify_all();
-    }
-
-    // Скасувати в польоті можна ЛИШЕ те, що ще не прийняло жодного байта,
-    // і лише коли всі з'єднання зайняті, а в купі чекає свіжий запит.
-    void reclaimSlot() {
-        std::lock_guard<std::mutex> lock(m_);
-        if (heap_.empty() || inFlight_.size() < maxInFlight_) return;
-        for (auto& [id, f] : inFlight_) {
-            if (f->startGeneration == generation_) continue;                  // актуальний
-            if (f->bytesReceived.load(std::memory_order_relaxed) != 0) continue;  // вже платимо
-            f->abort.store(true, std::memory_order_relaxed);
-            return;                                                           // одне з'єднання за раз
-        }
-    }
-
-    void stop() {
-        { std::lock_guard<std::mutex> lock(m_); stop_ = true; }
-        cv_.notify_all();
-    }
-
-private:
-    using Heap = std::priority_queue<Request, std::vector<Request>, Worse>;
-
-    std::mutex              m_;
-    std::condition_variable cv_;
-    Heap                    heap_;
-    std::unordered_set<TileId, TileHash>            pending_;
-    std::unordered_map<TileId, FlightPtr, TileHash> inFlight_;
-    uint64_t generation_ = 0;
-    size_t   maxInFlight_;
-    bool     stop_ = false;
-};
-```
+:::code proj-tile-cache/cpp/kupa-zapytiv-shcho-zhyve-2.cpp
 
 Купа живе один кадр — і це не втрата, а точний розрахунок. За шістнадцять мілісекунд фонові потоки встигають зняти з неї кілька найкращих запитів; рівно ті, що були найкращими **на момент цього кадру**. Наступний кадр складе купу з нуля з новими ключами. Скасування «всього, що не почалося» виходить безкоштовним: воно звелося до одного присвоєння порожньої купи.
 
@@ -422,102 +102,17 @@ private:
 
 Готові растри переходять із фонових потоків у потік малювання через одну чергу, замок якої тримають рівно на обмін двома векторами — той самий прийом, що й у [подвійній буферизації](root:sf-tasks/double-buffering).
 
-```cpp
-struct Ready {
-    TileId    id;
-    RasterPtr raster;
-    uint64_t  generation;
-};
-
-class ReadyQueue {
-public:
-    void publish(Ready r) {
-        std::lock_guard<std::mutex> lock(m_);
-        q_.push_back(std::move(r));
-    }
-    // Забрати все одним обміном. Викликач подає ПОРОЖНІЙ вектор:
-    // буфери просто міняються місцями, і після розігріву ніхто не алокує.
-    void drain(std::vector<Ready>& out) {
-        std::lock_guard<std::mutex> lock(m_);
-        out.swap(q_);
-        q_.clear();
-    }
-private:
-    std::mutex m_;
-    std::vector<Ready> q_;
-};
-```
+:::code proj-tile-cache/cpp/kadr-zlyty-vstavyty.cpp
 
 Фоновий потік у циклі виглядає так:
 
-```cpp
-void workerLoop(TileScheduler& sched, ReadyQueue& ready, TileSource& source) {
-    Request r;
-    TileScheduler::FlightPtr flight;
-    while (sched.take(r, flight)) {
-        TileScheduler::FlightGuard guard(sched, r.id);   // запис зникне за БУДЬ-ЯКОГО виходу
-
-        std::vector<uint8_t> encoded;
-        if (!source.fetch(r.id, encoded, *flight)) continue;   // 404, обрив, скасування
-
-        Raster raster;
-        if (!decode(encoded, raster)) continue;
-
-        // Байти вже заплачено. Навіть якщо тайл застарів для екрана — він піде
-        // в кеш; рішення «малювати чи ні» ухвалює потік малювання, не ми.
-        ready.publish(Ready{ r.id,
-                             std::make_shared<const Raster>(std::move(raster)),
-                             r.generation });
-    }
-}
-```
+:::code proj-tile-cache/cpp/kadr-zlyty-vstavyty-2.cpp
 
 `source.fetch` дивиться на `flight.abort` у своєму зворотному виклику й нарощує `flight.bytesReceived`, щойно поїхали перші байти; `decode` і `uploadTexture` — межі прикладу, вони належать бібліотеці зображень і графічному API. Адреси для потреби кадру дає арифметика [тайлової сітки](root:math-geometry/web-mercator-tiles).
 
 А ось увесь кадр:
 
-```cpp
-void TileRenderer::beginFrame(const Viewport& vp) {
-    if (vp.generation != lastGeneration_) {
-        scheduler_.newGeneration(vp.generation);
-        lastGeneration_ = vp.generation;
-    }
-
-    // 1. Забрати доспіле. У кеш кладемо ВСЕ: байти вже заплачено.
-    drained_.clear();
-    ready_.drain(drained_);
-    for (Ready& r : drained_) {
-        cache_.insert(r.id, r.raster);
-        uploadQueue_.push_back(std::move(r));
-    }
-    // Черга на завантаження не має рости: викинуте з неї лишається в кеші
-    // й підніметься наступного кадру, якщо ще буде потрібне.
-    while (uploadQueue_.size() > kMaxUploadBacklog) uploadQueue_.pop_front();
-
-    // 2. Скласти потребу кадру й замовити те, чого немає.
-    need_.clear();
-    for (const TileId& id : visibleTiles(vp)) {
-        need_.insert(id);
-        if (!cache_.find(id)) scheduler_.request(id, vp);
-    }
-    scheduler_.reclaimSlot();
-
-    // 3. Підрізати кеш — один раз, тут, у відомій точці кадру.
-    cache_.trim(vp);
-
-    // 4. Квота завантажень текстур: і за штуками, і за часом.
-    const auto deadline = frameStart_ + std::chrono::microseconds(kUploadBudgetUs);
-    int uploaded = 0;
-    while (!uploadQueue_.empty() && uploaded < kMaxUploadsPerFrame
-           && std::chrono::steady_clock::now() < deadline) {
-        Ready r = std::move(uploadQueue_.front());
-        uploadQueue_.pop_front();
-        if (!need_.count(r.id)) continue;    // поки летів, перестав бути потрібним
-        uploadTexture(r.id, *r.raster);      // растр живий, поки живий shared_ptr
-        ++uploaded;
-    }
-}
-```
+:::code proj-tile-cache/cpp/kadr-zlyty-vstavyty-3.cpp
 
 Порядок кроків тут не довільний. Спершу вставляють доспіле — щоб потреба кадру одразу знайшла його в кеші й не замовила вдруге. Потім складають потребу — і лише після цього підрізають, бо `trim` має бачити вже нове вікно. Завантаження текстур іде останнім, коли решта [бюджету кадру](root:sf-visual/frame-budget) вже відома.
 

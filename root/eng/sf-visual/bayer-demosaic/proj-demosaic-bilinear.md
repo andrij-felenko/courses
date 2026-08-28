@@ -20,84 +20,9 @@
 
 :::tabs
 
-```c
-#include <stdint.h>
+:::code proj-demosaic-bilinear/c/main.c
 
-typedef struct { uint8_t r, g, b; } RGB;
-
-static uint8_t avg2(int a, int b)            { return (uint8_t)((a + b + 1) / 2); }
-static uint8_t avg4(int a, int b, int c, int d){ return (uint8_t)((a + b + c + d + 2) / 4); }
-
-// raw[H][W] — сира RGGB-мозаїка; out[H][W] — повний RGB.
-// Обробляємо лише ВНУТРІШНІ пікселі 1..H-2 / 1..W-2 (у краю бракує сусідів).
-void demosaic_bilinear(int H, int W, const uint8_t raw[H][W], RGB out[H][W]) {
-    for (int y = 1; y < H - 1; y++) {
-        for (int x = 1; x < W - 1; x++) {
-            int up = raw[y-1][x],   dn = raw[y+1][x];
-            int lf = raw[y][x-1],   rt = raw[y][x+1];
-            int ul = raw[y-1][x-1], ur = raw[y-1][x+1];
-            int dl = raw[y+1][x-1], dr = raw[y+1][x+1];
-            uint8_t c = raw[y][x];                 // виміряна складова цього пікселя
-            int ey = y & 1, ex = x & 1;
-
-            if (ey == 0 && ex == 0) {              // червоний піксель
-                out[y][x].r = c;
-                out[y][x].g = avg4(up, dn, lf, rt);
-                out[y][x].b = avg4(ul, ur, dl, dr);
-            } else if (ey == 0 && ex == 1) {       // зелений на R-рядку
-                out[y][x].r = avg2(lf, rt);        // червоні — по боках
-                out[y][x].g = c;
-                out[y][x].b = avg2(up, dn);        // сині — зверху/знизу
-            } else if (ey == 1 && ex == 0) {       // зелений на B-рядку
-                out[y][x].r = avg2(up, dn);        // червоні — зверху/знизу
-                out[y][x].g = c;
-                out[y][x].b = avg2(lf, rt);        // сині — по боках
-            } else {                               // синій піксель
-                out[y][x].r = avg4(ul, ur, dl, dr);
-                out[y][x].g = avg4(up, dn, lf, rt);
-                out[y][x].b = c;
-            }
-        }
-    }
-}
-```
-
-```python
-import numpy as np
-
-def demosaic_bilinear(raw):
-    """raw: 2-D uint8 RGGB-мозаїка -> out: (H, W, 3) uint8 RGB.
-    Кожен із чотирьох типів пікселя — окремий зріз [початок::2]; сусідів
-    беремо зсунутими зрізами й усереднюємо в int, аби не переповнити байт."""
-    H, W = raw.shape
-    r = raw.astype(np.int32)                      # у int, щоб суми не обгорнулись
-    out = np.zeros((H, W, 3), np.int32)
-
-    def avg(*a):                                  # чесне округлення: +half перед /n
-        return (sum(a) + len(a) // 2) // len(a)
-
-    # координатні зрізи внутрішньої області та її восьми сусідів
-    c  = r[1:-1, 1:-1]
-    up, dn = r[0:-2, 1:-1], r[2:, 1:-1]
-    lf, rt = r[1:-1, 0:-2], r[1:-1, 2:]
-    ul, ur = r[0:-2, 0:-2], r[0:-2, 2:]
-    dl, dr = r[2:, 0:-2],  r[2:, 2:]
-    o = out[1:-1, 1:-1]                            # вид на внутрішні пікселі виходу
-
-    ey = np.arange(1, H - 1)[:, None] & 1          # парність рядка/стовпця
-    ex = np.arange(1, W - 1)[None, :] & 1
-
-    red   = (ey == 0) & (ex == 0)                  # червоний піксель
-    grn_r = (ey == 0) & (ex == 1)                  # зелений на R-рядку
-    grn_b = (ey == 1) & (ex == 0)                  # зелений на B-рядку
-    blue  = (ey == 1) & (ex == 1)                  # синій піксель
-
-    o[red]   = np.stack([c, avg(up, dn, lf, rt), avg(ul, ur, dl, dr)], -1)[red]
-    o[grn_r] = np.stack([avg(lf, rt), c, avg(up, dn)], -1)[grn_r]
-    o[grn_b] = np.stack([avg(up, dn), c, avg(lf, rt)], -1)[grn_b]
-    o[blue]  = np.stack([avg(ul, ur, dl, dr), avg(up, dn, lf, rt), c], -1)[blue]
-    return out.astype(np.uint8)
-```
+:::code proj-demosaic-bilinear/py/main.py
 
 :::
 

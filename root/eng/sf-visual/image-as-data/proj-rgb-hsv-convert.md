@@ -25,64 +25,8 @@
 ### RGB → HSV
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-// RGB888 -> HSV, кожен канал 0..255. Тон закодовано як 0..255 (увесь круг у байт).
-// Без float. Усі проміжні int32_t — проти переповнення масштабування.
-void rgb_to_hsv_u8(uint8_t r, uint8_t g, uint8_t b,
-                   uint8_t *h, uint8_t *s, uint8_t *v) {
-    int32_t cmax = r > g ? (r > b ? r : b) : (g > b ? g : b);
-    int32_t cmin = r < g ? (r < b ? r : b) : (g < b ? g : b);
-    int32_t delta = cmax - cmin;
-
-    *v = (uint8_t)cmax;                       // V = Cmax
-
-    if (cmax == 0) { *s = 0; *h = 0; return; } // чорне: S,H не визначені
-    *s = (uint8_t)((delta * 255) / cmax);      // S = Δ/Cmax, масштаб ×255
-
-    if (delta == 0) { *h = 0; return; }        // сіре: тон не визначений
-
-    // тон рахуємо у проміжній шкалі 0..1530 (6 секторів по 255), тоді /6 у 0..255
-    int32_t hue;
-    if (cmax == r)      hue = 0    + (255 * (g - b)) / delta;  // червоний сектор
-    else if (cmax == g) hue = 510  + (255 * (b - r)) / delta;  // зелений  (+2·255)
-    else                hue = 1020 + (255 * (r - g)) / delta;  // синій    (+4·255)
-
-    if (hue < 0) hue += 1530;                  // загорнути від'ємний бік (≡ mod 6)
-    *h = (uint8_t)(hue / 6);                   // 1530 → 255
-}
-```
-```python
-# RGB888 -> HSV, кожен канал 0..255. Тон закодовано як 0..255 (увесь круг у байт).
-# Без float. int(a / b) відтворює C-ділення з обрізанням до нуля (a буває від'ємним).
-def rgb_to_hsv_u8(r, g, b):
-    cmax = max(r, g, b)
-    cmin = min(r, g, b)
-    delta = cmax - cmin
-
-    v = cmax                                    # V = Cmax
-
-    if cmax == 0:
-        return 0, 0, 0                          # чорне: S,H не визначені
-    s = (delta * 255) // cmax                   # S = Δ/Cmax, масштаб ×255
-
-    if delta == 0:
-        return 0, s, v                          # сіре: тон не визначений
-
-    # тон рахуємо у проміжній шкалі 0..1530 (6 секторів по 255), тоді /6 у 0..255
-    if cmax == r:
-        hue = 0    + int(255 * (g - b) / delta)  # червоний сектор
-    elif cmax == g:
-        hue = 510  + int(255 * (b - r) / delta)  # зелений  (+2·255)
-    else:
-        hue = 1020 + int(255 * (r - g) / delta)  # синій    (+4·255)
-
-    if hue < 0:
-        hue += 1530                             # загорнути від'ємний бік (≡ mod 6)
-    h = hue // 6                                # 1530 → 255
-    return h, s, v
-```
+:::code proj-rgb-hsv-convert/cpp/rgb-hsv.cpp
+:::code proj-rgb-hsv-convert/py/rgb-hsv.py
 :::
 
 Перевіримо на помаранчевому R=240, G=140, B=20:
@@ -103,51 +47,8 @@ H = 139/6 = 23                               (23/255 круга ≈ 32° — п�
 Зворотне перетворення виходить **без ділення** на гарячому шляху — самі множення й зсуви.
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-// HSV (кожен 0..255, тон — увесь круг у байт) -> RGB888. Без float, без ділення в циклі.
-void hsv_to_rgb_u8(uint8_t h, uint8_t s, uint8_t v,
-                   uint8_t *r, uint8_t *g, uint8_t *b) {
-    if (s == 0) { *r = *g = *b = v; return; }   // сіре: усі канали = V
-
-    int32_t region = h / 43;            // 256/6 ≈ 43 → номер сектора 0..5
-    int32_t rem    = (h - region * 43) * 6;     // залишок у 0..255 усередині сектора
-
-    int32_t p = (v * (255 - s)) >> 8;                       // нижній рівень
-    int32_t q = (v * (255 - ((s * rem) >> 8))) >> 8;        // спадна складова
-    int32_t t = (v * (255 - ((s * (255 - rem)) >> 8))) >> 8; // висхідна складова
-
-    switch (region) {
-        case 0:  *r = v; *g = t; *b = p; break;
-        case 1:  *r = q; *g = v; *b = p; break;
-        case 2:  *r = p; *g = v; *b = t; break;
-        case 3:  *r = p; *g = q; *b = v; break;
-        case 4:  *r = t; *g = p; *b = v; break;
-        default: *r = v; *g = p; *b = q; break;   // case 5
-    }
-}
-```
-```python
-# HSV (кожен 0..255, тон — увесь круг у байт) -> RGB888. Без float, без ділення в циклі.
-def hsv_to_rgb_u8(h, s, v):
-    if s == 0:
-        return v, v, v                          # сіре: усі канали = V
-
-    region = h // 43                    # 256/6 ≈ 43 → номер сектора 0..5
-    rem    = (h - region * 43) * 6              # залишок у 0..255 усередині сектора
-
-    p = (v * (255 - s)) >> 8                                # нижній рівень
-    q = (v * (255 - ((s * rem) >> 8))) >> 8                 # спадна складова
-    t = (v * (255 - ((s * (255 - rem)) >> 8))) >> 8         # висхідна складова
-
-    if   region == 0: return v, t, p
-    elif region == 1: return q, v, p
-    elif region == 2: return p, v, t
-    elif region == 3: return p, q, v
-    elif region == 4: return t, p, v
-    else:             return v, p, q            # region 5
-```
+:::code proj-rgb-hsv-convert/cpp/hsv-rgb.cpp
+:::code proj-rgb-hsv-convert/py/hsv-rgb.py
 :::
 
 Тут `region` — сектор (один поділ на 43, дешево), а `p, q, t` — три рівні каналу, пораховані самими множеннями зі зсувом `>> 8` (ділення на 256). У гарячому циклі жодного бібліотечного ділення немає.

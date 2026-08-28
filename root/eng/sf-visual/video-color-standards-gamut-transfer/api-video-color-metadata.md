@@ -105,83 +105,8 @@
 Структура VUI упаковується в елементарний бітовий потік H.264 за допомогою безнаправленого кодування експоненційним кодом Голомба (ue(v)) та побітових прапорців u(1). Нижче наведено структуру зчитування NAL-юніта SPS:
 
 :::tabs
-```c
-/* c */
-void parse_vui_parameters(BitReader *br, VUIParameters *vui) {
-    vui->aspect_ratio_info_present_flag = read_bits(br, 1);
-    if (vui->aspect_ratio_info_present_flag) {
-        vui->aspect_ratio_idc = read_bits(br, 8);
-        if (vui->aspect_ratio_idc == Extended_SAR) {
-            vui->sar_width  = read_bits(br, 16);
-            vui->sar_height = read_bits(br, 16);
-        }
-    }
-    vui->overscan_info_present_flag = read_bits(br, 1);
-    
-    vui->video_signal_type_present_flag = read_bits(br, 1);
-    if (vui->video_signal_type_present_flag) {
-        vui->video_format = read_bits(br, 3);
-        vui->video_full_range_flag = read_bits(br, 1);
-        vui->colour_description_present_flag = read_bits(br, 1);
-        
-        if (vui->colour_description_present_flag) {
-            vui->colour_primaries         = read_bits(br, 8);
-            vui->transfer_characteristics = read_bits(br, 8);
-            vui->matrix_coefficients      = read_bits(br, 8);
-        }
-    }
-}
-```
-```cpp
-// cpp
-#include <cstdint>
-
-namespace h264 {
-
-struct VUIParameters {
-    bool aspect_ratio_info_present{false};
-    uint8_t aspect_ratio_idc{0};
-    uint16_t sar_width{0};
-    uint16_t sar_height{0};
-    bool overscan_info_present{false};
-    bool video_signal_type_present{false};
-    uint8_t video_format{0};
-    bool video_full_range{false};
-    bool colour_description_present{false};
-    uint8_t colour_primaries{2};
-    uint8_t transfer_characteristics{2};
-    uint8_t matrix_coefficients{2};
-};
-
-class BitStreamReader;
-
-VUIParameters parse_vui_parameters_cpp(BitStreamReader& reader) {
-    VUIParameters vui;
-    vui.aspect_ratio_info_present = (reader.read_bits(1) != 0);
-    if (vui.aspect_ratio_info_present) {
-        vui.aspect_ratio_idc = static_cast<uint8_t>(reader.read_bits(8));
-        if (vui.aspect_ratio_idc == 255 /* Extended_SAR */) {
-            vui.sar_width  = static_cast<uint16_t>(reader.read_bits(16));
-            vui.sar_height = static_cast<uint16_t>(reader.read_bits(16));
-        }
-    }
-    vui.overscan_info_present = (reader.read_bits(1) != 0);
-    vui.video_signal_type_present = (reader.read_bits(1) != 0);
-    if (vui.video_signal_type_present) {
-        vui.video_format = static_cast<uint8_t>(reader.read_bits(3));
-        vui.video_full_range = (reader.read_bits(1) != 0);
-        vui.colour_description_present = (reader.read_bits(1) != 0);
-        if (vui.colour_description_present) {
-            vui.colour_primaries         = static_cast<uint8_t>(reader.read_bits(8));
-            vui.transfer_characteristics = static_cast<uint8_t>(reader.read_bits(8));
-            vui.matrix_coefficients      = static_cast<uint8_t>(reader.read_bits(8));
-        }
-    }
-    return vui;
-}
-
-} // namespace h264
-```
+:::code api-video-color-metadata/c/4-bitova-upakovka-vui-u.c
+:::code api-video-color-metadata/cpp/4-bitova-upakovka-vui-u.cpp
 :::
 
 Неправильний парсинг безнаправленого поля Голомба зміщує вказівник зчитування бітів, через що усі наступні прапорці розбору кадру стають фальшивими.
@@ -191,172 +116,15 @@ VUIParameters parse_vui_parameters_cpp(BitStreamReader& reader) {
 У медіабібліотеці FFmpeg опис колірного простору декодованого кадру зберігається у структурі `AVFrame` (файл заголовка `<libavutil/pixdesc.h>` та `<libavutil/frame.h>`):
 
 :::tabs
-```c
-#include <libavutil/frame.h>
-#include <libavutil/pixfmt.h>
-
-/* Структура кадру у C API FFmpeg */
-typedef struct AVFrame {
-    uint8_t *data[AV_NUM_DATA_POINTERS];
-    int linesize[AV_NUM_DATA_POINTERS];
-    
-    int width, height;
-    enum AVPixelFormat format; /* наприклад, AV_PIX_FMT_YUV420P */
-
-    /* Метадані колірного простору кадру */
-    enum AVColorRange color_range;            /* AVCOL_RANGE_MPEG (Limited) чи AVCOL_RANGE_JPEG (Full) */
-    enum AVColorPrimaries color_primaries;    /* AVCOL_PRI_BT709, AVCOL_PRI_BT2020 тощо */
-    enum AVColorTransferCharacteristic color_trc; /* AVCOL_TRC_BT709, AVCOL_TRC_SMPTE2084 тощо */
-    enum AVColorSpace colorspace;             /* AVCOL_SPC_BT709, AVCOL_SPC_BT2020_NCL тощо */
-    
-    enum AVChromaLocation chroma_location;   /* AVCHROMA_LOC_LEFT, AVCHROMA_LOC_CENTER */
-} AVFrame;
-```
-```cpp
-// cpp
-extern "C" {
-#include <libavutil/frame.h>
-#include <libavutil/pixfmt.h>
-}
-
-// У C++20 метадані колірності AVFrame доступні через прямий доступ до полів структури
-struct FrameColorMetadata {
-    AVColorRange range{AVCOL_RANGE_MPEG};
-    AVColorPrimaries primaries{AVCOL_PRI_BT709};
-    AVColorTransferCharacteristic trc{AVCOL_TRC_BT709};
-    AVColorSpace space{AVCOL_SPC_BT709};
-
-    static FrameColorMetadata extract(const AVFrame& frame) noexcept {
-        return FrameColorMetadata{
-            .range = frame.color_range,
-            .primaries = frame.color_primaries,
-            .trc = frame.color_trc,
-            .space = frame.colorspace
-        };
-    }
-};
-```
+:::code api-video-color-metadata/c/5-struktury-c-api-u.c
+:::code api-video-color-metadata/cpp/5-struktury-c-api-u.cpp
 :::
 
 Для створення автоматичного обробника колірного перетворення FFmpeg надає API `SwsContext` (бібліотека `libswscale`):
 
 :::tabs
-```c
-/* c */
-#include <libswscale/swscale.h>
-#include <libavutil/frame.h>
-
-/**
- * Налаштування конвертера swscale з урахуванням колірних метаданих кадру
- */
-struct SwsContext* create_color_converter(const AVFrame *src_frame,
-                                           int dst_w, int dst_h,
-                                           enum AVPixelFormat dst_fmt)
-{
-    struct SwsContext *sws_ctx = sws_getContext(
-        src_frame->width, src_frame->height, src_frame->format,
-        dst_w, dst_h, dst_fmt,
-        SWS_BILINEAR, NULL, NULL, NULL
-    );
-
-    if (!sws_ctx) return NULL;
-
-    /* Встановлення коефіцієнтів джерела та призначення */
-    int src_colorspace = (src_frame->colorspace == AVCOL_SPC_BT2020_NCL) ? SWS_CS_BT2020 : SWS_CS_ITU709;
-    int dst_colorspace = SWS_CS_DEFAULT; /* sRGB / BT.709 */
-
-    int src_range = (src_frame->color_range == AVCOL_RANGE_JPEG) ? 1 : 0;
-    int dst_range = 1; /* Full range RGB для відображення на моніторі */
-
-    const int *inv_table, *table;
-    int src_full, dst_full;
-    int brightness, contrast, saturation;
-
-    /* Зчитати поточні коефіцієнти */
-    sws_getColorspaceDetails(sws_ctx, (int**)&inv_table, &src_full,
-                             (int**)&table, &dst_full,
-                             &brightness, &contrast, &saturation);
-
-    inv_table = sws_getCoefficients(src_colorspace);
-    table = sws_getCoefficients(dst_colorspace);
-
-    /* Перевизначити матриці та рівні квантування */
-    sws_setColorspaceDetails(sws_ctx, inv_table, src_range,
-                             table, dst_range,
-                             brightness, contrast, saturation);
-
-    return sws_ctx;
-}
-```
-```cpp
-// cpp
-#include <memory>
-#include <stdexcept>
-extern "C" {
-#include <libswscale/swscale.h>
-#include <libavutil/frame.h>
-}
-
-namespace media {
-
-struct SwsDeleter {
-    void operator()(SwsContext* ptr) const noexcept {
-        if (ptr) sws_freeContext(ptr);
-    }
-};
-
-using UniqueSwsContext = std::unique_ptr<SwsContext, SwsDeleter>;
-
-/**
- * Ідіоматична C++ обгортка над SwsContext з автоматичним керуванням ресурсами (RAII)
- */
-class ColorScalePipeline {
-public:
-    ColorScalePipeline(const AVFrame& src_frame, int dst_width, int dst_height, AVPixelFormat dst_format) {
-        SwsContext* ctx = sws_getContext(
-            src_frame.width, src_frame.height, src_frame.format,
-            dst_width, dst_height, dst_format,
-            SWS_BILINEAR, nullptr, nullptr, nullptr
-        );
-
-        if (!ctx) {
-            throw std::runtime_error("Не вдалося створити SwsContext для колірного перетворення");
-        }
-
-        ctx_.reset(ctx);
-        configure_color_spaces(src_frame);
-    }
-
-    SwsContext* get() const noexcept { return ctx_.get(); }
-
-private:
-    void configure_color_spaces(const AVFrame& src_frame) {
-        int src_cs = (src_frame.colorspace == AVCOL_SPC_BT2020_NCL) ? SWS_CS_BT2020 : SWS_CS_ITU709;
-        int dst_cs = SWS_CS_DEFAULT;
-
-        int src_range = (src_frame.color_range == AVCOL_RANGE_JPEG) ? 1 : 0;
-        int dst_range = 1;
-
-        const int *inv_table = sws_getCoefficients(src_cs);
-        const int *table = sws_getCoefficients(dst_cs);
-
-        int dummy_src_full, dummy_dst_full;
-        int brightness, contrast, saturation;
-
-        sws_getColorspaceDetails(ctx_.get(), const_cast<int**>(&inv_table), &dummy_src_full,
-                                 const_cast<int**>(&table), &dummy_dst_full,
-                                 &brightness, &contrast, &saturation);
-
-        sws_setColorspaceDetails(ctx_.get(), inv_table, src_range,
-                                 table, dst_range,
-                                 brightness, contrast, saturation);
-    }
-
-    UniqueSwsContext ctx_;
-};
-
-} // namespace media
-```
+:::code api-video-color-metadata/c/5-struktury-c-api-u-2.c
+:::code api-video-color-metadata/cpp/5-struktury-c-api-u-2.cpp
 :::
 
 ## 6. Опис колірності у фреймворку GStreamer (`GstVideoColorimetry`)
@@ -373,24 +141,7 @@ void parse_colorimetry_c(void) {
     gst_video_colorimetry_from_string(&colorimetry, "2:4:5:1");
 }
 ```
-```cpp
-// cpp
-#include <gst/video/video-color.h>
-#include <string_view>
-#include <optional>
-
-namespace gst {
-
-std::optional<GstVideoColorimetry> parse_colorimetry(std::string_view colorimetry_str) {
-    GstVideoColorimetry colorimetry{};
-    if (gst_video_colorimetry_from_string(&colorimetry, colorimetry_str.data())) {
-        return colorimetry;
-    }
-    return std::nullopt;
-}
-
-} // namespace gst
-```
+:::code api-video-color-metadata/cpp/6-opys-kolirnosti-u.cpp
 :::
 
 Фреймворк GStreamer автоматично вставляє плагін `videoconvert` або GPU-елемент `glcolorconvert` при виявленні невідповідності атрибутів `colorimetry` між виходом декодера та входом дисплейного рендерера (наприклад, `xvimagesink` чи `glimagesink`).
@@ -399,24 +150,7 @@ std::optional<GstVideoColorimetry> parse_colorimetry(std::string_view colorimetr
 
 У сучасних веб-браузерах конфігурація колірного простору передається через W3C API `MediaCapabilities` та параметри SDP для сесій WebRTC. Веб-застосунки використовують ці інтерфейси для перевірки апаратної підтримки розширеного динамічного діапазону HDR10 перед запуском відеопотоків надвисокої роздільної здатності.
 
-```javascript
-// Перевірка підтримки колірного простору та передавальної функції через W3C Media Capabilities API
-navigator.mediaCapabilities.decodingInfo({
-    type: 'file',
-    videoConfiguration: {
-        contentType: 'video/mp4; codecs="av01.0.08M.10"',
-        width: 3840,
-        height: 2160,
-        bitrate: 15000000,
-        framerate: 60,
-        colorGamut: 'rec2020',
-        transferFunction: 'pq',
-        hdrMetadataType: 'smpteSt2086'
-    }
-}).then(result => {
-    console.log("HDR BT.2020 підтримка:", result.supported, result.smooth);
-});
-```
+:::code api-video-color-metadata/js/index.js
 
 У WebRTC параметри `colorSpace` передаються всередині заголовків RTP за допомогою розширення `urn:ietf:params:rtp-hdrext:video-color-space`. Це дозволяє приймачу WebRTC динамічно налаштовувати апаратні шейдери перетворення `YUV -> RGB` без розриву з'єднання при зміні джерела відеокамери.
 
@@ -424,23 +158,6 @@ navigator.mediaCapabilities.decodingInfo({
 
 При транскодуванні медіафайлів інструментом `ffmpeg` метадані колірності можна примусово зафіксувати або виправити за допомогою відповідних ключів CLI. Це дозволяє усунути помилки невірного декодування у старіших відеоколах та телевізійних консолях.
 
-```bash
-# Приклади команд транскодування з явним вказуванням метаданих BT.709 та BT.2020 HDR
-ffmpeg -i input_sd.mp4 \
-  -color_primaries bt709 \
-  -color_trc bt709 \
-  -colorspace bt709 \
-  -color_range tv \
-  -c:v libx264 -crf 18 output_hd.mp4
-
-# Перекодування HDR10 у SDR із тономапінгом та правильними прапорами
-ffmpeg -i input_hdr.mkv \
-  -vf "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709:t=bt709:m=bt709,format=yuv420p" \
-  -color_primaries bt709 \
-  -color_trc bt709 \
-  -colorspace bt709 \
-  -color_range tv \
-  -c:v libx264 -crf 20 output_sdr.mp4
-```
+:::code api-video-color-metadata/sh/main.sh
 
 Ключ `-color_range tv` відповідає розмаху Limited Range (16–235), а `-color_range pc` — розмаху Full Range (0–255). Явне записування цих прапорів у контейнер запобігає «блідому» відображенню чорного кольору під час програвання на ТБ та веб-плеєрах.

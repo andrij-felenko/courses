@@ -80,67 +80,8 @@ y[m,n] = Σ Σ x[m+a, n+b] · c[a] · r[b]
 
 **Розділюване гаусове розмиття 5×5, ваги (1,4,6,4,1), сума 16.**
 :::tabs
-```cpp
-#include <stdint.h>
-#define KR 2                                   /* радіус: 5 = 2*KR+1 */
-static const int32_t W[5] = {1, 4, 6, 4, 1};   /* сума 16 = 2^4 */
-static inline int clampi(int v, int lo, int hi){
-    return v < lo ? lo : (v > hi ? hi : v);
-}
-/* горизонтальний прохід: кожен рядок згортаємо з W */
-static void blur_h(const uint8_t *s, uint8_t *d, int w, int h){
-    for (int y = 0; y < h; ++y)
-        for (int x = 0; x < w; ++x){
-            int32_t a = 0;
-            for (int t = -KR; t <= KR; ++t)
-                a += W[t+KR] * s[(size_t)y*w + clampi(x+t,0,w-1)];
-            d[(size_t)y*w + x] = (uint8_t)((a + 8) >> 4);   /* /16 з округленням */
-        }
-}
-/* вертикальний прохід: кожен стовпець згортаємо з тим самим W */
-static void blur_v(const uint8_t *s, uint8_t *d, int w, int h){
-    for (int y = 0; y < h; ++y)
-        for (int x = 0; x < w; ++x){
-            int32_t a = 0;
-            for (int t = -KR; t <= KR; ++t)
-                a += W[t+KR] * s[(size_t)clampi(y+t,0,h-1)*w + x];
-            d[(size_t)y*w + x] = (uint8_t)((a + 8) >> 4);
-        }
-}
-void gauss5(const uint8_t *src, uint8_t *dst, uint8_t *tmp, int w, int h){
-    blur_h(src, tmp, w, h);   /* спершу рядки */
-    blur_v(tmp, dst, w, h);   /* тоді стовпці */
-}
-```
-```python
-KR = 2                       # радіус: 5 = 2*KR+1
-W = (1, 4, 6, 4, 1)          # сума 16 = 2^4
-
-def clampi(v, lo, hi):
-    return lo if v < lo else (hi if v > hi else v)
-
-# горизонтальний прохід: кожен рядок згортаємо з W
-def blur_h(s, d, w, h):
-    for y in range(h):
-        for x in range(w):
-            a = 0
-            for t in range(-KR, KR + 1):
-                a += W[t + KR] * s[y*w + clampi(x + t, 0, w - 1)]
-            d[y*w + x] = (a + 8) >> 4            # /16 з округленням
-
-# вертикальний прохід: кожен стовпець згортаємо з тим самим W
-def blur_v(s, d, w, h):
-    for y in range(h):
-        for x in range(w):
-            a = 0
-            for t in range(-KR, KR + 1):
-                a += W[t + KR] * s[clampi(y + t, 0, h - 1)*w + x]
-            d[y*w + x] = (a + 8) >> 4
-
-def gauss5(src, dst, tmp, w, h):
-    blur_h(src, tmp, w, h)   # спершу рядки
-    blur_v(tmp, dst, w, h)   # тоді стовпці
-```
+:::code convolution-filters-d/cpp/rozdiliuvani-iadra-2k.cpp
+:::code convolution-filters-d/py/rozdiliuvani-iadra-2k.py
 :::
 
 Числовий приклад на одному рядку. Хай п'ять сусідніх пікселів — `(10, 40, 80, 200, 210)`, центр — третій (значення 80). Згортка з вагами (1,4,6,4,1):
@@ -192,60 +133,8 @@ out = (1660 + 8) >> 4 = 1668 / 16 = 104   (округлено)
 
 **Медіанний фільтр 3×3 (вікно з 9 значень).** Для дев'яти чисел медіана — п'яте за порядком; повне сортування не потрібне, досить часткового відбору.
 :::tabs
-```cpp
-#include <stdint.h>
-static inline void swap_u8(uint8_t *a, uint8_t *b){
-    if (*a > *b){ uint8_t t = *a; *a = *b; *b = t; }
-}
-/* медіана дев'яти: відсортувати достатньо, щоб 5-й елемент став на місце */
-static uint8_t median9(uint8_t v[9]){
-    /* мережа сортування для 9 елементів дає median у v[4] */
-    for (int i = 0; i < 5; ++i)            /* частковий вибірковий прохід */
-        for (int j = i + 1; j < 9; ++j)
-            swap_u8(&v[i], &v[j]);         /* після i=4 v[4] = 5-й за порядком */
-    return v[4];
-}
-static inline int clampi(int x, int lo, int hi){
-    return x < lo ? lo : (x > hi ? hi : x);
-}
-void median3(const uint8_t *src, uint8_t *dst, int w, int h){
-    for (int y = 0; y < h; ++y)
-        for (int x = 0; x < w; ++x){
-            uint8_t v[9]; int k = 0;
-            for (int dy = -1; dy <= 1; ++dy)          /* зібрати окіл 3x3 */
-                for (int dx = -1; dx <= 1; ++dx){
-                    int yi = clampi(y+dy, 0, h-1);
-                    int xi = clampi(x+dx, 0, w-1);
-                    v[k++] = src[(size_t)yi*w + xi];
-                }
-            dst[(size_t)y*w + x] = median9(v);
-        }
-}
-```
-```python
-def clampi(x, lo, hi):
-    return lo if x < lo else (hi if x > hi else x)
-
-# медіана дев'яти: відсортувати достатньо, щоб 5-й елемент став на місце
-def median9(v):
-    # частковий вибірковий прохід: після i=4 v[4] = 5-й за порядком
-    for i in range(5):
-        for j in range(i + 1, 9):
-            if v[i] > v[j]:
-                v[i], v[j] = v[j], v[i]
-    return v[4]
-
-def median3(src, dst, w, h):
-    for y in range(h):
-        for x in range(w):
-            v = []                                    # зібрати окіл 3x3
-            for dy in range(-1, 2):
-                for dx in range(-1, 2):
-                    yi = clampi(y + dy, 0, h - 1)
-                    xi = clampi(x + dx, 0, w - 1)
-                    v.append(src[yi*w + xi])
-            dst[y*w + x] = median9(v)
-```
+:::code convolution-filters-d/cpp/mediannyi-filtr-proty.cpp
+:::code convolution-filters-d/py/mediannyi-filtr-proty.py
 :::
 
 Числовий приклад. Хай окіл — нормальні пікселі біля 100 з одним битим білим: `(98,102,100, 99,255,101, 97,100,103)`. Середнє арифметичне = (98+102+100+99+255+101+97+100+103)/9 ≈ **117** — викид 255 підтягнув середнє вгору, цятка лишилась видимою світлою плямою. Відсортуємо: `97,98,99,100,100,101,102,103,255` — медіана (п'яте) = **100**. Викид зник без сліду, межа поряд (якби була) не змастилась. Ось у чому сила сортування проти усереднення: одне грубе число псує середнє, але не зрушує середини ряду.
@@ -258,65 +147,8 @@ def median3(src, dst, w, h):
 
 **Білатеральний фільтр (вікно 2R+1, дві гаусові ваги).** Просторову гаусову вагу можна порахувати наперед у таблицю; яскравісну — на льоту за різницею.
 :::tabs
-```cpp
-#include <stdint.h>
-#include <math.h>
-#define R 2                       /* радіус вікна: 5x5 */
-/* білатеральний фільтр одного каналу uint8; ss — просторова сигма, sr — яскравісна */
-void bilateral(const uint8_t *src, uint8_t *dst, int w, int h,
-               float ss, float sr){
-    float gs[2*R+1][2*R+1];                       /* просторові ваги наперед */
-    for (int dy = -R; dy <= R; ++dy)
-        for (int dx = -R; dx <= R; ++dx)
-            gs[dy+R][dx+R] = expf(-(dx*dx + dy*dy) / (2.0f*ss*ss));
-    for (int y = 0; y < h; ++y)
-        for (int x = 0; x < w; ++x){
-            float wsum = 0.0f, acc = 0.0f;
-            int   c = src[(size_t)y*w + x];        /* яскравість центру */
-            for (int dy = -R; dy <= R; ++dy)
-                for (int dx = -R; dx <= R; ++dx){
-                    int yi = y+dy, xi = x+dx;
-                    if (yi < 0 || yi >= h || xi < 0 || xi >= w) continue;
-                    int   p  = src[(size_t)yi*w + xi];
-                    int   d  = p - c;                          /* різниця яскравості */
-                    float gr = expf(-(float)(d*d) / (2.0f*sr*sr));  /* яскравісна вага */
-                    float ww = gs[dy+R][dx+R] * gr;            /* добуток двох ваг */
-                    acc  += ww * p;
-                    wsum += ww;
-                }
-            dst[(size_t)y*w + x] = (uint8_t)(acc / wsum + 0.5f);
-        }
-}
-```
-```python
-import math
-
-R = 2                         # радіус вікна: 5x5
-
-# білатеральний фільтр одного каналу uint8; ss — просторова сигма, sr — яскравісна
-def bilateral(src, dst, w, h, ss, sr):
-    gs = [[0.0] * (2*R+1) for _ in range(2*R+1)]   # просторові ваги наперед
-    for dy in range(-R, R + 1):
-        for dx in range(-R, R + 1):
-            gs[dy+R][dx+R] = math.exp(-(dx*dx + dy*dy) / (2.0*ss*ss))
-    for y in range(h):
-        for x in range(w):
-            wsum = 0.0
-            acc = 0.0
-            c = src[y*w + x]                       # яскравість центру
-            for dy in range(-R, R + 1):
-                for dx in range(-R, R + 1):
-                    yi, xi = y + dy, x + dx
-                    if yi < 0 or yi >= h or xi < 0 or xi >= w:
-                        continue
-                    p = src[yi*w + xi]
-                    d = p - c                                 # різниця яскравості
-                    gr = math.exp(-(d*d) / (2.0*sr*sr))       # яскравісна вага
-                    ww = gs[dy+R][dx+R] * gr                  # добуток двох ваг
-                    acc += ww * p
-                    wsum += ww
-            dst[y*w + x] = int(acc / wsum + 0.5)
-```
+:::code convolution-filters-d/cpp/bilateralnyi-filtr-rozmyty.cpp
+:::code convolution-filters-d/py/bilateralnyi-filtr-rozmyty.py
 :::
 
 Дві гаусові ваги множаться: `gs` гасить дальніх сусідів, `gr` гасить несхожих. На рівній ділянці `gr ≈ 1` для всіх — фільтр поводиться як звичайний гаус. На межі `gr ≈ 0` для протилежного боку — той бік не входить у суму, і перепад лишається крутим. Платять за це дорого: яскравісну вагу не порахувати наперед (вона залежить від кожної пари пікселів), тож `exp` рахується в найглибшому циклі — на мікроконтролері це важко, і білатеральний фільтр зазвичай лишають потужнішому процесору. Та коли треба прибрати шум **і зберегти межі** — лінійне розмиття так не вміє.
@@ -356,39 +188,8 @@ wrap         : … x  y │ a b c d … w x y │ a  b …    (період → 
 
 **Гаус 3×3 у цілій арифметиці (uint8), ваги 1 2 1 / 2 4 2 / 1 2 1, сума 16.**
 :::tabs
-```cpp
-#include <stdint.h>
-static inline int clampi(int v, int lo, int hi){
-    return v < lo ? lo : (v > hi ? hi : v);
-}
-/* один піксель гаусу 3x3; сума ваг 16 → нормування = зсув на 4 з округленням */
-static uint8_t gauss3_px(const uint8_t *s, int w, int h, int x, int y){
-    static const int wk[3][3] = {{1,2,1},{2,4,2},{1,2,1}};
-    int32_t acc = 0;
-    for (int dy = -1; dy <= 1; ++dy)
-        for (int dx = -1; dx <= 1; ++dx){
-            int yi = clampi(y+dy, 0, h-1);
-            int xi = clampi(x+dx, 0, w-1);
-            acc += wk[dy+1][dx+1] * s[(size_t)yi*w + xi];
-        }
-    return (uint8_t)((acc + 8) >> 4);   /* +8 = пів-дільника → округлення до найближчого */
-}
-```
-```python
-def clampi(v, lo, hi):
-    return lo if v < lo else (hi if v > hi else v)
-
-# один піксель гаусу 3x3; сума ваг 16 → нормування = зсув на 4 з округленням
-def gauss3_px(s, w, h, x, y):
-    wk = ((1, 2, 1), (2, 4, 2), (1, 2, 1))
-    acc = 0
-    for dy in range(-1, 2):
-        for dx in range(-1, 2):
-            yi = clampi(y + dy, 0, h - 1)
-            xi = clampi(x + dx, 0, w - 1)
-            acc += wk[dy+1][dx+1] * s[yi*w + xi]
-    return (acc + 8) >> 4                 # +8 = пів-дільника → округлення до найближчого
-```
+:::code convolution-filters-d/cpp/fiksovana-tochka-i-simd.cpp
+:::code convolution-filters-d/py/fiksovana-tochka-i-simd.py
 :::
 
 Ключова деталь — `+ 8` перед зсувом. Без нього зсув `>> 4` відкидає дробову частину **вниз** (це підлога ділення), і кожен прохід трохи затемнює кадр; на каскаді фільтрів дрейф накопичується. Додавання половини дільника (8 для дільника 16) перетворює відкидання на чесне округлення до найближчого. Накопичувач `int32_t` гарантовано не переповниться: максимум 255 × 16 = 4080, далеко до межі.

@@ -9,43 +9,8 @@
 Двійковий дескриптор — це просто фіксований блок бітів. 256 бітів найзручніше тримати як масив із восьми `uint32_t`: тоді відстань Гаммінга рахується пословно, кожне слово — за одну машинну інструкцію. Можна було б узяти чотири `uint64_t` (те саме, ще трохи швидше на 64-бітному ядрі) — до цього повернемося; почнімо з `uint32_t`, бо він лягає всюди, зокрема на 32-бітний мікроконтролер.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#define ORB_WORDS 8                  // 256 бітів = 8 × 32
-
-// один ORB-дескриптор: 256 бітів як 8 слів по 32 біти
-typedef struct {
-    uint32_t w[ORB_WORDS];
-} orb_desc_t;
-
-// набір дескрипторів одного кадру (просто масив + лічильник)
-typedef struct {
-    const orb_desc_t *d;             // масив дескрипторів
-    int count;                       // скільки їх
-} orb_set_t;
-
-// результат зіставлення однієї точки
-typedef struct {
-    int query;                       // індекс у наборі A
-    int train;                       // індекс у наборі B (-1 = немає пари)
-    int dist;                        // відстань Гаммінга до пари (0..256)
-} orb_match_t;
-```
-```python
-from dataclasses import dataclass
-
-# один ORB-дескриптор: 256 бітів як одне ціле python-число
-# (набір — просто список таких цілих, довжина = кількість)
-
-@dataclass
-class OrbMatch:
-    query: int          # індекс у наборі A
-    train: int = -1     # індекс у наборі B (-1 = немає пари)
-    dist: int = 257     # відстань Гаммінга до пари (0..256)
-```
+:::code proj-orb-match-c/cpp/struktura-nabir-dviikovykh.cpp
+:::code proj-orb-match-c/py/struktura-nabir-dviikovykh.py
 :::
 
 Ніякого володіння пам'яттю набір не бере: `orb_set_t` лише вказує на вже готовий масив дескрипторів і каже, скільки їх. Це навмисне — на бортовому пристрої дескриптори зазвичай лежать у буфері, який заповнив детектор, і зайве копіювання 32 байтів на точку ні до чого. `orb_match_t` тримає обидва індекси й саму відстань: відстань згодиться і для сортування пар за якістю, і для остаточного порогу.
@@ -95,42 +60,8 @@ popcount(0010 0100) = 2  → внесок цього шматка у відст�
 Зробити це за один прохід — акуратна, але проста робота з двома «рекордами». Ведемо дві найменші відстані, `best` і `second` (`best ≤ second`), і індекс переможця. Для кожного нового кандидата можливі три випадки, і порядок перевірок важливий:
 
 :::tabs
-```cpp
-// індекс найкращого дескриптора в B для заданого query;
-// у *best_out / *second_out кладе дві найменші відстані Гаммінга.
-static int orb_two_best(const orb_desc_t *query, const orb_set_t *B,
-                        int *best_out, int *second_out) {
-    int best = 257, second = 257, best_j = -1;   // 257 > будь-якої реальної відстані
-    for (int j = 0; j < B->count; ++j) {
-        int d = orb_hamming(query, &B->d[j]);
-        if (d < best) {                          // новий рекорд: старий best з'їжджає в second
-            second = best;
-            best   = d;
-            best_j = j;
-        } else if (d < second) {                 // не рекорд, але кращий за другий
-            second = d;
-        }
-    }
-    if (best_out)   *best_out   = best;
-    if (second_out) *second_out = second;
-    return best_j;                               // -1, лише якщо B порожній
-}
-```
-```python
-# індекс найкращого дескриптора в B для заданого query;
-# повертає (best_j, best, second) — дві найменші відстані Гаммінга.
-def orb_two_best(query: int, B: list[int]) -> tuple[int, int, int]:
-    best, second, best_j = 257, 257, -1          # 257 > будь-якої реальної відстані
-    for j, desc in enumerate(B):
-        d = orb_hamming(query, desc)
-        if d < best:                             # новий рекорд: старий best з'їжджає в second
-            second = best
-            best = d
-            best_j = j
-        elif d < second:                         # не рекорд, але кращий за другий
-            second = d
-    return best_j, best, second                  # best_j = -1, лише якщо B порожній
-```
+:::code proj-orb-match-c/cpp/poshuk-dvokh-naikrashchykh.cpp
+:::code proj-orb-match-c/py/poshuk-dvokh-naikrashchykh.py
 :::
 
 Чому `257`, а не `0` чи `INT_MAX`? Відстань не буває більшою за 256, тож `257` — це «гірше за будь-що реальне», і перший же кандидат неодмінно поб'є цей стартовий рекорд. `INT_MAX` теж спрацював би, але `257` наочно каже читачеві: «це недосяжна відстань-заглушка». А `0` був би катастрофою — жоден кандидат не є `< 0`, і рекорд не оновився б ніколи.
@@ -173,50 +104,8 @@ def orb_pass_ratio(best: int, second: int, ratio: float) -> bool:
 Складаємо ядро в повний прохід: для кожної точки з `A` шукаємо два найкращі в `B`, застосовуємо пробу відношення й записуємо пару (або `-1`, якщо збіг неоднозначний).
 
 :::tabs
-```cpp
-// зіставити весь набір A з набором B пробою відношення.
-// out[] має вмістити A->count елементів; повертає кількість прийнятих пар.
-// (пари з train == -1 у out теж лишаються — щоб зберегти відповідність за query.)
-int orb_match_all(const orb_set_t *A, const orb_set_t *B,
-                  float ratio, orb_match_t *out) {
-    int accepted = 0;
-    for (int i = 0; i < A->count; ++i) {
-        out[i].query = i;
-        out[i].train = -1;
-        out[i].dist  = 257;
-
-        if (B->count == 0)                       // порожній набір — нема з чим в'язати
-            continue;
-
-        int best, second;
-        int j = orb_two_best(&A->d[i], B, &best, &second);
-        if (j >= 0 && orb_pass_ratio(best, second, ratio)) {
-            out[i].train = j;
-            out[i].dist  = best;
-            ++accepted;
-        }
-    }
-    return accepted;
-}
-```
-```python
-# зіставити весь набір A з набором B пробою відношення.
-# повертає список OrbMatch довжини len(A) та кількість прийнятих пар.
-# (пари з train == -1 у списку теж лишаються — щоб зберегти відповідність за query.)
-def orb_match_all(A: list[int], B: list[int], ratio: float):
-    out = [OrbMatch(query=i) for i in range(len(A))]
-    accepted = 0
-    for i, query in enumerate(A):
-        if not B:                                # порожній набір — нема з чим в'язати
-            continue
-
-        j, best, second = orb_two_best(query, B)
-        if j >= 0 and orb_pass_ratio(best, second, ratio):
-            out[i].train = j
-            out[i].dist = best
-            accepted += 1
-    return out, accepted
-```
+:::code proj-orb-match-c/cpp/zistavlennia-vsoho-naboru.cpp
+:::code proj-orb-match-c/py/zistavlennia-vsoho-naboru.py
 :::
 
 Порожній набір `B` тут не аварія, а нормальний вхід: буває, детектор на порожньому небі не знайшов **жодної** точки на одному з кадрів. Наївний код, який одразу лізе в `B->d[0]`, на такому вході або читає чужу пам'ять, або ділить на нерозумне `second`; ми ж просто лишаємо всі пари `-1` й повертаємо нуль. Так само коректно відпрацює `A->count == 0` — цикл жодного разу не виконається. Обидва виродження — не екзотика, а те, що станеться першого ж туманного ранку в польоті, тож ловити їх треба одразу.
@@ -232,54 +121,8 @@ def orb_match_all(A: list[int], B: list[int], ratio: float):
 Це й є **перехресна перевірка** (англ. *cross-check*): пара `(i, j)` виживає, лише якщо найкращий для `A[i]` у наборі `B` — це `j`, **і** найкращий для `B[j]` у наборі `A` — це `i`. Механіка проста: зіставляємо `A → B`, зіставляємо `B → A`, лишаємо тільки ті пари, що збіглися в обох напрямках.
 
 :::tabs
-```cpp
-// перехресна перевірка: лишити тільки взаємні пари.
-// fwd[] — результат orb_match_all(A, B, ...); out[] вміщує A->count пар.
-// Повертає кількість взаємних пар.
-int orb_cross_check(const orb_set_t *A, const orb_set_t *B,
-                    const orb_match_t *fwd, orb_match_t *out) {
-    int kept = 0;
-    for (int i = 0; i < A->count; ++i) {
-        out[i].query = i;
-        out[i].train = -1;
-        out[i].dist  = 257;
-
-        int j = fwd[i].train;                    // кого A[i] обрала вперед
-        if (j < 0) continue;                     // вперед пари не було
-
-        // кого B[j] обирає назад у A — тут БЕЗ проби відношення, лише найкращий
-        int back_best, back_second;
-        int back_i = orb_two_best(&B->d[j], A, &back_best, &back_second);
-
-        if (back_i == i) {                       // взаємний вибір!
-            out[i].train = j;
-            out[i].dist  = fwd[i].dist;
-            ++kept;
-        }
-    }
-    return kept;
-}
-```
-```python
-# перехресна перевірка: лишити тільки взаємні пари.
-# fwd — результат orb_match_all(A, B, ...); повертає список пар і кількість взаємних.
-def orb_cross_check(A: list[int], B: list[int], fwd: list[OrbMatch]):
-    out = [OrbMatch(query=i) for i in range(len(A))]
-    kept = 0
-    for i in range(len(A)):
-        j = fwd[i].train                         # кого A[i] обрала вперед
-        if j < 0:                                # вперед пари не було
-            continue
-
-        # кого B[j] обирає назад у A — тут БЕЗ проби відношення, лише найкращий
-        back_i, _, _ = orb_two_best(B[j], A)
-
-        if back_i == i:                          # взаємний вибір!
-            out[i].train = j
-            out[i].dist = fwd[i].dist
-            kept += 1
-    return out, kept
-```
+:::code proj-orb-match-c/cpp/perekhresna-perevirka.cpp
+:::code proj-orb-match-c/py/perekhresna-perevirka.py
 :::
 
 Тонкий момент: у зворотному напрямку ми беремо **просто найкращого** (`orb_two_best` і дивимося на `back_i`), без проби відношення. Чому? Бо перехресна перевірка й проба відношення — це **два різні** фільтри проти двох різних видів хиби, і накладати відношення ще й назад означало б відкидати пари вдвічі суворіше без ясної підстави. Взаємність сама по собі — сильний сигнал; вимагати від зворотного вибору ще й виразного відриву — то вже перестрахування, що виїдає багато чесних пар. У бібліотеці OpenCV це навіть закладено в конструкцію: там `BFMatcher` з увімкненим `crossCheck=true` **забороняє** одночасний `knnMatch` із двома сусідами (потрібний для проби відношення) — саме тому, що ці два підходи мисляться як **альтернативні** способи відсіву, а не як пара, що завжди ходить разом. На практиці беруть або одне, або друге, або — як у нас — пробу відношення вперед плюс голу взаємність, свідомо не подвоюючи суворість.

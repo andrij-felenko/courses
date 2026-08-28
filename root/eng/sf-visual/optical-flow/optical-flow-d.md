@@ -64,63 +64,8 @@ Iₓ · u  +  Iᵧ · v  +  Iₜ  =  0
 **Умова.** Два кадри 8-бітних яскравостей, `prev` і `curr`, лежать рядками по `W` пікселів. У точці (x, y) яскравість між кадрами впала, а зліва-справа й зверху-знизу є перепад. Порахуймо `Iₓ, Iᵧ, Iₜ` і нормальну складову зсуву.
 
 :::tabs
-```c
-#include <math.h>
-#include <stdint.h>
-
-typedef struct { float u, v; float mag; } FlowN;  // нормальний потік у точці
-
-// градієнт і часова похідна в пікселі (x,y); нормальна складова потоку
-static FlowN normal_flow(const uint8_t *prev, const uint8_t *curr,
-                         int W, int x, int y)
-{
-    // центральні різниці по поточному кадру → просторовий градієнт
-    float Ix = 0.5f * ((float)curr[y*W + x+1] - (float)curr[y*W + x-1]);
-    float Iy = 0.5f * ((float)curr[(y+1)*W + x] - (float)curr[(y-1)*W + x]);
-    // різниця між кадрами в тій самій точці → часова похідна
-    float It = (float)curr[y*W + x] - (float)prev[y*W + x];
-
-    float g2 = Ix*Ix + Iy*Iy;              // квадрат модуля градієнта
-    FlowN f = { 0.0f, 0.0f, 0.0f };
-    if (g2 < 1.0f) return f;               // немає градієнта — потік невизначений
-
-    // в'язь Ix·u + Iy·v + It = 0 дає ЛИШЕ рух уздовж градієнта (нормальний):
-    //   (u,v) = -It · (Ix,Iy) / |∇I|²
-    f.u = -It * Ix / g2;
-    f.v = -It * Iy / g2;
-    f.mag = fabsf(It) / sqrtf(g2);         // довжина нормальної складової
-    return f;
-}
-```
-```python
-import math
-from typing import NamedTuple
-
-class FlowN(NamedTuple):          # нормальний потік у точці
-    u: float
-    v: float
-    mag: float
-
-# градієнт і часова похідна в пікселі (x,y); нормальна складова потоку
-def normal_flow(prev, curr, W, x, y):
-    # центральні різниці по поточному кадру → просторовий градієнт
-    Ix = 0.5 * (curr[y*W + x+1] - curr[y*W + x-1])
-    Iy = 0.5 * (curr[(y+1)*W + x] - curr[(y-1)*W + x])
-    # різниця між кадрами в тій самій точці → часова похідна
-    It = curr[y*W + x] - prev[y*W + x]
-
-    g2 = Ix*Ix + Iy*Iy                    # квадрат модуля градієнта
-    if g2 < 1.0:
-        return FlowN(0.0, 0.0, 0.0)       # немає градієнта — потік невизначений
-
-    # в'язь Ix·u + Iy·v + It = 0 дає ЛИШЕ рух уздовж градієнта (нормальний):
-    #   (u,v) = -It · (Ix,Iy) / |∇I|²
-    return FlowN(
-        u=-It * Ix / g2,
-        v=-It * Iy / g2,
-        mag=abs(It) / math.sqrt(g2),      # довжина нормальної складової
-    )
-```
+:::code optical-flow-d/c/main.c
+:::code optical-flow-d/py/main.py
 :::
 
 Підставмо числа. Хай `Iₓ = 40` (яскравість круто росте вправо — вертикальний край), `Iᵧ = 0` (по вертикалі рівно), а між кадрами точка потемніла на `Iₜ = −20`:

@@ -221,76 +221,8 @@ t = 4:  w₀ = .65                 (рівень 0..4)
 
 **Умова: гістограма з прикладу вище (n = {0,24,16,0,12,28}, N = 80). Знайти поріг Оцу.**
 :::tabs
-```cpp
-#include <stdint.h>
-
-// hist[L] — гістограма (лічба пікселів), N — усього пікселів.
-// Повертає поріг t: пікселі з яскравістю > t — об'єкт.
-int otsu_threshold(const uint32_t hist[], int L, uint32_t N) {
-    uint64_t sum_total = 0;                 // Σ i·n_i по всій гістограмі
-    for (int i = 0; i < L; i++) sum_total += (uint64_t)i * hist[i];
-
-    uint64_t sum_bg = 0;                    // накопичений момент S(t)·N
-    uint32_t w_bg   = 0;                    // накопичена вага w₀·N
-    double   best_var = -1.0;
-    int      best_t   = 0;
-
-    for (int t = 0; t < L; t++) {
-        w_bg   += hist[t];                  // w₀·N наростанням
-        if (w_bg == 0) continue;            // клас тла ще порожній
-        uint32_t w_fg = N - w_bg;           // w₁·N
-        if (w_fg == 0) break;               // клас об'єкта спорожнів — далі нема сенсу
-
-        sum_bg += (uint64_t)t * hist[t];    // S(t)·N наростанням
-        double mu_bg = (double)sum_bg / w_bg;
-        double mu_fg = (double)(sum_total - sum_bg) / w_fg;
-
-        // σ²_b ∝ w₀·w₁·(μ₀−μ₁)²  (спільний дільник N² відкинуто)
-        double diff = mu_bg - mu_fg;
-        double var_between = (double)w_bg * w_fg * diff * diff;
-
-        if (var_between > best_var) {        // запам'ятати вершину горба
-            best_var = var_between;
-            best_t   = t;
-        }
-    }
-    return best_t;
-}
-```
-```python
-def otsu_threshold(hist, N):
-    """hist — гістограма (лічба пікселів), N — усього пікселів.
-    Повертає поріг t: пікселі з яскравістю > t — об'єкт."""
-    L = len(hist)
-    sum_total = sum(i * hist[i] for i in range(L))  # Σ i·n_i по всій гістограмі
-
-    sum_bg = 0                              # накопичений момент S(t)·N
-    w_bg = 0                                # накопичена вага w₀·N
-    best_var = -1.0
-    best_t = 0
-
-    for t in range(L):
-        w_bg += hist[t]                     # w₀·N наростанням
-        if w_bg == 0:
-            continue                        # клас тла ще порожній
-        w_fg = N - w_bg                     # w₁·N
-        if w_fg == 0:
-            break                           # клас об'єкта спорожнів — далі нема сенсу
-
-        sum_bg += t * hist[t]               # S(t)·N наростанням
-        mu_bg = sum_bg / w_bg
-        mu_fg = (sum_total - sum_bg) / w_fg
-
-        # σ²_b ∝ w₀·w₁·(μ₀−μ₁)²  (спільний дільник N² відкинуто)
-        diff = mu_bg - mu_fg
-        var_between = w_bg * w_fg * diff * diff
-
-        if var_between > best_var:          # запам'ятати вершину горба
-            best_var = var_between
-            best_t = t
-
-    return best_t
-```
+:::code math-otsu-derivation/cpp/main.cpp
+:::code math-otsu-derivation/py/main.py
 :::
 
 Проженімо його думкою на нашій гістограмі. На `t = 2`: `w_bg = 0+24+16 = 40`, `w_fg = 40`, `sum_bg = 0+24+32 = 56`, `mu_bg = 56/40 = 1.4`, `mu_fg = (sum_total − 56)/40`. Повна `sum_total = 24·1 + 16·2 + 12·4 + 28·5 = 24+32+48+140 = 244`, тож `mu_fg = (244−56)/40 = 188/40 = 4.7`. Тоді `var_between = 40·40·(1.4−4.7)² = 1600·10.89 = 17424`. На `t = 1`: `w_bg = 24`, `sum_bg = 24`, `mu_bg = 1.0`, `mu_fg = (244−24)/56 = 220/56 = 3.929`, `var_between = 24·56·(−2.929)² = 1344·8.579 = 11530`. Менше. На `t = 4`: `w_bg = 64`, `sum_bg = 24+32+0+48 = 104`, `mu_bg = 104/64 = 1.625`… стоп — тут видно, чому код важливий: рівень 3 порожній, тож на `t = 3` `sum_bg` і `w_bg` не змінюються від `t = 2`, і `var_between` лишається 17424 (нічия з `t = 2`, `>` лишає перший — `best_t = 2`). На `t = 4` `var_between = 64·16·(1.625−5.0)²`… менше за 17424. Максимум — на `t = 2`, рівно як руками (множник `N² = 6400` між `17424` і `2.723` лише масштаб: `17424/6400 = 2.723`). Поріг Оцу: пікселі з яскравістю **3, 4, 5** — об'єкт; **0, 1, 2** — тло.

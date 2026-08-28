@@ -18,24 +18,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-pinhole-to-brown.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-zhang-homography.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-camera-undistort.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -74,7 +79,8 @@
           "math": [
             {
               "file": "math-second-moment.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -96,7 +102,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -107,13 +114,15 @@
           "math": [
             {
               "file": "math-descriptor-distance.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-orb-match-c.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -124,7 +133,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -135,13 +145,16 @@
           "math": [
             {
               "file": "math-ncc-invariance.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-template-matching.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -159,7 +172,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -170,7 +184,8 @@
           "proj": [
             {
               "file": "proj-aruco-decode.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -187,12 +202,14 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-homography-estimator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -225,7 +242,8 @@
           "proj": [
             {
               "file": "proj-pnp-solver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },

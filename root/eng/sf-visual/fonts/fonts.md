@@ -31,51 +31,8 @@
 **Малювання рядка бітмапним гліфом 8×8, 1 біт/піксель.** Гліф лежить як 8 байтів — по байту на рядок, біт = піксель. Малюємо кожну виставлену точку в кадровий буфер і після літери зсуваємо курсор на її крок:
 
 :::tabs
-```cpp
-// Кадровий буфер RGB565: WIDTH×HEIGHT, рядок за рядком
-uint16_t fb[WIDTH * HEIGHT];
-
-// Один гліф 8×8: 8 байтів, старший біт — лівий піксель рядка
-void blit_glyph(int x, int y, const uint8_t glyph[8], uint16_t color) {
-    for (int row = 0; row < 8; row++) {
-        uint8_t bits = glyph[row];          // рядок гліфа
-        for (int col = 0; col < 8; col++) {
-            if (bits & (0x80 >> col))       // біт виставлено → піксель чорний
-                fb[(y + row) * WIDTH + (x + col)] = color;
-        }
-    }
-}
-
-// Рядок тексту: блітнути гліф і зсунути курсор на крок (тут моноширинний — 8)
-void draw_text(int x, int y, const char *s, uint16_t color) {
-    int cursor = x;
-    for (; *s; s++) {
-        const uint8_t *g = font8x8[(uint8_t)*s];  // код символу → 8 байтів гліфа
-        blit_glyph(cursor, y, g, color);
-        cursor += 8;                              // advance: наступна літера праворуч
-    }
-}
-```
-```python
-# Кадровий буфер RGB565: WIDTH×HEIGHT, рядок за рядком
-fb = [0] * (WIDTH * HEIGHT)
-
-# Один гліф 8×8: 8 байтів, старший біт — лівий піксель рядка
-def blit_glyph(x, y, glyph, color):
-    for row in range(8):
-        bits = glyph[row]                   # рядок гліфа
-        for col in range(8):
-            if bits & (0x80 >> col):        # біт виставлено → піксель чорний
-                fb[(y + row) * WIDTH + (x + col)] = color
-
-# Рядок тексту: блітнути гліф і зсунути курсор на крок (тут моноширинний — 8)
-def draw_text(x, y, s, color):
-    cursor = x
-    for ch in s:
-        g = font8x8[ord(ch)]                # код символу → 8 байтів гліфа
-        blit_glyph(cursor, y, g, color)
-        cursor += 8                         # advance: наступна літера праворуч
-```
+:::code fonts/cpp/main.cpp
+:::code fonts/py/main.py
 :::
 
 Тут видно всю суть бітмапного шрифту: жодної математики, лише вибірка байтів і запис у пам'ять. Для пропорційного шрифту, де в кожної літери свій крок, змінився б лише один рядок — `cursor += advance[(uint8_t)*s]` замість сталої вісімки.

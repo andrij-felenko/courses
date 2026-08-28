@@ -25,65 +25,11 @@ T(x,y) = mean(окіл S×S навколо (x,y)) − C
 
 Це принцип включення-виключення: від великого прямокутника віднімаємо дві смуги ліворуч і вгорі, а кутик, що відняли двічі, додаємо назад. Будуємо таблицю теж наростанням, рядок за рядком:
 
-```c
-#include <stdint.h>
-
-#define W 160
-#define H 120
-
-// Інтегральне зображення: I[y][x] = сума gray[0..y][0..x].
-// uint32_t вистачає: 160·120·255 ≈ 4.9·10⁶ ≪ 4.29·10⁹ (межа uint32).
-// Для великих кадрів (понад ~16 Мп·255) брати uint64_t.
-static uint32_t I[H][W];
-
-void build_integral(const uint8_t gray[H][W]) {
-    for (int y = 0; y < H; y++) {
-        uint32_t row_sum = 0;                  // біжуча сума поточного рядка
-        for (int x = 0; x < W; x++) {
-            row_sum += gray[y][x];
-            uint32_t up = (y > 0) ? I[y-1][x] : 0;
-            I[y][x] = up + row_sum;            // зверху + накопичене в рядку
-        }
-    }
-}
-```
+:::code proj-threshold-morphology-pipeline/c/stadiia-1-adaptyvnyi-porih.c
 
 Тепер сам поріг. Вікно `S×S` навколо пікселя обрізаємо краєм кадру (clamp) — на рамці воно просто менше, і ділити треба на **фактичну** кількість пікселів вікна, а не на `S²`, інакше край вийде хибно темним. Беремо `S = 15`, тож півширина `R = 7`:
 
-```c
-#define WIN   15
-#define RAD   (WIN / 2)        // = 7
-#define CCONST 5               // запас C: піксель мусить бути помітно яскравішим за окіл
-
-// Сума прямокутника [x1..x2]×[y1..y2] за чотири звернення до інтегралу.
-static uint32_t rect_sum(int x1, int y1, int x2, int y2) {
-    uint32_t a = I[y2][x2];
-    uint32_t b = (x1 > 0)            ? I[y2][x1-1]   : 0;
-    uint32_t c = (y1 > 0)            ? I[y1-1][x2]   : 0;
-    uint32_t d = (x1 > 0 && y1 > 0)  ? I[y1-1][x1-1] : 0;
-    return a - b - c + d;
-}
-
-void adaptive_threshold(const uint8_t gray[H][W], uint8_t mask[H][W]) {
-    for (int y = 0; y < H; y++) {
-        for (int x = 0; x < W; x++) {
-            int x1 = x - RAD, y1 = y - RAD;
-            int x2 = x + RAD, y2 = y + RAD;
-            if (x1 < 0) x1 = 0;                 // обрізаємо вікно краєм кадру
-            if (y1 < 0) y1 = 0;
-            if (x2 >= W) x2 = W - 1;
-            if (y2 >= H) y2 = H - 1;
-
-            uint32_t area = (uint32_t)(x2 - x1 + 1) * (y2 - y1 + 1);
-            uint32_t sum  = rect_sum(x1, y1, x2, y2);
-            int      mean = (int)(sum / area);  // середня яскравість фактичного вікна
-            int      thr  = mean - CCONST;      // локальний поріг T(x,y)
-
-            mask[y][x] = (gray[y][x] > thr) ? 255 : 0;
-        }
-    }
-}
-```
+:::code proj-threshold-morphology-pipeline/c/stadiia-1-adaptyvnyi-porih-2.c
 
 Ключ тут — `area` рахується від **обрізаних** меж, тож на краю кадру (де вікно вужче) середнє лишається чесним. Це найчастіша помилка адаптивного порога: поділити на `S²` всюди — і отримати темну рамку по периметру маски.
 
@@ -111,41 +57,7 @@ void adaptive_threshold(const uint8_t gray[H][W], uint8_t mask[H][W]) {
 
 Беремо **clamp** (повтор краю) — він безпечніший для лічби площі, бо не вносить хибної межі. Допоміжна функція читає піксель із затиском координат:
 
-```c
-// Безпечне читання маски: координати за межами затискаються до краю (clamp).
-// Жодного звернення поза масивом — головне правило вбудованого коду.
-static uint8_t at_clamp(const uint8_t m[H][W], int y, int x) {
-    if (x < 0) x = 0; else if (x >= W) x = W - 1;
-    if (y < 0) y = 0; else if (y >= H) y = H - 1;
-    return m[y][x];
-}
-
-void erode3(const uint8_t src[H][W], uint8_t dst[H][W]) {
-    for (int y = 0; y < H; y++)
-        for (int x = 0; x < W; x++) {
-            uint8_t mn = 255;                          // ерозія = мінімум по 3×3
-            for (int dy = -1; dy <= 1; dy++)
-                for (int dx = -1; dx <= 1; dx++) {
-                    uint8_t v = at_clamp(src, y+dy, x+dx);
-                    if (v < mn) mn = v;
-                }
-            dst[y][x] = mn;
-        }
-}
-
-void dilate3(const uint8_t src[H][W], uint8_t dst[H][W]) {
-    for (int y = 0; y < H; y++)
-        for (int x = 0; x < W; x++) {
-            uint8_t mx = 0;                             // дилатація = максимум по 3×3
-            for (int dy = -1; dy <= 1; dy++)
-                for (int dx = -1; dx <= 1; dx++) {
-                    uint8_t v = at_clamp(src, y+dy, x+dx);
-                    if (v > mx) mx = v;
-                }
-            dst[y][x] = mx;
-        }
-}
-```
+:::code proj-threshold-morphology-pipeline/c/stadiia-2-eroziia-i.c
 
 `at_clamp` ціною двох порівнянь на читання назавжди прибирає вихід за межі — а вихід за межі масиву на краю кадру є найпідступнішою вадою такого коду: він не падає одразу, а тихо читає сусідній рядок (чи зовсім чужу пам'ять), і маска по краю виходить «брудна» без видимої причини.
 
@@ -158,23 +70,7 @@ void dilate3(const uint8_t src[H][W], uint8_t dst[H][W]) {
 
 Кожна пара потребує **одного проміжного** буфера (вихід першої дії — вхід другої). Щоб не плодити масиви, заведемо рівно **два** робочих буфери на весь конвеєр і ганятимемо дані між ними «туди-сюди»:
 
-```c
-// Два робочих буфери на весь конвеєр — більше не потрібно.
-static uint8_t buf_a[H][W];
-static uint8_t buf_b[H][W];
-
-// Відкриття: src → (ерозія) tmp → (дилатація) dst.  tmp ≠ src, tmp ≠ dst.
-void opening3(const uint8_t src[H][W], uint8_t dst[H][W], uint8_t tmp[H][W]) {
-    erode3(src, tmp);
-    dilate3(tmp, dst);
-}
-
-// Закриття: src → (дилатація) tmp → (ерозія) dst.
-void closing3(const uint8_t src[H][W], uint8_t dst[H][W], uint8_t tmp[H][W]) {
-    dilate3(src, tmp);
-    erode3(tmp, dst);
-}
-```
+:::code proj-threshold-morphology-pipeline/c/stadiia-3-vidkryttia-i.c
 
 ## Стадія 4: лічба білих пікселів
 
@@ -196,40 +92,12 @@ uint32_t count_white(const uint8_t mask[H][W]) {
 
 Зберемо стадії в одну функцію. Порядок буферів продуманий так, щоб обійтися двома робочими масивами (`buf_a`, `buf_b`) плюс окремий вихід `mask`:
 
-```c
-// Повний конвеєр: сірий кадр → чиста маска + площа виділеного.
-// Буфери buf_a/buf_b/I/mask — статичні (без malloc), живуть увесь час роботи.
-uint32_t pipeline(const uint8_t gray[H][W], uint8_t mask[H][W]) {
-    build_integral(gray);                      // 1. таблиця сум для адаптивного порога
-    adaptive_threshold(gray, buf_a);           // 2. сира маска → buf_a
-
-    opening3(buf_a, buf_b, mask);              // 3. відкриття: buf_a → buf_b (tmp = mask)
-    closing3(buf_b, mask, buf_a);              // 4. закриття: buf_b → mask  (tmp = buf_a)
-
-    return count_white(mask);                  // 5. площа виділеного
-}
-```
+:::code proj-threshold-morphology-pipeline/c/use-razom-konveier.c
 
 Прослідкуймо потік даних, бо саме в ньому вся охайність. `adaptive_threshold` кладе сиру маску в `buf_a`. `opening3` робить ерозію `buf_a → mask`, тоді дилатацію `mask → buf_b` — після нього **очищена** маска лежить у `buf_b`, а `mask` ми тимчасово позичили під проміжок (його вміст зараз сміття, не страшно). `closing3` робить дилатацію `buf_b → buf_a`, тоді ерозію `buf_a → mask` — після нього **готова** чиста маска лежить у `mask`, а `buf_a` знову вільний. Жодна стадія не пише туди, звідки ще читає; три статичних буфери (`buf_a`, `buf_b`, `mask`) плюс інтегральне `I` — і весь конвеєр обходиться без жодного динамічного виділення.
 
 **Умова: кадр 160×120, у ньому світла деталь і кілька цяток шуму. Проганяємо конвеєр.**
-```c
-static uint8_t gray[H][W];      // заповнюється з камери (DMA/опитування)
-static uint8_t mask[H][W];      // вихід
-
-void on_frame(void) {
-    // gray[][] уже містить свіжий сірий кадр
-    uint32_t area = pipeline(gray, mask);
-
-    // частка кадру, зайнята виділеним
-    float frac = (float)area / (float)(H * W);
-
-    if (frac > 0.03f) {
-        // об'єкт у кадрі — реагуємо (лічильник, тривога, наведення…)
-    }
-    // mask[][] тепер чиста бінарна маска, готова до пошуку об'єктів
-}
-```
+:::code proj-threshold-morphology-pipeline/c/use-razom-konveier-2.c
 
 ## Скільки це коштує і де воно крутиться
 

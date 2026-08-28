@@ -76,20 +76,7 @@ typedef struct {
     int class_id;      // Ідентифікатор семантичного класу (наприклад, 0 = person, 2 = car)
 } sort_detection_t;
 ```
-```cpp
-struct Detection {
-    float x1{0.0f};
-    float y1{0.0f};
-    float x2{0.0f};
-    float y2{0.0f};
-    float confidence{0.0f};
-    int class_id{0};
-
-    [[nodiscard]] constexpr float width() const noexcept { return x2 - x1; }
-    [[nodiscard]] constexpr float height() const noexcept { return y2 - y1; }
-    [[nodiscard]] constexpr float area() const noexcept { return width() * height(); }
-};
-```
+:::code api-sort-interface/cpp/3-1-vkhidna-detektsiia.cpp
 :::
 
 ### 3.2. Вихідний підтверджений трек (`sort_output_track_t` / `TrackedTarget`)
@@ -97,63 +84,15 @@ struct Detection {
 Репрезентує верифіковану ціль, що передається клієнтській програмі після завершення асоціації та фільтрації.
 
 :::tabs
-```c
-typedef struct {
-    float x1;          // Згладжена ліва межа рамки
-    float y1;          // Згладжена верхня межа рамки
-    float x2;          // Згладжена права межа рамки
-    float y2;          // Згладжена нижня межа рамки
-    float vx;          // Оцінена швидкість руху центра за віссю X (пікс/кадр)
-    float vy;          // Оцінена швидкість руху центра за віссю Y (пікс/кадр)
-    int track_id;      // Унікальний глобальний ідентифікатор цілі (ID > 0)
-    int class_id;      // Клас цілі
-    int age;           // Повний час життя треку від народження (кількість кадрів)
-} sort_output_track_t;
-```
-```cpp
-struct TrackedTarget {
-    float x1{0.0f};
-    float y1{0.0f};
-    float x2{0.0f};
-    float y2{0.0f};
-    float vx{0.0f};
-    float vy{0.0f};
-    int track_id{-1};
-    int class_id{0};
-    int age{0};
-};
-```
+:::code api-sort-interface/c/3-2-vykhidnyi.c
+:::code api-sort-interface/cpp/3-2-vykhidnyi.cpp
 :::
 
 ### 3.3. Внутрішній стан окремого треку (`sort_internal_track_t` / `TrackInternal`)
 
 :::tabs
-```c
-typedef struct {
-    float state[7];             // [u, v, s, r, u_dot, v_dot, s_dot]
-    float covariance[7][7];      // Симетрична додатно визначена матриця P
-    int track_id;               // Унікальний номер треку
-    int class_id;               // Семантичний клас
-    int hits;                   // Загальна кількість успішних асоціацій
-    int hit_streak;             // Кількість асоціацій поспіль без пропусків
-    int age;                    // Кількість кадрів з моменту ініціалізації
-    int time_since_update;      // Кількість кадрів з моменту останньої детекції
-    bool is_active;             // Прапорець занятості слота в пулі пам'яті
-} sort_internal_track_t;
-```
-```cpp
-struct TrackInternal {
-    std::array<float, 7> state{};
-    std::array<float, 49> covariance{};
-    int track_id{-1};
-    int class_id{0};
-    int hits{0};
-    int hit_streak{0};
-    int age{0};
-    int time_since_update{0};
-    bool is_active{false};
-};
-```
+:::code api-sort-interface/c/3-3-vnutrishnii-stan.c
+:::code api-sort-interface/cpp/3-3-vnutrishnii-stan.cpp
 :::
 
 ## 4. Функціональний інтерфейс C та C++ API

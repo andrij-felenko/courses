@@ -20,43 +20,7 @@
 
 ## Схема: чотири таблиці
 
-```sql
-CREATE TABLE IF NOT EXISTS tiles (
-  key     INTEGER PRIMARY KEY,   -- (джерело, z, x, y), запаковані в 61 біт
-  bytes   INTEGER NOT NULL,      -- довжина тіла; 0 разом із body IS NULL = «тайла немає»
-  fetched INTEGER NOT NULL,      -- коли завантажено (unix-час)
-  used    INTEGER NOT NULL,      -- коли востаннє віддано — за цим витісняємо
-  etag    TEXT,                  -- мітка версії від сервера
-  body    BLOB                   -- САМЕ ОСТАННІЙ стовпець, див. нижче
-);
-CREATE INDEX IF NOT EXISTS tiles_used ON tiles(used, bytes);
-
-CREATE TABLE IF NOT EXISTS sets (
-  id      INTEGER PRIMARY KEY,
-  name    TEXT NOT NULL UNIQUE,
-  src     INTEGER NOT NULL,
-  zmin    INTEGER NOT NULL, zmax  INTEGER NOT NULL,
-  west    REAL NOT NULL,    south REAL NOT NULL,
-  east    REAL NOT NULL,    north REAL NOT NULL,
-  created INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS set_tiles (       -- «набір посилається на тайл»
-  set_id INTEGER NOT NULL REFERENCES sets(id) ON DELETE CASCADE,
-  key    INTEGER NOT NULL,
-  PRIMARY KEY (set_id, key)
-) WITHOUT ROWID;
-CREATE INDEX IF NOT EXISTS set_tiles_key ON set_tiles(key);
-
-CREATE TABLE IF NOT EXISTS download_queue (  -- робота, що переживає перезапуск
-  key    INTEGER NOT NULL,
-  set_id INTEGER NOT NULL REFERENCES sets(id) ON DELETE CASCADE,
-  state  INTEGER NOT NULL DEFAULT 0,         -- 0 чекає · 1 у роботі · 2 готово · 3 помилка
-  tries  INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (set_id, key)
-) WITHOUT ROWID;
-CREATE INDEX IF NOT EXISTS queue_ready ON download_queue(state, set_id);
-```
+:::code proj-tile-store/sql/skhema-chotyry-tablytsi.sql
 
 Тут чотири рішення, які варті пояснення, бо кожне з них видно у профілі.
 
@@ -79,46 +43,13 @@ body ПЕРШИЙ    →  24.3 мс
 
 Адреса тайла — це джерело (постачальник плюс шар), рівень і дві координати. Усі складники малі й обмежені, тож усі разом вони вміщаються в одне ціле, яке стане `rowid`:
 
-```cpp
-#include <cstdint>
-
-// x, y < 2²⁴ (вистачає до рівня 24), z < 32, номер джерела < 256
-constexpr uint64_t src_z(uint8_t src, uint32_t z)
-{
-    return (uint64_t(src) << 53) | (uint64_t(z & 31) << 48);
-}
-
-constexpr uint64_t row_key(uint8_t src, uint32_t z, uint32_t x, uint32_t y)
-{
-    return src_z(src, z) | (uint64_t(y & 0xFFFFFF) << 24) | uint64_t(x & 0xFFFFFF);
-}
-```
+:::code proj-tile-store/cpp/kliuch-61-bit-zamist.cpp
 
 Вісім бітів джерела, п'ять рівня, по двадцять чотири на координати — шістдесят один біт. Три верхні лишаються нулями навмисно: `rowid` у SQLite — **знакове** 64-бітове ціле, і ключ, у якого стоїть біт 63, стане від'ємним з усіма наслідками для впорядкування.
 
 Ключ `row_key` кладе тайли одного рівня рядками: сусід ліворуч відрізняється на одиницю, а сусід згори — на 2²⁴ = 16 777 216. Тим часом екран просить не смужку, а квадратну латку. Лікує це **чергування бітів**: беремо по одному біту від `y` і `x` по черзі, від старших до молодших, — те саме, що [крива Мортона, або Z-порядок](root:sf-algorithms/z-order-curve). Розсунути 24 біти по парних позиціях можна без циклу, п'ятьма кроками подвоєння:
 
-```cpp
-// b₂₃…b₀  →  0 b₂₃ 0 b₂₂ … 0 b₀   (24 біти розтягнуто на 48 позицій)
-constexpr uint64_t spread24(uint32_t v)
-{
-    uint64_t x = v & 0xFFFFFFu;
-    x = (x ^ (x << 16)) & 0x0000FFFF0000FFFFULL;
-    x = (x ^ (x <<  8)) & 0x00FF00FF00FF00FFULL;
-    x = (x ^ (x <<  4)) & 0x0F0F0F0F0F0F0F0FULL;
-    x = (x ^ (x <<  2)) & 0x3333333333333333ULL;
-    x = (x ^ (x <<  1)) & 0x5555555555555555ULL;
-    return x;
-}
-
-constexpr uint64_t tile_key(uint8_t src, uint32_t z, uint32_t x, uint32_t y)
-{
-    return src_z(src, z) | (spread24(y) << 1) | spread24(x);
-}
-
-// x = 1011₂, y = 0110₂  →  пари (y₃x₃)(y₂x₂)(y₁x₁)(y₀x₀) = 01 10 11 01
-static_assert(tile_key(0, 0, 0b1011, 0b0110) == 0b01101101, "чергування бітів");
-```
+:::code proj-tile-store/cpp/kliuch-61-bit-zamist-2.cpp
 
 Кожен крок бере половину бітів, які вже на місці, і зсуває їх туди, де вони мають стояти; маска лишає в живих саме ту половину. Після п'ятого кроку між усіма бітами по одній порожній позиції — саме там сяде друга координата. Тридцять команд процесора замість двадцяти чотирьох ітерацій циклу, і все це рахується на етапі компіляції, коли аргументи сталі.
 
@@ -129,48 +60,7 @@ static_assert(tile_key(0, 0, 0b1011, 0b0110) == 0b01101101, "чергуванн�
 
 ## Відкриття: п'ять прагм, кожна з яких щось вирішує
 
-```cpp
-static bool exec(sqlite3* db, const char* sql)
-{
-    char* err = nullptr;
-    if (sqlite3_exec(db, sql, nullptr, nullptr, &err) == SQLITE_OK) return true;
-    std::fprintf(stderr, "sqlite: %s [%s]\n", err ? err : "?", sql);
-    sqlite3_free(err);
-    return false;
-}
-
-static int64_t scalar(sqlite3* db, const char* sql)
-{
-    sqlite3_stmt* s = nullptr;
-    if (sqlite3_prepare_v2(db, sql, -1, &s, nullptr) != SQLITE_OK) return -1;
-    int64_t v = (sqlite3_step(s) == SQLITE_ROW) ? sqlite3_column_int64(s, 0) : -1;
-    sqlite3_finalize(s);
-    return v;
-}
-
-bool TileStore::open(const char* path, int page_size /* = 32768 */)
-{
-    const int flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_NOMUTEX;
-    if (sqlite3_open_v2(path, &db_, flags, nullptr) != SQLITE_OK) return false;
-
-    char buf[64];
-    std::snprintf(buf, sizeof buf, "PRAGMA page_size=%d;", page_size);
-    exec(db_, buf);                              // подіє лише на ЩЕ НЕ створеній базі
-    exec(db_, "PRAGMA auto_vacuum=INCREMENTAL;");// теж лише до перших таблиць
-    exec(db_, "PRAGMA journal_mode=WAL;");
-    exec(db_, "PRAGMA synchronous=NORMAL;");
-    exec(db_, "PRAGMA foreign_keys=ON;");        // поза транзакцією — інакше мовчазний no-op
-    sqlite3_busy_timeout(db_, 5000);
-
-    if (!exec(db_, SCHEMA_SQL)) return false;
-    if (scalar(db_, "PRAGMA page_size;") != page_size)
-        std::fprintf(stderr, "увага: база лишилася зі сторінкою %lld\n",
-                     (long long)scalar(db_, "PRAGMA page_size;"));
-
-    exec(db_, "UPDATE download_queue SET state=0 WHERE state=1;");  // після аварійного виходу
-    return prepare_all();
-}
-```
+:::code proj-tile-store/cpp/vidkryttia-piat-prahm.cpp
 
 Порядок тут не довільний. `page_size` і `auto_vacuum` записуються у **заголовок файлу** й тому діють лише тоді, коли файл ще порожній; після створення першої таблиці змінити їх можна тільки повним перебудуванням через `VACUUM` (та й то не в режимі WAL). Саме тому обидві прагми стоять до `SCHEMA_SQL`, а після нього — перевірка: якщо база вже існувала зі сторінкою 4 КіБ, ніхто про це не скаже, і сховище тихо робитиме сім читань там, де могло б одне.
 
@@ -182,80 +72,13 @@ bool TileStore::open(const char* path, int page_size /* = 32768 */)
 
 Перед записом варто витратити наносекунди й перевірити, що прийшло. Сигнатура ловить чужий тип (класика — сторінка входу від точки доступу з обов'язковою авторизацією, яка відповідає кодом 200 на кожен запит), а кінець файлу — обрив посеред відповіді.
 
-```cpp
-#include <cstring>
-
-// PNG: 89 50 4E 47 0D 0A 1A 0A · JPEG: FF D8 FF · WebP: 'RIFF' <довжина> 'WEBP'
-static bool looks_like_tile(const unsigned char* p, int n)
-{
-    if (!p || n < 16) return false;
-
-    if (!std::memcmp(p, "\x89PNG\r\n\x1a\n", 8))                    // початок PNG
-        return !std::memcmp(p + n - 8, "IEND\xae\x42\x60\x82", 8);  // і чанк IEND у кінці
-
-    if (p[0] == 0xFF && p[1] == 0xD8 && p[2] == 0xFF)               // SOI + перший маркер
-        return p[n - 2] == 0xFF && p[n - 1] == 0xD9;                // EOI
-
-    if (!std::memcmp(p, "RIFF", 4) && !std::memcmp(p + 8, "WEBP", 4)) {
-        const uint32_t sz = uint32_t(p[4])        | (uint32_t(p[5]) <<  8)
-                          | (uint32_t(p[6]) << 16) | (uint32_t(p[7]) << 24);
-        return int64_t(sz) + 8 == int64_t(n);     // оголошена довжина = фактична
-    }
-    return false;
-}
-```
+:::code proj-tile-store/cpp/baity-iaki-vdaiut-iz-sebe.cpp
 
 Вісім байтів сигнатури PNG підібрані не навмання — кожен щось ловить, і специфікація формату це прямо пояснює. Перший байт узято поза ASCII, щоб текстовий файл не сприйняли за PNG, а канал, який гасить старший біт, викрив себе одразу. Далі три літери `PNG`. Потім пара `CR LF` — її зіпсує передавання в текстовому режимі. Далі `1A`: на цьому символі команда `TYPE` у MS-DOS припиняла показ файлу. Останній байт, переведення рядка, ловить зворотне перетворення — коли самотній `LF` перетворили на `CR LF`. Тому перевіряти варто всі вісім, а не два перші. WebP простіший: контейнер RIFF сам оголошує свою довжину в байтах 4–7, і збіг цієї довжини з фактичною — готова перевірка на обрив.
 
 ## Пакет: сотня тайлів в одній транзакції
 
-```cpp
-struct TileIn {                    // те, що щойно принесла мережа
-    uint64_t             key;
-    const unsigned char* body;     // nullptr → «такого тайла не існує»
-    int                  len;
-    std::string          etag;
-};
-
-struct Reset {                     // повертає підготовлений вираз у вихідний стан
-    sqlite3_stmt* s;
-    ~Reset() { sqlite3_reset(s); sqlite3_clear_bindings(s); }
-};
-
-int TileStore::put_batch(const std::vector<TileIn>& in, int64_t set_id, int64_t now)
-{
-    if (in.empty()) return 0;
-    if (!exec(db_, "BEGIN IMMEDIATE")) return -1;   // одразу беремо право на запис
-
-    int written = 0;
-    for (const TileIn& t : in) {
-        const bool missing = (t.body == nullptr);
-        if (!missing && !looks_like_tile(t.body, t.len)) continue;   // не картинка — не пишемо
-
-        Reset r{put_};
-        sqlite3_bind_int64(put_, 1, (sqlite3_int64)t.key);
-        sqlite3_bind_int  (put_, 2, missing ? 0 : t.len);
-        sqlite3_bind_int64(put_, 3, now);
-        sqlite3_bind_int64(put_, 4, now);
-        if (t.etag.empty()) sqlite3_bind_null(put_, 5);
-        else sqlite3_bind_text(put_, 5, t.etag.c_str(), -1, SQLITE_STATIC);
-        if (missing) sqlite3_bind_null(put_, 6);
-        else sqlite3_bind_blob(put_, 6, t.body, t.len, SQLITE_STATIC);
-
-        if (sqlite3_step(put_) != SQLITE_DONE) { exec(db_, "ROLLBACK"); return -1; }
-        ++written;
-
-        if (set_id > 0) {                            // тайл дістає посилання від набору
-            Reset rl{link_};
-            sqlite3_bind_int64(link_, 1, set_id);
-            sqlite3_bind_int64(link_, 2, (sqlite3_int64)t.key);
-            sqlite3_step(link_);
-        }
-    }
-    if (!exec(db_, "COMMIT")) { exec(db_, "ROLLBACK"); return -1; }
-    return written;
-}
-```
+:::code proj-tile-store/cpp/paket-sotnia-tailiv-v.cpp
 
 Самі запити готуються один раз при відкритті — SQLite компілює текст SQL у програму для своєї віртуальної машини, і робити це 56 тисяч разів немає жодних причин ([підготовлений вираз](root:sf-data/prepared-statements) виконується скільки завгодно разів із новими значеннями):
 
@@ -281,42 +104,7 @@ touch_= prep(db_, "UPDATE tiles SET used=? WHERE key=?");
 
 ## Пошук: сам тайл, а якщо його немає — предок
 
-```cpp
-struct TileOut {
-    std::vector<unsigned char> body;
-    int  px = 0, py = 0, side = 256;  // який підквадрат узяти з того, що знайшлося
-    int  up = 0;                      // на скільки рівнів довелося піднятися
-    bool known_missing = false;       // сховище пам'ятає: такого тайла не існує
-};
-
-bool TileStore::get(uint8_t src, uint32_t z, uint32_t x, uint32_t y,
-                    int max_up, TileOut& out)
-{
-    for (int k = 0; k <= max_up && k <= (int)z; ++k) {
-        Reset r{get_};
-        const uint64_t key = tile_key(src, z - k, x >> k, y >> k);
-        sqlite3_bind_int64(get_, 1, (sqlite3_int64)key);
-        if (sqlite3_step(get_) != SQLITE_ROW) continue;      // цього предка нема — вище
-
-        if (sqlite3_column_type(get_, 1) == SQLITE_NULL) {   // запис «тайла не існує»
-            if (k == 0) out.known_missing = true;            // мережу турбувати не треба
-            continue;                                        // предок усе одно згодиться
-        }
-
-        const unsigned char* p = (const unsigned char*)sqlite3_column_blob(get_, 1);
-        const int n = sqlite3_column_bytes(get_, 1);
-        out.body.assign(p, p + n);        // копіюємо: після reset цей вказівник мертвий
-        out.side = 256 >> k;              // сторона підквадрата в пікселях предка
-        const uint32_t mask = (1u << k) - 1;
-        out.px = int((x & mask) * out.side);
-        out.py = int((y & mask) * out.side);
-        out.up = k;
-        touch(key);
-        return true;
-    }
-    return false;
-}
-```
+:::code proj-tile-store/cpp/poshuk-sam-tail-a-iakshcho.cpp
 
 Підйом працює тому, що тайлова сітка вкладена рівно: тайл рівня `z` займає в предку рівня `z−k` квадрат зі стороною `256 >> k`, а те, який саме це квадрат, кажуть молодші `k` бітів координат. Ніякого перерахунку проєкції не потрібно — лише зсуви й маска. Розумна стеля — два-три рівні: учетверо розтягнутий тайл ще показує берегову лінію й дороги, увосьмеро — уже майже самі кольорові плями, а глибше підніматися немає сенсу.
 
@@ -324,59 +112,13 @@ bool TileStore::get(uint8_t src, uint32_t z, uint32_t x, uint32_t y,
 
 **Дотик не має бути записом.** `touch(key)` спокусливо реалізувати як `UPDATE tiles SET used=?`, і тоді кожне читання карти перетвориться на транзакцію запису: WAL росте, право на запис забирається в завантажувача, кадр чекає на диск. Тому дотики копляться в пам'яті й лягають у базу разом:
 
-```cpp
-void TileStore::touch(uint64_t key) { pending_.push_back(key); }
-
-void TileStore::flush_touches(int64_t now)      // раз на кілька секунд або при паузі
-{
-    if (pending_.empty() || !exec(db_, "BEGIN IMMEDIATE")) return;
-    for (uint64_t k : pending_) {
-        Reset r{touch_};
-        sqlite3_bind_int64(touch_, 1, now);
-        sqlite3_bind_int64(touch_, 2, (sqlite3_int64)k);
-        sqlite3_step(touch_);
-    }
-    exec(db_, "COMMIT");
-    pending_.clear();
-}
-```
+:::code proj-tile-store/cpp/poshuk-sam-tail-a-iakshcho-2.cpp
 
 Втратити кілька останніх дотиків не страшно: наслідком буде рівно те, що якийсь тайл витісниться трохи раніше, ніж мав би.
 
 ## Витіснення: нуль посилань і дві межі
 
-```cpp
-static const char* const EVICT_SQL =
-    "DELETE FROM tiles WHERE key IN ("
-    "  SELECT t.key FROM tiles t"
-    "    LEFT JOIN set_tiles s ON s.key = t.key"
-    "   WHERE s.key IS NULL"        // на тайл не посилається ЖОДЕН набір
-    "   ORDER BY t.used ASC"        // найдавніше вживані першими
-    "   LIMIT ?) "
-    "RETURNING bytes";
-// evict_ = prep(db_, EVICT_SQL) — так само один раз при відкритті
-
-int64_t TileStore::evict(int64_t high, int64_t low)   // скажімо, 2 ГіБ і 1.7 ГіБ
-{
-    int64_t total = scalar(db_, "SELECT COALESCE(SUM(bytes),0) FROM tiles");
-    if (total <= high) return 0;                      // нижче верхньої межі не рухаємось
-
-    int64_t freed = 0;
-    while (total - freed > low) {
-        Reset r{evict_};
-        sqlite3_bind_int(evict_, 1, 5000);
-        int64_t round = 0, rows = 0;
-        while (sqlite3_step(evict_) == SQLITE_ROW) {  // RETURNING віддає рядки видалених
-            round += sqlite3_column_int64(evict_, 0);
-            ++rows;
-        }
-        if (rows == 0) break;                         // вільного більше нема — усе закріплене
-        freed += round;
-    }
-    exec(db_, "PRAGMA incremental_vacuum(2000)");     // віддати місце файловій системі
-    return freed;
-}
-```
+:::code proj-tile-store/cpp/vytisnennia-nul-posylan-i.cpp
 
 Приєднання ліворуч із перевіркою `s.key IS NULL` — це і є [підрахунок посилань](root:sf-lang/reference-counting), розкладений у SQL: якщо тайл згадано бодай в одному наборі, приєднання дасть рядок, і в жертви він не потрапить ніколи. План запиту показує, що це дешево: `SCAN t USING COVERING INDEX tiles_used` плюс `SEARCH s USING COVERING INDEX set_tiles_key (key=?)` — сканування ведеться по індексу в порядку давності й обривається, щойно набереться `LIMIT` жертв, а на кожну кандидатку припадає один пошук у компактному дереві посилань.
 
@@ -390,23 +132,7 @@ int64_t TileStore::evict(int64_t high, int64_t low)   // скажімо, 2 Гі�
 
 Завантаження району обривається завжди — не через мережу, то через кришку ноутбука. Тому список роботи живе не в пам'яті процесу, а в тій самій базі:
 
-```sql
--- поставити тайл у чергу, якщо його ще нема або він застарів
-INSERT OR IGNORE INTO download_queue(key, set_id)
-SELECT ?1, ?2
- WHERE NOT EXISTS (SELECT 1 FROM tiles
-                    WHERE key = ?1 AND body IS NOT NULL AND fetched > ?3);
-
--- взяти наступну порцію (індекс queue_ready покриває і пошук, і порядок)
-SELECT key FROM download_queue WHERE state = 0 AND set_id = ?1 ORDER BY key LIMIT 64;
-
--- позначити зроблене; помилку — з лічильником спроб
-UPDATE download_queue SET state = 2 WHERE set_id = ?1 AND key = ?2;
-UPDATE download_queue SET state = 3, tries = tries + 1 WHERE set_id = ?1 AND key = ?2;
-
--- чесний відсоток для смужки прогресу
-SELECT SUM(state = 2), COUNT(*) FROM download_queue WHERE set_id = ?1;
-```
+:::code proj-tile-store/sql/cherha-shcho-perezhyvaie.sql
 
 Умова `NOT EXISTS` — це те, що робить повторне завантаження дешевим: тайл, який уже лежить у сховищі й не прострочений, у чергу не потрапляє, а лише дістає посилання від нового набору. Дві половини сусідніх районів так само не дублюють спільну смугу.
 

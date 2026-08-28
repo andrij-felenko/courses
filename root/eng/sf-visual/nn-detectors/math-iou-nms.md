@@ -43,30 +43,8 @@ iw  = ix2 − ix1              // ширина; якщо ≤ 0 — рамки н
 Критична деталь — знак ширини. Якщо рамки **не** перетинаються по x, то `ix2 < ix1`, і `iw` виходить **від'ємна**. Якщо тут не зупинитися, а перемножити від'ємні `iw` й `ih`, дістанемо **додатний** фальшивий перетин — типова тиха помилка. Тому перед множенням ширину й висоту обрізають нулем:
 
 :::tabs
-```cpp
-float iou(box_t a, box_t b) {
-    float ix1 = fmaxf(a.x1, b.x1), iy1 = fmaxf(a.y1, b.y1);
-    float ix2 = fminf(a.x2, b.x2), iy2 = fminf(a.y2, b.y2);
-    float iw = ix2 - ix1, ih = iy2 - iy1;
-    if (iw <= 0.0f || ih <= 0.0f) return 0.0f;     // не торкаються — перетин 0
-    float inter = iw * ih;
-    float areaA = (a.x2 - a.x1) * (a.y2 - a.y1);
-    float areaB = (b.x2 - b.x1) * (b.y2 - b.y1);
-    return inter / (areaA + areaB - inter);         // ∩ / ∪
-}
-```
-```python
-def iou(a, b):                                     # рамка — (x1, y1, x2, y2)
-    ix1, iy1 = max(a[0], b[0]), max(a[1], b[1])
-    ix2, iy2 = min(a[2], b[2]), min(a[3], b[3])
-    iw, ih = ix2 - ix1, iy2 - iy1
-    if iw <= 0 or ih <= 0:                          # не торкаються — перетин 0
-        return 0.0
-    inter = iw * ih
-    area_a = (a[2] - a[0]) * (a[3] - a[1])
-    area_b = (b[2] - b[0]) * (b[3] - b[1])
-    return inter / (area_a + area_b - inter)        # ∩ / ∪
-```
+:::code math-iou-nms/cpp/ploshcha-peretynu-dvokh.cpp
+:::code math-iou-nms/py/ploshcha-peretynu-dvokh.py
 :::
 
 🧮 **Worked-приклад: IoU рамок A = [0, 0, 100, 100] і B = [50, 50, 150, 150].**
@@ -97,36 +75,8 @@ IoU = 2500 / 17500 ≈ 0.143
 5. Повторювати крок 3, доки лишаються необроблені рамки.
 
 :::tabs
-```cpp
-int nms(det_t *d, int n, float tau, int *keep) {
-    sort_desc_by_score(d, n);                 // крок 2
-    for (int i = 0; i < n; i++) keep[i] = 1;
-    for (int i = 0; i < n; i++) {
-        if (!keep[i]) continue;               // вже придушена — пропустити
-        for (int j = i + 1; j < n; j++) {     // лише дальші (вони слабші)
-            if (!keep[j] || d[j].cls != d[i].cls) continue;
-            if (iou(d[i].box, d[j].box) > tau) keep[j] = 0;   // крок 4
-        }
-    }
-    int kept = 0; for (int i = 0; i < n; i++) kept += keep[i];
-    return kept;
-}
-```
-```python
-def nms(dets, tau):
-    dets.sort(key=lambda d: d.score, reverse=True)   # крок 2
-    keep = [True] * len(dets)
-    for i, di in enumerate(dets):
-        if not keep[i]:                              # вже придушена — пропустити
-            continue
-        for j in range(i + 1, len(dets)):            # лише дальші (вони слабші)
-            dj = dets[j]
-            if not keep[j] or dj.cls != di.cls:
-                continue
-            if iou(di.box, dj.box) > tau:            # крок 4
-                keep[j] = False
-    return [d for d, k in zip(dets, keep) if k]      # лишені рамки
-```
+:::code math-iou-nms/cpp/nms-alhorytm-i-dovedennia.cpp
+:::code math-iou-nms/py/nms-alhorytm-i-dovedennia.py
 :::
 
 **Чому достатньо дивитися тільки вперед (`j > i`).** Масив відсортований за спаданням упевненості, тож будь-яка рамка `j > i` **не впевненіша** за `i`. Якщо `j` сильно перекриває `i`, то `i` — впевненіший представник того самого об'єкта, і саме `j` має поступитися. Рамку `i` ніколи не доведеться душити кимось із дальших — вони всі слабші. Тому однобічного проходу досить, і окремий пошук максимуму не потрібен: перша незаймана рамка завжди вже найсильніша.

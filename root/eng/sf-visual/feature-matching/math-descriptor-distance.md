@@ -73,19 +73,7 @@ d = √0.0475 ≈ 0.2179
 У коді L2 для порівняння часто беруть **без кореня** — у квадраті:
 
 :::tabs
-```cpp
-// квадрат евклідової відстані двох дескрипторів довжини n.
-// корінь не беремо: він монотонний, тож для ПОРІВНЯННЯ «хто ближчий» зайвий,
-// а множення дешевше за sqrt — на борту це відчутно.
-float l2_sq(const float *a, const float *b, int n) {
-    float s = 0.0f;
-    for (int i = 0; i < n; ++i) {
-        float d = a[i] - b[i];
-        s += d * d;               // квадрат різниці по кожній координаті
-    }
-    return s;                     // менше = ближче
-}
-```
+:::code math-descriptor-distance/cpp/chomu-l2-pasuie.cpp
 ```python
 import numpy as np
 
@@ -152,18 +140,7 @@ popcount(0 0 1 0 0 1 0 0) = 2
 Кожне наступне слово додає свою жменю розбіжних бітів; сума popcount по всіх словах — повна відстань Гаммінга двох описів. Для 256-бітного ORB мала відстань (скажімо, менш як 40 із 256) означає майже однакові околи; велика (за 100) — різні. У коді весь дескриптор кладуть як масив слів і біжать по ньому:
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <bit>      // std::popcount (C++20)
-
-// відстань Гаммінга двох 256-бітних ORB-дескрипторів (8 слів по 32 біти)
-int hamming256(const uint32_t a[8], const uint32_t b[8]) {
-    int dist = 0;
-    for (int i = 0; i < 8; ++i)
-        dist += std::popcount(a[i] ^ b[i]);   // XOR → лічба розбіжних бітів
-    return dist;                              // 0 = однакові, 256 = усе навпаки
-}
-```
+:::code math-descriptor-distance/cpp/popcount-a-xor-b-i-chomu.cpp
 ```python
 # відстань Гаммінга двох 256-бітних ORB-дескрипторів (8 слів по 32 біти)
 def hamming256(a, b):
@@ -245,39 +222,8 @@ def hamming256(a, b):
 У коді проба відношення — це один рядок понад пошуком двох найближчих:
 
 :::tabs
-```cpp
-// пошук найближчого й другого праворуч + проба відношення.
-// повертає індекс прийнятого збігу або −1, якщо неоднозначно.
-int match_ratio(const float *query, const float train[][128], int m, float ratio) {
-    float best = 1e30f, second = 1e30f;
-    int best_j = -1;
-    for (int j = 0; j < m; ++j) {
-        float d = l2_sq(query, train[j], 128);        // працюємо у квадраті
-        if (d < best)      { second = best; best = d; best_j = j; }
-        else if (d < second) { second = d; }
-    }
-    // порівнюємо у КВАДРАТІ: (d₁/d₂ < r) ⇔ (d₁² < r²·d₂²)
-    if (second > 0.0f && best < ratio * ratio * second)
-        return best_j;      // відрив достатній — прийняти
-    return -1;              // майже нічия — відкинути
-}
-```
-```python
-# пошук найближчого й другого праворуч + проба відношення.
-# повертає індекс прийнятого збігу або -1, якщо неоднозначно.
-def match_ratio(query, train, ratio):
-    best, second, best_j = 1e30, 1e30, -1
-    for j, t in enumerate(train):
-        d = l2_sq(query, t)                     # працюємо у квадраті
-        if d < best:
-            second, best, best_j = best, d, j
-        elif d < second:
-            second = d
-    # порівнюємо у КВАДРАТІ: (d₁/d₂ < r) ⇔ (d₁² < r²·d₂²)
-    if second > 0.0 and best < ratio * ratio * second:
-        return best_j      # відрив достатній — прийняти
-    return -1              # майже нічия — відкинути
-```
+:::code math-descriptor-distance/cpp/zvidky-vziavsia-0-8-i.cpp
+:::code math-descriptor-distance/py/main.py
 :::
 
 Одна тонкість, на якій легко спіткнутися. Ми працюємо у **квадраті** відстані (щоб не брати кореня), тож і поріг треба брати у квадраті: `d₁/d₂ < 0.8` рівносильне `d₁² < 0.64·d₂²`, тобто `ratio*ratio`. Змішати квадрат із некоренем тут — типова тиха помилка, що зсуває поріг і псує весь відсів. І та сама проба відношення дослівно так само працює для Гаммінгової відстані двійкових описів — там `d₁` і `d₂` уже цілі числа розбіжних бітів, кореня немає, тож порівнюють прямо `best < ratio * second`.

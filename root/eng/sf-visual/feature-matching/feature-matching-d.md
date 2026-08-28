@@ -76,58 +76,8 @@ SIFT потужний, та його 128 чисел рахувати недеш�
 **Умова.** Два ORB-дескриптори по 256 бітів — кожен лежить як 8 слів по 32 біти. Порахуймо відстань Гаммінга й перевіримо, чи це достатньо близький збіг, щоб узяти його за кандидата.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <bit>      // std::popcount (C++20)
-
-// відстань Гаммінга двох 256-бітних ORB-дескрипторів (8 слів по 32 біти)
-int hamming256(const uint32_t a[8], const uint32_t b[8]) {
-    int dist = 0;
-    for (int i = 0; i < 8; ++i)
-        dist += std::popcount(a[i] ^ b[i]);  // XOR → лічба різних бітів
-    return dist;                             // 0 = однакові, 256 = усе навпаки
-}
-
-// для кожного дескриптора ліворуч знайти найближчий і другий праворуч,
-// прийняти лише за пробою відношення (для Гаммінга — теж відношення відстаней)
-int match_one(const uint32_t query[8],
-              const uint32_t train[][8], int m,
-              float ratio) {
-    int best = 1 << 30, second = 1 << 30, best_j = -1;
-    for (int j = 0; j < m; ++j) {
-        int d = hamming256(query, train[j]);
-        if (d < best) { second = best; best = d; best_j = j; }
-        else if (d < second) { second = d; }
-    }
-    // збіг певний, лише коли найкращий помітно ближчий за другий
-    if (second > 0 && (float)best < ratio * (float)second)
-        return best_j;      // прийнято
-    return -1;              // неоднозначно — відкинути
-}
-```
-```python
-# відстань Гаммінга двох 256-бітних ORB-дескрипторів (8 слів по 32 біти)
-def hamming256(a, b):
-    dist = 0
-    for x, y in zip(a, b):
-        dist += (x ^ y).bit_count()  # XOR → лічба різних бітів
-    return dist                      # 0 = однакові, 256 = усе навпаки
-
-# для кожного дескриптора ліворуч знайти найближчий і другий праворуч,
-# прийняти лише за пробою відношення (для Гаммінга — теж відношення відстаней)
-def match_one(query, train, ratio):
-    best, second, best_j = 1 << 30, 1 << 30, -1
-    for j, t in enumerate(train):
-        d = hamming256(query, t)
-        if d < best:
-            second, best, best_j = best, d, j
-        elif d < second:
-            second = d
-    # збіг певний, лише коли найкращий помітно ближчий за другий
-    if second > 0 and best < ratio * second:
-        return best_j      # прийнято
-    return -1              # неоднозначно — відкинути
-```
+:::code feature-matching-d/cpp/main.cpp
+:::code feature-matching-d/py/main.py
 :::
 
 Порахуймо один XOR-крок вручну для двох 8-бітних шматків, щоб побачити механіку:

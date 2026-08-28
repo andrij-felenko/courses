@@ -168,38 +168,8 @@ B = 1.164·(Y−16) + 2.017·(Cb−128)
 Множник 1.164 = 255/219 — те саме розтягнення limited→full, вшите в декодування. Переведемо в цілі через масштаб ×256 (зсув `>> 8`):
 
 :::tabs
-```cpp
-// YCbCr (BT.601, limited range) -> RGB888, цілочисельно (масштаб 256)
-// Коефіцієнти домножені на 256: 1.164→298, 1.596→409, 0.392→100, 0.813→208, 2.017→516
-static inline uint8_t clamp_u8(int32_t v) {
-    return v < 0 ? 0 : (v > 255 ? 255 : (uint8_t)v);
-}
-
-static void ycbcr_to_rgb(int Y, int Cb, int Cr,
-                         uint8_t *r, uint8_t *g, uint8_t *b) {
-    int32_t c = 298 * (Y  - 16);     // спільний доданок яскравості
-    int32_t d = Cb - 128;            // колірність, центрована на 0
-    int32_t e = Cr - 128;
-    *r = clamp_u8((c + 409 * e            + 128) >> 8);
-    *g = clamp_u8((c - 100 * d - 208 * e  + 128) >> 8);
-    *b = clamp_u8((c + 516 * d            + 128) >> 8);
-}
-```
-```python
-# YCbCr (BT.601, limited range) -> RGB888, цілочисельно (масштаб 256)
-# Коефіцієнти домножені на 256: 1.164→298, 1.596→409, 0.392→100, 0.813→208, 2.017→516
-def clamp_u8(v):
-    return 0 if v < 0 else (255 if v > 255 else v)
-
-def ycbcr_to_rgb(Y, Cb, Cr):
-    c = 298 * (Y - 16)      # спільний доданок яскравості
-    d = Cb - 128            # колірність, центрована на 0
-    e = Cr - 128
-    r = clamp_u8((c + 409 * e            + 128) >> 8)
-    g = clamp_u8((c - 100 * d - 208 * e  + 128) >> 8)
-    b = clamp_u8((c + 516 * d            + 128) >> 8)
-    return r, g, b
-```
+:::code image-as-data-d/cpp/worked-pryklad-zvorotne.cpp
+:::code image-as-data-d/py/worked-pryklad-zvorotne.py
 :::
 
 Підставимо середньо-яскравий помаранчевий: Y=170, Cb=90, Cr=180.
@@ -237,36 +207,8 @@ RGB565 економить пам'ять (2 байти замість 3) ціно
 Звертання до пікселя в кожному:
 
 :::tabs
-```cpp
-// RGB565: дістати канали з 16-бітного слова
-uint16_t px = ((uint16_t*)(base + y*stride))[x];
-uint8_t r = (px >> 11) & 0x1F;   // 5 біт  → 0..31
-uint8_t g = (px >>  5) & 0x3F;   // 6 біт  → 0..63
-uint8_t b =  px        & 0x1F;   // 5 біт  → 0..31
-
-// BGR888: три байти, увага на порядок
-uint8_t *p = base + y*stride + x*3;
-uint8_t b = p[0], g = p[1], r = p[2];   // ← B перший!
-
-// ARGB8888: чотири байти
-uint8_t *p = base + y*stride + (x << 2);
-uint8_t a = p[0], r = p[1], g = p[2], b = p[3];
-```
-```python
-# RGB565: дістати канали з 16-бітного слова
-px = int.from_bytes(buf[y*stride + x*2 : y*stride + x*2 + 2], "little")
-r = (px >> 11) & 0x1F    # 5 біт  → 0..31
-g = (px >>  5) & 0x3F    # 6 біт  → 0..63
-b =  px        & 0x1F    # 5 біт  → 0..31
-
-# BGR888: три байти, увага на порядок
-p = y*stride + x*3
-b, g, r = buf[p], buf[p+1], buf[p+2]     # ← B перший!
-
-# ARGB8888: чотири байти
-p = y*stride + (x << 2)
-a, r, g, b = buf[p], buf[p+1], buf[p+2], buf[p+3]
-```
+:::code image-as-data-d/cpp/rgb565-bgr888-argb8888.cpp
+:::code image-as-data-d/py/rgb565-bgr888-argb8888.py
 :::
 
 ### YUYV (packed 4:2:2) і NV12 (planar 4:2:0) — родина YCbCr
@@ -279,40 +221,8 @@ a, r, g, b = buf[p], buf[p+1], buf[p+2], buf[p+3]
 Структура адреси розкриває, навіщо взагалі ці дві форми. У **YUYV** усе в одному буфері кроком 4 байти на пару пікселів — зручно передати й скопіювати одним блоком, але щоб дістати колір пікселя, треба зважати на його парність (парний бере Y зі зсуву 0, непарний — зі зсуву 2, а U/V у обох спільні). У **NV12** яскравість лежить **окремою суцільною площиною** — а це означає, що «звести кадр до сірого» (найчастіша перша дія зору) — це просто взяти першу площину **як є**, без жодного перетворення. Ось чому конвеєри машинного бачення люблять planar-формати: сіре дістається задарма.
 
 :::tabs
-```cpp
-// YUYV (packed 4:2:2): дістати Y,Cb,Cr для пікселя (x,y)
-uint8_t *row = base + y * stride;          // stride байтів на рядок
-uint8_t *pair = row + (x & ~1) * 2;        // початок пари: (x/2)*4 байти
-uint8_t Y  = (x & 1) ? pair[2] : pair[0];  // парний → pair[0], непарний → pair[2]
-uint8_t Cb = pair[1];                      // спільні на пару
-uint8_t Cr = pair[3];
-
-// NV12 (planar 4:2:0): дві площини в одному буфері
-uint8_t *Yp  = base;                        // площина Y: W*H байтів
-uint8_t *UVp = base + stride * height;      // напівплощина UV одразу за Y
-uint8_t Y  = Yp[y * stride + x];
-// один відлік U/V на блок 2×2 → ділимо координати навпіл
-uint8_t *uv = UVp + (y >> 1) * stride + (x & ~1);
-uint8_t Cb = uv[0];
-uint8_t Cr = uv[1];
-```
-```python
-# YUYV (packed 4:2:2): дістати Y,Cb,Cr для пікселя (x,y)
-row  = y * stride                          # stride байтів на рядок
-pair = row + (x & ~1) * 2                   # початок пари: (x/2)*4 байти
-Y  = buf[pair + 2] if (x & 1) else buf[pair]   # парний → pair[0], непарний → pair[2]
-Cb = buf[pair + 1]                          # спільні на пару
-Cr = buf[pair + 3]
-
-# NV12 (planar 4:2:0): дві площини в одному буфері
-Yp  = 0                                     # площина Y: W*H байтів
-UVp = stride * height                       # напівплощина UV одразу за Y
-Y  = buf[Yp + y * stride + x]
-# один відлік U/V на блок 2×2 → ділимо координати навпіл
-uv = UVp + (y >> 1) * stride + (x & ~1)
-Cb = buf[uv]
-Cr = buf[uv + 1]
-```
+:::code image-as-data-d/cpp/yuyv-packed-4-2-2-i-nv12.cpp
+:::code image-as-data-d/py/yuyv-packed-4-2-2-i-nv12.py
 :::
 
 Зверни увагу на `(x & ~1)` — це «округлення вниз до парного» (скидання молодшого біта), яким ми знаходимо початок пари/блоку. І на те, що **stride напівплощини UV у NV12 той самий, що в Y** (бо на повний рядок Y припадає піврядок UV, але байтів у ньому стільки ж: пар удвічі менше, та на кожну по два байти Cb+Cr). Ці дрібниці — рівно те місце, де народжуються кольорові смуги й зсуви, коли формат розібрано хоч трішки не так.
@@ -401,37 +311,8 @@ LSB-вирівняне (зсув ПРАВОРУЧ / без зсуву): знач
 **Як показати 10 біт на 8-бітному екрані.** Звичайний дисплей бере 8 біт на канал, тож 10/12-бітний кадр треба **звузити** — і тут не можна просто відкинути молодші біти (це згрубить тіні назад до банінгу). Потрібен **тонмапінг** (tone mapping — «відображення тонів») із **гамою**. Гама — нелінійне стиснення: тіням віддаємо більше рівнів (око до них чутливіше), світлам — менше. Найпростіший практичний шлях — таблиця відповідності (LUT — *lookup table*) на всі 1024/4096 вхідних значень, порахована раз:
 
 :::tabs
-```cpp
-// Побудувати LUT 10-біт → 8-біт із гамою (раз на старті)
-// out = 255 · (in/1023)^(1/γ),  γ≈2.2 — типова гама дисплея
-#include <math.h>
-static uint8_t lut10to8[1024];
-
-static void build_tonemap_lut(float gamma) {
-    for (int i = 0; i < 1024; ++i) {
-        float norm = i / 1023.0f;                 // 0..1
-        float mapped = powf(norm, 1.0f / gamma);  // підняти тіні
-        int v = (int)(mapped * 255.0f + 0.5f);    // у 0..255 з округленням
-        lut10to8[i] = v > 255 ? 255 : (uint8_t)v;
-    }
-}
-// у гарячому циклі — лише дешеве звертання до таблиці:
-//   uint8_t shown = lut10to8[ raw10 & 0x3FF ];
-```
-```python
-# Побудувати LUT 10-біт → 8-біт із гамою (раз на старті)
-# out = 255 · (in/1023)^(1/γ),  γ≈2.2 — типова гама дисплея
-def build_tonemap_lut(gamma):
-    lut = [0] * 1024
-    for i in range(1024):
-        norm = i / 1023.0                   # 0..1
-        mapped = norm ** (1.0 / gamma)      # підняти тіні
-        v = int(mapped * 255.0 + 0.5)       # у 0..255 з округленням
-        lut[i] = 255 if v > 255 else v
-    return lut
-# у гарячому циклі — лише дешеве звертання до таблиці:
-#   shown = lut10to8[raw10 & 0x3FF]
-```
+:::code image-as-data-d/cpp/bitova-hlybyna-i-hdr-koly.cpp
+:::code image-as-data-d/py/bitova-hlybyna-i-hdr-koly.py
 :::
 
 `powf` дорога, але викликається 1024 рази на старті, не на кожен піксель — у циклі лишається саме звертання до таблиці, одна операція. Це типовий прийом прошивки: **винести дороге в передобчислену таблицю**.
@@ -466,64 +347,8 @@ premultiplied:   out = FG' + (1 − α)·BG           ← FG' уже = α·FG, �
 Тримаємо H, S, V у 0…255. Усі проміжні — `int32_t`, щоб не переповнити масштабування. Ділення лишаємо там, де без нього не обійтись (на Δ і Cmax), але обходимо плаваючу кому повністю.
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-// RGB888 -> HSV, усе в 0..255. H закодовано як 0..255 (а не 0..360°).
-static void rgb_to_hsv_u8(uint8_t r, uint8_t g, uint8_t b,
-                          uint8_t *h, uint8_t *s, uint8_t *v) {
-    int32_t cmax = r > g ? (r > b ? r : b) : (g > b ? g : b);   // max каналу
-    int32_t cmin = r < g ? (r < b ? r : b) : (g < b ? g : b);   // min каналу
-    int32_t delta = cmax - cmin;
-
-    *v = (uint8_t)cmax;                          // V = Cmax
-
-    if (cmax == 0) { *s = 0; *h = 0; return; }   // чорне: S,H не визначені → 0
-    *s = (uint8_t)((delta * 255) / cmax);        // S = Δ/Cmax, масштаб ×255
-
-    if (delta == 0) { *h = 0; return; }          // сіре: тон не визначений → 0
-
-    int32_t hue;   // рахуємо тон у 0..1530 (6 секторів по 255), тоді стиснемо до 0..255
-    if (cmax == r)      hue = 0    + (255 * (g - b)) / delta;   // червоний сектор
-    else if (cmax == g) hue = 510  + (255 * (b - r)) / delta;   // зелений  (+2·255)
-    else                hue = 1020 + (255 * (r - g)) / delta;   // синій    (+4·255)
-
-    if (hue < 0) hue += 1530;                    // загорнути від'ємний бік (як mod 6)
-    *h = (uint8_t)(hue / 6);                     // 0..1530 → 0..255
-}
-```
-```python
-# RGB888 -> HSV, усе в 0..255. H закодовано як 0..255 (а не 0..360°).
-def _trunc_div(a, b):
-    return int(a / b)   # ділення з відкиданням до нуля, як у C
-
-def rgb_to_hsv_u8(r, g, b):
-    cmax = max(r, g, b)   # max каналу
-    cmin = min(r, g, b)   # min каналу
-    delta = cmax - cmin
-
-    v = cmax                          # V = Cmax
-
-    if cmax == 0:
-        return 0, 0, v                # чорне: S,H не визначені → 0
-    s = (delta * 255) // cmax         # S = Δ/Cmax, масштаб ×255
-
-    if delta == 0:
-        return 0, s, v                # сіре: тон не визначений → 0
-
-    # рахуємо тон у 0..1530 (6 секторів по 255), тоді стиснемо до 0..255
-    if cmax == r:
-        hue = 0    + _trunc_div(255 * (g - b), delta)   # червоний сектор
-    elif cmax == g:
-        hue = 510  + _trunc_div(255 * (b - r), delta)   # зелений  (+2·255)
-    else:
-        hue = 1020 + _trunc_div(255 * (r - g), delta)   # синій    (+4·255)
-
-    if hue < 0:
-        hue += 1530                   # загорнути від'ємний бік (як mod 6)
-    h = hue // 6                      # 0..1530 → 0..255
-    return h, s, v
-```
+:::code image-as-data-d/cpp/tsilochyselnyi-rgb-hsv-bez.cpp
+:::code image-as-data-d/py/tsilochyselnyi-rgb-hsv-bez.py
 :::
 
 Розберемо помаранчевий R=240, G=140, B=20:
@@ -544,52 +369,8 @@ H = 139 / 6 = 23                                (тон 23/255 від кола �
 Поєднаємо дві цеглинки — адресацію YUYV (packed 4:2:2) і зворотне YCbCr→RGB — в одну функцію. Це типовий внутрішній цикл обробки кадру з USB- чи CSI-камери.
 
 :::tabs
-```cpp
-#include <stdint.h>
-#include <stddef.h>
-
-static inline uint8_t clamp_u8(int32_t v) {
-    return v < 0 ? 0 : (v > 255 ? 255 : (uint8_t)v);
-}
-
-// Зчитати піксель (x,y) з YUYV-буфера й повернути RGB888 (BT.601, limited range).
-static void yuyv_pixel_to_rgb(const uint8_t *base, size_t stride,
-                              int x, int y,
-                              uint8_t *r, uint8_t *g, uint8_t *b) {
-    const uint8_t *row  = base + (size_t)y * stride;
-    const uint8_t *pair = row + (size_t)(x & ~1) * 2;   // початок пари пікселів
-    int Y  = (x & 1) ? pair[2] : pair[0];               // свій Y на піксель
-    int Cb = pair[1];                                   // спільні на пару
-    int Cr = pair[3];
-
-    int32_t c = 298 * (Y  - 16);     // та сама цілочисельна BT.601-матриця
-    int32_t d = Cb - 128;
-    int32_t e = Cr - 128;
-    *r = clamp_u8((c + 409 * e           + 128) >> 8);
-    *g = clamp_u8((c - 100 * d - 208 * e + 128) >> 8);
-    *b = clamp_u8((c + 516 * d           + 128) >> 8);
-}
-```
-```python
-def clamp_u8(v):
-    return 0 if v < 0 else (255 if v > 255 else v)
-
-# Зчитати піксель (x,y) з YUYV-буфера й повернути RGB888 (BT.601, limited range).
-def yuyv_pixel_to_rgb(buf, stride, x, y):
-    row  = y * stride
-    pair = row + (x & ~1) * 2         # початок пари пікселів
-    Y  = buf[pair + 2] if (x & 1) else buf[pair]   # свій Y на піксель
-    Cb = buf[pair + 1]                # спільні на пару
-    Cr = buf[pair + 3]
-
-    c = 298 * (Y - 16)     # та сама цілочисельна BT.601-матриця
-    d = Cb - 128
-    e = Cr - 128
-    r = clamp_u8((c + 409 * e           + 128) >> 8)
-    g = clamp_u8((c - 100 * d - 208 * e + 128) >> 8)
-    b = clamp_u8((c + 516 * d           + 128) >> 8)
-    return r, g, b
-```
+:::code image-as-data-d/cpp/zchytaty-piksel-iz-yuyv.cpp
+:::code image-as-data-d/py/zchytaty-piksel-iz-yuyv.py
 :::
 
 Підставимо: непарний піксель (x=3), у його парі байти `pair = {Y0=170, Cb=90, Y1=175, Cr=180}`.

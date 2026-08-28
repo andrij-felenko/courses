@@ -181,55 +181,8 @@ circularity = 4π·A / P²
 🔧 **Умова.** Маємо список контурів (кожен — масив точок). Знайти серед них кола: круглість понад 0.85 і площа понад мінімум (відсіяти шумові цятки).
 
 :::tabs
-```cpp
-typedef struct { int x, y; } Pt;
-
-// площа замкненого контуру (формула шнурівки) і периметр
-static void contour_geom(const Pt *c, int n, double *area, double *perim) {
-    double A = 0.0, P = 0.0;
-    for (int i = 0; i < n; i++) {
-        Pt a = c[i], b = c[(i + 1) % n];
-        A += (double)a.x * b.y - (double)b.x * a.y;     // шнурівка (Гаусса)
-        double dx = b.x - a.x, dy = b.y - a.y;
-        P += sqrt(dx * dx + dy * dy);                    // довжина сторони
-    }
-    *area  = fabs(A) * 0.5;
-    *perim = P;
-}
-
-static int is_circle(const Pt *c, int n, double min_area) {
-    if (n < 5) return 0;                                 // замало точок на коло
-    double A, P;
-    contour_geom(c, n, &A, &P);
-    if (A < min_area || P <= 0.0) return 0;              // шум або вироджений контур
-    double circularity = 4.0 * 3.14159265 * A / (P * P);
-    return circularity > 0.85;                           // близько до ідеального кола
-}
-```
-```python
-import math
-
-# контур — список точок (x, y)
-
-# площа замкненого контуру (формула шнурівки) і периметр
-def contour_geom(c):
-    n = len(c)
-    A = P = 0.0
-    for i in range(n):
-        (ax, ay), (bx, by) = c[i], c[(i + 1) % n]
-        A += ax * by - bx * ay                          # шнурівка (Гаусса)
-        P += math.hypot(bx - ax, by - ay)               # довжина сторони
-    return abs(A) * 0.5, P
-
-def is_circle(c, min_area):
-    if len(c) < 5:                                       # замало точок на коло
-        return False
-    A, P = contour_geom(c)
-    if A < min_area or P <= 0.0:                         # шум або вироджений контур
-        return False
-    circularity = 4.0 * math.pi * A / (P * P)
-    return circularity > 0.85                            # близько до ідеального кола
-```
+:::code object-detection-d/cpp/worked-pryklad-znaity-kolo.cpp
+:::code object-detection-d/py/main.py
 :::
 
 Площу беремо **формулою шнурівки** (Гаусса) — знакова сума добутків координат сусідніх вершин дає подвоєну площу многокутника; модуль і навпіл — сама площа. Працює для будь-якого простого контуру, не лише опуклого. Підставмо коло радіуса 30 (з контуру ≈ `A ≈ 2827`, `P ≈ 188`):
@@ -265,29 +218,7 @@ circularity = 4π · 2827 / 188²  =  35522 / 35344  ≈  1.005
 
 🔧 **Умова.** Кадр із камери, відоме калібрування й розмір мітки 0.15 м. Знайти мітку, відновити позу, дістати кути Ейлера (крен, тангаж, рискання).
 
-```cpp
-cv::Mat frame = grab_frame();
-std::vector<int> ids;
-std::vector<std::vector<cv::Point2f>> corners;
-
-// 1. знайти мітки та їхні кути в кадрі
-cv::aruco::detectMarkers(frame, dict, corners, ids);
-
-if (!ids.empty()) {
-    std::vector<cv::Vec3d> rvecs, tvecs;
-    // 2. PnP для кожної мітки: розмір 0.15 м, відомі K (матриця) і dist
-    cv::aruco::estimatePoseSingleMarkers(corners, 0.15f, K, dist, rvecs, tvecs);
-
-    // 3. поворот rvec → матриця → кути Ейлера
-    cv::Mat R;
-    cv::Rodrigues(rvecs[0], R);                  // вектор повороту → матриця 3×3
-    double yaw   = atan2(R.at<double>(1,0), R.at<double>(0,0));
-    double pitch = atan2(-R.at<double>(2,0),
-                         hypot(R.at<double>(2,1), R.at<double>(2,2)));
-    double roll  = atan2(R.at<double>(2,1), R.at<double>(2,2));
-    // tvecs[0] = (X, Y, Z) зсув мітки в метрах відносно камери
-}
-```
+:::code object-detection-d/cpp/worked-pryklad-poza-mitky.cpp
 
 Потік ясний: `detectMarkers` дає кути й ID; `estimatePoseSingleMarkers` розв'язує PnP і повертає rvec/tvec; `Rodrigues` перетворює вектор повороту на матрицю 3×3, з якої добувають кути Ейлера. `tvec` одразу в метрах (бо розмір мітки задано в метрах) — це і є «де мітка» для автопілота.
 

@@ -40,56 +40,8 @@ IoU = площа(перетин) / площа(об'єднання)
 🔧 **Worked-приклад: IoU двох рамок A = [10, 20, 90, 130] і B = [50, 60, 130, 180].**
 
 :::tabs
-```cpp
-// рамка: x1,y1 — лівий верх; x2,y2 — правий низ
-typedef struct { float x1, y1, x2, y2; } box_t;
-
-static float area(box_t b) {
-    return (b.x2 - b.x1) * (b.y2 - b.y1);
-}
-
-float iou(box_t a, box_t b) {
-    // перетин: правіший лівий край ... лівіший правий край
-    float ix1 = a.x1 > b.x1 ? a.x1 : b.x1;   // max(x1)
-    float iy1 = a.y1 > b.y1 ? a.y1 : b.y1;   // max(y1)
-    float ix2 = a.x2 < b.x2 ? a.x2 : b.x2;   // min(x2)
-    float iy2 = a.y2 < b.y2 ? a.y2 : b.y2;   // min(y2)
-
-    float iw = ix2 - ix1;                      // ширина перетину
-    float ih = iy2 - iy1;                      // висота перетину
-    if (iw <= 0.0f || ih <= 0.0f) return 0.0f; // не торкаються
-    float inter = iw * ih;
-
-    float uni = area(a) + area(b) - inter;     // об'єднання без подвійного рахунку
-    return inter / uni;
-}
-```
-```python
-from typing import NamedTuple
-
-# рамка: x1,y1 — лівий верх; x2,y2 — правий низ
-class Box(NamedTuple):
-    x1: float; y1: float; x2: float; y2: float
-
-def area(b: Box) -> float:
-    return (b.x2 - b.x1) * (b.y2 - b.y1)
-
-def iou(a: Box, b: Box) -> float:
-    # перетин: правіший лівий край ... лівіший правий край
-    ix1 = max(a.x1, b.x1)                     # max(x1)
-    iy1 = max(a.y1, b.y1)                     # max(y1)
-    ix2 = min(a.x2, b.x2)                     # min(x2)
-    iy2 = min(a.y2, b.y2)                     # min(y2)
-
-    iw = ix2 - ix1                            # ширина перетину
-    ih = iy2 - iy1                            # висота перетину
-    if iw <= 0.0 or ih <= 0.0:               # не торкаються
-        return 0.0
-    inter = iw * ih
-
-    uni = area(a) + area(b) - inter          # об'єднання без подвійного рахунку
-    return inter / uni
-```
+:::code nn-detectors-d/cpp/iou-pryrodna-mira-zbihu.cpp
+:::code nn-detectors-d/py/iou-pryrodna-mira-zbihu.py
 :::
 
 Підставмо числа й пройдімо рукою:
@@ -136,35 +88,7 @@ Objectness і класи теж не сирі: `objectness` проганяють
 
 🔧 **Worked-приклад: розпакувати один якір з тензора float* (S=13, B=3, C=20).**
 
-```c
-#define S 13
-#define B 3
-#define C 20
-#define STRIDE 32                  // 416 / 13
-#define K (B*5 + C)                // глибина на клітинку = 35
-
-static float sigmoidf(float x) { return 1.0f / (1.0f + expf(-x)); }
-
-// out — масив [S*S*K], розкладка «по клітинках»: спершу всі K чисел клітинки (0,0),
-// потім клітинки (0,1) і т.д. cell_x, cell_y — індекси клітинки; a — номер якоря.
-box_t decode_box(const float *out, int cell_x, int cell_y, int a,
-                 const float anchor_w[B], const float anchor_h[B]) {
-    int cell = (cell_y * S + cell_x) * K;      // початок вектора клітинки
-    const float *t = out + cell + a * 5;       // п'ятірка цього якоря
-
-    float bx = (cell_x + sigmoidf(t[0])) * STRIDE;   // центр X у пікселях
-    float by = (cell_y + sigmoidf(t[1])) * STRIDE;   // центр Y у пікселях
-    float bw = anchor_w[a] * expf(t[2]);             // ширина у пікселях
-    float bh = anchor_h[a] * expf(t[3]);             // висота у пікселях
-
-    box_t b;
-    b.x1 = bx - bw * 0.5f;     // з центру+розміру → кути
-    b.y1 = by - bh * 0.5f;
-    b.x2 = bx + bw * 0.5f;
-    b.y2 = by + bh * 0.5f;
-    return b;
-}
-```
+:::code nn-detectors-d/c/main.c
 
 Тут видно структуру тензора зсередини. `cell = (cell_y * S + cell_x) * K` знаходить початок вектора потрібної клітинки — бо клітинки лежать у пам'яті підряд, по K чисел кожна. `a * 5` перестрибує до п'ятірки потрібного якоря всередині цього вектора. А `objectness` і класи лежать далі: `t[4]` — упевненість, `out[cell + B*5 + k]` — logit k-го класу (класи спільні на всі якорі клітинки, тому вони **після** всіх п'ятірок, а не всередині якоря). Один тонкий момент: розкладка пам'яті залежить від моделі — буває «канали останні» (як тут) і «канали перші»; переплутаєш порядок — дістанеш мотлох замість рамок, без жодної помилки компілятора. Це класична пастка перенесення моделі на борт.
 
@@ -184,78 +108,8 @@ box_t decode_box(const float *out, int cell_x, int cell_y, int a,
 🔧 **Worked-приклад: NMS над масивом box_t із полем score.**
 
 :::tabs
-```cpp
-typedef struct { float x1, y1, x2, y2, score; int cls; } det_t;
-
-// сортування за спаданням упевненості (проста бульбашка — масивів тут небагато)
-static void sort_by_score(det_t *d, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = 0; j < n - 1 - i; j++)
-            if (d[j].score < d[j + 1].score) {
-                det_t tmp = d[j]; d[j] = d[j + 1]; d[j + 1] = tmp;
-            }
-}
-
-static float iou_det(det_t a, det_t b) {
-    float ix1 = a.x1 > b.x1 ? a.x1 : b.x1, iy1 = a.y1 > b.y1 ? a.y1 : b.y1;
-    float ix2 = a.x2 < b.x2 ? a.x2 : b.x2, iy2 = a.y2 < b.y2 ? a.y2 : b.y2;
-    float iw = ix2 - ix1, ih = iy2 - iy1;
-    if (iw <= 0 || ih <= 0) return 0.0f;
-    float inter = iw * ih;
-    float uni = (a.x2-a.x1)*(a.y2-a.y1) + (b.x2-b.x1)*(b.y2-b.y1) - inter;
-    return inter / uni;
-}
-
-// NMS на місці: лишені рамки позначаємо keep[i]=1. Повертає кількість лишених.
-int nms(det_t *d, int n, float iou_thr, int *keep) {
-    sort_by_score(d, n);
-    for (int i = 0; i < n; i++) keep[i] = 1;
-    int kept = 0;
-    for (int i = 0; i < n; i++) {
-        if (!keep[i]) continue;          // вже придушена сильнішою
-        kept++;
-        for (int j = i + 1; j < n; j++) {
-            if (!keep[j]) continue;
-            if (d[j].cls != d[i].cls) continue;          // різні класи не конкурують
-            if (iou_det(d[i], d[j]) > iou_thr) keep[j] = 0;  // двійник — геть
-        }
-    }
-    return kept;
-}
-```
-```python
-from typing import NamedTuple
-
-class Det(NamedTuple):
-    x1: float; y1: float; x2: float; y2: float
-    score: float
-    cls: int
-
-def iou_det(a: Det, b: Det) -> float:
-    ix1, iy1 = max(a.x1, b.x1), max(a.y1, b.y1)
-    ix2, iy2 = min(a.x2, b.x2), min(a.y2, b.y2)
-    iw, ih = ix2 - ix1, iy2 - iy1
-    if iw <= 0 or ih <= 0:
-        return 0.0
-    inter = iw * ih
-    uni = (a.x2-a.x1)*(a.y2-a.y1) + (b.x2-b.x1)*(b.y2-b.y1) - inter
-    return inter / uni
-
-def nms(dets, iou_thr):
-    dets = sorted(dets, key=lambda d: d.score, reverse=True)  # за спаданням упевненості
-    keep = [True] * len(dets)
-    for i in range(len(dets)):
-        if not keep[i]:                          # вже придушена сильнішою
-            continue
-        for j in range(i + 1, len(dets)):
-            if not keep[j]:
-                continue
-            if dets[j].cls != dets[i].cls:       # різні класи не конкурують
-                continue
-            if iou_det(dets[i], dets[j]) > iou_thr:   # двійник — геть
-                keep[j] = False
-    return [d for d, k in zip(dets, keep) if k]  # лишені рамки
-```
+:::code nn-detectors-d/cpp/non-maximum-suppression.cpp
+:::code nn-detectors-d/py/non-maximum-suppression.py
 :::
 
 Пройдімо логіку. Спершу масив сортуємо за спаданням упевненості — тоді перша ж незаймана рамка в кожному колі автоматично найвпевненіша, і окремий пошук максимуму не потрібен. Зовнішній цикл бере чергового «переможця» `i` (якщо його ще не придушили); внутрішній проходить **усі дальші** рамки й гасить ті, що того ж класу й перекриваються понад поріг. Дві деталі тут навмисні. `d[j].cls != d[i].cls → continue`: рамки **різних** класів не повинні душити одна одну — авто й людина можуть законно стояти впритул, NMS не має викидати одну через другу (це робить NMS «класовим»). І `keep[j] = 0` лише позначає, не стирає, — щоб не возитися з ущільненням масиву всередині циклу; реальні рамки збираємо потім за прапорцем `keep`.

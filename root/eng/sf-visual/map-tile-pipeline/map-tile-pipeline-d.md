@@ -201,21 +201,7 @@ GPU-текстура           256 КіБ   віддати миттєво    м�
 
 **Пріоритет.** Черга запитів — це [купа](root:sf-algorithms/priority-queue-adt), а не список. Ключ складають так, щоб першими йшли тайли, які найшвидше зроблять картинку осмисленою:
 
-```cpp
-// Менший ключ — вищий пріоритет.
-struct Key {
-    int32_t generation;   // 1) свіже покоління завжди попереду застарілого
-    int32_t levelDelta;   // 2) свій рівень раніше за сусідні
-    int32_t distance;     // 3) від центра екрана до країв
-};
-
-Key priorityOf(const TileId& t, const Viewport& vp, int32_t gen) {
-    const int32_t dz = std::abs(t.z - vp.targetZoom);
-    const int32_t dx = t.centerX() - vp.centerX();
-    const int32_t dy = t.centerY() - vp.centerY();
-    return Key{ -gen, dz, dx * dx + dy * dy };   // квадрат відстані — без кореня
-}
-```
+:::code map-tile-pipeline-d/cpp/main.cpp
 
 Центр екрана йде першим не через естетику, а тому що око тримається того місця, куди веде рука; тайл у кутку, який приїхав раніше за центральний, суб'єктивно не пришвидшує нічого.
 
