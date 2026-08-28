@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розділення ролей: умова допуску (Permissive) та захисне блокування (Inhibit)</text>
+<rect x="40.0" y="50.0" width="340.0" height="280.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="400.0" y="50.0" width="340.0" height="280.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="210.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Умова допуску (Permissive)</text>
+<text x="570.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Захисне блокування (Inhibit)</text>
+<text x="210.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Перевірка ПЕРЕД стартом (Entry Gate)</text>
+<text x="570.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Перевірка ПІД ЧАС роботи (Safety Guard)</text>
+<rect x="62.4" y="127.3" width="95.2" height="45.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="110.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">СТАН: IDLE</tspan><tspan x="110.0" dy="14.3">(Очікування)</tspan></text>
+<line x1="170.0" y1="150.0" x2="215.0" y2="150.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="220.0" y="125.0" width="140.0" height="50.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="290.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="290.0" dy="0.0">Всі умови = 1?</tspan><tspan x="290.0" dy="13.0">(тиск, кришка, живлення)</tspan></text>
+<line x1="290.0" y1="175.0" x2="290.0" y2="220.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="325.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК (дозвіл)</text>
+<rect x="233.0" y="232.3" width="114.0" height="45.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="290.0" y="251.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="290.0" dy="0.0">СТАН: RUNNING</tspan><tspan x="290.0" dy="14.3">(Виконання дії)</tspan></text>
+<line x1="290.0" y1="125.0" x2="290.0" y2="106.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="106.0" x2="110.0" y2="106.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+<line x1="110.0" y1="106.0" x2="110.0" y2="125.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="200.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">НІ: старт заблоковано</text>
+<rect x="55.0" y="290.0" width="310.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="210.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Захищає від: передчасного або небезпечного пуску</text>
+<rect x="409.8" y="127.3" width="120.3" height="45.3" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">СТАН: RUNNING</tspan><tspan x="470.0" dy="14.3">(Нормальний рух)</tspan></text>
+<line x1="530.0" y1="150.0" x2="575.0" y2="150.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="580.0" y="125.0" width="140.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="650.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Аварійний сигнал?</tspan><tspan x="650.0" dy="13.0">(E-Stop, обрив, двері)</tspan></text>
+<line x1="650.0" y1="175.0" x2="650.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="690.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ТАК (трип)</text>
+<rect x="589.8" y="232.3" width="120.3" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/><text x="650.0" y="251.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">СТАН: SAFE_STOP</tspan><tspan x="650.0" dy="14.3">(Аварійний зрив)</tspan></text>
+<line x1="720.0" y1="150.0" x2="735.0" y2="150.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="735.0" y1="150.0" x2="735.0" y2="112.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="735.0" y1="112.0" x2="470.0" y2="112.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="470.0" y1="112.0" x2="470.0" y2="125.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="600.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">НІ: продовження циклу</text>
+<rect x="415.0" y="290.0" width="310.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="570.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Захищає від: розвитку катастрофи під час процесу</text>
+<rect x="52.6" y="342.5" width="674.7" height="31.0" rx="6" fill="#fff3cd" stroke="#c07000" stroke-width="1.5"/><text x="390.0" y="361.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Permissive дає дозвіл на зміну стану (Gate), Inhibit примусово повертає в безпечний стан (Trip).</tspan></text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура подвійного зворотного зв'язку для компенсації люфту</text>
+<text x="390.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура подвійного контуру (Dual-Loop) з енкодером мотора та лінійною шкалою</text>
+<line x1="30.0" y1="95.0" x2="75.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="50.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">x_target</text>
+<circle cx="90.0" cy="95.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="130.0" y="65.0" width="115.0" height="60.0" rx="5" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="187.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="187.0" dy="0.0">Position Loop</tspan><tspan x="187.0" dy="13.0">(1–2 кГц)</tspan></text>
+<line x1="104.0" y1="95.0" x2="130.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="245.0" y1="95.0" x2="275.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="260.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">v_cmd</text>
+<circle cx="290.0" cy="95.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="290.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="330.0" y="65.0" width="120.0" height="60.0" rx="5" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="390.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Velocity Loop</tspan><tspan x="390.0" dy="13.0">(10–20 кГц)</tspan></text>
+<line x1="304.0" y1="95.0" x2="330.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="480.0" y="65.0" width="80.0" height="60.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="520.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Мотор</tspan><tspan x="520.0" dy="13.0">(BLDC/Крок)</tspan></text>
+<line x1="450.0" y1="95.0" x2="480.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="590.0" y="65.0" width="85.0" height="60.0" rx="5" fill="#fff3cd" stroke="#c07000" stroke-width="2.0"/>
+<text x="632.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c07000" text-anchor="middle" font-weight="700"><tspan x="632.0" dy="0.0">Редуктор / ШВП</tspan><tspan x="632.0" dy="11.7">(Люфт Δx)</tspan></text>
+<line x1="560.0" y1="95.0" x2="590.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="705.0" y="65.0" width="60.0" height="60.0" rx="5" fill="#e2e8f0" stroke="#333333" stroke-width="1.8"/>
+<text x="735.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="735.0" dy="0.0">Стіл</tspan><tspan x="735.0" dy="13.0">(Load)</tspan></text>
+<line x1="675.0" y1="95.0" x2="705.0" y2="95.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="125.0" x2="520.0" y2="180.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="460.0" y="180.0" width="120.0" height="40.0" rx="4" fill="#f2fbf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="520.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Енкодер вала</tspan><tspan x="520.0" dy="11.7">(Motor Encoder)</tspan></text>
+<line x1="460.0" y1="200.0" x2="290.0" y2="200.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="290.0" y1="200.0" x2="290.0" y2="109.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="302.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">v_motor (-)</text>
+<line x1="735.0" y1="125.0" x2="735.0" y2="270.0" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="590.0" y="250.0" width="140.0" height="40.0" rx="4" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">Лінійна оптична шкала</tspan><tspan x="660.0" dy="11.7">(Linear Optical Scale)</tspan></text>
+<rect x="340.0" y="250.0" width="170.0" height="40.0" rx="4" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="425.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">Anti-Hunting Filter</tspan><tspan x="425.0" dy="11.7">(Зона нечутливості в зазорі)</tspan></text>
+<line x1="590.0" y1="270.0" x2="510.0" y2="270.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="270.0" x2="90.0" y2="270.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="90.0" y1="270.0" x2="90.0" y2="109.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="102.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">x_table (-)</text>
+<text x="390.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Внутрішній контур забезпечує швидкість і демпфування, зовнішній — абсолютну точність столу</text>
+</svg>

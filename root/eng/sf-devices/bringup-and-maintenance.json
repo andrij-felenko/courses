@@ -25,6 +25,16 @@
               "status": "done"
             }
           ]
+        },
+        {
+          "slug": "sil-simulation-embedded",
+          "title": "Software-in-the-Loop (SIL): симуляція прошивки в замкненому контурі на хості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -181,8 +191,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mcuboot-format.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

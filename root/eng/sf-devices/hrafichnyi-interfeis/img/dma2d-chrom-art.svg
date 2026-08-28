@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний прискорювач 2D-графіки (STM32 Chrom-ART / DMA2D)</text>
+<rect x="30.0" y="55.0" width="245.0" height="210.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<text x="152.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a5276" text-anchor="middle" font-weight="700">Режим 1: Регістр-у-пам'ять (R2M)</text>
+<text x="152.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Миттєве заповнення кольором</text>
+<line x1="45.0" y1="107.0" x2="260.0" y2="107.0" stroke="#1a5276" stroke-width="1.0"/>
+<circle cx="50.0" cy="125.0" r="3.0" fill="#1a5276" stroke="#1a5276" stroke-width="1.0"/>
+<text x="60.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">DMA2D-&gt;CR = DMA2D_R2M</text>
+<circle cx="50.0" cy="155.0" r="3.0" fill="#1a5276" stroke="#1a5276" stroke-width="1.0"/>
+<text x="60.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Колір записується в OOR/OMAR</text>
+<circle cx="50.0" cy="185.0" r="3.0" fill="#1a5276" stroke="#1a5276" stroke-width="1.0"/>
+<text x="60.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Швидкість: 1 піксель за такт шини</text>
+<circle cx="50.0" cy="215.0" r="3.0" fill="#1a5276" stroke="#1a5276" stroke-width="1.0"/>
+<text x="60.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Застосування: очищення фону, прямокутники</text>
+<rect x="295.0" y="55.0" width="250.0" height="210.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="420.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">Режим 2: Пам'ять-у-пам'ять (M2M + PFC)</text>
+<text x="420.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Конвертація форматів пікселів</text>
+<line x1="310.0" y1="107.0" x2="530.0" y2="107.0" stroke="#b9770e" stroke-width="1.0"/>
+<circle cx="315.0" cy="125.0" r="3.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="325.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">DMA2D-&gt;CR = DMA2D_M2M_PFC</text>
+<circle cx="315.0" cy="155.0" r="3.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="325.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Вхід: ARGB8888 з Flash пам'яті</text>
+<circle cx="315.0" cy="185.0" r="3.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="325.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Вихід: RGB565 у буфер дисплея</text>
+<circle cx="315.0" cy="215.0" r="3.0" fill="#b9770e" stroke="#b9770e" stroke-width="1.0"/>
+<text x="325.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Застосування: малювання кольорових іконок</text>
+<rect x="565.0" y="55.0" width="245.0" height="210.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="687.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">Режим 3: M2M зі змішуванням (Blending)</text>
+<text x="687.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-style="italic">Апаратне накладання з альфа-каналом</text>
+<line x1="580.0" y1="107.0" x2="795.0" y2="107.0" stroke="#1e8449" stroke-width="1.0"/>
+<circle cx="585.0" cy="125.0" r="3.0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<text x="595.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">DMA2D-&gt;CR = DMA2D_M2M_BLEND</text>
+<circle cx="585.0" cy="155.0" r="3.0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<text x="595.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">FG (іконка) + BG (фон) -&gt; Вихід</text>
+<circle cx="585.0" cy="185.0" r="3.0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<text x="595.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Формула: dst = (src*a + dst*(255-a))/255</text>
+<circle cx="585.0" cy="215.0" r="3.0" fill="#1e8449" stroke="#1e8449" stroke-width="1.0"/>
+<text x="595.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Застосування: напівпрозорі меню, тіні, anti-aliasing</text>
+<rect x="30.0" y="280.0" width="780.0" height="120.0" rx="6" fill="#fcfcfc" stroke="#6b7280" stroke-width="1.3"/>
+<text x="420.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Архітектурна пастка Cortex-M7: узгодженість кешу даних (D-Cache)</text>
+<rect x="50.0" y="318.0" width="220.0" height="65.0" rx="4" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.3"/>
+<text x="160.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a5276" text-anchor="middle" font-weight="700">1. Рендеринг CPU</text>
+<text x="160.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Запис даних у L1 D-Cache</tspan><tspan x="160.0" dy="10.8">(брудні рядки в кеші)</tspan></text>
+<rect x="310.0" y="318.0" width="220.0" height="65.0" rx="4" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.3"/>
+<text x="420.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">2. Очищення кешу</text>
+<text x="420.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">SCB_CleanDCache_by_Addr()</tspan><tspan x="420.0" dy="10.8">Скидання з кешу в SRAM</tspan></text>
+<rect x="570.0" y="318.0" width="220.0" height="65.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.3"/>
+<text x="680.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">3. Старт DMA2D / DMA</text>
+<text x="680.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">DMA2D читає узгоджені дані</tspan><tspan x="680.0" dy="10.8">безпосередньо з шини SRAM</tspan></text>
+<line x1="270.0" y1="350.0" x2="310.0" y2="350.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="350.0" x2="570.0" y2="350.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

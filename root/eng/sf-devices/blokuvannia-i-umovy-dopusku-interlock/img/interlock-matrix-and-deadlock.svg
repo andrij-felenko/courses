@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця блокувань та виявлення циклічних глухих кутів у системі умов</text>
+<rect x="35.0" y="50.0" width="380.0" height="280.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="225.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця умов (Interlock Matrix)</text>
+<rect x="45.0" y="95.0" width="360.0" height="28.0" rx="3" fill="#e2e8f0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="105.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цільова дія</text>
+<text x="215.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Permissive (маска)</text>
+<text x="335.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Inhibit (маска)</text>
+<rect x="45.0" y="127.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.8"/>
+<text x="105.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пуск помпи</text>
+<text x="215.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Тиск OK ∧ Рівень OK</text>
+<text x="335.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Перегрів ∨ Сухий хід</text>
+<rect x="45.0" y="163.0" width="360.0" height="32.0" rx="3" fill="#f1f5f9" stroke="#6b7280" stroke-width="0.8"/>
+<text x="105.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відкриття люка</text>
+<text x="215.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Тиск = 0 ∧ Стоп мотора</text>
+<text x="335.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Рух барабана ∨ T &gt; 40°C</text>
+<rect x="45.0" y="199.0" width="360.0" height="32.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="0.8"/>
+<text x="105.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Увімкн. ТЕНу</text>
+<text x="215.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Потік води ∧ Заповнено</text>
+<text x="335.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Люк відкритий ∨ Стійка</text>
+<rect x="45.0" y="235.0" width="360.0" height="32.0" rx="3" fill="#f1f5f9" stroke="#6b7280" stroke-width="0.8"/>
+<text x="105.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обертання</text>
+<text x="215.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Замок люка ∧ Змазка OK</text>
+<text x="335.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">E-Stop ∨ Вібрація &gt; max</text>
+<text x="225.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення за 1 такт через бітові маски:</text>
+<text x="225.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">(Sensors &amp; ReqMask) == ReqMask  &amp;&amp;  (Sensors &amp; InhMask) == 0</text>
+<rect x="435.0" y="50.0" width="310.0" height="280.0" rx="8" fill="#fff9f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="590.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Аналіз глухих кутів (Deadlock Graph)</text>
+<rect x="460.0" y="115.0" width="110.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="515.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="515.0" dy="0.0">Підсистема А</tspan><tspan x="515.0" dy="13.0">(Нагнітач)</tspan></text>
+<rect x="615.0" y="115.0" width="110.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="670.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="670.0" dy="0.0">Підсистема Б</tspan><tspan x="670.0" dy="13.0">(Клапан скиду)</tspan></text>
+<line x1="545.0" y1="115.0" x2="635.0" y2="115.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="590.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">чекає: Б == IDLE</text>
+<line x1="640.0" y1="170.0" x2="550.0" y2="170.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="590.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">чекає: А == ACTIVE</text>
+<rect x="470.0" y="210.0" width="240.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="590.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">ЦИКЛ БЛОКУВАННЯ (DEADLOCK)</tspan><tspan x="590.0" dy="13.0">Жоден стан не може змінитись!</tspan></text>
+<text x="590.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Лікування: тайм-аут деградації</text>
+<text x="590.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або ієрархія пріоритетів станів</text>
+<rect x="35.6" y="342.5" width="708.8" height="31.0" rx="6" fill="#fff3cd" stroke="#c07000" stroke-width="1.5"/><text x="390.0" y="361.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">Матриця блокувань дозволяє миттєву перевірку умов, а топологічний аналіз графа усуває взаємні тупики.</tspan></text>
+</svg>

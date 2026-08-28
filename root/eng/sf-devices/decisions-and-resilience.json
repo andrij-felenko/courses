@@ -17,8 +17,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-sensor-noise-deadband.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-threshold-predicate.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "n-z-m-i-histerezys-na-podiiakh",
@@ -37,7 +49,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -53,8 +65,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-subsumption-brooks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hybrid-arbitrator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "blokuvannia-i-umovy-dopusku-interlock",
@@ -63,12 +87,102 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
           "slug": "backlash-compensation",
           "title": "Компенсація люфту в прошивці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "operational-design-domain-limits",
+          "title": "Область експлуатаційної придатності (ODD) та динамічний конверт безпеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hardware-compensating-transactions-rollback",
+          "title": "Фізичні транзакції: компенсація збоїв та LIFO-відкат в актуаторах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "control-blending-vs-winner-take-all",
+          "title": "Злиття керування проти витіснення: опуклі комбінації, пріоритетні ваги та межі безпеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mode-and-target-confusion-hmi",
+          "title": "Плутанина режимів і цілей у людино-машинних інтерфейсах (Mode & Target Confusion)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "safety-shielding-cage-architecture",
+          "title": "Бар'єр безпеки та рантайм-екранування: патерн Safety Shielding для автономних систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "alarm-management-lifecycle-isa18",
+          "title": "Життєвий цикл сигналізації: стандарти ISA-18.2, IEC 62682 та раціоналізація тривог",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "alarm-flood-suppression-and-shelving",
+          "title": "Придушення лавини тривог: графи першопричин, режимне маскування та Alarm Shelving",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "haptic-shared-control-and-cooperative-steering",
+          "title": "Кооперативне керування (Shared Control): динамічний поділ крутного моменту між людиною та автоматом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "embedded-command-deduplication",
+          "title": "Дедуплікація команд у прошивці: кеш транзакцій без динамічної пам'яті",
           "basic": {
             "status": "empty"
           },
@@ -121,8 +235,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-march-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iec60730-bist.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

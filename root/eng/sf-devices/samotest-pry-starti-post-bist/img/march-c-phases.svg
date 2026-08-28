@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 516" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="516" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фази алгоритму March C-</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм March C- для тестування ОЗП (6 фаз, складність 10N)</text>
+<rect x="40.0" y="55.0" width="760.0" height="52.0" rx="5" fill="#f2f4f4" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="50.0" y="63.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="120.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">M0: ⇕ (w0)</text>
+<text x="215.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ініціалізація</text>
+<text x="215.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Запис 0 в усі комірки ОЗП у довільному порядку</text>
+<rect x="690.0" y="65.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="738.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">w0</text>
+<rect x="40.0" y="119.0" width="760.0" height="52.0" rx="5" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<rect x="50.0" y="127.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#1a5276" stroke-width="1.2"/>
+<text x="120.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">M1: ⇑ (r0, w1)</text>
+<text x="215.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Висхідний 0→1</text>
+<text x="215.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зчитуємо 0 (перевірка), записуємо 1 (інверсія)</text>
+<rect x="690.0" y="129.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#1a5276" stroke-width="1.2"/>
+<text x="738.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">r0 → w1</text>
+<rect x="40.0" y="183.0" width="760.0" height="52.0" rx="5" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<rect x="50.0" y="191.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#1a5276" stroke-width="1.2"/>
+<text x="120.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">M2: ⇑ (r1, w0)</text>
+<text x="215.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Висхідний 1→0</text>
+<text x="215.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зчитуємо 1 (перевірка), записуємо 0 (інверсія)</text>
+<rect x="690.0" y="193.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#1a5276" stroke-width="1.2"/>
+<text x="738.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">r1 → w0</text>
+<rect x="40.0" y="247.0" width="760.0" height="52.0" rx="5" fill="#ebdef0" stroke="#6c3483" stroke-width="1.5"/>
+<rect x="50.0" y="255.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#6c3483" stroke-width="1.2"/>
+<text x="120.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c3483" text-anchor="middle" font-weight="700">M3: ⇓ (r0, w1)</text>
+<text x="215.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Низхідний 0→1</text>
+<text x="215.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зчитуємо 0 (перевірка), записуємо 1 (інверсія)</text>
+<rect x="690.0" y="257.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#6c3483" stroke-width="1.2"/>
+<text x="738.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c3483" text-anchor="middle" font-weight="700">r0 → w1</text>
+<rect x="40.0" y="311.0" width="760.0" height="52.0" rx="5" fill="#ebdef0" stroke="#6c3483" stroke-width="1.5"/>
+<rect x="50.0" y="319.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#6c3483" stroke-width="1.2"/>
+<text x="120.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c3483" text-anchor="middle" font-weight="700">M4: ⇓ (r1, w0)</text>
+<text x="215.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Низхідний 1→0</text>
+<text x="215.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зчитуємо 1 (перевірка), записуємо 0 (інверсія)</text>
+<rect x="690.0" y="321.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#6c3483" stroke-width="1.2"/>
+<text x="738.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6c3483" text-anchor="middle" font-weight="700">r1 → w0</text>
+<rect x="40.0" y="375.0" width="760.0" height="52.0" rx="5" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<rect x="50.0" y="383.0" width="140.0" height="36.0" rx="3" fill="#ffffff" stroke="#1e8449" stroke-width="1.2"/>
+<text x="120.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">M5: ⇕ (r0)</text>
+<text x="215.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Фінальне читання</text>
+<text x="215.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Перевірка збереження 0 у всіх комірках</text>
+<rect x="690.0" y="385.0" width="95.0" height="32.0" rx="4" fill="#ffffff" stroke="#1e8449" stroke-width="1.2"/>
+<text x="738.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">r0</text>
+<rect x="40.0" y="444.0" width="760.0" height="52.0" rx="5" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель виявлення дефектів пам'яті алгоритмом March C-:</text>
+<text x="420.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e8449" text-anchor="middle" font-weight="700">• Залипання (SAF)  • Дефекти переходів (TF)  • Дефекти адресації (AF)  • Взаємний вплив комірок (CFin / CFid)</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівнева архітектура: програмна логіка та незалежний апаратний контур</text>
+<rect x="40.0" y="50.0" width="700.0" height="125.0" rx="8" fill="#f4f8ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Програмний рівень (Firmware / MCU)</text>
+<rect x="60.0" y="95.0" width="160.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="140.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Опитування сенсорів</tspan><tspan x="140.0" dy="13.0">(фільтр + антидребезг)</tspan></text>
+<line x1="220.0" y1="125.0" x2="260.0" y2="125.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="260.0" y="95.0" width="180.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="350.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Матриця блокувань</tspan><tspan x="350.0" dy="13.0">(FSM Interlock Logic)</tspan></text>
+<line x1="440.0" y1="125.0" x2="480.0" y2="125.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="480.0" y="95.0" width="140.0" height="60.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="550.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="550.0" dy="0.0">Керувальний вихід</tspan><tspan x="550.0" dy="13.0">(GPIO / PWM Out)</tspan></text>
+<rect x="630.0" y="95.0" width="95.0" height="60.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="677.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="677.0" dy="0.0">Генератор</tspan><tspan x="677.0" dy="11.7">Pulse Heartbeat</tspan></text>
+<rect x="40.0" y="200.0" width="700.0" height="140.0" rx="8" fill="#fff9f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратний рівень (Hardware Safety Loop)</text>
+<rect x="60.0" y="245.0" width="120.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="120.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Силове живлення</tspan><tspan x="120.0" dy="13.0">(+24V / +400V)</tspan></text>
+<line x1="180.0" y1="275.0" x2="220.0" y2="275.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="220.0" y="250.0" width="100.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="270.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="270.0" dy="0.0">Кінцевик дверцят</tspan><tspan x="270.0" dy="11.7">(NC контакт)</tspan></text>
+<line x1="320.0" y1="275.0" x2="360.0" y2="275.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.0" y="250.0" width="100.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="410.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="410.0" dy="0.0">Грибок E-Stop</tspan><tspan x="410.0" dy="11.7">(NC контакт)</tspan></text>
+<line x1="460.0" y1="275.0" x2="500.0" y2="275.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="500.0" y="245.0" width="110.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="555.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">Реле безпеки /</tspan><tspan x="555.0" dy="11.7">Вхід STO драйвера</tspan></text>
+<line x1="610.0" y1="275.0" x2="645.0" y2="275.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="645.0" y="245.0" width="85.0" height="65.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="687.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="687.0" dy="0.0">Актуатор</tspan><tspan x="687.0" dy="13.0">(Мотор)</tspan></text>
+<line x1="550.0" y1="155.0" x2="550.0" y2="245.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="677.0" y1="155.0" x2="580.0" y2="245.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+<line x1="582.0" y1="240.0" x2="580.0" y2="245.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="390.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Фізичний розрив кола знеструмлює актуатор навіть при зависанні або збої прошивки.</text>
+</svg>

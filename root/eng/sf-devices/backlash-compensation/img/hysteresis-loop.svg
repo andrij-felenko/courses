@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезисна петля передачі положення з люфтом</text>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезисна петля переміщення: координата навантаження від кута мотора</text>
+<line x1="80.0" y1="190.0" x2="440.0" y2="190.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="260.0" y1="310.0" x2="260.0" y2="70.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="455.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">x_motor (вал)</text>
+<text x="260.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">x_load (виконавчий орган)</text>
+<line x1="160.0" y1="290.0" x2="400.0" y2="90.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="320.0" y1="90.0" x2="80.0" y2="290.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="400.0" y1="90.0" x2="320.0" y2="90.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+<line x1="80.0" y1="290.0" x2="160.0" y2="290.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+<line x1="320.0" y1="160.0" x2="360.0" y2="125.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="90.0" x2="350.0" y2="90.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="220.0" x2="160.0" y2="255.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="290.0" x2="130.0" y2="290.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="320.0" x2="300.0" y2="320.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="220.0" y1="315.0" x2="220.0" y2="325.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="300.0" y1="315.0" x2="300.0" y2="325.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="260.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Люфт зазору Δx</text>
+<rect x="500.0" y="60.0" width="235.0" height="255.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="617.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівняння гістерезису</text>
+<text x="515.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">1. Рух уперед (v &gt; 0):</text>
+<text x="525.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">x_load = x_motor - Δx/2</text>
+<text x="515.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">2. Рух назад (v &lt; 0):</text>
+<text x="525.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">x_load = x_motor + Δx/2</text>
+<text x="515.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">3. Реверс (перетин зазору):</text>
+<text x="525.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">dx_load / dt = 0</text>
+<text x="525.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">(виконавчий орган стоїть)</text>
+<line x1="515.0" y1="265.0" x2="720.0" y2="265.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="617.5" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="617.5" dy="0.0">Помилка позиції є нелінійною</tspan><tspan x="617.5" dy="11.7">і залежить від передісторії руху</tspan></text>
+<text x="380.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Петля гістерезису розділяє рух уперед і назад на величину повного мертвого ходу Δx</text>
+</svg>

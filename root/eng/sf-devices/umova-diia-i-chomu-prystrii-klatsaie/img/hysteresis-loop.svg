@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статична характеристика гістерезисного компаратора з двома порогами</text>
+<line x1="110.0" y1="290.0" x2="670.0" y2="290.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="110.0" y1="290.0" x2="110.0" y2="40.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="670.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Вхідний сигнал сенсора x</text>
+<text x="95.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Стан виходу y</text>
+<text x="100.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">0 (LOW)</text>
+<text x="100.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">1 (HIGH)</text>
+<rect x="290.0" y="60.0" width="200.0" height="230.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="390.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Мертва зона (Deadband Δ)</text>
+<text x="390.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">стан не змінюється (пам'ять)</text>
+<line x1="290.0" y1="290.0" x2="290.0" y2="50.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="490.0" y1="290.0" x2="490.0" y2="50.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="390.0" y1="290.0" x2="390.0" y2="50.0" stroke="#888888" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text x="290.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">T_low (вимкнення)</text>
+<text x="490.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">T_high (увімкнення)</text>
+<text x="390.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Уставка SP</text>
+<line x1="110.0" y1="290.0" x2="490.0" y2="290.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="200.0" y1="290.0" x2="260.0" y2="290.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="290.0" x2="490.0" y2="60.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="490.0" y1="250.0" x2="490.0" y2="100.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="60.0" x2="640.0" y2="60.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="640.0" y1="60.0" x2="290.0" y2="60.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="590.0" y1="60.0" x2="530.0" y2="60.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="60.0" x2="290.0" y2="290.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="290.0" y1="100.0" x2="290.0" y2="250.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="502.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Перехід 0 → 1 лише при x &gt; T_high</text>
+<text x="278.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Перехід 1 → 0 лише при x &lt; T_low</text>
+</svg>

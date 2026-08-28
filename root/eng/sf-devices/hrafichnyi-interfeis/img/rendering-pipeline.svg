@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр формування кадру в LVGL: від інвалідації до передачі через DMA</text>
+<rect x="30.0" y="60.0" width="165.0" height="80.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.5"/>
+<text x="112.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">1. Подія у віджеті</text>
+<text x="112.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="112.5" dy="0.0">lv_slider_set_value()</tspan><tspan x="112.5" dy="11.9">Зміна стану об'єкта</tspan></text>
+<rect x="230.0" y="60.0" width="175.0" height="80.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="317.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Інвалідація</text>
+<text x="317.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="317.5" dy="0.0">lv_obj_invalidate()</tspan><tspan x="317.5" dy="11.9">Додавання прямокутника</tspan></text>
+<rect x="440.0" y="60.0" width="175.0" height="80.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.5"/>
+<text x="527.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">3. Оптимізація площ</text>
+<text x="527.5" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="527.5" dy="0.0">Об'єднання брудних зон</tspan><tspan x="527.5" dy="11.9">(Dirty Area Joining)</tspan></text>
+<rect x="650.0" y="60.0" width="160.0" height="80.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<text x="730.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">4. Таймер рендерингу</text>
+<text x="730.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">lv_timer_handler()</tspan><tspan x="730.0" dy="11.9">Запуск перемальовування</tspan></text>
+<line x1="195.0" y1="100.0" x2="230.0" y2="100.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="100.0" x2="440.0" y2="100.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="100.0" x2="650.0" y2="100.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="140.0" x2="730.0" y2="185.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="185.0" width="165.0" height="85.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="112.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">7. DMA завершено</text>
+<text x="112.5" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="112.5" dy="0.0">lv_disp_flush_ready()</tspan><tspan x="112.5" dy="11.9">Звільнення буфера A</tspan></text>
+<rect x="230.0" y="185.0" width="175.0" height="85.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="317.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">6. Скидання буфера</text>
+<text x="317.5" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="317.5" dy="0.0">disp_drv.flush_cb()</tspan><tspan x="317.5" dy="11.9">Старт асинхронного DMA</tspan></text>
+<rect x="440.0" y="185.0" width="175.0" height="85.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<text x="527.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">5б. Пошаровий растр</text>
+<text x="527.5" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="527.5" dy="0.0">Фон -&gt; Тінь -&gt; Текст</tspan><tspan x="527.5" dy="11.9">Обрізка за lv_area_t</tspan></text>
+<rect x="650.0" y="185.0" width="160.0" height="85.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/>
+<text x="730.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">5а. Виділення смуги</text>
+<text x="730.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">Розбиття брудної зони</tspan><tspan x="730.0" dy="11.9">під розмір буфера SRAM</tspan></text>
+<line x1="650.0" y1="227.0" x2="615.0" y2="227.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="227.0" x2="405.0" y2="227.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="227.0" x2="195.0" y2="227.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="295.0" width="780.0" height="85.0" rx="6" fill="#fcfcfc" stroke="#6b7280" stroke-width="1.3"/>
+<text x="420.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключовий інваріант конвеєра: сигнал готовності flush_ready</text>
+<text x="420.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="420.0" dy="0.0">Якщо в черзі є наступні брудні смуги, LVGL негайно починає їх рендеринг у Буфер B, не чекаючи завершення DMA для Буфера A.</tspan><tspan x="420.0" dy="12.3">Виклик lv_disp_flush_ready() в обробнику переривання DMA Transfer Complete сигналізує графічному ядру, що Буфер A знову вільний.</tspan></text>
+</svg>
