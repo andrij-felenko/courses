@@ -104,44 +104,9 @@ Vж у формулі немає — байдуже, 3.3 В чи 3.2 В.
 
 :::tabs
 
-```c
-// Терморезистор у нижньому плечі дільника, послідовний R зверху.
-// АЦП рейтіометричний: опорний вхід = та сама шина, що живить дільник.
-// Тому Vж/Vref у математику не входить узагалі.
-#define ADC_FULL_SCALE  4096u     // 2^12
-#define R_SERIES_OHMS   10000.0f  // постійний резистор плеча
+:::code ratiometric-measurement-d/c/main.c
 
-float thermistor_ohms(uint16_t code)
-{
-    // Захист від ділення на нуль на самому краю шкали.
-    if (code == 0u || code >= ADC_FULL_SCALE)
-        return 0.0f;                       // давач закорочений або обірваний
-
-    // R_дав = R · code / (FS − code)  — чисте відношення, без вольтів.
-    return R_SERIES_OHMS * (float)code / (float)(ADC_FULL_SCALE - code);
-}
-```
-
-```micropython
-# Той самий рейтіометричний перерахунок на MicroPython.
-# machine.ADC читає рейтіометрично — код уже є часткою від напруги живлення,
-# тож Vж/Vref у математику не входить: працюємо прямо у відношеннях.
-from machine import ADC, Pin
-
-ADC_FULL_SCALE = 4096      # 2^12
-R_SERIES_OHMS  = 10000.0   # постійний резистор плеча
-
-adc = ADC(Pin(34))         # давач у нижньому плечі дільника
-
-def thermistor_ohms(code):
-    # Захист від ділення на нуль на самому краю шкали.
-    if code == 0 or code >= ADC_FULL_SCALE:
-        return 0.0             # давач закорочений або обірваний
-    # R_дав = R · code / (FS − code)  — чисте відношення, без вольтів.
-    return R_SERIES_OHMS * code / (ADC_FULL_SCALE - code)
-
-r = thermistor_ohms(adc.read_u16() >> 4)   # 16-бітний відлік → 12 біт
-```
+:::code ratiometric-measurement-d/py/micropython/main.py
 
 :::
 

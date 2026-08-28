@@ -47,83 +47,9 @@
 Візьмімо саме марсіанський сценарій. Є функція, що коригує траєкторію й **вимагає** імпульсу в ньютон-секундах. Спробуймо, як робила наземна програма, згодувати їй фунт-секунди — і подивімося, як компілятор зупиняє нас на місці. Компіляційна перевірка одиниць найприродніше лягає на мови зі строгою статичною системою типів; ось той самий приклад у трьох таких мовах.
 
 :::tabs
-```rust
-// Кожна одиниця — окремий тип-обгортка над f64. Число всередині
-// однакове; різними їх робить САМЕ ім'я типу — і компілятор.
-#[derive(Clone, Copy)]
-struct NewtonSeconds(f64);
-#[derive(Clone, Copy)]
-struct PoundForceSeconds(f64);
-
-// Єдиний дозволений місток між одиницями — явний перевід із коефіцієнтом.
-impl From<PoundForceSeconds> for NewtonSeconds {
-    fn from(x: PoundForceSeconds) -> NewtonSeconds {
-        NewtonSeconds(x.0 * 4.448222)
-    }
-}
-
-// Навігація приймає ЛИШЕ ньютон-секунди — це записано в типі аргументу.
-fn apply_impulse(j: NewtonSeconds) {
-    // ... коригуємо траєкторію, знаючи, що j — точно в Н·с ...
-    let _ = j.0;
-}
-
-fn main() {
-    // apply_impulse(PoundForceSeconds(1.85));      // ← НЕ КОМПІЛЮЄТЬСЯ:
-    //   expected `NewtonSeconds`, found `PoundForceSeconds`
-    apply_impulse(NewtonSeconds::from(PoundForceSeconds(1.85))); // ✓ перевід явний
-    apply_impulse(NewtonSeconds(8.23));                          // ✓ вже в Н·с
-}
-```
-```cpp
-#include <cstdio>
-
-// Кожна одиниця — окрема структура-обгортка над double. Усередині
-// однакове число; різними їх робить тип — і компілятор.
-struct NewtonSeconds     { double v; };
-struct PoundForceSeconds  { double v; };
-
-// Єдиний дозволений місток — явний перевід із коефіцієнтом.
-constexpr NewtonSeconds to_ns(PoundForceSeconds x) {
-    return NewtonSeconds{ x.v * 4.448222 };
-}
-
-// Навігація приймає ЛИШЕ ньютон-секунди — це записано в типі аргументу.
-void apply_impulse(NewtonSeconds j) {
-    (void)j.v;   // ... коригуємо траєкторію, знаючи, що j — точно в Н·с ...
-}
-
-int main() {
-    // apply_impulse(PoundForceSeconds{1.85});   // ← НЕ КОМПІЛЮЄТЬСЯ:
-    //   cannot convert 'PoundForceSeconds' to 'NewtonSeconds'
-    apply_impulse(to_ns(PoundForceSeconds{1.85}));  // ✓ перевід явний
-    apply_impulse(NewtonSeconds{8.23});             // ✓ вже в Н·с
-}
-```
-```ts
-// «Бренд» — фантомне поле лише для перевірки типів; у рантаймі його немає.
-type Brand<T, B> = T & { readonly __unit: B };
-
-type NewtonSeconds     = Brand<number, "N·s">;
-type PoundForceSeconds = Brand<number, "lbf·s">;
-
-// Конструктори — єдиний спосіб «охрестити» голе число одиницею.
-const ns   = (x: number) => x as NewtonSeconds;
-const lbfs = (x: number) => x as PoundForceSeconds;
-
-// Єдиний дозволений місток — явний перевід із коефіцієнтом.
-const toNs = (x: PoundForceSeconds): NewtonSeconds => ns(x * 4.448222);
-
-// Навігація приймає ЛИШЕ ньютон-секунди — це записано в типі аргументу.
-function applyImpulse(j: NewtonSeconds) {
-    /* ... коригуємо траєкторію, знаючи, що j — точно в Н·с ... */
-}
-
-// applyImpulse(lbfs(1.85));          // ← ПОМИЛКА ТИПУ:
-//   'PoundForceSeconds' is not assignable to 'NewtonSeconds'
-applyImpulse(toNs(lbfs(1.85)));       // ✓ перевід явний
-applyImpulse(ns(8.23));               // ✓ вже в Н·с
-```
+:::code proj-unit-safety/rust/main.rs
+:::code proj-unit-safety/cpp/robochyi-kod-odynytsia.cpp
+:::code proj-unit-safety/ts/index.ts
 :::
 
 У всіх трьох мовах суть одна: рядок, що повторює марсіанську помилку, **закоментовано, бо він не збереться в програму**. Компілятор бачить, що `apply_impulse` жадає `NewtonSeconds`, а йому підсовують `PoundForceSeconds`, — і зупиняється. Щоб код скомпілювався, ви **зобов'язані** назвати перевід уголос: `to_ns(...)`. І в цьому місці — де раніше число мовчки міняло сенс — тепер стоїть видимий, свідомий, помітний на око-рецензента перехід із коефіцієнтом 4.448222. Плутанина, що коштувала станції, стала синтаксично неможливою.
@@ -134,20 +60,7 @@ applyImpulse(ns(8.23));               // ✓ вже в Н·с
 
 Ідея «одиниця в типі» не екзотика — стандартна бібліотека C++ саме так тримає **час**, і мільйони програм щодня спираються на це, навіть не думаючи. Тип `std::chrono::duration` знає свою одиницю в самому типі, і компілятор рахує переводи за вас:
 
-```cpp
-#include <chrono>
-using namespace std::chrono;
-
-seconds      t1 = 30s;      // тип каже: це секунди
-milliseconds t2 = 500ms;    // тип каже: це мілісекунди
-
-auto total = t1 + t2;       // ✓ = 30500ms — спільну одиницю ОБРАНО САМЕ,
-                            //   без утрати точності (звелося до дрібнішої)
-
-// seconds s = 500ms;       // ← НЕ КОМПІЛЮЄТЬСЯ: перевід мілісекунд у секунди
-//   утратив би точність — стандарт вимагає явного duration_cast
-// int x = t1 + 5;          // ← НЕ КОМПІЛЮЄТЬСЯ: секунда — не голе число «5»
-```
+:::code proj-unit-safety/cpp/vy-vzhe-tsym.cpp
 
 Тут видно ще один тонкий бік розумної системи одиниць: `chrono` не лише **боронить** сплутати секунди з голим числом, а ще й **сам** звужує до спільної одиниці, коли перевід безпечний (секунди + мілісекунди → мілісекунди), і **відмовляє**, коли перевід губив би точність (мілісекунди → секунди без явного округлення). Захист і зручність тут не сваряться.
 
@@ -155,37 +68,7 @@ auto total = t1 + t2;       // ✓ = 30500ms — спільну одиницю �
 
 Обгортки-імена ловлять сплутану **одиницю**, але не виводять похідних. Наступний крок — зашити в тип **показники розмірності** й дати арифметиці типів працювати самій. C++-шаблони лягають на це напрочуд чисто: закодуймо одиницю трьома цілими — степенями маси, довжини й часу.
 
-```cpp
-// Одиниця = три цілих у типі: показники M (маса), L (довжина), T (час).
-template <int M, int L, int T>
-struct Quantity {
-    double value;
-    explicit constexpr Quantity(double v) : value(v) {}
-};
-
-// Додавати можна ЛИШЕ однакові розмірності — типи мусять збігтися.
-template <int M, int L, int T>
-constexpr Quantity<M, L, T> operator+(Quantity<M, L, T> a, Quantity<M, L, T> b) {
-    return Quantity<M, L, T>{ a.value + b.value };
-}
-
-// Множення СКЛАДАЄ показники, ділення — ВІДНІМАЄ: похідна одиниця сама собою.
-template <int M1,int L1,int T1, int M2,int L2,int T2>
-constexpr Quantity<M1+M2, L1+L2, T1+T2>
-operator*(Quantity<M1,L1,T1> a, Quantity<M2,L2,T2> b) {
-    return Quantity<M1+M2, L1+L2, T1+T2>{ a.value * b.value };
-}
-template <int M1,int L1,int T1, int M2,int L2,int T2>
-constexpr Quantity<M1-M2, L1-L2, T1-T2>
-operator/(Quantity<M1,L1,T1> a, Quantity<M2,L2,T2> b) {
-    return Quantity<M1-M2, L1-L2, T1-T2>{ a.value / b.value };
-}
-
-using Length   = Quantity<0, 1, 0>;    // м
-using Time     = Quantity<0, 0, 1>;    // с
-using Mass     = Quantity<1, 0, 0>;    // кг
-using Velocity = Quantity<0, 1, -1>;   // м/с
-```
+:::code proj-unit-safety/cpp/pokaznyky-v-typi.cpp
 
 А тепер спостерігаймо, як тип похідної величини **народжується сам**, без жодного оголошення:
 
@@ -209,19 +92,7 @@ Velocity v = d / t;           // ✓ d/t має тип Quantity<0,1,-1> — то
 
 А що, коли мова не має статичних типів, як Python? Тоді одиницю все одно можна причепити до значення — але жити вона буде **як дані під час виконання**, і перевірка станеться не в компіляторі, а в мить, коли виконається відповідний рядок. Так працює бібліотека **pint**:
 
-```py
-import pint
-u = pint.UnitRegistry()
-
-def apply_impulse(j):
-    j_ns = j.to("newton * second")   # вимагаємо саме Н·с — або виняток
-    # ... коригуємо траєкторію, маючи j_ns у Н·с ...
-    return j_ns
-
-apply_impulse(1.85 * u("pound_force * second"))  # ✓ pint сам переведе → 8.23 Н·с
-apply_impulse(1.85 * u.metre)                    # ✗ pint.DimensionalityError,
-#   Cannot convert from 'meter' ([length]) to 'newton*second' ([mass]·[length]/[time])
-```
+:::code proj-unit-safety/py/main.py
 
 Тут одиниця — повноправна частина значення: `1.85 * u.metre` знає, що воно метри, тож спроба видати його за імпульс кидає `DimensionalityError`. І, на відміну від голого числа наземної програми, коректно теговані фунт-секунди pint **сам** переведе в ньютон-секунди — бо знає коефіцієнт. Здавалося б, ось і рятунок від марсіанської біди.
 

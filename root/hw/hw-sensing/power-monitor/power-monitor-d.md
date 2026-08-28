@@ -322,68 +322,8 @@ R(T) = R_0 · [1 + TCR · 10⁻⁶ · ΔT]
 Нижче наведено фрагмент конфігурації та читання мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Розрахунок калібрувального коефіцієнта для INA226 */
-uint16_t calculate_ina226_calibration(double r_shunt_ohms, double max_current_a, double *current_lsb_a) {
-    /* Крок струму: Current_LSB = Max_Current / 2^15 */
-    *current_lsb_a = max_current_a / 32768.0;
-    /* CAL = trunc(0.00512 / (Current_LSB * R_shunt)) */
-    double cal = 0.00512 / ((*current_lsb_a) * r_shunt_ohms);
-    return (uint16_t)cal;
-}
-
-/* Перетворення сирих 16-розрядних регістрів у фізичні величини */
-void parse_power_readings(uint16_t vbus_raw, int16_t current_raw, uint16_t power_raw,
-                          double current_lsb_a, uint32_t *vbus_mv, int32_t *current_ma, uint32_t *power_mw) {
-    /* VBUS LSB фіксований: 1.25 мВ */
-    *vbus_mv = (uint32_t)((vbus_raw * 1250ULL) / 1000ULL);
-    /* Струм у мА */
-    *current_ma = (int32_t)(current_raw * current_lsb_a * 1000.0);
-    /* Потужність: Power_LSB = 25 * Current_LSB (у Вт) -> переводимо в мВт */
-    double power_lsb_w = 25.0 * current_lsb_a;
-    *power_mw = (uint32_t)(power_raw * power_lsb_w * 1000.0);
-}
-```
-```cpp
-#include <cstdint>
-#include <cmath>
-
-struct PowerMetrics {
-    uint32_t bus_voltage_mv{0};
-    int32_t current_ma{0};
-    uint32_t power_mw{0};
-};
-
-class PowerScaleCalculator {
-public:
-    constexpr PowerScaleCalculator(double shunt_ohms, double max_current_amps)
-        : shunt_ohms_{shunt_ohms},
-          current_lsb_a_{max_current_amps / 32768.0},
-          power_lsb_w_{25.0 * (max_current_amps / 32768.0)},
-          cal_register_{static_cast<uint16_t>(0.00512 / ((max_current_amps / 32768.0) * shunt_ohms))} {}
-
-    [[nodiscard]] constexpr uint16_t calibrationRegister() const noexcept {
-        return cal_register_;
-    }
-
-    [[nodiscard]] constexpr PowerMetrics parse(uint16_t vbus_raw, int16_t curr_raw, uint16_t pwr_raw) const noexcept {
-        return PowerMetrics{
-            .bus_voltage_mv = static_cast<uint32_t>((vbus_raw * 1250ULL) / 1000ULL),
-            .current_ma     = static_cast<int32_t>(curr_raw * current_lsb_a_ * 1000.0),
-            .power_mw       = static_cast<uint32_t>(pwr_raw * power_lsb_w_ * 1000.0)
-        };
-    }
-
-private:
-    double shunt_ohms_;
-    double current_lsb_a_;
-    double power_lsb_w_;
-    uint16_t cal_register_;
-};
-```
+:::code power-monitor-d/c/main.c
+:::code power-monitor-d/cpp/main.cpp
 :::
 
 Повну реалізацію драйвера з підтримкою черг I2C, обробки помилок шини та налаштування порогів апаратного переривання ALERT наведено у проектній вставці [Драйвер цифрового монітора живлення](root:hw-sensing/power-monitor/proj-power-monitor-driver.md).

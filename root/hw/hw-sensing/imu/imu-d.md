@@ -119,50 +119,8 @@ IMU завжди міряє у **власній** системі — осі X, Y
 **Приклад (від сирих відліків до нахилу).** 6-осьовий IMU лежить нерухомо, нахилений на бік. Читаємо акселерометр і перевіряємо орієнтацію:
 
 :::tabs
-```c
-#include <math.h>
-
-/* Чутливість акселерометра з паспорта: ±2g на 16-бітному АЦП
-   → 16384 відліки на 1g. */
-const float ACCEL_SCALE = 1.0f / 16384.0f;   /* відлік → частки g */
-
-void tilt_from_accel(int16_t rawX, int16_t rawY, int16_t rawZ) {
-    /* крок 1: сирі відліки АЦП → частки g */
-    float aX = rawX * ACCEL_SCALE;
-    float aY = rawY * ACCEL_SCALE;
-    float aZ = rawZ * ACCEL_SCALE;
-
-    /* крок 2: довжина вектора — перевірка, чи давач у спокої */
-    float mag = sqrtf(aX*aX + aY*aY + aZ*aZ);   /* у спокої має бути ~1.0 g */
-
-    /* крок 3: кути нахилу з проєкцій гравітації (радіани → градуси) */
-    float pitch = atan2f(aX, aZ) * 57.2958f;    /* тангаж */
-    float roll  = atan2f(aY, aZ) * 57.2958f;    /* крен   */
-    /* якщо mag помітно відрізняється від 1g — є рух, нахилу зараз вірити не можна */
-}
-```
-```python
-import math
-
-# Чутливість акселерометра з паспорта: ±2g на 16-бітному АЦП
-# → 16384 відліки на 1g.
-ACCEL_SCALE = 1.0 / 16384.0   # відлік → частки g
-
-def tilt_from_accel(raw_x, raw_y, raw_z):
-    # крок 1: сирі відліки АЦП → частки g
-    ax = raw_x * ACCEL_SCALE
-    ay = raw_y * ACCEL_SCALE
-    az = raw_z * ACCEL_SCALE
-
-    # крок 2: довжина вектора — перевірка, чи давач у спокої
-    mag = math.sqrt(ax*ax + ay*ay + az*az)   # у спокої має бути ~1.0 g
-
-    # крок 3: кути нахилу з проєкцій гравітації (радіани → градуси)
-    pitch = math.degrees(math.atan2(ax, az))   # тангаж
-    roll  = math.degrees(math.atan2(ay, az))   # крен
-    # якщо mag помітно відрізняється від 1g — є рух, нахилу зараз вірити не можна
-    return pitch, roll, mag
-```
+:::code imu-d/c/main.c
+:::code imu-d/py/main.py
 :::
 
 Проженемо числа для конкретного нахилу:

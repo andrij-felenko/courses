@@ -69,7 +69,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -100,12 +101,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
               "file": "math-least-squares-compensation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },

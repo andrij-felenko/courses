@@ -52,73 +52,8 @@ d = 45 + 0.5 · (30 − 45) = 45 − 7.5 = 37.5 см
 Вузли тримаємо в масиві, **відсортованому за зростанням напруги**. Що ближча ціль, то більший зсув плями й більша напруга, тож зростанню напруги відповідає **спадання** відстані:
 
 :::tabs
-```cpp
-struct CalPoint {
-    float v;   // напруга з давача, В
-    float d;   // виміряна відстань, см
-};
-
-// Зняті калібруванням пари, відсортовані за зростанням v.
-// Густіше там, де крива крута (зблизька, велика напруга).
-const CalPoint LUT[] = {
-    { 0.40f, 80.0f },   // далеко: слабкий зсув плями, мала напруга
-    { 0.55f, 60.0f },
-    { 0.75f, 45.0f },
-    { 1.05f, 30.0f },
-    { 1.55f, 20.0f },
-    { 2.30f, 12.0f },
-    { 2.75f, 10.0f },   // близько: мінімальна надійна відстань
-};
-const int LUT_N = sizeof(LUT) / sizeof(LUT[0]);
-
-// Лінійна інтерполяція: напруга → відстань (см).
-float voltageToDistance(float v) {
-    // За межами таблиці не екстраполюємо — там давач бреше. Клемп.
-    if (v <= LUT[0].v)         return LUT[0].d;
-    if (v >= LUT[LUT_N - 1].v) return LUT[LUT_N - 1].d;
-
-    // Знайти інтервал [i, i+1], куди потрапила напруга.
-    int i = 0;
-    while (i < LUT_N - 1 && LUT[i + 1].v < v) i++;
-
-    // Пряма між двома вузлами.
-    float t = (v - LUT[i].v) / (LUT[i + 1].v - LUT[i].v);
-    return LUT[i].d + t * (LUT[i + 1].d - LUT[i].d);
-}
-```
-```micropython
-# Зняті калібруванням пари (напруга В, відстань см),
-# відсортовані за зростанням напруги.
-# Густіше там, де крива крута (зблизька, велика напруга).
-LUT = (
-    (0.40, 80.0),   # далеко: слабкий зсув плями, мала напруга
-    (0.55, 60.0),
-    (0.75, 45.0),
-    (1.05, 30.0),
-    (1.55, 20.0),
-    (2.30, 12.0),
-    (2.75, 10.0),   # близько: мінімальна надійна відстань
-)
-
-# Лінійна інтерполяція: напруга → відстань (см).
-def voltage_to_distance(v):
-    # За межами таблиці не екстраполюємо — там давач бреше. Клемп.
-    if v <= LUT[0][0]:
-        return LUT[0][1]
-    if v >= LUT[-1][0]:
-        return LUT[-1][1]
-
-    # Знайти інтервал [i, i+1], куди потрапила напруга.
-    i = 0
-    while i < len(LUT) - 1 and LUT[i + 1][0] < v:
-        i += 1
-
-    # Пряма між двома вузлами.
-    v0, d0 = LUT[i]
-    v1, d1 = LUT[i + 1]
-    t = (v - v0) / (v1 - v0)
-    return d0 + t * (d1 - d0)
-```
+:::code proj-linearize/cpp/tablytsia-ta.cpp
+:::code proj-linearize/py/micropython/tablytsia-ta.py
 :::
 
 Функція `voltageToDistance` — чиста: дай їй напругу, дістанеш сантиметри, жодного звернення до заліза. Її легко перевірити на столі — підставити 0.90 В і впевнитися, що вийде 37.5 см.
@@ -128,54 +63,8 @@ def voltage_to_distance(v):
 Сирий відлік АЦП тремтить, тож усереднюємо кілька й переводимо в вольти:
 
 :::tabs
-```cpp
-const int   SENSOR_PIN = 34;
-const float ADC_VREF   = 3.3f;
-const int   ADC_MAX    = 4095;
-
-float readSensorVolts(int pin, int n = 16) {
-    long acc = 0;
-    for (int k = 0; k < n; k++) acc += analogRead(pin);
-    return (float(acc) / n) * (ADC_VREF / ADC_MAX);
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);                       // 0..4095
-    analogSetPinAttenuation(SENSOR_PIN, ADC_11db);  // вхід ~0..3.3 В
-}
-
-void loop() {
-    float v = readSensorVolts(SENSOR_PIN);
-    float d = voltageToDistance(v);
-    Serial.printf("U=%.3f В  d=%.1f см\n", v, d);
-    delay(50);
-}
-```
-```micropython
-from machine import ADC, Pin
-import time
-
-SENSOR_PIN = 34
-ADC_VREF   = 3.3
-ADC_MAX    = 4095
-
-adc = ADC(Pin(SENSOR_PIN))
-adc.width(ADC.WIDTH_12BIT)   # 0..4095
-adc.atten(ADC.ATTN_11DB)     # вхід ~0..3.3 В
-
-def read_sensor_volts(n=16):
-    acc = 0
-    for _ in range(n):
-        acc += adc.read()
-    return (acc / n) * (ADC_VREF / ADC_MAX)
-
-while True:
-    v = read_sensor_volts()
-    d = voltage_to_distance(v)
-    print("U=%.3f В  d=%.1f см" % (v, d))
-    time.sleep_ms(50)
-```
+:::code proj-linearize/cpp/chytannia-davacha-z.cpp
+:::code proj-linearize/py/micropython/chytannia-davacha-z.py
 :::
 
 ### Альтернатива: утримання проміжку по 1/d
@@ -183,31 +72,8 @@ while True:
 Коли потрібні не сантиметри, а стала дистанція, відкидаємо таблицю зовсім. Уставку задаємо одразу **в напрузі**, що відповідає бажаному проміжку, і годуємо помилкою пропорційний регулятор:
 
 :::tabs
-```cpp
-const float V_SETPOINT = 1.05f;  // напруга бажаного проміжку (~30 см за таблицею)
-const float KP         = 200.0f; // коефіцієнт П-регулятора
-
-void loopHoldGap() {
-    float v     = readSensorVolts(SENSOR_PIN);
-    float err   = v - V_SETPOINT;     // v більша → ціль ближча, ніж треба
-    int   drive = int(-KP * err);     // ближча → їхати назад
-    drive = constrain(drive, -255, 255);
-    setMotor(drive);                  // ваш драйвер мотора
-    delay(20);
-}
-```
-```micropython
-V_SETPOINT = 1.05  # напруга бажаного проміжку (~30 см за таблицею)
-KP         = 200.0  # коефіцієнт П-регулятора
-
-while True:
-    v     = read_sensor_volts()
-    err   = v - V_SETPOINT       # v більша → ціль ближча, ніж треба
-    drive = int(-KP * err)       # ближча → їхати назад
-    drive = max(-255, min(255, drive))
-    set_motor(drive)             # ваш драйвер мотора
-    time.sleep_ms(20)
-```
+:::code proj-linearize/cpp/alternatyva-utrymannia.cpp
+:::code proj-linearize/py/micropython/alternatyva-utrymannia.py
 :::
 
 Жодного `voltageToDistance`, жодної таблиці: петля працює прямо на напрузі, яка ∝ 1/d, а отже майже лінійна за відстанню в робочій зоні. Якщо хочеться саме «оберненої відстані» в явному вигляді (щоб коефіцієнти регулятора мали фізичний сенс), її дешево дістати як `invD = k * v` з єдиним калібрувальним коефіцієнтом k — це одна точка, а не ціла таблиця.

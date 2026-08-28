@@ -63,52 +63,8 @@ Vin = raw × FSR / 32768       (raw — знаковий int16)
 Реальний компільований фрагмент для ESP32 (Arduino-core, `Wire`):
 
 :::tabs
-```cpp
-#include <Wire.h>
-constexpr uint8_t ADS_ADDR = 0x48;   // ADDR -> GND
-
-// Config: OS=1(старт single-shot), MUX=100(A0 vs GND), PGA=001(±4.096 В),
-// MODE=1(single-shot), DR=100(128 SPS), COMP off (0x0003)
-constexpr uint16_t CFG = 0xC383;
-
-uint16_t adsRead16(uint8_t reg) {
-    Wire.beginTransmission(ADS_ADDR);
-    Wire.write(reg);
-    Wire.endTransmission();
-    Wire.requestFrom(ADS_ADDR, (uint8_t)2);
-    return (Wire.read() << 8) | Wire.read();   // MSB перший
-}
-
-void adsStart() {
-    Wire.beginTransmission(ADS_ADDR);
-    Wire.write(0x01);                 // вказати Config-регістр
-    Wire.write(CFG >> 8);
-    Wire.write(CFG & 0xFF);
-    Wire.endTransmission();
-}
-
-// Після старту: дочекатись готовності (мін. 1/DR = ~8 мс), тоді читати
-int16_t raw = (int16_t)adsRead16(0x00);   // reg 0x00 — Conversion, знаковий!
-float fsr   = 4.096f;                      // має збігатись із PGA у CFG (±4.096 В)
-float volts = raw * fsr / 32768.0f;        // ±FS = ±32768 кодів
-```
-```python
-import board
-import busio
-import adafruit_ads1x15.ads1115 as ADS
-from adafruit_ads1x15.ads1115 import Mode
-from adafruit_ads1x15.analog_in import AnalogIn
-
-i2c = busio.I2C(board.SCL, board.SDA)
-ads = ADS.ADS1115(i2c, address=0x48)   # ADDR -> GND
-ads.gain = 1                            # PGA ±4.096 В (той самий FSR, що в CFG)
-ads.mode = Mode.SINGLE                  # single-shot; драйвер сам чекає 1/DR
-
-chan = AnalogIn(ads, ADS.P0)            # A0 проти GND (несиметрично)
-
-raw = chan.value        # 16-бітний код зі знаком; читання саме запускає перетворення
-volts = chan.voltage    # драйвер уже множить на FSR/32768 і повертає вольти
-```
+:::code comp-ads1115/cpp/main.cpp
+:::code comp-ads1115/py/main.py
 :::
 
 «Перший байт» — записати Config і прочитати Conversion. Код знаковий (`int16_t`): диференційний вхід легко дає від'ємні значення. Множник — `FSR/32768`, а **не** `Vref/4095` — це принципова відмінність від вбудованого [ратіометричного](root:hw-sensing/voltage-reference) АЦП.

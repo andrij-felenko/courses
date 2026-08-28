@@ -34,19 +34,7 @@ V         = slope · raw + offset_V
 
 **Приклад (підставляємо реальні числа).** Подали 0.500 В — чип усереднив `raw_lo = 590`; подали 2.500 В — дістали `raw_hi = 2980`. Перевіримо поправку контрольною точкою рівно посередині (1.500 В):
 
-```cpp
-// зняті дві точки калібрування
-int   raw_lo = 590,    raw_hi = 2980;
-float v_lo   = 0.500f, v_hi   = 2.500f;
-
-// нахил і зсув один раз у setup()
-float slope    = (v_hi - v_lo) / (raw_hi - raw_lo);   // = 2.000 / 2390 = 0.000837 В/код
-float offset_V = v_lo - slope * raw_lo;               // = 0.500 − 0.000837·590 = 0.0061 В
-
-// застосування до контрольного відліку (очікуємо 1.500 В)
-int   raw = 1785;                                     // АЦП на рівно 1.500 В
-float v   = slope * raw + offset_V;                   // = 0.000837·1785 + 0.0061 = 1.500 В
-```
+:::code proj-two-point-cal/cpp/ideia.cpp
 
 Числа збіглися: контрольна точка дала 1.500 В, хоч її в калібруванні не було. Це і є сенс поправки — дві відомі точки задали пряму, і будь-який код між ними тепер читається в правильних вольтах. Якби ми довірилися сирій заводській шкалі `raw · 3.3/4095`, той самий код 1785 дав би 1.439 В — помилка ≈ 60 мВ, тобто ті самі кілька відсотків, які прибирає калібрування.
 
@@ -66,22 +54,7 @@ float v   = slope * raw + offset_V;                   // = 0.000837·1785 + 0.00
 
 Зберігаємо чотири числа в маленькій структурі й рахуємо вольти чистою функцією без жодного глобального стану:
 
-```cpp
-#include <Preferences.h>
-
-struct Calib {
-    int   rawLo, rawHi;   // сирі коди (12-бітних, 0–4095)
-    float vLo,   vHi;     // відповідні напруги у вольтах
-};
-
-// Застосувати поправку: raw → вольти
-float applyCalib(const Calib& c, int raw) {
-    if (c.rawHi == c.rawLo)              // захист від ділення на нуль
-        return raw * (3.3f / 4095.0f);  // fallback: сира заводська шкала
-    float slope = (c.vHi - c.vLo) / float(c.rawHi - c.rawLo);
-    return c.vLo + slope * float(raw - c.rawLo);
-}
-```
+:::code proj-two-point-cal/cpp/struktura-popravky-ta.cpp
 
 Чому окрема чиста функція? Її легко тестувати: передаєш `Calib` з відомими значеннями й перевіряєш результат без жодного звернення до флешу чи Serial. Функція не знає, звідки взялися коефіцієнти — з NVS, з жорсткого коду чи з заводського тесту.
 
@@ -89,32 +62,7 @@ float applyCalib(const Calib& c, int raw) {
 
 ### Збереження та читання NVS через Preferences
 
-```cpp
-Preferences prefs;
-
-void saveCalib(const Calib& c) {
-    prefs.begin("adccal", false);   // false = читання-запис
-    prefs.putInt  ("rawLo", c.rawLo);
-    prefs.putInt  ("rawHi", c.rawHi);
-    prefs.putFloat("vLo",   c.vLo);
-    prefs.putFloat("vHi",   c.vHi);
-    prefs.end();
-}
-
-bool loadCalib(Calib& c) {
-    prefs.begin("adccal", true);    // true = тільки читання
-    if (!prefs.isKey("rawLo")) {    // ще жодного разу не калібрували
-        prefs.end();
-        return false;
-    }
-    c.rawLo = prefs.getInt  ("rawLo");
-    c.rawHi = prefs.getInt  ("rawHi");
-    c.vLo   = prefs.getFloat("vLo");
-    c.vHi   = prefs.getFloat("vHi");
-    prefs.end();
-    return true;
-}
-```
+:::code proj-two-point-cal/cpp/zberezhennia-ta-chytannia.cpp
 
 Кілька деталей. Простір імен `"adccal"` ізолює ключі від решти налаштувань прошивки — конфлікти імен виключені. `putFloat` зберігає 4 байти IEEE 754 безпосередньо — не потрібно серіалізувати у рядок і знову розбирати, це і швидше, і точніше. Ключі мусять бути не довшими за 15 символів (обмеження бібліотеки NVS); `"rawLo"`, `"rawHi"`, `"vLo"`, `"vHi"` — у межах норми. Режим `true` при читанні (`loadCalib`) захищає простір імен від випадкового запису всередині функції.
 
@@ -123,109 +71,8 @@ bool loadCalib(Calib& c) {
 ### Процедура калібрування (dev-режим) та збирання в `setup()`
 
 :::tabs
-```cpp
-#define CAL_PIN 34
-
-Calib cal;
-
-// Зняти N відліків і повернути середнє
-int readAvg(int pin, int n = 64) {
-    long s = 0;
-    for (int i = 0; i < n; i++) s += analogRead(pin);
-    return int(s / n);
-}
-
-// Інтерактивна сесія калібрування через UART
-void runCalibration() {
-    Serial.println("=== Калібрування АЦП ===");
-    Serial.println("Подайте V_lo (точне джерело, наприклад 0.50 В).");
-    Serial.println("Натисніть Enter, коли напруга стабільна:");
-
-    while (!Serial.available()) delay(10);
-    Serial.readStringUntil('\n');  // очікуємо Enter
-    cal.rawLo = readAvg(CAL_PIN);  // середнє гасить шум
-    Serial.printf("raw_lo = %d. Введіть точне значення V_lo (В): ", cal.rawLo);
-    cal.vLo = Serial.parseFloat();
-
-    Serial.println("\nПодайте V_hi (наприклад 2.50 В), натисніть Enter:");
-    while (!Serial.available()) delay(10);
-    Serial.readStringUntil('\n');
-    cal.rawHi = readAvg(CAL_PIN);
-    Serial.printf("raw_hi = %d. Введіть точне значення V_hi (В): ", cal.rawHi);
-    cal.vHi = Serial.parseFloat();
-
-    saveCalib(cal);
-    Serial.println("\nКалібрування збережено в NVS.");
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogSetPinAttenuation(CAL_PIN, ADC_11db);  // фіксуємо atten ДО читання
-
-    if (!loadCalib(cal)) {
-        Serial.println("[WARN] Калібрування відсутнє. Запустіть runCalibration().");
-        // cal лишається {0,0,0,0} — applyCalib поверне fallback
-    } else {
-        float slope = (cal.vHi - cal.vLo) / float(cal.rawHi - cal.rawLo);
-        Serial.printf("[CAL] slope=%.6f V/код, offset_V=%.4f В\n",
-                      slope, cal.vLo - slope * cal.rawLo);
-    }
-}
-
-void loop() {
-    int   raw = analogRead(CAL_PIN);
-    float v   = applyCalib(cal, raw);
-    Serial.println(v, 4);
-    delay(200);
-}
-```
-```python
-# MicroPython на ESP32: той самий метод двох точок.
-# ADC.read() дає 12-бітний код 0..4095; поправку тримаємо в esp32.NVS.
-import sys, time
-from machine import ADC, Pin
-from esp32 import NVS
-
-CAL_PIN = 34
-adc = ADC(Pin(CAL_PIN))
-adc.atten(ADC.ATTN_11DB)      # фіксуємо atten ДО читання (як analogSetPinAttenuation)
-adc.width(ADC.WIDTH_12BIT)
-
-cal = {"raw_lo": 0, "raw_hi": 0, "v_lo": 0.0, "v_hi": 0.0}
-
-# Зняти n відліків і повернути середнє (середнє гасить шум)
-def read_avg(n=64):
-    return sum(adc.read() for _ in range(n)) // n
-
-# Інтерактивна сесія калібрування через REPL/UART
-def run_calibration():
-    print("=== Калібрування АЦП ===")
-    input("Подайте V_lo (напр. 0.50 В), натисніть Enter: ")
-    cal["raw_lo"] = read_avg()
-    cal["v_lo"] = float(input("raw_lo = %d. Введіть точне V_lo (В): " % cal["raw_lo"]))
-
-    input("\nПодайте V_hi (напр. 2.50 В), натисніть Enter: ")
-    cal["raw_hi"] = read_avg()
-    cal["v_hi"] = float(input("raw_hi = %d. Введіть точне V_hi (В): " % cal["raw_hi"]))
-
-    save_calib(cal)
-    print("\nКалібрування збережено в NVS.")
-
-# Ініціалізація замість setup(): читаємо поправку, рахуємо slope один раз
-if not load_calib(cal):
-    print("[WARN] Калібрування відсутнє. Запустіть run_calibration().")
-    # cal лишається нулями — apply_calib поверне fallback
-else:
-    slope = (cal["v_hi"] - cal["v_lo"]) / (cal["raw_hi"] - cal["raw_lo"])
-    print("[CAL] slope=%.6f V/код, offset_V=%.4f В"
-          % (slope, cal["v_lo"] - slope * cal["raw_lo"]))
-
-# Головний цикл замість loop(): застосування поправки — один рядок
-while True:
-    raw = adc.read()
-    print("%.4f" % apply_calib(cal, raw))
-    time.sleep_ms(200)
-```
+:::code proj-two-point-cal/cpp/protsedura-kalibruvannia.cpp
+:::code proj-two-point-cal/py/main.py
 :::
 
 Зверніть увагу на порядок у `setup()`: спочатку `analogSetPinAttenuation`, потім `loadCalib`. Це важливо — ослаблення треба встановити до будь-яких вимірювань і переконатися, що воно збігається з тим, при якому виконували калібрування. У `loop()` застосування поправки — один рядок; обчислення slope/offset вже відбулося в `setup()` один раз.

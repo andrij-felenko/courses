@@ -67,73 +67,8 @@
 Найдешевший варіант — один цикл «тло, потім сигнал». Між вмиканням світлодіода й читанням АЦП треба коротка пауза: і світлодіод, і вхід приймача мають устатися:
 
 :::tabs
-```cpp
-const int   LED_PIN    = 25;     // ІЧ-світлодіод через струмообмежувальний резистор
-const int   SENSOR_PIN = 34;     // фотоприймач на вхід АЦП
-const int   SETTLE_US  = 200;    // пауза на встановлення світлодіода й приймача, мкс
-
-void setup() {
-    Serial.begin(115200);
-    pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, LOW);
-    analogReadResolution(12);                        // 0..4095
-    analogSetPinAttenuation(SENSOR_PIN, ADC_11db);   // вхід ~0..3.3 В
-}
-
-// Повертає очищений від тла відбиток (коди АЦП; може бути від'ємним за шуму).
-int readReflection() {
-    digitalWrite(LED_PIN, LOW);                      // 1) тло без власного світла
-    delayMicroseconds(SETTLE_US);
-    int dark = analogRead(SENSOR_PIN);
-
-    digitalWrite(LED_PIN, HIGH);                     // 2) тло + відбиток
-    delayMicroseconds(SETTLE_US);
-    int lit  = analogRead(SENSOR_PIN);
-
-    digitalWrite(LED_PIN, LOW);                      // лишаємо світлодіод вимкненим
-    return lit - dark;                               // тло скорочується
-}
-
-void loop() {
-    int signal = readReflection();
-    bool obstacle = signal > 120;                    // поріг — за калібруванням, див. нижче
-    Serial.printf("відбиток=%d  перешкода=%d\n", signal, obstacle);
-    delay(20);
-}
-```
-```micropython
-from machine import Pin, ADC
-import time
-
-LED_PIN    = 25          # ІЧ-світлодіод через струмообмежувальний резистор
-SENSOR_PIN = 34          # фотоприймач на вхід АЦП
-SETTLE_US  = 200         # пауза на встановлення світлодіода й приймача, мкс
-
-led = Pin(LED_PIN, Pin.OUT)
-adc = ADC(Pin(SENSOR_PIN))
-adc.atten(ADC.ATTN_11DB)     # вхід ~0..3.3 В
-adc.width(ADC.WIDTH_12BIT)   # 0..4095
-led.value(0)
-
-# Повертає очищений від тла відбиток (коди АЦП; може бути від'ємним за шуму).
-def read_reflection():
-    led.value(0)                     # 1) тло без власного світла
-    time.sleep_us(SETTLE_US)
-    dark = adc.read()
-
-    led.value(1)                     # 2) тло + відбиток
-    time.sleep_us(SETTLE_US)
-    lit = adc.read()
-
-    led.value(0)                     # лишаємо світлодіод вимкненим
-    return lit - dark                # тло скорочується
-
-while True:
-    signal = read_reflection()
-    obstacle = signal > 120          # поріг — за калібруванням, див. нижче
-    print("відбиток={}  перешкода={}".format(signal, int(obstacle)))
-    time.sleep_ms(20)
-```
+:::code proj-ambient-rejection/cpp/shliakh-a-odne-vidnimannia.cpp
+:::code proj-ambient-rejection/py/micropython/shliakh-a-odne-vidnimannia.py
 :::
 
 Функція `readReflection` повертає **очищене** число: за повної темряви `dark ≈ 0`, і вона вироджується в звичайне читання; під сонцем `dark` великий, але різниця тримається. Поріг порівнюємо вже з очищеним сигналом, а не з сирим АЦП.
@@ -143,55 +78,8 @@ while True:
 Стійкіший варіант мерехтить світлодіодом і накопичує різницю фаз. Накопичувач беремо широкий (`int32_t`), щоб сума багатьох відліків не переповнилась:
 
 :::tabs
-```cpp
-const int CYCLES   = 8;          // скільки пар «увімк/вимк» накопичити
-const int PHASE_US = 300;        // тривалість півперіоду (встановлення + вимір)
-
-// Синхронний детектор: сума «світлих» мінус сума «темних» фаз.
-int32_t readSync() {
-    int32_t acc = 0;
-    for (int i = 0; i < CYCLES; i++) {
-        digitalWrite(LED_PIN, HIGH);                 // плюс-фаза
-        delayMicroseconds(PHASE_US);
-        acc += analogRead(SENSOR_PIN);
-
-        digitalWrite(LED_PIN, LOW);                  // мінус-фаза
-        delayMicroseconds(PHASE_US);
-        acc -= analogRead(SENSOR_PIN);
-    }
-    return acc;                                      // рівне тло зникло, відбиток × CYCLES
-}
-
-void loopSync() {
-    int32_t signal = readSync();
-    bool obstacle = signal > 8 * 120;                // поріг масштабується на CYCLES
-    Serial.printf("сигнал=%ld  перешкода=%d\n", (long)signal, obstacle);
-    delay(20);
-}
-```
-```micropython
-CYCLES   = 8             # скільки пар «увімк/вимк» накопичити
-PHASE_US = 300           # тривалість півперіоду (встановлення + вимір)
-
-# Синхронний детектор: сума «світлих» мінус сума «темних» фаз.
-def read_sync():
-    acc = 0
-    for _ in range(CYCLES):
-        led.value(1)                 # плюс-фаза
-        time.sleep_us(PHASE_US)
-        acc += adc.read()
-
-        led.value(0)                 # мінус-фаза
-        time.sleep_us(PHASE_US)
-        acc -= adc.read()
-    return acc                       # рівне тло зникло, відбиток × CYCLES
-
-while True:
-    signal = read_sync()
-    obstacle = signal > 8 * 120      # поріг масштабується на CYCLES
-    print("сигнал={}  перешкода={}".format(signal, int(obstacle)))
-    time.sleep_ms(20)
-```
+:::code proj-ambient-rejection/cpp/shliakh-b-synkhronne.cpp
+:::code proj-ambient-rejection/py/micropython/shliakh-b-synkhronne.py
 :::
 
 Той самий поріг, що в шляху А (120 на одну пару), тут множимо на `CYCLES`, бо й сигнал накопичено стільки ж разів. Збільшив `CYCLES` — глибше відрив сигналу з-під шуму, але повільніший такт; це прямий розмін швидкості на стійкість.

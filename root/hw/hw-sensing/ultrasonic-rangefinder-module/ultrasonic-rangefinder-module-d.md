@@ -100,88 +100,15 @@ v ≈ 331 + 0.6 · T        (м/с, T у °C)
 **Блокуючий вимір (просто, але морозить процесор).** Подаємо імпульс на trigger, чекаємо фронт echo, засікаємо мікросекунди до спаду:
 
 :::tabs
-```c
-// HC-SR04-подібний модуль: trigger і echo на двох виводах.
-// pulseIn-стиль: повертає відстань у см або -1, якщо відлуння не прийшло.
-float ping_blocking(int trigPin, int echoPin) {
-    // 1) короткий імпульс «пни» — 10 мкс
-    digitalWrite(trigPin, LOW);  delayMicroseconds(2);
-    digitalWrite(trigPin, HIGH); delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
-
-    // 2) чекаємо фронт echo (з тайм-аутом, щоб не зависнути назавжди)
-    uint32_t t0 = micros();
-    while (digitalRead(echoPin) == LOW)
-        if (micros() - t0 > 30000UL) return -1.0f;   // давач не відповів
-
-    // 3) міряємо ширину імпульсу echo
-    uint32_t start = micros();
-    while (digitalRead(echoPin) == HIGH)
-        if (micros() - start > 25000UL) return -1.0f; // ціль поза діапазоном
-
-    uint32_t dt = micros() - start;   // повний час польоту, мкс
-    return dt / 58.0f;                // см  (правило: см ≈ мкс / 58)
-}
-```
-```micropython
-# HC-SR04-подібний модуль: trigger і echo на двох виводах.
-# повертає відстань у см або -1, якщо відлуння не прийшло.
-from machine import Pin
-import time
-
-def ping_blocking(trig_pin, echo_pin):
-    trig = Pin(trig_pin, Pin.OUT)
-    echo = Pin(echo_pin, Pin.IN)
-
-    # 1) короткий імпульс «пни» — 10 мкс
-    trig.low();  time.sleep_us(2)
-    trig.high(); time.sleep_us(10)
-    trig.low()
-
-    # 2) чекаємо фронт echo (з тайм-аутом, щоб не зависнути назавжди)
-    t0 = time.ticks_us()
-    while echo.value() == 0:
-        if time.ticks_diff(time.ticks_us(), t0) > 30000:
-            return -1.0                       # давач не відповів
-
-    # 3) міряємо ширину імпульсу echo
-    start = time.ticks_us()
-    while echo.value() == 1:
-        if time.ticks_diff(time.ticks_us(), start) > 25000:
-            return -1.0                       # ціль поза діапазоном
-
-    dt = time.ticks_diff(time.ticks_us(), start)  # повний час польоту, мкс
-    return dt / 58.0                          # см  (правило: см ≈ мкс / 58)
-```
+:::code ultrasonic-rangefinder-module-d/c/interfeis-trigger-echo-iak.c
+:::code ultrasonic-rangefinder-module-d/py/micropython/main.py
 :::
 
 Зверніть увагу на **обидва тайм-аути**. Перший рятує, коли модуль зовсім не відповів (відключився, збій живлення): без нього `while` крутився б вічно. Другий ловить випадок, коли ціль за межами дальності й echo не опускається вчасно, — повертаємо −1 («нічого в діапазоні»), а **не нуль**. Сплутати «далеко» з «нуль» — класична біда, що жене робота просто в невидиму перешкоду: код вирішує, що до неї нуль сантиметрів і їхати нікуди не треба.
 
 **Неблокуючий вимір (фронт echo на перериванні).** Той самий вимір, але процесор не застигає: фронт і спад echo ловить апаратне переривання, а головний цикл лишається вільним.
 
-```c
-volatile uint32_t echoStart = 0;     // мить фронту
-volatile uint32_t echoWidth = 0;     // готова ширина, мкс
-volatile bool     echoReady = false; // новий результат є
-
-void echoISR(void) {                 // переривання на ОБИДВА фронти echo
-    if (digitalRead(ECHO_PIN)) {     // фронт — почався політ
-        echoStart = micros();
-    } else {                         // спад — відлуння прийшло
-        echoWidth = micros() - echoStart;
-        echoReady = true;
-    }
-}
-
-void start_ping(void) {              // лише «пнути» — і одразу вийти
-    digitalWrite(TRIG_PIN, HIGH); delayMicroseconds(10);
-    digitalWrite(TRIG_PIN, LOW);
-}
-
-// у головному циклі:
-//   start_ping();  ... робимо інші справи ...
-//   if (echoReady) { float cm = echoWidth / 58.0f; echoReady = false; }
-```
+:::code ultrasonic-rangefinder-module-d/c/interfeis-trigger-echo-iak-2.c
 
 > 🔧 **Навіщо це.** Міряйте echo **апаратним** захопленням чи перериванням, а не блокуючим очікуванням. Інакше на кожен вимір процесор «застигає» на 10–25 мс, і робот, який у цей час нічого більше не робить, спокійно в'їде в перешкоду, поки чекає відповіді **про** цю саму перешкоду. Неблокуючий цикл пінгів — основа чуйного апарата: поки летить звук, мотори, зв'язок і логіка живуть своїм життям.
 

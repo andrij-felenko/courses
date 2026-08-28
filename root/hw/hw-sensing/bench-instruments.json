@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -28,7 +29,8 @@
           "comp": [
             {
               "file": "comp-multimeter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -64,7 +66,8 @@
           "proj": [
             {
               "file": "proj-trigger.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -143,19 +146,22 @@
           "comp": [
             {
               "file": "comp-active-diff.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-resistive-cable.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-compensation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -176,7 +182,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -207,7 +214,9 @@
           "proj": [
             {
               "file": "proj-scpi-powerup.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -244,12 +253,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-scpi-parser-core.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

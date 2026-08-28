@@ -27,7 +27,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -52,7 +53,8 @@
           "proj": [
             {
               "file": "proj-linearize.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -68,7 +70,8 @@
           "proj": [
             {
               "file": "proj-ambient-rejection.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -91,13 +94,16 @@
           "math": [
             {
               "file": "math-phase-unwrapping.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-depth-reconstruction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -113,7 +119,8 @@
           "proj": [
             {
               "file": "proj-robust-ranging-filter.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -187,24 +194,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-pir-elements.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-pyroelectric-current.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-pir-dsp.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -225,7 +237,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {

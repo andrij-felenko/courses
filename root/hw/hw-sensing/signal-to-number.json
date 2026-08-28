@@ -60,19 +60,23 @@
           "hist": [
             {
               "file": "hist-kelvin.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-error-analysis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-kelvin-adc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
@@ -89,7 +93,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -173,19 +178,24 @@
           "api": [
             {
               "file": "api-imu-fifo.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-jitter-integration-drift.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-imu-fifo-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -234,18 +244,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-ads1115.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-two-point-cal.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -277,7 +290,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         }
       ]
@@ -293,7 +307,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -304,7 +319,8 @@
           "proj": [
             {
               "file": "proj-coherent-integrator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -326,7 +342,8 @@
           "proj": [
             {
               "file": "proj-sync-dma-trgo.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -348,7 +365,8 @@
           "proj": [
             {
               "file": "proj-ekf-ring-buffer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -370,7 +388,8 @@
           "proj": [
             {
               "file": "proj-timer-triggered-adc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
