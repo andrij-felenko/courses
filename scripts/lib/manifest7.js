@@ -258,14 +258,21 @@ function applyOps(bookDir, ops, opt) {
         const arr = (t.node[o.type] = t.node[o.type] || []);
         const cur = arr.find((x) => x.file === o.file);
         const rc = "recode" in o ? !!o.recode : undefined;
+        /* Рівень при deeper — так само, як у теми: дописувач бере глибину з маніфесту,
+           а не вигадує свою. Інші статуси його не носять і стирають при переході.   */
+        const lvl = "level" in o ? clampLevel(o.level) : undefined;
         if (cur) {
-          if (cur.status === o.status && (rc === undefined || !!cur.recode === rc)) {
+          const sameLv = lvl === undefined || (cur.level || null) === lvl;
+          if (cur.status === o.status && sameLv && (rc === undefined || !!cur.recode === rc)) {
             rep.skipped.push(`вставка «${o.file}» уже ${o.status}`); continue;
           }
           cur.status = o.status;
+          const keep = lvl !== undefined ? lvl : (o.status === "deeper" ? (cur.level || null) : null);
+          if (o.status === "deeper" && keep) cur.level = keep; else delete cur.level;
           if (rc === true) cur.recode = true; else if (rc === false) delete cur.recode;
         } else {
           const node = { file: o.file, status: o.status };
+          if (o.status === "deeper" && lvl) node.level = lvl;
           if (rc) node.recode = true;
           arr.push(node);
         }

@@ -164,12 +164,18 @@ const NEEDS_CODE = new Set(["proj", "api"]);
 /* мітка огорожі → тека мови + смуга. tier glue — скрипти: файл дістають
    (від EXTRACT_MIN), але підлоги не мають, бо їхній розмір нічого не каже. */
 const LANGS = {
-  c: ["c", "low"], h: ["c", "low"], "esp-idf": ["c", "low"], stm32: ["c", "low"], arduino: ["c", "low"],
+  c: ["c", "low"], h: ["c", "low"],
+  /* Платформа — це не мова. esp-idf і stm32 пишуться на C, arduino в цьому корпусі
+     теж написано C-стилем (формально .ino це C++, але вкладкою він стоїть поруч із
+     двома C, як «те саме в іншому середовищі»). Тому вони лягають ПІД мову зайвим
+     рівнем: <мова>/<платформа>/. Тека мови лишається чесною, перевірка пари c/↔cpp/
+     не плутається, а розрізнення середовищ не губиться.                            */
+  arduino: ["c", "low", "arduino"], "esp-idf": ["c", "low", "esp-idf"], stm32: ["c", "low", "stm32"],
   cpp: ["cpp", "low"], "c++": ["cpp", "low"], hpp: ["cpp", "low"],
   rust: ["rust", "low"], go: ["go", "low"], java: ["java", "low"], cs: ["cs", "low"],
   swift: ["swift", "low"], kotlin: ["kotlin", "low"],
   asm: ["asm", "low"], nasm: ["asm", "low"], verilog: ["verilog", "low"], vhdl: ["vhdl", "low"],
-  python: ["py", "high"], py: ["py", "high"], micropython: ["py", "high"],
+  python: ["py", "high"], py: ["py", "high"], micropython: ["py", "high", "micropython"],
   ts: ["ts", "high"], typescript: ["ts", "high"], js: ["js", "high"], javascript: ["js", "high"],
   ruby: ["ruby", "high"], rb: ["ruby", "high"], lua: ["lua", "high"], perl: ["perl", "high"],
   php: ["php", "high"], r: ["r", "high"], matlab: ["matlab", "high"], dart: ["dart", "high"],
@@ -457,6 +463,11 @@ function proseWords(md) {
     const t = line.trim();
     if (/^```/.test(t)) { inCode = !inCode; continue; }
     if (inCode) continue;
+    /* Директиви (:::code, :::tabs, :::) — не проза. Раніше код лежав в огорожах і
+       відсікався сам; тепер на його місці стоїть посилання, і без цього рядка
+       28 104 директиви корпусу дали б близько 120 тисяч фантомних слів — рівно
+       в тих файлах, де коду найбільше.                                          */
+    if (/^:::/.test(t)) continue;
     if (/^!\[/.test(t)) continue;
     if (/^#{1,6}\s/.test(t)) line = t.replace(/^#{1,6}\s/, "");
     if (/^\|.*\|/.test(t)) continue;
