@@ -1,138 +1,202 @@
-#include <stdint.h>
-#include <stdbool.h>
+/*
+ * Диспетчер GATT-сервісу провізіонування: звʼязує події BLE-стека
+ * з криптографічною сесією, а результат Wi-Fi — зі сповіщеннями клієнту.
+ */
+#include "att_reassembly.h"
+#include "prov_crypto.h"
+#include "prov_platform.h"
+#include "prov_session.h"
+
 #include <string.h>
 
-#define CRYPTO_KEY_SIZE      32
-#define CRYPTO_NONCE_SIZE    12
-#define CRYPTO_TAG_SIZE      16
-#define MAX_SSID_LEN         32
-#define MAX_PASSPHRASE_LEN   64
+#define PROV_UUID_SERVICE  0xFF50
+#define PROV_UUID_SESSION  0xFF51
+#define PROV_UUID_CONFIG   0xFF52
 
-typedef enum {
-    PROV_STATUS_SUCCESS = 0,
-    PROV_STATUS_INVALID_LEN,
-    PROV_STATUS_CRYPTO_FAIL,
-    PROV_STATUS_AUTH_FAIL,
-    PROV_STATUS_STATION_TIMEOUT
-} prov_status_t;
+/* Скільки тримати радіо після успіху, щоб сповіщення встигло вийти в ефір. */
+#define PROV_BLE_LINGER_MS 2000
 
-typedef struct {
-    char ssid[MAX_SSID_LEN + 1];
-    char password[MAX_PASSPHRASE_LEN + 1];
-} wifi_credentials_t;
+static prov_session_t     g_session;
+static att_reasm_t        g_reasm;
+static prov_credentials_t g_pending;         /* чекають на підтвердження від Wi-Fi */
+static uint8_t            g_session_resp[PROV_SESSION_RESP_SIZE];
+static size_t             g_session_resp_len;
+static uint16_t           g_mtu = ATT_MTU_DEFAULT;
+static bool               g_provisioned;
 
-typedef struct {
-    uint8_t priv_key[CRYPTO_KEY_SIZE];
-    uint8_t pub_key[CRYPTO_KEY_SIZE];
-    uint8_t session_key[CRYPTO_KEY_SIZE];
-    bool    session_established;
-} prov_crypto_context_t;
-
-/* Платформні криптографічні функції */
-extern void crypto_generate_x25519_keypair(uint8_t *pub, uint8_t *priv);
-extern bool crypto_x25519_shared_secret(const uint8_t *peer_pub, const uint8_t *our_priv, uint8_t *shared);
-extern void crypto_hkdf_sha256(const uint8_t *salt, size_t salt_len,
-                               const uint8_t *ikm, size_t ikm_len,
-                               const uint8_t *pop, size_t pop_len,
-                               uint8_t *okm, size_t okm_len);
-extern bool crypto_aes_gcm_decrypt(const uint8_t *key, const uint8_t *nonce,
-                                   const uint8_t *tag, const uint8_t *ciphertext,
-                                   size_t len, uint8_t *plaintext);
-
-/* Безпечне очищення чутливих даних без оптимізації компілятором */
-static void secure_wipe(void *v, size_t n) {
-    volatile uint8_t *p = (volatile uint8_t *)v;
-    while (n--) *p++ = 0;
-}
-
-/* Санітизація відкритого ключа клієнта */
-static bool is_valid_curve_point(const uint8_t *pub) {
-    uint8_t all_zeros = 0;
-    for (size_t i = 0; i < CRYPTO_KEY_SIZE; ++i) {
-        all_zeros |= pub[i];
-    }
-    return (all_zeros != 0); // Відкидаємо повністю нульові точки
-}
-
-/* Обробка рукостискання на характеристиці prov-session */
-prov_status_t prov_handle_session_write(prov_crypto_context_t *ctx,
-                                        const uint8_t *client_pub, size_t client_pub_len,
-                                        const uint8_t *pop_token, size_t pop_len,
-                                        uint8_t *device_pub_out, uint8_t *nonce_salt_out)
+void prov_service_start(void)
 {
-    if (client_pub_len != CRYPTO_KEY_SIZE || !is_valid_curve_point(client_pub)) {
-        return PROV_STATUS_INVALID_LEN;
-    }
+    const uint8_t *pop = NULL;
+    size_t pop_len = plat_pop_secret(&pop);
 
-    /* 1. Генеруємо власну ефемерну пару ключів X25519 */
-    crypto_generate_x25519_keypair(ctx->pub_key, ctx->priv_key);
-    memcpy(device_pub_out, ctx->pub_key, CRYPTO_KEY_SIZE);
+    prov_session_init(&g_session, pop, pop_len);
+    att_reasm_cancel(&g_reasm);
+    memset(&g_pending, 0, sizeof(g_pending));
+    g_session_resp_len = 0;
+    g_mtu = ATT_MTU_DEFAULT;
+    g_provisioned = false;
 
-    /* 2. Обчислюємо спільний секрет Diffie-Hellman */
-    uint8_t shared_secret[CRYPTO_KEY_SIZE];
-    if (!crypto_x25519_shared_secret(client_pub, ctx->priv_key, shared_secret)) {
-        return PROV_STATUS_CRYPTO_FAIL;
-    }
-
-    /* 3. Заповнюємо псевдовипадкову сіль (Nonce) */
-    memset(nonce_salt_out, 0xA5, CRYPTO_NONCE_SIZE);
-
-    /* 4. Виводимо симетричний сесійний ключ AES-256 через HKDF-SHA256 разом із PoP */
-    crypto_hkdf_sha256(nonce_salt_out, CRYPTO_NONCE_SIZE,
-                       shared_secret, CRYPTO_KEY_SIZE,
-                       pop_token, pop_len,
-                       ctx->session_key, CRYPTO_KEY_SIZE);
-
-    /* Безпечне очищення проміжного спільного секрету зі стека */
-    secure_wipe(shared_secret, sizeof(shared_secret));
-    ctx->session_established = true;
-    return PROV_STATUS_SUCCESS;
+    plat_ble_advertise();
 }
 
-/* Розшифрування корисного навантаження SSID та Password на характеристиці prov-config */
-prov_status_t prov_handle_config_write(prov_crypto_context_t *ctx,
-                                       const uint8_t *encrypted_payload, size_t payload_len,
-                                       wifi_credentials_t *out_creds)
+/* Сповіщення на prov-config: [статус 1][IPv4 4] — влазить навіть у базові 20 байтів. */
+static void notify_status(prov_status_t status, uint32_t ipv4, bool with_ip)
 {
-    if (!ctx->session_established) {
-        return PROV_STATUS_AUTH_FAIL;
+    uint8_t frame[5];
+    size_t len = 0;
+
+    frame[len++] = (uint8_t)status;
+    if (with_ip) {
+        frame[len++] = (uint8_t)(ipv4 >> 24);
+        frame[len++] = (uint8_t)(ipv4 >> 16);
+        frame[len++] = (uint8_t)(ipv4 >> 8);
+        frame[len++] = (uint8_t)(ipv4);
+    }
+    if (len > att_mtu_payload(g_mtu)) {
+        len = att_mtu_payload(g_mtu);
+    }
+    plat_ble_notify(PROV_UUID_CONFIG, frame, len);
+}
+
+static void ble_linger_expired(void)
+{
+    prov_session_reset(&g_session);
+    att_reasm_cancel(&g_reasm);
+    plat_ble_shutdown();            /* радіо вимкнене, RAM стека — застосунку */
+}
+
+static void handle_session_write(const uint8_t *data, size_t len)
+{
+    prov_status_t st = prov_session_handshake(&g_session, data, len,
+                                              g_session_resp, &g_session_resp_len);
+    if (st != PROV_STATUS_SUCCESS) {
+        prov_secure_wipe(g_session_resp, sizeof(g_session_resp));
+        g_session_resp_len = 0;
+        notify_status(st, 0, false);
+    }
+    /* За успіху клієнт забирає відповідь читанням prov-session. */
+}
+
+static void handle_config_write(const uint8_t *data, size_t len)
+{
+    prov_credentials_t creds;
+    prov_status_t st = prov_session_config(&g_session, data, len, &creds);
+    if (st != PROV_STATUS_SUCCESS) {
+        notify_status(st, 0, false);
+        return;
     }
 
-    if (payload_len <= (CRYPTO_NONCE_SIZE + CRYPTO_TAG_SIZE)) {
-        return PROV_STATUS_INVALID_LEN;
+    /* У NVS кладемо не зараз, а лише коли точка доступу справді пустила. */
+    memcpy(&g_pending, &creds, sizeof(g_pending));
+    prov_secure_wipe(&creds, sizeof(creds));
+    plat_wifi_connect(g_pending.ssid, g_pending.password);
+}
+
+static void dispatch_write(uint16_t char_uuid, const uint8_t *data, size_t len)
+{
+    switch (char_uuid) {
+    case PROV_UUID_SESSION: handle_session_write(data, len); break;
+    case PROV_UUID_CONFIG:  handle_config_write(data, len);  break;
+    default: break;         /* чужий атрибут — не наша характеристика */
     }
+}
 
-    const uint8_t *nonce = encrypted_payload;
-    const uint8_t *tag = encrypted_payload + CRYPTO_NONCE_SIZE;
-    const uint8_t *ciphertext = encrypted_payload + CRYPTO_NONCE_SIZE + CRYPTO_TAG_SIZE;
-    size_t cipher_len = payload_len - CRYPTO_NONCE_SIZE - CRYPTO_TAG_SIZE;
+void prov_on_connect(void)
+{
+    g_mtu = ATT_MTU_DEFAULT;        /* до узгодження живемо на базовому кадрі */
+    att_reasm_cancel(&g_reasm);
+}
 
-    uint8_t plaintext[MAX_SSID_LEN + MAX_PASSPHRASE_LEN + 4];
-    if (cipher_len >= sizeof(plaintext)) {
-        return PROV_STATUS_INVALID_LEN;
+uint16_t prov_on_mtu_exchange(uint16_t client_mtu)
+{
+    g_mtu = att_mtu_negotiate(client_mtu);
+    return g_mtu;                   /* стек відповість цим значенням клієнту */
+}
+
+void prov_on_gatt_write(uint16_t char_uuid, const uint8_t *data, size_t len)
+{
+    dispatch_write(char_uuid, data, len);
+}
+
+uint16_t prov_on_gatt_read(uint16_t char_uuid, uint8_t *out, uint16_t max_len)
+{
+    if (char_uuid != PROV_UUID_SESSION || g_session_resp_len == 0) {
+        return 0;
     }
-
-    /* Автентифіковане розшифрування AES-GCM */
-    if (!crypto_aes_gcm_decrypt(ctx->session_key, nonce, tag, ciphertext, cipher_len, plaintext)) {
-        return PROV_STATUS_CRYPTO_FAIL;
+    uint16_t len = (uint16_t)g_session_resp_len;
+    if (len > max_len) {
+        len = max_len;              /* довге читання клієнт добере за зміщенням */
     }
+    memcpy(out, g_session_resp, len);
+    return len;
+}
 
-    /* Формат TLV: [SSID_Len:1B][SSID][Pass_Len:1B][Password] */
-    uint8_t ssid_len = plaintext[0];
-    if (ssid_len > MAX_SSID_LEN || (1 + ssid_len) >= cipher_len) {
-        return PROV_STATUS_INVALID_LEN;
+uint8_t prov_on_prepare_write(uint16_t char_uuid, uint16_t offset,
+                              const uint8_t *value, size_t len)
+{
+    return att_reasm_prepare(&g_reasm, char_uuid, offset, value, len);
+}
+
+uint8_t prov_on_execute_write(bool commit)
+{
+    uint16_t uuid = 0;
+    const uint8_t *value = NULL;
+    size_t len = 0;
+
+    uint8_t err = att_reasm_execute(&g_reasm, commit, &uuid, &value, &len);
+    if (err == ATT_ERR_NONE && len > 0) {
+        dispatch_write(uuid, value, len);
     }
-    memcpy(out_creds->ssid, &plaintext[1], ssid_len);
-    out_creds->ssid[ssid_len] = '\0';
+    att_reasm_cancel(&g_reasm);     /* зібране значення вже спожите */
+    return err;
+}
 
-    uint8_t pass_len = plaintext[1 + ssid_len];
-    if (pass_len > MAX_PASSPHRASE_LEN || (2 + ssid_len + pass_len) > cipher_len) {
-        return PROV_STATUS_INVALID_LEN;
+void prov_on_wifi_event(plat_wifi_event_t event, uint32_t ipv4)
+{
+    switch (event) {
+    case PLAT_WIFI_CONNECTED:
+        if (!plat_nvs_store_credentials(g_pending.ssid, g_pending.password)) {
+            notify_status(PROV_STATUS_STORAGE_FAIL, 0, false);
+            break;
+        }
+        notify_status(PROV_STATUS_SUCCESS, ipv4, true);
+        prov_secure_wipe(&g_pending, sizeof(g_pending));
+        g_provisioned = true;
+        plat_timer_once(PROV_BLE_LINGER_MS, ble_linger_expired);
+        break;
+
+    case PLAT_WIFI_AUTH_FAILED:
+        /* Сесію тримаємо відкритою: клієнт виправить пароль без нового пошуку. */
+        plat_wifi_stop();
+        prov_secure_wipe(&g_pending, sizeof(g_pending));
+        notify_status(PROV_STATUS_AUTH_FAIL, 0, false);
+        break;
+
+    case PLAT_WIFI_NO_AP:
+    case PLAT_WIFI_TIMEOUT:
+    default:
+        plat_wifi_stop();
+        prov_secure_wipe(&g_pending, sizeof(g_pending));
+        notify_status(PROV_STATUS_STATION_TIMEOUT, 0, false);
+        break;
     }
-    memcpy(out_creds->password, &plaintext[2 + ssid_len], pass_len);
-    out_creds->password[pass_len] = '\0';
+}
 
-    /* Безпечне затирання буфера відкритого тексту */
-    secure_wipe(plaintext, sizeof(plaintext));
-    return PROV_STATUS_SUCCESS;
+void prov_on_disconnect(uint8_t hci_reason)
+{
+    (void)hci_reason;               /* 0x08 — таймаут нагляду; для нас усі розриви однакові */
+
+    att_reasm_cancel(&g_reasm);
+    prov_secure_wipe(g_session_resp, sizeof(g_session_resp));
+    g_session_resp_len = 0;
+    prov_secure_wipe(&g_pending, sizeof(g_pending));
+    prov_session_reset(&g_session);
+    g_mtu = ATT_MTU_DEFAULT;
+
+    if (g_provisioned) {
+        plat_ble_shutdown();
+    } else {
+        plat_wifi_stop();           /* незавершена перевірка пароля нікому не потрібна */
+        plat_ble_advertise();       /* назад у рекламу — сесія не зависає напіввідкритою */
+    }
 }

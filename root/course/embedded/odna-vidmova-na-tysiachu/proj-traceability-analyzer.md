@@ -64,9 +64,49 @@
 
 Нижче наведено повні та готові до компіляції реалізації аналізатора двома системними мовами програмування.
 
+Модель даних: плата, походження кожного компонента й вікно життя котушки в живильнику.
+
+:::tabs
+:::code proj-traceability-analyzer/c/genealogy.h
+:::code proj-traceability-analyzer/cpp/src/production_log.hpp
+:::
+
+Фаза індексації та парсингу: читання трьох CSV-потоків фабрики й зшивання генеалогії за міткою часу сканування, разом із розміткою зон склейки стрічок.
+
+:::tabs
+:::code proj-traceability-analyzer/c/genealogy.c
+:::code proj-traceability-analyzer/cpp/src/production_log.cpp
+:::
+
+Статистичний рушій: точний тест Фішера через `lgamma()`, відношення шансів із довірчим інтервалом, поправка на множинність і стратифікований критерій Мантеля — Гензеля.
+
+:::tabs
+:::code proj-traceability-analyzer/c/stats.h
+:::code proj-traceability-analyzer/cpp/src/statistics.hpp
+:::
+
+:::tabs
+:::code proj-traceability-analyzer/c/stats.c
+:::code proj-traceability-analyzer/cpp/src/statistics.cpp
+:::
+
+Фази підрахунку матриць, фільтрації та формування карантинного списку: перебір усіх факторів BOM і процесу, ранжування знахідок, розділення спарених факторів, експорт серійних номерів.
+
+:::tabs
+:::code proj-traceability-analyzer/c/analyzer.h
+:::code proj-traceability-analyzer/cpp/src/analyzer.hpp
+:::
+
+:::tabs
+:::code proj-traceability-analyzer/c/analyzer.c
+:::code proj-traceability-analyzer/cpp/src/analyzer.cpp
+:::
+
+Точка входу: або три файли журналів фабрики, або ключ `--demo` із синтетичним випуском на 20 000 плат, де дефектну котушку конденсаторів доїдали переважно на другій лінії.
+
 :::tabs
 :::code proj-traceability-analyzer/c/main.c
-:::code proj-traceability-analyzer/cpp/main.cpp
+:::code proj-traceability-analyzer/cpp/src/main.cpp
 :::
 
 ## Інженерні пастки розробки аналізаторів генеалогії

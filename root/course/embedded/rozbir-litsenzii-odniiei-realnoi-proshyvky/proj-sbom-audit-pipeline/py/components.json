@@ -1,0 +1,171 @@
+{
+  "product": {
+    "name": "FlightController-MainFirmware",
+    "version": "3.2.0-release",
+    "supplier": "Aerospace Dynamics Inc.",
+    "type": "firmware"
+  },
+
+  "policy": {
+    "_comment": "Заборонені ліцензії для комерційного пристрою з закритою прошивкою.",
+    "banned_license_ids": [
+      "GPL-2.0-only", "GPL-2.0-or-later",
+      "GPL-3.0-only", "GPL-3.0-or-later",
+      "AGPL-3.0-only", "AGPL-3.0-or-later",
+      "SSPL-1.0"
+    ],
+    "_comment_exceptions": "libgcc.a — це GPL-3.0 з винятком для runtime-бібліотеки. Без цього списку шлюз завалював би КОЖНУ збірку arm-none-eabi.",
+    "allowed_exceptions": [
+      "GCC-exception-3.1",
+      "LLVM-exception",
+      "Classpath-exception-2.0"
+    ],
+    "_comment_prefixes": "Префікси символів, поява яких у прошивці підозріла: якщо префікс не належить жодному задекларованому компоненту — UNREGISTERED_SYMBOL_DETECTED.",
+    "watch_symbol_prefixes": {
+      "gpl_": "код, явно позначений автором як GPL",
+      "gmp_": "GNU MP — LGPL-3.0/GPL-2.0",
+      "__gmp": "GNU MP — LGPL-3.0/GPL-2.0",
+      "ff_": "FatFS або FFmpeg — залежно від походження",
+      "avcodec_": "FFmpeg — LGPL-2.1+, окремі модулі GPL",
+      "uz_": "uzlib/tinf — перевірити походження"
+    },
+    "first_party_patterns": [
+      "^Core/",
+      "^App/",
+      "^Autopilot/",
+      "\\bmain\\.o$",
+      "\\bstartup_stm32[\\w]*\\.o$"
+    ]
+  },
+
+  "components": {
+    "freertos": {
+      "name": "FreeRTOS Kernel",
+      "version": "10.5.1",
+      "supplier": "Amazon Web Services",
+      "purl": "pkg:generic/freertos@10.5.1",
+      "license": { "id": "MIT" },
+      "object_patterns": [
+        "Middlewares/FreeRTOS/",
+        "libfreertos\\.a",
+        "\\b(tasks|queue|list|timers|heap_4|port)\\.o$"
+      ],
+      "symbol_prefixes": ["vTask", "xTask", "xQueue", "xEventGroup", "pvPort", "vPort"],
+      "notice_required": true
+    },
+
+    "lwip": {
+      "name": "lwIP — Lightweight IP stack",
+      "version": "2.2.0",
+      "supplier": "Swedish Institute of Computer Science",
+      "purl": "pkg:generic/lwip@2.2.0",
+      "license": { "id": "BSD-3-Clause" },
+      "object_patterns": [
+        "Middlewares/lwip/",
+        "liblwip\\.a",
+        "\\b(tcp|tcp_in|tcp_out|udp|ip4|ip4_addr|etharp|pbuf|netif)\\.o$"
+      ],
+      "symbol_prefixes": ["lwip_", "tcp_", "udp_", "pbuf_", "netif_", "etharp_"],
+      "depends_on": ["freertos"],
+      "notice_required": true
+    },
+
+    "mbedtls": {
+      "name": "Mbed TLS",
+      "version": "3.4.1",
+      "supplier": "TrustedFirmware.org",
+      "purl": "pkg:generic/mbedtls@3.4.1",
+      "license": { "id": "Apache-2.0" },
+      "object_patterns": [
+        "Middlewares/mbedTLS/",
+        "libmbedcrypto\\.a",
+        "\\b(aes|sha256|sha512|ssl_tls|x509_crt|ctr_drbg|entropy)\\.o$"
+      ],
+      "symbol_prefixes": ["mbedtls_", "psa_"],
+      "_comment": "Транзитивно тягне апаратне прискорення CMSIS-DSP і м'ютекси FreeRTOS.",
+      "depends_on": ["cmsis_core", "freertos"],
+      "notice_required": true
+    },
+
+    "fatfs": {
+      "name": "FatFs — Generic FAT Filesystem Module",
+      "version": "R0.15",
+      "supplier": "ChaN",
+      "purl": "pkg:generic/fatfs@R0.15",
+      "license": { "name": "FatFs License (BSD-style, 1-clause)" },
+      "object_patterns": [
+        "Middlewares/FatFs/",
+        "\\b(ff|ffsystem|ffunicode|diskio)\\.o$"
+      ],
+      "symbol_prefixes": ["f_", "ff_", "disk_"],
+      "notice_required": true
+    },
+
+    "cmsis_core": {
+      "name": "Arm CMSIS Core & DSP",
+      "version": "5.9.0",
+      "supplier": "Arm Limited",
+      "purl": "pkg:generic/arm-cmsis@5.9.0",
+      "license": { "id": "Apache-2.0" },
+      "object_patterns": [
+        "Drivers/CMSIS/",
+        "libarm_cortexM7lfsp_math\\.a",
+        "\\b(system_stm32h7xx|core_cm7|arm_[\\w]+)\\.o$"
+      ],
+      "symbol_prefixes": ["arm_", "SystemInit", "SystemCoreClock"],
+      "notice_required": true
+    },
+
+    "stm32_hal": {
+      "name": "STM32CubeH7 HAL & LL Drivers",
+      "version": "1.11.0",
+      "supplier": "STMicroelectronics",
+      "purl": "pkg:generic/stm32cube-hal@1.11.0",
+      "license": { "id": "BSD-3-Clause" },
+      "object_patterns": [
+        "Drivers/STM32H7xx_HAL_Driver/",
+        "\\bstm32h7xx_(hal|ll)[\\w]*\\.o$"
+      ],
+      "symbol_prefixes": ["HAL_", "LL_"],
+      "generated_by": "STM32CubeMX 6.9",
+      "_comment": "Кодогенератор вимагає зберігати шапку ліцензії в згенерованих .c/.h, зокрема в stm32h7xx_hal_msp.c нашого Core/.",
+      "generated_notice": "Файли, згенеровані STM32CubeMX (Core/Src/*_hal_msp.c, Core/Src/main.c), містять ліцензійну шапку STMicroelectronics і не можуть бути опубліковані без неї.",
+      "notice_required": true
+    },
+
+    "vendor_phy_blob": {
+      "name": "Wi-Fi PHY & Coexistence Driver (binary blob)",
+      "version": "2.4.18",
+      "supplier": "Silicon Vendor Corp",
+      "purl": "pkg:generic/vendor-phy-blob@2.4.18",
+      "license": { "name": "Proprietary — Vendor EULA (NDA, redistribution in object form only)" },
+      "object_patterns": ["libphy_wifi\\.a", "libcoexist\\.a"],
+      "symbol_prefixes": ["wphy_", "coex_"],
+      "notice_required": false
+    },
+
+    "libgcc": {
+      "name": "GCC low-level runtime library (libgcc)",
+      "version": "12.3.0",
+      "supplier": "Free Software Foundation",
+      "purl": "pkg:generic/libgcc@12.3.0",
+      "_comment": "Класична пастка наївного шлюзу: ліцензія містить GPL-3.0-or-later, але виняток GCC-exception-3.1 знімає копілефт з результату компіляції.",
+      "license": { "expression": "GPL-3.0-or-later WITH GCC-exception-3.1" },
+      "object_patterns": ["libgcc\\.a", "libgcc_[\\w]*\\.a"],
+      "symbol_prefixes": ["__aeabi_", "__udiv", "__divsi", "__muldi"],
+      "notice_required": false
+    },
+
+    "newlib_nano": {
+      "name": "Newlib-nano C library",
+      "version": "4.3.0",
+      "supplier": "Red Hat / Newlib maintainers",
+      "purl": "pkg:generic/newlib@4.3.0",
+      "license": { "expression": "BSD-3-Clause AND BSD-2-Clause AND LGPL-2.1-or-later" },
+      "_comment": "Newlib — збірна солянка ліцензій; LGPL стосується лише окремих модулів, і статичне лінкування вимагає надання об'єктників на запит.",
+      "object_patterns": ["libc_nano\\.a", "libm\\.a", "libnosys\\.a"],
+      "symbol_prefixes": ["_impure", "__sf", "sbrk"],
+      "notice_required": true
+    }
+  }
+}

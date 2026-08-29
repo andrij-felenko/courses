@@ -21,7 +21,19 @@
 
 Нижче наведено повний вихідний код оркестратора, який виконується в захищеному контейнері збірки:
 
-:::code proj-pipeline/py/main.py
+:::code proj-pipeline/py/release_orchestrator.py
+
+:::code proj-pipeline/py/release/config.py
+
+:::code proj-pipeline/py/release/gitgate.py
+
+:::code proj-pipeline/py/release/build.py
+
+:::code proj-pipeline/py/release/image.py
+
+:::code proj-pipeline/py/release/hsm.py
+
+:::code proj-pipeline/py/release/bundle.py
 
 ## Розбір роботи ключових блоків оркестратора
 
@@ -39,8 +51,28 @@
 Клієнтський парсер реалізовано з урахуванням обмежень мікроконтролерів: він не виділяє динамічну пам'ять, працює безпосередньо з вхідним буфером фіксованого розміру та виконує перевірку вирівнювання структур по 4-байтній межі:
 
 :::tabs
+:::code proj-pipeline/c/image_header.h
+:::code proj-pipeline/cpp/include/release/header.hpp
+:::
+
+:::tabs
+:::code proj-pipeline/c/image_header.c
+:::code proj-pipeline/cpp/src/header.cpp
+:::
+
+:::tabs
+:::code proj-pipeline/c/image_verify.h
+:::code proj-pipeline/cpp/include/release/verifier.hpp
+:::
+
+:::tabs
+:::code proj-pipeline/c/image_verify.c
+:::code proj-pipeline/cpp/src/verifier.cpp
+:::
+
+:::tabs
 :::code proj-pipeline/c/main.c
-:::code proj-pipeline/cpp/main.cpp
+:::code proj-pipeline/cpp/src/main.cpp
 :::
 
 Реалізація на мові C++ використовує сучасні безпечні конструкції `std::span` та `std::expected` згідно зі стандартом C++23. Це повністю усуває можливість передачі невалідних покажчиків чи помилок з виходом за межі пам'яті, які є класичним джерелом вразливостей під час розбору бінарних пакетів у вбудованому ПЗ.

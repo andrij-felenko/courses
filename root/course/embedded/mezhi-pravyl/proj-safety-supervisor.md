@@ -30,6 +30,33 @@
 
 ### Реалізація: C та ідіоматичний C++
 
+Контракт модуля — команда, знімок давачів, статус фільтра й самі фізичні межі:
+
+:::tabs
+:::code proj-safety-supervisor/c/supervisor.h
+:::code proj-safety-supervisor/cpp/supervisor.hpp
+:::
+
+Чорна скринька — кільцевий буфер епізодів у статичній памʼяті:
+
+:::tabs
+:::code proj-safety-supervisor/c/blackbox.h
+:::code proj-safety-supervisor/cpp/blackbox.hpp
+:::
+
+У C реалізація буфера лежить окремо; у C++ шаблон із `std::array` лишається в заголовку:
+
+:::code proj-safety-supervisor/c/blackbox.c
+
+Сам фільтр — один такт жорсткого циклу:
+
+:::tabs
+:::code proj-safety-supervisor/c/supervisor.c
+:::code proj-safety-supervisor/cpp/supervisor.cpp
+:::
+
+Прогін на моделі: планувальник просить повний хід, а сценарій по черзі гасить далекомір, садить батарею, заморожує планувальник, виводить машину на схил і тисне кнопку:
+
 :::tabs
 :::code proj-safety-supervisor/c/main.c
 :::code proj-safety-supervisor/cpp/main.cpp

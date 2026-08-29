@@ -94,8 +94,8 @@ C_out ≥ (0.350 А · 3.18 · 10⁻⁶ с) / 0.100 В = 11.13 · 10⁻⁶ Ф = 
 Нижче наведено реалізацію кінцевого автомата секвенсера живлення на C та C++.
 
 :::tabs
-:::code proj-power-tree-budget/c/power_sequencer.h
-:::code proj-power-tree-budget/cpp/power_sequencer.hpp
+:::code proj-power-tree-budget/c/power_sequencer.c
+:::code proj-power-tree-budget/cpp/sequencer.hpp
 :::
 
 ---

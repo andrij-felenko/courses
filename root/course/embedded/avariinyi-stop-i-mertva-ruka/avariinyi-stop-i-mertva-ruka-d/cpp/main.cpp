@@ -1,198 +1,311 @@
-#include <cstdint>
-#include <chrono>
-#include <concepts>
+// Стенд контролера безпеки.
+// Тут живе реалізація Hal поверх моделі проводки: тестові виходи, контакти
+// грибка, місця замикань, котушки контакторів із їхньою механічною затримкою
+// та дзеркальні NC-контакти петлі EDM. Модель потрібна, щоб дефекти, заради
+// яких написано діагностику, можна було внести навмисно — на живому верстаті
+// міжканальне замикання не влаштовують.
 
-enum class SafetyState : uint8_t {
-    SafeDisarmed,
-    Armed,
-    TrippedEstop,
-    TrippedDeadman,
-    FaultCrossCircuit,
-    FaultShortPower,
-    FaultDiscordance,
-    FaultEdm
-};
+#include <array>
+#include <format>
+#include <iostream>
+#include <string_view>
 
-enum class DeadmanPosition : uint8_t {
-    Released = 0,
-    Enabled  = 1,
-    Panic    = 2
-};
+#include "supervisor.hpp"
 
-template <typename HardwareDriver>
-class SafetySystem {
+namespace {
+
+using namespace safety;
+
+constexpr Millis kContactorDelay{15};   // час відпускання якоря контактора
+
+class Bench final : public Hal {
 public:
-    using Milliseconds = std::chrono::milliseconds;
-    using Microseconds = std::chrono::microseconds;
+    // Стан проводки, яким крутять сценарії.
+    std::array<bool, 2> contactClosed{true, true};    // контакти грибка
+    std::array<bool, 2> shortToSupply{false, false};  // лінія на +24 В
+    bool crossCircuit{false};                         // лінії зрощені між собою
+    bool contactorWelded{false};                      // силовий контакт K1 приварився
 
-    static constexpr Milliseconds PulsePeriod{20};
-    static constexpr Microseconds PulseDuration{300};
-    static constexpr Milliseconds DiscrepancyLimit{100};
-    static constexpr Milliseconds VigilanceLimit{30000};
-    static constexpr Milliseconds VigilanceWarnLimit{3000};
+    EnablingContacts enabling{.circuitA = false, .circuitB = false, .panicClosed = true};
+    bool resetButton{};
+    bool ackButton{};
+    bool operatorBusy{};
 
-    explicit SafetySystem(HardwareDriver& hw)
-        : hw_{hw}
+    bool lamp{};
+    bool buzzer{};
+
+    void tick()
     {
-        hw_.setTestPulse(1, true);
-        hw_.setTestPulse(2, true);
-        hw_.setPowerRelays(false);
-    }
-
-    void process(DeadmanPosition rawDeadman, bool resetRequested, Milliseconds deltaTime) {
-        pulseTimer_ += deltaTime;
-        if (pulseTimer_ >= PulsePeriod) {
-            pulseTimer_ = Milliseconds{0};
-            if (!performPulseTest()) {
-                disarm();
-                return;
-            }
-        }
-
-        const bool ch1 = hw_.readInput(1);
-        const bool ch2 = hw_.readInput(2);
-
-        // Контроль розбіжності сигналів подвійного каналу E-Stop
-        if (ch1 != ch2) {
-            if (!discordanceActive_) {
-                discordanceActive_ = true;
-                discrepancyTimer_ = Milliseconds{0};
-            } else {
-                discrepancyTimer_ += deltaTime;
-                if (discrepancyTimer_ > DiscrepancyLimit) {
-                    state_ = SafetyState::FaultDiscordance;
-                    disarm();
-                    return;
-                }
-            }
-        } else {
-            discordanceActive_ = false;
-            discrepancyTimer_ = Milliseconds{0};
-        }
-
-        const bool estopValid = (ch1 && ch2 && !discordanceActive_);
-
-        // Обробка кінематики мертвої руки за IEC 60947-5-8
-        updateDeadmanLogic(rawDeadman, deltaTime);
-
-        // Кінцевий автомат станів
-        switch (state_) {
-            case SafetyState::SafeDisarmed:
-            case SafetyState::TrippedEstop:
-            case SafetyState::TrippedDeadman:
-                if (!estopValid) {
-                    state_ = SafetyState::TrippedEstop;
-                } else if (deadmanState_ != DeadmanPosition::Enabled) {
-                    state_ = SafetyState::TrippedDeadman;
-                } else if (resetRequested) {
-                    if (hw_.readEdmFeedback()) {
-                        state_ = SafetyState::Armed;
-                        hw_.setPowerRelays(true);
-                    } else {
-                        state_ = SafetyState::FaultEdm;
-                    }
-                }
-                break;
-
-            case SafetyState::Armed:
-                if (!estopValid) {
-                    state_ = SafetyState::TrippedEstop;
-                    disarm();
-                } else if (deadmanState_ != DeadmanPosition::Enabled) {
-                    state_ = SafetyState::TrippedDeadman;
-                    disarm();
-                }
-                break;
-
-            case SafetyState::FaultCrossCircuit:
-            case SafetyState::FaultShortPower:
-            case SafetyState::FaultDiscordance:
-            case SafetyState::FaultEdm:
-                disarm();
-                break;
+        clock_ += Millis{1};
+        // Дзеркальні контакти йдуть слідом за котушкою, але не миттєво.
+        // Приварений силовий контакт тримає свій NC розімкненим назавжди.
+        if (now() - coilSince_ >= kContactorDelay) {
+            mirrorClosed_ = !coilOn_ && !contactorWelded;
         }
     }
 
-    [[nodiscard]] SafetyState state() const noexcept { return state_; }
-    [[nodiscard]] bool isArmed() const noexcept { return state_ == SafetyState::Armed; }
-    [[nodiscard]] bool isVigilanceWarning() const noexcept { return vigilanceWarning_; }
+    void setTestOutput(Channel ch, bool high) override { testOut_[index(ch)] = high; }
+
+    bool readEstopInput(Channel ch) const override
+    {
+        Drive drive = lineDrive(ch);
+
+        if (crossCircuit) {
+            // Зрощені лінії — один вузол. Двотактний вихід, що тягне вниз,
+            // перемагає: саме тому чужий імпульс видно на обох входах.
+            const Drive neighbour = lineDrive(other(ch));
+            if (neighbour == Drive::Low) {
+                drive = Drive::Low;
+            } else if (neighbour == Drive::High && drive == Drive::None) {
+                drive = Drive::High;
+            }
+            if (shortToSupply[index(other(ch))]) {
+                return true;
+            }
+        }
+
+        if (shortToSupply[index(ch)]) {
+            return true;   // стороннє живлення дужче за тестовий вихід
+        }
+        return drive == Drive::High;
+    }
+
+    bool readEdmLoop() const override { return mirrorClosed_; }
+
+    void setContactors(bool energize) override
+    {
+        if (coilOn_ != energize) {
+            coilOn_ = energize;
+            coilSince_ = now();
+        }
+    }
+
+    EnablingContacts readEnablingContacts() const override { return enabling; }
+    bool readResetButton() const override { return resetButton; }
+    bool readAckButton() const override { return ackButton; }
+    bool operatorActive() const override { return operatorBusy; }
+
+    void setLamp(bool on) override { lamp = on; }
+    void setBuzzer(bool on) override { buzzer = on; }
+
+    // Тестовий імпульс з'їдає справжній час циклу.
+    void busyWait(Micros duration) override { clock_ += duration; }
+
+    Millis now() const override { return std::chrono::duration_cast<Millis>(clock_); }
 
 private:
-    void disarm() noexcept {
-        hw_.setPowerRelays(false);
+    // Чим лінія керується просто зараз. Розімкнений контакт лишає вхід
+    // висіти на підтяжці вниз, замкнений — під двотактним тестовим виходом.
+    enum class Drive { None, Low, High };
+
+    Drive lineDrive(Channel ch) const
+    {
+        if (!contactClosed[index(ch)]) {
+            return Drive::None;
+        }
+        return testOut_[index(ch)] ? Drive::High : Drive::Low;
     }
 
-    bool performPulseTest() {
-        // Канал 1
-        hw_.setTestPulse(1, false);
-        hw_.delayUs(PulseDuration.count());
-        const bool ch1T1Low = hw_.readInput(1);
-        const bool ch2T1Low = hw_.readInput(2);
-        hw_.setTestPulse(1, true);
-
-        if (ch1T1Low) {
-            state_ = SafetyState::FaultShortPower;
-            return false;
-        }
-        if (!ch2T1Low) {
-            state_ = SafetyState::FaultCrossCircuit;
-            return false;
-        }
-
-        hw_.delayUs(100);
-
-        // Канал 2 (зсув фази)
-        hw_.setTestPulse(2, false);
-        hw_.delayUs(PulseDuration.count());
-        const bool ch1T2Low = hw_.readInput(1);
-        const bool ch2T2Low = hw_.readInput(2);
-        hw_.setTestPulse(2, true);
-
-        if (ch2T2Low) {
-            state_ = SafetyState::FaultShortPower;
-            return false;
-        }
-        if (!ch1T2Low) {
-            state_ = SafetyState::FaultCrossCircuit;
-            return false;
-        }
-
-        return true;
-    }
-
-    void updateDeadmanLogic(DeadmanPosition rawPos, Milliseconds dt) {
-        if (rawPos == DeadmanPosition::Panic) {
-            panicLatch_ = true;
-            deadmanState_ = DeadmanPosition::Panic;
-        } else if (rawPos == DeadmanPosition::Released) {
-            panicLatch_ = false;
-            deadmanState_ = DeadmanPosition::Released;
-        } else if (rawPos == DeadmanPosition::Enabled) {
-            deadmanState_ = panicLatch_ ? DeadmanPosition::Panic : DeadmanPosition::Enabled;
-        }
-
-        if (deadmanState_ == DeadmanPosition::Enabled) {
-            vigilanceTimer_ += dt;
-            if (vigilanceTimer_ >= VigilanceLimit) {
-                state_ = SafetyState::TrippedDeadman;
-                disarm();
-            } else {
-                vigilanceWarning_ = (vigilanceTimer_ >= (VigilanceLimit - VigilanceWarnLimit));
-            }
-        } else {
-            vigilanceTimer_ = Milliseconds{0};
-            vigilanceWarning_ = false;
-        }
-    }
-
-    HardwareDriver& hw_;
-    SafetyState state_{SafetyState::SafeDisarmed};
-    DeadmanPosition deadmanState_{DeadmanPosition::Released};
-    bool panicLatch_{false};
-    bool discordanceActive_{false};
-    bool vigilanceWarning_{false};
-
-    Milliseconds pulseTimer_{0};
-    Milliseconds discrepancyTimer_{0};
-    Milliseconds vigilanceTimer_{0};
+    std::array<bool, 2> testOut_{true, true};
+    Micros clock_{0};
+    Millis coilSince_{0};
+    bool   coilOn_{};
+    bool   mirrorClosed_{true};
 };
+
+// Один прогін сценарію: свіжий стенд, свіжий наглядач, друк подій.
+class Rig {
+public:
+    explicit Rig(std::string_view title)
+    {
+        std::cout << std::format("\n=== {} ===\n", title);
+        report(true);
+    }
+
+    void step(Millis span)
+    {
+        for (Millis i{0}; i < span; i += Millis{1}) {
+            bench_.tick();
+            sup_.poll();
+            report(false);
+        }
+    }
+
+    void gripEnable()  { bench_.enabling = {.circuitA = true,  .circuitB = true,  .panicClosed = true}; }
+    void gripRelease() { bench_.enabling = {.circuitA = false, .circuitB = false, .panicClosed = true}; }
+    void gripPanic()   { bench_.enabling = {.circuitA = false, .circuitB = false, .panicClosed = false}; }
+
+    void pressReset()
+    {
+        bench_.resetButton = true;
+        step(Millis{10});
+        bench_.resetButton = false;
+        step(Millis{10});
+    }
+
+    void hitMushroom()     { bench_.contactClosed = {false, false}; }
+    void releaseMushroom() { bench_.contactClosed = {true, true}; }
+
+    Bench& io() noexcept { return bench_; }
+
+private:
+    void report(bool force)
+    {
+        const State st = sup_.state();
+        const bool out = sup_.outputsOn();
+
+        if (!force && st == lastState_ && out == lastOut_
+            && bench_.lamp == lastLamp_ && bench_.buzzer == lastBuzzer_) {
+            return;
+        }
+
+        std::cout << std::format("  {:6} мс   K1/K2 {}   {}{}{}\n",
+                                 bench_.now().count(),
+                                 out ? "ON " : "off",
+                                 describe(st),
+                                 bench_.lamp ? "   [лампа]" : "",
+                                 bench_.buzzer ? "   [зумер]" : "");
+
+        lastState_ = st;
+        lastOut_ = out;
+        lastLamp_ = bench_.lamp;
+        lastBuzzer_ = bench_.buzzer;
+    }
+
+    Bench      bench_{};
+    Supervisor sup_{bench_};
+    State      lastState_{State::Idle};
+    bool       lastOut_{};
+    bool       lastLamp_{};
+    bool       lastBuzzer_{};
+};
+
+void scenarioNormalCycle()
+{
+    Rig rig{"Штатний пуск, удар по грибку, повторний пуск"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();               // контур цілий, петля EDM замкнена → пуск
+    rig.step(Millis{100});
+
+    rig.hitMushroom();              // Категорія 0
+    rig.step(Millis{150});
+
+    rig.releaseMushroom();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{100});
+}
+
+void scenarioDiscordance()
+{
+    Rig rig{"Розбіжність каналів: перекіс контактного блока"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{100});
+
+    rig.io().contactClosed[index(Channel::A)] = false;   // розімкнувся лише канал A
+    rig.step(Millis{300});
+}
+
+void scenarioShortToSupply()
+{
+    Rig rig{"Замикання лінії каналу A на шину +24 В"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+
+    rig.io().shortToSupply[index(Channel::A)] = true;    // перетерта ізоляція
+    rig.step(Millis{100});
+}
+
+void scenarioCrossCircuit()
+{
+    Rig rig{"Міжканальне замикання лінії A на лінію B"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+
+    rig.io().crossCircuit = true;
+    rig.step(Millis{100});
+}
+
+void scenarioWeldedContactor()
+{
+    Rig rig{"Зварений силовий контакт K1: петля EDM не замикається"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+
+    rig.io().contactorWelded = true;   // дуга зварила контакт під навантаженням
+    rig.hitMushroom();
+    rig.step(Millis{400});             // K2 розірвав живлення, EDM зафіксував K1
+
+    rig.releaseMushroom();
+    rig.step(Millis{30});
+    rig.pressReset();                  // повторний пуск заблоковано
+    rig.step(Millis{50});
+}
+
+void scenarioPanicRelease()
+{
+    Rig rig{"Панічне стискання і зворотний хід крізь Позицію 2"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+
+    rig.gripPanic();      // Позиція 3: судомне стискання
+    rig.step(Millis{50});
+
+    rig.gripEnable();     // рука розтискається, кнопка проходить Позицію 2
+    rig.step(Millis{30});
+    rig.pressReset();     // вмикання заборонено: блокування ще зведене
+    rig.step(Millis{50});
+
+    rig.gripRelease();    // повне повернення в Позицію 1 знімає блокування
+    rig.step(Millis{30});
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+}
+
+void scenarioVigilance()
+{
+    Rig rig{"Циклічний контроль пильності: лампа → зумер → зупинка"};
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+
+    rig.io().operatorBusy = true;    // оператор працює джойстиком
+    rig.step(Millis{20000});
+    rig.io().operatorBusy = false;   // і завмер
+    rig.step(Millis{51000});         // 45 с спокою + 2.5 с + 2.5 с
+
+    rig.gripRelease();               // лише повне відпускання знімає блокування
+    rig.step(Millis{30});
+    rig.gripEnable();
+    rig.step(Millis{30});
+    rig.pressReset();
+    rig.step(Millis{50});
+}
+
+}  // namespace
+
+int main()
+{
+    scenarioNormalCycle();
+    scenarioDiscordance();
+    scenarioShortToSupply();
+    scenarioCrossCircuit();
+    scenarioWeldedContactor();
+    scenarioPanicRelease();
+    scenarioVigilance();
+    return 0;
+}

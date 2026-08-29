@@ -1,133 +1,120 @@
+// Аварійний реєстратор у зборі: після кожного скидання прошивка спершу каже,
+// ЧОМУ вона перезапустилася, і лише потім береться до роботи.
 #include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
+
+#include "crash_dump.h"
+#include "crash_guard.h"
+#include "fault_handler.h"
+#include "fault_report.h"
 #include "stm32f4xx.h"
+#include "uart_sync.h"
 
-// Структура збереженого апаратурою базового кадру стека ARM Cortex-M
-typedef struct {
-    uint32_t r0;
-    uint32_t r1;
-    uint32_t r2;
-    uint32_t r3;
-    uint32_t r12;
-    uint32_t lr;
-    uint32_t pc;
-    uint32_t psr;
-} __attribute__((packed)) FaultStackFrame;
+#define SYSCLK_HZ 168000000u
+#define PCLK2_HZ 84000000u
 
-// Повний діагностичний дамп аварії для збереження в .noinit RAM
-typedef struct {
-    uint32_t magic;          // Маркер валідності дампу (0xDEADBEEF)
-    uint32_t crash_count;    // Лічильник послідовних падінь (Crash Loop Guard)
-    uint32_t reset_reason;   // Прапорці скидання RCC->CSR
-    uint32_t hfsr;           // SCB->HFSR
-    uint32_t cfsr;           // SCB->CFSR (UFSR + BFSR + MMFSR)
-    uint32_t mmfar;          // SCB->MMFAR
-    uint32_t bfar;           // SCB->BFAR
-    uint32_t shcsr;          // SCB->SHCSR
-    uint32_t exc_return;     // Значення LR на вході в обробник
-    FaultStackFrame frame;   // Регістри R0-R3, R12, LR, PC, PSR
-    uint32_t crc;            // Контрольна сума
-} CrashDump;
+#define RST_IWDG (1u << 29)
+#define RST_WWDG (1u << 30)
 
-#define CRASH_MAGIC 0xDEADBEEF
-#define MAX_CRASH_LOOP_THRESHOLD 3
+static volatile uint32_t g_uptime_ms;
 
-// Розміщення в секції .noinit, яка не очищається під час Reset
-__attribute__((section(".noinit")))
-static volatile CrashDump g_crash_dump;
+void SysTick_Handler(void)
+{
+    g_uptime_ms++;
+}
 
-// Проста реалізація контрольної суми для перевірки цілісності дампу
-static uint32_t CalcCRC32(const uint8_t *data, uint32_t length) {
-    uint32_t crc = 0xFFFFFFFF;
-    for (uint32_t i = 0; i < length; ++i) {
-        crc ^= data[i];
-        for (uint32_t j = 0; j < 8; ++j) {
-            if (crc & 1) {
-                crc = (crc >> 1) ^ 0xEDB88320;
-            } else {
-                crc >>= 1;
-            }
+// Чотири способи зламати чип — кожен вмикає свій біт CFSR, і звіт після
+// перезапуску показує, який саме.
+static void provoke_bus_fault(void)
+{
+    volatile uint32_t *bad = (volatile uint32_t *)0xCCCCCCCCu;
+    (void)*bad;
+}
+
+static void provoke_div_by_zero(void)
+{
+    volatile int zero = 0;
+    volatile int result = 42 / zero;
+    (void)result;
+}
+
+static void provoke_invalid_state(void)
+{
+    // Адреса без біта Thumb: ядро відмовиться туди переходити (INVSTATE).
+    void (*bad_call)(void) = (void (*)(void))0x20000000u;
+    bad_call();
+}
+
+static void provoke_unaligned(void)
+{
+    volatile uint32_t *odd = (volatile uint32_t *)0x20000002u;
+    *odd = 1u;
+}
+
+static void print_menu(void)
+{
+    (void)uart_sync_write(
+        "[menu] b - bus fault, d - ділення на нуль, i - INVSTATE, u - невирівняний доступ\r\n");
+}
+
+int main(void)
+{
+    uart_sync_init(PCLK2_HZ, 115200u);
+
+    // Вмикаємо окремі вектори якнайраніше: аварія під час ініціалізації
+    // периферії — найчастіший випадок, і саме її найважче зловити.
+    fault_handler_init();
+
+    // Знімок причини скидання робимо ДО RMVF: прапорці накопичуються, і без
+    // очищення наступний старт покаже суміш із двох перезапусків.
+    const uint32_t reset_flags = RCC->CSR;
+    RCC->CSR |= RCC_CSR_RMVF;
+
+    (void)uart_sync_write("\r\n===== старт прошивки =====\r\n");
+    fault_report_reset_cause(reset_flags);
+
+    static crash_dump_t dump; // статичний: у main теж не роздуваємо стек
+    if (crash_dump_take(&dump)) {
+        fault_report_dump(&dump);
+    } else if ((reset_flags & (RST_IWDG | RST_WWDG)) != 0u) {
+        // Сторожовий таймер зупинив зависання — дампу немає, бо HardFault не
+        // спрацьовував. Але перезапуск усе одно аварійний, і його треба
+        // порахувати, інакше зависання проскочить повз захист від циклу.
+        (void)crash_dump_bump_counter();
+        (void)uart_sync_write("[crash] скидання сторожовим таймером, дампу немає\r\n");
+    } else {
+        (void)uart_sync_write("[crash] дампу немає — минулий сеанс завершився штатно\r\n");
+    }
+
+    if (crash_guard_decide() == BOOT_SAFE) {
+        crash_guard_safe_mode(); // не повертається
+    }
+
+    SysTick_Config(SYSCLK_HZ / 1000u);
+    print_menu();
+
+    for (;;) {
+        crash_guard_mark_healthy(g_uptime_ms);
+
+        char cmd = 0;
+        if (!uart_sync_read(&cmd)) {
+            continue;
+        }
+        switch (cmd) {
+        case 'b':
+            provoke_bus_fault();
+            break;
+        case 'd':
+            provoke_div_by_zero();
+            break;
+        case 'i':
+            provoke_invalid_state();
+            break;
+        case 'u':
+            provoke_unaligned();
+            break;
+        default:
+            print_menu();
+            break;
         }
     }
-    return ~crc;
-}
-
-// Прямий синхронний вивід символу через UART (без переривань і DMA!)
-static void UART_SendCharBlocking(char c) {
-    // Очікуємо готовності передавача (TXE прапорець)
-    while (!(USART1->SR & USART_SR_TXE)) {}
-    USART1->DR = (uint8_t)c;
-}
-
-static void UART_SendStringBlocking(const char *str) {
-    while (*str) {
-        UART_SendCharBlocking(*str++);
-    }
-}
-
-// C-частина обробника, яка отримує точний покажчик на стек
-void HardFault_Handler_C(const FaultStackFrame *frame, uint32_t exc_return) {
-    // Збільшуємо лічильник падінь або скидаємо, якщо магічне число пошкоджене
-    uint32_t current_count = (g_crash_dump.magic == CRASH_MAGIC) ? g_crash_dump.crash_count + 1 : 1;
-
-    // Заповнюємо дамп
-    g_crash_dump.magic = CRASH_MAGIC;
-    g_crash_dump.crash_count = current_count;
-    g_crash_dump.reset_reason = RCC->CSR;
-    g_crash_dump.hfsr = SCB->HFSR;
-    g_crash_dump.cfsr = SCB->CFSR;
-    g_crash_dump.mmfar = SCB->MMFAR;
-    g_crash_dump.bfar = SCB->BFAR;
-    g_crash_dump.shcsr = SCB->SHCSR;
-    g_crash_dump.exc_return = exc_return;
-
-    if (frame != NULL) {
-        g_crash_dump.frame = *frame;
-    }
-
-    g_crash_dump.crc = CalcCRC32((const uint8_t *)&g_crash_dump, 
-                                 sizeof(CrashDump) - sizeof(uint32_t));
-
-    // Негайний синхронний вивід повідомлення для розробника
-    UART_SendStringBlocking("\r\n[CRASH] Hardware fault captured, rebooting...\r\n");
-    
-    // Перезавантажуємо мікроконтролер для безпечного виходу з аварії
-    NVIC_SystemReset();
-}
-
-// Асемблерний трамплін: визначає активний стек (MSP чи PSP)
-__attribute__((naked)) void HardFault_Handler(void) {
-    __asm volatile(
-        "tst lr, #4                \n" // Перевіряємо біт 2 регістра LR (EXC_RETURN)
-        "ite eq                    \n" // Якщо 0 (Equal) -> використовувався MSP
-        "mrseq r0, msp             \n" // R0 = покажчик на стек MSP
-        "mrsne r0, psp             \n" // Якщо 1 (Not Equal) -> R0 = покажчик PSP
-        "mov r1, lr                \n" // R1 = значення EXC_RETURN
-        "b HardFault_Handler_C     \n" // Перехід у функцію розбору з аргументами (R0, R1)
-    );
-}
-
-// Перевірка та друк збереженого дампу після перезапуску в main()
-bool CrashDump_ProcessOnStartup(void) {
-    if (g_crash_dump.magic != CRASH_MAGIC) {
-        return false;
-    }
-
-    uint32_t calc_crc = CalcCRC32((const uint8_t *)&g_crash_dump, 
-                                  sizeof(CrashDump) - sizeof(uint32_t));
-    if (calc_crc != g_crash_dump.crc) {
-        g_crash_dump.magic = 0; // Дамп пошкоджено
-        return false;
-    }
-
-    // Якщо зафіксовано цикл падінь — перехід у безпечний режим
-    if (g_crash_dump.crash_count >= MAX_CRASH_LOOP_THRESHOLD) {
-        UART_SendStringBlocking("[CRASH-LOOP] Too many crashes! Entering recovery mode.\r\n");
-    }
-
-    // Дамп валідний: тут виконується логування на Flash або передача на сервер
-    // Очищаємо маркер після успішного опрацювання
-    g_crash_dump.magic = 0;
-    return true;
 }

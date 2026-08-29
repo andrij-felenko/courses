@@ -1,312 +1,323 @@
-#include <stdbool.h>
-#include <stdint.h>
+/* Стенд автомата польотних режимів: замість борту — найпростіша модель
+   вертикальної та горизонтальної динаміки, замість пульта й наземної станції —
+   сценарій. Автомат при цьому справжній: той самий код, що йде в прошивку.
+
+   Збірка: cc -std=c11 -O2 -o fsm *.c -lm   */
+
+#include <math.h>
+#include <stdio.h>
 #include <string.h>
 
-/* Перелік польотних режимів автопілота */
-typedef enum {
-    FLIGHT_MODE_MANUAL = 0,
-    FLIGHT_MODE_STABILIZE,
-    FLIGHT_MODE_ALT_HOLD,
-    FLIGHT_MODE_POS_HOLD,
-    FLIGHT_MODE_AUTO,
-    FLIGHT_MODE_GUIDED,
-    FLIGHT_MODE_RTL,
-    FLIGHT_MODE_LAND,
-    FLIGHT_MODE_EMERGENCY_LAND,
-    FLIGHT_MODE_TERMINATE,
-    FLIGHT_MODE_COUNT
-} FlightMode;
+#include "fsm.h"
 
-/* Коди результатів запиту на зміну режиму (MAVLink сумісні) */
-typedef enum {
-    TRANSITION_OK = 0,
-    TRANSITION_DENIED_NO_GPS,
-    TRANSITION_DENIED_BAD_HDOP,
-    TRANSITION_DENIED_EKF_UNHEALTHY,
-    TRANSITION_DENIED_NO_MISSION,
-    TRANSITION_DENIED_NO_HOME,
-    TRANSITION_DENIED_THROTTLE_MISMATCH,
-    TRANSITION_DENIED_FAILSAFE_ACTIVE,
-    TRANSITION_DENIED_INVALID_MODE
-} TransitionResult;
+#define SIM_TICK_MS 20u
+#define SIM_DT_S    0.02f
 
-/* Структура знімка стану сенсорів та телеметрії */
 typedef struct {
-    bool armed;
-    bool in_air;
-    uint8_t gps_fix_type;      /* 0: No Fix, 2: 2D, 3: 3D Fix */
-    uint8_t gps_num_sats;
-    float gps_hdop;
-    float gps_vdop;
-    bool ekf_pos_horiz_valid;
-    bool ekf_pos_vert_valid;
-    float ekf_innov_pos;
-    bool compass_healthy;
-    uint16_t mission_item_count;
-    bool home_position_set;
-    float current_throttle;    /* 0.0f - 1.0f поточний вихід регулятора */
-    float stick_throttle;      /* 0.0f - 1.0f положення ручки на пульті */
-    float vertical_velocity;   /* м/с, додатна вгору */
-    bool rc_link_lost;
-    bool gcs_link_lost;
-    uint8_t battery_failsafe_stage; /* 0: OK, 1: Low, 2: Critical */
-    bool hardware_kill_switch;
-} TelemetrySnapshot;
+    fm_state_t   st;
+    fm_fsm_t     fsm;
+    fm_params_t  params;
+    fm_mission_t mission;
 
-/* Стан детектора посадки */
-typedef struct {
-    bool ground_contact;
-    bool landed;
-    uint32_t contact_start_ms;
-} LandDetector;
+    bool  rc_alive;
+    bool  gcs_alive;
+    bool  guided_alive;
+    float hover;          /* справжня тяга висіння моделі */
+} sim_t;
 
-/* Стан автомата режимів */
-typedef struct {
-    FlightMode current_mode;
-    FlightMode previous_mode;
-    uint32_t last_transition_ms;
-    bool failsafe_locked;
-    LandDetector land_detector;
-} FlightModeFSM;
+/* ── вихідний канал: те, що на борту пішло б у телеметрію ─────────────────── */
 
-/* Ініціалізація автомата польотних режимів */
-void fsm_init(FlightModeFSM* fsm) {
-    if (!fsm) return;
-    fsm->current_mode = FLIGHT_MODE_STABILIZE;
-    fsm->previous_mode = FLIGHT_MODE_STABILIZE;
-    fsm->last_transition_ms = 0;
-    fsm->failsafe_locked = false;
-    fsm->land_detector.ground_contact = false;
-    fsm->land_detector.landed = false;
-    fsm->land_detector.contact_start_ms = 0;
+static void on_ack(void *ctx, uint16_t command, uint8_t result)
+{
+    const fm_state_t *st = (const fm_state_t *)ctx;
+    static const char *const names[] = {
+        "ACCEPTED", "TEMPORARILY_REJECTED", "DENIED", "UNSUPPORTED", "FAILED"
+    };
+    const char *name = (result < (sizeof(names) / sizeof(names[0]))) ? names[result] : "?";
+
+    printf("  [%6.2f] COMMAND_ACK cmd=%u -> %s\n",
+           (double)st->now_ms / 1000.0, (unsigned)command, name);
 }
 
-/* Умова-охоронець для режиму PosHold / Loiter */
-static TransitionResult guard_pos_hold(const TelemetrySnapshot* t) {
-    if (t->gps_fix_type < 3 || t->gps_num_sats < 6) {
-        return TRANSITION_DENIED_NO_GPS;
-    }
-    if (t->gps_hdop > 1.5f || t->gps_vdop > 2.0f) {
-        return TRANSITION_DENIED_BAD_HDOP;
-    }
-    if (!t->ekf_pos_horiz_valid || !t->compass_healthy || t->ekf_innov_pos > 0.3f) {
-        return TRANSITION_DENIED_EKF_UNHEALTHY;
-    }
-    return TRANSITION_OK;
+static void on_text(void *ctx, uint8_t severity, const char *text)
+{
+    const fm_state_t *st = (const fm_state_t *)ctx;
+
+    printf("  [%6.2f] STATUSTEXT(sev=%u): %s\n",
+           (double)st->now_ms / 1000.0, (unsigned)severity, text);
 }
 
-/* Умова-охоронець для режиму Auto */
-static TransitionResult guard_auto(const TelemetrySnapshot* t) {
-    TransitionResult pos_res = guard_pos_hold(t);
-    if (pos_res != TRANSITION_OK) {
-        return pos_res;
-    }
-    if (t->mission_item_count == 0) {
-        return TRANSITION_DENIED_NO_MISSION;
-    }
-    if (!t->home_position_set) {
-        return TRANSITION_DENIED_NO_HOME;
-    }
-    return TRANSITION_OK;
-}
+static void on_tone(void *ctx, fm_tone_t tone)
+{
+    const fm_state_t *st = (const fm_state_t *)ctx;
+    static const char *const names[] = {
+        "-", "accepted", "rejected", "throttle lock", "failsafe", "disarm"
+    };
 
-/* Умова-охоронець для режиму RTL */
-static TransitionResult guard_rtl(const TelemetrySnapshot* t) {
-    if (!t->home_position_set) {
-        return TRANSITION_DENIED_NO_HOME;
-    }
-    if (!t->ekf_pos_horiz_valid && !t->ekf_pos_vert_valid) {
-        return TRANSITION_DENIED_EKF_UNHEALTHY;
-    }
-    return TRANSITION_OK;
-}
-
-/* Захист від стрибка газу при переході з автоматичних режимів у ручні */
-static bool check_throttle_matching(FlightMode current, FlightMode target, const TelemetrySnapshot* t) {
-    bool is_current_auto_thrust = (current == FLIGHT_MODE_ALT_HOLD ||
-                                   current == FLIGHT_MODE_POS_HOLD ||
-                                   current == FLIGHT_MODE_AUTO ||
-                                   current == FLIGHT_MODE_GUIDED ||
-                                   current == FLIGHT_MODE_LAND ||
-                                   current == FLIGHT_MODE_RTL);
-
-    bool is_target_manual_thrust = (target == FLIGHT_MODE_MANUAL ||
-                                    target == FLIGHT_MODE_STABILIZE);
-
-    if (t->in_air && is_current_auto_thrust && is_target_manual_thrust) {
-        float diff = t->stick_throttle - t->current_throttle;
-        if (diff < 0.0f) diff = -diff;
-        /* Дозволений поріг неспівпадіння: 15% */
-        if (diff > 0.15f) {
-            return false;
-        }
-    }
-    return true;
-}
-
-/* Детектор посадки: виявлення контакту з ґрунтом */
-static void update_land_detector(FlightModeFSM* fsm, const TelemetrySnapshot* t, uint32_t now_ms) {
-    if (!t->in_air || (fsm->current_mode != FLIGHT_MODE_LAND && fsm->current_mode != FLIGHT_MODE_EMERGENCY_LAND)) {
-        fsm->land_detector.ground_contact = false;
-        fsm->land_detector.landed = false;
-        fsm->land_detector.contact_start_ms = 0;
+    if (tone == FM_TONE_NONE) {
         return;
     }
+    printf("  [%6.2f] BUZZER: %s\n", (double)st->now_ms / 1000.0, names[tone]);
+}
 
-    float vz_abs = t->vertical_velocity < 0.0f ? -t->vertical_velocity : t->vertical_velocity;
-    bool vz_stopped = vz_abs < 0.25f;
-    bool throttle_min = t->current_throttle < 0.20f;
+/* ── модель апарата ──────────────────────────────────────────────────────── */
 
-    if (vz_stopped && throttle_min) {
-        if (!fsm->land_detector.ground_contact) {
-            fsm->land_detector.ground_contact = true;
-            fsm->land_detector.contact_start_ms = now_ms;
-        } else if (now_ms - fsm->land_detector.contact_start_ms > 1500) {
-            fsm->land_detector.landed = true;
+static void plant_step(sim_t *sim, float throttle, float dt)
+{
+    fm_state_t *st = &sim->st;
+
+    const bool grounded = (st->altitude_rel_m <= 0.001f) && (throttle < sim->hover);
+
+    /* Вертикаль: різниця тяги й висіння дає прискорення, опір гасить швидкість. */
+    float accel = grounded ? 0.0f
+                           : (throttle - sim->hover) * 18.0f - 0.8f * st->vertical_velocity;
+    float vz    = st->vertical_velocity + accel * dt;
+    float alt   = st->altitude_rel_m + vz * dt;
+
+    if (alt <= 0.0f) {
+        alt = 0.0f;
+        if (vz < 0.0f) {
+            vz    = 0.0f;
+            accel = 0.0f;   /* реакція опори: удару немає, апарат стоїть */
         }
-    } else {
-        fsm->land_detector.ground_contact = false;
-        fsm->land_detector.contact_start_ms = 0;
+    }
+
+    st->vertical_velocity = vz;
+    st->altitude_rel_m    = alt;
+    st->motor_output      = throttle;
+    /* Дисперсія вертикального прискорення: на землі рама тиха, у польоті — ні. */
+    st->accel_z_variance  = grounded ? 0.03f : (fabsf(accel) * 0.05f + 0.05f);
+
+    /* Горизонталь: команда нахилу перетворюється на прискорення (tan ~ 0.017/град). */
+    const float acc_n = 0.171f * sim->fsm.ctl.tilt_north_deg;
+    const float acc_e = 0.171f * sim->fsm.ctl.tilt_east_deg;
+
+    st->vel_north_ms += (acc_n - 0.35f * st->vel_north_ms) * dt;
+    st->vel_east_ms  += (acc_e - 0.35f * st->vel_east_ms) * dt;
+
+    /* 1 метр по широті — приблизно 1e7/111320 одиниць координати. */
+    st->lat_1e7 += (int32_t)lrintf(st->vel_north_ms * dt * 89.83f);
+    st->lon_1e7 += (int32_t)lrintf(st->vel_east_ms * dt * 89.83f
+                                   / cosf(0.017453f * (float)st->lat_1e7 * 1e-7f));
+}
+
+static void sim_run(sim_t *sim, uint32_t duration_ms)
+{
+    const uint32_t ticks = duration_ms / SIM_TICK_MS;
+
+    for (uint32_t i = 0; i < ticks; ++i) {
+        sim->st.now_ms += SIM_TICK_MS;
+
+        if (sim->rc_alive) {
+            sim->st.rc_last_frame_ms = sim->st.now_ms;
+        }
+        if (sim->gcs_alive) {
+            sim->st.gcs_last_heartbeat_ms = sim->st.now_ms;
+        }
+        if (sim->guided_alive) {
+            sim->st.guided_setpoint_ms = sim->st.now_ms;
+        }
+
+        fm_fsm_update(&sim->fsm, &sim->st);
+
+        /* Силовий каскад повідомляє автоматові, чи справді генеруються сигнали. */
+        sim->st.armed = fm_fsm_armed(&sim->fsm);
+        plant_step(sim, fm_fsm_throttle(&sim->fsm), SIM_DT_S);
     }
 }
 
-/* Арбітраж аварійних станів: перевірка умов вищого пріоритету */
-static bool check_failsafe_preemption(FlightModeFSM* fsm, const TelemetrySnapshot* t, uint32_t now_ms) {
-    /* Рівень 5: Hardware Kill Switch */
-    if (t->hardware_kill_switch) {
-        fsm->previous_mode = fsm->current_mode;
-        fsm->current_mode = FLIGHT_MODE_TERMINATE;
-        fsm->failsafe_locked = true;
-        fsm->last_transition_ms = now_ms;
-        return true;
-    }
-
-    /* Рівень 4: Критичний Failsafe батареї або повний крах навігації під час посадки */
-    if (t->battery_failsafe_stage >= 2 && fsm->current_mode != FLIGHT_MODE_EMERGENCY_LAND) {
-        fsm->previous_mode = fsm->current_mode;
-        fsm->current_mode = FLIGHT_MODE_EMERGENCY_LAND;
-        fsm->failsafe_locked = true;
-        fsm->last_transition_ms = now_ms;
-        return true;
-    }
-
-    /* Рівень 3: Втрата зв'язку RC або геозона -> RTL */
-    if (t->rc_link_lost && t->in_air) {
-        if (fsm->current_mode != FLIGHT_MODE_RTL && fsm->current_mode != FLIGHT_MODE_LAND &&
-            fsm->current_mode != FLIGHT_MODE_EMERGENCY_LAND) {
-            if (guard_rtl(t) == TRANSITION_OK) {
-                fsm->previous_mode = fsm->current_mode;
-                fsm->current_mode = FLIGHT_MODE_RTL;
-                fsm->last_transition_ms = now_ms;
-                return true;
-            } else {
-                /* Каскадна деградація: немає умов для RTL -> негайна посадка Land */
-                fsm->previous_mode = fsm->current_mode;
-                fsm->current_mode = FLIGHT_MODE_LAND;
-                fsm->last_transition_ms = now_ms;
-                return true;
-            }
-        }
-    }
-    return false;
+static void show(const sim_t *sim, const char *tag)
+{
+    printf("  [%6.2f] %-22s mode=%-9s prio=%-16s thr=%.2f alt=%5.1f vz=%+5.2f land=%s\n",
+           (double)sim->st.now_ms / 1000.0, tag,
+           fm_mode_name(fm_fsm_mode(&sim->fsm)),
+           fm_priority_name(fm_fsm_priority(&sim->fsm)),
+           (double)fm_fsm_throttle(&sim->fsm),
+           (double)sim->st.altitude_rel_m,
+           (double)sim->st.vertical_velocity,
+           fm_land_phase_name(fm_fsm_land_phase(&sim->fsm)));
 }
 
-/* Запит на штатну зміну режиму від оператора чи GCS */
-TransitionResult fsm_request_mode(FlightModeFSM* fsm, FlightMode target, const TelemetrySnapshot* t, uint32_t now_ms) {
-    if (!fsm || !t) return TRANSITION_DENIED_INVALID_MODE;
-
-    /* Якщо активне блокування критичного Failsafe — штатні запити відхиляються */
-    if (fsm->failsafe_locked && target != FLIGHT_MODE_STABILIZE) {
-        return TRANSITION_DENIED_FAILSAFE_ACTIVE;
-    }
-
-    if (target == fsm->current_mode) {
-        return TRANSITION_OK;
-    }
-
-    /* 1. Перевірка заслінки газу (захист від стрибка тяги) */
-    if (!check_throttle_matching(fsm->current_mode, target, t)) {
-        return TRANSITION_DENIED_THROTTLE_MISMATCH;
-    }
-
-    /* 2. Перевірка параметричних охоронців цільового режиму */
-    TransitionResult res = TRANSITION_OK;
-    switch (target) {
-        case FLIGHT_MODE_MANUAL:
-        case FLIGHT_MODE_STABILIZE:
-            /* Базові ручні режими не вимагають зовнішніх сенсорів навігації */
-            res = TRANSITION_OK;
-            break;
-
-        case FLIGHT_MODE_ALT_HOLD:
-            if (!t->ekf_pos_vert_valid) {
-                res = TRANSITION_DENIED_EKF_UNHEALTHY;
-            }
-            break;
-
-        case FLIGHT_MODE_POS_HOLD:
-        case FLIGHT_MODE_GUIDED:
-            res = guard_pos_hold(t);
-            break;
-
-        case FLIGHT_MODE_AUTO:
-            res = guard_auto(t);
-            break;
-
-        case FLIGHT_MODE_RTL:
-            res = guard_rtl(t);
-            break;
-
-        case FLIGHT_MODE_LAND:
-        case FLIGHT_MODE_EMERGENCY_LAND:
-            res = TRANSITION_OK;
-            break;
-
-        default:
-            res = TRANSITION_DENIED_INVALID_MODE;
-            break;
-    }
-
-    if (res == TRANSITION_OK) {
-        fsm->previous_mode = fsm->current_mode;
-        fsm->current_mode = target;
-        fsm->last_transition_ms = now_ms;
-        fsm->failsafe_locked = false; /* Скидання блокування при свідомому виборі пілота */
-    }
-
-    return res;
+static void act(const char *title)
+{
+    printf("\n=== %s ===\n", title);
 }
 
-/* Головний періодичний крок автомата (викликається з частотою 50-100 Гц) */
-void fsm_update(FlightModeFSM* fsm, const TelemetrySnapshot* t, uint32_t now_ms) {
-    if (!fsm || !t) return;
+/* ── початкові умови ─────────────────────────────────────────────────────── */
 
-    /* 1. Оновлення детектора посадки */
-    update_land_detector(fsm, t, now_ms);
+static void sim_init(sim_t *sim)
+{
+    memset(sim, 0, sizeof(*sim));
+    fm_params_default(&sim->params);
+    sim->hover        = 0.50f;
+    sim->rc_alive     = true;
+    sim->gcs_alive    = true;
+    sim->guided_alive = true;
 
-    /* 2. Обробка аварійних витіснень */
-    if (check_failsafe_preemption(fsm, t, now_ms)) {
-        return;
+    fm_state_t *st = &sim->st;
+
+    st->now_ms               = 1000u;
+    st->battery_cell_v       = 4.05f;
+    st->battery_remaining    = 0.92f;
+    st->gyro_healthy         = true;
+    st->accel_healthy        = true;
+    st->attitude_valid       = true;
+    st->accel_z_variance     = 0.03f;
+    st->baro_healthy         = true;
+    st->rangefinder_healthy  = true;
+    st->ekf_vert_pos_valid   = true;
+    st->gnss_fix_type        = 3u;
+    st->gnss_sats            = 14u;
+    st->gnss_hdop            = 0.8f;
+    st->gnss_vdop            = 1.2f;
+    st->ekf_horiz_pos_valid  = true;
+    st->ekf_innov_pos_norm   = 0.08f;
+    st->ekf_innov_vel_norm   = 0.11f;
+    st->compass_healthy      = true;
+    st->compass_yaw_error_deg = 2.0f;
+    st->lat_1e7              = 504500000;   /* умовна точка старту */
+    st->lon_1e7              = 303000000;
+    st->home_set             = true;
+    st->home_lat_1e7         = st->lat_1e7;
+    st->home_lon_1e7         = st->lon_1e7;
+    st->stick_throttle       = 0.0f;
+    st->hover_throttle       = sim->hover;
+    st->rc_last_frame_ms     = st->now_ms;
+    st->gcs_last_heartbeat_ms = st->now_ms;
+    st->guided_setpoint_ms   = st->now_ms;
+    st->mission              = &sim->mission;
+
+    fm_mission_clear(&sim->mission);
+}
+
+static void load_mission(sim_t *sim, bool valid_crc)
+{
+    fm_mission_item_t wp;
+
+    fm_mission_clear(&sim->mission);
+
+    for (int i = 1; i <= 3; ++i) {
+        memset(&wp, 0, sizeof(wp));
+        wp.lat_1e7   = sim->st.home_lat_1e7 + i * 900;   /* ~100 м на крок */
+        wp.lon_1e7   = sim->st.home_lon_1e7 + i * 400;
+        wp.alt_rel_m = 25.0f;
+        wp.command   = 16u;   /* MAV_CMD_NAV_WAYPOINT */
+        (void)fm_mission_append(&sim->mission, &wp);
     }
-
-    /* 3. Каскадна деградація сенсорів у польоті */
-    if (t->in_air) {
-        if (fsm->current_mode == FLIGHT_MODE_POS_HOLD || fsm->current_mode == FLIGHT_MODE_AUTO) {
-            if (guard_pos_hold(t) != TRANSITION_OK) {
-                /* Деградація: PosHold/Auto -> AltHold */
-                fsm->previous_mode = fsm->current_mode;
-                fsm->current_mode = FLIGHT_MODE_ALT_HOLD;
-                fsm->last_transition_ms = now_ms;
-            }
-        }
-
-        if (fsm->current_mode == FLIGHT_MODE_ALT_HOLD) {
-            if (!t->ekf_pos_vert_valid) {
-                /* Деградація: AltHold -> Stabilize */
-                fsm->previous_mode = fsm->current_mode;
-                fsm->current_mode = FLIGHT_MODE_STABILIZE;
-                fsm->last_transition_ms = now_ms;
-            }
-        }
+    sim->mission.stored_crc = fm_mission_crc(&sim->mission);
+    if (!valid_crc) {
+        sim->mission.stored_crc ^= 0x00FFu;   /* зіпсований план */
     }
+}
+
+/* ── сценарій ────────────────────────────────────────────────────────────── */
+
+int main(void)
+{
+    sim_t sim;
+
+    sim_init(&sim);
+
+    const fm_reporter_t reporter = {
+        .command_ack = on_ack,
+        .statustext  = on_text,
+        .tone        = on_tone,
+        .ctx         = &sim.st,
+    };
+
+    fm_fsm_init(&sim.fsm, &sim.params, &reporter, &sim.st);
+
+    act("1. Озброєння і зліт у Stabilize");
+    (void)fm_fsm_request_arm(&sim.fsm, &sim.st);
+    sim.st.armed = true;
+    sim.st.stick_throttle = 0.68f;          /* ручка вгору: набір висоти */
+    sim_run(&sim, 4000u);
+    show(&sim, "після набору");
+
+    act("2. Перехід у AltHold: уставка й інтегратор фіксуються");
+    sim.st.stick_throttle = 0.50f;          /* ручка в мертву зону */
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_ALT_HOLD, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 3000u);
+    show(&sim, "утримання висоти");
+
+    act("3. Перехід у PosHold, потім у Auto з валідним планом");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_POS_HOLD, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 1000u);
+    load_mission(&sim, false);
+    printf("  -- план із зіпсованою контрольною сумою:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_AUTO, FM_PRIO_ROUTINE, &sim.st);
+    load_mission(&sim, true);
+    printf("  -- той самий план із правильною сумою:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_AUTO, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 2000u);
+    show(&sim, "автономна місія");
+
+    act("4. Стрибок газу: спроба перейти в Manual зі скинутою ручкою");
+    sim.st.stick_throttle = 0.0f;
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_MANUAL, FM_PRIO_ROUTINE, &sim.st);
+    show(&sim, "після відмови");
+    printf("  -- пілот зводить ручку з поточною тягою:\n");
+    sim.st.stick_throttle = fm_fsm_throttle(&sim.fsm);
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_STABILIZE, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 500u);
+    show(&sim, "після узгодження");
+
+    act("5. Роззброєння в повітрі: комбінація стіків ігнорується");
+    sim.st.stick_disarm_combo = true;
+    sim_run(&sim, 100u);
+    sim.st.stick_disarm_combo = false;
+    show(&sim, "мотори працюють");
+
+    act("6. Втрата супутників у польоті: каскадна деградація");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_POS_HOLD, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 500u);
+    show(&sim, "утримання точки");
+    sim.st.gnss_sats           = 3u;
+    sim.st.gnss_hdop           = 3.4f;
+    sim.st.ekf_innov_pos_norm  = 1.4f;
+    sim.st.ekf_horiz_pos_valid = false;
+    sim_run(&sim, 500u);
+    show(&sim, "після збою GNSS");
+
+    act("7. Гістерезис: повернення нагору лише після витриманої умови");
+    sim.st.gnss_sats           = 12u;
+    sim.st.gnss_hdop           = 0.9f;
+    sim.st.ekf_innov_pos_norm  = 0.10f;
+    sim.st.ekf_horiz_pos_valid = true;
+    printf("  -- запит одразу після відновлення сигналу:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_POS_HOLD, FM_PRIO_ROUTINE, &sim.st);
+    sim_run(&sim, 2500u);
+    printf("  -- запит після витримки:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_POS_HOLD, FM_PRIO_ROUTINE, &sim.st);
+    show(&sim, "повернення в PosHold");
+
+    act("8. Втрата пульта: витіснення рівня 3");
+    sim.rc_alive = false;
+    sim_run(&sim, 2000u);
+    show(&sim, "аварійне повернення");
+    printf("  -- пілот намагається перемкнутися, поки лінк мертвий:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_AUTO, FM_PRIO_ROUTINE, &sim.st);
+
+    act("9. Критичний розряд: витіснення рівня 4 блокує все");
+    sim.rc_alive = true;
+    sim.st.battery_cell_v    = 3.22f;
+    sim.st.battery_remaining = 0.07f;
+    sim_run(&sim, 200u);
+    show(&sim, "примусова посадка");
+    printf("  -- спроба повернутися в місію під критичним failsafe:\n");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_AUTO, FM_PRIO_ROUTINE, &sim.st);
+
+    act("10. Детектор посадки: контакт, витримка, роззброєння");
+    sim_run(&sim, 60000u);
+    show(&sim, "цикл завершено");
+
+    act("11. Апаратна відсічка перекриває навіть штатний запит");
+    sim.st.kill_switch = true;
+    sim_run(&sim, 100u);
+    show(&sim, "після відсічки");
+    (void)fm_fsm_request_mode(&sim.fsm, FM_MODE_STABILIZE, FM_PRIO_ROUTINE, &sim.st);
+    (void)fm_fsm_request_arm(&sim.fsm, &sim.st);
+
+    printf("\nсценарій завершено\n");
+    return 0;
 }

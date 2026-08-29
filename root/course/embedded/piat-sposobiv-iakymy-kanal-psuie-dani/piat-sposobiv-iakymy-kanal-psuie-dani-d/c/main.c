@@ -1,160 +1,145 @@
-// Повний модульний конвеєр надійного канального приймача на C99
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
+// Демонстрація: 24 команди на виконавчий вузол крізь канал, який б'є, губить,
+// дублює, переставляє й ріже дані. Застосунок мусить побачити рівно 24 команди
+// по одному разу й у правильному порядку.
+#include <stdio.h>
 #include <string.h>
 
-#define LINK_MAX_PAYLOAD      128U
-#define LINK_HEADER_SIZE      1U   // 1 байт Sequence Number
-#define LINK_CRC_SIZE         2U   // 2 байти CRC-16
-#define LINK_MAX_FRAME_SIZE   (LINK_HEADER_SIZE + LINK_MAX_PAYLOAD + LINK_CRC_SIZE)
-#define LINK_COBS_MAX_SIZE    (LINK_MAX_FRAME_SIZE + (LINK_MAX_FRAME_SIZE / 254U) + 2U)
-#define LINK_FRAME_DELIMITER  0x00U
+#include "channel.h"
+#include "link_rx.h"
+#include "link_tx.h"
 
-// Статуси результату конвеєра
-typedef enum {
-    LINK_OK = 0,
-    LINK_FRAME_PENDING,
-    LINK_ERR_BUFFER_OVERFLOW,
-    LINK_ERR_COBS_CORRUPTED,
-    LINK_ERR_CRC_MISMATCH,
-    LINK_ERR_DUPLICATE_FRAME
-} link_status_t;
+#define N_COMMANDS    24U
+#define TIME_LIMIT_MS 20000U
 
-// Тип функції зворотного виклику для передачі валідного корисного навантаження
-typedef void (*link_payload_handler_t)(const uint8_t *payload, size_t len, void *user_ctx);
-// Тип функції відправки ACK-квитанцій
-typedef void (*link_ack_sender_t)(uint8_t seq_num, void *user_ctx);
-
-// Контекст стану приймача
 typedef struct {
-    uint8_t rx_raw_buf[LINK_COBS_MAX_SIZE];
-    size_t  rx_raw_idx;
-    uint8_t decode_buf[LINK_MAX_FRAME_SIZE + 2U];
-    uint8_t expected_seq;
-    link_payload_handler_t on_payload;
-    link_ack_sender_t      send_ack;
-    void                  *user_ctx;
-} link_receiver_t;
+    unsigned delivered;
+    unsigned expected_index;
+    bool     order_broken;
+} app_t;
 
-// Обчислення CRC-16-CCITT (поліном 0x1021, початкове значення 0xFFFF)
-uint16_t link_crc16_ccitt(const uint8_t *data, size_t len) {
-    uint16_t crc = 0xFFFFU;
-    for (size_t i = 0; i < len; ++i) {
-        crc ^= ((uint16_t)data[i]) << 8U;
-        for (uint8_t bit = 0; bit < 8U; ++bit) {
-            if (crc & 0x8000U) {
-                crc = (crc << 1U) ^ 0x1021U;
-            } else {
-                crc = crc << 1U;
+// Виконавчий вузол: кожна команда — крок двигуна. Повторне виконання = аварія.
+static void app_execute(uint8_t seq, const uint8_t *payload, size_t len, void *ctx) {
+    app_t *app = (app_t *)ctx;
+    if (len < 1U) {
+        return;
+    }
+
+    const unsigned index = payload[0];
+    if (index != app->expected_index) {
+        app->order_broken = true;
+        printf("  АВАРІЯ: застосунок побачив команду #%02u, а чекав #%02u\n",
+               index, app->expected_index);
+    } else {
+        app->expected_index++;
+    }
+
+    app->delivered++;
+    printf("  виконано seq=%3u  #%02u %.*s\n",
+           (unsigned)seq, index, (int)(len - 1U), (const char *)&payload[1]);
+}
+
+static void write_to_channel(const uint8_t *bytes, size_t len, void *ctx) {
+    channel_send((channel_t *)ctx, bytes, len);
+}
+
+static void deliver_to_receiver(const uint8_t *bytes, size_t len, void *ctx) {
+    link_rx_feed((link_rx_t *)ctx, bytes, len);
+}
+
+static void deliver_to_sender(const uint8_t *bytes, size_t len, void *ctx) {
+    link_tx_feed_acks((link_tx_t *)ctx, bytes, len);
+}
+
+static void print_channel(const char *name, const channel_t *ch) {
+    printf("%s: віддано %u, згинуло %u, побито %u, здубльовано %u, переставлено %u, черга переповнена %u\n",
+           name, ch->stats.offered, ch->stats.dropped, ch->stats.corrupted,
+           ch->stats.duplicated, ch->stats.reordered, ch->stats.overflow);
+}
+
+int main(void) {
+    // Шафа автоматики поруч із частотним інвертором: канал поганий в обидва боки.
+    const channel_cfg_t forward_cfg = {
+        .drop_permille = 150U, .duplicate_permille = 80U,
+        .reorder_permille = 120U, .burst_permille = 120U
+    };
+    const channel_cfg_t back_cfg = {
+        .drop_permille = 150U, .duplicate_permille = 0U,
+        .reorder_permille = 0U, .burst_permille = 80U
+    };
+
+    channel_t forward;
+    channel_t backward;
+    channel_init(&forward, &forward_cfg, 0x1234ABCDU);
+    channel_init(&backward, &back_cfg, 0x0BADC0DEU);
+
+    app_t app = {0};
+    link_rx_t rx;
+    link_tx_t tx;
+    link_rx_init(&rx, app_execute, &app, write_to_channel, &backward);
+    link_tx_init(&tx, write_to_channel, &forward);
+
+    unsigned next_cmd = 0U;
+    uint32_t now = 0U;
+    bool link_down = false;
+
+    while (now < TIME_LIMIT_MS) {
+        // Наповнюємо вікно, доки є вільні слоти.
+        while (next_cmd < N_COMMANDS) {
+            uint8_t cmd[24];
+            cmd[0] = (uint8_t)next_cmd;
+            const int text_len = snprintf((char *)&cmd[1], sizeof(cmd) - 1U, "STEP +10mm");
+            if (text_len < 0) {
+                break;
             }
-        }
-    }
-    return crc;
-}
-
-// Декодування COBS у вихідний двійковий масив
-static bool link_cobs_decode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t *dst_len) {
-    if (src_len == 0 || src == NULL || dst == NULL) {
-        return false;
-    }
-    
-    size_t src_idx = 0;
-    size_t dst_idx = 0;
-    
-    while (src_idx < src_len) {
-        uint8_t code = src[src_idx++];
-        if (code == 0) {
-            return false; // Нуль всередині тіла COBS неприпустимий
-        }
-        
-        for (uint8_t i = 1; i < code; ++i) {
-            if (src_idx >= src_len) {
-                return false; // Вихід покажчика за межі вхідних даних
+            const link_status_t st = link_tx_submit(&tx, cmd, (size_t)text_len + 1U, now);
+            if (st == LINK_ERR_WINDOW_FULL) {
+                break;
             }
-            dst[dst_idx++] = src[src_idx++];
+            if (st != LINK_OK) {
+                printf("подача команди не вдалася: %s\n", link_status_str(st));
+                break;
+            }
+            next_cmd++;
         }
-        
-        if (code < 0xFFU && src_idx < src_len) {
-            dst[dst_idx++] = 0x00U; // Відновлюємо замінений нуль
-        }
-    }
-    
-    *dst_len = dst_idx;
-    return true;
-}
 
-// Ініціалізація приймача
-void link_receiver_init(link_receiver_t *rx,
-                        link_payload_handler_t on_payload,
-                        link_ack_sender_t send_ack,
-                        void *user_ctx) {
-    memset(rx, 0, sizeof(*rx));
-    rx->expected_seq = 0U;
-    rx->on_payload = on_payload;
-    rx->send_ack = send_ack;
-    rx->user_ctx = user_ctx;
-}
+        if (link_tx_tick(&tx, now) == LINK_ERR_LINK_DOWN) {
+            printf("ліміт повторів вичерпано — вважаємо лінію розірваною\n");
+            link_down = true;
+            break;
+        }
 
-// Обробка одного отриманого байта з фізичного інтерфейсу (UART/DMA)
-link_status_t link_receiver_feed_byte(link_receiver_t *rx, uint8_t byte) {
-    // 1. Пошук демаркатора меж кадру 0x00
-    if (byte == LINK_FRAME_DELIMITER) {
-        if (rx->rx_raw_idx == 0) {
-            return LINK_FRAME_PENDING; // Порожній кадр між послідовними нулями
+        channel_pump(&forward, deliver_to_receiver, &rx);
+        channel_pump(&backward, deliver_to_sender, &tx);
+
+        if (next_cmd == N_COMMANDS && link_tx_idle(&tx) &&
+            channel_idle(&forward) && channel_idle(&backward)) {
+            break;
         }
-        
-        size_t decoded_len = 0;
-        // 2. COBS-декодування кадру
-        if (!link_cobs_decode(rx->rx_raw_buf, rx->rx_raw_idx, rx->decode_buf, &decoded_len)) {
-            rx->rx_raw_idx = 0;
-            return LINK_ERR_COBS_CORRUPTED;
-        }
-        rx->rx_raw_idx = 0; // Скидаємо буфер для наступного кадру
-        
-        // Кадр мусить містити щонайменше 1Б Seq + 2Б CRC
-        if (decoded_len < (LINK_HEADER_SIZE + LINK_CRC_SIZE)) {
-            return LINK_ERR_CRC_MISMATCH;
-        }
-        
-        // 3. Перевірка контрольної суми CRC-16
-        uint16_t calculated_crc = link_crc16_ccitt(rx->decode_buf, decoded_len - LINK_CRC_SIZE);
-        uint16_t received_crc = ((uint16_t)rx->decode_buf[decoded_len - 2U] << 8U) |
-                                ((uint16_t)rx->decode_buf[decoded_len - 1U]);
-                                
-        if (calculated_crc != received_crc) {
-            return LINK_ERR_CRC_MISMATCH;
-        }
-        
-        // 4. Перевірка порядкового номера та дедуплікація
-        uint8_t seq_num = rx->decode_buf[0];
-        if (rx->send_ack != NULL) {
-            rx->send_ack(seq_num, rx->user_ctx); // Квитуємо отримання
-        }
-        
-        if (seq_num != rx->expected_seq) {
-            // Це дублікат уже прийнятого раніше кадру!
-            return LINK_ERR_DUPLICATE_FRAME;
-        }
-        
-        // Оновлюємо очікуваний номер
-        rx->expected_seq = (uint8_t)(rx->expected_seq + 1U);
-        
-        // 5. Передача корисного навантаження застосунку
-        size_t payload_len = decoded_len - LINK_HEADER_SIZE - LINK_CRC_SIZE;
-        if (rx->on_payload != NULL) {
-            rx->on_payload(&rx->decode_buf[LINK_HEADER_SIZE], payload_len, rx->user_ctx);
-        }
-        
-        return LINK_OK;
+        now++;
     }
-    
-    // Накопичення байтів у сирому буфері
-    if (rx->rx_raw_idx >= LINK_COBS_MAX_SIZE) {
-        rx->rx_raw_idx = 0; // Захист від переповнення при шумі
-        return LINK_ERR_BUFFER_OVERFLOW;
-    }
-    
-    rx->rx_raw_buf[rx->rx_raw_idx++] = byte;
-    return LINK_FRAME_PENDING;
+
+    printf("\n--- що зробив канал (за %u мс віртуального часу) ---\n", now);
+    print_channel("вперед ", &forward);
+    print_channel("назад  ", &backward);
+
+    printf("\n--- що побачив приймач ---\n");
+    printf("цілих кадрів %u, помилок COBS %u, помилок CRC %u, переповнень %u\n",
+           rx.reader.stats.frames, rx.reader.stats.cobs_err,
+           rx.reader.stats.crc_err, rx.reader.stats.overflow);
+    printf("віддано застосунку %u, дублікатів відкинуто %u, буферизовано %u, поза вікном %u\n",
+           rx.stats.delivered, rx.stats.duplicates,
+           rx.stats.buffered, rx.stats.out_of_window);
+
+    printf("\n--- що робив передавач ---\n");
+    printf("нових кадрів %u, повторів %u, квитанцій %u (з них зайвих %u), втрачено %u\n",
+           tx.stats.sent, tx.stats.retrans, tx.stats.acked,
+           tx.stats.stray_ack, tx.stats.lost);
+
+    const bool ok = !link_down && !app.order_broken &&
+                    app.delivered == N_COMMANDS && app.expected_index == N_COMMANDS;
+
+    printf("\nВЕРДИКТ: %s\n",
+           ok ? "усі команди виконано рівно по разу й у правильному порядку"
+              : "конвеєр не втримав канал");
+    return ok ? 0 : 1;
 }

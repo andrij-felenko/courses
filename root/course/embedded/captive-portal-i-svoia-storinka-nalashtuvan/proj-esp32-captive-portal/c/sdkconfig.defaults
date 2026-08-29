@@ -1,0 +1,15 @@
+# Власна таблиця розділів — заради nvs розміром 0x4000 (див. partitions.csv).
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# Сокети: 1 UDP для DNS + до 3 одночасних TCP-клієнтів веб-сервера,
+# решта — запас для службових з'єднань стека LWIP.
+CONFIG_LWIP_MAX_SOCKETS=10
+
+# Заголовок запиту від мобільного браузера легко переростає 512 байтів
+# через Accept, User-Agent і куки, тож піднімаємо межу.
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
+
+# Зонди операційних систем ходять на довгі URI на кшталт
+# /connecttest.txt?redirect — короткої межі не вистачає.
+CONFIG_HTTPD_MAX_URI_LEN=512

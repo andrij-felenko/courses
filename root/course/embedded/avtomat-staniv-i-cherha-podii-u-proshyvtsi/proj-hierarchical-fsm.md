@@ -53,8 +53,8 @@
 ### Повна реалізація рушія HSM
 
 :::tabs
-:::code proj-hierarchical-fsm/c/povna-realizatsiia-rushiia.c
-:::code proj-hierarchical-fsm/cpp/povna-realizatsiia-rushiia.cpp
+:::code proj-hierarchical-fsm/c/src/qhsm.c
+:::code proj-hierarchical-fsm/cpp/include/hsm/hsm.hpp
 :::
 
 ---
@@ -78,8 +78,8 @@
 Жодна плоска машина станів не здатна забезпечити таку надійність без десятків дубльованих перевірок.
 
 :::tabs
-:::code proj-hierarchical-fsm/c/pryklad-trokhrivneve.c
-:::code proj-hierarchical-fsm/cpp/pryklad-trokhrivneve.cpp
+:::code proj-hierarchical-fsm/c/src/device_ui.c
+:::code proj-hierarchical-fsm/cpp/include/device/menu_ui.hpp
 :::
 
 ---

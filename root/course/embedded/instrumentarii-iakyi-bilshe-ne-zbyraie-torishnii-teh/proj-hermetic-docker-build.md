@@ -20,65 +20,13 @@
 
 Змінні середовища `LC_ALL=C.UTF-8` та `LANG=C.UTF-8` гарантують стабільну локаль, запобігаючи несподіваній зміні формату кодування символів або сортування рядків у системних утилітах. Крос-компілятор `arm-none-eabi-gcc` завантажується з перевіркою контрольної суми SHA-256 за допомогою `sha256sum -c`, що блокує збірку у разі пошкодження архіву або підміни джерела.
 
-```dockerfile
-# Фіксація базового образу через OCI digest замість плаваючого тегу
-FROM ubuntu:22.04@sha256:3fbc632167424a6d997e7492beeb788b8aa9cc52c80309995537e477e54f073e
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-
-# Встановлення мінімальних хостових утиліт без рекомендованих пакетів
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    xz-utils \
-    make \
-    ninja-build \
-    python3 \
-    python3-venv \
-    git \
-    && rm -rf /var/lib/apt/lists/*
-
-# Встановлення крос-компілятора ARM GNU Toolchain 13.2.Rel1 із перевіркою хешу
-ARG TOOLCHAIN_URL="https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz"
-ARG TOOLCHAIN_SHA256="6cd1bbc523e2b90be084ffcf6352b4337d331859400aa628905ba6157920545f"
-
-RUN curl -fsSL -o /tmp/toolchain.tar.xz "${TOOLCHAIN_URL}" \
-    && echo "${TOOLCHAIN_SHA256}  /tmp/toolchain.tar.xz" | sha256sum -c - \
-    && mkdir -p /opt/toolchain \
-    && tar -xf /tmp/toolchain.tar.xz -C /opt/toolchain --strip-components=1 \
-    && rm /tmp/toolchain.tar.xz
-
-ENV PATH="/opt/toolchain/bin:${PATH}"
-
-# Створення ізольованого Python-середовища з фіксованими хешами
-WORKDIR /opt/build-env
-COPY requirements.lock /opt/build-env/
-RUN python3 -m venv /opt/build-env/venv \
-    && /opt/build-env/venv/bin/pip install --no-cache-dir --require-hashes -r requirements.lock
-
-ENV PATH="/opt/build-env/venv/bin:${PATH}"
-
-# Робочий каталог проєкту
-WORKDIR /workspace
-ENTRYPOINT ["/bin/bash", "-c"]
-```
+:::code proj-hermetic-docker-build/docker/Dockerfile.builder
 
 ### 2. Маніфест Python-пакетів: `requirements.lock`
 
 Кожен допоміжний пакет (генератор коду, утиліта злиття образів, парсер конфігурацій) фіксується точним хешем двійкового коліщатка (`wheel`). Прапорець `--require-hashes` змушує утиліту `pip` відмовитися від встановлення будь-якого пакета, якщо його хеш відрізняється від зазначеного в маніфесті хоча б на один біт. Це виключає підміну коду в мережі або оновлення мінорних залежностей.
 
-```text
-kconfiglib==14.1.0 \
-    --hash=sha256:7e307775a7c29be60dd7bb6d3bb91c9ff6a9e1e7912bc097a8e7e1f5ce01878b
-intelhex==2.3.0 \
-    --hash=sha256:a6a575a6c11d04ebae33ebcaab0d03221b2bb502a9bca5e396eb5e6d0a7a3db0
-jinja2==3.1.4 \
-    --hash=sha256:bc377d907016146ae38047f4535a013c49e29f70eb6ed34f141607118b3d3732
-markupsafe==2.1.5 \
-    --hash=sha256:06e2012579a4da25f3de2e16c5144c3301b87932a3802d31041bcae637b88f95
-```
+:::code proj-hermetic-docker-build/docker/requirements.lock
 
 ### 3. Детермінований Makefile
 
@@ -93,21 +41,21 @@ markupsafe==2.1.5 \
 Прошивка має містити секцію метаданих, що дозволяє runtime-коду повідомити, з яким саме хешем середовища та конфігурацією її було скомпільовано. Завдяки розміщенню у спеціальній секції пам'яті `.meta` діагностична утиліта або завантажувач перевіряють автентичність образу без необхідності розбирати повний ELF-файл.
 
 :::tabs
-:::code proj-hermetic-docker-build/c/main.c
-:::code proj-hermetic-docker-build/cpp/main.cpp
+:::code proj-hermetic-docker-build/c/src/build_meta.c
+:::code proj-hermetic-docker-build/cpp/src/build_meta.cpp
 :::
 
 ### 5. Скрипт запуску з повною ізоляцією: `build.sh`
 
 Скрипт отримує часову мітку з Git, монтує каталог проєкту як том, зіставляє UID/GID поточного користувача Linux і повністю блокує доступ до мережі під час компіляції. Параметр `--network none` гарантує, що жоден допоміжний скрипт або утиліта збірки не зможе непомітно завантажити оновлення з Інтернету.
 
-:::code proj-hermetic-docker-build/sh/5-skrypt-zapusku-z-povnoiu.sh
+:::code proj-hermetic-docker-build/sh/build.sh
 
 ### 6. Автоматизована перевірка детермінізму: `verify.sh`
 
 Скрипт перевіряє, чи дві абсолютно незалежні збірки в різних тимчасових каталогах видають ідентичний бінарний хеш. Використання двох окремих каталогів у `/tmp` усуває вплив кешу файлової системи та залишкових об'єктних файлів, підтверджуючи повну незалежність результату.
 
-:::code proj-hermetic-docker-build/sh/6-avtomatyzovana-perevirka.sh
+:::code proj-hermetic-docker-build/sh/verify.sh
 
 ### Діагностика розбіжностей бінарників
 

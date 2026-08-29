@@ -53,9 +53,73 @@
 
 ## Повна реалізація аварійного реєстратора
 
+**Синхронний вивід у порт** — інтерфейс:
+
+:::tabs
+:::code proj-crash-logger/c/uart_sync.h
+:::code proj-crash-logger/cpp/src/sync_uart.hpp
+:::
+
+Реалізація з обмеженим очікуванням прапорця готовності:
+
+:::tabs
+:::code proj-crash-logger/c/uart_sync.c
+:::code proj-crash-logger/cpp/src/sync_uart.cpp
+:::
+
+**Дамп у `.noinit`** — структура запису й лічильник падінь:
+
+:::tabs
+:::code proj-crash-logger/c/crash_dump.h
+:::code proj-crash-logger/cpp/src/crash_record.hpp
+:::
+
+:::tabs
+:::code proj-crash-logger/c/crash_dump.c
+:::code proj-crash-logger/cpp/src/crash_record.cpp
+:::
+
+**Місток і аналітична частина** — власне обробник:
+
+:::tabs
+:::code proj-crash-logger/c/fault_handler.h
+:::code proj-crash-logger/cpp/src/fault_capture.hpp
+:::
+
+:::tabs
+:::code proj-crash-logger/c/fault_handler.c
+:::code proj-crash-logger/cpp/src/fault_capture.cpp
+:::
+
+**Розшифровка дампу в текст** — таблиці бітів CFSR, HFSR і причин скидання:
+
+:::tabs
+:::code proj-crash-logger/c/fault_report.h
+:::code proj-crash-logger/cpp/src/fault_decode.hpp
+:::
+
+:::tabs
+:::code proj-crash-logger/c/fault_report.c
+:::code proj-crash-logger/cpp/src/fault_decode.cpp
+:::
+
+**Захист від циклічного перезавантаження** — поріг, безпечний режим і стрибок у завантажувач:
+
+:::tabs
+:::code proj-crash-logger/c/crash_guard.h
+:::code proj-crash-logger/cpp/src/recovery.hpp
+:::
+
+:::tabs
+:::code proj-crash-logger/c/crash_guard.c
+:::code proj-crash-logger/cpp/src/recovery.cpp
+:::
+
+**Складання докупи** — порядок дій на старті й чотири способи навмисно зламати чип, щоб побачити звіт:
+
 :::tabs
 :::code proj-crash-logger/c/main.c
-:::code proj-crash-logger/cpp/main.cpp
+:::code proj-crash-logger/cpp/src/main.cpp
 :::
 
 ## Правила безпеки в аварійному обробнику

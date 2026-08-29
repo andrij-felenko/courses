@@ -66,7 +66,7 @@ Delta_t = T_exti_capture - T_led_start
 
 :::tabs
 :::code proj-latency-rig/c/main.c
-:::code proj-latency-rig/cpp/main.cpp
+:::code proj-latency-rig/cpp/src/main.cpp
 :::
 
 ## Практичні нюанси фізичного калібрування стенда

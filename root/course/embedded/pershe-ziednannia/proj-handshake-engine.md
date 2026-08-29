@@ -59,7 +59,17 @@
 * **Безпечне керування пам'яттю**: використання динамічних структур STL (`std::vector<bool>`, `std::unordered_map<std::string, float>`) усуває ризики переповнення фіксованих буферів, властиві чистому коду C.
 * **Таймери на базі `std::chrono::steady_clock`**: монотонний годинник гарантує коректний відлік таймаутів навіть у випадках, коли системний час ОС змінюється через NTP або ручне коригування.
 
+:::code proj-handshake-engine/cpp/handshake_engine.h
+
+:::code proj-handshake-engine/cpp/handshake_engine.cpp
+
+:::code proj-handshake-engine/cpp/udp_link.h
+
+:::code proj-handshake-engine/cpp/udp_link.cpp
+
 :::code proj-handshake-engine/cpp/main.cpp
+
+:::code proj-handshake-engine/cpp/CMakeLists.txt
 
 ---
 
@@ -72,7 +82,15 @@
 * **Пакетний дозапит дірок**: якщо потік відповідей переривається, скрипт формує адресні запити пачками по 5 штук, щоб збалансувати навантаження на чергу UART-порту автопілота.
 * **Автоматичне перетворення рядків**: обробка ASCII-ідентифікаторів параметрів із врахуванням байтових рядків Python 3 та видаленням завершальних нульових символів `\x00`.
 
-:::code proj-handshake-engine/py/main.py
+:::code proj-handshake-engine/py/gcs_handshake_client.py
+
+:::code proj-handshake-engine/py/gcs_handshake/link.py
+
+:::code proj-handshake-engine/py/gcs_handshake/params.py
+
+:::code proj-handshake-engine/py/gcs_handshake/streams.py
+
+:::code proj-handshake-engine/py/gcs_handshake/mission.py
 
 ---
 

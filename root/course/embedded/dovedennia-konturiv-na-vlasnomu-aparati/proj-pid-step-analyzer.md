@@ -40,8 +40,26 @@ d_noise_rms = √ ( (1/N) · Σ (d_out[i] − d_filtered[i])² )
 Нижче наведено повний модуль потокового аналізу сходинок. Модуль приймає масиви часових відліків польотного логу, виявляє границі перехідного процесу, обчислює динамічні параметри та видає структурований діагностичний вердикт із конкретними вказівками щодо підстроювання коефіцієнтів.
 
 :::tabs
+@tab C
+:::code proj-pid-step-analyzer/c/log.h
+:::code proj-pid-step-analyzer/c/log.c
+:::code proj-pid-step-analyzer/c/step_detect.h
+:::code proj-pid-step-analyzer/c/step_detect.c
+:::code proj-pid-step-analyzer/c/metrics.h
+:::code proj-pid-step-analyzer/c/metrics.c
+:::code proj-pid-step-analyzer/c/diagnose.h
+:::code proj-pid-step-analyzer/c/diagnose.c
 :::code proj-pid-step-analyzer/c/main.c
-:::code proj-pid-step-analyzer/cpp/main.cpp
+@tab C++
+:::code proj-pid-step-analyzer/cpp/src/flight_log.hpp
+:::code proj-pid-step-analyzer/cpp/src/flight_log.cpp
+:::code proj-pid-step-analyzer/cpp/src/step_finder.hpp
+:::code proj-pid-step-analyzer/cpp/src/step_finder.cpp
+:::code proj-pid-step-analyzer/cpp/src/step_metrics.hpp
+:::code proj-pid-step-analyzer/cpp/src/step_metrics.cpp
+:::code proj-pid-step-analyzer/cpp/src/verdict.hpp
+:::code proj-pid-step-analyzer/cpp/src/verdict.cpp
+:::code proj-pid-step-analyzer/cpp/src/main.cpp
 :::
 
 ## Інтерпретація діагностичних метрик

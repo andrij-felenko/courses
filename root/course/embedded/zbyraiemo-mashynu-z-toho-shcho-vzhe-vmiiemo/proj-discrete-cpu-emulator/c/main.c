@@ -1,215 +1,150 @@
+/* main.c — прошивки для емульованого ядра й запуск сценаріїв.
+ *
+ * Обидва образи асембльовано руками, стовпчиком байтів: наша ISA настільки
+ * мала, що окремий асемблер тут був би довшим за саму програму. Ціна ручного
+ * асемблювання — адреси переходів, які треба рахувати самому, тому кожен
+ * образ проходить перевірку міток перед запуском.
+ */
+#include <stddef.h>
 #include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
 
-#define MEMORY_SIZE 65536
-#define MMIO_GPIO_OUT 0x8000
-#define MMIO_GPIO_IN  0x8001
+#include "bus.h"
+#include "cpu.h"
+#include "isa.h"
 
-/* Опкоди інструкцій нашої ISA */
-enum Opcode {
-    OP_NOP           = 0x00,
-    OP_LOAD_IMM_ACC  = 0x01,
-    OP_LOAD_IMM_R0   = 0x02,
-    OP_LOAD_MEM_ACC  = 0x10,
-    OP_STORE_MEM_ACC = 0x20,
-    OP_ADD_ACC_R0    = 0x30,
-    OP_SUB_ACC_R0    = 0x31,
-    OP_AND_ACC_R0    = 0x32,
-    OP_XOR_ACC_R0    = 0x33,
-    OP_JMP           = 0x40,
-    OP_JZ            = 0x41,
-    OP_HALT          = 0xFF
+#define LO(addr) (uint8_t)((addr) & 0x00FFu)
+#define HI(addr) (uint8_t)(((addr) >> 8) & 0x00FFu)
+
+#define MAX_STEPS 200uL
+
+/* --- Сценарій 1: прошивка з покрокового розбору ------------------------
+ * Блимає світлодіодом через MMIO, віднімає й кладе результат у SRAM.
+ */
+static const uint8_t k_demo_firmware[] = {
+    /* 0x0000 */ OP_LOAD_IMM_R0,   0x01,                  /* R0 = 1            */
+    /* 0x0002 */ OP_LOAD_IMM_ACC,  0x01,                  /* ACC = 1           */
+    /* 0x0004 */ OP_STORE_MEM_ACC, LO(0x8000), HI(0x8000),/* світлодіод УВІМК. */
+    /* 0x0007 */ OP_LOAD_IMM_ACC,  0x00,                  /* ACC = 0           */
+    /* 0x0009 */ OP_STORE_MEM_ACC, LO(0x8000), HI(0x8000),/* світлодіод ВИМК.  */
+    /* 0x000C */ OP_LOAD_IMM_ACC,  0x03,                  /* ACC = 3           */
+    /* 0x000E */ OP_SUB_ACC_R0,                           /* ACC = 3 - 1 = 2   */
+    /* 0x000F */ OP_STORE_MEM_ACC, LO(0x4000), HI(0x4000),/* SRAM[0x4000] = 2  */
+    /* 0x0012 */ OP_HALT
 };
 
-/* Стан процесорного ядра */
-typedef struct {
-    uint16_t pc;
-    uint8_t  ir;
-    uint8_t  acc;
-    uint8_t  r0;
-    bool     flag_z;
-    bool     flag_c;
-    bool     halted;
-} CpuState;
+/* --- Сценарій 2: опитування кнопки та нештатні звернення до шини -------
+ * Ядро крутиться в циклі опитування порту вводу, доки кнопка не продавить
+ * підтяжку, вмикає світлодіод, а далі навмисно чіпає всі гострі кути карти
+ * адрес: переповнення суматора, запис у ROM, фантомну адресу й порожнечу.
+ */
+#define LBL_POLL   0x0002u
+#define LBL_LED_ON 0x000Cu
 
-/* Фізична пам'ять та стан периферійного заліза */
-static uint8_t g_memory[MEMORY_SIZE];
-static uint8_t g_gpio_out_latch = 0x00;
-static uint8_t g_gpio_in_pins   = 0x01; /* кнопка відпущена (підтяжка до 1) */
+static const uint8_t k_edge_firmware[] = {
+    /* 0x0000 */ OP_LOAD_IMM_R0,   0x01,                          /* маска біта 0 */
+    /* 0x0002 */ OP_LOAD_MEM_ACC,  LO(0x8001), HI(0x8001),        /* читаємо GPIO_IN */
+    /* 0x0005 */ OP_AND_ACC_R0,                                   /* лишаємо біт кнопки */
+    /* 0x0006 */ OP_JZ,            LO(LBL_LED_ON), HI(LBL_LED_ON),/* 0 -> натиснуто */
+    /* 0x0009 */ OP_JMP,           LO(LBL_POLL),   HI(LBL_POLL),  /* ні -> опитуємо далі */
 
-/* Імітація системної шини та адресного дешифратора (Address Decoding) */
-static uint8_t bus_read(uint16_t addr) {
-    if (addr == MMIO_GPIO_IN) {
-        printf("  [BUS RD] Читання MMIO 0x%04X (GPIO IN) = 0x%02X\n", addr, g_gpio_in_pins);
-        return g_gpio_in_pins;
+    /* 0x000C */ OP_LOAD_IMM_ACC,  0x01,
+    /* 0x000E */ OP_STORE_MEM_ACC, LO(0x8000), HI(0x8000),        /* світлодіод УВІМК. */
+
+    /* 0x0011 */ OP_LOAD_IMM_ACC,  0xFF,
+    /* 0x0013 */ OP_ADD_ACC_R0,                                   /* 0xFF+1: ACC=0x00, C=1 */
+    /* 0x0014 */ OP_STORE_MEM_ACC, LO(0x4001), HI(0x4001),        /* SRAM[0x4001] = 0x00 */
+
+    /* 0x0017 */ OP_XOR_ACC_R0,                                   /* ACC = 0x00 ^ 0x01 = 1 */
+    /* 0x0018 */ OP_STORE_MEM_ACC, LO(0x0010), HI(0x0010),        /* запис у ROM -> помилка */
+
+    /* 0x001B */ OP_LOAD_MEM_ACC,  LO(0x8003), HI(0x8003),        /* фантом GPIO_IN */
+    /* 0x001E */ OP_LOAD_MEM_ACC,  LO(0xC000), HI(0xC000),        /* порожнеча -> 0xFF */
+    /* 0x0021 */ OP_STORE_MEM_ACC, LO(0x4002), HI(0x4002),        /* SRAM[0x4002] = 0xFF */
+    /* 0x0024 */ OP_HALT
+};
+
+/* Самоперевірка ручного асемблювання: якщо в образ вставили чи забрали байт,
+   мітки переходів «поїдуть», і програма стрибне в середину іншої інструкції.
+   Дешевше зловити це тут, ніж ловити химерну поведінку в трасуванні. */
+static bool edge_firmware_labels_ok(void)
+{
+    if (sizeof k_edge_firmware <= LBL_LED_ON) {
+        fprintf(stderr, "[ASM] Образ коротший за мітку LED_ON\n");
+        return false;
     }
-    if (addr == MMIO_GPIO_OUT) {
-        return g_gpio_out_latch;
+    if (k_edge_firmware[LBL_POLL] != OP_LOAD_MEM_ACC) {
+        fprintf(stderr, "[ASM] Мітка POLL (0x%04X) не вказує на LOAD_MEM_ACC\n", LBL_POLL);
+        return false;
     }
-    return g_memory[addr];
+    if (k_edge_firmware[LBL_LED_ON] != OP_LOAD_IMM_ACC) {
+        fprintf(stderr, "[ASM] Мітка LED_ON (0x%04X) не вказує на LOAD_IMM_ACC\n", LBL_LED_ON);
+        return false;
+    }
+    return true;
 }
 
-static void bus_write(uint16_t addr, uint8_t data) {
-    if (addr == MMIO_GPIO_OUT) {
-        g_gpio_out_latch = data;
-        bool led_state = (data & 0x01) != 0;
-        printf("  [BUS WR] Запис MMIO 0x%04X (GPIO OUT) = 0x%02X -> Світлодіод: %s\n",
-               addr, data, led_state ? "УВІМКНЕНО (3.3 В)" : "ВИМКНЕНО (0 В)");
-        return;
-    }
-    if (addr < 0x4000) {
-        printf("  [BUS ERROR] Спроба запису в ROM за адресою 0x%04X!\n", addr);
-        return;
-    }
-    g_memory[addr] = data;
-}
-
-/* Оновлення прапорців стану АЛП */
-static void update_flags_alu(CpuState *cpu, uint16_t raw_result) {
-    cpu->acc = (uint8_t)(raw_result & 0xFF);
-    cpu->flag_z = (cpu->acc == 0);
-    cpu->flag_c = (raw_result > 0xFF);
-}
-
-/* Один повний цикл Fetch-Decode-Execute */
-static void cpu_step(CpuState *cpu) {
-    if (cpu->halted) return;
-
-    /* 1. ФАЗА ВИБІРКИ (FETCH) */
-    uint16_t current_pc = cpu->pc;
-    cpu->ir = bus_read(cpu->pc++);
-
-    printf("TICK | PC:0x%04X | IR:0x%02X | ACC:0x%02X | R0:0x%02X | Z:%d C:%d\n",
-           current_pc, cpu->ir, cpu->acc, cpu->r0, cpu->flag_z, cpu->flag_c);
-
-    /* 2. ФАЗА ДЕКОДУВАННЯ ТА ВИКОНАННЯ (DECODE & EXECUTE) */
-    switch (cpu->ir) {
-        case OP_NOP:
-            break;
-
-        case OP_LOAD_IMM_ACC:
-            cpu->acc = bus_read(cpu->pc++);
-            break;
-
-        case OP_LOAD_IMM_R0:
-            cpu->r0 = bus_read(cpu->pc++);
-            break;
-
-        case OP_LOAD_MEM_ACC: {
-            uint8_t lo = bus_read(cpu->pc++);
-            uint8_t hi = bus_read(cpu->pc++);
-            uint16_t addr = (uint16_t)(lo | (hi << 8));
-            cpu->acc = bus_read(addr);
-            break;
-        }
-
-        case OP_STORE_MEM_ACC: {
-            uint8_t lo = bus_read(cpu->pc++);
-            uint8_t hi = bus_read(cpu->pc++);
-            uint16_t addr = (uint16_t)(lo | (hi << 8));
-            bus_write(addr, cpu->acc);
-            break;
-        }
-
-        case OP_ADD_ACC_R0: {
-            uint16_t res = (uint16_t)cpu->acc + (uint16_t)cpu->r0;
-            update_flags_alu(cpu, res);
-            break;
-        }
-
-        case OP_SUB_ACC_R0: {
-            uint16_t res = (uint16_t)cpu->acc - (uint16_t)cpu->r0;
-            update_flags_alu(cpu, res);
-            break;
-        }
-
-        case OP_AND_ACC_R0:
-            cpu->acc &= cpu->r0;
-            cpu->flag_z = (cpu->acc == 0);
-            break;
-
-        case OP_XOR_ACC_R0:
-            cpu->acc ^= cpu->r0;
-            cpu->flag_z = (cpu->acc == 0);
-            break;
-
-        case OP_JMP: {
-            uint8_t lo = bus_read(cpu->pc++);
-            uint8_t hi = bus_read(cpu->pc++);
-            cpu->pc = (uint16_t)(lo | (hi << 8));
-            break;
-        }
-
-        case OP_JZ: {
-            uint8_t lo = bus_read(cpu->pc++);
-            uint8_t hi = bus_read(cpu->pc++);
-            if (cpu->flag_z) {
-                cpu->pc = (uint16_t)(lo | (hi << 8));
-                printf("  [BRANCH TAKEN] Стрибок на адресу 0x%04X (Z=1)\n", cpu->pc);
-            }
-            break;
-        }
-
-        case OP_HALT:
-            cpu->halted = true;
-            printf("  [CPU] Сигнал HALT отримано. Ядро зупинено.\n");
-            break;
-
-        default:
-            printf("  [CPU ERROR] Невідомий опкод 0x%02X за адресою 0x%04X!\n", cpu->ir, current_pc);
-            cpu->halted = true;
-            break;
+static const char *status_text(CpuStatus status)
+{
+    switch (status) {
+        case CPU_HALTED:     return "зупинено інструкцією HALT";
+        case CPU_FAULT:      return "ПАСТКА: невідома інструкція";
+        case CPU_STEP_LIMIT: return "ПЕРЕРВАНО сторожовим лічильником";
+        default:             return "невідомо";
     }
 }
 
-int main(void) {
-    memset(g_memory, 0, sizeof(g_memory));
+static CpuStatus run_scenario(const char *title,
+                              const uint8_t *image,
+                              size_t         length,
+                              unsigned       button_press_after)
+{
+    CpuState  cpu;
+    CpuStatus status;
 
-    /* Записуємо тестову бінарну прошивку в ROM (з адреси 0x0000):
-       Програма двічі блимає світлодіодом через MMIO, обчислює різницю і записує в RAM. */
-    uint8_t firmware[] = {
-        /* 0x0000: Ініціалізація лічильника циклів: R0 = 1 */
-        OP_LOAD_IMM_R0, 0x01,
-        
-        /* 0x0002: Увімкнути світлодіод (ACC = 0x01 -> MMIO 0x8000) */
-        OP_LOAD_IMM_ACC, 0x01,
-        OP_STORE_MEM_ACC, 0x00, 0x80,
+    printf("\n=== %s ===\n", title);
 
-        /* 0x0007: Вимкнути світлодіод (ACC = 0x00 -> MMIO 0x8000) */
-        OP_LOAD_IMM_ACC, 0x00,
-        OP_STORE_MEM_ACC, 0x00, 0x80,
-
-        /* 0x000C: Зберегти поточний лічильник у RAM [0x4000] */
-        OP_LOAD_IMM_ACC, 0x03,
-        OP_SUB_ACC_R0,               /* ACC = 3 - 1 = 2 */
-        OP_STORE_MEM_ACC, 0x00, 0x40,/* RAM[0x4000] = 2 */
-
-        /* 0x0013: Зупинка */
-        OP_HALT
-    };
-
-    memcpy(g_memory, firmware, sizeof(firmware));
-
-    /* Ініціалізація процесора (Power-On Reset) */
-    CpuState cpu = {
-        .pc = 0x0000,
-        .ir = 0x00,
-        .acc = 0x00,
-        .r0 = 0x00,
-        .flag_z = false,
-        .flag_c = false,
-        .halted = false
-    };
-
-    printf("=== СТАРТ ЕМУЛЯЦІЇ ПРОЦЕСОРА (RESET PC=0x0000) ===\n\n");
-    while (!cpu.halted) {
-        cpu_step(&cpu);
+    bus_init();
+    bus_set_button_press_after(button_press_after);
+    if (!bus_load_rom(image, length)) {
+        return CPU_FAULT;
     }
-    printf("\n=== ЕМУЛЯЦІЮ ЗАВЕРШЕНО ===\n");
-    printf("Фінальний стан RAM[0x4000] = 0x%02X\n", g_memory[0x4000]);
-    printf("Фінальний стан GPIO Latch = 0x%02X\n", g_gpio_out_latch);
 
-    return 0;
+    cpu_reset(&cpu);
+    printf("[RESET] PC=0x%04X, %zu байтів прошивки в ROM\n\n", cpu.pc, length);
+
+    status = cpu_run(&cpu, MAX_STEPS);
+
+    printf("\n--- Підсумок: %s ---\n", status_text(status));
+    printf("Інструкцій виконано : %lu\n", cpu.instructions);
+    printf("Шинних циклів       : %lu\n", bus_cycles());
+    printf("Помилок шини        : %u\n", bus_error_count());
+    printf("Прапорці            : Z=%d C=%d\n", cpu.flag_z, cpu.flag_c);
+    printf("GPIO_OUT (засувка)  : 0x%02X\n", bus_gpio_out_latch());
+    printf("SRAM[0x4000..0x4002]: 0x%02X 0x%02X 0x%02X\n",
+           bus_peek(0x4000), bus_peek(0x4001), bus_peek(0x4002));
+
+    return status;
+}
+
+int main(void)
+{
+    CpuStatus demo;
+    CpuStatus edge;
+
+    bus_set_trace(true);
+    cpu_set_trace(true);
+
+    demo = run_scenario("СЦЕНАРІЙ 1: блимання світлодіодом і запис у SRAM",
+                        k_demo_firmware, sizeof k_demo_firmware, BUTTON_NEVER);
+
+    if (!edge_firmware_labels_ok()) {
+        return 1;
+    }
+
+    /* Кнопку натискають після третього опитування: до того цикл опитування
+       крутиться вхолосту, як і на справжній платі. */
+    edge = run_scenario("СЦЕНАРІЙ 2: кнопка, переповнення та гострі кути карти адрес",
+                        k_edge_firmware, sizeof k_edge_firmware, 3u);
+
+    return (demo == CPU_HALTED && edge == CPU_HALTED) ? 0 : 1;
 }

@@ -1,151 +1,173 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
+/* Аналізатор перехідної характеристики контуру кутової швидкості.
+ *
+ *   analyzer <лог.csv> [поріг_відсічки_В]
+ *
+ * Лог — CSV: t_us,setpoint,gyro,d_term,vbat.
+ * Збірка: cc -std=c99 -O2 -o analyzer *.c -lm
+ */
+#include "diagnose.h"
+#include "log.h"
+#include "metrics.h"
+#include "step_detect.h"
 
-#define MAX_SAMPLES 1024
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct {
-    double setpoint;          // Амплітуда виявленої сходинки, deg/s
-    double latency_ms;        // Час запізнення реакції (вихід на 5%), мс
-    double rise_time_ms;      // Час наростання від 10% до 90%, мс
-    double overshoot_pct;     // Величина перерегулювання, %
-    double settling_time_ms;  // Час заспокоєння до коридору 5%, мс
-    double d_noise_rms;       // Середньоквадратичний шум D-терма на плато
-    int    oscillation_count; // Кількість перетинів коридору (дзвін)
-    bool   is_valid_step;     // Ознака валідної та придатної до аналізу сходинки
-} StepMetrics;
+#define MAX_STEPS      64
+#define DEFAULT_CUTOFF 13.6     /* 4S під навантаженням, 3.4 В на банку */
 
-typedef enum {
-    TUNE_PERFECT = 0,
-    TUNE_P_TOO_LOW,
-    TUNE_P_TOO_HIGH,
-    TUNE_D_TOO_LOW,
-    TUNE_D_TOO_HIGH_NOISE,
-    TUNE_SYSTEM_LAGGY
-} TuneDiagnostic;
-
-// Перевірка спокою системи перед початком сходинки
-static bool verify_pre_step_quiescence(const double *target, const double *actual, int start_idx) {
-    if (start_idx < 10) return true;
-    for (int i = start_idx - 10; i < start_idx; ++i) {
-        if (fabs(target[i] - actual[i]) > 25.0) {
-            return false;
-        }
-    }
-    return true;
+static void print_header(void)
+{
+    printf("\n  №  ампл,°/с   τ,мс  t_нар,мс   M_p,%%  t_вст,мс  D-шум  дзвін  примітка\n");
+    printf("  --------------------------------------------------------------------------\n");
 }
 
-// Аналіз масиву відліків сходинки перехідного процесу
-static StepMetrics analyze_step_response(const uint64_t *time_us,
-                                        const double *target,
-                                        const double *actual,
-                                        const double *d_term,
-                                        int n) {
-    StepMetrics m = {0};
-    if (n < 25 || n > MAX_SAMPLES) return m;
+static void print_row(size_t idx, const StepMetrics *m, const StepWindow *w)
+{
+    char note[64];
 
-    double t0 = target[0];
-    double t_final = target[n - 1];
-    double step_amp = t_final - t0;
-
-    // Сходинка має бути чіткою та енергійною (> 35 deg/s)
-    if (fabs(step_amp) < 35.0) return m;
-    if (!verify_pre_step_quiescence(target, actual, 5)) return m;
-
-    m.setpoint = step_amp;
-    m.is_valid_step = true;
-
-    uint64_t t_start = time_us[0];
-    uint64_t t_5pct = 0, t_10pct = 0, t_90pct = 0;
-    double max_val = actual[0];
-    int peak_idx = 0;
-
-    double target_5  = t0 + 0.05 * step_amp;
-    double target_10 = t0 + 0.10 * step_amp;
-    double target_90 = t0 + 0.90 * step_amp;
-    double band_low  = t_final - 0.05 * fabs(step_amp);
-    double band_high = t_final + 0.05 * fabs(step_amp);
-
-    for (int i = 1; i < n; ++i) {
-        double val = actual[i];
-
-        // Фіксація часу запізнення реакції (вихід на 5%)
-        if (!t_5pct && ((step_amp > 0 && val >= target_5) || (step_amp < 0 && val <= target_5))) {
-            t_5pct = time_us[i];
-        }
-        // Фіксація часових позначок наростання (10% та 90%)
-        if (!t_10pct && ((step_amp > 0 && val >= target_10) || (step_amp < 0 && val <= target_10))) {
-            t_10pct = time_us[i];
-        }
-        if (!t_90pct && ((step_amp > 0 && val >= target_90) || (step_amp < 0 && val <= target_90))) {
-            t_90pct = time_us[i];
-        }
-
-        // Пошук абсолютного піка для визначення перерегулювання
-        if (step_amp > 0) {
-            if (val > max_val) { max_val = val; peak_idx = i; }
-        } else {
-            if (val < max_val) { max_val = val; peak_idx = i; }
-        }
+    note[0] = '\0';
+    if (w->distorted & DIST_GYRO_CLIP) {
+        snprintf(note, sizeof note, "кліпінг гіро");
+    }
+    if (w->distorted & DIST_VBAT_SAG) {
+        snprintf(note, sizeof note, "%sпросідання АКБ",
+                 (w->distorted & DIST_GYRO_CLIP) ? "кліпінг гіро + " : "");
     }
 
-    if (t_5pct > t_start) {
-        m.latency_ms = (double)(t_5pct - t_start) / 1000.0;
-    }
-    if (t_90pct > t_10pct && t_10pct > 0) {
-        m.rise_time_ms = (double)(t_90pct - t_10pct) / 1000.0;
-    }
-
-    // Обчислення відсотка перерегулювання
-    if (step_amp > 0 && max_val > t_final) {
-        m.overshoot_pct = ((max_val - t_final) / step_amp) * 100.0;
-    } else if (step_amp < 0 && max_val < t_final) {
-        m.overshoot_pct = ((t_final - max_val) / fabs(step_amp)) * 100.0;
+    printf("  %2zu  %8.1f  %5.1f  ", idx, m->amplitude, m->tau_ms);
+    if (m->reached_90) {
+        printf("%8.1f", m->rise_time_ms);
     } else {
-        m.overshoot_pct = 0.0;
+        printf("%8s", "<90%");
     }
-
-    // Час встановлення та підрахунок перетинів межі коридору 5%
-    uint64_t t_settle = 0;
-    int crossings = 0;
-    for (int i = peak_idx; i < n; ++i) {
-        if (actual[i] < band_low || actual[i] > band_high) {
-            t_settle = time_us[i];
-            crossings++;
-        }
+    printf("  %6.1f  %8.1f%s  ", m->overshoot_pct, m->settling_time_ms, m->settled ? " " : "+");
+    if (m->noise_measured) {
+        printf("%5.1f", m->d_noise_rms);
+    } else {
+        printf("%5s", "н/д");
     }
-    m.settling_time_ms = (t_settle > t_start) ? (double)(t_settle - t_start) / 1000.0 : m.rise_time_ms;
-    m.oscillation_count = crossings;
-
-    // Оцінка високочастотного шуму D-терма на плато сходинки
-    double sum_sq = 0.0;
-    int noise_samples = 0;
-    int start_noise = n / 2;
-    for (int i = start_noise + 1; i < n; ++i) {
-        double delta = d_term[i] - d_term[i - 1];
-        sum_sq += delta * delta;
-        noise_samples++;
-    }
-    m.d_noise_rms = (noise_samples > 0) ? sqrt(sum_sq / noise_samples) : 0.0;
-
-    return m;
+    printf("  %5d  %s\n", m->ring_crossings, note);
 }
 
-// Генерація діагностичного висновку за виміряними метриками
-static TuneDiagnostic evaluate_tuning(const StepMetrics *m) {
-    if (!m->is_valid_step) return TUNE_PERFECT;
+static void print_verdict(const StepMetrics *m, size_t used)
+{
+    MetricBands b = diagnose_bands(m);
+    TuneVerdict v = diagnose(m, b);
 
-    if (m->latency_ms > 24.0) {
-        return TUNE_SYSTEM_LAGGY; // Завеликий лаг фільтрів або слабка тяга
+    printf("\n  Медіана по %zu чистих сходинках:\n", used);
+    printf("    затримка τ .......... %5.1f мс   (%s)\n", m->tau_ms, band_mark(b.tau));
+    if (m->reached_90) {
+        printf("    час наростання ...... %5.1f мс   (%s)\n", m->rise_time_ms, band_mark(b.rise));
+    } else {
+        printf("    час наростання ...... не досягнуто 90%% завдання (%s)\n", band_mark(b.rise));
     }
-    if (m->d_noise_rms > 35.0) {
-        return TUNE_D_TOO_HIGH_NOISE; // Небезпека високочастотного перегріву моторів
+    printf("    перерегулювання ..... %5.1f %%    (%s)\n", m->overshoot_pct, band_mark(b.overshoot));
+    printf("    час встановлення .... %5.1f мс%s\n", m->settling_time_ms,
+           m->settled ? "" : "   (у вікно не вклався)");
+    if (m->noise_measured) {
+        printf("    шум D-терма ......... %5.1f      (%s)\n", m->d_noise_rms, band_mark(b.noise));
+    } else {
+        printf("    шум D-терма ......... не виміряно: плато закоротке\n");
     }
-    if (m->overshoot_pct > 20.0 && m->rise_time_ms < 32.0) {
-        return (m->oscillation_count > 4) ? TUNE_P_TOO_HIGH : TUNE_D_TOO_LOW;
+    printf("    перетинів після піка  %5d\n", m->ring_crossings);
+
+    printf("\n  ВЕРДИКТ: %s\n", verdict_title(v));
+    printf("  ДІЯ:     %s\n\n", verdict_advice(v));
+}
+
+int main(int argc, char **argv)
+{
+    FlightLog log;
+    DetectConfig cfg;
+    DetectStats stats;
+    StepWindow windows[MAX_STEPS];
+    StepMetrics measured[MAX_STEPS];
+    StepMetrics clean[MAX_STEPS];
+    StepMetrics summary;
+    char err[256];
+    double cutoff = DEFAULT_CUTOFF;
+    size_t nwin;
+    size_t nclean = 0;
+    size_t shown = 0;
+    size_t i;
+
+    if (argc < 2 || argc > 3) {
+        fprintf(stderr, "вжиток: %s <лог.csv> [поріг_відсічки_В]\n", argv[0]);
+        return 2;
     }
-    if (m->rise_time_ms > 90.0 && m->overshoot_pct < 2.0) {
-        return TUNE_P_TOO_LOW; // Млява реакція, брак пропорційного підсилення
+    if (argc == 3) {
+        char *endp;
+
+        errno = 0;
+        cutoff = strtod(argv[2], &endp);
+        if (endp == argv[2] || *endp != '\0' || errno != 0 || cutoff <= 0.0 || cutoff > 60.0) {
+            fprintf(stderr, "поріг відсічки «%s» безглуздий: чекали напругу в вольтах\n", argv[2]);
+            return 2;
+        }
     }
-    return TUNE_PERFECT;
+
+    if (flightlog_load(argv[1], &log, err, sizeof err) != 0) {
+        fprintf(stderr, "лог не прочитано: %s\n", err);
+        return 1;
+    }
+
+    {
+        double dt = flightlog_mean_dt_us(&log);
+
+        printf("лог «%s»: %zu відліків, крок %.0f мкс (%.0f Гц), поріг АКБ %.1f В\n",
+               argv[1], log.count, dt, (dt > 0.0) ? 1e6 / dt : 0.0, cutoff);
+    }
+
+    cfg = detect_default_config(cutoff);
+    nwin = detect_steps(&log, &cfg, windows, MAX_STEPS, &stats);
+
+    printf("фронтів понад поріг: %zu; відкинуто — повільних %zu, дрібних %zu, "
+           "по неспокійній передісторії %zu, без плато %zu\n",
+           stats.edges, stats.rejected_ramp, stats.rejected_small,
+           stats.rejected_noisy, stats.rejected_plateau);
+
+    if (nwin == 0) {
+        printf("придатних сходинок не знайдено: політ або надто плавний, або надто рваний\n");
+        flightlog_free(&log);
+        return 1;
+    }
+    if (nwin == MAX_STEPS) {
+        printf("увага: узято лише перші %d сходинок\n", MAX_STEPS);
+    }
+
+    print_header();
+    for (i = 0; i < nwin; ++i) {
+        if (metrics_compute(&log, &windows[i], &measured[shown]) != 0) {
+            continue;                   /* реакції немає — рядок нічого не скаже */
+        }
+        print_row(shown + 1, &measured[shown], &windows[i]);
+        if (windows[i].distorted == 0) {
+            clean[nclean++] = measured[shown];
+        }
+        shown++;
+    }
+
+    if (shown == 0) {
+        printf("\n  жодна сходинка не дала вимірної реакції\n\n");
+        flightlog_free(&log);
+        return 1;
+    }
+    if (nclean == 0) {
+        printf("\n  усі сходинки спотворені кліпінгом або просіданням АКБ:\n"
+               "  вердикту не буде, спершу приберіть причину\n\n");
+        flightlog_free(&log);
+        return 1;
+    }
+
+    if (metrics_median(clean, nclean, &summary) != 0) {
+        fprintf(stderr, "не вдалося звести серію\n");
+        flightlog_free(&log);
+        return 1;
+    }
+    print_verdict(&summary, nclean);
+
+    flightlog_free(&log);
+    return 0;
 }

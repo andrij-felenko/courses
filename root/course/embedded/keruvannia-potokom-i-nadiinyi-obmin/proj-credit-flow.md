@@ -14,9 +14,10 @@
 
 :::tabs
 @tab c
-:::code proj-credit-flow/c/arkhitektura-bufera-z.c
+:::code proj-credit-flow/c/ring_buffer.h
+:::code proj-credit-flow/c/ring_buffer.c
 @tab cpp
-:::code proj-credit-flow/cpp/arkhitektura-bufera-z.cpp
+:::code proj-credit-flow/cpp/include/flow_ring.hpp
 :::
 
 ## Кредитний автомат передавача й приймача
@@ -27,9 +28,13 @@
 
 :::tabs
 @tab c
-:::code proj-credit-flow/c/kredytnyi-avtomat.c
+:::code proj-credit-flow/c/credit_flow.h
+:::code proj-credit-flow/c/credit_flow.c
+:::code proj-credit-flow/c/main.c
 @tab cpp
-:::code proj-credit-flow/cpp/kredytnyi-avtomat.cpp
+:::code proj-credit-flow/cpp/include/credit_link.hpp
+:::code proj-credit-flow/cpp/src/credit_link.cpp
+:::code proj-credit-flow/cpp/src/main.cpp
 :::
 
 ## Інженерні пастки та деталі реалізації

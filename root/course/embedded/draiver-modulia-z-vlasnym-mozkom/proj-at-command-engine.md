@@ -65,8 +65,8 @@ next_index = (current_index + 1) & (BUFFER_SIZE - 1)
 ## Повна реалізація: C та ідіоматичний C++
 
 :::tabs
-:::code proj-at-command-engine/c/main.c
-:::code proj-at-command-engine/cpp/main.cpp
+:::code proj-at-command-engine/c/at_engine.c
+:::code proj-at-command-engine/cpp/at/engine.cpp
 :::
 
 ---

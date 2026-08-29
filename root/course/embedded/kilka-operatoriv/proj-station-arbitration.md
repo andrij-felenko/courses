@@ -49,8 +49,8 @@
 Нижче наведено самодостатній вихідний код модуля арбітражу на мові C та його ідіоматичний еквівалент на сучасному стандарті C++20.
 
 :::tabs
-:::code proj-station-arbitration/c/main.c
-:::code proj-station-arbitration/cpp/main.hpp
+:::code proj-station-arbitration/c/arbiter.c
+:::code proj-station-arbitration/cpp/src/authority.cpp
 :::
 
 ---

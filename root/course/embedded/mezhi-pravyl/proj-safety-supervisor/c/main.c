@@ -1,159 +1,117 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include <stdio.h>
 #include <math.h>
+#include "supervisor.h"
 
-#define SAFETY_MARGIN_M       0.35f
-#define MAX_BRAKE_ACCEL_MPS2  3.0f
-#define LATENCY_PAD_SEC       0.04f
-#define MAX_ALLOWED_SPEED_MPS 2.5f
-#define MAX_YAW_RATE_RADPS    1.8f
-#define CRITICAL_VOLTAGE_V    13.8f
-#define NOMINAL_VOLTAGE_V     16.0f
-#define WATCHDOG_MAX_TICKS    10
+/* Прогін фільтра на найпростішій моделі ровера. Модель тут лише для того,
+ * щоб згодувати супервізору правдоподібний потік давачів: приводи вважаємо
+ * ідеальними, тобто фактична швидкість дорівнює виданій уставці. */
 
-typedef struct {
-    float vx;       /* Лінійна швидкість уперед, м/с */
-    float vy;       /* Бічна швидкість, м/с */
-    float yaw_rate; /* Кутова швидкість рискання, рад/с */
-} CommandVector;
+#define TICK_HZ       200.0f
+#define DT            (1.0f / TICK_HZ)
+#define PLAN_PERIOD_S 0.05f   /* планувальник — 20 Гц */
+#define WALL_X_M      14.0f   /* стіна попереду, м від старту */
+#define SIM_END_S     9.6f
+#define TILT_LIMIT    0.52f   /* ~30° перекидання */
 
-typedef struct {
-    float obstacle_dist_m; /* Найменша відстань за променем руху, м */
-    float battery_voltage; /* Напруга силової шини, В */
-    float current_tilt_rad;/* Поточний кут відхилення від вертикалі, рад */
-    float max_tilt_limit;  /* Критичний кут нахилу, рад */
-    bool  emergency_switch;/* Апаратна кнопка аварійної зупинки */
-} SensorEnvelope;
+static bool lidar_blind(float t)    { return t >= 1.0f && t < 1.3f; }
+static bool planner_frozen(float t) { return t >= 4.5f && t < 5.5f; }
+static bool estop_pressed(float t)  { return t >= 9.0f; }
 
-typedef enum {
-    SAFETY_PASS_THROUGH = 0,
-    SAFETY_CLAMPED      = 1,
-    SAFETY_BRAKE_ENGAGED= 2,
-    SAFETY_ESTOP_ACTIVE = 3
-} SafetyStatus;
-
-typedef struct {
-    uint32_t last_valid_tick;
-    uint32_t current_tick;
-    float    last_safe_vx;
-} SafetySupervisorState;
-
-void safety_supervisor_init(SafetySupervisorState *state) {
-    if (!state) return;
-    state->last_valid_tick = 0;
-    state->current_tick = 0;
-    state->last_safe_vx = 0.0f;
+/* Просідання напруги під струмом розгону, потім глибокий розряд */
+static float battery_voltage(float t)
+{
+    if (t < 3.2f) return 16.0f;
+    if (t < 4.5f) return 16.0f - (t - 3.2f) * 1.4f;
+    return 14.2f;
 }
 
-SafetyStatus safety_filter_step(
-    SafetySupervisorState *state,
-    const CommandVector *candidate,
-    const SensorEnvelope *sensors,
-    float dt_sec,
-    CommandVector *out_safe_cmd
-) {
-    if (!state || !candidate || !sensors || !out_safe_cmd || dt_sec <= 0.0f) {
-        return SAFETY_ESTOP_ACTIVE;
+/* Виїзд на схил і повернення на рівне */
+static float tilt_rad(float t)
+{
+    if (t < 2.2f || t >= 3.2f) return 0.05f;
+    return 0.05f + (t - 2.2f) * 0.50f;
+}
+
+static void print_row(float t, const SensorEnvelope *sn, float wish_vx,
+                      const CommandVector *safe, SafetyStatus st)
+{
+    char dist_text[16];
+    if (sn->obstacle_dist_valid) {
+        snprintf(dist_text, sizeof dist_text, "%6.2f", (double)sn->obstacle_dist_m);
+    } else {
+        snprintf(dist_text, sizeof dist_text, "   ---");
     }
+    printf("%6.3f  %s  %5.2f  %5.3f | %6.2f  %6.2f  %6.2f | %s\n",
+           (double)t, dist_text, (double)sn->battery_voltage,
+           (double)sn->current_tilt_rad, (double)wish_vx,
+           (double)safe->vx, (double)safe->yaw_rate,
+           bb_status_name((uint8_t)st));
+}
 
-    state->current_tick++;
-
-    /* 1. Апаратний аварійний вимикач має найвищий пріоритет */
-    if (sensors->emergency_switch) {
-        out_safe_cmd->vx = 0.0f;
-        out_safe_cmd->vy = 0.0f;
-        out_safe_cmd->yaw_rate = 0.0f;
-        state->last_safe_vx = 0.0f;
-        return SAFETY_ESTOP_ACTIVE;
+static void dump_blackbox(const BlackBox *log)
+{
+    printf("\n=== Чорна скринька: %u епізодів (затерто %u) ===\n",
+           blackbox_size(log), log->dropped);
+    for (uint32_t i = 0; i < blackbox_size(log); ++i) {
+        const BbEntry *e = blackbox_at(log, i);
+        printf("  %6.3f…%6.3f с  %-11s %-16s знач=%8.3f  тактів=%u\n",
+               (double)e->t_begin, (double)e->t_end,
+               bb_status_name(e->status), bb_reason_name(e->reason),
+               (double)e->value, e->repeats);
     }
+}
 
-    /* 2. Перевірка сторожового таймера оптимізатора */
-    if ((state->current_tick - state->last_valid_tick) > WATCHDOG_MAX_TICKS) {
-        /* Плавне гальмування до нуля */
-        float decel = MAX_BRAKE_ACCEL_MPS2 * dt_sec;
-        if (state->last_safe_vx > decel) {
-            state->last_safe_vx -= decel;
-        } else {
-            state->last_safe_vx = 0.0f;
-        }
-        out_safe_cmd->vx = state->last_safe_vx;
-        out_safe_cmd->vy = 0.0f;
-        out_safe_cmd->yaw_rate = 0.0f;
-        return SAFETY_BRAKE_ENGAGED;
-    }
+int main(void)
+{
+    SafetySupervisor sup;
+    safety_init(&sup);
 
-    /* 3. Розрахунок гальмівного бар'єра за дистанцією */
-    float target_vx = candidate->vx;
-    if (target_vx < 0.0f) {
-        target_vx = 0.0f; /* Заборона руху назад у спрощеній моделі */
-    }
+    float t = 0.0f;
+    float rover_x = 0.0f;
+    float next_plan = 0.0f;
+    float next_report = 0.0f;
+    SafetyStatus prev_status = SAFETY_PASS_THROUGH;
+    bool first = true;
 
-    float stop_dist = (target_vx * target_vx) / (2.0f * MAX_BRAKE_ACCEL_MPS2)
-                    + target_vx * LATENCY_PAD_SEC
-                    + SAFETY_MARGIN_M;
+    printf("  час    dist   вольт  крен  |  vx_кмд  vx_безп  yaw_бзп | статус\n");
 
-    bool clamped = false;
-
-    if (sensors->obstacle_dist_m < stop_dist) {
-        /* Допустима швидкість із залишком безпечної дистанції */
-        float available_dist = sensors->obstacle_dist_m - SAFETY_MARGIN_M;
-        if (available_dist <= 0.05f) {
-            target_vx = 0.0f;
-        } else {
-            float max_v_safe = sqrtf(2.0f * MAX_BRAKE_ACCEL_MPS2 * available_dist);
-            if (target_vx > max_v_safe) {
-                target_vx = max_v_safe;
-                clamped = true;
+    while (t < SIM_END_S) {
+        /* Повільний потік: «жадібний» планувальник просить повний хід */
+        if (!planner_frozen(t) && t >= next_plan) {
+            const CommandVector wish = { 2.2f, 0.0f, 0.6f };
+            if (!safety_submit_plan(&sup, &wish)) {
+                printf("!! уставку відкинуто: нечислове значення\n");
             }
+            next_plan = t + PLAN_PERIOD_S;
         }
-    }
 
-    /* 4. Масштабування за напругою акумулятора */
-    if (sensors->battery_voltage < NOMINAL_VOLTAGE_V) {
-        float v_factor = (sensors->battery_voltage - CRITICAL_VOLTAGE_V)
-                       / (NOMINAL_VOLTAGE_V - CRITICAL_VOLTAGE_V);
-        if (v_factor < 0.0f) v_factor = 0.0f;
-        if (v_factor > 1.0f) v_factor = 1.0f;
+        const float true_dist = WALL_X_M - rover_x;
+        const SensorEnvelope sensors = {
+            .obstacle_dist_m     = lidar_blind(t) ? NAN : true_dist,
+            .obstacle_dist_valid = !lidar_blind(t),
+            .battery_voltage     = battery_voltage(t),
+            .current_tilt_rad    = tilt_rad(t),
+            .max_tilt_limit      = TILT_LIMIT,
+            .emergency_switch    = estop_pressed(t)
+        };
 
-        float max_bat_vx = MAX_ALLOWED_SPEED_MPS * v_factor;
-        if (target_vx > max_bat_vx) {
-            target_vx = max_bat_vx;
-            clamped = true;
+        CommandVector safe_cmd;
+        const SafetyStatus status = safety_step(&sup, &sensors, DT, &safe_cmd);
+
+        /* Ідеальні приводи: що видали, те й поїхало */
+        rover_x += safe_cmd.vx * DT;
+
+        if (first || status != prev_status || t >= next_report) {
+            print_row(t, &sensors, sup.candidate.vx, &safe_cmd, status);
+            next_report = t + 0.5f;
+            first = false;
         }
+        prev_status = status;
+        t += DT;
     }
 
-    /* 5. Захист від перевертання за кутом нахилу */
-    float target_yaw_rate = candidate->yaw_rate;
-    if (sensors->current_tilt_rad > (sensors->max_tilt_limit * 0.8f)) {
-        float tilt_scale = (sensors->max_tilt_limit - sensors->current_tilt_rad)
-                         / (sensors->max_tilt_limit * 0.2f);
-        if (tilt_scale < 0.0f) tilt_scale = 0.0f;
-        if (tilt_scale > 1.0f) tilt_scale = 1.0f;
-
-        target_yaw_rate *= tilt_scale;
-        target_vx *= tilt_scale;
-        clamped = true;
-    }
-
-    /* 6. Обмеження абсолютних меж швидкості */
-    if (target_vx > MAX_ALLOWED_SPEED_MPS) {
-        target_vx = MAX_ALLOWED_SPEED_MPS;
-        clamped = true;
-    }
-    if (target_yaw_rate > MAX_YAW_RATE_RADPS) {
-        target_yaw_rate = MAX_YAW_RATE_RADPS;
-        clamped = true;
-    } else if (target_yaw_rate < -MAX_YAW_RATE_RADPS) {
-        target_yaw_rate = -MAX_YAW_RATE_RADPS;
-        clamped = true;
-    }
-
-    out_safe_cmd->vx = target_vx;
-    out_safe_cmd->vy = candidate->vy; /* Бічна швидкість для ровера = 0 */
-    out_safe_cmd->yaw_rate = target_yaw_rate;
-
-    state->last_safe_vx = target_vx;
-    state->last_valid_tick = state->current_tick;
-
-    return clamped ? SAFETY_CLAMPED : SAFETY_PASS_THROUGH;
+    printf("\nпройдено %.2f м, до стіни лишилось %.2f м\n",
+           (double)rover_x, (double)(WALL_X_M - rover_x));
+    dump_blackbox(&sup.log);
+    return 0;
 }

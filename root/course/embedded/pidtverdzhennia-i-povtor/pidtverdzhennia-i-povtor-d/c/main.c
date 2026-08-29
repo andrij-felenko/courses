@@ -1,173 +1,203 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* main.c — демонстрація Stop-and-Wait ARQ на віртуальному каналі.
+ *
+ * Модель: віртуальний годинник із тіком 1 мс, одностороння затримка,
+ * втрати й завади з детермінованим генератором (щоб прогін відтворювався).
+ * Вузол A шле команди, вузол B їх приймає й квитує.
+ */
+#include "arq.h"
+
+#include <stdio.h>
 #include <string.h>
 
-#define ARQ_MAX_PAYLOAD 64
-#define ARQ_MAX_RETRIES 5
-#define ARQ_MIN_RTO_MS  20
-#define ARQ_MAX_RTO_MS  2000
-#define ARQ_INITIAL_RTO 100
-
-typedef enum {
-    FRAME_DATA = 0x01,
-    FRAME_ACK  = 0x02,
-    FRAME_NACK = 0x03
-} FrameType;
+#define LINK_SLOTS 8
 
 typedef struct {
-    uint8_t   type;
-    uint8_t   seq;
-    uint8_t   len;
-    uint8_t   payload[ARQ_MAX_PAYLOAD];
-    uint16_t  crc;
-} __attribute__((packed)) ArqFrame;
-
-typedef enum {
-    TX_STATE_IDLE,
-    TX_STATE_WAIT_ACK,
-    TX_STATE_FAILED
-} TxState;
+    uint8_t  bytes[ARQ_MAX_FRAME];
+    size_t   len;
+    uint32_t due_ms;
+    bool     toward_rx;
+    bool     busy;
+} link_pkt;
 
 typedef struct {
-    TxState   state;
-    uint8_t   next_seq;
-    uint8_t   retries;
-    uint32_t  tx_timestamp;
-    bool      is_retransmission;
-    ArqFrame  pending_frame;
+    link_pkt slots[LINK_SLOTS];
+    uint32_t now_ms;
+    uint32_t delay_ms;
+    uint32_t rng;
+    unsigned drop_pct;
+    unsigned corrupt_pct;
+    arq_tx  *tx;
+    arq_rx  *rx;
+} link_sim;
 
-    /* Параметри цілочисельного RTO Якобсона/Карна */
-    uint32_t  srtt_scaled;    /* SRTT * 8 */
-    uint32_t  rttvar_scaled;  /* RTTVAR * 4 */
-    uint32_t  rto_ms;
-} ArqSender;
-
+/* Кінець лінії: кому саме віддавати те, що записав цей вузол. */
 typedef struct {
-    uint8_t   expected_seq;
-} ArqReceiver;
+    link_sim *link;
+    bool      toward_rx;
+} link_port;
 
-/* Спрощений розрахунок CRC16 CCITT */
-static uint16_t arq_crc16(const uint8_t *data, size_t len) {
-    uint16_t crc = 0xFFFF;
-    for (size_t i = 0; i < len; ++i) {
-        crc ^= (uint16_t)data[i] << 8;
-        for (uint8_t b = 0; b < 8; ++b) {
-            if (crc & 0x8000) crc = (crc << 1) ^ 0x1021;
-            else              crc = crc << 1;
+static uint32_t xorshift32(uint32_t *s)
+{
+    uint32_t x = *s;
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    *s = x;
+    return x;
+}
+
+static void link_put(link_sim *l, bool toward_rx, const uint8_t *buf, size_t len)
+{
+    const char *dir  = toward_rx ? "A→B" : "B→A";
+    const unsigned dice = xorshift32(&l->rng) % 100u;
+
+    if (dice < l->drop_pct) {
+        printf("[%5u мс] %s  кадр загублено в каналі\n", l->now_ms, dir);
+        return;
+    }
+
+    for (size_t i = 0; i < LINK_SLOTS; ++i) {
+        link_pkt *p = &l->slots[i];
+        if (p->busy) {
+            continue;
         }
-    }
-    return crc;
-}
+        memcpy(p->bytes, buf, len);
+        p->len       = len;
+        p->due_ms    = l->now_ms + l->delay_ms;
+        p->toward_rx = toward_rx;
+        p->busy      = true;
 
-/* Ініціалізація передавача */
-void arq_sender_init(ArqSender *s) {
-    s->state = TX_STATE_IDLE;
-    s->next_seq = 0;
-    s->retries = 0;
-    s->is_retransmission = false;
-    s->srtt_scaled = ARQ_INITIAL_RTO << 3;
-    s->rttvar_scaled = (ARQ_INITIAL_RTO / 2) << 2;
-    s->rto_ms = ARQ_INITIAL_RTO;
-}
-
-/* Оновлення RTO за Якобсоном (тільки для неперепосланих пакетів) */
-static void arq_update_rtt(ArqSender *s, uint32_t sample_rtt_ms) {
-    int32_t err = (int32_t)sample_rtt_ms - (int32_t)(s->srtt_scaled >> 3);
-    s->srtt_scaled += err;
-    
-    int32_t abs_err = (err < 0) ? -err : err;
-    s->rttvar_scaled += abs_err - (int32_t)(s->rttvar_scaled >> 2);
-    
-    s->rto_ms = (s->srtt_scaled >> 3) + s->rttvar_scaled;
-    if (s->rto_ms < ARQ_MIN_RTO_MS) s->rto_ms = ARQ_MIN_RTO_MS;
-    if (s->rto_ms > ARQ_MAX_RTO_MS) s->rto_ms = ARQ_MAX_RTO_MS;
-}
-
-/* Відправка даних (виклик від додатку) */
-bool arq_send(ArqSender *s, const uint8_t *data, uint8_t len, uint32_t now_ms,
-              void (*hw_transmit)(const uint8_t *buf, size_t size)) {
-    if (s->state != TX_STATE_IDLE || len > ARQ_MAX_PAYLOAD) {
-        return false;
+        if (dice < l->drop_pct + l->corrupt_pct) {
+            /* Псуємо байт даних, а в короткій квитанції — байт номера. */
+            const size_t victim = (len > ARQ_HDR_LEN + ARQ_CRC_LEN) ? ARQ_HDR_LEN : 2u;
+            p->bytes[victim] ^= 0x20u;
+            printf("[%5u мс] %s  завада перевернула біт у байті %zu\n",
+                   l->now_ms, dir, victim);
+        }
+        return;
     }
 
-    s->pending_frame.type = FRAME_DATA;
-    s->pending_frame.seq = s->next_seq;
-    s->pending_frame.len = len;
-    memcpy(s->pending_frame.payload, data, len);
-
-    size_t header_len = sizeof(ArqFrame) - sizeof(uint16_t);
-    s->pending_frame.crc = arq_crc16((uint8_t *)&s->pending_frame, header_len);
-
-    s->tx_timestamp = now_ms;
-    s->retries = 0;
-    s->is_retransmission = false;
-    s->state = TX_STATE_WAIT_ACK;
-
-    hw_transmit((const uint8_t *)&s->pending_frame, sizeof(ArqFrame));
-    return true;
+    printf("[%5u мс] %s  черга каналу переповнена, кадр відкинуто\n", l->now_ms, dir);
 }
 
-/* Періодичний тік передавача: перевірка таймауту */
-void arq_sender_poll(ArqSender *s, uint32_t now_ms,
-                     void (*hw_transmit)(const uint8_t *buf, size_t size)) {
-    if (s->state != TX_STATE_WAIT_ACK) return;
+static void link_pump(link_sim *l)
+{
+    for (size_t i = 0; i < LINK_SLOTS; ++i) {
+        link_pkt *p = &l->slots[i];
+        if (!p->busy || p->due_ms > l->now_ms) {
+            continue;
+        }
+        /* Копія і звільнення слота ДО виклику: обробник кадру сам кладе
+           в канал відповідь і зайняв би цей самий слот. */
+        const link_pkt pkt = *p;
+        p->busy = false;
 
-    if (now_ms - s->tx_timestamp >= s->rto_ms) {
-        if (s->retries < ARQ_MAX_RETRIES) {
-            s->retries++;
-            s->is_retransmission = true;
-            s->rto_ms = (s->rto_ms * 2 > ARQ_MAX_RTO_MS) ? ARQ_MAX_RTO_MS : s->rto_ms * 2;
-            s->tx_timestamp = now_ms;
-            hw_transmit((const uint8_t *)&s->pending_frame, sizeof(ArqFrame));
+        if (pkt.toward_rx) {
+            arq_rx_on_wire(l->rx, pkt.bytes, pkt.len);
         } else {
-            s->state = TX_STATE_FAILED;
+            arq_tx_on_wire(l->tx, pkt.bytes, pkt.len, l->now_ms);
         }
     }
 }
 
-/* Обробка вхідного кадру квитанції */
-void arq_sender_on_ack_received(ArqSender *s, const ArqFrame *ack, uint32_t now_ms) {
-    if (s->state != TX_STATE_WAIT_ACK) return;
-
-    size_t header_len = sizeof(ArqFrame) - sizeof(uint16_t);
-    if (arq_crc16((const uint8_t *)ack, header_len) != ack->crc) return;
-
-    if (ack->type == FRAME_ACK && ack->seq == s->next_seq) {
-        if (!s->is_retransmission) {
-            uint32_t sample_rtt = now_ms - s->tx_timestamp;
-            arq_update_rtt(s, sample_rtt);
-        }
-        s->next_seq ^= 1; /* 1-бітне чергування в Stop-and-Wait */
-        s->state = TX_STATE_IDLE;
-    }
+static void port_write(void *ctx, const uint8_t *buf, size_t len)
+{
+    link_port *port = (link_port *)ctx;
+    link_put(port->link, port->toward_rx, buf, len);
 }
 
-/* Обробка на боці приймача */
-void arq_receiver_init(ArqReceiver *r) {
-    r->expected_seq = 0;
+/* --- Прикладний рівень вузла A --- */
+
+static const char *const g_commands[] = {
+    "ARM MOTORS", "SET SPEED 120", "GET STATUS", "STOP", "DISARM"
+};
+#define COMMAND_COUNT (sizeof g_commands / sizeof g_commands[0])
+
+typedef struct {
+    link_sim *link;
+    arq_tx   *tx;
+    unsigned  next;
+    bool      in_flight;
+    bool      link_lost;
+} app_state;
+
+static void on_result(void *ctx, bool delivered, uint8_t seq)
+{
+    app_state *app = (app_state *)ctx;
+    if (delivered) {
+        printf("[%5u мс] A: seq=%u підтверджено (SRTT=%u мс, RTO=%u мс)\n",
+               app->link->now_ms, seq,
+               arq_rto_srtt(&app->tx->rto), arq_rto_get(&app->tx->rto));
+    } else {
+        printf("[%5u мс] A: seq=%u не доставлено за %u спроб — зв'язок втрачено\n",
+               app->link->now_ms, seq, (unsigned)ARQ_MAX_RETRIES);
+        app->link_lost = true;
+    }
+    app->in_flight = false;
 }
 
-void arq_receiver_on_frame(ArqReceiver *r, const ArqFrame *frame,
-                           void (*hw_transmit)(const uint8_t *buf, size_t size),
-                           void (*app_deliver)(const uint8_t *data, uint8_t len)) {
-    size_t header_len = sizeof(ArqFrame) - sizeof(uint16_t);
-    if (arq_crc16((const uint8_t *)frame, header_len) != frame->crc) {
-        return; /* Помилка CRC: відкидаємо сміття */
-    }
+static void on_deliver(void *ctx, const uint8_t *data, uint8_t len)
+{
+    link_sim *l = (link_sim *)ctx;
+    printf("[%5u мс] B: додатку віддано «%.*s»\n", l->now_ms, (int)len, (const char *)data);
+}
 
-    if (frame->type == FRAME_DATA) {
-        ArqFrame ack_reply;
-        ack_reply.type = FRAME_ACK;
-        ack_reply.seq = frame->seq;
-        ack_reply.len = 0;
-        ack_reply.crc = arq_crc16((uint8_t *)&ack_reply, header_len);
+int main(void)
+{
+    arq_tx tx;
+    arq_rx rx;
+    link_sim link;
 
-        if (frame->seq == r->expected_seq) {
-            /* Свіжі дані: віддаємо додатку та зсуваємо чергу */
-            app_deliver(frame->payload, frame->len);
-            r->expected_seq ^= 1;
+    memset(&link, 0, sizeof link);
+    link.delay_ms    = 8;
+    link.rng         = 0x20260829u;
+    link.drop_pct    = 20;
+    link.corrupt_pct = 15;
+    link.tx          = &tx;
+    link.rx          = &rx;
+
+    link_port a_port = { &link, true };
+    link_port b_port = { &link, false };
+    app_state app    = { &link, &tx, 0, false, false };
+
+    arq_tx_init(&tx, port_write, &a_port, on_result, &app);
+    arq_rx_init(&rx, port_write, &b_port, on_deliver, &link);
+
+    printf("Stop-and-Wait ARQ: втрати %u%%, спотворення %u%%, затримка %u мс в один бік\n\n",
+           link.drop_pct, link.corrupt_pct, link.delay_ms);
+
+    for (link.now_ms = 0; link.now_ms < 20000u; ++link.now_ms) {
+        link_pump(&link);
+        arq_tx_poll(&tx, link.now_ms);
+
+        if (app.link_lost) {
+            break;
         }
-        /* У будь-якому випадку (свіжий чи дублікат) надсилаємо ACK */
-        hw_transmit((const uint8_t *)&ack_reply, sizeof(ArqFrame));
+        if (!app.in_flight) {
+            if (app.next >= COMMAND_COUNT) {
+                break; /* усі команди підтверджено */
+            }
+            if (tx.state == ARQ_TX_IDLE) {
+                const char *cmd = g_commands[app.next++];
+                printf("[%5u мс] A: команда «%s» → кадр seq=%u\n", link.now_ms, cmd, tx.seq);
+                if (arq_tx_send(&tx, (const uint8_t *)cmd, (uint8_t)strlen(cmd), link.now_ms)) {
+                    app.in_flight = true;
+                } else {
+                    app.next--; /* не влізло в кадр — спробуємо ще раз наступним тіком */
+                }
+            }
+        }
     }
+
+    printf("\n--- Підсумок (%u мс модельного часу) ---\n", link.now_ms);
+    printf("A: нових кадрів %u, повторів %u, підтверджено %u, відмов %u, сміття %u\n",
+           tx.stats.sent, tx.stats.retransmitted, tx.stats.acked, tx.stats.failed, tx.stats.stray);
+    printf("B: доставлено %u, дублікатів відсіяно %u, побитих кадрів %u",
+           rx.stats.delivered, rx.stats.duplicates, rx.stats.corrupted);
+    if (rx.stats.corrupted > 0) {
+        printf(" (остання причина: %s)", arq_decode_str(rx.last_error));
+    }
+    printf("\nПідсумковий RTO %u мс при SRTT %u мс\n",
+           arq_rto_get(&tx.rto), arq_rto_srtt(&tx.rto));
+    return 0;
 }

@@ -1,222 +1,192 @@
-#include <iostream>
-#include <array>
-#include <span>
+// main.cpp — складач прошивок і запуск сценаріїв емуляції.
+//
+// Прошивки тут не набирають стовпчиком байтів: крихітний асемблер із мітками
+// коштує півсотні рядків і знімає найпротивнішу помилку ручного асемблювання —
+// адресу переходу, порахувану на око. Мітка, якої немає, зупиняє складання,
+// а не дає ядру стрибнути в середину чужої інструкції.
 #include <cstdint>
-#include <iomanip>
+#include <exception>
+#include <format>
+#include <iostream>
+#include <map>
+#include <span>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
 
-namespace emu {
+#include "cpu.hpp"
+#include "isa.hpp"
+#include "system_bus.hpp"
 
-inline constexpr std::size_t MemorySize = 65536;
-inline constexpr uint16_t MmioGpioOut   = 0x8000;
-inline constexpr uint16_t MmioGpioIn    = 0x8001;
+namespace {
 
-enum class Opcode : uint8_t {
-    Nop          = 0x00,
-    LoadImmAcc   = 0x01,
-    LoadImmR0    = 0x02,
-    LoadMemAcc   = 0x10,
-    StoreMemAcc  = 0x20,
-    AddAccR0     = 0x30,
-    SubAccR0     = 0x31,
-    AndAccR0     = 0x32,
-    XorAccR0     = 0x33,
-    Jmp          = 0x40,
-    Jz           = 0x41,
-    Halt         = 0xFF
-};
+using namespace emu;
 
-class SystemBus {
+class Assembler {
 public:
-    SystemBus() {
-        memory_.fill(0);
+    Assembler& op(Opcode opcode)
+    {
+        code_.push_back(std::to_underlying(opcode));
+        return *this;
     }
 
-    void load_rom(std::span<const uint8_t> firmware, uint16_t base_addr = 0x0000) {
-        for (std::size_t i = 0; i < firmware.size() && (base_addr + i) < MemorySize; ++i) {
-            memory_[base_addr + i] = firmware[i];
-        }
+    Assembler& imm(std::uint8_t value)
+    {
+        code_.push_back(value);
+        return *this;
     }
 
-    [[nodiscard]] uint8_t read(uint16_t addr) const {
-        if (addr == MmioGpioIn) {
-            std::cout << "  [BUS RD] Читання MMIO 0x" << std::hex << std::uppercase
-                      << std::setw(4) << std::setfill('0') << addr
-                      << " (GPIO IN) = 0x" << std::setw(2) << static_cast<int>(gpio_in_pins_) << "\n";
-            return gpio_in_pins_;
-        }
-        if (addr == MmioGpioOut) {
-            return gpio_out_latch_;
-        }
-        return memory_[addr];
+    Assembler& addr(std::uint16_t address)
+    {
+        code_.push_back(static_cast<std::uint8_t>(address & 0x00FF));
+        code_.push_back(static_cast<std::uint8_t>(address >> 8));
+        return *this;
     }
 
-    void write(uint16_t addr, uint8_t data) {
-        if (addr == MmioGpioOut) {
-            gpio_out_latch_ = data;
-            const bool led_state = (data & 0x01) != 0;
-            std::cout << "  [BUS WR] Запис MMIO 0x" << std::hex << std::uppercase
-                      << std::setw(4) << std::setfill('0') << addr
-                      << " (GPIO OUT) = 0x" << std::setw(2) << static_cast<int>(data)
-                      << " -> Світлодіод: " << (led_state ? "УВІМКНЕНО (3.3 В)" : "ВИМКНЕНО (0 В)") << "\n";
-            return;
+    Assembler& label(std::string name)
+    {
+        const auto [it, inserted] = labels_.emplace(std::move(name), here());
+        if (!inserted) {
+            throw std::runtime_error(std::format("мітку '{}' оголошено двічі", it->first));
         }
-        if (addr < 0x4000) {
-            std::cout << "  [BUS ERROR] Спроба запису в ROM за адресою 0x"
-                      << std::hex << std::setw(4) << addr << "!\n";
-            return;
-        }
-        memory_[addr] = data;
+        return *this;
     }
 
-    [[nodiscard]] uint8_t inspect_ram(uint16_t addr) const noexcept { return memory_[addr]; }
-    [[nodiscard]] uint8_t inspect_gpio() const noexcept { return gpio_out_latch_; }
+    // Опкод переходу разом із порожнім місцем під адресу: справжнє значення
+    // підставить link(), коли всі мітки вже відомі.
+    Assembler& jump(Opcode opcode, std::string target)
+    {
+        op(opcode);
+        fixups_.emplace_back(code_.size(), std::move(target));
+        code_.push_back(0x00);
+        code_.push_back(0x00);
+        return *this;
+    }
+
+    [[nodiscard]] std::uint16_t here() const noexcept
+    {
+        return static_cast<std::uint16_t>(code_.size());
+    }
+
+    [[nodiscard]] std::vector<std::uint8_t> link() const
+    {
+        std::vector<std::uint8_t> image = code_;
+        for (const auto& [position, name] : fixups_) {
+            const auto found = labels_.find(name);
+            if (found == labels_.end()) {
+                throw std::runtime_error(
+                    std::format("невідома мітка '{}' у переході за зміщенням 0x{:04X}", name, position));
+            }
+            image[position]     = static_cast<std::uint8_t>(found->second & 0x00FF);
+            image[position + 1] = static_cast<std::uint8_t>(found->second >> 8);
+        }
+        return image;
+    }
 
 private:
-    std::array<uint8_t, MemorySize> memory_{};
-    uint8_t gpio_out_latch_{0x00};
-    uint8_t gpio_in_pins_{0x01};
+    std::vector<std::uint8_t>                         code_;
+    std::map<std::string, std::uint16_t, std::less<>> labels_;
+    std::vector<std::pair<std::size_t, std::string>>  fixups_;
 };
 
-class Cpu {
-public:
-    explicit Cpu(SystemBus& bus) : bus_(bus) {}
+// Сценарій 1: прошивка з покрокового розбору. Блимає світлодіодом через MMIO,
+// віднімає й кладе результат у SRAM.
+[[nodiscard]] std::vector<std::uint8_t> build_demo_firmware()
+{
+    Assembler asm_;
+    asm_.op(Opcode::LoadImmR0).imm(0x01)              // R0 = 1
+        .op(Opcode::LoadImmAcc).imm(0x01)             // ACC = 1
+        .op(Opcode::StoreMemAcc).addr(kRegGpioOut)    // світлодіод УВІМКНЕНО
+        .op(Opcode::LoadImmAcc).imm(0x00)             // ACC = 0
+        .op(Opcode::StoreMemAcc).addr(kRegGpioOut)    // світлодіод ВИМКНЕНО
+        .op(Opcode::LoadImmAcc).imm(0x03)             // ACC = 3
+        .op(Opcode::SubAccR0)                         // ACC = 3 - 1 = 2
+        .op(Opcode::StoreMemAcc).addr(0x4000)         // SRAM[0x4000] = 2
+        .op(Opcode::Halt);
+    return asm_.link();
+}
 
-    void step() {
-        if (halted_) return;
+// Сценарій 2: ядро крутиться в циклі опитування кнопки, а далі навмисно чіпає
+// всі гострі кути карти адрес — переповнення суматора, запис у ROM, фантомну
+// адресу периферії й порожнечу за межами підключених кристалів.
+[[nodiscard]] std::vector<std::uint8_t> build_edge_firmware()
+{
+    Assembler asm_;
+    asm_.op(Opcode::LoadImmR0).imm(0x01)              // маска біта кнопки
+        .label("poll")
+        .op(Opcode::LoadMemAcc).addr(kRegGpioIn)      // читаємо порт вводу
+        .op(Opcode::AndAccR0)                         // лишаємо біт 0
+        .jump(Opcode::Jz, "led_on")                   // нуль -> кнопку натиснуто
+        .jump(Opcode::Jmp, "poll")                    // ні -> опитуємо далі
+        .label("led_on")
+        .op(Opcode::LoadImmAcc).imm(0x01)
+        .op(Opcode::StoreMemAcc).addr(kRegGpioOut)    // світлодіод УВІМКНЕНО
+        .op(Opcode::LoadImmAcc).imm(0xFF)
+        .op(Opcode::AddAccR0)                         // 0xFF + 1: ACC = 0x00, C = 1
+        .op(Opcode::StoreMemAcc).addr(0x4001)         // SRAM[0x4001] = 0x00
+        .op(Opcode::XorAccR0)                         // ACC = 0x00 ^ 0x01 = 1
+        .op(Opcode::StoreMemAcc).addr(0x0010)         // запис у ROM -> помилка шини
+        .op(Opcode::LoadMemAcc).addr(0x8003)          // фантомна копія GPIO_IN
+        .op(Opcode::LoadMemAcc).addr(0xC000)          // порожнеча -> 0xFF
+        .op(Opcode::StoreMemAcc).addr(0x4002)         // SRAM[0x4002] = 0xFF
+        .op(Opcode::Halt);
+    return asm_.link();
+}
 
-        // 1. Fetch
-        const uint16_t current_pc = pc_;
-        ir_ = bus_.read(pc_++);
+StopReason run_scenario(std::string_view title, std::span<const std::uint8_t> image, unsigned button_press_after)
+{
+    std::cout << std::format("\n=== {} ===\n", title);
 
-        std::cout << "TICK | PC:0x" << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << current_pc
-                  << " | IR:0x" << std::setw(2) << static_cast<int>(ir_)
-                  << " | ACC:0x" << std::setw(2) << static_cast<int>(acc_)
-                  << " | R0:0x" << std::setw(2) << static_cast<int>(r0_)
-                  << " | Z:" << flag_z_ << " C:" << flag_c_ << "\n";
+    SystemBus bus;
+    bus.set_trace(true);
+    bus.press_button_after(button_press_after);
+    bus.load_rom(image);
 
-        // 2. Decode & Execute
-        switch (static_cast<Opcode>(ir_)) {
-            case Opcode::Nop:
-                break;
+    Cpu cpu{bus};
+    cpu.reset();
+    cpu.set_trace(true);
+    std::cout << std::format("[RESET] PC=0x{:04X}, {} байтів прошивки в ROM\n\n",
+                             cpu.registers().pc, image.size());
 
-            case Opcode::LoadImmAcc:
-                acc_ = bus_.read(pc_++);
-                break;
+    const StopReason reason = cpu.run();
+    const auto&      regs   = cpu.registers();
 
-            case Opcode::LoadImmR0:
-                r0_ = bus_.read(pc_++);
-                break;
+    std::cout << std::format("\n--- Підсумок: {} ---\n", describe(reason));
+    std::cout << std::format("Інструкцій виконано : {}\n", cpu.instructions());
+    std::cout << std::format("Шинних циклів       : {}\n", bus.cycles());
+    std::cout << std::format("Помилок шини        : {}\n", cpu.bus_errors());
+    std::cout << std::format("Прапорці            : Z={:d} C={:d}\n", regs.flag_z, regs.flag_c);
+    std::cout << std::format("GPIO_OUT (засувка)  : 0x{:02X} (світлодіод {})\n",
+                             bus.gpio_out_latch(), bus.led_on() ? "світить" : "згас");
+    std::cout << std::format("SRAM[0x4000..0x4002]: 0x{:02X} 0x{:02X} 0x{:02X}\n",
+                             bus.ram_at(0x4000), bus.ram_at(0x4001), bus.ram_at(0x4002));
 
-            case Opcode::LoadMemAcc: {
-                const uint8_t lo = bus_.read(pc_++);
-                const uint8_t hi = bus_.read(pc_++);
-                acc_ = bus_.read(static_cast<uint16_t>(lo | (hi << 8)));
-                break;
-            }
+    return reason;
+}
 
-            case Opcode::StoreMemAcc: {
-                const uint8_t lo = bus_.read(pc_++);
-                const uint8_t hi = bus_.read(pc_++);
-                bus_.write(static_cast<uint16_t>(lo | (hi << 8)), acc_);
-                break;
-            }
+}  // namespace
 
-            case Opcode::AddAccR0: {
-                const uint16_t res = static_cast<uint16_t>(acc_) + static_cast<uint16_t>(r0_);
-                acc_ = static_cast<uint8_t>(res & 0xFF);
-                flag_z_ = (acc_ == 0);
-                flag_c_ = (res > 0xFF);
-                break;
-            }
+int main()
+{
+    try {
+        const std::vector<std::uint8_t> demo_firmware = build_demo_firmware();
+        const std::vector<std::uint8_t> edge_firmware = build_edge_firmware();
 
-            case Opcode::SubAccR0: {
-                const uint16_t res = static_cast<uint16_t>(acc_) - static_cast<uint16_t>(r0_);
-                acc_ = static_cast<uint8_t>(res & 0xFF);
-                flag_z_ = (acc_ == 0);
-                flag_c_ = (res > 0xFF);
-                break;
-            }
+        const emu::StopReason demo =
+            run_scenario("СЦЕНАРІЙ 1: блимання світлодіодом і запис у SRAM",
+                         demo_firmware, /*button_press_after=*/~0u);
 
-            case Opcode::AndAccR0:
-                acc_ &= r0_;
-                flag_z_ = (acc_ == 0);
-                break;
+        // Кнопку натискають після третього опитування: до того цикл опитування
+        // крутиться вхолосту, як і на справжній платі.
+        const emu::StopReason edge =
+            run_scenario("СЦЕНАРІЙ 2: кнопка, переповнення та гострі кути карти адрес",
+                         edge_firmware, /*button_press_after=*/3u);
 
-            case Opcode::XorAccR0:
-                acc_ ^= r0_;
-                flag_z_ = (acc_ == 0);
-                break;
-
-            case Opcode::Jmp: {
-                const uint8_t lo = bus_.read(pc_++);
-                const uint8_t hi = bus_.read(pc_++);
-                pc_ = static_cast<uint16_t>(lo | (hi << 8));
-                break;
-            }
-
-            case Opcode::Jz: {
-                const uint8_t lo = bus_.read(pc_++);
-                const uint8_t hi = bus_.read(pc_++);
-                if (flag_z_) {
-                    pc_ = static_cast<uint16_t>(lo | (hi << 8));
-                    std::cout << "  [BRANCH TAKEN] Стрибок на 0x" << std::hex << pc_ << " (Z=1)\n";
-                }
-                break;
-            }
-
-            case Opcode::Halt:
-                halted_ = true;
-                std::cout << "  [CPU] Сигнал HALT отримано. Ядро зупинено.\n";
-                break;
-
-            default:
-                std::cout << "  [CPU ERROR] Невідомий опкод 0x" << std::hex << static_cast<int>(ir_) << "!\n";
-                halted_ = true;
-                break;
-        }
+        const bool clean = demo == emu::StopReason::Halted && edge == emu::StopReason::Halted;
+        return clean ? 0 : 1;
+    } catch (const std::exception& error) {
+        std::cerr << std::format("[FATAL] {}\n", error.what());
+        return 1;
     }
-
-    [[nodiscard]] bool is_halted() const noexcept { return halted_; }
-
-private:
-    SystemBus& bus_;
-    uint16_t pc_{0x0000};
-    uint8_t  ir_{0x00};
-    uint8_t  acc_{0x00};
-    uint8_t  r0_{0x00};
-    bool     flag_z_{false};
-    bool     flag_c_{false};
-    bool     halted_{false};
-};
-
-} // namespace emu
-
-int main() {
-    emu::SystemBus bus;
-
-    // Бінарна прошивка: блимання світлодіодом через MMIO і запис у RAM
-    constexpr std::array<uint8_t, 20> firmware = {
-        static_cast<uint8_t>(emu::Opcode::LoadImmR0), 0x01,
-        static_cast<uint8_t>(emu::Opcode::LoadImmAcc), 0x01,
-        static_cast<uint8_t>(emu::Opcode::StoreMemAcc), 0x00, 0x80, // MMIO 0x8000
-        static_cast<uint8_t>(emu::Opcode::LoadImmAcc), 0x00,
-        static_cast<uint8_t>(emu::Opcode::StoreMemAcc), 0x00, 0x80, // MMIO 0x8000
-        static_cast<uint8_t>(emu::Opcode::LoadImmAcc), 0x03,
-        static_cast<uint8_t>(emu::Opcode::SubAccR0),
-        static_cast<uint8_t>(emu::Opcode::StoreMemAcc), 0x00, 0x40, // RAM 0x4000
-        static_cast<uint8_t>(emu::Opcode::Halt)
-    };
-
-    bus.load_rom(firmware);
-
-    emu::Cpu cpu(bus);
-    std::cout << "=== СТАРТ ЕМУЛЯЦІЇ ПРОЦЕСОРА (RESET PC=0x0000) ===\n\n";
-    while (!cpu.is_halted()) {
-        cpu.step();
-    }
-    std::cout << "\n=== ЕМУЛЯЦІЮ ЗАВЕРШЕНО ===\n";
-    std::cout << "Фінальний стан RAM[0x4000] = 0x" << std::hex << static_cast<int>(bus.inspect_ram(0x4000)) << "\n";
-    std::cout << "Фінальний стан GPIO Latch = 0x" << std::hex << static_cast<int>(bus.inspect_gpio()) << "\n";
-
-    return 0;
 }

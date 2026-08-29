@@ -1,189 +1,336 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include "ble_scan.h"
+#include "modbus_rtu.h"
+#include "mqtt_client.h"
+#include "sf_queue.h"
+
+#include <pthread.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
 #include <string.h>
 #include <time.h>
-#include <pthread.h>
 #include <unistd.h>
 
-#define BUFFER_CAPACITY 512
-#define TOPIC_MAX_LEN   128
-#define PAYLOAD_MAX_LEN 256
-#define PRESSURE_ALARM_THRESHOLD 10.0f
+/* Шлюз між польовим сегментом (RS-485 + BLE) і хмарним брокером MQTT.
+ *
+ * Три задачі, жодна не чекає на іншу:
+ *   poller  — опитує Modbus, тут-таки виконує правило автономії;
+ *   ble     — слухає ефір і розбирає рекламні кадри давачів;
+ *   uplink  — тримає з'єднання з брокером і спорожняє буфер.
+ * Зв'язок між ними — тільки через буфер Store-and-Forward. */
 
-/* Структура одного повідомлення телеметрії */
-typedef struct {
-    char topic[TOPIC_MAX_LEN];
-    char payload[PAYLOAD_MAX_LEN];
-    time_t timestamp;
-    uint32_t sequence_id;
-} telemetry_msg_t;
+#define MB_DEVICE              "/dev/ttyUSB0"
+#define MB_BAUD                19200
+#define MB_RESPONSE_TIMEOUT_MS 500
+#define MB_SLAVE               1
+#define REG_PRESSURE           0x0001   /* два регістри: float32 тиску в барах */
+#define COIL_EMERGENCY_DUMP    0x0010   /* котушка аварійного скидання */
+#define ALARM_SET_BAR          10.0f
+#define ALARM_CLEAR_BAR        9.5f     /* гістерезис: інакше клапан смикався б */
+#define POLL_PERIOD_MS         1000
 
-/* Відмовостійкий кільцевий буфер Store-and-Forward */
-typedef struct {
-    telemetry_msg_t items[BUFFER_CAPACITY];
-    size_t head;
-    size_t tail;
-    size_t count;
-    uint32_t dropped_count;
-    pthread_mutex_t lock;
-    pthread_cond_t not_empty;
-} store_forward_queue_t;
+#define HCI_INDEX              0
 
-static store_forward_queue_t g_queue;
-static bool g_wan_connected = false;
-static bool g_running = true;
-static uint32_t g_seq_counter = 0;
+#define BROKER_HOST            "broker.plant.local"
+#define BROKER_PORT            "1883"
+#define CLIENT_ID              "gw-unit1"
+#define KEEPALIVE_S            30
 
-void queue_init(store_forward_queue_t *q) {
-    q->head = 0;
-    q->tail = 0;
-    q->count = 0;
-    q->dropped_count = 0;
-    pthread_mutex_init(&q->lock, NULL);
-    pthread_cond_init(&q->not_empty, NULL);
+#define DRAIN_RATE_PER_S       5.0      /* архівні повідомлення за секунду */
+#define DRAIN_BURST            10.0
+#define BACKOFF_MIN_MS         1000u
+#define BACKOFF_MAX_MS         30000u
+
+/* Буфер живе в статичній пам'яті: розміри задано в sf_queue.h часом компіляції. */
+static sf_queue_t g_queue;
+static modbus_port_t *g_mb;
+static volatile sig_atomic_t g_stop;
+static atomic_uint g_seq;
+static pthread_mutex_t g_log_lock = PTHREAD_MUTEX_INITIALIZER;
+
+static void on_signal(int sig)
+{
+    (void)sig;
+    g_stop = 1;
 }
 
-/* Додавання запису: при переповненні витісняється найстаріший (FIFO Drop) */
-bool queue_push(store_forward_queue_t *q, const telemetry_msg_t *msg) {
-    pthread_mutex_lock(&q->lock);
-    if (q->count >= BUFFER_CAPACITY) {
-        /* Витіснення найстарішого елемента для збереження свіжих даних */
-        q->tail = (q->tail + 1) % BUFFER_CAPACITY;
-        q->count--;
-        q->dropped_count++;
-    }
-    q->items[q->head] = *msg;
-    q->head = (q->head + 1) % BUFFER_CAPACITY;
-    q->count++;
-    pthread_cond_signal(&q->not_empty);
-    pthread_mutex_unlock(&q->lock);
-    return true;
+static void sleep_ms(int64_t ms)
+{
+    if (ms <= 0)
+        return;
+    struct timespec ts = { ms / 1000, (long)(ms % 1000) * 1000000L };
+    nanosleep(&ts, NULL);
 }
 
-bool queue_pop(store_forward_queue_t *q, telemetry_msg_t *out_msg) {
-    pthread_mutex_lock(&q->lock);
-    if (q->count == 0) {
-        pthread_mutex_unlock(&q->lock);
-        return false;
-    }
-    *out_msg = q->items[q->tail];
-    q->tail = (q->tail + 1) % BUFFER_CAPACITY;
-    q->count--;
-    pthread_mutex_unlock(&q->lock);
-    return true;
+static int64_t wall_ms(void)
+{
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    return (int64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
 }
 
-/* Емуляція польового опитування Modbus RTU */
-void poll_modbus_pressure(void) {
-    /* Симуляція отримання двох 16-бітних регістрів (Float32: 0x41200000 = 10.0f) */
-    static float simulated_pressure = 8.5f;
-    simulated_pressure += ((rand() % 100) - 45) * 0.05f;
+/* Три потоки пишуть у той самий stdout — без замка рядки перепліталися б. */
+static void log_line(const char *fmt, ...)
+{
+    char stamp[16];
+    time_t t = time(NULL);
+    struct tm tm_buf;
+    localtime_r(&t, &tm_buf);
+    strftime(stamp, sizeof(stamp), "%H:%M:%S", &tm_buf);
 
-    printf("[MODBUS] Опитано вузол #1: тиск = %.2f bar\n", simulated_pressure);
+    va_list ap;
+    va_start(ap, fmt);
+    pthread_mutex_lock(&g_log_lock);
+    printf("%s ", stamp);
+    vprintf(fmt, ap);
+    putchar('\n');
+    fflush(stdout);
+    pthread_mutex_unlock(&g_log_lock);
+    va_end(ap);
+}
 
-    /* Локальне правило автономії: пряма реакція на аварію */
-    if (simulated_pressure > PRESSURE_ALARM_THRESHOLD) {
-        printf("[AUTONOMY ALERT] Тиск %.2f > %.1f bar! "
-               "Локальна дія: запис Coil 0x0010 = ON (Аварійне скидання)\n",
-               simulated_pressure, PRESSURE_ALARM_THRESHOLD);
-    }
-
-    /* Формування MQTT-повідомлення */
+/* Номер послідовності й мітку часу ставить шлюз, а не давач: за розривом у
+ * seq сервер бачить, скільки записів згоріло в переповненому буфері. */
+static void publish_json(const char *topic, const char *body_fmt, ...)
+{
     telemetry_msg_t msg;
-    msg.timestamp = time(NULL);
-    msg.sequence_id = ++g_seq_counter;
-    snprintf(msg.topic, sizeof(msg.topic), "plant/unit1/telemetry/pressure");
-    snprintf(msg.payload, sizeof(msg.payload),
-             "{\"dev\":\"boiler_1\",\"val\":%.2f,\"unit\":\"bar\",\"ts\":%ld,\"seq\":%u}",
-             simulated_pressure, msg.timestamp, msg.sequence_id);
+    msg.seq = (uint32_t)atomic_fetch_add(&g_seq, 1u) + 1u;
+    msg.ts_ms = wall_ms();
+    snprintf(msg.topic, sizeof(msg.topic), "%s", topic);
 
-    queue_push(&g_queue, &msg);
+    char body[SF_PAYLOAD_MAX];
+    va_list ap;
+    va_start(ap, body_fmt);
+    vsnprintf(body, sizeof(body), body_fmt, ap);
+    va_end(ap);
+
+    snprintf(msg.payload, sizeof(msg.payload), "{\"seq\":%u,\"ts\":%lld,%s}",
+             msg.seq, (long long)msg.ts_ms, body);
+    sf_publish(&g_queue, &msg);
 }
 
-/* Емуляція прийому пакетів від BLE-термометра */
-void receive_ble_temperature(void) {
-    static float simulated_temp = 42.0f;
-    simulated_temp += ((rand() % 100) - 50) * 0.02f;
-
-    telemetry_msg_t msg;
-    msg.timestamp = time(NULL);
-    msg.sequence_id = ++g_seq_counter;
-    snprintf(msg.topic, sizeof(msg.topic), "plant/unit1/telemetry/temperature");
-    snprintf(msg.payload, sizeof(msg.payload),
-             "{\"dev\":\"ble_sensor_a4\",\"val\":%.2f,\"unit\":\"C\",\"ts\":%ld,\"seq\":%u}",
-             simulated_temp, msg.timestamp, msg.sequence_id);
-
-    queue_push(&g_queue, &msg);
-}
-
-/* Потік публікації та відкладеного викачування (Store-and-Forward Worker) */
-void *mqtt_upstream_worker(void *arg) {
+static void *poller_thread(void *arg)
+{
     (void)arg;
-    telemetry_msg_t msg;
+    bool alarm_latched = false;
+    unsigned errors_in_row = 0;
 
-    while (g_running) {
-        if (!g_wan_connected) {
-            /* WAN відсутній: накопичуємо в черзі, спимо */
-            usleep(200000);
+    while (!g_stop) {
+        int64_t cycle_start = sf_now_ms();
+
+        uint16_t regs[2];
+        mb_status_t st = mb_read_holding(g_mb, MB_SLAVE, REG_PRESSURE, 2, regs);
+        if (st != MB_OK) {
+            errors_in_row++;
+            if (st == MB_ERR_EXCEPTION)
+                log_line("[modbus] вузол %u: виняток 0x%02X", MB_SLAVE, mb_last_exception(g_mb));
+            else
+                log_line("[modbus] вузол %u: %s (підряд %u)", MB_SLAVE, mb_strerror(st), errors_in_row);
+            /* Про смерть шини сервер має дізнатися окремим повідомленням —
+             * мовчання телеметрії він міг би списати на обрив WAN. */
+            if (errors_in_row == 3)
+                publish_json("plant/unit1/status/fieldbus",
+                             "\"link\":\"down\",\"slave\":%u,\"why\":\"%s\"",
+                             MB_SLAVE, mb_strerror(st));
+            sleep_ms(POLL_PERIOD_MS - (sf_now_ms() - cycle_start));
             continue;
         }
 
-        /* WAN активний: викачуємо накопичені повідомлення */
-        while (g_wan_connected && queue_pop(&g_queue, &msg)) {
-            printf("[MQTT PUB] Успішно відправлено -> %s : %s\n",
-                   msg.topic, msg.payload);
-            /* Згладжування трафіку (Rate limiting: 20 ms між пакетами) */
-            usleep(20000);
+        if (errors_in_row >= 3)
+            publish_json("plant/unit1/status/fieldbus", "\"link\":\"up\",\"slave\":%u", MB_SLAVE);
+        errors_in_row = 0;
+
+        float bar = mb_regs_to_float(regs);
+
+        /* Межа автономії проходить саме тут. Дорога до хмари й назад коштує
+         * секунд і може взагалі не відбутися, а клапан треба відкрити зараз. */
+        if (!alarm_latched && bar > ALARM_SET_BAR) {
+            mb_status_t w = mb_write_coil(g_mb, MB_SLAVE, COIL_EMERGENCY_DUMP, true);
+            if (w == MB_OK) {
+                alarm_latched = true;
+                log_line("[автономія] тиск %.2f бар > %.1f — котушку 0x%04X увімкнено",
+                         bar, ALARM_SET_BAR, COIL_EMERGENCY_DUMP);
+                publish_json("plant/unit1/event/alarm",
+                             "\"rule\":\"pressure_high\",\"p_bar\":%.2f,\"action\":\"dump_on\"", bar);
+            } else {
+                /* Засувка не спрацювала — засувка й лишається метою: латч не
+                 * ставимо, наступний такт спробує знову. */
+                log_line("[автономія] СКИДАННЯ НЕ ПРОЙШЛО (%s) — повтор наступним тактом",
+                         mb_strerror(w));
+                publish_json("plant/unit1/event/alarm",
+                             "\"rule\":\"pressure_high\",\"p_bar\":%.2f,\"action\":\"dump_failed\"", bar);
+            }
+        } else if (alarm_latched && bar < ALARM_CLEAR_BAR) {
+            if (mb_write_coil(g_mb, MB_SLAVE, COIL_EMERGENCY_DUMP, false) == MB_OK) {
+                alarm_latched = false;
+                log_line("[автономія] тиск %.2f бар — аварію знято, котушку вимкнено", bar);
+                publish_json("plant/unit1/event/alarm",
+                             "\"rule\":\"pressure_high\",\"p_bar\":%.2f,\"action\":\"dump_off\"", bar);
+            }
         }
 
-        usleep(100000);
+        publish_json("plant/unit1/telemetry/pressure",
+                     "\"dev\":\"boiler_1\",\"p_bar\":%.2f,\"alarm\":%s",
+                     bar, alarm_latched ? "true" : "false");
+
+        sleep_ms(POLL_PERIOD_MS - (sf_now_ms() - cycle_start));
     }
     return NULL;
 }
 
-int main(void) {
-    srand(time(NULL));
-    queue_init(&g_queue);
+static void *ble_thread(void *arg)
+{
+    (void)arg;
 
-    pthread_t worker_tid;
-    pthread_create(&worker_tid, NULL, mqtt_upstream_worker, NULL);
+    ble_scanner_t *scanner = ble_open(HCI_INDEX);
+    if (!scanner) {
+        /* Радіо не піднялося — це привід працювати без нього, а не падати:
+         * дротова шина й аварійне правило від BLE не залежать. */
+        log_line("[ble] сканер hci%d не піднявся — шлюз працює лише по шині", HCI_INDEX);
+        return NULL;
+    }
+    log_line("[ble] пасивне сканування hci%d увімкнено", HCI_INDEX);
 
-    printf("=== Старт IoT-шлюзу (C-версія) ===\n");
-
-    /* Демонстрація життєвого циклу: Онлайн -> Блекаут -> Відновлення */
-    for (int step = 1; step <= 10; step++) {
-        printf("\n--- ТАКТ СИСТЕМИ %d ---\n", step);
-
-        /* Моделювання стану каналу WAN: кроки 3..7 — блекаут */
-        if (step >= 3 && step <= 7) {
-            if (g_wan_connected) {
-                printf("[WAN] Зв'язок розірвано! Активовано буфер Store-and-Forward.\n");
-                g_wan_connected = false;
-            }
-        } else {
-            if (!g_wan_connected) {
-                printf("[WAN] Зв'язок відновлено! Старт дренажу буфера.\n");
-                g_wan_connected = true;
-            }
+    while (!g_stop) {
+        ble_sample_t s;
+        int r = ble_next_sample(scanner, &s, 500);
+        if (r < 0) {
+            log_line("[ble] сокет HCI помер — сканування зупинено");
+            break;
         }
+        if (r == 0)
+            continue;
 
-        poll_modbus_pressure();
-        receive_ble_temperature();
-
-        pthread_mutex_lock(&g_queue.lock);
-        printf("[BUFFER STATUS] Елементів у буфері: %zu, Втрачено: %u\n",
-               g_queue.count, g_queue.dropped_count);
-        pthread_mutex_unlock(&g_queue.lock);
-
-        sleep(1);
+        /* Адреса в HCI лежить молодшим байтом уперед — друкуємо у звичному порядку. */
+        publish_json("plant/unit1/telemetry/temperature",
+                     "\"dev\":\"%02X:%02X:%02X:%02X:%02X:%02X\",\"t_c\":%.2f,"
+                     "\"batt\":%u,\"rssi\":%d",
+                     s.addr[5], s.addr[4], s.addr[3], s.addr[2], s.addr[1], s.addr[0],
+                     s.temperature_c, s.battery_pct, s.rssi_dbm);
     }
 
-    g_running = false;
-    pthread_join(worker_tid, NULL);
-    pthread_mutex_destroy(&g_queue.lock);
-    pthread_cond_destroy(&g_queue.not_empty);
-    printf("=== Роботу шлюзу завершено ===\n");
+    ble_close(scanner);
+    return NULL;
+}
+
+static void *uplink_thread(void *arg)
+{
+    (void)arg;
+    unsigned backoff_ms = BACKOFF_MIN_MS;
+    unsigned seed = (unsigned)time(NULL);
+
+    while (!g_stop) {
+        mqtt_client_t *client = mqtt_connect(BROKER_HOST, BROKER_PORT, CLIENT_ID, KEEPALIVE_S);
+        if (!client) {
+            size_t fresh = 0, backlog = 0;
+            uint32_t dropped = 0;
+            sf_stats(&g_queue, &fresh, &backlog, &dropped);
+
+            /* Джитер обов'язковий: після падіння базової станції сотні шлюзів
+             * прокидаються разом, і рівний відступ звів би їх в один залп. */
+            unsigned wait = backoff_ms / 2 + (unsigned)(rand_r(&seed) % (backoff_ms + 1));
+            log_line("[wan] брокер недосяжний; повтор через %u мс; у буфері %zu+%zu, втрачено %u",
+                     wait, fresh, backlog, dropped);
+            sleep_ms(wait);
+            backoff_ms = (backoff_ms * 2 > BACKOFF_MAX_MS) ? BACKOFF_MAX_MS : backoff_ms * 2;
+            continue;
+        }
+
+        backoff_ms = BACKOFF_MIN_MS;
+        log_line("[wan] з'єднання з брокером піднято");
+
+        double tokens = DRAIN_BURST;
+        int64_t last_fill = sf_now_ms();
+
+        while (!g_stop) {
+            if (mqtt_keepalive(client) < 0) {
+                log_line("[wan] брокер не відповів на PINGREQ — канал вважаємо мертвим");
+                break;
+            }
+
+            int64_t now = sf_now_ms();
+            tokens += (double)(now - last_fill) / 1000.0 * DRAIN_RATE_PER_S;
+            if (tokens > DRAIN_BURST)
+                tokens = DRAIN_BURST;
+            last_fill = now;
+
+            telemetry_msg_t msg;
+            bool from_backlog = false;
+            if (!sf_peek(&g_queue, &msg, &from_backlog, 200))
+                continue;
+
+            /* Свіже йде без обмежень, архів — лише за наявності токена: інакше
+             * викачування триденної історії з'їло б увесь канал, і щойно зняті
+             * показники чекали б за спиною в ста тисяч старих записів. */
+            if (from_backlog && tokens < 1.0) {
+                sleep_ms(50);
+                continue;
+            }
+
+            if (mqtt_publish_qos1(client, msg.topic, msg.payload) != 0) {
+                /* Не комітимо: повідомлення лишається в черзі й піде після
+                 * перепідключення. Брокер може отримати дублікат — це
+                 * нормальна ціна доставки «щонайменше раз». */
+                log_line("[wan] публікація seq=%u не підтверджена — перепідключення", msg.seq);
+                break;
+            }
+            sf_commit(&g_queue, from_backlog, msg.seq);
+            if (from_backlog)
+                tokens -= 1.0;
+        }
+
+        mqtt_disconnect(client);
+    }
+    return NULL;
+}
+
+int main(void)
+{
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = on_signal;
+    sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGTERM, &sa, NULL);
+    /* Запис у мертвий сокет не повинен убивати шлюз — помилку поверне write(). */
+    signal(SIGPIPE, SIG_IGN);
+
+    sf_init(&g_queue);
+
+    g_mb = mb_open(MB_DEVICE, MB_BAUD, MB_RESPONSE_TIMEOUT_MS);
+    if (!g_mb) {
+        perror("mb_open");
+        sf_destroy(&g_queue);
+        return 1;
+    }
+
+    log_line("=== шлюз піднято: %s @ %d, брокер %s:%s ===",
+             MB_DEVICE, MB_BAUD, BROKER_HOST, BROKER_PORT);
+
+    pthread_t poller, ble, uplink;
+    pthread_create(&poller, NULL, poller_thread, NULL);
+    pthread_create(&ble, NULL, ble_thread, NULL);
+    pthread_create(&uplink, NULL, uplink_thread, NULL);
+
+    while (!g_stop) {
+        sleep_ms(5000);
+        size_t fresh = 0, backlog = 0;
+        uint32_t dropped = 0;
+        sf_stats(&g_queue, &fresh, &backlog, &dropped);
+        log_line("[буфер] свіжих %zu, архівних %zu, втрачено назавжди %u",
+                 fresh, backlog, dropped);
+    }
+
+    log_line("зупинка за сигналом…");
+    pthread_join(poller, NULL);
+    pthread_join(ble, NULL);
+    pthread_join(uplink, NULL);
+
+    mb_close(g_mb);
+    sf_destroy(&g_queue);
+    log_line("=== шлюз зупинено ===");
     return 0;
 }

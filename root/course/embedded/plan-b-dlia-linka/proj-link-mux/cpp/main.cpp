@@ -1,171 +1,220 @@
-#include <cstdint>
-#include <cstddef>
+// Прогін диспетчера на моделі польоту: 20 секунд із заглушенням основного
+// каналу, провалом резерву й поверненням. Час іде кроком 10 мс — у прошивці
+// на цьому місці таймерне переривання й HAL_GetTick().
+#include "arbiter.hpp"
+#include "spsc_ring.hpp"
+
 #include <array>
-#include <span>
-#include <optional>
-#include <expected>
-#include <string_view>
-#include <chrono>
+#include <cstdint>
+#include <format>
+#include <iostream>
 
-namespace link_fallback {
+using namespace linkmux;
 
-enum class BearerId : uint8_t {
-    PrimaryHighSpeed = 0,
-    FallbackSubGhz   = 1,
-    Count            = 2
+namespace {
+
+constexpr Millis kTick{10};
+constexpr Millis kSimEnd{20000};
+constexpr Millis kJamStart{3000};      // завада по основному каналу
+constexpr Millis kJamEnd{11000};
+constexpr Millis kFallJamStart{5500};  // заглушили ще й резерв
+constexpr Millis kFallJamEnd{9500};
+
+Millis gNow{0};
+
+// --- Модель ефіру: кадр летить не миттєво, і саме тому кадри міняються
+// місцями. Наземна станція розбирає їх ковзним вікном дедуплікації.
+struct AirFrame {
+    bool          busy{false};
+    std::uint16_t seq{0};
+    Millis        arrive{0};
 };
 
-enum class ArbiterState : uint8_t {
-    PrimaryActive,
-    FallbackActive,
-    RecoveryEvaluation,
-    EmergencyBlackout
-};
+std::array<AirFrame, 64> gAir{};
+DedupWindow              gGround{};
+std::uint32_t            gGroundOk{0};
+std::uint32_t            gAirLost{0};
 
-enum class PacketPriority : uint8_t {
-    CriticalCommand = 0,
-    Telemetry       = 1,
-    BulkVideo       = 2
-};
-
-enum class TransmitError {
-    LinkBlackout,
-    PayloadTooLarge,
-    DroppedLowPriority,
-    HardwareFault
-};
-
-struct LinkQualityMetrics {
-    int16_t  rssiDbm{-60};
-    int8_t   snrDb{20};
-    uint8_t  packetErrorRate{0};
-    uint8_t  compositeScore{100};
-    uint32_t packetWindowMask{0xFFFFFFFF};
-    std::chrono::milliseconds lastRxTime{0};
-
-    void recordPacket(int16_t rawRssi, int8_t rawSnr, std::chrono::milliseconds now) noexcept {
-        lastRxTime = now;
-        rssiDbm = static_cast<int16_t>((rssiDbm * 7 + rawRssi) >> 3);
-        snrDb = static_cast<int8_t>((snrDb * 7 + rawSnr) >> 3);
-        packetWindowMask = (packetWindowMask << 1) | 1U;
-        computeStats();
-    }
-
-    void recordLoss() noexcept {
-        packetWindowMask = (packetWindowMask << 1);
-        computeStats();
-    }
-
-private:
-    void computeStats() noexcept {
-        uint32_t count = 0;
-        uint32_t temp = packetWindowMask;
-        while (temp) {
-            count += (temp & 1U);
-            temp >>= 1;
+void airLaunch(std::uint16_t seq, Millis arrive) noexcept {
+    for (auto& slot : gAir) {
+        if (!slot.busy) {
+            slot = AirFrame{true, seq, arrive};
+            return;
         }
-        packetErrorRate = static_cast<uint8_t>(((32 - count) * 100) / 32);
-        int score = 100 - packetErrorRate;
-        if (rssiDbm < -100) score -= 20;
-        compositeScore = static_cast<uint8_t>(score < 0 ? 0 : (score > 100 ? 100 : score));
     }
-};
+    ++gAirLost;
+}
 
-class MultiLinkArbiter {
+void groundPoll(Millis now) noexcept {
+    for (auto& slot : gAir) {
+        if (!slot.busy || now < slot.arrive) {
+            continue;
+        }
+        slot.busy = false;
+        if (gGround.accept(slot.seq)) {
+            ++gGroundOk;
+        }
+    }
+}
+
+// --- Драйвер трансивера: тут закінчується арбітр і починається залізо ---
+class SimRadio final : public Transceiver {
 public:
-    static constexpr std::chrono::milliseconds kHysteresisDwell{5000};
-    static constexpr uint8_t kFailoverPerThresh{25};
-    static constexpr uint8_t kRecoveryPerThresh{5};
+    SimRadio(std::string_view name, Millis airTime, Millis slot) noexcept
+        : name_(name), airTime_(airTime), slot_(slot) {}
 
-    MultiLinkArbiter() noexcept
-        : currentState_(ArbiterState::PrimaryActive),
-          activeBearer_(BearerId::PrimaryHighSpeed),
-          stateEnterTime_(std::chrono::milliseconds{0}) {}
-
-    [[nodiscard]] ArbiterState state() const noexcept { return currentState_; }
-    [[nodiscard]] BearerId activeBearer() const noexcept { return activeBearer_; }
-    [[nodiscard]] const LinkQualityMetrics& metrics(BearerId id) const noexcept {
-        return metrics_[static_cast<size_t>(id)];
+    [[nodiscard]] std::expected<std::size_t, TxError> send(const Frame& frame) noexcept override {
+        if (faulty_) {
+            return std::unexpected(TxError::HardwareFault);   // SPI не відповів
+        }
+        airLaunch(frame.seq, gNow + airTime_);
+        return frame.len;
     }
 
-    void onPacketReceived(BearerId id, int16_t rssi, int8_t snr, std::chrono::milliseconds now) noexcept {
-        metrics_[static_cast<size_t>(id)].recordPacket(rssi, snr, now);
+    void setMode(RadioMode mode) noexcept override {
+        std::cout << std::format("        {:<10} -> {}\n", name_, modeName(mode));
     }
 
-    void update(std::chrono::milliseconds now) noexcept {
-        const auto& prim = metrics_[static_cast<size_t>(BearerId::PrimaryHighSpeed)];
-        const auto& fall = metrics_[static_cast<size_t>(BearerId::FallbackSubGhz)];
-
-        const bool primFailed = (now - prim.lastRxTime > std::chrono::milliseconds{1500}) ||
-                                (prim.packetErrorRate >= kFailoverPerThresh);
-        const bool fallFailed = (now - fall.lastRxTime > std::chrono::milliseconds{3000});
-
-        switch (currentState_) {
-        case ArbiterState::PrimaryActive:
-            if (primFailed) {
-                currentState_ = ArbiterState::FallbackActive;
-                activeBearer_ = BearerId::FallbackSubGhz;
-                stateEnterTime_ = now;
-            }
-            break;
-
-        case ArbiterState::FallbackActive:
-            if (primFailed && fallFailed) {
-                currentState_ = ArbiterState::EmergencyBlackout;
-                stateEnterTime_ = now;
-            } else if (!primFailed && prim.packetErrorRate <= kRecoveryPerThresh) {
-                currentState_ = ArbiterState::RecoveryEvaluation;
-                stateEnterTime_ = now;
-            }
-            break;
-
-        case ArbiterState::RecoveryEvaluation:
-            if (primFailed) {
-                currentState_ = ArbiterState::FallbackActive;
-                activeBearer_ = BearerId::FallbackSubGhz;
-            } else if (now - stateEnterTime_ >= kHysteresisDwell) {
-                currentState_ = ArbiterState::PrimaryActive;
-                activeBearer_ = BearerId::PrimaryHighSpeed;
-            }
-            break;
-
-        case ArbiterState::EmergencyBlackout:
-            if (!fallFailed) {
-                currentState_ = ArbiterState::FallbackActive;
-                activeBearer_ = BearerId::FallbackSubGhz;
-            } else if (!primFailed) {
-                currentState_ = ArbiterState::PrimaryActive;
-                activeBearer_ = BearerId::PrimaryHighSpeed;
-            }
-            break;
-        }
-    }
-
-    [[nodiscard]] std::expected<size_t, TransmitError> routePacket(
-        PacketPriority priority,
-        std::span<const uint8_t> payload
-    ) noexcept {
-        if (currentState_ == ArbiterState::EmergencyBlackout) {
-            return std::unexpected(TransmitError::LinkBlackout);
-        }
-
-        if (priority == PacketPriority::BulkVideo && activeBearer_ == BearerId::FallbackSubGhz) {
-            return std::unexpected(TransmitError::DroppedLowPriority);
-        }
-
-        if (payload.size() > 256) {
-            return std::unexpected(TransmitError::PayloadTooLarge);
-        }
-
-        /* Імітація успішної відправки через драйвер активного інтерфейсу */
-        return payload.size();
-    }
+    [[nodiscard]] std::string_view name() const noexcept override { return name_; }
+    [[nodiscard]] Millis airTime() const noexcept override { return airTime_; }
+    [[nodiscard]] Millis slot() const noexcept override { return slot_; }
 
 private:
-    ArbiterState currentState_;
-    BearerId activeBearer_;
-    std::chrono::milliseconds stateEnterTime_;
-    std::array<LinkQualityMetrics, static_cast<size_t>(BearerId::Count)> metrics_{};
+    std::string_view name_;
+    Millis           airTime_;
+    Millis           slot_;
+    bool             faulty_{false};
 };
 
-} // namespace link_fallback
+// --- Модель радіообстановки ---
+struct PrimaryFrame {
+    bool         arrives;
+    std::int16_t rssiDbm;
+};
+
+PrimaryFrame primaryFrame(Millis now) noexcept {
+    if (now < kJamStart || now >= kJamEnd) {
+        return {true, -62};                          // 100 Гц телеметрії з землі
+    }
+    if (now < kJamStart + Millis{200}) {
+        // Завада наростає: крізь неї пролазить кожен третій кадр
+        return {(now.count() / kTick.count()) % 3 == 0, -104};
+    }
+    return {false, -110};                            // повна тиша
+}
+
+bool fallbackFrame(Millis now) noexcept {
+    if (now.count() % 200 != 0) {
+        return false;                                // маяк резерву 5 Гц
+    }
+    return now < kFallJamStart || now >= kFallJamEnd;
+}
+
+// Контекст переривання: перекласти кадр у кільце й вийти. Жодної математики.
+void rxIsr(SpscRing<Frame, 16>& ring, BearerId id, std::uint16_t seq,
+           std::int16_t rssi, std::int8_t snr, Millis now) noexcept {
+    Frame frame;
+    frame.seq     = seq;
+    frame.stampMs = static_cast<std::uint32_t>(now.count());
+    frame.bearer  = static_cast<std::uint8_t>(id);
+    frame.rssiDbm = rssi;
+    frame.snrDb   = snr;
+    static_cast<void>(ring.push(frame));   // переповнення пораховане всередині
+}
+
+}  // namespace
+
+int main() {
+    SimRadio wifi{"2.4G-OFDM", Millis{3}, Millis{10}};
+    SimRadio lora{"868M-LoRa", Millis{90}, Millis{200}};
+
+    MultiLinkArbiter arbiter{wifi, lora, Millis{0}};
+    SpscRing<Frame, 16> rxRing{};
+
+    const std::array<std::uint8_t, 48>  telemetry{};
+    const std::array<std::uint8_t, 200> video{};
+    const std::array<std::uint8_t, 12>  command{};
+
+    std::uint16_t primSeq = 0;
+    std::uint16_t fallSeq = 0;
+    std::uint32_t tlmOk = 0, vidOk = 0, vidRefused = 0, critOk = 0, critLost = 0;
+
+    ArbiterState lastState = arbiter.state();
+    std::cout << std::format("  0.00 с  стан: {}\n", stateName(lastState));
+
+    for (gNow = Millis{0}; gNow <= kSimEnd; gNow += kTick) {
+        const Millis now = gNow;
+
+        // 1. Переривання приймачів. Лічильник кадру росте завжди: кадр міг
+        //    вилетіти з землі й не долетіти — саме це й дає розрив у seq.
+        const auto [primArrives, primRssi] = primaryFrame(now);
+        const std::uint16_t pseq = primSeq++;
+        if (primArrives) {
+            rxIsr(rxRing, BearerId::Primary, pseq, primRssi,
+                  static_cast<std::int8_t>(primRssi < -100 ? -4 : 12), now);
+        }
+        if (now.count() % 200 == 0) {
+            const std::uint16_t fseq = fallSeq++;
+            if (fallbackFrame(now)) {
+                rxIsr(rxRing, BearerId::Fallback, fseq, -95, 5, now);
+            }
+        }
+
+        // 2. Задача арбітра розбирає кільце й рахує метрики
+        while (const auto frame = rxRing.pop()) {
+            arbiter.onFrameReceived(static_cast<BearerId>(frame->bearer), *frame, now);
+        }
+
+        // 3. Автомат станів — кожні 10 мс
+        arbiter.update(now);
+
+        // 4. Політний контролер віддає свої пакети
+        if (now.count() % 20 == 0 && arbiter.routePacket(Priority::Telemetry, telemetry, now)) {
+            ++tlmOk;
+        }
+        if (now.count() % 50 == 0) {
+            if (const auto rc = arbiter.routePacket(Priority::Video, video, now); rc) {
+                ++vidOk;
+            } else if (rc.error() == TxError::NoBandwidth) {
+                ++vidRefused;
+            }
+        }
+        if (now.count() % 1000 == 0) {
+            if (arbiter.routePacket(Priority::Critical, command, now)) {
+                ++critOk;
+            } else {
+                ++critLost;   // верхній рівень тут вмикає автономне повернення
+            }
+        }
+
+        // 5. Диспетчер віддає черги в ефір, 6. земля приймає, що долетіло
+        static_cast<void>(arbiter.pump(now));
+        groundPoll(now);
+
+        if (arbiter.state() != lastState) {
+            lastState = arbiter.state();
+            std::cout << std::format("{:6.2f} с  стан: {:<22} носій: {:<10} PER основного {}%\n",
+                                     now.count() / 1000.0, stateName(lastState),
+                                     arbiter.bearerName(arbiter.activeBearer()),
+                                     arbiter.quality(BearerId::Primary).per());
+        }
+    }
+
+    std::cout << "\n== Підсумок 20 с ==\n";
+    for (const BearerId id : {BearerId::Primary, BearerId::Fallback}) {
+        std::cout << std::format("{:<10} кадрів {:5}, помилок драйвера {}, PER {}%, RSSI {} dBm\n",
+                                 arbiter.bearerName(id), arbiter.txFrames(id),
+                                 arbiter.txErrors(id), arbiter.quality(id).per(),
+                                 arbiter.quality(id).rssiDbm());
+    }
+    std::cout << std::format("телеметрія: узято {}, витіснено старих {}\n",
+                             tlmOk, arbiter.dropped(Priority::Telemetry));
+    std::cout << std::format("відео: узято {}, відмовлено на резерві {}, скинуто чергою {}\n",
+                             vidOk, vidRefused, arbiter.dropped(Priority::Video));
+    std::cout << std::format("критичні: узято {}, не взято через блекаут {}\n", critOk, critLost);
+    std::cout << std::format("земля: прийнято {}, дублікатів {}, спізнілих поза вікном {}\n",
+                             gGroundOk, gGround.duplicates(), gGround.tooOld());
+    std::cout << std::format("перемикань стану {}, переповнень RX-кільця {}, втрачено в моделі ефіру {}\n",
+                             arbiter.switches(), rxRing.overruns(), gAirLost);
+    return 0;
+}

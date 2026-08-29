@@ -48,6 +48,26 @@
 :::code proj-bringup-tree/cpp/main.cpp
 :::
 
+:::tabs
+:::code proj-bringup-tree/c/stm32f4_regs.h
+:::code proj-bringup-tree/cpp/mmio.hpp
+:::
+
+:::tabs
+:::code proj-bringup-tree/c/bringup.h
+:::code proj-bringup-tree/cpp/bringup.hpp
+:::
+
+:::tabs
+:::code proj-bringup-tree/c/clocks.c
+:::code proj-bringup-tree/cpp/clocks.cpp
+:::
+
+:::tabs
+:::code proj-bringup-tree/c/testpoints.c
+:::code proj-bringup-tree/cpp/exerciser.cpp
+:::
+
 ---
 
 ## 3. Діагностичний розбір та усунення апаратних відмов
@@ -88,6 +108,11 @@
 4. Контролер перевіряє стан лінії `SDA`: якщо вона піднялася до 3.3 В, генерується коректна умова `STOP` (перехід `SDA` з низького рівня у високий при високому рівні `SCL`).
 5. Виводи повертаються під контроль периферійного модуля I2C.
 
+:::tabs
+:::code proj-bringup-tree/c/i2c_bus.c
+:::code proj-bringup-tree/cpp/i2c_bus.cpp
+:::
+
 ---
 
 ## 5. Верифікація внутрішніх опорних джерел через АЦП
@@ -101,3 +126,8 @@ VDDA_реальна = 3.30 В · ADC_CAL / ADC_DATA  [розрахунок сп�
 ```
 
 Зчитування значення цього каналу дозволяє безпосередньо з коду прошивки виміряти реальну напругу на виводі `VDDA`. Якщо обчислена напруга живлення суттєво відрізняється від номінальних 3.3 В (наприклад, становить 2.9 В або 3.7 В), це однозначно вказує на дефект лінійного стабілізатора, перевантаження шини або надмірний падіння напруги на феритовій бусині (Ferrite Bead) фільтра аналогового живлення.
+
+:::tabs
+:::code proj-bringup-tree/c/adc_vref.c
+:::code proj-bringup-tree/cpp/vref.cpp
+:::

@@ -1,0 +1,14 @@
+# Власна таблиця розділів — заради nvs розміром 0x4000 (див. partitions.csv).
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# Сокети: 1 UDP для DNS + до 3 одночасних TCP-клієнтів веб-сервера.
+CONFIG_LWIP_MAX_SOCKETS=10
+
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
+CONFIG_HTTPD_MAX_URI_LEN=512
+
+# Помилки носить std::expected, тож виняткам і RTTI тут нема роботи:
+# вимкнені, вони економлять і Flash, і такти на кожному виклику.
+CONFIG_COMPILER_CXX_EXCEPTIONS=n
+CONFIG_COMPILER_CXX_RTTI=n

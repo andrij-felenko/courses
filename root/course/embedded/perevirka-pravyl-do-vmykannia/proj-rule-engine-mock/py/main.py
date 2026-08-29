@@ -1,63 +1,48 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Автоматичний верифікатор простору станів таблиці правил."""
+"""Повний перебір таблиці правил: інваріанти, неврахований стан, блокування.
 
-import itertools
+Запуск із теки проєкту:  python main.py
+Код повернення 0 — таблиця чиста, 1 — знайдено дефекти.
+"""
 
+from __future__ import annotations
 
-def evaluate_safety_matrix(level_low: bool, level_high: bool, pressure_ok: bool, 
-                           flow_ok: bool, e_stop: bool) -> tuple[bool, bool, str]:
-    """
-    Імітація логіки безпеки: повертає (heater_cmd, pump_cmd, status_msg).
-    """
-    # Фізичний парадокс датчиків рівня
-    if level_high and not level_low:
-        return False, False, "PARADOX_LEVEL_FAULT"
-
-    # Аварійний стоп
-    if e_stop:
-        return False, False, "EMERGENCY_STOP"
-
-    # Немає рідини в баку
-    if not level_low:
-        return False, False, "EMPTY_TANK_SAFE_OFF"
-
-    # Немає тиску або протоку
-    if not pressure_ok or not flow_ok:
-        return False, False, "HYDRAULIC_FAULT_HOLD"
-
-    # Нормальний робочий стан
-    return True, True, "NORMAL_HEATING"
+from ruletable.reachability import find_deadlocks
+from ruletable.rules import INPUT_NAMES
+from ruletable.sweep import run_sweep
 
 
-def run_exhaustive_test():
-    inputs = ["level_low", "level_high", "pressure_ok", "flow_ok", "e_stop"]
-    total_states = 2 ** len(inputs)
-    print(f"Перевірка всіх {total_states} комбінацій станів...\n")
+def main() -> int:
+    report = run_sweep()
 
-    violations = 0
-    paradoxes = 0
+    print(f"Перебрано станів: {report.total} (2^{len(INPUT_NAMES)})")
+    print(f"  фізично неможливих (парадокс поплавців): {report.impossible}")
+    print(f"  станів без жодного правила: {len(report.unspecified)}")
+    print(f"  конфліктів рівного пріоритету: {len(report.conflicts)}")
+    print(f"  порушень інваріантів безпеки: {len(report.unsafe)}")
 
-    for combo in itertools.product([False, True], repeat=len(inputs)):
-        state = dict(zip(inputs, combo))
-        heater, pump, status = evaluate_safety_matrix(**state)
+    print("  спрацювань правил:")
+    for name, count in report.fired.items():
+        print(f"    {name:<22} {count:>3}")
 
-        # Інваріант безпеки: ТЕН ніколи не може бути увімкнений без помпи або без води
-        if heater and (not pump or not state["level_low"] or not state["flow_ok"]):
-            print(f"[КРИТИЧНЕ ПОРУШЕННЯ] Вхід: {state} -> ТЕН:{heater}, Помпа:{pump} [{status}]")
-            violations += 1
+    for finding in report.unspecified:
+        print(f"  [ПРОГАЛИНА] {finding.state}: {finding.detail}")
+    for finding in report.conflicts:
+        print(f"  [КОНФЛІКТ]  {finding.state} -> {finding.rule}: {finding.detail}")
+    for finding in report.unsafe:
+        print(f"  [НЕБЕЗПЕКА] {finding.state} -> {finding.rule}: {finding.detail}")
+    for name in report.dead_rules:
+        print(f"  [МЕРТВЕ ПРАВИЛО] {name}: не виграє жодного стану")
 
-        if status == "PARADOX_LEVEL_FAULT":
-            paradoxes += 1
+    deadlocks = find_deadlocks()
+    print(f"\nВзаємних блокувань (нагрів недосяжний): {len(deadlocks)}")
+    for state in deadlocks:
+        print(f"  [БЛОКУВАННЯ] {state}")
 
-    print(f"Результат тестування:")
-    print(f"  Всього станів: {total_states}")
-    print(f"  Аномальних фізичних станів перехоплено: {paradoxes}")
-    print(f"  Порушень інваріантів безпеки: {violations}")
-
-    assert violations == 0, "Тест провалено: знайдено небезпечні комбінації правил!"
-    print("-> 100% покриття станів: жодного небезпечного спрацьовування не виявлено.")
+    ok = report.ok and not deadlocks
+    print("\nПідсумок:", "таблиця чиста" if ok else "таблицю треба правити")
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":
-    run_exhaustive_test()
+    raise SystemExit(main())

@@ -53,8 +53,8 @@
 ## Реалізація драйвера тактування
 
 :::tabs
-:::code proj-pll-clock-init/c/realizatsiia-draivera.c
-:::code proj-pll-clock-init/cpp/realizatsiia-draivera.cpp
+:::code proj-pll-clock-init/c/clock.c
+:::code proj-pll-clock-init/cpp/src/clock_tree.cpp
 :::
 
 ## Динамічна зміна частоти під час роботи (DVFS)
@@ -64,18 +64,8 @@
 При зниженні частоти порядок операцій є строго зворотним:
 
 :::tabs
-```c
-/* 1. Перемикання мультиплексора SYSCLK на HSI */
-RCC->CFGR = (RCC->CFGR & ~0x03UL) | 0x00UL; // SW = HSI
-while ((RCC->CFGR & 0x0CUL) != 0x00UL);     // Очікування SWS = HSI
-
-/* 2. Вимкнення контуру PLL для економії струму */
-RCC->CR &= ~RCC_CR_PLLON;
-
-/* 3. Зменшення затримок Flash-пам'яті */
-FLASH_ACR = (FLASH_ACR & ~0x07UL) | 0x00UL; // 0 WS при 16 МГц
-```
-:::code proj-pll-clock-init/cpp/dynamichna-zmina-chastoty.cpp
+:::code proj-pll-clock-init/c/dvfs.c
+:::code proj-pll-clock-init/cpp/src/low_power_scope.cpp
 :::
 
 Якщо спробувати зменшити затримки `FLASH_ACR` до перемикання `SYSCLK`, процесор зависне у винятку `HardFault`, оскільки ядро на частоті 168 МГц не зможе зчитати жодної інструкції з Flash при 0 WS.
@@ -87,8 +77,8 @@ FLASH_ACR = (FLASH_ACR & ~0x07UL) | 0x00UL; // 0 WS при 16 МГц
 Для безпечного вимірювання використовується апаратний тестовий вивід `MCO1` (Microcontroller Clock Output 1), розташований на піні `PA8`:
 
 :::tabs
-:::code proj-pll-clock-init/c/aparatna-veryfikatsiia.c
-:::code proj-pll-clock-init/cpp/aparatna-veryfikatsiia.hpp
+:::code proj-pll-clock-init/c/mco.c
+:::code proj-pll-clock-init/cpp/src/mco.cpp
 :::
 
 При правильній роботі драйвера на виводі `PA8` спостерігається ідеальний прямокутний цифровий сигнал CMOS із частотою `168 МГц / 4 = 42.0 МГц` та розмахом 3.3 В. Це дає стовідсоткову гарантію того, що контур PLL надійно зафіксував частоту і вся внутрішня цифрова магістраль працює на розрахункових параметрах.

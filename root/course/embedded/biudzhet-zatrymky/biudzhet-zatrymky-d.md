@@ -293,7 +293,7 @@ Delta_t = T_реальний_таймер - T_зображення_на_екра
 
 :::tabs
 :::code biudzhet-zatrymky-d/c/main.c
-:::code biudzhet-zatrymky-d/cpp/main.cpp
+:::code biudzhet-zatrymky-d/cpp/src/main.cpp
 :::
 
 ---

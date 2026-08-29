@@ -1,170 +1,258 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Координатор вузла: один неблокуючий цикл подій на чотири чипи.
+ *
+ * Секундний меандр DS3231 будить ядро зі Stop 2 і кладе в чергу подію
+ * вимірювання; BME280 міряє свої десять мілісекунд, поки цикл займається
+ * іншим; повні сторінки записів лягають у W25Q128 автоматом, який ніде не
+ * чекає в while; кадри Modbus RTU приходять і йдуть через переривання
+ * USART, а лінію DE знімає обробник TC. Ніде немає ані delay(), ані
+ * очікування прапорця без тайм-ауту. */
+
 #include <string.h>
 
-#define TELEMETRY_RECORD_SIZE  24
-#define FLASH_PAGE_SIZE        256
-#define FLASH_SECTOR_SIZE      4096
-#define RS485_RX_BUF_SIZE      64
-#define RS485_TX_BUF_SIZE      64
+#include "stm32l4xx.h"
+#include "node.h"
+#include "i2c.h"
+#include "devices.h"
+#include "flashlog.h"
+#include "rs485.h"
 
-/* ── Структури даних ──────────────────────────────────────────────────────── */
+#define SYSCLK_HZ      80000000u
+#define HSI16_HZ       16000000u
+#define SAMPLE_LIMIT_MS 50u     /* BME280 на ×1 міряє ~10 мс */
 
-typedef struct __attribute__((packed)) {
-    uint32_t timestamp;     /* Unix timestamp від DS3231 */
-    int32_t  temperature;   /* Температура x100 (°C)     */
-    uint32_t pressure;      /* Тиск x100 (Па)            */
-    uint32_t humidity;      /* Вологість x1024 (%RH)     */
-    uint16_t sequence_id;   /* Порядковий номер зрізу    */
-    uint16_t status_flags;  /* Прапорці стану вузла      */
-    uint16_t crc16;         /* Контрольна сума запису    */
-} telemetry_record_t;
+static flash_log_t        logger;
+static telemetry_record_t last_record;
+static uint16_t           seq_counter;
 
-typedef enum {
-    NODE_EVENT_NONE = 0,
-    NODE_EVENT_RTC_TICK,
-    NODE_EVENT_DATA_READY,
-    NODE_EVENT_RS485_RX,
-    NODE_EVENT_FLASH_SYNC
-} node_event_t;
+static bool     sampling;
+static uint32_t sample_started_ms;
+static bool     sensor_alive;
+static bool     rtc_alive;   /* меандр 1 Гц живий — інакше вузол не прокинеться */
+static uint32_t last_sample_ms;
 
-typedef struct {
-    uint32_t write_address;
-    uint32_t record_count;
-    uint8_t  page_buffer[FLASH_PAGE_SIZE];
-    uint16_t page_offset;
-} flash_logger_t;
+/* ── Тактування ──────────────────────────────────────────────────────────── */
 
-typedef struct {
-    uint8_t  rx_buf[RS485_RX_BUF_SIZE];
-    uint8_t  tx_buf[RS485_TX_BUF_SIZE];
-    uint16_t rx_index;
-    bool     frame_ready;
-} rs485_channel_t;
+/* Викликається на старті й після кожного виходу зі Stop 2: прокидається
+ * ядро на MSI, а нам потрібні ті самі 80 МГц від HSE через PLL. */
+static void clock_config(void)
+{
+    RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;
 
-typedef struct {
-    flash_logger_t  logger;
-    rs485_channel_t comm;
-    uint16_t        seq_counter;
-    volatile node_event_t pending_event;
-} node_coordinator_t;
+    FLASH->ACR = FLASH_ACR_PRFTEN | FLASH_ACR_ICEN | FLASH_ACR_DCEN |
+                 FLASH_ACR_LATENCY_4WS;
 
-/* ── Апаратні інтерфейси (зовнішні драйвери) ──────────────────────────────── */
+    RCC->CR |= RCC_CR_HSEON;
+    uint32_t guard = 0;
+    while ((RCC->CR & RCC_CR_HSERDY) == 0u) {
+        if (++guard > 1000000u) {
+            /* Кварц не завівся — лишаємося на MSI. Вузол працюватиме
+             * повільніше, але це краще, ніж вічний цикл. */
+            return;
+        }
+    }
 
-extern bool bme280_read_measurements(int32_t *t, uint32_t *p, uint32_t *h);
-extern bool ds3231_get_unix_time(uint32_t *unix_time);
-extern bool w25q128_page_program(uint32_t addr, const uint8_t *data, uint16_t len);
-extern bool w25q128_sector_erase(uint32_t addr);
-extern void rs485_set_de(bool enable);
-extern void rs485_transmit_bytes(const uint8_t *data, uint16_t len);
+    RCC->CR &= ~RCC_CR_PLLON;
+    while ((RCC->CR & RCC_CR_PLLRDY) != 0u) { }
 
-/* ── Контрольна сума CRC-16 Modbus ────────────────────────────────────────── */
+    /* HSE 8 МГц → /1 → ×20 = 160 МГц у VCO → /2 = 80 МГц на SYSCLK. */
+    RCC->PLLCFGR = (3u << RCC_PLLCFGR_PLLSRC_Pos) |
+                   (0u << RCC_PLLCFGR_PLLM_Pos) |
+                   (20u << RCC_PLLCFGR_PLLN_Pos) |
+                   (0u << RCC_PLLCFGR_PLLR_Pos) |
+                   RCC_PLLCFGR_PLLREN;
+    RCC->CR |= RCC_CR_PLLON;
+    while ((RCC->CR & RCC_CR_PLLRDY) == 0u) { }
 
-static uint16_t calculate_crc16(const uint8_t *data, uint16_t len) {
-    uint16_t crc = 0xFFFF;
-    for (uint16_t i = 0; i < len; i++) {
-        crc ^= (uint16_t)data[i];
-        for (uint8_t j = 0; j < 8; j++) {
-            if (crc & 0x0001) {
-                crc = (crc >> 1) ^ 0xA001;
-            } else {
-                crc = crc >> 1;
+    RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_PLL;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL) { }
+}
+
+/* ── Секундний фронт від DS3231 ──────────────────────────────────────────── */
+
+static void rtc_tick_input_init(void)
+{
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    GPIOA->MODER &= ~3u;                    /* PA0 — вхід */
+    GPIOA->PUPDR = (GPIOA->PUPDR & ~3u) | 1u;   /* підтяжка: вихід чипа з відкритим стоком */
+
+    SYSCFG->EXTICR[0] &= ~SYSCFG_EXTICR1_EXTI0;  /* лінія EXTI0 з порту A */
+    EXTI->FTSR1 |= EXTI_FTSR1_FT0;               /* спадний фронт меандра 1 Гц */
+    EXTI->RTSR1 &= ~EXTI_RTSR1_RT0;
+    EXTI->IMR1  |= EXTI_IMR1_IM0;
+
+    NVIC_SetPriority(EXTI0_IRQn, 1u);
+    NVIC_EnableIRQ(EXTI0_IRQn);
+}
+
+void EXTI0_IRQHandler(void)
+{
+    EXTI->PR1 = EXTI_PR1_PIF0;
+    events_push(NODE_EVENT_RTC_TICK);
+}
+
+/* ── Сон ─────────────────────────────────────────────────────────────────── */
+
+static void enter_stop2(void)
+{
+    /* У Stop 2 гасне все високочастотне — HSE, PLL, SysTick. Живими
+     * лишаються LSI зі сторожовим таймером, приймач USART на HSI16 і
+     * вхід EXTI0. Прокидає нас або секунда від DS3231, або старт-біт
+     * від ведучого на лінії RS-485. */
+    PWR->CR1 = (PWR->CR1 & ~PWR_CR1_LPMS) | PWR_CR1_LPMS_STOP2;
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+    __DSB();
+    __WFI();
+
+    SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+    clock_config();
+}
+
+/* ── Збирання запису ─────────────────────────────────────────────────────── */
+
+static void start_sample(void)
+{
+    if (sampling) return;                  /* попереднє ще не забрали */
+
+    if (!bme280_start()) {
+        /* Шина мовчить — найімовірніше завис ведений. Розблоковуємо й
+         * піднімаємо датчик наново; не вийде — запишемо зріз без нього. */
+        i2c_bus_recover();
+        sensor_alive = bme280_init() && bme280_start();
+    } else {
+        sensor_alive = true;
+    }
+
+    sampling = true;
+    sample_started_ms = millis();
+    last_sample_ms = sample_started_ms;
+}
+
+static void finish_sample(bool sensor_ok)
+{
+    telemetry_record_t rec;
+    uint16_t flags = 0;
+
+    memset(&rec, 0, sizeof(rec));
+
+    if (sensor_ok && bme280_fetch(&rec.temperature, &rec.pressure, &rec.humidity)) {
+        flags |= STATUS_SENSOR_BME_OK;
+    }
+
+    uint32_t unix_time = 0;
+    bool     clock_valid = false;
+
+    if (ds3231_time(&unix_time, &clock_valid)) {
+        rtc_alive = true;
+        rec.timestamp = unix_time;
+        if (clock_valid) {
+            flags |= STATUS_RTC_SYNC_OK;
+        }
+    } else {
+        /* Годинник не відповів: мітку доводиться рахувати від попередньої.
+         * Запис від цього не зникає — зникає лише довіра до його часу.
+         * Піднімаємо чип наново: разом із його налаштуваннями могла зникнути
+         * і секундна «мітка» на INT/SQW, а без неї вузол більше не прокинеться. */
+        rtc_alive = false;
+        rec.timestamp = last_record.timestamp + 1u;
+        i2c_bus_recover();
+        rtc_alive = ds3231_init();
+    }
+
+    if (logger.last_write_ok) {
+        flags |= STATUS_FLASH_LOG_OK;      /* стан ОСТАННЬОЇ завершеної сторінки */
+    }
+    if (rs485_master_active()) {
+        flags |= STATUS_RS485_ACTIVE;
+    }
+
+    rec.sequence_id  = ++seq_counter;
+    rec.status_flags = flags;
+    rec.crc16 = crc16_modbus((const uint8_t *)&rec, (uint16_t)(sizeof(rec) - 2u));
+
+    last_record = rec;
+    flashlog_append(&logger, &rec);
+    sampling = false;
+}
+
+/* ── Головний цикл ───────────────────────────────────────────────────────── */
+
+int main(void)
+{
+    clock_config();
+    systick_init(SYSCLK_HZ);
+    watchdog_init();
+
+    i2c_init();
+    flash_init();
+    rs485_init(HSI16_HZ);
+    rtc_tick_input_init();
+
+    sensor_alive = bme280_init();
+    rtc_alive    = ds3231_init();
+
+    telemetry_record_t newest;
+    memset(&newest, 0, sizeof(newest));
+
+    if (flashlog_mount(&logger, &newest)) {
+        /* Нумерацію продовжуємо з останнього запису в кільці, щоб ведучий
+         * не побачив після перезавантаження стрибок номерів назад. */
+        seq_counter = newest.sequence_id;
+        last_record = newest;
+    }
+
+    for (;;) {
+        watchdog_kick();
+        flashlog_poll(&logger);
+
+        node_event_t ev;
+        while (events_pop(&ev)) {
+            switch (ev) {
+            case NODE_EVENT_RTC_TICK:
+                start_sample();
+                break;
+
+            case NODE_EVENT_RS485_FRAME:
+                rs485_service(&last_record);
+                break;
+
+            case NODE_EVENT_RS485_SENT:
+            case NODE_EVENT_FLASH_IDLE:
+            default:
+                break;                     /* автомати вже все зробили */
             }
         }
-    }
-    return crc;
-}
 
-/* ── Ініціалізація та обробка записів у Flash ─────────────────────────────── */
-
-void node_init(node_coordinator_t *node) {
-    memset(node, 0, sizeof(node_coordinator_t));
-    node->logger.write_address = 0x000000;
-    node->logger.page_offset = 0;
-    node->seq_counter = 1;
-    node->pending_event = NODE_EVENT_NONE;
-    rs485_set_de(false);
-}
-
-static void logger_write_record(flash_logger_t *log, const telemetry_record_t *rec) {
-    /* Якщо починається новий сектор (4096 байтів), очищуємо його */
-    if ((log->write_address % FLASH_SECTOR_SIZE) == 0 && log->page_offset == 0) {
-        w25q128_sector_erase(log->write_address);
-    }
-
-    /* Копіюємо запис у сторінковий буфер ОЗП */
-    memcpy(&log->page_buffer[log->page_offset], rec, sizeof(telemetry_record_t));
-    log->page_offset += sizeof(telemetry_record_t);
-    log->record_count++;
-
-    /* Якщо сторінка (256 байтів) заповнена, скидаємо її у Flash */
-    if (log->page_offset + sizeof(telemetry_record_t) > FLASH_PAGE_SIZE) {
-        w25q128_page_program(log->write_address, log->page_buffer, log->page_offset);
-        log->write_address += FLASH_PAGE_SIZE;
-        log->page_offset = 0;
-        memset(log->page_buffer, 0xFF, FLASH_PAGE_SIZE);
-    }
-}
-
-/* ── Обробка подій та протоколу RS-485 ────────────────────────────────────── */
-
-void node_process_rs485_request(node_coordinator_t *node, const telemetry_record_t *last_rec) {
-    if (!node->comm.frame_ready) return;
-
-    /* Перевірка простого кадру запиту: [0x01 (Node ID)][0x03 (Read)][CRC16_L][CRC16_H] */
-    if (node->comm.rx_index >= 4 && node->comm.rx_buf[0] == 0x01 && node->comm.rx_buf[1] == 0x03) {
-        uint16_t rx_crc = (uint16_t)node->comm.rx_buf[2] | ((uint16_t)node->comm.rx_buf[3] << 8);
-        if (calculate_crc16(node->comm.rx_buf, 2) == rx_crc) {
-            /* Формування відповіді */
-            node->comm.tx_buf[0] = 0x01; /* Node ID */
-            node->comm.tx_buf[1] = 0x03; /* Function Code */
-            node->comm.tx_buf[2] = sizeof(telemetry_record_t);
-            memcpy(&node->comm.tx_buf[3], last_rec, sizeof(telemetry_record_t));
-
-            uint16_t tx_len = 3 + sizeof(telemetry_record_t);
-            uint16_t tx_crc = calculate_crc16(node->comm.tx_buf, tx_len);
-            node->comm.tx_buf[tx_len]     = (uint8_t)(tx_crc & 0xFF);
-            node->comm.tx_buf[tx_len + 1] = (uint8_t)((tx_crc >> 8) & 0xFF);
-            tx_len += 2;
-
-            /* Відправка через RS-485 з контролем виводу DE */
-            rs485_set_de(true);
-            rs485_transmit_bytes(node->comm.tx_buf, tx_len);
-            rs485_set_de(false);
+        if (sampling) {
+            if (!sensor_alive) {
+                finish_sample(false);
+            } else if (bme280_ready()) {
+                finish_sample(true);
+            } else if ((millis() - sample_started_ms) > SAMPLE_LIMIT_MS) {
+                /* Датчик не звільнив прапорець measuring за вчетверо довший
+                 * час, ніж обіцяє паспорт: пишемо зріз без нього. */
+                sensor_alive = false;
+                finish_sample(false);
+            }
         }
-    }
 
-    node->comm.rx_index = 0;
-    node->comm.frame_ready = false;
-}
-
-void node_task_step(node_coordinator_t *node) {
-    static telemetry_record_t current_record;
-
-    if (node->pending_event == NODE_EVENT_RTC_TICK) {
-        node->pending_event = NODE_EVENT_NONE;
-
-        uint32_t unix_ts = 0;
-        int32_t  t = 0;
-        uint32_t p = 0, h = 0;
-
-        /* Послідовне зчитування з контролем статусу шини I2C */
-        if (ds3231_get_unix_time(&unix_ts) && bme280_read_measurements(&t, &p, &h)) {
-            current_record.timestamp   = unix_ts;
-            current_record.temperature = t;
-            current_record.pressure    = p;
-            current_record.humidity    = h;
-            current_record.sequence_id = node->seq_counter++;
-            current_record.status_flags = 0x0001; /* OK flag */
-            current_record.crc16       = calculate_crc16((const uint8_t *)&current_record,
-                                                         sizeof(telemetry_record_t) - 2);
-
-            /* Збереження у Flash через енергонезалежний логер */
-            logger_write_record(&node->logger, &current_record);
+        /* Аварійний ритм: секундна мітка від DS3231 зникла. Спати тепер не
+         * можна — прокидатися немає від чого; такт відміряє SysTick, а
+         * годинник пробуємо підняти на кожному зрізі. */
+        if (!rtc_alive) {
+            if (!sampling && (millis() - last_sample_ms) >= 1000u) {
+                start_sample();
+            }
+            continue;
         }
-    }
 
-    if (node->comm.frame_ready) {
-        node_process_rs485_request(node, &current_record);
+        /* Спати можна лише коли не лишилося ані події в черзі, ані
+         * незавершеної роботи в жодного з чотирьох чипів. */
+        if (events_empty() && !sampling &&
+            flashlog_idle(&logger) && !rs485_tx_busy() && !rs485_frame_waiting()) {
+            enter_stop2();
+        }
     }
 }

@@ -45,9 +45,25 @@
 
 ## Реалізація прошивки
 
+**Ядро контуру — калібрування, фільтр, ПІД, мапування в мікросекунди:**
+
 :::tabs
 :::code proj-single-axis-gimbal/c/gimbal_controller.c
-:::code proj-single-axis-gimbal/cpp/main.cpp
+:::code proj-single-axis-gimbal/cpp/include/stabilizer.hpp
+:::
+
+**Шина I2C з таймаутом і процедурою визволення:**
+
+:::tabs
+:::code proj-single-axis-gimbal/c/i2c.c
+:::code proj-single-axis-gimbal/cpp/src/twi.cpp
+:::
+
+**Точка входу прошивки — такт 200 Гц, драйвер IMU, серво, телеметрія:**
+
+:::tabs
+:::code proj-single-axis-gimbal/c/main.c
+:::code proj-single-axis-gimbal/cpp/src/main.cpp
 :::
 
 ## Методика стендового тестування та валідації

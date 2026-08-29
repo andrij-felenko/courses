@@ -1,131 +1,162 @@
+/* Прошивка вузла: мережевий колбек, швидкий цикл і стенд замість заліза.
+   Збірка: cc -std=c11 -Wall -Wextra *.c -o fw */
+
+#include "actuator.h"
+#include "dedup.h"
+#include "link.h"
+
 #include <stdbool.h>
 #include <stdint.h>
-#include <string.h>
 #include <stdio.h>
 
-#define DEDUP_HISTORY_SIZE 16
-#define CMD_ID_MAX_LEN     37
+/* --- Стенд: вал, кінцевики, драйвер і годинник -------------------------- */
 
-typedef enum {
-    CMD_STATE_IDLE,
-    CMD_STATE_RECEIVED,
-    CMD_STATE_EXECUTING,
-    CMD_STATE_COMPLETED,
-    CMD_STATE_FAILED
-} cmd_exec_state_t;
+#define TICK_MS 10u
+#define STEP_MS 25u   /* один відсоток ходу за 25 мс */
 
-typedef struct {
-    char cmd_id[CMD_ID_MAX_LEN];
-    uint32_t timestamp_sec;
-} dedup_entry_t;
+static uint32_t g_now_ms;
+static uint32_t g_epoch_sec = 1725000000u;
+static uint32_t g_epoch_carry_ms;
+static uint32_t g_step_carry_ms;
+static int      g_position_pct;
+static int      g_drive_target = -1;   /* -1 — привід знеструмлений */
+static bool     g_jammed;
 
-typedef struct {
-    dedup_entry_t history[DEDUP_HISTORY_SIZE];
-    uint8_t head;
-    uint8_t count;
-} dedup_filter_t;
+uint32_t hal_millis(void)        { return g_now_ms; }
+uint32_t hal_epoch_sec(void)     { return g_epoch_sec; }
+int      hal_position_pct(void)  { return g_position_pct; }
+bool     hal_limit_closed(void)  { return g_position_pct <= 0; }
+bool     hal_limit_open(void)    { return g_position_pct >= 100; }
+void     hal_drive_set(int t)    { g_drive_target = t; }
+void     hal_drive_stop(void)    { g_drive_target = -1; }
 
-typedef struct {
-    char current_cmd_id[CMD_ID_MAX_LEN];
-    cmd_exec_state_t state;
-    uint32_t start_time_ms;
-    uint32_t target_duration_ms;
-    int target_value;
-    int current_value;
-} actuator_worker_t;
+static void board_tick(void)
+{
+    g_now_ms += TICK_MS;
+    g_epoch_carry_ms += TICK_MS;
+    while (g_epoch_carry_ms >= 1000u) {
+        g_epoch_carry_ms -= 1000u;
+        ++g_epoch_sec;
+    }
 
-static dedup_filter_t s_dedup;
-static actuator_worker_t s_worker;
-
-void dedup_init(void) {
-    memset(&s_dedup, 0, sizeof(s_dedup));
-    s_worker.state = CMD_STATE_IDLE;
-    s_worker.current_value = 0;
-}
-
-bool dedup_is_duplicate(const char *cmd_id) {
-    for (uint8_t i = 0; i < s_dedup.count; ++i) {
-        if (strncmp(s_dedup.history[i].cmd_id, cmd_id, CMD_ID_MAX_LEN) == 0) {
-            return true;
+    if (g_drive_target < 0 || g_jammed) {
+        g_step_carry_ms = 0;
+        return;
+    }
+    g_step_carry_ms += TICK_MS;
+    while (g_step_carry_ms >= STEP_MS) {
+        g_step_carry_ms -= STEP_MS;
+        if (g_position_pct < g_drive_target) {
+            ++g_position_pct;
+        } else if (g_position_pct > g_drive_target) {
+            --g_position_pct;
+        } else {
+            break;
         }
     }
-    return false;
 }
 
-void dedup_record(const char *cmd_id, uint32_t now_sec) {
-    uint8_t idx = s_dedup.head;
-    strncpy(s_dedup.history[idx].cmd_id, cmd_id, CMD_ID_MAX_LEN - 1);
-    s_dedup.history[idx].cmd_id[CMD_ID_MAX_LEN - 1] = '\0';
-    s_dedup.history[idx].timestamp_sec = now_sec;
-
-    s_dedup.head = (s_dedup.head + 1) % DEDUP_HISTORY_SIZE;
-    if (s_dedup.count < DEDUP_HISTORY_SIZE) {
-        s_dedup.count++;
+/* Швидкий цикл loop(): жодних затримок, лише опитування воркера. */
+static void run_for(uint32_t ms)
+{
+    for (uint32_t t = 0; t < ms; t += TICK_MS) {
+        board_tick();
+        actuator_poll(g_now_ms);
     }
 }
 
-void publish_ack(const char *cmd_id, const char *status) {
-    printf("[MQTT OUT -> devices/zone1/cmd/ack] {\"cmd_id\":\"%s\",\"status\":\"%s\"}\n",
-           cmd_id, status);
-}
+/* --- Мережевий колбек ---------------------------------------------------- */
 
-void publish_exec_status(const char *cmd_id, const char *state, int progress, int val, int err) {
-    printf("[MQTT OUT -> devices/zone1/cmd/status] {\"cmd_id\":\"%s\",\"state\":\"%s\","
-           "\"progress_pct\":%d,\"val\":%d,\"err\":%d}\n",
-           cmd_id, state, progress, val, err);
-}
+void handle_incoming_downlink(const char *payload)
+{
+    downlink_cmd_t cmd;
+    link_parse_t rc;
+    uint32_t now_sec;
+    const dedup_entry_t *seen;
+    act_job_t job;
 
-void handle_incoming_downlink(const char *cmd_id, int target_pos, uint32_t issued_at,
-                              uint16_t ttl_sec, uint32_t now_sec, uint32_t now_ms) {
-    // 1. Перевірка строку придатності TTL
-    if (now_sec > issued_at + ttl_sec) {
-        publish_exec_status(cmd_id, "EXPIRED", 0, s_worker.current_value, 104);
+    rc = link_parse_downlink(payload, &cmd);
+    if (rc != LINK_PARSE_OK) {
+        link_publish_nack(link_parse_reason(rc));
         return;
     }
 
-    // 2. Перевірка ідемпотентності
-    if (dedup_is_duplicate(cmd_id)) {
-        publish_ack(cmd_id, "ACK_DUPLICATE");
-        // Повторюємо останній відомий стан без фізичного смикання приводу
-        publish_exec_status(cmd_id, "COMPLETED", 100, s_worker.current_value, 0);
+    now_sec = hal_epoch_sec();
+    if (now_sec > cmd.issued_at_sec + cmd.ttl_sec) {
+        /* Наказ пролежав у черзі довше, ніж дозволив оператор: виконувати
+           його наосліп небезпечно — за цей час стан установки міг змінитися. */
+        link_publish_status(cmd.cmd_id, "EXPIRED", 0, actuator_position(), ERR_TTL_EXPIRED);
         return;
     }
 
-    // 3. Фіксація в журналі дедуплікації
-    dedup_record(cmd_id, now_sec);
+    seen = dedup_find(cmd.cmd_id);
+    if (seen != NULL) {
+        /* Повтор після втраченої квитанції: реле не смикаємо, віддаємо
+           останній відомий стан заліза. */
+        link_publish_ack(cmd.cmd_id, "ACK_DUPLICATE");
+        link_publish_status(cmd.cmd_id, seen->state, seen->progress_pct,
+                            seen->value_pct, seen->err);
+        return;
+    }
 
-    // 4. Фаза 1: миттєве квитування прийому
-    publish_ack(cmd_id, "ACK_RECEIVED");
+    dedup_remember(cmd.cmd_id, now_sec);
+    link_publish_ack(cmd.cmd_id, "ACK_RECEIVED");   /* фаза 1, до всякого руху */
 
-    // 5. Постановка завдання в апаратний воркер
-    strncpy(s_worker.current_cmd_id, cmd_id, CMD_ID_MAX_LEN - 1);
-    s_worker.current_cmd_id[CMD_ID_MAX_LEN - 1] = '\0';
-    s_worker.target_value = target_pos;
-    s_worker.start_time_ms = now_ms;
-    s_worker.target_duration_ms = 3000; // 3 секунди на плавний поворот
-    s_worker.state = CMD_STATE_EXECUTING;
-
-    publish_exec_status(cmd_id, "STARTED", 0, s_worker.current_value, 0);
+    snprintf(job.cmd_id, sizeof job.cmd_id, "%s", cmd.cmd_id);
+    job.target_pct = cmd.target_pct;
+    if (!actuator_submit(&job)) {
+        link_publish_status(cmd.cmd_id, "FAILED", 0, actuator_position(), ERR_BUSY);
+        dedup_update(cmd.cmd_id, "FAILED", 0, actuator_position(), ERR_BUSY);
+    }
 }
 
-void actuator_poll(uint32_t now_ms) {
-    if (s_worker.state != CMD_STATE_EXECUTING) {
-        return;
-    }
+/* --- Сценарій стенда ----------------------------------------------------- */
 
-    uint32_t elapsed = now_ms - s_worker.start_time_ms;
-    if (elapsed >= s_worker.target_duration_ms) {
-        // Завершення фізичної операції
-        s_worker.current_value = s_worker.target_value;
-        s_worker.state = CMD_STATE_COMPLETED;
-        publish_exec_status(s_worker.current_cmd_id, "COMPLETED", 100, s_worker.current_value, 0);
-    } else {
-        // Проміжний звіт прогресу кожні 500 мс
-        static uint32_t last_progress_report = 0;
-        if (now_ms - last_progress_report >= 500) {
-            last_progress_report = now_ms;
-            int progress = (int)((elapsed * 100) / s_worker.target_duration_ms);
-            publish_exec_status(s_worker.current_cmd_id, "IN_PROGRESS", progress, s_worker.current_value, 0);
-        }
-    }
+static void make_payload(char *buf, size_t cap, const char *cmd_id,
+                         int target, uint32_t issued, uint32_t ttl)
+{
+    snprintf(buf, cap,
+             "{\"cmd_id\":\"%s\",\"op\":\"set_valve_position\",\"target_pct\":%d,"
+             "\"issued_at\":%u,\"ttl_sec\":%u}",
+             cmd_id, target, (unsigned)issued, (unsigned)ttl);
+}
+
+int main(void)
+{
+    char buf[192];
+
+    dedup_reset();
+    actuator_init(g_now_ms);
+
+    puts("== 1. Звичайна команда: відкрити засувку ==");
+    make_payload(buf, sizeof buf, "6f21-open", 100, hal_epoch_sec(), 60u);
+    handle_incoming_downlink(buf);
+    run_for(1200u);
+
+    puts("== 2. Сервер не дочекався квитанції і повторив пакет ==");
+    handle_incoming_downlink(buf);
+    run_for(4000u);
+
+    puts("== 3. Наказ пролежав довше за TTL ==");
+    make_payload(buf, sizeof buf, "6f21-stale", 0, hal_epoch_sec() - 300u, 5u);
+    handle_incoming_downlink(buf);
+    run_for(200u);
+
+    puts("== 4. Вал заклинило: воркер сам закриває транзакцію ==");
+    g_jammed = true;
+    make_payload(buf, sizeof buf, "6f21-close", 0, hal_epoch_sec(), 60u);
+    handle_incoming_downlink(buf);
+    run_for(7000u);
+
+    puts("== 5. Просідання живлення посеред маневру ==");
+    g_jammed = false;
+    make_payload(buf, sizeof buf, "6f21-half", 40, hal_epoch_sec(), 60u);
+    handle_incoming_downlink(buf);
+    run_for(600u);
+    dedup_reset();                /* RAM після скидання чиста */
+    actuator_init(g_now_ms);      /* RTC-пам'ять — ні: звітуємо про незавершений хід */
+    run_for(200u);
+
+    puts("== кінець ==");
+    return 0;
 }

@@ -1,172 +1,167 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
+/* Вимір температури PT100 через ADS1220: 3-провідне підключення,
+   логометрична опора на R_ref = 3.3 кОм, одиничні перетворення по 20 SPS
+   і готовність результату за апаратним перериванням DRDY.
 
-/* Команди ADS1220 */
-#define ADS1220_CMD_RESET    0x06
-#define ADS1220_CMD_START    0x08
-#define ADS1220_CMD_RDATA    0x10
-#define ADS1220_CMD_RREG     0x20
-#define ADS1220_CMD_WREG     0x40
+   Виводи (STM32G0): SPI1 на PA5/PA6/PA7, CS на PA4, DRDY на PB0.
+   Тактування ядра лишається таким, як його налаштував стартовий код. */
 
-/* Конфігураційні константи */
-#define PT100_R0             100.0f
-#define PT100_A              3.9083e-3f
-#define PT100_B              -5.7750e-7f
-#define PT100_C              -4.1830e-12f
-#define R_REF_NOMINAL        3300.0f
-#define PGA_GAIN             16.0f
+#include <stdio.h>
+#include <string.h>
 
-typedef struct {
-    void (*spi_cs_low)(void);
-    void (*spi_cs_high)(void);
-    void (*spi_transfer)(const uint8_t *tx, uint8_t *rx, uint16_t len);
-    bool (*wait_drdy_low)(uint32_t timeout_ms);
-} ads1220_hal_t;
+#include "stm32g0xx_hal.h"
 
-typedef struct {
-    ads1220_hal_t hal;
-    float r_ref;
-    float gain;
-    int32_t offset_code;
-} ads1220_t;
+#include "ads1220.h"
+#include "pt100.h"
 
-/* Ініціалізація та налаштування регістрів ADS1220 для 3-провідного PT100 */
-bool ads1220_init(ads1220_t *dev, const ads1220_hal_t *hal) {
-    if (!dev || !hal) return false;
-    dev->hal = *hal;
-    dev->r_ref = R_REF_NOMINAL;
-    dev->gain = PGA_GAIN;
-    dev->offset_code = 0;
+#define CS_PORT     GPIOA
+#define CS_PIN      GPIO_PIN_4
+#define DRDY_PORT   GPIOB
+#define DRDY_PIN    GPIO_PIN_0
 
-    /* Скидання мікросхеми */
-    uint8_t cmd_reset = ADS1220_CMD_RESET;
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(&cmd_reset, NULL, 1);
-    dev->hal.spi_cs_high();
+static SPI_HandleTypeDef  hspi1;
+static UART_HandleTypeDef huart2;
+static ads1220_t          rtd;
 
-    /* Запис 4 конфігураційних регістрів */
-    uint8_t config[5];
-    config[0] = ADS1220_CMD_WREG | 0x03; /* Запис 4 байтів починаючи з регістру 0 */
-    config[1] = 0x38; /* AIN1-AIN2, Gain=16, PGA on */
-    config[2] = 0x00; /* 20 SPS, Normal mode, Single-shot */
-    config[3] = 0x76; /* Зовнішня опора REFP0/REFN0, фільтр 50/60 Гц, IDAC=500 мкА */
-    config[4] = 0x60; /* IDAC1 -> AIN0, IDAC2 -> AIN1 */
-
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(config, NULL, 5);
-    dev->hal.spi_cs_high();
-
-    return true;
+static void report(const char *text)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t *)text, (uint16_t)strlen(text), 100);
 }
 
-/* Калібрування внутрішнього зсуву нуля АЦП через тестове замикання входів */
-bool ads1220_calibrate_offset(ads1220_t *dev) {
-    if (!dev) return false;
+static void gpio_init(void)
+{
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    /* Вмикання режиму (AVDD + AVSS)/2 на обох входах для виміру зміщення */
-    uint8_t reg0_cal = 0xE8; /* MUX = (AVDD-AVSS)/2, Gain=16 */
-    uint8_t cmd[2] = { (uint8_t)(ADS1220_CMD_WREG | 0x00), reg0_cal };
-    
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(cmd, NULL, 2);
-    dev->hal.spi_cs_high();
+    /* CS тримаємо високим у спокої, інакше мікросхема з'їсть перший байт */
+    HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
 
-    /* Запуск та читання тестового відліку */
-    uint8_t cmd_start = ADS1220_CMD_START;
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(&cmd_start, NULL, 1);
-    dev->hal.spi_cs_high();
+    GPIO_InitTypeDef cs = {
+        .Pin   = CS_PIN,
+        .Mode  = GPIO_MODE_OUTPUT_PP,
+        .Pull  = GPIO_NOPULL,
+        .Speed = GPIO_SPEED_FREQ_HIGH,
+    };
+    HAL_GPIO_Init(CS_PORT, &cs);
 
-    if (!dev->hal.wait_drdy_low(60)) return false;
+    /* DRDY — вихід із відкритим стоком, який АЦП притискає до нуля,
+       коли результат готовий. Звідси підтяжка вгору й спадний фронт. */
+    GPIO_InitTypeDef drdy = {
+        .Pin  = DRDY_PIN,
+        .Mode = GPIO_MODE_IT_FALLING,
+        .Pull = GPIO_PULLUP,
+    };
+    HAL_GPIO_Init(DRDY_PORT, &drdy);
 
-    uint8_t tx_buf[4] = { ADS1220_CMD_RDATA, 0x00, 0x00, 0x00 };
-    uint8_t rx_buf[4] = { 0 };
-
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(tx_buf, rx_buf, 4);
-    dev->hal.spi_cs_high();
-
-    int32_t offset = ((int32_t)rx_buf[1] << 16) |
-                     ((int32_t)rx_buf[2] << 8)  |
-                     ((int32_t)rx_buf[3]);
-    if (offset & 0x00800000) offset |= 0xFF000000;
-    dev->offset_code = offset;
-
-    /* Відновлення робочої конфігурації входу */
-    cmd[1] = 0x38;
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(cmd, NULL, 2);
-    dev->hal.spi_cs_high();
-
-    return true;
+    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
 
-/* Запуск вимірювання та зчитування 24-бітного результату */
-bool ads1220_read_raw(ads1220_t *dev, int32_t *raw_code) {
-    if (!dev || !raw_code) return false;
+static HAL_StatusTypeDef spi_init(void)
+{
+    __HAL_RCC_SPI1_CLK_ENABLE();
 
-    uint8_t cmd_start = ADS1220_CMD_START;
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(&cmd_start, NULL, 1);
-    dev->hal.spi_cs_high();
+    hspi1.Instance               = SPI1;
+    hspi1.Init.Mode              = SPI_MODE_MASTER;
+    hspi1.Init.Direction         = SPI_DIRECTION_2LINES;
+    hspi1.Init.DataSize          = SPI_DATASIZE_8BIT;
+    /* Режим 1: тактовий сигнал у спокої низький, дані знімаються
+       по другому фронту — саме такий обмін чекає ADS1220. */
+    hspi1.Init.CLKPolarity       = SPI_POLARITY_LOW;
+    hspi1.Init.CLKPhase          = SPI_PHASE_2EDGE;
+    hspi1.Init.NSS               = SPI_NSS_SOFT;
+    hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32; /* ~2 МГц */
+    hspi1.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+    hspi1.Init.TIMode            = SPI_TIMODE_DISABLE;
+    hspi1.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
 
-    /* Очікування сигналу DRDY за апаратним перериванням або тайм-аутом */
-    if (!dev->hal.wait_drdy_low(60)) {
-        return false;
-    }
-
-    uint8_t tx_buf[4] = { ADS1220_CMD_RDATA, 0x00, 0x00, 0x00 };
-    uint8_t rx_buf[4] = { 0 };
-
-    dev->hal.spi_cs_low();
-    dev->hal.spi_transfer(tx_buf, rx_buf, 4);
-    dev->hal.spi_cs_high();
-
-    /* Збирання 24-бітного числа зі знаком */
-    int32_t code = ((int32_t)rx_buf[1] << 16) |
-                   ((int32_t)rx_buf[2] << 8)  |
-                   ((int32_t)rx_buf[3]);
-
-    /* Доповнення знакового розряду для 24-бітного значення */
-    if (code & 0x00800000) {
-        code |= 0xFF000000;
-    }
-
-    /* Компенсація каліброваного апаратного зміщення */
-    *raw_code = code - dev->offset_code;
-    return true;
+    return HAL_SPI_Init(&hspi1);
 }
 
-/* Перерахунок коду в опір та температуру за рівнянням Каллендара-Ван Дюзена */
-bool ads1220_read_temperature(ads1220_t *dev, float *temp_celsius) {
-    int32_t raw_code = 0;
-    if (!ads1220_read_raw(dev, &raw_code)) return false;
+static HAL_StatusTypeDef uart_init(void)
+{
+    __HAL_RCC_USART2_CLK_ENABLE();
 
-    /* Логометричний розрахунок опору RTD */
-    float r_pt100 = ((float)raw_code * 2.0f * dev->r_ref) / (8388608.0f * dev->gain);
+    huart2.Instance        = USART2;
+    huart2.Init.BaudRate   = 115200;
+    huart2.Init.WordLength = UART_WORDLENGTH_8B;
+    huart2.Init.StopBits   = UART_STOPBITS_1;
+    huart2.Init.Parity     = UART_PARITY_NONE;
+    huart2.Init.Mode       = UART_MODE_TX_RX;
+    huart2.Init.HwFlowCtl  = UART_HWCONTROL_NONE;
 
-    /* Розрахунок температури для T >= 0 °C */
-    float z = 1.0f - (r_pt100 / PT100_R0);
-    float discriminant = (PT100_A * PT100_A) - (4.0f * PT100_B * z);
+    return HAL_UART_Init(&huart2);
+}
 
-    if (discriminant < 0.0f) {
-        return false; /* Неприпустиме значення опору */
+/* Обробник спаду DRDY. Тут не читають результат по SPI: обмін довгий,
+   а переривання має лише позначити, що чекати вже нема чого. */
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t pin)
+{
+    if (pin == DRDY_PIN) {
+        ads1220_drdy_isr(&rtd);
+    }
+}
+
+int main(void)
+{
+    HAL_Init();
+    gpio_init();
+
+    if (uart_init() != HAL_OK || spi_init() != HAL_OK) {
+        /* Без шини говорити нема ні з ким і нема чим */
+        for (;;) { }
     }
 
-    float t = (-PT100_A + sqrtf(discriminant)) / (2.0f * PT100_B);
+    rtd.spi     = &hspi1;
+    rtd.cs_port = CS_PORT;
+    rtd.cs_pin  = CS_PIN;
+    rtd.r_ref   = 3300.0f;  /* еталон 0.01 %, 5 ppm/°C */
+    rtd.gain    = 16.0f;
 
-    /* Ітеративне уточнення для діапазону від'ємних температур T < 0 °C */
-    if (t < 0.0f) {
-        for (int i = 0; i < 3; i++) {
-            float t2 = t * t;
-            float t3 = t2 * t;
-            float r_calc = PT100_R0 * (1.0f + PT100_A * t + PT100_B * t2 + PT100_C * (t - 100.0f) * t3);
-            float r_diff = PT100_R0 * (PT100_A + 2.0f * PT100_B * t - 300.0f * PT100_C * t2 + 4.0f * PT100_C * t3);
-            t = t - (r_calc - r_pt100) / r_diff;
+    ads1220_status_t st = ads1220_init(&rtd);
+    if (st != ADS1220_OK) {
+        char line[96];
+        snprintf(line, sizeof line, "ADS1220 не піднявся: %s\r\n", ads1220_strerror(st));
+        report(line);
+        for (;;) { }
+    }
+
+    /* Зміщення нуля міряємо один раз при старті, на прогрітій платі.
+       Воно дрібне, але при 1.9 мкВ на сотку градуса дрібне вже видно. */
+    st = ads1220_calibrate_offset(&rtd);
+    if (st != ADS1220_OK) {
+        char line[96];
+        snprintf(line, sizeof line, "калібрування нуля не вдалося: %s\r\n",
+                 ads1220_strerror(st));
+        report(line);
+    }
+
+    for (;;) {
+        char line[96];
+        float r_ohms = 0.0f;
+
+        st = ads1220_read_resistance(&rtd, &r_ohms);
+        if (st != ADS1220_OK) {
+            snprintf(line, sizeof line, "вимір зірвано: %s\r\n", ads1220_strerror(st));
+            report(line);
+            HAL_Delay(1000);
+            continue;
         }
-    }
 
-    *temp_celsius = t;
-    return true;
+        float t_celsius = 0.0f;
+        if (pt100_celsius_at(r_ohms, &t_celsius) != PT100_OK) {
+            snprintf(line, sizeof line, "опір %.3f Ом поза діапазоном PT100\r\n",
+                     (double)r_ohms);
+            report(line);
+            HAL_Delay(1000);
+            continue;
+        }
+
+        snprintf(line, sizeof line, "R = %.4f Ом   T = %.3f C\r\n",
+                 (double)r_ohms, (double)t_celsius);
+        report(line);
+
+        /* Пауза між вимірами — це ще й час, коли струми збудження вимкнені
+           й датчик остигає від власного розігріву. */
+        HAL_Delay(1000);
+    }
 }

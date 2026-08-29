@@ -123,9 +123,35 @@ Interference_pct = (||ΔB_max|| / ||B_base||) · 100%
 
 Нижче наведено повністю працездатний, протестований код для мікроконтролерів польотного стека (STM32, ESP32, nRF).
 
+### Ядро моделі: потокова компенсація і регресія
+
 :::tabs
 :::code proj-compass-mot-calibration/c/compass_mot.h
-:::code proj-compass-mot-calibration/cpp/CompassMotCompensator.hpp
+:::code proj-compass-mot-calibration/cpp/CompassMot.hpp
+:::
+
+:::tabs
+:::code proj-compass-mot-calibration/c/compass_mot.c
+:::code proj-compass-mot-calibration/cpp/CompassMot.cpp
+:::
+
+### Кінцевий автомат стендового прогону
+
+:::tabs
+:::code proj-compass-mot-calibration/c/calib_fsm.h
+:::code proj-compass-mot-calibration/cpp/BenchRun.hpp
+:::
+
+:::tabs
+:::code proj-compass-mot-calibration/c/calib_fsm.c
+:::code proj-compass-mot-calibration/cpp/BenchRun.cpp
+:::
+
+### Прогін на моделі стенда
+
+:::tabs
+:::code proj-compass-mot-calibration/c/main.c
+:::code proj-compass-mot-calibration/cpp/main.cpp
 :::
 
 ---

@@ -44,6 +44,25 @@
 
 Нижче наведено повноцінні модулі передпольотної діагностики живлення мовами C та C++.
 
+Сам шлюз: інтерфейс драйверів платформи, пороги, латч зривів живлення у backup-домені й автомат із активним імпульсним тестом.
+
+:::tabs
+:::code proj-battery-thresholds/c/battery_gate.h
+:::code proj-battery-thresholds/c/battery_gate.c
+:::code proj-battery-thresholds/cpp/preflight.hpp
+:::
+
+Пакування відмови для сервера кампанії — код причини, вікно повтору й виміри:
+
+:::tabs
+:::code proj-battery-thresholds/c/ota_telemetry.h
+:::code proj-battery-thresholds/c/ota_telemetry.c
+:::code proj-battery-thresholds/cpp/telemetry.hpp
+:::code proj-battery-thresholds/cpp/telemetry.cpp
+:::
+
+Модель плати й прогін сценаріїв — від свіжої комірки до тієї, що провалює вже тестовий імпульс:
+
 :::tabs
 :::code proj-battery-thresholds/c/main.c
 :::code proj-battery-thresholds/cpp/main.cpp

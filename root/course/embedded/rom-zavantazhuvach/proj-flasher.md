@@ -72,6 +72,26 @@ RTS (ПК) ───[ 10k ]───► База Q2 ──── Колекто�
 ## Робочий код прошивальника
 
 :::tabs
+:::code proj-flasher/c/serial.h
+:::code proj-flasher/cpp/serial_port.hpp
+:::
+
+:::tabs
+:::code proj-flasher/c/serial.c
+:::code proj-flasher/cpp/serial_port.cpp
+:::
+
+:::tabs
+:::code proj-flasher/c/bootloader.h
+:::code proj-flasher/cpp/bootloader.hpp
+:::
+
+:::tabs
+:::code proj-flasher/c/bootloader.c
+:::code proj-flasher/cpp/bootloader.cpp
+:::
+
+:::tabs
 :::code proj-flasher/c/main.c
 :::code proj-flasher/cpp/main.cpp
 :::

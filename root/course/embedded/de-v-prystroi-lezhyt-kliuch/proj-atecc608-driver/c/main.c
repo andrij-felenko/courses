@@ -1,102 +1,134 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Демонстрація повного циклу: пробудження шини, перевірка блокування зон,
+ * підпис зовнішнього дайджеста ключем зі слота, сон.
+ *
+ * Збірка:  cc -std=c11 -Wall -Wextra -O2 *.c -o atecc-sign
+ * Запуск:  ./atecc-sign /dev/i2c-1 0 <64 шістнадцяткові символи дайджеста>
+ */
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define ATECC_I2C_ADDR           0x60
-#define ATECC_CMD_WORD_ADDR      0x03
-#define ATECC_SLEEP_WORD_ADDR    0x01
-#define ATECC_OP_SIGN            0x41
-#define ATECC_SIGN_MODE_EXTERNAL 0x80
-#define ATECC_EXEC_TIME_SIGN_MS  115
+#include "atecc608.h"
+#include "der_sig.h"
+#include "i2c_linux.h"
 
-typedef struct {
-    bool (*i2c_write)(uint8_t addr, const uint8_t *data, uint16_t len);
-    bool (*i2c_read)(uint8_t addr, uint8_t *data, uint16_t len);
-    void (*wake_pulse)(void);
-    void (*delay_ms)(uint32_t ms);
-} atecc_hal_t;
+static int hex_nibble(char c)
+{
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+    return -1;
+}
 
-typedef enum {
-    ATECC_OK = 0,
-    ATECC_ERR_HAL,
-    ATECC_ERR_CRC,
-    ATECC_ERR_STATUS,
-    ATECC_ERR_TIMEOUT
-} atecc_status_t;
-
-static uint16_t atecc_crc16(const uint8_t *data, size_t length) {
-    uint16_t crc = 0x0000;
-    for (size_t i = 0; i < length; i++) {
-        for (uint8_t shift = 0x01; shift > 0x00; shift <<= 1) {
-            uint8_t data_bit = (data[i] & shift) ? 1 : 0;
-            uint8_t crc_bit = (crc >> 15) & 0x01;
-            crc <<= 1;
-            if (data_bit ^ crc_bit) {
-                crc ^= 0x8005;
-            }
+static bool parse_hex(const char *text, uint8_t *out, size_t len)
+{
+    if (strlen(text) != len * 2u) {
+        return false;
+    }
+    for (size_t i = 0; i < len; i++) {
+        int hi = hex_nibble(text[2 * i]);
+        int lo = hex_nibble(text[2 * i + 1]);
+        if (hi < 0 || lo < 0) {
+            return false;
         }
+        out[i] = (uint8_t)((hi << 4) | lo);
     }
-    return crc;
+    return true;
 }
 
-atecc_status_t atecc_wake(const atecc_hal_t *hal) {
-    hal->wake_pulse();
-    hal->delay_ms(2); // Очікування готовності (t_WHI)
-
-    uint8_t resp[4] = {0};
-    if (!hal->i2c_read(ATECC_I2C_ADDR, resp, 4)) {
-        return ATECC_ERR_HAL;
+static void print_hex(const char *label, const uint8_t *data, size_t len)
+{
+    printf("%s", label);
+    for (size_t i = 0; i < len; i++) {
+        printf("%02x", data[i]);
     }
-    if (resp[0] != 0x04 || resp[1] != 0x11) {
-        return ATECC_ERR_STATUS;
-    }
-    return ATECC_OK;
+    printf("\n");
 }
 
-void atecc_sleep(const atecc_hal_t *hal) {
-    uint8_t sleep_cmd = ATECC_SLEEP_WORD_ADDR;
-    hal->i2c_write(ATECC_I2C_ADDR, &sleep_cmd, 1);
-}
-
-atecc_status_t atecc_sign_digest(const atecc_hal_t *hal, uint8_t slot_id,
-                                const uint8_t digest[32], uint8_t signature[64]) {
-    uint8_t tx_buf[40]; // 1(WordAddr) + 1(Count) + 1(Op) + 1(P1) + 2(P2) + 32(Data) + 2(CRC)
-    uint8_t count = 39;
-
-    tx_buf[0] = ATECC_CMD_WORD_ADDR;
-    tx_buf[1] = count;
-    tx_buf[2] = ATECC_OP_SIGN;
-    tx_buf[3] = ATECC_SIGN_MODE_EXTERNAL;
-    tx_buf[4] = (uint8_t)(slot_id & 0x0F);
-    tx_buf[5] = 0x00;
-    memcpy(&tx_buf[6], digest, 32);
-
-    uint16_t crc = atecc_crc16(&tx_buf[1], count - 2);
-    tx_buf[38] = (uint8_t)(crc & 0xFF);
-    tx_buf[39] = (uint8_t)((crc >> 8) & 0xFF);
-
-    if (!hal->i2c_write(ATECC_I2C_ADDR, tx_buf, 40)) {
-        return ATECC_ERR_HAL;
+int main(int argc, char **argv)
+{
+    if (argc != 4) {
+        fprintf(stderr, "вжиток: %s <шина> <слот 0..15> <дайджест-hex>\n", argv[0]);
+        return 2;
     }
 
-    hal->delay_ms(ATECC_EXEC_TIME_SIGN_MS);
-
-    // Відповідь: 1 байт Count (67) + 64 байти (R, S) + 2 байти CRC
-    uint8_t rx_buf[67];
-    if (!hal->i2c_read(ATECC_I2C_ADDR, rx_buf, sizeof(rx_buf))) {
-        return ATECC_ERR_HAL;
+    char *end = NULL;
+    long slot = strtol(argv[2], &end, 10);
+    if (end == argv[2] || *end != '\0' || slot < 0 || slot > 15) {
+        fprintf(stderr, "слот має бути числом від 0 до 15\n");
+        return 2;
     }
 
-    if (rx_buf[0] != 67) {
-        return ATECC_ERR_STATUS;
+    uint8_t digest[ATECC_DIGEST_LEN];
+    if (!parse_hex(argv[3], digest, sizeof digest)) {
+        fprintf(stderr, "дайджест має бути рівно 64 шістнадцятковими символами\n");
+        return 2;
     }
 
-    uint16_t expected_crc = (uint16_t)(rx_buf[65] | (rx_buf[66] << 8));
-    uint16_t calc_crc = atecc_crc16(rx_buf, 65);
-    if (expected_crc != calc_crc) {
-        return ATECC_ERR_CRC;
+    i2c_linux bus = { .fd = -1 };
+    if (!i2c_linux_open(&bus, argv[1])) {
+        return 1;
     }
 
-    memcpy(signature, &rx_buf[1], 64);
-    return ATECC_OK;
+    atecc_hal hal = i2c_linux_hal(&bus);
+    atecc_dev dev;
+    atecc_init(&dev, &hal, ATECC_ADDR_DEFAULT);
+
+    int rc = 1;
+
+    atecc_err err = atecc_wake(&dev);
+    if (err != ATECC_OK) {
+        fprintf(stderr, "пробудження: %s (%s)\n",
+                atecc_strerror(err), atecc_status_str(dev.status));
+        goto out;
+    }
+    printf("чип прокинувся\n");
+
+    bool config_locked = false;
+    bool data_locked = false;
+    err = atecc_lock_state(&dev, &config_locked, &data_locked);
+    if (err != ATECC_OK) {
+        fprintf(stderr, "читання конфігурації: %s (%s)\n",
+                atecc_strerror(err), atecc_status_str(dev.status));
+        goto out;
+    }
+    printf("зона конфігурації: %s, зона даних: %s\n",
+           config_locked ? "заблокована" : "відкрита",
+           data_locked ? "заблокована" : "відкрита");
+
+    if (!config_locked || !data_locked) {
+        /* Незаблокований чип відхилить Sign — краще сказати це прямо,
+         * ніж дати користувачеві розбирати код 0x0F. */
+        fprintf(stderr, "%s: пройдіть фабричне блокування (Lock)\n",
+                atecc_strerror(ATECC_ERR_NOT_LOCKED));
+        goto out;
+    }
+
+    uint8_t signature[ATECC_SIGNATURE_LEN];
+    err = atecc_sign_digest(&dev, (uint8_t)slot, digest, signature);
+    if (err != ATECC_OK) {
+        fprintf(stderr, "підпис: %s (%s)\n",
+                atecc_strerror(err), atecc_status_str(dev.status));
+        goto out;
+    }
+
+    print_hex("R = ", &signature[0], 32);
+    print_hex("S = ", &signature[32], 32);
+
+    uint8_t der[DER_SIG_MAX];
+    size_t der_len = der_encode_signature(signature, der, sizeof der);
+    if (der_len == 0) {
+        fprintf(stderr, "не вдалося запакувати підпис у DER\n");
+        goto out;
+    }
+    print_hex("DER = ", der, der_len);
+
+    rc = 0;
+
+out:
+    /* Сон — не косметика: без нього чип тримає генератор до спрацювання
+     * сторожового таймера й тягне мікроампери замість наноамперів. */
+    atecc_sleep(&dev);
+    i2c_linux_close(&bus);
+    return rc;
 }

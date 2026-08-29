@@ -63,8 +63,8 @@
 Нижче наведено паралельні, функціонально еквівалентні реалізації мовами C та C++:
 
 :::tabs
-:::code proj-flash-ring-logger/c/5-realizatsiia-biblioteky.c
-:::code proj-flash-ring-logger/cpp/5-realizatsiia-biblioteky.cpp
+:::code proj-flash-ring-logger/c/flash_logger.c
+:::code proj-flash-ring-logger/cpp/ring_logger.cpp
 :::
 
 ## 6. Емуляція апаратного рівня та сценарій відновлення
@@ -72,6 +72,6 @@
 Нижче наведено модуль тестування з імітацією фізичних властивостей NOR Flash (порозрядний логічний AND при повторному записі та стирання блоку в `0xFF`). Тест перевіряє штатні записи, імітує аварійне відключення живлення посеред запису кадру та перевіряє відновлення покажчика при повторному старті:
 
 :::tabs
-:::code proj-flash-ring-logger/c/6-emuliatsiia-aparatnoho.c
-:::code proj-flash-ring-logger/cpp/6-emuliatsiia-aparatnoho.cpp
+:::code proj-flash-ring-logger/c/test_recovery.c
+:::code proj-flash-ring-logger/cpp/recovery_demo.cpp
 :::

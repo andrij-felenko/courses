@@ -85,8 +85,8 @@
 Нижче наведено закінчений модуль керування слотом, написаний мовами C (C99/POSIX) та сучасним ідіоматичним C++20 з використанням концепції RAII (Resource Acquisition Is Initialization).
 
 :::tabs
-:::code proj-rack-controller/c/main.c
-:::code proj-rack-controller/cpp/main.cpp
+:::code proj-rack-controller/c/slot.c
+:::code proj-rack-controller/cpp/src/slot_session.cpp
 :::
 
 Така модульна архітектура забезпечує абсолютну стійкість стійки до аварій у тестах, повністю усуває гонки за апаратні інтерфейси та дозволяє масштабувати стенд до десятків плат без ризику колізій.

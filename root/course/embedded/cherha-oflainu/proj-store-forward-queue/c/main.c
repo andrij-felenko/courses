@@ -1,228 +1,254 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* main.c — заняття на моделі NOR: чотири сцени життя черги.
+ *
+ *   1. Чистий кристал і перший старт.
+ *   2. Зв'язку немає: кільце заповнюється, низький пріоритет
+ *      відкидається, високий витісняє найстаріший сектор.
+ *   3. Живлення зникає посеред запису кадру; після подачі напруги
+ *      черга сама знаходить голову, хвіст і наступний номер.
+ *   4. Зв'язок повернувся: свіжі кадри летять живою колією, історія
+ *      вивантажується пачками, хвіст рухається лише по квитанціях.
+ */
+#include <stdio.h>
 #include <string.h>
 
-#define SF_MAGIC            0xAA55
-#define SF_SECTOR_SIZE      4096
-#define SF_PAGE_SIZE        256
-#define SF_MAX_PAYLOAD      512
+#include "sf_flash_sim.h"
+#include "sf_queue.h"
 
-typedef enum {
-    SF_PRIORITY_LOW = 0,    // Високочастотна телеметрія (50 Гц) — витісняється першою
-    SF_PRIORITY_NORM = 1,   // Періодичний статус (1 Гц) — витісняється за чергою FIFO
-    SF_PRIORITY_HIGH = 2,   // Аварійні сигнали та події — захищені від витіснення
-} sf_priority_t;
+#define SECTORS     16u
+#define SECTOR_SIZE 4096u
+#define PAGE_SIZE   256u
+#define FLASH_SIZE  (SECTORS * SECTOR_SIZE)
 
-#pragma pack(push, 1)
-typedef struct {
-    uint16_t magic;
-    uint8_t  type;
-    uint8_t  flags;
-    uint32_t seq;
-    uint64_t timestamp_ms;
-    uint16_t payload_len;
-    uint16_t reserved;
-} sf_header_t;
-#pragma pack(pop)
+static uint8_t        g_flash[FLASH_SIZE];
+static sf_flash_sim_t g_sim;
+static sf_flash_dev_t g_dev;
+static sf_queue_t     g_queue;
 
-// Апаратна абстракція драйвера Flash
-typedef struct {
-    bool (*read)(uint32_t addr, uint8_t *buf, uint32_t size);
-    bool (*write)(uint32_t addr, const uint8_t *buf, uint32_t size);
-    bool (*erase_sector)(uint32_t sector_idx);
-} sf_flash_driver_t;
+/* Годинник вузла. */
+static uint64_t g_now_ms = 1000u;
 
-typedef struct {
-    sf_flash_driver_t drv;
-    uint32_t base_addr;
-    uint32_t sector_count;
-    
-    uint32_t head_sector;
-    uint32_t head_offset;
-    uint32_t tail_sector;
-    uint32_t tail_offset;
-    
-    uint32_t next_seq;
-    uint32_t unacked_seq;
-    bool     is_full;
-} sf_queue_t;
-
-// Табличне обчислення CRC-32 (поліном IEEE 802.3 0xEDB88320)
-uint32_t sf_crc32(const uint8_t *data, size_t len, uint32_t init_crc) {
-    uint32_t crc = ~init_crc;
-    while (len--) {
-        crc ^= *data++;
-        for (int k = 0; k < 8; k++) {
-            crc = (crc >> 1) ^ (0xEDB88320U & (-(int32_t)(crc & 1)));
-        }
-    }
-    return ~crc;
+static uint64_t tick(uint32_t ms)
+{
+    g_now_ms += ms;
+    return g_now_ms;
 }
 
-// Ініціалізація та сканування флеш-пам'яті при старті
-bool sf_queue_init(sf_queue_t *q, const sf_flash_driver_t *drv, uint32_t base_addr, uint32_t sector_count) {
-    q->drv = *drv;
-    q->base_addr = base_addr;
-    q->sector_count = sector_count;
-    q->head_sector = 0;
-    q->head_offset = 0;
-    q->tail_sector = 0;
-    q->tail_offset = 0;
-    q->next_seq = 1;
-    q->unacked_seq = 1;
-    q->is_full = false;
+/* Замок-сторож: на хості потоку один, тож він нічого не блокує, зате
+ * ловить вкладений вхід — тобто помилку, через яку на живій RTOS черга
+ * колись прочитала б кадр посеред власного запису. На платі сюди
+ * підставляють xSemaphoreTake / taskENTER_CRITICAL. */
+static int g_lock_depth = 0;
 
-    // Відновлення покажчика голови: сканування валідних записів у секторах
-    uint32_t highest_seq = 0;
-    uint32_t best_head_sec = 0;
-    uint32_t best_head_off = 0;
-
-    for (uint32_t s = 0; s < sector_count; s++) {
-        uint32_t off = 0;
-        while (off + sizeof(sf_header_t) <= SF_SECTOR_SIZE) {
-            sf_header_t hdr;
-            uint32_t phys_addr = base_addr + s * SF_SECTOR_SIZE + off;
-            if (!q->drv.read(phys_addr, (uint8_t *)&hdr, sizeof(hdr))) {
-                break;
-            }
-
-            if (hdr.magic != SF_MAGIC || hdr.payload_len > SF_MAX_PAYLOAD) {
-                break; // Досягнуто чистої області 0xFF або кінця дійсних даних
-            }
-
-            uint32_t record_total = sizeof(sf_header_t) + hdr.payload_len + sizeof(uint32_t);
-            if (off + record_total > SF_SECTOR_SIZE) {
-                break;
-            }
-
-            // Перевірка цілісності запису за CRC-32
-            uint8_t record_buf[sizeof(sf_header_t) + SF_MAX_PAYLOAD + sizeof(uint32_t)];
-            if (q->drv.read(phys_addr, record_buf, record_total)) {
-                uint32_t stored_crc;
-                memcpy(&stored_crc, record_buf + record_total - sizeof(uint32_t), sizeof(uint32_t));
-                uint32_t calc_crc = sf_crc32(record_buf, record_total - sizeof(uint32_t), 0);
-                
-                if (calc_crc == stored_crc) {
-                    if (hdr.seq >= highest_seq) {
-                        highest_seq = hdr.seq;
-                        best_head_sec = s;
-                        best_head_off = off + record_total;
-                    }
-                } else {
-                    break; // CRC не зійшовся — наслідок знеструмлення під час запису
-                }
-            }
-            off += record_total;
-        }
+static void lock_enter(void *ctx)
+{
+    (void)ctx;
+    if (g_lock_depth++ != 0) {
+        printf("!! повторний вхід у чергу: замок не тримає\n");
     }
-
-    if (highest_seq > 0) {
-        q->head_sector = best_head_sec;
-        q->head_offset = best_head_off;
-        q->next_seq = highest_seq + 1;
-    }
-
-    return true;
 }
 
-// Запис нового кадру в чергу з випереджальним стиранням секторів
-bool sf_queue_push(sf_queue_t *q, uint8_t type, sf_priority_t prio, uint64_t ts, const uint8_t *payload, uint16_t len) {
-    if (len > SF_MAX_PAYLOAD) return false;
+static void lock_exit(void *ctx)
+{
+    (void)ctx;
+    g_lock_depth--;
+}
 
-    uint32_t record_size = sizeof(sf_header_t) + len + sizeof(uint32_t);
+/* Радіоканал: детермінована псевдовипадковість замість справжніх втрат. */
+static uint32_t g_rng = 0x2A3B4C5Du;
 
-    // Якщо новий запис не вміщується в поточний сектор — переходимо до наступного
-    if (q->head_offset + record_size > SF_SECTOR_SIZE) {
-        uint32_t next_sec = (q->head_sector + 1) % q->sector_count;
-        
-        // Перевірка на переповнення кільця
-        if (next_sec == q->tail_sector) {
-            if (prio == SF_PRIORITY_LOW) {
-                // Відкидаємо низькопріоритетний шум, захищаючи історію від стирання
-                return false;
-            }
-            // Для важливих даних зсуваємо хвіст (витісняємо найстаріший сектор)
-            q->tail_sector = (q->tail_sector + 1) % q->sector_count;
-            q->tail_offset = 0;
+static uint32_t rnd(void)
+{
+    g_rng = g_rng * 1664525u + 1013904223u;
+    return g_rng >> 16;
+}
+
+static bool link_deliver(void)
+{
+    return (rnd() % 100u) < 85u; /* 15% кадрів не доїжджає */
+}
+
+static uint16_t make_sample(char *buf, size_t cap, uint32_t n)
+{
+    const int len = snprintf(buf, cap, "t=%llu vbat=%umV temp=%d.%dC n=%u",
+                             (unsigned long long)g_now_ms,
+                             3600u + (n % 40u),
+                             20 + (int)(n % 7u), (int)(n % 10u), n);
+    return (uint16_t)len;
+}
+
+static void print_state(const char *label)
+{
+    printf("  %-22s голова %2u:%-5u хвіст %2u:%-5u курсор %2u:%-5u  наступний seq %u  у черзі %u Б\n",
+           label, g_queue.head_sector, g_queue.head_offset,
+           g_queue.tail_sector, g_queue.tail_offset,
+           g_queue.drain_sector, g_queue.drain_offset,
+           g_queue.next_seq, sf_queue_bytes_pending(&g_queue));
+}
+
+static void print_stats(void)
+{
+    const sf_stats_t *s = sf_queue_stats(&g_queue);
+
+    printf("  записано %u кадрів (%u Б) · стерто секторів %u · витіснено %u\n",
+           s->records_written, s->bytes_written, s->sectors_erased, s->sectors_evicted);
+    printf("  відмовлено низькому пріоритету %u · битих кадрів %u · відновлено %u\n",
+           s->dropped_full, s->corrupt_records, s->recovered_records);
+    printf("  помилок носія %u · історія пропустила квитоване живцем %u · діапазонів втрачено %u\n",
+           s->flash_errors, s->skipped_live_acked, g_queue.ack.dropped);
+}
+
+/* -------------------------------------------------------------------- сцени */
+
+static void scene_offline(void)
+{
+    char payload[96];
+    uint32_t n = 0;
+    uint32_t refused = 0;
+    uint32_t stored = 0;
+
+    printf("\n== 2. Зв'язку немає: пишемо, поки є куди ==\n");
+
+    /* 50 Гц телеметрії, раз на секунду статус, зрідка аварія. */
+    for (uint32_t i = 0; i < 4000u && refused < 40u; i++) {
+        uint8_t       type = SF_TYPE_TELEMETRY;
+        sf_priority_t prio = SF_PRIORITY_LOW;
+
+        if (i % 50u == 0u) {
+            type = SF_TYPE_STATUS;
+            prio = SF_PRIORITY_NORM;
+        }
+        if (i % 613u == 0u) {
+            type = SF_TYPE_ALARM;
+            prio = SF_PRIORITY_HIGH;
         }
 
-        // Стирання нового сектора заздалегідь
-        q->drv.erase_sector(next_sec);
-        q->head_sector = next_sec;
-        q->head_offset = 0;
-    }
+        const uint16_t len = make_sample(payload, sizeof(payload), n++);
+        const sf_err_t err = sf_queue_push(&g_queue, type, prio, tick(20), payload, len, NULL);
 
-    // Формування структури заголовка
-    sf_header_t hdr = {
-        .magic = SF_MAGIC,
-        .type = type,
-        .flags = (uint8_t)prio,
-        .seq = q->next_seq++,
-        .timestamp_ms = ts,
-        .payload_len = len,
-        .reserved = 0
-    };
-
-    uint8_t buffer[sizeof(sf_header_t) + SF_MAX_PAYLOAD + sizeof(uint32_t)];
-    memcpy(buffer, &hdr, sizeof(hdr));
-    memcpy(buffer + sizeof(hdr), payload, len);
-
-    uint32_t crc = sf_crc32(buffer, sizeof(hdr) + len, 0);
-    memcpy(buffer + sizeof(hdr) + len, &crc, sizeof(crc));
-
-    uint32_t write_addr = q->base_addr + q->head_sector * SF_SECTOR_SIZE + q->head_offset;
-    if (q->drv.write(write_addr, buffer, record_size)) {
-        q->head_offset += record_size;
-        return true;
-    }
-
-    return false;
-}
-
-// Вибірка кадру з хвоста черги для передачі в мережу
-bool sf_queue_peek_tail(sf_queue_t *q, sf_header_t *out_hdr, uint8_t *out_payload, uint32_t *out_record_size) {
-    if (q->tail_sector == q->head_sector && q->tail_offset >= q->head_offset) {
-        return false; // Черга порожня
-    }
-
-    uint32_t phys_addr = q->base_addr + q->tail_sector * SF_SECTOR_SIZE + q->tail_offset;
-    if (!q->drv.read(phys_addr, (uint8_t *)out_hdr, sizeof(sf_header_t))) {
-        return false;
-    }
-
-    if (out_hdr->magic != SF_MAGIC) {
-        // Досягнуто кінця сектора — перехід до наступного сектора кільця
-        q->tail_sector = (q->tail_sector + 1) % q->sector_count;
-        q->tail_offset = 0;
-        return false;
-    }
-
-    *out_record_size = sizeof(sf_header_t) + out_hdr->payload_len + sizeof(uint32_t);
-    q->drv.read(phys_addr + sizeof(sf_header_t), out_payload, out_hdr->payload_len);
-    return true;
-}
-
-// Підтвердження доставки порції даних сервером (ACK commit)
-void sf_queue_commit_ack(sf_queue_t *q, uint32_t acked_seq) {
-    while (q->tail_sector != q->head_sector || q->tail_offset < q->head_offset) {
-        sf_header_t hdr;
-        uint32_t phys_addr = q->base_addr + q->tail_sector * SF_SECTOR_SIZE + q->tail_offset;
-        
-        if (!q->drv.read(phys_addr, (uint8_t *)&hdr, sizeof(hdr)) || hdr.magic != SF_MAGIC) {
-            q->tail_sector = (q->tail_sector + 1) % q->sector_count;
-            q->tail_offset = 0;
+        if (err == SF_OK) {
+            stored++;
+        } else if (err == SF_E_FULL) {
+            refused++;
+        } else {
+            printf("  носій відмовив: код %d\n", (int)err);
             break;
         }
+    }
 
-        if (hdr.seq <= acked_seq) {
-            uint32_t rec_len = sizeof(sf_header_t) + hdr.payload_len + sizeof(uint32_t);
-            q->tail_offset += rec_len;
-            if (q->tail_offset + sizeof(sf_header_t) > SF_SECTOR_SIZE) {
-                q->tail_sector = (q->tail_sector + 1) % q->sector_count;
-                q->tail_offset = 0;
+    printf("  збережено %u кадрів, відкинуто низькопріоритетних %u\n", stored, refused);
+    print_state("кільце повне");
+}
+
+static void scene_power_loss(void)
+{
+    char payload[96];
+
+    printf("\n== 3. Знеструмлення посеред кадру ==\n");
+
+    /* Аварійний кадр піде у флеш, але напруга просяде після 24 байтів:
+     * заголовок ляже, навантаження й CRC — ні. */
+    const uint16_t len = make_sample(payload, sizeof(payload), 99999u);
+    sf_flash_sim_cut_power_after(&g_sim, 24u);
+
+    const sf_err_t err = sf_queue_push(&g_queue, SF_TYPE_ALARM, SF_PRIORITY_HIGH,
+                                       tick(20), payload, len, NULL);
+    printf("  push під час просідання напруги -> код %d (очікуємо %d)\n", (int)err, (int)SF_E_IO);
+
+    const uint32_t seq_before = g_queue.next_seq;
+
+    sf_flash_sim_power_up(&g_sim);
+    printf("  живлення подано, вузол перезавантажився\n");
+
+    const sf_lock_t lock = { lock_enter, lock_exit, NULL };
+    if (sf_queue_init(&g_queue, &g_dev, 0, SECTORS, &lock) != SF_OK) {
+        printf("  !! черга не піднялася\n");
+        return;
+    }
+
+    print_state("після відновлення");
+    printf("  номер до аварії %u, після сканування %u (обірваний кадр номера не з'їв)\n",
+           seq_before, g_queue.next_seq);
+}
+
+static void scene_link_back(void)
+{
+    static sf_batch_t batch; /* 1 КіБ арени — на стеку задачі йому не місце */
+    char payload[96];
+    uint32_t fresh = 0;
+    uint32_t live_acked = 0;
+    uint32_t history_sent = 0;
+    uint32_t rounds = 0;
+
+    printf("\n== 4. Зв'язок повернувся: дві колії ==\n");
+
+    while (rounds++ < 400u) {
+        /* Жива колія: свіжий кадр лягає у флеш і одразу йде в ефір. */
+        if (rounds % 2u == 0u) {
+            const uint16_t len = make_sample(payload, sizeof(payload), 500000u + fresh);
+            uint32_t seq = 0;
+
+            if (sf_queue_push(&g_queue, SF_TYPE_TELEMETRY, SF_PRIORITY_NORM,
+                              tick(20), payload, len, &seq) == SF_OK) {
+                fresh++;
+                if (link_deliver()) {
+                    sf_queue_ack_live(&g_queue, seq);
+                    live_acked++;
+                }
+                /* Квитанція не прийшла — кадр нікуди не дівся: історія
+                 * дійде до нього сама й відправить удруге. */
             }
+        }
+
+        /* Колія історії: пачка старих кадрів від курсора вивантаження. */
+        if (sf_queue_drain_batch(&g_queue, &batch) != SF_OK) {
+            if (sf_queue_is_empty(&g_queue)) {
+                break;
+            }
+            continue;
+        }
+
+        if (link_deliver()) {
+            history_sent += batch.count;
+            sf_queue_commit_ack(&g_queue, batch.last_seq);
         } else {
-            break; // Дійшли до непідтверджених записів
+            /* Пачка загубилась — курсор назад на хвіст, поїде знову. */
+            sf_queue_drain_rewind(&g_queue);
+        }
+
+        if (rounds % 40u == 0u) {
+            printf("  раунд %3u: пачка %u кадрів [%u..%u], у черзі %u Б\n",
+                   rounds, batch.count, batch.first_seq, batch.last_seq,
+                   sf_queue_bytes_pending(&g_queue));
         }
     }
+
+    printf("  свіжих кадрів %u (з них квитовано живцем %u), історією віддано %u\n",
+           fresh, live_acked, history_sent);
+    print_state("після вивантаження");
+}
+
+int main(void)
+{
+    const sf_lock_t lock = { lock_enter, lock_exit, NULL };
+
+    printf("== 1. Чистий кристал ==\n");
+    memset(g_flash, 0x00, sizeof(g_flash)); /* навмисно НЕ 0xFF: кристал із коробки */
+    sf_flash_sim_init(&g_sim, g_flash, FLASH_SIZE, SECTOR_SIZE, PAGE_SIZE, &g_dev);
+    sf_flash_sim_bulk_erase(&g_sim);
+
+    if (sf_queue_init(&g_queue, &g_dev, 0, SECTORS, &lock) != SF_OK) {
+        printf("черга не піднялася\n");
+        return 1;
+    }
+    print_state("порожня черга");
+
+    scene_offline();
+    scene_power_loss();
+    scene_link_back();
+
+    printf("\n== Підсумок ==\n");
+    print_stats();
+    printf("  модель носія: стирань %u, операцій програмування %u\n",
+           g_sim.erase_count, g_sim.program_count);
+    return 0;
 }

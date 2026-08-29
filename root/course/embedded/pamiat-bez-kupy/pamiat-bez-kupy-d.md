@@ -142,14 +142,14 @@ __disable_irq();
 /* Безпечна модифікація pool->free_list */
 __set_PRIMASK(primask);
 ```
-:::code pamiat-bez-kupy-d/cpp/potokobezpeka-ta-atomarni.cpp
+:::code pamiat-bez-kupy-d/cpp/interrupt_lock.hpp
 :::
 
 Однак вимкнення переривань збільшує затримку реакції системи на апаратні події (interrupt latency). Процесори архітектури ARMv7-M / ARMv8-M (Cortex-M3/M4/M7/M33) надають механізм ексклюзивного доступу до пам'яті через інструкції `LDREX` та `STREX`, що дозволяє реалізувати неблокуючий (lock-free) атомарний пул без вимкнення переривань:
 
 :::tabs
-:::code pamiat-bez-kupy-d/c/potokobezpeka-ta-atomarni.c
-:::code pamiat-bez-kupy-d/cpp/potokobezpeka-ta-atomarni-2.cpp
+:::code pamiat-bez-kupy-d/c/pool_atomic.c
+:::code pamiat-bez-kupy-d/cpp/atomic_pool.hpp
 :::
 
 Такий підхід повністю захищений від конфліктів між потоками та обробниками переривань, не зупиняючи таймери та високошвидкісні канали зв'язку.
@@ -357,9 +357,16 @@ network.c:88:5:parse_header        64    static
 
 ### Реалізація блокового пула та лінійної арени
 
+:::code pamiat-bez-kupy-d/c/alloc.h
+
 :::tabs
-:::code pamiat-bez-kupy-d/c/realizatsiia-blokovoho.c
-:::code pamiat-bez-kupy-d/cpp/realizatsiia-blokovoho.cpp
+:::code pamiat-bez-kupy-d/c/pool.c
+:::code pamiat-bez-kupy-d/cpp/fixed_pool.hpp
+:::
+
+:::tabs
+:::code pamiat-bez-kupy-d/c/arena.c
+:::code pamiat-bez-kupy-d/cpp/memory_arena.hpp
 :::
 
 ### Комплексний приклад: конвеєр обробки мережевого пакета
@@ -367,8 +374,8 @@ network.c:88:5:parse_header        64    static
 Наведений нижче приклад демонструє типову архітектуру підсистеми зв'язку IoT-вузла. Обробка кожного вхідного кадру використовує швидку лінійну арену для проміжних розрахунків та блоковий пул для довготривалого збереження активних клієнтських сесій:
 
 :::tabs
-:::code pamiat-bez-kupy-d/c/kompleksnyi-pryklad.c
-:::code pamiat-bez-kupy-d/cpp/kompleksnyi-pryklad.cpp
+:::code pamiat-bez-kupy-d/c/frame_pipeline.c
+:::code pamiat-bez-kupy-d/cpp/frame_pipeline.cpp
 :::
 
 ---

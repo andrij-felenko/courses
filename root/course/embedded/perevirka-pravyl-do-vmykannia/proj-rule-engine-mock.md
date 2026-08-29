@@ -59,11 +59,37 @@ T_нова = T_стара + ((P_нагріву − (T_стара − T_довк�
 
 Нижче наведено повну модульну реалізацію рушія автоматики бойлера, підміни входів з ін'єкцією відмов, імітатора фізики процесу та безпечного стенда перевірки інваріантів мовою C++20.
 
+:::code proj-rule-engine-mock/cpp/contracts.hpp
+
+:::code proj-rule-engine-mock/cpp/rule_engine.hpp
+
+:::code proj-rule-engine-mock/cpp/rule_engine.cpp
+
+:::code proj-rule-engine-mock/cpp/plant_model.hpp
+
+:::code proj-rule-engine-mock/cpp/plant_model.cpp
+
+:::code proj-rule-engine-mock/cpp/fault_injector.hpp
+
+:::code proj-rule-engine-mock/cpp/dry_run_sink.hpp
+
+:::code proj-rule-engine-mock/cpp/dry_run_sink.cpp
+
 :::code proj-rule-engine-mock/cpp/main.cpp
+
+:::code proj-rule-engine-mock/cpp/CMakeLists.txt
 
 ## Генератор перебору комбінацій дискретних входів на Python
 
 Для повної гарантії відсутності взаємних блокувань *(Deadlocks)* та неврахованих станів використовується генератор таблиць рішень на Python, який автоматично перевіряє всі `2^N` комбінацій вхідних дискретних сигналів:
+
+:::code proj-rule-engine-mock/py/ruletable/rules.py
+
+:::code proj-rule-engine-mock/py/ruletable/sweep.py
+
+:::code proj-rule-engine-mock/py/ruletable/reachability.py
+
+:::code proj-rule-engine-mock/py/ruletable/__init__.py
 
 :::code proj-rule-engine-mock/py/main.py
 

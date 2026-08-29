@@ -1,41 +1,136 @@
-// cli_license.c — вивід ліцензійної таблиці з Flash у послідовну консоль
-#include <stdint.h>
+/* cli_license.c — вивід ліцензійної таблиці з Flash у послідовну консоль.
+ *
+ * Формат навмисно колонковий: оператор читає його з термінала, а тестовий стенд
+ * розбирає той самий вивід регулярним виразом і звіряє з паспортом SBOM.
+ */
+#include "cli_license.h"
+#include "license_table.h"
+
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
-typedef struct {
-    const char *component_name;
-    const char *version;
-    const char *spdx_license;
-    const char *copyright_holder;
-} FirmwareLicenseEntry;
+#define COL_NAME     26
+#define COL_VERSION   9
+#define COL_LICENSE  38
+#define LINE_BUF    200
 
-// Таблиця прошитих компонентів (розміщується в секції .rodata у Flash)
-static const FirmwareLicenseEntry FW_LICENSES[] = {
-    { "FreeRTOS Kernel",       "10.5.1",  "MIT",          "Amazon.com, Inc. or its affiliates" },
-    { "lwIP TCP/IP Stack",     "2.2.0",   "BSD-3-Clause", "Swedish Institute of Computer Science" },
-    { "mbed TLS",              "3.4.1",   "Apache-2.0",   "TrustedFirmware.org" },
-    { "FatFS Module",          "R0.15",   "FatFS-Notice", "ChaN" },
-    { "ARM CMSIS Core & DSP",  "5.9.0",   "Apache-2.0",   "Arm Limited" },
-    { "STM32CubeH7 HAL",       "1.11.0",  "BSD-3-Clause", "STMicroelectronics" },
-    { "Wi-Fi PHY Driver",      "2.4.18",  "Proprietary",  "Silicon Vendor Corp" },
-    { "Flight Autopilot Core", "3.2.0",   "Proprietary",  "Aerospace Dynamics Inc." }
-};
+/* Шапку друкуємо готовим рядком, а не через "%-26s". Причина груба й практична:
+ * printf рахує ширину в БАЙТАХ, а українська шапка в UTF-8 займає їх удвічі
+ * більше, ніж символів, — колонки поїхали б рівно на довжину слова. Дані ж
+ * у таблиці чисто ASCII, тому їх ширину рахувати можна. */
+static const char *const k_header =
+    "Компонент                  Версія    Ліцензія                              Правовласник\r\n";
 
-static const size_t FW_LICENSES_COUNT = sizeof(FW_LICENSES) / sizeof(FW_LICENSES[0]);
+static const char *const k_rule =
+    "-------------------------- --------- -------------------------------------- ------------\r\n";
 
-void cli_cmd_print_licenses(void (*print_fn)(const char *str)) {
-    char buf[128];
-    print_fn("\r\n=== СПИСОК КОМПОНЕНТІВ ТА ЛІЦЕНЗІЙ ПРОШИВКИ (SBOM) ===\r\n");
-    print_fn("Назва                    Версія   Ліцензія     Власник копірайту\r\n");
-    print_fn("------------------------------------------------------------------------\r\n");
+/* Обрізаємо задовге поле й ставимо крапку, щоб рядок не з'їхав. */
+static void put_field(char *dst, size_t width, const char *text)
+{
+    size_t len = strlen(text);
 
-    for (size_t i = 0; i < FW_LICENSES_COUNT; ++i) {
-        const FirmwareLicenseEntry *e = &FW_LICENSES[i];
-        snprintf(buf, sizeof(buf), "%-24s %-8s %-12s %s\r\n",
-                 e->component_name, e->version, e->spdx_license, e->copyright_holder);
-        print_fn(buf);
+    if (len > width) {
+        memcpy(dst, text, width - 1);
+        dst[width - 1] = '.';
+    } else {
+        memcpy(dst, text, len);
+        memset(dst + len, ' ', width - len);
     }
-    print_fn("------------------------------------------------------------------------\r\n");
-    print_fn("Повний текст ліцензій доступний за запитом або в інструкції користувача.\r\n\r\n");
+}
+
+static void print_row(const license_entry_t *entry, cli_out_fn out)
+{
+    char row[LINE_BUF];
+    size_t pos = 0;
+
+    put_field(row + pos, COL_NAME, entry->name);
+    pos += COL_NAME;
+    row[pos++] = ' ';
+
+    put_field(row + pos, COL_VERSION, entry->version);
+    pos += COL_VERSION;
+    row[pos++] = ' ';
+
+    put_field(row + pos, COL_LICENSE, entry->spdx);
+    pos += COL_LICENSE;
+    row[pos++] = ' ';
+
+    /* Правовласник — останній, його не вирівнюємо: рядок і так закінчується. */
+    size_t left = sizeof(row) - pos - 3;   /* \r \n \0 */
+    size_t holder_len = strlen(entry->holder);
+    if (holder_len > left) {
+        holder_len = left;
+    }
+    memcpy(row + pos, entry->holder, holder_len);
+    pos += holder_len;
+
+    row[pos++] = '\r';
+    row[pos++] = '\n';
+    row[pos] = '\0';
+    out(row);
+}
+
+static void print_card(const license_entry_t *entry, cli_out_fn out)
+{
+    out("\r\nКомпонент   : ");
+    out(entry->name);
+    out("\r\nВерсія      : ");
+    out(entry->version);
+    out("\r\nЛіцензія    : ");
+    out(entry->spdx);
+    out("\r\nПравовласник: ");
+    out(entry->holder);
+    out("\r\nЗастереження: ");
+    out(entry->notice != NULL ? entry->notice : "окремих умов немає");
+    out("\r\n\r\n");
+}
+
+cli_status_t cli_cmd_license(const char *args, cli_out_fn out)
+{
+    if (args != NULL && *args != '\0') {
+        const license_entry_t *entry = license_table_find(args);
+        if (entry == NULL) {
+            out("\r\nкомпонента з такою назвою в образі немає; "
+                "виконайте license без аргументів\r\n");
+            return CLI_ERR_ARGS;
+        }
+        print_card(entry, out);
+        return CLI_OK;
+    }
+
+    char footer[96];
+
+    out("\r\n=== СКЛАД ПРОШИВКИ ТА ЛІЦЕНЗІЇ (SBOM) ===\r\n");
+    out(k_header);
+    out(k_rule);
+
+    for (size_t i = 0; i < license_table_count; ++i) {
+        print_row(&license_table[i], out);
+    }
+
+    out(k_rule);
+    snprintf(footer, sizeof(footer),
+             "Компонентів: %u. Подробиці: license <назва>.\r\n",
+             (unsigned)license_table_count);
+    out(footer);
+    out("Повні тексти ліцензій — в інструкції користувача та за письмовим запитом.\r\n\r\n");
+    return CLI_OK;
+}
+
+cli_status_t cli_cmd_about(const char *args, cli_out_fn out)
+{
+    (void)args;
+
+    out("\r\nВиріб    : ");
+    out(fw_product_name);
+    out("\r\nПрошивка : ");
+    out(fw_product_version);
+    out("\r\nЗібрано  : " __DATE__ " " __TIME__);
+    /* Хеш паспорта прив'язує консольну відповідь до підписаного метапакета OTA:
+     * стенд звіряє цей рядок із serialNumber та hashes у firmware.cdx.json. */
+    out("\r\nSBOM     : SHA-256 ");
+    out(fw_sbom_sha256);
+    out("\r\nСклад компонентів: команда license\r\n\r\n");
+    return CLI_OK;
 }

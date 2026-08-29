@@ -36,11 +36,17 @@
 
 :::tabs
 === "C"
+:::code proj-flight-recorder/c/mcu_port.h
+
 :::code proj-flight-recorder/c/flight_recorder_core.h
 
 :::code proj-flight-recorder/c/flight_recorder_core.c
 === "C++"
+:::code proj-flight-recorder/cpp/McuPort.hpp
+
 :::code proj-flight-recorder/cpp/FlightRecorderCore.hpp
+
+:::code proj-flight-recorder/cpp/FlightRecorderCore.cpp
 :::
 
 ---
@@ -53,9 +59,13 @@
 
 :::tabs
 === "C"
+:::code proj-flight-recorder/c/spi_emergency_dump.h
+
 :::code proj-flight-recorder/c/spi_emergency_dump.c
 === "C++"
 :::code proj-flight-recorder/cpp/SpiEmergencyDump.hpp
+
+:::code proj-flight-recorder/cpp/SpiEmergencyDump.cpp
 :::
 
 ---

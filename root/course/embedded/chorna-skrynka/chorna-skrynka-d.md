@@ -297,11 +297,19 @@ C ≥ (2 · E) / (V[PVD]² - V[BOR]²)
 
 :::tabs
 === "C"
+:::code chorna-skrynka-d/c/crc16.h
+
+:::code chorna-skrynka-d/c/crc16.c
+
 :::code chorna-skrynka-d/c/flight_recorder.h
 
 :::code chorna-skrynka-d/c/flight_recorder.c
 === "C++"
-:::code chorna-skrynka-d/cpp/FlightRecorder.hpp
+:::code chorna-skrynka-d/cpp/include/blackbox/crc16.hpp
+
+:::code chorna-skrynka-d/cpp/include/blackbox/frame.hpp
+
+:::code chorna-skrynka-d/cpp/include/blackbox/recorder.hpp
 :::
 
 Повний готовий до виробництва проєкт реєстратора з апаратними перехоплювачами ARM Cortex-M HardFault, швидким драйвером запису у FRAM/Flash та утилітою автоматичного аналізу логів детально наведено у вставці [Повний модуль бортового реєстратора подій на C та C++](root:embedded/chorna-skrynka/proj-flight-recorder.md).

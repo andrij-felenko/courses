@@ -11,14 +11,32 @@
 2. `build_mqtt_publish_qos1` / `buildMqttPublishQos1` — ручне збирання бінарного пакета MQTT PUBLISH відповідно до специфікації MQTT 3.1.1 (фіксований заголовок, довжина зі змінним кодуванням, довжина теми, рядок теми, 16-бітний Packet Identifier та JSON-payload);
 3. `build_custom_binary_frame` / `buildBinaryFrame` — нуль-копіювальне пакування кастомної структури зі службовим синхробайтом (Magic), типом повідомлення, лічильником послідовності та контрольною сумою CRC-16-CCITT.
 
+Спершу — сам формат: вибірка давачів, кадр власного протоколу та оголошення трьох пакувальників.
+
 :::tabs
-:::code proj-protocol-bench/c/praktychna-realizatsiia.c
-:::code proj-protocol-bench/cpp/praktychna-realizatsiia.cpp
+:::code proj-protocol-bench/c/telemetry.h
+:::code proj-protocol-bench/cpp/telemetry.hpp
+:::
+
+Там, де версія на C кладе в буфер запаковану структуру одним `memcpy`, версія на C++ пише кожне поле окремо — тому в неї є модуль, якому в C відповідника немає: потік байтів із явно зазначеним порядком і контрольною сумою.
+
+:::code proj-protocol-bench/cpp/bytes.hpp
+
+А ось і три реалізації.
+
+:::tabs
+:::code proj-protocol-bench/c/frame_build.c
+:::code proj-protocol-bench/cpp/encode.cpp
 :::
 
 ## Детальний аналіз та результати замірів
 
 Протестуємо поведінку трьох функцій на ядрі ARM Cortex-M4 (тактова частота 80 МГц) з фіксованим набором тестових значень (`timestamp = 1718000000`, `temp = 24.50 °C`, `humidity = 60.20 %`, `vbat = 3280 mV`).
+
+:::tabs
+:::code proj-protocol-bench/c/bench.c
+:::code proj-protocol-bench/cpp/bench.cpp
+:::
 
 | Критерій оцінки | HTTP/REST (JSON) | MQTT 3.1.1 (JSON) | Власний бінарний кадр |
 |---|---|---|---|
@@ -51,8 +69,13 @@
 4. Відстеження номера послідовності (`seq_num`): сервер порівнює номер з останнім збереженим значенням для цього пристрою. Якщо номер менший або дорівнює попередньому, виявляється дублікат пакета або спроба атаки повторного відтворення (Replay Attack).
 
 :::tabs
-:::code proj-protocol-bench/c/obrobka-pomylok-ta-rozbir.c
-:::code proj-protocol-bench/cpp/obrobka-pomylok-ta-rozbir.cpp
+:::code proj-protocol-bench/c/receiver.h
+:::code proj-protocol-bench/cpp/receiver.hpp
+:::
+
+:::tabs
+:::code proj-protocol-bench/c/receiver.c
+:::code proj-protocol-bench/cpp/receiver.cpp
 :::
 
 ## Інженерні пастки при проєктуванні бінарного формату

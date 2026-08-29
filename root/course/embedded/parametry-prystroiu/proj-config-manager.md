@@ -45,8 +45,21 @@
 ### Реалізація на мовах C та C++
 
 :::tabs
+:::code proj-config-manager/c/cfg_manager.h
+:::code proj-config-manager/cpp/include/cfg/config.hpp
+:::code proj-config-manager/cpp/include/cfg/manager.hpp
+:::
+
+:::tabs
+:::code proj-config-manager/c/flash_sim.h
+:::code proj-config-manager/c/flash_sim.c
+:::code proj-config-manager/cpp/include/cfg/flash.hpp
+:::code proj-config-manager/cpp/src/flash.cpp
+:::
+
+:::tabs
 :::code proj-config-manager/c/cfg_manager.c
-:::code proj-config-manager/cpp/cfg_manager.cpp
+:::code proj-config-manager/cpp/src/manager.cpp
 :::
 
 ---
@@ -59,6 +72,6 @@
 3. Успішне застосування валідного кандидата з негайною фіксацією у Flash (новий `sequence_number`).
 
 :::tabs
-:::code proj-config-manager/c/demonstratsiinyi-stsenarii.c
-:::code proj-config-manager/cpp/demonstratsiinyi-stsenarii.cpp
+:::code proj-config-manager/c/main.c
+:::code proj-config-manager/cpp/src/main.cpp
 :::

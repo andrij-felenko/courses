@@ -47,6 +47,41 @@
 Нижче наведено модульний код обробки вхідних GATT-запитів, верифікації ключів, розшифрування корисного навантаження та диспетчеризації результатів мовами C та C++.
 
 :::tabs
+:::code proj-ble-provisioning-service/c/prov_platform.h
+:::code proj-ble-provisioning-service/cpp/platform.hpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/prov_crypto.h
+:::code proj-ble-provisioning-service/cpp/crypto.hpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/prov_crypto.c
+:::code proj-ble-provisioning-service/cpp/crypto.cpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/att_reassembly.h
+:::code proj-ble-provisioning-service/cpp/reassembly.hpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/att_reassembly.c
+:::code proj-ble-provisioning-service/cpp/reassembly.cpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/prov_session.h
+:::code proj-ble-provisioning-service/cpp/session.hpp
+:::
+
+:::tabs
+:::code proj-ble-provisioning-service/c/prov_session.c
+:::code proj-ble-provisioning-service/cpp/session.cpp
+:::
+
+:::tabs
 :::code proj-ble-provisioning-service/c/main.c
 :::code proj-ble-provisioning-service/cpp/main.cpp
 :::

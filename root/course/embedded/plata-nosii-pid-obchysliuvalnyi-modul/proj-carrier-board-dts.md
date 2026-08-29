@@ -26,193 +26,13 @@
 
 Файл підключає заголовочні файли ядра з константами переривань та режимів виводів, базовий опис процесора BCM2711 (`bcm2711.dtsi`), опис модуля (`bcm2711-rpi-cm4.dtsi`) і накладає конфігурацію плати-носія.
 
-```dts
-/dts-v1/;
-#include "bcm2711.dtsi"
-#include "bcm2711-rpi-cm4.dtsi"
-#include <dt-bindings/interrupt-controller/irq.h>
-#include <dt-bindings/gpio/gpio.h>
-#include <dt-bindings/pinctrl/bcm2835.h>
-
-/ {
-    model = "Custom Industrial Carrier Board for Raspberry Pi CM4";
-    compatible = "custom,carrier-cm4", "raspberrypi,4-compute-module", "brcm,bcm2711";
-
-    /* Фіксований генератор 40 МГц для зовнішнього CAN-контролера */
-    can_osc_40m: can-oscillator-40m {
-        compatible = "fixed-clock";
-        #clock-cells = <0>;
-        clock-frequency = <40000000>;
-        clock-output-names = "can_osc";
-    };
-
-    /* Керований стабілізатор живлення периферійних датчиків 3.3 В */
-    reg_sensor_3v3: regulator-sensor-3v3 {
-        compatible = "regulator-fixed";
-        regulator-name = "sensor_3v3";
-        regulator-min-microvolt = <3300000>;
-        regulator-max-microvolt = <3300000>;
-        gpio = <&gpio 22 GPIO_ACTIVE_HIGH>;
-        enable-active-high;
-        regulator-always-on;
-    };
-
-    /* Індикаторні світлодіоди через ядерну підсистему leds-gpio */
-    leds {
-        compatible = "gpio-leds";
-
-        led_heartbeat: led-0 {
-            label = "carrier:green:heartbeat";
-            gpios = <&gpio 16 GPIO_ACTIVE_HIGH>;
-            linux,default-trigger = "heartbeat";
-            default-state = "on";
-        };
-
-        led_fault: led-1 {
-            label = "carrier:red:fault";
-            gpios = <&gpio 26 GPIO_ACTIVE_HIGH>;
-            linux,default-trigger = "none";
-            default-state = "off";
-        };
-    };
-
-    /* Користувацькі кнопки через підсистему gpio-keys */
-    gpio_keys {
-        compatible = "gpio-keys";
-        autorepeat;
-
-        btn_user: button-user {
-            label = "User Button";
-            linux,code = <256>; /* BTN_0 */
-            gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
-            debounce-interval = <20>; /* 20 мс апаратне заглушення брязкоту */
-            wakeup-source;
-        };
-    };
-};
-
-/* Конфігурація мультиплексування виводів (Pinctrl) */
-&gpio {
-    pinctrl_i2c1_custom: i2c1-pins {
-        brcm,pins = <2 3>;
-        brcm,function = <BCM2835_FSEL_ALT0>; /* ALT0 = SDA1, SCL1 */
-        brcm,pull = <BCM2835_PUD_UP>;        /* Внутрішня підтяжка */
-    };
-
-    pinctrl_spi0_custom: spi0-pins {
-        brcm,pins = <9 10 11>;
-        brcm,function = <BCM2835_FSEL_ALT0>; /* ALT0 = MISO0, MOSI0, SCLK0 */
-        brcm,pull = <BCM2835_PUD_OFF>;
-    };
-
-    pinctrl_spi0_cs: spi0-cs-pins {
-        brcm,pins = <8>;
-        brcm,function = <BCM2835_FSEL_OUTP>; /* Керування Chip Select через GPIO */
-        brcm,pull = <BCM2835_PUD_OFF>;
-    };
-
-    pinctrl_mcp2518_irq: mcp2518-irq-pins {
-        brcm,pins = <25>;
-        brcm,function = <BCM2835_FSEL_INPT>;
-        brcm,pull = <BCM2835_PUD_UP>;
-    };
-
-    pinctrl_rtc_irq: rtc-irq-pins {
-        brcm,pins = <24>;
-        brcm,function = <BCM2835_FSEL_INPT>;
-        brcm,pull = <BCM2835_PUD_UP>;
-    };
-};
-
-/* Ввімкнення та конфігурація шини I2C1 */
-&i2c1 {
-    status = "okay";
-    clock-frequency = <400000>; /* Fast-mode 400 кГц */
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_i2c1_custom>;
-
-    /* Годинник реального часу */
-    rtc_pcf: rtc@51 {
-        compatible = "nxp,pcf85063a";
-        reg = <0x51>;
-        pinctrl-names = "default";
-        pinctrl-0 = <&pinctrl_rtc_irq>;
-        interrupt-parent = <&gpio>;
-        interrupts = <24 IRQ_TYPE_EDGE_FALLING>;
-        status = "okay";
-    };
-
-    /* Датчик температури */
-    temp_sensor: sensor@48 {
-        compatible = "ti,tmp102";
-        reg = <0x48>;
-        status = "okay";
-    };
-
-    /* Енергонезалежна пам'ять конфігурації плати */
-    eeprom_board: eeprom@50 {
-        compatible = "atmel,24c64";
-        reg = <0x50>;
-        pagesize = <32>;
-        read-only; /* Захист калібрувальних даних плати */
-        status = "okay";
-    };
-};
-
-/* Ввімкнення та конфігурація шини SPI0 */
-&spi0 {
-    status = "okay";
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_spi0_custom &pinctrl_spi0_cs>;
-    cs-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
-
-    can_mcp2518: can@0 {
-        compatible = "microchip,mcp2518fd";
-        reg = <0>; /* CS0 */
-        spi-max-frequency = <20000000>; /* 20 МГц тактування SPI */
-        interrupt-parent = <&gpio>;
-        interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-        clocks = <&can_osc_40m>;
-        pinctrl-names = "default";
-        pinctrl-0 = <&pinctrl_mcp2518_irq>;
-        status = "okay";
-    };
-};
-```
+:::code proj-carrier-board-dts/dts/carrier-board.dts
 
 ## 3. Динамічний оверлей для модуля розширення (`sensor-hat.dtso`)
 
 Якщо на плату-носій встановлюється додатковий мезонінний модуль (наприклад, плата кліматичного моніторингу з сенсором Bosch BME280 та аналого-цифровим перетворювачем ADS1115 на I2C1), його не обов'язково зашивати у загальне дерево пристроїв. Для цього формується динамічний оверлей:
 
-```dts
-/dts-v1/;
-/plugin/;
-
-/ {
-    compatible = "brcm,bcm2711";
-
-    fragment@0 {
-        target = <&i2c1>;
-        __overlay__ {
-            #address-cells = <1>;
-            #size-cells = <0>;
-
-            bme280: weather-sensor@76 {
-                compatible = "bosch,bme280";
-                reg = <0x76>;
-                status = "okay";
-            };
-
-            ads1115: adc@49 {
-                compatible = "ti,ads1115";
-                reg = <0x49>;
-                #io-channel-cells = <1>;
-                status = "okay";
-            };
-        };
-    };
-};
-```
+:::code proj-carrier-board-dts/dts/overlays/sensor-hat.dtso
 
 ## 4. Компіляція та розгортання бінарних блобів
 
@@ -220,16 +40,7 @@
 
 Оскільки файли `.dts` використовують макроси з системних заголовків ядра (`dt-bindings`), перед викликом `dtc` вихідний файл зазвичай пропускають через `cpp`:
 
-```bash
-# Препроцесування вихідного файлу DTS із заголовками ядра
-cpp -nostdinc -I /usr/src/linux-headers-$(uname -r)/include -undef -x assembler-with-cpp carrier-board.dts carrier-board.preprocessed.dts
-
-# Компіляція базового дерева пристроїв плати-носія з генерацією символів (-@)
-dtc -@ -I dts -O dtb -o carrier-board.dtb carrier-board.preprocessed.dts
-
-# Компіляція динамічного оверлею
-dtc -@ -I dts -O dtb -o sensor-hat.dtbo sensor-hat.dtso
-```
+:::code proj-carrier-board-dts/sh/build-dts.sh
 
 Прапорець `-@` є обов'язковим для базового дерева, якщо планується подальше використання оверлеїв. Він наказує компілятору згенерувати спеціальний вузол `__symbols__`, у якому зберігаються відповідності між текстовими мітками (наприклад, `&i2c1`) та їхніми числовими ідентифікаторами `phandle`. Без таблиці `__symbols__` завантажувач або ядро не зможуть визначити цільовий вузол `target` під час динамічного злиття оверлею.
 
@@ -265,7 +76,7 @@ booti 0x80000000 - 0x83000000
 ### 1. Перевірка розгорнутого дерева через `/proc/device-tree`
 Каталог `/proc/device-tree` є символьним посиланням на `/sys/firmware/devicetree/base`. Кожен каталог у ньому відповідає вузлу, а кожен файл — властивості:
 
-:::code proj-carrier-board-dts/sh/main.sh
+:::code proj-carrier-board-dts/sh/inspect-devicetree.sh
 
 ### 2. Діагностика прив'язки драйверів до пристроїв
 Журнал ядра (`dmesg`) дозволяє простежити успішність виклику функції `probe()` кожного зареєстрованого драйвера:
@@ -308,7 +119,16 @@ pin 9 (gpio9): function alt0 group gpio9
 
 :::tabs
 :::code proj-carrier-board-dts/c/main.c
+:::code proj-carrier-board-dts/c/carrier.h
+:::code proj-carrier-board-dts/c/sensors.c
+:::code proj-carrier-board-dts/c/canlink.c
+:::code proj-carrier-board-dts/c/indicator.c
 :::code proj-carrier-board-dts/cpp/main.cpp
+:::code proj-carrier-board-dts/cpp/carrier_board.hpp
+:::code proj-carrier-board-dts/cpp/carrier_board.cpp
+:::code proj-carrier-board-dts/cpp/can_link.hpp
+:::code proj-carrier-board-dts/cpp/can_link.cpp
+:::code proj-carrier-board-dts/cpp/unique_fd.hpp
 :::
 
 ## 7. Типові пастки та діагностика помилок

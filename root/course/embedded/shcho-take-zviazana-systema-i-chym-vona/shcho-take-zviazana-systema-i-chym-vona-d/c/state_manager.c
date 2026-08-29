@@ -1,152 +1,232 @@
-/*
- * state_manager.h / state_manager.c
- * Менеджер розподіленого стану IoT-вузла мовою C.
- * Побудований без динамічного виділення пам'яті (MISRA C Compliant).
- */
+#include "state_manager.h"
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <math.h>
 #include <string.h>
 
-#define MAX_OFFLINE_QUEUE_SIZE 32
-#define MAX_TOPIC_LEN          64
-#define MAX_PAYLOAD_LEN        128
-
-typedef enum {
-    CONN_STATE_DISCONNECTED = 0,
-    CONN_STATE_CONNECTING,
-    CONN_STATE_CONNECTED,
-    CONN_STATE_SYNCING
-} connection_state_t;
-
-/* Структура конфігурації об'єкта (наприклад, розумного термостата) */
-typedef struct {
-    float target_temperature;
-    uint16_t fan_speed_rpm;
-    bool heating_enabled;
-    uint32_t sequence_id; /* Монотонний лічильник версії */
-} node_config_t;
-
-/* Елемент офлайн-буфера телеметрії */
-typedef struct {
-    uint32_t timestamp;
-    float measured_temperature;
-    uint16_t current_power_watts;
-    uint8_t flags;
-} telemetry_entry_t;
-
-/* Кільцевий буфер телеметрії для збереження даних під час обриву каналу */
-typedef struct {
-    telemetry_entry_t buffer[MAX_OFFLINE_QUEUE_SIZE];
-    uint16_t head;
-    uint16_t tail;
-    uint16_t count;
-} offline_queue_t;
-
-/* Головний контекст агента стану */
-typedef struct {
-    node_config_t desired_config;
-    node_config_t reported_config;
-    node_config_t active_hardware_state;
-    connection_state_t conn_state;
-    offline_queue_t offline_queue;
-    uint32_t last_sync_time;
-    bool delta_pending;
-} state_agent_t;
-
-/* Ініціалізація агента стану */
-void state_agent_init(state_agent_t *agent, const node_config_t *initial_cfg) {
-    if (!agent || !initial_cfg) return;
-    
-    memcpy(&agent->desired_config, initial_cfg, sizeof(node_config_t));
-    memcpy(&agent->reported_config, initial_cfg, sizeof(node_config_t));
-    memcpy(&agent->active_hardware_state, initial_cfg, sizeof(node_config_t));
-    
-    agent->conn_state = CONN_STATE_DISCONNECTED;
-    agent->offline_queue.head = 0;
-    agent->offline_queue.tail = 0;
-    agent->offline_queue.count = 0;
-    agent->last_sync_time = 0;
-    agent->delta_pending = false;
+const char *delta_result_str(delta_result_t result)
+{
+    switch (result) {
+        case DELTA_APPLIED:      return "прийнято";
+        case DELTA_STALE:        return "застаріла версія — відкинуто";
+        case DELTA_EMPTY:        return "порожня дельта";
+        case DELTA_OUT_OF_RANGE: return "поза фізичними межами — відкинуто";
+        case DELTA_BAD_ARG:      return "хибний аргумент";
+        default:                 return "невідомо";
+    }
 }
 
-/* Додавання телеметрії до офлайн-черги (перетирає найстаріші при переповненні) */
-bool state_agent_enqueue_telemetry(state_agent_t *agent, const telemetry_entry_t *entry) {
-    if (!agent || !entry) return false;
-    
-    offline_queue_t *q = &agent->offline_queue;
-    q->buffer[q->head] = *entry;
-    q->head = (q->head + 1) % MAX_OFFLINE_QUEUE_SIZE;
-    
-    if (q->count < MAX_OFFLINE_QUEUE_SIZE) {
-        q->count++;
-    } else {
-        /* Буфер заповнений: зсуваємо tail, відкидаючи найстаріший вимір */
-        q->tail = (q->tail + 1) % MAX_OFFLINE_QUEUE_SIZE;
+const char *config_field_str(config_field_t field)
+{
+    switch (field) {
+        case FIELD_TARGET_TEMP: return "уставка";
+        case FIELD_FAN_RPM:     return "обертиВентилятора";
+        case FIELD_HEATING:     return "нагрів";
+        default:                return "?";
     }
+}
+
+void state_agent_init(state_agent_t *agent, const node_config_t *initial)
+{
+    if ((agent == NULL) || (initial == NULL)) {
+        return;
+    }
+
+    memset(agent, 0, sizeof(*agent));
+
+    /* На старті всі три погляди збігаються: іншої думки про залізо ще ніхто не має. */
+    agent->desired  = *initial;
+    agent->reported = *initial;
+    agent->active   = *initial;
+
+    agent->applied_sequence = initial->sequence_id;
+    agent->conn = CONN_DISCONNECTED;
+    telemetry_queue_init(&agent->queue);
+}
+
+void state_agent_set_connection(state_agent_t *agent, connection_state_t state)
+{
+    if (agent == NULL) {
+        return;
+    }
+    agent->conn = state;
+}
+
+/* Перевірка фізичних меж — лише для полів, які дельта справді несе. */
+static bool delta_within_limits(const shadow_delta_t *delta)
+{
+    if ((delta->fields & (uint32_t)FIELD_TARGET_TEMP) != 0u) {
+        if ((delta->target_temperature < CFG_TEMP_MIN_C) ||
+            (delta->target_temperature > CFG_TEMP_MAX_C) ||
+            isnan(delta->target_temperature)) {
+            return false;
+        }
+    }
+    if ((delta->fields & (uint32_t)FIELD_FAN_RPM) != 0u) {
+        if (delta->fan_speed_rpm > CFG_FAN_MAX_RPM) {
+            return false;
+        }
+    }
+    /* Логічне поле перевіряти нема на що: bool не буває поза межами. */
     return true;
 }
 
-/* Витягнення телеметрії для відправки */
-bool state_agent_dequeue_telemetry(state_agent_t *agent, telemetry_entry_t *out_entry) {
-    if (!agent || !out_entry || agent->offline_queue.count == 0) return false;
-    
-    offline_queue_t *q = &agent->offline_queue;
-    *out_entry = q->buffer[q->tail];
-    q->tail = (q->tail + 1) % MAX_OFFLINE_QUEUE_SIZE;
-    q->count--;
-    return true;
-}
-
-/* Обробка дельти конфігурації, отриманої від хмарного сервісу Device Shadow */
-bool state_agent_apply_delta(state_agent_t *agent, const node_config_t *new_desired) {
-    if (!agent || !new_desired) return false;
-
-    /* Захист від гонок станів: відкидаємо застарілі та дубльовані версії */
-    if (new_desired->sequence_id <= agent->reported_config.sequence_id) {
-        return false; /* Застарілий пакет, ігноруємо */
+delta_result_t state_agent_apply_delta(state_agent_t *agent, const shadow_delta_t *delta)
+{
+    if ((agent == NULL) || (delta == NULL)) {
+        return DELTA_BAD_ARG;
+    }
+    if ((delta->fields & (uint32_t)FIELD_ALL) == 0u) {
+        return DELTA_EMPTY;
     }
 
-    /* Фізична валідація на краю (Edge Validation) */
-    if (new_desired->target_temperature < 5.0f || new_desired->target_temperature > 40.0f) {
-        return false; /* Порушення безпечного діапазону температур */
-    }
-    if (new_desired->fan_speed_rpm > 3000) {
-        return false; /* Перевищення ліміту швидкості вентилятора */
+    /* Захист від гонок: у радіоканалі пакети дублюються й обганяють одне одного.
+       Порівнюємо з версією ОСТАННЬОЇ ПРИЙНЯТОЇ дельти, а не з тією, що в залізі:
+       інакше застарілий пакет проліз би у вікні між прийомом і застосуванням. */
+    if (delta->sequence_id <= agent->desired.sequence_id) {
+        agent->stale_rejected++;
+        return DELTA_STALE;
     }
 
-    /* Оновлення бажаного стану та маркування необхідності локального застосування */
-    agent->desired_config = *new_desired;
-    agent->delta_pending = true;
-    return true;
+    if (!delta_within_limits(delta)) {
+        /* Версію НЕ підвищуємо: дельта в хмарі лишиться ненульовою,
+           і оператор побачить, що вузол уставку не прийняв. */
+        agent->range_rejected++;
+        return DELTA_OUT_OF_RANGE;
+    }
+
+    if ((delta->fields & (uint32_t)FIELD_TARGET_TEMP) != 0u) {
+        agent->desired.target_temperature = delta->target_temperature;
+    }
+    if ((delta->fields & (uint32_t)FIELD_FAN_RPM) != 0u) {
+        agent->desired.fan_speed_rpm = delta->fan_speed_rpm;
+    }
+    if ((delta->fields & (uint32_t)FIELD_HEATING) != 0u) {
+        agent->desired.heating_enabled = delta->heating_enabled;
+    }
+    agent->desired.sequence_id = delta->sequence_id;
+
+    return DELTA_APPLIED;
 }
 
-/* Синхронізація апаратного стану з бажаним (виклик у робочому циклі) */
-void state_agent_reconcile_hardware(state_agent_t *agent) {
-    if (!agent || !agent->delta_pending) return;
+uint32_t state_agent_pending_fields(const state_agent_t *agent)
+{
+    uint32_t mask = 0u;
 
-    /* Фізичний запис у залізо (наприклад, ШІМ таймера та реле) */
-    agent->active_hardware_state.target_temperature = agent->desired_config.target_temperature;
-    agent->active_hardware_state.fan_speed_rpm = agent->desired_config.fan_speed_rpm;
-    agent->active_hardware_state.heating_enabled = agent->desired_config.heating_enabled;
-    agent->active_hardware_state.sequence_id = agent->desired_config.sequence_id;
+    if (agent == NULL) {
+        return 0u;
+    }
 
-    /* Застосовано: фіксуємо reported для подальшого звіту в хмару */
-    agent->reported_config = agent->active_hardware_state;
-    agent->delta_pending = false;
+    if (fabsf(agent->desired.target_temperature - agent->active.target_temperature) >
+        CFG_TEMP_EPSILON_C) {
+        mask |= (uint32_t)FIELD_TARGET_TEMP;
+    }
+    if (agent->desired.fan_speed_rpm != agent->active.fan_speed_rpm) {
+        mask |= (uint32_t)FIELD_FAN_RPM;
+    }
+    if (agent->desired.heating_enabled != agent->active.heating_enabled) {
+        mask |= (uint32_t)FIELD_HEATING;
+    }
+
+    return mask;
 }
 
-/* Формування payload для публікації Reported State у хмару */
-bool state_agent_build_reported_payload(const state_agent_t *agent, char *out_buf, size_t max_len) {
-    if (!agent || !out_buf || max_len < 64) return false;
+uint32_t state_agent_reconcile_hardware(state_agent_t *agent)
+{
+    uint32_t mask;
 
-    /* Проста серіалізація стану (у реальному проєкті — jsmmn або cJSON) */
-    int written = snprintf(out_buf, max_len,
-        "{\"reported\":{\"temp\":%.1f,\"fan\":%u,\"heat\":%s,\"v\":%lu}}",
-        agent->reported_config.target_temperature,
-        agent->reported_config.fan_speed_rpm,
-        agent->reported_config.heating_enabled ? "true" : "false",
-        (unsigned long)agent->reported_config.sequence_id);
+    if (agent == NULL) {
+        return 0u;
+    }
 
-    return (written > 0 && (size_t)written < max_len);
+    mask = state_agent_pending_fields(agent);
+
+    if (mask == 0u) {
+        /* Хмара могла повторити ту саму уставку новою версією: значення не змінилося,
+           але відзвітувати про нову версію треба — інакше дельта не закриється. */
+        if (agent->active.sequence_id != agent->desired.sequence_id) {
+            agent->active.sequence_id   = agent->desired.sequence_id;
+            agent->applied_sequence     = agent->desired.sequence_id;
+            agent->reported             = agent->active;
+            agent->reported_dirty       = true;
+        }
+        return 0u;
+    }
+
+    /* Тут у справжньому виробі йде запис у драйвери: шпаруватість ШІМ клапана,
+       уставка ПІД-регулятора, реле котла. Пишемо лише те, що справді змінилося. */
+    if ((mask & (uint32_t)FIELD_TARGET_TEMP) != 0u) {
+        agent->active.target_temperature = agent->desired.target_temperature;
+    }
+    if ((mask & (uint32_t)FIELD_FAN_RPM) != 0u) {
+        agent->active.fan_speed_rpm = agent->desired.fan_speed_rpm;
+    }
+    if ((mask & (uint32_t)FIELD_HEATING) != 0u) {
+        agent->active.heating_enabled = agent->desired.heating_enabled;
+    }
+
+    agent->active.sequence_id = agent->desired.sequence_id;
+    agent->applied_sequence   = agent->active.sequence_id;
+
+    /* reported знімається з ФАКТИЧНОГО стану заліза, а не з бажаного:
+       вузол звітує про те, що зробив, а не про те, що йому наказали. */
+    agent->reported       = agent->active;
+    agent->reported_dirty = true;
+
+    return mask;
+}
+
+bool state_agent_record_telemetry(state_agent_t *agent, const telemetry_entry_t *entry)
+{
+    telemetry_entry_t stamped;
+
+    if ((agent == NULL) || (entry == NULL)) {
+        return false;
+    }
+
+    stamped = *entry;
+    if ((agent->conn != CONN_CONNECTED) && (agent->conn != CONN_SYNCING)) {
+        stamped.flags |= (uint8_t)TELEMETRY_FLAG_FROM_CACHE;
+    }
+    if (agent->active.heating_enabled) {
+        stamped.flags |= (uint8_t)TELEMETRY_FLAG_HEATING;
+    }
+
+    return telemetry_queue_push(&agent->queue, &stamped);
+}
+
+size_t state_agent_drain_telemetry(state_agent_t *agent, telemetry_publish_fn publish, void *ctx)
+{
+    const telemetry_entry_t *item;
+    size_t sent = 0u;
+
+    if ((agent == NULL) || (publish == NULL)) {
+        return 0u;
+    }
+    if ((agent->conn != CONN_CONNECTED) && (agent->conn != CONN_SYNCING)) {
+        return 0u; /* каналу немає — черга просто чекає далі */
+    }
+
+    while ((item = telemetry_queue_peek(&agent->queue)) != NULL) {
+        if (!publish(item, ctx)) {
+            /* Вікно зв'язку скінчилося або брокер відмовив. Звіт НЕ вилучаємо:
+               він поїде наступного разу. Це і є ціна доступності в моделі AP. */
+            break;
+        }
+        (void)telemetry_queue_pop(&agent->queue);
+        sent++;
+    }
+
+    return sent;
+}
+
+bool state_agent_reported_dirty(const state_agent_t *agent)
+{
+    return (agent != NULL) && agent->reported_dirty;
+}
+
+void state_agent_mark_reported_sent(state_agent_t *agent)
+{
+    if (agent != NULL) {
+        agent->reported_dirty = false;
+    }
 }

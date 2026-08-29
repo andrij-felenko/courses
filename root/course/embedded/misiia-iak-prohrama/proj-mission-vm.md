@@ -45,9 +45,13 @@
 
 :::tabs
 === "C"
-:::code proj-mission-vm/c/povna-realizatsiia.c
+:::code proj-mission-vm/c/mission_vm.h
+
+:::code proj-mission-vm/c/mission_vm.c
 === "C++"
-:::code proj-mission-vm/cpp/povna-realizatsiia.cpp
+:::code proj-mission-vm/cpp/include/mission/vm.hpp
+
+:::code proj-mission-vm/cpp/src/vm.cpp
 :::
 
 ## Тестовий сценарій виконання місії
@@ -63,9 +67,9 @@
 
 :::tabs
 === "C"
-:::code proj-mission-vm/c/testovyi-stsenarii.c
+:::code proj-mission-vm/c/mission_test.c
 === "C++"
-:::code proj-mission-vm/cpp/testovyi-stsenarii.cpp
+:::code proj-mission-vm/cpp/test/scenario.cpp
 :::
 
 ## Інтеграція в RTOS та обробка крайових ситуацій

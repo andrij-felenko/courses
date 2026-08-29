@@ -1,170 +1,187 @@
-#include <cstdint>
+// Сценарії заняття: три відповіді на команду й пастка повторного виконання.
+// Час віртуальний — цикл крокує по 5 мс, тож увесь прогін триває мілісекунди.
+//
+// Збірка: g++ -std=c++17 -O1 main.cpp command_client.cpp sim_vehicle.cpp -o cmddemo
+
+#include "command_client.h"
+#include "sim_vehicle.h"
+
 #include <chrono>
-#include <functional>
-#include <optional>
-#include <string>
 #include <iostream>
+#include <stdexcept>
 
-// Константи результатів MAVLink MAV_RESULT
-enum class MavResult : uint8_t {
-    Accepted            = 0,
-    TemporarilyRejected = 1,
-    Denied              = 2,
-    Unsupported         = 3,
-    Failed              = 4,
-    InProgress          = 5,
-    Cancelled           = 6,
-    CommandLongOnly     = 7,
-    CommandIntOnly      = 8
-};
+namespace {
 
-// Стан транзакції
-enum class TransactionState {
-    Idle,
-    WaitingAck,
-    InProgress,
-    Success,
-    Rejected,
-    TimeoutFailure
-};
+using Clock     = std::chrono::steady_clock;
+using TimePoint = Clock::time_point;
 
-// Параметри відправки команди
-struct CommandRequest {
-    uint8_t  target_system{1};
-    uint8_t  target_component{1};
-    uint16_t command{0};
-    float    params[7]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-};
+constexpr std::chrono::milliseconds kStep{5};
+constexpr int                       kMaxSteps = 4000;  // 20 с віртуального часу
 
-// Фінальний підсумок для виклику callback
-struct CommandOutcome {
-    TransactionState state;
-    MavResult        result;
-    int32_t          result_param2;
-    std::string      message;
-};
+int failures = 0;
 
-class MavlinkCommandClient {
-public:
-    using Clock = std::chrono::steady_clock;
-    using Callback = std::function<void(const CommandOutcome&)>;
-    using ProgressCallback = std::function<void(uint8_t progress)>;
+void check(bool condition, const char* what) {
+    std::cout << (condition ? "  ✔ " : "  ✘ ") << what << "\n";
+    if (!condition) {
+        ++failures;
+    }
+}
 
-    MavlinkCommandClient(uint32_t retry_interval_ms = 1000, uint8_t max_retries = 3)
-        : retry_interval_(std::chrono::milliseconds(retry_interval_ms))
-        , max_retries_(max_retries) {}
+void title(const char* text) {
+    std::cout << "\n=== " << text << " ===\n";
+}
 
-    // Ініціалізація відправки команди з блокуванням нового запиту до завершення
-    bool send_command(const CommandRequest& req, Callback on_complete, ProgressCallback on_progress = nullptr) {
-        if (state_ == TransactionState::WaitingAck || state_ == TransactionState::InProgress) {
-            return false; // Канал зайнятий поточною транзакцією
-        }
+// Проганяє одну транзакцію до термінального стану автомата.
+template <class Frame>
+Outcome execute(CommandClient& client, SimRadio& radio, TimePoint& now, const Frame& frame) {
+    Outcome outcome{};
+    bool    done = false;
 
-        active_request_ = req;
-        on_complete_ = std::move(on_complete);
-        on_progress_ = std::move(on_progress);
-        
-        retry_count_ = 0;
-        confirmation_ = 0;
-        state_ = TransactionState::WaitingAck;
+    radio.tick(now);
+    const bool started = client.send(
+        now, frame,
+        [&](const Outcome& result) {
+            outcome = result;
+            done    = true;
+        },
+        [](std::uint8_t progress) {
+            std::cout << "  [прогрес] " << static_cast<int>(progress) << "%\n";
+        });
 
-        transmit_command_long(active_request_, confirmation_);
-        deadline_ = Clock::now() + retry_interval_;
-        return true;
+    if (!started) {
+        // Саме так інтерфейс оператора мовчки ковтає повторні натискання кнопки.
+        throw std::runtime_error("канал зайнятий попередньою транзакцією");
     }
 
-    // Обробка вхідного пакету COMMAND_ACK від польотного контролера
-    void handle_command_ack(uint16_t command, uint8_t result_raw, uint8_t progress, 
-                            int32_t result_param2, uint8_t src_sys, uint8_t src_comp) {
-        if (state_ != TransactionState::WaitingAck && state_ != TransactionState::InProgress) {
-            return; // Немає активної транзакції
-        }
-
-        // Перевірка збігу ID команди та адреси відправника
-        if (command != active_request_.command || 
-            src_sys != active_request_.target_system || 
-            src_comp != active_request_.target_component) {
-            return; // ACK належить іншому компоненту або фоновому процесу
-        }
-
-        auto result = static_cast<MavResult>(result_raw);
-
-        if (result == MavResult::InProgress) {
-            state_ = TransactionState::InProgress;
-            deadline_ = Clock::now() + retry_interval_; // Продовжуємо таймаут
-            if (on_progress_) {
-                on_progress_(progress);
-            }
-            return;
-        }
-
-        if (result == MavResult::Accepted) {
-            state_ = TransactionState::Success;
-            finalize({state_, result, result_param2, "Команду успішно виконано"});
-        } else {
-            state_ = TransactionState::Rejected;
-            finalize({state_, result, result_param2, "Команду відхилено бортом (код: " + std::to_string(result_raw) + ")"});
-        }
+    for (int step = 0; !done && step < kMaxSteps; ++step) {
+        now += kStep;
+        radio.tick(now);
+        client.tick(now);
+    }
+    if (!done) {
+        throw std::runtime_error("автомат не дійшов до термінального стану");
     }
 
-    // Регулярний виклик у головному циклі програми для перевірки таймаутів
-    void tick() {
-        if (state_ != TransactionState::WaitingAck && state_ != TransactionState::InProgress) {
-            return;
-        }
+    std::cout << "  => " << state_name(outcome.state) << " / " << result_name(outcome.result)
+              << ", кадрів у ефір: " << outcome.attempts << ", " << outcome.message << "\n";
+    return outcome;
+}
 
-        if (Clock::now() >= deadline_) {
-            if (retry_count_ < max_retries_) {
-                // Виконуємо повторну відправку
-                retry_count_++;
-                confirmation_++;
-                state_ = TransactionState::WaitingAck;
-                
-                transmit_command_long(active_request_, confirmation_);
-                deadline_ = Clock::now() + retry_interval_;
-            } else {
-                // Вичерпано всі спроби: фіксуємо тишу
-                state_ = TransactionState::TimeoutFailure;
-                finalize({state_, MavResult::Failed, -1, "Таймаут: борт не відповів на команду"});
-            }
-        }
+CommandLong arm_command(bool arm) {
+    CommandLong frame;
+    frame.command  = mav_cmd::ComponentArmDisarm;
+    frame.param[0] = arm ? 1.0f : 0.0f;
+    return frame;
+}
+
+CommandLong set_mode_command(std::int32_t custom_mode) {
+    CommandLong frame;
+    frame.command  = mav_cmd::DoSetMode;
+    frame.param[0] = kCustomModeEnabled;
+    frame.param[1] = static_cast<float>(custom_mode);
+    return frame;
+}
+
+CommandLong gripper_toggle_command() {
+    CommandLong frame;
+    frame.command  = mav_cmd::DoGripper;
+    frame.param[0] = 1.0f;  // номер захоплення
+    frame.param[1] = 2.0f;  // перемкнути — неідемпотентна дія
+    return frame;
+}
+
+}  // namespace
+
+int main() {
+    SimAutopilot vehicle;
+    SimRadio     radio(vehicle, std::chrono::milliseconds(60), std::chrono::milliseconds(60));
+    CommandClient client(radio, 255, 190, std::chrono::milliseconds(800), 3);
+    radio.attach(client);
+
+    TimePoint now = Clock::now();
+
+    try {
+        title("1. Відхилено: ARM без супутникового фіксу");
+        Outcome out = execute(client, radio, now, arm_command(true));
+        check(out.state == TxState::Rejected && out.result == MavResult::Denied,
+              "борт відповів DENIED, автомат зупинився без повторів");
+        check(out.attempts == 1, "відмова остаточна: другий кадр в ефір не пішов");
+        check(!vehicle.armed(), "мотори лишилися вимкненими");
+
+        title("2. Прийнято: ARM із фіксом, двічі поспіль");
+        vehicle.set_gps_fix(true);
+        execute(client, radio, now, arm_command(true));
+        out = execute(client, radio, now, arm_command(true));
+        check(out.result == MavResult::Accepted && vehicle.armed(),
+              "ідемпотентна команда: повторне виконання нічого не зламало");
+
+        title("3. Тиша в Uplink: перший кадр загинув, повтор із confirmation=1");
+        radio.drop_next_uplink(1);
+        out = execute(client, radio, now, set_mode_command(copter_mode::Guided));
+        check(out.result == MavResult::Accepted && out.attempts == 2,
+              "друга спроба дійшла, режим перемкнено");
+        check(vehicle.mode() == copter_mode::Guided, mode_name(vehicle.mode()));
+
+        title("4. Тимчасова відмова: AUTO поки не звівся EKF");
+        vehicle.set_ekf_ready(false);
+        out = execute(client, radio, now, set_mode_command(copter_mode::Auto));
+        check(out.result == MavResult::TemporarilyRejected,
+              "TEMPORARILY_REJECTED: повторити варто, але вже рішенням оператора");
+        vehicle.set_ekf_ready(true);
+
+        title("5. Тиша в Downlink: замок і кеш дедуплікації на борту");
+        const int before = vehicle.gripper_actuations();
+        radio.drop_next_downlink(1);  // дія виконана, квитанція загинула
+        out = execute(client, radio, now, gripper_toggle_command());
+        check(out.result == MavResult::Accepted && out.attempts == 2,
+              "станція отримала квитанцію лише з другої спроби");
+        check(vehicle.gripper_actuations() - before == 1,
+              "сервопривід спрацював РІВНО один раз — кеш упізнав confirmation=1");
+
+        title("6. Той самий сценарій без дедуплікації — подвійне спрацювання");
+        vehicle.set_dedup(false);
+        const int before_nodedup = vehicle.gripper_actuations();
+        radio.drop_next_downlink(1);
+        execute(client, radio, now, gripper_toggle_command());
+        check(vehicle.gripper_actuations() - before_nodedup == 2,
+              "без кешу замок клацнув двічі: вантаж скинуто й механізм закрито");
+        vehicle.set_dedup(true);
+
+        title("7. Контейнер: навігаційний наказ через LONG і через INT");
+        CommandLong wrong;
+        wrong.command = mav_cmd::NavLoiterUnlim;
+        out = execute(client, radio, now, wrong);
+        check(out.result == MavResult::CommandIntOnly,
+              "COMMAND_INT_ONLY: координати у float32 борт не приймає");
+
+        CommandInt loiter;
+        loiter.command = mav_cmd::NavLoiterUnlim;
+        loiter.frame   = MavFrame::GlobalRelativeAltInt;
+        loiter.x       = deg_to_1e7(50.4501234);
+        loiter.y       = deg_to_1e7(30.5234567);
+        loiter.z       = 80.0f;
+        out = execute(client, radio, now, loiter);
+        check(out.result == MavResult::Accepted, "COMMAND_INT прийнято, крок координати — 1.1 см");
+
+        title("8. Довга операція: IN_PROGRESS відсуває таймаут");
+        CommandLong calibrate;
+        calibrate.command = mav_cmd::DoStartMagCal;
+        out = execute(client, radio, now, calibrate);
+        check(out.result == MavResult::Accepted && out.attempts == 1,
+              "калібрування тривало довше за таймаут, але повторів не було");
+
+        title("9. Повна тиша: борт не відповідає");
+        vehicle.set_powered(false);
+        out = execute(client, radio, now, set_mode_command(copter_mode::Rtl));
+        check(out.state == TxState::TimeoutFailure && out.attempts == 4,
+              "після 1 + 3 спроб оголошено збій каналу керування");
+        check(vehicle.mode() == copter_mode::Guided,
+              "стан апарата станції невідомий — телеметрію тут не замінити нічим");
+    } catch (const std::exception& error) {
+        std::cerr << "збій сценарію: " << error.what() << "\n";
+        return 2;
     }
 
-    TransactionState get_state() const { return state_; }
-
-private:
-    void transmit_command_long(const CommandRequest& req, uint8_t confirmation) {
-        // Тут здійснюється виклик бібліотеки серіалізації:
-        // mavlink_msg_command_long_pack(sysid, compid, &msg, req.target_system, 
-        //                               req.target_component, req.command, confirmation, ...);
-        // uart_write(msg_buffer);
-        std::cout << "[TX] COMMAND_LONG cmd=" << req.command 
-                  << " target=(" << static_cast<int>(req.target_system) << ":" 
-                  << static_cast<int>(req.target_component) << ")"
-                  << " conf=" << static_cast<int>(confirmation) 
-                  << " try=" << static_cast<int>(retry_count_) << "\n";
-    }
-
-    void finalize(CommandOutcome outcome) {
-        state_ = outcome.state;
-        if (on_complete_) {
-            auto cb = std::move(on_complete_);
-            on_complete_ = nullptr;
-            on_progress_ = nullptr;
-            cb(outcome);
-        }
-        state_ = TransactionState::Idle;
-    }
-
-    const std::chrono::milliseconds retry_interval_;
-    const uint8_t                   max_retries_;
-
-    TransactionState       state_{TransactionState::Idle};
-    CommandRequest         active_request_{};
-    Clock::time_point      deadline_{};
-    uint8_t                retry_count_{0};
-    uint8_t                confirmation_{0};
-
-    Callback               on_complete_{nullptr};
-    ProgressCallback       on_progress_{nullptr};
-};
+    std::cout << "\nневдалих перевірок: " << failures << "\n";
+    return failures == 0 ? 0 : 1;
+}

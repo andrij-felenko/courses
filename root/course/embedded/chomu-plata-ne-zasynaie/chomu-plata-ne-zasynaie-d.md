@@ -188,9 +188,9 @@ I_pullup = 3.3 В / 10 000 Ом = 330 мкА
 
 :::tabs
 @tab c
-:::code chomu-plata-ne-zasynaie-d/c/main.c
+:::code chomu-plata-ne-zasynaie-d/c/lowpower.c
 @tab cpp
-:::code chomu-plata-ne-zasynaie-d/cpp/main.hpp
+:::code chomu-plata-ne-zasynaie-d/cpp/src/sleep.cpp
 :::
 
 Повний проект драйвера керування виводами з підтримкою збереження та відновлення стану регістрів наведено у [⚙️ проектній вставці прошивки підготовки GPIO до сну](root:embedded/chomu-plata-ne-zasynaie/proj-low-power-pins.md).

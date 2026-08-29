@@ -164,8 +164,8 @@ R_max = 300 * 10^(-9) / (0.8473 * 50 * 10^(-12)) ≈ 7081 Ом ≈ 7.1 кОм
 Обчислення виконується побітово зсувом 8-бітного регістра. На кожному кроці перевіряється найстарший біт: якщо він дорівнює 1, регістр зсувається ліворуч і виконується операція XOR із маскою `0x31`.
 
 :::tabs
-:::code pershyi-davach-vid-nulia-do-chysla-d/c/alhorytm-prohramnoho.c
-:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/alhorytm-prohramnoho.cpp
+:::code pershyi-davach-vid-nulia-do-chysla-d/c/crc8.c
+:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/crc8.hpp
 :::
 
 Якщо розрахований CRC не збігається з байтом, переданим сенсором, мікроконтролер зобов'язаний **повністю відкинути обидва значення вимірювання** (і температуру, і вологість), збільшити лічильник апаратних збоїв шини й повторити запит через 20–50 мс.
@@ -212,9 +212,25 @@ RH_centi = (10000 * (uint32_t)S_RH) / 65535;
 
 Нижче наведено модульний драйвер сенсора SHT3x, повністю очищений від прив'язок до конкретного виробника мікроконтролера за рахунок передачі апаратного інтерфейсу I2C через покажчики на функції або концепт C++.
 
+Спершу інтерфейс модуля: коди помилок, режими повторюваності, структура результату та спосіб передати драйверу доступ до шини.
+
 :::tabs
-:::code pershyi-davach-vid-nulia-do-chysla-d/c/krok-6-povnyi-robochyi-kod.c
-:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/krok-6-povnyi-robochyi-kod.cpp
+:::code pershyi-davach-vid-nulia-do-chysla-d/c/sht3x.h
+:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/sht3x.hpp
+:::
+
+Далі реалізація: у версії на C — тіло драйвера з командами, витримками та перевіркою обох контрольних сум; у версії на C++ сам драйвер повністю живе в заголовку, а окремої одиниці трансляції потребує лише прив'язка до шини `i2c-dev` ядра Linux.
+
+:::tabs
+:::code pershyi-davach-vid-nulia-do-chysla-d/c/sht3x.c
+:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/linux_i2c.cpp
+:::
+
+І нарешті програма, яку заливають у пристрій: варіант на C прив'язано до бібліотеки STM32Cube HAL і терміналу UART, варіант на C++ — до одноплатника з Linux. Обидва роблять те саме: самоперевірку нагрівачем при старті й опитування раз на дві секунди.
+
+:::tabs
+:::code pershyi-davach-vid-nulia-do-chysla-d/c/main.c
+:::code pershyi-davach-vid-nulia-do-chysla-d/cpp/main.cpp
 :::
 
 ## Крок 7. Практичні випробування на столі та підводні камені

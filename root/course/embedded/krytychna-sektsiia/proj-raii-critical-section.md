@@ -22,8 +22,8 @@
 ## Реалізація модуля мовами C та C++
 
 :::tabs
-:::code proj-raii-critical-section/c/realizatsiia-modulia.h
-:::code proj-raii-critical-section/cpp/realizatsiia-modulia.hpp
+:::code proj-raii-critical-section/c/critical_section.h
+:::code proj-raii-critical-section/cpp/critical_section.hpp
 :::
 
 ## Практичний приклад застосування: багатопотоковий модуль навігації
@@ -33,8 +33,8 @@
 Структура містить широту, довготу, висоту та 64-бітну часову мітку з точністю до мікросекунд. Дані вичитуються для радіопередачі у фоновому потоці головного циклу й оновлюються в обробнику переривання GNSS-модуля або таймера з частотою 100 Гц.
 
 :::tabs
-:::code proj-raii-critical-section/c/praktychnyi-pryklad.c
-:::code proj-raii-critical-section/cpp/praktychnyi-pryklad.cpp
+:::code proj-raii-critical-section/c/navigation.c
+:::code proj-raii-critical-section/cpp/navigation.hpp
 :::
 
 ## Інтеграція з FreeRTOS: безпечні критичні секції в задачах та ISR
@@ -46,8 +46,8 @@
 За допомогою C++20 та функції `in_interrupt_context()` ми можемо побудувати універсального контекстно-незалежного вартового:
 
 :::tabs
-:::code proj-raii-critical-section/c/intehratsiia-z-freertos.c
-:::code proj-raii-critical-section/cpp/intehratsiia-z-freertos.cpp
+:::code proj-raii-critical-section/c/rtos_critical.h
+:::code proj-raii-critical-section/cpp/freertos_guard.hpp
 :::
 
 ## Профілювання тривалості критичної секції через DWT
@@ -57,8 +57,8 @@
 Для діагностики тривалості критичних секцій на мікроконтролерах Cortex-M3/M4/M7/M33 застосовують апаратний лічильник тактів підсистеми зневадження DWT (англ. *Data Watchpoint and Trace*, регістр `DWT->CYCCNT`).
 
 :::tabs
-:::code proj-raii-critical-section/c/profiliuvannia-tryvalosti.c
-:::code proj-raii-critical-section/cpp/profiliuvannia-tryvalosti.cpp
+:::code proj-raii-critical-section/c/cs_profile.h
+:::code proj-raii-critical-section/cpp/cs_profiler.hpp
 :::
 
 ## Особливості роботи з кеш-пам'яттю на Cortex-M7
@@ -74,8 +74,13 @@
 Для тестування бізнес-логіки драйвера створюють заголовок-заглушку (Mock Policy), що емулює апаратне блокування за допомогою стандартних атоміків C++:
 
 :::tabs
-:::code proj-raii-critical-section/c/testuvannia-krytychnykh.h
-:::code proj-raii-critical-section/cpp/testuvannia-krytychnykh.hpp
+:::code proj-raii-critical-section/c/test/cmsis_compiler.h
+:::code proj-raii-critical-section/cpp/test/host_mock_policy.hpp
+:::
+
+:::tabs
+:::code proj-raii-critical-section/c/test/test_critical_section.c
+:::code proj-raii-critical-section/cpp/test/test_critical_section.cpp
 :::
 
 Така модульна структура дозволяє перевірити коректність роботи алгоритмів кільцевих буферів та пакетних парсерів у середовищі безперервної інтеграції (CI/CD) на звичайних x86 серверах без підключення фізичної плати розробника.
@@ -84,6 +89,6 @@
 
 Компілятор GCC з рівнем оптимізації `-O2` транслює C++ метод `update` у наступну компактну послідовність машинних інструкцій Thumb-2:
 
-:::code proj-raii-critical-section/asm/main.s
+:::code proj-raii-critical-section/asm/navigation_update.s
 
 Згенерований лістинг демонструє ключову властивість RAII-вартого: накладні витрати на вхід і вихід становлять рівно **3 такти процесора** (`MRS`, `CPSID`, `MSR`). Усі конструктори та деструктори повністю заінлайнено, жоден байт пам'яті не виділяється на стеку динамічно, а компіляторний бар'єр пам'яті гарантує, що інструкції збереження `STR` виконуються строго між `CPSID` та `MSR`.

@@ -262,7 +262,7 @@ HASS (англ. *screening*, «просіювання, відбір») заст�
 
 :::tabs
 :::code chomu-pratsiuie-na-stoli-i-ne-pratsiuie-v-poli-d/c/main.c
-:::code chomu-pratsiuie-na-stoli-i-ne-pratsiuie-v-poli-d/cpp/main.cpp
+:::code chomu-pratsiuie-na-stoli-i-ne-pratsiuie-v-poli-d/cpp/src/main.cpp
 :::
 
 Код на C демонструє безпосереднє зчитування апаратних прапорів та керування периферією в компактному стилі системного програмування. Реалізація на C++ інкапсулює стан у класі з суворою типізацією перерахувань, специфікаторами `noexcept`, `constexpr` та відокремлює бізнес-логіку супервізора від деталей платформи.

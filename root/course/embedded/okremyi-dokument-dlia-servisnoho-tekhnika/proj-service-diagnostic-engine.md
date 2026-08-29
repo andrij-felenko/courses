@@ -42,8 +42,28 @@
 - Функцію самотестування периферійних вузлів (BIST).
 
 :::tabs
+:::code proj-service-diagnostic-engine/c/hw_port.h
+:::code proj-service-diagnostic-engine/cpp/hw_port.hpp
+:::
+
+:::tabs
+:::code proj-service-diagnostic-engine/c/service_engine.h
+:::code proj-service-diagnostic-engine/cpp/service_engine.hpp
+:::
+
+:::tabs
 :::code proj-service-diagnostic-engine/c/service_engine.c
 :::code proj-service-diagnostic-engine/cpp/service_engine.cpp
+:::
+
+:::tabs
+:::code proj-service-diagnostic-engine/c/bist.h
+:::code proj-service-diagnostic-engine/cpp/self_test.hpp
+:::
+
+:::tabs
+:::code proj-service-diagnostic-engine/c/bist.c
+:::code proj-service-diagnostic-engine/cpp/self_test.cpp
 :::
 
 ---
@@ -64,3 +84,8 @@
 У системах під керуванням операційних систем реального часу (FreeRTOS, Zephyr, RT-Thread) сервісний рушій виділяється в окремий низькопріоритетний потік (Task). 
 
 Передача прийнятих символів з апаратного переривання UART у сервісну задачу здійснюється через потокобезпечну чергу повідомлень (`xQueueSendFromISR`) або пряме сповіщення задачі (`vTaskNotifyGiveFromISR`). Якщо під час виконання сервісного тесту виникає необхідність монопольного захоплення шини I2C чи SPI, сервісний потік бере відповідний м'ютекс (`xSemaphoreTake`) із фіксованим тайм-аутом. Це унеможливлює взаємне блокування (Deadlock) з основними високопріоритетними задачами регулювання та збору телеметрії.
+
+:::tabs
+:::code proj-service-diagnostic-engine/c/srv_rtos.c
+:::code proj-service-diagnostic-engine/cpp/rtos_task.cpp
+:::

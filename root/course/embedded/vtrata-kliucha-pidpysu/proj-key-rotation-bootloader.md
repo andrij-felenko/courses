@@ -25,8 +25,8 @@
 У реалізації мовою C структури упаковано для точного зіставлення з пам'яттю Flash, а всі перевірки реалізовано без динамічного виділення пам'яті. У реалізації мовою C++ використано сучасні стандарти C++20: безпечні діапазони пам'яті `std::span`, контейнери фіксованого розміру `std::array` та механізм `std::expected` для виразної передачі статусів помилок без використання механізму винятків (Exceptions), який неприпустимий у середовищі завантажувачів.
 
 :::tabs
-:::code proj-key-rotation-bootloader/c/main.c
-:::code proj-key-rotation-bootloader/cpp/main.cpp
+:::code proj-key-rotation-bootloader/c/verify.c
+:::code proj-key-rotation-bootloader/cpp/verifier.cpp
 :::
 
 ---

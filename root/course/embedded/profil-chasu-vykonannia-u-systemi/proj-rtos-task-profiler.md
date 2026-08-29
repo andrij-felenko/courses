@@ -18,6 +18,11 @@
 
 Для активації доступу до блоку DWT необхідно попередньо подати живлення на логіку трасування, встановивши біт 24 (`TRCENA`) у глобальному регістрі керування відладкою `CoreDebug->DEMCR` (адреса `0xE000EDFC`).
 
+:::tabs
+:::code proj-rtos-task-profiler/c/dwt.h
+:::code proj-rtos-task-profiler/cpp/dwt.hpp
+:::
+
 ## Архітектура та структури даних профілювальника
 
 Профілювальник відстежує фіксований масив контрольних точок (ідентифікаторів задач або функцій), що виключає динамічне виділення пам'яті (`malloc`/`new`) у критичних секціях. Для кожного зареєстрованого ідентифікатора модуль підтримує структуру агрегованої статистики:
@@ -34,7 +39,7 @@
 
 :::tabs
 :::code proj-rtos-task-profiler/c/task_profiler.h
-:::code proj-rtos-task-profiler/cpp/task_profiler.hpp
+:::code proj-rtos-task-profiler/cpp/task_stats.hpp
 :::
 
 ## Фізика обробки переповнення 32-розрядного лічильника
@@ -63,7 +68,7 @@
 
 :::tabs
 :::code proj-rtos-task-profiler/c/task_profiler.c
-:::code proj-rtos-task-profiler/cpp/task_profiler-2.hpp
+:::code proj-rtos-task-profiler/cpp/task_profiler.hpp
 :::
 
 ## Інтеграція в FreeRTOS через трасувальні макроси
@@ -71,8 +76,8 @@
 Для автоматичного профілювання перемикання контексту RTOS без ручного додавання викликів у код задачі, профілювальник підключають безпосередньо у заголовок конфігурації `FreeRTOSConfig.h`:
 
 :::tabs
-:::code proj-rtos-task-profiler/c/intehratsiia-v-freertos.c
-:::code proj-rtos-task-profiler/cpp/task_profiler-3.hpp
+:::code proj-rtos-task-profiler/c/profiler_trace.h
+:::code proj-rtos-task-profiler/cpp/profiler_trace.hpp
 :::
 
 ## Пастки та крайові випадки
@@ -95,7 +100,17 @@ static inline uint32_t read_dwt_cycles_barrier(void) {
     return val;
 }
 ```
-:::code proj-rtos-task-profiler/cpp/1-optymizatsiia-ta.hpp
+```cpp
+// Бар'єри компілятора та ядра на C++
+inline std::uint32_t read_cyccnt_barrier() noexcept {
+    std::atomic_signal_fence(std::memory_order_seq_cst); // заборона перестановки
+    __asm__ volatile("dsb 0xF" ::: "memory");
+    __asm__ volatile("isb 0xF" ::: "memory");
+    const std::uint32_t value = dwt::cyccnt();
+    std::atomic_signal_fence(std::memory_order_seq_cst);
+    return value;
+}
+```
 :::
 
 ### 2. Сплячі режими процесора (WFI / WFE)

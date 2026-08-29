@@ -127,13 +127,11 @@ typedef struct {
 } TrackerFilterPool;
 ```
 ```cpp
-#include <array>
-#include <optional>
-
 template <std::size_t MaxObjects = 32>
-struct TrackerFilterPool {
-    std::array<DecisionConfidenceFilter, MaxObjects> filters{};
-    std::array<std::optional<int>, MaxObjects> track_ids{};
+class TrackerFilterPool {
+    DecisionConfidenceFilter::Config cfg_{};                       // одна на весь пул
+    std::array<DecisionConfidenceFilter, MaxObjects> filters_{};
+    std::array<std::optional<int>, MaxObjects> track_ids_{};       // порожній = слот вільний
 };
 ```
 :::

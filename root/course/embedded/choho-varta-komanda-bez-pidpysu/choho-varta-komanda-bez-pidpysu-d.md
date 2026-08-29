@@ -330,16 +330,8 @@ if (std::memcmp(received_tag.data(), computed_tag.data(), 32) == 0) {
 Порівняння криптографічних тегів та ключів зобов'язане виконуватися **виключно в константному часі** (англ. *constant-time comparison*), де час виконання не залежить від позиції помилки:
 
 :::tabs
-```c
-int crypto_verify_32(const uint8_t *a, const uint8_t *b) {
-    uint8_t diff = 0;
-    for (size_t i = 0; i < 32; ++i) {
-        diff |= (a[i] ^ b[i]);
-    }
-    return (diff == 0) ? 0 : -1;
-}
-```
-:::code choho-varta-komanda-bez-pidpysu-d/cpp/main.cpp
+:::code choho-varta-komanda-bez-pidpysu-d/c/ct.c
+:::code choho-varta-komanda-bez-pidpysu-d/cpp/src/constant_time.cpp
 :::
 
 У цій функції цикл завжди виконує всі 32 ітерації незалежно від вмісту буферів, унеможливлюючи витік інформації через сторонні канали часу.

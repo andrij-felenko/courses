@@ -1,142 +1,171 @@
-#include <cstdint>
-#include <cmath>
-#include <expected>
+// Вимір температури PT100 через ADS1220: 3-провідне підключення,
+// логометрична опора на R_ref = 3.3 кОм, одиничні перетворення по 20 SPS
+// і готовність результату за апаратним перериванням DRDY.
+//
+// Виводи (STM32G0): SPI1 на PA5/PA6/PA7, CS на PA4, DRDY на PB0.
+// Тактування ядра лишається таким, як його налаштував стартовий код.
+
+#include <array>
+#include <cstdio>
 #include <optional>
-#include <span>
+#include <string_view>
 
-namespace embedded {
+#include "stm32g0xx_hal.h"
 
-enum class AdcError {
-    HardwareTimeout,
-    SpiCommunicationFailure,
-    CalculationOutOfRange
-};
+#include "ads1220.hpp"
+#include "pt100.hpp"
+#include "spi_device.hpp"
 
-class Ads1220Rtd {
-public:
-    struct SpiInterface {
-        void (*cs_assert)();
-        void (*cs_deassert)();
-        void (*transfer)(std::span<const uint8_t> tx, std::span<uint8_t> rx);
-        bool (*wait_drdy_low)(uint32_t timeout_ms);
-    };
+namespace {
 
-    static constexpr float Pt100R0 = 100.0f;
-    static constexpr float Pt100A  = 3.9083e-3f;
-    static constexpr float Pt100B  = -5.7750e-7f;
-    static constexpr float Pt100C  = -4.1830e-12f;
+// Адреси периферії — це приведення числа до вказівника, тож constexpr
+// вони бути не можуть; лишається звичайна незмінна змінна.
+GPIO_TypeDef* const     kCsPort   = GPIOA;
+constexpr std::uint16_t kCsPin    = GPIO_PIN_4;
+GPIO_TypeDef* const     kDrdyPort = GPIOB;
+constexpr std::uint16_t kDrdyPin  = GPIO_PIN_0;
 
-    explicit Ads1220Rtd(SpiInterface bus, float r_ref = 3300.0f, float gain = 16.0f)
-        : bus_(bus), r_ref_(r_ref), gain_(gain), offset_code_(0) {}
+SPI_HandleTypeDef  spi1{};
+UART_HandleTypeDef uart2{};
 
-    bool init() {
-        // Скидання мікросхеми
-        const uint8_t cmd_reset = 0x06;
-        execute_transaction(std::span(&cmd_reset, 1), {});
+// Драйвер живе стільки ж, скільки програма, але будується вже після
+// того, як HAL підняв шину, — звідси optional замість глобального об'єкта.
+std::optional<rtd::SpiDevice> bus;
+std::optional<rtd::Ads1220>   sensor;
 
-        // Конфігурація регістрів 0..3
-        const uint8_t config[5] = {
-            0x43, // WREG starting from register 0, length = 4
-            0x38, // AIN1-AIN2 diff, Gain=16, PGA on
-            0x00, // 20 SPS, Single-shot, Normal mode
-            0x76, // External Vref REFP0/REFN0, FIR 50/60Hz, IDAC=500 uA
-            0x60  // IDAC1 -> AIN0, IDAC2 -> AIN1
-        };
+void report(std::string_view text) {
+    HAL_UART_Transmit(&uart2,
+                      reinterpret_cast<std::uint8_t*>(const_cast<char*>(text.data())),
+                      static_cast<std::uint16_t>(text.size()),
+                      100);
+}
 
-        execute_transaction(std::span(config, 5), {});
-        return true;
+void gpioInit() {
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+
+    GPIO_InitTypeDef chipSelect{};
+    chipSelect.Pin   = kCsPin;
+    chipSelect.Mode  = GPIO_MODE_OUTPUT_PP;
+    chipSelect.Pull  = GPIO_NOPULL;
+    chipSelect.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_WritePin(kCsPort, kCsPin, GPIO_PIN_SET);
+    HAL_GPIO_Init(kCsPort, &chipSelect);
+
+    // DRDY — вихід із відкритим стоком, який АЦП притискає до нуля,
+    // коли результат готовий. Звідси підтяжка вгору й спадний фронт.
+    GPIO_InitTypeDef dataReady{};
+    dataReady.Pin  = kDrdyPin;
+    dataReady.Mode = GPIO_MODE_IT_FALLING;
+    dataReady.Pull = GPIO_PULLUP;
+    HAL_GPIO_Init(kDrdyPort, &dataReady);
+
+    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+}
+
+HAL_StatusTypeDef spiInit() {
+    __HAL_RCC_SPI1_CLK_ENABLE();
+
+    spi1.Instance               = SPI1;
+    spi1.Init.Mode              = SPI_MODE_MASTER;
+    spi1.Init.Direction         = SPI_DIRECTION_2LINES;
+    spi1.Init.DataSize          = SPI_DATASIZE_8BIT;
+    // Режим 1: тактовий сигнал у спокої низький, дані знімаються
+    // по другому фронту — саме такий обмін чекає ADS1220.
+    spi1.Init.CLKPolarity       = SPI_POLARITY_LOW;
+    spi1.Init.CLKPhase          = SPI_PHASE_2EDGE;
+    spi1.Init.NSS               = SPI_NSS_SOFT;
+    spi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;  // ~2 МГц
+    spi1.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+    spi1.Init.TIMode            = SPI_TIMODE_DISABLE;
+    spi1.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
+
+    return HAL_SPI_Init(&spi1);
+}
+
+HAL_StatusTypeDef uartInit() {
+    __HAL_RCC_USART2_CLK_ENABLE();
+
+    uart2.Instance        = USART2;
+    uart2.Init.BaudRate   = 115200;
+    uart2.Init.WordLength = UART_WORDLENGTH_8B;
+    uart2.Init.StopBits   = UART_STOPBITS_1;
+    uart2.Init.Parity     = UART_PARITY_NONE;
+    uart2.Init.Mode       = UART_MODE_TX_RX;
+    uart2.Init.HwFlowCtl  = UART_HWCONTROL_NONE;
+
+    return HAL_UART_Init(&uart2);
+}
+
+}  // namespace
+
+// Обробник спаду DRDY. Тут не читають результат по SPI: обмін довгий,
+// а переривання має лише позначити, що чекати вже нема чого.
+extern "C" void HAL_GPIO_EXTI_Falling_Callback(std::uint16_t pin) {
+    if (pin == kDrdyPin && sensor) {
+        sensor->onDataReady();
+    }
+}
+
+int main() {
+    HAL_Init();
+    gpioInit();
+
+    if (uartInit() != HAL_OK || spiInit() != HAL_OK) {
+        for (;;) {  // без шини говорити нема ні з ким і нема чим
+        }
     }
 
-    bool calibrate_offset() {
-        const uint8_t cal_cfg[2] = { 0x40, 0xE8 }; // MUX = (AVDD-AVSS)/2, Gain=16
-        execute_transaction(std::span(cal_cfg, 2), {});
+    bus.emplace(spi1, kCsPort, kCsPin);
+    sensor.emplace(*bus, 3300.0F, 16.0F);  // еталон 0.01 %, 5 ppm/°C; підсилення 16
 
-        const uint8_t cmd_start = 0x08;
-        execute_transaction(std::span(&cmd_start, 1), {});
+    std::array<char, 96> line{};
 
-        if (!bus_.wait_drdy_low(60)) return false;
-
-        const uint8_t tx[4] = { 0x10, 0x00, 0x00, 0x00 };
-        uint8_t rx[4] = { 0 };
-        execute_transaction(std::span(tx, 4), std::span(rx, 4));
-
-        int32_t offset = (static_cast<int32_t>(rx[1]) << 16) |
-                         (static_cast<int32_t>(rx[2]) << 8)  |
-                         (static_cast<int32_t>(rx[3]));
-        if (offset & 0x00800000) offset |= 0xFF000000;
-        offset_code_ = offset;
-
-        // Повернення в робочий режим
-        const uint8_t restore_cfg[2] = { 0x40, 0x38 };
-        execute_transaction(std::span(restore_cfg, 2), {});
-        return true;
+    if (const auto ready = sensor->init(); !ready) {
+        std::snprintf(line.data(), line.size(), "ADS1220 не піднявся: %.*s\r\n",
+                      static_cast<int>(rtd::describe(ready.error()).size()),
+                      rtd::describe(ready.error()).data());
+        report(line.data());
+        for (;;) {
+        }
     }
 
-    std::expected<int32_t, AdcError> read_raw() const {
-        const uint8_t cmd_start = 0x08;
-        execute_transaction(std::span(&cmd_start, 1), {});
+    // Зміщення нуля міряємо один раз при старті, на прогрітій платі.
+    // Воно дрібне, але при 1.9 мкВ на сотку градуса дрібне вже видно.
+    if (const auto zeroed = sensor->calibrateOffset(); !zeroed) {
+        std::snprintf(line.data(), line.size(), "калібрування нуля не вдалося: %.*s\r\n",
+                      static_cast<int>(rtd::describe(zeroed.error()).size()),
+                      rtd::describe(zeroed.error()).data());
+        report(line.data());
+    }
 
-        if (!bus_.wait_drdy_low(60)) {
-            return std::unexpected(AdcError::HardwareTimeout);
+    for (;;) {
+        const auto ohms = sensor->readResistance();
+        if (!ohms) {
+            std::snprintf(line.data(), line.size(), "вимір зірвано: %.*s\r\n",
+                          static_cast<int>(rtd::describe(ohms.error()).size()),
+                          rtd::describe(ohms.error()).data());
+            report(line.data());
+            HAL_Delay(1000);
+            continue;
         }
 
-        const uint8_t tx[4] = { 0x10, 0x00, 0x00, 0x00 };
-        uint8_t rx[4] = { 0 };
-        execute_transaction(std::span(tx, 4), std::span(rx, 4));
-
-        int32_t code = (static_cast<int32_t>(rx[1]) << 16) |
-                       (static_cast<int32_t>(rx[2]) << 8)  |
-                       (static_cast<int32_t>(rx[3]));
-
-        if (code & 0x00800000) {
-            code |= 0xFF000000;
+        const auto celsius = pt100::celsiusAt(*ohms);
+        if (!celsius) {
+            std::snprintf(line.data(), line.size(), "опір %.3f Ом поза діапазоном PT100\r\n",
+                          static_cast<double>(*ohms));
+            report(line.data());
+            HAL_Delay(1000);
+            continue;
         }
 
-        return code - offset_code_;
+        std::snprintf(line.data(), line.size(), "R = %.4f Ом   T = %.3f C\r\n",
+                      static_cast<double>(*ohms), static_cast<double>(*celsius));
+        report(line.data());
+
+        // Пауза між вимірами — це ще й час, коли струми збудження вимкнені
+        // й датчик остигає від власного розігріву.
+        HAL_Delay(1000);
     }
-
-    std::expected<float, AdcError> read_temperature() const {
-        auto raw = read_raw();
-        if (!raw) return std::unexpected(raw.error());
-
-        // Логометричний перерахунок опору
-        const float r_pt100 = (static_cast<float>(*raw) * 2.0f * r_ref_) / (8388608.0f * gain_);
-
-        // Розв'язання рівняння Каллендара-Ван Дюзена для T >= 0 °C
-        const float z = 1.0f - (r_pt100 / Pt100R0);
-        const float discriminant = (Pt100A * Pt100A) - (4.0f * Pt100B * z);
-
-        if (discriminant < 0.0f) {
-            return std::unexpected(AdcError::CalculationOutOfRange);
-        }
-
-        float temp = (-Pt100A + std::sqrt(discriminant)) / (2.0f * Pt100B);
-
-        // Уточнення за методом Ньютона для від'ємного діапазону
-        if (temp < 0.0f) {
-            for (int i = 0; i < 3; ++i) {
-                const float t2 = temp * temp;
-                const float t3 = t2 * temp;
-                const float r_calc = Pt100R0 * (1.0f + Pt100A * temp + Pt100B * t2 + Pt100C * (temp - 100.0f) * t3);
-                const float r_diff = Pt100R0 * (Pt100A + 2.0f * Pt100B * temp - 300.0f * Pt100C * t2 + 4.0f * Pt100C * t3);
-                temp = temp - (r_calc - r_pt100) / r_diff;
-            }
-        }
-
-        return temp;
-    }
-
-private:
-    void execute_transaction(std::span<const uint8_t> tx, std::span<uint8_t> rx) const {
-        bus_.cs_assert();
-        bus_.transfer(tx, rx);
-        bus_.cs_deassert();
-    }
-
-    SpiInterface bus_;
-    float r_ref_;
-    float gain_;
-    int32_t offset_code_;
-};
-
-} // namespace embedded
+}

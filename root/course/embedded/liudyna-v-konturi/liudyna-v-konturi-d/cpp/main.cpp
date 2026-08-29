@@ -1,199 +1,68 @@
+#include <array>
+#include <exception>
+#include <format>
 #include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <span>
-#include <memory>
 
-namespace control {
-
-inline constexpr float kPi = 3.14159265358979323846f;
-inline constexpr float kRadToDeg = 180.0f / kPi;
-
-// Кільцевий буфер чистої часової затримки
-class TransportDelayQueue {
-public:
-    TransportDelayQueue(float delay_sec, float dt)
-        : delay_samples_(std::max(1, static_cast<int>(delay_sec / dt)))
-        , buffer_(delay_samples_ + 1, 0.0f)
-        , head_(0) {}
-
-    float PushPop(float in_val) noexcept {
-        buffer_[head_] = in_val;
-        int read_idx = head_ - delay_samples_;
-        if (read_idx < 0) {
-            read_idx += static_cast<int>(buffer_.size());
-        }
-        head_ = (head_ + 1) % buffer_.size();
-        return buffer_[read_idx];
-    }
-
-private:
-    int delay_samples_;
-    std::vector<float> buffer_;
-    size_t head_;
-};
-
-// Модель оператора Макруера
-class OperatorModel {
-public:
-    OperatorModel(float kp, float time_neuromuscular, float time_lead)
-        : kp_(kp)
-        , tn_(time_neuromuscular)
-        , tl_(time_lead)
-        , neuromuscular_state_(0.0f)
-        , prev_error_(0.0f) {}
-
-    float Update(float error, float dt) noexcept {
-        const float error_deriv = (error - prev_error_) / dt;
-        prev_error_ = error;
-
-        const float desired_cmd = kp_ * (error + tl_ * error_deriv);
-        const float alpha = dt / (tn_ + dt);
-        neuromuscular_state_ += alpha * (desired_cmd - neuromuscular_state_);
-
-        return std::clamp(neuromuscular_state_, -1.0f, 1.0f);
-    }
-
-    void SetGain(float kp) noexcept { kp_ = kp; }
-
-private:
-    float kp_;
-    float tn_;
-    float tl_;
-    float neuromuscular_state_;
-    float prev_error_;
-};
-
-// Динаміка нахилу апарата
-class VehiclePlant {
-public:
-    VehiclePlant(float inertia, float damping, float torque_gain)
-        : inertia_(inertia)
-        , damping_(damping)
-        , torque_gain_(torque_gain)
-        , angle_rad_(0.0f)
-        , rate_rad_s_(0.0f) {}
-
-    void Step(float control_torque, float disturbance, float dt) noexcept {
-        const float total_torque = (control_torque * torque_gain_) + disturbance - (damping_ * rate_rad_s_);
-        const float angular_accel = total_torque / inertia_;
-
-        rate_rad_s_ += angular_accel * dt;
-        angle_rad_ += rate_rad_s_ * dt;
-    }
-
-    [[nodiscard]] float angle() const noexcept { return angle_rad_; }
-    [[nodiscard]] float rate() const noexcept { return rate_rad_s_; }
-
-private:
-    float inertia_;
-    float damping_;
-    float torque_gain_;
-    float angle_rad_;
-    float rate_rad_s_;
-};
-
-enum class ControlMode {
-    Rate,
-    Angle
-};
-
-class FlightController {
-public:
-    FlightController(ControlMode mode, float kp_angle, float kp_rate)
-        : mode_(mode)
-        , kp_angle_(kp_angle)
-        , kp_rate_(kp_rate) {}
-
-    [[nodiscard]] float Compute(float stick_input, float current_angle, float current_rate) const noexcept {
-        if (mode_ == ControlMode::Rate) {
-            const float target_rate = stick_input * 3.5f;
-            return kp_rate_ * (target_rate - current_rate);
-        } else {
-            const float target_angle = stick_input * 0.52f;
-            const float target_rate = kp_angle_ * (target_angle - current_angle);
-            return kp_rate_ * (target_rate - current_rate);
-        }
-    }
-
-    void SetMode(ControlMode mode) noexcept { mode_ = mode; }
-
-private:
-    ControlMode mode_;
-    float kp_angle_;
-    float kp_rate_;
-};
-
-// Замкнений симулятор
-class ClosedLoopSimulation {
-public:
-    ClosedLoopSimulation(float delay_sec, ControlMode mode)
-        : dt_(0.002f)
-        , video_link_(delay_sec * 0.7f, dt_)
-        , rc_link_(delay_sec * 0.3f, dt_)
-        , operator_(2.5f, 0.10f, 0.15f)
-        , vehicle_(0.02f, 0.05f, 1.2f)
-        , fc_(mode, 6.0f, 0.4f) {}
-
-    void Run(float duration_sec) {
-        const int steps = static_cast<int>(duration_sec / dt_);
-        float max_angle = 0.0f;
-
-        for (int i = 0; i < steps; ++i) {
-            const float t = i * dt_;
-            const float disturbance = (t >= 0.5f && t <= 0.6f) ? 0.8f : 0.0f;
-
-            const float delayed_angle = video_link_.PushPop(vehicle_.angle());
-            const float error = 0.0f - delayed_angle;
-            const float stick_cmd = operator_.Update(error, dt_);
-
-            const float delayed_stick = rc_link_.PushPop(stick_cmd);
-            const float torque = fc_.Compute(delayed_stick, vehicle_.angle(), vehicle_.rate());
-
-            vehicle_.Step(torque, disturbance, dt_);
-            max_angle = std::max(max_angle, std::abs(vehicle_.angle()));
-
-            if (i % 250 == 0) {
-                std::cout << "  Час " << t << " c | Кут: "
-                          << vehicle_.angle() * kRadToDeg << " град | Стік: "
-                          << stick_cmd << "\n";
-            }
-        }
-
-        if (max_angle > 1.2f) {
-            std::cout << "  -> РЕЗУЛЬТАТ: ВИНИКЛА РОЗКАЧКА PIO! Макс кут: "
-                      << max_angle * kRadToDeg << " град.\n\n";
-        } else {
-            std::cout << "  -> РЕЗУЛЬТАТ: Контур стійкий. Похибка скомпенсована.\n\n";
-        }
-    }
-
-private:
-    float dt_;
-    TransportDelayQueue video_link_;
-    TransportDelayQueue rc_link_;
-    OperatorModel operator_;
-    VehiclePlant vehicle_;
-    FlightController fc_;
-};
-
-} // namespace control
+#include "pio.hpp"
+#include "simulation.hpp"
 
 int main() {
-    std::cout << "=== C++20 Моделювання динаміки контуру «людина-машина» ===\n\n";
+    using hitl::ControlMode;
+    using hitl::Scenario;
 
-    std::cout << "1. Тест: Затримка 50 мс, режим RATE:\n";
-    control::ClosedLoopSimulation sim_fast(0.050f, control::ControlMode::Rate);
-    sim_fast.Run(5.0f);
+    static constexpr std::array kScenarios = {
+        Scenario{"Rate, лаг 50 мс — прямий аналоговий лінк", ControlMode::Rate,
+                 0.050f},
+        Scenario{"Rate, лаг 250 мс — цифровий HD-лінк", ControlMode::Rate, 0.250f},
+        Scenario{"Rate, лаг 120 мс сталий", ControlMode::Rate, 0.120f},
+        Scenario{"Rate, лаг 120 мс з розкидом +-80 мс", ControlMode::Rate, 0.120f,
+                 0.080f},
+        Scenario{"Rate, той самий розкид, але з буфером джитера", ControlMode::Rate,
+                 0.120f, 0.080f, true},
+        Scenario{"Rate, 250 мс + бортове пригнічення PIO", ControlMode::Rate, 0.250f,
+                 0.0f, false, true},
+        Scenario{"Rate, 250 мс + предиктивний маркер HUD", ControlMode::Rate, 0.250f,
+                 0.0f, false, false, true},
+        Scenario{"Rate, 250 мс + Expo 0.6 на пульті", ControlMode::Rate, 0.250f,
+                 0.0f, false, false, false, 0.6f},
+        Scenario{"Angle, 250 мс — швидкий контур перенесено на борт",
+                 ControlMode::Angle, 0.250f},
+    };
 
-    std::cout << "2. Тест: Затримка 250 мс, режим RATE (розкачка):\n";
-    control::ClosedLoopSimulation sim_slow_rate(0.250f, control::ControlMode::Rate);
-    sim_slow_rate.Run(5.0f);
+    try {
+        std::cout << "=== Людина в контурі: бюджет фази й розкачка оператором ===\n\n";
+        std::cout << "Аналітична межа лагу tau_crit = PM_0 / omega_c:\n";
+        std::cout << std::format(
+            "  FPV-дрон (omega_c = 5.0 рад/с, PM_0 = 65 град): {:.0f} мс\n",
+            hitl::CriticalDelay(65.0f, 5.0f) * 1000.0f);
+        std::cout << std::format(
+            "  ровер    (omega_c = 1.5 рад/с, PM_0 = 60 град): {:.0f} мс\n\n",
+            hitl::CriticalDelay(60.0f, 1.5f) * 1000.0f);
 
-    std::cout << "3. Тест: Затримка 250 мс, режим ANGLE (компенсація через бортовий контур):\n";
-    control::ClosedLoopSimulation sim_slow_angle(0.250f, control::ControlMode::Angle);
-    sim_slow_angle.Run(5.0f);
+        for (const Scenario& sc : kScenarios) {
+            std::cout << std::format("--- {}\n", sc.name);
+            const hitl::Report r = hitl::Run(sc, std::cout);
 
+            std::cout << std::format(
+                "    K_p = {:.2f} | T_L = {:.2f} c | tau_чиста = {:.0f} мс | "
+                "PM_0 = {:.0f} град -> PM = {:.0f} град | запас лінка = {:.0f} мс\n",
+                r.pilot_gain, r.pilot_lead, r.pure_delay * 1000.0f,
+                r.phase_margin0_deg, r.phase_margin_deg, r.link_budget * 1000.0f);
+            std::cout << std::format(
+                "    коливання {:.2f} Гц, амплітуда {:.1f} град, наростання x{:.2f}, "
+                "кореляція стік/гіро {:+.2f}\n",
+                r.osc_freq_hz, r.osc_amp_deg, r.osc_growth, r.stick_gyro_corr);
+            std::cout << std::format(
+                "    насичення моторів {:.0f}% кроків, застигань кадру {}\n",
+                r.saturation * 100.0f, r.video_freezes);
+            std::cout << std::format("    -> {} (макс. нахил {:.1f} град)\n\n",
+                                     r.pio ? "РОЗКАЧКА ОПЕРАТОРОМ (PIO)"
+                                           : "контур стійкий",
+                                     r.max_angle_deg);
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "модель зібрати не вдалося: " << e.what() << '\n';
+        return 1;
+    }
     return 0;
 }

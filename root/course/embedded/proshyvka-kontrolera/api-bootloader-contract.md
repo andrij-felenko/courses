@@ -55,6 +55,16 @@
 | `param6` | float | `0.0` | Зарезервовано |
 | `param7` | float | `0.0` | Цільовий компонент системи (1 = Autopilot) |
 
+:::tabs
+:::code api-bootloader-contract/c/boot_trigger.h
+:::code api-bootloader-contract/cpp/boot_trigger.hpp
+:::
+
+:::tabs
+:::code api-bootloader-contract/c/boot_trigger.c
+:::code api-bootloader-contract/cpp/boot_trigger.cpp
+:::
+
 ## 2. Специфікація протоколу класу USB DFU 1.1
 
 При вході в режим завантажувача контролер реініціалізує USB-периферію як пристрій класу DFU (`bDeviceClass = 0x00`, `bInterfaceClass = 0xFE`, `bInterfaceSubClass = 0x01`). Обмін інформацією відбувається виключно через нульову кінцеву точку керування (Endpoint 0 Control Transfer).
@@ -103,13 +113,18 @@
 | `dfuMANIFEST` | `0x07` | Фіналізація образу (перевірка контрольних сум, перепрошивка Option Bytes) |
 | `dfuERROR` | `0x0A` | Виник збій запису або порушено захист від читання/запису (RDP) |
 
+:::tabs
+:::code api-bootloader-contract/c/dfu_proto.h
+:::code api-bootloader-contract/cpp/dfu_protocol.hpp
+:::
+
 ## 3. Дескриптор функціоналу DFU (Functional Descriptor)
 
 Функціональний дескриптор повідомляє операційній системі про можливості завантажувача (максимальний розмір блоку, підтримку завантаження/вивантаження та поведінку при завершенні).
 
 :::tabs
-:::code api-bootloader-contract/c/main.c
-:::code api-bootloader-contract/cpp/main.cpp
+:::code api-bootloader-contract/c/dfu_proto.c
+:::code api-bootloader-contract/cpp/dfu_protocol.cpp
 :::
 
 ## 4. Специфікація адресації та команд розширення ST DFU (DfuSe)
@@ -133,6 +148,16 @@
 
 Після передачі команди `Erase Sector` хост обов'язково опитує `DFU_GETSTATUS` і витримує паузу `bwPollTimeout`, поки апаратний контролер пам'яті мікроконтролера фізично очищає сектор. Лише після повернення статусу `dfuDNLOAD-IDLE` хост починає поблокове передавання бінарного тіла прошивки.
 
+:::tabs
+:::code api-bootloader-contract/c/dfu_core.h
+:::code api-bootloader-contract/cpp/dfu_device.hpp
+:::
+
+:::tabs
+:::code api-bootloader-contract/c/dfu_core.c
+:::code api-bootloader-contract/cpp/dfu_device.cpp
+:::
+
 ## 5. Опис карти секторів у рядкових дескрипторах (Memory Layout String)
 
 Щоб хост-програма автоматично визначала структуру секторів та адресні простори конкретного мікроконтролера (наприклад, різницю між секторами по 16 КБ, 64 КБ та 128 КБ у STM32F405 або рівномірними секторами по 128 КБ у STM32H743), завантажувач передає спеціальний рядковий дескриптор USB (Interface String Descriptor) для кожного альтернативного налаштування інтерфейсу (Alternate Setting):
@@ -152,3 +177,13 @@
 ```
 
 Завдяки цьому рядку хост-утиліта точно знає, які сектори Flash-пам'яті займає завантажувач (наприклад, перші два сектори по 16 КБ), які сектори підлягають стиранню під нову прошивку, і де розташовані захищені сектори збереження калібрувальних параметрів, запобігаючи випадковому затиранню службових областей.
+
+:::tabs
+:::code api-bootloader-contract/c/flash_map.h
+:::code api-bootloader-contract/cpp/flash_map.hpp
+:::
+
+:::tabs
+:::code api-bootloader-contract/c/flash_map.c
+:::code api-bootloader-contract/cpp/flash_map.cpp
+:::

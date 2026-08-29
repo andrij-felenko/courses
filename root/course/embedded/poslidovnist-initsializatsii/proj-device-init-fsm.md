@@ -29,6 +29,41 @@
 
 ## Повна реалізація: C та ідіоматичний C++
 
+Спершу — контракт плати: що саме драйвер вимагає від заліза (лічильник мілісекунд, дві транзакції шини, процедура звільнення лінії та вхід у безпечний стан). Драйвер не знає, що під ним, тому однаково крокує і на платі, і на стенді.
+
+:::tabs
+:::code proj-device-init-fsm/c/platform.h
+:::code proj-device-init-fsm/cpp/i2c_bus.hpp
+:::
+
+Далі — інтерфейс драйвера: регістри чипа, часові константи, перелік станів, таблиця конфігурації з масками та контекст автомата.
+
+:::tabs
+:::code proj-device-init-fsm/c/dev_driver.h
+:::code proj-device-init-fsm/cpp/sensor_bringup.hpp
+:::
+
+Серце практикуму — сам диспетчер станів разом з обробником збою `trigger_retry_or_fail()`.
+
+:::tabs
+:::code proj-device-init-fsm/c/dev_driver.c
+:::code proj-device-init-fsm/cpp/sensor_bringup.cpp
+:::
+
+Щоб автомат можна було ганяти без паяльника, під ним лежить модель чипа: вона тримає карту регістрів, відтворює паузу цифрового ядра після `SW_RESET`, читальний біт `DRDY` і затиснуту `SDA`, а також приймає заплановані несправності.
+
+:::tabs
+:::code proj-device-init-fsm/c/sim_device.h
+:::code proj-device-init-fsm/cpp/simulated_sensor.hpp
+:::
+
+:::tabs
+:::code proj-device-init-fsm/c/sim_device.c
+:::code proj-device-init-fsm/cpp/simulated_sensor.cpp
+:::
+
+Нарешті — головний цикл, який щомілісекунди крокує автоматом і проганяє п'ять сценаріїв: нормальний старт і чотири лабораторні ін'єкції несправностей.
+
 :::tabs
 :::code proj-device-init-fsm/c/main.c
 :::code proj-device-init-fsm/cpp/main.cpp

@@ -1,163 +1,333 @@
+#include "bootloader.h"
+#include "serial.h"
+
+#include <errno.h>
 #include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <termios.h>
 
-#define ACK_BYTE   0x79
-#define NACK_BYTE  0x1F
+/* Регістр розміру Flash у KiB лежить у різних родин за різними адресами,
+   тому таблиця зв'язує PID із конкретною адресою й людською назвою. */
+typedef struct {
+    uint16_t pid;
+    const char *name;
+    uint32_t flash_size_reg;
+} chip_info;
 
-#define CMD_GET_ID 0x02
-#define CMD_ERASE  0x44
-#define CMD_WRITE  0x31
-#define CMD_GO     0x21
+static const chip_info KNOWN_CHIPS[] = {
+    {0x410, "STM32F10x medium-density", 0x1FFFF7E0u},
+    {0x412, "STM32F10x low-density",    0x1FFFF7E0u},
+    {0x414, "STM32F10x high-density",   0x1FFFF7E0u},
+    {0x413, "STM32F405/407/415/417",    0x1FFF7A22u},
+    {0x419, "STM32F42x/43x",            0x1FFF7A22u},
+    {0x431, "STM32F411",                0x1FFF7A22u},
+    {0x440, "STM32F05x",                0x1FFFF7CCu},
+    {0x444, "STM32F03x",                0x1FFFF7CCu},
+    {0x415, "STM32L47x/48x",            0x1FFF75E0u},
+    {0x460, "STM32G07x/08x",            0x1FFF75E0u},
+    {0x466, "STM32G03x/04x",            0x1FFF75E0u},
+    {0x468, "STM32G43x/44x",            0x1FFF75E0u},
+};
 
-// Налаштування послідовного порту: 115200 бод, 8E1 (парний контроль)
-static int serial_open(const char *port_name)
+static const chip_info *find_chip(uint16_t pid)
 {
-    int fd = open(port_name, O_RDWR | O_NOCTTY | O_SYNC);
-    if (fd < 0) return -1;
-
-    struct termios tty;
-    if (tcgetattr(fd, &tty) != 0) {
-        close(fd);
-        return -1;
-    }
-
-    cfsetospeed(&tty, B115200);
-    cfsetispeed(&tty, B115200);
-
-    tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8; // 8 біт даних
-    tty.c_cflag |= PARENB;                      // Увімкнути контроль парності
-    tty.c_cflag &= ~PARODD;                     // Even parity (парний)
-    tty.c_cflag &= ~CSTOPB;                     // 1 стоп-біт
-    tty.c_cflag &= ~CRTSCTS;                    // Без апаратного керування лініями
-    tty.c_cflag |= (CLOCAL | CREAD);            // Локальне підключення та прийом
-
-    tty.c_iflag &= ~(IXON | IXOFF | IXANY);     // Без програмного XON/XOFF
-    tty.c_lflag = 0;                            // Сирий (raw) не канонічний режим
-    tty.c_oflag = 0;
-
-    tty.c_cc[VMIN]  = 0;
-    tty.c_cc[VTIME] = 10;                       // Посимвольний таймаут 1.0 с
-
-    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
-        close(fd);
-        return -1;
-    }
-    return fd;
-}
-
-// Очікування квитанції ACK (0x79)
-static bool wait_ack(int fd, int timeout_seconds)
-{
-    uint8_t rx_byte = 0;
-    int max_attempts = timeout_seconds * 10;
-    for (int i = 0; i < max_attempts; ++i) {
-        if (read(fd, &rx_byte, 1) == 1) {
-            if (rx_byte == ACK_BYTE) return true;
-            if (rx_byte == NACK_BYTE) return false;
+    for (size_t i = 0; i < sizeof KNOWN_CHIPS / sizeof KNOWN_CHIPS[0]; ++i) {
+        if (KNOWN_CHIPS[i].pid == pid) {
+            return &KNOWN_CHIPS[i];
         }
-        usleep(100000); // Інтервал опитування 100 мс
     }
-    return false;
+    return NULL;
 }
 
-// Крок 1: Синхронізація бітрейту через надсилання 0x7F
-bool bootloader_sync(int fd)
+typedef struct {
+    uint8_t *data;
+    size_t size;
+} image;
+
+static uint32_t read_u32_le(const uint8_t *p)
 {
-    uint8_t sync_byte = 0x7F;
-    tcflush(fd, TCIOFLUSH); // Очищення залишків у буфері після скидання
-    if (write(fd, &sync_byte, 1) != 1) return false;
-    return wait_ack(fd, 2);
+    return (uint32_t)p[0] | ((uint32_t)p[1] << 8) | ((uint32_t)p[2] << 16) | ((uint32_t)p[3] << 24);
 }
 
-// Крок 2: Отримання Product ID (PID)
-bool bootloader_get_pid(int fd, uint16_t *out_pid)
+/* Читає .bin і доповнює хвіст 0xFF до межі подвійного слова: на кристалах
+   з ECC у Flash невирівняний запис просто не пройде. */
+static bool image_load(const char *path, image *img)
 {
-    uint8_t cmd[2] = {CMD_GET_ID, (uint8_t)(~CMD_GET_ID)};
-    if (write(fd, cmd, 2) != 2) return false;
-    if (!wait_ack(fd, 1)) return false;
+    FILE *f = fopen(path, "rb");
+    if (f == NULL) {
+        fprintf(stderr, "не відкривається %s: %s\n", path, strerror(errno));
+        return false;
+    }
 
-    uint8_t len = 0;
-    if (read(fd, &len, 1) != 1 || len != 1) return false; // Очікуємо 2 байти PID (N = 1)
+    if (fseek(f, 0, SEEK_END) != 0) {
+        fprintf(stderr, "%s: файл не позиціонується\n", path);
+        fclose(f);
+        return false;
+    }
+    long raw = ftell(f);
+    rewind(f);
 
-    uint8_t pid_bytes[2];
-    if (read(fd, pid_bytes, 2) != 2) return false;
-    if (!wait_ack(fd, 1)) return false;
+    if (raw <= 0) {
+        fprintf(stderr, "%s: порожній образ\n", path);
+        fclose(f);
+        return false;
+    }
 
-    *out_pid = ((uint16_t)pid_bytes[0] << 8) | pid_bytes[1];
+    size_t size = (size_t)raw;
+    size_t padded = (size + 7u) & ~(size_t)7u;
+
+    uint8_t *buf = malloc(padded);
+    if (buf == NULL) {
+        fprintf(stderr, "бракує пам'яті на %zu байтів\n", padded);
+        fclose(f);
+        return false;
+    }
+
+    if (fread(buf, 1, size, f) != size) {
+        fprintf(stderr, "%s: обірване читання\n", path);
+        free(buf);
+        fclose(f);
+        return false;
+    }
+    fclose(f);
+
+    memset(buf + size, 0xFF, padded - size);
+    if (padded != size) {
+        printf("образ доповнено з %zu до %zu байтів (вирівнювання під ECC)\n", size, padded);
+    }
+
+    img->data = buf;
+    img->size = padded;
     return true;
 }
 
-// Крок 3: Глобальне стирання всієї Flash-пам'яті (Mass Erase)
-bool bootloader_mass_erase(int fd)
+/* Дешева перевірка, що нам підсунули саме прошивку, а не .elf чи чужий файл:
+   слово 0 — початковий стек у SRAM, слово 1 — Reset_Handler у Flash з бітом Thumb. */
+static bool image_looks_like_firmware(const image *img)
 {
-    uint8_t cmd[2] = {CMD_ERASE, (uint8_t)(~CMD_ERASE)};
-    if (write(fd, cmd, 2) != 2) return false;
-    if (!wait_ack(fd, 1)) return false;
-
-    // Спеціальний код 0xFFFF та його XOR чексума 0x00
-    uint8_t erase_params[3] = {0xFF, 0xFF, 0x00};
-    if (write(fd, erase_params, 3) != 3) return false;
-
-    // Масове стирання може тривати до 20-25 секунд на великих кристалах
-    return wait_ack(fd, 25);
-}
-
-// Крок 4: Запис одного блоку пам'яті (до 256 байтів)
-bool bootloader_write_block(int fd, uint32_t address, const uint8_t *data, size_t length)
-{
-    if (length == 0 || length > 256) return false;
-
-    // 1. Надсилання команди Write
-    uint8_t cmd[2] = {CMD_WRITE, (uint8_t)(~CMD_WRITE)};
-    if (write(fd, cmd, 2) != 2) return false;
-    if (!wait_ack(fd, 1)) return false;
-
-    // 2. Надсилання 4-байтової адреси та її XOR чексуми
-    uint8_t addr_buf[5];
-    addr_buf[0] = (address >> 24) & 0xFF;
-    addr_buf[1] = (address >> 16) & 0xFF;
-    addr_buf[2] = (address >> 8) & 0xFF;
-    addr_buf[3] = address & 0xFF;
-    addr_buf[4] = addr_buf[0] ^ addr_buf[1] ^ addr_buf[2] ^ addr_buf[3];
-
-    if (write(fd, addr_buf, 5) != 5) return false;
-    if (!wait_ack(fd, 1)) return false;
-
-    // 3. Надсилання кількості байтів N (len-1), корисних даних та XOR чексуми
-    uint8_t payload[258];
-    uint8_t n = (uint8_t)(length - 1);
-    payload[0] = n;
-    uint8_t checksum = n;
-
-    for (size_t i = 0; i < length; ++i) {
-        payload[1 + i] = data[i];
-        checksum ^= data[i];
+    if (img->size < 8) {
+        fprintf(stderr, "образ коротший за таблицю векторів\n");
+        return false;
     }
-    payload[1 + length] = checksum;
 
-    if (write(fd, payload, length + 2) != (ssize_t)(length + 2)) return false;
-    return wait_ack(fd, 2);
+    uint32_t stack_top = read_u32_le(img->data);
+    uint32_t reset_vector = read_u32_le(img->data + 4);
+
+    if ((stack_top & 0xFFF00000u) != 0x20000000u) {
+        fprintf(stderr, "слово 0 = 0x%08X — це не вершина стека в SRAM\n", stack_top);
+        return false;
+    }
+    if ((reset_vector & 1u) == 0 || reset_vector < BL_FLASH_BASE ||
+        reset_vector >= BL_FLASH_BASE + img->size) {
+        fprintf(stderr, "слово 1 = 0x%08X — Reset_Handler поза образом\n", reset_vector);
+        return false;
+    }
+    return true;
 }
 
-// Крок 5: Передача керування завантаженій програмі (Go)
-bool bootloader_go(int fd, uint32_t address)
+static bl_status read_flash_size_kib(const serial_port *port, uint32_t reg, uint16_t *kib)
 {
-    uint8_t cmd[2] = {CMD_GO, (uint8_t)(~CMD_GO)};
-    if (write(fd, cmd, 2) != 2) return false;
-    if (!wait_ack(fd, 1)) return false;
+    uint8_t raw[2];
+    bl_status st = bl_read_block(port, reg, raw, sizeof raw);
+    if (st != BL_OK) {
+        return st;
+    }
+    *kib = (uint16_t)((uint16_t)raw[0] | ((uint16_t)raw[1] << 8));
+    return BL_OK;
+}
 
-    uint8_t addr_buf[5];
-    addr_buf[0] = (address >> 24) & 0xFF;
-    addr_buf[1] = (address >> 16) & 0xFF;
-    addr_buf[2] = (address >> 8) & 0xFF;
-    addr_buf[3] = address & 0xFF;
-    addr_buf[4] = addr_buf[0] ^ addr_buf[1] ^ addr_buf[2] ^ addr_buf[3];
+static bool write_image(const serial_port *port, const image *img)
+{
+    for (size_t offset = 0; offset < img->size; offset += BL_MAX_BLOCK) {
+        size_t chunk = img->size - offset;
+        if (chunk > BL_MAX_BLOCK) {
+            chunk = BL_MAX_BLOCK;
+        }
 
-    if (write(fd, addr_buf, 5) != 5) return false;
-    return wait_ack(fd, 1);
+        uint32_t addr = (uint32_t)(BL_FLASH_BASE + offset);
+        bl_status st = bl_write_block(port, addr, img->data + offset, chunk);
+        if (st != BL_OK) {
+            fprintf(stderr, "\nзапис на 0x%08X зірвався: %s\n", addr, bl_status_text(st));
+            return false;
+        }
+
+        printf("\r  запис 0x%08X  %3zu%%", addr, (offset + chunk) * 100u / img->size);
+        fflush(stdout);
+    }
+    printf("\n");
+    return true;
+}
+
+static bool verify_image(const serial_port *port, const image *img)
+{
+    uint8_t back[BL_MAX_BLOCK];
+
+    for (size_t offset = 0; offset < img->size; offset += BL_MAX_BLOCK) {
+        size_t chunk = img->size - offset;
+        if (chunk > BL_MAX_BLOCK) {
+            chunk = BL_MAX_BLOCK;
+        }
+
+        uint32_t addr = (uint32_t)(BL_FLASH_BASE + offset);
+        bl_status st = bl_read_block(port, addr, back, chunk);
+        if (st != BL_OK) {
+            fprintf(stderr, "\nчитання 0x%08X зірвалося: %s\n", addr, bl_status_text(st));
+            return false;
+        }
+
+        if (memcmp(back, img->data + offset, chunk) != 0) {
+            for (size_t i = 0; i < chunk; ++i) {
+                if (back[i] != img->data[offset + i]) {
+                    fprintf(stderr, "\nрозбіжність на 0x%08X: у чипі 0x%02X, в образі 0x%02X\n",
+                            (uint32_t)(addr + i), back[i], img->data[offset + i]);
+                    break;
+                }
+            }
+            return false;
+        }
+
+        printf("\r  звірка 0x%08X  %3zu%%", addr, (offset + chunk) * 100u / img->size);
+        fflush(stdout);
+    }
+    printf("\n");
+    return true;
+}
+
+static int flash(const char *port_path, const image *img)
+{
+    serial_port port;
+    if (!serial_open(&port, port_path)) {
+        fprintf(stderr, "порт %s: %s\n", port_path, strerror(errno));
+        return 1;
+    }
+
+    int rc = 1;
+
+    if (!serial_enter_bootloader(&port)) {
+        fprintf(stderr, "DTR/RTS не керуються: %s\n", strerror(errno));
+        goto out;
+    }
+
+    bl_status st = bl_sync(&port);
+    if (st != BL_OK) {
+        fprintf(stderr, "синхронізація: %s (перевір BOOT0 і перехідник)\n", bl_status_text(st));
+        goto out;
+    }
+
+    uint8_t version = 0;
+    uint8_t options[2] = {0, 0};
+    st = bl_get_version(&port, &version, options);
+    if (st != BL_OK) {
+        fprintf(stderr, "Get Version: %s\n", bl_status_text(st));
+        goto out;
+    }
+    printf("завантажувач версії %u.%u\n", version >> 4, version & 0x0Fu);
+
+    uint16_t pid = 0;
+    st = bl_get_id(&port, &pid);
+    if (st != BL_OK) {
+        fprintf(stderr, "Get ID: %s\n", bl_status_text(st));
+        goto out;
+    }
+
+    const chip_info *chip = find_chip(pid);
+    if (chip == NULL) {
+        fprintf(stderr, "PID 0x%03X у таблиці відсутній — адреса регістра розміру невідома\n", pid);
+        goto out;
+    }
+    printf("кристал 0x%03X — %s\n", pid, chip->name);
+
+    /* Пробне читання водночас перевіряє захист: під RDP level 1 чип відповість NACK */
+    uint16_t flash_kib = 0;
+    st = read_flash_size_kib(&port, chip->flash_size_reg, &flash_kib);
+    bool erased_by_unprotect = false;
+
+    if (st == BL_ERR_NACK) {
+        printf("читання заблоковано — RDP level 1; знімаємо захист, Flash буде стерто\n");
+        st = bl_readout_unprotect(&port);
+        if (st != BL_OK) {
+            fprintf(stderr, "Readout Unprotect: %s\n", bl_status_text(st));
+            goto out;
+        }
+        /* Чип сам перезавантажився — заходимо в System Memory ще раз */
+        if (!serial_enter_bootloader(&port)) {
+            fprintf(stderr, "повторне скидання: %s\n", strerror(errno));
+            goto out;
+        }
+        st = bl_sync(&port);
+        if (st != BL_OK) {
+            fprintf(stderr, "повторна синхронізація: %s\n", bl_status_text(st));
+            goto out;
+        }
+        st = read_flash_size_kib(&port, chip->flash_size_reg, &flash_kib);
+        erased_by_unprotect = true;
+    }
+
+    if (st != BL_OK) {
+        fprintf(stderr, "розмір Flash не читається: %s\n", bl_status_text(st));
+        goto out;
+    }
+
+    if (flash_kib == 0 || flash_kib == 0xFFFF) {
+        fprintf(stderr, "регістр розміру віддав 0x%04X — довіряти йому не можна\n", flash_kib);
+        goto out;
+    }
+    printf("Flash %u KiB, образ %zu байтів\n", flash_kib, img->size);
+
+    if (img->size > (size_t)flash_kib * 1024u) {
+        fprintf(stderr, "образ не влазить у Flash\n");
+        goto out;
+    }
+
+    if (erased_by_unprotect) {
+        printf("стирання вже зроблено зняттям захисту\n");
+    } else {
+        printf("масове стирання (до 30 с)...\n");
+        st = bl_mass_erase(&port);
+        if (st != BL_OK) {
+            fprintf(stderr, "Extended Erase: %s\n", bl_status_text(st));
+            goto out;
+        }
+    }
+
+    if (!write_image(&port, img)) {
+        goto out;
+    }
+    if (!verify_image(&port, img)) {
+        goto out;
+    }
+
+    st = bl_go(&port, BL_FLASH_BASE);
+    if (st != BL_OK) {
+        fprintf(stderr, "Go: %s (прошивка записана, потрібне ручне скидання)\n", bl_status_text(st));
+        goto out;
+    }
+
+    printf("готово: керування передано на 0x%08X\n", BL_FLASH_BASE);
+    rc = 0;
+
+out:
+    serial_close(&port);
+    return rc;
+}
+
+int main(int argc, char **argv)
+{
+    if (argc != 3) {
+        fprintf(stderr, "вжиток: %s <порт> <прошивка.bin>\n", argv[0]);
+        return 2;
+    }
+
+    image img = {NULL, 0};
+    if (!image_load(argv[2], &img)) {
+        return 1;
+    }
+    if (!image_looks_like_firmware(&img)) {
+        free(img.data);
+        return 1;
+    }
+
+    int rc = flash(argv[1], &img);
+    free(img.data);
+    return rc;
 }

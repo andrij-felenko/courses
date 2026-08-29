@@ -22,6 +22,26 @@
 - **Крок 3 (Диспетчеризація передачі):** функція `arbiter_send_packet()` (або `routePacket()` у C++) перевіряє пріоритет вихідного пакета. Якщо активним є резервний канал, важкі пакети `PRIO_VIDEO` відкидаються без передачі в драйвер, зберігаючи смугу для команд керування.
 
 :::tabs
+:::code proj-link-mux/c/qos_queue.h
+:::code proj-link-mux/cpp/spsc_ring.hpp
+:::
+
+:::tabs
+:::code proj-link-mux/c/qos_queue.c
+:::code proj-link-mux/cpp/qos_queue.cpp
+:::
+
+:::tabs
+:::code proj-link-mux/c/link_stats.c
+:::code proj-link-mux/cpp/link_quality.cpp
+:::
+
+:::tabs
+:::code proj-link-mux/c/arbiter.c
+:::code proj-link-mux/cpp/arbiter.cpp
+:::
+
+:::tabs
 :::code proj-link-mux/c/main.c
 :::code proj-link-mux/cpp/main.cpp
 :::

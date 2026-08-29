@@ -458,8 +458,16 @@ Vout = Vin · R2 / (R1 + R2)
 Нижче наведено модуль перетворення коду АЦП у мілівольти з урахуванням розрахункових коефіцієнтів дільника та заводського калібрування.
 
 :::tabs
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/c/divider.h
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/c/divider.c
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/c/calib_store.h
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/c/calib_store.c
 :::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/c/main.c
-:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/main.cpp
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/src/divider.hpp
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/src/divider.cpp
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/src/calibration_blob.hpp
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/src/calibration_blob.cpp
+:::code rozrakhunok-kola-vid-vymohy-do-nominaliv-d/cpp/src/main.cpp
 :::
 
 ---

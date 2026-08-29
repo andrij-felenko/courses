@@ -395,8 +395,17 @@ V_ADC = 24.0 В · (1 / 12) = 2.00 В (середина шкали АЦП).
 
 :::tabs
 :::code input-protection-chain-d/c/power_monitor.h
+:::code input-protection-chain-d/cpp/src/supervisor.hpp
+:::
+
+:::tabs
 :::code input-protection-chain-d/c/power_monitor.c
-:::code input-protection-chain-d/cpp/power_monitor.hpp
+:::code input-protection-chain-d/cpp/src/supervisor.cpp
+:::
+
+:::tabs
+:::code input-protection-chain-d/c/main.c
+:::code input-protection-chain-d/cpp/src/main.cpp
 :::
 
 ---

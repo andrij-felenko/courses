@@ -64,7 +64,7 @@
 
 Шлюз виконує роль мосту між бінарним польовим каналом та брокером повідомлень:
 
-:::code proj-node-gateway-broker/py/4-realizatsiia-servisu.py
+:::code proj-node-gateway-broker/py/gateway/bridge.py
 
 ---
 
@@ -85,7 +85,7 @@
    python gateway_bridge.py
    ```
 4. **Запуск тестового генератора вимірів вузла**:
-   :::code proj-node-gateway-broker/py/5-instruktsiia-z.py
+   :::code proj-node-gateway-broker/py/node_sim.py
 
 У терміналі `mosquitto_sub` з'являється структурований JSON-документ телеметрії:
 

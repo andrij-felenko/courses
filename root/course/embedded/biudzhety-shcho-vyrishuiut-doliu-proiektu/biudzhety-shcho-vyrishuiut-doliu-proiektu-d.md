@@ -241,9 +241,9 @@ Cost_PCBA = Cost_BOM + Cost_Bare_PCB + Cost_Assembly_and_Test
 
 :::tabs
 @tab C
-:::code biudzhety-shcho-vyrishuiut-doliu-proiektu-d/c/main.c
+:::code biudzhety-shcho-vyrishuiut-doliu-proiektu-d/c/budget_monitor.c
 @tab C++
-:::code biudzhety-shcho-vyrishuiut-doliu-proiektu-d/cpp/main.cpp
+:::code biudzhety-shcho-vyrishuiut-doliu-proiektu-d/cpp/src/monitor.cpp
 :::
 
 ---

@@ -24,6 +24,11 @@
 У мові C впровадження залежностей реалізується через передачу структури з покажчиками на функції (*Driver Interface Table*). Конструктор модуля `supervisor_init` приймає покажчик на константну таблицю методів і зберігає його в контексті модуля.
 
 :::tabs
+:::code proj-bsp-hal-di/c/bsp_interface.h
+:::code proj-bsp-hal-di/cpp/board.hpp
+:::
+
+:::tabs
 :::code proj-bsp-hal-di/c/supervisor.h
 :::code proj-bsp-hal-di/cpp/supervisor.hpp
 :::
@@ -52,8 +57,18 @@
 У цільовій збірці для реального заліза створюється екземпляр драйвера, який транслює виклики у реальні функції периферійного рівня STM32 HAL.
 
 :::tabs
+:::code proj-bsp-hal-di/c/bsp_target_stm32.h
+:::code proj-bsp-hal-di/cpp/stm32_board.hpp
+:::
+
+:::tabs
 :::code proj-bsp-hal-di/c/bsp_target_stm32.c
-:::code proj-bsp-hal-di/cpp/bsp_target_stm32.cpp
+:::code proj-bsp-hal-di/cpp/stm32_board.cpp
+:::
+
+:::tabs
+:::code proj-bsp-hal-di/c/main.c
+:::code proj-bsp-hal-di/cpp/main.cpp
 :::
 
 ---

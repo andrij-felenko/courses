@@ -117,8 +117,8 @@ FSM = (S, E, δ, S₀, F)
 Найбільш очевидний та розповсюджений підхід. Зовнішній `switch` перемикає стани, внутрішній — обробляє події.
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patern-1-vkladenyi-switch.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/patern-1-vkladenyi-switch.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patterns/fsm_switch.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/include/evse/patterns/switch_fsm.hpp
 :::
 
 *Переваги:* мінімальний розмір двійкового коду, висока швидкість (компілятор зазвичай оптимізує плоский switch у пряму таблицю переходів асемблера `TBB`/`TBH` на ARM Cortex-M), відсутність непрямих викликів.
@@ -131,8 +131,8 @@ FSM = (S, E, δ, S₀, F)
 У цьому патерні граф переходів виноситься у статичну таблицю в Flash-пам'яті (через `const` або `constexpr`). Таблиця містить кортежі `[Поточний стан, Подія] -> [Наступний стан, Функція дії]`.
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patern-2-tablytsia.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/patern-2-tablytsia.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patterns/fsm_table.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/include/evse/patterns/table_fsm.hpp
 :::
 
 *Переваги:* повна декларативність і наочність; граф переходів можна перевіряти статичними аналізаторами безпосередньо з матриці. Час обробки фіксований і становить O(1).
@@ -145,8 +145,8 @@ FSM = (S, E, δ, S₀, F)
 У цьому патерні кожен стан є окремою самостійною функцією. Поточний стан автомата зберігається як звичайний покажчик на функцію (`StateFn`).
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patern-3-pokazhchyky-na.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/patern-3-pokazhchyky-na.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/patterns/fsm_handler.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/include/evse/state_machine.hpp
 :::
 
 *Переваги:* найкраща інкапсуляція. Логіка одного стану (включно з його входом, виходом та обробкою подій) повністю локалізована в одній функції. Немає роздутих таблиць та гігантських `switch`.
@@ -172,8 +172,8 @@ FSM = (S, E, δ, S₀, F)
 Для взаємодії одного джерела (або багатьох ISR) з одним споживачем (головним циклом) застосовується кільцевий буфер фіксованого розміру, де довжина буфера є ступенем двійки (це замінює повільну операцію взяття залишку `%` на швидку бітову маску `& (SIZE - 1)`).
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/realizatsiia.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/realizatsiia.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/src/event_queue.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/include/evse/event_queue.hpp
 :::
 
 #### Диспетчер та енергозбереження
@@ -181,8 +181,8 @@ FSM = (S, E, δ, S₀, F)
 Головний цикл перетворюється на елегантну конструкцію з трьох рядків:
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/dyspetcher-ta.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/dyspetcher-ta.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/src/main.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/src/main.cpp
 :::
 
 Коли подій немає, процесор не крутить мільйони порожніх ітерацій, а засинає за інструкцією `__WFI()`. Струм споживання кристала падає з 25 мА до лічених мікроампер. Перше ж переривання (таймер або кнопка) будить ядро, обробник кладе подію в чергу, і головний цикл негайно виконує диспетчеризацію.
@@ -225,8 +225,8 @@ FSM = (S, E, δ, S₀, F)
 Нижче наведено повний робочий каркас прошивки на базі скінченного автомата та диспетчера подій.
 
 :::tabs
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/fizyka-protsesu-ta-liniia.c
-:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/fizyka-protsesu-ta-liniia.cpp
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/c/src/evse.c
+:::code avtomat-staniv-i-cherha-podii-u-proshyvtsi-d/cpp/include/evse/controller.hpp
 :::
 
 ---

@@ -153,6 +153,21 @@
 - контроль циклічної активності кнопки мертвої руки з захистом від затискання.
 
 :::tabs
+:::code avariinyi-stop-i-mertva-ruka-d/c/estop_channels.c
+:::code avariinyi-stop-i-mertva-ruka-d/cpp/channel_monitor.cpp
+:::
+
+:::tabs
+:::code avariinyi-stop-i-mertva-ruka-d/c/deadman.c
+:::code avariinyi-stop-i-mertva-ruka-d/cpp/enabling_device.cpp
+:::
+
+:::tabs
+:::code avariinyi-stop-i-mertva-ruka-d/c/safety.c
+:::code avariinyi-stop-i-mertva-ruka-d/cpp/supervisor.cpp
+:::
+
+:::tabs
 :::code avariinyi-stop-i-mertva-ruka-d/c/main.c
 :::code avariinyi-stop-i-mertva-ruka-d/cpp/main.cpp
 :::

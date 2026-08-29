@@ -1,80 +1,198 @@
-#include <cstdint>
-#include <cmath>
-#include <algorithm>
-#include <chrono>
-#include <bit>
+// Демонстрація фільтра впевненості: калібрування логітів, траса одного треку
+// такт за тактом, пул треків із таймаутом і поведінка на переповненні пулу.
+// Збірка: c++ -std=c++23 -O2 -Wall -Wextra main.cpp -o decision_filter
 
-class DecisionConfidenceFilter {
-public:
-    struct Config {
-        float alpha{0.75f};              // Коефіцієнт згладжування інтегратора EMA
-        float thresh_on{0.75f};          // Поріг активації (H_on)
-        float thresh_off{0.35f};         // Поріг деактивації (H_off)
-        uint32_t min_hold_ms{300};       // Мінімальний час утримання активного стану (мс)
-        uint8_t window_size{10};         // Розмір вікна голосування (кадри, N <= 32)
-        uint8_t min_votes{6};            // Необхідна кількість підтверджень (M)
+#include "track_pool.hpp"
+
+#include <array>
+#include <format>
+#include <iostream>
+#include <string>
+
+namespace {
+
+constexpr Millis kTick{50};
+
+// Пороги з розбору в статті: alpha = 0.75, H_on = 0.70, H_off = 0.35,
+// утримання 200 мс, голосування 3 з 5.
+constexpr DecisionConfidenceFilter::Config kFilterConfig{
+    .temperature = 2.0f,
+    .alpha = 0.75f,
+    .thresh_on = 0.70f,
+    .thresh_off = 0.35f,
+    .min_hold = Millis{200},
+    .window_size = 5,
+    .min_votes = 3,
+    .fail_safe_start = false,
+};
+
+[[nodiscard]] std::string windowBits(std::uint32_t window, std::uint8_t bits) {
+    return std::format("{:0{}b}", window, static_cast<int>(bits));
+}
+
+void demoCalibration() {
+    struct Sample {
+        float target;
+        float background;
+        std::string_view note;
+    };
+    constexpr std::array samples{
+        Sample{6.0f, -1.0f, "впевнена детекція"},
+        Sample{0.4f, 0.1f, "межа видимості"},
+        Sample{-3.0f, 2.5f, "чистий фон"},
+        Sample{40.0f, -40.0f, "насичений логіт: без зсуву на максимум був би +inf"},
     };
 
-    explicit constexpr DecisionConfidenceFilter(const Config& config = Config{}) noexcept
-        : cfg_(config), integrated_score_(0.0f), history_mask_(0U),
-          state_entered_ms_(0U), is_active_(false) {}
-
-    // Температурне калібрування сирих логітів
-    [[nodiscard]] static float calibrateTemperature(float logit_target, float logit_bg, float temperature) noexcept {
-        const float temp = (temperature > 0.001f) ? temperature : 1.0f;
-        const float st = logit_target / temp;
-        const float sbg = logit_bg / temp;
-        const float max_l = std::max(st, sbg);
-        const float exp_t = std::exp(st - max_l);
-        const float exp_bg = std::exp(sbg - max_l);
-        return exp_t / (exp_t + exp_bg);
+    std::cout << "=== Температурне калібрування (T = 2.0) ===\n";
+    for (const auto& [target, background, note] : samples) {
+        const float raw = DecisionConfidenceFilter::calibrate(target, background, 1.0f);
+        const float cal = DecisionConfidenceFilter::calibrate(target, background,
+                                                              kFilterConfig.temperature);
+        std::cout << std::format("z = ({:+6.1f}, {:+6.1f})  ->  P(T=1) = {:.4f}   P(T=2) = {:.4f}  {}\n",
+                                 target, background, raw, cal, note);
     }
+    std::cout << '\n';
+}
 
-    // Оновлення стану фільтра за новим виміром
-    bool update(float raw_prob, uint32_t now_ms) noexcept {
-        // 1. Інтегрування експоненційним середнім
-        integrated_score_ = (cfg_.alpha * integrated_score_) + ((1.0f - cfg_.alpha) * raw_prob);
+// Траса: одиночний спалах шуму, потім справжня перешкода з провалом детекції.
+void demoTrace() {
+    constexpr std::array probs{
+        0.05f, 0.95f, 0.04f, 0.85f, 0.90f, 0.88f, 0.10f, 0.92f, 0.05f, 0.02f,
+    };
 
-        // 2. Бітове голосування M-з-N
-        const bool frame_hit = (raw_prob >= cfg_.thresh_off);
-        history_mask_ = (history_mask_ << 1U) | (frame_hit ? 1U : 0U);
+    auto made = DecisionConfidenceFilter::make(kFilterConfig);
+    if (!made) {
+        std::cerr << std::format("конфігурація фільтра непридатна: {}\n", describe(made.error()));
+        return;
+    }
+    DecisionConfidenceFilter filter = *made;
 
-        const uint32_t valid_mask = (cfg_.window_size >= 32) ? 0xFFFFFFFFU : ((1U << cfg_.window_size) - 1U);
-        const uint32_t current_window = history_mask_ & valid_mask;
-        const int votes = std::popcount(current_window);
-        const bool vote_passed = (votes >= static_cast<int>(cfg_.min_votes));
+    std::cout << "=== Траса одного треку ===\n";
+    std::cout << " k | час, мс | P[k]  | S[k]  | вікно | голоси | вихід\n";
 
-        // 3. Логіка гістерезису та часового утримання
-        if (is_active_) {
-            const bool hold_expired = (now_ms - state_entered_ms_) >= cfg_.min_hold_ms;
-            if (hold_expired && (integrated_score_ < cfg_.thresh_off) && !vote_passed) {
-                is_active_ = false;
-                state_entered_ms_ = now_ms;
+    for (std::size_t k = 0; k < probs.size(); ++k) {
+        const Millis now = kTick * static_cast<int>(k);
+        const bool active = filter.update(probs[k], now);
+
+        std::cout << std::format("{:2} | {:7} | {:.3f} | {:.3f} | {} | {} з {}  | {}\n",
+                                 k + 1, now.count(), probs[k], filter.score(),
+                                 windowBits(filter.window(), kFilterConfig.window_size),
+                                 filter.votes(), static_cast<int>(kFilterConfig.window_size),
+                                 active ? "ТРИВОГА" : "норма");
+    }
+    std::cout << '\n';
+}
+
+// Кадр супроводу: від'ємне значення означає, що трекер об'єкта в кадрі не побачив.
+struct TrackScript {
+    int id;
+    std::string_view label;
+    std::array<float, 12> probs;
+};
+
+void demoPool() {
+    constexpr std::array scripts{
+        TrackScript{7, "пішохід",
+                    {0.10f, 0.80f, 0.86f, 0.91f, 0.88f, 0.93f,
+                     0.10f, 0.90f, 0.87f, 0.05f, 0.03f, 0.02f}},
+        TrackScript{11, "стовп на узбіччі",
+                    {0.90f, 0.92f, 0.88f, -1.0f, -1.0f, -1.0f,
+                     -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f}},
+        TrackScript{42, "відблиск на асфальті",
+                    {0.02f, 0.97f, 0.03f, 0.01f, 0.95f, 0.04f,
+                     0.02f, 0.01f, 0.03f, 0.02f, 0.01f, 0.00f}},
+    };
+    constexpr Millis kTrackTimeout{300};
+
+    auto made = TrackerFilterPool<>::make(kFilterConfig);
+    if (!made) {
+        std::cerr << std::format("пул не створено: {}\n", describe(made.error()));
+        return;
+    }
+    auto& pool = *made;
+
+    std::cout << "=== Пул треків (таймаут треку 300 мс) ===\n";
+    for (std::size_t k = 0; k < scripts.front().probs.size(); ++k) {
+        const Millis now = kTick * static_cast<int>(k);
+
+        for (const auto& script : scripts) {
+            const float p = script.probs[k];
+            if (p < 0.0f) {
+                continue;  // Об'єкта в цьому кадрі немає — слот доживає до таймауту.
             }
-        } else {
-            if ((integrated_score_ >= cfg_.thresh_on) || vote_passed) {
-                is_active_ = true;
-                state_entered_ms_ = now_ms;
+            auto slot = pool.track(script.id, now);
+            if (!slot) {
+                std::cerr << std::format("трек {} втрачено: {}\n", script.id,
+                                         describe(slot.error()));
+                continue;
             }
+            slot->get().update(p, now);
         }
 
-        return is_active_;
+        const std::size_t dropped = pool.sweep(kTrackTimeout, now);
+
+        std::string line = std::format("t = {:4} мс | слотів {} | команда: {:<10} |",
+                                       now.count(), pool.size(),
+                                       pool.anyActive() ? "ГАЛЬМУВАТИ" : "рух");
+        pool.forEach([&line](int id, const DecisionConfidenceFilter& filter) {
+            line += std::format(" {}:{}({:.2f})", id, filter.isActive() ? "!" : "-",
+                                filter.score());
+        });
+        if (dropped > 0) {
+            line += std::format("  [прибрано за таймаутом: {}]", dropped);
+        }
+        std::cout << line << '\n';
     }
 
-    [[nodiscard]] float integratedScore() const noexcept { return integrated_score_; }
-    [[nodiscard]] bool isActive() const noexcept { return is_active_; }
+    for (const auto& script : scripts) {
+        auto slot = pool.find(script.id);
+        const std::string_view verdict =
+            !slot ? "прибрано за таймаутом" : (slot->get().isActive() ? "тривога" : "норма");
+        std::cout << std::format("трек {:2} ({}): {}\n", script.id, script.label, verdict);
+    }
+    std::cout << '\n';
+}
 
-    void reset() noexcept {
-        integrated_score_ = 0.0f;
-        history_mask_ = 0U;
-        state_entered_ms_ = 0U;
-        is_active_ = false;
+// Пул скінченний, і переповнення — не гіпотеза: у щільному потоці трекер
+// легко видає більше рамок, ніж є слотів.
+void demoPoolExhaustion() {
+    auto made = TrackerFilterPool<>::make(kFilterConfig);
+    if (!made) {
+        std::cerr << std::format("пул не створено: {}\n", describe(made.error()));
+        return;
+    }
+    auto& pool = *made;
+
+    std::cout << "=== Переповнення пулу ===\n";
+    for (int id = 100; id < 100 + static_cast<int>(pool.capacity()); ++id) {
+        if (!pool.track(id, Millis{0})) {
+            std::cout << std::format("несподівана відмова на треку {}\n", id);
+            return;
+        }
+    }
+    std::cout << std::format("зайнято слотів: {} з {}\n", pool.size(), pool.capacity());
+
+    if (auto slot = pool.track(999, Millis{0}); !slot) {
+        std::cout << std::format("трек 999 відхилено — {}\n", describe(slot.error()));
     }
 
-private:
-    Config cfg_;
-    float integrated_score_{0.0f};
-    uint32_t history_mask_{0U};
-    uint32_t state_entered_ms_{0U};
-    bool is_active_{false};
-};
+    pool.release(100);
+    if (pool.track(999, Millis{0})) {
+        std::cout << "після звільнення слоту трек 999 прийнято\n";
+    }
+    std::cout << '\n';
+}
+
+}  // namespace
+
+int main() {
+    if (auto ok = DecisionConfidenceFilter::validate(kFilterConfig); !ok) {
+        std::cerr << std::format("конфігурація не пройшла перевірку: {}\n", describe(ok.error()));
+        return 1;
+    }
+    demoCalibration();
+    demoTrace();
+    demoPool();
+    demoPoolExhaustion();
+    return 0;
+}

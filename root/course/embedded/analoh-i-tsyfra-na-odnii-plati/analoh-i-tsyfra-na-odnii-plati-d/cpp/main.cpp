@@ -1,66 +1,104 @@
-// Ідіоматичний C++20 модуль обробки диференційного АЦП
-#include <array>
-#include <numeric>
+// main.cpp — зчитування диференційного каналу з фільтрацією.
+//
+// Прошивка робить дві речі. Перша — тягне з ADS1220 сирі коди й проганяє їх
+// крізь ковзне усереднення з відкиданням викидів. Друга, і для цієї теми
+// головніша, — друкує в термінал розмах вікна в LSB та оцінку кількості
+// чесних розрядів. Саме ці два числа кажуть, чи вдалося розведення: на
+// правильно зонованій платі із суцільним полігоном розмах лишається в
+// одиницях LSB, на розрізаній землі росте до сотень.
+#include <chrono>
 #include <cstdint>
-#include <expected>
-#include <span>
 
-enum class AdcError {
-    Timeout,
-    SaturationPositive,
-    SaturationNegative,
-    ReferenceFault
-};
+#include "ads1220.hpp"
+#include "board.hpp"
+#include "robust_filter.hpp"
 
-template <std::size_t WindowSize = 16>
-class DifferentialAdcFilter {
-public:
-    static constexpr std::int64_t VrefMicrovolts = 3'300'000;
-    static constexpr std::int32_t MaxCode24Bit = 8'388'607;
+namespace {
 
-    constexpr DifferentialAdcFilter() = default;
+using namespace std::chrono_literals;
 
-    constexpr void reset() noexcept {
-        samples_.fill(0);
-        index_ = 0;
-        count_ = 0;
-        sum_ = 0;
-    }
+// При 20 SPS звіт раз на 64 вибірки — це раз на три з гаком секунди,
+// і термінал лишається читабельним.
+constexpr std::uint32_t report_every = 64;
 
-    constexpr std::int32_t push(std::int32_t raw_code) noexcept {
-        if (count_ >= WindowSize) {
-            sum_ -= samples_[index_];
-        } else {
-            ++count_;
+// Скільки збоїв обміну поспіль терпимо, перш ніж піднімати чип наново.
+constexpr unsigned faults_before_reset = 3;
+
+// Скидання, налаштування і запуск. Повертається лише тоді, коли чип справді
+// налаштований: найчастіша причина невдачі на старті — аналогове живлення
+// ще не вийшло на режим, бо LDO за феритовою бусиною підіймається повільніше
+// за цифрову шину.
+void bring_up(ads1220::Driver& adc)
+{
+    while (true) {
+        const auto ready = adc.configure().and_then([&adc] { return adc.start(); });
+        if (ready) {
+            board::log("АЦП готовий: AIN0/AIN1, G = 32, Vref = 3.300 В, 20 SPS");
+            return;
         }
 
-        samples_[index_] = raw_code;
-        sum_ += raw_code;
-        index_ = (index_ + 1) % WindowSize;
-
-        return static_cast<std::int32_t>(sum_ / static_cast<std::int64_t>(count_));
+        board::log("АЦП не піднявся: {}", ads1220::describe(ready.error()));
+        board::sleep(200ms);
     }
+}
 
-    [[nodiscard]] static constexpr std::expected<std::int32_t, AdcError>
-    codeToMicrovolts(std::int32_t code) noexcept {
-        if (code >= MaxCode24Bit) {
-            return std::unexpected(AdcError::SaturationPositive);
+}  // namespace
+
+int main()
+{
+    board::init();
+
+    board::SpiBus bus;
+    ads1220::Driver adc{bus};
+    RobustFilter<16> filter;
+
+    bring_up(adc);
+
+    std::uint32_t emitted = 0;
+    unsigned faults = 0;
+
+    while (true) {
+        const auto sample = adc.read();
+
+        if (!sample) {
+            if (sample.error() == ads1220::Error::over_range) {
+                // Не збій зв'язку, а стан входу: міст розбалансовано або
+                // обірвано провід давача. Чип живий, перепідіймати нема чого.
+                board::log("Вхід за межами шкали — перевірте баланс мосту");
+                faults = 0;
+                continue;
+            }
+
+            ++faults;
+            board::log("Збій {}: {}", faults, ads1220::describe(sample.error()));
+
+            if (faults >= faults_before_reset) {
+                // Просідання живлення від кидка струму цифрової частини
+                // здатне скинути чип у стандартну конфігурацію. Мовчки
+                // читати з нього далі — гірше, ніж не читати зовсім.
+                filter.reset();
+                faults = 0;
+                bring_up(adc);
+            }
+            continue;
         }
-        if (code <= -MaxCode24Bit) {
-            return std::unexpected(AdcError::SaturationNegative);
+
+        faults = 0;
+
+        const auto filtered = filter.push(sample->value);
+        if (!filtered) {
+            continue;  // вікно ще наповнюється
         }
 
-        const auto uv = (static_cast<std::int64_t>(code) * VrefMicrovolts) / MaxCode24Bit;
-        return static_cast<std::int32_t>(uv);
-    }
+        if (++emitted % report_every == 0) {
+            const auto stats = filter.stats();
 
-    [[nodiscard]] constexpr std::span<const std::int32_t> rawHistory() const noexcept {
-        return std::span<const std::int32_t>(samples_.data(), count_);
+            board::log("U = {} нВ | розмах вікна = {} LSB | ENOB ~ {} біт | викидів {} з {}",
+                       ads1220::Driver::to_nanovolts(ads1220::Code{*filtered}),
+                       stats.spread,
+                       stats.enob,
+                       stats.rejected,
+                       stats.accepted + stats.rejected);
+        }
     }
-
-private:
-    std::array<std::int32_t, WindowSize> samples_{};
-    std::size_t index_{0};
-    std::size_t count_{0};
-    std::int64_t sum_{0};
-};
+}

@@ -29,8 +29,8 @@
 Нижче наведено повні, взаємозамінні реалізації модуля на C (C99) та C++ (C++20). У коді C++ використовуються безпечні абстракції типів, `std::span` для передачі неперервних буферів пам'яті без копіювання, інкапсуляція стану вікна в клас та безпечна обробка помилок без використання механізму винятків, який зазвичай вимкнено у вбудованих прошивках (`-fno-exceptions`).
 
 :::tabs
-:::code proj-secure-command-parser/c/realizatsiia-modulia.c
-:::code proj-secure-command-parser/cpp/realizatsiia-modulia.cpp
+:::code proj-secure-command-parser/c/secure_frame.c
+:::code proj-secure-command-parser/cpp/secure_frame.cpp
 :::
 
 ### Інтеграція з операційними системами реального часу (FreeRTOS / Zephyr)
@@ -60,6 +60,6 @@
 5. **Застарілий пакет поза вікном:** пакет з лічильником `MaxSeq - 65` безумовно відхиляється як застарілий.
 
 :::tabs
-:::code proj-secure-command-parser/c/testovyi-stend-ta.c
-:::code proj-secure-command-parser/cpp/testovyi-stend-ta.cpp
+:::code proj-secure-command-parser/c/main.c
+:::code proj-secure-command-parser/cpp/main.cpp
 :::

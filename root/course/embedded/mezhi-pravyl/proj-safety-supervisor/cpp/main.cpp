@@ -1,149 +1,122 @@
-#include <cstdint>
-#include <cmath>
-#include <algorithm>
-#include <expected>
-#include <span>
+#include <array>
+#include <optional>
+#include <print>
 
-namespace Safety {
+#include "supervisor.hpp"
 
-struct CommandVector {
-    float vx{0.0f};       // Лінійна швидкість уперед, м/с
-    float vy{0.0f};       // Бічна швидкість, м/с
-    float yaw_rate{0.0f}; // Кутова швидкість, рад/с
-};
+// Прогін фільтра на найпростішій моделі ровера. Модель тут лише для того,
+// щоб згодувати супервізору правдоподібний потік давачів: приводи вважаємо
+// ідеальними, тобто фактична швидкість дорівнює виданій уставці.
 
-struct SensorEnvelope {
-    float obstacle_dist_m{0.0f};
-    float battery_voltage{16.0f};
-    float current_tilt_rad{0.0f};
-    float max_tilt_limit{0.52f}; // ~30 градусів
-    bool  emergency_switch{false};
-};
+namespace {
 
-enum class Status : uint8_t {
-    PassThrough,
-    Clamped,
-    BrakeEngaged,
-    EmergencyStop
-};
+using safety::Seconds;
 
-enum class FaultCode : uint8_t {
-    InvalidTimeStep,
-    SensorSignalLost,
-    CriticalTiltExceeded
-};
+constexpr Seconds kDt{1.0f / 200.0f};   // швидкий контур — 200 Гц
+constexpr Seconds kPlanPeriod{0.05f};   // планувальник — 20 Гц
+constexpr Seconds kSimEnd{9.6f};
+constexpr float   kWallX{14.0f};        // стіна попереду, м від старту
+constexpr float   kTiltLimit{0.52f};    // ~30° перекидання
 
-class Supervisor {
-public:
-    static constexpr float kSafetyMarginM{0.35f};
-    static constexpr float kMaxBrakeAccelMps2{3.0f};
-    static constexpr float kLatencyPadSec{0.04f};
-    static constexpr float kMaxAllowedSpeedMps{2.5f};
-    static constexpr float kMaxYawRateRadps{1.8f};
-    static constexpr float kCriticalVoltageV{13.8f};
-    static constexpr float kNominalVoltageV{16.0f};
-    static constexpr uint32_t kWatchdogMaxTicks{10};
+bool lidar_blind(Seconds t)    { return t >= Seconds{1.0f} && t < Seconds{1.3f}; }
+bool planner_frozen(Seconds t) { return t >= Seconds{4.5f} && t < Seconds{5.5f}; }
+bool estop_pressed(Seconds t)  { return t >= Seconds{9.0f}; }
 
-    constexpr Supervisor() noexcept = default;
+// Просідання напруги під струмом розгону, потім глибокий розряд
+float battery_voltage(Seconds t)
+{
+    const float s = t.count();
+    if (s < 3.2f) return 16.0f;
+    if (s < 4.5f) return 16.0f - (s - 3.2f) * 1.4f;
+    return 14.2f;
+}
 
-    std::expected<std::pair<CommandVector, Status>, FaultCode> evaluate(
-        const CommandVector& candidate,
-        const SensorEnvelope& sensors,
-        float dt_sec
-    ) noexcept {
-        if (dt_sec <= 0.0f) {
-            return std::unexpected(FaultCode::InvalidTimeStep);
-        }
+// Виїзд на схил і повернення на рівне
+float tilt_rad(Seconds t)
+{
+    const float s = t.count();
+    if (s < 2.2f || s >= 3.2f) return 0.05f;
+    return 0.05f + (s - 2.2f) * 0.50f;
+}
 
-        current_tick_++;
+void print_row(Seconds t, const safety::Sensors& sn, float wish_vx, const safety::Outcome& out)
+{
+    std::println("{:6.3f}  {:>6}  {:5.2f}  {:5.3f} | {:6.2f}  {:6.2f}  {:6.2f} | {}",
+                 t.count(),
+                 sn.obstacle_dist_m ? std::format("{:6.2f}", *sn.obstacle_dist_m)
+                                    : std::string{"---"},
+                 sn.battery_voltage.value_or(0.0f), sn.tilt_rad,
+                 wish_vx, out.cmd.vx, out.cmd.yaw_rate,
+                 safety::name(out.status));
+}
 
-        if (sensors.emergency_switch) {
-            last_safe_vx_ = 0.0f;
-            return std::pair{CommandVector{0.0f, 0.0f, 0.0f}, Status::EmergencyStop};
-        }
+void dump_blackbox(const safety::Supervisor::Log& log)
+{
+    std::println("\n=== Чорна скринька: {} епізодів (затерто {}) ===", log.size(), log.dropped());
 
-        // Захист від перевищення критичного крену
-        if (sensors.current_tilt_rad >= sensors.max_tilt_limit) {
-            last_safe_vx_ = 0.0f;
-            return std::unexpected(FaultCode::CriticalTiltExceeded);
-        }
+    // Розгортаємо кільце у суцільний масив — так його віддають телеметрії
+    std::array<safety::Event, 48> flat{};
+    for (const safety::Event& e : log.snapshot(flat)) {
+        std::println("  {:6.3f}…{:6.3f} с  {:<11} {:<16} знач={:8.3f}  тактів={}",
+                     e.t_begin.count(), e.t_end.count(),
+                     safety::name(e.status), safety::name(e.reason),
+                     e.value, e.repeats);
+    }
+}
 
-        // Тайм-аут планувальника
-        if ((current_tick_ - last_valid_tick_) > kWatchdogMaxTicks) {
-            const float decel = kMaxBrakeAccelMps2 * dt_sec;
-            last_safe_vx_ = std::max(0.0f, last_safe_vx_ - decel);
-            return std::pair{CommandVector{last_safe_vx_, 0.0f, 0.0f}, Status::BrakeEngaged};
-        }
+} // namespace
 
-        float target_vx = std::max(0.0f, candidate.vx);
-        bool is_clamped = false;
+int main()
+{
+    safety::Supervisor sup;
 
-        // 1. Динамічний гальмівний бар'єр
-        const float stop_dist = (target_vx * target_vx) / (2.0f * kMaxBrakeAccelMps2)
-                              + target_vx * kLatencyPadSec
-                              + kSafetyMarginM;
+    Seconds t{0.0f};
+    Seconds next_plan{0.0f};
+    Seconds next_report{0.0f};
+    float rover_x = 0.0f;
+    auto prev_status = safety::Status::PassThrough;
+    bool first = true;
 
-        if (sensors.obstacle_dist_m < stop_dist) {
-            const float available_dist = sensors.obstacle_dist_m - kSafetyMarginM;
-            if (available_dist <= 0.05f) {
-                target_vx = 0.0f;
-            } else {
-                const float max_v_safe = std::sqrt(2.0f * kMaxBrakeAccelMps2 * available_dist);
-                if (target_vx > max_v_safe) {
-                    target_vx = max_v_safe;
-                    is_clamped = true;
-                }
+    std::println("  час    dist   вольт  крен  |  vx_кмд  vx_безп  yaw_бзп | статус");
+
+    while (t < kSimEnd) {
+        // Повільний потік: «жадібний» планувальник просить повний хід
+        if (!planner_frozen(t) && t >= next_plan) {
+            if (!sup.submit_plan(safety::Command{2.2f, 0.0f, 0.6f})) {
+                std::println("!! уставку відкинуто: нечислове значення");
             }
+            next_plan = t + kPlanPeriod;
         }
 
-        // 2. Корекція за просіданням батареї
-        if (sensors.battery_voltage < kNominalVoltageV) {
-            const float v_span = kNominalVoltageV - kCriticalVoltageV;
-            const float v_factor = std::clamp((sensors.battery_voltage - kCriticalVoltageV) / v_span, 0.0f, 1.0f);
-            const float max_bat_vx = kMaxAllowedSpeedMps * v_factor;
-            if (target_vx > max_bat_vx) {
-                target_vx = max_bat_vx;
-                is_clamped = true;
-            }
+        safety::Sensors sensors{
+            .obstacle_dist_m = lidar_blind(t) ? std::nullopt
+                                              : std::optional{kWallX - rover_x},
+            .battery_voltage = battery_voltage(t),
+            .tilt_rad        = tilt_rad(t),
+            .tilt_limit_rad  = kTiltLimit,
+            .emergency_stop  = estop_pressed(t)
+        };
+
+        const auto result = sup.step(sensors, kDt);
+        if (!result) {
+            // Fault — це помилка виклику, а не режим машини: далі йти нікуди
+            std::println("!! супервізор відмовив, код {}", static_cast<int>(result.error()));
+            return 1;
         }
 
-        // 3. Обмеження рискання за нахилом
-        float target_yaw_rate = candidate.yaw_rate;
-        const float tilt_warning_thresh = sensors.max_tilt_limit * 0.8f;
-        if (sensors.current_tilt_rad > tilt_warning_thresh) {
-            const float tilt_headroom = sensors.max_tilt_limit - tilt_warning_thresh;
-            const float tilt_scale = std::clamp((sensors.max_tilt_limit - sensors.current_tilt_rad) / tilt_headroom, 0.0f, 1.0f);
-            target_yaw_rate *= tilt_scale;
-            target_vx *= tilt_scale;
-            is_clamped = true;
-        }
+        // Ідеальні приводи: що видали, те й поїхало
+        rover_x += result->cmd.vx * kDt.count();
 
-        // 4. Фізичні обмеження приводів
-        if (target_vx > kMaxAllowedSpeedMps) {
-            target_vx = kMaxAllowedSpeedMps;
-            is_clamped = true;
+        if (first || result->status != prev_status || t >= next_report) {
+            print_row(t, sensors, sup.held_plan().vx, *result);
+            next_report = t + Seconds{0.5f};
+            first = false;
         }
-        const float clamped_yaw = std::clamp(target_yaw_rate, -kMaxYawRateRadps, kMaxYawRateRadps);
-        if (clamped_yaw != target_yaw_rate) {
-            target_yaw_rate = clamped_yaw;
-            is_clamped = true;
-        }
-
-        last_safe_vx_ = target_vx;
-        last_valid_tick_ = current_tick_;
-
-        CommandVector safe_cmd{target_vx, candidate.vy, target_yaw_rate};
-        return std::pair{safe_cmd, is_clamped ? Status::Clamped : Status::PassThrough};
+        prev_status = result->status;
+        t += kDt;
     }
 
-    void notify_planner_alive() noexcept {
-        last_valid_tick_ = current_tick_;
-    }
-
-private:
-    uint32_t last_valid_tick_{0};
-    uint32_t current_tick_{0};
-    float    last_safe_vx_{0.0f};
-};
-
-} // namespace Safety
+    std::println("\nпройдено {:.2f} м, до стіни лишилось {:.2f} м", rover_x, kWallX - rover_x);
+    dump_blackbox(sup.log());
+    return 0;
+}

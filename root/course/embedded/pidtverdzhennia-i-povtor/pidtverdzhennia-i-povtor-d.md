@@ -302,6 +302,43 @@ RTO = (SRTT_scaled >> 3) + RTTVAR_scaled
 
 Нижче наведено робочу реалізацію Stop-and-Wait ARQ із цілочисельним розрахунком RTO за алгоритмами Якобсона та Карна.
 
+Починаємо з формату кадру на лінії та інтерфейсу обох автоматів:
+
+:::tabs
+:::code pidtverdzhennia-i-povtor-d/c/arq.h
+:::code pidtverdzhennia-i-povtor-d/cpp/frame.hpp
+:::
+
+Кодек кадру: CRC16-CCITT, пакування в байти лінії та розбір із перевіркою кожного поля.
+
+:::tabs
+:::code pidtverdzhennia-i-povtor-d/c/frame.c
+:::code pidtverdzhennia-i-povtor-d/cpp/frame.cpp
+:::
+
+Оцінювач таймауту — той самий Якобсон у фіксованій комі плюс обидва правила Карна:
+
+:::tabs
+:::code pidtverdzhennia-i-povtor-d/c/rto.c
+:::code pidtverdzhennia-i-povtor-d/cpp/rto_estimator.hpp
+:::
+
+Автомат передавача: очікування квитанції, повтор за таймаутом чи `NACK`, відмова після вичерпання спроб.
+
+:::tabs
+:::code pidtverdzhennia-i-povtor-d/c/arq_tx.c
+:::code pidtverdzhennia-i-povtor-d/cpp/sender.hpp
+:::
+
+Автомат приймача: доставка свіжого кадру, відсів дубліката з повторним `ACK` та `NACK` на побитий CRC.
+
+:::tabs
+:::code pidtverdzhennia-i-povtor-d/c/arq_rx.c
+:::code pidtverdzhennia-i-povtor-d/cpp/receiver.hpp
+:::
+
+Нарешті, прогін обох автоматів на віртуальному каналі з втратами, завадами й затримкою — саме тут видно і повтори, і роботу дедуплікації:
+
 :::tabs
 :::code pidtverdzhennia-i-povtor-d/c/main.c
 :::code pidtverdzhennia-i-povtor-d/cpp/main.cpp

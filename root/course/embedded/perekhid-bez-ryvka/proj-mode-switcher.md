@@ -69,8 +69,48 @@
 ## Реалізація диспетчера режимів польоту
 
 :::tabs
-:::code proj-mode-switcher/c/realizatsiia-dyspetchera.c
-:::code proj-mode-switcher/cpp/realizatsiia-dyspetchera.cpp
+:::code proj-mode-switcher/c/pid.h
+:::code proj-mode-switcher/cpp/include/bumpless_pid.hpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/pid.c
+:::code proj-mode-switcher/cpp/src/bumpless_pid.cpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/rc_input.h
+:::code proj-mode-switcher/cpp/include/crsf_link.hpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/rc_input.c
+:::code proj-mode-switcher/cpp/src/crsf_link.cpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/altitude.h
+:::code proj-mode-switcher/cpp/include/altitude_fusion.hpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/altitude.c
+:::code proj-mode-switcher/cpp/src/altitude_fusion.cpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/dshot.h
+:::code proj-mode-switcher/cpp/include/dshot.hpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/flight_manager.h
+:::code proj-mode-switcher/cpp/include/mode_manager.hpp
+:::
+
+:::tabs
+:::code proj-mode-switcher/c/flight_manager.c
+:::code proj-mode-switcher/cpp/src/mode_manager.cpp
 :::
 
 ## Тестовий сценарій та перевірка гладкості переходу
@@ -80,8 +120,8 @@
 - `t = 10.0 с`: перемикання з `MODE_ALT_HOLD` у `MODE_AUTO_MISSION` (уставка маршрутної точки 80.0 м).
 
 :::tabs
-:::code proj-mode-switcher/c/testovyi-stsenarii-ta.c
-:::code proj-mode-switcher/cpp/testovyi-stsenarii-ta.cpp
+:::code proj-mode-switcher/c/main.c
+:::code proj-mode-switcher/cpp/src/main.cpp
 :::
 
 ## Аналіз результатів симуляції та практичні висновки

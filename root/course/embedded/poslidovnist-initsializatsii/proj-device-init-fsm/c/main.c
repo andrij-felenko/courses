@@ -1,220 +1,103 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
+#include "dev_driver.h"
+#include "sim_device.h"
 
-/* Регістри та константи гіпотетичного MEMS-давача */
-#define DEV_I2C_ADDR             (0x68U)
-#define REG_CHIP_ID              (0x00U)
-#define EXPECTED_CHIP_ID         (0xEA)
+#include <stdio.h>
 
-#define REG_RESET_CTRL           (0x10U)
-#define BIT_SW_RESET             (1U << 7)
-#define BIT_DEVICE_READY         (1U << 0)
+/* Прогін одного сценарію: автомат крокує щомілісекунди, як у справжньому
+   while(1) поруч з іншими диспетчерами задач. */
+static dev_fsm_state_t run_scenario(const char *title,
+                                    const sim_faults_t *faults,
+                                    const reg_config_entry_t *config,
+                                    uint8_t config_count,
+                                    uint32_t budget_ms)
+{
+    dev_driver_t drv;
+    dev_fsm_state_t prev;
+    uint32_t t;
 
-#define REG_RANGE_CTRL           (0x18U)
-#define REG_ODR_FILTER           (0x19U)
-#define REG_PWR_MODE             (0x1AU)
-#define VAL_PWR_ACTIVE           (0x01U)
+    printf("\n=== %s ===\n", title);
+    sim_device_reset(faults);
+    dev_driver_init(&drv, config, config_count);
+    prev = drv.state;
+    printf("%6u мс  %s\n", sim_now(), dev_driver_state_name(drv.state));
 
-/* Часові параметри bring-up (у мілісекундах) */
-#define TIME_POR_BOOT_MS         (25U)
-#define TIME_RESET_WAIT_MS       (10U)
-#define TIME_POLL_TIMEOUT_MS     (100U)
-#define TIME_ANALOG_SETTLE_MS    (15U)
-#define MAX_INIT_RETRIES         (3U)
-#define BASE_BACKOFF_MS          (50U)
+    for (t = 0U; t < budget_ms; ++t) {
+        dev_driver_step(&drv);          /* тут же крокували б інші драйвери */
 
-/* Типи результатів виконання операцій */
-typedef enum {
-    BUS_OK = 0,
-    BUS_ERR_NACK,
-    BUS_ERR_TIMEOUT
-} bus_status_t;
-
-/* Стани кінцевого автомата ініціалізації */
-typedef enum {
-    FSM_STATE_POWER_ON_DELAY = 0,
-    FSM_STATE_SEND_RESET,
-    FSM_STATE_POLL_READY,
-    FSM_STATE_VERIFY_CHIP_ID,
-    FSM_STATE_WRITE_CONFIG,
-    FSM_STATE_READBACK_VERIFY,
-    FSM_STATE_ACTIVATE,
-    FSM_STATE_SETTLING_DELAY,
-    FSM_STATE_READY,
-    FSM_STATE_RETRY_BACKOFF,
-    FSM_STATE_FAULT_SAFE
-} dev_fsm_state_t;
-
-/* Елемент таблиці конфігурації регістрів */
-typedef struct {
-    uint8_t reg;
-    uint8_t val;
-    uint8_t mask; /* Маска значущих бітів для Read-Back (без RO/Reserved) */
-} reg_config_entry_t;
-
-/* Контекст драйвера пристрою */
-typedef struct {
-    dev_fsm_state_t state;
-    uint32_t state_enter_time;
-    uint32_t timeout_time;
-    uint8_t config_idx;
-    uint8_t retry_count;
-    bool fault_flag;
-} dev_driver_t;
-
-/* Таблиця конфігурації робочих параметрів */
-static const reg_config_entry_t INIT_CONFIG_TABLE[] = {
-    { REG_RANGE_CTRL, 0x02U, 0x0FU }, /* Діапазон ±4g, маска бітів 0..3 */
-    { REG_ODR_FILTER, 0x34U, 0x7FU }, /* ODR 100 Гц + фільтр DLPF 40 Гц */
-};
-#define CONFIG_TABLE_SIZE (sizeof(INIT_CONFIG_TABLE) / sizeof(INIT_CONFIG_TABLE[0]))
-
-/* Прототипи апаратних функцій шини (надаються BSP/HAL) */
-extern uint32_t platform_get_millis(void);
-extern bus_status_t platform_i2c_write(uint8_t dev_addr, uint8_t reg, uint8_t val);
-extern bus_status_t platform_i2c_read(uint8_t dev_addr, uint8_t reg, uint8_t *val);
-extern void platform_bus_recover(void);
-extern void platform_notify_fault(const char *reason);
-
-/* Ініціалізація структури драйвера */
-void dev_driver_init(dev_driver_t *drv) {
-    drv->state = FSM_STATE_POWER_ON_DELAY;
-    drv->state_enter_time = platform_get_millis();
-    drv->timeout_time = 0;
-    drv->config_idx = 0;
-    drv->retry_count = 0;
-    drv->fault_flag = false;
-}
-
-/* Перехід автомата в стан повторної спроби або фатальної аварії */
-static void trigger_retry_or_fail(dev_driver_t *drv, const char *reason) {
-    drv->retry_count++;
-    if (drv->retry_count <= MAX_INIT_RETRIES) {
-        platform_bus_recover();
-        drv->state = FSM_STATE_RETRY_BACKOFF;
-        drv->state_enter_time = platform_get_millis();
-        /* Експоненційний відкат: 50 мс, 100 мс, 200 мс */
-        drv->timeout_time = BASE_BACKOFF_MS * (1U << (drv->retry_count - 1U));
-    } else {
-        drv->state = FSM_STATE_FAULT_SAFE;
-        drv->fault_flag = true;
-        platform_notify_fault(reason);
-    }
-}
-
-/* Неблокуючий крок ітерації автомата (викликається в головному циклі) */
-void dev_driver_step(dev_driver_t *drv) {
-    uint32_t now = platform_get_millis();
-    uint8_t val = 0;
-
-    switch (drv->state) {
-        case FSM_STATE_POWER_ON_DELAY:
-            if ((now - drv->state_enter_time) >= TIME_POR_BOOT_MS) {
-                drv->state = FSM_STATE_SEND_RESET;
-            }
-            break;
-
-        case FSM_STATE_SEND_RESET:
-            if (platform_i2c_write(DEV_I2C_ADDR, REG_RESET_CTRL, BIT_SW_RESET) == BUS_OK) {
-                drv->state = FSM_STATE_POLL_READY;
-                drv->state_enter_time = now;
-                drv->timeout_time = now + TIME_POLL_TIMEOUT_MS;
-            } else {
-                trigger_retry_or_fail(drv, "NACK on SW_RESET");
-            }
-            break;
-
-        case FSM_STATE_POLL_READY:
-            /* Перші кілька мілісекунд чип перезапускається і може давати NACK */
-            if ((now - drv->state_enter_time) < TIME_RESET_WAIT_MS) {
-                break;
-            }
-            if (platform_i2c_read(DEV_I2C_ADDR, REG_RESET_CTRL, &val) == BUS_OK) {
-                /* Самоочищення біта скидання та готовність ядра */
-                if ((val & BIT_SW_RESET) == 0 && (val & BIT_DEVICE_READY)) {
-                    drv->state = FSM_STATE_VERIFY_CHIP_ID;
-                }
-            }
-            if (now > drv->timeout_time && drv->state == FSM_STATE_POLL_READY) {
-                trigger_retry_or_fail(drv, "Timeout waiting for ready flag");
-            }
-            break;
-
-        case FSM_STATE_VERIFY_CHIP_ID:
-            if (platform_i2c_read(DEV_I2C_ADDR, REG_CHIP_ID, &val) == BUS_OK) {
-                if (val == EXPECTED_CHIP_ID) {
-                    drv->config_idx = 0;
-                    drv->state = FSM_STATE_WRITE_CONFIG;
-                } else {
-                    trigger_retry_or_fail(drv, "Invalid CHIP_ID");
-                }
-            } else {
-                trigger_retry_or_fail(drv, "Bus error reading CHIP_ID");
-            }
-            break;
-
-        case FSM_STATE_WRITE_CONFIG:
-            if (drv->config_idx < CONFIG_TABLE_SIZE) {
-                const reg_config_entry_t *entry = &INIT_CONFIG_TABLE[drv->config_idx];
-                if (platform_i2c_write(DEV_I2C_ADDR, entry->reg, entry->val) == BUS_OK) {
-                    drv->state = FSM_STATE_READBACK_VERIFY;
-                } else {
-                    trigger_retry_or_fail(drv, "Write config error");
-                }
-            } else {
-                drv->state = FSM_STATE_ACTIVATE;
-            }
-            break;
-
-        case FSM_STATE_READBACK_VERIFY: {
-            const reg_config_entry_t *entry = &INIT_CONFIG_TABLE[drv->config_idx];
-            if (platform_i2c_read(DEV_I2C_ADDR, entry->reg, &val) == BUS_OK) {
-                /* Порівнюємо виключно біти за маскою */
-                if ((val & entry->mask) == (entry->val & entry->mask)) {
-                    drv->config_idx++;
-                    drv->state = FSM_STATE_WRITE_CONFIG;
-                } else {
-                    trigger_retry_or_fail(drv, "Read-back verify mismatch");
-                }
-            } else {
-                trigger_retry_or_fail(drv, "Read-back bus error");
-            }
+        if (drv.state != prev) {
+            printf("%6u мс  %s\n", sim_now(), dev_driver_state_name(drv.state));
+            prev = drv.state;
+        }
+        if (dev_driver_is_ready(&drv) || dev_driver_is_fault(&drv)) {
             break;
         }
-
-        case FSM_STATE_ACTIVATE:
-            if (platform_i2c_write(DEV_I2C_ADDR, REG_PWR_MODE, VAL_PWR_ACTIVE) == BUS_OK) {
-                drv->state = FSM_STATE_SETTLING_DELAY;
-                drv->state_enter_time = now;
-            } else {
-                trigger_retry_or_fail(drv, "Activation command error");
-            }
-            break;
-
-        case FSM_STATE_SETTLING_DELAY:
-            if ((now - drv->state_enter_time) >= TIME_ANALOG_SETTLE_MS) {
-                drv->state = FSM_STATE_READY;
-                drv->retry_count = 0; /* Скидаємо лічильник після успішного запуску */
-            }
-            break;
-
-        case FSM_STATE_RETRY_BACKOFF:
-            if ((now - drv->state_enter_time) >= drv->timeout_time) {
-                /* Повертаємося до початкового стану затримки живлення */
-                drv->state = FSM_STATE_POWER_ON_DELAY;
-                drv->state_enter_time = now;
-            }
-            break;
-
-        case FSM_STATE_READY:
-        case FSM_STATE_FAULT_SAFE:
-        default:
-            /* Кінцеві стани: нормальна робота або зафіксована аварія */
-            break;
+        sim_tick();
     }
+
+    printf("       спроб: %u, відновлень шини: %u, SDA затиснута: %s\n",
+           drv.retry_count, sim_recoveries(), sim_sda_stuck() ? "так" : "ні");
+    if (drv.fault_reason != NULL) {
+        printf("       причина відмови: %s\n", drv.fault_reason);
+    }
+    return drv.state;
 }
 
-bool dev_driver_is_ready(const dev_driver_t *drv) {
-    return drv->state == FSM_STATE_READY;
+static int expect(dev_fsm_state_t got, dev_fsm_state_t want)
+{
+    if (got == want) {
+        printf("       ОК: очікували %s\n", dev_driver_state_name(want));
+        return 0;
+    }
+    printf("       ЗБІЙ: очікували %s, дістали %s\n",
+           dev_driver_state_name(want), dev_driver_state_name(got));
+    return 1;
+}
+
+int main(void)
+{
+    int failures = 0;
+    sim_faults_t f;
+
+    /* Штучна розбіжність Read-Back: у таблиці підмінено байт ODR на
+       заборонену комбінацію, яку кремній не приймає. */
+    static const reg_config_entry_t FORBIDDEN_CONFIG[2] = {
+        { REG_RANGE_CTRL, 0x02U, 0x0FU },
+        { REG_ODR_FILTER, 0x7FU, 0x7FU },
+    };
+
+    f = sim_faults_default();
+    failures += expect(run_scenario("Нормальний старт", &f,
+                                    DEV_DEFAULT_CONFIG, DEV_DEFAULT_CONFIG_SIZE, 2000U),
+                       FSM_STATE_READY);
+
+    /* Штучний NACK: живлення давача зникає під час SW_RESET і повертається
+       через 150 мс. Перевіряємо вхід у RETRY_BACKOFF і звільнення шини. */
+    f = sim_faults_default();
+    f.power_off_at_ms = 20U;
+    f.power_on_at_ms = 150U;
+    failures += expect(run_scenario("Провал живлення під час SW_RESET", &f,
+                                    DEV_DEFAULT_CONFIG, DEV_DEFAULT_CONFIG_SIZE, 2000U),
+                       FSM_STATE_READY);
+
+    /* Той самий обрив, але живлення не повертається: ліміт спроб вичерпано. */
+    f = sim_faults_default();
+    f.power_off_at_ms = 20U;
+    failures += expect(run_scenario("Давач не повернувся після обриву", &f,
+                                    DEV_DEFAULT_CONFIG, DEV_DEFAULT_CONFIG_SIZE, 2000U),
+                       FSM_STATE_FAULT_SAFE);
+
+    f = sim_faults_default();
+    failures += expect(run_scenario("Заборонена конфігурація (Read-Back Mismatch)", &f,
+                                    FORBIDDEN_CONFIG, 2U, 2000U),
+                       FSM_STATE_FAULT_SAFE);
+
+    /* Імітація повільного POR: лабораторний блок наростає 50 мс. */
+    f = sim_faults_default();
+    f.por_ramp_ms = 50U;
+    failures += expect(run_scenario("Повільне наростання V_DD (50 мс)", &f,
+                                    DEV_DEFAULT_CONFIG, DEV_DEFAULT_CONFIG_SIZE, 2000U),
+                       FSM_STATE_READY);
+
+    printf("\nПідсумок: %s\n", failures == 0 ? "усі сценарії пройдено" : "є розбіжності");
+    return failures == 0 ? 0 : 1;
 }

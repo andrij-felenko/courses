@@ -45,8 +45,8 @@
 ## 2. Реалізація Mock-транспорту та тестового стенду
 
 :::tabs
-:::code proj-mock-transport-testing/c/2-realizatsiia-mock.c
-:::code proj-mock-transport-testing/cpp/2-realizatsiia-mock.cpp
+:::code proj-mock-transport-testing/c/mock_bus.c
+:::code proj-mock-transport-testing/cpp/test/mock_transport.hpp
 :::
 
 ---
@@ -73,8 +73,8 @@
 Симулюється короткочасна завада: перші дві спроби читання шини завершуються апаратною помилкою `COMM FAIL`, а третя повертає коректні дані. Тест переконується, що драйвер успішно відновлює комунікацію і повертає статус успіху.
 
 :::tabs
-:::code proj-mock-transport-testing/c/test-4-mekhanizm.c
-:::code proj-mock-transport-testing/cpp/test-4-mekhanizm.cpp
+:::code proj-mock-transport-testing/c/test_main.c
+:::code proj-mock-transport-testing/cpp/test/test_main.cpp
 :::
 
 ---

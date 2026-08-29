@@ -45,8 +45,23 @@
 Нижче наведено робочий код ядра автомата станів. Реалізація мовою C орієнтована на мікроконтролери архітектури ARM Cortex-M / RISC-V під керуванням FreeRTOS або bare-metal. Сусідня вкладка C++ демонструє ідіоматичний об'єктний дизайн стандарту C++20 із суворою типізацією ідентифікаторів, `std::span` та `std::chrono`.
 
 :::tabs
+:::code proj-sbo-controller/c/sbo_protocol.h
+:::code proj-sbo-controller/cpp/include/sbo/protocol.hpp
+:::
+
+:::tabs
+:::code proj-sbo-controller/c/sbo_protocol.c
+:::code proj-sbo-controller/cpp/src/protocol.cpp
+:::
+
+:::tabs
+:::code proj-sbo-controller/c/sbo_target_engine.h
+:::code proj-sbo-controller/cpp/include/sbo/target_engine.hpp
+:::
+
+:::tabs
 :::code proj-sbo-controller/c/sbo_target_engine.c
-:::code proj-sbo-controller/cpp/2-prohramna-realizatsiia.cpp
+:::code proj-sbo-controller/cpp/src/target_engine.cpp
 :::
 
 ---
@@ -58,8 +73,13 @@
 Клієнтський модуль відстежує стан підтвердження селекції: якщо пульт надіслав `SELECT_REQ`, але відповідь `SELECT_ACK` не надійшла протягом тайм-ауту зв'язку (зазвичай 400 мс), картка вибору автоматично підсвічується червоною рамкою «Втрата зв'язку», а кнопка дії блокується. Це виключає ситуацію, коли оператор вважає апарат готовим до дії, тоді як радіоканал між пультом і бортом розірвано.
 
 :::tabs
+:::code proj-sbo-controller/c/gcs_focus_manager.h
+:::code proj-sbo-controller/cpp/include/gcs/focus_manager.hpp
+:::
+
+:::tabs
 :::code proj-sbo-controller/c/gcs_focus_manager.c
-:::code proj-sbo-controller/cpp/3-kliientskyi-menedzher.cpp
+:::code proj-sbo-controller/cpp/src/focus_manager.cpp
 :::
 
 ---
@@ -96,7 +116,7 @@
 
 :::tabs
 :::code proj-sbo-controller/c/test_sbo_suite.c
-:::code proj-sbo-controller/cpp/test_sbo_suite.cpp
+:::code proj-sbo-controller/cpp/tests/test_sbo_suite.cpp
 :::
 
 ---

@@ -40,7 +40,7 @@
 
 :::tabs
 :::code proj-atecc608-driver/c/main.c
-:::code proj-atecc608-driver/cpp/main.cpp
+:::code proj-atecc608-driver/cpp/src/main.cpp
 :::
 
 ### Типові інженерні пастки при інтеграції

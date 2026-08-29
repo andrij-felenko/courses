@@ -191,9 +191,39 @@ if ((monotonic_now_ms() - cmd.rx_time_ms) > cmd.ttl_ms) {
 
 Код наведено двома ідіоматичними мовами: у вкладці **C** — чистий C99/C11 для класичних RTOS-систем та bare-metal мікроконтролерів; у вкладці **C++** — сучасний C++20 з використанням типізованих переліків `enum class`, безпечних представлень пам'яті `std::span`, контейнерів `std::array` та обробки результатів через `std::expected`.
 
+**Дротовий формат: побайтовий розбір кадру, CRC32, збирання квитанції.**
+
+:::tabs
+:::code komanda-prystroiu-d/c/cmd_proto.c
+:::code komanda-prystroiu-d/cpp/src/wire.cpp
+:::
+
+**Виконавча частина: неблокуючий старт, опитування руху, аварійна зупинка.**
+
+:::tabs
+:::code komanda-prystroiu-d/c/actuator.c
+:::code komanda-prystroiu-d/cpp/src/actuator.cpp
+:::
+
+**Журнал незавершеної транзакції в незалежній пам'яті.**
+
+:::tabs
+:::code komanda-prystroiu-d/c/journal.c
+:::code komanda-prystroiu-d/cpp/src/journal.cpp
+:::
+
+**Диспетчер: кільце ідемпотентності, черга виконання, автомат станів, двофазні квитки.**
+
+:::tabs
+:::code komanda-prystroiu-d/c/dispatcher.c
+:::code komanda-prystroiu-d/cpp/src/dispatcher.cpp
+:::
+
+**Прогін сценаріїв: загублений квиток, залп після сну, зрив на залізі, скидання живлення.**
+
 :::tabs
 :::code komanda-prystroiu-d/c/main.c
-:::code komanda-prystroiu-d/cpp/main.cpp
+:::code komanda-prystroiu-d/cpp/src/main.cpp
 :::
 
 ---

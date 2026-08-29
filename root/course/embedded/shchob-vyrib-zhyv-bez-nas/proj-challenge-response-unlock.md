@@ -52,6 +52,31 @@
 Нижче наведено модульну реалізацію логіки перевірки розблокування та гарантованого стирання користувацьких параметрів для мікроконтролера.
 
 :::tabs
+:::code proj-challenge-response-unlock/c/hal.h
+:::code proj-challenge-response-unlock/cpp/hal.hpp
+:::
+
+:::tabs
+:::code proj-challenge-response-unlock/c/log.h
+:::code proj-challenge-response-unlock/c/log.c
+:::code proj-challenge-response-unlock/cpp/log.hpp
+:::
+
+:::tabs
+:::code proj-challenge-response-unlock/c/frame.h
+:::code proj-challenge-response-unlock/c/frame.c
+:::code proj-challenge-response-unlock/cpp/frame.hpp
+:::code proj-challenge-response-unlock/cpp/frame.cpp
+:::
+
+:::tabs
+:::code proj-challenge-response-unlock/c/unlock.h
+:::code proj-challenge-response-unlock/c/unlock.c
+:::code proj-challenge-response-unlock/cpp/unlock.hpp
+:::code proj-challenge-response-unlock/cpp/unlock.cpp
+:::
+
+:::tabs
 :::code proj-challenge-response-unlock/c/main.c
 :::code proj-challenge-response-unlock/cpp/main.cpp
 :::

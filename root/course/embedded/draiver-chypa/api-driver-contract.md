@@ -27,8 +27,8 @@
 Драйвер не має знання про те, на якому саме мікроконтролері він виконується (STM32, ESP32, NXP чи x86-емулятор). Усі операції вводу-виводу делегуються через структуру вказівників на функції зворотного виклику або типізований інтерфейсний концепт.
 
 :::tabs
-:::code api-driver-contract/c/stdint.h
-:::code api-driver-contract/cpp/2-interfeis-aparatnoi.hpp
+:::code api-driver-contract/c/chip_bus.h
+:::code api-driver-contract/cpp/include/chip/transport.hpp
 :::
 
 ### Детальні контрактні зобов'язання платформного шару
@@ -50,8 +50,8 @@
 Усі публічні функції драйвера повертають строго типізований статус виконання. Повернення нетипізованих цілих чисел (`int`) або ігнорування помилок заборонено архітектурним стандартом.
 
 :::tabs
-:::code api-driver-contract/c/3-taksonomiia-statusiv-ta.c
-:::code api-driver-contract/cpp/3-taksonomiia-statusiv-ta.hpp
+:::code api-driver-contract/c/chip_status.h
+:::code api-driver-contract/cpp/include/chip/status.hpp
 :::
 
 ---
@@ -82,8 +82,8 @@
 ## 6. Публічні інтерфейси повного життєвого циклу
 
 :::tabs
-:::code api-driver-contract/c/6-publichni-interfeisy.h
-:::code api-driver-contract/cpp/6-publichni-interfeisy.hpp
+:::code api-driver-contract/c/chip_driver.h
+:::code api-driver-contract/cpp/include/chip/sensor.hpp
 :::
 
 ---

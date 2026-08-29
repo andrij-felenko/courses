@@ -299,8 +299,16 @@ R_m ≥ 100 · R_th
 
 :::tabs
 @tab c
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/c/loading.h
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/c/loading.c
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/c/report.h
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/c/report.c
 :::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/c/main.c
 @tab cpp
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/cpp/loading.hpp
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/cpp/loading.cpp
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/cpp/verification.hpp
+:::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/cpp/verification.cpp
 :::code pershe-kolo-vid-skhemy-do-vymirianoho-rezultatu-d/cpp/main.cpp
 :::
 

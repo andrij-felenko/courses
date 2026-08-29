@@ -18,8 +18,8 @@
 Контракт модуля визначає структуру контексту детектора, типи класифікованих подій та функції життєвого циклу. На відміну від наївних реалізацій із глобальними змінними, контекст передається вказівником, що дозволяє підтримувати кілька незалежних мікрофонних каналів на одному чипі:
 
 :::tabs
-:::code proj-acoustic-detector/c/arkhitektura-ta-interfeis.h
-:::code proj-acoustic-detector/cpp/arkhitektura-ta-interfeis.hpp
+:::code proj-acoustic-detector/c/acoustic_detector.h
+:::code proj-acoustic-detector/cpp/include/acoustic/detector.hpp
 :::
 
 ## Реалізація обчислювального конвеєра
@@ -27,8 +27,8 @@
 У цій реалізації всі обчислення виконано у фіксованій комі та цілих числах `int16_t` / `int8_t`. Це критично для енергоефективності, оскільки виключає накладні витрати на емуляцію операцій із рухомою комою на процесорах Cortex-M0+/M3 та зменшує нагрів і струм FPU на Cortex-M4F:
 
 :::tabs
-:::code proj-acoustic-detector/c/realizatsiia.c
-:::code proj-acoustic-detector/cpp/realizatsiia.cpp
+:::code proj-acoustic-detector/c/detector.c
+:::code proj-acoustic-detector/cpp/src/detector.cpp
 :::
 
 ## Інтеграція з операційною системою реального часу FreeRTOS
@@ -36,8 +36,8 @@
 В автономних вбудованих системах звуковий конвеєр працює у виділеній задачі RTOS середнього пріоритету. Обробник переривання DMA сигналізує про готовність чергового напівбуфера через пряме сповіщення задачі `xTaskNotifyFromISR`. Це виключає використання блокуючих м'ютексів і черг у критичній секції:
 
 :::tabs
-:::code proj-acoustic-detector/c/intehratsiia-z.c
-:::code proj-acoustic-detector/cpp/intehratsiia-z.cpp
+:::code proj-acoustic-detector/c/audio_task.c
+:::code proj-acoustic-detector/cpp/src/audio_task.cpp
 :::
 
 ## Бюджет пам'яті та ресурсів

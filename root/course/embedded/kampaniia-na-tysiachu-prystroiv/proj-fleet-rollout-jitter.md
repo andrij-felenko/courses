@@ -15,8 +15,8 @@ cohort_bucket = SHA-256(hardware_id || campaign_salt) % 100
 У мікроконтролерах без апаратного прискорювача криптографії для розрахунку номера когорти допустимо використовувати швидкі некриптографічні хеш-функції з високим лавинним ефектом (наприклад, FNV-1a або MurmurHash3), за умови, що якість розподілу залишку від ділення на 100 перевірена на всій множині серійних номерів парку.
 
 :::tabs
-:::code proj-fleet-rollout-jitter/c/1-determinovane-rozbyttia.c
-:::code proj-fleet-rollout-jitter/cpp/1-determinovane-rozbyttia.hpp
+:::code proj-fleet-rollout-jitter/c/cohort.c
+:::code proj-fleet-rollout-jitter/cpp/src/cohort.cpp
 :::
 
 ## 2. Згладжування навантаження: рівномірний джитер і Decorrelated Jitter
@@ -32,8 +32,8 @@ t_retry = min(T_max, Uniform(T_base, t_previous · 3))
 Такий підхід запобігає виникненню фазової синхронізації між пристроями, коли група вузлів циклічно повторює запити в один і той самий момент.
 
 :::tabs
-:::code proj-fleet-rollout-jitter/c/2-zhladzhuvannia.c
-:::code proj-fleet-rollout-jitter/cpp/2-zhladzhuvannia.hpp
+:::code proj-fleet-rollout-jitter/c/jitter.c
+:::code proj-fleet-rollout-jitter/cpp/src/rollout.cpp
 :::
 
 ## 3. Автомат випробувального терміну (Health Watchdog) та тригер відкату
@@ -46,8 +46,8 @@ t_retry = min(T_max, Uniform(T_base, t_previous · 3))
 - `boot_failures_count`: лічильник аварійних перезапусків нової версії. Якщо значення сягає `MAX_ALLOWED_CRASHES`, завантажувач примусово повертає покажчик на попередній перевірений банк.
 
 :::tabs
-:::code proj-fleet-rollout-jitter/c/3-avtomat-vyprobuvalnoho.c
-:::code proj-fleet-rollout-jitter/cpp/3-avtomat-vyprobuvalnoho.hpp
+:::code proj-fleet-rollout-jitter/c/trial.c
+:::code proj-fleet-rollout-jitter/cpp/src/supervisor.cpp
 :::
 
 ## 4. Схема розбиття внутрішньої пам'яті (Flash Partitioning)

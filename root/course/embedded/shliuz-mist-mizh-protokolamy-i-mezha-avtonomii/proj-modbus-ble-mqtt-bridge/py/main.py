@@ -1,171 +1,246 @@
+#!/usr/bin/env python3
+"""Шлюз між польовим сегментом (RS-485 + BLE) і хмарним брокером MQTT.
+
+Три задачі, жодна не чекає на іншу:
+  poller  — опитує Modbus і тут-таки виконує правило автономії;
+  ble     — слухає ефір і розбирає рекламні кадри давачів;
+  uplink  — тримає з'єднання з брокером і спорожняє буфер.
+Зв'язок між ними — тільки через буфер Store-and-Forward.
+
+Запуск із теки проєкту: ``python3 main.py``.
+"""
+
+from __future__ import annotations
+
 import asyncio
 import json
+import logging
 import random
+import signal
 import time
-from dataclasses import dataclass
-from typing import Optional
+from itertools import count
+
+from gateway import (
+    BleError,
+    BleScanner,
+    ModbusError,
+    ModbusMaster,
+    MqttClient,
+    MqttError,
+    StoreForward,
+    TelemetryMessage,
+    regs_to_float,
+)
+
+MODBUS_DEVICE = "/dev/ttyUSB0"
+MODBUS_BAUD = 19200
+MODBUS_TIMEOUT = 0.5
+SLAVE_ID = 1
+PRESSURE_REGISTER = 0x0001  # два регістри: float32 тиску в барах
+EMERGENCY_DUMP_COIL = 0x0010
+ALARM_SET_BAR = 10.0
+ALARM_CLEAR_BAR = 9.5  # гістерезис: інакше клапан смикався б навколо порога
+POLL_PERIOD = 1.0
+
+HCI_INDEX = 0
+
+BROKER_HOST = "broker.plant.local"
+BROKER_PORT = 1883
+CLIENT_ID = "gw-unit1"
+KEEPALIVE = 30
+
+FRESH_CAPACITY = 64
+BACKLOG_CAPACITY = 4096
+DRAIN_RATE_PER_SECOND = 5.0
+DRAIN_BURST = 10.0
+BACKOFF_MIN = 1.0
+BACKOFF_MAX = 30.0
+
+log = logging.getLogger("gateway")
+_sequence = count(1)
 
 
-@dataclass
-class TelemetryRecord:
-    topic: str
-    payload: dict
-    timestamp: float
-    sequence_id: int
+async def publish(buffer: StoreForward, topic: str, **fields: object) -> None:
+    """Номер послідовності й мітку часу ставить шлюз, а не давач: за розривом у
+    seq сервер бачить, скільки записів згоріло в переповненому буфері."""
+    seq = next(_sequence)
+    payload = json.dumps({"seq": seq, "ts": round(time.time() * 1000), **fields},
+                         ensure_ascii=False, separators=(",", ":"))
+    await buffer.publish(TelemetryMessage(topic=topic, payload=payload, seq=seq))
 
 
-class StoreForwardBuffer:
-    """Асинхронний циклічний буфер із витісненням застарілих даних (FIFO Drop)."""
+async def poller_task(bus: ModbusMaster, buffer: StoreForward, stop: asyncio.Event) -> None:
+    loop = asyncio.get_running_loop()
+    alarm_latched = False
+    errors_in_row = 0
 
-    def __init__(self, max_capacity: int = 500):
-        self._max_capacity = max_capacity
-        self._queue: list[TelemetryRecord] = []
-        self._dropped_count = 0
-        self._lock = asyncio.Lock()
+    while not stop.is_set():
+        started = loop.time()
+        try:
+            regs = await bus.read_holding(SLAVE_ID, PRESSURE_REGISTER, 2)
+            if errors_in_row >= 3:
+                await publish(buffer, "plant/unit1/status/fieldbus", link="up", slave=SLAVE_ID)
+            errors_in_row = 0
+            bar = regs_to_float(regs)
 
-    async def push(self, record: TelemetryRecord) -> None:
-        async with self._lock:
-            if len(self._queue) >= self._max_capacity:
-                self._queue.pop(0)  # Витіснення найстарішого запису
-                self._dropped_count += 1
-            self._queue.append(record)
+            # Межа автономії проходить саме тут. Дорога до хмари й назад коштує
+            # секунд і може не відбутися взагалі, а клапан треба відкрити зараз.
+            if not alarm_latched and bar > ALARM_SET_BAR:
+                try:
+                    await bus.write_coil(SLAVE_ID, EMERGENCY_DUMP_COIL, True)
+                    alarm_latched = True
+                    log.warning("[автономія] тиск %.2f бар > %.1f — котушку 0x%04X увімкнено",
+                                bar, ALARM_SET_BAR, EMERGENCY_DUMP_COIL)
+                    await publish(buffer, "plant/unit1/event/alarm", rule="pressure_high",
+                                  p_bar=round(bar, 2), action="dump_on")
+                except ModbusError as error:
+                    # Засувка не спрацювала — засувка й лишається метою: латч не
+                    # ставимо, наступний такт спробує знову.
+                    log.error("[автономія] СКИДАННЯ НЕ ПРОЙШЛО (%s) — повтор наступним тактом", error)
+                    await publish(buffer, "plant/unit1/event/alarm", rule="pressure_high",
+                                  p_bar=round(bar, 2), action="dump_failed")
+            elif alarm_latched and bar < ALARM_CLEAR_BAR:
+                await bus.write_coil(SLAVE_ID, EMERGENCY_DUMP_COIL, False)
+                alarm_latched = False
+                log.info("[автономія] тиск %.2f бар — аварію знято, котушку вимкнено", bar)
+                await publish(buffer, "plant/unit1/event/alarm", rule="pressure_high",
+                              p_bar=round(bar, 2), action="dump_off")
 
-    async def pop(self) -> Optional[TelemetryRecord]:
-        async with self._lock:
-            if not self._queue:
-                return None
-            return self._queue.pop(0)
+            await publish(buffer, "plant/unit1/telemetry/pressure", dev="boiler_1",
+                          p_bar=round(bar, 2), alarm=alarm_latched)
 
-    @property
-    def size(self) -> int:
-        return len(self._queue)
+        except ModbusError as error:
+            errors_in_row += 1
+            log.warning("[modbus] вузол %d: %s (підряд %d)", SLAVE_ID, error, errors_in_row)
+            # Про смерть шини сервер має дізнатися окремим повідомленням:
+            # мовчання телеметрії він списав би на обрив WAN.
+            if errors_in_row == 3:
+                await publish(buffer, "plant/unit1/status/fieldbus", link="down",
+                              slave=SLAVE_ID, why=str(error))
 
-    @property
-    def dropped(self) -> int:
-        return self._dropped_count
+        await asyncio.sleep(max(0.0, POLL_PERIOD - (loop.time() - started)))
 
 
-class IndustrialIoTGateway:
-    """Програмний міст Modbus/BLE-to-MQTT з локальною автономією."""
+async def ble_task(buffer: StoreForward, stop: asyncio.Event) -> None:
+    try:
+        scanner = await BleScanner.start(HCI_INDEX)
+    except (BleError, OSError) as error:
+        # Радіо не піднялося — це привід працювати без нього, а не падати:
+        # дротова шина й аварійне правило від BLE не залежать.
+        log.error("[ble] сканер hci%d не піднявся (%s) — шлюз працює лише по шині",
+                  HCI_INDEX, error)
+        return
 
-    PRESSURE_THRESHOLD = 10.0  # bar
-
-    def __init__(self):
-        self.buffer = StoreForwardBuffer(max_capacity=500)
-        self.wan_connected = False
-        self.running = True
-        self._seq = 0
-
-    async def execute_autonomy_rule(self, pressure: float) -> None:
-        """Прямий локальний контур керування без участі хмари."""
-        print(
-            f"[AUTONOMY ALERT Py] Критичний тиск {pressure:.2f} bar! "
-            f"Локальна дія: Запис Modbus Coil 0x0010 = ON (Аварійне скидання)"
-        )
-
-    async def poll_modbus_loop(self) -> None:
-        """Задача регулярного опитування Modbus RTU пристроїв."""
-        while self.running:
-            raw_pressure = 8.0 + random.uniform(-1.0, 3.5)
-            self._seq += 1
-
-            print(f"[MODBUS Py] Зчитано тиск: {raw_pressure:.2f} bar")
-
-            # Локальна автономія
-            if raw_pressure > self.PRESSURE_THRESHOLD:
-                await self.execute_autonomy_rule(raw_pressure)
-
-            record = TelemetryRecord(
-                topic="plant/unit1/telemetry/pressure",
-                payload={
-                    "dev": "boiler_1",
-                    "val": round(raw_pressure, 2),
-                    "unit": "bar",
-                    "ts": time.time(),
-                },
-                timestamp=time.time(),
-                sequence_id=self._seq,
-            )
-            await self.buffer.push(record)
-            await asyncio.sleep(1.0)
-
-    async def receive_ble_loop(self) -> None:
-        """Задача отримання телеметрії від бездротових давачів BLE."""
-        while self.running:
-            raw_temp = 40.0 + random.uniform(-2.0, 4.0)
-            self._seq += 1
-
-            record = TelemetryRecord(
-                topic="plant/unit1/telemetry/temperature",
-                payload={
-                    "dev": "ble_sensor_a4",
-                    "val": round(raw_temp, 2),
-                    "unit": "C",
-                    "ts": time.time(),
-                },
-                timestamp=time.time(),
-                sequence_id=self._seq,
-            )
-            await self.buffer.push(record)
-            await asyncio.sleep(1.5)
-
-    async def upstream_mqtt_flusher(self) -> None:
-        """Фоновий процес передачі телеметрії та відкладеного дренажу."""
-        while self.running:
-            if not self.wan_connected:
-                await asyncio.sleep(0.2)
+    log.info("[ble] пасивне сканування hci%d увімкнено", HCI_INDEX)
+    try:
+        while not stop.is_set():
+            try:
+                sample = await scanner.next_sample(0.5)
+            except BleError as error:
+                log.error("[ble] сканування зупинено: %s", error)
+                return
+            if sample is None:
                 continue
-
-            # Дренаж накопиченої черги зі згладжуванням швидкості
-            while self.wan_connected:
-                record = await self.buffer.pop()
-                if record is None:
-                    break
-
-                # Емуляція відправки по MQTT
-                serialized = json.dumps(record.payload)
-                print(f"[MQTT PUB Py] -> {record.topic} : {serialized}")
-                await asyncio.sleep(0.02)  # Rate-limit 50 msg/sec
-
-            await asyncio.sleep(0.1)
+            await publish(buffer, "plant/unit1/telemetry/temperature",
+                          dev=sample.address_text, t_c=round(sample.temperature_c, 2),
+                          batt=sample.battery_pct, rssi=sample.rssi_dbm)
+    finally:
+        await scanner.close()
 
 
-async def main():
-    gateway = IndustrialIoTGateway()
+async def uplink_task(buffer: StoreForward, stop: asyncio.Event) -> None:
+    backoff = BACKOFF_MIN
 
-    # Запуск фонових воркерів
+    while not stop.is_set():
+        try:
+            client = await MqttClient.connect(BROKER_HOST, BROKER_PORT, CLIENT_ID, KEEPALIVE)
+        except MqttError as error:
+            stats = buffer.stats()
+            # Джитер обов'язковий: після падіння базової станції сотні шлюзів
+            # прокидаються разом, і рівний відступ звів би їх в один залп.
+            wait = random.uniform(backoff / 2, backoff * 1.5)
+            log.warning("[wan] %s; повтор через %.1f с; у буфері %d+%d, втрачено %d",
+                        error, wait, stats.fresh, stats.backlog, stats.dropped)
+            await asyncio.sleep(wait)
+            backoff = min(BACKOFF_MAX, backoff * 2)
+            continue
+
+        backoff = BACKOFF_MIN
+        log.info("[wan] з'єднання з брокером піднято")
+        loop = asyncio.get_running_loop()
+        tokens = DRAIN_BURST
+        last_fill = loop.time()
+
+        try:
+            while not stop.is_set():
+                now = loop.time()
+                tokens = min(DRAIN_BURST, tokens + (now - last_fill) * DRAIN_RATE_PER_SECOND)
+                last_fill = now
+
+                lease = await buffer.peek(0.2)
+                if lease is None:
+                    continue
+
+                # Свіже йде без обмежень, архів — лише за наявності токена:
+                # інакше викачування триденної історії з'їло б увесь канал, і
+                # щойно зняті показники чекали б за спиною в старих записів.
+                if lease.from_backlog and tokens < 1.0:
+                    await asyncio.sleep(0.05)
+                    continue
+
+                await client.publish_qos1(lease.message.topic, lease.message.payload)
+                await buffer.commit(lease)
+                if lease.from_backlog:
+                    tokens -= 1.0
+        except MqttError as error:
+            # Непідтверджене повідомлення лишається в черзі й піде після
+            # перепідключення; брокер може отримати дублікат — нормальна ціна
+            # доставки «щонайменше раз».
+            log.warning("[wan] %s — перепідключення", error)
+        finally:
+            await client.close()
+
+
+async def stats_task(buffer: StoreForward, stop: asyncio.Event) -> None:
+    while not stop.is_set():
+        await asyncio.sleep(5.0)
+        stats = buffer.stats()
+        log.info("[буфер] свіжих %d, архівних %d, втрачено назавжди %d",
+                 stats.fresh, stats.backlog, stats.dropped)
+
+
+async def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
+
+    stop = asyncio.Event()
+    loop = asyncio.get_running_loop()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, stop.set)
+
+    buffer = StoreForward(FRESH_CAPACITY, BACKLOG_CAPACITY)
+    try:
+        bus = ModbusMaster(MODBUS_DEVICE, MODBUS_BAUD, MODBUS_TIMEOUT)
+    except (OSError, ModbusError) as error:
+        log.error("порт %s не відкрився: %s", MODBUS_DEVICE, error)
+        return
+
+    log.info("=== шлюз піднято: %s @ %d, брокер %s:%d ===",
+             MODBUS_DEVICE, MODBUS_BAUD, BROKER_HOST, BROKER_PORT)
+
     tasks = [
-        asyncio.create_task(gateway.poll_modbus_loop()),
-        asyncio.create_task(gateway.receive_ble_loop()),
-        asyncio.create_task(gateway.upstream_mqtt_flusher()),
+        asyncio.create_task(poller_task(bus, buffer, stop)),
+        asyncio.create_task(ble_task(buffer, stop)),
+        asyncio.create_task(uplink_task(buffer, stop)),
+        asyncio.create_task(stats_task(buffer, stop)),
     ]
 
-    print("=== Старт IoT-шлюзу (Python Asyncio) ===")
-
-    # Моделювання 10 тактів роботи
-    for step in range(1, 11):
-        print(f"\n--- ТАКТ СИСТЕМИ {step} ---")
-        if 3 <= step <= 7:
-            if gateway.wan_connected or step == 3:
-                print(
-                    "[WAN] Обрив інтернет-каналу! Активовано буфер Store-and-Forward."
-                )
-                gateway.wan_connected = False
-        else:
-            if not gateway.wan_connected:
-                print("[WAN] Зв'язок відновлено! Старт фонового дренажу черги.")
-                gateway.wan_connected = True
-
-        print(
-            f"[BUFFER STATUS] Записів у черзі: {gateway.buffer.size}, "
-            f"Втрачено: {gateway.buffer.dropped}"
-        )
-        await asyncio.sleep(1.0)
-
-    gateway.running = False
-    for t in tasks:
-        t.cancel()
-    print("=== Роботу шлюзу завершено ===")
+    await stop.wait()
+    log.info("зупинка за сигналом…")
+    for task in tasks:
+        task.cancel()
+    await asyncio.gather(*tasks, return_exceptions=True)
+    bus.close()
+    log.info("=== шлюз зупинено ===")
 
 
 if __name__ == "__main__":

@@ -1,135 +1,66 @@
-#include <stdbool.h>
-#include <stdint.h>
+#include "crashlog.h"
+
 #include <stdio.h>
-#include <math.h>
 
-#define MAX_MOTORS 4
-#define WINDOW_SIZE 30
+/* Коди виходу для конвеєра обробки польотних даних:
+ * 0 — чисто, 3 — знайдено сигнатуру, 1 — журнал не прочитався, 2 — виклик. */
+enum {
+    EXIT_CLEAN = 0,
+    EXIT_BAD_LOG = 1,
+    EXIT_USAGE = 2,
+    EXIT_FAULT = 3
+};
 
-typedef enum {
-    FAULT_NONE = 0,
-    FAULT_MOTOR_ESC_LOSS,
-    FAULT_MAGNETIC_INTERFERENCE,
-    FAULT_BROWNOUT_VOLTAGE_SAG,
-    FAULT_SENSOR_BUS_LOCKUP
-} FaultType;
-
-typedef struct {
-    uint64_t timestamp_us;       // мікросекунди від старту контролера
-    float roll_des_deg;          // заданий крен (DesRoll)
-    float roll_act_deg;          // фактичний крен (Roll)
-    float yaw_des_deg;           // заданий курс (DesYaw)
-    float yaw_act_deg;           // фактичний курс (Yaw)
-    float motor_out[MAX_MOTORS]; // виходи на мотори [0.0 .. 1.0]
-    float bat_voltage_v;         // напруга батареї, В
-    float bat_current_a;         // струм споживання, А
-    float ekf_mag_innov;         // нев'язка компаса в EKF
-    float gyro_x_rads;           // кутова швидкість крену, рад/с
-    uint32_t sensor_status_mask; // маска прапорців здоров'я (0x01 - IMU OK)
-} TelemetryFrame;
-
-typedef struct {
-    FaultType fault;
-    uint64_t timestamp_us;       // часова мітка першого прояву
-    float confidence;            // коефіцієнт впевненості [0.0 .. 1.0]
-    const char *description;
-} IncidentReport;
-
-static bool is_angle_diverging(float des, float act, float threshold_deg) {
-    float err = fabsf(des - act);
-    if (err > 180.0f) err = 360.0f - err; // корекція кільцевого переходу через 180°
-    return err > threshold_deg;
+static void print_mark(const char *label, uint64_t us)
+{
+    if (us != 0) {
+        printf("  %s T = %.6f с\n", label, (double)us / 1e6);
+    }
 }
 
-IncidentReport analyze_incident(const TelemetryFrame *frames, size_t count) {
-    IncidentReport report = {
-        .fault = FAULT_NONE,
-        .timestamp_us = 0,
-        .confidence = 0.0f,
-        .description = "Інцидентів не виявлено: параметри в межах норми"
-    };
+static void print_report(const IncidentReport *r)
+{
+    printf("Кадрів прийнято: %zu, відкинуто: %zu\n", r->frames_used, r->frames_skipped);
+    printf("Сигнатура: %s\n", fault_name(r->fault));
+    if (r->fault != FAULT_NONE) {
+        printf("Мітка: T = %.6f с (%llu мкс)\n",
+               (double)r->timestamp_us / 1e6, (unsigned long long)r->timestamp_us);
+        printf("Впевненість: %.2f\n", (double)r->confidence);
+    }
+    printf("Висновок: %s\n", r->description);
 
-    if (count < WINDOW_SIZE) {
-        report.description = "Замало даних для формування вікна аналізу";
-        return report;
+    if (r->impact_us != 0 || r->env_anomaly_us != 0 || r->depletion_us != 0) {
+        printf("Контекст (події, відкинуті як не-першопричина):\n");
+        print_mark("зіткнення, сплеск гіроскопа випередив мотори:", r->impact_us);
+        print_mark("магнітна аномалія середовища без власного струму:", r->env_anomaly_us);
+        print_mark("плавне вичерпання заряду батареї:", r->depletion_us);
+    }
+}
+
+int main(int argc, char **argv)
+{
+    if (argc != 2) {
+        fprintf(stderr, "Виклик: %s <журнал.csv>\n"
+                        "CSV — розпакований ULog/DataFlash із шапкою імен колонок.\n",
+                argv[0]);
+        return EXIT_USAGE;
     }
 
-    size_t motor_sat_count = 0;
-    size_t mag_fault_count = 0;
-    size_t sensor_freeze_count = 0;
-    float prev_gyro = frames[0].gyro_x_rads;
-
-    for (size_t i = 0; i < count; i++) {
-        const TelemetryFrame *f = &frames[i];
-
-        // 1. Провал напруги батареї (Brownout)
-        if (f->bat_voltage_v < 13.2f && f->bat_current_a > 25.0f) {
-            report.fault = FAULT_BROWNOUT_VOLTAGE_SAG;
-            report.timestamp_us = f->timestamp_us;
-            report.confidence = 0.95f;
-            report.description = "Критичне просідання напруги батареї (Brownout) під струмовим навантаженням";
-            return report;
-        }
-
-        // 2. Апаратне зависання шини або мікросхеми давача
-        if ((f->sensor_status_mask & 0x01) == 0) {
-            report.fault = FAULT_SENSOR_BUS_LOCKUP;
-            report.timestamp_us = f->timestamp_us;
-            report.confidence = 1.0f;
-            report.description = "Апаратна відмова шини IMU (I2C/SPI timeout або втрата зв'язку)";
-            return report;
-        }
-
-        if (i > 0 && fabsf(f->gyro_x_rads - prev_gyro) < 1e-6f) {
-            sensor_freeze_count++;
-            if (sensor_freeze_count > 25) {
-                report.fault = FAULT_SENSOR_BUS_LOCKUP;
-                report.timestamp_us = f->timestamp_us;
-                report.confidence = 0.90f;
-                report.description = "Застигання показів гіроскопа (Sensor freeze) на постійному значенні";
-                return report;
-            }
+    FrameLog log;
+    LoadStatus st = log_load_csv(argv[1], &log);
+    if (!st.ok) {
+        if (st.line > 0) {
+            fprintf(stderr, "Журнал %s, рядок %zu: %s\n", argv[1], st.line, st.message);
         } else {
-            sensor_freeze_count = 0;
+            fprintf(stderr, "Журнал %s: %s\n", argv[1], st.message);
         }
-        prev_gyro = f->gyro_x_rads;
-
-        // 3. Відмова мотора / регулятора ESC
-        bool motor_saturated = false;
-        if ((f->motor_out[0] > 0.98f && f->motor_out[1] < 0.05f) ||
-            (f->motor_out[1] > 0.98f && f->motor_out[0] < 0.05f)) {
-            motor_saturated = true;
-        }
-
-        if (motor_saturated && is_angle_diverging(f->roll_des_deg, f->roll_act_deg, 20.0f)) {
-            motor_sat_count++;
-            if (motor_sat_count > 15) { // ~150 мс стійкого насичення при 100 Гц
-                report.fault = FAULT_MOTOR_ESC_LOSS;
-                report.timestamp_us = f->timestamp_us;
-                report.confidence = 0.98f;
-                report.description = "Відмова мотора або ESC: насичення виходу 100%/0% при зростаючій помилці крену";
-                return report;
-            }
-        } else {
-            motor_sat_count = (motor_sat_count > 0) ? motor_sat_count - 1 : 0;
-        }
-
-        // 4. Магнітна завада від струмових кіл
-        if (f->ekf_mag_innov > 0.45f && f->bat_current_a > 30.0f) {
-            if (is_angle_diverging(f->yaw_des_deg, f->yaw_act_deg, 15.0f)) {
-                mag_fault_count++;
-                if (mag_fault_count > 20) {
-                    report.fault = FAULT_MAGNETIC_INTERFERENCE;
-                    report.timestamp_us = f->timestamp_us;
-                    report.confidence = 0.92f;
-                    report.description = "Розходження курсу через магнітні наведення силового струму на компас";
-                    return report;
-                }
-            }
-        } else {
-            mag_fault_count = (mag_fault_count > 0) ? mag_fault_count - 1 : 0;
-        }
+        log_free(&log);
+        return EXIT_BAD_LOG;
     }
 
-    return report;
+    IncidentReport report = analyze_incident(log.frames, log.count);
+    print_report(&report);
+    log_free(&log);
+
+    return report.fault == FAULT_NONE ? EXIT_CLEAN : EXIT_FAULT;
 }

@@ -352,6 +352,16 @@ T_life = 2210000 мкА·год / 4.80 мкА
 Для автоматизації розрахунку та інтеграції в утиліти конфігурації нижче наведено закінчену реалізацію моделі шпаруватості двома мовами. Програмна реалізація дозволяє розрахувати середній струм, відсоток використання енергії кожною фазою, час життя та точку насичення `T_sat`. Розширений приклад модуля з пофазною декомпозицією наведено у вставці [інженерного калькулятора шпаруватості](root:embedded/shparuvatist-roboty/proj-duty-cycle-calculator.md).
 
 :::tabs
+:::code shparuvatist-roboty-d/c/duty_cycle.h
+:::code shparuvatist-roboty-d/cpp/duty_model.hpp
+:::
+
+:::tabs
+:::code shparuvatist-roboty-d/c/duty_cycle.c
+:::code shparuvatist-roboty-d/cpp/radio_band.hpp
+:::
+
+:::tabs
 :::code shparuvatist-roboty-d/c/main.c
 :::code shparuvatist-roboty-d/cpp/main.cpp
 :::

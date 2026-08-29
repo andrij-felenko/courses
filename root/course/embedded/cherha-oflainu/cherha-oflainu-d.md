@@ -165,8 +165,15 @@ R = 50 · 128 + 1 · 256 = 6656 байтів/секунду ≈ 6.5 КіБ/с
 Наведемо ядро функції валідації та відновлення кадру мовами C та C++:
 
 :::tabs
+:::code cherha-oflainu-d/c/sf_frame.h
+:::code cherha-oflainu-d/c/sf_frame.c
+:::code cherha-oflainu-d/c/sf_recover.h
+:::code cherha-oflainu-d/c/sf_recover.c
 :::code cherha-oflainu-d/c/main.c
-:::code cherha-oflainu-d/cpp/main.cpp
+:::code cherha-oflainu-d/cpp/include/sf/frame.hpp
+:::code cherha-oflainu-d/cpp/src/frame.cpp
+:::code cherha-oflainu-d/cpp/include/sf/recovery.hpp
+:::code cherha-oflainu-d/cpp/src/main.cpp
 :::
 
 #### Квитування пачок та захист від дублікатів

@@ -1,169 +1,232 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Прогін диспетчера на моделі польоту: 20 секунд із заглушенням основного
+   каналу, провалом резерву й поверненням. Час іде кроком 10 мс — у прошивці
+   на цьому місці таймерне переривання й HAL_GetTick(). */
+#include "arbiter.h"
+#include "link_stats.h"
+#include "qos_queue.h"
+
+#include <stdio.h>
 #include <string.h>
 
-#define MAX_BEARERS             2
-#define MAX_PAYLOAD_SIZE        256
-#define STATS_WINDOW_SIZE       32
-#define HYSTERESIS_DWELL_MS     5000
-#define FAILOVER_PER_THRESHOLD  25
-#define RECOVERY_PER_THRESHOLD  5
+#define TICK_MS          10u
+#define SIM_END_MS       20000u
+#define JAM_START_MS     3000u    /* завада по основному каналу */
+#define JAM_END_MS       11000u
+#define FALL_JAM_START   5500u    /* заглушили ще й резерв */
+#define FALL_JAM_END     9500u
 
-typedef enum {
-    BEARER_PRIMARY = 0,
-    BEARER_FALLBACK = 1
-} bearer_type_t;
+static uint32_t g_now_ms;
 
-typedef enum {
-    ARBITER_STATE_PRIMARY_OK = 0,
-    ARBITER_STATE_FALLBACK_ACTIVE,
-    ARBITER_STATE_EVALUATING_RECOVERY,
-    ARBITER_STATE_TOTAL_BLACKOUT
-} arbiter_fsm_state_t;
-
-typedef enum {
-    PRIO_CRITICAL = 0,
-    PRIO_TELEMETRY,
-    PRIO_VIDEO
-} packet_prio_t;
+/* --- Модель ефіру: кадр летить не миттєво, і саме тому кадри міняються
+   місцями. Наземна станція розбирає їх ковзним вікном дедуплікації. --- */
+#define AIR_SLOTS 64
 
 typedef struct {
-    int16_t  rssi_dbm;
-    int8_t   snr_db;
-    uint32_t last_rx_time_ms;
-    uint32_t rx_packet_mask;     /* Бітова маска останніх 32 пакетів */
-    uint8_t  smoothed_per;       /* Розрахований PER (0..100%) */
-    uint8_t  composite_score;    /* Бал якості (0..100) */
-    bool     is_physical_up;
-} link_stats_t;
+    bool        busy;
+    uint16_t    seq;
+    uint32_t    arrive_ms;
+    const char *via;
+} air_frame_t;
 
+static air_frame_t    g_air[AIR_SLOTS];
+static dedup_window_t g_ground;
+static uint32_t       g_ground_ok;
+static uint32_t       g_air_lost;
+
+static void air_launch(uint16_t seq, uint32_t arrive_ms, const char *via) {
+    for (int i = 0; i < AIR_SLOTS; i++) {
+        if (!g_air[i].busy) {
+            g_air[i].busy      = true;
+            g_air[i].seq       = seq;
+            g_air[i].arrive_ms = arrive_ms;
+            g_air[i].via       = via;
+            return;
+        }
+    }
+    g_air_lost++;
+}
+
+static void ground_poll(uint32_t now_ms) {
+    for (int i = 0; i < AIR_SLOTS; i++) {
+        if (!g_air[i].busy || (int32_t)(now_ms - g_air[i].arrive_ms) < 0) {
+            continue;
+        }
+        g_air[i].busy = false;
+        if (dedup_accept(&g_ground, g_air[i].seq)) {
+            g_ground_ok++;
+        }
+    }
+}
+
+/* --- Драйвери двох трансиверів --- */
 typedef struct {
-    bearer_type_t       type;
-    const char         *name;
-    link_stats_t        stats;
-    int (*raw_send)(const uint8_t *data, size_t len);
-} bearer_channel_t;
+    const char *label;
+    uint16_t    latency_ms;
+    bool        faulty;
+} radio_ctx_t;
 
-typedef struct {
-    arbiter_fsm_state_t state;
-    bearer_type_t       active_bearer;
-    uint32_t            state_enter_time_ms;
-    uint32_t            consecutive_good_primary_pkts;
-    bearer_channel_t    bearers[MAX_BEARERS];
-} link_arbiter_t;
+static radio_ctx_t g_wifi = { "2.4G-OFDM", 3u,  false };
+static radio_ctx_t g_lora = { "868M-LoRa", 90u, false };
 
-/* Обчислення кількості одиничних бітів у масці (кількість успішно прийнятих пакетів) */
-static inline uint8_t count_received_packets(uint32_t mask) {
-    uint8_t count = 0;
-    while (mask) {
-        count += (mask & 1);
-        mask >>= 1;
+static int radio_send(const packet_t *frame, void *ctx) {
+    radio_ctx_t *r = (radio_ctx_t *)ctx;
+    if (r->faulty) {
+        return -1;   /* SPI не відповів: арбітр порахує помилку й спробує пізніше */
     }
-    return count;
+    air_launch(frame->seq, g_now_ms + r->latency_ms, r->label);
+    return (int)frame->len;
 }
 
-/* Оновлення бітової маски втрат при надходженні нового пакета */
-void link_stats_on_packet_rx(link_stats_t *stats, uint16_t seq, int16_t rssi, int8_t snr, uint32_t now_ms) {
-    stats->last_rx_time_ms = now_ms;
-    stats->rssi_dbm = (int16_t)((stats->rssi_dbm * 7 + rssi) >> 3); /* EWMA фільтр */
-    stats->snr_db = (int8_t)((stats->snr_db * 7 + snr) >> 3);
-    
-    stats->rx_packet_mask = (stats->rx_packet_mask << 1) | 1;
-    uint8_t received = count_received_packets(stats->rx_packet_mask);
-    stats->smoothed_per = (uint8_t)(((STATS_WINDOW_SIZE - received) * 100) / STATS_WINDOW_SIZE);
-    
-    /* Розрахунок інтегрального балу: PER має найбільшу вагу */
-    int score = 100 - stats->smoothed_per;
-    if (stats->rssi_dbm < -100) {
-        score -= 20;
+static void radio_set_mode(bearer_mode_t mode, void *ctx) {
+    const radio_ctx_t *r = (const radio_ctx_t *)ctx;
+    printf("        %-10s -> %s\n", r->label, bearer_mode_name(mode));
+}
+
+/* --- Модель радіообстановки --- */
+static bool primary_frame_arrives(uint32_t now_ms, int16_t *rssi_dbm) {
+    if (now_ms < JAM_START_MS || now_ms >= JAM_END_MS) {
+        *rssi_dbm = -62;
+        return true;                       /* 100 Гц телеметрії з землі */
     }
-    stats->composite_score = (uint8_t)(score < 0 ? 0 : (score > 100 ? 100 : score));
+    if (now_ms < JAM_START_MS + 200u) {
+        *rssi_dbm = -104;                  /* завада наростає: пролазить кожен третій */
+        return (now_ms / TICK_MS) % 3u == 0u;
+    }
+    return false;                          /* повна тиша */
 }
 
-void link_stats_on_packet_timeout(link_stats_t *stats) {
-    stats->rx_packet_mask = (stats->rx_packet_mask << 1); /* Зсув нуля при втраті */
-    uint8_t received = count_received_packets(stats->rx_packet_mask);
-    stats->smoothed_per = (uint8_t)(((STATS_WINDOW_SIZE - received) * 100) / STATS_WINDOW_SIZE);
-    stats->composite_score = (uint8_t)(100 - stats->smoothed_per);
+static bool fallback_frame_arrives(uint32_t now_ms) {
+    if (now_ms % 200u != 0u) {
+        return false;                      /* маяк резерву 5 Гц */
+    }
+    return (now_ms < FALL_JAM_START || now_ms >= FALL_JAM_END);
 }
 
-void arbiter_init(link_arbiter_t *arbiter) {
-    memset(arbiter, 0, sizeof(link_arbiter_t));
-    arbiter->state = ARBITER_STATE_PRIMARY_OK;
-    arbiter->active_bearer = BEARER_PRIMARY;
-    arbiter->bearers[BEARER_PRIMARY].name = "2.4G-OFDM";
-    arbiter->bearers[BEARER_PRIMARY].stats.rssi_dbm = -60;
-    arbiter->bearers[BEARER_PRIMARY].stats.is_physical_up = true;
-    
-    arbiter->bearers[BEARER_FALLBACK].name = "868M-LoRa";
-    arbiter->bearers[BEARER_FALLBACK].stats.rssi_dbm = -75;
-    arbiter->bearers[BEARER_FALLBACK].stats.is_physical_up = true;
+/* Контекст переривання: перекласти кадр у кільце й вийти. Жодної математики. */
+static void rx_isr(rx_ring_t *ring, bearer_id_t id, uint16_t seq, int16_t rssi,
+                   int8_t snr, uint32_t now_ms) {
+    packet_t frame;
+    frame.seq      = seq;
+    frame.len      = 0;
+    frame.stamp_ms = now_ms;
+    frame.bearer   = (uint8_t)id;
+    frame.prio     = (uint8_t)PRIO_TELEMETRY;
+    frame.rssi_dbm = rssi;
+    frame.snr_db   = snr;
+    (void)rx_ring_push(ring, &frame);   /* переповнення вже пораховане всередині */
 }
 
-/* Періодичний автомат станів диспетчера */
-void arbiter_step(link_arbiter_t *arbiter, uint32_t now_ms) {
-    link_stats_t *prim_stats = &arbiter->bearers[BEARER_PRIMARY].stats;
-    link_stats_t *fall_stats = &arbiter->bearers[BEARER_FALLBACK].stats;
-    
-    bool prim_dead = (now_ms - prim_stats->last_rx_time_ms > 1500) || (prim_stats->smoothed_per >= FAILOVER_PER_THRESHOLD);
-    bool fall_dead = (now_ms - fall_stats->last_rx_time_ms > 3000);
+int main(void) {
+    /* Статика: у польоті купи немає — тут теж */
+    static link_arbiter_t arbiter;
+    static rx_ring_t      rx_ring;
+    static uint8_t        telemetry[48];
+    static uint8_t        video[200];
+    static uint8_t        command[12];
 
-    switch (arbiter->state) {
-    case ARBITER_STATE_PRIMARY_OK:
-        if (prim_dead) {
-            arbiter->state = ARBITER_STATE_FALLBACK_ACTIVE;
-            arbiter->active_bearer = BEARER_FALLBACK;
-            arbiter->state_enter_time_ms = now_ms;
+    const bearer_driver_t wifi_drv = { "2.4G-OFDM", radio_send, radio_set_mode, &g_wifi, 3u,  10u };
+    const bearer_driver_t lora_drv = { "868M-LoRa", radio_send, radio_set_mode, &g_lora, 90u, 200u };
+
+    memset(telemetry, 0xA5, sizeof(telemetry));
+    memset(video, 0x5A, sizeof(video));
+    memset(command, 0x3C, sizeof(command));
+
+    rx_ring_init(&rx_ring);
+    dedup_init(&g_ground);
+    arbiter_init(&arbiter, 0u);
+    arbiter_bind(&arbiter, BEARER_PRIMARY,  &wifi_drv, 0u);
+    arbiter_bind(&arbiter, BEARER_FALLBACK, &lora_drv, 0u);
+
+    uint16_t prim_seq = 0, fall_seq = 0;
+    uint32_t tlm_ok = 0, vid_ok = 0, vid_refused = 0, crit_ok = 0, crit_lost = 0;
+    arbiter_state_t last_state = arbiter_state(&arbiter);
+    printf("  0.00 с  стан: %s\n", arbiter_state_name(last_state));
+
+    for (g_now_ms = 0; g_now_ms <= SIM_END_MS; g_now_ms += TICK_MS) {
+        const uint32_t now = g_now_ms;
+
+        /* 1. Переривання приймачів. Лічильник кадру росте завжди: кадр міг
+              вилетіти з землі й не долетіти — саме це й дає розрив у seq. */
+        int16_t rssi = 0;
+        const uint16_t pseq = prim_seq++;
+        if (primary_frame_arrives(now, &rssi)) {
+            rx_isr(&rx_ring, BEARER_PRIMARY, pseq, rssi, (rssi < -100) ? -4 : 12, now);
         }
-        break;
-
-    case ARBITER_STATE_FALLBACK_ACTIVE:
-        if (prim_dead && fall_dead) {
-            arbiter->state = ARBITER_STATE_TOTAL_BLACKOUT;
-            arbiter->state_enter_time_ms = now_ms;
-        } else if (!prim_dead && prim_stats->smoothed_per <= RECOVERY_PER_THRESHOLD) {
-            arbiter->state = ARBITER_STATE_EVALUATING_RECOVERY;
-            arbiter->state_enter_time_ms = now_ms;
-            arbiter->consecutive_good_primary_pkts = 0;
+        if (now % 200u == 0u) {
+            const uint16_t fseq = fall_seq++;
+            if (fallback_frame_arrives(now)) {
+                rx_isr(&rx_ring, BEARER_FALLBACK, fseq, -95, 5, now);
+            }
         }
-        break;
 
-    case ARBITER_STATE_EVALUATING_RECOVERY:
-        if (prim_dead) {
-            arbiter->state = ARBITER_STATE_FALLBACK_ACTIVE;
-            arbiter->active_bearer = BEARER_FALLBACK;
-        } else if (now_ms - arbiter->state_enter_time_ms >= HYSTERESIS_DWELL_MS) {
-            /* Успішне проходження гістерезису: повертаємося на основний канал */
-            arbiter->state = ARBITER_STATE_PRIMARY_OK;
-            arbiter->active_bearer = BEARER_PRIMARY;
+        /* 2. Задача арбітра розбирає кільце й рахує метрики */
+        packet_t rx;
+        while (rx_ring_pop(&rx_ring, &rx)) {
+            arbiter_on_rx(&arbiter, (bearer_id_t)rx.bearer, rx.seq, rx.rssi_dbm,
+                          rx.snr_db, now);
         }
-        break;
 
-    case ARBITER_STATE_TOTAL_BLACKOUT:
-        if (!fall_dead) {
-            arbiter->state = ARBITER_STATE_FALLBACK_ACTIVE;
-            arbiter->active_bearer = BEARER_FALLBACK;
-        } else if (!prim_dead) {
-            arbiter->state = ARBITER_STATE_PRIMARY_OK;
-            arbiter->active_bearer = BEARER_PRIMARY;
+        /* 3. Автомат станів — кожні 10 мс */
+        arbiter_step(&arbiter, now);
+
+        /* 4. Політний контролер віддає свої пакети */
+        if (now % 20u == 0u) {
+            if (arbiter_send_packet(&arbiter, PRIO_TELEMETRY, telemetry, sizeof(telemetry), now) == ARB_OK) {
+                tlm_ok++;
+            }
         }
-        break;
-    }
-}
+        if (now % 50u == 0u) {
+            const arb_status_t rc = arbiter_send_packet(&arbiter, PRIO_VIDEO, video, sizeof(video), now);
+            if (rc == ARB_OK) {
+                vid_ok++;
+            } else if (rc == ARB_ERR_NO_BANDWIDTH) {
+                vid_refused++;
+            }
+        }
+        if (now % 1000u == 0u) {
+            const arb_status_t rc = arbiter_send_packet(&arbiter, PRIO_CRITICAL, command, sizeof(command), now);
+            if (rc == ARB_OK) {
+                crit_ok++;
+            } else {
+                crit_lost++;   /* верхній рівень тут вмикає автономне повернення */
+            }
+        }
 
-/* Маршрутизація передачі пакета відповідно до QoS та стану */
-int arbiter_send_packet(link_arbiter_t *arbiter, packet_prio_t prio, const uint8_t *payload, size_t len) {
-    if (arbiter->state == ARBITER_STATE_TOTAL_BLACKOUT) {
-        return -1; /* Повний радіоблекаут */
+        /* 5. Диспетчер віддає черги в ефір, 6. земля приймає, що долетіло */
+        (void)arbiter_pump(&arbiter, now);
+        ground_poll(now);
+
+        const arbiter_state_t st = arbiter_state(&arbiter);
+        if (st != last_state) {
+            const bearer_t *prim = arbiter_bearer(&arbiter, BEARER_PRIMARY);
+            printf("%6.2f с  стан: %-22s носій: %-10s PER основного %u%%\n",
+                   now / 1000.0, arbiter_state_name(st),
+                   arbiter_bearer(&arbiter, arbiter_active(&arbiter))->drv.name,
+                   (unsigned)prim->stats.per_percent);
+            last_state = st;
+        }
     }
 
-    if (prio == PRIO_VIDEO && arbiter->active_bearer == BEARER_FALLBACK) {
-        return 0; /* Скидаємо важкий відеопотік на вузькому резервному каналі */
-    }
-
-    bearer_channel_t *ch = &arbiter->bearers[arbiter->active_bearer];
-    if (ch->raw_send) {
-        return ch->raw_send(payload, len);
-    }
+    const bearer_t *prim = arbiter_bearer(&arbiter, BEARER_PRIMARY);
+    const bearer_t *fall = arbiter_bearer(&arbiter, BEARER_FALLBACK);
+    printf("\n== Підсумок 20 с ==\n");
+    printf("%-10s кадрів %5u, помилок драйвера %u, PER %u%%, RSSI %d dBm\n",
+           prim->drv.name, (unsigned)prim->tx_frames, (unsigned)prim->tx_errors,
+           (unsigned)prim->stats.per_percent, link_stats_rssi_dbm(&prim->stats));
+    printf("%-10s кадрів %5u, помилок драйвера %u, PER %u%%, RSSI %d dBm\n",
+           fall->drv.name, (unsigned)fall->tx_frames, (unsigned)fall->tx_errors,
+           (unsigned)fall->stats.per_percent, link_stats_rssi_dbm(&fall->stats));
+    printf("телеметрія: узято %u, витіснено старих %u\n",
+           (unsigned)tlm_ok, (unsigned)arbiter_queue(&arbiter, PRIO_TELEMETRY)->dropped);
+    printf("відео: узято %u, відмовлено на резерві %u, скинуто чергою %u\n",
+           (unsigned)vid_ok, (unsigned)vid_refused,
+           (unsigned)arbiter_queue(&arbiter, PRIO_VIDEO)->dropped);
+    printf("критичні: узято %u, не взято через блекаут %u\n",
+           (unsigned)crit_ok, (unsigned)crit_lost);
+    printf("земля: прийнято %u, дублікатів %u, спізнілих поза вікном %u\n",
+           (unsigned)g_ground_ok, (unsigned)g_ground.duplicates, (unsigned)g_ground.too_old);
+    printf("перемикань стану %u, переповнень RX-кільця %u, втрачено в моделі ефіру %u\n",
+           (unsigned)arbiter_switches(&arbiter), (unsigned)rx_ring.overruns,
+           (unsigned)g_air_lost);
     return 0;
 }

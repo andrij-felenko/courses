@@ -1,230 +1,240 @@
-#include <iostream>
-#include <vector>
-#include <span>
-#include <chrono>
-#include <thread>
-#include <expected>
+#include "bootloader.hpp"
+#include "serial_port.hpp"
+
+#include <algorithm>
+#include <array>
 #include <cstdint>
-#include <fcntl.h>
-#include <unistd.h>
-#include <termios.h>
+#include <exception>
+#include <filesystem>
+#include <format>
+#include <fstream>
+#include <iostream>
+#include <optional>
+#include <span>
+#include <stdexcept>
+#include <string_view>
+#include <type_traits>
+#include <vector>
 
-enum class BootloaderError {
-    PortOpenFailed,
-    ConfigurationFailed,
-    SyncFailed,
-    AckTimeout,
-    NackReceived,
-    WriteFailed,
-    InvalidParameter
+namespace {
+
+// Регістр розміру Flash у KiB лежить у різних родин за різними адресами,
+// тому таблиця зв'язує PID із конкретною адресою й людською назвою.
+struct ChipInfo {
+    std::uint16_t pid;
+    std::string_view name;
+    std::uint32_t flashSizeReg;
 };
 
-class SerialPort {
-public:
-    explicit SerialPort(const std::string& port_name) {
-        fd_ = open(port_name.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
-        if (fd_ < 0) return;
-
-        struct termios tty{};
-        if (tcgetattr(fd_, &tty) != 0) {
-            closePort();
-            return;
-        }
-
-        cfsetospeed(&tty, B115200);
-        cfsetispeed(&tty, B115200);
-
-        tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8; // 8 бітів даних
-        tty.c_cflag |= PARENB;                      // Контроль парності
-        tty.c_cflag &= ~PARODD;                     // Even
-        tty.c_cflag &= ~CSTOPB;                     // 1 стоп-біт
-        tty.c_cflag &= ~CRTSCTS;
-        tty.c_cflag |= (CLOCAL | CREAD);
-
-        tty.c_iflag &= ~(IXON | IXOFF | IXANY);
-        tty.c_lflag = 0;
-        tty.c_oflag = 0;
-        tty.c_cc[VMIN]  = 0;
-        tty.c_cc[VTIME] = 10;                       // Таймаут 1.0 с
-
-        if (tcsetattr(fd_, TCSANOW, &tty) != 0) {
-            closePort();
-        }
-    }
-
-    ~SerialPort() {
-        closePort();
-    }
-
-    // Заборона копіювання для суворого контролю дескриптора (RAII)
-    SerialPort(const SerialPort&) = delete;
-    SerialPort& operator=(const SerialPort&) = delete;
-
-    SerialPort(SerialPort&& other) noexcept : fd_(other.fd_) {
-        other.fd_ = -1;
-    }
-
-    [[nodiscard]] bool isOpen() const noexcept { return fd_ >= 0; }
-
-    bool writeBytes(std::span<const uint8_t> data) const {
-        if (!isOpen()) return false;
-        return write(fd_, data.data(), data.size()) == static_cast<ssize_t>(data.size());
-    }
-
-    bool readBytes(std::span<uint8_t> buffer) const {
-        if (!isOpen()) return false;
-        size_t total = 0;
-        while (total < buffer.size()) {
-            ssize_t res = read(fd_, buffer.data() + total, buffer.size() - total);
-            if (res <= 0) return false;
-            total += static_cast<size_t>(res);
-        }
-        return true;
-    }
-
-    void flush() const {
-        if (isOpen()) tcflush(fd_, TCIOFLUSH);
-    }
-
-private:
-    int fd_{-1};
-
-    void closePort() noexcept {
-        if (fd_ >= 0) {
-            close(fd_);
-            fd_ = -1;
-        }
-    }
+constexpr std::array kKnownChips{
+    ChipInfo{0x410, "STM32F10x medium-density", 0x1FFFF7E0u},
+    ChipInfo{0x412, "STM32F10x low-density", 0x1FFFF7E0u},
+    ChipInfo{0x414, "STM32F10x high-density", 0x1FFFF7E0u},
+    ChipInfo{0x413, "STM32F405/407/415/417", 0x1FFF7A22u},
+    ChipInfo{0x419, "STM32F42x/43x", 0x1FFF7A22u},
+    ChipInfo{0x431, "STM32F411", 0x1FFF7A22u},
+    ChipInfo{0x440, "STM32F05x", 0x1FFFF7CCu},
+    ChipInfo{0x444, "STM32F03x", 0x1FFFF7CCu},
+    ChipInfo{0x415, "STM32L47x/48x", 0x1FFF75E0u},
+    ChipInfo{0x460, "STM32G07x/08x", 0x1FFF75E0u},
+    ChipInfo{0x466, "STM32G03x/04x", 0x1FFF75E0u},
+    ChipInfo{0x468, "STM32G43x/44x", 0x1FFF75E0u},
 };
 
-class Stm32Flasher {
-public:
-    static constexpr uint8_t ACK_BYTE   = 0x79;
-    static constexpr uint8_t NACK_BYTE  = 0x1F;
-    static constexpr uint8_t CMD_GET_ID = 0x02;
-    static constexpr uint8_t CMD_ERASE  = 0x44;
-    static constexpr uint8_t CMD_WRITE  = 0x31;
-    static constexpr uint8_t CMD_GO     = 0x21;
+const ChipInfo* findChip(std::uint16_t pid)
+{
+    const auto it = std::ranges::find(kKnownChips, pid, &ChipInfo::pid);
+    return it == kKnownChips.end() ? nullptr : &*it;
+}
 
-    explicit Stm32Flasher(SerialPort& port) : port_(port) {}
+// Розгортає Result або перетворює код помилки на виняток із назвою кроку.
+template <class T>
+T unwrap(Result<T>&& result, std::string_view step)
+{
+    if (!result) {
+        throw std::runtime_error(std::format("{}: {}", step, describe(result.error())));
+    }
+    if constexpr (!std::is_void_v<T>) {
+        return std::move(*result);
+    }
+}
 
-    std::expected<void, BootloaderError> sync() {
-        port_.flush();
-        const uint8_t sync_byte = 0x7F;
-        if (!port_.writeBytes(std::span{&sync_byte, 1})) {
-            return std::unexpected(BootloaderError::WriteFailed);
+// Читає .bin і доповнює хвіст 0xFF до межі подвійного слова: на кристалах
+// з ECC у Flash невирівняний запис просто не пройде.
+std::vector<std::uint8_t> loadFirmware(const std::filesystem::path& path)
+{
+    std::ifstream file{path, std::ios::binary};
+    if (!file) {
+        throw std::runtime_error(std::format("не відкривається {}", path.string()));
+    }
+
+    std::vector<std::uint8_t> image{std::istreambuf_iterator<char>{file},
+                                    std::istreambuf_iterator<char>{}};
+    if (file.bad()) {
+        throw std::runtime_error(std::format("обірване читання {}", path.string()));
+    }
+    if (image.empty()) {
+        throw std::runtime_error("порожній образ");
+    }
+
+    const std::size_t padded = (image.size() + 7) & ~std::size_t{7};
+    if (padded != image.size()) {
+        std::cout << std::format("образ доповнено з {} до {} байтів (вирівнювання під ECC)\n",
+                                 image.size(), padded);
+        image.resize(padded, 0xFF);
+    }
+    return image;
+}
+
+std::uint32_t readWordLe(std::span<const std::uint8_t> data)
+{
+    return static_cast<std::uint32_t>(data[0]) | (static_cast<std::uint32_t>(data[1]) << 8) |
+           (static_cast<std::uint32_t>(data[2]) << 16) | (static_cast<std::uint32_t>(data[3]) << 24);
+}
+
+// Дешева перевірка, що це саме прошивка, а не .elf чи чужий файл: слово 0 —
+// початковий стек у SRAM, слово 1 — Reset_Handler у Flash із бітом Thumb.
+void validateVectors(std::span<const std::uint8_t> image)
+{
+    if (image.size() < 8) {
+        throw std::runtime_error("образ коротший за таблицю векторів");
+    }
+
+    const std::uint32_t stackTop = readWordLe(image.first(4));
+    const std::uint32_t resetVector = readWordLe(image.subspan(4, 4));
+
+    if ((stackTop & 0xFFF00000u) != 0x20000000u) {
+        throw std::runtime_error(
+            std::format("слово 0 = {:#010x} — це не вершина стека в SRAM", stackTop));
+    }
+    if ((resetVector & 1u) == 0 || resetVector < kFlashBase ||
+        resetVector >= kFlashBase + image.size()) {
+        throw std::runtime_error(
+            std::format("слово 1 = {:#010x} — Reset_Handler поза образом", resetVector));
+    }
+}
+
+void writeImage(Bootloader& boot, std::span<const std::uint8_t> image)
+{
+    for (std::size_t offset = 0; offset < image.size(); offset += kMaxBlock) {
+        const auto chunk = image.subspan(offset, std::min(kMaxBlock, image.size() - offset));
+        const auto address = static_cast<std::uint32_t>(kFlashBase + offset);
+
+        unwrap(boot.writeBlock(address, chunk), std::format("запис на {:#010x}", address));
+
+        std::cout << std::format("\r  запис {:#010x}  {:3}%", address,
+                                 (offset + chunk.size()) * 100 / image.size())
+                  << std::flush;
+    }
+    std::cout << '\n';
+}
+
+void verifyImage(Bootloader& boot, std::span<const std::uint8_t> image)
+{
+    for (std::size_t offset = 0; offset < image.size(); offset += kMaxBlock) {
+        const auto expected = image.subspan(offset, std::min(kMaxBlock, image.size() - offset));
+        const auto address = static_cast<std::uint32_t>(kFlashBase + offset);
+
+        const auto actual =
+            unwrap(boot.readBlock(address, expected.size()), std::format("читання {:#010x}", address));
+
+        const auto mismatch = std::ranges::mismatch(actual, expected);
+        if (mismatch.in1 != actual.end()) {
+            const auto at = static_cast<std::size_t>(mismatch.in1 - actual.begin());
+            throw std::runtime_error(
+                std::format("розбіжність на {:#010x}: у чипі {:#04x}, в образі {:#04x}",
+                            address + at, *mismatch.in1, *mismatch.in2));
         }
-        return waitAck(std::chrono::seconds(2));
+
+        std::cout << std::format("\r  звірка {:#010x}  {:3}%", address,
+                                 (offset + expected.size()) * 100 / image.size())
+                  << std::flush;
+    }
+    std::cout << '\n';
+}
+
+void flash(const std::string& portPath, std::span<const std::uint8_t> image)
+{
+    SerialPort port{portPath};
+    port.enterBootloader();
+
+    Bootloader boot{port};
+    unwrap(boot.sync(), "синхронізація (перевір BOOT0 і перехідник)");
+
+    const auto version = unwrap(boot.version(), "Get Version");
+    std::cout << std::format("завантажувач версії {}.{}\n", version.protocol >> 4,
+                             version.protocol & 0x0F);
+
+    const auto pid = unwrap(boot.chipId(), "Get ID");
+    const ChipInfo* chip = findChip(pid);
+    if (chip == nullptr) {
+        throw std::runtime_error(
+            std::format("PID {:#05x} у таблиці відсутній — адреса регістра розміру невідома", pid));
+    }
+    std::cout << std::format("кристал {:#05x} — {}\n", pid, chip->name);
+
+    // Пробне читання водночас перевіряє захист: під RDP level 1 буде NACK.
+    auto sizeBytes = boot.readBlock(chip->flashSizeReg, 2);
+    bool erasedByUnprotect = false;
+
+    if (!sizeBytes && sizeBytes.error() == BootError::Nack) {
+        std::cout << "читання заблоковано — RDP level 1; знімаємо захист, Flash буде стерто\n";
+        unwrap(boot.readoutUnprotect(), "Readout Unprotect");
+
+        // Чип сам перезавантажився — заходимо в System Memory ще раз.
+        port.enterBootloader();
+        unwrap(boot.sync(), "повторна синхронізація");
+
+        sizeBytes = boot.readBlock(chip->flashSizeReg, 2);
+        erasedByUnprotect = true;
     }
 
-    std::expected<uint16_t, BootloaderError> getChipId() {
-        const uint8_t cmd[2] = {CMD_GET_ID, static_cast<uint8_t>(~CMD_GET_ID)};
-        if (!port_.writeBytes(cmd)) return std::unexpected(BootloaderError::WriteFailed);
-        
-        auto ack_res = waitAck(std::chrono::seconds(1));
-        if (!ack_res) return std::unexpected(ack_res.error());
+    const auto raw = unwrap(std::move(sizeBytes), "читання розміру Flash");
+    const auto flashKib = static_cast<std::uint16_t>(raw[0] | (raw[1] << 8));
+    if (flashKib == 0 || flashKib == 0xFFFF) {
+        throw std::runtime_error(
+            std::format("регістр розміру віддав {:#06x} — довіряти йому не можна", flashKib));
+    }
+    std::cout << std::format("Flash {} KiB, образ {} байтів\n", flashKib, image.size());
 
-        uint8_t len = 0;
-        if (!port_.readBytes(std::span{&len, 1}) || len != 1) {
-            return std::unexpected(BootloaderError::InvalidParameter);
-        }
-
-        uint8_t pid_buf[2]{};
-        if (!port_.readBytes(pid_buf)) return std::unexpected(BootloaderError::SyncFailed);
-        
-        auto ack_end = waitAck(std::chrono::seconds(1));
-        if (!ack_end) return std::unexpected(ack_end.error());
-
-        return (static_cast<uint16_t>(pid_buf[0]) << 8) | pid_buf[1];
+    if (image.size() > static_cast<std::size_t>(flashKib) * 1024) {
+        throw std::runtime_error("образ не влазить у Flash");
     }
 
-    std::expected<void, BootloaderError> massErase() {
-        const uint8_t cmd[2] = {CMD_ERASE, static_cast<uint8_t>(~CMD_ERASE)};
-        if (!port_.writeBytes(cmd)) return std::unexpected(BootloaderError::WriteFailed);
-        
-        auto ack_res = waitAck(std::chrono::seconds(1));
-        if (!ack_res) return ack_res;
-
-        // Код глобального стирання 0xFFFF та XOR сума 0x00
-        const uint8_t params[3] = {0xFF, 0xFF, 0x00};
-        if (!port_.writeBytes(params)) return std::unexpected(BootloaderError::WriteFailed);
-
-        // Повне стирання матриці Flash вимагає тривалого таймауту
-        return waitAck(std::chrono::seconds(30));
+    if (erasedByUnprotect) {
+        std::cout << "стирання вже зроблено зняттям захисту\n";
+    } else {
+        std::cout << "масове стирання (до 30 с)...\n";
+        unwrap(boot.massErase(), "Extended Erase");
     }
 
-    std::expected<void, BootloaderError> writeBlock(uint32_t address, std::span<const uint8_t> data) {
-        if (data.empty() || data.size() > 256) {
-            return std::unexpected(BootloaderError::InvalidParameter);
-        }
+    writeImage(boot, image);
+    verifyImage(boot, image);
 
-        const uint8_t cmd[2] = {CMD_WRITE, static_cast<uint8_t>(~CMD_WRITE)};
-        if (!port_.writeBytes(cmd)) return std::unexpected(BootloaderError::WriteFailed);
-        
-        auto ack_res = waitAck(std::chrono::seconds(1));
-        if (!ack_res) return ack_res;
+    if (auto jump = boot.go(kFlashBase); !jump) {
+        throw std::runtime_error(std::format("Go: {} (прошивка записана, потрібне ручне скидання)",
+                                             describe(jump.error())));
+    }
+    std::cout << std::format("готово: керування передано на {:#010x}\n", kFlashBase);
+}
 
-        const uint8_t addr_buf[5] = {
-            static_cast<uint8_t>((address >> 24) & 0xFF),
-            static_cast<uint8_t>((address >> 16) & 0xFF),
-            static_cast<uint8_t>((address >> 8) & 0xFF),
-            static_cast<uint8_t>(address & 0xFF),
-            static_cast<uint8_t>(((address >> 24) ^ (address >> 16) ^ (address >> 8) ^ address) & 0xFF)
-        };
+} // namespace
 
-        if (!port_.writeBytes(addr_buf)) return std::unexpected(BootloaderError::WriteFailed);
-        auto ack_addr = waitAck(std::chrono::seconds(1));
-        if (!ack_addr) return ack_addr;
-
-        std::vector<uint8_t> packet;
-        packet.reserve(data.size() + 2);
-        
-        const auto n = static_cast<uint8_t>(data.size() - 1);
-        packet.push_back(n);
-        uint8_t checksum = n;
-
-        for (uint8_t byte : data) {
-            packet.push_back(byte);
-            checksum ^= byte;
-        }
-        packet.push_back(checksum);
-
-        if (!port_.writeBytes(packet)) return std::unexpected(BootloaderError::WriteFailed);
-        return waitAck(std::chrono::seconds(2));
+int main(int argc, char** argv)
+{
+    const std::span<char*> args{argv, static_cast<std::size_t>(argc)};
+    if (args.size() != 3) {
+        std::cerr << std::format("вжиток: {} <порт> <прошивка.bin>\n", args[0]);
+        return 2;
     }
 
-    std::expected<void, BootloaderError> jumpToApp(uint32_t address) {
-        const uint8_t cmd[2] = {CMD_GO, static_cast<uint8_t>(~CMD_GO)};
-        if (!port_.writeBytes(cmd)) return std::unexpected(BootloaderError::WriteFailed);
-        
-        auto ack_res = waitAck(std::chrono::seconds(1));
-        if (!ack_res) return ack_res;
-
-        const uint8_t addr_buf[5] = {
-            static_cast<uint8_t>((address >> 24) & 0xFF),
-            static_cast<uint8_t>((address >> 16) & 0xFF),
-            static_cast<uint8_t>((address >> 8) & 0xFF),
-            static_cast<uint8_t>(address & 0xFF),
-            static_cast<uint8_t>(((address >> 24) ^ (address >> 16) ^ (address >> 8) ^ address) & 0xFF)
-        };
-
-        if (!port_.writeBytes(addr_buf)) return std::unexpected(BootloaderError::WriteFailed);
-        return waitAck(std::chrono::seconds(1));
+    try {
+        const auto image = loadFirmware(args[2]);
+        validateVectors(image);
+        flash(args[1], image);
+    } catch (const std::exception& error) {
+        std::cerr << error.what() << '\n';
+        return 1;
     }
-
-private:
-    SerialPort& port_;
-
-    std::expected<void, BootloaderError> waitAck(std::chrono::milliseconds timeout) {
-        const auto start = std::chrono::steady_clock::now();
-        while (std::chrono::steady_clock::now() - start < timeout) {
-            uint8_t byte = 0;
-            if (port_.readBytes(std::span{&byte, 1})) {
-                if (byte == ACK_BYTE) return {};
-                if (byte == NACK_BYTE) return std::unexpected(BootloaderError::NackReceived);
-            }
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        }
-        return std::unexpected(BootloaderError::AckTimeout);
-    }
-};
+    return 0;
+}

@@ -1,123 +1,148 @@
+#include "safe_actuator.hpp"
+
+#include <chrono>
 #include <cstdint>
-#include <optional>
-#include <concepts>
 
-namespace safety {
+/*
+ * Адаптер до BSP конкретної плати. Сам BSP написаний на C — звідси
+ * extern "C"; далі жодного C у драйвері немає.
+ */
+extern "C" {
+void hw_gpio_write_heartbeat(bool level);
+void hw_timer_set_pwm_duty(std::uint16_t duty);
+std::uint32_t hw_get_time_us(void);
+std::uint16_t hw_read_supply_voltage_mv(void);
+bool hw_read_estop_active(void);
+bool hw_read_overtemp_flag(void);
+bool hw_read_overcurrent_flag(void);
+void hw_watchdog_start(std::uint16_t timeout_ms);
+void hw_watchdog_feed(void);
+}
 
-enum class ActuatorState : uint8_t {
-    Disarmed = 0,
-    ArmRequested,
-    PreArmCheck,
-    Armed,
-    Fault
-};
+namespace {
 
-struct SafetyConfig {
-    static constexpr uint32_t TokenMagic = 0x5A3C96E1U;
-    static constexpr uint16_t PwmMaxDuty = 1000U;
-    static constexpr uint16_t MinSafeVoltageMv = 11000U;
-    static constexpr uint16_t MaxSafeVoltageMv = 14500U;
-};
+using namespace std::chrono_literals;
 
-// Концепт апаратної платформи для компіляційної перевірки периферії
-template <typename Platform>
-concept HardwareInterface = requires(Platform p, bool b, uint16_t duty) {
-    { p.writeHeartbeat(b) } -> std::same_as<void>;
-    { p.setPwmDuty(duty) } -> std::same_as<void>;
-    { p.getTimeMs() } -> std::same_as<uint32_t>;
-    { p.readVoltageMv() } -> std::same_as<uint16_t>;
-    { p.readEstopActive() } -> std::same_as<bool>;
-    { p.feedWatchdog() } -> std::same_as<void>;
-};
+// Період головного циклу — коротший за півперіод меандру, інакше
+// серцебиття втратить фронти ще до будь-якої аварії.
+constexpr std::chrono::microseconds kCyclePeriod = 250us;
 
-template <HardwareInterface Platform>
-class SafeActuator {
+// Профіль місії: розгін до 40% за секунду, утримання, зупинка.
+constexpr std::chrono::microseconds kRampTime = 1s;
+constexpr std::chrono::microseconds kHoldTime = 5s;
+constexpr std::uint16_t kMissionDuty = 400;
+
+class Board {
 public:
-    explicit SafeActuator(Platform& hw) noexcept
-        : hw_(hw), state_(ActuatorState::Disarmed), currentPwm_(0), hbPhase_(false) {
-        // Гарантований безпечний стан апаратних ліній при інстанціації
-        hw_.writeHeartbeat(false);
-        hw_.setPwmDuty(0);
+    void writeHeartbeat(bool level) { hw_gpio_write_heartbeat(level); }
+    void setPwmDuty(std::uint16_t duty) { hw_timer_set_pwm_duty(duty); }
+
+    std::chrono::microseconds now() {
+        // Апаратний лічильник 32-бітний і переповнюється кожні ~71 хвилину.
+        // chrono рахує різниці зі знаком, тож беззнакове «загортання» його
+        // обдурило б: розширюємо лічильник до 64 бітів тут, на межі BSP.
+        // Дозволено, бо цикл безпеки заходить сюди частіше за період
+        // переповнення — і саме тому now() не const.
+        const std::uint32_t raw = hw_get_time_us();
+        if (raw < lastRaw_) {
+            wrapOffset_ += std::uint64_t{1} << 32;
+        }
+        lastRaw_ = raw;
+        return std::chrono::microseconds{
+            static_cast<std::int64_t>(wrapOffset_ + raw)};
     }
 
-    [[nodiscard]] bool requestArm(uint32_t token) noexcept {
-        if (token != SafetyConfig::TokenMagic) {
-            state_ = ActuatorState::Fault;
-            disarm();
-            return false;
-        }
-        if (state_ != ActuatorState::Disarmed) {
-            return false;
-        }
-        state_ = ActuatorState::ArmRequested;
-        return true;
+    std::uint16_t supplyVoltageMv() { return hw_read_supply_voltage_mv(); }
+    bool estopActive() { return hw_read_estop_active(); }
+    bool overTemperature() { return hw_read_overtemp_flag(); }
+    bool overCurrent() { return hw_read_overcurrent_flag(); }
+
+    void startWatchdog(std::chrono::milliseconds window) {
+        hw_watchdog_start(static_cast<std::uint16_t>(window.count()));
     }
-
-    void disarm() noexcept {
-        hw_.writeHeartbeat(false);
-        hw_.setPwmDuty(0);
-        currentPwm_ = 0;
-        if (state_ != ActuatorState::Fault) {
-            state_ = ActuatorState::Disarmed;
-        }
-    }
-
-    void update(uint16_t targetPwm) noexcept {
-        if (hw_.readEstopActive()) {
-            state_ = ActuatorState::Fault;
-            disarm();
-            return;
-        }
-
-        switch (state_) {
-            case ActuatorState::Disarmed:
-                hw_.writeHeartbeat(false);
-                hw_.setPwmDuty(0);
-                break;
-
-            case ActuatorState::ArmRequested:
-                state_ = ActuatorState::PreArmCheck;
-                break;
-
-            case ActuatorState::PreArmCheck: {
-                const uint16_t v = hw_.readVoltageMv();
-                if (v >= SafetyConfig::MinSafeVoltageMv && v <= SafetyConfig::MaxSafeVoltageMv) {
-                    state_ = ActuatorState::Armed;
-                } else {
-                    state_ = ActuatorState::Fault;
-                    disarm();
-                }
-                break;
-            }
-
-            case ActuatorState::Armed: {
-                hbPhase_ = !hbPhase_;
-                hw_.writeHeartbeat(hbPhase_);
-
-                currentPwm_ = (targetPwm > SafetyConfig::PwmMaxDuty)
-                                  ? SafetyConfig::PwmMaxDuty
-                                  : targetPwm;
-                hw_.setPwmDuty(currentPwm_);
-                break;
-            }
-
-            case ActuatorState::Fault:
-            default:
-                disarm();
-                break;
-        }
-
-        hw_.feedWatchdog();
-    }
-
-    [[nodiscard]] ActuatorState getState() const noexcept { return state_; }
-    [[nodiscard]] bool isArmed() const noexcept { return state_ == ActuatorState::Armed; }
+    void feedWatchdog() { hw_watchdog_feed(); }
 
 private:
-    Platform& hw_;
-    ActuatorState state_;
-    uint16_t currentPwm_;
-    bool hbPhase_;
+    std::uint64_t wrapOffset_{0};
+    std::uint32_t lastRaw_{0};
 };
 
-} // namespace safety
+static_assert(safety::HardwarePlatform<Board>);
+
+std::uint16_t missionDuty(std::chrono::microseconds armedFor) {
+    if (armedFor >= kRampTime + kHoldTime) {
+        return 0;
+    }
+    if (armedFor >= kRampTime) {
+        return kMissionDuty;
+    }
+    // Лінійний розгін; рахунок у 64 бітах, бо 400 · 1e6 не влазить у 32.
+    const auto scaled = static_cast<std::int64_t>(kMissionDuty) *
+                        armedFor.count() / kRampTime.count();
+    return static_cast<std::uint16_t>(scaled);
+}
+
+// Витримка періоду. Активне очікування чесніше за сон: цикл безпеки не
+// має права заснути глибше, ніж дозволяє вікно сторожа.
+void waitCycleEnd(Board &board, std::chrono::microseconds cycleStart) {
+    while (board.now() - cycleStart < kCyclePeriod) {
+    }
+}
+
+// Аварія незворотна: тримаємо нуль на виходах і годуємо сторожа, щоб
+// причина аварії дожила до читання діагностики.
+[[noreturn]] void holdSafe(safety::SafeActuator<Board> &actuator, Board &board) {
+    for (;;) {
+        const auto cycleStart = board.now();
+        (void)actuator.update(0);
+        waitCycleEnd(board, cycleStart);
+    }
+}
+
+} // namespace
+
+int main() {
+    Board board;
+
+    // Сторож стартує першим: зависла ініціалізація периферії теж має
+    // закінчуватися скиданням, а не мовчанням.
+    board.startWatchdog(safety::Config::watchdogWindow);
+
+    safety::SafeActuator actuator{board};
+
+    if (!actuator.requestArm(safety::kArmToken)) {
+        holdSafe(actuator, board);
+    }
+
+    std::chrono::microseconds armedSince{0};
+    bool missionStarted = false;
+    bool missionDone = false;
+
+    for (;;) {
+        const auto cycleStart = board.now();
+        std::uint16_t target = 0;
+
+        if (actuator.armed()) {
+            if (!missionStarted) {
+                missionStarted = true;
+                armedSince = cycleStart;
+            }
+            const auto armedFor = cycleStart - armedSince;
+            if (!missionDone) {
+                target = missionDuty(armedFor);
+                missionDone = armedFor >= kRampTime + kHoldTime;
+            }
+        }
+
+        if (!actuator.update(target)) {
+            // Драйвер уже знеструмив вихід; лишається тримати стан.
+            holdSafe(actuator, board);
+        }
+
+        if (missionDone && actuator.armed()) {
+            actuator.disarm();
+        }
+
+        waitCycleEnd(board, cycleStart);
+    }
+}

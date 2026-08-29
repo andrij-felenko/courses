@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Налаштування пристрою</title>
+<style>
+:root{color-scheme:light dark}
+body{font:16px/1.5 system-ui,sans-serif;margin:0;padding:1.2rem;max-width:26rem}
+h1{font-size:1.25rem;margin:0 0 1rem}
+label{display:block;margin:.8rem 0 .25rem;font-weight:600}
+input,select,button{width:100%;box-sizing:border-box;padding:.6rem;font-size:1rem;border-radius:.4rem;border:1px solid #8888}
+button{margin-top:1.2rem;font-weight:600;cursor:pointer}
+button[disabled]{opacity:.5;cursor:default}
+#list{list-style:none;padding:0;margin:.4rem 0 0}
+#list li{display:flex;justify-content:space-between;gap:.5rem;padding:.5rem;border:1px solid #8884;border-radius:.4rem;margin-bottom:.35rem;cursor:pointer}
+#list li[aria-selected=true]{border-color:#2a7;border-width:2px}
+.meta{opacity:.7;font-size:.85rem;white-space:nowrap}
+#msg{margin-top:1rem;padding:.6rem;border-radius:.4rem;display:none}
+#msg.err{display:block;background:#f883}
+#msg.ok{display:block;background:#2a73}
+</style>
+</head>
+<body>
+<h1>Підключення до Wi-Fi</h1>
+
+<button id="scan" type="button">Шукати мережі</button>
+<ul id="list"></ul>
+
+<form id="form">
+  <label for="ssid">Назва мережі</label>
+  <input id="ssid" name="ssid" maxlength="32" required autocomplete="off">
+
+  <label for="password">Пароль</label>
+  <input id="password" name="password" type="password" maxlength="63"
+         autocomplete="off" placeholder="порожньо — відкрита мережа">
+
+  <button id="save" type="submit">Зберегти й перезапустити</button>
+</form>
+
+<p id="msg"></p>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const msg = $('msg');
+
+function say(text, kind) {
+  msg.textContent = text;
+  msg.className = kind;
+}
+
+async function scan() {
+  $('scan').disabled = true;
+  say('Скануємо ефір…', 'ok');
+  try {
+    const res = await fetch('/api/scan', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    render(data.networks || []);
+    say(data.networks.length ? '' : 'Мереж не знайдено', 'ok');
+    if (!data.networks.length) msg.className = 'err';
+  } catch (e) {
+    say('Сканування не вдалося: ' + e.message, 'err');
+  } finally {
+    $('scan').disabled = false;
+  }
+}
+
+// RSSI у дБм: −50 і вище — відмінно, нижче −80 — на межі чутності.
+function bars(rssi) {
+  if (rssi >= -55) return '••••';
+  if (rssi >= -65) return '•••';
+  if (rssi >= -75) return '••';
+  return '•';
+}
+
+function render(networks) {
+  const list = $('list');
+  list.textContent = '';
+  networks.sort((a, b) => b.rssi - a.rssi);
+  for (const net of networks) {
+    const li = document.createElement('li');
+    li.tabIndex = 0;
+    const name = document.createElement('span');
+    // Текстовий вузол, а не innerHTML: SSID приходить з ефіру
+    // й може містити будь-які символи, зокрема кутові дужки.
+    name.textContent = net.ssid || '(прихована)';
+    const meta = document.createElement('span');
+    meta.className = 'meta';
+    meta.textContent = `${bars(net.rssi)} ${net.rssi} дБм · ${net.auth}`;
+    li.append(name, meta);
+    li.onclick = () => select(li, net);
+    list.append(li);
+  }
+}
+
+function select(li, net) {
+  for (const other of $('list').children) other.removeAttribute('aria-selected');
+  li.setAttribute('aria-selected', 'true');
+  $('ssid').value = net.ssid;
+  $('password').disabled = net.auth === 'open';
+  if (net.auth === 'open') $('password').value = '';
+  $('password').focus();
+}
+
+$('scan').onclick = scan;
+
+$('form').onsubmit = async (event) => {
+  event.preventDefault();
+  const ssid = $('ssid').value.trim();
+  const password = $('password').disabled ? '' : $('password').value;
+
+  if (!ssid) { say('Вкажіть назву мережі', 'err'); return; }
+  if (password && password.length < 8) {
+    say('Пароль WPA2 — від 8 символів', 'err');
+    return;
+  }
+
+  $('save').disabled = true;
+  say('Зберігаємо…', 'ok');
+  try {
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ssid, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || ('HTTP ' + res.status));
+    say('Збережено. Пристрій перезапускається — точка налаштування зникне.', 'ok');
+  } catch (e) {
+    say('Не збережено: ' + e.message, 'err');
+    $('save').disabled = false;
+  }
+};
+
+scan();
+</script>
+</body>
+</html>

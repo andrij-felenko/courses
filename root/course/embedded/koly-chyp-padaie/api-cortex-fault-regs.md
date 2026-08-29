@@ -178,6 +178,6 @@
 Для забезпечення максимальної інформативності діагностики під час розробки рекомендується налаштувати регістри SCB на ранньому етапі завантаження прошивки:
 
 :::tabs
-:::code api-cortex-fault-regs/c/main.c
-:::code api-cortex-fault-regs/cpp/main.cpp
+:::code api-cortex-fault-regs/c/fault_diag.c
+:::code api-cortex-fault-regs/cpp/fault_report.cpp
 :::

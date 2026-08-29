@@ -227,7 +227,15 @@ struct LastCommandCache {
 Розглянемо повнофункціональну архітектуру клієнтського модуля керування командами MAVLink. Модуль підтримує зіставлення номерів команд, контроль адресації компонентів, роботу з монотонними таймерами, інкремент лічильника `confirmation`, обробку проміжних станів `IN_PROGRESS` та виклик користувацьких функцій зворотного виклику (callbacks).
 
 :::tabs
+:::code pryiniato-vidkhyleno-tysha-d/cpp/mav_command.h
+:::code pryiniato-vidkhyleno-tysha-d/cpp/command_client.h
+:::code pryiniato-vidkhyleno-tysha-d/cpp/command_client.cpp
+:::code pryiniato-vidkhyleno-tysha-d/cpp/sim_vehicle.h
+:::code pryiniato-vidkhyleno-tysha-d/cpp/sim_vehicle.cpp
 :::code pryiniato-vidkhyleno-tysha-d/cpp/main.cpp
+:::code pryiniato-vidkhyleno-tysha-d/py/cmdlink/protocol.py
+:::code pryiniato-vidkhyleno-tysha-d/py/cmdlink/client.py
+:::code pryiniato-vidkhyleno-tysha-d/py/cmdlink/sim.py
 :::code pryiniato-vidkhyleno-tysha-d/py/main.py
 :::
 

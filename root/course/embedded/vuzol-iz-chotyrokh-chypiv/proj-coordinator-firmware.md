@@ -79,6 +79,26 @@
 ## 3. Реалізація координатора вузла
 
 :::tabs
+:::code proj-coordinator-firmware/c/i2c.c
+:::code proj-coordinator-firmware/cpp/src/i2c.cpp
+:::
+
+:::tabs
+:::code proj-coordinator-firmware/c/devices.c
+:::code proj-coordinator-firmware/cpp/src/sensors.cpp
+:::
+
+:::tabs
+:::code proj-coordinator-firmware/c/flashlog.c
+:::code proj-coordinator-firmware/cpp/src/ring_log.cpp
+:::
+
+:::tabs
+:::code proj-coordinator-firmware/c/rs485.c
+:::code proj-coordinator-firmware/cpp/src/modbus_slave.cpp
+:::
+
+:::tabs
 :::code proj-coordinator-firmware/c/main.c
-:::code proj-coordinator-firmware/cpp/main.cpp
+:::code proj-coordinator-firmware/cpp/src/main.cpp
 :::

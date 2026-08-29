@@ -76,8 +76,8 @@ U = F · T(ISR) · 100%
 Спроба зачекати в обробнику переривання готовності іншого апаратного блоку через активне опитування (англ. *busy-wait*) — це бомба уповільненої дії:
 
 :::tabs
-:::code dystsyplina-obrobnyka-d/c/2-ochikuvannia-praportsiv.c
-:::code dystsyplina-obrobnyka-d/cpp/2-ochikuvannia-praportsiv.cpp
+:::code dystsyplina-obrobnyka-d/c/stm32/busy_wait_trap.c
+:::code dystsyplina-obrobnyka-d/cpp/src/busy_wait_trap.cpp
 :::
 
 Якщо на шині I2C або SPI виникне апаратний збій (наприклад, підключений датчик затисне лінію даних `SDA` до землі або відбудеться збій живлення зовнішньої мікросхеми), регістр статусу ніколи не встановить прапорець готовності. Звичайний код головного циклу міг би вийти за таймаутом, але перебування в ISR означає, що всі інші переривання відповідного рівня заблоковано. Система не зможе навіть відправити звіт про помилку.
@@ -190,8 +190,8 @@ STR R0, [counter]   ; Запис із регістра назад у пам'ят
 Найшвидшим і найбільш ефективним за пам'яттю механізмом передачі сигналу є пряме сповіщення завдання (англ. *Direct to Task Notifications*):
 
 :::tabs
-:::code dystsyplina-obrobnyka-d/c/syhnalizatsiia-mizh.c
-:::code dystsyplina-obrobnyka-d/cpp/syhnalizatsiia-mizh.cpp
+:::code dystsyplina-obrobnyka-d/c/stm32/uart_isr.c
+:::code dystsyplina-obrobnyka-d/cpp/src/uart_bridge.cpp
 :::
 
 Зверніть увагу на змінну `xHigherPriorityTaskWoken` та макрос `portYIELD_FROM_ISR()`. Якщо завдання `vUartProcessingTask` має вищий пріоритет, ніж поточне перерване завдання, макрос вказує планувальнику перемкнути контекст негайно після виходу з ISR, не чекаючи наступного системного кванту часу `SysTick`. Затримка між приходом байта і початком його розбору скорочується до лічених мікросекунд.
@@ -253,8 +253,8 @@ extern "C" void TIM2_IRQHandler() {
 2. **Використовувати фіктивне зчитування або бар'єр інструкцій**: зчитування регістра `(void)TIM2->SR` або інструкція `__DSB()` (Data Synchronization Barrier) змушують конвеєр процесора дочекатися завершення всіх операцій на шині пам'яті перед виходом.
 
 :::tabs
-:::code dystsyplina-obrobnyka-d/c/zatsyklennia-pereryvan.c
-:::code dystsyplina-obrobnyka-d/cpp/zatsyklennia-pereryvan.cpp
+:::code dystsyplina-obrobnyka-d/c/stm32/timer_isr.c
+:::code dystsyplina-obrobnyka-d/cpp/src/timer_isr.cpp
 :::
 
 ## Повний інженерний зразок: обробник UART на різних платформах
@@ -263,8 +263,8 @@ extern "C" void TIM2_IRQHandler() {
 
 :::tabs
 :::code dystsyplina-obrobnyka-d/c/stm32/main.c
-:::code dystsyplina-obrobnyka-d/c/esp-idf/main.c
-:::code dystsyplina-obrobnyka-d/c/arduino/main.ino
+:::code dystsyplina-obrobnyka-d/c/esp32/main.c
+:::code dystsyplina-obrobnyka-d/c/avr/main.c
 :::
 
 ## Зведена пам'ятка: що дозволено й що заборонено в ISR

@@ -144,6 +144,20 @@ G(x) = x^8 + x^5 + x^4 + 1
 Генерація такого масиву в пам'яті Flash виконується простим препроцесорним або `constexpr` кодом:
 
 :::tabs
+:::code math-crc8-poly/c/crc8.h
+:::code math-crc8-poly/cpp/crc8.hpp
+:::
+
+:::code math-crc8-poly/c/crc8.c
+
+:::tabs
+:::code math-crc8-poly/c/errscan.h
+:::code math-crc8-poly/cpp/errscan.hpp
+:::
+
+:::code math-crc8-poly/c/errscan.c
+
+:::tabs
 :::code math-crc8-poly/c/main.c
 :::code math-crc8-poly/cpp/main.cpp
 :::

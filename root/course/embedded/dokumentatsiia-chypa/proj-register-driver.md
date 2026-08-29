@@ -18,8 +18,8 @@
 Нижче наведено повну реалізацію регістрового драйвера: від оголошення структури регістрів з вирівнюванням пам'яті до перевірки ревізії чипа та атомарного скидання прапорців стану.
 
 :::tabs
-:::code proj-register-driver/c/main.c
-:::code proj-register-driver/cpp/main.cpp
+:::code proj-register-driver/c/src/usart_driver.c
+:::code proj-register-driver/cpp/src/transmitter.cpp
 :::
 
 ## Глибокий розбір апаратних механізмів та пасток
@@ -63,8 +63,8 @@ USART1->ICR = USART_ICR_TCCF;
 __asm__ volatile ("dsb" ::: "memory"); /* Data Synchronization Barrier */
 ```
 ```cpp
-regs_.icr = flags::icr_tccf;
-asm volatile("dsb" ::: "memory"); // Data Synchronization Barrier
+regs_.icr.store(Icr::tccf);
+asm volatile("dsb sy" ::: "memory"); // Data Synchronization Barrier
 ```
 :::
 

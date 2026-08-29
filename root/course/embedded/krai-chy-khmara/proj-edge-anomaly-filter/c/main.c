@@ -1,187 +1,126 @@
-#include <stdint.h>
-#include <stdbool.h>
+/*
+ * Прогін модуля на хості: синтетичний сигнал замість АЦП, друк рішень
+ * замість радіо. Збірка — cc *.c -lm (rtos_tasks.c потребує FreeRTOS,
+ * тож для хоста виключіть його: cc main.c edge_detector.c welford.c
+ * ring_buffer.c telemetry_frame.c -lm).
+ *
+ * Сценарій навмисно містить усе, на чому модуль ламався б:
+ * розігрів, стабільну норму, повільний дрейф, короткий викид,
+ * залипання сигналу в константу й відмову давача.
+ */
 #include <math.h>
-#include <string.h>
+#include <stdio.h>
 
-#define SNAPSHOT_BUFFER_SIZE 32
-#define DEFAULT_Z_THRESHOLD  3.0f
-#define DEFAULT_DEADBAND     0.5f
+#include "edge_detector.h"
+#include "telemetry_frame.h"
 
-/**
- * @brief Структура потокової статистики за алгоритмом Велфорда.
- */
-typedef struct {
-    uint32_t count;
-    float mean;
-    float m2;
-} welford_stat_t;
+#define SAMPLE_COUNT   600u
+#define PERIOD_MS      10u
 
-void welford_init(welford_stat_t *stat) {
-    if (!stat) return;
-    stat->count = 0;
-    stat->mean = 0.0f;
-    stat->m2 = 0.0f;
+/* xorshift32 — детермінований шум: прогін відтворюваний до біта. */
+static uint32_t rng_state = 0x1234ABCDu;
+
+static float noise_pm(float amplitude)
+{
+    rng_state ^= rng_state << 13;
+    rng_state ^= rng_state >> 17;
+    rng_state ^= rng_state << 5;
+    const float unit = (float)(rng_state >> 8) / (float)(1u << 24);  /* [0, 1) */
+    return (unit * 2.0f - 1.0f) * amplitude;
 }
 
-void welford_update(welford_stat_t *stat, float x) {
-    if (!stat) return;
-    stat->count++;
-    float delta = x - stat->mean;
-    stat->mean += delta / (float)stat->count;
-    float delta2 = x - stat->mean;
-    stat->m2 += delta * delta2;
+/* Напруга мережі: 230 В, шум +-0.1 В — саме той випадок, на якому
+   наївна формула дисперсії втрачає значущі розряди. */
+static float synth_sample(uint32_t k)
+{
+    if (k == 420u) {
+        return NAN;                     /* обірваний вхід АЦП */
+    }
+    if (k >= 300u && k < 305u) {
+        return 236.5f + noise_pm(0.1f); /* викид: стрибок на ~6 В */
+    }
+    if (k >= 500u) {
+        return 231.0f;                  /* залипання: дисперсія падає в нуль */
+    }
+
+    const float drift = (k > 200u) ? 0.004f * (float)(k - 200u) : 0.0f;  /* нагрів */
+    return 230.0f + drift + noise_pm(0.1f);
 }
 
-float welford_variance(const welford_stat_t *stat) {
-    if (!stat || stat->count < 2) return 0.0f;
-    return stat->m2 / (float)(stat->count - 1);
-}
-
-float welford_stddev(const welford_stat_t *stat) {
-    return sqrtf(welford_variance(stat));
-}
-
-float welford_zscore(const welford_stat_t *stat, float x) {
-    float s = welford_stddev(stat);
-    if (s < 1e-6f) return 0.0f;
-    return fabsf(x - stat->mean) / s;
-}
-
-/**
- * @brief Кільцевий буфер для збереження передісторії сигналу (Snapshot).
- */
-typedef struct {
-    float buffer[SNAPSHOT_BUFFER_SIZE];
-    uint32_t head;
-    uint32_t count;
-} ring_buffer_t;
-
-void ring_init(ring_buffer_t *rb) {
-    if (!rb) return;
-    rb->head = 0;
-    rb->count = 0;
-    memset(rb->buffer, 0, sizeof(rb->buffer));
-}
-
-void ring_push(ring_buffer_t *rb, float sample) {
-    if (!rb) return;
-    rb->buffer[rb->head] = sample;
-    rb->head = (rb->head + 1) % SNAPSHOT_BUFFER_SIZE;
-    if (rb->count < SNAPSHOT_BUFFER_SIZE) {
-        rb->count++;
+static const char *action_name(telemetry_action_t a)
+{
+    switch (a) {
+        case DECISION_DISCARD:       return "DISCARD";
+        case DECISION_HEARTBEAT:     return "HEARTBEAT";
+        case DECISION_ANOMALY_ALARM: return "ALARM";
+        default:                     return "?";
     }
 }
 
-void ring_copy_linear(const ring_buffer_t *rb, float *dest, uint32_t max_len) {
-    if (!rb || !dest || max_len == 0) return;
-    uint32_t to_copy = (rb->count < max_len) ? rb->count : max_len;
-    uint32_t start = (rb->head + SNAPSHOT_BUFFER_SIZE - rb->count) % SNAPSHOT_BUFFER_SIZE;
-    for (uint32_t i = 0; i < to_copy; ++i) {
-        dest[i] = rb->buffer[(start + i) % SNAPSHOT_BUFFER_SIZE];
-    }
-}
-
-/**
- * @brief Тип результуючої дії для диспетчера телеметрії.
- */
-typedef enum {
-    DECISION_DISCARD = 0,    /* Значення в межах зони нечутливості */
-    DECISION_HEARTBEAT,      /* Періодичне зведення норми */
-    DECISION_ANOMALY_ALARM   /* Виявлено викид, термінова відправка */
-} telemetry_action_t;
-
-typedef struct {
-    telemetry_action_t action;
-    float value;
-    float running_mean;
-    float running_stddev;
-    float z_score;
-    uint32_t timestamp_ms;
-} telemetry_packet_t;
-
-/**
- * @brief Контекст бортового процесора обробки сигналу.
- */
-typedef struct {
-    welford_stat_t stats;
-    ring_buffer_t snapshot_ring;
-    float last_transmitted_value;
-    uint32_t last_heartbeat_ms;
-    uint32_t heartbeat_interval_ms;
-    float deadband;
-    float z_threshold;
-    uint32_t min_training_samples;
-} edge_detector_t;
-
-void edge_detector_init(edge_detector_t *dev,
-                        float deadband,
-                        float z_threshold,
-                        uint32_t heartbeat_interval_ms) {
-    if (!dev) return;
-    welford_init(&dev->stats);
-    ring_init(&dev->snapshot_ring);
-    dev->last_transmitted_value = 0.0f;
-    dev->last_heartbeat_ms = 0;
-    dev->heartbeat_interval_ms = heartbeat_interval_ms;
-    dev->deadband = (deadband > 0.0f) ? deadband : DEFAULT_DEADBAND;
-    dev->z_threshold = (z_threshold > 0.0f) ? z_threshold : DEFAULT_Z_THRESHOLD;
-    dev->min_training_samples = 30; /* мінімум вибірок для адаптації дисперсії */
-}
-
-telemetry_packet_t edge_detector_process_sample(edge_detector_t *dev,
-                                               float raw_sample,
-                                               uint32_t current_time_ms) {
-    telemetry_packet_t out;
-    memset(&out, 0, sizeof(out));
-    out.value = raw_sample;
-    out.timestamp_ms = current_time_ms;
-
-    if (!dev) {
-        out.action = DECISION_DISCARD;
-        return out;
+static void print_frame(const telemetry_report_t *report,
+                        const float *snapshot,
+                        uint32_t snapshot_len)
+{
+    uint8_t frame[TELEMETRY_FRAME_MAX_SIZE];
+    const size_t len = telemetry_frame_encode(report, snapshot, snapshot_len,
+                                              frame, sizeof(frame));
+    if (len == 0u) {
+        printf("      кадр не спакувався\n");
+        return;
     }
 
-    /* 1. Збереження вибірки в буфер передісторії */
-    ring_push(&dev->snapshot_ring, raw_sample);
+    printf("      кадр %zu Б (сирий знімок float зайняв би %zu Б), CRC 0x%04X:\n      ",
+           len, (size_t)snapshot_len * sizeof(float),
+           telemetry_crc16(frame, len - 2u));
+    for (size_t i = 0; i < len; ++i) {
+        printf("%02X", frame[i]);
+        if ((i % 24u) == 23u && i + 1u < len) {
+            printf("\n      ");
+        }
+    }
+    printf("\n");
+}
 
-    /* 2. Перевірка на аномалію, якщо модель накопичила базову вибірку */
-    bool is_anomaly = false;
-    float z = 0.0f;
-    if (dev->stats.count >= dev->min_training_samples) {
-        z = welford_zscore(&dev->stats, raw_sample);
-        if (z > dev->z_threshold) {
-            is_anomaly = true;
+int main(void)
+{
+    edge_detector_t detector;
+    edge_detector_init(&detector, 0u);
+
+    uint32_t transmitted = 0;
+    uint32_t alarms = 0;
+
+    for (uint32_t k = 0; k < SAMPLE_COUNT; ++k) {
+        const uint32_t now_ms = k * PERIOD_MS;
+        const float sample = synth_sample(k);
+
+        const telemetry_report_t report = edge_detector_process(&detector, sample, now_ms);
+        if (report.action == DECISION_DISCARD) {
+            continue;
+        }
+
+        transmitted++;
+        if (report.action == DECISION_ANOMALY_ALARM) {
+            alarms++;
+        }
+
+        printf("k=%3u  t=%5u мс  %-9s  x=%8.3f  mean=%8.3f  sigma=%6.4f  z=%5.2f%s\n",
+               k, now_ms, action_name(report.action),
+               (double)report.value, (double)report.running_mean,
+               (double)report.running_stddev, (double)report.z_score,
+               report.sensor_fault ? "  [відмова давача]" : "");
+
+        if (report.action == DECISION_ANOMALY_ALARM) {
+            float snapshot[RING_BUFFER_CAPACITY];
+            const uint32_t n = edge_detector_snapshot(&detector, snapshot,
+                                                      RING_BUFFER_CAPACITY);
+            printf("      передісторія %u вибірок: %.3f ... %.3f\n",
+                   n, (double)snapshot[0], (double)snapshot[n ? n - 1u : 0u]);
+            print_frame(&report, snapshot, n);
         }
     }
 
-    /* 3. Оновлення моделі норми (аномалії ізолюються від статистики) */
-    if (!is_anomaly) {
-        welford_update(&dev->stats, raw_sample);
-    }
-
-    out.running_mean = dev->stats.mean;
-    out.running_stddev = welford_stddev(&dev->stats);
-    out.z_score = z;
-
-    /* 4. Прийняття рішення про відправку в ефір */
-    if (is_anomaly) {
-        out.action = DECISION_ANOMALY_ALARM;
-        dev->last_transmitted_value = raw_sample;
-        dev->last_heartbeat_ms = current_time_ms;
-        return out;
-    }
-
-    /* Перевірка порогу зони нечутливості Deadband */
-    float delta = fabsf(raw_sample - dev->last_transmitted_value);
-    bool heartbeat_due = (current_time_ms - dev->last_heartbeat_ms) >= dev->heartbeat_interval_ms;
-
-    if (delta >= dev->deadband || heartbeat_due) {
-        out.action = DECISION_HEARTBEAT;
-        dev->last_transmitted_value = raw_sample;
-        dev->last_heartbeat_ms = current_time_ms;
-    } else {
-        out.action = DECISION_DISCARD;
-    }
-
-    return out;
+    printf("\nВибірок: %u.  В ефір пішло: %u (%.1f%%), з них тривог: %u.\n",
+           SAMPLE_COUNT, transmitted,
+           100.0 * (double)transmitted / (double)SAMPLE_COUNT, alarms);
+    return 0;
 }

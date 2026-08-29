@@ -1,159 +1,140 @@
-// Ідіоматичний модульний конвеєр надійного приймача на C++20
+// Демонстрація: 24 команди на виконавчий вузол крізь канал, який б'є, губить,
+// дублює, переставляє й ріже дані. Застосунок мусить побачити рівно 24 команди
+// по одному разу й у правильному порядку.
+#include <algorithm>
 #include <array>
-#include <span>
-#include <cstdint>
-#include <cstddef>
-#include <expected>
-#include <functional>
+#include <chrono>
+#include <format>
+#include <iostream>
+#include <string_view>
 
-namespace embedded::net {
+#include "channel.hpp"
+#include "receiver.hpp"
+#include "sender.hpp"
 
-enum class LinkError : std::uint8_t {
-    BufferOverflow,
-    CobsCorrupted,
-    CrcMismatch,
-    DuplicateFrame,
-    FrameIncomplete
-};
+namespace {
 
-template <std::size_t MaxPayloadSize = 128>
-class ReliableLinkReceiver {
+constexpr unsigned kCommands = 24;
+constexpr auto     kTimeLimit = std::chrono::milliseconds{20000};
+
+// Виконавчий вузол: кожна команда — крок двигуна. Повторне виконання = аварія.
+class Actuator {
 public:
-    static constexpr std::size_t HeaderSize = 1;  // 1 байт Sequence Number
-    static constexpr std::size_t CrcSize = 2;     // 2 байти CRC-16
-    static constexpr std::size_t MaxFrameSize = HeaderSize + MaxPayloadSize + CrcSize;
-    static constexpr std::size_t CobsMaxSize = MaxFrameSize + (MaxFrameSize / 254) + 2;
-    static constexpr std::uint8_t FrameDelimiter = 0x00;
-
-    using PayloadCallback = std::function<void(std::span<const std::uint8_t>)>;
-    using AckCallback = std::function<void(std::uint8_t)>;
-
-    constexpr ReliableLinkReceiver(PayloadCallback on_payload, AckCallback on_ack) noexcept
-        : on_payload_(std::move(on_payload)), on_ack_(std::move(on_ack)) {}
-
-    // Обробка чергового байта потоку. Повертає std::expected з розміром корисних даних або кодом помилки
-    [[nodiscard]] std::expected<std::size_t, LinkError> feed_byte(std::uint8_t byte) noexcept {
-        if (byte == FrameDelimiter) {
-            if (raw_idx_ == 0) {
-                return std::unexpected(LinkError::FrameIncomplete);
-            }
-
-            auto decode_res = decode_cobs(std::span{raw_buf_.data(), raw_idx_});
-            raw_idx_ = 0;
-
-            if (!decode_res) {
-                return std::unexpected(LinkError::CobsCorrupted);
-            }
-
-            const std::size_t decoded_len = *decode_res;
-            if (decoded_len < (HeaderSize + CrcSize)) {
-                return std::unexpected(LinkError::CrcMismatch);
-            }
-
-            // Перевірка CRC-16
-            const std::uint16_t calculated_crc = compute_crc16(
-                std::span{decoded_buf_.data(), decoded_len - CrcSize});
-            const std::uint16_t received_crc = static_cast<std::uint16_t>(
-                (decoded_buf_[decoded_len - 2] << 8) | decoded_buf_[decoded_len - 1]);
-
-            if (calculated_crc != received_crc) {
-                return std::unexpected(LinkError::CrcMismatch);
-            }
-
-            // Дедуплікація за Sequence Number
-            const std::uint8_t seq = decoded_buf_[0];
-            if (on_ack_) {
-                on_ack_(seq); // Завжди підтверджуємо отримання
-            }
-
-            if (seq != expected_seq_) {
-                return std::unexpected(LinkError::DuplicateFrame);
-            }
-
-            expected_seq_ = static_cast<std::uint8_t>(expected_seq_ + 1);
-
-            const std::size_t payload_len = decoded_len - HeaderSize - CrcSize;
-            if (on_payload_) {
-                on_payload_(std::span{decoded_buf_.data() + HeaderSize, payload_len});
-            }
-
-            return payload_len;
+    void execute(std::uint8_t seq, link::Bytes payload) {
+        if (payload.empty()) {
+            return;
+        }
+        const unsigned index = payload[0];
+        if (index != expected_index_) {
+            order_broken_ = true;
+            std::cout << std::format("  АВАРІЯ: застосунок побачив команду #{:02}, а чекав #{:02}\n",
+                                     index, expected_index_);
+        } else {
+            ++expected_index_;
         }
 
-        if (raw_idx_ >= CobsMaxSize) {
-            raw_idx_ = 0;
-            return std::unexpected(LinkError::BufferOverflow);
-        }
-
-        raw_buf_[raw_idx_++] = byte;
-        return std::unexpected(LinkError::FrameIncomplete);
+        ++delivered_;
+        const std::string_view text{reinterpret_cast<const char*>(payload.data() + 1),
+                                    payload.size() - 1};
+        std::cout << std::format("  виконано seq={:3}  #{:02} {}\n", seq, index, text);
     }
 
-    constexpr void reset() noexcept {
-        raw_idx_ = 0;
-        expected_seq_ = 0;
-    }
-
-    [[nodiscard]] constexpr std::uint8_t expected_sequence() const noexcept {
-        return expected_seq_;
+    [[nodiscard]] bool healthy() const noexcept {
+        return !order_broken_ && delivered_ == kCommands && expected_index_ == kCommands;
     }
 
 private:
-    [[nodiscard]] static constexpr std::uint16_t compute_crc16(
-        std::span<const std::uint8_t> data) noexcept {
-        std::uint16_t crc = 0xFFFF;
-        for (const std::uint8_t b : data) {
-            crc ^= static_cast<std::uint16_t>(b) << 8;
-            for (std::uint8_t bit = 0; bit < 8; ++bit) {
-                if (crc & 0x8000) {
-                    crc = static_cast<std::uint16_t>((crc << 1) ^ 0x1021);
-                } else {
-                    crc = static_cast<std::uint16_t>(crc << 1);
-                }
-            }
-        }
-        return crc;
-    }
-
-    [[nodiscard]] std::expected<std::size_t, LinkError> decode_cobs(
-        std::span<const std::uint8_t> src) noexcept {
-        if (src.empty()) {
-            return std::unexpected(LinkError::CobsCorrupted);
-        }
-
-        std::size_t src_idx = 0;
-        std::size_t dst_idx = 0;
-
-        while (src_idx < src.size()) {
-            const std::uint8_t code = src[src_idx++];
-            if (code == 0) {
-                return std::unexpected(LinkError::CobsCorrupted);
-            }
-
-            for (std::uint8_t i = 1; i < code; ++i) {
-                if (src_idx >= src.size() || dst_idx >= decoded_buf_.size()) {
-                    return std::unexpected(LinkError::CobsCorrupted);
-                }
-                decoded_buf_[dst_idx++] = src[src_idx++];
-            }
-
-            if (code < 0xFF && src_idx < src.size()) {
-                if (dst_idx >= decoded_buf_.size()) {
-                    return std::unexpected(LinkError::CobsCorrupted);
-                }
-                decoded_buf_[dst_idx++] = 0x00;
-            }
-        }
-
-        return dst_idx;
-    }
-
-    std::array<std::uint8_t, CobsMaxSize> raw_buf_{};
-    std::size_t raw_idx_{0};
-    std::array<std::uint8_t, MaxFrameSize + 2> decoded_buf_{};
-    std::uint8_t expected_seq_{0};
-    PayloadCallback on_payload_;
-    AckCallback on_ack_;
+    unsigned delivered_{0};
+    unsigned expected_index_{0};
+    bool     order_broken_{false};
 };
 
-} // namespace embedded::net
+void print_channel(std::string_view name, const Channel& channel) {
+    const auto& s = channel.stats();
+    std::cout << std::format(
+        "{}: віддано {}, згинуло {}, побито {}, здубльовано {}, переставлено {}, черга переповнена {}\n",
+        name, s.offered, s.dropped, s.corrupted, s.duplicated, s.reordered, s.overflow);
+}
+
+}  // namespace
+
+int main() {
+    // Шафа автоматики поруч із частотним інвертором: канал поганий в обидва боки.
+    Channel forward{Channel::Profile{.drop_permille = 150, .duplicate_permille = 80,
+                                     .reorder_permille = 120, .burst_permille = 120},
+                    0x1234ABCDu};
+    Channel backward{Channel::Profile{.drop_permille = 150, .duplicate_permille = 0,
+                                      .reorder_permille = 0, .burst_permille = 80},
+                     0x0BADC0DEu};
+
+    Actuator actuator;
+    link::Receiver receiver{
+        [&actuator](std::uint8_t seq, link::Bytes payload) { actuator.execute(seq, payload); },
+        [&backward](link::Bytes bytes) { backward.send(bytes); }};
+
+    link::Sender sender{[&forward](link::Bytes bytes) { forward.send(bytes); }};
+
+    unsigned next_command = 0;
+    auto     now = std::chrono::milliseconds{0};
+    bool     link_down = false;
+
+    while (now < kTimeLimit) {
+        // Наповнюємо вікно, доки є вільні слоти.
+        while (next_command < kCommands) {
+            std::array<std::uint8_t, 16> command{};
+            command[0] = static_cast<std::uint8_t>(next_command);
+            constexpr std::string_view text{"STEP +10mm"};
+            std::ranges::copy(text, reinterpret_cast<char*>(command.data() + 1));
+
+            const auto sent = sender.submit(link::Bytes{command.data(), 1 + text.size()}, now);
+            if (!sent) {
+                if (sent.error() != link::Error::WindowFull) {
+                    std::cout << std::format("подача команди не вдалася: {}\n",
+                                             link::describe(sent.error()));
+                }
+                break;
+            }
+            ++next_command;
+        }
+
+        if (const auto ticked = sender.tick(now); !ticked) {
+            std::cout << "ліміт повторів вичерпано — вважаємо лінію розірваною\n";
+            link_down = true;
+            break;
+        }
+
+        forward.pump([&receiver](link::Bytes bytes) { receiver.feed(bytes); });
+        backward.pump([&sender](link::Bytes bytes) { sender.feed_acks(bytes); });
+
+        if (next_command == kCommands && sender.idle() && forward.idle() && backward.idle()) {
+            break;
+        }
+        now += std::chrono::milliseconds{1};
+    }
+
+    std::cout << std::format("\n--- що зробив канал (за {} мс віртуального часу) ---\n",
+                             now.count());
+    print_channel("вперед ", forward);
+    print_channel("назад  ", backward);
+
+    const auto& fs = receiver.frame_stats();
+    const auto& rs = receiver.stats();
+    std::cout << "\n--- що побачив приймач ---\n";
+    std::cout << std::format("цілих кадрів {}, помилок COBS {}, помилок CRC {}, переповнень {}\n",
+                             fs.frames, fs.cobs_errors, fs.crc_errors, fs.overflows);
+    std::cout << std::format(
+        "віддано застосунку {}, дублікатів відкинуто {}, буферизовано {}, поза вікном {}\n",
+        rs.delivered, rs.duplicates, rs.buffered, rs.out_of_window);
+
+    const auto& ts = sender.stats();
+    std::cout << "\n--- що робив передавач ---\n";
+    std::cout << std::format(
+        "нових кадрів {}, повторів {}, квитанцій {} (з них зайвих {}), втрачено {}\n",
+        ts.sent, ts.retrans, ts.acked, ts.stray_ack, ts.lost);
+
+    const bool ok = !link_down && actuator.healthy();
+    std::cout << std::format("\nВЕРДИКТ: {}\n",
+                             ok ? "усі команди виконано рівно по разу й у правильному порядку"
+                                : "конвеєр не втримав канал");
+    return ok ? 0 : 1;
+}

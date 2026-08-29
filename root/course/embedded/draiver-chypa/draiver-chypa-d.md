@@ -103,8 +103,8 @@ t_r = 0.8473 · 10000 · 200 · 10⁻¹² = 1.69 мкс
 Дескриптор об'єднує чотири категорії даних:
 
 :::tabs
-:::code draiver-chypa-d/c/sklad-deskryptora.c
-:::code draiver-chypa-d/cpp/sklad-deskryptora.hpp
+:::code draiver-chypa-d/c/chip_dev.h
+:::code draiver-chypa-d/cpp/include/accel/accelerometer.hpp
 :::
 
 Кожна функція драйвера приймає вказівник на структуру `chip_dev_t` як свій перший параметр. Це забезпечує три ключові властивості:
@@ -144,8 +144,8 @@ t_r = 0.8473 · 10000 · 200 · 10⁻¹² = 1.69 мкс
 5. Тільки при отриманні підтвердження успішного запису (ACK) значення в тіньовому регістрі ОЗП оновлюється.
 
 :::tabs
-:::code draiver-chypa-d/c/vyrishennia-tinovi.c
-:::code draiver-chypa-d/cpp/vyrishennia-tinovi.cpp
+:::code draiver-chypa-d/c/chip_regops.c
+:::code draiver-chypa-d/cpp/include/accel/shadow_registers.hpp
 :::
 
 ---
@@ -176,8 +176,8 @@ t_r = 0.8473 · 10000 · 200 · 10⁻¹² = 1.69 мкс
 Будь-яке очікування готовності обов'язково квантується за часом:
 
 :::tabs
-:::code draiver-chypa-d/c/2-kvantovani-taim-auty.c
-:::code draiver-chypa-d/cpp/2-kvantovani-taim-auty.cpp
+:::code draiver-chypa-d/c/chip_io.c
+:::code draiver-chypa-d/cpp/include/accel/reliable_transport.hpp
 :::
 
 ### 3. Механізм автоматичних повторних спроб (Retries & Backoff)
@@ -254,8 +254,8 @@ t_r = 0.8473 · 10000 · 200 · 10⁻¹² = 1.69 мкс
 Для таких систем драйвер надає цілочисельний інтерфейс, що повертає значення у мілі-одиницях (мілігравітаціях мг або міліметрах на секунду в квадраті мм/с²). Щоб уникнути переповнення розрядної сітки під час проміжних множень, застосовується 64-бітне цілочисельне масштабування:
 
 :::tabs
-:::code draiver-chypa-d/c/rozrakhunky-z-fiksovanoiu.c
-:::code draiver-chypa-d/cpp/rozrakhunky-z-fiksovanoiu.cpp
+:::code draiver-chypa-d/c/chip_fixed.c
+:::code draiver-chypa-d/cpp/include/accel/fixed_point.hpp
 :::
 
 ---
@@ -264,9 +264,18 @@ t_r = 0.8473 · 10000 · 200 · 10⁻¹² = 1.69 мкс
 
 Нижче наведено повну вихідну реалізацію чистого драйвера 3-осьового MEMS-акселерометра мовами C99 та сучасним ідіоматичним C++20. Драйвер реалізує повний життєвий цикл: абстракцію шини, ініціалізацію з перевіркою `WHO_AM_I`, налаштування BDU, підтримку тіньових регістрів, пакетне читання та масштабування в одиниці SI.
 
+Реалізація розкладена по модулях так, як її розкладають у справжній прошивці: контракт шини (`c/chip_bus.h`), регістрова карта (`c/chip_regs.h`), транспорт із повторами й тайм-аутами (`c/chip_io.c`), тіньові регістри (`c/chip_regops.c`), аварійне скидання шини (`c/chip_recovery.c`), апаратний буфер (`c/chip_fifo.c`), цілочисельна арифметика (`c/chip_fixed.c`), прикладний Рівень 3 (`c/chip_accel.c`), платформний порт поверх `/dev/i2c-N` (`c/port/linux_i2c.c`) і приклад із двома датчиками на різних шинах (`c/app/main.c`). У теці `cpp/` те саме поділено інакше, як і належить іншій мові: концепти транспорту замість таблиці вказівників, декоратор `ReliableTransport` замість прапорців повторів усередині дескриптора, RAII-шина `LinuxI2cBus` замість пари «відкрити — закрити».
+
+Нижче наведено дві серцевини — числа кремнію та життєвий цикл.
+
 :::tabs
-:::code draiver-chypa-d/c/9-povna-etalonna.h
-:::code draiver-chypa-d/cpp/9-povna-etalonna.hpp
+:::code draiver-chypa-d/c/chip_regs.h
+:::code draiver-chypa-d/cpp/include/accel/registers.hpp
+:::
+
+:::tabs
+:::code draiver-chypa-d/c/chip_accel.c
+:::code draiver-chypa-d/cpp/include/accel/accelerometer.inl
 :::
 
 ---

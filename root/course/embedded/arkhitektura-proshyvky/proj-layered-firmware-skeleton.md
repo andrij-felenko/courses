@@ -8,11 +8,16 @@
 firmware_skeleton/
 ├── hal/                   [Шар апаратної абстракції: чисто віртуальні шини]
 │   ├── hal_i2c.h / .hpp
-│   └── hal_gpio.h / .hpp
+│   ├── hal_gpio.h / .hpp
+│   ├── hal_time.h / clock.hpp                  [час: таймаути й витримки]
+│   └── hal_critical.h / critical_section.hpp   [критична секція проти ISR]
 ├── bsp/                   [Шар драйверів плати: оперує фізичними величинами]
-│   └── bsp_bme280.h / .hpp
+│   ├── bsp_bme280.h / .hpp
+│   └── bsp_power.h / power_rail.hpp            [ключ MOSFET лінії давачів]
 ├── services/              [Шар служб: диспетчер подій та кільцева черга]
-│   └── event_queue.h / .hpp
+│   ├── event_queue.h / .hpp
+│   ├── event_dispatcher.h / dispatcher.hpp     [розсилка подій підписникам]
+│   └── power_manager.h / .hpp                  [реакція на несправність давача]
 ├── app/                   [Шар бізнес-логіки: кінцевий автомат телеметрії]
 │   └── app_telemetry.h / .hpp
 └── targets/               [Точки входу та прив'язка до конкретної платформи]
@@ -29,8 +34,8 @@ firmware_skeleton/
 У мові C контракт реалізується через таблицю покажчиків на функції (`hal_i2c_bus_ops_t`) разом із безтиповим контекстом (`void* context`). У мові C++ цей самий механізм виражається через чисто віртуальний інтерфейс `II2cBus` зі строгим контролем помилок через `std::expected` та переглядом пам'яті `std::span`, що запобігає виходу за межі виділених буферів.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/hal_i2c.h
-:::code proj-layered-firmware-skeleton/cpp/hal_i2c.hpp
+:::code proj-layered-firmware-skeleton/c/hal/hal_i2c.h
+:::code proj-layered-firmware-skeleton/cpp/hal/hal_i2c.hpp
 :::
 
 ---
@@ -42,15 +47,15 @@ firmware_skeleton/
 Щоб уникнути небезпечного виклику динамічної пам'яті `malloc` у C, драйвер використовує патерн статичного пулу: клієнт передає попередньо виділену структуру `bsp_bme280_storage_t`, яку функція `bsp_bme280_init` перетворює на непрозорий дескриптор. У C++ ця інкапсуляція досягається через приватні поля класу `Bme280`.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/bsp_bme280.h
-:::code proj-layered-firmware-skeleton/cpp/bsp_bme280.hpp
+:::code proj-layered-firmware-skeleton/c/bsp/bsp_bme280.h
+:::code proj-layered-firmware-skeleton/cpp/bsp/bsp_bme280.hpp
 :::
 
 Нижче наведено повну внутрішню реалізацію драйвера. Зверніть увагу: драйвер перетворює сирі 20-бітні коди АЦП мікросхеми у фізичні величини у градусах Цельсія безпосередньо перед поверненням результату.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/bsp_bme280.c
-:::code proj-layered-firmware-skeleton/cpp/bsp_bme280.cpp
+:::code proj-layered-firmware-skeleton/c/bsp/bsp_bme280.c
+:::code proj-layered-firmware-skeleton/cpp/bsp/bsp_bme280.cpp
 :::
 
 ---
@@ -62,14 +67,14 @@ firmware_skeleton/
 Розмір черги є фіксованим ступенем двійки або константою часу компіляції (`Capacity = 16`). Індекси запису `head` та читання `tail` позначені модифікатором `volatile` для коректної оптимізації компілятором при міжпотоковому обміні.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/event_queue.h
-:::code proj-layered-firmware-skeleton/cpp/event_queue.hpp
+:::code proj-layered-firmware-skeleton/c/services/event_queue.h
+:::code proj-layered-firmware-skeleton/cpp/services/event_queue.hpp
 :::
 
 Реалізація черги мовою C гарантує неподільність операцій за допомогою критичної секції або перевірки переповнення буфера:
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/event_queue.c
+:::code proj-layered-firmware-skeleton/c/services/event_queue.c
 ```cpp
 // services/event_queue.cpp
 #include "services/event_queue.hpp"
@@ -88,8 +93,8 @@ namespace services {
 Рівень застосунку координує взаємодію між сенсором та чергою подій. Він містить чисту бізнес-політику: якщо температура довкілля перевищує встановлений поріг тривоги (`alert_threshold_c`), координатор формує аварійну подію `EVT_ALERT_THRESHOLD` і відправляє її в систему.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/app_telemetry.h
-:::code proj-layered-firmware-skeleton/cpp/app_telemetry.hpp
+:::code proj-layered-firmware-skeleton/c/app/app_telemetry.h
+:::code proj-layered-firmware-skeleton/cpp/app/app_telemetry.hpp
 :::
 
 ---
@@ -101,8 +106,8 @@ namespace services {
 Тестовий стенд емулює перевищення температури (значення 40.0 °C при порозі 35.0 °C) і перевіряє, що застосунок коректно зреагував і згенерував подію тривоги `EVT_ALERT_THRESHOLD`.
 
 :::tabs
-:::code proj-layered-firmware-skeleton/c/host_test_main.c
-:::code proj-layered-firmware-skeleton/cpp/host_test_main.cpp
+:::code proj-layered-firmware-skeleton/c/targets/host_test_main.c
+:::code proj-layered-firmware-skeleton/cpp/targets/host_test_main.cpp
 :::
 
 ---

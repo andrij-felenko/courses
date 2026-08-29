@@ -51,9 +51,9 @@ tau = R_discharge * C_decoupling
 
 :::tabs
 @tab c
-:::code proj-low-power-pins/c/realizatsiia.c
+:::code proj-low-power-pins/c/low_power_pins.c
 @tab cpp
-:::code proj-low-power-pins/cpp/realizatsiia.cpp
+:::code proj-low-power-pins/cpp/pin_isolation.cpp
 :::
 
 ## Інтеграція в цикл глибокого сну
@@ -62,9 +62,9 @@ tau = R_discharge * C_decoupling
 
 :::tabs
 @tab c
-:::code proj-low-power-pins/c/intehratsiia-v-tsykl.c
+:::code proj-low-power-pins/c/main.c
 @tab cpp
-:::code proj-low-power-pins/cpp/intehratsiia-v-tsykl.hpp
+:::code proj-low-power-pins/cpp/main.cpp
 :::
 
 ## Специфіка систем на кристалі ESP32

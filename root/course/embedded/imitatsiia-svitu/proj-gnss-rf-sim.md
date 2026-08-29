@@ -70,8 +70,30 @@ s_RF(t) = ∑ [ A[i](t) · D[i](t) · C[i](t - τ[i]) · cos(2·π·(f₀ + Δf[
 - Асинхронне керування кроковим RF-атенюатором за протоколом SCPI через інтерфейс UART/RS-232 для моделювання зміни потужності сигналу.
 
 :::tabs
-:::code proj-gnss-rf-sim/c/gnss_rf_controller.c
-:::code proj-gnss-rf-sim/cpp/main.cpp
+:::code proj-gnss-rf-sim/c/ephemeris.h
+:::code proj-gnss-rf-sim/c/ephemeris.c
+:::code proj-gnss-rf-sim/c/propagation.h
+:::code proj-gnss-rf-sim/c/propagation.c
+:::code proj-gnss-rf-sim/c/l1ca.h
+:::code proj-gnss-rf-sim/c/l1ca.c
+:::code proj-gnss-rf-sim/c/synth.h
+:::code proj-gnss-rf-sim/c/synth.c
+:::code proj-gnss-rf-sim/c/attenuator.h
+:::code proj-gnss-rf-sim/c/attenuator.c
+:::code proj-gnss-rf-sim/c/main.c
+:::code proj-gnss-rf-sim/cpp/src/gps_time.hpp
+:::code proj-gnss-rf-sim/cpp/src/ca_code.hpp
+:::code proj-gnss-rf-sim/cpp/src/geometry.hpp
+:::code proj-gnss-rf-sim/cpp/src/geometry.cpp
+:::code proj-gnss-rf-sim/cpp/src/ephemeris.hpp
+:::code proj-gnss-rf-sim/cpp/src/ephemeris.cpp
+:::code proj-gnss-rf-sim/cpp/src/nav_frame.hpp
+:::code proj-gnss-rf-sim/cpp/src/nav_frame.cpp
+:::code proj-gnss-rf-sim/cpp/src/synthesizer.hpp
+:::code proj-gnss-rf-sim/cpp/src/synthesizer.cpp
+:::code proj-gnss-rf-sim/cpp/src/attenuator.hpp
+:::code proj-gnss-rf-sim/cpp/src/attenuator.cpp
+:::code proj-gnss-rf-sim/cpp/src/main.cpp
 :::
 
 ---

@@ -1,117 +1,133 @@
-#include <array>
+/* Прошивка вузла: мережевий потік, потік воркера і стенд замість заліза.
+   Збірка: c++ -std=c++23 -Wall -Wextra -pthread *.cpp -o fw */
+
+#include "actuator.hpp"
+#include "dedup_ring.hpp"
+#include "protocol.hpp"
+#include "valve.hpp"
+
 #include <chrono>
-#include <cstdint>
 #include <format>
 #include <iostream>
 #include <string>
 #include <string_view>
-#include <vector>
+#include <thread>
 
-enum class CmdState {
-    Idle,
-    Received,
-    Executing,
-    Completed,
-    Failed,
-    Expired
-};
+using namespace std::chrono_literals;
 
-struct DedupEntry {
-    std::string cmd_id;
-    uint32_t timestamp_sec{0};
-};
+namespace {
 
-class DedupFilter {
-public:
-    static constexpr size_t Capacity = 16;
+std::chrono::seconds epochNow()
+{
+    return std::chrono::duration_cast<std::chrono::seconds>(
+        std::chrono::system_clock::now().time_since_epoch());
+}
 
-    [[nodiscard]] bool isDuplicate(std::string_view cmd_id) const noexcept {
-        for (size_t i = 0; i < count_; ++i) {
-            if (history_[i].cmd_id == cmd_id) {
-                return true;
-            }
-        }
-        return false;
+std::string payload(std::string_view cmdId, int targetPct,
+                    std::chrono::seconds issued, int ttlSec)
+{
+    return std::format(
+        R"({{"cmd_id":"{}","op":"set_valve_position","target_pct":{},"issued_at":{},"ttl_sec":{}}})",
+        cmdId, targetPct, issued.count(), ttlSec);
+}
+
+/* Викликається просто з мережевого колбеку: жодних затримок, жодних
+   тривалих обчислень — лише фільтрація і передача наказу воркерові. */
+void handleDownlink(std::string_view raw, cp::Actuator& actuator, cp::DedupRing& dedup)
+{
+    const auto parsed = cp::parseDownlink(raw);
+    if (!parsed) {
+        cp::publishNack(cp::describe(parsed.error()));
+        return;
+    }
+    const cp::Downlink& cmd = *parsed;
+
+    const auto now = epochNow();
+    if (now > cmd.issuedAt + cmd.ttl) {
+        /* Наказ пролежав довше, ніж дозволив оператор: за цей час стан
+           установки міг змінитися, виконувати наосліп не можна. */
+        cp::publishStatus(cmd.cmdId, "EXPIRED", 0, actuator.position(), cp::ErrCode::TtlExpired);
+        return;
     }
 
-    void record(std::string_view cmd_id, uint32_t now_sec) {
-        history_[head_] = DedupEntry{std::string(cmd_id), now_sec};
-        head_ = (head_ + 1) % Capacity;
-        if (count_ < Capacity) {
-            ++count_;
-        }
+    if (const auto seen = dedup.find(cmd.cmdId)) {
+        cp::publishAck(cmd.cmdId, "ACK_DUPLICATE");
+        cp::publishStatus(cmd.cmdId, seen->state, seen->progressPct, seen->valuePct, seen->err);
+        return;
     }
 
-private:
-    std::array<DedupEntry, Capacity> history_{};
-    size_t head_{0};
-    size_t count_{0};
-};
+    dedup.remember(cmd.cmdId, now);
+    cp::publishAck(cmd.cmdId, "ACK_RECEIVED");      // фаза 1, до всякого руху
 
-class ActuatorController {
-public:
-    void handleDownlink(std::string_view cmd_id, int target_pos,
-                        uint32_t issued_at, uint16_t ttl_sec,
-                        uint32_t now_sec, uint32_t now_ms) {
-        if (now_sec > issued_at + ttl_sec) {
-            publishExecStatus(cmd_id, "EXPIRED", 0, currentValue_, 104);
-            return;
+    if (!actuator.submit(cp::Actuator::Job{cmd.cmdId, cmd.targetPct})) {
+        const int pos = actuator.position();
+        cp::publishStatus(cmd.cmdId, "FAILED", 0, pos, cp::ErrCode::Busy);
+        dedup.update(cmd.cmdId, cp::Outcome{"FAILED", 0, pos, cp::ErrCode::Busy});
+    }
+}
+
+/* Другий потік: механіка стенда і швидкий цикл приводу. */
+std::jthread spawnWorker(cp::Actuator& actuator, cp::Valve& valve,
+                         std::chrono::steady_clock::time_point start)
+{
+    return std::jthread{[&actuator, &valve, start](const std::stop_token& stop) {
+        auto uptime = [start] {
+            return std::chrono::duration_cast<cp::Millis>(
+                std::chrono::steady_clock::now() - start);
+        };
+        auto previous = uptime();
+        while (!stop.stop_requested()) {
+            std::this_thread::sleep_for(10ms);
+            const auto now = uptime();
+            valve.tick(now - previous);
+            previous = now;
+            actuator.poll(now);
         }
+    }};
+}
 
-        if (dedup_.isDuplicate(cmd_id)) {
-            publishAck(cmd_id, "ACK_DUPLICATE");
-            publishExecStatus(cmd_id, "COMPLETED", 100, currentValue_, 0);
-            return;
-        }
+}  // namespace
 
-        dedup_.record(cmd_id, now_sec);
-        publishAck(cmd_id, "ACK_RECEIVED");
+int main()
+{
+    cp::Valve valve;
+    cp::DedupRing dedup;
+    const auto start = std::chrono::steady_clock::now();
 
-        activeCmdId_ = cmd_id;
-        targetValue_ = target_pos;
-        startTimeMs_ = now_ms;
-        state_ = CmdState::Executing;
+    {
+        cp::Actuator actuator{valve, dedup};
+        auto worker = spawnWorker(actuator, valve, start);
 
-        publishExecStatus(activeCmdId_, "STARTED", 0, currentValue_, 0);
+        std::cout << "== 1. Звичайна команда: відкрити засувку ==\n";
+        const std::string open = payload("6f21-open", 100, epochNow(), 60);
+        handleDownlink(open, actuator, dedup);
+        std::this_thread::sleep_for(900ms);
+
+        std::cout << "== 2. Сервер не дочекався квитанції і повторив пакет ==\n";
+        handleDownlink(open, actuator, dedup);
+        std::this_thread::sleep_for(2s);
+
+        std::cout << "== 3. Наказ пролежав довше за TTL ==\n";
+        handleDownlink(payload("6f21-stale", 0, epochNow() - 300s, 5), actuator, dedup);
+        std::this_thread::sleep_for(200ms);
+
+        std::cout << "== 4. Вал заклинило: воркер сам закриває транзакцію ==\n";
+        valve.setJammed(true);
+        handleDownlink(payload("6f21-close", 0, epochNow(), 60), actuator, dedup);
+        std::this_thread::sleep_for(6500ms);
+
+        std::cout << "== 5. Просідання живлення посеред маневру ==\n";
+        valve.setJammed(false);
+        handleDownlink(payload("6f21-half", 40, epochNow(), 60), actuator, dedup);
+        std::this_thread::sleep_for(400ms);
+    }   // воркер зупинився, об'єкти зникли — це і є знеструмлення плати
+
+    {
+        cp::Actuator afterReset{valve, dedup};   // конструктор бачить незавершений хід
+        auto worker = spawnWorker(afterReset, valve, start);
+        std::this_thread::sleep_for(300ms);
     }
 
-    void poll(uint32_t now_ms) {
-        if (state_ != CmdState::Executing) {
-            return;
-        }
-
-        uint32_t elapsed = now_ms - startTimeMs_;
-        if (elapsed >= DurationMs) {
-            currentValue_ = targetValue_;
-            state_ = CmdState::Completed;
-            publishExecStatus(activeCmdId_, "COMPLETED", 100, currentValue_, 0);
-        } else if (now_ms - lastProgressReportMs_ >= 500) {
-            lastProgressReportMs_ = now_ms;
-            int progress = static_cast<int>((elapsed * 100) / DurationMs);
-            publishExecStatus(activeCmdId_, "IN_PROGRESS", progress, currentValue_, 0);
-        }
-    }
-
-private:
-    static constexpr uint32_t DurationMs = 3000;
-
-    void publishAck(std::string_view cmd_id, std::string_view status) const {
-        std::cout << std::format("[MQTT OUT -> devices/zone1/cmd/ack] {{\"cmd_id\":\"{}\",\"status\":\"{}\"}}\n",
-                                 cmd_id, status);
-    }
-
-    void publishExecStatus(std::string_view cmd_id, std::string_view state,
-                           int progress, int val, int err) const {
-        std::cout << std::format("[MQTT OUT -> devices/zone1/cmd/status] {{\"cmd_id\":\"{}\",\"state\":\"{}\","
-                                 "\"progress_pct\":{},\"val\":{},\"err\":{}}}\n",
-                                 cmd_id, state, progress, val, err);
-    }
-
-    DedupFilter dedup_;
-    CmdState state_{CmdState::Idle};
-    std::string activeCmdId_;
-    int targetValue_{0};
-    int currentValue_{0};
-    uint32_t startTimeMs_{0};
-    uint32_t lastProgressReportMs_{0};
-};
+    std::cout << "== кінець ==\n";
+    return 0;
+}

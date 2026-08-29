@@ -1,196 +1,178 @@
-#include <cstdint>
-#include <cstddef>
-#include <string_view>
-#include <array>
-#include <span>
-#include <functional>
+/* Демонстраційний прогін AT-рушія проти симулятора модуля.
+
+   На залізі main виглядав би так само, тільки замість FakeModem стояли б
+   HAL_UART_Transmit_DMA і HAL_GetTick, а Engine::poll викликався б із
+   головного циклу або з нитки RTOS. */
+
+#include <format>
+#include <iostream>
 #include <optional>
-#include <cstring>
+#include <span>
+#include <string_view>
 
-enum class AtStatus : uint8_t {
-    Ok = 0,
-    Error,
-    Timeout,
-    Aborted
-};
+#include "at/engine.hpp"
+#include "sim/fake_modem.hpp"
 
-struct AtCommandDescriptor {
-    std::string_view cmd_text;
-    std::string_view expect_prefix;
-    uint32_t         timeout_ms{1000};
-    uint8_t          max_retries{0};
-    uint8_t          current_retry{0};
-    std::function<void(AtStatus, std::string_view)> callback{};
-};
+namespace {
 
-struct UrcRegistration {
-    std::string_view prefix;
-    std::function<void(std::string_view)> handler;
-};
-
-template <size_t RxSize = 512, size_t QueueCapacity = 8, size_t MaxUrc = 8>
-class AtCommandEngine {
-public:
-    using TxFunction = std::function<void(std::span<const uint8_t>)>;
-    using TickFunction = std::function<uint32_t()>;
-
-    AtCommandEngine(TxFunction tx, TickFunction tick) 
-        : tx_fn_{std::move(tx)}, tick_fn_{std::move(tick)} {}
-
-    [[nodiscard]] uint8_t* rx_buffer() noexcept { return rx_buffer_.data(); }
-    [[nodiscard]] static constexpr size_t rx_capacity() noexcept { return RxSize; }
-
-    bool register_urc(std::string_view prefix, std::function<void(std::string_view)> handler) noexcept {
-        if (urc_count_ >= MaxUrc) return false;
-        urc_table_[urc_count_++] = {prefix, std::move(handler)};
-        return true;
+void report(at::Millis now, std::string_view what, const at::Result& result)
+{
+    if (result) {
+        std::cout << std::format("[{:4} мс] {:<26} → OK      {}\n",
+                                 now.count(), what, *result);
+    } else {
+        std::cout << std::format("[{:4} мс] {:<26} → {:<7} {}\n",
+                                 now.count(), what,
+                                 at::to_string(result.error().status),
+                                 result.error().detail);
     }
+}
 
-    bool enqueue_command(AtCommandDescriptor cmd) noexcept {
-        if (queue_count_ >= QueueCapacity) return false;
-        queue_[queue_head_] = std::move(cmd);
-        queue_head_ = (queue_head_ + 1U) % QueueCapacity;
-        ++queue_count_;
-        return true;
-    }
+/* Сирі байти, які підуть у дріт після запрошення '>'. Статичні: пам'ять
+   мусить жити до виклику колбека. */
+constexpr std::string_view kHttpRequest{"GET / HTTP/1.0\r\n\r\n"};
 
-    void poll(uint16_t dma_cndtr) noexcept {
-        const uint32_t now = tick_fn_();
-        char line_buf[128];
+[[nodiscard]] std::span<const std::byte> http_payload() noexcept
+{
+    return std::as_bytes(std::span{kHttpRequest.data(), kHttpRequest.size()});
+}
 
-        // 1. Потокова екстракція рядків та розпізнавання URC
-        while (extract_line(dma_cndtr, line_buf, sizeof(line_buf))) {
-            const std::string_view line{line_buf};
-            bool is_urc = false;
+}  // namespace
 
-            for (size_t i = 0; i < urc_count_; ++i) {
-                if (line.starts_with(urc_table_[i].prefix)) {
-                    if (urc_table_[i].handler) {
-                        urc_table_[i].handler(line);
-                    }
-                    is_urc = true;
-                    break;
-                }
-            }
+int main()
+{
+    at::Millis now{0};
+    std::optional<sim::FakeModem> modem;   // потребує буфера рушія, тож пізніше
 
-            if (is_urc) continue;
+    at::Engine engine{at::Engine::Hooks{
+        .uart_tx = [&modem, &now](std::span<const std::byte> data) { modem->on_tx(data, now); },
+        .tick = [&now] { return now; },
+        .on_module_stuck = [&now] {
+            std::cout << std::format("[{:4} мс] ВІДНОВЛЕННЯ: модуль не відповідає — смикаємо PWRKEY\n",
+                                     now.count());
+        },
+    }};
 
-            if (state_ == State::WaitResponse && active_cmd_) {
-                if (!active_cmd_->expect_prefix.empty() && line.starts_with(active_cmd_->expect_prefix)) {
-                    last_data_line_ = line;
-                } else if (line == "OK") {
-                    if (active_cmd_->callback) {
-                        active_cmd_->callback(AtStatus::Ok, last_data_line_);
-                    }
-                    state_ = State::Idle;
-                    active_cmd_.reset();
-                } else if (line == "ERROR" || line.starts_with("+CME ERROR:")) {
-                    handle_failure(now, AtStatus::Error, line);
-                }
-            }
+    // Симулятор пише в той самий масив, який на залізі був би ціллю DMA.
+    modem.emplace(engine.rx_target());
+
+    engine.register_urc("+QIURC: \"closed\"", [&engine, &now](std::string_view line) {
+        std::cout << std::format("[{:4} мс] URC розрив сокета: {}\n", now.count(), line);
+
+        /* Реентерабельність: команду ставимо в чергу прямо звідси. Це можна
+           саме тому, що URC розбирається в контексті головного циклу, а черга
+           захищена критичною секцією. */
+        const bool queued = engine.send(at::Command{
+            .text = "AT+QIOPEN=1,0,\"TCP\",\"example.net\",80,0,1",
+            .timeout = at::Millis{500},
+            .retries = 1,
+            .done = [&now](const at::Result& r) { report(now, "AT+QIOPEN (з URC)", r); },
+        });
+        if (!queued) {
+            std::cout << std::format("[{:4} мс] черга переповнена, перевідкриття відкладено\n",
+                                     now.count());
         }
+    });
 
-        // 2. FSM черги
-        switch (state_) {
-            case State::Idle:
-                if (queue_count_ > 0) {
-                    active_cmd_ = queue_[queue_tail_];
-                    queue_tail_ = (queue_tail_ + 1U) % QueueCapacity;
-                    --queue_count_;
-                    last_data_line_ = {};
-                    state_ = State::Send;
-                }
-                break;
+    engine.register_urc("+QIOPEN:", [&now](std::string_view line) {
+        std::cout << std::format("[{:4} мс] URC сокет піднято: {}\n", now.count(), line);
+    });
 
-            case State::Send:
-                if (active_cmd_) {
-                    auto span_data = std::as_bytes(std::span{active_cmd_->cmd_text.data(), active_cmd_->cmd_text.size()});
-                    tx_fn_(std::span<const uint8_t>{reinterpret_cast<const uint8_t*>(span_data.data()), span_data.size()});
-                    timer_start_ms_ = now;
-                    state_ = State::WaitResponse;
-                }
-                break;
-
-            case State::WaitResponse:
-                if (active_cmd_ && (now - timer_start_ms_) >= active_cmd_->timeout_ms) {
-                    handle_failure(now, AtStatus::Timeout, {});
-                }
-                break;
-
-            case State::RetryDelay:
-                if ((now - timer_start_ms_) >= 100U) {
-                    state_ = State::Send;
-                }
-                break;
-        }
+    for (const std::string_view prefix : {"+QIURC:", "RING", "+CMTI:"}) {
+        engine.register_urc(prefix, [&now](std::string_view line) {
+            std::cout << std::format("[{:4} мс] URC: {}\n", now.count(), line);
+        });
     }
 
-private:
-    enum class State : uint8_t {
-        Idle,
-        Send,
-        WaitResponse,
-        RetryDelay
+    const auto submit = [&engine, &now](at::Command cmd, std::string_view label) {
+        if (!engine.send(std::move(cmd))) {
+            std::cout << std::format("[{:4} мс] черга не прийняла {}\n", now.count(), label);
+        }
     };
 
-    void handle_failure(uint32_t now, AtStatus status, std::string_view err_msg) noexcept {
-        if (active_cmd_->current_retry < active_cmd_->max_retries) {
-            ++active_cmd_->current_retry;
-            timer_start_ms_ = now;
-            state_ = State::RetryDelay;
-        } else {
-            if (active_cmd_->callback) {
-                active_cmd_->callback(status, err_msg);
-            }
-            state_ = State::Idle;
-            active_cmd_.reset();
+    submit(at::Command{
+               .text = "ATE0",
+               .timeout = at::Millis{300},
+               .retries = 2,
+               .done = [&now](const at::Result& r) { report(now, "ATE0", r); },
+           },
+           "ATE0");
+
+    submit(at::Command{
+               .text = "AT+CFUN=1",
+               .timeout = at::Millis{1000},
+               .retries = 2,
+               .done = [&now](const at::Result& r) { report(now, "AT+CFUN=1", r); },
+           },
+           "AT+CFUN=1");
+
+    submit(at::Command{
+               .text = "AT+CSQ",
+               .expect = "+CSQ:",
+               .timeout = at::Millis{500},
+               .done = [&now](const at::Result& r) { report(now, "AT+CSQ", r); },
+           },
+           "AT+CSQ");
+
+    // Команда з запрошенням: після '>' у дріт ідуть сирі байти.
+    submit(at::Command{
+               .text = "AT+QISEND=0,18",
+               .payload = http_payload(),
+               .timeout = at::Millis{1000},
+               .wait_prompt = true,
+               .done = [&now](const at::Result& r) { report(now, "AT+QISEND", r); },
+           },
+           "AT+QISEND");
+
+    /* Та сама команда, але в закритий сокет: модуль відповість ERROR і
+       запрошення не надішле ніколи. Рушій зобов'язаний закрити команду
+       одразу, а не простояти цілу секунду в очікуванні '>'. */
+    submit(at::Command{
+               .text = "AT+QISEND=1,4",
+               .payload = http_payload().first(4),
+               .timeout = at::Millis{1000},
+               .wait_prompt = true,
+               .done = [&now](const at::Result& r) { report(now, "AT+QISEND (закритий)", r); },
+           },
+           "AT+QISEND (закритий)");
+
+    /* Три команди, на які модуль мовчить: показують ескалацію таймауту й
+       аварійне відновлення після третьої поспіль. */
+    for (const std::string_view text : {"AT+QIDEACT=0", "AT+QIDEACT=1", "AT+QIDEACT=2"}) {
+        submit(at::Command{
+                   .text = text,
+                   .timeout = at::Millis{250},
+                   .done = [&now, text](const at::Result& r) { report(now, text, r); },
+               },
+               text);
+    }
+
+    bool late_probe_sent = false;
+
+    for (now = at::Millis{0}; now < at::Millis{3000}; now += at::Millis{5}) {
+        modem->tick(now);
+        engine.poll(modem->cndtr());
+
+        // Після аварійного відновлення рушій мусить працювати далі.
+        if (!late_probe_sent && now >= at::Millis{2000}) {
+            late_probe_sent = true;
+            submit(at::Command{
+                       .text = "AT+CSQ",
+                       .expect = "+CSQ:",
+                       .timeout = at::Millis{500},
+                       .done = [&now](const at::Result& r) { report(now, "AT+CSQ (після відновлення)", r); },
+                   },
+                   "AT+CSQ (після відновлення)");
         }
     }
 
-    bool extract_line(uint16_t dma_cndtr, char* out, size_t max_len) noexcept {
-        const uint16_t head = static_cast<uint16_t>(RxSize - dma_cndtr);
-        if (head == rx_tail_) return false;
+    const at::Engine::Stats& s = engine.stats();
+    std::cout << std::format(
+        "\nПідсумок: рядків {}, з них URC {}, луни відкинуто {},\n"
+        "          сиріт {}, переповнень рядка {},\n"
+        "          повторів {}, таймаутів {}, відновлень {}\n",
+        s.lines_in, s.urc_lines, s.echo_dropped, s.orphan_lines, s.overflows,
+        s.retries, s.timeouts, s.recoveries);
 
-        uint16_t scan = rx_tail_;
-        bool found = false;
-        while (scan != head) {
-            if (rx_buffer_[scan] == '\n') {
-                found = true;
-                break;
-            }
-            scan = (scan + 1U) % RxSize;
-        }
-        if (!found) return false;
-
-        size_t written = 0;
-        while (rx_tail_ != scan) {
-            const char c = static_cast<char>(rx_buffer_[rx_tail_]);
-            if (c != '\r' && c != '\n' && written < max_len - 1U) {
-                out[written++] = c;
-            }
-            rx_tail_ = (rx_tail_ + 1U) % RxSize;
-        }
-        rx_tail_ = (rx_tail_ + 1U) % RxSize; // skip '\n'
-        out[written] = '\0';
-        return (written > 0);
-    }
-
-    TxFunction tx_fn_;
-    TickFunction tick_fn_;
-
-    std::array<uint8_t, RxSize> rx_buffer_{};
-    uint16_t rx_tail_{0};
-
-    std::array<AtCommandDescriptor, QueueCapacity> queue_{};
-    size_t queue_head_{0};
-    size_t queue_tail_{0};
-    size_t queue_count_{0};
-
-    std::array<UrcRegistration, MaxUrc> urc_table_{};
-    size_t urc_count_{0};
-
-    State state_{State::Idle};
-    std::optional<AtCommandDescriptor> active_cmd_{std::nullopt};
-    uint32_t timer_start_ms_{0};
-    std::string_view last_data_line_{};
-};
+    return 0;
+}

@@ -27,7 +27,7 @@
 
 :::tabs
 :::code proj-dwt-profiler/c/dwt_profiler.c
-:::code proj-dwt-profiler/cpp/realizatsiia-funktsii.cpp
+:::code proj-dwt-profiler/cpp/dwt_profiler.cpp
 :::
 
 ## Апаратне стробування виводів GPIO для осцилографа
@@ -35,9 +35,11 @@
 Для вимірювання затримок обробників переривань без внесення будь-яких затримок пам'яті використовується маніпуляція бітами порту через регістр атомарного встановлення/скидання `BSRR` (англ. *Bit Set/Reset Register*). Запис у цей регістр виконується за 1-2 такти шини AHB і не потребує блокування переривань, на відміну від операцій читання-модифікації-запису `ODR ^= PIN`.
 
 :::tabs
-:::code proj-dwt-profiler/c/aparatne-strobuvannia.c
-:::code proj-dwt-profiler/cpp/aparatne-strobuvannia.hpp
+:::code proj-dwt-profiler/c/gpio_strobe.h
+:::code proj-dwt-profiler/cpp/gpio_strobe.hpp
 :::
+
+:::code proj-dwt-profiler/c/gpio_strobe.c
 
 ## Інженерні обмеження, крайові випадки та тонкощі профілювання
 
@@ -50,6 +52,13 @@
 Для ядер Cortex-M0 альтернативними інструментами є:
 - **Системний таймер SysTick:** 24-бітний лічильник `SysTick->VAL`, який рахує від значення `SysTick->LOAD` вниз до нуля. Тривалість у тактах обчислюється як `(start_val - end_val)`. Якщо за час вимірювання таймер переповнився (скинув прапорець `COUNTFLAG`), до результату додається значення `LOAD`.
 - **Вільний 32-бітний таймер загального призначення:** налаштування таймера (наприклад, TIM2) у режимі рахунку без прескалера (`PSC = 0`) з тактуванням від повної частоти шини APB.
+
+:::tabs
+:::code proj-dwt-profiler/c/systick_counter.h
+:::code proj-dwt-profiler/cpp/systick_counter.hpp
+:::
+
+:::code proj-dwt-profiler/c/systick_counter.c
 
 ### 2. Заморозка лічильника в режимах низького споживання (Sleep / Standby)
 
@@ -64,6 +73,11 @@
 Для об'єктивного аналізу:
 - Якщо вимірюється **середній час (ACET)**: перший замір відкидають, а статистику збирають після попереднього «прогріву» функції.
 - Якщо визначається **найгірший час (WCET)**: кеш примусово інвалідують перед кожним тестовим прогоном (`SCB_InvalidateICache()`), щоб змоделювати найгірший випадок холодного старту обробника після витіснення іншим кодом.
+
+:::tabs
+:::code proj-dwt-profiler/c/main.c
+:::code proj-dwt-profiler/cpp/main.cpp
+:::
 
 ### 4. Вплив ємнісного навантаження виводу GPIO на осцилограф
 

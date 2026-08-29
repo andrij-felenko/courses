@@ -1,235 +1,335 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Стенд контролера безпеки.
+   Тут живе реалізація hal_* поверх моделі проводки: тестові виходи, контакти
+   грибка, місця замикань, котушки контакторів із їхньою механічною затримкою
+   та дзеркальні NC-контакти петлі EDM. Модель потрібна, щоб дефекти, заради
+   яких написано діагностику, можна було внести навмисно — на живому верстаті
+   міжканальне замикання не влаштовують. */
 
-#define PULSE_PERIOD_MS        20U
-#define PULSE_DURATION_US      300U
-#define DISCREPANCY_MAX_MS     100U
-#define EDM_TIMEOUT_MS         250U
-#define VIGILANCE_TIMEOUT_MS   30000U
-#define VIGILANCE_WARN_MS      3000U
+#include <stdio.h>
+#include <string.h>
 
-typedef enum {
-    SAFETY_STATE_SAFE_DISARMED = 0,
-    SAFETY_STATE_ARMED,
-    SAFETY_STATE_TRIPPED_ESTOP,
-    SAFETY_STATE_TRIPPED_DEADMAN,
-    SAFETY_STATE_FAULT_CROSS_CIRCUIT,
-    SAFETY_STATE_FAULT_SHORT_POWER,
-    SAFETY_STATE_FAULT_DISCORDANCE,
-    SAFETY_STATE_FAULT_EDM
-} safety_state_t;
+#include "safety.h"
+#include "safety_hal.h"
 
-typedef enum {
-    DEADMAN_POS_RELEASED = 0,
-    DEADMAN_POS_ENABLED  = 1,
-    DEADMAN_POS_PANIC    = 2
-} deadman_pos_t;
+#define CONTACTOR_DELAY_MS  15U   /* час відпускання якоря контактора */
+#define TICK_US             1000U
 
 typedef struct {
-    safety_state_t state;
-    bool           output_enable;
-    
-    /* Таймери та діагностика імпульсів */
-    uint32_t       last_tick_ms;
-    uint32_t       pulse_timer_ms;
-    uint32_t       discrepancy_timer_ms;
-    uint32_t       edm_timer_ms;
-    uint32_t       vigilance_timer_ms;
-    
-    bool           ch1_last_raw;
-    bool           ch2_last_raw;
-    bool           discordance_active;
-    
-    /* Стан кнопки мертвої руки */
-    deadman_pos_t  deadman_state;
-    bool           deadman_latched_from_panic;
-    bool           vigilance_warning;
-} safety_controller_t;
+    uint32_t now_us;
 
-/* Апаратні абстракції платформи */
-extern void     hw_set_test_pulse(uint8_t channel, bool level);
-extern bool     hw_read_input(uint8_t channel);
-extern bool     hw_read_edm_feedback(void);
-extern void     hw_set_power_relays(bool enable);
-extern void     hw_delay_us(uint32_t us);
-extern uint32_t hw_get_time_ms(void);
+    bool     test_out[2];
+    bool     contact_closed[2];    /* контакти грибка: true — контур цілий */
+    bool     short_to_supply[2];   /* лінія притиснута до +24 В */
+    bool     cross_circuit;        /* лінії каналів зрощені між собою */
 
-void safety_controller_init(safety_controller_t *ctrl) {
-    ctrl->state = SAFETY_STATE_SAFE_DISARMED;
-    ctrl->output_enable = false;
-    ctrl->last_tick_ms = hw_get_time_ms();
-    ctrl->pulse_timer_ms = 0;
-    ctrl->discrepancy_timer_ms = 0;
-    ctrl->edm_timer_ms = 0;
-    ctrl->vigilance_timer_ms = 0;
-    ctrl->ch1_last_raw = false;
-    ctrl->ch2_last_raw = false;
-    ctrl->discordance_active = false;
-    ctrl->deadman_state = DEADMAN_POS_RELEASED;
-    ctrl->deadman_latched_from_panic = false;
-    ctrl->vigilance_warning = false;
-    
-    hw_set_test_pulse(1, true);
-    hw_set_test_pulse(2, true);
-    hw_set_power_relays(false);
+    bool     coil_on;
+    uint32_t coil_since_ms;
+    bool     mirror_closed;        /* петля EDM */
+    bool     contactor_welded;     /* силовий контакт K1 приварився */
+
+    bool     en_a, en_b, panic_nc; /* контакти 3-позиційної кнопки */
+    bool     reset_btn, ack_btn, operator_active;
+    bool     lamp, buzzer;
+} bench_t;
+
+static bench_t  bench;
+static safety_t ctl;
+
+/* ── реалізація контракту заліза ──────────────────────────────────────────── */
+
+void hal_set_test_output(uint8_t ch, bool high)
+{
+    bench.test_out[ch] = high;
 }
 
-/* Виконання динамічного тестування каналів зі зсувом фаз */
-static bool safety_perform_pulse_test(safety_controller_t *ctrl) {
-    /* Канал 1: короткий тестовий провал у нуль */
-    hw_set_test_pulse(1, false);
-    hw_delay_us(PULSE_DURATION_US);
-    bool ch1_during_t1_low = hw_read_input(1);
-    bool ch2_during_t1_low = hw_read_input(2);
-    hw_set_test_pulse(1, true);
-    
-    /* Якщо при T1=LOW на вході 1 лишилась одиниця -> КЗ на +24V */
-    if (ch1_during_t1_low) {
-        ctrl->state = SAFETY_STATE_FAULT_SHORT_POWER;
-        return false;
+/* Чим лінія керується просто зараз. Розімкнений контакт лишає вхід
+   висіти на підтяжці вниз, замкнений — під двотактним тестовим виходом. */
+typedef enum { DRIVE_NONE = 0, DRIVE_LOW, DRIVE_HIGH } drive_t;
+
+static drive_t line_drive(uint8_t ch)
+{
+    if (!bench.contact_closed[ch]) {
+        return DRIVE_NONE;
     }
-    
-    /* Якщо провал на T1 відбився на вході 2 -> міжканальне замикання Ch1-Ch2 */
-    if (!ch2_during_t1_low) {
-        ctrl->state = SAFETY_STATE_FAULT_CROSS_CIRCUIT;
-        return false;
-    }
-    
-    hw_delay_us(100); /* Захисний інтервал між імпульсами */
-    
-    /* Канал 2: зсунутий тестовий провал у нуль */
-    hw_set_test_pulse(2, false);
-    hw_delay_us(PULSE_DURATION_US);
-    bool ch1_during_t2_low = hw_read_input(1);
-    bool ch2_during_t2_low = hw_read_input(2);
-    hw_set_test_pulse(2, true);
-    
-    if (ch2_during_t2_low) {
-        ctrl->state = SAFETY_STATE_FAULT_SHORT_POWER;
-        return false;
-    }
-    if (!ch1_during_t2_low) {
-        ctrl->state = SAFETY_STATE_FAULT_CROSS_CIRCUIT;
-        return false;
-    }
-    
-    return true;
+    return bench.test_out[ch] ? DRIVE_HIGH : DRIVE_LOW;
 }
 
-void safety_controller_process(safety_controller_t *ctrl, deadman_pos_t raw_deadman, bool reset_cmd) {
-    uint32_t now = hw_get_time_ms();
-    uint32_t dt = now - ctrl->last_tick_ms;
-    ctrl->last_tick_ms = now;
-    
-    /* Періодичний імпульсний тест лінії */
-    ctrl->pulse_timer_ms += dt;
-    if (ctrl->pulse_timer_ms >= PULSE_PERIOD_MS) {
-        ctrl->pulse_timer_ms = 0;
-        if (!safety_perform_pulse_test(ctrl)) {
-            hw_set_power_relays(false);
-            ctrl->output_enable = false;
-            return;
+bool hal_read_estop_input(uint8_t ch)
+{
+    drive_t drive = line_drive(ch);
+
+    if (bench.cross_circuit) {
+        /* Зрощені лінії — один вузол. Двотактний вихід, що тягне вниз,
+           перемагає: саме тому чужий тестовий імпульс видно на обох входах. */
+        const drive_t other = line_drive((uint8_t)(ch ^ 1u));
+        if (other == DRIVE_LOW) {
+            drive = DRIVE_LOW;
+        } else if (other == DRIVE_HIGH && drive == DRIVE_NONE) {
+            drive = DRIVE_HIGH;
+        }
+        if (bench.short_to_supply[ch ^ 1u]) {
+            return true;
         }
     }
-    
-    bool ch1 = hw_read_input(1);
-    bool ch2 = hw_read_input(2);
-    
-    /* Контроль розбіжності каналів (Дискорданс) */
-    if (ch1 != ch2) {
-        if (!ctrl->discordance_active) {
-            ctrl->discordance_active = true;
-            ctrl->discrepancy_timer_ms = 0;
-        } else {
-            ctrl->discrepancy_timer_ms += dt;
-            if (ctrl->discrepancy_timer_ms > DISCREPANCY_MAX_MS) {
-                ctrl->state = SAFETY_STATE_FAULT_DISCORDANCE;
-                hw_set_power_relays(false);
-                ctrl->output_enable = false;
-                return;
-            }
-        }
-    } else {
-        ctrl->discordance_active = false;
-        ctrl->discrepancy_timer_ms = 0;
+
+    if (bench.short_to_supply[ch]) {
+        return true;   /* стороннє живлення дужче за тестовий вихід */
     }
-    
-    bool estop_ok = (ch1 && ch2 && !ctrl->discordance_active);
-    
-    /* Обробка 3-позиційної мертвої руки */
-    if (raw_deadman == DEADMAN_POS_PANIC) {
-        ctrl->deadman_latched_from_panic = true;
-        ctrl->deadman_state = DEADMAN_POS_PANIC;
-    } else if (raw_deadman == DEADMAN_POS_RELEASED) {
-        ctrl->deadman_latched_from_panic = false;
-        ctrl->deadman_state = DEADMAN_POS_RELEASED;
-    } else if (raw_deadman == DEADMAN_POS_ENABLED) {
-        if (ctrl->deadman_latched_from_panic) {
-            /* Заборонено вмикати при поверненні з Позиції 3 без скидання в Позицію 1 */
-            ctrl->deadman_state = DEADMAN_POS_PANIC;
-        } else {
-            ctrl->deadman_state = DEADMAN_POS_ENABLED;
-        }
+    return drive == DRIVE_HIGH;
+}
+
+bool hal_read_edm_loop(void)
+{
+    return bench.mirror_closed;
+}
+
+void hal_set_contactors(bool energize)
+{
+    if (bench.coil_on != energize) {
+        bench.coil_on       = energize;
+        bench.coil_since_ms = bench.now_us / 1000u;
     }
-    
-    /* Таймер циклічної пильності */
-    if (ctrl->deadman_state == DEADMAN_POS_ENABLED) {
-        ctrl->vigilance_timer_ms += dt;
-        if (ctrl->vigilance_timer_ms >= VIGILANCE_TIMEOUT_MS) {
-            ctrl->state = SAFETY_STATE_TRIPPED_DEADMAN;
-            hw_set_power_relays(false);
-            ctrl->output_enable = false;
-            return;
-        } else if (ctrl->vigilance_timer_ms >= (VIGILANCE_TIMEOUT_MS - VIGILANCE_WARN_MS)) {
-            ctrl->vigilance_warning = true;
-        } else {
-            ctrl->vigilance_warning = false;
-        }
-    } else {
-        ctrl->vigilance_timer_ms = 0;
-        ctrl->vigilance_warning = false;
+}
+
+void hal_read_enabling_contacts(bool *circuit_a, bool *circuit_b, bool *panic_nc)
+{
+    *circuit_a = bench.en_a;
+    *circuit_b = bench.en_b;
+    *panic_nc  = bench.panic_nc;
+}
+
+bool hal_read_reset_button(void) { return bench.reset_btn; }
+bool hal_read_ack_button(void)   { return bench.ack_btn; }
+bool hal_operator_active(void)   { return bench.operator_active; }
+
+void hal_set_lamp(bool on)   { bench.lamp = on; }
+void hal_set_buzzer(bool on) { bench.buzzer = on; }
+
+void hal_busy_wait_us(uint32_t us)
+{
+    bench.now_us += us;   /* тестовий імпульс з'їдає справжній час циклу */
+}
+
+uint32_t hal_now_ms(void)
+{
+    return bench.now_us / 1000u;
+}
+
+/* ── такт моделі ──────────────────────────────────────────────────────────── */
+
+static void bench_tick(void)
+{
+    bench.now_us += TICK_US;
+    const uint32_t now = bench.now_us / 1000u;
+
+    /* Дзеркальні контакти йдуть слідом за котушкою, але не миттєво.
+       Приварений силовий контакт тримає свій NC розімкненим назавжди. */
+    if ((uint32_t)(now - bench.coil_since_ms) >= CONTACTOR_DELAY_MS) {
+        bench.mirror_closed = !bench.coil_on && !bench.contactor_welded;
     }
-    
-    /* Кінцевий автомат безпеки */
-    switch (ctrl->state) {
-        case SAFETY_STATE_SAFE_DISARMED:
-        case SAFETY_STATE_TRIPPED_ESTOP:
-        case SAFETY_STATE_TRIPPED_DEADMAN:
-            if (!estop_ok) {
-                ctrl->state = SAFETY_STATE_TRIPPED_ESTOP;
-            } else if (ctrl->deadman_state != DEADMAN_POS_ENABLED) {
-                ctrl->state = SAFETY_STATE_TRIPPED_DEADMAN;
-            } else if (reset_cmd) {
-                /* Перевірка зворотного зв'язку контакторів EDM перед пуском */
-                if (hw_read_edm_feedback()) {
-                    ctrl->state = SAFETY_STATE_ARMED;
-                    ctrl->output_enable = true;
-                    hw_set_power_relays(true);
-                } else {
-                    ctrl->state = SAFETY_STATE_FAULT_EDM;
-                }
-            }
-            break;
-            
-        case SAFETY_STATE_ARMED:
-            if (!estop_ok) {
-                ctrl->state = SAFETY_STATE_TRIPPED_ESTOP;
-                hw_set_power_relays(false);
-                ctrl->output_enable = false;
-            } else if (ctrl->deadman_state != DEADMAN_POS_ENABLED) {
-                ctrl->state = SAFETY_STATE_TRIPPED_DEADMAN;
-                hw_set_power_relays(false);
-                ctrl->output_enable = false;
-            }
-            break;
-            
-        case SAFETY_STATE_FAULT_CROSS_CIRCUIT:
-        case SAFETY_STATE_FAULT_SHORT_POWER:
-        case SAFETY_STATE_FAULT_DISCORDANCE:
-        case SAFETY_STATE_FAULT_EDM:
-            /* Фатальні блокування: вимагають виправлення заліза й перезапуску */
-            hw_set_power_relays(false);
-            ctrl->output_enable = false;
-            break;
+}
+
+/* ── друк подій ───────────────────────────────────────────────────────────── */
+
+static uint32_t       t0_ms;
+static safety_state_t last_state;
+static bool           last_out, last_lamp, last_buzzer, fresh;
+
+static void report(void)
+{
+    const safety_state_t st  = safety_state(&ctl);
+    const bool           out = safety_outputs_on(&ctl);
+
+    if (!fresh && st == last_state && out == last_out
+        && bench.lamp == last_lamp && bench.buzzer == last_buzzer) {
+        return;
     }
+
+    printf("  %6u мс   K1/K2 %s   %s%s%s\n",
+           hal_now_ms() - t0_ms,
+           out ? "ON " : "off",
+           safety_state_name(st),
+           bench.lamp ? "   [лампа]" : "",
+           bench.buzzer ? "   [зумер]" : "");
+
+    last_state  = st;
+    last_out    = out;
+    last_lamp   = bench.lamp;
+    last_buzzer = bench.buzzer;
+    fresh       = false;
+}
+
+static void step(uint32_t ms)
+{
+    for (uint32_t i = 0; i < ms; i++) {
+        bench_tick();
+        safety_process(&ctl);
+        report();
+    }
+}
+
+/* ── дії оператора ────────────────────────────────────────────────────────── */
+
+static void grip_enable(void)   { bench.en_a = bench.en_b = true;  bench.panic_nc = true;  }
+static void grip_release(void)  { bench.en_a = bench.en_b = false; bench.panic_nc = true;  }
+static void grip_panic(void)    { bench.en_a = bench.en_b = false; bench.panic_nc = false; }
+
+static void press_reset(void)
+{
+    bench.reset_btn = true;  step(10);
+    bench.reset_btn = false; step(10);
+}
+
+static void hit_mushroom(void)     { bench.contact_closed[0] = bench.contact_closed[1] = false; }
+static void release_mushroom(void) { bench.contact_closed[0] = bench.contact_closed[1] = true;  }
+
+/* Справний стенд: грибок витягнуто, кнопка дозволу відпущена, контактори
+   знеструмлені, петля EDM замкнена. Годинник не скидаємо — він наскрізний. */
+static void bench_reset(const char *title)
+{
+    const uint32_t keep = bench.now_us;
+    memset(&bench, 0, sizeof bench);
+    bench.now_us = keep;
+
+    bench.test_out[0] = bench.test_out[1] = true;
+    release_mushroom();
+    grip_release();
+    bench.mirror_closed = true;
+
+    safety_init(&ctl);
+
+    t0_ms = hal_now_ms();
+    fresh = true;
+    printf("\n=== %s ===\n", title);
+    report();
+}
+
+/* ── сценарії ─────────────────────────────────────────────────────────────── */
+
+static void scenario_normal_cycle(void)
+{
+    bench_reset("Штатний пуск, удар по грибку, повторний пуск");
+    grip_enable();
+    step(30);
+    press_reset();          /* контур цілий, петля EDM замкнена → пуск */
+    step(100);
+
+    hit_mushroom();         /* Категорія 0 */
+    step(150);
+
+    release_mushroom();
+    step(30);
+    press_reset();
+    step(100);
+}
+
+static void scenario_discordance(void)
+{
+    bench_reset("Розбіжність каналів: перекіс контактного блока");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(100);
+
+    bench.contact_closed[0] = false;   /* розімкнувся лише канал A */
+    step(300);                         /* негайний стоп, далі — залипла помилка */
+}
+
+static void scenario_short_to_supply(void)
+{
+    bench_reset("Замикання лінії каналу A на шину +24 В");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+
+    bench.short_to_supply[0] = true;   /* перетерта ізоляція в кабель-каналі */
+    step(100);                         /* тестовий провал не доходить до входу */
+}
+
+static void scenario_cross_circuit(void)
+{
+    bench_reset("Міжканальне замикання лінії A на лінію B");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+
+    bench.cross_circuit = true;
+    step(100);   /* чужий імпульс з'являється на сусідньому каналі */
+}
+
+static void scenario_welded_contactor(void)
+{
+    bench_reset("Зварений силовий контакт K1: петля EDM не замикається");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+
+    bench.contactor_welded = true;   /* дуга зварила контакт під навантаженням */
+    hit_mushroom();
+    step(400);                       /* K2 розірвав живлення, EDM зафіксував K1 */
+
+    release_mushroom();
+    step(30);
+    press_reset();                   /* повторний пуск заблоковано */
+    step(50);
+}
+
+static void scenario_panic_release(void)
+{
+    bench_reset("Панічне стискання і зворотний хід крізь Позицію 2");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+
+    grip_panic();       /* Позиція 3: судомне стискання */
+    step(50);
+
+    grip_enable();      /* рука розтискається, кнопка проходить Позицію 2 */
+    step(30);
+    press_reset();      /* вмикання заборонено: блокування ще зведене */
+    step(50);
+
+    grip_release();     /* повне повернення в Позицію 1 знімає блокування */
+    step(30);
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+}
+
+static void scenario_vigilance(void)
+{
+    bench_reset("Циклічний контроль пильності: лампа → зумер → зупинка");
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+
+    bench.operator_active = true;    /* оператор працює джойстиком */
+    step(20000);
+    bench.operator_active = false;   /* і завмер */
+    step(51000);                     /* 45 с спокою + 2.5 с + 2.5 с */
+
+    grip_release();                  /* лише повне відпускання знімає блокування */
+    step(30);
+    grip_enable();
+    step(30);
+    press_reset();
+    step(50);
+}
+
+int main(void)
+{
+    scenario_normal_cycle();
+    scenario_discordance();
+    scenario_short_to_supply();
+    scenario_cross_circuit();
+    scenario_welded_contactor();
+    scenario_panic_release();
+    scenario_vigilance();
+    return 0;
 }

@@ -1,147 +1,116 @@
 #include <cstdint>
-#include <cstddef>
-#include <array>
+#include <format>
+#include <iostream>
+#include <random>
 #include <span>
-#include <optional>
-#include <algorithm>
+#include <string>
+#include <string_view>
+#include <vector>
 
-namespace RadioHardware {
+#include "frame.hpp"
+#include "receiver.hpp"
 
-class PacketEngine {
-public:
-    static constexpr uint8_t  PreambleByte   = 0xAA;
-    static constexpr size_t   PreambleLength = 4;
-    static constexpr uint16_t SyncWord       = 0xD391;
-    static constexpr uint16_t Crc16Poly      = 0x1021;
-    static constexpr uint16_t Crc16Init      = 0xFFFF;
-    static constexpr uint8_t  LfsrSeed       = 0x7F;
-    static constexpr size_t   MaxPayloadSize = 64;
-    static constexpr size_t   MaxFrameSize   = PreambleLength + 2 + 1 + MaxPayloadSize + 2;
+namespace {
 
-    struct DecodedPacket {
-        std::array<uint8_t, MaxPayloadSize> payload{};
-        size_t                              length{0};
-    };
+// Зерно фіксоване, тож «ефірний шум» при кожному запуску той самий
+// і числа в кінці відтворювані.
+std::mt19937 gAir{0x2DD4A55Au};
+std::bernoulli_distribution gNoise{0.5};
 
-    // Статичний розрахунок CRC-16 CCITT
-    static constexpr uint16_t updateCrc(uint16_t crc, uint8_t byte) noexcept {
-        crc ^= static_cast<uint16_t>(byte) << 8;
-        for (size_t i = 0; i < 8; ++i) {
-            if ((crc & 0x8000U) != 0U) {
-                crc = static_cast<uint16_t>((crc << 1) ^ Crc16Poly);
-            } else {
-                crc = static_cast<uint16_t>(crc << 1);
-            }
-        }
-        return crc;
+std::vector<std::uint8_t> asBytes(std::string_view text)
+{
+    return std::vector<std::uint8_t>(text.begin(), text.end());
+}
+
+void hexdump(std::string_view tag, std::span<const std::uint8_t> data)
+{
+    std::string line = std::format("{} ({} Б):", tag, data.size());
+    for (const std::uint8_t byte : data) {
+        line += std::format(" {:02X}", byte);
     }
+    std::cout << line << '\n';
+}
 
-    // Побітове скремблювання/дескремблювання LFSR (x^7 + x^4 + 1)
-    static void applyWhitening(std::span<uint8_t> buffer) noexcept {
-        uint8_t lfsr = LfsrSeed;
-        for (auto& byte : buffer) {
-            uint8_t whitened = 0;
-            for (int bit = 7; bit >= 0; --bit) {
-                const uint8_t lfsrOut  = (lfsr >> 6) & 0x01U;
-                const uint8_t feedback = ((lfsr >> 6) ^ (lfsr >> 3)) & 0x01U;
-                lfsr = static_cast<uint8_t>(((lfsr << 1) | feedback) & 0x7FU);
+// Ефір: спершу трохи шуму, далі кадр біт за бітом, старшим уперед.
+void airSend(radio::BitReceiver& rx, std::span<const std::uint8_t> frame, int noiseBits)
+{
+    for (int i = 0; i < noiseBits; ++i) {
+        rx.pushBit(gNoise(gAir));
+    }
+    for (const std::uint8_t byte : frame) {
+        rx.pushByteMsbFirst(byte);
+    }
+}
 
-                const uint8_t inBit = (byte >> bit) & 0x01U;
-                whitened |= static_cast<uint8_t>((inBit ^ lfsrOut) << bit);
-            }
-            byte = whitened;
+// Та сама передача, але з переставленим порядком бітів у байті.
+void airSendLsbFirst(radio::BitReceiver& rx, std::span<const std::uint8_t> frame)
+{
+    for (const std::uint8_t byte : frame) {
+        for (int bit = 0; bit < 8; ++bit) {
+            rx.pushBit(((byte >> bit) & 1u) != 0);
         }
     }
+}
 
-    // Пакування кадру для передавача
-    static std::optional<size_t> encode(
-        std::span<const uint8_t> payload,
-        std::span<uint8_t>       frameOut) noexcept 
-    {
-        if (payload.size() > MaxPayloadSize) return std::nullopt;
-        const size_t totalNeeded = PreambleLength + 2 + 1 + payload.size() + 2;
-        if (frameOut.size() < totalNeeded) return std::nullopt;
+} // namespace
 
-        size_t idx = 0;
+int main()
+{
+    const auto payload = asBytes("TELEMETRY:BAT=3.81V");
 
-        // 1. Преамбула
-        for (size_t i = 0; i < PreambleLength; ++i) {
-            frameOut[idx++] = PreambleByte;
-        }
+    const auto built = radio::buildFrame(payload);
+    if (!built) {
+        std::cerr << std::format("кадр не зібрано: {}\n", radio::describe(built.error()));
+        return 1;
+    }
+    const std::vector<std::uint8_t>& frame = *built;
+    hexdump("кадр в ефір", frame);
 
-        // 2. Синхрослово
-        frameOut[idx++] = static_cast<uint8_t>(SyncWord >> 8);
-        frameOut[idx++] = static_cast<uint8_t>(SyncWord & 0xFFU);
+    radio::BitReceiver rx;
 
-        // 3. Довжина
-        const auto lenByte = static_cast<uint8_t>(payload.size());
-        frameOut[idx++] = lenByte;
-
-        // 4. Копіювання та скремблювання корисних даних
-        const size_t payloadStart = idx;
-        std::copy(payload.begin(), payload.end(), frameOut.begin() + payloadStart);
-        applyWhitening(frameOut.subspan(payloadStart, payload.size()));
-        idx += payload.size();
-
-        // 5. CRC-16
-        uint16_t crc = Crc16Init;
-        crc = updateCrc(crc, lenByte);
-        for (size_t i = payloadStart; i < idx; ++i) {
-            crc = updateCrc(crc, frameOut[i]);
-        }
-
-        frameOut[idx++] = static_cast<uint8_t>(crc >> 8);
-        frameOut[idx++] = static_cast<uint8_t>(crc & 0xFFU);
-
-        return idx;
+    // 1. Нормальний прийом. Перед кадром 13 бітів шуму — число навмисно не
+    //    кратне восьми: вирівнювання дає корелятор, а не якась межа в потоці.
+    airSend(rx, frame, 13);
+    if (const auto packet = rx.pop()) {
+        std::cout << std::format("1) прийнято {} Б: {}\n", packet->size(),
+                                 std::string(packet->begin(), packet->end()));
+    } else {
+        std::cout << "1) кадр не прийнято\n";
     }
 
-    // Розпакування та перевірка кадру
-    static std::optional<DecodedPacket> decode(std::span<const uint8_t> frame) noexcept {
-        constexpr size_t minFrameSize = PreambleLength + 2 + 1 + 2;
-        if (frame.size() < minFrameSize) return std::nullopt;
+    // 2. Один перевернутий біт у тілі кадру — CRC не сходиться.
+    auto broken = frame;
+    broken[radio::kPreambleBytes + 2 + 3] ^= 0x08;
+    airSend(rx, broken, 7);
+    std::cout << std::format("2) помилок CRC: {}, кадр у FIFO: {}\n",
+                             rx.stats().crcErrors,
+                             rx.pop().has_value() ? "є" : "немає");
 
-        // 1. Пошук синхрослова
-        size_t syncPos = 0;
-        bool found = false;
-        for (size_t i = 0; i + 1 < frame.size(); ++i) {
-            const uint16_t sw = (static_cast<uint16_t>(frame[i]) << 8) | frame[i + 1];
-            if (sw == SyncWord) {
-                syncPos = i + 2;
-                found = true;
-                break;
-            }
-        }
-        if (!found || syncPos >= frame.size()) return std::nullopt;
-
-        // 2. Довжина payload
-        const uint8_t payloadLen = frame[syncPos++];
-        if (payloadLen > MaxPayloadSize || (syncPos + payloadLen + 2 > frame.size())) {
-            return std::nullopt;
-        }
-
-        // 3. Перевірка CRC
-        uint16_t calculatedCrc = Crc16Init;
-        calculatedCrc = updateCrc(calculatedCrc, payloadLen);
-        for (size_t i = 0; i < payloadLen; ++i) {
-            calculatedCrc = updateCrc(calculatedCrc, frame[syncPos + i]);
-        }
-
-        const uint16_t receivedCrc = (static_cast<uint16_t>(frame[syncPos + payloadLen]) << 8) |
-                                     frame[syncPos + payloadLen + 1];
-
-        if (calculatedCrc != receivedCrc) {
-            return std::nullopt;
-        }
-
-        // 4. Дескремблювання у вихідний результат
-        DecodedPacket packet{};
-        packet.length = payloadLen;
-        std::copy_n(frame.data() + syncPos, payloadLen, packet.payload.begin());
-        applyWhitening(std::span<uint8_t>(packet.payload.data(), packet.length));
-
-        return packet;
+    // 3. FIFO глибиною два: шлемо три кадри поспіль і не вичитуємо жодного.
+    rx.flush();
+    for (int i = 0; i < 3; ++i) {
+        airSend(rx, frame, 5);
     }
-};
+    std::cout << std::format("3) переповнення FIFO: {}, втрачено кадрів: {}\n",
+                             rx.overrun() ? "так" : "ні", rx.stats().overruns);
+    rx.flush(); // CMD_FLUSHRX — без нього приймач так і стоятиме
 
-} // namespace RadioHardware
+    // 4. Той самий кадр, але біти в байті йдуть молодшим першим: візерунок
+    //    синхрослова розсипається, корелятор мовчить.
+    const auto syncsBefore = rx.stats().syncs;
+    airSendLsbFirst(rx, frame);
+    std::cout << std::format("4) LSB first: спрацювань корелятора {}\n",
+                             rx.stats().syncs - syncsBefore);
+
+    // 5. Порожній ефір: 2 млн бітів шуму — це близько 8 с на 250 кбіт/с.
+    //    Детектор преамбули зводиться десятки разів, але корелятор за свої
+    //    короткі вікна майже ніколи не знаходить синхрослова.
+    radio::BitReceiver noiseRx;
+    for (int i = 0; i < 2'000'000; ++i) {
+        noiseRx.pushBit(gNoise(gAir));
+    }
+    const auto& s = noiseRx.stats();
+    std::cout << std::format("5) шум: преамбул {}, синхрослів {}, брак довжини {}, кадрів {}\n",
+                             s.arms, s.syncs, s.lengthErrors, s.frames);
+    return 0;
+}

@@ -1,217 +1,188 @@
-/* ============================================================================
-   Модуль розділення Наведення (Guidance) та Регулювання (Control)
-   Мова: C++20 з типобезпекою, атомарним обміном та RAII-структурою
-   ============================================================================ */
+// ============================================================================
+// Демонстрація розділення наведення й регулювання на імітаторі мультиротора.
+//
+// Швидкий домен  — 1000 Гц: AttitudeController + мікшер + фізика.
+// Повільний домен —   50 Гц: Guidance.
+// Обмін — тільки через Seqlock-скриньку та два атомарні біти назад.
+//
+// Сценарій: висіння на 5 м; бічний порив; низхідний потік із насиченням моторів;
+// на 4-й секунді задача навігації "зависає" — спрацьовує сторож уставки.
+//
+// Збірка: c++ -O2 -std=c++20 *.cpp -o guidance_demo
+// ============================================================================
 
 #include <cmath>
 #include <cstdint>
-#include <array>
-#include <atomic>
-#include <numbers>
-#include <optional>
+#include <iomanip>
+#include <iostream>
 
-namespace FlightCore {
+#include "control.hpp"
+#include "geometry.hpp"
+#include "guidance.hpp"
+#include "mixer.hpp"
+#include "setpoint.hpp"
 
-/* Строго типізований тривимірний вектор */
-struct Vector3 {
-    float x{0.0f}, y{0.0f}, z{0.0f};
+namespace {
 
-    [[nodiscard]] constexpr float norm_sq() const noexcept {
-        return x * x + y * y + z * z;
+using namespace flight;
+
+constexpr float kDtFast = 0.001F;      // 1000 Гц
+constexpr int kGuidanceDivider = 20;   // 50 Гц
+constexpr float kSimSeconds = 6.5F;
+
+// Груба модель рами: нормовані тяга й момент -> прискорення.
+constexpr float kMaxThrustAccel = 2.0F * kGravity;
+constexpr float kMaxAngularAccelXY = 600.0F;   // рад/с^2 на одиничний момент
+constexpr float kMaxAngularAccelZ = 120.0F;
+constexpr float kLinearDrag = 0.25F;           // 1/с
+constexpr float kAngularDrag = 0.60F;
+
+struct Vehicle {
+    Vec3 position{0.0F, 0.0F, -5.0F};   // NED: -5 означає висоту 5 м
+    Vec3 velocity{};
+    Quat attitude{};
+    Vec3 rates{};
+
+    void step(const Wrench& wrench, const Vec3& disturbAccel, const Vec3& disturbAlpha, float dt) noexcept {
+        // Трансляція: тяга вздовж -Z корпуса, гравітація вниз, лінійний опір.
+        Vec3 accel = attitude.rotate(Vec3{0.0F, 0.0F, -wrench.thrust * kMaxThrustAccel});
+        accel += Vec3{0.0F, 0.0F, kGravity};
+        accel += velocity * -kLinearDrag;
+        accel += disturbAccel;
+
+        velocity += accel * dt;
+        position += velocity * dt;
+
+        // Обертання: момент -> кутове прискорення плюс аеродинамічний демпфер.
+        Vec3 alpha{wrench.torque.x * kMaxAngularAccelXY,
+                   wrench.torque.y * kMaxAngularAccelXY,
+                   wrench.torque.z * kMaxAngularAccelZ};
+        alpha += rates * -kAngularDrag;
+        alpha += disturbAlpha;
+
+        rates += alpha * dt;
+
+        // Інтегрування кватерніона: q += 0.5 * q * (0, omega) * dt.
+        const Quat dq = attitude * Quat{0.0F, rates.x, rates.y, rates.z};
+        attitude = Quat{attitude.w + 0.5F * dq.w * dt,
+                        attitude.x + 0.5F * dq.x * dt,
+                        attitude.y + 0.5F * dq.y * dt,
+                        attitude.z + 0.5F * dq.z * dt}
+                       .normalized();
     }
 
-    [[nodiscard]] float norm() const noexcept {
-        return std::sqrt(norm_sq());
-    }
-
-    [[nodiscard]] Vector3 normalized() const noexcept {
-        const float n = norm();
-        if (n < 1e-6f) return {0.0f, 0.0f, -1.0f};
-        return {x / n, y / n, z / n};
+    // Кут між віссю тяги й вертикаллю — те, що обмежує tilt limiter.
+    [[nodiscard]] float tiltDegrees() const noexcept {
+        const Vec3 zb = attitude.rotate(Vec3{0.0F, 0.0F, 1.0F});
+        return std::acos(std::clamp(zb.z, -1.0F, 1.0F)) * 180.0F / kPi;
     }
 };
 
-/* Кватерніон просторової орієнтації */
-struct Quaternion {
-    float w{1.0f}, x{0.0f}, y{0.0f}, z{0.0f};
+}  // namespace
 
-    [[nodiscard]] constexpr Quaternion conjugate() const noexcept {
-        return {w, -x, -y, -z};
-    }
+int main() {
+    SetpointMailbox mailbox;
+    ControlFeedback feedback;
+    Guidance guidance;
+    AttitudeController controller;
+    Vehicle vehicle;
 
-    [[nodiscard]] constexpr Quaternion operator*(const Quaternion& rhs) const noexcept {
-        return {
-            w * rhs.w - x * rhs.x - y * rhs.y - z * rhs.z,
-            w * rhs.x + x * rhs.w + y * rhs.z - z * rhs.y,
-            w * rhs.y - x * rhs.z + y * rhs.w + z * rhs.x,
-            w * rhs.z + x * rhs.y - y * rhs.x + z * rhs.w
-        };
-    }
-};
+    const Vec3 target{0.0F, 0.0F, -5.0F};   // висіння над точкою старту
+    constexpr float kYawSetpoint = 0.0F;
 
-/* Контрактний інтерфейс уставки між доменами */
-struct SetpointPayload {
-    uint64_t timestamp_us{0};
-    Quaternion q_target{1.0f, 0.0f, 0.0f, 0.0f};
-    Vector3 rate_feedforward{};
-    float collective_thrust{0.0f};
-    bool valid{false};
-};
+    Micros now{0};
+    bool navFrozen = false;
 
-/* Потокобезпечна безблокувальна поштова скринька (Lock-Free Mailbox) */
-class SetpointMailbox {
-public:
-    void publish(const SetpointPayload& sp) noexcept {
-        const uint32_t current_seq = m_sequence.load(std::memory_order_relaxed);
-        const uint32_t next_idx = (current_seq & 1) ^ 1;
-        
-        m_buffers[next_idx] = sp;
-        
-        /* Звільняємо пам'ять із бар'єром release */
-        m_sequence.store(current_seq + 1, std::memory_order_release);
-    }
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "  t, с | пн, м | сх, м | вис, м | нахил | газ | режим  | насич\n";
+    std::cout << "-------+-------+-------+--------+-------+-----+--------+------\n";
 
-    [[nodiscard]] std::optional<SetpointPayload> consume() const noexcept {
-        const uint32_t seq = m_sequence.load(std::memory_order_acquire);
-        const uint32_t read_idx = seq & 1;
-        
-        SetpointPayload sp = m_buffers[read_idx];
-        
-        if (m_sequence.load(std::memory_order_relaxed) != seq || !sp.valid) {
-            return std::nullopt;
+    const long totalTicks = static_cast<long>(kSimSeconds / kDtFast);
+
+    for (long tick = 0; tick <= totalTicks; ++tick) {
+        const float t = static_cast<float>(tick) * kDtFast;
+
+        // --- Збурення середовища ------------------------------------------
+        Vec3 disturbAccel{};
+        Vec3 disturbAlpha{};
+
+        if (t >= 1.0F && t < 1.6F) {
+            disturbAccel.y = 8.0F;                 // бічний порив на схід
+            if (t < 1.05F) {
+                disturbAlpha.x = 45.0F;            // удар по рамі перекидає її
+            }
         }
-        return sp;
-    }
+        if (t >= 2.5F && t < 3.5F) {
+            disturbAccel.z = 7.0F;                 // низхідний потік: газ біля стелі
+            disturbAccel.x = -4.0F;
+        }
 
-private:
-    std::array<SetpointPayload, 2> m_buffers{};
-    std::atomic<uint32_t> m_sequence{0};
-};
+        // --- Повільний домен: наведення, 50 Гц -----------------------------
+        if (tick % kGuidanceDivider == 0) {
+            if (t >= 4.0F) {
+                // Імітуємо зависання задачі навігації: уставок більше немає.
+                if (!navFrozen) {
+                    std::cout << "       |  <<< задача наведення зупинилась (t = " << t << " с) >>>\n";
+                    navFrozen = true;
+                }
+            } else {
+                const Guidance::NavState nav{
+                    .position = vehicle.position,
+                    .velocity = vehicle.velocity,
+                    .yaw = kYawSetpoint};
 
-/* ----------------------------------------------------------------------------
-   Клас контуру наведення (Guidance Controller, 20–50 Гц)
-   ---------------------------------------------------------------------------- */
-class GuidanceSystem {
-public:
-    static constexpr float MAX_TILT_RAD = 0.610865f; /* 35 градусів */
-    static constexpr float GRAVITY_MSS  = 9.80665f;
-
-    [[nodiscard]] SetpointPayload compute_setpoint(const Vector3& a_des_ned, 
-                                                  float yaw_target_rad, 
-                                                  uint64_t now_us) const noexcept 
-    {
-        SetpointPayload sp{};
-        sp.timestamp_us = now_us;
-
-        /* Розрахунок питомої сили f = a_des - g */
-        Vector3 f_des{a_des_ned.x, a_des_ned.y, a_des_ned.z - GRAVITY_MSS};
-        const float f_norm = f_des.norm();
-
-        Vector3 zb = (f_des * (-1.0f)).normalized();
-
-        /* Tilt Limiter */
-        const float min_zb_z = std::cos(MAX_TILT_RAD);
-        if (zb.z < min_zb_z) {
-            const float xy_len = std::sqrt(zb.x * zb.x + zb.y * zb.y);
-            if (xy_len > 1e-4f) {
-                const float sin_max = std::sin(MAX_TILT_RAD);
-                zb.x = (zb.x / xy_len) * sin_max;
-                zb.y = (zb.y / xy_len) * sin_max;
-                zb.z = min_zb_z;
+                mailbox.publish(guidance.step(nav, target, kYawSetpoint,
+                                              kDtFast * kGuidanceDivider,
+                                              feedback.saturated(), now));
             }
         }
 
-        /* Генерація кватерніона за кутами Ейлера */
-        const float pitch = std::asin(-zb.x);
-        const float roll  = std::atan2(zb.y, zb.z);
+        // --- Швидкий домен: регулятор + мікшер, 1000 Гц --------------------
+        const AttitudeController::ImuSample imu{.attitude = vehicle.attitude,
+                                                .gyro = vehicle.rates};
 
-        const float cy = std::cos(yaw_target_rad * 0.5f);
-        const float sy = std::sin(yaw_target_rad * 0.5f);
-        const float cp = std::cos(pitch * 0.5f);
-        const float sp_val = std::sin(pitch * 0.5f);
-        const float cr = std::cos(roll * 0.5f);
-        const float sr = std::sin(roll * 0.5f);
+        const auto command = controller.update(imu, mailbox.consume(),
+                                               feedback.saturated(), kDtFast, now);
+        const MotorOutputs motors = mixQuadX(command.torque, command.thrust);
 
-        sp.q_target = Quaternion{
-            cr * cp * cy + sr * sp_val * sy,
-            sr * cp * cy - cr * sp_val * sy,
-            cr * sp_val * cy + sr * cp * sy,
-            cr * cp * sy - sr * sp_val * cy
-        };
+        // Насичення актуаторів — назад угору: його читають і петля кутових
+        // швидкостей регулятора, і петля позиції наведення.
+        feedback.setSaturated(motors.saturated);
+        feedback.setFallback(command.fallback);
 
-        /* Розрахунок тяги з насиченням */
-        sp.collective_thrust = std::clamp(f_norm / (2.0f * GRAVITY_MSS), 0.05f, 1.0f);
-        sp.valid = true;
+        vehicle.step(motorsToWrench(std::span<const float, kMotorCount>{motors.motors}),
+                     disturbAccel, disturbAlpha, kDtFast);
 
-        return sp;
-    }
-};
-
-/* ----------------------------------------------------------------------------
-   Клас контуру стабілізації (Attitude Rate Controller, 1000 Гц)
-   ---------------------------------------------------------------------------- */
-class RateController {
-public:
-    static constexpr uint64_t TIMEOUT_US = 100'000; /* 100 мс */
-    static constexpr float KP_ATTITUDE = 6.5f;
-    static constexpr float KP_RATE = 0.15f;
-
-    struct ActuatorCommands {
-        Vector3 body_torques{};
-        float thrust{0.0f};
-    };
-
-    [[nodiscard]] ActuatorCommands update(const Quaternion& q_est, 
-                                          const Vector3& gyro_rad_s,
-                                          const std::optional<SetpointPayload>& sp_opt,
-                                          uint64_t now_us) noexcept 
-    {
-        SetpointPayload sp = resolve_watchdog(sp_opt, now_us);
-
-        /* 1. Похибка орієнтації в системі Body: q_err = q_est* * q_target */
-        const Quaternion q_err = q_est.conjugate() * sp.q_target;
-        const float sign = (q_err.w >= 0.0f) ? 1.0f : -1.0f;
-
-        /* Цільова кутова швидкість */
-        const Vector3 rate_target{
-            2.0f * sign * q_err.x * KP_ATTITUDE + sp.rate_feedforward.x,
-            2.0f * sign * q_err.y * KP_ATTITUDE + sp.rate_feedforward.y,
-            2.0f * sign * q_err.z * (KP_ATTITUDE * 0.6f) + sp.rate_feedforward.z
-        };
-
-        /* 2. Контур кутових швидкостей */
-        const Vector3 rate_err{
-            rate_target.x - gyro_rad_s.x,
-            rate_target.y - gyro_rad_s.y,
-            rate_target.z - gyro_rad_s.z
-        };
-
-        return ActuatorCommands{
-            .body_torques = Vector3{
-                rate_err.x * KP_RATE,
-                rate_err.y * KP_RATE,
-                rate_err.z * (KP_RATE * 1.5f)
-            },
-            .thrust = sp.collective_thrust
-        };
-    }
-
-private:
-    [[nodiscard]] SetpointPayload resolve_watchdog(const std::optional<SetpointPayload>& sp_opt,
-                                                  uint64_t now_us) const noexcept 
-    {
-        if (!sp_opt.has_value() || (now_us - sp_opt->timestamp_us > TIMEOUT_US)) {
-            /* Fallback: горизонтальний режим та спуск */
-            return SetpointPayload{
-                .timestamp_us = now_us,
-                .q_target = Quaternion{1.0f, 0.0f, 0.0f, 0.0f},
-                .rate_feedforward = {},
-                .collective_thrust = 0.40f,
-                .valid = true
-            };
+        // --- Незручні випадки, які буває видно лише в польоті --------------
+        if (!std::isfinite(vehicle.position.z) || !std::isfinite(vehicle.attitude.w)) {
+            std::cout << "\nМодель розійшлася на t = " << t << " с — контур нестійкий.\n";
+            return 1;
         }
-        return *sp_opt;
-    }
-};
+        if (vehicle.position.z >= 0.0F) {
+            std::cout << std::setw(6) << t << " |" << std::setw(6) << vehicle.position.x
+                      << " |" << std::setw(6) << vehicle.position.y
+                      << " |" << std::setw(7) << -vehicle.position.z
+                      << " |" << std::setw(6) << vehicle.tiltDegrees()
+                      << " |" << std::setw(4) << command.thrust << " | ТОРКАННЯ ЗЕМЛІ\n";
+            std::cout << "\nСторож уставки посадив апарат замість того, щоб віддати\n"
+                         "керування контуру, який мовчить уже понад 100 мс.\n";
+            return 0;
+        }
 
-} // namespace FlightCore
+        if (tick % 100 == 0) {   // друк кожні 100 мс
+            std::cout << std::setw(6) << t << " |" << std::setw(6) << vehicle.position.x
+                      << " |" << std::setw(6) << vehicle.position.y
+                      << " |" << std::setw(7) << -vehicle.position.z
+                      << " |" << std::setw(6) << vehicle.tiltDegrees()
+                      << " |" << std::setw(4) << command.thrust
+                      << " | " << (command.fallback ? "АВАРІЯ" : "НАВЕД.")
+                      << " | " << (motors.saturated ? "так" : "-") << '\n';
+        }
+
+        now += Micros{1000};
+    }
+
+    std::cout << "\nСимуляція завершена: " << kSimSeconds << " с, " << totalTicks
+              << " тактів регулятора, " << totalTicks / kGuidanceDivider << " тактів наведення.\n";
+    return 0;
+}

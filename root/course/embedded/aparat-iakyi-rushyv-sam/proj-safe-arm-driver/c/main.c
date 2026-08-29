@@ -1,123 +1,84 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include "hw.h"
+#include "safe_actuator.h"
 
-#define SAFETY_TOKEN_MAGIC  0x5A3C96E1U
-#define PWM_MAX_DUTY        1000U
-#define MIN_SAFE_VOLTAGE_MV 11000U
-#define MAX_SAFE_VOLTAGE_MV 14500U
+/* Період головного циклу. Мусить бути коротшим за півперіод меандру,
+ * інакше серцебиття втратить фронти ще до будь-якої аварії. */
+#define CYCLE_PERIOD_US 250U
 
-typedef enum {
-    ACTUATOR_DISARMED = 0,
-    ACTUATOR_ARM_REQUESTED,
-    ACTUATOR_PRE_ARM_CHECK,
-    ACTUATOR_ARMED,
-    ACTUATOR_FAULT
-} ActuatorState;
+/* Профіль місії: розгін до 40% за секунду, утримання, зупинка. */
+#define MISSION_RAMP_US  1000000U
+#define MISSION_HOLD_US  5000000U
+#define MISSION_TARGET   400U
 
-typedef struct {
-    ActuatorState state;
-    uint32_t last_heartbeat_ms;
-    uint32_t arm_request_time_ms;
-    uint16_t current_pwm;
-    bool emergency_stop_active;
-} SafeActuatorDriver;
-
-// Платформні виклики керування регістрами GPIO та таймера
-extern void hw_gpio_write_heartbeat(bool level);
-extern void hw_timer_set_pwm_duty(uint16_t duty);
-extern uint32_t hw_get_time_ms(void);
-extern uint16_t hw_read_supply_voltage_mv(void);
-extern bool hw_read_estop_pin(void);
-extern void hw_watchdog_reset(void);
-
-void safe_actuator_init(SafeActuatorDriver *drv) {
-    // 1. Апаратні виходи встановлюємо в безпечний нуль ДО дозволу виходів
-    hw_gpio_write_heartbeat(false);
-    hw_timer_set_pwm_duty(0);
-
-    drv->state = ACTUATOR_DISARMED;
-    drv->last_heartbeat_ms = 0;
-    drv->arm_request_time_ms = 0;
-    drv->current_pwm = 0;
-    drv->emergency_stop_active = false;
+static uint16_t mission_target_pwm(uint32_t armed_for_us)
+{
+    if (armed_for_us >= (MISSION_RAMP_US + MISSION_HOLD_US)) {
+        return 0;
+    }
+    if (armed_for_us >= MISSION_RAMP_US) {
+        return MISSION_TARGET;
+    }
+    /* Лінійний розгін. Множення робимо в 64 бітах: 400 * 1e6 не влазить
+     * у 32 біти, і мовчазне переповнення дало б ривок на старті. */
+    return (uint16_t)(((uint64_t)MISSION_TARGET * armed_for_us) /
+                      MISSION_RAMP_US);
 }
 
-bool safe_actuator_request_arm(SafeActuatorDriver *drv, uint32_t token) {
-    if (token != SAFETY_TOKEN_MAGIC) {
-        drv->state = ACTUATOR_FAULT;
-        return false;
-    }
-    if (drv->state != ACTUATOR_DISARMED) {
-        return false;
-    }
-    drv->state = ACTUATOR_ARM_REQUESTED;
-    drv->arm_request_time_ms = hw_get_time_ms();
-    return true;
-}
+int main(void)
+{
+    safe_actuator_t drv;
+    uint32_t armed_since_us = 0;
+    bool mission_started = false;
+    bool mission_done = false;
 
-void safe_actuator_disarm(SafeActuatorDriver *drv) {
-    // Миттєво зупиняємо генератор помпи та скидаємо ШІМ
-    hw_gpio_write_heartbeat(false);
-    hw_timer_set_pwm_duty(0);
-    drv->current_pwm = 0;
-    if (drv->state != ACTUATOR_FAULT) {
-        drv->state = ACTUATOR_DISARMED;
-    }
-}
+    /* Сторож стартує ПЕРШИМ: якщо зависне сама ініціалізація периферії,
+     * контролер має вийти з цього сам. */
+    hw_watchdog_start(WATCHDOG_TIMEOUT_MS);
+    safe_actuator_init(&drv);
 
-void safe_actuator_process_cycle(SafeActuatorDriver *drv, uint16_t target_pwm) {
-    uint32_t now = hw_get_time_ms();
-    drv->emergency_stop_active = hw_read_estop_pin();
-
-    if (drv->emergency_stop_active) {
-        safe_actuator_disarm(drv);
-        drv->state = ACTUATOR_FAULT;
-        return;
+    if (!safe_actuator_request_arm(&drv, SAFE_ARM_TOKEN)) {
+        /* Запит відхилено — драйвер уже в FAULT і виходи вже мертві.
+         * Лишається крутити цикл, щоб годувати сторожа й тримати нуль. */
+        for (;;) {
+            safe_actuator_process_cycle(&drv, 0);
+        }
     }
 
-    switch (drv->state) {
-        case ACTUATOR_DISARMED:
-            hw_gpio_write_heartbeat(false);
-            hw_timer_set_pwm_duty(0);
-            break;
+    for (;;) {
+        const uint32_t cycle_start_us = hw_get_time_us();
+        uint16_t target = 0;
 
-        case ACTUATOR_ARM_REQUESTED:
-            drv->state = ACTUATOR_PRE_ARM_CHECK;
-            break;
-
-        case ACTUATOR_PRE_ARM_CHECK: {
-            uint16_t v_mv = hw_read_supply_voltage_mv();
-            if (v_mv >= MIN_SAFE_VOLTAGE_MV && v_mv <= MAX_SAFE_VOLTAGE_MV) {
-                drv->state = ACTUATOR_ARMED;
-                drv->last_heartbeat_ms = now;
-            } else {
-                safe_actuator_disarm(drv);
-                drv->state = ACTUATOR_FAULT;
+        switch (safe_actuator_state(&drv)) {
+        case ACTUATOR_ARMED:
+            if (!mission_started) {
+                mission_started = true;
+                armed_since_us = cycle_start_us;
+            }
+            if (!mission_done) {
+                const uint32_t armed_for = cycle_start_us - armed_since_us;
+                target = mission_target_pwm(armed_for);
+                if (armed_for >= (MISSION_RAMP_US + MISSION_HOLD_US)) {
+                    mission_done = true;
+                }
             }
             break;
-        }
 
-        case ACTUATOR_ARMED: {
-            // Генерація динамічного меандру серцебиття з періодом 1 мс (1 кГц)
-            static bool hb_phase = false;
-            hb_phase = !hb_phase;
-            hw_gpio_write_heartbeat(hb_phase);
-            drv->last_heartbeat_ms = now;
-
-            if (target_pwm > PWM_MAX_DUTY) {
-                target_pwm = PWM_MAX_DUTY;
-            }
-            drv->current_pwm = target_pwm;
-            hw_timer_set_pwm_duty(drv->current_pwm);
-            break;
-        }
-
-        case ACTUATOR_FAULT:
         default:
-            safe_actuator_disarm(drv);
+            /* DISARMED, ARM_REQUESTED і PRE_ARM_CHECK проходять самі,
+             * FAULT тримається до перезапуску. Ціль скрізь нульова. */
             break;
-    }
+        }
 
-    // Регулярне годування сторожового таймера
-    hw_watchdog_reset();
+        safe_actuator_process_cycle(&drv, target);
+
+        if (mission_done && safe_actuator_state(&drv) == ACTUATOR_ARMED) {
+            safe_actuator_disarm(&drv);
+        }
+
+        /* Витримка періоду. Активне очікування тут чесніше за сон: цикл
+         * безпеки не має права заснути глибше, ніж дозволяє сторож. */
+        while ((hw_get_time_us() - cycle_start_us) < CYCLE_PERIOD_US) {
+            /* чекаємо наступного такту */
+        }
+    }
 }

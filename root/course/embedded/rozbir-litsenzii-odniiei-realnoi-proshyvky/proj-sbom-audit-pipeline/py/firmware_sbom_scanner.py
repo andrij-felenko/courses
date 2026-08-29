@@ -1,190 +1,162 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""firmware_sbom_scanner.py — пост-лінкерний аудит ліцензій для MCU"""
+"""Ліцензійний шлюз конвеєра збірки прошивки.
 
-import re
-import sys
-import json
+    python3 scripts/firmware_sbom_scanner.py build/firmware.map build/firmware.bin
+
+Крок ставлять одразу після лінкування й ПЕРЕД підписом образу. Коди виходу —
+контракт із CI, тому вони фіксовані:
+
+    0 — склад образу відповідає політиці, паспорт і файл атрибуції записано;
+    1 — аудит не відбувся (немає мапи, битий конфіг, не запустився nm у --strict);
+    2 — ЛІЦЕНЗІЙНЕ ПОРУШЕННЯ: у Flash код під забороненою ліцензією;
+    3 — є зауваження, а прогін запущено з --strict.
+"""
+
+from __future__ import annotations
+
+import argparse
 import hashlib
+import sys
 from pathlib import Path
 
-# База метаданих сторонніх компонентів проєкту
-COMPONENT_DATABASE = {
-    "freertos": {
-        "name": "FreeRTOS Kernel",
-        "version": "10.5.1",
-        "license_spdx": "MIT",
-        "purl": "pkg:generic/freertos@10.5.1",
-        "supplier": "Amazon Web Services",
-        "pattern": r"(freertos|tasks\.o|queue\.o|list\.o|port\.o)"
-    },
-    "lwip": {
-        "name": "lwIP - Lightweight IP stack",
-        "version": "2.2.0",
-        "license_spdx": "BSD-3-Clause",
-        "purl": "pkg:generic/lwip@2.2.0",
-        "supplier": "Swedish Institute of Computer Science",
-        "pattern": r"(lwip|tcp\.o|udp\.o|ip4\.o|ethernet\.o|pbuf\.o)"
-    },
-    "mbedtls": {
-        "name": "mbed TLS",
-        "version": "3.4.1",
-        "license_spdx": "Apache-2.0",
-        "purl": "pkg:generic/mbedtls@3.4.1",
-        "supplier": "TrustedFirmware.org",
-        "pattern": r"(mbedtls|aes\.o|sha256\.o|ssl_tls\.o|x509\.o)"
-    },
-    "fatfs": {
-        "name": "FatFS",
-        "version": "R0.15",
-        "license_spdx": "FatFS-Permissive",
-        "purl": "pkg:generic/fatfs@R0.15",
-        "supplier": "ChaN",
-        "pattern": r"(ff\.o|diskio\.o|ffsystem\.o|ffunicode\.o)"
-    },
-    "cmsis_core": {
-        "name": "ARM CMSIS Core",
-        "version": "5.9.0",
-        "license_spdx": "Apache-2.0",
-        "purl": "pkg:generic/arm-cmsis@5.9.0",
-        "supplier": "Arm Limited",
-        "pattern": r"(system_stm32|cmsis|core_cm7\.o)"
-    },
-    "stm32_hal": {
-        "name": "STM32CubeH7 HAL Drivers",
-        "version": "1.11.0",
-        "license_spdx": "BSD-3-Clause",
-        "purl": "pkg:generic/stm32cube-hal@1.11.0",
-        "supplier": "STMicroelectronics",
-        "pattern": r"(stm32h7xx_hal|stm32h7xx_ll)"
-    },
-    "vendor_phy_blob": {
-        "name": "Vendor Wi-Fi PHY Driver (Binary Blob)",
-        "version": "2.4.18",
-        "license_spdx": "Proprietary-Vendor-EULA",
-        "purl": "pkg:generic/vendor-phy-blob@2.4.18",
-        "supplier": "Silicon Vendor Corp",
-        "pattern": r"(libphy_wifi\.a|libcoexist\.a)"
-    }
-}
+from sbom_audit import TOOL_NAME, TOOL_VERSION
+from sbom_audit.catalog import Catalog, CatalogError
+from sbom_audit.linkmap import MapError, parse_map
+from sbom_audit.report import build_sbom, write_notice, write_sbom
+from sbom_audit.symbols import NmError, audit_symbols, collect_defined_symbols
 
-# Політика ліцензійної відповідності для комерційного пристрою
-BANNED_LICENSES = {"GPL-2.0-only", "GPL-2.0-or-later", "GPL-3.0-only", "GPL-3.0-or-later", "AGPL-3.0-only"}
+EXIT_OK, EXIT_SETUP, EXIT_LICENSE, EXIT_STRICT = 0, 1, 2, 3
 
-def parse_map_file(map_path):
-    """Видобути список усіх об'єктних файлів, реально злінкованих у фінальний образ"""
-    used_objects = set()
-    map_text = Path(map_path).read_text(encoding="utf-8", errors="ignore")
-    
-    # Шукаємо секції розподілу коду (.text, .rodata, .data)
-    object_regex = re.compile(r'([\w\/\.\-]+\.(?:o|a))(?:\([\w\.\-]+\))?')
-    for match in object_regex.finditer(map_text):
-        used_objects.add(match.group(1))
-    return used_objects
+DEFAULT_CONFIG = Path(__file__).resolve().parent / "components.json"
 
-def analyze_components(used_objects):
-    """Зіставити об'єкти з базою компонентів та виявити активні ліцензії"""
-    detected_components = {}
-    
-    for obj in used_objects:
-        obj_str = str(obj)
-        matched = False
-        for comp_id, info in COMPONENT_DATABASE.items():
-            if re.search(info["pattern"], obj_str, re.IGNORECASE):
-                if comp_id not in detected_components:
-                    detected_components[comp_id] = {
-                        "info": info,
-                        "matched_objects": []
-                    }
-                detected_components[comp_id]["matched_objects"].append(obj_str)
-                matched = True
-                break
-    return detected_components
 
-def generate_cyclonedx_sbom(detected, output_path, binary_hash):
-    """Згенерувати машинночитний SBOM у форматі CycloneDX 1.5 JSON"""
-    sbom = {
-        "bomFormat": "CycloneDX",
-        "specVersion": "1.5",
-        "version": 1,
-        "metadata": {
-            "component": {
-                "name": "FlightController-MainFirmware",
-                "version": "3.2.0-release",
-                "type": "firmware",
-                "hashes": [{"alg": "SHA-256", "content": binary_hash}]
-            }
-        },
-        "components": []
-    }
-    
-    for comp_id, data in detected.items():
-        info = data["info"]
-        comp_entry = {
-            "type": "library",
-            "name": info["name"],
-            "version": info["version"],
-            "purl": info["purl"],
-            "supplier": {"name": info["supplier"]},
-            "licenses": [{"license": {"id": info["license_spdx"]}}],
-            "properties": [
-                {"name": "embedded:linked_objects_count", "value": str(len(data["matched_objects"]))}
-            ]
-        }
-        sbom["components"].append(comp_entry)
-        
-    Path(output_path).write_text(json.dumps(sbom, indent=2, ensure_ascii=False), encoding="utf-8")
+def sha256_of(path: Path) -> str:
+    """Хеш образу читаємо блоками: firmware.bin буває й на кілька мегабайт."""
 
-def generate_notice_file(detected, output_path):
-    """Згенерувати зведений файл THIRD_PARTY_LICENSES.txt для інструкції користувача"""
-    lines = [
-        "================================================================================",
-        "ВІДОМОСТІ ПРО ЛІЦЕНЗІЇ СТОРОННЬОГО ПРОГРАМНОГО ЗАБЕЗПЕЧЕННЯ",
-        "Цей виріб містить програмні компоненти з відкритим вихідним кодом.",
-        "================================================================================\n"
-    ]
-    for comp_id, data in detected.items():
-        info = data["info"]
-        lines.append(f"Компонент : {info['name']}")
-        lines.append(f"Версія    : {info['version']}")
-        lines.append(f"Ліцензія  : {info['license_spdx']}")
-        lines.append(f"Автор     : {info['supplier']}")
-        lines.append(f"Модулів   : {len(data['matched_objects'])} об'єктів злінковано")
-        lines.append("-" * 80 + "\n")
-        
-    Path(output_path).write_text("\n".join(lines), encoding="utf-8")
+    digest = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 16), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
-def main():
-    if len(sys.argv) < 3:
-        print("Використання: python firmware_sbom_scanner.py <firmware.map> <firmware.bin>")
-        sys.exit(1)
-        
-    map_file = sys.argv[1]
-    bin_file = sys.argv[2]
-    
-    bin_hash = hashlib.sha256(Path(bin_file).read_bytes()).hexdigest()
-    linked_objs = parse_map_file(map_file)
-    detected = analyze_components(linked_objs)
-    
-    # Перевірка на заборонені копілефтні ліцензії (CI Gate)
-    violations = []
-    for comp_id, data in detected.items():
-        lic = data["info"]["license_spdx"]
-        if lic in BANNED_LICENSES:
-            violations.append(f"Компонент '{data['info']['name']}' має копілефтну ліцензію {lic}")
-            
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    ap = argparse.ArgumentParser(
+        prog="firmware_sbom_scanner",
+        description="Пост-лінкерний ліцензійний аудит і генерація SBOM для прошивки MCU",
+    )
+    ap.add_argument("map_file", help="мапа компонувальника (-Wl,-Map=build/firmware.map)")
+    ap.add_argument("bin_file", help="фінальний образ, що піде на підпис і в OTA")
+    ap.add_argument("--elf", help="ELF для звірки через nm (типово <bin>.elf поруч)")
+    ap.add_argument("--config", default=str(DEFAULT_CONFIG), help="база компонентів (JSON)")
+    ap.add_argument("--nm", default="arm-none-eabi-nm", help="утиліта nm із тулчейна")
+    ap.add_argument("--sbom-out", help="куди писати CycloneDX (типово <bin>.cdx.json)")
+    ap.add_argument("--notice-out", help="куди писати THIRD_PARTY_LICENSES.txt")
+    ap.add_argument("--strict", action="store_true",
+                    help="будь-яке зауваження валить збірку (нічні та релізні прогони)")
+    return ap.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(sys.argv[1:] if argv is None else argv)
+    bin_path = Path(args.bin_file)
+
+    # --- крок 1: конфіг, мапа, хеш образу -----------------------------------
+    try:
+        catalog = Catalog.load(args.config)
+        report = parse_map(args.map_file)
+        binary_hash = sha256_of(bin_path)
+    except (CatalogError, MapError) as exc:
+        print(f"[АУДИТ НЕ ВІДБУВСЯ] {exc}", file=sys.stderr)
+        return EXIT_SETUP
+    except FileNotFoundError:
+        print(f"[АУДИТ НЕ ВІДБУВСЯ] немає образу: {bin_path}", file=sys.stderr)
+        return EXIT_SETUP
+    except OSError as exc:
+        print(f"[АУДИТ НЕ ВІДБУВСЯ] {bin_path}: {exc}", file=sys.stderr)
+        return EXIT_SETUP
+
+    detections, findings = catalog.attribute(report)
+
+    print(f"{TOOL_NAME} {TOOL_VERSION}: у образі {report.total_bytes} Б коду й даних "
+          f"з {len(report.objects)} модулів "
+          f"(--gc-sections викинув {report.gc_dropped_sections} секцій)")
+    print(f"SHA-256 {binary_hash}\n")
+
+    print(f"{'Компонент':<34} {'Версія':<10} {'Ліцензія':<28} {'Байт':>8}  Модулів")
+    print("-" * 96)
+    for det in sorted(detections.values(), key=lambda d: -d.size):
+        comp = det.component
+        print(f"{comp.name[:33]:<34} {comp.version[:9]:<10} "
+              f"{comp.license_text[:27]:<28} {det.size:>8}  {len(det.objects)}")
+    print("-" * 96)
+
+    # --- крок 2: шлюз політики ----------------------------------------------
+    # Порушення закриває конвеєр ДО генерації артефактів: паспорт на образ,
+    # який не має права їхати до замовника, нікому не потрібен.
+    violations = catalog.violations(detections)
     if violations:
-        print("\n[ПОМИЛКА ЛІЦЕНЗІЙНОГО ШЛЮЗУ] Знайдено несумісні ліцензії:")
-        for v in violations:
-            print(f"  ❌ {v}")
-        sys.exit(2)
-        
-    out_sbom = Path(bin_file).with_suffix(".cdx.json")
-    out_notice = Path(bin_file).parent / "THIRD_PARTY_LICENSES.txt"
-    
-    generate_cyclonedx_sbom(detected, out_sbom, bin_hash)
-    generate_notice_file(detected, out_notice)
-    print(f"\n[УСПІХ] Знайдено компонентів: {len(detected)}. Згенеровано SBOM: {out_sbom}")
+        print("\n[ПОМИЛКА ЛІЦЕНЗІЙНОГО ШЛЮЗУ] у прошивці код під забороненою ліцензією:",
+              file=sys.stderr)
+        for item in violations:
+            print(f"  x {item}", file=sys.stderr)
+        print("  Підпис образу заблоковано.", file=sys.stderr)
+        return EXIT_LICENSE
+
+    # --- крок 3: перехресна звірка таблиці символів --------------------------
+    elf_path = Path(args.elf) if args.elf else bin_path.with_suffix(".elf")
+    symbol_findings = []
+    if elf_path.is_file():
+        try:
+            symbols = collect_defined_symbols(elf_path, nm_tool=args.nm)
+            symbol_findings = audit_symbols(
+                symbols,
+                watch_prefixes=catalog.watch_prefixes,
+                declared_prefixes=catalog.declared_prefixes(),
+                detected_ids=set(detections),
+            )
+            print(f"\nЗвірено {len(symbols)} визначених символів через {args.nm}")
+        except NmError as exc:
+            if args.strict:
+                print(f"[АУДИТ НЕ ВІДБУВСЯ] звірка символів: {exc}", file=sys.stderr)
+                return EXIT_SETUP
+            print(f"\n[УВАГА] звірку символів пропущено: {exc}")
+    else:
+        print(f"\n[УВАГА] {elf_path} немає — звірку таблиці символів пропущено")
+
+    # --- крок 4: артефакти ---------------------------------------------------
+    sbom_path = Path(args.sbom_out) if args.sbom_out else bin_path.with_suffix(".cdx.json")
+    notice_path = (Path(args.notice_out) if args.notice_out
+                   else bin_path.parent / "THIRD_PARTY_LICENSES.txt")
+    try:
+        document = build_sbom(catalog, detections, binary_hash, bin_path.name)
+        write_sbom(sbom_path, document)
+        write_notice(notice_path, catalog, detections, binary_hash)
+    except OSError as exc:
+        print(f"[АУДИТ НЕ ВІДБУВСЯ] артефакти не записалися: {exc}", file=sys.stderr)
+        return EXIT_SETUP
+
+    # --- крок 5: зауваження --------------------------------------------------
+    warnings = [f for f in findings if f.severity == "warning"]
+    notes = [f for f in findings if f.severity == "info"]
+
+    for finding in notes:
+        print(f"  · {finding.code}: {finding.message}")
+    for finding in warnings:
+        print(f"  ! {finding.code}: {finding.message}")
+    for finding in symbol_findings:
+        print(f"  ! {finding.code}: {finding.message}")
+
+    print(f"\n[ГОТОВО] компонентів: {len(detections)}; SBOM: {sbom_path}; "
+          f"атрибуція: {notice_path}")
+
+    blocking = len(warnings) + len(symbol_findings)
+    if blocking and args.strict:
+        print(f"[STRICT] зауважень {blocking} — збірку зупинено", file=sys.stderr)
+        return EXIT_STRICT
+    return EXIT_OK
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

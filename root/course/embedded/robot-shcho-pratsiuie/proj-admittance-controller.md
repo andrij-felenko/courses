@@ -24,9 +24,29 @@
 
 :::tabs
 @tab C
+:::code proj-admittance-controller/c/admittance.h
+
+:::code proj-admittance-controller/c/admittance.c
+
+:::code proj-admittance-controller/c/toolgravity.h
+
+:::code proj-admittance-controller/c/toolgravity.c
+
+:::code proj-admittance-controller/c/armkin.h
+
+:::code proj-admittance-controller/c/armkin.c
+
 :::code proj-admittance-controller/c/main.c
 
 @tab C++
+:::code proj-admittance-controller/cpp/admittance.hpp
+
+:::code proj-admittance-controller/cpp/admittance.cpp
+
+:::code proj-admittance-controller/cpp/arm.hpp
+
+:::code proj-admittance-controller/cpp/arm.cpp
+
 :::code proj-admittance-controller/cpp/main.cpp
 :::
 

@@ -73,6 +73,46 @@
 Нижче наведено робочий код ядра тестового рушія, перевірки пам'яті March C-, розблокування шини I2C та верифікації ідентифікаторів периферійних мікросхем.
 
 :::tabs
+:::code proj-factory-express-tester/c/fct.h
+:::code proj-factory-express-tester/cpp/fct.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/hal.h
+:::code proj-factory-express-tester/cpp/hal.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/test_platform.c
+:::code proj-factory-express-tester/cpp/platform_probe.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/test_memory.c
+:::code proj-factory-express-tester/cpp/ram_march.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/test_bus.c
+:::code proj-factory-express-tester/cpp/bus_probe.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/test_radio.c
+:::code proj-factory-express-tester/cpp/rf_calibration.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/report.h
+:::code proj-factory-express-tester/cpp/report.hpp
+:::
+
+:::tabs
+:::code proj-factory-express-tester/c/report.c
+:::code proj-factory-express-tester/cpp/report.cpp
+:::
+
+:::tabs
 :::code proj-factory-express-tester/c/main.c
 :::code proj-factory-express-tester/cpp/main.cpp
 :::

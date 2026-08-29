@@ -145,23 +145,23 @@
 У мові C заголовочний файл експортує лише неповне оголошення типу структури (Incomplete Type) та покажчик на неї. Вся внутрішня будова структури (адреси шини, проміжні змінні калібрування, дескриптори таймерів) декларується виключно у файлі реалізації `.c`.
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/bsp_sensor.h
-:::code arkhitektura-proshyvky-d/cpp/bsp_sensor.hpp
+:::code arkhitektura-proshyvky-d/c/bsp/bsp_accel.h
+:::code arkhitektura-proshyvky-d/cpp/bsp/accelerometer.hpp
 :::
 
 У файлі реалізації C структура отримує повне визначення:
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/bsp_sensor.c
-:::code arkhitektura-proshyvky-d/cpp/bsp_sensor.cpp
+:::code arkhitektura-proshyvky-d/c/bsp/bsp_accel.c
+:::code arkhitektura-proshyvky-d/cpp/bsp/accelerometer.cpp
 :::
 
 #### 2. Таблиця операцій віртуальної шини (Interface Ops / Dependency Inversion)
 Щоб драйвер пристрою (BSP) не залежав від конкретного вендорного HAL, драйвер підключається до шини не через виклики функцій на кшталт `HAL_I2C_Master_Transmit()`, а через **структуру покажчиків на функції** (таблицю операцій):
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/hal_i2c_interface.h
-:::code arkhitektura-proshyvky-d/cpp/hal_i2c_interface.hpp
+:::code arkhitektura-proshyvky-d/c/hal/hal_i2c_ops.h
+:::code arkhitektura-proshyvky-d/cpp/hal/i2c_bus.hpp
 :::
 
 Завдяки такій структурі драйвер давача стає **чистим компонентом**: йому байдуже, чи функція `ops->write` смикає апаратний контролер I2C1 мікроконтролера STM32, чи програмний емулятор I2C Bit-Banging на мікроконтролері PIC, чи заповнює масив у пам'яті комп'ютера розробника під час виконання юніт-тесту.
@@ -181,16 +181,16 @@
 Подія є легковаговим об'єктом фіксованого розміру (зазвичай 8–16 байтів), що складається з ідентифікатора типу події, часової мітки та об'єднання (*union*) корисного навантаження:
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/event_types.h
-:::code arkhitektura-proshyvky-d/cpp/event_types.hpp
+:::code arkhitektura-proshyvky-d/c/include/event_types.h
+:::code arkhitektura-proshyvky-d/cpp/app/events.hpp
 :::
 
 #### Потік подій між шарами
 1. **Генерація події в ISR**: коли на ніжці мікроконтролера спрацьовує переривання від кнопки, обробник переривання `EXTI0_IRQHandler()` не виконує затримок і не малює графіку на дисплеї. Він лише формує подію `EVT_ID_BUTTON_CLICK` і записує її в потокобезпечну кільцеву чергу за 20–30 тактів процесора:
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/potik-podii-mizh-sharamy.c
-:::code arkhitektura-proshyvky-d/cpp/potik-podii-mizh-sharamy.cpp
+:::code arkhitektura-proshyvky-d/c/ports/stm32f4/stm32_exti_isr.c
+:::code arkhitektura-proshyvky-d/cpp/ports/stm32f4/stm32_exti_isr.cpp
 :::
 
 2. **Диспетчеризація в головному циклі**: головний цикл застосунку витягує події з черги й передає їх у кінцевий автомат:
@@ -240,8 +240,8 @@ project_root/
 #### Крок 1: Оголошення абстракції шини I2C у шарі HAL
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/hal_i2c.h
-:::code arkhitektura-proshyvky-d/cpp/hal_i2c.hpp
+:::code arkhitektura-proshyvky-d/c/hal/hal_i2c.h
+:::code arkhitektura-proshyvky-d/cpp/hal/i2c_device.hpp
 :::
 
 #### Крок 2: Драйвер давача температури в шарі BSP
@@ -249,8 +249,8 @@ project_root/
 Драйвер BME280 використовує таблицю операцій `hal_i2c_bus_t`. Він виділяє всю пам'ять статично (без виклику `malloc`), що критично для вбудованих систем із жорсткими вимогами до надійності:
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/bsp_bme280.h
-:::code arkhitektura-proshyvky-d/cpp/bsp_bme280.hpp
+:::code arkhitektura-proshyvky-d/c/bsp/bsp_bme280.h
+:::code arkhitektura-proshyvky-d/cpp/bsp/bme280.hpp
 :::
 
 #### Крок 3: Реалізація координатора застосунку (Application)
@@ -258,8 +258,8 @@ project_root/
 Застосунок зв'язує сенсор з диспетчером подій і реалізує бізнес-правила:
 
 :::tabs
-:::code arkhitektura-proshyvky-d/c/app_coordinator.c
-:::code arkhitektura-proshyvky-d/cpp/app_coordinator.cpp
+:::code arkhitektura-proshyvky-d/c/app/app_coordinator.c
+:::code arkhitektura-proshyvky-d/cpp/app/coordinator.cpp
 :::
 
 Повну робочу збірку цього каркаса з можливістю запуску юніт-тестів на хостовому комп'ютері та детальною інжекцією помилок шини I2C дивіться у практичній вставці [Каркас модульної прошивки для Cortex-M із хостовим тестуванням](root:embedded/arkhitektura-proshyvky/proj-layered-firmware-skeleton.md).

@@ -38,8 +38,8 @@ DNS-сервер не виділяє динамічну пам'ять у куп�
 Стек завдання DNS перехоплювача ізольовано від основного мережевого циклу, що гарантує миттєву відповідь на резолюцію імен навіть під час виконання важких операцій введення-виведення на веб-сервері.
 
 :::tabs
-:::code proj-esp32-captive-portal/c/1-realizatsiia-dns-catch.c
-:::code proj-esp32-captive-portal/cpp/1-realizatsiia-dns-catch.cpp
+:::code proj-esp32-captive-portal/c/main/dns_server.c
+:::code proj-esp32-captive-portal/cpp/main/portal/dns_catch_all.cpp
 :::
 
 ---
@@ -53,8 +53,8 @@ HTTP-сервер реєструє маршрути точного співпа�
 Під час сканування радіоефіру (`esp_wifi_scan_start`) модуль Wi-Fi тимчасово перемикається між каналами 1–13. Оскільки мікроконтролер працює у комбінованому режимі AP+STA, передача пакетів SoftAP на короткий час буферизується стеком, після чого веб-сервер повертає клієнту зібраний JSON-масив з показниками сили сигналу (RSSI) та типами шифрування кожної виявленої мережі.
 
 :::tabs
-:::code proj-esp32-captive-portal/c/2-vbudovanyi-asynkhronnyi.c
-:::code proj-esp32-captive-portal/cpp/2-vbudovanyi-asynkhronnyi.cpp
+:::code proj-esp32-captive-portal/c/main/http_server.c
+:::code proj-esp32-captive-portal/cpp/main/portal/http_portal.cpp
 :::
 
 ---

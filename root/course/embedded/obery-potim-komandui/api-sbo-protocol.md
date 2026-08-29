@@ -220,9 +220,49 @@
 
 ---
 
-## 9. Контрольний алгоритм обчислення CRC-16-CCITT
+## 9. Контрольний алгоритм CRC-16-CCITT та еталонна реалізація профілю
 
 Контрольна сума охоплює всі байти кадру від початку `magic` до кінця `payload` (тобто $16 + N$ байтів). Нижче наведено реалізацію мовами C та C++.
+
+Спершу заголовок профілю: константи розділів 1–6 і структура розібраного кадру.
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_proto.h
+:::code api-sbo-protocol/cpp/sbo/protocol.hpp
+:::
+
+Далі сам кодек: обчислення CRC-16-CCITT, збирання кадру та розбір із перевіркою сигнатури, довжини й контрольної суми.
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_proto.c
+:::code api-sbo-protocol/cpp/sbo/protocol.cpp
+:::
+
+Бортовий вузол — це автомат розділу 3 з таймером `T_arm`, генератором токена, паузою `T_cooldown`, фільтром широкомовних адрес і кодами відмов розділу 5.
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_node.h
+:::code api-sbo-protocol/cpp/sbo/node.hpp
+:::
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_node.c
+:::code api-sbo-protocol/cpp/sbo/node.cpp
+:::
+
+Бік пульта тримає лише поточну селекцію: цільовий вузол, підсистему, задекларовану команду й виданий бортом токен.
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_client.h
+:::code api-sbo-protocol/cpp/sbo/gcs.hpp
+:::
+
+:::tabs
+:::code api-sbo-protocol/c/sbo_client.c
+:::code api-sbo-protocol/cpp/sbo/gcs.cpp
+:::
+
+Нарешті — прогін чотирьох сценаріїв розділу 7 на симульованому радіоканалі з утратою кадрів і повторами `N_retry`.
 
 :::tabs
 :::code api-sbo-protocol/c/main.c

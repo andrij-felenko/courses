@@ -41,9 +41,47 @@
 
 ### Програмна реалізація
 
+Контракт носія — три дії й два числа; усе, що черга знає про мікросхему:
+
+:::tabs
+:::code proj-store-forward-queue/c/sf_flash.h
+:::code proj-store-forward-queue/cpp/include/sfq/flash.hpp
+:::
+
+Драйвер SPI NOR: розбиття запису по сторінках 256 байтів, дозвіл `WREN`, очікування `BUSY`.
+
+:::tabs
+:::code proj-store-forward-queue/c/sf_flash_spi.c
+:::code proj-store-forward-queue/cpp/include/sfq/spi_nor.hpp
+:::
+
+Формат кадру з явною серіалізацією полів:
+
+:::tabs
+:::code proj-store-forward-queue/c/sf_frame.h
+:::code proj-store-forward-queue/cpp/include/sfq/frame.hpp
+:::
+
+Квитанції двох колій: суцільний острівець біля хвоста плюс острівець біля голови.
+
+:::tabs
+:::code proj-store-forward-queue/c/sf_ackset.c
+:::code proj-store-forward-queue/cpp/include/sfq/ack_set.hpp
+:::
+
+Ядро черги — сканування при старті, дозапис, витіснення, рух хвоста по квитанціях:
+
+:::tabs
+:::code proj-store-forward-queue/c/sf_queue.h
+:::code proj-store-forward-queue/c/sf_queue.c
+:::code proj-store-forward-queue/cpp/include/sfq/queue.hpp
+:::
+
+Сценарій на моделі кристала: заповнення без зв'язку, знеструмлення посеред кадру, вивантаження двома коліями.
+
 :::tabs
 :::code proj-store-forward-queue/c/main.c
-:::code proj-store-forward-queue/cpp/main.cpp
+:::code proj-store-forward-queue/cpp/src/main.cpp
 :::
 
 ---

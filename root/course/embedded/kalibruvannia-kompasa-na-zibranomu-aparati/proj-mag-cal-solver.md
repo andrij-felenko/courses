@@ -60,8 +60,43 @@
 ## 2. Повний вихідний код конвеєра на C та C++
 
 :::tabs
-:::code proj-mag-cal-solver/c/mag_cal_pipeline.c
-:::code proj-mag-cal-solver/cpp/mag_cal_pipeline.hpp
+:::code proj-mag-cal-solver/c/mag_cal_types.h
+:::code proj-mag-cal-solver/cpp/include/mag_cal/calibration.hpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_linalg.c
+:::code proj-mag-cal-solver/cpp/include/mag_cal/linear_solver.hpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_collector.c
+:::code proj-mag-cal-solver/cpp/src/collector.cpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_solver.c
+:::code proj-mag-cal-solver/cpp/src/solver.cpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_storage.c
+:::code proj-mag-cal-solver/cpp/src/storage.cpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_telemetry.c
+:::code proj-mag-cal-solver/cpp/src/telemetry.cpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_fsm.c
+:::code proj-mag-cal-solver/cpp/src/session.cpp
+:::
+
+:::tabs
+:::code proj-mag-cal-solver/c/mag_cal_task.c
+:::code proj-mag-cal-solver/cpp/app/calibration_task.cpp
 :::
 
 ---

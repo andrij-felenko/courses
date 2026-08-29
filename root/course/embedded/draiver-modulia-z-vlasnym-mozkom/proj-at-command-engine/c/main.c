@@ -1,249 +1,174 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <string.h>
+/* Демонстраційний прогін AT-рушія проти симулятора модуля.
 
-#define AT_RX_BUFFER_SIZE       512U
-#define AT_MAX_LINE_SIZE        128U
-#define AT_QUEUE_CAPACITY       8U
-#define AT_MAX_URC_HANDLERS     8U
+   На залізі main виглядав би так само, тільки замість modem_sim стояли б
+   HAL_UART_Transmit_DMA і HAL_GetTick, а at_engine_poll викликався б із
+   головного циклу або з нитки RTOS. */
 
-/* Типи результатів виконання AT-команд */
-typedef enum {
-    AT_STATUS_OK = 0,
-    AT_STATUS_ERROR,
-    AT_STATUS_TIMEOUT,
-    AT_STATUS_ABORTED
-} at_status_t;
+#include <stdio.h>
 
-/* Функція зворотного виклику для URC */
-typedef void (*at_urc_cb_t)(const char *urc_line);
+#include "at_engine.h"
+#include "modem_sim.h"
 
-/* Функція зворотного виклику завершення команди */
-typedef void (*at_cmd_complete_cb_t)(at_status_t status, const char *resp_data, void *ctx);
+static at_engine_t  g_engine;
+static modem_sim_t  g_sim;
+static uint32_t     g_now_ms;
 
-/* Елемент черги команд */
-typedef struct {
-    char                 cmd_text[AT_MAX_LINE_SIZE];
-    char                 expect_prefix[32];
-    uint32_t             timeout_ms;
-    uint8_t              max_retries;
-    uint8_t              current_retry;
-    at_cmd_complete_cb_t callback;
-    void                *ctx;
-} at_cmd_item_t;
+/* --- апаратні гачки ----------------------------------------------------- */
 
-/* Запис у таблиці URC-обробників */
-typedef struct {
-    char          prefix[24];
-    at_urc_cb_t   handler;
-} at_urc_entry_t;
-
-/* Стани автомата рушія */
-typedef enum {
-    AT_STATE_IDLE = 0,
-    AT_STATE_SEND,
-    AT_STATE_WAIT_RESPONSE,
-    AT_STATE_RETRY_DELAY
-} at_engine_state_t;
-
-/* Головний контекст AT-рушія */
-typedef struct {
-    /* Кільцевий буфер прийому */
-    uint8_t             rx_buf[AT_RX_BUFFER_SIZE];
-    uint16_t            rx_tail;
-    
-    /* Черга команд (FIFO) */
-    at_cmd_item_t       queue[AT_QUEUE_CAPACITY];
-    uint8_t             q_head;
-    uint8_t             q_tail;
-    uint8_t             q_count;
-    
-    /* Таблиця URC */
-    at_urc_entry_t      urc_table[AT_MAX_URC_HANDLERS];
-    uint8_t             urc_count;
-    
-    /* Стан автомата та таймінги */
-    at_engine_state_t   state;
-    at_cmd_item_t       current_cmd;
-    uint32_t            timer_start_ms;
-    char                last_data_line[AT_MAX_LINE_SIZE];
-    
-    /* Апаратна функція передачі UART */
-    void (*uart_tx_fn)(const uint8_t *data, size_t len);
-    uint32_t (*get_tick_ms_fn)(void);
-} at_engine_t;
-
-/* Ініціалізація рушія */
-void at_engine_init(at_engine_t *eng, 
-                    void (*tx_fn)(const uint8_t *, size_t),
-                    uint32_t (*tick_fn)(void)) {
-    memset(eng, 0, sizeof(at_engine_t));
-    eng->uart_tx_fn = tx_fn;
-    eng->get_tick_ms_fn = tick_fn;
-    eng->state = AT_STATE_IDLE;
+static void hal_uart_tx(const uint8_t *data, size_t len)
+{
+    modem_sim_on_tx(&g_sim, data, len, g_now_ms);
 }
 
-/* Реєстрація URC-обробника */
-bool at_engine_register_urc(at_engine_t *eng, const char *prefix, at_urc_cb_t handler) {
-    if (eng->urc_count >= AT_MAX_URC_HANDLERS) {
-        return false;
-    }
-    strncpy(eng->urc_table[eng->urc_count].prefix, prefix, sizeof(eng->urc_table[0].prefix) - 1);
-    eng->urc_table[eng->urc_count].prefix[sizeof(eng->urc_table[0].prefix) - 1] = '\0';
-    eng->urc_table[eng->urc_count].handler = handler;
-    eng->urc_count++;
-    return true;
+static uint32_t hal_tick_ms(void)
+{
+    return g_now_ms;
 }
 
-/* Додавання команди в чергу */
-bool at_engine_send_cmd(at_engine_t *eng, const char *cmd, const char *expect_prefix,
-                        uint32_t timeout_ms, uint8_t retries, 
-                        at_cmd_complete_cb_t cb, void *ctx) {
-    if (eng->q_count >= AT_QUEUE_CAPACITY) {
-        return false; /* Черга переповнена */
-    }
-    at_cmd_item_t *item = &eng->queue[eng->q_head];
-    strncpy(item->cmd_text, cmd, sizeof(item->cmd_text) - 1);
-    item->cmd_text[sizeof(item->cmd_text) - 1] = '\0';
-    
-    if (expect_prefix) {
-        strncpy(item->expect_prefix, expect_prefix, sizeof(item->expect_prefix) - 1);
-        item->expect_prefix[sizeof(item->expect_prefix) - 1] = '\0';
-    } else {
-        item->expect_prefix[0] = '\0';
-    }
-    
-    item->timeout_ms = timeout_ms;
-    item->max_retries = retries;
-    item->current_retry = 0;
-    item->callback = cb;
-    item->ctx = ctx;
-    
-    eng->q_head = (uint8_t)((eng->q_head + 1U) % AT_QUEUE_CAPACITY);
-    eng->q_count++;
-    return true;
+static void hal_module_stuck(void *ctx)
+{
+    (void)ctx;
+    printf("[%4u ms] ВІДНОВЛЕННЯ: модуль не відповідає — смикаємо PWRKEY\n", (unsigned)g_now_ms);
 }
 
-/* Виділення рядка з кільцевого буфера */
-static bool at_extract_line(at_engine_t *eng, uint16_t dma_cndtr, char *out_line, size_t max_len) {
-    uint16_t head = (uint16_t)(AT_RX_BUFFER_SIZE - dma_cndtr);
-    uint16_t tail = eng->rx_tail;
-    
-    if (head == tail) return false;
-    
-    uint16_t scan = tail;
-    bool found = false;
-    while (scan != head) {
-        if (eng->rx_buf[scan] == '\n') {
-            found = true;
-            break;
-        }
-        scan = (uint16_t)((scan + 1U) % AT_RX_BUFFER_SIZE);
-    }
-    
-    if (!found) return false;
-    
-    size_t idx = 0;
-    while (eng->rx_tail != scan) {
-        uint8_t b = eng->rx_buf[eng->rx_tail];
-        if (b != '\r' && b != '\n' && idx < max_len - 1U) {
-            out_line[idx++] = (char)b;
-        }
-        eng->rx_tail = (uint16_t)((eng->rx_tail + 1U) % AT_RX_BUFFER_SIZE);
-    }
-    eng->rx_tail = (uint16_t)((eng->rx_tail + 1U) % AT_RX_BUFFER_SIZE); /* Пропуск '\n' */
-    out_line[idx] = '\0';
-    return (idx > 0);
+/* --- колбеки команд ----------------------------------------------------- */
+
+static void on_cmd_done(at_status_t status, const char *resp, void *ctx)
+{
+    printf("[%4u ms] %-24s → %-7s %s\n",
+           (unsigned)g_now_ms, (const char *)ctx, at_status_str(status),
+           (resp != NULL) ? resp : "");
 }
 
-/* Головний неблокуючий крок диспетчера AT-рушія */
-void at_engine_poll(at_engine_t *eng, uint16_t dma_cndtr) {
-    char line_buf[AT_MAX_LINE_SIZE];
-    uint32_t now = eng->get_tick_ms_fn();
+/* --- обробники URC ------------------------------------------------------ */
 
-    /* 1. Потокова вичитка всіх доступних рядків та сепарація URC */
-    while (at_extract_line(eng, dma_cndtr, line_buf, sizeof(line_buf))) {
-        bool is_urc = false;
-        for (uint8_t i = 0; i < eng->urc_count; ++i) {
-            if (strncmp(line_buf, eng->urc_table[i].prefix, strlen(eng->urc_table[i].prefix)) == 0) {
-                if (eng->urc_table[i].handler) {
-                    eng->urc_table[i].handler(line_buf);
-                }
-                is_urc = true;
-                break;
-            }
-        }
-        
-        if (is_urc) {
-            continue; /* Рядок був URC, переходимо до наступного */
-        }
+static void on_socket_closed(const char *line, void *ctx)
+{
+    (void)ctx;
+    printf("[%4u ms] URC розрив сокета: %s\n", (unsigned)g_now_ms, line);
 
-        /* Обробка рядка в контексті активної команди */
-        if (eng->state == AT_STATE_WAIT_RESPONSE) {
-            if (eng->current_cmd.expect_prefix[0] != '\0' &&
-                strncmp(line_buf, eng->current_cmd.expect_prefix, strlen(eng->current_cmd.expect_prefix)) == 0) {
-                strncpy(eng->last_data_line, line_buf, sizeof(eng->last_data_line) - 1);
-                eng->last_data_line[sizeof(eng->last_data_line) - 1] = '\0';
-            } else if (strcmp(line_buf, "OK") == 0) {
-                if (eng->current_cmd.callback) {
-                    eng->current_cmd.callback(AT_STATUS_OK, eng->last_data_line, eng->current_cmd.ctx);
-                }
-                eng->state = AT_STATE_IDLE;
-            } else if (strcmp(line_buf, "ERROR") == 0 || strstr(line_buf, "+CME ERROR:") != NULL) {
-                if (eng->current_cmd.current_retry < eng->current_cmd.max_retries) {
-                    eng->current_cmd.current_retry++;
-                    eng->timer_start_ms = now;
-                    eng->state = AT_STATE_RETRY_DELAY;
-                } else {
-                    if (eng->current_cmd.callback) {
-                        eng->current_cmd.callback(AT_STATUS_ERROR, line_buf, eng->current_cmd.ctx);
-                    }
-                    eng->state = AT_STATE_IDLE;
-                }
-            }
+    /* Реентерабельність: команду ставимо в чергу прямо звідси. Це дозволено
+       саме тому, що URC розбирається в контексті головного циклу, а черга
+       захищена критичною секцією. */
+    const at_request_t reopen = {
+        .text          = "AT+QIOPEN=1,0,\"TCP\",\"example.net\",80,0,1",
+        .expect_prefix = NULL,
+        .timeout_ms    = 500U,
+        .retries       = 1U,
+        .done          = on_cmd_done,
+        .ctx           = (void *)"AT+QIOPEN (з URC)",
+    };
+    if (!at_engine_send_cmd(&g_engine, &reopen)) {
+        printf("[%4u ms] черга переповнена, перевідкриття відкладено\n", (unsigned)g_now_ms);
+    }
+}
+
+static void on_socket_opened(const char *line, void *ctx)
+{
+    (void)ctx;
+    printf("[%4u ms] URC сокет піднято: %s\n", (unsigned)g_now_ms, line);
+}
+
+static void on_generic_urc(const char *line, void *ctx)
+{
+    (void)ctx;
+    printf("[%4u ms] URC: %s\n", (unsigned)g_now_ms, line);
+}
+
+/* --- стартова послідовність --------------------------------------------- */
+
+static const uint8_t k_http_payload[] = "GET / HTTP/1.0\r\n\r\n";
+
+static void submit_boot_sequence(at_engine_t *eng)
+{
+    const at_request_t boot[] = {
+        { .text = "ATE0", .timeout_ms = 300U, .retries = 2U,
+          .done = on_cmd_done, .ctx = (void *)"ATE0" },
+
+        { .text = "AT+CFUN=1", .timeout_ms = 1000U, .retries = 2U,
+          .done = on_cmd_done, .ctx = (void *)"AT+CFUN=1" },
+
+        { .text = "AT+CSQ", .expect_prefix = "+CSQ:", .timeout_ms = 500U,
+          .done = on_cmd_done, .ctx = (void *)"AT+CSQ" },
+
+        /* Команда з запрошенням: після '>' у дріт ідуть сирі байти. */
+        { .text = "AT+QISEND=0,18", .wait_prompt = true,
+          .payload = k_http_payload, .payload_len = (uint16_t)(sizeof(k_http_payload) - 1U),
+          .timeout_ms = 1000U, .done = on_cmd_done, .ctx = (void *)"AT+QISEND" },
+
+        /* Та сама команда, але в закритий сокет: модуль відповість ERROR і
+           запрошення не надішле ніколи. Рушій зобов'язаний закрити команду
+           одразу, а не простояти цілу секунду в очікуванні '>'. */
+        { .text = "AT+QISEND=1,4", .wait_prompt = true,
+          .payload = k_http_payload, .payload_len = 4U,
+          .timeout_ms = 1000U, .done = on_cmd_done, .ctx = (void *)"AT+QISEND (закритий)" },
+
+        /* Три команди, на які модуль мовчить: показують ескалацію таймауту
+           й аварійне відновлення після третьої поспіль. */
+        { .text = "AT+QIDEACT=0", .timeout_ms = 250U,
+          .done = on_cmd_done, .ctx = (void *)"AT+QIDEACT=0" },
+        { .text = "AT+QIDEACT=1", .timeout_ms = 250U,
+          .done = on_cmd_done, .ctx = (void *)"AT+QIDEACT=1" },
+        { .text = "AT+QIDEACT=2", .timeout_ms = 250U,
+          .done = on_cmd_done, .ctx = (void *)"AT+QIDEACT=2" },
+    };
+
+    for (size_t i = 0U; i < sizeof(boot) / sizeof(boot[0]); ++i) {
+        if (!at_engine_send_cmd(eng, &boot[i])) {
+            printf("[init] черга не прийняла %s\n", boot[i].text);
+        }
+    }
+}
+
+int main(void)
+{
+    const at_engine_hooks_t hooks = {
+        .uart_tx         = hal_uart_tx,
+        .tick_ms         = hal_tick_ms,
+        .on_module_stuck = hal_module_stuck,
+        .ctx             = NULL,
+    };
+
+    if (!at_engine_init(&g_engine, &hooks)) {
+        fprintf(stderr, "рушій не ініціалізовано\n");
+        return 1;
+    }
+
+    /* Симулятор пише в той самий масив, який на залізі був би ціллю DMA. */
+    modem_sim_init(&g_sim, at_engine_rx_buffer(&g_engine));
+
+    at_engine_register_urc(&g_engine, "+QIURC: \"closed\"", on_socket_closed, NULL);
+    at_engine_register_urc(&g_engine, "+QIURC:", on_generic_urc, NULL);
+    at_engine_register_urc(&g_engine, "+QIOPEN:", on_socket_opened, NULL);
+    at_engine_register_urc(&g_engine, "RING", on_generic_urc, NULL);
+    at_engine_register_urc(&g_engine, "+CMTI:", on_generic_urc, NULL);
+
+    submit_boot_sequence(&g_engine);
+
+    bool late_probe_sent = false;
+
+    for (g_now_ms = 0U; g_now_ms < 3000U; g_now_ms += 5U) {
+        modem_sim_tick(&g_sim, g_now_ms);
+        at_engine_poll(&g_engine, modem_sim_cndtr(&g_sim));
+
+        /* Після аварійного відновлення рушій мусить працювати далі. */
+        if (!late_probe_sent && g_now_ms >= 2000U) {
+            late_probe_sent = true;
+            const at_request_t probe = {
+                .text = "AT+CSQ", .expect_prefix = "+CSQ:", .timeout_ms = 500U,
+                .done = on_cmd_done, .ctx = (void *)"AT+CSQ (після відновлення)",
+            };
+            at_engine_send_cmd(&g_engine, &probe);
         }
     }
 
-    /* 2. Скінченний автомат керування чергою */
-    switch (eng->state) {
-        case AT_STATE_IDLE:
-            if (eng->q_count > 0) {
-                /* Вибірка наступної команди з черги */
-                eng->current_cmd = eng->queue[eng->q_tail];
-                eng->q_tail = (uint8_t)((eng->q_tail + 1U) % AT_QUEUE_CAPACITY);
-                eng->q_count--;
-                eng->last_data_line[0] = '\0';
-                eng->state = AT_STATE_SEND;
-            }
-            break;
+    const at_engine_stats_t *s = at_engine_stats(&g_engine);
+    printf("\nПідсумок: рядків %u, з них URC %u, луни відкинуто %u,\n"
+           "          сиріт %u, переповнень рядка %u,\n"
+           "          повторів %u, таймаутів %u, відновлень %u\n",
+           (unsigned)s->lines_in, (unsigned)s->urc_lines, (unsigned)s->echo_dropped,
+           (unsigned)s->orphan_lines, (unsigned)s->overflows,
+           (unsigned)s->retries, (unsigned)s->timeouts, (unsigned)s->recoveries);
 
-        case AT_STATE_SEND:
-            eng->uart_tx_fn((const uint8_t *)eng->current_cmd.cmd_text, strlen(eng->current_cmd.cmd_text));
-            eng->timer_start_ms = now;
-            eng->state = AT_STATE_WAIT_RESPONSE;
-            break;
-
-        case AT_STATE_WAIT_RESPONSE:
-            if ((uint32_t)(now - eng->timer_start_ms) >= eng->current_cmd.timeout_ms) {
-                if (eng->current_cmd.current_retry < eng->current_cmd.max_retries) {
-                    eng->current_cmd.current_retry++;
-                    eng->timer_start_ms = now;
-                    eng->state = AT_STATE_RETRY_DELAY;
-                } else {
-                    if (eng->current_cmd.callback) {
-                        eng->current_cmd.callback(AT_STATUS_TIMEOUT, NULL, eng->current_cmd.ctx);
-                    }
-                    eng->state = AT_STATE_IDLE;
-                }
-            }
-            break;
-
-        case AT_STATE_RETRY_DELAY:
-            /* Неблокуюча витримка 100 мс перед повторним надсиланням команди */
-            if ((uint32_t)(now - eng->timer_start_ms) >= 100U) {
-                eng->state = AT_STATE_SEND;
-            }
-            break;
-    }
+    return 0;
 }

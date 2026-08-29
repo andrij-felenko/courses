@@ -239,8 +239,8 @@ usart1->isr_clear = (1UL << 0);
 Щоб програмний обхід еррати не сповільнював роботу на нових, виправлених ревізіях мікроконтролера, прошивка повинна програмно зчитувати апаратний номер ревізії кристала:
 
 :::tabs
-:::code dokumentatsiia-chypa-d/c/vyznachennia-revizii.c
-:::code dokumentatsiia-chypa-d/cpp/vyznachennia-revizii.cpp
+:::code dokumentatsiia-chypa-d/c/silicon_rev.c
+:::code dokumentatsiia-chypa-d/cpp/src/silicon.cpp
 :::
 
 ---
@@ -288,8 +288,8 @@ while ((spi1->sr & spi_sr_txe) == 0) {
 Розглянемо практичний приклад ініціалізації таймера загального призначення для генерації періодичного переривання з прямою роботою через регістрові зміщення та програмною перевіркою ревізії мікроконтролера.
 
 :::tabs
-:::code dokumentatsiia-chypa-d/c/pryklad-priamyi-dostup-do.c
-:::code dokumentatsiia-chypa-d/cpp/pryklad-priamyi-dostup-do.cpp
+:::code dokumentatsiia-chypa-d/c/timer.c
+:::code dokumentatsiia-chypa-d/cpp/src/periodic_timer.cpp
 :::
 
 ---

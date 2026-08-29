@@ -269,8 +269,25 @@ du_cmd / dx = (1 - k_expo) + 3 · k_expo · x^2
 :::tabs
 @tab c
 :::code liudyna-v-konturi-d/c/main.c
+:::code liudyna-v-konturi-d/c/delayline.h
+:::code liudyna-v-konturi-d/c/delayline.c
+:::code liudyna-v-konturi-d/c/pilot.h
+:::code liudyna-v-konturi-d/c/pilot.c
+:::code liudyna-v-konturi-d/c/vehicle.h
+:::code liudyna-v-konturi-d/c/vehicle.c
+:::code liudyna-v-konturi-d/c/pio.h
+:::code liudyna-v-konturi-d/c/pio.c
 @tab cpp
 :::code liudyna-v-konturi-d/cpp/main.cpp
+:::code liudyna-v-konturi-d/cpp/simulation.hpp
+:::code liudyna-v-konturi-d/cpp/simulation.cpp
+:::code liudyna-v-konturi-d/cpp/link.hpp
+:::code liudyna-v-konturi-d/cpp/pilot.hpp
+:::code liudyna-v-konturi-d/cpp/pilot.cpp
+:::code liudyna-v-konturi-d/cpp/vehicle.hpp
+:::code liudyna-v-konturi-d/cpp/vehicle.cpp
+:::code liudyna-v-konturi-d/cpp/pio.hpp
+:::code liudyna-v-konturi-d/cpp/pio.cpp
 :::
 
 ## Інженерний чеклист проектування системи телекерування

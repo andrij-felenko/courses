@@ -30,13 +30,33 @@
 
 :::tabs
 @tab C
+:::code proj-modbus-ble-mqtt-bridge/c/modbus_rtu.h
+:::code proj-modbus-ble-mqtt-bridge/c/modbus_rtu.c
+:::code proj-modbus-ble-mqtt-bridge/c/ble_scan.h
+:::code proj-modbus-ble-mqtt-bridge/c/ble_scan.c
+:::code proj-modbus-ble-mqtt-bridge/c/sf_queue.h
+:::code proj-modbus-ble-mqtt-bridge/c/sf_queue.c
+:::code proj-modbus-ble-mqtt-bridge/c/mqtt_client.h
+:::code proj-modbus-ble-mqtt-bridge/c/mqtt_client.c
 :::code proj-modbus-ble-mqtt-bridge/c/main.c
 @tab C++
-:::code proj-modbus-ble-mqtt-bridge/cpp/main.cpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/posix_fd.hpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/store_forward.hpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/modbus_master.hpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/modbus_master.cpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/ble_scanner.hpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/ble_scanner.cpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/mqtt_client.hpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/mqtt_client.cpp
+:::code proj-modbus-ble-mqtt-bridge/cpp/src/main.cpp
 :::
 
 ### Реалізація на Python (Asyncio)
 
+:::code proj-modbus-ble-mqtt-bridge/py/gateway/modbus_rtu.py
+:::code proj-modbus-ble-mqtt-bridge/py/gateway/ble_scan.py
+:::code proj-modbus-ble-mqtt-bridge/py/gateway/store_forward.py
+:::code proj-modbus-ble-mqtt-bridge/py/gateway/mqtt.py
 :::code proj-modbus-ble-mqtt-bridge/py/main.py
 
 ### Граничні випадки, гонки потоків та надійність сховища

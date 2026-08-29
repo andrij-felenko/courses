@@ -1,145 +1,154 @@
-#include <stdint.h>
+// Прошивка стенда: серія з 256 оптичних спалахів, вимір інтервалу «спалах ->
+// поява плями на екрані», зведення по вибірці у послідовний порт.
 #include <stdbool.h>
-#include <string.h>
+#include <stdint.h>
 
-#define LATENCY_MAX_SAMPLES 256
-#define TIMEOUT_US          250000UL   // 250 мс таймаут очікування
+#include "hw.h"
+#include "rig.h"
+#include "stats.h"
 
-typedef struct {
-    uint32_t samples[LATENCY_MAX_SAMPLES];
-    uint16_t count;
-    uint16_t timeouts;
-    uint32_t min_us;
-    uint32_t max_us;
-    uint32_t mean_us;
-    uint32_t p50_us;
-    uint32_t p95_us;
-    uint32_t p99_us;
-    uint32_t jitter_us;
-} latency_stats_t;
+#define TRIALS               256u
+#define COOLDOWN_MIN_US   80000u  // 80 мс
+#define COOLDOWN_SPAN_US  80000u  // + [0; 80) мс -> вікно 80..160 мс
+#define TIMEOUT_GIVE_UP      16u  // стільки поспіль втрачених кадрів = тракт мертвий
 
-typedef enum {
-    RIG_IDLE,
-    RIG_WAITING_RESPONSE,
-    RIG_COOLDOWN
-} rig_state_t;
+// Xorshift32: два зсуви й xor, жодних ділень і жодної таблиці. Для розведення
+// спалахів по фазі кадрової розгортки цієї якості випадковості досить.
+static uint32_t rnd_state = 0x2545F491u;
 
-static volatile rig_state_t g_rig_state = RIG_IDLE;
-static volatile uint32_t g_t_start_us = 0;
-static volatile uint32_t g_last_latency_us = 0;
-static volatile bool g_sample_ready = false;
+static uint32_t rnd_next(void)
+{
+    uint32_t x = rnd_state;
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    rnd_state = x;
+    return x;
+}
 
-// Апаратні заглушки доступу до регістрів конкретного MCU
-extern void hardware_led_set(bool state);
-extern uint32_t hardware_timer_get_us(void);
+// Пауза між випробуваннями — випадкова. Фіксована пауза рано чи пізно ляже в
+// резонанс із кадровою розгорткою камери, і всі 256 спалахів потраплять в одну
+// й ту саму фазу кадру: вибірка вийде красива й брехлива.
+static uint32_t cooldown_us(void)
+{
+    return COOLDOWN_MIN_US + (rnd_next() % COOLDOWN_SPAN_US);
+}
 
-// Обробник зовнішнього апаратного переривання від фотодіодного компаратора (EXTI ISR)
-void EXTI_Optical_IRQHandler(void) {
-    if (g_rig_state == RIG_WAITING_RESPONSE) {
-        uint32_t t_now = hardware_timer_get_us();
-        g_last_latency_us = t_now - g_t_start_us;
-        g_sample_ready = true;
-        g_rig_state = RIG_COOLDOWN;
-        hardware_led_set(false);
+// Виконує одне випробування до кінця. Друкувати всередині вікна не можна:
+// один символ на 115200 бод — це 87 мкс блокувального очікування, і вони
+// лягли б просто у виміряний інтервал.
+static rig_result_t run_trial(void)
+{
+    while (!rig_trigger()) {
+        rig_arm(); // автомат ще в охолодженні після попереднього спалаху
+    }
+
+    rig_result_t result;
+    do {
+        result = rig_poll();
+    } while (!result.completed);
+
+    return result;
+}
+
+static void print_trial(uint16_t index, rig_result_t result)
+{
+    hw_print("#");
+    hw_print_u32(index + 1u);
+    if (result.timed_out) {
+        hw_print("  ВТРАЧЕНО КАДР\n");
+    } else {
+        hw_print("  ");
+        hw_print_ms(result.latency_us);
+        hw_print(" мс\n");
     }
 }
 
-// Ініціалізація структури статистичних вимірювань
-void latency_stats_init(latency_stats_t *stats) {
-    memset(stats, 0, sizeof(latency_stats_t));
+static void print_summary(const stats_summary_t *sum)
+{
+    hw_print("\n--- Бюджет затримки тракту ---\n");
+    hw_print("Вимірів:   ");
+    hw_print_u32(sum->count);
+    hw_print(" з ");
+    hw_print_u32(TRIALS);
+    hw_print_nl();
+
+    hw_print("Втрачено:  ");
+    hw_print_u32(sum->timeouts);
+    hw_print_nl();
+
+    if (sum->count == 0u) {
+        hw_print("Жодного відгуку. Перевірте поріг компаратора, засвітку\n"
+                 "фотодіода та наявність картинки на екрані.\n");
+        return;
+    }
+
+    hw_print("Мінімум:   "); hw_print_ms(sum->min_us);    hw_print(" мс\n");
+    hw_print("Медіана:   "); hw_print_ms(sum->p50_us);    hw_print(" мс\n");
+    hw_print("Середнє:   "); hw_print_ms(sum->mean_us);   hw_print(" мс\n");
+    hw_print("P95:       "); hw_print_ms(sum->p95_us);    hw_print(" мс\n");
+    hw_print("P99:       "); hw_print_ms(sum->p99_us);    hw_print(" мс\n");
+    hw_print("Максимум:  "); hw_print_ms(sum->max_us);    hw_print(" мс\n");
+    hw_print("Джитер:    "); hw_print_ms(sum->jitter_us); hw_print(" мс\n");
+
+    // Втрати самі по собі затримки не міряють, але без них зведення бреше:
+    // тракт, що загубив кожен десятий кадр, має чудову медіану й непридатне
+    // керування.
+    if (sum->timeouts * 10u > (sum->count + sum->timeouts)) {
+        hw_print("УВАГА: втрачено понад 10% кадрів — зведення не характеризує тракт.\n");
+    }
 }
 
-// Запуск одиничного оптичного тесту
-void latency_rig_trigger(void) {
-    if (g_rig_state != RIG_IDLE) return;
-    
-    g_sample_ready = false;
-    g_rig_state = RIG_WAITING_RESPONSE;
-    g_t_start_us = hardware_timer_get_us();
-    hardware_led_set(true);
-}
+int main(void)
+{
+    hw_init();
+    rig_init();
 
-// Опитування поточного стану тесту та обробка таймаутів
-bool latency_rig_poll(uint32_t *out_latency_us, bool *out_is_timeout) {
-    if (g_rig_state == RIG_WAITING_RESPONSE) {
-        uint32_t elapsed = hardware_timer_get_us() - g_t_start_us;
-        if (elapsed >= TIMEOUT_US) {
-            hardware_led_set(false);
-            g_rig_state = RIG_COOLDOWN;
-            *out_is_timeout = true;
-            *out_latency_us = TIMEOUT_US;
-            return true;
+    stats_t stats;
+    stats_init(&stats);
+
+    hw_print("\nСтенд вимірювання затримки: серія з ");
+    hw_print_u32(TRIALS);
+    hw_print(" спалахів\n");
+
+    // Зерно беремо з часової бази: між подачею живлення й першим спалахом
+    // завжди лежить різна кількість мікросекунд.
+    rnd_state ^= hw_now_us() | 1u;
+
+    uint16_t timeout_streak = 0u;
+
+    for (uint16_t i = 0u; i < TRIALS; ++i) {
+        const rig_result_t result = run_trial();
+
+        if (result.timed_out) {
+            stats_add_timeout(&stats);
+            timeout_streak++;
+        } else {
+            stats_add(&stats, result.latency_us);
+            timeout_streak = 0u;
         }
-    }
-    
-    if (g_sample_ready) {
-        g_sample_ready = false;
-        *out_latency_us = g_last_latency_us;
-        *out_is_timeout = false;
-        return true;
-    }
-    
-    return false;
-}
 
-// Переведення стенда в режим готовності після періоду охолодження
-void latency_rig_arm(void) {
-    if (g_rig_state == RIG_COOLDOWN) {
-        g_rig_state = RIG_IDLE;
-    }
-}
+        print_trial(i, result);
 
-// Додавання успішного зразка до статистичного масиву
-bool latency_stats_add_sample(latency_stats_t *stats, uint32_t latency_us, bool is_timeout) {
-    if (is_timeout) {
-        stats->timeouts++;
-        return true;
-    }
-    if (stats->count >= LATENCY_MAX_SAMPLES) return false;
-    stats->samples[stats->count++] = latency_us;
-    return true;
-}
-
-// Сортування масиву на місці для швидкого знаходження перцентилів
-static void sort_samples(uint32_t *arr, uint16_t n) {
-    for (uint16_t i = 1; i < n; i++) {
-        uint32_t key = arr[i];
-        int32_t j = (int32_t)i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
+        if (timeout_streak >= TIMEOUT_GIVE_UP) {
+            hw_print("\nПоспіль втрачено ");
+            hw_print_u32(timeout_streak);
+            hw_print(" кадрів — серію обірвано.\n");
+            break;
         }
-        arr[j + 1] = key;
+
+        hw_delay_us(cooldown_us());
+        rig_arm();
     }
-}
 
-// Розрахунок підсумкових статистичних параметрів
-void latency_stats_compute(latency_stats_t *stats) {
-    if (stats->count == 0) return;
+    stats_summary_t summary;
+    stats_summarize(&stats, &summary);
+    print_summary(&summary);
 
-    uint32_t sorted[LATENCY_MAX_SAMPLES];
-    memcpy(sorted, stats->samples, stats->count * sizeof(uint32_t));
-    sort_samples(sorted, stats->count);
-
-    stats->min_us = sorted[0];
-    stats->max_us = sorted[stats->count - 1];
-
-    uint64_t sum = 0;
-    for (uint16_t i = 0; i < stats->count; i++) {
-        sum += sorted[i];
+    // Прошивка стенда нікуди не повертається: результат має лишитися на екрані
+    // термінала, а світлодіод — погашеним.
+    hw_led(false);
+    for (;;) {
+        __asm volatile("wfi");
     }
-    stats->mean_us = (uint32_t)(sum / stats->count);
-
-    // Розрахунок медіани та перцентилів
-    stats->p50_us = sorted[(stats->count * 50) / 100];
-    stats->p95_us = sorted[(stats->count * 95) / 100];
-    stats->p99_us = sorted[(stats->count * 99) / 100];
-
-    // Середнє абсолютне відхилення від середнього (оцінка джитера)
-    uint64_t dev_sum = 0;
-    for (uint16_t i = 0; i < stats->count; i++) {
-        int64_t diff = (int64_t)sorted[i] - (int64_t)stats->mean_us;
-        dev_sum += (diff < 0) ? -diff : diff;
-    }
-    stats->jitter_us = (uint32_t)(dev_sum / stats->count);
 }

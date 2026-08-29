@@ -54,8 +54,8 @@
 3. Негайно записати одиницю в біт скидання прапорців (`RCC_CSR_RMVF`), очистивши регістр для фіксації наступних подій.
 
 :::tabs
-:::code koly-chyp-padaie-d/c/alhorytm-fiksatsii.c
-:::code koly-chyp-padaie-d/cpp/alhorytm-fiksatsii.cpp
+:::code koly-chyp-padaie-d/c/reset_cause.c
+:::code koly-chyp-padaie-d/cpp/reset_cause.cpp
 :::
 
 Якщо регістр скидання показав `SFTRSTF` (програмне скидання) або `IWDGRSTF` (сторожовий таймер), це означає, що пристрій зазнав внутрішнього програмного краху. Найчастіша причина такого краху в архітектурі ARM Cortex-M — потрапляння в апаратний виняток HardFault.
@@ -183,8 +183,8 @@ CFSR = [ UFSR (16 біт) | BFSR (8 біт) | MMFSR (8 біт) ]
 Оскільки обробник на C або C++ сам модифікує покажчик стека під час входу, отримання правильного покажчика реалізують через асемблерну функцію-трамплін із атрибутом `naked`:
 
 :::tabs
-:::code koly-chyp-padaie-d/c/asemblernyi-tramplin-ta.c
-:::code koly-chyp-padaie-d/cpp/asemblernyi-tramplin-ta.cpp
+:::code koly-chyp-padaie-d/c/fault_entry.c
+:::code koly-chyp-padaie-d/cpp/fault_entry.cpp
 :::
 
 Повну виробничу реалізацію системи з підтримкою збереження дампу в `.noinit` RAM, розрахунком CRC32 та захистом від циклічного перезавантаження розібрано в [практичному проекті аварійного реєстратора](root:embedded/koly-chyp-padaie/proj-crash-logger.md).

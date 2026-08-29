@@ -47,6 +47,35 @@
 4. **Конкурентна безпека:** у системах на базі FreeRTOS мережевий стек і апаратний воркер розносяться по окремих задачах із передачею команд через чергу `xQueueHandle`, що виключає блокування мережевого семафора під час повільного позиціонування приводу.
 
 :::tabs
+:::code proj-control-plane-full-duplex/c/link.h
+:::code proj-control-plane-full-duplex/cpp/protocol.hpp
+:::
+
+:::tabs
+:::code proj-control-plane-full-duplex/c/link.c
+:::code proj-control-plane-full-duplex/cpp/protocol.cpp
+:::
+
+:::tabs
+:::code proj-control-plane-full-duplex/c/dedup.h
+:::code proj-control-plane-full-duplex/cpp/dedup_ring.hpp
+:::
+
+:::code proj-control-plane-full-duplex/c/dedup.c
+
+:::tabs
+:::code proj-control-plane-full-duplex/c/actuator.h
+:::code proj-control-plane-full-duplex/cpp/actuator.hpp
+:::
+
+:::tabs
+:::code proj-control-plane-full-duplex/c/actuator.c
+:::code proj-control-plane-full-duplex/cpp/actuator.cpp
+:::
+
+:::code proj-control-plane-full-duplex/cpp/valve.hpp
+
+:::tabs
 :::code proj-control-plane-full-duplex/c/main.c
 :::code proj-control-plane-full-duplex/cpp/main.cpp
 :::
@@ -63,7 +92,15 @@
 - **Широкомовна трансляція статусів (WebSocket Broadcast):** негайне сповіщення всіх підключених операторських терміналів про отримання квитанції ACK або зміну положення приводу;
 - **Супервізор таймаутів (Timeout Watcher):** якщо протягом заданого періоду не надійшов звіт другої фази, сервер самостійно переводить статус транзакції в `TIMEOUT` і сповіщає веб-панель.
 
-:::code proj-control-plane-full-duplex/py/main.py
+:::code proj-control-plane-full-duplex/py/backend.py
+
+:::code proj-control-plane-full-duplex/py/control_plane/models.py
+
+:::code proj-control-plane-full-duplex/py/control_plane/mailbox.py
+
+:::code proj-control-plane-full-duplex/py/control_plane/hub.py
+
+:::code proj-control-plane-full-duplex/py/control_plane/mqtt_link.py
 
 ---
 
@@ -78,6 +115,12 @@
 - **Автоматичне перепідключення WebSocket:** при збої сокета клієнт відновлює з'єднання за алгоритмом експоненційного відступу (англ. *Exponential Backoff*) та надсилає запит синхронізації активних транзакцій `SYNC_PENDING`.
 
 :::code proj-control-plane-full-duplex/ts/index.ts
+
+:::code proj-control-plane-full-duplex/ts/protocol.ts
+
+:::code proj-control-plane-full-duplex/ts/link.ts
+
+:::code proj-control-plane-full-duplex/ts/widget.ts
 
 ---
 

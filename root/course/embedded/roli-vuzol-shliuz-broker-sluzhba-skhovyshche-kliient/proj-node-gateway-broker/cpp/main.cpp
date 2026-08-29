@@ -1,105 +1,132 @@
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <span>
-#include <optional>
+// main.cpp — симулятор польового вузла: телеметрія за розкладом,
+// команди зі шлюзу — щойно прийдуть, квитанція на кожну свою команду.
+//
+// Запуск:  ./node [node_id] [host] [port]     типово: 42 127.0.0.1 9000
+#include <chrono>
+#include <csignal>
+#include <cstdlib>
+#include <format>
+#include <iostream>
+#include <string>
+#include <thread>
+#include <type_traits>
+#include <variant>
 
-enum class FrameType : uint8_t {
-    Telemetry = 0x01,
-    Command   = 0x02,
-    Ack       = 0x03
-};
+#include "link.hpp"
+#include "node.hpp"
+#include "protocol.hpp"
 
-#pragma pack(push, 1)
-struct TelemetryFrame {
-    uint8_t   magic{0xAA};
-    FrameType type{FrameType::Telemetry};
-    uint16_t  node_id{0};
-    uint32_t  seq_num{0};
-    int16_t   temperature_c_celsius{0};
-    uint16_t  battery_mv{0};
-    uint8_t   flags{0};
-    uint8_t   reserved{0};
-    uint16_t  crc16{0};
-};
+namespace {
 
-struct CommandFrame {
-    uint8_t   magic{0xAA};
-    FrameType type{FrameType::Command};
-    uint16_t  node_id{0};
-    uint32_t  seq_num{0};
-    uint8_t   command_id{0};
-    uint8_t   payload_val{0};
-    uint16_t  crc16{0};
-};
-#pragma pack(pop)
+using namespace std::chrono_literals;
 
-class Crc16Ccitt {
-public:
-    static constexpr uint16_t calculate(std::span<const uint8_t> data) noexcept {
-        uint16_t crc = 0xFFFF;
-        for (uint8_t byte : data) {
-            crc ^= static_cast<uint16_t>(byte) << 8;
-            for (uint8_t bit = 0; bit < 8; ++bit) {
-                if (crc & 0x8000) {
-                    crc = (crc << 1) ^ 0x1021;
-                } else {
-                    crc = crc << 1;
+constexpr auto kTelemetryPeriod = 2000ms;
+constexpr auto kPollSlice = 200ms;
+constexpr auto kReconnectDelay = 1000ms;
+
+volatile std::sig_atomic_t g_stop = 0;
+
+void on_sigint(int) { g_stop = 1; }
+
+std::string format_temp(std::int16_t c100) {
+    return std::format("{}.{:02} °C", c100 / 100, std::abs(c100 % 100));
+}
+
+// Розібраний кадр приходить як variant — розкладаємо його візитором,
+// а не switch за байтом типу: новий тип кадру перестане компілюватися мовчки.
+void handle(field::EdgeNode& node, field::TcpLink& link, const field::Frame& frame) {
+    std::visit(
+        [&](const auto& f) {
+            using T = std::decay_t<decltype(f)>;
+            if constexpr (std::is_same_v<T, field::Command>) {
+                auto ack = node.apply(f);
+                if (!ack) {
+                    return;   // кадр для сусіднього вузла
                 }
+                std::cout << std::format("[node {}] команда seq={} код 0x{:02X} → {}\n",
+                                         node.id(), f.seq, static_cast<int>(f.id),
+                                         ack->status == field::AckStatus::Ok
+                                             ? (node.relay_on() ? "реле увімкнено" : "реле вимкнено")
+                                             : "відхилено");
+                if (auto sent = link.send(field::encode(*ack)); !sent) {
+                    std::cerr << std::format("[node {}] квитанцію не віддано — {}\n", node.id(),
+                                             field::describe(sent.error()));
+                }
+            } else {
+                // Телеметрію й чужі квитанції вузол не обробляє: у каналі
+                // вони можливі, але його справи не стосуються.
+            }
+        },
+        frame);
+}
+
+// Одна сесія зв'язку: живе, поки канал цілий.
+void run_session(field::EdgeNode& node, field::TcpLink& link) {
+    auto next_tx = std::chrono::steady_clock::now();
+
+    while (g_stop == 0) {
+        auto got = link.read_frame(kPollSlice);
+        if (!got) {
+            std::cerr << std::format("[node {}] канал урвався — {}\n", node.id(),
+                                     field::describe(got.error()));
+            return;
+        }
+        if (got->has_value()) {
+            if (auto decoded = field::decode(**got)) {
+                handle(node, link, *decoded);
+            } else {
+                std::cerr << std::format("[node {}] кадр відкинуто — {}\n", node.id(),
+                                         field::describe(decoded.error()));
             }
         }
-        return crc;
+
+        if (std::chrono::steady_clock::now() >= next_tx) {
+            const auto telemetry = node.sample();
+            if (auto sent = link.send(field::encode(telemetry)); !sent) {
+                std::cerr << std::format("[node {}] телеметрію не віддано — {}\n", node.id(),
+                                         field::describe(sent.error()));
+                return;
+            }
+            std::cout << std::format("[node {}] seq={}  {}  {} мВ  реле={}\n", node.id(),
+                                     telemetry.seq, format_temp(telemetry.temp_c100),
+                                     telemetry.battery_mv,
+                                     telemetry.flags.relay_on ? "увімкнено" : "вимкнено");
+            next_tx += kTelemetryPeriod;
+        }
     }
-};
+}
 
-class EdgeNode {
-public:
-    explicit constexpr EdgeNode(uint16_t id) noexcept : node_id_(id) {}
+}  // namespace
 
-    [[nodiscard]] TelemetryFrame generate_telemetry(int16_t temp_c, uint16_t bat_mv, uint8_t flags) noexcept {
-        TelemetryFrame frame{};
-        frame.magic = 0xAA;
-        frame.type = FrameType::Telemetry;
-        frame.node_id = node_id_;
-        frame.seq_num = ++seq_counter_;
-        frame.temperature_c_celsius = temp_c;
-        frame.battery_mv = bat_mv;
-        frame.flags = flags;
-        frame.reserved = 0x00;
+int main(int argc, char** argv) {
+    const auto node_id = static_cast<std::uint16_t>(argc > 1 ? std::stoul(argv[1]) : 42);
+    const std::string host = argc > 2 ? argv[2] : "127.0.0.1";
+    const std::string port = argc > 3 ? argv[3] : "9000";
 
-        auto raw_bytes = std::span<const uint8_t>(
-            reinterpret_cast<const uint8_t*>(&frame),
-            sizeof(TelemetryFrame) - sizeof(uint16_t)
-        );
-        frame.crc16 = Crc16Ccitt::calculate(raw_bytes);
-        return frame;
+    std::signal(SIGINT, on_sigint);
+
+    field::EdgeNode node{node_id};
+    std::cout << std::format("[node {}] старт, шлюз {}:{}\n", node_id, host, port);
+
+    while (g_stop == 0) {
+        auto link = field::TcpLink::connect(host, port);
+        if (!link) {
+            // Шлюз піднімається довше за вузол — це не привід здаватися.
+            std::cerr << std::format("[node {}] {}\n", node_id, link.error());
+            std::this_thread::sleep_for(kReconnectDelay);
+            continue;
+        }
+
+        std::cout << std::format("[node {}] канал відкрито\n", node_id);
+        run_session(node, *link);
+        std::cout << std::format("[node {}] сесію закрито, викинуто на ресинхронізації {} байтів\n",
+                                 node_id, link->resync_drops());
+
+        if (g_stop == 0) {
+            std::this_thread::sleep_for(kReconnectDelay);
+        }
     }
 
-    [[nodiscard]] bool handle_command(std::span<const uint8_t> raw_cmd) noexcept {
-        if (raw_cmd.size() < sizeof(CommandFrame)) {
-            return false;
-        }
-        const auto* cmd = reinterpret_cast<const CommandFrame*>(raw_cmd.data());
-        if (cmd->magic != 0xAA || cmd->type != FrameType::Command || cmd->node_id != node_id_) {
-            return false;
-        }
-        auto payload_span = raw_cmd.first(sizeof(CommandFrame) - sizeof(uint16_t));
-        if (cmd->crc16 != Crc16Ccitt::calculate(payload_span)) {
-            return false;
-        }
-
-        if (cmd->command_id == 0x10) { // Set relay
-            relay_state_ = (cmd->payload_val != 0);
-            return true;
-        }
-        return false;
-    }
-
-    [[nodiscard]] bool is_relay_on() const noexcept { return relay_state_; }
-    [[nodiscard]] uint16_t id() const noexcept { return node_id_; }
-
-private:
-    uint16_t node_id_;
-    uint32_t seq_counter_{0};
-    bool relay_state_{false};
-};
+    std::cout << std::format("\n[node {}] зупинка за SIGINT\n", node_id);
+    return 0;
+}

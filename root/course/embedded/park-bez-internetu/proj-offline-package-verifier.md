@@ -56,6 +56,24 @@
 ### Програмна реалізація мовами C та C++
 
 :::tabs
+:::code proj-offline-package-verifier/c/upkg.h
+:::code proj-offline-package-verifier/cpp/package_format.hpp
+:::
+
+:::tabs
+:::code proj-offline-package-verifier/c/sha256.h
+:::code proj-offline-package-verifier/c/sha256.c
+:::code proj-offline-package-verifier/cpp/sha256.hpp
+:::code proj-offline-package-verifier/cpp/sha256.cpp
+:::
+
+:::tabs
+:::code proj-offline-package-verifier/c/upkg.c
+:::code proj-offline-package-verifier/cpp/installer.hpp
+:::code proj-offline-package-verifier/cpp/installer.cpp
+:::
+
+:::tabs
 :::code proj-offline-package-verifier/c/main.c
 :::code proj-offline-package-verifier/cpp/main.cpp
 :::

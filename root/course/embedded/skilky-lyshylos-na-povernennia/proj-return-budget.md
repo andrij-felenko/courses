@@ -39,11 +39,22 @@
 
 ## 4. Реалізація бібліотеки на C та C++
 
+Спершу — публічний інтерфейс модуля: конфігурація планера, кадр телеметрії, результат розрахунку й стан оцінювача.
+
+:::tabs
+@tab C (return_budget.h)
+:::code proj-return-budget/c/return_budget.h
+@tab C++ (uav/return_budget.hpp)
+:::code proj-return-budget/cpp/include/uav/return_budget.hpp
+:::
+
+Далі — сама реалізація семи етапів разом із захистами з розділу 2.
+
 :::tabs
 @tab C (return_budget.c)
-:::code proj-return-budget/c/4-realizatsiia-biblioteky.c
-@tab C++ (ReturnBudgetEstimator.cpp)
-:::code proj-return-budget/cpp/4-realizatsiia-biblioteky.cpp
+:::code proj-return-budget/c/return_budget.c
+@tab C++ (return_budget.cpp)
+:::code proj-return-budget/cpp/src/return_budget.cpp
 :::
 
 ## 5. Інтеграція в польотний цикл автопілота
@@ -51,10 +62,10 @@
 Навігаційний контур викликає метод оновлення в періодичному потоці керування. Якщо функція повертає ознаку `rtl_mandatory`, автопілот ініціює зміну режиму на RTL, фіксує причину в бортовому журналі Flash та інформує наземний пульт керування.
 
 :::tabs
-@tab C
-:::code proj-return-budget/c/5-intehratsiia-v-polotnyi.c
-@tab C++
-:::code proj-return-budget/cpp/5-intehratsiia-v-polotnyi.cpp
+@tab C (nav_integration.c)
+:::code proj-return-budget/c/nav_integration.c
+@tab C++ (navigation_task.cpp)
+:::code proj-return-budget/cpp/src/navigation_task.cpp
 :::
 
 ## 6. Верифікація та тестові сценарії
@@ -66,3 +77,12 @@
 3. **Тест просідання напруги на виснаженій батареї**: перевірка, що при залишку заряду 25% та внутрішньому опорі 70 мОм розрахунковий корисний залишок енергії зменшується на величину прогнозованого штрафу за падіння напруги.
 4. **Тест фільтрації поривів**: подача короткочасного сплеску швидкості вітру тривалістю 0.5 секунди не повинна викликати помилкового спрацьовування прапорця `rtl_mandatory`.
 5. **Тест бокового зносу (Crosswind Stall)**: перевірка, що при боковому вітрі `16 м/с` та повітряній швидкості `15 м/с` модуль не падає у виняток `NaN`, а повертає статус `RETURN_ERR_CROSSWIND_LIMIT`.
+
+Набір зібрано одним виконуваним файлом самоперевірки, який запускається на хості без апаратури:
+
+:::tabs
+@tab C (test_return_budget.c)
+:::code proj-return-budget/c/test_return_budget.c
+@tab C++ (return_budget_tests.cpp)
+:::code proj-return-budget/cpp/tests/return_budget_tests.cpp
+:::

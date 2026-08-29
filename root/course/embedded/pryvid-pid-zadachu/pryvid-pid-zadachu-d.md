@@ -380,6 +380,26 @@ T_motor = (T_load / (N · η_gear)) + ((J_rotor + J_load / N²) · α_motor)
 Наведений код реалізує перевірку обраного мотора за критеріями пікового моменту розгону, теплового режиму та ризику зриву кроку або перегріву.
 
 :::tabs
+:::code pryvid-pid-zadachu-d/c/motor.h
+:::code pryvid-pid-zadachu-d/cpp/drive.hpp
+:::
+
+:::tabs
+:::code pryvid-pid-zadachu-d/c/motor.c
+:::code pryvid-pid-zadachu-d/cpp/drive.cpp
+:::
+
+:::tabs
+:::code pryvid-pid-zadachu-d/c/sizing.h
+:::code pryvid-pid-zadachu-d/cpp/selection.hpp
+:::
+
+:::tabs
+:::code pryvid-pid-zadachu-d/c/sizing.c
+:::code pryvid-pid-zadachu-d/cpp/selection.cpp
+:::
+
+:::tabs
 :::code pryvid-pid-zadachu-d/c/main.c
 :::code pryvid-pid-zadachu-d/cpp/main.cpp
 :::

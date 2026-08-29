@@ -256,9 +256,43 @@ K_compression = 1 728 000 000 байтів ÷ 34 560 байтів   [зіста�
 3. Буферизує телеметрію в локальний кільцевий буфер під час обриву зв'язку та виконує вивантаження (дренаж) при відновленні мережі.
 4. Обчислює та застосовує дельту конфігурації з верифікацією фізичних меж.
 
+Почнемо з нижнього шару — офлайн-буфера телеметрії. Це кільцева черга на статичній пам'яті, яка переживає розділення мережі: коли комірок більше немає, вона затирає найстаріший вимір, а не свіжий. Вилучення розділене на `peek` і `pop` навмисно — звіт залишає буфер лише після підтвердженої відправки.
+
+:::tabs
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/telemetry_queue.h
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/telemetry_queue.c
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/telemetry_queue.hpp
+:::
+
+Далі — типи розподіленого стану й контракт агента: три погляди на конфігурацію (`desired`, `active`, `reported`), часткова дельта та фізичні межі об'єкта. У версії мовою C дельта несе маску присутніх полів, у C++ — набір `std::optional`, і компілятор сам не дає прочитати поле, якого хмара не надсилала.
+
+:::tabs
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/state_manager.h
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/node_state.hpp
+:::
+
+Серце модуля — сам агент: відсів застарілих версій, валідація фізичних меж, обчислення локальної дельти між бажаним станом і тим, що справді залито в залізо, та дренаж накопиченої телеметрії при поверненні каналу.
+
 :::tabs
 :::code shcho-take-zviazana-systema-i-chym-vona-d/c/state_manager.c
-:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/StateManager.hpp
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/shadow_agent.hpp
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/shadow_agent.cpp
+:::
+
+Документи тіні приходять і йдуть текстом, тому поруч живе розбір плаского JSON дельти й складання payload зі станом `reported`. Цей шар судить лише синтаксис і типи — фізичні межі лишаються справою агента.
+
+:::tabs
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/shadow_json.h
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/shadow_json.c
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/shadow_json.hpp
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/shadow_json.cpp
+:::
+
+Нарешті — сценарій, який проганяє модуль крізь усі чотири випробування зв'язаної системи: доба без каналу з переповненням буфера, дельти з дублями й порушеним порядком, спроба виставити 5200 об/хв поза фізичним лімітом, узгодження заліза та дренаж черги у два коротких вікна зв'язку.
+
+:::tabs
+:::code shcho-take-zviazana-systema-i-chym-vona-d/c/main.c
+:::code shcho-take-zviazana-systema-i-chym-vona-d/cpp/main.cpp
 :::
 
 ---

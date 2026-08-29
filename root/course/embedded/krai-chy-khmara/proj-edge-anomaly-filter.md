@@ -30,8 +30,8 @@ variance[k] = M2[k] ÷ (k - 1)
 Нижче наведено дві повноцінні та еквівалентні за функціоналом реалізації: строгою мовою C99 для системних драйверів і задач RTOS та ідіоматичною мовою C++20 для об'єктно-орієнтованих архітектур сучасних прошивок.
 
 :::tabs
-:::code proj-edge-anomaly-filter/c/main.c
-:::code proj-edge-anomaly-filter/cpp/main.cpp
+:::code proj-edge-anomaly-filter/c/edge_detector.c
+:::code proj-edge-anomaly-filter/cpp/include/edge/anomaly_detector.hpp
 :::
 
 ---

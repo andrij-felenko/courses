@@ -45,7 +45,18 @@
 ### Програмна реалізація емулятора
 
 :::tabs
+:::code proj-discrete-cpu-emulator/c/isa.h
+:::code proj-discrete-cpu-emulator/c/isa.c
+:::code proj-discrete-cpu-emulator/c/bus.h
+:::code proj-discrete-cpu-emulator/c/bus.c
+:::code proj-discrete-cpu-emulator/c/cpu.h
+:::code proj-discrete-cpu-emulator/c/cpu.c
 :::code proj-discrete-cpu-emulator/c/main.c
+:::code proj-discrete-cpu-emulator/cpp/isa.hpp
+:::code proj-discrete-cpu-emulator/cpp/system_bus.hpp
+:::code proj-discrete-cpu-emulator/cpp/system_bus.cpp
+:::code proj-discrete-cpu-emulator/cpp/cpu.hpp
+:::code proj-discrete-cpu-emulator/cpp/cpu.cpp
 :::code proj-discrete-cpu-emulator/cpp/main.cpp
 :::
 

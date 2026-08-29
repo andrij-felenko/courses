@@ -12,92 +12,7 @@
 
 Для запобігання непомітному переповненню оперативної пам'яті скрипт лінкера містить спеціальну секцію перевірки мінімального резерву під купу та стек (`_Min_Heap_Size` та `_Min_Stack_Size`). Якщо сумарний обсяг глобальних змінних разом із резервом стека перевищить фізичний розмір RAM, лінкер завершить роботу з помилкою переповнення на етапі збирання.
 
-```ld
-/* Скрипт розміщення секцій пам'яті linker.ld */
-ENTRY(Reset_Handler)
-
-MEMORY
-{
-  FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 512K
-  RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
-}
-
-/* Вершина головного стека — самий кінець оперативної пам'яті (вирівняно на 8 байтів) */
-_estack = ORIGIN(RAM) + LENGTH(RAM);
-
-_Min_Heap_Size = 0x200;   /* Мінімальний резерв під купу (512 байтів) */
-_Min_Stack_Size = 0x400;  /* Мінімальний гарантований стек (1024 байти) */
-
-SECTIONS
-{
-  /* 1. Векторна таблиця обов'язково розміщується на початку Flash */
-  .isr_vector :
-  {
-    . = ALIGN(4);
-    KEEP(*(.isr_vector))
-    . = ALIGN(4);
-  } >FLASH
-
-  /* 2. Тіло програми та константи */
-  .text :
-  {
-    . = ALIGN(4);
-    *(.text)
-    *(.text*)
-    *(.rodata)
-    *(.rodata*)
-    . = ALIGN(4);
-  } >FLASH
-
-  /* 3. Таблиця покажчиків на глобальні конструктори C++ */
-  .init_array :
-  {
-    . = ALIGN(4);
-    PROVIDE_HIDDEN (__init_array_start = .);
-    KEEP (*(SORT(.init_array.*)))
-    KEEP (*(.init_array*))
-    PROVIDE_HIDDEN (__init_array_end = .);
-    . = ALIGN(4);
-  } >FLASH
-
-  /* Завантажувальна адреса LMA для початкових значень .data у Flash */
-  _sidata = LOADADDR(.data);
-
-  /* 4. Секція ініціалізованих змінних у RAM (VMA), що завантажується з Flash (LMA) */
-  .data :
-  {
-    . = ALIGN(4);
-    _sdata = .;        /* Початок секції .data в RAM */
-    *(.data)
-    *(.data*)
-    . = ALIGN(4);
-    _edata = .;        /* Кінець секції .data в RAM */
-  } >RAM AT> FLASH
-
-  /* 5. Секція неініціалізованих змінних у RAM (у Flash займає 0 байтів) */
-  .bss :
-  {
-    . = ALIGN(4);
-    _sbss = .;         /* Початок секції .bss в RAM */
-    *(.bss)
-    *(.bss*)
-    *(COMMON)
-    . = ALIGN(4);
-    _ebss = .;         /* Кінець секції .bss в RAM */
-  } >RAM
-
-  /* 6. Початок динамічної пам'яті (купи / heap) для _sbrk та перевірка запасу стека */
-  ._user_heap_stack :
-  {
-    . = ALIGN(8);
-    PROVIDE ( end = . );
-    PROVIDE ( _end = . );
-    . = . + _Min_Heap_Size;
-    . = . + _Min_Stack_Size;
-    . = ALIGN(8);
-  } >RAM
-}
-```
+:::code proj-baremetal-startup/c/linker.ld
 
 ## 2. Реалізація стартового модуля
 
@@ -111,8 +26,8 @@ SECTIONS
 7. Містить спеціальний діагностичний обробник `HardFault_Handler` із точкою зупину налагоджувача `bkpt #0`.
 
 :::tabs
-:::code proj-baremetal-startup/c/2-realizatsiia-startovoho.c
-:::code proj-baremetal-startup/cpp/2-realizatsiia-startovoho.cpp
+:::code proj-baremetal-startup/c/src/startup.c
+:::code proj-baremetal-startup/cpp/src/reset.cpp
 :::
 
 ## 3. Діагностичний обробник HardFault з витягуванням стека
@@ -120,8 +35,8 @@ SECTIONS
 У реальних проектах обробник `HardFault_Handler` не повинен просто крутитися в глухому порожньому циклі. Для швидкого пошуку причини збою (ділення на нуль, невірний покажчик, доступ за межі масиву) створюють спеціальну асемблерну обгортку, яка зчитує поточний активний покажчик стека (`MSP` або `PSP`) і передає його в діагностичну функцію:
 
 :::tabs
-:::code proj-baremetal-startup/c/3-diahnostychnyi-obrobnyk.c
-:::code proj-baremetal-startup/cpp/3-diahnostychnyi-obrobnyk.cpp
+:::code proj-baremetal-startup/c/src/fault_handler.c
+:::code proj-baremetal-startup/cpp/src/faults.cpp
 :::
 
 Маючи значення `pc` (наприклад, `0x08001248`), інженер може виконати команду в терміналі:
@@ -135,8 +50,8 @@ arm-none-eabi-addr2line -e firmware.elf 0x08001248
 Якщо ваша програма використовує динамічне виділення пам'яті (`malloc`, `free`, оператори `new` та `delete`), стандартній бібліотеці C потрібна системна функція `_sbrk()`, яка керує зростанням купи (heap) від символу `_end` угору в напрямку вершини стека:
 
 :::tabs
-:::code proj-baremetal-startup/c/4-realizatsiia-systemnoho.c
-:::code proj-baremetal-startup/cpp/4-realizatsiia-systemnoho.cpp
+:::code proj-baremetal-startup/c/src/syscalls.c
+:::code proj-baremetal-startup/cpp/src/memory.cpp
 :::
 
 ## 5. Прапорці збирання та компіляторні пастки
@@ -152,32 +67,6 @@ arm-none-eabi-addr2line -e firmware.elf 0x08001248
 
 Для детальної перевірки коректності виконання кожного етапу стартового коду використовують покрокове апаратне налагодження через інтерфейс SWD або JTAG за допомогою налагоджувача GDB:
 
-```gdb
-# 1. Підключення до сервера налагодження OpenOCD
-target extended-remote :3333
-
-# 2. Апаратне скидання мікроконтролера та зупинка процесора на першому такті
-monitor reset halt
-
-# 3. Встановлення точки зупину на точку входу стартового коду
-break Reset_Handler
-continue
-
-# 4. Перевірка початкового стану регістрів ядра (SP має вказувати на _estack, PC — на Reset_Handler)
-info registers sp pc xpsr
-
-# 5. Покрокове проходження інструкцій копіювання .data
-stepi 10
-
-# 6. Перевірка наявності скопійованих значень у пам'яті SRAM за адресою секції .data
-x/4xw &_sdata
-
-# 7. Перевірка заповнення нулями в пам'яті секції .bss
-x/16xb &_sbss
-
-# 8. Продовження виконання до входу в основну програму main()
-break main
-continue
-```
+:::code proj-baremetal-startup/c/tools/startup-check.gdb
 
 Така покрокова перевірка дозволяє миттєво локалізувати помилки в скрипті лінкера, невірні адреси секцій LMA/VMA або зависання під час увімкнення тактування `SystemInit()`.

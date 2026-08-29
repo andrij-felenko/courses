@@ -1,0 +1,18 @@
+# Допоміжні Python-пакети складального середовища.
+# Перевидається лише командою pip-compile --generate-hashes; руками сюди
+# нічого не дописують: pip --require-hashes відмовиться ставити пакет,
+# чий хеш розійшовся з цим файлом хоча б на біт.
+#
+# kconfiglib — розбір конфігурації прошивки
+# intelhex   — злиття бутлоадера й застосунку в один образ
+# jinja2     — генерація таблиць регістрів із шаблонів
+# markupsafe — залежність jinja2, теж мусить бути з хешем
+
+kconfiglib==14.1.0 \
+    --hash=sha256:7e307775a7c29be60dd7bb6d3bb91c9ff6a9e1e7912bc097a8e7e1f5ce01878b
+intelhex==2.3.0 \
+    --hash=sha256:a6a575a6c11d04ebae33ebcaab0d03221b2bb502a9bca5e396eb5e6d0a7a3db0
+jinja2==3.1.4 \
+    --hash=sha256:bc377d907016146ae38047f4535a013c49e29f70eb6ed34f141607118b3d3732
+markupsafe==2.1.5 \
+    --hash=sha256:06e2012579a4da25f3de2e16c5144c3301b87932a3802d31041bcae637b88f95

@@ -74,9 +74,37 @@
 
 У прикладі нижче реалізовано повний математичний апарат розрахунку з детальними структурами конфігурації.
 
+Контракт моделі — вхідна конфігурація системи, набір порахованих величин і коди помилок валідації:
+
+:::tabs
+:::code proj-video-budget-calculator/c/budget.h
+:::code proj-video-budget-calculator/cpp/include/video/budget.hpp
+:::
+
+Сама модель: бітрейт кодека за питомим числом біт на піксель, множник трафіку шини, пул кадрових буферів, електрична потужність з урахуванням ККД підсвічування та автономність для обох сценаріїв:
+
+:::tabs
+:::code proj-video-budget-calculator/c/budget.c
+:::code proj-video-budget-calculator/cpp/src/budget.cpp
+:::
+
+Порахований бюджет сам собою ще нічого не вирішує — його треба прикласти до заліза. Опис платформи та вердикт придатності: пул буферів має вміститися в доступну пам'ять, а трафік — не перевищити 60 % практичної пропускної здатності шини:
+
+:::tabs
+:::code proj-video-budget-calculator/c/platform.h
+:::code proj-video-budget-calculator/cpp/include/video/platform.hpp
+:::
+
+:::tabs
+:::code proj-video-budget-calculator/c/platform.c
+:::code proj-video-budget-calculator/cpp/src/platform.cpp
+:::
+
+Точка входу проганяє чотири профілі — 1080p H.264, 4K H.265, сирий Bayer без стиснення й навмисно зіпсовану конфігурацію — і друкує звіт разом із таблицею придатності платформ:
+
 :::tabs
 :::code proj-video-budget-calculator/c/main.c
-:::code proj-video-budget-calculator/cpp/main.cpp
+:::code proj-video-budget-calculator/cpp/src/main.cpp
 :::
 
 ## Інженерні висновки та аналіз крайових випадків

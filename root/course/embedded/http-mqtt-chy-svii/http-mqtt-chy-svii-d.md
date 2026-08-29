@@ -213,8 +213,8 @@ MQTT надає три вбудовані рівні надійності дос
 У мовах C та C++ це досягається оголошенням упакованої структури без автоматичного вирівнювання компілятора (`padding`):
 
 :::tabs
-:::code http-mqtt-chy-svii-d/c/pryntsyp-nulovoho-nakladu.c
-:::code http-mqtt-chy-svii-d/cpp/pryntsyp-nulovoho-nakladu.cpp
+:::code http-mqtt-chy-svii-d/c/frame.h
+:::code http-mqtt-chy-svii-d/cpp/src/frame.hpp
 :::
 
 Повний розмір такої структури становить рівно **16 байтів**:
@@ -246,8 +246,8 @@ MQTT надає три вбудовані рівні надійності дос
 Повний [проєктний розбір та бенчмаркінг упакування кадрів](root:embedded/http-mqtt-chy-svii/proj-protocol-bench.md) з порівнянням коду C та C++20 наведено в окремій вставці, де детально розглянуто роботу з `std::span`, вирівнюванням структур та розрахунком CRC-16. Нижче наведено базовий приклад збирання бінарного пакета:
 
 :::tabs
-:::code http-mqtt-chy-svii-d/c/realizatsiia-serializatsii.c
-:::code http-mqtt-chy-svii-d/cpp/realizatsiia-serializatsii.cpp
+:::code http-mqtt-chy-svii-d/c/frame.c
+:::code http-mqtt-chy-svii-d/cpp/src/codec.cpp
 :::
 
 ### Ціна вибору власного протоколу (Engineering Trade-Offs)

@@ -37,7 +37,14 @@
 Нижче наведено модульну реалізацію аналізатора мовами C та C++. Обидві версії приймають неперервний буфер телеметричних кадрів і повертають структурований звіт із типом відмови, мікросекундною міткою початку інциденту та коефіцієнтом впевненості.
 
 :::tabs
+:::code proj-crash-analyzer/c/crashlog.h
+:::code proj-crash-analyzer/c/analyzer.c
+:::code proj-crash-analyzer/c/logload.c
 :::code proj-crash-analyzer/c/main.c
+:::code proj-crash-analyzer/cpp/telemetry.hpp
+:::code proj-crash-analyzer/cpp/analyzer.hpp
+:::code proj-crash-analyzer/cpp/analyzer.cpp
+:::code proj-crash-analyzer/cpp/log_reader.hpp
 :::code proj-crash-analyzer/cpp/main.cpp
 :::
 

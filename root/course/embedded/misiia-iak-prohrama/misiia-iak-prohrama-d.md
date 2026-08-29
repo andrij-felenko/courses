@@ -153,9 +153,14 @@ dist_sq = dX * dX + dY * dY
 
 :::tabs
 === "C"
-:::code misiia-iak-prohrama-d/c/rozrakhunok-umov-bez.c
+:::code misiia-iak-prohrama-d/c/geo.h
+:::code misiia-iak-prohrama-d/c/geo.c
+:::code misiia-iak-prohrama-d/c/conditions.h
+:::code misiia-iak-prohrama-d/c/conditions.c
 === "C++"
-:::code misiia-iak-prohrama-d/cpp/rozrakhunok-umov-bez.cpp
+:::code misiia-iak-prohrama-d/cpp/geo.hpp
+:::code misiia-iak-prohrama-d/cpp/conditions.hpp
+:::code misiia-iak-prohrama-d/cpp/conditions.cpp
 :::
 
 ## Пастка Тюрінга: проблема нескінченних циклів та Loop Guards
@@ -247,9 +252,13 @@ dist_sq = dX * dX + dY * dY
 
 :::tabs
 === "C"
-:::code misiia-iak-prohrama-d/c/zbirka-iadra-virtualnoi.c
+:::code misiia-iak-prohrama-d/c/mission_vm.h
+:::code misiia-iak-prohrama-d/c/mission_vm.c
+:::code misiia-iak-prohrama-d/c/main.c
 === "C++"
-:::code misiia-iak-prohrama-d/cpp/zbirka-iadra-virtualnoi.cpp
+:::code misiia-iak-prohrama-d/cpp/mission_vm.hpp
+:::code misiia-iak-prohrama-d/cpp/mission_vm.cpp
+:::code misiia-iak-prohrama-d/cpp/main.cpp
 :::
 
 Повна промислова реалізація бортової віртуальної машини з підтримкою всього спектра MAVLink-подібних інструкцій, обробкою кутів рискання, дистанцій та повноцінним симулятором прогону наведена в окремому практичному проєкті: [віртуальна машина виконання місій для мікроконтролера](root:embedded/misiia-iak-prohrama/proj-mission-vm.md).

@@ -206,6 +206,43 @@ T_sp = ||f_des|| / a_max_thrust  [діапазон 0.0 .. 1.0]
 
 Нижче наведено промислову реалізацію розділення наведення та регулювання на мовах C та C++.
 
+**Контракт уставки та безблокувальний канал між доменами.** Seqlock: письменник один (наведення, 50 Гц), читач один (регулятор, 1 кГц), і зворотний біт насичення актуаторів — без нього анти-вінд-ап зовнішнього контуру неможливий.
+
+:::tabs
+:::code navedennia-proty-rehuliatora-d/c/setpoint.h
+:::code navedennia-proty-rehuliatora-d/cpp/setpoint.hpp
+:::
+
+**Геометрія:** побудова кватерніона з ортонормованого тригранника та обмежувач швидкості зміни уставки.
+
+:::tabs
+:::code navedennia-proty-rehuliatora-d/c/linalg.c
+:::code navedennia-proty-rehuliatora-d/cpp/geometry.hpp
+:::
+
+**Шар наведення:** похибка позиції → уставка швидкості → прискорення → вісь тяги → обмежувачі → кватерніон і газ.
+
+:::tabs
+:::code navedennia-proty-rehuliatora-d/c/guidance.c
+:::code navedennia-proty-rehuliatora-d/cpp/guidance.cpp
+:::
+
+**Шар регулювання:** сторож застарівання, петля орієнтації та PID кутових швидкостей на кожному такті.
+
+:::tabs
+:::code navedennia-proty-rehuliatora-d/c/control.c
+:::code navedennia-proty-rehuliatora-d/cpp/control.cpp
+:::
+
+**Мікшер квадрокоптера** — місце, де народжується прапорець насичення актуаторів.
+
+:::tabs
+:::code navedennia-proty-rehuliatora-d/c/mixer.c
+:::code navedennia-proty-rehuliatora-d/cpp/mixer.hpp
+:::
+
+**Обидва домени разом:** імітатор рами, порив вітру, низхідний потік і зупинка задачі наведення на четвертій секунді.
+
 :::tabs
 :::code navedennia-proty-rehuliatora-d/c/main.c
 :::code navedennia-proty-rehuliatora-d/cpp/main.cpp
