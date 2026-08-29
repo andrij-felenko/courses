@@ -1,4 +1,9 @@
-/* prod[0..2n) = a[0..n)²  — множення «стовпчиком», O(n²) */
+#include <stdint.h>
+#include <string.h>
+
+typedef uint32_t limb;
+
+/* prod[0..2n) = a[0..n)² — множення «стовпчиком», O(n²) лімбів */
 static void square(const limb *a, int n, limb *prod) {
     memset(prod, 0, 2 * n * sizeof(limb));
     for (int i = 0; i < n; i++) {

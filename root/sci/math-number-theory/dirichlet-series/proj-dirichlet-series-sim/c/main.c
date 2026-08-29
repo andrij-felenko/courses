@@ -8,7 +8,7 @@ typedef struct {
     size_t size;   /* Верхня межа N */
 } DirichletSeries;
 
-/* Створення та ініціалізація ряду */
+/* Створення та ініціалізація ряду нулями */
 DirichletSeries* dirichlet_create(size_t size) {
     DirichletSeries* ds = (DirichletSeries*)malloc(sizeof(DirichletSeries));
     if (!ds) return NULL;
@@ -21,11 +21,20 @@ DirichletSeries* dirichlet_create(size_t size) {
     return ds;
 }
 
-/* Звільнення пам'яті */
+/* Звільнення динамічної пам'яті */
 void dirichlet_free(DirichletSeries* ds) {
     if (ds) {
         free(ds->coeff);
         free(ds);
+    }
+}
+
+/* Друк коефіцієнтів ряду */
+void dirichlet_print(const DirichletSeries* ds, const char* name) {
+    if (!ds) return;
+    printf("Ряд %s (розмір N = %zu):\n", name, ds->size);
+    for (size_t i = 1; i <= ds->size; ++i) {
+        printf("  %s(%zu) = %6.2f\n", name, i, ds->coeff[i]);
     }
 }
 
@@ -84,24 +93,67 @@ DirichletSeries* dirichlet_invert(const DirichletSeries* a) {
     return inv;
 }
 
+/* Лінійна комбінація: додавання двох рядів */
+DirichletSeries* dirichlet_add(const DirichletSeries* a, const DirichletSeries* b) {
+    size_t min_n = (a->size < b->size) ? a->size : b->size;
+    DirichletSeries* res = dirichlet_create(min_n);
+    if (!res) return NULL;
+
+    for (size_t i = 1; i <= min_n; ++i) {
+        res->coeff[i] = a->coeff[i] + b->coeff[i];
+    }
+    return res;
+}
+
+/* Масштабування коефіцієнтів на константу */
+DirichletSeries* dirichlet_scale(const DirichletSeries* a, double scalar) {
+    DirichletSeries* res = dirichlet_create(a->size);
+    if (!res) return NULL;
+
+    for (size_t i = 1; i <= a->size; ++i) {
+        res->coeff[i] = a->coeff[i] * scalar;
+    }
+    return res;
+}
+
 int main(void) {
-    size_t N = 10;
+    const size_t N = 10;
+
+    /* 1. Створення Дзета-ряду ζ(s): коефіцієнти 1(n) = 1 */
     DirichletSeries* zeta = dirichlet_create(N);
     for (size_t i = 1; i <= N; ++i) {
-        zeta->coeff[i] = 1.0; /* ζ(s) має коефіцієнти a[n] = 1 */
+        zeta->coeff[i] = 1.0;
     }
 
+    /* 2. Обчислення згортки ζ * ζ = d(n) (кількість дільників) */
     DirichletSeries* d_func = dirichlet_convolve(zeta, zeta);
-    printf("Коефіцієнти ζ(s)² (число дільників d(n)):\n");
+    dirichlet_print(d_func, "d (число дільників ζ²)");
+
+    /* 3. Обчислення оберненого ряду ζ⁻¹ = μ(n) (функція Мебіуса) */
+    DirichletSeries* mobius = dirichlet_invert(zeta);
+    dirichlet_print(mobius, "μ (функція Мебіуса ζ⁻¹)");
+
+    /* 4. Створення степеневого ряду N(n) = n */
+    DirichletSeries* id_func = dirichlet_create(N);
     for (size_t i = 1; i <= N; ++i) {
-        printf("d(%zu) = %.0f\n", i, d_func->coeff[i]);
+        id_func->coeff[i] = (double)i;
     }
 
+    /* 5. Обчислення функції Ейлера φ = μ * N */
+    DirichletSeries* phi = dirichlet_convolve(mobius, id_func);
+    dirichlet_print(phi, "φ (функція Ейлера μ * N)");
+
+    /* 6. Чисельне обчислення значення ζ(2.0 + 3.5i) */
     double re, im;
     dirichlet_eval(zeta, 2.0, 3.5, &re, &im);
-    printf("\nζ(2.0 + 3.5i) (зрізана до N=10): %.5f + %.5fi\n", re, im);
+    printf("\nЧисельне значення ζ(2.0 + 3.5i) (N = %zu): %.5f + %.5fi\n", N, re, im);
 
+    /* 7. Очищення виділених ресурсів */
     dirichlet_free(zeta);
     dirichlet_free(d_func);
+    dirichlet_free(mobius);
+    dirichlet_free(id_func);
+    dirichlet_free(phi);
+
     return 0;
 }

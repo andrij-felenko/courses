@@ -4,20 +4,48 @@
 #include <cmath>
 #include <span>
 #include <stdexcept>
+#include <string_view>
+#include <iomanip>
 
 class DirichletSeries {
 private:
     std::vector<double> coeff_;
 
 public:
-    explicit DirichletSeries(size_t size) : coeff_(size + 1, 0.0) {}
+    explicit DirichletSeries(size_t size, double initial_val = 0.0)
+        : coeff_(size + 1, initial_val) {
+        if (!coeff_.empty()) {
+            coeff_[0] = 0.0; /* Нульовий індекс не використовується в 1-індексації */
+        }
+    }
 
-    size_t size() const { return coeff_.size() - 1; }
+    /* Фабричні методи створення типових рядів */
+    static DirichletSeries constant(size_t size, double c = 1.0) {
+        DirichletSeries ds(size);
+        for (size_t i = 1; i <= size; ++i) {
+            ds[i] = c;
+        }
+        return ds;
+    }
+
+    static DirichletSeries identity(size_t size) {
+        DirichletSeries ds(size);
+        for (size_t i = 1; i <= size; ++i) {
+            ds[i] = static_cast<double>(i);
+        }
+        return ds;
+    }
+
+    size_t size() const noexcept { return coeff_.size() - 1; }
 
     double& operator[](size_t idx) { return coeff_[idx]; }
     double operator[](size_t idx) const { return coeff_[idx]; }
 
-    /* Оцінка значення у комплексній точці s */
+    std::span<const double> span() const noexcept {
+        return std::span<const double>(coeff_.data() + 1, size());
+    }
+
+    /* Оцінка значення ряду у комплексній точці s */
     std::complex<double> evaluate(std::complex<double> s) const {
         std::complex<double> sum(0.0, 0.0);
         for (size_t n = 1; n <= size(); ++n) {
@@ -30,7 +58,7 @@ public:
         return sum;
     }
 
-    /* Згортка за O(N log N) */
+    /* Ситоподібна згортка за O(N log N) */
     DirichletSeries convolve(const DirichletSeries& other) const {
         size_t min_n = std::min(size(), other.size());
         DirichletSeries result(min_n);
@@ -44,10 +72,10 @@ public:
         return result;
     }
 
-    /* Обчислення оберненого ряду */
+    /* Обчислення оберненого ряду за рекурентною схемою */
     DirichletSeries invert() const {
         if (size() == 0 || coeff_[1] == 0.0) {
-            throw std::invalid_argument("Перший коефіцієнт не може бути нулем.");
+            throw std::invalid_argument("Ряд Діріхле з a[1] = 0 є необоротним.");
         }
 
         DirichletSeries inv(size());
@@ -64,31 +92,49 @@ public:
         }
         return inv;
     }
+
+    /* Друк коефіцієнтів ряду */
+    void print(std::string_view name) const {
+        std::cout << "Ряд " << name << " (розмір N = " << size() << "):\n";
+        for (size_t i = 1; i <= size(); ++i) {
+            std::cout << "  " << name << "(" << i << ") = "
+                      << std::setw(6) << std::fixed << std::setprecision(2)
+                      << coeff_[i] << "\n";
+        }
+    }
 };
+
+/* Оператори перевантаження для зручності */
+inline DirichletSeries operator*(const DirichletSeries& a, const DirichletSeries& b) {
+    return a.convolve(b);
+}
 
 int main() {
     constexpr size_t N = 10;
-    DirichletSeries zeta(N);
-    for (size_t i = 1; i <= N; ++i) {
-        zeta[i] = 1.0;
-    }
 
-    DirichletSeries d_func = zeta.convolve(zeta);
-    std::cout << "Коефіцієнти ζ(s)² (число дільників d(n)):\n";
-    for (size_t i = 1; i <= N; ++i) {
-        std::cout << "d(" << i << ") = " << d_func[i] << "\n";
-    }
+    /* 1. Створення Дзета-ряду ζ(s): 1(n) = 1 */
+    DirichletSeries zeta = DirichletSeries::constant(N, 1.0);
 
+    /* 2. Згортка ζ * ζ = d(n) (число дільників) */
+    DirichletSeries d_func = zeta * zeta;
+    d_func.print("d (число дільників ζ²)");
+
+    /* 3. Обернення ζ⁻¹ = μ(n) (функція Мебіуса) */
+    DirichletSeries mobius = zeta.invert();
+    mobius.print("μ (функція Мебіуса ζ⁻¹)");
+
+    /* 4. Степенева функція N(n) = n */
+    DirichletSeries id_func = DirichletSeries::identity(N);
+
+    /* 5. Обчислення функції Ейлера φ = μ * N */
+    DirichletSeries phi = mobius * id_func;
+    phi.print("φ (функція Ейлера μ * N)");
+
+    /* 6. Оцінка значення ζ(2.0 + 3.5i) */
     std::complex<double> s(2.0, 3.5);
     std::complex<double> val = zeta.evaluate(s);
-    std::cout << "\nζ(2.0 + 3.5i) (зрізана до N=10): "
-              << val.real() << " + " << val.imag() << "i\n";
-
-    DirichletSeries mobius = zeta.invert();
-    std::cout << "\nОбчислена функція Мебіуса μ(n) = (1/ζ)(n):\n";
-    for (size_t i = 1; i <= N; ++i) {
-        std::cout << "μ(" << i << ") = " << mobius[i] << "\n";
-    }
+    std::cout << "\nЧисельне значення ζ(2.0 + 3.5i) (N = " << N << "): "
+              << std::setprecision(5) << val.real() << " + " << val.imag() << "i\n";
 
     return 0;
 }

@@ -17,8 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -157,8 +157,7 @@
           "math": [
             {
               "file": "math-redc-proof.md",
-              "status": "deeper",
-              "level": 5
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -168,6 +167,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "barrett-reduction",
+          "title": "Редукція Барретта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -211,25 +220,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-fermat-1640.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-more-proofs.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-fermat-test.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
@@ -273,8 +281,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -333,8 +340,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -402,8 +408,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -449,25 +454,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-hensel-p-adic.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-hensel-multivariate.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-hensel-lifting.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
@@ -485,25 +489,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-dirichlet-characters.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-orthogonality-relations.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-dirichlet-character-table.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
@@ -515,25 +518,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-character-genesis.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-gauss-jacobi-sums.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-character-computation.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
@@ -545,25 +547,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-gauss-sums.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-gauss-sign.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-gauss-sums.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
