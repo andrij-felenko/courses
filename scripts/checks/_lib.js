@@ -159,6 +159,7 @@ const CODE_FLOOR = {
   low:  [10, 60, 120, 180, 320],   /* C, C++, Go, Java, Rust, asm — багатослівні */
   high: [10, 40,  80, 150, 250],   /* Python, JS, TS, Lua, Ruby — щільні         */
 };
+
 const NEEDS_CODE = new Set(["proj", "api"]);
 
 /* мітка огорожі → тека мови + смуга. tier glue — скрипти: файл дістають
@@ -259,15 +260,16 @@ function bandOf(kind, level) {
   else { c = CANON[kind] || CANON.detailed; k = scaleOf(kind);
          lo = r50(c.lo * k); hi = r50(c.hi * k); max = r50(c.max * k); soft = hi; }
   const lv = clampLevel(level);
-  const fl = ins
-    ? (lv ? insertFloor(lo, hi, lv) : lo)
-    : (lv ? r50(lo + ((lv - 1) * (hi - lo)) / LEVELS) : lo);
+  /* Драбина одна на всі види: крок НАРОСТАЄ, Р5 стоїть на половині смуги. Рівний крок
+     ставив Р5 детальної на 7550 при стелі 9100 — 83% смуги, тобто наріжна тема мусила
+     бути майже максимальною, а дописувач діставав завдання потроїти статтю за раз.    */
+  const fl = lv ? insertFloor(lo, hi, lv) : lo;
   return {
     lo, hi, max, soft, scale: k, canon: c,
     level: lv,
-    /* «зона» для вироку «на N зон вище свого рівня»: у вставок крок нерівний,
-        тож беремо середній — він і так лише для грубої ознаки роздування.   */
-    zone: ins ? r50(((hi / 2) - lo) / 4) : r50((hi - lo) / LEVELS),
+    /* «зона» для вироку «на N зон вище свого рівня»: крок нерівний, тож беремо
+        середній — він і так лише для грубої ознаки роздування.              */
+    zone: r50(((hi / 2) - lo) / 4),
     floor: fl,
     needsCode: NEEDS_CODE.has(kind),
     codeFloor: NEEDS_CODE.has(kind) ? CODE_FLOOR.low[(lv || 1) - 1] : 0,
@@ -304,6 +306,23 @@ function langDirsOf(topicDir, mdFile) {
 
 /* Рядки коду в теці мови: усе, крім файлів збірки й тестів. Порожні рядки
    й коментарі рахуються — див. коментар при CODE_FLOOR.                  */
+/* Код, який ЩЕ лежить в огорожах і мусив би виїхати: мітка справжньої мови плюс
+   довжина від EXTRACT_MIN. Огорожа без мітки (схема, дерево тек, вивід консолі) і
+   короткий фрагмент кодом у цьому сенсі не є — правило прямо лишає їх у прозі.    */
+function fencedCodeLeft(md) {
+  let inC = false, lang = null, n = 0, left = 0;
+  for (const line of md.split(SPLIT_NL)) {
+    const m = line.match(/^\s*```+\s*([^\s`]*)/);
+    if (m) {
+      if (!inC) { inC = true; lang = (m[1] || "").trim().toLowerCase(); n = 0; }
+      else { inC = false; if (LANGS[lang] && n >= EXTRACT_MIN) left += n; }
+      continue;
+    }
+    if (inC) n++;
+  }
+  return left;
+}
+
 function codeLinesOfDir(dir) {
   let lines = 0, files = 0, tests = 0, build = 0;
   const walk = (d, rel) => {
@@ -331,6 +350,7 @@ function codeFloorFor(tier, level) {
   if (tier !== "low" && tier !== "high") return 0;
   return CODE_FLOOR[tier][(clampLevel(level) || 1) - 1];
 }
+
 
 /* Прапорець recode у маніфесті: код перенесено механічно і ще не переписано як
    справжній проєкт. Поки він стоїть, розмір коду МІРЯЄТЬСЯ, але дефекту не дає —
@@ -394,7 +414,35 @@ function levelIndex() {
   }
   return _levelIndex;
 }
-function readLevel(dir) { return levelIndex().get(path.resolve(dir)) || null; }
+/* Рівень із МАНІФЕСТУ — лише для статусу `deeper`, де він не параметр прогону,
+   а вже виміряний факт (оцінювачі + levels-recount). Для решти статусів рівня в
+   маніфесті немає й бути не повинно: manifest7 стирає його при переході.       */
+function levelFromManifest(dir) {
+  const M = manifestOf(dir);
+  const t = M && M.topic;
+  if (!t) return null;
+  const topic = (t.detailed && t.detailed.status === "deeper" && clampLevel(t.detailed.level)) || null;
+  const inserts = {};
+  for (const ty of INSERT_TYPES) for (const i of t[ty] || [])
+    if (i.status === "deeper" && clampLevel(i.level)) inserts[i.file] = clampLevel(i.level);
+  return topic || Object.keys(inserts).length ? { topic, inserts, from: "manifest" } : null;
+}
+
+/* Батч-файл прогону має перевагу — це параметр поточної роботи. Маніфест ДОПОВНЮЄ:
+   дає рівень там, де прогін його не назвав. Так дописування `deeper` працює без
+   окремої фази оцінки, бо оцінка вже зроблена й лежить у маніфесті.            */
+function readLevel(dir) {
+  const key = path.resolve(dir);
+  const batch = levelIndex().get(key) || null;
+  const mf = levelFromManifest(dir);
+  if (!mf) return batch;
+  if (!batch) return mf;
+  return {
+    topic: batch.topic || mf.topic,
+    inserts: { ...mf.inserts, ...batch.inserts },
+    from: batch.from + "+manifest",
+  };
+}
 
 /* Рівень конкретного файлу теми: детальна бере рівень теми, вставка — свій,
    базова не має жодного. `undefined` означає «мало бути, але не оголошено». */
@@ -658,8 +706,9 @@ function adjudicate(dir, items, ask) {
 module.exports = {
   PASS, DEFECT, JUDGE, USAGE, ROOT, SCALE, INSERT_TYPES, KIND_LABEL, BASIC_GATE,
   LEVELS, LEVEL_NAMES, clampLevel, readLevel, levelFor, codeLines, CODE_FLOOR, NEEDS_CODE,
+  levelFromManifest,
   EXTRACT_MIN, LANGS, DIR_TIER, BUILD_FILES, TEST_RE,
-  projectDir, langDirsOf, codeLinesOfDir, codeFloorFor, recodeOf,
+  projectDir, langDirsOf, codeLinesOfDir, codeFloorFor, fencedCodeLeft, recodeOf,
   bandOf, classify, readTopic, read, strip, codeBlocks, proseWords, run, resolveDir, python,
   manifestOf, queuedTopics,
   head, pass, defects, adjudicate,

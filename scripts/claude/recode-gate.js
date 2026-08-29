@@ -30,19 +30,7 @@ catch (e) { console.error("не читається черга: " + e.message); p
 
 const FENCE = /^\s*```(.*)$/;
 /* Скільки коду справжньою мовою ЩЕ лишилося в огорожах (блоки ≥ EXTRACT_MIN). */
-function fencedLeft(md) {
-  let inC = false, lang = null, n = 0, left = 0;
-  for (const ln of md.split(/\r?\n/)) {
-    const m = ln.match(FENCE);
-    if (m) {
-      if (!inC) { inC = true; lang = (m[1] || "").trim().split(/\s+/)[0].toLowerCase(); n = 0; }
-      else { inC = false; if (L.LANGS[lang] && n >= L.EXTRACT_MIN) left += n; }
-      continue;
-    }
-    if (inC) n++;
-  }
-  return left;
-}
+const fencedLeft = L.fencedCodeLeft;   /* одна функція на гейт і на 06-ту */
 
 const rows = [];
 for (const u of units) {
@@ -105,8 +93,9 @@ for (const r of rows) {
 const bad = rows.filter((r) => !r.ok);
 if (bad.length) {
   console.log(`\nне готові: ${bad.length}`);
-  console.log("добір: тим, хто «тонко», кажемо РОЗШИРИТИ КОД (довести до робочого: обробка помилок,");
-  console.log("крайові випадки, те, що запускається; у крайньому разі — коментарі). ⛔ Не називай чисел.");
+  console.log("добір: «тонко» → показати сам МЕХАНІЗМ, який назвала проза (те, що згорнуто в заглушку);");
+  console.log("«завелико» → ВИКИНУТИ те, що механізму не показує: шари на майбутнє, конфігурованість,");
+  console.log("оборонні гілки поза предметом, файли без межі в тексті. ⛔ Не називай чисел.");
   process.exit(1);
 }
 console.log("\nусі готові — можна знімати recode: node scripts/claude/recode-gate.js --batch … --ops");

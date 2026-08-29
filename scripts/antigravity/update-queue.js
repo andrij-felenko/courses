@@ -60,14 +60,22 @@ if (!book) { console.error(`не прочитати маніфест книги 
 
 /* ── збір одиниць ─────────────────────────────────────────────────────────── */
 const units = [];                       // {dir, slug, file, kind, status, group, chapter}
+const blocked = [];                     // під `recode` — спершу код, тоді глибина
 for (const t of M7.allTopics(book)) {
   if (!t.own) continue;                 // ref у курсі власного файлу не має
   const dir = path.join(rec.bookDir, t.slug);
-  const add = (file, kind, status) => { if (status && WANT.has(status)) units.push({ dir, slug: t.slug, file, kind, status, group: t.group, chapter: t.chapter, title: t.title }); };
-  add(`${t.slug}.md`, "basic", t.node.basic && t.node.basic.status);
-  add(`${t.slug}-d.md`, "detailed", t.node.detailed && t.node.detailed.status);
+  const add = (file, kind, o) => {
+    if (!o || !o.status || !WANT.has(o.status)) return;
+    const u = { dir, slug: t.slug, file, kind, status: o.status, group: t.group, chapter: t.chapter, title: t.title };
+    /* ⛔ Прапорець `recode` заступає глибину. Дописувач бере матеріал З КОДУ; поки код
+       чекає на переписування, поглиблене за нинішньою розкладкою доведеться робити
+       вдруге. Знімає прапорець `recode-gate.js --ops`, і тоді файл сам зайде в чергу. */
+    (o.recode ? blocked : units).push(u);
+  };
+  add(`${t.slug}.md`, "basic", t.node.basic);
+  add(`${t.slug}-d.md`, "detailed", t.node.detailed);
   for (const type of M7.INSERT_TYPES)
-    for (const ins of t.node[type] || []) add(ins.file, type, ins.status);
+    for (const ins of t.node[type] || []) add(ins.file, type, ins);
 }
 
 /* ── міряння ──────────────────────────────────────────────────────────────── */
@@ -88,6 +96,16 @@ for (const u of units) {
   (row.need > 0 ? grow : enough).push(row);
 }
 
+/* ── наслідок дописування: чи знадобиться базова (13-та) ───────────────────────
+   Рішення про базову ухвалюють ЗА ГОТОВОЮ детальною. Дописана до підлоги Р4 (6000)
+   чи Р5 (7550) детальна перетинає верхній поріг 13-ї, і базова стає ПОТРІБНА —
+   дефолт «ні» там не діє. Кажемо це наперед, щоб батч планував роботу, а не
+   зустрічав її як дефект наприкінці кола.                                        */
+const willNeedBasic = grow.filter((r) =>
+  r.kind === "detailed" &&
+  r.floor > L.BASIC_GATE.high &&
+  !fs.existsSync(path.join(r.dir, r.slug + ".md")));
+
 /* ── звіт ─────────────────────────────────────────────────────────────────── */
 const nm = (s) => String(s).padStart(5);
 console.log(`\n=== ЧЕРГА ДОПИСУВАННЯ: ${BOOK} (${rec.kind}) · статуси: ${[...WANT].join(", ")} ===\n`);
@@ -96,6 +114,11 @@ console.log(`  дописати (коротші за підлогу):  ${grow.le
 console.log(`  над підлогою (лише коло гейта): ${enough.length}`);
 console.log(`  без рівня (спершу оцінка):      ${noLevel.length}`);
 console.log(`  статус є, файлу немає (письмо): ${missing.length}`);
+if (blocked.length) console.log(`  ⛔ під recode (спершу код):      ${blocked.length}`);
+if (willNeedBasic.length) {
+  console.log(`  △ після дописування знадобиться базова: ${willNeedBasic.length}`);
+  console.log(`     (детальна перетне поріг 13-ї ${L.BASIC_GATE.high}w; це не дефект, а наслідкова робота автора)`);
+}
 
 const show = (title, rows, withNeed) => {
   if (!rows.length) return;
@@ -124,7 +147,10 @@ topics.sort((a, b) => b.files.reduce((s, f) => s + f.need, 0) - a.files.reduce((
 if (LIMIT) topics = topics.slice(0, LIMIT);
 
 const out = path.join(L.ROOT, "scripts", "_finish", `_update-${BOOK}.json`);
-const payload = { book: BOOK, kind: rec.kind, status: [...WANT], topics };
+/* у payload — лише ті, що справді потрапили в цей батч (--limit ріже теми вище) */
+const inBatch = new Set(topics.map((t) => t.dir.split("/").pop()));
+const payload = { book: BOOK, kind: rec.kind, status: [...WANT], topics,
+  willNeedBasic: willNeedBasic.map((r) => r.slug).filter((sl) => inBatch.has(sl)) };
 console.log(`\nу чергу: тем ${topics.length}, файлів ${topics.reduce((s, t) => s + t.files.length, 0)}, недобору ${topics.reduce((s, t) => s + t.files.reduce((x, f) => x + f.need, 0), 0)} слів`);
 if (has("write")) {
   fs.mkdirSync(path.dirname(out), { recursive: true });

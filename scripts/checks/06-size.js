@@ -49,7 +49,9 @@ const rows = T.files.filter((f) => f.kind !== "other").map((f) => {
      звідти, і це видно в звіті поміткою (в огорожах).                          */
   const dirs = L.langDirsOf(DIR, f.file).map((d) => Object.assign({}, d, L.codeLinesOfDir(d.dir)));
   const fencedAll = L.codeLines(f.text);
-  const fenced = dirs.length ? fencedAll : 0;   /* при наявних теках огорожі — це ДУБЛЬ */
+  /* Дубль — лише огорожа з міткою мови від 10 рядків: саме вона мусила виїхати у файл.
+     Схема, дерево тек чи вивід консолі в огорожі — не код, і правило лишає їх у прозі. */
+  const fenced = dirs.length ? L.fencedCodeLeft(f.text) : 0;
   const code = L.NEEDS_CODE.has(f.kind) ? (dirs.length ? dirs.reduce((a, d) => a + d.lines, 0) : fencedAll) : null;
   const recode = L.recodeOf(DIR, f.file);
   const b = L.bandOf(f.kind, lv);
@@ -75,9 +77,12 @@ rows.forEach((r) => {
   const rc = r.recode ? "  [recode]" : "";
   console.log(`  ${r.mark} ${String(r.w).padStart(5)}w  ${r.f.file.padEnd(34)} ${r.f.label.padEnd(24)} ${lab}${cd}${rc}${r.note ? "  ← " + r.note : ""}`);
   r.dirs.forEach((d) => {
-    const fl = L.codeFloorFor(d.tier, r.lv);
+    /* Підлога коду є лише в proj і api. Стаття теж може мати теку проєкту —
+       показуємо обсяг, але вироку не виносимо: код там ілюстрація, не предмет. */
+    const fl = L.NEEDS_CODE.has(r.f.kind) ? L.codeFloorFor(d.tier, r.lv) : 0;
     const t = d.tests ? `, тестів ${d.tests}` : "";
-    const verdict = !fl ? "скрипт — підлоги немає" : (d.lines >= fl ? "✓" : `✖ підлога Р${r.lv} = ${fl}`);
+    const verdict = !L.NEEDS_CODE.has(r.f.kind) ? "" :
+      (!fl ? "скрипт — підлоги немає" : (d.lines >= fl ? "✓" : `✖ підлога Р${r.lv} = ${fl}`));
     console.log(`        ${d.lang.padEnd(8)} ${String(d.lines).padStart(5)} рядків у ${d.files} файлах${t}   ${verdict}`);
   });
 });
@@ -119,9 +124,9 @@ rows.filter((r) => r.code !== null && r.lv && !r.recode).forEach((r) => {
     const fl = L.codeFloorFor(d.tier, r.lv);
     if (!fl || d.lines >= fl) return;
     bad.push(`${r.f.file} (${r.f.label}), мова ${d.lang}: ${d.lines} рядків при підлозі ${fl} для Р${r.lv}. ` +
-      `Розширити саме КОД — довести приклад до робочого: обробка помилок, крайові випадки, ` +
-      `те, що справді запускається. У крайньому разі — дописати коментарі. Файли збірки й тести ` +
-      `в залік не входять, проза міряється окремо`);
+      `Показати сам МЕХАНІЗМ, який назвала проза: те, що зараз пропущено або згорнуто в ` +
+      `заглушку. Не обростати продуктом — обробкою всіх помилок, конфігурацією, шарами. ` +
+      `Файли збірки й тести в залік не входять, проза міряється окремо`);
   });
 });
 

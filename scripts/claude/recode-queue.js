@@ -64,6 +64,31 @@ function fencedCode(md) {
   return out;                                   // { тека мови: рядків }
 }
 
+/* ── зріз контексту ───────────────────────────────────────────────────────────
+   Усе, що потрібно переписувачеві коду, і нічого понад:
+     · назва теми — чия це річ;
+     · <preknowlist> детальної — що читач уже знає (не переказувати);
+     · перший абзац детальної — про що тема взагалі.
+   Абзаци довкола самого коду агент бачить у своєму ж файлі, який читає цілком.
+   Цілу статтю не даємо: на цьому прогоні вона важила 41 КБ і не дала нічого. */
+function contextSlice(dir, slug) {
+  const pick = (f) => { try { return fs.readFileSync(path.join(dir, f), "utf8"); } catch { return ""; } };
+  const src = pick(slug + "-d.md") || pick(slug + ".md");
+  if (!src) return "";
+  const out = [];
+  const pk = src.match(/<preknowlist>[\s\S]*?<\/preknowlist>/);
+  if (pk) out.push(pk[0].trim());
+  /* перший абзац: перший непорожній блок після H1 і після preknowlist */
+  const body = src.slice(pk ? src.indexOf(pk[0]) + pk[0].length : 0);
+  for (const para of body.split(/\n\s*\n/)) {
+    const t = para.trim();
+    if (!t || /^#/.test(t) || /^:::/.test(t) || /^[|>!]/.test(t) || /^```/.test(t)) continue;
+    out.push(t.length > 1200 ? t.slice(0, 1200) + " …" : t);
+    break;
+  }
+  return out.join("\n\n");
+}
+
 /* ── збір ─────────────────────────────────────────────────────────────────── */
 const units = [];
 for (const t of M7.allTopics(book)) {
@@ -104,12 +129,18 @@ for (const t of M7.allTopics(book)) {
       langs: Object.keys(fenced).sort(),
       fencedLines: Object.values(fenced).reduce((a, b) => a + b, 0),
       moved: dirs.map((d) => d.lang),
+      ctx: contextSlice(dir, t.slug),
     });
   }
 }
 
 /* Найважчі — першими: там, де коду більше, переписування дає найбільше. */
-units.sort((a, b) => b.fencedLines - a.fencedLines || a.slug.localeCompare(b.slug));
+/* Оцінені — першими: без рівня гейт судить за підлогою Р1 (10 рядків), тобто ні за чим,
+   і прогін проходить сам собою. Далі — глибші, далі — де ще лишився код в огорожах. */
+units.sort((a, b) =>
+  (b.level || 0) - (a.level || 0) ||
+  b.fencedLines - a.fencedLines ||
+  a.slug.localeCompare(b.slug));
 const out = LIMIT ? units.slice(0, LIMIT) : units;
 
 /* ── звіт ─────────────────────────────────────────────────────────────────── */
