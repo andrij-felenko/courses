@@ -17,8 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -49,8 +48,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
@@ -129,22 +127,23 @@
           "slug": "boot-chain",
           "title": "Ланцюг завантаження: від прошивки до init",
           "basic": {
-            "status": "empty"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-chain-shape.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-walk-the-chain.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ]
@@ -156,8 +155,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -216,8 +214,7 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -372,29 +369,29 @@
           "slug": "systemd-model",
           "title": "systemd: юніти, залежності, цілі",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-from-runlevels-to-units.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-see-the-transaction.md",
-              "status": "done",
+              "status": "recheck",
               "recode": true
             }
           ],
           "api": [
             {
               "file": "api-unit-directives.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         },
@@ -532,8 +529,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -563,8 +559,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -618,8 +613,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -784,8 +779,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "api": [
             {

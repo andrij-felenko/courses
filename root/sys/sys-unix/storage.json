@@ -310,8 +310,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1253,30 +1252,28 @@
           "hist": [
             {
               "file": "hist-luks1-to-luks2.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-afsplit-information-dispersion.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-luks2-header-dumper.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-luks2-json-metadata.md",
-              "status": "deeper",
-              "level": 5
+              "status": "recheck",
+              "recode": true
             }
           ]
         },

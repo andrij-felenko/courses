@@ -217,8 +217,7 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -437,8 +436,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3
+            "status": "recheck"
           },
           "hist": [
             {
@@ -474,30 +472,27 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-truth-sources.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-procfs-and-sysfs.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-inspect-system-state.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -508,22 +503,21 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-man-sections-and-synopsis.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-roff-and-man.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -540,8 +534,8 @@
           "api": [
             {
               "file": "api-cli-option-grammar.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
@@ -553,9 +547,8 @@
           "proj": [
             {
               "file": "proj-cli-parser-getopt.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
