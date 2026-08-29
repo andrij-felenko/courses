@@ -4,7 +4,7 @@
 
 Writing rules are **here**. Plan/queue/statuses — in the book/course manifest (schema — §2). Scripts — in `scripts/`.
 
-> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5); (4) **a new kind of book — a reference book (reference books on man-made systems)**: behaves like a book, the same manifest schema with `type:"reference"`, linked with the `root:` prefix (§1–§2); (5) **the basic version — a hard rule on size and language**: at least **twice shorter** than its detailed (and 500–1200 words), written in **simpler language** without losing the meaning (§3). (6) **word bands cut** (§3/§8): basic **500–1200**, detailed **1000–6500** (exception — up to 9000), insert **400–5000** (exception — up to 9000); the **median orientation was REMOVED from the rules a writer reads** (the figures live only in `wordcount.js`, which reports the median per book), and the **length criterion "only what is important or useful"** was added; ~10% fewer inserts — the spin-out threshold is raised one notch (§3). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
+> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5); (4) **a new kind of book — a reference book (reference books on man-made systems)**: behaves like a book, the same manifest schema with `type:"reference"`, linked with the `root:` prefix (§1–§2); (5) **the basic version — a hard rule on size and language**: at least **twice shorter** than its detailed (and 500–1200 words), written in **simpler language** without losing the meaning (§3). (6) **word bands cut** (§3/§8): basic **500–1200**, detailed **1000–6500** (exception — up to 9000), insert — **its own band per type** (§3); the **median orientation was REMOVED from the rules a writer reads** (the figures live only in `wordcount.js`, which reports the median per book), and the **length criterion "only what is important or useful"** was added; ~10% fewer inserts — the spin-out threshold is raised one notch (§3). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
 
 ## §1 Structure — seven kinds under `root/`
 
@@ -241,7 +241,7 @@ Manifest (§2): each version has its own `status` — `basic:{status}`, `detaile
 
 **Explaining a named concept in an insert a second time, in another topic, makes it a topic.** Two accounts of one mechanism in different folders mean the reader either never finds it by name or reads the same thing twice. Queue the topic and link to it from both.
 
-**Insert length — 400–5000 words** by density; rarely — **up to 9000**, and only when the insert is by nature a **large enumeration** (a set of commands, a table of fields, an API reference) that is harmful to split. If there is a lot of material and it splits — **split into several**. The registry in the manifest — **separate by type**.
+**Insert length — by type:** `hist-` 600–6000 · `math-` 600–6500 · `comp-` 800–7500 · `proj-` 800–6000 · `api-` 1100–11000 words. The upper half of the band is the exception zone: only what is by nature a **large enumeration** (a set of commands, a table of fields, an API reference) that is harmful to split goes there. If there is a lot of material and it splits — **split into several**. The registry in the manifest — **separate by type**.
 
 **The length criterion: write only what is important or useful.** The ceilings above are LIMITS, not targets. What is merely true and relevant does NOT go in — only what the reader cannot understand or cannot act without. Every section must earn its place.
 
@@ -384,6 +384,36 @@ const add = (a, b) => a + b;
 :::
 ````
 One language (no tabs needed) — **a regular code block with the language in the fence** (` ```py `), and the language turns on syntax highlighting.
+
+**Code from ten lines up lives in files, not in fences.** A block of **10 lines or more** in a real language moves out of the prose into a file, and a `:::code` directive stays in the text in its place. A smaller fragment stays in its fence as it was: there it **explains**, it does not run.
+
+The project folder is named after the `.md` the code is inserted into, and inside it sits the language folder:
+
+```
+<topic>/<.md name without extension>/<language>/<files>
+
+i2c-expander/i2c-expander-d/c/main.c        detailed article
+i2c-expander/proj-i2c-scanner/c/main.c      proj insert
+i2c-expander/api-i2c-ioctl/c/main.c         api insert
+```
+
+The carrier file's name in the path is not decoration: in 56% of topics `proj` and `api` live side by side, and both want their own `main.c`. A side win — the `.h` stopped being parentless: the folder decides the language, a header shared by two languages became impossible, and so did the fake "C++ version" where the same `.h` is included from a `.cpp`.
+
+**The language folder is the project root.** Inside it — the layout normal for that language, subfolders included: `rust/src/`, `go/internal/`, a package in Python, in C the `<module>.c` + `<module>.h` pairs. Split into modules the way real projects split. A platform is not a language: `arduino`, `esp-idf`, `stm32` go **under** the language as an extra level (`c/esp-idf/`), and the language folder stays honest.
+
+**Syntax — one `:::code` per file**, path relative to the topic folder:
+
+```
+:::code proj-ring-buffer/c/ring.c
+```
+
+Several languages — **one `:::code` per `:::tabs` tab**, exactly as with fences. **The C↔C++ pair is checked by the presence of the `cpp/` folder, not by matching file names**: idiomatic C++ splits into modules differently, and identical names in `c/` and `cpp/` would be a sign of a bad translation, not a good one.
+
+**How much code — from the role, not from a counter.** You are a professional showing students how it actually works: you write in front of them, at lesson pace. Such code works **for real** — error handling and awkward cases ARE in it, because a professional writes no other way. But it is built **not for users and not for the market**: no configurability, no layers "to swap out later", no generalizations to cases the topic does not have, no scaffolding around it. ⛔ **We do not write dozens of files** — as many modules as the thing itself has, and the thing here is small and educational. Tempted to add one more file "to do it properly" — ask whether a student will go read it; if not, that is not a module, that is a habit.
+
+**Write what the file is about.** The subject of the file decides the folder's contents, not a notion of "a complete repository". About a ring buffer — a ring buffer; about a build system — `CMakeLists.txt`, because it IS the subject; about tests — tests; about debugging in GDB — a GDB script. **A README is never appropriate**: the article itself does that job. Environment configs (OpenOCD, `.clang-format`, CI) — only when they have become the subject themselves; a build file — only when the example will not run at all without it, and then one, minimal. Every file outside the subject dilutes what the reader opened the article for.
+
+**Completeness — the main rule.** The code implements **everything** the prose named as a mechanism: no "left to the reader", no "by analogy", no "the rest is symmetric", no stub where the text promised behavior. Comments in the code — in Ukrainian.
 
 **An MCU example is never "for Arduino".** Arduino is one embodiment, not the subject itself. Therefore:
 - **the explanation leads from general electronics**: first what holds for any MCU (an interrupt-capable pin, a timer, a bus, a register), and only then what it is called in a particular environment. A reader on STM32 or ESP32 must recognize their own task, not translate it from someone else's;

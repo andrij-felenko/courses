@@ -89,6 +89,30 @@ function contextSlice(dir, slug) {
   return out.join("\n\n");
 }
 
+/* ── перелік наявного коду ────────────────────────────────────────────────────
+   Віддаємо агентові готовим, бо інакше він питає диск сам. Заміряно на прогоні
+   16:10: третина ВСІХ викликів (146 із 417) — Bash, і починалося це щоразу з
+   `ls -la` та `find` по власній же теці. Кожен такий виклик — повний круг
+   генерації; диск відповідає за мілісекунди, круг коштує хвилини.              */
+function listProject(topicDir, mdFile) {
+  const root = L.projectDir(topicDir, mdFile);
+  const out = [];
+  const walk = (d, rel) => {
+    let ents = [];
+    try { ents = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of ents) {
+      const p = path.join(d, e.name);
+      const r = rel ? rel + "/" + e.name : e.name;
+      if (e.isDirectory()) { walk(p, r); continue; }
+      let n = 0;
+      try { n = fs.readFileSync(p, "utf8").replace(/\r\n?/g, "\n").replace(/\n+$/, "").split("\n").length; } catch {}
+      out.push({ path: r, lines: n });
+    }
+  };
+  walk(root, "");
+  return out.sort((a, b) => a.path.localeCompare(b.path));
+}
+
 /* ── збір ─────────────────────────────────────────────────────────────────── */
 const units = [];
 for (const t of M7.allTopics(book)) {
@@ -130,6 +154,7 @@ for (const t of M7.allTopics(book)) {
       fencedLines: Object.values(fenced).reduce((a, b) => a + b, 0),
       moved: dirs.map((d) => d.lang),
       ctx: contextSlice(dir, t.slug),
+      existing: listProject(dir, c.file),
     });
   }
 }
