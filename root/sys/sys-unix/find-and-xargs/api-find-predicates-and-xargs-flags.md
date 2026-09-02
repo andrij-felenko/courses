@@ -435,19 +435,9 @@ find /var/shared -acl -print
 
 ##### 3. Промислові патерни пошуку xattr та ACL у Linux
 
-```sh
-# Пошук файлів із нетривіальними розширеними списками контролю доступу (POSIX ACL)
-find /data -printf '%M %p\n' | awk '$1 ~ /\+$/ { print $2 }'
+:::code api-find-predicates-and-xargs-flags/sh/audit-acl-xattr.sh
 
-# Виявлення потенційно небезпечних SUID/SGID файлів, які мають додаткові ACL
-find / -xdev -type f \( -perm -4000 -o -perm -2000 \) -printf '%M %p\n' | grep '^......[+][^ ]*'
-
-# Виявлення двійкових виконуваних файлів із встановленими Linux Capabilities
-find /usr/bin /usr/sbin -type f -exec getcap {} + 2>/dev/null
-
-# Пошук каталогів зі спадковими правилами за замовчуванням (Default POSIX ACL)
-find /srv/shares -type d -exec getfacl -d {} + 2>/dev/null | grep '^# file:'
-```
+:::code api-find-predicates-and-xargs-flags/sh/lib/common.sh
 
 ---
 
@@ -756,6 +746,8 @@ xargs: unmatched single quote; by default quotes are special to xargs unless you
 3. **Централізований процес-колектор:**
    Воркери передають атомарні NUL-розділені повідомлення через канал на вхід єдиного однопотокового агрегатора, який послідовно вичитує та зберігає дані.
 
+:::code api-find-predicates-and-xargs-flags/sh/parallel-aggregate.sh
+
 ### Взаємодія модифікаторів запуску: `-n`, `-L`, `-I` та `-s`
 
 1. **`-n max-args` проти `-L max-lines`:** Опція `-n` обмежує точну кількість слів/токенів у виклику, тоді як `-L` рахує кількість непорожніх рядків вхідного потоку. Зазначення `-L` неявно активує прапорець аварійної зупинки `-x`.
@@ -907,6 +899,8 @@ find /var/data/raw_metrics -type f -name "*.dat" -print0 | \
 2. Розмір покажчика на рядок у масиві `char *argv[]`: `sizeof(char *)` (8 байтів на 64-бітних архітектурах x86_64 / AArch64).
 
 Якщо додавання чергового файлу призведе до перевищення розрахованого бюджету, `xargs` або `find` закриває поточний пакет, викликає `execve()` для накопиченого масиву і починає формування нового пакета.
+
+:::code api-find-predicates-and-xargs-flags/sh/argmax-budget.sh
 
 ---
 

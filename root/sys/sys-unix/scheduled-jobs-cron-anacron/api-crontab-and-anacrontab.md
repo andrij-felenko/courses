@@ -70,24 +70,10 @@ DOM = 13 (явне число), DOW = 5 (п'ятниця, явне число).
   2. Щоп'ятниці о 02:00 (незалежно від календарного числа).
 ```
 
-Внутрішній алгоритм перевірки у вихідному коді Vixie cron:
+Внутрішній алгоритм перевірки обирає правило за **формою** полів (чи стоїть у них зірочка), а не за їхнім вмістом — зірочка нічого не обмежує, тож диз'юнкція з нею завжди давала б істину й розклад втратив би сенс:
 :::tabs
-@tab C
-```c
-if ((entry->flags & DOM_STAR) || (entry->flags & DOW_STAR)) {
-    day_match = dom_matches && dow_matches; /* Кон'юнкція: логічне І */
-} else {
-    day_match = dom_matches || dow_matches; /* Диз'юнкція: логічне АБО */
-}
-```
-@tab C++
-```cpp
-if ((entry->flags & DOM_STAR) || (entry->flags & DOW_STAR)) {
-    day_match = dom_matches && dow_matches; // Кон'юнкція: логічне І
-} else {
-    day_match = dom_matches || dow_matches; // Диз'юнкція: логічне АБО
-}
-```
+:::code api-crontab-and-anacrontab/c/daymatch.c
+:::code api-crontab-and-anacrontab/cpp/day_match.cpp
 :::
 
 Якщо адміністратору потрібен запуск строго у «п'ятницю 13-го» (сувора кон'юнкція), поле DOW встановлюють у зірочку `*`, а перевірку дня тижня делегують командній оболонці через умовний вираз:
@@ -512,33 +498,7 @@ systemctl restart cron.service
 
 Утиліти ядра дозволяють аналізувати фактичне навантаження та випадки спрацьовування обмежень:
 
-```bash
-# 1. Перевірка поточного споживання пам'яті та кількості OOM-подій
-cat /sys/fs/cgroup/system.slice/cron.service/memory.current
-cat /sys/fs/cgroup/system.slice/cron.service/memory.events
-# Приклад виводу memory.events:
-# low 0
-# high 142
-# max 12
-# oom 2
-# oom_kill 2
-
-# 2. Перевірка процесорного тротлінгу (час затримки виконання у мікросекундах)
-cat /sys/fs/cgroup/system.slice/cron.service/cpu.stat
-# Приклад виводу cpu.stat:
-# usage_usec 481290334
-# user_usec 391200112
-# system_usec 90090222
-# nr_periods 12050
-# nr_throttled 840
-# throttled_usec 24501200
-
-# 3. Інспекція дерева процесів та їхніх зрізів у реальному часі
-systemd-cgls /system.slice/cron.service
-
-# 4. Моніторинг споживання ресурсів у термінальному інтерфейсі
-systemd-cgtop
-```
+:::code api-crontab-and-anacrontab/sh/cgroup-report.sh
 
 ---
 
@@ -592,70 +552,8 @@ systemd-cgtop
 4. **Бітові маски бази завдань (`cron_db`):** Для виключення повільного рядкового парсингу щохвилини розібрані розклади зберігаються в оперативній пам'яті у вигляді бітових масок (хвилини: 60 біт, години: 24 біти, дні місяця: 32 біти, місяці: 12 біт, дні тижня: 8 біт). Зіставлення поточного часу з розкладом завдання зводиться до швидкої побітової перевірки.
 
 :::tabs
-@tab C
-```c
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint64_t minute_mask; /* Біти 0..59 */
-    uint32_t hour_mask;   /* Біти 0..23 */
-    uint32_t dom_mask;    /* Біти 1..31 */
-    uint16_t month_mask;  /* Біти 1..12 */
-    uint8_t  dow_mask;    /* Біти 0..7  */
-    int flags;
-} cron_schedule_t;
-
-bool check_schedule_match(const cron_schedule_t *entry, const struct tm *t) {
-    if (!((entry->minute_mask >> t->tm_min) & 1)) return false;
-    if (!((entry->hour_mask >> t->tm_hour) & 1)) return false;
-    if (!((entry->month_mask >> (t->tm_mon + 1)) & 1)) return false;
-
-    bool dom_match = (entry->dom_mask >> t->tm_mday) & 1;
-    bool dow_match = (entry->dow_mask >> t->tm_wday) & 1;
-
-    /* Правило взаємодії DOM та DOW за стандартом POSIX */
-    if ((entry->flags & 0x01) || (entry->flags & 0x02)) {
-        return dom_match && dow_match; /* Кон'юнкція: одне з полів є '*' */
-    }
-    return dom_match || dow_match;     /* Диз'юнкція: обидва поля явно задані */
-}
-```
-@tab C++
-```cpp
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <ctime>
-#include <cstdint>
-
-struct CronSchedule {
-    uint64_t minute_mask{0}; // Біти 0..59
-    uint32_t hour_mask{0};   // Біти 0..23
-    uint32_t dom_mask{0};    // Біти 1..31
-    uint16_t month_mask{0};  // Біти 1..12
-    uint8_t  dow_mask{0};    // Біти 0..7
-    int flags{0};
-
-    [[nodiscard]] bool matches(const std::tm& t) const noexcept {
-        if (!((minute_mask >> t.tm_min) & 1ULL)) return false;
-        if (!((hour_mask >> t.tm_hour) & 1U)) return false;
-        if (!((month_mask >> (t.tm_mon + 1)) & 1U)) return false;
-
-        const bool dom_match = (dom_mask >> t.tm_mday) & 1U;
-        const bool dow_match = (dow_mask >> t.tm_wday) & 1U;
-
-        // Правило взаємодії DOM та DOW за стандартом POSIX
-        if ((flags & 0x01) || (flags & 0x02)) {
-            return dom_match && dow_match; // Кон'юнкція: одне з полів є '*'
-        }
-        return dom_match || dow_match;     // Диз'юнкція: обидва поля явно задані
-    }
-};
-```
+:::code api-crontab-and-anacrontab/c/schedule.c
+:::code api-crontab-and-anacrontab/cpp/schedule.cpp
 :::
 
 ### Порівняльний аналіз архітектур планування: дискретне опитування (Polling) проти hrtimer та timerfd
@@ -763,68 +661,8 @@ struct CronSchedule {
    ```
 
 :::tabs
-@tab C
-```c
-#include <unistd.h>
-#include <pwd.h>
-#include <grp.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/types.h>
-
-int drop_privileges_and_exec(const struct passwd *pw, const char *cmd, char *const envp[]) {
-    /* 1. Завантаження додаткових груп користувача */
-    if (initgroups(pw->pw_name, pw->pw_gid) != 0) {
-        return -1;
-    }
-    /* 2. Зниження GID */
-    if (setgid(pw->pw_gid) != 0) {
-        return -1;
-    }
-    /* 3. Зниження UID (скидання real, effective, saved UID) */
-    if (setuid(pw->pw_uid) != 0) {
-        return -1;
-    }
-    /* 4. Зміна робочого каталогу на $HOME */
-    if (chdir(pw->pw_dir) != 0) {
-        if (chdir("/") != 0) return -1;
-    }
-    /* 5. Запуск оболонки */
-    execle("/bin/sh", "sh", "-c", cmd, (char *)NULL, envp);
-    return -1; /* Виклик execle повертає значення лише у разі критичної помилки */
-}
-```
-@tab C++
-```cpp
-#include <unistd.h>
-#include <pwd.h>
-#include <grp.h>
-#include <cstdlib>
-#include <iostream>
-#include <sys/types.h>
-
-[[nodiscard]] int drop_privileges_and_exec(const passwd* pw, const char* cmd, char* const envp[]) noexcept {
-    // 1. Завантаження додаткових груп користувача
-    if (initgroups(pw->pw_name, pw->pw_gid) != 0) {
-        return -1;
-    }
-    // 2. Зниження GID
-    if (setgid(pw->pw_gid) != 0) {
-        return -1;
-    }
-    // 3. Зниження UID (скидання real, effective, saved UID)
-    if (setuid(pw->pw_uid) != 0) {
-        return -1;
-    }
-    // 4. Зміна робочого каталогу на $HOME
-    if (chdir(pw->pw_dir) != 0) {
-        if (chdir("/") != 0) return -1;
-    }
-    // 5. Запуск оболонки
-    execle("/bin/sh", "sh", "-c", cmd, static_cast<char*>(nullptr), envp);
-    return -1; // execle повертає керування лише у разі відмови
-}
-```
+:::code api-crontab-and-anacrontab/c/runjob.c
+:::code api-crontab-and-anacrontab/cpp/job_runner.cpp
 :::
 
 ### Захоплення дескрипторів вводу-виводу (I/O Pipes)
@@ -1229,22 +1067,7 @@ n/a                          n/a           Mon 2026-08-24 12:00:00 EEST 5 days a
 
 ### Керування станом таймер-юнітів
 
-```bash
-# Запуск таймера в поточній сесії
-systemctl start backup.timer
-
-# Зупинка відліку таймера
-systemctl stop backup.timer
-
-# Додавання таймера в автозавантаження (створення симлінка у timers.target.wants/)
-systemctl enable backup.timer
-
-# Перевірка поточного стану таймера
-systemctl status backup.timer
-
-# Перевірка користувацьких таймерів
-systemctl --user list-timers
-```
+:::code api-crontab-and-anacrontab/sh/timer-control.sh
 
 ### Динамічні тимчасові таймери через `systemd-run`
 
@@ -1303,32 +1126,7 @@ systemd-run --on-calendar="daily" --timer-property="Persistent=true" /usr/local/
 
 #### 2. Рецепти діагностики та фільтрації логів через `journalctl`
 
-```bash
-# 1. Повний перегляд логів виконання цільового сервісу
-journalctl -u backup.service
-
-# 2. Перегляд подій планування самого таймера (перерахунок розкладу, моменти спрацьовування)
-journalctl -u backup.timer
-
-# 3. Ізоляція логів виключно останнього запуску сервісу за його InvocationID
-INVOCATION_ID=$(systemctl show -p InvocationID --value backup.service)
-journalctl _SYSTEMD_INVOCATION_ID="$INVOCATION_ID"
-
-# 4. Фільтрація логів за поточний сеанс завантаження ОС (Boot)
-journalctl -u backup.service -b
-
-# 5. Фільтрація повідомлень про помилки та критичні збої (пріоритети err, crit, alert, emerg)
-journalctl -u backup.service -p err..emerg
-
-# 6. Фільтрація логів за точним часовим інтервалом
-journalctl -u backup.service --since "2026-08-29 02:00:00" --until "2026-08-29 04:00:00"
-
-# 7. Моніторинг виводу виконання у реальному часі (з точністю до мікросекунд)
-journalctl -u backup.service -f -o short-precise
-
-# 8. Експорт структурованих записів у форматі JSON для централізованих систем моніторингу (Loki, Elasticsearch)
-journalctl -u backup.service -n 50 -o json-pretty
-```
+:::code api-crontab-and-anacrontab/sh/timer-logs.sh
 
 #### 3. Діагностика збійних таймерів та сервісів
 
@@ -1401,7 +1199,7 @@ at [-q черга] [-f файл] ЧАС [ДАТА] [+ ПРИРІСТ]
 
 Приклад структури згенерованого файлу завдання у спулі (`/var/spool/at/` або `/var/spool/cron/atjobs/`):
 
-```bash
+```text
 #!/bin/sh
 # atrun GID: 1000 UID: 1000
 umask 22
@@ -1465,54 +1263,8 @@ marcinDELIMITER5a2b3c4d
 - **Автоматичне очищення:** Замок безпосередньо прив'язаний до дескриптора. Коли процес завершується (нормально, аварійно, за `SIGKILL` або `SIGSEGV`), ядро автоматично викликає `filp_close()` і звільняє замок. Завислі замки (Stale Locks) неможливі фізично.
 
 :::tabs
-@tab C
-```c
-#include <sys/file.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
-
-int acquire_nonblocking_lock(const char *lock_file_path) {
-    int fd = open(lock_file_path, O_RDWR | O_CREAT | O_CLOEXEC, 0600);
-    if (fd < 0) {
-        return -1;
-    }
-    /* Спроба ексклюзивного неблокуючого блокування */
-    if (flock(fd, LOCK_EX | LOCK_NB) != 0) {
-        close(fd);
-        if (errno == EWOULDBLOCK) {
-            return 0; /* Замок вже утримується іншим процесом */
-        }
-        return -1;    /* Системна помилка блокування */
-    }
-    return fd;        /* Замок успішно отримано, дескриптор утримується до завершення */
-}
-```
-@tab C++
-```cpp
-#include <sys/file.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <iostream>
-#include <system_error>
-
-[[nodiscard]] int acquire_nonblocking_lock(const char* lock_file_path) noexcept {
-    int fd = ::open(lock_file_path, O_RDWR | O_CREAT | O_CLOEXEC, 0600);
-    if (fd < 0) {
-        return -1;
-    }
-    // Спроба ексклюзивного неблокуючого блокування
-    if (::flock(fd, LOCK_EX | LOCK_NB) != 0) {
-        ::close(fd);
-        if (errno == EWOULDBLOCK) {
-            return 0; // Замок вже утримується іншим процесом
-        }
-        return -1;    // Системна помилка блокування
-    }
-    return fd;        // Замок успішно отримано, дескриптор утримується до завершення
-}
-```
+:::code api-crontab-and-anacrontab/c/joblock.c
+:::code api-crontab-and-anacrontab/cpp/job_lock.cpp
 :::
 
 #### Системний виклик `flock(2)` проти POSIX `fcntl(2)` / `lockf(3)`
@@ -1628,80 +1380,7 @@ mv -f "${PROM_FILE}.$$" "${PROM_FILE}"
 
 Нижче наведено еталонний скрипт `cron-job-wrapper.sh`, який об'єднує блокування дескриптора через `flock`, замір часу виконання, протоколювання потоків виводу та атомарний експорт метрик у Prometheus:
 
-```bash
-#!/usr/bin/env bash
-set -u
-
-JOB_NAME="${1:-}"
-TIMEOUT_SEC="${2:-3600}"
-shift 2 || { echo "Використання: $0 <job_name> <timeout_sec> <команда> [аргументи...]" >&2; exit 2; }
-
-if [ -z "$JOB_NAME" ]; then
-    echo "Помилка: не вказано ім'я завдання" >&2
-    exit 2
-fi
-
-LOCK_DIR="/var/lock/cron"
-METRICS_DIR="/var/lib/node_exporter/textfile_collector"
-LOG_DIR="/var/log/cron"
-
-mkdir -p "$LOCK_DIR" "$METRICS_DIR" "$LOG_DIR"
-
-LOCK_FILE="${LOCK_DIR}/${JOB_NAME}.lock"
-PROM_FILE="${METRICS_DIR}/cron_${JOB_NAME}.prom"
-LOG_FILE="${LOG_DIR}/${JOB_NAME}.log"
-
-# Відкриття дескриптора 200 на lock-файл
-exec 200>"$LOCK_FILE"
-
-# Неблокуюча спроба отримати ексклюзивний замок
-if ! flock -n 200; then
-    echo "[$(date -Iseconds)] [WARN] Завдання '${JOB_NAME}' вже виконується іншим процесом. Запуск пропущено." >> "$LOG_FILE"
-    exit 0
-fi
-
-START_TS=$(date +%s)
-START_HIRES=$(date +%s.%N)
-EXIT_CODE=0
-
-echo "[$(date -Iseconds)] [INFO] Старт завдання '${JOB_NAME}': $*" >> "$LOG_FILE"
-
-# Виконання команди з таймаутом та перенаправленням виводу в лог
-timeout --kill-after=30s --signal=TERM "${TIMEOUT_SEC}" "$@" >> "$LOG_FILE" 2>&1
-EXIT_CODE=$?
-
-END_HIRES=$(date +%s.%N)
-DURATION=$(awk "BEGIN {print $END_HIRES - $START_HIRES}")
-
-SUCCESS=1
-if [ "$EXIT_CODE" -ne 0 ]; then
-    SUCCESS=0
-    echo "[$(date -Iseconds)] [ERROR] Завдання '${JOB_NAME}' завершилося аварійно з кодом ${EXIT_CODE}" >> "$LOG_FILE"
-else
-    echo "[$(date -Iseconds)] [INFO] Завдання '${JOB_NAME}' успішно завершено за ${DURATION} с" >> "$LOG_FILE"
-fi
-
-# Атомарний експорт метрик у Textfile Collector
-TMP_PROM="${PROM_FILE}.$$"
-cat << EOF > "$TMP_PROM"
-# HELP node_cron_job_last_run_timestamp_seconds Unix timestamp останнього запуску завдання
-# TYPE node_cron_job_last_run_timestamp_seconds gauge
-node_cron_job_last_run_timestamp_seconds{job="${JOB_NAME}"} ${START_TS}
-# HELP node_cron_job_duration_seconds Тривалість виконання завдання у секундах
-# TYPE node_cron_job_duration_seconds gauge
-node_cron_job_duration_seconds{job="${JOB_NAME}"} ${DURATION}
-# HELP node_cron_job_success Статус виконання завдання (1 = успіх, 0 = помилка)
-# TYPE node_cron_job_success gauge
-node_cron_job_success{job="${JOB_NAME}"} ${SUCCESS}
-# HELP node_cron_job_exit_code Код повернення процесу
-# TYPE node_cron_job_exit_code gauge
-node_cron_job_exit_code{job="${JOB_NAME}"} ${EXIT_CODE}
-EOF
-
-mv -f "$TMP_PROM" "$PROM_FILE"
-
-exit "$EXIT_CODE"
-```
+:::code api-crontab-and-anacrontab/sh/cron-job-wrapper.sh
 
 Приклад використання у файлі `/etc/cron.d/production-backup`:
 ```crontab
@@ -1768,20 +1447,11 @@ MAILTO=""
 
 Створює новий екземпляр таймера ядра та повертає файловий дескриптор, що посилається на нього:
 
-:::tabs
-@tab C
 ```c
 #include <sys/timerfd.h>
 
 int timerfd_create(int clockid, int flags);
 ```
-@tab C++
-```cpp
-#include <sys/timerfd.h>
-
-int ::timerfd_create(int clockid, int flags);
-```
-:::
 
 #### 1. Типи підтримуваних годинників (`clockid`)
 
@@ -1810,8 +1480,6 @@ int ::timerfd_create(int clockid, int flags);
 
 Керують інтервалами та моментом спрацьовування таймера:
 
-:::tabs
-@tab C
 ```c
 #include <sys/timerfd.h>
 
@@ -1821,22 +1489,9 @@ int timerfd_settime(int fd, int flags,
 
 int timerfd_gettime(int fd, struct itimerspec *curr_value);
 ```
-@tab C++
-```cpp
-#include <sys/timerfd.h>
-
-int ::timerfd_settime(int fd, int flags,
-                      const struct itimerspec* new_value,
-                      struct itimerspec* old_value);
-
-int ::timerfd_gettime(int fd, struct itimerspec* curr_value);
-```
-:::
 
 #### Структури представлення часу `struct itimerspec`
 
-:::tabs
-@tab C
 ```c
 struct timespec {
     time_t tv_sec;  /* Секунди */
@@ -1848,21 +1503,6 @@ struct itimerspec {
     struct timespec it_value;    /* Час першого спрацьовування (0 = вимкнення таймера) */
 };
 ```
-@tab C++
-```cpp
-#include <ctime>
-
-struct timespec {
-    std::time_t tv_sec;  // Секунди
-    long        tv_nsec; // Наносекунди: діапазон [0 .. 999 999 999]
-};
-
-struct itimerspec {
-    struct timespec it_interval; // Період повторення (0 = разовий таймер)
-    struct timespec it_value;    // Час першого спрацьовування (0 = вимкнення таймера)
-};
-```
-:::
 
 1. **Правила інтерпретації `it_value`:**
    - Якщо `it_value.tv_sec == 0` і `it_value.tv_nsec == 0`, таймер повністю **деактивується (disarmed)**.
@@ -1921,26 +1561,7 @@ struct itimerspec {
    - Якщо під час вставки таймера у червоно-чорне дерево черги `hrtimer_clock_base` ядро виявляє, що інший апаратний таймер уже запланований до спрацьовування в інтервалі `[_softexpires, expires]`, ядро **не перепрограмовує апаратний APIC-таймер**. Таймер спрацює одночасно з раніше запланованою подією.
    - Якщо в зазначеному вікні немає інших подій, апаратний переривач налаштовується строго на жорсткий дедлайн `node.expires`.
 2. **Тайм-слак процесу (Timer Slack):** Кожен потік виконання має параметр допустимого відхилення часу спрацьовування таймера `timerslack_ns` (за замовчуванням у просторі користувача — `50 000 нс` = 50 мкс).
-3. **Системний виклик налаштування слаку (`prctl`):**
-:::tabs
-@tab C
-```c
-#include <sys/prctl.h>
-
-/* Встановлення допустимого вікна коалесценції у 100 мілісекунд (100 000 000 нс) */
-prctl(PR_SET_TIMERSLACK, 100000000UL);
-```
-@tab C++
-```cpp
-#include <sys/prctl.h>
-#include <chrono>
-
-using namespace std::chrono_literals;
-// Встановлення допустимого вікна коалесценції у 100 мілісекунд (100 000 000 нс)
-constexpr unsigned long kTimerSlackNs = 100'000'000UL;
-::prctl(PR_SET_TIMERSLACK, kTimerSlackNs);
-```
-:::
+3. **Системний виклик налаштування слаку (`prctl`):** вікно коалесценції поточного потоку задає `prctl(PR_SET_TIMERSLACK, 100000000UL)` — тут 100 мілісекунд (100 000 000 нс); аргумент `0` повертає потоку типове значення ядра. У диспетчері таймерів нижче цю операцію виконують `timer_loop_set_slack_ns()` (C) та `TimerLoop::set_slack()` (C++), а прочитати чинне вікно дають `timer_loop_read_slack_ns()` і `TimerLoop::read_slack()`.
 4. **Відображення у `/proc`:** Поточний активний слак потоку доступний для аудиту через `/proc/<pid>/timerslack_ns`.
 5. **Зв'язок із `AccuracySec=` у systemd:**
    - Коли у файлі `.timer` задано `AccuracySec=1min`, менеджер `systemd` під час налаштування дескриптора `timerfd` через виклик `timerfd_settime()` використовує розширене вікно дедлайну або викликає `prctl(PR_SET_TIMERSLACK)`.
@@ -1951,222 +1572,6 @@ constexpr unsigned long kTimerSlackNs = 100'000'000UL;
 Нижче наведено еталонну реалізацію неблокуючого мультиплексора таймерів на основі `timerfd` та `epoll(7)`:
 
 :::tabs
-@tab C
-```c
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-
-#define MAX_EVENTS 8
-
-static int create_timer(int clockid, time_t init_sec, long init_nsec, time_t interval_sec, long interval_nsec) {
-    int tfd = timerfd_create(clockid, TFD_NONBLOCK | TFD_CLOEXEC);
-    if (tfd < 0) {
-        perror("timerfd_create");
-        return -1;
-    }
-
-    struct itimerspec its;
-    its.it_value.tv_sec = init_sec;
-    its.it_value.tv_nsec = init_nsec;
-    its.it_interval.tv_sec = interval_sec;
-    its.it_interval.tv_nsec = interval_nsec;
-
-    if (timerfd_settime(tfd, 0, &its, NULL) < 0) {
-        perror("timerfd_settime");
-        close(tfd);
-        return -1;
-    }
-    return tfd;
-}
-
-int main(void) {
-    int epfd = epoll_create1(EPOLL_CLOEXEC);
-    if (epfd < 0) {
-        perror("epoll_create1");
-        return EXIT_FAILURE;
-    }
-
-    /* Періодичний таймер: старт через 1 с, повтор щосекунди */
-    int tfd_periodic = create_timer(CLOCK_MONOTONIC, 1, 0, 1, 0);
-    /* Разовий таймер: старт через 5 с */
-    int tfd_oneshot = create_timer(CLOCK_BOOTTIME, 5, 0, 0, 0);
-
-    if (tfd_periodic < 0 || tfd_oneshot < 0) {
-        return EXIT_FAILURE;
-    }
-
-    struct epoll_event ev;
-    ev.events = EPOLLIN;
-    ev.data.fd = tfd_periodic;
-    epoll_ctl(epfd, EPOLL_CTL_ADD, tfd_periodic, &ev);
-
-    ev.events = EPOLLIN;
-    ev.data.fd = tfd_oneshot;
-    epoll_ctl(epfd, EPOLL_CTL_ADD, tfd_oneshot, &ev);
-
-    struct epoll_event events[MAX_EVENTS];
-    int running = 1;
-
-    while (running) {
-        int nfds = epoll_wait(epfd, events, MAX_EVENTS, -1);
-        if (nfds < 0) {
-            if (errno == EINTR) continue;
-            perror("epoll_wait");
-            break;
-        }
-
-        for (int i = 0; i < nfds; ++i) {
-            uint64_t expirations = 0;
-            ssize_t s = read(events[i].data.fd, &expirations, sizeof(expirations));
-
-            if (s == sizeof(uint64_t)) {
-                if (events[i].data.fd == tfd_periodic) {
-                    printf("[CLOCK_MONOTONIC] Періодичний тік. Спрацьовувань: %llu\n",
-                           (unsigned long long)expirations);
-                } else if (events[i].data.fd == tfd_oneshot) {
-                    printf("[CLOCK_BOOTTIME] Разовий таймер спрацював. Завершення циклу.\n");
-                    running = 0;
-                }
-            } else if (s < 0 && errno != EAGAIN) {
-                perror("read timerfd");
-            }
-        }
-    }
-
-    close(tfd_periodic);
-    close(tfd_oneshot);
-    close(epfd);
-    return EXIT_SUCCESS;
-}
-```
-@tab C++
-```cpp
-#include <sys/timerfd.h>
-#include <sys/epoll.h>
-#include <unistd.h>
-#include <cstdint>
-#include <iostream>
-#include <system_error>
-#include <chrono>
-#include <vector>
-
-class TimerDescriptor {
-public:
-    TimerDescriptor(int clockid, std::chrono::nanoseconds initial, std::chrono::nanoseconds interval = std::chrono::nanoseconds{0}) {
-        fd_ = ::timerfd_create(clockid, TFD_NONBLOCK | TFD_CLOEXEC);
-        if (fd_ < 0) {
-            throw std::system_error(errno, std::generic_category(), "timerfd_create failed");
-        }
-
-        struct itimerspec its{};
-        const auto init_sec = std::chrono::duration_cast<std::chrono::seconds>(initial);
-        const auto init_nsec = initial - init_sec;
-        its.it_value.tv_sec = init_sec.count();
-        its.it_value.tv_nsec = init_nsec.count();
-
-        const auto int_sec = std::chrono::duration_cast<std::chrono::seconds>(interval);
-        const auto int_nsec = interval - int_sec;
-        its.it_interval.tv_sec = int_sec.count();
-        its.it_interval.tv_nsec = int_nsec.count();
-
-        if (::timerfd_settime(fd_, 0, &its, nullptr) < 0) {
-            ::close(fd_);
-            throw std::system_error(errno, std::generic_category(), "timerfd_settime failed");
-        }
-    }
-
-    ~TimerDescriptor() noexcept {
-        if (fd_ >= 0) {
-            ::close(fd_);
-        }
-    }
-
-    TimerDescriptor(const TimerDescriptor&) = delete;
-    TimerDescriptor& operator=(const TimerDescriptor&) = delete;
-
-    TimerDescriptor(TimerDescriptor&& other) noexcept : fd_{other.fd_} {
-        other.fd_ = -1;
-    }
-
-    TimerDescriptor& operator=(TimerDescriptor&& other) noexcept {
-        if (this != &other) {
-            if (fd_ >= 0) ::close(fd_);
-            fd_ = other.fd_;
-            other.fd_ = -1;
-        }
-        return *this;
-    }
-
-    [[nodiscard]] int fd() const noexcept { return fd_; }
-
-    [[nodiscard]] uint64_t read_expirations() const {
-        uint64_t expirations{0};
-        const ssize_t bytes_read = ::read(fd_, &expirations, sizeof(expirations));
-        if (bytes_read == sizeof(uint64_t)) {
-            return expirations;
-        }
-        if (bytes_read < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
-            return 0;
-        }
-        throw std::system_error(errno, std::generic_category(), "timerfd read error");
-    }
-
-private:
-    int fd_{-1};
-};
-
-int main() {
-    try {
-        const int epfd = ::epoll_create1(EPOLL_CLOEXEC);
-        if (epfd < 0) {
-            throw std::system_error(errno, std::generic_category(), "epoll_create1 failed");
-        }
-
-        using namespace std::chrono_literals;
-        TimerDescriptor periodic_timer(CLOCK_MONOTONIC, 1s, 1s);
-        TimerDescriptor oneshot_timer(CLOCK_BOOTTIME, 5s);
-
-        epoll_event ev{};
-        ev.events = EPOLLIN;
-        ev.data.fd = periodic_timer.fd();
-        ::epoll_ctl(epfd, EPOLL_CTL_ADD, periodic_timer.fd(), &ev);
-
-        ev.data.fd = oneshot_timer.fd();
-        ::epoll_ctl(epfd, EPOLL_CTL_ADD, oneshot_timer.fd(), &ev);
-
-        std::vector<epoll_event> events(8);
-        bool running = true;
-
-        while (running) {
-            const int nfds = ::epoll_wait(epfd, events.data(), static_cast<int>(events.size()), -1);
-            if (nfds < 0) {
-                if (errno == EINTR) continue;
-                throw std::system_error(errno, std::generic_category(), "epoll_wait failed");
-            }
-
-            for (int i = 0; i < nfds; ++i) {
-                if (events[i].data.fd == periodic_timer.fd()) {
-                    const uint64_t exp = periodic_timer.read_expirations();
-                    std::cout << "[CLOCK_MONOTONIC] Періодичний тік. Спрацьовувань: " << exp << '\n';
-                } else if (events[i].data.fd == oneshot_timer.fd()) {
-                    const uint64_t exp = oneshot_timer.read_expirations();
-                    std::cout << "[CLOCK_BOOTTIME] Разовий таймер спрацював (" << exp << "). Завершення.\n";
-                    running = false;
-                }
-            }
-        }
-
-        ::close(epfd);
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
-}
-```
+:::code api-crontab-and-anacrontab/c/timerloop.c
+:::code api-crontab-and-anacrontab/cpp/timer_loop.cpp
 :::

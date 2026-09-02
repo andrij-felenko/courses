@@ -103,55 +103,7 @@ complete -F _docker_complete -o default -o nospace docker
 #### Приклад контекстно-залежної функції автодоповнення
 Розглянемо практичну реалізацію автодоповнення для системної утиліти керування службами:
 
-```bash
-_service_ctl_complete() {
-    local cur prev words cword
-    # Ініціалізація локальних змінних із масиву COMP_WORDS
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    # Визначення базового списку підкоманд
-    local subcommands="start stop restart status logs config"
-    local global_flags="--help --version --verbose --config="
-
-    # 1. Якщо доповнюється перший аргумент (підкоманда)
-    if [[ $COMP_CWORD -eq 1 ]]; then
-        if [[ "$cur" == -* ]]; then
-            COMPREPLY=( $(compgen -W "$global_flags" -- "$cur") )
-        else
-            COMPREPLY=( $(compgen -W "$subcommands" -- "$cur") )
-        fi
-        return 0
-    fi
-
-    # 2. Контекстне розгалуження за попереднім словом (prev)
-    case "$prev" in
-        start|stop|restart|status)
-            # Динамічне отримання списку активних служб із системи
-            local services
-            services=$(systemctl list-unit-files --type=service --no-legend 2>/dev/null | awk '{print $1}')
-            COMPREPLY=( $(compgen -W "$services" -- "$cur") )
-            return 0
-            ;;
-        --config=*)
-            # Доповнення шляхів до конфігураційних файлів
-            local config_prefix="${cur#--config=}"
-            COMPREPLY=( $(compgen -f -X '!*.conf' -- "$config_prefix") )
-            return 0
-            ;;
-        logs)
-            COMPREPLY=( $(compgen -W "-f --lines= --tail" -- "$cur") )
-            return 0
-            ;;
-        *)
-            COMPREPLY=()
-            ;;
-    esac
-}
-
-# Реєстрація автодоповнення для утиліти service-ctl
-complete -F _service_ctl_complete service-ctl
-```
+:::code shell-role-d/sh/service-ctl-completion.bash
 
 #### Архітектура динамічного завантаження (Dynamic Completion Loading)
 У сучасних дистрибутивах Linux одночасне завантаження тисяч скриптів автодоповнення під час запуску інтерактивної оболонки суттєво уповільнило б старт процесу і витратило мегабайти оперативної пам'яті. Тому пакунок `bash-completion` використовує ліниве завантаження (англ. *lazy-loading*).
@@ -383,102 +335,8 @@ clone(CLONE_VM | CLONE_VFORK | SIGCHLD, 0)
 У сучасній бібліотеці `glibc` на Linux виклик `posix_spawn()` виділяє окремий тимчасовий стек для нащадка і викликає `clone(CLONE_VM | CLONE_VFORK)`. Усі налаштування файлових дескрипторів та сигналів виконуються за заздалегідь підготовленими структурами дій без ризику пошкодити стек батька:
 
 :::tabs
-```c
-/* Високопродуктивний запуск процесу через posix_spawn з маніпуляцією дескрипторами */
-#include <spawn.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/wait.h>
-
-extern char **environ;
-
-int spawn_pipeline_stage(const char *path, char *const argv[], int in_fd, int out_fd) {
-    posix_spawn_file_actions_t actions;
-    posix_spawn_file_actions_init(&actions);
-
-    /* Перенаправлення stdin, якщо задано */
-    if (in_fd != STDIN_FILENO) {
-        posix_spawn_file_actions_adddup2(&actions, in_fd, STDIN_FILENO);
-        posix_spawn_file_actions_addclose(&actions, in_fd);
-    }
-    /* Перенаправлення stdout, якщо задано */
-    if (out_fd != STDOUT_FILENO) {
-        posix_spawn_file_actions_adddup2(&actions, out_fd, STDOUT_FILENO);
-        posix_spawn_file_actions_addclose(&actions, out_fd);
-    }
-
-    pid_t pid;
-    int ret = posix_spawnp(&pid, path, &actions, NULL, argv, environ);
-    posix_spawn_file_actions_destroy(&actions);
-
-    if (ret != 0) {
-        errno = ret;
-        return -1;
-    }
-    return pid;
-}
-```
-```cpp
-// Високопродуктивний запуск процесу через posix_spawn з використанням RAII
-#include <spawn.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <system_error>
-#include <vector>
-#include <string>
-
-extern char **environ;
-
-class SpawnFileActions {
-public:
-    SpawnFileActions() { ::posix_spawn_file_actions_init(&actions_); }
-    ~SpawnFileActions() { ::posix_spawn_file_actions_destroy(&actions_); }
-    
-    posix_spawn_file_actions_t* get() noexcept { return &actions_; }
-
-    void add_dup2(int old_fd, int new_fd) {
-        if (int err = ::posix_spawn_file_actions_adddup2(&actions_, old_fd, new_fd)) {
-            throw std::system_error(err, std::generic_category(), "adddup2 failed");
-        }
-    }
-    void add_close(int fd) {
-        if (int err = ::posix_spawn_file_actions_addclose(&actions_, fd)) {
-            throw std::system_error(err, std::generic_category(), "addclose failed");
-        }
-    }
-
-private:
-    posix_spawn_file_actions_t actions_{};
-};
-
-pid_t spawn_stage_cpp(const std::string& path, const std::vector<std::string>& args, int in_fd, int out_fd) {
-    SpawnFileActions actions;
-    if (in_fd != STDIN_FILENO) {
-        actions.add_dup2(in_fd, STDIN_FILENO);
-        actions.add_close(in_fd);
-    }
-    if (out_fd != STDOUT_FILENO) {
-        actions.add_dup2(out_fd, STDOUT_FILENO);
-        actions.add_close(out_fd);
-    }
-
-    std::vector<char*> c_args;
-    c_args.reserve(args.size() + 1);
-    for (const auto& a : args) {
-        c_args.push_back(const_cast<char*>(a.c_str()));
-    }
-    c_args.push_back(nullptr);
-
-    pid_t pid = 0;
-    int status = ::posix_spawnp(&pid, path.c_str(), actions.get(), nullptr, c_args.data(), environ);
-    if (status != 0) {
-        throw std::system_error(status, std::generic_category(), "posix_spawnp failed");
-    }
-    return pid;
-}
-```
+:::code shell-role-d/c/spawn_stage.c
+:::code shell-role-d/cpp/spawn.cpp
 :::
 
 #### Атомарність `pipe2(2)` та запобігання витоку дескрипторів із `O_CLOEXEC`
@@ -618,54 +476,8 @@ POSIX поділяє всі команди оболонки на кілька р
 Щоб ліквідувати цей стан гонки, **і батьківська оболонка, і дочірній процес викликають `setpgid(child_pid, pgid)` паралельно**:
 
 :::tabs
-```c
-/* Безпечне створення групи процесів без стану гонки */
-pid_t child = fork();
-if (child == 0) {
-    /* Дочірній процес */
-    pid_t pgid = (is_first_cmd) ? getpid() : pipeline_pgid;
-    setpgid(0, pgid);
-    if (is_foreground) {
-        tcsetpgrp(STDIN_FILENO, pgid);
-    }
-    execvp(cmd_argv[0], cmd_argv);
-    _exit(127);
-} else if (child > 0) {
-    /* Батьківський процес оболонки */
-    pid_t pgid = (is_first_cmd) ? child : pipeline_pgid;
-    setpgid(child, pgid);
-    if (is_foreground) {
-        tcsetpgrp(STDIN_FILENO, pgid);
-    }
-}
-```
-```cpp
-// Безпечне створення групи процесів мовою C++
-#include <unistd.h>
-#include <sys/types.h>
-#include <system_error>
-
-void spawn_in_pgrp(bool is_first_cmd, pid_t pipeline_pgid, bool is_foreground, char* const argv[]) {
-    pid_t child = ::fork();
-    if (child == 0) {
-        pid_t pgid = is_first_cmd ? ::getpid() : pipeline_pgid;
-        ::setpgid(0, pgid);
-        if (is_foreground) {
-            ::tcsetpgrp(STDIN_FILENO, pgid);
-        }
-        ::execvp(argv[0], argv);
-        ::_exit(127);
-    } else if (child > 0) {
-        pid_t pgid = is_first_cmd ? child : pipeline_pgid;
-        ::setpgid(child, pgid);
-        if (is_foreground) {
-            ::tcsetpgrp(STDIN_FILENO, pgid);
-        }
-    } else {
-        throw std::system_error(errno, std::generic_category(), "fork failed");
-    }
-}
-```
+:::code shell-role-d/c/launch.c
+:::code shell-role-d/cpp/pipeline.cpp
 :::
 
 ### Сигнали керування завданнями: SIGTSTP, SIGCONT, SIGTTIN, SIGTTOU
@@ -715,29 +527,8 @@ void spawn_in_pgrp(bool is_first_cmd, pid_t pipeline_pgid, bool is_foreground, c
 - **Обробка `SIGCHLD`:** Щоразу, коли будь-який дочірній процес завершує роботу, зупиняється чи відновлюється, ядро надсилає оболонці сигнал `SIGCHLD`. Інтерактивна оболонка встановлює обробник цього сигналу і викликає неблокуючий цикл збору кодів виходу:
 
 :::tabs
-```c
-/* Типовий цикл збору статусів дочірніх процесів в обробнику SIGCHLD */
-void sigchld_handler(int sig) {
-    int status;
-    pid_t pid;
-    /* WNOHANG гарантує, що виклик не заблокує оболонку */
-    /* WUNTRACED та WCONTINUED відстежують зупинені та відновлені процеси */
-    while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED | WCONTINUED)) > 0) {
-        update_job_status(pid, status);
-    }
-}
-```
-```cpp
-// Обробник SIGCHLD з використанням POSIX API у просторі імен C++
-void sigchld_handler(int /*sig*/) {
-    int status = 0;
-    pid_t pid = 0;
-    // WNOHANG запобігає блокуванню, WUNTRACED/WCONTINUED відстежують зміну стану
-    while ((pid = ::waitpid(-1, &status, WNOHANG | WUNTRACED | WCONTINUED)) > 0) {
-        update_job_status(pid, status);
-    }
-}
-```
+:::code shell-role-d/c/jobs.c
+:::code shell-role-d/cpp/jobs.cpp
 :::
 
 ## 7. Простеження роботи оболонки: інструменти та спостереження

@@ -94,6 +94,29 @@
 
 Номер **PID 1** залишається незмінним, відкриті дескриптори стандартних потоків вводу-виводу переносяться в новий процес, але тепер цей процес виконує код фінального системного менеджера на справжньому диску.
 
+:::tabs
+:::code boot-chain/c/main.c
+:::code boot-chain/c/steps.h
+:::code boot-chain/c/checks.c
+:::code boot-chain/c/mounts.c
+:::code boot-chain/c/wipe.c
+:::code boot-chain/c/console.c
+:::code boot-chain/c/log.h
+:::code boot-chain/c/log.c
+:::code boot-chain/cpp/main.cpp
+:::code boot-chain/cpp/root_switch.hpp
+:::code boot-chain/cpp/root_switch.cpp
+:::code boot-chain/cpp/mount_ops.hpp
+:::code boot-chain/cpp/mount_ops.cpp
+:::code boot-chain/cpp/wipe.hpp
+:::code boot-chain/cpp/wipe.cpp
+:::code boot-chain/cpp/posix.hpp
+:::
+
+:::code boot-chain/sh/init.sh
+
+*Той самий `/init` із фази 4, який доводить сховище до змонтованого `/sysroot` і останнім рядком віддає керування наведеній вище програмі.*
+
 ## Фаза 6. PID 1 і простір користувача
 
 З миті запуску `/sbin/init` принцип естафети припиняється: PID 1 більше нікому не передає керування і працює аж до вимкнення живлення системи.

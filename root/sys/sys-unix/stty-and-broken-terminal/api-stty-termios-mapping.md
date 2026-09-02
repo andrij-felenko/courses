@@ -104,31 +104,11 @@
 | `TIOCPKT_IOCTL` | `0x40` | `1 << 6` | Розширення ядра Linux (за активного `TIOCPKT_IOCTL`): стан `struct termios` на стороні Slave було змінено. | Перечитати параметри `termios` веденого пристрою для синхронізації емулятора. |
 
 4. **Інженерна схема обробки кадру в Master-циклі:**
-   ```c
-   char packet_buf[4096];
-   ssize_t n = read(master_fd, packet_buf, sizeof(packet_buf));
-   if (n > 0) {
-       unsigned char control_byte = (unsigned char)packet_buf[0];
-       if (control_byte == TIOCPKT_DATA) {
-           /* Обробка корисних даних виводу: n - 1 байтів */
-           handle_terminal_output(packet_buf + 1, n - 1);
-       } else {
-           /* Обробка керуючих прапорців лінії */
-           if (control_byte & TIOCPKT_FLUSHREAD) {
-               flush_network_rx_buffer();
-           }
-           if (control_byte & TIOCPKT_FLUSHWRITE) {
-               flush_network_tx_buffer();
-           }
-           if (control_byte & TIOCPKT_STOP) {
-               pause_data_transmission();
-           }
-           if (control_byte & TIOCPKT_START) {
-               resume_data_transmission();
-           }
-       }
-   }
-   ```
+
+:::tabs
+:::code api-stty-termios-mapping/c/pty_packet.c
+:::code api-stty-termios-mapping/cpp/src/pty_session.cpp
+:::
 
 ### Буферизація та динаміка черг PTY при високошвидкісних потоках
 
@@ -157,45 +137,18 @@
 
 ## Системний інтерфейс ABI: структури termios та termios2
 
-Інтерфейс термінальної підсистеми стандартизовано в POSIX.1 (IEEE Std 1003.1). Заголовок `<termios.h>` оголошує структуру `struct termios`, яка інкапсулює стан лінійної дисципліни ядра (драйвер `N_TTY`) для кожного символьного пристрою TTY або псевдотермінала (`/dev/pts/N`):
+Інтерфейс термінальної підсистеми стандартизовано в POSIX.1 (IEEE Std 1003.1). Заголовок `<termios.h>` оголошує структуру `struct termios`, яка інкапсулює стан лінійної дисципліни ядра (драйвер `N_TTY`) для кожного символьного пристрою TTY або псевдотермінала (`/dev/pts/N`). Структуру складають чотири бітові поля режимів (`tcflag_t c_iflag`, `c_oflag`, `c_cflag`, `c_lflag`), номер лінійної дисципліни (`cc_t c_line`, `0` = `N_TTY`), масив спеціальних керуючих символів (`cc_t c_cc[NCCS]`, де `NCCS = 32` у Linux і `20` у BSD/macOS) та пара швидкостей потоку в бодах (`speed_t c_ispeed`, `c_ospeed`). Справжню розкладку цих полів на конкретній системі — зміщення, розміри й звірку з ядровою структурою — знімає з компілятора наступна утиліта:
 
-```c
-typedef unsigned int  tcflag_t;
-typedef unsigned char cc_t;
-typedef unsigned int  speed_t;
-
-#define NCCS 32 /* Розмір масиву спецсимволів у Linux (у BSD/macOS — 20) */
-
-struct termios {
-    tcflag_t c_iflag;      /* Вхідні режими (Input Modes) */
-    tcflag_t c_oflag;      /* Вихідні режими (Output Modes) */
-    tcflag_t c_cflag;      /* Керуючі режими лінії (Control Modes) */
-    tcflag_t c_lflag;      /* Локальні режими дисципліни (Local Modes) */
-    cc_t     c_line;       /* Номер лінійної дисципліни (0 = N_TTY) */
-    cc_t     c_cc[NCCS];   /* Масив спеціальних керуючих символів */
-    speed_t  c_ispeed;     /* Швидкість вхідного потоку в бодах */
-    speed_t  c_ospeed;     /* Швидкість вихідного потоку в бодах */
-};
-```
+:::tabs
+:::code api-stty-termios-mapping/c/termios_abi.c
+:::code api-stty-termios-mapping/cpp/src/abi.cpp
+:::
 
 ### Розширена структура Linux: struct termios2 та довільні бодрейти
 
 У стандартній структурі POSIX `struct termios` швидкість передачі задається через бітове поле `CBAUD` у `c_cflag` за допомогою дискретних констант (`B9600`, `B115200` тощо). Це унеможливлює роботу з довільними апаратними швидкостями (наприклад, 31250 бод для протоколу MIDI, 250000 бод для DMX512 або нестандартні швидкості мікроконтролерів).
 
-Операційна система Linux надає низькорівневе розширення ядра через структуру `struct termios2`, визначену в системному заголовку `<asm/termbits.h>`:
-
-```c
-struct termios2 {
-    tcflag_t c_iflag;      /* Вхідні режими */
-    tcflag_t c_oflag;      /* Вихідні режими */
-    tcflag_t c_cflag;      /* Керуючі режими (підтримує прапорець BOTHER) */
-    tcflag_t c_lflag;      /* Локальні режими */
-    cc_t     c_line;       /* Номер лінійної дисципліни */
-    cc_t     c_cc[NCCS];   /* Спеціальні керуючі символи */
-    speed_t  c_ispeed;     /* Пряма числова швидкість прийому в бодах */
-    speed_t  c_ospeed;     /* Пряма числова швидкість передачі в бодах */
-};
-```
+Операційна система Linux надає низькорівневе розширення ядра через структуру `struct termios2`, визначену в системному заголовку `<asm/termbits.h>`. Її поля повторюють POSIX-структуру, але поле `c_cflag` розуміє додатковий прапорець `BOTHER`, а `c_ispeed` та `c_ospeed` містять пряму числову швидкість у бодах замість константи `Bxxx`. Ядровий масив `c_cc` при цьому коротший за бібліотечний (`NCCS = 19` проти `32`), тому дві структури не взаємозамінні, а заголовок `<asm/termbits.h>` не можна вмикати в один файл із `<termios.h>`: обидва оголошують `struct termios` і `struct termio`.
 
 Для роботи зі структурою `struct termios2` використовуються спеціальні коди запитів системного виклику `ioctl`:
 - `TCGETS2` (`_IOR('T', 0x2A, struct termios2)`): Зчитує параметри термінала безпосередньо в `struct termios2`.
@@ -205,15 +158,10 @@ struct termios2 {
 
 Щоб встановити нестандартну швидкість (наприклад, 250000 бод), у полі `c_cflag` очищають маску `CBAUD`, виставляють біт `BOTHER` (`0x00001000` / `0010000`) та записують числове значення прямо в поля `c_ispeed` і `c_ospeed`:
 
-```c
-struct termios2 t2;
-ioctl(fd, TCGETS2, &t2);
-t2.c_cflag &= ~CBAUD;
-t2.c_cflag |= BOTHER;
-t2.c_ispeed = 250000;
-t2.c_ospeed = 250000;
-ioctl(fd, TCSETS2, &t2);
-```
+:::tabs
+:::code api-stty-termios-mapping/c/termios2_baud.c
+:::code api-stty-termios-mapping/cpp/src/baud.cpp
+:::
 
 ## Системні виклики та функції керування терміналом
 
@@ -532,26 +480,9 @@ fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 2. **Особливості Edge-Triggered режиму (`EPOLLET`):**
    - У режимі `EPOLLET` ядро надсилає сповіщення лише в момент **зміни стану** (наприклад, при переході буфера від 0 байтів до ненульової кількості).
    - *Інженерний патерн повного спустошення (Draining Loop):* Обробник події зобов'язаний вичитувати дані у циклі `while` до отримання помилки `EAGAIN`:
-     ```c
-     while (1) {
-         ssize_t n = read(tty_fd, buf, sizeof(buf));
-         if (n > 0) {
-             process_input_chunk(buf, n);
-         } else if (n < 0) {
-             if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                 break; /* Усі наявні в буфері ядра байти вичитано */
-             }
-             if (errno == EINTR) {
-                 continue; /* Системний виклик перервано сигналом */
-             }
-             handle_read_error(errno);
-             break;
-         } else {
-             handle_eof(); /* n == 0: отримано кінець файлу */
-             break;
-         }
-     }
-     ```
+
+:::code api-stty-termios-mapping/c/tty_input.c
+
    - Якщо застосунок вичитає лише частину байтів (наприклад, один фіксований буфер) і вийде з обробника, `epoll_wait()` більше ніколи не розбудить процес для залишкових байтів, що призведе до повного зависання вводу.
 
 ### Несумісність блокуючих операцій termios з Event Loop та патерни асинхронного дренажу
@@ -603,41 +534,10 @@ fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 - **Застосування `TCSANOW` проти `TCSADRAIN`:** В обробниках сигналів дозволено використовувати виключно дію `TCSANOW`. Якщо користувач перед натисканням `Ctrl+C` натиснув `Ctrl+S` (зупинка передачі за протоколом XOFF), черга передачі ніколи не спустошиться, і виклик `tcsetattr(fd, TCSADRAIN, ...)` спричинить вічне взаємне блокування процесу всередині обробника сигналу.
 - **Патерн коректного завершення через самогубство (Signal Resend):** Якщо процес завершується через `_exit(1)`, батьківська оболонка сприймає це як штатно завершений процес (`WIFEXITED == true`), що спотворює статус умовних конвеєрів (наприклад, `make && ./app`). Надійний обробник відновлює стан термінала, скидає диспозицію сигналу на `SIG_DFL`, розблоковує сигнал через `sigprocmask()` та викликає `raise(signo)`:
 
-```c
-static struct termios g_orig_termios;
-static volatile sig_atomic_t g_is_raw = 0;
-
-void fatal_signal_handler(int signo) {
-    int saved_errno = errno;
-
-    if (g_is_raw) {
-        /* 1. Негайне відновлення налаштувань ядра */
-        tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
-        /* 2. Скидання графічних режимів емулятора: показ курсора та очищення стилів */
-        const char reset_seq[] = "\033[?25h\033[0m\033(B\017\033[?2004l\033[?1000l\033[?1006l\033[?2026l";
-        (void)write(STDOUT_FILENO, reset_seq, sizeof(reset_seq) - 1);
-        g_is_raw = 0;
-    }
-
-    /* 3. Скидання диспозиції сигналу на системну дію за замовчуванням */
-    struct sigaction sa;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sa.sa_handler = SIG_DFL;
-    sigaction(signo, &sa, NULL);
-
-    /* 4. Зняття блокування сигналу в поточній масці процесу */
-    sigset_t set;
-    sigemptyset(&set);
-    sigaddset(&set, signo);
-    sigprocmask(SIG_UNBLOCK, &set, NULL);
-
-    /* 5. Повторна генерація сигналу самому собі для коректного waitpid() */
-    raise(signo);
-
-    errno = saved_errno;
-}
-```
+:::tabs
+:::code api-stty-termios-mapping/c/tty_signals.c
+:::code api-stty-termios-mapping/cpp/src/terminal.cpp
+:::
 
 ### 2. Протокол керування завданнями (Job Control: SIGTSTP та SIGCONT)
 
@@ -662,25 +562,7 @@ void fatal_signal_handler(int signo) {
 - **Зчитування геометрії:** При зміні розміру вікна емулятор надсилає сигнал `SIGWINCH`. Обробник сигналу виставляє атомарний прапорець `volatile sig_atomic_t g_resized = 1;`. Основний цикл програми перевіряє цей прапорець та зчитує нові розміри викликом `ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws)`.
 - **Переривання повільних системних викликів (`EINTR`):** Блокуючий системний виклик `read(STDIN_FILENO, ...)` переривається сигналом `SIGWINCH` і повертає `-1` зі значенням `errno == EINTR`. Надійний цикл опитування повинен коректно опрацьовувати цю ситуацію:
 
-```c
-char c;
-ssize_t n;
-while (g_running) {
-    n = read(STDIN_FILENO, &c, 1);
-    if (n < 0) {
-        if (errno == EINTR) {
-            /* Системний виклик було перервано сигналом (наприклад, SIGWINCH) */
-            if (g_resized) {
-                handle_window_resize();
-                g_resized = 0;
-            }
-            continue;
-        }
-        break; /* Реальна системна помилка введення */
-    }
-    /* Обробка прочитаного байта */
-}
-```
+:::code api-stty-termios-mapping/c/main.c
 
 ### 4. Фонове читання та запис (SIGTTIN / SIGTTOU)
 
@@ -689,107 +571,28 @@ while (g_running) {
 
 ## Побітовий розбір команд та профілів stty
 
+:::tabs
+:::code api-stty-termios-mapping/c/termios_flags.c
+:::code api-stty-termios-mapping/cpp/src/flags.cpp
+:::
+
 ### Профіль stty sane
 
 Команда `stty sane` приводить структуру `struct termios` до безпечного, гарантовано працездатного стандартного стану, скидаючи специфічні налаштування прикладних програм:
 
-```c
-void make_sane(struct termios *t) {
-    /* 1. Вхідні прапорці c_iflag: */
-    t->c_iflag |= (BRKINT | ICRNL | IMAXBEL);
-    #ifdef IUTF8
-    t->c_iflag |= IUTF8;
-    #endif
-    t->c_iflag &= ~(IGNBRK | INLCR | IGNCR | IUCLC |
-                    IXOFF | IXANY | IGNPAR | PARMRK | INPCK | ISTRIP);
-    /* IXON зберігається увімкненим */
-
-    /* 2. Вихідні прапорці c_oflag: */
-    t->c_oflag |= (OPOST | ONLCR);
-    t->c_oflag &= ~(OLCUC | OCRNL | ONOCR | ONLRET | OFILL | OFDEL |
-                    NLDLY | CRDLY | TABDLY | BSDLY | VTDLY | FFDLY);
-
-    /* 3. Керуючі прапорці c_cflag: */
-    t->c_cflag |= (CREAD | CS8 | CLOCAL);
-    t->c_cflag &= ~(PARENB | PARODD | CSTOPB | CRTSCTS);
-
-    /* 4. Локальні прапорці c_lflag: */
-    t->c_lflag |= (ISIG | ICANON | IEXTEN | ECHO | ECHOE | ECHOK | ECHOCTL | ECHOKE);
-    t->c_lflag &= ~(ECHONL | NOFLSH | TOSTOP | ECHOPRT | XCASE);
-
-    /* 5. Відновлення базових значень спецсимволів c_cc: */
-    t->c_cc[VINTR]    = 0x03; /* ^C */
-    t->c_cc[VQUIT]    = 0x1C; /* ^\ */
-    t->c_cc[VERASE]   = 0x7F; /* ^? (DEL) */
-    t->c_cc[VKILL]    = 0x15; /* ^U */
-    t->c_cc[VEOF]     = 0x04; /* ^D */
-    t->c_cc[VSTART]   = 0x11; /* ^Q */
-    t->c_cc[VSTOP]    = 0x13; /* ^S */
-    t->c_cc[VSUSP]    = 0x1A; /* ^Z */
-    t->c_cc[VREPRINT] = 0x12; /* ^R */
-    t->c_cc[VWERASE]  = 0x17; /* ^W */
-    t->c_cc[VLNEXT]   = 0x16; /* ^V */
-    t->c_cc[VDISCARD] = 0x0F; /* ^O */
-    t->c_cc[VEOL]     = 0x00; /* _POSIX_VDISABLE */
-    t->c_cc[VEOL2]    = 0x00; /* _POSIX_VDISABLE */
-    t->c_cc[VMIN]     = 1;
-    t->c_cc[VTIME]    = 0;
-}
-```
+:::code api-stty-termios-mapping/c/termios_profiles.c
 
 ### Профіль stty raw та системна функція cfmakeraw
 
 Режим `stty raw` (еквівалент функції `cfmakeraw(&t)`) повністю вимикає будь-яку обробку байтів ядром, перетворюючи лінійну дисципліну на прозорий канал передачі сирих двійкових даних:
 
-```c
-void cfmakeraw(struct termios *t) {
-    /* Вимкнення всіх модифікацій вхідного потоку:
-     * - відключає обробку BREAK (IGNBRK/BRKINT)
-     * - відключає маркування та відсікання 8-го біта (PARMRK/ISTRIP)
-     * - відключає нормалізацію CR/NL (INLCR/IGNCR/ICRNL)
-     * - відключає програмне керування потоком (IXON) */
-    t->c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP |
-                    INLCR | IGNCR | ICRNL | IXON);
-
-    /* Повне вимкнення вихідної обробки:
-     * байти write() надсилаються у термінал без змін, ONLCR не працює */
-    t->c_oflag &= ~OPOST;
-
-    /* Вимкнення локальних режимів:
-     * - вимикає відлуння (ECHO/ECHONL)
-     * - вимикає буферизацію рядків (ICANON)
-     * - вимикає генерацію сигналів SIGINT/SIGQUIT/SIGTSTP (ISIG)
-     * - вимикає розширені спецсимволи (IEXTEN) */
-    t->c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
-
-    /* Налаштування апаратного кадру: 8 бітів без парності */
-    t->c_cflag &= ~(CSIZE | PARENB);
-    t->c_cflag |= CS8;
-
-    /* Переведення read() у режим очікування 1 байта без тайм-ауту */
-    t->c_cc[VMIN] = 1;
-    t->c_cc[VTIME] = 0;
-}
-```
+:::code api-stty-termios-mapping/c/tty_session.c
 
 ### Профіль прихованого вводу: stty -echo
 
 Вимкнення відлуння для безпечного введення паролів змінює виключно бітову маску `c_lflag`:
 
-```c
-void set_password_mode(int fd, struct termios *saved_t) {
-    struct termios t;
-    tcgetattr(fd, saved_t);
-    t = *saved_t;
-
-    /* Скидання бітів відлуння при збереженні канонічного режиму */
-    t.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
-
-    /* Застосування через TCSAFLUSH: гарантує видалення випадково введених
-     * раніше байтів із вхідного буфера ядра */
-    tcsetattr(fd, TCSAFLUSH, &t);
-}
-```
+:::code api-stty-termios-mapping/c/readpass.c
 
 ### Відновлення канонічного режиму: stty cooked (або stty -raw)
 
@@ -847,25 +650,7 @@ void set_password_mode(int fd, struct termios *saved_t) {
 
 Низькорівнева бібліотека `<term.h>` надає інтерфейс прямого доступу до бази `terminfo` без накладних витрат віконного менеджера curses:
 
-```c
-#include <curses.h>
-#include <term.h>
-
-int errret;
-/* 1. Ініціалізація структури TERMINAL *cur_term за дескриптором stdout */
-if (setupterm(NULL, STDOUT_FILENO, &errret) != OK) {
-    /* errret: 1 = знайдено, 0 = не знайдено, -1 = база terminfo відсутня */
-}
-
-/* 2. Зчитування булевих, числових та рядкових можливостей */
-int has_auto_margins = tigetflag("am");
-int max_colors       = tigetnum("colors");
-char *enter_alt_scr  = tigetstr("smcup"); /* \033[?1049h */
-char *exit_alt_scr   = tigetstr("rmcup"); /* \033[?1049l */
-char *hide_cursor    = tigetstr("civis"); /* \033[?25l */
-char *show_cursor    = tigetstr("cnorm"); /* \033[?25h */
-char *cursor_pos     = tigetstr("cup");   /* \033[%i%p1%d;%p2%dH */
-```
+:::code api-stty-termios-mapping/c/terminfo_caps.c
 
 1. **Параметризація послідовностей через `tparm()`:**
    Функція `char *tparm(const char *cap, ...)` приймає рядок можливості та до 9 числових/рядкових параметрів, розгортаючи їх за допомогою внутрішнього стек-орієнтованого інтерпретатора керуючих кодів:

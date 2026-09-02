@@ -174,71 +174,16 @@ U-Boot надає інтерактивну консоль через UART, пі�
 Структура пам'яті ядра починається з так званої «нульової сторінки» (структура `struct boot_params`), усередині якої за зсувом `0x01F1` розташований заголовок:
 
 :::tabs
-```c
-// arch/x86/include/uapi/asm/bootparam.h (C)
-struct setup_header {
-    __u8    setup_sects;        // Кількість секторів коду налаштування
-    __u16   root_flags;         // Прапорці монтування кореня (наприклад, 1 = read-only)
-    __u32   syssize;            // Розмір захищеного коду ядра в 16-байтних параграфах
-    __u16   ram_size;           // Застаріле поле розміру пам'яті
-    __u16   vid_mode;           // Відеорежим консолі
-    __u16   root_dev;           // Застарілий номер кореневого пристрою
-    __u16   boot_flag;          // Сигнатура 0xAA55
-    __u16   jump;               // Інструкція короткого переходу (jmp)
-    __u32   header;             // Магічне число "HdrS" (0x53726448) — підтвердження протоколу
-    __u16   version;            // Версія протоколу завантаження (наприклад, 0x020f для v2.15)
-    __u32   realmode_swtch;     // Вказівник на функцію перемикання режимів
-    __u16   start_sys_seg;      // Сегмент старту системи
-    __u16   kernel_version;     // Вказівник на рядок версії ядра у пам'яті
-    __u8    type_of_loader;     // Ідентифікатор завантажувача (наприклад, 0x72 = GRUB, 0x80 = EFI)
-    __u8    loadflags;          // Прапорці: біт 0 (LOADED_HIGH) = ядро завантажено вище 1 МіБ
-    __u16   setup_move_size;    // Розмір переміщення коду налаштування
-    __u32   code32_start;       // Фізична адреса точки входу в захищений режим (0x100000)
-    __u32   ramdisk_image;      // Фізична 32-бітна адреса initramfs у пам'яті
-    __u32   ramdisk_size;       // Розмір initramfs у байтах
-    __u32   bootsect_kludge;    // Застаріле
-    __u16   heap_end_ptr;       // Зсув кінця купи завантажувача
-    __u8    ext_loader_ver;     // Розширений номер версії завантажувача
-    __u8    ext_loader_type;    // Розширений тип завантажувача
-    __u32   cmd_line_ptr;       // 32-бітна фізична адреса рядка параметрів ядра (cmdline)
-    __u32   initrd_addr_max;    // Максимально допустима адреса для розміщення initramfs
-} __attribute__((packed));
-```
-```cpp
-// asm/bootparam.h у C++ контексті з явними типами фіксованої ширини
-#include <cstdint>
-
-struct [[gnu::packed]] SetupHeader {
-    std::uint8_t   setup_sects;        // Кількість секторів коду налаштування
-    std::uint16_t  root_flags;         // Прапорці монтування кореня (наприклад, 1 = read-only)
-    std::uint32_t  syssize;            // Розмір захищеного коду ядра в 16-байтних параграфах
-    std::uint16_t  ram_size;           // Застаріле поле розміру пам'яті
-    std::uint16_t  vid_mode;           // Відеорежим консолі
-    std::uint16_t  root_dev;           // Застарілий номер кореневого пристрою
-    std::uint16_t  boot_flag;          // Сигнатура 0xAA55
-    std::uint16_t  jump;               // Інструкція короткого переходу (jmp)
-    std::uint32_t  header;             // Магічне число "HdrS" (0x53726448) — підтвердження протоколу
-    std::uint16_t  version;            // Версія протоколу завантаження (наприклад, 0x020f для v2.15)
-    std::uint32_t  realmode_swtch;     // Вказівник на функцію перемикання режимів
-    std::uint16_t  start_sys_seg;      // Сегмент старту системи
-    std::uint16_t  kernel_version;     // Вказівник на рядок версії ядра у пам'яті
-    std::uint8_t   type_of_loader;     // Ідентифікатор завантажувача (наприклад, 0x72 = GRUB, 0x80 = EFI)
-    std::uint8_t   loadflags;          // Прапорці: біт 0 (LOADED_HIGH) = ядро завантажено вище 1 МіБ
-    std::uint16_t  setup_move_size;    // Розмір переміщення коду налаштування
-    std::uint32_t  code32_start;       // Фізична адреса точки входу в захищений режим (0x100000)
-    std::uint32_t  ramdisk_image;      // Фізична 32-бітна адреса initramfs у пам'яті
-    std::uint32_t  ramdisk_size;       // Розмір initramfs у байтах
-    std::uint32_t  bootsect_kludge;    // Застаріле
-    std::uint16_t  heap_end_ptr;       // Зсув кінця купи завантажувача
-    std::uint8_t   ext_loader_ver;     // Розширений номер версії завантажувача
-    std::uint8_t   ext_loader_type;    // Розширений тип завантажувача
-    std::uint32_t  cmd_line_ptr;       // 32-бітна фізична адреса рядка параметрів ядра (cmdline)
-    std::uint32_t  initrd_addr_max;    // Максимально допустима адреса для розміщення initramfs
-};
-```
+:::code boot-chain-d/c/bootparam.h
+:::code boot-chain-d/cpp/boot_header.hpp
 :::
 
 Завантажувач виділяє сторінки пам'яті (через сервіс UEFI `AllocatePages` або карту BIOS), копіює туди файл `initramfs`, записує отриману фізичну адресу в поле `ramdisk_image`, а розмір файлу — в `ramdisk_size`. Текстовий рядок параметрів (наприклад, `BOOT_IMAGE=/vmlinuz root=UUID=6f1e2b7a-9c40-4f11-a2d3-0b7c81e5a9f2 ro quiet splash`) розміщується в окремому буфері пам'яті, а вказівник на нього записується в `cmd_line_ptr`.
+
+:::tabs
+:::code boot-chain-d/c/bootparam.c
+:::code boot-chain-d/cpp/boot_header.cpp
+:::
 
 Крім того, завантажувач передає ядру карту фізичної пам'яті — масив `e820_table` у структурі `boot_params`. У BIOS цей масив отримують викликом переривання `INT 15h, AX=E820h`, а в UEFI завантажувач викликає сервіс `GetMemoryMap()` і транслює дескриптори типів пам'яті UEFI (`EfiBootServicesCode`, `EfiConventionalMemory`, `EfiACPIReclaimMemory`) у стандартні записи E820:
 - `E820_RAM` (1) — доступна звичайна пам'ять;
@@ -459,20 +404,9 @@ trace-cmd report | grep initcall_finish
 
 Усередині `initramfs` виконується або скрипт оболонки `/init` (на базі легковагого набору утиліт BusyBox у Debian/Ubuntu), або повноцінний екземпляр systemd (у середовищах на базі Dracut у Fedora/RHEL/Arch).
 
-Перші кроки `/init`:
-```sh
-#!/bin/sh
-# Монтування службових псевдофайлових систем усередині rootfs
-mount -t proc proc /proc
-mount -t sysfs sysfs /sys
-mount -t devtmpfs devtmpfs /dev
-mount -t tmpfs tmpfs /run
+Скрипт `/init` цілком — від службових монтувань і запуску `udevd` до передачі керування `switch_root`:
 
-# Запуск демона динамічного створення пристроїв
-/lib/systemd/systemd-udevd --daemon
-udevadm trigger --action=add
-udevadm settle
-```
+:::code boot-chain-d/sh/init.sh
 
 Демон `udevd` слухає широкомовні повідомлення ядра про виявлене залізо через сокет Netlink (`NETLINK_KOBJECT_UEVENT`). Коли команда `udevadm trigger` примусово надсилає запит на опитування шин, ядро генерує uevents для кожного знайденого пристрою. Менеджер `udevd` зіставляє рядок `MODALIAS` (наприклад, `pci:v000010DEd00002204sv...`) з базою правил `/lib/modules/$(uname -r)/modules.alias`, автоматично викликає утиліту `modprobe` і довантажує в пам'ять лише потрібні модулі ядра:
 - контролери накопичувачів: `nvme`, `ahci`, `mpt3sas`, `megaraid_sas`, `virtio_blk`;
@@ -561,106 +495,13 @@ udevadm settle
 Нижче наведено робочий приклад коду мовами C та C++, що демонструє серцевину логіки атомарного перенесення монтувань, очищення та перемикання образу через `execv`:
 
 :::tabs
-```c
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/mount.h>
-#include <sys/stat.h>
+:::code boot-chain-d/c/switchroot.c
+:::code boot-chain-d/cpp/switch_root.cpp
+:::
 
-// Атомарне перенесення службових файлових систем і перемикання кореня
-int switch_root_perform(const char *new_root, const char *init_path, char *const argv[]) {
-    // 1. Переносимо псевдо-ФС зі старого кореня в новий
-    const char *mounts[] = { "/dev", "/proc", "/sys", "/run", NULL };
-    for (int i = 0; mounts[i] != NULL; ++i) {
-        char target[256];
-        snprintf(target, sizeof(target), "%s%s", new_root, mounts[i]);
-        if (mount(mounts[i], target, NULL, MS_MOVE, NULL) != 0) {
-            perror("mount MS_MOVE failed");
-        }
-    }
-
-    // 2. Переходимо в каталог нового кореня
-    if (chdir(new_root) != 0) {
-        perror("chdir to new_root failed");
-        return -1;
-    }
-
-    // 3. Переміщуємо монтування нового кореня на місце старого кореня "/"
-    if (mount(".", "/", NULL, MS_MOVE, NULL) != 0) {
-        perror("mount MS_MOVE to / failed");
-        return -1;
-    }
-
-    // 4. Фіксуємо новий корінь для процесу
-    if (chroot(".") != 0 || chdir("/") != 0) {
-        perror("chroot failed");
-        return -1;
-    }
-
-    // 5. Заміщуємо образ PID 1 справжнім системним ініціалізатором
-    execv(init_path, argv);
-
-    // Якщо execv повернув керування — сталася фатальна помилка
-    perror("execv failed");
-    return -1;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <vector>
-#include <array>
-#include <unistd.h>
-#include <sys/mount.h>
-
-// Безпечна C++ обгортка над системними викликами переходу switch_root
-bool switch_root_perform(std::string_view new_root, std::string_view init_path, const std::vector<std::string>& args) {
-    constexpr std::array<std::string_view, 4> pseudo_mounts = { "/dev", "/proc", "/sys", "/run" };
-
-    // 1. Рекурсивне перенесення точок монтування
-    for (const auto& mnt : pseudo_mounts) {
-        std::string target = std::string(new_root) + std::string(mnt);
-        if (mount(mnt.data(), target.c_str(), nullptr, MS_MOVE, nullptr) != 0) {
-            std::perror(("Помилка перенесення " + std::string(mnt)).c_str());
-        }
-    }
-
-    // 2. Перехід у каталог цільового кореня
-    if (chdir(new_root.data()) != 0) {
-        std::perror("chdir до цільового кореня не вдався");
-        return false;
-    }
-
-    // 3. Атомарне перенесення точки монтування на кореневий скіш "/"
-    if (mount(".", "/", nullptr, MS_MOVE, nullptr) != 0) {
-        std::perror("mount MS_MOVE у корінь / зазнав невдачі");
-        return false;
-    }
-
-    // 4. Фіксація кореня процесу та робочої директорії
-    if (chroot(".") != 0 || chdir("/") != 0) {
-        std::perror("chroot у новий корінь зазнав невдачі");
-        return false;
-    }
-
-    // 5. Підготовка аргументів та in-place підміна образу процесу
-    std::vector<char*> raw_argv;
-    raw_argv.reserve(args.size() + 1);
-    for (const auto& arg : args) {
-        raw_argv.push_back(const_cast<char*>(arg.c_str()));
-    }
-    raw_argv.push_back(nullptr);
-
-    execv(init_path.data(), raw_argv.data());
-
-    std::perror("execv системного init зазнав невдачі");
-    return false;
-}
-```
+:::tabs
+:::code boot-chain-d/c/main.c
+:::code boot-chain-d/cpp/main.cpp
 :::
 
 ## Життя після переходу: чому PID 1 не може померти
@@ -781,7 +622,9 @@ $ systemd-analyze blame | head -5
 Справжніх винуватців затримки показує пошук найдовшого шляху в графі залежностей:
 
 ```sh
-$ systemd-analyze critical-chain
+systemd-analyze critical-chain
+```
+```
 graphical.target @5.620s
 └─multi-user.target @5.619s
   └─NetworkManager-wait-online.service @1.517s +4.102s

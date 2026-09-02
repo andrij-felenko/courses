@@ -483,66 +483,8 @@ systemd передає відкриті дескриптори у процес �
 Демон перевіряє ці змінні за допомогою бібліотеки `libsystemd` або нативного коду:
 
 :::tabs
-```c
-#include <systemd/sd-daemon.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    // Перевіряємо наявність сокетів від systemd (0 означає очищення змінних для нащадків)
-    int n = sd_listen_fds(0);
-    if (n < 0) {
-        fprintf(stderr, "Помилка читання дескрипторів: %d\n", n);
-        return 1;
-    }
-
-    int listen_fd;
-    if (n == 0) {
-        // Запуск вручну: відкриваємо власний сокет
-        listen_fd = 3; // приклад створення нового сокета
-    } else {
-        // Сокетна активація: перший дескриптор гарантовано SD_LISTEN_FDS_START (3)
-        listen_fd = SD_LISTEN_FDS_START;
-    }
-
-    // Служба повідомляє менеджер про готовність приймати трафік
-    sd_notify(0, "READY=1");
-
-    // Основний цикл обробки з'єднань через accept(listen_fd, ...)
-    return 0;
-}
-```
-```cpp
-#include <systemd/sd-daemon.h>
-#include <iostream>
-#include <system_error>
-#include <unistd.h>
-
-int main() {
-    // Перевіряємо наявність сокетів від systemd
-    const int n = sd_listen_fds(0);
-    if (n < 0) {
-        std::cerr << "Помилка читання дескрипторів: "
-                  << std::generic_category().message(-n) << '\n';
-        return 1;
-    }
-
-    int listen_fd = 0;
-    if (n == 0) {
-        // Запуск вручну без сокетної активації
-        listen_fd = 3;
-    } else {
-        // Використовуємо дескриптор, наданий systemd
-        listen_fd = SD_LISTEN_FDS_START;
-    }
-
-    // Сигналізуємо менеджеру про перехід у стан готовності
-    sd_notify(0, "READY=1");
-
-    // Обробка запитів на listen_fd...
-    return 0;
-}
-```
+:::code systemd-model-d/c/listen_fds.c
+:::code systemd-model-d/cpp/src/listen_socket.cpp
 :::
 
 Завдяки цьому клієнт і сервер позбавляються залежностей порядку запуску `After=`: їх можна піднімати одночасно в першій хвилі. Якщо сервер падає і перезапускається, сокет залишається відкритим у PID 1, тому жодне клієнтське з'єднання не втрачається.
@@ -731,115 +673,11 @@ PID 1 тримає сокет `/run/systemd/notify` у своєму головн
 
 ### Робочий приклад інтеграції Watchdog у службі
 
-Нижче наведено самодостатні приклади реалізації демона на мовах C та C++ з використанням бібліотеки `libsystemd` (`sd-daemon.h`), коректною обробкою сигналів завершення та періодичним відправленням підтверджень працездатності:
+Нижче наведено головний модуль демона на мовах C та C++ з використанням бібліотеки `libsystemd` (`sd-daemon.h`): цикл подій на `epoll`, коректна обробка сигналів завершення та періодичне відправлення підтверджень працездатності. Пульс надсилається лише після самодіагностики — інакше `WATCHDOG=1` означав би «мій таймер цокає», а не «я обслуговую роботу»:
 
 :::tabs
-```c
-#include <systemd/sd-daemon.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdbool.h>
-
-static volatile sig_atomic_t g_running = 1;
-
-static void handle_signal(int sig) {
-    (void)sig;
-    g_running = 0;
-}
-
-int main(void) {
-    struct sigaction sa = { .sa_handler = handle_signal };
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGTERM, &sa, NULL);
-    sigaction(SIGINT, &sa, NULL);
-
-    // Зчитуємо налаштований інтервал WatchdogSec від systemd (у мікросекундах)
-    uint64_t watchdog_usec = 0;
-    int watchdog_enabled = sd_watchdog_enabled(0, &watchdog_usec);
-    if (watchdog_enabled < 0) {
-        fprintf(stderr, "Помилка перевірки сторожового таймера: %d\n", watchdog_enabled);
-        return EXIT_FAILURE;
-    }
-
-    // Період пульсу — половина від таймауту менеджера
-    useconds_t ping_interval_us = (watchdog_enabled > 0 && watchdog_usec > 0)
-                                      ? (useconds_t)(watchdog_usec / 2)
-                                      : 1000000; // 1 секунда за замовчуванням
-
-    // Сповіщаємо PID 1 про готовність приймати роботу (перехід у стан active)
-    sd_notify(0, "READY=1");
-
-    while (g_running) {
-        // Виконання корисного робочого циклу служби...
-        usleep(ping_interval_us);
-
-        // Якщо сторожовий нагляд увімкнено, надсилаємо підтвердження працездатності
-        if (watchdog_enabled > 0) {
-            sd_notify(0, "WATCHDOG=1");
-        }
-    }
-
-    // Повідомляємо менеджер про початок чистої процедури зупинки
-    sd_notify(0, "STOPPING=1");
-    return EXIT_SUCCESS;
-}
-```
-```cpp
-#include <systemd/sd-daemon.h>
-#include <chrono>
-#include <csignal>
-#include <atomic>
-#include <iostream>
-#include <system_error>
-#include <thread>
-
-namespace {
-std::atomic<bool> g_running{true};
-
-void handle_signal(int) noexcept {
-    g_running.store(false, std::memory_order_relaxed);
-}
-} // namespace
-
-int main() {
-    struct sigaction sa{};
-    sa.sa_handler = handle_signal;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGTERM, &sa, nullptr);
-    sigaction(SIGINT, &sa, nullptr);
-
-    uint64_t watchdog_usec = 0;
-    const int watchdog_enabled = sd_watchdog_enabled(0, &watchdog_usec);
-    if (watchdog_enabled < 0) {
-        std::cerr << "Помилка перевірки сторожового таймера: "
-                  << std::generic_category().message(-watchdog_enabled) << '\n';
-        return 1;
-    }
-
-    // Період відправки пульсу (T_watchdog / 2)
-    const auto ping_interval = (watchdog_enabled > 0 && watchdog_usec > 0)
-        ? std::chrono::microseconds(watchdog_usec / 2)
-        : std::chrono::seconds(1);
-
-    // Сповіщаємо PID 1 про перехід у стан готовності
-    sd_notify(0, "READY=1");
-
-    while (g_running.load(std::memory_order_relaxed)) {
-        // Виконання основного бізнес-циклу програми...
-        std::this_thread::sleep_for(ping_interval);
-
-        if (watchdog_enabled > 0) {
-            sd_notify(0, "WATCHDOG=1");
-        }
-    }
-
-    // Сигналізуємо про штатну зупинку
-    sd_notify(0, "STOPPING=1");
-    return 0;
-}
-```
+:::code systemd-model-d/c/worker.c
+:::code systemd-model-d/cpp/src/worker.cpp
 :::
 
 ## Події за часом: календар, монотонічність і таймери
@@ -951,106 +789,8 @@ systemd не опитує стан годинника щосекунди. Мен
 Для роботи з шиною всередині компонентів системи використовується вбудована бібліотека `sd-bus` з комплекту `libsystemd` — швидка, безблокуюча C-реалізація клієнта D-Bus:
 
 :::tabs
-```c
-#include <systemd/sd-bus.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(void) {
-    sd_bus_error error = SD_BUS_ERROR_NULL;
-    sd_bus_message *reply = NULL;
-    sd_bus *bus = NULL;
-
-    // Підключаємося до системної шини D-Bus
-    int r = sd_bus_open_system(&bus);
-    if (r < 0) {
-        fprintf(stderr, "Не вдалося відкрити системну шину: %s\n", strerror(-r));
-        goto finish;
-    }
-
-    // Викликаємо метод StartUnit на менеджері PID 1
-    r = sd_bus_call_method(bus,
-                           "org.freedesktop.systemd1",         // сервіс
-                           "/org/freedesktop/systemd1",        // об'єкт
-                           "org.freedesktop.systemd1.Manager", // інтерфейс
-                           "StartUnit",                        // назва методу
-                           &error,                             // структура помилки
-                           &reply,                             // відповідь
-                           "ss",                               // сигнатура типів аргументів
-                           "nginx.service",                    // назва юніта
-                           "replace");                         // режим виконання транзакції
-    if (r < 0) {
-        fprintf(stderr, "Помилка виклику StartUnit: %s\n", error.message);
-        goto finish;
-    }
-
-    // Зчитуємо об'єктний шлях створеного Job
-    const char *job_path = NULL;
-    r = sd_bus_message_read(reply, "o", &job_path);
-    if (r >= 0) {
-        printf("Завдання успішно створено: %s\n", job_path);
-    }
-
-finish:
-    sd_bus_error_free(&error);
-    sd_bus_message_unref(reply);
-    sd_bus_unref(bus);
-    return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
-}
-```
-```cpp
-#include <systemd/sd-bus.h>
-#include <iostream>
-#include <memory>
-#include <system_error>
-
-// RAII обгортки для керування пам'яттю дескрипторів D-Bus
-struct BusDeleter { void operator()(sd_bus *b) const { sd_bus_unref(b); } };
-struct MessageDeleter { void operator()(sd_bus_message *m) const { sd_bus_message_unref(m); } };
-
-int main() {
-    sd_bus *raw_bus = nullptr;
-    int r = sd_bus_open_system(&raw_bus);
-    if (r < 0) {
-        std::cerr << "Не вдалося відкрити системну шину: "
-                  << std::generic_category().message(-r) << '\n';
-        return 1;
-    }
-    std::unique_ptr<sd_bus, BusDeleter> bus(raw_bus);
-
-    sd_bus_error error = SD_BUS_ERROR_NULL;
-    sd_bus_message *raw_reply = nullptr;
-
-    // Викликаємо StartUnit на об'єкті менеджера PID 1
-    r = sd_bus_call_method(bus.get(),
-                           "org.freedesktop.systemd1",
-                           "/org/freedesktop/systemd1",
-                           "org.freedesktop.systemd1.Manager",
-                           "StartUnit",
-                           &error,
-                           &raw_reply,
-                           "ss",
-                           "nginx.service",
-                           "replace");
-
-    std::unique_ptr<sd_bus_message, MessageDeleter> reply(raw_reply);
-
-    if (r < 0) {
-        std::cerr << "Помилка виклику StartUnit: " << error.message << '\n';
-        sd_bus_error_free(&error);
-        return 1;
-    }
-
-    const char *job_path = nullptr;
-    if (sd_bus_message_read(reply.get(), "o", &job_path) >= 0) {
-        std::cout << "Завдання успішно створено: " << job_path << '\n';
-    }
-
-    sd_bus_error_free(&error);
-    return 0;
-}
-```
+:::code systemd-model-d/c/unitctl.c
+:::code systemd-model-d/cpp/src/unitctl.cpp
 :::
 
 Через підписку на D-Bus сигнали `JobRemoved` та `UnitFilesChanged` зовнішні інструменти моніторингу миттєво дізнаються про будь-які зміни стану юнітів без циклічного опитування ядра.

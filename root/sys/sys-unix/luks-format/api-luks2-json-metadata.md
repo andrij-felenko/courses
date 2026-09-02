@@ -58,75 +58,15 @@
 ### Декларація структури `struct luks2_hdr_disk`
 
 :::tabs
-```c
-#include <stdint.h>
+:::code api-luks2-json-metadata/c/luks2_hdr.h
+:::code api-luks2-json-metadata/cpp/src/header.hpp
+:::
 
-#define LUKS2_MAGIC_1             "LUKS\xba\xbe"
-#define LUKS2_MAGIC_2             "SKUL\xba\xbe"
-#define LUKS2_MAGIC_SIZE          6
-#define LUKS2_LABEL_SIZE          48
-#define LUKS2_CHECKSUM_ALG_SIZE   32
-#define LUKS2_SALT_SIZE           64
-#define LUKS2_UUID_SIZE           44
-#define LUKS2_SUBSYSTEM_SIZE      48
-#define LUKS2_PADDING_SIZE        180
-#define LUKS2_CHECKSUM_SIZE       64
-#define LUKS2_HDR_PAD_SIZE        3584
-#define LUKS2_HDR_TOTAL_SIZE      4096
+Читання копії за оголошеним контрактом: сигнатура, версія, розмір зони, звірка `hdr_offset` із фактичним зсувом, перерахунок `csum` над усім блоком і межі текстової області.
 
-#pragma pack(push, 1)
-struct luks2_hdr_disk {
-    char     magic[LUKS2_MAGIC_SIZE];             /* 0x0000: "LUKS\xba\xbe" або "SKUL\xba\xbe" */
-    uint16_t version;                             /* 0x0006: 0x0002 (Big-Endian) */
-    uint64_t hdr_size;                            /* 0x0008: Розмір заголовка + JSON у байтах */
-    uint64_t seqid;                               /* 0x0010: Монотонний лічильник послідовності */
-    char     label[LUKS2_LABEL_SIZE];             /* 0x0018: Текстова мітка тома */
-    char     csum_alg[LUKS2_CHECKSUM_ALG_SIZE];   /* 0x0048: Алгоритм хешування ("sha256") */
-    uint8_t  salt[LUKS2_SALT_SIZE];               /* 0x0068: Криптографічна сіль контрольної суми */
-    char     uuid[LUKS2_UUID_SIZE];               /* 0x00A8: UUID тома */
-    char     subsystem[LUKS2_SUBSYSTEM_SIZE];     /* 0x00D4: Назва підсистеми ("systemd", "cryptsetup") */
-    uint64_t hdr_offset;                          /* 0x0104: Очікуваний фізичний зсув (0 або 4194304) */
-    uint8_t  _padding[LUKS2_PADDING_SIZE];        /* 0x010C: Зарезервована область вирівнювання */
-    uint8_t  csum[LUKS2_CHECKSUM_SIZE];           /* 0x01C0: Контрольна сума всього блоку метаданих */
-    uint8_t  _pad_to_4k[LUKS2_HDR_PAD_SIZE];      /* 0x0200: Заповнення нулями до 4096 байтів */
-};
-#pragma pack(pop)
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-inline constexpr const char* LUKS2_MAGIC_1           = "LUKS\xba\xbe";
-inline constexpr const char* LUKS2_MAGIC_2           = "SKUL\xba\xbe";
-inline constexpr std::size_t LUKS2_MAGIC_SIZE        = 6;
-inline constexpr std::size_t LUKS2_LABEL_SIZE        = 48;
-inline constexpr std::size_t LUKS2_CHECKSUM_ALG_SIZE = 32;
-inline constexpr std::size_t LUKS2_SALT_SIZE         = 64;
-inline constexpr std::size_t LUKS2_UUID_SIZE         = 44;
-inline constexpr std::size_t LUKS2_SUBSYSTEM_SIZE    = 48;
-inline constexpr std::size_t LUKS2_PADDING_SIZE      = 180;
-inline constexpr std::size_t LUKS2_CHECKSUM_SIZE     = 64;
-inline constexpr std::size_t LUKS2_HDR_PAD_SIZE      = 3584;
-inline constexpr std::size_t LUKS2_HDR_TOTAL_SIZE    = 4096;
-
-#pragma pack(push, 1)
-struct luks2_hdr_disk {
-    char     magic[LUKS2_MAGIC_SIZE];             // 0x0000: "LUKS\xba\xbe" або "SKUL\xba\xbe"
-    uint16_t version;                             // 0x0006: 0x0002 (Big-Endian)
-    uint64_t hdr_size;                            // 0x0008: Розмір заголовка + JSON у байтах
-    uint64_t seqid;                               // 0x0010: Монотонний лічильник послідовності
-    char     label[LUKS2_LABEL_SIZE];             // 0x0018: Текстова мітка тома
-    char     csum_alg[LUKS2_CHECKSUM_ALG_SIZE];   // 0x0048: Алгоритм хешування ("sha256")
-    uint8_t  salt[LUKS2_SALT_SIZE];               // 0x0068: Криптографічна сіль контрольної суми
-    char     uuid[LUKS2_UUID_SIZE];               // 0x00A8: UUID тома
-    char     subsystem[LUKS2_SUBSYSTEM_SIZE];     // 0x00D4: Назва підсистеми ("systemd", "cryptsetup")
-    uint64_t hdr_offset;                          // 0x0104: Очікуваний фізичний зсув (0 або 4194304)
-    uint8_t  _padding[LUKS2_PADDING_SIZE];        // 0x010C: Зарезервована область вирівнювання
-    uint8_t  csum[LUKS2_CHECKSUM_SIZE];           // 0x01C0: Контрольна сума всього блоку метаданих
-    uint8_t  _pad_to_4k[LUKS2_HDR_PAD_SIZE];      // 0x0200: Заповнення нулями до 4096 байтів
-};
-#pragma pack(pop)
-```
+:::tabs
+:::code api-luks2-json-metadata/c/luks2_hdr.c
+:::code api-luks2-json-metadata/cpp/src/header.cpp
 :::
 
 ### Протокол транзакційного оновлення заголовків
@@ -699,20 +639,7 @@ S = ∑ [ f(x_j) · ∏ (-x_m) / (x_j - x_m) ]  для j = 1 .. t, m ≠ j
 
 #### 5.6.4. Утиліти керування зв'язуванням Clevis
 
-```bash
-# Прив'язка тома LUKS2 до одиночного сервера Tang
-clevis luks bind -d /dev/nvme0n1p3 tang '{"url":"http://tang.internal:8888","thp":"z8yB3vM..."}'
-
-# Прив'язка з пороговою SSS-політикою (2 з 3 серверів Tang)
-clevis luks bind -d /dev/nvme0n1p3 sss \
-  '{"t":2,"pins":{"tang":[{"url":"http://tang1:8888"},{"url":"http://tang2:8888"},{"url":"http://tang3:8888"}]}}'
-
-# Перелік зареєстрованих пінів Clevis у томі
-clevis luks list -d /dev/nvme0n1p3
-
-# Ручне розблокування тому за допомогою токена Clevis
-clevis luks unlock -d /dev/nvme0n1p3 -n secure_storage
-```
+:::code api-luks2-json-metadata/sh/clevis-nbde-bind.sh
 
 ---
 
@@ -1241,30 +1168,7 @@ walksize     : 64
 
 #### 7.5.4. Практична конфігурація та налаштування стеку IMA/EVM поверх LUKS2
 
-```bash
-# 1. Завантаження відкритого сертифіката підпису IMA в ключницю ядра .ima
-keyctl padd asymmetric "x509_ima_cert" %keyring:.ima < /etc/keys/x509_ima.der
-
-# 2. Ініціалізація симетричного ключа EVM (захищеного запечатуванням у TPM2)
-keyctl add encrypted "evm-key" "load $(cat /etc/keys/evm-key.blob)" @u
-keyctl padd trusted "evm-key" %keyring:.evm
-
-# 3. Рекурсивне підписання системних бінарних файлів та бібліотек утилітою evmctl
-evmctl ima_sign --key /etc/keys/privkey.pem --cert /etc/keys/x509_ima.der -r /usr/bin/
-evmctl ima_sign --key /etc/keys/privkey.pem --cert /etc/keys/x509_ima.der -r /usr/lib/
-
-# 4. Формування та підпис розширених атрибутів security.evm
-evmctl sign --imahash --key /etc/keys/privkey.pem -r /usr/bin/
-evmctl sign --imahash --key /etc/keys/privkey.pem -r /usr/lib/
-
-# 5. Інспекція встановлених розширених атрибутів на бінарному файлі
-getfattr -m . -d -e hex /usr/bin/sudo
-# Вивід містить:
-# security.capability=0x...
-# security.evm=0x02a7f6e2c9... (HMAC) або 0x03... (Digital Signature)
-# security.ima=0x03... (Підпис X.509)
-# security.selinux=0x...
-```
+:::code api-luks2-json-metadata/sh/ima-evm-enroll.sh
 
 Активація політик ядра здійснюється через параметри командного рядка під час завантаження:
 ```text
@@ -1591,6 +1495,15 @@ ima_policy=appraise_tcb ima_appraise=enforce evm=enforce
       "hash": "sha256"
     }
   },
+  "config": {
+    "json_size": "4190208",
+    "keyslots_size": "12582912",
+    "flags": [],
+    "requirements": []
+  }
+}
+```
+
 ### Приклад 4. Хмарне сховище з мережевим розблокуванням NBDE (Clevis + Tang SSS)
 
 Конфігурація віртуального серверного тома з комбінованим автоматичним розблокуванням за схемою Shamir Secret Sharing (поріг 2 з 2: доступність внутрішнього сервера Tang плюс валідність конфігурації платформи TPM 2.0):
@@ -1729,21 +1642,7 @@ ima_policy=appraise_tcb ima_appraise=enforce evm=enforce
 
 ### 10.1. Форматування тома (`cryptsetup luksFormat`)
 
-```bash
-cryptsetup luksFormat \
-  --type luks2 \
-  --cipher aes-xts-plain64 \
-  --key-size 512 \
-  --hash sha256 \
-  --pbkdf argon2id \
-  --pbkdf-memory 1048576 \
-  --pbkdf-parallel 4 \
-  --iter-time 4000 \
-  --sector-size 4096 \
-  --label "secure_storage" \
-  --subsystem "production" \
-  /dev/nvme0n1p3
-```
+:::code api-luks2-json-metadata/sh/luks2-format.sh
 
 * `--type luks2` — створення тому за специфікацією LUKS2 (з двома заголовками та JSON-метаданими).
 * `--cipher aes-xts-plain64` — алгоритм та режим шифрування секторів корисного навантаження.
@@ -1785,13 +1684,10 @@ cryptsetup luksHeaderRestore /dev/nvme0n1p3 --header-backup-file /root/luks2_hea
 ```bash
 # Перегляд усіх активних токенів у томі
 cryptsetup token list /dev/nvme0n1p3
-
 # Видалення токена з ідентифікатором 0
 cryptsetup token remove --token-id 0 /dev/nvme0n1p3
-
 # Імпорт користувацького токена із JSON-файлу
 cryptsetup token import --token-id 1 /dev/nvme0n1p3 < custom_token.json
-
 # Відкриття тома за допомогою зареєстрованого токена
 cryptsetup token open /dev/nvme0n1p3 crypt_volume
 ```
@@ -1813,32 +1709,15 @@ cryptsetup luksKillSlot /dev/nvme0n1p3 2
 
 ### 10.6. Керування ключами (`luksAddKey`, `luksChangeKey`, `luksRemoveKey`)
 
-```bash
-# Додавання нового пароля до вільного слота з явними параметрами KDF
-cryptsetup luksAddKey /dev/nvme0n1p3 \
-  --pbkdf argon2id \
-  --pbkdf-memory 1048576 \
-  --pbkdf-parallel 4 \
-  --key-slot 1
-
-# Зміна пароля в існуючому слоті
-cryptsetup luksChangeKey /dev/nvme0n1p3 --key-slot 1
-
-# Видалення ключа за паролем
-cryptsetup luksRemoveKey /dev/nvme0n1p3
-```
+:::code api-luks2-json-metadata/sh/manage-keys.sh
 
 ### 10.7. Онлайн-перешифрування тома (`cryptsetup reencrypt`)
 
 ```bash
 # Первинне шифрування відкритого пристрою на льоту з використанням журналу
-cryptsetup reencrypt --encrypt \
-  --type luks2 \
-  --resilience journal \
-  --resilience-hash sha256 \
-  --cipher aes-xts-plain64 \
-  --reduce-device-size 32M \
-  /dev/nvme0n1p3
+cryptsetup reencrypt --encrypt --type luks2 \
+  --resilience journal --resilience-hash sha256 \
+  --cipher aes-xts-plain64 --reduce-device-size 32M /dev/nvme0n1p3
 
 # Відновлення перерваного перешифрування після збою живлення
 cryptsetup reencrypt --resume-only /dev/nvme0n1p3
@@ -1846,25 +1725,7 @@ cryptsetup reencrypt --resume-only /dev/nvme0n1p3
 
 ### 10.8. Прив'язка апаратних токенів (`systemd-cryptenroll`)
 
-```bash
-# Прив'язка TPM 2.0 до регістрів PCR 0 (Firmware) та PCR 7 (Secure Boot)
-systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/nvme0n1p3
-
-# Прив'язка TPM 2.0 із додатковим запитом користувацького PIN-коду
-systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 --tpm2-with-pin=true /dev/nvme0n1p3
-
-# Прив'язка FIDO2 passkey з перевіркою фізичної присутності та PIN-коду
-systemd-cryptenroll --fido2-device=auto --fido2-with-client-pin=true --fido2-with-user-presence=true /dev/nvme0n1p3
-
-# Прив'язка смарткарти PKCS#11 за уніфікованим URI
-systemd-cryptenroll --pkcs11-token-uri="pkcs11:model=PKCS%2315;manufacturer=Yubico" /dev/nvme0n1p3
-
-# Генерація аварійного ключа відновлення
-systemd-cryptenroll --recovery-key /dev/nvme0n1p3
-
-# Очищення всіх прив'язок TPM2
-systemd-cryptenroll --wipe-slot=tpm2 /dev/nvme0n1p3
-```
+:::code api-luks2-json-metadata/sh/enroll-tokens.sh
 
 ### 10.9. Специфікація онлайн-зміни розміру тома (`cryptsetup resize`)
 
@@ -1989,6 +1850,25 @@ cryptsetup convert --type luks1 /dev/nvme0n1p3
 ## 11. Правила валідації, інваріанти та обробка помилок
 
 Бібліотека `libcryptsetup` та ядро Linux виконують п'ятирівневу перевірку коректності метаданих перед активацією пристрою.
+
+Контракт перевірки текстової частини — схема словників, перехресні посилання, перекриття дискових областей і невідомі `requirements`:
+
+:::tabs
+:::code api-luks2-json-metadata/c/luks2_json.h
+:::code api-luks2-json-metadata/cpp/src/metadata.hpp
+:::
+
+:::tabs
+:::code api-luks2-json-metadata/c/luks2_json.c
+:::code api-luks2-json-metadata/cpp/src/metadata.cpp
+:::
+
+Програма, що зводить усе докупи: читає обидві копії, розв'язує арбітраж за `seqid` і проганяє чинний документ крізь перевірки.
+
+:::tabs
+:::code api-luks2-json-metadata/c/main.c
+:::code api-luks2-json-metadata/cpp/src/main.cpp
+:::
 
 ### 1. Перевірка бінарного дескриптора `luks2_hdr_disk`
 

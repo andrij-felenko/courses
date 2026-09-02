@@ -443,21 +443,7 @@ ${var%%.*}  ──►  /usr/local/bin/app        (найдовший суфік�
 | `@(pattern-list)` | `(pat1\|pat2)` | Рівно один збіг з одним із вказаних шаблонів |
 | `!(pattern-list)` | `^(?!.*(pat1\|pat2))` | Усе, крім указаних шаблонів (заперечення) |
 
-```bash
-shopt -s extglob
-
-# Видалення всіх провідних пробілів та табуляцій (Left Strip):
-INPUT="   \t  user_identifier"
-CLEAN="${INPUT##*([[:space:]])}"  # "user_identifier"
-
-# Нормалізація кінцевих слешів у шляху:
-PATH_DIR="/var/log/nginx///"
-NORMALIZED="${PATH_DIR%%*(/)}"      # "/var/log/nginx"
-
-# Видалення префіксів протоколу:
-URL="https://api.internal.net"
-HOST="${URL##@(http|https|ftp)://}" # "api.internal.net"
-```
+:::code api-parameter-expansion-syntax/sh/lib/trim.sh
 
 ---
 
@@ -788,63 +774,13 @@ UPPER_HEADERS=("${HEADERS[@]^^}")
 
 #### Інженерні шаблони інтроспекції та перевірки типів
 
-```bash
-# Функція безпечної перевірки цілочисельного типу:
-is_integer_var() {
-    local var_name="$1"
-    [[ "${!var_name@a}" == *"i"* ]]
-}
-
-# Функція перевірки readonly-стану перед спробою модифікації:
-safe_set_default() {
-    local var_name="$1"
-    local default_val="$2"
-    
-    # Якщо змінна доступна і має прапорець readonly, не намагаємося мутувати
-    if [[ "${!var_name@a}" == *"r"* ]]; then
-        return 0
-    fi
-    
-    # Безпечне присвоєння через непряму адресацію:
-    if [[ -z "${!var_name}" ]]; then
-        printf -v "$var_name" '%s' "$default_val"
-    fi
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/varmeta.sh
 
 ---
 
 ### 7.3. Інженерні приклади застосування `${var@op}`
 
-```bash
-# 1. Захист від командних ін'єкцій через @Q:
-UNTRUSTED_ARG="filename.txt; rm -rf /"
-REMOTE_SCRIPT="process_file ${UNTRUSTED_ARG@Q}"
-# REMOTE_SCRIPT містить: process_file 'filename.txt; rm -rf /'
-
-# 2. Розгортання escape-послідовностей через @E:
-RAW_DATA='Server\tStatus\nNode-1\tONLINE'
-echo "${RAW_DATA@E}"
-
-# 3. Серіалізація та відновлення стану асоціативного масиву через @A:
-declare -A DB_CONFIG=([host]="10.0.0.1" [port]="5432" [name]="production")
-STATE="${DB_CONFIG@A}"
-# Відновлення в іншому контексті або файлі:
-eval "$STATE"
-
-# 4. Перевірка системних атрибутів змінної через @a:
-declare -rx SYS_UUID="abcd-1234"
-if [[ "${SYS_UUID@a}" == *"r"* ]]; then
-    echo "Змінна захищена прапорцем readonly"
-fi
-
-# 5. Сплющення асоціативного масиву для передачі аргументів через @k та @K:
-declare -A HTTP_HEADERS=([Content-Type]="application/json" [Authorization]="Bearer token123")
-# Розгортання у черговані пари ключ-значення (Bash 5.1+):
-for entry in "${HTTP_HEADERS[@]@k}"; do
-    echo "Entry: $entry"
-done
-```
+:::code api-parameter-expansion-syntax/sh/varmeta-demo.sh
 
 ---
 
@@ -864,19 +800,7 @@ done
 
 Індексовані масиви в Bash є розрідженими (sparse): неініціалізовані елементи не займають пам'ять. Конструкція `${!array[@]}` повертає виключно існуючі індекси:
 
-```bash
-declare -a SPARSE
-SPARSE[0]="alpha"
-SPARSE[50]="beta"
-SPARSE[200]="gamma"
-
-echo "${#SPARSE[@]}"   # 3 (фактична кількість елементів)
-echo "${!SPARSE[@]}"  # "0 50 200" (перелік зайнятих індексів)
-
-for idx in "${!SPARSE[@]}"; do
-    echo "Індекс: $idx -> Значення: ${SPARSE[$idx]}"
-done
-```
+:::code api-parameter-expansion-syntax/sh/lib/arrayutil.sh
 
 ### 8.3. Пастки та безпека Namerefs
 
@@ -930,19 +854,7 @@ process_batch "${FILES[@]}"
 
 #### Робота з порожніми масивами, розрідженими індексами та `set -u`
 
-1. **Порожній масив у циклі `for`**:
-   ```bash
-   declare -a EMPTY=()
-   for item in "${EMPTY[@]}"; do
-       # Тіло циклу не виконається жодного разу (0 ітерацій)
-       echo "Item: $item"
-   done
-
-   for item in "${EMPTY[*]}"; do
-       # Виконається 1 ітерацію з порожнім рядком ""!
-       echo "Item: $item"
-   done
-   ```
+1. **Порожній масив у циклі `for`**: конструкція `for item in "${EMPTY[@]}"` не породжує жодного слова, тому тіло циклу не виконується **жодного разу**. Натомість `for item in "${EMPTY[*]}"` завжди дає рівно одне слово — порожній рядок, — тому цикл робить **одну зайву ітерацію** зі значенням `item=""`.
 2. **Внутрішня організація розріджених індексів (Sparse Arrays)**:
    У GNU Bash індексований масив зберігається як зв'язний список або деревоподібна структура `ARRAY_ELEMENT`:
    ```text
@@ -959,6 +871,8 @@ process_batch "${FILES[@]}"
    # Якщо arr оголошено (навіть порожній), розгортає "${arr[@]}", інакше нічого не генерує:
    cmd "${arr[@]+"${arr[@]}"}"
    ```
+
+:::code api-parameter-expansion-syntax/sh/array-forms-demo.sh
 
 ---
 
@@ -1009,25 +923,11 @@ SHELL_VAR *find_variable_nameref(SHELL_VAR *var) {
 
 У моделі динамічної видимості пошук змінної `find_variable()` завжди починається з найглибшого локального контексту `current_var_context` і рухається вгору за покажчиками `context->up`.
 
-- **Суть колізії**: Якщо функція створює локальний nameref `local -n ref="$1"`, а ім'я цільової змінної, передане викликачем, збігається з іменем локальної змінної, оголошеної у цій самій функції (або у проміжній функції в ланцюжку викликів), посилання **захоплює локальну змінну** замість очікуваної зовнішньої:
-  ```bash
-  # Демонстрація захоплення змінної (Variable Capture):
-  update_counter() {
-      local count=100
-      set_external_val "$1"
-  }
-
-  set_external_val() {
-      local -n target="$1" # Якщо target="count", вона знайде local count з update_counter!
-      target=999
-  }
-
-  count=1
-  update_counter "count"
-  echo "Глобальний count: $count" # Виведе 1, оскільки було мутовано local count у update_counter!
-  ```
+- **Суть колізії**: Якщо функція створює локальний nameref `local -n ref="$1"`, а ім'я цільової змінної, передане викликачем, збігається з іменем локальної змінної, оголошеної у цій самій функції (або у проміжній функції в ланцюжку викликів), посилання **захоплює локальну змінну** замість очікуваної зовнішньої. Тимчасова змінна проміжної функції з «природною» короткою назвою (`count`, `value`, `line`) перехоплює запис, а викликач бачить свою змінну незмінною.
 - **Інженерне правило захисту**: Для запобігання випадковому затіненню всі локальні змінні-посилання та тимчасові змінні у бібліотечних функціях повинні мати префікс з унікальним простором імен (наприклад, `local -n __fn_target_ref="$1"`).
 - **Пряме читання через непряму адресацію**: Якщо функція потребує лише читання даних без модифікації, замість `declare -n` використовується вираз прямої непрямої підстановки `${!param_name}`, що повністю виключає ризик циклічних посилань або помилкової мутації таблиці символів.
+
+:::code api-parameter-expansion-syntax/sh/nameref-capture-demo.sh
 
 #### 8.5.4. Трансформація рекурсивних функцій в ітеративні алгоритми на базі Parameter Expansion
 
@@ -1040,28 +940,7 @@ SHELL_VAR *find_variable_nameref(SHELL_VAR *var) {
 | **Ризик `SIGSEGV` (Stack Overflow)** | **Критичний** при `N > 4000` | **Повністю відсутній** |
 | **Швидкодія на 10 000 елементів** | 2.40 с (з високим GC overhead) | **0.03 с (~80x прискорення)** |
 
-```bash
-# Приклад: Високопродуктивний ітеративний токенізатор без створення процесів та без рекурсії
-tokenize_stream_iterative() {
-    local stream="$1"
-    local delimiter="$2"
-    local token=""
-
-    # Обробка в пам'яті за O(1) стека:
-    while [[ -n "$stream" ]]; do
-        if [[ "$stream" == *"$delimiter"* ]]; then
-            token="${stream%%"$delimiter"*}"
-            stream="${stream#*"$delimiter"}"
-        else
-            token="$stream"
-            stream=""
-        fi
-        
-        # Обробка отриманого токена (наприклад, валідація)
-        [[ -n "$token" ]] && process_token "$token"
-    done
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/tokenize.sh
 
 #### 8.5.5. Керування пам'яттю та деалокація фреймів у глибоких викликах
 
@@ -1090,22 +969,7 @@ ENDPOINT="${ENDPOINT:-/api/v1/default}"
 
 У виразах обрізання, заміни та зрізів значення параметрів можуть динамічно формуватися іншими змінними:
 
-```bash
-PREFIX="module_"
-SEARCH="DEBUG"
-REPLACE="INFO"
-OFFSET=5
-LENGTH=10
-
-# Динамічний шаблон обрізання:
-echo "${LOG_LINE#"$PREFIX"}"
-
-# Динамічний пошук та заміна:
-echo "${LOG_LINE//"$SEARCH"/$REPLACE}"
-
-# Динамічний зріз:
-echo "${LOG_LINE:OFFSET:LENGTH}"
-```
+:::code api-parameter-expansion-syntax/sh/nested-expansion-demo.sh
 
 ### 9.3. Правила екранування спеціальних символів усередині `${...}`
 
@@ -1302,132 +1166,7 @@ echo "${LOG_LINE:OFFSET:LENGTH}"
 
 Парсер реалізує повну підтримку POSIX та GNU-стилю параметрів: довгі ключі з присвоєнням (`--host=127.0.0.1`), довгі ключі з роздільним значенням (`--host 127.0.0.1`), короткі прапорці (`-v`, `-h`), об'єднані короткі прапорці (`-xvf archive.tar.gz`), перемикач завершення параметрів (`--`) та неіменовані позиційні аргументи.
 
-```bash
-parse_cli_arguments() {
-    # Конфігураційні змінні за замовчуванням
-    CLI_HOST="127.0.0.1"
-    CLI_PORT=8080
-    CLI_VERBOSE=0
-    CLI_DRY_RUN=0
-    CLI_CONFIG_FILE=""
-    declare -a CLI_POSITIONAL=()
-
-    while [[ $# -gt 0 ]]; do
-        local arg="$1"
-        shift
-
-        case "$arg" in
-            # Маркер завершення обробки опцій
-            --)
-                CLI_POSITIONAL+=("$@")
-                break
-                ;;
-
-            # Довгі опції з роздільником '=' (--host=value)
-            --host=*)
-                CLI_HOST="${arg#*=}"
-                ;;
-            --port=*)
-                local raw_port="${arg#*=}"
-                # Валідація цілочисельного значення без виклику утиліт
-                if [[ -n "${raw_port//[0-9]/}" || "$raw_port" -lt 1 || "$raw_port" -gt 65535 ]]; then
-                    echo "Помилка: невалідний порт: $raw_port" >&2
-                    return 1
-                fi
-                CLI_PORT="$raw_port"
-                ;;
-            --config=*)
-                CLI_CONFIG_FILE="${arg#*=}"
-                ;;
-
-            # Довгі опції з окремим значенням (--host value)
-            --host)
-                [[ $# -eq 0 ]] && { echo "Помилка: опція --host вимагає значення" >&2; return 1; }
-                CLI_HOST="$1"
-                shift
-                ;;
-            --port)
-                [[ $# -eq 0 ]] && { echo "Помилка: опція --port вимагає значення" >&2; return 1; }
-                local raw_port="$1"
-                shift
-                if [[ -n "${raw_port//[0-9]/}" || "$raw_port" -lt 1 || "$raw_port" -gt 65535 ]]; then
-                    echo "Помилка: невалідний порт: $raw_port" >&2
-                    return 1
-                fi
-                CLI_PORT="$raw_port"
-                ;;
-            --config)
-                [[ $# -eq 0 ]] && { echo "Помилка: опція --config вимагає значення" >&2; return 1; }
-                CLI_CONFIG_FILE="$1"
-                shift
-                ;;
-            --verbose)
-                ((CLI_VERBOSE++))
-                ;;
-            --dry-run)
-                CLI_DRY_RUN=1
-                ;;
-
-            # Обробка одиночних та склеєних коротких прапорців (-v, -h, -xvf)
-            -[!-]*|-[0-9]*)
-                # Зрізаємо префіксний мінус
-                local flags="${arg#-}"
-                while [[ -n "$flags" ]]; do
-                    # Виділяємо перший символ
-                    local opt="${flags:0:1}"
-                    # Залишок прапорців у пакеті
-                    flags="${flags:1}"
-
-                    case "$opt" in
-                        v)
-                            ((CLI_VERBOSE++))
-                            ;;
-                        d)
-                            CLI_DRY_RUN=1
-                            ;;
-                        p)
-                            # Якщо після 'p' ще є символи (-p8080), беремо їх, інакше наступний аргумент
-                            if [[ -n "$flags" ]]; then
-                                CLI_PORT="$flags"
-                                flags=""
-                            else
-                                [[ $# -eq 0 ]] && { echo "Помилка: опція -p вимагає порт" >&2; return 1; }
-                                CLI_PORT="$1"
-                                shift
-                            fi
-                            ;;
-                        c)
-                            if [[ -n "$flags" ]]; then
-                                CLI_CONFIG_FILE="$flags"
-                                flags=""
-                            else
-                                [[ $# -eq 0 ]] && { echo "Помилка: опція -c вимагає файл" >&2; return 1; }
-                                CLI_CONFIG_FILE="$1"
-                                shift
-                            fi
-                            ;;
-                        *)
-                            echo "Помилка: невідомий короткий прапорець: -$opt" >&2
-                            return 1
-                            ;;
-                    esac
-                done
-                ;;
-
-            # Невідома довга опція
-            --*)
-                echo "Помилка: невідома опція: $arg" >&2
-                return 1
-                ;;
-
-            # Позиційний аргумент
-            *)
-                CLI_POSITIONAL+=("$arg")
-                ;;
-        esac
-    done
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/cliargs.sh
 
 ---
 
@@ -1435,76 +1174,7 @@ parse_cli_arguments() {
 
 Парсер читає потік рядків у пам'яті без створення підпроцесів `subshell`, видаляє початкові та кінцеві пробіли (Trim), ігнорує коментарі (`#`, `;`), виділяє секції `[section]` та безпечно заповнює асоціативний масив без ризику командної ін'єкції (Shell Injection):
 
-```bash
-parse_ini_configuration() {
-    local config_file="$1"
-    [[ -f "$config_file" ]] || { echo "Помилка: файл не знайдено: $config_file" >&2; return 1; }
-
-    declare -g -A CONFIG_MAP=()
-    local current_section="global"
-    local line_num=0
-
-    # Читання без subshell через пряме перенаправлення
-    while IFS= read -r line || [[ -n "$line" ]]; do
-        ((line_num++))
-
-        # 1. Left Trim: видалення провідних пробілів та табуляцій
-        line="${line#"${line%%[![:space:]]*}"}"
-
-        # 2. Right Trim: видалення кінцевих пробілів та табуляцій
-        line="${line%"${line##*[![:space:]]}"}"
-
-        # 3. Пропуск порожніх рядків та коментарів (# або ;)
-        [[ -z "$line" || "$line" == [#\;]* ]] && continue
-
-        # 4. Виявлення заголовка секції [section_name]
-        if [[ "$line" == \[*\] ]]; then
-            local sec="${line#\[}"
-            sec="${sec%\]}"
-            # Trim імені секції
-            sec="${sec#"${sec%%[![:space:]]*}"}"
-            current_section="${sec%"${sec##*[![:space:]]}"}"
-            continue
-        fi
-
-        # 5. Розбір ключ-значення за роздільником '=' або ':'
-        if [[ "$line" == *[=:]* ]]; then
-            # Виділення ключа до першого роздільника
-            local key="${line%%[=:]*}"
-            # Виділення значення після першого роздільника
-            local val="${line#*[=:]}"
-
-            # Trim ключа
-            key="${key#"${key%%[![:space:]]*}"}"
-            key="${key%"${key##*[![:space:]]}"}"
-
-            # Trim значення
-            val="${val#"${val%%[![:space:]]*}"}"
-            val="${val%"${val##*[![:space:]]}"}"
-
-            # Зняття обрамляючих одинарних або подвійних лапок
-            if [[ "$val" == \"*\" && "$val" == *\" ]]; then
-                val="${val#\"}"
-                val="${val%\"}"
-            elif [[ "$val" == \'*\' && "$val" == *\' ]]; then
-                val="${val#\'}"
-                val="${val%\'}"
-            fi
-
-            # Збереження у масив: section.key -> value
-            CONFIG_MAP["${current_section}.${key}"]="$val"
-        fi
-    done < "$config_file"
-}
-
-# Використання конфігурації з каскадним Fallback:
-# Отримання значення з конфігурації -> з оточення -> дефолт
-get_config() {
-    local key="$1"
-    local default_val="$2"
-    echo "${CONFIG_MAP[$key]:-${!key:-$default_val}}"
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/inicfg.sh
 
 ---
 
@@ -1512,127 +1182,14 @@ get_config() {
 
 #### Повна декомпозиція URI за RFC 3986
 
-```bash
-parse_network_uri() {
-    local raw_uri="$1"
-
-    # Виділення схеми (протоколу)
-    local scheme="${raw_uri%%://*}"
-    local rest="${raw_uri#*://}"
-
-    # Якщо схема відсутня
-    if [[ "$scheme" == "$raw_uri" ]]; then
-        scheme=""
-        rest="$raw_uri"
-    fi
-
-    # Виділення фрагмента (#hash)
-    local fragment=""
-    if [[ "$rest" == *\#* ]]; then
-        fragment="${rest#*\#}"
-        rest="${rest%%\#*}"
-    fi
-
-    # Виділення запиту (?query)
-    local query=""
-    if [[ "$rest" == *\?* ]]; then
-        query="${rest#*\?}"
-        rest="${rest%%\?*}"
-    fi
-
-    # Виділення шляху (/path/to/res)
-    local path=""
-    if [[ "$rest" == */* ]]; then
-        path="/${rest#*/}"
-        rest="${rest%%/*}"
-    fi
-
-    # Виділення authority (user:pass@host:port)
-    local userinfo=""
-    if [[ "$rest" == *@* ]]; then
-        userinfo="${rest%@*}"
-        rest="${rest##*@}"
-    fi
-
-    # Виділення хоста та порту
-    local host="$rest"
-    local port=""
-    if [[ "$host" == *:* ]]; then
-        port="${host##*:}"
-        host="${host%:*}"
-    fi
-
-    echo "Scheme:   $scheme"
-    echo "UserInfo: $userinfo"
-    echo "Host:     $host"
-    echo "Port:     $port"
-    echo "Path:     $path"
-    echo "Query:    $query"
-    echo "Fragment: $fragment"
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/uri.sh
 
 #### Валідація IPv4-адреси та діапазонів октетів без регулярних виразів
 
-```bash
-validate_ipv4_address() {
-    local ip="$1"
-    local octet_count=0
-
-    while [[ -n "$ip" ]]; do
-        # Виділяємо перший октет до крапки
-        local octet="${ip%%.*}"
-        # Залишок рядка після першої крапки
-        local next_ip="${ip#*.}"
-
-        # Перевірка, що октет містить лише цифри
-        [[ -z "$octet" || -n "${octet//[0-9]/}" ]] && return 1
-
-        # Захист від октету з провідним нулем ("01" -> помилка)
-        [[ "${#octet}" -gt 1 && "${octet:0:1}" == "0" ]] && return 1
-
-        # Перевірка діапазону 0..255
-        (( octet >= 0 && octet <= 255 )) || return 1
-
-        ((octet_count++))
-
-        # Якщо крапок більше немає
-        if [[ "$ip" == "$next_ip" ]]; then
-            break
-        fi
-        ip="$next_ip"
-    done
-
-    # IPv4 адреса мусить містити рівно 4 октети
-    [[ $octet_count -eq 4 ]]
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/ipv4.sh
 
 #### Нормалізація файлових шляхів у пам'яті (Канонізація)
 
-```bash
-canonicalize_path() {
-    local path="$1"
-
-    # 1. Заміна множинних слешів на один (// -> /)
-    while [[ "$path" == *//* ]]; do
-        path="${path//\/\//\/}"
-    done
-
-    # 2. Видалення кінцевого слеша (якщо це не кореневий каталог "/")
-    if [[ "$path" != "/" && "$path" == */ ]]; then
-        path="${path%/}"
-    fi
-
-    # 3. Отримання каталогу (dirname) та імені файлу (basename)
-    local dir_name="${path%/*}"
-    dir_name="${dir_name:-/}"
-    local base_name="${path##*/}"
-
-    echo "Dirname:  $dir_name"
-    echo "Basename: $base_name"
-    echo "Clean:    $path"
-}
-```
+:::code api-parameter-expansion-syntax/sh/lib/pathutil.sh
 
 

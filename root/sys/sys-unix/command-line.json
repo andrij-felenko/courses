@@ -17,8 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "hist": [
             {
@@ -48,8 +47,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -80,8 +78,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -112,8 +109,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -144,9 +140,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
-            "recode": true
+            "status": "recheck"
           },
           "hist": [
             {
@@ -175,8 +169,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "proj": [
@@ -201,8 +194,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 3,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -300,9 +292,8 @@
           "api": [
             {
               "file": "api-readline-architecture.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
@@ -316,7 +307,7 @@
               "file": "proj-custom-line-editor.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -333,9 +324,8 @@
           "api": [
             {
               "file": "api-bash-completion-builtin.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "comp": [
@@ -343,7 +333,7 @@
               "file": "comp-bash-vs-zsh-completion.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "proj": [
@@ -351,7 +341,7 @@
               "file": "proj-custom-subcommand-completion.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -368,8 +358,7 @@
           "api": [
             {
               "file": "api-prompt-escapes-and-vars.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -383,7 +372,7 @@
               "file": "proj-custom-prompt-engine.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -437,8 +426,7 @@
           "api": [
             {
               "file": "api-sed-command-reference.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -469,8 +457,7 @@
           "api": [
             {
               "file": "api-awk-builtins-and-variables.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -553,9 +540,8 @@
           "api": [
             {
               "file": "api-pipeline-buffering-and-controls.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
@@ -563,7 +549,7 @@
               "file": "proj-log-pipeline-bench.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         }
@@ -649,9 +635,8 @@
           "api": [
             {
               "file": "api-isatty-and-terminal-detection.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
@@ -659,7 +644,7 @@
               "file": "proj-dual-mode-cli.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -676,8 +661,7 @@
           "api": [
             {
               "file": "api-structured-cli-tools.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -691,7 +675,7 @@
               "file": "proj-ndjson-stream-processor.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -714,9 +698,8 @@
           "api": [
             {
               "file": "api-functions-and-subshells-reference.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "comp": [
@@ -724,7 +707,7 @@
               "file": "comp-shell-execution-environments.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "hist": [
@@ -738,7 +721,7 @@
               "file": "proj-subshell-tracer.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -755,9 +738,8 @@
           "api": [
             {
               "file": "api-getopts-and-positional.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
@@ -765,7 +747,7 @@
               "file": "proj-argument-parser.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -782,17 +764,15 @@
           "api": [
             {
               "file": "api-test-and-bracket-operators.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-test-and-brackets-evolution.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
@@ -800,7 +780,7 @@
               "file": "proj-safe-stream-parser.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -817,8 +797,7 @@
           "api": [
             {
               "file": "api-parameter-expansion-syntax.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -859,8 +838,7 @@
           "api": [
             {
               "file": "api-shell-debug-options-and-vars.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -874,7 +852,7 @@
               "file": "proj-bash-stacktrace-and-step-debugger.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -902,8 +880,7 @@
           "api": [
             {
               "file": "api-shell-strict-mode-flags.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -917,7 +894,7 @@
               "file": "proj-resilient-script-template.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -934,16 +911,14 @@
           "api": [
             {
               "file": "api-trap-signals-reference.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-bourne-trap-evolution.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -951,7 +926,7 @@
               "file": "proj-defer-cleanup-stack.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -974,8 +949,7 @@
           "api": [
             {
               "file": "api-find-predicates-and-xargs-flags.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ],
           "hist": [

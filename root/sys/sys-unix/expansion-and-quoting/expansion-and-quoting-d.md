@@ -34,7 +34,7 @@
 
 Синтаксис списку:
 
-```bash
+```text
 префікс{рядок1,рядок2,рядокN}суфікс
 ```
 
@@ -42,14 +42,15 @@
 
 Фігурні дужки підтримують довільне вкладення:
 
-```bash
-echo img_{2025,2026}_{01,02}.png
-# Генерує 4 слова: img_2025_01.png img_2025_02.png img_2026_01.png img_2026_02.png
-```
+:::tabs
+:::code expansion-and-quoting-d/sh/brace-expansion.sh
+:::code expansion-and-quoting-d/c/braces.c
+:::code expansion-and-quoting-d/cpp/braces.cpp
+:::
 
 Синтаксис діапазонів (Bash 3.0+, Zsh):
 
-```bash
+```text
 {початок..кінець..крок}
 ```
 
@@ -96,11 +97,7 @@ POSIX визначає набір розширених модифікаторі�
 
 Приклад обробки шляхів до файлів:
 
-```bash
-FILE="/var/log/syslog.tar.gz"
-echo "${FILE##*/}"   # Виведе: syslog.tar.gz (видалено найдовший префікс */)
-echo "${FILE%.*}"    # Виведе: /var/log/syslog.tar (видалено найкоротший суфікс .*)
-```
+:::code expansion-and-quoting-d/sh/parameter-expansion.sh
 
 Отримання довжини значення параметра виконується через `${#VAR}`.
 
@@ -121,9 +118,7 @@ POSIX підтримує дві форми синтаксису:
 
 Сучасна форма `$(command)` є переважною з міркувань безпеки та читабельності. Вона дозволяє безпроблемне гніздування викликів:
 
-```bash
-LOG_DIR="$(dirname "$(realpath "$FILE")")"
-```
+:::code expansion-and-quoting-d/sh/command-substitution.sh
 
 При використанні застарілої форми зі зворотними апострофами для внутрішніх лапок або гніздування вимагається складне екранування через зворотні слеші: `` `dirname \`realpath "$FILE"\`` ``, що часто призводить до помилок парсингу.
 
@@ -141,17 +136,13 @@ diff -u <(sort file1.txt) <(sort file2.txt)
 
 Арифметичне розгортання забезпечує обчислення цілочисельних виразів у форматі:
 
-```bash
+```text
 $((expression))
 ```
 
 Всередині арифметичного блоку оболонка обробляє змінні як цілі числа 64-бітної знаковості (`int64_t`). Знак долара перед іменами змінних всередині `$((...))` можна опускати:
 
-```bash
-A=5
-B=10
-RESULT=$(( A * 2 + B ))  # RESULT = 20
-```
+:::code expansion-and-quoting-d/sh/arithmetic.sh
 
 Арифметика оболонки підтримує базові оператори C: додавання, віднімання, множення, ділення, взяття за модулем, побітові зсуви (`<<`, `>>`), побітові операції (`&`, `|`, `^`) та тернарний оператор `cond ? expr1 : expr2`. Обчислення з плаваючою крапкою стандартною POSIX-оболонкою не підтримуються (для них застосовують зовні утиліти `bc` або `awk`).
 
@@ -172,12 +163,11 @@ RESULT=$(( A * 2 + B ))  # RESULT = 20
 
 Приклад зміни `IFS` для парсингу файлу `/etc/passwd`:
 
-```bash
-LINE="root:x:0:0:System Administrator:/root:/bin/bash"
-IFS=":"
-set -- $LINE
-# Аргументи будуть чітко розділені на $1="root", $2="x", $3="0", $4="0", $5="System Administrator" тощо.
-```
+:::tabs
+:::code expansion-and-quoting-d/sh/ifs-splitting.sh
+:::code expansion-and-quoting-d/c/field.c
+:::code expansion-and-quoting-d/cpp/fields.cpp
+:::
 
 Якщо змінну `IFS` скинуто (unset), оболонка поводиться так, ніби `IFS` містить пробіл, табуляцію та новий рядок. Якщо `IFS` присвоєно порожнє значення (`IFS=""`), поділ на слова повністю вимикається, і результати підстановок зберігаються як єдине ціле.
 
@@ -212,10 +202,11 @@ set -- $LINE
 
 Приклад виключення файлів при видаленні:
 
-```bash
-shopt -s extglob
-rm -- !(important.txt|backup.tar) # Видалить усі файли, крім двох вказаних
-```
+:::tabs
+:::code expansion-and-quoting-d/sh/globbing.sh
+:::code expansion-and-quoting-d/c/pattern.c
+:::code expansion-and-quoting-d/cpp/glob_filter.cpp
+:::
 
 Також опція `shopt -s globstar` дозволяє використовувати маску `**` для рекурсивного обходу всіх підкаталогів довільної глибини (`ls **/*.c`).
 
@@ -278,11 +269,7 @@ echo 'It'\''s working' # Виведе: It's working
 
 Порівняння поведінки рядка без лапок та у подвійних лапках:
 
-```bash
-DIR="my docs"
-ls $DIR     # Помилка! Розгортається у виклики: ls "my" "docs" (Word Splitting розбив рядок)
-ls "$DIR"   # Успіх! Розгортається у виклик: ls "my docs" (Word Splitting пригнічено)
-```
+:::code expansion-and-quoting-d/sh/quoting.sh
 
 Завжди огортайте змінні у подвійні лапки, якщо ви передаєте шляхи до файлів чи дані користувача!
 
@@ -318,11 +305,7 @@ echo $'Line 1\nLine 2\tTabbed'
 
 Вираз `"$*"` підставляє всі позиційні параметри як **єдине слово** (один аргумент). Значення параметрів об'єднуються у суцільний рядок, де роздільником між ними стає **перший символ змінної `IFS`**.
 
-```bash
-IFS=":"
-set -- "arg 1" "arg 2" "arg 3"
-echo "$*"  # Виведе єдиний аргумент: "arg 1:arg 2:arg 3"
-```
+:::code expansion-and-quoting-d/sh/positional-params.sh
 
 Якщо `IFS` є порожнім рядком (`IFS=""`), значення параметрів зливаються без жодних роздільників: `"arg 1arg 2arg 3"`. Якщо `IFS` скинуто, використовується пробіл.
 
@@ -332,13 +315,13 @@ echo "$*"  # Виведе єдиний аргумент: "arg 1:arg 2:arg 3"
 
 Якщо позиційні параметри дорівнюють `$1="a b"`, `$2="c"`, `$3="d e"`, то вираз:
 
-```bash
+```text
 "$@"
 ```
 
 еквівалентний точній послідовності окремих аргументів:
 
-```bash
+```text
 "$1" "$2" "$3"  # Або: "a b" "c" "d e"
 ```
 
@@ -377,7 +360,7 @@ rm -rf $TARGET_DIR
 
 Оскільки `$TARGET_DIR` не взято у подвійні лапки, на етапі Word Splitting команда розгортається у:
 
-```bash
+```text
 rm -rf "/tmp/user" "data/output"
 ```
 
@@ -394,12 +377,7 @@ rm -rf $TARGET_DIR  # Розгортається у видалення ВСІХ 
 
 У класичних тестах POSIX `test` або `[` незахищені змінні ламають синтаксис команди:
 
-```bash
-VAR=""
-if [ $VAR = "admin" ]; then
-    echo "Access granted"
-fi
-```
+:::code expansion-and-quoting-d/sh/unsafe-expansion.sh
 
 Після розгортання параметрів та поділу на слова слово `$VAR` перетворюється на ніщо. Команда `[` отримує аргументи `[` `=`, `"admin"`, `]`, що призводить до фатальної синтаксичної помилки оболонки `bash: [: =: unary operator expected`.
 
@@ -430,6 +408,23 @@ eval "ls -l $USER_INPUT"
 :::code expansion-and-quoting-d/cpp/main.cpp
 :::
 
+:::tabs
+:::code expansion-and-quoting-d/c/expand.h
+:::code expansion-and-quoting-d/cpp/expansion.hpp
+:::
+
+:::tabs
+:::code expansion-and-quoting-d/c/expand.c
+:::code expansion-and-quoting-d/cpp/expansion.cpp
+:::
+
+Зворотний бік того самого — зібрати конвеєр самотужки, без `wordexp(3)`: фази 1–6 у власному коді, де видно, який саме байт прийшов із підстановки, а який набрано руками. Підстановки команд і арифметики тут навмисно немає — їх виконує приклад вище.
+
+:::tabs
+:::code expansion-and-quoting-d/c/phases.c
+:::code expansion-and-quoting-d/cpp/phases.cpp
+:::
+
 ## Простеження та налагодження розгортання
 
 Щоб побачити, як оболонка розгортає складний рядок крок за кроком, використовуються вбудовані інструменти трасування.
@@ -440,7 +435,7 @@ eval "ls -l $USER_INPUT"
 
 Спеціальна змінна `PS4` визначає префікс рядка трасування. Якщо задати `PS4='+ [$BYTES] '`, можна чітко бачити межі згенерованих аргументів:
 
-:::code expansion-and-quoting-d/sh/main.sh
+:::code expansion-and-quoting-d/sh/trace-expansion.sh
 
 Зверніть увагу: у трасуванні `+ ls -l 'my document.txt'` оболонка Bash сама додає одинарні лапки навколо аргументів у виводі `xtrace`, щоб показати вам, що `my document.txt` передається як один цілісний елемент вектора `argv[]`.
 
@@ -448,7 +443,7 @@ eval "ls -l $USER_INPUT"
 
 Щоб переконатися у підсумковому результаті розгортання на рівні ядра Linux, використовується трасувальник системних викликів `strace`:
 
-```bash
+```text
 $ strace -f -e execve bash -c 'ls -l "my file.txt"'
 execve("/bin/ls", ["ls", "-l", "my file.txt"], 0x7ffc...) = 0
 ```

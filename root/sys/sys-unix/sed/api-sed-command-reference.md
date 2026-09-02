@@ -33,42 +33,8 @@
 Кожен із двох регістрів інкапсулює покажчик на виділений буфер у купі, поточну кількість зайнятих байтів (`len`) та загальну місткість виділеного блоку пам'яті (`cap`).
 
 :::tabs
-```c
-typedef struct {
-    char *data;          /* Покажчик на виділений блок пам'яті в купі */
-    size_t len;          /* Поточна довжина рядка без кінцевого нульового байта */
-    size_t cap;          /* Загальна місткість виділеного буфера (capacity) */
-} SedBuffer;
-
-typedef struct {
-    SedBuffer pattern_space; /* Основний робочий регістр */
-    SedBuffer hold_space;    /* Допоміжний регістр збереження стану */
-    size_t line_number;      /* Внутрішній лічильник номерів рядків */
-    bool is_last_line;       /* Прапорець настання EOF для адреси $ */
-    bool quiet_mode;         /* Прапорець -n (заборона автоматичного виводу) */
-    bool deleted;            /* Прапорець відкидання рядка командами d/D */
-    bool subst_success;      /* Булевий брудний біт успіху заміни для t/T */
-} SedState;
-```
-```cpp
-struct SedBuffer {
-    std::string data;    /* Динамічний буфер із автоматичним керуванням ємністю */
-
-    [[nodiscard]] size_t length() const noexcept { return data.size(); }
-    [[nodiscard]] size_t capacity() const noexcept { return data.capacity(); }
-    [[nodiscard]] const char* c_str() const noexcept { return data.c_str(); }
-};
-
-struct SedState {
-    SedBuffer pattern_space;
-    SedBuffer hold_space;
-    size_t line_number{0};
-    bool is_last_line{false};
-    bool quiet_mode{false};
-    bool deleted{false};
-    bool subst_success{false};
-};
-```
+:::code api-sed-command-reference/c/sedbuf.h
+:::code api-sed-command-reference/cpp/sed_state.hpp
 :::
 
 ### Інваріанти пам'яті та стратегія виділення
@@ -168,7 +134,7 @@ struct SedState {
 
 Програма `sed` приймає інструкції безпосередньо з аргументів командного рядка або зчитує їх із зовнішнього файлу сценарію.
 
-```bash
+```text
 # Одиночний вираз трансформації:
 sed [ОПЦІЇ] 'СЦЕНАРІЙ' [ВХІДНІ_ФАЙЛИ...]
 
@@ -254,104 +220,8 @@ sed [ОПЦІЇ] -f base_rules.sed -e 's/DEBUG/INFO/g' [ВХІДНІ_ФАЙЛИ.
 ### 4. Реалізація транзакційного оновлення у системному коді
 
 :::tabs
-```c
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-
-/* Системна транзакційна заміна файлу за алгоритмом sed -i */
-int sed_inplace_replace(const char *target_path, const char *new_content, size_t len) {
-    struct stat st;
-    if (stat(target_path, &st) != 0) return -1;
-
-    char temp_template[1024];
-    snprintf(temp_template, sizeof(temp_template), "%s.sedXXXXXX", target_path);
-    int temp_fd = mkstemp(temp_template);
-    if (temp_fd < 0) return -1;
-
-    /* Копіювання прав доступу POSIX */
-    if (fchmod(temp_fd, st.st_mode) != 0) {
-        close(temp_fd);
-        unlink(temp_template);
-        return -1;
-    }
-    /* Спроба перенесення власника */
-    fchown(temp_fd, st.st_uid, st.st_gid);
-
-    ssize_t written = write(temp_fd, new_content, len);
-    close(temp_fd);
-    if (written != (ssize_t)len) {
-        unlink(temp_template);
-        return -1;
-    }
-
-    /* Атомарна заміна dentry у файловій системі */
-    if (rename(temp_template, target_path) != 0) {
-        unlink(temp_template);
-        return -1;
-    }
-    return 0;
-}
-```
-```cpp
-#include <filesystem>
-#include <fstream>
-#include <system_error>
-#include <string_view>
-#include <sys/stat.h>
-#include <unistd.h>
-
-class InPlaceFileEditor {
-public:
-    static std::error_code replace_content(const std::filesystem::path& target_path,
-                                           std::string_view new_content) noexcept {
-        struct stat st{};
-        if (::stat(target_path.c_str(), &st) != 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        std::string temp_pattern = target_path.string() + ".sedXXXXXX";
-        int temp_fd = ::mkstemp(temp_pattern.data());
-        if (temp_fd < 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        struct TempFileGuard {
-            int fd;
-            std::string path;
-            bool committed{false};
-            ~TempFileGuard() {
-                if (fd >= 0) ::close(fd);
-                if (!committed) ::unlink(path.c_str());
-            }
-        } guard{temp_fd, temp_pattern, false};
-
-        if (::fchmod(temp_fd, st.st_mode) != 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-        ::fchown(temp_fd, st.st_uid, st.st_gid);
-
-        const auto written = ::write(temp_fd, new_content.data(), new_content.size());
-        if (written < 0 || static_cast<size_t>(written) != new_content.size()) {
-            return std::error_code(errno, std::generic_category());
-        }
-
-        ::close(guard.fd);
-        guard.fd = -1;
-
-        if (::rename(guard.path.c_str(), target_path.c_str()) != 0) {
-            return std::error_code(errno, std::generic_category());
-        }
-        guard.committed = true;
-        return {};
-    }
-};
-```
+:::code api-sed-command-reference/c/inplace.c
+:::code api-sed-command-reference/cpp/inplace_editor.cpp
 :::
 
 ### 5. Порівняльний аналіз семантики GNU sed проти BSD sed `-i`
@@ -524,151 +394,15 @@ sed '/^ERROR/Q' server.log
 
 Команда `q` дозволяє створювати потокові валідатори, що переривають збірку при виявленні заборонених конструкцій:
 
-```bash
-# Пошук критичних помилок із виходом з кодом 2:
-sed -n '/CRITICAL_PANIC/ { p; q 2; }' build.log
-BUILD_STATUS=$?
-
-if [ $BUILD_STATUS -eq 2 ]; then
-    echo "Збірку аварійно зупинено через критичну помилку в коді!" >&2
-    exit 1
-fi
-```
+:::code api-sed-command-reference/sh/ci-gate.sh
 
 ---
 
 ### 4. Системна реалізація конвеєрної буферизації та обробки сигналів
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <string.h>
-#include <errno.h>
-
-/* Обробник сигналу SIGPIPE для коректного звільнення ресурсів */
-static volatile sig_atomic_t g_pipe_broken = 0;
-
-static void handle_sigpipe(int sig) {
-    (void)sig;
-    g_pipe_broken = 1;
-}
-
-/* Системний конвеєрний процесор із підтримкою режиму unbuffered */
-int run_streaming_pipeline(int unbuffered_mode, size_t max_lines) {
-    /* Налаштування обробника SIGPIPE */
-    struct sigaction sa;
-    memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = handle_sigpipe;
-    sigaction(SIGPIPE, &sa, NULL);
-
-    /* Керування буферизацією вихідного потоку */
-    if (unbuffered_mode) {
-        setvbuf(stdout, NULL, _IONBF, 0);
-    } else {
-        /* Явне виділення блокового буфера на 8 KB */
-        static char out_buf[8192];
-        setvbuf(stdout, out_buf, _IOFBF, sizeof(out_buf));
-    }
-
-    char *line = NULL;
-    size_t linecap = 0;
-    ssize_t linelen;
-    size_t count = 0;
-
-    while ((linelen = getline(&line, &linecap, stdin)) > 0) {
-        if (g_pipe_broken) {
-            fprintf(stderr, "Downstream pipe broken. Stopping producer.\n");
-            break;
-        }
-
-        /* Імітація команди q: ранній вихід за досягненням ліміту */
-        if (++count > max_lines && max_lines > 0) {
-            break;
-        }
-
-        /* Запис у вихідний дескриптор */
-        if (fputs(line, stdout) == EOF || (unbuffered_mode && fflush(stdout) == EOF)) {
-            if (errno == EPIPE || g_pipe_broken) {
-                break;
-            }
-        }
-    }
-
-    free(line);
-    return g_pipe_broken ? 141 : 0;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <csignal>
-#include <cerrno>
-#include <unistd.h>
-
-namespace StreamEngine {
-
-class PipelineProcessor {
-public:
-    explicit PipelineProcessor(bool unbuffered, size_t max_lines = 0) noexcept
-        : unbuffered_{unbuffered}, max_lines_{max_lines} {}
-
-    int execute() {
-        setup_signal_handler();
-
-        if (unbuffered_) {
-            std::cout.setf(std::ios::unitbuf); // Еквівалент _IONBF / fflush після кожного виводу
-        } else {
-            std::ios::sync_with_stdio(false);  // Вимикає накладні витрати синхронізації C/C++
-            std::cin.tie(nullptr);             // Розв'язує cin та cout
-        }
-
-        std::string line;
-        size_t processed_lines{0};
-
-        while (std::getline(std::cin, line)) {
-            if (pipe_broken_) {
-                break;
-            }
-
-            if (max_lines_ > 0 && ++processed_lines > max_lines_) {
-                // Ранній вихід (еквівалент команди q)
-                break;
-            }
-
-            std::cout << line << '\n';
-
-            if (!std::cout.good()) {
-                if (errno == EPIPE || pipe_broken_) {
-                    return 141;
-                }
-            }
-        }
-
-        return pipe_broken_ ? 141 : 0;
-    }
-
-private:
-    static inline volatile std::sig_atomic_t pipe_broken_{0};
-
-    static void sigpipe_handler(int) noexcept {
-        pipe_broken_ = 1;
-    }
-
-    void setup_signal_handler() noexcept {
-        struct sigaction sa{};
-        sa.sa_handler = sigpipe_handler;
-        ::sigaction(SIGPIPE, &sa, nullptr);
-    }
-
-    bool unbuffered_{false};
-    size_t max_lines_{0};
-};
-
-} // namespace StreamEngine
-```
+:::code api-sed-command-reference/c/stream.c
+:::code api-sed-command-reference/cpp/pipeline.cpp
 :::
 
 ---
@@ -912,10 +646,7 @@ DFA принципово не здатен зберігати динамічни
 
 При використанні складних вкладених квантифікаторів або неоднозначних жадібних операторів на невдалих збігах виникає лавиноподібне зростання варіантів розгалуження:
 
-```sed
-# Небезпечний патерн із вкладеним повторенням:
-sed -E '/(x+x+)+y/d' access.log
-```
+:::code api-sed-command-reference/sh/backtracking-demo.sh
 
 Якщо на вхід подати рядок виду `xxxxxxxxxxxxxxxxxxxxxxxxxxxx!`, що містить довгу послідовність символів `x` без фінального символу `y`, рушій NFA намагатиметься перевірити всі можливі комбінації розбиття послідовності між зовнішнім та внутрішнім квантифікаторами `+`. Кількість варіантів обчислюється як `O(2ⁿ)`, що викликає 100% завантаження одного ядра процесора та зависання обробки на багато хвилин.
 
@@ -1121,32 +852,11 @@ sed 'i Це перший рядок вставки' file.txt
 
 #### Приклад: Видалення повторюваних порожніх рядків (стиснення до одного)
 
-```sed
-# Якщо рядок порожній — довантажити наступний і перевірити дублювання
-/^$/ {
-    :check_empty
-    N
-    /^\n$/ {
-        # Два порожні рядки підряд: видалити перший і повторити перевірку
-        D
-    }
-}
-```
+:::code api-sed-command-reference/sed/squeeze-blank.sed
 
 #### Приклад: Об'єднання розірваних рядків логу (лог-запис починається з дати `YYYY-MM-DD`)
 
-```sed
-:join_logs
-$!N
-/\n[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}/! {
-    # Наступний рядок НЕ починається з дати: замінити \n на пробіл і читати далі
-    s/\n/ /
-    t join_logs
-}
-# Наступний рядок починається з дати: надрукувати зібраний рядок і зберегти початок нового
-P
-D
-```
+:::code api-sed-command-reference/sed/join-log-records.sed
 
 ---
 
@@ -1164,25 +874,7 @@ D
    - Команда `t sort_loop` перезапускає сканування, якщо відбулася перестановка.
 4. **Фаза виведення:** Коли жодної перестановки не відбулося (брудний біт `subst_success == false`), відсортований буфер виводиться у `stdout`.
 
-```sed
-# Акумуляція всіх рядків у Hold Space
-1h
-1!H
-$!d
-
-# Витягти всі рядки в Pattern Space наприкінці вводу
-g
-
-# Головний цикл бульбашкового сортування
-:bubble_sort
-# Знайти два сусідні рядки, де перший лексикографічно більший за другий, і поміняти їх
-s/^\([^\n]*\)\n\([^\n]*\)$/\1\n\2/
-
-# Порівняння через шаблонні збіги символів (приклад для одиночних літер/чисел):
-:compare_pass
-s/\b\([b-zB-Z]\)\n\([a-yA-Y]\)\b/\2\n\1/g
-t bubble_sort
-```
+:::code api-sed-command-reference/sed/bubble-sort.sed
 
 ---
 
@@ -1197,44 +889,7 @@ t bubble_sort
 2. Якщо молодша цифра `9`, вона перетворюється на `0`, а прапорець переносу зсувається вліво на наступний розряд.
 3. Якщо всі розряди були `9` (наприклад, `999`), на початок дописується `1` (`1000`).
 
-```sed
-:increment
-# Замінити всі кінцеві дев'ятки на маркер переносу _
-s/9\(_*\)$/_\1/
-t carry_propagate
-
-# Якщо дев'яток на кінці не було — інкрементувати останню цифру
-s/0\(_*\)$/1\1/
-s/1\(_*\)$/2\1/
-s/2\(_*\)$/3\1/
-s/3\(_*\)$/4\1/
-s/4\(_*\)$/5\1/
-s/5\(_*\)$/6\1/
-s/6\(_*\)$/7\1/
-s/7\(_*\)$/8\1/
-s/8\(_*\)$/9\1/
-b finalize_increment
-
-:carry_propagate
-# Якщо все число складалося з дев'яток (наприклад, ___), додати 1 попереду
-s/^_\(_*\)$/10\1/
-t finalize_increment
-
-# Інакше інкрементувати розряд перед маркованими нулями
-s/0\(_*\)$/1\1/
-s/1\(_*\)$/2\1/
-s/2\(_*\)$/3\1/
-s/3\(_*\)$/4\1/
-s/4\(_*\)$/5\1/
-s/5\(_*\)$/6\1/
-s/6\(_*\)$/7\1/
-s/7\(_*\)$/8\1/
-s/8\(_*\)$/9\1/
-
-:finalize_increment
-# Замінити всі маркери _ на нулі
-s/_/0/g
-```
+:::code api-sed-command-reference/sed/increment.sed
 
 ---
 
@@ -1246,47 +901,11 @@ s/_/0/g
 
 Автомат згортає коректні внутрішні пари дужок `()`, `[]`, `{}` доти, доки буфер не спорожніє або не залишиться синтаксична помилка:
 
-```sed
-:parse_brackets
-# Видалити весь проміжний текст між дужками
-s/[^][(){}]//g
-
-# Згорнути коректні внутрішні пари
-s/()//g
-s/\[]//g
-s/{}//g
-
-# Якщо відбулося хоча б одне згортання — повторити цикл
-t parse_brackets
-
-# Перевірка результату: якщо буфер порожній — дужки збалансовані
-/^$/ {
-    c\
-СИНТАКСИС КОРЕКТНИЙ
-    q
-}
-
-# Якщо в буфері залишилися незгорнуті символи — помилка вкладеності
-c\
-СИНТАКСИЧНА ПОМИЛКА: Незбалансовані дужки
-q 1
-```
+:::code api-sed-command-reference/sed/balance-brackets.sed
 
 #### Парсер багаторядкових коментарів C-стилю (`/* ... */`)
 
-```sed
-:comment_strip
-/\/\*/ {
-    # Початок коментаря знайдено. Перевірити, чи він закривається в тому ж рядку
-    /\/\*.*\*\// {
-        s/\/\*.*\*\///g
-        b comment_strip
-    }
-    # Коментар не закрився: довантажити наступний рядок
-    $!N
-    b comment_strip
-}
-```
+:::code api-sed-command-reference/sed/strip-c-comments.sed
 
 ---
 
@@ -1308,53 +927,7 @@ q 1
 
 #### Реалізація скінченного автомата sed (`update_license.sed`):
 
-```sed
-# Фаза 1: Перевірка ідемпотентності
-1,5 {
-    /SPDX-License-Identifier/ {
-        # Заголовок уже присутній — негайно завершити без змін
-        b
-    }
-}
-
-# Фаза 2: Обробка першого рядка та Shebang
-1 {
-    /^#!/ {
-        # Зберегти та надрукувати рядок shebang
-        p
-        # Вставити новий ліцензійний заголовок після shebang
-        i\
-// SPDX-License-Identifier: Apache-2.0\
-// Copyright (c) 2026 Core Architecture Group. All rights reserved.
-        # Видалити оригінальний рядок з Pattern Space, щоб уникнути подвійного друку
-        d
-    }
-    
-    # Якщо shebang відсутній — вставити заголовок перед найпершим рядком файлу
-    i\
-// SPDX-License-Identifier: Apache-2.0\
-// Copyright (c) 2026 Core Architecture Group. All rights reserved.
-}
-
-# Фаза 3: Очищення застарілих блоків коментарів у верхній частині файлу (рядки 1..30)
-1,30 {
-    # Обробка однорядкових коментарів із застарілими копірайтами
-    /\/\/[[:space:]]*Copyright.*$/d
-    /\/\/[[:space:]]*All rights reserved/d
-    
-    # Обробка багаторядкових коментарів C-стилю /* ... */
-    /\/\*/ {
-        :comment_loop
-        /\*\// {
-            # Знайдено закриття коментаря: видалити весь накопичений блок
-            d
-        }
-        # Довантажити наступний рядок у буфер і повторити перевірку
-        N
-        b comment_loop
-    }
-}
-```
+:::code api-sed-command-reference/sed/update_license.sed
 
 ```bash
 # Масове пакетне застосування до всіх вихідних файлів проєкту:
@@ -1373,37 +946,7 @@ find src include -type f \( -name "*.cpp" -o -name "*.hpp" -o -name "*.c" -o -na
 
 #### Реалізація автомата sed (`normalize_includes.sed`):
 
-```sed
-# Заміна стандартних заголовків C на C++ еквіваленти
-s/#include <stdio\.h>/#include <cstdio>/g
-s/#include <stdlib\.h>/#include <cstdlib>/g
-s/#include <string\.h>/#include <cstring>/g
-s/#include <stdint\.h>/#include <cstdint>/g
-s/#include <stdbool\.h>/#include <cstdbool>/g
-s/#include <assert\.h>/#include <cassert>/g
-s/#include <math\.h>/#include <cmath>/g
-s/#include <time\.h>/#include <ctime>/g
-s/#include <limits\.h>/#include <climits>/g
-
-# Нормалізація відносних шляхів включення
-s|#include "\.\./\.\./include/\([^"]*\)"|#include "\1"|g
-s|#include "\.\./include/\([^"]*\)"|#include "\1"|g
-
-# Автомат дедуплікації послідовних директив #include через Hold Space
-/^#include/ {
-    # Зберегти поточний include в Pattern Space, додати до нього попередній з Hold Space
-    G
-    # Шаблон перевірки збігу двох рядків: ^(перший)\n(такий самий перший)$
-    /^\(.*\)\n\1$/ {
-        # Рядок є точним дублікатом попереднього: видалити його
-        d
-    }
-    # Якщо рядки різні: видалити доданий хвіст із Hold Space
-    s/\n.*//
-    # Скопіювати унікальний рядок у Hold Space як новий еталон для порівняння
-    h
-}
-```
+:::code api-sed-command-reference/sed/normalize_includes.sed
 
 ---
 
@@ -1413,66 +956,21 @@ s|#include "\.\./include/\([^"]*\)"|#include "\1"|g
 У підсистемі мережевого стека виконується заміна застарілого небезпечного C API на сучасний інтерфейс C++20:
 
 :::tabs
-```c
-/* Застаріла сигнатура C API: */
-int net_send_packet(int socket_fd, const char *raw_buf, size_t buf_len, int flags, int timeout_ms);
-```
-```cpp
-/* Нова сигнатура C++20: */
-Result<size_t> send_packet(SocketHandle socket, std::span<const uint8_t> payload, SendOptions options);
-```
+:::code api-sed-command-reference/c/refactor-demo/net_api.h
+:::code api-sed-command-reference/cpp/refactor-demo/net_api.hpp
 :::
 
 #### Складність реалізації:
 У кодовій базі виклики функції часто розбиті на кілька рядків із довільними перенесеннями, пробілами та коментарями:
 
 :::tabs
-```c
-/* Багаторядковий виклик вихідного коду мовою C: */
-int status = net_send_packet(
-    client_ctx->sock_fd,
-    packet_data,
-    packet_size,
-    MSG_DONTWAIT,
-    5000
-);
-```
-```cpp
-/* Багаторядковий виклик після рефакторингу мовою C++: */
-auto status = send_packet(
-    client_ctx->sock_fd,
-    std::span<const uint8_t>(reinterpret_cast<const uint8_t*>(packet_data), packet_size),
-    {.flags = MSG_DONTWAIT, .timeout_ms = 5000}
-);
-```
+:::code api-sed-command-reference/c/refactor-demo/net_client.c
+:::code api-sed-command-reference/cpp/refactor-demo/net_client.cpp
 :::
 
 #### Реалізація багаторядкового автомата накопичення та трансформації (`migrate_api.sed`):
 
-```sed
-# Пошук точки початку виклику функції
-/net_send_packet[[:space:]]*\(/ {
-    :accumulate_call
-    # Якщо буфер ще не містить закривальної круглої дужки ')' — читати далі
-    /\)/! {
-        N
-        b accumulate_call
-    }
-
-    # Крок 1: Нормалізація пробілів та заміна всіх внутрішніх \n на один пробіл
-    s/\n[[:space:]]*/ /g
-
-    # Крок 2: Точна трансформація виклику за допомогою регулярного виразу
-    # Групи захоплення:
-    # \1 — ім'я змінної результату (наприклад, "status")
-    # \2 — перший аргумент (socket_fd)
-    # \3 — другий аргумент (raw_buf)
-    # \4 — третій аргумент (buf_len)
-    # \5 — четвертий аргумент (flags)
-    # \6 — п'ятий аргумент (timeout_ms)
-    s/int[[:space:]]\+\([a-zA-Z0-9_]\+\)[[:space:]]*=[[:space:]]*net_send_packet[[:space:]]*([[:space:]]*\([^,]\+\)[[:space:]]*,[[:space:]]*\([^,]\+\)[[:space:]]*,[[:space:]]*\([^,]\+\)[[:space:]]*,[[:space:]]*\([^,]\+\)[[:space:]]*,[[:space:]]*\([^)]\+\)[[:space:]]*);/auto \1 = send_packet(\2, std::span<const uint8_t>(reinterpret_cast<const uint8_t*>(\3), \4), {.flags = \5, .timeout_ms = \6});/g
-}
-```
+:::code api-sed-command-reference/sed/migrate_api.sed
 
 #### Покрокова діагностика роботи автомата:
 1. **Фаза детекції:** Регулярний вираз `/net_send_packet[[:space:]]*\(/` фіксує рядок із початком виклику.

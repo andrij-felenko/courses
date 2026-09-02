@@ -114,63 +114,7 @@ BEGIN { FIELDWIDTHS = "8 4:10 6 *" }
 4. **Знакові поля з кінцевим знаком (Trailing Sign / Signed Decimal, `PIC S9(7)V99 SIGN TRAILING`):** знак розташовується в останньому байті колонки (`"00045000+"` або `"00012050-"`).
 5. **Кредитові/дебетові суфікси:** значення супроводжуються дволітерними маркерами `CR` (кредит, від'ємний баланс) або `DB` (дебет): `" 14500.25CR"`.
 
-```awk
-# worked_example: Повний конвеєр розбору 80-байтового мейнфрейм-реєстру транзакцій
-# Формат запису (80 байтів):
-# [01-10] (10 симв): Номер рахунку (Account ID)
-# [11-18] (8 симв):  Дата транзакції YYYYMMDD
-# [19-22] (4 симв):  Код валюти ISO 4217 (UAH , USD )
-# [23-34] (12 симв): Сума з неявною комою PIC S9(10)V99 з кінцевим знаком (+/-)
-# [35-36] (2 симв):  Пропуск службового заголовка
-# [37-46] (10 симв): Код операції (Mcc code)
-# [47-80] (34 симв): Опис транзакції
-
-BEGIN {
-    # Налаштування позиційної розкладки через FIELDWIDTHS
-    FIELDWIDTHS = "10 8 4 12 2:10 *"
-    OFS = "\t"
-    total_uah = 0
-}
-
-function trim(str) {
-    gsub(/^[ \t]+|[ \t]+$/, "", str)
-    return str
-}
-
-function parse_signed_amount(raw_str,    len, sign, num_part, val) {
-    raw_str = trim(raw_str)
-    len = length(raw_str)
-    sign = substr(raw_str, len, 1)
-    num_part = substr(raw_str, 1, len - 1)
-    
-    val = (num_part + 0) / 100
-    if (sign == "-") {
-        val = -val
-    }
-    return val
-}
-
-{
-    acc_id   = trim($1)
-    tx_date  = sprintf("%s-%s-%s", substr($2,1,4), substr($2,5,2), substr($2,7,2))
-    currency = trim($3)
-    amount   = parse_signed_amount($4)
-    mcc_code = trim($5)
-    desc     = trim($6)
-
-    if (currency == "UAH") {
-        total_uah += amount
-    }
-
-    printf "%-10s | %s | %3s | %12.2f | %-10s | %s\n", \
-           acc_id, tx_date, currency, amount, mcc_code, desc
-}
-
-END {
-    print "-------------------------------------------------------------------------------"
-    printf "Підсумковий баланс UAH: %.2f\n", total_uah
-}
-```
+:::code api-awk-builtins-and-variables/awk/mainframe.awk
 
 ---
 
@@ -226,56 +170,7 @@ function csv_unquote(val) {
 }
 ```
 
-```awk
-# worked_example: Повнофункціональний стійкий потоковий парсер складних CSV-файлів
-# Підтримує: коми в лапках, екрановані подвійні лапки "", багаторядкові поля з переходом \n
-
-BEGIN {
-    FPAT = "([^,]+)|(\"([^\"]|\"\")*\")"
-    OFS = " | "
-}
-
-# Допоміжна функція перевірки балансу подвійних лапок у буфері
-function is_quote_balanced(str,    tmp) {
-    tmp = str
-    # Рахуємо кількість символів подвійних лапок
-    return (gsub(/"/, "&", tmp) % 2 == 0)
-}
-
-function normalize_csv_field(f) {
-    if (f ~ /^".*"$/) {
-        f = substr(f, 2, length(f) - 2)
-        gsub(/""/, "\"", f)
-    }
-    return f
-}
-
-{
-    record_buffer = $0
-
-    # Якщо кількість лапок непарна — запис містить перехід рядка всередині лапок.
-    # Дочитуємо наступні рядки з потоку до закриття лапок:
-    while (!is_quote_balanced(record_buffer)) {
-        if ((getline next_line) <= 0) {
-            # Досягнуто EOF при незакритих лапках — пошкоджений файл
-            print "ПОМИЛКА: Незбалансовані лапки на рядку " NR > "/dev/stderr"
-            break
-        }
-        record_buffer = record_buffer "\n" next_line
-    }
-
-    # Перепарсимо зібраний багаторядковий запис через patsplit
-    n_fields = patsplit(record_buffer, fields, FPAT)
-
-    printf "Запис #%d (полів: %d):\n", ++rec_count, n_fields
-    for (i = 1; i <= n_fields; i++) {
-        clean_val = normalize_csv_field(fields[i])
-        # Замінюємо внутрішні \n на пробіл для компактного відображення звіту
-        gsub(/\n/, "\\n", clean_val)
-        printf "  [$%d] = %s\n", i, clean_val
-    }
-}
-```
+:::code api-awk-builtins-and-variables/awk/csvparse.awk
 
 #### Режим абзаців (`RS = ""`) та робота з `RT`
 1. **Режим абзаців (`RS = ""`):**
@@ -324,24 +219,7 @@ PROCINFO["api_minor"]    # Молодша версія підтримувано�
 
 ##### 2. Сирі аргументи командного рядка (`PROCINFO["argv"]`)
 На відміну від масиву `ARGV`, який містить лише позиційні імена файлів та динамічні присвоєння `var=val` після того, як інтерпретатор відсіяв власні прапорці запуску (`-F`, `-v`, `-f`, `-M`), масив `PROCINFO["argv"]` зберігає повний оригінальний вектор аргументів процесу в тому вигляді, в якому його було передано ядром ОС через системний виклик `execve(2)`:
-```awk
-# Якщо запуск виконано як: gawk -F: -v DEBUG=1 -f script.awk input.txt
-BEGIN {
-    # ARGV містить лише: ARGV[0]="gawk", ARGV[1]="input.txt"
-    # PROCINFO["argv"] містить повний зліпок переданих параметрів:
-    for (i = 0; i in PROCINFO["argv"]; i++) {
-        print "argv[" i "] =", PROCINFO["argv"][i]
-    }
-    # Виведе:
-    # argv[0] = gawk
-    # argv[1] = -F:
-    # argv[2] = -v
-    # argv[3] = DEBUG=1
-    # argv[4] = -f
-    # argv[5] = script.awk
-    # argv[6] = input.txt
-}
-```
+:::code api-awk-builtins-and-variables/awk/procinfo_argv.awk
 
 ##### 3. Інтроспекція таблиці символів (`PROCINFO["identifiers"]`)
 Масив `PROCINFO["identifiers"]` надає повний зліпок глобальної таблиці імен програми, зіставляючи кожному відомому ідентифікатору його поточний статус типізації:
@@ -352,24 +230,7 @@ BEGIN {
 - `"user"` — функція користувача, оголошена через ключове слово `function`.
 - `"extension"` — нативна C/C++ функція, завантажена динамічно через директиву `@load` або прапорець `-l`.
 
-```awk
-# Приклад динамічного аналізу середовища виконання:
-function custom_calc(x, y,   local_tmp) {
-    return x * y + 42
-}
-
-BEGIN {
-    global_var = 100
-    global_arr["key"] = "val"
-    
-    for (id in PROCINFO["identifiers"]) {
-        type = PROCINFO["identifiers"][id]
-        if (type ~ /^(user|extension|array)$/) {
-            printf "Ідентифікатор: %-20s | Тип: %s\n", id, type
-        }
-    }
-}
-```
+:::code api-awk-builtins-and-variables/awk/procinfo_identifiers.awk
 
 ##### 4. Метадані чисельної підсистеми MPFR/GMP (`PROCINFO["mpfr_version"]`, `PROCINFO["prec_max"]`)
 Коли `gawk` скомпільовано з підтримкою розширеної арифметики та запущено з прапорцем `-M` / `--bignum`, у масиві `PROCINFO` з'являються атрибути підсистем GNU MPFR та GNU GMP:
@@ -420,32 +281,10 @@ GNU AWK підтримує механізм перекладу рядків че
 
 У кодових базах основних інтерпретаторів AWK кожна змінна, позиційне поле `$i`, аргумент функції та константа описуються універсальною C-структурою:
 
-```c
-/* GNU AWK (gawk): struct exp_node (скорочено NODE) */
-typedef struct exp_node {
-    union {
-        struct {
-            union {
-                char *sp;               /* Покажчик на виділений рядковий буфер */
-                struct exp_node *rnode; /* Вузол дерева для непрямих посилань */
-            } l;
-            size_t slen;                /* Довжина рядка в байтах */
-            AWKNUM numbr;               /* 64-бітний double (IEEE 754) або MPFR */
-        } val;
-    } sub;
-    unsigned short flags;               /* Бітові прапорці стану та походження */
-    unsigned char type;                 /* Node_val, Node_var, Node_array_ref */
-    unsigned long valref;               /* Лічильник посилань для копіювання за записом (CoW) */
-} NODE;
-
-/* Fast AWK (mawk): CELL */
-typedef struct cell {
-    short type;                         /* C_NOINIT, C_STR, C_NUM, C_STRNUM, C_MBSTRN */
-    char *ptr;                          /* Покажчик на рядок у буфері або купі */
-    size_t len;                         /* Довжина рядка */
-    double dval;                        /* Кешоване чисельне значення double */
-} CELL;
-```
+:::tabs
+:::code api-awk-builtins-and-variables/c/internals/node_layout.h
+:::code api-awk-builtins-and-variables/cpp/internals/node.hpp
+:::
 
 ```
                    Внутрішня комірка значення AWK (NODE / CELL)
@@ -525,25 +364,7 @@ str = num ""    # Контекст конкатенації: форсує при
 | **Неініціалізована змінна** | **Рядок** | **Рядкове** | Неініціалізоване значення розглядається як порожній рядок `""`. |
 | **Неініціалізована змінна** | **Неініціалізована змінна** | **Числове/Рядкове** | Обидва операнди рівні між собою (`0 == 0` та `"" == ""` повертають `1`). |
 
-```awk
-# Ілюстрація пастки порівняння (Число проти Рядка):
-BEGIN {
-    CONVFMT = "%.6g"
-    
-    # 1. Порівняння Числа з Рядком:
-    n = 3
-    s = "12"
-    if (s < n) {
-        # n (число 3) перетворюється у рядок "3".
-        # Виконується рядкове порівняння: "12" < "3" -> ІСТИНА (оскільки '1' < '3')!
-        print "Рядкове порівняння: \"12\" менше за 3"
-    }
-
-    # 2. Порівняння Числового рядка (strnum) з Числом:
-    # Нехай у файлі стоїть рядок "12", прочитаний у $1:
-    # ($1 < 3) виконає числове порівняння: 12 < 3 -> ХИБНІСТЬ.
-}
-```
+:::code api-awk-builtins-and-variables/awk/strnum_compare.awk
 
 ---
 
@@ -555,22 +376,10 @@ BEGIN {
 
 Хеш-таблиця складається з масиву покажчиків на відра (bucket array) та вузлів елементів:
 
-```c
-/* Структура вузла хеш-таблиці в gawk / mawk */
-typedef struct hash_node {
-    struct hash_node *next;  /* Покажчик на наступний вузол у ланцюжку колізій */
-    NODE *name;              /* Ключ елемента (структура NODE або рядок) */
-    NODE *value;             /* Значення елемента масиву */
-    size_t hash_code;        /* Кешоване 32/64-бітне значення хешу ключа */
-} HASHNODE;
-
-typedef struct awk_array {
-    HASHNODE **buckets;      /* Динамічний масив покажчиків на ланцюжки */
-    size_t size;             /* Поточна кількість відер (розмір масиву buckets) */
-    size_t count;            /* Загальна кількість збережених елементів */
-    size_t threshold;        /* Ліміт елементів до запуску рехешування */
-} AWK_ARRAY;
-```
+:::tabs
+:::code api-awk-builtins-and-variables/c/internals/array_layout.h
+:::code api-awk-builtins-and-variables/cpp/internals/array.hpp
+:::
 
 ```
                  Організація хеш-таблиці асоціативного масиву
@@ -626,19 +435,7 @@ typedef struct awk_array {
 
 У мові AWK звичайне читання неіснуючого елемента призводить до **автоініціалізації (auto-vivification)**:
 
-```awk
-# Небезпечний патерн (породжує витік пам'яті та спотворення стану):
-if (arr[key] == "") {
-    # Звернення arr[key] автоматично створює новий елемент arr[key] = ""
-    # у хеш-таблиці, виділяючи HASHNODE та рядок ключа в купі!
-}
-
-# Коректний патерн перевірки без створення вузла:
-if (key in arr) {
-    # Оператор 'in' виконує чистий пошук у хеш-таблиці.
-    # Якщо ключ відсутній, структура таблиці залишається незмінною.
-}
-```
+:::code api-awk-builtins-and-variables/awk/array_probe.awk
 
 Використання оператора `in` запобігає неконтрольованому зростанню хеш-таблиці, захищає від хибних результатів функції `length(arr)` та запобігає потраплянню порожніх ключів у цикли `for (k in arr)`.
 
@@ -910,17 +707,7 @@ AWK виконує всі чисельні розрахунки за станд�
 | `sqrt(x)` | `sqrt(x) -> float` | Обчислює квадратний корінь для `x >= 0`. При `x < 0` повертає `NaN` або породжує помилку часу виконання. |
 | `srand([seed])` | `srand(seed) -> int` | Ініціалізує генератор псевдовипадкових чисел початковим значенням `seed`. Якщо `seed` опущено, використовується поточний системний час епохи Unix. Повертає попереднє значення зерна генератора. |
 
-```awk
-# Ідіоматична генерація випадкового цілого числа в діапазоні [min, max]:
-function random_range(min, max) {
-    return min + int(rand() * (max - min + 1))
-}
-
-BEGIN {
-    srand() # Ініціалізація генератора поточним часом
-    print "Випадкове число [1..100]:", random_range(1, 100)
-}
-```
+:::code api-awk-builtins-and-variables/awk/random_range.awk
 
 ---
 
@@ -937,23 +724,7 @@ BEGIN {
 | `lshift(x, count)` | `lshift(x, count) -> int` | Логічний зсув ліворуч: зсуває біти числа `x` на `count` позицій ліворуч (`x << count`). Звільнені позиції праворуч заповнюються нулями. |
 | `rshift(x, count)` | `rshift(x, count) -> int` | Логічний зсув праворуч: зсуває біти числа `x` на `count` позицій праворуч (`x >> count`). Звільнені позиції ліворуч заповнюються нулями. |
 
-```awk
-# Приклад маніпуляції бітовими масками прапорців:
-BEGIN {
-    FLAG_READ    = 1 # 0001
-    FLAG_WRITE   = 2 # 0010
-    FLAG_EXEC    = 4 # 0100
-
-    perms = or(FLAG_READ, FLAG_EXEC) # 0101 (5)
-    
-    # Перевірка наявності прапорця FLAG_WRITE
-    if (and(perms, FLAG_WRITE)) {
-        print "Запис дозволено"
-    } else {
-        print "Лише читання та виконання"
-    }
-}
-```
+:::code api-awk-builtins-and-variables/awk/bitflags.awk
 
 ---
 
@@ -1151,23 +922,7 @@ GNU AWK надає вбудовану підтримку мережевих TCP/
 - `rhost` — ім'я віддаленого вузла або IP-адреса.
 - `rport` — порт віддаленого сервісу або його назва з `/etc/services` (наприклад, `80` або `http`).
 
-```awk
-# Приклад HTTP GET-запиту безпосередньо з AWK через TCP-сокет:
-BEGIN {
-    service = "/inet/tcp/0/example.com/80"
-    
-    # Відправка HTTP-запиту у двонаправлений канал
-    print "GET / HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n" |& service
-    
-    # Зчитування HTTP-відповіді
-    while ((service |& getline response) > 0) {
-        print response
-    }
-    
-    # Закриття сокета
-    close(service)
-}
-```
+:::code api-awk-builtins-and-variables/awk/http_get.awk
 
 Також підтримуються спеціальні системні шляхи:
 - `/dev/stdin`, `/dev/stdout`, `/dev/stderr` — стандартні потоки процесу.
@@ -1241,51 +996,12 @@ int dl_load(const gawk_api_t *const api_p, awk_ext_id_t id);
 ### 9.2 Структури даних, значення `awk_value_t` та дескриптор `awk_ext_func_t`
 
 #### 1. Дескриптор функції розширення (`awk_ext_func_t`):
-```c
-typedef struct awk_ext_func {
-    const char *name;                      /* Назва функції в AWK (наприклад "fnv1a_64") */
-    awk_value_t *(*function)(int num_actual_args,
-                             awk_value_t *result,
-                             struct awk_ext_func *flags); /* Покажчик на реалізацію */
-    size_t max_expected_args;              /* Максимальна кількість аргументів */
-    size_t min_required_args;              /* Мінімальна обов'язкова кількість аргументів */
-    awk_bool_t suppress_lint;              /* Прапорець вимкнення lint-попереджень */
-    void *data;                            /* Вказівник на довільні контекстні дані модуля */
-} awk_ext_func_t;
-```
+:::code api-awk-builtins-and-variables/c/internals/ext_func_layout.h
 
 #### 2. Дискриміноване об'єднання типів `awk_value_t`:
 Будь-який аргумент, повернене значення, змінна або елемент масиву передається через уніфікований контейнер `awk_value_t`:
 
-```c
-typedef enum {
-    AWK_UNDEFINED = 0,
-    AWK_NUMBER,       /* Число double або MPFR */
-    AWK_STRING,       /* Текстовий рядок: char *str, size_t len */
-    AWK_STRNUM,       /* Числовий рядок */
-    AWK_REGEX,        /* Регулярний вираз */
-    AWK_ARRAY,        /* Дескриптор асоціативного масиву (cookie) */
-    AWK_SCALAR,       /* Посилання на скалярну змінну */
-    AWK_VALUE_COOKIE  /* Непрозорий дескриптор значення */
-} awk_valtype_t;
-
-typedef struct awk_string {
-    char *str;
-    size_t len;
-} awk_string_t;
-
-typedef struct awk_value {
-    awk_valtype_t val_type;
-    union {
-        AWKNUM num_value;
-        awk_string_t str_value;
-        awk_regex_t regex_value;
-        awk_array_t array_cookie;
-        awk_scalar_t scalar_cookie;
-        awk_value_cookie_t value_cookie;
-    };
-} awk_value_t;
-```
+:::code api-awk-builtins-and-variables/c/internals/value_layout.h
 
 ### 9.3 Макроси API та функції взаємодії з інтерпретатором
 
@@ -1315,213 +1031,21 @@ typedef struct awk_value {
 2. `fnv1a_64(str)` — обчислює 64-бітний некриптографічний хеш Fowler–Noll–Vo (FNV-1a) над переданим рядком на рівні регістрів CPU.
 
 :::tabs
-```c
-/* fast_tools.c — Реалізація модуля розширення мовою C */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <errno.h>
-#include <stdint.h>
-#include <gawkapi.h>
-
-static const gawk_api_t *api;
-static awk_ext_id_t ext_id;
-static const char *ext_version = "fast_tools: 1.0.0";
-
-#define FNV_OFFSET_BASIS_64 14695981039346656037ULL
-#define FNV_PRIME_64        1099511628211ULL
-
-/* 1. Отримання монотонного системного часу в наносекундах */
-static awk_value_t *do_monotonic_time_ns(int nargs, awk_value_t *result, struct awk_ext_func *flags)
-{
-    struct timespec ts;
-    if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
-        update_ERRNO_int(errno);
-        return make_number(-1.0, result);
-    }
-
-    double ns = (double)ts.tv_sec * 1e9 + (double)ts.tv_nsec;
-    return make_number(ns, result);
-}
-
-/* 2. Обчислення 64-бітного некриптографічного хешу FNV-1a */
-static awk_value_t *do_fnv1a_64(int nargs, awk_value_t *result, struct awk_ext_func *flags)
-{
-    awk_value_t str_arg;
-    if (!get_argument(0, AWK_STRING, &str_arg)) {
-        update_ERRNO_string("fnv1a_64: очікується рядковий аргумент");
-        return make_null_string(result);
-    }
-
-    const uint8_t *data = (const uint8_t *)str_arg.str_value.str;
-    size_t len = str_arg.str_value.len;
-    uint64_t hash = FNV_OFFSET_BASIS_64;
-
-    for (size_t i = 0; i < len; i++) {
-        hash ^= data[i];
-        hash *= FNV_PRIME_64;
-    }
-
-    /* Виділяємо буфер під шістнадцятковий рядок "0x..." */
-    char *buf = (char *)malloc(19);
-    if (!buf) {
-        update_ERRNO_int(ENOMEM);
-        return make_null_string(result);
-    }
-    snprintf(buf, 19, "0x%016llx", (unsigned long long)hash);
-
-    return make_malloced_string(buf, strlen(buf), result);
-}
-
-/* Таблиця функцій для реєстрації в AWK */
-static awk_ext_func_t func_table[] = {
-    { "monotonic_time_ns", do_monotonic_time_ns, 0, 0, awk_false, NULL },
-    { "fnv1a_64",           do_fnv1a_64,           1, 1, awk_false, NULL },
-};
-
-/* Точка входу динамічного модуля */
-int dl_load(const gawk_api_t *const api_p, awk_ext_id_t id)
-{
-    api = api_p;
-    ext_id = id;
-
-    if (api->major_version != GAWK_API_MAJOR_VERSION ||
-        api->minor_version < GAWK_API_MINOR_VERSION) {
-        fprintf(stderr, "fast_tools: несумісна версія Gawk API (%d.%d)\n",
-                api->major_version, api->minor_version);
-        return 0;
-    }
-
-    size_t num_funcs = sizeof(func_table) / sizeof(func_table[0]);
-    for (size_t i = 0; i < num_funcs; i++) {
-        if (!api->api_add_ext_func(ext_id, NULL, &func_table[i])) {
-            warning("fast_tools: не вдалося зареєструвати функцію %s", func_table[i].name);
-            return 0;
-        }
-    }
-
-    api->api_register_ext_version(ext_id, ext_version);
-    return 1;
-}
-```
-```cpp
-// fast_tools.cpp — Реалізація мовою C++ з RAII, std::string_view та безпечними типами
-#include <chrono>
-#include <string_view>
-#include <cstdio>
-#include <cstdint>
-#include <cstring>
-#include <cstdlib>
-#include <cerrno>
-#include <gawkapi.h>
-
-namespace fast_tools {
-
-static const gawk_api_t *api = nullptr;
-static awk_ext_id_t ext_id;
-static constexpr std::string_view EXT_VERSION = "fast_tools_cpp: 1.0.0";
-
-constexpr uint64_t FNV_OFFSET_BASIS = 14695981039346656037ULL;
-constexpr uint64_t FNV_PRIME        = 1099511628211ULL;
-
-[[nodiscard]] constexpr uint64_t compute_fnv1a(std::string_view sv) noexcept
-{
-    uint64_t hash = FNV_OFFSET_BASIS;
-    for (char c : sv) {
-        hash ^= static_cast<uint8_t>(c);
-        hash *= FNV_PRIME;
-    }
-    return hash;
-}
-
-awk_value_t *monotonic_time_ns_impl(int, awk_value_t *result, struct awk_ext_func *) noexcept
-{
-    try {
-        const auto now = std::chrono::steady_clock::now();
-        const auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
-        return make_number(static_cast<double>(ns), result);
-    } catch (...) {
-        api->api_update_ERRNO_string(ext_id, "monotonic_time_ns: помилка таймера");
-        return make_number(-1.0, result);
-    }
-}
-
-awk_value_t *fnv1a_64_impl(int, awk_value_t *result, struct awk_ext_func *) noexcept
-{
-    awk_value_t str_arg;
-    if (!api->api_get_argument(ext_id, 0, AWK_STRING, &str_arg)) {
-        api->api_update_ERRNO_string(ext_id, "fnv1a_64: невалідний рядковий аргумент");
-        return make_null_string(result);
-    }
-
-    const std::string_view input(str_arg.str_value.str, str_arg.str_value.len);
-    const uint64_t hash = compute_fnv1a(input);
-
-    char *buf = static_cast<char *>(std::malloc(19));
-    if (!buf) {
-        api->api_update_ERRNO_int(ext_id, ENOMEM);
-        return make_null_string(result);
-    }
-    std::snprintf(buf, 19, "0x%016llx", static_cast<unsigned long long>(hash));
-
-    return make_malloced_string(buf, std::strlen(buf), result);
-}
-
-} // namespace fast_tools
-
-extern "C" {
-
-static awk_ext_func_t func_table[] = {
-    { "monotonic_time_ns", fast_tools::monotonic_time_ns_impl, 0, 0, awk_false, nullptr },
-    { "fnv1a_64",           fast_tools::fnv1a_64_impl,           1, 1, awk_false, nullptr },
-};
-
-int dl_load(const gawk_api_t *const api_p, awk_ext_id_t id)
-{
-    fast_tools::api = api_p;
-    fast_tools::ext_id = id;
-
-    if (api_p->major_version != GAWK_API_MAJOR_VERSION ||
-        api_p->minor_version < GAWK_API_MINOR_VERSION) {
-        return 0;
-    }
-
-    for (const auto &func : func_table) {
-        if (!api_p->api_add_ext_func(id, nullptr, const_cast<awk_ext_func_t *>(&func))) {
-            return 0;
-        }
-    }
-
-    api_p->api_register_ext_version(id, fast_tools::EXT_VERSION.data());
-    return 1;
-}
-
-} // extern "C"
-```
+:::code api-awk-builtins-and-variables/c/fast_tools.c
+:::code api-awk-builtins-and-variables/c/fnv1a.h
+:::code api-awk-builtins-and-variables/c/fnv1a.c
+:::code api-awk-builtins-and-variables/cpp/extension.cpp
+:::code api-awk-builtins-and-variables/cpp/api.hpp
+:::code api-awk-builtins-and-variables/cpp/builtins.hpp
+:::code api-awk-builtins-and-variables/cpp/builtins.cpp
+:::code api-awk-builtins-and-variables/cpp/fnv1a.hpp
 :::
 
 #### Компіляція та запуск розширення:
-```bash
-# Збірка спільної бібліотеки (C або C++):
-gcc -fPIC -shared -O3 -Wall -I/usr/include/gawk -o fast_tools.so fast_tools.c
-# або
-g++ -fPIC -shared -O3 -Wall -std=c++17 -I/usr/include/gawk -o fast_tools.so fast_tools.cpp
 
-# Виклик функцій у скрипті AWK:
-gawk '
-@load "fast_tools"
-BEGIN {
-    t_start = monotonic_time_ns()
-    
-    hash_val = fnv1a_64("production-stream-partition-key-42")
-    print "Хеш FNV-1a:", hash_val
-    
-    t_elapsed = monotonic_time_ns() - t_start
-    printf "Час обчислення: %.2f нс\n", t_elapsed
-}
-'
-```
+Складання спільної бібліотеки з будь-якого з двох варіантів, пошук заголовка `gawkapi.h` у системі, підключення модуля через `AWKLIBPATH` та димовий тест обох функцій:
+
+:::code api-awk-builtins-and-variables/sh/build_fast_tools.sh
 
 ### 9.5 Екосистема бібліотек `gawkextlib`
 
@@ -1577,83 +1101,16 @@ BEGIN {
 
 #### 1. Класичний `INNER JOIN` та `LEFT OUTER JOIN`:
 
-```awk
-# inner_join.awk: З'єднання orders.tsv (Факт, $2=user_id) з users.tsv (Довідник, $1=user_id)
-# Запуск: awk -F'\t' -v OFS='\t' -f inner_join.awk users.tsv orders.tsv
-
-NR == FNR {
-    # ФАЗА ПОБУДОВИ (Build Phase) над першим файлом (users.tsv)
-    # Зберігаємо ім'я та email користувача: users[user_id] = name "\t" email
-    user_data[$1] = $2 OFS $3
-    next
-}
-
-{
-    # ФАЗА ЗОНДУВАННЯ (Probe Phase) над другим файлом (orders.tsv)
-    user_id = $2
-    order_id = $1
-    amount = $3
-
-    if (user_id in user_data) {
-        # INNER JOIN: знайдено збіг у таблиці розмірностей
-        print order_id, user_id, user_data[user_id], amount
-    } else {
-        # LEFT JOIN (якщо розкоментувати): вивід із NULL значеннями
-        # print order_id, user_id, "NULL", "NULL", amount
-    }
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/hash_join.awk
 
 #### 2. `FULL OUTER JOIN` з відстеженням використаних ключів:
 
-```awk
-# full_outer_join.awk: З'єднання двох таблиць із виводом непарних рядків з обох сторін
-# Запуск: awk -F'\t' -v OFS='\t' -f full_outer_join.awk left_table.tsv right_table.tsv
-
-NR == FNR {
-    # Збереження лівої таблиці
-    left_data[$1] = $2
-    next
-}
-
-{
-    # Обробка правої таблиці
-    right_key = $1
-    right_val = $2
-    
-    if (right_key in left_data) {
-        print right_key, left_data[right_key], right_val
-        matched_keys[right_key] = 1
-    } else {
-        # Рядок є лише в правій таблиці
-        print right_key, "NULL", right_val
-    }
-}
-
-END {
-    # Вивід рядків, які були лише в лівій таблиці й не знайшли пари в правій
-    for (k in left_data) {
-        if (!(k in matched_keys)) {
-            print k, left_data[k], "NULL"
-        }
-    }
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/full_outer_join.awk
 
 #### 3. Складені ключі з'єднання (Composite Join Keys):
 Коли з'єднання здійснюється за кількома полями одночасно (наприклад, `tenant_id` та `user_id`), використовується роздільник `SUBSEP`:
 
-```awk
-# З'єднання за двома колонками: ($1, $2)
-NR == FNR {
-    dim_data[$1, $2] = $3
-    next
-}
-
-($2, $3) in dim_data {
-    print $1, $2, $3, dim_data[$2, $3], $4
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/composite_join.awk
 
 ---
 
@@ -1684,78 +1141,13 @@ NR == FNR {
 
 #### Фаза 1: Хеш-розбиття потоків на диск (Partitioning Script)
 
-```awk
-# partition.awk: Розбиття великого файлу на K партицій за хешем ключа
-# Запуск: awk -F'\t' -v K=64 -v PREFIX="part_r" -f partition.awk big_relation_r.tsv
-
-function fnv1a_bucket(key, k_buckets,    len, h, i) {
-    len = length(key)
-    h = 2166136261  # 32-бітний FNV-1a offset basis
-    for (i = 1; i <= len; i++) {
-        h = xor(h, ord_map[substr(key, i, 1)])
-        h = and(h * 16777619, 4294967295) # FNV prime & 32-bit mask
-    }
-    return h % k_buckets
-}
-
-BEGIN {
-    # Ініціалізація ASCII таблиці для швидкого отримання кодів символів
-    for (i = 0; i < 256; i++) {
-        ord_map[sprintf("%c", i)] = i
-    }
-    if (!K) K = 64
-}
-
-{
-    join_key = $1
-    bucket = fnv1a_bucket(join_key, K)
-    out_file = sprintf("%s_%02d.tsv", PREFIX, bucket)
-    
-    print $0 > out_file
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/partition.awk
 
 #### Фаза 2: Попарне з'єднання відповідних партицій (Join Execution Script)
 
 Оскільки детерміністична хеш-функція гарантує, що записи з однаковими ключами потрапляють виключно у партиції з однаковими номерами `i` (`part_r_05.tsv` та `part_s_05.tsv`), ми з'єднуємо партиції попарно:
 
-```bash
-#!/usr/bin/env bash
-# run_grace_join.sh: Оркестрація масштабованого Grace Hash Join
-set -euo pipefail
-
-K=64
-REL_R="dataset_r_50M.tsv"
-REL_S="dataset_s_50M.tsv"
-RESULT="final_joined.tsv"
-
-rm -f part_r_*.tsv part_s_*.tsv "$RESULT"
-
-# 1. Паралельне або послідовне розбиття обох відношень
-gawk -F'\t' -v K="$K" -v PREFIX="part_r" -f partition.awk "$REL_R"
-gawk -F'\t' -v K="$K" -v PREFIX="part_s" -f partition.awk "$REL_S"
-
-# 2. Почерговий In-Memory Join кожної пари партицій
-for ((i=0; i<K; i++)); do
-    f_r=$(printf "part_r_%02d.tsv" "$i")
-    f_s=$(printf "part_s_%02d.tsv" "$i")
-
-    if [[ -f "$f_r" && -f "$f_s" ]]; then
-        gawk -F'\t' -v OFS='\t' '
-            NR == FNR {
-                # Кожна партиція займає лише ~1/64 від загального обсягу (легко вміщується в RAM)
-                r_data[$1] = $2
-                next
-            }
-            $1 in r_data {
-                print $1, r_data[$1], $2
-            }
-        ' "$f_r" "$f_s" >> "$RESULT"
-    fi
-    # Видаляємо оброблені партиції для збереження дискового простору
-    rm -f "$f_r" "$f_s"
-done
-```
+:::code api-awk-builtins-and-variables/sh/run_grace_join.sh
 
 ---
 
@@ -1769,48 +1161,7 @@ done
 - `key_R > key_S`: потік `S` зсувається вперед викликом `getline`.
 - `key_R == key_S`: генерується з'єднаний рядок.
 
-```awk
-# sort_merge_join.awk: Потокове злиття двох попередньо відсортованих TSV файлів
-# Використання: awk -F'\t' -v OFS='\t' -v FILE_S="sorted_s.tsv" -f sort_merge_join.awk sorted_r.tsv
-
-BEGIN {
-    # Читаємо перший запис із другого файлу FILE_S
-    if ((getline line_s < FILE_S) <= 0) {
-        has_s = 0
-    } else {
-        has_s = 1
-        split(line_s, f_s, FS)
-        key_s = f_s[1]
-        val_s = f_s[2]
-    }
-}
-
-{
-    # Поточний рядок із першого файлу (sorted_r.tsv)
-    key_r = $1
-    val_r = $2
-
-    # Просуваємо другий файл уперед, доки key_s < key_r
-    while (has_s && key_s < key_r) {
-        if ((getline line_s < FILE_S) <= 0) {
-            has_s = 0
-            break
-        }
-        split(line_s, f_s, FS)
-        key_s = f_s[1]
-        val_s = f_s[2]
-    }
-
-    # Якщо ключі збіглися — виводимо результат
-    if (has_s && key_s == key_r) {
-        print key_r, val_r, val_s
-    }
-}
-
-END {
-    close(FILE_S)
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/sort_merge_join.awk
 
 #### Обробка кардинальності «Багато до Багатьох» (`N:M` Duplicate Keys) у Merge Join:
 Якщо ключ з'єднання містить повтори в обох файлах, алгоритм використовує локальний масив для буферизації рядків з однаковими ключами без повного завантаження таблиці в RAM.
@@ -1823,61 +1174,7 @@ END {
 
 Наївний Nested Loop Join перечитує файл `S` повністю для кожного рядка `R`, виконуючи `|R|` повних сканувань файлу. **Block Nested Loop Join** зчитує з `R` блок розміром `B` записів у буфер пам'яті і сканує файл `S` один раз для всього блоку, скорочуючи дискове читання у `B` разів:
 
-```awk
-# block_nested_loop_range_join.awk: З'єднання подій з інтервалами сесій
-# Запуск: awk -F'\t' -v OFS='\t' -v SESSIONS_FILE="sessions.tsv" -v BLOCK_SIZE=50000 -f block_nested_loop_range_join.awk events.tsv
-
-function flush_block(    e_idx, s_line, s_fields, s_user, s_start, s_end, s_id) {
-    if (block_count == 0) return
-
-    # Скануємо файл сесій один раз для всього накопиченого блоку подій
-    while ((getline s_line < SESSIONS_FILE) > 0) {
-        split(s_line, s_fields, FS)
-        s_user  = s_fields[1]
-        s_start = s_fields[2] + 0
-        s_end   = s_fields[3] + 0
-        s_id    = s_fields[4]
-
-        # Перевіряємо всі події в поточному блоці
-        for (e_idx = 1; e_idx <= block_count; e_idx++) {
-            if (ev_user[e_idx] == s_user) {
-                ts = ev_ts[e_idx]
-                if (ts >= s_start && ts <= s_end) {
-                    print ev_id[e_idx], ev_user[e_idx], ts, s_id, s_fields[5]
-                }
-            }
-        }
-    }
-    close(SESSIONS_FILE) # Перемотуємо файл сесій на початок
-
-    # Очищуємо блок
-    block_count = 0
-    delete ev_id
-    delete ev_user
-    delete ev_ts
-}
-
-BEGIN {
-    if (!BLOCK_SIZE) BLOCK_SIZE = 50000
-    block_count = 0
-}
-
-{
-    # Накопичуємо блок подій
-    block_count++
-    ev_id[block_count]   = $1
-    ev_user[block_count] = $2
-    ev_ts[block_count]   = $3 + 0
-
-    if (block_count >= BLOCK_SIZE) {
-        flush_block()
-    }
-}
-
-END {
-    flush_block()
-}
-```
+:::code api-awk-builtins-and-variables/awk/join/block_nested_loop_join.awk
 
 ---
 

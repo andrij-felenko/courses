@@ -317,8 +317,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -446,8 +445,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -478,8 +476,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -1121,7 +1118,7 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5,
+            "level": 3,
             "recode": true
           },
           "hist": [
@@ -1188,7 +1185,7 @@
             {
               "file": "hist-cloexec-evolution.md",
               "status": "deeper",
-              "level": 3
+              "level": 2
             }
           ],
           "proj": [
@@ -1196,15 +1193,14 @@
               "file": "proj-multithread-race-and-fix.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-cloexec-interfaces.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -1521,15 +1517,14 @@
               "file": "proj-multiprocess-pipeline.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-pipe-fifo-surface.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },

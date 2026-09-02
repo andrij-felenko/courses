@@ -1,44 +1,93 @@
+// main.cpp — межі аргументів після розгортання, очима програми.
+// Без аргументів іде вбудований набір прикладів; з аргументами —
+// розгортається кожен переданий рядок.
+//
+// Збірка: c++ -std=c++20 -Wall -Wextra -o expand main.cpp expansion.cpp
+#include "expansion.hpp"
+
 #include <iostream>
+#include <span>
+#include <string>
 #include <string_view>
 #include <vector>
-#include <stdexcept>
-#include <wordexp.h>
 
-class SafeWordExpander {
-public:
-    explicit SafeWordExpander(std::string_view pattern) {
-        std::string null_terminated(pattern);
-        int status = wordexp(null_terminated.c_str(), &p_, WRDE_NOCMD);
-        if (status != 0) {
-            if (status == WRDE_CMDSUB) {
-                throw std::runtime_error("Спроба ін'єкції команд заборонена");
-            }
-            throw std::runtime_error("Помилка розгортання рядка");
+namespace {
+
+// Робить видимими символи, які на терміналі зливаються з розміткою виводу.
+std::string visible(std::string_view word)
+{
+    std::string out;
+    out.reserve(word.size());
+    for (char c : word) {
+        if (c == '\n') {
+            out += "\\n";
+        } else if (c == '\t') {
+            out += "\\t";
+        } else {
+            out += c;
         }
     }
+    return out;
+}
 
-    ~SafeWordExpander() noexcept {
-        wordfree(&p_);
-    }
-
-    SafeWordExpander(const SafeWordExpander&) = delete;
-    SafeWordExpander& operator=(const SafeWordExpander&) = delete;
-
-    [[nodiscard]] std::size_t size() const noexcept { return p_.we_wordc; }
-    [[nodiscard]] const char* operator[](std::size_t i) const noexcept { return p_.we_wordv[i]; }
-
-private:
-    wordexp_t p_{};
-};
-
-int main() {
+// Повертає true, якщо рядок розгорнувся.
+bool show(std::string_view line)
+{
+    std::cout << "рядок: " << line << '\n';
     try {
-        SafeWordExpander expander("$HOME/documents/*.txt \"проект 2026\"");
-        for (std::size_t i = 0; i < expander.size(); ++i) {
-            std::cout << "argv[" << i << "] = " << expander[i] << '\n';
+        const std::vector<std::string> words = shexp::expand(line);
+        if (words.empty()) {
+            std::cout << "  (жодного слова — усе розгорнулося в порожнечу)\n";
         }
-    } catch (const std::exception& ex) {
-        std::cerr << "Помилка: " << ex.what() << '\n';
+        for (std::size_t i = 0; i < words.size(); ++i) {
+            std::cout << "  argv[" << i << "] = «" << visible(words[i]) << "»\n";
+        }
+        std::cout << "  усього слів: " << words.size() << "\n\n";
+        return true;
+    } catch (const shexp::expand_error& err) {
+        std::cerr << "  відхилено (" << err.status() << "): " << err.what() << "\n\n";
+        return false;
     }
-    return 0;
+}
+
+const std::vector<std::string_view>& demo()
+{
+    static const std::vector<std::string_view> lines{
+        "$HOME/*.txt",                 // параметр і глобінг
+        "~/.bashrc",                   // розгортання тильди
+        "'одне слово з пробілами' і ще два",
+        "$((6 * 7)) — відповідь",      // арифметичне розгортання
+        "\"$HOME\"/*.txt",             // у лапках глобінгу немає
+        "file_{A,B}.txt",              // дужки НЕ POSIX: лишаються буквально
+        "$(date)",                     // WRDE_NOCMD: підстановку команди відхилено
+        "`date`",                      // застаріла форма блокується так само
+        "$NO_SUCH_VAR_12345/архів",    // WRDE_UNDEF: невизначена змінна
+        "звіт | wc",                   // WRDE_BADCHAR: метасимвол поза лапками
+        "незакрита 'лапка",            // WRDE_SYNTAX
+    };
+    return lines;
+}
+
+}  // namespace
+
+int main(int argc, char** argv)
+{
+    const std::span<char* const> args{argv, static_cast<std::size_t>(argc)};
+
+    std::vector<std::string_view> lines;
+    if (args.size() > 1) {
+        lines.assign(args.begin() + 1, args.end());
+    } else {
+        lines = demo();
+    }
+
+    int failures = 0;
+    for (std::string_view line : lines) {
+        if (!show(line)) {
+            ++failures;
+        }
+    }
+
+    // У вбудованому наборі відмови очікувані — ненульовий статус тут норма.
+    return failures > 0 ? 1 : 0;
 }
