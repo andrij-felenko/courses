@@ -1,0 +1,602 @@
+[
+ {
+  "op": "insert",
+  "slug": "remote-interface-granularity",
+  "type": "proj",
+  "file": "proj-batch-aggregation-pipeline.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "failure-detection",
+  "type": "proj",
+  "file": "proj-swim-failure-detector.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "phi-accrual-failure-detector",
+  "type": "proj",
+  "file": "proj-phi-accrual-detector.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "health-checks",
+  "type": "comp",
+  "file": "comp-active-vs-passive-probing.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "health-checks",
+  "type": "proj",
+  "file": "proj-resilient-health-endpoint.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "circuit-breaker-pattern",
+  "type": "proj",
+  "file": "proj-lockfree-circuit-breaker.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "bulkhead-isolation",
+  "type": "proj",
+  "file": "proj-resilient-bulkhead.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "fail-open-fail-closed",
+  "type": "proj",
+  "file": "proj-resilient-policy-enforcer.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "lamport-clocks",
+  "type": "hist",
+  "file": "hist-lamport-paper.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "lamport-clocks",
+  "type": "proj",
+  "file": "proj-lamport-simulation.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "vector-clocks",
+  "type": "proj",
+  "file": "proj-vector-clocks.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "vector-clocks-vs-crdt",
+  "type": "proj",
+  "file": "proj-crdt-state-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "hybrid-logical-clocks",
+  "type": "proj",
+  "file": "proj-hlc-node.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "distributed-snapshot",
+  "type": "proj",
+  "file": "proj-chandy-lamport.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "bounded-clock-uncertainty",
+  "type": "proj",
+  "file": "proj-truetime-simulator.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "consensus-problem",
+  "type": "proj",
+  "file": "proj-consensus-sim.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "raft",
+  "type": "math",
+  "file": "math-safety-proof.md",
+  "status": "deeper",
+  "level": 3
+ },
+ {
+  "op": "insert",
+  "slug": "raft",
+  "type": "proj",
+  "file": "proj-raft-node.md",
+  "status": "deeper",
+  "level": 3
+ },
+ {
+  "op": "insert",
+  "slug": "two-phase-commit",
+  "type": "math",
+  "file": "math-atomic-commit.md",
+  "status": "deeper",
+  "level": 3
+ },
+ {
+  "op": "insert",
+  "slug": "two-phase-commit",
+  "type": "proj",
+  "file": "proj-two-phase-commit.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "byzantine-fault-tolerance",
+  "type": "hist",
+  "file": "hist-lamport-byzantine-generals.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "byzantine-fault-tolerance",
+  "type": "math",
+  "file": "math-byzantine-bounds-and-quorums.md",
+  "status": "deeper",
+  "level": 3
+ },
+ {
+  "op": "insert",
+  "slug": "byzantine-fault-tolerance",
+  "type": "proj",
+  "file": "proj-pbft-consensus.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "replication-leader-follower",
+  "type": "proj",
+  "file": "proj-quorum-replication.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "operational-transformation",
+  "type": "math",
+  "file": "math-transformation-properties.md",
+  "status": "deeper",
+  "level": 3
+ },
+ {
+  "op": "insert",
+  "slug": "cell-based-architecture",
+  "type": "proj",
+  "file": "proj-cell-router.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "tenant-isolation",
+  "type": "proj",
+  "file": "proj-tenant-context-rls.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "data-residency",
+  "type": "proj",
+  "file": "proj-georouter.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "fencing-tokens",
+  "type": "proj",
+  "file": "proj-fencing-storage-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "distributed-cron",
+  "type": "proj",
+  "file": "proj-distributed-scheduler.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "saga-pattern",
+  "type": "proj",
+  "file": "proj-saga-orchestrator.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "outbox-pattern",
+  "type": "proj",
+  "file": "proj-outbox-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "inbox-pattern",
+  "type": "proj",
+  "file": "proj-transactional-inbox-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "durable-workflows",
+  "type": "proj",
+  "file": "proj-durable-replay-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "durable-workflow-cluster-under-load",
+  "type": "proj",
+  "file": "proj-sharded-workflow-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "orchestration-vs-choreography",
+  "type": "proj",
+  "file": "proj-saga-execution-modes.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "reconciliation",
+  "type": "proj",
+  "file": "proj-reconciliation-controller.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "gossip-protocols",
+  "type": "proj",
+  "file": "proj-swim-cluster.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "gossip-pull-vs-push",
+  "type": "proj",
+  "file": "proj-gossip-simulator.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "gossip-topology",
+  "type": "proj",
+  "file": "proj-hierarchical-gossip.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "bimodal-multicast",
+  "type": "proj",
+  "file": "proj-pbcast-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "gossip-security",
+  "type": "proj",
+  "file": "proj-secure-gossip.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "scuttlebutt-protocol",
+  "type": "proj",
+  "file": "proj-scuttlebutt-reconciliation.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "message-aggregator",
+  "type": "proj",
+  "file": "proj-resilient-aggregator.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "claim-check",
+  "type": "proj",
+  "file": "proj-claim-check-pipeline.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "idempotent-consumers-deep",
+  "type": "proj",
+  "file": "proj-resilient-idempotent-consumer.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "out-of-order-tolerance",
+  "type": "proj",
+  "file": "proj-resequencer-buffer.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "replay-protection-tactics",
+  "type": "proj",
+  "file": "proj-sliding-bitmap-defense.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "poison-message",
+  "type": "proj",
+  "file": "proj-quarantine-pipeline.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "dead-letter-queue",
+  "type": "proj",
+  "file": "proj-resilient-dlq-pipeline.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "service-discovery",
+  "type": "proj",
+  "file": "proj-client-side-discovery.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "load-balancing",
+  "type": "proj",
+  "file": "proj-l4-vs-l7-proxy.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "maglev-hashing",
+  "type": "proj",
+  "file": "proj-maglev-kernel-lookup.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "sidecar",
+  "type": "proj",
+  "file": "proj-ambassador-proxy.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "service-mesh",
+  "type": "proj",
+  "file": "proj-sidecar-proxy.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "control-data-plane",
+  "type": "proj",
+  "file": "proj-atomic-plane-router.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "request-coalescing",
+  "type": "proj",
+  "file": "proj-singleflight-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "fan-out-strategies",
+  "type": "proj",
+  "file": "proj-scatter-gather.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "distributed-cache",
+  "type": "proj",
+  "file": "proj-distributed-cache-client.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "cdn",
+  "type": "proj",
+  "file": "proj-edge-reverse-proxy.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "content-addressed-assets",
+  "type": "proj",
+  "file": "proj-cas-bundler.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "cache-key-design",
+  "type": "proj",
+  "file": "proj-hotkey-mitigation.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "cache-stampede",
+  "type": "proj",
+  "file": "proj-stampede-defense.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "cache-invalidation-patterns",
+  "type": "proj",
+  "file": "proj-tag-and-version-invalidation.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "cache-coherence-services",
+  "type": "proj",
+  "file": "proj-redis-tracking-l1l2.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "software-dsm-twin-diff",
+  "type": "proj",
+  "file": "proj-diff-engine.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "load-shedding",
+  "type": "proj",
+  "file": "proj-adaptive-load-shedder.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "graceful-degradation-primary",
+  "type": "proj",
+  "file": "proj-tiered-degradation.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "admission-control",
+  "type": "proj",
+  "file": "proj-adaptive-admission-controller.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "adaptive-concurrency",
+  "type": "proj",
+  "file": "proj-adaptive-limiter.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "fairness-quotas",
+  "type": "proj",
+  "file": "proj-deficit-round-robin.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "backpressure-end-to-end",
+  "type": "proj",
+  "file": "proj-credit-flow-controller.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "queue-load-leveling",
+  "type": "proj",
+  "file": "proj-queue-leveler.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "metastable-failures",
+  "type": "proj",
+  "file": "proj-metastable-circuit-breaker.md",
+  "status": "deeper",
+  "level": 2
+ },
+ {
+  "op": "insert",
+  "slug": "thundering-herd",
+  "type": "proj",
+  "file": "proj-herd-defense.md",
+  "status": "deeper",
+  "level": 2
+ }
+]

@@ -23,6 +23,10 @@ const CONCURRENCY = Number(_a && _a.concurrency) || 4
 const STAGGER = Number(_a && _a.stagger) || 2000
 const ROUNDS = Number(_a && _a.rounds) || 2
 const UNITS_IN = (_a && Array.isArray(_a.units)) ? _a.units : null
+/* Готова черга з файла — коли треба звузити прогін (том курсу, добірка тем):
+   складаєш JSON-масив одиниць локально й подаєш шляхом. Фаза «Черга» тоді не
+   перескладає чергу книги, а лише читає цей файл. */
+const UNITS_FILE = (_a && _a.unitsFile) ? String(_a.unitsFile) : ''
 
 /* PAYLOAD — письменник не пише у теку теми, а віддає всю розкладку ОДНИМ файлом;
    розкладає її локальний recode-put.js. Причина заміряна двічі: 872 ходи агентів
@@ -119,9 +123,11 @@ phase('Черга')
 let units = UNITS_IN
 if (!units) {
   const q = await callAgent(
-    `Виконай РІВНО ОДНУ команду Bash із теки ${ROOT} і поверни її результат:\n\n` +
-    `node scripts/claude/recode-queue.js --book ${BOOK} --limit ${LIMIT}${FENCES ? ' --fences' : ''} --write\n\n` +
-    `Потім прочитай ${QFILE} і поверни його вміст у полі units. Нічого не редагуй.`,
+    UNITS_FILE
+      ? `Прочитай файл ${ROOT}/${UNITS_FILE} і поверни його вміст ДОСЛІВНО у полі units. Нічого не редагуй, не скорочуй і не запускай.`
+      : `Виконай РІВНО ОДНУ команду Bash із теки ${ROOT} і поверни її результат:\n\n` +
+        `node scripts/claude/recode-queue.js --book ${BOOK} --limit ${LIMIT}${FENCES ? ' --fences' : ''} --write\n\n` +
+        `Потім прочитай ${QFILE} і поверни його вміст у полі units. Нічого не редагуй.`,
     { label: `черга:${BOOK}`, phase: 'Черга', model: 'sonnet', effort: 'low', schema: QUEUE_RET })
   units = (q && q.units) || []
 }

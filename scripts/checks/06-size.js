@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Перевірка 06 — ОБСЯГ за §3: смуга виду (канон × SCALE) з підлогою на рівні розкриття.
+/* Перевірка 06 — ОБСЯГ за §3: смуга виду з підлогою на рівні розкриття (три рівні).
    Ужиток: node scripts/checks/06-size.js <тека теми>   [CHECKS_SCALE=1.35]
 
    Питання одне: чи дописано тему до дна — і чи не роздуто її замість того.
@@ -39,7 +39,7 @@ const DIR = L.resolveDir(process.argv[2]);
 if (!DIR) { console.error("Вкажи теку теми (шлях від кореня репо або абсолютний)"); process.exit(L.USAGE); }
 const T = L.readTopic(DIR);
 const LV = L.readLevel(DIR);
-L.head("06", `обсяг (канон × ${L.SCALE}, підлога за рівнем)`, DIR);
+L.head("06", "обсяг: підлога за рівнем розкриття", DIR);
 
 const rows = T.files.filter((f) => f.kind !== "other").map((f) => {
   const lv = L.levelFor(LV, f);

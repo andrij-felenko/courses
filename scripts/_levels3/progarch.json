@@ -1,0 +1,298 @@
+{
+ "book": "progarch",
+ "kind": "course",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "cache-coherence-choice",
+   "title": "Вибір стратегії свіжості між сервісами",
+   "group": "Дані",
+   "chapter": "Кеш",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2367,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "dedup-boundary",
+   "title": "Дедуп на межі vs у логіці",
+   "group": "Взаємодія між програмами",
+   "chapter": "Ідемпотентність",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1765,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "dh-notification-pipeline",
+   "title": "Конвеєр сповіщень DH: від сирої події до вчасного виклику",
+   "group": "Взаємодія між програмами",
+   "chapter": "Сповіщення назовні",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2202,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "scale-decision-recap",
+   "title": "Коли масштабувати, а коли ні",
+   "group": "Відмови й навантаження",
+   "chapter": "Зростання під навантаженням",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2489,
+   "realLevel": 2,
+   "delta": 0,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "when-to-extract-service",
+   "title": "Коли виділяти сервіс: критерії та хибні приводи",
+   "group": "Архітектура системи",
+   "chapter": "Розкрій системи",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2907,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "dh-macro-choice",
+   "title": "DH: макроархітектурний вибір системи Digital Homes",
+   "group": "Архітектура системи",
+   "chapter": "Форма Digital Homes",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2343,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "dh-incident-observed",
+   "title": "Інцидент очима телеметрії DH",
+   "group": "Експлуатація",
+   "chapter": "Сигнали системи",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1673,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "dh-canary-pipeline",
+   "title": "Конвеєр бекенда DH",
+   "group": "Експлуатація",
+   "chapter": "Конвеєр змін",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2141,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "canary-bluegreen-featureflags",
+   "title": "Canary, blue-green, feature-flags",
+   "group": "Експлуатація",
+   "chapter": "Викочування й відкат",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2403,
+   "realLevel": 2,
+   "delta": 0,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "org-as-architecture",
+   "title": "Організація як архітектура",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2504,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "dh-team-topology-choice",
+   "title": "Топологія команд DH",
+   "group": "Ціна рішення",
+   "chapter": "Команди й межі",
+   "votes": [
+    2,
+    1,
+    2
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 1823,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "request-journey-final",
+   "title": "Життя одного запиту і однієї команди",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2224,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "capstone-setup",
+   "title": "Капстон, крок 1: постановка й рамка системи",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2244,
+   "realLevel": 1,
+   "delta": 2,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "capstone-shape-data",
+   "title": "Капстон, крок 2: форма застосунку й топологія даних",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1786,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "capstone-scale-secure-ops",
+   "title": "Капстон, крок 4: масштаб, стійкість, безпека, викочування",
+   "group": "Система в часі",
+   "chapter": "Капстон Digital Homes",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1913,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  }
+ ],
+ "levels": 3,
+ "mappedFrom": "1-2→1 · 3-4→2 · 5→3"
+}

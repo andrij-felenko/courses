@@ -1,0 +1,260 @@
+{
+ "book": "sf-security",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "threat-modeling",
+   "title": "Моделювання загроз",
+   "group": "Засади захисту",
+   "chapter": "Модель загрози",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2948,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "least-privilege",
+   "title": "Найменші привілеї й deny-by-default",
+   "group": "Засади захисту",
+   "chapter": "Підстава для доступу",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2087,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "block-cipher",
+   "title": "Блоковий шифр",
+   "group": "Криптографічні примітиви",
+   "chapter": "Симетричні шифри",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3119,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "cryptographic-hash",
+   "title": "Криптографічні гешфункції",
+   "group": "Криптографічні примітиви",
+   "chapter": "Гешфункції й похідні ключі",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3166,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "key-derivation-function",
+   "title": "Похідні ключі: KDF і HKDF",
+   "group": "Криптографічні примітиви",
+   "chapter": "Гешфункції й похідні ключі",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2484,
+   "realLevel": 2,
+   "delta": 0,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "public-key-crypto",
+   "title": "Криптографія з відкритим ключем: ключі, підпис, ланцюг сертифікатів",
+   "group": "Криптографічні примітиви",
+   "chapter": "Шифри з відкритим ключем",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2995,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "rsa",
+   "title": "RSA",
+   "group": "Криптографічні примітиви",
+   "chapter": "Шифри з відкритим ключем",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2302,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "keyed-hash-mac",
+   "title": "Ключований хеш і код автентичності (MAC)",
+   "group": "Цілісність і докази",
+   "chapter": "Коди автентичності",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2284,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "hash-and-digital-signature",
+   "title": "Хеш і цифровий підпис",
+   "group": "Цілісність і докази",
+   "chapter": "Цифровий підпис",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1712,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "tls",
+   "title": "TLS",
+   "group": "Захищені канали й сховище",
+   "chapter": "Рукостискання й сесія",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3039,
+   "realLevel": 2,
+   "delta": 1,
+   "floor": 4000,
+   "max": 10000
+  },
+  {
+   "slug": "tls-handshake",
+   "title": "TLS Handshake: рукостискання й узгодження ключів",
+   "group": "Захищені канали й сховище",
+   "chapter": "Рукостискання й сесія",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2204,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "end-to-end-encryption",
+   "title": "Наскрізне шифрування",
+   "group": "Захищені канали й сховище",
+   "chapter": "Рукостискання й сесія",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2252,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  },
+  {
+   "slug": "audit-logging",
+   "title": "Аудит-лог як вузол",
+   "group": "Практика й супровід",
+   "chapter": "Політики й аудит",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1808,
+   "realLevel": 1,
+   "delta": 1,
+   "floor": 2400,
+   "max": 10000
+  }
+ ],
+ "levels": 3,
+ "mappedFrom": "1-2→1 · 3-4→2 · 5→3"
+}
