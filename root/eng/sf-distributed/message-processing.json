@@ -149,14 +149,13 @@
               "file": "proj-resilient-aggregator.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-aggregator-spec.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ]
         },
@@ -185,9 +184,8 @@
           "api": [
             {
               "file": "api-canonical-schema.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -211,14 +209,13 @@
               "file": "proj-claim-check-pipeline.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-claim-check-contract.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ]
         }
@@ -235,8 +232,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck"
           },
           "hist": [
             {
@@ -265,8 +261,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -307,8 +302,7 @@
           "math": [
             {
               "file": "math-dedup-window-sizing.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -316,15 +310,14 @@
               "file": "proj-resilient-idempotent-consumer.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-idempotent-consumer-contracts.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -354,7 +347,7 @@
               "file": "proj-resequencer-buffer.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -376,8 +369,7 @@
           "math": [
             {
               "file": "math-replay-window-and-clocks.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -385,15 +377,14 @@
               "file": "proj-sliding-bitmap-defense.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-replay-defense-contracts.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -421,8 +412,7 @@
           "math": [
             {
               "file": "math-poison-cascade.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -430,14 +420,13 @@
               "file": "proj-quarantine-pipeline.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-quarantine-protocol.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ]
         },
@@ -459,8 +448,7 @@
           "math": [
             {
               "file": "math-dlq-retries-and-capacity.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -468,15 +456,14 @@
               "file": "proj-resilient-dlq-pipeline.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-dlq-envelope.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

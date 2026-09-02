@@ -63,16 +63,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-posix-spawn.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
@@ -80,7 +78,7 @@
               "file": "proj-process-launcher.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -132,16 +130,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-file-operations.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 5
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -241,8 +237,7 @@
           "api": [
             {
               "file": "api-memory-metrics-map.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -304,9 +299,8 @@
           "proj": [
             {
               "file": "proj-fault-probe.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

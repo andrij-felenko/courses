@@ -1,77 +1,61 @@
+#include "process_sum.hpp"
+#include "thread_sum.hpp"
+
+#include <chrono>
+#include <cstddef>
+#include <cstdlib>
+#include <iomanip>
 #include <iostream>
-#include <vector>
-#include <thread>
 #include <numeric>
-#include <span>
-#include <system_error>
-#include <unistd.h>
-#include <sys/wait.h>
+#include <utility>
+#include <vector>
 
-constexpr size_t ARRAY_SIZE = 1'000'000;
+namespace {
 
-// Обчислення суми частини масиву через std::span
-long long calculate_sum(std::span<const int> slice) noexcept {
-    return std::accumulate(slice.begin(), slice.end(), 0LL);
+constexpr std::size_t kCount = 8 * 1024 * 1024;   // ≈ 32 МіБ int-ів
+constexpr std::size_t kWorkers = 4;
+
+// Міряє час виклику й повертає пару {результат, мілісекунди}.
+template <class F>
+auto timed(F &&fn)
+{
+    const auto start = std::chrono::steady_clock::now();
+    auto value = fn();
+    const std::chrono::duration<double, std::milli> elapsed =
+        std::chrono::steady_clock::now() - start;
+    return std::pair{ std::move(value), elapsed.count() };
 }
 
-int main() {
-    std::vector<int> data(ARRAY_SIZE, 1);
-    const size_t mid = ARRAY_SIZE / 2;
+} // namespace
 
-    std::cout << "--- ВАРІАНТ 1: Обчислення через ПОТОКИ (C++ std::jthread) ---\n";
-    long long thread_part_sum = 0;
-    {
-        std::span<const int> second_half(data.data() + mid, ARRAY_SIZE - mid);
-        // jthread отримує прямий доступ до пам'яті вектора
-        std::jthread worker([second_half, &thread_part_sum]() {
-            thread_part_sum = calculate_sum(second_half);
-        });
+int main()
+{
+    std::vector<int> data(kCount);
+    for (std::size_t i = 0; i < data.size(); ++i)
+        data[i] = static_cast<int>(i % 7) - 3;
 
-        // Головний потік обчислює свою половину
-        std::span<const int> first_half(data.data(), mid);
-        long long main_part_sum = calculate_sum(first_half);
+    const long long reference = std::accumulate(data.begin(), data.end(), 0LL);
+    std::cout << std::fixed << std::setprecision(2);
 
-        // worker автоматично приєднується (join) при виході з блоку видимості
-        std::cout << "Результат через потоки: "
-                  << (main_part_sum + thread_part_sum) << "\n\n";
+    std::cout << "--- ПОТОКИ: спільний адресний простір, обмін через покажчик ---\n";
+    const auto [threadTotal, threadMs] =
+        timed([&] { return sumWithThreads(data, kWorkers); });
+    std::cout << "  сума = " << threadTotal << ", час = " << threadMs << " мс\n\n";
+
+    std::cout << "--- ПРОЦЕСИ: копія-при-записі, обмін через канал ---\n";
+    // Форкаємо, коли всі робочі потоки вже приєднані. fork() копіює ЛИШЕ
+    // потік-викликач, тож м'ютекс, захоплений чужим потоком, застряг би в
+    // дитині захопленим назавжди — і перший же malloc там став би дедлоком.
+    const auto [processTotal, processMs] =
+        timed([&] { return sumWithProcesses(data, kWorkers); });
+    if (!processTotal) {
+        std::cerr << "процеси: " << processTotal.error().message() << '\n';
+        return EXIT_FAILURE;
     }
+    std::cout << "  сума = " << *processTotal << ", час = " << processMs << " мс\n\n";
 
-    std::cout << "--- ВАРІАНТ 2: Обчислення через ПРОЦЕСИ (fork + pipe) ---\n";
-    int pipefd[2];
-    if (::pipe(pipefd) < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка створення pipe");
-    }
-
-    pid_t pid = ::fork();
-    if (pid < 0) {
-        throw std::system_error(errno, std::generic_category(), "Помилка fork");
-    }
-
-    if (pid == 0) {
-        // Дочірній процес
-        ::close(pipefd[0]);
-        std::span<const int> second_half(data.data() + mid, ARRAY_SIZE - mid);
-        long long child_sum = calculate_sum(second_half);
-
-        ::write(pipefd[1], &child_sum, sizeof(child_sum));
-        ::close(pipefd[1]);
-        ::_exit(0);
-    }
-
-    // Батьківський процес
-    ::close(pipefd[1]);
-    std::span<const int> first_half(data.data(), mid);
-    long long parent_sum = calculate_sum(first_half);
-
-    long long child_result = 0;
-    ::read(pipefd[0], &child_result, sizeof(child_result));
-    ::close(pipefd[0]);
-
-    int status = 0;
-    ::waitpid(pid, &status, 0);
-
-    std::cout << "Результат через процеси: "
-              << (parent_sum + child_result) << '\n';
-
+    std::cout << "контроль = " << reference << "; обидві відповіді збіглися: "
+              << ((threadTotal == reference && *processTotal == reference) ? "так" : "НІ")
+              << '\n';
     return 0;
 }

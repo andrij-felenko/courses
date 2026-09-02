@@ -369,8 +369,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "proj": [
@@ -801,8 +800,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           },
           "hist": [
             {
@@ -813,9 +811,8 @@
           "proj": [
             {
               "file": "proj-dh-notification-pipeline.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -868,15 +865,14 @@
             {
               "file": "math-fanout-cost.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-fanout-engine.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -898,9 +894,8 @@
           "proj": [
             {
               "file": "proj-outbound-egress-node.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

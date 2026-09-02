@@ -17,23 +17,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-linux-crypto-mac.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ],
           "math": [
             {
               "file": "math-poly1305-eval.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -41,7 +38,7 @@
               "file": "proj-constant-time-mac.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -124,8 +121,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4
+            "status": "recheck"
           }
         },
         {
@@ -153,8 +149,7 @@
           "api": [
             {
               "file": "api-cms-asn1.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ]
         },
@@ -186,15 +181,13 @@
           "hist": [
             {
               "file": "hist-zkp-origins.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-simulation-paradigm.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -202,15 +195,14 @@
               "file": "proj-schnorr-zkp.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-zk-verifier.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             },
             {
               "file": "api-schnorr-protocol.md",
@@ -238,7 +230,7 @@
             {
               "file": "math-fiat-shamir-soundness.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
@@ -246,15 +238,14 @@
               "file": "proj-fiat-shamir-signature.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-fiat-shamir-transform.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -276,8 +267,7 @@
           "math": [
             {
               "file": "math-cryptographic-commitment.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -285,15 +275,14 @@
               "file": "proj-pedersen-commitment.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-cryptographic-commitment.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

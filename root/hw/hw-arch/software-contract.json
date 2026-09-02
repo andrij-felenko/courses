@@ -132,14 +132,14 @@
               "file": "proj-simd-dispatch.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-leaves.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ]
         },
@@ -191,8 +191,7 @@
           "api": [
             {
               "file": "api-xsave-layout.md",
-              "status": "deeper",
-              "level": 5
+              "status": "recheck"
             }
           ]
         }
@@ -209,8 +208,7 @@
             "status": "recheck"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -318,8 +316,7 @@
           "hist": [
             {
               "file": "hist-cpuid-virtualization.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -327,15 +324,14 @@
               "file": "proj-vmm-cpuid-filter.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-kvm-cpuid-ioctl.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ]
         },

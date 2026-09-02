@@ -17,8 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck"
           },
           "hist": [
             {
@@ -29,8 +28,7 @@
           "math": [
             {
               "file": "math-flp-proof.md",
-              "status": "deeper",
-              "level": 5
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -38,7 +36,7 @@
               "file": "proj-consensus-sim.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -49,8 +47,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck"
           },
           "hist": [
             {
@@ -62,7 +59,7 @@
             {
               "file": "math-safety-proof.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
@@ -70,14 +67,13 @@
               "file": "proj-raft-node.md",
               "status": "deeper",
               "recode": true,
-              "level": 5
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-raft-rpc.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ]
         },
@@ -93,15 +89,14 @@
           "hist": [
             {
               "file": "hist-two-phase-commit.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-atomic-commit.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
@@ -109,15 +104,14 @@
               "file": "proj-two-phase-commit.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-xa-protocol.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -140,8 +134,7 @@
           "math": [
             {
               "file": "math-two-generals-proof.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ]
         },
@@ -158,23 +151,22 @@
           "api": [
             {
               "file": "api-pbft-node-interface.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-lamport-byzantine-generals.md",
               "status": "deeper",
-              "level": 3
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-byzantine-bounds-and-quorums.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
@@ -182,7 +174,7 @@
               "file": "proj-pbft-consensus.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         }
@@ -199,8 +191,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5
+            "status": "recheck"
           },
           "hist": [
             {
@@ -328,16 +319,14 @@
           "proj": [
             {
               "file": "proj-causal-read-model.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-lag-contract.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ]
         }

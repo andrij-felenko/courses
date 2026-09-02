@@ -1,83 +1,66 @@
+#define _GNU_SOURCE
+#include "chunks.h"
+#include "proc_sum.h"
+#include "thread_sum.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/wait.h>
+#include <string.h>
+#include <time.h>
 
-#define ARRAY_SIZE 1000000
+#define N        (8u * 1024u * 1024u)   /* 8 Мі елементів ≈ 32 МіБ */
+#define WORKERS  4
 
-// Структура для передачі завдань потоку
-typedef struct {
-    const int *data;
-    size_t start;
-    size_t end;
-    long long partial_sum;
-} ThreadTask;
-
-static void *thread_worker(void *arg) {
-    ThreadTask *task = (ThreadTask *)arg;
-    long long sum = 0;
-    for (size_t i = task->start; i < task->end; ++i) {
-        sum += task->data[i];
-    }
-    task->partial_sum = sum;
-    return NULL;
+static double now_ms(void)
+{
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000.0 + ts.tv_nsec / 1e6;
 }
 
-int main(void) {
-    // 1. Ініціалізація тестового масиву
-    int *array = malloc(ARRAY_SIZE * sizeof(int));
-    if (!array) return EXIT_FAILURE;
-    for (int i = 0; i < ARRAY_SIZE; ++i) array[i] = 1;
-
-    size_t mid = ARRAY_SIZE / 2;
-
-    printf("--- ВАРІАНТ 1: Обчислення через ПОТОКИ (Shared Memory) ---\n");
-    ThreadTask task = { .data = array, .start = mid, .end = ARRAY_SIZE, .partial_sum = 0 };
-    pthread_t thread;
-
-    // Створюємо потік: він читає той самий масив за прямим покажчиком
-    pthread_create(&thread, NULL, thread_worker, &task);
-
-    // Головний потік обчислює першу половину
-    long long main_sum = 0;
-    for (size_t i = 0; i < mid; ++i) main_sum += array[i];
-
-    pthread_join(thread, NULL);
-    long long total_thread_sum = main_sum + task.partial_sum;
-    printf("Результат через потоки: %lld\n\n", total_thread_sum);
-
-    printf("--- ВАРІАНТ 2: Обчислення через ПРОЦЕСИ (Fork + Pipe) ---\n");
-    int pipefd[2];
-    if (pipe(pipefd) < 0) { free(array); return EXIT_FAILURE; }
-
-    pid_t pid = fork();
-    if (pid == 0) {
-        // Дочірній процес: обчислює другу половину
-        close(pipefd[0]); // Закриваємо кінець для читання
-        long long child_sum = 0;
-        for (size_t i = mid; i < ARRAY_SIZE; ++i) child_sum += array[i];
-
-        // Передаємо результат батькові через системний канал
-        write(pipefd[1], &child_sum, sizeof(child_sum));
-        close(pipefd[1]);
-        free(array);
-        _exit(EXIT_SUCCESS);
+int main(void)
+{
+    int *data = malloc((size_t)N * sizeof *data);
+    if (data == NULL) {
+        fprintf(stderr, "не вистачило пам'яті під масив\n");
+        return EXIT_FAILURE;
     }
+    for (size_t i = 0; i < N; ++i)
+        data[i] = (int)(i % 7) - 3;
 
-    // Батьківський процес
-    close(pipefd[1]); // Закриваємо кінець для запису
-    long long proc_main_sum = 0;
-    for (size_t i = 0; i < mid; ++i) proc_main_sum += array[i];
+    const chunk_t whole = { .start = 0, .end = N };
+    const long long reference = sum_range(data, whole);
 
-    long long proc_child_sum = 0;
-    read(pipefd[0], &proc_child_sum, sizeof(proc_child_sum));
-    close(pipefd[0]);
-    waitpid(pid, NULL, 0);
+    puts("--- ПОТОКИ: спільний адресний простір, обмін через покажчик ---");
+    long long thread_total = 0;
+    double t0 = now_ms();
+    int rc = thread_sum(data, N, WORKERS, &thread_total);
+    double t1 = now_ms();
+    if (rc != 0) {
+        fprintf(stderr, "thread_sum: %s\n", strerror(rc));
+        free(data);
+        return EXIT_FAILURE;
+    }
+    printf("  сума = %lld, час = %.2f мс\n\n", thread_total, t1 - t0);
 
-    long long total_proc_sum = proc_main_sum + proc_child_sum;
-    printf("Результат через процеси: %lld\n", total_proc_sum);
+    puts("--- ПРОЦЕСИ: копія-при-записі, обмін через канал ---");
+    /* Форкаємо, коли робочі потоки вже приєднані й у процесі знову лишився
+       один головний потік. fork() копіює ЛИШЕ того, хто його викликав, тож
+       м'ютекс, захоплений чужим потоком, застряг би в дитині назавжди. */
+    long long proc_total = 0;
+    t0 = now_ms();
+    rc = proc_sum(data, N, WORKERS, &proc_total);
+    t1 = now_ms();
+    if (rc != 0) {
+        fprintf(stderr, "proc_sum: %s\n", strerror(rc));
+        free(data);
+        return EXIT_FAILURE;
+    }
+    printf("  сума = %lld, час = %.2f мс\n\n", proc_total, t1 - t0);
 
-    free(array);
+    printf("контроль = %lld; обидві відповіді збіглися: %s\n", reference,
+           (thread_total == reference && proc_total == reference) ? "так" : "НІ");
+
+    free(data);
     return EXIT_SUCCESS;
 }

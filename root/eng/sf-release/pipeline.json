@@ -17,8 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 5,
+            "status": "recheck",
             "recode": true
           },
           "hist": [
@@ -43,8 +42,7 @@
           "api": [
             {
               "file": "api-pipeline-spec.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ]
         },
@@ -94,22 +92,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "deeper",
-            "level": 4,
+            "status": "recheck",
             "recode": true
           },
           "api": [
             {
               "file": "api-oci-distribution-spec.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-oci-and-docker-image-spec.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -117,7 +113,7 @@
               "file": "proj-oci-registry-client.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -175,8 +171,7 @@
           "api": [
             {
               "file": "api-budget-spec.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "comp": [
@@ -184,7 +179,7 @@
               "file": "comp-static-vs-dynamic-budgeting.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ],
           "hist": [
@@ -198,7 +193,7 @@
               "file": "proj-map-and-stack-gate.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -214,8 +209,7 @@
           "api": [
             {
               "file": "api-metrics-and-thresholds-spec.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -227,8 +221,7 @@
           "math": [
             {
               "file": "math-change-point-and-statistical-regression.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -236,7 +229,7 @@
               "file": "proj-regression-benchmarks-and-alerting.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -259,16 +252,14 @@
           "api": [
             {
               "file": "api-version-header-spec.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
             {
               "file": "hist-git-describe-and-build-identity.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -276,7 +267,7 @@
               "file": "proj-repo-state-extractor.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -293,15 +284,13 @@
           "api": [
             {
               "file": "api-release-manifest-spec.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "comp": [
             {
               "file": "comp-spdx-vs-cyclonedx.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -315,7 +304,7 @@
               "file": "proj-release-bundle-generator.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -338,8 +327,7 @@
           "comp": [
             {
               "file": "comp-release-notes-audiences.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "hist": [
@@ -353,7 +341,7 @@
               "file": "proj-release-notes-generator.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -370,23 +358,21 @@
           "api": [
             {
               "file": "api-board-id-descriptor.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 3
+              "status": "recheck",
+              "recode": true
             }
           ],
           "comp": [
             {
               "file": "comp-strapping-circuits.md",
               "status": "deeper",
-              "level": 3
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-single-binary-evolution.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -394,7 +380,7 @@
               "file": "proj-unified-board-init.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         }
@@ -448,15 +434,14 @@
               "file": "proj-api-evolution.md",
               "status": "deeper",
               "recode": true,
-              "level": 4
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-deprecation-contract.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -473,22 +458,20 @@
           "api": [
             {
               "file": "api-grease-and-anti-ossification.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "comp": [
             {
               "file": "comp-postel-vs-hyrum.md",
               "status": "deeper",
-              "level": 4
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-hyrum-wright-and-google.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -496,7 +479,7 @@
               "file": "proj-defensive-randomization.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -519,9 +502,8 @@
           "api": [
             {
               "file": "api-freeze-and-rc-policy.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck",
+              "recode": true
             }
           ],
           "hist": [
@@ -535,7 +517,7 @@
               "file": "proj-rc-gate-evaluator.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -552,15 +534,14 @@
           "api": [
             {
               "file": "api-channel-distribution-spec.md",
-              "status": "deeper",
-              "level": 2
+              "status": "recheck"
             }
           ],
           "comp": [
             {
               "file": "comp-channel-matrix.md",
               "status": "deeper",
-              "level": 3
+              "level": 2
             }
           ],
           "hist": [
@@ -574,7 +555,7 @@
               "file": "proj-channel-router.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
