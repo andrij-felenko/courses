@@ -22,17 +22,17 @@
    НЕ адресується: `slug` у нього `null`, `addrOf` вертає `null`. Інакше адреса виходила
    б тризначною («книга/книга/тема»), і `parseAddr` її не розбирав би.
 
-   Маніфест читається ЛИШЕ через scripts/lib/manifest7.js (CLAUDE.md: один модуль
-   читає й пише схему 7). Тут — жодного власного розбору JSON.
+   Маніфест читається ЛИШЕ через `writer_ua/lib/manifest.js` — один модуль на весь
+   конвеєр. Тут — жодного власного розбору JSON.
    ========================================================================== */
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const M7 = require("../../../scripts/lib/manifest7.js");
+const MF = require("../../lib/manifest.js");
 
-const ROOT = M7.ROOT;
-const CONTENT = M7.CONTENT;
-const INSERTS = M7.INSERT_TYPES;                       // hist comp math proj api
+const ROOT = MF.ROOT;
+const CONTENT = MF.CONTENT;
+const INSERTS = MF.INSERT_TYPES;                       // hist comp math proj api
 const VERSIONS = ["basic", "detailed"];
 const TYPES = [...VERSIONS, ...INSERTS];
 const STATUSES = ["done", "pending", "empty", "update", "deeper", "recheck"];
@@ -63,14 +63,14 @@ const addrOf = (u) => (u.slug == null ? null : `${u.book}/${u.slug}` + (u.part ?
    не платити за читання книги двічі на один прогін. */
 const _loaded = new Map();
 function loadBook(dir) {
-  if (!_loaded.has(dir)) _loaded.set(dir, M7.loadBook(dir));
+  if (!_loaded.has(dir)) _loaded.set(dir, MF.loadBook(dir));
   return _loaded.get(dir);
 }
 
 /** Книги полиці як [{slug, kind, title, dir}], з фільтром за видом і слугом. */
 function bookList({ kinds, books } = {}) {
   const out = [];
-  for (const [slug, b] of M7.books()) {
+  for (const [slug, b] of MF.books()) {
     if (kinds && kinds.length && !kinds.includes(b.kind)) continue;
     if (books && books.length && !books.includes(slug)) continue;
     /* назва книги живе тільки в її manifest.json; вигадувати з слуга — брехати */
@@ -105,7 +105,7 @@ function enumerate({ kinds, books } = {}) {
   for (const b of bookList({ kinds, books })) {
     const book = loadBook(b.dir);
     if (!book) continue;
-    for (const t of M7.allTopics(book)) {
+    for (const t of MF.allTopics(book)) {
       const base = {
         book: b.slug, kind: b.kind, bookDir: b.dir,
         group: t.group, chapter: t.chapter, title: t.title,
@@ -254,8 +254,8 @@ function validate(f) {
   known(f.status, STATUSES, "статус");
   known(f.notStatus, STATUSES, "статус");
   known(f.type, TYPES, "тип");
-  known(f.kinds, [...new Set([...M7.books().values()].map((b) => b.kind))], "вид");
-  const bookSlugs = new Set(M7.books().keys());
+  known(f.kinds, [...new Set([...MF.books().values()].map((b) => b.kind))], "вид");
+  const bookSlugs = new Set(MF.books().keys());
   (f.books || []).forEach((b) => { if (!bookSlugs.has(b)) bad.push(`книга: ${b}`); });
   if (bad.length) throw new Error("невідоме значення — " + bad.join(", "));
 
@@ -268,9 +268,9 @@ function validate(f) {
     for (const b of bookList({ kinds: f.kinds, books: f.books })) {
       const book = loadBook(b.dir);
       if (!book) continue;
-      for (const g of M7.groupSlugs(book)) {
+      for (const g of MF.groupSlugs(book)) {
         groups.add(g);
-        for (const c of M7.chapterSlugs(book, g)) chapters.add(c);
+        for (const c of MF.chapterSlugs(book, g)) chapters.add(c);
       }
     }
     (f.group || []).forEach((v) => { if (!groups.has(v)) bad.push(`група: ${v}`); });

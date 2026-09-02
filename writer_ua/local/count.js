@@ -7,22 +7,18 @@
    прибрали, письмо сповзло на нижній край смуги. Тому ця команда лише міряє;
    рішення, чи це замало, ухвалює людина — і ніхто інший.
 
-   Проза міряється НЕ власним ситом, а `proseWords` зі scripts/checks/_lib.js: воно
-   відкидає огорожі, таблиці, рядки-зображення і директиви `:::`. Сит у репо ДВА, і
-   вони вже розійшлися — `scripts/wordcount.js` (мірило §3, етап 8 батчу) рядки
-   `:::` за прозу вважає, `_lib` їх відкидає. Беремо `_lib` саме тому: директива —
-   це посилання, яке стало на місце коду, а не текст, і 53 219 рядків `:::` дали б
-   162 705 фантомних слів рівно в тих файлах, де коду найбільше.
+   Проза міряється ситом `writer_ua/lib/text.js`: воно відкидає огорожі, таблиці,
+   рядки-зображення і директиви `:::`. Директива — це посилання, яке стало на місце
+   коду, а не текст; лишивши її в ліку, 53 219 рядків `:::` корпусу дали б близько
+   163 тисяч фантомних слів рівно в тих файлах, де коду найбільше.
 
-   Отже числа тут і в `wordcount.js` НЕ збігаються, і це не поламка: по корпусу
-   30 383 103 слова проти 30 545 808 — розходяться 8239 файлів із 17 867, найбільший
-   розрив на файлі +237 слів; на `unix/build-from-source:detailed` це 2389 тут проти
-   2417 там. Звіряючи, шукай різницю в директивах, а не в помилці. Свого, третього
-   сита не заводимо.
+   Тому числа тут НЕ збігаються з `scripts/wordcount.js`, який рядки `:::` за прозу
+   вважає, і це не поламка, а різні означення прози. Звіряючи, шукай різницю в
+   директивах, а не помилку.
 
-   Код — звідти ж: `langDirsOf` і `codeLinesOfDir` (файли збірки й тести з ліку
-   виключені, відбір за ІМЕНЕМ, не за розширенням). Тека, де крім них нічого немає,
-   чесно показує 0 і дістає в таблиці зірочку — щоб «0» не читалося як «порожньо».
+   Код — звідти ж: `langDirs` і `codeLines` (файли збірки й тести з ліку виключені,
+   відбір за ІМЕНЕМ, не за розширенням). Тека, де крім них нічого немає, чесно
+   показує 0 і дістає в таблиці зірочку — щоб «0» не читалося як «порожньо».
 
    Відбір — спільна мова з `find` і `status` (lib/units.js).
    ========================================================================== */
@@ -30,7 +26,7 @@
 const fs = require("fs");
 const path = require("path");
 const U = require("./lib/units.js");
-const L = require("../../scripts/checks/_lib.js");
+const TXT = require("../lib/text.js");
 
 const HELP = `
 count — міряє прозу й код відібраних одиниць
@@ -96,16 +92,16 @@ function measure(u) {
   if (!file || !fs.existsSync(file)) return { ...row, exists: false, words: 0, chars: 0, lines: 0, figs: 0, fenced: 0, code: [], codeLines: 0 };
 
   const md = fs.readFileSync(file, "utf8");
-  const words = L.proseWords(md);
+  const words = TXT.proseWords(md);
   const { chars, figs } = proseCharsAndFigs(md);
-  const code = L.langDirsOf(path.dirname(file), path.basename(file))
-    .map((d) => ({ lang: d.lang, ...L.codeLinesOfDir(d.dir) }));
+  const code = TXT.langDirs(path.dirname(file), path.basename(file))
+    .map((d) => ({ lang: d.lang, ...TXT.codeLines(d.dir) }));
 
   return {
     ...row, exists: true,
     words, chars,
     lines: md.replace(/\r\n?/g, "\n").replace(/\n+$/, "").split("\n").length,
-    figs, fenced: L.fencedCodeLeft(md),
+    figs, fenced: TXT.fencedCode(md),
     code, codeLines: code.reduce((s, c) => s + c.lines, 0),
   };
 }

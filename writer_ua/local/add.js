@@ -2,23 +2,22 @@
 /* ============================================================================
    add.js — ЗАВЕСТИ нову тему, нову вставку або крок-вказівник у наявній книзі.
 
-   ⛔ КНИГУ, ТОМ І КУРС ЗАВОДИТЬ ТІЛЬКИ АВТОР (CLAUDE.md, AUTHORING §2). Ця команда
+   ⛔ КНИГУ, ТОМ І КУРС ЗАВОДИТЬ ТІЛЬКИ АВТОР (`writer_ua/rules/structure.md`). Ця команда
    на неіснуючу книгу відповідає відмовою й не пропонує її створити — навіть коли
    підстава очевидна. Групу й розділ УСЕРЕДИНІ наявної книги вона створює сама, ні
    в кого не питаючи: асиметрія навмисна.
 
-   ⚠️ «КНИГА Є» ЗНАЧИТЬ «Є manifest.json», а не «є запис у M7.books()». Перелік книг
-   має падбек на скан диска, тож гола тека `root/<вид>/<щось>/` теж приходить звідти
-   книгою; далі `applyOps` через `ensureManifest` цей маніфест СТВОРЮЄ — і книгу
-   заводила б рівно ця команда, всупереч власній забороні. Тому застава стоїть на
-   `M7.loadBook()` і спрацьовує ПЕРШОЮ, до будь-яких інших дій.
+   ⚠️ «КНИГА Є» ЗНАЧИТЬ «Є manifest.json». Застав тепер два, і обидва потрібні:
+   `writer_ua/lib/manifest.js` не заводить книги НІКОЛИ (немає маніфесту — операції не
+   застосовуються), а тут перевірка на `MF.loadBook()` спрацьовує ПЕРШОЮ, до будь-яких
+   інших дій, щоб команда сказала це людською фразою, а не звітом писаря.
 
    ⚠️ ПЕРЕД ЗАВЕДЕННЯМ — ПОПЕРЕДЖЕННЯ ПРО ДУБЛІ. Чотири дублі понять уже зайшли в
    корпус мовчки саме тому, що перед створенням ніхто не подивився. Тут підказки
-   `manifest7.dupeHints` друкуються ЗАВЖДИ і НЕ блокують: об'єднувати чи ні —
+   `lib/dupes.js` друкуються ЗАВЖДИ і НЕ блокують: об'єднувати чи ні —
    рішення людське. Але побачити його треба до запису, а не після.
 
-   Маніфест пишеться ЛИШЕ через scripts/lib/manifest7.js.
+   Маніфест пишеться ЛИШЕ через `writer_ua/lib/manifest.js`.
 
    ЩО СТВОРЮЄТЬСЯ НА ДИСКУ. Нічого — ні темі, ні вставці. Тема за каноном заводиться
    `basic:empty` + `detailed:pending`, тобто файл ще належить написати, і порожній
@@ -26,14 +25,15 @@
    САМ МАНІФЕСТ у записі `{file,status}`, тож нічого не губиться й без файла. Файл
    пише письменник — ця команда лише заводить запис.
 
-   ⚠️ ЩО САМЕ СТАНЕТЬСЯ, СУДИТЬ manifest7, А НЕ МИ. Тутешній розбір вирішує лише, які
-   операції ми маємо на увазі; наслідки показує звіт від `M7.applyOps(dry:true)` —
+   ⚠️ ЩО САМЕ СТАНЕТЬСЯ, СУДИТЬ ПИСАР МАНІФЕСТУ, А НЕ МИ. Тутешній розбір вирішує лише, які
+   операції ми маємо на увазі; наслідки показує звіт від `MF.applyOps(dry:true)` —
    ті самі операції, що потім і запишуться. Інакше вивід був би власним переказом
    чужих правил і розходився б з ними мовчки.
    ========================================================================== */
 "use strict";
 const U = require("./lib/units.js");
-const M7 = require("../../scripts/lib/manifest7.js");
+const MF = require("../lib/manifest.js");
+const DUP = require("../lib/dupes.js");
 
 const HELP = `
 add — завести нову тему, вставку або крок-вказівник у наявній книзі
@@ -76,7 +76,7 @@ const KEYS = new Set([
   "basic", "detailed", "type", "file", "status",
 ]);
 
-/* Нова тема — це `basic:empty` + `detailed:pending` (AUTHORING §3/§6) і нічого інше.
+/* Нова тема — це `basic:empty` + `detailed:pending` (`rules/structure.md`) і нічого інше.
    `done` без файла зробив би її в рідері готовою статтею, якої ніхто не писав. */
 const NEW_STATUSES = ["empty", "pending"];
 
@@ -101,8 +101,8 @@ function checkSlug(s, what) {
 
 /** Книга є ⟺ у неї є manifest.json. Див. шапку: інакше цю книгу заведе `--apply`. */
 function openBook(slug) {
-  const shelf = M7.books().get(slug);
-  const book = shelf && M7.loadBook(shelf.bookDir);
+  const shelf = MF.books().get(slug);
+  const book = shelf && MF.loadBook(shelf.bookDir);
   if (!book)
     throw new Error(`книги «${slug}» немає (manifest.json не знайдено). Книгу, том і курс заводить ТІЛЬКИ автор — ця команда цього не робить`);
   return { dir: shelf.bookDir, kind: shelf.kind, book };
@@ -118,7 +118,7 @@ function openBook(slug) {
  */
 function warnDupes(slug, book) {
   let hints = [];
-  try { hints = M7.dupeHints(slug, book) || []; }
+  try { hints = DUP.hints(slug, book) || []; }
   catch (e) { console.error(`add: підказки про дублі не спрацювали: ${e.message}`); return; }
   if (!hints.length) return;
   console.error(`\n⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ для «${slug}» (${hints.length}):`);
@@ -136,8 +136,8 @@ function warnDupes(slug, book) {
 function placement(o, book) {
   const group = checkSlug(need(o.group, "--group"), "слуг групи");
   const chapter = checkSlug(need(o.chapter, "--chapter"), "слуг розділу");
-  const gsNew = !M7.groupSlugs(book).has(group);
-  const chNew = gsNew || !M7.chapterSlugs(book, group).has(chapter);
+  const gsNew = !MF.groupSlugs(book).has(group);
+  const chNew = gsNew || !MF.chapterSlugs(book, group).has(chapter);
   if (gsNew && !o["group-title"]) throw new Error(`групи «${group}» ще немає — дай --group-title`);
   if (chNew && !o["chapter-title"]) throw new Error(`розділу «${chapter}» ще немає — дай --chapter-title`);
   return { group, chapter, gsNew, chNew, where: `${group}/${chapter}${gsNew ? "  (група НОВА)" : chNew ? "  (розділ НОВИЙ)" : ""}` };
@@ -184,7 +184,7 @@ function main(argv) {
   if (o.topic) {
     const slug = checkSlug(o.topic, "слуг теми");
     const title = need(o.title, "--title");
-    if (M7.findTopic(book, slug)) throw new Error(`тема «${slug}» у книзі вже є`);
+    if (MF.findTopic(book, slug)) throw new Error(`тема «${slug}» у книзі вже є`);
 
     const basic = o.basic || "empty";
     const detailed = o.detailed || "pending";
@@ -212,14 +212,14 @@ function main(argv) {
   /* ── нова вставка ── */
   else if (o.insert) {
     const slug = o.insert;
-    const t = M7.findTopic(book, slug);
+    const t = MF.findTopic(book, slug);
     if (!t) throw new Error(`теми «${slug}» у книзі «${bookSlug}» немає`);
     const type = need(o.type, "--type");
     if (!U.INSERTS.includes(type)) throw new Error(`--type: тип вставки це ${U.INSERTS.join(" ")}`);
 
     const file = need(o.file, "--file");
     if (!/^[a-z0-9][a-z0-9-]*\.md$/.test(file)) throw new Error(`ім'я «${file}» не за неймингом: <type>-<name>.md`);
-    if (!file.startsWith(type + "-")) throw new Error(`ім'я «${file}» має починатися з «${type}-» — так каже нейминг §2`);
+    if (!file.startsWith(type + "-")) throw new Error(`ім'я «${file}» має починатися з «${type}-» — так каже нейминг`);
     if ((t.node[type] || []).some((x) => x.file === file)) throw new Error(`вставка «${file}» у темі вже є`);
 
     const status = o.status || "pending";
@@ -239,10 +239,10 @@ function main(argv) {
     if (seg.length !== 2 || !seg[0] || !seg[1])
       throw new Error(`--ref «${ref}»: адреса це рівно два сегменти — <книга>/<тема>, бо групи й розділу в ній немає`);
     const [tBook, tSlug] = seg;
-    const target = M7.books().get(tBook);
-    const targetBook = target && M7.loadBook(target.bookDir);
+    const target = MF.books().get(tBook);
+    const targetBook = target && MF.loadBook(target.bookDir);
     if (!targetBook) throw new Error(`--ref «${ref}»: книги «${tBook}» немає`);
-    if (!M7.findTopic(targetBook, tSlug)) throw new Error(`--ref «${ref}»: теми «${tSlug}» у книзі «${tBook}» немає`);
+    if (!MF.findTopic(targetBook, tSlug)) throw new Error(`--ref «${ref}»: теми «${tSlug}» у книзі «${tBook}» немає`);
 
     const title = need(o.title, "--title");
     const at = placement(o, book);
@@ -258,12 +258,12 @@ function main(argv) {
 
   console.log(plan.join("\n"));
 
-  /* Ті самі операції спершу насухо — щоб показане число було звітом manifest7, а не
+  /* Ті самі операції спершу насухо — щоб показане число було звітом писаря маніфесту, а не
      нашим передбаченням. Запис іде другим прогоном і звітує вже за себе. */
-  const dry = M7.applyOps(bookDir, ops, { dry: true });
-  const rep = o.apply ? M7.applyOps(bookDir, ops) : dry;
+  const dry = MF.applyOps(bookDir, ops, { dry: true });
+  const rep = o.apply ? MF.applyOps(bookDir, ops) : dry;
 
-  /* Непорожній `skipped` — це РОЗХОДЖЕННЯ наміру зі звітом manifest7, найцінніше у виводі. */
+  /* Непорожній `skipped` — це РОЗХОДЖЕННЯ наміру зі звітом писаря маніфесту, найцінніше у виводі. */
   if (rep.skipped.length) {
     console.log(`\nпропущено (нічого не змінює): ${rep.skipped.length}`);
     rep.skipped.forEach((s) => console.log(`   · ${s}`));

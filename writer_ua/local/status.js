@@ -12,16 +12,16 @@
    1. ⛔ Типово це СУХИЙ прогін. Без `--apply` нічого не пишеться — лише показується,
       що змінилося б. Пошук ганяють недбало, а тут одруківка у фільтрі означала б
       мовчазний перепис сотень одиниць.
-   2. Маніфест пишеться ЛИШЕ через scripts/lib/manifest7.js (CLAUDE.md: один модуль
-      читає й пише схему 7). Тут — жодного власного запису JSON.
+   2. Маніфест пишеться ЛИШЕ через `writer_ua/lib/manifest.js` — один модуль на весь
+      конвеєр. Тут — жодного власного запису JSON.
    3. Спосіб відбору задає НАЯВНІСТЬ джерела адрес, а не кількість адрес у ньому.
       Порожня труба — це «адрес не надійшло», а не «адрес не давали»: інакше
       `find … --ids | status --book X --set recheck --apply` при нулі знахідок
       мовчки провалювався б на фільтр і переписував усю книгу.
 
-   ⚠️ ЩО САМЕ СТАНЕТЬСЯ, СУДИТЬ manifest7, А НЕ МИ. Тутешній `change()` вирішує лише,
+   ⚠️ ЩО САМЕ СТАНЕТЬСЯ, СУДИТЬ ПИСАР МАНІФЕСТУ, А НЕ МИ. Тутешній `change()` вирішує лише,
    кого взяти в план і що ми маємо на увазі; наслідки показує звіт від
-   `M7.applyOps(dry:true)` — ті самі операції, що потім і запишуться. Доти вивід був
+   `MF.applyOps(dry:true)` — ті самі операції, що потім і запишуться. Доти вивід був
    власним переказом чужих правил і розходився з ними мовчки (класичний приклад —
    рівень: маніфест тримає його тільки при статусі `deeper`, на інших стирає, тому
    `--set-level` при іншому статусі попереджає).
@@ -29,7 +29,7 @@
 "use strict";
 const fs = require("fs");
 const U = require("./lib/units.js");
-const M7 = require("../../scripts/lib/manifest7.js");
+const MF = require("../lib/manifest.js");
 
 const HELP = `
 status — зміна статусу, рівня і прапорця recode
@@ -70,7 +70,7 @@ status — зміна статусу, рівня і прапорця recode
 
 /**
  * Що ми МАЄМО НА УВАЗІ для цієї одиниці. `null` — нічого, така в план не йде.
- * Це намір і тільки намір: присуд виносить manifest7 нижче.
+ * Це намір і тільки намір: присуд виносить писар маніфесту нижче.
  */
 function change(u, want) {
   const to = want.set ?? u.status;
@@ -87,7 +87,7 @@ function change(u, want) {
   return { from: u.status, to, level: levelKept, recode: nextRecode };
 }
 
-/** Одна операція manifest7 на одиницю: версія — `status`, вставка — `insert`. */
+/** Одна операція писаря маніфесту на одиницю: версія — `status`, вставка — `insert`. */
 function opOf(u, ch, ifStatus) {
   const common = { level: ch.level, recode: ch.recode };
   if (u.insert) return { op: "insert", slug: u.slug, type: u.insert, file: u.file, status: ch.to, ...common };
@@ -237,7 +237,7 @@ function main(argv) {
   const run = (dry) => {
     const acc = { changed: 0, skipped: [], errors: [] };
     for (const [book, { dir, ops }] of byBook) {
-      const rep = M7.applyOps(dir, ops, { dry });
+      const rep = MF.applyOps(dir, ops, { dry });
       acc.changed += rep.changed;
       rep.skipped.forEach((s) => acc.skipped.push(`${book}: ${s}`));
       rep.errors.forEach((e) => acc.errors.push(`${book}: ${e}`));
@@ -245,13 +245,13 @@ function main(argv) {
     return acc;
   };
 
-  /* Ті самі операції спершу насухо — щоб показане було звітом manifest7, а не нашим
+  /* Ті самі операції спершу насухо — щоб показане було звітом писаря маніфесту, а не нашим
      переказом його правил. Запис іде другим прогоном і звітує вже за себе. */
   const dry = run(true);
   if (!quiet) console.log(show(plan));
   const rep = apply ? run(false) : dry;
 
-  /* Непорожній `skipped` — це РОЗХОДЖЕННЯ наміру зі звітом manifest7, тобто
+  /* Непорожній `skipped` — це РОЗХОДЖЕННЯ наміру зі звітом писаря маніфесту, тобто
      найцінніше у виводі. Тому з переліком причин і тому попри `--quiet`. */
   if (rep.skipped.length) {
     console.log(`\nпропущено (нічого не змінює): ${rep.skipped.length}`);

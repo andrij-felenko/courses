@@ -14,8 +14,9 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const M7 = require("../../scripts/lib/manifest7.js");
-const L = require("../../scripts/checks/_lib.js");
+const MF = require("../lib/manifest.js");
+const TXT = require("../lib/text.js");
+const DUP = require("../lib/dupes.js");
 
 /* ── людський шлях ─────────────────────────────────────────────────────────── */
 
@@ -25,9 +26,9 @@ const L = require("../../scripts/checks/_lib.js");
  */
 function humanPath(rel) {
   const seg = rel.split("/");                       // root/<вид>/<книга>/<тема>/<файл>
-  const b = M7.loadBook(M7.bookDirOf(seg[2]));
+  const b = MF.loadBook(MF.bookDirOf(seg[2]));
   if (!b) return rel;
-  const t = M7.allTopics(b).find((x) => x.slug === seg[3]);
+  const t = MF.allTopics(b).find((x) => x.slug === seg[3]);
   const title = b.manifest.title || seg[2];
   if (!t) return `${title} / ${seg[3]}`;
   const g = b.groups.get(t.group);
@@ -36,21 +37,33 @@ function humanPath(rel) {
   return `${title} / ${gt} / ${ct} / ${t.title}`;
 }
 
-/** Одиниця з маніфесту в тому вигляді, у якому її бачать запити. */
-function unitOf(book, slug, type = "article", version = "ДЕТАЛЬНА") {
-  const b = M7.loadBook(M7.bookDirOf(book));
+/**
+ * Одиниця з маніфесту в тому вигляді, у якому її бачать запити.
+ *
+ * ⚠️ ФАЙЛ ВСТАВКИ ЗВЕТЬСЯ ЗА ЇЇ ПРЕДМЕТОМ, А НЕ ЗА СЛУГОМ ТЕМИ: `<тип>-<назва>.md`.
+ * Тому ім'я приходить ззовні; виведене з теми, воно дало б `proj-<тема>.md` — одне ім'я
+ * на всі вставки того самого типу, тобто другий `proj` затирав би перший. Так само
+ * адреса: `книга/тема:proj-circuit-breaker`, а не `книга/тема:proj`.
+ */
+function unitOf(book, slug, type = "article", version = "ДЕТАЛЬНА", file = "") {
+  const b = MF.loadBook(MF.bookDirOf(book));
   if (!b) throw new Error(`книги «${book}» немає (manifest.json не знайдено)`);
-  const t = M7.allTopics(b).find((x) => x.slug === slug);
+  const t = MF.allTopics(b).find((x) => x.own && x.slug === slug);
   if (!t) throw new Error(`теми «${slug}» у книзі «${book}» немає`);
   const g = b.groups.get(t.group);
+  const insert = MF.INSERT_TYPES.includes(type);
+  const name = file
+    ? String(file).replace(/\.md$/, "")
+    : insert ? `${type}-${slug}` : type === "basic" ? slug : `${slug}-d`;
   return {
-    id: `${book}/${slug}:${type === "article" ? "detailed" : type}`,
-    book, slug, type, version,
+    id: `${book}/${slug}:${insert ? name : type === "article" ? "detailed" : type}`,
+    book, slug, type, version, insert,
+    file: `${name}.md`,
     title: t.title,
     bookTitle: b.manifest.title || book,
     groupTitle: (g && g.data.title) || t.group,
     chapterTitle: ((g && (g.data.chapters || []).find((c) => c.slug === t.chapter) || {}).title) || t.chapter,
-    dir: path.join(M7.bookDirOf(book), slug),
+    dir: path.join(MF.bookDirOf(book), slug),
   };
 }
 
@@ -78,11 +91,11 @@ const walkMd = (d, out = []) => {
 function mentions(u, re, { limit = 6, roots = ["root"] } = {}) {
   const out = [];
   for (const r of roots) {
-    for (const f of walkMd(path.join(M7.ROOT, r))) {
+    for (const f of walkMd(path.join(MF.ROOT, r))) {
       if (f.replace(/\\/g, "/").includes(`/${u.slug}/`)) continue;
       let txt = ""; try { txt = fs.readFileSync(f, "utf8"); } catch { continue; }
       if (!re.test(txt)) continue;
-      const rel = path.relative(M7.ROOT, f).split(path.sep).join("/");
+      const rel = path.relative(MF.ROOT, f).split(path.sep).join("/");
       const paras = txt.split(/\n\s*\n/);
       for (let i = 0; i < paras.length && out.length < limit; i++) {
         if (!re.test(paras[i]) || paras[i].length < 120) continue;
@@ -98,9 +111,9 @@ function mentions(u, re, { limit = 6, roots = ["root"] } = {}) {
 
 /** Сусіди по розділу — для меж, назвами. */
 function neighbours(u) {
-  const b = M7.loadBook(M7.bookDirOf(u.book));
-  const me = M7.allTopics(b).find((x) => x.slug === u.slug);
-  return M7.allTopics(b)
+  const b = MF.loadBook(MF.bookDirOf(u.book));
+  const me = MF.allTopics(b).find((x) => x.slug === u.slug);
+  return MF.allTopics(b)
     .filter((t) => t.own && t.chapter === me.chapter && t.slug !== u.slug)
     .map((t) => {
       const d = (t.node.detailed && t.node.detailed.status) || "empty";
@@ -109,8 +122,8 @@ function neighbours(u) {
 }
 
 /** Усі книги репо назвами — для каркаса статті. */
-const books = () => [...M7.books().entries()]
-  .map(([slug, b]) => { const x = M7.loadBook(b.bookDir); return x ? (x.manifest.title || slug) : null; })
+const books = () => [...MF.books().entries()]
+  .map(([slug, b]) => { const x = MF.loadBook(b.bookDir); return x ? (x.manifest.title || slug) : null; })
   .filter(Boolean).join("\n");
 
 /** Що читач уже знає: у курсі — теми тому; у книзі — сусіди розділу. */
@@ -118,13 +131,13 @@ const preknow = (u) => neighbours(u);
 
 /** ⛔ Дубль — точно й локально. Слуг є в книзі ⟺ тема існує. */
 function isDuplicate(book, slug) {
-  const b = M7.loadBook(M7.bookDirOf(book));
-  const t = b && M7.allTopics(b).find((x) => x.own && x.slug === slug);
-  if (!t) return { exists: false, written: false, hints: M7.dupeHints(slug, book) || [] };
+  const b = MF.loadBook(MF.bookDirOf(book));
+  const t = b && MF.allTopics(b).find((x) => x.own && x.slug === slug);
+  if (!t) return { exists: false, written: false, hints: DUP.hints(slug, book) || [] };
   const d = (t.node.detailed && t.node.detailed.status) || "empty";
   return {
     exists: true, written: !(d === "empty" || d === "pending"),
-    hints: M7.dupeHints(slug, book) || [],
+    hints: DUP.hints(slug, book) || [],
   };
 }
 
@@ -148,7 +161,7 @@ const BANDS = {
 function size(text, type, level) {
   const key = type === "article" ? "detail" : type;
   const band = BANDS[key] || BANDS.detail;
-  const words = L.proseWords(text);
+  const words = TXT.proseWords(text);
   const need = type === "basic" ? band[0] : band[Math.max(1, Math.min(3, level || 2)) - 1];
   const short = words < need ? Math.round((1 - words / need) * 100) : 0;
   return { words, need, ceiling: band[3], shortBy: short, over: words > band[3] };
@@ -159,18 +172,19 @@ function size(text, type, level) {
 /** Розділи → один файл. Заголовки пишуть самі письменники, ми лише склеюємо. */
 const assemble = (parts) => parts.map((p) => String(p || "").trim()).filter(Boolean).join("\n\n") + "\n";
 
+/** Ім'я файла несе сама одиниця — і версія, і вставка. Тут лише запис. */
 function writeArticle(u, text) {
   fs.mkdirSync(u.dir, { recursive: true });
-  const file = path.join(u.dir, u.type === "basic" ? `${u.slug}.md` : `${u.slug}-d.md`);
+  const file = path.join(u.dir, u.file);
   fs.writeFileSync(file, text, "utf8");
-  return path.relative(M7.ROOT, file).split(path.sep).join("/");
+  return path.relative(MF.ROOT, file).split(path.sep).join("/");
 }
 
-/** Операції для manifest7. Статус приходить ззовні — його вирішує не цей файл. */
+/** Операції для писаря маніфесту. Статус приходить ззовні — вирішує не цей файл. */
 const ops = (u, status) => [
-  u.type === "article" || u.type === "basic"
-    ? { op: "status", slug: u.slug, ver: u.type === "basic" ? "basic" : "detailed", status }
-    : { op: "insert", slug: u.slug, type: u.type, file: `${u.type}-${u.slug}.md`, status },
+  u.insert
+    ? { op: "insert", slug: u.slug, type: u.type, file: u.file, status }
+    : { op: "status", slug: u.slug, ver: u.type === "basic" ? "basic" : "detailed", status },
 ];
 
 /**

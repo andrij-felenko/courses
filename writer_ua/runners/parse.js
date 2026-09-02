@@ -64,10 +64,16 @@ function groups(s) {
 /** `тип 2 | proj | розділ 5 | про що` → {kind, insert, section, about} */
 function inserts(s) {
   return lines(s).map((l) => {
-    const m = /^тип\s*(\d)\s*\|\s*([a-z]+)\s*\|\s*(?:розділ\s*)?([\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
+    /* Ім'я НЕобов'язкове в розборі, хоч і просять його завжди: без нього рядок усе одно
+       читається, а вставка дістає ім'я за темою. Вимагати його тут означало б викинути
+       весь каркас через одну колонку. */
+    const m = /^тип\s*(\d)\s*\|\s*([a-z]+)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?(?:розділ\s*)?([\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
     if (!m) return null;
-    const sec = /^\d+$/.test(m[3]) ? Number(m[3]) : null;
-    return { kind: Number(m[1]), insert: m[2].toLowerCase(), section: sec, about: m[4].trim() };
+    const sec = /^\d+$/.test(m[4]) ? Number(m[4]) : null;
+    return {
+      kind: Number(m[1]), insert: m[2].toLowerCase(),
+      name: (m[3] || "").toLowerCase(), section: sec, about: m[5].trim(),
+    };
   }).filter(Boolean);
 }
 

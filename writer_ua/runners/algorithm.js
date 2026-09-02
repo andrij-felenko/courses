@@ -46,6 +46,14 @@ async function algorithm(unit, ctx, o = {}) {
   if (typeof ask !== "function") throw new Error("немає ask() — нічим питати агента");
   const u = unit;
 
+  /* ⛔ КОД ОКРЕМОЮ ОДИНИЦЕЮ ЩЕ НЕ ПИШЕТЬСЯ. Каркас і етап 7б його НАЗИВАЮТЬ і кладуть у
+     чергу, але запиту «напиши проєкт коду» у `prompts/` немає — є лише 09, який питає,
+     чи потрібні C і C++. Без цієї застави одиниця дійшла б до етапу 9 і записала б свій
+     текст у файл СТАТТІ, бо файла коду вона не має. Хай падає вголос: у логу батчу видно,
+     що саме лишилось недобудованим. */
+  if (u.type === "code")
+    throw new Error("код окремою одиницею ще не пишеться — немає запиту на проєкт коду");
+
   /* ── 1 · ПІДГОТОВКА · локально ─────────────────────────────────────────── */
   if (!ctx.get("prep")) {
     const dup = LOC.isDuplicate(u.book, u.slug);
@@ -96,7 +104,10 @@ async function algorithm(unit, ctx, o = {}) {
   if (!ctx.get("sections")) {
     const more = [];
     for (const ins of k.inserts.filter((x) => x.kind === 2))
-      more.push({ ...LOC.unitOf(u.book, u.slug, ins.insert, ""), about: ins.about, section: ins.section });
+      more.push({
+        ...LOC.unitOf(u.book, u.slug, ins.insert, "", ins.name ? `${ins.insert}-${ins.name}` : ""),
+        about: ins.about, section: ins.section,
+      });
     for (const c of k.code)
       more.push({ ...LOC.unitOf(u.book, u.slug, "code", ""), id: `${u.book}/${u.slug}:code-${c.lang.toLowerCase()}`, lang: c.lang, about: c.what, section: c.section });
     if (more.length) ctx.enqueue(more);

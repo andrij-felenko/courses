@@ -25,7 +25,7 @@
    якому воно етапі», доводилося розбирати стрічку назад.
 
    Файл стану пишеться ЦІЛКОМ і АТОМАРНО — тимчасовий плюс перейменування, як у
-   `manifest7`. Або старий стан, або новий; напівзаписаного не буває.
+   писар маніфесту. Або старий стан, або новий; напівзаписаного не буває.
 
    ЧЕРГА РОСТЕ ПІД ЧАС ПРОГОНУ. Батч заводять на 10 тем, але каркас кожної назве свої
    вставки, код і, можливо, базову — і всі вони стануть у ту саму чергу. Тому
@@ -41,11 +41,11 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const M7 = require("../../scripts/lib/manifest7.js");
+const MF = require("../lib/manifest.js");
 
 /* Усе робоче — в одному місці: `<корінь репо>/inwork/<хеш>/`. Батч дістає власний
    випадковий хеш із 10 символів, і той хеш є і його ім'ям, і іменем його теки. */
-const INWORK = path.join(M7.ROOT, "inwork");
+const INWORK = path.join(MF.ROOT, "inwork");
 const CONTROL = "control.json";
 const ID_RE = /^[a-z0-9]{10}$/;
 const newId = () => crypto.randomBytes(8).toString("hex").slice(0, 10);
@@ -241,7 +241,7 @@ class Queue {
  * @param {string}   [o.id]          хеш батчу; без нього — новий. Той самий хеш піднімає обірваний
  * @param {Array}    o.units         одиниці: {id, book, …будь-що для алгоритму}
  * @param {Function} [o.algorithm]   async (unit, ctx) → результат. У сухому прогоні НЕ кличеться
- * @param {Function} [o.toOps]       стан → операції manifest7; типово `state.get("ops")`
+ * @param {Function} [o.toOps]       стан → операції писаря маніфесту; типово `state.get("ops")`
  * @param {boolean}  [o.dry]         прокрутити чергу й показати стан; жодного агента, жодного запису
  * @param {number}   [o.active]      скільки одиниць одночасно (пульт міняє на ходу)
  * @param {number}   [o.stagger]     пауза між стартами, мс
@@ -428,13 +428,13 @@ async function run(o) {
 
   let bookErrors = 0;
   for (const [book, tagged] of byBook) {
-    /* КНИГА Є ⟺ Є `manifest.json`, а не «є тека»: `M7.books()` має падбек на скан диска,
-       і `applyOps` через `ensureManifest` голу теку перетворив би на книгу. */
-    const dirBook = M7.bookDirOf(book);
+    /* КНИГА Є ⟺ Є `manifest.json`, а не «є тека». Писар книги не заводить і сам, але
+       сказати про це виразним рядком у звіті дешевше, ніж читати його `errors`. */
+    const dirBook = MF.bookDirOf(book);
     const units = [...new Set(tagged.map((t) => t.unit))];
-    if (!dirBook || !M7.loadBook(dirBook)) { report.books[book] = { missing: "manifest.json не знайдено", units }; bookErrors++; continue; }
+    if (!dirBook || !MF.loadBook(dirBook)) { report.books[book] = { missing: "manifest.json не знайдено", units }; bookErrors++; continue; }
     try {
-      const rep = M7.applyOps(dirBook, tagged.map((t) => t.op));
+      const rep = MF.applyOps(dirBook, tagged.map((t) => t.op));
       report.books[book] = { changed: rep.changed, skipped: rep.skipped, errors: rep.errors, units };
       if (rep.errors.length) bookErrors++;
     } catch (e) {

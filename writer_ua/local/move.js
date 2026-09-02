@@ -33,16 +33,17 @@
 
    ПЕРЕДПОЛІТ. Усе, що можна перевірити наперед, перевіряється ДО першого запису:
    джерела переносу на місці, цілі вільні, файли для правки пишуться, і сам
-   manifest7 насухо не заперечує. Не пройшло — не починаємо взагалі.
+   писар маніфесту насухо не заперечує. Не пройшло — не починаємо взагалі.
 
    Файли рухаємо через `git mv` (історія лишається); нетрековане — звичайним
-   перейменуванням. Маніфест пишеться ЛИШЕ через scripts/lib/manifest7.js.
+   перейменуванням. Маніфест пишеться ЛИШЕ через `writer_ua/lib/manifest.js`.
    ========================================================================== */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const cp = require("child_process");
-const M7 = require("../../scripts/lib/manifest7.js");
+const MF = require("../lib/manifest.js");
+const DUP = require("../lib/dupes.js");
 
 const HELP = `
 move — перейменувати тему або перекласти її в інший розділ
@@ -59,14 +60,14 @@ move — перейменувати тему або перекласти її в
 
 ЗАПИС
   (типово)   сухий прогін: що поїде, що перепишеться, скільки лінків,
-             що на це каже manifest7 і чи схожий новий слуг на наявні
+             що на це каже писар маніфесту і чи схожий новий слуг на наявні
   --apply    зробити
 
 Хоч одне з --to / --to-chapter / --title обов'язкове.
 ⛔ Між книгами не переносить — це пара «завести там + зняти тут».
 `;
 
-const rel = (p) => path.relative(M7.ROOT, p).replace(/\\/g, "/");
+const rel = (p) => path.relative(MF.ROOT, p).replace(/\\/g, "/");
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /* ── слуг ──────────────────────────────────────────────────────────────────── */
@@ -74,7 +75,7 @@ const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 /**
  * Присуд про слуг — той самий, що в `add.js`: ASCII, малими, дефісами й БЕЗ номерів
  * (ні в голові, ні хвостом `-2`). Номер у слугу означає, що поняття назвали двічі й
- * розрізнили лічильником, — а нумерації канон не має ніде (§2), тож `dto-2` це не
+ * розрізнили лічильником, — а нумерації канон не має ніде, тож `dto-2` це не
  * ім'я, а ознака невирішеного дубля. Ціною ловляться й імена стандартів (`iso-8601`):
  * механічно вони від лічильника не відрізняються, і краще перепитати людину, ніж
  * пропустити `cache-2`.
@@ -94,7 +95,7 @@ function slugFault(s) {
 function tracked(p) {
   try {
     cp.execFileSync("git", ["ls-files", "--error-unmatch", rel(p)],
-      { cwd: M7.ROOT, stdio: "pipe" });
+      { cwd: MF.ROOT, stdio: "pipe" });
     return true;
   } catch { return false; }
 }
@@ -103,7 +104,7 @@ function tracked(p) {
 function movePath(from, to) {
   fs.mkdirSync(path.dirname(to), { recursive: true });
   if (tracked(from)) {
-    cp.execFileSync("git", ["mv", rel(from), rel(to)], { cwd: M7.ROOT, stdio: "pipe" });
+    cp.execFileSync("git", ["mv", rel(from), rel(to)], { cwd: MF.ROOT, stdio: "pipe" });
   } else fs.renameSync(from, to);
 }
 
@@ -151,7 +152,7 @@ function codeRe(slug) {
   return new RegExp(`^(\\s*:::code\\s+)${esc(slug)}(-d)?(?=/)`, "gm");
 }
 
-/* ── звіт manifest7 ────────────────────────────────────────────────────────── */
+/* ── звіт писаря маніфесту ────────────────────────────────────────────────────────── */
 
 const REPORT = [["renamed", "слуг"], ["moved", "розділ"], ["retitled", "назва"],
   ["group", "нова група"], ["chapter", "новий розділ"]];
@@ -164,11 +165,11 @@ const report = (r) => {
 /**
  * Підказки про можливий дубль для нового слуга. Друкуються ЗАВЖДИ й до запису:
  * `--to` вводить у корпус нове ім'я поняття, і саме тут його ще дешево передумати.
- * Не блокують — об'єднувати теми чи ні, вирішує людина (AUTHORING §6).
+ * Не блокують — об'єднувати теми чи ні, вирішує людина.
  */
 function hints(bookSlug, oldSlug, newSlug) {
   let out;
-  try { out = M7.dupeHints(newSlug, bookSlug); }
+  try { out = DUP.hints(newSlug, bookSlug); }
   catch (e) {
     /* Мовчазний збій підказок — це найгірше з можливого: людина вирішить, що
        сигналів немає, тоді як їх просто не рахували. */
@@ -221,11 +222,11 @@ function main(argv) {
   if ((o["group-title"] || o["chapter-title"]) && !o["to-chapter"])
     throw new Error("--group-title/--chapter-title мають сенс лише з --to-chapter");
 
-  const shelf = M7.books().get(bookSlug);
+  const shelf = MF.books().get(bookSlug);
   if (!shelf) throw new Error(`книги «${bookSlug}» немає`);
   const bookDir = shelf.bookDir;
-  const book = M7.loadBook(bookDir);
-  const t = M7.findTopic(book, slug);
+  const book = MF.loadBook(bookDir);
+  const t = MF.findTopic(book, slug);
   if (!t) throw new Error(`теми «${slug}» у книзі «${bookSlug}» немає`);
 
   const topicDir = path.join(bookDir, slug);
@@ -242,7 +243,7 @@ function main(argv) {
     const fault = slugFault(newSlug);
     if (fault) throw new Error(`«${newSlug}» не є слугом: ${fault}`);
     if (newSlug === slug) throw new Error("--to збігається зі старим слугом");
-    if (M7.findTopic(book, newSlug)) throw new Error(`слуг «${newSlug}» у книзі вже зайнятий`);
+    if (MF.findTopic(book, newSlug)) throw new Error(`слуг «${newSlug}» у книзі вже зайнятий`);
 
     if (fs.existsSync(topicDir)) {
       const to = path.join(bookDir, newSlug);
@@ -275,8 +276,8 @@ function main(argv) {
     /* `relocate` кличе `getGroup`/`getChapter`, а ті неіснуюче МОВЧКИ створюють. Тож
        одруківка в слугу заводила б порожню групу замість перекладання, і сухий прогін
        про це не казав. Заводимо нове лише тоді, коли на нього є явна назва. */
-    const newGroup = !M7.groupSlugs(book).has(g);
-    const newChapter = newGroup || !M7.chapterSlugs(book, g).has(ch);
+    const newGroup = !MF.groupSlugs(book).has(g);
+    const newChapter = newGroup || !MF.chapterSlugs(book, g).has(ch);
     if (newGroup && !o["group-title"])
       throw new Error(`групи «${g}» у книзі «${bookSlug}» немає — якщо заводимо нову, дай --group-title "Назва"`);
     if (newChapter && !o["chapter-title"])
@@ -308,7 +309,7 @@ function main(argv) {
   const refFrom = `${bookSlug}/${slug}`, refTo = `${bookSlug}/${newSlug}`;
   const edits = [];   // {path, text, links, refs, code}
   if (o.to) {
-    for (const f of walk(M7.CONTENT)) {
+    for (const f of walk(MF.CONTENT)) {
       const ext = path.extname(f);
       if (ext !== ".md" && ext !== ".json") continue;
       let src;
@@ -343,9 +344,9 @@ function main(argv) {
 
   console.log(plan.join("\n"));
 
-  /* Що станеться з маніфестом, судить manifest7, а не ми: ті самі операції насухо,
+  /* Що станеться з маніфестом, судить писар маніфесту, а не ми: ті самі операції насухо,
      і в план іде ЙОГО звіт, а не наш переказ його правил (як у status.js). */
-  const dry = M7.applyOps(bookDir, ops, { dry: true });
+  const dry = MF.applyOps(bookDir, ops, { dry: true });
   console.log(`маніфест ${report(dry)}`);
   dry.skipped.forEach((s) => console.log("        пропущено: " + s));
   dry.errors.forEach((e) => console.error("move: маніфест — " + e));
@@ -362,7 +363,7 @@ function main(argv) {
      маніфест іще старий — і збирати це доводиться руками. Тож усе, що можна знати
      наперед, з'ясовуємо ДО першого запису й не починаємо взагалі. */
   const fail = [];
-  if (dry.errors.length) fail.push("manifest7 має заперечення (вище) — маніфест не запишеться");
+  if (dry.errors.length) fail.push("писар маніфесту має заперечення (вище) — маніфест не запишеться");
   for (const p of mustExist) if (!fs.existsSync(p)) fail.push(`нема на місці: ${rel(p)}`);
   for (const p of mustBeFree) if (fs.existsSync(p)) fail.push(`ціль зайнята: ${rel(p)}`);
   for (const e of edits) {
@@ -385,7 +386,7 @@ function main(argv) {
     console.error("move: МАНІФЕСТ НЕ ОНОВЛЕНО — він і далі знає стару адресу; звіряй `git status` і доробляй руками");
     return 1;
   }
-  const rep = M7.applyOps(bookDir, ops);
+  const rep = MF.applyOps(bookDir, ops);
 
   console.log(`\nперенесено файлів: ${moved}   переписано файлів: ${written}   маніфест: ${rep.changed}`);
   rep.skipped.forEach((s) => console.log("  пропущено: " + s));
@@ -394,7 +395,7 @@ function main(argv) {
   /* ── перевірка: чи не лишилося старої адреси ── */
   if (o.to) {
     let left = 0;
-    for (const f of walk(M7.CONTENT)) {
+    for (const f of walk(MF.CONTENT)) {
       const ext = path.extname(f);
       if (ext !== ".md" && ext !== ".json") continue;
       let src = ""; try { src = fs.readFileSync(f, "utf8"); } catch { continue; }

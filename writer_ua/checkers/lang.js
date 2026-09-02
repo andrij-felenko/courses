@@ -37,7 +37,7 @@
 const fs = require("fs");
 const path = require("path");
 const U = require("../local/lib/units.js");
-const M7 = require("../../scripts/lib/manifest7.js");
+const MF = require("../lib/manifest.js");
 
 const DICT = path.join(U.CONTENT, "dictionary.json");
 
@@ -256,10 +256,10 @@ function main(argv) {
     if (add.topic) {
       const p = U.parseAddr(add.topic);
       if (!p || p.part) throw new Error(`--topic «${add.topic}»: адреса теми це рівно два сегменти — <книга>/<тема>`);
-      const b = M7.books().get(p.book);
-      const book = b && M7.loadBook(b.bookDir);
+      const b = MF.books().get(p.book);
+      const book = b && MF.loadBook(b.bookDir);
       if (!book) throw new Error(`--topic «${add.topic}»: книги «${p.book}» у корпусі немає`);
-      if (!M7.findTopic(book, p.slug)) throw new Error(`--topic «${add.topic}»: теми «${p.slug}» у книзі «${p.book}» немає`);
+      if (!MF.findTopic(book, p.slug)) throw new Error(`--topic «${add.topic}»: теми «${p.slug}» у книзі «${p.book}» немає`);
     }
     const [lang, term] = [add.key.slice(0, add.key.indexOf("|")), add.key.slice(add.key.indexOf("|") + 1)];
     const rec = { lang, term, uk: add.uk, gloss: add.gloss };
