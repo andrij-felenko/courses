@@ -179,7 +179,7 @@ function applyOps(bookDir, ops, opt) {
   let book = loadBook(bookDir);
   if (!book) return { errors: [`нема маніфесту: ${path.join(bookDir, "manifest.json")}`], changed: 0 };
 
-  const rep = { group: 0, chapter: 0, topic: 0, ref: 0, status: 0, insert: 0, removed: 0, moved: 0, retitled: 0, skipped: [], errors: [] };
+  const rep = { group: 0, chapter: 0, topic: 0, ref: 0, status: 0, insert: 0, removed: 0, moved: 0, retitled: 0, renamed: 0, skipped: [], errors: [] };
   const touched = new Set();
   const touchGroup = (g) => touched.add(g);
 
@@ -313,11 +313,25 @@ function applyOps(bookDir, ops, opt) {
         if (t.node.title === o.title) { rep.skipped.push(`«${o.slug}» уже має цю назву`); continue }
         t.node.title = o.title; rep.retitled++; touchGroup(t.group);
 
+      } else if (o.op === "rename") {
+        /* Змінити СЛУГ теми, зберігши все інше — статуси версій і всі вставки. Через
+           пару `remove` + `topic` це не робиться: та пара завела б чисту тему й тихо
+           загубила б і статуси, і перелік вставок. Файли на диску й посилання по
+           корпусу ця операція не чіпає — то робота `move.js`, який кличе її останньою. */
+        const t = findTopic(book, o.slug);
+        if (!t) { rep.errors.push(`нема теми «${o.slug}» для перейменування слуга`); continue }
+        if (!SLUG_RE.test(String(o.to || ""))) { rep.errors.push(`«${o.to}» не є слугом`); continue }
+        if (t.node.slug === o.to) { rep.skipped.push(`«${o.slug}» уже має цей слуг`); continue }
+        if (findTopic(book, o.to)) { rep.errors.push(`слуг «${o.to}» у книзі вже зайнятий`); continue }
+        t.node.slug = o.to;
+        if (o.title) t.node.title = o.title;
+        rep.renamed++; touchGroup(t.group);
+
       } else rep.errors.push(`невідома операція «${o.op}»`);
     } catch (e) { rep.errors.push(`${o.op} «${o.slug || o.ref || ""}»: ${e.message}`); }
   }
 
-  rep.changed = rep.group + rep.chapter + rep.topic + rep.ref + rep.status + rep.insert + rep.removed + rep.moved + rep.retitled;
+  rep.changed = rep.group + rep.chapter + rep.topic + rep.ref + rep.status + rep.insert + rep.removed + rep.moved + rep.retitled + rep.renamed;
   if (!dry && rep.changed) {
     const gs = (book.manifest.groups || []).filter((g) => SLUG_RE.test(String(g || "")));
     const gsDirty = gs.length !== (book.manifest.groups || []).length;   /* прибрати порожні входи, коли б вони не з'явилися */
