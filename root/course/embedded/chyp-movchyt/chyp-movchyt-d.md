@@ -226,8 +226,12 @@ V_gnd_shift
 Щоб припинити гадання щодо реальної адреси мікросхеми, в прошивку вбудовують сканер шини: циклічне опитування всіх адрес від `0x08` до `0x77` із фіксацією отримання сигналу `ACK`. Повний код сканера для різних архітектур реалізовано в [проєкті сканера шини I2C та виведення із зависання](root:embedded/chyp-movchyt/proj-i2c-bus-scanner.md).
 
 :::tabs
+:::code chyp-movchyt-d/c/i2c_scan.h
+:::code chyp-movchyt-d/c/i2c_scan.c
 :::code chyp-movchyt-d/c/main.c
-:::code chyp-movchyt-d/cpp/main.cpp
+:::code chyp-movchyt-d/cpp/include/i2c/address.hpp
+:::code chyp-movchyt-d/cpp/include/i2c/scanner.hpp
+:::code chyp-movchyt-d/cpp/src/main.cpp
 :::
 
 ---

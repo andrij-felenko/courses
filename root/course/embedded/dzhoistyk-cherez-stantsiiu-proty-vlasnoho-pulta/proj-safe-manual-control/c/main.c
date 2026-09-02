@@ -1,130 +1,189 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include "arbiter.h"
+#include "gcs_link.h"
+#include "mavlink_frame.h"
+
+#include <stdio.h>
 #include <string.h>
 
-#define RC_DEADBAND_NORM            50      // 5% від діапазону [-1000..1000]
-#define GCS_TIMEOUT_DEGRADE_MS      250     // Поріг м'якої нейтралізації (мс)
-#define GCS_TIMEOUT_FAILSAFE_MS     1000    // Поріг повного аварійного режиму (мс)
-#define MAX_AXIS_SLEW_PER_SEC       4000.0f // Максимальна швидкість зміни (одиниць/с)
+/* Стенд на 3.4 секунди модельного часу. Контур стабілізації крутиться 400 Гц,
+ * джойстик станції шле MANUAL_CONTROL 50 Гц, серцебиття йде 1 Гц.
+ * Сценарій відтворює саме той політ, з якого починається стаття. */
 
-typedef enum {
-    SOURCE_NONE = 0,
-    SOURCE_DIRECT_RC,
-    SOURCE_GCS_MANUAL
-} ControlSource;
+#define TICK_US   2500u      /* 400 Гц */
+#define OUR_SYSID 1u
+#define GCS_SYSID 255u
+#define ROGUE_SYSID 250u
 
-typedef enum {
-    STATE_DISARMED = 0,
-    STATE_RC_ACTIVE,
-    STATE_GCS_ACTIVE,
-    STATE_GCS_DEGRADED,
-    STATE_FAILSAFE
-} ArbiterState;
+static uint8_t g_tx[1024];
+static size_t  g_tx_len;
+static uint8_t g_seq_gcs, g_seq_rogue;
 
-typedef struct {
-    int16_t roll;      // [-1000 .. 1000] (крен: позитивний — вправо)
-    int16_t pitch;     // [-1000 .. 1000] (тангаж: позитивний — вперед)
-    int16_t throttle;  // [0 .. 1000]      (тяга)
-    int16_t yaw;       // [-1000 .. 1000] (рискання: позитивний — за годинниковою)
-    uint16_t buttons;  // Бітова маска кнопок
-} ControlAxes;
-
-typedef struct {
-    ArbiterState state;
-    ControlAxes current_output;
-    ControlAxes raw_rc;
-    ControlAxes raw_gcs;
-    uint32_t last_rc_time_ms;
-    uint32_t last_gcs_time_ms;
-    bool rc_link_lost;
-} SafeControlArbiter;
-
-static int16_t clamp_int16(int16_t val, int16_t min_v, int16_t max_v) {
-    if (val < min_v) return min_v;
-    if (val > max_v) return max_v;
-    return val;
+static void tx_push(uint8_t sysid, uint8_t *seq, uint32_t msgid,
+                    const uint8_t *payload, uint8_t len)
+{
+    size_t n = mav_encode(g_tx + g_tx_len, sizeof(g_tx) - g_tx_len,
+                          sysid, MAV_COMP_ID_MISSIONPLANNER, (*seq)++, msgid, payload, len);
+    g_tx_len += n;
 }
 
-static bool is_rc_stick_deflected(const ControlAxes *rc) {
-    if (rc->roll < -RC_DEADBAND_NORM || rc->roll > RC_DEADBAND_NORM) return true;
-    if (rc->pitch < -RC_DEADBAND_NORM || rc->pitch > RC_DEADBAND_NORM) return true;
-    if (rc->yaw < -RC_DEADBAND_NORM || rc->yaw > RC_DEADBAND_NORM) return true;
-    // Відхилення газу вище 10% від базового нульового положення
-    if (rc->throttle > 100) return true;
-    return false;
+static void send_manual(uint8_t sysid, uint8_t *seq, int16_t x, int16_t y, int16_t z, int16_t r)
+{
+    mav_manual_control_t mc;
+    uint8_t payload[11];
+
+    memset(&mc, 0, sizeof(mc));
+    mc.x = x; mc.y = y; mc.z = z; mc.r = r;
+    mc.target = OUR_SYSID;
+    tx_push(sysid, seq, MAV_MSG_MANUAL_CONTROL, payload, mav_pack_manual_control(payload, &mc));
 }
 
-static int16_t apply_slew_rate(int16_t current, int16_t target, float dt_sec) {
-    float max_delta = MAX_AXIS_SLEW_PER_SEC * dt_sec;
-    float diff = (float)(target - current);
-    if (diff > max_delta) return current + (int16_t)max_delta;
-    if (diff < -max_delta) return current - (int16_t)max_delta;
-    return target;
+static void send_heartbeat(void)
+{
+    mav_heartbeat_t hb;
+    uint8_t payload[9];
+
+    memset(&hb, 0, sizeof(hb));
+    hb.type = 6;             /* MAV_TYPE_GCS */
+    hb.autopilot = 8;        /* MAV_AUTOPILOT_INVALID — так робить станція */
+    hb.system_status = 4;    /* MAV_STATE_ACTIVE */
+    hb.mavlink_version = 3;
+    tx_push(GCS_SYSID, &g_seq_gcs, MAV_MSG_HEARTBEAT, payload, mav_pack_heartbeat(payload, &hb));
 }
 
-void arbiter_init(SafeControlArbiter *arb) {
-    memset(arb, 0, sizeof(SafeControlArbiter));
-    arb->state = STATE_DISARMED;
-    arb->rc_link_lost = true;
+static void send_arm(bool arm, uint8_t confirmation)
+{
+    mav_command_long_t cl;
+    uint8_t payload[33];
+
+    memset(&cl, 0, sizeof(cl));
+    cl.command          = MAV_CMD_COMPONENT_ARM_DISARM;
+    cl.param[0]         = arm ? 1.0f : 0.0f;
+    cl.target_system    = OUR_SYSID;
+    cl.target_component = MAV_COMP_ID_AUTOPILOT1;
+    cl.confirmation     = confirmation;
+    tx_push(GCS_SYSID, &g_seq_gcs, MAV_MSG_COMMAND_LONG, payload, mav_pack_command_long(payload, &cl));
 }
 
-void arbiter_feed_direct_rc(SafeControlArbiter *arb, const ControlAxes *rc, uint32_t now_ms) {
-    arb->raw_rc = *rc;
-    arb->last_rc_time_ms = now_ms;
-    arb->rc_link_lost = false;
-}
+/* Розклад подій радіолінії на модельний момент t (мс). */
+static void simulate_gcs(uint32_t t)
+{
+    static uint32_t next_manual = 0;
+    static uint32_t next_hb = 0;
+    static bool arm_sent0, arm_sent1, rogue_sent, disarm_sent;
 
-void arbiter_feed_mavlink_manual_control(SafeControlArbiter *arb, 
-                                        int16_t x, int16_t y, int16_t z, int16_t r, 
-                                        uint16_t buttons, uint32_t now_ms) {
-    // MAVLink MANUAL_CONTROL #69: x=pitch, y=roll, z=throttle, r=yaw
-    arb->raw_gcs.pitch = clamp_int16(x, -1000, 1000);
-    arb->raw_gcs.roll = clamp_int16(y, -1000, 1000);
-    arb->raw_gcs.throttle = clamp_int16(z, 0, 1000);
-    arb->raw_gcs.yaw = clamp_int16(r, -1000, 1000);
-    arb->raw_gcs.buttons = buttons;
-    arb->last_gcs_time_ms = now_ms;
-}
-
-void arbiter_update(SafeControlArbiter *arb, uint32_t now_ms, float dt_sec) {
-    uint32_t gcs_age = now_ms - arb->last_gcs_time_ms;
-    uint32_t rc_age = now_ms - arb->last_rc_time_ms;
-
-    if (rc_age > 100) {
-        arb->rc_link_lost = true;
+    if (t >= next_hb) {                 /* серцебиття йде завжди, навіть коли */
+        send_heartbeat();               /* вікно джойстика вже не відповідає */
+        next_hb += 1000u;
     }
 
-    // 1. Апаратний пріоритет прямого пульта
-    bool rc_has_control = !arb->rc_link_lost && is_rc_stick_deflected(&arb->raw_rc);
+    if (t == 100u && !arm_sent0) { send_arm(true, 0); arm_sent0 = true; }
+    if (t == 200u && !arm_sent1) { send_arm(true, 1); arm_sent1 = true; }
+    if (t >= 3200u && !disarm_sent) { send_arm(false, 1); disarm_sent = true; }
 
-    if (rc_has_control) {
-        arb->state = STATE_RC_ACTIVE;
-        // Прямий пульт не підлягає штучному slew-rate, щоб зберегти миттєву реакцію
-        arb->current_output = arb->raw_rc;
+    if (t >= 800u && t < 820u && !rogue_sent) {
+        /* Друга станція на тому ж модемі шле повний крен. */
+        send_manual(ROGUE_SYSID, &g_seq_rogue, 0, 1000, 500, 0);
+        rogue_sent = true;
+    }
+
+    if (t >= 900u && t < 2900u) {
+        /* Вікно введення джойстика зависло: черга в ОС НЕ росте, слати нічого. */
+        next_manual = t + 20u;
+        return;
+    }
+    if (t >= 520u && t < 700u) {
+        /* Сплеск DPC-затримки: драйвер USB-UART тримає буфер, пакети чекають
+         * у черзі — і вистрілять пачкою, коли ОС нарешті віддасть керування. */
         return;
     }
 
-    // 2. Обробка команд від наземної станції
-    if (gcs_age < GCS_TIMEOUT_DEGRADE_MS) {
-        arb->state = STATE_GCS_ACTIVE;
-        arb->current_output.roll = apply_slew_rate(arb->current_output.roll, arb->raw_gcs.roll, dt_sec);
-        arb->current_output.pitch = apply_slew_rate(arb->current_output.pitch, arb->raw_gcs.pitch, dt_sec);
-        arb->current_output.yaw = apply_slew_rate(arb->current_output.yaw, arb->raw_gcs.yaw, dt_sec);
-        arb->current_output.throttle = apply_slew_rate(arb->current_output.throttle, arb->raw_gcs.throttle, dt_sec);
-        arb->current_output.buttons = arb->raw_gcs.buttons;
-    } else if (gcs_age < GCS_TIMEOUT_FAILSAFE_MS) {
-        // М'яка деградація: нейтралізація кутів, фіксація тяги на рівні зависання (500)
-        arb->state = STATE_GCS_DEGRADED;
-        arb->current_output.roll = apply_slew_rate(arb->current_output.roll, 0, dt_sec);
-        arb->current_output.pitch = apply_slew_rate(arb->current_output.pitch, 0, dt_sec);
-        arb->current_output.yaw = apply_slew_rate(arb->current_output.yaw, 0, dt_sec);
-        arb->current_output.throttle = apply_slew_rate(arb->current_output.throttle, 500, dt_sec);
-    } else {
-        // Повний аварійний таймаут
-        arb->state = STATE_FAILSAFE;
-        arb->current_output.roll = 0;
-        arb->current_output.pitch = 0;
-        arb->current_output.yaw = 0;
-        arb->current_output.throttle = 0;
+    while (t >= next_manual) {
+        /* До 700 мс — крейсерський тангаж уперед; далі оператор уже відхилив
+         * стік назад на екстрене гальмування. */
+        int16_t x = (next_manual >= 640u) ? -1000 : 400;
+        send_manual(GCS_SYSID, &g_seq_gcs, x, 0, 500, 0);
+        next_manual += 20u;
     }
+}
+
+/* Фізичний пульт: 50 Гц, живий на початку і з 2050 мс. */
+static void simulate_rc(uint32_t t, arbiter_t *arb)
+{
+    static uint32_t next_rc = 0;
+    control_axes_t rc;
+
+    if (t < next_rc)
+        return;
+    next_rc += 20u;
+
+    if (t >= 400u && t < 2050u)
+        return; /* пульт поза межею дальності — кадрів CRSF немає */
+
+    memset(&rc, 0, sizeof(rc));
+    if (t >= 2100u && t < 2500u)
+        rc.pitch = -600; /* пілот безпеки взяв керування на себе */
+    arbiter_feed_rc(arb, &rc, t);
+}
+
+int main(void)
+{
+    arbiter_t arb;
+    gcs_link_t link;
+    uint32_t t_us = 0;
+    arbiter_state_t prev_state = ARB_RC_ACTIVE; /* завідомо інший, щоб перший рядок надрукувався */
+    failsafe_action_t prev_fs = FS_RTL;
+    bool prev_armed = true;
+
+    arbiter_init(&arb);
+    arbiter_set_home_available(&arb, true); /* фікс є, домашня точка записана */
+    gcs_link_init(&link, OUR_SYSID, MAV_COMP_ID_AUTOPILOT1);
+
+    printf("  час  стан          FS   armed  roll pitch  yaw thr\n");
+
+    for (; t_us <= 3400000u; t_us += TICK_US) {
+        const uint32_t t = t_us / 1000u;
+        const uint8_t *ack;
+        size_t ack_len;
+
+        /* 1. Радіолінія: байти з UART радіомодема. */
+        g_tx_len = 0;
+        simulate_gcs(t);
+        if (g_tx_len)
+            gcs_link_feed(&link, g_tx, g_tx_len, t, &arb);
+
+        /* 2. Кадри прямого пульта. */
+        simulate_rc(t, &arb);
+
+        /* 3. Контур стабілізації — рівний такт, незалежний від приходу пакетів. */
+        arbiter_update(&arb, t, (float)TICK_US / 1000000.0f);
+
+        if (gcs_link_take_ack(&link, &ack, &ack_len))
+            printf("%5u  -> COMMAND_ACK, %zu байт у модем\n", t, ack_len);
+
+        if (arb.state != prev_state || arb.failsafe != prev_fs || arb.armed != prev_armed) {
+            printf("%5u  %-12s  %-4s %-5s  %5d %5d %4d %4d\n",
+                   t, arbiter_state_name(arb.state), arbiter_failsafe_name(arb.failsafe),
+                   arb.armed ? "так" : "ні",
+                   arb.out.roll, arb.out.pitch, arb.out.yaw, arb.out.throttle);
+            prev_state = arb.state;
+            prev_fs    = arb.failsafe;
+            prev_armed = arb.armed;
+        }
+
+        /* Вікно, де видно роботу лімітера: пачка після провалу DPC. */
+        if (t >= 700u && t < 900u && (t % 40u) == 0u && (t_us % 1000u) == 0u)
+            printf("%5u  ...           -    -      %5d %5d %4d %4d  (ціль тангажа %d)\n",
+                   t, arb.out.roll, arb.out.pitch, arb.out.yaw, arb.out.throttle, arb.gcs.pitch);
+    }
+
+    printf("\nпідсумок:\n");
+    printf("  кадрів прийнято      %u (CRC-помилок %u, поза діалектом %u)\n",
+           link.parser.stat_ok, link.parser.stat_crc_err, link.parser.stat_unknown);
+    printf("  MANUAL_CONTROL       %u, HEARTBEAT %u, команд арму %u\n",
+           link.n_manual, link.n_heartbeat, link.n_arm_cmd);
+    printf("  чужа станція         %u пакетів відкинуто, не наша адреса %u\n",
+           link.n_foreign, link.n_wrong_target);
+    printf("  перехоплень пультом  %u, деградацій %u, аварійних режимів %u\n",
+           arb.preempt_events, arb.degrade_events, arb.failsafe_events);
+    return 0;
 }

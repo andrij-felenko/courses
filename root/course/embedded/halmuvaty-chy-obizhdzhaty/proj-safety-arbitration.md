@@ -106,6 +106,22 @@ v_cmd = v_cmd · (v_safe / |v_cmd|)
 
 Код спроєктовано для вбудованих систем реального часу: нульове динамічне виділення пам'яті (zero-heap allocation), відсутність блокуючих викликів, повний захист від ділення на нуль і переповнення буферів.
 
+Спершу — контракт модуля: зони, параметри кінематики, структури входу-виходу такту й оголошення функцій.
+
+:::tabs
+:::code proj-safety-arbitration/c/safety_arbiter.h
+:::code proj-safety-arbitration/cpp/safety_arbiter.hpp
+:::
+
+Далі — сама реалізація такту: динамічні радіуси зон, автомат переходів із гістерезисом, змішування векторів, зрізання за `v_safe` і сторож каналу планувальника.
+
+:::tabs
+:::code proj-safety-arbitration/c/safety_arbiter.c
+:::code proj-safety-arbitration/cpp/safety_arbiter.cpp
+:::
+
+І нарешті — демонстраційний стенд: 100-герцовий цикл, модель апарата з ПІ-регулятором швидкості, планувальник на 5 Гц із вікном мовчання та далекомір із шумом і збоєм.
+
 :::tabs
 :::code proj-safety-arbitration/c/main.c
 :::code proj-safety-arbitration/cpp/main.cpp

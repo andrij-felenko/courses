@@ -32,6 +32,36 @@
 Нижче наведено практичні реалізації алгоритму для мікроконтролерів STM32.
 
 :::tabs
+:::code proj-i2c-recovery/c/i2c_recovery.h
+:::code proj-i2c-recovery/cpp/src/bus_recovery.hpp
+:::
+
+:::tabs
+:::code proj-i2c-recovery/c/i2c_recovery.c
+:::code proj-i2c-recovery/cpp/src/bus_recovery.cpp
+:::
+
+:::tabs
+:::code proj-i2c-recovery/c/delay.h
+:::code proj-i2c-recovery/cpp/src/open_drain_pin.hpp
+:::
+
+:::tabs
+:::code proj-i2c-recovery/c/delay.c
+:::code proj-i2c-recovery/cpp/src/timing.hpp
+:::
+
+:::tabs
+:::code proj-i2c-recovery/c/i2c1.h
+:::code proj-i2c-recovery/cpp/src/i2c1.hpp
+:::
+
+:::tabs
+:::code proj-i2c-recovery/c/i2c1.c
+:::code proj-i2c-recovery/cpp/src/i2c1.cpp
+:::
+
+:::tabs
 :::code proj-i2c-recovery/c/main.c
-:::code proj-i2c-recovery/cpp/main.cpp
+:::code proj-i2c-recovery/cpp/src/main.cpp
 :::

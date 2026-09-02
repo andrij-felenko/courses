@@ -137,6 +137,13 @@
 - **`BERR` (Bus Error — помилка шини)**: на лініях зафіксовано умову START або STOP у неприпустимий момент — коли лінія SCL була високою посеред передачі біта даних. Зазвичай це свідчить про потужні електромагнітні завади чи брязкіт контактів у роз'ємах.
 - **`Clock Stretching` (утримання тактової лінії)**: якщо ведений мікроконтролер не встигає обробити вхідний байт або зайнятий обчисленнями в перериванні, його апаратний блок або програма притискає лінію SCL до землі. Генератор такту ведучого апаратно блокується і рахує час очікування. Якщо ведений завис у стані утримання SCL довше ліміту SMBus (25–35 мс), ведучий може зафіксувати тайм-аут за прапорцем `TIMEOUT` у регістрі `SR1`.
 
+Нижче — драйвер ведучого I2C, що проводить транзакцію описаними подіями й обробляє всі аварійні прапорці, включно з відмінностями послідовності читання для одного, двох і трьох останніх байтів.
+
+:::tabs
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/i2c_master.c
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/i2c_master.cpp
+:::
+
 ---
 
 ## Тріо методів обміну: Polling, Interrupts та DMA
@@ -172,8 +179,15 @@ DMA-контролер підключається безпосередньо д�
 Нижче наведено порівняння реалізації неблокувального обміну байтами через регістри SPI на C та C++.
 
 :::tabs
-:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/3-priamyi-dostup-do.c
-:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/3-priamyi-dostup-do.cpp
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/spi_master.c
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/spi_master.cpp
+:::
+
+Той самий обмін без блокування ядра — на перериваннях і через канал DMA:
+
+:::tabs
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/spi_async.c
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/dma_stream.cpp
 :::
 
 ---
@@ -219,8 +233,8 @@ DMA-контролер підключається безпосередньо д�
 Нижче наведено еталонний код процедури розблокування шини I2C.
 
 :::tabs
-:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/alhorytm-aparatnoho.c
-:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/alhorytm-aparatnoho.cpp
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/c/i2c_recovery.c
+:::code spi-i-i2c-iak-bloky-mikrokontrolera-d/cpp/i2c_recovery.cpp
 :::
 
 ---

@@ -213,6 +213,65 @@ dα/dt ≤ 1.0 / T_blend
 
 Нижче наведено промислову реалізацію модуля перехоплення керування та змішування авторитетів. Алгоритм не використовує динамічного виділення пам'яті, гарантує константний час виконання `O(1)` і розрахований на виконання в циклі польотного контролера з частотою 100–400 Гц.
 
+*Спільні типи керівного тракту: команда на приводи й стан апарата.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/flight_types.h
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/types.hpp
+:::
+
+*Інтерфейс автомата перехоплення: п'ять станів, коефіцієнт `α` окремо для осей орієнтації й окремо для газу.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/takeover.h
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/authority.hpp
+:::
+
+*Сам автомат: пороги стіків, таймер утримання, рампи наростання й спадання, пріоритет геозони над авторитетом пілота та поведінка при втраті радіозв'язку.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/takeover.c
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/authority.cpp
+:::
+
+*Декодер радіоканалу: нормалізація стіків, антибрязкіт тумблера режимів, виявлення втрати зв'язку за віком кадру.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/rc_input.h
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/rc_link.hpp
+:::
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/rc_input.c
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/rc_link.cpp
+:::
+
+*Навігаційний контур із заморожуванням інтегратора й підтягуванням уставки до фактичного стану.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/nav_guard.h
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/nav_loop.hpp
+:::
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/nav_guard.c
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/nav_loop.cpp
+:::
+
+*Сповіщення: `STATUSTEXT` на подію, `HEARTBEAT` із номером стану в `custom_mode`, потокове значення `α`.*
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/annunciate.h
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/telemetry.hpp
+:::
+
+:::tabs
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/annunciate.c
+:::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/telemetry.cpp
+:::
+
+*Прогін сценарію з початку статті на простій моделі планера: обхід троса з захистами й без них, втрата зв'язку посеред маневру та порушення геозони.*
+
 :::tabs
 :::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/c/main.c
 :::code viddaty-keruvannia-avtomatovi-i-zabraty-nazad-d/cpp/main.cpp

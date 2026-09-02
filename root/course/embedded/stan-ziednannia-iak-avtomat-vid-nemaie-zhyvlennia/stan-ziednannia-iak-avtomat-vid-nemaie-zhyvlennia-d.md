@@ -210,8 +210,15 @@ T_sleep = random(0, T_max_interval)            [додавання повног�
 Кожен перехід між станами фіксується в кільцевому буфері структурою фіксованого розміру (16 байтів):
 
 :::tabs
-:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/chorna-skrynka-vidmov.c
-:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/chorna-skrynka-vidmov.cpp
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/blackbox.h
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/blackbox.hpp
+:::
+
+Кільце живе в збереженій пам'яті разом із контрольною сумою, а на дріт записи пакуються полями, а не образом структури:
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/blackbox.c
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/blackbox.cpp
 :::
 
 Цей буфер зберігається в енергонезалежній пам'яті (EEPROM, NOR Flash або збереженій при знеструмленні пам'яті RTC Backup SRAM). При наступному успішному встановленні з'єднання діагностичний кадр передається на сервер телеметрії, що дозволяє дистанційно будувати графіки надійності зв'язку, бачити зони радіозатінення та виявляти деградацію акумуляторів.
@@ -220,9 +227,54 @@ T_sleep = random(0, T_max_interval)            [додавання повног�
 
 Нижче наведено робочу, архітектурно вивірену реалізацію автомата зв'язку. Вона демонструє неблокуюче квантування часу, розділення на обробники станів, облік таймаутів та ескалацію помилок.
 
+Починаємо з контракту плати: усе, чого автомат потребує від заліза, зібрано в один заголовок, і жодного блокуючого очікування там немає — тривалості імпульсів `PWRKEY` та `RESET` відмірює сам автомат.
+
 :::tabs
-:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/povna-neblokuiucha.c
-:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/povna-neblokuiucha.cpp
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/modem_hal.h
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/modem_hal.hpp
+:::
+
+Далі — рівень лінії: кільцевий буфер UART з керуванням RTS на 80% заповнення, збирання рядків і їхня класифікація на синхронні відповіді та URC. Про стани автомата він не знає нічого.
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/at_link.h
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/at_link.hpp
+:::
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/at_link.c
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/at_link.cpp
+:::
+
+Автентифікація на рівні протоколу й підтвердження доставки вимагають власного кодека — рівно тих п'яти типів пакетів MQTT, які потрібні вузлу телеметрії:
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/mqtt_min.h
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/mqtt.hpp
+:::
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/mqtt_min.c
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/mqtt.cpp
+:::
+
+Серце вузла — сам автомат: простір станів, індивідуальні таймаути, драбина ескалації та експоненційний відкат із повним джиттером.
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/conn_fsm.h
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/conn_fsm.hpp
+:::
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/conn_fsm.c
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/conn_fsm.cpp
+:::
+
+І, нарешті, суперцикл: такт автомата кожні 20 мс, скидання сторожового таймера щообороту й добовий сеанс зв'язку.
+
+:::tabs
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/c/main.c
+:::code stan-ziednannia-iak-avtomat-vid-nemaie-zhyvlennia-d/cpp/main.cpp
 :::
 
 Реалізація автомата на практиці перетворює складну, схильну до збоїв поведінку радіомодуля на детерміністичну систему. Кожна відмова локалізується на власному рівні, відновлення відбувається за мінімальний час, а пристрій гарантовано зберігає працездатність та енергію в найсуворіших умовах експлуатації.

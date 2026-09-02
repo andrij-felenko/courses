@@ -49,9 +49,37 @@
 
 Нижче наведено модулі валідатора. У версії на C++ використовується `std::span` для виключення помилок адресного розрахунку, `std::expected` для повернення строгих типізованих статусів без магічних кодів помилок та `constexpr` константи замість небезпечних директив препроцесора `#define`.
 
+Спершу — сам бінарний контракт: константи формату, перелік відмов і розкладка полів.
+
 :::tabs
-:::code proj-uf2-parser/c/main.c
-:::code proj-uf2-parser/cpp/main.cpp
+:::code proj-uf2-parser/c/uf2_block.h
+:::code proj-uf2-parser/cpp/uf2_block.hpp
+:::
+
+Валідація — послідовність відсіювань, де кожен крок відповідає одному зі згаданих збоїв.
+
+:::tabs
+:::code proj-uf2-parser/c/uf2_block.c
+:::code proj-uf2-parser/cpp/uf2_block.cpp
+:::
+
+Прийнятий блок ще треба покласти у Flash. Цим завідує сеанс завантаження: він тримає бітову карту блоків, окрему карту вже стертих секторів і сам бачить момент завершення образу.
+
+:::tabs
+:::code proj-uf2-parser/c/uf2_session.h
+:::code proj-uf2-parser/cpp/download_session.hpp
+:::
+
+:::tabs
+:::code proj-uf2-parser/c/uf2_session.c
+:::code proj-uf2-parser/cpp/download_session.cpp
+:::
+
+Верхній шар — власне обробник SCSI-команди `WRITE (10)` стека TinyUSB: він вирішує, що саме відповісти хосту.
+
+:::tabs
+:::code proj-uf2-parser/c/uf2_msc.c
+:::code proj-uf2-parser/cpp/msc_bridge.cpp
 :::
 
 ### Інженерні пастки та тонкощі роботи у вбудованих системах

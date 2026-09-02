@@ -1,88 +1,59 @@
-/* Обслуговування шини I2C: відновлення ліній та сканування адрес */
-#include <stdint.h>
-#include <stdbool.h>
+/* Порядок дій, коли чіп мовчить: спершу дивимося на лінії у стані спокою,
+   потім витягуємо шину із зависання і лише тоді щось скануємо. */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-/* Визначення абстрактного апаратного інтерфейсу GPIO для відновлення */
-typedef struct {
-    void (*set_scl_output)(void);
-    void (*set_scl_level)(bool high);
-    bool (*read_sda_level)(void);
-    void (*set_sda_output)(void);
-    void (*set_sda_level)(bool high);
-    void (*restore_i2c_peripheral)(void);
-    void (*delay_us)(uint32_t us);
-} i2c_bus_recovery_io_t;
+#include "i2c_bitbang.h"
+#include "i2c_lines.h"
+#include "i2c_scan.h"
+#include "sim_lines.h"
 
-/* Процедура апаратного виведення веденого чіпа із затиснутого стану SDA */
-bool i2c_recover_bus(const i2c_bus_recovery_io_t *io) {
-    /* 1. Якщо SDA висока — шина вільна, скидання не потрібне */
-    if (io->read_sda_level()) {
-        return true;
-    }
+/* Адреса акселерометра за даташитом (AD0 = 0) */
+#define EXPECTED_ADDR 0x68u
 
-    /* 2. Переводимо SCL у режим GPIO виходу, SDA залишається входом */
-    io->set_scl_output();
-    io->set_scl_level(true);
-    io->delay_us(5);
+static sim_fault_t pick_scenario(int argc, char **argv) {
+    const char *name = (argc > 1) ? argv[1] : "ok";
 
-    /* 3. Тактуємо лінію SCL до 9 разів, очікуючи відпускання SDA */
-    bool sda_released = false;
-    for (uint8_t i = 0; i < 9; ++i) {
-        io->set_scl_level(false);
-        io->delay_us(5);
-        io->set_scl_level(true);
-        io->delay_us(5);
+    if (strcmp(name, "ok") == 0)       return SIM_FAULT_NONE;
+    if (strcmp(name, "stuck") == 0)    return SIM_FAULT_SDA_STUCK_LOW;
+    if (strcmp(name, "nopullup") == 0) return SIM_FAULT_NO_PULLUPS;
+    if (strcmp(name, "nopower") == 0)  return SIM_FAULT_NO_POWER;
 
-        if (io->read_sda_level()) {
-            sda_released = true;
-            break;
-        }
-    }
-
-    /* Якщо ведений не відпустив лінію навіть після 9 тактів — апаратне КЗ або дефект */
-    if (!sda_released) {
-        io->restore_i2c_peripheral();
-        return false;
-    }
-
-    /* 4. Формуємо примусову умову STOP: перехід SDA з 0 в 1 при SCL = 1 */
-    io->set_sda_output();
-    io->set_sda_level(false);
-    io->delay_us(5);
-    io->set_scl_level(true);
-    io->delay_us(5);
-    io->set_sda_level(true);
-    io->delay_us(5);
-
-    /* 5. Повертаємо виводи під контроль апаратного I2C блоку */
-    io->restore_i2c_peripheral();
-    return true;
+    fprintf(stderr, "Невідомий сценарій '%s'. Є: ok, stuck, nopullup, nopower\n", name);
+    exit(2);
 }
 
-/* Структура звіту сканування */
-typedef struct {
-    uint8_t addresses[112];
-    uint8_t count;
-} i2c_scan_result_t;
+int main(int argc, char **argv) {
+    sim_fault_t fault = pick_scenario(argc, argv);
+    i2c_idle_state_t idle;
+    i2c_scan_report_t report;
+    i2c_verdict_t verdict;
 
-/* Тип функції перевірки адреси апаратним периферійним драйвером */
-typedef bool (*i2c_ping_fn_t)(uint8_t addr_7bit, uint32_t timeout_ms);
+    sim_bus_init((uint8_t)EXPECTED_ADDR, fault);
+    i2c_lines_take();
 
-/* Запуск повного циклу опитування простору адрес */
-i2c_scan_result_t i2c_scan_bus(i2c_ping_fn_t ping_fn, uint32_t timeout_ms) {
-    i2c_scan_result_t result = {.count = 0};
+    idle = i2c_read_idle_state();
+    printf("Стан спокою: SCL=%d, SDA=%d\n", idle.scl_high ? 1 : 0, idle.sda_high ? 1 : 0);
 
-    printf("Початок сканування шини I2C (діапазон 0x08..0x77)...\r\n");
-
-    for (uint8_t addr = 0x08; addr <= 0x77; ++addr) {
-        if (ping_fn(addr, timeout_ms)) {
-            result.addresses[result.count++] = addr;
-            printf(" -> Знайдено пристрій за 7-бітною адресою: 0x%02X (8-бітний запис: 0x%02X)\r\n",
-                   addr, (uint8_t)(addr << 1));
+    if (!idle.scl_high && !idle.sda_high) {
+        printf("Обидві лінії в нулі — підтяжок немає або живлення відсутнє.\n"
+               "Скануємо все одно, щоб побачити, як це виглядає з боку ведучого.\n");
+    } else if (!idle.sda_high) {
+        printf("SDA затиснута веденим. Виштовхуємо його байт дев'ятьма тактами SCL...\n");
+        if (i2c_recover_bus()) {
+            printf("Лінію звільнено, шина знову придатна до транзакцій.\n");
+        } else {
+            printf("Дев'ять тактів не допомогли — шукай замикання SDA на землю.\n");
         }
+    } else if (!idle.scl_high) {
+        printf("SCL у нулі при вільній SDA — обрив підтяжки SCL або ведений тримає такт.\n");
     }
 
-    printf("Сканування завершено. Знайдено пристроїв: %u\r\n", result.count);
-    return result;
+    report = i2c_scan_range();
+    verdict = i2c_classify(&report, (uint8_t)EXPECTED_ADDR);
+    i2c_print_report(&report, (uint8_t)EXPECTED_ADDR, verdict);
+
+    i2c_lines_release_to_peripheral();
+    return (verdict == VERDICT_DEVICE_AS_EXPECTED) ? 0 : 1;
 }

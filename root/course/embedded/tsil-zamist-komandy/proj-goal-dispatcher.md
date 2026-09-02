@@ -28,16 +28,66 @@
 :::tabs
 == C
 
-:::code proj-goal-dispatcher/c/main.c
+:::code proj-goal-dispatcher/c/goal_types.h
 
 == C++
 
-:::code proj-goal-dispatcher/cpp/main.cpp
+:::code proj-goal-dispatcher/cpp/src/goal.hpp
+:::
+
+:::tabs
+== C
+
+:::code proj-goal-dispatcher/c/dispatcher.h
+
+== C++
+
+:::code proj-goal-dispatcher/cpp/src/dispatcher.hpp
+:::
+
+:::tabs
+== C
+
+:::code proj-goal-dispatcher/c/dispatcher.c
+
+== C++
+
+:::code proj-goal-dispatcher/cpp/src/dispatcher.cpp
+:::
+
+:::tabs
+== C
+
+:::code proj-goal-dispatcher/c/bridge.h
+
+== C++
+
+:::code proj-goal-dispatcher/cpp/src/outbox.hpp
+:::
+
+:::tabs
+== C
+
+:::code proj-goal-dispatcher/c/bridge.c
+
+== C++
+
+:::code proj-goal-dispatcher/cpp/src/outbox.cpp
 :::
 
 ## Покроковий розбір виконання симуляції
 
 Симуляційний тест у функції `main()` демонструє життєвий цикл автономної системи під час раптової зміни обстановки:
+
+:::tabs
+== C
+
+:::code proj-goal-dispatcher/c/main.c
+
+== C++
+
+:::code proj-goal-dispatcher/cpp/src/main.cpp
+:::
 
 1. **Кроки 0–2**: У чергу завантажено місію огляду полігону (Goal #101 з пріоритетом 50). Диспетчер успішно проводить передстартову валідацію: напруга акумулятора (24.2 В) вища за критичний поріг (21.0 В), EKF у нормі, геозона не порушена. Завдання переходить у стан `ACTIVE`.
 2. **Крок 3**: Сенсор виявляє небезпечну перешкоду безпосередньо на курсі польоту (`obstacle_detected = true`). Автономний контур реакції генерує нову мету аварійного відходу (Goal #9999 з пріоритетом 255).
@@ -58,9 +108,9 @@
 3. **Гістерезис витіснення**: для запобігання гойданню пріоритетів між двома конкуруючими завданнями рекомендовано додати мінімальну різницю пріоритету (`ΔP ≥ 5`) для витіснення вже активного процесу.
 4. **Компіляція та верифікація**: приклад компілюється стандартними прапорцями без попереджень:
    ```bash
-   # Компіляція C-версії (C11 / C99)
-   gcc -Wall -Wextra -pedantic -std=c11 -O2 proj_c.c -lm -o dispatcher_c
+   # Компіляція C-версії (C11: черга подій спирається на <stdatomic.h>)
+   gcc -Wall -Wextra -pedantic -std=c11 -O2 proj-goal-dispatcher/c/*.c -lm -o dispatcher_c
 
    # Компіляція C++ версії (C++20)
-   g++ -Wall -Wextra -pedantic -std=c++20 -O2 proj_cpp.cpp -o dispatcher_cpp
+   g++ -Wall -Wextra -pedantic -std=c++20 -O2 proj-goal-dispatcher/cpp/src/*.cpp -o dispatcher_cpp
    ```

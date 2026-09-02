@@ -1,49 +1,62 @@
-/* Файл: ButtonLedDriver.hpp (C++20: RAII, Type-Safe, Object-Oriented) */
-#include <cstdint>
-#include <concepts>
-#include <functional>
+#include "button_irq.hpp"
+#include "debouncer.hpp"
+#include "gpio.hpp"
 
-template <typename GpioReader, typename GpioWriter>
-class DebouncedButtonLed {
-public:
-    enum class State { Released, DebouncingPress, Held, DebouncingRelease };
+namespace {
 
-    constexpr DebouncedButtonLed(GpioReader reader, GpioWriter writer, uint8_t debounceTicks = 5)
-        : reader_(reader), writer_(writer), debounceThreshold_(debounceTicks) {}
+// Обидва підходи керують тією самою ніжкою PA0, тому в прошивці живе рівно
+// один: false — періодичне опитування із SysTick, true — EXTI з таймером.
+constexpr bool kUseInterruptDebounce = false;
 
-    // Періодичне оновлення стану кнопки (викликається кожні 10 мс)
-    void tick(const std::function<void()>& onPressAction = nullptr) {
-        const bool rawPressed = (reader_() == 0); // Активний нуль (pull-up)
+using SysTickCtrl = mmio::Reg<soc::kSysTickBase + 0x00>;
+using SysTickLoad = mmio::Reg<soc::kSysTickBase + 0x04>;
+using SysTickVal = mmio::Reg<soc::kSysTickBase + 0x08>;
 
-        if (rawPressed != lastRawState_) {
-            lastRawState_ = rawPressed;
-            counter_ = 0;
-        } else if (counter_ < debounceThreshold_) {
-            if (++counter_ == debounceThreshold_) {
-                stableState_ = rawPressed;
-                if (stableState_ && state_ == State::Released) {
-                    state_ = State::Held;
-                    ledState_ = !ledState_;
-                    writer_(ledState_); // Перемикаємо стан світлодіода
-                    if (onPressAction) {
-                        onPressAction();
-                    }
-                } else if (!stableState_) {
-                    state_ = State::Released;
-                }
-            }
-        }
+board::Debouncer<5> g_button{};
+volatile std::uint32_t g_pressCount{0};
+
+void startTick10ms() noexcept {
+    // 8 МГц / 100 = 80000 тактів; у регістрі лежить N-1, і 79999 вміщається
+    // у 24-бітний лічильник ядра.
+    SysTickLoad::write(soc::kCpuHz / 100 - 1);
+    SysTickVal::write(0);  // запис будь-якого значення скидає лічильник і прапорець
+    SysTickCtrl::write(0b111);  // CLKSOURCE=HCLK, TICKINT, ENABLE
+}
+
+void onPress() noexcept {
+    ++g_pressCount;
+    board::Led::toggle();
+}
+
+}  // namespace
+
+extern "C" void SysTick_Handler() {
+    // Раз на 10 мс. Ніяких затримок усередині: обробник має піти з ядра за
+    // одиниці мікросекунд, інакше він з'їсть переривання решти периферії.
+    if (g_button.update(board::Button::isPressed()) == board::ButtonEvent::Pressed) {
+        onPress();
+    }
+}
+
+int main() {
+    board::Led::init();
+    board::Button::init();
+
+    if constexpr (kUseInterruptDebounce) {
+        board::InterruptButton::start();
+    } else {
+        g_button = board::Debouncer<5>{board::Button::isPressed()};
+        startTick10ms();
     }
 
-    [[nodiscard]] bool isLedActive() const noexcept { return ledState_; }
-
-private:
-    GpioReader reader_;
-    GpioWriter writer_;
-    uint8_t debounceThreshold_;
-    uint8_t counter_{0};
-    bool lastRawState_{false};
-    bool stableState_{false};
-    bool ledState_{false};
-    State state_{State::Released};
-};
+    while (true) {
+        if constexpr (kUseInterruptDebounce) {
+            if (board::InterruptButton::takeEvent() == board::ButtonEvent::Pressed) {
+                onPress();
+            }
+        }
+        // Ядро спить до наступного переривання: в опитуванні його будить
+        // SysTick, у варіанті з EXTI — сама кнопка.
+        __asm volatile("wfi");
+    }
+}

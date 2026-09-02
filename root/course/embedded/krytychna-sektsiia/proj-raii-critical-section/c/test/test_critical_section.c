@@ -62,6 +62,17 @@ static void test_save_restore(void)
     CHECK(g_mock.depth == 0U);
 }
 
+static void test_body_runs_exactly_once(void)
+{
+    int passes = 0;
+
+    cmsis_mock_reset();
+    CRITICAL_BLOCK() {
+        passes++;
+    }
+    CHECK(passes == 1);
+}
+
 static void test_nesting(void)
 {
     cmsis_mock_reset();
@@ -101,6 +112,69 @@ static void test_early_return_does_not_leak(void)
     CHECK(__get_PRIMASK() == 0U);
 }
 
+/* Класичний «goto out» із середини секції — теж має знімати блокування. */
+static bool parse_frame(bool header_ok, bool crc_ok)
+{
+    bool accepted = false;
+
+    CRITICAL_BLOCK() {
+        if (!header_ok) {
+            goto done;
+        }
+        if (!crc_ok) {
+            goto done;
+        }
+        accepted = true;
+    }
+done:
+    return accepted;
+}
+
+static void test_goto_does_not_leak(void)
+{
+    cmsis_mock_reset();
+
+    CHECK(parse_frame(false, true) == false);
+    CHECK(__get_PRIMASK() == 0U);
+    CHECK(parse_frame(true, false) == false);
+    CHECK(__get_PRIMASK() == 0U);
+    CHECK(parse_frame(true, true) == true);
+    CHECK(__get_PRIMASK() == 0U);
+    CHECK(g_mock.depth == 0U);
+    CHECK(g_mock.disable_calls == g_mock.restore_calls);
+}
+
+/*
+ * Пастка макроса, вартна окремої перевірки: блок сам є циклом for, тому
+ * break усередині виходить із НЬОГО, а не з оточного циклу. Блокування при
+ * цьому знімається чесно — але оточний цикл крутиться далі.
+ */
+static int count_skipping_third(int limit)
+{
+    int seen = 0;
+
+    for (int i = 0; i < limit; i++) {
+        CRITICAL_BLOCK() {
+            if (i == 2) {
+                break;   /* вихід із CRITICAL_BLOCK, не з for */
+            }
+            seen++;
+        }
+    }
+    return seen;
+}
+
+static void test_break_leaves_only_the_block(void)
+{
+    cmsis_mock_reset();
+
+    CHECK(count_skipping_third(5) == 4);   /* пропущено рівно одну ітерацію */
+    CHECK(g_mock.disable_calls == 5U);     /* блок відпрацював усі п'ять разів */
+    CHECK(g_mock.disable_calls == g_mock.restore_calls);
+    CHECK(__get_PRIMASK() == 0U);
+    CHECK(g_mock.depth == 0U);
+}
+
 static void test_basepri_never_weakens(void)
 {
     cmsis_mock_reset();
@@ -110,6 +184,11 @@ static void test_basepri_never_weakens(void)
         PRIORITY_BLOCK(0x70U) {
             /* Слабший поріг не має послабити чинне маскування. */
             CHECK(__get_BASEPRI() == 0x50U);
+        }
+        CHECK(__get_BASEPRI() == 0x50U);
+        PRIORITY_BLOCK(0x30U) {
+            /* А суворіший — має. */
+            CHECK(__get_BASEPRI() == 0x30U);
         }
         CHECK(__get_BASEPRI() == 0x50U);
         CHECK(__get_PRIMASK() == 0U);   /* BASEPRI не чіпає PRIMASK */
@@ -183,8 +262,11 @@ static void test_isr_path(void)
 int main(void)
 {
     test_save_restore();
+    test_body_runs_exactly_once();
     test_nesting();
     test_early_return_does_not_leak();
+    test_goto_does_not_leak();
+    test_break_leaves_only_the_block();
     test_basepri_never_weakens();
     test_interrupt_context_flag();
     test_navigation_snapshot();

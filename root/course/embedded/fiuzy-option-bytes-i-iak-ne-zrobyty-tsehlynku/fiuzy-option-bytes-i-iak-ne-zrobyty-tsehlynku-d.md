@@ -226,7 +226,39 @@ t = 500 мкс: Зовнішній ST-Link надсилає стартовий S
 
 Будь-яке порушення порядку запису констант або спроба прямого запису в `FLASH->CR` без проходження процедури ключів призводить до апаратного блокування контролера Flash до наступного повного перезавантаження чипа.
 
-Нижче наведено повноцінну реалізацію безпечного оновлення Option Bytes на мовах C та C++.
+Нижче наведено повноцінну реалізацію безпечного оновлення Option Bytes на мовах C та C++ для мікроконтролера STM32G4.
+
+Спершу — карта регістрів: контролер Flash, блок керування живленням і канал діагностики ITM.
+
+:::tabs
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/stm32g4_regs.h
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/cpp/mmio.hpp
+:::
+
+Далі сама конфігурація як значення: розкладання слова `FLASH->OPTR` на поля, збирання назад і правила, які забороняють небезпечні переходи — запис `0xCC`, зняття захисту з-під прошивки, замалий поріг BOR, втрату ніжки скидання й страпінгу `BOOT0`.
+
+:::tabs
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/option_bytes.h
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/cpp/option_config.hpp
+:::
+
+Перевірка напруги живлення перед записом (сценарій 5) спирається на штатний детектор PVD.
+
+:::tabs
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/supply_guard.h
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/supply_guard.c
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/cpp/supply.hpp
+:::
+
+Власне протокол запису: два етапи ключів, `OPTSTRT`, розбір прапорців помилок, звірка записаного й `OBL_LAUNCH` (його приймають лише поки `OPTLOCK` знятий, тому блокування регістрів — після нього).
+
+:::tabs
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/option_bytes.c
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/cpp/flash_options.hpp
+:::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/cpp/flash_options.cpp
+:::
+
+І точка входу, яка застосовує все це до реального чипа.
 
 :::tabs
 :::code fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku-d/c/main.c

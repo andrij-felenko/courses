@@ -1,131 +1,223 @@
-#include <stdint.h>
-#include <stdbool.h>
 #include <math.h>
+#include <stdio.h>
 
-#define STICK_DEADBAND_NORM    0.12f   /* Поріг відхилення стіка: 12% */
-#define BLEND_IN_TIME_SEC      0.20f   /* Час переходу в ручний: 200 мс */
-#define BLEND_OUT_TIME_SEC     0.40f   /* Час повернення в авто: 400 мс */
-#define HANDBACK_HOLD_SEC      1.50f   /* Час утримання нейтралі: 1.5 с */
+#include "annunciate.h"
+#include "flight_types.h"
+#include "nav_guard.h"
+#include "rc_input.h"
+#include "takeover.h"
 
-typedef enum {
-    TAKEOVER_STATE_AUTO_NAV = 0,
-    TAKEOVER_STATE_OVERRIDE_IN,
-    TAKEOVER_STATE_MANUAL_HOLD,
-    TAKEOVER_STATE_HANDBACK_WAIT,
-    TAKEOVER_STATE_BLENDING_OUT
-} takeover_state_t;
+/* Прогін сценарію зі статті: літак іде за маршрутом на 22 м/с і 45 м, збоку
+   дме вітер, на 2-й секунді пілот смикає стік на себе і вправо, обходячи трос
+   крана, а потім відпускає ручку. Модель планера тут навмисно проста — вона
+   потрібна лише для того, щоб побачити роботу перехоплення. */
 
-typedef struct {
-    float roll;      /* Нормалізовані значення від -1.0 до +1.0 */
-    float pitch;
-    float yaw;
-    float throttle; /* Нормалізоване від 0.0 до 1.0 (або від -1 до +1) */
-} stick_input_t;
+#define LOOP_HZ    200.0f
+#define DT         (1.0f / LOOP_HZ)
+#define RUN_SEC    9.0f
+#define WIND_Y     6.0f   /* м/с, вітер зліва зносить апарат управо по +y */
+#define DEG2RAD    0.01745329f
+#define RAD2DEG    57.2957795f
 
-typedef struct {
-    float roll;      /* Сигнали уставки (кути або моменти) */
-    float pitch;
-    float yaw;
-    float throttle;
-} control_command_t;
+#define PILOT_ROLL_LIMIT_DEG  45.0f
+#define PILOT_PITCH_LIMIT_DEG 15.0f
+#define PILOT_YAW_LIMIT_DPS   20.0f
 
 typedef struct {
-    takeover_state_t state;
-    float alpha;               /* Поточний коефіцієнт змішування [0.0 ... 1.0] */
-    float hold_timer_sec;      /* Лічильник часу утримання в нейтралі */
-    bool override_annunciation;/* Прапорець для відправки події в MAVLink */
-} takeover_controller_t;
+    vehicle_state_t st;
+    float roll_deg;  /* фактичний крен: приводи й планер відстають від команди */
+    float pitch_deg;
+} plane_t;
 
-void takeover_init(takeover_controller_t *ctrl) {
-    if (!ctrl) return;
-    ctrl->state = TAKEOVER_STATE_AUTO_NAV;
-    ctrl->alpha = 0.0f;
-    ctrl->hold_timer_sec = 0.0f;
-    ctrl->override_annunciation = false;
+typedef struct {
+    const char *title;
+    bool  anti_windup;
+    float rc_loss_at; /* с; від'ємне — зв'язок не втрачається */
+    float fence_at;   /* с; від'ємне — геозону не порушуємо */
+} scenario_t;
+
+static void plane_step(plane_t *pl, const control_command_t *u, float dt) {
+    pl->roll_deg  += (u->roll  - pl->roll_deg)  * (dt / (0.25f + dt));
+    pl->pitch_deg += (u->pitch - pl->pitch_deg) * (dt / (0.40f + dt));
+
+    const float roll_rad = pl->roll_deg * DEG2RAD;
+    const float pitch_rad = pl->pitch_deg * DEG2RAD;
+
+    /* Координований розворот: правий крен веде ніс за годинниковою стрілкою,
+       тобто курс у нашій системі координат спадає. */
+    const float turn_rate = (9.81f / fmaxf(pl->st.airspeed, 8.0f)) * tanf(roll_rad) * RAD2DEG;
+    pl->st.heading_deg = wrap180(pl->st.heading_deg - turn_rate * dt);
+
+    const float hdg = pl->st.heading_deg * DEG2RAD;
+    pl->st.x += (pl->st.airspeed * cosf(hdg)) * dt;
+    pl->st.y += (pl->st.airspeed * sinf(hdg) + WIND_Y) * dt;
+    pl->st.alt += pl->st.airspeed * sinf(pitch_rad) * dt;
+
+    const float spd_eq = 12.0f + 15.0f * u->throttle - 20.0f * sinf(pitch_rad);
+    pl->st.airspeed += (spd_eq - pl->st.airspeed) * (dt / (1.5f + dt));
+    pl->st.airspeed = fmaxf(pl->st.airspeed, 8.0f);
 }
 
-static bool check_stick_deflection(const stick_input_t *sticks) {
-    /* Перевіряємо перевищення порогу по будь-якій із основних осей */
-    if (fabsf(sticks->roll) > STICK_DEADBAND_NORM) return true;
-    if (fabsf(sticks->pitch) > STICK_DEADBAND_NORM) return true;
-    if (fabsf(sticks->yaw) > STICK_DEADBAND_NORM) return true;
-    
-    /* Для газу перевіряємо відхилення від середнього положення зависання (0.5) */
-    if (fabsf(sticks->throttle - 0.5f) > STICK_DEADBAND_NORM) return true;
-
-    return false;
+/* Що робить пілот. Важіль газу весь політ лишається там, де його поклали:
+   це і є неузгодженість газу з пастки номер два. */
+static void pilot_script(float t, float *roll, float *pitch, float *thr, rc_mode_t *mode) {
+    *roll = 0.0f;
+    *pitch = 0.0f;
+    *thr = 0.30f;
+    *mode = RC_MODE_AUTO;
+    if (t >= 2.0f && t < 3.6f) {
+        *roll = 0.75f;  /* правий крен */
+        *pitch = 0.90f; /* стік на себе — набір висоти */
+    }
 }
 
-void takeover_update(takeover_controller_t *ctrl,
-                     const stick_input_t *sticks,
-                     const control_command_t *cmd_auto,
-                     const control_command_t *cmd_pilot,
-                     control_command_t *cmd_out,
-                     float dt_sec) {
-    if (!ctrl || !sticks || !cmd_auto || !cmd_pilot || !cmd_out) return;
+static uint16_t to_pwm_sym(float v) {
+    return (uint16_t)(1500.0f + 500.0f * clampf(v, -1.0f, 1.0f) + 0.5f);
+}
 
-    bool sticks_deflected = check_stick_deflection(sticks);
+static uint16_t to_pwm_uni(float v) {
+    return (uint16_t)(1000.0f + 1000.0f * clampf(v, 0.0f, 1.0f) + 0.5f);
+}
 
-    switch (ctrl->state) {
-        case TAKEOVER_STATE_AUTO_NAV:
-            ctrl->alpha = 0.0f;
-            if (sticks_deflected) {
-                ctrl->state = TAKEOVER_STATE_OVERRIDE_IN;
-                ctrl->override_annunciation = true;
-            }
-            break;
+static uint16_t mode_pwm(rc_mode_t m) {
+    return (m == RC_MODE_AUTO) ? 1100u : (m == RC_MODE_POSHOLD) ? 1500u : 1900u;
+}
 
-        case TAKEOVER_STATE_OVERRIDE_IN:
-            /* Лінійне наростання ваги оператора */
-            ctrl->alpha += dt_sec / BLEND_IN_TIME_SEC;
-            if (ctrl->alpha >= 1.0f) {
-                ctrl->alpha = 1.0f;
-                ctrl->state = TAKEOVER_STATE_MANUAL_HOLD;
-            }
-            break;
+static void run_scenario(const scenario_t *sc) {
+    plane_t pl;
+    pl.st.x = 0.0f;
+    pl.st.y = 0.0f;
+    pl.st.alt = 45.0f;
+    pl.st.heading_deg = 0.0f;
+    pl.st.airspeed = 22.0f;
+    pl.roll_deg = 0.0f;
+    pl.pitch_deg = 0.0f;
 
-        case TAKEOVER_STATE_MANUAL_HOLD:
-            ctrl->alpha = 1.0f;
-            if (!sticks_deflected) {
-                ctrl->state = TAKEOVER_STATE_HANDBACK_WAIT;
-                ctrl->hold_timer_sec = 0.0f;
-            }
-            break;
+    nav_setpoint_t sp;
+    sp.leg_x = 0.0f;
+    sp.leg_y = 0.0f;
+    sp.wp_x = 3000.0f;
+    sp.wp_y = 0.0f;
+    sp.alt_target = 45.0f;
+    sp.airspeed_target = 22.0f;
 
-        case TAKEOVER_STATE_HANDBACK_WAIT:
-            ctrl->alpha = 1.0f;
-            if (sticks_deflected) {
-                /* Пілот знову втрутився до завершення таймауту */
-                ctrl->state = TAKEOVER_STATE_MANUAL_HOLD;
-                ctrl->hold_timer_sec = 0.0f;
-            } else {
-                ctrl->hold_timer_sec += dt_sec;
-                if (ctrl->hold_timer_sec >= HANDBACK_HOLD_SEC) {
-                    ctrl->state = TAKEOVER_STATE_BLENDING_OUT;
-                }
-            }
-            break;
+    nav_guard_t nav;
+    nav_guard_init(&nav, &sp);
+    nav.anti_windup = sc->anti_windup;
 
-        case TAKEOVER_STATE_BLENDING_OUT:
-            if (sticks_deflected) {
-                /* Миттєве повторне перехоплення під час повернення в авто */
-                ctrl->state = TAKEOVER_STATE_OVERRIDE_IN;
-            } else {
-                ctrl->alpha -= dt_sec / BLEND_OUT_TIME_SEC;
-                if (ctrl->alpha <= 0.0f) {
-                    ctrl->alpha = 0.0f;
-                    ctrl->state = TAKEOVER_STATE_AUTO_NAV;
-                }
-            }
-            break;
+    rc_input_t rc_in;
+    rc_input_init(&rc_in);
+
+    takeover_t tk;
+    takeover_init(&tk);
+
+    annunciator_t an;
+    annunciate_init(&an);
+
+    control_command_t prev_out = { 0.0f, 0.0f, 0.0f, 0.0f };
+    control_command_t prev_mux = { 0.0f, 0.0f, 0.0f, 0.0f };
+    bool have_prev = false;
+
+    float max_rate_blend = 0.0f; /* °/с на виході змішувача */
+    float max_rate_mux = 0.0f;   /* °/с, якби стояв простий мультиплексор */
+    float max_abs_i = 0.0f;
+    float max_xte_after = 0.0f;  /* найбільший відхід від лінії після віддачі */
+    float next_print = 0.0f;
+
+    printf("\n=== %s ===\n", sc->title);
+    printf("   t    стан           alpha  thr    xte      I     roll    alt   thr\n");
+
+    const int steps = (int)(RUN_SEC * LOOP_HZ);
+    for (int i = 0; i <= steps; ++i) {
+        const float t = (float)i * DT;
+        const uint32_t now_ms = (uint32_t)(t * 1000.0f);
+
+        float sr, spitch, sthr;
+        rc_mode_t smode;
+        pilot_script(t, &sr, &spitch, &sthr, &smode);
+
+        const bool link_alive = (sc->rc_loss_at < 0.0f) || (t < sc->rc_loss_at);
+        if (link_alive) {
+            rc_frame_t frame;
+            for (unsigned c = 0; c < RC_CHANNELS; ++c) frame.pwm_us[c] = 1500u;
+            frame.pwm_us[0] = to_pwm_sym(sr);
+            frame.pwm_us[1] = to_pwm_sym(spitch);
+            frame.pwm_us[2] = to_pwm_uni(sthr);
+            frame.pwm_us[3] = to_pwm_sym(0.0f);
+            frame.pwm_us[4] = mode_pwm(smode);
+            frame.timestamp_ms = now_ms;
+            (void)rc_input_push(&rc_in, &frame);
+        }
+
+        const rc_command_t rc = rc_input_poll(&rc_in, now_ms);
+        const bool fence = (sc->fence_at >= 0.0f) && (t >= sc->fence_at);
+
+        const takeover_status_t st = takeover_update(&tk, &rc, fence, DT);
+
+        const control_command_t u_auto = nav_guard_step(&nav, &pl.st, st.freeze_nav, DT);
+
+        control_command_t u_pilot;
+        u_pilot.roll = rc.roll * PILOT_ROLL_LIMIT_DEG;
+        u_pilot.pitch = rc.pitch * PILOT_PITCH_LIMIT_DEG;
+        u_pilot.yaw = rc.yaw * PILOT_YAW_LIMIT_DPS;
+        u_pilot.throttle = rc.throttle;
+
+        const control_command_t u_out = takeover_blend(&st, &u_auto, &u_pilot);
+
+        /* Той самий момент, але з наївним мультиплексором: жодного змішування,
+           перемикання за α > 0.5. Порівняння швидкостей — нижче в підсумку. */
+        const control_command_t u_mux = (st.alpha > 0.5f) ? u_pilot : u_auto;
+
+        if (have_prev) {
+            const float r1 = fabsf(u_out.roll - prev_out.roll) / DT;
+            const float r2 = fabsf(u_mux.roll - prev_mux.roll) / DT;
+            if (r1 > max_rate_blend) max_rate_blend = r1;
+            if (r2 > max_rate_mux) max_rate_mux = r2;
+        }
+        prev_out = u_out;
+        prev_mux = u_mux;
+        have_prev = true;
+
+        if (fabsf(nav.integral) > max_abs_i) max_abs_i = fabsf(nav.integral);
+
+        plane_step(&pl, &u_out, DT);
+
+        if (t >= 3.6f) {
+            const float xte_now = fabsf(nav_guard_crosstrack(&nav, &pl.st));
+            if (xte_now > max_xte_after) max_xte_after = xte_now;
+        }
+
+        annunciate_events(&an, &tk, now_ms);
+        annunciate_stream(&an, &st, now_ms);
+
+        if (t + 1e-4f >= next_print) {
+            next_print += 0.25f;
+            printf("%5.2f  %-13s %.2f  %.2f %+7.1f %+6.1f %+7.1f %6.1f  %.2f\n",
+                   (double)t, takeover_state_name(st.state),
+                   (double)st.alpha, (double)st.alpha_throttle,
+                   (double)nav_guard_crosstrack(&nav, &pl.st),
+                   (double)nav.integral, (double)u_out.roll,
+                   (double)pl.st.alt, (double)u_out.throttle);
+        }
     }
 
-    /* Обчислення підсумкових команд: u = (1 - α) * u_auto + α * u_pilot */
-    const float a = ctrl->alpha;
-    const float inv_a = 1.0f - a;
+    printf("  підсумок: |I|max=%.1f°  найбільший відхід після віддачі=%.1f м\n",
+           (double)max_abs_i, (double)max_xte_after);
+    printf("  швидкість зміни команди крену: змішувач %.0f °/с, "
+           "наївний мультиплексор %.0f °/с\n",
+           (double)max_rate_blend, (double)max_rate_mux);
+}
 
-    cmd_out->roll     = inv_a * cmd_auto->roll     + a * cmd_pilot->roll;
-    cmd_out->pitch    = inv_a * cmd_auto->pitch    + a * cmd_pilot->pitch;
-    cmd_out->yaw      = inv_a * cmd_auto->yaw      + a * cmd_pilot->yaw;
-    cmd_out->throttle = inv_a * cmd_auto->throttle + a * cmd_pilot->throttle;
+int main(void) {
+    const scenario_t scenarios[] = {
+        { "Обхід троса: захисти увімкнено",        true,  -1.0f, -1.0f },
+        { "Те саме без анти-віндапу й синхронізації уставки", false, -1.0f, -1.0f },
+        { "Втрата RC посеред ручного маневру",     true,   2.8f, -1.0f },
+        { "Геозона забирає керування в пілота",    true,  -1.0f,  2.8f }
+    };
+
+    for (unsigned i = 0; i < sizeof(scenarios) / sizeof(scenarios[0]); ++i) {
+        run_scenario(&scenarios[i]);
+    }
+    return 0;
 }

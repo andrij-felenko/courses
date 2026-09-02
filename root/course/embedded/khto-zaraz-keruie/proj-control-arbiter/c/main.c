@@ -1,230 +1,125 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
 #include <math.h>
+#include <stdio.h>
 
-#define SOURCE_FAILSAFE    0
-#define SOURCE_RC_PILOT    1
-#define SOURCE_OFFBOARD    2
-#define SOURCE_GCS_MISSION 3
-#define SOURCE_COUNT       4
-#define SOURCE_NONE        255
+#include "arbiter.h"
+#include "ingest.h"
+#include "trace.h"
 
-typedef struct {
-    uint64_t timestamp_us;
-    float channels[4]; /* [0]=Roll, [1]=Pitch, [2]=Yaw, [3]=Thrust [0..1] */
-    bool valid;
-} setpoint_t;
+/* Крок стенда — 25 мс: рівно з таким періодом шле уставки комп'ютер зору, і на
+   такому кроці роботу лімітера видно оком. На борту evaluate() кличуть кожні
+   2.5 мс (400 Гц) — логіка та сама, кроки лімітера вдесятеро дрібніші. */
+#define TICK_US 25000u
 
-typedef struct {
-    uint32_t timeout_us;
-    float stick_deadband;
-    float max_slew_rate[4]; /* Максимальна швидкість зміни (од/с) */
-    bool allow_stick_override;
-} source_cfg_t;
+static arbiter_t    g_arb;
+static sp_mailbox_t g_mail[SRC_COUNT];
 
-typedef struct {
-    setpoint_t raw_sp;
-    uint64_t last_heartbeat_us;
-    source_cfg_t cfg;
-    bool is_active;
-    bool is_timed_out;
-} source_slot_t;
+/* Імітація обробника переривання приймача CRSF / MAVLink: кадр лягає у скриньку
+   й НЕ торкається арбітра — арбітр живе тільки в польотному циклі. */
+static void isr_frame(source_id_t src, float roll, float pitch, float yaw,
+                      float thrust, uint64_t now_us)
+{
+    setpoint_t sp;
 
-typedef struct {
-    source_slot_t slots[SOURCE_COUNT];
-    uint8_t active_source;
-    uint8_t previous_source;
-    setpoint_t output_sp;
-    uint64_t last_eval_us;
-    uint32_t switch_count;
-} arbiter_t;
-
-static float clampf(float val, float min_v, float max_v) {
-    if (val < min_v) return min_v;
-    if (val > max_v) return max_v;
-    return val;
+    sp.stamp_us       = now_us;
+    sp.ch[AX_ROLL]    = roll;
+    sp.ch[AX_PITCH]   = pitch;
+    sp.ch[AX_YAW]     = yaw;
+    sp.ch[AX_THRUST]  = thrust;
+    sp_mailbox_publish(&g_mail[src], &sp);
 }
 
-void arbiter_init(arbiter_t *arb) {
-    arb->active_source = SOURCE_NONE;
-    arb->previous_source = SOURCE_NONE;
-    arb->last_eval_us = 0;
-    arb->switch_count = 0;
-    
-    for (int i = 0; i < 4; ++i) {
-        arb->output_sp.channels[i] = 0.0f;
-    }
-    arb->output_sp.valid = false;
-    arb->output_sp.timestamp_us = 0;
+/* Рядок чорної скриньки: активне джерело, відхилення стіків і стан сторожів —
+   без цих трьох полів розслідувати інцидент у польоті нічим. */
+static void log_record(uint64_t now_us, source_id_t src, const setpoint_t *out)
+{
+    int i;
 
-    for (int i = 0; i < SOURCE_COUNT; ++i) {
-        arb->slots[i].raw_sp.valid = false;
-        arb->slots[i].last_heartbeat_us = 0;
-        arb->slots[i].is_active = false;
-        arb->slots[i].is_timed_out = true;
-        
-        arb->slots[i].cfg.timeout_us = 500000;      /* 500 мс таймаут за замовчуванням */
-        arb->slots[i].cfg.stick_deadband = 0.08f;   /* 8% мертва смуга */
-        arb->slots[i].cfg.allow_stick_override = true;
-        arb->slots[i].cfg.max_slew_rate[0] = 6.0f;  /* Roll: 6.0 рад/с² */
-        arb->slots[i].cfg.max_slew_rate[1] = 6.0f;  /* Pitch: 6.0 рад/с² */
-        arb->slots[i].cfg.max_slew_rate[2] = 10.0f; /* Yaw: 10.0 рад/с² */
-        arb->slots[i].cfg.max_slew_rate[3] = 3.0f;  /* Thrust: 3.0 (100% за 330 мс) */
-    }
+    printf("[%6.3fs] %-8s defl=%.3f | roll=%+.3f pitch=%+.3f yaw=%+.3f thr=%.3f | ",
+           (double)now_us * 1e-6, source_name(src), arbiter_deflection(&g_arb),
+           out->ch[AX_ROLL], out->ch[AX_PITCH], out->ch[AX_YAW], out->ch[AX_THRUST]);
+    for (i = 0; i < SRC_COUNT; ++i)
+        printf("%s:%s ", source_name((source_id_t)i),
+               arbiter_is_live(&g_arb, (source_id_t)i) ? "ok" : "--");
+    printf("%s\n", arbiter_output_valid(&g_arb) ? "" : "[вихід недійсний]");
 }
 
-void arbiter_submit_setpoint(arbiter_t *arb, uint8_t src_id, const setpoint_t *sp, uint64_t now_us) {
-    if (src_id >= SOURCE_COUNT || !sp) return;
-    arb->slots[src_id].raw_sp = *sp;
-    arb->slots[src_id].last_heartbeat_us = now_us;
-    arb->slots[src_id].is_active = true;
-    arb->slots[src_id].is_timed_out = false;
+/* Один такт польотного циклу: забрати кадри, розсудити, віддати мікшеру. */
+static void flight_cycle(uint64_t now_us)
+{
+    setpoint_t  out;
+    source_id_t src;
+    int         i;
+
+    for (i = 0; i < SRC_COUNT; ++i) {
+        setpoint_t   sp;
+        arb_status_t st;
+
+        if (!sp_mailbox_take(&g_mail[i], &sp))
+            continue;
+        st = arbiter_submit(&g_arb, (source_id_t)i, &sp, now_us);
+        if (st != ARB_OK)
+            printf("          кадр від %s відкинуто: %s\n",
+                   source_name((source_id_t)i), arb_status_name(st));
+    }
+
+    src = arbiter_evaluate(&g_arb, now_us, &out);
+    /* Тут уставка йде в мікшер моторів і далі в DShot-кадр. */
+    diag_pin_low();
+    log_record(now_us, src, &out);
 }
 
-static bool check_stick_deflection(const source_slot_t *slot) {
-    if (!slot->is_active || slot->is_timed_out || !slot->raw_sp.valid) return false;
-    
-    float r = fabsf(slot->raw_sp.channels[0]);
-    float p = fabsf(slot->raw_sp.channels[1]);
-    float y = fabsf(slot->raw_sp.channels[2]);
-    float db = slot->cfg.stick_deadband;
-    
-    return (r > db) || (p > db) || (y > db);
-}
+int main(void)
+{
+    uint64_t now = 1000000u;   /* 1.000 с від старту борту */
+    int      i, step;
 
-uint8_t arbiter_evaluate(arbiter_t *arb, uint64_t now_us, setpoint_t *out_sp) {
-    /* 1. Оновлення таймаутів */
-    for (int i = 0; i < SOURCE_COUNT; ++i) {
-        source_slot_t *slot = &arb->slots[i];
-        if (slot->is_active) {
-            uint64_t elapsed = now_us - slot->last_heartbeat_us;
-            if (elapsed > slot->cfg.timeout_us) {
-                slot->is_timed_out = true;
-                slot->is_active = false;
-            }
-        }
+    arbiter_init(&g_arb);
+    diag_pin_init();
+    for (i = 0; i < SRC_COUNT; ++i)
+        sp_mailbox_init(&g_mail[i]);
+
+    printf("=== ДИСПЕТЧЕР ПРІОРИТЕТІВ ДЖЕРЕЛ КЕРУВАННЯ ===\n\n");
+
+    printf("-- 1. Автономний політ: пульт живий, ручки в центрі — керує комп'ютер зору\n");
+    isr_frame(SRC_GCS_MISSION, 0.0f, 0.05f, 0.0f, 0.50f, now);
+    isr_frame(SRC_RC_PILOT,    0.0f, 0.00f, 0.0f, 0.50f, now);
+    isr_frame(SRC_OFFBOARD,    0.35f, 0.00f, 0.0f, 0.55f, now);
+    flight_cycle(now);
+
+    printf("-- 2. Процес зору впав: кадр із NaN відкинуто, серце слоту не б'ється\n");
+    now += TICK_US;
+    isr_frame(SRC_RC_PILOT, 0.0f, 0.0f, 0.0f, 0.50f, now);
+    isr_frame(SRC_OFFBOARD, 0.35f, NAN, 0.0f, 0.55f, now);
+    flight_cycle(now);
+
+    printf("-- 3. Перед апаратом трос: пілот смикає тангаж на 0.78 рад\n");
+    now += TICK_US;
+    isr_frame(SRC_RC_PILOT, 0.0f, 0.78f, 0.0f, 0.70f, now);
+    flight_cycle(now);
+
+    printf("-- 4. Безударне наростання: крок лімітера 6.0 * 0.025 = 0.15 рад\n");
+    for (step = 0; step < 4; ++step) {
+        now += TICK_US;
+        isr_frame(SRC_RC_PILOT, 0.0f, 0.78f, 0.0f, 0.70f, now);
+        flight_cycle(now);
     }
 
-    /* 2. Пріоритетний вибір джерела */
-    uint8_t selected = SOURCE_NONE;
-
-    if (arb->slots[SOURCE_FAILSAFE].is_active && !arb->slots[SOURCE_FAILSAFE].is_timed_out) {
-        selected = SOURCE_FAILSAFE;
-    } else if (arb->slots[SOURCE_RC_PILOT].is_active && !arb->slots[SOURCE_RC_PILOT].is_timed_out) {
-        bool sticks_moved = check_stick_deflection(&arb->slots[SOURCE_RC_PILOT]);
-        if (sticks_moved) {
-            selected = SOURCE_RC_PILOT;
-        } else if (arb->slots[SOURCE_OFFBOARD].is_timed_out && arb->slots[SOURCE_GCS_MISSION].is_timed_out) {
-            selected = SOURCE_RC_PILOT;
-        }
+    printf("-- 5. Банка просіла до 3.2 В: аварійний автомат витісняє й пілота\n");
+    now += 10000u;
+    arbiter_raise_failsafe(&g_arb, 0.30f, now);
+    isr_frame(SRC_RC_PILOT, 0.0f, 0.78f, 0.0f, 0.70f, now);  /* стік досі відхилено — марно */
+    flight_cycle(now);
+    for (step = 0; step < 3; ++step) {
+        now += TICK_US;
+        isr_frame(SRC_RC_PILOT, 0.0f, 0.78f, 0.0f, 0.70f, now);
+        flight_cycle(now);
     }
 
-    if (selected == SOURCE_NONE) {
-        if (arb->slots[SOURCE_OFFBOARD].is_active && !arb->slots[SOURCE_OFFBOARD].is_timed_out) {
-            selected = SOURCE_OFFBOARD;
-        }
-    }
-
-    if (selected == SOURCE_NONE) {
-        if (arb->slots[SOURCE_GCS_MISSION].is_active && !arb->slots[SOURCE_GCS_MISSION].is_timed_out) {
-            selected = SOURCE_GCS_MISSION;
-        }
-    }
-
-    if (selected != arb->active_source) {
-        arb->previous_source = arb->active_source;
-        arb->active_source = selected;
-        arb->switch_count++;
-    }
-
-    /* 3. Безударна фільтрація швидкості зміни (Slew Rate) */
-    float dt = 0.0025f; /* 400 Гц за замовчуванням */
-    if (arb->last_eval_us > 0 && now_us > arb->last_eval_us) {
-        dt = (float)(now_us - arb->last_eval_us) * 1e-6f;
-        if (dt > 0.1f) dt = 0.1f;
-    }
-    arb->last_eval_us = now_us;
-
-    if (selected != SOURCE_NONE && arb->slots[selected].raw_sp.valid) {
-        const setpoint_t *target = &arb->slots[selected].raw_sp;
-        for (int i = 0; i < 4; ++i) {
-            float target_val = target->channels[i];
-            float current_val = arb->output_sp.channels[i];
-            float max_rate = arb->slots[selected].cfg.max_slew_rate[i];
-            float max_delta = max_rate * dt;
-
-            float delta = target_val - current_val;
-            float clamped_delta = clampf(delta, -max_delta, max_delta);
-            arb->output_sp.channels[i] = current_val + clamped_delta;
-        }
-        arb->output_sp.valid = true;
-    } else {
-        for (int i = 0; i < 3; ++i) {
-            arb->output_sp.channels[i] = 0.0f;
-        }
-        arb->output_sp.channels[3] = 0.0f;
-        arb->output_sp.valid = false;
-    }
-
-    arb->output_sp.timestamp_us = now_us;
-    if (out_sp) {
-        *out_sp = arb->output_sp;
-    }
-
-    return selected;
-}
-
-int main(void) {
-    arbiter_t arb;
-    arbiter_init(&arb);
-    uint64_t now = 1000000; /* 1.0 c */
-
-    printf("=== СИМУЛЯЦІЯ ДИСПЕТЧЕРА ПРІОРИТЕТІВ ДЖЕРЕЛ КЕРУВАННЯ ===\n\n");
-
-    /* 1. Автономний режим: комп'ютер Offboard подає крен 20° (0.35 рад) */
-    setpoint_t offboard_sp = {
-        .timestamp_us = now,
-        .channels = {0.35f, 0.0f, 0.0f, 0.55f},
-        .valid = true
-    };
-    arbiter_submit_setpoint(&arb, SOURCE_OFFBOARD, &offboard_sp, now);
-
-    setpoint_t out;
-    uint8_t src = arbiter_evaluate(&arb, now, &out);
-    printf("[1.00s] Стан: Автономія Offboard | Джерело: %u (Offboard=2) | Roll: %.3f rad, Thrust: %.2f\n", 
-           src, out.channels[0], out.channels[3]);
-
-    /* 2. Пілот бачить перешкоду й різко штовхає тангаж на 45° (0.78 рад) */
-    now += 50000; /* +50 мс */
-    setpoint_t rc_sp = {
-        .timestamp_us = now,
-        .channels = {0.0f, 0.78f, 0.0f, 0.70f},
-        .valid = true
-    };
-    arbiter_submit_setpoint(&arb, SOURCE_RC_PILOT, &rc_sp, now);
-    src = arbiter_evaluate(&arb, now, &out);
-    printf("[1.05s] Пілот штовхнув стік! Джерело: %u (RC_PILOT=1) | Pitch out: %.3f (початок згладжування)\n", 
-           src, out.channels[1]);
-
-    /* Кроки роботи лімітера Slew-Rate */
-    for (int step = 0; step < 4; ++step) {
-        now += 25000; /* +25 мс */
-        arbiter_submit_setpoint(&arb, SOURCE_RC_PILOT, &rc_sp, now);
-        arbiter_evaluate(&arb, now, &out);
-        printf("  [+25ms] Slew-rate динаміка | Pitch out: %.3f rad (ціль: 0.780)\n", out.channels[1]);
-    }
-
-    /* 3. Спрацьовує аварійний автомат Failsafe (критичний розряд батареї) */
-    now += 10000;
-    setpoint_t fs_sp = {
-        .timestamp_us = now,
-        .channels = {0.0f, 0.0f, 0.0f, 0.30f}, /* Горизонт 0°, спуск */
-        .valid = true
-    };
-    arbiter_submit_setpoint(&arb, SOURCE_FAILSAFE, &fs_sp, now);
-    src = arbiter_evaluate(&arb, now, &out);
-    printf("\n[1.16s] ТРИВОГА FAILSAFE! Джерело: %u (FAILSAFE=0) | Витіснено всі інші канали!\n", src);
-
+    printf("\nперемикань авторитету: %u, відкинутих кадрів: %u\n",
+           arbiter_switch_count(&g_arb), arbiter_reject_count(&g_arb));
+    printf("реакція на стік: остання %u мкс, найгірша %u мкс, імпульсів %u (бюджет такту 2500 мкс)\n",
+           diag_pulse_last_us(), diag_pulse_worst_us(), diag_pulse_count());
+    printf("скринька offboard: пропущено циклом %u, рваних копій %u\n",
+           sp_mailbox_dropped(&g_mail[SRC_OFFBOARD]), sp_mailbox_torn(&g_mail[SRC_OFFBOARD]));
     return 0;
 }

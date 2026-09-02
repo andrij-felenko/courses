@@ -119,8 +119,38 @@ openocd -f openocd_recover.cfg
 Найкращий спосіб боротьби з блокуванням — запобігти йому на рівні архітектури прошивки. Під час розробки коду, що взаємодіє з режимами енергозбереження або модифікує регістри виводів `PA13`/`PA14`, у функцію `main()` обов'язково додається захисна пауза.
 
 :::tabs
+:::code proj-safe-swd-recovery/c/startup_guard.h
+:::code proj-safe-swd-recovery/cpp/include/mcu/boot_guard.hpp
+:::
+
+:::tabs
+:::code proj-safe-swd-recovery/c/startup_guard.c
+:::code proj-safe-swd-recovery/cpp/src/boot_guard.cpp
+:::
+
+:::tabs
+:::code proj-safe-swd-recovery/c/safe_gpio.h
+:::code proj-safe-swd-recovery/cpp/include/mcu/pin.hpp
+:::
+
+:::tabs
+:::code proj-safe-swd-recovery/c/safe_gpio.c
+:::code proj-safe-swd-recovery/cpp/src/pin.cpp
+:::
+
+:::tabs
+:::code proj-safe-swd-recovery/c/clock_safe.h
+:::code proj-safe-swd-recovery/cpp/include/mcu/system_clock.hpp
+:::
+
+:::tabs
+:::code proj-safe-swd-recovery/c/clock_safe.c
+:::code proj-safe-swd-recovery/cpp/src/system_clock.cpp
+:::
+
+:::tabs
 :::code proj-safe-swd-recovery/c/main.c
-:::code proj-safe-swd-recovery/cpp/main.cpp
+:::code proj-safe-swd-recovery/cpp/src/main.cpp
 :::
 
 ---

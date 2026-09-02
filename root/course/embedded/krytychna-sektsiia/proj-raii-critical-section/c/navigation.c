@@ -1,13 +1,17 @@
 #include "navigation.h"
 #include "critical_section.h"
 
-/* Драйвери плати: у прошивці справжні, у тестах підмінені фейками. */
-extern bool gnss_read_fix(navigation_data_t *out);
-extern void radio_send(const navigation_data_t *fix);
-
 static navigation_data_t g_fix;
 static bool              g_has_fix;
-static uint32_t          g_updates;
+
+/*
+ * volatile саме тут, а не на всій трійці: g_fix і g_has_fix читаються лише
+ * всередині секцій, а бар'єр на вході й виході й так змушує компілятор
+ * перечитати їх із пам'яті. Лічильник же віддається назовні БЕЗ секції —
+ * без volatile компілятор мав би право закешувати його в регістрі й крутити
+ * фоновий цикл на значенні, яке обробник переривання давно змінив.
+ */
+static volatile uint32_t g_updates;
 
 void navigation_init(void)
 {
@@ -29,7 +33,7 @@ void navigation_update(const navigation_data_t *fix)
     CRITICAL_BLOCK() {
         g_fix     = *fix;
         g_has_fix = true;
-        g_updates++;
+        g_updates++;   /* читання-зміна-запис: атомарний лише під маскою */
     }
 }
 
@@ -52,7 +56,10 @@ bool navigation_get_snapshot(navigation_data_t *out)
 
 uint32_t navigation_updates(void)
 {
-    /* Вирівняне 32-бітне читання на Cortex-M атомарне — секція тут зайва. */
+    /*
+     * Секція тут зайва: вирівняне 32-бітне читання на Cortex-M і так
+     * неподільне, а від застарілого значення в регістрі рятує volatile.
+     */
     return g_updates;
 }
 
@@ -61,7 +68,7 @@ void GNSS_IRQHandler(void)
 {
     navigation_data_t fix;
 
-    /* Кадр міг прийти биті — тоді старий фікс лишається чинним. */
+    /* Кадр міг прийти битий — тоді старий фікс лишається чинним. */
     if (gnss_read_fix(&fix)) {
         navigation_update(&fix);
     }

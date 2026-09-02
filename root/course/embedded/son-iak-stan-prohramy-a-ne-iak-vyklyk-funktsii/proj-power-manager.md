@@ -51,7 +51,7 @@
 
 :::tabs
 :::code proj-power-manager/c/spi_flash_driver.c
-:::code proj-power-manager/cpp/SpiFlashDriver.hpp
+:::code proj-power-manager/cpp/SpiFlashDriver.cpp
 :::
 
 ## Інтеграція з бестіковим планувальником (Tickless Idle)

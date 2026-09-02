@@ -87,8 +87,18 @@
 Наведений код демонструє визначення структур даних і контексту виконання для вбудованої платформи:
 
 :::tabs
-:::code api-rule-schema/c/main.c
-:::code api-rule-schema/cpp/main.cpp
+:::code api-rule-schema/c/rule_schema.h
+:::code api-rule-schema/cpp/include/rules/schema.hpp
+:::
+
+:::tabs
+:::code api-rule-schema/c/rule_engine.h
+:::code api-rule-schema/cpp/include/rules/engine.hpp
+:::
+
+:::tabs
+:::code api-rule-schema/c/rule_engine.c
+:::code api-rule-schema/cpp/src/engine.cpp
 :::
 
 ## Протокол передачі та двоетапна валідація правил
@@ -120,5 +130,24 @@
    - Індекси `input_reg` та `output_target` не повинні виходити за межі карти регістрів (`< TOTAL_REGISTERS_NUM`).
    - Нові правила не мають права модифікувати або вимикати існуючі правила з прапорцем `RULE_FLAG_SAFETY_CRITICAL`.
 4. **Атомарне перемикання:** Якщо всі перевірки пройдено успішно, вхідний потік копіюється в робочу таблицю правил у критичній секції із тимчасово забороненими перериваннями або шляхом атомарного оновлення покажчика на активний буфер (*Double Buffering*). Хабу надсилається підтвердження `ACK (0x06)`.
+
+Приймальна сторона протоколу — розбір кадру, підрахунок CRC-16-CCITT, тіньовий буфер і побудова відповіді `ACK`/`NACK`:
+
+:::tabs
+:::code api-rule-schema/c/rule_frame.h
+:::code api-rule-schema/cpp/include/rules/frame.hpp
+:::
+
+:::tabs
+:::code api-rule-schema/c/rule_frame.c
+:::code api-rule-schema/cpp/src/frame.cpp
+:::
+
+Наскрізний прогін на прикладі теплоакумулятора: хаб надсилає таблицю правил, пристрій відкидає побитий кадр і спробу прибрати захист, а далі рушій сам відпрацьовує втрату зв'язку, зупинку протоку й аварійний стоп:
+
+:::tabs
+:::code api-rule-schema/c/main.c
+:::code api-rule-schema/cpp/src/main.cpp
+:::
 
 Така організація гарантує, що мікроконтролер ніколи не залишиться у проміжному чи збійному стані, а помилка передачі по мережі не порушить роботу критичних контурів безпеки обладнання.

@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+ * Телеметрія навігації: клас нічого не знає ні про плату, ні про PRIMASK —
+ * політика блокування приходить параметром шаблона. На платі це PRIMASK,
+ * у хостових тестах — заглушка, і код класу від цього не змінюється.
+ */
+
 #include <cstdint>
 #include <optional>
 
@@ -14,22 +20,20 @@ struct NavigationData {
     std::uint64_t timestamp_us{0};
 };
 
-/*
- * Політика блокування — параметр шаблона: на платі це PRIMASK, у хостових
- * тестах — заглушка. Код класу від цього не змінюється жодним рядком.
- */
 template <embedded::sync::LockPolicy Policy>
 class NavigationManager {
 public:
     using Guard = embedded::sync::CriticalSectionGuard<Policy>;
 
-    /* Контекст: обробник переривання GNSS, приблизно 100 Гц. */
+    /* Контекст: обробник переривання GNSS, приблизно 100 Гц.
+       Чотири поля й 64-бітна мітка — це кілька окремих STR; переривання
+       посеред них віддало б читачеві пакет із двох різних фіксів. */
     void update(const NavigationData& fix) noexcept
     {
         const Guard lock;
         data_    = fix;
         has_fix_ = true;
-        ++updates_;
+        ++updates_;   // читання-зміна-запис: неподільний лише під маскою
     }
 
     /* Контекст: фонова задача телеметрії. */
@@ -51,42 +55,29 @@ public:
         updates_ = 0U;
     }
 
-    /* Вирівняне 32-бітне читання на Cortex-M атомарне — секція тут зайва. */
+    /* Секція тут зайва: вирівняне 32-бітне читання на Cortex-M неподільне.
+       Але без volatile компілятор мав би право лишити значення в регістрі
+       й крутити фоновий цикл на числі, яке ISR давно змінив. */
     [[nodiscard]] std::uint32_t updates() const noexcept { return updates_; }
 
 private:
-    NavigationData data_{};
-    bool           has_fix_{false};
-    std::uint32_t  updates_{0};
+    NavigationData         data_{};
+    bool                   has_fix_{false};
+    volatile std::uint32_t updates_{0};
 };
 
-#if defined(__ARM_ARCH)
-
-using Navigation = NavigationManager<embedded::sync::PrimaskLockPolicy>;
-
-inline Navigation g_navigation{};
-
-/* Драйвери плати. */
+/*
+ * Драйвери плати: реалізує BSP апарата (у хостовому тесті вони не потрібні,
+ * бо тест працює з NavigationManager напряму).
+ */
 bool gnss_read_fix(NavigationData& out) noexcept;
 void radio_send(const NavigationData& fix) noexcept;
 
-/* Тіло обробника переривання; у векторній таблиці стоїть extern "C"
-   перехідник, який кличе цю функцію. */
-inline void on_gnss_irq() noexcept
-{
-    NavigationData fix;
-    if (gnss_read_fix(fix)) {   // битий кадр лишає старий фікс чинним
-        g_navigation.update(fix);
-    }
-}
+/* Тіло обробника переривання GNSS; у векторній таблиці стоїть extern "C"
+   перехідник GNSS_IRQHandler, який кличе цю функцію. */
+void on_gnss_irq() noexcept;
 
-inline void telemetry_step() noexcept
-{
-    if (const auto snapshot = g_navigation.snapshot()) {
-        radio_send(*snapshot);   // передача — ПОЗА критичною секцією
-    }
-}
-
-#endif  // __ARM_ARCH
+/* Крок фонового циклу: віддати радіоканалу узгоджений знімок. */
+void telemetry_step() noexcept;
 
 }  // namespace flight

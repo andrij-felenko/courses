@@ -1,232 +1,142 @@
-#include <cstdint>
+/* Стенд: те саме розділення контекстів, що й у прошивці, але замість
+   переривання таймера — цикл по модельному часу, а замість GPIO — сценарій
+   натискань із брязкотом. Політики пінів підставляють модель замість
+   регістрів периферії, і жодного рядка бібліотеки міняти не треба. */
+
 #include <array>
-#include <optional>
-#include <functional>
+#include <cstdint>
+#include <iomanip>
+#include <iostream>
 
-enum class EventType : uint8_t {
-    None = 0,
-    ButtonPress,
-    ButtonRelease,
-    ButtonShortClick,
-    ButtonDoubleClick,
-    ButtonLongPressStart,
-    ButtonLongPressHold,
-    ButtonRepeat,
-    EncoderCW,
-    EncoderCCW
+#include "button.hpp"
+#include "event_queue.hpp"
+#include "input_event.hpp"
+#include "rotary_encoder.hpp"
+
+namespace {
+
+using namespace input;
+
+constexpr Millis Tick{5};
+constexpr std::uint32_t RunMs = 6000;
+constexpr std::uint32_t BounceMs = 8;     // скільки брязкотить контакт кнопки
+constexpr std::uint32_t EncBounceMs = 4;  // скільки брязкотить фаза енкодера
+
+std::uint32_t g_nowMs = 0;
+
+struct Press {
+    std::uint32_t downMs;
+    std::uint32_t upMs;
 };
 
-struct InputEvent {
-    uint8_t id{0};
-    EventType type{EventType::None};
-    uint16_t durationMs{0};
-};
+constexpr std::array<Press, 4> kPresses{{
+    {  100,  180 },  // короткий клік
+    {  600,  680 },  // перше натискання пари
+    {  780,  860 },  // друге — має дати DoubleClick
+    { 1500, 5200 },  // довге утримання: Start, Hold і автоповтор із розгоном
+}};
 
-/* --- Безпечна шаблонна кільцева черга FIFO --- */
-template <typename T, size_t Capacity>
-class EventQueue {
-public:
-    constexpr EventQueue() = default;
+/* Свій LCG, а не rand(): прогін мусить бути повторюваним, інакше
+   «воно іноді ламається» не відтвориш. */
+std::uint32_t g_rnd = 12345;
 
-    bool push(const T& item) noexcept {
-        if (count_ >= Capacity) {
-            return false;
+bool noisyBit() noexcept {
+    g_rnd = g_rnd * 1103515245u + 12345u;
+    return ((g_rnd >> 20) & 1u) != 0;
+}
+
+/* Політика піна кнопки. Active-low ховається саме тут: назовні — чесне
+   «натиснуто чи ні». Протягом BounceMs після фронту віддаємо випадковий
+   рівень — це і є брязкіт, через який наївний лічильник у перериванні
+   наростає на 7 за одне натискання. */
+struct ButtonPin {
+    static bool isPressed() noexcept {
+        for (const Press& p : kPresses) {
+            if (g_nowMs >= p.downMs && g_nowMs < p.upMs) {
+                return (g_nowMs < p.downMs + BounceMs) ? noisyBit() : true;
+            }
+            if (g_nowMs >= p.upMs && g_nowMs < p.upMs + BounceMs) {
+                return noisyBit();
+            }
         }
-        buffer_[head_] = item;
-        head_ = (head_ + 1) % Capacity;
-        ++count_;
-        return true;
+        return false;
     }
-
-    std::optional<T> pop() noexcept {
-        if (count_ == 0) {
-            return std::nullopt;
-        }
-        T item = buffer_[tail_];
-        tail_ = (tail_ + 1) % Capacity;
-        --count_;
-        return item;
-    }
-
-    [[nodiscard]] size_t size() const noexcept { return count_; }
-    [[nodiscard]] bool empty() const noexcept { return count_ == 0; }
-
-private:
-    std::array<T, Capacity> buffer_{};
-    size_t head_{0};
-    size_t tail_{0};
-    size_t count_{0};
 };
 
-/* --- Об'єктно-орієнтований контролер кнопки з FSM --- */
-class Button {
-public:
-    using PinReader = std::function<bool()>;
+/* Модель валу: чверть періоду за 10 мс. */
+std::int32_t encoderPosition(std::uint32_t t) noexcept {
+    std::int32_t pos = 0;
+    if (t > 2400) {  // за годинниковою
+        pos += static_cast<std::int32_t>(((t < 3200 ? t : 3200) - 2400) / 10);
+    }
+    if (t > 4000) {  // назад
+        pos -= static_cast<std::int32_t>(((t < 4400 ? t : 4400) - 4000) / 10);
+    }
+    return pos;
+}
 
-    enum class State : uint8_t {
-        Idle,
-        DebouncingPress,
-        Pressed,
-        DebouncingRelease,
-        WaitDoubleClick,
-        LongPress,
-        Repeat
-    };
+/* Код Грея на двох бітах: 00 → 01 → 11 → 10 → 00 при русі вперед. */
+std::uint8_t grayAt(std::uint32_t t) noexcept {
+    const std::uint32_t n = static_cast<std::uint32_t>(encoderPosition(t) + 4096) & 3u;
+    return static_cast<std::uint8_t>(n ^ (n >> 1));
+}
 
-    Button(uint8_t id, PinReader reader) noexcept
-        : id_{id}, readPin_{std::move(reader)} {}
+template <int Bit>
+bool phaseAt(std::uint32_t t) noexcept {
+    const std::uint8_t gray = grayAt(t);
+    return ((gray >> Bit) & 1u) != 0;
+}
 
-    template <size_t N>
-    void tick(uint16_t tickMs, EventQueue<InputEvent, N>& queue) noexcept {
-        const bool rawActive = !readPin_(); /* Active-low: 0 В означає активний стан */
-        history_ = static_cast<uint8_t>((history_ << 1) | (rawActive ? 1 : 0));
+/* Брязкотить лише та фаза, що саме перемикається: механічно друга в цей
+   момент розімкнена намертво. Тому заборонених переходів стенд не породжує —
+   вони бувають на живому валу, і лічильник glitches() чекає саме на них. */
+template <int Bit>
+bool readPhase() noexcept {
+    const std::uint32_t back = (g_nowMs >= EncBounceMs) ? g_nowMs - EncBounceMs : 0;
+    const bool now = phaseAt<Bit>(g_nowMs);
+    return (now != phaseAt<Bit>(back)) ? noisyBit() : now;
+}
 
-        const bool isStableActive = (history_ == 0xFF);
-        const bool isStableInactive = (history_ == 0x00);
+struct PhaseAPin {
+    static bool isHigh() noexcept { return readPhase<1>(); }
+};
 
-        switch (state_) {
-        case State::Idle:
-            if (rawActive) {
-                state_ = State::DebouncingPress;
-                timerMs_ = 0;
-            }
-            break;
+struct PhaseBPin {
+    static bool isHigh() noexcept { return readPhase<0>(); }
+};
 
-        case State::DebouncingPress:
-            timerMs_ += tickMs;
-            if (isStableActive) {
-                state_ = State::Pressed;
-                pressDurationMs_ = 0;
-                queue.push({id_, EventType::ButtonPress, 0});
-            } else if (timerMs_ > 30) {
-                state_ = State::Idle;
-            }
-            break;
+}  // namespace
 
-        case State::Pressed:
-            pressDurationMs_ += tickMs;
-            if (!rawActive) {
-                state_ = State::DebouncingRelease;
-                timerMs_ = 0;
-            } else if (pressDurationMs_ >= LongPressThresholdMs) {
-                state_ = State::LongPress;
-                timerMs_ = 0;
-                queue.push({id_, EventType::ButtonLongPressStart, pressDurationMs_});
-            }
-            break;
+int main() {
+    /* Уся пам'ять статична: ні new, ні фрагментації, ні сюрпризів на
+       мікроконтролері з двома кілобайтами SRAM. */
+    static EventQueue<InputEvent, 16> queue;
+    static Button<ButtonPin> button{1};
+    static RotaryEncoder<PhaseAPin, PhaseBPin> encoder{2};
 
-        case State::DebouncingRelease:
-            timerMs_ += tickMs;
-            if (isStableInactive) {
-                queue.push({id_, EventType::ButtonRelease, pressDurationMs_});
-                state_ = State::WaitDoubleClick;
-                timerMs_ = 0;
-            } else if (timerMs_ > 30) {
-                state_ = State::Pressed;
-            }
-            break;
+    for (g_nowMs = 0; g_nowMs <= RunMs; g_nowMs += Tick.count()) {
+        // Контекст переривання таймера: лише вибірка, автомат і черга.
+        button.tick(Tick, queue);
+        encoder.tick(queue);
 
-        case State::WaitDoubleClick:
-            timerMs_ += tickMs;
-            if (rawActive) {
-                queue.push({id_, EventType::ButtonDoubleClick, timerMs_});
-                state_ = State::DebouncingPress;
-                timerMs_ = 0;
-            } else if (timerMs_ >= DoubleClickTimeoutMs) {
-                queue.push({id_, EventType::ButtonShortClick, pressDurationMs_});
-                state_ = State::Idle;
-            }
-            break;
+        // Контекст головного циклу: тут уже можна працювати повільно.
+        if (g_nowMs == 1000) {
+            std::cout << std::setw(6) << g_nowMs << " мс  зміна екрана: відкидаємо "
+                      << queue.size() << " подій\n";
+            queue.clear();
+            continue;
+        }
 
-        case State::LongPress:
-            pressDurationMs_ += tickMs;
-            timerMs_ += tickMs;
-            if (!rawActive) {
-                state_ = State::Idle;
-                queue.push({id_, EventType::ButtonRelease, pressDurationMs_});
-            } else if (timerMs_ >= 100) {
-                timerMs_ = 0;
-                state_ = State::Repeat;
-                queue.push({id_, EventType::ButtonLongPressHold, pressDurationMs_});
-            }
-            break;
-
-        case State::Repeat:
-            pressDurationMs_ += tickMs;
-            timerMs_ += tickMs;
-            if (!rawActive) {
-                state_ = State::Idle;
-                queue.push({id_, EventType::ButtonRelease, pressDurationMs_});
-            } else if (timerMs_ >= RepeatRateMs) {
-                timerMs_ = 0;
-                queue.push({id_, EventType::ButtonRepeat, pressDurationMs_});
-            }
-            break;
+        while (const std::optional<InputEvent> evt = queue.pop()) {
+            std::cout << std::setw(6) << g_nowMs << " мс  id=" << unsigned{evt->id}
+                      << "  " << std::left << std::setw(16) << name(evt->type)
+                      << std::right << "  " << evt->durationMs << " мс\n";
         }
     }
 
-private:
-    static constexpr uint16_t LongPressThresholdMs = 800;
-    static constexpr uint16_t DoubleClickTimeoutMs = 250;
-    static constexpr uint16_t RepeatRateMs = 80;
-
-    uint8_t id_{0};
-    PinReader readPin_{};
-    State state_{State::Idle};
-    uint16_t timerMs_{0};
-    uint16_t pressDurationMs_{0};
-    uint8_t history_{0x00};
-};
-
-/* --- Декодер квадратурного енкодера на C++ --- */
-class RotaryEncoder {
-public:
-    using PinReader = std::function<bool()>;
-
-    RotaryEncoder(uint8_t id, PinReader readA, PinReader readB) noexcept
-        : id_{id}, readA_{std::move(readA)}, readB_{std::move(readB)} {
-        const uint8_t a = readA_() ? 1 : 0;
-        const uint8_t b = readB_() ? 1 : 0;
-        prevState_ = static_cast<uint8_t>((a << 1) | b);
+    if (const std::uint32_t dropped = queue.dropped(); dropped != 0) {
+        std::cout << "черга переповнювалася: втрачено " << dropped << " подій\n";
     }
-
-    template <size_t N>
-    void tick(EventQueue<InputEvent, N>& queue) noexcept {
-        const uint8_t a = readA_() ? 1 : 0;
-        const uint8_t b = readB_() ? 1 : 0;
-        const uint8_t currState = static_cast<uint8_t>((a << 1) | b);
-
-        if (currState == prevState_) {
-            return;
-        }
-
-        const uint8_t code = static_cast<uint8_t>((prevState_ << 2) | currState);
-        const int8_t step = StateTable[code];
-        prevState_ = currState;
-
-        if (step != 0) {
-            subSteps_ += step;
-            if (subSteps_ >= 4) {
-                subSteps_ = 0;
-                queue.push({id_, EventType::EncoderCW, 1});
-            } else if (subSteps_ <= -4) {
-                subSteps_ = 0;
-                queue.push({id_, EventType::EncoderCCW, 1});
-            }
-        }
-    }
-
-private:
-    static constexpr std::array<int8_t, 16> StateTable = {
-         0, -1,  1,  0,
-         1,  0,  0, -1,
-        -1,  0,  0,  1,
-         0,  1, -1,  0
-    };
-
-    uint8_t id_{0};
-    PinReader readA_{};
-    PinReader readB_{};
-    uint8_t prevState_{0};
-    int8_t subSteps_{0};
-};
+    std::cout << "заборонених переходів енкодера: " << encoder.glitches() << '\n';
+    return 0;
+}

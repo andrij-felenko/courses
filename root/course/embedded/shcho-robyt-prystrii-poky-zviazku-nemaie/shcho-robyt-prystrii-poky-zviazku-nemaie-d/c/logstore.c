@@ -63,6 +63,13 @@ static void ring_put(logstore_t *s, const log_record_t *r) {
     }
     s->write_idx++;
 
+    // Читач відстав більше ніж на повне коло: те, чого він не встиг злити,
+    // фізично вже затерто, тож покажчик зливу підтягуємо до живих записів.
+    if (s->write_idx - s->read_idx > LOG_RING_CAPACITY) {
+        s->overwritten += (s->write_idx - s->read_idx) - LOG_RING_CAPACITY;
+        s->read_idx = s->write_idx - LOG_RING_CAPACITY;
+    }
+
     // Сектор заповнено на 80% — замовляємо стирання наступного у фон.
     if ((uint32_t)(slot + 1U) * 100U >= LOG_SLOTS_PER_SECTOR * LOG_PREERASE_PERCENT) {
         uint16_t next = (uint16_t)((sector + 1U) % LOG_RING_SECTORS);
@@ -76,6 +83,8 @@ static void blackbox_put(logstore_t *s, const log_record_t *r) {
     uint16_t slot   = (uint16_t)(pos % LOG_SLOTS_PER_SECTOR);
 
     if (slot == 0U && s->dirty[sector]) {
+        // Пул теж скінченний, але його витісняє лише сам пул: рутинне кільце
+        // сюди не дотягується ніколи, скільки б телеметрії не набігло.
         if (plat_flash_erase(sector) != FLASH_OK) {
             s->dropped++;
             s->bb_idx += LOG_SLOTS_PER_SECTOR;
@@ -95,13 +104,31 @@ static void blackbox_put(logstore_t *s, const log_record_t *r) {
     s->bb_idx++;
 }
 
+// Пул чорної скриньки переживає перезавантаження: шукаємо перший вільний слот
+// і дописуємо далі, а не стираємо докази попередньої аварії.
+static uint32_t blackbox_scan(logstore_t *s) {
+    uint32_t used = 0U;
+    for (uint32_t pos = 0U; pos < LOG_BLACKBOX_CAPACITY; pos++) {
+        uint16_t sector = (uint16_t)(LOG_RING_SECTORS + pos / LOG_SLOTS_PER_SECTOR);
+        uint16_t slot   = (uint16_t)(pos % LOG_SLOTS_PER_SECTOR);
+        uint8_t marker;
+        if (plat_flash_read(sector, (uint16_t)(slot * LOG_RECORD_SIZE + 4U), &marker, 1U) != FLASH_OK) break;
+        if (marker == 0xFFU) break;   // стерта комірка — тут пул закінчився
+        s->dirty[sector] = true;
+        used = pos + 1U;
+    }
+    return used;
+}
+
 void logstore_init(logstore_t *s) {
     memset(s, 0, sizeof *s);
     s->preerase_target = LOG_NO_TARGET;
-    for (uint16_t i = 0; i < FLASH_SECTOR_COUNT; i++) {
+
+    for (uint16_t i = 0; i < LOG_RING_SECTORS; i++) {
         if (plat_flash_erase(i) != FLASH_OK) s->dropped++;
         s->dirty[i] = false;
     }
+    s->bb_idx = blackbox_scan(s);
 }
 
 void logstore_sample(logstore_t *s, uint32_t t_ms, float value, uint32_t offline_ms) {
@@ -210,4 +237,3 @@ bool logstore_blackbox_get(const logstore_t *s, uint32_t index, log_record_t *ou
     decode(buf, out);
     return true;
 }
-@@TAIL@@

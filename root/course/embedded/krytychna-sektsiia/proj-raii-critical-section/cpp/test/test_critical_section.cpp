@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <mutex>
 #include <stdexcept>
+#include <type_traits>
 
 #include "host_mock_policy.hpp"
 #include "../navigation.hpp"
@@ -28,6 +29,15 @@ void check(bool ok, const char* what, int line)
 
 using Mock  = embedded::test::MockLockPolicy;
 using Guard = embedded::sync::CriticalSectionGuard<Mock>;
+
+/* Абстракція нульової вартості — це перевірна властивість, а не обіцянка:
+   вартовий не важить нічого понад збережений стан маски й не має права
+   пережити свій кадр, бо ні копії, ні переміщення в нього немає. */
+static_assert(sizeof(Guard) == sizeof(Mock::StateType));
+static_assert(!std::is_copy_constructible_v<Guard>);
+static_assert(!std::is_move_constructible_v<Guard>);
+static_assert(std::is_nothrow_default_constructible_v<Guard>);
+static_assert(std::is_nothrow_destructible_v<Guard>);
 
 void test_enter_exit()
 {
@@ -74,6 +84,7 @@ void test_early_return()
     CHECK(!Mock::locked());
     CHECK(lookup_with_early_return(true));
     CHECK(!Mock::locked());
+    CHECK(Mock::enters == Mock::exits);
 }
 
 void test_exception_unwinds()
@@ -87,6 +98,25 @@ void test_exception_unwinds()
     }
     CHECK(!Mock::locked());
     CHECK(Mock::depth == 0U);
+}
+
+/* Виняток із глибини вкладеності: розкрутка мусить зняти рівні по черзі,
+   а не залишити зовнішню маску висіти. */
+void test_exception_unwinds_nested()
+{
+    Mock::reset();
+    try {
+        const Guard outer;
+        {
+            const Guard inner;
+            throw std::runtime_error("збій усередині вкладеної секції");
+        }
+    } catch (const std::runtime_error&) {
+    }
+    CHECK(!Mock::locked());
+    CHECK(Mock::depth == 0U);
+    CHECK(Mock::max_depth == 2U);
+    CHECK(Mock::enters == Mock::exits);
 }
 
 void test_lock_guard_adapter()
@@ -105,7 +135,11 @@ void test_lock_guard_adapter()
 void test_with_critical_returns_value()
 {
     Mock::reset();
-    const int value = embedded::sync::with_critical<Mock>([] { return 42; });
+    // Значення обчислюється ще під маскою, повертається вже без неї.
+    const int value = embedded::sync::with_critical<Mock>([] {
+        CHECK(Mock::locked());
+        return 42;
+    });
     CHECK(value == 42);
     CHECK(!Mock::locked());
 }
@@ -131,6 +165,8 @@ void test_navigation()
 
     nav.reset();
     CHECK(!nav.snapshot().has_value());
+    CHECK(nav.updates() == 0U);
+    CHECK(Mock::enters == Mock::exits);
 }
 
 }  // namespace
@@ -141,6 +177,7 @@ int main()
     test_nesting();
     test_early_return();
     test_exception_unwinds();
+    test_exception_unwinds_nested();
     test_lock_guard_adapter();
     test_with_critical_returns_value();
     test_navigation();

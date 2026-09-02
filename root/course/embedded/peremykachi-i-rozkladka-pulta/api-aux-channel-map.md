@@ -177,9 +177,49 @@ Raw_val = 172 + ((T_us - 988) · 1640) / 1024   [масштабування ча
 
 ## 10. Структури даних та розпакування каналів керування (C / C++)
 
-Нижче наведено робочі реалізації бітового розпакування 11-бітних каналів із послідовного кадру CRSF/SBUS двома мовами програмування.
+Нижче наведено робочі реалізації всього описаного вище тракту двома мовами програмування: бітове розпакування 11-бітних каналів із кадру CRSF/SBUS, розкладка каналів на осі, пороги перемикачів, вікна режимів, маска блокувань запуску та поведінка при втраті лінку.
+
+Ядро радіотракту: числові діапазони розділу 3, симетрична пара упакування й розпакування 11-бітних каналів, таблиця розкладок розділу 1, мертва зона й біквадратний фільтр розділу 8.
+
+:::tabs
+:::code api-aux-channel-map/c/rc_channels.h
+:::code api-aux-channel-map/c/rc_channels.c
+:::code api-aux-channel-map/cpp/include/rc/channels.hpp
+:::code api-aux-channel-map/cpp/src/channels.cpp
+:::
+
+Кадри двох протоколів із розділу 4: CRSF із контрольною сумою CRC8 за поліномом `0xD5` та SBUS із байтом прапорців `Frame Lost` / `Failsafe`. У C++ обидва протоколи й нагляд за лінком (таймаут `100 мс`, політика приймача з розділу 6) лежать в одному модулі, бо назовні віддають однакові канали.
+
+:::tabs
+:::code api-aux-channel-map/c/crsf.h
+:::code api-aux-channel-map/c/crsf.c
+:::code api-aux-channel-map/c/sbus.h
+:::code api-aux-channel-map/c/sbus.c
+:::code api-aux-channel-map/cpp/include/rc/protocol.hpp
+:::code api-aux-channel-map/cpp/src/protocol.cpp
+:::
+
+Дискретне декодування допоміжних каналів: гістерезис 2- і 3-позиційних тумблерів та вікна 6-позиційного селектора режимів із розділу 5.
+
+:::tabs
+:::code api-aux-channel-map/c/aux_switch.h
+:::code api-aux-channel-map/c/aux_switch.c
+:::code api-aux-channel-map/cpp/include/rc/switches.hpp
+:::code api-aux-channel-map/cpp/src/switches.cpp
+:::
+
+Бітова маска блокувань запуску з розділу 7 разом із захисною засувкою на тумблер, увімкнений до подачі живлення, і текстовими розшифровками у стилі `STATUSTEXT`.
+
+:::tabs
+:::code api-aux-channel-map/c/arming.h
+:::code api-aux-channel-map/c/arming.c
+:::code api-aux-channel-map/cpp/include/rc/arming.hpp
+:::code api-aux-channel-map/cpp/src/arming.cpp
+:::
+
+Точка збирання: передавач шле канали в порядку `TAER`, контролер налаштований на `AETR` — і рух стіка тангажу віддає стовідсотковий газ. Далі — гістерезис тумблера `ARM`, маска блокувань, обрив лінку та рядок журналу Blackbox.
 
 :::tabs
 :::code api-aux-channel-map/c/main.c
-:::code api-aux-channel-map/cpp/main.cpp
+:::code api-aux-channel-map/cpp/src/main.cpp
 :::

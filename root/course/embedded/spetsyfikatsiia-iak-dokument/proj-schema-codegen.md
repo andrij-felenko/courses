@@ -19,107 +19,7 @@ Kaitai Struct — це декларативна мова опису двійко
 
 Нижче наведено повну схему протоколу обміну `telemetry_protocol.ksy`, що описує кадр телеметрії сенсорного вузла, команди налаштування та підтвердження.
 
-```yaml
-meta:
-  id: telemetry_protocol
-  title: Microcontroller Telemetry and Command Protocol
-  endian: le
-  file-extension: bin
-
-seq:
-  - id: sof
-    contents: [0xaa]
-    doc: Стартовий байт кадру (Start of Frame)
-  - id: version
-    type: u1
-    doc: Мажорна версія протоколу (0x01)
-  - id: msg_id
-    type: u1
-    enum: msg_type
-    doc: Ідентифікатор типу повідомлення
-  - id: seq_id
-    type: u1
-    doc: Номер послідовності транзакції (0..255)
-  - id: payload_len
-    type: u2
-    doc: Довжина корисного навантаження в байтах
-  - id: payload
-    size: payload_len
-    type:
-      switch-on: msg_id
-      cases:
-        'msg_type::telemetry_report': msg_telemetry
-        'msg_type::cmd_set_config': msg_set_config
-        'msg_type::cmd_response': msg_ack_response
-    doc: Типізоване корисне навантаження
-  - id: crc16
-    type: u2
-    doc: Контрольна сума CRC-16 CCITT (поліном 0x1021, init 0xFFFF)
-  - id: eof
-    contents: [0x55]
-    doc: Кінцевий байт кадру (End of Frame)
-
-enums:
-  msg_type:
-    0x01: cmd_ping
-    0x02: cmd_set_config
-    0x20: telemetry_report
-    0x80: cmd_response
-
-  status_code:
-    0x00: ok
-    0x01: invalid_crc
-    0x02: unknown_cmd
-    0x03: payload_length_mismatch
-    0x04: param_out_of_range
-    0x05: hardware_busy
-
-types:
-  msg_telemetry:
-    seq:
-      - id: temp_raw
-        type: s2
-        doc: Температура сенсора (Scale: 0.01 °C, діапазон -40.00..+125.00)
-      - id: pressure_raw
-        type: u2
-        doc: Атмосферний тиск (Scale: 0.1 hPa, діапазон 300.0..1100.0)
-      - id: voltage_mv
-        type: u2
-        doc: Напруга живлення вузла у мілівольтах (0..5000 mV)
-      - id: flags
-        type: u1
-        doc: Бітова маска станів вузла
-      - id: reserved
-        type: u1
-        doc: Байт вирівнювання до 8 байтів (фіксований 0x00)
-    instances:
-      temperature_c:
-        value: temp_raw * 0.01
-      pressure_hpa:
-        value: pressure_raw * 0.1
-
-  msg_set_config:
-    seq:
-      - id: sample_rate_hz
-        type: u2
-        doc: Частота вибірки АЦП (1..1000 Гц)
-      - id: alert_threshold_c
-        type: s2
-        doc: Поріг спрацьовування аварії за температурою (0.01 °C)
-      - id: flags_enable
-        type: u1
-        doc: Прапорці активації підсистем
-
-  msg_ack_response:
-    seq:
-      - id: target_seq_id
-        type: u1
-        doc: Номер послідовності підтверджуваного запиту
-      - id: status
-        type: u1
-        enum: status_code
-        doc: Код виконання операції
-```
+:::code proj-schema-codegen/ksy/telemetry_protocol.ksy
 
 ---
 
@@ -129,17 +29,27 @@ types:
 
 ```bash
 # Генерація C++ парсера для мікроконтролера / шлюзу
-ksc -t cpp_stl telemetry_protocol.ksy --outdir generated/cpp
+ksc -t cpp_stl ksy/telemetry_protocol.ksy --outdir generated/cpp
 
 # Генерація Python модуля для бекенду та стендових скриптів
-ksc -t python telemetry_protocol.ksy --outdir generated/python
+ksc -t python ksy/telemetry_protocol.ksy --outdir generated/python
 ```
 
 У мікроконтролерах із жорсткими обмеженнями на оперативну пам'ять (RAM < 32 КБ) використання стандартного рантайму Kaitai C++ STL небажане через виклики динамічного виділення пам'яті (`std::string`, `std::vector`, потік `std::istream`). Для вбудованих пристроїв використовують статичний нуль-копіювальний (Zero-Copy) парсер, що реалізує ідентичну логіку зміщень і перевірки контрольної суми, гарантуючи детерміноване споживання ресурсів.
 
 Особливу увагу слід звернути на побітове збирання Little-Endian чисел. Замість прямого приведення типу вказівника на структуру `(proto_telemetry_t*)buf`, яке спричиняє невизначену поведінку (Undefined Behavior) через порушення правил Strict Aliasing та аварійне виключення `HardFault` на ядрах ARM Cortex-M0 при непарних адресах, парсер явно конструює 16-бітні значення через операції зсуву `(b0 | (b1 << 8))`. Компілятор GCC/Clang оптимізує таку конструкцію в одну машинну інструкцію `LDRH` або `REV16`.
 
-Нижче наведено парсери мовами C та сучасним C++20, які повністю відповідають контракту `telemetry_protocol.ksy`.
+Нижче наведено парсери мовами C та сучасним C++23, які повністю відповідають контракту `telemetry_protocol.ksy`.
+
+:::tabs
+:::code proj-schema-codegen/c/telemetry_protocol.h
+:::code proj-schema-codegen/cpp/telemetry_protocol.hpp
+:::
+
+:::tabs
+:::code proj-schema-codegen/c/telemetry_protocol.c
+:::code proj-schema-codegen/cpp/telemetry_protocol.cpp
+:::
 
 :::tabs
 :::code proj-schema-codegen/c/main.c
@@ -154,7 +64,9 @@ ksc -t python telemetry_protocol.ksy --outdir generated/python
 
 Еталонний вектор — це зафіксований масив байтів із наперед відомими значеннями полів. Тестовий скрипт згодовує цей масив згенерованому парсеру й перевіряє точність кожного розкодованого значення. Такий підхід дозволяє перевірити не лише збіг числових значень, а й коректність розрахунку контрольної суми CRC-16 та поведінку при роботі зі знаковими від'ємними числами.
 
-:::code proj-schema-codegen/py/main.py
+:::code proj-schema-codegen/py/golden_vectors.py
+
+:::code proj-schema-codegen/py/test_protocol_vectors.py
 
 ---
 
@@ -174,39 +86,6 @@ ksc -t python telemetry_protocol.ksy --outdir generated/python
 
 У файлі конфігурації репозиторію (наприклад, `.github/workflows/protocol-check.yml`) налаштовується автоматичний запуск перевірок при кожному оновленні схеми `telemetry_protocol.ksy`:
 
-```yaml
-name: Protocol Verification and Codegen
-
-on:
-  push:
-    paths:
-      - 'protocol/**'
-  pull_request:
-    paths:
-      - 'protocol/**'
-
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Kaitai Struct Compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y default-jre
-          wget https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/0.10/kaitai-struct-compiler_0.10_all.deb
-          sudo dpkg -i kaitai-struct-compiler_0.10_all.deb
-
-      - name: Generate Code
-        run: |
-          ksc -t cpp_stl protocol/telemetry_protocol.ksy --outdir generated/cpp
-          ksc -t python protocol/telemetry_protocol.ksy --outdir generated/python
-
-      - name: Run Golden Packet Conformance Tests
-        run: |
-          python3 -m pip install kaitaistruct pytest
-          PYTHONPATH=generated/python pytest tests/test_protocol_vectors.py
-```
+:::code proj-schema-codegen/ci/protocol-check.yml
 
 Завдяки зв'язці «декларативна схема Kaitai Struct → згенеровані парсери → CI-тести із золотими векторами» будь-яка спроба несанкціонованої зміни формату пакета блокується автоматично на етапі перевірки коду, гарантуючи безперервну сумісність між прошивкою пристрою та хмарними сервісами.

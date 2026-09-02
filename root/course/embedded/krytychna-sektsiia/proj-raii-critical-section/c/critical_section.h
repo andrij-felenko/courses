@@ -5,7 +5,8 @@
  * Критичні секції для ARM Cortex-M.
  *
  * Увесь код інлайновий: ні виділення пам'яті, ні викликів через покажчик.
- * На платі "cmsis_compiler.h" — справжній заголовок CMSIS; у хостових тестах
+ * На платі "cmsis_compiler.h" — справжній заголовок CMSIS (він тягне
+ * cmsis_gcc.h з __get_PRIMASK/__disable_irq/__get_IPSR); у хостових тестах
  * замість нього підставляється заглушка c/test/cmsis_compiler.h через -I.
  */
 
@@ -34,7 +35,8 @@
 
 /*
  * Бар'єр оптимізації: забороняє компіляторові переносити доступи до пам'яті
- * через межу секції. Жодної інструкції не породжує.
+ * через межу секції й змушує перечитати з пам'яті все, що він тримав у
+ * регістрах. Жодної інструкції не породжує.
  */
 #define CS_BARRIER() __asm volatile("" ::: "memory")
 
@@ -100,6 +102,11 @@ static inline void critical_section_cleanup_(const critical_section_t *cs)
 /*
  * CRITICAL_BLOCK() { ... } — тіло виконується рівно один раз із вимкненими
  * перериваннями. Покажчик тримає єдину ітерацію, cleanup знімає блокування.
+ *
+ * Пастка, про яку треба знати: блок розгортається в for, тому break і
+ * continue всередині виходять із САМОГО блоку, а не з оточного циклу.
+ * return і goto назовні поводяться звично — і на кожному з цих шляхів
+ * блокування знімається.
  */
 #define CRITICAL_BLOCK() CS_BLOCK_IMPL_(CS_ID(cs_), CS_ID(cs_once_))
 
@@ -148,6 +155,11 @@ static inline void priority_section_cleanup_(const priority_section_t *ps)
          oncevar != NULL;                                                      \
          oncevar = NULL)
 
+/*
+ * PRIORITY_BLOCK(0x50) { ... } — блокує лише переривання з пріоритетом,
+ * чисельно більшим або рівним за поріг. Швидкі ISR прямого керування
+ * апаратурою продовжують працювати без затримки.
+ */
 #define PRIORITY_BLOCK(prio) CS_PRIO_BLOCK_IMPL_(CS_ID(ps_), CS_ID(ps_once_), (prio))
 
 #endif /* CS_HAS_BASEPRI */
@@ -161,29 +173,73 @@ static inline bool in_interrupt_context(void)
 }
 
 /* --- 5. Cortex-M7: спільний із DMA буфер --------------------------------- */
-
+/*
+ * Блок вмикається лише тоді, коли ПЕРЕД цим заголовком підключено заголовок
+ * пристрою (stm32h7xx.h тощо): __DCACHE_PRESENT і SCB_CleanDCache_by_Addr
+ * оголошено в core_cm7.h, а не в cmsis_compiler.h.
+ */
 #if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
 
-#define CS_CACHE_LINE 32U
+#if !defined(__SCB_DCACHE_LINE_SIZE)
+#  define __SCB_DCACHE_LINE_SIZE 32U
+#endif
 
 /*
  * Вимкнених переривань замало, коли буфер читає контролер DMA: свіжі байти
  * можуть лежати в L1 D-Cache, а DMA ходить по шині AXI просто в ОЗП.
- * Тому виштовхуємо рядки кешу ДО того, як переривання ввімкнено назад.
  * Адресу й довжину вирівнюємо на рядок кешу — CMSIS вимагає саме цього,
  * інакше сусідні дані в тому ж рядку буде зіпсовано.
  */
-static inline void critical_section_exit_dma(critical_section_t cs, void *buf, size_t size)
+static inline void cs_clean_dcache_range(const void *buf, size_t size)
 {
+    const uint32_t line  = (uint32_t)__SCB_DCACHE_LINE_SIZE;
     const uint32_t base  = (uint32_t)(uintptr_t)buf;
-    const uint32_t start = base & ~(CS_CACHE_LINE - 1U);
-    const uint32_t end   = (base + (uint32_t)size + CS_CACHE_LINE - 1U)
-                           & ~(CS_CACHE_LINE - 1U);
+    const uint32_t start = base & ~(line - 1U);
+    const uint32_t end   = (base + (uint32_t)size + line - 1U) & ~(line - 1U);
 
     SCB_CleanDCache_by_Addr((uint32_t *)(uintptr_t)start, (int32_t)(end - start));
     __DSB();
+}
+
+/* Виштовхуємо рядки кешу ДО того, як переривання ввімкнено назад. */
+static inline void critical_section_exit_dma(critical_section_t cs,
+                                             const void *buf, size_t size)
+{
+    cs_clean_dcache_range(buf, size);
     critical_section_exit(cs);
 }
+
+typedef struct {
+    critical_section_t cs;
+    const void        *buf;
+    size_t             size;
+} dma_section_t;
+
+static inline dma_section_t dma_section_enter(const void *buf, size_t size)
+{
+    dma_section_t ds;
+    ds.buf  = buf;
+    ds.size = size;
+    ds.cs   = critical_section_enter();
+    return ds;
+}
+
+static inline void dma_section_cleanup_(const dma_section_t *ds)
+{
+    critical_section_exit_dma(ds->cs, ds->buf, ds->size);
+}
+
+#define CS_DMA_BLOCK_IMPL_(dsvar, oncevar, buf, size)                          \
+    for (dma_section_t dsvar                                                   \
+             __attribute__((cleanup(dma_section_cleanup_)))                    \
+             = dma_section_enter((buf), (size)),                               \
+             *oncevar = &dsvar;                                                \
+         oncevar != NULL;                                                      \
+         oncevar = NULL)
+
+/* Те саме, що CRITICAL_BLOCK(), але з чисткою кешу перед розмаскуванням. */
+#define CRITICAL_DMA_BLOCK(buf, size) \
+    CS_DMA_BLOCK_IMPL_(CS_ID(ds_), CS_ID(ds_once_), (buf), (size))
 
 #endif /* __DCACHE_PRESENT */
 

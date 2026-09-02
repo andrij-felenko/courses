@@ -16,8 +16,8 @@
 У мовах високого рівня C та C++ операція інкременту змінної або встановлення бітового прапорця виглядає як один лаконічний вираз:
 
 :::tabs
-:::code krytychna-sektsiia-d/c/anatomiia-stanu-honky.c
-:::code krytychna-sektsiia-d/cpp/anatomiia-stanu-honky.cpp
+:::code krytychna-sektsiia-d/c/race_demo.c
+:::code krytychna-sektsiia-d/cpp/src/race_demo.cpp
 :::
 
 Проте архітектура процесорів зі скороченим набором інструкцій (RISC, зокрема ARM Cortex-M) базується на моделі «завантаження-збереження» (англ. *Load-Store Architecture*). Арифметико-логічний пристрій (АЛП) ядра процесора не здатний модифікувати значення безпосередньо в комірці оперативної пам'яті (ОЗП). Будь-яка модифікація змінної в пам'яті неминуче розпадається на три окремі машинних інструкції — послідовність «зчитування-модифікація-запис» (англ. *Read-Modify-Write*, RMW):
@@ -75,7 +75,7 @@ void update_system_state(uint32_t flags) {
     __enable_irq();  // Вмикаємо переривання назад
 }
 ```
-:::code krytychna-sektsiia-d/cpp/pastka-naivnoho-vymknennia.hpp
+:::code krytychna-sektsiia-d/cpp/src/naive_flags.cpp
 :::
 
 Функція `__disable_irq()` транслюється в асемблерну інструкцію `CPSID i` (англ. *Change Processor State, Interrupt Disable*), яка встановлює біт маски в спеціальному регістрі ядра `PRIMASK`. Відповідно, `__enable_irq()` генерує інструкцію `CPSIE i` (*Change Processor State, Interrupt Enable*), яка безумовно скидає біт маски в нуль і дозволяє обробку переривань.
@@ -85,8 +85,8 @@ void update_system_state(uint32_t flags) {
 Розглянемо типовий ланцюжок викликів:
 
 :::tabs
-:::code krytychna-sektsiia-d/c/pastka-naivnoho-vymknennia.c
-:::code krytychna-sektsiia-d/cpp/pastka-naivnoho-vymknennia.cpp
+:::code krytychna-sektsiia-d/c/naive_trap.c
+:::code krytychna-sektsiia-d/cpp/src/naive_uart_trap.cpp
 :::
 
 ![Пастка наївного вимкнення: руйнування вкладених критичних секцій](/root/course/embedded/krytychna-sektsiia/img/naive-disable-nesting-bug.svg)
@@ -109,8 +109,8 @@ void update_system_state(uint32_t flags) {
 Правильний патерн критичної секції виглядає так:
 
 :::tabs
-:::code krytychna-sektsiia-d/c/arkhitekturnyi-shablon.c
-:::code krytychna-sektsiia-d/cpp/arkhitekturnyi-shablon.hpp
+:::code krytychna-sektsiia-d/c/event_log.c
+:::code krytychna-sektsiia-d/cpp/include/mcu/primask_lock.hpp
 :::
 
 Чому цей шаблон повністю усуває проблему вкладеності? Розглянемо два сценарії:
@@ -182,8 +182,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 Шаблон збереження та відновлення для `BASEPRI` виглядає так:
 
 :::tabs
-:::code krytychna-sektsiia-d/c/model-krytychnykh-sektsii.c
-:::code krytychna-sektsiia-d/cpp/model-krytychnykh-sektsii.hpp
+:::code krytychna-sektsiia-d/c/rtos_section.c
+:::code krytychna-sektsiia-d/cpp/include/mcu/basepri_lock.hpp
 :::
 
 Зверніть увагу: ядро **Cortex-M0 / Cortex-M0+ не має регістра BASEPRI**. На цих процесорах будь-яка критична секція змушена використовувати `PRIMASK`, повністю зупиняючи всі апаратні переривання.
@@ -193,8 +193,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 У мові C ручне відновлення маски переривань вимагає крайньої дисципліни. Якщо функція містить складну бізнес-логіку з перевіркою помилок, розробник може випадково вийти з функції через достроковий `return`, забувши викликати `__set_PRIMASK()`.
 
 :::tabs
-:::code krytychna-sektsiia-d/c/c-raii-vartovi.c
-:::code krytychna-sektsiia-d/cpp/c-raii-vartovi.cpp
+:::code krytychna-sektsiia-d/c/sensor_frame_leak.c
+:::code krytychna-sektsiia-d/cpp/src/sensor_frame.cpp
 :::
 
 У сучасному C++ ця проблема повністю вирішується ідіомою **RAII** (англ. *Resource Acquisition Is Initialization* — захоплення ресурсу є ініціалізацією). Ми створюємо легкий об'єкт-вартовий на стеку: його конструктор зберігає маску й вимикає переривання, а деструктор автоматично відновлює збережений стан під час знищення стекового фрейму — незалежно від того, як саме завершилася функція (звичайний вихід, достроковий `return` чи генерація виключення).
@@ -202,8 +202,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 ### Реалізація CriticalSectionGuard
 
 :::tabs
-:::code krytychna-sektsiia-d/c/realizatsiia.c
-:::code krytychna-sektsiia-d/cpp/realizatsiia.cpp
+:::code krytychna-sektsiia-d/c/sensor_frame.c
+:::code krytychna-sektsiia-d/cpp/include/mcu/critical_section.hpp
 :::
 
 Використання атрибута `[[nodiscard]]` є критично важливим: якщо програміст випадково напише `CriticalSectionGuard();` замість `CriticalSectionGuard lock;`, компілятор згенерує попередження про невикористаний результат. Без цього атрибута безіменний тимчасовий об'єкт створиться і знищиться в тому ж самому рядку коду, знявши блокування ще до початку виконання тіла функції.
@@ -240,8 +240,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 На основі `LDREX`/`STREX` будуються алгоритми без блокувань (англ. *Lock-Free*), що використовують цикл оптимістичного повторення:
 
 :::tabs
-:::code krytychna-sektsiia-d/c/lock-free-inkrement-na-c.c
-:::code krytychna-sektsiia-d/cpp/lock-free-inkrement-na-c.hpp
+:::code krytychna-sektsiia-d/c/atomic_arm.h
+:::code krytychna-sektsiia-d/cpp/include/mcu/atomic_counter.hpp
 :::
 
 Перевага підходу Lock-Free полягає в тому, що переривання взагалі не маскуються: жоден обробник не зазнає додаткової латентності. Якщо переривання вклиниться в середину операції, воно виконається миттєво; після повернення фоновий потік просто зафіксує невдачу `STREX` і повторить одну арифметичну операцію ще раз.
@@ -263,8 +263,8 @@ constexpr std::uint32_t kMaxSyscallInterruptPriority = (5U << (8U - __NVIC_PRIO_
 2. **Апаратний семафор (Hardware Semaphore / Mutex):** захоплює спільний апаратний блок блокування мікроконтролера (наприклад, модуль HSEM на STM32 або апаратні спінлоки SIO на RP2040).
 
 :::tabs
-:::code krytychna-sektsiia-d/c/bahatoiaderni-systemy-dual.c
-:::code krytychna-sektsiia-d/cpp/bahatoiaderni-systemy-dual.cpp
+:::code krytychna-sektsiia-d/c/dualcore.c
+:::code krytychna-sektsiia-d/cpp/src/dual_core.cpp
 :::
 
 ### Порівняльна таблиця методів синхронізації

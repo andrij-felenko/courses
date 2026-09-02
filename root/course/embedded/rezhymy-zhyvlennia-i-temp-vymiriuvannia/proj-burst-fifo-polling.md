@@ -39,8 +39,13 @@ t = 0 мс             t = 10 мс            t = 20 мс            t = 320 м�
 Драйвер використовує циклічний обмін SPI через DMA. Перший байт транзакції містить адресу початкового регістру даних `REG_FIFO_DATA_OUT` зі встановленими прапорцями читання (`0x80`) та автоінкременту адреси (`0x40`). Далі контролер DMA тактує шину, одночасно надсилаючи нульові байти та зберігаючи прийняті байти в буфер пам'яті.
 
 :::tabs
-:::code proj-burst-fifo-polling/c/2-realizatsiia-draivera.c
-:::code proj-burst-fifo-polling/cpp/2-realizatsiia-draivera.cpp
+:::code proj-burst-fifo-polling/c/sensor_fifo.h
+:::code proj-burst-fifo-polling/cpp/src/spi_device.hpp
+:::
+
+:::tabs
+:::code proj-burst-fifo-polling/c/sensor_fifo.c
+:::code proj-burst-fifo-polling/cpp/src/fifo_sensor.hpp
 :::
 
 ---
@@ -54,8 +59,8 @@ t = 0 мс             t = 10 мс            t = 20 мс            t = 320 м�
 4. Після обробки буфера мікроконтролер переходить у надглибокий **Stop 2 Mode**, у якому струм падає до **1.2–1.5 мкА**, а тактові генератори повністю вимикаються до наступного імпульсу Watermark через 320 мс.
 
 :::tabs
-:::code proj-burst-fifo-polling/c/3-orhanizatsiia.c
-:::code proj-burst-fifo-polling/cpp/3-orhanizatsiia.cpp
+:::code proj-burst-fifo-polling/c/main.c
+:::code proj-burst-fifo-polling/cpp/src/main.cpp
 :::
 
 ---

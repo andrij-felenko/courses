@@ -59,8 +59,18 @@
 Розгляньмо реалізацію базового супер-циклу з неблокуючою обробкою часу:
 
 :::tabs
-:::code vybir-holyi-tsykl-freertos-zephyr-d/c/holyi-super-tsykl-nulovyi.c
-:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/holyi-super-tsykl-nulovyi.cpp
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/superloop/main.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/superloop/main.cpp
+:::
+
+:::tabs
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/superloop/sensor.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/superloop/bme280.hpp
+:::
+
+:::tabs
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/superloop/display.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/superloop/ssd1306.hpp
 :::
 
 #### Де супер-цикл упирається в стіну
@@ -178,8 +188,13 @@ RAM_stacks = 2048 + 1024 + 2048 + 1536 + 1024 + 1024 = 8704 байтів (≈ 8.
 Наведемо зразок створення задач та міжзадачної черги у FreeRTOS:
 
 :::tabs
-:::code vybir-holyi-tsykl-freertos-zephyr-d/c/tsina-bahatozadachnosti.c
-:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/tsina-bahatozadachnosti.cpp
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/freertos/main.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/freertos/main.cpp
+:::
+
+:::tabs
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/freertos/tasks.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/freertos/workers.hpp
 :::
 
 ---
@@ -210,26 +225,7 @@ RAM_stacks = 2048 + 1024 + 2048 + 1536 + 1024 + 1024 = 8704 байтів (≈ 8.
 
 У Zephyr конфігурація заліза (які піни підключені до шини I2C, на якій адресі сидить сенсор, яка полярність світлодіода) описується окремо від вихідного коду у спеціальному декларативному файлі *DeviceTree Source (.dts / .overlay)*:
 
-```dts
-/* app.overlay — опис підключення апаратури */
-/ {
-    aliases {
-        sensor-i2c = &i2c1;
-        status-led = &led0;
-    };
-};
-
-&i2c1 {
-    status = "okay";
-    clock-frequency = <I2C_BITRATE_FAST>;
-
-    temp_sensor: bme280@76 {
-        compatible = "bosch,bme280";
-        reg = <0x76>;
-        status = "okay";
-    };
-};
-```
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/zephyr/app.overlay
 
 Під час компіляції генератор на базі Python аналізує цей файл, перевіряє зв'язки за схемами валідації (*DTS bindings*) і генерує статичні константні структури в пам'яті Flash. **У рантаймі немає жодного парсингу тексту чи пошуку в пам'яті**: макрос `DT_NODELABEL(temp_sensor)` розгортається компілятором у прямий покажчик на статичну структуру пристрою, оптимізуючи доступ до рівня однієї інструкції.
 
@@ -237,13 +233,15 @@ RAM_stacks = 2048 + 1024 + 2048 + 1536 + 1024 + 1024 = 8704 байтів (≈ 8.
 
 Усе дерево вихідного коду Zephyr покрито прапорцями компіляції *Kconfig*. Якщо у вашому файлі `prj.conf` не встановлено `CONFIG_BT=y`, увесь Bluetooth-стек повністю виключається з процесу компіляції та компонування. Система викидає не просто невикористані функції, а цілі підсистеми разом із їхніми таблицями переривань.
 
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/zephyr/prj.conf
+
 #### 3. Уніфікована модель драйверів (*Driver Model*)
 
 У коді додатку ви більше ніколи не викликаєте вендорські функції на кшталт `HAL_GPIO_WritePin`. Ви працюєте через абстрактний і стабільний інтерфейс драйвера:
 
 :::tabs
-:::code vybir-holyi-tsykl-freertos-zephyr-d/c/3-unifikovana-model.c
-:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/3-unifikovana-model.cpp
+:::code vybir-holyi-tsykl-freertos-zephyr-d/c/zephyr/src/main.c
+:::code vybir-holyi-tsykl-freertos-zephyr-d/cpp/zephyr/src/main.cpp
 :::
 
 Якщо завтра команда вирішить змінити мікроконтролер із STM32F4 на Nordic nRF5340 або Espressif ESP32-C6, **код C++ додатку не зміниться взагалі**: переписується лише файл опису плати `.dts`, а весь код опитування датчиків, роботи з пам'яттю та логіки залишається повністю ідентичним.

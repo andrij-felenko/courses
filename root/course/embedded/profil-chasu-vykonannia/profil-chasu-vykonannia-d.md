@@ -48,8 +48,8 @@
 Для виключення спотворень маніпуляція виводом має виконуватися через прямий запис в апаратні регістри атомарного встановлення/скидання бітів: `BSRR` (англ. *Bit Set/Reset Register*) у мікроконтролерах STM32 або регістри `SET`/`CLR` у чипах Microchip/NXP. Використання класичної операції XOR над вихідним регістром даних (`GPIOB->ODR ^= PIN`) категорично заборонене: вона розгортається компілятором у послідовність «читання — модифікація — запис» (команди `LDR`, `EOR`, `STR`), що займає 3-4 такти і породжує стан гонитви (англ. *Race Condition*), якщо інше переривання спробує змінити сусідній пін того ж порту.
 
 :::tabs
-:::code profil-chasu-vykonannia-d/c/metod-1-strobuvannia.c
-:::code profil-chasu-vykonannia-d/cpp/metod-1-strobuvannia.hpp
+:::code profil-chasu-vykonannia-d/c/strobe.h
+:::code profil-chasu-vykonannia-d/cpp/include/strobe.hpp
 :::
 
 Чистий час виконання розраховується відніманням апаратного часу двох записів у порт: `T_exec = T_pulse - 2 * T_gpio_write`.
@@ -67,8 +67,8 @@
 3. Початкове значення регістра `DWT->CYCCNT` скидається в 0.
 
 :::tabs
-:::code profil-chasu-vykonannia-d/c/metod-2-aparatnyi.c
-:::code profil-chasu-vykonannia-d/cpp/metod-2-aparatnyi.hpp
+:::code profil-chasu-vykonannia-d/c/dwt.c
+:::code profil-chasu-vykonannia-d/cpp/include/dwt.hpp
 :::
 
 У реальних проєктах цей механізм вимагає калібрування власного оверхеду читання, накопичення статистики максимального значення та безпечного перетворення в мікросекунди. Повну модульну реалізацію такого інструменту винесено в окремий [модуль апаратного профілювання DWT](root:embedded/profil-chasu-vykonannia/proj-dwt-profiler.md).
@@ -137,6 +137,16 @@
 
 Таймер по переповненню лічильника апаратно формує імпульс TRGO на внутрішній сигнальній магістралі мікроконтролера. Цей імпульс безпосередньо запускає вибірку аналогово-цифрового перетворювача на кремнієвому рівні. По завершенні перетворення модуль АЦП самостійно виставляє запит DMA, і контролер прямого доступу скидає результат у масив пам'яті. Джитер запуску в такій схемі дорівнює **рівно 0 тактів**, оскільки процес повністю синхронізований із тактовою сіткою таймера і не залежить від того, чим зайняте процесорне ядро.
 
+:::tabs
+:::code profil-chasu-vykonannia-d/c/bsp.c
+:::code profil-chasu-vykonannia-d/cpp/src/inverter.cpp
+:::
+
+:::tabs
+:::code profil-chasu-vykonannia-d/c/main.c
+:::code profil-chasu-vykonannia-d/cpp/src/main.cpp
+:::
+
 ## Вплив Flash Wait States, Prefetch та I-Cache на детермінізм
 
 Фізична природа вбудованої енергонезалежної пам'яті Flash накладає жорсткі обмеження на швидкість її читання. Тоді як сучасні ядра ARM здатні працювати на частотах 168, 216 або 480 МГц, кремнієві комірки масиву Flash не можуть віддавати дані швидше ніж за 30-40 наносекунд (що відповідає максимальній частоті прямого читання близько 25-30 МГц).
@@ -191,8 +201,8 @@
 Для цього в компіляторі GCC використовують спеціальний атрибут розміщення секції `__attribute__((section(".ramfunc"), noinline))`:
 
 :::tabs
-:::code profil-chasu-vykonannia-d/c/1-perenesennia-krytychnykh.c
-:::code profil-chasu-vykonannia-d/cpp/1-perenesennia-krytychnykh.hpp
+:::code profil-chasu-vykonannia-d/c/foc.c
+:::code profil-chasu-vykonannia-d/cpp/src/foc.cpp
 :::
 
 Для роботи атрибута `.ramfunc` у файлі конфігурації компонувальника (Linker Script `.ld`) створюється відповідна секція, де адреса завантаження (LMA) вказує на Flash, а адреса виконання (VMA) — на область RAM/ITCM. Під час старту мікроконтролера код стартапу `SystemInit` копіює байти цієї секції з Flash у пам'ять SRAM так само, як копіюються ініціалізовані глобальні змінні секції `.data`:
@@ -219,8 +229,8 @@ _siramfunc = LOADADDR(.ramfunc); /* Фізична адреса збережен
 Розгортання циклу вручну або через директиву компілятора `#pragma GCC unroll N` повністю ліквідує інструкції розгалуження, перетворюючи цикл на лінійну послідовність арифметичних операцій.
 
 :::tabs
-:::code profil-chasu-vykonannia-d/c/2-rozhortannia-tsykliv.c
-:::code profil-chasu-vykonannia-d/cpp/2-rozhortannia-tsykliv.hpp
+:::code profil-chasu-vykonannia-d/c/fir.c
+:::code profil-chasu-vykonannia-d/cpp/include/fir.hpp
 :::
 
 ### 3. Векторизація за допомогою інструкцій DSP та SIMD

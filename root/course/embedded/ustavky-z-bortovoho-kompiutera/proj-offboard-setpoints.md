@@ -40,6 +40,33 @@
 ## Реалізація на C та C++
 
 :::tabs
+:::code proj-offboard-setpoints/c/serial.h
+:::code proj-offboard-setpoints/cpp/serial_port.hpp
+:::
+
+:::code proj-offboard-setpoints/c/serial.c
+
+:::tabs
+:::code proj-offboard-setpoints/c/mavlink_io.h
+:::code proj-offboard-setpoints/cpp/mavlink_link.hpp
+:::
+
+:::tabs
+:::code proj-offboard-setpoints/c/mavlink_io.c
+:::code proj-offboard-setpoints/cpp/mavlink_link.cpp
+:::
+
+:::tabs
+:::code proj-offboard-setpoints/c/streamer.h
+:::code proj-offboard-setpoints/cpp/offboard_streamer.hpp
+:::
+
+:::tabs
+:::code proj-offboard-setpoints/c/streamer.c
+:::code proj-offboard-setpoints/cpp/offboard_streamer.cpp
+:::
+
+:::tabs
 :::code proj-offboard-setpoints/c/main.c
 :::code proj-offboard-setpoints/cpp/main.cpp
 :::
@@ -48,9 +75,9 @@
 
 ## Алгоритм плавного гальмування (Ramp-down)
 
-У наведеному коді при виявленні затримки планувальника (`is_fresh == false`) стан перемикається в `HoldFallback`, де швидкість скидається в нуль. Для динамічних апаратів, що рухаються зі швидкістю понад 5 м/с, миттєве надсилання нульової швидкості викликає різкий стрибок тангажу.
+У наведеному коді при виявленні затримки планувальника (`is_fresh == false`) стан перемикається в `HoldFallback`, де вектор швидкості треба звести до нуля. Для динамічних апаратів, що рухаються зі швидкістю понад 5 м/с, миттєве надсилання нульової швидкості викликає різкий стрибок тангажу.
 
-Для плавного гальмування застосовують алгоритм лінійного зрізу швидкості з фіксованим прискоренням гальмування `a_brake`:
+Тому кожен такт `HoldFallback` застосовує алгоритм лінійного зрізу швидкості з фіксованим прискоренням гальмування `a_brake`:
 
 ```
 Δv_max = a_brake · Δt

@@ -55,9 +55,25 @@ typedef struct {
     uint32_t overruns;
 } cs_profile_t;
 
+static inline void cs_profile_reset(cs_profile_t *st, uint32_t budget_cycles)
+{
+    CRITICAL_BLOCK() {
+        st->budget_cycles = budget_cycles;
+        st->last_cycles   = 0U;
+        st->max_cycles    = 0U;
+        st->overruns      = 0U;
+    }
+}
+
 static inline uint32_t cs_profile_ns(uint32_t cycles)
 {
     return (uint32_t)(((uint64_t)cycles * 1000000000ULL) / SystemCoreClock);
+}
+
+/* Бюджет зручніше задавати в наносекундах латентності найшвидшого ISR. */
+static inline uint32_t cs_profile_cycles_for_ns(uint32_t ns)
+{
+    return (uint32_t)(((uint64_t)ns * SystemCoreClock) / 1000000000ULL);
 }
 
 typedef struct {
@@ -71,7 +87,12 @@ static inline profiled_section_t profiled_section_enter(cs_profile_t *stats)
     profiled_section_t ps;
 
     ps.stats = stats;
-    /* Такти знімаємо ДО входу: вартість самого входу теж належить секції. */
+    /*
+     * Такти знімаємо ДО входу: вартість самого входу теж належить секції.
+     * Якщо між читанням CYCCNT і CPSID устигне влізти переривання, його час
+     * потрапить у вимір — і це чесно, бо саме такий шлях бачить задача,
+     * яка чекає на звільнення даних.
+     */
     ps.start = DWT->CYCCNT;
     ps.cs    = critical_section_enter();
     return ps;
@@ -91,6 +112,7 @@ static inline void profiled_section_exit(profiled_section_t *ps)
     }
     if (st->budget_cycles != 0U && elapsed > st->budget_cycles) {
         st->overruns++;
+        /* Зупиняємось саме на місці зриву — стек іще цілий. */
         if (cs_debugger_attached()) {
             __BKPT(0);
         }

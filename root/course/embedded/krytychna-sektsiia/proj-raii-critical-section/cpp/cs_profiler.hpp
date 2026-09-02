@@ -50,6 +50,13 @@ public:
         return static_cast<std::uint32_t>(
             static_cast<std::uint64_t>(cycles) * 1'000'000'000ULL / SystemCoreClock);
     }
+
+    /* Бюджет зручніше задавати в наносекундах латентності найшвидшого ISR. */
+    [[nodiscard]] static std::uint32_t cycles_for_ns(std::uint32_t ns) noexcept
+    {
+        return static_cast<std::uint32_t>(
+            static_cast<std::uint64_t>(ns) * SystemCoreClock / 1'000'000'000ULL);
+    }
 };
 
 struct SectionStats {
@@ -66,6 +73,7 @@ struct SectionStats {
         }
         if (budget_cycles != 0U && elapsed > budget_cycles) {
             ++overruns;
+            // Зупиняємось саме на місці зриву — стек іще цілий.
             if (CycleCounter::debugger_attached()) {
                 __BKPT(0);
             }
@@ -81,6 +89,10 @@ struct SectionStats {
 template <sync::LockPolicy Policy = sync::PrimaskLockPolicy>
 class [[nodiscard]] ProfiledSection {
 public:
+    /* Такти знімаємо ДО входу: вартість самого входу теж належить секції.
+       Якщо між CycleCounter::now() і маскуванням устигне влізти переривання,
+       його час потрапить у вимір — і це чесно, бо саме такий шлях бачить
+       задача, що чекає на звільнення даних. */
     explicit ProfiledSection(SectionStats& stats) noexcept
         : stats_{stats}, start_{CycleCounter::now()}, state_{Policy::enter()} {}
 

@@ -102,8 +102,15 @@
 Нижче наведено повні інтерфейсні структури на мовах C та ідіоматичній C++20:
 
 :::tabs
-:::code api-authority-protocol/c/main.h
-:::code api-authority-protocol/cpp/main.hpp
+:::code api-authority-protocol/c/auth_protocol.h
+:::code api-authority-protocol/cpp/protocol.hpp
+:::
+
+Кодування та розбір кадру із заголовка розділу 2: серіалізація полів у Little-Endian, контрольна сума CRC16-CCITT над заголовком і навантаженням, пошук межі кадру в потоці послідовного порту та згортка підпису командирського повідомлення.
+
+:::tabs
+:::code api-authority-protocol/c/auth_frame.c
+:::code api-authority-protocol/cpp/frame.cpp
 :::
 
 ---
@@ -139,6 +146,13 @@
    - Станція пілота переводиться у режим `Read-Only`;
    - Борт фіксує блокування керування `COMMANDER_LOCKED` і переводить дрон у режим зависання `BRAKE / LOITER`.
 
+Інтерфейс бортового арбітра, що реалізує всі три сценарії: обробка вхідного кадру, хід годинника з тайм-аутами оренди й передачі зміни та фільтр керівних пакетів, крізь який на 50 Гц проходять стіки.
+
+:::tabs
+:::code api-authority-protocol/c/auth_arbiter.h
+:::code api-authority-protocol/cpp/arbiter.hpp
+:::
+
 ---
 
 ## 5. Таблиця інваріантів переходу станів FSM
@@ -152,3 +166,17 @@
 | `HANDOVER_WAIT_STICK` | `STICK_CHECK` | Стіки в межах ±3% дедбенду | `PILOT_ACTIVE` | Атомарна зміна `pilot_gcs_id`, оновлення nonce |
 | `HANDOVER_WAIT_STICK` | `T_wait > 5000 ms` | Змінний пілот не відповів | `PILOT_ACTIVE` | Скасування передачі, повернення токена старому пілоту |
 | `БУДЬ-ЯКИЙ` | `COMMANDER_OVERRIDE`| Валідний підпис командира | `COMMANDER_LOCKED` | Анулювання всіх токенів, перехід в авто-режим |
+
+Реалізація автомата: видача та відкликання токенів, перевірка нейтралі змінним пультом, атомарна зміна володаря з оновленням `Token Nonce`, тайм-аути оренди й передачі, перехоплення командиром.
+
+:::tabs
+:::code api-authority-protocol/c/auth_arbiter.c
+:::code api-authority-protocol/cpp/arbiter.cpp
+:::
+
+Наскрізний прогін на модельному годиннику: чотири станції в спільній мережі проходять усю таблицю переходів — від конфлікту двох операторів за площину пілотування до аварійного перехоплення.
+
+:::tabs
+:::code api-authority-protocol/c/main.c
+:::code api-authority-protocol/cpp/main.cpp
+:::

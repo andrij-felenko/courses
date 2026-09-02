@@ -55,8 +55,62 @@
 Нижче наведено повний вихідний код модуля обробки сигналів, кінцевого автомата трансивера та пакування телеметрії мовами C та C++.
 
 :::tabs
-:::code proj-minimal-console/c/minimal_remote_firmware.c
-:::code proj-minimal-console/cpp/minimal_remote_firmware.hpp
+:::code proj-minimal-console/c/main.c
+:::code proj-minimal-console/cpp/src/main.cpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/hal.h
+:::code proj-minimal-console/cpp/src/hal.hpp
+:::
+
+:::code proj-minimal-console/cpp/src/spi_bus.hpp
+
+:::tabs
+:::code proj-minimal-console/c/sx1280.h
+:::code proj-minimal-console/cpp/src/sx1280.hpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/sx1280.c
+:::code proj-minimal-console/cpp/src/sx1280.cpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/sticks.h
+:::code proj-minimal-console/cpp/src/gimbals.hpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/sticks.c
+:::code proj-minimal-console/cpp/src/gimbals.cpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/link.h
+:::code proj-minimal-console/cpp/src/protocol.hpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/link.c
+:::code proj-minimal-console/cpp/src/protocol.cpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/power.h
+:::code proj-minimal-console/cpp/src/battery.hpp
+:::
+
+:::code proj-minimal-console/c/power.c
+
+:::tabs
+:::code proj-minimal-console/c/hud.h
+:::code proj-minimal-console/cpp/src/hud.hpp
+:::
+
+:::tabs
+:::code proj-minimal-console/c/hud.c
+:::code proj-minimal-console/cpp/src/hud.cpp
 :::
 
 ---

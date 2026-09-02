@@ -1,133 +1,212 @@
-#include <cstdint>
-#include <cmath>
 #include <algorithm>
 #include <array>
+#include <cmath>
+#include <cstdint>
+#include <cstdio>
+#include <string_view>
 
-class TakeoverManager {
-public:
-    enum class State : uint8_t {
-        AutoNav = 0,
-        OverrideIn,
-        ManualHold,
-        HandbackWait,
-        BlendingOut
-    };
+#include "authority.hpp"
+#include "nav_loop.hpp"
+#include "rc_link.hpp"
+#include "telemetry.hpp"
+#include "types.hpp"
 
-    struct StickInput {
-        float roll{0.0f};     // [-1.0 ... +1.0]
-        float pitch{0.0f};
-        float yaw{0.0f};
-        float throttle{0.5f}; // [0.0 ... 1.0]
-    };
+// Прогін сценарію зі статті: літак іде за маршрутом на 22 м/с і 45 м, збоку
+// дме вітер, на 2-й секунді пілот смикає стік на себе і вправо, обходячи трос
+// крана, а потім відпускає ручку. Модель планера навмисно проста — вона
+// потрібна лише для того, щоб побачити роботу перехоплення.
 
-    struct ControlCommand {
-        float roll{0.0f};
-        float pitch{0.0f};
-        float yaw{0.0f};
-        float throttle{0.0f};
-    };
+namespace {
 
-    struct Config {
-        float stick_deadband{0.12f};
-        float blend_in_time_sec{0.20f};
-        float blend_out_time_sec{0.40f};
-        float handback_hold_sec{1.50f};
-    };
+using namespace fc;
 
-    explicit TakeoverManager(Config config = {}) : cfg_(config) {}
+constexpr Seconds kDt{0.005f}; // 200 Гц
+constexpr float kRunSec = 9.0f;
+constexpr float kWindY = 6.0f; // м/с, вітер зліва зносить апарат по +y
+constexpr float kPilotRollLimitDeg = 45.0f;
+constexpr float kPilotPitchLimitDeg = 15.0f;
+constexpr float kPilotYawLimitDps = 20.0f;
+constexpr float kManeuverEndSec = 3.6f;
 
-    void update(const StickInput& sticks,
-                const ControlCommand& cmd_auto,
-                const ControlCommand& cmd_pilot,
-                ControlCommand& cmd_out,
-                float dt_sec) noexcept {
-        const bool sticks_deflected = is_deflected(sticks);
+struct Plane {
+    VehicleState st{0.0f, 0.0f, 45.0f, 0.0f, 22.0f};
+    float roll_deg{0.0f};  // приводи й планер відстають від команди
+    float pitch_deg{0.0f};
 
-        switch (state_) {
-            case State::AutoNav:
-                alpha_ = 0.0f;
-                if (sticks_deflected) {
-                    state_ = State::OverrideIn;
-                    annunciation_pending_ = true;
-                }
-                break;
+    void step(const ControlCommand& u, Seconds dt_s) noexcept {
+        const float dt = dt_s.count();
+        roll_deg += (u.roll - roll_deg) * (dt / (0.25f + dt));
+        pitch_deg += (u.pitch - pitch_deg) * (dt / (0.40f + dt));
 
-            case State::OverrideIn:
-                alpha_ += dt_sec / cfg_.blend_in_time_sec;
-                if (alpha_ >= 1.0f) {
-                    alpha_ = 1.0f;
-                    state_ = State::ManualHold;
-                }
-                break;
+        const float roll_rad = roll_deg * kDeg2Rad;
+        const float pitch_rad = pitch_deg * kDeg2Rad;
 
-            case State::ManualHold:
-                alpha_ = 1.0f;
-                if (!sticks_deflected) {
-                    state_ = State::HandbackWait;
-                    hold_timer_sec_ = 0.0f;
-                }
-                break;
+        // Координований розворот: правий крен веде ніс за годинниковою
+        // стрілкою, тобто курс у нашій системі координат спадає.
+        const float turn_rate = (9.81f / std::max(st.airspeed, 8.0f)) *
+                                std::tan(roll_rad) * kRad2Deg;
+        st.heading_deg = wrap180(st.heading_deg - turn_rate * dt);
 
-            case State::HandbackWait:
-                alpha_ = 1.0f;
-                if (sticks_deflected) {
-                    state_ = State::ManualHold;
-                    hold_timer_sec_ = 0.0f;
-                } else {
-                    hold_timer_sec_ += dt_sec;
-                    if (hold_timer_sec_ >= cfg_.handback_hold_sec) {
-                        state_ = State::BlendingOut;
-                    }
-                }
-                break;
+        const float hdg = st.heading_deg * kDeg2Rad;
+        st.x += st.airspeed * std::cos(hdg) * dt;
+        st.y += (st.airspeed * std::sin(hdg) + kWindY) * dt;
+        st.alt += st.airspeed * std::sin(pitch_rad) * dt;
 
-            case State::BlendingOut:
-                if (sticks_deflected) {
-                    state_ = State::OverrideIn;
-                } else {
-                    alpha_ -= dt_sec / cfg_.blend_out_time_sec;
-                    if (alpha_ <= 0.0f) {
-                        alpha_ = 0.0f;
-                        state_ = State::AutoNav;
-                    }
-                }
-                break;
+        const float spd_eq = 12.0f + 15.0f * u.throttle - 20.0f * std::sin(pitch_rad);
+        st.airspeed += (spd_eq - st.airspeed) * (dt / (1.5f + dt));
+        st.airspeed = std::max(st.airspeed, 8.0f);
+    }
+};
+
+struct StickPosition {
+    float roll{0.0f};
+    float pitch{0.0f};
+    float throttle{0.30f}; // важіль лишається там, де його поклали
+    FlightMode mode{FlightMode::Auto};
+};
+
+// Що робить пілот. Важіль газу весь політ не рухається: це і є неузгодженість
+// газу з пастки номер два.
+StickPosition pilot_script(float t) noexcept {
+    StickPosition s;
+    if (t >= 2.0f && t < kManeuverEndSec) {
+        s.roll = 0.75f;  // правий крен
+        s.pitch = 0.90f; // стік на себе — набір висоти
+    }
+    return s;
+}
+
+constexpr std::uint16_t to_pwm_sym(float v) noexcept {
+    return static_cast<std::uint16_t>(1500.0f + 500.0f * std::clamp(v, -1.0f, 1.0f) + 0.5f);
+}
+
+constexpr std::uint16_t to_pwm_uni(float v) noexcept {
+    return static_cast<std::uint16_t>(1000.0f + 1000.0f * std::clamp(v, 0.0f, 1.0f) + 0.5f);
+}
+
+constexpr std::uint16_t mode_pwm(FlightMode m) noexcept {
+    switch (m) {
+        case FlightMode::Auto: return 1100;
+        case FlightMode::PosHold: return 1500;
+        case FlightMode::Manual: return 1900;
+    }
+    return 1500;
+}
+
+struct Scenario {
+    std::string_view title;
+    bool anti_windup{true};
+    float rc_loss_at{-1.0f}; // с; від'ємне — зв'язок не втрачається
+    float fence_at{-1.0f};   // с; від'ємне — геозону не порушуємо
+};
+
+void run(const Scenario& sc) {
+    Plane plane;
+    NavLoop nav{NavLoop::Setpoint{0.0f, 0.0f, 3000.0f, 0.0f, 45.0f, 22.0f}};
+    nav.set_anti_windup(sc.anti_windup);
+
+    RcLink link;
+    AuthorityManager authority;
+    Telemetry telemetry;
+
+    ControlCommand prev_out{};
+    ControlCommand prev_mux{};
+    bool have_prev = false;
+
+    float max_rate_blend = 0.0f; // °/с на виході змішувача
+    float max_rate_mux = 0.0f;   // °/с, якби стояв простий мультиплексор
+    float max_abs_i = 0.0f;
+    float max_xte_after = 0.0f;
+    float next_print = 0.0f;
+
+    std::printf("\n=== %.*s ===\n", static_cast<int>(sc.title.size()), sc.title.data());
+    std::printf("   t    стан           alpha  thr    xte      I     roll    alt   thr\n");
+
+    const int steps = static_cast<int>(kRunSec / kDt.count());
+    for (int i = 0; i <= steps; ++i) {
+        const Seconds now{static_cast<float>(i) * kDt.count()};
+        const float t = now.count();
+
+        const StickPosition sticks = pilot_script(t);
+        if (sc.rc_loss_at < 0.0f || t < sc.rc_loss_at) {
+            const std::array<std::uint16_t, RcLink::kChannels> frame{
+                to_pwm_sym(sticks.roll), to_pwm_sym(sticks.pitch),
+                to_pwm_uni(sticks.throttle), to_pwm_sym(0.0f),
+                mode_pwm(sticks.mode), 1500, 1500, 1500};
+            static_cast<void>(link.push(frame, now));
         }
 
-        blend_commands(cmd_auto, cmd_pilot, cmd_out);
+        const std::optional<RcCommand> rc = link.poll(now);
+        const bool fence = (sc.fence_at >= 0.0f) && (t >= sc.fence_at);
+
+        const Status st = authority.update(rc, fence, kDt);
+        const ControlCommand u_auto = nav.step(plane.st, st.freeze_nav, kDt);
+
+        ControlCommand u_pilot{};
+        if (rc) {
+            u_pilot = ControlCommand{rc->roll * kPilotRollLimitDeg,
+                                     rc->pitch * kPilotPitchLimitDeg,
+                                     rc->yaw * kPilotYawLimitDps, rc->throttle};
+        }
+
+        const ControlCommand u_out = blend(st.alpha, u_auto, u_pilot);
+
+        // Той самий момент, але з наївним мультиплексором: жодного змішування,
+        // перемикання за α > 0.5. Порівняння швидкостей — нижче в підсумку.
+        const ControlCommand u_mux = (st.alpha.attitude > 0.5f) ? u_pilot : u_auto;
+
+        if (have_prev) {
+            max_rate_blend = std::max(max_rate_blend,
+                                      std::abs(u_out.roll - prev_out.roll) / kDt.count());
+            max_rate_mux = std::max(max_rate_mux,
+                                    std::abs(u_mux.roll - prev_mux.roll) / kDt.count());
+        }
+        prev_out = u_out;
+        prev_mux = u_mux;
+        have_prev = true;
+
+        max_abs_i = std::max(max_abs_i, std::abs(nav.integral()));
+
+        plane.step(u_out, kDt);
+
+        if (t >= kManeuverEndSec) {
+            max_xte_after = std::max(max_xte_after, std::abs(nav.crosstrack(plane.st)));
+        }
+
+        telemetry.report(authority.events(), now);
+        telemetry.stream(st, now);
+
+        if (t + 1e-4f >= next_print) {
+            next_print += 0.25f;
+            const std::string_view name = to_string(st.phase);
+            std::printf("%5.2f  %-13.*s %.2f  %.2f %+7.1f %+6.1f %+7.1f %6.1f  %.2f\n",
+                        static_cast<double>(t), static_cast<int>(name.size()), name.data(),
+                        static_cast<double>(st.alpha.attitude),
+                        static_cast<double>(st.alpha.throttle),
+                        static_cast<double>(nav.crosstrack(plane.st)),
+                        static_cast<double>(nav.integral()),
+                        static_cast<double>(u_out.roll),
+                        static_cast<double>(plane.st.alt),
+                        static_cast<double>(u_out.throttle));
+        }
     }
 
-    [[nodiscard]] State state() const noexcept { return state_; }
-    [[nodiscard]] float alpha() const noexcept { return alpha_; }
-    [[nodiscard]] bool check_and_clear_annunciation() noexcept {
-        bool result = annunciation_pending_;
-        annunciation_pending_ = false;
-        return result;
-    }
+    std::printf("  підсумок: |I|max=%.1f°  найбільший відхід після віддачі=%.1f м\n",
+                static_cast<double>(max_abs_i), static_cast<double>(max_xte_after));
+    std::printf("  швидкість зміни команди крену: змішувач %.0f °/с, "
+                "наївний мультиплексор %.0f °/с\n",
+                static_cast<double>(max_rate_blend), static_cast<double>(max_rate_mux));
+}
 
-private:
-    [[nodiscard]] bool is_deflected(const StickInput& sticks) const noexcept {
-        return (std::abs(sticks.roll) > cfg_.stick_deadband) ||
-               (std::abs(sticks.pitch) > cfg_.stick_deadband) ||
-               (std::abs(sticks.yaw) > cfg_.stick_deadband) ||
-               (std::abs(sticks.throttle - 0.5f) > cfg_.stick_deadband);
-    }
+} // namespace
 
-    void blend_commands(const ControlCommand& a,
-                        const ControlCommand& p,
-                        ControlCommand& out) const noexcept {
-        const float w_pilot = std::clamp(alpha_, 0.0f, 1.0f);
-        const float w_auto  = 1.0f - w_pilot;
+int main() {
+    constexpr std::array<Scenario, 4> scenarios{
+        Scenario{"Обхід троса: захисти увімкнено", true, -1.0f, -1.0f},
+        Scenario{"Те саме без анти-віндапу й синхронізації уставки", false, -1.0f, -1.0f},
+        Scenario{"Втрата RC посеред ручного маневру", true, 2.8f, -1.0f},
+        Scenario{"Геозона забирає керування в пілота", true, -1.0f, 2.8f}};
 
-        out.roll     = w_auto * a.roll     + w_pilot * p.roll;
-        out.pitch    = w_auto * a.pitch    + w_pilot * p.pitch;
-        out.yaw      = w_auto * a.yaw      + w_pilot * p.yaw;
-        out.throttle = w_auto * a.throttle + w_pilot * p.throttle;
-    }
-
-    Config cfg_;
-    State state_{State::AutoNav};
-    float alpha_{0.0f};
-    float hold_timer_sec_{0.0f};
-    bool annunciation_pending_{false};
-};
+    for (const Scenario& sc : scenarios) run(sc);
+    return 0;
+}

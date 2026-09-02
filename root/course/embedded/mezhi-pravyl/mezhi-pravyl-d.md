@@ -229,6 +229,16 @@ u_safe = argmin ||u − u_cand||²   при умові dh/dt + γ · h(x) ≥ 0
 Нижче наведено фрагмент ядра системи прийняття рішень, що реалізує розмежування між генерацією команди-кандидата та її детермінованою фільтрацією. Повний робочий проєкт із тестовими сценаріями наведено у [вставці практичної реалізації безпечного фільтра](root:embedded/mezhi-pravyl/proj-safety-supervisor.md).
 
 :::tabs
+:::code mezhi-pravyl-d/c/barrier.c
+:::code mezhi-pravyl-d/cpp/safety_filter.cpp
+:::
+
+:::tabs
+:::code mezhi-pravyl-d/c/supervisor.c
+:::code mezhi-pravyl-d/cpp/decision_loop.cpp
+:::
+
+:::tabs
 :::code mezhi-pravyl-d/c/main.c
 :::code mezhi-pravyl-d/cpp/main.cpp
 :::

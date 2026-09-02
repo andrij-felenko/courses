@@ -22,7 +22,7 @@
 
 Архітектура Thumb-2 надає прямі та високоефективні інструкції для модифікації масок переривань, більшість із яких виконуються за один такт процесора:
 
-:::code api-cortexm-interrupt-control/asm/main.s
+:::code api-cortexm-interrupt-control/asm/mask_ops.S
 
 ## Розрахунок зміщення бітів у BASEPRI та конфігурація NVIC
 
@@ -44,16 +44,8 @@
 Тому для маскування переривань із пріоритетом `5` (двійкове `0101_2`) не можна просто записати число `5` у регістр `BASEPRI`. Значення пріоритету необхідно змістити ліворуч на кількість нереалізованих молодших бітів:
 
 :::tabs
-```c
-/* Формула розрахунку байта для BASEPRI */
-#define NVIC_PRIO_BITS  4U // Для більшості чіпів Cortex-M3/M4/M7
-#define CALC_BASEPRI(prio) ((uint8_t)((prio) << (8U - NVIC_PRIO_BITS)))
-
-/* Пріоритет 5 стає значенням 0x50 */
-uint8_t basepri_val = CALC_BASEPRI(5U); // 5 << 4 = 0x50
-__set_BASEPRI(basepri_val);
-```
-:::code api-cortexm-interrupt-control/cpp/rozrakhunok-zmishchennia.hpp
+:::code api-cortexm-interrupt-control/c/nvic_priority.h
+:::code api-cortexm-interrupt-control/cpp/nvic_priority.hpp
 :::
 
 Якщо записати в `BASEPRI` сире значення `0x05`, процесор відкине молодші біти (вони дорівнюють нулю) і вважатиме, що в регістр записано нуль. У результаті маскування взагалі не увімкнеться, і система залишиться повністю незахищеною.
@@ -96,8 +88,18 @@ __set_BASEPRI(basepri_val);
 Стандарт CMSIS уніфікує доступ до спеціальних регістрів для компіляторів GCC, Arm Clang, IAR та Keil. Усі функції оформлені як інлайнові інструкції ядра:
 
 :::tabs
+:::code api-cortexm-interrupt-control/c/cortexm_mask.h
+:::code api-cortexm-interrupt-control/cpp/cortexm_regs.hpp
+:::
+
+:::tabs
+:::code api-cortexm-interrupt-control/c/cortexm_mask.c
+:::code api-cortexm-interrupt-control/cpp/critical_section.hpp
+:::
+
+:::tabs
 :::code api-cortexm-interrupt-control/c/main.c
-:::code api-cortexm-interrupt-control/cpp/interfeis-cmsis-core.hpp
+:::code api-cortexm-interrupt-control/cpp/main.cpp
 :::
 
 ## Зневадження та діагностика стану регістрів у GDB та OpenOCD

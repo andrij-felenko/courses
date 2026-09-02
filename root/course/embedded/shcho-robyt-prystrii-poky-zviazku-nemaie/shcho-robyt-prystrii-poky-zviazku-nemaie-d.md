@@ -204,6 +204,11 @@ Target(t) = Current_State + Slew_Rate · (Command_State - Current_State) · dt
 5. `FALLBACK_RECONNECTING` — зв'язок з'явився, триває автентифікація, узгодження часу та плавний перехід.
 
 :::tabs
+:::code shcho-robyt-prystrii-poky-zviazku-nemaie-d/c/fallback.c
+:::code shcho-robyt-prystrii-poky-zviazku-nemaie-d/cpp/controller.cpp
+:::
+
+:::tabs
 :::code shcho-robyt-prystrii-poky-zviazku-nemaie-d/c/main.c
 :::code shcho-robyt-prystrii-poky-zviazku-nemaie-d/cpp/main.cpp
 :::

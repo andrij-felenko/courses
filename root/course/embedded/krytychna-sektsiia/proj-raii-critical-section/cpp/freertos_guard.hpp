@@ -11,7 +11,6 @@
  */
 
 #include <cstdint>
-#include <utility>
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -57,28 +56,35 @@ using RtosGuard = sync::CriticalSectionGuard<RtosLockPolicy>;
 
 /*
  * Приклад спільного стану: лічильники радіолінка, які чіпає і задача
- * передавача, і обробник переривання UART.
+ * передавача, і обробник переривання UART. Окремих *_from_isr методів
+ * у цього класу немає — контекст розрізняє сама політика.
  */
+
+struct LinkCounters {
+    std::uint32_t frames{0};
+    std::uint32_t crc_errors{0};
+};
+
 class LinkStats {
 public:
     void add_frame(bool crc_ok) noexcept
     {
         const RtosGuard lock;
-        ++frames_;
+        ++counters_.frames;
         if (!crc_ok) {
-            ++crc_errors_;
+            ++counters_.crc_errors;
         }
     }
 
-    [[nodiscard]] std::pair<std::uint32_t, std::uint32_t> read() const noexcept
+    /* Два поля — це два LDR; знімок мусить бути з одного моменту часу. */
+    [[nodiscard]] LinkCounters read() const noexcept
     {
         const RtosGuard lock;
-        return {frames_, crc_errors_};
+        return counters_;
     }
 
 private:
-    std::uint32_t frames_{0};
-    std::uint32_t crc_errors_{0};
+    LinkCounters counters_{};
 };
 
 }  // namespace embedded::rtos

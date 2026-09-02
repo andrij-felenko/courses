@@ -57,9 +57,9 @@ raw_16 = ((uint16_t)buf_msb << 8) | (uint16_t)buf_lsb    [для датчикі�
 
 :::tabs
 @tab C
-:::code syri-vidliky-u-fizychnu-velychynu-d/c/pastka-znakovoho.c
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/rawframe.c
 @tab C++
-:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/pastka-znakovoho.hpp
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/raw_frame.hpp
 :::
 
 ## 2. Вага молодшого розряду (LSB Sensitivity) та переведення в одиниці SI
@@ -171,9 +171,9 @@ X_fixed = (int32_t)(x_real * 65536.0 + 0.5)   [переведення дійсн
 
 :::tabs
 @tab C
-:::code syri-vidliky-u-fizychnu-velychynu-d/c/pravyla-aryfmetychnykh.c
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/fixedq16.c
 @tab C++
-:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/pravyla-aryfmetychnykh.cpp
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/fixed.hpp
 :::
 
 Детальне математичне обґрунтування шуму квантування, похибки усічення та вибору оптимальної розрядності викладено у вставці [математичних засад масштабування у фіксованій комі](root:embedded/syri-vidliky-u-fizychnu-velychynu/math-fixed-point-scaling.md).
@@ -200,9 +200,9 @@ y[n] = y[n - 1] + ((x[n] - y[n - 1]) >> k)
 
 :::tabs
 @tab C
-:::code syri-vidliky-u-fizychnu-velychynu-d/c/5-tsyfrova-iir-filtratsiia.c
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/iir_fixed.c
 @tab C++
-:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/5-tsyfrova-iir-filtratsiia.cpp
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/iir.hpp
 :::
 
 ## 6. Захист від переповнення та збереження точності в 32/64-бітних обчисленнях
@@ -233,9 +233,9 @@ y[n] = y[n - 1] + ((x[n] - y[n - 1]) >> k)
 
 :::tabs
 @tab C
-:::code syri-vidliky-u-fizychnu-velychynu-d/c/aryfmetyka-z-nasychenniam.c
+:::code syri-vidliky-u-fizychnu-velychynu-d/c/sensor_si.c
 @tab C++
-:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/aryfmetyka-z-nasychenniam.hpp
+:::code syri-vidliky-u-fizychnu-velychynu-d/cpp/sensor_si.hpp
 :::
 
 ### Порівняльний аналіз підходів обробки даних

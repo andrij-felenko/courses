@@ -111,8 +111,8 @@ _start:
 Щоб компілятор не оптимізував таблицю векторів як «невикористовуваний масив» і розмістив її строго за нульовою адресою Flash-пам'яті, у коді використовують спеціальні атрибути секцій:
 
 :::tabs
-:::code startovyi-kod-d/c/sektsiia-isr-vector-ta.c
-:::code startovyi-kod-d/cpp/sektsiia-isr-vector-ta.cpp
+:::code startovyi-kod-d/c/vectors.c
+:::code startovyi-kod-d/cpp/src/vector_table.cpp
 :::
 
 Атрибут `__attribute__((used))` наказує компілятору зберегти символ у результуючому об'єктному файлі, навіть якщо до нього немає явних звернень з інших функцій C. У скрипті лінкера директива `KEEP(*(.isr_vector))` забороняє лінкеру викидати цю секцію під час оптимізації невикористаного коду (`--gc-sections`).
@@ -124,8 +124,8 @@ _start:
 Щоб уникнути ручного опису десятків порожніх функцій, у стартовому коді застосовують механізм **слабких зв'язків** (weak aliases). Усі обробники оголошуються як слабкі синоніми єдиного універсального обробника за замовчуванням `Default_Handler`:
 
 :::tabs
-:::code startovyi-kod-d/c/mekhanizm-slabkykh.c
-:::code startovyi-kod-d/cpp/mekhanizm-slabkykh.cpp
+:::code startovyi-kod-d/c/handlers.c
+:::code startovyi-kod-d/cpp/src/handlers.cpp
 :::
 
 Якщо користувач у будь-якому місці проекту створить власну звичайну функцію `void USART1_IRQHandler(void)`, лінкер виявить сильний символ (*strong symbol*) і автоматично замінить адресу `Default_Handler` у таблиці векторів на адресу користувацької функції.
@@ -137,8 +137,8 @@ _start:
 Для зміни адреси таблиці використовується регістр зміщення векторів `VTOR` (Vector Table Offset Register), розташований у системному блоці керування ядра за адресою `SCB->VTOR` (`0xE000ED08`):
 
 :::tabs
-:::code startovyi-kod-d/c/relokatsiia-vektoriv.c
-:::code startovyi-kod-d/cpp/relokatsiia-vektoriv.hpp
+:::code startovyi-kod-d/c/vtor.c
+:::code startovyi-kod-d/cpp/include/mcu/vtor.hpp
 :::
 
 ## Секції `.data` та `.bss`: створення робочого простору змінних
@@ -192,8 +192,8 @@ std::array<std::uint8_t, 16384> dma_buffer{};      /* Секція .bss */
 У функції `Reset_Handler` стартовий код виконує два послідовні цикли обходу пам'яті:
 
 :::tabs
-:::code startovyi-kod-d/c/realizatsiia-tsyklu.c
-:::code startovyi-kod-d/cpp/realizatsiia-tsyklu.cpp
+:::code startovyi-kod-d/c/mem_init.c
+:::code startovyi-kod-d/cpp/include/mcu/memory_init.hpp
 :::
 
 ### Вирівнювання по 4 байти (Word Alignment)
@@ -242,8 +242,8 @@ std::array<std::uint8_t, 16384> dma_buffer{};      /* Секція .bss */
 Увімкнення FPU здійснюється записом комбінації бітів `0b11` (Full Access) у бітові поля `CP10` (біти 21:20) та `CP11` (біти 23:22) системного регістра `SCB->CPACR` (`0xE000ED88`):
 
 :::tabs
-:::code startovyi-kod-d/c/uvimknennia-aparatnoho.c
-:::code startovyi-kod-d/cpp/uvimknennia-aparatnoho.hpp
+:::code startovyi-kod-d/c/fpu.c
+:::code startovyi-kod-d/cpp/include/mcu/fpu.hpp
 :::
 
 Інструкція `dsb` (Data Synchronization Barrier) змушує шину пам'яті завершити транзакцію запису в регістр `CPACR`, а `isb` (Instruction Synchronization Barrier) повністю очищує конвеєр команд процесора, гарантуючи, що наступні інструкції з рухомою комою будуть декодовані вже увімкненим FPU.
@@ -252,15 +252,15 @@ std::array<std::uint8_t, 16384> dma_buffer{};      /* Секція .bss */
 
 У мові C всі глобальні змінні мають константне початкове значення, яке просто копіюється з Flash у RAM. Проте в C++ глобальні та статичні об'єкти класів можуть мати **конструктори**, які виконують довільний код (виділення ресурсів, конфігурація апаратних периферійних модулів, розрахунок таблиць):
 
-:::code startovyi-kod-d/cpp/hlobalni-konstruktory-c.cpp
+:::code startovyi-kod-d/cpp/src/uart.cpp
 
 Компілятор `g++` знаходить усі такі об'єкти в проекті, створює для кожного з них невелику анонімну функцію-ініціалізатор і складає покажчики на ці функції у спеціальну таблицю — секцію `.init_array` у Flash-пам'яті.
 
 Стартовий код або стандартна бібліотека (функція `__libc_init_array` зі складу `newlib`) повинні пройти цей масив покажчиків від початку (`__init_array_start`) до кінця (`__init_array_end`) і послідовно викликати кожну функцію:
 
 :::tabs
-:::code startovyi-kod-d/c/hlobalni-konstruktory-c.c
-:::code startovyi-kod-d/cpp/hlobalni-konstruktory-c-2.cpp
+:::code startovyi-kod-d/c/init_array.c
+:::code startovyi-kod-d/cpp/src/init_array.cpp
 :::
 
 > ⚠️ **Пастка статичної ініціалізації (Static Initialization Order Fiasco):** Стандарт мови C++ суворо гарантує, що всі глобальні конструктори відпрацюють до першого рядка функції `main()`. Проте стандарт **не визначає порядок** виклику конструкторів, розташованих у різних файлах вихідного коду (`.cpp`). Якщо конструктор класу `Display` у файлі `display.cpp` спробує надіслати дані через об'єкт `g_console_uart` із файлу `uart.cpp`, а `g_console_uart` ще не був сконструйований, система зависне або впаде у HardFault.
@@ -312,8 +312,8 @@ std::array<std::uint8_t, 16384> dma_buffer{};      /* Секція .bss */
 Реалізація надійного циклу завершення:
 
 :::tabs
-:::code startovyi-kod-d/c/arkhitektura-zakhysnoi.c
-:::code startovyi-kod-d/cpp/arkhitektura-zakhysnoi.cpp
+:::code startovyi-kod-d/c/startup.c
+:::code startovyi-kod-d/cpp/src/startup.cpp
 :::
 
 Інструкція `wfi` (Wait For Interrupt) переводить процесорне ядро в режим низького енергоспоживання, зупиняючи лічильник тактів процесора до приходу наступного апаратного переривання або сигналу скидання від сторожового таймера (Watchdog).

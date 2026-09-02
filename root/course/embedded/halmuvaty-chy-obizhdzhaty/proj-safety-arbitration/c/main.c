@@ -1,172 +1,165 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Демонстраційний стенд арбітра: 100-герцовий цикл, модель апарата,
+   планувальник на 5 Гц із вікном мовчання і далекомір із шумом та збоєм.
+   На реальному борту тіло циклу висить на перериванні таймера. */
+
 #include <math.h>
+#include <stdint.h>
+#include <stdio.h>
 
-#define SAFETY_DT_SEC          0.010f  // Період такту: 10 мс (100 Гц)
-#define SAFETY_HOLD_TICKS      20U     // Час стабілізації: 20 тактів (200 мс)
-#define SAFETY_HYST_DIST_M     0.30f   // Просторовий гістерезис: 30 см
-#define SAFETY_WATCHDOG_TICKS  50U     // Таймаут планувальника: 500 мс
+#include "safety_arbiter.h"
 
-typedef enum {
-    ZONE_OBSERVATION = 0,  // Вільний рух за глобальним планом
-    ZONE_WARNING,          // Плавне змішування векторів та гальмування
-    ZONE_ESTOP             // Аварійне переривання та повний стоп
-} SafetyZone;
+#define SIM_TICKS            600
+#define CRUISE_MPS           6.0f
+#define VEHICLE_YAW_RAD      0.60f   /* курс апарата відносно odom, рад */
+#define SENSOR_MAX_RANGE_M   30.0f
+#define SENSOR_NOISE_M       0.05f
+#define OBSTACLE_X_M         25.0f
+#define OBSTACLE_Y_M         0.0f
+#define OBSTACLE_RADIUS_M    0.50f
+#define PLANNER_EVERY_TICKS  20      /* планувальник 5 Гц */
+#define PLANNER_MUTE_FROM    60
+#define PLANNER_MUTE_TO      120
+#define SENSOR_FAULT_FROM    180
+#define SENSOR_FAULT_TO      186
+#define PI_KP                8.0f
+#define PI_KI                4.0f
 
+/* Поздовжній ПІ-регулятор швидкості — саме він страждає від windup. */
 typedef struct {
-    float x;
-    float y;
-} Vector2D;
+    float integral;
+} SpeedPi;
 
-typedef struct {
-    float max_accel;        // Максимальне сповільнення, м/с² (типово 2.5)
-    float reaction_time;    // Затримка реакції приводу, с (типово 0.05)
-    float planner_period;   // Очікуваний період планувальника, с (типово 0.20)
-    float stop_margin;      // Фізичний зазор зупинки, м (типово 0.40)
-    float warn_buffer;      // Буфер зони застереження, м (типово 0.80)
-} SafetyParams;
+static float speed_pi_step(SpeedPi *pi, float target, float actual,
+                           bool reset_integral, float a_max)
+{
+    if (reset_integral) {
+        /* Пастка зі статті: на вході в ESTOP інтеграл обнуляється. Інакше поки
+           апарат стоїть, сума помилки росте, і на виході мотори смикне. */
+        pi->integral = 0.0f;
+    }
+    const float err = target - actual;
+    pi->integral += PI_KI * err * SAFETY_DT_SEC;
+    if (pi->integral >  a_max) pi->integral =  a_max;
+    if (pi->integral < -a_max) pi->integral = -a_max;
 
-typedef struct {
-    SafetyZone current_zone;
-    uint32_t   hold_counter;
-    uint32_t   planner_watchdog;
-    Vector2D   last_cmd_vel;
-    bool       override_active;
-    bool       planner_timed_out;
-} SafetyArbiter;
-
-static inline float vec2d_len(Vector2D v) {
-    return sqrtf(v.x * v.x + v.y * v.y);
+    float a = PI_KP * err + pi->integral;
+    if (a >  a_max) a =  a_max;
+    if (a < -a_max) a = -a_max;
+    return a;
 }
 
-static inline Vector2D vec2d_scale(Vector2D v, float s) {
-    Vector2D out = { v.x * s, v.y * s };
-    return out;
+/* Детермінований шум давача: демо має відтворюватися від запуску до запуску. */
+static uint32_t rng_state = 20260830u;
+
+static float sensor_noise(void)
+{
+    rng_state = rng_state * 1664525u + 1013904223u;
+    const float unit = (float)((rng_state >> 8) & 0xFFFFu) / 65535.0f;
+    return (unit * 2.0f - 1.0f) * SENSOR_NOISE_M;
 }
 
-static inline Vector2D vec2d_add(Vector2D a, Vector2D b) {
-    Vector2D out = { a.x + b.x, a.y + b.y };
-    return out;
-}
+int main(void)
+{
+    const SafetyParams params = {
+        .max_accel      = 2.5f,
+        .reaction_time  = 0.05f,
+        .planner_period = 0.20f,
+        .stop_margin    = 0.40f,
+        .warn_buffer    = 0.80f
+    };
 
-void safety_arbiter_init(SafetyArbiter *arb) {
-    arb->current_zone = ZONE_OBSERVATION;
-    arb->hold_counter = 0;
-    arb->planner_watchdog = 0;
-    arb->last_cmd_vel.x = 0.0f;
-    arb->last_cmd_vel.y = 0.0f;
-    arb->override_active = false;
-    arb->planner_timed_out = false;
-}
-
-void safety_arbiter_feed_planner_heartbeat(SafetyArbiter *arb) {
-    arb->planner_watchdog = 0;
-    arb->planner_timed_out = false;
-}
-
-Vector2D safety_arbiter_update(SafetyArbiter *arb,
-                              const SafetyParams *params,
-                              Vector2D v_plan,
-                              Vector2D v_react,
-                              float min_obstacle_dist,
-                              float current_speed) {
-    // 0. Моніторинг працездатності каналу зв'язку з планувальником
-    arb->planner_watchdog++;
-    if (arb->planner_watchdog > SAFETY_WATCHDOG_TICKS) {
-        arb->planner_timed_out = true;
-        // При втраті зв'язку обнуляємо плановий вектор (fail-safe)
-        v_plan.x = 0.0f;
-        v_plan.y = 0.0f;
+    SafetyArbiter arb;
+    if (!safety_arbiter_init(&arb, &params)) {
+        fprintf(stderr, "safety_arbiter_init: неприйнятні параметри\n");
+        return 1;
     }
 
-    // 1. Кінематичний розрахунок динамічних меж зон
-    float safe_speed = (current_speed > 0.0f) ? current_speed : 0.0f;
-    float d_brake = (safe_speed * safe_speed) / (2.0f * params->max_accel);
-    float r_stop = d_brake + (safe_speed * params->reaction_time) + params->stop_margin;
-    float r_warn = r_stop + (safe_speed * params->planner_period) + params->warn_buffer;
+    Vec2 pos = { 0.0f, 0.0f };            /* положення в odom */
+    Vec2 vel = { CRUISE_MPS, 0.0f };      /* швидкість в odom */
+    Vec2 heading = { 1.0f, 0.0f };        /* напрямок, який тримаємо при нульовій уставці */
+    SpeedPi pi = { 0.0f };
+    SafetyZone prev_zone = ZONE_OBSERVATION;
 
-    // 2. Визначення миттєвої зони
-    SafetyZone target_zone;
-    if (min_obstacle_dist <= r_stop) {
-        target_zone = ZONE_ESTOP;
-    } else if (min_obstacle_dist <= r_warn) {
-        target_zone = ZONE_WARNING;
-    } else {
-        target_zone = ZONE_OBSERVATION;
-    }
+    printf("тік   t,с   зазор  R_stop R_warn  зона        alpha  |v_cmd|  швидк.  прапорці\n");
 
-    // 3. Автомат переходів із просторово-часовим гістерезисом
-    if (target_zone > arb->current_zone) {
-        // Ескалація: миттєвий перехід без затримок
-        arb->current_zone = target_zone;
-        arb->hold_counter = SAFETY_HOLD_TICKS;
-    } else if (target_zone < arb->current_zone) {
-        // Деескалація: вимагаємо просторовий запас та відлік таймера
-        bool hyst_cleared = false;
-        if (arb->current_zone == ZONE_ESTOP) {
-            hyst_cleared = (min_obstacle_dist > (r_stop + SAFETY_HYST_DIST_M));
-        } else if (arb->current_zone == ZONE_WARNING) {
-            hyst_cleared = (min_obstacle_dist > (r_warn + SAFETY_HYST_DIST_M));
+    for (int tick = 0; tick < SIM_TICKS; ++tick) {
+        /* --- Планувальник: 5 Гц у глобальному фреймі, з вікном мовчання --- */
+        const Vec2 plan_odom = { CRUISE_MPS, 0.0f };
+        const Vec2 plan_body = safety_odom_to_body(plan_odom, VEHICLE_YAW_RAD);
+        const bool muted = (tick >= PLANNER_MUTE_FROM && tick <= PLANNER_MUTE_TO);
+        if (!muted && (tick % PLANNER_EVERY_TICKS) == 0) {
+            safety_arbiter_planner_heartbeat(&arb);
         }
 
-        if (hyst_cleared) {
-            if (arb->hold_counter > 0) {
-                arb->hold_counter--;
-            } else {
-                arb->current_zone = target_zone;
-                arb->hold_counter = SAFETY_HOLD_TICKS;
-            }
-        } else {
-            arb->hold_counter = SAFETY_HOLD_TICKS;
+        /* --- Далекомір --- */
+        const Vec2 rel_odom = { OBSTACLE_X_M - pos.x, OBSTACLE_Y_M - pos.y };
+        float gap = sqrtf(rel_odom.x * rel_odom.x + rel_odom.y * rel_odom.y) - OBSTACLE_RADIUS_M;
+        if (gap < 0.0f) {
+            gap = 0.0f;
         }
-    } else {
-        arb->hold_counter = SAFETY_HOLD_TICKS;
-    }
-
-    // 4. Формування вихідного вектора швидкості
-    Vector2D cmd_out = { 0.0f, 0.0f };
-
-    switch (arb->current_zone) {
-        case ZONE_ESTOP:
-            arb->override_active = true;
-            cmd_out.x = 0.0f;
-            cmd_out.y = 0.0f;
-            break;
-
-        case ZONE_WARNING: {
-            arb->override_active = false;
-            float span = r_warn - r_stop;
-            float alpha = (span > 0.01f) ? ((r_warn - min_obstacle_dist) / span) : 1.0f;
-            if (alpha < 0.0f) alpha = 0.0f;
-            if (alpha > 1.0f) alpha = 1.0f;
-
-            // Змішування: v_cmd = (1 - alpha)*v_plan + alpha*v_react
-            Vector2D part_plan = vec2d_scale(v_plan, 1.0f - alpha);
-            Vector2D part_react = vec2d_scale(v_react, alpha);
-            cmd_out = vec2d_add(part_plan, part_react);
-
-            // Динамічне обмеження швидкості за профілем гальмування
-            float dist_to_stop = min_obstacle_dist - r_stop;
-            if (dist_to_stop > 0.0f) {
-                float v_safe = sqrtf(2.0f * params->max_accel * dist_to_stop);
-                float cmd_len = vec2d_len(cmd_out);
-                if (cmd_len > v_safe && cmd_len > 0.001f) {
-                    cmd_out = vec2d_scale(cmd_out, v_safe / cmd_len);
-                }
-            } else {
-                cmd_out.x = 0.0f;
-                cmd_out.y = 0.0f;
-            }
-            break;
+        const bool range_valid = !(tick >= SENSOR_FAULT_FROM && tick <= SENSOR_FAULT_TO);
+        /* Немає відлуння — значить, у межах дальності чисто; це не те саме,
+           що збій давача, і плутати їх не можна. */
+        float measured = (gap > SENSOR_MAX_RANGE_M) ? SENSOR_MAX_RANGE_M : gap + sensor_noise();
+        if (measured < 0.0f) {
+            measured = 0.0f;
         }
 
-        case ZONE_OBSERVATION:
-        default:
-            arb->override_active = false;
-            cmd_out = v_plan;
-            break;
+        /* --- Рефлекс: обхід перешкоди по лівій нормалі, у body-фреймі --- */
+        const Vec2 rel_body = safety_odom_to_body(rel_odom, VEHICLE_YAW_RAD);
+        const float rel_len = sqrtf(rel_body.x * rel_body.x + rel_body.y * rel_body.y);
+        Vec2 react_body = { 0.0f, 0.0f };
+        if (rel_len > 1e-3f) {
+            /* Сторона обходу фіксована навмисно: коли перешкода строго по курсу,
+               вибір боку — підкидання монети, а рефлекс не має права
+               передумувати щотакту, інакше апарат затанцює на місці. */
+            react_body.x = -rel_body.y / rel_len * CRUISE_MPS;
+            react_body.y =  rel_body.x / rel_len * CRUISE_MPS;
+        }
+
+        /* --- Такт арбітра --- */
+        const float speed = sqrtf(vel.x * vel.x + vel.y * vel.y);
+        const SafetyInput in = {
+            .v_plan        = plan_body,
+            .v_react       = react_body,
+            .min_range_m   = measured,
+            .range_valid   = range_valid,
+            .current_speed = speed
+        };
+        const SafetyOutput out = safety_arbiter_update(&arb, &in);
+
+        /* --- Виконавчий рівень: уставка з body назад в odom --- */
+        const Vec2 cmd_odom = safety_odom_to_body(out.v_cmd, -VEHICLE_YAW_RAD);
+        const float cmd_len = sqrtf(cmd_odom.x * cmd_odom.x + cmd_odom.y * cmd_odom.y);
+        if (cmd_len > 1e-3f) {
+            heading.x = cmd_odom.x / cmd_len;
+            heading.y = cmd_odom.y / cmd_len;
+        }
+        const float accel = speed_pi_step(&pi, cmd_len, speed, out.override_active,
+                                          params.max_accel);
+        float new_speed = speed + accel * SAFETY_DT_SEC;
+        if (new_speed < 0.0f) {
+            new_speed = 0.0f;
+        }
+        /* Модель голономна: справжній ровер довертався б кермом,
+           тут же напрямок міняється миттєво — для демонстрації арбітражу цього досить. */
+        vel.x = heading.x * new_speed;
+        vel.y = heading.y * new_speed;
+        pos.x += vel.x * SAFETY_DT_SEC;
+        pos.y += vel.y * SAFETY_DT_SEC;
+
+        if ((tick % 10) == 0 || out.zone != prev_zone) {
+            printf("%4d %5.2f %7.2f %6.2f %6.2f  %-11s %5.2f %8.2f %7.2f  %s%s%s\n",
+                   tick, (float)tick * SAFETY_DT_SEC, gap, out.r_stop, out.r_warn,
+                   safety_zone_name(out.zone), out.alpha, cmd_len, new_speed,
+                   out.override_active ? "OVERRIDE " : "",
+                   out.planner_timed_out ? "PLAN-STALE " : "",
+                   range_valid ? "" : "SENSOR-FAULT");
+        }
+        prev_zone = out.zone;
     }
 
-    arb->last_cmd_vel = cmd_out;
-    return cmd_out;
+    printf("\nфініш: x=%.2f м, y=%.2f м, швидкість %.2f м/с\n",
+           pos.x, pos.y, sqrtf(vel.x * vel.x + vel.y * vel.y));
+    return 0;
 }

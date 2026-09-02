@@ -330,6 +330,70 @@ sin(α_sun) = sin(ϕ) · sin(δ) + cos(ϕ) · cos(δ) · cos(H)
 
 Код спроєктовано для роботи на мікроконтролерах та бортових комп'ютерах: він не використовує динамічного виділення пам'яті в критичних циклах і має чітку систему кодів помилок.
 
+Модулі йдуть знизу вгору: геометрія, вітер, рельєф, енергія, конвеєр валідації, демонстраційний прогін.
+
+**Геометрія маршруту.** Плоска модель на середній широті: на масштабах місії її похибка менша за роздільність DEM, тому тригонометрії великого кола тут немає. У C++ ці ж функції живуть поруч із типами місії та переліком причин відмови.
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/geo.h
+:::code chy-zdiisnenna-misiia-d/cpp/mission.hpp
+:::
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/geo.c
+:::code chy-zdiisnenna-misiia-d/cpp/mission.cpp
+:::
+
+**Вітер.** Закон Гельмана піднімає наземний прогноз на висоту польоту, після чого розв'язується трикутник швидкостей. Відсутність дійсного розв'язку — не аварія обчислень, а окремий діагноз: боковий вітер сильніший за повітряну швидкість.
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/wind.h
+:::code chy-zdiisnenna-misiia-d/cpp/wind.hpp
+:::
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/wind.c
+:::code chy-zdiisnenna-misiia-d/cpp/wind.cpp
+:::
+
+**Рельєф.** Підвікно DEM із білінійною інтерполяцією та прохід відрізка з кроком, меншим за половину комірки. Точка поза підвікном — відмова, а не нульова висота: мовчазний нуль тут означав би «рельєфу немає» просто там, де немає даних.
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/terrain.h
+:::code chy-zdiisnenna-misiia-d/cpp/terrain.hpp
+:::
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/terrain.c
+:::code chy-zdiisnenna-misiia-d/cpp/terrain.cpp
+:::
+
+**Потужність і батарея.** Поляра літака `A·v³ + B/v`, режим висіння коптера, робота проти тяжіння, а з боку батареї — струм із урахуванням просадки на внутрішньому опорі, ефект Пейкерта, температурний коефіцієнт і резерв. У C++ тип аеродинаміки — `std::variant`, а не тег із `switch`.
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/energy.h
+:::code chy-zdiisnenna-misiia-d/cpp/power.hpp
+:::
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/energy.c
+:::code chy-zdiisnenna-misiia-d/cpp/power.cpp
+:::
+
+**Конвеєр валідації.** Тут сходяться всі п'ять бар'єрів, сонячна геометрія та перевірка точки безпечного повернення. Кожна відмова несе не лише причину, а й номер відрізка з подробицею — інженер має знати, де саме план ламається.
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/validate.h
+:::code chy-zdiisnenna-misiia-d/cpp/validator.hpp
+:::
+
+:::tabs
+:::code chy-zdiisnenna-misiia-d/c/validate.c
+:::code chy-zdiisnenna-misiia-d/cpp/validator.cpp
+:::
+
+**Прогін.** Той самий план за трьох умов: помірний вітер (GO), удвічі сильніший вітер (шляхова швидкість на зворотному відрізку падає нижче порога) і низький ешелон над гряддям (колізія з рельєфом).
+
 :::tabs
 :::code chy-zdiisnenna-misiia-d/c/main.c
 :::code chy-zdiisnenna-misiia-d/cpp/main.cpp

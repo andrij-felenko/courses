@@ -1,125 +1,258 @@
-#include <cstdint>
+/*
+ * Перевірка драйвера на еталонному векторі Bosch і повний цикл читання
+ * через імітований датчик на шині.
+ */
+
+#include "bmp280.hpp"
+
+#include <algorithm>
 #include <array>
+#include <chrono>
+#include <cstdint>
+#include <format>
+#include <iostream>
 #include <span>
-#include <optional>
+#include <string_view>
 
-namespace sensor {
+namespace {
 
-struct CalibrationData {
-    uint16_t dig_T1{0};
-    int16_t  dig_T2{0};
-    int16_t  dig_T3{0};
-    uint16_t dig_P1{0};
-    int16_t  dig_P2{0};
-    int16_t  dig_P3{0};
-    int16_t  dig_P4{0};
-    int16_t  dig_P5{0};
-    int16_t  dig_P6{0};
-    int16_t  dig_P7{0};
-    int16_t  dig_P8{0};
-    int16_t  dig_P9{0};
+using namespace bmp280;
+
+// Еталонні коефіцієнти, спаковані little-endian, як їх віддає OTP.
+constexpr std::array<std::uint8_t, calibration_bytes> kCalibBytes{
+    0x70, 0x6B, // dig_T1 = 27504
+    0x43, 0x67, // dig_T2 = 26435
+    0x18, 0xFC, // dig_T3 = -1000
+    0x7D, 0x8E, // dig_P1 = 36477
+    0x43, 0xD6, // dig_P2 = -10685
+    0xD0, 0x0B, // dig_P3 = 3024
+    0x27, 0x0B, // dig_P4 = 2855
+    0x8C, 0x00, // dig_P5 = 140
+    0xF9, 0xFF, // dig_P6 = -7
+    0x8C, 0x3C, // dig_P7 = 15500
+    0xF8, 0xC6, // dig_P8 = -14600
+    0x70, 0x17  // dig_P9 = 6000
 };
 
-struct MeasurementResult {
-    int32_t  temperature_centi_deg; // 0.01 °C
-    uint32_t pressure_pa;           // Цілі Паскалі
+// adc_P = 0x655AC = 415148, adc_T = 0x7EE90 = 519888
+constexpr std::array<std::uint8_t, frame_bytes> kFrameBytes{
+    0x65, 0x5A, 0xC0,
+    0x7E, 0xE9, 0x00
 };
 
-class Bmp280Engine {
+constexpr std::int32_t  kRefTFine    = 128422;
+constexpr std::int32_t  kRefTempC100 = 2508;
+constexpr std::uint32_t kRefPressure = 100653;
+
+// Імітований датчик: карта регістрів плюс модель зайнятості АЦП.
+class FakeSensor {
 public:
-    constexpr Bmp280Engine() = default;
+    FakeSensor() noexcept { power_on_reset(); }
 
-    // Безпечний розбір сирого масиву калібрування через std::span
-    bool load_calibration(std::span<const uint8_t, 24> buf) noexcept {
-        auto read_u16 = [](const uint8_t* p) constexpr -> uint16_t {
-            return static_cast<uint16_t>(p[0] | (static_cast<uint16_t>(p[1]) << 8));
-        };
-        auto read_s16 = [](const uint8_t* p) constexpr -> int16_t {
-            return static_cast<int16_t>(p[0] | (static_cast<uint16_t>(p[1]) << 8));
-        };
-
-        calib_.dig_T1 = read_u16(&buf[0]);
-        calib_.dig_T2 = read_s16(&buf[2]);
-        calib_.dig_T3 = read_s16(&buf[4]);
-        calib_.dig_P1 = read_u16(&buf[6]);
-        calib_.dig_P2 = read_s16(&buf[8]);
-        calib_.dig_P3 = read_s16(&buf[10]);
-        calib_.dig_P4 = read_s16(&buf[12]);
-        calib_.dig_P5 = read_s16(&buf[14]);
-        calib_.dig_P6 = read_s16(&buf[16]);
-        calib_.dig_P7 = read_s16(&buf[18]);
-        calib_.dig_P8 = read_s16(&buf[20]);
-        calib_.dig_P9 = read_s16(&buf[22]);
-
-        return calib_.dig_T1 != 0 && calib_.dig_P1 != 0;
-    }
-
-    // Компенсація температури
-    [[nodiscard]] int32_t compensate_temperature(int32_t adc_T) noexcept {
-        const int32_t var1 = ((((adc_T >> 3) - (static_cast<int32_t>(calib_.dig_T1) << 1))) * 
-                               static_cast<int32_t>(calib_.dig_T2)) >> 11;
-
-        const int32_t diff = (adc_T >> 4) - static_cast<int32_t>(calib_.dig_T1);
-        const int32_t var2 = (((diff * diff) >> 12) * static_cast<int32_t>(calib_.dig_T3)) >> 14;
-
-        t_fine_ = var1 + var2;
-        return (t_fine_ * 5 + 128) >> 8;
-    }
-
-    // Компенсація тиску в цілих Паскалях
-    [[nodiscard]] std::optional<uint32_t> compensate_pressure(int32_t adc_P) const noexcept {
-        int64_t var1 = static_cast<int64_t>(t_fine_) - 128000;
-        int64_t var2 = var1 * var1 * static_cast<int64_t>(calib_.dig_P6);
-        var2 += (var1 * static_cast<int64_t>(calib_.dig_P5)) << 17;
-        var2 += static_cast<int64_t>(calib_.dig_P4) << 35;
-        
-        var1 = ((var1 * var1 * static_cast<int64_t>(calib_.dig_P3)) >> 8) + 
-               ((var1 * static_cast<int64_t>(calib_.dig_P2)) << 12);
-        var1 = ((static_cast<int64_t>(1) << 47) + var1) * static_cast<int64_t>(calib_.dig_P1) >> 33;
-
-        if (var1 == 0) {
-            return std::nullopt; // Помилка: ділення на нуль
+    bool read(std::uint8_t reg_addr, std::span<std::uint8_t> dst) noexcept
+    {
+        if (static_cast<std::size_t>(reg_addr) + dst.size() > regs_.size()) {
+            return false; // вихід за карту — те саме, що NACK на шині
         }
 
-        int64_t p = 1048576 - adc_P;
-        p = (((p << 31) - var2) * 3125) / var1;
-        
-        const int64_t p_shift = p >> 13;
-        var1 = (static_cast<int64_t>(calib_.dig_P9) * p_shift * p_shift) >> 25;
-        var2 = (static_cast<int64_t>(calib_.dig_P8) * p) >> 19;
-
-        p = ((p + var1 + var2) >> 8) + (static_cast<int64_t>(calib_.dig_P7) << 4);
-        
-        // Переведення з формату Q24.8 у цілі Паскалі
-        return static_cast<uint32_t>(p >> 8);
-    }
-
-    // Комплексна обробка 6-байтного кадру вимірювання
-    [[nodiscard]] std::optional<MeasurementResult> process_raw_frame(std::span<const uint8_t, 6> frame) noexcept {
-        const int32_t raw_p = (static_cast<int32_t>(frame[0]) << 12) |
-                              (static_cast<int32_t>(frame[1]) << 4)  |
-                              (static_cast<int32_t>(frame[2]) >> 4);
-
-        const int32_t raw_t = (static_cast<int32_t>(frame[3]) << 12) |
-                              (static_cast<int32_t>(frame[4]) << 4)  |
-                              (static_cast<int32_t>(frame[5]) >> 4);
-
-        const int32_t temp = compensate_temperature(raw_t);
-        const auto press = compensate_pressure(raw_p);
-        
-        if (!press) {
-            return std::nullopt;
+        if (reg_addr == reg::status) {
+            std::uint8_t st = 0;
+            if (busy_ticks_ > 0) {
+                st |= status_measuring;
+                --busy_ticks_;
+            }
+            if (im_update_) {
+                st |= status_im_update;
+                im_update_ = false;
+            }
+            regs_[reg::status] = st;
         }
 
-        return MeasurementResult{
-            .temperature_centi_deg = temp,
-            .pressure_pa = *press
-        };
+        std::copy_n(regs_.begin() + reg_addr, dst.size(), dst.begin());
+        return true;
+    }
+
+    bool write(std::uint8_t reg_addr, std::uint8_t value) noexcept
+    {
+        if (reg_addr == reg::reset) {
+            if (value != reset_key) {
+                return false; // чужий ключ датчик просто ігнорує
+            }
+            power_on_reset();
+            return true;
+        }
+
+        regs_[reg_addr] = value;
+
+        if (reg_addr == reg::ctrl_meas &&
+            (value & 0x03u) != static_cast<unsigned>(Mode::sleep)) {
+            // Запуск перетворення: за два опитування статусу з'явиться кадр.
+            busy_ticks_ = 2;
+            std::copy(kFrameBytes.begin(), kFrameBytes.end(),
+                      regs_.begin() + reg::data_start);
+        }
+        return true;
+    }
+
+    void delay(std::chrono::milliseconds pause) noexcept
+    {
+        // Час на хості не йде — вважаємо, що мілісекунда з'їдає такт АЦП.
+        busy_ticks_ = std::max<int>(0, busy_ticks_ - static_cast<int>(pause.count()));
     }
 
 private:
-    CalibrationData calib_{};
-    int32_t t_fine_{0};
+    void power_on_reset() noexcept
+    {
+        regs_.fill(0);
+        regs_[reg::id] = chip_id;
+        std::copy(kCalibBytes.begin(), kCalibBytes.end(),
+                  regs_.begin() + reg::calib_start);
+
+        // Після скидання дані ще порожні: 0x80000 в обох полях.
+        regs_[reg::data_start + 0] = 0x80;
+        regs_[reg::data_start + 3] = 0x80;
+
+        busy_ticks_ = 0;
+        im_update_  = true; // перше читання застає копіювання OTP
+    }
+
+    std::array<std::uint8_t, 256> regs_{};
+    int  busy_ticks_{0};
+    bool im_update_{true};
 };
 
-} // namespace sensor
+static_assert(RegisterBus<FakeSensor>);
+
+constexpr std::string_view error_name(Error e) noexcept
+{
+    switch (e) {
+        case Error::bus:                    return "шина";
+        case Error::wrong_chip:             return "чужий чип";
+        case Error::bad_calibration:        return "побите калібрування";
+        case Error::timeout:                return "тайм-аут";
+        case Error::no_measurement:         return "даних ще немає";
+        case Error::degenerate_calibration: return "вироджений поліном";
+    }
+    return "невідомо";
+}
+
+int check_reference_vector()
+{
+    int failures = 0;
+
+    const auto calib = parse_calibration(std::span<const std::uint8_t, calibration_bytes>{kCalibBytes});
+    if (!calib) {
+        std::cout << std::format("ПОМИЛКА: калібрування — {}\n", error_name(calib.error()));
+        return 1;
+    }
+    if (calib->dig_T1 != 27504 || calib->dig_T2 != 26435 || calib->dig_T3 != -1000 ||
+        calib->dig_P1 != 36477 || calib->dig_P2 != -10685 || calib->dig_P9 != 6000) {
+        std::cout << "ПОМИЛКА: коефіцієнти розібрані невірно\n";
+        ++failures;
+    }
+
+    const auto sample = unpack_frame(std::span<const std::uint8_t, frame_bytes>{kFrameBytes});
+    if (!sample) {
+        std::cout << std::format("ПОМИЛКА: кадр — {}\n", error_name(sample.error()));
+        return failures + 1;
+    }
+    if (sample->pressure != 415148 || sample->temperature != 519888) {
+        std::cout << std::format("ПОМИЛКА: сирі відліки {} / {} замість 415148 / 519888\n",
+                                 sample->pressure, sample->temperature);
+        ++failures;
+    }
+
+    Compensator comp{*calib};
+    const auto result = comp.apply(*sample);
+    if (!result) {
+        std::cout << std::format("ПОМИЛКА: компенсація — {}\n", error_name(result.error()));
+        return failures + 1;
+    }
+    if (result->t_fine != kRefTFine ||
+        result->temperature_centi_c != kRefTempC100 ||
+        result->pressure_pa() != kRefPressure) {
+        std::cout << std::format("ПОМИЛКА: {} / {} / {} замість {} / {} / {}\n",
+                                 result->t_fine, result->temperature_centi_c,
+                                 result->pressure_pa(),
+                                 kRefTFine, kRefTempC100, kRefPressure);
+        ++failures;
+    }
+
+    std::cout << std::format("Еталон: T = {}.{:02} °C, t_fine = {}, p = {}.{:02} Па\n",
+                             result->temperature_centi_c / 100,
+                             result->temperature_centi_c % 100,
+                             result->t_fine,
+                             result->pressure_pa(),
+                             (result->pressure_q24_8 & 0xFFu) * 100u / 256u);
+    return failures;
+}
+
+int check_full_cycle()
+{
+    FakeSensor sensor;
+    const Config cfg{
+        .temperature = Oversampling::x2,  // ×2 вистачає для t_fine
+        .pressure    = Oversampling::x16, // максимум усереднення, шум 0.16 Па
+        .filter      = Filter::x4,        // IIR ×4 проти протягів і струменів
+        .standby     = Standby::ms125,
+        .mode        = Mode::normal
+    };
+
+    auto device = Device<FakeSensor>::open(sensor, cfg);
+    if (!device) {
+        std::cout << std::format("ПОМИЛКА: відкриття — {}\n", error_name(device.error()));
+        return 1;
+    }
+    std::cout << std::format("Час перетворення: {} мс\n", measurement_time(cfg).count());
+
+    const auto meas = device->read();
+    if (!meas) {
+        std::cout << std::format("ПОМИЛКА: читання — {}\n", error_name(meas.error()));
+        return 1;
+    }
+    if (meas->temperature_centi_c != kRefTempC100 || meas->pressure_pa() != kRefPressure) {
+        std::cout << std::format("ПОМИЛКА: повний цикл дав {} / {}\n",
+                                 meas->temperature_centi_c, meas->pressure_pa());
+        return 1;
+    }
+
+    std::cout << std::format("Повний цикл: T = {}.{:02} °C, p = {} Па\n",
+                             meas->temperature_centi_c / 100,
+                             meas->temperature_centi_c % 100,
+                             meas->pressure_pa());
+    return 0;
+}
+
+int check_broken_calibration()
+{
+    std::array<std::uint8_t, calibration_bytes> buf{};
+
+    buf.fill(0xFF);
+    if (parse_calibration(std::span<const std::uint8_t, calibration_bytes>{buf})) {
+        std::cout << "ПОМИЛКА: обрив шини не розпізнано\n";
+        return 1;
+    }
+
+    buf.fill(0x00);
+    if (parse_calibration(std::span<const std::uint8_t, calibration_bytes>{buf})) {
+        std::cout << "ПОМИЛКА: нульове калібрування прийнято\n";
+        return 1;
+    }
+    return 0;
+}
+
+} // namespace
+
+int main()
+{
+    const int failures = check_reference_vector() +
+                         check_full_cycle() +
+                         check_broken_calibration();
+
+    if (failures != 0) {
+        std::cout << std::format("Провалено перевірок: {}\n", failures);
+        return 1;
+    }
+    std::cout << "Драйвер збігається з еталоном біт-у-біт\n";
+    return 0;
+}

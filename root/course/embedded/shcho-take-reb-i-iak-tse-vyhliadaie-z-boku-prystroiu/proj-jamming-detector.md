@@ -53,8 +53,13 @@ MAD = (1 / K) · ∑ |CNR[i] - CNR_avg|
 ## 2. Повна реалізація модуля (C та C++)
 
 :::tabs
-:::code proj-jamming-detector/c/2-povna-realizatsiia.c
-:::code proj-jamming-detector/cpp/2-povna-realizatsiia.cpp
+:::code proj-jamming-detector/c/ew_detector.h
+:::code proj-jamming-detector/cpp/include/ew/detector.hpp
+:::
+
+:::tabs
+:::code proj-jamming-detector/c/ew_detector.c
+:::code proj-jamming-detector/cpp/src/detector.cpp
 :::
 
 ---
@@ -64,8 +69,23 @@ MAD = (1 / K) · ∑ |CNR[i] - CNR_avg|
 Модуль класифікації викликається під час отримання чергового пакетного кадру або за спрацьовуванням таймера моніторингу радіоканалу (наприклад, кожні 100 мс).
 
 :::tabs
-:::code proj-jamming-detector/c/3-intehratsiia-detektora-v.c
-:::code proj-jamming-detector/cpp/3-intehratsiia-detektora-v.cpp
+:::code proj-jamming-detector/c/ew_monitor.h
+:::code proj-jamming-detector/cpp/include/ew/monitor.hpp
+:::
+
+:::tabs
+:::code proj-jamming-detector/c/ew_monitor.c
+:::code proj-jamming-detector/cpp/src/monitor.cpp
+:::
+
+:::tabs
+:::code proj-jamming-detector/c/sx126x_rf.h
+:::code proj-jamming-detector/cpp/include/ew/sx126x.hpp
+:::
+
+:::tabs
+:::code proj-jamming-detector/c/sx126x_rf.c
+:::code proj-jamming-detector/cpp/src/sx126x.cpp
 :::
 
 ---

@@ -70,8 +70,13 @@ raw_20bit = ( (uint32_t)msb << 12 ) | ( (uint32_t)lsb << 4 ) | ( (uint32_t)xlsb 
 
 :::tabs
 @tab C
+:::code proj-bmp280-compensation/c/bmp280.h
+:::code proj-bmp280-compensation/c/bmp280.c
 :::code proj-bmp280-compensation/c/main.c
 @tab C++
+:::code proj-bmp280-compensation/cpp/compensation.hpp
+:::code proj-bmp280-compensation/cpp/compensation.cpp
+:::code proj-bmp280-compensation/cpp/bmp280.hpp
 :::code proj-bmp280-compensation/cpp/main.cpp
 :::
 

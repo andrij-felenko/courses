@@ -260,11 +260,27 @@ F_total = F_attr + Σ F_rep
 :::tabs
 == C
 
-:::code tsil-zamist-komandy-d/c/main.c
+:::code tsil-zamist-komandy-d/c/goal.h
+
+:::code tsil-zamist-komandy-d/c/preflight.h
+
+:::code tsil-zamist-komandy-d/c/preflight.c
+
+:::code tsil-zamist-komandy-d/c/dispatcher.h
+
+:::code tsil-zamist-komandy-d/c/dispatcher.c
 
 == C++
 
-:::code tsil-zamist-komandy-d/cpp/main.cpp
+:::code tsil-zamist-komandy-d/cpp/goal.hpp
+
+:::code tsil-zamist-komandy-d/cpp/flight_envelope.hpp
+
+:::code tsil-zamist-komandy-d/cpp/flight_envelope.cpp
+
+:::code tsil-zamist-komandy-d/cpp/goal_dispatcher.hpp
+
+:::code tsil-zamist-komandy-d/cpp/goal_dispatcher.cpp
 :::
 
 Повний робочий цикл з імітацією польотного контролера, перевіркою черги та реакцією на динамічні події наведено в окремій [проєктній вставці про диспетчер автономних цілей](root:embedded/tsil-zamist-komandy/proj-goal-dispatcher.md).

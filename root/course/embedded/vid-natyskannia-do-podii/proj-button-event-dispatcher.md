@@ -69,6 +69,42 @@
 
 Нижче наведено виробничі реалізації бібліотеки. Версія мовою C розрахована на використання в класичних вбудованих середовищах із чистим C99, а версія на C++ надає строго типізований об'єктний інтерфейс з нульовими накладними витратами (*zero-cost abstractions*) на C++17/C++20.
 
+**Словник подій.** Найперше — те, чим рівні обмінюються між собою: тип події та її опис. Далі по системі ніхто вже не знає, що подія народилася з механічного контакту.
+
+:::tabs
+:::code proj-button-event-dispatcher/c/input_event.h
+:::code proj-button-event-dispatcher/cpp/input_event.hpp
+:::
+
+**Черга подій.** Кільцевий буфер SPSC: продюсер рухає лише `head`, споживач — лише `tail`, спільного лічильника немає, тому критична секція не потрібна. У версії мовою C реалізація лежить в окремому модулі, у C++ — у самому заголовку, бо клас шаблонний.
+
+:::tabs
+:::code proj-button-event-dispatcher/c/event_queue.h
+:::code proj-button-event-dispatcher/cpp/event_queue.hpp
+:::
+
+:::code proj-button-event-dispatcher/c/event_queue.c
+
+**Дебаунс і автомат жестів.** Зсувний регістр історії, сім станів автомата, пороги подвійного кліку й утримання, автоповтор із розгоном від 100 до 20 мс.
+
+:::tabs
+:::code proj-button-event-dispatcher/c/button.h
+:::code proj-button-event-dispatcher/cpp/button.hpp
+:::
+
+:::code proj-button-event-dispatcher/c/button.c
+
+**Квадратурний декодер.** Та сама таблиця переходів коду Грея, що й вище, плюс накопичувач чвертей до повного клацу фіксатора й лічильник заборонених переходів.
+
+:::tabs
+:::code proj-button-event-dispatcher/c/encoder.h
+:::code proj-button-event-dispatcher/cpp/rotary_encoder.hpp
+:::
+
+:::code proj-button-event-dispatcher/c/encoder.c
+
+**Стенд.** Замість переривання таймера — цикл по модельному часу, замість GPIO — сценарій натискань і обертання з брязкотом на фронтах. Автомат ганяється на ПК, не маючи плати.
+
 :::tabs
 :::code proj-button-event-dispatcher/c/main.c
 :::code proj-button-event-dispatcher/cpp/main.cpp

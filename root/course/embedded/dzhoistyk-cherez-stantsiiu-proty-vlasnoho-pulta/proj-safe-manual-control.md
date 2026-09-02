@@ -35,6 +35,48 @@
 
 Нижче наведено повну реалізацію автомата арбітражу. Реалізація мовою C (C99) орієнтована на вбудовані RTOS із статичним виділенням пам'яті, а версія на C++20 використовує строгу типізацію, простори імен, роботу з часом та методи без динамічної алокації (`noexcept`).
 
+**Контракт арбітра** — пороги, стани, осі та лімітер швидкості наростання.
+
+:::tabs
+:::code proj-safe-manual-control/c/arbiter.h
+:::code proj-safe-manual-control/cpp/arbiter.hpp
+:::
+
+**Автомат арбітражу** — усі чотири бар'єри в одному такті контуру стабілізації.
+
+:::tabs
+:::code proj-safe-manual-control/c/arbiter.c
+:::code proj-safe-manual-control/cpp/arbiter.cpp
+:::
+
+**Кодек MAVLink** — оголошення кадру, повідомлень і розбірника потоку байтів.
+
+:::tabs
+:::code proj-safe-manual-control/c/mavlink_frame.h
+:::code proj-safe-manual-control/cpp/mavlink_codec.hpp
+:::
+
+**Розбір і збирання кадрів** — автомат синхронізації, CRC із `CRC_EXTRA`, підпис і обрізання хвостових нулів у кадрі v2.
+
+:::tabs
+:::code proj-safe-manual-control/c/mavlink_frame.c
+:::code proj-safe-manual-control/cpp/mavlink_codec.cpp
+:::
+
+**Радіоміст до станції** — фіксація авторизованої станції та ізоляція `HEARTBEAT` від арбітражу.
+
+:::tabs
+:::code proj-safe-manual-control/c/gcs_link.h
+:::code proj-safe-manual-control/cpp/gcs_session.hpp
+:::
+
+:::tabs
+:::code proj-safe-manual-control/c/gcs_link.c
+:::code proj-safe-manual-control/cpp/gcs_session.cpp
+:::
+
+**Стенд** — модельний політ на 3.4 секунди: сплеск затримки DPC, пачка пакетів, зависле вікно джойстика, перехоплення пультом і роззброєння.
+
 :::tabs
 :::code proj-safe-manual-control/c/main.c
 :::code proj-safe-manual-control/cpp/main.cpp

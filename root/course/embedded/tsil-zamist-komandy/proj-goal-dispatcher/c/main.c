@@ -1,180 +1,53 @@
 #include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <math.h>
 
-#define MAX_GOALS 8
+#include "dispatcher.h"
 
-typedef enum {
-    GOAL_NAVIGATE_WAYPOINT = 0,
-    GOAL_SURVEY_POLYGON,
-    GOAL_LOITER_POSITION,
-    GOAL_EMERGENCY_RETURN
-} GoalAction_e;
+#define SIM_STEPS 10
+#define SIM_DT_S 1.0f
+#define MAX_SPEED_MPS 15.0f  /* маршова швидкість апарата */
+#define SENSOR_RANGE_M 25.0f /* далі перешкода виходить з поля зору далекоміра */
 
-typedef enum {
-    STATE_EMPTY = 0,
-    STATE_PENDING,
-    STATE_ACTIVE,
-    STATE_PREEMPTED,
-    STATE_COMPLETED,
-    STATE_ABORTED,
-    STATE_REJECTED
-} GoalState_e;
-
-typedef struct {
-    uint32_t id;
-    GoalAction_e action;
-    uint8_t priority;       /* 0..255 */
-    float target_x;         /* метри у світовій системі NED */
-    float target_y;
-    float target_z;
-    float tolerance_m;      /* радіус досягнення */
-    float timeout_s;        /* ліміт часу на виконання */
-} GoalItem_t;
-
-typedef struct {
-    float pos_x;
-    float pos_y;
-    float pos_z;
-    float battery_v;
-    bool geofence_valid;
-    bool ekf_healthy;
-    bool obstacle_detected;
-} VehicleTelemetry_t;
-
-typedef struct {
-    GoalItem_t items[MAX_GOALS];
-    GoalState_e states[MAX_GOALS];
-    uint8_t count;
-    int8_t active_idx;
-    float active_timer_s;
-} MissionDispatcher_t;
-
-void mission_dispatcher_init(MissionDispatcher_t *disp) {
-    disp->count = 0;
-    disp->active_idx = -1;
-    disp->active_timer_s = 0.0f;
-    for (uint8_t i = 0; i < MAX_GOALS; i++) {
-        disp->states[i] = STATE_EMPTY;
+/* Груба модель апарата: за такт він проходить у бік заданої точки не більше
+   MAX_SPEED_MPS * dt метрів. Регулятора й планувальника траєкторії тут немає —
+   нас цікавить лише те, які цілі диспетчер вмикає і коли. */
+static void plant_advance(VehicleTelemetry_t *telem, const DispatcherOutput_t *cmd, float dt_s) {
+    if (cmd->mode != OUTPUT_TRACK) {
+        return;  /* IDLE/HOLD/LAND — апарат тримає поточну позицію */
     }
+
+    const float dist = goal_distance(cmd->x, cmd->y, cmd->z,
+                                     telem->pos_x, telem->pos_y, telem->pos_z);
+    if (dist < 1e-3f) {
+        return;
+    }
+
+    const float span = MAX_SPEED_MPS * dt_s;
+    const float k = (span < dist) ? (span / dist) : 1.0f;
+    telem->pos_x += (cmd->x - telem->pos_x) * k;
+    telem->pos_y += (cmd->y - telem->pos_y) * k;
+    telem->pos_z += (cmd->z - telem->pos_z) * k;
+
+    telem->battery_v -= 0.05f * dt_s;  /* політ їсть заряд */
 }
 
-bool mission_dispatcher_enqueue(MissionDispatcher_t *disp, const GoalItem_t *item) {
-    if (disp->count >= MAX_GOALS) {
-        return false;
-    }
-    disp->items[disp->count] = *item;
-    disp->states[disp->count] = STATE_PENDING;
-    disp->count++;
-    return true;
-}
-
-static bool check_preconditions(const GoalItem_t *item, const VehicleTelemetry_t *telem) {
-    if (!telem->ekf_healthy || !telem->geofence_valid) {
-        return false;
-    }
-    if (item->action != GOAL_EMERGENCY_RETURN && telem->battery_v < 21.0f) {
-        return false;
-    }
-    return true;
-}
-
-void mission_dispatcher_step(MissionDispatcher_t *disp, const VehicleTelemetry_t *telem, float dt_s) {
-    /* 1. Якщо виявлено небезпечну перешкоду, формуємо екстрене повернення/зависання */
-    if (telem->obstacle_detected && (disp->active_idx >= 0)) {
-        if (disp->items[disp->active_idx].action != GOAL_EMERGENCY_RETURN) {
-            GoalItem_t emergency_goal = {
-                .id = 9999,
-                .action = GOAL_EMERGENCY_RETURN,
-                .priority = 255,
-                .target_x = 0.0f,
-                .target_y = 0.0f,
-                .target_z = -30.0f,
-                .tolerance_m = 2.0f,
-                .timeout_s = 120.0f
-            };
-            mission_dispatcher_enqueue(disp, &emergency_goal);
-        }
-    }
-
-    /* 2. Пошук найвищого пріоритету серед PENDING та поточної ACTIVE */
-    int8_t candidate_idx = -1;
-    uint8_t highest_prio = 0;
-
-    if (disp->active_idx >= 0) {
-        highest_prio = disp->items[disp->active_idx].priority;
-        candidate_idx = disp->active_idx;
-    }
-
-    for (uint8_t i = 0; i < disp->count; i++) {
-        if (disp->states[i] == STATE_PENDING) {
-            if (disp->active_idx < 0 || disp->items[i].priority > highest_prio) {
-                highest_prio = disp->items[i].priority;
-                candidate_idx = (int8_t)i;
-            }
-        }
-    }
-
-    /* 3. Витіснення або перехід до нового завдання */
-    if (candidate_idx >= 0 && candidate_idx != disp->active_idx) {
-        if (disp->active_idx >= 0) {
-            disp->states[disp->active_idx] = STATE_PREEMPTED;
-            printf("[DISPATCHER] Goal #%u PREEMPTED by higher priority goal #%u\n",
-                   disp->items[disp->active_idx].id, disp->items[candidate_idx].id);
-        }
-
-        if (check_preconditions(&disp->items[candidate_idx], telem)) {
-            disp->active_idx = candidate_idx;
-            disp->states[candidate_idx] = STATE_ACTIVE;
-            disp->active_timer_s = 0.0f;
-            printf("[DISPATCHER] Goal #%u ACTIVE (Priority: %u, Target: [%.1f, %.1f, %.1f])\n",
-                   disp->items[candidate_idx].id,
-                   disp->items[candidate_idx].priority,
-                   disp->items[candidate_idx].target_x,
-                   disp->items[candidate_idx].target_y,
-                   disp->items[candidate_idx].target_z);
-        } else {
-            disp->states[candidate_idx] = STATE_REJECTED;
-            printf("[DISPATCHER] Goal #%u REJECTED by pre-condition check\n",
-                   disp->items[candidate_idx].id);
-            disp->active_idx = -1;
-            return;
-        }
-    }
-
-    /* 4. Оновлення та перевірка досягнення активної мети */
-    if (disp->active_idx >= 0) {
-        GoalItem_t *active_goal = &disp->items[disp->active_idx];
-        disp->active_timer_s += dt_s;
-
-        /* Перевірка таймауту */
-        if (active_goal->timeout_s > 0.0f && disp->active_timer_s > active_goal->timeout_s) {
-            disp->states[disp->active_idx] = STATE_ABORTED;
-            printf("[DISPATCHER] Goal #%u ABORTED due to timeout (%.1f s)\n",
-                   active_goal->id, disp->active_timer_s);
-            disp->active_idx = -1;
-            return;
-        }
-
-        /* Обчислення евклідової дистанції до цільової точки */
-        float dx = active_goal->target_x - telem->pos_x;
-        float dy = active_goal->target_y - telem->pos_y;
-        float dz = active_goal->target_z - telem->pos_z;
-        float distance = sqrtf(dx * dx + dy * dy + dz * dz);
-
-        if (distance <= active_goal->tolerance_m) {
-            disp->states[disp->active_idx] = STATE_COMPLETED;
-            printf("[DISPATCHER] Goal #%u COMPLETED successfully (Distance: %.2f m)\n",
-                   active_goal->id, distance);
-            disp->active_idx = -1;
-        }
+/* Другий бік мосту: потік телеметрії забирає події й пакує їх у MAVLink.
+   Тут замість пакувальника — друк, решта поведінки та сама. */
+static void drain_outbox(MissionOutbox_t *box, float t_s) {
+    MissionEvent_t ev;
+    while (outbox_pop(box, &ev)) {
+        printf("  t=%4.1f с | ціль #%-4u %-9s | MAVLink msg %2u, result %2u | точка [%.1f, %.1f, %.1f]\n",
+               (double)t_s, ev.goal_id, goal_state_name(ev.state),
+               (unsigned)ev.msg_id, (unsigned)ev.result,
+               (double)ev.x, (double)ev.y, (double)ev.z);
     }
 }
 
 int main(void) {
+    MissionOutbox_t outbox;
+    outbox_init(&outbox);
+
     MissionDispatcher_t dispatcher;
-    mission_dispatcher_init(&dispatcher);
+    mission_dispatcher_init(&dispatcher, &outbox);
 
     VehicleTelemetry_t telemetry = {
         .pos_x = 0.0f,
@@ -186,7 +59,7 @@ int main(void) {
         .obstacle_detected = false
     };
 
-    GoalItem_t survey_goal = {
+    const GoalItem_t survey_goal = {
         .id = 101,
         .action = GOAL_SURVEY_POLYGON,
         .priority = 50,
@@ -197,25 +70,45 @@ int main(void) {
         .timeout_s = 60.0f
     };
 
-    mission_dispatcher_enqueue(&dispatcher, &survey_goal);
-
-    printf("=== СИМУЛЯЦІЯ АВТОНОМНОГО ДИСПЕТЧЕРА ===\n");
-    float dt = 1.0f;
-
-    for (int step = 0; step < 10; step++) {
-        /* Імітуємо рух до цілі */
-        telemetry.pos_x += 10.0f;
-        telemetry.pos_y += 5.0f;
-        telemetry.pos_z -= 4.0f;
-
-        /* На 4-му кроці раптово виявляється перешкода */
-        if (step == 3) {
-            printf("\n--- ПОДІЯ: Сенсор виявив перешкоду на курсі! ---\n");
-            telemetry.obstacle_detected = true;
-        }
-
-        mission_dispatcher_step(&dispatcher, &telemetry, dt);
+    if (!mission_dispatcher_enqueue(&dispatcher, &survey_goal)) {
+        fprintf(stderr, "черга цілей повна вже на старті — місію не завантажено\n");
+        return 1;
     }
 
+    printf("=== СИМУЛЯЦІЯ АВТОНОМНОГО ДИСПЕТЧЕРА ===\n");
+
+    /* Точка, де далекомір побачив перешкоду: доки апарат від неї не відійшов,
+       давач продовжує її бачити. */
+    float det_x = 0.0f, det_y = 0.0f, det_z = 0.0f;
+    bool detection_live = false;
+    float t_s = 0.0f;
+
+    for (int step = 0; step < SIM_STEPS; step++, t_s += SIM_DT_S) {
+        if (step == 3) {
+            printf("\n--- ПОДІЯ: далекомір бачить перешкоду на курсі ---\n");
+            telemetry.obstacle_detected = true;
+            detection_live = true;
+            det_x = telemetry.pos_x;
+            det_y = telemetry.pos_y;
+            det_z = telemetry.pos_z;
+        }
+
+        const DispatcherOutput_t cmd = mission_dispatcher_step(&dispatcher, &telemetry, SIM_DT_S);
+        drain_outbox(&outbox, t_s);
+        plant_advance(&telemetry, &cmd, SIM_DT_S);
+
+        if (detection_live &&
+            goal_distance(telemetry.pos_x, telemetry.pos_y, telemetry.pos_z,
+                          det_x, det_y, det_z) > SENSOR_RANGE_M) {
+            /* Маневр відпрацьовано: перешкода вийшла з поля зору давача. */
+            telemetry.obstacle_detected = false;
+            detection_live = false;
+        }
+    }
+
+    printf("\nПідсумок: #101 %s, #9999 %s, подій загублено: %u\n",
+           goal_state_name(mission_dispatcher_state_of(&dispatcher, 101)),
+           goal_state_name(mission_dispatcher_state_of(&dispatcher, 9999)),
+           (unsigned)outbox_dropped(&outbox));
     return 0;
 }

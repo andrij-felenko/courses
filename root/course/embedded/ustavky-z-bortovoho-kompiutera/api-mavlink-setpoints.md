@@ -174,6 +174,29 @@
 
 ## Приклад формування повідомлення уставки
 
+Побудова кадрів: маски, знаки NED, нормалізація кватерніона та межі тяги.
+
+:::tabs
+:::code api-mavlink-setpoints/c/setpoint.h
+:::code api-mavlink-setpoints/cpp/setpoints.hpp
+:::
+
+:::code api-mavlink-setpoints/c/setpoint.c
+
+Канал до автопілота: UDP-сокет, розбір потоку, телеметрія зворотного зв'язку та підтвердження команд.
+
+:::tabs
+:::code api-mavlink-setpoints/c/link.h
+:::code api-mavlink-setpoints/cpp/offboard_session.hpp
+:::
+
+:::tabs
+:::code api-mavlink-setpoints/c/link.c
+:::code api-mavlink-setpoints/cpp/offboard_session.cpp
+:::
+
+Сценарій: потік уставок до перемикання режиму, `MAV_CMD_DO_SET_MODE`, розбір `COMMAND_ACK` і контроль виходу з offboard.
+
 :::tabs
 :::code api-mavlink-setpoints/c/main.c
 :::code api-mavlink-setpoints/cpp/main.cpp

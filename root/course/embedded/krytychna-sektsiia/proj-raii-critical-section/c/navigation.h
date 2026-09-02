@@ -23,4 +23,14 @@ uint32_t navigation_updates(void);
 /* Крок фонового циклу: віддати радіоканалу узгоджений знімок. */
 void telemetry_step(void);
 
+/* Символ із векторної таблиці. */
+void GNSS_IRQHandler(void);
+
+/*
+ * Драйвери плати: у прошивці їх дає BSP, у хостових тестах — фейки.
+ * gnss_read_fix повертає false, якщо кадр битий або ще не готовий.
+ */
+bool gnss_read_fix(navigation_data_t *out);
+void radio_send(const navigation_data_t *fix);
+
 #endif /* NAVIGATION_H */

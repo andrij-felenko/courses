@@ -151,9 +151,25 @@
 
 :::tabs
 @tab C
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/c/metric.h
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/c/metric.c
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/c/hud.h
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/c/hud.c
+
 :::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/c/main.c
 
 @tab C++
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/cpp/channel.hpp
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/cpp/channel.cpp
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/cpp/screen.hpp
+
+:::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/cpp/screen.cpp
+
 :::code chomu-liudyna-ne-bachyt-toho-shcho-na-ekrani-d/cpp/main.cpp
 :::
 

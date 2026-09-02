@@ -82,8 +82,8 @@ void sensor_power_on_blocking() {
 У промислових системах блокування процесора на 35–100 мс неприпустиме (це порушує роботу сторожового таймера Watchdog та зриває обробку швидких сигналів). Тому правильний інженерний підхід — фіксація мітки часу подачі живлення з перевіркою інтервалу в неблокуючому головному циклі або автоматі станів:
 
 :::tabs
-:::code poslidovnist-initsializatsii-d/c/3-blokuiucha-proty.c
-:::code poslidovnist-initsializatsii-d/cpp/3-blokuiucha-proty.cpp
+:::code poslidovnist-initsializatsii-d/c/power_guard.c
+:::code poslidovnist-initsializatsii-d/cpp/power_guard.hpp
 :::
 
 ---
@@ -121,8 +121,8 @@ void sensor_power_on_blocking() {
 ### 3. Опитування прапорця готовності з таймаутом
 
 :::tabs
-:::code poslidovnist-initsializatsii-d/c/3-opytuvannia-praportsia.c
-:::code poslidovnist-initsializatsii-d/cpp/3-opytuvannia-praportsia.cpp
+:::code poslidovnist-initsializatsii-d/c/sensor_probe.c
+:::code poslidovnist-initsializatsii-d/cpp/sensor.cpp
 :::
 
 ### 4. Верифікація апаратного ідентифікатора (CHIP_ID / WHO_AM_I)
@@ -256,8 +256,8 @@ Is_Valid  =  ((V_target & M_care) == (V_read & M_care))
 Тому кожне поле конфігурації обов'язково супроводжується **маскою значущих бітів (Care-Bitmask)**:
 
 :::tabs
-:::code poslidovnist-initsializatsii-d/c/maskuvannia-rozriadiv.c
-:::code poslidovnist-initsializatsii-d/cpp/maskuvannia-rozriadiv.cpp
+:::code poslidovnist-initsializatsii-d/c/sensor_config.c
+:::code poslidovnist-initsializatsii-d/cpp/sensor_config.cpp
 :::
 
 ---
@@ -297,6 +297,11 @@ t_backoff(k)  =  t_base · 2^(k − 1)
 3. Формує явну умову `STOP` (перехід SDA з 0 в 1 при високому SCL);
 4. Якщо на платі передбачено апаратний вивід скидання давача (`NRST`) або транзисторний ключ комутації живлення периферії *(Power Switch)* — виконує примусовий циклічний перезапуск живлення *(Power Cycle)*.
 
+:::tabs
+:::code poslidovnist-initsializatsii-d/c/bus_recovery.c
+:::code poslidovnist-initsializatsii-d/cpp/bus_recovery.cpp
+:::
+
 ### 3. Відкат стану драйвера (State Rollback) та інформування верхнього рівня
 
 Якщо після вичерпання всіх спроб пристрій не пройшов верифікацію, драйвер зобов'язаний:
@@ -305,9 +310,19 @@ t_backoff(k)  =  t_base · 2^(k − 1)
 3. Заборонити генерацію переривань від модуля;
 4. Повернути код фатальної помилки вищому шару архітектури застосунку *(Application Layer)*.
 
+:::tabs
+:::code poslidovnist-initsializatsii-d/c/sensor_bringup.c
+:::code poslidovnist-initsializatsii-d/cpp/bringup.cpp
+:::
+
 Вищий рівень системи діє відповідно до критичності периферійного пристрою:
 - **Некритичний давач (наприклад, датчик вологості в системі кондиціонування):** система продовжує роботу, маркує відліки як невалідні, вмикає світлодіод діагностики та надсилає аварійний код у журнал подій;
 - **Критичний датчик (наприклад, основний гіроскоп польотного контролера або датчик тиску в медичному апараті ШВЛ):** система негайно блокує активацію силових приводів, перемикається на резервний датчик або переводить виріб в аварійний безпечний стан *(Safe State)*.
+
+:::tabs
+:::code poslidovnist-initsializatsii-d/c/main.c
+:::code poslidovnist-initsializatsii-d/cpp/main.cpp
+:::
 
 Повну практичну реалізацію неблокуючого драйвера з автоматом скінченних станів, таймерами та обробкою повторів дивіться у [практикумі реалізації неблокуючого автомата ініціалізації периферійного чипа](root:embedded/poslidovnist-initsializatsii/proj-device-init-fsm.md).
 

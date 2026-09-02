@@ -31,9 +31,46 @@ deflection = max(|roll|, |pitch|, |yaw|)
 
 Нижче наведено самодостатню реалізацію модуля мовами C (стандарт C99) та C++ (сучасний ідіоматичний C++20 із типізованими переліками `enum class`, просторами імен та `std::chrono`). До коду включено повний консольний симулятор польотних сценаріїв.
 
+Інтерфейс модуля — джерела рішень, канали уставки, налаштування сторожа й коди відмови на прийомі кадру:
+
+:::tabs
+:::code proj-control-arbiter/c/arbiter.h
+:::code proj-control-arbiter/cpp/include/arbiter.hpp
+:::
+
+Ядро: сторожові таймери, ієрархія авторитету з гістерезисом мертвої смуги та лімітер швидкості наростання:
+
+:::tabs
+:::code proj-control-arbiter/c/arbiter.c
+:::code proj-control-arbiter/cpp/src/arbiter.cpp
+:::
+
+Атомарний подвійний буфер, через який кадри з переривань UART потрапляють у польотний цикл без м'ютексів:
+
+:::tabs
+:::code proj-control-arbiter/c/ingest.h
+:::code proj-control-arbiter/cpp/include/mailbox.hpp
+:::
+
+:::code proj-control-arbiter/c/ingest.c
+
+Діагностичний пін: фронт у момент детекції наміру пілота, спад — після передавання уставки мікшеру:
+
+:::tabs
+:::code proj-control-arbiter/c/trace.h
+:::code proj-control-arbiter/cpp/include/diag_pin.hpp
+:::
+
+:::tabs
+:::code proj-control-arbiter/c/trace.c
+:::code proj-control-arbiter/cpp/src/diag_pin.cpp
+:::
+
+Стенд польотних сценаріїв — той самий такт, що й на борту: забрати кадри зі скриньок, розсудити, віддати мікшеру:
+
 :::tabs
 :::code proj-control-arbiter/c/main.c
-:::code proj-control-arbiter/cpp/main.cpp
+:::code proj-control-arbiter/cpp/src/main.cpp
 :::
 
 ## Покроковий розбір сценаріїв роботи стенда

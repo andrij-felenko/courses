@@ -53,14 +53,12 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-density-altitude.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ]
         }
@@ -102,16 +100,14 @@
           "math": [
             {
               "file": "math-battery-scaling.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-weight-budget-calc.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -133,21 +129,18 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-sub250-kinetic-impact.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-sub250-mass-optimizer.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ]
         }
@@ -209,15 +202,13 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "proj": [
             {
               "file": "proj-thrust-rig.md",
               "status": "deeper",
-              "recode": true,
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -236,14 +227,12 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-eddy-hysteresis-loss.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -251,7 +240,7 @@
               "file": "proj-thermal-throttle.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -296,22 +285,19 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-dynamic-balancing.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-in-situ-balancer.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -343,8 +329,7 @@
           "math": [
             {
               "file": "math-impact-mechanics.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -352,7 +337,7 @@
               "file": "proj-crash-detection.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -397,8 +382,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           }
         },
         {
@@ -408,21 +392,18 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-biot-savart-wire-loop.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-compass-mot-calibration.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ]
         },
@@ -506,16 +487,14 @@
           "api": [
             {
               "file": "api-resource-mapping.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-resource-solver.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -532,15 +511,14 @@
           "api": [
             {
               "file": "api-bootloader-contract.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "comp": [
             {
               "file": "comp-flight-stacks-internals.md",
               "status": "deeper",
-              "level": 4
+              "level": 2
             }
           ],
           "proj": [
@@ -548,7 +526,7 @@
               "file": "proj-dfu-jump-bootloader.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -619,9 +597,8 @@
           "proj": [
             {
               "file": "proj-companion-bridge.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -669,8 +646,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           }
         },
         {
@@ -691,30 +667,25 @@
           "slug": "fc-setup-calibration",
           "title": "Первинне налаштування: калібрування давачів і радіо",
           "basic": {
-            "status": "done",
-            "recode": true
+            "status": "done"
           },
           "detailed": {
-            "status": "done",
-            "recode": true
+            "status": "done"
           },
           "math": [
             {
               "file": "math-declination-model.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             },
             {
               "file": "math-ellipsoid-fit.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-accel-cal.md",
-              "status": "recheck",
-              "recode": true
+              "status": "recheck"
             }
           ]
         },
@@ -731,14 +702,14 @@
             {
               "file": "math-ferschee-ellipsoid-fit.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-mag-cal-solver.md",
               "status": "deeper",
-              "level": 5
+              "level": 3
             }
           ]
         },
@@ -754,9 +725,7 @@
           "api": [
             {
               "file": "api-arming-disable-flags.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -764,7 +733,7 @@
               "file": "proj-arming-flags-decoder.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -798,7 +767,7 @@
             {
               "file": "proj-pid-step-analyzer.md",
               "status": "deeper",
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -878,16 +847,14 @@
           "math": [
             {
               "file": "math-damper-resonance.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-mounting-mechanics.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -898,14 +865,12 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-sloshing-pendulum.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ]
         },
@@ -922,8 +887,7 @@
             {
               "file": "proj-payload-mavlink-driver.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -938,22 +902,19 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-drop-ballistics.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-ballistic-calculator.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -1021,8 +982,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
@@ -1034,8 +994,7 @@
             {
               "file": "proj-takeoff-detector.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -1050,14 +1009,12 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "math": [
             {
               "file": "math-transition-forces.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ]
         }
@@ -1134,29 +1091,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           },
           "comp": [
             {
               "file": "comp-rover-gearboxes.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-wheel-torque.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-drive-selection.md",
-              "status": "deeper",
-              "recode": true,
-              "level": 2
+              "status": "recheck"
             }
           ]
         },
@@ -1184,16 +1136,14 @@
           "math": [
             {
               "file": "math-dew-point-desiccant.md",
-              "status": "deeper",
-              "level": 3
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-vacuum-decay-tester.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }
@@ -1215,15 +1165,14 @@
           "math": [
             {
               "file": "math-impedance-control.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-admittance-controller.md",
               "status": "deeper",
-              "level": 4
+              "level": 2
             }
           ]
         },
@@ -1262,8 +1211,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck",
-            "recode": true
+            "status": "recheck"
           }
         },
         {
@@ -1282,8 +1230,7 @@
           "math": [
             {
               "file": "math-zmp-derivation.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
@@ -1291,7 +1238,7 @@
               "file": "proj-zmp-guard.md",
               "status": "deeper",
               "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         },
@@ -1307,23 +1254,20 @@
           "api": [
             {
               "file": "api-drive-safety-functions.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-contact-biomechanics.md",
-              "status": "deeper",
-              "level": 4
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-safety-watchdog.md",
               "status": "deeper",
-              "recode": true,
-              "level": 3
+              "level": 2
             }
           ]
         }

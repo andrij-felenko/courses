@@ -1,115 +1,184 @@
-#include <stdint.h>
-#include <stdbool.h>
+/* Програмна модель кристала, у яку по черзі вносимо описані в статті
+ * дефекти монтажу. Кожен сценарій має очікуваний вердикт — так модуль
+ * валідації перевіряє сам себе, не потребуючи плати на столі. */
+#include "bringup.h"
 
-/* Коди помилок діагностики */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef enum {
-    BRINGUP_OK = 0,
-    BRINGUP_ERR_BUS_FAULT_0xFF,      /* Обрив лінії, немає живлення, лінія в підтяжці */
-    BRINGUP_ERR_BUS_FAULT_0x00,      /* Замикання на GND, зависла шина */
-    BRINGUP_ERR_SPI_PHASE_SHIFT,     /* Зсув бітів: хибний CPOL/CPHA */
-    BRINGUP_ERR_WRONG_CHIP_ID,       /* Чужий ID: невідома ревізія або підробка */
-    BRINGUP_ERR_SCRATCHPAD_FAILED,   /* Помилка двостороннього запису/читання */
-    BRINGUP_ERR_TIMEOUT              /* Відсутня відповідь після N спроб */
-} bringup_status_t;
+    SIM_HEALTHY = 0,
+    SIM_CHIP_ABSENT,        /* чип не пропаяний: ніхто не підтверджує адресу */
+    SIM_SLOW_POR,           /* кремній прокидається пізніше, ніж ми починаємо питати */
+    SIM_MISO_PULLUP,        /* CS не падає в нуль: на лінії лише резистор до VDD */
+    SIM_SHORT_TO_GND,       /* крапля припою між лінією даних і полігоном землі */
+    SIM_I2C_BUS_HANG,       /* слейв утримує SDA після скидання ведучого */
+    SIM_SPI_MODE_MISMATCH,  /* хибний CPHA: біти зсунуто вліво */
+    SIM_MOSI_BREAK,         /* мікротріщина на лінії запису */
+    SIM_SCRATCHPAD_BRIDGE   /* злиті сусідні тригери конфігураційного регістра */
+} sim_defect_t;
 
-/* Інтерфейс апаратного драйвера шини (HAL) */
 typedef struct {
-    bool (*read_reg)(uint8_t reg_addr, uint8_t *data);
-    bool (*write_reg)(uint8_t reg_addr, uint8_t data);
-    void (*delay_ms)(uint32_t ms);
-} bus_driver_t;
+    sim_defect_t defect;
+    uint8_t      reg[256];
+    uint32_t     clock_ms;  /* модельний час від подачі живлення */
+    uint32_t     por_ms;    /* коли внутрішній автомат чипа справді прокидається */
+    unsigned     reads;
+    unsigned     writes;
+} sim_chip_t;
 
-/* Конфігурація цільового пристрою */
-typedef struct {
-    uint8_t who_am_i_reg;
-    uint8_t expected_id;
-    uint8_t scratchpad_reg;
-} chip_config_t;
+static void sim_init(sim_chip_t *chip, sim_defect_t defect)
+{
+    memset(chip, 0, sizeof *chip);
+    chip->defect = defect;
+    chip->por_ms = (defect == SIM_SLOW_POR) ? 40u : 5u;
+    chip->reg[0x75] = 0x68u;  /* WHO_AM_I: зашитий у кремній паспорт MPU-6050 */
+    chip->reg[0x19] = 0x07u;  /* SMPLRT_DIV: робоче значення дільника частоти */
+}
 
-/* Повний діагностичний звіт */
-typedef struct {
-    bringup_status_t status;
-    uint8_t          received_id;
-    uint8_t          scratchpad_readback;
-    uint8_t          failed_pattern;
-} diagnostic_report_t;
+static bool sim_read(void *ctx, uint8_t reg, uint8_t *out)
+{
+    sim_chip_t *chip = (sim_chip_t *)ctx;
+    uint8_t value;
 
-diagnostic_report_t validate_chip_connection(const bus_driver_t *bus, const chip_config_t *cfg) {
-    diagnostic_report_t report = {0};
-    uint8_t read_val = 0;
-    
-    // 1. Апаратна пауза t_POR для стабілізації внутрішньої схеми скидання (зазвичай 5..20 мс)
-    bus->delay_ms(15);
-    
-    // 2. Зчитування WHO_AM_I з повторними спробами (Retry loop)
-    bool read_success = false;
-    for (int retry = 0; retry < 5; ++retry) {
-        if (bus->read_reg(cfg->who_am_i_reg, &read_val)) {
-            read_success = true;
-            break;
-        }
-        bus->delay_ms(2);
+    chip->reads++;
+
+    switch (chip->defect) {
+    case SIM_CHIP_ABSENT:
+        return false;              /* адресу ніхто не підтвердив: NACK */
+    case SIM_MISO_PULLUP:
+        *out = 0xFFu;              /* вихід чипа у Z-стані, читаємо саму підтяжку */
+        return true;
+    case SIM_SHORT_TO_GND:
+    case SIM_I2C_BUS_HANG:
+        *out = 0x00u;              /* лінію тримає припій або завислий слейв */
+        return true;
+    default:
+        break;
     }
-    
-    if (!read_success) {
-        report.status = BRINGUP_ERR_TIMEOUT;
-        return report;
+
+    if (chip->clock_ms < chip->por_ms) {
+        return false;              /* цифрове ядро ще під внутрішнім скиданням */
     }
-    
-    report.received_id = read_val;
-    
-    // 3. Аналіз аномальних електричних станів шини
-    if (read_val == 0xFF) {
-        report.status = BRINGUP_ERR_BUS_FAULT_0xFF;
-        return report;
+
+    value = chip->reg[reg];
+
+    if (chip->defect == SIM_SPI_MODE_MISMATCH) {
+        /* Ведучий стробує на пів такту пізніше: старший біт губиться, решта
+         * з'їжджає вліво, а знизу підтягується стан спокою лінії. */
+        value = (uint8_t)(value << 1);
     }
-    if (read_val == 0x00) {
-        report.status = BRINGUP_ERR_BUS_FAULT_0x00;
-        return report;
+
+    *out = value;
+    return true;
+}
+
+static bool sim_write(void *ctx, uint8_t reg, uint8_t value)
+{
+    sim_chip_t *chip = (sim_chip_t *)ctx;
+
+    chip->writes++;
+
+    switch (chip->defect) {
+    case SIM_CHIP_ABSENT:
+        return false;
+    case SIM_SHORT_TO_GND:
+    case SIM_I2C_BUS_HANG:
+        return false;              /* на притиснутій SDA не видати навіть умови СТАРТ */
+    default:
+        break;
     }
-    
-    // 4. Перевірка фазового зсуву бітів SPI (CPOL/CPHA)
-    uint8_t shifted_left  = (uint8_t)(cfg->expected_id << 1);
-    uint8_t shifted_right = (uint8_t)(cfg->expected_id >> 1);
-    if (read_val == shifted_left || read_val == shifted_right) {
-        report.status = BRINGUP_ERR_SPI_PHASE_SHIFT;
-        return report;
+
+    if (chip->clock_ms < chip->por_ms) {
+        return false;
     }
-    
-    // 5. Звірка з еталонним ідентифікатором
-    if (read_val != cfg->expected_id) {
-        report.status = BRINGUP_ERR_WRONG_CHIP_ID;
-        return report;
+
+    if (chip->defect == SIM_MOSI_BREAK) {
+        /* Периферія ведучого відтактувала кадр і рапортує успіх, але байт
+         * до кристала не доїхав: регістр лишається старим. */
+        return true;
     }
-    
-    // 6. Тест Scratchpad: перевірка тракту запису та читання
-    const uint8_t test_patterns[] = {0x55, 0xAA, 0x00, 0xFF};
-    uint8_t original_scratchpad_val = 0;
-    
-    // Збереження початкового стану конфігураційного регістра
-    bus->read_reg(cfg->scratchpad_reg, &original_scratchpad_val);
-    
-    for (size_t i = 0; i < sizeof(test_patterns); ++i) {
-        uint8_t pattern = test_patterns[i];
-        uint8_t readback = 0;
-        
-        bus->write_reg(cfg->scratchpad_reg, pattern);
-        bus->read_reg(cfg->scratchpad_reg, &readback);
-        
-        if (readback != pattern) {
-            report.status = BRINGUP_ERR_SCRATCHPAD_FAILED;
-            report.failed_pattern = pattern;
-            report.scratchpad_readback = readback;
-            
-            // Спроба відновити вихідний стан перед аварійним виходом
-            bus->write_reg(cfg->scratchpad_reg, original_scratchpad_val);
-            return report;
+
+    if (chip->defect == SIM_SCRATCHPAD_BRIDGE) {
+        const uint8_t pair = 0x30u;  /* злиті розряди 4 і 5 комірки конфігурації */
+        if ((value & pair) != 0u) {
+            value |= pair;
         }
     }
-    
-    // Відновлення робочої конфігурації
-    bus->write_reg(cfg->scratchpad_reg, original_scratchpad_val);
-    
-    report.status = BRINGUP_OK;
-    return report;
+
+    chip->reg[reg] = value;
+    return true;
+}
+
+static void sim_delay(void *ctx, uint32_t ms)
+{
+    ((sim_chip_t *)ctx)->clock_ms += ms;
+}
+
+typedef struct {
+    const char      *title;
+    sim_defect_t     defect;
+    bringup_status_t expected;
+} scenario_t;
+
+static const scenario_t SCENARIOS[] = {
+    { "Справна плата",                                  SIM_HEALTHY,           BRINGUP_OK              },
+    { "Чип не пропаяний: NACK на адресу",               SIM_CHIP_ABSENT,       BRINGUP_NO_ANSWER       },
+    { "Старт раніше за готовність кремнію (t_POR)",     SIM_SLOW_POR,          BRINGUP_NO_ANSWER       },
+    { "CS не падає: на MISO сама підтяжка",             SIM_MISO_PULLUP,       BRINGUP_BUS_STUCK_HIGH  },
+    { "Крапля припою: лінія даних на землі",            SIM_SHORT_TO_GND,      BRINGUP_BUS_STUCK_LOW   },
+    { "Зависла шина I2C після скидання ведучого",       SIM_I2C_BUS_HANG,      BRINGUP_BUS_STUCK_LOW   },
+    { "Хибний режим SPI: CPHA=1 замість 0",             SIM_SPI_MODE_MISMATCH, BRINGUP_BIT_SHIFT       },
+    { "Мікротріщина на MOSI: запис не доходить",        SIM_MOSI_BREAK,        BRINGUP_WRITE_PATH_DEAD },
+    { "Місток між розрядами конфігураційного регістра", SIM_SCRATCHPAD_BRIDGE, BRINGUP_SCRATCHPAD_BAD  },
+};
+
+int main(void)
+{
+    static const chip_config_t MPU6050 = {
+        "InvenSense MPU-6050",
+        0x75u,   /* WHO_AM_I */
+        0x68u,   /* заводське значення */
+        0x19u,   /* SMPLRT_DIV: вісім живих тригерів без побічних ефектів */
+        15u,     /* t_POR із запасом для MEMS */
+        5u,      /* спроб читання */
+        2u       /* пауза між спробами, мс */
+    };
+
+    unsigned failures = 0u;
+    unsigned i;
+
+    printf("Первинна валідація %s на модельній платі\n", MPU6050.name);
+
+    for (i = 0u; i < sizeof SCENARIOS / sizeof SCENARIOS[0]; ++i) {
+        sim_chip_t chip;
+        bus_driver_t bus;
+        diagnostic_report_t report;
+        bool matched;
+
+        sim_init(&chip, SCENARIOS[i].defect);
+
+        bus.read_reg = sim_read;
+        bus.write_reg = sim_write;
+        bus.delay_ms = sim_delay;
+        bus.ctx = &chip;
+
+        printf("\n[%u] %s\n", i + 1u, SCENARIOS[i].title);
+        report = bringup_validate(&bus, &MPU6050);
+        bringup_print_report(&report, &MPU6050);
+        printf("  кадрів шини  : читань %u, записів %u; модельний час %u мс\n",
+               chip.reads, chip.writes, chip.clock_ms);
+
+        matched = (report.status == SCENARIOS[i].expected);
+        if (!matched) {
+            failures++;
+            printf("  !! класифікатор помилився: чекали \"%s\"\n",
+                   bringup_status_text(SCENARIOS[i].expected));
+        }
+    }
+
+    printf("\nСценаріїв: %u, розбіжностей класифікації: %u\n",
+           (unsigned)(sizeof SCENARIOS / sizeof SCENARIOS[0]), failures);
+    return failures == 0u ? EXIT_SUCCESS : EXIT_FAILURE;
 }

@@ -99,7 +99,28 @@ P_res = I_LED² · R_ballast             [потужність теплових 
 Нижче наведено реалізацію періодичного кінцевого автомата на мовах C та C++.
 
 :::tabs
-:::code proj-power-and-reset-protection/c/button_led_driver.c
+:::code proj-power-and-reset-protection/c/debounce.c
+:::code proj-power-and-reset-protection/cpp/debouncer.hpp
+:::
+
+Другий підхід — маскування лінії EXTI на час брязкоту з одноразовим таймером TIM3:
+
+:::tabs
+:::code proj-power-and-reset-protection/c/exti_button.c
+:::code proj-power-and-reset-protection/cpp/button_irq.cpp
+:::
+
+Обидва варіанти спираються на один шар доступу до заліза: підтяжка входу, режим вихідного каскаду та перемикання світлодіода активним нулем.
+
+:::tabs
+:::code proj-power-and-reset-protection/c/board.c
+:::code proj-power-and-reset-protection/cpp/gpio.hpp
+:::
+
+Точка входу вмикає рівно один із двох механізмів фільтрації, бо обидва керують тим самим виводом:
+
+:::tabs
+:::code proj-power-and-reset-protection/c/main.c
 :::code proj-power-and-reset-protection/cpp/main.cpp
 :::
 

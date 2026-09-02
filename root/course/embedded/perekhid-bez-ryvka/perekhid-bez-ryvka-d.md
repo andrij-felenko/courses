@@ -303,8 +303,8 @@
 Детальний опис усіх структур даних, кодів помилок та сигнатур функцій винесено в окремий [довідник інтерфейсу безривкового ПІД](root:embedded/perekhid-bez-ryvka/api-bumpless-pid.md).
 
 :::tabs
-:::code perekhid-bez-ryvka-d/c/main.c
-:::code perekhid-bez-ryvka-d/cpp/main.cpp
+:::code perekhid-bez-ryvka-d/c/src/bumpless_pid.c
+:::code perekhid-bez-ryvka-d/cpp/src/pid.cpp
 :::
 
 Повний приклад побудови повноцінного диспетчера польотних режимів з автоматом станів, обробкою подій від пульта та наскрізною перевіркою безривковості реалізовано у [практичному проекті диспетчера режимів](root:embedded/perekhid-bez-ryvka/proj-mode-switcher.md).

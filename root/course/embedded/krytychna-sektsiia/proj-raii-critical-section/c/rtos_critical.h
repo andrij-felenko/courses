@@ -12,6 +12,9 @@
  * vTaskDelay тощо): планувальник у цей час вимкнений.
  */
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -64,7 +67,12 @@ static inline void rtos_section_cleanup_(const rtos_section_t *rs)
 /* --- Приклад спільного стану --------------------------------------------- */
 /*
  * Лічильники радіолінка: їх чіпає і задача передавача, і обробник
- * переривання UART. Той самий блок працює в обох контекстах.
+ * переривання UART. Той самий блок працює в обох контекстах, тому окремих
+ * *_from_isr варіантів у цього API немає.
+ *
+ * Стан передаємо покажчиком, а не ховаємо в заголовку: змінна в .h
+ * розмножилася б по кожній одиниці трансляції, і два модулі рахували б
+ * різні кадри.
  */
 
 typedef struct {
@@ -72,24 +80,23 @@ typedef struct {
     uint32_t crc_errors;
 } link_stats_t;
 
-static link_stats_t g_link_stats;
-
-static inline void link_stats_add_frame(bool crc_ok)
+static inline void link_stats_add_frame(link_stats_t *st, bool crc_ok)
 {
     RTOS_CRITICAL_BLOCK() {
-        g_link_stats.frames++;
+        st->frames++;
         if (!crc_ok) {
-            g_link_stats.crc_errors++;
+            st->crc_errors++;
         }
     }
 }
 
-static inline link_stats_t link_stats_read(void)
+static inline link_stats_t link_stats_read(const link_stats_t *st)
 {
-    link_stats_t copy = { 0U, 0U };
+    link_stats_t copy;
 
+    /* Два поля — це два LDR; знімок мусить бути з одного моменту часу. */
     RTOS_CRITICAL_BLOCK() {
-        copy = g_link_stats;
+        copy = *st;
     }
     return copy;
 }

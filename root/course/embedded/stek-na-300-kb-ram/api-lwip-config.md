@@ -153,14 +153,10 @@
 :::tabs
 
 @tab C (Виклик діагностики)
-```c
-#if LWIP_STATS
-    stats_display(); /* Друк повної карти використання пам'яті в UART/консоль */
-#endif
-```
+:::code api-lwip-config/c/lwip-diag.c
 
 @tab C++ (Діагностична обгортка)
-:::code api-lwip-config/cpp/5-diahnostyka-vycherpannia.cpp
+:::code api-lwip-config/cpp/stats-report.cpp
 
 :::
 
@@ -181,10 +177,10 @@
 :::tabs
 
 @tab C (lwipopts.h)
-:::code api-lwip-config/c/profil-1-mikrokontrolernyi.h
+:::code api-lwip-config/c/lwipopts-minimal.h
 
 @tab C++ (Опис параметрів профілю)
-:::code api-lwip-config/cpp/profil-1-mikrokontrolernyi.cpp
+:::code api-lwip-config/cpp/profile-minimal.cpp
 
 :::
 
@@ -194,10 +190,10 @@
 :::tabs
 
 @tab C (lwipopts.h)
-:::code api-lwip-config/c/profil-2-promyslovyi.h
+:::code api-lwip-config/c/lwipopts-industrial.h
 
 @tab C++ (Опис параметрів профілю)
-:::code api-lwip-config/cpp/profil-2-promyslovyi.cpp
+:::code api-lwip-config/cpp/profile-industrial.cpp
 
 :::
 
@@ -207,9 +203,9 @@
 :::tabs
 
 @tab C (lwipopts.h)
-:::code api-lwip-config/c/profil-3-vysokoshvydkisnyi.h
+:::code api-lwip-config/c/lwipopts-zerocopy.h
 
 @tab C++ (Опис параметрів профілю)
-:::code api-lwip-config/cpp/profil-3-vysokoshvydkisnyi.cpp
+:::code api-lwip-config/cpp/profile-zerocopy.cpp
 
 :::

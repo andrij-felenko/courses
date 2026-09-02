@@ -76,8 +76,8 @@
 6. **Загальний стан здоров'я (`system_status`)**. Коди `MAV_STATE` інформують станцію, чи перебуває апарат на стадії завантаження бутлоадера (`MAV_STATE_BOOT`), виконує гіроскопічне калібрування сенсорів (`MAV_STATE_CALIBRATING`), очікує зльоту (`MAV_STATE_STANDBY`) чи перебуває в критичному аварійному стані відмови навігації (`MAV_STATE_CRITICAL`).
 
 :::tabs
-:::code pershe-ziednannia-d/cpp/faza-1-vyiavlennia.cpp
-:::code pershe-ziednannia-d/py/faza-1-vyiavlennia.py
+:::code pershe-ziednannia-d/cpp/vehicle_registry.cpp
+:::code pershe-ziednannia-d/py/gcs/vehicle.py
 :::
 
 Щойно станція зафіксувала `HEARTBEAT`, вона зберігає `target_system = msg.sysid` та `target_component = msg.compid` і запускає лічильник контролю зв'язку (**Liveness Watchdog**). Якщо автопілот перестане надсилати серцебиття протягом 3.5 секунди (3 пропущених кадри поспіль), станція негайно переводить інтерфейс у стан `LINK_LOST`, фарбує показники телеметрії в сірий колір і блокує відправку будь-яких польотних дій.
@@ -177,8 +177,8 @@
 Ця конфігурація займає лише ~1.3 КБ/с із доступних ~3.5 КБ/с. Вільні 60% смуги залишаються для передачі команд оператора, завантаження нових шляхових точок під час польоту та резерву на випадок повторів при радіоперешкодах.
 
 :::tabs
-:::code pershe-ziednannia-d/cpp/rozrakhunok-biudzhetu.cpp
-:::code pershe-ziednannia-d/py/rozrakhunok-biudzhetu.py
+:::code pershe-ziednannia-d/cpp/telemetry_budget.cpp
+:::code pershe-ziednannia-d/py/gcs/telemetry.py
 :::
 
 Після відправки кожної команди `COMMAND_LONG` станція очікує підтвердження `COMMAND_ACK` із кодом `MAV_RESULT_ACCEPTED`. Якщо підтвердження не надходить протягом 600 мс, команда повторюється зі збільшенням поля `confirmation = 1, 2, ...`.
@@ -237,8 +237,28 @@
 Головний цикл рушія зв'язку працює за неблокувальним принципом: він вичитує сирі байти з каналу, збирає кадри MAVLink за допомогою парсера `mavlink_parse_char()`, диспетчеризує повідомлення за станами FSM і контролює таймери активності.
 
 :::tabs
-:::code pershe-ziednannia-d/cpp/faza-5-povna-arkhitektura.cpp
-:::code pershe-ziednannia-d/py/faza-5-povna-arkhitektura.py
+:::code pershe-ziednannia-d/cpp/serial_link.cpp
+:::code pershe-ziednannia-d/py/gcs/link.py
+:::
+
+:::tabs
+:::code pershe-ziednannia-d/cpp/param_sync.cpp
+:::code pershe-ziednannia-d/py/gcs/params.py
+:::
+
+:::tabs
+:::code pershe-ziednannia-d/cpp/mission_sync.cpp
+:::code pershe-ziednannia-d/py/gcs/mission.py
+:::
+
+:::tabs
+:::code pershe-ziednannia-d/cpp/handshake.cpp
+:::code pershe-ziednannia-d/py/gcs/handshake.py
+:::
+
+:::tabs
+:::code pershe-ziednannia-d/cpp/main.cpp
+:::code pershe-ziednannia-d/py/main.py
 :::
 
 Повну робочу програму автономного клієнта рукостискання з асинхронним циклом вичитки, відновленням параметрів через чергу дозапитів та квитуванням місії наведено в [практичній реалізації рушія первинного рукостискання](root:embedded/pershe-ziednannia/proj-handshake-engine.md).

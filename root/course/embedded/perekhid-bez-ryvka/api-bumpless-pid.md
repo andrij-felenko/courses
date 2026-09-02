@@ -9,8 +9,8 @@
 Конфігураційні параметри відокремлені від динамічного стану регулятора. Це дозволяє зберігати конфігурацію у Flash/ROM або перезавантажувати її з енергонезалежної пам'яті (EEPROM/FRAM), використовуючи одну спільну структуру для кількох екземплярів осей польотного контролера.
 
 :::tabs
-:::code api-bumpless-pid/c/main.c
-:::code api-bumpless-pid/cpp/main.cpp
+:::code api-bumpless-pid/c/include/bumpless_pid.h
+:::code api-bumpless-pid/cpp/include/control/bumpless_pid.hpp
 :::
 
 ## Детальний опис полів структур

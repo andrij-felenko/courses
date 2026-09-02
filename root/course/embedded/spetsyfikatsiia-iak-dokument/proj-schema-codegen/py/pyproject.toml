@@ -1,0 +1,33 @@
+# Рантайм протоколу для бекенду й стендових скриптів.
+#
+# Згенерований модуль telemetry_protocol сюди НЕ вкладається: його кладе
+# ksc у generated/python, а conftest.py додає ту теку в sys.path. Тримати
+# машинний вихід у репозиторії — це рівно та розсинхронізація, від якої
+# затівався SSOT.
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telemetry-protocol-runtime"
+version = "1.0.0"
+description = "Рамкування, CRC, серіалізація й таксономія помилок над згенерованим Kaitai-парсером"
+requires-python = ">=3.11"
+dependencies = ["kaitaistruct>=0.10"]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+telemetry = "telemetry.cli:main"
+
+[tool.setuptools]
+packages = ["telemetry"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+addopts = "-q --strict-markers"
+markers = [
+  "kaitai: потребує модуля, згенерованого ksc -t python",
+]

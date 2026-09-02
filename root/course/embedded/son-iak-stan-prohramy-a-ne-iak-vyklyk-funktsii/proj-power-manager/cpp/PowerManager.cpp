@@ -1,110 +1,175 @@
-/* ============================================================================
- * PowerManager.cpp — Реалізація диспетчера на C++20
- * ============================================================================ */
 #include "PowerManager.hpp"
+#include "Mcu.hpp"
+#include "SystemTick.hpp"
+#include "WakeupTimer.hpp"
+
+#include "stm32l4xx.h"
 
 namespace emb::pm {
 
-namespace {
+using std::chrono::milliseconds;
 
-inline void disableInterrupts() noexcept {
-    __asm volatile ("cpsid i" : : : "memory");
+void PowerManager::init() noexcept
+{
+    RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;
+    static_cast<void>(RCC->APB1ENR1);
+    // Невичищений прапорець пробудження обриває наступний вхід у STOP одразу ж.
+    PWR->SCR = PWR_SCR_CWUF;
+    hal::WakeupTimer::init();
 }
 
-inline void enableInterrupts() noexcept {
-    __asm volatile ("cpsie i" : : : "memory");
+bool PowerManager::registerClient(IPowerClient* client) noexcept
+{
+    if (client == nullptr || m_clientCount >= MaxClients) {
+        return false;
+    }
+    m_clients[m_clientCount++] = client;
+    return true;
 }
 
-inline void dataSyncBarrier() noexcept {
-    __asm volatile ("dsb 0xF" ::: "memory");
+void PowerManager::acquireLock(Lock lock) noexcept
+{
+    const auto idx = static_cast<std::size_t>(lock);
+    if (idx < static_cast<std::size_t>(Lock::Count)) {
+        m_lockCounters[idx].fetch_add(1, std::memory_order_acq_rel);
+    }
 }
 
-inline void instrSyncBarrier() noexcept {
-    __asm volatile ("isb 0xF" ::: "memory");
+void PowerManager::releaseLock(Lock lock) noexcept
+{
+    const auto idx = static_cast<std::size_t>(lock);
+    if (idx >= static_cast<std::size_t>(Lock::Count)) {
+        return;
+    }
+    auto current = m_lockCounters[idx].load(std::memory_order_relaxed);
+    while (current > 0
+           && !m_lockCounters[idx].compare_exchange_weak(current, current - 1,
+                                                         std::memory_order_acq_rel,
+                                                         std::memory_order_relaxed)) {
+    }
+    if (current == 0) {
+        ++m_underflows;
+    }
 }
 
-inline void waitForInterrupt() noexcept {
-    __asm volatile ("wfi");
+std::uint32_t PowerManager::lockCount(Lock lock) const noexcept
+{
+    const auto idx = static_cast<std::size_t>(lock);
+    return idx < static_cast<std::size_t>(Lock::Count)
+             ? m_lockCounters[idx].load(std::memory_order_relaxed)
+             : 0u;
 }
 
-} // anonymous namespace
+Mode PowerManager::deepestAllowedMode() const noexcept
+{
+    if (lockCount(Lock::NoSleep) > 0)   return Mode::Active;
+    if (lockCount(Lock::NoStop) > 0)    return Mode::Sleep;
+    if (lockCount(Lock::NoStandby) > 0) return Mode::Stop;
+    return Mode::Standby;
+}
 
-bool PowerManager::prepareClients(Mode targetMode) noexcept {
-    size_t prepared = 0;
-    for (size_t i = 0; i < m_clientCount; ++i) {
-        if (m_clients[i] && !m_clients[i]->preSleep(targetMode)) {
-            // Відкат у зворотному порядку для вже підготовлених драйверів
-            for (size_t j = prepared; j > 0; --j) {
-                m_clients[j - 1]->postWakeup(targetMode);
+bool PowerManager::prepareClients(Mode targetMode) noexcept
+{
+    const auto list = clients();
+    for (std::size_t i = 0; i < list.size(); ++i) {
+        if (!list[i]->preSleep(targetMode)) {
+            // Відкат у зворотному порядку — так само, як розкручують стек.
+            for (std::size_t j = i; j-- > 0;) {
+                list[j]->postWakeup(targetMode);
             }
             return false;
         }
-        ++prepared;
     }
     return true;
 }
 
-void PowerManager::restoreClients(Mode fromMode) noexcept {
-    for (size_t i = 0; i < m_clientCount; ++i) {
-        if (m_clients[i]) {
-            m_clients[i]->postWakeup(fromMode);
-        }
+void PowerManager::restoreClients(Mode fromMode) noexcept
+{
+    const auto list = clients();
+    for (std::size_t i = list.size(); i-- > 0;) {
+        list[i]->postWakeup(fromMode);
     }
 }
 
-void PowerManager::restoreClockTree() noexcept {
-    // 1. Увімкнення зовнішнього кварцового генератора (HSE)
-    // 2. Очікування прапорця стабілізації HSERDY
-    // 3. Запуск контуру фазового автопідстроювання PLL
-    // 4. Перемикання системної шини на PLL
+void PowerManager::enterLowPower(Mode mode) noexcept
+{
+    const std::uint32_t lpms = (mode == Mode::Standby) ? PWR_CR1_LPMS_STANDBY
+                                                       : PWR_CR1_LPMS_STOP1;
+    PWR->CR1 = (PWR->CR1 & ~PWR_CR1_LPMS) | lpms;
+    PWR->SCR = PWR_SCR_CWUF;
+
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    hal::waitForInterrupt();
+    // Сюди повертаємося лише зі STOP: зі STANDBY виходять через рестарт.
+    SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
 }
 
-void PowerManager::executeHardwareSleep(Mode mode, uint32_t idleMs) noexcept {
-    (void)idleMs;
-
-    disableInterrupts();
-
-    // Повторна атомарна перевірка блокувань
-    if (deepestAllowedMode() >= mode) {
-        if (mode == Mode::Stop) {
-            // Встановлення біта SLEEPDEEP у системному регістрі Cortex-M SCB->SCR
-            dataSyncBarrier();
-            instrSyncBarrier();
-        }
-
-        waitForInterrupt();
-
-        if (mode == Mode::Stop) {
-            // Скидання біта SLEEPDEEP
-        }
-    }
-
-    if (mode == Mode::Stop) {
-        restoreClockTree();
-    }
-
-    enableInterrupts();
-}
-
-void PowerManager::sleepIfIdle(uint32_t expectedIdleMs) noexcept {
-    const Mode target = deepestAllowedMode();
+void PowerManager::sleepIfIdle(milliseconds expectedIdle) noexcept
+{
+    Mode target = deepestAllowedMode();
 
     if (target == Mode::Active) {
         return;
     }
-
-    if (target == Mode::Sleep) {
-        waitForInterrupt();
+    if (target == Mode::Standby) {
+        target = Mode::Stop; // втрату SRAM диспетчер сам не призначає
+    }
+    if (target == Mode::Sleep || expectedIdle < Breakeven) {
+        hal::waitForInterrupt(); // легкий сон: перше ж переривання підніме ядро
         return;
     }
 
     if (!prepareClients(target)) {
-        return;
+        return; // драйвер відмовив, підготовлені вже відкочені
     }
 
-    executeHardwareSleep(target, expectedIdleMs);
+    hal::SystemTick::suspend();
+    const auto horizon = hal::WakeupTimer::arm(expectedIdle);
+
+    milliseconds slept{0};
+    {
+        hal::CriticalSection cs;
+
+        // Перевірка після хуків: переривання могло взяти блокування, поки
+        // драйвери готувалися, і тоді засинати вже не можна.
+        if (atLeastAsDeep(deepestAllowedMode(), target)) {
+            enterLowPower(target);
+            slept = hal::WakeupTimer::elapsedSinceArm();
+        }
+        hal::WakeupTimer::disarm();
+
+        // Спершу частота, потім лічильник часу — і лише тоді ISR.
+        static_cast<void>(hal::SystemClock::restoreAfterStop());
+        hal::SystemTick::resume(slept);
+
+        if (slept + milliseconds{1} < horizon) {
+            ++m_earlyWakeups; // підняв не таймер, а периферія
+        }
+    } // тут PRIMASK відпускається, і накопичені ISR ідуть уже на 80 МГц
 
     restoreClients(target);
+}
+
+bool PowerManager::enterStandby(milliseconds wakeupAfter) noexcept
+{
+    if (!prepareClients(Mode::Standby)) {
+        return false;
+    }
+    hal::SystemTick::suspend();
+    static_cast<void>(hal::WakeupTimer::arm(wakeupAfter));
+
+    {
+        hal::CriticalSection cs;
+        enterLowPower(Mode::Standby);
+
+        // Якщо ми тут — STANDBY не відбувся (наприклад, висів невичищений WUF).
+        // Повертаємо систему в робочий стан, а не лишаємо напівмертвою.
+        hal::WakeupTimer::disarm();
+        static_cast<void>(hal::SystemClock::restoreAfterStop());
+        hal::SystemTick::resume(milliseconds{0});
+    }
+    restoreClients(Mode::Standby);
+    return false;
 }
 
 } // namespace emb::pm

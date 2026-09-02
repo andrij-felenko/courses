@@ -77,10 +77,24 @@
 :::tabs
 
 @tab C (Реалізація lwIP Ethernetif)
-:::code proj-zerocopy-eth/c/main.c
+:::code proj-zerocopy-eth/c/eth_dma.h
+
+:::code proj-zerocopy-eth/c/eth_dma.c
+
+:::code proj-zerocopy-eth/c/ethernetif.h
+
+:::code proj-zerocopy-eth/c/ethernetif.c
 
 @tab C++ (Ідіоматичний драйвер Zero-Copy)
-:::code proj-zerocopy-eth/cpp/main.cpp
+:::code proj-zerocopy-eth/cpp/pbuf_ref.hpp
+
+:::code proj-zerocopy-eth/cpp/dma_ring.hpp
+
+:::code proj-zerocopy-eth/cpp/eth_driver.hpp
+
+:::code proj-zerocopy-eth/cpp/eth_driver.cpp
+
+:::code proj-zerocopy-eth/cpp/netif_glue.cpp
 
 :::
 

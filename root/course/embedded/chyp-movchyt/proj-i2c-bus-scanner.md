@@ -42,6 +42,45 @@
 
 Нижче наведено модульну реалізацію відновлення шини та сканування адрес мовами C та C++.
 
+**Контракт ліній.** Виводи в режимі GPIO з відкритим стоком: «відпустити» — це вхід, і рівень піднімає підтяжка; «притиснути» — це вихід у нуль.
+
+:::tabs
+:::code proj-i2c-bus-scanner/c/i2c_lines.h
+:::code proj-i2c-bus-scanner/cpp/bus_lines.hpp
+:::
+
+**Ведучий, зібраний вручну.** START, адресний байт, ACK на дев'ятому такті, STOP і сама процедура виштовхування бітів. На bring-up програмний ведучий зручніший за апаратний блок: він не має власного стану помилки шини, з якого треба виходити.
+
+:::tabs
+:::code proj-i2c-bus-scanner/c/i2c_bitbang.h
+:::code proj-i2c-bus-scanner/cpp/bit_bang_master.hpp
+:::
+
+:::code proj-i2c-bus-scanner/c/i2c_bitbang.c
+
+**Перебір адрес і вердикт.** Сканер розрізняє три різні відповіді шини: підтвердження, мовчання (NACK) і несформовану транзакцію — саме на цьому розрізненні тримається діагноз.
+
+:::tabs
+:::code proj-i2c-bus-scanner/c/i2c_scan.h
+:::code proj-i2c-bus-scanner/cpp/scanner.hpp
+:::
+
+:::tabs
+:::code proj-i2c-bus-scanner/c/i2c_scan.c
+:::code proj-i2c-bus-scanner/cpp/scanner.cpp
+:::
+
+**Модель шини замість заліза.** Ведений як скінченний автомат на фронтах ліній — з ним той самий код сканера запускається на робочій машині й показує всі типові діагнози.
+
+:::tabs
+:::code proj-i2c-bus-scanner/c/sim_lines.h
+:::code proj-i2c-bus-scanner/cpp/simulated_bus.hpp
+:::
+
+:::code proj-i2c-bus-scanner/c/sim_lines.c
+
+**Порядок дій.** Спершу рівні ліній у спокої, потім відновлення, і лише тоді сканування.
+
 :::tabs
 :::code proj-i2c-bus-scanner/c/main.c
 :::code proj-i2c-bus-scanner/cpp/main.cpp

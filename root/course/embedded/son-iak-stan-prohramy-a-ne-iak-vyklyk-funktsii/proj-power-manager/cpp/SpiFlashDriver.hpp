@@ -1,59 +1,76 @@
-/* ============================================================================
- * SpiFlashDriver.hpp — Драйвер Flash з використанням RAII ScopedPowerLock (C++)
- * ============================================================================ */
+// SpiFlashDriver.hpp — зовнішня SPI-Flash як клієнт диспетчера живлення.
 #pragma once
 
-#include "PowerManager.hpp"
+#include <chrono>
+#include <cstddef>
+#include <cstdint>
+#include <expected>
 #include <span>
+#include <string_view>
 
-namespace emb::drivers {
+#include "PowerManager.hpp"
+
+namespace emb::drv {
+
+enum class FlashError : std::uint8_t {
+    Busy,          // попередній запис ще триває
+    EmptyBuffer,
+    TooLarge,      // більше за сторінку
+    PageCrossing,  // адреса загорнулася б по колу всередині сторінки
+    BusTimeout     // шина не відповіла
+};
 
 class SpiFlashDriver final : public pm::IPowerClient {
 public:
-    SpiFlashDriver() noexcept {
-        pm::PowerManager::instance().registerClient(this);
+    static constexpr std::size_t PageSize = 256;
+
+    [[nodiscard]] static SpiFlashDriver& instance() noexcept
+    {
+        static SpiFlashDriver s_instance;
+        return s_instance;
     }
 
-    [[nodiscard]] std::string_view name() const noexcept override {
-        return "SpiFlash";
-    }
+    void init() noexcept;
 
-    [[nodiscard]] bool preSleep(pm::Mode targetMode) noexcept override {
-        if (m_busy.load(std::memory_order_acquire)) {
-            return false;
-        }
+    // Запис сторінки через DMA: повертається одразу, дані течуть самі.
+    [[nodiscard]] std::expected<void, FlashError> writePageAsync(
+        std::uint32_t address, std::span<const std::byte> data) noexcept;
 
-        if (targetMode == pm::Mode::Stop || targetMode == pm::Mode::Standby) {
-            // Переведення зовнішньої Flash у Deep Power Down (0xB9)
-            // Ізоляція виводів SPI в стан Analog High-Z
-        }
-        return true;
-    }
+    // З головного циклу: знімає блокування, коли мікросхема допекла сторінку.
+    void poll() noexcept;
 
-    void postWakeup(pm::Mode fromMode) noexcept override {
-        if (fromMode == pm::Mode::Stop || fromMode == pm::Mode::Standby) {
-            // Відновлення пінів SPI та пробудження Flash (0xAB)
-        }
-    }
+    [[nodiscard]] bool busy() const noexcept { return m_state != State::Idle; }
+    [[nodiscard]] std::uint32_t errors() const noexcept { return m_errors; }
 
-    // Синхронний запис із гарантією збереження живлення через RAII блокування
-    bool writeBuffer(uint32_t address, std::span<const uint8_t> data) noexcept {
-        (void)address; (void)data;
+    // --- IPowerClient ---
+    [[nodiscard]] std::string_view name() const noexcept override { return "SPI-Flash"; }
+    [[nodiscard]] bool preSleep(pm::Mode targetMode) noexcept override;
+    void postWakeup(pm::Mode fromMode) noexcept override;
 
-        // Автоматично захоплює блокування NoStop при вході в область видимості
-        // та звільняє його при будь-якому виході (навіть при помилці)
-        pm::ScopedPowerLock lockGuard(pm::Lock::NoStop);
-
-        m_busy.store(true, std::memory_order_release);
-
-        // Виконання передачі по шині SPI...
-
-        m_busy.store(false, std::memory_order_release);
-        return true;
-    }
+    void onDmaIrq() noexcept;
 
 private:
-    std::atomic<bool> m_busy{false};
+    SpiFlashDriver() noexcept = default;
+
+    enum class State : std::uint8_t {
+        Idle = 0,  // мікросхема вільна, сон дозволено
+        Dma,       // дані течуть у SPI через DMA
+        Program    // байти віддані, мікросхема пече сторінку сама
+    };
+
+    [[nodiscard]] bool xfer(std::byte out, std::byte* in = nullptr) noexcept;
+    void drainRx() noexcept;
+    void configurePins() noexcept;
+    void abort() noexcept;
+    [[nodiscard]] std::expected<std::byte, FlashError> readStatus() noexcept;
+
+    volatile State m_state{State::Idle};
+    std::uint32_t  m_errors{0};
+    std::uint32_t  m_savedModer{0};
+    bool           m_deepPowerDown{false};
+    // Блокування живе довше за виклик: його бере writePageAsync, а віддає
+    // poll(), коли мікросхема справді закінчила запис.
+    pm::ScopedPowerLock* m_lock{nullptr};
 };
 
-} // namespace emb::drivers
+} // namespace emb::drv

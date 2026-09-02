@@ -1,91 +1,61 @@
-/* Обслуговування шини I2C: сучасний C++20 з RAII та концептами */
-#include <cstdint>
+/* Порядок дій, коли чіп мовчить: спершу дивимося на лінії у стані спокою,
+   потім витягуємо шину із зависання і лише тоді щось скануємо. */
 #include <cstdio>
-#include <concepts>
+#include <cstdlib>
+#include <print>
 #include <span>
-#include <vector>
-#include <optional>
+#include <string_view>
 
-/* Концепт для низькорівневих апаратних маніпуляцій лініями */
-template <typename T>
-concept I2CPinDriver = requires(T io, bool level, uint32_t us) {
-    { io.set_scl_output() } -> std::same_as<void>;
-    { io.set_scl_level(level) } -> std::same_as<void>;
-    { io.read_sda_level() } -> std::same_as<bool>;
-    { io.set_sda_output() } -> std::same_as<void>;
-    { io.set_sda_level(level) } -> std::same_as<void>;
-    { io.restore_peripheral() } -> std::same_as<void>;
-    { io.delay_us(us) } -> std::same_as<void>;
-};
+#include "bit_bang_master.hpp"
+#include "scanner.hpp"
+#include "simulated_bus.hpp"
 
-/* Клас діагностики та обслуговування I2C шини */
-template <I2CPinDriver Driver>
-class I2CBusDiagnostics {
-public:
-    explicit I2CBusDiagnostics(Driver& driver) : driver_(driver) {}
+namespace {
 
-    /* Виведення шини із зависання через 9 тактів SCL */
-    [[nodiscard]] bool recover_bus() {
-        if (driver_.read_sda_level()) {
-            return true; /* Лінія вільна */
+/* Адреса акселерометра за даташитом (AD0 = 0) */
+constexpr std::uint8_t expected_addr = 0x68;
+
+SimulatedBus::Fault pick_scenario(std::span<char* const> args) {
+    const std::string_view name = args.size() > 1 ? args[1] : "ok";
+
+    if (name == "ok")       return SimulatedBus::Fault::none;
+    if (name == "stuck")    return SimulatedBus::Fault::sda_stuck_low;
+    if (name == "nopullup") return SimulatedBus::Fault::no_pullups;
+    if (name == "nopower")  return SimulatedBus::Fault::no_power;
+
+    std::println(stderr, "Невідомий сценарій '{}'. Є: ok, stuck, nopullup, nopower", name);
+    std::exit(2);
+}
+
+} // namespace
+
+int main(int argc, char** argv) {
+    const std::span<char* const> args{argv, static_cast<std::size_t>(argc)};
+    SimulatedBus bus{expected_addr, pick_scenario(args)};
+
+    /* Виводи забирає конструктор і повертає деструктор — забути неможливо */
+    BitBangMaster<SimulatedBus> master{bus};
+
+    const auto idle = master.idle_state();
+    std::println("Стан спокою: SCL={}, SDA={}", int{idle.scl_high}, int{idle.sda_high});
+
+    if (!idle.scl_high && !idle.sda_high) {
+        std::println("Обидві лінії в нулі — підтяжок немає або живлення відсутнє.\n"
+                     "Скануємо все одно, щоб побачити, як це виглядає з боку ведучого.");
+    } else if (!idle.sda_high) {
+        std::println("SDA затиснута веденим. Виштовхуємо його байт дев'ятьма тактами SCL...");
+        if (master.recover_bus()) {
+            std::println("Лінію звільнено, шина знову придатна до транзакцій.");
+        } else {
+            std::println("Дев'ять тактів не допомогли — шукай замикання SDA на землю.");
         }
-
-        driver_.set_scl_output();
-        driver_.set_scl_level(true);
-        driver_.delay_us(5);
-
-        bool sda_cleared = false;
-        for (std::size_t i = 0; i < 9; ++i) {
-            driver_.set_scl_level(false);
-            driver_.delay_us(5);
-            driver_.set_scl_level(true);
-            driver_.delay_us(5);
-
-            if (driver_.read_sda_level()) {
-                sda_cleared = true;
-                break;
-            }
-        }
-
-        if (!sda_cleared) {
-            driver_.restore_peripheral();
-            return false; /* Апаратна несправність: SDA замкнена на GND */
-        }
-
-        /* Формування аварійного STOP сигналу */
-        driver_.set_sda_output();
-        driver_.set_sda_level(false);
-        driver_.delay_us(5);
-        driver_.set_scl_level(true);
-        driver_.delay_us(5);
-        driver_.set_sda_level(true);
-        driver_.delay_us(5);
-
-        driver_.restore_peripheral();
-        return true;
+    } else if (!idle.scl_high) {
+        std::println("SCL у нулі при вільній SDA — обрив підтяжки SCL або ведений тримає такт.");
     }
 
-    /* Сканування простору 7-бітних адрес */
-    template <typename PingCallable>
-    requires std::predicate<PingCallable, std::uint8_t>
-    [[nodiscard]] std::vector<std::uint8_t> scan_bus(PingCallable&& ping) {
-        std::vector<std::uint8_t> found_devices;
-        found_devices.reserve(8);
+    const ScanReport report = scan_range(master);
+    const Verdict verdict = classify(report, expected_addr);
+    print_report(report, expected_addr, verdict);
 
-        std::printf("I2C Scanner: початок перебору 0x08..0x77\r\n");
-
-        for (std::uint8_t addr = 0x08; addr <= 0x77; ++addr) {
-            if (ping(addr)) {
-                found_devices.push_back(addr);
-                std::printf(" -> Пристрій відповідає: 7-біт: 0x%02X | 8-біт WR: 0x%02X\r\n",
-                            addr, static_cast<std::uint8_t>(addr << 1));
-            }
-        }
-
-        std::printf("Знайдено активних вузлів: %zu\r\n", found_devices.size());
-        return found_devices;
-    }
-
-private:
-    Driver& driver_;
-};
+    return verdict == Verdict::device_as_expected ? 0 : 1;
+}

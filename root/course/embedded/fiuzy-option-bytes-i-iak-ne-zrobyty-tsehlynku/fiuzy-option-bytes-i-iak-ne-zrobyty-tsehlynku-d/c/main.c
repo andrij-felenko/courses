@@ -1,109 +1,101 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include "option_bytes.h"
+#include "stm32g4_regs.h"
 
-/* Базові адреси та зміщення регістрів Flash (на прикладі родини STM32G0/G4) */
-#define FLASH_BASE_ADDR      0x40022000UL
-#define FLASH_ACR            (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x00))
-#define FLASH_KEYR           (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x08))
-#define FLASH_OPTKEYR        (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x0C))
-#define FLASH_SR             (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x10))
-#define FLASH_CR             (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x14))
-#define FLASH_OPTR           (*(volatile uint32_t *)(FLASH_BASE_ADDR + 0x20))
+/*
+ * Сценарій випуску: прошивка на вже змонтованій платі один раз доводить
+ * Option Bytes до потрібного стану. Усе, що вона друкує, іде в ITM — канал,
+ * який лишається доступним рівно доти, доки живий налагоджувач.
+ */
 
-/* Бітові маски */
-#define FLASH_SR_BSY         (1UL << 16)
-#define FLASH_SR_PGSERR      (1UL << 7)
-#define FLASH_SR_WRPERR      (1UL << 4)
-#define FLASH_CR_LOCK        (1UL << 31)
-#define FLASH_CR_OPTLOCK     (1UL << 30)
-#define FLASH_CR_OPTSTRT     (1UL << 17)
-#define FLASH_CR_OBL_LAUNCH  (1UL << 27)
+static void trace_char(char c)
+{
+    uint32_t guard = 100000UL;
 
-/* Магічні ключі розблокування */
-#define FLASH_KEY1           0x45670123UL
-#define FLASH_KEY2           0xCDEF89ABUL
-#define FLASH_OPTKEY1        0x08192A3BUL
-#define FLASH_OPTKEY2        0x4C5D6E7FUL
-
-#define TIMEOUT_CYCLES       1000000UL
-
-typedef enum {
-    OPT_SUCCESS = 0,
-    OPT_ERR_BUSY_TIMEOUT,
-    OPT_ERR_UNLOCK_FAILED,
-    OPT_ERR_WRITE_FAILED,
-    OPT_ERR_INVALID_VALUE
-} OptionResult_t;
-
-/* Очікування завершення операцій Flash */
-static bool flash_wait_ready(void) {
-    uint32_t timeout = TIMEOUT_CYCLES;
-    while ((FLASH_SR & FLASH_SR_BSY) && --timeout) {
-        __asm__ volatile("nop");
+    /* Без підключеного налагоджувача ITM не приймає нічого, і чекати на
+       готовність порту означало б зависнути назавжди. */
+    if ((CORE_DEMCR & CORE_DEMCR_TRCENA) == 0UL) {
+        return;
     }
-    return (timeout > 0);
+    if ((ITM_TER & 1UL) == 0UL) {
+        return;
+    }
+
+    while (ITM_STIM0_U32 == 0UL) {
+        if (--guard == 0UL) {
+            return;
+        }
+    }
+    ITM_STIM0_U8 = (uint8_t)c;
 }
 
-/* Безпечне оновлення RDP та BOR без ризику переходу в Level 2 */
-OptionResult_t flash_set_rdp_level1_safe(void) {
-    /* 1. Перевірка, що Flash вільна */
-    if (!flash_wait_ready()) {
-        return OPT_ERR_BUSY_TIMEOUT;
+static void trace(const char *text)
+{
+    while (*text != '\0') {
+        trace_char(*text++);
+    }
+}
+
+static void trace_hex32(uint32_t value)
+{
+    static const char digits[] = "0123456789ABCDEF";
+    int shift;
+
+    trace("0x");
+    for (shift = 28; shift >= 0; shift -= 4) {
+        trace_char(digits[(value >> shift) & 0xFUL]);
+    }
+}
+
+static void trace_config(const char *label, const opt_config_t *cfg)
+{
+    trace(label);
+    trace(": ");
+    trace(opt_rdp_str(cfg->rdp));   trace(" | ");
+    trace(opt_bor_str(cfg->bor));   trace(" | ");
+    trace(opt_iwdg_str(cfg->iwdg)); trace(" | ");
+    trace(opt_nrst_str(cfg->nrst)); trace(" | ");
+    trace(opt_boot_str(cfg->boot));
+    trace("\n");
+}
+
+int main(void)
+{
+    opt_config_t current;
+    opt_status_t status;
+
+    /* Цільова конфігурація серійного виробу. Кожне поле тут — це рішення,
+       яке в разі помилки коштує партії плат. */
+    static const opt_config_t wanted = {
+        .rdp  = OPT_RDP_LEVEL1,     /* прошивку закрито, чип іще можна стерти */
+        .bor  = OPT_BOR_LEVEL4,     /* 2.8 В: нижче Flash бреше на 170 МГц */
+        .iwdg = OPT_IWDG_SOFTWARE,  /* апаратний старт WDG зациклив би довгу ініціалізацію */
+        .nrst = OPT_NRST_RESET_IO,  /* ніжка скидання лишається скиданням */
+        .boot = OPT_BOOT_FROM_PIN   /* страпінг у системний завантажувач лишається */
+    };
+
+    trace("\n== Option Bytes ==\n");
+    trace("сире слово OPTR: ");
+    trace_hex32(FLASH->OPTR);
+    trace("\n");
+
+    current = option_bytes_read();
+    trace_config("поточна", &current);
+    trace_config("бажана ", &wanted);
+
+    if (option_bytes_equal(&current, &wanted)) {
+        /* Службова сторінка має свій ресурс перезапису, та й кожен зайвий
+           запис — це ще один шанс спіймати просідання живлення. */
+        trace("збіг: у Flash не пишемо нічого\n");
+    } else {
+        status = option_bytes_apply(&wanted);
+        /* Успішний шлях сюди не повертається — чип уже перезавантажився. */
+        trace("не застосовано: ");
+        trace(opt_status_str(status));
+        trace("\n");
     }
 
-    /* 2. Розблокування Flash Control Register */
-    if (FLASH_CR & FLASH_CR_LOCK) {
-        FLASH_KEYR = FLASH_KEY1;
-        FLASH_KEYR = FLASH_KEY2;
-        if (FLASH_CR & FLASH_CR_LOCK) {
-            return OPT_ERR_UNLOCK_FAILED;
-        }
+    /* Свідомо не йдемо ні в сон, ні в переналаштування PA13/PA14: саме ці
+       два рухи в перших рядках main() і залишають ST-Link без відповіді. */
+    for (;;) {
     }
-
-    /* 3. Розблокування Option Bytes Register */
-    if (FLASH_CR & FLASH_CR_OPTLOCK) {
-        FLASH_OPTKEYR = FLASH_OPTKEY1;
-        FLASH_OPTKEYR = FLASH_OPTKEY2;
-        if (FLASH_CR & FLASH_CR_OPTLOCK) {
-            FLASH_CR |= FLASH_CR_LOCK;
-            return OPT_ERR_UNLOCK_FAILED;
-        }
-    }
-
-    /* 4. Очищення попередніх прапорців помилок у SR */
-    FLASH_SR = FLASH_SR_PGSERR | FLASH_SR_WRPERR;
-
-    /* 5. Читання поточного значення та модифікація */
-    uint32_t optr = FLASH_OPTR;
-    
-    /* Сувора заборона випадкового запису 0xCC (Level 2) */
-    uint8_t new_rdp = 0xBB; /* Встановлюємо безпечний Level 1 */
-    optr &= ~0xFFUL;        /* Очищаємо біти RDP[7:0] */
-    optr |= (uint32_t)new_rdp;
-
-    /* Запис нового значення в тіньовий OPTR */
-    FLASH_OPTR = optr;
-
-    /* 6. Запуск фізичного програмування */
-    FLASH_CR |= FLASH_CR_OPTSTRT;
-
-    /* 7. Очікування запису */
-    if (!flash_wait_ready()) {
-        FLASH_CR |= (FLASH_CR_OPTLOCK | FLASH_CR_LOCK);
-        return OPT_ERR_BUSY_TIMEOUT;
-    }
-
-    /* 8. Перевірка помилок */
-    if (FLASH_SR & (FLASH_SR_PGSERR | FLASH_SR_WRPERR)) {
-        FLASH_CR |= (FLASH_CR_OPTLOCK | FLASH_CR_LOCK);
-        return OPT_ERR_WRITE_FAILED;
-    }
-
-    /* 9. Блокування регістрів назад */
-    FLASH_CR |= (FLASH_CR_OPTLOCK | FLASH_CR_LOCK);
-
-    /* 10. Перезавантаження Option Bytes (викликає системний ресет) */
-    FLASH_CR |= FLASH_CR_OBL_LAUNCH;
-
-    return OPT_SUCCESS;
 }

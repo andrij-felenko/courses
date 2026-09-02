@@ -297,8 +297,23 @@ CAN та RS-485 використовують диференційну перед
 Промислова архітектура будується на чергах неблокуючих транзакцій із передачею даних через переривання або канали прямого доступу до пам'яті (DMA). Нижче наведено приклад проектування уніфікованого диспетчера шин, який ізолює клієнтський код від апаратної специфіки інтерфейсів.
 
 :::tabs
+:::code vybir-shyny-pid-prystrii-d/c/bus.h
+:::code vybir-shyny-pid-prystrii-d/cpp/include/bus/dispatcher.hpp
+:::
+
+:::tabs
+:::code vybir-shyny-pid-prystrii-d/c/bus.c
+:::code vybir-shyny-pid-prystrii-d/cpp/src/dispatcher.cpp
+:::
+
+:::tabs
+:::code vybir-shyny-pid-prystrii-d/c/i2c_recovery.c
+:::code vybir-shyny-pid-prystrii-d/cpp/src/i2c_recovery.cpp
+:::
+
+:::tabs
 :::code vybir-shyny-pid-prystrii-d/c/main.c
-:::code vybir-shyny-pid-prystrii-d/cpp/main.cpp
+:::code vybir-shyny-pid-prystrii-d/cpp/src/main.cpp
 :::
 
 ## Типові інженерні пастки при інтеграції шин

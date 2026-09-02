@@ -229,9 +229,32 @@
 
 Нижче наведено закінчену реалізацію модуля валідації для типового датчика.
 
+Починається модуль із контракту: чого ми вимагаємо від драйвера шини, чим описуємо цільовий чип і які саме числа має нести діагностичний звіт.
+
+:::tabs
+:::code persha-vidpovid-chypa-d/c/bringup.h
+:::code persha-vidpovid-chypa-d/cpp/include/bringup/bus.hpp
+:::
+
+Далі йде сама послідовність: пауза `t_POR`, читання `WHO_AM_I` з повторними спробами, класифікація аномальних байтів, перевірка бітового зсуву та тест Scratchpad з обов'язковим відновленням початкового вмісту регістра.
+
+:::tabs
+:::code persha-vidpovid-chypa-d/c/bringup.c
+:::code persha-vidpovid-chypa-d/cpp/include/bringup/validator.hpp
+:::
+
+Сам код помилки інженерові на столі не допомагає — потрібен перший крок перевірки. Розшифрування звіту винесено окремо разом із таблицею відомих заводських ідентифікаторів.
+
+:::tabs
+:::code persha-vidpovid-chypa-d/c/diagnose.c
+:::code persha-vidpovid-chypa-d/cpp/include/bringup/diagnosis.hpp
+:::
+
+Перевіряємо алгоритм на програмній моделі кристала, у яку по черзі вносимо всі описані вище дефекти: непропаяний чип, зависла шина I2C, підтяжка MISO, замикання на землю, хибний режим SPI, обірвана лінія MOSI і містик припою між сусідніми розрядами.
+
 :::tabs
 :::code persha-vidpovid-chypa-d/c/main.c
-:::code persha-vidpovid-chypa-d/cpp/main.cpp
+:::code persha-vidpovid-chypa-d/cpp/src/main.cpp
 :::
 
 ---
