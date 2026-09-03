@@ -44,13 +44,18 @@ function dryAsk(dir) {
   };
 }
 
-/** Реальний адаптер підставляється ззовні: `--ask <модуль>` з функцією (prompt,label). */
+/**
+ * Реальний адаптер підставляється ззовні: `--ask <модуль>`. Модуль дає або фабрику
+ * `make(dir)` → ask, або готову `ask(prompt, label)`. Фабрика краща: тека в кожної
+ * одиниці своя, а в пулі їх кілька воднораз.
+ */
 function loadAsk(spec) {
   if (!spec) return null;
   const m = require(path.resolve(spec));
+  if (typeof m.make === "function") return m.make;
   const fn = typeof m === "function" ? m : m.ask;
-  if (typeof fn !== "function") throw new Error(`${spec}: немає ask(prompt, label)`);
-  return fn;
+  if (typeof fn !== "function") throw new Error(`${spec}: немає ні make(dir), ні ask(prompt, label)`);
+  return () => fn;
 }
 
 /* ── розбір аргументів ─────────────────────────────────────────────────────── */
@@ -88,17 +93,24 @@ async function main(argv) {
     else if (e.ev === "refused") console.log(`   ⚠ стеля: відмовлено ${e.n}`);
     else if (e.ev === "wall") console.log(`⛔ стіна ліміту, у черзі лишилось ${e.pending}`);
     else if (e.ev === "restore") console.log(`↺ відновлено з теки: ${e.n}`);
+    else if (e.ev === "pause") console.log(`⏸ ${e.unit} чекає на: ${e.for.join(", ")}`);
+    else if (e.ev === "resume") console.log(`▶ ${e.unit} знову в черзі — те, чого чекала, готове`);
+    else if (e.ev === "paused-left") console.log(`⏸ лишилось на паузі: ${e.n} — те, чого вони чекали, не завершилось`);
   };
 
   const report = await O.run({
     id: o.id, units,
     active: Number(o.active) || 4,
     stagger: o.stagger === undefined ? 2000 : Number(o.stagger),
+    callTimeout: o.wait === undefined ? undefined : Number(o.wait),
     onEvent: say,
-    algorithm: (unit, ctx) => algorithm(unit, ctx, {
-      ask: ask || dryAsk(path.join(ctx.run.dir, unit.id.replace(/[^\w.-]+/g, "_"))),
-      status: o.status || "recheck",
-    }),
+    algorithm: (unit, ctx) => {
+      const dir = path.join(ctx.run.dir, unit.id.replace(/[^\w.-]+/g, "_"));
+      return algorithm(unit, ctx, {
+        ask: ask ? ask(dir) : dryAsk(dir),
+        status: o.status || "recheck",
+      });
+    },
   });
 
   console.log(`\nбатч ${report.id}`);

@@ -163,6 +163,7 @@ function writeJson(p, data) {
  *   { op:"status",    slug, ver, status }
  *   { op:"status-if", slug, ver, from, to }    ← переставити, лише якщо стоїть from
  *   { op:"insert",    slug, type, file, status }
+ *   { op:"insert-remove", slug, type, file } ← зняти вставку з переліку теми
  *   { op:"remove",    slug }                   ← зняти тему з маніфесту
  *   { op:"relocate",  slug, group, chapter, groupTitle?, chapterTitle? }
  *   { op:"retitle",   slug, title }
@@ -306,6 +307,21 @@ function applyOps(bookDir, ops, opt) {
             rc !== undefined ? rc : !!(cur && cur.recode));
           if (cur) arr[arr.indexOf(cur)] = node; else arr.push(node);
           rep.insert++; touched.add(t.group);
+          break;
+        }
+
+        /* Зняти вставку з переліку теми. Потрібне там, де вставку знесли з диска: сам
+           лише статус тут не рятує, бо запис лишається й обіцяє файл, якого немає. */
+        case "insert-remove": {
+          if (!INSERT_TYPES.includes(o.type)) { rep.errors.push(`невідомий тип вставки «${o.type}»`); break; }
+          const t = findTopic(book, o.slug);
+          if (!t) { rep.errors.push(`нема теми «${o.slug}»`); break; }
+          const arr = t.node[o.type] || [];
+          const i = arr.findIndex((x) => x.file === o.file);
+          if (i < 0) { rep.skipped.push(`вставки «${o.file}» у «${o.slug}» немає`); break; }
+          arr.splice(i, 1);
+          if (!arr.length) delete t.node[o.type];
+          rep.removed++; touched.add(t.group);
           break;
         }
 

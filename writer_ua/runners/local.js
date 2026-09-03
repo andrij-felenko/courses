@@ -58,11 +58,15 @@ function unitOf(book, slug, type = "article", version = "ДЕТАЛЬНА", file
   return {
     id: `${book}/${slug}:${insert ? name : type === "article" ? "detailed" : type}`,
     book, slug, type, version, insert,
+    /* Вид книги їде з одиницею: курс і книга пишуться по-різному (крок спирається на
+       пройдене, стаття — атом), і письменник мусить знати, що саме перед ним. */
+    kind: (MF.books().get(book) || {}).kind || b.manifest.kind || "",
     file: `${name}.md`,
     title: t.title,
     bookTitle: b.manifest.title || book,
     groupTitle: (g && g.data.title) || t.group,
     chapterTitle: ((g && (g.data.chapters || []).find((c) => c.slug === t.chapter) || {}).title) || t.chapter,
+    bookDir: MF.bookDirOf(book),
     dir: path.join(MF.bookDirOf(book), slug),
   };
 }
@@ -109,7 +113,15 @@ function mentions(u, re, { limit = 6, roots = ["root"] } = {}) {
   return out.join("\n\n");
 }
 
-/** Сусіди по розділу — для меж, назвами. */
+/**
+ * Сусіди по розділу — назвою І АДРЕСОЮ.
+ *
+ * ⚠️ АДРЕСА ОБОВ'ЯЗКОВА. Доти сюди йшли самі назви, а правила пояснювали письменникові
+ * ФОРМУ адреси (`root:<книга>/<тема>`) і не давали жодної справжньої. Наслідок
+ * передбачуваний: він складав правдоподібні адреси сам. Заміряно на 36 темах — 61 різна
+ * ціль не існує, ~95 входжень, і серед них цілі книги, яких у схемі 7 немає взагалі:
+ * `math/`, `physics/`, `os/`, `algorithms/`. Форму знав, слугів не мав.
+ */
 function neighbours(u) {
   const b = MF.loadBook(MF.bookDirOf(u.book));
   const me = MF.allTopics(b).find((x) => x.slug === u.slug);
@@ -117,8 +129,28 @@ function neighbours(u) {
     .filter((t) => t.own && t.chapter === me.chapter && t.slug !== u.slug)
     .map((t) => {
       const d = (t.node.detailed && t.node.detailed.status) || "empty";
-      return `${t.title} [${d === "empty" || d === "pending" ? "ще не написана" : "НАПИСАНА"}]`;
+      const st = d === "empty" || d === "pending" ? "ще не написана" : "НАПИСАНА";
+      return `${t.title} [${st}] — root:${u.book}/${t.slug}`;
     }).join("\n");
+}
+
+/**
+ * Куди цій одиниці МОЖНА лінкувати: справжні адреси, і більше жодних. Сусіди по розділу
+ * плюс теми, у яких згадка вже знайшлася на диску. Порожньо не буває лише тоді, коли
+ * тема сама-одна в розділі й ніде не згадана.
+ */
+function linkable(u) {
+  const seen = new Set();
+  const out = [];
+  const add = (book, slug, title) => {
+    const a = `root:${book}/${slug}`;
+    if (slug && !seen.has(a)) { seen.add(a); out.push(`${title || slug} — ${a}`); }
+  };
+  const b = MF.loadBook(MF.bookDirOf(u.book));
+  const me = b && MF.allTopics(b).find((x) => x.slug === u.slug);
+  if (me) for (const t of MF.allTopics(b))
+    if (t.own && t.chapter === me.chapter && t.slug !== u.slug) add(u.book, t.slug, t.title);
+  return out.join("\n");
 }
 
 /** Усі книги репо назвами — для каркаса статті. */
@@ -126,8 +158,35 @@ const books = () => [...MF.books().entries()]
   .map(([slug, b]) => { const x = MF.loadBook(b.bookDir); return x ? (x.manifest.title || slug) : null; })
   .filter(Boolean).join("\n");
 
-/** Що читач уже знає: у курсі — теми тому; у книзі — сусіди розділу. */
-const preknow = (u) => neighbours(u);
+/**
+ * Що читач уже знає.
+ *
+ * КНИГА — сусіди розділу: стаття атом, читач може не знати нічого попереднього, і
+ * сусіди потрібні лише для меж.
+ *
+ * КУРС — ПРОЙДЕНЕ: усе, що стоїть на доріжці ДО цього кроку, у порядку маніфесту —
+ * кроки свого тому поіменно (і власні, і ref), попередні томи назвами. Крок курсу є
+ * продовженням цих кроків: у тексті вони припускаються відомими, а не пояснюються
+ * наново. Позначок «написана / ще ні» тут навмисно немає — читач пройшов крок
+ * незалежно від того, чи вже написано текст.
+ */
+function preknow(u) {
+  if (u.kind !== "course") return neighbours(u);
+  const b = MF.loadBook(MF.bookDirOf(u.book));
+  const all = MF.allTopics(b);
+  const at = all.findIndex((x) => x.own && x.slug === u.slug);
+  if (at < 0) return "";
+  const me = all[at];
+  const before = all.slice(0, at);
+  const volumes = [...new Set(before.filter((t) => t.group !== me.group).map((t) => t.group))]
+    .map((g) => (b.groups.get(g) && b.groups.get(g).data.title) || g);
+  const steps = before.filter((t) => t.group === me.group).map((t) => `— ${t.title}`);
+  return [
+    "Це продовження доріжки: наведені кроки читач уже пройшов, і в тексті вони припускаються відомими.",
+    volumes.length ? `Попередні томи: ${volumes.join(" · ")}` : "",
+    steps.length ? `Кроки цього тому до цього кроку:\n${steps.join("\n")}` : "Це перший крок тому.",
+  ].filter(Boolean).join("\n\n");
+}
 
 /** ⛔ Дубль — точно й локально. Слуг є в книзі ⟺ тема існує. */
 function isDuplicate(book, slug) {
@@ -180,6 +239,59 @@ function writeArticle(u, text) {
   return path.relative(MF.ROOT, file).split(path.sep).join("/");
 }
 
+/**
+ * Код — у файли під носієм і мовою: `<тема>/<носій>/<мова>/<шлях>`. Носій — той `.md`,
+ * що посилається на код, тож `proj` і `api` однієї теми не стикаються. Шлях із файла
+ * агента береться лише відносний і без `..`: усе інше — не файл проєкту, а втеча з теки.
+ */
+function writeCode(u, files) {
+  const base = path.join(u.dir, u.carrier, u.lang);
+  const written = [];
+  for (const f of files) {
+    let rel = String(f.path || "").replace(/\\/g, "/").replace(/^\.?\//, "");
+    /* Провідні сегменти, що повторюють носія й мову, зрізаємо: тека мови ВЖЕ є коренем
+       проєкту, і «python/…» чи «<носій>/sql/…» — це той самий шлях удвічі. Завдання про
+       це каже прямо, але правила про `:::code` описують шлях ВІД ТЕКИ ТЕМИ, і на цьому
+       агент двічі поспіль дав саме довгу форму. Зрізати дешевше, ніж отримати
+       `python/python/` на диску. */
+    for (let i = 0; i < 4; i++) {
+      const seg = rel.split("/")[0];
+      if (!seg) break;
+      if (seg.toLowerCase() === String(u.lang).toLowerCase() || seg === u.carrier) rel = rel.slice(seg.length + 1);
+      else break;
+    }
+    if (!rel || rel.split("/").some((s) => s === "..") || path.isAbsolute(rel))
+      throw new Error(`код: шлях «${f.path}» не є відносним шляхом у проєкті`);
+    const p = path.join(base, rel);
+    fs.mkdirSync(path.dirname(p), { recursive: true });
+    fs.writeFileSync(p, String(f.body || "").replace(/\s*$/, "\n"), "utf8");
+    written.push(path.relative(MF.ROOT, p).split(path.sep).join("/"));
+  }
+  return written;
+}
+
+/**
+ * Файли коду цієї одиниці, готові до директиви `:::code` — шляхом ВІД ТЕКИ ТЕМИ, як
+ * його резолвить рідер. Кличеться вже після того, як код написано (проза чекає на нього
+ * на паузі), тож перелік справжній, а не обіцяний.
+ */
+function codeFiles(u, lang) {
+  const carrier = u.file.replace(/\.md$/, "");
+  const root = path.join(u.dir, carrier, String(lang).toLowerCase());
+  const out = [];
+  const walk = (d, rel) => {
+    let ents = [];
+    try { ents = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of ents.sort((a, b) => a.name.localeCompare(b.name))) {
+      const r = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isDirectory()) walk(path.join(d, e.name), r);
+      else out.push(`${carrier}/${String(lang).toLowerCase()}/${r}`);
+    }
+  };
+  walk(root, "");
+  return out;
+}
+
 /** Операції для писаря маніфесту. Статус приходить ззовні — вирішує не цей файл. */
 const ops = (u, status) => [
   u.insert
@@ -199,5 +311,5 @@ function titleRe(title) {
 
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, preknow, isDuplicate,
-  size, BANDS, assemble, writeArticle, ops,
+  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable, ops,
 };

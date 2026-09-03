@@ -24,6 +24,29 @@ function blocks(text) {
 }
 
 /**
+ * Усі блоки з ОДНИМ тегом — окремо, масивом. `blocks()` склеює однакові теги в один
+ * рядок, і для `<ФАЙЛ>` це втратило б межу між файлами.
+ */
+function repeated(text, tag) {
+  const out = [];
+  const re = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`, "g");
+  let m;
+  while ((m = re.exec(String(text || "")))) out.push(m[1].trim());
+  return out;
+}
+
+/** `<ФАЙЛ>шлях :: що робить\nвміст</ФАЙЛ>` → [{path, about, body}] */
+function files(text) {
+  return repeated(text, "ФАЙЛ").map((b) => {
+    const nl = b.indexOf("\n");
+    const head = nl < 0 ? b : b.slice(0, nl);
+    const m = /^(\S+)\s*(?:::\s*(.*))?$/.exec(head.trim());
+    if (!m) return null;
+    return { path: m[1], about: (m[2] || "").trim(), body: nl < 0 ? "" : b.slice(nl + 1).replace(/^\n+/, "") };
+  }).filter(Boolean);
+}
+
+/**
  * Витягти названі блоки. Повертає {дані, missing:[теги]} — і НЕ кидає: провал одного
  * блоку не має валити крок, поки алгоритм не вирішив, що він обов'язковий.
  */
@@ -43,7 +66,7 @@ const lines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boo
 /** Порожньо — це «нема чого додати», а не збій. Так і домовлено. */
 const empty = (s) => {
   const t = String(s || "").trim().toLowerCase();
-  return !t || t === "—" || t === "-" || t === "н/д" || t === "порожньо" || t === "нічого";
+  return !t || t === "—" || t === "-" || t === "н/д" || t === "порожньо" || t === "нічого" || t === "немає";
 };
 
 const yes = (s) => /^\s*(так|yes|ок|ok)\b/i.test(String(s || ""));
@@ -85,6 +108,22 @@ function code(s) {
   }).filter(Boolean);
 }
 
+/**
+ * `4 | що саме додати` → [{level, what}], від найбільшого рівня до найменшого.
+ *
+ * ⚠️ ПЕРЕЛІК НЕ БУВАЄ ПОРОЖНІМ — так каже завдання, і на це спирається дописування:
+ * доти письменникові дозволяли повернути пустоту, і він майже завжди її й повертав,
+ * бо це дешевше за думання. Тоді етап розміру не мав НАЗВАНОГО матеріалу, і коротка
+ * стаття лишалася короткою. Рядок без рівня не викидаємо — беремо його за одиницю:
+ * назване без числа все одно варте більше, ніж не назване.
+ */
+function additions(s) {
+  return lines(s).map((l) => {
+    const m = /^\s*([1-5])\s*[|.)–—-]\s*([\s\S]+)$/.exec(l);
+    return m ? { level: Number(m[1]), what: m[2].trim() } : { level: 1, what: l.trim() };
+  }).filter((x) => x.what && !empty(x.what)).sort((a, b) => b.level - a.level);
+}
+
 /** `абзац 3 :: що не так` → {where, why} */
 function defects(s) {
   return lines(s).map((l) => {
@@ -93,4 +132,4 @@ function defects(s) {
   });
 }
 
-module.exports = { blocks, want, lines, empty, yes, sections, groups, inserts, code, defects };
+module.exports = { blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, additions, defects };

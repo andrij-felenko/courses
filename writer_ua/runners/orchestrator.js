@@ -232,6 +232,8 @@ class Queue {
     if (refused.length) this.refused.push(...refused.map((u) => u.id));
     return { added, refused };
   }
+  /** Повернути в чергу одиницю, що стояла на паузі: вона вже «бачена», стелі не займає. */
+  requeue(u) { this.pending.push(u); }
 }
 
 /* ── прогін ────────────────────────────────────────────────────────────────── */
@@ -253,7 +255,10 @@ class Queue {
 async function run(o) {
   const dry = !!o.dry;
   const say = o.onEvent || (() => { });
-  const toOps = o.toOps || ((st) => st.get("ops") || []);
+  /* `null` — операцій не дали, це сирота; `[]` — їх немає НАВМИСНО (код реєструє
+     посилання в прозі, у маніфест він не йде). Розрізняти треба, інакше кожна одиниця
+     коду звітувалась би як помилка. */
+  const toOps = o.toOps || ((st) => st.get("ops"));
 
   /* Числа — ПЕРШИМИ, до створення теки: `active: NaN` крутив головний цикл синхронно й
      вішав процес на 100% CPU без жодного рядка діагностики. */
@@ -297,6 +302,23 @@ async function run(o) {
 
   const done = [], failed = [], skipped = [], notes = [];
 
+  /* ── пауза ─────────────────────────────────────────────────────────────────
+     Одиниця, якій бракує чужого результату (проза чекає на код), не провалюється й
+     не тримає місця в пулі: вона стає в `waiting`, а щойно всі, кого вона чекає,
+     завершаться — повертається в чергу. Завершені — у `finished`, разом із тими, що
+     завершились у минулих прогонах: підняття інакше змусило б чекати вже написане. */
+  const waiting = [];
+  const finished = new Set(readStates(dir).filter((s) => s && s.done && s.id).map((s) => s.id));
+  const release = () => {
+    for (let i = waiting.length - 1; i >= 0; i--) {
+      const w = waiting[i];
+      if (!w.for.every((id) => finished.has(id))) continue;
+      waiting.splice(i, 1);
+      q.requeue(w.unit);
+      try { say({ ev: "resume", unit: w.unit.id }); } catch { }
+    }
+  };
+
   /* Протокол стіни (CLAUDE.md): перша підозра на ліміт це ще НЕ стіна — одна контрольна
      пауза й ОДНА повторна спроба; мовчить удруге — WALL. Пауза одна на прогін. */
   let probe = null, probeOver = false;
@@ -308,7 +330,7 @@ async function run(o) {
   const start = (unit) => {
     const st = new UnitState(dir, unit);
     st.load();
-    if (st.done) { skipped.push(unit.id); done.push({ unit, state: st }); say({ ev: "skip", unit: unit.id }); return null; }
+    if (st.done) { skipped.push(unit.id); done.push({ unit, state: st }); finished.add(unit.id); say({ ev: "skip", unit: unit.id }); return null; }
     st.save();
     say({ ev: "start", unit: unit.id, from: st.stage, active: q.running.size + 1, pending: q.pending.length });
 
@@ -317,6 +339,8 @@ async function run(o) {
       /** Заповнити поле етапу. Поле заповнене — етап пройдено, і це видно одразу. */
       set: (field, value) => { st.set(field, value); say({ ev: "stage", unit: unit.id, stage: field }); return ctx; },
       get: (field) => st.get(field),
+      /** Чи завершена інша одиниця — у цьому прогоні або в минулих. */
+      isDone: (id) => finished.has(id),
       /**
        * ОДИН запит до агента — з межею очікування. Зависає завжди окремий виклик, а не
        * одиниця цілком: одиниця це десятки запитів і година-дві роботи. Не дочекались —
@@ -350,12 +374,19 @@ async function run(o) {
       .then(() => {
         ok = true;
         st.finish(); done.push({ unit, state: st });
+        finished.add(unit.id); release();
         /* `say` — чужий код, і його виняток не має перетворювати зроблену одиницю на
            провалену: доти вона потрапляла і в `done`, і в `failed` одночасно. */
         try { say({ ev: "done", unit: unit.id }); } catch (e) { notes.push(`onEvent впав: ${msgOf(e)}`); }
       })
       .catch((e) => {
         if (ok) { notes.push(`після завершення ${unit.id}: ${msgOf(e)}`); return; }
+        if (e && e.pause && Array.isArray(e.waitFor)) {
+          st.data.waiting = e.waitFor; st.save();
+          waiting.push({ unit, for: e.waitFor });
+          try { say({ ev: "pause", unit: unit.id, for: e.waitFor }); } catch { }
+          return;
+        }
         const limit = isLimit(e);
         st.fail(e, limit);
         failed.push({ unit: unit.id, error: msgOf(e), limit });
@@ -402,10 +433,11 @@ async function run(o) {
   const byBook = new Map(), orphans = [];
   let routed = 0;
   for (const { unit, state } of done) {
-    let ops = [];
-    try { ops = toOps(state, unit) || []; }
+    let ops = null;
+    try { ops = toOps(state, unit); }
     catch (e) { notes.push(`${unit.id}: toOps впав — ${msgOf(e)}`); }
-    if (!ops.length) { orphans.push({ unit: unit.id, why: "нема операцій" }); continue; }
+    if (ops == null) { orphans.push({ unit: unit.id, why: "нема операцій" }); continue; }
+    if (!ops.length) continue;
     if (!unit.book) { orphans.push({ unit: unit.id, why: "немає book" }); continue; }
     if (!byBook.has(unit.book)) byBook.set(unit.book, []);
     byBook.get(unit.book).push(...ops.map((op) => ({ op, unit: unit.id })));
@@ -416,8 +448,12 @@ async function run(o) {
     id, dir, logs: dir, done: done.length, failed: failed.length, skipped: skipped.length,
     restored: restored.added.length, routed, aborted, pending: q.pending.length,
     refused: q.refused, orphans, notes, errors: failed, books: {},
+    /* Лишились на паузі — ті, кого вони чекали, не завершились. Стан на диску є;
+       той самий хеш підніме їх, щойно з'явиться те, чого бракує. */
+    paused: waiting.map((w) => ({ unit: w.unit.id, for: w.for })),
     ids: { done: done.map((d) => d.unit.id), failed: failed.map((f) => f.unit) },
   };
+  if (waiting.length) say({ ev: "paused-left", n: waiting.length });
 
   /* Стіна тимчасова — маніфесту не пишемо взагалі: половина черги ще не пройдена, і запис
      зафіксував би півстан як завершений. Той самий хеш підніме прогін. */
