@@ -15,9 +15,8 @@ cut.py — НАРІЗКА КАНОНУ ПО СЕНСУ. Речення до св
     X  <підрядок>              ВИКИНУТИ з уже зібраного (щоб правило не жило двічі)
     H  <ярлик>                 підзаголовок-ярлик, не правило
 
-Файл переписується від початку: шапка, «Обсяг», «Що знаємо» з нарізки, «Що треба
-зробити» з відкритих питань, що виникли при різанні. Типові файли (types/*.md)
-дістають нарізку між маркерами під «Що знаємо», решта їхнього вмісту не чіпається.
+Файл переписується від початку: шапка, «Обсяг», «Треба зробити» з нарізки, «Коментарі» з відкритих питань, що виникли при різанні. Типові файли (types/*.md)
+дістають нарізку між маркерами під «Треба зробити», решта їхнього вмісту не чіпається.
 
     python writer_ua/rules/cut.py          записати
     python writer_ua/rules/cut.py --check  лише перевірити, що всі підрядки є
@@ -241,8 +240,8 @@ def shared_file(name, spec):
         body += "\n\n" + build(spec["readme"], src=README)
     todo = "\n".join("- " + t for t in spec["todo"]) or "- {порожньо}"
     own = ("\n\n" + spec["own"].strip() + "\n") if spec.get("own") else ""
-    return (f"# {name}\n\n**Обсяг:** {spec['scope']}\n\n## Що знаємо\n\n"
-            f"{MARK_A}\n{fix(body)}\n{MARK_B}{own}\n\n## Що треба зробити\n\n{todo}\n")
+    return (f"# {name}\n\n**Обсяг:** {spec['scope']}\n\n## Треба зробити\n\n"
+            f"{MARK_A}\n{fix(body)}\n{MARK_B}{own}\n\n## Коментарі\n\n{todo}\n")
 
 
 def type_file(path, items):
@@ -251,7 +250,7 @@ def type_file(path, items):
     if MARK_A in s:
         s = s[: s.index(MARK_A)] + block + s[s.index(MARK_B) + len(MARK_B):]
     else:
-        k = s.index("## Що треба зробити")
+        k = s.index("## Коментарі")
         s = s[:k].rstrip() + "\n\n" + block + "\n\n" + s[k:]
     # блок «що зжати» — у контракті письма кожного типу, один раз
     if path.endswith("-rules.md") and "<ЩО ЗЖАТИ>" not in s:

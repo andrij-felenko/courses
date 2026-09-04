@@ -22,6 +22,8 @@
 const P = require("./prompt.js");
 const R = require("./parse.js");
 const LOC = require("./local.js");
+const MF = require("../lib/manifest.js");
+const path = require("path");
 
 const MAX_LAYOUT = 7;      // стеля кіл викладки; вичерпали — вважаємо написаною
 const KEEP_SHARE = 0.75;   // скільки прози перепис МУСИТЬ зберегти; менше — це втрата, не правка
@@ -195,7 +197,7 @@ async function algorithm(unit, ctx, o = {}) {
           goal: goal.text, level: goal.level,
           section: p.group.join(", "), text: p.text,
           neighbours: parts.filter((x) => x !== p).flatMap((x) => x.theses).join("\n"),
-          add: topAdditions(p.add), howMuch: s.shortBy > 40 ? "повністю" : "трохи",
+          add: topAdditions(p.add),
         }), `дописування ${p.group.join(",")}`));
         const d = need(res, ["ТЕКСТ"], "дописування");
         const b = R.blocks(res);
@@ -319,7 +321,11 @@ async function algorithm(unit, ctx, o = {}) {
   /* ── 9 · ЗІБРАННЯ · локально ───────────────────────────────────────────── */
   if (!ctx.get("figures")) {
     const file = LOC.writeArticle(u, LOC.assemble(parts.map((p) => p.text)));
-    ctx.set("figures", { file });
+    /* ⛔ РОЗМІТКУ ФОРМУЛ ПЕРЕВІРЯЄМО ТУТ, А НЕ ПОТІМ РУКАМИ. Нуль токенів: з'їдений
+       бекслеш лагодиться сам, непарні роздільники лягають у стан і в лог батчу. Доти
+       сито жило збоку окремою командою — і 231 побитий рядок доїхав до читача. */
+    const frm = LOC.fixFormulas(path.join(MF.ROOT, file));
+    ctx.set("figures", { file, formulas: frm });
   }
 
   /* ── 10 · ОПЕРАЦІЇ В МАНІФЕСТ ──────────────────────────────────────────── */

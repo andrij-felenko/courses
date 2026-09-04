@@ -17,6 +17,7 @@ const path = require("path");
 const MF = require("../lib/manifest.js");
 const TXT = require("../lib/text.js");
 const DUP = require("../lib/dupes.js");
+const FRM = require("../checkers/formulas.js");
 
 /* ── людський шлях ─────────────────────────────────────────────────────────── */
 
@@ -231,6 +232,29 @@ function size(text, type, level) {
 /** Розділи → один файл. Заголовки пишуть самі письменники, ми лише склеюємо. */
 const assemble = (parts) => parts.map((p) => String(p || "").trim()).filter(Boolean).join("\n\n") + "\n";
 
+/**
+ * ⛔ РОЗМІТКА ФОРМУЛ — ЛОКАЛЬНО, ОДРАЗУ ПІСЛЯ ЗАПИСУ. Нуль токенів, і саме тому це
+ * робить конвеєр, а не людина потім.
+ *
+ * З'їдений бекслеш (`\text{` → таб плюс «ext{») лагодиться сам: підміна однозначна,
+ * бо табуляція перед «ext{» у прозі не трапляється. Заміряно на корпусі — 231 такий
+ * рядок у 24 темах, і всі вони доїхали до читача як літеральне «ext{Base}».
+ *
+ * Роздільники НЕ лагодимо ніколи: непарний `$` — це або загублений роздільник, або
+ * долар за змістом, і вгадувати тут дорожче, ніж назвати місце. Вони йдуть у стан.
+ */
+function fixFormulas(file) {
+  let s = "";
+  try { s = fs.readFileSync(file, "utf8"); } catch { return { fixed: 0, delims: [] }; }
+  const e = FRM.eaten(s);
+  if (e.length) {
+    for (const want of new Set(e.map((x) => x.want)))
+      s = s.split(e.find((x) => x.want === want).was).join(want);
+    fs.writeFileSync(file, s, "utf8");
+  }
+  return { fixed: e.length, delims: FRM.delimiters(s).map((d) => `рядок ${d.line}: ${d.why}`) };
+}
+
 /** Ім'я файла несе сама одиниця — і версія, і вставка. Тут лише запис. */
 function writeArticle(u, text) {
   fs.mkdirSync(u.dir, { recursive: true });
@@ -311,5 +335,5 @@ function titleRe(title) {
 
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, preknow, isDuplicate,
-  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable, ops,
+  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable, fixFormulas, ops,
 };
