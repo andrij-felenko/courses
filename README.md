@@ -16,7 +16,7 @@
   README.md       цей файл
   LICENSE
   embedded/       ← КОНТЕНТ: .md розділів, історії, img/*.svg, figs.py (як і був)
-  chemistry/      ← КОНТЕНТ другої книги: AUTHORING.md, PLAN.md, m1…m5 з .md/figs.py/img
+  chemistry/      ← КОНТЕНТ другої книги: PLAN.md, m1…m5 з .md/figs.py/img
 ```
 
 Обгортка в корені, контент у `embedded/` — бо GitHub Pages вміє віддавати лише `root`
@@ -77,7 +77,7 @@ Pages працює без змін.
 ## Друга книга — «Хімія»
 
 Той самий рушій `book.js`, інша точка входу: локально <http://localhost:8000/chem.html>,
-на Pages — `…/chem.html`. Контент — у `chemistry/` (правила — `chemistry/AUTHORING.md`,
+на Pages — `…/chem.html`. Контент — у `chemistry/` (правила —
 розбивка і /loop-команди — `chemistry/PLAN.md`). Нумерація — та сама **М.Р.Т**
 (модуль.розділ.тема), що тепер і в embedded: заголовки тем `## 1.2.3 Назва`; рушій
 розуміє і старі двочислові, і тричислові номери. Додаткові callout-и хімії: `> 🏠 …` (де це вдома),
