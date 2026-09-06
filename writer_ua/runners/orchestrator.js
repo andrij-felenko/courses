@@ -77,6 +77,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const STAGES = [
   "prep",       //  1 підготовка: згадки, абзаци довкола
   "goal",       //  2 ціль (текст) і рівень
+  "scope",      //  2б рівень і вставки
   "karkas",     //  3 питання з важливістю, групування, опори, вставки й код
   "sections",   //  4 розділи: текст, тези, чи глибше, чи повно, що додати, нові теми
   "size",       //  5 розмір і скільки бракує
@@ -444,8 +445,34 @@ async function run(o) {
     routed++;
   }
 
+  /* ⛔ ЗНАЙДЕНЕ МУСИТЬ БУТИ ВИДНО. Локальні сита — формули, огорожі коду, осиротілі
+     директиви, геометрія фігур — писали свій вирок у стан одиниці, і на цьому шлях
+     закінчувався: щоб побачити «директива веде в порожнечу», людина мусила відкрити
+     `inwork/<хеш>/<одиниця>.json` руками. Саме так «231 побитий рядок доїхав до читача»
+     — сито тоді теж було, тільки збоку. Тепер вирок іде у звіт прогону. */
+  const checks = done.map(({ unit, state }) => {
+    const d = (state && state.data) || {}, f = d.figures || {}, rows = [];
+    const frm = f.formulas || {};
+    if (frm.fixed) rows.push(`полагоджено з'їдених бекслешів: ${frm.fixed}`);
+    for (const x of frm.delims || []) rows.push(`роздільник формули — ${x}`);
+    for (const x of frm.banned || []) rows.push(`заборонений LaTeX — ${x}`);
+    const fen = f.fences || {};
+    if (fen.left) rows.push(`код в огорожах: ${fen.left} рядків — місце коду у файлі`);
+    for (const x of fen.missing || []) rows.push(`«:::code ${x}» веде в порожнечу`);
+    for (const x of (f.svg || {}).issues || []) rows.push(`фігура — ${x}`);
+    for (const x of f.issues || []) rows.push(`геометрія фігури — ${x}`);
+    const sz = d.size || {};
+    for (const x of sz.cantCut || []) rows.push(`не ріжеться — ${x}`);
+    if (sz.stillOver) rows.push(`лишилась над стелею: ${sz.words} слів при стелі ${sz.ceiling}`);
+    const lay = d.layout || {};
+    if (lay.gaveUp) rows.push(lay.shrank
+      ? `перепис з'їв би текст (${lay.shrank.was} → ${lay.shrank.now} слів) — лишено попередній`
+      : `викладка не зійшлася за ${lay.attempts} кіл`);
+    return rows.length ? { unit: unit.id, rows } : null;
+  }).filter(Boolean);
+
   const report = {
-    id, dir, logs: dir, done: done.length, failed: failed.length, skipped: skipped.length,
+    id, dir, logs: dir, checks, done: done.length, failed: failed.length, skipped: skipped.length,
     restored: restored.added.length, routed, aborted, pending: q.pending.length,
     refused: q.refused, orphans, notes, errors: failed, books: {},
     /* Лишились на паузі — ті, кого вони чекали, не завершились. Стан на диску є;

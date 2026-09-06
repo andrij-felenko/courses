@@ -18,7 +18,12 @@ function blocks(text) {
   let m;
   while ((m = re.exec(String(text || "")))) {
     const tag = m[1].trim(), body = m[2].trim();
-    out[tag] = out[tag] === undefined ? body : out[tag] + "\n" + body;
+    /* ⛔ ДОСЛІВНИЙ ПОВТОР НЕ СКЛЕЮЄМО. Агент, що перечитав своє завдання, повторює
+       відповідь цілком — і склейка перетворювала це на текст, написаний двічі. Заміряно
+       на живому: дев'ять вставок із дев'яти, тіло дослівно × 2, у файлі два H1.
+       Різні тіла склеюємо як раніше: це законне продовження довгої відповіді. */
+    if (out[tag] === undefined) out[tag] = body;
+    else if (out[tag] !== body && !out[tag].endsWith(body)) out[tag] += "\n" + body;
   }
   return out;
 }
@@ -66,7 +71,11 @@ const lines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boo
 /** Порожньо — це «нема чого додати», а не збій. Так і домовлено. */
 const empty = (s) => {
   const t = String(s || "").trim().toLowerCase();
-  return !t || t === "—" || t === "-" || t === "н/д" || t === "порожньо" || t === "нічого" || t === "немає";
+  /* ⛔ «ПУСТОТА» ТУТ ОБОВ'ЯЗКОВА: саме це слово пропонує контракт («немає — поверни
+     пустоту»), і без нього відповідь ставала ЗНАЧЕННЯМ — тема на ім'я «пустота» їхала в
+     нові теми, а розділ із «пустотою» в «Що зжати» вважався жирним і йшов у стиснення. */
+  return !t || t === "—" || t === "-" || t === "н/д" || t === "порожньо"
+    || t === "пустота" || t === "нічого" || t === "немає" || t === "жодних";
 };
 
 const yes = (s) => /^\s*(так|yes|ок|ok)\b/i.test(String(s || ""));
@@ -81,7 +90,17 @@ function sections(s) {
 
 /** `1, 2, 3` по рядку → [[1,2,3], …] */
 function groups(s) {
-  return lines(s).map((l) => (l.match(/\d+/g) || []).map(Number)).filter((g) => g.length);
+  const seen = new Set();
+  /* ⛔ ОДНАКОВІ ГРУПИ ЗГОРТАЄМО. Кожна група — це окремий виклик письма, і два однакові
+     рядки давали два однакові виклики, чиї тексти потім склеювались у файл підряд. Той
+     самий дослівний повтор, тільки з іншого боку. */
+  return lines(s).map((l) => (l.match(/\d+/g) || []).map(Number)).filter((g) => {
+    if (!g.length) return false;
+    const key = [...g].sort((a, b) => a - b).join(",");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 /** `тип 2 | proj | розділ 5 | про що` → {kind, insert, section, about} */
@@ -90,7 +109,11 @@ function inserts(s) {
     /* Ім'я НЕобов'язкове в розборі, хоч і просять його завжди: без нього рядок усе одно
        читається, а вставка дістає ім'я за темою. Вимагати його тут означало б викинути
        весь каркас через одну колонку. */
-    const m = /^тип\s*(\d)\s*\|\s*([a-z]+)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?(?:розділ\s*)?([\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
+    /* ⛔ ТИП — ЛИШЕ З П'ЯТИ. Доти сюди пускало будь-яке слово латиницею, і рядок
+       «тип 2 | code | …» давав одиницю `type:"code"` без мови й без носія: вона йшла в
+       дорогу коду, писала теку невизначеної мови й не потрапляла в перелік очікування,
+       тобто стаття на неї навіть не чекала. */
+    const m = /^тип\s*(\d)\s*\|\s*(hist|comp|math|proj|api)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?(?:розділ\s*)?([\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
     if (!m) return null;
     const sec = /^\d+$/.test(m[4]) ? Number(m[4]) : null;
     return {
@@ -100,11 +123,38 @@ function inserts(s) {
   }).filter(Boolean);
 }
 
-/** `розділ 5 | Python | що реалізує` → {section, lang, what} */
+/**
+ * `Назва — root:книга/тема — що саме знати` → {title, addr, why}.
+ *
+ * ⛔ Рядок без адреси відкидаємо. Передумова без цілі — обіцянка в порожнечу, і саме такі
+ * рядки псували корпус, коли адресу дозволяли складати самому.
+ */
+function preknow(s) {
+  return lines(s).map((l) => {
+    const m = /^(.+?)\s+[—-]\s+(root:[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9-]*)\s*(?:[—-]\s*([\s\S]+))?$/i.exec(l);
+    return m ? { title: m[1].trim(), addr: m[2].trim(), why: (m[3] || "").trim() } : null;
+  }).filter(Boolean);
+}
+
+/** `розділ 5 | що зображено` → {section, what} */
+function figures(str) {
+  return lines(str).map((l) => {
+    const m = /^(?:розділ\s*)?(\d+)\s*\|\s*([\s\S]+)$/i.exec(l);
+    return m ? { section: Number(m[1]), what: m[2].trim() } : null;
+  }).filter(Boolean);
+}
+
+/**
+ * `Python | що реалізує` або `розділ 5 | Python | що реалізує` → {section, lang, what}.
+ *
+ * ⚠️ РОЗДІЛ НЕОБОВ'ЯЗКОВИЙ: код замовляють на запиті «рівень і вставки», де розділів ще
+ * немає. Без розділу він прив'язується до всіх груп — шляхи справжні, і письменник
+ * цитує їх там, де вони доречні.
+ */
 function code(s) {
   return lines(s).map((l) => {
-    const m = /^(?:розділ\s*)?(\d+)\s*\|\s*([^|]+)\|\s*([\s\S]+)$/i.exec(l);
-    return m ? { section: Number(m[1]), lang: m[2].trim(), what: m[3].trim() } : null;
+    const m = /^(?:(?:розділ\s*)?(\d+)\s*\|)?\s*([^|]+)\|\s*([\s\S]+)$/i.exec(l);
+    return m ? { section: m[1] ? Number(m[1]) : null, lang: m[2].trim(), what: m[3].trim() } : null;
   }).filter(Boolean);
 }
 
@@ -132,4 +182,4 @@ function defects(s) {
   });
 }
 
-module.exports = { blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, additions, defects };
+module.exports = { blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, figures, preknow, additions, defects };

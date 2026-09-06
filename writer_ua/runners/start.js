@@ -78,10 +78,14 @@ function args(argv) {
 
 async function main(argv) {
   const o = args(argv);
-  if (!o.id && (!o.book || !o.topic))
+  if (!o.id && (!o.book || (!o.topic && !o.topics)))
     throw new Error("потрібно --book <книга> --topic <тема>, або --id <хеш> для підняття");
 
-  const units = o.book && o.topic ? [LOC.unitOf(o.book, o.topic, o.type || "article")] : [];
+  const rawTopics = o.topics ? o.topics.split(",") : (o.topic ? o.topic.split(",") : []);
+  const topicList = rawTopics.map((s) => s.trim()).filter(Boolean);
+  const units = o.book && topicList.length
+    ? topicList.map((t) => LOC.unitOf(o.book, t, o.type || "article"))
+    : [];
   const ask = loadAsk(o.ask);
 
   const say = (e) => {
@@ -117,6 +121,13 @@ async function main(argv) {
   console.log(`  теку прогону лишено: ${report.logs}`);
   console.log(`  зроблено ${report.done} · провалено ${report.failed} · пропущено ${report.skipped}`);
   if (report.notes.length) report.notes.forEach((n) => console.log(`  · ${n}`));
+  if (report.checks && report.checks.length) {
+    console.log(`\n  локальні перевірки — ${report.checks.length} одиниць із зауваженнями:`);
+    for (const c of report.checks) {
+      console.log(`  ▸ ${c.unit}`);
+      c.rows.forEach((r) => console.log(`      ${r}`));
+    }
+  }
   console.log(`  маніфест: ${report.manifest}`);
   return report.failed || report.aborted ? 1 : 0;
 }

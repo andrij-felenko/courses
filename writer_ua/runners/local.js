@@ -14,10 +14,12 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const cp = require("child_process");
 const MF = require("../lib/manifest.js");
 const TXT = require("../lib/text.js");
 const DUP = require("../lib/dupes.js");
 const FRM = require("../checkers/formulas.js");
+const DEC = require("../local/decamp.js");
 
 /* ── людський шлях ─────────────────────────────────────────────────────────── */
 
@@ -230,7 +232,17 @@ function size(text, type, level) {
 /* ── етап 9-10 · зібрання й маніфест ───────────────────────────────────────── */
 
 /** Розділи → один файл. Заголовки пишуть самі письменники, ми лише склеюємо. */
-const assemble = (parts) => parts.map((p) => String(p || "").trim()).filter(Boolean).join("\n\n") + "\n";
+const assemble = (parts) => {
+  /* ⛔ ТРЕТЯ ЗАСТАВА ПРОТИ ПОВТОРУ, і вона остання перед диском. Дві попередні стоять у
+     розборі відповіді й у групах; ця ловить те, що прослизнуло повз обидві. Повтор
+     дешевше зняти тут, ніж потім пояснювати читачеві два однакові розділи. */
+  const seen = new Set();
+  return parts.map((p) => String(p || "").trim()).filter((p) => {
+    if (!p || seen.has(p)) return false;
+    seen.add(p);
+    return true;
+  }).join("\n\n") + "\n";
+};
 
 /**
  * ⛔ РОЗМІТКА ФОРМУЛ — ЛОКАЛЬНО, ОДРАЗУ ПІСЛЯ ЗАПИСУ. Нуль токенів, і саме тому це
@@ -252,14 +264,86 @@ function fixFormulas(file) {
       s = s.split(e.find((x) => x.want === want).was).join(want);
     fs.writeFileSync(file, s, "utf8");
   }
-  return { fixed: e.length, delims: FRM.delimiters(s).map((d) => `рядок ${d.line}: ${d.why}`) };
+  return {
+    fixed: e.length,
+    delims: FRM.delimiters(s).map((d) => `рядок ${d.line}: ${d.why}`),
+    /* Заборонене НЕ лагодимо: прибрати LaTeX означає переписати формулу словами й
+       символами, а це робота письменника. Називаємо місце — і цього доти не робив ніхто. */
+    banned: FRM.banned(s).map((b) => `рядок ${b.line}: ${b.why} — «${b.was}»`),
+  };
 }
 
-/** Ім'я файла несе сама одиниця — і версія, і вставка. Тут лише запис. */
-function writeArticle(u, text) {
+/**
+ * ⛔ КОД ВІД ДЕСЯТИ РЯДКІВ МУСИТЬ ЖИТИ У ФАЙЛІ, А НЕ В ОГОРОЖІ. Правило було, доїжджало
+ * й не діяло: сказане нічим не мірялося. Тепер міряється — `text.js` рахує рівно те, що
+ * мало виїхати: огорожа з міткою СПРАВЖНЬОЇ мови й довжиною від порогу. Схема, дерево
+ * тек і вивід консолі кодом у цьому сенсі не є і в лік не входять.
+ *
+ * Нічого не переносить: винести код у файли означає ще й переписати посилання в прозі,
+ * а це робота письменника. Називає число й місце.
+ */
+/**
+ * ⛔ ДОВГИЙ КОД ВИНОСИМО, А НЕ ДОРІКАЄМО. Правило стояло, чекер потім лише рахував — а
+ * рахувати мало: заміряно 49 файлів і 7031 рядок в огорожах по корпусу. Виносити — робота
+ * механічна, отже наша: блок у файл поруч, на його місце директива.
+ *
+ * Це НЕ проєкт: одиниці коду не заводимо, архітектури не питаємо. Просто щоб текст не
+ * ставав простирадлом.
+ */
+const decamp = (file) => DEC.decamp(file, { apply: true }).length;
+
+function checkFences(file) {
+  let s = "";
+  try { s = fs.readFileSync(file, "utf8"); } catch { return { left: 0, code: 0, missing: [] }; }
+  /* ⛔ ДЗЕРКАЛО `--links` ДЛЯ КОДУ. Для фігур перевірка «обіцяно в прозі, а файлу немає»
+     була, для коду — ні, хоч дефект той самий і трапляється частіше: директива веде в
+     порожнечу, і читач бачить голий рядок замість програми. Шлях у `:::code` — від теки
+     теми, тож резолвимо саме звідти. */
+  const dir = path.dirname(file);
+  const missing = [...String(s).matchAll(/:::code[^\S\n]+(\S+)/g)]
+    .map((m) => m[1])
+    .filter((rel) => !fs.existsSync(path.join(dir, rel)));
+  return { left: TXT.fencedCode(s), code: (s.match(/:::code /g) || []).length, missing };
+}
+
+/**
+ * ⛔ ФІГУРИ — ТЕЖ ЛОКАЛЬНО, І ТЕЖ ОДРАЗУ. Геометрію міряє `checkers/svg.py`: написи один
+ * на одному, лінія крізь напис, вихід за полотно, дрібний шрифт, і — з `--links` —
+ * фігура, яку проза обіцяє директивою `![](img/…svg)`, а файлу немає.
+ *
+ * Нічого не лагодить: перемальовує фігуру своя одиниця `fig`, а тут лише огляд теки.
+ *
+ * ⚠️ `--links` вмикається ЛИШЕ тоді, коли всі фігури теми вже намальовані. Інакше
+ * «обіцяно, а немає» означало б не ваду, а те, що черга ще не дійшла, — і кожен прогін
+ * писав би в лог MISS, якого ніхто не робив.
+ */
+function checkFigures(dir, { links = true } = {}) {
+  const r = runSvg([dir, "--min-font", "8", ...(links ? ["--links"] : [])]);
+  if (!r.ok) return { issues: [], summary: "python не знайдено — фігури не перевірено" };
+  return {
+    issues: r.lines.filter((l) => /^(WARN|MISS)/.test(l)),
+    summary: r.lines[r.lines.length - 1] || "",
+  };
+}
+
+/**
+ * Ім'я файла несе сама одиниця — і версія, і вставка.
+ *
+ * ⛔ ЗАГОЛОВОК І БЛОК ПЕРЕДУМОВ СКЛАДАЄ КОНВЕЄР, А НЕ АГЕНТ. Назва лежить у маніфесті,
+ * передумови вирішив перший запит, адреси в них справжні — розбір інших не пускає. Просити
+ * це в письменника означало б або по блоку в кожній групі, або жодного: обидва варіанти
+ * ми вже мали. Тут це два рядки й жодної гілки.
+ */
+function writeArticle(u, text, preknow) {
   fs.mkdirSync(u.dir, { recursive: true });
   const file = path.join(u.dir, u.file);
-  fs.writeFileSync(file, text, "utf8");
+  const head = /^\s*#\s/.test(text) ? "" : `# ${u.title}\n\n`;
+  const pk = (preknow || []).length
+    ? "<preknowlist>\n" + preknow
+      .map((x) => `- [${x.title}](${x.addr})${x.why ? " — " + x.why : ""}`).join("\n")
+      + "\n</preknowlist>\n\n"
+    : "";
+  fs.writeFileSync(file, head + pk + text, "utf8");
   return path.relative(MF.ROOT, file).split(path.sep).join("/");
 }
 
@@ -269,7 +353,11 @@ function writeArticle(u, text) {
  * агента береться лише відносний і без `..`: усе інше — не файл проєкту, а втеча з теки.
  */
 function writeCode(u, files) {
-  const base = path.join(u.dir, u.carrier, u.lang);
+  /* ⛔ ТЕКА МОВИ — ЧЕСНА. Каркас пише мову вільним рядком: «Python», «C++», «Arduino».
+     Без нормалізації це давало теки `python/`, `c++/`, `arduino/` — яких не знає ні
+     `langDirs`, ні корпус (там `py/`, `cpp/`, і платформа лягає ПІД мову), а правило
+     «пара C↔C++ перевіряється наявністю теки `cpp/`» на такій теці не спрацьовує. */
+  const base = path.join(u.dir, u.carrier, TXT.langDir(u.lang));
   const written = [];
   for (const f of files) {
     let rel = String(f.path || "").replace(/\\/g, "/").replace(/^\.?\//, "");
@@ -301,7 +389,7 @@ function writeCode(u, files) {
  */
 function codeFiles(u, lang) {
   const carrier = u.file.replace(/\.md$/, "");
-  const root = path.join(u.dir, carrier, String(lang).toLowerCase());
+  const root = path.join(u.dir, carrier, TXT.langDir(lang));
   const out = [];
   const walk = (d, rel) => {
     let ents = [];
@@ -309,11 +397,61 @@ function codeFiles(u, lang) {
     for (const e of ents.sort((a, b) => a.name.localeCompare(b.name))) {
       const r = rel ? `${rel}/${e.name}` : e.name;
       if (e.isDirectory()) walk(path.join(d, e.name), r);
-      else out.push(`${carrier}/${String(lang).toLowerCase()}/${r}`);
+      else out.push(`${carrier}/${TXT.langDir(lang)}/${r}`);
     }
   };
   walk(root, "");
   return out;
+}
+
+/**
+ * ⛔ ІМЕНА ФІГУР ДАЄ КОНВЕЄР, А НЕ АГЕНТ. Каркас називає лише номер розділу й задум;
+ * ім'я файла виводиться з номера — і те саме ім'я бачать ОБИДВІ сторони: той, хто
+ * малює, і той, хто ставить директиву в прозі. Дати агентові вигадувати адресу ми вже
+ * пробували на вставках: вийшло правдоподібне ім'я в порожнечу.
+ *
+ * Дві фігури на один розділ — не помилка: друга дістає суфікс, бо один файл двома
+ * задумами не буває.
+ */
+function figNames(figs) {
+  const seen = new Map();
+  return (figs || []).map((f) => {
+    const n = (seen.get(f.section) || 0) + 1;
+    seen.set(f.section, n);
+    return { ...f, file: `img/fig-${f.section}${n > 1 ? "-" + n : ""}.svg` };
+  });
+}
+
+/** Фігура на диск: `<тема>/img/<ім'я>.svg`. Ім'я вже вирішене — тут лише запис. */
+function writeFigure(u, file, svg) {
+  const p = path.join(u.dir, file);
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, String(svg).trim() + "\n", "utf8");
+  return path.relative(MF.ROOT, p).split(path.sep).join("/");
+}
+
+/** Один запуск `checkers/svg.py`. Немає Python — не вада конвеєра, а відсутній звіт. */
+function runSvg(args) {
+  for (const py of ["python", "py -3", "python3"]) {
+    const bin = py.split(" ")[0];
+    const r = cp.spawnSync(bin, [...py.split(" ").slice(1),
+      path.join(__dirname, "..", "checkers", "svg.py"), ...args], { encoding: "utf8" });
+    if (r.error || r.status === null) continue;
+    return { ok: true, lines: String(r.stdout || "").split("\n").map((x) => x.trim()).filter(Boolean) };
+  }
+  return { ok: false, lines: [] };
+}
+
+/**
+ * Геометрія ОДНІЄЇ фігури — оракул для того, хто її щойно намалював. Підлога кегля тут
+ * 10, а не 8, як на оглядині теки: 8 терпить давні фігури корпусу, 10 — це те, що
+ * правила вимагають від нової.
+ *
+ * Повертає самі зауваження, без імені файла: адресат один і він його знає.
+ */
+function checkFigure(u, file) {
+  const r = runSvg([path.join(u.dir, file), "--min-font", "10"]);
+  return r.ok ? r.lines.filter((l) => /^WARN/.test(l)).map((l) => l.replace(/^WARN\s+[^:]*:\s*/, "")) : [];
 }
 
 /** Операції для писаря маніфесту. Статус приходить ззовні — вирішує не цей файл. */
@@ -335,5 +473,6 @@ function titleRe(title) {
 
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, preknow, isDuplicate,
-  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable, fixFormulas, ops,
+  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable,
+  fixFormulas, decamp, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

@@ -130,6 +130,53 @@ function delimiters(text) {
   return out;
 }
 
+/**
+ * ⛔ ЗАБОРОНЕНИЙ LaTeX — ЯК ПОРУШЕННЯ, А НЕ ЯК ОПИСКА. Правило «без LaTeX, узагалі, у
+ * жодному вигляді» стояло в `rules/formulas.md` і не перевірялося НІЧИМ, тоді як єдиний
+ * автомат на цій ділянці — `eaten()` — працював у зворотний бік: лагодив з'їдений
+ * бекслеш назад у `\text{`. Причина заборони не стильова: у рушії немає математичного
+ * рендерера (`grep -c katex src/front/*.js` → 0 в усіх десяти файлах), тож читач бачить
+ * долари, слеші й фігурні дужки дослівно.
+ *
+ * ⚠️ ДОЛАР СУДИМО ОБЕРЕЖНІШЕ ЗА КОМАНДУ. Команда (`\frac`, `\text`) у прозі не буває
+ * нічим іншим, а долар буває: ціна, `$PATH`, `$(cmd)`, `${HOME}`. Тому пару доларів
+ * називаємо формулою лише тоді, коли між ними є ОЗНАКА математики — бекслеш, степінь,
+ * підрядковий індекс або знак рівності між літерами. Обидві спроби судити долар самим
+ * лише виглядом уже ламали законні рядки: `$0 = \emptyset$` починається з долара перед
+ * цифрою, тобто виглядає як ціна.
+ *
+ * Код-блоки, `:::`-директиви й інлайн-код не дивимось: там долар означає інше.
+ */
+const BANNED = [
+  [/\\(?:frac|sqrt|text|mathbb|mathrm|mathcal|cdot|times|div|pm|leq|geq|neq|approx|equiv|sum|prod|int|infty|partial|nabla|alpha|beta|gamma|delta|theta|lambda|sigma|omega|log_|begin\{|end\{)/, "команда LaTeX"],
+  [/\\\(|\\\)|\\\[|\\\]/, "роздільник LaTeX"],
+  [/\$\$?[^$\n]*(?:\\[a-zA-Z]|\^|_\{|[A-Za-z]\s*=\s*[^=])[^$\n]*\$\$?/, "формула в доларах"],
+];
+
+function banned(text) {
+  const out = [];
+  let inFence = false;
+  String(text || "").split(/\r?\n/).forEach((raw, i) => {
+    if (/^\s*(?:```|~~~)/.test(raw)) { inFence = !inFence; return; }
+    if (inFence || /^\s*:::/.test(raw)) return;
+    /* ⚠️ ТОЙ САМИЙ РЯТУНОК, ЩО Й У `delimiters`. Долар у прозі буває не формулою:
+       `$(cmd)` і `${HOME}` — оболонка, `$20` — ціна, `$argon2id$v=19$m=65536$` — хеш PHC.
+       Останній особливо підступний: між доларами там стоїть `v=19`, тобто рівно та
+       «ознака математики», за якою ми судимо. Знімаємо їх ДО перевірки. */
+    const line = raw
+      .replace(/`[^`]*`/g, " ")                    // інлайн-код не рахуємо
+      .replace(/\$argon2[a-z]*(\$[^\s$]*)+/gi, " ")  // PHC-хеш цілком
+      .replace(/\$[({][^)}]*[)}]/g, " ")            // $(cmd), ${HOME}
+      .replace(/\$[A-Z_][A-Z0-9_]{2,}/g, " ")       // $PATH, $HOME — змінні оболонки
+      .replace(/\$(?=\d)/g, " ");                   // $20 — ціна
+    for (const [re, why] of BANNED) {
+      const m = re.exec(line);
+      if (m) { out.push({ line: i + 1, why, was: m[0].slice(0, 40) }); break; }
+    }
+  });
+  return out;
+}
+
 /* ── прогін ────────────────────────────────────────────────────────────────── */
 
 function main(argv) {
@@ -150,16 +197,16 @@ function main(argv) {
   if (!units.length) { process.stdout.write("нічого не відібрано\n"); return 0; }
 
   const seen = new Set();
-  let files = 0, badFiles = 0, nEaten = 0, nDelim = 0, fixed = 0, shown = 0;
+  let files = 0, badFiles = 0, nEaten = 0, nDelim = 0, nBan = 0, fixed = 0, shown = 0;
 
   for (const u of units) {
     const p = U.fileOf(u);
     if (!p || seen.has(p) || !fs.existsSync(p)) continue;
     seen.add(p); files++;
     let s = fs.readFileSync(p, "utf8");
-    const e = eaten(s), d = delimiters(s);
-    if (!e.length && !d.length) continue;
-    badFiles++; nEaten += e.length; nDelim += d.length;
+    const e = eaten(s), d = delimiters(s), bn = banned(s);
+    if (!e.length && !d.length && !bn.length) continue;
+    badFiles++; nEaten += e.length; nDelim += d.length; nBan += bn.length;
 
     if (fix && e.length) {
       for (const x of new Set(e.map((y) => y.was)))
@@ -177,11 +224,16 @@ function main(argv) {
       for (const x of d.slice(0, 5))
         process.stdout.write(`  ${x.line ? "рядок " + x.line + ": " : ""}${x.why}\n`);
       if (d.length > 5) process.stdout.write(`  …ще ${d.length - 5} про роздільники\n`);
+      /* ⛔ ЗАБОРОНЕНОГО НЕ ЛАГОДИМО. Прибрати LaTeX означає переписати формулу символами
+         або код-блоком — це робота письменника; сито лише називає місце. */
+      for (const x of bn.slice(0, 5))
+        process.stdout.write(`  рядок ${x.line}: ${x.why} — «${x.was}»\n`);
+      if (bn.length > 5) process.stdout.write(`  …ще ${bn.length - 5} про заборонений LaTeX\n`);
     }
   }
 
   process.stdout.write(`\nфайлів: ${files}   з вадами: ${badFiles}   з'їдених бекслешів: ${nEaten}` +
-    `   роздільники: ${nDelim}${fix ? `   полагоджено: ${fixed}` : ""}\n`);
+    `   роздільники: ${nDelim}   заборонений LaTeX: ${nBan}${fix ? `   полагоджено: ${fixed}` : ""}\n`);
   if (!fix && nEaten) process.stdout.write("бекслеші лагодяться однозначно — додай --fix\n");
   /* Роздільники самі не лагодимо НІКОЛИ: непарний `$` означає або загублений
      роздільник, або долар як валюту, і вгадувати тут дорожче, ніж показати. */
@@ -192,4 +244,4 @@ if (require.main === module) {
   try { process.exit(main(process.argv.slice(2))); }
   catch (e) { console.error("formulas: " + e.message); process.exit(3); }
 }
-module.exports = { eaten, delimiters };
+module.exports = { eaten, delimiters, banned };

@@ -19,7 +19,7 @@ const fs = require("fs");
 const path = require("path");
 
 /** Поріг винесення: від скількох рядків код їде з прози у файл. */
-const DECAMP = 10;
+const DECAMP = 15;   // поріг автора: довше — виносимо у файл, коротше лишається в тексті
 
 /**
  * Мітка огорожі → тека мови. Платформа — не мова: `arduino`, `esp-idf`, `stm32`
@@ -36,6 +36,16 @@ const LANGS = {
   ruby: "ruby", rb: "ruby", lua: "lua", perl: "perl", php: "php",
   r: "r", matlab: "matlab", dart: "dart",
   sh: "sh", bash: "sh", zsh: "sh", sql: "sql", cmake: "cmake", make: "make", makefile: "make",
+};
+
+/**
+ * Мова з каркаса → ім'я теки. Каркас пише мову вільним рядком — «Python», «C++»,
+ * «Arduino», — а тека мусить лишатися чесною: `py`, `cpp`, `c`. Невідому мову беремо
+ * як є, малими: краще чесна незнайома тека, ніж мовчазна підміна.
+ */
+const langDir = (lang) => {
+  const k = String(lang || "").trim().toLowerCase();
+  return LANGS[k] || k.replace(/[^a-z0-9+.-]/g, "-") || "code";
 };
 
 /** Мови-«клей»: файл дістають, але їхній розмір нічого не каже. */
@@ -149,5 +159,5 @@ function codeLines(dir) {
 
 module.exports = {
   DECAMP, LANGS, GLUE, BUILD_FILES, BUILD_EXT, TEST_RE,
-  proseWords, fencedCode, projectDir, langDirs, codeLines,
+  proseWords, fencedCode, projectDir, langDirs, langDir, codeLines,
 };
