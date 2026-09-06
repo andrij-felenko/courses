@@ -70,6 +70,9 @@ function unitOf(book, slug, type = "article", version = "ДЕТАЛЬНА", file
     groupTitle: (g && g.data.title) || t.group,
     chapterTitle: ((g && (g.data.chapters || []).find((c) => c.slug === t.chapter) || {}).title) || t.chapter,
     bookDir: MF.bookDirOf(book),
+    /* Слуги групи й розділу потрібні, щоб покласти поруч нову тему, яку назве ця сама:
+       матеріал вийшов із цієї теми, отже й місце його — біля неї. */
+    group: t.group, chapter: t.chapter,
     dir: path.join(MF.bookDirOf(book), slug),
   };
 }

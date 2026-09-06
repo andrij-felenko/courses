@@ -117,7 +117,10 @@ async function algorithm(unit, ctx, o = {}) {
       level: lv >= 1 && lv <= 3 ? lv : null,
       inserts: R.inserts(b["ВСТАВКИ"] || ""),
       code: R.code(b["КОД"] || ""),
-      missingTopics: R.lines(b["БРАКУЄ ТЕМ"] || ""),
+      /* ⛔ ТЕМУ НАЗИВАЮТЬ СЛУГОМ, А НЕ САМИМ ЗАГОЛОВКОМ. Без слуга її не завести, а не
+         завівши — нема адреси, і стаття не може поставити лінк: матеріал, названий окремою
+         темою, зникав у переліку. Тепер він стає стабом одразу. */
+      newTopics: R.topics(b["БРАКУЄ ТЕМ"] || ""),
     });
   }
   const sc = ctx.get("scope");
@@ -136,13 +139,25 @@ async function algorithm(unit, ctx, o = {}) {
       sections: secs,
       groups: R.groups(b["ГРУПИ"] || "").length ? R.groups(b["ГРУПИ"]) : [secs.map((s) => s.n)],
       figs: LOC.figNames(R.figures(b["ФІГУРИ"] || "")),
+      /* ⛔ КАРКАС ТЕЖ КАЖЕ ПРО КОД, І ЦЕ НЕ ДУБЛЬ. «Рівень і вставки» вирішує, чи код
+         узагалі буде й якою мовою; каркас додає єдине, чого там знати не могли, — до
+         якого кроку його прив'язати, бо кроків на той момент ще не існувало. Доти цей
+         блок просили в `api` та `proj`, агент його писав, і відповідь ішла в нікуди:
+         платили за прив'язку й лишалися без неї. */
+      code: R.code(b["КОД"] || ""),
     });
   }
   const k = ctx.get("karkas");
 
-  /* Вставки типу 2 і код — окремі одиниці; вони стають у ту саму чергу батчу.
-     Тип 1 у статтю не входить: він іде в нові теми на етап 8. Тип 3 лишається
-     парою речень у тексті й одиницею не стає. */
+  /* Вставки й код — окремі одиниці; вони стають у ту саму чергу батчу.
+
+     ⛔ ВСТАВКА БЕЗ РОЗДІЛУ ДІСТАЄ ПЕРШИЙ. Розділ у вставки — це місце, де стаття на неї
+     посилається, і без нього файл писався, але жодна група його не бачила: вставка
+     лягала на диск, а лінка на неї не ставив ніхто. Мовчазна втрата цілого тексту через
+     одну незаповнену колонку — дорого; перший розділ як типове гірший за названий, але
+     він хоч видимий і його видно оку на вичитці. */
+  const inserts = (sc.inserts || []).map((x) =>
+    x.section == null && k.sections.length ? { ...x, section: k.sections[0].n } : x);
   /* ⛔ ПИТАННЯ ПРО C І C++ СТОЇТЬ ДО ПИСЬМА, А НЕ ПІСЛЯ. Доти воно було етапом 7б —
      після письма й після викладки, — і друга мова ставала одиницею черги, коли стаття
      вже зібрана й більше не відкривається. Наслідок був детермінований: тека `cpp/` на
@@ -160,8 +175,10 @@ async function algorithm(unit, ctx, o = {}) {
   }
   const extraLangs = (ctx.get("code") || {}).want || [];
 
+  /* Точніше джерело перемагає: каркасне замовлення несе крок, скоупове — ні. */
+  const codeSpec = (k.code && k.code.length) ? k.code : sc.code;
   const codeUnits = [
-    ...codeUnitsOf(u, sc.code, sc.level),
+    ...codeUnitsOf(u, codeSpec, sc.level),
     ...extraLangs.map((l) => ({
       ...LOC.unitOf(u.book, u.slug, "code", ""),
       id: `${u.book}/${u.slug}:code-${l}`, type: "code", lang: l, level: sc.level,
@@ -180,8 +197,8 @@ async function algorithm(unit, ctx, o = {}) {
      виникало — рівно той дефект, який переїзд мав закрити. Тут ми дописуємо рядки другої
      мови до тих самих розділів, де код уже замовлено. */
   const codeRows = [
-    ...sc.code,
-    ...extraLangs.flatMap((l) => [...new Set(sc.code.map((c) => c.section))].map((sec) => ({
+    ...codeSpec,
+    ...extraLangs.flatMap((l) => [...new Set(codeSpec.map((c) => c.section))].map((sec) => ({
       section: sec, lang: l,
       what: `той самий приклад мовою ${l} — постав його вкладкою «:::tabs» поруч із першою мовою`,
     }))),
@@ -193,7 +210,12 @@ async function algorithm(unit, ctx, o = {}) {
        ім'я файла, а його даємо ми. Чекати на малюнок означало б тримати готову статтю
        заручницею фігури — і провалена фігура забирала б із собою написану статтю. */
     const more = [...codeUnits, ...figUnits];
-    for (const ins of sc.inserts.filter((x) => x.kind === 2))
+    /* ⛔ ПИШУТЬСЯ ВСІ НАЗВАНІ ВСТАВКИ. Доти тут стояв фільтр по числу з рядка: писалася
+       лише «двійка», «одиниця» ставала назвою нової теми, а «трійка» не потрапляла нікуди
+       й зникала мовчки. Отже число, що мало означати глибину, вирішувало, писати чи ні, —
+       і найглибший матеріал губився. Тепер маршрут визначає блок: сюди приходить те, що
+       названо вставкою, а окремі теми приходять своїм блоком. */
+    for (const ins of inserts)
       more.push({
         ...LOC.unitOf(u.book, u.slug, ins.insert, "", ins.name ? `${ins.insert}-${ins.name}` : ""),
         about: ins.about, section: ins.section,
@@ -219,7 +241,7 @@ async function algorithm(unit, ctx, o = {}) {
          тільки «про що», він написав `hist-information-hiding.md` там, де вставка зветься
          `hist-enforced-hiding.md`, і лінк вийшов битий. Код на цей момент уже на диску —
          пауза для того й стоїть, — тож перелічуємо реальні файли. */
-      const bound = [...sc.inserts.filter((x) => x.kind === 2 && g.includes(x.section))
+      const bound = [...inserts.filter((x) => g.includes(x.section))
         .map((x) => {
           const file = x.name ? `${x.insert}-${x.name}.md` : `${x.insert}-${u.slug}.md`;
           return `розділ ${x.section}: вставка «${x.about}»\n` +
@@ -246,7 +268,11 @@ async function algorithm(unit, ctx, o = {}) {
       const res = await ctx.call(`письмо ${g.join(",")}`, () => ask(P.write(u, {
         goal: goal.text, level: sc.level,
         sections: mine.map((s) => `${s.n} | важливість: ${s.importance} | ${s.text}`).join("\n"),
-        theses: theses.join("\n"), inserts: bound, passed, linkable: LOC.linkable(u),
+        theses: theses.join("\n"), inserts: bound, passed,
+        /* Теми, названі на попередньому етапі, вже мають адресу — отже на них МОЖНА
+           лінкувати, і саме так матеріал, винесений із цієї статті, лишається досяжним. */
+        linkable: [LOC.linkable(u), ...(sc.newTopics || []).map((t) => `${t.title} — root:${u.book}/${t.slug}`)]
+          .filter(Boolean).join("\n"),
         opory: preknowText,
       }), `письмо ${g.join(",")}`));
 
@@ -415,9 +441,8 @@ async function algorithm(unit, ctx, o = {}) {
     }
     ctx.set("deferred", {
       newTopics: [
-        ...sc.inserts.filter((x) => x.kind === 1).map((x) => `${x.about} (назвав каркас)`),
         ...parts.flatMap((p) => (p.newTopics || []).map((t) => `${t} (назвав письменник)`)),
-        ...sc.missingTopics.map((t) => `${t} (назвав каркас, з переліку книг)`),
+        ...(sc.newTopics || []).map((t) => `${t.title} — root:${u.book}/${t.slug} (заведено стабом)`),
       ],
       basicNeeded: basic,
       /* Матеріал, що переріс тему, стискач назвав окремо — він теж нова тема. */
@@ -447,6 +472,15 @@ async function algorithm(unit, ctx, o = {}) {
   /* ── 10 · ОПЕРАЦІЇ В МАНІФЕСТ ──────────────────────────────────────────── */
   if (!ctx.get("ops")) {
     const ops = LOC.ops(u, o.status || "recheck");
+    /* ⛔ СТАБ ЗАВОДИМО ТУТ, а не лишаємо переліком назв. Лінк, поставлений письменником,
+       мусить вести в тему, яка існує; порядок «спершу завели, тоді послались» — той самий,
+       що в каноні. Місце нової теми — група й розділ тієї, з якої матеріал вийшов. */
+    for (const t of (sc.newTopics || []))
+      ops.push({
+        op: "topic", slug: t.slug, title: t.title,
+        group: u.group, chapter: u.chapter, basic: "empty", detailed: "pending",
+      });
+
     /* ⛔ ВЕРДИКТ ГЕЙТА МУСИТЬ КУДИСЬ ІТИ. Доти він лягав у стан, якого не читає жоден
        рядок репо, — тобто запит коштував увесь текст статті заради відповіді, яку
        викидали. Тепер він стає операцією: `pending` — базову писати, `empty` — не треба.
