@@ -75,17 +75,17 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * не підробиш. Порядок важить: «де воно зупинилось» — це останнє заповнене.
  */
 const STAGES = [
-  "prep",       //  1 підготовка: згадки, абзаци довкола
-  "goal",       //  2 ціль (текст) і рівень
-  "scope",      //  2б рівень і вставки
-  "karkas",     //  3 питання з важливістю, групування, опори, вставки й код
-  "sections",   //  4 розділи: текст, тези, чи глибше, чи повно, що додати, нові теми
-  "size",       //  5 розмір і скільки бракує
-  "layout",     //  6 викладка проти цілей: ок або чому ні, скільки спроб
-  "formulas",   //  7 формули: стара → нова
-  "code",       //  7 код: чи можна C, чи можна C++
-  "deferred",   //  8 відкладене: нові теми, лінки, чи треба базова
-  "figures",    //  9 фігури: що полагоджено
+  "prep",       //  1 підготовка: згадки з околицею, адреса словами, пройдене
+  "goal",       //  1 ціль і передумови
+  "structure",  //  2 вставки, нові теми, чи бажана базова — лише детальна
+  "karkas",     //  3 рівень, розділи, глибина, групи, фігури; код для проєкту
+  "sections",   //  4 письмо: текст, оцінки розділів, тези, нові теми й svg
+  "size",       //  5 розмір: дописування названим, стиснення названим
+  "analysis",   //  5 оцінки 0–10; переписування з нуля; речення з фактами
+  "facts",      //  5 веб-перевірка фактів і формул: заміни
+  "figures",    //  6 фігури: що поставлено, що домальовано
+  "topics",     //  8 зведення нових тем: операції й адреси лінків
+  "assembly",   //  9 механічна збірка: файл і локальні сита
   "ops",        // 10 що піде в маніфест
 ];
 
@@ -440,8 +440,12 @@ async function run(o) {
     if (ops == null) { orphans.push({ unit: unit.id, why: "нема операцій" }); continue; }
     if (!ops.length) continue;
     if (!unit.book) { orphans.push({ unit: unit.id, why: "немає book" }); continue; }
-    if (!byBook.has(unit.book)) byBook.set(unit.book, []);
-    byBook.get(unit.book).push(...ops.map((op) => ({ op, unit: unit.id })));
+    /* Операція може адресувати ІНШУ книгу — нова тема, що лягла не поруч: `op.book`. */
+    for (const op of ops) {
+      const book = op.book || unit.book;
+      if (!byBook.has(book)) byBook.set(book, []);
+      byBook.get(book).push({ op, unit: unit.id });
+    }
     routed++;
   }
 
@@ -451,23 +455,25 @@ async function run(o) {
      `inwork/<хеш>/<одиниця>.json` руками. Саме так «231 побитий рядок доїхав до читача»
      — сито тоді теж було, тільки збоку. Тепер вирок іде у звіт прогону. */
   const checks = done.map(({ unit, state }) => {
-    const d = (state && state.data) || {}, f = d.figures || {}, rows = [];
-    const frm = f.formulas || {};
+    const d = (state && state.data) || {}, a = d.assembly || {}, f = d.figures || {}, rows = [];
+    const frm = a.formulas || {};
     if (frm.fixed) rows.push(`полагоджено з'їдених бекслешів: ${frm.fixed}`);
     for (const x of frm.delims || []) rows.push(`роздільник формули — ${x}`);
     for (const x of frm.banned || []) rows.push(`заборонений LaTeX — ${x}`);
-    const fen = f.fences || {};
+    const fen = a.fences || {};
     if (fen.left) rows.push(`код в огорожах: ${fen.left} рядків — місце коду у файлі`);
     for (const x of fen.missing || []) rows.push(`«:::code ${x}» веде в порожнечу`);
-    for (const x of (f.svg || {}).issues || []) rows.push(`фігура — ${x}`);
+    for (const x of (a.svg || {}).issues || []) rows.push(`фігура — ${x}`);
     for (const x of f.issues || []) rows.push(`геометрія фігури — ${x}`);
+    for (const x of f.unplaced || []) rows.push(`фігура без місця — ${x}`);
     const sz = d.size || {};
     for (const x of sz.cantCut || []) rows.push(`не ріжеться — ${x}`);
+    if (sz.stillShort) rows.push(`лишилась коротшою за норму: ${sz.words} слів при нормі ${sz.need}`);
     if (sz.stillOver) rows.push(`лишилась над стелею: ${sz.words} слів при стелі ${sz.ceiling}`);
-    const lay = d.layout || {};
-    if (lay.gaveUp) rows.push(lay.shrank
-      ? `перепис з'їв би текст (${lay.shrank.was} → ${lay.shrank.now} слів) — лишено попередній`
-      : `викладка не зійшлася за ${lay.attempts} кіл`);
+    const an = d.analysis || {};
+    if (an.forced) rows.push(`прийнято після ${an.rewrites} переписувань з оцінкою ${an.score}`);
+    const tp = d.topics || {};
+    for (const x of tp.notes || []) rows.push(`нові теми — ${x}`);
     return rows.length ? { unit: unit.id, rows } : null;
   }).filter(Boolean);
 

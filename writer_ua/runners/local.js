@@ -159,10 +159,75 @@ function linkable(u) {
   return out.join("\n");
 }
 
-/** Усі книги репо назвами — для каркаса статті. */
+/** Усі книги репо назвами. */
 const books = () => [...MF.books().entries()]
   .map(([slug, b]) => { const x = MF.loadBook(b.bookDir); return x ? (x.manifest.title || slug) : null; })
   .filter(Boolean).join("\n");
+
+/** Книги з групами й розділами — слугами й назвами — для зведення нових тем. */
+function shelf() {
+  const rows = [];
+  for (const [slug, b] of MF.books()) {
+    const x = MF.loadBook(b.bookDir);
+    if (!x) continue;
+    rows.push(`${slug} — ${x.manifest.title || slug} [${b.kind || x.manifest.kind || ""}]`);
+    for (const [g, gv] of x.groups) {
+      rows.push(`  ${g} — ${gv.data.title || g}`);
+      for (const c of gv.data.chapters || []) rows.push(`    ${c.slug} — ${c.title || c.slug}`);
+    }
+  }
+  return rows.join("\n");
+}
+
+/** Теми одного розділу книги (без розділу — усієї групи): слуг і назва. */
+function chapterTopics(book, group, chapter) {
+  const b = MF.loadBook(MF.bookDirOf(book));
+  if (!b) return [];
+  return MF.allTopics(b)
+    .filter((t) => t.own && t.group === group && (!chapter || t.chapter === chapter))
+    .map((t) => ({ slug: t.slug, title: t.title }));
+}
+
+/** Початок наявної теми — перші речення її статті; не написана — її назва. */
+function topicHead(book, slug, n = 8) {
+  const dir = path.join(MF.bookDirOf(book), slug);
+  for (const f of [`${slug}.md`, `${slug}-d.md`]) {
+    let s = "";
+    try { s = fs.readFileSync(path.join(dir, f), "utf8"); } catch { continue; }
+    const body = s.replace(/^#[^\n]*\n/, "").replace(/<preknowlist>[\s\S]*?<\/preknowlist>/, "").trim();
+    const sents = body.split(/(?<=[.!?])\s+/).slice(0, n).join(" ").trim();
+    if (sents) return sents;
+  }
+  const b = MF.loadBook(MF.bookDirOf(book));
+  const t = b && MF.allTopics(b).find((x) => x.own && x.slug === slug);
+  return t ? `(ще не написана) ${t.title}` : "";
+}
+
+/** Шматок нашого тексту довкола лінка на ще не заведену тему. */
+function linkContext(text, slug, span = 500) {
+  const s = String(text || "");
+  const i = s.indexOf(`root:new/${slug}`);
+  if (i < 0) return "";
+  return s.slice(Math.max(0, i - span), i + span).replace(/\s+/g, " ").trim();
+}
+
+/** Лінки на майбутні теми → справжні адреси; чого в мапі нема — лишається як є. */
+function resolveLinks(text, map) {
+  return String(text || "").replace(/root:new\/([a-z0-9][a-z0-9-]*)/gi, (m, s) => map[s.toLowerCase()] || m);
+}
+
+/** Текст групи → розділи за H2: [{head, body}]. Без H2 — один розділ без заголовка. */
+function splitSections(text) {
+  const out = [];
+  let cur = null;
+  for (const line of String(text || "").split("\n")) {
+    if (/^## /.test(line)) { cur = { head: line, body: [] }; out.push(cur); continue; }
+    if (!cur) { cur = { head: "", body: [] }; out.push(cur); }
+    cur.body.push(line);
+  }
+  return out.map((s) => ({ head: s.head, body: s.body.join("\n").trim() }));
+}
+const joinSections = (secs) => secs.map((s) => [s.head, s.body].filter(Boolean).join("\n\n")).join("\n\n");
 
 /**
  * Що читач уже знає.
@@ -475,7 +540,8 @@ function titleRe(title) {
 }
 
 module.exports = {
-  humanPath, titleRe, unitOf, mentions, neighbours, books, preknow, isDuplicate,
+  humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, topicHead,
+  linkContext, resolveLinks, splitSections, joinSections, preknow, isDuplicate,
   size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable,
   fixFormulas, decamp, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

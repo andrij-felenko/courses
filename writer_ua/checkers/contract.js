@@ -26,12 +26,13 @@ const RULES = path.join(__dirname, "..", "rules");
 /** Тег → чим його читає алгоритм. Теги вільного тексту сюди не входять: там нема формату. */
 const READER = {
   "РОЗДІЛИ": R.sections, "КРОКИ": R.sections, "ПОДІЇ": R.sections,
-  "ВАРІАНТИ": R.sections,
-  "ГРУПИ": R.groups, "ФІГУРИ": R.figures, "ВСТАВКИ": R.inserts,
-  /* «КЛАСИ», «ФАЙЛИ», «СТРУКТУРА» алгоритм читає `R.lines` — там формату нема, і питати
-     тут нема про що. */
-  "КОД": R.code, "БРАКУЄ ТЕМ": R.topics, "ПЕРЕДУМОВИ": R.preknow,
-  "ЩО ДОДАТИ": R.additions, "НЕ ТАК": R.defects,
+  "ГРУПИ": R.groups, "ФІГУРИ": R.figures, "НОВІ SVG": R.figures,
+  "ВСТАВКИ": R.inserts, "НОВІ ТЕМИ": R.topics, "ОКРЕМА ТЕМА": R.topics,
+  /* «КЛАСИ», «ФАЙЛИ», «СТРУКТУРА», «ГЛИБИНА», «ВЕРДИКТ» алгоритм читає як текст — там
+     формату нема, і питати тут нема про що. */
+  "КОД": R.code, "ПЕРЕДУМОВИ": R.preknow,
+  "ЩО ДОДАТИ": R.additions, "ЩО ЗЖАТИ": R.bySection, "ТЕЗИ": R.bySection,
+  "ДЕ ДОПИСАТИ": R.bySection, "ОЦІНКИ": R.scores, "ЗАМІНИ": R.replacements, "НАЗВИ": R.names,
 };
 
 /**
@@ -44,15 +45,17 @@ function sample(tpl) {
   let s = tpl.replace(/\s*[;·]\s*(порожньо|пусто|нічого)[^]*$/i, "").trim();
   /* Підставляємо за тим, ЩО стоїть перед діркою, а не лише за словом усередині: у
      «важливість: {…}» саме́ слово нічого не каже, а місце каже все. */
-  s = s.replace(/(\S*\s*)\{([^{}]*)\}/g, (_, before, inner) => {
+  s = s.replace(/([^\s{}]*\s*)\{([^{}]*)\}/g, (_, before, inner) => {
     const alt = inner.split("|").map((x) => x.trim());
     const pick = (v) => before + v;
     if (alt.length > 1 && alt.every((x) => /^[a-zа-яіїєґ0-9 ]+$/i.test(x) && x.length < 12)) return pick(alt[0]);
     if (/важлив/i.test(before) || /важлив/i.test(inner)) return pick("висока");
     /* ⛔ БЕЗ ``: межа слова знає саме [A-Za-z0-9_], і після кирилиці її НЕМА — `/^номер/`
        не збігається з «номер» ніколи. Довший варіант просто стоїть першим. */
-    if (/^номери/i.test(inner)) return pick("1, 2");
-    if (/^n$/i.test(inner) || /^номер/i.test(inner)) return pick("1");
+    if (/^номери|^група/i.test(inner)) return pick("1, 2");
+    if (/^n$/i.test(inner) || /^номер|^розділ$/i.test(inner)) return pick("1");
+    if (/0[–-]10/.test(inner)) return pick("8");
+    if (/^тип$/i.test(inner)) return pick("hist");
     if (/слуг|ім'я|имя/i.test(inner)) return pick("probe-name");
     if (/мова/i.test(inner)) return pick("python");
     if (/адрес|root:/i.test(inner)) return pick("root:probe-book/probe-topic");
@@ -82,7 +85,7 @@ function verdict(got, tpl) {
       if (SPILL.test(v)) return `у поле «${k}» потрапило слово-одиниця: «${v}»`;
     }
   /* Номер просили — номер має бути прочитаний, а не проковтнутий сусіднім полем. */
-  const wantsNum = /\{\s*(n|номер)\s*\}/i.test(tpl.split("|")[0] || "");
+  const wantsNum = /\{\s*(n|номер|розділ)\s*\}/i.test(tpl.split("|")[0] || "");
   if (wantsNum && got.every((o) => "section" in o && o.section == null))
     return "номер просили, а `section` порожній";
   return null;

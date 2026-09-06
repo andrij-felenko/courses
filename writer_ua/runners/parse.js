@@ -14,7 +14,7 @@
 /** Усі блоки відповіді як {ТЕГ: текст}. Однакові теги склеюються рядками. */
 function blocks(text) {
   const out = {};
-  const re = /<([А-ЯA-Z][^<>\n]*?)>([\s\S]*?)<\/\1>/g;
+  const re = /<([А-ЯІЇЄҐA-Z][^<>\n]*?)>([\s\S]*?)<\/\1>/g;
   let m;
   while ((m = re.exec(String(text || "")))) {
     const tag = m[1].trim(), body = m[2].trim();
@@ -103,25 +103,65 @@ function groups(s) {
   });
 }
 
-/** `proj | circuit-breaker | розділ 5 | про що` → {insert, name, section, about} */
+/**
+ * `proj-circuit-breaker | що саме там має бути` → {insert, name, about}.
+ *
+ * Тип — лише з п'яти, і він частина імені: інше слово перед дефісом — не вставка, і рядок
+ * відкидається. Стару форму «тип | ім'я | розділ n | про що» ще читаємо, розділ викидаємо:
+ * куди вставку інтегрувати, вирішує письмо.
+ */
 function inserts(s) {
   return lines(s).map((l) => {
-    /* Ім'я НЕобов'язкове в розборі, хоч і просять його завжди: без нього рядок усе одно
-       читається, а вставка дістає ім'я за темою. Вимагати його тут означало б викинути
-       весь каркас через одну колонку. */
-    /* ⛔ ТИП — ЛИШЕ З П'ЯТИ. Доти сюди пускало будь-яке слово латиницею, і рядок
-       «code | …» давав одиницю `type:"code"` без мови й без носія: вона йшла в дорогу
-       коду, писала теку невизначеної мови й не потрапляла в перелік очікування, тобто
-       стаття на неї навіть не чекала. */
-    /* ⚠️ Провідне «тип N |» приймаємо й ВИКИДАЄМО. Воно ще трапляється в чужих
-       відповідях; відкинути через нього цілий рядок дорожче, ніж проминути. */
-    const m = /^(?:тип\s*\d\s*\|\s*)?(hist|comp|math|proj|api)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?(?:[^\d|]*?\s*)?([\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
-    if (!m) return null;
-    const sec = /^\d+$/.test(m[3]) ? Number(m[3]) : null;
-    return {
-      insert: m[1].toLowerCase(),
-      name: (m[2] || "").toLowerCase(), section: sec, about: m[4].trim(),
-    };
+    let m = /^(hist|comp|math|proj|api)-([a-z0-9][a-z0-9-]*)\s*\|\s*([\s\S]+)$/i.exec(l);
+    if (m) return { insert: m[1].toLowerCase(), name: m[2].toLowerCase(), about: m[3].trim() };
+    m = /^(?:тип\s*\d\s*\|\s*)?(hist|comp|math|proj|api)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?(?:[^\d|]*?\s*)?(?:[\d—-]+)\s*\|\s*([\s\S]+)$/i.exec(l);
+    return m ? { insert: m[1].toLowerCase(), name: (m[2] || "").toLowerCase(), about: m[3].trim() } : null;
+  }).filter(Boolean);
+}
+
+/** `3 | що можна стиснути` → {section, text}; рядок без номера — section null. */
+function bySection(s) {
+  return lines(s).map((l) => {
+    const m = /^\s*(?:[^\d|]*?\s*)?(\d+)\s*\|\s*([\s\S]+)$/.exec(l);
+    return m ? { section: Number(m[1]), text: m[2].trim() } : { section: null, text: l.trim() };
+  }).filter((x) => x.text && !empty(x.text));
+}
+
+/** `1, 2, 3 | 8 | чому` → {groups:[1,2,3], score, why}. Оцінки етапу аналізу. */
+function scores(s) {
+  return lines(s).map((l) => {
+    const p = l.split("|").map((x) => x.trim());
+    if (p.length < 2) return null;
+    const score = Number((p[1].match(/\d+/) || [])[0]);
+    if (!Number.isFinite(score)) return null;
+    return { groups: (p[0].match(/\d+/g) || []).map(Number), score, why: p.slice(2).join(" | ") };
+  }).filter(Boolean);
+}
+
+/** `старе речення :: нове речення` → {from, to}. */
+function replacements(s) {
+  return lines(s).map((l) => {
+    const m = /^([\s\S]+?)\s*::\s*([\s\S]+)$/.exec(l);
+    return m && m[1].trim() && m[2].trim() ? { from: m[1].trim(), to: m[2].trim() } : null;
+  }).filter(Boolean);
+}
+
+/** `<ВЕРДИКТ>` етапу 8: {kind, slug}. */
+function verdict(s) {
+  const t = String(s || "").trim().toLowerCase();
+  const m = /^є\s*\|\s*([a-z0-9][a-z0-9-]*)/i.exec(t);
+  if (m) return { kind: "є", slug: m[1].toLowerCase() };
+  if (/^нов/.test(t)) return { kind: "нова", slug: "" };
+  if (/^дубл/.test(t)) return { kind: "дубль", slug: "" };
+  if (/^різн/.test(t)) return { kind: "різні", slug: "" };
+  return { kind: "", slug: "" };
+}
+
+/** `слуг | точніша назва` → {slug, title}. */
+function names(s) {
+  return lines(s).map((l) => {
+    const m = /^([a-z0-9][a-z0-9-]*)\s*\|\s*([\s\S]+)$/i.exec(l);
+    return m ? { slug: m[1].toLowerCase(), title: m[2].trim() } : null;
   }).filter(Boolean);
 }
 
@@ -184,8 +224,11 @@ function code(s) {
  */
 function additions(s) {
   return lines(s).map((l) => {
-    const m = /^\s*([1-5])\s*[|.)–—-]\s*([\s\S]+)$/.exec(l);
-    return m ? { level: Number(m[1]), what: m[2].trim() } : { level: 1, what: l.trim() };
+    /* Нова форма — з розділом: `3 | 5 | що`. Стара `5 | що` — без розділу. */
+    let m = /^\s*(?:[^\d|]*?\s*)?(\d+)\s*\|\s*([1-5])\s*\|\s*([\s\S]+)$/.exec(l);
+    if (m) return { section: Number(m[1]), level: Number(m[2]), what: m[3].trim() };
+    m = /^\s*([1-5])\s*[|.)–—-]\s*([\s\S]+)$/.exec(l);
+    return m ? { section: null, level: Number(m[1]), what: m[2].trim() } : { section: null, level: 1, what: l.trim() };
   }).filter((x) => x.what && !empty(x.what)).sort((a, b) => b.level - a.level);
 }
 
@@ -199,8 +242,9 @@ function additions(s) {
  */
 function topics(s) {
   return lines(s).map((l) => {
-    const m = /^([a-z0-9][a-z0-9-]{2,})\s*\|\s*([\s\S]+)$/i.exec(l);
-    return m ? { slug: m[1].toLowerCase(), title: m[2].trim() } : null;
+    const p = l.split("|").map((x) => x.trim());
+    if (p.length < 2 || !/^[a-z0-9][a-z0-9-]{2,}$/i.test(p[0]) || !p[1]) return null;
+    return { slug: p[0].toLowerCase(), title: p[1], where: p[2] || "", about: p.slice(3).join(" | ") };
   }).filter(Boolean);
 }
 
@@ -212,4 +256,7 @@ function defects(s) {
   });
 }
 
-module.exports = { blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, figures, preknow, topics, additions, defects };
+module.exports = {
+  blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, figures,
+  preknow, topics, additions, defects, bySection, scores, replacements, verdict, names,
+};

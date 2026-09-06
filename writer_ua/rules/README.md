@@ -34,35 +34,41 @@
 
 ## На запит — спільні для всіх типів
 
+    goal.md             етап 1 · протокол цілі: з чого формулюється, що повернути
     inserts.md          етап 2 · вставки (ім'я файла + до 10 речень), нові теми, чи бажана базова
+    karkas.md           етап 3 · протокол каркаса: рівень, розділи, глибина, групи, фігури
+    mode-write.md       етап 4 · протокол письма: порція розділів, список на інтеграцію,
+                                  шкала 5→1, що повернути
+    theses.md           етап 4 · тези на розділ — лише детальній і базовій
+    scale.md            етап 4 · шкала важливості 5→1 того, що можна додати
     mode-extend.md      етап 4 · дописування: розділ, що додати, підлога за рівнем, стеля ×4
     mode-compress.md    етап 4 · стиснення: що зжати, наскільки
-    mode-analysis.md    етап 5 · аналіз: оцінки 0–10 загальна й по групах; масиви контекстів
-                                  історичних моментів і формул
-    mode-image.md       етап 4 · вставка зображення: у який розділ; як записати SVG у текст
+    mode-analysis.md    етап 5 · аналіз: оцінки 0–10 загальна й по групах; речення з фактами
+                                  й формулами; де дописати, коли бракує багато
     facts-check.md      етап 5 · веб-перевірка фактів і формул, повернути нові речення
+    mode-image.md       етап 4 · вставка зображення: у який розділ; поставити
     code-lang.md        мова коду: якою найбільше роблять; плюс C і C++, якщо на них роблять
     topics-category.md  етап 8 · у яку книгу й категорію завести тему
     topics-dedupe.md    етап 8 · це та сама тема іншими словами чи нова
-    topics-rename.md    етап 8 · розвести назви двох різних тем
+    topics-rename.md    етап 8 · дубль чи дві різні під схожою назвою; розвести назви
 
 ## Що з чого збирається
 
 Кожен рядок — один запит. Праворуч — файли; дані (текст, ціль, тези, списки) йдуть окремими
-блоками і сюди не входять.
+блоками і сюди не входять. Файл виду — `atom` + `kind-<вид>`, курсу — лише `kind-course`.
 
-    ціль · 1              <тип>-goals · atom або kind-course
-    структура · 2         inserts                                  лише детальна
-    каркас · 3            <тип>-karkas · prose · atom/kind
-    письмо · 4            prose · language · links · formulas · figures · code-in-text ·
-                          atom/kind · insert · <тип>-rules
-    дописування · 4       те саме, що письмо · mode-extend
-    стиснення · 4         те саме, що письмо · mode-compress
+    ціль · 1              goal · <тип>-goals · вид
+    структура · 2         inserts                                       лише детальна
+    каркас · 3            karkas · <тип>-karkas · prose · вид           basic і code — без karkas
+    письмо · 4            mode-write · scale · [theses] · prose · language · links · formulas ·
+                          figures · code-in-text · code-lang · вид · [insert] · <тип>-rules
+    дописування · 4       mode-extend · те саме, що письмо
+    стиснення · 4         mode-compress · prose · language · formulas · <тип>-rules
     вставка зображення    mode-image · figures
-    аналіз · 5            mode-analysis · <тип>-goals
+    аналіз · 5            mode-analysis · prose · <тип>-goals
     факти · 5             facts-check
     фігура · 6            fig-rules
-    код (одиниця)         code-goals · code-karkas · code-rules · code-lang
+    код (одиниця)         code-goals → code-karkas + code-lang → code-rules + code-lang
     нові теми · 8         topics-category → topics-dedupe → topics-rename
 
 ## Секції у файлі
