@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Енергонезалежний лічильник обертів на дроті Віганда та редукторі</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Багатооборотна фіксація кута без батареї: імпульсний збір енергії (Energy Harvesting) та каскадні шестерні</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Механічний редуктор ступенів -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="410" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="410" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="205" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Каскадний багатооборотний редуктор</text>
+
+    <!-- Ступінь 1: Головний вал (1:1) -->
+    <g transform="translate(20, 55)">
+      <circle cx="50" cy="50" r="40" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+      <circle cx="50" cy="50" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+      <text x="50" y="54" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вал</text>
+      
+      <!-- Дипольний магніт -->
+      <rect x="30" y="20" width="20" height="12" fill="#c0392b"/>
+      <text x="40" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">N</text>
+      <rect x="50" y="20" width="20" height="12" fill="#2457d6"/>
+      <text x="60" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S</text>
+
+      <text x="120" y="45" font-size="12" font-weight="bold" fill="#1a1a1a">Ступінь 1 (1:1)</text>
+      <text x="120" y="65" font-size="12" fill="#6b7280">Однооборотний кут (0…360°)</text>
+    </g>
+
+    <!-- Зачеплення шестерень -->
+    <line x1="90" y1="155" x2="150" y2="175" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Ступінь 2: Проміжна шестерня (1:16) -->
+    <g transform="translate(20, 160)">
+      <circle cx="50" cy="45" r="32" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+      <circle cx="50" cy="45" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+      
+      <rect x="35" y="25" width="15" height="10" fill="#c0392b"/>
+      <text x="42" y="33" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">N</text>
+      <rect x="50" y="25" width="15" height="10" fill="#2457d6"/>
+      <text x="57" y="33" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S</text>
+
+      <text x="120" y="40" font-size="12" font-weight="bold" fill="#1a1a1a">Ступінь 2 (1:16)</text>
+      <text x="120" y="60" font-size="12" fill="#6b7280">Лічильник 16 обертів</text>
+    </g>
+
+    <!-- Ступінь 3: Старша шестерня (1:4096) -->
+    <g transform="translate(20, 260)">
+      <circle cx="50" cy="45" r="32" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+      <circle cx="50" cy="45" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+      
+      <rect x="35" y="25" width="15" height="10" fill="#c0392b"/>
+      <text x="42" y="33" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">N</text>
+      <rect x="50" y="25" width="15" height="10" fill="#2457d6"/>
+      <text x="57" y="33" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">S</text>
+
+      <text x="120" y="40" font-size="12" font-weight="bold" fill="#1a1a1a">Ступінь 3 (1:4096)</text>
+      <text x="120" y="60" font-size="12" fill="#6b7280">Діапазон до 4096 обертів (12 біт)</text>
+    </g>
+
+    <text x="205" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">• Механічний редуктор зберігає кут повороту при знеструмленні</text>
+  </g>
+
+  <!-- ПРАВА ПАНЕЛЬ: Генератор на ефекті Віганда (Без батареї) -->
+  <g transform="translate(470, 75)">
+    <rect x="0" y="0" width="460" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="460" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="230" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Ефект Віганда: збір енергії (Energy Harvesting)</text>
+
+    <!-- Дріт Віганда з котушкою -->
+    <g transform="translate(25, 55)">
+      <rect x="0" y="0" width="410" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+      <text x="205" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Будова сенсора Віганда (Wiegand Wire + Coil)</text>
+
+      <!-- Тіло дроту -->
+      <rect x="30" y="45" width="220" height="14" rx="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+      <rect x="40" y="48" width="200" height="8" rx="2" fill="#2457d6"/>
+      <text x="140" y="40" text-anchor="middle" font-size="12" fill="#2457d6">Vicalloy: М'яке осердя + Тверда оболонка</text>
+
+      <!-- Котушка індуктивності -->
+      <path d="M 60 40 Q 65 30 70 40 Q 75 30 80 40 Q 85 30 90 40 Q 95 30 100 40 Q 105 30 110 40 Q 115 30 120 40 Q 125 30 130 40 Q 135 30 140 40 Q 145 30 150 40 Q 155 30 160 40 Q 165 30 170 40 Q 175 30 180 40 Q 185 30 190 40 Q 195 30 200 40 Q 205 30 210 40" fill="none" stroke="#c0392b" stroke-width="2"/>
+      
+      <!-- Імпульс напруги -->
+      <g transform="translate(270, 35)">
+        <rect x="0" y="0" width="120" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+        <text x="60" y="18" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Імпульс 3…5 В</text>
+        <!-- Осцилограма сплеску Баркгаузена -->
+        <path d="M 15 50 L 45 50 L 60 25 L 75 55 L 90 50 L 105 50" fill="none" stroke="#c0392b" stroke-width="2"/>
+        <text x="60" y="65" text-anchor="middle" font-size="12" fill="#6b7280">Δt ≈ 10 мкс</text>
+      </g>
+    </g>
+
+    <!-- Блок енергонезалежного лічильника -->
+    <g transform="translate(25, 190)">
+      <rect x="0" y="0" width="410" height="160" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="205" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Автономний контролер лічильника без живлення</text>
+
+      <rect x="20" y="45" width="110" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+      <text x="75" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Збір енергії</text>
+      <text x="75" y="83" text-anchor="middle" font-size="12" fill="#1a1a1a">Harvesting</text>
+
+      <line x1="130" y1="70" x2="160" y2="70" stroke="#27ae60" stroke-width="2"/>
+      <polygon points="160,70 152,65 152,75" fill="#27ae60"/>
+
+      <rect x="160" y="45" width="110" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+      <text x="215" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Логіка лічби</text>
+      <text x="215" y="83" text-anchor="middle" font-size="12" fill="#1a1a1a">±1 Оберт</text>
+
+      <line x1="270" y1="70" x2="300" y2="70" stroke="#2457d6" stroke-width="2"/>
+      <polygon points="300,70 292,65 292,75" fill="#2457d6"/>
+
+      <rect x="300" y="45" width="95" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+      <text x="347" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">FRAM</text>
+      <text x="347" y="83" text-anchor="middle" font-size="12" fill="#6b7280">Пам'ять</text>
+
+      <text x="205" y="125" text-anchor="middle" font-size="12" fill="#1a1a1a">• Стрибок Баркгаузена генерує достатній імпульс для запису у FRAM</text>
+      <text x="205" y="145" text-anchor="middle" font-size="12" fill="#6b7280">• Лічильник працює навіть при обертанні вала знеструмленого верстата</text>
+    </g>
+  </g>
+</svg>

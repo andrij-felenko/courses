@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Згортання високочастотного шуму VREF (Noise Folding / Aliasing)</text>
+  <text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Стробування комутованим ЦАП переносить широкосмуговий шум навколо кратних гармонік fs у смугу Найквіста</text>
+
+  <!-- Ліва панель: Механізм спектрального накладання -->
+  <rect x="24" y="62" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Широкосмуговий шум та гармоніки дискретизації</text>
+
+  <!-- Осі графіка -->
+  <line x1="50" y1="210" x2="440" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="210" x2="50" y2="110" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="46" y="106" font-size="12" font-weight="700" fill="#1a1a1a">e_n (нВ/√Гц)</text>
+  <text x="410" y="226" font-size="12" fill="#6b7280">f</text>
+
+  <!-- Смуга Найквіста (0 .. fs/2) -->
+  <rect x="50" y="140" width="60" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="80" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Найквіст</text>
+
+  <!-- Широкосмугове плато шуму буфера -->
+  <line x1="50" y1="140" x2="350" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <path d="M350,140 Q380,140 400,200" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Позначки частот на осі f -->
+  <line x1="110" y1="206" x2="110" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="110" y="226" text-anchor="middle" font-size="12" fill="#1a1a1a">f_s/2</text>
+
+  <line x1="170" y1="206" x2="170" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="170" y="226" text-anchor="middle" font-size="12" fill="#1a1a1a">f_s</text>
+
+  <line x1="230" y1="206" x2="230" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="230" y="226" text-anchor="middle" font-size="12" fill="#1a1a1a">2f_s</text>
+
+  <line x1="290" y1="206" x2="290" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="290" y="226" text-anchor="middle" font-size="12" fill="#1a1a1a">3f_s</text>
+
+  <line x1="360" y1="206" x2="360" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="226" text-anchor="middle" font-size="12" fill="#1a1a1a">BW</text>
+
+  <!-- Дуги згортання шуму в смугу Найквіста -->
+  <path d="M170,135 Q125,110 80,132" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <path d="M230,135 Q155,98 80,132" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <path d="M290,135 Q185,86 80,132" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення згортання внизу лівої панелі -->
+  <rect x="36" y="246" width="416" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="266" font-size="12" font-weight="700" fill="#c0392b">Ефект стробування (дискретизації):</text>
+  <text x="48" y="286" font-size="12" fill="#1a1a1a">Кожен спектральний інтервал k·f_s ± f_s/2</text>
+  <text x="48" y="304" font-size="12" fill="#1a1a1a">згортається (aliasing) в основну смугу [0 .. f_s/2],</text>
+  <text x="48" y="322" font-size="12" fill="#1a1a1a">підвищуючи загальну шумову потужність у N_fold разів</text>
+
+  <rect x="36" y="344" width="416" height="84" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="364" font-size="12" font-weight="700" fill="#1a1a1a">Кількість складених смуг:</text>
+  <text x="48" y="384" font-size="12" fill="#2457d6">N_fold ≈ (π / 2) · (BW_buffer / f_s)</text>
+  <text x="48" y="402" font-size="12" fill="#6b7280">При BW_buffer = 10·f_s шум зростає у √(15.7) ≈ 4 рази</text>
+
+  <!-- Права панель: Результуючий спектр оцифрованого шуму -->
+  <rect x="480" y="62" width="456" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Шум у смузі Найквіста: до і після згортання</text>
+
+  <!-- Порівняльний графік -->
+  <line x1="510" y1="210" x2="900" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="510" y1="210" x2="510" y2="110" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="506" y="106" font-size="12" font-weight="700" fill="#1a1a1a">Шум у коді (LSB)</text>
+  <text x="860" y="226" font-size="12" fill="#6b7280">0 .. f_s/2</text>
+
+  <!-- Лінія теоретичного шуму без згортання -->
+  <line x1="510" y1="185" x2="880" y2="185" stroke="#27ae60" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="690" y="178" font-size="12" font-weight="700" fill="#27ae60">Теоретичний шум без згортання</text>
+
+  <!-- Лінія реального шуму зі згортанням -->
+  <line x1="510" y1="130" x2="880" y2="130" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="690" y="122" font-size="12" font-weight="700" fill="#c0392b">Реальний шум зі згортанням (Folded)</text>
+
+  <!-- Стрілка збільшення шуму -->
+  <line x1="640" y1="182" x2="640" y2="136" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="560" y="160" font-size="12" font-weight="700" fill="#c0392b">+12 дБ шуму</text>
+
+  <!-- Інженерні правила внизу правої панелі -->
+  <rect x="496" y="246" width="424" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="508" y="266" font-size="12" font-weight="700" fill="#2457d6">Аналітична формула результуючого шуму:</text>
+  <text x="508" y="286" font-size="12" fill="#1a1a1a">e_n,folded = e_n,white · √[ (π / 2) · (BW_buffer / f_s) ]</text>
+  <text x="508" y="304" font-size="12" fill="#1a1a1a">Широка смуга буфера без фільтрації неминуче знижує</text>
+  <text x="508" y="322" font-size="12" fill="#1a1a1a">ефективну розрядність перетворювача (ENOB)</text>
+
+  <rect x="496" y="344" width="424" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="364" font-size="12" font-weight="700" fill="#27ae60">Інженерне рішення проблеми:</text>
+  <text x="508" y="384" font-size="12" fill="#1a1a1a">Встановлення пасивного RC-фільтра на виході еталона</text>
+  <text x="508" y="402" font-size="12" fill="#1a1a1a">для обмеження смуги шуму перед вибіркою CDAC</text>
+</svg>

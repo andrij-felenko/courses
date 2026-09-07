@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Інтерполяція синусно-косинусних сигналів 1 Vpp та поділ на 4096 мікрокроків</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Дроблення оптичного кроку растра (λ = 20 мкм) електронним інтерполятором до роздільності 4.88 нм</text>
+
+  <!-- ЛІВА ЧАСТИНА: Аналогові квадратурні сигнали 1 Vpp -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="430" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="215" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Аналогові диференціальні сигнали 1 Vpp</text>
+
+    <!-- Осцилограма періоду λ -->
+    <g transform="translate(20, 55)">
+      <rect x="0" y="0" width="390" height="170" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      
+      <!-- Сітка напруг і нульова вісь -->
+      <line x1="0" y1="85" x2="390" y2="85" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="0" y1="35" x2="390" y2="35" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2 2"/>
+      <line x1="0" y1="135" x2="390" y2="135" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2 2"/>
+      
+      <text x="10" y="30" font-size="12" fill="#6b7280">+0.5 В</text>
+      <text x="10" y="80" font-size="12" fill="#1a1a1a">0.0 В</text>
+      <text x="10" y="130" font-size="12" fill="#6b7280">−0.5 В</text>
+
+      <!-- Синусоїда (A+ / A-, зелена) -->
+      <path d="M 50 85 Q 125 15 200 85 Q 275 155 350 85" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+      <text x="140" y="45" font-size="12" font-weight="bold" fill="#27ae60">V_sin (1 Vpp)</text>
+
+      <!-- Косинусоїда (B+ / B-, синя) -->
+      <path d="M 50 35 Q 125 105 200 85 Q 275 65 350 35" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+      <text x="260" y="45" font-size="12" font-weight="bold" fill="#2457d6">V_cos (1 Vpp)</text>
+
+      <!-- Маркери періоду растра -->
+      <line x1="50" y1="150" x2="350" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+      <polyline points="55,147 50,150 55,153" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <polyline points="345,147 350,150 345,153" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="200" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період растра λ = 20 мкм (360° ел.)</text>
+    </g>
+
+    <!-- Блок параметрів -->
+    <g transform="translate(20, 240)">
+      <rect x="0" y="0" width="390" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="24" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості інтерфейсу 1 Vpp:</text>
+      <text x="15" y="48" font-size="12" fill="#27ae60">• Сигнали: диференціальні пари (A+, A−) та (B+, B−)</text>
+      <text x="15" y="70" font-size="12" fill="#2457d6">• Опір термінації: 120 Ом між прямим та інверсним виводом</text>
+      <text x="15" y="92" font-size="12" fill="#1a1a1a">• Співвідношення: V_sin² + V_cos² = const (кругова діаграма)</text>
+      <text x="15" y="110" font-size="12" fill="#6b7280">• Смуга пропускання передавача: до 500 кГц (висока швидкість)</text>
+    </g>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Інтерполятор і мікрокроки -->
+  <g transform="translate(490, 75)">
+    <rect x="0" y="0" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="440" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="220" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Електронне дроблення (Інтерполяція 12 біт = 4096)</text>
+
+    <!-- Візуалізація мікрокроків / сходинок -->
+    <g transform="translate(20, 55)">
+      <rect x="0" y="0" width="400" height="170" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#2457d6">Масштабоване збільшення сектору дроблення:</text>
+
+      <!-- Плавна дуга кута atan2 -->
+      <path d="M 30 140 Q 150 120 370 40" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+      
+      <!-- Східчастий квантований вихід 4096 кроків -->
+      <path d="M 30 140 L 55 140 L 55 132 L 80 132 L 80 124 L 105 124 L 105 116 L 130 116 L 130 108 L 155 108 L 155 100 L 180 100 L 180 92 L 205 92 L 205 84 L 230 84 L 230 76 L 255 76 L 255 68 L 280 68 L 280 60 L 305 60 L 305 52 L 330 52 L 330 44 L 355 44 L 355 36 L 370 36" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+      <!-- Розмір одиничного кванту LSB -->
+      <line x1="180" y1="72" x2="205" y2="72" stroke="#c0392b" stroke-width="1.5"/>
+      <line x1="180" y1="68" x2="180" y2="76" stroke="#c0392b" stroke-width="1.5"/>
+      <line x1="205" y1="68" x2="205" y2="76" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="192" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1 LSB = 4.88 нм</text>
+
+      <text x="15" y="160" font-size="12" fill="#1a1a1a">Кількість квантів у періоді: 2¹² = 4096 рівнів (електронний CORDIC)</text>
+    </g>
+
+    <!-- Розрахунковий блок -->
+    <g transform="translate(20, 240)">
+      <rect x="0" y="0" width="400" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="15" y="24" font-size="12" font-weight="bold" fill="#27ae60">Розрахунок результуючої роздільності:</text>
+      <text x="15" y="48" font-size="12" fill="#1a1a1a">• Фізичний крок растра: λ = 20 мкм (0.020 мм)</text>
+      <text x="15" y="70" font-size="12" fill="#1a1a1a">• Коефіцієнт інтерполяції: K_int = 4096 (12-бітний АЦП)</text>
+      <text x="15" y="92" font-size="12" font-weight="bold" fill="#2457d6">• Роздільна здатність: Δx = λ / 4096 = 20 мкм / 4096 = 4.883 нм</text>
+      <text x="15" y="110" font-size="12" fill="#6b7280">Застосовується у лінійних і кутових шкалах високої точності</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Логометрична (раціометрична) компенсація шуму еталона</text>
+  <text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Спільне джерело живлення моста й опорного входу АЦП повністю усуває шум і дрейф VREF</text>
+
+  <!-- Ліва панель: Схема логометричного підключення -->
+  <rect x="24" y="62" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Схема зі спільним джерелом збудження</text>
+
+  <!-- Джерело збудження V_EXC -->
+  <rect x="40" y="140" width="100" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="90" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Джерело</text>
+  <text x="90" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_EXC(t)</text>
+  <text x="90" y="196" text-anchor="middle" font-size="12" fill="#6b7280">(шумне)</text>
+
+  <!-- Розгалуження шини -->
+  <line x1="140" y1="175" x2="175" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="175" cy="175" r="3" fill="#c0392b"/>
+
+  <!-- Гілка 1: До мостового давача (вгору) -->
+  <line x1="175" y1="175" x2="175" y2="120" stroke="#c0392b" stroke-width="2"/>
+  <line x1="175" y1="120" x2="205" y2="120" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок мостового давача -->
+  <rect x="210" y="98" width="95" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="257" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Міст давача</text>
+  <text x="257" y="136" text-anchor="middle" font-size="12" fill="#1a1a1a">k_m = ΔR/R</text>
+
+  <!-- Сигнал від моста до АЦП -->
+  <line x1="305" y1="122" x2="350" y2="122" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="310" y="114" font-size="12" fill="#2457d6">V_IN</text>
+
+  <!-- Гілка 2: До входу VREF АЦП (вниз) -->
+  <line x1="175" y1="175" x2="175" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="175" y1="230" x2="350" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="230" y="222" font-size="12" fill="#c0392b">VREF = V_EXC(t)</text>
+
+  <!-- Блок АЦП -->
+  <rect x="355" y="95" width="85" height="155" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="397" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">АЦП</text>
+  <text x="397" y="186" text-anchor="middle" font-size="12" fill="#6b7280">(24 біти)</text>
+
+  <!-- Інфокарти внизу лівої панелі -->
+  <rect x="36" y="270" width="416" height="74" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="290" font-size="12" font-weight="700" fill="#1a1a1a">Математичне скорочення шуму в коді:</text>
+  <text x="48" y="310" font-size="12" fill="#1a1a1a">D_out = 2^N · [ V_IN(t) / VREF(t) ]</text>
+  <text x="48" y="330" font-size="12" fill="#27ae60">D_out = 2^N · [ V_EXC(t) · k_m ] / V_EXC(t) = 2^N · k_m</text>
+
+  <rect x="36" y="354" width="416" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="372" font-size="12" font-weight="700" fill="#27ae60">Фізичний висновок логометрії:</text>
+  <text x="48" y="392" font-size="12" fill="#1a1a1a">Флуктуації та повільний температурний дрейф джерела</text>
+  <text x="48" y="410" font-size="12" fill="#1a1a1a">присутні у чисельнику й знаменнику і повністю анулюються</text>
+
+  <!-- Права панель: Часові графіки та синхронність -->
+  <rect x="480" y="62" width="456" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Часова синхронність сигналів та вихідний код</text>
+
+  <!-- Графік 1: V_EXC(t) -->
+  <rect x="496" y="98" width="424" height="66" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="116" font-size="12" font-weight="700" fill="#c0392b">1. Напруга збудження V_EXC(t) (шум 1/f + дрейф):</text>
+  <path d="M510,146 L530,138 L550,152 L570,140 L590,154 L610,136 L630,150 L650,138 L670,152 L690,142 L710,154 L730,138 L750,150 L770,140 L790,146" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="810" y="148" font-size="12" font-weight="700" fill="#c0392b">VREF(t)</text>
+
+  <!-- Графік 2: V_IN(t) -->
+  <rect x="496" y="172" width="424" height="66" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="190" font-size="12" font-weight="700" fill="#2457d6">2. Сигнал з моста V_IN(t) = V_EXC(t) · k_m:</text>
+  <path d="M510,220 L530,215 L550,224 L570,216 L590,225 L610,214 L630,223 L650,215 L670,224 L690,217 L710,225 L730,215 L750,223 L770,216 L790,220" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="810" y="222" font-size="12" font-weight="700" fill="#2457d6">V_IN(t)</text>
+
+  <!-- Графік 3: D_out(t) -->
+  <rect x="496" y="246" width="424" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="508" y="264" font-size="12" font-weight="700" fill="#27ae60">3. Оцифрований код D_out = 2^N · k_m (чистий результат):</text>
+  <line x1="510" y1="294" x2="790" y2="294" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="810" y="298" font-size="12" font-weight="700" fill="#27ae60">Ідеальний код</text>
+
+  <!-- Інфокарта внизу правої панелі -->
+  <rect x="496" y="330" width="424" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="508" y="350" font-size="12" font-weight="700" fill="#2457d6">Критичні вимоги до реалізації логометрії:</text>
+  <text x="508" y="370" font-size="12" fill="#1a1a1a">1. Синхронність: час затримки та смуга RC-фільтрів у колах</text>
+  <text x="508" y="388" font-size="12" fill="#1a1a1a">   V_IN та VREF повинні бути ідентичними (τ_in = τ_ref).</text>
+  <text x="508" y="406" font-size="12" fill="#1a1a1a">2. Симетричне кельвінівське підключення до точок збудження моста.</text>
+</svg>

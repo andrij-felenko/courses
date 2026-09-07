@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема цифро-аналогового автобалансованого моста</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Трансімпедансний підсилювач утримує віртуальну землю, а квадратурний демодулятор обчислює вектор Zx</text>
+
+  <!-- Generator Block -->
+  <rect x="30" y="140" width="140" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор DDS</text>
+  <text x="100" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">U_in = U₀·sin(ωt)</text>
+
+  <!-- Connection to DUT -->
+  <line x1="170" y1="180" x2="220" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- DUT Block (Zx) -->
+  <rect x="220" y="150" width="110" height="60" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="178" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зразок Z_x</text>
+  <text x="275" y="198" font-size="12" fill="#6b7280" text-anchor="middle">R_x + j·X_x</text>
+
+  <!-- Connection line to Virtual Ground -->
+  <line x1="330" y1="180" x2="440" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="370" cy="180" r="4" fill="#c0392b"/>
+
+  <!-- Feedback Resistor R_ref -->
+  <line x1="370" y1="180" x2="370" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="370" y1="95" x2="460" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="460" y="75" width="110" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="515" y="99" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R_ref (еталон)</text>
+  <line x1="570" y1="95" x2="610" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="610" y1="95" x2="610" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Op-Amp Triangle -->
+  <polygon points="440,165 440,225 500,195" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="452" y="184" font-size="14" fill="#1a1a1a" text-anchor="middle">-</text>
+  <text x="452" y="214" font-size="14" fill="#1a1a1a" text-anchor="middle">+</text>
+
+  <!-- Non-inverting input GND -->
+  <line x1="420" y1="210" x2="440" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="210" x2="420" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="410" y1="230" x2="430" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="414" y1="234" x2="426" y2="234" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="418" y1="238" x2="422" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Op-Amp Output line -->
+  <line x1="500" y1="195" x2="650" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="610" cy="195" r="4" fill="#1a1a1a"/>
+  <text x="555" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">U_out = -I_x · R_ref</text>
+
+  <!-- ADC & Demodulator Container -->
+  <rect x="650" y="115" width="280" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="790" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрова векторна обробка (DSP)</text>
+
+  <!-- Multiplier 1 (In-phase) -->
+  <rect x="670" y="165" width="110" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="725" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Множник × cos</text>
+  <text x="725" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Опора 0°</text>
+
+  <!-- Integrator 1 -->
+  <line x1="780" y1="188" x2="805" y2="188" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="805" y="165" width="105" height="46" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="857" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтегратор Σ</text>
+  <text x="857" y="202" font-size="12" fill="#27ae60" text-anchor="middle">Синфазна (I)</text>
+
+  <!-- Multiplier 2 (Quadrature) -->
+  <rect x="670" y="240" width="110" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="725" y="261" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Множник × sin</text>
+  <text x="725" y="277" font-size="12" fill="#6b7280" text-anchor="middle">Опора 90°</text>
+
+  <!-- Integrator 2 -->
+  <line x1="780" y1="263" x2="805" y2="263" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="805" y="240" width="105" height="46" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="857" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтегратор Σ</text>
+  <text x="857" y="277" font-size="12" fill="#2457d6" text-anchor="middle">Квадратура (Q)</text>
+
+  <!-- Output Impedance Box -->
+  <rect x="670" y="315" width="240" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="338" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Розрахунок імпедансу</text>
+  <text x="790" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Z_x = - R_ref · (U_in / U_out)</text>
+  <text x="790" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">R_x = Re(Z_x),   X_x = Im(Z_x)</text>
+  <text x="790" y="406" font-size="12" fill="#6b7280" text-anchor="middle">C_x = -1/(ω·X_x),  L_x = X_x/ω</text>
+
+  <!-- Input taps into DSP -->
+  <line x1="650" y1="195" x2="670" y2="188" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="650" y1="195" x2="670" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+</svg>

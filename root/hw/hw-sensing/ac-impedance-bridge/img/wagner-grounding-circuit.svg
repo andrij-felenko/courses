@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захисне коло Вагнера для усунення впливу паразитної ємності</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Допоміжний дільник і перемикач зводять потенціал детектора до потенціалу землі без заземлення самого моста</text>
+
+  <!-- Панель опису режимів ліворуч -->
+  <rect x="25" y="65" width="225" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="137" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоетапне балансування</text>
+
+  <rect x="35" y="105" width="205" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="125" font-size="13" font-weight="bold" fill="#c0392b">1. Позиція S1 (Міст)</text>
+  <text x="45" y="147" font-size="12" fill="#1a1a1a">Перемикач на вузлі D.</text>
+  <text x="45" y="169" font-size="12" fill="#1a1a1a">Регулюють плече Z4</text>
+  <text x="45" y="191" font-size="12" fill="#1a1a1a">для мінімуму сигналу D.</text>
+  <text x="45" y="213" font-size="12" fill="#6b7280">Залишається похибка</text>
+  <text x="45" y="235" font-size="12" fill="#6b7280">через ємності C_b0, C_d0.</text>
+
+  <rect x="35" y="265" width="205" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="45" y="285" font-size="13" font-weight="bold" fill="#27ae60">2. Позиція S2 (Земля)</text>
+  <text x="45" y="307" font-size="12" fill="#1a1a1a">Перемикач на землю G.</text>
+  <text x="45" y="329" font-size="12" fill="#1a1a1a">Регулюють Z_w2 до нуля.</text>
+  <text x="45" y="351" font-size="12" fill="#1a1a1a">Потенціал V_b стає = 0 В.</text>
+  <text x="45" y="373" font-size="12" fill="#27ae60">Струм витоку зникає:</text>
+  <text x="45" y="395" font-size="12" fill="#27ae60">I_витоку = V_b · jωC_b0 = 0</text>
+  <text x="45" y="417" font-size="12" fill="#27ae60">Повторюють до збігу.</text>
+
+  <!-- Схема моста і кола Вагнера -->
+  <!-- Головний контур моста: A(440, 110), B(320, 230), C(440, 350), D(560, 230) -->
+
+  <!-- Провідники живлення -->
+  <line x1="440" y1="75" x2="440" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="440" y1="350" x2="440" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Лінія до джерела змінного струму ліворуч -->
+  <line x1="440" y1="75" x2="275" y2="75" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="75" x2="275" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="275" cy="230" r="25" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">~ U_gen</text>
+  <line x1="275" y1="255" x2="275" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="275" y1="385" x2="440" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Лінія живлення до кола Вагнера праворуч -->
+  <line x1="440" y1="75" x2="680" y2="75" stroke="#2457d6" stroke-width="2"/>
+  <line x1="680" y1="75" x2="680" y2="110" stroke="#2457d6" stroke-width="2"/>
+  <line x1="440" y1="385" x2="680" y2="385" stroke="#2457d6" stroke-width="2"/>
+  <line x1="680" y1="385" x2="680" y2="350" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вузли живлення A і C -->
+  <circle cx="440" cy="110" r="4" fill="#1a1a1a"/>
+  <text x="425" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">A</text>
+  <circle cx="440" cy="350" r="4" fill="#1a1a1a"/>
+  <text x="425" y="355" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">C</text>
+
+  <!-- Плече Z1 (A -> B) -->
+  <line x1="440" y1="110" x2="395" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="365" y="145" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z1</text>
+  <line x1="375" y1="175" x2="320" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z2 (B -> C) -->
+  <line x1="320" y1="230" x2="365" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="365" y="295" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="328" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z2</text>
+  <line x1="395" y1="305" x2="440" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z3 (A -> D) -->
+  <line x1="440" y1="110" x2="485" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="475" y="145" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z3</text>
+  <line x1="505" y1="175" x2="560" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z4 (D -> C) регульоване -->
+  <line x1="560" y1="230" x2="515" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="475" y="295" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="340" font-size="12" font-weight="bold" fill="#2457d6">Z4 (регуль.)</text>
+  <line x1="485" y1="305" x2="440" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Стрілка регулювання Z4 -->
+  <line x1="465" y1="315" x2="525" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Вимірювальні вершини B і D -->
+  <circle cx="320" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="305" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">B</text>
+
+  <circle cx="560" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="575" y="235" font-size="14" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Паразитні ємності C_b0 та C_d0 на землю -->
+  <!-- C_b0 від B вниз-вліво -->
+  <line x1="320" y1="230" x2="320" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="320" y1="190" x2="350" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="350" y1="183" x2="350" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="356" y1="183" x2="356" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="356" y1="190" x2="370" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="353" y="177" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C_b0</text>
+  <!-- Земля для C_b0 -->
+  <line x1="370" y1="185" x2="370" y2="195" stroke="#6b7280" stroke-width="2"/>
+  <line x1="373" y1="187" x2="373" y2="193" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="376" y1="189" x2="376" y2="191" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Детектор / нуль-індикатор -->
+  <line x1="320" y1="230" x2="395" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="420" cy="230" r="16" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="420" y="235" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NULL</text>
+  <line x1="436" y1="230" x2="465" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Перемикач S1 / S2 -->
+  <circle cx="465" cy="230" r="3" fill="#1a1a1a"/>
+  <!-- Контакти перемикача -->
+  <!-- Контакт 1 (до D) -->
+  <circle cx="505" cy="215" r="3" fill="#1a1a1a"/>
+  <text x="480" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">S1: вимір</text>
+  <line x1="505" y1="215" x2="560" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Контакт 2 (до Вагнера / Землі) -->
+  <circle cx="505" cy="245" r="3" fill="#27ae60"/>
+  <text x="480" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">S2: захист</text>
+  <line x1="505" y1="245" x2="600" y2="245" stroke="#27ae60" stroke-width="2"/>
+  <line x1="600" y1="245" x2="680" y2="230" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Ніж перемикача (показує положення) -->
+  <line x1="465" y1="230" x2="502" y2="218" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Допоміжне коло Вагнера (праворуч) -->
+  <!-- Верхнє плече Вагнера Z_w1 -->
+  <line x1="680" y1="110" x2="680" y2="145" stroke="#2457d6" stroke-width="2"/>
+  <rect x="655" y="145" width="50" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z_w1</text>
+  <line x1="680" y1="170" x2="680" y2="230" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Центральний вузол кола Вагнера W -->
+  <circle cx="680" cy="230" r="5" fill="#27ae60"/>
+  <text x="700" y="228" font-size="14" font-weight="bold" fill="#27ae60">W (Земля)</text>
+
+  <!-- Заземлення вузла W -->
+  <line x1="680" y1="230" x2="740" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="740" y1="220" x2="740" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <line x1="744" y1="223" x2="744" y2="237" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="748" y1="226" x2="748" y2="234" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Нижнє регульоване плече Вагнера Z_w2 -->
+  <line x1="680" y1="230" x2="680" y2="295" stroke="#2457d6" stroke-width="2"/>
+  <rect x="655" y="295" width="50" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="635" y="312" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Z_w2</text>
+  <line x1="680" y1="320" x2="680" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <!-- Стрілка підлаштування Z_w2 -->
+  <line x1="650" y1="325" x2="710" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Пояснювальний блок праворуч внизу -->
+  <rect x="760" y="260" width="180" height="155" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="850" y="285" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Умова еквіпотенціалу</text>
+  <text x="770" y="310" font-size="12" fill="#1a1a1a">Коли міст і коло</text>
+  <text x="770" y="330" font-size="12" fill="#1a1a1a">Вагнера збалансовані:</text>
+  <text x="770" y="355" font-size="12" font-weight="bold" fill="#2457d6">V_B = V_D = V_W = 0 В</text>
+  <text x="770" y="380" font-size="12" fill="#27ae60">Струми через ємності</text>
+  <text x="770" y="400" font-size="12" fill="#27ae60">на землю не течуть!</text>
+</svg>

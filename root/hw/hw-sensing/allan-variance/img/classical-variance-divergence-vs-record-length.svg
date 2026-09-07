@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розбіжність класичної дисперсії та стабілізація дисперсії Аллана</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">При наявності флікер-шуму звичайна дисперсія росте з довжиною запису, тоді як дисперсія Аллана сходиться</text>
+
+  <!-- Left Panel: Classical Variance -->
+  <rect x="30" y="75" width="435" height="380" rx="8" fill="#fdecea" stroke="#e0b4b0" stroke-width="1.5"/>
+  <text x="247" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">Класична вибіркова дисперсія s²(T)</text>
+  <text x="247" y="125" text-anchor="middle" font-size="12" fill="#7f1d1d">Відхилення від умовного глобального середнього</text>
+
+  <!-- Left Axes -->
+  <line x1="75" y1="380" x2="75" y2="145" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="75" y1="380" x2="435" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="70" y="142" text-anchor="end" font-size="12" fill="#6b7280">s²</text>
+  <text x="430" y="402" text-anchor="end" font-size="12" fill="#6b7280">Тривалість запису T [год]</text>
+
+  <!-- Left Grid lines -->
+  <line x1="75" y1="320" x2="420" y2="320" stroke="#f1c0bc" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="75" y1="260" x2="420" y2="260" stroke="#f1c0bc" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="75" y1="200" x2="420" y2="200" stroke="#f1c0bc" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- White noise curve -->
+  <path d="M 85 340 Q 150 330 250 330 T 415 330" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="330" y="315" text-anchor="middle" font-size="12" fill="#4b5563">Білий шум (збігається)</text>
+
+  <!-- Flicker noise curve -->
+  <path d="M 85 365 C 130 350, 180 310, 240 250 S 330 180, 410 160" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Callout box on left -->
+  <rect x="95" y="160" width="180" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="185" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">s² ∝ ln(T) або T</text>
+  <text x="185" y="198" text-anchor="middle" font-size="12" fill="#c0392b">Розбігається до ∞</text>
+
+  <rect x="55" y="415" width="385" height="30" rx="4" fill="#ffffff" stroke="#e0b4b0" stroke-width="1"/>
+  <text x="247" y="435" text-anchor="middle" font-size="12" fill="#7f1d1d">Результат залежить від тривалості запису T</text>
+
+  <!-- Right Panel: Allan Variance -->
+  <rect x="495" y="75" width="435" height="380" rx="8" fill="#e9f7ef" stroke="#a3e4d7" stroke-width="1.5"/>
+  <text x="712" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#27ae60">Дисперсія Аллана σ_y²(τ)</text>
+  <text x="712" y="125" text-anchor="middle" font-size="12" fill="#145a32">Різниця сусідніх кластерів фіксованого масштабу τ</text>
+
+  <!-- Right Axes -->
+  <line x1="540" y1="380" x2="540" y2="145" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="540" y1="380" x2="900" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="535" y="142" text-anchor="end" font-size="12" fill="#6b7280">σ_y²(τ)</text>
+  <text x="895" y="402" text-anchor="end" font-size="12" fill="#6b7280">Час кластера τ [с]</text>
+
+  <!-- Right Grid lines -->
+  <line x1="540" y1="320" x2="885" y2="320" stroke="#c8e6c9" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="540" y1="260" x2="885" y2="260" stroke="#c8e6c9" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="540" y1="200" x2="885" y2="200" stroke="#c8e6c9" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- V-curve for Allan variance -->
+  <path d="M 550 170 C 580 250, 620 320, 680 320 S 780 310, 880 200" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Callout box on right -->
+  <rect x="735" y="155" width="170" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Сходиться до константи</text>
+  <text x="820" y="193" text-anchor="middle" font-size="12" fill="#145a32">Флікер-плато: σ_y ∝ τ⁰</text>
+
+  <!-- Point at minimum -->
+  <circle cx="680" cy="320" r="4" fill="#27ae60"/>
+  <rect x="560" y="338" width="240" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="680" y="354" text-anchor="middle" font-size="12" fill="#145a32">Мінімум: нестабільність зміщення</text>
+
+  <rect x="520" y="415" width="385" height="30" rx="4" fill="#ffffff" stroke="#a3e4d7" stroke-width="1"/>
+  <text x="712" y="435" text-anchor="middle" font-size="12" fill="#145a32">Вимірює фізичні процеси на масштабі τ</text>
+</svg>

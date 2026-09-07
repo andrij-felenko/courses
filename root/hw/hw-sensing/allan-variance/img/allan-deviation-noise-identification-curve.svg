@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Сигнатурна крива девіації Аллана та 5 характерних нахилів шуму</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Кут нахилу в подвійному логарифмічному масштабі однозначно ідентифікує тип стохастичного процесу</text>
+
+  <!-- Головна область графіка -->
+  <rect x="40" y="65" width="880" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Осі координат -->
+  <line x1="80" y1="365" x2="900" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="905" y="369" font-size="12" font-weight="bold" fill="#1a1a1a">τ (s)</text>
+
+  <line x1="80" y1="365" x2="80" y2="75" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="68" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">σ(τ)</text>
+
+  <!-- Позначки на осі X (тривалість кластера τ) -->
+  <text x="130" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10⁻³</text>
+  <text x="240" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10⁻²</text>
+  <text x="350" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10⁻¹</text>
+  <text x="460" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10⁰ (1 s)</text>
+  <text x="570" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10¹</text>
+  <text x="680" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10²</text>
+  <text x="790" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10³</text>
+
+  <!-- Крива девіації Аллана (V-подібна суцільна) -->
+  <path d="M 110 110 L 160 190 L 300 260 L 460 280 L 620 260 L 760 190 L 830 110" 
+        fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- 1. Шум квантування Q (нахил -1) -->
+  <rect x="90" y="70" width="145" height="36" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="162" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шум квантування Q</text>
+  <text x="162" y="100" text-anchor="middle" font-size="12" fill="#c0392b">Нахил: μ = −1 (τ⁻¹)</text>
+
+  <!-- 2. Білий шум / ARW (нахил -1/2) -->
+  <rect x="190" y="135" width="160" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="270" y="151" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Білий шум / ARW (N)</text>
+  <text x="270" y="165" text-anchor="middle" font-size="12" fill="#2457d6">Нахил: μ = −½ (τ⁻¹/²)</text>
+
+  <!-- 3. Нестабільність зсуву BI (нахил 0) -->
+  <circle cx="460" cy="280" r="4" fill="#27ae60"/>
+  <rect x="380" y="310" width="170" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="465" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Нестабільність зсуву BI (B)</text>
+  <text x="465" y="340" text-anchor="middle" font-size="12" fill="#27ae60">Мінімум: μ = 0 (τ⁰)</text>
+
+  <!-- 4. Блукання швидкості RRW (нахил +1/2) -->
+  <rect x="610" y="310" width="170" height="36" rx="4" fill="#f4ecf7" stroke="#8e44ad"/>
+  <text x="695" y="326" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">Блукання швидкості RRW (K)</text>
+  <text x="695" y="340" text-anchor="middle" font-size="12" fill="#8e44ad">Нахил: μ = +½ (τ⁺¹/²)</text>
+
+  <!-- 5. Лінійний дрейф / Ramp (нахил +1) -->
+  <rect x="690" y="70" width="145" height="36" rx="4" fill="#fef5e7" stroke="#d35400"/>
+  <text x="762" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#d35400">Лінійний дрейф (R)</text>
+  <text x="762" y="100" text-anchor="middle" font-size="12" fill="#d35400">Нахил: μ = +1 (τ⁺¹)</text>
+
+  <!-- Підсумковий підпис унизу -->
+  <text x="480" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Зліва від мінімуму домінує випадковий високочастотний шум, справа — незворотний низькочастотний дрейф сенсора</text>
+</svg>

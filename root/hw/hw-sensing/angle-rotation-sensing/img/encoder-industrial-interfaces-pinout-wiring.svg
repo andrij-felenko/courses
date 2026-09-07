@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Промислові інтерфейси підключення кутових енкодерів</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Апаратне узгодження ліній: диференційний ABZ (RS-422), аналоговий 1 Vpp Sin/Cos та синхронний цифровий BiSS-C</text>
+
+  <!-- ПАНЕЛЬ 1: ABZ (RS-422) -->
+  <g transform="translate(25, 75)">
+    <!-- Фон панелі -->
+    <rect x="0" y="0" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Заголовок панелі -->
+    <rect x="0" y="0" width="290" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Інкрементний ABZ (RS-422)</text>
+    
+    <!-- Опис типу -->
+    <text x="145" y="58" text-anchor="middle" font-size="12" fill="#6b7280">Цифровий диференційний TTL / HTL</text>
+    
+    <!-- Блок Передавач (Енкодер) -->
+    <rect x="15" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="55" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Енкодер</text>
+    <text x="55" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Driver</text>
+    
+    <rect x="68" y="120" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+    <rect x="68" y="150" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B</text>
+    <rect x="68" y="180" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Z</text>
+
+    <!-- Блок Приймач (Контролер) -->
+    <rect x="195" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="235" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПЛК / ЧПК</text>
+    <text x="235" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Receiver</text>
+    
+    <rect x="200" y="120" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">A</text>
+    <rect x="200" y="150" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">B</text>
+    <rect x="200" y="180" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Z</text>
+
+    <!-- Лінії зв'язку -->
+    <!-- Пара A -->
+    <line x1="90" y1="125" x2="200" y2="125" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="133" x2="200" y2="133" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+    
+    <!-- Пара B -->
+    <line x1="90" y1="155" x2="200" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="163" x2="200" y2="163" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Пара Z -->
+    <line x1="90" y1="185" x2="200" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="193" x2="200" y2="193" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Підпис витої пари і термінатора -->
+    <rect x="105" y="206" width="80" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">R_t = 120 Ω</text>
+
+    <!-- Характеристики інтерфейсу -->
+    <rect x="15" y="245" width="260" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="25" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">• Сигнали: A+, A-, B+, B-, Z+, Z-</text>
+    <text x="25" y="292" font-size="12" fill="#1a1a1a">• Фізичний рівень: RS-422 / EIA-485</text>
+    <text x="25" y="316" font-size="12" fill="#1a1a1a">• Частота імпульсів: до 2…5 МГц</text>
+    <text x="25" y="340" font-size="12" fill="#1a1a1a">• Довжина кабелю: до 100…300 м</text>
+    <text x="25" y="364" font-size="12" fill="#27ae60">• Висока завадостійкість (CMRR)</text>
+    <text x="25" y="388" font-size="12" fill="#6b7280">• Потребує пошуку референтної мітки Z</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: 1 Vpp Sin/Cos -->
+  <g transform="translate(335, 75)">
+    <!-- Фон панелі -->
+    <rect x="0" y="0" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Заголовок панелі -->
+    <rect x="0" y="0" width="290" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Аналоговий 1 Vpp Sin/Cos</text>
+    
+    <!-- Опис типу -->
+    <text x="145" y="58" text-anchor="middle" font-size="12" fill="#6b7280">Диференційний інтерполятор</text>
+    
+    <!-- Блок Сенсор -->
+    <rect x="15" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="55" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сенсор</text>
+    <text x="55" y="108" text-anchor="middle" font-size="12" fill="#6b7280">1 Vpp Gen</text>
+    
+    <rect x="68" y="120" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+    <rect x="68" y="150" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B</text>
+    <rect x="68" y="180" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R</text>
+
+    <!-- Блок Інтерполятор -->
+    <rect x="195" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="235" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Інтерполятор</text>
+    <text x="235" y="108" text-anchor="middle" font-size="12" fill="#6b7280">ADC / DSP</text>
+    
+    <rect x="200" y="120" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">A</text>
+    <rect x="200" y="150" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="163" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">B</text>
+    <rect x="200" y="180" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R</text>
+
+    <!-- Лінії аналогових сигналів -->
+    <!-- Канал A sin -->
+    <line x1="90" y1="125" x2="200" y2="125" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="133" x2="200" y2="133" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Канал B cos -->
+    <line x1="90" y1="155" x2="200" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="163" x2="200" y2="163" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Референтний імпульс R -->
+    <line x1="90" y1="185" x2="200" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="193" x2="200" y2="193" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Підпис узгодження -->
+    <rect x="105" y="206" width="80" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">R_t = 120 Ω</text>
+
+    <!-- Характеристики інтерфейсу -->
+    <rect x="15" y="245" width="260" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="25" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">• Сигнали: A(sin), B(cos), R(ref)</text>
+    <text x="25" y="292" font-size="12" fill="#1a1a1a">• Амплітуда: 1.0 V_pp (0.6…1.2 V)</text>
+    <text x="25" y="316" font-size="12" fill="#1a1a1a">• Синфазна напруга: 2.5 V DC</text>
+    <text x="25" y="340" font-size="12" fill="#1a1a1a">• Смуга пропускання: до 500 кГц</text>
+    <text x="25" y="364" font-size="12" fill="#27ae60">• Інтерполяція кута: х1024…х65536</text>
+    <text x="25" y="388" font-size="12" fill="#6b7280">• Висока субпіксельна роздільність</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 3: BiSS-C / SSI -->
+  <g transform="translate(645, 75)">
+    <!-- Фон панелі -->
+    <rect x="0" y="0" width="290" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Заголовок панелі -->
+    <rect x="0" y="0" width="290" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Синхронний BiSS-C / SSI</text>
+    
+    <!-- Опис типу -->
+    <text x="145" y="58" text-anchor="middle" font-size="12" fill="#6b7280">Послідовний RS-485 (Master/Slave)</text>
+    
+    <!-- Блок Slave (Енкодер) -->
+    <rect x="15" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="55" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Slave</text>
+    <text x="55" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Енкодер</text>
+    
+    <rect x="68" y="130" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MA</text>
+    <rect x="68" y="170" width="22" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="79" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SLO</text>
+
+    <!-- Блок Master (Контролер) -->
+    <rect x="195" y="75" width="80" height="155" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="235" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Master</text>
+    <text x="235" y="108" text-anchor="middle" font-size="12" fill="#6b7280">Серводрайв</text>
+    
+    <rect x="200" y="130" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="143" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">MA</text>
+    <rect x="200" y="170" width="22" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="211" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SLO</text>
+
+    <!-- Лінії зв'язку: MA (Master -> Slave) -->
+    <line x1="200" y1="135" x2="90" y2="135" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="200" y1="143" x2="90" y2="143" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Лінії зв'язку: SLO (Slave -> Master) -->
+    <line x1="90" y1="175" x2="200" y2="175" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="90" y1="183" x2="200" y2="183" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+    <!-- Підпис такту і даних -->
+    <rect x="105" y="206" width="80" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="145" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">R_t = 120 Ω</text>
+
+    <!-- Характеристики інтерфейсу -->
+    <rect x="15" y="245" width="260" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="25" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">• Лінії: MA+/MA- (clk), SLO+/SLO- (data)</text>
+    <text x="25" y="292" font-size="12" fill="#1a1a1a">• Тактова частота: до 10 МГц</text>
+    <text x="25" y="316" font-size="12" fill="#1a1a1a">• Розрядність позиції: до 32 біт</text>
+    <text x="25" y="340" font-size="12" fill="#1a1a1a">• Апаратна компенсація затримки лінії</text>
+    <text x="25" y="364" font-size="12" fill="#27ae60">• Контроль цілісності даних (CRC-6)</text>
+    <text x="25" y="388" font-size="12" fill="#6b7280">• Абсолютне положення без реферування</text>
+  </g>
+</svg>

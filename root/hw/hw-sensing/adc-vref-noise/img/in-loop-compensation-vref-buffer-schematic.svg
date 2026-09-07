@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Топологія буфера VREF з подвійним зворотним зв'язком (In-Loop Compensation)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розділення петель за постійним та змінним струмом забезпечує стійкість на навантаження C_L = 47 мкФ</text>
+
+  <!-- Ліва панель: Принципова схема -->
+  <rect x="24" y="66" width="460" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Принципова схема активного буфера</text>
+
+  <!-- Вхід VREF_IN -->
+  <text x="36" y="234" font-size="12" font-weight="700" fill="#1a1a1a">V_REF_IN</text>
+  <line x1="98" y1="230" x2="136" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ОП трикутник: вершини (136, 170), (136, 260), (200, 215) -->
+  <polygon points="136,170 136,260 200,215" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="142" y="196" font-size="14" font-weight="700" fill="#2457d6">-</text>
+  <text x="142" y="236" font-size="14" font-weight="700" fill="#2457d6">+</text>
+  <text x="158" y="218" font-size="12" font-weight="700" fill="#2457d6">ОП</text>
+
+  <!-- Вихід ОП до вузла А -->
+  <line x1="200" y1="215" x2="234" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="234" cy="215" r="3" fill="#1a1a1a"/>
+  <text x="210" y="242" font-size="12" fill="#6b7280">Вузол A</text>
+
+  <!-- Резистор R_iso -->
+  <rect x="250" y="207" width="40" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="234" y1="215" x2="250" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="270" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">R_iso (2.2 Ом)</text>
+
+  <!-- Вузол B (Вихід на АЦП) -->
+  <line x1="290" y1="215" x2="340" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="340" cy="215" r="3" fill="#1a1a1a"/>
+  <text x="350" y="236" font-size="12" fill="#6b7280">Вузол B</text>
+  <line x1="340" y1="215" x2="390" y2="215" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="398" y="219" font-size="12" font-weight="700" fill="#27ae60">До VREF АЦП</text>
+
+  <!-- Конденсатор C_L -->
+  <line x1="340" y1="215" x2="340" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="326" y1="255" x2="354" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="326" y1="261" x2="354" y2="261" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="261" x2="340" y2="276" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND для C_L -->
+  <line x1="330" y1="276" x2="350" y2="276" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="334" y1="280" x2="346" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="337" y1="284" x2="343" y2="284" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="362" y="262" font-size="12" font-weight="700" fill="#1a1a1a">C_L = 47 мкФ</text>
+
+  <!-- Петля DC (R_f) -->
+  <line x1="340" y1="215" x2="340" y2="114" stroke="#27ae60" stroke-width="2"/>
+  <line x1="340" y1="114" x2="245" y2="114" stroke="#27ae60" stroke-width="2"/>
+  <rect x="195" y="106" width="50" height="16" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="220" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">R_f (10 кОм)</text>
+  <line x1="195" y1="114" x2="112" y2="114" stroke="#27ae60" stroke-width="2"/>
+  <line x1="112" y1="114" x2="112" y2="192" stroke="#27ae60" stroke-width="2"/>
+  <line x1="112" y1="192" x2="136" y2="192" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Петля AC (C_f) -->
+  <line x1="234" y1="215" x2="234" y2="152" stroke="#2457d6" stroke-width="2"/>
+  <line x1="234" y1="152" x2="192" y2="152" stroke="#2457d6" stroke-width="2"/>
+  <line x1="192" y1="144" x2="192" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <line x1="186" y1="144" x2="186" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <text x="189" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">C_f (1 мкФ)</text>
+  <line x1="186" y1="152" x2="122" y2="152" stroke="#2457d6" stroke-width="2"/>
+  <line x1="122" y1="152" x2="122" y2="192" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="122" cy="192" r="2.5" fill="#2457d6"/>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <rect x="36" y="304" width="436" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="322" font-size="12" font-weight="700" fill="#27ae60">Петля DC (через R_f):</text>
+  <text x="46" y="340" font-size="12" fill="#1a1a1a">Знімає зворотний зв'язок безпосередньо з виводу VREF</text>
+  <text x="46" y="356" font-size="12" fill="#1a1a1a">Компенсує падіння напруги на R_iso: нульова похибка</text>
+
+  <rect x="36" y="372" width="436" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="390" font-size="12" font-weight="700" fill="#2457d6">Петля AC (через C_f):</text>
+  <text x="46" y="408" font-size="12" fill="#1a1a1a">Замикає ОП на високих частотах в обхід затримки C_L</text>
+  <text x="46" y="424" font-size="12" fill="#1a1a1a">Забезпечує стійкість контуру та фазовий запас &gt; 60°</text>
+
+  <!-- Права панель: Передавальна характеристика петлі (Боде) -->
+  <rect x="496" y="66" width="440" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Частотний аналіз петлевого підсилення (Боде)</text>
+
+  <!-- Вісь амплітуди |Aβ| -->
+  <line x1="540" y1="240" x2="900" y2="240" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="540" y1="240" x2="540" y2="108" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="536" y="104" font-size="12" font-weight="700" fill="#1a1a1a">|A·β| (дБ)</text>
+  <text x="840" y="254" font-size="12" fill="#6b7280">Частота f</text>
+
+  <!-- Пунктирна лінія 0 дБ -->
+  <line x1="540" y1="200" x2="890" y2="200" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="508" y="204" font-size="12" fill="#6b7280">0 дБ</text>
+
+  <!-- Крива без компенсації (Нестійка: спад -40 дБ/дек) -->
+  <path d="M545,120 L610,135 L680,215 L720,250" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Позначка небезпеки -->
+  <rect x="730" y="244" width="194" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="736" y="260" font-size="12" font-weight="700" fill="#c0392b">Без C_f: -40 дБ/дек</text>
+  <text x="736" y="274" font-size="12" fill="#c0392b">Фазовий запас &lt; 15°</text>
+
+  <!-- Крива з In-Loop компенсацією (Стійка) -->
+  <path d="M545,120 L610,135 L650,170 L770,200 L850,225" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="650" cy="170" r="3.5" fill="#2457d6"/>
+  <text x="660" y="155" font-size="12" font-weight="700" fill="#2457d6">Нуль f_zero</text>
+
+  <circle cx="770" cy="200" r="3.5" fill="#27ae60"/>
+  <text x="778" y="190" font-size="12" font-weight="700" fill="#27ae60">f_0dB (-20 дБ/дек)</text>
+
+  <!-- Пояснення внизу правої панелі -->
+  <rect x="508" y="290" width="416" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="518" y="308" font-size="12" font-weight="700" fill="#2457d6">Вплив нульової частоти компенсації:</text>
+  <text x="518" y="326" font-size="12" fill="#1a1a1a">f_zero = 1 / (2 · π · R_iso · C_L) = 1.54 кГц</text>
+  <text x="518" y="344" font-size="12" fill="#1a1a1a">Відновлює нахил -20 дБ/дек біля 0 дБ, забезпечуючи PM = 65°</text>
+
+  <rect x="508" y="368" width="416" height="64" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="386" font-size="12" font-weight="700" fill="#1a1a1a">Критерій вибору номіналів C_f та R_f:</text>
+  <text x="518" y="404" font-size="12" fill="#1a1a1a">C_f ≥ C_L · (R_iso / R_f)  →  1 мкФ ≥ 47 мкФ · (2.2 / 10000)</text>
+  <text x="518" y="420" font-size="12" fill="#1a1a1a">Забезпечує переважання локальної петлі на високих частотах</text>
+</svg>

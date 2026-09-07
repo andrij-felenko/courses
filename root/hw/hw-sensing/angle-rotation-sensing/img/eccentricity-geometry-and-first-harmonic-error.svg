@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія ексцентриситету та циклічна похибка першої гармоніки (1θ)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Радіальний зсув осі обертання вала породжує синусоїдальну похибку амплітудою e / R, що усувається двома голівками</text>
+
+  <!-- Left Panel: Geometry -->
+  <rect x="30" y="65" width="430" height="410" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематична схема зміщення центрів</text>
+
+  <!-- Scale circle (centered at Os: 220, 240, R=120) -->
+  <circle cx="220" cy="240" r="120" fill="white" stroke="#2457d6" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="355" y="235" font-size="12" fill="#2457d6">Шкала R</text>
+
+  <!-- Axes for Os -->
+  <line x1="80" y1="240" x2="360" y2="240" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="220" y1="100" x2="220" y2="380" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Os point -->
+  <circle cx="220" cy="240" r="4" fill="#2457d6"/>
+  <text x="205" y="258" font-size="13" font-weight="bold" fill="#2457d6">Os</text>
+
+  <!-- Or point -->
+  <circle cx="255" cy="240" r="4" fill="#c0392b"/>
+  <text x="268" y="258" font-size="13" font-weight="bold" fill="#c0392b">Or</text>
+
+  <!-- Vector e -->
+  <line x1="220" y1="240" x2="252" y2="240" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="238" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">e</text>
+
+  <!-- Reading Head S1 (at top right angle ~ 50 deg from Or) -->
+  <!-- Line from Os to S1 -->
+  <line x1="220" y1="240" x2="305" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Line from Or to S1 -->
+  <line x1="255" y1="240" x2="305" y2="155" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Sensor 1 point -->
+  <rect x="300" y="145" width="20" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="158" font-size="12" font-weight="bold" fill="#2457d6">Голівка S1</text>
+  <text x="330" y="174" font-size="12" fill="#6b7280">(кут θ_meas)</text>
+
+  <!-- Dual sensor S2 at 180 deg -->
+  <rect x="120" y="315" width="20" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="328" font-size="12" font-weight="bold" fill="#27ae60">Голівка S2</text>
+  <text x="50" y="344" font-size="12" fill="#6b7280">(кут θ + 180°)</text>
+  <line x1="220" y1="240" x2="135" y2="325" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Bottom note in left box -->
+  <rect x="45" y="405" width="400" height="55" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">Похибка кута: Δθ(θ) = θ_meas − θ ≈ (e / R) · sin(θ − φ_e)</text>
+  <text x="245" y="446" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Усереднення S1 та S2: ½ · (θ₁ + θ₂ − 180°) = θ_true</text>
+
+  <!-- Right Panel: Error Waveform -->
+  <rect x="480" y="65" width="450" height="410" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектральна похибка 1θ та компенсація</text>
+
+  <!-- Graph area -->
+  <rect x="510" y="110" width="390" height="180" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Zero axis -->
+  <line x1="530" y1="200" x2="885" y2="200" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="890" y="204" font-size="12" fill="#6b7280">θ</text>
+
+  <!-- Y axis -->
+  <line x1="550" y1="275" x2="550" y2="125" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="535" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Δθ</text>
+
+  <!-- Tick marks on X axis -->
+  <line x1="625" y1="196" x2="625" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="700" y1="196" x2="700" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="775" y1="196" x2="775" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="850" y1="196" x2="850" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="550" y="222" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+  <text x="625" y="222" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+  <text x="700" y="222" font-size="12" fill="#6b7280" text-anchor="middle">180°</text>
+  <text x="775" y="222" font-size="12" fill="#6b7280" text-anchor="middle">270°</text>
+  <text x="850" y="222" font-size="12" fill="#6b7280" text-anchor="middle">360°</text>
+
+  <!-- Max/min labels on Y axis -->
+  <line x1="545" y1="150" x2="555" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="154" font-size="12" fill="#c0392b">+e/R</text>
+
+  <line x1="545" y1="250" x2="555" y2="250" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="254" font-size="12" fill="#c0392b">−e/R</text>
+
+  <!-- Sine curve (1-head error: red) -->
+  <path d="M 550 200 C 585 150, 590 150, 625 150 C 660 150, 665 200, 700 200 C 735 200, 740 250, 775 250 C 810 250, 815 200, 850 200" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Head 2 curve (inverted: blue dashed) -->
+  <path d="M 550 200 C 585 250, 590 250, 625 250 C 660 250, 665 200, 700 200 C 735 200, 740 150, 775 150 C 810 150, 815 200, 850 200" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Resulting line after compensation (green: flat zero) -->
+  <line x1="550" y1="200" x2="850" y2="200" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Legend for curves -->
+  <rect x="510" y="305" width="390" height="155" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="530" y1="328" x2="565" y2="328" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="575" y="332" font-size="12" font-weight="bold" fill="#c0392b">Похибка 1-ї голівки (S1):</text>
+  <text x="735" y="332" font-size="12" fill="#1a1a1a">Δθ₁ = +(e/R)·sin(θ)</text>
+
+  <line x1="530" y1="360" x2="565" y2="360" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="575" y="364" font-size="12" font-weight="bold" fill="#2457d6">Похибка 2-ї голівки (S2):</text>
+  <text x="735" y="364" font-size="12" fill="#1a1a1a">Δθ₂ = −(e/R)·sin(θ)</text>
+
+  <line x1="530" y1="392" x2="565" y2="392" stroke="#27ae60" stroke-width="3"/>
+  <text x="575" y="396" font-size="12" font-weight="bold" fill="#27ae60">Результуюча похибка:</text>
+  <text x="735" y="396" font-size="12" fill="#27ae60">Δθ_компенсована = 0</text>
+
+  <text x="530" y="435" font-size="12" fill="#6b7280">Приклад: R = 25 мм, e = 10 мкм → Δθ_max = 82.5" (похибка 14 біт)</text>
+</svg>

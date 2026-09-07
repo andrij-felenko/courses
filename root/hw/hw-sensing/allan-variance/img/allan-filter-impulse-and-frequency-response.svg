@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова та частотна характеристики оператора дисперсії Аллана</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Дводіапазонний імпульсний відгук у часі формує смугову фільтрацію з нулем на постійному струмі</text>
+
+  <!-- Left Panel: Time Domain -->
+  <rect x="24" y="74" width="440" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="244" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часова область: імпульсна характеристика h_A(t)</text>
+  <text x="244" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Різниця двох суміжних вікон інтегрування тривалості τ</text>
+
+  <!-- Axes Left -->
+  <line x1="50" y1="250" x2="434" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="442" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+  <line x1="90" y1="360" x2="90" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="96" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">h_A(t)</text>
+
+  <!-- Ticks Left -->
+  <line x1="85" y1="180" x2="95" y2="180" stroke="#6b7280" stroke-width="1"/>
+  <text x="80" y="184" text-anchor="end" font-size="12" fill="#1a1a1a">+1/τ</text>
+
+  <line x1="85" y1="320" x2="95" y2="320" stroke="#6b7280" stroke-width="1"/>
+  <text x="80" y="324" text-anchor="end" font-size="12" fill="#1a1a1a">−1/τ</text>
+
+  <!-- Pulse 1: t in [0, tau], height +1/tau -->
+  <rect x="90" y="180" width="140" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="160" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+1/τ (вікно 1)</text>
+
+  <!-- Pulse 2: t in [tau, 2tau], height -1/tau -->
+  <rect x="230" y="250" width="140" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="300" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">−1/τ (вікно 2)</text>
+
+  <!-- Time labels with clear offsets -->
+  <text x="75" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+  <text x="230" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t = τ</text>
+  <text x="370" y="345" text-anchor="middle" font-size="12" fill="#1a1a1a">2τ</text>
+
+  <!-- Explanation box bottom left -->
+  <rect x="44" y="360" width="400" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="380" font-size="12" fill="#1a1a1a">Оператор: ȳ[k+1](τ) − ȳ[k](τ) = ∫ y(t) · h_A(t) dt</text>
+  <text x="54" y="402" font-size="12" fill="#27ae60">Сумарна площа = (+1/τ)·τ + (−1/τ)·τ = 0 (знищує DC-зсув)</text>
+
+  <!-- Right Panel: Frequency Domain -->
+  <rect x="496" y="74" width="440" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Частотна область: передавальна функція |H_A(f)|²</text>
+  <text x="716" y="122" text-anchor="middle" font-size="12" fill="#6b7280">|H_A(f)|² = 2 · sin⁴(π f τ) / (π f τ)²</text>
+
+  <!-- Axes Right -->
+  <line x1="520" y1="340" x2="906" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="914" y="344" font-size="12" font-weight="bold" fill="#1a1a1a">f</text>
+  <line x1="540" y1="360" x2="540" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="546" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">|H_A(f)|²</text>
+
+  <!-- Grid ticks on f axis -->
+  <line x1="700" y1="335" x2="700" y2="345" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">1/τ</text>
+
+  <line x1="820" y1="335" x2="820" y2="345" stroke="#6b7280" stroke-width="1"/>
+  <text x="820" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">2/τ</text>
+
+  <!-- Curve for |H_A(f)|² -->
+  <path d="M 540 340 C 560 338, 595 180, 620 180 C 645 180, 680 338, 700 340 C 715 340, 735 315, 750 315 C 765 315, 790 339, 820 340 C 835 340, 850 332, 860 332 C 870 332, 885 339, 900 340" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Annotations Right -->
+  <!-- Peak marker -->
+  <circle cx="620" cy="180" r="4" fill="#2457d6"/>
+  <line x1="620" y1="180" x2="620" y2="340" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="620" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">f_пік ≈ 0.371 / τ</text>
+
+  <!-- Zero at f=0 badge placed in clear upper left quadrant -->
+  <rect x="548" y="160" width="65" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="580" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">f = 0</text>
+  <text x="580" y="189" text-anchor="middle" font-size="12" fill="#27ae60">|H|² = 0</text>
+
+  <!-- Sidelobe badge placed in clear upper right quadrant -->
+  <rect x="740" y="160" width="170" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="748" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">Спад пелюсток: ∝ f⁻²</text>
+  <text x="748" y="194" font-size="12" fill="#6b7280">Вузол на f = k/τ (k = 1, 2...)</text>
+
+  <!-- Explanation box bottom right -->
+  <rect x="516" y="375" width="400" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="526" y="394" font-size="12" fill="#1a1a1a">Смугова фільтрація: виділяє флуктуації на часі τ</text>
+  <text x="526" y="410" font-size="12" fill="#6b7280">Зміна τ переміщує смугу пропускання вздовж спектра</text>
+</svg>

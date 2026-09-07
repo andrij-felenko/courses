@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Рівновага чотириплечого моста змінного струму</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Одночасний баланс амплітуд і фаз: рівновага досягається за умови Z₁ · Z₄ = Z₂ · Z₃</text>
+
+  <!-- Схема моста: Ліва частина -->
+  <rect x="24" y="74" width="500" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плече 1: A -> Z1 -> B -->
+  <line x1="284" y1="110" x2="240" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="186" x2="150" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече 2: B -> Z2 -> C -->
+  <line x1="150" y1="240" x2="180" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="240" y1="330" x2="284" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече 3: A -> Z3 -> D -->
+  <line x1="284" y1="110" x2="328" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="388" y1="186" x2="418" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече 4: D -> Z4 -> C -->
+  <line x1="418" y1="240" x2="388" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="328" y1="330" x2="284" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Детектор B -> D -->
+  <line x1="150" y1="240" x2="258" y2="240" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 4"/>
+  <line x1="310" y1="240" x2="418" y2="240" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <!-- Генератор: виводи від A та C -->
+  <line x1="284" y1="110" x2="90" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="90" y1="110" x2="90" y2="214" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="90" y1="266" x2="90" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="90" y1="370" x2="284" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Генератор (коло) -->
+  <circle cx="90" cy="240" r="24" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M78 240 Q84 230 90 240 T102 240" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="52" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">U_gen</text>
+
+  <!-- Блоки імпедансів -->
+  <!-- Z1 -->
+  <rect x="180" y="150" width="60" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="173" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Z₁</text>
+
+  <!-- Z2 -->
+  <rect x="180" y="294" width="60" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Z₂</text>
+
+  <!-- Z3 -->
+  <rect x="328" y="150" width="60" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="358" y="173" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Z₃</text>
+
+  <!-- Z4 -->
+  <rect x="328" y="294" width="60" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="358" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Z₄</text>
+
+  <!-- Детектор нуль-індикатор (коло) -->
+  <circle cx="284" cy="240" r="24" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="284" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">DET</text>
+  <text x="284" y="210" text-anchor="middle" font-size="11" fill="#2457d6">U_det = 0</text>
+
+  <!-- Вузли (точки A, B, C, D) -->
+  <circle cx="284" cy="110" r="4" fill="#1a1a1a"/>
+  <text x="284" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вузол A</text>
+
+  <circle cx="150" cy="240" r="4" fill="#1a1a1a"/>
+  <text x="136" y="244" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Вузол B</text>
+
+  <circle cx="284" cy="370" r="4" fill="#1a1a1a"/>
+  <text x="284" y="392" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вузол C</text>
+
+  <circle cx="418" cy="240" r="4" fill="#1a1a1a"/>
+  <text x="432" y="244" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Вузол D</text>
+
+  <!-- Права частина: Панелі пояснення -->
+  <!-- Панель 1: Комплексна рівновага -->
+  <rect x="540" y="74" width="396" height="175" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="560" y="100" font-size="14" font-weight="bold" fill="#2457d6">Умови комплексної рівноваги</text>
+  
+  <text x="560" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">1. Комплексне рівняння:</text>
+  <text x="730" y="128" font-size="13" font-weight="bold" fill="#2457d6">Z₁ · Z₄ = Z₂ · Z₃</text>
+
+  <text x="560" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">2. Модулі (амплітуди):</text>
+  <text x="730" y="160" font-size="13" fill="#1a1a1a">|Z₁| · |Z₄| = |Z₂| · |Z₃|</text>
+
+  <text x="560" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">3. Фазові кути:</text>
+  <text x="730" y="192" font-size="13" fill="#1a1a1a">φ₁ + φ₄ = φ₂ + φ₃</text>
+
+  <text x="560" y="226" font-size="12" fill="#6b7280">Рівновага вимагає одночасного узгодження активної й реактивної осей.</text>
+
+  <!-- Панель 2: Стан рівноваги -->
+  <rect x="540" y="260" width="396" height="178" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="560" y="288" font-size="14" font-weight="bold" fill="#27ae60">Фізичний стан балансу</text>
+
+  <text x="560" y="316" font-size="12" fill="#1a1a1a">• Потенціал B: U_B = U_gen · Z₂ / (Z₁ + Z₂)</text>
+  <text x="560" y="340" font-size="12" fill="#1a1a1a">• Потенціал D: U_D = U_gen · Z₄ / (Z₃ + Z₄)</text>
+  
+  <line x1="560" y1="354" x2="916" y2="354" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="560" y="378" font-size="13" font-weight="bold" fill="#27ae60">Результат: U_B = U_D  ⇒  U_det = 0 В</text>
+  <text x="560" y="402" font-size="12" fill="#6b7280">Струм через нуль-індикатор зведений до нуля в обох фазах.</text>
+</svg>

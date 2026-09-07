@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура високопродуктивного конвеєра аналізу стабільності за Алланом</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Потокове накопичення сум фази, паралельні ядра OAVAR/MVAR, оцінка EDF та розрахунок довірчих меж хі-квадрат</text>
+
+  <!-- Stage 1: Input & Phase Accumulation -->
+  <rect x="30" y="80" width="165" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Вхідний потік</text>
+
+  <rect x="42" y="125" width="141" height="65" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сенсорний потік</text>
+  <text x="112" y="166" text-anchor="middle" font-size="11" fill="#6b7280">y[k] (швидкість / прискор.)</text>
+  <text x="112" y="180" text-anchor="middle" font-size="11" fill="#6b7280">N відліків, dt = const</text>
+
+  <line x1="112" y1="190" x2="112" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="42" y="235" width="141" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="112" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Інтегратор фази</text>
+  <text x="112" y="276" text-anchor="middle" font-size="11" fill="#1a1a1a">theta[k] = sum(y·dt)</text>
+  <text x="112" y="292" text-anchor="middle" font-size="11" fill="#27ae60">O(N) за один прохід</text>
+  <text x="112" y="306" text-anchor="middle" font-size="11" fill="#6b7280">Zero-alloc у циклі</text>
+
+  <!-- Arrow from Stage 1 to Stage 2 -->
+  <line x1="195" y1="275" x2="225" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2: Tau Grid Distributor -->
+  <rect x="235" y="80" width="165" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="317" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Сітка tau</text>
+
+  <rect x="247" y="125" width="141" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="317" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логарифмічна сітка</text>
+  <text x="317" y="168" text-anchor="middle" font-size="11" fill="#1a1a1a">m = 1, 2, 4, 8, 16...</text>
+  <text x="317" y="186" text-anchor="middle" font-size="11" fill="#6b7280">tau = m · dt</text>
+  <text x="317" y="204" text-anchor="middle" font-size="11" fill="#6b7280">m_max &lt;= N / 3</text>
+
+  <line x1="317" y1="220" x2="317" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="247" y="255" width="141" height="145" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="317" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Диспетчер задач</text>
+  <text x="317" y="298" text-anchor="middle" font-size="11" fill="#1a1a1a">std::execution::par</text>
+  <text x="317" y="316" text-anchor="middle" font-size="11" fill="#6b7280">Розподіл точок tau</text>
+  <text x="317" y="334" text-anchor="middle" font-size="11" fill="#6b7280">між ядрами ЦП</text>
+  <text x="317" y="354" text-anchor="middle" font-size="11" fill="#27ae60">Незалежні потоки</text>
+  <text x="317" y="372" text-anchor="middle" font-size="11" fill="#6b7280">Shared memory theta</text>
+
+  <!-- Arrow from Stage 2 to Stage 3 -->
+  <line x1="400" y1="275" x2="430" y2="275" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3: Parallel Variance Engines -->
+  <rect x="440" y="80" width="235" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="557" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Обчислювальні ядра</text>
+
+  <rect x="452" y="125" width="211" height="135" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="557" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Ядро OAVAR (Перекривний)</text>
+  <text x="557" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">delta2 = theta[k+2m] - 2·theta[k+m] + theta[k]</text>
+  <text x="557" y="190" text-anchor="middle" font-size="11" fill="#1a1a1a">sigma_y² = sum(delta2²) / (2·tau²·(N-2m))</text>
+  <text x="557" y="210" text-anchor="middle" font-size="11" fill="#27ae60">Складність O(1) на відлік</text>
+  <text x="557" y="228" text-anchor="middle" font-size="11" fill="#6b7280">Максимальна точність оцінки</text>
+  <text x="557" y="246" text-anchor="middle" font-size="11" fill="#6b7280">Зсув вікна delta = 1</text>
+
+  <rect x="452" y="270" width="211" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557" y="293" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ядро MVAR (Модифікований)</text>
+  <text x="557" y="315" text-anchor="middle" font-size="11" fill="#1a1a1a">Подвійне усереднення фази</text>
+  <text x="557" y="335" text-anchor="middle" font-size="11" fill="#1a1a1a">Ковзна сума різниць за час O(1)</text>
+  <text x="557" y="355" text-anchor="middle" font-size="11" fill="#2457d6">Розділяє білий фазовий (tau^-1.5)</text>
+  <text x="557" y="373" text-anchor="middle" font-size="11" fill="#2457d6">та флікерний шум фази (tau^-1.0)</text>
+  <text x="557" y="391" text-anchor="middle" font-size="11" fill="#6b7280">Нормування 2·m²·tau²·(N-3m+1)</text>
+
+  <!-- Arrow from Stage 3 to Stage 4 -->
+  <line x1="675" y1="275" x2="705" y2="275" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 4: Statistical Post-processing & Output -->
+  <rect x="715" y="80" width="215" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="822" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4. Метрологічний вихід</text>
+
+  <rect x="727" y="125" width="191" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Оцінка EDF та хі-квадрат</text>
+  <text x="822" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Розрахунок ступенів вільності:</text>
+  <text x="822" y="188" text-anchor="middle" font-size="11" fill="#6b7280">Формули Грінхолла / IEEE 952</text>
+  <text x="822" y="208" text-anchor="middle" font-size="11" fill="#1a1a1a">Квантилі хі-квадрат:</text>
+  <text x="822" y="226" text-anchor="middle" font-size="11" fill="#6b7280">Апроксимація Вілсона-Гілферті</text>
+
+  <line x1="822" y1="245" x2="822" y2="265" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="727" y="275" width="191" height="130" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Готовий результат</text>
+  <text x="822" y="320" text-anchor="middle" font-size="11" fill="#1a1a1a">Крива ADEV / MDEV</text>
+  <text x="822" y="338" text-anchor="middle" font-size="11" fill="#27ae60">95% Довірчий інтервал</text>
+  <text x="822" y="356" text-anchor="middle" font-size="11" fill="#1a1a1a">[ADEV_low ... ADEV_high]</text>
+  <text x="822" y="374" text-anchor="middle" font-size="11" fill="#6b7280">Коефіцієнти N, B, K</text>
+  <text x="822" y="392" text-anchor="middle" font-size="11" fill="#6b7280">для фільтра Калмана</text>
+</svg>

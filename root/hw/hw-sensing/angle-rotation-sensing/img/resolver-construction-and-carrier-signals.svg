@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Електромагнітна будова резольвера та модульовані сигнали</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Високочастотне збудження ротора трансформується у дві просторово ортогональні обмотки статора</text>
+
+  <!-- Ліва панель: Будова та обмотки -->
+  <rect x="30" y="75" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Топологія обмоток резольвера</text>
+
+  <!-- Статор і ротор кільця -->
+  <circle cx="245" cy="225" r="105" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="245" cy="225" r="55" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="245" cy="225" r="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вал</text>
+
+  <!-- Обмотка збудження ротора (R1-R2) -->
+  <rect x="215" y="185" width="60" height="22" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="201" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R1 - R2</text>
+  <text x="245" y="265" text-anchor="middle" font-size="12" fill="#2457d6">Ротор (кутове положення θ)</text>
+
+  <!-- Обмотки статора: Косинусна (S1-S3, вертикальна) -->
+  <rect x="215" y="105" width="60" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="121" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cos (S1)</text>
+
+  <rect x="215" y="325" width="60" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cos (S3)</text>
+
+  <!-- Обмотки статора: Синусна (S2-S4, горизонтальна під 90°) -->
+  <rect x="125" y="214" width="60" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="155" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Sin (S4)</text>
+
+  <rect x="305" y="214" width="60" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="335" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Sin (S2)</text>
+
+  <!-- Текстова плашка знизу зліва -->
+  <rect x="45" y="365" width="400" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Збудження ротора від опорного генератора:</text>
+  <text x="60" y="408" font-size="12" fill="#c0392b">V_exc(t) = V_ref · sin(ω_c · t)    [несуча частота 2–10 кГц]</text>
+  <text x="60" y="426" font-size="12" fill="#6b7280">Безконтактний обертовий трансформатор передає струм на ротор</text>
+
+  <!-- Права панель: Модульовані сигнали -->
+  <rect x="480" y="75" width="450" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Амплітудно-модульовані вихідні сигнали</text>
+
+  <!-- Блок сигналу Косинуса -->
+  <rect x="500" y="125" width="410" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="148" font-size="13" font-weight="bold" fill="#2457d6">Косинусний канал статора (обмотка S1-S3):</text>
+  <text x="515" y="172" font-size="13" font-weight="bold" fill="#1a1a1a">V_cos(t) = k · V_ref · cos(θ) · sin(ω_c · t)</text>
+  <text x="515" y="195" font-size="12" fill="#6b7280">Амплітудна обвідна пропорційна cos(θ)</text>
+  <text x="515" y="213" font-size="12" fill="#2457d6">Коефіцієнт трансформації k ≈ 0.28–0.5</text>
+
+  <!-- Блок сигналу Синуса -->
+  <rect x="500" y="240" width="410" height="100" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="515" y="263" font-size="13" font-weight="bold" fill="#27ae60">Синусний канал статора (обмотка S2-S4):</text>
+  <text x="515" y="287" font-size="13" font-weight="bold" fill="#1a1a1a">V_sin(t) = k · V_ref · sin(θ) · sin(ω_c · t)</text>
+  <text x="515" y="310" font-size="12" fill="#6b7280">Амплітудна обвідна пропорційна sin(θ)</text>
+  <text x="515" y="328" font-size="12" fill="#27ae60">Зсув обмотки на 90° відносно косинусної</text>
+
+  <!-- Демодуляція та відновлення кута -->
+  <rect x="500" y="355" width="410" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронна демодуляція в RDC-перетворювачі:</text>
+  <text x="515" y="398" font-size="12" fill="#1a1a1a">Множення на sin(ω_c·t) та ФНЧ виділяють обвідні sin(θ) і cos(θ)</text>
+  <text x="515" y="420" font-size="13" font-weight="bold" fill="#2457d6">Кут вала:  θ = atan2( V_sin_обвідна , V_cos_обвідна )</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Зчитування параметрів з кривої ADEV у фільтр Калмана</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Пряме перенесення коефіцієнтів білого шуму N та дрейфу зсуву K у матрицю коваріації процесу Q</text>
+
+  <!-- Ліва панель: Крива ADEV -->
+  <rect x="30" y="65" width="440" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="50" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">1. Вилучення параметрів із графіка ADEV</text>
+
+  <!-- Осі лівого графіка -->
+  <line x1="70" y1="355" x2="445" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="450" y="359" font-size="12" font-weight="bold" fill="#1a1a1a">τ (s)</text>
+
+  <line x1="70" y1="355" x2="70" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="70" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">σ(τ)</text>
+
+  <!-- Крива ADEV -->
+  <path d="M 85 145 L 140 210 L 230 270 L 330 250 L 415 170" 
+        fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Точка tau = 1 s (ARW N) -->
+  <line x1="140" y1="210" x2="140" y2="355" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 2"/>
+  <circle cx="140" cy="210" r="4" fill="#2457d6"/>
+  <text x="140" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">τ = 1 s</text>
+  <rect x="150" y="180" width="135" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="217" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ARW: N = σ(1 s)</text>
+  <text x="217" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Нахил: μ = −½</text>
+
+  <!-- Точка мінімуму (BI) -->
+  <circle cx="230" cy="270" r="4" fill="#27ae60"/>
+  <rect x="160" y="290" width="145" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="232" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">BI: B = σ_min / 0.664</text>
+  <text x="232" y="320" text-anchor="middle" font-size="12" fill="#27ae60">Мінімум: μ = 0</text>
+
+  <!-- Точка tau = 3 s (RRW K) -->
+  <circle cx="370" cy="210" r="4" fill="#8e44ad"/>
+  <rect x="300" y="125" width="135" height="36" rx="4" fill="#f4ecf7" stroke="#8e44ad"/>
+  <text x="367" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">RRW: K = σ(3 s)</text>
+  <text x="367" y="155" text-anchor="middle" font-size="12" fill="#8e44ad">Нахил: μ = +½</text>
+
+  <!-- Права панель: Фільтр Калмана -->
+  <rect x="490" y="65" width="440" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="510" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">2. Матриці шуму процесу для фільтра Калмана</text>
+
+  <text x="510" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Неперервна динаміка стану [θ, b]ᵀ:</text>
+  <rect x="510" y="128" width="400" height="50" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="148" font-size="12" fill="#1a1a1a">dθ/dt = ω_meas − b − w_v,   де Var(w_v) = N²</text>
+  <text x="525" y="168" font-size="12" fill="#1a1a1a">db/dt = w_u,                де Var(w_u) = K²</text>
+
+  <text x="510" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">Неперервна коваріаційна матриця Q_c:</text>
+  <rect x="510" y="210" width="400" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Q_c = diag([ N²,  K² ])</text>
+
+  <text x="510" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">Дискретна матриця Q_d (крок Δt):</text>
+  <rect x="510" y="284" width="400" height="58" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q_d[0,0] = N² · Δt + ⅓ K² Δt³,   Q_d[0,1] = −½ K² Δt²</text>
+  <text x="710" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q_d[1,0] = −½ K² Δt²,             Q_d[1,1] = K² · Δt</text>
+
+  <text x="510" y="365" font-size="12" fill="#27ae60">✔ Гарантує оптимальну фільтрацію без ручного підбору ваг</text>
+  <text x="510" y="385" font-size="12" fill="#6b7280">✔ Забезпечує стійкість оцінки орієнтації та компенсацію дрейфу</text>
+
+  <!-- Підсумковий підпис унизу -->
+  <text x="480" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Виміряні на практиці параметри N та K однозначно визначають шумові коваріації навігаційного фільтра</text>
+</svg>

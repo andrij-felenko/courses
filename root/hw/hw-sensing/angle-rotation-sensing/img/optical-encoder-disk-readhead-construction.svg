@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова оптичного енкодера та формування диференціальних сигналів</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Колімація світла, модуляція растровим диском і фазовою маскою, диференціальне віднімання синфазного шуму</text>
+
+  <!-- Section 1: Emitter (Left) -->
+  <rect x="25" y="70" width="220" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Джерело світла</text>
+  <text x="135" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Колімований LED / VCSEL</text>
+
+  <!-- LED Box -->
+  <rect x="45" y="140" width="60" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LED</text>
+  <text x="75" y="182" font-size="11" fill="#6b7280" text-anchor="middle">850 нм</text>
+
+  <!-- Collimating Lens -->
+  <path d="M 140,135 Q 155,165 140,195 Q 125,165 140,135 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінза</text>
+
+  <!-- Light Rays -->
+  <line x1="155" y1="145" x2="230" y2="145" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="155" y1="165" x2="230" y2="165" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="155" y1="185" x2="230" y2="185" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Emitter Description Box -->
+  <rect x="35" y="245" width="200" height="205" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості оптики:</text>
+  <text x="45" y="292" font-size="12" fill="#1a1a1a">• Паралельний пучок</text>
+  <text x="45" y="312" font-size="12" fill="#1a1a1a">• Стабілізація струму APC</text>
+  <text x="45" y="332" font-size="12" fill="#1a1a1a">• Компенсація деградації</text>
+  <text x="45" y="352" font-size="12" fill="#1a1a1a">• Однорідне підсвічування</text>
+  <text x="45" y="380" font-size="12" fill="#6b7280">Діаметр пучка охоплює</text>
+  <text x="45" y="398" font-size="12" fill="#6b7280">всі сенсорні вікна маски</text>
+  <text x="45" y="425" font-size="12" fill="#2457d6">Довжина хвилі 850 нм</text>
+
+  <!-- Section 2: Raster Disk & Reticle (Middle) -->
+  <rect x="260" y="70" width="370" height="395" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="95" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Модуляція світлового потоку</text>
+  <text x="445" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Рухомий растровий диск + нерухома фазова маска</text>
+
+  <!-- Rotating Disk Section -->
+  <rect x="280" y="130" width="130" height="150" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="345" y="148" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Растровий диск</text>
+  <text x="345" y="164" font-size="11" fill="#6b7280" text-anchor="middle">(обертається з валом)</text>
+  
+  <!-- Slits on Disk -->
+  <line x1="295" y1="180" x2="295" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="315" y1="180" x2="315" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="335" y1="180" x2="335" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="355" y1="180" x2="355" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="375" y1="180" x2="375" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="395" y1="180" x2="395" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+
+  <text x="345" y="270" font-size="11" fill="#2457d6" text-anchor="middle">Крок растра p = 20 мкм</text>
+
+  <!-- Stationary Reticle Mask -->
+  <rect x="430" y="130" width="185" height="150" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="522" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фазова маска (статор)</text>
+  <text x="522" y="164" font-size="11" fill="#6b7280" text-anchor="middle">4 групи щілин зі зсувом фази</text>
+
+  <!-- Mask Sub-windows -->
+  <rect x="440" y="175" width="35" height="40" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="457" y="195" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0°</text>
+  <text x="457" y="208" font-size="10" fill="#6b7280" text-anchor="middle">A+</text>
+
+  <rect x="480" y="175" width="35" height="40" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="497" y="195" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">180°</text>
+  <text x="497" y="208" font-size="10" fill="#6b7280" text-anchor="middle">A−</text>
+
+  <rect x="525" y="175" width="35" height="40" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="542" y="195" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">90°</text>
+  <text x="542" y="208" font-size="10" fill="#6b7280" text-anchor="middle">B+</text>
+
+  <rect x="565" y="175" width="35" height="40" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="582" y="195" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">270°</text>
+  <text x="582" y="208" font-size="10" fill="#6b7280" text-anchor="middle">B−</text>
+
+  <text x="522" y="240" font-size="11" fill="#1a1a1a" text-anchor="middle">Зсув між групами: p/4</text>
+  <text x="522" y="260" font-size="11" fill="#27ae60" text-anchor="middle">Формує ортогональність 90°</text>
+
+  <!-- Explanation Bottom Box -->
+  <rect x="275" y="295" width="340" height="155" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="285" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">Механізм растрової модуляції:</text>
+  <text x="285" y="338" font-size="12" fill="#1a1a1a">1. Обертання диска перекриває щілини маски</text>
+  <text x="285" y="358" font-size="12" fill="#1a1a1a">2. Світловий потік модулюється по синусоїді</text>
+  <text x="285" y="378" font-size="12" fill="#1a1a1a">3. Протифазні вікна (0° і 180°) дають парафазний струм</text>
+  <text x="285" y="398" font-size="12" fill="#1a1a1a">4. Вікна під 90° і 270° створюють квадратуру B</text>
+  <text x="285" y="425" font-size="12" fill="#2457d6">Світловий зазор між диском і маскою: 50–100 мкм</text>
+
+  <!-- Section 3: Photodiodes & Differential Processing (Right) -->
+  <rect x="645" y="70" width="290" height="395" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="95" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Диференціальний вихід</text>
+  <text x="790" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Віднімання синфазного зсуву</text>
+
+  <!-- Subtraction Box 1 -->
+  <rect x="660" y="130" width="260" height="75" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="150" font-size="12" font-weight="bold" fill="#2457d6">Канал A (Косинус):</text>
+  <text x="670" y="170" font-size="12" fill="#1a1a1a">I(A+) = I₀ + I_m · cos(θ)</text>
+  <text x="670" y="188" font-size="12" fill="#1a1a1a">I(A−) = I₀ − I_m · cos(θ)</text>
+  <text x="670" y="202" font-size="12" font-weight="bold" fill="#27ae60">V_A = I(A+) − I(A−) = 2 · I_m · cos(θ)</text>
+
+  <!-- Subtraction Box 2 -->
+  <rect x="660" y="215" width="260" height="75" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="235" font-size="12" font-weight="bold" fill="#2457d6">Канал B (Синус):</text>
+  <text x="670" y="255" font-size="12" fill="#1a1a1a">I(B+) = I₀ + I_m · sin(θ)</text>
+  <text x="670" y="273" font-size="12" fill="#1a1a1a">I(B−) = I₀ − I_m · sin(θ)</text>
+  <text x="670" y="287" font-size="12" font-weight="bold" fill="#27ae60">V_B = I(B+) − I(B−) = 2 · I_m · sin(θ)</text>
+
+  <!-- Summary Box -->
+  <rect x="660" y="300" width="260" height="150" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="670" y="322" font-size="12" font-weight="bold" fill="#27ae60">Переваги диференціальної схеми:</text>
+  <text x="670" y="344" font-size="12" fill="#27ae60">✓ Повне пригнічення постійної I₀</text>
+  <text x="670" y="364" font-size="12" fill="#27ae60">✓ Нечутливість до старіння LED</text>
+  <text x="670" y="384" font-size="12" fill="#27ae60">✓ Подвоєна корисна амплітуда</text>
+  <text x="670" y="404" font-size="12" fill="#27ae60">✓ Стійкість до синфазних завад</text>
+  <text x="670" y="430" font-size="12" fill="#2457d6">Готові квадратурні сигнали 1 Vpp</text>
+
+  <!-- Connecting Arrows Between Panels -->
+  <path d="M 245,165 L 260,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 630,165 L 645,165" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

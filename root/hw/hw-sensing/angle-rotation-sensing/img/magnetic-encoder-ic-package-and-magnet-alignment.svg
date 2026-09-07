@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова магнітного енкодера: диполь на валу та інтегральна мікросхема</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Торцеве безконтактне зчитування вектора індукції B крізь повітряний зазор 0.5–2.0 мм</text>
+
+  <!-- Section 1: Shaft and Magnet (Left) -->
+  <rect x="25" y="70" width="280" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="95" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Механічний вузол</text>
+  <text x="165" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Вал і діаметральний магніт</text>
+
+  <!-- Shaft Drawing -->
+  <rect x="120" y="130" width="90" height="50" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="165" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вал приводу</text>
+
+  <!-- Rotation Arrow -->
+  <path d="M 95,155 Q 110,135 110,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="80" y="150" font-size="12" font-weight="bold" fill="#2457d6">ω, θ</text>
+
+  <!-- Diametric Magnet N/S -->
+  <rect x="120" y="180" width="45" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="142" y="202" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+  
+  <rect x="165" y="180" width="45" height="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="187" y="202" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Airgap Dimension -->
+  <line x1="220" y1="215" x2="220" y2="245" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="228" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">зазор 1 мм</text>
+
+  <!-- Magnetic Field Lines -->
+  <path d="M 142,215 Q 165,245 187,215" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <path d="M 130,215 Q 165,260 200,215" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+  <!-- Left Info Box -->
+  <rect x="35" y="260" width="260" height="190" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри диполя:</text>
+  <text x="45" y="304" font-size="12" fill="#1a1a1a">• Матеріал: неодим NdFeB (N42)</text>
+  <text x="45" y="324" font-size="12" fill="#1a1a1a">• Намагніченість: діаметральна</text>
+  <text x="45" y="344" font-size="12" fill="#1a1a1a">• Розмір: ⌀ 6 мм × 2.5 мм</text>
+  <text x="45" y="364" font-size="12" fill="#1a1a1a">• Індукція B₀: 30–80 мТл</text>
+  <text x="45" y="392" font-size="12" fill="#6b7280">Створює обертове планарне поле</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">Bx = B₀·cos(θ), By = B₀·sin(θ)</text>
+  <text x="45" y="436" font-size="12" fill="#2457d6">Безконтактний ресурс: нескінченний</text>
+
+  <!-- Section 2: IC Package & Die Cross-section (Middle) -->
+  <rect x="320" y="70" width="310" height="395" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="95" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Мікросхема (Cross-Section)</text>
+  <text x="475" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Корпус SOIC-8 / QFN із сенсорним кристалом</text>
+
+  <!-- IC Plastic Package -->
+  <rect x="345" y="135" width="260" height="110" rx="6" fill="#1a1a1a" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="155" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Корпус SOIC-8 (епоксид)</text>
+
+  <!-- Silicon Die inside IC -->
+  <rect x="380" y="170" width="190" height="50" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кремнієвий кристал (ASIC + Sensor)</text>
+
+  <!-- Sensors on die -->
+  <rect x="395" y="196" width="70" height="18" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="430" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">TMR/Hall X</text>
+  
+  <rect x="485" y="196" width="70" height="18" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="520" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">TMR/Hall Y</text>
+
+  <!-- IC Leads -->
+  <line x1="330" y1="190" x2="345" y2="190" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="330" y1="210" x2="345" y2="210" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="605" y1="190" x2="620" y2="190" stroke="#d0d7de" stroke-width="3"/>
+  <line x1="605" y1="210" x2="620" y2="210" stroke="#d0d7de" stroke-width="3"/>
+
+  <!-- Middle Info Box -->
+  <rect x="335" y="260" width="280" height="190" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="345" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектура кристала:</text>
+  <text x="345" y="304" font-size="12" fill="#1a1a1a">• Інтеграція 3D Hall або TMR мостів</text>
+  <text x="345" y="324" font-size="12" fill="#1a1a1a">• Модуляція-демодуляція Chopper</text>
+  <text x="345" y="344" font-size="12" fill="#1a1a1a">• Автоматична компенсація зміщень</text>
+  <text x="345" y="364" font-size="12" fill="#1a1a1a">• Диференціальні пари проти завад</text>
+  <text x="345" y="392" font-size="12" fill="#6b7280">Кристал розташований строго</text>
+  <text x="345" y="412" font-size="12" fill="#6b7280">під центром обертання диполя</text>
+  <text x="345" y="436" font-size="12" fill="#27ae60">Допуск співвісності: ±0.25 мм</text>
+
+  <!-- Section 3: Signal Processing & Output (Right) -->
+  <rect x="645" y="70" width="290" height="395" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="95" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. DSP та інтерфейси</text>
+  <text x="790" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення кута та цифрові шини</text>
+
+  <!-- DSP Processing Blocks -->
+  <rect x="660" y="135" width="260" height="48" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="154" font-size="12" font-weight="bold" fill="#2457d6">Підсилювач + Подвійний АЦП</text>
+  <text x="670" y="172" font-size="11" fill="#1a1a1a">14–16 біт паралельне оцифрування</text>
+
+  <rect x="660" y="193" width="260" height="48" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="670" y="212" font-size="12" font-weight="bold" fill="#2457d6">Процесор CORDIC / DSP</text>
+  <text x="670" y="230" font-size="11" fill="#27ae60">θ = atan2(V_sin, V_cos) [18 біт]</text>
+
+  <!-- Output Interfaces Box -->
+  <rect x="660" y="255" width="260" height="195" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="670" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідні інтерфейси:</text>
+  <text x="670" y="300" font-size="12" fill="#1a1a1a">• **SSI / BiSS-C**: швидкісні шини</text>
+  <text x="670" y="320" font-size="12" fill="#1a1a1a">• **SPI**: конфігурація та регістри</text>
+  <text x="670" y="340" font-size="12" fill="#1a1a1a">• **ABZ / UVW**: емуляція енкодера</text>
+  <text x="670" y="360" font-size="12" fill="#1a1a1a">• **PWM / Аналог**: абсолютний кут</text>
+  
+  <text x="670" y="390" font-size="12" fill="#6b7280">Затримка сигналу: &lt; 2 мкс</text>
+  <text x="670" y="410" font-size="12" fill="#6b7280">Частота оновлення: до 50 кГц</text>
+  <text x="670" y="434" font-size="12" font-weight="bold" fill="#27ae60">Готовий цифровий кут для FOC</text>
+
+  <!-- Connecting Arrows -->
+  <path d="M 305,190 L 320,190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 630,190 L 645,190" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

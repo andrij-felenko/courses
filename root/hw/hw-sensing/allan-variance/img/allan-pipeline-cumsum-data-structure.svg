@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура даних префіксних сум для швидкого розрахунку кластерних середніх</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Обчислення вибіркового середнього довільного вікна m за час O(1) через різницю theta[i + m] - theta[i]</text>
+
+  <!-- Array 1: Raw Sensor Measurements y[k] -->
+  <rect x="40" y="75" width="880" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Вхідний часовий ряд вимірювань сенсора y[k] (швидкість / прискорення)</text>
+
+  <!-- Cells of y -->
+  <rect x="60" y="115" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">y[0]</text>
+  <text x="97" y="152" text-anchor="middle" font-size="11" fill="#6b7280">t = 0</text>
+
+  <rect x="145" y="115" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="182" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">y[1]</text>
+  <text x="182" y="152" text-anchor="middle" font-size="11" fill="#6b7280">t = dt</text>
+
+  <rect x="230" y="115" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="267" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">y[2]</text>
+  <text x="267" y="152" text-anchor="middle" font-size="11" fill="#6b7280">t = 2dt</text>
+
+  <rect x="315" y="115" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">y[3]</text>
+  <text x="352" y="152" text-anchor="middle" font-size="11" fill="#6b7280">t = 3dt</text>
+
+  <rect x="400" y="115" width="50" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="425" y="142" text-anchor="middle" font-size="14" fill="#6b7280">...</text>
+
+  <rect x="460" y="115" width="85" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="502" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">y[i]</text>
+  <text x="502" y="152" text-anchor="middle" font-size="11" fill="#6b7280">початок вікна</text>
+
+  <rect x="555" y="115" width="85" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="597" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">y[i+1]</text>
+  <text x="597" y="152" text-anchor="middle" font-size="11" fill="#6b7280">відлік 2</text>
+
+  <rect x="650" y="115" width="50" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="675" y="142" text-anchor="middle" font-size="14" fill="#2457d6">...</text>
+
+  <rect x="710" y="115" width="95" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="757" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">y[i+m-1]</text>
+  <text x="757" y="152" text-anchor="middle" font-size="11" fill="#6b7280">кінець вікна</text>
+
+  <rect x="815" y="115" width="85" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="857" y="136" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">y[N-1]</text>
+  <text x="857" y="152" text-anchor="middle" font-size="11" fill="#6b7280">останній</text>
+
+  <!-- Array 2: Integrated Phase Prefix Sum theta[k] -->
+  <rect x="40" y="195" width="880" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="218" font-size="14" font-weight="bold" fill="#1a1a1a">2. Масив префіксних сум фази theta[k] = theta[k-1] + y[k-1] * dt (довжина N + 1)</text>
+
+  <!-- Cells of theta -->
+  <rect x="60" y="235" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">theta[0]</text>
+  <text x="97" y="272" text-anchor="middle" font-size="11" fill="#6b7280">= 0</text>
+
+  <rect x="145" y="235" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="182" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">theta[1]</text>
+  <text x="182" y="272" text-anchor="middle" font-size="11" fill="#6b7280">y0·dt</text>
+
+  <rect x="230" y="235" width="75" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="267" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">theta[2]</text>
+  <text x="267" y="272" text-anchor="middle" font-size="11" fill="#6b7280">(y0+y1)dt</text>
+
+  <rect x="315" y="235" width="50" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="340" y="262" text-anchor="middle" font-size="14" fill="#6b7280">...</text>
+
+  <rect x="375" y="235" width="105" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="427" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">theta[i]</text>
+  <text x="427" y="272" text-anchor="middle" font-size="11" fill="#6b7280">ліва межа вікна</text>
+
+  <rect x="490" y="235" width="50" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="515" y="262" text-anchor="middle" font-size="14" fill="#6b7280">...</text>
+
+  <rect x="550" y="235" width="125" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="612" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">theta[i+m]</text>
+  <text x="612" y="272" text-anchor="middle" font-size="11" fill="#6b7280">права межа вікна</text>
+
+  <rect x="685" y="235" width="135" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="752" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">theta[i+2m]</text>
+  <text x="752" y="272" text-anchor="middle" font-size="11" fill="#6b7280">сусідній кластер</text>
+
+  <rect x="830" y="235" width="80" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="870" y="256" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">theta[N]</text>
+  <text x="870" y="272" text-anchor="middle" font-size="11" fill="#6b7280">сума всіх</text>
+
+  <!-- Step 3: O(1) Computation Cards -->
+  <rect x="40" y="325" width="425" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="350" font-size="14" font-weight="bold" fill="#2457d6">Обчислення середнього кластера тривалості tau = m · dt</text>
+  <text x="60" y="378" font-size="13" fill="#1a1a1a">Кластерне середнє: y_bar[i](tau) = (theta[i + m] − theta[i]) / tau</text>
+  <text x="60" y="406" font-size="12" fill="#27ae60">Швидкість O(1): рівно одне віднімання незалежно від величини m</text>
+  <text x="60" y="424" font-size="12" fill="#6b7280">(замість наївного додавання m елементів зі складністю O(m))</text>
+
+  <rect x="485" y="325" width="435" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="350" font-size="14" font-weight="bold" fill="#27ae60">Різниця сусідніх кластерів для дисперсії Аллана (OAVAR)</text>
+  <text x="505" y="378" font-size="13" fill="#1a1a1a">Різниця середніх: delta2 = theta[i+2m] − 2·theta[i+m] + theta[i]</text>
+  <text x="505" y="406" font-size="12" fill="#1a1a1a">Формула OAVAR: sigma_y²(tau) = sum(delta2²) / (2 · tau² · (N − 2m))</text>
+  <text x="505" y="424" font-size="12" fill="#6b7280">Повний розрахунок для N = 10⁶ точок займає мілісекунди</text>
+</svg>

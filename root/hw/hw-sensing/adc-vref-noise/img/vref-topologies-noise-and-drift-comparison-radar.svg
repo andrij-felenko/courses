@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльний інженерний профіль технологій VREF</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Компроміс між енергоспоживанням, рівнем низькочастотного шуму та довготривалим дрейфом</text>
+
+  <!-- ================= ЛІВА ЧАСТИНА: Пелюсткова діаграма ================= -->
+  <rect x="30" y="75" width="450" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Пелюсткова діаграма переваг (Більше = Краще)</text>
+
+  <!-- Сітка радара -->
+  <polygon points="255,140 379,230 331,375 179,375 131,230" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <polygon points="255,172 348,240 312,349 198,349 162,240" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <polygon points="255,205 317,250 293,322 217,322 193,250" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <polygon points="255,237 286,260 274,296 236,296 224,260" fill="none" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осьові лінії -->
+  <line x1="255" y1="270" x2="255" y2="140" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="255" y1="270" x2="379" y2="230" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="255" y1="270" x2="331" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="255" y1="270" x2="179" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="255" y1="270" x2="131" y2="230" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Підписи осей -->
+  <text x="255" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Енергоефективність</text>
+  <text x="440" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Низький 1/f шум</text>
+  <text x="345" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зріз флікер-шуму</text>
+  <text x="165" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Термодрейф (TC)</text>
+  <text x="45" y="234" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Довготривалий дрейф</text>
+
+  <!-- 1. Полігон Bandgap (Червоний) -->
+  <polygon points="255,147 292,258 274,300 217,322 181,246" fill="#fdecea" fill-opacity="0.6" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- 2. Полігон XFET (Синій) -->
+  <polygon points="255,166 335,244 308,343 198,349 168,242" fill="#eaf0fd" fill-opacity="0.5" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- 3. Полігон Buried Zener (Зелений) -->
+  <polygon points="255,237 372,232 327,370 183,370 137,232" fill="#e9f7ef" fill-opacity="0.5" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Легенда під радаром -->
+  <rect x="45" y="455" width="12" height="12" fill="#c0392b"/>
+  <text x="63" y="466" font-size="12" font-weight="bold" fill="#c0392b">Bandgap</text>
+
+  <rect x="180" y="455" width="12" height="12" fill="#2457d6"/>
+  <text x="198" y="466" font-size="12" font-weight="bold" fill="#2457d6">XFET</text>
+
+  <rect x="300" y="455" width="12" height="12" fill="#27ae60"/>
+  <text x="318" y="466" font-size="12" font-weight="bold" fill="#27ae60">Buried Zener</text>
+
+  <!-- ================= ПРАВА ЧАСТИНА: Картки класів ================= -->
+  <!-- Картка 1: Bandgap -->
+  <rect x="500" y="75" width="430" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="515" y="98" font-size="13" font-weight="bold" fill="#c0392b">1. Зонні структури (Bandgap) — Батарейні та стандартні</text>
+  <text x="515" y="122" font-size="12" fill="#1a1a1a">• Шум 0.1–10 Гц: 10–50 мкВ pp | Кутова частота 1/f: 100–1000 Гц</text>
+  <text x="515" y="144" font-size="12" fill="#1a1a1a">• Живлення від 1.4 В | Споживання: 10–100 мкА | Дрейф: 5–20 ppm/°C</text>
+  <text x="515" y="166" font-size="12" font-weight="bold" fill="#6b7280">• Цільові АЦП: 10–16 розрядів (SAR та загальні вбудовані)</text>
+  <text x="515" y="188" font-size="12" fill="#27ae60">✓ Перевага: робота від низьковольтних шин живлення, мінімальна ціна</text>
+
+  <!-- Картка 2: XFET -->
+  <rect x="500" y="220" width="430" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="243" font-size="13" font-weight="bold" fill="#2457d6">2. Польові структури (XFET) — Прецизійні малопотужні</text>
+  <text x="515" y="267" font-size="12" fill="#1a1a1a">• Шум 0.1–10 Гц: 3–8 мкВ pp | Кутова частота 1/f: 10–50 Гц</text>
+  <text x="515" y="289" font-size="12" fill="#1a1a1a">• Живлення від 3.0 В | Споживання: 50–500 мкА | Дрейф: 2–5 ppm/°C</text>
+  <text x="515" y="311" font-size="12" font-weight="bold" fill="#6b7280">• Цільові АЦП: 16–20 розрядів (промислові датчики, польові прилади)</text>
+  <text x="515" y="333" font-size="12" fill="#2457d6">✓ Перевага: низький 1/f шум за помірного струму споживання</text>
+
+  <!-- Картка 3: Buried Zener -->
+  <rect x="500" y="365" width="430" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="388" font-size="13" font-weight="bold" fill="#27ae60">3. Заглиблений стабілітрон (Buried Zener) — Еталонний клас</text>
+  <text x="515" y="412" font-size="12" fill="#1a1a1a">• Шум 0.1–10 Гц: 0.5–2 мкВ pp | Кутова частота 1/f: &lt; 5 Гц</text>
+  <text x="515" y="434" font-size="12" fill="#1a1a1a">• Живлення від 8.0 В | Споживання: 1–10 мА | Дрейф: &lt; 0.5–1 ppm/°C</text>
+  <text x="515" y="456" font-size="12" font-weight="bold" fill="#6b7280">• Цільові АЦП: 24–32 розряди (метрологія, ваги високого класу)</text>
+  <text x="515" y="478" font-size="12" fill="#c0392b">✗ Обмеження: висока напруга живлення, тепловиділення, вартість</text>
+</svg>

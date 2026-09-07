@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподілені паразитні ємності моста змінного струму на землю</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Ємності витоку вершин моста на корпус спотворюють фазовий баланс і створюють залишкову напругу</text>
+
+  <!-- Ліва панель опису -->
+  <rect x="25" y="65" width="220" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паразитні витоки</text>
+
+  <rect x="35" y="105" width="200" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="125" font-size="13" font-weight="bold" fill="#c0392b">Струми витоку</text>
+  <text x="45" y="147" font-size="12" fill="#1a1a1a">Кожен вузол схеми має</text>
+  <text x="45" y="169" font-size="12" fill="#1a1a1a">ємність на екран:</text>
+  <text x="45" y="191" font-size="12" font-weight="bold" fill="#c0392b">Y_0 = j · ω · C_0</text>
+  <text x="45" y="213" font-size="12" fill="#6b7280">Струм минає вимірювані</text>
+  <text x="45" y="235" font-size="12" fill="#6b7280">плечі через землю.</text>
+
+  <rect x="35" y="265" width="200" height="165" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="285" font-size="13" font-weight="bold" fill="#1a1a1a">Асиметрія плечей</text>
+  <text x="45" y="307" font-size="12" fill="#1a1a1a">Якщо C_B0 ≠ C_D0,</text>
+  <text x="45" y="329" font-size="12" fill="#1a1a1a">напруга на нуль-індикаторі</text>
+  <text x="45" y="351" font-size="12" font-weight="bold" fill="#c0392b">U_det ≠ 0</text>
+  <text x="45" y="373" font-size="12" fill="#6b7280">навіть при ідеальній</text>
+  <text x="45" y="395" font-size="12" fill="#6b7280">умові Z1·Z4 = Z2·Z3.</text>
+  <text x="45" y="417" font-size="12" fill="#6b7280">Виникає фазова похибка.</text>
+
+  <!-- Схема чотириплечого моста -->
+  <!-- Живлення -->
+  <line x1="285" y1="80" x2="500" y2="80" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="500" y1="80" x2="500" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="80" x2="285" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="285" cy="230" r="25" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="285" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">~ U_gen</text>
+  <line x1="285" y1="255" x2="285" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="380" x2="500" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="500" y1="380" x2="500" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузли живлення A і C -->
+  <circle cx="500" cy="110" r="4" fill="#1a1a1a"/>
+  <text x="485" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">A</text>
+  <circle cx="500" cy="350" r="4" fill="#1a1a1a"/>
+  <text x="485" y="355" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">C</text>
+
+  <!-- Плече Z1 (A -> B) -->
+  <line x1="500" y1="110" x2="455" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="425" y="145" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z1</text>
+  <line x1="435" y1="175" x2="380" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z2 (B -> C) -->
+  <line x1="380" y1="230" x2="425" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="425" y="295" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="328" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z2</text>
+  <line x1="455" y1="305" x2="500" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z3 (A -> D) -->
+  <line x1="500" y1="110" x2="545" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="535" y="145" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z3</text>
+  <line x1="565" y1="175" x2="620" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плече Z4 (D -> C) -->
+  <line x1="620" y1="230" x2="575" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="535" y="295" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="328" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Z4</text>
+  <line x1="545" y1="305" x2="500" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вимірювальні вершини B і D -->
+  <circle cx="380" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="365" y="235" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">B</text>
+
+  <circle cx="620" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="635" y="235" font-size="14" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Нуль-індикатор між B і D -->
+  <line x1="380" y1="230" x2="475" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="500" cy="230" r="18" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="500" y="235" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">NULL</text>
+  <line x1="525" y1="230" x2="620" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Паразитні ємності на землю (пунктир) -->
+  <!-- C_A0 від A вгору-вправо -->
+  <line x1="500" y1="110" x2="590" y2="110" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="590" y1="103" x2="590" y2="117" stroke="#c0392b" stroke-width="2"/>
+  <line x1="596" y1="103" x2="596" y2="117" stroke="#c0392b" stroke-width="2"/>
+  <line x1="596" y1="110" x2="615" y2="110" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="593" y="97" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C_A0</text>
+  <line x1="615" y1="105" x2="615" y2="115" stroke="#6b7280" stroke-width="2"/>
+  <line x1="618" y1="107" x2="618" y2="113" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="621" y1="109" x2="621" y2="111" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- C_B0 від B вниз-вліво -->
+  <line x1="380" y1="230" x2="380" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="380" y1="190" x2="410" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="410" y1="183" x2="410" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="416" y1="183" x2="416" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="416" y1="190" x2="435" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="413" y="177" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C_B0</text>
+  <line x1="435" y1="185" x2="435" y2="195" stroke="#6b7280" stroke-width="2"/>
+  <line x1="438" y1="187" x2="438" y2="193" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="441" y1="189" x2="441" y2="191" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- C_D0 від D вниз-вправо -->
+  <line x1="620" y1="230" x2="620" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="620" y1="190" x2="650" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="650" y1="183" x2="650" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="656" y1="183" x2="656" y2="197" stroke="#c0392b" stroke-width="2"/>
+  <line x1="656" y1="190" x2="675" y2="190" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="653" y="177" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C_D0</text>
+  <line x1="675" y1="185" x2="675" y2="195" stroke="#6b7280" stroke-width="2"/>
+  <line x1="678" y1="187" x2="678" y2="193" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="681" y1="189" x2="681" y2="191" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- C_C0 від C вниз-вправо -->
+  <line x1="500" y1="350" x2="590" y2="350" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="590" y1="343" x2="590" y2="357" stroke="#c0392b" stroke-width="2"/>
+  <line x1="596" y1="343" x2="596" y2="357" stroke="#c0392b" stroke-width="2"/>
+  <line x1="596" y1="350" x2="615" y2="350" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="593" y="337" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">C_C0</text>
+  <line x1="615" y1="345" x2="615" y2="355" stroke="#6b7280" stroke-width="2"/>
+  <line x1="618" y1="347" x2="618" y2="353" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="621" y1="349" x2="621" y2="351" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Права панель з формулами -->
+  <rect x="715" y="65" width="220" height="375" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="90" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вузлові потенціали</text>
+
+  <rect x="725" y="105" width="200" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="125" font-size="12" font-weight="bold" fill="#1a1a1a">Потенціал вузла B:</text>
+  <text x="735" y="145" font-size="11" fill="#2457d6">V_B = (V_A·Y1 + V_C·Y2) /</text>
+  <text x="735" y="165" font-size="11" fill="#2457d6">      (Y1 + Y2 + Y_B0)</text>
+
+  <text x="735" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Потенціал вузла D:</text>
+  <text x="735" y="215" font-size="11" fill="#2457d6">V_D = (V_A·Y3 + V_C·Y4) /</text>
+  <text x="735" y="235" font-size="11" fill="#2457d6">      (Y3 + Y4 + Y_D0)</text>
+
+  <rect x="725" y="265" width="200" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="735" y="285" font-size="12" font-weight="bold" fill="#c0392b">Залишкова напруга:</text>
+  <text x="735" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">U_det = V_B - V_D</text>
+  <text x="735" y="335" font-size="12" fill="#6b7280">Струми витоку через</text>
+  <text x="735" y="355" font-size="12" fill="#6b7280">C_B0 та C_D0 створюють</text>
+  <text x="735" y="375" font-size="12" fill="#6b7280">синфазну й квадратурну</text>
+  <text x="735" y="395" font-size="12" fill="#6b7280">складові похибки.</text>
+  <text x="735" y="415" font-size="12" font-weight="bold" fill="#27ae60">Потрібне коло Вагнера!</text>
+</svg>

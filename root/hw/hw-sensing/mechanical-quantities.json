@@ -144,11 +144,23 @@
           "slug": "angle-rotation-sensing",
           "title": "Вимір кута",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-magnetic-and-optical-encoders.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quadrature-and-eccentricity-errors.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "potentiometer-angle-sensor",
@@ -237,6 +249,76 @@
         {
           "slug": "optical-stroboscopic-tachometry",
           "title": "Оптична та стробоскопічна тахометрія: вимірювання обертів без контакту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "diffraction-grating-interferometric-encoder",
+          "title": "Дифракційний інтерференційний енкодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stray-field-immune-magnetic-encoder",
+          "title": "Завадостійкий магнітний енкодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shaft-wobble-and-tilt",
+          "title": "Перекіс і конічне биття вала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "recursive-ellipse-fitting-kalman",
+          "title": "Рекурсивне оцінювання параметрів еліпса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "resolver-to-digital-converter",
+          "title": "Перетворювач резольвер-цифра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wiegand-sensor",
+          "title": "Давач Віганда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "multi-speed-resolver",
+          "title": "Багатополюсний резольвер",
           "basic": {
             "status": "empty"
           },

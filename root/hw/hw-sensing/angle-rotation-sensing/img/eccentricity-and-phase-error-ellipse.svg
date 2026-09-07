@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Деформація годографа сигналів та спектр кутових похибок</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зсув нуля генерує похибку першої гармоніки (1θ), а дисбаланс амплітуд і фази — подвійну (2θ)</text>
+
+  <!-- Ліва панель: Годограф у площині XY -->
+  <rect x="30" y="75" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Годограф сигналів (V_cos, V_sin)</text>
+
+  <!-- Осі координат -->
+  <line x1="70" y1="245" x2="420" y2="245" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="425" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">V_cos</text>
+
+  <line x1="235" y1="365" x2="235" y2="125" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="240" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_sin</text>
+
+  <!-- Ідеальне коло (зелене пунктирне) -->
+  <circle cx="235" cy="245" r="95" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="340" y="150" font-size="12" font-weight="bold" fill="#27ae60">Ідеальне коло</text>
+
+  <!-- Деформований еліпс (червоний) зі зсувом (x0=20, y0=-15) -->
+  <path d="M 355 184 C 388 231, 356 295, 284 329 C 212 362, 127 352, 94 305 C 61 258, 93 194, 165 160 C 237 127, 322 137, 355 184 Z" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Центр еліпса (зсув нуля) -->
+  <circle cx="255" cy="230" r="3" fill="#c0392b"/>
+  <line x1="235" y1="245" x2="255" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="140" y="215" font-size="12" font-weight="bold" fill="#c0392b">Зсув (x₀, y₀)</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <rect x="45" y="380" width="400" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="400" font-size="12" fill="#1a1a1a">1. Зсув нуля зміщує центр годографа.</text>
+  <text x="55" y="422" font-size="12" fill="#1a1a1a">2. Амплітудний і фазовий дисбаланс стискають і повертають еліпс.</text>
+
+  <!-- Права панель: Гармонійний спектр похибки -->
+  <rect x="480" y="75" width="450" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Гармонійний склад похибки Δθ(θ)</text>
+
+  <!-- Блок 1-ї гармоніки (1θ) -->
+  <rect x="500" y="125" width="410" height="95" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="515" y="148" font-size="13" font-weight="bold" fill="#c0392b">Перша гармоніка 1θ (період 360°):</text>
+  <text x="515" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Δθ_1(θ) = (e / R) · sin(θ − φ_e) + (V_off / A) · sin(θ − φ_off)</text>
+  <text x="515" y="192" font-size="12" fill="#6b7280">Джерела: механічний ексцентриситет вала (e/R) та зсув нуля</text>
+  <text x="515" y="210" font-size="12" fill="#27ae60">Компенсація: калібрування нуля або 2 діаметральні голівки</text>
+
+  <!-- Блок 2-ї гармоніки (2θ) -->
+  <rect x="500" y="235" width="410" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="515" y="258" font-size="13" font-weight="bold" fill="#2457d6">Друга гармоніка 2θ (період 180°):</text>
+  <text x="515" y="280" font-size="12" font-weight="bold" fill="#1a1a1a">Δθ_2(θ) = ½ · δk · sin(2θ) − ½ · δφ · cos(2θ)</text>
+  <text x="515" y="302" font-size="12" fill="#6b7280">Джерела: амплітудний розбаланс каналів (δk) та фазовий зсув (δφ)</text>
+  <text x="515" y="320" font-size="12" fill="#2457d6">Компенсація: матрична нормалізація Хейвуда</text>
+
+  <!-- Підсумковий блок -->
+  <rect x="500" y="345" width="410" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">Результат калібрувальної нормалізації:</text>
+  <text x="515" y="390" font-size="12" fill="#1a1a1a">Матричне перетворення усуває еліптичність годографа,</text>
+  <text x="515" y="410" font-size="12" fill="#1a1a1a">зменшуючи залишкову кутову похибку з ±0.5° до ±0.01°.</text>
+  <text x="515" y="430" font-size="12" font-weight="bold" fill="#27ae60">Годограф повертається в ідеальне одиничне коло</text>
+</svg>

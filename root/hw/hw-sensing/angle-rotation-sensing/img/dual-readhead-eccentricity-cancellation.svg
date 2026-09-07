@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компенсація ексцентриситету двома діаметральними голівками (180°)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Взаємне скорочення похибок першої гармоніки: θ_avg = ½ · (θ₁ + θ₂) = θ_true</text>
+
+  <!-- ЛІВА ЧАСТИНА: Геометрична схема диска та голівок -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="420" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="420" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="210" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кінематика ексцентриситету диска</text>
+
+    <!-- Тіло диска (Центр O_disk = 210, 200) -->
+    <circle cx="210" cy="200" r="120" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="210" cy="200" r="4" fill="#2457d6"/>
+    <text x="225" y="200" font-size="12" font-weight="bold" fill="#2457d6">O_диска</text>
+
+    <!-- Центр вала O_shaft = (210, 220) з ексцентриситетом e = 20 px вниз -->
+    <circle cx="210" cy="220" r="18" fill="#eaf0fd" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="210" cy="220" r="4" fill="#c0392b"/>
+    <text x="225" y="228" font-size="12" font-weight="bold" fill="#c0392b">O_вала</text>
+
+    <!-- Вектор зміщення e -->
+    <line x1="210" y1="200" x2="210" y2="220" stroke="#c0392b" stroke-width="2"/>
+    <text x="195" y="213" font-size="12" font-weight="bold" fill="#c0392b">e</text>
+
+    <!-- Голівка 1 (Верх, 0°) -->
+    <g transform="translate(145, 45)">
+      <rect x="0" y="0" width="130" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="65" y="21" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Голівка 1 (0°)</text>
+      <line x1="65" y1="32" x2="65" y2="40" stroke="#27ae60" stroke-width="2"/>
+      <polygon points="65,40 60,33 70,33" fill="#27ae60"/>
+    </g>
+
+    <!-- Голівка 2 (Низ, 180°) -->
+    <g transform="translate(145, 312)">
+      <line x1="65" y1="8" x2="65" y2="0" stroke="#2457d6" stroke-width="2"/>
+      <polygon points="65,0 60,7 70,7" fill="#2457d6"/>
+      <rect x="0" y="8" width="130" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+      <text x="65" y="29" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Голівка 2 (180°)</text>
+    </g>
+
+    <text x="210" y="368" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зсув центра диска відхиляє штрихи у протилежні боки</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Графіки похибок та математичне виведення -->
+  <g transform="translate(480, 75)">
+    <rect x="0" y="0" width="450" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="450" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="225" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Протифазне взаємне скорочення гармоніки 1θ</text>
+
+    <!-- Графік кутових похибок -->
+    <g transform="translate(25, 55)">
+      <rect x="0" y="0" width="400" height="150" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      
+      <!-- Нульова лінія -->
+      <line x1="0" y1="75" x2="400" y2="75" stroke="#1a1a1a" stroke-width="1"/>
+      <text x="10" y="70" font-size="12" fill="#1a1a1a">0</text>
+
+      <!-- Хвиля Голівки 1 (Зелена: +e/R · sin θ) -->
+      <path d="M 0 75 Q 100 20 200 75 Q 300 130 400 75" fill="none" stroke="#27ae60" stroke-width="2"/>
+      <text x="110" y="35" font-size="12" font-weight="bold" fill="#27ae60">Δθ₁ = +(e/R)·sin θ</text>
+
+      <!-- Хвиля Голівки 2 (Синя протифазна: -e/R · sin θ) -->
+      <path d="M 0 75 Q 100 130 200 75 Q 300 20 400 75" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+      <text x="110" y="125" font-size="12" font-weight="bold" fill="#2457d6">Δθ₂ = −(e/R)·sin θ</text>
+
+      <!-- Результуюче середнє (Жирна лінія = 0) -->
+      <line x1="0" y1="75" x2="400" y2="75" stroke="#27ae60" stroke-width="3" stroke-dasharray="8 4"/>
+      <text x="270" y="90" font-size="12" font-weight="bold" fill="#1a1a1a">Δθ_avg = 0 (Ідеал)</text>
+    </g>
+
+    <!-- Математичний блок -->
+    <g transform="translate(25, 220)">
+      <rect x="0" y="0" width="400" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="24" font-size="12" font-weight="bold" fill="#1a1a1a">Математичне обґрунтування компенсації:</text>
+      
+      <text x="15" y="48" font-size="12" fill="#27ae60">• Голівка 1:  θ₁ = θ + (e / R) · sin(θ)</text>
+      <text x="15" y="70" font-size="12" fill="#2457d6">• Голівка 2:  θ₂ = θ + (e / R) · sin(θ + 180°) = θ − (e / R) · sin(θ)</text>
+      
+      <line x1="15" y1="82" x2="385" y2="82" stroke="#d0d7de" stroke-width="1"/>
+      
+      <text x="15" y="104" font-size="12" font-weight="bold" fill="#1a1a1a">Усереднення: θ_avg = ½ · (θ₁ + θ₂) = θ  (Похибка 1θ = 0!)</text>
+      <text x="15" y="126" font-size="12" fill="#6b7280">Застосовується у верстатах ЧПК та вимірювальних столах</text>
+    </g>
+  </g>
+</svg>

@@ -121,11 +121,29 @@
           "slug": "ac-impedance-bridge",
           "title": "AC-міст імпедансів",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-wien-bridges.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wagner-grounding.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-auto-balancing-bridge.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "impedance-spectroscopy",
@@ -140,6 +158,26 @@
         {
           "slug": "randles-circuit",
           "title": "Еквівалентна схема Рендлса та дифузійний імпеданс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wagner-earth-guard-circuit",
+          "title": "Захисне заземлення Вагнера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "transformer-ratio-arm-bridge",
+          "title": "Трансформаторний міст відношень",
           "basic": {
             "status": "empty"
           },
@@ -261,21 +299,51 @@
           "slug": "adc-vref-noise",
           "title": "Шум опорної напруги АЦП",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-bandgap-and-buried-zener-references.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vref-noise-budget-and-enob.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-active-vref-buffer-filter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "adc-temperature-drift",
           "title": "Температурний дрейф АЦП",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-drift-error-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-auto-zero-calibration.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "sar-adc-internals",
@@ -386,6 +454,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "adc-input-settling-time",
+          "title": "Час встановлення вхідного сигналу АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },

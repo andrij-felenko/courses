@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема моста Максвелла-Віна</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Індуктивність Lx і опір Rx врівноважуються паралельним еталонним RC-плечем без участі частоти</text>
+
+  <!-- Bridge Diamond Nodes: A(370,125), B(210,250), D(530,250), C(370,375) -->
+
+  <!-- Top-Left Arm 1 (A to B): Parallel R1 and C1 -->
+  <line x1="370" y1="125" x2="330" y2="125" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="125" x2="330" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="125" x2="330" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- R1 branch -->
+  <line x1="330" y1="175" x2="295" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="250" y="160" width="45" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="272" y="180" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁</text>
+  <line x1="250" y1="175" x2="230" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- C1 branch -->
+  <line x1="330" y1="95" x2="285" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="83" x2="285" y2="107" stroke="#2457d6" stroke-width="3"/>
+  <line x1="275" y1="83" x2="275" y2="107" stroke="#2457d6" stroke-width="3"/>
+  <text x="280" y="78" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">C₁</text>
+  <line x1="275" y1="95" x2="230" y2="95" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Combine Arm 1 branches into Node B -->
+  <line x1="230" y1="95" x2="230" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="175" x2="210" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Bottom-Left Arm 2 (B to C): Resistor R2 -->
+  <line x1="210" y1="250" x2="270" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="270" y="285" width="50" height="30" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="295" y="305" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R₂</text>
+  <line x1="320" y1="315" x2="370" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Top-Right Arm 3 (A to D): Resistor R3 -->
+  <line x1="370" y1="125" x2="430" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="430" y="160" width="50" height="30" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="455" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R₃</text>
+  <line x1="480" y1="190" x2="530" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Bottom-Right Arm 4 (D to C): Unknown Lx and Rx -->
+  <line x1="530" y1="250" x2="485" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Rx box -->
+  <rect x="445" y="275" width="45" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="467" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_x</text>
+  
+  <line x1="445" y1="288" x2="425" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Lx box -->
+  <rect x="390" y="320" width="45" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="412" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">L_x</text>
+
+  <line x1="390" y1="333" x2="370" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Nodes A, B, C, D -->
+  <circle cx="370" cy="125" r="5" fill="#1a1a1a"/>
+  <text x="370" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+
+  <circle cx="210" cy="250" r="5" fill="#1a1a1a"/>
+  <text x="185" y="255" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
+
+  <circle cx="530" cy="250" r="5" fill="#1a1a1a"/>
+  <text x="555" y="255" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D</text>
+
+  <circle cx="370" cy="375" r="5" fill="#1a1a1a"/>
+  <text x="370" y="402" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C</text>
+
+  <!-- Null Detector Diagonal (B to D) -->
+  <line x1="210" y1="250" x2="335" y2="250" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="370" cy="250" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="370" y="256" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Det</text>
+  <line x1="405" y1="250" x2="530" y2="250" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- AC Generator on A-C Diagonal -->
+  <line x1="370" y1="125" x2="80" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="125" x2="80" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="80" cy="250" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="80" y="255" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">~ U</text>
+  <line x1="80" y1="275" x2="80" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="375" x2="370" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Formulas and Explanations Card -->
+  <rect x="610" y="95" width="310" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="765" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Умови рівноваги моста</text>
+
+  <rect x="630" y="145" width="270" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="172" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">L_x = R₂ · R₃ · C₁</text>
+  <text x="765" y="198" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R_x = (R₂ · R₃) / R₁</text>
+
+  <rect x="630" y="228" width="270" height="46" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="765" y="256" font-size="13" fill="#1a1a1a" text-anchor="middle">Q = ω·L_x / R_x = ω·C₁·R₁</text>
+
+  <rect x="630" y="286" width="270" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="312" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Частотно-незалежний баланс</text>
+  <text x="765" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Оптимальний діапазон: 1 ≤ Q ≤ 10</text>
+  <text x="765" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Ортогональні регулювання</text>
+</svg>

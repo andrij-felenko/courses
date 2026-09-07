@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Спектральна густина шуму джерела опорної напруги</text>
+  <text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Перехід низькочастотного флікер-шуму 1/f у широкосмуговий білий шум на кутовій частоті f_c</text>
+
+  <!-- Ліва панель: Графік спектральної густини e_n(f) -->
+  <rect x="24" y="62" width="540" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Спектр шуму VREF (логарифмічний масштаб)</text>
+
+  <!-- Осі координат -->
+  <line x1="70" y1="260" x2="530" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="70" y1="260" x2="70" y2="100" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="64" y="96" font-size="12" font-weight="700" fill="#1a1a1a">e_n (нВ/√Гц)</text>
+  <text x="510" y="278" font-size="12" fill="#6b7280">f</text>
+
+  <!-- Сітка та мітки по осі X (частота) -->
+  <line x1="120" y1="256" x2="120" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="120" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">0.1</text>
+
+  <line x1="180" y1="256" x2="180" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="180" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">1</text>
+
+  <line x1="240" y1="256" x2="240" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="240" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">10</text>
+
+  <line x1="300" y1="256" x2="300" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="300" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">100</text>
+
+  <line x1="360" y1="256" x2="360" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">1к</text>
+
+  <line x1="420" y1="256" x2="420" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="420" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">10к</text>
+
+  <line x1="475" y1="256" x2="475" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="475" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">100к</text>
+
+  <!-- Область 1/f шуму (підсвітка без контуру) -->
+  <rect x="71" y="105" width="228" height="154" fill="#fdecea" stroke="none"/>
+
+  <!-- Область білого шуму (підсвітка без контуру) -->
+  <rect x="301" y="195" width="228" height="64" fill="#eaf0fd" stroke="none"/>
+
+  <!-- Лінія кутової частоти f_c -->
+  <line x1="300" y1="100" x2="300" y2="260" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <circle cx="300" cy="205" r="4" fill="#c0392b"/>
+  <text x="308" y="120" font-size="12" font-weight="700" fill="#c0392b">Кутова частота f_c = 100 Гц</text>
+
+  <!-- Крива спектральної густини шуму -->
+  <path d="M80,145 L140,165 L200,185 L260,200 L300,205 L510,205" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Підписи на графіку (всередині кольорової зони, вище кривої) -->
+  <text x="100" y="130" font-size="12" font-weight="700" fill="#c0392b">1/f флікер-шум</text>
+  <text x="100" y="146" font-size="12" fill="#c0392b">-10 дБ/дек</text>
+
+  <text x="360" y="190" font-size="12" font-weight="700" fill="#2457d6">Білий шум e_n,white</text>
+  <text x="360" y="222" font-size="12" fill="#6b7280">(теплове плато)</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <rect x="36" y="300" width="516" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="320" font-size="12" font-weight="700" fill="#1a1a1a">Математична модель спектральної густини:</text>
+  <text x="48" y="340" font-size="12" fill="#2457d6">e_n(f) = e_n,white · √[ 1 + (f_c / f) ]</text>
+  <text x="48" y="356" font-size="12" fill="#6b7280">При f &lt;&lt; f_c домінує флікер-шум; при f &gt;&gt; f_c шумова густина стала</text>
+
+  <rect x="36" y="372" width="516" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="390" font-size="12" font-weight="700" fill="#2457d6">Фізичний зміст частоти f_c:</text>
+  <text x="48" y="408" font-size="12" fill="#1a1a1a">Частота, на якій потужність 1/f шуму зрівнюється з білим шумом</text>
+  <text x="48" y="424" font-size="12" fill="#1a1a1a">Визначає межу ефективності аналогової RC-фільтрації</text>
+
+  <!-- Права панель: Розрахункові формули -->
+  <rect x="580" y="62" width="356" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="596" y="84" font-size="14" font-weight="700" fill="#1a1a1a">Інтегральні шумові складові</text>
+
+  <!-- Блок 1: НЧ шум -->
+  <rect x="594" y="100" width="328" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="606" y="118" font-size="12" font-weight="700" fill="#c0392b">1. Низькочастотний шум 0.1–10 Гц:</text>
+  <text x="606" y="138" font-size="12" fill="#1a1a1a">V_n,1/f = e_n,white · √[ f_c · ln(f_H / f_L) ]</text>
+  <text x="606" y="158" font-size="12" fill="#1a1a1a">V_pp ≈ 6.6 · V_rms (розмах 99.9%)</text>
+  <text x="606" y="178" font-size="12" fill="#6b7280">Не фільтрується звичайними RC-ланцюгами</text>
+
+  <!-- Блок 2: ВЧ білий шум -->
+  <rect x="594" y="206" width="328" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="606" y="224" font-size="12" font-weight="700" fill="#2457d6">2. Широкосмуговий білий шум:</text>
+  <text x="606" y="244" font-size="12" fill="#1a1a1a">V_n,white = e_n,white · √[ (π / 2) · BW ]</text>
+  <text x="606" y="264" font-size="12" fill="#1a1a1a">BW — еквівалентна смуга фільтра</text>
+  <text x="606" y="284" font-size="12" fill="#6b7280">Ефективно гаситься вихідним RC-фільтром</text>
+
+  <!-- Блок 3: Сумарний шум -->
+  <rect x="594" y="312" width="328" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="606" y="332" font-size="12" font-weight="700" fill="#27ae60">3. Повний сумарний бюджет шуму:</text>
+  <text x="606" y="354" font-size="12" font-weight="700" fill="#1a1a1a">V_total = √[ (V_n,1/f)² + (V_n,white)² ]</text>
+  <text x="606" y="376" font-size="12" fill="#1a1a1a">Визначає максимальну межу ENOB:</text>
+  <text x="606" y="396" font-size="12" fill="#2457d6">ENOB = [ 20·log10(V_FS / V_total) - 1.76 ] / 6.02</text>
+  <text x="606" y="416" font-size="12" fill="#6b7280">Для 24 біт потрібен V_total &lt; 0.5 LSB</text>
+</svg>

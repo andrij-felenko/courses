@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія обмоток багатополюсного резольвера (Multi-Speed / 4X)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Чотири електричні періоди sin/cos за один механічний оберт вала (P = 4): просторове множення роздільності</text>
+
+  <!-- ЛІВА ЧАСТИНА: Статор і полюси резольвера -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="410" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="410" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="205" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Розподіл 4 пар полюсів статора (8 зубців)</text>
+
+    <!-- Зовнішнє ярмо статора -->
+    <circle cx="205" cy="200" r="130" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="205" cy="200" r="70" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Ротор у центрі -->
+    <circle cx="205" cy="200" r="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="205" cy="200" r="18" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="205" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вал</text>
+
+    <!-- 8 полюсних зубців навколо статора (під 45°) -->
+    <!-- 0° (Право) -->
+    <rect x="275" y="190" width="40" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="295" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S1 (0°)</text>
+
+    <!-- 45° (Право-низ) -->
+    <rect x="250" y="250" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="270" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C1 (45°)</text>
+
+    <!-- 90° (Низ) -->
+    <rect x="185" y="280" width="40" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="205" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S2 (90°)</text>
+
+    <!-- 135° (Ліво-низ) -->
+    <rect x="120" y="250" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="140" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C2 (135°)</text>
+
+    <!-- 180° (Ліво) -->
+    <rect x="90" y="190" width="40" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="110" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S3 (180°)</text>
+
+    <!-- 225° (Ліво-верх) -->
+    <rect x="120" y="130" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="140" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C3 (225°)</text>
+
+    <!-- 270° (Верх) -->
+    <rect x="185" y="100" width="40" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="205" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">S4 (270°)</text>
+
+    <!-- 315° (Право-верх) -->
+    <rect x="250" y="130" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="270" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C4 (315°)</text>
+
+    <text x="205" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зелені полюси: фаза Sin, Сині полюси: фаза Cos</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Осцилограма 4 періодів на 1 оберт -->
+  <g transform="translate(470, 75)">
+    <rect x="0" y="0" width="460" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="460" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="230" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Синусно-косинусні сигнали (1 механічний оберт)</text>
+
+    <!-- Координатна сітка -->
+    <g transform="translate(35, 60)">
+      <rect x="0" y="0" width="390" height="180" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      
+      <!-- Горизонтальна вісь нуля -->
+      <line x1="0" y1="90" x2="390" y2="90" stroke="#d0d7de" stroke-width="1"/>
+
+      <!-- Вертикальні лінії 4 періодів (по 97.5 px) -->
+      <line x1="97.5" y1="0" x2="97.5" y2="180" stroke="#d0d7de" stroke-dasharray="3 2"/>
+      <line x1="195" y1="0" x2="195" y2="180" stroke="#d0d7de" stroke-dasharray="3 2"/>
+      <line x1="292.5" y1="0" x2="292.5" y2="180" stroke="#d0d7de" stroke-dasharray="3 2"/>
+
+      <!-- Підписи механічних кутів -->
+      <text x="0" y="198" font-size="12" fill="#6b7280">0°</text>
+      <text x="97.5" y="198" text-anchor="middle" font-size="12" fill="#6b7280">90°</text>
+      <text x="195" y="198" text-anchor="middle" font-size="12" fill="#6b7280">180°</text>
+      <text x="292.5" y="198" text-anchor="middle" font-size="12" fill="#6b7280">270°</text>
+      <text x="390" y="198" text-anchor="end" font-size="12" fill="#6b7280">360° (Мех)</text>
+
+      <!-- Графік Синуса (Зелений, 4 повні хвилі) -->
+      <!-- Хвиля 1: 0..97.5 -->
+      <path d="M 0 90 Q 24.375 25 48.75 90 Q 73.125 155 97.5 90 Q 121.875 25 146.25 90 Q 170.625 155 195 90 Q 219.375 25 243.75 90 Q 268.125 155 292.5 90 Q 316.875 25 341.25 90 Q 365.625 155 390 90" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+      <!-- Графік Косинуса (Синій, 4 повні хвилі) -->
+      <path d="M 0 25 Q 24.375 90 48.75 155 Q 73.125 90 97.5 25 Q 121.875 90 146.25 155 Q 170.625 90 195 25 Q 219.375 90 243.75 155 Q 268.125 90 292.5 25 Q 316.875 90 341.25 155 Q 365.625 90 390 25" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+
+      <text x="15" y="20" font-size="12" font-weight="bold" fill="#27ae60">sin(4θ)</text>
+      <text x="65" y="20" font-size="12" font-weight="bold" fill="#2457d6">cos(4θ)</text>
+    </g>
+
+    <!-- Інженерна плашка співвідношень -->
+    <g transform="translate(35, 275)">
+      <rect x="0" y="0" width="390" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="24" font-size="12" font-weight="bold" fill="#1a1a1a">Математичний зв'язок кутів:</text>
+      <text x="15" y="46" font-size="12" font-weight="bold" fill="#2457d6">• θ_електричний = 4 · θ_механічний   (P = 4X)</text>
+      <text x="15" y="68" font-size="12" fill="#6b7280">• Збільшує роздільність у 4 рази та пригнічує похибку ексцентриситету 1θ</text>
+    </g>
+  </g>
+</svg>

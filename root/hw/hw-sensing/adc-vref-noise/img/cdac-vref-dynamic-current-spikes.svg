@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамічні струмові імпульси споживання CDAC по лінії VREF</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Комутація зважених конденсаторів породжує сплески струму до десятків мА на кожному такті SAR</text>
+
+  <!-- Основна панель часових діаграм -->
+  <rect x="40" y="75" width="880" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальні тактові межі (бітові спроби MSB -> LSB) -->
+  <line x1="220" y1="90" x2="220" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="380" y1="90" x2="380" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="540" y1="90" x2="540" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="700" y1="90" x2="700" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="860" y1="90" x2="860" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Підписи бітових інтервалів -->
+  <text x="140" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза вибірки (Sample)</text>
+  <text x="300" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Такт 1: MSB (C_tot / 2)</text>
+  <text x="460" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Такт 2: MSB-1 (C_tot / 4)</text>
+  <text x="620" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Такт 3: MSB-2 (C_tot / 8)</text>
+  <text x="780" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Такт N: LSB (C_unit)</text>
+
+  <!-- СИГНАЛ 1: Тактовий сигнал перетворення CLK -->
+  <text x="55" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Такти CLK</text>
+  <path d="M 60,165 L 220,165 L 220,145 L 300,145 L 300,165 L 380,165 L 380,145 L 460,145 L 460,165 L 540,165 L 540,145 L 620,145 L 620,165 L 700,165 L 700,145 L 780,145 L 780,165 L 860,165" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- СИГНАЛ 2: Струм виводу VREF (i_vref) -->
+  <text x="55" y="200" font-size="12" font-weight="bold" fill="#c0392b">Струм I_vref</text>
+  <line x1="60" y1="235" x2="890" y2="235" stroke="#6b7280" stroke-width="1"/>
+  <!-- Імпульси струму -->
+  <!-- Sample: заряд вхідної ємності -->
+  <path d="M 60,235 L 70,235 L 75,200 L 95,235 L 220,235 L 222,185 L 250,235 L 380,235 L 382,205 L 405,235 L 540,235 L 542,218 L 560,235 L 700,235 L 702,226 L 715,235 L 860,235" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="235" y="180" font-size="12" font-weight="bold" fill="#c0392b">I_peak ≈ 25 мА</text>
+  <text x="395" y="200" font-size="12" fill="#c0392b">12.5 мА</text>
+  <text x="555" y="214" font-size="12" fill="#c0392b">6.25 мА</text>
+
+  <!-- СИГНАЛ 3: Напруга на виводі VREF (динамічне просідання та відновлення) -->
+  <text x="55" y="275" font-size="12" font-weight="bold" fill="#27ae60">Напруга VREF</text>
+  <line x1="60" y1="300" x2="890" y2="300" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="895" y="304" font-size="12" fill="#27ae60">5.0 В</text>
+
+  <!-- Крива напруги з просіданням та експоненційним відновленням -->
+  <path d="M 60,300 L 70,300 Q 75,320 120,300 L 220,300 Q 225,350 330,300 L 380,300 Q 384,330 450,300 L 540,300 Q 544,318 590,300 L 700,300 Q 703,308 735,300 L 860,300" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Область вимоги похибки < 0.5 LSB -->
+  <rect x="300" y="295" width="80" height="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="340" y="325" font-size="12" fill="#27ae60" text-anchor="middle">Залишок похибки &lt; 0.5 LSB</text>
+
+  <!-- Пояснювальні плашки внизу -->
+  <rect x="60" y="355" width="380" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="75" y="375" font-size="12" font-weight="bold" fill="#c0392b">Проблема: комутаційне просідання ΔV = Q / C_load</text>
+  <text x="75" y="395" font-size="12" fill="#1a1a1a">Без накопичувальної ємності 10–47 мкФ виникає похибка коду</text>
+
+  <rect x="470" y="355" width="430" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="485" y="375" font-size="12" font-weight="bold" fill="#2457d6">Розв'язок: in-loop буфер + кераміка X7R/C0G</text>
+  <text x="485" y="395" font-size="12" fill="#1a1a1a">Повне відновлення заряду за час t_settle &lt; 0.5 · t_bit</text>
+</svg>

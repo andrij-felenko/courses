@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Довірчі інтервали 95% та ефективні ступені вільності (EDF)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Зменшення кількості незалежних кластерів на великих τ розширює довірчі межі за законом χ²</text>
+
+  <!-- Головна область графіка -->
+  <rect x="40" y="65" width="560" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Осі координат лівого графіка -->
+  <line x1="80" y1="355" x2="570" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="575" y="359" font-size="12" font-weight="bold" fill="#1a1a1a">τ (s)</text>
+
+  <line x1="80" y1="355" x2="80" y2="85" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">σ(τ)</text>
+
+  <!-- Позначки на осі X (тривалість кластера τ) -->
+  <text x="120" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10⁻²</text>
+  <text x="230" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10⁰ (1 s)</text>
+  <text x="350" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10²</text>
+  <text x="490" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10⁴</text>
+
+  <!-- Заливка довірчого інтервалу -->
+  <path d="M 100 137 L 200 216 L 340 262 L 450 205 L 530 95 L 530 280 L 450 300 L 340 288 L 200 234 L 100 143 Z" 
+        fill="#2457d6" fill-opacity="0.15"/>
+
+  <!-- Верхня пунктирна межа -->
+  <path d="M 100 137 L 200 216 L 340 262 L 450 205 L 530 95" 
+        fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Нижня пунктирна межа -->
+  <path d="M 100 143 L 200 234 L 340 288 L 450 300 L 530 280" 
+        fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Центральна оцінка ADEV (суцільна синя крива) -->
+  <path d="M 100 140 L 200 225 L 340 275 L 450 250 L 530 180" 
+        fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Позначка вузького інтервалу на малих tau -->
+  <line x1="120" y1="130" x2="120" y2="150" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="120" cy="140" r="3" fill="#27ae60"/>
+  <rect x="90" y="75" width="130" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="155" y="91" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Малі τ: ν ≈ 10⁴</text>
+  <text x="155" y="105" text-anchor="middle" font-size="12" fill="#27ae60">Вузький інтервал ±1%</text>
+
+  <!-- Позначка широкого віяла на великих tau -->
+  <line x1="490" y1="150" x2="490" y2="270" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="490" cy="210" r="4" fill="#c0392b"/>
+  <rect x="360" y="75" width="140" height="36" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="430" y="91" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Великі τ: ν = 2..4</text>
+  <text x="430" y="105" text-anchor="middle" font-size="12" fill="#c0392b">Широке віяло похибки</text>
+
+  <!-- Права панель: Статистична теорія χ² -->
+  <rect x="620" y="65" width="300" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="640" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Розрахунок меж за χ²</text>
+
+  <rect x="635" y="102" width="270" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="770" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">σ_min = σ̂ · √(ν / χ²_[0.975, ν])</text>
+  <text x="770" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">σ_max = σ̂ · √(ν / χ²_[0.025, ν])</text>
+
+  <text x="640" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Ступені вільності ν(τ) (EDF):</text>
+  <text x="640" y="195" font-size="12" fill="#1a1a1a">Залежать від обсягу даних N</text>
+  <text x="640" y="213" font-size="12" fill="#1a1a1a">та типу шуму (WFM, FFM, RWFM)</text>
+
+  <text x="640" y="245" font-size="12" font-weight="bold" fill="#1a1a1a">Для білого шуму (OAVAR):</text>
+  <rect x="635" y="255" width="270" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="770" y="277" text-anchor="middle" font-size="12" fill="#1a1a1a">ν ≈ 3/2 · (N − 1) / m</text>
+
+  <text x="640" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Правило метролога:</text>
+  <text x="640" y="335" font-size="12" fill="#27ae60">Якщо ν &lt; 3, точка вважається</text>
+  <text x="640" y="353" font-size="12" fill="#27ae60">статистично недостовірною</text>
+
+  <!-- Підсумковий підпис унизу -->
+  <text x="480" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Довірчий коридор захищає від хибної інтерпретації випадкового шуму як фізичного дрейфу сенсора</text>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Спотворення сигналів при магнітному насиченні та похибка 4-го порядку</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зрізання верхівок синусоїди генерує 3-тю гармоніку в сигналі (3θ) та 4-ту гармоніку в куті (4θ)</text>
+
+  <!-- ЛІВА ЧАСТИНА: Спотворена синусоїда та спектр Фур'є -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="430" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="215" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Форма напруги та спектральні піки</text>
+
+    <!-- Осцилограма форми сигналу -->
+    <g transform="translate(20, 50)">
+      <rect x="0" y="0" width="390" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <line x1="0" y1="70" x2="390" y2="70" stroke="#1a1a1a" stroke-width="1"/>
+      
+      <!-- Ідеальний синус (зелений пунктир) -->
+      <path d="M 0 70 Q 97.5 5 195 70 Q 292.5 135 390 70" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <text x="20" y="25" font-size="12" fill="#27ae60">Ідеальний sin(θ)</text>
+
+      <!-- Спотворений насичений синус із сплощеною верхівкою (червоний) -->
+      <!-- sin(θ) - 0.15*sin(3θ) -->
+      <path d="M 0 70 C 50 25 145 25 195 70 C 245 115 340 115 390 70" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+      <text x="240" y="25" font-size="12" font-weight="bold" fill="#c0392b">Насичений: sin(θ) − k₃·sin(3θ)</text>
+
+      <!-- Позначка зрізання верхівки -->
+      <rect x="75" y="15" width="45" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+      <text x="97" y="28" text-anchor="middle" font-size="12" fill="#c0392b">Зріз</text>
+    </g>
+
+    <!-- Спектральний бар-чарт FFT -->
+    <g transform="translate(20, 205)">
+      <rect x="0" y="0" width="390" height="120" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="20" font-size="12" font-weight="bold" fill="#1a1a1a">Спектральний склад напруги:</text>
+
+      <!-- Базова лінія -->
+      <line x1="40" y1="95" x2="360" y2="95" stroke="#d0d7de" stroke-width="1"/>
+
+      <!-- Гармоніка 1θ (Основна, висота 65) -->
+      <rect x="70" y="30" width="40" height="65" rx="3" fill="#2457d6"/>
+      <text x="90" y="24" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">100%</text>
+      <text x="90" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1θ</text>
+
+      <!-- Гармоніка 2θ (0%) -->
+      <rect x="150" y="94" width="40" height="1" fill="#6b7280"/>
+      <text x="170" y="90" text-anchor="middle" font-size="12" fill="#6b7280">0%</text>
+      <text x="170" y="110" text-anchor="middle" font-size="12" fill="#6b7280">2θ</text>
+
+      <!-- Гармоніка 3θ (Пік насичення, висота 25) -->
+      <rect x="230" y="70" width="40" height="25" rx="3" fill="#c0392b"/>
+      <text x="250" y="62" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">k₃ ≈ 3%</text>
+      <text x="250" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3θ</text>
+
+      <!-- Гармоніка 5θ (висота 8) -->
+      <rect x="310" y="87" width="40" height="8" rx="2" fill="#c0392b"/>
+      <text x="330" y="82" text-anchor="middle" font-size="12" fill="#c0392b">0.5%</text>
+      <text x="330" y="110" text-anchor="middle" font-size="12" fill="#6b7280">5θ</text>
+    </g>
+
+    <text x="215" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">• Насичення сталі сердечника зрізає піки, генеруючи непарні гармоніки</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Результуюча кутова похибка 4-го порядку -->
+  <g transform="translate(490, 75)">
+    <rect x="0" y="0" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="440" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="220" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кутова похибка арктангенса: пульсація 4θ</text>
+
+    <!-- Осцилограма похибки 4θ (4 повні хвилі на 360°) -->
+    <g transform="translate(25, 50)">
+      <rect x="0" y="0" width="390" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <line x1="0" y1="70" x2="390" y2="70" stroke="#1a1a1a" stroke-width="1"/>
+      
+      <!-- 4 хвилі синусоїди похибки -->
+      <path d="M 0 70 Q 24.375 35 48.75 70 Q 73.125 105 97.5 70 Q 121.875 35 146.25 70 Q 170.625 105 195 70 Q 219.375 35 243.75 70 Q 268.125 105 292.5 70 Q 316.875 35 341.25 70 Q 365.625 105 390 70" fill="none" stroke="#c0392b" stroke-width="2"/>
+      
+      <text x="20" y="25" font-size="12" font-weight="bold" fill="#c0392b">Δθ(θ) = −k₃ · sin(4θ)  [4 пульсації на оберт]</text>
+    </g>
+
+    <!-- Математичне пояснення явища -->
+    <g transform="translate(25, 205)">
+      <rect x="0" y="0" width="390" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#1a1a1a">Аналітичний парадокс перетворення Фур'є:</text>
+      
+      <text x="15" y="44" font-size="12" fill="#1a1a1a">• Спотворені сигнали: V_c = cos θ + k₃ cos 3θ,  V_s = sin θ − k₃ sin 3θ</text>
+      <text x="15" y="66" font-size="12" fill="#2457d6">• Похибка: Δθ ≈ V_s·cos θ − V_c·sin θ = −k₃ · sin(3θ + θ) = −k₃ · sin(4θ)</text>
+      
+      <line x1="15" y1="78" x2="375" y2="78" stroke="#d0d7de" stroke-width="1"/>
+
+      <text x="15" y="98" font-size="12" font-weight="bold" fill="#c0392b">• Непарна 3-тя гармоніка напруги стає парною 4-ю гармонікою кута!</text>
+      <text x="15" y="118" font-size="12" fill="#1a1a1a">• Матриця Хейвуда 2×2 не усуває 4θ (вимагає LUT або фільтрації)</text>
+      <text x="15" y="138" font-size="12" fill="#6b7280">• Залишкова похибка досягає ±0.05°…±0.2° без компенсації</text>
+    </g>
+  </g>
+</svg>

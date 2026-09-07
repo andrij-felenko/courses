@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апроксимація параметрів еліпса методом найменших квадратів (OLS)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Знаходження 5D-вектора калібрування [x₀, y₀, A_c, A_s, δφ] з хмари експериментальних точок (V_cos, V_sin)</text>
+
+  <!-- ЛІВА ЧАСТИНА: Графік хмари точок та апроксимованого еліпса -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="430" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="215" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Експериментальна площина (V_cos, V_sin)</text>
+
+    <!-- Координатна сітка -->
+    <g transform="translate(25, 55)">
+      <rect x="0" y="0" width="380" height="260" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      
+      <!-- Осі координат через (190, 130) -->
+      <line x1="0" y1="130" x2="380" y2="130" stroke="#1a1a1a" stroke-width="1"/>
+      <line x1="190" y1="0" x2="190" y2="260" stroke="#1a1a1a" stroke-width="1"/>
+      <text x="365" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">V_cos</text>
+      <text x="198" y="15" font-size="12" font-weight="bold" fill="#1a1a1a">V_sin</text>
+
+      <!-- Зміщений центр еліпса (220, 110) -->
+      <ellipse cx="220" cy="110" rx="125" ry="85" transform="rotate(22 220 110)" fill="none" stroke="#2457d6" stroke-width="2"/>
+      
+      <!-- Хмара експериментальних точок навколо еліпса -->
+      <!-- Верхні/нижні/бічні точки -->
+      <circle cx="335" cy="155" r="2.5" fill="#c0392b"/>
+      <circle cx="340" cy="160" r="2.5" fill="#c0392b"/>
+      <circle cx="310" cy="185" r="2.5" fill="#c0392b"/>
+      <circle cx="280" cy="200" r="2.5" fill="#c0392b"/>
+      <circle cx="240" cy="205" r="2.5" fill="#c0392b"/>
+      <circle cx="190" cy="195" r="2.5" fill="#c0392b"/>
+      <circle cx="150" cy="170" r="2.5" fill="#c0392b"/>
+      <circle cx="115" cy="135" r="2.5" fill="#c0392b"/>
+      <circle cx="105" cy="100" r="2.5" fill="#c0392b"/>
+      <circle cx="115" cy="70" r="2.5" fill="#c0392b"/>
+      <circle cx="145" cy="45" r="2.5" fill="#c0392b"/>
+      <circle cx="190" cy="30" r="2.5" fill="#c0392b"/>
+      <circle cx="240" cy="25" r="2.5" fill="#c0392b"/>
+      <circle cx="285" cy="40" r="2.5" fill="#c0392b"/>
+      <circle cx="320" cy="65" r="2.5" fill="#c0392b"/>
+      <circle cx="345" cy="105" r="2.5" fill="#c0392b"/>
+
+      <!-- Маркер центру (x0, y0) -->
+      <circle cx="220" cy="110" r="4" fill="#c0392b"/>
+      <line x1="220" y1="100" x2="220" y2="120" stroke="#c0392b" stroke-width="1.5"/>
+      <line x1="210" y1="110" x2="230" y2="110" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="235" y="105" font-size="12" font-weight="bold" fill="#c0392b">(x₀, y₀)</text>
+    </g>
+
+    <text x="215" y="340" text-anchor="middle" font-size="12" fill="#c0392b">• Червоні точки: дискретні відліки АЦП за 1 оберт</text>
+    <text x="215" y="360" text-anchor="middle" font-size="12" fill="#2457d6">• Синя лінія: апроксимована еліптична крива МНК</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Математичний апарат МНК -->
+  <g transform="translate(490, 75)">
+    <rect x="0" y="0" width="440" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="440" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="220" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Алгоритм прямої оцінки (Direct Least Squares)</text>
+
+    <!-- Блок алгебраїчного рівняння -->
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="410" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#1a1a1a">1. Загальне алгебраїчне рівняння коніки:</text>
+      <text x="15" y="46" font-size="12" font-weight="bold" fill="#2457d6">A·x² + B·x·y + C·y² + D·x + E·y + F = 0</text>
+      <text x="15" y="68" font-size="12" fill="#6b7280">з еліптичним обмеженням: B² − 4AC &lt; 0</text>
+    </g>
+
+    <!-- Блок матричного розв'язку -->
+    <g transform="translate(15, 145)">
+      <rect x="0" y="0" width="410" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#1a1a1a">2. Матричний розв'язок нормального рівняння:</text>
+      <text x="15" y="46" font-size="12" font-weight="bold" fill="#27ae60">p = (Dᵀ · D)⁻¹ · Dᵀ · f</text>
+      <text x="15" y="68" font-size="12" fill="#1a1a1a">де D — матриця плану вимірів розміром M × 5</text>
+      <text x="15" y="85" font-size="12" fill="#6b7280">p = [A, B, C, D, E]ᵀ — вектор коефіцієнтів</text>
+    </g>
+
+    <!-- Блок видобутку коефіцієнтів Хейвуда -->
+    <g transform="translate(15, 250)">
+      <rect x="0" y="0" width="410" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#27ae60">3. Калібрувальні коефіцієнти матриці Хейвуда:</text>
+      <text x="15" y="44" font-size="12" fill="#1a1a1a">• Центри зміщення: x₀ = (2CD − BE) / (B² − 4AC)</text>
+      <text x="15" y="64" font-size="12" fill="#1a1a1a">• Амплітудний баланс: k_g = √(C / A)</text>
+      <text x="15" y="84" font-size="12" fill="#1a1a1a">• Неортогональність фаз: sin(δφ) = −B / (2·√(AC))</text>
+      <text x="15" y="104" font-size="12" font-weight="bold" fill="#27ae60">Забезпечує автоматичне калібрування сенсора за 1 оберт</text>
+    </g>
+  </g>
+</svg>

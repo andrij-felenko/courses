@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність кутової похибки квантування atan2 від розрядності АЦП</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Теоретична дисперсія шуму квантування: σ_θ = 1 / (√6 · 2^N) [рад] та еквівалентна кутова похибка</text>
+
+  <!-- ЛІВА ЧАСТИНА: Стовпчикова логарифмічна діаграма похибки -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="460" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="460" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="230" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кутовий шум квантування (СКО σ_θ)</text>
+
+    <!-- Стовпчики для 8, 10, 12, 14, 16, 18 біт -->
+    <!-- 8 біт: 329″ (висота 190) -->
+    <g transform="translate(25, 60)">
+      <rect x="0" y="30" width="50" height="200" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="25" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">329″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">8 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.091°</text>
+    </g>
+
+    <!-- 10 біт: 82″ (висота 140) -->
+    <g transform="translate(95, 60)">
+      <rect x="0" y="90" width="50" height="140" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="25" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">82.3″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">10 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.023°</text>
+    </g>
+
+    <!-- 12 біт: 20.6″ (висота 95) -->
+    <g transform="translate(165, 60)">
+      <rect x="0" y="135" width="50" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+      <text x="25" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">20.6″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">12 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.0057°</text>
+    </g>
+
+    <!-- 14 біт: 5.1″ (висота 60) -->
+    <g transform="translate(235, 60)">
+      <rect x="0" y="170" width="50" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+      <text x="25" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">5.14″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">14 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.0014°</text>
+    </g>
+
+    <!-- 16 біт: 1.28″ (висота 35) -->
+    <g transform="translate(305, 60)">
+      <rect x="0" y="195" width="50" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="25" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1.28″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">16 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.00036°</text>
+    </g>
+
+    <!-- 18 біт: 0.32″ (висота 18) -->
+    <g transform="translate(375, 60)">
+      <rect x="0" y="212" width="50" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="25" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0.32″</text>
+      <text x="25" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">18 біт</text>
+      <text x="25" y="260" text-anchor="middle" font-size="12" fill="#6b7280">0.00009°</text>
+    </g>
+
+    <!-- Базові лінії -->
+    <line x1="20" y1="290" x2="435" y2="290" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="230" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">• Кожен +1 біт АЦП знижує кутовий шум у 2 рази (на 6.02 дБ)</text>
+    <text x="230" y="360" text-anchor="middle" font-size="12" fill="#6b7280">• Для FOC-приводів мінімально необхідною є розрядність N ≥ 12…14 біт</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Математичне виведення та таблиця співвідношень -->
+  <g transform="translate(510, 75)">
+    <rect x="0" y="0" width="420" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="420" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="210" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Аналітичний розрахунок дисперсії</text>
+
+    <!-- Формули виведення -->
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="390" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#1a1a1a">Математичне виведення кутової дисперсії:</text>
+      <text x="15" y="44" font-size="12" fill="#1a1a1a">1. Квант напруги: q = 2 · A / 2^N</text>
+      <text x="15" y="66" font-size="12" fill="#1a1a1a">2. СКО шуму квантування: σ_v = q / √12 = A / (√3 · 2^N)</text>
+      <text x="15" y="88" font-size="12" fill="#2457d6">3. Кутова похибка: Δθ ≈ (cos θ · n_s − sin θ · n_c) / A</text>
+      <text x="15" y="112" font-size="12" font-weight="bold" fill="#27ae60">4. Підсумок: σ_θ = √2 · σ_v / A = 1 / (√6 · 2^N) [рад]</text>
+    </g>
+
+    <!-- Таблиця застосувань -->
+    <g transform="translate(15, 195)">
+      <rect x="0" y="0" width="390" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <text x="15" y="22" font-size="12" font-weight="bold" fill="#1a1a1a">Рекомендована розрядність АЦП у техніці:</text>
+      
+      <text x="15" y="48" font-size="12" fill="#1a1a1a">• **8–10 біт:** Грубі датчики педалей, вентилятори (±0.1°)</text>
+      <text x="15" y="74" font-size="12" fill="#2457d6">• **12 біт:** Стандартні сервоприводи, BLDC-мотори (±20″)</text>
+      <text x="15" y="100" font-size="12" fill="#27ae60">• **14–16 біт:** Промислові роботи, ЧПК шпинделі (±1″…5″)</text>
+      <text x="15" y="126" font-size="12" fill="#27ae60">• **18–24 біти:** Оптичні поворотні столи, метрологія (&lt; 0.5″)</text>
+      
+      <text x="15" y="152" font-size="12" fill="#6b7280">Примітка: Фільтрація контуром Type II додатково знижує шум на 10–20 дБ</text>
+    </g>
+  </g>
+</svg>

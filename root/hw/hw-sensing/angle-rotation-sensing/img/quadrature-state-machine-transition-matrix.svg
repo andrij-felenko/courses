@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Таблиця переходів 4x квадратурного декодера</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Матриця 4×4 автомата станів: крок вперед (+1), крок назад (-1), незмінний стан (0) та заборонений стрибок (ERR)</text>
+
+  <!-- ЛІВА ЧАСТИНА: Таблиця переходів 4x4 -->
+  <g transform="translate(40, 75)">
+    <!-- Рамка контейнера -->
+    <rect x="0" y="0" width="450" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <!-- Заголовок таблиці -->
+    <rect x="0" y="0" width="450" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="225" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Таблиця переходів LUT [Prev][New]</text>
+
+    <!-- Шапка стовпчиків (Новий стан) -->
+    <text x="260" y="62" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Новий стан [B_new : A_new]</text>
+    
+    <rect x="120" y="75" width="70" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="155" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">00 (0)</text>
+
+    <rect x="200" y="75" width="70" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="235" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">01 (1)</text>
+
+    <rect x="280" y="75" width="70" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="315" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">10 (2)</text>
+
+    <rect x="360" y="75" width="70" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="395" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">11 (3)</text>
+
+    <!-- Рядок 1: Prev 00 -->
+    <rect x="20" y="115" width="90" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="65" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">00 (0)</text>
+
+    <rect x="120" y="115" width="70" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="155" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">0</text>
+
+    <rect x="200" y="115" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="235" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">+1</text>
+    <text x="235" y="153" text-anchor="middle" font-size="12" fill="#27ae60">CW</text>
+
+    <rect x="280" y="115" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="315" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">-1</text>
+    <text x="315" y="153" text-anchor="middle" font-size="12" fill="#2457d6">CCW</text>
+
+    <rect x="360" y="115" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="395" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ERR</text>
+    <text x="395" y="153" text-anchor="middle" font-size="12" fill="#c0392b">Стрибок</text>
+
+    <!-- Рядок 2: Prev 01 -->
+    <rect x="20" y="175" width="90" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="65" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">01 (1)</text>
+
+    <rect x="120" y="175" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="155" y="197" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">-1</text>
+    <text x="155" y="213" text-anchor="middle" font-size="12" fill="#2457d6">CCW</text>
+
+    <rect x="200" y="175" width="70" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="235" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">0</text>
+
+    <rect x="280" y="175" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="315" y="197" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ERR</text>
+    <text x="315" y="213" text-anchor="middle" font-size="12" fill="#c0392b">Стрибок</text>
+
+    <rect x="360" y="175" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="395" y="197" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">+1</text>
+    <text x="395" y="213" text-anchor="middle" font-size="12" fill="#27ae60">CW</text>
+
+    <!-- Рядок 3: Prev 10 -->
+    <rect x="20" y="235" width="90" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="65" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">10 (2)</text>
+
+    <rect x="120" y="235" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="155" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">+1</text>
+    <text x="155" y="273" text-anchor="middle" font-size="12" fill="#27ae60">CW</text>
+
+    <rect x="200" y="235" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="235" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ERR</text>
+    <text x="235" y="273" text-anchor="middle" font-size="12" fill="#c0392b">Стрибок</text>
+
+    <rect x="280" y="235" width="70" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="315" y="265" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">0</text>
+
+    <rect x="360" y="235" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="395" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">-1</text>
+    <text x="395" y="273" text-anchor="middle" font-size="12" fill="#2457d6">CCW</text>
+
+    <!-- Рядок 4: Prev 11 -->
+    <rect x="20" y="295" width="90" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="65" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">11 (3)</text>
+
+    <rect x="120" y="295" width="70" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="155" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ERR</text>
+    <text x="155" y="333" text-anchor="middle" font-size="12" fill="#c0392b">Стрибок</text>
+
+    <rect x="200" y="295" width="70" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="235" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">-1</text>
+    <text x="235" y="333" text-anchor="middle" font-size="12" fill="#2457d6">CCW</text>
+
+    <rect x="280" y="295" width="70" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="315" y="317" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">+1</text>
+    <text x="315" y="333" text-anchor="middle" font-size="12" fill="#27ae60">CW</text>
+
+    <rect x="360" y="295" width="70" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="395" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b7280">0</text>
+  </g>
+
+  <!-- ПРАВА ЧАСТИНА: Граф автоматних станів -->
+  <g transform="translate(520, 75)">
+    <rect x="0" y="0" width="400" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    
+    <rect x="0" y="0" width="400" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="200" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кільцевий граф переходів (Крок 4x)</text>
+
+    <!-- Вузли станів (Коло радіусом 90) -->
+    <!-- Вузол 00 (Верх) -->
+    <circle cx="200" cy="95" r="28" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="200" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">00</text>
+    <text x="200" y="110" text-anchor="middle" font-size="12" fill="#6b7280">стан 0</text>
+
+    <!-- Вузол 01 (Право) -->
+    <circle cx="295" cy="190" r="28" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="295" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">01</text>
+    <text x="295" y="205" text-anchor="middle" font-size="12" fill="#6b7280">стан 1</text>
+
+    <!-- Вузол 11 (Низ) -->
+    <circle cx="200" cy="285" r="28" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="200" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">11</text>
+    <text x="200" y="300" text-anchor="middle" font-size="12" fill="#6b7280">стан 3</text>
+
+    <!-- Вузол 10 (Ліво) -->
+    <circle cx="105" cy="190" r="28" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="105" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">10</text>
+    <text x="105" y="205" text-anchor="middle" font-size="12" fill="#6b7280">стан 2</text>
+
+    <!-- Стрілки прямих переходів CW (зелені) -->
+    <!-- 00 -> 01 -->
+    <path d="M 225 105 Q 280 120 285 160" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <polygon points="285,165 280,155 290,157" fill="#27ae60"/>
+    <text x="275" y="125" font-size="12" font-weight="bold" fill="#27ae60">+1</text>
+
+    <!-- 01 -> 11 -->
+    <path d="M 285 220 Q 280 260 225 275" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <polygon points="220,277 230,273 228,283" fill="#27ae60"/>
+    <text x="275" y="265" font-size="12" font-weight="bold" fill="#27ae60">+1</text>
+
+    <!-- 11 -> 10 -->
+    <path d="M 175 275 Q 120 260 115 220" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <polygon points="115,215 120,225 110,223" fill="#27ae60"/>
+    <text x="120" y="265" font-size="12" font-weight="bold" fill="#27ae60">+1</text>
+
+    <!-- 10 -> 00 -->
+    <path d="M 115 160 Q 120 120 175 105" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <polygon points="180,103 170,107 172,97" fill="#27ae60"/>
+    <text x="120" y="125" font-size="12" font-weight="bold" fill="#27ae60">+1</text>
+
+    <!-- Заборонені діагональні стрибки (червоний пунктир) -->
+    <line x1="200" y1="125" x2="200" y2="255" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="135" y1="190" x2="265" y2="190" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    
+    <rect x="180" y="180" width="40" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="200" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ERR</text>
+
+    <!-- Пояснення внизу -->
+    <text x="200" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">• Одночасна зміна двох ліній фіксується як апаратна помилка</text>
+    <text x="200" y="360" text-anchor="middle" font-size="12" fill="#6b7280">• Швидкість декодування O(1): табличне читання за 1 такт</text>
+  </g>
+</svg>

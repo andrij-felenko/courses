@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матричне калібрування Хейвуда: трансформація годографа в коло</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Послідовна лінійна компенсація зсуву нуля, фазової неортогональності та дисбалансу амплітуд</text>
+
+  <!-- Left Panel: Distorted Ellipse -->
+  <rect x="25" y="70" width="275" height="395" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="162" y="95" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Реальний годограф</text>
+  <text x="162" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Сигнали V_c(θ) та V_s(θ)</text>
+
+  <!-- Coordinate Axes Left -->
+  <line x1="45" y1="230" x2="275" y2="230" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="278" y="234" font-size="12" fill="#1a1a1a">V_c</text>
+  <line x1="160" y1="330" x2="160" y2="130" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="165" y="140" font-size="12" fill="#1a1a1a">V_s</text>
+
+  <!-- Shifted Center and Ellipse -->
+  <ellipse cx="185" cy="250" rx="60" ry="45" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4" transform="rotate(-25 185 250)"/>
+  <circle cx="160" cy="230" r="3" fill="#1a1a1a"/>
+  <circle cx="185" cy="250" r="3.5" fill="#c0392b"/>
+  <line x1="160" y1="230" x2="185" y2="250" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+  
+  <text x="195" y="272" font-size="12" font-weight="bold" fill="#c0392b">(x₀, y₀)</text>
+
+  <!-- Distortions Legend -->
+  <rect x="35" y="348" width="255" height="105" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="368" font-size="12" fill="#c0392b" font-weight="bold">• Зсув нуля: x₀ ≠ 0, y₀ ≠ 0</text>
+  <text x="45" y="388" font-size="12" fill="#c0392b" font-weight="bold">• Фазовий скіс: δφ ≠ 0</text>
+  <text x="45" y="408" font-size="12" fill="#c0392b" font-weight="bold">• Дисбаланс: k_g = A_s / A_c ≠ 1</text>
+  <text x="45" y="428" font-size="12" fill="#6b7280">Генерує похибки 1θ та 2θ</text>
+  <text x="45" y="444" font-size="12" fill="#6b7280">Спотворює вимір кута</text>
+
+  <!-- Middle Panel: Transformation Steps & Matrix -->
+  <rect x="320" y="70" width="320" height="395" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="95" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Матричні кроки Хейвуда</text>
+  <text x="480" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Лінійна нормалізація координат</text>
+
+  <!-- Step 1 Box -->
+  <rect x="332" y="125" width="296" height="64" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="342" y="143" font-size="12" font-weight="bold" fill="#2457d6">Крок 1. Центрування годографа</text>
+  <text x="342" y="161" font-size="12" fill="#1a1a1a">x₁ = V_c − x₀,   y₁ = V_s − y₀</text>
+  <text x="342" y="177" font-size="12" fill="#6b7280">Перенесення центру в початок координат</text>
+
+  <!-- Step 2 Box -->
+  <rect x="332" y="196" width="296" height="64" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="342" y="214" font-size="12" font-weight="bold" fill="#2457d6">Крок 2. Ортогоналізація фази</text>
+  <text x="342" y="232" font-size="12" fill="#1a1a1a">x_orth = (x₁ + y₁·sin(δφ)/k_g) / cos(δφ)</text>
+  <text x="342" y="248" font-size="12" fill="#6b7280">Усунення неортогональності δφ</text>
+
+  <!-- Step 3 Box -->
+  <rect x="332" y="267" width="296" height="64" rx="5" fill="white" stroke="#d0d7de"/>
+  <text x="342" y="285" font-size="12" font-weight="bold" fill="#2457d6">Крок 3. Масштабування амплітуди</text>
+  <text x="342" y="303" font-size="12" fill="#1a1a1a">y_norm = y₁ / k_g</text>
+  <text x="342" y="319" font-size="12" fill="#6b7280">Вирівнювання коефіцієнтів підсилення</text>
+
+  <!-- Full Matrix Box -->
+  <rect x="332" y="338" width="296" height="115" rx="5" fill="#f4f6f8" stroke="#2457d6"/>
+  <text x="480" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зведена матрична формула корекції:</text>
+  
+  <text x="342" y="376" font-size="12" fill="#1a1a1a">V_c_norm = (V_c − x₀)/cos(δφ) + (V_s − y₀)·tan(δφ)/k_g</text>
+  <text x="342" y="396" font-size="12" fill="#1a1a1a">V_s_norm = (V_s − y₀) / k_g</text>
+  
+  <text x="480" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Істинний кут: θ = atan2(V_s_norm, V_c_norm)</text>
+  <text x="480" y="441" font-size="12" fill="#6b7280" text-anchor="middle">Повне усунення похибок 1θ та 2θ</text>
+
+  <!-- Right Panel: Calibrated Circle -->
+  <rect x="660" y="70" width="275" height="395" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="797" y="95" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Одиничне коло</text>
+  <text x="797" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Калібрована квадратура сигналів</text>
+
+  <!-- Coordinate Axes Right -->
+  <line x1="680" y1="230" x2="910" y2="230" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="912" y="234" font-size="12" fill="#1a1a1a">V_cn</text>
+  <line x1="795" y1="330" x2="795" y2="130" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="800" y="140" font-size="12" fill="#1a1a1a">V_sn</text>
+
+  <!-- Calibrated Circle -->
+  <circle cx="795" cy="230" r="58" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="795" cy="230" r="3" fill="#27ae60"/>
+
+  <!-- Rotating Vector -->
+  <line x1="795" y1="230" x2="836" y2="189" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="844" y="186" font-size="12" font-weight="bold" fill="#2457d6">θ</text>
+  
+  <!-- Right Angle Symbol -->
+  <path d="M 795,216 L 809,216 L 809,230" fill="none" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="814" y="226" font-size="12" fill="#27ae60">90°</text>
+
+  <!-- Calibrated Radius R=1 text placed clear of axis line -->
+  <text x="815" y="252" font-size="12" font-weight="bold" fill="#27ae60">R = 1.0</text>
+
+  <!-- Results Summary Box -->
+  <rect x="670" y="348" width="255" height="105" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="680" y="368" font-size="12" fill="#27ae60" font-weight="bold">✓ Центр строго у (0, 0)</text>
+  <text x="680" y="388" font-size="12" fill="#27ae60" font-weight="bold">✓ Фазовий зсув рівно 90.0°</text>
+  <text x="680" y="408" font-size="12" fill="#27ae60" font-weight="bold">✓ Однакове підсилення осей</text>
+  <text x="680" y="428" font-size="12" fill="#2457d6">Метрологічна похибка &lt; 0.01°</text>
+  <text x="680" y="444" font-size="12" fill="#2457d6">Готовність до арктангенса</text>
+
+  <!-- Connecting Arrows Between Panels -->
+  <path d="M 302,230 L 318,230" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 642,230 L 658,230" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

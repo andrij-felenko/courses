@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення обмоток резольвера трьома екранованими витими парами</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Індивідуальні екрани сигналів (SIN, COS) та збудження (EXC) із заземленням «зіркою» на боці RDC</text>
+
+  <!-- ЛІВИЙ БЛОК: Корпус Резольвера -->
+  <g transform="translate(30, 75)">
+    <rect x="0" y="0" width="200" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="200" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="100" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Резольвер (Двигун)</text>
+
+    <!-- Обмотка R1-R2 (EXC) -->
+    <g transform="translate(15, 60)">
+      <rect x="0" y="0" width="170" height="60" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="85" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Ротор: EXC (R1, R2)</text>
+      <text x="85" y="44" text-anchor="middle" font-size="12" fill="#6b7280">Первинна обмотка</text>
+    </g>
+
+    <!-- Обмотка S1-S3 (SIN) -->
+    <g transform="translate(15, 145)">
+      <rect x="0" y="0" width="170" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+      <text x="85" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Статор: SIN (S1, S3)</text>
+      <text x="85" y="44" text-anchor="middle" font-size="12" fill="#6b7280">Вторинна sin(θ)</text>
+    </g>
+
+    <!-- Обмотка S2-S4 (COS) -->
+    <g transform="translate(15, 230)">
+      <rect x="0" y="0" width="170" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+      <text x="85" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Статор: COS (S2, S4)</text>
+      <text x="85" y="44" text-anchor="middle" font-size="12" fill="#6b7280">Вторинна cos(θ)</text>
+    </g>
+
+    <!-- Корпус датчика -->
+    <text x="100" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шасі двигуна (PE)</text>
+    <text x="100" y="355" text-anchor="middle" font-size="12" fill="#6b7280">(Ізольовано від екрана)</text>
+  </g>
+
+  <!-- СЕРЕДНІЙ БЛОК: Кабельний джгут STP (3 екрановані виті пари) -->
+  <g transform="translate(250, 75)">
+    <rect x="0" y="0" width="430" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="430" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="215" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кабельний джгут 3x STP + загальний екран</text>
+
+    <!-- Пара 1: EXC (Червона) -->
+    <g transform="translate(20, 50)">
+      <rect x="0" y="0" width="390" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+      <rect x="10" y="8" width="80" height="20" rx="3" fill="#fdecea"/>
+      <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пара EXC</text>
+      
+      <!-- Вита лінія -->
+      <path d="M 100 25 Q 150 10 200 25 Q 250 40 300 25 Q 350 10 380 25" fill="none" stroke="#c0392b" stroke-width="2"/>
+      <path d="M 100 25 Q 150 40 200 25 Q 250 10 300 25 Q 350 40 380 25" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+      
+      <text x="20" y="55" font-size="12" fill="#1a1a1a">R1 (+) / R2 (−): 7-10 кГц, 7 Vrms</text>
+      <text x="260" y="55" font-size="12" fill="#c0392b">Індивідуальний екран 1</text>
+    </g>
+
+    <!-- Пара 2: SIN (Зелена) -->
+    <g transform="translate(20, 135)">
+      <rect x="0" y="0" width="390" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+      <rect x="10" y="8" width="80" height="20" rx="3" fill="#e9f7ef"/>
+      <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пара SIN</text>
+      
+      <!-- Вита лінія -->
+      <path d="M 100 25 Q 150 10 200 25 Q 250 40 300 25 Q 350 10 380 25" fill="none" stroke="#27ae60" stroke-width="2"/>
+      <path d="M 100 25 Q 150 40 200 25 Q 250 10 300 25 Q 350 40 380 25" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+      
+      <text x="20" y="55" font-size="12" fill="#1a1a1a">S1 (+) / S3 (−): V_exc · sin(θ), 2 Vrms</text>
+      <text x="260" y="55" font-size="12" fill="#27ae60">Індивідуальний екран 2</text>
+    </g>
+
+    <!-- Пара 3: COS (Синя) -->
+    <g transform="translate(20, 220)">
+      <rect x="0" y="0" width="390" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+      <rect x="10" y="8" width="80" height="20" rx="3" fill="#eaf0fd"/>
+      <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пара COS</text>
+      
+      <!-- Вита лінія -->
+      <path d="M 100 25 Q 150 10 200 25 Q 250 40 300 25 Q 350 10 380 25" fill="none" stroke="#2457d6" stroke-width="2"/>
+      <path d="M 100 25 Q 150 40 200 25 Q 250 10 300 25 Q 350 40 380 25" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+      
+      <text x="20" y="55" font-size="12" fill="#1a1a1a">S2 (+) / S4 (−): V_exc · cos(θ), 2 Vrms</text>
+      <text x="260" y="55" font-size="12" fill="#2457d6">Індивідуальний екран 3</text>
+    </g>
+
+    <!-- Загальний плетений екран -->
+    <g transform="translate(20, 305)">
+      <rect x="0" y="0" width="390" height="60" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <text x="195" y="24" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Загальний мідний плетений екран (Overall Braid Shield)</text>
+      <text x="195" y="46" text-anchor="middle" font-size="12" fill="#27ae60">• Захищає від EMI силових кабелів ШІМ частоти 10..20 кГц</text>
+    </g>
+  </g>
+
+  <!-- ПРАВИЙ БЛОК: Плата RDC та зіркове заземлення -->
+  <g transform="translate(700, 75)">
+    <rect x="0" y="0" width="230" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="0" y="0" width="230" height="38" rx="8" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+    <text x="115" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Плата RDC (Перетворювач)</text>
+
+    <!-- Драйвер збудження -->
+    <g transform="translate(15, 50)">
+      <rect x="0" y="0" width="200" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">EXC Driver</text>
+      <text x="100" y="40" text-anchor="middle" font-size="12" fill="#6b7280">Джерело збудження</text>
+    </g>
+
+    <!-- Входи RDC IC (AD2S1210) -->
+    <g transform="translate(15, 110)">
+      <rect x="0" y="0" width="200" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+      <text x="100" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RDC IC (AD2S1210 / PGA411)</text>
+      <text x="10" y="44" font-size="12" fill="#27ae60">• SIN+ / SIN- (Диф. АЦП)</text>
+      <text x="10" y="66" font-size="12" fill="#2457d6">• COS+ / COS- (Диф. АЦП)</text>
+    </g>
+
+    <!-- Точка зіркового заземлення -->
+    <g transform="translate(15, 205)">
+      <rect x="0" y="0" width="200" height="155" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+      <circle cx="100" cy="30" r="10" fill="#27ae60"/>
+      <text x="100" y="34" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">GND</text>
+      <text x="100" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зіркова точка GND</text>
+      <text x="10" y="80" font-size="12" fill="#1a1a1a">• Усі 3 внутрішні екрани</text>
+      <text x="10" y="100" font-size="12" fill="#1a1a1a">• Загальний зовнішній екран</text>
+      <text x="10" y="122" font-size="12" font-weight="bold" fill="#c0392b">Заземлені ТІЛЬКИ ТУТ!</text>
+      <text x="10" y="142" font-size="12" fill="#6b7280">(Без контурних струмів)</text>
+    </g>
+  </g>
+</svg>

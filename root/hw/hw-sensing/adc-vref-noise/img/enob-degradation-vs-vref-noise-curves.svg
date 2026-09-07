@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Деградація ефективної розрядності (ENOB) від шуму VREF</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Високорозрядні АЦП втрачають точність за найменшого перевищення критичного порогу шуму еталона</text>
+
+  <!-- ================= ЛІВА ЧАСТИНА: Графік залежності ================= -->
+  <rect x="30" y="75" width="480" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сімейство кривих ENOB (Vref = 5.0 В, Vin = FS)</text>
+
+  <!-- Осі координат: Початок (80, 350), X_max = 470, Y_min = 135 -->
+  <line x1="80" y1="350" x2="470" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="80" y1="350" x2="80" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Підписи осей -->
+  <text x="470" y="372" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Шум VREF (мкВ RMS, лог. шкала)</text>
+  <text x="75" y="122" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Реальний ENOB (біти)</text>
+
+  <!-- Сітка графіка -->
+  <line x1="80" y1="300" x2="450" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="240" x2="450" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="180" x2="450" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Позначки на осі Y (біти) -->
+  <text x="70" y="304" text-anchor="end" font-size="12" fill="#6b7280">10 біт</text>
+  <text x="70" y="244" text-anchor="end" font-size="12" fill="#6b7280">16 біт</text>
+  <text x="70" y="184" text-anchor="end" font-size="12" fill="#6b7280">22 біти</text>
+  <text x="70" y="144" text-anchor="end" font-size="12" fill="#6b7280">26 біт</text>
+
+  <!-- Позначки на осі X (шум мкВ) -->
+  <text x="110" y="368" text-anchor="middle" font-size="12" fill="#6b7280">0.1</text>
+  <text x="210" y="368" text-anchor="middle" font-size="12" fill="#6b7280">1.0</text>
+  <text x="310" y="368" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+  <text x="410" y="368" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+
+  <!-- 1. 32-розрядний АЦП (Зелена крива) -->
+  <path d="M 80,145 L 140,145 Q 180,150 210,185 L 440,340" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="180" cy="155" r="4" fill="#27ae60"/>
+
+  <!-- 2. 24-розрядний АЦП (Синя крива) -->
+  <path d="M 80,185 L 210,185 Q 260,190 310,235 L 440,340" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="260" cy="195" r="4" fill="#2457d6"/>
+
+  <!-- 3. 16-розрядний АЦП (Червона крива) -->
+  <path d="M 80,245 L 310,245 Q 360,250 410,295 L 440,340" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="360" cy="255" r="4" fill="#c0392b"/>
+
+  <!-- Легенда під графіком -->
+  <rect x="45" y="385" width="450" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="55" y="395" width="10" height="10" fill="#27ae60"/>
+  <text x="72" y="404" font-size="12" font-weight="bold" fill="#27ae60">32-бітний АЦП (поріг шуму VREF &lt; 0.2 мкВ RMS)</text>
+
+  <rect x="55" y="415" width="10" height="10" fill="#2457d6"/>
+  <text x="72" y="424" font-size="12" font-weight="bold" fill="#2457d6">24-бітний АЦП (поріг шуму VREF &lt; 1.5 мкВ RMS)</text>
+
+  <rect x="55" y="435" width="10" height="10" fill="#c0392b"/>
+  <text x="72" y="444" font-size="12" font-weight="bold" fill="#c0392b">16-бітний АЦП (поріг шуму VREF &lt; 25 мкВ RMS)</text>
+
+  <!-- ================= ПРАВА ЧАСТИНА: Формули та аналіз ================= -->
+  <rect x="530" y="75" width="400" height="385" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="730" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Розрахунок деградації SNR та ENOB</text>
+
+  <!-- Блок формул -->
+  <rect x="545" y="120" width="370" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">Сумарне відношення сигнал/шум:</text>
+  <text x="560" y="164" font-size="12" fill="#2457d6">SNR = 20 · lg(V_sig / √(v_adc² + v_vref²))</text>
+  <text x="560" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">Ефективна розрядність перетворювача:</text>
+  <text x="560" y="212" font-size="12" fill="#27ae60">ENOB = (SNR - 1.76 дБ) / 6.02 дБ</text>
+  <text x="560" y="238" font-size="12" fill="#c0392b">ΔENOB = log₂(√(1 + (v_vref / v_adc)²))</text>
+
+  <!-- Блок висновків -->
+  <rect x="545" y="268" width="370" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">Критичні інженерні пороги:</text>
+  <text x="560" y="316" font-size="12" fill="#1a1a1a">• Якщо v_vref &lt; 0.3 · v_adc — втрата ENOB &lt; 0.1 біта</text>
+  <text x="560" y="338" font-size="12" fill="#27ae60">  (шум еталона не впливає на вимірювання)</text>
+  <text x="560" y="362" font-size="12" fill="#1a1a1a">• Якщо v_vref = v_adc — втрата ENOB = 0.5 біта</text>
+  <text x="560" y="384" font-size="12" fill="#6b7280">  (шум VREF подвоює потужність шумів)</text>
+  <text x="560" y="410" font-size="12" fill="#1a1a1a">• Якщо v_vref &gt;&gt; v_adc — ENOB повністю визначається</text>
+  <text x="560" y="430" font-size="12" font-weight="bold" fill="#c0392b">  еталоном і не залежить від розрядності АЦП</text>
+</svg>

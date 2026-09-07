@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Спектральна передавальна функція |H_A(f)|² фільтра Аллана</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Смугова фільтрація з нулем другого порядку на f = 0 пригнічує низькочастотний дрейф і постійний зсув</text>
+
+  <!-- Головна область графіка -->
+  <rect x="40" y="65" width="560" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Осі координат -->
+  <line x1="80" y1="355" x2="570" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="575" y="359" font-size="12" font-weight="bold" fill="#1a1a1a">f · τ</text>
+
+  <line x1="80" y1="355" x2="80" y2="85" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">|H_A(f)|²</text>
+
+  <!-- Позначки на осі частоти f * tau -->
+  <text x="80" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">0</text>
+  <text x="140" y="375" text-anchor="middle" font-size="12" fill="#2457d6">0.37</text>
+  <text x="240" y="375" text-anchor="middle" font-size="12" fill="#6b7280">1.0</text>
+  <text x="400" y="375" text-anchor="middle" font-size="12" fill="#6b7280">2.0</text>
+  <text x="540" y="375" text-anchor="middle" font-size="12" fill="#6b7280">3.0</text>
+
+  <!-- Крива передавальної функції (головна пелюстка та бічні) -->
+  <!-- Головна пелюстка (x=80 -> x=240, пік на x=140, y=140) -->
+  <path d="M 80 355 C 95 355, 115 140, 140 140 C 165 140, 220 355, 240 355 C 260 355, 295 315, 320 315 C 345 315, 380 355, 400 355 C 420 355, 450 338, 470 338 C 490 338, 520 355, 540 355" 
+        fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Заливка головної смуги пропускання -->
+  <path d="M 80 355 C 95 355, 115 140, 140 140 C 165 140, 220 355, 240 355 Z" 
+        fill="#2457d6" fill-opacity="0.12"/>
+
+  <!-- Позначка нуля на f=0 -->
+  <circle cx="80" cy="355" r="5" fill="#c0392b"/>
+  <rect x="90" y="270" width="135" height="50" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="157" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Нуль 2-го порядку</text>
+  <text x="157" y="306" text-anchor="middle" font-size="12" fill="#c0392b">|H_A(0)|² = 0 (f²)</text>
+
+  <!-- Позначка головного піка -->
+  <circle cx="140" cy="140" r="4" fill="#2457d6"/>
+  <rect x="150" y="95" width="165" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="232" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Головний пік смуги</text>
+  <text x="232" y="131" text-anchor="middle" font-size="12" fill="#2457d6">f_peak ≈ 0.371 / τ</text>
+
+  <!-- Права панель з поясненнями та формулою -->
+  <rect x="620" y="65" width="300" height="340" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="640" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Властивості фільтра Аллана</text>
+
+  <rect x="635" y="105" width="270" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="770" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">|H_A(f)|² = 2 · sin⁴(πfτ) / (πfτ)²</text>
+
+  <text x="640" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">1. Пригнічення низьких частот:</text>
+  <text x="640" y="190" font-size="12" fill="#27ae60">При f → 0 функція спадає як f²,</text>
+  <text x="640" y="208" font-size="12" fill="#27ae60">усуваючи розбіжність 1/f і 1/f²</text>
+
+  <text x="640" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">2. Смугова селективність:</text>
+  <text x="640" y="260" font-size="12" fill="#1a1a1a">Вирізає спектральну ділянку</text>
+  <text x="640" y="278" font-size="12" fill="#1a1a1a">довкола частоти f ≈ 0.37 / τ</text>
+
+  <text x="640" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">3. Спад високих частот:</text>
+  <text x="640" y="330" font-size="12" fill="#6b7280">Огинаюча спадає як 1/f²,</text>
+  <text x="640" y="348" font-size="12" fill="#6b7280">пригнічуючи тепловий шум</text>
+
+  <!-- Підсумковий підпис унизу -->
+  <text x="480" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">Зміна масштабу τ зміщує смугу пропускання фільтра, скануючи енергетичний спектр шуму сенсора</text>
+</svg>

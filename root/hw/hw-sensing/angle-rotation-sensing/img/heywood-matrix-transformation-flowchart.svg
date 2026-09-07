@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр матричної компенсації Хейвуда в реальному часі</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Послідовні етапи геометричної трансформації сигналів: відцентрування, ортогоналізація та масштабування</text>
+
+  <!-- Блок 0: Сирі вхідні сигнали (Зліва) -->
+  <g transform="translate(25, 90)">
+    <rect x="0" y="0" width="145" height="260" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="72" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Сирі сигнали АЦП</text>
+    
+    <rect x="15" y="45" width="115" height="35" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+    <text x="72" y="67" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_c(k), V_s(k)</text>
+
+    <!-- Міні-еліпс годографа -->
+    <g transform="translate(25, 100)">
+      <rect x="0" y="0" width="95" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <ellipse cx="55" cy="40" rx="35" ry="22" transform="rotate(25 55 40)" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+      <circle cx="55" cy="40" r="2" fill="#c0392b"/>
+      <line x1="47" y1="5" x2="47" y2="90" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+      <line x1="5" y1="47" x2="90" y2="47" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+    </g>
+
+    <text x="72" y="225" text-anchor="middle" font-size="12" fill="#c0392b">Зміщений еліпс</text>
+    <text x="72" y="245" text-anchor="middle" font-size="12" fill="#6b7280">Похибки: 1θ, 2θ</text>
+  </g>
+
+  <!-- Стрілка 0 -> 1 -->
+  <line x1="170" y1="220" x2="205" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="205,220 197,215 197,225" fill="#2457d6"/>
+
+  <!-- Блок 1: Компенсація зміщення нуля (Offset) -->
+  <g transform="translate(205, 90)">
+    <rect x="0" y="0" width="160" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="80" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Центрування</text>
+    <text x="80" y="42" text-anchor="middle" font-size="12" fill="#6b7280">Усунення 1θ</text>
+
+    <rect x="15" y="55" width="130" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="80" y="73" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">x₁ = V_c − x₀</text>
+    <text x="80" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">y₁ = V_s − y₀</text>
+
+    <!-- Міні-графік центрування -->
+    <g transform="translate(32, 110)">
+      <rect x="0" y="0" width="95" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <ellipse cx="47" cy="47" rx="35" ry="22" transform="rotate(25 47 47)" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+      <circle cx="47" cy="47" r="2" fill="#2457d6"/>
+      <line x1="47" y1="5" x2="47" y2="90" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+      <line x1="5" y1="47" x2="90" y2="47" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+    </g>
+
+    <text x="80" y="230" text-anchor="middle" font-size="12" fill="#2457d6">Центр у точці (0,0)</text>
+    <text x="80" y="248" text-anchor="middle" font-size="12" fill="#6b7280">x₀, y₀ вираховані</text>
+  </g>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="365" y1="220" x2="400" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="400,220 392,215 392,225" fill="#2457d6"/>
+
+  <!-- Блок 2: Ортогоналізація та масштабування -->
+  <g transform="translate(400, 90)">
+    <rect x="0" y="0" width="180" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="90" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Матриця Хейвуда</text>
+    <text x="90" y="42" text-anchor="middle" font-size="12" fill="#6b7280">Усунення 2θ</text>
+
+    <rect x="10" y="55" width="160" height="45" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="90" y="73" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_c_norm = x₁/cos δφ</text>
+    <text x="90" y="90" text-anchor="middle" font-size="12" fill="#1a1a1a">+ y₁·(tan δφ / k_g)</text>
+
+    <!-- Міні-графік кола -->
+    <g transform="translate(42, 110)">
+      <rect x="0" y="0" width="95" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+      <circle cx="47" cy="47" r="30" fill="none" stroke="#27ae60" stroke-width="2"/>
+      <circle cx="47" cy="47" r="2" fill="#27ae60"/>
+      <line x1="47" y1="5" x2="47" y2="90" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+      <line x1="5" y1="47" x2="90" y2="47" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2 2"/>
+    </g>
+
+    <text x="90" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Одиничне коло</text>
+    <text x="90" y="248" text-anchor="middle" font-size="12" fill="#6b7280">Кут між осями = 90°</text>
+  </g>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="580" y1="220" x2="615" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="615,220 607,215 607,225" fill="#27ae60"/>
+
+  <!-- Блок 3: Чотириквадрантний арктангенс CORDIC / atan2 -->
+  <g transform="translate(615, 90)">
+    <rect x="0" y="0" width="160" height="260" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="80" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Векторний кут</text>
+    <text x="80" y="42" text-anchor="middle" font-size="12" fill="#6b7280">atan2 / CORDIC</text>
+
+    <rect x="15" y="65" width="130" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+    <text x="80" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">θ = atan2(</text>
+    <text x="80" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_s_norm, V_c_norm</text>
+    <text x="80" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">)</text>
+
+    <rect x="15" y="145" width="130" height="95" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="80" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">• 15 ітерацій CORDIC</text>
+    <text x="80" y="188" text-anchor="middle" font-size="12" fill="#1a1a1a">• Фіксована кома Q15</text>
+    <text x="80" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">• Швидкість: O(1)</text>
+    <text x="80" y="228" text-anchor="middle" font-size="12" fill="#6b7280">• Без плавальної коми</text>
+  </g>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="775" y1="220" x2="810" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="810,220 802,215 802,225" fill="#27ae60"/>
+
+  <!-- Блок 4: Вихідний кут високої точності -->
+  <g transform="translate(810, 115)">
+    <rect x="0" y="0" width="125" height="210" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="62" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вихідний кут</text>
+    
+    <text x="62" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">θ_corr</text>
+    <text x="62" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0…360°</text>
+
+    <rect x="10" y="110" width="105" height="85" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="62" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Похибка:</text>
+    <text x="62" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">&lt; 0.005°</text>
+    <text x="62" y="172" text-anchor="middle" font-size="12" fill="#6b7280">18 кут. сек</text>
+  </g>
+
+  <!-- Нижня інформаційна плашка -->
+  <g transform="translate(25, 375)">
+    <rect x="0" y="0" width="910" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+    <text x="25" y="24" font-size="12" font-weight="bold" fill="#1a1a1a">Метрологічний ефект матричної нормалізації Хейвуда:</text>
+    <text x="25" y="46" font-size="12" fill="#1a1a1a">• Початкові похибки ексцентриситету, зсуву нуля та перекосу фаз (до ±2.5°) пригнічуються у 100–500 разів</text>
+    <text x="25" y="68" font-size="12" fill="#6b7280">• Алгоритм виконується за кілька десятків тактів процесора і легко інтегрується у контур керування двигуном FOC</text>
+  </g>
+</svg>

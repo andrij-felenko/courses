@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Мультиплікативна залежність еквівалентного шуму VREF від амплітуди</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Шум еталона відсутній при нульовому сигналі та досягає 100% на повній шкалі перетворення (FS)</text>
+
+  <!-- ================= ЛІВА ЧАСТИНА: Графік залежності ================= -->
+  <rect x="30" y="75" width="480" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Внесок шумів у сумарний шум перетворення</text>
+
+  <!-- Осі координат: Початок (80, 350), X_max = 470, Y_min = 135 -->
+  <line x1="80" y1="350" x2="470" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="80" y1="350" x2="80" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Підписи осей -->
+  <text x="470" y="372" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідний сигнал Vin</text>
+  <text x="75" y="122" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Шум на вході (мкВ RMS)</text>
+
+  <!-- 1. Власний адитивний шум АЦП: константа на рівні Y = 300 -->
+  <line x1="80" y1="300" x2="450" y2="300" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- 2. Внесок шуму VREF: лінія від (80, 350) до (450, 160) -->
+  <line x1="80" y1="350" x2="450" y2="160" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 3. Сумарний RSS шум -->
+  <path d="M 80,300 Q 230,290 320,240 T 450,145" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Позначки на осі X -->
+  <text x="80" y="368" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="175" y="368" text-anchor="middle" font-size="12" fill="#6b7280">0.25 Vref</text>
+  <text x="270" y="368" text-anchor="middle" font-size="12" fill="#6b7280">0.50 Vref</text>
+  <text x="365" y="368" text-anchor="middle" font-size="12" fill="#6b7280">0.75 Vref</text>
+  <text x="450" y="368" text-anchor="middle" font-size="12" fill="#6b7280">1.0 Vref</text>
+
+  <!-- Пояснення ліній унизу панелі -->
+  <rect x="45" y="382" width="450" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="55" y="392" width="10" height="10" fill="#27ae60"/>
+  <text x="72" y="401" font-size="12" font-weight="bold" fill="#27ae60">v_total = √(v_adc² + v_ref²) — результуючий шум</text>
+
+  <rect x="55" y="412" width="10" height="10" fill="#2457d6"/>
+  <text x="72" y="421" font-size="12" font-weight="bold" fill="#2457d6">v_n,in(Vref) = (Vin/Vref) · v_n,ref — шум еталона</text>
+
+  <rect x="55" y="432" width="10" height="10" fill="#6b7280"/>
+  <text x="72" y="441" font-size="12" font-weight="bold" fill="#6b7280">v_n,adc = const — власний шум АЦП (адитивний)</text>
+
+  <!-- ================= ПРАВА ЧАСТИНА: Математичні висновки ================= -->
+  <rect x="530" y="75" width="400" height="385" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="730" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Аналітичний висновок формули</text>
+
+  <!-- Блок формул -->
+  <rect x="545" y="120" width="370" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">Передавальна характеристика:</text>
+  <text x="560" y="164" font-size="13" fill="#2457d6">Code = (Vin / Vref) · 2^N</text>
+  <text x="560" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">Чутливість до шуму еталона:</text>
+  <text x="560" y="212" font-size="13" fill="#c0392b">dCode/dVref = - (Vin / Vref²) · 2^N</text>
+  <text x="560" y="238" font-size="13" fill="#27ae60">v_n,in(Vref) = (Vin / Vref) · v_n,ref</text>
+
+  <!-- Блок інженерних висновків -->
+  <rect x="545" y="268" width="370" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="292" font-size="13" font-weight="bold" fill="#1a1a1a">Інженерні наслідки:</text>
+  <text x="560" y="316" font-size="12" fill="#1a1a1a">• При Vin = 0 (нульовий сигнал) шум VREF = 0</text>
+  <text x="560" y="338" font-size="12" fill="#6b7280">  (тест закороченого входу не покаже шуму еталона)</text>
+  <text x="560" y="362" font-size="12" fill="#1a1a1a">• При Vin = Vref (повна шкала FS) шум VREF = 100%</text>
+  <text x="560" y="384" font-size="12" fill="#c0392b">  (шум опорної напруги повністю псує відлік)</text>
+  <text x="560" y="410" font-size="12" font-weight="bold" fill="#27ae60">• Висновок: ENOB і SNR деградують зі зростанням</text>
+  <text x="560" y="430" font-size="12" font-weight="bold" fill="#27ae60">  амплітуди вимірюваного сигналу</text>
+</svg>
