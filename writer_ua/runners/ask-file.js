@@ -46,8 +46,16 @@ const STABLE = Number(process.env.ASK_STABLE_MS) || 120 * 1000;
  * пауза між частинами.
  */
 const TAG = /<([А-ЯІЇЄҐA-Z][^<>\n/]*?)>/g;
-const closedTags = (txt) => new Set(
-  [...String(txt || "").matchAll(/<([А-ЯІЇЄҐA-Z][^<>\n]*)>[\s\S]*?<\/\1>/g)].map((m) => m[1].trim()));
+/* Закритий блок — і `<ТЕГ>…</ТЕГ>` (ім'я може бути з пробілами: «ЩО ЗЖАТИ»), і форма з
+   атрибутом `<ФАЙЛ path="…">…</ФАЙЛ>`, якою відповідач віддає код: парсер її читає, тож і
+   чекати треба саме на неї, інакше одиниця коду висить до стелі очікування. */
+const closedTags = (txt) => {
+  const s = String(txt || "");
+  const out = new Set();
+  for (const m of s.matchAll(/<([А-ЯІЇЄҐA-Z][^<>\n]*)>[\s\S]*?<\/\1>/g)) out.add(m[1].trim());
+  for (const m of s.matchAll(/<([А-ЯІЇЄҐA-Z][^<>\s]*)\s[^<>\n]*=[^<>\n]*>[\s\S]*?<\/\1>/g)) out.add(m[1].trim());
+  return out;
+};
 
 /** Теги контракту завдання — для його кроку, якщо кроків кілька. */
 function expected(prompt) {
