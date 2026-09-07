@@ -73,7 +73,10 @@ function fake(prompt, label) {
   if (need.has("ТЕКСТ")) {
     if (/крок: 2/.test(prompt)) {
       const src = prompt.slice(prompt.indexOf("<ТЕКСТ>") + 7, prompt.indexOf("</ТЕКСТ>")).trim();
-      put("ТЕКСТ", src + `\n\n![схема переходів](${file})\n*Стрілки показують, куди веде кожен символ.*`);
+      const addr = (prompt.match(/адреса: (\S+)/) || [])[1];   // лінк на нову тему — інакше фігура
+      put("ТЕКСТ", addr
+        ? src + `\n\nПро це окремо — [регулярна граматика](${addr}).`
+        : src + `\n\n![схема переходів](${file})\n*Стрілки показують, куди веде кожен символ.*`);
     } else if (/<ЦЕЙ РОЗДІЛ>/.test(prompt)) {
       const head = (prompt.match(/<ЦЕЙ РОЗДІЛ>\n\d+[^\n]*\n\n(## [^\n]*)/) || [])[1] || "## Розділ";
       const n2 = /<НАСКІЛЬКИ>/.test(prompt) ? 900 : 700;   // стиснення повертає коротше
@@ -131,11 +134,13 @@ const ctx = {
     console.log("analysis:", JSON.stringify({ score: s.analysis.score, rewrites: s.analysis.rewrites, facts: s.analysis.facts }));
     console.log("facts:", JSON.stringify(s.facts));
     console.log("figures:", JSON.stringify(s.figures));
+    console.log("links:", JSON.stringify(s.links));
     console.log("topics:", JSON.stringify(s.topics));
     console.log("assembly:", JSON.stringify(s.assembly).slice(0, 300));
     const txt = fs.readFileSync(path.join(ROOT, r.file), "utf8");
     console.log("\nфайл: слів", LOC.size(txt, "article", 2).words, "· H1:", (txt.match(/^# /gm) || []).length, "· H2:", (txt.match(/^## /gm) || []).length,
-      "· 1943:", txt.includes("1943"), "· фігура:", txt.includes("img/state-transitions.svg"), "· root:new:", txt.includes("root:new"));
+      "· 1943:", txt.includes("1943"), "· фігура:", txt.includes("img/state-transitions.svg"), "· root:new:", txt.includes("root:new"),
+      "· лінк на нову тему:", txt.includes("/regular-grammar-probe)"), "· preknowlist:", txt.includes("<preknowlist>"));
   } catch (e) {
     if (e.pause) { console.log("\n⏸ ПАУЗА, чекає:", e.waitFor.join(", "), "· у чергу:", enq.map((x) => x.id).join(", ")); return; }
     console.log("\n⛔ ВПАЛО:", e.stack);

@@ -22,7 +22,7 @@
 const fs = require("fs");
 const path = require("path");
 const O = require("./orchestrator.js");
-const { algorithm } = require("./algorithm.js");
+const { algorithm, finishBatch } = require("./algorithm.js");
 const LOC = require("./local.js");
 const P = require("./prompt.js");
 
@@ -114,6 +114,11 @@ async function main(argv) {
         ask: ask ? ask(dir) : dryAsk(dir),
         status: o.status || "recheck",
       });
+    },
+    /* Кінець батчу: кожна нова тема проти написаних вставок — запити в теці `_batch`. */
+    finish: (done, { dir }) => {
+      const d = path.join(dir, "_batch");
+      return finishBatch(done, { ask: ask ? ask(d) : dryAsk(d) });
     },
   });
 

@@ -117,7 +117,9 @@ const head = (u, extra = []) => [
   ...extra,
 ].filter(Boolean).join("\n");
 
-const knows = (u) => (u.kind === "course" ? "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ" : "ЩО ЧИТАЧ УЖЕ ЗНАЄ");
+/* «Може» — навмисно: письменник не має спиратись на передумови як на певне (автор, 07.09). */
+const MAYBE_KNOWS = "ЩО ЧИТАЧ, МОЖЕ, ЗНАЄ";
+const knows = (u) => (u.kind === "course" ? "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ" : MAYBE_KNOWS);
 
 /* ── запити ────────────────────────────────────────────────────────────────── */
 
@@ -151,7 +153,9 @@ const P = {
    */
   karkas(u, { goal, passed, known, inserts, detailed }) {
     const basic = u.type === "basic";
-    const files = [...(basic ? [] : ["karkas"]), "prose", ...kindFiles(u), ...(u.type === "proj" ? ["code-lang"] : [])];
+    /* Передумови — усім типам, і базовій: окремим файлом, бо каркас базова не бере. */
+    const proto = [...(basic ? [] : ["karkas"]), "preknow"];
+    const files = [...proto, "prose", ...kindFiles(u), ...(u.type === "proj" ? ["code-lang"] : [])];
     return render([
       { tag: "ЗАВДАННЯ", body: head(u) },
       { tag: "ЦІЛЬ", body: goal },
@@ -160,7 +164,7 @@ const P = {
       { tag: "ВСТАВКИ ЦІЄЇ ТЕМИ", body: inserts },
       { tag: "ДЕТАЛЬНА СТАТТЯ", body: basic ? detailed : "" },
       { tag: "ЩО ЗРОБИТИ", body: order(u, files, "karkas") },
-      { tag: "ПОВЕРНИ", body: answer(u, basic ? [] : ["karkas"], "karkas") },
+      { tag: "ПОВЕРНИ", body: answer(u, proto, "karkas") },
     ]);
   },
 
@@ -171,7 +175,7 @@ const P = {
       { tag: "ЦІЛЬ", body: goal },
       { tag: "ГЛИБИНА", body: depth },
       { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
-      { tag: "ЩО ЧИТАЧ УЖЕ ЗНАЄ", body: preknow },
+      { tag: MAYBE_KNOWS, body: preknow },
       { tag: "МОЇ РОЗДІЛИ", body: sections },
       { tag: "ТЕЗИ ПОПЕРЕДНІХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
@@ -189,7 +193,7 @@ const P = {
       { tag: "ЦІЛЬ", body: goal },
       { tag: "ГЛИБИНА", body: depth },
       { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
-      { tag: "ЩО ЧИТАЧ УЖЕ ЗНАЄ", body: preknow },
+      { tag: MAYBE_KNOWS, body: preknow },
       { tag: "ЦЕЙ РОЗДІЛ", body: `${sec}\n\n${text}` },
       { tag: "ТЕЗИ ІНШИХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ДОДАТИ", body: add },
@@ -259,6 +263,38 @@ const P = {
       { tag: "ФІГУРА", body: what },
       { tag: "ЩО ЗРОБИТИ", body: ask(["mode-image", "figures"]) },
       { tag: "ПОВЕРНИ", body: ret(["mode-image"]) },
+    ]);
+  },
+
+  /** Етап 6 · ЛІНК НА НОВУ ТЕМУ, крок 1: у який розділ. Дзеркало вставки зображення. */
+  linkWhere(u, { text, topic }) {
+    return render([
+      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 1"]) },
+      { tag: "ТЕКСТ", body: text },
+      { tag: "ТЕМА", body: topic },
+      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-link"]) },
+      { tag: "ПОВЕРНИ", body: ret(["mode-link"]) },
+    ]);
+  },
+
+  /** Етап 6 · ЛІНК НА НОВУ ТЕМУ, крок 2: поставити. */
+  linkPlace(u, { text, section: sec, addr, topic }) {
+    return render([
+      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 2", `розділ: ${sec}`, `адреса: ${addr}`]) },
+      { tag: "ТЕКСТ", body: text },
+      { tag: "ТЕМА", body: topic },
+      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-link"]) },
+      { tag: "ПОВЕРНИ", body: ret(["mode-link"]) },
+    ]);
+  },
+
+  /** Кінець батчу · НОВА ТЕМА ЧИ ВСТАВКА: кожна тема, що заводиться, проти написаних вставок. */
+  topicsInsert({ inserts, topic }) {
+    return render([
+      { tag: "НАПИСАНІ ВСТАВКИ", body: inserts },
+      { tag: "НОВА ТЕМА", body: topic },
+      { tag: "ЩО ЗРОБИТИ", body: ask(["topics-insert"]) },
+      { tag: "ПОВЕРНИ", body: ret(["topics-insert"]) },
     ]);
   },
 

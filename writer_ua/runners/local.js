@@ -205,12 +205,22 @@ function topicHead(book, slug, n = 8) {
   return t ? `(ще не написана) ${t.title}` : "";
 }
 
-/** Шматок нашого тексту довкола лінка на ще не заведену тему. */
-function linkContext(text, slug, span = 500) {
+/** Шматок тексту довкола адреси лінка — будь-якої; немає — пустота. */
+function aroundLink(text, addr, span = 500) {
   const s = String(text || "");
-  const i = s.indexOf(`root:new/${slug}`);
+  const i = s.indexOf(String(addr));
   if (i < 0) return "";
   return s.slice(Math.max(0, i - span), i + span).replace(/\s+/g, " ").trim();
+}
+/** Шматок нашого тексту довкола лінка на ще не заведену тему. */
+const linkContext = (text, slug, span = 500) => aroundLink(text, `root:new/${slug}`, span);
+
+/** Початок будь-якого написаного файла — перші речення без H1 і блоку передумов. */
+function fileHead(rel, n = 8) {
+  let s = "";
+  try { s = fs.readFileSync(path.join(MF.ROOT, rel), "utf8"); } catch { return ""; }
+  const body = s.replace(/^#[^\n]*\n/, "").replace(/<preknowlist>[\s\S]*?<\/preknowlist>/, "").trim();
+  return body.split(/(?<=[.!?])\s+/).slice(0, n).join(" ").replace(/\s+/g, " ").trim();
 }
 
 /** Лінки на майбутні теми → справжні адреси; чого в мапі нема — лишається як є. */
@@ -497,12 +507,18 @@ function figNames(figs) {
   });
 }
 
-/** Тексти файлів коду однієї мови — у письмо проєкту йде сам код, не шляхи. */
+/**
+ * Тексти файлів коду однієї мови — у письмо проєкту йде сам код, не шляхи. Рядки
+ * пронумеровано: директива може підключати шматок файла межами рядків, і межі беруться
+ * рівно за цією нумерацією.
+ */
 function codeText(u, lang) {
   return codeFiles(u, lang).map((rel) => {
     let body = "";
     try { body = fs.readFileSync(path.join(u.dir, rel), "utf8"); } catch { return null; }
-    return `файл: ${rel}\n${body.trimEnd()}`;
+    const lines = body.trimEnd().split("\n");
+    const w = String(lines.length).length;
+    return `файл: ${rel}\n${lines.map((l, i) => `${String(i + 1).padStart(w)}│ ${l}`).join("\n")}`;
   }).filter(Boolean).join("\n\n");
 }
 
@@ -557,7 +573,7 @@ function titleRe(title) {
 
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, topicHead,
-  linkContext, resolveLinks, splitSections, joinSections, preknow, isDuplicate,
+  linkContext, aroundLink, fileHead, resolveLinks, splitSections, joinSections, preknow, isDuplicate,
   size, BANDS, assemble, writeArticle, writeCode, codeFiles, codeText, linkable,
   fixFormulas, decamp, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

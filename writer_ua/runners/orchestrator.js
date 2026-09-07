@@ -84,6 +84,7 @@ const STAGES = [
   "analysis",   //  5 оцінки 0–10; переписування з нуля; речення з фактами
   "facts",      //  5 веб-перевірка фактів і формул: заміни
   "figures",    //  6 фігури: що поставлено, що домальовано
+  "links",      //  6 лінки на нові теми, яким письмо не знайшло місця: поставлено, не вдалось
   "topics",     //  8 зведення нових тем: операції й адреси лінків
   "assembly",   //  9 механічна збірка: файл і локальні сита
   "ops",        // 10 що піде в маніфест
@@ -252,6 +253,8 @@ class Queue {
  * @param {number}   [o.callTimeout] скільки чекати ОДНУ відповідь агента
  * @param {number}   [o.limitPause]  контрольна пауза перед вироком «стіна»
  * @param {Function} [o.onEvent]     сповіщення для людини
+ * @param {Function} [o.finish]      async (done, {dir}) → {notes} — хук перед маніфестом, коли
+ *                                   всі одиниці завершено; може правити `state.set("ops", …)`
  */
 async function run(o) {
   const dry = !!o.dry;
@@ -430,6 +433,17 @@ async function run(o) {
   const aborted = q.wall;
   if (aborted) say({ ev: "wall", pending: q.pending.length });
 
+  /* ── кінець батчу: хук перед маніфестом — коли все написано і вставки вже є ──
+     Оркестратор і тут не судить: що саме звірити, знає алгоритм; тут лише момент, коли
+     всі завершені, і право поправити операції до запису. Стіна — хука нема, як і маніфесту. */
+  let finish = null;
+  if (!aborted && typeof o.finish === "function") {
+    try {
+      finish = await o.finish(done, { dir });
+      if (finish && Array.isArray(finish.notes)) notes.push(...finish.notes);
+    } catch (e) { notes.push(`кінець батчу впав — ${msgOf(e)}`); }
+  }
+
   /* ── маніфест: один раз, зі станів ── */
   const byBook = new Map(), orphans = [];
   let routed = 0;
@@ -466,6 +480,7 @@ async function run(o) {
     for (const x of (a.svg || {}).issues || []) rows.push(`фігура — ${x}`);
     for (const x of f.issues || []) rows.push(`геометрія фігури — ${x}`);
     for (const x of f.unplaced || []) rows.push(`фігура без місця — ${x}`);
+    for (const x of (d.links || {}).unplaced || []) rows.push(`лінк на нову тему без місця — ${x}`);
     const sz = d.size || {};
     for (const x of sz.cantCut || []) rows.push(`не ріжеться — ${x}`);
     if (sz.stillShort) rows.push(`лишилась коротшою за норму: ${sz.words} слів при нормі ${sz.need}`);
@@ -480,7 +495,7 @@ async function run(o) {
   const report = {
     id, dir, logs: dir, checks, done: done.length, failed: failed.length, skipped: skipped.length,
     restored: restored.added.length, routed, aborted, pending: q.pending.length,
-    refused: q.refused, orphans, notes, errors: failed, books: {},
+    refused: q.refused, orphans, notes, errors: failed, books: {}, finish,
     /* Лишились на паузі — ті, кого вони чекали, не завершились. Стан на диску є;
        той самий хеш підніме їх, щойно з'явиться те, чого бракує. */
     paused: waiting.map((w) => ({ unit: w.unit.id, for: w.for })),

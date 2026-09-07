@@ -101,6 +101,15 @@ const planOf = (k, sec) => {
 const thesesText = (parts, except) => parts.flatMap((p) => p.theses || [])
   .filter((t) => except == null || t.section !== except)
   .map((t) => `${t.section == null ? "" : t.section + " | "}${t.text}`).join("\n");
+/* Перша група тез не має — і їй сказано прямо, чому: читач ще нічого не знає (автор, 07.09). */
+const NOTHING_YET = "нічого — це початок статті: читач ще нічого не знає";
+
+/** Усі теми, які ця одиниця назвала новими: етап 2, письмо, винесене стисненням. Без повторів. */
+function namedTopics(st, parts, ctx) {
+  const seen = new Set();
+  return [...(st.newTopics || []), ...parts.flatMap((p) => p.newTopics || []), ...((ctx.get("size") || {}).splitOff || [])]
+    .filter((t) => t && t.slug && !seen.has(t.slug) && seen.add(t.slug));
+}
 
 /** Прийняти нову версію розділу лише коли вона не з'їла написане. */
 const keeps = (before, after) => words(after) >= words(before) * KEEP_SHARE;
@@ -280,7 +289,8 @@ async function algorithm(unit, ctx, o = {}) {
       level, sections: secs, depth: b["ГЛИБИНА"] || "",
       /* Групи мають бути; не дав каркас — ділимо самі, кількістю за рівнем. */
       groups: groups.length ? groups : groupsFor(level, secs),
-      preknow: basic ? [] : R.preknow(b["ПЕРЕДУМОВИ"] || ""),
+      /* Передумови — усім типам, і базовій (автор, 07.09). */
+      preknow: R.preknow(b["ПЕРЕДУМОВИ"] || ""),
       /* Базова бере фігури з детальної — готові файли; малювати їй нічого. */
       figs: basic ? rawFigs.map((f) => ({ ...f, file: f.what.replace(/^.*?(img\/)/, "img/"), fromDetailed: true }))
         : LOC.figNames(rawFigs),
@@ -328,7 +338,7 @@ async function algorithm(unit, ctx, o = {}) {
         const res = await ctx.call(`письмо ${g.join(",")}`, () => ask(P.write(u, {
           ...common(),
           sections: mine.map((s) => `${s.n} | важливість: ${s.importance} | ${s.text}`).join("\n"),
-          theses: thesesText(written),
+          theses: written.length ? thesesText(written) : NOTHING_YET,
           integrate: integrateList(u, st.inserts, allFigs(k), used, k.code),
         }), `письмо ${g.join(",")}`));
         const d = need(res, ["ТЕКСТ"], `письмо ${g.join(",")}`);
@@ -480,11 +490,28 @@ async function algorithm(unit, ctx, o = {}) {
     });
   }
 
+  /* ── 6 · ЛІНКИ НА НОВІ ТЕМИ · названі, а лінка в тексті нема — як фігури без місця ── */
+  if (!ctx.get("links")) {
+    const placed = [], unplaced = [];
+    for (const t of namedTopics(st, parts, ctx)) {
+      const addr = `root:new/${t.slug}`;
+      if (assemble(parts).includes(addr)) continue;
+      const topic = [t.title, t.about].filter(Boolean).join(" — ");
+      const r1 = await ctx.call(`лінк куди ${t.slug}`, () => ask(P.linkWhere(u, { text: assemble(parts), topic }), `лінк куди ${t.slug}`));
+      const sec = numOr(R.blocks(r1)["РОЗДІЛ"], null);
+      const part = parts.find((p) => sec != null && p.group.includes(sec)) || parts[0];
+      const r2 = await ctx.call(`лінк постав ${t.slug}`, () => ask(P.linkPlace(u, { text: part.text, section: sec == null ? part.group[0] : sec, addr, topic }), `лінк постав ${t.slug}`));
+      const txt = String(R.blocks(r2)["ТЕКСТ"] || "").trim();
+      if (txt.includes(addr) && keeps(part.text, txt)) { part.text = txt; placed.push(t.slug); }
+      else unplaced.push(t.slug);
+    }
+    ctx.set("sections", parts);
+    ctx.set("links", { placed, unplaced });
+  }
+
   /* ── 8 · НОВІ ТЕМИ · зведення: куди (за правилами розміщення), чи є, чи розвести ── */
   if (!ctx.get("topics")) {
-    const seen = new Set();
-    const named = [...(st.newTopics || []), ...parts.flatMap((p) => p.newTopics || []), ...((ctx.get("size") || {}).splitOff || [])]
-      .filter((t) => t && t.slug && !seen.has(t.slug) && seen.add(t.slug));
+    const named = namedTopics(st, parts, ctx);
     const ops = [], links = {}, notes = [];
     const shelfText = named.length ? LOC.shelf() : "";
     for (const t of named) {
@@ -592,6 +619,72 @@ async function algorithm(unit, ctx, o = {}) {
   return { file: ctx.get("assembly").file, ops: ctx.get("ops") };
 }
 
+/* ── кінець батчу ──────────────────────────────────────────────────────────── */
+
+const escRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Перед заведенням нових тем — чи не є котрась із них уже написаною вставкою цього батчу.
+ * Етап 8 цього бачити не може: на момент письма статті вставка ще може бути не написана
+ * (автор, 07.09). Дубль — тему не заводимо, а лінк у написаному переводимо на вставку;
+ * група чи розділ, заведені лише під цю тему, без неї не заводяться.
+ *
+ * `done` — завершені одиниці оркестратора: {unit, state}; стан має get/set по етапах.
+ */
+async function finishBatch(done, o = {}) {
+  const ask = o.ask;
+  if (typeof ask !== "function") throw new Error("немає ask() — нічим питати агента");
+  const notes = [], merged = [];
+  const fileOf = (d) => { const a = d.state && d.state.get("assembly"); return a && a.file ? a.file : ""; };
+  const inserts = done
+    .filter((d) => d.unit && d.unit.insert && fileOf(d))
+    .map((d) => ({ unit: d.unit, file: fileOf(d), addr: `root:${d.unit.book}/${d.unit.slug}/${d.unit.file}`, head: LOC.fileHead(fileOf(d)) }));
+  if (!inserts.length) return { checked: 0, merged, notes };
+  const list = inserts.map((i) => `${i.addr} — вставка теми «${i.unit.title}»: ${i.head}`).join("\n");
+  let checked = 0;
+  for (const { unit, state } of done) {
+    if (!state) continue;
+    const ops = state.get("ops") || [];
+    const topics = ops.filter((op) => op && op.op === "topic");
+    if (!topics.length) continue;
+    let keep = ops;
+    for (const op of topics) {
+      const addr = `root:${op.book || unit.book}/${op.slug}`;
+      let text = "";
+      try { text = fs.readFileSync(path.join(MF.ROOT, fileOf({ state })), "utf8"); } catch { }
+      const where = LOC.aroundLink(text, addr);
+      checked++;
+      const res = await ask(P.topicsInsert({
+        inserts: list,
+        topic: [op.title, where ? `де стаття на неї посилається: ${where}` : ""].filter(Boolean).join("\n"),
+      }), `тема чи вставка ${op.slug}`);
+      const hit = String(R.blocks(res)["ВСТАВКА"] || "").trim();
+      const ins = R.empty(hit) ? null : inserts.find((i) => hit.includes(i.addr) || hit.includes(i.unit.file));
+      if (!ins) continue;
+      keep = keep.filter((x) => x !== op);
+      merged.push({ unit: unit.id, topic: op.slug, insert: ins.addr });
+      notes.push(`${unit.id}: нова тема «${op.slug}» — те саме, що вставка ${ins.addr}; тему не заводимо, лінк переведено`);
+      /* Лінк — у всіх написаних файлах батчу, де він стоїть. */
+      const re = new RegExp(`\\(${escRe(addr)}(?=[)#])`, "g");
+      for (const d of done) {
+        const f = fileOf(d);
+        if (!f) continue;
+        const p = path.join(MF.ROOT, f);
+        let s = ""; try { s = fs.readFileSync(p, "utf8"); } catch { continue; }
+        if (!re.test(s)) continue;
+        re.lastIndex = 0;
+        fs.writeFileSync(p, s.replace(re, `(${ins.addr}`), "utf8");
+      }
+    }
+    if (keep !== ops) {
+      const used = (field, slug) => keep.some((x) => x.op === "topic" && x[field] === slug);
+      keep = keep.filter((x) => !((x.op === "group" && !used("group", x.slug)) || (x.op === "chapter" && !used("chapter", x.slug))));
+      state.set("ops", keep);
+    }
+  }
+  return { checked, merged, notes };
+}
+
 /* ── фігура як одиниця ─────────────────────────────────────────────────────── */
 
 const wholeSvg = (s) => /<svg[\s>]/i.test(String(s || "")) && /<\/svg>/i.test(String(s || ""));
@@ -664,6 +757,6 @@ async function codeAlgorithm(u, ctx, o) {
 }
 
 module.exports = {
-  algorithm, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan, offline, groupsFor,
+  algorithm, finishBatch, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan, offline, groupsFor,
   MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, FLOOR, CEIL_X, GROUPS,
 };

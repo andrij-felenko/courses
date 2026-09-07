@@ -40,15 +40,34 @@ function repeated(text, tag) {
   return out;
 }
 
-/** `<ФАЙЛ>шлях :: що робить\nвміст</ФАЙЛ>` → [{path, about, body}] */
+/**
+ * `<ФАЙЛ>шлях :: що робить\nвміст</ФАЙЛ>` → [{path, about, body}].
+ *
+ * ⛔ ШЛЯХ В АТРИБУТІ — ТЕЖ ШЛЯХ. Контракт просить його першим рядком, а агент відповідає
+ * й `<ФАЙЛ path="quadrature_decoder.h">`: на живому — сім файлів із семи в C і чотири з
+ * чотирьох у C++, і всі губились: обидві одиниці коду падали «немає жодного блоку <ФАЙЛ>»,
+ * а проєкт лишався на паузі назавжди. Це не здогад — шлях названо явно, лише в іншому
+ * місці; здогадом було б брати ім'я з коментаря у вмісті, і цього тут немає.
+ */
 function files(text) {
-  return repeated(text, "ФАЙЛ").map((b) => {
+  const out = [];
+  const re = /<ФАЙЛ(?:\s+[^<>]*?(?:path|file|шлях|файл)\s*=\s*["']([^"']+)["'][^<>]*)?>([\s\S]*?)<\/ФАЙЛ>/g;
+  let m;
+  while ((m = re.exec(String(text || "")))) {
+    const attr = m[1] ? m[1].trim() : "";
+    const b = m[2].trim();
     const nl = b.indexOf("\n");
     const head = nl < 0 ? b : b.slice(0, nl);
-    const m = /^(\S+)\s*(?:::\s*(.*))?$/.exec(head.trim());
-    if (!m) return null;
-    return { path: m[1], about: (m[2] || "").trim(), body: nl < 0 ? "" : b.slice(nl + 1).replace(/^\n+/, "") };
-  }).filter(Boolean);
+    const h = /^(\S+)\s*(?:::\s*(.*))?$/.exec(head.trim());
+    if (attr) {
+      /* Перший рядок повторює шлях з атрибута — це шапка, не код; інакше все — вміст. */
+      const cap = h && h[1] === attr;
+      out.push({ path: attr, about: cap ? (h[2] || "").trim() : "", body: cap ? (nl < 0 ? "" : b.slice(nl + 1).replace(/^\n+/, "")) : b });
+    } else if (h) {
+      out.push({ path: h[1], about: (h[2] || "").trim(), body: nl < 0 ? "" : b.slice(nl + 1).replace(/^\n+/, "") });
+    }
+  }
+  return out;
 }
 
 /**
