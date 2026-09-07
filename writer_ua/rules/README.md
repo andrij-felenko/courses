@@ -14,7 +14,7 @@
 
 ## Три шари адресації
 
-    усім, хто пише прозу        prose · language · links · formulas · figures · code-in-text
+    усім, хто пише прозу        prose · language · links · formulas · figures · code-in-text · code-lang
     невпорядкованим             atom            — усі види, крім курсу
     своєму виду                 kind-<вид>      — є файл, беремо його; нема — kind-book
     вставці                     insert          — коли одиниця є вставкою
@@ -23,8 +23,8 @@
 
 ## На тип — три файли, по етапу
 
-    <тип>-goals.md     етап 1 · що читач має винести; шкала рівня цього типу
-    <тип>-karkas.md    етап 3 · як будуються розділи цього типу
+    <тип>-goals.md     етап 1 · що читач має винести
+    <тип>-karkas.md    етап 3 · шкала рівня цього типу; як будуються його розділи
     <тип>-rules.md     етап 4 · як пишеться цей тип
 
 Типи: article, basic, hist, comp, math, proj, api, code. Фігура — один файл `fig-rules.md`:
@@ -36,7 +36,7 @@
 
     goal.md             етап 1 · протокол цілі: з чого формулюється, що повернути
     inserts.md          етап 2 · вставки (ім'я файла + до 10 речень), нові теми, чи бажана базова
-    karkas.md           етап 3 · протокол каркаса: рівень, розділи, глибина, групи, фігури
+    karkas.md           етап 3 · протокол каркаса: рівень, розділи, глибина, групи, передумови, фігури
     mode-write.md       етап 4 · протокол письма: порція розділів, список на інтеграцію,
                                   шкала 5→1, що повернути
     theses.md           етап 4 · тези на розділ — лише детальній і базовій
@@ -54,21 +54,23 @@
 
 ## Що з чого збирається
 
-Кожен рядок — один запит. Праворуч — файли; дані (текст, ціль, тези, списки) йдуть окремими
-блоками і сюди не входять. Файл виду — `atom` + `kind-<вид>`, курсу — лише `kind-course`.
+Кожен рядок — один запит. Праворуч — файли; дані (текст, ціль, тези, списки, сам код)
+йдуть окремими блоками і сюди не входять. «Вид» — `atom` + `kind-<вид>` (курсу — лише
+`kind-course`); `insert` — лише тим, хто пише файл вставки.
 
-    ціль · 1              goal · <тип>-goals · вид
-    структура · 2         inserts                                       лише детальна
-    каркас · 3            karkas · <тип>-karkas · prose · вид           basic і code — без karkas
+    ціль · 1              goal · <тип>-goals · вид                   код — лише goal · code-goals
+    структура · 2         inserts · вид                              лише детальна
+    каркас · 3            karkas · <тип>-karkas · prose · вид        basic — без karkas; proj — ще code-lang
     письмо · 4            mode-write · scale · [theses] · prose · language · links · formulas ·
                           figures · code-in-text · code-lang · вид · [insert] · <тип>-rules
-    дописування · 4       mode-extend · те саме, що письмо
-    стиснення · 4         mode-compress · prose · language · formulas · <тип>-rules
+                                                                     hist — без code-in-text і code-lang
+    дописування · 4       mode-extend · scale · те саме, що письмо
+    стиснення · 4         mode-compress · prose · language · formulas · вид · <тип>-rules
     вставка зображення    mode-image · figures
-    аналіз · 5            mode-analysis · prose · <тип>-goals
+    аналіз · 5            mode-analysis · prose
     факти · 5             facts-check
     фігура · 6            fig-rules
-    код (одиниця)         code-goals → code-karkas + code-lang → code-rules + code-lang
+    код (одиниця)         code-karkas + code-lang → code-rules + code-lang
     нові теми · 8         topics-category → topics-dedupe → topics-rename
 
 ## Секції у файлі

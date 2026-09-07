@@ -98,8 +98,11 @@ const walkMd = (d, out = []) => {
  * примітивами» всі шість влучань виявилися про синхронізаційні та бітові примітиви.
  * Тому людський шлях стоїть ПЕРШИМ рядком — з нього доречність видно одразу.
  */
-function mentions(u, re, { limit = 6, roots = ["root"] } = {}) {
+function mentions(u, re, { limit = Infinity, roots = ["root"] } = {}) {
+  /* Весь список, повними абзацами: обрізане посеред речення нічого не пояснює, а
+     пропущена згадка — це пропущений контекст, якого агент потім не матиме. */
   const out = [];
+  const flat = (s) => String(s || "").replace(/\s+/g, " ").trim();
   for (const r of roots) {
     for (const f of walkMd(path.join(MF.ROOT, r))) {
       if (f.replace(/\\/g, "/").includes(`/${u.slug}/`)) continue;
@@ -108,10 +111,9 @@ function mentions(u, re, { limit = 6, roots = ["root"] } = {}) {
       const rel = path.relative(MF.ROOT, f).split(path.sep).join("/");
       const paras = txt.split(/\n\s*\n/);
       for (let i = 0; i < paras.length && out.length < limit; i++) {
-        if (!re.test(paras[i]) || paras[i].length < 120) continue;
-        const cut = (s, n) => String(s || "").replace(/\s+/g, " ").slice(0, n).trim();
-        out.push(`— ${humanPath(rel)}\n  ${rel}\n[абзац до] ${cut(paras[i - 1], 280)}\n` +
-          `[згадка] ${cut(paras[i], 380)}\n[абзац після] ${cut(paras[i + 1], 280)}`);
+        if (!re.test(paras[i])) continue;
+        out.push(`— ${humanPath(rel)}\n  ${rel}\n[абзац до] ${flat(paras[i - 1])}\n` +
+          `[згадка] ${flat(paras[i])}\n[абзац після] ${flat(paras[i + 1])}`);
       }
       if (out.length >= limit) break;
     }
@@ -482,12 +484,26 @@ function codeFiles(u, lang) {
  * задумами не буває.
  */
 function figNames(figs) {
+  /* Ім'я — за тим, що зображено: каркас чи письмо дають слуг фігури, і він стає іменем
+     файла. Без імені — за номером розділу. Ім'я, що вже є (фігура детальної в базовій),
+     не чіпаємо. Однакові імена в одній темі дістають суфікс. */
   const seen = new Map();
   return (figs || []).map((f) => {
-    const n = (seen.get(f.section) || 0) + 1;
-    seen.set(f.section, n);
-    return { ...f, file: `img/fig-${f.section}${n > 1 ? "-" + n : ""}.svg` };
+    if (f.file) return f;
+    const base = f.name ? f.name : `fig-${f.section}`;
+    const n = (seen.get(base) || 0) + 1;
+    seen.set(base, n);
+    return { ...f, file: `img/${base}${n > 1 ? "-" + n : ""}.svg` };
   });
+}
+
+/** Тексти файлів коду однієї мови — у письмо проєкту йде сам код, не шляхи. */
+function codeText(u, lang) {
+  return codeFiles(u, lang).map((rel) => {
+    let body = "";
+    try { body = fs.readFileSync(path.join(u.dir, rel), "utf8"); } catch { return null; }
+    return `файл: ${rel}\n${body.trimEnd()}`;
+  }).filter(Boolean).join("\n\n");
 }
 
 /** Фігура на диск: `<тема>/img/<ім'я>.svg`. Ім'я вже вирішене — тут лише запис. */
@@ -542,6 +558,6 @@ function titleRe(title) {
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, topicHead,
   linkContext, resolveLinks, splitSections, joinSections, preknow, isDuplicate,
-  size, BANDS, assemble, writeArticle, writeCode, codeFiles, linkable,
+  size, BANDS, assemble, writeArticle, writeCode, codeFiles, codeText, linkable,
   fixFormulas, decamp, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

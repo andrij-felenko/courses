@@ -189,9 +189,17 @@ function preknow(s) {
  */
 function figures(str) {
   return lines(str).map((l) => {
-    const m = /^(?:[^\d|]*?\s*)?(\d+)\s*\|\s*([\s\S]+)$/i.exec(l);
-    return m ? { section: Number(m[1]), what: m[2].trim() } : null;
+    /* Друга колонка — ім'я латиницею за тим, що зображено; без неї — лише опис. */
+    const m = /^(?:[^\d|]*?\s*)?(\d+)\s*\|\s*(?:([a-z0-9][a-z0-9-]*)\s*\|\s*)?([\s\S]+)$/i.exec(l);
+    return m ? { section: Number(m[1]), name: (m[2] || "").toLowerCase(), what: m[3].trim() } : null;
   }).filter(Boolean);
+}
+
+/** `слуг | Назва | scope одним реченням` → {slug, title, scope}. Нова група чи розділ. */
+function place(s) {
+  const p = String(s || "").split("|").map((x) => x.trim());
+  if (p.length < 2 || !/^[a-z0-9][a-z0-9-]*$/i.test(p[0]) || !p[1]) return null;
+  return { slug: p[0].toLowerCase(), title: p[1], scope: p.slice(2).join(" | ") };
 }
 
 /**
@@ -258,5 +266,5 @@ function defects(s) {
 
 module.exports = {
   blocks, repeated, files, want, lines, empty, yes, sections, groups, inserts, code, figures,
-  preknow, topics, additions, defects, bySection, scores, replacements, verdict, names,
+  preknow, topics, additions, defects, bySection, scores, replacements, verdict, names, place,
 };

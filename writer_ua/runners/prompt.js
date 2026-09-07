@@ -56,10 +56,11 @@ function bookCanon(u) {
  * Файли виду й форми: невпорядкованим — `atom`; своєму виду — `kind-<вид>`, а хто свого
  * не має — `kind-book`; вставці — ще `insert`. Курс — єдиний послідовний вид, `atom` не бере.
  */
-const kindFiles = (u) => {
+const kindFiles = (u, { writing = false } = {}) => {
   const own = `kind-${u.kind}`;
   const mine = fs.existsSync(path.join(RULES, `${own}.md`)) ? own : "kind-book";
-  return [...(u.kind === "course" ? [] : ["atom"]), mine, ...(u.insert ? ["insert"] : [])];
+  /* `insert` — про те, як пишеться файл вставки; йде лише тим, хто його пише. */
+  return [...(u.kind === "course" ? [] : ["atom"]), mine, ...(writing && u.insert ? ["insert"] : [])];
 };
 
 /** Один наказ: канон книги → спільні файли → файл типу. */
@@ -74,7 +75,9 @@ const answer = (u, names, typeKind) => [
 /* Що бере кожен, хто пише прозу: протокол письма, тези (лише статті), спільні файли, вид. */
 const PROSE = ["prose", "language", "links", "formulas", "figures", "code-in-text", "code-lang"];
 const hasTheses = (u) => u.type === "article" || u.type === "basic";
-const writers = (u) => [...(hasTheses(u) ? ["theses"] : []), ...PROSE, ...kindFiles(u)];
+/* Історії код не потрібен — файли про код їй не йдуть. */
+const proseOf = (u) => (u.type === "hist" ? PROSE.filter((n) => !/^code/.test(n)) : PROSE);
+const writers = (u) => [...(hasTheses(u) ? ["theses"] : []), ...proseOf(u), ...kindFiles(u, { writing: true })];
 
 /* ── блоки ─────────────────────────────────────────────────────────────────── */
 
@@ -120,37 +123,40 @@ const knows = (u) => (u.kind === "course" ? "ЩО ЧИТАЧ УЖЕ ПРОЙШО
 
 const P = {
   /** Етап 1 · ЦІЛЬ. */
-  goal(u, { mentions, passed, linkable, about }) {
+  goal(u, { mentions, passed, about }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u) },
       { tag: "ЩО ЦЕ ЗА ВСТАВКА", body: about },
       { tag: "ЗГАДКИ В КОРПУСІ", body: mentions },
       { tag: knows(u), body: u.kind === "course" ? passed : "" },
-      { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: u.type === "article" ? linkable : "" },
-      { tag: "ЩО ЗРОБИТИ", body: order(u, ["goal", ...kindFiles(u)], "goals") },
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["goal", ...(u.type === "code" ? [] : kindFiles(u))], "goals") },
       { tag: "ПОВЕРНИ", body: answer(u, ["goal"], "goals") },
     ]);
   },
 
   /** Етап 2 · СТРУКТУРА — лише детальній. */
-  structure(u, { goal, shelf }) {
+  structure(u, { goal, books }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u) },
       { tag: "ЦІЛЬ", body: goal },
-      { tag: "КНИГИ, ГРУПИ Й РОЗДІЛИ КОРПУСУ", body: shelf },
-      { tag: "ЩО ЗРОБИТИ", body: order(u, ["inserts"]) },
+      { tag: "КНИГИ КОРПУСУ", body: books },
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["inserts", ...kindFiles(u)]) },
       { tag: "ПОВЕРНИ", body: answer(u, ["inserts"]) },
     ]);
   },
 
-  /** Етап 3 · КАРКАС: рівень, розділи, глибина, групи, фігури. Базова — з детальної. */
-  karkas(u, { goal, passed, inserts, detailed }) {
+  /**
+   * Етап 3 · КАРКАС: рівень, розділи, глибина, групи, фігури — і передумови, обрані з того,
+   * що є поруч. Базова — з детальної.
+   */
+  karkas(u, { goal, passed, known, inserts, detailed }) {
     const basic = u.type === "basic";
     const files = [...(basic ? [] : ["karkas"]), "prose", ...kindFiles(u), ...(u.type === "proj" ? ["code-lang"] : [])];
     return render([
       { tag: "ЗАВДАННЯ", body: head(u) },
       { tag: "ЦІЛЬ", body: goal },
-      { tag: knows(u), body: u.type === "article" ? passed : "" },
+      { tag: knows(u), body: u.kind === "course" ? passed : "" },
+      { tag: "ЩО Є ПОРУЧ", body: known },
       { tag: "ВСТАВКИ ЦІЄЇ ТЕМИ", body: inserts },
       { tag: "ДЕТАЛЬНА СТАТТЯ", body: basic ? detailed : "" },
       { tag: "ЩО ЗРОБИТИ", body: order(u, files, "karkas") },
@@ -158,16 +164,18 @@ const P = {
     ]);
   },
 
-  /** Етап 4 · ПИСЬМО — порція розділів. */
-  write(u, { goal, level, depth, sections, theses, integrate, passed, linkable }) {
+  /** Етап 4 · ПИСЬМО — порція розділів. Проєкт дістає сам код. */
+  write(u, { goal, level, depth, sections, theses, integrate, preknow, passed, linkable, code }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u, [`рівень: ${level || "—"}`]) },
       { tag: "ЦІЛЬ", body: goal },
       { tag: "ГЛИБИНА", body: depth },
-      { tag: knows(u), body: hasTheses(u) ? passed : "" },
+      { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
+      { tag: "ЩО ЧИТАЧ УЖЕ ЗНАЄ", body: preknow },
       { tag: "МОЇ РОЗДІЛИ", body: sections },
       { tag: "ТЕЗИ ПОПЕРЕДНІХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
+      { tag: "КОД", body: code },
       { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: linkable },
       { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-write", "scale", ...writers(u)], "rules") },
       { tag: "ПОВЕРНИ", body: answer(u, ["mode-write", ...(hasTheses(u) ? ["theses"] : [])]) },
@@ -175,16 +183,19 @@ const P = {
   },
 
   /** Етап 4 · ДОПИСУВАННЯ — один розділ, названим матеріалом, мірою з конвеєра. */
-  extend(u, { goal, level, depth, section: sec, text, theses, add, floor, ceiling, integrate, linkable }) {
+  extend(u, { goal, level, depth, section: sec, text, theses, add, floor, ceiling, integrate, preknow, passed, linkable, code }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u, [`рівень: ${level || "—"}`]) },
       { tag: "ЦІЛЬ", body: goal },
       { tag: "ГЛИБИНА", body: depth },
+      { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
+      { tag: "ЩО ЧИТАЧ УЖЕ ЗНАЄ", body: preknow },
       { tag: "ЦЕЙ РОЗДІЛ", body: `${sec}\n\n${text}` },
       { tag: "ТЕЗИ ІНШИХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ДОДАТИ", body: add },
       { tag: "МІРА", body: `нового тексту — не менше ${floor} слів і не більше ${ceiling}` },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
+      { tag: "КОД", body: code },
       { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: linkable },
       { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-extend", "scale", ...writers(u)], "rules") },
       { tag: "ПОВЕРНИ", body: answer(u, ["mode-write", ...(hasTheses(u) ? ["theses"] : [])]) },
@@ -214,7 +225,7 @@ const P = {
       { tag: "ТЕЗИ", body: theses },
       { tag: "ГРУПИ РОЗДІЛІВ", body: groups },
       { tag: "ЧОГО БРАКУЄ", body: force ? "Тексту бракує багато — назви місця, де його дописати." : "" },
-      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-analysis", "prose"], "goals") },
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-analysis", "prose"]) },
       { tag: "ПОВЕРНИ", body: answer(u, ["mode-analysis"]) },
     ]);
   },
@@ -300,7 +311,7 @@ const P = {
     ]);
   },
 
-  /** Етап 8 · НОВА ТЕМА, запит 1: куди завести. */
+  /** Етап 8 · НОВА ТЕМА, запит 1: куди завести — за правилами розміщення. */
   topicsCategory({ shelf, topic }) {
     return render([
       { tag: "КНИГИ, ГРУПИ Й РОЗДІЛИ КОРПУСУ", body: shelf },
@@ -310,10 +321,11 @@ const P = {
     ]);
   },
 
-  /** Етап 8 · НОВА ТЕМА, запит 2: є вже чи нова. */
-  topicsDedupe({ existing, topic }) {
+  /** Етап 8 · НОВА ТЕМА, запит 2: є вже чи нова. Схожі слуги знайдено локально. */
+  topicsDedupe({ existing, topic, hints }) {
     return render([
       { tag: "ТЕМИ ЦІЄЇ КАТЕГОРІЇ", body: existing },
+      { tag: "СХОЖІ СЛУГИ В КНИЗІ", body: hints },
       { tag: "ТЕМА", body: topic },
       { tag: "ЩО ЗРОБИТИ", body: ask(["topics-dedupe"]) },
       { tag: "ПОВЕРНИ", body: ret(["topics-dedupe"]) },

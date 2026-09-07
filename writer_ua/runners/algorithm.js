@@ -10,9 +10,9 @@
      ctx.enqueue(одиниці)      докласти в чергу: вставки, код, фігури, базову
      ctx.isDone(id)            чи завершена інша одиниця
 
-   Локальне робиться локально: підготовка, розмір, рахунок дописування, збірка, сита —
-   `local.js`, нуль токенів. Агента кличемо лише там, де потрібне судження. Жодного
-   речення для агента тут немає — усі накази у файлах `rules/`, збирає їх `prompt.js`.
+   Локальне робиться локально: підготовка, розмір, рахунок дописування, офлайн-сита,
+   збірка — `local.js`, нуль токенів. Агента кличемо лише там, де потрібне судження.
+   Жодного речення для агента тут немає — усі накази у файлах `rules/`, збирає `prompt.js`.
    ========================================================================== */
 "use strict";
 const fs = require("fs");
@@ -21,6 +21,8 @@ const P = require("./prompt.js");
 const R = require("./parse.js");
 const LOC = require("./local.js");
 const MF = require("../lib/manifest.js");
+const DUP = require("../lib/dupes.js");
+const FRM = require("../checkers/formulas.js");
 
 const MAX_EXTEND = 5;        // кіл дописування — стільки разів намагаємось добити рівень
 const MAX_COMPRESS = 5;      // кіл стиснення, дзеркально
@@ -32,6 +34,8 @@ const CEIL_X = 4;            // стеля дописування — вчетв
 const FORCE_SHORT = 1 / 3;   // бракує понад третину — аналіз мусить назвати, де дописати
 const BASIC_OVER = 1.5;      // детальна довша за стелю базової в півтора раза → базова обов'язкова
 const KEEP_SHARE = 0.9;      // відповідь, що з'їла більше десятої частини прози, не приймається
+const GROUPS = { 1: 2, 2: 3, 3: 5 };   // груп письма за рівнем, коли каркас їх не дав; 5 на рівні 3 — автор
+const IMP = { "висока": 3, "середня": 2, "низька": 1 };
 
 /** Обов'язкові блоки: немає — це помилка кроку, а не привід вгадувати. */
 function need(res, tags, where) {
@@ -48,12 +52,12 @@ const numOr = (s, d) => (Number.isFinite(num(s)) ? num(s) : d);
 /* ── дописування: скільки і в який розділ ─────────────────────────────────── */
 
 /**
- * План дописування за рівнями важливості: розділи з найвищим наявним рівнем беруть усе,
- * і лише коли їхньої стелі на дефіцит не вистачає, додається наступний рівень. Кожен
- * обраний дістає щонайменше свою підлогу, решта дефіциту ділиться пропорційно, стеля —
- * вчетверо більша за підлогу.
+ * План дописування: розділи в порядку рівня важливості (5→1), а між рівними — за
+ * важливістю розділу з каркаса; беремо стільки, скільки треба, щоб підлоги покрили
+ * дефіцит, — інших не чіпаємо. Кожен обраний дістає щонайменше свою підлогу, решта
+ * дефіциту ділиться пропорційно, стеля — вчетверо більша за підлогу.
  */
-function plan(deficit, parts) {
+function plan(deficit, parts, k) {
   const bySec = new Map();
   for (const p of parts) for (const a of p.add || []) {
     const sec = a.section == null ? p.group[0] : a.section;
@@ -62,21 +66,16 @@ function plan(deficit, parts) {
     if (!cur || a.level > cur.level) bySec.set(sec, { section: sec, level: a.level, items: [a.what], part: p });
     else if (a.level === cur.level) cur.items.push(a.what);
   }
-  const secs = [...bySec.values()].sort((a, b) => b.level - a.level);
+  const imp = (sec) => IMP[String(((k.sections || []).find((s) => s.n === sec) || {}).importance || "").toLowerCase()] || 0;
+  const secs = [...bySec.values()].sort((a, b) => (b.level - a.level) || (imp(b.section) - imp(a.section)));
   if (!secs.length) return [];
   const chosen = [];
-  let cap = 0, lvl = null;
-  for (const s of secs) {
-    if (lvl !== null && s.level < lvl && cap >= deficit) break;
-    lvl = s.level;
-    chosen.push(s);
-    cap += FLOOR[s.level] * CEIL_X;
-  }
-  const sumF = chosen.reduce((a, s) => a + FLOOR[s.level], 0);
-  const extra = Math.max(0, deficit - sumF);
+  let sum = 0;
+  for (const s of secs) { chosen.push(s); sum += FLOOR[s.level]; if (sum >= deficit) break; }
+  const extra = Math.max(0, deficit - sum);
   return chosen.map((s) => {
     const f = FLOOR[s.level];
-    return { ...s, floor: Math.min(f * CEIL_X, Math.round(f + extra * (f / sumF))), ceiling: f * CEIL_X };
+    return { ...s, floor: Math.min(f * CEIL_X, Math.round(f + extra * (f / sum))), ceiling: f * CEIL_X };
   });
 }
 
@@ -117,12 +116,54 @@ function refresh(part, sec, b) {
   part.newFigs = [...(part.newFigs || []), ...R.figures(b["НОВІ SVG"] || "")];
 }
 
+/**
+ * Офлайн-сита етапу 5, що повертають на дописування: розділ плану без тексту чи майже
+ * порожній, формули в LaTeX, непарні роздільники. Кожна знахідка — пункт рівня 5 для свого
+ * розділу; дописування його й закриває.
+ */
+function offline(parts) {
+  const items = [];
+  for (const p of parts) {
+    const secs = LOC.splitSections(p.text);
+    if (secs.length !== p.group.length) {
+      items.push({ part: p, section: p.group[0], what: `у тексті розділів ${secs.length}, а в плані ${p.group.length}: кожен розділ плану — окремий H2 із власним текстом` });
+      continue;
+    }
+    secs.forEach((s, i) => {
+      const sec = p.group[i];
+      if (words(s.body) < 40) items.push({ part: p, section: sec, what: "розділ майже порожній — розкрий те, що для нього заплановано" });
+      const t = [s.head, s.body].join("\n");
+      const ban = FRM.banned(t).length, del = FRM.delimiters(t).length;
+      if (ban) items.push({ part: p, section: sec, what: `формули записано LaTeX (${ban}): перепиши їх за правилом формул — інлайн-код або код-блок` });
+      if (del) items.push({ part: p, section: sec, what: `непарні роздільники формул (${del}): перепиши формули за правилом формул` });
+    });
+  }
+  return items;
+}
+
+/** Групи письма, коли каркас їх не дав: рівномірно, кількістю за рівнем. */
+function groupsFor(level, secs) {
+  const n = secs.length;
+  const g = Math.max(1, Math.min(n, GROUPS[level] || GROUPS[2]));
+  const out = [];
+  for (let i = 0; i < g; i++) out.push(secs.slice(Math.floor(i * n / g), Math.floor((i + 1) * n / g)).map((s) => s.n));
+  return out.filter((x) => x.length);
+}
+
 /* ── фігури ────────────────────────────────────────────────────────────────── */
 
 const figId = (u, f) => `${u.book}/${u.slug}:${f.file.replace(/^img\//, "").replace(/\.svg$/, "")}`;
 
-/** Усі фігури теми з іменами: спершу каркасні, тоді названі письмом — імена сталі. */
-const allFigs = (k, parts) => LOC.figNames([...(k.figs || []), ...(parts || []).flatMap((p) => p.newFigs || [])]);
+/** Усі фігури теми: каркасні плюс названі письмом — і при переписуванні вони лишаються. */
+const allFigs = (k) => [...(k.figs || []), ...(k.extra || [])];
+
+/** Додати фігури, названі письмом, до теми — з іменами, без повторів. */
+function addFigs(k, named) {
+  const have = new Set(allFigs(k).map((f) => f.file));
+  const fresh = LOC.figNames([...allFigs(k), ...named]).slice(allFigs(k).length).filter((f) => !have.has(f.file));
+  k.extra = [...(k.extra || []), ...fresh];
+  return fresh;
+}
 
 function figUnitsOf(u, figs, goal, level) {
   return (figs || []).filter((f) => !f.fromDetailed).map((f) => ({
@@ -151,7 +192,7 @@ function codeUnitsOf(u, code, level) {
   }));
 }
 
-/** Що письмо має інтегрувати: вставки з адресами, фігури без місця, файли коду. */
+/** Що письмо має інтегрувати: вставки з адресами, фігури без місця, директиви на код. */
 function integrateList(u, inserts, figs, used, code) {
   const rows = [];
   for (const x of inserts || [])
@@ -164,6 +205,10 @@ function integrateList(u, inserts, figs, used, code) {
   }
   return rows.join("\n\n");
 }
+
+/** Сам код проєкту — текстом, усіма мовами: письмо на ньому базується. */
+const codeText = (u, code) => [...new Set((code || []).map((c) => String(c.lang || "").toLowerCase()))]
+  .map((lang) => LOC.codeText(u, lang)).filter(Boolean).join("\n\n");
 
 const readDetailed = (u) => {
   try { return fs.readFileSync(path.join(u.dir, `${u.slug}-d.md`), "utf8"); } catch { return ""; }
@@ -198,17 +243,15 @@ async function algorithm(unit, ctx, o = {}) {
   /* ── 1 · ЦІЛЬ · агент ──────────────────────────────────────────────────── */
   if (!ctx.get("goal")) {
     const res = await ctx.call("ціль", () => ask(P.goal(u, {
-      mentions: prep.mentions, passed, linkable: LOC.linkable(u),
-      about: u.about || (basic ? detailed : ""),
+      mentions: prep.mentions, passed, about: u.about || (basic ? detailed : ""),
     }), "ціль"));
-    const d = need(res, ["ЦІЛЬ"], "ціль");
-    ctx.set("goal", { text: d["ЦІЛЬ"], preknow: article ? R.preknow(R.blocks(res)["ПЕРЕДУМОВИ"] || "") : [] });
+    ctx.set("goal", { text: need(res, ["ЦІЛЬ"], "ціль")["ЦІЛЬ"] });
   }
   const goal = ctx.get("goal");
 
   /* ── 2 · СТРУКТУРА · агент — лише детальна ─────────────────────────────── */
   if (article && !ctx.get("structure")) {
-    const res = await ctx.call("структура", () => ask(P.structure(u, { goal: goal.text, shelf: LOC.shelf() }), "структура"));
+    const res = await ctx.call("структура", () => ask(P.structure(u, { goal: goal.text, books: LOC.books() }), "структура"));
     const b = R.blocks(res);
     const st = { inserts: R.inserts(b["ВСТАВКИ"] || ""), newTopics: R.topics(b["НОВІ ТЕМИ"] || ""), basic: R.yes(b["БАЗОВА"]) };
     ctx.set("structure", st);
@@ -220,24 +263,28 @@ async function algorithm(unit, ctx, o = {}) {
   }
   const st = ctx.get("structure") || { inserts: [], newTopics: [], basic: false };
 
-  /* ── 3 · КАРКАС · агент ────────────────────────────────────────────────── */
+  /* ── 3 · КАРКАС · агент: рівень, розділи, глибина, групи, передумови, фігури ── */
   if (!ctx.get("karkas")) {
     const res = await ctx.call("каркас", () => ask(P.karkas(u, {
-      goal: goal.text, passed, detailed,
+      goal: goal.text, passed, detailed, known: LOC.linkable(u),
       inserts: st.inserts.map((x) => `${x.insert}-${x.name}: ${x.about}`).join("\n"),
     }), "каркас"));
     const b = R.blocks(res);
     const secs = R.sections(b["РОЗДІЛИ"] || b["КРОКИ"] || b["ПОДІЇ"] || "");
     if (!secs.length) throw new Error("каркас: не повернув жодного розділу");
     const lv = num(b["РІВЕНЬ"]);
+    const level = lv >= 1 && lv <= 3 ? lv : null;
     const rawFigs = R.figures(b["ФІГУРИ"] || "");
+    const groups = R.groups(b["ГРУПИ"] || "").filter((g) => g.every((n) => secs.some((s) => s.n === n)));
     const k = {
-      level: lv >= 1 && lv <= 3 ? lv : null,
-      sections: secs, depth: b["ГЛИБИНА"] || "",
-      groups: R.groups(b["ГРУПИ"] || "").length ? R.groups(b["ГРУПИ"]) : [secs.map((s) => s.n)],
+      level, sections: secs, depth: b["ГЛИБИНА"] || "",
+      /* Групи мають бути; не дав каркас — ділимо самі, кількістю за рівнем. */
+      groups: groups.length ? groups : groupsFor(level, secs),
+      preknow: basic ? [] : R.preknow(b["ПЕРЕДУМОВИ"] || ""),
       /* Базова бере фігури з детальної — готові файли; малювати їй нічого. */
       figs: basic ? rawFigs.map((f) => ({ ...f, file: f.what.replace(/^.*?(img\/)/, "img/"), fromDetailed: true }))
         : LOC.figNames(rawFigs),
+      extra: [],
       code: u.type === "proj" ? R.code(b["КОД"] || "") : [],
     };
     ctx.set("karkas", k);
@@ -247,6 +294,7 @@ async function algorithm(unit, ctx, o = {}) {
   }
   const k = ctx.get("karkas");
   const codeUnits = codeUnitsOf(u, k.code, k.level);
+  const preknowText = (k.preknow || []).map((x) => `${x.title} — ${x.addr}${x.why ? " — " + x.why : ""}`).join("\n");
 
   /* ⏸ Проєкт пояснює код, якого ще нема, — тож спить, доки код не напишуть. */
   if (u.type === "proj" && !ctx.get("sections")) {
@@ -255,7 +303,18 @@ async function algorithm(unit, ctx, o = {}) {
       throw Object.assign(new Error(`чекає на код: ${waitFor.join(", ")}`), { pause: true, waitFor });
   }
 
-  const common = () => ({ goal: goal.text, level: k.level, depth: k.depth, linkable: LOC.linkable(u) });
+  /* Спільне для кожного письма: ціль, рівень, глибина, передумови, адреси (з майбутніми
+     темами етапу 2 — лінк ставиться вже, етап 8 його виправить), сам код проєкту. */
+  const common = () => ({
+    goal: goal.text, level: k.level, depth: k.depth, preknow: preknowText, passed,
+    linkable: [LOC.linkable(u), ...(st.newTopics || []).map((t) => `${t.title} — root:new/${t.slug}`)].filter(Boolean).join("\n"),
+    code: u.type === "proj" ? codeText(u, k.code) : "",
+  });
+  const usedFigs = (parts) => new Set(allFigs(k).filter((f) => assemble(parts).includes(f.file)).map((f) => f.file));
+  const nameNew = (parts) => {
+    const fresh = addFigs(k, parts.flatMap((p) => p.newFigs || []));
+    if (fresh.length) { ctx.set("karkas", k); ctx.enqueue(figUnitsOf(u, fresh, goal, k.level)); }
+  };
   let parts;
 
   /* ── 4–5 · ПИСЬМО → РОЗМІР → АНАЛІЗ, по колу переписування ────────────── */
@@ -269,44 +328,50 @@ async function algorithm(unit, ctx, o = {}) {
         const res = await ctx.call(`письмо ${g.join(",")}`, () => ask(P.write(u, {
           ...common(),
           sections: mine.map((s) => `${s.n} | важливість: ${s.importance} | ${s.text}`).join("\n"),
-          theses: thesesText(written), passed,
-          integrate: integrateList(u, st.inserts, k.figs, used, k.code),
+          theses: thesesText(written),
+          integrate: integrateList(u, st.inserts, allFigs(k), used, k.code),
         }), `письмо ${g.join(",")}`));
         const d = need(res, ["ТЕКСТ"], `письмо ${g.join(",")}`);
         const b = R.blocks(res);
-        for (const f of k.figs) if (d["ТЕКСТ"].includes(f.file)) used.add(f.file);
+        for (const f of allFigs(k)) if (d["ТЕКСТ"].includes(f.file)) used.add(f.file);
         const part = { group: g, text: d["ТЕКСТ"], theses: [], add: [], squeeze: [], newTopics: [], newFigs: [] };
         refresh(part, null, b);
         written.push(part);
       }
       ctx.set("sections", written);
-      /* Фігури, названі письмом, — теж у чергу, тим самим ходом. */
-      const extra = allFigs(k, written).slice(k.figs.length);
-      if (extra.length) ctx.enqueue(figUnitsOf(u, extra, goal, k.level));
+      nameNew(written);
     }
     parts = ctx.get("sections");
 
-    /* ── 5 · РОЗМІР · локально → дописування / стиснення ───────────────── */
+    /* ── 5 · РОЗМІР І ОФЛАЙН-СИТА · локально → дописування / стиснення ─── */
     if (!ctx.get("size")) {
       let s = LOC.size(assemble(parts), u.type, k.level);
-      let rounds = 0, forced = false;
-      while (s.words < s.need && rounds < MAX_EXTEND) {
-        const deficit = s.need - s.words;
-        let todo = plan(deficit, parts);
+      let rounds = 0, forced = false, sieve = 0;
+      const pending = () => {
+        const items = offline(parts);
+        for (const it of items) {
+          const have = (it.part.add || []).some((a) => a.what === it.what);
+          if (!have) it.part.add = [...(it.part.add || []), { section: it.section, level: 5, what: it.what }];
+        }
+        return items.length;
+      };
+      while ((s.words < s.need || (sieve = pending()) > 0) && rounds < MAX_EXTEND) {
+        const deficit = Math.max(0, s.need - s.words);
+        let todo = plan(deficit, parts, k);
         /* Бракує понад третину або нема названого — аналіз мусить показати місця. */
-        if (!todo.length || (!forced && deficit / s.need > FORCE_SHORT)) {
+        if ((!todo.length && deficit > 0) || (!forced && s.need && deficit / s.need > FORCE_SHORT)) {
           forced = true;
           const res = await ctx.call(`де дописати ${rounds + 1}`, () => ask(P.analysis(u, {
-            ...common(), text: assemble(parts), theses: thesesText(parts),
+            goal: goal.text, level: k.level, text: assemble(parts), theses: thesesText(parts),
             groups: k.groups.map((g) => g.join(", ")).join("\n"), force: true,
           }), `де дописати ${rounds + 1}`));
           for (const w of R.bySection(R.blocks(res)["ДЕ ДОПИСАТИ"] || "")) {
             const p = parts.find((x) => x.group.includes(w.section)) || parts[0];
             p.add = [...(p.add || []), { section: w.section == null ? p.group[0] : w.section, level: 5, what: w.text }];
           }
-          todo = plan(deficit, parts);
-          if (!todo.length) break;
+          todo = plan(deficit, parts, k);
         }
+        if (!todo.length) break;
         for (const t of todo) {
           const ref = sectionOf(t.part, t.section);
           const before = sectionText(ref);
@@ -314,13 +379,14 @@ async function algorithm(unit, ctx, o = {}) {
             ...common(), section: planOf(k, t.section), text: before,
             theses: thesesText(parts, t.section), add: t.items.map((x) => `${t.section} | ${t.level} | ${x}`).join("\n"),
             floor: t.floor, ceiling: t.ceiling,
-            integrate: integrateList(u, st.inserts, allFigs(k, parts), new Set(allFigs(k, parts).filter((f) => assemble(parts).includes(f.file)).map((f) => f.file)), k.code),
+            integrate: integrateList(u, st.inserts, allFigs(k), usedFigs(parts), k.code),
           }), `дописування ${t.section}`));
           const d = need(res, ["ТЕКСТ"], "дописування");
           if (!keeps(before, d["ТЕКСТ"])) continue;   // з'їло написане — лишаємо як було
           putSection(t.part, ref, d["ТЕКСТ"]);
           refresh(t.part, t.section, R.blocks(res));
         }
+        nameNew(parts);
         rounds++;
         s = LOC.size(assemble(parts), u.type, k.level);
       }
@@ -335,7 +401,7 @@ async function algorithm(unit, ctx, o = {}) {
         for (const q of fat) {
           const ref = sectionOf(q.part, q.section);
           const res = await ctx.call(`стиснення ${q.section}`, () => ask(P.compress(u, {
-            ...common(), section: planOf(k, q.section), text: sectionText(ref),
+            goal: goal.text, level: k.level, section: planOf(k, q.section), text: sectionText(ref),
             theses: thesesText(parts, q.section), squeeze: q.what, by,
           }), `стиснення ${q.section}`));
           const d = need(res, ["ТЕКСТ"], "стиснення");
@@ -350,29 +416,28 @@ async function algorithm(unit, ctx, o = {}) {
         s = LOC.size(assemble(parts), u.type, k.level);
       }
       ctx.set("sections", parts);
-      ctx.set("size", { ...s, rounds, squeezed, forced, stillShort: s.words < s.need, stillOver: s.over, cantCut, splitOff });
-      const extra = allFigs(k, parts).slice(k.figs.length).filter((f) => !ctx.isDone(figId(u, f)));
-      if (extra.length) ctx.enqueue(figUnitsOf(u, extra, goal, k.level));
+      ctx.set("size", { ...s, rounds, squeezed, forced, sieve: offline(parts).length, stillShort: s.words < s.need, stillOver: s.over, cantCut, splitOff });
     }
 
     /* ── 5 · АНАЛІЗ · агент: оцінки; шість і нижче — з нуля, до трьох разів ── */
     const an = ctx.get("analysis") || { rewrites: 0, history: [], done: false };
     if (an.done) break;
     const res = await ctx.call(`аналіз ${an.rewrites + 1}`, () => ask(P.analysis(u, {
-      ...common(), text: assemble(parts), theses: thesesText(parts),
+      goal: goal.text, level: k.level, text: assemble(parts), theses: thesesText(parts),
       groups: k.groups.map((g) => g.join(", ")).join("\n"), force: false,
     }), `аналіз ${an.rewrites + 1}`));
-    const b = R.blocks(res);
-    const score = numOr(b["ОЦІНКА"], NaN);
-    const groups = R.scores(b["ОЦІНКИ"] || "");
-    const facts = [...R.lines(b["ІСТОРІЯ"] || ""), ...R.lines(b["ФОРМУЛИ"] || "")].filter((x) => !R.empty(x));
-    const history = [...an.history, Number.isFinite(score) ? score : null];
-    const pass = !Number.isFinite(score) || score >= PASS_SCORE;
-    if (pass || an.rewrites >= MAX_REWRITE) {
-      ctx.set("analysis", { done: true, score, groups, facts, rewrites: an.rewrites, history, forced: !pass });
+    const b = need(res, ["ОЦІНКА"], "аналіз");
+    const all = R.blocks(res);
+    const score = num(b["ОЦІНКА"]);
+    if (!Number.isFinite(score)) throw new Error("аналіз: оцінка не число");
+    const groups = R.scores(all["ОЦІНКИ"] || "");
+    const facts = [...R.lines(all["ІСТОРІЯ"] || ""), ...R.lines(all["ФОРМУЛИ"] || "")].filter((x) => !R.empty(x));
+    const history = [...an.history, score];
+    if (score >= PASS_SCORE || an.rewrites >= MAX_REWRITE) {
+      ctx.set("analysis", { done: true, score, groups, facts, rewrites: an.rewrites, history, forced: score < PASS_SCORE });
       break;
     }
-    /* Забудь усе, що писав: етап 4 із самого початку. */
+    /* Забудь усе, що писав: етап 4 із самого початку. Фігури лишаються — вони до теми. */
     ctx.set("analysis", { done: false, rewrites: an.rewrites + 1, history });
     ctx.set("sections", null);
     ctx.set("size", null);
@@ -396,7 +461,7 @@ async function algorithm(unit, ctx, o = {}) {
 
   /* ── 6 · ФІГУРИ · поставити ті, що лишились без місця ──────────────────── */
   if (!ctx.get("figures")) {
-    const figs = allFigs(k, parts);
+    const figs = allFigs(k);
     const placed = [], unplaced = [];
     for (const f of figs) {
       if (assemble(parts).includes(f.file)) continue;
@@ -415,7 +480,7 @@ async function algorithm(unit, ctx, o = {}) {
     });
   }
 
-  /* ── 8 · НОВІ ТЕМИ · зведення: куди, чи є, чи розвести назви ──────────── */
+  /* ── 8 · НОВІ ТЕМИ · зведення: куди (за правилами розміщення), чи є, чи розвести ── */
   if (!ctx.get("topics")) {
     const seen = new Set();
     const named = [...(st.newTopics || []), ...parts.flatMap((p) => p.newTopics || []), ...((ctx.get("size") || {}).splitOff || [])]
@@ -429,27 +494,51 @@ async function algorithm(unit, ctx, o = {}) {
       let book = String(b1["КНИГА"] || "").trim().toLowerCase();
       let group = String(b1["ГРУПА"] || "").trim().toLowerCase();
       let chapter = String(b1["РОЗДІЛ"] || "").trim().toLowerCase();
-      const bk = MF.books().get(book) ? MF.loadBook(MF.bookDirOf(book)) : null;
-      if (!bk || !bk.groups.has(group)) {
-        notes.push(`${t.slug}: категорія «${book}/${group}» не з переліку — покладено поруч із темою`);
+      const newGroup = R.place(b1["НОВА ГРУПА"]), newChapter = R.place(b1["НОВИЙ РОЗДІЛ"]);
+      let bk = MF.books().get(book) ? MF.loadBook(MF.bookDirOf(book)) : null;
+      if (!bk) {
+        /* Книгу заводить лише автор — тема лягає поруч із нашою, і це видно у звіті. */
+        notes.push(`${t.slug}: книга «${book}» не з переліку — покладено поруч із темою${b1["ЧОМУ"] ? ` (чому: ${b1["ЧОМУ"]})` : ""}`);
         book = u.book; group = u.group; chapter = u.chapter;
+        bk = MF.loadBook(MF.bookDirOf(book));
       }
-      /* Розділ теж лише з переліку: чужий слуг завів би в маніфесті новий розділ. */
-      const chapters = ((MF.loadBook(MF.bookDirOf(book)).groups.get(group) || { data: {} }).data.chapters || []).map((c) => c.slug);
-      if (!chapters.includes(chapter)) {
-        const fallback = group === u.group ? u.chapter : chapters[0];
-        if (fallback) { notes.push(`${t.slug}: розділ «${chapter}» не з переліку — покладено в «${fallback}»`); chapter = fallback; }
+      /* Групу й розділ — можна завести самому, з назвою і тим, що сюди лягає. */
+      if (!bk.groups.has(group)) {
+        if (newGroup && newGroup.slug === group) {
+          ops.push({ op: "group", book, slug: group, title: newGroup.title, scope: newGroup.scope });
+          const ch = newChapter && newChapter.slug === chapter ? newChapter : { slug: group, title: newGroup.title };
+          ops.push({ op: "chapter", book, group, slug: ch.slug, title: ch.title });
+          chapter = ch.slug;
+          notes.push(`${t.slug}: нова група «${group}» — ${newGroup.title}`);
+        } else {
+          notes.push(`${t.slug}: група «${group}» не з переліку й не заведена — покладено поруч із темою`);
+          group = u.group; chapter = u.chapter;
+        }
+      } else {
+        const chapters = ((bk.groups.get(group) || { data: {} }).data.chapters || []).map((c) => c.slug);
+        if (!chapters.includes(chapter)) {
+          if (newChapter && newChapter.slug === chapter) {
+            ops.push({ op: "chapter", book, group, slug: chapter, title: newChapter.title });
+            notes.push(`${t.slug}: новий розділ «${chapter}» — ${newChapter.title}`);
+          } else {
+            const fallback = group === u.group ? u.chapter : chapters[0];
+            if (fallback) { notes.push(`${t.slug}: розділ «${chapter}» не з переліку — покладено в «${fallback}»`); chapter = fallback; }
+          }
+        }
       }
-      const existing = LOC.chapterTopics(book, group, chapter);
+      const existing = LOC.chapterTopics(book, group, ops.some((x) => x.op === "chapter" && x.slug === chapter) ? null : chapter);
+      const hints = DUP.hints(t.slug, book);
       const r2 = await ctx.call(`тема чи є ${t.slug}`, () => ask(P.topicsDedupe({
-        existing: existing.map((x) => `${x.slug} — ${x.title}`).join("\n") || "(розділ порожній)", topic: desc,
+        existing: existing.map((x) => `${x.slug} — ${x.title}`).join("\n") || "(розділ порожній)",
+        hints: hints.join("\n"), topic: desc,
       }), `тема чи є ${t.slug}`));
       const v = R.verdict(R.blocks(r2)["ВЕРДИКТ"]);
       const fresh = () => {
         ops.push({ op: "topic", book, slug: t.slug, title: t.title, group, chapter, basic: "empty", detailed: "pending" });
         links[t.slug] = `root:${book}/${t.slug}`;
       };
-      if (v.kind === "є" && existing.some((x) => x.slug === v.slug)) {
+      const known = v.kind === "є" && (existing.some((x) => x.slug === v.slug) || LOC.chapterTopics(book, group).some((x) => x.slug === v.slug));
+      if (known) {
         const r3 = await ctx.call(`тема розвести ${t.slug}`, () => ask(P.topicsRename({
           existing: `${v.slug}: ${LOC.topicHead(book, v.slug)}`,
           ours: LOC.linkContext(assemble(parts), t.slug) || desc,
@@ -458,8 +547,12 @@ async function algorithm(unit, ctx, o = {}) {
         const b3 = R.blocks(r3);
         if (R.verdict(b3["ВЕРДИКТ"]).kind === "різні") {
           for (const n of R.names(b3["НАЗВИ"] || "")) {
-            if (n.slug === v.slug) ops.push({ op: "retitle", book, slug: v.slug, title: n.title });
             if (n.slug === t.slug) t.title = n.title;
+            /* Чинну назву написаної теми не міняють; незаписану — можна. */
+            if (n.slug === v.slug) {
+              if (LOC.isDuplicate(book, v.slug).written) notes.push(`${v.slug}: назву написаної теми не чіпаємо; запропоновано «${n.title}»`);
+              else ops.push({ op: "retitle", book, slug: v.slug, title: n.title });
+            }
           }
           fresh();
         } else { links[t.slug] = `root:${book}/${v.slug}`; notes.push(`${t.slug} — те саме, що ${v.slug}; лінк переведено`); }
@@ -472,7 +565,7 @@ async function algorithm(unit, ctx, o = {}) {
 
   /* ── 9 · МЕХАНІЧНА ЗБІРКА · локально ───────────────────────────────────── */
   if (!ctx.get("assembly")) {
-    const file = LOC.writeArticle(u, assemble(parts), goal.preknow);
+    const file = LOC.writeArticle(u, assemble(parts), k.preknow);
     const abs = path.join(MF.ROOT, file);
     const frm = LOC.fixFormulas(abs);
     const moved = LOC.decamp(abs);
@@ -571,6 +664,6 @@ async function codeAlgorithm(u, ctx, o) {
 }
 
 module.exports = {
-  algorithm, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan,
-  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, FLOOR, CEIL_X,
+  algorithm, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan, offline, groupsFor,
+  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, FLOOR, CEIL_X, GROUPS,
 };

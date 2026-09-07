@@ -10,6 +10,7 @@
 
    Ужиток:  node writer_ua/checkers/dryrun.js
             SCORE=5  — перша оцінка аналізу низька: переписування з нуля
+            NEWGROUP=1 — етап 8 заводить нову групу за відповіддю
             SHORT=1  — письмо крихітне: бракує понад третину, аналіз називає місця
             OVER=1   — письмо величезне: стиснення названим
             TYPE=hist|proj|basic — вставка, проєкт (пауза на код), базова
@@ -40,7 +41,7 @@ const TYPE = process.env.TYPE || "article";
 const u = TYPE === "article" ? { ...LOC.unitOf(book, t.slug), dir: OUT }
   : TYPE === "basic" ? { ...LOC.unitOf(book, t.slug, "basic", "базова"), dir: OUT }
   : { ...LOC.unitOf(book, t.slug, TYPE, "", `${TYPE}-probe`), dir: OUT, about: "Опис вставки з етапу 2: про що вона." };
-if (TYPE === "basic") fs.writeFileSync(path.join(OUT, `${t.slug}-d.md`), `# ${t.title}\n\n## Розділ 1\n\nтекст детальної.\n\n![с](img/fig-2.svg)\n`, "utf8");
+if (TYPE === "basic") fs.writeFileSync(path.join(OUT, `${t.slug}-d.md`), `# ${t.title}\n\n## Розділ 1\n\nтекст детальної.\n\n![с](img/state-transitions.svg)\n`, "utf8");
 console.log("одиниця:", u.id, "→", OUT);
 
 const words = (n, seed) => Array.from({ length: n }, (_, i) => ["механізм", "стан", "перехід", "автомат", "читач", "тому", "звідси", "правило", "приклад", "межа"][(i * 7 + seed) % 10]).join(" ");
@@ -59,7 +60,7 @@ function fake(prompt, label) {
   const out = [];
   const put = (tag, body) => { if (need.has(tag)) out.push(`<${tag}>\n${body}\n</${tag}>`); };
   put("ЦІЛЬ", "Читач має зрозуміти, як автомат читає слово і чому станів вистачає. " + words(30, 1) + ".");
-  put("ПЕРЕДУМОВИ", "");
+  put("ПЕРЕДУМОВИ", "Скінченні автомати — root:computability/finite-automata — що таке стан і перехід");
   put("ВСТАВКИ", "hist-automata-birth | Як народилась ідея автомата: яка задача, хто, чому саме так. " + words(20, 2) + ".");
   put("НОВІ ТЕМИ", "regular-grammar-probe | Регулярна граматика | computability / computation-models | Що таке регулярна граматика і як вона породжує мову.");
   put("БАЗОВА", "ні");
@@ -67,7 +68,7 @@ function fake(prompt, label) {
   put("РОЗДІЛИ", "1 | важливість: висока | Що ламається без автомата: " + words(20, 3) + ".\n2 | важливість: середня | Як автомат читає слово: " + words(20, 4) + ".\n3 | важливість: низька | Де межа: " + words(20, 5) + ".");
   put("ГЛИБИНА", "До детермінованих автоматів; недетерміновані лише називаємо.");
   put("ГРУПИ", "1, 2\n3");
-  put("ФІГУРИ", TYPE === "basic" ? "2 | img/fig-2.svg" : "2 | Схема переходів між станами: кола й стрілки, вхід і два стани.");
+  put("ФІГУРИ", TYPE === "basic" ? "2 | img/state-transitions.svg" : "2 | state-transitions | Схема переходів між станами: кола й стрілки, вхід і два стани.");
   put("КОД", TYPE === "proj" ? "python | реалізація автомата, що читає слово" : "");
   if (need.has("ТЕКСТ")) {
     if (/крок: 2/.test(prompt)) {
@@ -95,7 +96,10 @@ function fake(prompt, label) {
   put("ЗАМІНИ", "У 1969 році щось сталося. :: У 1943 році щось сталося.");
   put("РОЗДІЛ", /КНИГИ, ГРУПИ/.test(prompt) ? "no-such-chapter" : sec);   // навмисно чужий слуг: перевірка захисту
   put("КНИГА", book);
-  put("ГРУПА", u.group);
+  put("ГРУПА", process.env.NEWGROUP ? "probe-group" : u.group);
+  put("ЧОМУ", "бо це про мову, а не про машину");
+  put("НОВА ГРУПА", process.env.NEWGROUP ? "probe-group | Проба групи | Сюди все, що про пробу." : "");
+  put("НОВИЙ РОЗДІЛ", "");
   put("ВЕРДИКТ", "нова");
   put("НАЗВИ", "");
   put("SVG", "<svg></svg>");
@@ -131,7 +135,7 @@ const ctx = {
     console.log("assembly:", JSON.stringify(s.assembly).slice(0, 300));
     const txt = fs.readFileSync(path.join(ROOT, r.file), "utf8");
     console.log("\nфайл: слів", LOC.size(txt, "article", 2).words, "· H1:", (txt.match(/^# /gm) || []).length, "· H2:", (txt.match(/^## /gm) || []).length,
-      "· 1943:", txt.includes("1943"), "· фігура:", txt.includes("img/fig-2.svg"), "· root:new:", txt.includes("root:new"));
+      "· 1943:", txt.includes("1943"), "· фігура:", txt.includes("img/state-transitions.svg"), "· root:new:", txt.includes("root:new"));
   } catch (e) {
     if (e.pause) { console.log("\n⏸ ПАУЗА, чекає:", e.waitFor.join(", "), "· у чергу:", enq.map((x) => x.id).join(", ")); return; }
     console.log("\n⛔ ВПАЛО:", e.stack);

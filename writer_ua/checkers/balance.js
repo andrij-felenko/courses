@@ -31,17 +31,17 @@ const pick = (kind) => {
 };
 const art = pick("sci");
 const ins = (t) => L.unitOf(art.book, art.slug, t, "", `${t}-probe`);
-const W = { goal: "ц", level: 3, depth: "г", sections: "1 | важливість: висока | п", theses: "", integrate: "", passed: "", linkable: "Л" };
+const W = { goal: "ц", level: 3, depth: "г", sections: "1 | важливість: висока | п", theses: "", integrate: "", preknow: "", passed: "", linkable: "Л", code: "" };
 
 const calls = {
-  "ціль": P.goal(art, { mentions: "", passed: "", linkable: "Л" }),
-  "структура": P.structure(art, { goal: "ц", shelf: "ш" }),
-  "каркас": P.karkas(art, { goal: "ц", passed: "П", inserts: "В", detailed: "" }),
+  "ціль": P.goal(art, { mentions: "", passed: "" }),
+  "структура": P.structure(art, { goal: "ц", books: "к" }),
+  "каркас": P.karkas(art, { goal: "ц", passed: "П", known: "К", inserts: "В", detailed: "" }),
   "письмо": P.write(art, W),
   "дописування": P.extend(art, { ...W, section: "1", text: "т", add: "1 | 5 | щ", floor: 300, ceiling: 1200 }),
   "стиснення": P.compress(art, { goal: "ц", level: 3, section: "1", text: "т", theses: "", squeeze: "щ", by: 100 }),
   "аналіз": P.analysis(art, { goal: "ц", level: 3, text: "т", theses: "", groups: "1", force: false }),
-  "каркас math": P.karkas(ins("math"), { goal: "ц", passed: "", inserts: "", detailed: "" }),
+  "каркас math": P.karkas(ins("math"), { goal: "ц", passed: "", known: "К", inserts: "", detailed: "" }),
   "письмо math": P.write(ins("math"), W),
 };
 
