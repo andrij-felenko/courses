@@ -106,6 +106,9 @@ async function main(argv) {
     id: o.id, units,
     active: Number(o.active) || 4,
     stagger: o.stagger === undefined ? 2000 : Number(o.stagger),
+    /* Стеля НОВИХ одиниць прогону: тема з фігурами на кожен розділ дає їх до 35, тож
+       для пулу з десятка тем типових 200 замало — `--max 600`. Відмовлене видно в notes. */
+    maxUnits: o.max === undefined ? undefined : Number(o.max),
     callTimeout: o.wait === undefined ? undefined : Number(o.wait),
     onEvent: say,
     algorithm: (unit, ctx) => {
