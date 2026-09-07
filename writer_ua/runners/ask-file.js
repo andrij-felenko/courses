@@ -30,17 +30,51 @@ const path = require("path");
 
 const WAIT = Number(process.env.ASK_WAIT_MS) || 60 * 60 * 1000;
 const POLL = Number(process.env.ASK_POLL_MS) || 1500;
+const STABLE = Number(process.env.ASK_STABLE_MS) || 120 * 1000;
 
 /**
- * ⛔ ВІДПОВІДЬ ГОТОВА ⟺ У НІЙ Є ХОЧ ОДИН ЗАКРИТИЙ БЛОК. Непорожнього файла замало:
- * той, хто відповідає, пише великий текст частинами, і між частинами на диску лежить
- * половина. Одну таку половину конвеєр уже проковтнув — файл обривався на `@@CHUNK2@@`
- * без `</ТЕКСТ>`, і одиниця впала з «у відповіді немає ТЕКСТ», хоч писар саме дописував.
- * Закритий блок — та сама умова, за якою відповідь читає `parse.js`, тож чекаємо рівно
- * на те, що потім розбиратимемо.
+ * ⛔ ВІДПОВІДЬ ГОТОВА ⟺ ЗАКРИТО КОЖЕН БЛОК, ЯКИЙ ПРОСИТЬ КОНТРАКТ. Непорожнього файла
+ * замало, і одного закритого блоку — теж: той, хто відповідає, пише великий текст
+ * частинами з паузами в хвилину й більше, і між частинами на диску лежить половина.
+ * «Хоч один закритий блок» проковтнув таку половину дванадцять разів за один батч: стан
+ * одиниці з «у відповіді немає ТЕКСТ» записано на 75 секунд раніше, ніж файл добіг кінця.
+ *
+ * Тому теги беремо з `<ПОВЕРНИ>` самого завдання — конвеєр і адаптер дивляться на один
+ * контракт. Контракт із кількох кроків («Крок 1:», «Крок 2:») читаємо за рядком
+ * «крок: N» у шапці завдання. Запасний вихід — коли відповідач не написав необов'язковий
+ * порожній блок: перший блок контракту закрито, і файл не мінявся довше, ніж триває
+ * пауза між частинами.
  */
-const CLOSED = /<([А-ЯІЇЄҐA-Z][^<>\n]*)>[\s\S]*?<\/\1>/;
-const ready = (txt) => CLOSED.test(txt);
+const TAG = /<([А-ЯІЇЄҐA-Z][^<>\n/]*?)>/g;
+const closedTags = (txt) => new Set(
+  [...String(txt || "").matchAll(/<([А-ЯІЇЄҐA-Z][^<>\n]*)>[\s\S]*?<\/\1>/g)].map((m) => m[1].trim()));
+
+/** Теги контракту завдання — для його кроку, якщо кроків кілька. */
+function expected(prompt) {
+  const m = /<ПОВЕРНИ>([\s\S]*?)<\/ПОВЕРНИ>/.exec(String(prompt || ""));
+  if (!m) return [];
+  const step = (/^крок: (\d+)\s*$/m.exec(prompt) || [])[1];
+  const chunks = [];
+  let cur = { step: null, text: "" };
+  for (const line of m[1].split("\n")) {
+    const s = /^Крок (\d+):/.exec(line);
+    if (s) { chunks.push(cur); cur = { step: s[1], text: "" }; } else cur.text += line + "\n";
+  }
+  chunks.push(cur);
+  const mine = step ? chunks.filter((c) => c.step === step) : [];
+  const tags = [];
+  for (const c of mine.length ? mine : chunks)
+    for (const t of c.text.matchAll(TAG)) if (!tags.includes(t[1].trim())) tags.push(t[1].trim());
+  return tags;
+}
+
+/** Готово: усі теги контракту закрито; або перший закрито й файл давно не мінявся. */
+function ready(txt, tags, stableFor = Infinity) {
+  const closed = closedTags(txt);
+  if (!tags || !tags.length) return closed.size > 0;
+  if (tags.every((t) => closed.has(t))) return true;
+  return closed.has(tags[0]) && stableFor >= STABLE;
+}
 
 /** Ім'я файла з мітки: кирилиця лишається, ламається лише те, що ламає файлову систему. */
 const safe = (s) => String(s).replace(/[^\p{L}\p{N}._-]+/gu, "-").slice(0, 60);
@@ -65,25 +99,34 @@ module.exports.make = function make(dir) {
     const askFile = `${base}.ask.txt`;
     const ansFile = `${base}.ans.txt`;
 
+    const tags = expected(prompt);
+
     /* Відповідь із минулого прогону беремо як є: саме так підіймається обірваний
-       батч, не перепитуючи те, на що вже відповіли. */
-    if (fs.existsSync(ansFile) && ready(fs.readFileSync(ansFile, "utf8")))
-      return fs.readFileSync(ansFile, "utf8");
+       батч, не перепитуючи те, на що вже відповіли. Файл, що лежить давно, — стабільний. */
+    if (fs.existsSync(ansFile)) {
+      const txt = fs.readFileSync(ansFile, "utf8");
+      if (ready(txt, tags, Date.now() - fs.statSync(ansFile).mtimeMs)) return txt;
+    }
 
     fs.writeFileSync(askFile, prompt, "utf8");
     process.stdout.write(`\n[ЗАПИТ] ${label}\n[ФАЙЛ]  ${askFile}\n[ЧЕКАЮ] ${ansFile}\n`);
 
     const until = Date.now() + WAIT;
+    let last = null, since = 0;
     while (Date.now() < until) {
       if (fs.existsSync(ansFile)) {
         const txt = fs.readFileSync(ansFile, "utf8");
         /* Порожній чи напівзаписаний файл — це «ще пишуть», а не відповідь: інакше
            перший же дотик до файла зарахувався б за готову й конвеєр пішов би далі з
-           половиною тексту. */
-        if (ready(txt)) { process.stdout.write(`[ВІДПОВІДЬ] ${label} — ${txt.length} симв.\n`); return txt; }
+           половиною тексту. Читаємо один раз і віддаємо саме прочитане. */
+        if (txt !== last) { last = txt; since = Date.now(); }
+        if (ready(txt, tags, Date.now() - since)) { process.stdout.write(`[ВІДПОВІДЬ] ${label} — ${txt.length} симв.\n`); return txt; }
       }
       await sleep(POLL);
     }
     throw new Error(`ніхто не відповів на «${label}» за ${Math.round(WAIT / 60000)} хв`);
   };
 };
+
+module.exports.expected = expected;
+module.exports.ready = ready;
