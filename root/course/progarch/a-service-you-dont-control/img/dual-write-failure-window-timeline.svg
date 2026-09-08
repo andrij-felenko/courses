@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма вікна вразливості Dual-Write</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Критичний інтервал між комітом у БД та відповіддю сокета: розрив між двома непов'язаними системами</text>
+
+  <!-- ==================== ГОЛОВНА ПАНЕЛЬ ШКАЛИ ЧАСУ ==================== -->
+  <rect x="24" y="72" width="912" height="294" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Верхній рядок: назва шапки та часова вісь -->
+  <rect x="36" y="82" width="120" height="20" rx="3" fill="#d0d7de"/>
+  <text x="96" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">СИСТЕМИ</text>
+
+  <line x1="168" y1="92" x2="888" y2="92" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="896" y="96" font-size="12" font-weight="700" fill="#6b7280">Час (t)</text>
+
+  <!-- Шапки трьох систем ліворуч -->
+  <!-- Трек 1: Локальна БД -->
+  <rect x="36" y="112" width="120" height="62" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="96" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Локальна БД</text>
+  <text x="96" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">PostgreSQL</text>
+  <text x="96" y="164" text-anchor="middle" font-size="12" fill="#6b7280">ACID / WAL</text>
+
+  <!-- Трек 2: Застосунок -->
+  <rect x="36" y="186" width="120" height="62" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="96" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Застосунок</text>
+  <text x="96" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Веб-воркер</text>
+  <text x="96" y="238" text-anchor="middle" font-size="12" fill="#6b7280">HTTP-клієнт</text>
+
+  <!-- Трек 3: Зовнішній API -->
+  <rect x="36" y="260" width="120" height="62" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="96" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зовнішній API</text>
+  <text x="96" y="296" text-anchor="middle" font-size="12" fill="#1a1a1a">Платіжний шлюз</text>
+  <text x="96" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Stripe / REST</text>
+
+  <!-- ==================== ФАЗА 1: ЛОКАЛЬНИЙ КОМІТ (ДО ВІКНА) ==================== -->
+  <!-- Трек 1: БД підтверджує коміт -->
+  <rect x="168" y="112" width="130" height="62" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="233" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">2. Фіксація в БД</text>
+  <text x="233" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">COMMIT (fsync)</text>
+  <text x="233" y="164" text-anchor="middle" font-size="12" fill="#27ae60">Замовлення в WAL ✓</text>
+
+  <!-- Трек 2: Застосунок відкриває транзакцію -->
+  <rect x="168" y="186" width="130" height="62" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="233" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">1. Запис замовлення</text>
+  <text x="233" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">BEGIN; INSERT ...</text>
+  <text x="233" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Очікування коміту</text>
+
+  <!-- Стрілки між застосунком і БД (у вертикальному проміжку y=174..186) -->
+  <line x1="210" y1="186" x2="210" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="256" y1="174" x2="256" y2="186" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Трек 3: Зовнішній шлюз неактивний -->
+  <rect x="168" y="260" width="130" height="62" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="233" y="286" text-anchor="middle" font-size="12" fill="#6b7280">Очікування виклику</text>
+  <text x="233" y="304" text-anchor="middle" font-size="12" fill="#6b7280">Шлюз не задіяний</text>
+
+  <!-- ==================== ВІКНО ВРАЗЛИВОСТІ DUAL-WRITE ==================== -->
+  <rect x="310" y="104" width="456" height="240" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 3"/>
+
+  <!-- Банер вразливості -->
+  <rect x="318" y="108" width="440" height="22" rx="3" fill="#c0392b"/>
+  <text x="538" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВІКНО ВРАЗЛИВОСТІ DUAL-WRITE: Δt (від COMMIT до відповіді сокета)</text>
+
+  <!-- Трек 1 у вікні: БД вже зафіксована -->
+  <rect x="320" y="136" width="436" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="538" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">СТАН БД: ЗАФІКСОВАНО НАЗАВЖДИ (PAID / PENDING)</text>
+  <text x="538" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Транзакцію закрито у WAL. Автоматичний відкат (ROLLBACK) уже неможливий!</text>
+
+  <!-- Трек 2 у вікні: Крок 3 (HTTP виклик) -->
+  <rect x="320" y="186" width="96" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="368" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">3. HTTP POST</text>
+  <text x="368" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">/v1/charges</text>
+  <text x="368" y="238" text-anchor="middle" font-size="12" fill="#6b7280">виклик сокета</text>
+
+  <!-- Стрілка вниз до шлюзу (у проміжку y=248..260) -->
+  <line x1="368" y1="248" x2="368" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Трек 2 у вікні: Збій 1 (Падіння процесу) -->
+  <rect x="426" y="186" width="156" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="430" y="190" width="148" height="18" rx="2" fill="#fdecea"/>
+  <text x="504" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗБІЙ 1: Аварія / SIGKILL</text>
+  <text x="504" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">OOM вбиває процес воркера</text>
+  <text x="504" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Запит не відправлено!</text>
+
+  <!-- Трек 2 у вікні: Збій 2 (Мережевий таймаут) -->
+  <rect x="592" y="186" width="164" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="596" y="190" width="156" height="18" rx="2" fill="#fdecea"/>
+  <text x="674" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗБІЙ 2: Таймаут сокета</text>
+  <text x="674" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Socket Read Timeout (10–30 с)</text>
+  <text x="674" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Статус оплати невідомий</text>
+
+  <!-- Стрілка таймауту від шлюзу вгору (у проміжку y=248..260) -->
+  <line x1="674" y1="260" x2="674" y2="248" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- Трек 3 у вікні: Сокет під блоком 3 -->
+  <rect x="320" y="260" width="96" height="62" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="368" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">TCP Connect</text>
+  <text x="368" y="304" text-anchor="middle" font-size="12" fill="#6b7280">SYN ➔ ACK</text>
+
+  <!-- Трек 3 у вікні: Шлюз під Збоєм 1 -->
+  <rect x="426" y="260" width="156" height="62" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="504" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Пакет не надійшов</text>
+  <text x="504" y="302" text-anchor="middle" font-size="12" fill="#1a1a1a">Шлюз не знає про клієнта</text>
+
+  <!-- Трек 3 у вікні: Шлюз під Збоєм 2 -->
+  <rect x="592" y="260" width="164" height="62" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="674" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Списання відбулося (або ні)</text>
+  <text x="674" y="300" text-anchor="middle" font-size="12" fill="#c0392b">Відповідь 200 OK загубилася</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: НАСЛІДОК ==================== -->
+  <rect x="778" y="104" width="146" height="240" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="786" y="110" width="130" height="20" rx="3" fill="#c0392b"/>
+  <text x="851" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">НАСЛІДКИ ЗБОЮ</text>
+
+  <text x="851" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">РОЗСИНХРОНІЗАЦІЯ</text>
+  <text x="851" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">БД ≠ Зовнішній API</text>
+
+  <line x1="790" y1="172" x2="912" y2="172" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="851" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Наслідок Збою 1:</text>
+  <text x="851" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">Замовлення в базі є,</text>
+  <text x="851" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">гроші не списано ($0)</text>
+
+  <line x1="790" y1="234" x2="912" y2="234" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="851" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Наслідок Збою 2:</text>
+  <text x="851" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">Ретрай ➔ повторне</text>
+  <text x="851" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">списання з клієнта!</text>
+
+  <rect x="786" y="296" width="130" height="38" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="851" y="312" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Немає 2PC / XA</text>
+  <text x="851" y="326" text-anchor="middle" font-size="12" fill="#6b7280">відкат неможливий</text>
+
+  <!-- ==================== НИЖНІ ПАНЕЛІ ВИСНОВКІВ ==================== -->
+  <!-- Ліва картка: Чому це вікно фатальне -->
+  <rect x="24" y="378" width="446" height="128" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="388" width="426" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="404" font-size="12" font-weight="700" fill="#c0392b">ЧОМУ ЦЕ ВІКНО ФАТАЛЬНЕ: ПАСТКА РОЗПОДІЛЕНОГО СТАНУ</text>
+
+  <text x="46" y="428" font-size="12" font-weight="700" fill="#1a1a1a">• Відсутність 2PC:</text>
+  <text x="176" y="428" font-size="12" fill="#1a1a1a">REST API не підтримує двофазну фіксацію.</text>
+
+  <text x="46" y="452" font-size="12" font-weight="700" fill="#1a1a1a">• Фіксація в WAL:</text>
+  <text x="176" y="452" font-size="12" fill="#1a1a1a">після fsync локальний відкат неможливий.</text>
+
+  <text x="46" y="476" font-size="12" font-weight="700" fill="#1a1a1a">• Невизначеність:</text>
+  <text x="176" y="476" font-size="12" fill="#1a1a1a">при таймауті статус операції невідомий.</text>
+
+  <text x="46" y="496" font-size="12" font-weight="700" fill="#c0392b">Спроба синхронного виклику завжди залишає вікно вразливості Δt &gt; 0</text>
+
+  <!-- Права картка: Архітектурний вихід -->
+  <rect x="490" y="378" width="446" height="128" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="500" y="388" width="426" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="404" font-size="12" font-weight="700" fill="#27ae60">АРХІТЕКТУРНИЙ ВИХІД: СТИСКАННЯ ВІКНА ДО НУЛЯ (Δt = 0)</text>
+
+  <text x="512" y="428" font-size="12" font-weight="700" fill="#1a1a1a">• Outbox-подія:</text>
+  <text x="626" y="428" font-size="12" fill="#1a1a1a">намір фіксується в єдиній ACID-транзакції.</text>
+
+  <text x="512" y="452" font-size="12" font-weight="700" fill="#1a1a1a">• Нуль сокетів:</text>
+  <text x="626" y="452" font-size="12" fill="#1a1a1a">жодних мережевих викликів під час коміту.</text>
+
+  <text x="512" y="476" font-size="12" font-weight="700" fill="#1a1a1a">• Фоновий воркер:</text>
+  <text x="636" y="476" font-size="12" fill="#1a1a1a">доставка At-Least-Once з ретраями та ключем.</text>
+
+  <text x="512" y="496" font-size="12" font-weight="700" fill="#27ae60">Вікно ліквідовано (Δt = 0): локальний стан захищено на 100%</text>
+</svg>

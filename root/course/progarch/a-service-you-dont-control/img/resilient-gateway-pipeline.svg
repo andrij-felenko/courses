@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Захисний конвеєр клієнтського шлюзу: Resilient Gateway Pipeline</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Послідовні ланки ізоляції, запобіжника, бюджету часу, ретраїв та ACL з перехопленням у Fallback</text>
+
+  <!-- Блок ліворуч: Доменний клієнт -->
+  <rect x="25" y="115" width="120" height="180" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="35" y="125" width="100" height="24" rx="4" fill="#2457d6"/>
+  <text x="85" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">Клієнт</text>
+  <text x="85" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменний сервіс</text>
+  <text x="85" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Ініціація виклику</text>
+  <text x="85" y="206" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вихідний запит →</text>
+  <text x="85" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Очікує стійкий</text>
+  <text x="85" y="248" font-size="12" fill="#6b7280" text-anchor="middle">контракт API</text>
+  <text x="85" y="278" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">↑ Резервна відповідь</text>
+
+  <!-- Стрілка від Клієнта до Шлюзу -->
+  <line x1="145" y1="200" x2="168" y2="200" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Периметр Шлюзу -->
+  <rect x="170" y="85" width="620" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="170" y="85" width="620" height="26" rx="6" fill="#d0d7de"/>
+  <text x="480" y="103" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Периметр захисту: стійкий клієнтський шлюз (Resilient Gateway)</text>
+
+  <!-- Ланка 1: Bulkhead -->
+  <rect x="185" y="120" width="106" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="189" y="125" width="98" height="24" rx="4" fill="#2457d6"/>
+  <text x="238" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">1. Bulkhead</text>
+  <text x="238" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Семафор</text>
+  <text x="238" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Ліміт пулу:</text>
+  <text x="238" y="201" font-size="12" fill="#6b7280" text-anchor="middle">maxConcurrent</text>
+  <text x="238" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Черга задач:</text>
+  <text x="238" y="241" font-size="12" fill="#6b7280" text-anchor="middle">maxQueueSize</text>
+  <text x="238" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">↓ Черга повна</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="291" y1="200" x2="304" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ланка 2: Circuit Breaker -->
+  <rect x="306" y="120" width="106" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="310" y="125" width="98" height="24" rx="4" fill="#2457d6"/>
+  <text x="359" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">2. Breaker</text>
+  <text x="359" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автомат дій</text>
+  <text x="359" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Ковзне вікно</text>
+  <text x="359" y="201" font-size="12" fill="#6b7280" text-anchor="middle">50% збоїв/затр.</text>
+  <text x="359" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан OPEN:</text>
+  <text x="359" y="241" font-size="12" fill="#6b7280" text-anchor="middle">fail-fast 0 мс</text>
+  <text x="359" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">↓ Розімкнено</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="412" y1="200" x2="425" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ланка 3: Timeouts -->
+  <rect x="427" y="120" width="106" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="431" y="125" width="98" height="24" rx="4" fill="#2457d6"/>
+  <text x="480" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">3. Timeouts</text>
+  <text x="480" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Дедлайн</text>
+  <text x="480" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">З'єднання 150мс</text>
+  <text x="480" y="201" font-size="12" fill="#6b7280" text-anchor="middle">Сокет 250 мс</text>
+  <text x="480" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Загальний час:</text>
+  <text x="480" y="241" font-size="12" fill="#6b7280" text-anchor="middle">Total 800 мс</text>
+  <text x="480" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">↓ Таймаут</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="533" y1="200" x2="546" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ланка 4: Retry -->
+  <rect x="548" y="120" width="106" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="552" y="125" width="98" height="24" rx="4" fill="#2457d6"/>
+  <text x="601" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">4. Retry</text>
+  <text x="601" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Full Jitter</text>
+  <text x="601" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">2–3 спроби</text>
+  <text x="601" y="201" font-size="12" fill="#6b7280" text-anchor="middle">рандомізація</text>
+  <text x="601" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтр збоїв:</text>
+  <text x="601" y="241" font-size="12" fill="#6b7280" text-anchor="middle">5xx та сокет</text>
+  <text x="601" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">↓ Вичерпано</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="654" y1="200" x2="667" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ланка 5: ACL -->
+  <rect x="669" y="120" width="106" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="673" y="125" width="98" height="24" rx="4" fill="#2457d6"/>
+  <text x="722" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">5. ACL</text>
+  <text x="722" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Адаптація</text>
+  <text x="722" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Трансляція DTO</text>
+  <text x="722" y="201" font-size="12" fill="#6b7280" text-anchor="middle">Idempotency</text>
+  <text x="722" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Валідація схеми</text>
+  <text x="722" y="241" font-size="12" fill="#6b7280" text-anchor="middle">ізоляція чужого</text>
+  <text x="722" y="275" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">↓ Збій схеми</text>
+
+  <!-- Стрілка від Шлюзу до Чужого API -->
+  <line x1="775" y1="200" x2="813" y2="200" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок праворуч: Чужий API -->
+  <rect x="815" y="115" width="120" height="180" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="825" y="125" width="100" height="24" rx="4" fill="#c0392b"/>
+  <text x="875" y="141" font-size="12" font-weight="700" fill="white" text-anchor="middle">Чужий API</text>
+  <text x="875" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Непідконтрольна</text>
+  <text x="875" y="186" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">служба</text>
+  <text x="875" y="206" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">→ Вхідний HTTP</text>
+  <text x="875" y="228" font-size="12" fill="#c0392b" text-anchor="middle">• Зависання сокета</text>
+  <text x="875" y="244" font-size="12" fill="#c0392b" text-anchor="middle">• Збої 500 / 503</text>
+  <text x="875" y="260" font-size="12" fill="#c0392b" text-anchor="middle">• Зміна контрактів</text>
+  <text x="875" y="278" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Аварії партнера</text>
+
+  <!-- 5 Червоних стрілок вниз від кожної ланки у Fallback -->
+  <line x1="238" y1="295" x2="238" y2="348" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <line x1="359" y1="295" x2="359" y2="348" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <line x1="480" y1="295" x2="480" y2="348" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <line x1="601" y1="295" x2="601" y2="348" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+  <line x1="722" y1="295" x2="722" y2="348" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+  <!-- Блок Fallback Handler -->
+  <rect x="170" y="350" width="620" height="145" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="170" y="350" width="620" height="26" rx="6" fill="#27ae60"/>
+  <text x="480" y="368" font-size="13" font-weight="700" fill="white" text-anchor="middle">Шар керованої деградації: Fallback Handler (перехоплення відмов усіх ланок)</text>
+
+  <!-- Картка Fallback 1: Кеш -->
+  <rect x="185" y="388" width="186" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="278" y="408" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1. Локальний кеш</text>
+  <text x="278" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Віддача останніх відомих</text>
+  <text x="278" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">успішних даних (stale data)</text>
+  <text x="278" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Безперервність для клієнта</text>
+
+  <!-- Картка Fallback 2: Дефолт -->
+  <rect x="387" y="388" width="186" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="408" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Безпечний дефолт</text>
+  <text x="480" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Нейтральна заглушка або</text>
+  <text x="480" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">постановка задачі в чергу</text>
+  <text x="480" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Часткова доступність системи</text>
+
+  <!-- Картка Fallback 3: Контрольована помилка -->
+  <rect x="589" y="388" width="186" height="95" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="682" y="408" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Доменна відмова</text>
+  <text x="682" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Контрольований статус збою</text>
+  <text x="682" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">замість аварійного краху</text>
+  <text x="682" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Захист власного сервісу</text>
+
+  <!-- Зворотна зелена стрілка від Fallback до Клієнта -->
+  <path d="M 170,435 L 85,435 L 85,303" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+</svg>

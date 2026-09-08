@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конкурентна вибірка подій: SELECT ... FOR UPDATE SKIP LOCKED</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Паралельне захоплення неперетинних пакетів без черг очікування та блокувань між воркерами</text>
+
+  <!-- ЛІВА ЧАСТИНА: Таблиця outbox_events -->
+  <rect x="24" y="86" width="436" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Шапка таблиці -->
+  <rect x="36" y="96" width="412" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="115" font-size="11" font-weight="700" fill="#1a1a1a">Таблиця outbox_events (Черга в БД)</text>
+  <text x="436" y="115" text-anchor="end" font-size="10" fill="#6b7280">Рівень блокування: РЯДКИ</text>
+
+  <!-- Заголовки стовпчиків -->
+  <text x="50" y="142" font-size="10" font-weight="700" fill="#6b7280">ID</text>
+  <text x="96" y="142" font-size="10" font-weight="700" fill="#6b7280">ПОДІЯ</text>
+  <text x="236" y="142" font-size="10" font-weight="700" fill="#6b7280">СТАТУС</text>
+  <text x="326" y="142" font-size="10" font-weight="700" fill="#6b7280">ЗАХОПЛЕНО ВОРКЕРОМ</text>
+
+  <!-- Рядок 1 (Воркер 1) -->
+  <rect x="36" y="150" width="412" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="167" font-size="10" font-weight="700" fill="#2457d6">101</text>
+  <text x="96" y="167" font-size="10" fill="#1a1a1a">OrderCreated</text>
+  <text x="236" y="167" font-size="10" font-weight="700" fill="#2457d6">LOCKED</text>
+  <text x="326" y="167" font-size="10" fill="#2457d6">Воркер 1 (Пакет 1)</text>
+
+  <!-- Рядок 2 (Воркер 1) -->
+  <rect x="36" y="179" width="412" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="196" font-size="10" font-weight="700" fill="#2457d6">102</text>
+  <text x="96" y="196" font-size="10" fill="#1a1a1a">PaymentInitiated</text>
+  <text x="236" y="196" font-size="10" font-weight="700" fill="#2457d6">LOCKED</text>
+  <text x="326" y="196" font-size="10" fill="#2457d6">Воркер 1 (Пакет 1)</text>
+
+  <!-- Рядок 3 (Воркер 2) -->
+  <rect x="36" y="208" width="412" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="225" font-size="10" font-weight="700" fill="#27ae60">103</text>
+  <text x="96" y="225" font-size="10" fill="#1a1a1a">UserRegistered</text>
+  <text x="236" y="225" font-size="10" font-weight="700" fill="#27ae60">LOCKED</text>
+  <text x="326" y="225" font-size="10" fill="#27ae60">Воркер 2 (Пакет 2)</text>
+
+  <!-- Рядок 4 (Воркер 2) -->
+  <rect x="36" y="237" width="412" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="254" font-size="10" font-weight="700" fill="#27ae60">104</text>
+  <text x="96" y="254" font-size="10" fill="#1a1a1a">InvoiceGenerated</text>
+  <text x="236" y="254" font-size="10" font-weight="700" fill="#27ae60">LOCKED</text>
+  <text x="326" y="254" font-size="10" fill="#27ae60">Воркер 2 (Пакет 2)</text>
+
+  <!-- Рядок 5 (Воркер 3) -->
+  <rect x="36" y="266" width="412" height="25" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="50" y="283" font-size="10" font-weight="700" fill="#1a1a1a">105</text>
+  <text x="96" y="283" font-size="10" fill="#1a1a1a">EmailNotification</text>
+  <text x="236" y="283" font-size="10" font-weight="700" fill="#1a1a1a">LOCKED</text>
+  <text x="326" y="283" font-size="10" fill="#1a1a1a">Воркер 3 (Пакет 3)</text>
+
+  <!-- Рядок 6 (Воркер 3) -->
+  <rect x="36" y="295" width="412" height="25" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="50" y="312" font-size="10" font-weight="700" fill="#1a1a1a">106</text>
+  <text x="96" y="312" font-size="10" fill="#1a1a1a">StockReserved</text>
+  <text x="236" y="312" font-size="10" font-weight="700" fill="#1a1a1a">LOCKED</text>
+  <text x="326" y="312" font-size="10" fill="#1a1a1a">Воркер 3 (Пакет 3)</text>
+
+  <!-- Рядок 7 (Вільний) -->
+  <rect x="36" y="324" width="412" height="25" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="341" font-size="10" fill="#6b7280">107</text>
+  <text x="96" y="341" font-size="10" fill="#6b7280">RefundRequested</text>
+  <text x="236" y="341" font-size="10" font-weight="700" fill="#27ae60">PENDING</text>
+  <text x="326" y="341" font-size="10" fill="#6b7280">Очікує в черзі (вільний)</text>
+
+  <!-- SQL запит блок -->
+  <rect x="36" y="358" width="412" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="376" font-size="10" font-weight="700" fill="#2457d6">SQL-запит у кожному паралельному воркері:</text>
+  <text x="48" y="393" font-size="10" fill="#1a1a1a">SELECT * FROM outbox_events WHERE status = 'PENDING'</text>
+  <text x="48" y="409" font-size="10" font-weight="700" fill="#27ae60">ORDER BY id LIMIT 2 FOR UPDATE SKIP LOCKED;</text>
+
+  <!-- Стрілки від рядків до воркерів -->
+  <line x1="448" y1="176" x2="480" y2="139" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="448" y1="234" x2="480" y2="251" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="448" y1="293" x2="480" y2="363" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- ПРАВА ЧАСТИНА: Три паралельні воркери -->
+  <!-- Воркер 1 -->
+  <rect x="482" y="86" width="454" height="106" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="496" y="109" font-size="12" font-weight="700" fill="#2457d6">Воркер 1 (Екземпляр A)</text>
+  <rect x="806" y="95" width="118" height="20" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="865" y="109" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Транзакція TX 1</text>
+
+  <rect x="494" y="122" width="134" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="561" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Бере рядки 101, 102</text>
+  <text x="561" y="158" text-anchor="middle" font-size="10" fill="#1a1a1a">Захоплює блокування</text>
+  <text x="561" y="172" text-anchor="middle" font-size="10" fill="#6b7280">(миттєвий лок)</text>
+
+  <line x1="628" y1="152" x2="642" y2="152" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="642" y="122" width="144" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Виклик API Stripe</text>
+  <text x="714" y="158" text-anchor="middle" font-size="10" fill="#2457d6">Idempotency-Key</text>
+  <text x="714" y="172" text-anchor="middle" font-size="10" fill="#6b7280">Retry + Full Jitter</text>
+
+  <line x1="786" y1="152" x2="800" y2="152" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="800" y="122" width="124" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="862" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">COMMIT TX 1</text>
+  <text x="862" y="158" text-anchor="middle" font-size="10" fill="#1a1a1a">status='PROCESSED'</text>
+  <text x="862" y="172" text-anchor="middle" font-size="10" fill="#27ae60">зняття локу</text>
+
+  <!-- Воркер 2 -->
+  <rect x="482" y="205" width="454" height="106" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="496" y="228" font-size="12" font-weight="700" fill="#27ae60">Воркер 2 (Екземпляр B)</text>
+  <rect x="806" y="214" width="118" height="20" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="865" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Транзакція TX 2</text>
+
+  <rect x="494" y="241" width="134" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="561" y="261" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Пропускає 101, 102</text>
+  <text x="561" y="277" text-anchor="middle" font-size="10" fill="#1a1a1a">Бере вільні 103, 104</text>
+  <text x="561" y="291" text-anchor="middle" font-size="10" fill="#27ae60">SKIP LOCKED: 0 мс</text>
+
+  <line x1="628" y1="271" x2="642" y2="271" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="642" y="241" width="144" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="261" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Виклик Adyen API</text>
+  <text x="714" y="277" text-anchor="middle" font-size="10" fill="#27ae60">X-Idempotency-Key</text>
+  <text x="714" y="291" text-anchor="middle" font-size="10" fill="#6b7280">Retry + Full Jitter</text>
+
+  <line x1="786" y1="271" x2="800" y2="271" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="800" y="241" width="124" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="862" y="261" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">COMMIT TX 2</text>
+  <text x="862" y="277" text-anchor="middle" font-size="10" fill="#1a1a1a">status='PROCESSED'</text>
+  <text x="862" y="291" text-anchor="middle" font-size="10" fill="#27ae60">зняття локу</text>
+
+  <!-- Воркер 3 -->
+  <rect x="482" y="324" width="454" height="106" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="496" y="347" font-size="12" font-weight="700" fill="#1a1a1a">Воркер 3 (Екземпляр C)</text>
+  <rect x="806" y="333" width="118" height="20" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="865" y="347" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Транзакція TX 3</text>
+
+  <rect x="494" y="360" width="134" height="60" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="561" y="380" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Пропускає 101..104</text>
+  <text x="561" y="396" text-anchor="middle" font-size="10" fill="#1a1a1a">Бере вільні 105, 106</text>
+  <text x="561" y="410" text-anchor="middle" font-size="10" fill="#6b7280">SKIP LOCKED: 0 мс</text>
+
+  <line x1="628" y1="390" x2="642" y2="390" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="642" y="360" width="144" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="380" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">Виклик Email API</text>
+  <text x="714" y="396" text-anchor="middle" font-size="10" fill="#1a1a1a">Наскрізний дедлайн</text>
+  <text x="714" y="410" text-anchor="middle" font-size="10" fill="#6b7280">Retry + Full Jitter</text>
+
+  <line x1="786" y1="390" x2="800" y2="390" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <rect x="800" y="360" width="124" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="862" y="380" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">COMMIT TX 3</text>
+  <text x="862" y="396" text-anchor="middle" font-size="10" fill="#1a1a1a">status='PROCESSED'</text>
+  <text x="862" y="410" text-anchor="middle" font-size="10" fill="#27ae60">зняття локу</text>
+
+  <!-- Блок 3: Нижній архітектурний інваріант -->
+  <rect x="24" y="442" width="912" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="40" y="462" font-size="11" font-weight="700" fill="#2457d6">Архітектурна перевага SKIP LOCKED перед чергами очікування:</text>
+  <text x="40" y="480" font-size="11" fill="#1a1a1a">Звичайний FOR UPDATE блокує сусідні процеси до завершення поточної транзакції першого воркера.</text>
+  <text x="40" y="497" font-size="11" fill="#1a1a1a">SKIP LOCKED миттєво пропускає зайняті рядки — кожен воркер паралельно бере вільні події без простою.</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл маршрутизатора: Failover and Recovery</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Динаміка станів запобіжника та перерозподілу навантаження між первинним і резервним провайдерами</text>
+
+  <!-- ==================== ФАЗА 1: ШТАТНА РОБОТА ==================== -->
+  <rect x="45" y="80" width="212" height="375" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="45" y="80" width="212" height="32" rx="6" fill="#27ae60"/>
+  <text x="151" y="101" font-size="13" font-weight="700" fill="white" text-anchor="middle">ФАЗА 1: Штатна робота</text>
+
+  <!-- Стан CB 1 -->
+  <rect x="53" y="120" width="196" height="54" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="151" y="140" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Primary: CLOSED</text>
+  <text x="151" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Запобіжник замкнено</text>
+
+  <!-- Трафік 1 -->
+  <rect x="53" y="182" width="196" height="126" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="63" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Розподіл потоку:</text>
+  <rect x="63" y="210" width="176" height="24" rx="4" fill="#27ae60"/>
+  <text x="151" y="226" font-size="12" font-weight="700" fill="white" text-anchor="middle">Primary: 100%</text>
+  <rect x="63" y="242" width="176" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="151" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Secondary: 0% (Standby)</text>
+  <text x="151" y="294" font-size="12" fill="#27ae60" text-anchor="middle">Швидка відповідь (20–40 мс)</text>
+
+  <!-- Логіка 1 -->
+  <rect x="53" y="316" width="196" height="130" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="63" y="336" font-size="12" font-weight="700" fill="#1a1a1a">• Моніторинг метрик</text>
+  <text x="63" y="356" font-size="12" fill="#1a1a1a">• Ковзне вікно записів</text>
+  <text x="63" y="376" font-size="12" fill="#1a1a1a">• Низька частота помилок</text>
+  <text x="63" y="396" font-size="12" fill="#6b7280">• Резерв готовий до пуску</text>
+  <text x="151" y="428" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Система стабільна</text>
+
+  <!-- ==================== ФАЗА 2: АВАРІЙНИЙ FAILOVER ==================== -->
+  <rect x="269" y="80" width="212" height="375" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="269" y="80" width="212" height="32" rx="6" fill="#c0392b"/>
+  <text x="375" y="101" font-size="13" font-weight="700" fill="white" text-anchor="middle">ФАЗА 2: Аварія та Failover</text>
+
+  <!-- Стан CB 2 -->
+  <rect x="277" y="120" width="196" height="54" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="375" y="140" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Primary: OPEN</text>
+  <text x="375" y="158" font-size="12" fill="#c0392b" text-anchor="middle">Ланцюг розімкнено (fail-fast)</text>
+
+  <!-- Трафік 2 -->
+  <rect x="277" y="182" width="196" height="126" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="287" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Розподіл потоку:</text>
+  <rect x="287" y="210" width="176" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="375" y="226" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Primary: 0% (Блоковано)</text>
+  <rect x="287" y="242" width="176" height="24" rx="4" fill="#2457d6"/>
+  <text x="375" y="258" font-size="12" font-weight="700" fill="white" text-anchor="middle">Secondary: 100%</text>
+  <text x="375" y="294" font-size="12" fill="#c0392b" text-anchor="middle">Миттєве відведення трафіку</text>
+
+  <!-- Логіка 2 -->
+  <rect x="277" y="316" width="196" height="130" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="287" y="336" font-size="12" font-weight="700" fill="#1a1a1a">• Сплеск 500 / таймаутів</text>
+  <text x="287" y="356" font-size="12" fill="#1a1a1a">• Відсікання за 0 мс</text>
+  <text x="287" y="376" font-size="12" fill="#1a1a1a">• Таймер охолодження</text>
+  <text x="287" y="396" font-size="12" fill="#6b7280">• Наскрізний Idempotency-Key</text>
+  <text x="375" y="428" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">0% простою для клієнтів</text>
+
+  <!-- ==================== ФАЗА 3: ЗОНДУВАННЯ ==================== -->
+  <rect x="493" y="80" width="212" height="375" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="493" y="80" width="212" height="32" rx="6" fill="#2457d6"/>
+  <text x="599" y="101" font-size="13" font-weight="700" fill="white" text-anchor="middle">ФАЗА 3: Зондування</text>
+
+  <!-- Стан CB 3 -->
+  <rect x="501" y="120" width="196" height="54" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="599" y="140" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Primary: HALF-OPEN</text>
+  <text x="599" y="158" font-size="12" fill="#2457d6" text-anchor="middle">Пробне тестування мережі</text>
+
+  <!-- Трафік 3 -->
+  <rect x="501" y="182" width="196" height="126" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="511" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Розподіл потоку:</text>
+  <rect x="511" y="210" width="176" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="599" y="226" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Primary: 10% (Проби)</text>
+  <rect x="511" y="242" width="176" height="24" rx="4" fill="#2457d6"/>
+  <text x="599" y="258" font-size="12" font-weight="700" fill="white" text-anchor="middle">Secondary: 90%</text>
+  <text x="599" y="294" font-size="12" fill="#2457d6" text-anchor="middle">Тестова квота викликів</text>
+
+  <!-- Логіка 3 -->
+  <rect x="501" y="316" width="196" height="130" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="511" y="336" font-size="12" font-weight="700" fill="#1a1a1a">• Сплив таймаут паузи</text>
+  <text x="511" y="356" font-size="12" fill="#1a1a1a">• Дозовані зонди каналу</text>
+  <text x="511" y="376" font-size="12" fill="#1a1a1a">• Основний потік у Backup</text>
+  <text x="511" y="396" font-size="12" fill="#6b7280">• Оцінка кожної відповіді</text>
+  <text x="599" y="428" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Перевірка одужання</text>
+
+  <!-- ==================== ФАЗА 4: САМОВІДНОВЛЕННЯ ==================== -->
+  <rect x="717" y="80" width="212" height="375" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="717" y="80" width="212" height="32" rx="6" fill="#27ae60"/>
+  <text x="823" y="101" font-size="13" font-weight="700" fill="white" text-anchor="middle">ФАЗА 4: Самовідновлення</text>
+
+  <!-- Стан CB 4 -->
+  <rect x="725" y="120" width="196" height="54" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="823" y="140" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Primary: CLOSED</text>
+  <text x="823" y="158" font-size="12" fill="#27ae60" text-anchor="middle">Ланцюг успішно замкнено</text>
+
+  <!-- Трафік 4 -->
+  <rect x="725" y="182" width="196" height="126" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="735" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Розподіл потоку:</text>
+  <rect x="735" y="210" width="176" height="24" rx="4" fill="#27ae60"/>
+  <text x="823" y="226" font-size="12" font-weight="700" fill="white" text-anchor="middle">Primary: 100%</text>
+  <rect x="735" y="242" width="176" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="823" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Secondary: 0% (Standby)</text>
+  <text x="823" y="294" font-size="12" fill="#27ae60" text-anchor="middle">Повне повернення трафіку</text>
+
+  <!-- Логіка 4 -->
+  <rect x="725" y="316" width="196" height="130" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="735" y="336" font-size="12" font-weight="700" fill="#1a1a1a">• Усі зонди успішні</text>
+  <text x="735" y="356" font-size="12" fill="#1a1a1a">• Скидання ковзного вікна</text>
+  <text x="735" y="376" font-size="12" fill="#1a1a1a">• Повне замикання контуру</text>
+  <text x="735" y="396" font-size="12" fill="#6b7280">• Резерв повернено в запас</text>
+  <text x="823" y="428" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Контур відновлено</text>
+
+  <!-- Часова вісь (Timeline) -->
+  <line x1="45" y1="482" x2="925" y2="482" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="151" y="474" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t0 (Штатний)</text>
+  <text x="375" y="474" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t1 (Збій)</text>
+  <text x="599" y="474" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t2 (Зондування)</text>
+  <text x="823" y="474" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t3 (Зцілення)</text>
+  <text x="480" y="504" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова вісь розвитку аварії та відновлення маршруту (Time →)</text>
+</svg>

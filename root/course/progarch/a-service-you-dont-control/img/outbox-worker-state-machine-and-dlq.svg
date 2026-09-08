@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінцевий автомат станів Outbox: життєвий цикл та ізоляція в DLQ</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Блокування через SKIP LOCKED, експоненційний бекоф, повернення завислих локів і карантин</text>
+
+  <!-- ==================== СТАН 1: PENDING ==================== -->
+  <rect x="55" y="145" width="205" height="100" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="55" y="145" width="205" height="28" rx="6" fill="#2457d6"/>
+  <text x="157" y="164" font-size="13" font-weight="700" fill="white" text-anchor="middle">PENDING (Очікування)</text>
+  <text x="67" y="193" font-size="11" fill="#1a1a1a">• Запис створено в ACID-транзакції</text>
+  <text x="67" y="211" font-size="11" fill="#1a1a1a">• attempts = 0..N, next_retry_at</text>
+  <text x="67" y="229" font-size="11" fill="#6b7280">• Очікує вибірки вільним воркером</text>
+
+  <!-- ==================== СТАН 2: PROCESSING ==================== -->
+  <rect x="375" y="145" width="210" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="375" y="145" width="210" height="28" rx="6" fill="#2457d6"/>
+  <text x="480" y="164" font-size="13" font-weight="700" fill="white" text-anchor="middle">PROCESSING (Блокування)</text>
+  <text x="387" y="193" font-size="11" fill="#1a1a1a">• locked_at = now(), locked_by = ID</text>
+  <text x="387" y="211" font-size="11" fill="#1a1a1a">• Захист від гонок (SKIP LOCKED)</text>
+  <text x="387" y="229" font-size="11" fill="#2457d6">• Виклик зовнішнього HTTP API</text>
+
+  <!-- ==================== СТАН 3: COMPLETED ==================== -->
+  <rect x="700" y="145" width="205" height="100" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="700" y="145" width="205" height="28" rx="6" fill="#27ae60"/>
+  <text x="802" y="164" font-size="13" font-weight="700" fill="white" text-anchor="middle">COMPLETED (Успіх)</text>
+  <text x="712" y="193" font-size="11" fill="#1a1a1a">• Отримано HTTP 2xx від сервісу</text>
+  <text x="712" y="211" font-size="11" fill="#1a1a1a">• processed_at = now()</text>
+  <text x="712" y="229" font-size="11" fill="#27ae60">• Термінальний успішний стан</text>
+
+  <!-- ==================== СТАН 4: FAILED (RETRY) ==================== -->
+  <rect x="220" y="305" width="220" height="95" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="220" y="305" width="220" height="26" rx="6" fill="#6b7280"/>
+  <text x="330" y="323" font-size="12" font-weight="700" fill="white" text-anchor="middle">FAILED (Очікує ретраю)</text>
+  <text x="232" y="349" font-size="11" fill="#1a1a1a">• attempts++ (лічильник спроб)</text>
+  <text x="232" y="367" font-size="11" fill="#1a1a1a">• next_retry = now() + JitterBackoff</text>
+  <text x="232" y="385" font-size="11" fill="#6b7280">• Лок знято до настання часу</text>
+
+  <!-- ==================== СТАН 5: DEAD_LETTER (DLQ) ==================== -->
+  <rect x="680" y="305" width="225" height="95" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="680" y="305" width="225" height="26" rx="6" fill="#c0392b"/>
+  <text x="792" y="323" font-size="12" font-weight="700" fill="white" text-anchor="middle">DEAD_LETTER (Карантин / DLQ)</text>
+  <text x="692" y="349" font-size="11" fill="#1a1a1a">• Ізоляція безнадійних подій</text>
+  <text x="692" y="367" font-size="11" fill="#c0392b">• dlq_reason: код помилки / ліміт</text>
+  <text x="692" y="385" font-size="11" fill="#6b7280">• Алерт інженерам, черга вільна</text>
+
+  <!-- ==================== ПЕРЕХОДИ ТА СТРІЛКИ ==================== -->
+
+  <!-- 1. PENDING -> PROCESSING -->
+  <line x1="260" y1="195" x2="373" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="317" y="180" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">SELECT ... SKIP LOCKED</text>
+  <text x="317" y="211" font-size="11" fill="#6b7280" text-anchor="middle">Захоплення запису</text>
+
+  <!-- 2. PROCESSING -> COMPLETED -->
+  <line x1="585" y1="195" x2="698" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="642" y="180" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">HTTP 2xx (Success)</text>
+  <text x="642" y="211" font-size="11" fill="#6b7280" text-anchor="middle">Операцію підтверджено</text>
+
+  <!-- 3. PROCESSING -> FAILED -->
+  <line x1="400" y1="245" x2="400" y2="303" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="390" y="270" font-size="11" font-weight="700" fill="#6b7280" text-anchor="end">Тимчасовий збій (5xx, таймаут)</text>
+  <text x="390" y="288" font-size="11" fill="#6b7280" text-anchor="end">attempts &lt; MAX (перехід на бекоф)</text>
+
+  <!-- 4. FAILED -> PENDING (Retry Backoff) -->
+  <path d="M220,352 L160,352 L160,247" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="152" y="280" font-size="11" font-weight="700" fill="#2457d6" text-anchor="end">now() &gt;= next_retry_at</text>
+  <text x="152" y="298" font-size="11" fill="#6b7280" text-anchor="end">Backoff + Full Jitter</text>
+
+  <!-- 5. STALE LOCK REAPER (PROCESSING -> PENDING) -->
+  <path d="M480,145 L480,92 L120,92 L120,143" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="300" y="82" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Повернення завислого лока: now() - locked_at &gt; TTL (аварія воркера / crash)</text>
+  <text x="300" y="108" font-size="11" fill="#6b7280" text-anchor="middle">Скидання статусу у PENDING — гарантія доставки At-Least-Once</text>
+
+  <!-- 6. PROCESSING -> DEAD_LETTER (Fatal 4xx) -->
+  <path d="M560,245 L560,275 L740,275 L740,303" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="650" y="265" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Фатальна помилка (HTTP 4xx)</text>
+  <text x="650" y="293" font-size="11" fill="#6b7280" text-anchor="middle">Миттєва ізоляція (Fail-Fast)</text>
+
+  <!-- 7. FAILED -> DEAD_LETTER (Max retries exhausted) -->
+  <line x1="440" y1="352" x2="678" y2="352" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="560" y="338" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">attempts &gt;= MAX_RETRIES</text>
+  <text x="560" y="368" font-size="11" fill="#6b7280" text-anchor="middle">Вичерпано ліміт повторних спроб</text>
+
+  <!-- 8. DEAD_LETTER -> PENDING (Manual Re-drive) -->
+  <path d="M792,400 L792,426 L80,426 L80,247" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="440" y="414" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Ручний перезапуск оператором: Manual Re-drive / Replay після усунення першопричини</text>
+
+  <!-- ==================== ПІДВАЛ: АРХІТЕКТУРНІ ГАРАНТІЇ ==================== -->
+  <rect x="45" y="445" width="870" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="60" y="468" font-size="12" font-weight="700" fill="#1a1a1a">1. Атомарний подвійний запис</text>
+  <text x="60" y="488" font-size="11" fill="#6b7280">Дані й Outbox в одній ACID-транзакції</text>
+
+  <text x="350" y="468" font-size="12" font-weight="700" fill="#1a1a1a">2. Конкурентна безпека</text>
+  <text x="350" y="488" font-size="11" fill="#6b7280">SKIP LOCKED усуває блокування воркерів</text>
+
+  <text x="640" y="468" font-size="12" font-weight="700" fill="#1a1a1a">3. Надійність доставки</text>
+  <text x="640" y="488" font-size="11" fill="#6b7280">At-Least-Once, Idempotency-Key та DLQ</text>
+</svg>

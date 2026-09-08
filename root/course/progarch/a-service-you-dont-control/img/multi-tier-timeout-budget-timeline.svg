@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Багаторівневий бюджет таймаутів: часова шкала трьох рівнів</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Різниця між Connect Timeout, міжбайтовим Socket Read Timeout та загальним дедлайном операції</text>
+
+  <!-- ==================== ВЕРХНІЙ БЛОК: ЧАСОВА ШКАЛА (TIMELINE) ==================== -->
+  <rect x="24" y="74" width="912" height="226" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Рівень 3: Загальний дедлайн операції (банер над шкалою від 0 до 3000 мс) -->
+  <rect x="120" y="84" width="660" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">РІВЕНЬ 3: Загальний дедлайн операції (Request Deadline = 3000 мс) — жорсткий глобальний ліміт</text>
+
+  <!-- Червона зона перевищення дедлайну (після 3000 мс) -->
+  <rect x="780" y="84" width="144" height="206" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <rect x="792" y="92" width="120" height="20" rx="3" fill="#c0392b"/>
+  <text x="852" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ДЕЛАЙН 3000 мс</text>
+  <text x="852" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зрив дедлайну!</text>
+  <text x="852" y="156" text-anchor="middle" font-size="12" fill="#c0392b">AbortSignal</text>
+  <text x="852" y="176" text-anchor="middle" font-size="12" fill="#6b7280">примусове</text>
+  <text x="852" y="194" text-anchor="middle" font-size="12" fill="#6b7280">скасування</text>
+  <text x="852" y="212" text-anchor="middle" font-size="12" fill="#6b7280">усіх спроб</text>
+
+  <!-- Вертикальна лінія дедлайну 3000 мс -->
+  <line x1="780" y1="84" x2="780" y2="230" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- СПРОБА 1: 0 .. 1450 мс -->
+  <rect x="120" y="124" width="319" height="90" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="130" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Спроба 1 (первинний запит)</text>
+
+  <!-- Спроба 1 / Фаза Connect: 0 .. 350 мс -->
+  <rect x="126" y="152" width="70" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="161" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Connect</text>
+  <text x="161" y="190" text-anchor="middle" font-size="12" fill="#2457d6">350 мс</text>
+
+  <!-- Спроба 1 / Відправка HTTP (TX): 350 .. 450 мс -->
+  <rect x="200" y="152" width="32" height="52" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="216" y="182" text-anchor="middle" font-size="12" fill="#6b7280">TX</text>
+
+  <!-- Спроба 1 / Рівень 2: Socket Read Timeout (450 .. 1450 мс) -->
+  <rect x="236" y="152" width="197" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="334" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Socket Read Timeout</text>
+  <text x="334" y="190" text-anchor="middle" font-size="12" fill="#c0392b">Тиша 1000 мс ➔ Abort сокета!</text>
+
+  <!-- ПАУЗА ВІДСТУПУ (Backoff + Jitter): 1450 .. 1750 мс -->
+  <rect x="445" y="124" width="60" height="90" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="475" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Пауза</text>
+  <text x="475" y="166" text-anchor="middle" font-size="12" fill="#6b7280">Backoff</text>
+  <text x="475" y="184" text-anchor="middle" font-size="12" fill="#6b7280">+ Jitter</text>
+  <text x="475" y="202" text-anchor="middle" font-size="12" fill="#6b7280">300 мс</text>
+
+  <!-- СПРОБА 2: 1750 .. 2750 мс (ретрай) -->
+  <rect x="511" y="124" width="224" height="90" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="521" y="142" font-size="12" font-weight="700" fill="#27ae60">Спроба 2 (ретрай) — Успіх</text>
+
+  <!-- Спроба 2 / Фаза Connect: 1750 .. 2050 мс -->
+  <rect x="517" y="152" width="54" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="544" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Connect</text>
+  <text x="544" y="190" text-anchor="middle" font-size="12" fill="#2457d6">300 мс</text>
+
+  <!-- Спроба 2 / TX: 2050 .. 2150 мс -->
+  <rect x="575" y="152" width="26" height="52" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="588" y="182" text-anchor="middle" font-size="12" fill="#6b7280">TX</text>
+
+  <!-- Спроба 2 / Читання даних: 2150 .. 2750 мс -->
+  <rect x="605" y="152" width="124" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="667" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Потік пакетів</text>
+  <text x="667" y="190" text-anchor="middle" font-size="12" fill="#27ae60">Таймер скинуто ✓</text>
+
+  <!-- Запас часу до дедлайну: 2750 .. 3000 мс -->
+  <rect x="741" y="124" width="33" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="757" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Запас</text>
+  <text x="757" y="182" text-anchor="middle" font-size="12" fill="#27ae60">250мс</text>
+
+  <!-- Горизонтальна вісь часу -->
+  <text x="105" y="234" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Час (t):</text>
+  <line x1="115" y1="230" x2="785" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Засічки шкали часу -->
+  <line x1="120" y1="230" x2="120" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="230" y1="230" x2="230" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="340" y1="230" x2="340" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="450" y1="230" x2="450" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="560" y1="230" x2="560" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="670" y1="230" x2="670" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="780" y1="230" x2="780" y2="235" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Числові підписи шкали -->
+  <text x="120" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">0 мс</text>
+  <text x="230" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">500 мс</text>
+  <text x="340" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">1000 мс</text>
+  <text x="450" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">1500 мс</text>
+  <text x="560" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">2000 мс</text>
+  <text x="670" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">2500 мс</text>
+  <text x="780" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">3000 мс</text>
+
+  <!-- Пояснювальні виноски під шкалою -->
+  <text x="161" y="272" text-anchor="middle" font-size="12" fill="#2457d6">Handshake ≤ 500 мс</text>
+  <text x="334" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Вичерпано Read Timeout</text>
+  <text x="334" y="288" text-anchor="middle" font-size="12" fill="#c0392b">1000 мс ненадходження даних</text>
+  <text x="667" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Кожен пакет оновлює таймер</text>
+  <text x="667" y="288" text-anchor="middle" font-size="12" fill="#27ae60">Відповідь отримана до дедлайну</text>
+
+  <!-- ==================== НИЖНІЙ БЛОК: 3 КАРТКИ РІВНІВ ТАЙМАУТІВ ==================== -->
+
+  <!-- КАРТКА 1: Connect Timeout -->
+  <rect x="24" y="312" width="293" height="200" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="34" y="322" width="180" height="22" rx="3" fill="#2457d6"/>
+  <text x="124" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">РІВЕНЬ 1: CONNECT TIMEOUT</text>
+  <text x="36" y="360" font-size="13" font-weight="700" fill="#1a1a1a">Встановлення з'єднання (Handshake)</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">· Бюджет: 200–500 мс (максимум 1000 мс)</text>
+  <text x="36" y="398" font-size="12" fill="#1a1a1a">· Фаза: TCP SYN-ACK та узгодження TLS</text>
+  <text x="36" y="416" font-size="12" fill="#1a1a1a">· Збій: переповнений SYN backlog, дроп</text>
+  <text x="36" y="434" font-size="12" fill="#1a1a1a">  пакетів фаєрволом, петля маршруту</text>
+  <rect x="34" y="446" width="273" height="56" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="44" y="464" font-size="12" font-weight="700" fill="#2457d6">Мета: миттєвий fail-fast</text>
+  <text x="44" y="480" font-size="12" fill="#2457d6">Не тримати потік на мертвому вузлі,</text>
+  <text x="44" y="494" font-size="12" fill="#2457d6">чий мережевий стек колапсував</text>
+
+  <!-- КАРТКА 2: Socket Read Timeout -->
+  <rect x="333" y="312" width="294" height="200" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="343" y="322" width="210" height="22" rx="3" fill="#c0392b"/>
+  <text x="448" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">РІВЕНЬ 2: SOCKET READ TIMEOUT</text>
+  <text x="345" y="360" font-size="13" font-weight="700" fill="#1a1a1a">Інтервал неактивності сокета</text>
+  <text x="345" y="380" font-size="12" fill="#1a1a1a">· Бюджет: 1000–1500 мс між пакетами</text>
+  <text x="345" y="398" font-size="12" fill="#1a1a1a">· Механіка: таймер скидається байтами</text>
+  <text x="345" y="416" font-size="12" fill="#1a1a1a">· Збій: завислий SQL, GC stop-the-world</text>
+  <text x="345" y="434" font-size="12" fill="#c0392b">· Сліпа зона: атака slow loris / drip feed</text>
+  <rect x="343" y="446" width="274" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="353" y="464" font-size="12" font-weight="700" fill="#c0392b">Пастка крапельного витоку</text>
+  <text x="353" y="480" font-size="12" fill="#c0392b">Якщо сервер шле по 1 байту на секунду,</text>
+  <text x="353" y="494" font-size="12" fill="#c0392b">read timeout не спрацює ніколи!</text>
+
+  <!-- КАРТКА 3: Request Deadline -->
+  <rect x="643" y="312" width="293" height="200" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="653" y="322" width="186" height="22" rx="3" fill="#27ae60"/>
+  <text x="746" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">РІВЕНЬ 3: REQUEST DEADLINE</text>
+  <text x="655" y="360" font-size="13" font-weight="700" fill="#1a1a1a">Загальний дедлайн операції</text>
+  <text x="655" y="380" font-size="12" fill="#1a1a1a">· Бюджет: 2500–3000 мс (жорстка стеля)</text>
+  <text x="655" y="398" font-size="12" fill="#1a1a1a">· Охоплює: усі ретраї, jitter, читання</text>
+  <text x="655" y="416" font-size="12" fill="#1a1a1a">· Механіка: AbortSignal / monotonic clock</text>
+  <text x="655" y="434" font-size="12" fill="#1a1a1a">· Захист: відсікає ретраї та slow loris</text>
+  <rect x="653" y="446" width="273" height="56" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="663" y="464" font-size="12" font-weight="700" fill="#27ae60">Гарантований верхній поріг</text>
+  <text x="663" y="480" font-size="12" fill="#27ae60">Зберігає доступність системи та не дає</text>
+  <text x="663" y="494" font-size="12" fill="#27ae60">вичерпати локальний пул потоків</text>
+</svg>

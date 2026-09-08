@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура маршрутизатора відмовостійкості (Failover Router)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляція провайдерів через незалежні контури Bulkhead, Circuit Breaker та ACL</text>
+
+  <!-- Блок 1: Доменний клієнт -->
+  <rect x="24" y="95" width="130" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="89" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Доменний клієнт</text>
+  <text x="89" y="140" text-anchor="middle" font-size="11" fill="#6b7280">(Бізнес-сервіс)</text>
+
+  <rect x="34" y="165" width="110" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="89" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Доменний запит</text>
+  <text x="89" y="212" text-anchor="middle" font-size="11" fill="#1a1a1a">ProcessPayment</text>
+  <text x="89" y="234" text-anchor="middle" font-size="10" fill="#6b7280">order_id: #4812</text>
+  <text x="89" y="252" text-anchor="middle" font-size="10" fill="#6b7280">amount: 2500 UAH</text>
+  <text x="89" y="272" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">idempotency_key</text>
+
+  <rect x="34" y="320" width="110" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="89" y="338" text-anchor="middle" font-size="10" fill="#6b7280">Єдиний контракт</text>
+  <text x="89" y="353" text-anchor="middle" font-size="10" font-weight="700" fill="#1a1a1a">без прив'язки до API</text>
+
+  <!-- Стрілка від Клієнта до Диспетчера -->
+  <line x1="154" y1="232" x2="192" y2="232" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Диспетчер маршрутизатора -->
+  <rect x="194" y="95" width="160" height="335" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="274" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Диспетчер</text>
+  <text x="274" y="140" text-anchor="middle" font-size="11" fill="#6b7280">(Failover Router)</text>
+
+  <rect x="204" y="160" width="140" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="274" y="182" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Політика вибору</text>
+  <text x="274" y="200" text-anchor="middle" font-size="10" fill="#6b7280">Active-Passive</text>
+  <text x="274" y="216" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Основний -&gt; Резерв</text>
+
+  <rect x="204" y="240" width="140" height="75" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="274" y="261" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Матриця відмов</text>
+  <text x="274" y="278" text-anchor="middle" font-size="10" fill="#27ae60">Мережевий збій / 503</text>
+  <text x="274" y="293" text-anchor="middle" font-size="10" fill="#6b7280">безпечний Failover</text>
+  <text x="274" y="307" text-anchor="middle" font-size="10" fill="#c0392b">Таймаут -&gt; Звірка</text>
+
+  <rect x="204" y="325" width="140" height="85" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="274" y="346" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Контекст мутацій</text>
+  <text x="274" y="364" text-anchor="middle" font-size="10" fill="#6b7280">Збереження ключа</text>
+  <text x="274" y="379" text-anchor="middle" font-size="10" fill="#6b7280">ідемпотентності</text>
+  <text x="274" y="397" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Захист від дублів</text>
+
+  <!-- Стрілки від Диспетчера до контурів -->
+  <line x1="354" y1="172" x2="392" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="354" y1="352" x2="392" y2="352" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Контур провайдера A (Основний) -->
+  <rect x="394" y="95" width="380" height="155" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="410" y="122" font-size="13" font-weight="700" fill="#27ae60">Контур провайдера A (Основний)</text>
+  <rect x="645" y="107" width="120" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">АКТИВНИЙ МАРШРУТ</text>
+
+  <!-- Bulkhead A -->
+  <rect x="404" y="136" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="458" y="156" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Bulkhead A</text>
+  <text x="458" y="174" text-anchor="middle" font-size="10" fill="#2457d6">Семафорна перебірка</text>
+  <text x="458" y="192" text-anchor="middle" font-size="10" fill="#6b7280">Ліміт: 20 слотів</text>
+  <text x="458" y="210" text-anchor="middle" font-size="10" fill="#6b7280">Ізоляція пулу потоків</text>
+  <text x="458" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Fail-fast: 0 мс</text>
+
+  <line x1="512" y1="187" x2="528" y2="187" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Circuit Breaker A -->
+  <rect x="530" y="136" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="584" y="156" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Circuit Breaker A</text>
+  <text x="584" y="174" text-anchor="middle" font-size="10" fill="#2457d6">Ковзне вікно (N=20)</text>
+  <text x="584" y="192" text-anchor="middle" font-size="10" fill="#6b7280">Поріг збоїв: 50%</text>
+  <text x="584" y="210" text-anchor="middle" font-size="10" fill="#6b7280">N_min = 10 викликів</text>
+  <text x="584" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Стан: CLOSED</text>
+
+  <line x1="638" y1="187" x2="654" y2="187" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- ACL-адаптер A -->
+  <rect x="656" y="136" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="156" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">ACL-адаптер A</text>
+  <text x="710" y="174" text-anchor="middle" font-size="10" fill="#2457d6">Антикорупційний шар</text>
+  <text x="710" y="192" text-anchor="middle" font-size="10" fill="#6b7280">Трансляція в Stripe</text>
+  <text x="710" y="210" text-anchor="middle" font-size="10" fill="#6b7280">Idempotency-Key</text>
+  <text x="710" y="226" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Канонізація помилок</text>
+
+  <!-- Стрілка до Зовнішнього сервісу A -->
+  <line x1="774" y1="182" x2="804" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Зовнішній API A -->
+  <rect x="806" y="120" width="130" height="125" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="871" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Зовнішній API A</text>
+  <text x="871" y="166" text-anchor="middle" font-size="11" fill="#6b7280">Основний провайдер</text>
+  <text x="871" y="184" text-anchor="middle" font-size="11" fill="#6b7280">(Stripe / Bank 1)</text>
+  <rect x="821" y="200" width="100" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="871" y="215" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">SLA: 99.95%</text>
+
+  <!-- Блок 4: Контур провайдера B (Резервний) -->
+  <rect x="394" y="275" width="380" height="155" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="302" font-size="13" font-weight="700" fill="#2457d6">Контур провайдера B (Резервний)</text>
+  <rect x="645" y="287" width="120" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="705" y="302" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">РЕЗЕРВНИЙ МАРШРУТ</text>
+
+  <!-- Bulkhead B -->
+  <rect x="404" y="316" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="458" y="336" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Bulkhead B</text>
+  <text x="458" y="354" text-anchor="middle" font-size="10" fill="#2457d6">Семафорна перебірка</text>
+  <text x="458" y="372" text-anchor="middle" font-size="10" fill="#6b7280">Ліміт: 15 слотів</text>
+  <text x="458" y="390" text-anchor="middle" font-size="10" fill="#27ae60">Ізольований від A</text>
+  <text x="458" y="406" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Вільний пул</text>
+
+  <line x1="512" y1="367" x2="528" y2="367" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Circuit Breaker B -->
+  <rect x="530" y="316" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="584" y="336" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Circuit Breaker B</text>
+  <text x="584" y="354" text-anchor="middle" font-size="10" fill="#2457d6">Ковзне вікно (N=20)</text>
+  <text x="584" y="372" text-anchor="middle" font-size="10" fill="#6b7280">Поріг збоїв: 50%</text>
+  <text x="584" y="390" text-anchor="middle" font-size="10" fill="#6b7280">Незалежні метрики</text>
+  <text x="584" y="406" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">Стан: CLOSED</text>
+
+  <line x1="638" y1="367" x2="654" y2="367" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- ACL-адаптер B -->
+  <rect x="656" y="316" width="108" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="336" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">ACL-адаптер B</text>
+  <text x="710" y="354" text-anchor="middle" font-size="10" fill="#2457d6">Антикорупційний шар</text>
+  <text x="710" y="372" text-anchor="middle" font-size="10" fill="#6b7280">Трансляція в Adyen</text>
+  <text x="710" y="390" text-anchor="middle" font-size="10" fill="#6b7280">X-Idempotency-Key</text>
+  <text x="710" y="406" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Канонізація помилок</text>
+
+  <!-- Стрілка до Зовнішнього сервісу B -->
+  <line x1="774" y1="362" x2="804" y2="362" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Зовнішній API B -->
+  <rect x="806" y="300" width="130" height="125" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="871" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Зовнішній API B</text>
+  <text x="871" y="346" text-anchor="middle" font-size="11" fill="#6b7280">Резервний провайдер</text>
+  <text x="871" y="364" text-anchor="middle" font-size="11" fill="#6b7280">(Adyen / Bank 2)</text>
+  <rect x="821" y="380" width="100" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="871" y="395" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">SLA: 99.90%</text>
+
+  <!-- Блок 5: Нижній висновок (архітектурний інваріант) -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="40" y="468" font-size="12" font-weight="700" fill="#2457d6">Архітектурний інваріант ізоляції відмов (Bulkhead + Failover):</text>
+  <text x="40" y="487" font-size="11" fill="#1a1a1a">Аварія чи вичерпання перебірки провайдера A локалізується в його контурі: пул B лишається чистим і готовим до прийому трафіку.</text>
+</svg>

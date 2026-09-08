@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Каскадний колапс: блокування потоків та вичерпання файлових дескрипторів</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Зависання зовнішнього сокета вичерпує воркери й дескриптори ОС, паралізуючи швидкі локальні ендпойнти</text>
+
+  <!-- КОЛОНКА 1: Вхідні клієнти -->
+  <rect x="24" y="68" width="216" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="80" width="126" height="22" rx="3" fill="#2457d6"/>
+  <text x="99" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВХІДНІ КЛІЄНТИ</text>
+  <text x="36" y="120" font-size="13" font-weight="700" fill="#1a1a1a">Змішаний потік запитів</text>
+
+  <!-- Картка 1.1: Зовнішні виклики -->
+  <rect x="36" y="132" width="192" height="102" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="46" y="152" font-size="12" font-weight="700" fill="#c0392b">Запити на оплату /pay (15%)</text>
+  <text x="46" y="172" font-size="12" fill="#6b7280">· Потребують зовнішній API</text>
+  <text x="46" y="190" font-size="12" fill="#6b7280">· Очікують відповіді мережі</text>
+  <text x="46" y="208" font-size="12" fill="#c0392b">· Зависають на 45–60 с</text>
+  <text x="46" y="226" font-size="12" fill="#c0392b">· Утримують сокети клієнта</text>
+
+  <!-- Картка 1.2: Локальні виклики -->
+  <rect x="36" y="246" width="192" height="168" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="46" y="266" font-size="12" font-weight="700" fill="#1a1a1a">Локальні запити (85%)</text>
+  <text x="46" y="286" font-size="12" fill="#2457d6">· /health (Liveness probe)</text>
+  <text x="46" y="304" font-size="12" fill="#2457d6">· /catalog (Читання з БД/Cache)</text>
+  <text x="46" y="322" font-size="12" fill="#6b7280">· Нормальний час: менше 5 мс</text>
+
+  <rect x="44" y="334" width="176" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="352" font-size="12" font-weight="700" fill="#c0392b">НАСЛІДОК: ПАРАЛІЧ!</text>
+  <text x="52" y="370" font-size="12" fill="#c0392b">· 503 Service Unavailable</text>
+  <text x="52" y="388" font-size="12" fill="#c0392b">· Відмова TCP (RST / Drop)</text>
+
+  <!-- КОЛОНКА 2: Веб-сервер та ОС -->
+  <rect x="254" y="68" width="452" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="266" y="80" width="180" height="22" rx="3" fill="#c0392b"/>
+  <text x="356" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВЕБ-СЕРВЕР ТА ЯДРО ОС</text>
+  <text x="456" y="96" font-size="12" font-weight="700" fill="#c0392b">Повний параліч ресурсів бекенду</text>
+
+  <!-- Картка 2.1: Пул потоків -->
+  <rect x="266" y="110" width="428" height="128" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="278" y="128" font-size="12" font-weight="700" fill="#c0392b">1. Блокування пулу потоків (Thread Pool: 200 / 200 зайнято)</text>
+
+  <rect x="278" y="136" width="404" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">[Потік 1..200: socket.read() BLOCKED (100% пулу вичерпано)]</text>
+
+  <text x="278" y="174" font-size="12" fill="#1a1a1a">· Усі 200 потоків зависли на синхронному читанні сокета провайдера</text>
+  <text x="278" y="192" font-size="12" fill="#c0392b">· Task Queue переповнена: нові запити негайно скидаються</text>
+  <text x="278" y="210" font-size="12" fill="#6b7280">· Жодного вільного воркера для виконання навіть 2-мілісекундних задач</text>
+  <text x="278" y="228" font-size="12" font-weight="700" fill="#c0392b">Вільних потоків: 0 (голодування потоків / Thread Starvation)</text>
+
+  <!-- Картка 2.2: Файлові дескриптори -->
+  <rect x="266" y="248" width="428" height="166" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="278" y="268" font-size="12" font-weight="700" fill="#c0392b">2. Вичерпання файлових дескрипторів ОС (FD Limit Exceeded)</text>
+
+  <rect x="278" y="276" width="404" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">[FD Table: 1024 / 1024 дескрипторів сокетів відкрито — ліміт ulimit -n]</text>
+
+  <text x="278" y="314" font-size="12" fill="#1a1a1a">· Завислі вхідні та вихідні з'єднання утримують таблицю сокетів ядра</text>
+  <text x="278" y="332" font-size="12" fill="#c0392b">· Системний виклик accept() завершується збоєм EMFILE (Too many open files)</text>
+  <text x="278" y="350" font-size="12" fill="#1a1a1a">· Ядро ОС відхиляє TCP SYN від клієнтів /health ще до рівня застосунку</text>
+  <text x="278" y="368" font-size="12" fill="#6b7280">· Оркестратор Kubernetes фіксує Unhealthy стан і вбиває екземпляр</text>
+
+  <rect x="278" y="378" width="404" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Помилка ОС: EMFILE ➔ збій accept() ➔ локальні ендпойнти мертві</text>
+
+  <!-- КОЛОНКА 3: Сторонній сервіс -->
+  <rect x="720" y="68" width="216" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="732" y="80" width="136" height="22" rx="3" fill="#c0392b"/>
+  <text x="800" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">СТОРОННІЙ СЕРВІС</text>
+  <text x="732" y="120" font-size="13" font-weight="700" fill="#c0392b">API зовнішнього провайдера</text>
+
+  <!-- Картка 3.1: Сповільнення -->
+  <rect x="732" y="132" width="192" height="118" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="742" y="152" font-size="12" font-weight="700" fill="#c0392b">Стрибок затримки (Lag)</text>
+  <text x="742" y="172" font-size="12" fill="#6b7280">· Нормальний час: 50 мс</text>
+  <text x="742" y="190" font-size="12" fill="#c0392b">· Поточний лаг: 45–60 с</text>
+  <text x="742" y="208" font-size="12" fill="#6b7280">· Втрата пакетів, TCP stall</text>
+  <text x="742" y="226" font-size="12" fill="#c0392b">· Сервіс не рве зв'язок,</text>
+  <text x="742" y="242" font-size="12" fill="#c0392b">  а безкінечно мовчить</text>
+
+  <!-- Картка 3.2: Дефолтний клієнт -->
+  <rect x="732" y="260" width="192" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="742" y="280" font-size="12" font-weight="700" fill="#1a1a1a">Дефолтний HTTP-клієнт</text>
+  <text x="742" y="300" font-size="12" fill="#c0392b">· SocketTimeout = 0 (нескінч.)</text>
+  <text x="742" y="318" font-size="12" fill="#c0392b">· Відсутній Bulkhead</text>
+  <text x="742" y="336" font-size="12" fill="#c0392b">· Немає Circuit Breaker</text>
+  <text x="742" y="354" font-size="12" fill="#6b7280">· Сліпі повторні спроби</text>
+  <text x="742" y="372" font-size="12" fill="#6b7280">  лише множать сокети</text>
+  <text x="742" y="392" font-size="12" font-weight="700" fill="#c0392b">· Каскадна пастка</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Анатомія каскаду -->
+  <rect x="24" y="440" width="912" height="80" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="36" y="450" width="160" height="20" rx="3" fill="#c0392b"/>
+  <text x="116" y="464" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">АНАТОМІЯ КАСКАДУ</text>
+  <text x="206" y="465" font-size="12" font-weight="700" fill="#c0392b">Закон Літтла (L = λ · W): як затримка сторонньої служби вбиває власну систему</text>
+  <text x="36" y="488" font-size="12" fill="#1a1a1a">· Механізм краху: зростання затримки з 50 мс до 50 с у 1000 разів збільшує число паралельних з'єднань, спалюючи всі 200 потоків і 1024 FD сокетів</text>
+  <text x="36" y="508" font-size="12" fill="#6b7280">· Захисний периметр: ізольовані перебірки (Bulkhead), жорсткий Socket Read Timeout (1–2 с) та Circuit Breaker для миттєвого fail-fast</text>
+
+</svg>

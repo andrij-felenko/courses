@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Матриця рішень при відмовах провайдера: Failover Decision Matrix</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Детерміновані збої транспорту дозволяють безпечний failover, а зависання мутацій вимагають звірки</text>
+
+  <!-- Вузол ухвалення рішень (Decision Box) -->
+  <rect x="220" y="78" width="520" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="220" y="78" width="520" height="26" rx="6" fill="#2457d6"/>
+  <text x="480" y="96" font-size="13" font-weight="700" fill="white" text-anchor="middle">Збій під час виконання операції мутації (POST /payments/charge)</text>
+  <text x="480" y="122" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ключове питання: чи встиг запит досягти віддаленого бізнес-ядра служби?</text>
+  <text x="480" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз точки обриву: розрив зв'язку ДО надсилання чи зависання під час очікування відповіді</text>
+
+  <!-- Стрілка до лівої гілки -->
+  <line x1="252" y1="156" x2="252" y2="202" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="264" y="176" font-size="12" font-weight="700" fill="#27ae60">Транспортний збій</text>
+  <text x="264" y="194" font-size="12" fill="#6b7280">(запит не надіслано)</text>
+
+  <!-- Стрілка до правої гілки -->
+  <line x1="707" y1="156" x2="707" y2="202" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="695" y="176" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Таймаут сокета</text>
+  <text x="695" y="194" font-size="12" fill="#6b7280" text-anchor="end">(запит уже в мережі!)</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: БЕЗПЕЧНИЙ FAILOVER ==================== -->
+  <rect x="40" y="210" width="425" height="288" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="40" y="210" width="425" height="28" rx="6" fill="#27ae60"/>
+  <text x="252" y="229" font-size="13" font-weight="700" fill="white" text-anchor="middle">ГІЛКА A: Безпечний миттєвий Failover на резерв</text>
+
+  <!-- Картка A1 -->
+  <rect x="55" y="248" width="395" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="70" y="268" font-size="12" font-weight="700" fill="#27ae60">1. Класифікація: Детерміновані помилки транспорту</text>
+  <text x="70" y="288" font-size="12" fill="#1a1a1a">• Connect Timeout (150 мс), ECONNREFUSED, DNS Failure</text>
+  <text x="70" y="306" font-size="12" fill="#1a1a1a">• Circuit Breaker у стані OPEN (fail-fast 0 мс на межі шлюзу)</text>
+
+  <!-- Картка A2 -->
+  <rect x="55" y="332" width="395" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="70" y="352" font-size="12" font-weight="700" fill="#2457d6">2. Дія: Миттєва переадресація на Backup Provider</text>
+  <text x="70" y="372" font-size="12" fill="#1a1a1a">• Гарантія: байти мутації не досягли бізнес-ядра партнера</text>
+  <text x="70" y="390" font-size="12" fill="#1a1a1a">• Прокидання єдиного Idempotency-Key до резервного шлюзу</text>
+
+  <!-- Картка A3 -->
+  <rect x="55" y="416" width="395" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="252" y="440" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Результат: 0% ризику подвійного списання</text>
+  <text x="252" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Транзакція прозоро завершується через резервний канал</text>
+  <text x="252" y="476" font-size="12" fill="#6b7280" text-anchor="middle">без простою та втрати конверсії для користувача</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: ЗАБОРОНА FAILOVER ==================== -->
+  <rect x="495" y="210" width="425" height="288" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="495" y="210" width="425" height="28" rx="6" fill="#c0392b"/>
+  <text x="707" y="229" font-size="13" font-weight="700" fill="white" text-anchor="middle">ГІЛКА B: Неоднозначний таймаут мутації (Пастка)</text>
+
+  <!-- Картка B1 -->
+  <rect x="510" y="248" width="395" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="268" font-size="12" font-weight="700" fill="#c0392b">1. Класифікація: Socket Read Timeout або HTTP 504</text>
+  <text x="525" y="288" font-size="12" fill="#1a1a1a">• TCP-з'єднання було відкрито, тіло POST надіслано в мережу</text>
+  <text x="525" y="306" font-size="12" fill="#c0392b">• Стан операції НЕВІДОМИЙ: списання могло відбутися!</text>
+
+  <!-- Картка B2 -->
+  <rect x="510" y="332" width="395" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="352" font-size="12" font-weight="700" fill="#c0392b">2. Заборона: Сліпий Failover категорично неприпустимий</text>
+  <text x="525" y="372" font-size="12" fill="#1a1a1a">• Обов'язкова звірка: polling статусу через Reconcile API</text>
+  <text x="525" y="390" font-size="12" fill="#1a1a1a">• Якщо статус невідомий: виклик анулювання (Void / Reverse)</text>
+
+  <!-- Картка B3 -->
+  <rect x="510" y="416" width="395" height="70" rx="6" fill="#ffffff" stroke="#c0392b"/>
+  <text x="707" y="440" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Сліпе перемикання = 100% подвійне списання!</text>
+  <text x="707" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">Перехід на резерв дозволено ТІЛЬКИ після успішного Void</text>
+  <text x="707" y="476" font-size="12" fill="#6b7280" text-anchor="middle">або підтвердження повної відсутності транзакції</text>
+</svg>

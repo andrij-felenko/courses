@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Компроміс вікна запобіжника: швидкість реакції проти стійкості до шуму</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Розмір вікна N вибирається між похибкою вибірки та критичним часом вичерпання пулу t_exhaust</text>
+
+  <!-- ==================== ЛІВА ЧАСТИНА: ГРАФІК КОМПРОМІСУ ==================== -->
+  <rect x="40" y="78" width="540" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Зона 1: Шум (червонувате тло) -->
+  <rect x="100" y="110" width="110" height="290" fill="#fdecea" fill-opacity="0.5"/>
+  <text x="155" y="132" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">ЗОНА ШУМУ</text>
+  <text x="155" y="148" font-size="11" fill="#6b7280" text-anchor="middle">Хибні розмикання</text>
+
+  <!-- Зона 2: Оптимальне вікно (зеленкувате тло) -->
+  <rect x="210" y="110" width="170" height="290" fill="#e9f7ef" fill-opacity="0.7"/>
+  <text x="295" y="132" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ОПТИМАЛЬНЕ ВІКНО N*</text>
+  <text x="295" y="148" font-size="11" fill="#27ae60" text-anchor="middle">Стійкість + швидкість</text>
+
+  <!-- Зона 3: Небезпечне запізнення (червонувате тло) -->
+  <rect x="380" y="110" width="150" height="290" fill="#fdecea" fill-opacity="0.35"/>
+  <text x="455" y="132" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">ЗОНА КОЛАПСУ</text>
+  <text x="455" y="148" font-size="11" fill="#c0392b" text-anchor="middle">t_detect &gt; t_exhaust</text>
+
+  <!-- Сітка горизонтальна -->
+  <line x1="100" y1="330" x2="530" y2="330" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="260" x2="530" y2="260" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="100" y1="190" x2="530" y2="190" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+  <!-- Критична лінія вичерпання пулу потоків t_exhaust -->
+  <line x1="100" y1="225" x2="530" y2="225" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="105" y="217" font-size="11" font-weight="700" fill="#c0392b">Стеля вичерпання пулу воркерів: t_exhaust = C_pool / λ</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь X -->
+  <line x1="100" y1="400" x2="540" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="535" y="392" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">Вікно N →</text>
+
+  <!-- Засічки та підписи осі X -->
+  <text x="145" y="416" font-size="11" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="210" y="416" font-size="11" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="295" y="416" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">100 (N*)</text>
+  <text x="380" y="416" font-size="11" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="470" y="416" font-size="11" fill="#6b7280" text-anchor="middle">200</text>
+
+  <!-- Ліва вісь Y: t_detect -->
+  <line x1="100" y1="400" x2="100" y2="100" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="60" y="94" font-size="11" font-weight="700" fill="#2457d6">t_detect (с) ↑</text>
+  <text x="92" y="404" font-size="11" fill="#2457d6" text-anchor="end">0</text>
+  <text x="92" y="334" font-size="11" fill="#2457d6" text-anchor="end">2</text>
+  <text x="92" y="264" font-size="11" fill="#2457d6" text-anchor="end">4</text>
+  <text x="92" y="229" font-size="11" font-weight="700" fill="#c0392b" text-anchor="end">5 (t_ex)</text>
+  <text x="92" y="194" font-size="11" fill="#2457d6" text-anchor="end">6</text>
+
+  <!-- Крива 1: t_detect (затримка розмикання) -->
+  <path d="M 110 380 Q 295 300 500 160" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="390" y="275" font-size="12" font-weight="700" fill="#2457d6">t_detect = ⌈θN⌉/λ</text>
+
+  <!-- Крива 2: P_false (ймовірність хибного спрацьовування через шум) -->
+  <path d="M 115 160 Q 165 310 260 375 T 510 395" fill="none" stroke="#d97706" stroke-width="2.5"/>
+  <text x="145" y="182" font-size="12" font-weight="700" fill="#d97706">P_false (шум)</text>
+
+  <!-- Легенда під графіком -->
+  <rect x="110" y="438" width="14" height="14" rx="3" fill="#2457d6"/>
+  <text x="130" y="450" font-size="11" fill="#1a1a1a">Затримка реакції t_detect</text>
+
+  <rect x="290" y="438" width="14" height="14" rx="3" fill="#d97706"/>
+  <text x="310" y="450" font-size="11" fill="#1a1a1a">Хибне розмикання P_false</text>
+
+  <line x1="465" y1="445" x2="485" y2="445" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="492" y="450" font-size="11" fill="#c0392b">Стеля t_exhaust</text>
+
+  <!-- ==================== ПРАВА ЧАСТИНА: АНАЛІТИЧНІ КАРТКИ ==================== -->
+  <!-- Картка 1: Математичний апарат -->
+  <rect x="600" y="78" width="320" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="618" y="104" font-size="13" font-weight="700" fill="#1a1a1a">Математичні обмеження компромісу:</text>
+
+  <text x="618" y="128" font-size="12" font-weight="700" fill="#2457d6">1. Час розмикання ланцюга:</text>
+  <text x="618" y="144" font-size="12" fill="#1a1a1a">t_detect = ⌈θ · N⌉ / λ</text>
+
+  <text x="618" y="168" font-size="12" font-weight="700" fill="#c0392b">2. Ліміт живучості пулу воркерів:</text>
+  <text x="618" y="184" font-size="12" fill="#1a1a1a">t_exhaust ≈ C_pool / λ  (закон Літтла)</text>
+
+  <text x="618" y="208" font-size="12" font-weight="700" fill="#d97706">3. Дисперсія похибки частоти збоїв:</text>
+  <text x="618" y="224" font-size="12" fill="#1a1a1a">σ² = p(1 − p) / N  → 0 при зростанні N</text>
+
+  <text x="618" y="248" font-size="11" fill="#6b7280">При N &lt; 20 похибка перевищує ±20%</text>
+
+  <!-- Картка 2: Інженерний критерій -->
+  <rect x="600" y="282" width="320" height="188" rx="8" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="618" y="308" font-size="13" font-weight="700" fill="#2457d6">Правило налаштування вікна N*:</text>
+
+  <text x="618" y="332" font-size="12" font-weight="700" fill="#1a1a1a">• Верхня межа (запобігання паралічу):</text>
+  <text x="618" y="348" font-size="12" fill="#c0392b">t_detect &lt; t_exhaust (запас безпеки ≥ 30%)</text>
+
+  <text x="618" y="374" font-size="12" font-weight="700" fill="#1a1a1a">• Нижня межа (стійкість до шуму):</text>
+  <text x="618" y="390" font-size="12" fill="#d97706">N ≥ N_min, де P(помилка вибірки) &lt; 1%</text>
+
+  <text x="618" y="418" font-size="12" font-weight="700" fill="#27ae60">• Висновок архітектора:</text>
+  <text x="618" y="436" font-size="12" fill="#1a1a1a">Оптимум N* гарантує відсікання збою</text>
+  <text x="618" y="452" font-size="12" fill="#1a1a1a">ДО вичерпання пулу без хибних панік</text>
+</svg>

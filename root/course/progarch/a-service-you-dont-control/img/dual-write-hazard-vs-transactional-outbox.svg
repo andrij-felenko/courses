@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Пастка подвійного запису проти Transactional Outbox</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Атомарна фіксація наміру в єдиній ACID-транзакції замість ненадійного розподіленого запису</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Пастка подвійного запису (Dual-Write Hazard) -->
+  <rect x="24" y="88" width="446" height="356" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="98" width="426" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="120" font-size="13" font-weight="700" fill="#c0392b">Сценарій A: Подвійний запис (Dual-Write)</text>
+  <text x="450" y="120" text-anchor="end" font-size="10" font-weight="700" fill="#c0392b">НЕБЕЗПЕКА</text>
+
+  <!-- Блок 1.1: Застосунок -->
+  <rect x="44" y="146" width="406" height="46" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="166" font-size="12" font-weight="700" fill="#1a1a1a">1. Застосунок / Бізнес-сервіс</text>
+  <text x="56" y="182" font-size="10" fill="#6b7280">Отримує запит від користувача на створення сутності (напр. замовлення)</text>
+
+  <!-- Стрілки від застосунку до двох операцій -->
+  <line x1="139" y1="192" x2="139" y2="212" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="355" y1="192" x2="355" y2="212" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 1.2: Запис у локальну БД -->
+  <rect x="44" y="214" width="190" height="96" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="139" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Крок 1: Локальна БД</text>
+  <text x="139" y="254" text-anchor="middle" font-size="10" fill="#1a1a1a">INSERT INTO orders</text>
+  <text x="139" y="272" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">COMMIT: УСПІШНО</text>
+  <text x="139" y="290" text-anchor="middle" font-size="10" fill="#6b7280">Стан збережено в базі</text>
+
+  <!-- Блок 1.3: Виклик стороннього API -->
+  <rect x="260" y="214" width="190" height="96" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="355" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Крок 2: Сторонній API</text>
+  <text x="355" y="254" text-anchor="middle" font-size="10" fill="#1a1a1a">POST /v1/payments</text>
+  <text x="355" y="272" text-anchor="middle" font-size="10" font-weight="700" fill="#c0392b">АВАРІЯ / ТАЙМАУТ</text>
+  <text x="355" y="290" text-anchor="middle" font-size="10" fill="#c0392b">Мережевий розрив або OOM</text>
+
+  <!-- Блок 1.4: Наслідки розриву -->
+  <rect x="44" y="322" width="406" height="110" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="344" font-size="11" font-weight="700" fill="#c0392b">Наслідки неатомарного подвійного запису:</text>
+  <text x="56" y="364" font-size="10" fill="#1a1a1a">- Замовлення збережено в БД, але сторонній платіж не проведено.</text>
+  <text x="56" y="382" font-size="10" fill="#1a1a1a">- При зворотній черговості: гроші списано, а коміт у БД не відбувся.</text>
+  <text x="56" y="400" font-size="10" fill="#1a1a1a">- Стан системи назавжди розсинхронізований через відсутність 2PC.</text>
+  <text x="56" y="418" font-size="10" font-weight="700" fill="#c0392b">Розрив між локальним комітом та HTTP API неможливо ліквідувати!</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Transactional Outbox (Solution) -->
+  <rect x="490" y="88" width="446" height="356" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="500" y="98" width="426" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="120" font-size="13" font-weight="700" fill="#27ae60">Сценарій B: Транзакційна скринька (Outbox)</text>
+  <text x="916" y="120" text-anchor="end" font-size="10" font-weight="700" fill="#27ae60">НАДІЙНО</text>
+
+  <!-- Блок 2.1: Єдина локальна ACID-транзакція -->
+  <rect x="510" y="146" width="406" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="522" y="166" font-size="11" font-weight="700" fill="#27ae60">Єдина локальна ACID-транзакція (Все або нічого):</text>
+
+  <!-- Підтаблиця 1: orders -->
+  <rect x="520" y="176" width="188" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="614" y="196" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Таблиця orders</text>
+  <text x="614" y="214" text-anchor="middle" font-size="10" fill="#6b7280">Збереження бізнес-стану</text>
+  <text x="614" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#27ae60">status: PENDING</text>
+
+  <!-- Підтаблиця 2: outbox_events -->
+  <rect x="718" y="176" width="188" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="812" y="196" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a1a">Таблиця outbox_events</text>
+  <text x="812" y="214" text-anchor="middle" font-size="10" fill="#2457d6">Намір виклику API</text>
+  <text x="812" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Idempotency-Key</text>
+
+  <!-- Стрілка від транзакції до воркера -->
+  <line x1="713" y1="258" x2="713" y2="274" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 2.2: Фоновий Outbox Worker -->
+  <rect x="510" y="276" width="406" height="74" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="522" y="296" font-size="11" font-weight="700" fill="#2457d6">Фоновий обробник (Outbox Worker):</text>
+  <text x="522" y="314" font-size="10" fill="#1a1a1a">SELECT ... FOR UPDATE SKIP LOCKED</text>
+  <text x="522" y="332" font-size="10" fill="#6b7280">Паралельне вичитування без взаємних блокувань</text>
+
+  <rect x="764" y="288" width="142" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="835" y="308" text-anchor="middle" font-size="10" font-weight="700" fill="#2457d6">Сторонній API</text>
+  <text x="835" y="326" text-anchor="middle" font-size="10" fill="#27ae60">Retry + Full Jitter</text>
+
+  <!-- Блок 2.3: Гарантії надійності -->
+  <rect x="510" y="362" width="406" height="70" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="522" y="382" font-size="11" font-weight="700" fill="#27ae60">Архітектурні гарантії Transactional Outbox:</text>
+  <text x="522" y="400" font-size="10" fill="#1a1a1a">- Надійна доставка «at-least-once»: подія не зникне при збої мережі чи процесу.</text>
+  <text x="522" y="418" font-size="10" fill="#1a1a1a">- Детермінований Idempotency-Key унеможливлює подвійні списання коштів.</text>
+
+  <!-- Блок 3: Нижній архітектурний інваріант -->
+  <rect x="24" y="456" width="912" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="40" y="475" font-size="12" font-weight="700" fill="#2457d6">Ключовий архітектурний принцип:</text>
+  <text x="40" y="493" font-size="11" fill="#1a1a1a">Ніколи не викликайте сторонній API у транзакції БД; зберігайте стан і подію наміру атомарно в Outbox, а доставку довіряйте воркеру.</text>
+</svg>

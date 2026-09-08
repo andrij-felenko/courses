@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Кільцевий буфер викликів: інерція та часова консервація збоїв</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">У count-based вікні старі збої витісняються лише новими викликами, консервуючись при спаді трафіку</text>
+
+  <!-- ВЕРХНІЙ БЛОК: Будова кільцевого буфера -->
+  <rect x="24" y="68" width="912" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="13" font-weight="700" fill="#1a1a1a">1. Структура кільцевого буфера (N = 10 викликів) та розрахунок частки відмов</text>
+
+  <!-- Бейдж циклічності буфера -->
+  <rect x="140" y="98" width="280" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кільцевий буфер подій FIFO (N = 10 слотів)</text>
+
+  <!-- Слоти кільцевого буфера [0]..[9] -->
+  <!-- Слот 0: Успіх -->
+  <text x="66" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[0]</text>
+  <rect x="44" y="132" width="44" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="66" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">✓</text>
+  <text x="66" y="170" text-anchor="middle" font-size="12" fill="#27ae60">200</text>
+
+  <!-- Слот 1: Успіх -->
+  <text x="114" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[1]</text>
+  <rect x="92" y="132" width="44" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="114" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">✓</text>
+  <text x="114" y="170" text-anchor="middle" font-size="12" fill="#27ae60">200</text>
+
+  <!-- Слот 2: Збій -->
+  <text x="162" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[2]</text>
+  <rect x="140" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="162" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="162" y="170" text-anchor="middle" font-size="12" fill="#c0392b">503</text>
+
+  <!-- Слот 3: Збій -->
+  <text x="210" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[3]</text>
+  <rect x="188" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="210" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="210" y="170" text-anchor="middle" font-size="12" fill="#c0392b">504</text>
+
+  <!-- Слот 4: Збій -->
+  <text x="258" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[4]</text>
+  <rect x="236" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="258" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="258" y="170" text-anchor="middle" font-size="12" fill="#c0392b">504</text>
+
+  <!-- Слот 5: Збій -->
+  <text x="306" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[5]</text>
+  <rect x="284" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="306" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="306" y="170" text-anchor="middle" font-size="12" fill="#c0392b">500</text>
+
+  <!-- Слот 6: Збій (HEAD) -->
+  <text x="354" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">[6]*</text>
+  <rect x="332" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#2457d6" stroke-width="2"/>
+  <text x="354" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="354" y="170" text-anchor="middle" font-size="12" fill="#c0392b">504</text>
+
+  <!-- Слот 7: Збій -->
+  <text x="402" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[7]</text>
+  <rect x="380" y="132" width="44" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="402" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">✗</text>
+  <text x="402" y="170" text-anchor="middle" font-size="12" fill="#c0392b">503</text>
+
+  <!-- Слот 8: Успіх -->
+  <text x="450" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[8]</text>
+  <rect x="428" y="132" width="44" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="450" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">✓</text>
+  <text x="450" y="170" text-anchor="middle" font-size="12" fill="#27ae60">200</text>
+
+  <!-- Слот 9: Успіх -->
+  <text x="498" y="126" text-anchor="middle" font-size="12" fill="#6b7280">[9]</text>
+  <rect x="476" y="132" width="44" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="498" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">✓</text>
+  <text x="498" y="170" text-anchor="middle" font-size="12" fill="#27ae60">200</text>
+
+  <!-- Вказівник Head -->
+  <line x1="354" y1="210" x2="354" y2="188" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="354" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">head = 6 (поточна позиція запису)</text>
+  <text x="354" y="244" text-anchor="middle" font-size="12" fill="#6b7280">Циклічний зсув: head = (head + 1) mod N</text>
+
+  <!-- Права картка: Розрахунок метрики -->
+  <rect x="546" y="94" width="374" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="562" y="116" font-size="13" font-weight="700" fill="#1a1a1a">Розрахунок частки відмов (Failure Rate):</text>
+  <text x="562" y="138" font-size="13" font-weight="700" fill="#c0392b">Rate = (Кількість збоїв / N) = 6 / 10 = 60%</text>
+  <text x="562" y="158" font-size="12" fill="#1a1a1a">Поріг розмикання: θ = 50% (Rate = 60% ≥ 50%)</text>
+
+  <rect x="562" y="172" width="342" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="733" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">СТАН ЗАПОБІЖНИКА: OPEN (ланцюг розімкнено)</text>
+
+  <text x="562" y="222" font-size="12" fill="#6b7280">Нові виклики відхиляються (fail-fast) без запиту в мережу</text>
+  <text x="562" y="238" font-size="12" fill="#6b7280">Запобіжник чекає нових подій, щоб очистити пам'ять</text>
+
+  <!-- НИЖНІЙ БЛОК: Порівняння сценаріїв -->
+  <!-- Сценарій А: Високий трафік -->
+  <rect x="24" y="270" width="444" height="250" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="36" y="282" width="420" height="32" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="303" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">СЦЕНАРІЙ А: Високий трафік (λ = 100 зап/с)</text>
+
+  <rect x="36" y="324" width="420" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="344" font-size="12" font-weight="700" fill="#1a1a1a">Час повного оновлення буфера (Flush Time):</text>
+  <text x="50" y="364" font-size="13" font-weight="700" fill="#27ae60">Δt_flush = N / λ = 10 / 100 = 0.10 с (100 мс)</text>
+
+  <rect x="50" y="380" width="392" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="246" y="397" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">10 успіхів за 100 мс: [ ✓200 ✓200 ✓200 ✓200 ✓200 ✓200 ✓200 ✓200 ✓200 ✓200 ]</text>
+
+  <text x="50" y="426" font-size="12" fill="#1a1a1a">· Усі 6 старих збоїв вимиваються з пам'яті за 0.1 секунди</text>
+  <text x="50" y="446" font-size="12" fill="#1a1a1a">· Частка помилок миттєво падає: Rate = 0% &lt; 50%</text>
+  <text x="50" y="466" font-size="12" font-weight="700" fill="#27ae60">· Стан: HALF-OPEN ➔ CLOSED (швидке замикання)</text>
+  <text x="50" y="486" font-size="12" fill="#6b7280">Запобіжник негайно відкриває шлях викликам без інерції</text>
+
+  <!-- Сценарій Б: Спад трафіку -->
+  <rect x="492" y="270" width="444" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="504" y="282" width="420" height="32" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="303" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">СЦЕНАРІЙ Б: Спад трафіку (λ = 1 зап/хв) — Інерція</text>
+
+  <rect x="504" y="324" width="420" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="344" font-size="12" font-weight="700" fill="#1a1a1a">Час витіснення застарілих збоїв (Flush Time):</text>
+  <text x="518" y="364" font-size="13" font-weight="700" fill="#c0392b">Δt_flush = N / λ = 10 / (1/60) = 600 с (10 хвилин!)</text>
+
+  <rect x="518" y="380" width="392" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="714" y="397" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">За 5 хв лише 5 викликів: [ ✓200 ✓200 ✗503 ✗504 ✗504 ✗500 ✗504 ... ]</text>
+
+  <text x="518" y="426" font-size="12" fill="#1a1a1a">· Збої 10-хвилинної давнини блокують роботу здорового сервісу</text>
+  <text x="518" y="446" font-size="12" fill="#c0392b">· Rate залишається 60% ≥ 50%: ланцюг хибно відкритий</text>
+  <text x="518" y="466" font-size="12" font-weight="700" fill="#c0392b">· Стан: OPEN залишається активним через брак трафіку</text>
+  <text x="518" y="486" font-size="12" fill="#6b7280">Часова консервація: відсутність обліку часу життя (TTL) викликів</text>
+</svg>

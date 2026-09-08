@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Дерево рішень Бернуллі у стані HALF_OPEN</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Вибір розміру вибірки N_probe балансує ризик передчасного замикання проти хибного зриву через шум</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Дерево ймовірностей Бернуллі -->
+  <rect x="24" y="68" width="470" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="13" font-weight="700" fill="#1a1a1a">1. Дерево випробувань Бернуллі (N_probe = 3)</text>
+
+  <!-- Вузол: Стан HALF_OPEN -->
+  <rect x="36" y="196" width="90" height="40" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="81" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">HALF_OPEN</text>
+  <text x="81" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Зондування</text>
+
+  <!-- Лінія до Зонда 1 -->
+  <line x1="126" y1="216" x2="146" y2="216" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ЗОНД 1 -->
+  <rect x="148" y="198" width="60" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="178" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зонд 1</text>
+
+  <!-- Зонд 1 -> Успіх (вгору до y=150, потім вправо до Зонда 2) -->
+  <polyline points="208,210 228,210 228,150 248,150" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="220" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">p</text>
+
+  <!-- Зонд 1 -> Збій (вниз до y=268, потім вправо до OPEN) -->
+  <polyline points="208,222 228,222 228,268 248,268" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="220" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">1-p</text>
+  <rect x="250" y="254" width="64" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="282" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OPEN</text>
+
+  <!-- ЗОНД 2 -->
+  <rect x="250" y="132" width="60" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="280" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зонд 2</text>
+
+  <!-- Зонд 2 -> Успіх (вгору до y=110, потім вправо до Зонда 3) -->
+  <polyline points="310,144 330,144 330,110 350,110" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="322" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">p</text>
+
+  <!-- Зонд 2 -> Збій (вниз до y=208, потім вправо до OPEN) -->
+  <polyline points="310,156 330,156 330,208 350,208" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="322" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">1-p</text>
+  <rect x="352" y="194" width="64" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="384" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OPEN</text>
+
+  <!-- ЗОНД 3 -->
+  <rect x="352" y="92" width="60" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="382" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зонд 3</text>
+
+  <!-- Зонд 3 -> Успіх (прямо вправо до CLOSED) -->
+  <line x1="412" y1="110" x2="426" y2="110" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="420" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">p</text>
+  <rect x="428" y="96" width="58" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="457" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">CLOSED</text>
+
+  <!-- Зонд 3 -> Збій (прямо вниз до OPEN) -->
+  <line x1="382" y1="128" x2="382" y2="148" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="398" y="142" font-size="12" font-weight="700" fill="#c0392b">1-p</text>
+  <rect x="352" y="150" width="64" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="384" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OPEN</text>
+
+  <!-- Підсумкова формула внизу лівої панелі -->
+  <rect x="36" y="324" width="446" height="182" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="346" font-size="12" font-weight="700" fill="#1a1a1a">Ймовірності результатів випробувань:</text>
+  
+  <text x="50" y="370" font-size="13" font-weight="700" fill="#27ae60">P(Замикання ➔ CLOSED) = p^N_probe</text>
+  <text x="50" y="390" font-size="12" fill="#1a1a1a">Для переходу в CLOSED усі 3 зонди мають завершитися успіхом</text>
+  
+  <text x="50" y="418" font-size="13" font-weight="700" fill="#c0392b">P(Повернення ➔ OPEN) = 1 - p^N_probe</text>
+  <text x="50" y="438" font-size="12" fill="#1a1a1a">Хоча б один збій на будь-якому кроці повертає запобіжник у OPEN</text>
+  
+  <text x="50" y="466" font-size="12" font-weight="700" fill="#2457d6">Схема випробувань Бернуллі: B(N_probe, p)</text>
+  <text x="50" y="486" font-size="12" fill="#6b7280">Кожен зонд є незалежним тестом працездатності провайдера</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Аналіз ризиків -->
+  <rect x="506" y="68" width="430" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="522" y="92" font-size="13" font-weight="700" fill="#1a1a1a">2. Аналітичний розрахунок ризиків за схемою Бернуллі</text>
+
+  <!-- Картка 1: Ризик помилкового замикання -->
+  <rect x="520" y="106" width="402" height="126" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="520" y="106" width="402" height="26" rx="6" fill="#fdecea"/>
+  <text x="532" y="124" font-size="12" font-weight="700" fill="#c0392b">РИЗИК 1: Хибне замикання (хворий сервіс, p = 70%)</text>
+
+  <text x="532" y="150" font-size="12" fill="#1a1a1a">Формула: P(всі успішні) = 0.70^N_probe</text>
+  <text x="532" y="168" font-size="12" fill="#c0392b">· N_probe = 1 : P = 70.0% (катастрофа, 7 з 10 проб пропустять збій)</text>
+  <text x="532" y="186" font-size="12" fill="#c0392b">· N_probe = 3 : P = 34.3% (високий ризик повторної аварії)</text>
+  <text x="532" y="204" font-size="12" fill="#27ae60">· N_probe = 5 : P = 16.8% (надійний фільтр для деградованого API)</text>
+  <text x="532" y="222" font-size="12" fill="#27ae60">· N_probe = 10: P = 2.8% (майже нульовий ризик хибного старту)</text>
+
+  <!-- Картка 2: Ризик випадкового зриву -->
+  <rect x="520" y="244" width="402" height="126" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="520" y="244" width="402" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="532" y="262" font-size="12" font-weight="700" fill="#2457d6">РИЗИК 2: Хибний зрив у OPEN (здоровий сервіс, p = 95%)</text>
+
+  <text x="532" y="288" font-size="12" fill="#1a1a1a">Формула: P(хоча б 1 збій через шум) = 1 - 0.95^N_probe</text>
+  <text x="532" y="306" font-size="12" fill="#27ae60">· N_probe = 1 : P = 5.0% (стійкий до поодиноких флуктуацій)</text>
+  <text x="532" y="324" font-size="12" fill="#27ae60">· N_probe = 3 : P = 14.3% (помірний ризик випадкового зриву)</text>
+  <text x="532" y="342" font-size="12" fill="#c0392b">· N_probe = 5 : P = 22.6% (кожен 4-й здоровий сервіс зривається)</text>
+  <text x="532" y="360" font-size="12" fill="#c0392b">· N_probe = 10: P = 40.1% (деренчання контуру / flapping!)</text>
+
+  <!-- Картка 3: Оптимальний баланс -->
+  <rect x="520" y="382" width="402" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="532" y="404" font-size="12" font-weight="700" fill="#27ae60">АРХІТЕКТУРНИЙ ВИСНОВОК: ЗОЛОТА СЕРЕДИНА</text>
+  <text x="532" y="426" font-size="12" fill="#1a1a1a">· N_probe = 1 — наївна помилка: пропускає 70% хворих служб</text>
+  <text x="532" y="446" font-size="12" fill="#1a1a1a">· N_probe ≥ 10 — надмірна жорсткість: 40% здорових тестів гине</text>
+  <text x="532" y="468" font-size="12" font-weight="700" fill="#27ae60">✓ Оптимум: N_probe = 3..5 викликів</text>
+  <text x="532" y="488" font-size="12" fill="#6b7280">Мінімізує суму обох ризиків без створення черг затримки</text>
+
+</svg>

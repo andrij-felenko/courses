@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Верифікація стійкості: 5 фаз хаос-тестування зовнішнього шлюзу</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Динаміка станів Circuit Breaker, відсікання перебірки Bulkhead та падіння латентності до 0.85 мс при аварії</text>
+
+  <!-- ==================== ГОЛОВНА ПАНЕЛЬ 5 ФАЗ ==================== -->
+  <rect x="24" y="70" width="912" height="268" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальні розділювачі фаз (у просвітах між колонками) -->
+  <line x1="206" y1="76" x2="206" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="389" y1="76" x2="389" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="571" y1="76" x2="571" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="754" y1="76" x2="754" y2="332" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- РЯДОК 0: ШАПКИ ФАЗ -->
+  <rect x="34" y="80" width="162" height="22" rx="3" fill="#27ae60"/>
+  <text x="115" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 1: ШТАТНА</text>
+
+  <rect x="216" y="80" width="164" height="22" rx="3" fill="#2457d6"/>
+  <text x="298" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 2: СПЛЕСК</text>
+
+  <rect x="399" y="80" width="162" height="22" rx="3" fill="#c0392b"/>
+  <text x="480" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 3: АВАРІЯ</text>
+
+  <rect x="581" y="80" width="164" height="22" rx="3" fill="#c0392b"/>
+  <text x="662" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 4: FAIL-FAST</text>
+
+  <rect x="764" y="80" width="162" height="22" rx="3" fill="#27ae60"/>
+  <text x="845" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 5: ЗЦІЛЕННЯ</text>
+
+  <!-- РЯДОК 1: СТАНИ CIRCUIT BREAKER -->
+  <!-- Фаза 1: CLOSED -->
+  <rect x="34" y="110" width="162" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="115" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">CLOSED (замкнено)</text>
+  <text x="115" y="144" text-anchor="middle" font-size="12" fill="#27ae60">Штатний пропуск</text>
+
+  <!-- Фаза 2: CLOSED (Bulkhead active) -->
+  <rect x="216" y="110" width="164" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="298" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">CLOSED (Bulkhead)</text>
+  <text x="298" y="144" text-anchor="middle" font-size="12" fill="#2457d6">Квота: 3 / 8 слотів</text>
+
+  <!-- Фаза 3: CLOSED -> OPEN -->
+  <rect x="399" y="110" width="162" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">CLOSED ➔ OPEN</text>
+  <text x="480" y="144" text-anchor="middle" font-size="12" fill="#c0392b">Відмови &gt; 50% (поріг 4)</text>
+
+  <!-- Фаза 4: OPEN -->
+  <rect x="581" y="110" width="164" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="662" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OPEN (ізоляція)</text>
+  <text x="662" y="144" text-anchor="middle" font-size="12" fill="#c0392b">Мережа заблокована</text>
+
+  <!-- Фаза 5: HALF-OPEN -> CLOSED -->
+  <rect x="764" y="110" width="162" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="845" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">HALF-OPEN ➔ CLOSED</text>
+  <text x="845" y="144" text-anchor="middle" font-size="12" fill="#27ae60">Зонд 2/2 OK ➔ норма</text>
+
+  <!-- РЯДОК 2: МЕРЕЖЕВИЙ ТРАФІК ТА ПРОВАЙДЕР -->
+  <!-- Фаза 1 -->
+  <rect x="34" y="164" width="162" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Провайдер: 200 OK</text>
+  <text x="115" y="198" text-anchor="middle" font-size="12" fill="#1a1a1a">3 запити ➔ всі в мережу</text>
+  <text x="115" y="214" text-anchor="middle" font-size="12" fill="#27ae60">Деградація: 0% (штатно)</text>
+
+  <!-- Фаза 2 -->
+  <rect x="216" y="164" width="164" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="298" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Провайдер: затримка 80мс</text>
+  <text x="298" y="198" text-anchor="middle" font-size="12" fill="#2457d6">3 у мережу, 5 відсічено</text>
+  <text x="298" y="214" text-anchor="middle" font-size="12" fill="#2457d6">5 запитів ➔ Fallback кеш</text>
+
+  <!-- Фаза 3 -->
+  <rect x="399" y="164" width="162" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Провайдер: 503 аварія</text>
+  <text x="480" y="198" text-anchor="middle" font-size="12" fill="#c0392b">Помилки накопичуються</text>
+  <text x="480" y="214" text-anchor="middle" font-size="12" fill="#c0392b">Розмикання ланцюга CB</text>
+
+  <!-- Фаза 4 -->
+  <rect x="581" y="164" width="164" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Провайдер: відключено</text>
+  <text x="662" y="198" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0 запитів до мережі!</text>
+  <text x="662" y="214" text-anchor="middle" font-size="12" fill="#27ae60">100% відсічено у Fallback</text>
+
+  <!-- Фаза 5 -->
+  <rect x="764" y="164" width="162" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="845" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Провайдер: 200 OK (ожив)</text>
+  <text x="845" y="198" text-anchor="middle" font-size="12" fill="#2457d6">2 пробні зонди пройшли</text>
+  <text x="845" y="214" text-anchor="middle" font-size="12" fill="#27ae60">Трафік відновлено 100%</text>
+
+  <!-- РЯДОК 3: ЧАС ВІДГУКУ СИСТЕМИ ДЛЯ КЛІЄНТА -->
+  <!-- Фаза 1 -->
+  <rect x="34" y="232" width="162" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="115" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Час відгуку: 20 мс</text>
+  <text x="115" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">Штатна затримка мережі</text>
+  <text x="115" y="286" text-anchor="middle" font-size="12" fill="#6b7280">· Мережа: 20 мс</text>
+  <text x="115" y="304" text-anchor="middle" font-size="12" fill="#27ae60">· Fallback: вимкнено</text>
+
+  <!-- Фаза 2 -->
+  <rect x="216" y="232" width="164" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="298" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Час: 80 мс / 0.5 мс</text>
+  <text x="298" y="268" text-anchor="middle" font-size="12" fill="#1a1a1a">3 слоти = 80 мс (норма)</text>
+  <text x="298" y="286" text-anchor="middle" font-size="12" fill="#2457d6">5 відсічених = 0.5 мс (кеш)</text>
+  <text x="298" y="304" text-anchor="middle" font-size="12" fill="#2457d6">· Пул потоків захищено</text>
+
+  <!-- Фаза 3 -->
+  <rect x="399" y="232" width="162" height="92" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Час: сплеск затримки</text>
+  <text x="480" y="268" text-anchor="middle" font-size="12" fill="#c0392b">Затримка 503 помилок</text>
+  <text x="480" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">Ковзне вікно фіксує збій</text>
+  <text x="480" y="304" text-anchor="middle" font-size="12" fill="#c0392b">· Автомат розмикає ланцюг</text>
+
+  <!-- Фаза 4 -->
+  <rect x="581" y="232" width="164" height="92" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="662" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Час відгуку: 0.85 мс!</text>
+  <text x="662" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Fail-Fast за 0 мс</text>
+  <text x="662" y="286" text-anchor="middle" font-size="12" fill="#27ae60">· Мережеві виклики: 0</text>
+  <text x="662" y="304" text-anchor="middle" font-size="12" fill="#27ae60">· Відповідь миттєво з кешу</text>
+
+  <!-- Фаза 5 -->
+  <rect x="764" y="232" width="162" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="845" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Час відгуку: 20 мс</text>
+  <text x="845" y="268" text-anchor="middle" font-size="12" fill="#27ae60">Повернення до норми</text>
+  <text x="845" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">· Пауза охолодження: 0.7 с</text>
+  <text x="845" y="304" text-anchor="middle" font-size="12" fill="#27ae60">· Автономне відновлення</text>
+
+  <!-- ==================== НИЖНІЙ БЛОК: 3 КАРТКИ РЕЗУЛЬТАТІВ ==================== -->
+
+  <!-- КАРТКА 1: Експериментальний доказ -->
+  <rect x="24" y="352" width="293" height="154" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="34" y="362" width="210" height="20" rx="3" fill="#27ae60"/>
+  <text x="139" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЕКСПЕРИМЕНТАЛЬНИЙ ДОКАЗ</text>
+  <text x="36" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Fail-Fast замість каскадної аварії</text>
+  <text x="36" y="416" font-size="12" fill="#1a1a1a">· Затримка під час аварії: 0.85 мс (&lt; 1 мс)</text>
+  <text x="36" y="432" font-size="12" fill="#1a1a1a">· Мережеві виклики до мертвого вузла: 0</text>
+  <text x="36" y="448" font-size="12" fill="#27ae60">· 100% запитів захищено кешованим Fallback</text>
+  <text x="36" y="464" font-size="12" fill="#6b7280">  клієнт не бачить аварійних екранів 5xx</text>
+  <text x="36" y="480" font-size="12" fill="#27ae60">· Повна відповідність SLA доступності</text>
+
+  <!-- КАРТКА 2: Семафорна перебірка -->
+  <rect x="333" y="352" width="294" height="154" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="343" y="362" width="200" height="20" rx="3" fill="#2457d6"/>
+  <text x="443" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">СЕМАФОРНА ПЕРЕБІРКА</text>
+  <text x="345" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Локалізація сплесків навантаження</text>
+  <text x="345" y="416" font-size="12" fill="#1a1a1a">· Фіксована квота перебірки: 3 слоти</text>
+  <text x="345" y="432" font-size="12" fill="#1a1a1a">· 5 надлишкових запитів зрізано миттєво</text>
+  <text x="345" y="448" font-size="12" fill="#2457d6">· Резервний пул сервера захищено на 100%</text>
+  <text x="345" y="464" font-size="12" fill="#6b7280">  внутрішній трафік не зазнає голодування</text>
+  <text x="345" y="480" font-size="12" fill="#2457d6">· Закон Літтла нейтралізовано для пулу</text>
+
+  <!-- КАРТКА 3: Самозцілення -->
+  <rect x="643" y="352" width="293" height="154" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="653" y="362" width="200" height="20" rx="3" fill="#27ae60"/>
+  <text x="753" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">САМОЗЦІЛЕННЯ (SELF-HEAL)</text>
+  <text x="655" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Автоматичне повернення до норми</text>
+  <text x="655" y="416" font-size="12" fill="#1a1a1a">· Період охолодження 0.7 с витримано точно</text>
+  <text x="655" y="432" font-size="12" fill="#1a1a1a">· Обережне зондування квотою 2 запити</text>
+  <text x="655" y="448" font-size="12" fill="#27ae60">· Автоматичний перехід HALF_OPEN ➔ CLOSED</text>
+  <text x="655" y="464" font-size="12" fill="#6b7280">  без перезапусків чи ручного втручання</text>
+  <text x="655" y="480" font-size="12" fill="#27ae60">· Очищення метрик та штатний трафік</text>
+</svg>

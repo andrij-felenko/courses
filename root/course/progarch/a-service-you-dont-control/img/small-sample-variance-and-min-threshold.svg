@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Дисперсія вибіркової частки помилок та поріг N_min</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">На малих вибірках випадковий збій викликає хибне розмикання; поріг N_min блокує перевірку до стабілізації оцінки</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік залежності дисперсії від n -->
+  <rect x="36" y="70" width="576" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Підкладка зони n < N_min (проблема / нестабільність) -->
+  <rect x="104" y="112" width="236" height="270" fill="#fdecea" fill-opacity="0.5"/>
+
+  <!-- Підкладка зони n >= N_min (стабільність) -->
+  <rect x="340" y="112" width="252" height="270" fill="#e9f7ef" fill-opacity="0.5"/>
+
+  <!-- Сітка значень Y (горизонтальні лінії) -->
+  <line x1="104" y1="382" x2="592" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="104" y1="330" x2="592" y2="330" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="104" y1="278" x2="592" y2="278" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="104" y1="226" x2="592" y2="226" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="104" y1="174" x2="592" y2="174" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="104" y1="122" x2="592" y2="122" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Підписи шкали Y (ліворуч від осі) -->
+  <text x="96" y="386" text-anchor="end" font-size="11" fill="#6b7280">0%</text>
+  <text x="96" y="334" text-anchor="end" font-size="11" fill="#6b7280">20%</text>
+  <text x="96" y="282" text-anchor="end" font-size="11" fill="#6b7280">40%</text>
+  <text x="96" y="230" text-anchor="end" font-size="11" fill="#6b7280">60%</text>
+  <text x="96" y="178" text-anchor="end" font-size="11" fill="#6b7280">80%</text>
+  <text x="96" y="126" text-anchor="end" font-size="11" fill="#6b7280">100%</text>
+
+  <!-- Підпис осі Y -->
+  <text x="48" y="94" font-size="12" font-weight="700" fill="#1a1a1a">Частка помилок p̂</text>
+
+  <!-- Вісь X та мітки n -->
+  <line x1="104" y1="382" x2="592" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="104" y1="112" x2="104" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Засічки та підписи X -->
+  <line x1="152" y1="382" x2="152" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="152" y="400" text-anchor="middle" font-size="11" fill="#6b7280">10</text>
+
+  <line x1="200" y1="382" x2="200" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="200" y="400" text-anchor="middle" font-size="11" fill="#6b7280">20</text>
+
+  <line x1="248" y1="382" x2="248" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="248" y="400" text-anchor="middle" font-size="11" fill="#6b7280">30</text>
+
+  <line x1="296" y1="382" x2="296" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="296" y="400" text-anchor="middle" font-size="11" fill="#6b7280">40</text>
+
+  <line x1="340" y1="382" x2="340" y2="389" stroke="#2457d6" stroke-width="2"/>
+  <text x="340" y="402" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">50 (N_min)</text>
+
+  <line x1="436" y1="382" x2="436" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="436" y="400" text-anchor="middle" font-size="11" fill="#6b7280">70</text>
+
+  <line x1="580" y1="382" x2="580" y2="387" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="580" y="400" text-anchor="middle" font-size="11" fill="#6b7280">100</text>
+
+  <!-- Підпис осі X -->
+  <text x="592" y="420" text-anchor="end" font-size="11" font-weight="700" fill="#1a1a1a">Розмір вибірки n (кількість викликів у вікні)</text>
+
+  <!-- Межа N_min (вертикальна лінія) -->
+  <line x1="340" y1="112" x2="340" y2="382" stroke="#2457d6" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- Позначка межі N_min вгорі -->
+  <rect x="264" y="84" width="152" height="22" rx="4" fill="#2457d6"/>
+  <text x="340" y="99" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Поріг N_min = 50 викликів</text>
+
+  <!-- Горизонтальна лінія порогу розмикання theta = 50% -->
+  <line x1="104" y1="252" x2="592" y2="252" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="588" y="244" text-anchor="end" font-size="11" font-weight="700" fill="#c0392b">Поріг розмикання θ = 50%</text>
+
+  <!-- Істинна частка помилок p = 10% -->
+  <line x1="104" y1="356" x2="592" y2="356" stroke="#2457d6" stroke-width="1.6"/>
+  <text x="588" y="372" text-anchor="end" font-size="11" font-weight="700" fill="#2457d6">Базова частка збоїв p = 10%</text>
+
+  <!-- Стрічка довірчого інтервалу (дисперсія +- 2*sigma) -->
+  <path d="M 110 122 C 130 180 180 270 248 306 C 296 322 340 334 388 342 C 436 348 508 351 580 352 L 580 360 C 508 362 436 366 388 370 C 340 374 296 378 248 380 L 110 382 Z" fill="#2457d6" fill-opacity="0.18"/>
+
+  <!-- Верхня та нижня межі довірчого інтервалу (+- 2 sigma) -->
+  <path d="M 110 122 C 130 180 180 270 248 306 C 296 322 340 334 388 342 C 436 348 508 351 580 352" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M 110 382 C 180 382 248 380 296 378 C 340 374 388 370 436 366 C 508 362 580 360 580 360" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Точки випадкових коливань на малій вибірці -->
+  <circle cx="110" cy="122" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="115" cy="252" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="120" cy="296" r="3.5" fill="#c0392b"/>
+  <circle cx="125" cy="317" r="3.5" fill="#c0392b"/>
+  <circle cx="130" cy="330" r="3.5" fill="#c0392b"/>
+  <circle cx="152" cy="356" r="3" fill="#2457d6"/>
+  <circle cx="200" cy="356" r="3" fill="#2457d6"/>
+  <circle cx="340" cy="356" r="3" fill="#27ae60"/>
+  <circle cx="436" cy="356" r="3" fill="#27ae60"/>
+  <circle cx="580" cy="356" r="3" fill="#27ae60"/>
+
+  <!-- Текстові мітки зон у графіку -->
+  <text x="222" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗОНА ХИБНИХ СПРАЦЬОВУВАНЬ</text>
+  <text x="222" y="152" text-anchor="middle" font-size="11" fill="#6b7280">Оцінку заблоковано (CLOSED)</text>
+
+  <text x="460" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ЗОНА СТАБІЛЬНОЇ ОЦІНКИ</text>
+  <text x="460" y="152" text-anchor="middle" font-size="11" fill="#6b7280">Достовірний моніторинг порогу θ</text>
+  <text x="460" y="195" text-anchor="middle" font-size="11" fill="#2457d6">Стрічка довірчого інтервалу (p ± 2σ)</text>
+
+  <!-- ПРАВА КОЛОНКА: КАРТКА 1 (Проблема n < N_min) -->
+  <rect x="624" y="70" width="300" height="178" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="636" y="82" width="276" height="28" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="774" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">1. Режим n &lt; N_min (Мала вибірка)</text>
+
+  <text x="640" y="126" font-size="11" font-weight="700" fill="#1a1a1a">Дисперсія вибіркової частки:</text>
+  <text x="640" y="144" font-size="12" font-weight="700" fill="#c0392b">Var(p̂) = p(1 - p) / n</text>
+  <text x="640" y="164" font-size="11" fill="#1a1a1a">• При n = 2: σ = 21.2% (розкид ±42%)</text>
+  <text x="640" y="182" font-size="11" fill="#1a1a1a">• 1 випадковий збій стрибає до p̂ = 50%</text>
+  <text x="640" y="200" font-size="11" font-weight="700" fill="#c0392b">• Захист: відключити розмикання!</text>
+  <text x="640" y="218" font-size="11" fill="#6b7280">Запобіжник лишається у CLOSED</text>
+
+  <!-- ПРАВА КОЛОНКА: КАРТКА 2 (Розв'язок n >= N_min) -->
+  <rect x="624" y="260" width="300" height="178" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="636" y="272" width="276" height="28" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="774" y="291" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">2. Режим n ≥ N_min (Надійна оцінка)</text>
+
+  <text x="640" y="316" font-size="11" font-weight="700" fill="#1a1a1a">Закон великих чисел (LLN):</text>
+  <text x="640" y="334" font-size="12" font-weight="700" fill="#27ae60">σ = √(p(1 - p) / n) ∝ 1/√n</text>
+  <text x="640" y="354" font-size="11" fill="#1a1a1a">• При n = 100: похибка оцінки σ ≈ 3.0%</text>
+  <text x="640" y="372" font-size="11" fill="#1a1a1a">• Оцінка p̂ щільно стиснута біля p = 10%</text>
+  <text x="640" y="390" font-size="11" font-weight="700" fill="#27ae60">• Розмикання: лише за реальної аварії</text>
+  <text x="640" y="408" font-size="11" fill="#6b7280">Мережевий шум не викликає false positive</text>
+
+  <!-- НИЖНІЙ ПІДСУМКОВИЙ БЛОК: Архітектурне правило -->
+  <rect x="36" y="454" width="888" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="52" y="474" font-size="12" font-weight="700" fill="#2457d6">Архітектурний інваріант конфігурації Circuit Breaker (Resilience4j / Envoy):</text>
+  <text x="52" y="493" font-size="11" fill="#1a1a1a">Умова переходу в OPEN: (n_window ≥ N_min) ТА (p̂ ≥ θ). Якщо n_window &lt; N_min, розрахунок відсотка блокується для захисту від флуктуацій.</text>
+</svg>

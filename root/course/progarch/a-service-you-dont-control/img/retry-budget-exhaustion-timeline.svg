@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Вичерпання бюджету повторних спроб: переривання затяжного ретраю дедлайном</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Глобальний дедлайн операції відсікає марний ретрай у польоті, рятуючи пул потоків від паралічу</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ХРОНОЛОГІЯ ТАЙМАУТІВ ==================== -->
+  <rect x="24" y="70" width="912" height="270" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Банер дедлайну операції (0 .. 2500 мс) -->
+  <rect x="120" y="78" width="550" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="395" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Загальний бюджет операції: Request Deadline = 2500 мс (жорстка верхня стеля)</text>
+
+  <!-- Банер зони зриву дедлайну (> 2500 мс) -->
+  <rect x="674" y="78" width="246" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="797" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зона зриву дедлайну (&gt; 2500 мс)</text>
+
+  <!-- ВЕРТИКАЛЬНА ЛІНІЯ ДЕДЛАЙНУ (x = 670, t = 2500 мс) - розділена, щоб не різати текст -->
+  <line x1="670" y1="74" x2="670" y2="118" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="670" y1="168" x2="670" y2="246" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- ==================== ТРЕК 1: БЕЗ ДЕДЛАЙНУ (НАЇВНІ РЕТРАЇ) ==================== -->
+  <text x="110" y="136" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Без дедлайну</text>
+  <text x="110" y="154" text-anchor="end" font-size="12" fill="#6b7280">(наївні ретраї)</text>
+
+  <!-- Спроба 1 (0 .. 800 мс) -->
+  <rect x="120" y="122" width="176" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="208" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спроба 1 (800 мс)</text>
+  <text x="208" y="156" text-anchor="middle" font-size="12" fill="#c0392b">HTTP 503 помилка</text>
+
+  <!-- Пауза 1 (800 .. 1050 мс) -->
+  <rect x="300" y="122" width="47" height="44" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="323" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Пауза</text>
+  <text x="323" y="156" text-anchor="middle" font-size="12" fill="#6b7280">250мс</text>
+
+  <!-- Спроба 2 (1050 .. 1850 мс) -->
+  <rect x="351" y="122" width="172" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="437" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спроба 2 (800 мс)</text>
+  <text x="437" y="156" text-anchor="middle" font-size="12" fill="#c0392b">Read Timeout (збій)</text>
+
+  <!-- Пауза 2 (1850 .. 2100 мс) -->
+  <rect x="527" y="122" width="51" height="44" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="552" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Пауза</text>
+  <text x="552" y="156" text-anchor="middle" font-size="12" fill="#6b7280">250мс</text>
+
+  <!-- Спроба 3 (2100 .. 3000 мс, зависає) -->
+  <rect x="582" y="122" width="198" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="681" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спроба 3: зависання (900 мс)</text>
+  <text x="681" y="156" text-anchor="middle" font-size="12" fill="#c0392b">Триває до t = 3000 мс!</text>
+
+  <!-- Підсумок Треку 1 -->
+  <rect x="788" y="124" width="132" height="40" rx="4" fill="#c0392b"/>
+  <text x="854" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">СУМАРНО: 3000 мс</text>
+  <text x="854" y="156" text-anchor="middle" font-size="12" fill="#ffffff">Параліч пулу ✖</text>
+
+  <!-- ==================== ТРЕК 2: З ДЕДЛАЙНОМ (ЗАХИСТ ШЛЮЗУ) ==================== -->
+  <text x="110" y="208" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Із дедлайном</text>
+  <text x="110" y="226" text-anchor="end" font-size="12" fill="#2457d6">(захист шлюзу)</text>
+
+  <!-- Спроба 1 -->
+  <rect x="120" y="194" width="176" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="208" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Спроба 1 (800 мс)</text>
+  <text x="208" y="228" text-anchor="middle" font-size="12" fill="#2457d6">HTTP 503 ➔ ретрай</text>
+
+  <!-- Пауза 1 -->
+  <rect x="300" y="194" width="47" height="44" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="323" y="212" text-anchor="middle" font-size="12" fill="#6b7280">Пауза</text>
+  <text x="323" y="228" text-anchor="middle" font-size="12" fill="#6b7280">250мс</text>
+
+  <!-- Спроба 2 -->
+  <rect x="351" y="194" width="172" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="437" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Спроба 2 (800 мс)</text>
+  <text x="437" y="228" text-anchor="middle" font-size="12" fill="#2457d6">Read Timeout ➔ ретрай</text>
+
+  <!-- Пауза 2 -->
+  <rect x="527" y="194" width="51" height="44" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="552" y="212" text-anchor="middle" font-size="12" fill="#6b7280">Пауза</text>
+  <text x="552" y="228" text-anchor="middle" font-size="12" fill="#6b7280">250мс</text>
+
+  <!-- Спроба 3 (виконана до дедлайну частина, 400 мс) -->
+  <rect x="582" y="194" width="88" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="626" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спроба 3</text>
+  <text x="626" y="228" text-anchor="middle" font-size="12" fill="#c0392b">400 мс...</text>
+
+  <!-- Спроба 3 (відсічена частина після дедлайну, 500 мс) -->
+  <rect x="674" y="194" width="106" height="44" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="727" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">СКАСОВАНО</text>
+  <text x="727" y="228" text-anchor="middle" font-size="12" fill="#6b7280">відсічено 500 мс</text>
+
+  <!-- Підсумок Треку 2 -->
+  <rect x="788" y="196" width="132" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="854" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">МЕЖА: 2500 мс</text>
+  <text x="854" y="228" text-anchor="middle" font-size="12" fill="#27ae60">AbortSignal ✓</text>
+
+  <!-- Бейдж відсікання на межі дедлайну -->
+  <rect x="572" y="246" width="196" height="22" rx="3" fill="#c0392b"/>
+  <text x="670" y="261" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">✂ ОБРИВ ДЕДЛАЙНОМ: 2500 мс</text>
+
+  <!-- ==================== ГОРИЗОНТАЛЬНА ВІСЬ ЧАСУ ==================== -->
+  <text x="105" y="284" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Час (t):</text>
+  <line x1="115" y1="280" x2="785" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Засічки шкали часу -->
+  <line x1="120" y1="280" x2="120" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="230" y1="280" x2="230" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="340" y1="280" x2="340" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="450" y1="280" x2="450" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="560" y1="280" x2="560" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="670" y1="280" x2="670" y2="285" stroke="#c0392b" stroke-width="2"/>
+  <line x1="780" y1="280" x2="780" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Числові підписи шкали часу -->
+  <text x="120" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">0 мс</text>
+  <text x="230" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">500 мс</text>
+  <text x="340" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">1000 мс</text>
+  <text x="450" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">1500 мс</text>
+  <text x="560" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">2000 мс</text>
+  <text x="670" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">2500 мс</text>
+  <text x="780" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">3000 мс</text>
+
+  <!-- Виноска дедлайну під шкалою -->
+  <text x="670" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Дедлайн операції (Request Deadline)</text>
+  <text x="670" y="332" text-anchor="middle" font-size="12" fill="#6b7280">Залишок Спроби 3 (500 мс) не виконується</text>
+
+  <!-- ==================== НИЖНІЙ БЛОК: 3 КАРТКИ ПРИНЦИПІВ ==================== -->
+
+  <!-- КАРТКА 1: Причина затягування -->
+  <rect x="24" y="352" width="293" height="152" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="362" width="170" height="20" rx="3" fill="#c0392b"/>
+  <text x="119" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПРИЧИНА ЗАТЯГУВАННЯ</text>
+  <text x="36" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Повільна деградація провайдера</text>
+  <text x="36" y="416" font-size="12" fill="#1a1a1a">· Сервер не падає миттєво (fast-fail),</text>
+  <text x="36" y="432" font-size="12" fill="#1a1a1a">  а зависає на сокетному таймауті</text>
+  <text x="36" y="448" font-size="12" fill="#1a1a1a">· Сума спроб і пауз експоненційно зростає</text>
+  <text x="36" y="464" font-size="12" fill="#c0392b">· Без дедлайну клієнт чекає 3+ секунди</text>
+  <text x="36" y="480" font-size="12" fill="#6b7280">  захоплюючи локальний пул потоків</text>
+
+  <!-- КАРТКА 2: Механіка переривання -->
+  <rect x="333" y="352" width="294" height="152" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="343" y="362" width="180" height="20" rx="3" fill="#2457d6"/>
+  <text x="433" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">МЕХАНІКА ПЕРЕРИВАННЯ</text>
+  <text x="345" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Координація сигналів AbortSignal</text>
+  <text x="345" y="416" font-size="12" fill="#1a1a1a">· Перед сном: now + delay &gt; deadline ➔ abort</text>
+  <text x="345" y="432" font-size="12" fill="#1a1a1a">· У польоті: AbortSignal.any([dead, call])</text>
+  <text x="345" y="448" font-size="12" fill="#1a1a1a">· На позначці 2500 мс сокет негайно</text>
+  <text x="345" y="464" font-size="12" fill="#2457d6">  примусово закривається (socket.abort)</text>
+  <text x="345" y="480" font-size="12" fill="#6b7280">  не чекаючи завершення Спроби 3</text>
+
+  <!-- КАРТКА 3: Архітектурний захист -->
+  <rect x="643" y="352" width="293" height="152" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="653" y="362" width="180" height="20" rx="3" fill="#27ae60"/>
+  <text x="743" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">АРХІТЕКТУРНИЙ ЗАХИСТ</text>
+  <text x="655" y="398" font-size="13" font-weight="700" fill="#1a1a1a">Збереження доступності системи</text>
+  <text x="655" y="416" font-size="12" fill="#1a1a1a">· Заощаджено 500 мс марного очікування</text>
+  <text x="655" y="432" font-size="12" fill="#1a1a1a">· Потік/семафор миттєво повернено в пул</text>
+  <text x="655" y="448" font-size="12" fill="#1a1a1a">· Застосунок виконує керований Fallback</text>
+  <text x="655" y="464" font-size="12" font-weight="700" fill="#27ae60">· Запобігає каскадному колапсу бекенду</text>
+  <text x="655" y="480" font-size="12" fill="#27ae60">  за правилом «їхня аварія — не твоя»</text>
+</svg>

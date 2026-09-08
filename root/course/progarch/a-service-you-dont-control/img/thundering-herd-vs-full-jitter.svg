@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл навантаження: Thundering Herd проти Full Jitter</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Фіксований відступ генерує резонансні спалахи, тоді як повний джитер згладжує трафік нижче місткості C_max</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ФІКСОВАНИЙ ВІДСТУП (THUNDERING HERD) ==================== -->
+  <rect x="24" y="68" width="912" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка панелі 1 -->
+  <rect x="36" y="78" width="280" height="20" rx="3" fill="#c0392b"/>
+  <text x="176" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФІКСОВАНИЙ ВІДСТУП (THUNDERING HERD)</text>
+  <text x="326" y="93" font-size="12" font-weight="700" fill="#c0392b">Синхронний резонанс: 500 клієнтів одночасно б'ють кожні 2 с</text>
+
+  <!-- Графік 1: Вісь Y -->
+  <line x1="80" y1="210" x2="80" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="74" y="112" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">RPS</text>
+  <text x="74" y="128" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">500</text>
+  <text x="74" y="174" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">100</text>
+  <text x="74" y="214" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Лінія C_max на графіку 1 -->
+  <line x1="80" y1="170" x2="615" y2="170" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="86" y="156" width="124" height="16" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="148" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">C_max = 100 RPS</text>
+
+  <!-- Графік 1: Вісь X -->
+  <line x1="75" y1="210" x2="615" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="622" y="214" font-size="12" font-weight="700" fill="#1a1a1a">t (с)</text>
+
+  <!-- Засічки осі X графіка 1 (крок 50 px = 1 с) -->
+  <text x="100" y="224" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="150" y="224" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+  <text x="200" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">2</text>
+  <text x="250" y="224" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+  <text x="300" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">4</text>
+  <text x="350" y="224" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+  <text x="400" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">6</text>
+  <text x="450" y="224" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="500" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">8</text>
+  <text x="550" y="224" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+  <text x="600" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">10</text>
+
+  <!-- Стовпчики-імпульси Thundering Herd -->
+  <!-- t=0: перший спалах -->
+  <rect x="96" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+  <!-- t=2: удар 1 -->
+  <rect x="196" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+  <!-- t=4: удар 2 -->
+  <rect x="296" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+  <!-- t=6: удар 3 -->
+  <rect x="396" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+  <!-- t=8: удар 4 -->
+  <rect x="496" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+  <!-- t=10: удар 5 -->
+  <rect x="596" y="122" width="8" height="88" fill="#c0392b" rx="2"/>
+
+  <!-- Підписи піків -->
+  <text x="200" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Удар 1</text>
+  <text x="300" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Удар 2</text>
+  <text x="400" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Удар 3</text>
+  <text x="500" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Удар 4</text>
+  <text x="600" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Удар 5</text>
+
+  <!-- Картка аналізу справа (Панель 1) -->
+  <rect x="660" y="100" width="260" height="122" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="672" y="120" font-size="12" font-weight="700" fill="#c0392b">Наслідки Thundering Herd:</text>
+  <text x="672" y="138" font-size="12" fill="#1a1a1a">· Спалах: 500 RPS (5× понад C_max)</text>
+  <text x="672" y="156" font-size="12" fill="#c0392b">· Сервіс миттєво захлинається</text>
+  <text x="672" y="174" font-size="12" fill="#1a1a1a">· 100% повторів знову падають</text>
+  <text x="672" y="192" font-size="12" fill="#6b7280">· Мертва пауза між сплесками</text>
+  <text x="672" y="210" font-size="12" font-weight="700" fill="#c0392b">Повторне саморуйнування системи</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ПОВНИЙ ДЖИТЕР (FULL JITTER) ==================== -->
+  <rect x="24" y="250" width="912" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка панелі 2 -->
+  <rect x="36" y="260" width="280" height="20" rx="3" fill="#27ae60"/>
+  <text x="176" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПОВНИЙ ДЖИТЕР (FULL JITTER)</text>
+  <text x="326" y="275" font-size="12" font-weight="700" fill="#27ae60">Стохастичне згладжування: t_wait = rand(0, t_exp)</text>
+
+  <!-- Графік 2: Вісь Y -->
+  <line x1="80" y1="392" x2="80" y2="290" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="74" y="294" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">RPS</text>
+  <text x="74" y="310" text-anchor="end" font-size="12" fill="#6b7280">500</text>
+  <text x="74" y="356" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">100</text>
+  <text x="74" y="396" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Лінія C_max на графіку 2 -->
+  <line x1="80" y1="352" x2="615" y2="352" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="86" y="338" width="124" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="148" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">C_max = 100 RPS</text>
+
+  <!-- Графік 2: Вісь X -->
+  <line x1="75" y1="392" x2="615" y2="392" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="622" y="396" font-size="12" font-weight="700" fill="#1a1a1a">t (с)</text>
+
+  <!-- Засічки осі X графіка 2 -->
+  <text x="100" y="406" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="150" y="406" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+  <text x="200" y="406" text-anchor="middle" font-size="12" fill="#27ae60">2</text>
+  <text x="250" y="406" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+  <text x="300" y="406" text-anchor="middle" font-size="12" fill="#27ae60">4</text>
+  <text x="350" y="406" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+  <text x="400" y="406" text-anchor="middle" font-size="12" fill="#27ae60">6</text>
+  <text x="450" y="406" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="500" y="406" text-anchor="middle" font-size="12" fill="#27ae60">8</text>
+  <text x="550" y="406" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+  <text x="600" y="406" text-anchor="middle" font-size="12" fill="#27ae60">10</text>
+
+  <!-- Початковий збій при t=0 (одиничний) -->
+  <rect x="96" y="304" width="8" height="88" fill="#c0392b" rx="2"/>
+
+  <!-- Згладжена зона повторів із джитером (полігон розмиття під C_max) -->
+  <polygon points="104,392 110,366 140,364 180,368 240,365 300,369 380,366 460,370 540,375 600,388 600,392" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  
+  <text x="410" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Рівномірний потік: λ ≈ 35–45 RPS (нижче C_max)</text>
+
+  <!-- Картка аналізу справа (Панель 2) -->
+  <rect x="660" y="282" width="260" height="122" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="672" y="302" font-size="12" font-weight="700" fill="#27ae60">Переваги Full Jitter:</text>
+  <text x="672" y="320" font-size="12" fill="#1a1a1a">· Пік: ~40 RPS (&lt; C_max = 100 RPS)</text>
+  <text x="672" y="338" font-size="12" fill="#27ae60">· Повне розсіювання черги в часі</text>
+  <text x="672" y="356" font-size="12" fill="#1a1a1a">· Сервіс успішно обробляє повтори</text>
+  <text x="672" y="374" font-size="12" fill="#6b7280">· Відсутність каскадного збою</text>
+  <text x="672" y="392" font-size="12" font-weight="700" fill="#27ae60">100% стабільне одужання сервісу</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: АНАЛІЗ ТА ВИСНОВОК ==================== -->
+  <rect x="24" y="432" width="912" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="442" width="200" height="20" rx="3" fill="#2457d6"/>
+  <text x="136" y="456" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">МАТЕМАТИКА РОЗСІЮВАННЯ</text>
+  <text x="246" y="457" font-size="12" font-weight="700" fill="#1a1a1a">Десинхронізація фаз клієнтів руйнує руйнівний дельта-пік навантаження</text>
+
+  <text x="36" y="482" font-size="12" fill="#1a1a1a">· Thundering Herd (Δφ = 0): детермінізм синхронізує тисячі таймерів, генеруючи когерентну хвилю N клієнтів в одну мілісекунду</text>
+  <text x="36" y="502" font-size="12" fill="#27ae60">· Full Jitter: випадкова пауза rand(0, t_exp) максимізує ентропію затримок, знижуючи амплітуду з O(N) до середнього λ = N / t_exp &lt; C_max</text>
+
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Заголовок кортежу PostgreSQL та механіка SKIP LOCKED</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Службові поля xmax і t_infomask дозволяють миттєво оминати заблоковані рядки без очікування</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ЗАГОЛОВОК КОРТЕЖУ ==================== -->
+  <rect x="24" y="72" width="912" height="154" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок верхньої панелі -->
+  <text x="36" y="92" font-size="12" font-weight="700" fill="#1a1a1a">СТРУКТУРА КОРТЕЖУ: HeapTupleHeaderData (24 байти) + User Data</text>
+  <text x="924" y="92" text-anchor="end" font-size="12" fill="#6b7280">PostgreSQL MVCC Engine</text>
+
+  <!-- Поля заголовка (зліва направо) -->
+  <!-- 1. t_xmin -->
+  <rect x="36" y="104" width="100" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="86" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_xmin</text>
+  <text x="86" y="138" text-anchor="middle" font-size="12" fill="#6b7280">4 байти</text>
+  <text x="86" y="154" text-anchor="middle" font-size="12" fill="#1a1a1a">XID вставки</text>
+
+  <!-- 2. t_xmax (КЛЮЧОВЕ) -->
+  <rect x="144" y="104" width="130" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="209" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">t_xmax ★</text>
+  <text x="209" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">4 байти</text>
+  <text x="209" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">XID блокування</text>
+
+  <!-- 3. t_cid -->
+  <rect x="282" y="104" width="90" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="327" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_cid</text>
+  <text x="327" y="138" text-anchor="middle" font-size="12" fill="#6b7280">4 байти</text>
+  <text x="327" y="154" text-anchor="middle" font-size="12" fill="#1a1a1a">Command ID</text>
+
+  <!-- 4. t_ctid -->
+  <rect x="380" y="104" width="100" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="430" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_ctid</text>
+  <text x="430" y="138" text-anchor="middle" font-size="12" fill="#6b7280">6 байтів</text>
+  <text x="430" y="154" text-anchor="middle" font-size="12" fill="#1a1a1a">(block, offset)</text>
+
+  <!-- 5. t_infomask2 -->
+  <rect x="488" y="104" width="105" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="540" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_infomask2</text>
+  <text x="540" y="138" text-anchor="middle" font-size="12" fill="#6b7280">2 байти</text>
+  <text x="540" y="154" text-anchor="middle" font-size="12" fill="#1a1a1a">К-сть колонок</text>
+
+  <!-- 6. t_infomask (КЛЮЧОВЕ) -->
+  <rect x="601" y="104" width="145" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="673" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">t_infomask ★</text>
+  <text x="673" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">2 байти (16 біт)</text>
+  <text x="673" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Біти LOCK_ONLY</text>
+
+  <!-- 7. User Data -->
+  <rect x="754" y="104" width="170" height="58" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="839" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Дані кортежу</text>
+  <text x="839" y="138" text-anchor="middle" font-size="12" fill="#1a1a1a">id, payload, status</text>
+  <text x="839" y="154" text-anchor="middle" font-size="12" fill="#6b7280">корисне навантаження</text>
+
+  <!-- Розшифровка ролі ключових полів унизу верхньої панелі -->
+  <rect x="36" y="170" width="444" height="46" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="188" font-size="12" font-weight="700" fill="#c0392b">Роль t_xmax:</text>
+  <text x="136" y="188" font-size="12" fill="#1a1a1a">FOR UPDATE записує сюди XID активної транзакції воркера.</text>
+  <text x="46" y="206" font-size="12" fill="#6b7280">Поки транзакція не завершилася (COMMIT) — кортеж зайнятий.</text>
+
+  <rect x="488" y="170" width="436" height="46" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="498" y="188" font-size="12" font-weight="700" fill="#2457d6">Роль t_infomask:</text>
+  <text x="614" y="188" font-size="12" fill="#1a1a1a">Біт 0x0080 (LOCK_ONLY) позначає блокування.</text>
+  <text x="498" y="206" font-size="12" fill="#6b7280">Вказує, що кортеж не видалений, а тимчасово захоплений у режимі оренди.</text>
+
+  <!-- ==================== СЕРЕДНЯ ПАНЕЛЬ: МАРШРУТ СКАНУВАННЯ ==================== -->
+  <rect x="24" y="238" width="912" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="36" y="258" font-size="12" font-weight="700" fill="#1a1a1a">МАРШРУТ СКАНУВАННЯ ТАБЛИЦІ: ПОВЕДІНКА ВОРКЕРА 2 ПРИ ЗАЙНЯТИХ РЯДКАХ</text>
+  <text x="924" y="258" text-anchor="end" font-size="12" fill="#6b7280">SELECT ... FOR UPDATE SKIP LOCKED LIMIT 2</text>
+
+  <!-- Етапи обходу зверху (Row of step banners) -->
+  <!-- Крок 1: Пропуск -->
+  <rect x="56" y="268" width="170" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="141" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">1. SKIP (xmax активний)</text>
+
+  <!-- Стрілка між кроком 1 і 2 -->
+  <line x1="226" y1="279" x2="282" y2="279" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 2: Пропуск -->
+  <rect x="282" y="268" width="170" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="367" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">2. SKIP (xmax активний)</text>
+
+  <!-- Стрілка між кроком 2 і 3 -->
+  <line x1="452" y1="279" x2="508" y2="279" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 3: Захоплення -->
+  <rect x="508" y="268" width="170" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="593" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">3. LOCK (xmax=0 ➔ 4053)</text>
+
+  <!-- Стрілка між кроком 3 і 4 -->
+  <line x1="678" y1="279" x2="734" y2="279" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 4: Захоплення -->
+  <rect x="734" y="268" width="170" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="819" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">4. LOCK (xmax=0 ➔ 4053)</text>
+
+  <!-- Стрілки вниз від банерів до карток кортежів -->
+  <line x1="141" y1="290" x2="141" y2="306" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <line x1="367" y1="290" x2="367" y2="306" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <line x1="593" y1="290" x2="593" y2="306" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="819" y1="290" x2="819" y2="306" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 4 Картки кортежів унизу середньої панелі -->
+  <!-- Кортеж 1 -->
+  <rect x="36" y="308" width="210" height="102" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="42" y="314" width="198" height="20" rx="3" fill="#c0392b"/>
+  <text x="141" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Кортеж 1: outbox #101</text>
+  <text x="46" y="348" font-size="12" font-weight="700" fill="#c0392b">t_xmax = 4052</text>
+  <text x="136" y="348" font-size="12" fill="#1a1a1a">(Воркер 1 активний)</text>
+  <text x="46" y="366" font-size="12" font-weight="700" fill="#1a1a1a">infomask:</text>
+  <text x="110" y="366" font-size="12" fill="#c0392b">HEAP_XMAX_LOCK_ONLY</text>
+  <rect x="42" y="378" width="198" height="24" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="141" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">СТАН: ЗАБЛОКОВАНО</text>
+
+  <!-- Кортеж 2 -->
+  <rect x="262" y="308" width="210" height="102" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="268" y="314" width="198" height="20" rx="3" fill="#c0392b"/>
+  <text x="367" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Кортеж 2: outbox #102</text>
+  <text x="272" y="348" font-size="12" font-weight="700" fill="#c0392b">t_xmax = 4052</text>
+  <text x="362" y="348" font-size="12" fill="#1a1a1a">(Воркер 1 активний)</text>
+  <text x="272" y="366" font-size="12" font-weight="700" fill="#1a1a1a">infomask:</text>
+  <text x="336" y="366" font-size="12" fill="#c0392b">HEAP_XMAX_LOCK_ONLY</text>
+  <rect x="268" y="378" width="198" height="24" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="367" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">СТАН: ЗАБЛОКОВАНО</text>
+
+  <!-- Кортеж 3 -->
+  <rect x="488" y="308" width="210" height="102" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="494" y="314" width="198" height="20" rx="3" fill="#27ae60"/>
+  <text x="593" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Кортеж 3: outbox #103</text>
+  <text x="498" y="348" font-size="12" font-weight="700" fill="#27ae60">t_xmax = 0</text>
+  <text x="576" y="348" font-size="12" fill="#1a1a1a">➔ пише 4053 (Воркер 2)</text>
+  <text x="498" y="366" font-size="12" font-weight="700" fill="#1a1a1a">infomask:</text>
+  <text x="562" y="366" font-size="12" fill="#27ae60">XMAX_INVALID ➔ LOCK</text>
+  <rect x="494" y="378" width="198" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="593" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ЗАХОПЛЕНО ВОРКЕРОМ 2 ✓</text>
+
+  <!-- Кортеж 4 -->
+  <rect x="714" y="308" width="210" height="102" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="720" y="314" width="198" height="20" rx="3" fill="#27ae60"/>
+  <text x="819" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Кортеж 4: outbox #104</text>
+  <text x="724" y="348" font-size="12" font-weight="700" fill="#27ae60">t_xmax = 0</text>
+  <text x="802" y="348" font-size="12" fill="#1a1a1a">➔ пише 4053 (Воркер 2)</text>
+  <text x="724" y="366" font-size="12" font-weight="700" fill="#1a1a1a">infomask:</text>
+  <text x="788" y="366" font-size="12" fill="#27ae60">XMAX_INVALID ➔ LOCK</text>
+  <rect x="720" y="378" width="198" height="24" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="819" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ЗАХОПЛЕНО ВОРКЕРОМ 2 ✓</text>
+
+  <!-- ==================== НИЖНІ КАРТКИ: ПОРІВНЯННЯ ==================== -->
+  <!-- Ліва картка: FOR UPDATE -->
+  <rect x="24" y="432" width="446" height="74" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="438" width="426" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="452" font-size="12" font-weight="700" fill="#c0392b">ЗВИЧАЙНИЙ FOR UPDATE: КАТАСТРОФА БЛОКУВАННЯ (HOL)</text>
+  <text x="44" y="474" font-size="12" font-weight="700" fill="#1a1a1a">• Зупинка на xmax:</text>
+  <text x="176" y="474" font-size="12" fill="#1a1a1a">сканер зупиняється на Кортежі 1 і спить 200 мс.</text>
+  <text x="44" y="494" font-size="12" fill="#c0392b">HOL-блокування: N воркерів сплять у черзі (швидкість 50 под/с).</text>
+
+  <!-- Права картка: SKIP LOCKED -->
+  <rect x="490" y="432" width="446" height="74" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="500" y="438" width="426" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="510" y="452" font-size="12" font-weight="700" fill="#27ae60">МЕХАНІКА SKIP LOCKED: НЕБЛОКУЮЧЕ МАСШТАБУВАННЯ</text>
+  <text x="510" y="474" font-size="12" font-weight="700" fill="#1a1a1a">• Миттєвий скіп:</text>
+  <text x="630" y="474" font-size="12" fill="#1a1a1a">сканер бачить активний xmax і миттєво минає його.</text>
+  <text x="510" y="494" font-size="12" fill="#27ae60">0 мс очікувань: лінійне масштабування до 500 под/с для N = 10.</text>
+</svg>
